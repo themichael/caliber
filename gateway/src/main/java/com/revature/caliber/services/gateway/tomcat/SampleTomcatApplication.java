@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.revature.caliber.services.caliber.tomcat;
+package com.revature.caliber.services.gateway.tomcat;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

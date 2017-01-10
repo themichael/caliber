@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.revature.caliber.services.caliber.tomcat;
+package com.revature.caliber.services.gateway.tomcat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,9 +38,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.revature.caliber.services.caliber.tomcat.NonAutoConfigurationSampleTomcatApplicationTests.NonAutoConfigurationSampleTomcatApplication;
-import com.revature.caliber.services.caliber.tomcat.service.HelloWorldService;
-import com.revature.caliber.services.caliber.tomcat.web.SampleController;
+import com.revature.caliber.services.gateway.tomcat.NonAutoConfigurationSampleTomcatApplicationTests.NonAutoConfigurationSampleTomcatApplication;
+import com.revature.caliber.services.gateway.tomcat.service.HelloWorldService;
+import com.revature.caliber.services.gateway.tomcat.web.SampleController;
 
 import static org.junit.Assert.assertEquals;
 

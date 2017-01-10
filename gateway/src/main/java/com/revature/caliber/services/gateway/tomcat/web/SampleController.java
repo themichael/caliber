@@ -14,19 +14,24 @@
  * limitations under the License.
  */
 
-package com.revature.caliber.services.caliber.tomcat.service;
+package com.revature.caliber.services.gateway.tomcat.web;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@Component
-public class HelloWorldService {
+import com.revature.caliber.services.gateway.tomcat.service.HelloWorldService;
 
-	@Value("${name:World}")
-	private String name;
+@Controller
+public class SampleController {
 
-	public String getHelloMessage() {
-		return "Hello " + this.name;
+	@Autowired
+	private HelloWorldService helloWorldService;
+
+	@RequestMapping("/")
+	@ResponseBody
+	public String helloWorld() {
+		return this.helloWorldService.getHelloMessage();
 	}
-
 }
