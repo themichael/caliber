@@ -131,6 +131,7 @@
 						<url>http://localhost:9999/manager/text</url>
 						<update>true</update>
 						<server>caliberbot</server>
+						<path>/</path>
 					</configuration>
 				</plugin>
 			</plugins>
