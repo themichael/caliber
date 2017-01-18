@@ -15,11 +15,11 @@
 	<context:component-scan base-package="com.revature.caliber.controllers" />
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="" />
+		<property name="prefix" value="/pages/" />
 		<property name="suffix" value=".html" />
 	</bean>
 
-	<mvc:resources mapping="/**" location="/" />
+	<mvc:resources mapping="/pages/**" location="/pages/" />
 	<mvc:resources mapping="/app/**" location="/app/"/>
 	
 	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
