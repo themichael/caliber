@@ -9,14 +9,16 @@ import java.util.Set;
 public class Batch {
 
 	@Id
-	@Column
+	@Column(name = "BATCH_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int batchId;
 	@Column
 	private String trainingName;
-	@Column
+	@ManyToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "TRAINER", nullable = false)
 	private Trainer trainer;
-	@Column
+	@ManyToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "CO_TRAINER")
 	private Trainer coTrainer;
 	@Column
 	private String skillType;
@@ -34,8 +36,14 @@ public class Batch {
 	private short borderlineGradeThreshold;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+	@OneToMany(mappedBy = "Trainee")
 	private Set<Trainee> trainees;
+	@OneToMany(mappedBy = "Week")
 	private Set<Week> weeks;
+
+	/*
+	Setters and Getters
+	 */
 	public int getBatchId() {
 		return batchId;
 	}
