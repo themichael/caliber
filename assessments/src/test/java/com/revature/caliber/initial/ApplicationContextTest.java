@@ -15,7 +15,7 @@ public class ApplicationContextTest {
 	@Test
 	public void context() {
 		try {
-			AbstractApplicationContext ctxt = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
+			AbstractApplicationContext ctxt = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/data.xml");
 			DataSource ds = (DataSource) ctxt.getBean("dataSource");
 			Connection conn = ds.getConnection();
 			System.out.println("Connection " + conn);
