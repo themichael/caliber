@@ -14,6 +14,7 @@ public class Assessment {
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	private QCStatus weeklyStatus;
 	private Set<Category> categories;
+	
 	public long getAssessmentId() {
 		return assessmentId;
 	}

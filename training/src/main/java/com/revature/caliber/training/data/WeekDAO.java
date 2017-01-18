@@ -8,5 +8,6 @@ public interface WeekDAO {
 	
 	List<Week> getAllWeek();
 	Week getWeekById(long id);; 
-
+	void createNewWeek(Week newWeek);
+	
 }

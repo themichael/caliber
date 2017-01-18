@@ -37,6 +37,13 @@ public class WeekDAOImplementation implements WeekDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public void createNewWeek(Week newWeek) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 
