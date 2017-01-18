@@ -9,7 +9,6 @@ public class Trainer {
 	private String title;
 	private String email;
 	private String salesforceAccount;
-	private String password;
 	private String salesforceAuthenticationToken;
 	private String salesforceRefreshToken;
 	private Tier tier;
@@ -107,14 +106,6 @@ public class Trainer {
 		this.batches = batches;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getSalesforceRefreshToken() {
 		return salesforceRefreshToken;
 	}
@@ -123,7 +114,7 @@ public class Trainer {
 		this.salesforceRefreshToken = salesforceRefreshToken;
 	}
 
-	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, String password,
+	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, 
 			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
 		super();
 		this.trainerId = trainerId;
@@ -131,7 +122,6 @@ public class Trainer {
 		this.title = title;
 		this.email = email;
 		this.salesforceAccount = salesforceAccount;
-		this.password = password;
 		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
 		this.salesforceRefreshToken = salesforceRefreshToken;
 		this.tier = tier;
