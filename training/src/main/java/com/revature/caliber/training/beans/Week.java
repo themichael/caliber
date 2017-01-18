@@ -1,13 +1,27 @@
 package com.revature.caliber.training.beans;
 
-import java.util.Set;
 
+import javax.persistence.*;
+
+@Entity(name="Caliber_Week")
 public class Week {
-
+	
+	@Id
+	@Column(name="Week_Id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long weekId;
+	
+	@Column(name="Week_Number")
 	private int weekNumber;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@Column(name="Week_Batch")
 	private Batch batch;
-	private Set<Category> topics;
+	
+	/* Not part of Training Service
+	 * @OneToMany
+	 * private Set<Category> topics;
+	 */
 	
 	public long getWeekId() {
 		return weekId;
@@ -27,26 +41,18 @@ public class Week {
 	public void setBatch(Batch batch) {
 		this.batch = batch;
 	}
-	public Set<Category> getTopics() {
-		return topics;
-	}
-	public void setTopics(Set<Category> topics) {
-		this.topics = topics;
-	}
-	
-	public Week(long weekId, int weekNumber, Batch batch, Set<Category> topics) {
+
+	public Week(long weekId, int weekNumber, Batch batch) {
 		super();
 		this.weekId = weekId;
 		this.weekNumber = weekNumber;
 		this.batch = batch;
-		this.topics = topics;
 	}
 
-	public Week(int weekNumber, Batch batch, Set<Category> topics) {
+	public Week(int weekNumber, Batch batch) {
 		super();
 		this.weekNumber = weekNumber;
 		this.batch = batch;
-		this.topics = topics;
 	}
 
 }
