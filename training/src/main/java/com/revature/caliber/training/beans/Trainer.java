@@ -2,62 +2,26 @@ package com.revature.caliber.training.beans;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-@Entity
-@Table(name="CALIBER_TRAINER")
 public class Trainer {
 
-	@Id
-	@Column(name="TRAINER_ID", nullable=false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="TRAINER_ID_SEQUENCE")
-	@SequenceGenerator(name = "TRAINER_ID_SEQUENCE", sequenceName= "TRAINER_ID_SEQUENCE")
-	@NotNull
 	private int trainerId;
-	
-	@Column(name="NAME", nullable=false)
-	@NotNull
 	private String name;
-	
-	@Column(name="TITLE", nullable=false)
-	@NotNull
 	private String title;
-	
-	@Column(name="EMAIL", nullable=false)
-	@NotNull
 	private String email;
-	
-	@Column(name="SALESFORCE_ACCOUNT", nullable=false)
-	@NotNull
 	private String salesforceAccount;
-	
-	@Column(name="SALESFORCE_AUTHENTICATION_TOKEN", nullable=false)
-	@NotNull
 	private String salesforceAuthenticationToken;
-	
-	@JoinColumn(name="TIER", nullable=false)
-	@NotNull
+	private String salesforceRefreshToken;
 	private Tier tier;
 	
-	@OneToMany(mappedBy="trainer")
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	private Set<Batch> batches;
 
-	public int getTrainerId() {
+	public int getTraineeId() {
 		return trainerId;
 	}
 
-	public void setTrainerId(int trainerId) {
-		this.trainerId = trainerId;
+	public void setTraineeId(int traineeId) {
+		this.trainerId = traineeId;
 	}
 
 	public String getName() {
@@ -120,9 +84,9 @@ public class Trainer {
 		super();
 	}
 
-	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier) {
+	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier) {
 		super();
-		this.trainerId = trainerId;
+		this.trainerId = traineeId;
 		this.name = name;
 		this.title = title;
 		this.email = email;
@@ -130,16 +94,37 @@ public class Trainer {
 		this.tier = tier;
 	}
 
-	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier,
+	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier,
 			Set<Batch> batches) {
 		super();
-		this.trainerId = trainerId;
+		this.trainerId = traineeId;
 		this.name = name;
 		this.title = title;
 		this.email = email;
 		this.salesforceAccount = salesforceAccount;
 		this.tier = tier;
 		this.batches = batches;
+	}
+
+	public String getSalesforceRefreshToken() {
+		return salesforceRefreshToken;
+	}
+
+	public void setSalesforceRefreshToken(String salesforceRefreshToken) {
+		this.salesforceRefreshToken = salesforceRefreshToken;
+	}
+
+	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, 
+			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
+		super();
+		this.trainerId = trainerId;
+		this.name = name;
+		this.title = title;
+		this.email = email;
+		this.salesforceAccount = salesforceAccount;
+		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
+		this.salesforceRefreshToken = salesforceRefreshToken;
+		this.tier = tier;
 	}
 	
 	
