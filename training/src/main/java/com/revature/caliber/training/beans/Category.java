@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity(name="CALIBER_CATEGORY")
+@Entity(name="CALIBER_TRAINING_CATEGORY")
 public class Category {
 
 	@Id
@@ -24,7 +24,7 @@ public class Category {
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Category_Weeks")
+	@JoinColumn(name="CATEGORY_WEEKS")
 	private Set<Week> weeks;
 	
 	
