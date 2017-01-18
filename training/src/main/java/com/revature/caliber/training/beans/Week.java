@@ -20,7 +20,7 @@ public class Week {
 	@JoinColumn(name = "WEEK_BATCH")
 	private Batch batch;
 
-	@OneToMany(mappedBy = "weeks")
+	@ManyToMany(mappedBy = "weeks")
 	private Set<Category> topics;
 
 	public long getWeekId() {

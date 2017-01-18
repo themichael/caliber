@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -28,7 +29,7 @@ public class Category {
 
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	@ManyToOne(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER) 
+	@ManyToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER) 
 	@JoinColumn(name = "CATEGORY_WEEKS")
 	private Set<Week> weeks;
 	
