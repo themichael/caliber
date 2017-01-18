@@ -36,27 +36,51 @@ public class TraineeDAOImplementation implements TraineeDAO{
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED,
+                    propagation = Propagation.REQUIRED,
+                    rollbackFor = {Exception.class})
     public Trainee getTrainee(Integer id) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Trainee.class);
+        criteria.add(Restrictions.eq("TRAINEE_ID", id));
+        return (Trainee)criteria.uniqueResult();
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED,
+                    propagation = Propagation.REQUIRED,
+                    rollbackFor = {Exception.class})
     public Trainee getTrainee(String name) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Trainee.class);
+        criteria.add(Restrictions.eq("TRAINEE_NAME", name));
+        return (Trainee)criteria.uniqueResult();
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE,
+                    propagation = Propagation.REQUIRED,
+                    rollbackFor = {Exception.class})
     public void createTrainee(Trainee trainee) {
-
+        Session session = sessionFactory.getCurrentSession();
+        session.save(trainee);
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE,
+                    propagation = Propagation.REQUIRED,
+                    rollbackFor = {Exception.class})
     public void deleteTrainee(Trainee trainee) {
-
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(trainee);
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE,
+                    propagation = Propagation.REQUIRED,
+                    rollbackFor = {Exception.class})
     public void updateTrainee(Trainee trainee) {
-
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(trainee);
     }
 }
