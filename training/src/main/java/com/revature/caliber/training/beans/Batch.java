@@ -1,4 +1,4 @@
-package com.revature.caliber.beans;
+package com.revature.caliber.training.beans;
 
 import java.util.Date;
 import java.util.Set;
