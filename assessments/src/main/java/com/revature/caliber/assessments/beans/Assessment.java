@@ -35,7 +35,12 @@ public class Assessment {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Category> categories;
 
-    public Assessment(long assessmentId, String title, int batch, int rawScore, String type, int week,
+    public Assessment(long assessmentId,
+                      String title,
+                      int batch,
+                      int rawScore,
+                      String type,
+                      int week,
                       Set<Category> categories) {
         super();
         this.assessmentId = assessmentId;
@@ -51,7 +56,12 @@ public class Assessment {
         super();
     }
 
-    public Assessment(String title, int batch, int rawScore, String type, int week, Set<Category> categories) {
+    public Assessment(String title,
+                      int batch,
+                      int rawScore,
+                      String type,
+                      int week,
+                      Set<Category> categories) {
         super();
         this.title = title;
         this.batch = batch;
