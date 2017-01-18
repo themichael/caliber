@@ -14,25 +14,25 @@ public class Batch {
 	private int batchId;
 	@Column
 	private String trainingName;
-	@ManyToOne(cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "TRAINER", nullable = false)
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "TRAINER_ID", nullable = false)
 	private Trainer trainer;
-	@ManyToOne(cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "CO_TRAINER")
+	@ManyToOne()
+	@JoinColumn(name = "CO_TRAINER_ID")
 	private Trainer coTrainer;
-	@Column
+	@Column(name = "SKILL_TYPE")
 	private String skillType;
-	@Column
+	@Column(name = "TRAINING_TYPE")
 	private String trainingType;
-	@Column
+	@Column(name = "START_DATE")
 	private Date startDate;
-	@Column
+	@Column(name = "END_DATE")
 	private Date endDate;
-	@Column
+	@Column(name = "LOCATION")
 	private String location;
-	@Column
+	@Column(name = "GOOD_GRADE_THRESHOLD")
 	private short goodGradeThreshold;
-	@Column
+	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
