@@ -13,5 +13,6 @@ public class Week {
 	private Set<Assessment> assessments;
 	private BatchNote batchNotes;
 	private Set<QCNotes> qcNotes;
+	private Set<TrainerNote> trainerNotes;
 	
 }

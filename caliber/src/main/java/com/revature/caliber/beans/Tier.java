@@ -4,5 +4,6 @@ public class Tier {
 
 	private short tierId;
 	private String tier;
+	private short ranking;
 	
 }
