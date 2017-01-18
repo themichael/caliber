@@ -38,7 +38,7 @@ public class Batch {
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@OneToMany(mappedBy = "batch")
 	private Set<Trainee> trainees;
-	@OneToMany(mappedBy = "topics")
+	@OneToMany(mappedBy = "batch")
 	private Set<Week> weeks;
 
 	/*
