@@ -6,20 +6,20 @@ import java.util.HashSet;
 
 public interface BusinessDelegate {
 
-    //    Assessment
+//    Assessment
     HashSet<Assessment> getAllAssessments();
 
     HashSet<Assessment> getAssessmentsByTrainerId(int id);
 
-    HashSet<Assessment> getByWeekId(int id);
+    HashSet<Assessment> getAssessmentsByWeekId(int id);
 
-    HashSet<Assessment> getByBatchId(int id);
+    HashSet<Assessment> getAssessmentsByBatchId(int id);
 
-    void insert(Assessment assessment);
+    void insertAssessment(Assessment assessment);
 
-    void update(Assessment assessment);
+    void updateAssessment(Assessment assessment);
 
-    void delete(Assessment assessment);
+    void deleteAssessment(Assessment assessment);
 
 //    Batch
 
