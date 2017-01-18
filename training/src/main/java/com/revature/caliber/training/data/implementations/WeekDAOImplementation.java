@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Week;
 import com.revature.caliber.training.data.WeekDAO;
 
@@ -23,7 +22,8 @@ public class WeekDAOImplementation implements WeekDAO{
     public void setSessionFactory(SessionFactory sessionFactory) { this.sessionFactory = sessionFactory; }
 	
 	
-    @Transactional(isolation = Isolation.REPEATABLE_READ,
+    @SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.REPEATABLE_READ,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
 	public List<Week> getAllWeek() {
@@ -37,17 +37,7 @@ public class WeekDAOImplementation implements WeekDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<Week> getWeekByWeekNumber(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Week> getWeekByTopic(Category topic) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	
 
 }
