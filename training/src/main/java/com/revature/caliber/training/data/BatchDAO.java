@@ -1,8 +1,6 @@
 package com.revature.caliber.training.data;
 
         import com.revature.caliber.training.beans.Batch;
-        import com.revature.caliber.training.beans.Trainer;
-        import org.hibernate.Session;
 
         import java.util.List;
 
@@ -10,7 +8,6 @@ package com.revature.caliber.training.data;
  * Batch Dao interface for data tier.
  */
 public interface BatchDAO {
-    void setSession(Session session);
 
     public void createBatch(Batch batch);
     public List<Batch> getAll();
