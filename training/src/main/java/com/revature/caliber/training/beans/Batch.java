@@ -1,20 +1,36 @@
 package com.revature.caliber.training.beans;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
+@Entity
+@Table
 public class Batch {
 
+	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int batchId;
+	@Column
 	private String trainingName;
+	@Column
 	private Trainer trainer;
+	@Column
 	private Trainer coTrainer;
+	@Column
 	private String skillType;
+	@Column
 	private String trainingType;
+	@Column
 	private Date startDate;
+	@Column
 	private Date endDate;
+	@Column
 	private String location;
+	@Column
 	private short goodGradeThreshold;
+	@Column
 	private short borderlineGradeThreshold;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
@@ -83,9 +99,7 @@ public class Batch {
 	public short getBorderlineGradeThreshold() {
 		return borderlineGradeThreshold;
 	}
-	public void setBorderlineGradeThreshold(short borderlineGradeThreshold) {
-		this.borderlineGradeThreshold = borderlineGradeThreshold;
-	}
+	public void setBorderlineGradeThreshold(short borderlineGradeThreshold) {this.borderlineGradeThreshold = borderlineGradeThreshold;}
 	public Set<Trainee> getTrainees() {
 		return trainees;
 	}
@@ -98,6 +112,10 @@ public class Batch {
 	public void setWeeks(Set<Week> weeks) {
 		this.weeks = weeks;
 	}
+
+	/*
+	Constructor with ID
+	 */
 	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
 			String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
 			short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
@@ -116,6 +134,10 @@ public class Batch {
 		this.trainees = trainees;
 		this.weeks = weeks;
 	}
+
+	/*
+	Constructor with no ID
+	 */
 	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
 			Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
 			Set<Trainee> trainees, Set<Week> weeks) {
@@ -133,10 +155,11 @@ public class Batch {
 		this.trainees = trainees;
 		this.weeks = weeks;
 	}
+
+	/*
+	Default Constructor
+	 */
 	public Batch() {
 		super();
 	}
-	
-	
-	
 }
