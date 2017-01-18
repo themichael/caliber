@@ -30,6 +30,7 @@ angular.module("app").config(function ($stateProvider, $locationProvider, $urlRo
 	})
 	.state("vp.home", {
 		templateUrl: "app/partials/home/vp-home.html",
-		url: "/home"
+		url: "/home",
+		controller: "vpHomeController"
 	});
 });
