@@ -1,25 +1,49 @@
 package com.revature.caliber.training.beans;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
+@Entity
+@Table
 public class Batch {
 
+	@Id
+	@Column(name = "BATCH_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int batchId;
+	@Column
 	private String trainingName;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "TRAINER_ID", nullable = false)
 	private Trainer trainer;
+	@ManyToOne()
+	@JoinColumn(name = "CO_TRAINER_ID")
 	private Trainer coTrainer;
+	@Column(name = "SKILL_TYPE")
 	private String skillType;
+	@Column(name = "TRAINING_TYPE")
 	private String trainingType;
+	@Column(name = "START_DATE")
 	private Date startDate;
+	@Column(name = "END_DATE")
 	private Date endDate;
+	@Column(name = "LOCATION")
 	private String location;
+	@Column(name = "GOOD_GRADE_THRESHOLD")
 	private short goodGradeThreshold;
+	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+	@OneToMany(mappedBy = "Trainee")
 	private Set<Trainee> trainees;
+	@OneToMany(mappedBy = "Week")
 	private Set<Week> weeks;
+
+	/*
+	Setters and Getters
+	 */
 	public int getBatchId() {
 		return batchId;
 	}
@@ -83,9 +107,7 @@ public class Batch {
 	public short getBorderlineGradeThreshold() {
 		return borderlineGradeThreshold;
 	}
-	public void setBorderlineGradeThreshold(short borderlineGradeThreshold) {
-		this.borderlineGradeThreshold = borderlineGradeThreshold;
-	}
+	public void setBorderlineGradeThreshold(short borderlineGradeThreshold) {this.borderlineGradeThreshold = borderlineGradeThreshold;}
 	public Set<Trainee> getTrainees() {
 		return trainees;
 	}
@@ -98,6 +120,10 @@ public class Batch {
 	public void setWeeks(Set<Week> weeks) {
 		this.weeks = weeks;
 	}
+
+	/*
+	Constructor with ID
+	 */
 	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
 			String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
 			short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
@@ -116,6 +142,10 @@ public class Batch {
 		this.trainees = trainees;
 		this.weeks = weeks;
 	}
+
+	/*
+	Constructor with no ID
+	 */
 	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
 			Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
 			Set<Trainee> trainees, Set<Week> weeks) {
@@ -133,10 +163,11 @@ public class Batch {
 		this.trainees = trainees;
 		this.weeks = weeks;
 	}
+
+	/*
+	Default Constructor
+	 */
 	public Batch() {
 		super();
 	}
-	
-	
-	
 }
