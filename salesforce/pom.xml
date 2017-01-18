@@ -20,6 +20,10 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -111,7 +115,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>salesforce</finalName>
+		<finalName>caliber</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -128,9 +132,10 @@
 					<artifactId>tomcat7-maven-plugin</artifactId>
 					<version>2.0</version>
 					<configuration>
-						<url>http://localhost:9999/manager/text</url>
+						<url>http://localhost/manager/text</url>
 						<update>true</update>
 						<server>caliberbot</server>
+						<path>/salesforce</path>
 					</configuration>
 				</plugin>
 			</plugins>
