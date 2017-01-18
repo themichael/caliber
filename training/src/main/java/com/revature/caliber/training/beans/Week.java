@@ -4,7 +4,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-@Entity(name = "CALIBER_WEEK")
+@Entity
+@Table(name = "CALIBER_WEEK")
 public class Week {
 
 	@Id

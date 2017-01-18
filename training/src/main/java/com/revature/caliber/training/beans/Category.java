@@ -2,6 +2,7 @@ package com.revature.caliber.training.beans;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
@@ -11,8 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity(name = "CALIBER_TRAINING_CATEGORY")
+@Entity
+@Table(name = "CALIBER_TRAINING_CATEGORY")
 public class Category {
 
 	@Id
@@ -23,11 +26,13 @@ public class Category {
 	@Column(name = "CATEGORY_SKILL")
 	private String skillCategory;
 
+	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER) 
 	@JoinColumn(name = "CATEGORY_WEEKS")
 	private Set<Week> weeks;
-
+	
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CATEGORY_BATCH")
 	private Batch batch;
