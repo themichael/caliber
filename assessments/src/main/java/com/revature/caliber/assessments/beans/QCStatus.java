@@ -4,6 +4,9 @@ public class QCStatus {
 
 	private short statusId;
 	private String status;
+
+
+
 	public short getStatusId() {
 		return statusId;
 	}
