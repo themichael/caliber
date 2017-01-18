@@ -14,10 +14,12 @@
 **/.project
 **/.settings/
 **/.classpath
-**/.project
 /Servers
 
 #IDEA
 **/.idea/
 **/*.iml
+
+#AngularJS
+**/.tern-project
 
