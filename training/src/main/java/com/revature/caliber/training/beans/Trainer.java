@@ -9,7 +9,9 @@ public class Trainer {
 	private String title;
 	private String email;
 	private String salesforceAccount;
+	private String password;
 	private String salesforceAuthenticationToken;
+	private String salesforceRefreshToken;
 	private Tier tier;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
@@ -19,8 +21,8 @@ public class Trainer {
 		return trainerId;
 	}
 
-	public void setTraineeId(int trainerId) {
-		this.trainerId = trainerId;
+	public void setTraineeId(int traineeId) {
+		this.trainerId = traineeId;
 	}
 
 	public String getName() {
@@ -93,16 +95,46 @@ public class Trainer {
 		this.tier = tier;
 	}
 
-	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier,
+	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier,
 			Set<Batch> batches) {
 		super();
-		this.trainerId = trainerId;
+		this.trainerId = traineeId;
 		this.name = name;
 		this.title = title;
 		this.email = email;
 		this.salesforceAccount = salesforceAccount;
 		this.tier = tier;
 		this.batches = batches;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getSalesforceRefreshToken() {
+		return salesforceRefreshToken;
+	}
+
+	public void setSalesforceRefreshToken(String salesforceRefreshToken) {
+		this.salesforceRefreshToken = salesforceRefreshToken;
+	}
+
+	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, String password,
+			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
+		super();
+		this.trainerId = trainerId;
+		this.name = name;
+		this.title = title;
+		this.email = email;
+		this.salesforceAccount = salesforceAccount;
+		this.password = password;
+		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
+		this.salesforceRefreshToken = salesforceRefreshToken;
+		this.tier = tier;
 	}
 	
 	
