@@ -36,9 +36,9 @@ public class Batch {
 	private short borderlineGradeThreshold;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	@OneToMany(mappedBy = "Trainee")
+	@OneToMany(mappedBy = "batch")
 	private Set<Trainee> trainees;
-	@OneToMany(mappedBy = "Week")
+	@OneToMany(mappedBy = "topics")
 	private Set<Week> weeks;
 
 	/*
