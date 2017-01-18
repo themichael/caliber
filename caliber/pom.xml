@@ -19,11 +19,11 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.revature.caliber.services</groupId>
 			<artifactId>salesforce</artifactId>
 			<version>1.0</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
