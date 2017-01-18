@@ -12,7 +12,7 @@ angular.module("app").config(function ($stateProvider, $locationProvider, $urlRo
     .state("qc", {
         abstract: true,
         url: "/qc",
-        templateUrl: "app/partials/qc.html"
+        templateUrl: "app/partials/abstracts/qc.html"
     })
     
     // trainer
@@ -25,11 +25,11 @@ angular.module("app").config(function ($stateProvider, $locationProvider, $urlRo
     // vp
     .state("vp", {
 		abstract: true,
-		templateUrl: "app/partials/vp.html",
+		templateUrl: "app/partials/abstracts/vp.html",
 		url: "/vp"
 	})
 	.state("vp.home", {
-		templateUrl: "app/partials/vp-home.html",
+		templateUrl: "app/partials/home/vp-home.html",
 		url: "/home"
 	});
 });
