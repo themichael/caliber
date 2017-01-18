@@ -21,6 +21,10 @@ angular.module("app").config(function ($stateProvider, $locationProvider, $urlRo
     	url: "/trainer",
     	templateUrl: "app/partials/abstracts/trainer.html"
     })
+    .state("trainer.home", {
+    	templateUrl: "app/partials/home/trainer-home.html",
+		url: "/home"
+    })
     
     // vp
     .state("vp", {
