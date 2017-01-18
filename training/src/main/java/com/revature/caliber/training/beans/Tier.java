@@ -60,7 +60,4 @@ public class Tier {
 		this.tier = tier;
 		this.ranking = ranking;
 	}
-	
-	
-	
 }

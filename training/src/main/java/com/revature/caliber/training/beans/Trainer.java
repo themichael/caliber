@@ -169,7 +169,18 @@ public class Trainer {
 		this.salesforceRefreshToken = salesforceRefreshToken;
 		this.tier = tier;
 	}
-	
-	
+
+	public Trainer(String name, String title, String email, String salesforceAccount,
+			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier, Set<Batch> batches) {
+		super();
+		this.name = name;
+		this.title = title;
+		this.email = email;
+		this.salesforceAccount = salesforceAccount;
+		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
+		this.salesforceRefreshToken = salesforceRefreshToken;
+		this.tier = tier;
+		this.batches = batches;
+	}
 	
 }
