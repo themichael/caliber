@@ -1,12 +1,14 @@
 package com.revature.caliber.beans;
 
-public class TrainerNote extends Note{
+public class QCNote extends Note{
 
 	private Trainee trainee;
 	private Week week;
 	
-	public TrainerNote(String content, boolean sugarCoated) {
-		super(content, sugarCoated);
+	public QCNote(Trainee trainee, Week week) {
+		super();
+		this.trainee = trainee;
+		this.week = week;
 	}
 
 	public Trainee getTrainee() {
@@ -25,11 +27,12 @@ public class TrainerNote extends Note{
 		this.week = week;
 	}
 
-	public TrainerNote() {
+	public QCNote() {
 		super();
 	}
 	
-	
-	
+	public QCNote(String content, boolean sugarCoated) {
+		super(content, sugarCoated);
+	}
 	
 }
