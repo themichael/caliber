@@ -8,10 +8,7 @@
 
 **/target/
 **/bin/
-<<<<<<< HEAD
-=======
 
->>>>>>> fb1db6d30e8ac63235bf31600bbf194bd2dc6625
 #Eclipse
 **/.metadata
 **/.project
@@ -19,13 +16,8 @@
 **/.classpath
 **/.project
 /Servers
-<<<<<<< HEAD
-#IDEA
-**/.idea/
-**/.iml
-=======
 
 #IDEA
 **/.idea/
 **/.iml
->>>>>>> fb1db6d30e8ac63235bf31600bbf194bd2dc6625
+
