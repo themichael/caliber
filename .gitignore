@@ -20,3 +20,6 @@
 #IDEA
 **/.idea/
 **/.iml
+
+#AngularJS
+**/.tern-project
