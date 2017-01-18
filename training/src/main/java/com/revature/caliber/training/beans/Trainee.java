@@ -18,10 +18,11 @@ public class Trainee {
     @Column(name = "TRAINEE_EMAIL")
 	private String email;
 
-    @Column()
+    @Column(name = "TRAINING_STATUS")
 	private String trainingStatus;
 
-    @JoinColumn()
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "BATCH_ID", nullable = false)
 	private Batch batch;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
@@ -80,7 +81,4 @@ public class Trainee {
 		this.trainingStatus = trainingStatus;
 		this.batch = batch;
 	}
-	
-	
-	
 }
