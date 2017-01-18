@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class Trainer {
 
-	private int traineeId;
+	private int trainerId;
 	private String name;
 	private String title;
 	private String email;
@@ -16,11 +16,11 @@ public class Trainer {
 	private Set<Batch> batches;
 
 	public int getTraineeId() {
-		return traineeId;
+		return trainerId;
 	}
 
-	public void setTraineeId(int traineeId) {
-		this.traineeId = traineeId;
+	public void setTraineeId(int trainerId) {
+		this.trainerId = trainerId;
 	}
 
 	public String getName() {
@@ -85,7 +85,7 @@ public class Trainer {
 
 	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier) {
 		super();
-		this.traineeId = traineeId;
+		this.trainerId = traineeId;
 		this.name = name;
 		this.title = title;
 		this.email = email;
@@ -93,10 +93,10 @@ public class Trainer {
 		this.tier = tier;
 	}
 
-	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier,
+	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier,
 			Set<Batch> batches) {
 		super();
-		this.traineeId = traineeId;
+		this.trainerId = trainerId;
 		this.name = name;
 		this.title = title;
 		this.email = email;

@@ -1,7 +1,5 @@
 package com.revature.caliber.beans;
 
-import java.util.Set;
-
 public class Trainee {
 
 	private int traineeId;
