@@ -21,33 +21,23 @@ public class FacadeImplementation implements Facade {
     @Autowired
     public void setTraineeDAO(TraineeDAO traineeDAO) { this.traineeDAO = traineeDAO; }
 
+    //Trainee
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public void createTrainee(Trainee trainee) {
-        traineeDAO.createTrainee(trainee);
-    }
+    public void createTrainee(Trainee trainee) { traineeDAO.createTrainee(trainee); }
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public void updateTrainee(Trainee trainee){
-        traineeDAO.updateTrainee(trainee);
-    }
+    public void updateTrainee(Trainee trainee){ traineeDAO.updateTrainee(trainee); }
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public Trainee getTrainee(Integer id){
-        return traineeDAO.getTrainee(id);
-    }
+    public Trainee getTrainee(Integer id){ return traineeDAO.getTrainee(id); }
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public Trainee getTrainee(String name){
-        return traineeDAO.getTrainee(name);
-    }
+    public Trainee getTrainee(String name){ return traineeDAO.getTrainee(name); }
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public List<Trainee> getTraineesInBatch(Integer batchId){
-        return traineeDAO.getTraineesInBatch(batchId);
-    }
+    public List<Trainee> getTraineesInBatch(Integer batchId){ return traineeDAO.getTraineesInBatch(batchId); }
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public void deleteTrainee(Trainee trainee){
-        traineeDAO.deleteTrainee(trainee);
-    }
+    public void deleteTrainee(Trainee trainee){ traineeDAO.deleteTrainee(trainee); }
+    //end of trainee
 }
