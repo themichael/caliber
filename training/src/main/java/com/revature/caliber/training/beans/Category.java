@@ -2,13 +2,25 @@ package com.revature.caliber.training.beans;
 
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 public class Category {
 
 	private int categoryId;
 	private String skillCategory;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+	
 	private Set<Week> weeks;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="CATEGORY_BATCH")
+	private Batch batch;
+	
+	
 	public int getCategoryId() {
 		return categoryId;
 	}
