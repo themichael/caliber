@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component()
+@Component(value = "trainingBatchServiceImplementation")
 public class BatchServiceImplementation implements BatchService{
 
     Facade facade;

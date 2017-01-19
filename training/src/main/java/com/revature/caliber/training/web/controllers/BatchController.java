@@ -24,6 +24,7 @@ public class BatchController {
     @Autowired
     public void setBusinessDelegate(BusinessDelegate businessDelegate) { this.businessDelegate = businessDelegate; }
 
+    // Request for new batch to be created
     @RequestMapping(value = "batch/new",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -40,6 +41,7 @@ public class BatchController {
         return returnEntity;
     }
 
+    // Request to get all batches
     @RequestMapping(value = "batch/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -57,6 +59,7 @@ public class BatchController {
         return returnEntity;
     }
 
+    // Request to get all batches by Trainer name
     @RequestMapping(value = "batch/byTrainerName/{name}",
                 method = RequestMethod.GET,
                 consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -75,6 +78,7 @@ public class BatchController {
         return returnEntity;
     }
 
+    // Request to get all active batches
     @RequestMapping(value = "batch/current",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -92,6 +96,7 @@ public class BatchController {
         return returnEntity;
     }
 
+    // Request to get active batches by Trainer name
     @RequestMapping(value = "batch/current/{name}",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -110,6 +115,7 @@ public class BatchController {
         return returnEntity;
     }
 
+    // Request to get a single batch by id
     @RequestMapping(value = "batch/byId/{id}",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -128,6 +134,7 @@ public class BatchController {
         return returnEntity;
     }
 
+    // Request to update a batch
     @RequestMapping(value = "batch/update",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -143,6 +150,7 @@ public class BatchController {
         return returnEntity;
     }
 
+    // Request to delete a batch
     @RequestMapping(value = "batch/delete",
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
