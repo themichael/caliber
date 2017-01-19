@@ -1,14 +1,10 @@
-package com.revature.caliber.training.data;
+package com.revature.caliber.training.service;
 
-        import com.revature.caliber.training.beans.Batch;
+import com.revature.caliber.training.beans.Batch;
 
-        import java.util.List;
+import java.util.List;
 
-/**
- * Batch Dao interface for data tier.
- */
-public interface BatchDAO {
-
+public interface BatchService {
     public void createBatch(Batch batch);
     public List<Batch> getAllBatch();
     public List<Batch> getTrainerBatch(String name);
