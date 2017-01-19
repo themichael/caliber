@@ -4,9 +4,11 @@ import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.data.Facade;
 import com.revature.caliber.assessments.service.AssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 
+@Service(value = "assessmentService")
 public class AssessmentServiceImpl implements AssessmentService {
 
     private Facade facade;
@@ -17,37 +19,42 @@ public class AssessmentServiceImpl implements AssessmentService {
     }
 
     @Override
-    public HashSet<Assessment> getAllAssessments() {
+    public HashSet<Assessment> getAll() {
         return facade.getAllAssessments();
     }
 
     @Override
-    public HashSet<Assessment> getAssessmentsByTrainerId(int id) {
+    public Assessment getById(int id) {
+        return facade.getById(id);
+    }
+
+    @Override
+    public HashSet<Assessment> getByTrainerId(int id) {
         return facade.getAssessmentsByTrainerId(id);
     }
 
     @Override
-    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
+    public HashSet<Assessment> getByWeekId(int id) {
         return facade.getAssessmentsByWeekId(id);
     }
 
     @Override
-    public HashSet<Assessment> getAssessmentsByBatchId(int id) {
+    public HashSet<Assessment> getByBatchId(int id) {
         return facade.getAssessmentsByBatchId(id);
     }
 
     @Override
-    public void insertAssessment(Assessment assessment) {
+    public void insert(Assessment assessment) {
         facade.insertAssessment(assessment);
     }
 
     @Override
-    public void updateAssessment(Assessment assessment) {
+    public void update(Assessment assessment) {
         facade.updateAssessment(assessment);
     }
 
     @Override
-    public void deleteAssessment(Assessment assessment) {
+    public void delete(Assessment assessment) {
         facade.deleteAssessment(assessment);
     }
 }

@@ -3,9 +3,13 @@ package com.revature.caliber.assessments.service.implementations;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 
+@Component(value ="delegate")
 public class BusinessDelegateImpl implements BusinessDelegate {
 
     private AssessmentService assessmentService;
@@ -20,37 +24,42 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 //    Assessment
     @Override
     public HashSet<Assessment> getAllAssessments() {
-        return assessmentService.getAllAssessments();
+        return assessmentService.getAll();
+    }
+
+    @Override
+    public Assessment getAssessmentById(int id) {
+        return assessmentService.getById(id);
     }
 
     @Override
     public HashSet<Assessment> getAssessmentsByTrainerId(int id) {
-        return assessmentService.getAssessmentsByTrainerId(id);
+        return assessmentService.getByTrainerId(id);
     }
 
     @Override
     public HashSet<Assessment> getAssessmentsByWeekId(int id) {
-        return assessmentService.getAssessmentsByWeekId(id);
+        return assessmentService.getByWeekId(id);
     }
 
     @Override
     public HashSet<Assessment> getAssessmentsByBatchId(int id) {
-        return assessmentService.getAssessmentsByBatchId(id);
+        return assessmentService.getByBatchId(id);
     }
 
     @Override
     public void insertAssessment(Assessment assessment) {
-        assessmentService.insertAssessment(assessment);
+        assessmentService.insert(assessment);
     }
 
     @Override
     public void updateAssessment(Assessment assessment) {
-        assessmentService.updateAssessment(assessment);
+        assessmentService.update(assessment);
     }
 
     @Override
     public void deleteAssessment(Assessment assessment) {
-        assessmentService.deleteAssessment(assessment);
+        assessmentService.delete(assessment);
     }
 
 //    Batch

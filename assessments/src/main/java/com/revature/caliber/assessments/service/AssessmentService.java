@@ -6,18 +6,67 @@ import java.util.HashSet;
 
 public interface AssessmentService {
 
-    HashSet<Assessment> getAllAssessments();
+//    Get
+    /**
+     * Returns HashSet of all Assessments
+     * @return List of Assessments
+     */
+    HashSet<Assessment> getAll();
 
-    HashSet<Assessment> getAssessmentsByTrainerId(int id);
+    /**
+     * Return Assessment
+     *  with AssessmentId
+     * @return Assessment
+     */
+    Assessment getById(int id);
 
-    HashSet<Assessment> getAssessmentsByWeekId(int id);
+    /**
+     * Returns HashSet of Assessments
+     *  with TrainerId
+     * @param id
+     * @return List of Assessments
+     */
+    HashSet<Assessment> getByTrainerId(int id);
 
-    HashSet<Assessment> getAssessmentsByBatchId(int id);
+    /**
+     * Returns HashSet of Assessments
+     *  with WeekId
+     * @param id
+     * @return List of Assessments
+     */
+    HashSet<Assessment> getByWeekId(int id);
 
-    void insertAssessment(Assessment assessment);
+    /**
+     * Returns HashSet of Assessments
+     *  with BatchId
+     * @param id
+     * @return List of Assessments
+     */
+    HashSet<Assessment> getByBatchId(int id);
 
-    void updateAssessment(Assessment assessment);
+//    Create
 
-    void deleteAssessment(Assessment assessment);
+    /**
+     * Inserts Assessment
+     * @param assessment
+     */
+    void insert(Assessment assessment);
+
+//    Update
+
+    /**
+     * Updates Assessment
+     * @param assessment
+     */
+    void update(Assessment assessment);
+
+
+//    Delete
+
+    /**
+     * Deletes Assessment
+     * @param assessment
+     */
+    void delete(Assessment assessment);
 
 }
