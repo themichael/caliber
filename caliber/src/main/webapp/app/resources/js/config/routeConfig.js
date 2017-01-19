@@ -28,17 +28,7 @@ angular.module("app").config(
                 templateUrl: "app/partials/home/qc-home.html",
                 controller: "qcHomeController"
             })
-
-            // trainer
-            .state("trainer", {
-                abstract: true,
-                url: "/trainer",
-                templateUrl: "app/partials/abstracts/trainer.html"
-            })
-            .state("trainer.home", {
-                templateUrl: "app/partials/home/trainer-home.html",
-                url: "/home"
-            })
+           
 			// trainer
 			.state("trainer", {
 				abstract : true,
