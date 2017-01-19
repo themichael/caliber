@@ -53,7 +53,7 @@ public class TraineeDAOImplementationTest {
         trainee.setBatch(batch);
 
         dao.createTrainee(trainee);
-        assertTrue(true); //if doesn't throw Exception, means created
+       // assertTrue(true); //if doesn't throw Exception, means created
 
         logger.debug("     trainee created");
     }
