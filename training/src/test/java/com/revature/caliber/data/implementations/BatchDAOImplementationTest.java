@@ -29,7 +29,7 @@ public class BatchDAOImplementationTest {
     @Test
     public void getAll(){
         BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
-        List<Batch> batch = batchDAO.getAll();
+        List<Batch> batch = batchDAO.getAllBatch();
         assertNotNull(batch);
     }
 }
