@@ -1,6 +1,7 @@
 package com.revature.caliber.training.data;
 
 import com.revature.caliber.training.beans.Batch;
+import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
 
 import java.util.List;
@@ -26,5 +27,10 @@ public interface Facade {
     public Batch getBatch(Integer id);
     public void updateBatch(Batch batch);
     public void deleteBatch(Batch batch);
+    
+    //Category methods
+	public Category getCategory(String category);
+	public List<Category> getAllCategories();
+
 
 }
