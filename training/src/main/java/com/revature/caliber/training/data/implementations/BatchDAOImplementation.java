@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
-@Repository(value = "batchDAO")
+//@Repository(value = "batchDAO")
 public class BatchDAOImplementation implements BatchDAO{
 
     private SessionFactory sessionFactory;

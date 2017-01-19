@@ -11,7 +11,7 @@ public interface TrainerDAO {
 
 	void createTrainer(Trainer trainer);
 	Trainer getTrainer(Integer id);
-	Trainer getTrainer(String name);
+	List<Trainer> getTrainer(String name);
 	List<Trainer> getAllTrainers();
 	void updateTrainer(Trainer trainer);
 	void deleteTrainer(Trainer trainer);

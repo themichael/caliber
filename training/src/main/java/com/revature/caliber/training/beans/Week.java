@@ -70,4 +70,10 @@ public class Week {
 		this.topics = topics;
 	}
 
+	public Week() {
+		super();
+	}
+	
+	
+
 }

@@ -17,8 +17,10 @@ import com.revature.caliber.training.data.TrainerDAO;
 
 /**
  * Implementation for trainee DAO crud methods
+ * 
+ * @author Karina
  */
-@Repository(value = "trainingTrainerDAOImplementation")
+//@Repository(value = "trainingTrainerDAOImplementation")
 public class TrainerDAOImplementation implements TrainerDAO {
 
 	private SessionFactory sessionFactory;
@@ -28,13 +30,13 @@ public class TrainerDAOImplementation implements TrainerDAO {
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
 	public void createTrainer(Trainer trainer) {
 		sessionFactory.getCurrentSession().save(trainer);
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
 	public Trainer getTrainer(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainer.class);
@@ -43,16 +45,16 @@ public class TrainerDAOImplementation implements TrainerDAO {
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-	public Trainer getTrainer(String name) {
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+	public List<Trainer> getTrainer(String name) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainer.class);
 		criteria.add(Restrictions.eq("name", name));
-		return (Trainer) criteria.uniqueResult();
+		return criteria.list();
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
 	public List<Trainer> getAllTrainers() {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainer.class);
@@ -60,13 +62,13 @@ public class TrainerDAOImplementation implements TrainerDAO {
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
 	public void updateTrainer(Trainer trainer) {
 		sessionFactory.getCurrentSession().saveOrUpdate(trainer);
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
 	public void deleteTrainer(Trainer trainer) {
 		sessionFactory.getCurrentSession().delete(trainer);
 	}
