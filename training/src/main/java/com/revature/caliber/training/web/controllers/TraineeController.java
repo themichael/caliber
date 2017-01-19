@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"*"},
-            methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+            methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS},
             allowedHeaders = {"X-PINGOTHER", "Content-Type"},
             maxAge = 10)
 public class TraineeController {
