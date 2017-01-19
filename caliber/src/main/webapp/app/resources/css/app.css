@@ -43,3 +43,12 @@ $light-grey: #B9B9BA;
 html, body {
     font-family: 'Futura-Std-Medium';
 }
+
+.top10 { margin-top: 1em; }
+.top15 { margin-top: 1.5em; }
+.top20 { margin-top: 2em; }
+.top25 { margin-top: 2.5em; }
+.top30 { margin-top: 3em; }
+.top35 { margin-top: 35em; }
+.top40 { margin-top: 40em; }
+.top45 { margin-top: 45em; }
