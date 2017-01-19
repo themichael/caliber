@@ -24,6 +24,7 @@ public class Tier {
 	@NotNull
 	private String tier;
 	
+	
 	@Column(name="RANKING", nullable=false)
 	@NotNull
 	private short ranking;

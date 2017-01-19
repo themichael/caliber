@@ -21,10 +21,6 @@ public class WeekDAOImplementationTest {
 	
 	@Test
 	public void getAll(){
-		
-		WeekDAO dao = (WeekDAO) new WeekDAOImplementationTest();
-		List<Week> weeks = dao.getAllWeek();
-		
 	}
 	
 }
