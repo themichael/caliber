@@ -7,7 +7,7 @@ import org.junit.*;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -32,8 +32,8 @@ public class AssessmentDAOImplTest {
     @Test
     public void getAll() {
         log.debug("Starting getAllAssessmentsTest");
-        HashSet<Assessment> assessments = assessmentDAO.getAll();
-        assertNotNull(assessments);
+        Set<Assessment> assessments = assessmentDAO.getAll();
+        assertFalse(assessments.isEmpty());
     }
 
     @Test
@@ -48,24 +48,24 @@ public class AssessmentDAOImplTest {
     public void getByTrainerId() {
         int trainerId = 1;
         log.debug("Starting getAssessmentsByTrainerId with id = " + trainerId);
-        HashSet<Assessment> assessments = assessmentDAO.getByTrainerId(trainerId);
-        assertNotNull(assessments);
+        Set<Assessment> assessments = assessmentDAO.getByTrainerId(trainerId);
+        assertFalse(assessments.isEmpty());
     }
 
     @Test
     public void getByWeekId() {
         int weekId = 1;
         log.debug("Starting getAssessmentsByWeekId with id = " + weekId);
-        HashSet<Assessment> assessments = assessmentDAO.getByWeekId(weekId);
-        assertNotNull(assessments);
+        Set<Assessment> assessments = assessmentDAO.getByWeekId(weekId);
+        assertFalse(assessments.isEmpty());
     }
 
     @Test
     public void getByBatchId() {
         int batchId = 1;
         log.debug("Starting getAssessmentsByBatchId with id = " + batchId);
-        HashSet<Assessment> assessments = assessmentDAO.getByWeekId(batchId);
-        assertNotNull(assessments);
+        Set<Assessment> assessments = assessmentDAO.getByWeekId(batchId);
+        assertFalse(assessments.isEmpty());
     }
 
     @Test

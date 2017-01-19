@@ -1,7 +1,5 @@
 package com.revature.caliber.assessments.service.implementations;
 
-import java.util.HashSet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
