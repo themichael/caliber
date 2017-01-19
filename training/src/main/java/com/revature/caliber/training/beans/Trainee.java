@@ -2,25 +2,43 @@ package com.revature.caliber.training.beans;
 
 import javax.persistence.*;
 
+/**
+ * Bean for Trainee
+ */
 @Entity
 @Table(name = "CALIBER_TRAINEE")
 public class Trainee {
 
+	/**
+	 * id for Trainee (PK)
+	 */
     @Id
     @Column(name = "TRAINEE_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRAINEE_ID_SEQUENCE")
     @SequenceGenerator(name = "TRAINEE_ID_SEQUENCE", sequenceName = "TRAINEE_ID_SEQUENCE")
 	private int traineeId;
 
-    @Column(name = "TRAINEE_NAME")
+	/**
+	 * Full name of the Trainee
+	 */
+	@Column(name = "TRAINEE_NAME")
 	private String name;
 
+	/**
+	 * Trainee's e-mail
+	 */
     @Column(name = "TRAINEE_EMAIL")
 	private String email;
 
-    @Column(name = "TRAINING_STATUS")
+	/**
+	 * Status like "ongoing", "deployed to work", etc.
+	 */
+	@Column(name = "TRAINING_STATUS")
 	private String trainingStatus;
 
+	/**
+	 * Batch that the Trainee belongs to
+	 */
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "BATCH_ID", nullable = false)
 	private Batch batch;
