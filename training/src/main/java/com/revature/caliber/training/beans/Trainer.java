@@ -40,21 +40,20 @@ public class Trainer {
 	@NotNull
 	private String email;
 	
-	@Column(name="SALESFORCE_ACCOUNT", nullable=false)
+	@Column(name="SF_ACCOUNT", nullable=false)
 	@NotNull
 	private String salesforceAccount;
 	
-	@Column(name="SALESFORCE_AUTHENTICATION_TOKEN", nullable=false)
+	@Column(name="SF_AUTHENTICATION_TOKEN", nullable=false)
 	@NotNull
 	private String salesforceAuthenticationToken;
 	
-	@Column(name="SALESFORCE_REFRESH_TOKEN", nullable=false)
+	@Column(name="SF_REFRESH_TOKEN", nullable=false)
 	@NotNull
 	private String salesforceRefreshToken;
 	
 	@ManyToOne
 	@JoinColumn(name="TIER", nullable=false)
-	@NotNull
 	private Tier tier;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI

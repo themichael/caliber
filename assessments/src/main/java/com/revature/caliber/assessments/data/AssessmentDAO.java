@@ -14,6 +14,13 @@ public interface AssessmentDAO {
     HashSet<Assessment> getAll();
 
     /**
+     * Return Assessment
+     *  with AssessmentId
+     * @return Assessment
+     */
+    Assessment getById(int id);
+
+    /**
      * Returns HashSet of Assessments
      *  with TrainerId
      * @param id

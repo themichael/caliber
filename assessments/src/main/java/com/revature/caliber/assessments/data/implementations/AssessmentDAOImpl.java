@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 
-@Repository(value = "AssessmentDAO")
+@Repository(value = "assessmentDAO")
 public class AssessmentDAOImpl implements AssessmentDAO {
 
     private SessionFactory sessionFactory;
@@ -18,7 +18,13 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    //    Get
+//    Get
+
+    @Override
+    public Assessment getById(int id) {
+        return (Assessment) sessionFactory.getCurrentSession().get(Assessment.class, id);
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public HashSet<Assessment> getAll() {
@@ -33,7 +39,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         return new HashSet<>(
                 sessionFactory.getCurrentSession()
                         .createCriteria(Assessment.class)
-                        .add(Restrictions.eq("TRAINER_ID", id)).list());
+                        .add(Restrictions.eq("trainerId", id)).list());
     }
 
     @Override
@@ -42,7 +48,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         return new HashSet<>(
                 sessionFactory.getCurrentSession()
                         .createCriteria(Assessment.class)
-                        .add(Restrictions.eq("WEEK_ID", id)).list());
+                        .add(Restrictions.eq("weekId", id)).list());
     }
 
     @Override
@@ -51,23 +57,23 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         return new HashSet<>(
                 sessionFactory.getCurrentSession()
                         .createCriteria(Assessment.class)
-                        .add(Restrictions.eq("BATCH_ID", id)).list());
+                        .add(Restrictions.eq("batchId", id)).list());
     }
 
-    //    Create
+//    Create
     @Override
     public void insert(Assessment assessment) {
         sessionFactory.getCurrentSession().save(assessment);
     }
 
-    //    Update
+//    Update
     @Override
     public void update(Assessment assessment) {
         sessionFactory.getCurrentSession().update(assessment);
 
     }
 
-    //    Delete
+//    Delete
     @Override
     public void delete(Assessment assessment) {
         sessionFactory.getCurrentSession().delete(assessment);

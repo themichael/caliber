@@ -15,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Implementation for trainee DAO crud methods
+ * Implementation for trainee DAO crud methods. Methods are self-explanatory.
+ * I did not make 1-line calls just in case I would need to add something.
+ *
+ * @author Ilya
  */
 @Repository(value = "trainingTraineeDAOImplementation")
 public class TraineeDAOImplementation implements TraineeDAO{
@@ -31,7 +34,7 @@ public class TraineeDAOImplementation implements TraineeDAO{
     public List<Trainee> getTraineesInBatch(Integer batchId) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Trainee.class);
-        criteria.add(Restrictions.eq("BATCH_ID", batchId));
+        criteria.add(Restrictions.eq("batchId", batchId));
         return criteria.list();
     }
 
@@ -42,7 +45,7 @@ public class TraineeDAOImplementation implements TraineeDAO{
     public Trainee getTrainee(Integer id) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Trainee.class);
-        criteria.add(Restrictions.eq("TRAINEE_ID", id));
+        criteria.add(Restrictions.eq("traineeId", id));
         return (Trainee)criteria.uniqueResult();
     }
 
@@ -53,7 +56,7 @@ public class TraineeDAOImplementation implements TraineeDAO{
     public Trainee getTrainee(String name) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Trainee.class);
-        criteria.add(Restrictions.eq("TRAINEE_NAME", name));
+        criteria.add(Restrictions.eq("name", name));
         return (Trainee)criteria.uniqueResult();
     }
 

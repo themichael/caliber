@@ -1,20 +1,35 @@
 package com.revature.caliber.assessments.beans;
 
-public class TrainerNote extends Note{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
-	private int trainee;
+@Entity(name="TRAINER_NOTE")
+public class TrainerNote extends Note{
+	@Id
+	@Column(name="TRAINER_ID")
+	@NotNull
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int trainer;
+	
+	@Column(name="WEEK_ID")
+	@NotNull
 	private int week;
+	
 	
 	public TrainerNote(String content, boolean sugarCoated) {
 		super(content, sugarCoated);
 	}
 
-	public int getTrainee() {
-		return trainee;
+	public int getTrainer() {
+		return trainer;
 	}
 
-	public void setTrainee(int trainee) {
-		this.trainee = trainee;
+	public void setTrainer(int trainer) {
+		this.trainer = trainer;
 	}
 
 	public int getWeek() {
@@ -28,8 +43,5 @@ public class TrainerNote extends Note{
 	public TrainerNote() {
 		super();
 	}
-	
-	
-	
 	
 }
