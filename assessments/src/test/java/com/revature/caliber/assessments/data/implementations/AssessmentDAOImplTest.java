@@ -1,15 +1,20 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.data.AssessmentDAO;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Set;
+
 import org.apache.log4j.Logger;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import java.util.HashSet;
-
-import static org.junit.Assert.*;
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.data.AssessmentDAO;
 
 public class AssessmentDAOImplTest {
 
@@ -32,7 +37,7 @@ public class AssessmentDAOImplTest {
     @Test
     public void getAll() {
         log.debug("Starting getAllAssessmentsTest");
-        HashSet<Assessment> assessments = (HashSet<Assessment>) assessmentDAO.getAll();
+        Set<Assessment> assessments = assessmentDAO.getAll();
         assertNotNull(assessments);
     }
 
@@ -48,7 +53,7 @@ public class AssessmentDAOImplTest {
     public void getByTrainerId() {
         int trainerId = 1;
         log.debug("Starting getAssessmentsByTrainerId with id = " + trainerId);
-        HashSet<Assessment> assessments = (HashSet<Assessment>) assessmentDAO.getByTrainerId(trainerId);
+        Set<Assessment> assessments = assessmentDAO.getByTrainerId(trainerId);
         assertNotNull(assessments);
     }
 
@@ -56,7 +61,7 @@ public class AssessmentDAOImplTest {
     public void getByWeekId() {
         int weekId = 1;
         log.debug("Starting getAssessmentsByWeekId with id = " + weekId);
-        HashSet<Assessment> assessments = (HashSet<Assessment>) assessmentDAO.getByWeekId(weekId);
+        Set<Assessment> assessments = assessmentDAO.getByWeekId(weekId);
         assertNotNull(assessments);
     }
 
@@ -64,7 +69,7 @@ public class AssessmentDAOImplTest {
     public void getByBatchId() {
         int batchId = 1;
         log.debug("Starting getAssessmentsByBatchId with id = " + batchId);
-        HashSet<Assessment> assessments = (HashSet<Assessment>) assessmentDAO.getByWeekId(batchId);
+        Set<Assessment> assessments = assessmentDAO.getByWeekId(batchId);
         assertNotNull(assessments);
     }
 

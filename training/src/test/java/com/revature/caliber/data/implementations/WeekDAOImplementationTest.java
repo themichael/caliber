@@ -24,9 +24,9 @@ public class WeekDAOImplementationTest {
 	
 	
 	@Test
+	@Ignore
 	public void getWeekByIdTest(){
 		Week week = context.getBean(WeekDAO.class).getWeekById(50);
-		System.out.println(week);
 	}
 	
 	@Test

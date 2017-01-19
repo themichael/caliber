@@ -1,18 +1,27 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.BatchNote;
-import com.revature.caliber.assessments.beans.TrainerNote;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.data.*;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.List;
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.BatchNote;
+import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.TrainerNote;
+import com.revature.caliber.assessments.data.AssessmentDAO;
+import com.revature.caliber.assessments.data.BatchNoteDAO;
+import com.revature.caliber.assessments.data.CategoryDAO;
+import com.revature.caliber.assessments.data.Facade;
+import com.revature.caliber.assessments.data.GradeDAO;
+import com.revature.caliber.assessments.data.NoteDAO;
+import com.revature.caliber.assessments.data.QCNoteDAO;
+import com.revature.caliber.assessments.data.QCStatusDAO;
+import com.revature.caliber.assessments.data.TrainerNoteDAO;
 
 /**
  * Our implementation of the Facade interface
@@ -39,8 +48,8 @@ public class FacadeImplementation implements Facade {
     // Get
     @Transactional
     @Override
-    public HashSet<Assessment> getAllAssessments() {
-        return (HashSet<Assessment>) assessmentDAO.getAll();
+    public Set<Assessment> getAllAssessments() {
+        return assessmentDAO.getAll();
     }
 
     @Transactional
@@ -51,22 +60,22 @@ public class FacadeImplementation implements Facade {
 
     @Transactional
     @Override
-    public HashSet<Assessment> getAssessmentsByTrainerId(int id) {
-        return (HashSet<Assessment>) assessmentDAO.getByTrainerId(id);
+    public Set<Assessment> getAssessmentsByTrainerId(int id) {
+        return assessmentDAO.getByTrainerId(id);
     }
 
     @Transactional
 
     @Override
-    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
-        return (HashSet<Assessment>) assessmentDAO.getByWeekId(id);
+    public Set<Assessment> getAssessmentsByWeekId(int id) {
+        return assessmentDAO.getByWeekId(id);
     }
 
     @Transactional
 
     @Override
-    public HashSet<Assessment> getAssessmentsByBatchId(int id) {
-        return (HashSet<Assessment>) assessmentDAO.getByBatchId(id);
+    public Set<Assessment> getAssessmentsByBatchId(int id) {
+        return assessmentDAO.getByBatchId(id);
     }
 
     //Create
