@@ -58,6 +58,6 @@ public class BatchController {
                 produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("name") String name){
         ResponseEntity<List<Batch>> returnEntity;
-        return returnEntity;
+        return null;
     }
 }
