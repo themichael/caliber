@@ -18,7 +18,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    //    Get
+//    Get
 
     @Override
     public Assessment getById(int id) {
@@ -60,20 +60,20 @@ public class AssessmentDAOImpl implements AssessmentDAO {
                         .add(Restrictions.eq("batchId", id)).list());
     }
 
-    //    Create
+//    Create
     @Override
     public void insert(Assessment assessment) {
         sessionFactory.getCurrentSession().save(assessment);
     }
 
-    //    Update
+//    Update
     @Override
     public void update(Assessment assessment) {
         sessionFactory.getCurrentSession().update(assessment);
 
     }
 
-    //    Delete
+//    Delete
     @Override
     public void delete(Assessment assessment) {
         sessionFactory.getCurrentSession().delete(assessment);

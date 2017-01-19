@@ -6,12 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashSet;
 
 @RestController    // infers @ResponseBody on all methods && @Controller
+@CrossOrigin(origins = {"*"},
+        methods = { RequestMethod.GET,
+                    RequestMethod.POST,
+                    RequestMethod.PUT,
+                    RequestMethod.DELETE},
+        allowedHeaders = {"X-PINGOTHER", "Content-Type"},
+        maxAge = 10)
 public class AssessmentController {
 
     private BusinessDelegate delegate;
@@ -22,7 +28,71 @@ public class AssessmentController {
         this.delegate = delegate;
     }
 
-//TODO get methods
+//    Get
+    // getAllAssessments
+    @RequestMapping(
+            value = "/assessment/all",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashSet<Assessment>> getAll() {
+        HashSet<Assessment> assessments = delegate.getAllAssessments();
+        if (assessments == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(assessments, HttpStatus.OK);
+    }
+
+    // getAssessmentById
+    @RequestMapping(
+            value = "/assessment/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Assessment> getById(@PathVariable("id") int id) {
+        Assessment assessment = delegate.getAssessmentById(id);
+        if (assessment == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(assessment, HttpStatus.OK);
+    }
+
+    // getAssessmentsByTrainerId
+    @RequestMapping(
+            value = "/assessment/trainer{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashSet<Assessment>> getByTrainerId(@PathVariable("id") int id) {
+        HashSet<Assessment> assessments = delegate.getAssessmentsByTrainerId(id);
+        if (assessments == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(assessments, HttpStatus.OK);
+    }
+
+    // getAssessmentsByWeekId
+    @RequestMapping(
+            value = "/assessment/week{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashSet<Assessment>> getByWeekId(@PathVariable("id") int id) {
+        HashSet<Assessment> assessments = delegate.getAssessmentsByWeekId(id);
+        if (assessments == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(assessments, HttpStatus.OK);
+    }
+
+    //  getAssessmentsByBatchId
+    @RequestMapping(
+            value = "/assessment/batch{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashSet<Assessment>> getByBatchId(@PathVariable("id") int id) {
+        HashSet<Assessment> assessments = delegate.getAssessmentsByBatchId(id);
+        if (assessments == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(assessments, HttpStatus.OK);
+    }
 
 //    Create
     //POST is used over PUT since we are not specifying specific assessment url
@@ -45,7 +115,7 @@ public class AssessmentController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    //    Delete
+//    Delete
     @RequestMapping(
             value = "/assessment/delete",
             method = RequestMethod.DELETE,
@@ -54,7 +124,4 @@ public class AssessmentController {
         delegate.deleteAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);
     }
-
-
-
 }
