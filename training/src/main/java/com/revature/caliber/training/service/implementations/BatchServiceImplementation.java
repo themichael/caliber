@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class BatchServiceImplementation implements BatchService {
+public class BatchServiceImplementation implements BatchService{
+
     Facade facade;
     @Autowired
     public void setFacade(Facade facade) { this.facade = facade; }
