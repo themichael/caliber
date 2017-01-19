@@ -1,13 +1,22 @@
 package com.revature.caliber.assessments.beans;
 
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
+
+@Entity
+@Table(name="CALIBER_QC_STATUS")
 public class QCStatus {
-
+	
+	@Id
+    @Column(name = "QC_STATUS_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QC_STATUS_ID_SEQUENCE")
+    @SequenceGenerator(name = "QC_STATUS_ID_SEQUENCE", sequenceName = "QC_STATUS_ID_SEQUENCE")
 	private short statusId;
+	
+	@Column(name = "QC_STATUS_STATUS")
 	private String status;
-
+	
 	@OneToMany(mappedBy = "weeklyStatus")
 	private Set<Assessment> assessments;
 
