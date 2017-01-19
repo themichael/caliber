@@ -69,20 +69,18 @@
 					<div class="top20">
 						<div class="col-md-6">
 							<div class="chart-container top10">
-								<canvas id="line" class="chart chart-line" chart-data="lineData"
-									chart-labels="lineLabels" chart-series="lineSeries"
-									chart-options="lineOptions"
-									chart-dataset-override="lineDatasetOverride"
-									chart-click="lineOnClick" height="75" width="100">
-							</canvas>
+								<canvas id="radar" class="chart chart-radar"
+									chart-data="batchRankData" chart-options="options"
+									chart-labels="batchRankLabels" chart-series="batchRankSeries"
+									height="50" width="50">
+								</canvas>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="chart-container top10">
-								<canvas id="bar" class="chart chart-bar" chart-data="barData"
-									chart-labels="barLabels" chart-series="barSeries" height="75"
-									width="100">
-							</canvas>
+								<canvas id="base" class="chart-horizontal-bar" chart-data="data"
+									chart-labels="labels" height="50" width="50">
+								</canvas>
 							</div>
 						</div>
 					</div>
