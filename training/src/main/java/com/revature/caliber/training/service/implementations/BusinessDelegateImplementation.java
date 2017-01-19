@@ -19,6 +19,7 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
     TraineeService traineeService;
     @Autowired
     public void setTraineeService(TraineeService traineeService) { this.traineeService = traineeService; }
+
     BatchService batchService;
     @Autowired
     public void setBatchService(BatchService batchService) { this.batchService = batchService; }

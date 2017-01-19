@@ -15,9 +15,13 @@ import java.io.Serializable;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*",
+        methods = {RequestMethod.DELETE, RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT },
+        allowedHeaders = {"X-PINGOTHER", "Content-Type"}
+        )
 public class BatchController {
     private BusinessDelegate businessDelegate;
-    //@Autowired
+    @Autowired
     public void setBusinessDelegate(BusinessDelegate businessDelegate) { this.businessDelegate = businessDelegate; }
 
     @ResponseBody
