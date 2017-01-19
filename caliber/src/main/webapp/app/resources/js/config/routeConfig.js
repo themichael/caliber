@@ -34,7 +34,8 @@ angular.module("app").config(
 				templateUrl : "app/partials/abstracts/trainer.html"
 			}).state("trainer.home", {
 				templateUrl : "app/partials/home/trainer-home.html",
-				url : "/home"
+				url : "/home",
+				controller: "trainerHomeController"
 			})
 
 			// vp
