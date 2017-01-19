@@ -5,7 +5,6 @@ import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.beans.Grade;
 
-
 import java.util.HashSet;
 import java.util.List;
 
@@ -95,8 +94,6 @@ public interface Facade {
 	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 
 //    Batch
-
-    
   
 // Grade
     

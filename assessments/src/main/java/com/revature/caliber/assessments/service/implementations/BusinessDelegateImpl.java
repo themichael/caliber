@@ -24,7 +24,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 //    Assessment
     @Override
     public HashSet<Assessment> getAllAssessments() {
-        return assessmentService.getAll();
+        return (HashSet<Assessment>) assessmentService.getAll();
     }
 
     @Override
@@ -34,17 +34,17 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
     @Override
     public HashSet<Assessment> getAssessmentsByTrainerId(int id) {
-        return assessmentService.getByTrainerId(id);
+        return (HashSet<Assessment>) assessmentService.getByTrainerId(id);
     }
 
     @Override
     public HashSet<Assessment> getAssessmentsByWeekId(int id) {
-        return assessmentService.getByWeekId(id);
+        return (HashSet<Assessment>) assessmentService.getByWeekId(id);
     }
 
     @Override
     public HashSet<Assessment> getAssessmentsByBatchId(int id) {
-        return assessmentService.getByBatchId(id);
+        return (HashSet<Assessment>) assessmentService.getByBatchId(id);
     }
 
     @Override

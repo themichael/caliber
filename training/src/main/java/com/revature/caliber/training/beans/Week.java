@@ -11,12 +11,17 @@ public class Week {
 	@Id
 	@Column(name = "WEEK_ID")
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "WEEK_ID_SEQUENCE")
 	@SequenceGenerator(name = "WEEK_ID_SEQUENCE", sequenceName = "WEEK_ID_SEQUENCE")
 =======
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "WEEK_ID_SEQUENCE")
     @SequenceGenerator(name = "WEEK_ID_SEQUENCE", sequenceName = "WEEK_ID_SEQUENCE")
 >>>>>>> a6dc4481299afa34c63677a09485d35ed25d8913
+=======
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "WEEK_ID_SEQUENCE")
+  @SequenceGenerator(name = "WEEK_ID_SEQUENCE", sequenceName = "WEEK_ID_SEQUENCE")
+>>>>>>> 7b7c0f4a1e6292d93350544eea8a52dd7413c239
 	private long weekId;
 
 	@Column(name = "WEEK_NUMBER")

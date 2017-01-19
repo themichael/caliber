@@ -32,7 +32,7 @@ public class AssessmentDAOImplTest {
     @Test
     public void getAll() {
         log.debug("Starting getAllAssessmentsTest");
-        HashSet<Assessment> assessments = assessmentDAO.getAll();
+        HashSet<Assessment> assessments = (HashSet<Assessment>) assessmentDAO.getAll();
         assertNotNull(assessments);
     }
 
@@ -48,7 +48,7 @@ public class AssessmentDAOImplTest {
     public void getByTrainerId() {
         int trainerId = 1;
         log.debug("Starting getAssessmentsByTrainerId with id = " + trainerId);
-        HashSet<Assessment> assessments = assessmentDAO.getByTrainerId(trainerId);
+        HashSet<Assessment> assessments = (HashSet<Assessment>) assessmentDAO.getByTrainerId(trainerId);
         assertNotNull(assessments);
     }
 
@@ -56,7 +56,7 @@ public class AssessmentDAOImplTest {
     public void getByWeekId() {
         int weekId = 1;
         log.debug("Starting getAssessmentsByWeekId with id = " + weekId);
-        HashSet<Assessment> assessments = assessmentDAO.getByWeekId(weekId);
+        HashSet<Assessment> assessments = (HashSet<Assessment>) assessmentDAO.getByWeekId(weekId);
         assertNotNull(assessments);
     }
 
@@ -64,7 +64,7 @@ public class AssessmentDAOImplTest {
     public void getByBatchId() {
         int batchId = 1;
         log.debug("Starting getAssessmentsByBatchId with id = " + batchId);
-        HashSet<Assessment> assessments = assessmentDAO.getByWeekId(batchId);
+        HashSet<Assessment> assessments = (HashSet<Assessment>) assessmentDAO.getByWeekId(batchId);
         assertNotNull(assessments);
     }
 

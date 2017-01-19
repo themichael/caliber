@@ -40,7 +40,7 @@ public class FacadeImplementation implements Facade {
     @Transactional
     @Override
     public HashSet<Assessment> getAllAssessments() {
-        return assessmentDAO.getAll();
+        return (HashSet<Assessment>) assessmentDAO.getAll();
     }
 
     @Transactional
@@ -52,21 +52,21 @@ public class FacadeImplementation implements Facade {
     @Transactional
     @Override
     public HashSet<Assessment> getAssessmentsByTrainerId(int id) {
-        return assessmentDAO.getByTrainerId(id);
+        return (HashSet<Assessment>) assessmentDAO.getByTrainerId(id);
     }
 
     @Transactional
 
     @Override
     public HashSet<Assessment> getAssessmentsByWeekId(int id) {
-        return assessmentDAO.getByWeekId(id);
+        return (HashSet<Assessment>) assessmentDAO.getByWeekId(id);
     }
 
     @Transactional
 
     @Override
     public HashSet<Assessment> getAssessmentsByBatchId(int id) {
-        return assessmentDAO.getByBatchId(id);
+        return (HashSet<Assessment>) assessmentDAO.getByBatchId(id);
     }
 
     //Create
@@ -195,7 +195,6 @@ public class FacadeImplementation implements Facade {
     public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
         this.trainerNoteDAO = trainerNoteDAO;
     }
-
     
     
     
@@ -231,13 +230,4 @@ public class FacadeImplementation implements Facade {
 	public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
 		return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
 	}
-
-    
-
-
-
-
-
-
-
 }
