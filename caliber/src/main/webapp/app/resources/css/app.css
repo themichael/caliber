@@ -44,6 +44,15 @@ html, body {
     font-family: 'Futura-Std-Medium';
 }
 
+.data-container {
+	background-color: #d9dce0;
+	padding: 2em;
+}
+
+.chart-container {
+	background-color: #ffffff;
+}
+
 .top10 { margin-top: 1em; }
 .top15 { margin-top: 1.5em; }
 .top20 { margin-top: 2em; }
