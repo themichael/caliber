@@ -24,11 +24,11 @@ public class Batch {
 	private String skillType;
 	@Column(name = "TRAINING_TYPE")
 	private String trainingType;
-	@Column(name = "START_DATE")
+	@Column(name = "START_DATE", nullable = false)
 	private Date startDate;
-	@Column(name = "END_DATE")
+	@Column(name = "END_DATE", nullable = false)
 	private Date endDate;
-	@Column(name = "LOCATION")
+	@Column(name = "LOCATION", nullable = false)
 	private String location;
 	@Column(name = "GOOD_GRADE_THRESHOLD")
 	private short goodGradeThreshold;
