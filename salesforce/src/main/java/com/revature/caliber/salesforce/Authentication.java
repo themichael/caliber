@@ -1,25 +1,25 @@
 package com.revature.caliber.salesforce;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by louislopez on 1/18/17.
@@ -27,27 +27,13 @@ import java.util.List;
 
 
 @Controller
-@PropertySource("classpath:dev_salesforce.properties")
 public class Authentication {
-
-
-    @Value("${authURL}")
-    private String authURL;
-    @Value("${accessTokenURL}")
-    private String accessTokenURL;
-    @Value("${clientId}")
-    private String clientId;
-    @Value("${clientSecret}")
-    private String clientSecret;
-    @Value("${redirectCodeUri}")
-    private String redirectCodeUri;
-    @Value("${redirectTokentUri}")
-    private String redirectTokentUri;
-
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfig() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
+    Map<String, String> environment = System.getenv();
+    private String authURL = environment.get("SALESFORCE_AUTH_URL");
+    private String accessTokenURL = environment.get("SALESFORCE_ACCESS_TOKEN_URL");
+    private String clientId = environment.get("SALESFORCE_CLIENT_ID");
+    private String clientSecret = environment.get("SALESFORCE_CLIENT_SECRET");
+    private String redirectCodeUri = environment.get("SALESFORCE_REDIRECT_CODE_URI");
 
 
     public String generateURL() {
@@ -55,9 +41,9 @@ public class Authentication {
                 + clientId + "&redirect_uri=" + redirectCodeUri;
     }
 
-
     @RequestMapping(value = "/auth")
     public ModelAndView openAuth() {
+        System.out.println("IN AUTH");
         return new ModelAndView("redirect:" + generateURL());
     }
 
@@ -85,8 +71,8 @@ public class Authentication {
                 result.append(line);
                 line = resp.readLine();
             }
-
             System.out.println(result.toString());
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,5 +85,6 @@ public class Authentication {
     public String test() {
         return "TEST :)";
     }
+
 
 }
