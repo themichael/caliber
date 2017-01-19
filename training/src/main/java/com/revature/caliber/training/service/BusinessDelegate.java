@@ -9,6 +9,8 @@ import java.util.List;
  * Business delegate pattern (just in case)
  */
 public interface BusinessDelegate {
+
+    //Trainee methods
     public void createTrainee(Trainee trainee);
     public void updateTrainee(Trainee trainee);
     public Trainee getTrainee(Integer id);
@@ -25,4 +27,5 @@ public interface BusinessDelegate {
     public Batch getBatch(Integer id);
     public void updateBatch(Batch batch);
     public void deleteBatch(Batch batch);
+    //end of Trainee methods
 }
