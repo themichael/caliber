@@ -10,34 +10,46 @@ public class Batch {
 
 	@Id
 	@Column(name = "BATCH_ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BATCH_ID_SEQUENCE")
+	@SequenceGenerator(name = "BATCH_ID_SEQUENCE", sequenceName = "BATCH_ID_SEQUENCE")
 	private int batchId;
+
 	@Column(name = "TRAINING_NAME")
 	private String trainingName;
+
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
 	private Trainer trainer;
-	@ManyToOne()
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "CO_TRAINER_ID")
 	private Trainer coTrainer;
+
 	@Column(name = "SKILL_TYPE")
 	private String skillType;
+
 	@Column(name = "TRAINING_TYPE")
 	private String trainingType;
+
 	@Column(name = "START_DATE", nullable = false)
 	private Date startDate;
+
 	@Column(name = "END_DATE", nullable = false)
 	private Date endDate;
+
 	@Column(name = "LOCATION", nullable = false)
 	private String location;
+
 	@Column(name = "GOOD_GRADE_THRESHOLD")
 	private short goodGradeThreshold;
+
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@OneToMany(mappedBy = "batch")
 	private Set<Trainee> trainees;
+
 	@OneToMany(mappedBy = "batch")
 	private Set<Week> weeks;
 
