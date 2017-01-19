@@ -1,6 +1,5 @@
 package com.revature.caliber.salesforce;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -9,12 +8,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,6 +36,10 @@ public class Authentication {
     private String clientId = environment.get("SALESFORCE_CLIENT_ID");
     private String clientSecret = environment.get("SALESFORCE_CLIENT_SECRET");
     private String redirectUri = environment.get("SALESFORCE_REDIRECT_URI");
+    private SalesforceToken salesforceToken;
+    private SalesforceUser salesforceUser;
+
+    private HttpClient httpClient;
 
 
     public String generateURL() {
@@ -52,7 +56,7 @@ public class Authentication {
     @RequestMapping(value = "/authenticated")
     public String getCode(@RequestParam(value = "code") String code, HttpServletResponse servletResponse) {
         try {
-            HttpClient httpClient = HttpClientBuilder.create().build();
+            httpClient = HttpClientBuilder.create().build();
             HttpPost post = new HttpPost(accessTokenURL);
             List<NameValuePair> parameters = new ArrayList<NameValuePair>();
             parameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
@@ -73,6 +77,10 @@ public class Authentication {
                 result.append(line);
                 line = resp.readLine();
             }
+            System.out.println(result.toString());
+            setAuthCredentials(result.toString());
+            setSalesforceUser(salesforceToken.getId());
+
             Cookie cookie = new Cookie("salesforce_token",result.toString());
             servletResponse.addCookie(cookie);
 
@@ -84,10 +92,49 @@ public class Authentication {
         }
     }
 
+    public void setAuthCredentials(String str){
+        JSONObject tokenCredentials = new JSONObject(str.toString());
+        salesforceToken = new SalesforceToken(
+                tokenCredentials.get("access_token").toString(),
+                tokenCredentials.get("signature").toString(),
+                tokenCredentials.get("scope").toString(),
+                tokenCredentials.get("instance_url").toString(),
+                tokenCredentials.get("id").toString(),
+                tokenCredentials.get("token_type").toString(),
+                tokenCredentials.get("issued_at").toString()
+        );
+    }
 
-    @RequestMapping(value = "/trainer")
-    public void test(HttpServletRequest request){
-        
+
+    public void setSalesforceUser(String str) throws IOException {
+        httpClient = HttpClientBuilder.create().build();
+        System.out.println(str);
+        HttpGet get = new HttpGet(str+"?access_token="+salesforceToken.getAccess_token());
+        HttpResponse response = httpClient.execute(get);
+        System.out.println("RESPONSE CODE " + response.getStatusLine().getStatusCode());
+        BufferedReader resp = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuffer result = new StringBuffer();
+        String line = resp.readLine();
+        while (line != null) {
+            result.append(line);
+            line = resp.readLine();
+        }
+        JSONObject userCredentials = new JSONObject(result.toString());
+        salesforceUser = new SalesforceUser(userCredentials.getString("user_id"),
+                userCredentials.getString("organization_id"),
+                userCredentials.getString("username"),
+                userCredentials.getString("email"),
+                userCredentials.getString("first_name"),
+                userCredentials.getString("last_name"));
+
+    }
+
+    public SalesforceUser getSalesforceUser() {
+        return salesforceUser;
+    }
+
+    public SalesforceToken getSalesforceToken() {
+        return salesforceToken;
     }
 
 
