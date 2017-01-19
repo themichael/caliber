@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>Archetype Created Web Application</display-name>
-	<!-- The front controller of this Spring Web application, responsible for 
+	<!-- The front controllers of this Spring Web application, responsible for
 		handling all application requests -->
 	<servlet>
 		<servlet-name>springDispatcherServlet</servlet-name>
