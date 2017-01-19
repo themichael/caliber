@@ -63,7 +63,7 @@ public class FacadeImplementation implements Facade {
     public void createBatch(Batch batch) {batchDAO.createBatch(batch);}
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public List<Batch> getAllBatch() {return batchDAO.getAll();}
+    public List<Batch> getAllBatch() {return batchDAO.getAllBatch();}
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public List<Batch> getTrainerBatch(String name) {return batchDAO.getTrainerBatch(name);}

@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @Repository(value = "assessmentDAO")
 public class AssessmentDAOImpl implements AssessmentDAO {
@@ -27,7 +28,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public HashSet<Assessment> getAll() {
+    public Set<Assessment> getAll() {
         return new HashSet<>(
                 sessionFactory.getCurrentSession()
                         .createCriteria(Assessment.class).list());
@@ -35,7 +36,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public HashSet<Assessment> getByTrainerId(int id) {
+    public Set<Assessment> getByTrainerId(int id) {
         return new HashSet<>(
                 sessionFactory.getCurrentSession()
                         .createCriteria(Assessment.class)
@@ -44,7 +45,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public HashSet<Assessment> getByWeekId(int id) {
+    public Set<Assessment> getByWeekId(int id) {
         return new HashSet<>(
                 sessionFactory.getCurrentSession()
                         .createCriteria(Assessment.class)
@@ -53,7 +54,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public HashSet<Assessment> getByBatchId(int id) {
+    public Set<Assessment> getByBatchId(int id) {
         return new HashSet<>(
                 sessionFactory.getCurrentSession()
                         .createCriteria(Assessment.class)

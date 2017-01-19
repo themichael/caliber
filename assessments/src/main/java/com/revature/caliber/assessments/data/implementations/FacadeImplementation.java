@@ -3,6 +3,8 @@ package com.revature.caliber.assessments.data.implementations;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.TrainerNote;
+import com.revature.caliber.assessments.beans.Grade;
+
 import com.revature.caliber.assessments.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -106,10 +108,54 @@ public class FacadeImplementation implements Facade {
 
     // Delete
 
+    
+// Grade
 
+    //Gets
+	@Override
+	public List<Grade> getAllGrades() {
+		return gradeDAO.getAllGrades();
+	}
+	
+	@Override
+	public Grade getGradeByGradeId(int gradeId) {
+		return gradeDAO.getGradeByGradeId(gradeId);
+	}
 
+	@Override
+	public List<Grade> getGradesByTraineeId(int traineeId) {
+		return gradeDAO.getGradesByTraineeId(traineeId);
+	}
 
+	@Override
+	public List<Grade> getGradesByAssesessment(int assessmentId) {
+		return gradeDAO.getGradesByAssesessment(assessmentId);
+	}
+	
 
+	//Insert
+	@Override
+	public void insertGrade(Grade grade) {
+		gradeDAO.insertGrade(grade);
+
+	}
+
+	//Delete
+	@Override
+	public void deleteGrade(Grade grade) {
+		gradeDAO.deleteGrade(grade);
+
+	}
+
+	//Update
+	@Override
+	public void updateGrade(Grade grade) {
+		gradeDAO.updateGrade(grade);
+	}
+	
+	
+
+	
 //  Spring setter based DI
     @Autowired
     public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
@@ -150,7 +196,6 @@ public class FacadeImplementation implements Facade {
     public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
         this.trainerNoteDAO = trainerNoteDAO;
     }
-
     
     
     
@@ -187,5 +232,5 @@ public class FacadeImplementation implements Facade {
 		return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
 	}
 
-    
+   
 }

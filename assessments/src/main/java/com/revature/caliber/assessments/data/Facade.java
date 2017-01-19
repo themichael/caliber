@@ -3,6 +3,7 @@ package com.revature.caliber.assessments.data;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.TrainerNote;
+import com.revature.caliber.assessments.beans.Grade;
 
 import java.util.HashSet;
 import java.util.List;
@@ -75,7 +76,6 @@ public interface Facade {
      * @param assessment
      */
     void deleteAssessment(Assessment assessment);
-
     
     //    Batch Note
     void makeBatchNote(int batchId, int weekId);
@@ -91,4 +91,50 @@ public interface Facade {
 	List<TrainerNote> listTrainerNotes(int trainerId);
 	
 	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
+//    Batch
+  
+// Grade
+    
+    //Gets
+    
+    /**
+     * Returns a list of all grade entries
+     */
+    List<Grade> getAllGrades();
+    
+    /**
+     * Returns a grade object given a specific gradeId
+     */
+    Grade getGradeByGradeId(int gradeId);
+    
+    /**
+     * Returns a list of grades of a specific trainee based on traineeId as an input
+     * @param traineeId
+     */
+	List<Grade> getGradesByTraineeId(int traineeId);
+	
+	/**
+	 * Returns a list of grades of a specific assessment based on assessmentId as an input
+	 * @param assessmentId
+	 */
+	List<Grade> getGradesByAssesessment(int assessmentId);
+	
+	//Insert
+	/**
+	 * Inserts a new Grade into database
+	 */
+    void insertGrade(Grade grade);
+    
+	//Delete
+    /**
+     * Deletes a grade
+     */
+    void deleteGrade(Grade grade);
+    
+	//Update
+    /**
+     * Updates a grade
+     */
+    void updateGrade(Grade grade);
+
 }

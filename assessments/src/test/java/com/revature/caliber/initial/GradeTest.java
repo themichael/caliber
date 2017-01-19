@@ -23,7 +23,7 @@ public class GradeTest {
 	@Ignore
 	@Test
 	public void getAllGrades() {
-		List<Grade> grades = ctxt.getBean(GradeDAOImpl.class).getallGrades();
+		List<Grade> grades = ctxt.getBean(GradeDAOImpl.class).getAllGrades();
 		System.out.println(grades);
 	}
 
@@ -40,12 +40,6 @@ public class GradeTest {
 		System.out.println(grades);
 	}
 
-	@Ignore
-	@Test
-	public void getGradeByCategory() {
-		List<Grade> grades = ctxt.getBean(GradeDAOImpl.class).getGradesByCategoryId(1);
-		System.out.println(grades);
-	}
 
 	// TODO Add actual grade
 	@Ignore

@@ -29,62 +29,61 @@ public class GradeDAOImpl implements GradeDAO {
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public void createGrade(Grade grade) {
+	public void insertGrade(Grade grade) {
 		sessionFactory.getCurrentSession().saveOrUpdate(grade);
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public void updateGrade(Grade grade) {
 		sessionFactory.getCurrentSession().update(grade);
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public List<Grade> getGradesByTraineeId(Integer traineeId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("TRAINEE_ID", traineeId));
+		criteria.add(Restrictions.eq("traineeId", traineeId));
 		return criteria.list();
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public List<Grade> getGradesByAssesessment(Integer assessmentId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("ASSESSMENT_ID", assessmentId));
+		criteria.add(Restrictions.eq("assessmentId", assessmentId));
 		return criteria.list();
 
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public void deleteGrade(Grade grade) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("GRADE_ID", grade));
+		criteria.add(Restrictions.eq("gradeId", grade));
 		Grade gradeToDelete = (Grade) criteria.uniqueResult();
 		sessionFactory.getCurrentSession().delete(gradeToDelete);
 	}
 
-	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
-			Exception.class })
-	public List<Grade> getGradesByCategoryId(Integer categoryId) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("CATEGORY_ID", categoryId));
-		return criteria.list();
-	}
 
 	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public List<Grade> getallGrades() {
-		return new ArrayList<Grade>(sessionFactory.getCurrentSession().createCriteria(Grade.class).list());
+	public List<Grade> getAllGrades() {
+		return new ArrayList<>(sessionFactory.getCurrentSession().createCriteria(Grade.class).list());
+	}
+
+	@Override	
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+			Exception.class })
+	public Grade getGradeByGradeId(Integer gradeId) {
+		return (Grade) sessionFactory.getCurrentSession().get(Grade.class, gradeId);
 	}
 
 }
