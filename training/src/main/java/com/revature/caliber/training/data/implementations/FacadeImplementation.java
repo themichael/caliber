@@ -1,16 +1,20 @@
 package com.revature.caliber.training.data.implementations;
 
-import com.revature.caliber.training.beans.Batch;
-import com.revature.caliber.training.beans.Trainee;
-import com.revature.caliber.training.data.BatchDAO;
-import com.revature.caliber.training.data.Facade;
-import com.revature.caliber.training.data.TraineeDAO;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.revature.caliber.training.beans.Batch;
+import com.revature.caliber.training.beans.Trainee;
+import com.revature.caliber.training.data.BatchDAO;
+import com.revature.caliber.training.data.Facade;
+import com.revature.caliber.training.data.TierDAO;
+import com.revature.caliber.training.data.TraineeDAO;
+import com.revature.caliber.training.data.TrainerDAO;
+import com.revature.caliber.training.data.WeekDAO;
 
 /**
  * Our implementation of Facade interface.
@@ -21,8 +25,24 @@ public class FacadeImplementation implements Facade {
 
     TraineeDAO traineeDAO;
     BatchDAO batchDAO;
+  
+    TrainerDAO trainerDAO;
+    TierDAO tierDAO;
+    WeekDAO weekDAO;
 
     @Autowired
+    public void setTrainerDAO(TrainerDAO trainerDAO) {
+		this.trainerDAO = trainerDAO;
+	}
+    @Autowired
+	public void setTierDAO(TierDAO tierDAO) {
+		this.tierDAO = tierDAO;
+	}
+    @Autowired
+	public void setWeekDAO(WeekDAO weekDAO) {
+		this.weekDAO = weekDAO;
+	}
+	@Autowired
     public void setTraineeDAO(TraineeDAO traineeDAO) { this.traineeDAO = traineeDAO; }
     @Autowired
     public void setBatchDAO(BatchDAO batchDAO){ this.batchDAO = batchDAO; }

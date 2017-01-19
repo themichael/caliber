@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name="CALIBER_BATCH")
 public class Batch {
 
 	@Id

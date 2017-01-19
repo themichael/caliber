@@ -18,7 +18,7 @@ import com.revature.caliber.training.data.TrainerDAO;
 /**
  * Implementation for trainee DAO crud methods
  */
-@Repository(value = "TrainerDAOImplementation")
+@Repository(value = "trainingTrainerDAOImplementation")
 public class TrainerDAOImplementation implements TrainerDAO {
 
 	private SessionFactory sessionFactory;
@@ -38,7 +38,7 @@ public class TrainerDAOImplementation implements TrainerDAO {
 	public Trainer getTrainer(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainer.class);
-		criteria.add(Restrictions.eq("TRAINER_ID", id));
+		criteria.add(Restrictions.eq("trainerId", id));
 		return (Trainer) criteria.uniqueResult();
 	}
 
@@ -47,7 +47,7 @@ public class TrainerDAOImplementation implements TrainerDAO {
 	public Trainer getTrainer(String name) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainer.class);
-		criteria.add(Restrictions.eq("NAME", name));
+		criteria.add(Restrictions.eq("name", name));
 		return (Trainer) criteria.uniqueResult();
 	}
 

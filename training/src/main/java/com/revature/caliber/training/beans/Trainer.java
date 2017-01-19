@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -51,6 +52,7 @@ public class Trainer {
 	@NotNull
 	private String salesforceRefreshToken;
 	
+	@ManyToOne
 	@JoinColumn(name="TIER", nullable=false)
 	@NotNull
 	private Tier tier;
@@ -157,7 +159,7 @@ public class Trainer {
 		this.salesforceRefreshToken = salesforceRefreshToken;
 	}
 
-	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, 
+	public Trainer(String name, String title, String email, String salesforceAccount, 
 			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
 		super();
 		this.trainerId = trainerId;
