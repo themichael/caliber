@@ -5,14 +5,48 @@ import com.revature.caliber.assessments.beans.Grade;
 
 public interface GradeDAO {
 
-	void createGrade(Grade grade);
-	void deleteGrade(Grade grade);
-	void updateGrade(Grade grade);
+	/**
+	 * Returns a list of all grade entries
+	 */
+	List<Grade> getAllGrades();
+
+	/**
+	 * Returns a grade object given a specific gradeId
+	 */
+	Grade getGradeByGradeId(Integer gradeId);
+
+	/**
+	 * Returns a list of grades of a specific trainee based on traineeId as an
+	 * input
+	 * 
+	 * @param traineeId
+	 */
 	List<Grade> getGradesByTraineeId(Integer traineeId);
-	// List<Grade> getGradesByTrainee(Trainee trainee);	
+
+	/**
+	 * Returns a list of grades of a specific assessment based on assessmentId
+	 * as an input
+	 * 
+	 * @param assessmentId
+	 */
 	List<Grade> getGradesByAssesessment(Integer assessmentId);
-	// TODO add getByTrainee Object
-	// TODO add getbyBatch?
-	List<Grade> getGradesByCategoryId(Integer categoryId);
-	List<Grade> getallGrades();
+
+	// Insert
+	/**
+	 * Inserts a new Grade into database
+	 */
+	void insertGrade(Grade grade);
+
+	// Delete
+	/**
+	 * Deletes a grade
+	 */
+	void deleteGrade(Grade grade);
+
+	// Update
+	/**
+	 * Updates a grade
+	 */
+	void updateGrade(Grade grade);
+
 }

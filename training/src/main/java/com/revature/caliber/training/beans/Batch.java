@@ -10,7 +10,7 @@ public class Batch {
 
 	@Id
 	@Column(name = "BATCH_ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BATCH_ID_SEQUENCE")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="BATCH_ID_SEQUENCE")
 	@SequenceGenerator(name = "BATCH_ID_SEQUENCE", sequenceName = "BATCH_ID_SEQUENCE")
 	private int batchId;
 
