@@ -15,36 +15,33 @@ import com.revature.caliber.training.beans.Week;
 import com.revature.caliber.training.data.WeekDAO;
 
 @Repository(value = "trainingWeekDAOImplementation")
-public class WeekDAOImplementation implements WeekDAO{
+public class WeekDAOImplementation implements WeekDAO {
 
-    private SessionFactory sessionFactory;
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) { this.sessionFactory = sessionFactory; }
-	
-	
-    @SuppressWarnings("unchecked")
-	@Transactional(isolation = Isolation.REPEATABLE_READ,
-            propagation = Propagation.REQUIRED,
-            rollbackFor = {Exception.class})
+	private SessionFactory sessionFactory;
+
+	@Autowired
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Week> getAllWeek() {
-    	Session session = sessionFactory.getCurrentSession();
-    	Query query = session.createQuery("from com.revature.caliber.training.beans.Week");
-    	return query.list();
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from com.revature.caliber.training.beans.Week");
+		return query.list();
 	}
 
-	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Week getWeekById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		return (Week) session.get(Week.class, id);
 	}
 
-
-	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createNewWeek(Week newWeek) {
-		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.getCurrentSession();
+		session.save(newWeek);
 	}
-	
-	
 
 }

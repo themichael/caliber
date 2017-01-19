@@ -1,11 +1,14 @@
 package com.revature.caliber.assessments.service;
 
-import java.util.HashSet;
+import java.util.List;
 
 import com.revature.caliber.assessments.beans.BatchNote;
 
 public interface BatchService {
-	void createBatchNote(int batchId, int weekId);
-	BatchNote getBatchNoteByWeek(int batchId, int weekId);	
-	HashSet<BatchNote> allBatchNotesForWeek(int weekId);
+
+	void makeBatchNote(int batchId, int weekId);
+	
+	BatchNote weeklyBatchNote(int batchId, int weekId);	
+	
+	List<BatchNote> allBatchNotesInWeek(int weekId);
 }
