@@ -50,8 +50,8 @@ public class Trainer {
 	@Column(name="SALESFORCE_REFRESH_TOKEN", nullable=false)
 	@NotNull
 	private String salesforceRefreshToken;
-	
-	@Column(name="TIER", nullable=false)
+
+	@JoinColumn(name="TIER", nullable=false)
 	@NotNull
 	private Tier tier;
 	
