@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Our implementation of the Facade interface
@@ -35,7 +36,7 @@ public class FacadeImplementation implements Facade {
     // Get
     @Transactional
     @Override
-    public HashSet<Assessment> getAllAssessments() {
+    public Set<Assessment> getAllAssessments() {
         return assessmentDAO.getAll();
     }
 
@@ -47,21 +48,19 @@ public class FacadeImplementation implements Facade {
 
     @Transactional
     @Override
-    public HashSet<Assessment> getAssessmentsByTrainerId(int id) {
+    public Set<Assessment> getAssessmentsByTrainerId(int id) {
         return assessmentDAO.getByTrainerId(id);
     }
 
     @Transactional
-
     @Override
-    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
+    public Set<Assessment> getAssessmentsByWeekId(int id) {
         return assessmentDAO.getByWeekId(id);
     }
 
     @Transactional
-
     @Override
-    public HashSet<Assessment> getAssessmentsByBatchId(int id) {
+    public Set<Assessment> getAssessmentsByBatchId(int id) {
         return assessmentDAO.getByBatchId(id);
     }
 

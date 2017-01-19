@@ -3,6 +3,7 @@ package com.revature.caliber.assessments.data;
 import com.revature.caliber.assessments.beans.Assessment;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Facade interface for the data tier.
@@ -16,7 +17,7 @@ public interface Facade {
      * Returns HashSet of all Assessments
      * @return List of Assessments
      */
-    HashSet<Assessment> getAllAssessments();
+    Set<Assessment> getAllAssessments();
 
     /**
      * Return Assessment
@@ -31,7 +32,7 @@ public interface Facade {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getAssessmentsByTrainerId(int id);
+    Set<Assessment> getAssessmentsByTrainerId(int id);
 
     /**
      * Returns HashSet of Assessments
@@ -39,7 +40,7 @@ public interface Facade {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getAssessmentsByWeekId(int id);
+    Set<Assessment> getAssessmentsByWeekId(int id);
 
     /**
      * Returns HashSet of Assessments
@@ -47,7 +48,7 @@ public interface Facade {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getAssessmentsByBatchId(int id);
+    Set<Assessment> getAssessmentsByBatchId(int id);
 
     //    Create
 
