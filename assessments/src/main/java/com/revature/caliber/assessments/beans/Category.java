@@ -1,14 +1,26 @@
 package com.revature.caliber.assessments.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+
 import java.util.Set;
 
-@Entity(name = "CALIBER_CATEGORY")
+@Entity(name = "CALIBER_ASSESSMENT_CATEGORY")
 public class Category {
 
+	@Id
+	@Column(name = "CATEGORY_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORY_ID_SEQUENCE")
+	@SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE")
     private int categoryId;
+	
+	@Column(name = "CATEGORY_SKILL")
     private String skillCategory;
 
     // Bi-directional mapping -- to avoid recursion, make DTO to send to UI

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +22,8 @@ public class Category {
 
 	@Id
 	@Column(name = "CATEGORY_ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORY_ID_SEQUENCE")
+	@SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE")
 	private int categoryId;
 
 	@Column(name = "CATEGORY_SKILL")
@@ -32,11 +34,6 @@ public class Category {
 	@ManyToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER) 
 	@JoinColumn(name = "CATEGORY_WEEKS")
 	private Set<Week> weeks;
-	
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "CATEGORY_BATCH")
-	private Batch batch;
 
 	public int getCategoryId() {
 		return categoryId;
