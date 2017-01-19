@@ -40,9 +40,19 @@ $blue:  #72A4C2;
 $yellow: #FCB414;
 $light-grey: #B9B9BA;
 
+
+/************************
+Body Styles
+************************/
+
 html, body {
     font-family: 'Futura-Std-Medium';
 }
+
+
+/************************
+Margins
+************************/
 
 .top10 { margin-top: 1em; }
 .top15 { margin-top: 1.5em; }
