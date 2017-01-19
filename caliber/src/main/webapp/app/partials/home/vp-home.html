@@ -1,11 +1,89 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Manage Batch</a></li>
-            <li><a href="#">Assess Batch</a></li>
-            <li><a href="#">Reports</a></li>
-        </ul>
-    </div>
-</nav>
-<ui-view></ui-view>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 col-lg-12">
+			<ul class="nav nav-tabs">
+				<li class="dropdown">
+					<div class="btn-group">
+						<button type="button" class="btn btn-danger">Batch</button>
+						<button type="button" class="btn btn-danger dropdown-toggle"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="caret"></span> <span class="sr-only">Toggle
+								Dropdown</span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="dropdown">
+					<div class="btn-group">
+						<button type="button" class="btn btn-danger">Technology</button>
+						<button type="button" class="btn btn-danger dropdown-toggle"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="caret"></span> <span class="sr-only">Toggle
+								Dropdown</span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="dropdown">
+					<div class="btn-group">
+						<button type="button" class="btn btn-danger">Trainee</button>
+						<button type="button" class="btn btn-danger dropdown-toggle"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="caret"></span> <span class="sr-only">Toggle
+								Dropdown</span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- col -->
+	</div>
+	<!-- row -->
+</div>
+<!-- container -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 col-lg-12">
+			<div class="row">
+				<div class="col-md-4">
+					<canvas id="line" class="chart chart-line" chart-data="lineData"
+						chart-labels="lineLabels" chart-series="lineSeries"
+						chart-options="lineOptions"
+						chart-dataset-override="lineDatasetOverride"
+						chart-click="lineOnClick">
+					</canvas>
+				</div>
+				<div class="col-md-4">
+					<canvas id="bar" class="chart chart-bar" chart-data="barData"
+						chart-labels="barLabels" chart-series="barSeries">
+					</canvas>
+				</div>
+				<div class="col-md-4">
+					<canvas id="radar" class="chart chart-radar"
+  						chart-data="radarData" chart-options="radarOptions" chart-labels="radarLabels">
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
