@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.TrainerNoteDAO;
 
+@Repository(value = "trainerNoteDAO")
 public class TrainerNoteDAOImpl implements TrainerNoteDAO {
 
 	private Session session;
 	
-	@Autowired
 	public void setSession(Session session) {
 		this.session = session;
 	}

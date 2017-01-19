@@ -76,6 +76,7 @@ public interface Facade {
      * @param assessment
      */
     void deleteAssessment(Assessment assessment);
+
     
     //    Batch Note
     void makeBatchNote(int batchId, int weekId);
@@ -91,6 +92,7 @@ public interface Facade {
 	List<TrainerNote> listTrainerNotes(int trainerId);
 	
 	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
+
 //    Batch
   
 // Grade

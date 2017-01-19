@@ -239,6 +239,4 @@ public class FacadeImplementation implements Facade {
 	public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
 		return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
 	}
-
-   
 }
