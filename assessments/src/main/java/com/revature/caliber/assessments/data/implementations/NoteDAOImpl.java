@@ -26,7 +26,9 @@ public class NoteDAOImpl implements NoteDAO {
 		return (Note) sessionFactory.getCurrentSession().get(Note.class, note);
 	}
 
-	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED,
+            propagation = Propagation.REQUIRED,
+            rollbackFor = {Exception.class})
 	public List<Note> getAllNotes() {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Note.class);
 		return criteria.list();

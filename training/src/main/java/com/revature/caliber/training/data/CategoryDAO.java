@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.revature.caliber.training.beans.Category;
 
+/**
+ * 
+ * Category DAO interface for data tier
+ *
+ */
 public interface CategoryDAO {
 
 	/**
