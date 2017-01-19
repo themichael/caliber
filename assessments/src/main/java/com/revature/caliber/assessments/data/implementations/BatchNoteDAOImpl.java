@@ -13,12 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.data.BatchNoteDAO;
 
-@Repository(value="batchNote")
+@Repository(value="batchNoteDAO")
 public class BatchNoteDAOImpl implements BatchNoteDAO {
 
 	private Session session;
 	
-	@Autowired
 	public void setSession(Session session) {
 		this.session = session;
 	}
