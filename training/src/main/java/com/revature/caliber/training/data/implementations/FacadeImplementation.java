@@ -1,16 +1,22 @@
 package com.revature.caliber.training.data.implementations;
 
-import com.revature.caliber.training.beans.Batch;
-import com.revature.caliber.training.beans.Trainee;
-import com.revature.caliber.training.data.BatchDAO;
-import com.revature.caliber.training.data.Facade;
-import com.revature.caliber.training.data.TraineeDAO;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.revature.caliber.training.beans.Batch;
+import com.revature.caliber.training.beans.Category;
+import com.revature.caliber.training.beans.Trainee;
+import com.revature.caliber.training.data.BatchDAO;
+import com.revature.caliber.training.data.CategoryDAO;
+import com.revature.caliber.training.data.Facade;
+import com.revature.caliber.training.data.TierDAO;
+import com.revature.caliber.training.data.TraineeDAO;
+import com.revature.caliber.training.data.TrainerDAO;
+import com.revature.caliber.training.data.WeekDAO;
 
 /**
  * Our implementation of Facade interface.
@@ -21,6 +27,10 @@ public class FacadeImplementation implements Facade {
 
     TraineeDAO traineeDAO;
     BatchDAO batchDAO;
+    CategoryDAO categoryDAO;
+    TierDAO tierDAO;
+    TrainerDAO trainerDAO;
+    WeekDAO weekDAO;
 
     @Autowired
     public void setTraineeDAO(TraineeDAO traineeDAO) { this.traineeDAO = traineeDAO; }
@@ -73,4 +83,12 @@ public class FacadeImplementation implements Facade {
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public void deleteBatch(Batch batch) {batchDAO.deleteBatch(batch);}
     //end batch
+	
+    //Category
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+	public Category getCategory(int categoryId) {return categoryDAO.getCategory(categoryId);}
+    
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+	public List<Category> getAllCategories() {return categoryDAO.getAllCategories();}
+	//End Category
 }
