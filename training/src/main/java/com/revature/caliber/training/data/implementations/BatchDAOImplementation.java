@@ -21,8 +21,6 @@ public class BatchDAOImplementation implements BatchDAO{
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) { this.sessionFactory = sessionFactory; }
 
-    public BatchDAOImplementation() {}
-
     @Transactional(isolation = Isolation.SERIALIZABLE,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})

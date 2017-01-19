@@ -54,6 +54,56 @@ public class Batch {
 	private Set<Week> weeks;
 
 	/*
+	Constructor with ID
+	 */
+	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
+				 String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
+				 short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
+		super();
+		this.batchId = batchId;
+		this.trainingName = trainingName;
+		this.trainer = trainer;
+		this.coTrainer = coTrainer;
+		this.skillType = skillType;
+		this.trainingType = trainingType;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.location = location;
+		this.goodGradeThreshold = goodGradeThreshold;
+		this.borderlineGradeThreshold = borderlineGradeThreshold;
+		this.trainees = trainees;
+		this.weeks = weeks;
+	}
+
+	/*
+	Constructor with no ID
+	 */
+	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
+				 Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
+				 Set<Trainee> trainees, Set<Week> weeks) {
+		super();
+		this.trainingName = trainingName;
+		this.trainer = trainer;
+		this.coTrainer = coTrainer;
+		this.skillType = skillType;
+		this.trainingType = trainingType;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.location = location;
+		this.goodGradeThreshold = goodGradeThreshold;
+		this.borderlineGradeThreshold = borderlineGradeThreshold;
+		this.trainees = trainees;
+		this.weeks = weeks;
+	}
+
+	/*
+	Default Constructor
+	 */
+	public Batch() {
+		super();
+	}
+
+	/*
 	Setters and Getters
 	 */
 	public int getBatchId() {
@@ -131,55 +181,5 @@ public class Batch {
 	}
 	public void setWeeks(Set<Week> weeks) {
 		this.weeks = weeks;
-	}
-
-	/*
-	Constructor with ID
-	 */
-	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
-				 String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
-				 short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
-		super();
-		this.batchId = batchId;
-		this.trainingName = trainingName;
-		this.trainer = trainer;
-		this.coTrainer = coTrainer;
-		this.skillType = skillType;
-		this.trainingType = trainingType;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.location = location;
-		this.goodGradeThreshold = goodGradeThreshold;
-		this.borderlineGradeThreshold = borderlineGradeThreshold;
-		this.trainees = trainees;
-		this.weeks = weeks;
-	}
-
-	/*
-	Constructor with no ID
-	 */
-	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
-				 Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
-				 Set<Trainee> trainees, Set<Week> weeks) {
-		super();
-		this.trainingName = trainingName;
-		this.trainer = trainer;
-		this.coTrainer = coTrainer;
-		this.skillType = skillType;
-		this.trainingType = trainingType;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.location = location;
-		this.goodGradeThreshold = goodGradeThreshold;
-		this.borderlineGradeThreshold = borderlineGradeThreshold;
-		this.trainees = trainees;
-		this.weeks = weeks;
-	}
-
-	/*
-	Default Constructor
-	 */
-	public Batch() {
-		super();
 	}
 }
