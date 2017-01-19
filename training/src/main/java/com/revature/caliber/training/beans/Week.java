@@ -10,8 +10,8 @@ public class Week {
 
 	@Id
 	@Column(name = "WEEK_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "WEEK_ID_SEQUENCE")
-    @SequenceGenerator(name = "WEEK_ID_SEQUENCE", sequenceName = "WEEK_ID_SEQUENCE")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "WEEK_ID_SEQUENCE")
+  @SequenceGenerator(name = "WEEK_ID_SEQUENCE", sequenceName = "WEEK_ID_SEQUENCE")
 	private long weekId;
 
 	@Column(name = "WEEK_NUMBER")
@@ -69,6 +69,16 @@ public class Week {
 		this.weekNumber = weekNumber;
 		this.batch = batch;
 		this.topics = topics;
+	}
+
+	public Week() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Week [weekId=" + weekId + ", weekNumber=" + weekNumber + ", batch=" + batch + ", topics=" + topics
+				+ "]";
 	}
 
 }
