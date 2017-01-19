@@ -41,6 +41,12 @@ public class FacadeImplementation implements Facade {
 
     @Transactional
     @Override
+    public Assessment getById(int id) {
+        return assessmentDAO.getById(id);
+    }
+
+    @Transactional
+    @Override
     public HashSet<Assessment> getAssessmentsByTrainerId(int id) {
         return assessmentDAO.getByTrainerId(id);
     }

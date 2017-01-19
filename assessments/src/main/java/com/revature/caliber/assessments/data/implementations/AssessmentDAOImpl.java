@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 
-@Repository(value = "AssessmentDAO")
+@Repository(value = "assessmentDAO")
 public class AssessmentDAOImpl implements AssessmentDAO {
 
     private SessionFactory sessionFactory;
@@ -19,6 +19,12 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     //    Get
+
+    @Override
+    public Assessment getById(int id) {
+        return (Assessment) sessionFactory.getCurrentSession().get(Assessment.class, id);
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public HashSet<Assessment> getAll() {
