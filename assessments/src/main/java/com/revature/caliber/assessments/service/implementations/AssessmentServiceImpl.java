@@ -6,7 +6,7 @@ import com.revature.caliber.assessments.service.AssessmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.Set;
 
 @Service(value = "assessmentService")
 public class AssessmentServiceImpl implements AssessmentService {
@@ -19,7 +19,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     }
 
     @Override
-    public HashSet<Assessment> getAll() {
+    public Set<Assessment> getAll() {
         return facade.getAllAssessments();
     }
 
@@ -29,17 +29,17 @@ public class AssessmentServiceImpl implements AssessmentService {
     }
 
     @Override
-    public HashSet<Assessment> getByTrainerId(int id) {
+    public Set<Assessment> getByTrainerId(int id) {
         return facade.getAssessmentsByTrainerId(id);
     }
 
     @Override
-    public HashSet<Assessment> getByWeekId(int id) {
+    public Set<Assessment> getByWeekId(int id) {
         return facade.getAssessmentsByWeekId(id);
     }
 
     @Override
-    public HashSet<Assessment> getByBatchId(int id) {
+    public Set<Assessment> getByBatchId(int id) {
         return facade.getAssessmentsByBatchId(id);
     }
 
