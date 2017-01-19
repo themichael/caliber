@@ -54,7 +54,6 @@ public class Trainer {
 	
 	@ManyToOne
 	@JoinColumn(name="TIER", nullable=false)
-	@NotNull
 	private Tier tier;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
