@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CALIBER_TRAINING_CATEGORY")
+@Table(name = "CALIBER_CATEGORY")
 public class Category {
 
 	@Id
