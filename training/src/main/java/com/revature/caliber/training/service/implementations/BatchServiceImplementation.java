@@ -4,9 +4,11 @@ import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.data.Facade;
 import com.revature.caliber.training.service.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component(value = "trainingBatchServiceImplementation")
 public class BatchServiceImplementation implements BatchService{
 
     Facade facade;

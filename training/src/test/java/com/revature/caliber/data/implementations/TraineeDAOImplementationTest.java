@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- *  Test for TraineeDAOImplementation
+ *  Test for TraineeDAOImplementation. Assumes that DB has at least one batch with id 1.
  */
 public class TraineeDAOImplementationTest {
 
@@ -53,7 +53,7 @@ public class TraineeDAOImplementationTest {
         trainee.setBatch(batch);
 
         dao.createTrainee(trainee);
-        assertTrue(true); //if doesn't throw Exception, means created
+       // assertTrue(true); //if doesn't throw Exception, means created
 
         logger.debug("     trainee created");
     }
@@ -114,17 +114,19 @@ public class TraineeDAOImplementationTest {
 
         TraineeDAO dao = (TraineeDAO) context.getBean("trainingTraineeDAOImplementation");
 
-        Trainee trainee = dao.getTrainee(1);
+        Trainee trainee = dao.getTrainee("Super Mario Bros");
         assertNotNull(trainee);
 
         String newName = "Trololo lolo lolo";
         trainee.setName(newName);
 
+        int id = trainee.getTraineeId();
+
         dao.updateTrainee(trainee);
 
         logger.debug("     updated trainee");
 
-        trainee = dao.getTrainee(1);
+        trainee = dao.getTrainee(id);
         assertNotNull(trainee);
         assertEquals(newName, trainee.getName());
 
@@ -140,17 +142,19 @@ public class TraineeDAOImplementationTest {
 
         TraineeDAO dao = (TraineeDAO) context.getBean("trainingTraineeDAOImplementation");
 
-        Trainee trainee = dao.getTrainee(1);
+        Trainee trainee = dao.getTrainee("Trololo lolo lolo");
         assertNotNull(trainee);
 
         logger.debug("     trainee was read.");
 
+        int id = trainee.getTraineeId();
+
         dao.deleteTrainee(trainee);
 
-        trainee = dao.getTrainee(1);
+        trainee = dao.getTrainee(id);
         assertNull(trainee);
 
-        logger.debug("     trainee with id 1 was deleted.");
+        logger.debug("     trainee with id [" + id + "] was deleted.");
     }
 
 
