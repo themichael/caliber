@@ -24,7 +24,6 @@ public class BatchController {
     @Autowired
     public void setBusinessDelegate(BusinessDelegate businessDelegate) { this.businessDelegate = businessDelegate; }
 
-    @ResponseBody
     @RequestMapping(value = "batch/new",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -41,7 +40,6 @@ public class BatchController {
         return returnEntity;
     }
 
-    @ResponseBody
     @RequestMapping(value = "batch/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -59,7 +57,6 @@ public class BatchController {
         return returnEntity;
     }
 
-    @ResponseBody
     @RequestMapping(value = "batch/byTrainerName/{name}",
                 method = RequestMethod.GET,
                 consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -78,7 +75,6 @@ public class BatchController {
         return returnEntity;
     }
 
-    @ResponseBody
     @RequestMapping(value = "batch/current",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -96,7 +92,6 @@ public class BatchController {
         return returnEntity;
     }
 
-    @ResponseBody
     @RequestMapping(value = "batch/current/{name}",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -115,7 +110,6 @@ public class BatchController {
         return returnEntity;
     }
 
-    @ResponseBody
     @RequestMapping(value = "batch/byId/{id}",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -134,7 +128,6 @@ public class BatchController {
         return returnEntity;
     }
 
-    @ResponseBody
     @RequestMapping(value = "batch/update",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -150,7 +143,6 @@ public class BatchController {
         return returnEntity;
     }
 
-    @ResponseBody
     @RequestMapping(value = "batch/delete",
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
