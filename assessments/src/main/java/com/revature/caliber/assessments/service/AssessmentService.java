@@ -2,7 +2,7 @@ package com.revature.caliber.assessments.service;
 
 import com.revature.caliber.assessments.beans.Assessment;
 
-import java.util.HashSet;
+import java.util.Set;
 
 public interface AssessmentService {
 
@@ -11,7 +11,7 @@ public interface AssessmentService {
      * Returns HashSet of all Assessments
      * @return List of Assessments
      */
-    HashSet<Assessment> getAll();
+    Set<Assessment> getAll();
 
     /**
      * Return Assessment
@@ -26,7 +26,7 @@ public interface AssessmentService {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getByTrainerId(int id);
+    Set<Assessment> getByTrainerId(int id);
 
     /**
      * Returns HashSet of Assessments
@@ -34,7 +34,7 @@ public interface AssessmentService {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getByWeekId(int id);
+    Set<Assessment> getByWeekId(int id);
 
     /**
      * Returns HashSet of Assessments
@@ -42,7 +42,7 @@ public interface AssessmentService {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getByBatchId(int id);
+    Set<Assessment> getByBatchId(int id);
 
 //    Create
 

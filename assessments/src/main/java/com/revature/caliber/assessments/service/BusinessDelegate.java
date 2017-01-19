@@ -2,20 +2,20 @@ package com.revature.caliber.assessments.service;
 
 import com.revature.caliber.assessments.beans.Assessment;
 
-import java.util.HashSet;
+import java.util.Set;
 
 public interface BusinessDelegate {
 
 //    Assessment
-    HashSet<Assessment> getAllAssessments();
+    Set<Assessment> getAllAssessments();
 
     Assessment getAssessmentById(int id);
 
-    HashSet<Assessment> getAssessmentsByTrainerId(int id);
+    Set<Assessment> getAssessmentsByTrainerId(int id);
 
-    HashSet<Assessment> getAssessmentsByWeekId(int id);
+    Set<Assessment> getAssessmentsByWeekId(int id);
 
-    HashSet<Assessment> getAssessmentsByBatchId(int id);
+    Set<Assessment> getAssessmentsByBatchId(int id);
 
     void insertAssessment(Assessment assessment);
 
