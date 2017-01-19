@@ -86,7 +86,7 @@ public class FacadeImplementation implements Facade {
 	
     //Category
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-	public Category getCategory(String category) {return categoryDAO.getCategory(category);}
+	public Category getCategory(int categoryId) {return categoryDAO.getCategory(categoryId);}
     
     @Transactional (propagation = Propagation.REQUIRES_NEW)
 	public List<Category> getAllCategories() {return categoryDAO.getAllCategories();}

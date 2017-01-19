@@ -16,7 +16,7 @@ public interface CategoryDAO {
 	 * Returns an individual category
 	 * 
 	 */
-	public Category getCategory(String category);
+	public Category getCategory(int categoryId);
 	
 	/**
 	 * 

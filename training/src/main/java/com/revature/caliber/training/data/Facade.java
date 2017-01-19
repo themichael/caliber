@@ -29,7 +29,7 @@ public interface Facade {
     public void deleteBatch(Batch batch);
     
     //Category methods
-	public Category getCategory(String category);
+	public Category getCategory(int categoryId);
 	public List<Category> getAllCategories();
 
 

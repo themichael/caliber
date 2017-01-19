@@ -44,5 +44,9 @@
 	<bean name="weekDao" class="com.revature.caliber.training.data.implementations.WeekDAOImplementation">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<bean name="categoryDAO" class="com.revature.caliber.training.data.implementations.CategoryDAOImplementation">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 </beans>
