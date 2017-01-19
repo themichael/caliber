@@ -1,10 +1,20 @@
 package com.revature.caliber.assessments.service.implementations;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.HashSet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.service.AssessmentService;
+import com.revature.caliber.assessments.service.BatchService;
+import com.revature.caliber.assessments.service.BusinessDelegate;
+import com.revature.caliber.assessments.service.CategoryService;
+import com.revature.caliber.assessments.service.GradeService;
+import com.revature.caliber.assessments.service.NoteService;
+import com.revature.caliber.assessments.service.QCNoteService;
+import com.revature.caliber.assessments.service.QCStatusService;
+import com.revature.caliber.assessments.service.TrainerNoteService;
 
 public class BusinessDelegateImpl implements BusinessDelegate {
 
