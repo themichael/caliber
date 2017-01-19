@@ -35,27 +35,27 @@ public class FacadeImplementation implements Facade {
     // Get
     @Transactional
     @Override
-    public HashSet<Assessment> getAll() {
+    public HashSet<Assessment> getAllAssessments() {
         return assessmentDAO.getAll();
     }
 
     @Transactional
     @Override
-    public HashSet<Assessment> getByTrainerId(int id) {
+    public HashSet<Assessment> getAssessmentsByTrainerId(int id) {
         return assessmentDAO.getByTrainerId(id);
     }
 
     @Transactional
 
     @Override
-    public HashSet<Assessment> getByWeekId(int id) {
+    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
         return assessmentDAO.getByWeekId(id);
     }
 
     @Transactional
 
     @Override
-    public HashSet<Assessment> getByBatchId(int id) {
+    public HashSet<Assessment> getAssessmentsByBatchId(int id) {
         return assessmentDAO.getByBatchId(id);
     }
 
@@ -65,7 +65,7 @@ public class FacadeImplementation implements Facade {
             rollbackFor=Exception.class,
             propagation=Propagation.REQUIRES_NEW)
     @Override
-    public void insert(Assessment assessment) {
+    public void insertAssessment(Assessment assessment) {
         assessmentDAO.insert(assessment);
     }
 
@@ -75,7 +75,7 @@ public class FacadeImplementation implements Facade {
             rollbackFor=Exception.class,
             propagation=Propagation.REQUIRES_NEW)
     @Override
-    public void update(Assessment assessment) {
+    public void updateAssessment(Assessment assessment) {
         assessmentDAO.update(assessment);
     }
 
@@ -84,7 +84,7 @@ public class FacadeImplementation implements Facade {
             rollbackFor=Exception.class,
             propagation=Propagation.REQUIRES_NEW)
     @Override
-    public void delete(Assessment assessment) {
+    public void deleteAssessment(Assessment assessment) {
         assessmentDAO.delete(assessment);
     }
 
