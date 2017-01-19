@@ -11,12 +11,14 @@ import java.util.List;
  */
 public interface Facade {
 
+    //Trainee methods, see TraineeDAO interface
     public void createTrainee(Trainee trainee);
     public void updateTrainee(Trainee trainee);
     public Trainee getTrainee(Integer id);
     public Trainee getTrainee(String name);
     public List<Trainee> getTraineesInBatch(Integer batchId);
     public void deleteTrainee(Trainee trainee);
+    //end of Trainee methods
 
     // Batch methods
     public void createBatch(Batch batch);

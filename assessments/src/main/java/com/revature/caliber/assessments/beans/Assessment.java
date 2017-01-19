@@ -3,37 +3,69 @@ package com.revature.caliber.assessments.beans;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * This is the hibernate annotated bean that for the
+ *  CALIBER_ASSESSMENT table in the database
+ */
 @Entity
 @Table(name = "CALIBER_ASSESSMENT")
 public class Assessment {
 
+    /**
+     * This is the PK ID using a unique sequence generator
+     */
     @Id
     @Column(name = "ASSESSMENT_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ASSESSMENT_ID_SEQUENCE")
+    @SequenceGenerator(name = "ASSESSMENT_ID_SEQUENCE", sequenceName = "ASSESSMENT_ID_SEQUENCE")
     private long assessmentId;
 
+    /**
+     * Trainer inputted title,
+     *  can be anything to help identify this assessment
+     */
     @Column(name = "TITLE", nullable = false)
     private String title;
 
+    /**
+     * Batch ID reference
+     */
     @Column(name = "BATCH_ID", nullable = false)
     private int batch;
 
+    /**
+     * Raw numerical score before calculations
+     */
     @Column(name = "RAW_SCORE")
     private int rawScore;
 
+    /**
+     * Assessment type, e.g. LMS, Verbal
+     */
     @Column(name = "TYPE", nullable = false)
     private String type;
 
+    /**
+     * WeekID for reference
+     */
     @Column(name = "WEEK_ID", nullable = false)
     private int week;
 
-    // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+// TODO Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+    /**
+     * QCStatus for a week, statuses can be
+     *  good, ok, bad
+     *  indicated with smiley, meh and frowny face
+     */
     @ManyToOne
     @JoinColumn(name = "WEEKLY_STATUS")
     private QCStatus weeklyStatus;
 
+    /**
+     * Set of Categories for Assessments (for Hibernate ORM)
+     */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable //Hibernate generates this join table with default name
+    @JoinTable  //Hibernate generates this join table with default name
                 //CALIBER_ASSESSMENT concat CALIBER_CATEGORY
     private Set<Category> categories;
 
