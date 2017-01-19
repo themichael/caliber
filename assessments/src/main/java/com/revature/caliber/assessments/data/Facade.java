@@ -16,7 +16,7 @@ public interface Facade {
      * Returns HashSet of all Assessments
      * @return List of Assessments
      */
-    HashSet<Assessment> getAll();
+    HashSet<Assessment> getAllAssessments();
 
     /**
      * Returns HashSet of Assessments
@@ -24,7 +24,7 @@ public interface Facade {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getByTrainerId(int id);
+    HashSet<Assessment> getAssessmentsByTrainerId(int id);
 
     /**
      * Returns HashSet of Assessments
@@ -32,7 +32,7 @@ public interface Facade {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getByWeekId(int id);
+    HashSet<Assessment> getAssessmentsByWeekId(int id);
 
     /**
      * Returns HashSet of Assessments
@@ -40,7 +40,7 @@ public interface Facade {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getByBatchId(int id);
+    HashSet<Assessment> getAssessmentsByBatchId(int id);
 
     //    Create
 
@@ -48,7 +48,7 @@ public interface Facade {
      * Inserts Assessment
      * @param assessment
      */
-    void insert(Assessment assessment);
+    void insertAssessment(Assessment assessment);
 
     //    Update
 
@@ -56,7 +56,7 @@ public interface Facade {
      * Updates Assessment
      * @param assessment
      */
-    void update(Assessment assessment);
+    void updateAssessment(Assessment assessment);
 
     //    Delete
 
@@ -64,7 +64,7 @@ public interface Facade {
      * Deletes Assessment
      * @param assessment
      */
-    void delete(Assessment assessment);
+    void deleteAssessment(Assessment assessment);
 
 //    Batch
 

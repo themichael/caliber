@@ -33,6 +33,8 @@ public class Assessment {
     private QCStatus weeklyStatus;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable //Hibernate generates this join table with default name
+                //CALIBER_ASSESSMENT concat CALIBER_CATEGORY
     private Set<Category> categories;
 
     public Assessment(long assessmentId,
