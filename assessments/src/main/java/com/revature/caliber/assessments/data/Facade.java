@@ -1,6 +1,8 @@
 package com.revature.caliber.assessments.data;
 
 import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.BatchNote;
+import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.beans.Grade;
 
 import java.util.HashSet;
@@ -74,10 +76,22 @@ public interface Facade {
      * @param assessment
      */
     void deleteAssessment(Assessment assessment);
-
-//    Batch
-
     
+    //    Batch Note
+    void makeBatchNote(int batchId, int weekId);
+	
+	BatchNote getWeeklyBatchNote(int batchId, int weekId);	
+	 
+	List<BatchNote> allBatchNotesInWeek(int weekId);
+	
+	
+	//	Trainer Note
+	void makeTrainerNote(int trainerId);
+	
+	List<TrainerNote> listTrainerNotes(int trainerId);
+	
+	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
+//    Batch
   
 // Grade
     
@@ -123,5 +137,4 @@ public interface Facade {
      */
     void updateGrade(Grade grade);
 
-    
 }
