@@ -16,8 +16,9 @@ angular.module("app").config(
 				templateUrl : "app/partials/abstracts/qc.html"
 			}).state("qc.home", {
 				url : "/home",
-				templateUrl : "app/partials/abstracts/qc-home.html"
+				templateUrl : "app/partials/home/qc-home.html"
 			})
+			
 			// trainer
 			.state("trainer", {
 				abstract : true,
@@ -35,7 +36,8 @@ angular.module("app").config(
 				url : "/vp"
 			}).state("vp.home", {
 				templateUrl : "app/partials/home/vp-home.html",
-				url : "/home"
+				url : "/home",
+				controller: "vpHomeController"
 			});
 
 		});
