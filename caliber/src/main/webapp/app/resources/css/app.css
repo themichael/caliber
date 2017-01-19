@@ -40,18 +40,28 @@ Revature Colors
 
 
 /************************
-Body Styles
+	Body Styles
 ************************/
 
 html, body {
     font-family: 'Futura-Std-Medium';
 }
 
-.test-color{
-	color: var(--orange);
+
+/**********************
+	Chart Containers
+**********************/
+.data-container {
+	background-color: #d9dce0;
+	padding: 2em;
 }
+
+.chart-container {
+	background-color: #ffffff;
+}
+
 /************************
-Margins
+	Margins
 ************************/
 
 .top10 { margin-top: 1em; }

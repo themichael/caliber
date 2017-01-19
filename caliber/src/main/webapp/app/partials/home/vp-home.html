@@ -59,75 +59,40 @@
 	</div>
 	<!-- row -->
 </div>
+
 <!-- container -->
 <div class="container">
-	<div class="row">
-		<div class="col-md-12 col-lg-12">
-			<div class="row">
-				<div class="top20">
-					<div class="col-md-4">
-						<div class="top10">
-							<canvas id="line" class="chart chart-line" chart-data="lineData"
-								chart-labels="lineLabels" chart-series="lineSeries"
-								chart-options="lineOptions"
-								chart-dataset-override="lineDatasetOverride"
-								chart-click="lineOnClick" height="75" width="100">
+	<div class="data-container">
+		<div class="row">
+			<div class="col-md-12 col-lg-12">
+				<div class="row">
+					<div class="top20">
+						<div class="col-md-6">
+							<div class="chart-container top10">
+								<canvas id="line" class="chart chart-line" chart-data="lineData"
+									chart-labels="lineLabels" chart-series="lineSeries"
+									chart-options="lineOptions"
+									chart-dataset-override="lineDatasetOverride"
+									chart-click="lineOnClick" height="75" width="100">
 							</canvas>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="chart-container top10">
+								<canvas id="bar" class="chart chart-bar" chart-data="barData"
+									chart-labels="barLabels" chart-series="barSeries" height="75"
+									width="100">
+							</canvas>
+							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="top10">
-							<canvas id="bar" class="chart chart-bar" chart-data="barData"
-								chart-labels="barLabels" chart-series="barSeries" height="75"
-								width="100">
-							</canvas>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="top10">
-							<canvas id="radar" class="chart chart-radar"
-								chart-data="radarData" chart-options="radarOptions"
-								chart-labels="radarLabels" height="75" width="100">
-							</canvas>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="top10">
-							<canvas id="pie" class="chart chart-pie" chart-data="pieData"
-								chart-labels="pieLabels" chart-options="pieOptions" height="75"
-								width="100">
-							</canvas>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="top10">
-							<canvas id="polar-area" class="chart chart-polar-area"
-								chart-data="polarData" chart-labels="polarLabels" chart-options="polarOptions"
-								height="75" width="100">
-							</canvas>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="top10">
-							<canvas id="base" class="chart-horizontal-bar" chart-data="hBarData"
-								chart-labels="hBarLabels" height="75" width="100">
-							</canvas>
-						</div>
-					</div>
-					<div class="col-md-8 col-md-offset-2">
-						<div class="top10">
-							<canvas id="base" class="chart-bubble" chart-data="bubbleData"
-								chart-series="bubbleSeries" chart-options="bubbleOptions" height="200">
-							</canvas>
-						</div>
-					</div>
+					<!-- top20 -->
 				</div>
-				<!-- top20 -->
+				<!-- row -->
 			</div>
-			<!-- row -->
+			<!-- col -->
 		</div>
-		<!-- col -->
+		<!-- row -->
 	</div>
-	<!-- row -->
 </div>
 
