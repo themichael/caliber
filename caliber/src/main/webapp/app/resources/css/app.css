@@ -40,10 +40,18 @@ $blue:  #72A4C2;
 $yellow: #FCB414;
 $light-grey: #B9B9BA;
 
+
+/************************
+	Body Styles
+************************/
+
 html, body {
     font-family: 'Futura-Std-Medium';
 }
 
+/**********************
+	Chart Containers
+**********************/
 .data-container {
 	background-color: #d9dce0;
 	padding: 2em;
@@ -52,6 +60,10 @@ html, body {
 .chart-container {
 	background-color: #ffffff;
 }
+
+/************************
+	Margins
+************************/
 
 .top10 { margin-top: 1em; }
 .top15 { margin-top: 1.5em; }
