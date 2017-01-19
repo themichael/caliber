@@ -9,7 +9,8 @@ public class Assessment {
 
     @Id
     @Column(name = "ASSESSMENT_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ASSESSMENT_ID_SEQUENCE")
+    @SequenceGenerator(name = "ASSESSMENT_ID_SEQUENCE", sequenceName = "ASSESSMENT_ID_SEQUENCE")
     private long assessmentId;
 
     @Column(name = "TITLE", nullable = false)
