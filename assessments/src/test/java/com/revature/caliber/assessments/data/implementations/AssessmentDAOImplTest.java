@@ -19,6 +19,7 @@ public class AssessmentDAOImplTest {
 
     @BeforeClass
     public static void setUp () {
+
         context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
         // rootLogger is for debugging purposes
         log = Logger.getRootLogger();
@@ -30,13 +31,23 @@ public class AssessmentDAOImplTest {
 
     @Test
     public void getAll() {
+        log.debug("Starting getAllAssessmentsTest");
         HashSet<Assessment> assessments = assessmentDAO.getAll();
         assertNotNull(assessments);
     }
 
     @Test
+    public void getById() {
+        int id = 1;
+        log.debug("Starting getAssessmentById = " + id);
+        Assessment assessment = assessmentDAO.getById(id);
+        assertNotNull(assessment);
+    }
+
+    @Test
     public void getByTrainerId() {
         int trainerId = 1;
+        log.debug("Starting getAssessmentsByTrainerId with id = " + trainerId);
         HashSet<Assessment> assessments = assessmentDAO.getByTrainerId(trainerId);
         assertNotNull(assessments);
     }
@@ -44,6 +55,7 @@ public class AssessmentDAOImplTest {
     @Test
     public void getByWeekId() {
         int weekId = 1;
+        log.debug("Starting getAssessmentsByWeekId with id = " + weekId);
         HashSet<Assessment> assessments = assessmentDAO.getByWeekId(weekId);
         assertNotNull(assessments);
     }
@@ -51,12 +63,15 @@ public class AssessmentDAOImplTest {
     @Test
     public void getByBatchId() {
         int batchId = 1;
+        log.debug("Starting getAssessmentsByBatchId with id = " + batchId);
         HashSet<Assessment> assessments = assessmentDAO.getByWeekId(batchId);
         assertNotNull(assessments);
     }
 
     @Test
     public void insert() {
+        log.debug("Starting insertAssessment");
+
         Assessment assessment = new Assessment();
         assessment.setAssessmentId(1);
         assessment.setTitle("Week 1 Test");
@@ -72,13 +87,17 @@ public class AssessmentDAOImplTest {
     @Test
     public void delete() {
         int assessmentId = 1;
+
+        log.debug("Starting test to fetch, delete, then fetch Assessment with id = " + assessmentId
+                + "to make sure delete is functional");
+
         Assessment assessment = assessmentDAO.getById(assessmentId);
         assertNotNull(assessment);
 
         assessmentDAO.delete(assessment);
 
         assessment = assessmentDAO.getById(assessmentId);
-        assertNotNull(assessment);
+        assertNull(assessment);
     }
 
 }
