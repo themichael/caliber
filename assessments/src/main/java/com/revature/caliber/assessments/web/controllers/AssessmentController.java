@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @RestController    // infers @ResponseBody on all methods && @Controller
 @CrossOrigin(origins = {"*"},
@@ -34,8 +35,8 @@ public class AssessmentController {
             value = "/assessment/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HashSet<Assessment>> getAll() {
-        HashSet<Assessment> assessments = delegate.getAllAssessments();
+    public ResponseEntity<Set<Assessment>> getAll() {
+        Set<Assessment> assessments = delegate.getAllAssessments();
         if (assessments == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -60,8 +61,8 @@ public class AssessmentController {
             value = "/assessment/trainer{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HashSet<Assessment>> getByTrainerId(@PathVariable("id") int id) {
-        HashSet<Assessment> assessments = delegate.getAssessmentsByTrainerId(id);
+    public ResponseEntity<Set<Assessment>> getByTrainerId(@PathVariable("id") int id) {
+        Set<Assessment> assessments = delegate.getAssessmentsByTrainerId(id);
         if (assessments == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -73,8 +74,8 @@ public class AssessmentController {
             value = "/assessment/week{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HashSet<Assessment>> getByWeekId(@PathVariable("id") int id) {
-        HashSet<Assessment> assessments = delegate.getAssessmentsByWeekId(id);
+    public ResponseEntity<Set<Assessment>> getByWeekId(@PathVariable("id") int id) {
+        Set<Assessment> assessments = delegate.getAssessmentsByWeekId(id);
         if (assessments == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -86,8 +87,8 @@ public class AssessmentController {
             value = "/assessment/batch{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HashSet<Assessment>> getByBatchId(@PathVariable("id") int id) {
-        HashSet<Assessment> assessments = delegate.getAssessmentsByBatchId(id);
+    public ResponseEntity<Set<Assessment>> getByBatchId(@PathVariable("id") int id) {
+        Set<Assessment> assessments = delegate.getAssessmentsByBatchId(id);
         if (assessments == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

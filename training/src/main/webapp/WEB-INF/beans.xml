@@ -24,7 +24,11 @@
 		<property name="packagesToScan" value="com.revature.caliber.training.beans" />
 		<property name="hibernateProperties">
 			<props>
+<<<<<<< HEAD
 				<!--  <prop key="hibernate.hbm2ddl.auto">create</prop>  -->
+=======
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
+>>>>>>> a6dc4481299afa34c63677a09485d35ed25d8913
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.Oracle10gDialect
 				</prop>
@@ -43,10 +47,17 @@
 
 	<bean name="weekDao" class="com.revature.caliber.training.data.implementations.WeekDAOImplementation">
 		<property name="sessionFactory" ref="sessionFactory" />
+<<<<<<< HEAD
 	</bean>
 	
 	<bean name="categoryDAO" class="com.revature.caliber.training.data.implementations.CategoryDAOImplementation">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
+=======
+	</bean> -->
+	<bean name="batchDAO" class="com.revature.caliber.training.data.implementations.BatchDAOImplementation">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+>>>>>>> a6dc4481299afa34c63677a09485d35ed25d8913
 </beans>

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -24,13 +25,13 @@ public class Category {
 	@SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE")
 	private int categoryId;
 
-	@Column(name = "CATEGORY_SKILL")
+	@Column(name = "SKILL_CATEGORY")
 	private String skillCategory;
 
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@ManyToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER) 
-	@JoinColumn(name = "CATEGORY_WEEKS")
+	@JoinTable(name="CATEGORY_COVERED")
 	private Set<Week> weeks;
 
 	public int getCategoryId() {

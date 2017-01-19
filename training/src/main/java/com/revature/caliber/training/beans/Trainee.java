@@ -31,7 +31,7 @@ public class Trainee {
 	private String email;
 
 	/**
-	 * Status like "ongoing", "deployed to work", etc.
+	 * Status like "Signed", "Selected", etc.
 	 */
 	@Column(name = "TRAINING_STATUS")
 	private String trainingStatus;
