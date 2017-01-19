@@ -15,10 +15,10 @@ public class BatchServiceImplementation implements BatchService{
 
     public void createBatch(Batch batch) {facade.createBatch(batch);}
     public List<Batch> getAllBatch() {return facade.getAllBatch();}
-    public List<Batch> getTrainerBatch(String name) {return getTrainerBatch(name);}
-    public List<Batch> getCurrentBatch() {return getCurrentBatch();}
-    public List<Batch> getCurrentBatch(String name) {return getCurrentBatch(name);}
-    public Batch getBatch(Integer id) {return getBatch(id);}
+    public List<Batch> getTrainerBatch(String name) {return facade.getTrainerBatch(name);}
+    public List<Batch> getCurrentBatch() {return facade.getCurrentBatch();}
+    public List<Batch> getCurrentBatch(String name) {return facade.getCurrentBatch(name);}
+    public Batch getBatch(Integer id) {return facade.getBatch(id);}
     public void updateBatch(Batch batch) {facade.updateBatch(batch);}
     public void deleteBatch(Batch batch) {facade.deleteBatch(batch);}
 }
