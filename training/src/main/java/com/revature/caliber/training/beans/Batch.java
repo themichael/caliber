@@ -5,14 +5,14 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "CALIBER_BATCH")
 public class Batch {
 
 	@Id
 	@Column(name = "BATCH_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int batchId;
-	@Column
+	@Column(name = "TRAINING_NAME")
 	private String trainingName;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
@@ -34,7 +34,7 @@ public class Batch {
 	private short goodGradeThreshold;
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
-	
+
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@OneToMany(mappedBy = "batch")
 	private Set<Trainee> trainees;
@@ -125,8 +125,8 @@ public class Batch {
 	Constructor with ID
 	 */
 	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
-			String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
-			short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
+				 String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
+				 short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
 		super();
 		this.batchId = batchId;
 		this.trainingName = trainingName;
@@ -147,8 +147,8 @@ public class Batch {
 	Constructor with no ID
 	 */
 	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
-			Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
-			Set<Trainee> trainees, Set<Week> weeks) {
+				 Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
+				 Set<Trainee> trainees, Set<Week> weeks) {
 		super();
 		this.trainingName = trainingName;
 		this.trainer = trainer;
