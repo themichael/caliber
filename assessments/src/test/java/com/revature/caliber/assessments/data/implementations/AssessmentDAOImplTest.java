@@ -15,7 +15,7 @@ public class AssessmentDAOImplTest {
 
     private static AbstractApplicationContext context;
     private AssessmentDAO assessmentDAO;
-    static Logger log;
+    private static Logger log;
 
     @BeforeClass
     public static void setUp () {
@@ -29,34 +29,34 @@ public class AssessmentDAOImplTest {
     }
 
     @Test
-    public void getAll() throws Exception {
+    public void getAll() {
         HashSet<Assessment> assessments = assessmentDAO.getAll();
         assertNotNull(assessments);
     }
 
     @Test
-    public void getByTrainerId() throws Exception {
+    public void getByTrainerId() {
         int trainerId = 1;
         HashSet<Assessment> assessments = assessmentDAO.getByTrainerId(trainerId);
         assertNotNull(assessments);
     }
 
     @Test
-    public void getByWeekId() throws Exception {
+    public void getByWeekId() {
         int weekId = 1;
         HashSet<Assessment> assessments = assessmentDAO.getByWeekId(weekId);
         assertNotNull(assessments);
     }
 
     @Test
-    public void getByBatchId() throws Exception {
+    public void getByBatchId() {
         int batchId = 1;
         HashSet<Assessment> assessments = assessmentDAO.getByWeekId(batchId);
         assertNotNull(assessments);
     }
 
     @Test
-    public void insert() throws Exception {
+    public void insert() {
         Assessment assessment = new Assessment();
         assessment.setAssessmentId(1);
         assessment.setTitle("Week 1 Test");
@@ -69,22 +69,16 @@ public class AssessmentDAOImplTest {
         assertTrue(true);
     }
 
-    /*@Test
-    public void update() throws Exception {
-        Assessment assessment = assessmentDAO.get;
-        assessment.setAssessmentId(1);
-        assessment.setTitle("Week 1 Test");
-        assessment.setBatch(1);
-        assessment.setRawScore(100);
-        assessment.setType("LMS");
-        assessment.setWeek(1);
-
-        assessmentDAO.update();
-    }*/
-
     @Test
-    public void delete() throws Exception {
+    public void delete() {
+        int assessmentId = 1;
+        Assessment assessment = assessmentDAO.getById(assessmentId);
+        assertNotNull(assessment);
 
+        assessmentDAO.delete(assessment);
+
+        assessment = assessmentDAO.getById(assessmentId);
+        assertNotNull(assessment);
     }
 
 }
