@@ -19,7 +19,7 @@ public interface Facade {
 
     // Batch methods
     public void createBatch(Batch batch);
-    public List<Batch> getAll();
+    public List<Batch> getAllBatch();
     public List<Batch> getTrainerBatch(String name);
     public List<Batch> getCurrentBatch();
     public List<Batch> getCurrentBatch(String name);
