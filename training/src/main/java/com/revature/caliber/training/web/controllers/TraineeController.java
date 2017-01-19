@@ -18,13 +18,23 @@ import java.util.List;
 /**
  * Trainee Controller
  */
+
+@RestController
+@CrossOrigin(origins = {"*"},
+            methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+            allowedHeaders = {"X-PINGOTHER", "Content-Type"},
+            maxAge = 10)
 public class TraineeController {
 
     private BusinessDelegate businessDelegate;
     @Autowired
     public void setBusinessDelegate(BusinessDelegate businessDelegate) { this.businessDelegate = businessDelegate; }
 
-    @ResponseBody
+    /**
+     * Greate a new trainee by making a PUT request to the URL
+     * @param trainee trainee to put
+     * @return Response with appropriate status
+     */
     @RequestMapping(value = "trainees/new",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -33,15 +43,19 @@ public class TraineeController {
         ResponseEntity<Serializable> returnEntity;
         try {
             businessDelegate.createTrainee(trainee);
-            returnEntity =  new ResponseEntity<Serializable>(corsHeaders(), HttpStatus.CREATED);
+            returnEntity =  new ResponseEntity<Serializable>(HttpStatus.CREATED);
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<Serializable>(corsHeaders(), HttpStatus.BAD_REQUEST);
+            returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
         }
         return returnEntity;
     }
 
-    @ResponseBody
+    /**
+     * Update a trainee by making a POST request to the URL
+     * @param trainee trainee to update (with updated fields)
+     * @return Response with appropriate status
+     */
     @RequestMapping(value = "trainees/update",
                     method = RequestMethod.POST,
                     consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -51,18 +65,22 @@ public class TraineeController {
 
         try {
             businessDelegate.updateTrainee(trainee);
-            returnEntity = new ResponseEntity<Serializable>(corsHeaders(), HttpStatus.OK);
+            returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<Serializable>(corsHeaders(), HttpStatus.BAD_REQUEST);
+            returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
         }
 
         return returnEntity;
     }
 
-    @ResponseBody
+    /**
+     * Delete a trainee by making a DELETE request to the URL
+     * @param trainee trainee to delete
+     * @return Response with appropriate status
+     */
     @RequestMapping(value = "trainees/delete",
-                    method = RequestMethod.POST,
+                    method = RequestMethod.DELETE,
                     consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
                     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Serializable> deleteTrainee(@RequestBody @Valid Trainee trainee) {
@@ -70,16 +88,20 @@ public class TraineeController {
 
         try {
             businessDelegate.deleteTrainee(trainee);
-            returnEntity = new ResponseEntity<Serializable>(corsHeaders(), HttpStatus.OK);
+            returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<Serializable>(corsHeaders(), HttpStatus.BAD_REQUEST);
+            returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
         }
 
         return returnEntity;
     }
 
-    @ResponseBody
+    /**
+     * Get a trainee by id by making a GET request to the URL
+     * @param id id as part of URL
+     * @return Response with trainee object and/or appropriate status
+     */
     @RequestMapping(value = "trainees/byid/{identifier}",
                     method = RequestMethod.GET,
                     consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -91,20 +113,24 @@ public class TraineeController {
             Trainee result = businessDelegate.getTrainee(id);
 
             if (result == null) {
-                returnEntity = new ResponseEntity<Trainee>(result, corsHeaders(), HttpStatus.NOT_FOUND);
+                returnEntity = new ResponseEntity<Trainee>(result, HttpStatus.NOT_FOUND);
             }
             else {
-                returnEntity = new ResponseEntity<Trainee>(result, corsHeaders(), HttpStatus.OK);
+                returnEntity = new ResponseEntity<Trainee>(result, HttpStatus.OK);
             }
         }
         catch (RuntimeException e) {
-                returnEntity = new ResponseEntity<Trainee>(null, corsHeaders(), HttpStatus.BAD_REQUEST);
+                returnEntity = new ResponseEntity<Trainee>(HttpStatus.BAD_REQUEST);
         }
 
         return returnEntity;
     }
 
-    @ResponseBody
+    /**
+     * Get trainee by name by making a GET request to the URL
+     * @param name name as part of URL
+     * @return Response with trainee object and/or status
+     */
     @RequestMapping(value = "trainees/byname/{identifier}",
                     method = RequestMethod.GET,
                     consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -116,20 +142,24 @@ public class TraineeController {
             Trainee result = businessDelegate.getTrainee(name);
 
             if (result == null) {
-                returnEntity = new ResponseEntity<Trainee>(result, corsHeaders(), HttpStatus.NOT_FOUND);
+                returnEntity = new ResponseEntity<Trainee>(result, HttpStatus.NOT_FOUND);
             }
             else {
-                returnEntity = new ResponseEntity<Trainee>(result, corsHeaders(), HttpStatus.OK);
+                returnEntity = new ResponseEntity<Trainee>(result,  HttpStatus.OK);
             }
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<Trainee>(null, corsHeaders(), HttpStatus.BAD_REQUEST);
+            returnEntity = new ResponseEntity<Trainee>(HttpStatus.BAD_REQUEST);
         }
 
         return returnEntity;
     }
 
-    @ResponseBody
+    /**
+     * Get a list of trainees in a batch by making a GET request to the URL
+     * @param batchId id as part of URL
+     * @return Response with list of trainee objects and/or status
+     */
     @RequestMapping(value = "trainees/bybatch/{identifier}",
                     method = RequestMethod.GET,
                     consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -141,31 +171,16 @@ public class TraineeController {
             List<Trainee> result = businessDelegate.getTraineesInBatch(batchId);
 
             if (result == null) {
-                returnEntity = new ResponseEntity<List<Trainee>>(result, corsHeaders(), HttpStatus.NOT_FOUND);
+                returnEntity = new ResponseEntity<List<Trainee>>(result, HttpStatus.NOT_FOUND);
             }
             else {
-                returnEntity = new ResponseEntity<List<Trainee>>(result, corsHeaders(), HttpStatus.OK);
+                returnEntity = new ResponseEntity<List<Trainee>>(result, HttpStatus.OK);
             }
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<List<Trainee>>(null, corsHeaders(), HttpStatus.BAD_REQUEST);
+            returnEntity = new ResponseEntity<List<Trainee>>(HttpStatus.BAD_REQUEST);
         }
 
         return returnEntity;
-    }
-
-
-    public MultiValueMap<String, String> corsHeaders(){
-        MultiValueMap<String, String> headers =
-                new LinkedMultiValueMap<String, String>();
-        headers.put("Access-Control-Allow-Origin",
-                Arrays.asList(new String[]{"*"}));
-        headers.put("Access-Control-Allow-Methods",
-                Arrays.asList(new String[]{"POST", "GET", "OPTIONS"}));
-        headers.put("Access-Control-Allow-Headers",
-                Arrays.asList(new String[]{"X-PINGOTHER", "Content-Type"}));
-        headers.put("Access-Control-Max-Age",
-                Arrays.asList(new String[]{"10"}));
-        return headers;
     }
 }
