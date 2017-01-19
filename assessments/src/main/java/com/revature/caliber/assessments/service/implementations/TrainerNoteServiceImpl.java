@@ -1,28 +1,37 @@
 package com.revature.caliber.assessments.service.implementations;
 
-import java.util.HashSet;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.assessments.beans.TrainerNote;
+import com.revature.caliber.assessments.data.Facade;
 import com.revature.caliber.assessments.service.TrainerNoteService;
 
 public class TrainerNoteServiceImpl implements TrainerNoteService {
 
+	 
+	private Facade facade;
+		
+	@Autowired
+	public void setFacade(Facade facade) {
+	    this.facade = facade;
+	}
+		
+	
 	@Override
 	public void createTrainerNote(int trainerId) {
-		// TODO Auto-generated method stub
-		
+		facade.makeTrainerNote(trainerId);
 	}
 
 	@Override
-	public HashSet<TrainerNote> getAllNotesByTrainer(int trainerId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<TrainerNote> getAllNotesByTrainer(int trainerId) {
+		return facade.listTrainerNotes(trainerId);
 	}
 
 	@Override
 	public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
-		// TODO Auto-generated method stub
-		return null;
+		return facade.getTrainerNoteForWeek(trainerId, weekId);
 	}
 	
 }
