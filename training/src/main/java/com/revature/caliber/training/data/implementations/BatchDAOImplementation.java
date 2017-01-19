@@ -21,8 +21,6 @@ public class BatchDAOImplementation implements BatchDAO{
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) { this.sessionFactory = sessionFactory; }
 
-    public BatchDAOImplementation() {}
-
     @Transactional(isolation = Isolation.SERIALIZABLE,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
@@ -31,7 +29,7 @@ public class BatchDAOImplementation implements BatchDAO{
     @Transactional(isolation = Isolation.READ_UNCOMMITTED,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
-    public List<Batch> getAll() {return sessionFactory.getCurrentSession().createCriteria(Batch.class).list();}
+    public List<Batch> getAllBatch() {return sessionFactory.getCurrentSession().createCriteria(Batch.class).list();}
 
     public List<Batch> getTrainerBatch(String name) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Batch.class);
@@ -54,7 +52,7 @@ public class BatchDAOImplementation implements BatchDAO{
             rollbackFor = {Exception.class})
     public List<Batch> getCurrentBatch(String name) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Batch.class);
-        criteria.add(Restrictions.eq("Trainer.name", name ));
+        criteria.add(Restrictions.eq("trainer.name", name ));
         criteria.add(Restrictions.ge("startDate", new Date().getTime() ));
         criteria.add(Restrictions.le("endDate", new Date().getTime() ));
         return criteria.list();

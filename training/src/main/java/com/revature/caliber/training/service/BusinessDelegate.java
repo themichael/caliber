@@ -1,5 +1,6 @@
 package com.revature.caliber.training.service;
 
+import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Trainee;
 
 import java.util.List;
@@ -16,5 +17,15 @@ public interface BusinessDelegate {
     public Trainee getTrainee(String name);
     public List<Trainee> getTraineesInBatch(Integer batchId);
     public void deleteTrainee(Trainee trainee);
+
+    //BatchService methods
+    public void createBatch(Batch batch);
+    public List<Batch> getAllBatch();
+    public List<Batch> getTrainerBatch(String name);
+    public List<Batch> getCurrentBatch();
+    public List<Batch> getCurrentBatch(String name);
+    public Batch getBatch(Integer id);
+    public void updateBatch(Batch batch);
+    public void deleteBatch(Batch batch);
     //end of Trainee methods
 }

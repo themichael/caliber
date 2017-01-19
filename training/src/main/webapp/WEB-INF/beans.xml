@@ -38,4 +38,7 @@
 <!-- 	<bean name="testDao" class="com.revature.caliber.data.TestDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean> -->
+	<bean name="batchDAO" class="com.revature.caliber.training.data.implementations.BatchDAOImplementation">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>
