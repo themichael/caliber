@@ -1,6 +1,8 @@
 package com.revature.caliber.assessments.data.implementations;
 
 import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.BatchNote;
+import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Our implementation of the Facade interface
@@ -147,4 +150,42 @@ public class FacadeImplementation implements Facade {
     public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
         this.trainerNoteDAO = trainerNoteDAO;
     }
+
+    
+    
+    
+    //BatchNote Facade Methods
+	@Override
+	public void makeBatchNote(int batchId, int weekId) {
+		batchNoteDAO.createBatchNote(batchId, weekId);
+	}
+
+	@Override
+	public BatchNote getWeeklyBatchNote(int batchId, int weekId) {
+		return batchNoteDAO.getBatchNote(batchId, weekId);
+	}
+
+	@Override
+	public List<BatchNote> allBatchNotesInWeek(int weekId) {
+		return batchNoteDAO.allBatchNotesByWeek(weekId);
+	}
+
+	
+	//TrainerNote Facade Methods
+	@Override
+	public void makeTrainerNote(int trainerId) {
+		trainerNoteDAO.createTrainerNote(trainerId);
+	}
+
+	@Override
+	public List<TrainerNote> listTrainerNotes(int trainerId) {
+		return trainerNoteDAO.getAllTrainerNotesByTrainer(trainerId);
+	}
+
+	@Override
+	public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
+		return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
+	}
+
+    
 }
