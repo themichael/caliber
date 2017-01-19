@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * Created by illyasviel on 1/18/17.
+ * Trainee Controller
  */
 public class TraineeController {
 
@@ -42,6 +42,8 @@ public class TraineeController {
         }
         return returnEntity;
     }
+
+    
 
 
     public MultiValueMap<String, String> corsHeaders(){
