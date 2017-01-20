@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<tx:annotation-driven/> <mvc:annotation-driven />
-	<context:component-scan base-package="com.revature.caliber.training.data.implementations" />
+	<context:component-scan base-package="com.revature.caliber.training" />
 	<context:annotation-config />
 	
 	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -34,31 +34,5 @@
 	</bean>
 	<bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean name="trainerDao" class="com.revature.caliber.training.data.implementations.TrainerDAOImplementation">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean name="traineeDao" class="com.revature.caliber.training.data.implementations.TraineeDAOImplementation">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean name="batchDao" class="com.revature.caliber.training.data.implementations.BatchDAOImplementation">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean name="tierDao" class="com.revature.caliber.training.data.implementations.TierDAOImplementation">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean name="weekDao" class="com.revature.caliber.training.data.implementations.WeekDAOImplementation">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean name="categoryDao" class="com.revature.caliber.training.data.implementations.CategoryDAOImplementation">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean name="facade" class="com.revature.caliber.training.data.implementations.FacadeImplementation">
-		<property name="trainerDAO" ref="trainerDao" />
-		<property name="traineeDAO" ref="traineeDao" />
-		<property name="categoryDAO" ref="categoryDao"/>
-		<property name="batchDAO" ref="batchDao" />
-		<property name="tierDAO" ref="tierDao" />
-		<property name="weekDAO" ref="weekDao" />
 	</bean> 
 </beans>

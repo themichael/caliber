@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by illyasviel on 1/18/17.
  */
-//@Component(value = "trainingTraineeServiceImplementation")
+@Component
 public class TraineeServiceImplementation implements TraineeService {
 
     Facade facade;

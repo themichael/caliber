@@ -40,8 +40,7 @@ public class TraineeDAOImplementationTest {
     public void createTraineeTest() {
         logger.debug("   Create trainee test.");
 
-        TraineeDAO dao = (TraineeDAO) context.getBean("trainingTraineeDAOImplementation");
-
+        TraineeDAO dao = (TraineeDAO) context.getBean(TraineeDAO.class);
         Batch batch = new Batch();
         batch.setBatchId(1);
 
@@ -62,7 +61,7 @@ public class TraineeDAOImplementationTest {
     public void getTraineeTestGetById() {
         logger.debug("   Get trainee by id test.");
 
-        TraineeDAO dao = (TraineeDAO) context.getBean("trainingTraineeDAOImplementation");
+        TraineeDAO dao = (TraineeDAO) context.getBean(TraineeDAO.class);
 
         logger.debug("     using id 1");
         Trainee trainee = dao.getTrainee(1);
@@ -80,7 +79,7 @@ public class TraineeDAOImplementationTest {
         logger.debug("   Get trainee by name test.");
         logger.debug("     trying to get previously create trainee \"Super Mario Bros\"");
 
-        TraineeDAO dao = (TraineeDAO) context.getBean("trainingTraineeDAOImplementation");
+        TraineeDAO dao = (TraineeDAO) context.getBean(TraineeDAO.class);
 
         Trainee trainee = dao.getTrainee("Super Mario Bros");
 
@@ -96,7 +95,7 @@ public class TraineeDAOImplementationTest {
         logger.debug("   Get trainees in a batch test.");
         logger.debug("     \"Super Mario Bros\" trainee is in the batch with id 1");
 
-        TraineeDAO dao = (TraineeDAO) context.getBean("trainingTraineeDAOImplementation");
+        TraineeDAO dao = (TraineeDAO) context.getBean(TraineeDAO.class);
 
         List<Trainee> trainees = dao.getTraineesInBatch(1);
 
@@ -112,7 +111,7 @@ public class TraineeDAOImplementationTest {
         logger.debug("   Update trainee test.");
         logger.debug("     let's take \"Super Mario Bros\" and change it's name");
 
-        TraineeDAO dao = (TraineeDAO) context.getBean("trainingTraineeDAOImplementation");
+        TraineeDAO dao = (TraineeDAO) context.getBean(TraineeDAO.class);
 
         Trainee trainee = dao.getTrainee("Super Mario Bros");
         assertNotNull(trainee);
@@ -140,7 +139,7 @@ public class TraineeDAOImplementationTest {
         logger.debug("   Delete trainee test.");
         logger.debug("     let's get trainee with id 1 and just wipe it!");
 
-        TraineeDAO dao = (TraineeDAO) context.getBean("trainingTraineeDAOImplementation");
+        TraineeDAO dao = (TraineeDAO) context.getBean(TraineeDAO.class);
 
         Trainee trainee = dao.getTrainee("Trololo lolo lolo");
         assertNotNull(trainee);
