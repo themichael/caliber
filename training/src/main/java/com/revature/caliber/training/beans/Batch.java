@@ -47,7 +47,7 @@ public class Batch {
 	private short borderlineGradeThreshold;
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	@OneToMany(mappedBy = "batch")
+	@OneToMany(mappedBy = "batch"/*, cascade = CascadeType.REMOVE*/)
 	private Set<Trainee> trainees;
 
 	@OneToMany(mappedBy = "batch")
