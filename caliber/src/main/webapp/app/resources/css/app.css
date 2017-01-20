@@ -24,42 +24,43 @@ Revature Fonts
 
 
 /************************
-Revature Primary Colors
+Revature Colors
 ************************/
 
-$orange: #F26925;
-$white: #FFFFF;
-$dark-grey: #474C55;
-
-
-/************************
-Revature Secondary Colors 
-************************/
-
-$blue:  #72A4C2;
-$yellow: #FCB414;
-$light-grey: #B9B9BA;
-
-
-/************************
-	Body Styles
-************************/
-
-html, body {
-    font-family: 'Futura-Std-Medium';
+:root {
+/*** Primary Colors ***/
+	--orange: #F26925;
+	--white: #FFFFF;
+	--dark-grey: #474C55;
+/*** Secondary Colors ***/
+	--blue:  #72A4C2;
+	--yellow: #FCB414;
+	--light-grey: #B9B9BA;
 }
+
 
 /**********************
 	Chart Containers
 **********************/
+.nav>li>a, .nav>li>a {
+    transition: background-color 1s ease;
+}
+
 .data-container {
-	background-color: #d9dce0;
-	padding: 2em;
+	background-color: #f1f2f4;
+	padding: .5em 1em 1em 1em;
+	border-radius: .5em;
+	box-shadow: 0 0 1em #f1f2f4;
 }
 
 .chart-container {
+	padding: .5em;
 	background-color: #ffffff;
+	border-radius: .3em;
+	margin-top: .5em;
 }
+
+
 
 /************************
 	Margins
