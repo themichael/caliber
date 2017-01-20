@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.Facade;
 import com.revature.caliber.assessments.service.TrainerNoteService;
+import org.springframework.stereotype.Service;
 
+
+@Service(value = "trainerNoteService")
 public class TrainerNoteServiceImpl implements TrainerNoteService {
 
 	 

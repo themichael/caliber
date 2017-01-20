@@ -1,31 +1,25 @@
 package com.revature.caliber.assessments.service.implementations;
 
+import com.revature.caliber.assessments.service.BatchNoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.service.AssessmentService;
-import com.revature.caliber.assessments.service.BatchService;
 import com.revature.caliber.assessments.service.BusinessDelegate;
-import com.revature.caliber.assessments.service.CategoryService;
-import com.revature.caliber.assessments.service.GradeService;
-import com.revature.caliber.assessments.service.NoteService;
-import com.revature.caliber.assessments.service.QCNoteService;
-import com.revature.caliber.assessments.service.QCStatusService;
-import com.revature.caliber.assessments.service.TrainerNoteService;
 
 @Component(value ="delegate")
 public class BusinessDelegateImpl implements BusinessDelegate {
 
     private AssessmentService assessmentService;
-    private BatchService batchService;
-    private CategoryService categoryService;
-    private GradeService gradeService;
-    private NoteService noteService;
-    private QCNoteService qcNoteService;
-    private QCStatusService qcStatusService;
-    private TrainerNoteService trainerNoteService;
+    private BatchNoteService batchNoteService;
+//    private CategoryService categoryService;
+//    private GradeService gradeService;
+//    private NoteService noteService;
+//    private QCNoteService qcNoteService;
+//    private QCStatusService qcStatusService;
+//    private TrainerNoteService trainerNoteService;
 
 //    Assessment
     @Override
@@ -83,32 +77,32 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         this.assessmentService = assessmentService;
     }
     @Autowired
-    public void setBatchService(BatchService batchService) {
-        this.batchService = batchService;
+    public void setBatchNoteService(BatchNoteService batchNoteService) {
+        this.batchNoteService = batchNoteService;
     }
-    @Autowired
-    public void setCategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
-    @Autowired
-    public void setGradeService(GradeService gradeService) {
-        this.gradeService = gradeService;
-    }
-    @Autowired
-    public void setNoteService(NoteService noteService) {
-        this.noteService = noteService;
-    }
-    @Autowired
-    public void setQcNoteService(QCNoteService qcNoteService) {
-        this.qcNoteService = qcNoteService;
-    }
-    @Autowired
-    public void setQcStatusService(QCStatusService qcStatusService) {
-        this.qcStatusService = qcStatusService;
-    }
-    @Autowired
-    public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
-        this.trainerNoteService = trainerNoteService;
-    }
+//    @Autowired
+//    public void setCategoryService(CategoryService categoryService) {
+//        this.categoryService = categoryService;
+//    }
+//    @Autowired
+//    public void setGradeService(GradeService gradeService) {
+//        this.gradeService = gradeService;
+//    }
+//    @Autowired
+//    public void setNoteService(NoteService noteService) {
+//        this.noteService = noteService;
+//    }
+//    @Autowired
+//    public void setQcNoteService(QCNoteService qcNoteService) {
+//        this.qcNoteService = qcNoteService;
+//    }
+//    @Autowired
+//    public void setQcStatusService(QCStatusService qcStatusService) {
+//        this.qcStatusService = qcStatusService;
+//    }
+//    @Autowired
+//    public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
+//        this.trainerNoteService = trainerNoteService;
+//    }
 
 }

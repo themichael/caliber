@@ -4,6 +4,7 @@ import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.data.AssessmentDAO;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
@@ -14,7 +15,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     private SessionFactory sessionFactory;
 
-    //    Spring setter based DI
+    @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

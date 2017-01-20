@@ -11,7 +11,8 @@ public class BatchNote extends Note{
 	
 	//Use the WeekID from the Week Table and put it for the week of the BatchNote 
 	@Id
-	@Column(name="WEEK_ID", nullable=false)
+//	@Column(s) not allowed on a @OneToOne property
+//	@Column(name="WEEK_ID", nullable=false)
 	@JoinColumn(name="WEEK_ID")
 	@OneToOne
 	private int week;

@@ -2,14 +2,15 @@ package com.revature.caliber.assessments.service.implementations;
 
 import java.util.List;
 
+import com.revature.caliber.assessments.service.BatchNoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.data.Facade;
-import com.revature.caliber.assessments.service.BatchService;
+import org.springframework.stereotype.Service;
 
-
-public class BatchNoteServiceImpl implements BatchService {
+@Service(value = "batchNoteService")
+public class BatchNoteNoteServiceImpl implements BatchNoteService {
 	 
 	private Facade facade;
 	
