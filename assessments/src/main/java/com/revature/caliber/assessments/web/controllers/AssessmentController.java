@@ -55,23 +55,6 @@ public class AssessmentController {
         return new ResponseEntity<>(assessment, HttpStatus.OK);
     }
 
-    /*   
-     * 	TODO reconsider how to approach this implementation.
-     * 		 data resides in another service, so you cannot query this way
-    // getAssessmentsByTrainerId
-    @RequestMapping(
-            value = "/assessment/trainer{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Assessment>> getByTrainerId(@PathVariable("id") int id) {
-        Set<Assessment> assessments = delegate.getAssessmentsByTrainerId(id);
-        if (assessments == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(assessments, HttpStatus.OK);
-    }
-    */
-
     // getAssessmentsByWeekId
     @RequestMapping(
             value = "/assessment/week{id}",
@@ -79,19 +62,6 @@ public class AssessmentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Assessment>> getByWeekId(@PathVariable("id") int id) {
         Set<Assessment> assessments = delegate.getAssessmentsByWeekId(id);
-        if (assessments == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(assessments, HttpStatus.OK);
-    }
-
-    //  getAssessmentsByBatchId
-    @RequestMapping(
-            value = "/assessment/batch{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Assessment>> getByBatchId(@PathVariable("id") int id) {
-        Set<Assessment> assessments = delegate.getAssessmentsByBatchId(id);
         if (assessments == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

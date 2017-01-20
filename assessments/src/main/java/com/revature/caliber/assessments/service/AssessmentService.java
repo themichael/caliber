@@ -22,34 +22,13 @@ public interface AssessmentService {
 
     /**
      * Returns HashSet of Assessments
-     *  with TrainerId
-     * @param id
-     * @return List of Assessments
-     */
-    /*   
-     * 	TODO reconsider how to approach this implementation.
-     * 		 data resides in another service, so you cannot query this way
-    Set<Assessment> getByTrainerId(int id);
-	*/
-    
-    /**
-     * Returns HashSet of Assessments
      *  with WeekId
      * @param id
      * @return List of Assessments
      */
     Set<Assessment> getByWeekId(int id);
 
-    /**
-     * Returns HashSet of Assessments
-     *  with BatchId
-     * @param id
-     * @return List of Assessments
-     */
-    Set<Assessment> getByBatchId(int id);
-
 //    Create
-
     /**
      * Inserts Assessment
      * @param assessment
@@ -57,7 +36,6 @@ public interface AssessmentService {
     void insert(Assessment assessment);
 
 //    Update
-
     /**
      * Updates Assessment
      * @param assessment
@@ -66,7 +44,6 @@ public interface AssessmentService {
 
 
 //    Delete
-
     /**
      * Deletes Assessment
      * @param assessment

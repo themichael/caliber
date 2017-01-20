@@ -21,7 +21,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     //TODO finish service impl: private QCStatusService qcStatusService;
     private TrainerNoteService trainerNoteService;
 
-    //    Assessment
+//    Assessment
     @Override
     public Set<Assessment> getAllAssessments() {
         return assessmentService.getAll();
@@ -32,23 +32,9 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         return assessmentService.getById(id);
     }
 
-    /*   
-     * 	TODO reconsider how to approach this implementation.
-     * 		 data resides in another service, so you cannot query this way
-    @Override
-    public Set<Assessment> getAssessmentsByTrainerId(int id) {
-        return assessmentService.getByTrainerId(id);
-    }
-    */
-
     @Override
     public Set<Assessment> getAssessmentsByWeekId(int id) {
         return assessmentService.getByWeekId(id);
-    }
-
-    @Override
-    public Set<Assessment> getAssessmentsByBatchId(int id) {
-        return assessmentService.getByBatchId(id);
     }
 
     @Override

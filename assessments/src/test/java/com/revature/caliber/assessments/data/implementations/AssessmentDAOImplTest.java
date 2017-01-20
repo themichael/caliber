@@ -78,19 +78,6 @@ public class AssessmentDAOImplTest {
 
         log.debug("Ending getAssessmentById");
     }
-    
-    /*   
-     * 	TODO reconsider how to approach this implementation.
-     * 		 data resides in another service, so you cannot query this way
-    @Test
-    @Ignore
-    public void getByTrainerId() {
-        long trainerId = 1;
-        log.debug("Starting getAssessmentsByTrainerId with id = " + trainerId);
-        Set<Assessment> assessments = assessmentDAO.getByTrainerId(trainerId);
-        assertFalse(assessments.isEmpty());
-    }
-    */
 
     @Test
     public void getByWeekId() {
@@ -101,17 +88,6 @@ public class AssessmentDAOImplTest {
         assertFalse(assessments.isEmpty());
 
         log.debug("Ending getByWeekId");
-    }
-
-    @Test
-    public void getByBatchId() {
-        int batchId = 1;
-        log.debug("Starting getAssessmentsByBatchId with id = " + batchId);
-
-        Set<Assessment> assessments = assessmentDAO.getByWeekId(batchId);
-        assertFalse(assessments.isEmpty());
-
-        log.debug("Ending getByBatchId");
     }
 
     @Test
