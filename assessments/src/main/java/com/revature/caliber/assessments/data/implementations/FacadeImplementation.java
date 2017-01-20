@@ -50,11 +50,15 @@ public class FacadeImplementation implements Facade {
         return assessmentDAO.getById(id);
     }
 
+    /*   
+     * 	TODO reconsider how to approach this implementation.
+     * 		 data resides in another service, so you cannot query this way
     @Transactional
     @Override
     public Set<Assessment> getAssessmentsByTrainerId(int id) {
         return assessmentDAO.getByTrainerId(id);
     }
+    */
 
     @Transactional
     @Override

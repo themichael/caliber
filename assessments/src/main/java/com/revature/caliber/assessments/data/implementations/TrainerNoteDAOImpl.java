@@ -22,13 +22,11 @@ public class TrainerNoteDAOImpl implements TrainerNoteDAO {
         this.sessionFactory = sessionFactory;
     }
 
-
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
     public void createTrainerNote(int trainerId) {
-        TrainerNote traineeNote = (TrainerNote) sessionFactory.getCurrentSession()
-                .get(TrainerNote.class, trainerId);
+        TrainerNote traineeNote = (TrainerNote) sessionFactory.getCurrentSession().get(TrainerNote.class, trainerId);
         sessionFactory.getCurrentSession().saveOrUpdate(traineeNote);
     }
 
@@ -37,9 +35,8 @@ public class TrainerNoteDAOImpl implements TrainerNoteDAO {
             Exception.class})
     @SuppressWarnings("unchecked")
     public List<TrainerNote> getAllTrainerNotesByTrainer(int trainerId) {
-        List<TrainerNote> trainerNotes = sessionFactory.getCurrentSession()
-                .createCriteria(TrainerNote.class)
-                .add(Restrictions.eq("TRAINER_ID", trainerId)).list();
+        List<TrainerNote> trainerNotes = sessionFactory.getCurrentSession().createCriteria(TrainerNote.class).
+                add(Restrictions.eq("TRAINER_ID", trainerId)).list();
         return trainerNotes;
     }
 
@@ -47,10 +44,10 @@ public class TrainerNoteDAOImpl implements TrainerNoteDAO {
     @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
     public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
-        TrainerNote trainerNoteForWeek = (TrainerNote) sessionFactory.getCurrentSession()
-                .createCriteria(TrainerNote.class)
+        TrainerNote trainerNoteForWeek = (TrainerNote) sessionFactory.getCurrentSession().createCriteria(TrainerNote.class)
                 .add(Restrictions.eq("TRAINER_ID", trainerId))
                 .add(Restrictions.eq("WEEK_ID", weekId)).uniqueResult();
         return trainerNoteForWeek;
     }
+
 }

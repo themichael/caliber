@@ -33,6 +33,7 @@ public interface Facade {
      */
     Assessment getById(int id);
 
+
     /**
      * Returns HashSet of Assessments
      * with TrainerId
@@ -40,8 +41,12 @@ public interface Facade {
      * @param id
      * @return Set of Assessments
      */
+    /*   
+     * 	TODO reconsider how to approach this implementation.
+     * 		 data resides in another service, so you cannot query this way
     Set<Assessment> getAssessmentsByTrainerId(int id);
-
+     */
+    
     /**
      * Returns HashSet of Assessments
      * with WeekId

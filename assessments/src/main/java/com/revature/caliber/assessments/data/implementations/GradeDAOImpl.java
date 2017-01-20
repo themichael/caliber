@@ -20,69 +20,69 @@ import java.util.List;
 @Repository(value = "gradeDAO")
 public class GradeDAOImpl implements GradeDAO {
 
-    private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+	@Autowired
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
-    @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
-            Exception.class})
-    public void insertGrade(Grade grade) {
-        sessionFactory.getCurrentSession().saveOrUpdate(grade);
-    }
+	@Override
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+			Exception.class })
+	public void insertGrade(Grade grade) {
+		sessionFactory.getCurrentSession().saveOrUpdate(grade);
+	}
 
-    @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
-            Exception.class})
-    public void updateGrade(Grade grade) {
-        sessionFactory.getCurrentSession().update(grade);
-    }
+	@Override
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+			Exception.class })
+	public void updateGrade(Grade grade) {
+		sessionFactory.getCurrentSession().update(grade);
+	}
 
-    @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
-            Exception.class})
-    public List<Grade> getGradesByTraineeId(Integer traineeId) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-        criteria.add(Restrictions.eq("traineeId", traineeId));
-        return criteria.list();
-    }
+	@Override
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+			Exception.class })
+	public List<Grade> getGradesByTraineeId(Integer traineeId) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
+		criteria.add(Restrictions.eq("trainee", traineeId));
+		return criteria.list();
+	}
 
-    @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
-            Exception.class})
-    public List<Grade> getGradesByAssesessment(Integer assessmentId) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-        criteria.add(Restrictions.eq("assessmentId", assessmentId));
-        return criteria.list();
+	@Override
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+			Exception.class })
+	public List<Grade> getGradesByAssesessment(Integer assessmentId) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
+		criteria.add(Restrictions.eq("assessment", assessmentId));
+		return criteria.list();
 
-    }
+	}
 
-    @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
-            Exception.class})
-    public void deleteGrade(Grade grade) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-        criteria.add(Restrictions.eq("gradeId", grade));
-        Grade gradeToDelete = (Grade) criteria.uniqueResult();
-        sessionFactory.getCurrentSession().delete(gradeToDelete);
-    }
+	@Override
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+			Exception.class })
+	public void deleteGrade(Grade grade) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
+		criteria.add(Restrictions.eq("gradeId", grade));
+		Grade gradeToDelete = (Grade) criteria.uniqueResult();
+		sessionFactory.getCurrentSession().delete(gradeToDelete);
+	}
 
 
-    @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
-            Exception.class})
-    public List<Grade> getAllGrades() {
-        return new ArrayList<>(sessionFactory.getCurrentSession().createCriteria(Grade.class).list());
-    }
+	@Override
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+			Exception.class })
+	public List<Grade> getAllGrades() {
+		return new ArrayList<>(sessionFactory.getCurrentSession().createCriteria(Grade.class).list());
+	}
 
-    @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
-            Exception.class})
-    public Grade getGradeByGradeId(Integer gradeId) {
-        return (Grade) sessionFactory.getCurrentSession().get(Grade.class, gradeId);
-    }
+	@Override	
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+			Exception.class })
+	public Grade getGradeByGradeId(Integer gradeId) {
+		return (Grade) sessionFactory.getCurrentSession().get(Grade.class, gradeId);
+	}
 
 }

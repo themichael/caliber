@@ -18,15 +18,19 @@ public interface AssessmentDAO {
      *  with AssessmentId
      * @return Assessment
      */
-    Assessment getById(int id);
+    Assessment getById(long id);
 
     /**
      * Returns HashSet of Assessments
      *  with TrainerId
-     * @param id
+     * @param trainerId
      * @return List of Assessments
      */
-    Set<Assessment> getByTrainerId(int id);
+    /*   
+     * 	TODO reconsider how to approach this implementation.
+     * 		 data resides in another service, so you cannot query this way
+    Set<Assessment> getByTrainerId(long trainerId);
+    */
 
     /**
      * Returns HashSet of Assessments
@@ -34,7 +38,7 @@ public interface AssessmentDAO {
      * @param id
      * @return List of Assessments
      */
-    Set<Assessment> getByWeekId(int id);
+    Set<Assessment> getByWeekId(long id);
 
     /**
      * Returns HashSet of Assessments

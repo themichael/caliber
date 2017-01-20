@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
 @Repository(value = "noteDAO")
 public class NoteDAOImpl implements NoteDAO {
 
@@ -37,6 +38,4 @@ public class NoteDAOImpl implements NoteDAO {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Note.class);
         return criteria.list();
     }
-
-
 }
