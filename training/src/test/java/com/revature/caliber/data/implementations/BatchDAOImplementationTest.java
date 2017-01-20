@@ -25,25 +25,24 @@ public class BatchDAOImplementationTest {
         log = Logger.getRootLogger();
     }
 
-    //Could not test
-/*    @Test
+    //Works
+    @Test
     public void createBatch(){
         log.debug("Create batch test.");
 
-        BatchDAO batchDAO = (BatchDAO)context.getBean("batchDAO");
-        TrainerDAO trainerDAO = (TrainerDAO)context.getBean("trainerDAO");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
+        TrainerDAO trainerDAO = context.getBean(TrainerDAO.class);
         Trainer trainer = trainerDAO.getTrainer(1);
         Tier tier = new Tier();
         tier.setTierId((short)1);
-        *//*Trainer trainer = new Trainer("Dan Pickles","title", "email", "account",
-                "token", "token", tier, null);*//*
-        Date startDate = new Date(1,500,993,945,323);
+        Date startDate = new Date(1481394352000L);
+        Date endDate = new Date(1458757552000L);
         Batch batch = new Batch("trainingName", trainer, null, "skillType", "trainingType",
-                startDate, new Date(), "New York", (short) 60, (short)80,
+                startDate, endDate, "Virgina", (short) 60, (short)80,
                 null, null);
         batchDAO.createBatch(batch);
         log.debug("Batch created");
-    }*/
+    }
 
     // Works
     @Test
@@ -101,9 +100,13 @@ public class BatchDAOImplementationTest {
         log.debug("updated batch");
     }
 
-    //Could not test
-/*    @Test
+    //Works
+   @Test
     public void deleteBatch(){
+        log.debug("Deleting batch");
         BatchDAO batchDAO = context.getBean(BatchDAO.class);
-    }*/
+        Batch batch = batchDAO.getBatch(1100);
+        batchDAO.deleteBatch(batch);
+        log.debug("Deleted batch");
+    }
 }
