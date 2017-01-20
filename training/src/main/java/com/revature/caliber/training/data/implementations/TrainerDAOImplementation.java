@@ -20,7 +20,7 @@ import com.revature.caliber.training.data.TrainerDAO;
  * 
  * @author Karina
  */
-//@Repository(value = "trainingTrainerDAOImplementation")
+@Repository(value = "trainerDao")
 public class TrainerDAOImplementation implements TrainerDAO {
 
 	private SessionFactory sessionFactory;
@@ -60,7 +60,7 @@ public class TrainerDAOImplementation implements TrainerDAO {
 		Criteria criteria = session.createCriteria(Trainer.class);
 		return criteria.list();
 	}
-
+	
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
 	public void updateTrainer(Trainer trainer) {
