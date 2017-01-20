@@ -42,14 +42,25 @@ Revature Colors
 /**********************
 	Chart Containers
 **********************/
+.nav>li>a, .nav>li>a {
+    transition: background-color 1s ease;
+}
+
 .data-container {
-	background-color: #d9dce0;
-	padding: 2em;
+	background-color: #f1f2f4;
+	padding: .5em 1em 1em 1em;
+	border-radius: .5em;
+	box-shadow: 0 0 1em #f1f2f4;
 }
 
 .chart-container {
+	padding: .5em;
 	background-color: #ffffff;
+	border-radius: .3em;
+	margin-top: .5em;
 }
+
+
 
 /************************
 	Margins

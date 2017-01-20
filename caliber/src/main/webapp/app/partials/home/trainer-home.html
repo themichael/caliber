@@ -1,67 +1,40 @@
 <div class="container">
-	<div class="col-sm-6">
-		<ul class="nav nav-tabs">
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#">Batch<span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="#">Submenu 1-1</a></li>
-					<li><a href="#">Submenu 1-2</a></li>
-					<li><a href="#">Submenu 1-3</a></li>
-				</ul></li>
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#">Technology<span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="#">Submenu 1-1</a></li>
-					<li><a href="#">Submenu 1-2</a></li>
-					<li><a href="#">Submenu 1-3</a></li>
-				</ul></li>
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#">Trainee<span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="#">Submenu 1-1</a></li>
-					<li><a href="#">Submenu 1-2</a></li>
-					<li><a href="#">Submenu 1-3</a></li>
-				</ul></li>
-		</ul>
-	</div>
-    <div class="col-sm-6">
-        <ul class="nav nav-tabs">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Batch<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Submenu 1-1</a></li>
-                    <li><a href="#">Submenu 1-2</a></li>
-                    <li><a href="#">Submenu 1-3</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Technology<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Submenu 1-1</a></li>
-                    <li><a href="#">Submenu 1-2</a></li>
-                    <li><a href="#">Submenu 1-3</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Trainee<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Submenu 1-1</a></li>
-                    <li><a href="#">Submenu 1-2</a></li>
-                    <li><a href="#">Submenu 1-3</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<!-- container -->
-<div class="container">
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
-			<div class="row">
-				<div class="top20">
+			<ul class="nav nav-tabs">
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">{{currentBatch}}<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="menuItem in batches track by $index"><a
+							role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a>
+						</li>
+					</ul></li>
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">{{currentTech}}<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="menuItem in tech track by $index"><a
+							role="button" ng-click="selectCurrentTech($index)">{{menuItem}}</a>
+						</li>
+					</ul></li>
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">{{currentTrainee}}<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="menuItem in trainees track by $index"><a
+							role="button" ng-click="selectCurrentTrainee($index)">{{menuItem}}</a>
+						</li>
+					</ul></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="top10 data-container">
+		<div class="row">
+			<div class="col-md-12 col-lg-12">
+				<div class="row">
 					<div class="col-md-6">
-						<div class="top10">
+						<div class="chart-container">
 							<canvas id="line" class="chart chart-line" chart-data="lineData"
 								chart-labels="lineLabels" chart-series="lineSeries"
 								chart-options="lineOptions"
@@ -70,12 +43,13 @@
 							</canvas>
 						</div>
 					</div>
+					<div class="col-md-6">
+						<div class="chart-container">
+							Chart #2
+						</div>
+					</div>
 				</div>
-				<!-- top20 -->
 			</div>
-			<!-- row -->
 		</div>
-		<!-- col -->
 	</div>
-	<!-- row -->
 </div>
