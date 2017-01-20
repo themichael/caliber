@@ -1,8 +1,14 @@
 package com.revature.caliber.assessments.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity(name="CALIBER_QC_NOTE")
 public class QCNote extends Note{
 
+	@Column(name="TRAINEE_ID")
 	private int trainee;
+	@Column(name="WEEK_ID")
 	private int week;
 	
 	public QCNote(int trainee, int week) {

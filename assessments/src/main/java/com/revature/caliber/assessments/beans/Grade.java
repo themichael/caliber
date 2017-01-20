@@ -41,8 +41,7 @@ public class Grade {
 	/**
 	 * Trainee- the trainee that receives this Grade object
 	 */
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "TRAINEE_ID", nullable = false)
+	@Column(name = "TRAINEE_ID", nullable = false)
 	private int trainee;
 
 	/**

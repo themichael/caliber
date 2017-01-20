@@ -26,11 +26,11 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
     private AssessmentService assessmentService;
     private BatchService batchService;
-    private CategoryService categoryService;
+    //private CategoryService categoryService;
     private GradeService gradeService;
-    private NoteService noteService;
-    private QCNoteService qcNoteService;
-    private QCStatusService qcStatusService;
+    //TODO finish service impl: private NoteService noteService;
+    //TODO finish service impl: private QCNoteService qcNoteService;
+    //TODO finish service impl: private QCStatusService qcStatusService;
     private TrainerNoteService trainerNoteService;
 
 //    Assessment
@@ -126,6 +126,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     public void setBatchService(BatchService batchService) {
         this.batchService = batchService;
     }
+    /* TODO wire the beans
+    *
     @Autowired
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
@@ -145,7 +147,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     @Autowired
     public void setQcStatusService(QCStatusService qcStatusService) {
         this.qcStatusService = qcStatusService;
-    }
+    }*/
     @Autowired
     public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
         this.trainerNoteService = trainerNoteService;

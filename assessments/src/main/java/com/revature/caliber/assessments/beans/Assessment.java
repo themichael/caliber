@@ -65,8 +65,7 @@ public class Assessment {
      * Set of Categories for Assessments (for Hibernate ORM)
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable  //Hibernate generates this join table with default name
-                //CALIBER_ASSESSMENT concat CALIBER_CATEGORY
+    @JoinTable(name="CALIBER_ASSESSMENT_CATEGORIES")
     private Set<Category> categories;
 
     public Assessment(long assessmentId,

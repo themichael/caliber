@@ -1,5 +1,6 @@
 package com.revature.caliber.assessments.beans;
 
+<<<<<<< HEAD
 import javax.persistence.*;
 import java.util.Set;
 
@@ -14,6 +15,27 @@ public class QCStatus {
 	private short statusId;
 
 	@Column(name = "QC_STATUS_STATUS")
+=======
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+
+@Entity(name="CALIBER_QC_STATUS")
+public class QCStatus {
+
+	@Id
+	@Column(name="STATUS_ID")
+	@GeneratedValue(generator="statusIdGenerator", strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(name="statusIdGenerator", sequenceName="STATUS_ID_GENERATOR")
+	private short statusId;
+	@Column(name="QC_STATUS")
+>>>>>>> 8bce4344cafe218f6b8416b668b4c4cd97e0c356
 	private String status;
 
 	@OneToMany(mappedBy = "weeklyStatus")

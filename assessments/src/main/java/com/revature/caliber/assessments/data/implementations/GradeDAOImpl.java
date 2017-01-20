@@ -47,7 +47,7 @@ public class GradeDAOImpl implements GradeDAO {
 			Exception.class })
 	public List<Grade> getGradesByTraineeId(Integer traineeId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("traineeId", traineeId));
+		criteria.add(Restrictions.eq("trainee", traineeId));
 		return criteria.list();
 	}
 
@@ -56,7 +56,7 @@ public class GradeDAOImpl implements GradeDAO {
 			Exception.class })
 	public List<Grade> getGradesByAssesessment(Integer assessmentId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("assessmentId", assessmentId));
+		criteria.add(Restrictions.eq("assessment", assessmentId));
 		return criteria.list();
 
 	}
