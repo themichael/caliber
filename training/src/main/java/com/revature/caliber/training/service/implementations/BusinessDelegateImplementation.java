@@ -1,14 +1,16 @@
 package com.revature.caliber.training.service.implementations;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.service.BatchService;
 import com.revature.caliber.training.service.BusinessDelegate;
 import com.revature.caliber.training.service.TraineeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
 /**
  * Implementation for the Business Delegate

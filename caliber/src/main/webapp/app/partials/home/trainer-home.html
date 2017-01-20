@@ -45,7 +45,12 @@
 					</div>
 					<div class="col-sm-6 col-md-6">
 						<div class="chart-container top5">
-							Chart #2
+							<canvas id="line" class="chart chart-pie" chart-data="pieData"
+								chart-labels="pieLabels" chart-colors="pieColors"
+								chart-options="pieOptions"
+								chart-dataset-override="pieDatasetOverride"
+								chart-click="pieOnClick" height="75" width="100">
+							</canvas>
 						</div>
 					</div>
 				</div>
