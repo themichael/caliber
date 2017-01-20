@@ -12,7 +12,6 @@ public class BatchNote extends Note{
 	//Use the WeekID from the Week Table and put it for the week of the BatchNote 
 	@Id
 	@Column(name="WEEK_ID", nullable=false)
-	@OneToOne
 	private int week;
 	
 	//Use the BatchID from the the Batch Table and use it for the specific Batch
