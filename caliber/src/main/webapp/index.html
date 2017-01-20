@@ -45,14 +45,18 @@
             crossorigin="anonymous"></script>
 
     <!-- Insert css local files here -->
-<link rel="stylesheet" href="app/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app/resources/css/app.css">
 
-    <title>Caliber</title>
+    <title>Caliber | Performance Management</title>
 </head>
 <body ng-app="app">
+<!-- Header -->
 
 <!-- states inserts here -->
 <ui-view></ui-view>
+
+<!-- Footer -->
 
 <!-- App Config -->
 <script src="app/resources/js/config/modules.js"></script>
@@ -60,7 +64,12 @@
 
 <!-- Services -->
 
+
 <!-- Controllers -->
+<script src="app/resources/js/controllers/vpHomeController.js"></script>
+<script src="app/resources/js/controllers/qcHomeController.js"></script>
+<script src="app/resources/js/controllers/trainerHomeController.js"></script>
+
 
 </body>
 </html>
