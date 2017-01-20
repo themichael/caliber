@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<tx:annotation-driven/> <mvc:annotation-driven />
-	<context:component-scan base-package="com.revature.caliber.training" />
+	<context:component-scan base-package="com.revature.caliber.training.data.implementations" />
 	
 
 	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -48,6 +48,9 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<bean name="batchDAO" class="com.revature.caliber.training.data.implementations.BatchDAOImplementation">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean name="tierDAO" class="com.revature.caliber.training.data.implementations.TierDAOImplementation">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

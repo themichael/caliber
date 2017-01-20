@@ -7,7 +7,7 @@ import com.revature.caliber.training.beans.Tier;
 public interface TierDAO {
 
 	void createTier(Tier tier);
-	Tier getTier(Integer id);
+	Tier getTier(short num);
 	Tier getTier(String name);
 	List<Tier> getAllTiers();
 	void updateTier(Tier tier);
