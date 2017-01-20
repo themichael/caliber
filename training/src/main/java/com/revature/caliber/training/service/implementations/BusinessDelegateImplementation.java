@@ -1,6 +1,8 @@
 package com.revature.caliber.training.service.implementations;
 
+import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Trainee;
+import com.revature.caliber.training.service.BatchService;
 import com.revature.caliber.training.service.BusinessDelegate;
 import com.revature.caliber.training.service.TraineeService;
 import org.springframework.beans.factory.annotation.Autowired;
