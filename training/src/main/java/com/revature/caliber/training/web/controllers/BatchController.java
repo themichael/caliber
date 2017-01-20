@@ -59,15 +59,15 @@ public class BatchController {
         return returnEntity;
     }
 
-    // Request to get all batches by Trainer name
-    @RequestMapping(value = "batch/byTrainerName/{name}",
+    // Request to get all batches by Trainer id
+    @RequestMapping(value = "batch/byTrainerId/{id}",
                 method = RequestMethod.GET,
                 consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
                 produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("name") String name){
+    public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("id") Integer id){
         ResponseEntity<List<Batch>> returnEntity;
         try{
-            List<Batch> batches = businessDelegate.getTrainerBatch(name);
+            List<Batch> batches = businessDelegate.getTrainerBatch(id);
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
@@ -96,15 +96,15 @@ public class BatchController {
         return returnEntity;
     }
 
-    // Request to get active batches by Trainer name
-    @RequestMapping(value = "batch/current/{name}",
+    // Request to get active batches by Trainer id
+    @RequestMapping(value = "batch/current/{id}",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<List<Batch>> getCurrentBatch(@PathVariable("name") String name){
+    public HttpEntity<List<Batch>> getCurrentBatch(@PathVariable("name") Integer id){
         ResponseEntity<List<Batch>> returnEntity;
         try{
-            List<Batch> batches = businessDelegate.getCurrentBatch(name);
+            List<Batch> batches = businessDelegate.getCurrentBatch(id);
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else

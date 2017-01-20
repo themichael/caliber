@@ -182,4 +182,20 @@ public class Batch {
 	public void setWeeks(Set<Week> weeks) {
 		this.weeks = weeks;
 	}
+
+	@Override
+	public String toString() {
+		return "Batch{" +
+				"batchId=" + batchId +
+				", trainingName='" + trainingName + '\'' +
+				", trainer=" + trainer.getName() +
+				", skillType='" + skillType + '\'' +
+				", trainingType='" + trainingType + '\'' +
+				", startDate=" + startDate +
+				", endDate=" + endDate +
+				", location='" + location + '\'' +
+				", goodGradeThreshold=" + goodGradeThreshold +
+				", borderlineGradeThreshold=" + borderlineGradeThreshold +
+				'}';
+	}
 }

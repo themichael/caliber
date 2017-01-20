@@ -31,9 +31,12 @@ public class BatchDAOImplementation implements BatchDAO{
             rollbackFor = {Exception.class})
     public List<Batch> getAllBatch() {return sessionFactory.getCurrentSession().createCriteria(Batch.class).list();}
 
-    public List<Batch> getTrainerBatch(String name) {
+    @Transactional(isolation = Isolation.READ_COMMITTED,
+            propagation = Propagation.REQUIRED,
+            rollbackFor = {Exception.class})
+    public List<Batch> getTrainerBatch(Integer id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Batch.class);
-        criteria.add(Restrictions.eq("trainer.name", name));
+        criteria.add(Restrictions.eq("trainer.trainerId", id));
         return criteria.list();
     }
 
@@ -42,19 +45,19 @@ public class BatchDAOImplementation implements BatchDAO{
             rollbackFor = {Exception.class})
     public List<Batch> getCurrentBatch() {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Batch.class);
-        criteria.add(Restrictions.ge("startDate", new Date().getTime() ));
-        criteria.add(Restrictions.le("endDate", new Date().getTime() ));
+        criteria.add(Restrictions.le("startDate"    , new Date() ));
+        criteria.add(Restrictions.ge("endDate"      , new Date() ));
         return criteria.list();
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
-    public List<Batch> getCurrentBatch(String name) {
+    public List<Batch> getCurrentBatch(Integer id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Batch.class);
-        criteria.add(Restrictions.eq("trainer.name", name ));
-        criteria.add(Restrictions.ge("startDate", new Date().getTime() ));
-        criteria.add(Restrictions.le("endDate", new Date().getTime() ));
+        criteria.add(Restrictions.eq("trainer.trainerId", id));
+        criteria.add(Restrictions.le("startDate"    , new Date() ));
+        criteria.add(Restrictions.ge("endDate"      , new Date() ));
         return criteria.list();
     }
 
