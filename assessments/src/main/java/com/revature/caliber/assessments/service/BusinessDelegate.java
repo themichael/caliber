@@ -13,7 +13,11 @@ public interface BusinessDelegate {
 
     Assessment getAssessmentById(int id);
 
+    /*   
+     * 	TODO reconsider how to approach this implementation.
+     * 		 data resides in another service, so you cannot query this way
     Set<Assessment> getAssessmentsByTrainerId(int id);
+    */
 
     Set<Assessment> getAssessmentsByWeekId(int id);
 

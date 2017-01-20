@@ -28,10 +28,14 @@ public class AssessmentServiceImpl implements AssessmentService {
         return facade.getById(id);
     }
 
+    /*   
+     * 	TODO reconsider how to approach this implementation.
+     * 		 data resides in another service, so you cannot query this way
     @Override
     public Set<Assessment> getByTrainerId(int id) {
         return facade.getAssessmentsByTrainerId(id);
     }
+    */
 
     @Override
     public Set<Assessment> getByWeekId(int id) {
