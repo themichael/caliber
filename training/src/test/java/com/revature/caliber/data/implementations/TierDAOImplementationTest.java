@@ -1,5 +1,6 @@
 package com.revature.caliber.data.implementations;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -14,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.training.beans.Tier;
+import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.data.TierDAO;
 
 public class TierDAOImplementationTest {
@@ -66,6 +68,21 @@ public class TierDAOImplementationTest {
     }
     
     @Test
+    public void getTrainersInTierTest() {
+    	short num = 1;
+    	
+    	TierDAO tDao = (TierDAO) context.getBean("tierDAO");
+        List<Trainer> trainers = tDao.getTrainersInTier(num);
+        
+        assertNotNull(trainers);
+        assertNotEquals(0, trainers.size());
+        
+        for (Trainer t : trainers) {
+        	System.out.println(t.getName());
+        }
+    }
+    
+    @Ignore
     public void deleteTier() {
     	TierDAO tDAO = (TierDAO) context.getBean("tierDAO");
     

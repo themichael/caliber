@@ -3,6 +3,7 @@ package com.revature.caliber.training.data;
 import java.util.List;
 
 import com.revature.caliber.training.beans.Tier;
+import com.revature.caliber.training.beans.Trainer;
 
 public interface TierDAO {
 
@@ -12,4 +13,7 @@ public interface TierDAO {
 	List<Tier> getAllTiers();
 	void updateTier(Tier tier);
 	void deleteTier(Tier tier);
+	
+	//
+	List<Trainer> getTrainersInTier(short tier);
 }

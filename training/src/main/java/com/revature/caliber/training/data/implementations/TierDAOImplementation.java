@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.training.beans.Tier;
+import com.revature.caliber.training.beans.Trainee;
+import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.data.TierDAO;
 
 @Repository(value = "tierDAO")
@@ -91,4 +93,14 @@ public class TierDAOImplementation implements TierDAO {
 		sessionFactory.getCurrentSession().delete(tier);
 	}
 
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED,
+    				propagation = Propagation.REQUIRED,
+    				rollbackFor = {Exception.class})
+	public List<Trainer> getTrainersInTier(short tierId) {
+		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Trainer.class);
+		criteria.add(Restrictions.eq("tier.tierId" , tierId));
+		return criteria.list();
+	}
 }
