@@ -26,7 +26,7 @@ public class BatchDAOImplementation implements BatchDAO{
             rollbackFor = {Exception.class})
     public void createBatch(Batch batch) {sessionFactory.getCurrentSession().save(batch);}
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED,
+    @Transactional(isolation = Isolation.READ_COMMITTED,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
     public List<Batch> getAllBatch() {return sessionFactory.getCurrentSession().createCriteria(Batch.class).list();}
@@ -37,7 +37,7 @@ public class BatchDAOImplementation implements BatchDAO{
         return criteria.list();
     }
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED,
+    @Transactional(isolation = Isolation.READ_COMMITTED,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
     public List<Batch> getCurrentBatch() {
@@ -47,7 +47,7 @@ public class BatchDAOImplementation implements BatchDAO{
         return criteria.list();
     }
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED,
+    @Transactional(isolation = Isolation.READ_COMMITTED,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
     public List<Batch> getCurrentBatch(String name) {
@@ -58,7 +58,7 @@ public class BatchDAOImplementation implements BatchDAO{
         return criteria.list();
     }
 
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED,
+    @Transactional(isolation = Isolation.READ_COMMITTED,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
     public Batch getBatch(Integer id){return (Batch)sessionFactory.getCurrentSession().get(Batch.class, id);}

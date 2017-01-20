@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.assessments.beans.Note;
 import com.revature.caliber.assessments.data.NoteDAO;
 
+@Repository(value="noteDAO")
 public class NoteDAOImpl implements NoteDAO {
 	
 	private SessionFactory sessionFactory;

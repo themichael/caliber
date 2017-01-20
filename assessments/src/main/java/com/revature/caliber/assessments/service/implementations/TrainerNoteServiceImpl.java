@@ -3,11 +3,13 @@ package com.revature.caliber.assessments.service.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.Facade;
 import com.revature.caliber.assessments.service.TrainerNoteService;
 
+@Service(value="trainerNoteService")
 public class TrainerNoteServiceImpl implements TrainerNoteService {
 
 	 
