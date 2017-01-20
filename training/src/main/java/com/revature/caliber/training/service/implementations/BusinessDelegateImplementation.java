@@ -14,7 +14,7 @@ import com.revature.caliber.training.service.TraineeService;
 /**
  * Implementation for the Business Delegate
  */
-@Service(value = "trainingBusinessDelegateImplementation")
+@Service
 public class BusinessDelegateImplementation implements BusinessDelegate{
 	
     TraineeService traineeService;

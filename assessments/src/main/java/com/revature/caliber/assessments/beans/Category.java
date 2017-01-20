@@ -21,7 +21,7 @@ public class Category {
 	@SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE")
     private int categoryId;
 	
-	@Column(name = "CATEGORY_SKILL")
+	@Column(name = "SKILL_CATEGORY")
     private String skillCategory;
 
     // Bi-directional mapping -- to avoid recursion, make DTO to send to UI

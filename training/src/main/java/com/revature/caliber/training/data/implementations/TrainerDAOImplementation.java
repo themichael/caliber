@@ -20,7 +20,7 @@ import com.revature.caliber.training.data.TrainerDAO;
  * 
  * @author Karina
  */
-@Repository(value = "trainerDao")
+@Repository
 public class TrainerDAOImplementation implements TrainerDAO {
 
 	private SessionFactory sessionFactory;

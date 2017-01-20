@@ -31,8 +31,7 @@ public class Grade {
 	private long gradeId;
 
 	/**
-	 * Assessment - A trainee received a grade on specified assessment TODO
-	 * change
+	 * Assessment - A trainee received a grade on specified assessment
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ASSESSMENT_ID", nullable = false)

@@ -27,7 +27,7 @@ public class BatchDAOImplementationTest {
 
     @Test
     public void createBatch(){
-        BatchDAO batchDAO = (BatchDAO)context.getBean("batchDAO");
+        BatchDAO batchDAO = (BatchDAO)context.getBean(BatchDAO.class);
         Date startDate = new Date(1,500,993,945,323);
         Batch batch = new Batch("trainingName", new Trainer(), null, "skillType", "trainingType",
                 startDate, new Date(), "New York", (short) 60, (short)80,
@@ -37,37 +37,37 @@ public class BatchDAOImplementationTest {
 
     @Test
     public void getAll(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
         List<Batch> batch = batchDAO.getAllBatch();
         assertNotNull(batch);
     }
     @Test
     public void getTrainerBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
     }
 
     @Test
     public void getCurrentBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
     }
 
     @Test
     public void getCurrentBatchWithName(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
     }
 
     @Test
     public void getBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
     }
 
     @Test
     public void updateBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
     }
 
     @Test
     public void deleteBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
     }
 }
