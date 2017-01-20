@@ -1,12 +1,14 @@
 package com.revature.caliber.assessments.service.implementations;
 
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.service.AssessmentService;
 import com.revature.caliber.assessments.service.BatchService;
 import com.revature.caliber.assessments.service.BusinessDelegate;
@@ -74,7 +76,41 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 
 
+// Grade
+	@Override
+	public List<Grade> getAllGrades() {
+		return gradeService.getAllGrades();
+	}
 
+	@Override
+	public Grade getGradeByGradeId(int gradeId) {
+		return gradeService.getGradeByGradeId(gradeId);
+	}
+
+	@Override
+	public List<Grade> getGradesByTraineeId(int traineeId) {
+		return gradeService.getGradesByTraineeId(traineeId);
+	}
+
+	@Override
+	public List<Grade> getGradesByAssesessment(int assessmentId) {
+		return gradeService.getGradesByAssesessment(assessmentId);
+	}
+
+	@Override
+	public void insertGrade(Grade grade) {
+		gradeService.insertGrade(grade);
+	}
+
+	@Override
+	public void deleteGrade(Grade grade) {
+		gradeService.deleteGrade(grade);
+	}
+
+	@Override
+	public void updateGrade(Grade grade) {
+		gradeService.updateGrade(grade);
+	}
 
 
 
