@@ -3,6 +3,7 @@ package com.revature.caliber.training.data;
 import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
+import com.revature.caliber.training.beans.Trainer;
 
 import java.util.List;
 
@@ -34,5 +35,12 @@ public interface Facade {
 	public Category getCategory(int categoryId);
 	public List<Category> getAllCategories();
 
-
+	//Trainer methods
+	public void createTrainer(Trainer trainer);
+	public Trainer getTrainer(Integer id);
+	public List<Trainer> getTrainer(String name);
+	public List<Trainer> getAllTrainers();
+	public void updateTrainer(Trainer trainer);
+	public void deleteTrainer(Trainer trainer);
+	
 }
