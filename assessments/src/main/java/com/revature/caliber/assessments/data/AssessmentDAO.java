@@ -18,15 +18,7 @@ public interface AssessmentDAO {
      *  with AssessmentId
      * @return Assessment
      */
-    Assessment getById(int id);
-
-    /**
-     * Returns HashSet of Assessments
-     *  with TrainerId
-     * @param id
-     * @return List of Assessments
-     */
-    Set<Assessment> getByTrainerId(int id);
+    Assessment getById(long id);
 
     /**
      * Returns HashSet of Assessments
@@ -34,15 +26,7 @@ public interface AssessmentDAO {
      * @param id
      * @return List of Assessments
      */
-    Set<Assessment> getByWeekId(int id);
-
-    /**
-     * Returns HashSet of Assessments
-     *  with BatchId
-     * @param id
-     * @return List of Assessments
-     */
-    Set<Assessment> getByBatchId(int id);
+    Set<Assessment> getByWeekId(long id);
 
 //    Create
 

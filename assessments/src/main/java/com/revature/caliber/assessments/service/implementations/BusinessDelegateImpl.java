@@ -14,15 +14,59 @@ import java.util.Set;
 public class BusinessDelegateImpl implements BusinessDelegate {
 
     private AssessmentService assessmentService;
-    private BatchService batchService;
+    private BatchNoteService batchNoteService;
     private CategoryService categoryService;
     private GradeService gradeService;
-    private NoteService noteService;
-    private QCNoteService qcNoteService;
-    private QCStatusService qcStatusService;
+    //TODO finish service impl: private NoteService noteService;
+    //TODO finish service impl: private QCNoteService qcNoteService;
+    //TODO finish service impl: private QCStatusService qcStatusService;
     private TrainerNoteService trainerNoteService;
 
-    //    Assessment
+    //    Spring setter based DI
+    @Autowired
+    public void setAssessmentService(AssessmentService assessmentService) {
+        this.assessmentService = assessmentService;
+    }
+
+    @Autowired
+    public void setBatchNoteService(BatchNoteService batchService) {
+        this.batchNoteService = batchNoteService;
+    }
+
+    /* TODO wire the beans
+    *
+    @Autowired
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
+    @Autowired
+    public void setGradeService(GradeService gradeService) {
+        this.gradeService = gradeService;
+    }
+
+    @Autowired
+    public void setNoteService(NoteService noteService) {
+        this.noteService = noteService;
+    }
+
+    @Autowired
+    public void setQcNoteService(QCNoteService qcNoteService) {
+        this.qcNoteService = qcNoteService;
+    }
+
+    @Autowired
+    public void setQcStatusService(QCStatusService qcStatusService) {
+        this.qcStatusService = qcStatusService;
+    }
+
+    }*/
+    @Autowired
+    public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
+        this.trainerNoteService = trainerNoteService;
+    }
+
+//    Assessment
     @Override
     public Set<Assessment> getAllAssessments() {
         return assessmentService.getAll();
@@ -34,18 +78,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public Set<Assessment> getAssessmentsByTrainerId(int id) {
-        return assessmentService.getByTrainerId(id);
-    }
-
-    @Override
     public Set<Assessment> getAssessmentsByWeekId(int id) {
         return assessmentService.getByWeekId(id);
-    }
-
-    @Override
-    public Set<Assessment> getAssessmentsByBatchId(int id) {
-        return assessmentService.getByBatchId(id);
     }
 
     @Override
@@ -65,7 +99,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 //    Batch
 
-    //    Category
+//    Category
     @Override
     public Set<Category> getAllCategories() {
         return categoryService.getAll();
@@ -76,8 +110,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         return categoryService.getById(id);
     }
 
-
-    // Grade
+// Grade
     @Override
     public List<Grade> getAllGrades() {
         return gradeService.getAllGrades();
@@ -111,48 +144,6 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     @Override
     public void updateGrade(Grade grade) {
         gradeService.updateGrade(grade);
-    }
-
-
-    //    Spring setter based DI
-    @Autowired
-    public void setAssessmentService(AssessmentService assessmentService) {
-        this.assessmentService = assessmentService;
-    }
-
-    @Autowired
-    public void setBatchService(BatchService batchService) {
-        this.batchService = batchService;
-    }
-
-    @Autowired
-    public void setCategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
-
-    @Autowired
-    public void setGradeService(GradeService gradeService) {
-        this.gradeService = gradeService;
-    }
-
-    @Autowired
-    public void setNoteService(NoteService noteService) {
-        this.noteService = noteService;
-    }
-
-    @Autowired
-    public void setQcNoteService(QCNoteService qcNoteService) {
-        this.qcNoteService = qcNoteService;
-    }
-
-    @Autowired
-    public void setQcStatusService(QCStatusService qcStatusService) {
-        this.qcStatusService = qcStatusService;
-    }
-
-    @Autowired
-    public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
-        this.trainerNoteService = trainerNoteService;
     }
 
 }

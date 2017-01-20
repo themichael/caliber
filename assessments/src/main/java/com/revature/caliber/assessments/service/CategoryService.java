@@ -8,13 +8,15 @@ public interface CategoryService {
 
     /**
      * Returns Set of all Categories
+     *
      * @return Set of all Categories
      */
     Set<Category> getAll();
 
     /**
      * Returns Category
-     *  with provided ID
+     * with provided ID
+     *
      * @param id
      * @return Category
      */

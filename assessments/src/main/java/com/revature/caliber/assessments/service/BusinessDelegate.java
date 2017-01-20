@@ -14,11 +14,7 @@ public interface BusinessDelegate {
 
     Assessment getAssessmentById(int id);
 
-    Set<Assessment> getAssessmentsByTrainerId(int id);
-
     Set<Assessment> getAssessmentsByWeekId(int id);
-
-    Set<Assessment> getAssessmentsByBatchId(int id);
 
     void insertAssessment(Assessment assessment);
 

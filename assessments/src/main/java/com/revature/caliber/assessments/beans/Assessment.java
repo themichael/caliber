@@ -24,7 +24,7 @@ public class Assessment {
      * Trainer inputted title,
      *  can be anything to help identify this assessment
      */
-    @Column(name = "TITLE", nullable = false)
+    @Column(name = "ASSESSMENT_TITLE", nullable = false)
     private String title;
 
     /**
@@ -42,14 +42,14 @@ public class Assessment {
     /**
      * Assessment type, e.g. LMS, Verbal
      */
-    @Column(name = "TYPE", nullable = false)
+    @Column(name = "ASSESSMENT_TYPE", nullable = false)
     private String type;
 
     /**
      * WeekID for reference
      */
     @Column(name = "WEEK_ID", nullable = false)
-    private int week;
+    private long week;
 
 // TODO Bi-directional mapping -- to avoid recursion, make DTO to send to UI
     /**
@@ -64,17 +64,30 @@ public class Assessment {
     /**
      * Set of Categories for Assessments (for Hibernate ORM)
      */
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable  //Hibernate generates this join table with default name
-                //CALIBER_ASSESSMENT concat CALIBER_CATEGORY
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="CALIBER_ASSESSMENT_CATEGORIES")
     private Set<Category> categories;
+
+    @Override
+    public String toString() {
+        return "Assessment{" +
+                "assessmentId=" + assessmentId +
+                ", title='" + title + '\'' +
+                ", batch=" + batch +
+                ", rawScore=" + rawScore +
+                ", type='" + type + '\'' +
+                ", week=" + week +
+                ", weeklyStatus=" + weeklyStatus +
+                ", categories=" + categories +
+                '}';
+    }
 
     public Assessment(long assessmentId,
                       String title,
                       int batch,
                       int rawScore,
                       String type,
-                      int week,
+                      long week,
                       Set<Category> categories) {
         super();
         this.assessmentId = assessmentId;
@@ -94,7 +107,7 @@ public class Assessment {
                       int batch,
                       int rawScore,
                       String type,
-                      int week,
+                      long week,
                       Set<Category> categories) {
         super();
         this.title = title;
@@ -145,11 +158,11 @@ public class Assessment {
         this.type = type;
     }
 
-    public int getWeek() {
+    public long getWeek() {
         return week;
     }
 
-    public void setWeek(int week) {
+    public void setWeek(long week) {
         this.week = week;
     }
 

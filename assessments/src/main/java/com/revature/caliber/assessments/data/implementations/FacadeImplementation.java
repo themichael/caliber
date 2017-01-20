@@ -1,6 +1,9 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import com.revature.caliber.assessments.beans.*;
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.BatchNote;
+import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
+
 
 /**
  * Our implementation of the Facade interface
@@ -28,7 +32,7 @@ public class FacadeImplementation implements Facade {
     private QCStatusDAO qcStatusDAO;
     private TrainerNoteDAO trainerNoteDAO;
 
-//  Spring setter based DI
+    //  Spring setter based DI
     @Autowired
     public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
         this.assessmentDAO = assessmentDAO;
@@ -88,29 +92,15 @@ public class FacadeImplementation implements Facade {
 
     @Transactional
     @Override
-    public Set<Assessment> getAssessmentsByTrainerId(int id) {
-        return assessmentDAO.getByTrainerId(id);
-    }
-
-    @Transactional
-
-    @Override
     public Set<Assessment> getAssessmentsByWeekId(int id) {
         return assessmentDAO.getByWeekId(id);
     }
 
-    @Transactional
-
-    @Override
-    public Set<Assessment> getAssessmentsByBatchId(int id) {
-        return assessmentDAO.getByBatchId(id);
-    }
-
     //Create
     @Transactional(
-            isolation=Isolation.READ_COMMITTED,
-            rollbackFor=Exception.class,
-            propagation=Propagation.REQUIRES_NEW)
+            isolation = Isolation.READ_COMMITTED,
+            rollbackFor = Exception.class,
+            propagation = Propagation.REQUIRES_NEW)
     @Override
     public void insertAssessment(Assessment assessment) {
         assessmentDAO.insert(assessment);
@@ -118,24 +108,27 @@ public class FacadeImplementation implements Facade {
 
     //Update
     @Transactional(
-            isolation=Isolation.READ_COMMITTED,
-            rollbackFor=Exception.class,
-            propagation=Propagation.REQUIRES_NEW)
+            isolation = Isolation.READ_COMMITTED,
+            rollbackFor = Exception.class,
+            propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateAssessment(Assessment assessment) {
         assessmentDAO.update(assessment);
     }
 
     //Delete
-    @Transactional(isolation=Isolation.READ_COMMITTED,
-            rollbackFor=Exception.class,
-            propagation=Propagation.REQUIRES_NEW)
+    @Transactional(isolation = Isolation.READ_COMMITTED,
+            rollbackFor = Exception.class,
+            propagation = Propagation.REQUIRES_NEW)
     @Override
     public void deleteAssessment(Assessment assessment) {
         assessmentDAO.delete(assessment);
     }
 
-//  BatchNote Facade Methods
+
+//  BatchNote
+
+    //BatchNote Facade Methods
     @Override
     public void makeBatchNote(int batchId, int weekId) {
         batchNoteDAO.createBatchNote(batchId, weekId);
@@ -151,77 +144,65 @@ public class FacadeImplementation implements Facade {
         return batchNoteDAO.allBatchNotesByWeek(weekId);
     }
 
-//	Category
-@Override
-public Set<Category> getAllCategories() {
-    return categoryDAO.getAll();
-}
+
+    // Grade
+    //Gets
+    @Override
+    public List<Grade> getAllGrades() {
+        return gradeDAO.getAllGrades();
+    }
 
     @Override
-    public Category getCategoryById(int id) {
-        return categoryDAO.getById(id);
+    public Grade getGradeByGradeId(int gradeId) {
+        return gradeDAO.getGradeByGradeId(gradeId);
+    }
+
+    @Override
+    public List<Grade> getGradesByTraineeId(int traineeId) {
+        return gradeDAO.getGradesByTraineeId(traineeId);
+    }
+
+    @Override
+    public List<Grade> getGradesByAssesessment(int assessmentId) {
+        return gradeDAO.getGradesByAssesessment(assessmentId);
+    }
+
+    //Insert
+    @Override
+    public void insertGrade(Grade grade) {
+        gradeDAO.insertGrade(grade);
+
+    }
+
+    //Delete
+    @Override
+    public void deleteGrade(Grade grade) {
+        gradeDAO.deleteGrade(grade);
+
+    }
+
+    //Update
+    @Override
+    public void updateGrade(Grade grade) {
+        gradeDAO.updateGrade(grade);
+    }
+
+    //    Trainer
+    //TrainerNote Facade Methods
+    @Override
+    public void makeTrainerNote(int trainerId) {
+        trainerNoteDAO.createTrainerNote(trainerId);
+    }
+
+    @Override
+    public List<TrainerNote> listTrainerNotes(int trainerId) {
+        return trainerNoteDAO.getAllTrainerNotesByTrainer(trainerId);
+    }
+
+    @Override
+    public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
+        return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
     }
 
 
-
-// Grade
-
-    //Gets
-	@Override
-	public List<Grade> getAllGrades() {
-		return gradeDAO.getAllGrades();
-	}
-	
-	@Override
-	public Grade getGradeByGradeId(int gradeId) {
-		return gradeDAO.getGradeByGradeId(gradeId);
-	}
-
-	@Override
-	public List<Grade> getGradesByTraineeId(int traineeId) {
-		return gradeDAO.getGradesByTraineeId(traineeId);
-	}
-
-	@Override
-	public List<Grade> getGradesByAssesessment(int assessmentId) {
-		return gradeDAO.getGradesByAssesessment(assessmentId);
-	}
-
-	//Insert
-	@Override
-	public void insertGrade(Grade grade) {
-		gradeDAO.insertGrade(grade);
-
-	}
-
-	//Delete
-	@Override
-	public void deleteGrade(Grade grade) {
-		gradeDAO.deleteGrade(grade);
-
-	}
-
-	//Update
-	@Override
-	public void updateGrade(Grade grade) {
-		gradeDAO.updateGrade(grade);
-	}
-
-//TrainerNote Facade Methods
-	@Override
-	public void makeTrainerNote(int trainerId) {
-		trainerNoteDAO.createTrainerNote(trainerId);
-	}
-
-	@Override
-	public List<TrainerNote> listTrainerNotes(int trainerId) {
-		return trainerNoteDAO.getAllTrainerNotesByTrainer(trainerId);
-	}
-
-	@Override
-	public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
-		return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
-	}
-
-   
 }

@@ -1,8 +1,7 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.data.GradeDAO;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -12,13 +11,13 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.data.GradeDAO;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation for Grade DAO crud methods
  */
-@Repository(value = "assessmentGradeDAOImplementation")
+@Repository(value = "gradeDAO")
 public class GradeDAOImpl implements GradeDAO {
 
 	private SessionFactory sessionFactory;
@@ -47,7 +46,7 @@ public class GradeDAOImpl implements GradeDAO {
 			Exception.class })
 	public List<Grade> getGradesByTraineeId(Integer traineeId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("traineeId", traineeId));
+		criteria.add(Restrictions.eq("trainee", traineeId));
 		return criteria.list();
 	}
 
@@ -56,7 +55,7 @@ public class GradeDAOImpl implements GradeDAO {
 			Exception.class })
 	public List<Grade> getGradesByAssesessment(Integer assessmentId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("assessmentId", assessmentId));
+		criteria.add(Restrictions.eq("assessment", assessmentId));
 		return criteria.list();
 
 	}

@@ -25,22 +25,12 @@ public class AssessmentServiceImpl implements AssessmentService {
 
     @Override
     public Assessment getById(int id) {
-        return facade.getById(id);
-    }
-
-    @Override
-    public Set<Assessment> getByTrainerId(int id) {
-        return facade.getAssessmentsByTrainerId(id);
+        return facade.getAssessmentById(id);
     }
 
     @Override
     public Set<Assessment> getByWeekId(int id) {
         return facade.getAssessmentsByWeekId(id);
-    }
-
-    @Override
-    public Set<Assessment> getByBatchId(int id) {
-        return facade.getAssessmentsByBatchId(id);
     }
 
     @Override
