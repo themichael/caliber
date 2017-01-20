@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface Facade {
 
+	
     //Trainee methods, see TraineeDAO interface
     public void createTrainee(Trainee trainee);
     public void updateTrainee(Trainee trainee);

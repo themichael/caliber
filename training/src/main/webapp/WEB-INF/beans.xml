@@ -53,5 +53,10 @@
 	<bean name="batchDAO" class="com.revature.caliber.training.data.implementations.BatchDAOImplementation">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<!-- Facade bean -->
+	<bean name="trainingFacadeImplementation" class="com.revature.caliber.training.data.implementations.FacadeImplementation">
+		<property name = "categoryDAO" ref = "categoryDAO" />
+	</bean>
 
 </beans>
