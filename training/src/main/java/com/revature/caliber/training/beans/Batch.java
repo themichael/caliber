@@ -1,25 +1,111 @@
 package com.revature.caliber.training.beans;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
+@Entity
+@Table(name = "CALIBER_BATCH")
 public class Batch {
 
+	@Id
+	@Column(name = "BATCH_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="BATCH_ID_SEQUENCE")
+	@SequenceGenerator(name = "BATCH_ID_SEQUENCE", sequenceName = "BATCH_ID_SEQUENCE")
 	private int batchId;
+
+	@Column(name = "TRAINING_NAME")
 	private String trainingName;
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "TRAINER_ID", nullable = false)
 	private Trainer trainer;
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "CO_TRAINER_ID")
 	private Trainer coTrainer;
+
+	@Column(name = "SKILL_TYPE")
 	private String skillType;
+
+	@Column(name = "TRAINING_TYPE")
 	private String trainingType;
+
+	@Column(name = "START_DATE", nullable = false)
 	private Date startDate;
+
+	@Column(name = "END_DATE", nullable = false)
 	private Date endDate;
+
+	@Column(name = "LOCATION", nullable = false)
 	private String location;
+
+	@Column(name = "GOOD_GRADE_THRESHOLD")
 	private short goodGradeThreshold;
+
+	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
-	
+
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+	@OneToMany(mappedBy = "batch")
 	private Set<Trainee> trainees;
+
+	@OneToMany(mappedBy = "batch")
 	private Set<Week> weeks;
+
+	/*
+	Constructor with ID
+	 */
+	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
+				 String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
+				 short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
+		super();
+		this.batchId = batchId;
+		this.trainingName = trainingName;
+		this.trainer = trainer;
+		this.coTrainer = coTrainer;
+		this.skillType = skillType;
+		this.trainingType = trainingType;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.location = location;
+		this.goodGradeThreshold = goodGradeThreshold;
+		this.borderlineGradeThreshold = borderlineGradeThreshold;
+		this.trainees = trainees;
+		this.weeks = weeks;
+	}
+
+	/*
+	Constructor with no ID
+	 */
+	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
+				 Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
+				 Set<Trainee> trainees, Set<Week> weeks) {
+		super();
+		this.trainingName = trainingName;
+		this.trainer = trainer;
+		this.coTrainer = coTrainer;
+		this.skillType = skillType;
+		this.trainingType = trainingType;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.location = location;
+		this.goodGradeThreshold = goodGradeThreshold;
+		this.borderlineGradeThreshold = borderlineGradeThreshold;
+		this.trainees = trainees;
+		this.weeks = weeks;
+	}
+
+	/*
+	Default Constructor
+	 */
+	public Batch() {
+		super();
+	}
+
+	/*
+	Setters and Getters
+	 */
 	public int getBatchId() {
 		return batchId;
 	}
@@ -83,9 +169,7 @@ public class Batch {
 	public short getBorderlineGradeThreshold() {
 		return borderlineGradeThreshold;
 	}
-	public void setBorderlineGradeThreshold(short borderlineGradeThreshold) {
-		this.borderlineGradeThreshold = borderlineGradeThreshold;
-	}
+	public void setBorderlineGradeThreshold(short borderlineGradeThreshold) {this.borderlineGradeThreshold = borderlineGradeThreshold;}
 	public Set<Trainee> getTrainees() {
 		return trainees;
 	}
@@ -98,45 +182,4 @@ public class Batch {
 	public void setWeeks(Set<Week> weeks) {
 		this.weeks = weeks;
 	}
-	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
-			String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
-			short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
-		super();
-		this.batchId = batchId;
-		this.trainingName = trainingName;
-		this.trainer = trainer;
-		this.coTrainer = coTrainer;
-		this.skillType = skillType;
-		this.trainingType = trainingType;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.location = location;
-		this.goodGradeThreshold = goodGradeThreshold;
-		this.borderlineGradeThreshold = borderlineGradeThreshold;
-		this.trainees = trainees;
-		this.weeks = weeks;
-	}
-	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
-			Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
-			Set<Trainee> trainees, Set<Week> weeks) {
-		super();
-		this.trainingName = trainingName;
-		this.trainer = trainer;
-		this.coTrainer = coTrainer;
-		this.skillType = skillType;
-		this.trainingType = trainingType;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.location = location;
-		this.goodGradeThreshold = goodGradeThreshold;
-		this.borderlineGradeThreshold = borderlineGradeThreshold;
-		this.trainees = trainees;
-		this.weeks = weeks;
-	}
-	public Batch() {
-		super();
-	}
-	
-	
-	
 }
