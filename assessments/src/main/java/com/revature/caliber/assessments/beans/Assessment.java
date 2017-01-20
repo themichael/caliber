@@ -49,7 +49,7 @@ public class Assessment {
      * WeekID for reference
      */
     @Column(name = "WEEK_ID", nullable = false)
-    private int week;
+    private long week;
 
 // TODO Bi-directional mapping -- to avoid recursion, make DTO to send to UI
     /**
@@ -65,8 +65,7 @@ public class Assessment {
      * Set of Categories for Assessments (for Hibernate ORM)
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable  //Hibernate generates this join table with default name
-                //CALIBER_ASSESSMENT concat CALIBER_CATEGORY
+    @JoinTable(name="CALIBER_ASSESSMENT_CATEGORIES")
     private Set<Category> categories;
 
     public Assessment(long assessmentId,
@@ -74,7 +73,7 @@ public class Assessment {
                       int batch,
                       int rawScore,
                       String type,
-                      int week,
+                      long week,
                       Set<Category> categories) {
         super();
         this.assessmentId = assessmentId;
@@ -94,7 +93,7 @@ public class Assessment {
                       int batch,
                       int rawScore,
                       String type,
-                      int week,
+                      long week,
                       Set<Category> categories) {
         super();
         this.title = title;
@@ -145,11 +144,11 @@ public class Assessment {
         this.type = type;
     }
 
-    public int getWeek() {
+    public long getWeek() {
         return week;
     }
 
-    public void setWeek(int week) {
+    public void setWeek(long week) {
         this.week = week;
     }
 
