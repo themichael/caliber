@@ -41,7 +41,7 @@ public class AssessmentDAOImplTest {
         AssessmentDAO assessmentDAO = (AssessmentDAO) context.getBean("assessmentDAO");
 
         Assessment assessment = new Assessment();
-        assessment.setAssessmentId(1);
+        assessment.setAssessmentId(4100);
         assessment.setTitle("Week 1 Test");
         assessment.setBatch(1);
         assessment.setRawScore(100);
@@ -68,16 +68,17 @@ public class AssessmentDAOImplTest {
 
     @Test
     public void getById() {
-        long id = 1;
+        long id = 4100;
         log.debug("Starting getAssessmentById = " + id);
+        System.out.println("Starting getAssessmentById = " + id);
 
         Assessment assessment = assessmentDAO.getById(id);
+        System.out.println(assessment);
         assertNotNull(assessment);
 
         log.debug("Ending getAssessmentById");
     }
-
-
+    
     /*   
      * 	TODO reconsider how to approach this implementation.
      * 		 data resides in another service, so you cannot query this way
@@ -133,7 +134,7 @@ public class AssessmentDAOImplTest {
 
     @Test
     public void delete() {
-        int assessmentId = 1;
+        int assessmentId = 4550;
 
         log.debug("Starting test to fetch, delete, then fetch Assessment with id = " + assessmentId
                 + "to make sure delete is functional");
@@ -155,7 +156,7 @@ public class AssessmentDAOImplTest {
 
         AssessmentDAO assessmentDAO = (AssessmentDAO) context.getBean("assessmentDAO");
 
-        int assessmentId = 1;
+        int assessmentId = 4550;
 
         Assessment assessment = assessmentDAO.getById(assessmentId);
 
