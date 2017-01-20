@@ -8,13 +8,16 @@ import javax.persistence.OneToOne;
 
 @Entity(name="CALIBER_BATCH_NOTE")
 public class BatchNote extends Note{
-	
-	//Use the WeekID from the Week Table and put it for the week of the BatchNote 
-	@Id
+	 
+	/**
+	 * The week of the batch's evaluation
+	 */
 	@Column(name="WEEK_ID", nullable=false)
 	private int week;
 	
-	//Use the BatchID from the the Batch Table and use it for the specific Batch
+	/**
+	 * The batch identifier
+	 */
 	@Column(name="BATCH_ID")
 	private int batch;
 	
