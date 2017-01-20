@@ -1,19 +1,32 @@
 package com.revature.caliber.training.service.implementations;
 
+import java.util.List;
+
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Trainee;
+import com.revature.caliber.training.service.BatchService;
 import com.revature.caliber.training.service.BusinessDelegate;
 import com.revature.caliber.training.service.TraineeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * Implementation for the Business Delegate
  */
-@Component(value = "trainingBusinessDelegateImplementation")
-public class BusinessDelegateImplementation implements BusinessDelegate {
+@Service(value = "trainingBusinessDelegateImplementation")
+public class BusinessDelegateImplementation implements BusinessDelegate/*, ApplicationContextAware */{
 
+/*	private ApplicationContext context;
+	@Override
+	public void setApplicationContext(ApplicationContext context) throws BeansException {
+		this.context = context;
+	}*/
+	
     TraineeService traineeService;
     @Autowired
     public void setTraineeService(TraineeService traineeService) { this.traineeService = traineeService; }

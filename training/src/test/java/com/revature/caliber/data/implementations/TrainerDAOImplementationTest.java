@@ -17,9 +17,7 @@ import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.data.TrainerDAO;
 
 /**
- *  Test for TrainerDAOImplementation
- *  
- *  @author Karina
+ *  Test for TrainerDAOImplementation.
  */
 public class TrainerDAOImplementationTest {
 
@@ -83,4 +81,17 @@ public class TrainerDAOImplementationTest {
         assertNotNull(trainer);
         System.out.println("Got all trainers: " + trainer);
     }
+	
+	@Test
+	 public void updateTraineeTest() {
+		 TrainerDAO trainerDao = (TrainerDAO) context.getBean("trainerDao");
+		 Trainer trainer = trainerDao.getTrainer(300);
+	     assertNotNull(trainer);
+
+	     String newName = "Trololo lolo lolo";
+	     trainer.setName(newName);
+
+	     trainerDao.updateTrainer(trainer);
+	     System.out.println("Updated trainer: " + trainer);
+	 }
 }

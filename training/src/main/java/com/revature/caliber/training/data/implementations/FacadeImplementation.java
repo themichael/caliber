@@ -22,7 +22,7 @@ import com.revature.caliber.training.data.WeekDAO;
  * Our implementation of Facade interface.
  */
 
-@Component(value = "trainingFacadeImplementation")
+@Component(value = "facade")
 public class FacadeImplementation implements Facade {
 
     TraineeDAO traineeDAO;
@@ -48,8 +48,12 @@ public class FacadeImplementation implements Facade {
     public void setTraineeDAO(TraineeDAO traineeDAO) { this.traineeDAO = traineeDAO; }
     @Autowired
     public void setBatchDAO(BatchDAO batchDAO){ this.batchDAO = batchDAO; }
-
-    //Trainee
+    
+    @Autowired
+    public void setCategoryDAO(CategoryDAO categoryDAO) {
+		this.categoryDAO = categoryDAO;
+	}
+	//Trainee
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public void createTrainee(Trainee trainee) { traineeDAO.createTrainee(trainee); }
 
