@@ -15,7 +15,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- *  Test for TraineeDAOImplementation. Assumes that DB has at least one batch with id 1 and at least one trainee with id 1.
+ *  Test for TraineeDAOImplementation.
+ *  Assumes that DB has at least one batch with id 1 and at least one trainee with id 1. (IMPORTANT)
  */
 public class TraineeDAOImplementationTest {
 
