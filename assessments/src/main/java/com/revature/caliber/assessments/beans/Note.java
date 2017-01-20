@@ -25,6 +25,16 @@ public class Note {
 	@Column(name="NOTE_SUGAR")
 	private String sugarCoatedContent;
 	
+	public Note(String content, boolean sugarCoated) {
+		super();
+		if(sugarCoated)
+			this.sugarCoatedContent = content;
+		else
+			this.content = content;
+	}
+	public Note() {
+		super();
+	}
 	
 	public int getNoteId() {
 		return noteId;
@@ -44,16 +54,7 @@ public class Note {
 	public void setSugarCoatedContent(String sugarCoatedContent) {
 		this.sugarCoatedContent = sugarCoatedContent;
 	}
-	public Note(String content, boolean sugarCoated) {
-		super();
-		if(sugarCoated)
-			this.sugarCoatedContent = content;
-		else
-			this.content = content;
-	}
-	public Note() {
-		super();
-	}
+	
 	
 	
 	

@@ -3,7 +3,9 @@ package com.revature.caliber.assessments.data.implementations;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.data.AssessmentDAO;
 import org.apache.log4j.Logger;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -14,16 +16,17 @@ import static org.junit.Assert.*;
 public class AssessmentDAOImplTest {
 
     private static AbstractApplicationContext context;
-    private AssessmentDAO assessmentDAO;
     private static Logger log;
+    private AssessmentDAO assessmentDAO;
 
     @BeforeClass
-    public static void setUp () {
+    public static void setUp() {
 
         context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
         // rootLogger is for debugging purposes
         log = Logger.getRootLogger();
     }
+
     @Before
     public void setUpTest() {
         assessmentDAO = (AssessmentDAO) context.getBean("assessmentDAO");

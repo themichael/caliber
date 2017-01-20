@@ -1,10 +1,16 @@
 package com.revature.caliber.assessments.data;
 
+import java.util.List;
+import java.util.Set;
+
 import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.Grade;
 
 import java.util.Set;
 import java.util.List;
+import com.revature.caliber.assessments.beans.TrainerNote;
+
 
 /**
  * Facade interface for the data tier.
@@ -74,10 +80,22 @@ public interface Facade {
      * @param assessment
      */
     void deleteAssessment(Assessment assessment);
-
-//    Batch
-
     
+    //    Batch Note
+    void makeBatchNote(int batchId, int weekId);
+	
+	BatchNote getWeeklyBatchNote(int batchId, int weekId);	
+	 
+	List<BatchNote> allBatchNotesInWeek(int weekId);
+	
+	
+	//	Trainer Note
+	void makeTrainerNote(int trainerId);
+	
+	List<TrainerNote> listTrainerNotes(int trainerId);
+	
+	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
+//    Batch
   
 // Grade
     
@@ -123,5 +141,4 @@ public interface Facade {
      */
     void updateGrade(Grade grade);
 
-    
 }
