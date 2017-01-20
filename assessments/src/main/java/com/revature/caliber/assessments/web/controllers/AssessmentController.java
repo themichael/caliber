@@ -56,6 +56,9 @@ public class AssessmentController {
         return new ResponseEntity<>(assessment, HttpStatus.OK);
     }
 
+    /*   
+     * 	TODO reconsider how to approach this implementation.
+     * 		 data resides in another service, so you cannot query this way
     // getAssessmentsByTrainerId
     @RequestMapping(
             value = "/assessment/trainer{id}",
@@ -68,6 +71,7 @@ public class AssessmentController {
         }
         return new ResponseEntity<>(assessments, HttpStatus.OK);
     }
+    */
 
     // getAssessmentsByWeekId
     @RequestMapping(
