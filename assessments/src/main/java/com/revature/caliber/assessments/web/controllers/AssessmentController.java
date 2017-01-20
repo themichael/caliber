@@ -8,7 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @RestController    // infers @ResponseBody on all methods && @Controller
@@ -37,7 +36,7 @@ public class AssessmentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Assessment>> getAll() {
         Set<Assessment> assessments = delegate.getAllAssessments();
-        if (assessments == null) {
+        if (assessments.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(assessments, HttpStatus.OK);
@@ -63,7 +62,7 @@ public class AssessmentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Assessment>> getByTrainerId(@PathVariable("id") int id) {
         Set<Assessment> assessments = delegate.getAssessmentsByTrainerId(id);
-        if (assessments == null) {
+        if (assessments.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(assessments, HttpStatus.OK);
@@ -76,7 +75,7 @@ public class AssessmentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Assessment>> getByWeekId(@PathVariable("id") int id) {
         Set<Assessment> assessments = delegate.getAssessmentsByWeekId(id);
-        if (assessments == null) {
+        if (assessments.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(assessments, HttpStatus.OK);
@@ -89,7 +88,7 @@ public class AssessmentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Assessment>> getByBatchId(@PathVariable("id") int id) {
         Set<Assessment> assessments = delegate.getAssessmentsByBatchId(id);
-        if (assessments == null) {
+        if (assessments.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(assessments, HttpStatus.OK);

@@ -1,6 +1,7 @@
 package com.revature.caliber.assessments.service;
 
 import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.Category;
 import com.revature.caliber.assessments.beans.Grade;
 
 import java.util.List;
@@ -26,7 +27,22 @@ public interface BusinessDelegate {
     void deleteAssessment(Assessment assessment);
 
 //    Batch
-    
+
+//	Category
+	/**
+	 * Returns Set of all Categories
+	 * @return Set of all Categories
+	 */
+	Set<Category> getAllCategories();
+
+	/**
+	 * Returns Category
+	 *  with provided ID
+	 * @param id
+	 * @return Category
+	 */
+	Category getCategoryById(int id);
+
  // Grade
  	/**
  	 * Returns a list of all grade entries

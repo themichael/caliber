@@ -28,6 +28,46 @@ public class FacadeImplementation implements Facade {
     private QCStatusDAO qcStatusDAO;
     private TrainerNoteDAO trainerNoteDAO;
 
+//  Spring setter based DI
+    @Autowired
+    public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
+        this.assessmentDAO = assessmentDAO;
+    }
+
+    @Autowired
+    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
+        this.batchNoteDAO = batchNoteDAO;
+    }
+
+    @Autowired
+    public void setCategoryDAO(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
+    }
+
+    @Autowired
+    public void setGradeDAO(GradeDAO gradeDAO) {
+        this.gradeDAO = gradeDAO;
+    }
+
+    @Autowired
+    public void setNoteDAO(NoteDAO noteDAO) {
+        this.noteDAO = noteDAO;
+    }
+
+    @Autowired
+    public void setQcNoteDAO(QCNoteDAO qcNoteDAO) {
+        this.qcNoteDAO = qcNoteDAO;
+    }
+
+    @Autowired
+    public void setQcStatusDAO(QCStatusDAO qcStatusDAO) {
+        this.qcStatusDAO = qcStatusDAO;
+    }
+
+    @Autowired
+    public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
+        this.trainerNoteDAO = trainerNoteDAO;
+    }
 
 //  Organize methods by DAO like Assessment example above, e.g.
 
@@ -95,16 +135,35 @@ public class FacadeImplementation implements Facade {
         assessmentDAO.delete(assessment);
     }
 
-//  Batch
-    // Get
+//  BatchNote Facade Methods
+    @Override
+    public void makeBatchNote(int batchId, int weekId) {
+        batchNoteDAO.createBatchNote(batchId, weekId);
+    }
 
-    // Create
+    @Override
+    public BatchNote getWeeklyBatchNote(int batchId, int weekId) {
+        return batchNoteDAO.getBatchNote(batchId, weekId);
+    }
 
-    // Update
+    @Override
+    public List<BatchNote> allBatchNotesInWeek(int weekId) {
+        return batchNoteDAO.allBatchNotesByWeek(weekId);
+    }
 
-    // Delete
+//	Category
+@Override
+public Set<Category> getAllCategories() {
+    return categoryDAO.getAll();
+}
 
-    
+    @Override
+    public Category getCategoryById(int id) {
+        return categoryDAO.getById(id);
+    }
+
+
+
 // Grade
 
     //Gets
@@ -127,7 +186,6 @@ public class FacadeImplementation implements Facade {
 	public List<Grade> getGradesByAssesessment(int assessmentId) {
 		return gradeDAO.getGradesByAssesessment(assessmentId);
 	}
-	
 
 	//Insert
 	@Override
@@ -148,80 +206,8 @@ public class FacadeImplementation implements Facade {
 	public void updateGrade(Grade grade) {
 		gradeDAO.updateGrade(grade);
 	}
-	
-	
 
-	
-//  Spring setter based DI
-    @Autowired
-    public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
-        this.assessmentDAO = assessmentDAO;
-    }
-
-    @Autowired
-    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
-        this.batchNoteDAO = batchNoteDAO;
-    }
-
-    @Autowired
-    public void setCategoryDAO(CategoryDAO categoryDAO) {
-        this.categoryDAO = categoryDAO;
-    }
-
-    @Autowired
-    public void setGradeDAO(GradeDAO gradeDAO) {
-        this.gradeDAO = gradeDAO;
-    }
-
-    @Autowired
-    public void setNoteDAO(NoteDAO noteDAO) {
-        this.noteDAO = noteDAO;
-    }
-
-    @Autowired
-    public void setQcNoteDAO(QCNoteDAO qcNoteDAO) {
-        this.qcNoteDAO = qcNoteDAO;
-    }
-
-    @Autowired
-    public void setQcStatusDAO(QCStatusDAO qcStatusDAO) {
-        this.qcStatusDAO = qcStatusDAO;
-    }
-
-    @Autowired
-    public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
-        this.trainerNoteDAO = trainerNoteDAO;
-    }
-
-    
-    //BatchNote Facade Methods
-	@Override
-	public void makeBatchNote(int batchId, int weekId) {
-		batchNoteDAO.createBatchNote(batchId, weekId);
-	}
-
-	@Override
-	public BatchNote getWeeklyBatchNote(int batchId, int weekId) {
-		return batchNoteDAO.getBatchNote(batchId, weekId);
-	}
-
-	@Override
-	public List<BatchNote> allBatchNotesInWeek(int weekId) {
-		return batchNoteDAO.allBatchNotesByWeek(weekId);
-	}
-
-//	Category
-    @Override
-    public Set<Category> getAllCategories() {
-        return categoryDAO.getAll();
-    }
-
-    @Override
-    public Category getCategoryById(int id) {
-        return categoryDAO.getById(id);
-    }
-
-    //TrainerNote Facade Methods
+//TrainerNote Facade Methods
 	@Override
 	public void makeTrainerNote(int trainerId) {
 		trainerNoteDAO.createTrainerNote(trainerId);
