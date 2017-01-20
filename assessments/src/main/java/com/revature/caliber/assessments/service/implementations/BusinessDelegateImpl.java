@@ -1,13 +1,21 @@
 package com.revature.caliber.assessments.service.implementations;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.service.*;
+import java.util.HashSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
+import java.util.Set;
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.service.AssessmentService;
+import com.revature.caliber.assessments.service.BatchService;
+import com.revature.caliber.assessments.service.BusinessDelegate;
+import com.revature.caliber.assessments.service.CategoryService;
+import com.revature.caliber.assessments.service.GradeService;
+import com.revature.caliber.assessments.service.NoteService;
+import com.revature.caliber.assessments.service.QCNoteService;
+import com.revature.caliber.assessments.service.QCStatusService;
+import com.revature.caliber.assessments.service.TrainerNoteService;
 
 @Component(value ="delegate")
 public class BusinessDelegateImpl implements BusinessDelegate {
@@ -23,7 +31,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 //    Assessment
     @Override
-    public HashSet<Assessment> getAllAssessments() {
+    public Set<Assessment> getAllAssessments() {
         return assessmentService.getAll();
     }
 
@@ -33,17 +41,17 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public HashSet<Assessment> getAssessmentsByTrainerId(int id) {
+    public Set<Assessment> getAssessmentsByTrainerId(int id) {
         return assessmentService.getByTrainerId(id);
     }
 
     @Override
-    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
+    public Set<Assessment> getAssessmentsByWeekId(int id) {
         return assessmentService.getByWeekId(id);
     }
 
     @Override
-    public HashSet<Assessment> getAssessmentsByBatchId(int id) {
+    public Set<Assessment> getAssessmentsByBatchId(int id) {
         return assessmentService.getByBatchId(id);
     }
 

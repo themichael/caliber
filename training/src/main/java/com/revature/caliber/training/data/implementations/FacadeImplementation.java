@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.training.beans.Batch;
+import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.data.BatchDAO;
+import com.revature.caliber.training.data.CategoryDAO;
 import com.revature.caliber.training.data.Facade;
 import com.revature.caliber.training.data.TierDAO;
 import com.revature.caliber.training.data.TraineeDAO;
@@ -25,9 +27,9 @@ public class FacadeImplementation implements Facade {
 
     TraineeDAO traineeDAO;
     BatchDAO batchDAO;
-  
-    TrainerDAO trainerDAO;
+    CategoryDAO categoryDAO;
     TierDAO tierDAO;
+    TrainerDAO trainerDAO;
     WeekDAO weekDAO;
 
     @Autowired
@@ -73,7 +75,7 @@ public class FacadeImplementation implements Facade {
     public void createBatch(Batch batch) {batchDAO.createBatch(batch);}
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public List<Batch> getAllBatch() {return batchDAO.getAll();}
+    public List<Batch> getAllBatch() {return batchDAO.getAllBatch();}
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public List<Batch> getTrainerBatch(String name) {return batchDAO.getTrainerBatch(name);}
@@ -93,4 +95,12 @@ public class FacadeImplementation implements Facade {
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public void deleteBatch(Batch batch) {batchDAO.deleteBatch(batch);}
     //end batch
+	
+    //Category
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+	public Category getCategory(int categoryId) {return categoryDAO.getCategory(categoryId);}
+    
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+	public List<Category> getAllCategories() {return categoryDAO.getAllCategories();}
+	//End Category
 }

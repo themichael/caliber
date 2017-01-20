@@ -28,18 +28,18 @@ public class TraineeDAOImplementation implements TraineeDAO{
     public void setSessionFactory(SessionFactory sessionFactory) { this.sessionFactory = sessionFactory; }
 
     @Override
-    @Transactional(isolation = Isolation.REPEATABLE_READ,
+    @Transactional(isolation = Isolation.READ_COMMITTED,
                     propagation = Propagation.REQUIRED,
                     rollbackFor = {Exception.class})
     public List<Trainee> getTraineesInBatch(Integer batchId) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Trainee.class);
-        criteria.add(Restrictions.eq("batchId", batchId));
+        criteria.add(Restrictions.eq("batch.batchId", batchId));
         return criteria.list();
     }
 
     @Override
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED,
+    @Transactional(isolation = Isolation.READ_COMMITTED,
                     propagation = Propagation.REQUIRED,
                     rollbackFor = {Exception.class})
     public Trainee getTrainee(Integer id) {
@@ -50,7 +50,7 @@ public class TraineeDAOImplementation implements TraineeDAO{
     }
 
     @Override
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED,
+    @Transactional(isolation = Isolation.READ_COMMITTED,
                     propagation = Propagation.REQUIRED,
                     rollbackFor = {Exception.class})
     public Trainee getTrainee(String name) {
@@ -61,7 +61,7 @@ public class TraineeDAOImplementation implements TraineeDAO{
     }
 
     @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE,
+    @Transactional(isolation = Isolation.READ_COMMITTED,
                     propagation = Propagation.REQUIRED,
                     rollbackFor = {Exception.class})
     public void createTrainee(Trainee trainee) {
@@ -70,7 +70,7 @@ public class TraineeDAOImplementation implements TraineeDAO{
     }
 
     @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE,
+    @Transactional(isolation = Isolation.READ_COMMITTED,
                     propagation = Propagation.REQUIRED,
                     rollbackFor = {Exception.class})
     public void deleteTrainee(Trainee trainee) {
@@ -79,7 +79,7 @@ public class TraineeDAOImplementation implements TraineeDAO{
     }
 
     @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE,
+    @Transactional(isolation = Isolation.READ_COMMITTED,
                     propagation = Propagation.REQUIRED,
                     rollbackFor = {Exception.class})
     public void updateTrainee(Trainee trainee) {

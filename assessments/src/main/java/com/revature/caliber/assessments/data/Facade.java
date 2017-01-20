@@ -1,8 +1,12 @@
 package com.revature.caliber.assessments.data;
 
-import com.revature.caliber.assessments.beans.Assessment;
+import java.util.List;
+import java.util.Set;
 
-import java.util.HashSet;
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.BatchNote;
+import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.TrainerNote;
 
 /**
  * Facade interface for the data tier.
@@ -16,7 +20,7 @@ public interface Facade {
      * Returns HashSet of all Assessments
      * @return List of Assessments
      */
-    HashSet<Assessment> getAllAssessments();
+    Set<Assessment> getAllAssessments();
 
     /**
      * Return Assessment
@@ -31,7 +35,7 @@ public interface Facade {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getAssessmentsByTrainerId(int id);
+    Set<Assessment> getAssessmentsByTrainerId(int id);
 
     /**
      * Returns HashSet of Assessments
@@ -39,7 +43,7 @@ public interface Facade {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getAssessmentsByWeekId(int id);
+    Set<Assessment> getAssessmentsByWeekId(int id);
 
     /**
      * Returns HashSet of Assessments
@@ -47,7 +51,7 @@ public interface Facade {
      * @param id
      * @return List of Assessments
      */
-    HashSet<Assessment> getAssessmentsByBatchId(int id);
+    Set<Assessment> getAssessmentsByBatchId(int id);
 
     //    Create
 
@@ -72,7 +76,65 @@ public interface Facade {
      * @param assessment
      */
     void deleteAssessment(Assessment assessment);
-
+    
+    //    Batch Note
+    void makeBatchNote(int batchId, int weekId);
+	
+	BatchNote getWeeklyBatchNote(int batchId, int weekId);	
+	 
+	List<BatchNote> allBatchNotesInWeek(int weekId);
+	
+	
+	//	Trainer Note
+	void makeTrainerNote(int trainerId);
+	
+	List<TrainerNote> listTrainerNotes(int trainerId);
+	
+	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 //    Batch
+  
+// Grade
+    
+    //Gets
+    
+    /**
+     * Returns a list of all grade entries
+     */
+    List<Grade> getAllGrades();
+    
+    /**
+     * Returns a grade object given a specific gradeId
+     */
+    Grade getGradeByGradeId(int gradeId);
+    
+    /**
+     * Returns a list of grades of a specific trainee based on traineeId as an input
+     * @param traineeId
+     */
+	List<Grade> getGradesByTraineeId(int traineeId);
+	
+	/**
+	 * Returns a list of grades of a specific assessment based on assessmentId as an input
+	 * @param assessmentId
+	 */
+	List<Grade> getGradesByAssesessment(int assessmentId);
+	
+	//Insert
+	/**
+	 * Inserts a new Grade into database
+	 */
+    void insertGrade(Grade grade);
+    
+	//Delete
+    /**
+     * Deletes a grade
+     */
+    void deleteGrade(Grade grade);
+    
+	//Update
+    /**
+     * Updates a grade
+     */
+    void updateGrade(Grade grade);
 
 }
