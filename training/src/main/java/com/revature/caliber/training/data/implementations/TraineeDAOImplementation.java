@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author Ilya
  */
-@Repository(value = "trainingTraineeDAOImplementation")
+@Repository(value = "traineeDao")
 public class TraineeDAOImplementation implements TraineeDAO{
 
     private SessionFactory sessionFactory;
