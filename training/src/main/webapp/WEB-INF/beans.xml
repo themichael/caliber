@@ -25,8 +25,6 @@
 		<property name="packagesToScan" value="com.revature.caliber.training.beans" />
 		<property name="hibernateProperties">
 			<props>
-				<!--  <prop key="hibernate.hbm2ddl.auto">create</prop>  -->
-				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.Oracle10gDialect
 				</prop>
@@ -34,23 +32,7 @@
 		</property>
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
 	<bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-	<bean name="categoryDAO" class="com.revature.caliber.training.data.implementations.CategoryDAOImplementation">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-	<bean name="batchDAO" class="com.revature.caliber.training.data.implementations.BatchDAOImplementation">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-	<!-- Facade bean -->
-	<bean name="trainingFacadeImplementation" class="com.revature.caliber.training.data.implementations.FacadeImplementation">
-		<property name = "categoryDAO" ref = "categoryDAO" />
-	</bean>
-
+	</bean> 
 </beans>
-
