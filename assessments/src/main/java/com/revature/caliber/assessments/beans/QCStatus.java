@@ -1,9 +1,17 @@
 package com.revature.caliber.assessments.beans;
 
+import javax.persistence.OneToMany;
+import java.util.Set;
+
 public class QCStatus {
 
 	private short statusId;
 	private String status;
+
+	@OneToMany(mappedBy = "weeklyStatus")
+	private Set<Assessment> assessments;
+
+
 	public short getStatusId() {
 		return statusId;
 	}
