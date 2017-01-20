@@ -4,7 +4,7 @@ angular.module("app").config(
 
         // chart options
         ChartJsProvider.setOptions({
-            chartColors: ['#803690', '#00ADF9', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
+            chartColors: ['#803690', '#00ADF9', '#ffff66', '#FDB45C', '#949FB1', '#4D5360']
         });
 
         // go to home on startup

@@ -1,6 +1,6 @@
 angular.module("vp").controller(
 		"vpHomeController",
-		function($scope, $log, $interval, delegateFactory) {
+		function($scope, $log, delegateFactory) {
 			$log.info("Booted vp home controller.");
 
 			// Delegate Test

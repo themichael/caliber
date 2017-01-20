@@ -1,6 +1,9 @@
 package com.revature.caliber.assessments.beans;
 
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
-
-import java.util.Set;
 
 @Entity(name = "CALIBER_ASSESSMENT_CATEGORY")
 public class Category {
@@ -20,13 +21,15 @@ public class Category {
 	@SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE")
     private int categoryId;
 	
-	@Column(name = "CATEGORY_SKILL")
+	@Column(name = "SKILL_CATEGORY")
     private String skillCategory;
 
     // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
     private Set<Assessment> assessments;
 
+    @Column
+    @ElementCollection(targetClass=Integer.class)
     private Set<Integer> weeks;
 
     public Category() {

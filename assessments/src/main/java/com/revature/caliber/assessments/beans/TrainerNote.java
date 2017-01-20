@@ -6,19 +6,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-@Entity(name="TRAINER_NOTE")
+@Entity(name="CALIBER_TRAINER_NOTE")
 public class TrainerNote extends Note{
-	//Get the ID for the trainer to set the owner of the Note 
-	@Id
+	
+	/**
+	 * The trainer who made the comment
+	 */
 	@Column(name="TRAINER_ID")
-	@JoinColumn(name="TRAINER_ID")
-	@OneToOne
 	private int trainer;
 	
-	//Get the ID for the week to set which week the note is regarding 
+	/**
+	 * The week that the trainer made the evaluation 
+	 */
 	@Column(name="WEEK_ID", nullable=false)
-	@JoinColumn(name="WEEK_ID")
-	@OneToOne
 	private int week;
 	
 	

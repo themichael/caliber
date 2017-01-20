@@ -1,12 +1,14 @@
 package com.revature.caliber.assessments.service.implementations;
 
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.service.AssessmentService;
 import com.revature.caliber.assessments.service.BatchService;
 import com.revature.caliber.assessments.service.BusinessDelegate;
@@ -22,11 +24,11 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
     private AssessmentService assessmentService;
     private BatchService batchService;
-    private CategoryService categoryService;
+    //private CategoryService categoryService;
     private GradeService gradeService;
-    private NoteService noteService;
-    private QCNoteService qcNoteService;
-    private QCStatusService qcStatusService;
+    //TODO finish service impl: private NoteService noteService;
+    //TODO finish service impl: private QCNoteService qcNoteService;
+    //TODO finish service impl: private QCStatusService qcStatusService;
     private TrainerNoteService trainerNoteService;
 
 //    Assessment
@@ -40,10 +42,14 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         return assessmentService.getById(id);
     }
 
+    /*   
+     * 	TODO reconsider how to approach this implementation.
+     * 		 data resides in another service, so you cannot query this way
     @Override
     public Set<Assessment> getAssessmentsByTrainerId(int id) {
         return assessmentService.getByTrainerId(id);
     }
+    */
 
     @Override
     public Set<Assessment> getAssessmentsByWeekId(int id) {
@@ -74,7 +80,41 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 
 
+// Grade
+	@Override
+	public List<Grade> getAllGrades() {
+		return gradeService.getAllGrades();
+	}
 
+	@Override
+	public Grade getGradeByGradeId(int gradeId) {
+		return gradeService.getGradeByGradeId(gradeId);
+	}
+
+	@Override
+	public List<Grade> getGradesByTraineeId(int traineeId) {
+		return gradeService.getGradesByTraineeId(traineeId);
+	}
+
+	@Override
+	public List<Grade> getGradesByAssesessment(int assessmentId) {
+		return gradeService.getGradesByAssesessment(assessmentId);
+	}
+
+	@Override
+	public void insertGrade(Grade grade) {
+		gradeService.insertGrade(grade);
+	}
+
+	@Override
+	public void deleteGrade(Grade grade) {
+		gradeService.deleteGrade(grade);
+	}
+
+	@Override
+	public void updateGrade(Grade grade) {
+		gradeService.updateGrade(grade);
+	}
 
 
 
@@ -88,6 +128,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     public void setBatchService(BatchService batchService) {
         this.batchService = batchService;
     }
+    /* TODO wire the beans
+    *
     @Autowired
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
@@ -107,7 +149,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     @Autowired
     public void setQcStatusService(QCStatusService qcStatusService) {
         this.qcStatusService = qcStatusService;
-    }
+    }*/
     @Autowired
     public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
         this.trainerNoteService = trainerNoteService;
