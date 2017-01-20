@@ -1,6 +1,6 @@
 angular.module("vp").controller(
 		"vpHomeController",
-		function($scope, $log, $interval) {
+		function($scope, $log) {
 			$log.info("Booted vp home controller.");
 			
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
