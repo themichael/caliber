@@ -12,12 +12,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<tx:annotation-driven/> <mvc:annotation-driven />
-<<<<<<< HEAD
-	<context:component-scan base-package="com.revature.caliber.training.data.implementations" />
-=======
+
 	<context:component-scan base-package="com.revature.caliber.training" />
 	<context:annotation-config />
->>>>>>> a664029144691662953b2006bbf4c0013af421dd
 	
 	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
@@ -38,7 +35,6 @@
 	</bean>
 	<bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
-<<<<<<< HEAD
 	</bean>
 	<bean name="categoryDAO" class="com.revature.caliber.training.data.implementations.CategoryDAOImplementation">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -49,8 +45,6 @@
 	<bean name="tierDAO" class="com.revature.caliber.training.data.implementations.TierDAOImplementation">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+
 </beans>
-=======
-	</bean> 
-</beans>
->>>>>>> a664029144691662953b2006bbf4c0013af421dd
+

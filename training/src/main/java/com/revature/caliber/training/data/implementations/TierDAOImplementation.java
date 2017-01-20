@@ -17,11 +17,7 @@ import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.data.TierDAO;
 
-<<<<<<< HEAD
 @Repository(value = "tierDAO")
-=======
-@Repository
->>>>>>> a664029144691662953b2006bbf4c0013af421dd
 public class TierDAOImplementation implements TierDAO {
 	
 	private SessionFactory sessionFactory;
