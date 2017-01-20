@@ -1,8 +1,15 @@
 angular.module("vp").controller(
 		"vpHomeController",
-		function($scope, $log, $interval, delegateFtry) {
+		function($scope, $log, $interval, delegateFactory) {
 			$log.info("Booted vp home controller.");
+
+			// Delegate Test
+			$log.log(delegateFactory.testTrainerFactory());
+			$log.log(delegateFactory.testVPFactory());
+			$log.log(delegateFactory.testQCFactory());
 			
+			
+			// Dropdown menu selection
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
 			$scope.tech = [ "Spring", "Hibernate", "JSP" ];
 			$scope.trainees = [ "Osher", "Kyle", "Rikki" ];
