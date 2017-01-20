@@ -22,7 +22,7 @@ import com.revature.caliber.training.data.WeekDAO;
  * Our implementation of Facade interface.
  */
 
-@Component(value = "facade")
+@Component
 public class FacadeImplementation implements Facade {
 
     TraineeDAO traineeDAO;

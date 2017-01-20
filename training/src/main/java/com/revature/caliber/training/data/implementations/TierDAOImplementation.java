@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.training.beans.Tier;
 import com.revature.caliber.training.data.TierDAO;
 
-@Repository(value = "tierDao")
+@Repository
 public class TierDAOImplementation implements TierDAO {
 	
 	private SessionFactory sessionFactory;

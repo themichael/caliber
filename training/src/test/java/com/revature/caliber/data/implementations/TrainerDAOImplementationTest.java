@@ -14,6 +14,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.training.beans.Tier;
 import com.revature.caliber.training.beans.Trainer;
+import com.revature.caliber.training.data.TraineeDAO;
 import com.revature.caliber.training.data.TrainerDAO;
 
 /**
@@ -30,7 +31,7 @@ public class TrainerDAOImplementationTest {
 	
 	@Test
 	public void createTrainerTest(){
-		TrainerDAO trainerDao = (TrainerDAO) context.getBean("trainerDao");
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 		
 		Tier tier = new Tier();
 		tier.setTierId((short)1);
@@ -52,7 +53,7 @@ public class TrainerDAOImplementationTest {
 	
 	@Test
     public void getTrainerGetByIdTest() {
-        TrainerDAO trainerDao = (TrainerDAO) context.getBean("trainerDao");
+        TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 
         Trainer trainer = trainerDao.getTrainer(1);
 
@@ -64,7 +65,7 @@ public class TrainerDAOImplementationTest {
 	
 	@Test
     public void getTrainerGetByNameTest() {
-        TrainerDAO trainerDao = (TrainerDAO) context.getBean("trainerDao");
+        TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 
         List<Trainer> trainer = trainerDao.getTrainer("Bob Miller");
 
@@ -74,7 +75,7 @@ public class TrainerDAOImplementationTest {
 	
 	@Test
     public void getAllTrainersTest() {
-        TrainerDAO trainerDao = (TrainerDAO) context.getBean("trainerDao");
+        TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 
         List<Trainer> trainer = trainerDao.getAllTrainers();
 
@@ -84,7 +85,7 @@ public class TrainerDAOImplementationTest {
 	
 	@Test
 	 public void updateTraineeTest() {
-		 TrainerDAO trainerDao = (TrainerDAO) context.getBean("trainerDao");
+		 TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 		 Trainer trainer = trainerDao.getTrainer(300);
 	     assertNotNull(trainer);
 
