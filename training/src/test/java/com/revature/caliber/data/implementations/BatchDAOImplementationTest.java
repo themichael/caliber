@@ -49,7 +49,7 @@ public class BatchDAOImplementationTest {
     @Test
     public void getAll(){
         log.debug(" Get all Batch test");
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
         List<Batch> batch = batchDAO.getAllBatch();
         log.debug("Got All");
     }
@@ -58,7 +58,7 @@ public class BatchDAOImplementationTest {
     @Test
     public void getTrainerBatch(){
         log.debug("Get batch by Trainer id");
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
         List<Batch> batch = batchDAO.getTrainerBatch(1);
         log.debug("got batches by trainer id");
     }
@@ -67,7 +67,7 @@ public class BatchDAOImplementationTest {
     @Test
     public void getCurrentBatch(){
         log.debug("Get active batches");
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
         List<Batch> batch = batchDAO.getCurrentBatch();
         log.debug("Got active batches");
     }
@@ -76,7 +76,7 @@ public class BatchDAOImplementationTest {
     @Test
     public void getCurrentBatchWithId(){
         log.debug("Get active batches with trainer id");
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
         List<Batch> batch = batchDAO.getCurrentBatch(1);
         log.debug("Got active batches with trainer id");
     }
@@ -85,7 +85,7 @@ public class BatchDAOImplementationTest {
     @Test
     public void getBatch(){
         log.debug("Get batch by id");
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
         Batch batch = batchDAO.getBatch(1);
         log.debug("got batch by id");
     }
@@ -94,7 +94,7 @@ public class BatchDAOImplementationTest {
     @Test
     public void updateBatch(){
         log.debug("Updating batch");
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
         Batch batch = batchDAO.getBatch(1);
         batch.setLocation("New York");
         batchDAO.updateBatch(batch);
@@ -104,6 +104,6 @@ public class BatchDAOImplementationTest {
     //Could not test
 /*    @Test
     public void deleteBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean("batchDAO");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
     }*/
 }
