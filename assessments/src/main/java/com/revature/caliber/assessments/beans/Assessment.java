@@ -24,7 +24,7 @@ public class Assessment {
      * Trainer inputted title,
      *  can be anything to help identify this assessment
      */
-    @Column(name = "TITLE", nullable = false)
+    @Column(name = "ASSESSMENT_TITLE", nullable = false)
     private String title;
 
     /**
@@ -42,7 +42,7 @@ public class Assessment {
     /**
      * Assessment type, e.g. LMS, Verbal
      */
-    @Column(name = "TYPE", nullable = false)
+    @Column(name = "ASSESSMENT_TYPE", nullable = false)
     private String type;
 
     /**
