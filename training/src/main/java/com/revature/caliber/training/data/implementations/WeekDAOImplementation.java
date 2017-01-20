@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.training.beans.Week;
 import com.revature.caliber.training.data.WeekDAO;
 
-@Repository(value = "trainingWeekDAOImplementation")
+@Repository(value = "weekDao")
 public class WeekDAOImplementation implements WeekDAO {
 
 	private SessionFactory sessionFactory;
