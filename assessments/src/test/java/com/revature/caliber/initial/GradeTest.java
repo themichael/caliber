@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.data.implementations.GradeDAOImpl;
+import com.revature.caliber.assessments.data.GradeDAO;
 
 public class GradeTest {
 
@@ -23,20 +23,20 @@ public class GradeTest {
 	@Ignore
 	@Test
 	public void getAllGrades() {
-		List<Grade> grades = ctxt.getBean(GradeDAOImpl.class).getAllGrades();
+		List<Grade> grades = ctxt.getBean(GradeDAO.class).getAllGrades();
 		System.out.println(grades);
 	}
 
 	@Test
 	public void getGradesByTraineeId() {
-		List<Grade> grades = ctxt.getBean(GradeDAOImpl.class).getGradesByTraineeId(1);
+		List<Grade> grades = ctxt.getBean(GradeDAO.class).getGradesByTraineeId(1);
 		System.out.println(grades);
 	}
 
 	@Ignore
 	@Test
 	public void getGradeByAssessment() {
-		List<Grade> grades = ctxt.getBean(GradeDAOImpl.class).getGradesByAssesessment(1);
+		List<Grade> grades = ctxt.getBean(GradeDAO.class).getGradesByAssesessment(1);
 		System.out.println(grades);
 	}
 
