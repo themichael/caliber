@@ -42,10 +42,14 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         return assessmentService.getById(id);
     }
 
+    /*   
+     * 	TODO reconsider how to approach this implementation.
+     * 		 data resides in another service, so you cannot query this way
     @Override
     public Set<Assessment> getAssessmentsByTrainerId(int id) {
         return assessmentService.getByTrainerId(id);
     }
+    */
 
     @Override
     public Set<Assessment> getAssessmentsByWeekId(int id) {
