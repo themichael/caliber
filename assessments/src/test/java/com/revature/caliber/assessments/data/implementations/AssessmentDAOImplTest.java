@@ -1,11 +1,7 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Set;
-
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.data.AssessmentDAO;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -13,22 +9,24 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.data.AssessmentDAO;
+import java.util.Set;
+
+import static org.junit.Assert.*;
 
 public class AssessmentDAOImplTest {
 
     private static AbstractApplicationContext context;
-    private AssessmentDAO assessmentDAO;
     private static Logger log;
+    private AssessmentDAO assessmentDAO;
 
     @BeforeClass
-    public static void setUp () {
+    public static void setUp() {
 
         context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
         // rootLogger is for debugging purposes
         log = Logger.getRootLogger();
     }
+
     @Before
     public void setUpTest() {
         assessmentDAO = (AssessmentDAO) context.getBean("assessmentDAO");
@@ -97,12 +95,12 @@ public class AssessmentDAOImplTest {
                 + "to make sure delete is functional");
 
         Assessment assessment = assessmentDAO.getById(assessmentId);
-        assertNotNull(assessment);
+        if (assessment != null) {
+            assessmentDAO.delete(assessment);
 
-        assessmentDAO.delete(assessment);
-
-        assessment = assessmentDAO.getById(assessmentId);
-        assertNull(assessment);
+            assessment = assessmentDAO.getById(assessmentId);
+            assertNull(assessment);
+        }
     }
 
 }
