@@ -3,10 +3,7 @@ package com.revature.caliber.assessments.data;
 import java.util.List;
 import java.util.Set;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.BatchNote;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.beans.TrainerNote;
+import com.revature.caliber.assessments.beans.*;
 
 /**
  * Facade interface for the data tier.
@@ -27,7 +24,7 @@ public interface Facade {
      *  with AssessmentId
      * @return Assessment
      */
-    Assessment getById(int id);
+    Assessment getAssessmentById(int id);
 
     /**
      * Returns HashSet of Assessments
@@ -84,7 +81,21 @@ public interface Facade {
 	 
 	List<BatchNote> allBatchNotesInWeek(int weekId);
 	
-	
+//	Category
+    /**
+     * Returns Set of all Categories
+     * @return Set of all Categories
+     */
+    Set<Category> getAllCategories();
+
+    /**
+     * Returns Category
+     *  with provided ID
+     * @param id
+     * @return Category
+     */
+    Category getCategoryById(int id);
+
 	//	Trainer Note
 	void makeTrainerNote(int trainerId);
 	

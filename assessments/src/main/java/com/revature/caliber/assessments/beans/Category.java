@@ -52,6 +52,16 @@ public class Category {
         this.weeks = weeks;
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", skillCategory='" + skillCategory + '\'' +
+                ", assessments=" + assessments +
+                ", weeks=" + weeks +
+                '}';
+    }
+
     public int getCategoryId() {
         return categoryId;
     }
