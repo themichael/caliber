@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Set;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
