@@ -19,7 +19,9 @@ public class TrainerBatchControllerTest {
 	private static ApplicationContext context;
 	private static TrainerBatchController controller;
 	
-	
+	/**
+	 * Retrieve application context and get the TrainerBatchController bean
+	 */
 	@BeforeClass
 	public static void preClass(){
 		context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
