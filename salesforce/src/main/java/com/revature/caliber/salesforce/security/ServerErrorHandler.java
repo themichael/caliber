@@ -14,6 +14,6 @@ import java.io.IOException;
 public class ServerErrorHandler implements AuthenticationFailureHandler{
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        httpServletResponse.sendError(404);
+        httpServletResponse.sendError(500);
     }
 }

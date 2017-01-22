@@ -101,7 +101,7 @@ public class PreAuthentication {
              */
             setSalesforceUser(salesforceToken.getId());
 
-            salesforceUser.setRole("ROLE_ADMIN");
+            salesforceUser.setRole("ROLE_TRAINER");
 
             Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
 
@@ -117,7 +117,7 @@ public class PreAuthentication {
         } finally
 
         {
-            return "forward:/admin/home";
+            return "redirect:/vp/home";
         }
     }
 
