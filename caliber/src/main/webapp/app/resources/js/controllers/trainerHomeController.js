@@ -26,7 +26,8 @@ angular.module("trainer").controller(
 				$scope.currentTrainee = $scope.trainees[index];
 			};
 
-			// Week by week progression for a trainee/ batch on a line chart
+			// Week by week progression for a trainee/ batch on a line
+			// chart
 			$scope.lineLabels = [ "Week 1", "Week 2", "Week 3", "Week 4",
 					"Week 5", "Week 6", "Week 7", "Week 8", "Week 9",
 					"Week 10", "Week 11", "Week 12" ];
@@ -74,8 +75,9 @@ angular.module("trainer").controller(
 			};
 
 			// Horizontal bar chart for trainee averages per technology
-			$scope.hbarLabels = [ 'Kyle', 'Osher', 'Rikki', 'Dan', 'Pickles' ];
-			$scope.hbarData = [ 65, 85, 100, 75, 50 ];
+			$scope.hbarLabels = [ 'Kyle', 'Osher', 'Rikki', 'Dan', 'Pickles',
+					'John', 'Tim' ];
+			$scope.hbarData = [ 65, 85, 100, 75, 50, 75, 80 ];
 
 			$scope.hbarDatasetOverride = [ {
 				xAxisID : 'x-axis-1'
@@ -94,8 +96,21 @@ angular.module("trainer").controller(
 				}
 			}
 
-			// Radar chart
-			
+			// Radar chart for batch rank comparison
+			$scope.radarLabels = [ "Java", "Servlet", "Spring", "Hibernate",
+					"REST", "SOAP", "Javascript", "Angular" ];
+
+			$scope.radarData = [ [ 65, 59, 90, 81, 56, 55, 40, 89 ],
+					[ 28, 48, 40, 19, 96, 27, 100, 78 ] ];
+
+			$scope.radarSeries = [ "Average", "All Batches" ];
+			$scope.radarOptions = {
+				legend : {
+					display : true,
+					position : 'bottom'
+				}
+			}
+
 			// Pie chart for trainee's technology strength
 			$scope.pieLabels = [ "Spring", "Hibernate", "AngularJS",
 					"Java Core", "SQL" ];
