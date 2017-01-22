@@ -1,5 +1,5 @@
 /** modules **/
-angular.module("app", ["ui.router", "vp", "qc", "trainer", "chart.js"]);
+angular.module("app", ["ui.router", "vp", "qc", "trainer", "chart.js", "charts"]);
 
 // add modules here
 angular.module("vp", []);
