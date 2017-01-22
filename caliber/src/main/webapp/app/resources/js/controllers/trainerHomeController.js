@@ -26,10 +26,13 @@ angular.module("trainer").controller(
 				$scope.currentTrainee = $scope.trainees[index];
 			};
 
-			// Sample Data representing trainee average over 6 weeks
+			// Sample Data representing trainee average over 12 weeks
 			var sampleData = [{week: "Week 1", average: 79}, {week: "Week 2", average: 89}, 
 				{week: "Week 3", average: 67}, {week: "Week 4", average: 79}, 
-				{week: "Week 5", average: 86}, {week: "Week 6", average: 76}]
+				{week: "Week 5", average: 86}, {week: "Week 6", average: 76},
+				{week: "Week 7", average: 79}, {week: "Week 8", average: 89}, 
+				{week: "Week 9", average: 72}, {week: "Week 10", average: 94}, 
+				{week: "Week 11", average: 86}, {week: "Week 12", average: 65}]
 			
 			// line chart function that retrieves 
 			// Week by week progression for a trainee/ batch on a line chart
