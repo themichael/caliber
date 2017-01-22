@@ -13,15 +13,10 @@ public class AdminController {
 
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/success")
+    @RequestMapping(method = RequestMethod.GET, value = "/home")
     @ResponseBody
     public String success() {
-
-
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().
-                getPrincipal();
-
-
+        SalesforceUser user = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return "User "+user.getUsername()+". Role is "+ user.getAuthorities().toString();
 
     }

@@ -57,9 +57,8 @@ public class PreAuthentication {
                 + clientId + "&redirect_uri=" + redirectUri;
     }
 
-    @RequestMapping(value = "/access")
+    @RequestMapping(value = "/")
     public ModelAndView openAuth() {
-        System.out.println("IN AUTH");
         return new ModelAndView("redirect:" + generateURL());
     }
 
@@ -88,8 +87,6 @@ public class PreAuthentication {
                 line = resp.readLine();
             }
             System.out.println(result.toString());
-            Cookie cookie = new Cookie("salesforce_token", result.toString());
-            servletResponse.addCookie(cookie);
             setAuthCredentials(result.toString());
             System.out.println("ACCESS TOKEN ID IS " + salesforceToken.getAccess_token());
 
@@ -120,7 +117,7 @@ public class PreAuthentication {
         } finally
 
         {
-            return "forward:/trainer";
+            return "forward:/admin/home";
         }
     }
 
