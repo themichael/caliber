@@ -20,8 +20,8 @@ public class BusinessDelegate {
     }
 
 
-    public Batch getBatchById() {
-        return new Batch();
+    public Batch getCurrentBatch() {
+        return batches.iterator().next();
     }
 
     public BusinessDelegate() {
