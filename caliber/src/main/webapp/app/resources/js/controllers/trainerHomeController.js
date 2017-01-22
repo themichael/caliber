@@ -75,7 +75,7 @@ angular.module("trainer").controller(
 
 			// Horizontal bar chart for trainee averages per technology
 			$scope.hbarLabels = [ 'Kyle', 'Osher', 'Rikki', 'Dan', 'Pickles' ];
-			$scope.hbarData = [ 65, 85, 100, 75, 50 ];
+			$scope.hbarData = [ [65, 85, 100, 75, 50] ];
 
 			$scope.hbarDatasetOverride = [ {
 				xAxisID : 'x-axis-1'
