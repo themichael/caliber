@@ -92,32 +92,11 @@ public class PreAuthentication {
             Cookie cookie = new Cookie("salesforce_token", result.toString());
             servletResponse.addCookie(cookie);
 
-
-            JSONObject tokenCredentials = new JSONObject(result.toString());
-            String access_token = tokenCredentials.get("access_token").toString();
-            String signature = tokenCredentials.get("signature").toString();
-            String scope = tokenCredentials.get("scope").toString();
-            String id_url = tokenCredentials.get("instance_url").toString();
-            String id = tokenCredentials.get("id").toString();
-            String token_type = tokenCredentials.get("token_type").toString();
-            String issued_at = tokenCredentials.get("issued_at").toString();
-
-            System.out.println("ACCESS TOKEN ID IS " + access_token);
-
-
-            httpClient = HttpClientBuilder.create().build();
-            HttpGet get = new HttpGet(id + "?access_token=" + access_token);
-            HttpResponse userResponse = httpClient.execute(get);
-            System.out.println("RESPONSE CODE " + response.getStatusLine().getStatusCode());
-            BufferedReader rd = new BufferedReader(new InputStreamReader(userResponse.getEntity().getContent()));
-            StringBuffer rs = new StringBuffer();
-            String txt = rd.readLine();
-            while (txt != null) {
-                rs.append(txt);
-                txt = rd.readLine();
-            }
-            System.out.println(result.toString());
             setAuthCredentials(result.toString());
+
+            System.out.println("ACCESS TOKEN ID IS " + salesforceToken.getAccess_token());
+
+
 
             /*
                 Made SalesforceUser class implement UserDetails(spring security).
