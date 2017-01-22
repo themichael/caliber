@@ -12,7 +12,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<tx:annotation-driven/> <mvc:annotation-driven />
-	<context:component-scan base-package="com.revature.caliber.training.web.controllers" />
+	<context:component-scan base-package="com.revature.caliber.training" />
+	<context:annotation-config />
 	
 	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
@@ -24,7 +25,6 @@
 		<property name="packagesToScan" value="com.revature.caliber.training.beans" />
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.Oracle10gDialect
 				</prop>
@@ -34,8 +34,5 @@
 	</bean>
 	<bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-<!-- 	<bean name="testDao" class="com.revature.caliber.data.TestDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean> -->
+	</bean> 
 </beans>

@@ -1,20 +1,37 @@
 package com.revature.caliber.assessments.beans;
 
-public class TrainerNote extends Note{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
-	private int trainee;
+@Entity(name="CALIBER_TRAINER_NOTE")
+public class TrainerNote extends Note{
+	
+	/**
+	 * The trainer who made the comment
+	 */
+	@Column(name="TRAINER_ID")
+	private int trainer;
+	
+	/**
+	 * The week that the trainer made the evaluation 
+	 */
+	@Column(name="WEEK_ID", nullable=false)
 	private int week;
+	
 	
 	public TrainerNote(String content, boolean sugarCoated) {
 		super(content, sugarCoated);
 	}
 
-	public int getTrainee() {
-		return trainee;
+	public int getTrainer() {
+		return trainer;
 	}
 
-	public void setTrainee(int trainee) {
-		this.trainee = trainee;
+	public void setTrainer(int trainer) {
+		this.trainer = trainer;
 	}
 
 	public int getWeek() {
@@ -28,8 +45,5 @@ public class TrainerNote extends Note{
 	public TrainerNote() {
 		super();
 	}
-	
-	
-	
 	
 }

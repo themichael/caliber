@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<tx:annotation-driven/> <mvc:annotation-driven />
-	<context:component-scan base-package="com.revature.caliber.assessments.web.controllers" />
+	<context:component-scan base-package="com.revature.caliber" />
 	
 	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
@@ -24,7 +24,7 @@
 		<property name="packagesToScan" value="com.revature.caliber.assessments.beans" />
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.Oracle10gDialect
 				</prop>

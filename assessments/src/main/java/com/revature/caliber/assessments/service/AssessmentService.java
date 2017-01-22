@@ -1,0 +1,76 @@
+package com.revature.caliber.assessments.service;
+
+import com.revature.caliber.assessments.beans.Assessment;
+
+import java.util.Set;
+
+public interface AssessmentService {
+
+//    Get
+    /**
+     * Returns HashSet of all Assessments
+     * @return List of Assessments
+     */
+    Set<Assessment> getAll();
+
+    /**
+     * Return Assessment
+     *  with AssessmentId
+     * @return Assessment
+     */
+    Assessment getById(int id);
+
+    /**
+     * Returns HashSet of Assessments
+     *  with TrainerId
+     * @param id
+     * @return List of Assessments
+     */
+    /*   
+     * 	TODO reconsider how to approach this implementation.
+     * 		 data resides in another service, so you cannot query this way
+    Set<Assessment> getByTrainerId(int id);
+	*/
+    
+    /**
+     * Returns HashSet of Assessments
+     *  with WeekId
+     * @param id
+     * @return List of Assessments
+     */
+    Set<Assessment> getByWeekId(int id);
+
+    /**
+     * Returns HashSet of Assessments
+     *  with BatchId
+     * @param id
+     * @return List of Assessments
+     */
+    Set<Assessment> getByBatchId(int id);
+
+//    Create
+
+    /**
+     * Inserts Assessment
+     * @param assessment
+     */
+    void insert(Assessment assessment);
+
+//    Update
+
+    /**
+     * Updates Assessment
+     * @param assessment
+     */
+    void update(Assessment assessment);
+
+
+//    Delete
+
+    /**
+     * Deletes Assessment
+     * @param assessment
+     */
+    void delete(Assessment assessment);
+
+}

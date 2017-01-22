@@ -1,9 +1,26 @@
 package com.revature.caliber.assessments.beans;
 
-public class BatchNote extends Note{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
+@Entity(name="CALIBER_BATCH_NOTE")
+public class BatchNote extends Note{
+	 
+	/**
+	 * The week of the batch's evaluation
+	 */
+	@Column(name="WEEK_ID", nullable=false)
 	private int week;
+	
+	/**
+	 * The batch identifier
+	 */
+	@Column(name="BATCH_ID")
 	private int batch;
+	
 	public int getWeek() {
 		return week;
 	}
