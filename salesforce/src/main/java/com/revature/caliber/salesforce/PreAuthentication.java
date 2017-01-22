@@ -88,12 +88,9 @@ public class PreAuthentication {
                 line = resp.readLine();
             }
             System.out.println(result.toString());
-
             Cookie cookie = new Cookie("salesforce_token", result.toString());
             servletResponse.addCookie(cookie);
-
             setAuthCredentials(result.toString());
-
             System.out.println("ACCESS TOKEN ID IS " + salesforceToken.getAccess_token());
 
 
@@ -106,6 +103,7 @@ public class PreAuthentication {
                 with admin privileges.
              */
             setSalesforceUser(salesforceToken.getId());
+
             salesforceUser.setRole("ROLE_ADMIN");
 
             Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
@@ -163,6 +161,8 @@ public class PreAuthentication {
                 userCredentials.getString("email"),
                 userCredentials.getString("first_name"),
                 userCredentials.getString("last_name"));
+
+        System.out.println(salesforceUser.toString());
     }
 
     public SalesforceUser getSalesforceUser() {

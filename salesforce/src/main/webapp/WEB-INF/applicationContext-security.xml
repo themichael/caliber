@@ -11,7 +11,16 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
         <security:intercept-url pattern="/admin/*" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/hello" access="ROLE_USER" />
         <security:remember-me key="wow" />
+
+        <!-- logout functionality: delete cookies and redirect. Use /j_spring_security_logout as route -->
+        <security:logout delete-cookies="salesforce_token,JSESSIONID"/>
+        <!-- Allowed one session : change max-sessions if you like -->
+        <security:session-management>
+            <security:concurrency-control max-sessions="1" />
+        </security:session-management>
     </security:http>
+
+
     <security:authentication-manager>
         <security:authentication-provider>
             <security:user-service>
@@ -19,4 +28,8 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>
+
+
+
+
 </beans>
