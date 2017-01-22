@@ -47,7 +47,7 @@ public class Batch {
 	private short borderlineGradeThreshold;
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	@OneToMany(mappedBy = "batch")
+	@OneToMany(mappedBy = "batch"/*, cascade = CascadeType.REMOVE*/)
 	private Set<Trainee> trainees;
 
 	@OneToMany(mappedBy = "batch")
@@ -181,5 +181,21 @@ public class Batch {
 	}
 	public void setWeeks(Set<Week> weeks) {
 		this.weeks = weeks;
+	}
+
+	@Override
+	public String toString() {
+		return "Batch{" +
+				"batchId=" + batchId +
+				", trainingName='" + trainingName + '\'' +
+				", trainer=" + trainer.getName() +
+				", skillType='" + skillType + '\'' +
+				", trainingType='" + trainingType + '\'' +
+				", startDate=" + startDate +
+				", endDate=" + endDate +
+				", location='" + location + '\'' +
+				", goodGradeThreshold=" + goodGradeThreshold +
+				", borderlineGradeThreshold=" + borderlineGradeThreshold +
+				'}';
 	}
 }
