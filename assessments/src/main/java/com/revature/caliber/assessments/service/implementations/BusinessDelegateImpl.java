@@ -1,11 +1,13 @@
 package com.revature.caliber.assessments.service.implementations;
 
-import java.util.HashSet;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
@@ -33,8 +35,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 //    Assessment
     @Override
-    public Set<Assessment> getAllAssessments() {
-        return assessmentService.getAll();
+    public HashSet<Assessment> getAllAssessments() {
+        return (HashSet<Assessment>) assessmentService.getAll();
     }
 
     @Override
@@ -46,19 +48,19 @@ public class BusinessDelegateImpl implements BusinessDelegate {
      * 	TODO reconsider how to approach this implementation.
      * 		 data resides in another service, so you cannot query this way
     @Override
-    public Set<Assessment> getAssessmentsByTrainerId(int id) {
-        return assessmentService.getByTrainerId(id);
+    public HashSet<Assessment> getAssessmentsByTrainerId(int id) {
+        return (HashSet<Assessment>) assessmentService.getByTrainerId(id);
     }
     */
 
     @Override
-    public Set<Assessment> getAssessmentsByWeekId(int id) {
-        return assessmentService.getByWeekId(id);
+    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
+        return (HashSet<Assessment>) assessmentService.getByWeekId(id);
     }
 
     @Override
-    public Set<Assessment> getAssessmentsByBatchId(int id) {
-        return assessmentService.getByBatchId(id);
+    public HashSet<Assessment> getAssessmentsByBatchId(int id) {
+        return (HashSet<Assessment>) assessmentService.getByBatchId(id);
     }
 
     @Override

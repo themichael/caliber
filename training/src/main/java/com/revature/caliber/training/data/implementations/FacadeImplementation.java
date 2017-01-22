@@ -42,11 +42,12 @@ public class FacadeImplementation implements Facade {
 	@Autowired
     public void setTraineeDAO(TraineeDAO traineeDAO) {this.traineeDAO = traineeDAO;}
     @Autowired
-    public void setBatchDAO(BatchDAO batchDAO){this.batchDAO = batchDAO;}
+
+    public void setBatchDAO(BatchDAO batchDAO){ this.batchDAO = batchDAO; }
     @Autowired
-    public void setCategoryDAO(CategoryDAO categoryDAO) {this.categoryDAO = categoryDAO;}
+    public void setCategoryDAO(CategoryDAO categoryDAO){ this.categoryDAO = categoryDAO; }
     
-	//Trainee
+    //Trainee
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public void createTrainee(Trainee trainee) { traineeDAO.createTrainee(trainee); }
 

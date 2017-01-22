@@ -4,21 +4,22 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.service.BatchService;
 import com.revature.caliber.training.service.BusinessDelegate;
 import com.revature.caliber.training.service.TraineeService;
+import org.springframework.stereotype.Component;
+
 import com.revature.caliber.training.service.TrainerService;
 
 /**
  * Implementation for the Business Delegate
  */
-@Service
-public class BusinessDelegateImplementation implements BusinessDelegate{
-	
+@Component(value = "trainingBusinessDelegateImplementation")
+public class BusinessDelegateImplementation implements BusinessDelegate {
+
     TraineeService traineeService;
     @Autowired
     public void setTraineeService(TraineeService traineeService) { this.traineeService = traineeService; }
