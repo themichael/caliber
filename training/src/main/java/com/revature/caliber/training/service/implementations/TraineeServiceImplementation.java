@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Created by illyasviel on 1/18/17.
+ * Implementation of the trainee service
  */
 @Component
 public class TraineeServiceImplementation implements TraineeService {
