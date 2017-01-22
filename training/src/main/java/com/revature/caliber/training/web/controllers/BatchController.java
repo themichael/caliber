@@ -24,7 +24,11 @@ public class BatchController {
     @Autowired
     public void setBusinessDelegate(BusinessDelegate businessDelegate) { this.businessDelegate = businessDelegate; }
 
-    // Request for new batch to be created
+        /**
+        * Request for new batch to be created
+        * @param batch
+        * @return
+        */
     @RequestMapping(value = "batch/new",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -41,7 +45,10 @@ public class BatchController {
         return returnEntity;
     }
 
-    // Request to get all batches
+    /**
+     * Request to get all batches
+     * @return
+     */
     @RequestMapping(value = "batch/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -59,15 +66,19 @@ public class BatchController {
         return returnEntity;
     }
 
-    // Request to get all batches by Trainer name
-    @RequestMapping(value = "batch/byTrainerName/{name}",
+    /**
+     * Request to get all batches by Trainer id
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "batch/byTrainerId/{id}",
                 method = RequestMethod.GET,
                 consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
                 produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("name") String name){
+    public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("id") Integer id){
         ResponseEntity<List<Batch>> returnEntity;
         try{
-            List<Batch> batches = businessDelegate.getTrainerBatch(name);
+            List<Batch> batches = businessDelegate.getTrainerBatch(id);
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
@@ -78,7 +89,10 @@ public class BatchController {
         return returnEntity;
     }
 
-    // Request to get all active batches
+    /**
+     * Request to get all active batches
+     * @return
+     */
     @RequestMapping(value = "batch/current",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -96,15 +110,19 @@ public class BatchController {
         return returnEntity;
     }
 
-    // Request to get active batches by Trainer name
-    @RequestMapping(value = "batch/current/{name}",
+    /**
+     * Request to get active batches by Trainer id
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "batch/current/{id}",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<List<Batch>> getCurrentBatch(@PathVariable("name") String name){
+    public HttpEntity<List<Batch>> getCurrentBatch(@PathVariable("id") Integer id){
         ResponseEntity<List<Batch>> returnEntity;
         try{
-            List<Batch> batches = businessDelegate.getCurrentBatch(name);
+            List<Batch> batches = businessDelegate.getCurrentBatch(id);
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
@@ -115,7 +133,11 @@ public class BatchController {
         return returnEntity;
     }
 
-    // Request to get a single batch by id
+    /**
+     * Request to get a single batch by id
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "batch/byId/{id}",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -134,7 +156,11 @@ public class BatchController {
         return returnEntity;
     }
 
-    // Request to update a batch
+    /**
+     * Request to update a batch
+     * @param batch
+     * @return
+     */
     @RequestMapping(value = "batch/update",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -150,7 +176,11 @@ public class BatchController {
         return returnEntity;
     }
 
-    // Request to delete a batch
+    /**
+     * Request to delete a batch
+     * @param batch
+     * @return
+     */
     @RequestMapping(value = "batch/delete",
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,

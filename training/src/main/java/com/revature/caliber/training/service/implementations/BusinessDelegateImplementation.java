@@ -42,9 +42,9 @@ public class BusinessDelegateImplementation implements BusinessDelegate{
     // batch
     public void createBatch(Batch batch) {batchService.createBatch(batch);}
     public List<Batch> getAllBatch() {return batchService.getAllBatch();}
-    public List<Batch> getTrainerBatch(String name) {return batchService.getTrainerBatch(name);}
+    public List<Batch> getTrainerBatch(Integer id) {return batchService.getTrainerBatch(id);}
     public List<Batch> getCurrentBatch() {return batchService.getCurrentBatch();}
-    public List<Batch> getCurrentBatch(String name) {return batchService.getCurrentBatch(name);}
+    public List<Batch> getCurrentBatch(Integer id) {return batchService.getCurrentBatch(id);}
     public Batch getBatch(Integer id) {return batchService.getBatch(id);}
     public void updateBatch(Batch batch) {batchService.updateBatch(batch);}
     public void deleteBatch(Batch batch) {batchService.deleteBatch(batch);}
