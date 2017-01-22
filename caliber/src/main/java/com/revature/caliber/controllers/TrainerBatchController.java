@@ -18,15 +18,13 @@ import com.revature.caliber.beans.Batch;
 @CrossOrigin(origins = "*")
 public class TrainerBatchController {
 
-	
-	
 	/***
 	 * Please change unit tests after connecting controller to midtier
 	 * OR after changing return values of test data 
 	 ****/
 	
 	/**
-	 * getAllBatches - REST API method, retrieves all the batches
+	 * getAllBatches - REST API method, retrieves all batches belonging to the trainer
 	 * 
 	 * @return in JSON, a set of batch objects
 	 */
@@ -85,13 +83,13 @@ public class TrainerBatchController {
 	}
 
 	/**
-	 * getBatch - REST API method, retrieves a batch with the given id
+	 * getBatch - REST API method, retrieves a batch belonging to the trainer with the given id
 	 * 
 	 * @param id - batch id
 	 * 
 	 * @return - in JSON, a batch object
 	 */
-	@RequestMapping(value = "/trainer/{id}", method = RequestMethod.GET, 
+	@RequestMapping(value = "/trainer/batch/{id}", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Batch> getBatch(@PathVariable int id){
 		
