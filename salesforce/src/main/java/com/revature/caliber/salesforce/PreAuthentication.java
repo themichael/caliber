@@ -116,15 +116,8 @@ public class PreAuthentication {
                 rs.append(txt);
                 txt = rd.readLine();
             }
-
-            JSONObject userCredentials = new JSONObject(rs.toString());
-            String user_id = userCredentials.getString("user_id");
-            String organization_id = userCredentials.getString("organization_id");
-            String username = userCredentials.getString("username");
-            String email = userCredentials.getString("email");
-            String first_name = userCredentials.getString("first_name");
-            String last_name = userCredentials.getString("last_name");
-
+            System.out.println(result.toString());
+            setAuthCredentials(result.toString());
 
             /*
                 Made SalesforceUser class implement UserDetails(spring security).
@@ -133,10 +126,10 @@ public class PreAuthentication {
                 I can now authenticate them in the application .. they now have access to any page
                 with admin privileges.
              */
+            setSalesforceUser(salesforceToken.getId());
+            salesforceUser.setRole("ROLE_ADMIN");
 
-            SalesforceUser user = new SalesforceUser(username, "ROLE_ADMIN", user_id, organization_id, email, first_name, last_name);
-
-            Authentication auth = new PreAuthenticatedAuthenticationToken(user, user.getUser_id(), user.getAuthorities());
+            Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
 
             SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -155,51 +148,51 @@ public class PreAuthentication {
     }
 
 
-//
-//    public void setAuthCredentials(String str){
-//        JSONObject tokenCredentials = new JSONObject(str.toString());
-//        salesforceToken = new SalesforceToken(
-//                tokenCredentials.get("access_token").toString(),
-//                tokenCredentials.get("signature").toString(),
-//                tokenCredentials.get("scope").toString(),
-//                tokenCredentials.get("instance_url").toString(),
-//                tokenCredentials.get("id").toString(),
-//                tokenCredentials.get("token_type").toString(),
-//                tokenCredentials.get("issued_at").toString()
-//        );
-//    }
-//
-//
-//    public void setSalesforceUser(String str) throws IOException {
-//        httpClient = HttpClientBuilder.create().build();
-//        System.out.println(str);
-//        HttpGet get = new HttpGet(str+"?access_token="+salesforceToken.getAccess_token());
-//        HttpResponse response = httpClient.execute(get);
-//        System.out.println("RESPONSE CODE " + response.getStatusLine().getStatusCode());
-//        BufferedReader resp = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-//        StringBuffer result = new StringBuffer();
-//        String line = resp.readLine();
-//        while (line != null) {
-//            result.append(line);
-//            line = resp.readLine();
-//        }
-//
-//        JSONObject userCredentials = new JSONObject(result.toString());
-//        salesforceUser = new SalesforceUser(userCredentials.getString("user_id"),
-//                userCredentials.getString("organization_id"),
-//                userCredentials.getString("username"),
-//                userCredentials.getString("email"),
-//                userCredentials.getString("first_name"),
-//                userCredentials.getString("last_name"));
-//    }
-//
-//    public SalesforceUser getSalesforceUser() {
-//        return salesforceUser;
-//    }
-//
-//    public SalesforceToken getSalesforceToken() {
-//        return salesforceToken;
-//    }
-//
+
+    public void setAuthCredentials(String str){
+        JSONObject tokenCredentials = new JSONObject(str.toString());
+        salesforceToken = new SalesforceToken(
+                tokenCredentials.get("access_token").toString(),
+                tokenCredentials.get("signature").toString(),
+                tokenCredentials.get("scope").toString(),
+                tokenCredentials.get("instance_url").toString(),
+                tokenCredentials.get("id").toString(),
+                tokenCredentials.get("token_type").toString(),
+                tokenCredentials.get("issued_at").toString()
+        );
+    }
+
+
+    public void setSalesforceUser(String str) throws IOException {
+        httpClient = HttpClientBuilder.create().build();
+        System.out.println(str);
+        HttpGet get = new HttpGet(str+"?access_token="+salesforceToken.getAccess_token());
+        HttpResponse response = httpClient.execute(get);
+        System.out.println("RESPONSE CODE " + response.getStatusLine().getStatusCode());
+        BufferedReader resp = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuffer result = new StringBuffer();
+        String line = resp.readLine();
+        while (line != null) {
+            result.append(line);
+            line = resp.readLine();
+        }
+
+        JSONObject userCredentials = new JSONObject(result.toString());
+        salesforceUser = new SalesforceUser(userCredentials.getString("user_id"),
+                userCredentials.getString("organization_id"),
+                userCredentials.getString("username"),
+                userCredentials.getString("email"),
+                userCredentials.getString("first_name"),
+                userCredentials.getString("last_name"));
+    }
+
+    public SalesforceUser getSalesforceUser() {
+        return salesforceUser;
+    }
+
+    public SalesforceToken getSalesforceToken() {
+        return salesforceToken;
+    }
+
 
 }

@@ -21,7 +21,9 @@ public class SalesforceUser implements UserDetails {
     private String password;
     private String role;
 
-    public SalesforceUser(String username,String role,String user_id, String organization_id,String email, String first_name, String last_name) {
+
+
+    public SalesforceUser(String username, String role, String user_id, String organization_id, String email, String first_name, String last_name) {
         this.username = username;
         this.role = role;
         this.user_id = user_id;
@@ -38,6 +40,14 @@ public class SalesforceUser implements UserDetails {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getUser_id() {
