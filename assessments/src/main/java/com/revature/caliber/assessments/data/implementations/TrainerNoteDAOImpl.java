@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.TrainerNoteDAO;
 
+
 @Repository(value="trainerNoteDAO")
 public class TrainerNoteDAOImpl implements TrainerNoteDAO {
 
