@@ -54,12 +54,12 @@ public class TrainerBatchController {
 		thirdBatch.setLocation("Queens College");
 		thirdBatch.setSkillType("Junior Level");
 
-		Set<Batch> set = new HashSet<Batch>();
+		Set<Batch> set = new HashSet<>();
 		set.add(firstBatch);
 		set.add(secondBatch);
 		set.add(thirdBatch);
 
-		return new ResponseEntity<Set<Batch>>(set, HttpStatus.OK);
+		return new ResponseEntity<>(set, HttpStatus.OK);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class TrainerBatchController {
 		batch.setLocation("Revature");
 		batch.setSkillType("Junior Level");
 
-		return new ResponseEntity<Batch>(batch, HttpStatus.OK);
+		return new ResponseEntity<>(batch, HttpStatus.OK);
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class TrainerBatchController {
 		batch.setLocation("Revature");
 		batch.setSkillType("Junior Level");
 		
-		return new ResponseEntity<Batch>(batch, HttpStatus.OK);
+		return new ResponseEntity<>(batch, HttpStatus.OK);
 	}
 
 	
