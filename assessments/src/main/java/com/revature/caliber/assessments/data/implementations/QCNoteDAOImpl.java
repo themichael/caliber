@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository(value="qcNoteDAO")
+@Repository
 public class QCNoteDAOImpl implements QCNoteDAO {
 
     private SessionFactory sessionFactory;
@@ -74,5 +74,23 @@ public class QCNoteDAOImpl implements QCNoteDAO {
         Criteria criteria = session.createCriteria(QCNote.class);
         criteria.add(Restrictions.eq("week", weekId));
         return criteria.list();
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,
+                    propagation = Propagation.REQUIRED,
+                    rollbackFor = {Exception.class})
+    public void updateQCNote(QCNote note) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(note);
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,
+                    propagation = Propagation.REQUIRED,
+                    rollbackFor = {Exception.class})
+    public void deleteQCNote(QCNote note) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(note);
     }
 }

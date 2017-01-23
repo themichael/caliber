@@ -175,5 +175,11 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
     @Override
     public List<QCNote> getQCNotesByWeek(Integer weekId) { return qcNoteService.getQCNotesByWeek(weekId); }
+
+    @Override
+    public void updateQCNote(QCNote note) { qcNoteService.updateQCNote(note); }
+
+    @Override
+    public void deleteQCNote(QCNote note) { qcNoteService.deleteQCNote(note); }
     //end QCNote ---------------------
 }

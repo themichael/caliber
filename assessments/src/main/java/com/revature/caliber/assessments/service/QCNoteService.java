@@ -14,5 +14,7 @@ public interface QCNoteService {
     QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
     List<QCNote> getQCNotesByTrainee(Integer traineeId);
     List<QCNote> getQCNotesByWeek(Integer weekId);
+    void updateQCNote(QCNote note);
+    void deleteQCNote(QCNote note);
 
 }

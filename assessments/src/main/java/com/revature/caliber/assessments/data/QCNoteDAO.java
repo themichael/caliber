@@ -44,4 +44,16 @@ public interface QCNoteDAO {
      * @return
      */
     List<QCNote> getQCNotesByWeek(Integer weekId);
+
+    /**
+     * Update the note's information
+     * @param note note to update
+     */
+    void updateQCNote(QCNote note);
+
+    /**
+     * Delete a note
+     * @param note note to delete
+     */
+    void deleteQCNote(QCNote note);
 }

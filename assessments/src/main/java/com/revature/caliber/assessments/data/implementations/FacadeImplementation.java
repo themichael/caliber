@@ -254,5 +254,11 @@ public class FacadeImplementation implements Facade {
 
     @Override
     public List<QCNote> getQCNotesByWeek(Integer weekId) { return qcNoteDAO.getQCNotesByWeek(weekId); }
+
+    @Override
+    public void updateQCNote(QCNote note) { qcNoteDAO.updateQCNote(note); }
+
+    @Override
+    public void deleteQCNote(QCNote note) { qcNoteDAO.deleteQCNote(note); }
     //end QCNote
 }

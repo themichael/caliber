@@ -33,4 +33,10 @@ public class QCNoteServiceImplementation implements QCNoteService {
 
     @Override
     public List<QCNote> getQCNotesByWeek(Integer weekId) { return facade.getQCNotesByWeek(weekId); }
+
+    @Override
+    public void updateQCNote(QCNote note) { facade.updateQCNote(note); }
+
+    @Override
+    public void deleteQCNote(QCNote note) { facade.deleteQCNote(note); }
 }
