@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import javax.activation.DataSource;
 import java.util.Date;
 import java.util.List;
 

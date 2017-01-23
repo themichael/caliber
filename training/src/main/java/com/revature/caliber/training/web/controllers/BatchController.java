@@ -59,7 +59,7 @@ public class BatchController {
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
-                returnEntity = new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -82,7 +82,7 @@ public class BatchController {
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
-                returnEntity = new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -103,7 +103,7 @@ public class BatchController {
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
-                returnEntity = new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -126,7 +126,7 @@ public class BatchController {
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
-                returnEntity = new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -149,7 +149,7 @@ public class BatchController {
             if(batch == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
-                returnEntity = new ResponseEntity<Batch>(batch, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(batch, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
         }

@@ -54,6 +54,11 @@ public class Batch {
 	private Set<Week> weeks;
 
 	/*
+        Default Constructor
+         */
+	public Batch() {}
+
+	/*
 	Constructor with ID
 	 */
 	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
@@ -94,13 +99,6 @@ public class Batch {
 		this.borderlineGradeThreshold = borderlineGradeThreshold;
 		this.trainees = trainees;
 		this.weeks = weeks;
-	}
-
-	/*
-	Default Constructor
-	 */
-	public Batch() {
-		super();
 	}
 
 	/*
