@@ -144,8 +144,8 @@ public interface Facade {
 
     //QCNote
     void createQCNote(QCNote note);
-    QCNote getNoteById(Integer QCNoteId);
-    QCNote getNoteForTraineeWeek(Integer traineeId, Integer weekId);
+    QCNote getQCNoteById(Integer QCNoteId);
+    QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
     List<QCNote> getQCNotesByTrainee(Integer traineeId);
     List<QCNote> getQCNotesByWeek(Integer weekId);
     //QCNote end

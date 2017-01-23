@@ -244,10 +244,10 @@ public class FacadeImplementation implements Facade {
     public void createQCNote(QCNote note) { qcNoteDAO.createQCNote(note); }
 
     @Override
-    public QCNote getNoteById(Integer QCNoteId) { return qcNoteDAO.getNoteById(QCNoteId); }
+    public QCNote getQCNoteById(Integer QCNoteId) { return qcNoteDAO.getQCNoteById(QCNoteId); }
 
     @Override
-    public QCNote getNoteForTraineeWeek(Integer traineeId, Integer weekId) { return qcNoteDAO.getNoteForTraineeWeek(traineeId, weekId); }
+    public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) { return qcNoteDAO.getQCNoteForTraineeWeek(traineeId, weekId); }
 
     @Override
     public List<QCNote> getQCNotesByTrainee(Integer traineeId) { return qcNoteDAO.getQCNotesByTrainee(traineeId); }

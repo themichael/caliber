@@ -21,7 +21,7 @@ public interface QCNoteDAO {
      * @param QCNoteId id of a note to get
      * @return QCNote object
      */
-    QCNote getNoteById(Integer QCNoteId);
+    QCNote getQCNoteById(Integer QCNoteId);
 
     /**
      * Get QCNote for a pair of trainee and week ids
@@ -29,7 +29,7 @@ public interface QCNoteDAO {
      * @param weekId id of a week
      * @return QCNote object
      */
-    QCNote getNoteForTraineeWeek(Integer traineeId, Integer weekId);
+    QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
 
     /**
      * Get all notes for a trainee
