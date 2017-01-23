@@ -4,6 +4,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+/**
+ * Bean for Week
+ */
 @Entity
 @Table(name = "CALIBER_WEEK")
 public class Week {
@@ -21,7 +24,7 @@ public class Week {
 	@JoinColumn(name = "BATCH_ID")
 	private Batch batch;
 
-	@ManyToMany(mappedBy = "weeks")
+	@ManyToMany(mappedBy = "weeks", fetch = FetchType.EAGER)
 	private Set<Category> topics;
 
 	public long getWeekId() {
