@@ -33,7 +33,7 @@ public class BatchController {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Serializable> createTrainee(@RequestBody @Valid Batch batch) {
+    public ResponseEntity<Serializable> createBatch(@RequestBody @Valid Batch batch) {
         ResponseEntity<Serializable> returnEntity;
         try {
             businessDelegate.createBatch(batch);
