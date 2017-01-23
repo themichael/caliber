@@ -54,7 +54,7 @@
 <!-- Insert css local files here -->
 <link rel="stylesheet" href="app/lib/css/font-awesome.min.css">
 <link rel="stylesheet" href="app/resources/css/app.css">
-
+<link rel="shortcut icon" href="./app/resources/images/favicon.ico"/>
 <title>Caliber | Performance Management</title>
 </head>
 <body ng-app="app">
@@ -64,24 +64,25 @@
 	<ui-view></ui-view>
 
 	<!-- Footer -->
-	<div class="footer">
+	<div id="footer" class="footer">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-4">
-					<img class="img-responsive rev-footer-img"
-						src="./app/resources/images/rev-footer.png" alt="revature"
-						height="200" width="200" />
-				</div>
-				<div class="col-sm-4 col-sm-offset-4">
-					<h4>Contact Info</h4>
-					<span class="glyphicon glyphicon-home"></span><span>&nbsp;11730
-						Plaza America Drive<br>Reston, VA 20190
-					</span><br> <span class="glyphicon glyphicon-earphone"></span><a
-						href="tel:(703) 570-8282">&nbsp;(703) 570-8282</a><br> <span
-						class="glyphicon glyphicon-envelope"></span><a
-						href="mailto:info@revature.com">&nbsp;info@revature.com</a><br>
-					<span class="glyphicon glyphicon-link"></span><a target="_blank"
-						href="http://revature.com">&nbsp;revature.com</a>
+				<div class= "footer-margin">
+					<div class="col-sm-4">
+						<img class="img-responsive footer-img"
+							src="./app/resources/images/rev-footer.png" alt="revature"
+							height="175" width="175" />
+					</div>
+					<div class="col-sm-3 col-sm-offset-5 contact-info">
+						<span class="glyphicon glyphicon-home"></span><span>&nbsp;11730
+							Plaza America Drive<br>Reston, VA 20190
+						</span><br> <span class="glyphicon glyphicon-earphone"></span><a
+							href="tel:(703) 570-8282">&nbsp;(703) 570-8282</a><br> <span
+							class="glyphicon glyphicon-envelope"></span><a
+							href="mailto:info@revature.com">&nbsp;info@revature.com</a><br>
+						<span class="glyphicon glyphicon-link"></span><a target="_blank"
+							href="http://revature.com">&nbsp;revature.com</a><br>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -104,6 +105,8 @@
 
 	<script type="text/javascript"
 		src="app/resources/js/factories/lineChartFactory.js"></script>
+	<script type="text/javascript"
+		src="app/resources/js/factories/pieChartFactory.js"></script>
 
 	<!-- Controllers -->
 	<script type="text/javascript"

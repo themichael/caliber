@@ -1,6 +1,6 @@
 angular.module("trainer").controller(
 		"trainerHomeController",
-		function($scope, $log, lineChartFactory) {
+		function($scope, $log, lineChartFactory, pieChartFactory) {
 			$log.info("Booted trainer home controller.");
 			
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512",
@@ -34,6 +34,13 @@ angular.module("trainer").controller(
 				{week: "Week 9", average: 72}, {week: "Week 10", average: 94}, 
 				{week: "Week 11", average: 86}, {week: "Week 12", average: 65}]
 			
+			var samplePieData =[{skillCategory:"Core Java", average: 85},
+			                    {skillCategory:"SQL", average: 75},
+			                    {skillCategory:"Spring", average: 95},
+			                    {skillCategory:"Hibernate", average: 75},
+			                    {skillCategory:"AngularJS", average: 90},
+			                    {skillCategory:"REST", average: 80}]
+			
 			// line chart function that retrieves 
 			// Week by week progression for a trainee/ batch on a line chart
 			var chartObject = lineChartFactory.getTraineeProgressChart(sampleData);
@@ -43,9 +50,16 @@ angular.module("trainer").controller(
 			$scope.lineDatasetOverride = chartObject.lineDatasetOverride;
 			$scope.lineOptions = chartObject.lineOptions;
 
+			// pie chart function that retrieves 
+			// data for batch/ trainee technology strengths
+			var chartObject = pieChartFactory.getTraineeProgressChart(samplePieData);
+			$scope.pieLabels = chartObject.pieLabels;
+			$scope.pieData = chartObject.pieData;
+			$scope.pieOptions = chartObject.pieOptions;
+			
 			// Horizontal bar chart for trainee averages per technology
 			$scope.hbarLabels = [ 'Kyle', 'Osher', 'Rikki', 'Dan', 'Pickles' ];
-			$scope.hbarData = [ [65, 85, 100, 75, 50] ];
+			$scope.hbarData = [ 65, 85, 100, 75, 50 ];
 
 			$scope.hbarDatasetOverride = [ {
 				xAxisID : 'x-axis-1'
@@ -76,17 +90,6 @@ angular.module("trainer").controller(
 				legend : {
 					display : true,
 					position : 'bottom'
-				}
-			}
-
-			// Pie chart for trainee's technology strength
-			$scope.pieLabels = [ "Spring", "Hibernate", "AngularJS",
-					"Java Core", "SQL" ];
-			$scope.pieData = [ 50, 80, 90, 85, 75 ];
-			$scope.pieOptions = {
-				legend : {
-					display : true,
-					position : 'left'
 				}
 			}
 

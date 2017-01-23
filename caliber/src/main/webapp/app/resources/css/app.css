@@ -1,5 +1,5 @@
 /************************
-Revature Fonts
+	Revature Fonts
 ************************/
 
 @font-face {
@@ -24,7 +24,7 @@ Revature Fonts
 
 
 /************************
-Revature Colors
+	Revature Colors
 ************************/
 
 :root {
@@ -48,10 +48,8 @@ Revature Colors
 }
 
 .data-container {
-	background-color: #f1f2f4;
 	padding: .5em 1em 1em 1em;
 	border-radius: .5em;
-	box-shadow: 0 0 1em #f1f2f4;
 }
 
 .chart-container {
@@ -74,7 +72,15 @@ Revature Colors
 .top40 { margin-top: 40em; }
 .top45 { margin-top: 45em; }
 
+
 /************************
 	Footer
 ************************/
-.footer{ margin-top: .5em; }
+
+#footer{
+	margin-top: 1em;
+	background-color: #f1f2f4;
+}
+.footer-margin{ margin-top: 1em; }
+.footer-img { margin-top: 1.5em; }
+.contact-info {	margin-bottom: 1em; }
