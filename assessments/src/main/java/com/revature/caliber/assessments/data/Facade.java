@@ -3,10 +3,7 @@ package com.revature.caliber.assessments.data;
 import java.util.List;
 import java.util.Set;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.BatchNote;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.beans.TrainerNote;
+import com.revature.caliber.assessments.beans.*;
 
 /**
  * Facade interface for the data tier.
@@ -143,5 +140,14 @@ public interface Facade {
      * Updates a grade
      */
     void updateGrade(Grade grade);
+
+
+    //QCNote
+    void createQCNote(QCNote note);
+    QCNote getNoteById(Integer QCNoteId);
+    QCNote getNoteForTraineeWeek(Integer traineeId, Integer weekId);
+    List<QCNote> getQCNotesByTrainee(Integer traineeId);
+    List<QCNote> getQCNotesByWeek(Integer weekId);
+    //QCNote end
 
 }

@@ -3,16 +3,13 @@ package com.revature.caliber.assessments.data.implementations;
 import java.util.List;
 import java.util.Set;
 
+import com.revature.caliber.assessments.beans.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.BatchNote;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.AssessmentDAO;
 import com.revature.caliber.assessments.data.BatchNoteDAO;
 import com.revature.caliber.assessments.data.CategoryDAO;
@@ -241,4 +238,21 @@ public class FacadeImplementation implements Facade {
 	public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
 		return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
 	}
+
+	//QCNote
+    @Override
+    public void createQCNote(QCNote note) { qcNoteDAO.createQCNote(note); }
+
+    @Override
+    public QCNote getNoteById(Integer QCNoteId) { return qcNoteDAO.getNoteById(QCNoteId); }
+
+    @Override
+    public QCNote getNoteForTraineeWeek(Integer traineeId, Integer weekId) { return qcNoteDAO.getNoteForTraineeWeek(traineeId, weekId); }
+
+    @Override
+    public List<QCNote> getQCNotesByTrainee(Integer traineeId) { return qcNoteDAO.getQCNotesByTrainee(traineeId); }
+
+    @Override
+    public List<QCNote> getQCNotesByWeek(Integer weekId) { return qcNoteDAO.getQCNotesByWeek(weekId); }
+    //end QCNote
 }
