@@ -1,7 +1,7 @@
-package com.revature.caliber.assessments.data.implementations;
+package com.revature.caliber.assessments.service.implementations;
 
 import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.data.AssessmentDAO;
+import com.revature.caliber.assessments.service.AssessmentService;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,15 +13,14 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import java.util.Set;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-public class AssessmentDAOImplTest {
+public class AssessmentServiceTest {
+
 
     private static AbstractApplicationContext context;
     private static Logger log;
-    private AssessmentDAO assessmentDAO;
+    private AssessmentService assessmentService;
 
     @BeforeClass
     public static void setUp() {
@@ -29,16 +28,16 @@ public class AssessmentDAOImplTest {
         // rootLogger is for debugging purposes
         log = Logger.getRootLogger();
 
-        log.debug("Starting AssessmentDAOImplTest");
+        log.debug("Starting AssessmentServiceTest");
         populateTable();
     }
 
     /**
      * Populates table with Assessment used for testing
      */
-    public static void populateTable() {
+    private static void populateTable() {
         //Adding required data
-        AssessmentDAO assessmentDAO = (AssessmentDAO) context.getBean("assessmentDAO");
+        AssessmentService assessmentService = (AssessmentService) context.getBean("assessmentService");
 
         Assessment assessment = new Assessment();
         assessment.setAssessmentId(4100);
@@ -48,19 +47,37 @@ public class AssessmentDAOImplTest {
         assessment.setType("LMS");
         assessment.setWeek(1);
 
-        assessmentDAO.insert(assessment);
+        assessmentService.insert(assessment);
+    }
+
+    @AfterClass
+    public static void cleanUp() {
+
+        AssessmentService assessmentService = (AssessmentService) context.getBean("assessmentService");
+
+        int assessmentId = 4550;
+
+        Assessment assessment = assessmentService.getById(assessmentId);
+
+        if (assessment != null) {
+            assessmentService.delete(assessment);
+            assessment = assessmentService.getById(assessmentId);
+            assertNull(assessment);
+        }
+
+        log.debug("Ending AssessmentServiceTest");
     }
 
     @Before
     public void setUpTest() {
-        assessmentDAO = (AssessmentDAO) context.getBean("assessmentDAO");
+        assessmentService = (AssessmentService) context.getBean("assessmentService");
     }
 
     @Test
     public void getAll() {
         log.debug("Starting getAllAssessmentsTest");
 
-        Set<Assessment> assessments = assessmentDAO.getAll();
+        Set<Assessment> assessments = assessmentService.getAll();
         assertFalse(assessments.isEmpty());
 
         log.debug("Ending getAllAssessmentsTest");
@@ -68,11 +85,11 @@ public class AssessmentDAOImplTest {
 
     @Test
     public void getById() {
-        long id = 4100;
+        int id = 4100;
         log.debug("Starting getAssessmentById = " + id);
         System.out.println("Starting getAssessmentById = " + id);
 
-        Assessment assessment = assessmentDAO.getById(id);
+        Assessment assessment = assessmentService.getById(id);
         System.out.println(assessment);
         assertNotNull(assessment);
 
@@ -84,7 +101,7 @@ public class AssessmentDAOImplTest {
         int weekId = 1;
         log.debug("Starting getAssessmentsByWeekId with id = " + weekId);
 
-        Set<Assessment> assessments = assessmentDAO.getByWeekId(weekId);
+        Set<Assessment> assessments = assessmentService.getByWeekId(weekId);
         assertFalse(assessments.isEmpty());
 
         log.debug("Ending getByWeekId");
@@ -102,7 +119,7 @@ public class AssessmentDAOImplTest {
         assessment.setType("LMS");
         assessment.setWeek(1);
 
-        assessmentDAO.insert(assessment);
+        assessmentService.insert(assessment);
         assertTrue(true);
 
         log.debug("Ending insertAssessment");
@@ -115,34 +132,15 @@ public class AssessmentDAOImplTest {
         log.debug("Starting test to fetch, delete, then fetch Assessment with id = " + assessmentId
                 + "to make sure delete is functional");
 
-        Assessment assessment = assessmentDAO.getById(assessmentId);
+        Assessment assessment = assessmentService.getById(assessmentId);
 
         if (assessment != null) {
-            assessmentDAO.delete(assessment);
-            assessment = assessmentDAO.getById(assessmentId);
+            assessmentService.delete(assessment);
+            assessment = assessmentService.getById(assessmentId);
             assertNull(assessment);
         }
 
         //populating table again for other tests
         populateTable();
     }
-
-    @AfterClass
-    public static void cleanUp() {
-
-        AssessmentDAO assessmentDAO = (AssessmentDAO) context.getBean("assessmentDAO");
-
-        int assessmentId = 4550;
-
-        Assessment assessment = assessmentDAO.getById(assessmentId);
-
-        if (assessment != null) {
-            assessmentDAO.delete(assessment);
-            assessment = assessmentDAO.getById(assessmentId);
-            assertNull(assessment);
-        }
-
-        log.debug("Ending AssessmentDAOImplTest");
-    }
-
 }

@@ -36,50 +36,35 @@ public class FacadeImplementation implements Facade {
 //  Organize methods by DAO like Assessment example above, e.g.
 
 //  Assessment
-
     // Get
-    @Transactional
     @Override
     public Set<Assessment> getAllAssessments() {
         return assessmentDAO.getAll();
     }
 
-    @Transactional
     @Override
     public Assessment getById(int id) {
         return assessmentDAO.getById(id);
     }
 
-    @Transactional
     @Override
     public Set<Assessment> getAssessmentsByWeekId(int id) {
         return assessmentDAO.getByWeekId(id);
     }
 
     //Create
-    @Transactional(
-            isolation = Isolation.READ_COMMITTED,
-            rollbackFor = Exception.class,
-            propagation = Propagation.REQUIRES_NEW)
     @Override
     public void insertAssessment(Assessment assessment) {
         assessmentDAO.insert(assessment);
     }
 
     //Update
-    @Transactional(
-            isolation = Isolation.READ_COMMITTED,
-            rollbackFor = Exception.class,
-            propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateAssessment(Assessment assessment) {
         assessmentDAO.update(assessment);
     }
 
     //Delete
-    @Transactional(isolation = Isolation.READ_COMMITTED,
-            rollbackFor = Exception.class,
-            propagation = Propagation.REQUIRES_NEW)
     @Override
     public void deleteAssessment(Assessment assessment) {
         assessmentDAO.delete(assessment);
