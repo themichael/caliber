@@ -17,5 +17,18 @@ angular.module("delegate").factory("delegateFactory", function($log, trainerFact
 		return qcFactory.test();
 	};
 	
+	// Trainer API
+	delegate.getAllBatches = function(){
+		return trainerFactory.getAllBatches();
+	};
+	
+	delegate.getCurrentBatch = function(){
+		return trainerFactory.getCurrentBatch();
+	};
+	
+	delegate.getBatch = function(id){
+		return trainerFactory.getBatch(id);
+	};
+	
 	return delegate;
 });

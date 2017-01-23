@@ -4,9 +4,9 @@ angular.module("app").config(
 
         // chart options
         ChartJsProvider.setOptions({
-            chartColors: ['rgba(128, 54, 144, 0.5)', 'rgba(0, 173, 249, 0.5)',
-                          'rgba(255, 255, 102, 0.5)', 'rgba(253, 180, 92, 0.5)', 
-                          'rgba(148, 159, 177, 0.5)', 'rgba(77, 83, 96, 0.5)']
+        	 chartColors: ['#803690', '#00adf9',
+                 '#ffff66', '#fdb45c', 
+                 '#949fb1', '#4d5360']
         });
 
         // go to home on startup

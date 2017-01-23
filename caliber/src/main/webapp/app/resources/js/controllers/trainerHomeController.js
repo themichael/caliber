@@ -1,8 +1,19 @@
 angular.module("trainer").controller(
 		"trainerHomeController",
-		function($scope, $log) {
+		function($scope, $log, delegateFactory) {
 			$log.info("Booted trainer home controller.");
+			
+			// Trainer API Test
+			$log.log("Get All Batches: ");
+			$log.log(delegateFactory.getAllBatches());
+			
+			$log.log("Get Current Batch: ");
+			$log.log(delegateFactory.getCurrentBatch());
+			
+			$log.log("Get Batch with id");
+			$log.log(delegateFactory.getBatch(6));
 
+			// UI
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512",
 					"Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
 			$scope.tech = [ "Spring", "Hibernate", "JSP" ];
