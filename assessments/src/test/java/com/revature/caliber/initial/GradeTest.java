@@ -20,7 +20,7 @@ public class GradeTest {
 		ctxt = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
 	}
 
-	@Ignore
+	
 	@Test
 	public void getAllGrades() {
 		List<Grade> grades = ctxt.getBean(GradeDAO.class).getAllGrades();
@@ -33,7 +33,6 @@ public class GradeTest {
 		System.out.println(grades);
 	}
 
-	@Ignore
 	@Test
 	public void getGradeByAssessment() {
 		List<Grade> grades = ctxt.getBean(GradeDAO.class).getGradesByAssesessment(1);

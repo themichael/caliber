@@ -13,7 +13,7 @@ public interface GradeDAO {
 	/**
 	 * Returns a grade object given a specific gradeId
 	 */
-	Grade getGradeByGradeId(Integer gradeId);
+	Grade getGradeByGradeId(long gradeId);
 
 	/**
 	 * Returns a list of grades of a specific trainee based on traineeId as an
@@ -21,7 +21,7 @@ public interface GradeDAO {
 	 * 
 	 * @param traineeId
 	 */
-	List<Grade> getGradesByTraineeId(Integer traineeId);
+	List<Grade> getGradesByTraineeId(int traineeId);
 
 	/**
 	 * Returns a list of grades of a specific assessment based on assessmentId
@@ -29,7 +29,7 @@ public interface GradeDAO {
 	 * 
 	 * @param assessmentId
 	 */
-	List<Grade> getGradesByAssesessment(Integer assessmentId);
+	List<Grade> getGradesByAssesessment(long assessmentId);
 
 	// Insert
 	/**

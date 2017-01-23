@@ -62,7 +62,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public Grade getGradeByGradeId(int gradeId) {
+    public Grade getGradeByGradeId(long gradeId) {
         return gradeService.getGradeByGradeId(gradeId);
     }
 
@@ -72,7 +72,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public List<Grade> getGradesByAssesessment(int assessmentId) {
+    public List<Grade> getGradesByAssesessment(long assessmentId) {
         return gradeService.getGradesByAssesessment(assessmentId);
     }
 

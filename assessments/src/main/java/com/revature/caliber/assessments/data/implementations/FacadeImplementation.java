@@ -113,7 +113,7 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public Grade getGradeByGradeId(int gradeId) {
+    public Grade getGradeByGradeId(long gradeId) {
         return gradeDAO.getGradeByGradeId(gradeId);
     }
 
@@ -123,7 +123,7 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public List<Grade> getGradesByAssesessment(int assessmentId) {
+    public List<Grade> getGradesByAssesessment(long assessmentId) {
         return gradeDAO.getGradesByAssesessment(assessmentId);
     }
 
