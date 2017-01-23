@@ -2,72 +2,123 @@ package com.revature.caliber.data.implementations;
 
 
 import com.revature.caliber.training.beans.Batch;
-import com.revature.caliber.training.beans.Trainee;
+import com.revature.caliber.training.beans.Tier;
 import com.revature.caliber.training.beans.Trainer;
-import com.revature.caliber.training.beans.Week;
 import com.revature.caliber.training.data.BatchDAO;
+import com.revature.caliber.training.data.TrainerDAO;
+import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import javax.activation.DataSource;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
-import static org.junit.Assert.assertNotNull;
 
 public class BatchDAOImplementationTest {
     private static ApplicationContext context;
+    private static Logger log;
 
     @BeforeClass
     public static void preClass () {
         context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
+        log = Logger.getRootLogger();
     }
 
+    //Works
     @Test
     public void createBatch(){
-        BatchDAO batchDAO = (BatchDAO)context.getBean(BatchDAO.class);
-        Date startDate = new Date(1,500,993,945,323);
-        Batch batch = new Batch("trainingName", new Trainer(), null, "skillType", "trainingType",
-                startDate, new Date(), "New York", (short) 60, (short)80,
-        null, null);
+        log.debug("Create batch test.");
 
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
+        TrainerDAO trainerDAO = context.getBean(TrainerDAO.class);
+        Trainer trainer = trainerDAO.getTrainer(1);
+        Tier tier = new Tier();
+        tier.setTierId((short)1);
+        Date startDate = new Date(1481394352000L);
+        Date endDate = new Date(1458757552000L);
+        Batch batch = new Batch(9999, "trainingName", trainer, null, "skillType", "trainingType",
+                startDate, endDate, "Virgina", (short) 60, (short)80,
+                null, null);
+
+        batchDAO.createBatch(batch);
+        log.debug("Batch created");
     }
 
+    // Works
     @Test
     public void getAll(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
+        log.debug(" Get all Batch test");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
         List<Batch> batch = batchDAO.getAllBatch();
-        assertNotNull(batch);
+        log.debug("Got All");
     }
+
+    //Work
     @Test
     public void getTrainerBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
+        log.debug("Get batch by Trainer id");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
+        List<Batch> batch = batchDAO.getTrainerBatch(1);
+        log.debug("got batches by trainer id");
     }
 
+    // Works
     @Test
     public void getCurrentBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
+        log.debug("Get active batches");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
+        List<Batch> batch = batchDAO.getCurrentBatch();
+        log.debug("Got active batches");
     }
 
+    //Work
     @Test
-    public void getCurrentBatchWithName(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
+    public void getCurrentBatchWithId(){
+        log.debug("Get active batches with trainer id");
+
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
+        List<Batch> batch = batchDAO.getCurrentBatch(1);
+
+        log.debug("Got active batches with trainer id");
     }
 
+    //Works
     @Test
     public void getBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
+        log.debug("Get batch by id");
+
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
+        Batch batch = batchDAO.getBatch(1);
+
+        log.debug("got batch by id");
     }
 
+    //Works
     @Test
     public void updateBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
+        log.debug("Updating batch");
+
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
+        Batch batch = batchDAO.getBatch(1);
+        batch.setLocation("New York");
+        batchDAO.updateBatch(batch);
+
+        log.debug("updated batch");
     }
 
-    @Test
+    //Works but issues with foreign key
+   @Test
     public void deleteBatch(){
-        BatchDAO batchDAO = (BatchDAO) context.getBean(BatchDAO.class);
+        log.debug("Deleting batch");
+        BatchDAO batchDAO = context.getBean(BatchDAO.class);
+        List<Batch> batches = batchDAO.getAllBatch();
+        int id = batches.get(1).getBatchId();
+        Batch batch = batchDAO.getBatch(id);
+       // batchDAO.deleteBatch(batch);
+
+        log.debug("Deleted batch");
     }
 }

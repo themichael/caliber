@@ -30,7 +30,7 @@ angular.module("trainer").controller(
 			$scope.lineLabels = [ "Week 1", "Week 2", "Week 3", "Week 4",
 					"Week 5", "Week 6", "Week 7", "Week 8", "Week 9",
 					"Week 10", "Week 11", "Week 12" ];
-			$scope.lineSeries = [ 'Average', 'Fail' ];
+			$scope.lineSeries = [ 'Average', 'Fail Threshold' ];
 			$scope.lineData = [ [ 79, 89, 67, 79, 86, 76, 90, 51 ],
 					[ 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40 ] ];
 			$scope.lineDatasetOverride = [ {
@@ -48,7 +48,7 @@ angular.module("trainer").controller(
 			$scope.lineOptions = {
 				legend : {
 					display : true,
-					position: 'bottom'
+					position : 'bottom'
 				},
 				scales : {
 					yAxes : [ {
@@ -73,6 +73,29 @@ angular.module("trainer").controller(
 				}
 			};
 
+			// Horizontal bar chart for trainee averages per technology
+			$scope.hbarLabels = [ 'Kyle', 'Osher', 'Rikki', 'Dan', 'Pickles' ];
+			$scope.hbarData = [ 65, 85, 100, 75, 50 ];
+
+			$scope.hbarDatasetOverride = [ {
+				xAxisID : 'x-axis-1'
+			} ];
+
+			$scope.hbarOptions = {
+				scales : {
+					xAxes : [ {
+						id : 'x-axis-1',
+						position : 'bottom',
+						ticks : {
+							min : 30,
+							max : 100
+						}
+					} ]
+				}
+			}
+
+			// Radar chart
+			
 			// Pie chart for trainee's technology strength
 			$scope.pieLabels = [ "Spring", "Hibernate", "AngularJS",
 					"Java Core", "SQL" ];
@@ -80,7 +103,8 @@ angular.module("trainer").controller(
 			$scope.pieOptions = {
 				legend : {
 					display : true,
-					position: 'left'
+					position : 'left'
 				}
 			}
+
 		});

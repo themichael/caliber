@@ -12,13 +12,13 @@ public interface BatchService {
     public List<Batch> getAllBatch();
 
     // Get all batches associated to a trainer
-    public List<Batch> getTrainerBatch(String name);
+    public List<Batch> getTrainerBatch(Integer id);
 
     // Get in active batches
     public List<Batch> getCurrentBatch();
 
     // Get all active batches associated to a trainer
-    public List<Batch> getCurrentBatch(String name);
+    public List<Batch> getCurrentBatch(Integer id);
 
     // Get a batch with an id
     public Batch getBatch(Integer id);
