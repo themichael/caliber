@@ -3,6 +3,7 @@ package com.revature.caliber.training.web.controllers;
 
 import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.service.BusinessDelegate;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.List;
         allowedHeaders = {"X-PINGOTHER", "Content-Type"}
         )
 public class BatchController {
+    private static Logger log = Logger.getLogger(BatchController.class);
     private BusinessDelegate businessDelegate;
     @Autowired
     public void setBusinessDelegate(BusinessDelegate businessDelegate) { this.businessDelegate = businessDelegate; }
@@ -41,6 +43,7 @@ public class BatchController {
         }
         catch (RuntimeException e) {
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
@@ -62,6 +65,7 @@ public class BatchController {
                 returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
@@ -85,6 +89,7 @@ public class BatchController {
                 returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
@@ -106,6 +111,7 @@ public class BatchController {
                 returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
@@ -129,6 +135,7 @@ public class BatchController {
                 returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
@@ -152,6 +159,7 @@ public class BatchController {
                 returnEntity = new ResponseEntity<>(batch, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
@@ -172,6 +180,7 @@ public class BatchController {
             returnEntity = new ResponseEntity(HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
@@ -192,6 +201,7 @@ public class BatchController {
             returnEntity = new ResponseEntity(HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }

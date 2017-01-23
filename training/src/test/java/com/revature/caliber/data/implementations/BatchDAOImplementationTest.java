@@ -8,7 +8,6 @@ import com.revature.caliber.training.data.BatchDAO;
 import com.revature.caliber.training.data.TrainerDAO;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -52,7 +51,7 @@ public class BatchDAOImplementationTest {
         log.debug(" Get all Batch test");
         BatchDAO batchDAO = context.getBean(BatchDAO.class);
         List<Batch> batch = batchDAO.getAllBatch();
-        log.debug("Got All");
+        log.debug("Got All " + batch );
     }
 
     //Work
@@ -61,7 +60,7 @@ public class BatchDAOImplementationTest {
         log.debug("Get batch by Trainer id");
         BatchDAO batchDAO = context.getBean(BatchDAO.class);
         List<Batch> batch = batchDAO.getTrainerBatch(1);
-        log.debug("got batches by trainer id");
+        log.debug("got batches by trainer id " + batch);
     }
 
     // Works
@@ -70,7 +69,7 @@ public class BatchDAOImplementationTest {
         log.debug("Get active batches");
         BatchDAO batchDAO = context.getBean(BatchDAO.class);
         List<Batch> batch = batchDAO.getCurrentBatch();
-        log.debug("Got active batches");
+        log.debug("Got active batches " + batch);
     }
 
     //Work
@@ -81,7 +80,7 @@ public class BatchDAOImplementationTest {
         BatchDAO batchDAO = context.getBean(BatchDAO.class);
         List<Batch> batch = batchDAO.getCurrentBatch(1);
 
-        log.debug("Got active batches with trainer id");
+        log.debug("Got active batches with trainer id " + batch);
     }
 
     //Works
@@ -92,7 +91,7 @@ public class BatchDAOImplementationTest {
         BatchDAO batchDAO = context.getBean(BatchDAO.class);
         Batch batch = batchDAO.getBatch(1);
 
-        log.debug("got batch by id");
+        log.debug("got batch by id " + batch);
     }
 
     //Works
@@ -108,16 +107,5 @@ public class BatchDAOImplementationTest {
         log.debug("updated batch");
     }
 
-    //Works but issues with foreign key
-   @Test
-    public void deleteBatch(){
-        log.debug("Deleting batch");
-        BatchDAO batchDAO = context.getBean(BatchDAO.class);
-        List<Batch> batches = batchDAO.getAllBatch();
-        int id = batches.get(1).getBatchId();
-        Batch batch = batchDAO.getBatch(id);
-       // batchDAO.deleteBatch(batch);
-
-        log.debug("Deleted batch");
-    }
+    //Work on delete method
 }

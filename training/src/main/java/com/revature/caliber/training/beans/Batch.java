@@ -64,7 +64,6 @@ public class Batch {
 	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
 				 String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
 				 short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
-		super();
 		this.batchId = batchId;
 		this.trainingName = trainingName;
 		this.trainer = trainer;
@@ -86,7 +85,6 @@ public class Batch {
 	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
 				 Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
 				 Set<Trainee> trainees, Set<Week> weeks) {
-		super();
 		this.trainingName = trainingName;
 		this.trainer = trainer;
 		this.coTrainer = coTrainer;
