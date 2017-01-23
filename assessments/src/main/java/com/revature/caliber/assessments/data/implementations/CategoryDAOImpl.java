@@ -25,7 +25,6 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 
     @Override
-    @Transactional(isolation= Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation= Propagation.REQUIRED)
     @SuppressWarnings("unchecked")
     public Set<Category> getAll() {
         return new HashSet<>(sessionFactory.getCurrentSession()
@@ -33,7 +32,6 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     public Category getById(int id) {
         return (Category) sessionFactory.getCurrentSession()
                 .get(Category.class, id);

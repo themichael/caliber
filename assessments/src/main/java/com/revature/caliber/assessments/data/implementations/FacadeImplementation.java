@@ -141,13 +141,11 @@ public class FacadeImplementation implements Facade {
     }
 
 //    Category
-    @Transactional
     @Override
     public Set<Category> getAllCategories() {
         return categoryDAO.getAll();
     }
 
-    @Transactional
     @Override
     public Category getCategoryById(int id) {
         return categoryDAO.getById(id);

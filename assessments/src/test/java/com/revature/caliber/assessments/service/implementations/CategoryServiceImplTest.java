@@ -1,7 +1,7 @@
 package com.revature.caliber.assessments.service.implementations;
 
 import com.revature.caliber.assessments.beans.Category;
-import com.revature.caliber.assessments.data.Facade;
+import com.revature.caliber.assessments.service.CategoryService;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,7 +19,7 @@ public class CategoryServiceImplTest {
 
     private static AbstractApplicationContext context;
     private static Logger log;
-    private Facade facade;
+    private CategoryService categoryService;
 
     @BeforeClass
     public static void setUp() {
@@ -28,17 +28,17 @@ public class CategoryServiceImplTest {
         // rootLogger is for debugging purposes
         log = Logger.getRootLogger();
 
-        log.debug("Starting CategoryDAOImplTest");
+        log.debug("Starting CategoryServiceTest");
     }
 
     @AfterClass
     public static void cleanUp() {
-        log.debug("Ending AssessmentDAOImplTest");
+        log.debug("Ending CategoryServiceTest");
     }
 
     @Before
     public void setUpTest() {
-        facade = (Facade) context.getBean("assessmentFacadeImplementation");
+        categoryService = (CategoryService) context.getBean("categoryService");
     }
 
     //    Waiting for additional data
@@ -46,7 +46,7 @@ public class CategoryServiceImplTest {
     public void getAll() throws Exception {
         log.debug("Starting getAllCategoriesTest");
 
-        Set<Category> categories = facade.getAllCategories();
+        Set<Category> categories = categoryService.getAll();
         assertFalse(categories.isEmpty());
 
         log.debug("Ending getAllCategoriesTest");
@@ -57,7 +57,7 @@ public class CategoryServiceImplTest {
         int id = 1;
         log.debug("Starting getCategoryByIdTest = " + id);
 
-        Category category = facade.getCategoryById(id);
+        Category category = categoryService.getById(id);
         assertNotNull(category);
 
         log.debug("Ending getCategoryById");
