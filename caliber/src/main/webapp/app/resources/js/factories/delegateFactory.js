@@ -1,6 +1,7 @@
 /**
  * Delegates API calls to the appropriate API factory
  */
+
 angular.module("delegate").factory("delegateFactory", function ($log, trainerFactory, vpFactory, qcFactory) {
     $log.debug("Booted Delegate Factory");
     var delegate = {};
@@ -22,15 +23,7 @@ angular.module("delegate").factory("delegateFactory", function ($log, trainerFac
     delegate.trainer.getAllBatches = function () {
         return trainerFactory.getAllBatches();
     };
-
-    delegate.qc.getAllBatches = function () {
-        return qcFactory.getAllBatches();
-    };
-
-    delegate.qc.getBatchById = function (id) {
-        return qcFactory.getBatchById(id);
-    };
-
+  
     delegate.trainer.getCurrentBatch = function () {
         return trainerFactory.getCurrentBatch();
     };
@@ -38,5 +31,15 @@ angular.module("delegate").factory("delegateFactory", function ($log, trainerFac
     delegate.trainer.getBatch = function (id) {
         return trainerFactory.getBatch(id);
     };
+  
+    // QC API
+    delegate.qc.getAllBatches = function () {
+        return qcFactory.getAllBatches();
+    };
+
+    delegate.qc.getBatchById = function (id) {
+        return qcFactory.getBatchById(id);
+    };
+  
     return delegate;
 });

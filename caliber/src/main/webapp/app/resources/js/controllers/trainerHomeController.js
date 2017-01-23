@@ -19,7 +19,7 @@ angular.module("trainer").controller(
 			$scope.tech = ["Spring", "Hibernate", "JSP"];
 			$scope.trainees = ["Osher", "Kyle", "Rikki"];
 
-			$scope.currentBatch = $scope.batches[0];
+      $scope.currentBatch = $scope.batches[0];
 
 			$scope.currentTech = "Technology";
 

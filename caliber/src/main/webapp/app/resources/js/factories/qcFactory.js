@@ -2,9 +2,17 @@
  * API that makes qc related AJAX calls to the backend
  */
 angular.module("api").factory("qcFactory", function ($log, $http) {
-    $log.debug("Booted QC API Factory");
-    var qc = {};
-    qc.getAllBatches = function () {
+  $log.debug("Booted QC API Factory");
+    
+  var qc = {};
+  
+  // test connection to factory -- remove on release
+  qc.test = function () {
+      return "QC factory test successful.";
+  };
+  return qc;
+  
+  qc.getAllBatches = function () {
         var data = {};
         $http({
             url: "/qc/batch/all",
@@ -18,6 +26,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
         });
         return data;
     };
+  
     qc.getBatchById = function (id) {
         var data = {};
         $http({
@@ -32,10 +41,4 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
         });
         return data;
     };
-
-    // test connection to factory -- remove on release
-    qc.test = function () {
-        return "QC factory test successful.";
-    };
-    return qc;
 });

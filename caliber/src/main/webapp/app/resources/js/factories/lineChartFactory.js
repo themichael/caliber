@@ -64,9 +64,7 @@ angular.module("charts").factory("lineChartFactory", function ($log) {
 					} ]
 				}
 		};
-
 		return chartData;
 	};
-
 	return lineChart;
 });
