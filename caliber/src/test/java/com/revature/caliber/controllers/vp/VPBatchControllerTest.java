@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Set;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -22,8 +22,8 @@ public class VPBatchControllerTest {
 	/**
 	 * Retrieve application context and get the VPBatchController bean
 	 */
-	@Before
-	public void preClass(){
+	@BeforeClass
+	public static void preClass(){
 		context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
 		controller = context.getBean(VPBatchController.class);
 	}
