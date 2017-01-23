@@ -13,11 +13,6 @@ import java.util.Set;
 @CrossOrigin(origins = "*")
 public class TrainerBatchController {
 
-    /***
-     * Please change unit tests after connecting controller to midtier
-     * OR after changing return values of test data
-     ****/
-
     /**
      * getAllBatches - REST API method, retrieves all batches belonging to the trainer
      *
@@ -26,7 +21,8 @@ public class TrainerBatchController {
     @RequestMapping(value = "/trainer/batch/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllBatches() {
-        BusinessDelegate businessDelegate = new BusinessDelegate();
+
+    	BusinessDelegate businessDelegate = new BusinessDelegate();
         return new ResponseEntity<>(businessDelegate.getAllBatches(), HttpStatus.OK);
     }
 
@@ -39,7 +35,6 @@ public class TrainerBatchController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Batch> getCurrentBatch() {
 
-        // Test data - remove and replace with call to middleTier
         BusinessDelegate delegate = new BusinessDelegate();
         return new ResponseEntity<>(delegate.getCurrentBatch(), HttpStatus.OK);
     }
@@ -53,12 +48,10 @@ public class TrainerBatchController {
     @RequestMapping(value = "/trainer/batch/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Batch> getBatch(@PathVariable int id) {
-        // Test data - remove and replace with call to midtier
         BusinessDelegate delegate = new BusinessDelegate();
         Batch batch = delegate.getCurrentBatch();
         batch.setBatchId(id);
         return new ResponseEntity<>(batch, HttpStatus.OK);
     }
-
 
 }

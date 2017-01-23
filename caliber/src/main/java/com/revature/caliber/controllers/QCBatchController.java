@@ -14,7 +14,8 @@ import java.util.Set;
 
 @RestController
 public class QCBatchController {
-    /**
+
+	/**
      * getAllCurrentBatches - REST API method, retrieves all current batches
      *
      * @return - in JSON, a set of batch objects
@@ -22,7 +23,6 @@ public class QCBatchController {
     @RequestMapping(value = "/qc/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllCurrentBatches() {
 
-        // Test data - remove and replace with call to middleTier
         BusinessDelegate businessDelegate = new BusinessDelegate();
         return new ResponseEntity<>(businessDelegate.getAllBatches(), HttpStatus.OK);
     }
@@ -37,11 +37,9 @@ public class QCBatchController {
     @RequestMapping(value = "/qc/batch/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Batch> getCurrentBatch(@PathVariable int id) {
 
-        // Test data - remove and replace with call to midtier
         BusinessDelegate businessDelegate = new BusinessDelegate();
         Batch batch = businessDelegate.getCurrentBatch();
         batch.setBatchId(id);
         return new ResponseEntity<>(batch, HttpStatus.OK);
     }
-
 }
