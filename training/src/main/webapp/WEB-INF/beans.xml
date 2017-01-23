@@ -39,9 +39,6 @@
 	<bean name="categoryDAO" class="com.revature.caliber.training.data.implementations.CategoryDAOImplementation">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean name="batchDAO" class="com.revature.caliber.training.data.implementations.BatchDAOImplementation">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
 	<bean name="tierDAO" class="com.revature.caliber.training.data.implementations.TierDAOImplementation">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>

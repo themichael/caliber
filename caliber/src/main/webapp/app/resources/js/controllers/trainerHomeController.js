@@ -1,8 +1,19 @@
 angular.module("trainer").controller(
 		"trainerHomeController",
-		function($scope, $log, lineChartFactory, pieChartFactory) {
+		function($scope, $log, delegateFactory, lineChartFactory, pieChartFactory) {
 			$log.info("Booted trainer home controller.");
+
+			// Trainer API Test
+			$log.log("Get All Batches: ");
+			$log.log(delegateFactory.trainer.getAllBatches());
 			
+			$log.log("Get Current Batch: ");
+			$log.log(delegateFactory.trainer.getCurrentBatch());
+		
+			$log.log("Get Batch with id");
+			$log.log(delegateFactory.trainer.getBatch(6));
+
+			// UI
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512",
 					"Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
 			$scope.tech = [ "Spring", "Hibernate", "JSP" ];
@@ -14,15 +25,15 @@ angular.module("trainer").controller(
 
 			$scope.currentTrainee = "Trainee";
 
-			$scope.selectCurrentBatch = function(index) {
+			$scope.selectCurrentBatch = function (index) {
 				$scope.currentBatch = $scope.batches[index];
 			};
 
-			$scope.selectCurrentTech = function(index) {
+			$scope.selectCurrentTech = function (index) {
 				$scope.currentTech = $scope.tech[index];
 			};
 
-			$scope.selectCurrentTrainee = function(index) {
+			$scope.selectCurrentTrainee = function (index) {
 				$scope.currentTrainee = $scope.trainees[index];
 			};
 
@@ -34,6 +45,7 @@ angular.module("trainer").controller(
 				{week: "Week 9", average: 72}, {week: "Week 10", average: 94}, 
 				{week: "Week 11", average: 86}, {week: "Week 12", average: 65}]
 			
+			// Sample Data representing trainee strengths per technology
 			var samplePieData =[{skillCategory:"Core Java", average: 85},
 			                    {skillCategory:"SQL", average: 75},
 			                    {skillCategory:"Spring", average: 95},
@@ -41,7 +53,7 @@ angular.module("trainer").controller(
 			                    {skillCategory:"AngularJS", average: 90},
 			                    {skillCategory:"REST", average: 80}]
 			
-			// line chart function that retrieves 
+			// line chart function that retrieves
 			// Week by week progression for a trainee/ batch on a line chart
 			var chartObject = lineChartFactory.getTraineeProgressChart(sampleData);
 			$scope.lineLabels = chartObject.lineLabels;
@@ -61,21 +73,21 @@ angular.module("trainer").controller(
 			$scope.hbarLabels = [ 'Kyle', 'Osher', 'Rikki', 'Dan', 'Pickles' ];
 			$scope.hbarData = [ 65, 85, 100, 75, 50 ];
 
-			$scope.hbarDatasetOverride = [ {
-				xAxisID : 'x-axis-1'
-			} ];
+			$scope.hbarDatasetOverride = [{
+				xAxisID: 'x-axis-1'
+			}];
 
 			$scope.hbarOptions = {
-				scales : {
-					xAxes : [ {
-						id : 'x-axis-1',
-						position : 'bottom',
-						ticks : {
-							min : 30,
-							max : 100
-						}
-					} ]
-				}
+					scales: {
+						xAxes: [{
+							id: 'x-axis-1',
+							position: 'bottom',
+							ticks: {
+								min: 30,
+								max: 100
+							}
+						}]
+					}
 			}
 
 			// Radar chart for batch rank comparison
@@ -94,3 +106,4 @@ angular.module("trainer").controller(
 			}
 
 		});
+

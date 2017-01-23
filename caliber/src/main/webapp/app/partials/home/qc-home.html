@@ -2,28 +2,27 @@
     <div class="row">
         <div class="col-md-12 col-lg-12">
             <ul class="nav nav-tabs">
-                <li role="button" class="dropdown"><a class="dropdown-toggle"
-                                                      data-toggle="dropdown">{{currentBatch}}<span class="caret"></span></a>
+                <li role="button" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">{{currentBatch}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="menuItem in batches track by $index"><a
-                                role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a>
+                        <li ng-repeat="menuItem in batches track by $index">
+                            <a role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a>
                         </li>
                     </ul>
                 </li>
-                <li role="button" class="dropdown"><a class="dropdown-toggle"
-                                                      data-toggle="dropdown">{{currentTech}}<span class="caret"></span></a>
+                <li role="button" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">{{currentTech}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="menuItem in tech track by $index"><a
-                                role="button" ng-click="selectCurrentTech($index)">{{menuItem}}</a>
+                        <li ng-repeat="menuItem in tech track by $index">
+                            <a role="button" ng-click="selectCurrentTech($index)">{{menuItem}}</a>
                         </li>
                     </ul>
                 </li>
-                <li role="button" class="dropdown"><a class="dropdown-toggle"
-                                                      data-toggle="dropdown">{{currentTrainee}}<span
-                        class="caret"></span></a>
+                <li role="button" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">{{currentTrainee}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="menuItem in trainees track by $index"><a
-                                role="button" ng-click="selectCurrentTrainee($index)">{{menuItem}}</a>
+                        <li ng-repeat="menuItem in trainees track by $index">
+                            <a role="button" ng-click="selectCurrentTrainee($index)">{{menuItem}}</a>
                         </li>
                     </ul>
                 </li>
