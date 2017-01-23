@@ -1,5 +1,7 @@
-package com.revature.caliber.salesforce;
+package com.revature.caliber.salesforce.controllers;
 
+import com.revature.caliber.salesforce.models.SalesforceToken;
+import com.revature.caliber.salesforce.models.SalesforceUser;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -45,25 +45,14 @@ public class PreAuthentication {
     private SalesforceUser salesforceUser;
     private HttpClient httpClient;
 
-
-    @RequestMapping(value = "/hello")
-    public void hello() {
-        System.out.println("HELLO . . . . ");
-    }
-
-
-    public String generateURL() {
-        return authURL + "?response_type=code&client_id="
-                + clientId + "&redirect_uri=" + redirectUri;
-    }
-
     @RequestMapping(value = "/")
     public ModelAndView openAuth() {
-        return new ModelAndView("redirect:" + generateURL());
+        return new ModelAndView("redirect:" +authURL + "?response_type=code&client_id="
+                + clientId + "&redirect_uri=" + redirectUri);
     }
 
     @RequestMapping(value = "/authenticated")
-    public String getCode(@RequestParam(value = "code") String code, HttpServletResponse servletResponse) {
+    public String getCode(@RequestParam(value = "code") String code) {
         try {
             httpClient = HttpClientBuilder.create().build();
             HttpPost post = new HttpPost(accessTokenURL);
@@ -101,7 +90,7 @@ public class PreAuthentication {
              */
             setSalesforceUser(salesforceToken.getId());
 
-            salesforceUser.setRole("ROLE_TRAINER");
+            salesforceUser.setRole("ROLE_VP");
 
             Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
 

@@ -1,4 +1,4 @@
-package com.revature.caliber.salesforce;
+package com.revature.caliber.salesforce.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

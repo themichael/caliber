@@ -14,7 +14,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
         <security:remember-me key="wow" />
 
         <!-- logout functionality: delete cookies and redirect. Use /j_spring_security_logout as route -->
-        <security:logout delete-cookies="salesforce_token,JSESSIONID"/>
+        <security:logout delete-cookies="JSESSIONID"/>
         <!-- Allowed one session : change max-sessions if you like -->
         <security:session-management>
             <security:concurrency-control max-sessions="1" />
@@ -25,7 +25,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     <security:authentication-manager>
         <security:authentication-provider>
             <security:user-service>
-                <security:user authorities="VP" name="vp"/>
+                <security:user authorities="VP" name="vp" />
                 <security:user authorities="QC" name="qc"/>
                 <security:user authorities="TRAINER" name="trainer"/>
             </security:user-service>

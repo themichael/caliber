@@ -1,4 +1,4 @@
-package com.revature.caliber.salesforce;
+package com.revature.caliber.salesforce.models;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

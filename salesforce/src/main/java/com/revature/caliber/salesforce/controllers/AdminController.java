@@ -1,15 +1,14 @@
-package com.revature.caliber.salesforce;
+package com.revature.caliber.salesforce.controllers;
 
+import com.revature.caliber.salesforce.models.SalesforceUser;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@Secured("VP")
 @RequestMapping("/vp")
 public class AdminController {
 
@@ -17,6 +16,7 @@ public class AdminController {
     @ResponseBody
     public String success() {
         SalesforceUser user = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(user);
         return "User "+user.getUsername()+". Role is "+ user.getAuthorities().toString();
 
     }
