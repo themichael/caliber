@@ -4,10 +4,14 @@ angular.module("vp").controller(
 			$log.debug("Booted vp home controller.");
 
 			// VP API Test
-			$log.log(delegateFactory.getAllBatches());
-			$log.log(delegateFactory.getAllCurrentBatches());
-			$log.log(delegateFactory.getBatch(7));
-			$log.log(delegateFactory.getCurrentBatch(5));
+			$log.log("Get All Batches: ");
+			$log.log(delegateFactory.vp.getAllBatches());
+			$log.log("Get All Current Batches: ");
+			$log.log(delegateFactory.vp.getAllCurrentBatches());
+			$log.log("Get Batch With Id: ");
+			$log.log(delegateFactory.vp.getBatch(7));
+			$log.log("Get Current Batch with Id: ");
+			$log.log(delegateFactory.vp.getCurrentBatch(5));
 			
 			// Dropdown menu selection
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];

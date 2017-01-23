@@ -5,13 +5,13 @@ angular.module("trainer").controller(
 			
 			// Trainer API Test
 			$log.log("Get All Batches: ");
-			$log.log(delegateFactory.getAllBatches());
+			$log.log(delegateFactory.trainer.getAllBatches());
 			
 			$log.log("Get Current Batch: ");
-			$log.log(delegateFactory.getCurrentBatch());
+			$log.log(delegateFactory.trainer.getCurrentBatch());
 			
 			$log.log("Get Batch with id");
-			$log.log(delegateFactory.getBatch(6));
+			$log.log(delegateFactory.trainer.getBatch(6));
 
 			// UI
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512",

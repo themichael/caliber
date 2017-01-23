@@ -33,11 +33,11 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 		$http({
 			url: "/vp/batch/current/all",
 			method: "GET"
-		}).then(function(){
+		}).then(function(response){
 			$log.debug(response);
 			// copy array
 			angular.copy(response.data, data);
-		}, function(){
+		}, function(response){
 			data = null;
 			$log.error("There was an error: " + response.status);
 		});
@@ -75,6 +75,7 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 			data = null;
 			$log.error("There was an error: " + response.status);
 		});
+		return data;
 	};
 	
 	return vp;

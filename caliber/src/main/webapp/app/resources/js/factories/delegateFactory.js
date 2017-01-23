@@ -6,6 +6,10 @@ angular.module("delegate").factory("delegateFactory",
 			$log.debug("Booted Delegate Factory");
 			var delegate = {};
 			
+			delegate.trainer = {};
+			delegate.qc = {};
+			delegate.vp = {};
+			
 			// Tests
 			delegate.testTrainerFactory = function() {
 				return trainerFactory.test();
@@ -20,32 +24,32 @@ angular.module("delegate").factory("delegateFactory",
 			};
 
 			// Trainer API
-			delegate.getAllBatches = function() {
+			delegate.trainer.getAllBatches = function() {
 				return trainerFactory.getAllBatches();
 			};
 
-			delegate.getCurrentBatch = function() {
+			delegate.trainer.getCurrentBatch = function() {
 				return trainerFactory.getCurrentBatch();
 			};
 
-			delegate.getBatch = function(id) {
+			delegate.trainer.getBatch = function(id) {
 				return trainerFactory.getBatch(id);
 			};
 
 			// VP API
-			delegate.getAllBatches = function() {
+			delegate.vp.getAllBatches = function() {
 				return vpFactory.getAllBatches();
 			};
 
-			delegate.getAllCurrentBatches = function() {
+			delegate.vp.getAllCurrentBatches = function() {
 				return vpFactory.getAllCurrentBatches();
 			};
 
-			delegate.getBatch = function(id){
+			delegate.vp.getBatch = function(id){
 				return vpFactory.getBatch(id);
 			};
 			
-			delegate.getCurrentBatch = function(id){
+			delegate.vp.getCurrentBatch = function(id){
 				return vpFactory.getCurrentBatch(id);
 			};
 			
