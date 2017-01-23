@@ -1,10 +1,13 @@
 package com.revature.caliber.assessments.service.implementations;
 
+
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+
 
 import java.util.List;
 import java.util.Set;
@@ -23,8 +26,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 //    Assessment
     @Override
-    public Set<Assessment> getAllAssessments() {
-        return assessmentService.getAll();
+    public HashSet<Assessment> getAllAssessments() {
+        return (HashSet<Assessment>) assessmentService.getAll();
     }
 
     @Override
@@ -33,8 +36,13 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public Set<Assessment> getAssessmentsByWeekId(int id) {
-        return assessmentService.getByWeekId(id);
+    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
+        return (HashSet<Assessment>) assessmentService.getByWeekId(id);
+    }
+
+    @Override
+    public HashSet<Assessment> getAssessmentsByBatchId(int id) {
+        return (HashSet<Assessment>) assessmentService.getByBatchId(id);
     }
 
     @Override

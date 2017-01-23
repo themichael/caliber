@@ -68,21 +68,22 @@ public interface Facade {
      * @param assessment
      */
     void deleteAssessment(Assessment assessment);
-
+    
     //    Batch Note
     void makeBatchNote(int batchId, int weekId);
+	
+	BatchNote getWeeklyBatchNote(int batchId, int weekId);	
+	 
+	List<BatchNote> allBatchNotesInWeek(int weekId);
+	
+	
+	//	Trainer Note
+	void makeTrainerNote(int trainerId);
+	
+	List<TrainerNote> listTrainerNotes(int trainerId);
+	
+	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 
-    BatchNote getWeeklyBatchNote(int batchId, int weekId);
-
-    List<BatchNote> allBatchNotesInWeek(int weekId);
-
-
-    //	Trainer Note
-    void makeTrainerNote(int trainerId);
-
-    List<TrainerNote> listTrainerNotes(int trainerId);
-
-    TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 //    Batch
 
 // Grade
