@@ -3,55 +3,64 @@
  */
 angular.module("delegate").factory("delegateFactory",
 		function($log, trainerFactory, vpFactory, qcFactory) {
-			$log.debug("Booted Delegate Factory");
-			var delegate = {};
-			
-			delegate.trainer = {};
-			delegate.qc = {};
-			delegate.vp = {};
-			
-			// Tests
-			delegate.testTrainerFactory = function() {
-				return trainerFactory.test();
-			};
+	$log.debug("Booted Delegate Factory");
+	var delegate = {};
 
-			delegate.testVPFactory = function() {
-				return vpFactory.test();
-			};
+	delegate.trainer = {};
+	delegate.qc = {};
+	delegate.vp = {};
 
-			delegate.testQCFactory = function() {
-				return qcFactory.test();
-			};
+	// Tests
+	delegate.testTrainerFactory = function() {
+		return trainerFactory.test();
+	};
 
-			// Trainer API
-			delegate.trainer.getAllBatches = function() {
-				return trainerFactory.getAllBatches();
-			};
+	delegate.testVPFactory = function() {
+		return vpFactory.test();
+	};
 
-			delegate.trainer.getCurrentBatch = function() {
-				return trainerFactory.getCurrentBatch();
-			};
+	delegate.testQCFactory = function() {
+		return qcFactory.test();
+	};
 
-			delegate.trainer.getBatch = function(id) {
-				return trainerFactory.getBatch(id);
-			};
+	// Trainer API
+	delegate.trainer.getAllBatches = function() {
+		return trainerFactory.getAllBatches();
+	};
 
-			// VP API
-			delegate.vp.getAllBatches = function() {
-				return vpFactory.getAllBatches();
-			};
+	delegate.trainer.getCurrentBatch = function() {
+		return trainerFactory.getCurrentBatch();
+	};
 
-			delegate.vp.getAllCurrentBatches = function() {
-				return vpFactory.getAllCurrentBatches();
-			};
+	delegate.trainer.getBatch = function(id) {
+		return trainerFactory.getBatch(id);
+	};
 
-			delegate.vp.getBatch = function(id){
-				return vpFactory.getBatch(id);
-			};
-			
-			delegate.vp.getCurrentBatch = function(id){
-				return vpFactory.getCurrentBatch(id);
-			};
-			
-			return delegate;
-		});
+	// VP API
+	delegate.vp.getAllBatches = function() {
+		return vpFactory.getAllBatches();
+	};
+
+	delegate.vp.getAllCurrentBatches = function() {
+		return vpFactory.getAllCurrentBatches();
+	};
+
+	delegate.vp.getBatch = function(id){
+		return vpFactory.getBatch(id);
+	};
+
+	delegate.vp.getCurrentBatch = function(id){
+		return vpFactory.getCurrentBatch(id);
+	};
+
+	// QC API
+	delegate.qc.getAllBatches = function () {
+		return qcFactory.getAllBatches();
+	};
+
+	delegate.qc.getBatchById = function (id) {
+		return qcFactory.getBatchById(id);
+	};
+
+	return delegate;
+});
