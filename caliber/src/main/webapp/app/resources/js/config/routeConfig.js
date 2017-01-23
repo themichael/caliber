@@ -1,7 +1,10 @@
 angular.module("app").config(
     function ($stateProvider, $locationProvider, $urlRouterProvider,
-              ChartJsProvider) {
+              ChartJsProvider, $logProvider) {
 
+    	// Turn on/off debug messages
+    	$logProvider.debugEnabled(false);
+    	
         // chart options
         ChartJsProvider.setOptions({
         	 chartColors: ['#803690', '#00adf9',

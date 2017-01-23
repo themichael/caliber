@@ -1,4 +1,6 @@
 angular.module("charts").factory("lineChartFactory", function($log) {
+	$log.debug("Booted Line Chart Factory.");
+	
 	var lineChart = {};
 
 	/**

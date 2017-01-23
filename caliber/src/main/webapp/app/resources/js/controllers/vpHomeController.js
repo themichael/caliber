@@ -1,12 +1,12 @@
 angular.module("vp").controller(
 		"vpHomeController",
 		function($scope, $log, delegateFactory) {
-			$log.info("Booted vp home controller.");
+			$log.debug("Booted vp home controller.");
 
 			// Delegate Test
-			$log.log(delegateFactory.testTrainerFactory());
-			$log.log(delegateFactory.testVPFactory());
-			$log.log(delegateFactory.testQCFactory());
+			$log.debug(delegateFactory.testTrainerFactory());
+			$log.debug(delegateFactory.testVPFactory());
+			$log.debug(delegateFactory.testQCFactory());
 			
 			
 			// Dropdown menu selection

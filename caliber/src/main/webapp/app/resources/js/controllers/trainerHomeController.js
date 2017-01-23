@@ -1,7 +1,7 @@
 angular.module("trainer").controller(
 		"trainerHomeController",
 		function($scope, $log, delegateFactory) {
-			$log.info("Booted trainer home controller.");
+			$log.debug("Booted trainer home controller.");
 			
 			// Trainer API Test
 			$log.log("Get All Batches: ");

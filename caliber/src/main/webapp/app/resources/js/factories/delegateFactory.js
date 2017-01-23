@@ -2,7 +2,7 @@
  * Delegates API calls to the appropriate API factory
  */
 angular.module("delegate").factory("delegateFactory", function($log, trainerFactory, vpFactory, qcFactory) {
-	$log.info("Booted Delegate Factory");
+	$log.debug("Booted Delegate Factory");
 	var delegate = {};
 	
 	delegate.testTrainerFactory = function(){

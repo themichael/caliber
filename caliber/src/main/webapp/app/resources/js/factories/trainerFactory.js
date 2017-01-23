@@ -2,7 +2,7 @@
  * API for making trainer related AJAX calls to the backend
  */
 angular.module("api").factory("trainerFactory", function($log, $http) {
-	$log.info("Booted Trainer API");
+	$log.debug("Booted Trainer API");
 	var trainer = {};
 
 	// test connection to factory -- remove on release
@@ -18,6 +18,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 			method : "GET",
 		}).then(function(response) {
 			$log.debug(response);
+			// copy array
 			angular.copy(response.data, data);
 		}, function(response) {
 			data = null;
@@ -34,6 +35,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 			method: "GET"
 		}).then(function(response){
 			$log.debug(response);
+			// copy object
 			angular.copy(response.data, data);
 		}, function(response){
 			data = null;
@@ -42,7 +44,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		return data;
 	};
 	
-	// Grab 
+	// Grab batch
 	trainer.getBatch = function(id){
 		var data = {};
 		$http({
@@ -50,8 +52,8 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 			method: "GET"
 		}).then(function(response){
 			$log.debug(response);
+			// copy object
 			angular.copy(response.data, data);
-			$log.info(data);
 		}, function(response){
 			data = null;
 			$log.error("There was an error: " + response.status);
