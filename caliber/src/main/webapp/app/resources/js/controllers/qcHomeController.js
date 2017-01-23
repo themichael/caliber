@@ -4,7 +4,7 @@ angular.module("qc").controller("qcHomeController", function ($scope, $log, dele
     $scope.tech = ["Spring", "Hibernate", "JSP"];
     $scope.trainees = ["Osher", "Kyle", "Rikki"];
 
-    $log.debug(delegateFactory.qc.getAllBatches());
+    $log.log(delegateFactory.qc.getAllBatches());
 
     $scope.currentBatch = $scope.batches[0];
 
