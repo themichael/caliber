@@ -25,7 +25,7 @@ public class GradeServiceImpl implements GradeService{
 	}
 
 	@Override
-	public Grade getGradeByGradeId(int gradeId) {
+	public Grade getGradeByGradeId(long gradeId) {
 		return facade.getGradeByGradeId(gradeId);
 	}
 
@@ -35,7 +35,7 @@ public class GradeServiceImpl implements GradeService{
 	}
 
 	@Override
-	public List<Grade> getGradesByAssesessment(int assessmentId) {
+	public List<Grade> getGradesByAssesessment(long assessmentId) {
 		return facade.getGradesByAssesessment(assessmentId);
 	}
 

@@ -39,19 +39,6 @@ public class AssessmentDAOImpl implements AssessmentDAO {
                         .createCriteria(Assessment.class).list());
     }
 
-/*   
- * 	TODO reconsider how to approach this implementation.
- * 		 data resides in another service, so you cannot query this way
- *  @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
-    @SuppressWarnings("unchecked")
-    public Set<Assessment> getByTrainerId(long id) {
-        return new HashSet<>(
-                sessionFactory.getCurrentSession()
-                        .createCriteria(Assessment.class)
-                        .add(Restrictions.eq("trainer", id)).list());
-    }*/
-
     @Override
     @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     @SuppressWarnings("unchecked")
@@ -60,16 +47,6 @@ public class AssessmentDAOImpl implements AssessmentDAO {
                 sessionFactory.getCurrentSession()
                         .createCriteria(Assessment.class)
                         .add(Restrictions.eq("week", id)).list());
-    }
-
-    @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
-    @SuppressWarnings("unchecked")
-    public Set<Assessment> getByBatchId(int id) {
-        return new HashSet<>(
-                sessionFactory.getCurrentSession()
-                        .createCriteria(Assessment.class)
-                        .add(Restrictions.eq("batch", id)).list());
     }
 
 //    Create
