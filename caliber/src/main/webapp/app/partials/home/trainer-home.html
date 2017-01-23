@@ -28,42 +28,74 @@
 	</div>
 </div>
 
+<!-- Charts -->
 <div class="container">
 	<div class="top10 data-container">
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
 					<div class="col-sm-6 col-md-6">
-						<div class="chart-container top5">
-							<canvas id="line" class="chart chart-line" chart-data="lineData"
-								chart-labels="lineLabels" chart-series="lineSeries"
-								chart-options="lineOptions"
-								chart-dataset-override="lineDatasetOverride"
-								chart-click="lineOnClick" height="75" width="100">
-							</canvas>
+						<div class="panel panel-default">
+							<div class="panel-heading">Week by week progression for a
+								trainee/ batch</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="line" class="chart chart-line"
+										chart-data="lineData" chart-labels="lineLabels"
+										chart-series="lineSeries" chart-options="lineOptions"
+										chart-dataset-override="lineDatasetOverride"
+										chart-click="lineOnClick" height="75" width="100">
+									</canvas>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="col-sm-6 col-md-6">
-						<div class="chart-container top5">
-							<canvas id="pie" class="chart chart-pie" chart-data="pieData"
-								chart-labels="pieLabels" chart-colors="pieColors"
-								chart-options="pieOptions"
-								chart-dataset-override="pieDatasetOverride"
-								chart-click="pieOnClick" height="75" width="100">
-							</canvas>
+						<div class="panel panel-default">
+							<div class="panel-heading">Averages scores per technology
+								for trainee "name"</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="pie" class="chart chart-pie" chart-data="pieData"
+										chart-labels="pieLabels" chart-colors="pieColors"
+										chart-options="pieOptions"
+										chart-dataset-override="pieDatasetOverride"
+										chart-click="pieOnClick" height="75" width="100">
+									</canvas>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<!-- row -->
+				</div>	<!-- row -->
 				<div class="row">
 					<div class="col-sm-6 col-md-6">
-						<div class="chart-container top5">
-							<canvas id="hbar" class="chart chart-horizontal-bar"
-								chart-data="hbarData" chart-labels="hbarLabels"
-								chart-options="hbarOptions"
-								chart-dataset-override="hbarDatasetOverride"
-								chart-click="hbarOnClick" height="75" width="100">
-							</canvas>
+						<div class="panel panel-default">
+							<div class="panel-heading">Averages scores per technology
+								for all trainees</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="hbar" class="chart chart-horizontal-bar"
+										chart-data="hbarData" chart-labels="hbarLabels"
+										chart-options="hbarOptions"
+										chart-dataset-override="hbarDatasetOverride"
+										chart-click="hbarOnClick" height="75" width="100">
+									</canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">Comparison of batch "name" to all other batches</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="radar" class="chart chart-radar"
+										chart-data="radarData" chart-options="radarOptions"
+										chart-labels="radarLabels" chart-series="radarSeries"
+										chart-click="radarOnClick" height="75" width="100">
+									</canvas>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
