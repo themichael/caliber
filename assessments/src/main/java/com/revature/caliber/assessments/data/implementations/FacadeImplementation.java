@@ -32,8 +32,46 @@ public class FacadeImplementation implements Facade {
     private QCStatusDAO qcStatusDAO;
     private TrainerNoteDAO trainerNoteDAO;
 
+    //  Spring setter based DI
+    @Autowired
+    public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
+        this.assessmentDAO = assessmentDAO;
+    }
 
-//  Organize methods by DAO like Assessment example above, e.g.
+    @Autowired
+    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
+        this.batchNoteDAO = batchNoteDAO;
+    }
+
+    /*    @Autowired
+    public void setCategoryDAO(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
+    }*/
+
+    @Autowired
+    public void setGradeDAO(GradeDAO gradeDAO) {
+        this.gradeDAO = gradeDAO;
+    }
+
+    @Autowired
+    public void setNoteDAO(NoteDAO noteDAO) {
+        this.noteDAO = noteDAO;
+    }
+
+    @Autowired
+    public void setQcNoteDAO(QCNoteDAO qcNoteDAO) {
+        this.qcNoteDAO = qcNoteDAO;
+    }
+
+    @Autowired
+    public void setQcStatusDAO(QCStatusDAO qcStatusDAO) {
+        this.qcStatusDAO = qcStatusDAO;
+    }
+
+    @Autowired
+    public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
+        this.trainerNoteDAO = trainerNoteDAO;
+    }
 
 //  Assessment
     // Get
@@ -98,7 +136,7 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public Grade getGradeByGradeId(int gradeId) {
+    public Grade getGradeByGradeId(long gradeId) {
         return gradeDAO.getGradeByGradeId(gradeId);
     }
 
@@ -108,7 +146,7 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public List<Grade> getGradesByAssesessment(int assessmentId) {
+    public List<Grade> getGradesByAssesessment(long assessmentId) {
         return gradeDAO.getGradesByAssesessment(assessmentId);
     }
 
@@ -147,62 +185,5 @@ public class FacadeImplementation implements Facade {
     @Override
     public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
         return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//  Spring setter based DI
-    @Autowired
-    public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
-        this.assessmentDAO = assessmentDAO;
-    }
-
-    @Autowired
-    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
-        this.batchNoteDAO = batchNoteDAO;
-    }
-
-/*    @Autowired
-    public void setCategoryDAO(CategoryDAO categoryDAO) {
-        this.categoryDAO = categoryDAO;
-    }*/
-
-    @Autowired
-    public void setGradeDAO(GradeDAO gradeDAO) {
-        this.gradeDAO = gradeDAO;
-    }
-
-    @Autowired
-    public void setNoteDAO(NoteDAO noteDAO) {
-        this.noteDAO = noteDAO;
-    }
-
-    @Autowired
-    public void setQcNoteDAO(QCNoteDAO qcNoteDAO) {
-        this.qcNoteDAO = qcNoteDAO;
-    }
-
-    @Autowired
-    public void setQcStatusDAO(QCStatusDAO qcStatusDAO) {
-        this.qcStatusDAO = qcStatusDAO;
-    }
-
-    @Autowired
-    public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
-        this.trainerNoteDAO = trainerNoteDAO;
     }
 }

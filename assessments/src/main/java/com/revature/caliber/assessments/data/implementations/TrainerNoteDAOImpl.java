@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository(value = "trainerNoteDAO")
+
+
+@Repository(value="trainerNoteDAO")
 public class TrainerNoteDAOImpl implements TrainerNoteDAO {
 
     private SessionFactory sessionFactory;

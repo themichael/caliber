@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository(value = "batchNote")
+
+@Repository(value="batchNoteDAO")
 public class BatchNoteDAOImpl implements BatchNoteDAO {
 
     private SessionFactory sessionFactory;

@@ -16,9 +16,8 @@ import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.data.TrainerDAO;
 
 /**
- * Implementation for trainee DAO crud methods
+ * Implementation for trainer DAO crud methods
  * 
- * @author Karina
  */
 @Repository
 public class TrainerDAOImplementation implements TrainerDAO {

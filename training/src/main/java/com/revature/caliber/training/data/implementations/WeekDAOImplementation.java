@@ -2,9 +2,10 @@ package com.revature.caliber.training.data.implementations;
 
 import java.util.List;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
@@ -14,34 +15,45 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.training.beans.Week;
 import com.revature.caliber.training.data.WeekDAO;
 
+
+/**
+ * Implementations for Week DAO CRUD methods
+ * Methods are self-explanatory
+ */
 @Repository
 public class WeekDAOImplementation implements WeekDAO {
 
 	private SessionFactory sessionFactory;
-
 	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+    public void setSessionFactory(SessionFactory sessionFactory) { this.sessionFactory = sessionFactory; }
+
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public List<Week> getAllWeeks() {
+		return sessionFactory.getCurrentSession().createQuery("from com.revature.caliber.training.beans.Week").list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public List<Week> getAllWeek() {
+	public List<Week> getWeekByBatchId(int batchId) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from com.revature.caliber.training.beans.Week");
-		return query.list();
+        Criteria criteria = session.createCriteria(Week.class);
+        criteria.add(Restrictions.eq("batch.batchId", batchId));
+        return criteria.list();
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public Week getWeekById(long id) {
-		Session session = sessionFactory.getCurrentSession();
-		return (Week) session.get(Week.class, id);
+	public void createWeek(Week newWeek) {
+		sessionFactory.getCurrentSession().save(newWeek);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void createNewWeek(Week newWeek) {
+	public List<Week> getWeekByWeekNumber(int weekNumber) {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(newWeek);
+        Criteria criteria = session.createCriteria(Week.class);
+        criteria.add(Restrictions.eq("weekNumber", weekNumber));
+        return criteria.list();
 	}
 
 }

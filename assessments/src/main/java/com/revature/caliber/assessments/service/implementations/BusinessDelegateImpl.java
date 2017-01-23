@@ -1,5 +1,6 @@
 package com.revature.caliber.assessments.service.implementations;
 
+
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.service.*;
@@ -21,7 +22,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     //TODO finish service impl: private QCStatusService qcStatusService;
     private TrainerNoteService trainerNoteService;
 
-//    Assessment
+    //    Assessment
     @Override
     public Set<Assessment> getAllAssessments() {
         return assessmentService.getAll();
@@ -62,7 +63,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public Grade getGradeByGradeId(int gradeId) {
+    public Grade getGradeByGradeId(long gradeId) {
         return gradeService.getGradeByGradeId(gradeId);
     }
 
@@ -72,7 +73,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public List<Grade> getGradesByAssesessment(int assessmentId) {
+    public List<Grade> getGradesByAssesessment(long assessmentId) {
         return gradeService.getGradesByAssesessment(assessmentId);
     }
 

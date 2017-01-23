@@ -12,8 +12,17 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<tx:annotation-driven/> <mvc:annotation-driven />
-	<context:component-scan base-package="com.revature.caliber.controllers" />
-	
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.revature.caliber.salesforce" />
+	<context:component-scan base-package="com.revature.caliber.training"/>
+	<context:annotation-config />
+
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name = "prefix" value="/WEB-INF/" />
+		<property name = "suffix" value=".jsp" />
+	</bean>
+
 	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
 		<property name="url" value="#{systemEnvironment['CALIBER_DB_URL']}" />
@@ -21,10 +30,9 @@
 		<property name="password" value="#{systemEnvironment['CALIBER_DB_PASS']}" />
 	</bean>
 	<bean name="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="packagesToScan" value="com.revature.caliber.beans" />
+		<property name="packagesToScan" value="com.revature.caliber.training.beans" />
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.Oracle10gDialect
 				</prop>
@@ -35,7 +43,16 @@
 	<bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-<!-- 	<bean name="testDao" class="com.revature.caliber.data.TestDAO">
+	<bean name="categoryDAO" class="com.revature.caliber.training.data.implementations.CategoryDAOImplementation">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean> -->
+	</bean>
+	<bean name="batchDAO" class="com.revature.caliber.training.data.implementations.BatchDAOImplementation">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean name="tierDAO" class="com.revature.caliber.training.data.implementations.TierDAOImplementation">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+
 </beans>
