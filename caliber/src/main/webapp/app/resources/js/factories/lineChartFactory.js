@@ -1,51 +1,44 @@
-angular.module("charts").factory("lineChartFactory", function($log) {
-	var lineChart = {};
+angular.module("charts").factory("lineChartFactory", function ($log) {
+    $log.debug("Booted Line Chart Factory.");
 
-	/**
-	 * Getters and Setters for line chart objects
-	 */
-	// get/ set labels
-	lineChart.setLabels = funtion(labels)
-	{
-		charts.labels = labels;
-	}
-	;
-	lineChart.getLabels = funtion()
-	{
-		if (!charts.labels)
-			return null;
-		return charts.labels;
-	}
-	;
+    var lineChart = {};
 
-	// get/ set series
-	lineChart.setSeries = funtion(series)
-	{
-		charts.series = series;
-	}
-	;
-	lineChart.getSeries = funtion()
-	{
-		if (!charts.series)
-			return null;
-		return charts.series;
-	}
-	;
+    /**
+     * Getters and Setters for line chart objects
+     */
+    // get/ set labels
+    lineChart.setLabels = function (labels) {
+        charts.labels = labels;
+    };
+    lineChart.getLabels = function () {
+        if (!charts.labels)
+            return null;
+        return charts.labels;
+    }
+    ;
 
-	// get/ set data
-	lineChart.setData = funtion(data)
-	{
-		charts.data = data;
-	}
-	;
-	lineChart.getData = funtion()
-	{
-		if (!charts.data)
-			return null;
-		return charts.data;
-	}
-	;
-	
+    // get/ set series
+    lineChart.setSeries = function (series) {
+        charts.series = series;
+    };
+    lineChart.getSeries = function () {
+        if (!charts.series)
+            return null;
+        return charts.series;
+    };
 
-	return lineChart;
+    // get/ set data
+    lineChart.setData = function(data)
+    {
+        charts.data = data;
+    };
+    lineChart.getData = function()
+    {
+        if (!charts.data)
+            return null;
+        return charts.data;
+    };
+
+
+    return lineChart;
 });
