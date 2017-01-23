@@ -1,5 +1,6 @@
 package com.revature.caliber.salesforce.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.salesforce.models.SalesforceToken;
 import com.revature.caliber.salesforce.models.SalesforceUser;
 import org.apache.http.HttpResponse;
@@ -20,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,18 +35,18 @@ import java.util.Map;
 @Controller
 public class PreAuthentication {
     Map<String, String> environment = System.getenv();
-    private String authURL = environment.get("SALESFORCE_AUTH_URL");
-    private String accessTokenURL = environment.get("SALESFORCE_ACCESS_TOKEN_URL");
-    private String clientId = environment.get("SALESFORCE_CLIENT_ID");
-    private String clientSecret = environment.get("SALESFORCE_CLIENT_SECRET");
-    private String redirectUri = environment.get("SALESFORCE_REDIRECT_URI");
+    private final String authURL = environment.get("SALESFORCE_AUTH_URL");
+    private final String accessTokenURL = environment.get("SALESFORCE_ACCESS_TOKEN_URL");
+    private final String clientId = environment.get("SALESFORCE_CLIENT_ID");
+    private final String clientSecret = environment.get("SALESFORCE_CLIENT_SECRET");
+    private final String redirectUri = environment.get("SALESFORCE_REDIRECT_URI");
     private SalesforceToken salesforceToken;
     private SalesforceUser salesforceUser;
     private HttpClient httpClient;
 
     @RequestMapping(value = "/")
     public ModelAndView openAuth() {
-        return new ModelAndView("redirect:" +authURL + "?response_type=code&client_id="
+        return new ModelAndView("redirect:" + authURL + "?response_type=code&client_id="
                 + clientId + "&redirect_uri=" + redirectUri);
     }
 
@@ -64,23 +63,7 @@ public class PreAuthentication {
             parameters.add(new BasicNameValuePair("code", code));
             post.setEntity(new UrlEncodedFormEntity(parameters));
             HttpResponse response = httpClient.execute(post);
-
-            System.out.println("RESPONSE CODE " + response.getStatusLine().getStatusCode());
-
-            BufferedReader resp = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            StringBuffer result = new StringBuffer();
-            String line = resp.readLine();
-
-            while (line != null) {
-                result.append(line);
-                line = resp.readLine();
-            }
-            System.out.println(result.toString());
-            setAuthCredentials(result.toString());
-            System.out.println("ACCESS TOKEN ID IS " + salesforceToken.getAccess_token());
-
-
-
+            salesforceToken = new ObjectMapper().readValue(response.getEntity().getContent(), SalesforceToken.class);
             /*
                 Made SalesforceUser class implement UserDetails(spring security).
                 Role is currently hard coded role at the moment but can be fetched from DB.
@@ -89,11 +72,8 @@ public class PreAuthentication {
                 with admin privileges.
              */
             setSalesforceUser(salesforceToken.getId());
-
-            salesforceUser.setRole("ROLE_VP");
-
+            salesforceUser.setRole("ROLE_QC");
             Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
-
             SecurityContextHolder.getContext().setAuthentication(auth);
 
 
@@ -110,54 +90,12 @@ public class PreAuthentication {
         }
     }
 
-
-
-    public void setAuthCredentials(String str){
-        JSONObject tokenCredentials = new JSONObject(str.toString());
-        salesforceToken = new SalesforceToken(
-                tokenCredentials.get("access_token").toString(),
-                tokenCredentials.get("signature").toString(),
-                tokenCredentials.get("scope").toString(),
-                tokenCredentials.get("instance_url").toString(),
-                tokenCredentials.get("id").toString(),
-                tokenCredentials.get("token_type").toString(),
-                tokenCredentials.get("issued_at").toString()
-        );
-    }
-
-
     public void setSalesforceUser(String str) throws IOException {
         httpClient = HttpClientBuilder.create().build();
-        System.out.println(str);
-        HttpGet get = new HttpGet(str+"?access_token="+salesforceToken.getAccess_token());
+        HttpGet get = new HttpGet(str + "?access_token=" + salesforceToken.getAccess_token());
         HttpResponse response = httpClient.execute(get);
-        System.out.println("RESPONSE CODE " + response.getStatusLine().getStatusCode());
-        BufferedReader resp = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        StringBuffer result = new StringBuffer();
-        String line = resp.readLine();
-        while (line != null) {
-            result.append(line);
-            line = resp.readLine();
-        }
-
-        JSONObject userCredentials = new JSONObject(result.toString());
-        salesforceUser = new SalesforceUser(userCredentials.getString("user_id"),
-                userCredentials.getString("organization_id"),
-                userCredentials.getString("username"),
-                userCredentials.getString("email"),
-                userCredentials.getString("first_name"),
-                userCredentials.getString("last_name"));
-
-        System.out.println(salesforceUser.toString());
+        salesforceUser = new ObjectMapper().readValue(response.getEntity().getContent(),SalesforceUser.class);
+        salesforceUser.setSalesforceToken(salesforceToken);
     }
-
-    public SalesforceUser getSalesforceUser() {
-        return salesforceUser;
-    }
-
-    public SalesforceToken getSalesforceToken() {
-        return salesforceToken;
-    }
-
 
 }
