@@ -3,6 +3,8 @@ package com.revature.caliber.salesforce.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.salesforce.models.SalesforceToken;
 import com.revature.caliber.salesforce.models.SalesforceUser;
+import com.revature.caliber.training.beans.Trainer;
+import com.revature.caliber.training.data.TrainerDAO;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -12,7 +14,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -44,6 +46,13 @@ public class PreAuthentication {
     private SalesforceUser salesforceUser;
     private HttpClient httpClient;
 
+    @Autowired
+    private TrainerDAO dao;
+
+    public void setDao(TrainerDAO dao) {
+        this.dao = dao;
+    }
+
     @RequestMapping(value = "/")
     public ModelAndView openAuth() {
         return new ModelAndView("redirect:" + authURL + "?response_type=code&client_id="
@@ -71,8 +80,11 @@ public class PreAuthentication {
                 I can now authenticate them in the application .. they now have access to any page
                 with admin privileges.
              */
+
             setSalesforceUser(salesforceToken.getId());
-            salesforceUser.setRole("ROLE_QC");
+            List<Trainer> trainer = dao.getTrainer(salesforceUser.getFirst_name());
+            //set prefix
+            salesforceUser.setRole("ROLE_"+trainer.get(0).getTier().getTier());
             Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
 
