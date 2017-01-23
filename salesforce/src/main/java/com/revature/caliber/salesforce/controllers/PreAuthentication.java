@@ -96,11 +96,9 @@ public class PreAuthentication {
             e1.printStackTrace();
         } catch (IOException e1) {
             e1.printStackTrace();
-        } finally
-
-        {
-            return "redirect:/vp/home";
         }
+            return "redirect:/vp/home";
+
     }
 
     public void setSalesforceUser(String str) throws IOException {
