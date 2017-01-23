@@ -28,14 +28,14 @@ public class GradeDAOImpl implements GradeDAO {
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public void insertGrade(Grade grade) {
 		sessionFactory.getCurrentSession().saveOrUpdate(grade);
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public void updateGrade(Grade grade) {
 		sessionFactory.getCurrentSession().update(grade);
@@ -65,7 +65,7 @@ public class GradeDAOImpl implements GradeDAO {
 			Exception.class })
 	public void deleteGrade(Grade grade) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("gradeId", grade));
+		criteria.add(Restrictions.eq("gradeId", grade.getGradeId()));
 		Grade gradeToDelete = (Grade) criteria.uniqueResult();
 		sessionFactory.getCurrentSession().delete(gradeToDelete);
 	}
