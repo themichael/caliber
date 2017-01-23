@@ -1,9 +1,6 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.BatchNote;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.beans.TrainerNote;
+import com.revature.caliber.assessments.beans.*;
 import com.revature.caliber.assessments.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -125,7 +122,6 @@ public class FacadeImplementation implements Facade {
         assessmentDAO.delete(assessment);
     }
 
-
 //  BatchNote
 
     //BatchNote Facade Methods
@@ -144,8 +140,20 @@ public class FacadeImplementation implements Facade {
         return batchNoteDAO.allBatchNotesByWeek(weekId);
     }
 
+//    Category
+    @Transactional
+    @Override
+    public Set<Category> getAllCategories() {
+        return categoryDAO.getAll();
+    }
 
-    // Grade
+    @Transactional
+    @Override
+    public Category getCategoryById(int id) {
+        return categoryDAO.getById(id);
+    }
+
+// Grade
     //Gets
     @Override
     public List<Grade> getAllGrades() {
@@ -187,7 +195,7 @@ public class FacadeImplementation implements Facade {
         gradeDAO.updateGrade(grade);
     }
 
-    //    Trainer
+//    Trainer
     //TrainerNote Facade Methods
     @Override
     public void makeTrainerNote(int trainerId) {

@@ -5,6 +5,9 @@ import com.revature.caliber.assessments.data.CategoryDAO;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +25,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 
     @Override
+    @Transactional(isolation= Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation= Propagation.REQUIRED)
     @SuppressWarnings("unchecked")
     public Set<Category> getAll() {
         return new HashSet<>(sessionFactory.getCurrentSession()
@@ -29,6 +33,7 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
+    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     public Category getById(int id) {
         return (Category) sessionFactory.getCurrentSession()
                 .get(Category.class, id);

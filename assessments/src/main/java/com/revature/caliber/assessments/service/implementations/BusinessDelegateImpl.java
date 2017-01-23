@@ -29,7 +29,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Autowired
-    public void setBatchNoteService(BatchNoteService batchService) {
+    public void setBatchNoteService(BatchNoteService batchNoteService) {
         this.batchNoteService = batchNoteService;
     }
 

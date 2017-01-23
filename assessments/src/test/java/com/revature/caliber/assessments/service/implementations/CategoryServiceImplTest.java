@@ -1,7 +1,7 @@
-package com.revature.caliber.assessments.data.implementations;
+package com.revature.caliber.assessments.service.implementations;
 
 import com.revature.caliber.assessments.beans.Category;
-import com.revature.caliber.assessments.data.CategoryDAO;
+import com.revature.caliber.assessments.data.Facade;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,11 +15,11 @@ import java.util.Set;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-public class CategoryDAOImplTest {
+public class CategoryServiceImplTest {
 
     private static AbstractApplicationContext context;
     private static Logger log;
-    private CategoryDAO categoryDAO;
+    private Facade facade;
 
     @BeforeClass
     public static void setUp() {
@@ -38,15 +38,15 @@ public class CategoryDAOImplTest {
 
     @Before
     public void setUpTest() {
-        categoryDAO = (CategoryDAO) context.getBean("categoryDAO");
+        facade = (Facade) context.getBean("assessmentFacadeImplementation");
     }
 
-//    Waiting for additional data
+    //    Waiting for additional data
     @Test
     public void getAll() throws Exception {
         log.debug("Starting getAllCategoriesTest");
 
-        Set<Category> categories = categoryDAO.getAll();
+        Set<Category> categories = facade.getAllCategories();
         assertFalse(categories.isEmpty());
 
         log.debug("Ending getAllCategoriesTest");
@@ -57,7 +57,7 @@ public class CategoryDAOImplTest {
         int id = 1;
         log.debug("Starting getCategoryByIdTest = " + id);
 
-        Category category = categoryDAO.getById(id);
+        Category category = facade.getCategoryById(id);
         assertNotNull(category);
 
         log.debug("Ending getCategoryById");
