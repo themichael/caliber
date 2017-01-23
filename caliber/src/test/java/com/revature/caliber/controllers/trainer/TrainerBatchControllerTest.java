@@ -62,12 +62,10 @@ public class TrainerBatchControllerTest {
      */
     @Test
     public void getCurrentBatch() {
-        int currentBatchId = 4;
         ResponseEntity<Batch> entity = controller.getCurrentBatch();
         Batch batch = entity.getBody();
 
         // test batch on return
         assertNotNull(batch);
-        assertEquals(currentBatchId, batch.getBatchId());
     }
 }
