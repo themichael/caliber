@@ -8,7 +8,7 @@ import javax.persistence.OneToOne;
 
 @Entity(name="CALIBER_BATCH_NOTE")
 public class BatchNote extends Note{
-	 
+
 	/**
 	 * The week of the batch's evaluation
 	 */
