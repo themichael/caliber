@@ -14,12 +14,6 @@ import java.util.Set;
 
 @RestController
 public class QCBatchController {
-
-    /***
-     * Please change unit tests after connecting controller to midtier OR after
-     * changing return values of test data
-     ****/
-
     /**
      * getAllCurrentBatches - REST API method, retrieves all current batches
      *
@@ -28,7 +22,7 @@ public class QCBatchController {
     @RequestMapping(value = "/qc/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllCurrentBatches() {
 
-        // Test data - remove and replace with call to midtier
+        // Test data - remove and replace with call to middleTier
         BusinessDelegate businessDelegate = new BusinessDelegate();
         return new ResponseEntity<>(businessDelegate.getAllBatches(), HttpStatus.OK);
     }
@@ -47,7 +41,7 @@ public class QCBatchController {
         BusinessDelegate businessDelegate = new BusinessDelegate();
         Batch batch = businessDelegate.getCurrentBatch();
         batch.setBatchId(id);
-        return new ResponseEntity<>(businessDelegate.getCurrentBatch(), HttpStatus.OK);
+        return new ResponseEntity<>(batch, HttpStatus.OK);
     }
 
 }

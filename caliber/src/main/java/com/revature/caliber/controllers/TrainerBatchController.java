@@ -39,15 +39,9 @@ public class TrainerBatchController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Batch> getCurrentBatch() {
 
-        // Test data - remove and replace with call to midtier
-        Batch batch = new Batch();
-        batch.setBatchId(4);
-        batch.setTrainingName("Batch3425");
-        batch.setTrainingType("Java2EE");
-        batch.setLocation("Revature");
-        batch.setSkillType("Junior Level");
-
-        return new ResponseEntity<>(batch, HttpStatus.OK);
+        // Test data - remove and replace with call to middleTier
+        BusinessDelegate delegate = new BusinessDelegate();
+        return new ResponseEntity<>(delegate.getCurrentBatch(), HttpStatus.OK);
     }
 
     /**
@@ -59,15 +53,10 @@ public class TrainerBatchController {
     @RequestMapping(value = "/trainer/batch/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Batch> getBatch(@PathVariable int id) {
-
         // Test data - remove and replace with call to midtier
-        Batch batch = new Batch();
+        BusinessDelegate delegate = new BusinessDelegate();
+        Batch batch = delegate.getCurrentBatch();
         batch.setBatchId(id);
-        batch.setTrainingName("Batch1456");
-        batch.setTrainingType("Java2EE");
-        batch.setLocation("Revature");
-        batch.setSkillType("Junior Level");
-
         return new ResponseEntity<>(batch, HttpStatus.OK);
     }
 
