@@ -1,50 +1,72 @@
 angular.module("charts").factory("lineChartFactory", function($log) {
 	var lineChart = {};
 
-	/**
-	 * Getters and Setters for line chart objects
-	 */
-	// get/ set labels
-	lineChart.setLabels = funtion(labels)
-	{
-		charts.labels = labels;
-	}
-	;
-	lineChart.getLabels = funtion()
-	{
-		if (!charts.labels)
-			return null;
-		return charts.labels;
-	}
-	;
+	lineChart.getTraineeProgressChart = function(dataArray) {
+		var chartData = {};
+		
+		// series
+		chartData.lineSeries = [ 'Average', 'Fail Threshold' ];
+		
+		// data and labels
+		chartData.lineData = [];
+		chartData.lineLabels = [];
+		
+		// push empty array for averages into parent array
+		chartData.lineData.push([]);
+		
+		// push empty array for threshold into parent array
+		chartData.lineData.push([]);
+		
+		// traverse through array of objects and grab labels and data
+		for (let element of dataArray){
+			chartData.lineData[0].push(element.average);
+			chartData.lineData[1].push(40);
+			chartData.lineLabels.push(element.week);
+		}
+		
+		// set data override
+		chartData.lineDatasetOverride = [ {
+			yAxisID : 'y-axis-1',
+			fill : false
+		}, {
+			yAxisID : 'y-axis-2',
+			backgroundColor : 'rgba(255, 0, 0, .5)',
+			borderColor : 'rgba(255, 0, 0, .5)',
+			pointRadius : 0,
+			pointHoverRadius : 0
+		} ];
 
-	// get/ set series
-	lineChart.setSeries = funtion(series)
-	{
-		charts.series = series;
-	}
-	;
-	lineChart.getSeries = funtion()
-	{
-		if (!charts.series)
-			return null;
-		return charts.series;
-	}
-	;
+		// set line options
+		chartData.lineOptions = {
+			legend : {
+				display : true,
+				position : 'bottom'
+			},
+			scales : {
+				yAxes : [ {
+					id : 'y-axis-1',
+					type : 'linear',
+					display : true,
+					position : 'left',
+					ticks : {
+						min : 30,
+						max : 100
+					}
+				}, {
+					id : 'y-axis-2',
+					type : 'linear',
+					display : false,
+					position : 'left',
+					ticks : {
+						min : 30,
+						max : 100
+					}
+				} ]
+			}
+		};
 
-	// get/ set data
-	lineChart.setData = funtion(data)
-	{
-		charts.data = data;
-	}
-	;
-	lineChart.getData = funtion()
-	{
-		if (!charts.data)
-			return null;
-		return charts.data;
-	}
-	;
+		return chartData;
+	};
 	
 
 	return lineChart;
