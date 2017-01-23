@@ -3,11 +3,11 @@ angular.module("vp").controller(
 		function($scope, $log, delegateFactory) {
 			$log.debug("Booted vp home controller.");
 
-			// Delegate Test
-			$log.debug(delegateFactory.testTrainerFactory());
-			$log.debug(delegateFactory.testVPFactory());
-			$log.debug(delegateFactory.testQCFactory());
-			
+			// VP API Test
+			$log.log(delegateFactory.getAllBatches());
+			$log.log(delegateFactory.getAllCurrentBatches());
+			$log.log(delegateFactory.getBatch(7));
+			$log.log(delegateFactory.getCurrentBatch(5));
 			
 			// Dropdown menu selection
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];

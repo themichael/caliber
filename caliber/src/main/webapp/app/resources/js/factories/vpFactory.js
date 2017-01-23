@@ -28,7 +28,7 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 	};
 
 	// Get all current batches
-	vp.getCurrentBatches = function(){
+	vp.getAllCurrentBatches = function(){
 		var data = [];
 		$http({
 			url: "/vp/batch/current/all",
