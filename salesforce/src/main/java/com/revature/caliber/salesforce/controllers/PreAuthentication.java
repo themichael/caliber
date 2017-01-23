@@ -85,7 +85,7 @@ public class PreAuthentication {
             setSalesforceUser(salesforceToken.getId());
             List<Trainer> trainer = dao.getTrainer(salesforceUser.getFirst_name());
             //set prefix
-            salesforceUser.setRole("ROLE_"+trainer.get(0).getTier().getTier());
+            salesforceUser.setRole(trainer.get(0).getTier().getTier());
             Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
 
