@@ -45,7 +45,7 @@ angular.module("vp").controller(
 										{tech: "Hibernate", average: 83}, {tech: "REST", average: 76}, {tech: "SOAP", average: 80},
 										{tech: "Javascript", average: 85}, {tech: "Angular", average: 90}];
 			
-			var radarBatchCompareData = radarChartFactory.batchRankComparison(batchSampleDataStandard, batchSampleDataBatch);
+			var radarBatchCompareData = radarChartFactory.batchRankComparison($scope.batchSampleDataStandard, $scope.batchSampleDataBatch);
 			$scope.batchRankLabels = radarBatchCompareData.labels; 
 			$scope.batchRankData = radarBatchCompareData.data;
 			$scope.batchRankSeries = radarBatchCompareData.series;
