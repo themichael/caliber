@@ -13,6 +13,7 @@ public class CategoryServiceImpl implements CategoryService {
 	Facade facade;
     @Autowired
     public void setFacade(Facade facade) { this.facade = facade; }
+    
 	public Category getCategory(int categoryId) {return facade.getCategory(categoryId);}
 	public List<Category> getAllCategories() {return facade.getAllCategories();}
 }

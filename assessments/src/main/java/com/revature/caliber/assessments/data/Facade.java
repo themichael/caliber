@@ -8,6 +8,7 @@ import com.revature.caliber.assessments.beans.*;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.Note;
 import com.revature.caliber.assessments.beans.TrainerNote;
 
 
@@ -120,16 +121,19 @@ public interface Facade {
      */
     void updateGrade(Grade grade);
 
+    //Note
+    Note getNote(String note);
+	List<Note> getAllNotes();
+	//End Note
 
 //	Trainer Note
-	void makeTrainerNote(TrainerNote trainerNote);
-	
-	Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId);
-	
-	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
-
-	
-	
+void createTrainerNote(TrainerNote note);
+    TrainerNote getTrainerNoteById(Integer trainerNoteId);
+    TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
+    Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
+    Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
+    void updateTrainerNote(TrainerNote note);
+    void deleteTrainerNote(TrainerNote note);
 
     //QCNote
     void createQCNote(QCNote note);

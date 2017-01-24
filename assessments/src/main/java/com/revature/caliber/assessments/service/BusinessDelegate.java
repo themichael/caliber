@@ -3,9 +3,9 @@ package com.revature.caliber.assessments.service;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.beans.QCNote;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -99,6 +99,15 @@ public interface BusinessDelegate {
  	 * Updates a grade
  	 */
  	void updateGrade(Grade grade);
+
+ 	//TrainerNotes
+	void createTrainerNote(TrainerNote note);
+	TrainerNote getTrainerNoteById(Integer trainerNoteId);
+	TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
+	Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
+	Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
+	void updateTrainerNote(TrainerNote note);
+	void deleteTrainerNote(TrainerNote note);
 
 	//QCNote
 	void createQCNote(QCNote note);

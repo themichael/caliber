@@ -1,6 +1,7 @@
 package com.revature.caliber.training.service;
 
 import com.revature.caliber.training.beans.Batch;
+import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.beans.Trainer;
 
@@ -38,4 +39,8 @@ public interface BusinessDelegate {
     public List<Trainer> getAllTrainers();
     public void updateTrainer(Trainer trainer);
     //end of TrainerService
+    
+    //CategoryService methods
+    public Category getCategory(int categoryId);
+    public List<Category> getAllCategories();
 }
