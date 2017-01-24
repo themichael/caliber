@@ -1,9 +1,15 @@
 package com.revature.caliber.assessments.data;
 
+
+import java.util.List;
+import java.util.Set;
+
+import com.revature.caliber.assessments.beans.*;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.beans.TrainerNote;
+
 
 import java.util.List;
 import java.util.Set;
@@ -110,32 +116,20 @@ public interface Facade {
      */
     void updateGrade(Grade grade);
 
+
 //	Trainer Note
-
-    /**
-     * Create a trainer note
-     * @param trainerNote
-     */
 	void makeTrainerNote(TrainerNote trainerNote);
-
-    /**
-     * get trainer note
-     * @param trainerId
-     * @return
-     */
 	Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId);
-
-    /**
-     * get trainer note for that week
-     * @param trainerId
-     * @param weekId
-     * @return
-     */
 	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
-
-    /**
-     * update trainer note
-     * @param trainerNote
-     */
     void updateTrainerNote(TrainerNote trainerNote);
+
+    //QCNote
+    void createQCNote(QCNote note);
+    QCNote getQCNoteById(Integer QCNoteId);
+    QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
+    List<QCNote> getQCNotesByTrainee(Integer traineeId);
+    List<QCNote> getQCNotesByWeek(Integer weekId);
+    void updateQCNote(QCNote note);
+    void deleteQCNote(QCNote note);
+    //QCNote end
 }
