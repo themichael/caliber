@@ -3,7 +3,7 @@ angular.module("charts").factory("pieChartFactory", function($log) {
 	
 	var pieChart = {};
 
-	pieChart.getTraineeProgressChart = function(dataArray) {
+	pieChart.getTraineeTechProgressChart = function(dataArray) {
 		var chartData = {};
 		
 		// data and labels
