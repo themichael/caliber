@@ -1,5 +1,6 @@
 package com.revature.caliber.assessments.data.implementations;
 
+
 import com.revature.caliber.assessments.beans.QCNote;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

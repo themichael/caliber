@@ -1,29 +1,30 @@
-package com.revature.caliber.data.implementations;
+package com.revature.caliber.web.controller.implementations;
 
 
 import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Tier;
 import com.revature.caliber.training.beans.Trainer;
-import com.revature.caliber.training.data.BatchDAO;
 import com.revature.caliber.training.data.TrainerDAO;
+import com.revature.caliber.training.web.controllers.BatchController;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.http.HttpEntity;
 
 import java.util.Date;
 import java.util.List;
 
-public class BatchDAOImplementationTest {
+public class BatchControllerImplementationTest {
     private static ApplicationContext context;
     private static Logger log;
-    private static  BatchDAO batchDAO;
+    private static BatchController controller;
 
     @BeforeClass
     public static void preClass () {
         context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
-        batchDAO = context.getBean(BatchDAO.class);
+        controller = context.getBean(BatchController.class);
         log = Logger.getRootLogger();
     }
 
@@ -38,11 +39,11 @@ public class BatchDAOImplementationTest {
         tier.setTierId((short)1);
         Date startDate = new Date(1481394352000L);
         Date endDate = new Date(1458757552000L);
-        Batch batch = new Batch(9999, "trainingName", trainer, null, "skillType", "trainingType",
-                startDate, endDate, "Virgina", (short) 60, (short)80,
+        Batch batch = new Batch(9999, "Batch5423", trainer, null, "Junior Level", "Java2EE",
+                startDate, endDate, "Queens College", (short) 60, (short)80,
                 null, null);
+        controller.createBatch(batch);
 
-        batchDAO.createBatch(batch);
         log.debug("Batch created");
     }
 
@@ -50,24 +51,34 @@ public class BatchDAOImplementationTest {
     @Test
     public void getAll(){
         log.debug(" Get all Batch test");
-        List<Batch> batch = batchDAO.getAllBatch();
-        log.debug("Got All " + batch );
+
+        HttpEntity<List<Batch>> entity = controller.getAllBatches();
+        List<Batch> batches = entity.getBody();
+
+        log.debug("Got All " + batches);
     }
 
     //Work
     @Test
     public void getTrainerBatch(){
         log.debug("Get batch by Trainer id");
-        List<Batch> batch = batchDAO.getTrainerBatch(1);
-        log.debug("got batches by trainer id " + batch);
+
+        HttpEntity<List<Batch>> entity = controller.getTrainerBatch(1);
+        List<Batch> batches = entity.getBody();
+
+        log.debug("got batches by trainer id " + batches);
     }
 
     // Works
     @Test
     public void getCurrentBatch(){
         log.debug("Get active batches");
-        List<Batch> batch = batchDAO.getCurrentBatch();
-        log.debug("Got active batches " + batch);
+
+        HttpEntity<List<Batch>> entity = controller.getCurrentBatch();
+        List<Batch> batches = entity.getBody();
+        System.out.println(batches);
+
+        log.debug("Got active batches " +  batches);
     }
 
     //Work
@@ -75,9 +86,10 @@ public class BatchDAOImplementationTest {
     public void getCurrentBatchWithId(){
         log.debug("Get active batches with trainer id");
 
-        List<Batch> batch = batchDAO.getCurrentBatch(1);
+        HttpEntity<List<Batch>> entity = controller.getCurrentBatch(1);
+        List<Batch> batches = entity.getBody();
 
-        log.debug("Got active batches with trainer id " + batch);
+        log.debug("Got active batches with trainer id " + batches);
     }
 
     //Works
@@ -85,7 +97,8 @@ public class BatchDAOImplementationTest {
     public void getBatch(){
         log.debug("Get batch by id");
 
-        Batch batch = batchDAO.getBatch(1);
+        HttpEntity<Batch> entity = controller.getBatch(2);
+        Batch batch = entity.getBody();
 
         log.debug("got batch by id " + batch);
     }
@@ -95,12 +108,14 @@ public class BatchDAOImplementationTest {
     public void updateBatch(){
         log.debug("Updating batch");
 
-        Batch batch = batchDAO.getBatch(1);
-        batch.setLocation("New York");
-        batchDAO.updateBatch(batch);
+        HttpEntity<Batch> entity = controller.getBatch(6);
+        Batch toUpdate = entity.getBody();
+        toUpdate.setTrainingName("Batch3425");
+        toUpdate.setTrainingType("Java2EE");
+        toUpdate.setLocation("Revature");
+        toUpdate.setSkillType("Junior Level");
+        controller.updateBatch(toUpdate);
 
         log.debug("updated batch");
     }
-
-    //Work on delete method
 }

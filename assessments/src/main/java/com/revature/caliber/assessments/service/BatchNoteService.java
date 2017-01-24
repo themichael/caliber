@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.revature.caliber.assessments.beans.BatchNote;
 
-public interface BatchService {
+public interface BatchNoteService {
 
 	void makeBatchNote(int batchId, int weekId);
 	
