@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ import com.revature.caliber.training.service.BusinessDelegate;
 public class TrainerController {
 
 	private BusinessDelegate businessDelegate;
-
+	@Autowired
 	public void setBusinessDelegate(BusinessDelegate businessDelegate) {
 		this.businessDelegate = businessDelegate;
 	}
@@ -78,7 +79,7 @@ public class TrainerController {
      * @param: email as part of URL
      * @return Response with trainer object and/or status
      */
-	@RequestMapping(value = "trainers/byemail/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainers/byemail/{identifier}/", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Trainer> getTrainerByEmail(@PathVariable("identifier") String email) {
 		ResponseEntity<Trainer> returnEntity;
 
