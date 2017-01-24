@@ -1,11 +1,26 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Repository;
+import java.util.Set;
 
+import com.revature.caliber.assessments.beans.Assessment;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.revature.caliber.assessments.beans.QCStatus;
 import com.revature.caliber.assessments.data.QCStatusDAO;
 
-@Repository(value="qcStatusDAO")
+/**
+ * Implementations for QCStatus DAO CRUD methods Methods are self-explanatory
+ */
+
+@Repository
 public class QCStatusDAOImpl implements QCStatusDAO {
 
 	SessionFactory sessionFactory;
@@ -14,14 +29,20 @@ public class QCStatusDAOImpl implements QCStatusDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@Override
-	public void getAll() {
-
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public Set<QCStatus> getAllStatus() {
+		return (Set<QCStatus>) sessionFactory.getCurrentSession()
+				.createQuery("from com.revature.caliber.assessments.beans.QCStatus");
 	}
 
 	@Override
-	public void getByID(short statusId) {
+	public Set<Assessment> getAssessmentByStatus(String status) {
+		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(QCStatus.class);
+		criteria.add(Restrictions.eq("status", status));
 
+		QCStatus s = (QCStatus) criteria.uniqueResult();
+		return s.getAssessments();
 	}
-
 }

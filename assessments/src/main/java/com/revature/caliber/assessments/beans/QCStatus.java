@@ -1,9 +1,12 @@
 package com.revature.caliber.assessments.beans;
 
-
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * JavaBean for QCStatus Object Status of assessments determine by Quality
+ * Control (Trainer Object)
+ */
 @Entity
 @Table(name = "CALIBER_QC_STATUS")
 public class QCStatus {
@@ -40,6 +43,14 @@ public class QCStatus {
 	public QCStatus(String status) {
 		super();
 		this.status = status;
+	}
+
+	public Set<Assessment> getAssessments() {
+		return assessments;
+	}
+
+	public void setAssessments(Set<Assessment> assessments) {
+		this.assessments = assessments;
 	}
 
 	public QCStatus(short statusId, String status) {
