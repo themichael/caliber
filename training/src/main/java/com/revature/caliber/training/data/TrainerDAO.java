@@ -1,8 +1,8 @@
 package com.revature.caliber.training.data;
 
-import java.util.List;
-
 import com.revature.caliber.training.beans.Trainer;
+
+import java.util.List;
 
 /**
  * DAO interface for trainer object
@@ -28,7 +28,8 @@ public interface TrainerDAO {
 	 * @return: a list of Trainer objects
 	 */
 	List<Trainer> getTrainer(String name);
-	
+
+
 	/**
 	 * Gets a list of all trainers
 	 * @return: a list of Trainer objects
