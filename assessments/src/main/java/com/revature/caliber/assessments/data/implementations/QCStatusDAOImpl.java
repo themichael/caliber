@@ -43,7 +43,6 @@ public class QCStatusDAOImpl implements QCStatusDAO {
 		criteria.add(Restrictions.eq("status", status));
 
 		QCStatus s = (QCStatus) criteria.uniqueResult();
-		// System.out.println(s);
 		return s.getAssessments();
 	}
 }
