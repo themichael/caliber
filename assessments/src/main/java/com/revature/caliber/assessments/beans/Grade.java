@@ -118,4 +118,11 @@ public class Grade {
 		this.score = score;
 	}
 
+	@Override
+	public String toString() {
+		return "Grade [gradeId=" + gradeId + ", assessment=" + assessment + ", trainee=" + trainee + ", dateReceived="
+				+ dateReceived + ", score=" + score + "]";
+	}
+	
+ 
 }

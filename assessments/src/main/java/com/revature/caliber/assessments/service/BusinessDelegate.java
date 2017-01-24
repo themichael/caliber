@@ -2,31 +2,54 @@ package com.revature.caliber.assessments.service;
 
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.QCNote;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public interface BusinessDelegate {
 
 //    Assessment
+	//    Get
+	/**
+	 * Returns a Set of all Assessments
+	 * @return a Set of Assessments
+	 */
     Set<Assessment> getAllAssessments();
 
+	/**
+	 * Return Assessment with AssessmentId
+	 * @return an Assessment
+	 */
     Assessment getAssessmentById(int id);
 
-    /*   
-     * 	TODO reconsider how to approach this implementation.
-     * 		 data resides in another service, so you cannot query this way
-    Set<Assessment> getAssessmentsByTrainerId(int id);
-    */
-
+	/**
+	 * Returns HashSet of Assessments with WeekId
+	 * @param id the Week ID
+	 * @return a Set of Assessments
+	 */
     Set<Assessment> getAssessmentsByWeekId(int id);
 
-    Set<Assessment> getAssessmentsByBatchId(int id);
-
+	//    Create
+	/**
+	 * Inserts Assessment
+	 * @param assessment an Assessment to be inserted
+	 */
     void insertAssessment(Assessment assessment);
 
+	//    Update
+	/**
+	 * Updates Assessment
+	 * @param assessment an Assessment to be updated
+	 */
     void updateAssessment(Assessment assessment);
 
+	//    Delete
+	/**
+	 * Deletes Assessment
+	 * @param assessment and Assessment to delete
+	 */
     void deleteAssessment(Assessment assessment);
 
 //    Batch
@@ -40,7 +63,7 @@ public interface BusinessDelegate {
  	/**
  	 * Returns a grade object given a specific gradeId
  	 */
- 	Grade getGradeByGradeId(int gradeId);
+ 	Grade getGradeByGradeId(long gradeId);
 
  	/**
  	 * Returns a list of grades of a specific trainee based on traineeId as an
@@ -56,7 +79,7 @@ public interface BusinessDelegate {
  	 * 
  	 * @param assessmentId
  	 */
- 	List<Grade> getGradesByAssesessment(int assessmentId);
+ 	List<Grade> getGradesByAssesessment(long assessmentId);
 
  	// Insert
  	/**
@@ -75,4 +98,14 @@ public interface BusinessDelegate {
  	 * Updates a grade
  	 */
  	void updateGrade(Grade grade);
+
+	//QCNote
+	void createQCNote(QCNote note);
+	QCNote getQCNoteById(Integer QCNoteId);
+	QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
+	List<QCNote> getQCNotesByTrainee(Integer traineeId);
+	List<QCNote> getQCNotesByWeek(Integer weekId);
+	void updateQCNote(QCNote note);
+	void deleteQCNote(QCNote note);
+	//QCNote end
 }

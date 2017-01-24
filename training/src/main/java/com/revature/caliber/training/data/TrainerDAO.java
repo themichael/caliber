@@ -1,8 +1,8 @@
 package com.revature.caliber.training.data;
 
-import java.util.List;
-
 import com.revature.caliber.training.beans.Trainer;
+
+import java.util.List;
 
 /**
  * DAO interface for trainer object
@@ -23,12 +23,12 @@ public interface TrainerDAO {
 	Trainer getTrainer(Integer id);
 	
 	/**
-	 * Gets a list of trainers by a name
-	 * @param name: the name of the trainer(s)
-	 * @return: a list of Trainer objects
+	 * Gets a trainer by email
+	 * @param email: email of the trainer
+	 * @return: Trainer object
 	 */
-	List<Trainer> getTrainer(String name);
-	
+	Trainer getTrainer(String email);
+
 	/**
 	 * Gets a list of all trainers
 	 * @return: a list of Trainer objects
@@ -40,10 +40,4 @@ public interface TrainerDAO {
 	 * @param trainer: the trainer object to update
 	 */
 	void updateTrainer(Trainer trainer);
-	
-	/**
-	 * Deletes a trainer
-	 * @param trainer: the trainer object to delete
-	 */
-	void deleteTrainer(Trainer trainer);
 }

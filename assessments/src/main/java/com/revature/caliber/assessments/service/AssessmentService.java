@@ -8,68 +8,43 @@ public interface AssessmentService {
 
 //    Get
     /**
-     * Returns HashSet of all Assessments
-     * @return List of Assessments
+     * Returns a Set of all Assessments
+     * @return a Set of Assessments
      */
     Set<Assessment> getAll();
 
     /**
-     * Return Assessment
-     *  with AssessmentId
-     * @return Assessment
+     * Return Assessment with AssessmentId
+     * @return an Assessment
      */
     Assessment getById(int id);
 
     /**
-     * Returns HashSet of Assessments
-     *  with TrainerId
-     * @param id
-     * @return List of Assessments
-     */
-    /*   
-     * 	TODO reconsider how to approach this implementation.
-     * 		 data resides in another service, so you cannot query this way
-    Set<Assessment> getByTrainerId(int id);
-	*/
-    
-    /**
-     * Returns HashSet of Assessments
-     *  with WeekId
-     * @param id
-     * @return List of Assessments
+     * Returns HashSet of Assessments with WeekId
+     * @param id the Week ID
+     * @return a Set of Assessments
      */
     Set<Assessment> getByWeekId(int id);
 
-    /**
-     * Returns HashSet of Assessments
-     *  with BatchId
-     * @param id
-     * @return List of Assessments
-     */
-    Set<Assessment> getByBatchId(int id);
-
 //    Create
-
     /**
      * Inserts Assessment
-     * @param assessment
+     * @param assessment an Assessment to be inserted
      */
     void insert(Assessment assessment);
 
 //    Update
-
     /**
      * Updates Assessment
-     * @param assessment
+     * @param assessment an Assessment to be updated
      */
     void update(Assessment assessment);
 
 
 //    Delete
-
     /**
      * Deletes Assessment
-     * @param assessment
+     * @param assessment and Assessment to delete
      */
     void delete(Assessment assessment);
 

@@ -1,3 +1,33 @@
+<!DOCTYPE project [
+		<!ELEMENT project (modelVersion|groupId|artifactId|packaging|version|name|url|dependencyManagement|dependencies|build)*>
+		<!ATTLIST project
+				xmlns CDATA #REQUIRED
+				xmlns:xsi CDATA #REQUIRED
+				xsi:schemaLocation CDATA #REQUIRED>
+		<!ELEMENT modelVersion (#PCDATA)>
+		<!ELEMENT groupId (#PCDATA)>
+		<!ELEMENT artifactId (#PCDATA)>
+		<!ELEMENT packaging (#PCDATA)>
+		<!ELEMENT version (#PCDATA)>
+		<!ELEMENT name (#PCDATA)>
+		<!ELEMENT url (#PCDATA)>
+		<!ELEMENT dependencyManagement (dependencies)*>
+		<!ELEMENT dependencies (dependency)*>
+		<!ELEMENT dependency (groupId|artifactId|version|type|scope)*>
+		<!ELEMENT type (#PCDATA)>
+		<!ELEMENT scope (#PCDATA)>
+		<!ELEMENT build (finalName|pluginManagement)*>
+		<!ELEMENT finalName (#PCDATA)>
+		<!ELEMENT pluginManagement (plugins)*>
+		<!ELEMENT plugins (plugin)*>
+		<!ELEMENT plugin (groupId|artifactId|version|configuration)*>
+		<!ELEMENT configuration (source|target|url|update|server|path)*>
+		<!ELEMENT source (#PCDATA)>
+		<!ELEMENT target (#PCDATA)>
+		<!ELEMENT update (#PCDATA)>
+		<!ELEMENT server (#PCDATA)>
+		<!ELEMENT path (#PCDATA)>
+		]>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -48,6 +78,28 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
+		<!--Spring Security-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>4.2.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>4.2.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>4.2.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>4.2.1.RELEASE</version>
+		</dependency>
+		<!--===============-->
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -113,7 +165,30 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
-	</dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160810</version>
+		</dependency>
+        <dependency>
+            <groupId>com.revature.caliber.services</groupId>
+            <artifactId>training</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.revature.caliber.services</groupId>
+            <artifactId>caliber</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 	<build>
 		<finalName>caliber</finalName>
 		<pluginManagement>

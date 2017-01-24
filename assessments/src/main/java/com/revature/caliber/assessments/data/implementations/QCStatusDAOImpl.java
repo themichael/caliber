@@ -15,16 +15,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.assessments.beans.QCStatus;
 import com.revature.caliber.assessments.data.QCStatusDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Implementations for QCStatus DAO CRUD methods Methods are self-explanatory
  */
-
-@Repository
+@Repository(value = "qcStatusDAO")
 public class QCStatusDAOImpl implements QCStatusDAO {
 
 	SessionFactory sessionFactory;
 
+	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -45,4 +46,5 @@ public class QCStatusDAOImpl implements QCStatusDAO {
 		QCStatus s = (QCStatus) criteria.uniqueResult();
 		return s.getAssessments();
 	}
+
 }

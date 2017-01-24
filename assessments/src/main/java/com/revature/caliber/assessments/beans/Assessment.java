@@ -64,9 +64,23 @@ public class Assessment {
     /**
      * Set of Categories for Assessments (for Hibernate ORM)
      */
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="CALIBER_ASSESSMENT_CATEGORIES")
     private Set<Category> categories;
+
+    @Override
+    public String toString() {
+        return "Assessment{" +
+                "assessmentId=" + assessmentId +
+                ", title='" + title + '\'' +
+                ", batch=" + batch +
+                ", rawScore=" + rawScore +
+                ", type='" + type + '\'' +
+                ", week=" + week +
+                ", weeklyStatus=" + weeklyStatus +
+                ", categories=" + categories +
+                '}';
+    }
 
     public Assessment(long assessmentId,
                       String title,

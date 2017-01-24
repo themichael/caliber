@@ -46,7 +46,7 @@ public class TrainerDAOImplementationTest {
 		tier.setTierId((short)1);
 		
 		Trainer trainer = new Trainer();
-		trainer.setName("Bob Miller");
+		trainer.setName("Bob Millerrrrrrr");
 		trainer.setTitle("Trainer at QC");
 		trainer.setEmail("bmiller@gmail.com");
 		trainer.setSalesforceAccount("salesforceAccountEXAMPLE");
@@ -76,16 +76,16 @@ public class TrainerDAOImplementationTest {
     }
 	
 	@Test
-    public void getTrainerGetByNameTest() {
-		logger.debug("   Get trainer by name test.");
+    public void getTrainerGetByEmailTest() {
+		logger.debug("   Get trainer by email test.");
 		
         TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 
-        List<Trainer> trainer = trainerDao.getTrainer("Bob Miller");
+        Trainer trainer = trainerDao.getTrainer("testrevature@gmail.com");
 
         assertNotNull(trainer);
         logger.debug("     trainer that I got:" + trainer);
-        logger.debug("       trainer name: " + trainer.get(0).getName());
+        logger.debug("       trainer name: " + trainer.getName());
     }
 	
 	@Test
@@ -122,18 +122,4 @@ public class TrainerDAOImplementationTest {
 	     logger.debug("       trainer that I got: " + trainer);
 	     logger.debug("       it's name: " + trainer.getName());
 	 }
-	
-	@Test
-	public void deleteTrainerTest() {
-		logger.debug("   Delete trainer test.");
-		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
-		
-		List<Trainer> trainers = trainerDao.getAllTrainers();
-		int trainerId = trainers.get(0).getTrainerId();
-		Trainer trainer = trainerDao.getTrainer(trainerId);
-	    assertNotNull(trainer);
-	    
-	    trainerDao.deleteTrainer(trainer);
-	    logger.debug("     deleted trainer with id " + trainerId);
-	}
 }

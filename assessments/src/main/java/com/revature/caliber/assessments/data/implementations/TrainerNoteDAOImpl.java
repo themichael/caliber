@@ -1,7 +1,8 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import java.util.List;
-
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.TrainerNote;
+import com.revature.caliber.assessments.data.TrainerNoteDAO;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,47 +11,49 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.assessments.beans.TrainerNote;
-import com.revature.caliber.assessments.data.TrainerNoteDAO;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Repository(value="trainerNoteDAO")
 public class TrainerNoteDAOImpl implements TrainerNoteDAO {
 
-	private SessionFactory sessionFactory;
-	
-	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	
-	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
-			Exception.class })
-	public void createTrainerNote(int trainerId) {
-		TrainerNote traineeNote = (TrainerNote) sessionFactory.getCurrentSession().get(TrainerNote.class, trainerId);
-		sessionFactory.getCurrentSession().saveOrUpdate(traineeNote);
-	}
+    private SessionFactory sessionFactory;
 
-	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
-			Exception.class })
-	@SuppressWarnings("unchecked")
-	public List<TrainerNote> getAllTrainerNotesByTrainer(int trainerId) {
-		List<TrainerNote> trainerNotes = sessionFactory.getCurrentSession().createCriteria(TrainerNote.class).
-				add(Restrictions.eq("TRAINER_ID", trainerId)).list();
-		return trainerNotes;
-	}
-	
-	@Override
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
-			Exception.class })
-	public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
-		TrainerNote trainerNoteForWeek = (TrainerNote) sessionFactory.getCurrentSession().createCriteria(TrainerNote.class)
-				.add(Restrictions.eq("TRAINER_ID", trainerId))
-				.add(Restrictions.eq("WEEK_ID", weekId)).uniqueResult();
-		return trainerNoteForWeek;
-	}
-	
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
+    public void createTrainerNote(TrainerNote trainerNote) {
+        sessionFactory.getCurrentSession().save(trainerNote);
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
+    @SuppressWarnings("unchecked")
+    public Set<TrainerNote> getTrainerNotesByTrainerId(int trainerId) {
+        return new HashSet<>(
+                sessionFactory.getCurrentSession()
+                        .createCriteria(TrainerNote.class)
+                        .add(Restrictions.eq("trainer", trainerId)).list());
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
+    public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
+        TrainerNote trainerNoteForWeek = (TrainerNote) sessionFactory.getCurrentSession()
+                .createCriteria(TrainerNote.class)
+                    .add(Restrictions.eq("trainer", trainerId))
+                    .add(Restrictions.eq("week", weekId))
+                .uniqueResult();
+        return trainerNoteForWeek;
+    }
 
 }

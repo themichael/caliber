@@ -8,9 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Controller for Assessments, will perform actions to the DB depending on the uri endpoint accessed
+ */
 @RestController    // infers @ResponseBody on all methods && @Controller
 @CrossOrigin(origins = {"*"},
         methods = { RequestMethod.GET,
@@ -21,9 +23,15 @@ import java.util.Set;
         maxAge = 10)
 public class AssessmentController {
 
+    /**
+     * Business delegate object to call methods on
+     */
     private BusinessDelegate delegate;
 
-    //Spring setter based DI
+    /**
+     * Spring setter based Dependency Injection
+     * @param delegate the BusinessDelegate to be injected
+     */
     @Autowired
     public void setDelegate(BusinessDelegate delegate) {
         this.delegate = delegate;
@@ -31,6 +39,10 @@ public class AssessmentController {
 
 //    Get
     // getAllAssessments
+    /**
+     * Returns a set of all Assessments
+     * @return a ResponseEntity containing a Set of Assessments and a HttpStatus
+     */
     @RequestMapping(
             value = "/assessment/all",
             method = RequestMethod.GET,
@@ -44,6 +56,12 @@ public class AssessmentController {
     }
 
     // getAssessmentById
+    /**
+     * Returns an Assessment with the specified ID,
+     * sends a HTTP NOT FOUND status if not found
+     * @param id the Assessment ID
+     * @return the Assessment with the specified ID
+     */
     @RequestMapping(
             value = "/assessment/{id}",
             method = RequestMethod.GET,
@@ -56,24 +74,13 @@ public class AssessmentController {
         return new ResponseEntity<>(assessment, HttpStatus.OK);
     }
 
-    /*   
-     * 	TODO reconsider how to approach this implementation.
-     * 		 data resides in another service, so you cannot query this way
-    // getAssessmentsByTrainerId
-    @RequestMapping(
-            value = "/assessment/trainer{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Assessment>> getByTrainerId(@PathVariable("id") int id) {
-        Set<Assessment> assessments = delegate.getAssessmentsByTrainerId(id);
-        if (assessments == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(assessments, HttpStatus.OK);
-    }
-    */
-
     // getAssessmentsByWeekId
+    /**
+     * Returns an Assessment with specified Week Id,
+     * sends a HTTP NOT FOUND status if nothing is found
+     * @param id the Week ID
+     * @return ResponseEntity containing a set of Assessments and a HttpStatus
+     */
     @RequestMapping(
             value = "/assessment/week{id}",
             method = RequestMethod.GET,
@@ -86,20 +93,12 @@ public class AssessmentController {
         return new ResponseEntity<>(assessments, HttpStatus.OK);
     }
 
-    //  getAssessmentsByBatchId
-    @RequestMapping(
-            value = "/assessment/batch{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Assessment>> getByBatchId(@PathVariable("id") int id) {
-        Set<Assessment> assessments = delegate.getAssessmentsByBatchId(id);
-        if (assessments == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(assessments, HttpStatus.OK);
-    }
-
 //    Create
+    /**
+     * Creates a new Assessment in the database
+     * @param assessment the Assessment to be inserted
+     * @return ResponseEntity with HttpStatus indicating success
+     */
     //POST is used over PUT since we are not specifying specific assessment url
     @RequestMapping(
             value = "/assessment/new",
@@ -111,6 +110,11 @@ public class AssessmentController {
     }
 
 //    Update
+    /**
+     * Updates an Assessment in the database with supplied
+     * @param assessment the Assessment with data to update matching Assessment in database
+     * @return ResponseEntity with HttpStatus indicating update status
+     */
     @RequestMapping(
             value = "/assessment/update",
             method = RequestMethod.POST,
@@ -121,6 +125,11 @@ public class AssessmentController {
     }
 
 //    Delete
+    /**
+     * Deletes Assessment in database matching supplied Assessment
+     * @param assessment the Assessment to be deleted
+     * @return ResponseEntity with HttpStatus indicating deletion status
+     */
     @RequestMapping(
             value = "/assessment/delete",
             method = RequestMethod.DELETE,
