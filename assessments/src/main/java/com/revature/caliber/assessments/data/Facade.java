@@ -3,6 +3,7 @@ package com.revature.caliber.assessments.data;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.Note;
 import com.revature.caliber.assessments.beans.TrainerNote;
 
 import java.util.List;
@@ -135,4 +136,19 @@ public interface Facade {
      */
     void updateGrade(Grade grade);
 
+    
+    //Note
+	/**
+	 * 
+	 * Return a single note
+	 * 
+	 */
+    Note getNote(String note);
+	
+	/**
+	 * 
+	 * Return a list of all notes
+	 * 
+	 */
+	List<Note> getAllNotes();
 }
