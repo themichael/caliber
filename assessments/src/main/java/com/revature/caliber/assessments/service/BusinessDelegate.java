@@ -13,15 +13,7 @@ public interface BusinessDelegate {
 
     Assessment getAssessmentById(int id);
 
-    /*   
-     * 	TODO reconsider how to approach this implementation.
-     * 		 data resides in another service, so you cannot query this way
-    Set<Assessment> getAssessmentsByTrainerId(int id);
-    */
-
     Set<Assessment> getAssessmentsByWeekId(int id);
-
-    Set<Assessment> getAssessmentsByBatchId(int id);
 
     void insertAssessment(Assessment assessment);
 
@@ -40,7 +32,7 @@ public interface BusinessDelegate {
  	/**
  	 * Returns a grade object given a specific gradeId
  	 */
- 	Grade getGradeByGradeId(int gradeId);
+ 	Grade getGradeByGradeId(long gradeId);
 
  	/**
  	 * Returns a list of grades of a specific trainee based on traineeId as an
@@ -56,7 +48,7 @@ public interface BusinessDelegate {
  	 * 
  	 * @param assessmentId
  	 */
- 	List<Grade> getGradesByAssesessment(int assessmentId);
+ 	List<Grade> getGradesByAssesessment(long assessmentId);
 
  	// Insert
  	/**

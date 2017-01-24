@@ -25,13 +25,11 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
 //    Get
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     public Assessment getById(long id) {
         return (Assessment) sessionFactory.getCurrentSession().get(Assessment.class, id);
     }
 
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     @SuppressWarnings("unchecked")
     public Set<Assessment> getAll() {
         return new HashSet<>(
@@ -39,21 +37,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
                         .createCriteria(Assessment.class).list());
     }
 
-/*   
- * 	TODO reconsider how to approach this implementation.
- * 		 data resides in another service, so you cannot query this way
- *  @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
-    @SuppressWarnings("unchecked")
-    public Set<Assessment> getByTrainerId(long id) {
-        return new HashSet<>(
-                sessionFactory.getCurrentSession()
-                        .createCriteria(Assessment.class)
-                        .add(Restrictions.eq("trainer", id)).list());
-    }*/
-
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     @SuppressWarnings("unchecked")
     public Set<Assessment> getByWeekId(long id) {
         return new HashSet<>(
@@ -62,26 +46,14 @@ public class AssessmentDAOImpl implements AssessmentDAO {
                         .add(Restrictions.eq("week", id)).list());
     }
 
-    @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
-    @SuppressWarnings("unchecked")
-    public Set<Assessment> getByBatchId(int id) {
-        return new HashSet<>(
-                sessionFactory.getCurrentSession()
-                        .createCriteria(Assessment.class)
-                        .add(Restrictions.eq("batch", id)).list());
-    }
-
 //    Create
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     public void insert(Assessment assessment) {
         sessionFactory.getCurrentSession().save(assessment);
     }
 
 //    Update
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     public void update(Assessment assessment) {
         sessionFactory.getCurrentSession().update(assessment);
 
@@ -89,7 +61,6 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
 //    Delete
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     public void delete(Assessment assessment) {
         sessionFactory.getCurrentSession().delete(assessment);
     }
