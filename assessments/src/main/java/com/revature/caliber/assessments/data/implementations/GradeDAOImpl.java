@@ -34,7 +34,7 @@ public class GradeDAOImpl implements GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public void insertGrade(Grade grade) {
-		sessionFactory.getCurrentSession().saveOrUpdate(grade);
+		sessionFactory.getCurrentSession().save(grade);
 	}
 
 	@Override
@@ -112,9 +112,10 @@ public class GradeDAOImpl implements GradeDAO {
 //				.add(Projections.groupProperty("assessment.assessmentId"))
 //				);
 		ProjectionList pjlist = Projections.projectionList();
-		pjlist.add(Projections.avg("score"));
 		//pjlist.add(Projections.count("assessment.assessmentId"));
 		pjlist.add(Projections.groupProperty("assessment.assessmentId"));
+		pjlist.add(Projections.avg("score"));
+
 		criteria.setProjection(pjlist);
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return (List<Grade>) criteria.list();

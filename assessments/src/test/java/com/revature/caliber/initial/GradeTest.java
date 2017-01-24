@@ -9,16 +9,19 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.data.AssessmentDAO;
 import com.revature.caliber.assessments.data.GradeDAO;
+import com.revature.caliber.assessments.service.AssessmentService;
 
 public class GradeTest {
 
-	private static ApplicationContext ctxt;
+	private static AbstractApplicationContext ctxt;
+	private AssessmentService assessmentService;
 
 	@BeforeClass
 	public static void setup() {
@@ -61,17 +64,14 @@ public class GradeTest {
 		
 	}
 	
+	
 	@Ignore
 	@Test
 	public void insertGrade() {
-		// Grade grade = new Grade(gradeId, assessment, trainee, dateReceived,
-		// score);
-		// ctxt.getBean(GradeDAOImpl.class).createGrade(grade);
-		Assessment assessment = ctxt.getBean(AssessmentDAO.class).getById(4100);
-
+		Assessment assessment = ctxt.getBean(AssessmentService.class).getById(4200);
 	    Calendar currenttime = Calendar.getInstance();
 	    Date date = new Date((currenttime.getTime()).getTime());
-		Grade grade = new Grade(assessment, 1, date, 75);
+		Grade grade = new Grade(assessment, 1, date, 60);
 		ctxt.getBean(GradeDAO.class).insertGrade(grade);
 	}
 
