@@ -74,8 +74,8 @@ public class TrainerController {
 	}
 
 	/**
-     * Get a list of trainers by name by making a GET request to the URL
-     * @param: name as part of URL
+     * Get a list of trainers by email by making a GET request to the URL
+     * @param: email as part of URL
      * @return Response with trainer object and/or status
      */
 	@RequestMapping(value = "trainers/byemail/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

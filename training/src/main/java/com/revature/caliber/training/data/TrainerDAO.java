@@ -22,6 +22,11 @@ public interface TrainerDAO {
 	 */
 	Trainer getTrainer(Integer id);
 	
+	/**
+	 * Gets a trainer by email
+	 * @param email: email of the trainer
+	 * @return: Trainer object
+	 */
 	Trainer getTrainer(String email);
 	
 	/**
