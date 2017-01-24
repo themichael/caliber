@@ -4,6 +4,7 @@ import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.beans.QCNote;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
