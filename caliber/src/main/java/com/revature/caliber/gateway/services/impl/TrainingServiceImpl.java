@@ -19,6 +19,9 @@ public class TrainingServiceImpl implements TrainingService{
 	private String hostname; 
 	private String portNumber;
 	private String allBatchesForTrainer;
+	//paths for trainee (look at beans.xml for the paths themselves)
+	private String addTraineePath, updateTraineePath, deleteTraineePath, getTraineeByIdPath, getTraineeByNamePath,
+			getTraineesByBatchPath;
 	
 	@Override
 	public List<Batch> getBatches(Trainer trainer) {
@@ -42,11 +45,12 @@ public class TrainingServiceImpl implements TrainingService{
 		}
 	}
 
+	//Trainee------------------------------------------------------------
 	@Override
 	public void createTrainee(Trainee trainee) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("").path("")
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addTraineePath)
 				.build().toUriString();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -54,33 +58,110 @@ public class TrainingServiceImpl implements TrainingService{
 		HttpEntity<Trainee> entity = new HttpEntity<>(trainee, headers);
 
 		//Invoke the service
-		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, );
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Trainee could not be created");
+		}
 	}
 
 	@Override
 	public void updateTrainee(Trainee trainee) {
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTraineePath)
+				.build().toUriString();
 
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.postForEntity(URI, trainee, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Trainer could not be updated");
+		}
 	}
 
 	@Override
 	public Trainee getTrainee(Integer id) {
-		return null;
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineeByIdPath)
+				.path(id.toString())
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Failed to retrieve the trainee by id.");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public Trainee getTrainee(String name) {
-		return null;
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineeByNamePath)
+				.path(name)
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Failed to retrieve the trainee by name.");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Trainee> getTraineesInBatch(Integer batchId) {
-		return null;
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineesByBatchPath)
+				.path(batchId.toString())
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Trainee[]> response = service.getForEntity(URI, Trainee[].class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Failed to retrieve trainees by batch.");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return Arrays.asList(response.getBody());
+		}
+		else {
+			return new ArrayList<>();
+		}
 	}
 
 	@Override
 	public void deleteTrainee(Trainee trainee) {
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteTraineePath)
+				.build().toUriString();
 
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<Trainee> entity = new HttpEntity<>(trainee, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Trainee could not be deleted");
+		}
 	}
+	//End of Trainee -------------------------------------------------------------------------------
 
 	/////////// SETTERS ////////////////
 	public void setHostname(String hostname) {
@@ -92,4 +173,13 @@ public class TrainingServiceImpl implements TrainingService{
 	public void setAllBatchesForTrainer(String allBatchesForTrainer) {
 		this.allBatchesForTrainer = allBatchesForTrainer;
 	}
+
+	//Trainee
+	public void setAddTraineePath(String addTraineePath) { this.addTraineePath = addTraineePath; }
+	public void setUpdateTraineePath(String updateTraineePath) { this.updateTraineePath = updateTraineePath; }
+	public void setDeleteTraineePath(String deleteTraineePath) { this.deleteTraineePath = deleteTraineePath; }
+	public void setGetTraineeByIdPath(String getTraineeByIdPath) { this.getTraineeByIdPath = getTraineeByIdPath; }
+	public void setGetTraineeByNamePath(String getTraineeByNamePath) { this.getTraineeByNamePath = getTraineeByNamePath; }
+	public void setGetTraineesByBatchPath(String getTraineesByBatchPath) { this.getTraineesByBatchPath = getTraineesByBatchPath; }
+	//end of Trainee
 }
