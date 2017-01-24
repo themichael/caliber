@@ -9,21 +9,21 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "qcStatusDAO")
 public class QCStatusDAOImpl implements QCStatusDAO {
 
-	SessionFactory sessionFactory;
+    SessionFactory sessionFactory;
 
-	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-	@Override
-	public void getAll() {
+    @Override
+    public void getAll() {
 
-	}
+    }
 
-	@Override
-	public void getByID(short statusId) {
+    @Override
+    public void getByID(short statusId) {
 
-	}
+    }
 
 }
