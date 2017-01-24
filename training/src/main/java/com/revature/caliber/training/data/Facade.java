@@ -39,9 +39,8 @@ public interface Facade {
 	//Trainer methods
 	public void createTrainer(Trainer trainer);
 	public Trainer getTrainer(Integer id);
-	public List<Trainer> getTrainer(String name);
+	public Trainer getTrainer(String email);
 	public List<Trainer> getAllTrainers();
 	public void updateTrainer(Trainer trainer);
-	public void deleteTrainer(Trainer trainer);
 	
 }

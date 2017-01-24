@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import com.revature.caliber.assessments.service.*;
 import java.util.List;
 import java.util.Set;
 
@@ -30,10 +31,10 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     //TODO finish service impl: private QCStatusService qcStatusService;
     private TrainerNoteService trainerNoteService;
 
-//    Assessment
+    //    Assessment
     @Override
-    public HashSet<Assessment> getAllAssessments() {
-        return (HashSet<Assessment>) assessmentService.getAll();
+    public Set<Assessment> getAllAssessments() {
+        return assessmentService.getAll();
     }
 
     @Override
@@ -42,13 +43,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
-        return (HashSet<Assessment>) assessmentService.getByWeekId(id);
-    }
-
-    @Override
-    public HashSet<Assessment> getAssessmentsByBatchId(int id) {
-        return (HashSet<Assessment>) assessmentService.getByBatchId(id);
+    public Set<Assessment> getAssessmentsByWeekId(int id) {
+        return assessmentService.getByWeekId(id);
     }
 
     @Override

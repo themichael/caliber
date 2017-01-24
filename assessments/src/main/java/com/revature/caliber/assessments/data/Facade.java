@@ -16,81 +16,56 @@ import java.util.Set;
 public interface Facade {
 
 //    Assessment
-
     //    Get
-
     /**
-     * Returns HashSet of all Assessments
-     *
-     * @return Set of Assessments
+     * Returns a Set of all Assessments
+     * @return a Set of Assessments
      */
     Set<Assessment> getAllAssessments();
 
     /**
-     * Return Assessment
-     * with AssessmentId
-     *
-     * @return Assessment
+     * Return Assessment with AssessmentId
+     * @return an Assessment
      */
     Assessment getById(int id);
-    
+
     /**
-     * Returns HashSet of Assessments
-     * with WeekId
-     *
-     * @param id
-     * @return Set of Assessments
+     * Returns HashSet of Assessments with WeekId
+     * @param id the Week ID
+     * @return a Set of Assessments
      */
     Set<Assessment> getAssessmentsByWeekId(int id);
 
     //    Create
-
     /**
      * Inserts Assessment
-     *
-     * @param assessment
+     * @param assessment an Assessment to be inserted
      */
     void insertAssessment(Assessment assessment);
 
     //    Update
-
     /**
      * Updates Assessment
-     *
-     * @param assessment
+     * @param assessment an Assessment to be updated
      */
     void updateAssessment(Assessment assessment);
 
     //    Delete
-
     /**
      * Deletes Assessment
-     *
-     * @param assessment
+     * @param assessment and Assessment to delete
      */
     void deleteAssessment(Assessment assessment);
-    
-    //    Batch Note
+
+//    Batch Note
     void makeBatchNote(int batchId, int weekId);
-	
-	BatchNote getWeeklyBatchNote(int batchId, int weekId);	
-	 
-	List<BatchNote> allBatchNotesInWeek(int weekId);
-	
-	
-	//	Trainer Note
-	void makeTrainerNote(int trainerId);
-	
-	List<TrainerNote> listTrainerNotes(int trainerId);
-	
-	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 
-//    Batch
+    BatchNote getWeeklyBatchNote(int batchId, int weekId);
 
-// Grade
+    List<BatchNote> allBatchNotesInWeek(int weekId);
 
+//    Grade
     //Gets
-
     /**
      * Returns a list of all grade entries
      */
@@ -136,7 +111,6 @@ public interface Facade {
      */
     void updateGrade(Grade grade);
 
-    
     //Note
 	/**
 	 * 
@@ -151,4 +125,12 @@ public interface Facade {
 	 * 
 	 */
 	List<Note> getAllNotes();
+
+	
+//	Trainer Note
+	void makeTrainerNote(TrainerNote trainerNote);
+	
+	Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId);
+	
+	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 }

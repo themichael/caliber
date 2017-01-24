@@ -8,9 +8,6 @@ import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -33,8 +30,46 @@ public class FacadeImplementation implements Facade {
     private QCStatusDAO qcStatusDAO;
     private TrainerNoteDAO trainerNoteDAO;
 
+    //  Spring setter based DI
+    @Autowired
+    public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
+        this.assessmentDAO = assessmentDAO;
+    }
 
-//  Organize methods by DAO like Assessment example above, e.g.
+    @Autowired
+    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
+        this.batchNoteDAO = batchNoteDAO;
+    }
+
+    /*    @Autowired
+    public void setCategoryDAO(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
+    }*/
+
+    @Autowired
+    public void setGradeDAO(GradeDAO gradeDAO) {
+        this.gradeDAO = gradeDAO;
+    }
+
+    @Autowired
+    public void setNoteDAO(NoteDAO noteDAO) {
+        this.noteDAO = noteDAO;
+    }
+
+    @Autowired
+    public void setQcNoteDAO(QCNoteDAO qcNoteDAO) {
+        this.qcNoteDAO = qcNoteDAO;
+    }
+
+    @Autowired
+    public void setQcStatusDAO(QCStatusDAO qcStatusDAO) {
+        this.qcStatusDAO = qcStatusDAO;
+    }
+
+    @Autowired
+    public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
+        this.trainerNoteDAO = trainerNoteDAO;
+    }
 
 //  Assessment
     // Get
@@ -136,13 +171,13 @@ public class FacadeImplementation implements Facade {
 //    Trainer
     //TrainerNote Facade Methods
     @Override
-    public void makeTrainerNote(int trainerId) {
-        trainerNoteDAO.createTrainerNote(trainerId);
+    public void makeTrainerNote(TrainerNote trainerNote) {
+        trainerNoteDAO.createTrainerNote(trainerNote);
     }
 
     @Override
-    public List<TrainerNote> listTrainerNotes(int trainerId) {
-        return trainerNoteDAO.getAllTrainerNotesByTrainer(trainerId);
+    public Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId) {
+        return trainerNoteDAO.getTrainerNotesByTrainerId(trainerId);
     }
 
     @Override
@@ -160,51 +195,5 @@ public class FacadeImplementation implements Facade {
 	public List<Note> getAllNotes() {
 		return noteDAO.getAllNotes();
 	}
-
-
-
-
-
-
-//  Spring setter based DI
-    @Autowired
-    public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
-        this.assessmentDAO = assessmentDAO;
-    }
-
-    @Autowired
-    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
-        this.batchNoteDAO = batchNoteDAO;
-    }
-
-/*    @Autowired
-    public void setCategoryDAO(CategoryDAO categoryDAO) {
-        this.categoryDAO = categoryDAO;
-    }*/
-
-    @Autowired
-    public void setGradeDAO(GradeDAO gradeDAO) {
-        this.gradeDAO = gradeDAO;
-    }
-
-    @Autowired
-    public void setNoteDAO(NoteDAO noteDAO) {
-        this.noteDAO = noteDAO;
-    }
-
-    @Autowired
-    public void setQcNoteDAO(QCNoteDAO qcNoteDAO) {
-        this.qcNoteDAO = qcNoteDAO;
-    }
-
-    @Autowired
-    public void setQcStatusDAO(QCStatusDAO qcStatusDAO) {
-        this.qcStatusDAO = qcStatusDAO;
-    }
-
-    @Autowired
-    public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
-        this.trainerNoteDAO = trainerNoteDAO;
-    }
 
 }
