@@ -1,38 +1,31 @@
-angular.module("charts").factory("pieChartFactory", function ($log) {
-    var lineChart = {};
+angular.module("charts").factory("pieChartFactory", function($log) {
+	$log.debug("Booted Pie Chart Factory");
+	
+	var pieChart = {};
 
-    /**
-     * Getters and Setters for pie chart objects
-     */
-    // get/ set labels
-    pieChart.setLabels = function (labels) {
-        charts.labels = labels;
-    };
-    pieChart.getLabels = function () {
-        if (!charts.labels)
-            return null;
-        return charts.labels;
-    };
+	pieChart.getTraineeProgressChart = function(dataArray) {
+		var chartData = {};
+		
+		// data and labels
+		chartData.pieData = [];
+		chartData.pieLabels = [];
+				
+		// traverse through array of objects and grab labels and data
+		for (let element of dataArray){
+			chartData.pieData.push(element.average);
+			chartData.pieLabels.push(element.skillCategory);
+		}
+		
+		// set pie options
+		chartData.pieOptions = {
+			legend : {
+				display : true,
+				position : 'left'
+			}
+		};
 
-    // get/ set series
-    pieChart.setSeries = function (series) {
-        charts.series = series;
-    };
-    pieChart.getSeries = function () {
-        if (!charts.series)
-            return null;
-        return charts.series;
-    };
+		return chartData;
+	};
 
-    // get/ set data
-    pieChart.setData = function (data) {
-        charts.data = data;
-    };
-    pieChart.getData = function () {
-        if (!charts.data)
-            return null;
-        return charts.data;
-    };
-
-    return pieChart;
+	return pieChart;
 });
