@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import com.revature.caliber.assessments.beans.TrainerNote;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
+import org.hibernate.criterion.Restrictions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class TrainerNoteDAOImplTest {
 		logger = Logger.getRootLogger();
 		trainerNoteDAO = context.getBean(TrainerNoteDAO.class);
 		logger.debug("Starting TrainerNoteTest");
-		sf = (SessionFactory) context.getBean("sessionFactory");
+		sf = context.getBean(SessionFactory.class);
 		populateTable();
 	}
 
@@ -37,36 +38,32 @@ public class TrainerNoteDAOImplTest {
 	 * Populates table with Assessment used for testing
 	 */
 	private static void populateTable() {
-		//Adding required data
-/*		String note = "Testing note";
-		String sugarNote = "Testing sugar note";
-		TrainerNote trainerNote = new TrainerNote();
-		trainerNote.setTrainer(trainerId);
-		trainerNote.setWeek(weekId);
-		trainerNote.setContent(note);
-		trainerNote.setSugarCoatedContent(sugarNote);*/
-
-		//trainerNoteDAO.createTrainerNote(trainerNote);
-
 		String sql = "";
 
 		sql = "INSERT INTO CALIBER_NOTE(NOTE_ID, NOTE_CONTENT, NOTE_SUGAR)" +
 				" VALUES (?, ?, ?)";
 
-		Query noteq = sf.getCurrentSession().createSQLQuery(sql);
-		noteq.setInteger(1, 3050);
-		noteq.setString(2, "content");
-		noteq.setString(3, "sugar");
+		Session session = sf.openSession();
+		Transaction tx = session.beginTransaction();
+
+		Query noteq = session.createSQLQuery(sql);
+		noteq.setInteger(0, 3050);
+		noteq.setString(1, "content");
+		noteq.setString(2, "sugar");
 		noteq.executeUpdate();
 
-		sql = "INSERT INTO CALIBER_TRAINER_NOTE (TRAINEE_ID, WEEK_ID, NOTE_ID) " +
+		sql = "INSERT INTO CALIBER_TRAINER_NOTE (TRAINER_ID, WEEK_ID, NOTE_ID) " +
 				"VALUES(?, ?, ?)";
 
-		Query trainerNote = sf.getCurrentSession().createSQLQuery(sql);
-		trainerNote.setInteger(1, trainerId);
-		trainerNote.setInteger(2, weekId);
-		trainerNote.setInteger(3, id);
+		Query trainerNote = session.createSQLQuery(sql);
+
+		trainerNote.setInteger(0, trainerId);
+		trainerNote.setInteger(1, weekId);
+		trainerNote.setInteger(2, id);
 		trainerNote.executeUpdate();
+
+		tx.commit();
+		session.close();
 	}
 
 
@@ -90,7 +87,7 @@ public class TrainerNoteDAOImplTest {
 	public void createTrainerNoteTest(){
 		logger.debug("Starting create trainer note");
 
-		String note = "Testing note";
+		String note = "Testing content: this is content 12";
 		String sugarNote = "Testing sugar note";
 
 		TrainerNote trainerNote = new TrainerNote();
@@ -100,6 +97,20 @@ public class TrainerNoteDAOImplTest {
 		trainerNote.setSugarCoatedContent(sugarNote);
 
 		trainerNoteDAO.createTrainerNote(trainerNote);
+
+		//Test if it was created
+		Session session = ((SessionFactory) context.getBean("sessionFactory")).openSession();
+		Criteria criteria = session.createCriteria(TrainerNote.class);
+		criteria.add(Restrictions.eq("content", "Testing content: this is content 12"));
+		TrainerNote newnote = (TrainerNote) criteria.uniqueResult();
+		assertEquals(trainerNote.getNoteId(), newnote.getNoteId());
+		assertEquals(trainerNote.getContent(), newnote.getContent());
+
+		//cleanup
+		Transaction tx = session.beginTransaction();
+		session.delete(newnote);
+		tx.commit();
+		session.close();
 
 		logger.debug("Ending create trainer note");
 	}
@@ -163,7 +174,7 @@ public class TrainerNoteDAOImplTest {
 		logger.debug("Starting deleteTrainerNote = " + id);
 
 		TrainerNote trainerNote = trainerNoteDAO.getTrainerNoteById(id);
-		trainerNoteDAO.updateTrainerNote(trainerNote);
+		trainerNoteDAO.deleteTrainerNote(trainerNote);
 		assertNotNull(trainerNote);
 
 		logger.debug("Ending updateTrainerNote");
