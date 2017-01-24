@@ -18,22 +18,11 @@ import com.revature.caliber.assessments.service.BatchNoteService;
 import com.revature.caliber.assessments.service.BusinessDelegate;
 import com.revature.caliber.assessments.service.GradeService;
 import com.revature.caliber.assessments.service.TrainerNoteService;
-
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.service.AssessmentService;
-import com.revature.caliber.assessments.service.BatchNoteService;
-import com.revature.caliber.assessments.service.BusinessDelegate;
-import com.revature.caliber.assessments.service.GradeService;
-import com.revature.caliber.assessments.service.TrainerNoteService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.revature.caliber.assessments.beans.TrainerNote;
+import com.revature.caliber.assessments.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-
 import java.util.HashSet;
-import com.revature.caliber.assessments.service.*;
 import java.util.List;
 import java.util.Set;
 
@@ -120,6 +109,16 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         gradeService.updateGrade(grade);
     }
 
+    // Trainer Note
+    @Override
+    public void createTrainerNote(TrainerNote note) {trainerNoteService.createTrainerNote(note);}
+    public TrainerNote getTrainerNoteById(Integer trainerNoteId) {return trainerNoteService.getTrainerNoteById(trainerNoteId);}
+    public TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId) {return trainerNoteService.getTrainerNoteForTrainerWeek(trainerId,weekId);}
+    public Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId) {return trainerNoteService.getTrainerNotesByTrainer(trainerId);}
+    public Set<TrainerNote> getTrainerNotesByWeek(Integer weekId) {return trainerNoteService.getTrainerNotesByWeek(weekId);}
+    public void updateTrainerNote(TrainerNote note) {trainerNoteService.updateTrainerNote(note);}
+    public void deleteTrainerNote(TrainerNote note) {trainerNoteService.deleteTrainerNote(note);}
+    // end trainer note
 
     //    Spring setter based DI
     @Autowired
