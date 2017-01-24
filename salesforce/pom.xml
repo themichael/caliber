@@ -178,16 +178,6 @@
 			<artifactId>json</artifactId>
 			<version>20160810</version>
 		</dependency>
-        <dependency>
-            <groupId>com.revature.caliber.services</groupId>
-            <artifactId>training</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.revature.caliber.services</groupId>
-            <artifactId>caliber</artifactId>
-            <version>1.0</version>
-        </dependency>
     </dependencies>
 	<build>
 		<finalName>caliber</finalName>
