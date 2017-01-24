@@ -1,6 +1,24 @@
 package com.revature.caliber.assessments.service.implementations;
 
 
+
+
+import com.revature.caliber.assessments.beans.QCNote;
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.service.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.service.AssessmentService;
+import com.revature.caliber.assessments.service.BatchNoteService;
+import com.revature.caliber.assessments.service.BusinessDelegate;
+import com.revature.caliber.assessments.service.GradeService;
+import com.revature.caliber.assessments.service.TrainerNoteService;
+
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.service.*;
@@ -10,6 +28,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
 
+
 @Component(value = "delegate")
 public class BusinessDelegateImpl implements BusinessDelegate {
 
@@ -18,7 +37,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     //private CategoryService categoryService;
     private GradeService gradeService;
     //TODO finish service impl: private NoteService noteService;
-    //TODO finish service impl: private QCNoteService qcNoteService;
+    private QCNoteService qcNoteService;
     //TODO finish service impl: private QCStatusService qcStatusService;
     private TrainerNoteService trainerNoteService;
 
@@ -117,18 +136,42 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     @Autowired
     public void setNoteService(NoteService noteService) {
         this.noteService = noteService;
-    }
+
+    }*/
     @Autowired
     public void setQcNoteService(QCNoteService qcNoteService) {
         this.qcNoteService = qcNoteService;
     }
-    @Autowired
-    public void setQcStatusService(QCStatusService qcStatusService) {
-        this.qcStatusService = qcStatusService;
-    }*/
+    /*
+        @Autowired
+        public void setQcStatusService(QCStatusService qcStatusService) {
+            this.qcStatusService = qcStatusService;
+        }*/
     @Autowired
     public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
         this.trainerNoteService = trainerNoteService;
     }
 
+    //QC Note -------------------
+    @Override
+    public void createQCNote(QCNote note) { qcNoteService.createQCNote(note); }
+
+    @Override
+    public QCNote getQCNoteById(Integer QCNoteId) { return qcNoteService.getQCNoteById(QCNoteId); }
+
+    @Override
+    public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) { return qcNoteService.getQCNoteForTraineeWeek(traineeId, weekId); }
+
+    @Override
+    public List<QCNote> getQCNotesByTrainee(Integer traineeId) { return qcNoteService.getQCNotesByTrainee(traineeId); }
+
+    @Override
+    public List<QCNote> getQCNotesByWeek(Integer weekId) { return qcNoteService.getQCNotesByWeek(weekId); }
+
+    @Override
+    public void updateQCNote(QCNote note) { qcNoteService.updateQCNote(note); }
+
+    @Override
+    public void deleteQCNote(QCNote note) { qcNoteService.deleteQCNote(note); }
+    //end QCNote ---------------------
 }
