@@ -55,19 +55,19 @@ angular.module("trainer").controller(
 			
 			// line chart function that retrieves
 			// Week by week progression for a trainee/ batch on a line chart
-			var chartObject = lineChartFactory.getTraineeProgressChart(sampleData);
-			$scope.lineLabels = chartObject.lineLabels;
-			$scope.lineSeries = chartObject.lineSeries;
-			$scope.lineData = chartObject.lineData;
-			$scope.lineDatasetOverride = chartObject.lineDatasetOverride;
-			$scope.lineOptions = chartObject.lineOptions;
+			var lineChartObject = lineChartFactory.getTraineeProgressChart(sampleData);
+			$scope.lineLabels = lineChartObject.lineLabels;
+			$scope.lineSeries = lineChartObject.lineSeries;
+			$scope.lineData = lineChartObject.lineData;
+			$scope.lineDatasetOverride = lineChartObject.lineDatasetOverride;
+			$scope.lineOptions = lineChartObject.lineOptions;
 
 			// pie chart function that retrieves 
 			// data for batch/ trainee technology strengths
-			var chartObject = pieChartFactory.getTraineeProgressChart(samplePieData);
-			$scope.pieLabels = chartObject.pieLabels;
-			$scope.pieData = chartObject.pieData;
-			$scope.pieOptions = chartObject.pieOptions;
+			var pieChartObject = pieChartFactory.getTraineeProgressChart(samplePieData);
+			$scope.pieLabels = pieChartObject.pieLabels;
+			$scope.pieData = pieChartObject.pieData;
+			$scope.pieOptions = pieChartObject.pieOptions;
 			
 			// Horizontal bar chart for trainee averages per technology
 			$scope.hbarLabels = [ 'Kyle', 'Osher', 'Rikki', 'Dan', 'Pickles' ];

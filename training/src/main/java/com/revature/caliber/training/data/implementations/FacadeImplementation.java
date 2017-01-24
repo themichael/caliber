@@ -110,15 +110,12 @@ public class FacadeImplementation implements Facade {
     public Trainer getTrainer(Integer id) {return trainerDAO.getTrainer(id);}
     
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public List<Trainer> getTrainer(String name) {return trainerDAO.getTrainer(name);}
+    public Trainer getTrainer(String email) {return trainerDAO.getTrainer(email);}
     
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public List<Trainer> getAllTrainers() {return trainerDAO.getAllTrainers();}
     
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public void updateTrainer(Trainer trainer) {trainerDAO.updateTrainer(trainer);}
-    
-    @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public void deleteTrainer(Trainer trainer) {trainerDAO.deleteTrainer(trainer);}
     //End Trainer
 }
