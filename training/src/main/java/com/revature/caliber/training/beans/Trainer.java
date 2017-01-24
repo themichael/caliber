@@ -51,7 +51,7 @@ public class Trainer {
 	/**
 	 * Email of the Trainer
 	 */
-	@Column(name="EMAIL", nullable=false)
+	@Column(name="EMAIL", nullable=false, unique=true)
 	@Email
 	@NotNull
 	private String email;

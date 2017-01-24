@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service(value = "trainerNoteService")
@@ -22,13 +23,13 @@ public class TrainerNoteServiceImpl implements TrainerNoteService {
 
 
     @Override
-    public void createTrainerNote(int trainerId) {
-        facade.makeTrainerNote(trainerId);
+    public void createTrainerNote(TrainerNote trainerNote) {
+        facade.makeTrainerNote(trainerNote);
     }
 
     @Override
-    public List<TrainerNote> getAllNotesByTrainer(int trainerId) {
-        return facade.listTrainerNotes(trainerId);
+    public Set<TrainerNote> getAllNotesByTrainer(int trainerId) {
+        return facade.getTrainerNoteByTrainerId(trainerId);
     }
 
     @Override

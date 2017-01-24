@@ -29,8 +29,8 @@ public class TrainerServiceImplementation implements TrainerService {
 	}
 
 	@Override
-	public List<Trainer> getTrainer(String name) {
-		return facade.getTrainer(name);
+	public Trainer getTrainer(String email) {
+		return facade.getTrainer(email);
 	}
 
 	@Override
@@ -41,11 +41,6 @@ public class TrainerServiceImplementation implements TrainerService {
 	@Override
 	public void updateTrainer(Trainer trainer) {
 		facade.updateTrainer(trainer);
-	}
-
-	@Override
-	public void deleteTrainer(Trainer trainer) {
-		facade.deleteTrainer(trainer);
 	}
 
 }
