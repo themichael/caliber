@@ -21,20 +21,11 @@ public class TrainerNoteServiceImpl implements TrainerNoteService {
         this.facade = facade;
     }
 
-
-    @Override
-    public void createTrainerNote(TrainerNote trainerNote) {
-        facade.makeTrainerNote(trainerNote);
-    }
-
-    @Override
-    public Set<TrainerNote> getAllNotesByTrainer(int trainerId) {
-        return facade.getTrainerNoteByTrainerId(trainerId);
-    }
-
-    @Override
-    public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
-        return facade.getTrainerNoteForWeek(trainerId, weekId);
-    }
-
+    public void createTrainerNote(TrainerNote note) {facade.createTrainerNote(note);}
+    public TrainerNote getTrainerNoteById(Integer trainerNoteId) {return facade.getTrainerNoteById(trainerNoteId);}
+    public TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId) {return facade.getTrainerNoteForTrainerWeek(trainerId, weekId);}
+    public Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId) {return facade.getTrainerNotesByTrainer(trainerId);}
+    public Set<TrainerNote> getTrainerNotesByWeek(Integer weekId) {return facade.getTrainerNotesByWeek(weekId);}
+    public void updateTrainerNote(TrainerNote note) {facade.updateTrainerNote(note);}
+    public void deleteTrainerNote(TrainerNote note) {facade.deleteTrainerNote(note);}
 }

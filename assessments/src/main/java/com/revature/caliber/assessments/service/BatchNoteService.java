@@ -6,9 +6,11 @@ import com.revature.caliber.assessments.beans.BatchNote;
 
 public interface BatchNoteService {
 
-	void makeBatchNote(int batchId, int weekId);
+	void createBatchNote(BatchNote batchNote);
 	
 	BatchNote weeklyBatchNote(int batchId, int weekId);	
 	
 	List<BatchNote> allBatchNotesInWeek(int weekId);
+	
+	void updateBatchNote(BatchNote batchNote);
 }
