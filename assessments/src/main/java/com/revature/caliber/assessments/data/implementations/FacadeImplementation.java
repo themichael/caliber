@@ -7,9 +7,6 @@ import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -173,13 +170,13 @@ public class FacadeImplementation implements Facade {
 //    Trainer
     //TrainerNote Facade Methods
     @Override
-    public void makeTrainerNote(int trainerId) {
-        trainerNoteDAO.createTrainerNote(trainerId);
+    public void makeTrainerNote(TrainerNote trainerNote) {
+        trainerNoteDAO.createTrainerNote(trainerNote);
     }
 
     @Override
-    public List<TrainerNote> listTrainerNotes(int trainerId) {
-        return trainerNoteDAO.getAllTrainerNotesByTrainer(trainerId);
+    public Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId) {
+        return trainerNoteDAO.getTrainerNotesByTrainerId(trainerId);
     }
 
     @Override

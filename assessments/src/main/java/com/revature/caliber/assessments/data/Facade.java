@@ -111,9 +111,9 @@ public interface Facade {
     void updateGrade(Grade grade);
 
 //	Trainer Note
-	void makeTrainerNote(int trainerId);
+	void makeTrainerNote(TrainerNote trainerNote);
 	
-	List<TrainerNote> listTrainerNotes(int trainerId);
+	Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId);
 	
 	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 
