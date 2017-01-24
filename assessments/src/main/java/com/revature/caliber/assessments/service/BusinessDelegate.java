@@ -1,6 +1,7 @@
 package com.revature.caliber.assessments.service;
 
 import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.beans.QCNote;
 
@@ -108,4 +109,31 @@ public interface BusinessDelegate {
 	void updateQCNote(QCNote note);
 	void deleteQCNote(QCNote note);
 	//QCNote end
+	
+	//Batch Note
+	
+	/**
+	 * Create a batchNote 
+	 */
+	void makeBatchNote(BatchNote batchNote);
+	
+	/**
+	 * Get the batch note within a given week corresponding to a specific batch 
+	 */
+	BatchNote weeklyBatchNote(int batchId, int weekId);	
+	
+	/**
+	 * Get a list of all BatchNotes within a given week
+	 * provided that multiple batches are training simultaneously
+	 */
+	List<BatchNote> allBatchNotesInWeek(int weekId);
+	
+	/**
+	 * Update a BatchNote  
+	 */
+	void updateBatchNote(BatchNote batchNote);
+	
+	
+	// Trainer Note
+	
 }

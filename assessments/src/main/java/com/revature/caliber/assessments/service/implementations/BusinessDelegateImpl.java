@@ -176,27 +176,25 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     public void deleteQCNote(QCNote note) { qcNoteService.deleteQCNote(note); }
     //end QCNote ---------------------
 
+    
+    //BatchNote 
 	@Override
 	public void makeBatchNote(BatchNote batchNote) {
-		// TODO Auto-generated method stub
-		
+		batchNoteService.createBatchNote(batchNote);
 	}
 
 	@Override
 	public BatchNote weeklyBatchNote(int batchId, int weekId) {
-		// TODO Auto-generated method stub
-		return null;
+		return batchNoteService.weeklyBatchNote(batchId, weekId);
 	}
 
 	@Override
 	public List<BatchNote> allBatchNotesInWeek(int weekId) {
-		// TODO Auto-generated method stub
-		return null;
+		return batchNoteService.allBatchNotesInWeek(weekId);
 	}
 
 	@Override
 	public void updateBatchNote(BatchNote batchNote) {
-		// TODO Auto-generated method stub
-		
+		batchNoteService.updateBatchNote(batchNote);
 	}
 }
