@@ -78,7 +78,7 @@ public interface BusinessDelegate {
  	 * 
  	 * @param assessmentId
  	 */
- 	List<Grade> getGradesByAssesessment(long assessmentId);
+ 	List<Grade> getGradesByAssessment(long assessmentId);
 
  	// Insert
  	/**

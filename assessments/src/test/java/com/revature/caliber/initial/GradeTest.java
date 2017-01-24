@@ -25,36 +25,42 @@ public class GradeTest {
 		ctxt = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
 	}
 
-	
 	@Ignore
+	@Test
 	public void getAllGrades() {
 		List<Grade> grades = ctxt.getBean(GradeDAO.class).getAllGrades();
 		System.out.println(grades.toString());
 	}
 
-	@Test
 	@Ignore
+	@Test
 	public void getGradeByGradeId(){
-		Grade grade = ctxt.getBean(GradeDAO.class).getGradeByGradeId(1);
+		Grade grade = ctxt.getBean(GradeDAO.class).getGradeByGradeId(150);
 		System.out.println(grade);
 	}
-	@Ignore
+
 	@Test
 	public void getGradesByTraineeId() {
 		List<Grade> grades = ctxt.getBean(GradeDAO.class).getGradesByTraineeId(1);
 		System.out.println(grades);
 	}
 
-	@Ignore
+	
 	@Test
 	public void getGradeByAssessment() {
-		List<Grade> grades = ctxt.getBean(GradeDAO.class).getGradesByAssesessment(1);
+		List<Grade> grades = ctxt.getBean(GradeDAO.class).getGradesByAssessment(4100);
 		System.out.println(grades);
 	}
 
 
-	// TODO Add actual grade
 
+	@Test
+	public void getavgGradeofTrainee(){
+		List<Grade> grades = ctxt.getBean(GradeDAO.class).avgGradesOfAssessment();
+		System.out.println("grades " + grades);
+		
+	}
+	
 	@Ignore
 	@Test
 	public void insertGrade() {

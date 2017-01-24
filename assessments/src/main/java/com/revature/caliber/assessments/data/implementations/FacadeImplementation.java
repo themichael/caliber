@@ -143,8 +143,8 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public List<Grade> getGradesByAssesessment(long assessmentId) {
-        return gradeDAO.getGradesByAssesessment(assessmentId);
+    public List<Grade> getGradesByAssessment(long assessmentId) {
+        return gradeDAO.getGradesByAssessment(assessmentId);
     }
 
     //Insert
