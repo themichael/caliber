@@ -1,14 +1,15 @@
 package com.revature.caliber.assessments.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.revature.caliber.assessments.beans.TrainerNote;
 
 public interface TrainerNoteService {
 	
-	void createTrainerNote(int trainerId);
+	void createTrainerNote(TrainerNote trainerNote);
 	
-	List<TrainerNote> getAllNotesByTrainer(int trainerId);
+	Set<TrainerNote> getAllNotesByTrainer(int trainerId);
 	
 	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 

@@ -1,19 +1,14 @@
 package com.revature.caliber.assessments.service.implementations;
 
 
-import java.util.HashSet;
-import java.util.List;
-
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.service.AssessmentService;
-import com.revature.caliber.assessments.service.BatchNoteService;
-import com.revature.caliber.assessments.service.BusinessDelegate;
-import com.revature.caliber.assessments.service.GradeService;
-import com.revature.caliber.assessments.service.TrainerNoteService;
+import java.util.List;
+import java.util.Set;
 
 @Component(value = "delegate")
 public class BusinessDelegateImpl implements BusinessDelegate {
@@ -27,10 +22,10 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     //TODO finish service impl: private QCStatusService qcStatusService;
     private TrainerNoteService trainerNoteService;
 
-//    Assessment
+    //    Assessment
     @Override
-    public HashSet<Assessment> getAllAssessments() {
-        return (HashSet<Assessment>) assessmentService.getAll();
+    public Set<Assessment> getAllAssessments() {
+        return assessmentService.getAll();
     }
 
     @Override
@@ -39,8 +34,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
-        return (HashSet<Assessment>) assessmentService.getByWeekId(id);
+    public Set<Assessment> getAssessmentsByWeekId(int id) {
+        return assessmentService.getByWeekId(id);
     }
 
     @Override
