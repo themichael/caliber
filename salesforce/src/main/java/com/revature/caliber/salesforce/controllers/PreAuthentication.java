@@ -89,6 +89,15 @@ public class PreAuthentication {
             Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
 
+            switch(trainer.get(0).getTier().getTierId()){
+                case 1:
+                    return "redirect:/vp/home";
+                case 2:
+                    return "redirect:/qc/home";
+                case 3:
+                    return "redirect:/trainer/home";
+            }
+
 
         } catch (UnsupportedEncodingException e1) {
             e1.printStackTrace();
@@ -97,7 +106,7 @@ public class PreAuthentication {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-            return "redirect:/vp/home";
+        return null;
 
     }
 
