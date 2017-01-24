@@ -13,28 +13,49 @@ angular.module("vp").controller(
 			$log.log("Get Current Batch with Id: ");
 			$log.log(delegateFactory.vp.getCurrentBatch(5));
 			
-			// Dropdown menu selection
+			// UI - Dropdown menu selection
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
 			$scope.tech = [ "Spring", "Hibernate", "JSP" ];
 			$scope.trainees = [ "Osher", "Kyle", "Rikki" ];
 			
-      $scope.currentBatch = $scope.batches[0];
+			$scope.currentBatch = $scope.batches[0];
 			
-			$scope.currentTech = "Technology";
+			$scope.currentTech = "Select";
 				
-			$scope.currentTrainee = "Trainee";
+			$scope.currentTrainee = "Select";
 			
 			$scope.selectCurrentBatch = function(index){
 				$scope.currentBatch = $scope.batches[index];
+				
 			};
 			
 			$scope.selectCurrentTech = function(index){
-				$scope.currentTech = $scope.tech[index];
+				if(index == -1)
+					$scope.currentTech = "Select";
+				else{
+					$scope.currentTech = $scope.tech[index];
+					// select chart
+				}
 			};
 			
+			
+			
+			
 			$scope.selectCurrentTrainee = function(index){
-				$scope.currentTrainee = $scope.trainees[index];
+				if(index == -1)
+					$scope.currentTrainee = "Select";
+				else{
+					$scope.currentTrainee = $scope.trainees[index];
+					// select chart
+				}
 			};
+			
+			$scope.hideTraineeTab = function(index){
+				if($scope.currentTech == "Select"){
+					return false;
+				}
+				return true;
+			}
 
 			// batch rank comparison - radar chart
 			$scope.batchRankLabels = [ "Java", "Servlet", "Spring",
