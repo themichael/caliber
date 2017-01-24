@@ -37,4 +37,8 @@ public class TrainerNoteServiceImpl implements TrainerNoteService {
         return facade.getTrainerNoteForWeek(trainerId, weekId);
     }
 
+    @Override
+    public void updateTrainerNote(TrainerNote trainerNote) {
+
+    }
 }

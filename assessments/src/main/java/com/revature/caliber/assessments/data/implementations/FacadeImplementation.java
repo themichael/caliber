@@ -184,4 +184,8 @@ public class FacadeImplementation implements Facade {
         return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
     }
 
+    @Override
+    public void updateTrainerNote(TrainerNote trainerNote) {
+        trainerNoteDAO.updateTrainerNote(trainerNote);
+    }
 }

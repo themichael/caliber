@@ -28,10 +28,9 @@ public class TrainerNoteController {
     }
 
     //Create
-    //POST is used over PUT since we are not specifying specific trainerNote url
     @RequestMapping(
             value = "/trainerNote/new",
-            method = RequestMethod.POST,
+            method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createAssessment(@RequestBody TrainerNote trainerNote) {
         delegate.createTrainerNote(trainerNote);
@@ -50,17 +49,28 @@ public class TrainerNoteController {
         }
         return new ResponseEntity<Set<TrainerNote>>(trainerNote, HttpStatus.OK);
     }
-/*
+
     // getTrainerNoteForWeek
     @RequestMapping(
-            value = "/trainerNote/{id}/{id}",
+            value = "/trainerNote/{trainerId}{weekId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<TrainerNote>> getTrainerNoteForWeek (@PathVariable("trainerId") int trainerId, @PathVariable("weekId") int weekId) {
-        Set<TrainerNote> trainerNote = delegate.getTrainerNoteForWeek(trainerId, weekId);
+    public ResponseEntity<TrainerNote> getTrainerNoteForWeek (@PathVariable("trainerId") int trainerId, @PathVariable("weekId") int weekId) {
+        TrainerNote trainerNote = delegate.getTrainerNoteForWeek(trainerId, weekId);
         if (trainerNote == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Set<TrainerNote>>(trainerNote, HttpStatus.OK);
-    }*/
+        return new ResponseEntity<TrainerNote>(trainerNote, HttpStatus.OK);
+    }
+
+    //Update
+    @RequestMapping(
+            value = "/trainerNote/update",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateAssessment(@RequestBody TrainerNote trainerNote) {
+        delegate.updateTrainerNote(trainerNote);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
 }

@@ -111,12 +111,31 @@ public interface Facade {
     void updateGrade(Grade grade);
 
 //	Trainer Note
+
+    /**
+     * Create a trainer note
+     * @param trainerNote
+     */
 	void makeTrainerNote(TrainerNote trainerNote);
-	
+
+    /**
+     * get trainer note
+     * @param trainerId
+     * @return
+     */
 	Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId);
-	
+
+    /**
+     * get trainer note for that week
+     * @param trainerId
+     * @param weekId
+     * @return
+     */
 	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 
-
-
+    /**
+     * update trainer note
+     * @param trainerNote
+     */
+    void updateTrainerNote(TrainerNote trainerNote);
 }

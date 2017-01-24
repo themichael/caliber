@@ -23,5 +23,6 @@ public interface TrainerNoteDAO {
 	
 	//Get a TrainerNote from a Trainer for a specific week
 	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
-	
+
+	void updateTrainerNote(TrainerNote trainerNote);
 }

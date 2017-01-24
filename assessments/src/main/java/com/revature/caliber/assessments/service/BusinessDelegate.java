@@ -115,10 +115,13 @@ public interface BusinessDelegate {
 	Set<TrainerNote> getAllNotesByTrainer(int trainerId);
 
 	/**
-	 * create notes by trainer
+	 * get notes by trainer
 	 * @param trainerId
 	 * @param weekId
 	 * @return
 	 */
 	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
+
+	void updateTrainerNote(TrainerNote trainerNote);
+
 }

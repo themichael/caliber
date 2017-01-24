@@ -97,7 +97,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     public void createTrainerNote(TrainerNote trainerNote) { trainerNoteService.createTrainerNote(trainerNote);}
     public Set<TrainerNote> getAllNotesByTrainer(int trainerId) {return trainerNoteService.getAllNotesByTrainer(trainerId);}
     public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {return trainerNoteService.getTrainerNoteForWeek(trainerId, weekId);}
-
+    public void updateTrainerNote(TrainerNote trainerNote) {trainerNoteService.updateTrainerNote(trainerNote);}
 
     //    Spring setter based DI
     @Autowired

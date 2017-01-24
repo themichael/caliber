@@ -56,4 +56,10 @@ public class TrainerNoteDAOImpl implements TrainerNoteDAO {
         return trainerNoteForWeek;
     }
 
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
+    public void updateTrainerNote(TrainerNote trainerNote) {
+        sessionFactory.getCurrentSession().saveOrUpdate(trainerNote);
+    }
 }

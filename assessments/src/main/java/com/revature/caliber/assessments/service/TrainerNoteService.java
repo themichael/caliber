@@ -13,4 +13,5 @@ public interface TrainerNoteService {
 	
 	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 
+	void updateTrainerNote(TrainerNote trainerNote);
 }
