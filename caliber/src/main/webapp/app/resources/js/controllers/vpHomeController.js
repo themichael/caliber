@@ -1,6 +1,6 @@
 angular.module("vp").controller(
 		"vpHomeController",
-		function($scope, $log, delegateFactory) {
+		function($scope, $log, radarChartFactory, delegateFactory) {
 			$log.debug("Booted vp home controller.");
 
 			// VP API Test
@@ -18,7 +18,7 @@ angular.module("vp").controller(
 			$scope.tech = [ "Spring", "Hibernate", "JSP" ];
 			$scope.trainees = [ "Osher", "Kyle", "Rikki" ];
 			
-      $scope.currentBatch = $scope.batches[0];
+			$scope.currentBatch = $scope.batches[0];
 			
 			$scope.currentTech = "Technology";
 				
@@ -37,14 +37,19 @@ angular.module("vp").controller(
 			};
 
 			// batch rank comparison - radar chart
-			$scope.batchRankLabels = [ "Java", "Servlet", "Spring",
-					"Hibernate", "REST", "SOAP", "Javascript", "Angular" ];
-
-			$scope.batchRankData = [ [ 65, 59, 90, 81, 56, 55, 40, 89 ],
-					[ 28, 48, 40, 19, 96, 27, 100, 78 ] ];
-
-			$scope.batchRankSeries = [ "Average", "Batch" ];
-
+			$scope.batchSampleDataStandard = [{tech:"Java", average: 89}, {tech: "Servlet", average: 75}, {tech: "Spring", average: 80}, 
+											{tech: "Hibernate", average: 67}, {tech: "REST", average: 72}, {tech: "SOAP", average: 67},
+											{tech: "Javascript", average: 78}, {tech: "Angular", average: 80}];
+			
+			$scope.batchSampleDataBatch = [{tech:"Java", average: 90}, {tech: "Servlet", average: 60}, {tech: "Spring", average: 70}, 
+										{tech: "Hibernate", average: 83}, {tech: "REST", average: 76}, {tech: "SOAP", average: 80},
+										{tech: "Javascript", average: 85}, {tech: "Angular", average: 90}];
+			
+			var radarBatchCompareData = radarChartFactory.batchRankComparison(batchSampleDataStandard, batchSampleDataBatch);
+			$scope.batchRankLabels = radarBatchCompareData.labels; 
+			$scope.batchRankData = radarBatchCompareData.data;
+			$scope.batchRankSeries = radarBatchCompareData.series;
+			
 			// trainer qc eval chart
 			$scope.labels = ["Patrick", "Joe", "Brian", "Karan",
 				"Steven", "Nick", "Richard", "Fred", "Genesis", "Emily", "Ankit", "Ryan"];
