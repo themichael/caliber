@@ -19,8 +19,8 @@ class BatchNoteServiceImpl implements BatchNoteService {
     }
 
     @Override
-    public void makeBatchNote(int batchId, int weekId) {
-        facade.makeBatchNote(batchId, weekId);
+    public void createBatchNote(BatchNote batchNote) {
+        facade.makeBatchNote(batchNote);
     }
 
     @Override
@@ -32,5 +32,11 @@ class BatchNoteServiceImpl implements BatchNoteService {
     public List<BatchNote> allBatchNotesInWeek(int weekId) {
         return facade.allBatchNotesInWeek(weekId);
     }
+
+	@Override
+	public void updateBatchNote(BatchNote batchNote) {
+		facade.updateBatchNote(batchNote);
+		
+	}
 
 }
