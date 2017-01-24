@@ -11,10 +11,10 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
 		chartData.hbarLabels = [];
 				
 		// traverse through array of objects and grab labels and data
-		for (let element of dataArray){
+		dataArray.forEach(function(element){
 			chartData.hbarLabels.push(element.trainee);
 			chartData.hbarData.push(element.average);
-		}
+		});
 		
 		chartData.hbarDatasetOverride = [{
 			xAxisID: 'x-axis-1'

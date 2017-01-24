@@ -1,6 +1,6 @@
 angular.module("trainer").controller(
 		"trainerHomeController",
-		function($scope, $log, delegateFactory, lineChartFactory, pieChartFactory, hBarChartFactory) {
+		function($scope, $log, delegateFactory, lineChartFactory, pieChartFactory, hbarChartFactory) {
 			$log.debug("Booted trainer home controller.");
 
 			// Trainer API Test
