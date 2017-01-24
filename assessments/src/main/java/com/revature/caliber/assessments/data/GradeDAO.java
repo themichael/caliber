@@ -34,9 +34,9 @@ public interface GradeDAO {
 	List<Grade> getGradesByAssessment(long assessmentId);
 
 	//Aggregate Functions
-	HashMap<Integer, Double> avgradesOfTrainee();
+	HashMap<Integer, Double> avgGradesOfTrainees();
 	
-	List<Grade> avgGradesOfAssessment();
+	HashMap<Long, Double>  avgGradesOfAssessments();
 	// Insert
 	/**
 	 * Inserts a new Grade into database

@@ -3,6 +3,7 @@ package com.revature.caliber.initial;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Before;
@@ -57,22 +58,27 @@ public class GradeTest {
 	}
 
 
+	@Test
+	public void getAvgGradeOfTrainees(){
+		HashMap<Integer, Double> grades = ctxt.getBean(GradeDAO.class).avgGradesOfTrainees();
+		System.out.println("avg grades by trainee "+ grades);
+	}
 
 	@Test
-	public void getavgGradeofTrainee(){
-		List<Grade> grades = ctxt.getBean(GradeDAO.class).avgGradesOfAssessment();
-		System.out.println("grades " + grades);
+	public void getAvgGradeofAssessment(){
+		HashMap<Long, Double> grades = ctxt.getBean(GradeDAO.class).avgGradesOfAssessments();
+		System.out.println("avg grades by assessment " + grades);
 		
 	}
 	
 	
-	@Ignore
 	@BeforeClass
+	@Ignore
 	public static void insertGrade() {
-		Assessment assessment = ctxt.getBean(AssessmentService.class).getById(4150);
+		Assessment assessment = ctxt.getBean(AssessmentService.class).getById(2);
 	    Calendar currenttime = Calendar.getInstance();
 	    Date date = new Date((currenttime.getTime()).getTime());
-		Grade grade = new Grade(assessment, 1, date, 90);
+		Grade grade = new Grade(assessment, 1, date, 80);
 		ctxt.getBean(GradeDAO.class).insertGrade(grade);
 	}
 

@@ -93,7 +93,7 @@ public class GradeDAOImpl implements GradeDAO {
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public HashMap<Integer, Double> avgradesOfTrainee() {
+	public HashMap<Integer, Double> avgGradesOfTrainees() {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.avg("score"))
@@ -117,25 +117,44 @@ public class GradeDAOImpl implements GradeDAO {
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public List<Grade> avgGradesOfAssessment() {
+	public HashMap<Long, Double> avgGradesOfAssessments() {
+//		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
+////		criteria.setProjection(Projections.projectionList()
+////				.add(Projections.count("assessment.assessmentId"))
+////				//.add(Projections.avg("score"))
+////				.add(Projections.groupProperty("assessment.assessmentId"))
+////				);
+//		ProjectionList pjlist = Projections.projectionList();
+//		//pjlist.add(Projections.count("assessment.assessmentId"));
+//		pjlist.add(Projections.groupProperty("assessment.assessmentId"));
+//		pjlist.add(Projections.avg("score").as("Scoro"));
+//		//pjlist.add(Projections.property("score"));
+//		pjlist.add(Projections.property("assessment.assessmentId"));
+//
+//		criteria.setProjection(pjlist);
+//		//criteria.add(arg0)
+//		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//		criteria.addOrder(Property.forName("assessment.assessmentId").desc());
+//		return criteria.list();
+		
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-//		criteria.setProjection(Projections.projectionList()
-//				.add(Projections.count("assessment.assessmentId"))
-//				//.add(Projections.avg("score"))
-//				.add(Projections.groupProperty("assessment.assessmentId"))
-//				);
-		ProjectionList pjlist = Projections.projectionList();
-		//pjlist.add(Projections.count("assessment.assessmentId"));
-		pjlist.add(Projections.groupProperty("assessment.assessmentId"));
-		pjlist.add(Projections.avg("score").as("Scoro"));
-		//pjlist.add(Projections.property("score"));
-		pjlist.add(Projections.property("assessment.assessmentId"));
-
-		criteria.setProjection(pjlist);
-		//criteria.add(arg0)
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		criteria.addOrder(Property.forName("assessment.assessmentId").desc());
-		return criteria.list();
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.avg("score"))
+				.add(Projections.groupProperty("assessment.assessmentId"))
+				.add(Projections.count("assessment")));
+		HashMap<Long, Double> map = new HashMap<Long, Double>();
+		List<Object[]> grades = criteria.list();
+		for(Object[] grade:grades){
+			Double score = (Double) grade[0];
+			Long assessmedId = (Long) grade[1];
+			if(!map.containsKey(assessmedId)){
+				map.put(assessmedId, score);
+			}
+			
+			
+			
+		}
+		return map;
 	
 	}
 
