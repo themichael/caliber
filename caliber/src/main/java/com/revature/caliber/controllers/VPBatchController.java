@@ -1,8 +1,6 @@
 package com.revature.caliber.controllers;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.revature.caliber.beans.Batch;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.caliber.beans.Batch;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
+@RequestMapping("/vp")
 public class VPBatchController {
 
 	/***
@@ -26,7 +26,7 @@ public class VPBatchController {
 	 * 
 	 * @return in JSON, a set of batch objects
 	 */
-	@RequestMapping(value = "/vp/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Set<Batch>> getAllBatches() {
 
 		// Test data - remove and replace with call to midtier
@@ -64,7 +64,7 @@ public class VPBatchController {
 	 * 
 	 * @return in JSON, a set of batch objects
 	 */
-	@RequestMapping(value = "/vp/batch/current/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/batch/current/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Set<Batch>> getAllCurrentBatches() {
 
 		// Test data - remove and replace with call to midtier
@@ -103,7 +103,7 @@ public class VPBatchController {
 	 * @param id - batch id
 	 * @return in JSON, a batch object
 	 */
-	@RequestMapping(value = "/vp/batch/{id}", method = RequestMethod.GET, 
+	@RequestMapping(value = "/batch/{id}", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Batch> getBatch(@PathVariable int id) {
 
@@ -124,7 +124,7 @@ public class VPBatchController {
 	 * @param id - batch id
 	 * @return in JSON, a batch object
 	 */
-	@RequestMapping(value = "/vp/current/batch/{id}", method = RequestMethod.GET, 
+	@RequestMapping(value = "/current/batch/{id}", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Batch> getCurrentBatch(@PathVariable int id) {
 

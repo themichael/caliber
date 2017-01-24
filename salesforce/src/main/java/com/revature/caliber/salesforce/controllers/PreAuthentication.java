@@ -3,8 +3,6 @@ package com.revature.caliber.salesforce.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.salesforce.models.SalesforceToken;
 import com.revature.caliber.salesforce.models.SalesforceUser;
-import com.revature.caliber.training.beans.Trainer;
-import com.revature.caliber.training.data.TrainerDAO;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -14,7 +12,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -47,13 +44,6 @@ public class PreAuthentication {
     private HttpClient httpClient;
 
 
-    @Autowired
-    private TrainerDAO dao;
-
-    public void setDao(TrainerDAO dao) {
-        this.dao = dao;
-    }
-
     @RequestMapping(value = "/")
     public ModelAndView openAuth() {
         return new ModelAndView("redirect:" + authURL + "?response_type=code&client_id="
@@ -65,7 +55,7 @@ public class PreAuthentication {
         try {
             httpClient = HttpClientBuilder.create().build();
             HttpPost post = new HttpPost(accessTokenURL);
-            List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+            List<NameValuePair> parameters = new ArrayList<>();
             parameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
             parameters.add(new BasicNameValuePair("client_secret", clientSecret));
             parameters.add(new BasicNameValuePair("client_id", clientId));
@@ -83,11 +73,20 @@ public class PreAuthentication {
              */
 
             setSalesforceUser(salesforceToken.getId());
-            List<Trainer> trainer = dao.getTrainer(salesforceUser.getFirst_name());
             //set prefix
-            salesforceUser.setRole("ROLE_"+trainer.get(0).getTier().getTier());
+            String role = "ROLE_TRAINER";
+            salesforceUser.setRole(role);
             Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
+
+            switch(role){
+                case "ROLE_VP":
+                    return "redirect:/vp/home";
+                case "ROLE_QC":
+                    return "redirect:/qc/home";
+                case "ROLE_TRAINER":
+                    return "redirect:/trainer/home";
+            }
 
 
         } catch (UnsupportedEncodingException e1) {
@@ -97,7 +96,7 @@ public class PreAuthentication {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-            return "redirect:/vp/home";
+        return null;
 
     }
 
