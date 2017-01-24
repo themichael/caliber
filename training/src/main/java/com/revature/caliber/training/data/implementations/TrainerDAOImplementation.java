@@ -16,9 +16,8 @@ import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.data.TrainerDAO;
 
 /**
- * Implementation for trainee DAO crud methods
+ * Implementation for trainer DAO crud methods
  * 
- * @author Karina
  */
 @Repository
 public class TrainerDAOImplementation implements TrainerDAO {
@@ -46,11 +45,11 @@ public class TrainerDAOImplementation implements TrainerDAO {
 
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-	public List<Trainer> getTrainer(String name) {
+	public Trainer getTrainer(String email){
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainer.class);
-		criteria.add(Restrictions.eq("name", name));
-		return criteria.list();
+		criteria.add(Restrictions.eq("email", email));
+		return (Trainer) criteria.uniqueResult();
 	}
 
 	@Override
@@ -66,11 +65,4 @@ public class TrainerDAOImplementation implements TrainerDAO {
 	public void updateTrainer(Trainer trainer) {
 		sessionFactory.getCurrentSession().saveOrUpdate(trainer);
 	}
-
-	@Override
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-	public void deleteTrainer(Trainer trainer) {
-		sessionFactory.getCurrentSession().delete(trainer);
-	}
-
 }

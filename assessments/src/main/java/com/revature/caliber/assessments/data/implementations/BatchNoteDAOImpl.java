@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository(value = "batchNote")
+
+@Repository(value="batchNoteDAO")
 public class BatchNoteDAOImpl implements BatchNoteDAO {
 
     private SessionFactory sessionFactory;
@@ -23,7 +24,7 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
     }
 
     @Override
-    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
     public void createBatchNote(int batchId, int weekId) {
         BatchNote note = new BatchNote();
@@ -33,22 +34,22 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
     }
 
     @Override
-    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
     public BatchNote getBatchNote(int batchId, int weekId) {
         BatchNote batchNote = (BatchNote) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
-                .add(Restrictions.eq("BATCH_ID", batchId))
-                .add(Restrictions.eq("WEEK_ID", weekId)).uniqueResult();
+                .add(Restrictions.eq("batch", batchId))
+                .add(Restrictions.eq("week", weekId)).uniqueResult();
         return batchNote;
     }
 
     @Override
-    @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = {
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
     @SuppressWarnings("unchecked")
     public List<BatchNote> allBatchNotesByWeek(int weekId) {
         List<BatchNote> batchNotes = sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
-                .add(Restrictions.eq("WEEK_ID", weekId)).list();
+                .add(Restrictions.eq("week", weekId)).list();
         return batchNotes;
     }
 

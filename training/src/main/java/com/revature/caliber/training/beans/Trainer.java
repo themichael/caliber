@@ -51,7 +51,7 @@ public class Trainer {
 	/**
 	 * Email of the Trainer
 	 */
-	@Column(name="EMAIL", nullable=false)
+	@Column(name="EMAIL", nullable=false, unique=true)
 	@Email
 	@NotNull
 	private String email;
@@ -88,12 +88,12 @@ public class Trainer {
 	@OneToMany(mappedBy="trainer")
 	private Set<Batch> batches;
 
-	public int getTraineeId() {
+	public int getTrainerId() {
 		return trainerId;
 	}
 
-	public void setTraineeId(int traineeId) {
-		this.trainerId = traineeId;
+	public void setTrainerId(int trainerId) {
+		this.trainerId = trainerId;
 	}
 
 	public String getName() {
@@ -156,9 +156,9 @@ public class Trainer {
 		super();
 	}
 
-	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier) {
+	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier) {
 		super();
-		this.trainerId = traineeId;
+		this.trainerId = trainerId;
 		this.name = name;
 		this.title = title;
 		this.email = email;
@@ -166,10 +166,10 @@ public class Trainer {
 		this.tier = tier;
 	}
 
-	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier,
+	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier,
 			Set<Batch> batches) {
 		super();
-		this.trainerId = traineeId;
+		this.trainerId = trainerId;
 		this.name = name;
 		this.title = title;
 		this.email = email;

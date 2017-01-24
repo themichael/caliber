@@ -4,9 +4,6 @@ import com.revature.caliber.assessments.beans.*;
 import com.revature.caliber.assessments.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -36,13 +33,13 @@ public class FacadeImplementation implements Facade {
     }
 
     @Autowired
-    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
-        this.batchNoteDAO = batchNoteDAO;
+    public void setCategoryDAO(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
     }
 
     @Autowired
-    public void setCategoryDAO(CategoryDAO categoryDAO) {
-        this.categoryDAO = categoryDAO;
+    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
+        this.batchNoteDAO = batchNoteDAO;
     }
 
     @Autowired
@@ -70,53 +67,36 @@ public class FacadeImplementation implements Facade {
         this.trainerNoteDAO = trainerNoteDAO;
     }
 
-//  Organize methods by DAO like Assessment example above, e.g.
-
 //  Assessment
-
     // Get
-    @Transactional
     @Override
     public Set<Assessment> getAllAssessments() {
         return assessmentDAO.getAll();
     }
 
-    @Transactional
     @Override
     public Assessment getAssessmentById(int id) {
         return assessmentDAO.getById(id);
     }
 
-    @Transactional
     @Override
     public Set<Assessment> getAssessmentsByWeekId(int id) {
         return assessmentDAO.getByWeekId(id);
     }
 
     //Create
-    @Transactional(
-            isolation = Isolation.READ_COMMITTED,
-            rollbackFor = Exception.class,
-            propagation = Propagation.REQUIRES_NEW)
     @Override
     public void insertAssessment(Assessment assessment) {
         assessmentDAO.insert(assessment);
     }
 
     //Update
-    @Transactional(
-            isolation = Isolation.READ_COMMITTED,
-            rollbackFor = Exception.class,
-            propagation = Propagation.REQUIRES_NEW)
     @Override
     public void updateAssessment(Assessment assessment) {
         assessmentDAO.update(assessment);
     }
 
     //Delete
-    @Transactional(isolation = Isolation.READ_COMMITTED,
-            rollbackFor = Exception.class,
-            propagation = Propagation.REQUIRES_NEW)
     @Override
     public void deleteAssessment(Assessment assessment) {
         assessmentDAO.delete(assessment);
@@ -159,7 +139,7 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public Grade getGradeByGradeId(int gradeId) {
+    public Grade getGradeByGradeId(long gradeId) {
         return gradeDAO.getGradeByGradeId(gradeId);
     }
 
@@ -169,7 +149,7 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public List<Grade> getGradesByAssesessment(int assessmentId) {
+    public List<Grade> getGradesByAssesessment(long assessmentId) {
         return gradeDAO.getGradesByAssesessment(assessmentId);
     }
 
@@ -196,19 +176,18 @@ public class FacadeImplementation implements Facade {
 //    Trainer
     //TrainerNote Facade Methods
     @Override
-    public void makeTrainerNote(int trainerId) {
-        trainerNoteDAO.createTrainerNote(trainerId);
+    public void makeTrainerNote(TrainerNote trainerNote) {
+        trainerNoteDAO.createTrainerNote(trainerNote);
     }
 
     @Override
-    public List<TrainerNote> listTrainerNotes(int trainerId) {
-        return trainerNoteDAO.getAllTrainerNotesByTrainer(trainerId);
+    public Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId) {
+        return trainerNoteDAO.getTrainerNotesByTrainerId(trainerId);
     }
 
     @Override
     public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
         return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
     }
-
 
 }

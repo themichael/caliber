@@ -14,7 +14,7 @@ public interface GradeService {
 	/**
 	 * Returns a grade object given a specific gradeId
 	 */
-	Grade getGradeByGradeId(int gradeId);
+	Grade getGradeByGradeId(long gradeId);
 
 	/**
 	 * Returns a list of grades of a specific trainee based on traineeId as an
@@ -30,7 +30,7 @@ public interface GradeService {
 	 * 
 	 * @param assessmentId
 	 */
-	List<Grade> getGradesByAssesessment(int assessmentId);
+	List<Grade> getGradesByAssesessment(long assessmentId);
 
 	// Insert
 	/**

@@ -1,5 +1,6 @@
 package com.revature.caliber.assessments.service.implementations;
 
+
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Category;
 import com.revature.caliber.assessments.beans.Grade;
@@ -33,12 +34,14 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         this.batchNoteService = batchNoteService;
     }
 
-    /* TODO wire the beans
-    *
     @Autowired
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
+
+    /* TODO wire the beans
+    *
+
 
     @Autowired
     public void setGradeService(GradeService gradeService) {
@@ -117,7 +120,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public Grade getGradeByGradeId(int gradeId) {
+    public Grade getGradeByGradeId(long gradeId) {
         return gradeService.getGradeByGradeId(gradeId);
     }
 
@@ -127,7 +130,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public List<Grade> getGradesByAssesessment(int assessmentId) {
+    public List<Grade> getGradesByAssesessment(long assessmentId) {
         return gradeService.getGradesByAssesessment(assessmentId);
     }
 

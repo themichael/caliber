@@ -28,14 +28,14 @@ public class GradeDAOImpl implements GradeDAO {
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public void insertGrade(Grade grade) {
 		sessionFactory.getCurrentSession().saveOrUpdate(grade);
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public void updateGrade(Grade grade) {
 		sessionFactory.getCurrentSession().update(grade);
@@ -44,7 +44,7 @@ public class GradeDAOImpl implements GradeDAO {
 	@Override
 	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public List<Grade> getGradesByTraineeId(Integer traineeId) {
+	public List<Grade> getGradesByTraineeId(int traineeId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
 		criteria.add(Restrictions.eq("trainee", traineeId));
 		return criteria.list();
@@ -53,9 +53,9 @@ public class GradeDAOImpl implements GradeDAO {
 	@Override
 	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public List<Grade> getGradesByAssesessment(Integer assessmentId) {
+	public List<Grade> getGradesByAssesessment(long assessmentId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("assessment", assessmentId));
+		criteria.add(Restrictions.eq("assessment.assessmentId", assessmentId));
 		return criteria.list();
 
 	}
@@ -65,7 +65,7 @@ public class GradeDAOImpl implements GradeDAO {
 			Exception.class })
 	public void deleteGrade(Grade grade) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-		criteria.add(Restrictions.eq("gradeId", grade));
+		criteria.add(Restrictions.eq("gradeId", grade.getGradeId()));
 		Grade gradeToDelete = (Grade) criteria.uniqueResult();
 		sessionFactory.getCurrentSession().delete(gradeToDelete);
 	}
@@ -81,7 +81,7 @@ public class GradeDAOImpl implements GradeDAO {
 	@Override	
 	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public Grade getGradeByGradeId(Integer gradeId) {
+	public Grade getGradeByGradeId(long gradeId) {
 		return (Grade) sessionFactory.getCurrentSession().get(Grade.class, gradeId);
 	}
 

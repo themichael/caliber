@@ -25,13 +25,11 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
 //    Get
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     public Assessment getById(long id) {
         return (Assessment) sessionFactory.getCurrentSession().get(Assessment.class, id);
     }
 
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     @SuppressWarnings("unchecked")
     public Set<Assessment> getAll() {
         return new HashSet<>(
@@ -40,7 +38,6 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     @SuppressWarnings("unchecked")
     public Set<Assessment> getByWeekId(long id) {
         return new HashSet<>(
@@ -51,14 +48,12 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
 //    Create
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     public void insert(Assessment assessment) {
         sessionFactory.getCurrentSession().save(assessment);
     }
 
 //    Update
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     public void update(Assessment assessment) {
         sessionFactory.getCurrentSession().update(assessment);
 
@@ -66,7 +61,6 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
 //    Delete
     @Override
-    @Transactional(isolation=Isolation.READ_COMMITTED, rollbackFor=Exception.class, propagation=Propagation.REQUIRED)
     public void delete(Assessment assessment) {
         sessionFactory.getCurrentSession().delete(assessment);
     }

@@ -3,6 +3,7 @@ package com.revature.caliber.training.web.controllers;
 
 import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.service.BusinessDelegate;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -20,16 +21,21 @@ import java.util.List;
         allowedHeaders = {"X-PINGOTHER", "Content-Type"}
         )
 public class BatchController {
+    private static Logger log = Logger.getLogger(BatchController.class);
     private BusinessDelegate businessDelegate;
     @Autowired
     public void setBusinessDelegate(BusinessDelegate businessDelegate) { this.businessDelegate = businessDelegate; }
 
-    // Request for new batch to be created
+        /**
+        * Request for new batch to be created
+        * @param batch
+        * @return
+        */
     @RequestMapping(value = "batch/new",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Serializable> createTrainee(@RequestBody @Valid Batch batch) {
+    public ResponseEntity<Serializable> createBatch(@RequestBody @Valid Batch batch) {
         ResponseEntity<Serializable> returnEntity;
         try {
             businessDelegate.createBatch(batch);
@@ -37,11 +43,15 @@ public class BatchController {
         }
         catch (RuntimeException e) {
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
 
-    // Request to get all batches
+    /**
+     * Request to get all batches
+     * @return
+     */
     @RequestMapping(value = "batch/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -52,33 +62,42 @@ public class BatchController {
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
-                returnEntity = new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
 
-    // Request to get all batches by Trainer name
-    @RequestMapping(value = "batch/byTrainerName/{name}",
+    /**
+     * Request to get all batches by Trainer id
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "batch/byTrainerId/{id}",
                 method = RequestMethod.GET,
                 consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
                 produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("name") String name){
+    public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("id") Integer id){
         ResponseEntity<List<Batch>> returnEntity;
         try{
-            List<Batch> batches = businessDelegate.getTrainerBatch(name);
+            List<Batch> batches = businessDelegate.getTrainerBatch(id);
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
-                returnEntity = new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
 
-    // Request to get all active batches
+    /**
+     * Request to get all active batches
+     * @return
+     */
     @RequestMapping(value = "batch/current",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -89,33 +108,43 @@ public class BatchController {
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
-                returnEntity = new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
 
-    // Request to get active batches by Trainer name
-    @RequestMapping(value = "batch/current/{name}",
+    /**
+     * Request to get active batches by Trainer id
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "batch/current/{id}",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<List<Batch>> getCurrentBatch(@PathVariable("name") String name){
+    public HttpEntity<List<Batch>> getCurrentBatch(@PathVariable("id") Integer id){
         ResponseEntity<List<Batch>> returnEntity;
         try{
-            List<Batch> batches = businessDelegate.getCurrentBatch(name);
+            List<Batch> batches = businessDelegate.getCurrentBatch(id);
             if(batches == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
-                returnEntity = new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
 
-    // Request to get a single batch by id
+    /**
+     * Request to get a single batch by id
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "batch/byId/{id}",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -127,14 +156,19 @@ public class BatchController {
             if(batch == null)
                 returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
             else
-                returnEntity = new ResponseEntity<Batch>(batch, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(batch, HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
 
-    // Request to update a batch
+    /**
+     * Request to update a batch
+     * @param batch
+     * @return
+     */
     @RequestMapping(value = "batch/update",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -146,11 +180,16 @@ public class BatchController {
             returnEntity = new ResponseEntity(HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }
 
-    // Request to delete a batch
+    /**
+     * Request to delete a batch
+     * @param batch
+     * @return
+     */
     @RequestMapping(value = "batch/delete",
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -162,6 +201,7 @@ public class BatchController {
             returnEntity = new ResponseEntity(HttpStatus.OK);
         }catch(RuntimeException e){
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
         }
         return returnEntity;
     }

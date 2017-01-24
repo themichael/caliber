@@ -4,22 +4,52 @@ import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Category;
 import com.revature.caliber.assessments.beans.Grade;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public interface BusinessDelegate {
 
 //    Assessment
+	//    Get
+	/**
+	 * Returns a Set of all Assessments
+	 * @return a Set of Assessments
+	 */
     Set<Assessment> getAllAssessments();
 
+	/**
+	 * Return Assessment with AssessmentId
+	 * @return an Assessment
+	 */
     Assessment getAssessmentById(int id);
 
+	/**
+	 * Returns HashSet of Assessments with WeekId
+	 * @param id the Week ID
+	 * @return a Set of Assessments
+	 */
     Set<Assessment> getAssessmentsByWeekId(int id);
 
+	//    Create
+	/**
+	 * Inserts Assessment
+	 * @param assessment an Assessment to be inserted
+	 */
     void insertAssessment(Assessment assessment);
 
+	//    Update
+	/**
+	 * Updates Assessment
+	 * @param assessment an Assessment to be updated
+	 */
     void updateAssessment(Assessment assessment);
 
+	//    Delete
+	/**
+	 * Deletes Assessment
+	 * @param assessment and Assessment to delete
+	 */
     void deleteAssessment(Assessment assessment);
 
 //    Batch
@@ -48,7 +78,7 @@ public interface BusinessDelegate {
  	/**
  	 * Returns a grade object given a specific gradeId
  	 */
- 	Grade getGradeByGradeId(int gradeId);
+ 	Grade getGradeByGradeId(long gradeId);
 
  	/**
  	 * Returns a list of grades of a specific trainee based on traineeId as an
@@ -64,7 +94,7 @@ public interface BusinessDelegate {
  	 * 
  	 * @param assessmentId
  	 */
- 	List<Grade> getGradesByAssesessment(int assessmentId);
+ 	List<Grade> getGradesByAssesessment(long assessmentId);
 
  	// Insert
  	/**

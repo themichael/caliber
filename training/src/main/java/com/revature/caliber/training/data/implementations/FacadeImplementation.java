@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
+import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.data.BatchDAO;
 import com.revature.caliber.training.data.CategoryDAO;
 import com.revature.caliber.training.data.Facade;
@@ -33,27 +34,20 @@ public class FacadeImplementation implements Facade {
     WeekDAO weekDAO;
 
     @Autowired
-    public void setTrainerDAO(TrainerDAO trainerDAO) {
-		this.trainerDAO = trainerDAO;
-	}
+    public void setTrainerDAO(TrainerDAO trainerDAO) {this.trainerDAO = trainerDAO;}
     @Autowired
-	public void setTierDAO(TierDAO tierDAO) {
-		this.tierDAO = tierDAO;
-	}
+	public void setTierDAO(TierDAO tierDAO) {this.tierDAO = tierDAO;}
     @Autowired
-	public void setWeekDAO(WeekDAO weekDAO) {
-		this.weekDAO = weekDAO;
-	}
+	public void setWeekDAO(WeekDAO weekDAO) {this.weekDAO = weekDAO;}
 	@Autowired
-    public void setTraineeDAO(TraineeDAO traineeDAO) { this.traineeDAO = traineeDAO; }
+    public void setTraineeDAO(TraineeDAO traineeDAO) {this.traineeDAO = traineeDAO;}
     @Autowired
+
     public void setBatchDAO(BatchDAO batchDAO){ this.batchDAO = batchDAO; }
-    
     @Autowired
-    public void setCategoryDAO(CategoryDAO categoryDAO) {
-		this.categoryDAO = categoryDAO;
-	}
-	//Trainee
+    public void setCategoryDAO(CategoryDAO categoryDAO){ this.categoryDAO = categoryDAO; }
+    
+    //Trainee
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public void createTrainee(Trainee trainee) { traineeDAO.createTrainee(trainee); }
 
@@ -82,13 +76,13 @@ public class FacadeImplementation implements Facade {
     public List<Batch> getAllBatch() {return batchDAO.getAllBatch();}
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public List<Batch> getTrainerBatch(String name) {return batchDAO.getTrainerBatch(name);}
+    public List<Batch> getTrainerBatch(Integer id) {return batchDAO.getTrainerBatch(id);}
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public List<Batch> getCurrentBatch() {return batchDAO.getCurrentBatch();}
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-    public List<Batch> getCurrentBatch(String name) {return batchDAO.getCurrentBatch(name);}
+    public List<Batch> getCurrentBatch(Integer id) {return batchDAO.getCurrentBatch(id);}
 
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public Batch getBatch(Integer id) {return batchDAO.getBatch(id);}
@@ -107,4 +101,21 @@ public class FacadeImplementation implements Facade {
     @Transactional (propagation = Propagation.REQUIRES_NEW)
 	public List<Category> getAllCategories() {return categoryDAO.getAllCategories();}
 	//End Category
+    
+    //Trainer
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+    public void createTrainer(Trainer trainer) {trainerDAO.createTrainer(trainer);}
+    
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+    public Trainer getTrainer(Integer id) {return trainerDAO.getTrainer(id);}
+    
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+    public Trainer getTrainer(String email) {return trainerDAO.getTrainer(email);}
+    
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+    public List<Trainer> getAllTrainers() {return trainerDAO.getAllTrainers();}
+    
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+    public void updateTrainer(Trainer trainer) {trainerDAO.updateTrainer(trainer);}
+    //End Trainer
 }
