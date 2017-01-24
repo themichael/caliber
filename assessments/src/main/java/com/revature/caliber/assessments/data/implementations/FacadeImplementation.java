@@ -184,24 +184,17 @@ public class FacadeImplementation implements Facade {
         gradeDAO.updateGrade(grade);
     }
 
-//    Trainer
-    //TrainerNote Facade Methods
-    @Override
-    public void makeTrainerNote(TrainerNote trainerNote) {
-        trainerNoteDAO.createTrainerNote(trainerNote);
-    }
+    //TrainerNote
 
-    @Override
-    public Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId) {
-        return trainerNoteDAO.getTrainerNotesByTrainerId(trainerId);
-    }
+    public void createTrainerNote(TrainerNote note) {trainerNoteDAO.createTrainerNote(note);}
+    public TrainerNote getTrainerNoteById(Integer trainerNoteId) {return trainerNoteDAO.getTrainerNoteById(trainerNoteId);}
+    public TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId) {return trainerNoteDAO.getTrainerNoteForTrainerWeek(trainerId, weekId);}
+    public Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId) {return trainerNoteDAO.getTrainerNotesByTrainer(trainerId);}
+    public Set<TrainerNote> getTrainerNotesByWeek(Integer weekId) {return trainerNoteDAO.getTrainerNotesByWeek(weekId);}
+    public void updateTrainerNote(TrainerNote note) {trainerNoteDAO.updateTrainerNote(note);}
+    public void deleteTrainerNote(TrainerNote note) {trainerNoteDAO.deleteTrainerNote(note);}
 
-    @Override
-    public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
-        return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
-    }
-
-	//QCNote
+    //QCNote
     @Override
     public void createQCNote(QCNote note) { qcNoteDAO.createQCNote(note); }
 

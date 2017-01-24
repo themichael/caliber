@@ -21,6 +21,7 @@ import com.revature.caliber.assessments.service.TrainerNoteService;
 
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -111,6 +112,16 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         gradeService.updateGrade(grade);
     }
 
+    // Trainer Note
+    @Override
+    public void createTrainerNote(TrainerNote note) {trainerNoteService.createTrainerNote(note);}
+    public TrainerNote getTrainerNoteById(Integer trainerNoteId) {return trainerNoteService.getTrainerNoteById(trainerNoteId);}
+    public TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId) {return trainerNoteService.getTrainerNoteForTrainerWeek(trainerId,weekId);}
+    public Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId) {return trainerNoteService.getTrainerNotesByTrainer(trainerId);}
+    public Set<TrainerNote> getTrainerNotesByWeek(Integer weekId) {return trainerNoteService.getTrainerNotesByWeek(weekId);}
+    public void updateTrainerNote(TrainerNote note) {trainerNoteService.updateTrainerNote(note);}
+    public void deleteTrainerNote(TrainerNote note) {trainerNoteService.deleteTrainerNote(note);}
+    // end trainer note
 
     //    Spring setter based DI
     @Autowired
