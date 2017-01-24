@@ -1,5 +1,6 @@
 package com.revature.caliber.assessments.data.implementations;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.revature.caliber.assessments.beans.Assessment;
@@ -33,17 +34,18 @@ public class QCStatusDAOImpl implements QCStatusDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public Set<QCStatus> getAllStatus() {
-		return (Set<QCStatus>) sessionFactory.getCurrentSession()
-				.createQuery("from com.revature.caliber.assessments.beans.QCStatus");
+		return new HashSet<>( sessionFactory.getCurrentSession()
+				.createQuery("from com.revature.caliber.assessments.beans.QCStatus").list());
 	}
 
-	@Override
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public Set<Assessment> getAssessmentByStatus(String status) {
-		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(QCStatus.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(QCStatus.class);
 		criteria.add(Restrictions.eq("status", status));
 
 		QCStatus s = (QCStatus) criteria.uniqueResult();
+		//System.out.println(s);
 		return s.getAssessments();
 	}
 

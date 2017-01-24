@@ -1,6 +1,9 @@
 package com.revature.caliber.assessments.beans;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
 /**
@@ -19,8 +22,9 @@ public class QCStatus {
 	
 	@Column(name = "QC_STATUS")
 	private String status;
-
-	@OneToMany(mappedBy = "weeklyStatus")
+	
+	
+	@OneToMany(mappedBy = "weeklyStatus", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Assessment> assessments;
 
 	public short getStatusId() {
@@ -50,6 +54,13 @@ public class QCStatus {
 
 	public void setAssessments(Set<Assessment> assessments) {
 		this.assessments = assessments;
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "QCStatus [statusId=" + statusId + ", status=" + status + ", assessments=" + assessments + "]";
 	}
 
 	public QCStatus(short statusId, String status) {
