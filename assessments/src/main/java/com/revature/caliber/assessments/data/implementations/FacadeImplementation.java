@@ -1,16 +1,30 @@
 package com.revature.caliber.assessments.data.implementations;
 
+
+import java.util.List;
+import java.util.Set;
+
+import com.revature.caliber.assessments.beans.*;
+
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+
+import com.revature.caliber.assessments.data.AssessmentDAO;
+import com.revature.caliber.assessments.data.BatchNoteDAO;
+import com.revature.caliber.assessments.data.CategoryDAO;
+import com.revature.caliber.assessments.data.Facade;
+import com.revature.caliber.assessments.data.GradeDAO;
+import com.revature.caliber.assessments.data.NoteDAO;
+import com.revature.caliber.assessments.data.QCNoteDAO;
+import com.revature.caliber.assessments.data.QCStatusDAO;
+import com.revature.caliber.assessments.data.TrainerNoteDAO;
 import java.util.List;
 import java.util.Set;
 
@@ -32,8 +46,46 @@ public class FacadeImplementation implements Facade {
     private QCStatusDAO qcStatusDAO;
     private TrainerNoteDAO trainerNoteDAO;
 
+    //  Spring setter based DI
+    @Autowired
+    public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
+        this.assessmentDAO = assessmentDAO;
+    }
 
-//  Organize methods by DAO like Assessment example above, e.g.
+    @Autowired
+    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
+        this.batchNoteDAO = batchNoteDAO;
+    }
+
+    /*    @Autowired
+    public void setCategoryDAO(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
+    }*/
+
+    @Autowired
+    public void setGradeDAO(GradeDAO gradeDAO) {
+        this.gradeDAO = gradeDAO;
+    }
+
+    @Autowired
+    public void setNoteDAO(NoteDAO noteDAO) {
+        this.noteDAO = noteDAO;
+    }
+
+    @Autowired
+    public void setQcNoteDAO(QCNoteDAO qcNoteDAO) {
+        this.qcNoteDAO = qcNoteDAO;
+    }
+
+    @Autowired
+    public void setQcStatusDAO(QCStatusDAO qcStatusDAO) {
+        this.qcStatusDAO = qcStatusDAO;
+    }
+
+    @Autowired
+    public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
+        this.trainerNoteDAO = trainerNoteDAO;
+    }
 
 //  Assessment
     // Get
@@ -135,13 +187,13 @@ public class FacadeImplementation implements Facade {
 //    Trainer
     //TrainerNote Facade Methods
     @Override
-    public void makeTrainerNote(int trainerId) {
-        trainerNoteDAO.createTrainerNote(trainerId);
+    public void makeTrainerNote(TrainerNote trainerNote) {
+        trainerNoteDAO.createTrainerNote(trainerNote);
     }
 
     @Override
-    public List<TrainerNote> listTrainerNotes(int trainerId) {
-        return trainerNoteDAO.getAllTrainerNotesByTrainer(trainerId);
+    public Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId) {
+        return trainerNoteDAO.getTrainerNotesByTrainerId(trainerId);
     }
 
     @Override
@@ -149,96 +201,27 @@ public class FacadeImplementation implements Facade {
         return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
     }
 
+	//QCNote
+    @Override
+    public void createQCNote(QCNote note) { qcNoteDAO.createQCNote(note); }
 
+    @Override
+    public QCNote getQCNoteById(Integer QCNoteId) { return qcNoteDAO.getQCNoteById(QCNoteId); }
 
+    @Override
+    public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) { return qcNoteDAO.getQCNoteForTraineeWeek(traineeId, weekId); }
 
+    @Override
+    public List<QCNote> getQCNotesByTrainee(Integer traineeId) { return qcNoteDAO.getQCNotesByTrainee(traineeId); }
 
+    @Override
+    public List<QCNote> getQCNotesByWeek(Integer weekId) { return qcNoteDAO.getQCNotesByWeek(weekId); }
 
+    @Override
+    public void updateQCNote(QCNote note) { qcNoteDAO.updateQCNote(note); }
 
+    @Override
+    public void deleteQCNote(QCNote note) { qcNoteDAO.deleteQCNote(note); }
+    //end QCNote
 
-
-
-
-
-
-
-
-
-
-//  Spring setter based DI
-    @Autowired
-    public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
-        this.assessmentDAO = assessmentDAO;
-    }
-
-    @Autowired
-    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
-        this.batchNoteDAO = batchNoteDAO;
-    }
-
-/*    @Autowired
-    public void setCategoryDAO(CategoryDAO categoryDAO) {
-        this.categoryDAO = categoryDAO;
-    }*/
-
-    @Autowired
-    public void setGradeDAO(GradeDAO gradeDAO) {
-        this.gradeDAO = gradeDAO;
-    }
-
-    @Autowired
-    public void setNoteDAO(NoteDAO noteDAO) {
-        this.noteDAO = noteDAO;
-    }
-
-    @Autowired
-    public void setQcNoteDAO(QCNoteDAO qcNoteDAO) {
-        this.qcNoteDAO = qcNoteDAO;
-    }
-
-    @Autowired
-    public void setQcStatusDAO(QCStatusDAO qcStatusDAO) {
-        this.qcStatusDAO = qcStatusDAO;
-    }
-
-    @Autowired
-    public void setTrainerNoteDAO(TrainerNoteDAO trainerNoteDAO) {
-        this.trainerNoteDAO = trainerNoteDAO;
-    }
-
-    
-    
-    
-    //BatchNote Facade Methods
-	@Override
-	public void makeBatchNote(int batchId, int weekId) {
-		batchNoteDAO.createBatchNote(batchId, weekId);
-	}
-
-	@Override
-	public BatchNote getWeeklyBatchNote(int batchId, int weekId) {
-		return batchNoteDAO.getBatchNote(batchId, weekId);
-	}
-
-	@Override
-	public List<BatchNote> allBatchNotesInWeek(int weekId) {
-		return batchNoteDAO.allBatchNotesByWeek(weekId);
-	}
-
-	
-	//TrainerNote Facade Methods
-	@Override
-	public void makeTrainerNote(int trainerId) {
-		trainerNoteDAO.createTrainerNote(trainerId);
-	}
-
-	@Override
-	public List<TrainerNote> listTrainerNotes(int trainerId) {
-		return trainerNoteDAO.getAllTrainerNotesByTrainer(trainerId);
-	}
-
-	@Override
-	public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
-		return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
-	}
 }

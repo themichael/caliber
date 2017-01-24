@@ -1,9 +1,15 @@
 package com.revature.caliber.assessments.data;
 
+
+import java.util.List;
+import java.util.Set;
+
+import com.revature.caliber.assessments.beans.*;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.beans.TrainerNote;
+
 
 import java.util.List;
 import java.util.Set;
@@ -15,81 +21,56 @@ import java.util.Set;
 public interface Facade {
 
 //    Assessment
-
     //    Get
-
     /**
-     * Returns HashSet of all Assessments
-     *
-     * @return Set of Assessments
+     * Returns a Set of all Assessments
+     * @return a Set of Assessments
      */
     Set<Assessment> getAllAssessments();
 
     /**
-     * Return Assessment
-     * with AssessmentId
-     *
-     * @return Assessment
+     * Return Assessment with AssessmentId
+     * @return an Assessment
      */
     Assessment getById(int id);
-    
+
     /**
-     * Returns HashSet of Assessments
-     * with WeekId
-     *
-     * @param id
-     * @return Set of Assessments
+     * Returns HashSet of Assessments with WeekId
+     * @param id the Week ID
+     * @return a Set of Assessments
      */
     Set<Assessment> getAssessmentsByWeekId(int id);
 
     //    Create
-
     /**
      * Inserts Assessment
-     *
-     * @param assessment
+     * @param assessment an Assessment to be inserted
      */
     void insertAssessment(Assessment assessment);
 
     //    Update
-
     /**
      * Updates Assessment
-     *
-     * @param assessment
+     * @param assessment an Assessment to be updated
      */
     void updateAssessment(Assessment assessment);
 
     //    Delete
-
     /**
      * Deletes Assessment
-     *
-     * @param assessment
+     * @param assessment and Assessment to delete
      */
     void deleteAssessment(Assessment assessment);
-    
-    //    Batch Note
+
+//    Batch Note
     void makeBatchNote(int batchId, int weekId);
-	
-	BatchNote getWeeklyBatchNote(int batchId, int weekId);	
-	 
-	List<BatchNote> allBatchNotesInWeek(int weekId);
-	
-	
-	//	Trainer Note
-	void makeTrainerNote(int trainerId);
-	
-	List<TrainerNote> listTrainerNotes(int trainerId);
-	
-	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 
-//    Batch
+    BatchNote getWeeklyBatchNote(int batchId, int weekId);
 
-// Grade
+    List<BatchNote> allBatchNotesInWeek(int weekId);
 
+//    Grade
     //Gets
-
     /**
      * Returns a list of all grade entries
      */
@@ -135,4 +116,22 @@ public interface Facade {
      */
     void updateGrade(Grade grade);
 
+
+//	Trainer Note
+	void makeTrainerNote(TrainerNote trainerNote);
+	
+	Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId);
+	
+	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
+
+
+    //QCNote
+    void createQCNote(QCNote note);
+    QCNote getQCNoteById(Integer QCNoteId);
+    QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
+    List<QCNote> getQCNotesByTrainee(Integer traineeId);
+    List<QCNote> getQCNotesByWeek(Integer weekId);
+    void updateQCNote(QCNote note);
+    void deleteQCNote(QCNote note);
+    //QCNote end
 }
