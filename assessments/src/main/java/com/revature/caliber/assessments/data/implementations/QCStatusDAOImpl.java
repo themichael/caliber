@@ -16,14 +16,13 @@ public class QCStatusDAOImpl implements QCStatusDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    @Override
     public void getAll() {
-
+    	System.out.println("sdfs");
     }
 
-    @Override
+    
     public void getByID(short statusId) {
-
+    	System.out.println("asfasf");
     }
 
 }
