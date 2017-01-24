@@ -51,7 +51,6 @@ public class Assessment {
     @Column(name = "WEEK_ID", nullable = false)
     private long week;
 
-// TODO Bi-directional mapping -- to avoid recursion, make DTO to send to UI
     /**
      * QCStatus for a week, statuses can be
      *  good, ok, bad
@@ -67,20 +66,6 @@ public class Assessment {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="CALIBER_ASSESSMENT_CATEGORIES")
     private Set<Category> categories;
-
-    @Override
-    public String toString() {
-        return "Assessment{" +
-                "assessmentId=" + assessmentId +
-                ", title='" + title + '\'' +
-                ", batch=" + batch +
-                ", rawScore=" + rawScore +
-                ", type='" + type + '\'' +
-                ", week=" + week +
-                ", weeklyStatus=" + weeklyStatus +
-                ", categories=" + categories +
-                '}';
-    }
 
     public Assessment(long assessmentId,
                       String title,
@@ -116,6 +101,20 @@ public class Assessment {
         this.type = type;
         this.week = week;
         this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "Assessment{" +
+                "assessmentId=" + assessmentId +
+                ", title='" + title + '\'' +
+                ", batch=" + batch +
+                ", rawScore=" + rawScore +
+                ", type='" + type + '\'' +
+                ", week=" + week +
+                ", weeklyStatus=" + weeklyStatus +
+                ", categories=" + categories +
+                '}';
     }
 
     public long getAssessmentId() {
