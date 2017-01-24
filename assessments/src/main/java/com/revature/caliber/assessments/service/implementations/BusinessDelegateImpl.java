@@ -87,8 +87,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public List<Grade> getGradesByAssesessment(long assessmentId) {
-        return gradeService.getGradesByAssesessment(assessmentId);
+    public List<Grade> getGradesByAssessment(long assessmentId) {
+        return gradeService.getGradesByAssessment(assessmentId);
     }
 
     @Override

@@ -4,6 +4,10 @@ import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.data.GradeDAO;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,7 +36,7 @@ public class GradeDAOImpl implements GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public void insertGrade(Grade grade) {
-		sessionFactory.getCurrentSession().saveOrUpdate(grade);
+		sessionFactory.getCurrentSession().save(grade);
 	}
 
 	@Override
@@ -53,7 +58,7 @@ public class GradeDAOImpl implements GradeDAO {
 	@Override
 	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public List<Grade> getGradesByAssesessment(long assessmentId) {
+	public List<Grade> getGradesByAssessment(long assessmentId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
 		criteria.add(Restrictions.eq("assessment.assessmentId", assessmentId));
 		return criteria.list();
@@ -83,6 +88,74 @@ public class GradeDAOImpl implements GradeDAO {
 			Exception.class })
 	public Grade getGradeByGradeId(long gradeId) {
 		return (Grade) sessionFactory.getCurrentSession().get(Grade.class, gradeId);
+	}
+
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+			Exception.class })
+	public HashMap<Integer, Double> avgGradesOfTrainees() {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.avg("score"))
+				.add(Projections.groupProperty("trainee"))
+				.add(Projections.count("trainee")));
+		HashMap<Integer, Double> map = new HashMap<Integer, Double>();
+		List<Object[]> grades = criteria.list();
+		for(Object[] grade:grades){
+			Double score = (Double) grade[0];
+			Integer traineeId = (Integer) grade[1];
+			if(!map.containsKey(traineeId)){
+				map.put(traineeId, score);
+			}
+			
+			
+			
+		}
+		return map;
+	}
+
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+			Exception.class })
+	public HashMap<Long, Double> avgGradesOfAssessments() {
+//		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
+////		criteria.setProjection(Projections.projectionList()
+////				.add(Projections.count("assessment.assessmentId"))
+////				//.add(Projections.avg("score"))
+////				.add(Projections.groupProperty("assessment.assessmentId"))
+////				);
+//		ProjectionList pjlist = Projections.projectionList();
+//		//pjlist.add(Projections.count("assessment.assessmentId"));
+//		pjlist.add(Projections.groupProperty("assessment.assessmentId"));
+//		pjlist.add(Projections.avg("score").as("Scoro"));
+//		//pjlist.add(Projections.property("score"));
+//		pjlist.add(Projections.property("assessment.assessmentId"));
+//
+//		criteria.setProjection(pjlist);
+//		//criteria.add(arg0)
+//		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//		criteria.addOrder(Property.forName("assessment.assessmentId").desc());
+//		return criteria.list();
+		
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.avg("score"))
+				.add(Projections.groupProperty("assessment.assessmentId"))
+				.add(Projections.count("assessment")));
+		HashMap<Long, Double> map = new HashMap<Long, Double>();
+		List<Object[]> grades = criteria.list();
+		for(Object[] grade:grades){
+			Double score = (Double) grade[0];
+			Long assessmedId = (Long) grade[1];
+			if(!map.containsKey(assessmedId)){
+				map.put(assessmedId, score);
+			}
+			
+			
+			
+		}
+		return map;
+	
 	}
 
 }
