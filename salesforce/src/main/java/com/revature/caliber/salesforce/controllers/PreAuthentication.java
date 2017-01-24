@@ -65,7 +65,7 @@ public class PreAuthentication {
         try {
             httpClient = HttpClientBuilder.create().build();
             HttpPost post = new HttpPost(accessTokenURL);
-            List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+            List<NameValuePair> parameters = new ArrayList<>();
             parameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
             parameters.add(new BasicNameValuePair("client_secret", clientSecret));
             parameters.add(new BasicNameValuePair("client_id", clientId));
@@ -83,13 +83,13 @@ public class PreAuthentication {
              */
 
             setSalesforceUser(salesforceToken.getId());
-            List<Trainer> trainer = dao.getTrainer(salesforceUser.getFirst_name());
+            Trainer trainer = dao.getTrainer(salesforceUser.getEmail());
             //set prefix
-            salesforceUser.setRole(trainer.get(0).getTier().getTier());
+            salesforceUser.setRole(trainer.getTier().getTier());
             Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
 
-            switch(trainer.get(0).getTier().getTierId()){
+            switch(trainer.getTier().getTierId()){
                 case 1:
                     return "redirect:/vp/home";
                 case 2:
