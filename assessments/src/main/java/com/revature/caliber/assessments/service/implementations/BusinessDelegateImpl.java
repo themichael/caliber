@@ -5,27 +5,21 @@ package com.revature.caliber.assessments.service.implementations;
 
 import com.revature.caliber.assessments.beans.QCNote;
 import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.service.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.service.*;
 import com.revature.caliber.assessments.service.AssessmentService;
 import com.revature.caliber.assessments.service.BatchNoteService;
 import com.revature.caliber.assessments.service.BusinessDelegate;
 import com.revature.caliber.assessments.service.GradeService;
 import com.revature.caliber.assessments.service.TrainerNoteService;
-
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -185,4 +179,26 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     @Override
     public void deleteQCNote(QCNote note) { qcNoteService.deleteQCNote(note); }
     //end QCNote ---------------------
+
+    
+    //BatchNote 
+	@Override
+	public void makeBatchNote(BatchNote batchNote) {
+		batchNoteService.createBatchNote(batchNote);
+	}
+
+	@Override
+	public BatchNote weeklyBatchNote(int batchId, int weekId) {
+		return batchNoteService.weeklyBatchNote(batchId, weekId);
+	}
+
+	@Override
+	public List<BatchNote> allBatchNotesInWeek(int weekId) {
+		return batchNoteService.allBatchNotesInWeek(weekId);
+	}
+
+	@Override
+	public void updateBatchNote(BatchNote batchNote) {
+		batchNoteService.updateBatchNote(batchNote);
+	}
 }
