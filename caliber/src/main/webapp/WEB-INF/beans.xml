@@ -11,40 +11,21 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
-    <tx:annotation-driven/>
-    <mvc:annotation-driven/>
-    <context:component-scan base-package="com.revature.caliber.controllers"/>
+	<tx:annotation-driven/> <mvc:annotation-driven />
+	<context:component-scan base-package="com.revature.caliber" />
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/pages/" />
+		<property name="suffix" value=".html" />
+	</bean>
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/pages/"/>
-        <property name="suffix" value=".html"/>
-    </bean>
+	<mvc:resources mapping="/pages/**" location="/" />
+	<mvc:resources mapping="/app/**" location="/app/"/>
+	
+	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
+		<property name="hostname" value="http://www.pjw6193.tech" />
+		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
+		<property name="allBatchesForTrainer" value="batch/byTrainerName/" />
+	</bean>
 
-    <mvc:resources mapping="/pages/**" location="/pages/"/>
-    <mvc:resources mapping="/app/**" location="/app/"/>
-
-    <bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-        <property name="url" value="#{systemEnvironment['CALIBER_DB_URL']}"/>
-        <property name="username" value="#{systemEnvironment['CALIBER_DB_USER']}"/>
-        <property name="password" value="#{systemEnvironment['CALIBER_DB_PASS']}"/>
-    </bean>
-    <bean name="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="packagesToScan" value="com.revature.caliber.beans"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.dialect">
-                    org.hibernate.dialect.Oracle10gDialect
-                </prop>
-            </props>
-        </property>
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-    <bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-    <!-- 	<bean name="testDao" class="com.revature.caliber.data.TestDAO">
-            <property name="sessionFactory" ref="sessionFactory" />
-        </bean> -->
 </beans>
