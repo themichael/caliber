@@ -68,15 +68,13 @@ public class QCNoteDAOImplementationTest {
             fail("Failed to create test Note");
         }
 
-        sql = "INSERT INTO CALIBER_QC_NOTE (TRAINEE_ID, WEEK_ID, NOTE_ID, QC_NOTE_TRAINEE, QC_NOTE_WEEK) " +
+        sql = "INSERT INTO CALIBER_QC_NOTE (TRAINEE_ID, WEEK_ID, NOTE_ID) " +
                 "VALUES(?, ?, ?, ?, ?)";
 
         Query qcnoteq = session.createSQLQuery(sql);
         qcnoteq.setInteger(0, traineeId);
         qcnoteq.setInteger(1, weekId);
         qcnoteq.setInteger(2, newQCNoteId);
-        qcnoteq.setInteger(3, traineeId); //what are these two
-        qcnoteq.setInteger(4, weekId); // ??
 
         resultNum = noteq.executeUpdate();
 
