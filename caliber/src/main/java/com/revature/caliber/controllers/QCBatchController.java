@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 @RestController
+@RequestMapping("/qc")
 public class QCBatchController {
 
 	/**
@@ -20,7 +21,7 @@ public class QCBatchController {
      *
      * @return - in JSON, a set of batch objects
      */
-    @RequestMapping(value = "/qc/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllCurrentBatches() {
 
         BusinessDelegate businessDelegate = new BusinessDelegate();
@@ -34,7 +35,7 @@ public class QCBatchController {
      * @param id - batch id
      * @return - in JSON, a batch object
      */
-    @RequestMapping(value = "/qc/batch/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/batch/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Batch> getCurrentBatch(@PathVariable int id) {
 
         BusinessDelegate businessDelegate = new BusinessDelegate();
