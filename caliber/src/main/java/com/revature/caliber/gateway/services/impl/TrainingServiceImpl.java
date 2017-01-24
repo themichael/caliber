@@ -1,11 +1,12 @@
 package com.revature.caliber.gateway.services.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.revature.caliber.beans.Trainee;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -41,7 +42,46 @@ public class TrainingServiceImpl implements TrainingService{
 		}
 	}
 
-	
+	@Override
+	public void createTrainee(Trainee trainee) {
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("").path("")
+				.build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<Trainee> entity = new HttpEntity<>(trainee, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, );
+	}
+
+	@Override
+	public void updateTrainee(Trainee trainee) {
+
+	}
+
+	@Override
+	public Trainee getTrainee(Integer id) {
+		return null;
+	}
+
+	@Override
+	public Trainee getTrainee(String name) {
+		return null;
+	}
+
+	@Override
+	public List<Trainee> getTraineesInBatch(Integer batchId) {
+		return null;
+	}
+
+	@Override
+	public void deleteTrainee(Trainee trainee) {
+
+	}
+
 	/////////// SETTERS ////////////////
 	public void setHostname(String hostname) {
 		this.hostname = hostname;
