@@ -1,10 +1,11 @@
 package com.revature.caliber.assessments.service;
 
 import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.BatchNote;
 import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.beans.QCNote;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -99,6 +100,15 @@ public interface BusinessDelegate {
  	 */
  	void updateGrade(Grade grade);
 
+ 	//TrainerNotes
+	void createTrainerNote(TrainerNote note);
+	TrainerNote getTrainerNoteById(Integer trainerNoteId);
+	TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
+	Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
+	Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
+	void updateTrainerNote(TrainerNote note);
+	void deleteTrainerNote(TrainerNote note);
+
 	//QCNote
 	void createQCNote(QCNote note);
 	QCNote getQCNoteById(Integer QCNoteId);
@@ -108,4 +118,31 @@ public interface BusinessDelegate {
 	void updateQCNote(QCNote note);
 	void deleteQCNote(QCNote note);
 	//QCNote end
+	
+	//Batch Note
+	
+	/**
+	 * Create a batchNote 
+	 */
+	void makeBatchNote(BatchNote batchNote);
+	
+	/**
+	 * Get the batch note within a given week corresponding to a specific batch 
+	 */
+	BatchNote weeklyBatchNote(int batchId, int weekId);	
+	
+	/**
+	 * Get a list of all BatchNotes within a given week
+	 * provided that multiple batches are training simultaneously
+	 */
+	List<BatchNote> allBatchNotesInWeek(int weekId);
+	
+	/**
+	 * Update a BatchNote  
+	 */
+	void updateBatchNote(BatchNote batchNote);
+	
+	
+	// Trainer Note
+	
 }

@@ -6,7 +6,6 @@ import java.util.Set;
 import com.revature.caliber.assessments.beans.Assessment;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -34,19 +33,17 @@ public class QCStatusDAOImpl implements QCStatusDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public Set<QCStatus> getAllStatus() {
-		return new HashSet<>( sessionFactory.getCurrentSession()
+		return new HashSet<>(sessionFactory.getCurrentSession()
 				.createQuery("from com.revature.caliber.assessments.beans.QCStatus").list());
 	}
 
-	
 	@Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public Set<Assessment> getAssessmentByStatus(String status) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(QCStatus.class);
 		criteria.add(Restrictions.eq("status", status));
 
 		QCStatus s = (QCStatus) criteria.uniqueResult();
-		//System.out.println(s);
+		// System.out.println(s);
 		return s.getAssessments();
 	}
-
 }
