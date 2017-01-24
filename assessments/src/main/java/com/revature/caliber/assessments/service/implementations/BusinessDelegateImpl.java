@@ -141,7 +141,6 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     @Autowired
     public void setNoteService(NoteService noteService) {
         this.noteService = noteService;
-
     }*/
     @Autowired
     public void setQcNoteService(QCNoteService qcNoteService) {
@@ -191,7 +190,12 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public BatchNote weeklyBatchNote(int batchId, int weekId) {
 		return batchNoteService.weeklyBatchNote(batchId, weekId);
 	}
-
+	
+	@Override
+	public List<BatchNote> allBatchNotes(int batchId) {
+		return batchNoteService.allBatchNotes(batchId);
+	}
+	
 	@Override
 	public List<BatchNote> allBatchNotesInWeek(int weekId) {
 		return batchNoteService.allBatchNotesInWeek(weekId);
@@ -200,5 +204,10 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	@Override
 	public void updateBatchNote(BatchNote batchNote) {
 		batchNoteService.updateBatchNote(batchNote);
+	}
+	
+	@Override
+	public void deleteBatchNote(BatchNote batchNote) {
+		batchNoteService.deleteBatchNote(batchNote);
 	}
 }

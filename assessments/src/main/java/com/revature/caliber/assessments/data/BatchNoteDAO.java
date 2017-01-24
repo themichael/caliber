@@ -15,5 +15,12 @@ public interface BatchNoteDAO {
 	//Create a List of all BatchNotes for every batch within a week 
 	List<BatchNote> allBatchNotesByWeek(int weekId);
 	
+	//Create a List of BatchNotes for a single batch
+	List<BatchNote> allBatchNotes(int batchId);
+	
+	//Update a BatchNote
 	void updateBatchNote(BatchNote batchNote);
+	
+	//Delete a BatchNote
+	void deleteBatchNote(BatchNote batchNote);
 }

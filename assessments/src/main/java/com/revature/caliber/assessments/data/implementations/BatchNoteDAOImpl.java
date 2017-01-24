@@ -22,7 +22,8 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-
+    
+    //Create BatchNote
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
@@ -30,6 +31,7 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
         sessionFactory.getCurrentSession().save(batchNote);
     }
 
+    //Get a specific BatchNote by a BatchID, and WeekID
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
@@ -40,6 +42,7 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
         return batchNote;
     }
 
+    //List all BatchNotes within a given week
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
@@ -50,13 +53,29 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
         return batchNotes;
     }
     
+    //Update a BatchNote
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
     public void updateBatchNote(BatchNote batchNote) {
         sessionFactory.getCurrentSession().update(batchNote);
     }
-    
-    
 
+    //List all batchNotes for a specific batch
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
+	public List<BatchNote> allBatchNotes(int batchId) {
+		 List<BatchNote> batchNotes = sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
+	             .add(Restrictions.eq("batchId", batchId)).list();
+	     return batchNotes;
+	}
+
+	//Delete a BatchNote
+	@Override
+	public void deleteBatchNote(BatchNote batchNote) {
+		sessionFactory.getCurrentSession().delete(batchNote);
+	}
+    
 }

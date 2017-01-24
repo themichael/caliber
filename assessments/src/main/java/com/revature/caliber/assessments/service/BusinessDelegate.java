@@ -137,12 +137,21 @@ public interface BusinessDelegate {
 	 */
 	List<BatchNote> allBatchNotesInWeek(int weekId);
 	
+
+	/**
+	 * Get a list of all BatchNotes for a particular Batch
+	 */
+	List<BatchNote> allBatchNotes(int batchId);
+	
 	/**
 	 * Update a BatchNote  
 	 */
 	void updateBatchNote(BatchNote batchNote);
 	
+	/**
+	 * Delete a BatchNote  
+	 */
+	void deleteBatchNote(BatchNote batchNote);
 	
-	// Trainer Note
 	
 }
