@@ -206,39 +206,5 @@ public class FacadeImplementation implements Facade {
         this.trainerNoteDAO = trainerNoteDAO;
     }
 
-    
-    
-    
-    //BatchNote Facade Methods
-	@Override
-	public void makeBatchNote(int batchId, int weekId) {
-		batchNoteDAO.createBatchNote(batchId, weekId);
-	}
 
-	@Override
-	public BatchNote getWeeklyBatchNote(int batchId, int weekId) {
-		return batchNoteDAO.getBatchNote(batchId, weekId);
-	}
-
-	@Override
-	public List<BatchNote> allBatchNotesInWeek(int weekId) {
-		return batchNoteDAO.allBatchNotesByWeek(weekId);
-	}
-
-	
-	//TrainerNote Facade Methods
-	@Override
-	public void makeTrainerNote(int trainerId) {
-		trainerNoteDAO.createTrainerNote(trainerId);
-	}
-
-	@Override
-	public List<TrainerNote> listTrainerNotes(int trainerId) {
-		return trainerNoteDAO.getAllTrainerNotesByTrainer(trainerId);
-	}
-
-	@Override
-	public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
-		return trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
-	}
 }
