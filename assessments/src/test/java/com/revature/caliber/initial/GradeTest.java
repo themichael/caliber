@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -66,12 +67,12 @@ public class GradeTest {
 	
 	
 	@Ignore
-	@Test
-	public void insertGrade() {
-		Assessment assessment = ctxt.getBean(AssessmentService.class).getById(4200);
+	@BeforeClass
+	public static void insertGrade() {
+		Assessment assessment = ctxt.getBean(AssessmentService.class).getById(4150);
 	    Calendar currenttime = Calendar.getInstance();
 	    Date date = new Date((currenttime.getTime()).getTime());
-		Grade grade = new Grade(assessment, 1, date, 60);
+		Grade grade = new Grade(assessment, 1, date, 90);
 		ctxt.getBean(GradeDAO.class).insertGrade(grade);
 	}
 
