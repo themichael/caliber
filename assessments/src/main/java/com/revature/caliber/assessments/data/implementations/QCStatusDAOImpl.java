@@ -1,8 +1,10 @@
 package com.revature.caliber.assessments.data.implementations;
 
 
-import com.revature.caliber.assessments.data.QCStatusDAO;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+
+import com.revature.caliber.assessments.data.QCStatusDAO;
 
 @Repository(value = "qcStatusDAO")
 public class QCStatusDAOImpl implements QCStatusDAO {
