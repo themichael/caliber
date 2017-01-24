@@ -69,14 +69,14 @@ public class QCNoteDAOImplementationTest {
         }
 
         sql = "INSERT INTO CALIBER_QC_NOTE (TRAINEE_ID, WEEK_ID, NOTE_ID) " +
-                "VALUES(?, ?, ?, ?, ?)";
+                "VALUES(?, ?, ?)";
 
         Query qcnoteq = session.createSQLQuery(sql);
         qcnoteq.setInteger(0, traineeId);
         qcnoteq.setInteger(1, weekId);
         qcnoteq.setInteger(2, newQCNoteId);
 
-        resultNum = noteq.executeUpdate();
+        resultNum = qcnoteq.executeUpdate();
 
         if (resultNum != 1) {
             tx.commit();
@@ -127,29 +127,34 @@ public class QCNoteDAOImplementationTest {
         note.setWeek(2829);
 
         dao.createQCNote(note);
-        assertTrue(true);
+
+        //Test if it was created
+        Session session = ((SessionFactory) context.getBean("sessionFactory")).openSession();
+        Criteria criteria = session.createCriteria(QCNote.class);
+        criteria.add(Restrictions.eq("content", "Some test content (QCNote DAO Test)"));
+        QCNote newnote = (QCNote) criteria.uniqueResult();
+        assertEquals(note.getNoteId(), newnote.getNoteId());
+        assertEquals(note.getContent(), newnote.getContent());
+
+        //cleanup
+        Transaction tx = session.beginTransaction();
+        session.delete(newnote);
+        tx.commit();
+        session.close();
 
         logger.debug("      QCNote created");
     }
 
     @Test
     public void testGetById() {
-        logger.debug("   Get QCNote by id test.");
-        //first get that created note
-        Session session = ((SessionFactory) context.getBean("sessionFactory")).openSession();
-        Criteria criteria = session.createCriteria(QCNote.class);
-        criteria.add(Restrictions.eq("content", "Some test content (QCNote DAO Test)"));
-
-        QCNote mynote = (QCNote) criteria.uniqueResult();
-        assertNotNull(mynote);
 
         QCNoteDAO dao = context.getBean(QCNoteDAO.class);
 
-        QCNote note = dao.getQCNoteById(mynote.getNoteId());
+        QCNote note = dao.getQCNoteById(newQCNoteId);
 
         assertNotNull(note);
-        assertEquals(mynote.getNoteId(), note.getNoteId());
-        assertEquals(mynote.getContent(), note.getContent());
+        assertEquals(newQCNoteId, note.getNoteId());
+
         logger.debug("     got qc note with id: " + note.getNoteId() + ", and content: " + note.getContent());
     }
 
@@ -204,23 +209,33 @@ public class QCNoteDAOImplementationTest {
     @Test
     public void testDeleteNote() {
         logger.debug("   Delete QCNote test.");
-        //first get that created note
-        Session session = ((SessionFactory) context.getBean("sessionFactory")).openSession();
-        Criteria criteria = session.createCriteria(QCNote.class);
-        criteria.add(Restrictions.eq("content", "Some test content (QCNote DAO Test)"));
 
-        QCNote mynote = (QCNote) criteria.uniqueResult();
-        assertNotNull(mynote);
-        int id = mynote.getNoteId();
+        //create a test note first
+        QCNote note = new QCNote();
+        note.setContent("Some test content 2(QCNote DAO Test)");
+        note.setSugarCoatedContent("Some sugar content");
+        note.setTrainee(2829);
+        note.setWeek(2829);
+
+        //then create that note
+        Session session = ((SessionFactory) context.getBean("sessionFactory")).openSession();
+        Transaction tx = session.beginTransaction();
+        session.save(note);
+        tx.commit();
+
 
         QCNoteDAO dao = context.getBean(QCNoteDAO.class);
 
-        dao.deleteQCNote(mynote);
+        dao.deleteQCNote(note);
 
-        QCNote note = dao.getQCNoteById(id);
+        //test if it was deleted
+        Criteria criteria = session.createCriteria(QCNote.class);
+        criteria.add(Restrictions.eq("content", "Some test content 2(QCNote DAO Test)"));
+        note = (QCNote) criteria.uniqueResult();
+        session.close();
         assertNull(note);
 
-        logger.debug("     note with id " + id + " was deleted.");
+        logger.debug("     note was successfully deleted.");
 
     }
 
