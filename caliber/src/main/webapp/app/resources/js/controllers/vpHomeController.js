@@ -1,6 +1,6 @@
 angular.module("vp").controller(
 		"vpHomeController",
-		function($scope, $log, delegateFactory) {
+		function($scope, $log, radarChartFactory, delegateFactory) {
 			$log.debug("Booted vp home controller.");
 
 			// VP API Test
@@ -13,38 +13,64 @@ angular.module("vp").controller(
 			$log.log("Get Current Batch with Id: ");
 			$log.log(delegateFactory.vp.getCurrentBatch(5));
 			
-			// Dropdown menu selection
+			// UI - Dropdown menu selection
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
 			$scope.tech = [ "Spring", "Hibernate", "JSP" ];
 			$scope.trainees = [ "Osher", "Kyle", "Rikki" ];
 			
-      $scope.currentBatch = $scope.batches[0];
+			$scope.currentBatch = $scope.batches[0];
 			
-			$scope.currentTech = "Technology";
+			$scope.currentTech = "Select";
 				
-			$scope.currentTrainee = "Trainee";
+			$scope.currentTrainee = "Select";
 			
 			$scope.selectCurrentBatch = function(index){
 				$scope.currentBatch = $scope.batches[index];
+				
 			};
 			
 			$scope.selectCurrentTech = function(index){
-				$scope.currentTech = $scope.tech[index];
+				if(index == -1)
+					$scope.currentTech = "Select";
+				else{
+					$scope.currentTech = $scope.tech[index];
+					// select chart
+				}
 			};
 			
+			
+			
+			
 			$scope.selectCurrentTrainee = function(index){
-				$scope.currentTrainee = $scope.trainees[index];
+				if(index == -1)
+					$scope.currentTrainee = "Select";
+				else{
+					$scope.currentTrainee = $scope.trainees[index];
+					// select chart
+				}
 			};
+			
+			$scope.hideTraineeTab = function(index){
+				if($scope.currentTech == "Select"){
+					return false;
+				}
+				return true;
+			}
 
 			// batch rank comparison - radar chart
-			$scope.batchRankLabels = [ "Java", "Servlet", "Spring",
-					"Hibernate", "REST", "SOAP", "Javascript", "Angular" ];
-
-			$scope.batchRankData = [ [ 65, 59, 90, 81, 56, 55, 40, 89 ],
-					[ 28, 48, 40, 19, 96, 27, 100, 78 ] ];
-
-			$scope.batchRankSeries = [ "Average", "Batch" ];
-
+			$scope.batchSampleDataStandard = [{tech:"Java", average: 89}, {tech: "Servlet", average: 75}, {tech: "Spring", average: 80}, 
+											{tech: "Hibernate", average: 67}, {tech: "REST", average: 72}, {tech: "SOAP", average: 67},
+											{tech: "Javascript", average: 78}, {tech: "Angular", average: 80}];
+			
+			$scope.batchSampleDataBatch = [{tech:"Java", average: 90}, {tech: "Servlet", average: 60}, {tech: "Spring", average: 70}, 
+										{tech: "Hibernate", average: 83}, {tech: "REST", average: 76}, {tech: "SOAP", average: 80},
+										{tech: "Javascript", average: 85}, {tech: "Angular", average: 90}];
+			
+			var radarBatchCompareData = radarChartFactory.batchRankComparison($scope.batchSampleDataStandard, $scope.batchSampleDataBatch);
+			$scope.batchRankLabels = radarBatchCompareData.labels; 
+			$scope.batchRankData = radarBatchCompareData.data;
+			$scope.batchRankSeries = radarBatchCompareData.series;
+			
 			// trainer qc eval chart
 			$scope.labels = ["Patrick", "Joe", "Brian", "Karan",
 				"Steven", "Nick", "Richard", "Fred", "Genesis", "Emily", "Ankit", "Ryan"];

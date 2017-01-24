@@ -12,13 +12,15 @@
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown">{{currentTech}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
+						<li><a role="button" ng-click="selectCurrentTech(-1)">None</a></li>
 						<li ng-repeat="menuItem in tech track by $index"><a
 							role="button" ng-click="selectCurrentTech($index)">{{menuItem}}</a>
 						</li>
 					</ul></li>
-				<li role="button" class="dropdown"><a class="dropdown-toggle"
+				<li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideTraineeTab()"
 					data-toggle="dropdown">{{currentTrainee}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
+						<li><a role="button" ng-click="selectCurrentTrainee(-1)">None</a></li>
 						<li ng-repeat="menuItem in trainees track by $index"><a
 							role="button" ng-click="selectCurrentTrainee($index)">{{menuItem}}</a>
 						</li>
