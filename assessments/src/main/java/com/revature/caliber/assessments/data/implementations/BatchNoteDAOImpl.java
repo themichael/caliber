@@ -26,11 +26,8 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
-    public void createBatchNote(int batchId, int weekId) {
-        BatchNote note = new BatchNote();
-        note.setBatch(batchId);
-        note.setWeek(weekId);
-        sessionFactory.getCurrentSession().saveOrUpdate(note);
+    public void createBatchNote(BatchNote batchNote) {
+        sessionFactory.getCurrentSession().save(batchNote);
     }
 
     @Override
@@ -52,5 +49,14 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
                 .add(Restrictions.eq("week", weekId)).list();
         return batchNotes;
     }
+    
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
+    public void updateBatchNote(BatchNote batchNote) {
+        sessionFactory.getCurrentSession().update(batchNote);
+    }
+    
+    
 
 }

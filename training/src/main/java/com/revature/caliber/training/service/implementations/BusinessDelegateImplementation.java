@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.revature.caliber.training.beans.Batch;
+import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.service.BatchService;
 import com.revature.caliber.training.service.BusinessDelegate;
+import com.revature.caliber.training.service.CategoryService;
 import com.revature.caliber.training.service.TraineeService;
 import com.revature.caliber.training.service.TrainerService;
 
@@ -30,6 +32,10 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
     TrainerService trainerService;
     @Autowired
     public void setTrainerService(TrainerService trainerService) {this.trainerService = trainerService;}
+    
+    CategoryService categoryService;
+    @Autowired
+    public void setCategoryService(CategoryService categoryService){this.categoryService = categoryService;}
 	//trainee
     public void createTrainee(Trainee trainee) { traineeService.createTrainee(trainee); }
     public void updateTrainee(Trainee trainee) { traineeService.updateTrainee(trainee); }
@@ -57,4 +63,9 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
     public List<Trainer> getAllTrainers() {return trainerService.getAllTrainers();}
     public void updateTrainer(Trainer trainer) {trainerService.updateTrainer(trainer);}
     //end of trainer
+
+    //category
+	public Category getCategory(int categoryId) {return categoryService.getCategory(categoryId);}
+	public List<Category> getAllCategories() {return categoryService.getAllCategories();}
+	//end of category
 }

@@ -1,6 +1,7 @@
 package com.revature.caliber.assessments.beans;
 
 import javax.persistence.*;
+
 import java.util.Set;
 
 /**
@@ -77,7 +78,7 @@ public class Assessment {
                 ", rawScore=" + rawScore +
                 ", type='" + type + '\'' +
                 ", week=" + week +
-                ", weeklyStatus=" + weeklyStatus +
+                ", weeklyStatus=" + weeklyStatus.getStatus() +
                 ", categories=" + categories +
                 '}';
     }
@@ -181,6 +182,5 @@ public class Assessment {
     public void setWeeklyStatus(QCStatus weeklyStatus) {
         this.weeklyStatus = weeklyStatus;
     }
-
 
 }

@@ -17,21 +17,21 @@ public interface AssessmentService {
      * Return Assessment with AssessmentId
      * @return an Assessment
      */
-    Assessment getById(int id);
+    Assessment getById(long id);
 
     /**
      * Returns HashSet of Assessments with WeekId
      * @param id the Week ID
      * @return a Set of Assessments
      */
-    Set<Assessment> getByWeekId(int id);
+    Set<Assessment> getByWeekId(long id);
 
 //    Create
     /**
      * Inserts Assessment
      * @param assessment an Assessment to be inserted
      */
-    void insert(Assessment assessment);
+    long insert(Assessment assessment);
 
 //    Update
     /**

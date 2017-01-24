@@ -7,7 +7,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -24,12 +26,41 @@ public class TrainerDAOImplementationTest {
 
 	private static ApplicationContext context;
 	private static Logger logger;
+	private static Trainer trainer = null;
 
 	@BeforeClass
 	public static void preClass() {
 		context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
 		logger = Logger.getRootLogger();
         logger.debug("\n--- TRAINER DAO IMPLEMENTATION TEST START ---\n");
+	}
+
+	public static void populateData(){
+		Tier tier = new Tier();
+		tier.setTierId((short)1);
+		trainer = new Trainer();
+		trainer.setName("Bob Miller");
+		trainer.setTitle("Trainer at QC");
+		trainer.setEmail("bmiller@revature.com");
+		trainer.setSalesforceAccount("salesforceAccountEXAMPLE");
+		trainer.setSalesforceAuthenticationToken("salesforceAuthenticationTokenEXAMPLE");
+		trainer.setSalesforceRefreshToken("salesforceRefreshTokenEXAMPLE");
+		trainer.setTier(tier);
+	}
+	
+	@Before
+	public void before(){
+		populateData();
+	}
+	
+	public static void deleteData(){
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
+		trainerDao.deleteTrainer(trainer);
+	}
+	
+	@After
+	public void after(){
+		deleteData();
 	}
 	
 	@AfterClass
@@ -41,19 +72,7 @@ public class TrainerDAOImplementationTest {
 	public void createTrainerTest(){
 		logger.debug("   Create trainer test.");
 		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
-		
-		Tier tier = new Tier();
-		tier.setTierId((short)1);
-		
-		Trainer trainer = new Trainer();
-		trainer.setName("Bob Millerrrrrrr");
-		trainer.setTitle("Trainer at QC");
-		trainer.setEmail("bmiller@gmail.com");
-		trainer.setSalesforceAccount("salesforceAccountEXAMPLE");
-		trainer.setSalesforceAuthenticationToken("salesforceAuthenticationTokenEXAMPLE");
-		trainer.setSalesforceRefreshToken("salesforceRefreshTokenEXAMPLE");
-		trainer.setTier(tier);
-		
+
 		trainerDao.createTrainer(trainer);
 		assertTrue(true);
 		
@@ -65,14 +84,18 @@ public class TrainerDAOImplementationTest {
 		logger.debug("   Get trainer by id test.");
 		
         TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
-
-        Trainer trainer = trainerDao.getTrainer(1);
-
-        assertNotNull(trainer);
-        assertEquals(1, trainer.getTrainerId());
+		
+		trainerDao.createTrainer(trainer);
+		assertNotNull(trainer);
+		
+		int id = trainer.getTrainerId();
         
-        logger.debug("     trainer that I got:" + trainer);
-        logger.debug("       trainer id: " + trainer.getTrainerId());
+        Trainer findingTrainer = trainerDao.getTrainer(id);
+        assertNotNull(findingTrainer);
+        assertEquals(id, findingTrainer.getTrainerId());
+        
+        logger.debug("     trainer that I got:" + findingTrainer);
+        logger.debug("       trainer id: " + findingTrainer.getTrainerId());
     }
 	
 	@Test
@@ -80,12 +103,16 @@ public class TrainerDAOImplementationTest {
 		logger.debug("   Get trainer by email test.");
 		
         TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
-
-        Trainer trainer = trainerDao.getTrainer("testrevature@gmail.com");
-
+		
+		trainerDao.createTrainer(trainer);
         assertNotNull(trainer);
+        
+        Trainer findingTrainer = trainerDao.getTrainer("bmiller@revature.com");
+        assertNotNull(findingTrainer);
+        assertEquals("bmiller@revature.com", findingTrainer.getEmail());
+        
         logger.debug("     trainer that I got:" + trainer);
-        logger.debug("       trainer name: " + trainer.getName());
+        logger.debug("       trainer email: " + trainer.getEmail());
     }
 	
 	@Test
@@ -106,8 +133,9 @@ public class TrainerDAOImplementationTest {
 		logger.debug("   Update trainer test.");
 		
 		 TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
-		 Trainer trainer = trainerDao.getTrainer(300);
-	     assertNotNull(trainer);
+			
+		 trainerDao.createTrainer(trainer);
+		 assertNotNull(trainer);
 
 	     String newName = "Lila Miller";
 	     trainer.setName(newName);
@@ -115,11 +143,12 @@ public class TrainerDAOImplementationTest {
 	     int id = trainer.getTrainerId();
 	     trainerDao.updateTrainer(trainer);
 	     logger.debug("     updated trainer");
-	     trainer = trainerDao.getTrainer(id);
-	     assertNotNull(trainer);
+	     Trainer updatedTrainer = trainerDao.getTrainer(id);
+	     assertNotNull(updatedTrainer);
+	     assertEquals(id, updatedTrainer.getTrainerId());
 	     
 	     logger.debug("     checking trainer:");
-	     logger.debug("       trainer that I got: " + trainer);
-	     logger.debug("       it's name: " + trainer.getName());
+	     logger.debug("       trainer that I got: " + updatedTrainer);
+	     logger.debug("       its id: " + updatedTrainer.getTrainerId());
 	 }
 }

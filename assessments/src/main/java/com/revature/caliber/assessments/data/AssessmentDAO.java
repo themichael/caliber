@@ -35,7 +35,7 @@ public interface AssessmentDAO {
      * Inserts Assessment
      * @param assessment an Assessment to be inserted
      */
-    void insert(Assessment assessment);
+    long insert(Assessment assessment);
 
 //    Update
 
