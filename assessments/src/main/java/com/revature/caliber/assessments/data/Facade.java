@@ -118,10 +118,13 @@ public interface Facade {
 
 
 //	Trainer Note
-	void makeTrainerNote(TrainerNote trainerNote);
-	Set<TrainerNote> getTrainerNoteByTrainerId(int trainerId);
-	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
-    void updateTrainerNote(TrainerNote trainerNote);
+void createTrainerNote(TrainerNote note);
+    TrainerNote getTrainerNoteById(Integer trainerNoteId);
+    TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
+    Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
+    Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
+    void updateTrainerNote(TrainerNote note);
+    void deleteTrainerNote(TrainerNote note);
 
     //QCNote
     void createQCNote(QCNote note);

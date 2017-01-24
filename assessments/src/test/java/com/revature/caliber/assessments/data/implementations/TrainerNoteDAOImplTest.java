@@ -28,44 +28,5 @@ public class TrainerNoteDAOImplTest {
 		trainerNoteDAO = (TrainerNoteDAO) context.getBean("trainerNoteDAO");
 	}
 
-	@Test
-	public void createTrainerNoteTest(){
-		int trainerId = 1;
-		int weekId = 1;
-		String note = "Testing note";
-		String sugerNote = "Testing sugar note";
-
-		TrainerNote trainerNote = new TrainerNote();
-		trainerNote.setTrainer(trainerId);
-		trainerNote.setWeek(weekId);
-		trainerNote.setContent(note);
-		trainerNote.setSugarCoatedContent(sugerNote);
-
-		trainerNoteDAO.createTrainerNote(trainerNote);
-		assertTrue(true);
-	}
-/*
-	@Test
-	public void getTrainerNotesforWeek(){
-		int trainerId = 1;
-		int weekId = 1;
-		trainerNoteDAO.getTrainerNoteForWeek(trainerId, weekId);
-		assertTrue(true);
-	}*/
-
-/*	@Test
-	public void getAllTrainerNotes(){
-		int trainerId = 1;
-		trainerNoteDAO.getTrainerNotesByTrainerId(trainerId);
-		assertTrue(true);
-	}*/
-
-/*	@Test
-	public void updateTrainerNote(){
-		TrainerNote trainerNote = trainerNoteDAO.getTrainerNoteForWeek(1,1);
-		trainerNote.setContent("Updated content");
-		trainerNote.setSugarCoatedContent("Updated sugar content");
-		trainerNoteDAO.updateTrainerNote(trainerNote);
-	}*/
 
 }

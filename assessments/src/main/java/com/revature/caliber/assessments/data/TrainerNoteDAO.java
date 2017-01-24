@@ -7,22 +7,50 @@ import com.revature.caliber.assessments.beans.TrainerNote;
 
 public interface TrainerNoteDAO {
 
+	/**
+	 * create a trainer note
+	 * @param note
+	 */
+	void createTrainerNote(TrainerNote note);
 
 	/**
-	 * Get TrainerNotes with matching provided trainerId
+	 * Get note by trainerNote id
+	 * @param trainerNoteId
+	 * @return
+	 */
+	TrainerNote getTrainerNoteById(Integer trainerNoteId);
+
+	/**
+	 * get note by trainer id and week id
+	 * @param trainerId
+	 * @param weekId
+	 * @return
+	 */
+	TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
+
+	/**
+	 * get note by trainer id
 	 * @param trainerId
 	 * @return
 	 */
-	Set<TrainerNote> getTrainerNotesByTrainerId(int trainerId);
+	Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
 
 	/**
-	 * Insert provided TrainerNote into database
-	 * @param trainerNote
+	 * get trainer note by week id
+	 * @param weekId
+	 * @return
 	 */
-	void createTrainerNote(TrainerNote trainerNote);
-	
-	//Get a TrainerNote from a Trainer for a specific week
-	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
+	Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
 
-	void updateTrainerNote(TrainerNote trainerNote);
+	/**
+	 * update note
+	 * @param note
+	 */
+	void updateTrainerNote(TrainerNote note);
+
+	/**
+	 * delete note
+	 * @param note
+	 */
+	void deleteTrainerNote(TrainerNote note);
 }

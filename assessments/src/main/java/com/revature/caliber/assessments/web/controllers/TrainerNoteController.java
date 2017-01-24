@@ -37,30 +37,56 @@ public class TrainerNoteController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    // getAllTrainerNotesByTrainer
+    // getTrainerNoteByid
     @RequestMapping(
-            value = "/trainerNote/{id}",
+            value = "/trainerNote/byID/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<TrainerNote>> getAllNotesByTrainer (@PathVariable("id") int id) {
-        Set<TrainerNote> trainerNote = delegate.getAllNotesByTrainer(id);
+    public ResponseEntity<TrainerNote> getTrainerNoteById (@PathVariable("id") int id) {
+        TrainerNote trainerNote = delegate.getTrainerNoteById(id);
+        if (trainerNote == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<TrainerNote>(trainerNote, HttpStatus.OK);
+    }
+
+    // getTrainerNoteForWeek
+    @RequestMapping(
+            value = "/trainerNote/byweekandtrainer/{week},{trainer}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TrainerNote> getTrainerNoteForWeek (@PathVariable("trainer") int trainerId, @PathVariable("week") int weekId) {
+        TrainerNote trainerNote = delegate.getTrainerNoteForTrainerWeek(trainerId, weekId);
+        if (trainerNote == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<TrainerNote>(trainerNote, HttpStatus.OK);
+    }
+
+    // getTrainerNotesByTrainer
+    @RequestMapping(
+            value = "/trainerNote/byTrainerId/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<TrainerNote>> getTrainerNotesByTrainer (@PathVariable("id") int id) {
+        Set<TrainerNote> trainerNote = delegate.getTrainerNotesByTrainer(id);
         if (trainerNote == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Set<TrainerNote>>(trainerNote, HttpStatus.OK);
     }
 
-    // getTrainerNoteForWeek
+    // getTrainerNotesByTrainer
     @RequestMapping(
-            value = "/trainerNote/{trainerId}{weekId}",
+            value = "/trainerNote/byWeekId/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TrainerNote> getTrainerNoteForWeek (@PathVariable("trainerId") int trainerId, @PathVariable("weekId") int weekId) {
-        TrainerNote trainerNote = delegate.getTrainerNoteForWeek(trainerId, weekId);
+    public ResponseEntity<Set<TrainerNote>> getTrainerNotesByWeek (@PathVariable("id") int id) {
+        Set<TrainerNote> trainerNote = delegate.getTrainerNotesByWeek(id);
         if (trainerNote == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<TrainerNote>(trainerNote, HttpStatus.OK);
+        return new ResponseEntity<Set<TrainerNote>>(trainerNote, HttpStatus.OK);
     }
 
     //Update
@@ -68,9 +94,17 @@ public class TrainerNoteController {
             value = "/trainerNote/update",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateAssessment(@RequestBody TrainerNote trainerNote) {
+    public ResponseEntity updateTrainerNote(@RequestBody TrainerNote trainerNote) {
         delegate.updateTrainerNote(trainerNote);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @RequestMapping(
+            value = "/TrainerNote/delete",
+            method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteAssessment(@RequestBody TrainerNote trainerNote) {
+        delegate.deleteTrainerNote(trainerNote);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
