@@ -34,7 +34,7 @@ public class TrainerNoteController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createAssessment(@RequestBody TrainerNote trainerNote) {
-        delegate.createTrainerNote.(trainerNote);
+        delegate.createTrainerNote(trainerNote);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -43,8 +43,8 @@ public class TrainerNoteController {
             value = "/trainerNote/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<TrainerNote>> getAllTrainerNotesByTrainer (@PathVariable("id") int id) {
-        Set<TrainerNote> trainerNote = delegate.getAllTrainerNotesByTrainer(id);
+    public ResponseEntity<Set<TrainerNote>> getAllNotesByTrainer (@PathVariable("id") int id) {
+        Set<TrainerNote> trainerNote = delegate.getAllNotesByTrainer(id);
         if (trainerNote == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

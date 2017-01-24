@@ -2,6 +2,7 @@ package com.revature.caliber.assessments.service;
 
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.TrainerNote;
 
 import java.util.HashSet;
 import java.util.List;
@@ -97,4 +98,27 @@ public interface BusinessDelegate {
  	 * Updates a grade
  	 */
  	void updateGrade(Grade grade);
+
+ 	//TrainerNotes
+
+	/**
+	 * Create note by trainer
+	 * @param trainerNote
+	 */
+	void createTrainerNote(TrainerNote trainerNote);
+
+	/**
+	 * Get note by trainer
+	 * @param trainerId
+	 * @return
+	 */
+	Set<TrainerNote> getAllNotesByTrainer(int trainerId);
+
+	/**
+	 * create notes by trainer
+	 * @param trainerId
+	 * @param weekId
+	 * @return
+	 */
+	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
 }

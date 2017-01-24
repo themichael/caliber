@@ -3,6 +3,7 @@ package com.revature.caliber.assessments.service.implementations;
 
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -91,6 +92,11 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     public void updateGrade(Grade grade) {
         gradeService.updateGrade(grade);
     }
+
+    // Trainer Note
+    public void createTrainerNote(TrainerNote trainerNote) { trainerNoteService.createTrainerNote(trainerNote);}
+    public Set<TrainerNote> getAllNotesByTrainer(int trainerId) {return trainerNoteService.getAllNotesByTrainer(trainerId);}
+    public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {return trainerNoteService.getTrainerNoteForWeek(trainerId, weekId);}
 
 
     //    Spring setter based DI
