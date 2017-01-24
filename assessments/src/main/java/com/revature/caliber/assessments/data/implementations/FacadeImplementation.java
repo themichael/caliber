@@ -88,19 +88,19 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public Assessment getById(int id) {
+    public Assessment getAssessmentById(long id) {
         return assessmentDAO.getById(id);
     }
 
     @Override
-    public Set<Assessment> getAssessmentsByWeekId(int id) {
+    public Set<Assessment> getAssessmentsByWeekId(long id) {
         return assessmentDAO.getByWeekId(id);
     }
 
     //Create
     @Override
-    public void insertAssessment(Assessment assessment) {
-        assessmentDAO.insert(assessment);
+    public long insertAssessment(Assessment assessment) {
+        return assessmentDAO.insert(assessment);
     }
 
     //Update

@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@Repository(value="trainerNoteDAO")
+@Repository
 public class TrainerNoteDAOImpl implements TrainerNoteDAO {
 
     private SessionFactory sessionFactory;
@@ -36,7 +36,7 @@ public class TrainerNoteDAOImpl implements TrainerNoteDAO {
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
     public TrainerNote getTrainerNoteById(Integer trainerNoteId) {
-        return (TrainerNote) sessionFactory.getCurrentSession().get(TrainerNoteDAO.class, trainerNoteId);
+        return (TrainerNote) sessionFactory.getCurrentSession().get(TrainerNote.class, trainerNoteId);
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED,
