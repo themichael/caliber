@@ -64,4 +64,10 @@ public class TrainerDAOImplementation implements TrainerDAO {
 	public void updateTrainer(Trainer trainer) {
 		sessionFactory.getCurrentSession().saveOrUpdate(trainer);
 	}
+	
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+	public void deleteTrainer(Trainer trainer) {
+		sessionFactory.getCurrentSession().delete(trainer);
+	}
 }
