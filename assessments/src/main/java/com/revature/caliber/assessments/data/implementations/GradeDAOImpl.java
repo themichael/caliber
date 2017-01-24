@@ -118,25 +118,7 @@ public class GradeDAOImpl implements GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public HashMap<Long, Double> avgGradesOfAssessments() {
-//		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
-////		criteria.setProjection(Projections.projectionList()
-////				.add(Projections.count("assessment.assessmentId"))
-////				//.add(Projections.avg("score"))
-////				.add(Projections.groupProperty("assessment.assessmentId"))
-////				);
-//		ProjectionList pjlist = Projections.projectionList();
-//		//pjlist.add(Projections.count("assessment.assessmentId"));
-//		pjlist.add(Projections.groupProperty("assessment.assessmentId"));
-//		pjlist.add(Projections.avg("score").as("Scoro"));
-//		//pjlist.add(Projections.property("score"));
-//		pjlist.add(Projections.property("assessment.assessmentId"));
-//
-//		criteria.setProjection(pjlist);
-//		//criteria.add(arg0)
-//		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-//		criteria.addOrder(Property.forName("assessment.assessmentId").desc());
-//		return criteria.list();
-		
+
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.avg("score"))
