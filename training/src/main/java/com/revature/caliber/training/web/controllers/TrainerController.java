@@ -78,20 +78,20 @@ public class TrainerController {
      * @param: name as part of URL
      * @return Response with trainer object and/or status
      */
-	@RequestMapping(value = "trainers/byname/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<Trainer>> getTrainerByName(@PathVariable("identifier") String name) {
-		ResponseEntity<List<Trainer>> returnEntity;
+	@RequestMapping(value = "trainers/byemail/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Trainer> getTrainerByEmail(@PathVariable("identifier") String email) {
+		ResponseEntity<Trainer> returnEntity;
 
 		try {
-			List<Trainer> result = businessDelegate.getTrainer(name);
+			Trainer result = businessDelegate.getTrainer(email);
 
 			if (result == null) {
-				returnEntity = new ResponseEntity<List<Trainer>>(result, HttpStatus.NOT_FOUND);
+				returnEntity = new ResponseEntity<Trainer>(result, HttpStatus.NOT_FOUND);
 			} else {
-				returnEntity = new ResponseEntity<List<Trainer>>(result, HttpStatus.OK);
+				returnEntity = new ResponseEntity<Trainer>(result, HttpStatus.OK);
 			}
 		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<List<Trainer>>(HttpStatus.BAD_REQUEST);
+			returnEntity = new ResponseEntity<Trainer>(HttpStatus.BAD_REQUEST);
 		}
 
 		return returnEntity;
@@ -131,25 +131,6 @@ public class TrainerController {
 
 		try {
 			businessDelegate.updateTrainer(trainer);
-			returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
-		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
-		}
-
-		return returnEntity;
-	}
-
-	/**
-     * Delete a trainer by making a DELETE request to the URL
-     * @param: trainer to delete
-     * @return: Response with appropriate status
-     */
-	@RequestMapping(value = "trainers/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Serializable> deleteTrainer(@RequestBody @Valid Trainer trainer) {
-		ResponseEntity<Serializable> returnEntity;
-
-		try {
-			businessDelegate.deleteTrainer(trainer);
 			returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
 		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);

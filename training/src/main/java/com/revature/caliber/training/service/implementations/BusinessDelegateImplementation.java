@@ -3,15 +3,14 @@ package com.revature.caliber.training.service.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+
 import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.service.BatchService;
 import com.revature.caliber.training.service.BusinessDelegate;
 import com.revature.caliber.training.service.TraineeService;
-import org.springframework.stereotype.Component;
-
 import com.revature.caliber.training.service.TrainerService;
 
 /**
@@ -54,9 +53,8 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
     //trainer
     public void createTrainer(Trainer trainer) {trainerService.createTrainer(trainer);}
     public Trainer getTrainer(Integer id) {return trainerService.getTrainer(id);}
-    public List<Trainer> getTrainer(String name) {return trainerService.getTrainer(name);}
+    public Trainer getTrainer(String email) {return trainerService.getTrainer(email);}
     public List<Trainer> getAllTrainers() {return trainerService.getAllTrainers();}
     public void updateTrainer(Trainer trainer) {trainerService.updateTrainer(trainer);}
-    public void deleteTrainer(Trainer trainer) {trainerService.deleteTrainer(trainer);}
     //end of trainer
 }

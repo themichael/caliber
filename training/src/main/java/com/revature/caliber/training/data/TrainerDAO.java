@@ -22,12 +22,7 @@ public interface TrainerDAO {
 	 */
 	Trainer getTrainer(Integer id);
 	
-	/**
-	 * Gets a list of trainers by a name
-	 * @param name: the name of the trainer(s)
-	 * @return: a list of Trainer objects
-	 */
-	List<Trainer> getTrainer(String name);
+	Trainer getTrainer(String email);
 	
 	/**
 	 * Gets a list of all trainers
@@ -40,10 +35,4 @@ public interface TrainerDAO {
 	 * @param trainer: the trainer object to update
 	 */
 	void updateTrainer(Trainer trainer);
-	
-	/**
-	 * Deletes a trainer
-	 * @param trainer: the trainer object to delete
-	 */
-	void deleteTrainer(Trainer trainer);
 }
