@@ -1,24 +1,30 @@
 package com.revature.caliber.assessments.beans;
 
-
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
+/**
+ * JavaBean for QCStatus Object Status of assessments determine by Quality
+ * Control (Trainer Object)
+ */
 @Entity
 @Table(name = "CALIBER_QC_STATUS")
 public class QCStatus {
 
 	@Id
-	@Column(name = "QC_STATUS_ID")
+	@Column(name = "STATUS_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QC_STATUS_ID_SEQUENCE")
 	@SequenceGenerator(name = "QC_STATUS_ID_SEQUENCE", sequenceName = "QC_STATUS_ID_SEQUENCE")
 	private short statusId;
-
-	@Column(name = "QC_STATUS_STATUS")
-
+	
+	@Column(name = "QC_STATUS")
 	private String status;
-
-	@OneToMany(mappedBy = "weeklyStatus")
+	
+	
+	@OneToMany(mappedBy = "weeklyStatus", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Assessment> assessments;
 
 	public short getStatusId() {
@@ -40,6 +46,21 @@ public class QCStatus {
 	public QCStatus(String status) {
 		super();
 		this.status = status;
+	}
+
+	public Set<Assessment> getAssessments() {
+		return assessments;
+	}
+
+	public void setAssessments(Set<Assessment> assessments) {
+		this.assessments = assessments;
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "QCStatus [statusId=" + statusId + ", status=" + status + ", assessments=" + assessments + "]";
 	}
 
 	public QCStatus(short statusId, String status) {

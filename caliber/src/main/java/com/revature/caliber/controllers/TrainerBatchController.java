@@ -11,6 +11,7 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/trainer")
 public class TrainerBatchController {
 
     /**
@@ -18,7 +19,7 @@ public class TrainerBatchController {
      *
      * @return in JSON, a set of batch objects
      */
-    @RequestMapping(value = "/trainer/batch/all", method = RequestMethod.GET,
+    @RequestMapping(value = "/batch/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllBatches() {
 
@@ -31,7 +32,7 @@ public class TrainerBatchController {
      *
      * @return - in JSON, a batch object
      */
-    @RequestMapping(value = "/trainer/batch/current", method = RequestMethod.GET,
+    @RequestMapping(value = "/batch/current", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Batch> getCurrentBatch() {
 
@@ -45,7 +46,7 @@ public class TrainerBatchController {
      * @param id - batch id
      * @return - in JSON, a batch object
      */
-    @RequestMapping(value = "/trainer/batch/{id}", method = RequestMethod.GET,
+    @RequestMapping(value = "/batch/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Batch> getBatch(@PathVariable int id) {
         BusinessDelegate delegate = new BusinessDelegate();

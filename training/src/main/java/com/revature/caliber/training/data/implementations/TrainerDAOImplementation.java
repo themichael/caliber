@@ -1,7 +1,7 @@
 package com.revature.caliber.training.data.implementations;
 
-import java.util.List;
-
+import com.revature.caliber.training.beans.Trainer;
+import com.revature.caliber.training.data.TrainerDAO;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.training.beans.Trainer;
-import com.revature.caliber.training.data.TrainerDAO;
+import java.util.List;
 
 /**
  * Implementation for trainer DAO crud methods
@@ -64,5 +63,11 @@ public class TrainerDAOImplementation implements TrainerDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
 	public void updateTrainer(Trainer trainer) {
 		sessionFactory.getCurrentSession().saveOrUpdate(trainer);
+	}
+	
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+	public void deleteTrainer(Trainer trainer) {
+		sessionFactory.getCurrentSession().delete(trainer);
 	}
 }
