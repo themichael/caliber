@@ -29,6 +29,21 @@ public class Tier {
 	@NotNull
 	private short ranking;
 	
+	public Tier() {
+		super();
+	}
+	public Tier(String tier, short ranking) {
+		super();
+		this.tier = tier;
+		this.ranking = ranking;
+	}
+	public Tier(short tierId, String tier, short ranking) {
+		super();
+		this.tierId = tierId;
+		this.tier = tier;
+		this.ranking = ranking;
+	}
+	
 	public short getTierId() {
 		return tierId;
 	}
@@ -45,20 +60,6 @@ public class Tier {
 		return ranking;
 	}
 	public void setRanking(short ranking) {
-		this.ranking = ranking;
-	}
-	public Tier(short tierId, String tier, short ranking) {
-		super();
-		this.tierId = tierId;
-		this.tier = tier;
-		this.ranking = ranking;
-	}
-	public Tier() {
-		super();
-	}
-	public Tier(String tier, short ranking) {
-		super();
-		this.tier = tier;
 		this.ranking = ranking;
 	}
 }
