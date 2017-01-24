@@ -1,10 +1,9 @@
 package com.revature.caliber.assessments.data.implementations;
 
+import com.revature.caliber.assessments.data.QCNoteDAO;
 import org.springframework.stereotype.Repository;
 
-import com.revature.caliber.assessments.data.QCNoteDAO;
-
-@Repository(value="qcNoteDAO")
+@Repository(value = "qcNoteDAO")
 public class QCNoteDAOImpl implements QCNoteDAO {
 
 

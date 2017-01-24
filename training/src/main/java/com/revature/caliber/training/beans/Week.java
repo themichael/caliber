@@ -4,14 +4,17 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+/**
+ * Bean for Week
+ */
 @Entity
 @Table(name = "CALIBER_WEEK")
 public class Week {
 
 	@Id
 	@Column(name = "WEEK_ID")
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "WEEK_ID_SEQUENCE")
-  @SequenceGenerator(name = "WEEK_ID_SEQUENCE", sequenceName = "WEEK_ID_SEQUENCE")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "WEEK_ID_SEQUENCE")
+	@SequenceGenerator(name = "WEEK_ID_SEQUENCE", sequenceName = "WEEK_ID_SEQUENCE")
 	private long weekId;
 
 	@Column(name = "WEEK_NUMBER")
@@ -21,7 +24,7 @@ public class Week {
 	@JoinColumn(name = "BATCH_ID")
 	private Batch batch;
 
-	@ManyToMany(mappedBy = "weeks")
+	@ManyToMany(mappedBy = "weeks", fetch = FetchType.EAGER)
 	private Set<Category> topics;
 
 	public long getWeekId() {

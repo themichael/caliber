@@ -1,29 +1,22 @@
 package com.revature.caliber.assessments.service.implementations;
 
-import java.util.HashSet;
-import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.Set;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.service.AssessmentService;
-import com.revature.caliber.assessments.service.BatchService;
-import com.revature.caliber.assessments.service.BusinessDelegate;
-import com.revature.caliber.assessments.service.CategoryService;
-import com.revature.caliber.assessments.service.GradeService;
-import com.revature.caliber.assessments.service.NoteService;
-import com.revature.caliber.assessments.service.QCNoteService;
-import com.revature.caliber.assessments.service.QCStatusService;
-import com.revature.caliber.assessments.service.TrainerNoteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
-@Component(value ="delegate")
+
+import java.util.List;
+import java.util.Set;
+
+@Component(value = "delegate")
 public class BusinessDelegateImpl implements BusinessDelegate {
 
     private AssessmentService assessmentService;
-    private BatchService batchService;
+    private BatchNoteService batchNoteService;
     //private CategoryService categoryService;
     private GradeService gradeService;
     //TODO finish service impl: private NoteService noteService;
@@ -33,8 +26,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 //    Assessment
     @Override
-    public Set<Assessment> getAllAssessments() {
-        return assessmentService.getAll();
+    public HashSet<Assessment> getAllAssessments() {
+        return (HashSet<Assessment>) assessmentService.getAll();
     }
 
     @Override
@@ -42,23 +35,14 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         return assessmentService.getById(id);
     }
 
-    /*   
-     * 	TODO reconsider how to approach this implementation.
-     * 		 data resides in another service, so you cannot query this way
     @Override
-    public Set<Assessment> getAssessmentsByTrainerId(int id) {
-        return assessmentService.getByTrainerId(id);
-    }
-    */
-
-    @Override
-    public Set<Assessment> getAssessmentsByWeekId(int id) {
-        return assessmentService.getByWeekId(id);
+    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
+        return (HashSet<Assessment>) assessmentService.getByWeekId(id);
     }
 
     @Override
-    public Set<Assessment> getAssessmentsByBatchId(int id) {
-        return assessmentService.getByBatchId(id);
+    public HashSet<Assessment> getAssessmentsByBatchId(int id) {
+        return (HashSet<Assessment>) assessmentService.getByBatchId(id);
     }
 
     @Override
@@ -79,55 +63,54 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 //    Batch
 
 
+    // Grade
+    @Override
+    public List<Grade> getAllGrades() {
+        return gradeService.getAllGrades();
+    }
 
-// Grade
-	@Override
-	public List<Grade> getAllGrades() {
-		return gradeService.getAllGrades();
-	}
+    @Override
+    public Grade getGradeByGradeId(long gradeId) {
+        return gradeService.getGradeByGradeId(gradeId);
+    }
 
-	@Override
-	public Grade getGradeByGradeId(int gradeId) {
-		return gradeService.getGradeByGradeId(gradeId);
-	}
+    @Override
+    public List<Grade> getGradesByTraineeId(int traineeId) {
+        return gradeService.getGradesByTraineeId(traineeId);
+    }
 
-	@Override
-	public List<Grade> getGradesByTraineeId(int traineeId) {
-		return gradeService.getGradesByTraineeId(traineeId);
-	}
+    @Override
+    public List<Grade> getGradesByAssesessment(long assessmentId) {
+        return gradeService.getGradesByAssesessment(assessmentId);
+    }
 
-	@Override
-	public List<Grade> getGradesByAssesessment(int assessmentId) {
-		return gradeService.getGradesByAssesessment(assessmentId);
-	}
+    @Override
+    public void insertGrade(Grade grade) {
+        gradeService.insertGrade(grade);
+    }
 
-	@Override
-	public void insertGrade(Grade grade) {
-		gradeService.insertGrade(grade);
-	}
+    @Override
+    public void deleteGrade(Grade grade) {
+        gradeService.deleteGrade(grade);
+    }
 
-	@Override
-	public void deleteGrade(Grade grade) {
-		gradeService.deleteGrade(grade);
-	}
-
-	@Override
-	public void updateGrade(Grade grade) {
-		gradeService.updateGrade(grade);
-	}
-
+    @Override
+    public void updateGrade(Grade grade) {
+        gradeService.updateGrade(grade);
+    }
 
 
-
-//    Spring setter based DI
+    //    Spring setter based DI
     @Autowired
     public void setAssessmentService(AssessmentService assessmentService) {
         this.assessmentService = assessmentService;
     }
+
     @Autowired
-    public void setBatchService(BatchService batchService) {
-        this.batchService = batchService;
+    public void setBatchNoteService(BatchNoteService batchService) {
+        this.batchNoteService = batchNoteService;
     }
+
     /* TODO wire the beans
     *
     @Autowired

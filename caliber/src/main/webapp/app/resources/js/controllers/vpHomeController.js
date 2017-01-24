@@ -1,13 +1,24 @@
 angular.module("vp").controller(
 		"vpHomeController",
-		function($scope, $log) {
-			$log.info("Booted vp home controller.");
+		function($scope, $log, delegateFactory) {
+			$log.debug("Booted vp home controller.");
+
+			// VP API Test
+			$log.log("Get All Batches: ");
+			$log.log(delegateFactory.vp.getAllBatches());
+			$log.log("Get All Current Batches: ");
+			$log.log(delegateFactory.vp.getAllCurrentBatches());
+			$log.log("Get Batch With Id: ");
+			$log.log(delegateFactory.vp.getBatch(7));
+			$log.log("Get Current Batch with Id: ");
+			$log.log(delegateFactory.vp.getCurrentBatch(5));
 			
+			// Dropdown menu selection
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
 			$scope.tech = [ "Spring", "Hibernate", "JSP" ];
 			$scope.trainees = [ "Osher", "Kyle", "Rikki" ];
 			
-$scope.currentBatch = $scope.batches[0];
+      $scope.currentBatch = $scope.batches[0];
 			
 			$scope.currentTech = "Technology";
 				

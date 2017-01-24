@@ -47,11 +47,16 @@ public class Batch {
 	private short borderlineGradeThreshold;
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	@OneToMany(mappedBy = "batch")
+	@OneToMany(mappedBy = "batch"/*, cascade = CascadeType.REMOVE*/)
 	private Set<Trainee> trainees;
 
 	@OneToMany(mappedBy = "batch")
 	private Set<Week> weeks;
+
+	/*
+        Default Constructor
+         */
+	public Batch() {}
 
 	/*
 	Constructor with ID
@@ -59,7 +64,6 @@ public class Batch {
 	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
 				 String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
 				 short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
-		super();
 		this.batchId = batchId;
 		this.trainingName = trainingName;
 		this.trainer = trainer;
@@ -81,7 +85,6 @@ public class Batch {
 	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
 				 Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
 				 Set<Trainee> trainees, Set<Week> weeks) {
-		super();
 		this.trainingName = trainingName;
 		this.trainer = trainer;
 		this.coTrainer = coTrainer;
@@ -94,13 +97,6 @@ public class Batch {
 		this.borderlineGradeThreshold = borderlineGradeThreshold;
 		this.trainees = trainees;
 		this.weeks = weeks;
-	}
-
-	/*
-	Default Constructor
-	 */
-	public Batch() {
-		super();
 	}
 
 	/*
@@ -181,5 +177,21 @@ public class Batch {
 	}
 	public void setWeeks(Set<Week> weeks) {
 		this.weeks = weeks;
+	}
+
+	@Override
+	public String toString() {
+		return "Batch{" +
+				"batchId=" + batchId +
+				", trainingName='" + trainingName + '\'' +
+				", trainer=" + trainer.getName() +
+				", skillType='" + skillType + '\'' +
+				", trainingType='" + trainingType + '\'' +
+				", startDate=" + startDate +
+				", endDate=" + endDate +
+				", location='" + location + '\'' +
+				", goodGradeThreshold=" + goodGradeThreshold +
+				", borderlineGradeThreshold=" + borderlineGradeThreshold +
+				'}';
 	}
 }

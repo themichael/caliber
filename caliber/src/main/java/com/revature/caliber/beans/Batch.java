@@ -136,7 +136,4 @@ public class Batch {
 	public Batch() {
 		super();
 	}
-	
-	
-	
 }

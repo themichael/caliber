@@ -1,10 +1,15 @@
 angular.module("app").config(
     function ($stateProvider, $locationProvider, $urlRouterProvider,
-              ChartJsProvider) {
+              ChartJsProvider, $logProvider) {
 
+    	// Turn on/off debug messages
+    	$logProvider.debugEnabled(false);
+    	
         // chart options
         ChartJsProvider.setOptions({
-            chartColors: ['#803690', '#00ADF9', '#ffff66', '#FDB45C', '#949FB1', '#4D5360']
+
+            chartColors: ['#803690', '#00ADF9', '#ffff66', '#FDB45C', '#949FB1', '#4D5360', '#66ff33', '#ff5050']
+
         });
 
         // go to home on startup
@@ -28,17 +33,17 @@ angular.module("app").config(
                 templateUrl: "app/partials/home/qc-home.html",
                 controller: "qcHomeController"
             })
-           
-			// trainer
-			.state("trainer", {
-				abstract : true,
-				url : "/trainer",
-				templateUrl : "app/partials/abstracts/trainer.html"
-			}).state("trainer.home", {
-				templateUrl : "app/partials/home/trainer-home.html",
-				url : "/home",
-				controller: "trainerHomeController"
-			})
+            // trainer
+            .state("trainer", {
+                abstract: true,
+                url: "/trainer",
+                templateUrl: "app/partials/abstracts/trainer.html"
+            })
+            .state("trainer.home", {
+                templateUrl: "app/partials/home/trainer-home.html",
+                url: "/home",
+                controller: "trainerHomeController"
+            })
 
             // vp
             .state("vp", {
