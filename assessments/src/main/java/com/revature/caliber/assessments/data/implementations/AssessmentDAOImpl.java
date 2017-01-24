@@ -48,8 +48,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
 //    Create
     @Override
-    public void insert(Assessment assessment) {
-        sessionFactory.getCurrentSession().save(assessment);
+    public long insert(Assessment assessment) {
+        return (Long) sessionFactory.getCurrentSession().save(assessment);
     }
 
 //    Update

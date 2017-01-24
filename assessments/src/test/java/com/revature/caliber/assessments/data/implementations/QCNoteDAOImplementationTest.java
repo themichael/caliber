@@ -203,7 +203,6 @@ public class QCNoteDAOImplementationTest {
         assertNotNull(note);
         assertNotEquals(traineeId, note.getTrainee());
         logger.debug("     successfully changed trainee id from " + traineeId + " to " + 8282);
-        traineeId = 8282;
     }
 
     @Test
