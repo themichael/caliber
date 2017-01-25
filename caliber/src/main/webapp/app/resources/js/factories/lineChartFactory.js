@@ -68,5 +68,53 @@ angular.module("charts").factory("lineChartFactory", function ($log) {
 		};
 		return chartData;
 	};
+
+    lineChart.getBatchProgressChart = function(dataArray) {
+    	var chartData = {};
+
+    	// series
+		chartData.series = ["Average"];
+
+		// labels and data
+		chartData.labels = [];
+		chartData.data = [];
+
+		// push empty array to hold data
+		chartData.data.push([]);
+
+		// loop through array
+		dataArray.forEach(function(element){
+			chartData.data[0].push(element.average);
+			chartData.labels.push(element.week);
+		});
+
+        // set data override
+        chartData.datasetOverride = [ {
+            yAxisID : 'y-axis-1',
+            fill : false
+        }];
+
+        // set line options
+        chartData.options = {
+            legend : {
+                display : true,
+                position : 'bottom'
+            },
+            scales : {
+                yAxes: [{
+                    id: 'y-axis-1',
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    ticks: {
+                        min: 30,
+                        max: 100
+                    }
+                }]
+            }
+        };
+    	return chartData;
+    };
+
 	return lineChart;
 });

@@ -43,7 +43,7 @@ angular.module("trainer").controller(
 				{week: "Week 5", average: 86}, {week: "Week 6", average: 76},
 				{week: "Week 7", average: 79}, {week: "Week 8", average: 89}, 
 				{week: "Week 9", average: 72}, {week: "Week 10", average: 94}, 
-				{week: "Week 11", average: 86}, {week: "Week 12", average: 65}]
+				{week: "Week 11", average: 86}, {week: "Week 12", average: 65}];
 			
 			// Sample Data representing trainee strengths per technology
 			var samplePieData =[{skillCategory:"Core Java", average: 85},
@@ -51,7 +51,7 @@ angular.module("trainer").controller(
 			                    {skillCategory:"Spring", average: 95},
 			                    {skillCategory:"Hibernate", average: 75},
 			                    {skillCategory:"AngularJS", average: 90},
-			                    {skillCategory:"REST", average: 80}]
+			                    {skillCategory:"REST", average: 80}];
 			
 			// Sample Data representing all trainee averages per technology
 			var sampleHbarData = [{trainee: "Rikki", average: 100},
@@ -59,7 +59,7 @@ angular.module("trainer").controller(
 			                      {trainee: "Osher", average: 40},
 			                      {trainee: "Danny P", average: 80},
 			                      {trainee: "Bryan", average: 75},
-			                      {trainee: "Brayn", average: 95}]
+			                      {trainee: "Brayn", average: 95}];
 			
 			// line chart function that retrieves
 			// Week by week progression for a trainee/ batch on a line chart
