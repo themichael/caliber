@@ -207,10 +207,15 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	}
 
 	@Override
-	public BatchNote weeklyBatchNote(int batchId, int weekId) {
-		return batchNoteService.weeklyBatchNote(batchId, weekId);
+	public List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId) {
+		return batchNoteService.getBatchesNotesListInWeek(batchId, weekId);
 	}
-
+	
+	@Override
+	public BatchNote getBatchNoteById(int batchNoteId){
+		return batchNoteService.getBatchNoteById(batchNoteId);
+	}
+	
 	@Override
 	public List<BatchNote> allBatchNotes(int batchId) {
 		return batchNoteService.allBatchNotes(batchId);

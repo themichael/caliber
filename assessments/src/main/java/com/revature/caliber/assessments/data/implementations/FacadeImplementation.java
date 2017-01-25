@@ -111,11 +111,6 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public BatchNote getWeeklyBatchNote(int batchId, int weekId) {
-        return batchNoteDAO.getBatchNote(batchId, weekId);
-    }
-
-    @Override
     public List<BatchNote> allBatchNotesInWeek(int weekId) {
         return batchNoteDAO.allBatchNotesByWeek(weekId);
     }
@@ -129,13 +124,25 @@ public class FacadeImplementation implements Facade {
     public void updateBatchNote(BatchNote batchNote){
     	batchNoteDAO.updateBatchNote(batchNote);
     }
-
-
     
     @Override
     public void deleteBatchNote(BatchNote batchNote){
     	batchNoteDAO.deleteBatchNote(batchNote);
     }
+
+    @Override
+    public BatchNote getBatchNoteById(int batchNoteId) {
+    	return batchNoteDAO.getBatchNoteById(batchNoteId);
+    }
+    
+    @Override
+    public List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId) {
+        return batchNoteDAO.getBatchesNotesListInWeek(batchId, weekId);
+    }
+    
+    
+// Grade
+
 
     //    Category
     @Override
@@ -265,6 +272,7 @@ public class FacadeImplementation implements Facade {
         return noteDAO.getAllNotes();
     }
 
+
     
     //QCStatus
 	@Override
@@ -276,5 +284,6 @@ public class FacadeImplementation implements Facade {
 	public Set<Assessment> getAssessmentByStatus(String status) {
 		return qcStatusDAO.getAssessmentByStatus(status);
 	}
+
 
 }

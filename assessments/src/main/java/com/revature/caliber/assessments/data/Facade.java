@@ -81,15 +81,24 @@ public interface Facade {
     //    Batch Note
     void makeBatchNote(BatchNote batchNote);
 
-    BatchNote getWeeklyBatchNote(int batchId, int weekId);
-
+    //List all the Batches' batchNotes within a given week
     List<BatchNote> allBatchNotesInWeek(int weekId);
     
+    //List all batchNotes for a batch for the duration of the training
     List<BatchNote> allBatchNotes(int batchId);
     
+    //Update a batchNote
     void updateBatchNote(BatchNote batchNote);
     
+    //Delete a BatchNote
     void deleteBatchNote(BatchNote batchNote);
+    
+    //Get a single batchNote by its unique Note ID
+    BatchNote getBatchNoteById(int batchNoteId);
+    
+	//A list of batch notes for a specific batch within a single week
+    //Used if two people have separate evaluations
+	List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId);	
     
 
 
