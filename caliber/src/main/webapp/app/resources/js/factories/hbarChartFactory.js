@@ -73,5 +73,25 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
         return chartData;
     };
 
+    hbarChart.getBatchTechEvalChart = function(dataArray){
+        var chartData = {};
+
+        // series
+        chartData.series = ["Tech Batch Eval"];
+
+        // labels and data
+        chartData.data = [];
+        chartData.labels = [];
+
+        // loop through object array
+        dataArray.forEach(function(element){
+            chartData.data.push(element.average);
+            chartData.labels.push(element.trainee);
+        });
+
+        return chartData;
+    };
+
+
 	return hbarChart;
 });
