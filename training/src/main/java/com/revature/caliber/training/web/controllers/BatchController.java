@@ -31,7 +31,7 @@ public class BatchController {
         * @param batch
         * @return
         */
-    @RequestMapping(value = "batch/new",
+    @RequestMapping(value = "batch/create",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
