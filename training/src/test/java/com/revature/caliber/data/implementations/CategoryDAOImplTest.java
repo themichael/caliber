@@ -52,6 +52,7 @@ public class CategoryDAOImplTest {
     	logger.info(contxt.getBean(Facade.class).getAllCategories() + " Get all categories using Facade");
     }
    
+    //Testing the category methods in the Business Delegate
     @Test
     public void getCategoryBDelegate(){
     	logger.info(contxt.getBean(BusinessDelegate.class).getCategory(1) + " Get all categories using Business Delegate");
