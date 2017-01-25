@@ -92,6 +92,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public void deleteAssessment(Assessment assessment) {
 		assessmentService.delete(assessment);
 	}
+	//End Assessment
 
 	// Grade
 	@Override
@@ -128,6 +129,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public void updateGrade(Grade grade) {
 		gradeService.updateGrade(grade);
 	}
+	//End Grade
 
 	// QC Note -------------------
 	@Override
@@ -195,7 +197,6 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public void deleteTrainerNote(TrainerNote note) {
 		trainerNoteService.deleteTrainerNote(note);
 	}
-
 	// end trainer note
 
 	// BatchNote
@@ -228,4 +229,18 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public void deleteBatchNote(BatchNote batchNote) {
 		batchNoteService.deleteBatchNote(batchNote);
 	}
+	//End BatchNote
+
+	//Note
+	@Override
+	public Note getNote(String note) {
+		return noteService.getNote(note);
+	}
+
+	@Override
+	public List<Note> getAllNotes() {
+		return noteService.getAllNotes();
+	}
+	
+	
 }
