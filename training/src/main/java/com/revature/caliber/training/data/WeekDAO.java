@@ -1,7 +1,6 @@
 package com.revature.caliber.training.data;
 
 import java.util.List;
-
 import com.revature.caliber.training.beans.Week;
 
 

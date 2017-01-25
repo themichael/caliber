@@ -9,11 +9,13 @@ import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.beans.Trainer;
+import com.revature.caliber.training.beans.Week;
 import com.revature.caliber.training.service.BatchService;
 import com.revature.caliber.training.service.BusinessDelegate;
 import com.revature.caliber.training.service.CategoryService;
 import com.revature.caliber.training.service.TraineeService;
 import com.revature.caliber.training.service.TrainerService;
+import com.revature.caliber.training.service.WeekService;
 
 /**
  * Implementation for the Business Delegate
@@ -36,6 +38,11 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
     CategoryService categoryService;
     @Autowired
     public void setCategoryService(CategoryService categoryService){this.categoryService = categoryService;}
+    
+    WeekService weekService;
+    @Autowired
+    public void setWeekService(WeekService weekService) { this.weekService = weekService; }
+    
 	//trainee
     public void createTrainee(Trainee trainee) { traineeService.createTrainee(trainee); }
     public void updateTrainee(Trainee trainee) { traineeService.updateTrainee(trainee); }
@@ -68,4 +75,10 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 	public Category getCategory(int categoryId) {return categoryService.getCategory(categoryId);}
 	public List<Category> getAllCategories() {return categoryService.getAllCategories();}
 	//end of category
+	
+	//Week
+	public List<Week> getAllWeeks() { return weekService.getAllWeeks(); }
+	public List<Week> getWeekByBatchId(int batchId) { return weekService.getWeekByBatchId(batchId); }
+	public List<Week> getWeekByWeekNumber(int weekNumber) { return weekService.getWeekByWeekNumber(weekNumber); }
+	public void createWeek(Week newWeek) { weekService.createWeek(newWeek); }
 }

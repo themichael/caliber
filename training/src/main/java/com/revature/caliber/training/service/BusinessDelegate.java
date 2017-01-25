@@ -4,6 +4,7 @@ import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.beans.Trainer;
+import com.revature.caliber.training.beans.Week;
 
 import java.util.List;
 
@@ -43,4 +44,10 @@ public interface BusinessDelegate {
     //CategoryService methods
     public Category getCategory(int categoryId);
     public List<Category> getAllCategories();
+    
+    //Week Service
+	public List<Week> getAllWeeks();
+	public List<Week> getWeekByBatchId(int batchId);
+	public List<Week> getWeekByWeekNumber(int weekNumber);
+	public void createWeek(Week newWeek);
 }

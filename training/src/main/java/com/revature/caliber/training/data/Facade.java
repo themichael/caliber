@@ -4,6 +4,7 @@ import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.beans.Trainer;
+import com.revature.caliber.training.beans.Week;
 
 import java.util.List;
 
@@ -42,5 +43,12 @@ public interface Facade {
 	public Trainer getTrainer(String email);
 	public List<Trainer> getAllTrainers();
 	public void updateTrainer(Trainer trainer);
+	
+	//Week methods
+	List<Week> getAllWeeks();
+	List<Week> getWeekByBatchId(int batchId);
+	List<Week> getWeekByWeekNumber(int weekNumber);
+	void createWeek(Week newWeek);
+	//end of week methods
 	
 }

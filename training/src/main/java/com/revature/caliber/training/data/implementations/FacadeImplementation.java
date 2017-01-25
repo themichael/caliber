@@ -11,6 +11,7 @@ import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.beans.Trainer;
+import com.revature.caliber.training.beans.Week;
 import com.revature.caliber.training.data.BatchDAO;
 import com.revature.caliber.training.data.CategoryDAO;
 import com.revature.caliber.training.data.Facade;
@@ -118,4 +119,19 @@ public class FacadeImplementation implements Facade {
     @Transactional (propagation = Propagation.REQUIRES_NEW)
     public void updateTrainer(Trainer trainer) {trainerDAO.updateTrainer(trainer);}
     //End Trainer
+    
+    
+    //Week
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+	public List<Week> getAllWeeks() { return weekDAO.getAllWeeks(); }
+    
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+	public List<Week> getWeekByBatchId(int batchId) { return weekDAO.getWeekByBatchId(batchId); }
+    
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+	public List<Week> getWeekByWeekNumber(int weekNumber) { return weekDAO.getWeekByWeekNumber(weekNumber); }
+    
+    @Transactional (propagation = Propagation.REQUIRES_NEW)
+	public void createWeek(Week newWeek) { weekDAO.createWeek(newWeek); }
+    //End Week
 }
