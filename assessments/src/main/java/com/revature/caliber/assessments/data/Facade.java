@@ -1,6 +1,5 @@
 package com.revature.caliber.assessments.data;
 
-
 import com.revature.caliber.assessments.beans.*;
 
 import java.util.List;
@@ -64,6 +63,20 @@ public interface Facade {
      */
     void deleteAssessment(Assessment assessment);
 
+//    Category
+    /**
+     * Returns Set of all Categories
+     * @return Set of all Categories
+     */
+    Set<Category> getAllCategories();
+
+    /**
+     * Returns Category
+     *  with provided ID
+     * @param id
+     * @return Category
+     */
+    Category getCategoryById(int id);
 
     //    Batch Note
     void makeBatchNote(BatchNote batchNote);
@@ -71,8 +84,13 @@ public interface Facade {
     BatchNote getWeeklyBatchNote(int batchId, int weekId);
 
     List<BatchNote> allBatchNotesInWeek(int weekId);
-
+    
+    List<BatchNote> allBatchNotes(int batchId);
+    
     void updateBatchNote(BatchNote batchNote);
+    
+    void deleteBatchNote(BatchNote batchNote);
+    
 
 
 //    Grade
@@ -147,7 +165,7 @@ public interface Facade {
     //QCNote
     void createQCNote(QCNote note);
 
-    QCNote getQCNoteById(Integer QCNoteId);
+    QCNote getQCNoteById(Integer qcNoteId);
 
     QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
 

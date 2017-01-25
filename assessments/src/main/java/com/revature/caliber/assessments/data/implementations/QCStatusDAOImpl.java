@@ -28,6 +28,7 @@ public class QCStatusDAOImpl implements QCStatusDAO {
         this.sessionFactory = sessionFactory;
     }
 
+
     @SuppressWarnings("unchecked")
     @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public Set<QCStatus> getAllStatus() {
@@ -35,11 +36,10 @@ public class QCStatusDAOImpl implements QCStatusDAO {
                 .createQuery("from com.revature.caliber.assessments.beans.QCStatus").list());
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-    public Set<Assessment> getAssessmentByStatus(String status) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(QCStatus.class);
-        criteria.add(Restrictions.eq("status", status));
-
+	@Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public Set<Assessment> getAssessmentByStatus(String status) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(QCStatus.class);
+		criteria.add(Restrictions.eq("status", status));
         QCStatus s = (QCStatus) criteria.uniqueResult();
         return s.getAssessments();
     }

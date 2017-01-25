@@ -13,6 +13,7 @@ import com.revature.caliber.training.service.TrainerService;
 public class TrainerServiceImplementation implements TrainerService {
 
 	Facade facade;
+
 	@Autowired
 	public void setFacade(Facade facade) {
 		this.facade = facade;
