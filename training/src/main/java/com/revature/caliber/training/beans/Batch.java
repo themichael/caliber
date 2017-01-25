@@ -66,6 +66,7 @@ public class Batch {
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@OneToMany(mappedBy = "batch"/*, cascade = CascadeType.REMOVE*/)
 	@JsonBackReference
+
 	private Set<Trainee> trainees;
 
 	@OneToMany(mappedBy = "batch")
