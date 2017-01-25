@@ -1,7 +1,7 @@
 package com.revature.caliber.beans.exceptions;
 
 /**
- * Created by illyasviel on 1/25/17.
+ * Custom exception for Training Service Trainee functionality
  */
 public class TrainingServiceTraineeOperationException extends RuntimeException{
     public TrainingServiceTraineeOperationException() { super(); }
