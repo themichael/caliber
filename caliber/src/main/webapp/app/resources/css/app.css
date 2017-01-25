@@ -58,6 +58,28 @@
 	border-radius: .3em;
 }
 
+
+/************************
+	Manage Batch
+************************/
+
+.modal-header {
+	background-color: #f1f2f4;
+	border-radius: 6px;
+}
+
+.trainee-body-modal {
+	height: 300px;
+}
+
+.glyphicon {
+	top: 0px;
+}
+
+.glyphicon-plus-style {
+	padding-left: .5em;
+}
+
 /************************
 	Margins
 ************************/
