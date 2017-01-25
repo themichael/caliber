@@ -96,11 +96,7 @@ angular.module("vp").controller(
                     $scope.batchRankSeries = radarData.series;
                     $scope.batchRankOptions = radarData.options;
 
-                    // create charts
-                } else if ($scope.currentTrainee === "Select") {
-                    // create charts
-                } else {
-                    // create charts
+                    // create other charts
                 }
 
             }
