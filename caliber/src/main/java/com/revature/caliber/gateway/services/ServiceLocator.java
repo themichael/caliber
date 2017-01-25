@@ -10,7 +10,7 @@ public interface ServiceLocator {
 	 * @return
 	 */
 	public TrainingService getTrainingService();
-	//TODO public AssessmentService getAssessmentService();
+	public AssessmentService getAssessmentService();
 	//TODO public ReportService getReportService();
 	//TODO public SalesforceService getSalesforceService();
 	
