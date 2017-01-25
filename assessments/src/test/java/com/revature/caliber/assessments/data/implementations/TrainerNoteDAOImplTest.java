@@ -1,21 +1,32 @@
 package com.revature.caliber.assessments.data.implementations;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+import static org.junit.Assert.assertEquals;
+>>>>>>> f3e002096c428f34d2ce16309171aa9c291cee20
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.Set;
+<<<<<<< HEAD
 =======
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.*;
 >>>>>>> c43c8df3317f30945a49523e62942b32c36aaf3d
+=======
+>>>>>>> f3e002096c428f34d2ce16309171aa9c291cee20
 
 import org.apache.log4j.Logger;
-import org.hibernate.*;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -23,9 +34,8 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.TrainerNoteDAO;
 
-import java.util.Set;
-
 public class TrainerNoteDAOImplTest {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	private static AbstractApplicationContext ctxt;
 	private TrainerNoteDAO trainerNoteDAO;
@@ -134,6 +144,9 @@ public class TrainerNoteDAOImplTest {
 
 	
 =======
+=======
+
+>>>>>>> f3e002096c428f34d2ce16309171aa9c291cee20
 	private static AbstractApplicationContext context;
 	private static TrainerNoteDAO trainerNoteDAO;
 	private static SessionFactory sf;
@@ -294,6 +307,11 @@ public class TrainerNoteDAOImplTest {
 		assertNotNull(trainerNote);
 
 		logger.debug("Ending updateTrainerNote");
+<<<<<<< HEAD
 	}
 >>>>>>> c43c8df3317f30945a49523e62942b32c36aaf3d
+=======
+
+	}
+>>>>>>> f3e002096c428f34d2ce16309171aa9c291cee20
 }

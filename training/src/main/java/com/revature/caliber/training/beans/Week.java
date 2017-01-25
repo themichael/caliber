@@ -48,7 +48,6 @@ public class Week {
 		super();
 	}
 
-	
 	public long getWeekId() {
 		return weekId;
 	}

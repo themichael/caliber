@@ -28,7 +28,7 @@ public class Tier {
 	@Column(name="RANKING", nullable=false)
 	@NotNull
 	private short ranking;
-	
+
 	public Tier() {
 		super();
 	}
