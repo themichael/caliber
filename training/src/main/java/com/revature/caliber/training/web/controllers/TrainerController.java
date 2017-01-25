@@ -29,16 +29,19 @@ import com.revature.caliber.training.service.BusinessDelegate;
 public class TrainerController {
 
 	private BusinessDelegate businessDelegate;
+
 	@Autowired
 	public void setBusinessDelegate(BusinessDelegate businessDelegate) {
 		this.businessDelegate = businessDelegate;
 	}
 
 	/**
-     * Creates a new trainer by making a PUT request to the URL
-     * @param: trainer to put
-     * @return: Response with appropriate status
-     */
+	 * Creates a new trainer by making a PUT request to the URL
+	 * 
+	 * @param: trainer
+	 *             to put
+	 * @return: Response with appropriate status
+	 */
 	@RequestMapping(value = "trainers/new", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Serializable> createTrainer(@RequestBody @Valid Trainer trainer) {
 		ResponseEntity<Serializable> returnEntity;
@@ -52,10 +55,12 @@ public class TrainerController {
 	}
 
 	/**
-     * Get a trainer by id by making a GET request to the URL
-     * @param: id as part of URL
-     * @return: Response with trainer object and/or appropriate status
-     */
+	 * Get a trainer by id by making a GET request to the URL
+	 * 
+	 * @param: id
+	 *             as part of URL
+	 * @return: Response with trainer object and/or appropriate status
+	 */
 	@RequestMapping(value = "trainers/byid/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Trainer> getTrainerById(@PathVariable("identifier") int id) {
 		ResponseEntity<Trainer> returnEntity;
@@ -75,10 +80,12 @@ public class TrainerController {
 	}
 
 	/**
-     * Get a list of trainers by email by making a GET request to the URL
-     * @param: email as part of URL
-     * @return Response with trainer object and/or status
-     */
+	 * Get a list of trainers by email by making a GET request to the URL
+	 * 
+	 * @param: email
+	 *             as part of URL
+	 * @return Response with trainer object and/or status
+	 */
 	@RequestMapping(value = "trainers/byemail/{identifier}/", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Trainer> getTrainerByEmail(@PathVariable("identifier") String email) {
 		ResponseEntity<Trainer> returnEntity;
@@ -99,9 +106,10 @@ public class TrainerController {
 	}
 
 	/**
-     * Get a list of all trainers by making a GET request to the URL
-     * @return Response with list of trainer objects and/or status
-     */
+	 * Get a list of all trainers by making a GET request to the URL
+	 * 
+	 * @return Response with list of trainer objects and/or status
+	 */
 	@RequestMapping(value = "trainers/all", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 		ResponseEntity<List<Trainer>> returnEntity;
@@ -122,10 +130,12 @@ public class TrainerController {
 	}
 
 	/**
-     * Update a trainer by making a POST request to the URL
-     * @param: trainer to update
-     * @return: Response with appropriate status
-     */
+	 * Update a trainer by making a POST request to the URL
+	 * 
+	 * @param: trainer
+	 *             to update
+	 * @return: Response with appropriate status
+	 */
 	@RequestMapping(value = "trainers/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Serializable> updateTrainer(@RequestBody @Valid Trainer trainer) {
 		ResponseEntity<Serializable> returnEntity;

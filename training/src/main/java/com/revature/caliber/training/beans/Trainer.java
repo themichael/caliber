@@ -21,78 +21,78 @@ import org.hibernate.validator.constraints.Email;
  */
 
 @Entity
-@Table(name="CALIBER_TRAINER")
+@Table(name = "CALIBER_TRAINER")
 public class Trainer {
 
 	/**
 	 * id for Trainer -- PK
 	 */
 	@Id
-	@Column(name="TRAINER_ID", nullable=false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="TRAINER_ID_SEQUENCE")
-	@SequenceGenerator(name = "TRAINER_ID_SEQUENCE", sequenceName= "TRAINER_ID_SEQUENCE")
+	@Column(name = "TRAINER_ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRAINER_ID_SEQUENCE")
+	@SequenceGenerator(name = "TRAINER_ID_SEQUENCE", sequenceName = "TRAINER_ID_SEQUENCE")
 	@NotNull
 	private int trainerId;
-	
+
 	/**
 	 * Full name of the Trainer
 	 */
-	@Column(name="NAME", nullable=false)
+	@Column(name = "NAME", nullable = false)
 	@NotNull
 	private String name;
-	
+
 	/**
 	 * Title of the Trainer
 	 */
-	@Column(name="TITLE", nullable=false)
+	@Column(name = "TITLE", nullable = false)
 	@NotNull
 	private String title;
-	
+
 	/**
 	 * Email of the Trainer
 	 */
-	@Column(name="EMAIL", nullable=false, unique=true)
+	@Column(name = "EMAIL", nullable = false, unique = true)
 	@Email
 	@NotNull
 	private String email;
-	
+
 	/**
 	 * Salesforce account of the Trainer
 	 */
-	@Column(name="SF_ACCOUNT", nullable=false)
+	@Column(name = "SF_ACCOUNT", nullable = false)
 	@NotNull
 	private String salesforceAccount;
-	
+
 	/**
 	 * Salesforce authentication token of the Trainer
 	 */
-	@Column(name="SF_AUTHENTICATION_TOKEN", nullable=false)
+	@Column(name = "SF_AUTHENTICATION_TOKEN", nullable = false)
 	@NotNull
 	private String salesforceAuthenticationToken;
-	
+
 	/**
 	 * Salesforce refresh token of the Trainer
 	 */
-	@Column(name="SF_REFRESH_TOKEN", nullable=false)
+	@Column(name = "SF_REFRESH_TOKEN", nullable = false)
 	@NotNull
 	private String salesforceRefreshToken;
-	
+
 	/**
 	 * Tier of the Trainer
 	 */
 	@ManyToOne
-	@JoinColumn(name="TIER", nullable=false)
+	@JoinColumn(name = "TIER", nullable = false)
 	private Tier tier;
-	
+
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	@OneToMany(mappedBy="trainer")
+	@OneToMany(mappedBy = "trainer")
 	private Set<Batch> batches;
 
 	public Trainer() {
 		super();
 	}
-	
-	public Trainer(String name, String title, String email, String salesforceAccount, 
+
+	public Trainer(String name, String title, String email, String salesforceAccount,
 			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
 		super();
 		this.name = name;
@@ -116,7 +116,7 @@ public class Trainer {
 		this.tier = tier;
 		this.batches = batches;
 	}
-	
+
 	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier) {
 		super();
 		this.trainerId = trainerId;
@@ -138,7 +138,7 @@ public class Trainer {
 		this.tier = tier;
 		this.batches = batches;
 	}
-	
+
 	public int getTrainerId() {
 		return trainerId;
 	}
@@ -211,6 +211,4 @@ public class Trainer {
 		this.salesforceRefreshToken = salesforceRefreshToken;
 	}
 
-	
-	
 }
