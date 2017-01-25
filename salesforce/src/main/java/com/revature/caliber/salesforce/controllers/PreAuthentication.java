@@ -1,6 +1,7 @@
 package com.revature.caliber.salesforce.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.salesforce.beans.Trainer;
 import com.revature.caliber.salesforce.models.SalesforceToken;
 import com.revature.caliber.salesforce.models.SalesforceUser;
 import org.apache.http.HttpResponse;
@@ -12,13 +13,17 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -74,12 +79,17 @@ public class PreAuthentication {
 
             setSalesforceUser(salesforceToken.getId());
             //set prefix
-            String role = "ROLE_TRAINER";
-            salesforceUser.setRole(role);
+            //String role = "ROLE_TRAINER";
+
+            //find user in database by making rest call
+            Trainer currentUser = find(salesforceUser.getEmail());
+            salesforceUser.setRole(currentUser.getTier().getTier());
+
+
             Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
 
-            switch(role){
+            switch(salesforceUser.getRole()){
                 case "ROLE_VP":
                     return "redirect:/vp/home";
                 case "ROLE_QC":
@@ -107,5 +117,21 @@ public class PreAuthentication {
         salesforceUser = new ObjectMapper().readValue(response.getEntity().getContent(),SalesforceUser.class);
         salesforceUser.setSalesforceToken(salesforceToken);
     }
+
+    public Trainer find(String email){
+        // append path param
+        RestTemplate rest = new RestTemplate();
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl("http://localhost:8080/training/trainers/byemail/")
+                        .path(String.valueOf(email+"/"));
+        String URI = builder.build().toUriString();
+        ResponseEntity<Trainer> response =
+                rest.getForEntity(URI, Trainer.class);
+        if(response.getStatusCode() == HttpStatus.NOT_FOUND)
+            return null;
+        else
+            return response.getBody();
+    }
+
 
 }
