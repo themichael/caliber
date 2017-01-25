@@ -35,5 +35,43 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
 		return chartData;
 	};
 
+	hbarChart.getTrainerEvalChart = function(dataArray){
+		var chartData = {};
+
+		// series
+		chartData.series = ["QC Eval"];
+
+        // labels and data
+        chartData.data = [];
+        chartData.labels = [];
+
+        // loop through object array
+        dataArray.forEach(function(element){
+        	chartData.data.push(element.score);
+        	chartData.labels.push(element.name);
+		});
+
+		return chartData;
+	};
+
+    hbarChart.getAllBatchesEvalChart = function(dataArray){
+        var chartData = {};
+
+        // series
+        chartData.series = ["All Batch Eval"];
+
+        // labels and data
+        chartData.data = [];
+        chartData.labels = [];
+
+        // loop through object array
+        dataArray.forEach(function(element){
+            chartData.data.push(element.score);
+            chartData.labels.push(element.name);
+        });
+
+        return chartData;
+    };
+
 	return hbarChart;
 });
