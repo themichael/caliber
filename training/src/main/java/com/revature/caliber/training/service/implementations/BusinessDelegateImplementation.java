@@ -9,11 +9,13 @@ import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.beans.Trainee;
 import com.revature.caliber.training.beans.Trainer;
+import com.revature.caliber.training.beans.Week;
 import com.revature.caliber.training.service.BatchService;
 import com.revature.caliber.training.service.BusinessDelegate;
 import com.revature.caliber.training.service.CategoryService;
 import com.revature.caliber.training.service.TraineeService;
 import com.revature.caliber.training.service.TrainerService;
+import com.revature.caliber.training.service.WeekService;
 
 /**
  * Implementation for the Business Delegate
@@ -21,33 +23,28 @@ import com.revature.caliber.training.service.TrainerService;
 @Component(value = "trainingBusinessDelegateImplementation")
 public class BusinessDelegateImplementation implements BusinessDelegate {
 
-	TraineeService traineeService;
 
-	@Autowired
-	public void setTraineeService(TraineeService traineeService) {
-		this.traineeService = traineeService;
-	}
+    TraineeService traineeService;
+    @Autowired
+    public void setTraineeService(TraineeService traineeService) { this.traineeService = traineeService; }
 
-	BatchService batchService;
+    BatchService batchService;
+    @Autowired
+    public void setBatchService(BatchService batchService) {this.batchService = batchService;}
+    
+    TrainerService trainerService;
+    @Autowired
+    public void setTrainerService(TrainerService trainerService) {this.trainerService = trainerService;}
+    
+    CategoryService categoryService;
+    @Autowired
+    public void setCategoryService(CategoryService categoryService){this.categoryService = categoryService;}
+    
+    WeekService weekService;
+    @Autowired
+    public void setWeekService(WeekService weekService) { this.weekService = weekService; }
 
-	@Autowired
-	public void setBatchService(BatchService batchService) {
-		this.batchService = batchService;
-	}
 
-	TrainerService trainerService;
-
-	@Autowired
-	public void setTrainerService(TrainerService trainerService) {
-		this.trainerService = trainerService;
-	}
-
-	CategoryService categoryService;
-
-	@Autowired
-	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService = categoryService;
-	}
 
 	// trainee
 	public void createTrainee(Trainee trainee) {
@@ -140,4 +137,11 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 		return categoryService.getAllCategories();
 	}
 	// end of category
+	
+	//Week
+	public List<Week> getAllWeeks() { return weekService.getAllWeeks(); }
+	public List<Week> getWeekByBatchId(int batchId) { return weekService.getWeekByBatchId(batchId); }
+	public List<Week> getWeekByWeekNumber(int weekNumber) { return weekService.getWeekByWeekNumber(weekNumber); }
+	public void createWeek(Week newWeek) { weekService.createWeek(newWeek); }
+
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -124,7 +125,7 @@ public class GradeDAOImpl implements GradeDAO {
 				.add(Projections.avg("score"))
 				.add(Projections.groupProperty("assessment.assessmentId"))
 				.add(Projections.property("assessment.assessmentId")));
-		HashMap<Long, Double> map = new HashMap<Long, Double>();
+		HashMap<Long, Double> map = new HashMap<>();
 		List<Object[]> grades = criteria.list();
 		for(Object[] grade:grades){
 			Double score = (Double) grade[0];
@@ -147,13 +148,10 @@ public class GradeDAOImpl implements GradeDAO {
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.avg("score"))
 				.add(Projections.property("a.categories"))
-				.add(Projections.groupProperty("a.categories")));		
-		System.out.println("added projections");
-		System.out.println("criteria list " +criteria.list());
-		HashMap<Set<Category>, Double> map = new HashMap<Set<Category>, Double>();
+				.add(Projections.groupProperty("a.categories")));		;
+		HashMap<Set<Category>, Double> map = new HashMap<>();
 		List<Object[]> grades = criteria.list();		
 		for(Object[] grade:grades){
-			System.out.println("gott object");
 			Double score = (Double) grade[0];
 			Set<Category> categories=  (Set<Category>) grade[1];
 			if(!map.containsKey(categories)){
@@ -165,7 +163,8 @@ public class GradeDAOImpl implements GradeDAO {
 
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
-			Exception.class })	public Map<Long, Double> gradeByWeek(int traineeId) {
+			Exception.class })	
+	public Map<Long, Double> gradeByWeek(int traineeId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
 		criteria.add(Restrictions.eq("trainee", traineeId));
 		criteria.createAlias("assessment", "a");
@@ -173,7 +172,7 @@ public class GradeDAOImpl implements GradeDAO {
 				.add(Projections.avg("score"))
 				.add(Projections.groupProperty("a.week"))
 				.add(Projections.property("a.week")));
-		HashMap<Long, Double> map = new HashMap<Long, Double>();
+		HashMap<Long, Double> map = new HashMap<>();
 		List<Object[]> grades = criteria.list();
 		for(Object[] grade:grades){
 			Double score = (Double) grade[0];
@@ -183,5 +182,25 @@ public class GradeDAOImpl implements GradeDAO {
 			}
 		}
 		return map;
+	}
+
+	@Override
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor={
+			Exception.class})
+	public List avgGradeByTrainer(int trainerId) {
+		String HQL="SELECT T.name, avg(score) "
+				+ "FROM Grade G "
+				+ "join G.trainee T "
+				+ "join T.batch B "
+				+ "join B.trainer TR "
+				+ "where TR.trainerId =:trainer "
+				+ "group by T.name";
+		Query query = sessionFactory.getCurrentSession().createQuery(HQL);
+		query.setInteger("trainer", trainerId);
+		List<Object[]> grades = query.list();
+//		for(Object[] grade:grades){
+//			Double score = (Double) grade[0]
+//		}
+		return query.list();
 	}
 }
