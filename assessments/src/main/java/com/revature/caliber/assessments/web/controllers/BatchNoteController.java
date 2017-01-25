@@ -40,7 +40,7 @@ public class BatchNoteController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BatchNote> createAssessment(@RequestBody BatchNote batchNote) {
         delegate.makeBatchNote(batchNote);
-        return new ResponseEntity<BatchNote>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
     //Update a BatchNote
@@ -50,7 +50,7 @@ public class BatchNoteController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BatchNote> updateTrainerNote(@RequestBody TrainerNote trainerNote) {
         delegate.updateTrainerNote(trainerNote);
-        return new ResponseEntity<BatchNote>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     //Delete a BatchNote
@@ -60,7 +60,7 @@ public class BatchNoteController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BatchNote> deleteAssessment(@RequestBody BatchNote batchNote) {
         delegate.deleteBatchNote(batchNote);
-        return new ResponseEntity<BatchNote>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     //List of all BatchNotes for a single batch 
@@ -71,9 +71,9 @@ public class BatchNoteController {
     public ResponseEntity<List<BatchNote>> allBatchNotes (@PathVariable("batchId") int batchId) {
         List<BatchNote> batchNote = delegate.allBatchNotes(batchId);
         if (batchNote == null) {
-            return new ResponseEntity<List<BatchNote>>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<List<BatchNote>>(batchNote, HttpStatus.OK);
+        return new ResponseEntity<>(batchNote, HttpStatus.OK);
     }
     
     //List all Batches' BatchNotes for a given week
@@ -84,9 +84,9 @@ public class BatchNoteController {
     public ResponseEntity<List<BatchNote>> allBatchNotesWithinWeek (@PathVariable("weekId") int weekId) {
         List<BatchNote> batchNote = delegate.allBatchNotes(weekId);
         if (batchNote == null) {
-            return new ResponseEntity<List<BatchNote>>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<List<BatchNote>>(batchNote, HttpStatus.OK);
+        return new ResponseEntity<>(batchNote, HttpStatus.OK);
     }
       
     
@@ -97,9 +97,9 @@ public class BatchNoteController {
     public ResponseEntity<BatchNote> getBatchNote(@PathVariable("batchId") int batchId, @PathVariable("weekId") int weekId) {
     	  BatchNote batchNote = delegate.weeklyBatchNote(batchId, weekId);
           if (batchNote == null) {
-              return new ResponseEntity<BatchNote>(HttpStatus.NOT_FOUND);
+              return new ResponseEntity<>(HttpStatus.NOT_FOUND);
           }
-          return new ResponseEntity<BatchNote>(batchNote, HttpStatus.OK);
+          return new ResponseEntity<>(batchNote, HttpStatus.OK);
     	
     }
     
