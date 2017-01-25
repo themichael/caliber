@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -31,29 +32,49 @@ import java.util.Map;
  */
 
 
-@Controller
-public class PreAuthentication {
-    Map<String, String> environment = System.getenv();
-    private final String authURL = environment.get("SALESFORCE_AUTH_URL");
-    private final String accessTokenURL = environment.get("SALESFORCE_ACCESS_TOKEN_URL");
-    private final String clientId = environment.get("SALESFORCE_CLIENT_ID");
-    private final String clientSecret = environment.get("SALESFORCE_CLIENT_SECRET");
-    private final String redirectUri = environment.get("SALESFORCE_REDIRECT_URI");
+@RestController
+public class SalesforceAPI implements Salesforce {
+    private String authURL;
+    private String accessTokenURL;
+    private String clientId;
+    private String clientSecret;
+    private String redirectUri;
     private SalesforceToken salesforceToken;
     private SalesforceUser salesforceUser;
     private HttpClient httpClient;
 
+    public SalesforceAPI() {
+        httpClient = HttpClientBuilder.create().build();
+    }
+
+    public void setAuthURL(String authURL) {
+        this.authURL = authURL;
+    }
+
+    public void setAccessTokenURL(String accessTokenURL) {
+        this.accessTokenURL = accessTokenURL;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
+
+    public void setRedirectUri(String redirectUri) {
+        this.redirectUri = redirectUri;
+    }
 
     @RequestMapping(value = "/")
-    public ModelAndView openAuth() {
+    public ModelAndView openAuthURI() {
         return new ModelAndView("redirect:" + authURL + "?response_type=code&client_id="
                 + clientId + "&redirect_uri=" + redirectUri);
     }
 
     @RequestMapping(value = "/authenticated")
-    public String getCode(@RequestParam(value = "code") String code) {
-        try {
-            httpClient = HttpClientBuilder.create().build();
+    public void authenticate(@RequestParam(value = "code") String code) throws IOException {
             HttpPost post = new HttpPost(accessTokenURL);
             List<NameValuePair> parameters = new ArrayList<>();
             parameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
@@ -64,44 +85,10 @@ public class PreAuthentication {
             post.setEntity(new UrlEncodedFormEntity(parameters));
             HttpResponse response = httpClient.execute(post);
             salesforceToken = new ObjectMapper().readValue(response.getEntity().getContent(), SalesforceToken.class);
-            /*
-                Made SalesforceUser class implement UserDetails(spring security).
-                Role is currently hard coded role at the moment but can be fetched from DB.
-                Since the response from the salesforce API proves user is authenticated
-                I can now authenticate them in the application .. they now have access to any page
-                with admin privileges.
-             */
-
             setSalesforceUser(salesforceToken.getId());
-            //set prefix
-            String role = "ROLE_TRAINER";
-            salesforceUser.setRole(role);
-            Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(auth);
-
-            switch(role){
-                case "ROLE_VP":
-                    return "redirect:/vp/home";
-                case "ROLE_QC":
-                    return "redirect:/qc/home";
-                case "ROLE_TRAINER":
-                    return "redirect:/trainer/home";
-            }
-
-
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
-        } catch (ClientProtocolException e1) {
-            e1.printStackTrace();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return null;
-
     }
 
     public void setSalesforceUser(String str) throws IOException {
-        httpClient = HttpClientBuilder.create().build();
         HttpGet get = new HttpGet(str + "?access_token=" + salesforceToken.getAccess_token());
         HttpResponse response = httpClient.execute(get);
         salesforceUser = new ObjectMapper().readValue(response.getEntity().getContent(),SalesforceUser.class);

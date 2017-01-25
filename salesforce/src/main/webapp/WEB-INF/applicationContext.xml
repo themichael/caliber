@@ -41,8 +41,13 @@
 	<bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
-
-
+	
+	<bean name="salesforceAPI" class="com.revature.caliber.salesforce.controllers.SalesforceAPI">
+		<property name="authURL" value="#{systemEnvironment['SALESFORCE_AUTH_URL']}"/>
+		<property name="accessTokenURL" value="#{systemEnvironment['SALESFORCE_ACCESS_TOKEN_URL']}"/>
+		<property name="clientId" value="#{systemEnvironment['SALESFORCE_CLIENT_ID']}"/>
+		<property name="clientSecret" value="#{systemEnvironment['SALESFORCE_CLIENT_SECRET']}"/>
+		<property name="redirectUri" value="#{systemEnvironment['SALESFORCE_REDIRECT_URI']}"/>
+	</bean>
 
 </beans>
