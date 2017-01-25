@@ -22,6 +22,7 @@ public class TrainingServiceImpl implements TrainingService{
 	//paths for trainee (look at beans.xml for the paths themselves)
 	private String addTraineePath, updateTraineePath, deleteTraineePath, getTraineeByIdPath, getTraineeByNamePath,
 			getTraineesByBatchPath;
+	private String addTrainerPath, updateTrainerPath, getAllTrainersPath, getTrainerByIdPath, getTrainerByEmailPath;
 	
 	@Override
 	public List<Batch> getBatches(Trainer trainer) {
@@ -166,38 +167,99 @@ public class TrainingServiceImpl implements TrainingService{
 	//Trainer --------------------------------------------------------------------------------------
 	@Override
 	public void createTrainer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addTrainerPath)
+				.build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<Trainer> entity = new HttpEntity<>(trainer, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Trainee could not be created");
+		}
 	}
 
 	@Override
 	public Trainer getTrainer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByIdPath)
+				.path(id.toString())
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Trainer> response = service.getForEntity(URI, Trainer.class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Failed to retrieve the trainer by id.");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public Trainer getTrainer(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByEmailPath)
+				.path(email)
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Trainer> response = service.getForEntity(URI, Trainer.class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Failed to retrieve the trainer by email.");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Trainer> getAllTrainers() {
-		// TODO Auto-generated method stub
-		return null;
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getAllTrainersPath)
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Trainer[]> response = service.getForEntity(URI, Trainer[].class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Failed to retrieve all trainers.");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return Arrays.asList(response.getBody());
+		}
+		else {
+			return new ArrayList<>();
+		}
 	}
 
 	@Override
 	public void updateTrainer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		
-	}
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTrainerPath)
+				.build().toUriString();
 
-	@Override
-	public void deleteTrainer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.postForEntity(URI, trainer, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Trainer could not be updated");
+		}
 	}
 	
 	//End of Trainer ----------------------------------------------------------------------------
@@ -223,6 +285,15 @@ public class TrainingServiceImpl implements TrainingService{
 	public void setGetTraineeByNamePath(String getTraineeByNamePath) { this.getTraineeByNamePath = getTraineeByNamePath; }
 	public void setGetTraineesByBatchPath(String getTraineesByBatchPath) { this.getTraineesByBatchPath = getTraineesByBatchPath; }
 	//end of Trainee
+
+	//Trainer
+	public void setAddTrainerPath(String addTrainerPath) {this.addTrainerPath = addTrainerPath;}
+	public void setUpdateTrainerPath(String updateTrainerPath) {this.updateTrainerPath = updateTrainerPath;}
+	public void setGetAllTrainersPath(String getAllTrainersPath) {this.getAllTrainersPath = getAllTrainersPath;}
+	public void setGetTrainerByIdPath(String getTrainerByIdPath) {this.getTrainerByIdPath = getTrainerByIdPath;}
+	public void setGetTrainerByEmailPath(String getTrainerByEmailPath) {this.getTrainerByEmailPath = getTrainerByEmailPath;}
+	//End of Trainer
+	
 
 
 }

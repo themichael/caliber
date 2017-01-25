@@ -112,8 +112,6 @@ public interface ApiGateway {
 	 * @param trainer: the trainer object to update
 	 */
 	void updateTrainer(Trainer trainer);
-
-	void deleteTrainer(Trainer trainer);
 	
 	//End of Trainer Service
 }

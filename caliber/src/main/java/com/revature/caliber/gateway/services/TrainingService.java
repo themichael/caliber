@@ -88,6 +88,5 @@ public interface TrainingService{
 	 */
 	void updateTrainer(Trainer trainer);
 
-	void deleteTrainer(Trainer trainer);
 	//End of Trainer
 }
