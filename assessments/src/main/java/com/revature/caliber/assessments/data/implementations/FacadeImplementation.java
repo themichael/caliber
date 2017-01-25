@@ -265,4 +265,16 @@ public class FacadeImplementation implements Facade {
         return noteDAO.getAllNotes();
     }
 
+    
+    //QCStatus
+	@Override
+	public Set<QCStatus> getAllStatus() {
+		return qcStatusDAO.getAllStatus();
+	}
+
+	@Override
+	public Set<Assessment> getAssessmentByStatus(String status) {
+		return qcStatusDAO.getAssessmentByStatus(status);
+	}
+
 }
