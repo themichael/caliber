@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -85,11 +86,12 @@ public class Trainer {
 	 */
 	@ManyToOne(fetch =FetchType.EAGER)
 	@JoinColumn(name = "TIER", nullable = false)
+	@JsonBackReference
 	private Tier tier;
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@OneToMany(mappedBy="trainer", fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@JsonManagedReference(value = "batchAndTrainer")
 	private Set<Batch> batches;
 
 	public Trainer() {

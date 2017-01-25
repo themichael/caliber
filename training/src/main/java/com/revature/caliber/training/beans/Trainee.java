@@ -1,15 +1,8 @@
 package com.revature.caliber.training.beans;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 /**
  * Bean for Trainee
@@ -48,8 +41,9 @@ public class Trainee {
 	/**
 	 * Batch that the Trainee belongs to
 	 */
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
+	@JsonBackReference(value = "traineeAndBatch")
 	private Batch batch;
 
 	public Trainee() {
