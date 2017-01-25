@@ -177,4 +177,8 @@ public interface Facade {
 
     void deleteQCNote(QCNote note);
     //QCNote end
+    
+   //QCStatus
+    public Set<QCStatus> getAllStatus();
+	public Set<Assessment> getAssessmentByStatus(String status);
 }
