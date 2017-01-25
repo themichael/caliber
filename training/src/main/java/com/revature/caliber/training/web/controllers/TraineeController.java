@@ -46,7 +46,10 @@ public class TraineeController {
 	 *            trainee to put
 	 * @return Response with appropriate status
 	 */
-	@RequestMapping(value = "trainees/new", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainees/new", 
+					method = RequestMethod.PUT, 
+					consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, 
+					produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Serializable> createTrainee(@RequestBody @Valid Trainee trainee) {
 		ResponseEntity<Serializable> returnEntity;
 		try {
