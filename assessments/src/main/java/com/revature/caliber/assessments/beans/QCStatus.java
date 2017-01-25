@@ -22,6 +22,19 @@ public class QCStatus {
 	@OneToMany(mappedBy = "weeklyStatus", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Assessment> assessments;
 
+	public QCStatus() {
+		super();
+	}
+
+	public QCStatus(String status) {
+		this.status = status;
+	}
+
+	public QCStatus(short statusId, String status) {
+		this.statusId = statusId;
+		this.status = status;
+	}
+
 	public short getStatusId() {
 		return statusId;
 	}
@@ -49,19 +62,6 @@ public class QCStatus {
 	@Override
 	public String toString() {
 		return "QCStatus [statusId=" + statusId + ", status=" + status + ", assessments=" + assessments + "]";
-	}
-
-	public QCStatus(String status) {
-		this.status = status;
-	}
-
-	public QCStatus(short statusId, String status) {
-		this.statusId = statusId;
-		this.status = status;
-	}
-
-	public QCStatus() {
-		super();
 	}
 
 }
