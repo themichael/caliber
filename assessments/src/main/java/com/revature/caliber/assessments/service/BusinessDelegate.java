@@ -8,59 +8,48 @@ import java.util.Set;
 public interface BusinessDelegate {
 
 //    Assessment
-    //    Get
-
-    /**
-     * Returns a Set of all Assessments
-     *
-     * @return a Set of Assessments
-     */
+	//    Get
+	/**
+	 * Returns a Set of all Assessments
+	 * @return a Set of Assessments
+	 */
     Set<Assessment> getAllAssessments();
 
-    /**
-     * Return Assessment with AssessmentId
-     *
-     * @return an Assessment
-     */
+	/**
+	 * Return Assessment with AssessmentId
+	 * @return an Assessment
+	 */
     Assessment getAssessmentById(long id);
 
-    /**
-     * Returns HashSet of Assessments with WeekId
-     *
-     * @param id the Week ID
-     * @return a Set of Assessments
-     */
+	/**
+	 * Returns HashSet of Assessments with WeekId
+	 * @param id the Week ID
+	 * @return a Set of Assessments
+	 */
     Set<Assessment> getAssessmentsByWeekId(long id);
 
-    //    Create
-
-    /**
-     * Inserts Assessment
-     *
-     * @param assessment an Assessment to be inserted
-     */
+	//    Create
+	/**
+	 * Inserts Assessment
+	 * @param assessment an Assessment to be inserted
+	 */
     long insertAssessment(Assessment assessment);
 
-    //    Update
-
-    /**
-     * Updates Assessment
-     *
-     * @param assessment an Assessment to be updated
-     */
+	//    Update
+	/**
+	 * Updates Assessment
+	 * @param assessment an Assessment to be updated
+	 */
     void updateAssessment(Assessment assessment);
 
-    //    Delete
-
-    /**
-     * Deletes Assessment
-     *
-     * @param assessment and Assessment to delete
-     */
+	//    Delete
+	/**
+	 * Deletes Assessment
+	 * @param assessment and Assessment to delete
+	 */
     void deleteAssessment(Assessment assessment);
 
 //    BatchNote
-
     /**
      * Create a batchNote
      */
@@ -83,7 +72,6 @@ public interface BusinessDelegate {
     void updateBatchNote(BatchNote batchNote);
 
 //    Grade
-
     /**
      * Returns a list of all grade entries
      */
@@ -102,13 +90,13 @@ public interface BusinessDelegate {
      */
     List<Grade> getGradesByTraineeId(int traineeId);
 
-    /**
-     * Returns a list of grades of a specific assessment based on assessmentId
-     * as an input
-     *
-     * @param assessmentId
-     */
-    List<Grade> getGradesByAssesessment(long assessmentId);
+ 	/**
+ 	 * Returns a list of grades of a specific assessment based on assessmentId
+ 	 * as an input
+ 	 *
+ 	 * @param assessmentId
+ 	 */
+ 	List<Grade> getGradesByAssessment(long assessmentId);
 
     // Insert
 
@@ -117,19 +105,17 @@ public interface BusinessDelegate {
      */
     void insertGrade(Grade grade);
 
-    // Delete
+ 	// Delete
+ 	/**
+ 	 * Deletes a grade
+ 	 */
+ 	void deleteGrade(Grade grade);
 
-    /**
-     * Deletes a grade
-     */
-    void deleteGrade(Grade grade);
-
-    // Update
-
-    /**
-     * Updates a grade
-     */
-    void updateGrade(Grade grade);
+ 	// Update
+ 	/**
+ 	 * Updates a grade
+ 	 */
+ 	void updateGrade(Grade grade);
 
 //    QCNote
     void createQCNote(QCNote note);

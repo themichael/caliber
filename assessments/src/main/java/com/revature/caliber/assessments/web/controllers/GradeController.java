@@ -73,7 +73,7 @@ public class GradeController {
 			method=RequestMethod.GET,
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Grade>> getGradesByAssessmentId(@PathVariable (value="assessmentId") int assessmentId){
-		List<Grade> grades = delegate.getGradesByAssesessment(assessmentId);
+		List<Grade> grades = delegate.getGradesByAssessment(assessmentId);
 		if(grades == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
