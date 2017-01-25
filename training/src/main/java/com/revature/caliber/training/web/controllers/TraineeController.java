@@ -46,10 +46,10 @@ public class TraineeController {
 	 *            trainee to put
 	 * @return Response with appropriate status
 	 */
-	@RequestMapping(value = "trainees/new", 
-					method = RequestMethod.PUT, 
-					consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, 
-					produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainees/new",
+                    method = RequestMethod.PUT,
+                    consumes = MediaType.APPLICATION_JSON_VALUE,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> createTrainee(@RequestBody @Valid Trainee trainee) {
 		ResponseEntity<Serializable> returnEntity;
 		try {
@@ -69,7 +69,10 @@ public class TraineeController {
 	 *            trainee to update (with updated fields)
 	 * @return Response with appropriate status
 	 */
-	@RequestMapping(value = "trainees/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainees/update",
+                    method = RequestMethod.POST,
+                    consumes = MediaType.APPLICATION_JSON_VALUE,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> updateTrainee(@RequestBody @Valid Trainee trainee) {
 		ResponseEntity<Serializable> returnEntity;
 
@@ -91,7 +94,10 @@ public class TraineeController {
 	 *            trainee to delete
 	 * @return Response with appropriate status
 	 */
-	@RequestMapping(value = "trainees/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainees/delete",
+                    method = RequestMethod.DELETE,
+                    consumes = MediaType.APPLICATION_JSON_VALUE,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> deleteTrainee(@RequestBody @Valid Trainee trainee) {
 		ResponseEntity<Serializable> returnEntity;
 
@@ -113,7 +119,9 @@ public class TraineeController {
 	 *            id as part of URL
 	 * @return Response with trainee object and/or appropriate status
 	 */
-	@RequestMapping(value = "trainees/byid/{identifier}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "trainees/byid/{identifier}",
+                    method = RequestMethod.GET,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainee> getTraineeById(@PathVariable("identifier") int id) {
 		ResponseEntity<Trainee> returnEntity;
 
@@ -140,7 +148,9 @@ public class TraineeController {
 	 *            name as part of URL
 	 * @return Response with trainee object and/or status
 	 */
-	@RequestMapping(value = "trainees/byname/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainees/byname/{identifier}",
+                    method = RequestMethod.GET,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainee> getTraineeByName(@PathVariable("identifier") String name) {
 		ResponseEntity<Trainee> returnEntity;
 
@@ -167,7 +177,9 @@ public class TraineeController {
 	 *            id as part of URL
 	 * @return Response with list of trainee objects and/or status
 	 */
-	@RequestMapping(value = "trainees/bybatch/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainees/bybatch/{identifier}",
+                    method = RequestMethod.GET,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Trainee>> getTraineesForBatch(@PathVariable("identifier") int batchId) {
 		ResponseEntity<List<Trainee>> returnEntity;
 

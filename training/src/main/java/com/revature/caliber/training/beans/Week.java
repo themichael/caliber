@@ -1,5 +1,7 @@
 package com.revature.caliber.training.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -34,7 +36,7 @@ public class Week {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "BATCH_ID")
-	@JsonBackReference
+	@JsonBackReference(value = "batchAndWeeks")
 	private Batch batch;
 
 	@ManyToMany(mappedBy = "weeks", fetch = FetchType.EAGER)
