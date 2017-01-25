@@ -161,5 +161,22 @@ public interface BusinessDelegate {
     void updateTrainerNote(TrainerNote note);
 
     void deleteTrainerNote(TrainerNote note);
+    
+    
+    //Note
+    /**
+	 * 
+	 * Return a single note
+	 * 
+	 */
+	public Note getNote(String note);
+	
+	/**
+	 * 
+	 * Return a list of all notes
+	 * 
+	 */
+	public List<Note> getAllNotes();
+	//Note End
 
 }

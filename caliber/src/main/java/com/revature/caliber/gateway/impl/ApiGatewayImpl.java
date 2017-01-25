@@ -39,4 +39,36 @@ public class ApiGatewayImpl implements ApiGateway{
 
 	@Override
 	public void deleteTrainee(Trainee trainee) { serviceLocator.getTrainingService().deleteTrainee(trainee); }
+
+	//
+	@Override
+	public void createTrainer(Trainer trainer) {
+		serviceLocator.getTrainingService().createTrainer(trainer);
+	}
+
+	@Override
+	public Trainer getTrainer(Integer id) {
+		return serviceLocator.getTrainingService().getTrainer(id);
+	}
+
+	@Override
+	public Trainer getTrainer(String email) {
+		return serviceLocator.getTrainingService().getTrainer(email);
+	}
+
+	@Override
+	public List<Trainer> getAllTrainers() {
+		return serviceLocator.getTrainingService().getAllTrainers();
+	}
+
+	@Override
+	public void updateTrainer(Trainer trainer) {
+		serviceLocator.getTrainingService().updateTrainer(trainer);
+		
+	}
+
+	@Override
+	public void deleteTrainer(Trainer trainer) {
+		serviceLocator.getTrainingService().deleteTrainer(trainer);
+	}
 }
