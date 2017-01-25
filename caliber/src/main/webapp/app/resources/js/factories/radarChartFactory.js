@@ -30,11 +30,6 @@ angular.module("charts").factory("radarChartFactory", function($log){
 			radarData.data[1].push(element.average);
 		});
 
-		$log.log("Radar Data: ");
-		$log.log(radarData.data);
-		$log.log("Radar labels: ");
-		$log.log(radarData.labels);
-
 		return radarData;
 	};
 	

@@ -25,21 +25,21 @@ angular.module("vp").controller(
 			$scope.currentTrainee = "Select";
 			
 			$scope.selectCurrentBatch = function(index){
+                $scope.currentTech = "Select";
+                $scope.currentTrainee = "Select";
 				$scope.currentBatch = $scope.batches[index];
-				
+				createCharts();
 			};
 			
-			$scope.selectCurrentTech = function(index){
-				if(index == -1)
-					$scope.currentTech = "Select";
-				else{
+			$scope.selectCurrentTech = function(index) {
+                if (index == -1) {
+                	$scope.currentTrainee = "Select";
+                	$scope.currentTech = "Select";
+				}else{
 					$scope.currentTech = $scope.tech[index];
 					// select chart
 				}
 			};
-			
-			
-			
 			
 			$scope.selectCurrentTrainee = function(index){
 				if(index == -1)
@@ -50,34 +50,49 @@ angular.module("vp").controller(
 				}
 			};
 			
-			$scope.hideTraineeTab = function(index){
-				if($scope.currentTech == "Select"){
+			$scope.hideTraineeTab = function(){
+				if($scope.currentTech == "Select")
 					return false;
-				}
 				return true;
+			};
+
+			function createCharts(){
+
+                // batch rank comparison - radar chart
+                $scope.batchSampleDataStandard = [{tech:"Java", average: ranNum()}, {tech: "Servlet", average: ranNum()}, {tech: "Spring", average: ranNum()},
+                    {tech: "Hibernate", average: ranNum()}, {tech: "REST", average: ranNum()}, {tech: "SOAP", average: ranNum()},
+                    {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
+
+                $scope.batchSampleDataBatch = [{tech:"Java", average: ranNum() }, {tech: "Servlet", average: ranNum()}, {tech: "Spring", average: ranNum()},
+                    {tech: "Hibernate", average: ranNum()}, {tech: "REST", average: ranNum()}, {tech: "SOAP", average: ranNum()},
+                    {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
+
+				if($scope.currentTech == "Select" && $scope.currentTrainee == "Select"){
+                    var radarBatchCompareData = radarChartFactory.batchRankComparison($scope.batchSampleDataStandard, $scope.batchSampleDataBatch);
+                    $scope.batchRankLabels = radarBatchCompareData.labels;
+                    $scope.batchRankData = radarBatchCompareData.data;
+                    $scope.batchRankSeries = radarBatchCompareData.series;
+
+                    // create the other chart
+				}else if($scope.currentTrainee == "Select"){
+                    // create charts
+                }else{
+				    // create charts
+                }
+
 			}
 
-			// batch rank comparison - radar chart
-			$scope.batchSampleDataStandard = [{tech:"Java", average: 89}, {tech: "Servlet", average: 75}, {tech: "Spring", average: 80}, 
-											{tech: "Hibernate", average: 67}, {tech: "REST", average: 72}, {tech: "SOAP", average: 67},
-											{tech: "Javascript", average: 78}, {tech: "Angular", average: 80}];
-			
-			$scope.batchSampleDataBatch = [{tech:"Java", average: 90}, {tech: "Servlet", average: 60}, {tech: "Spring", average: 70}, 
-										{tech: "Hibernate", average: 83}, {tech: "REST", average: 76}, {tech: "SOAP", average: 80},
-										{tech: "Javascript", average: 85}, {tech: "Angular", average: 90}];
-			
-			var radarBatchCompareData = radarChartFactory.batchRankComparison($scope.batchSampleDataStandard, $scope.batchSampleDataBatch);
-			$scope.batchRankLabels = radarBatchCompareData.labels; 
-			$scope.batchRankData = radarBatchCompareData.data;
-			$scope.batchRankSeries = radarBatchCompareData.series;
-			
-			// trainer qc eval chart
-			$scope.labels = ["Patrick", "Joe", "Brian", "Karan",
+            // trainer qc eval chart
+            $scope.labels = ["Patrick", "Joe", "Brian", "Karan",
 				"Steven", "Nick", "Richard", "Fred", "Genesis", "Emily", "Ankit", "Ryan"];
-		    $scope.series = ['QC Eval'];
+            $scope.series = ['QC Eval'];
 
-		    $scope.data = [
+            $scope.data = [
 		      [70, 78, 80, 81, 85, 90, 70, 66, 89, 100, 78, 89]
-		    ];
+            ];
 
+		    function ranNum(){
+		        var num = (Math.random() % 50) * 100;
+		        return num.toFixed(2);
+            }
 		});
