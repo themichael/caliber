@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -136,7 +137,7 @@ public class TrainingServiceImpl implements TrainingService{
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Trainee could not be created");
+			throw new TrainingServiceTraineeOperationException("Trainee could not be created");
 		}
 	}
 
@@ -150,7 +151,7 @@ public class TrainingServiceImpl implements TrainingService{
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.postForEntity(URI, trainee, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Trainer could not be updated");
+			throw new TrainingServiceTraineeOperationException("Trainer could not be updated");
 		}
 	}
 
@@ -166,7 +167,7 @@ public class TrainingServiceImpl implements TrainingService{
 		ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Failed to retrieve the trainee by id.");
+			throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by id.");
 		}
 		else if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
@@ -188,7 +189,7 @@ public class TrainingServiceImpl implements TrainingService{
 		ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Failed to retrieve the trainee by name.");
+			throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by name.");
 		}
 		else if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
@@ -210,7 +211,7 @@ public class TrainingServiceImpl implements TrainingService{
 		ResponseEntity<Trainee[]> response = service.getForEntity(URI, Trainee[].class);
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Failed to retrieve trainees by batch.");
+			throw new TrainingServiceTraineeOperationException("Failed to retrieve trainees by batch.");
 		}
 		else if (response.getStatusCode() == HttpStatus.OK) {
 			return Arrays.asList(response.getBody());
@@ -234,7 +235,7 @@ public class TrainingServiceImpl implements TrainingService{
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Trainee could not be deleted");
+			throw new TrainingServiceTraineeOperationException("Trainee could not be deleted");
 		}
 	}
 	//End of Trainee -------------------------------------------------------------------------------

@@ -29,6 +29,7 @@ public class BatchNoteDAOImplTest {
 
 		
 	@Test
+	@Ignore
 	public void createBatchNoteTest() {	
 		logger.debug("Starting createBatchNoteTest....");
 		BatchNote newBatchNote = new BatchNote();
@@ -45,6 +46,7 @@ public class BatchNoteDAOImplTest {
 	}
 	
 	@Test
+	@Ignore
 	public void getBatchNoteTest() {
 		logger.debug("Starting getBatchNoteTest....");
 		BatchNote batchNote = ctxt.getBean(BatchNoteDAO.class).getBatchNote(1, 1);
@@ -54,6 +56,7 @@ public class BatchNoteDAOImplTest {
 	
 	/* TODO need to change by accepting BatchNote object */
 	@Test
+	@Ignore
 	public void getAllBatchNotesTest() {
 		logger.debug("Starting getAllBatchNotesTest....");
 		int batch = 1;
@@ -63,6 +66,7 @@ public class BatchNoteDAOImplTest {
 	}
 
 	@Test
+	@Ignore
 	public void getAllBatchNotesforWeekTest() {
 		
 		logger.debug("Starting getAllBatchNotesForWeekTest....");
@@ -74,6 +78,7 @@ public class BatchNoteDAOImplTest {
 	}
 
 	@Test
+	@Ignore
 	public void updateBatchNoteTest() {
 		
 		logger.debug("Starting updatingBatchNoteTest");
@@ -93,7 +98,7 @@ public class BatchNoteDAOImplTest {
 				+ "' with new contents.");
 	}
 
-	
+	@Ignore
 	@Test
 	@Ignore
 	public void deleteBatchNote() {
