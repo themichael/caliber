@@ -2,6 +2,7 @@ package com.revature.caliber.assessments.service.implementations;
 
 import java.util.List;
 
+import com.revature.caliber.assessments.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

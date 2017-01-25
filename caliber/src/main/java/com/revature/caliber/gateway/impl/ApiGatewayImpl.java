@@ -16,12 +16,18 @@ public class ApiGatewayImpl implements ApiGateway{
 
 	@Autowired
 	private ServiceLocator serviceLocator;
-	
-	@Override
-	public List<Batch> getBatches(Trainer trainer) {
-		return serviceLocator.getTrainingService().getBatches(trainer);
-	}
 
+	/****************************Batch*******************************/
+	public void createBatch(Batch batch) {serviceLocator.getTrainingService().createBatch(batch);}
+	public List<Batch> allBatch() {return serviceLocator.getTrainingService().allBatch();}
+	public List<Batch> getBatches(Trainer trainer) {return serviceLocator.getTrainingService().getBatches(trainer);}
+	public List<Batch> currentBatch() {return serviceLocator.getTrainingService().currentBatch();}
+	public List<Batch> currentBatch(Trainer trainer) {return serviceLocator.getTrainingService().currentBatch(trainer);}
+	public Batch getBatch(Integer id) {return serviceLocator.getTrainingService().getBatch(id);}
+	public void updateBatch(Batch batch) {serviceLocator.getTrainingService().updateBatch(batch);}
+	public void deleteBatch(Batch batch) {serviceLocator.getTrainingService().deleteBatch(batch);}
+
+	/****************************Trainee*******************************/
 	@Override
 	public void createTrainee(Trainee trainee) { serviceLocator.getTrainingService().createTrainee(trainee); }
 
@@ -65,10 +71,5 @@ public class ApiGatewayImpl implements ApiGateway{
 	public void updateTrainer(Trainer trainer) {
 		serviceLocator.getTrainingService().updateTrainer(trainer);
 		
-	}
-
-	@Override
-	public void deleteTrainer(Trainer trainer) {
-		serviceLocator.getTrainingService().deleteTrainer(trainer);
 	}
 }

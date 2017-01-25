@@ -19,7 +19,7 @@ public class FacadeImplementation implements Facade {
     //  DI via Spring setter injection
     private AssessmentDAO assessmentDAO;
     private BatchNoteDAO batchNoteDAO;
-    //    private CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO;
     private GradeDAO gradeDAO;
     private NoteDAO noteDAO;
     private QCNoteDAO qcNoteDAO;
@@ -37,10 +37,10 @@ public class FacadeImplementation implements Facade {
         this.batchNoteDAO = batchNoteDAO;
     }
 
-    /*    @Autowired
+    @Autowired
     public void setCategoryDAO(CategoryDAO categoryDAO) {
         this.categoryDAO = categoryDAO;
-    }*/
+    }
 
     @Autowired
     public void setGradeDAO(GradeDAO gradeDAO) {
@@ -67,7 +67,7 @@ public class FacadeImplementation implements Facade {
         this.trainerNoteDAO = trainerNoteDAO;
     }
 
-    //  Assessment
+//  Assessment
     // Get
     @Override
     public Set<Assessment> getAllAssessments() {
@@ -129,7 +129,7 @@ public class FacadeImplementation implements Facade {
     public void deleteBatchNote(BatchNote batchNote){
     	batchNoteDAO.deleteBatchNote(batchNote);
     }
-    
+
     @Override
     public BatchNote getBatchNoteById(int batchNoteId) {
     	return batchNoteDAO.getBatchNoteById(batchNoteId);
@@ -143,6 +143,19 @@ public class FacadeImplementation implements Facade {
     
 // Grade
 
+
+    //    Category
+    @Override
+    public Set<Category> getAllCategories() {
+        return categoryDAO.getAll();
+    }
+
+    @Override
+    public Category getCategoryById(int id) {
+        return categoryDAO.getById(id);
+    }
+
+    // Grade
     //Gets
     @Override
     public List<Grade> getAllGrades() {
@@ -220,9 +233,7 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public QCNote getQCNoteById(Integer QCNoteId) {
-        return qcNoteDAO.getQCNoteById(QCNoteId);
-    }
+    public QCNote getQCNoteById(Integer qcNoteId) { return qcNoteDAO.getQCNoteById(qcNoteId); }
 
     @Override
     public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) {
@@ -261,6 +272,18 @@ public class FacadeImplementation implements Facade {
         return noteDAO.getAllNotes();
     }
 
-	
+
+    
+    //QCStatus
+	@Override
+	public Set<QCStatus> getAllStatus() {
+		return qcStatusDAO.getAllStatus();
+	}
+
+	@Override
+	public Set<Assessment> getAssessmentByStatus(String status) {
+		return qcStatusDAO.getAssessmentByStatus(status);
+	}
+
 
 }

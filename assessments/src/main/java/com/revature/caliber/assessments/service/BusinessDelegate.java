@@ -140,7 +140,7 @@ public interface BusinessDelegate {
 //    QCNote
     void createQCNote(QCNote note);
 
-    QCNote getQCNoteById(Integer QCNoteId);
+    QCNote getQCNoteById(Integer qcNoteId);
 
     QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
 
@@ -184,5 +184,27 @@ public interface BusinessDelegate {
 	 */
 	public List<Note> getAllNotes();
 	//Note End
+
+//    Category
+	/**
+	 * Returns Set of all Categories
+	 * @return Set of all Categories
+	 */
+	Set<Category> getAllCategories();
+
+	/**
+	 * Returns Category
+	 *  with provided ID
+	 * @param id
+	 * @return Category
+	 */
+	Category getCategoryById(int id);
+	
+	
+	
+	//QCStatus
+	public Set<QCStatus> getAllStatus();
+	public Set<Assessment> getAssessmentByStatus(String status);
+	
 
 }

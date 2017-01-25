@@ -13,11 +13,11 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 	private AssessmentService assessmentService;
 	private BatchNoteService batchNoteService;
-	//private CategoryService categoryService;
+	private CategoryService categoryService;
 	private GradeService gradeService;
 	private NoteService noteService;
 	private QCNoteService qcNoteService;
-	//private QCStatusService qcStatusService;
+	private QCStatusService qcStatusService;
 	private TrainerNoteService trainerNoteService;
 
 	// Spring setter based DI
@@ -31,10 +31,10 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 		this.batchNoteService = batchNoteService;
 	}
 
-	/*@Autowired
+	@Autowired
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
-	}*/
+	}
 
 	@Autowired
 	public void setGradeService(GradeService gradeService) {
@@ -51,11 +51,11 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public void setQcNoteService(QCNoteService qcNoteService) {
 		this.qcNoteService = qcNoteService;
 	}
-
-	/*@Autowired
+	
+	@Autowired
 	public void setQcStatusService(QCStatusService qcStatusService) {
 		this.qcStatusService = qcStatusService;
-	}*/
+	}
 
 	@Autowired
 	public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
@@ -92,7 +92,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public void deleteAssessment(Assessment assessment) {
 		assessmentService.delete(assessment);
 	}
-	//End Assessment
+	// End Assessment
 
 	// Grade
 	@Override
@@ -129,7 +129,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public void updateGrade(Grade grade) {
 		gradeService.updateGrade(grade);
 	}
-	//End Grade
+	// End Grade
 
 	// QC Note -------------------
 	@Override
@@ -138,8 +138,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	}
 
 	@Override
-	public QCNote getQCNoteById(Integer QCNoteId) {
-		return qcNoteService.getQCNoteById(QCNoteId);
+	public QCNote getQCNoteById(Integer qcNoteId) {
+		return qcNoteService.getQCNoteById(qcNoteId);
 	}
 
 	@Override
@@ -200,6 +200,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	// end trainer note
 
 	// BatchNote
+
 	@Override
 	public void makeBatchNote(BatchNote batchNote) {
 		batchNoteService.createBatchNote(batchNote);
@@ -234,9 +235,9 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public void deleteBatchNote(BatchNote batchNote) {
 		batchNoteService.deleteBatchNote(batchNote);
 	}
-	//End BatchNote
+	// End BatchNote
 
-	//Note
+	// Note
 	@Override
 	public Note getNote(String note) {
 		return noteService.getNote(note);
@@ -246,6 +247,28 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public List<Note> getAllNotes() {
 		return noteService.getAllNotes();
 	}
+
+	// Category
+	@Override
+	public Set<Category> getAllCategories() {
+		return categoryService.getAll();
+	}
+
+	@Override
+	public Category getCategoryById(int id) {
+		return categoryService.getById(id);
+	}
 	
 	
+	//QCStatus
+	@Override
+	public Set<QCStatus> getAllStatus() {
+		return qcStatusService.getAllStatus();
+	}
+
+	@Override
+	public Set<Assessment> getAssessmentByStatus(String status) {
+		return qcStatusService.getAssessmentByStatus(status);
+	}
+
 }

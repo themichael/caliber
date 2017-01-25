@@ -174,9 +174,12 @@ public class BatchNoteDAOImplTest {
 		logger.debug("Update BatchNote with new contents.");
 	}
 
-	
 	@Test
+<<<<<<< HEAD
 	//@Ignore
+=======
+	@Ignore
+>>>>>>> a67a04f6a9b00a482eb5bf23c8dcd610857fac31
 	public void deleteBatchNote() {
 		
 		logger.debug("Starting deleteBatchNoteTest....");
