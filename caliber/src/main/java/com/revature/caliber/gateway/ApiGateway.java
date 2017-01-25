@@ -17,26 +17,54 @@ import com.revature.caliber.beans.Trainer;
 public interface ApiGateway {
 
 	/**
+	 * Create a new batch
+	 * @param batch
+	 */
+	public void createBatch(Batch batch);
+
+	/**
+	 * Get all batches
+	 * @return
+	 */
+	public List<Batch> allBatch();
+	/**
 	 * Get all Batches for a given Trainer.
 	 * @param trainer
 	 * @return
 	 */
 	public List<Batch> getBatches(Trainer trainer);
-	
+
 	/**
-	 * Get all Batches in the company. Useful for
-	 * VP and QC roles to aggregate company data.
-	 * 
+	 * Get all current Batches
 	 * @return
 	 */
-	//TODO public List<Batch> getBatches();
-	
+	public List<Batch> currentBatch();
+
 	/**
-	 * Get all Batches currently within the window
-	 * of their training period. 
+	 * Get all current Batches for a given Trainer
+	 * @param trainer
 	 * @return
 	 */
-	// TODO public List<Batch> getCurrentBatches();
+	public List<Batch> currentBatch(Trainer trainer);
+
+	/**
+	 * Get a batch by ID
+	 * @param id
+	 * @return
+	 */
+	public Batch getBatch (Integer id);
+
+	/**
+	 * Update a Batch
+	 * @param batch
+	 */
+	public void updateBatch(Batch batch);
+
+	/**
+	 * Delete a Batch
+	 * @param batch
+	 */
+	public void deleteBatch(Batch batch);
 
 	//Trainee
 	/**
