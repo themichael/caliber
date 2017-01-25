@@ -19,13 +19,20 @@
 		<property name="suffix" value=".html" />
 	</bean>
 
-	<mvc:resources mapping="/pages/**" location="/" />
+	<mvc:resources mapping="/pages/**" location="/pages/" />
 	<mvc:resources mapping="/app/**" location="/app/"/>
 	
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
 		<property name="hostname" value="http://www.pjw6193.tech" />
 		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
 		<property name="allBatchesForTrainer" value="batch/byTrainerName/" />
+
+		<property name="addTraineePath" value="trainees/new" />
+		<property name="deleteTraineePath" value="trainees/delete" />
+		<property name="updateTraineePath" value="trainees/update" />
+		<property name="getTraineeByIdPath" value="trainees/byid/" />
+		<property name="getTraineeByNamePath" value="trainees/byname/" />
+		<property name="getTraineesByBatchPath" value="trainees/bybatch/" />
 	</bean>
 
 </beans>

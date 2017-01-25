@@ -203,7 +203,7 @@ public class QCNoteDAOImplementationTest {
         assertNotNull(note);
         assertNotEquals(traineeId, note.getTrainee());
         logger.debug("     successfully changed trainee id from " + traineeId + " to " + 8282);
-        traineeId = 8282;
+        traineeId = 8282; //NOT A BUG, THESE TESTS CAN'T RUN IN PARALLEL ANYWAY (EACH TEST LOCKS THE DB).
     }
 
     @Test
