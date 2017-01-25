@@ -50,14 +50,18 @@ public class TrainingServiceImpl implements TrainingService{
 		// Build Service URL
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allBatch)
 						.build().toUriString();
+		System.out.println(URI);
 		// Invoke the service
 		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
 
 		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
-			throw new RuntimeException("Batches not found.");
+			throw new RuntimeException("Bad request.");
 		}else if(response.getStatusCode() == HttpStatus.OK){
 			return Arrays.asList(response.getBody());
-		}else {
+		}else if(response.getStatusCode() == HttpStatus.NOT_FOUND){
+			System.out.println("Not found");
+			return new ArrayList<>();
+		}else{
 			// Includes 404 and other responses. Give back no data.
 			return new ArrayList<>();
 		}
@@ -66,9 +70,10 @@ public class TrainingServiceImpl implements TrainingService{
 	@Override
 	public List<Batch> getBatches(Trainer trainer) {
 		RestTemplate service = new RestTemplate();
+		Integer id = trainer.getTraineeId();
 		// Build Service URL
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber + allBatchesForTrainer)
-				.path(trainer.getName()).build().toUriString();
+				.path( id.toString() ).build().toUriString();
 
 		// Invoke the service
 		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
