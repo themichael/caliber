@@ -2,7 +2,8 @@ package com.revature.caliber.assessments.web.controllers;
 
 import com.revature.caliber.assessments.beans.QCNote;
 import com.revature.caliber.assessments.service.BusinessDelegate;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,7 +28,7 @@ public class QCNoteController {
     @Autowired
     public void setBusinessDelegate(BusinessDelegate businessDelegate) { this.businessDelegate = businessDelegate; }
 
-    private static Logger logger = Logger.getRootLogger();
+    private static Logger logger = LoggerFactory.getLogger(QCNoteController.class);
 
     /**
      * Create a new note by making a PUT request to the URL
