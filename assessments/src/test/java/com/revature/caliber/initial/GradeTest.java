@@ -1,29 +1,27 @@
 package com.revature.caliber.initial;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.Category;
 import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.data.AssessmentDAO;
 import com.revature.caliber.assessments.data.GradeDAO;
 import com.revature.caliber.assessments.service.AssessmentService;
 
 public class GradeTest {
 
 	private static AbstractApplicationContext ctxt;
-	private AssessmentService assessmentService;
 
 	@BeforeClass
 	public static void setup() {
@@ -66,13 +64,25 @@ public class GradeTest {
 
 	@Test
 	public void getAvgGradeofAssessment(){
-		HashMap<Long, Double> grades = ctxt.getBean(GradeDAO.class).avgGradesOfAssessments();
+		Map<Long, Double> grades = ctxt.getBean(GradeDAO.class).avgGradesOfAssessments();
 		System.out.println("avg grades by assessment " + grades);
 		
 	}
 	
+	@Test
+	public void getAvgGradeWeekByTrainee(){
+		Map<Long, Double> grades = ctxt.getBean(GradeDAO.class).gradeByWeek(1);
+		System.out.println("avg grades by WEEK HASHMAP ," + grades);
+	}
 	
-	@BeforeClass
+	@Test
+	public void getAvgGradeCategoryByTrainee(){
+		Map<Set<Category>, Double> grades = ctxt.getBean(GradeDAO.class).gradeByCategory(1);
+		System.out.println("avg grades by week "+ grades);
+	}
+	
+	
+	//@BeforeClass
 	@Ignore
 	public static void insertGrade() {
 		Assessment assessment = ctxt.getBean(AssessmentService.class).getById(2);
