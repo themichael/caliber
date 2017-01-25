@@ -17,11 +17,10 @@ public class QCStatus {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QC_STATUS_ID_SEQUENCE")
 	@SequenceGenerator(name = "QC_STATUS_ID_SEQUENCE", sequenceName = "QC_STATUS_ID_SEQUENCE")
 	private short statusId;
-	
+
 	@Column(name = "QC_STATUS")
 	private String status;
-	
-	
+
 	@OneToMany(mappedBy = "weeklyStatus", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Assessment> assessments;
 
@@ -41,11 +40,6 @@ public class QCStatus {
 		this.status = status;
 	}
 
-	public QCStatus(String status) {
-		super();
-		this.status = status;
-	}
-
 	public Set<Assessment> getAssessments() {
 		return assessments;
 	}
@@ -53,16 +47,17 @@ public class QCStatus {
 	public void setAssessments(Set<Assessment> assessments) {
 		this.assessments = assessments;
 	}
-	
-	
 
 	@Override
 	public String toString() {
 		return "QCStatus [statusId=" + statusId + ", status=" + status + ", assessments=" + assessments + "]";
 	}
 
+	public QCStatus(String status) {
+		this.status = status;
+	}
+
 	public QCStatus(short statusId, String status) {
-		super();
 		this.statusId = statusId;
 		this.status = status;
 	}
