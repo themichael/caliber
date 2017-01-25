@@ -40,5 +40,12 @@ public class QCNote extends Note{
 	public QCNote(String content, boolean sugarCoated) {
 		super(content, sugarCoated);
 	}
-	
+
+	@Override
+	public String toString() {
+		return super.toString() + " > QCNote{" +
+				"trainee=" + trainee +
+				", week=" + week +
+				'}';
+	}
 }

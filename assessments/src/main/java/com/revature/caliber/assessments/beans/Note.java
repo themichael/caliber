@@ -54,8 +54,13 @@ public class Note {
 	public void setSugarCoatedContent(String sugarCoatedContent) {
 		this.sugarCoatedContent = sugarCoatedContent;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Note{" +
+				"noteId=" + noteId +
+				", content='" + content + '\'' +
+				", sugarCoatedContent='" + sugarCoatedContent + '\'' +
+				'}';
+	}
 }

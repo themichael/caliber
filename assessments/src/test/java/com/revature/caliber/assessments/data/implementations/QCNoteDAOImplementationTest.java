@@ -27,7 +27,9 @@ public class QCNoteDAOImplementationTest {
     private static SessionFactory sf;
     private static Logger logger;
 
-    private static int newQCNoteId, weekId = 2828, traineeId = 2828;
+    private static int newQCNoteId;
+    private static int weekId = 2828;
+    private static int traineeId = 2828;
 
     /* Helper method so that I don't have to copy-paste code.
      * It does not change any static values, it just finds free id for note in db

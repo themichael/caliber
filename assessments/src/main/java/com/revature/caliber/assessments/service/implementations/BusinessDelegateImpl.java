@@ -162,7 +162,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     public void createQCNote(QCNote note) { qcNoteService.createQCNote(note); }
 
     @Override
-    public QCNote getQCNoteById(Integer QCNoteId) { return qcNoteService.getQCNoteById(QCNoteId); }
+    public QCNote getQCNoteById(Integer qcNoteId) { return qcNoteService.getQCNoteById(qcNoteId); }
 
     @Override
     public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) { return qcNoteService.getQCNoteForTraineeWeek(traineeId, weekId); }

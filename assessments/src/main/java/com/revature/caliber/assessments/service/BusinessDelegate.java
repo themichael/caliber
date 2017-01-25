@@ -111,7 +111,7 @@ public interface BusinessDelegate {
 
 	//QCNote
 	void createQCNote(QCNote note);
-	QCNote getQCNoteById(Integer QCNoteId);
+	QCNote getQCNoteById(Integer qcNoteId);
 	QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
 	List<QCNote> getQCNotesByTrainee(Integer traineeId);
 	List<QCNote> getQCNotesByWeek(Integer weekId);

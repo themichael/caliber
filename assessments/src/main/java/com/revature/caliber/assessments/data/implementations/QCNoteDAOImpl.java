@@ -36,10 +36,10 @@ public class QCNoteDAOImpl implements QCNoteDAO {
     @Transactional(isolation = Isolation.READ_COMMITTED,
                     propagation = Propagation.REQUIRED,
                     rollbackFor = {Exception.class})
-    public QCNote getQCNoteById(Integer QCNoteId) {
+    public QCNote getQCNoteById(Integer qcNoteId) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(QCNote.class);
-        criteria.add(Restrictions.eq("noteId", QCNoteId));
+        criteria.add(Restrictions.eq("noteId", qcNoteId));
         return (QCNote)criteria.uniqueResult();
     }
 
