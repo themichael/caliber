@@ -59,9 +59,9 @@ public class TrainerController {
      * @param: id as part of URL
      * @return: Response with trainer object and/or appropriate status
      */
-	@RequestMapping(value = "trainers/byid/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Trainer> getTrainerById(@PathVariable("identifier") int id) {
-		ResponseEntity<Trainer> returnEntity;
+	@RequestMapping(value = "trainers/byid/{identifier}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Trainer> getTrainerById(@PathVariable("identifier") Integer id) {
+		/*ResponseEntity<Trainer> returnEntity;
 		try {
 			Trainer result = businessDelegate.getTrainer(id);
 
@@ -74,7 +74,11 @@ public class TrainerController {
 			returnEntity = new ResponseEntity<Trainer>(HttpStatus.BAD_REQUEST);
 		}
 
-		return returnEntity;
+		return returnEntity;*/
+		
+		Trainer result = businessDelegate.getTrainer(id);
+		return new ResponseEntity<Trainer>(result, corsHeaders(),
+			HttpStatus.OK);
 	}
 
 	/**
@@ -82,7 +86,7 @@ public class TrainerController {
      * @param: email as part of URL
      * @return Response with trainer object and/or status
      */
-	@RequestMapping(value = "trainers/byemail/{identifier}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "trainers/byemail/{identifier}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Trainer> getTrainerByEmail(@PathVariable("identifier") String email) {
 		Trainer result = businessDelegate.getTrainer(email);
 		return new ResponseEntity<Trainer>(result, corsHeaders(),
