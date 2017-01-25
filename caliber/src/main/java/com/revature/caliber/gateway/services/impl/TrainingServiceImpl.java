@@ -1,11 +1,13 @@
 package com.revature.caliber.gateway.services.impl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import com.revature.caliber.beans.Trainee;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -16,7 +18,7 @@ import com.revature.caliber.gateway.services.TrainingService;
 
 public class TrainingServiceImpl implements TrainingService{
 
-	private String hostname; 
+	private String hostname;
 	private String portNumber;
 	//paths for batch
 	private String newBatch, allBatch, allBatchesForTrainer, allCurrentBatch, allCurrentBatchByTrainer,
@@ -90,14 +92,35 @@ return null;
 		return null;
 	}
 
+//	LOUIS START HERE
 	@Override
 	public List<Batch> currentBatch(Trainer trainer) {
-		return null;
+		RestTemplate service = new RestTemplate();
+		// Build Service URL
+		final String URI =
+				UriComponentsBuilder.fromHttpUrl(hostname + portNumber
+						+ allCurrentBatchByTrainer).path(String.valueOf(trainer.getTraineeId()))
+						.build().toUriString();
+		// Invoke the service
+		ResponseEntity<Batch[]> response = service.getForEntity(URI,Batch[].class);
+		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
+			throw new RuntimeException("Trainer not found.");
+		}else if(response.getStatusCode() == HttpStatus.OK){
+			return Arrays.asList(response.getBody());
+		}else {
+			// Includes 404 and other responses. Give back no data.
+			return new ArrayList<>();
+		}
 	}
 
 	@Override
 	public Batch getBatch(Integer id) {
-		return null;
+		RestTemplate service = new RestTemplate();
+		String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(batchById).path(String.valueOf(id)).build().toUriString();
+		ResponseEntity<Batch> response = service.getForEntity(URI,Batch.class);
+		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
+			throw new RuntimeException("Batch not found");
+		}else return response.getBody();
 	}
 
 	@Override

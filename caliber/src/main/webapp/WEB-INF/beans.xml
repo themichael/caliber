@@ -31,7 +31,7 @@
 		<property name="allBatchesForTrainer" value="batch/byTrainerId/" />
 		<property name="allCurrentBatch" value="batch/current/" />
 		<property name="allCurrentBatchByTrainer" value="batch/current/" />
-		<property name="batchById" value="batch/byId/" />
+		<property name="batchById" value="training/batch/byId/" />
 		<property name="updateBatch" value="batch/update/" />
 		<property name="deleteBatch" value="batch/delete/" />
 

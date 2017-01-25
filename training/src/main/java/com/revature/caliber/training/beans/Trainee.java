@@ -1,5 +1,7 @@
 package com.revature.caliber.training.beans;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 /**
@@ -39,8 +41,9 @@ public class Trainee {
 	/**
 	 * Batch that the Trainee belongs to
 	 */
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "BATCH_ID", nullable = false)
+	@JsonManagedReference
 	private Batch batch;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI

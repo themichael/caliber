@@ -18,6 +18,7 @@ public class Batch {
 	private short borderlineGradeThreshold;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+
 	private Set<Trainee> trainees;
 	private Set<Week> weeks;
 	public int getBatchId() {
