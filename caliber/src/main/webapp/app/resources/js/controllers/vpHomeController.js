@@ -27,13 +27,13 @@ angular.module("vp").controller(
                 $scope.currentTech = "Select";
                 $scope.currentTrainee = "Select";
                 // turn of batches
-                if(index == -1) $scope.currentBatch = "Select";
+                if(index === -1) $scope.currentBatch = "Select";
 				else $scope.currentBatch = $scope.batches[index];
 				createCharts();
 			};
 			
 			$scope.selectCurrentTech = function(index) {
-                if (index == -1) {
+                if (index === -1) {
                 	$scope.currentTrainee = "Select";
                 	$scope.currentTech = "Select";
 				}else{
@@ -43,7 +43,7 @@ angular.module("vp").controller(
 			};
 
 			$scope.selectCurrentTrainee = function(index){
-				if(index == -1)
+				if(index === -1)
 					$scope.currentTrainee = "Select";
 				else{
 					$scope.currentTrainee = $scope.trainees[index];
@@ -53,21 +53,21 @@ angular.module("vp").controller(
 
 			// hide trainee Tab
 			$scope.hideTraineeTab = function(){
-				if($scope.currentTech == "Select")
+				if($scope.currentTech === "Select")
 					return false;
 				return true;
 			};
 
 			// hide tech tab
             $scope.hideTechTab = function(){
-                if($scope.currentBatch == "Select")
+                if($scope.currentBatch === "Select")
                     return false;
                 return true;
             };
 
 			// hide default graphs
 			$scope.hideDefault = function(){
-			    if($scope.currentBatch == "Select")
+			    if($scope.currentBatch === "Select")
 			        return true;
                 return false;
             }
@@ -88,7 +88,7 @@ angular.module("vp").controller(
                     {tech: "SOAP", average: ranNum()}, {tech: "Javascript", average: ranNum()},
                     {tech: "Angular", average: ranNum()}];
 
-                if ($scope.currentTech == "Select" && $scope.currentTrainee == "Select") {
+                if ($scope.currentTech === "Select" && $scope.currentTrainee === "Select") {
                     // create batch radar chart
                     var radarData = radarChartFactory.batchRankComparison(batchSampleDataStandard, batchSampleDataBatch);
                     $scope.batchRankLabels = radarData.labels;
@@ -96,11 +96,7 @@ angular.module("vp").controller(
                     $scope.batchRankSeries = radarData.series;
                     $scope.batchRankOptions = radarData.options;
 
-                    // create charts
-                } else if ($scope.currentTrainee == "Select") {
-                    // create charts
-                } else {
-                    // create charts
+                    // create other charts
                 }
 
             }

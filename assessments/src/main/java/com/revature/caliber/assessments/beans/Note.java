@@ -1,15 +1,8 @@
 package com.revature.caliber.assessments.beans;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
 
-@Entity(name="CALIBER_NOTE")
+@Entity(name = "CALIBER_NOTE")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Note {
 

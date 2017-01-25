@@ -1,6 +1,5 @@
 package com.revature.caliber.assessments.service;
 
-import java.util.List;
 import java.util.Set;
 
 import com.revature.caliber.assessments.beans.TrainerNote;

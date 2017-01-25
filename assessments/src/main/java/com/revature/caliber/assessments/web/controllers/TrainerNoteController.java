@@ -47,7 +47,7 @@ public class TrainerNoteController {
         if (trainerNote == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<TrainerNote>(trainerNote, HttpStatus.OK);
+        return new ResponseEntity<>(trainerNote, HttpStatus.OK);
     }
 
     // getTrainerNoteForWeek
@@ -60,7 +60,7 @@ public class TrainerNoteController {
         if (trainerNote == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<TrainerNote>(trainerNote, HttpStatus.OK);
+        return new ResponseEntity<>(trainerNote, HttpStatus.OK);
     }
 
     // getTrainerNotesByTrainer
@@ -73,7 +73,7 @@ public class TrainerNoteController {
         if (trainerNote == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Set<TrainerNote>>(trainerNote, HttpStatus.OK);
+        return new ResponseEntity<>(trainerNote, HttpStatus.OK);
     }
 
     // getTrainerNotesByTrainer
@@ -86,7 +86,7 @@ public class TrainerNoteController {
         if (trainerNote == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Set<TrainerNote>>(trainerNote, HttpStatus.OK);
+        return new ResponseEntity<>(trainerNote, HttpStatus.OK);
     }
 
     //Update

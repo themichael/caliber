@@ -1,11 +1,17 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-import com.revature.caliber.assessments.beans.TrainerNote;
+import java.util.Set;
+import static org.junit.Assert.*;
 import org.apache.log4j.Logger;
-import org.hibernate.*;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,11 +19,11 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.TrainerNoteDAO;
 
-import java.util.Set;
-
 public class TrainerNoteDAOImplTest {
+
 	private static AbstractApplicationContext context;
 	private static TrainerNoteDAO trainerNoteDAO;
 	private static SessionFactory sf;

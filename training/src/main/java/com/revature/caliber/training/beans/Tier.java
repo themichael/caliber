@@ -28,7 +28,7 @@ public class Tier {
 	@Column(name="RANKING", nullable=false)
 	@NotNull
 	private short ranking;
-	
+
 	public Tier() {
 		super();
 	}
@@ -37,6 +37,7 @@ public class Tier {
 		this.tier = tier;
 		this.ranking = ranking;
 	}
+
 	public Tier(short tierId, String tier, short ranking) {
 		super();
 		this.tierId = tierId;
@@ -62,4 +63,5 @@ public class Tier {
 	public void setRanking(short ranking) {
 		this.ranking = ranking;
 	}
+
 }

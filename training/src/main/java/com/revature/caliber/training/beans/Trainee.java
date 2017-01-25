@@ -43,6 +43,28 @@ public class Trainee {
     @JoinColumn(name = "BATCH_ID", nullable = false)
 	private Batch batch;
 	
+    
+    public Trainee() {
+		super();
+	}
+
+	public Trainee(String name, String email, String trainingStatus, Batch batch) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.trainingStatus = trainingStatus;
+		this.batch = batch;
+	}
+
+	public Trainee(int traineeId, String name, String email, String trainingStatus, Batch batch) {
+		super();
+		this.traineeId = traineeId;
+		this.name = name;
+		this.email = email;
+		this.trainingStatus = trainingStatus;
+		this.batch = batch;
+	}
+	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	public int getTraineeId() {
 		return traineeId;
@@ -79,24 +101,5 @@ public class Trainee {
 		this.batch = batch;
 	}
 
-	public Trainee() {
-		super();
-	}
-
-	public Trainee(String name, String email, String trainingStatus, Batch batch) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.trainingStatus = trainingStatus;
-		this.batch = batch;
-	}
-
-	public Trainee(int traineeId, String name, String email, String trainingStatus, Batch batch) {
-		super();
-		this.traineeId = traineeId;
-		this.name = name;
-		this.email = email;
-		this.trainingStatus = trainingStatus;
-		this.batch = batch;
-	}
+	
 }
