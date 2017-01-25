@@ -9,7 +9,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -22,21 +21,21 @@ import com.revature.caliber.training.web.controllers.TrainerController;
 
 public class TrainerControllerImplementationTest {
 	private static ApplicationContext context;
-    private static Logger log;
-    private static TrainerController controller;
-    private static Trainer trainer = null;
+	private static Logger log;
+	private static TrainerController controller;
+	private static Trainer trainer = null;
 
-    @BeforeClass
-    public static void preClass () {
-        context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
-        controller = context.getBean(TrainerController.class);
-        log = Logger.getRootLogger();
-        log.debug("\n--- TRAINER CONTROLLER IMPLEMENTATION TEST START ---\n");
-    }
-	
-    public static void populateData(){
+	@BeforeClass
+	public static void preClass() {
+		context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
+		controller = context.getBean(TrainerController.class);
+		log = Logger.getRootLogger();
+		log.debug("\n--- TRAINER CONTROLLER IMPLEMENTATION TEST START ---\n");
+	}
+
+	public static void populateData() {
 		Tier tier = new Tier();
-		tier.setTierId((short)1);
+		tier.setTierId((short) 1);
 		trainer = new Trainer();
 		trainer.setName("Bob Miller");
 		trainer.setTitle("Trainer at QC");
@@ -46,84 +45,83 @@ public class TrainerControllerImplementationTest {
 		trainer.setSalesforceRefreshToken("salesforceRefreshTokenEXAMPLE");
 		trainer.setTier(tier);
 	}
-    
-    @Before
-    public void before(){
-    	populateData();
-    }
-    
-    @Test
-    public void createTrainer(){
-        log.debug("Create trainer test.");
-        controller.createTrainer(trainer);
-        log.debug("Trainer created");
-    }
 
-    @Test
-    public void getTrainerById(){
-    	TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
-    	log.debug("Create trainer by id test.");
-        
-    	trainerDao.createTrainer(trainer);
-        HttpEntity<Trainer> entity = controller.getTrainerById(trainer.getTrainerId());
-        Trainer findingTrainer = entity.getBody();
+	@Before
+	public void before() {
+		populateData();
+	}
 
-        log.debug("Trainer found by id: " + findingTrainer.getTrainerId());
-    }
-    
-    @Test
-    public void getTrainerByEmail(){
-    	TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
-    	log.debug("Create trainer by email test.");
-        
-    	trainerDao.createTrainer(trainer);
-        HttpEntity<Trainer> entity = controller.getTrainerByEmail(trainer.getEmail());
-        Trainer findingTrainer = entity.getBody();
-        
-        assertNotNull(findingTrainer);
-        log.debug("Trainer found by email: " + findingTrainer.getEmail());
-    }
-    
-    @Test
-    public void getAllTrainers(){
-    	TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
-    	log.debug("Get all trainers");
+	@Test
+	public void createTrainer() {
+		log.debug("Create trainer test.");
+		controller.createTrainer(trainer);
+		log.debug("Trainer created");
+	}
 
-    	trainerDao.createTrainer(trainer);
-        HttpEntity<List<Trainer>> entity = controller.getAllTrainers();
-        List<Trainer> trainers = entity.getBody();
+	@Test
+	public void getTrainerById() {
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
+		log.debug("Create trainer by id test.");
 
-        log.debug("Got all trainers: " + trainers);
-    }
-    
-    @Test
-    public void updateTrainer(){
-    	TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
-    	log.debug("Updating trainer");
+		trainerDao.createTrainer(trainer);
+		HttpEntity<Trainer> entity = controller.getTrainerById(trainer.getTrainerId());
+		Trainer findingTrainer = entity.getBody();
 
-    	trainerDao.createTrainer(trainer);
-        HttpEntity<Trainer> entity = controller.getTrainerById(trainer.getTrainerId());
-        Trainer toUpdate = entity.getBody();
-        toUpdate.setName("Leslie Miller");
-        controller.updateTrainer(toUpdate);
+		log.debug("Trainer found by id: " + findingTrainer.getTrainerId());
+	}
 
-        log.debug("updated batch");
-    }
-    
-    public static void deleteData(){
+	@Test
+	public void getTrainerByEmail() {
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
+		log.debug("Create trainer by email test.");
+
+		trainerDao.createTrainer(trainer);
+		HttpEntity<Trainer> entity = controller.getTrainerByEmail(trainer.getEmail());
+		Trainer findingTrainer = entity.getBody();
+
+		assertNotNull(findingTrainer);
+		log.debug("Trainer found by email: " + findingTrainer.getEmail());
+	}
+
+	@Test
+	public void getAllTrainers() {
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
+		log.debug("Get all trainers");
+
+		trainerDao.createTrainer(trainer);
+		HttpEntity<List<Trainer>> entity = controller.getAllTrainers();
+		List<Trainer> trainers = entity.getBody();
+
+		log.debug("Got all trainers: " + trainers);
+	}
+
+	@Test
+	public void updateTrainer() {
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
+		log.debug("Updating trainer");
+
+		trainerDao.createTrainer(trainer);
+		HttpEntity<Trainer> entity = controller.getTrainerById(trainer.getTrainerId());
+		Trainer toUpdate = entity.getBody();
+		toUpdate.setName("Leslie Miller");
+		controller.updateTrainer(toUpdate);
+
+		log.debug("updated batch");
+	}
+
+	public static void deleteData() {
 		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 		trainerDao.deleteTrainer(trainer);
 	}
-    
+
 	@After
-	public void after(){
+	public void after() {
 		deleteData();
 	}
-	
+
 	@AfterClass
-    public static void afterClass() {
-        log.debug("\n--- TRAINER CONTROLLER IMPLEMENTATION TEST END ---\n");
-    }
-    
-   
+	public static void afterClass() {
+		log.debug("\n--- TRAINER CONTROLLER IMPLEMENTATION TEST END ---\n");
+	}
+
 }

@@ -121,8 +121,20 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public void updateBatchNote(BatchNote batchNote) {
-        batchNoteDAO.updateBatchNote(batchNote);
+    public List<BatchNote> allBatchNotes(int batchId) {
+        return batchNoteDAO.allBatchNotes(batchId);
+    }
+    
+    @Override
+    public void updateBatchNote(BatchNote batchNote){
+    	batchNoteDAO.updateBatchNote(batchNote);
+    }
+
+
+    
+    @Override
+    public void deleteBatchNote(BatchNote batchNote){
+    	batchNoteDAO.deleteBatchNote(batchNote);
     }
 
     //    Category
@@ -214,9 +226,7 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public QCNote getQCNoteById(Integer QCNoteId) {
-        return qcNoteDAO.getQCNoteById(QCNoteId);
-    }
+    public QCNote getQCNoteById(Integer qcNoteId) { return qcNoteDAO.getQCNoteById(qcNoteId); }
 
     @Override
     public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) {

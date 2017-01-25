@@ -1,6 +1,8 @@
 package com.revature.caliber.data.implementations;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class WeekDAOImplementationTest {
 	@BeforeClass
 	public static void preClass() {
 		context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
-		sf = context.getBean(SessionFactory.class);	
+		sf = context.getBean(SessionFactory.class);
 
 		logger = Logger.getRootLogger();
 		logger.debug("\n--- WEEK DAO IMPLEMENTATION TEST START ---\n");
@@ -37,12 +39,12 @@ public class WeekDAOImplementationTest {
 	public void getWeekByWeekNumberTest() {
 		logger.debug("Getting Week records for specific week Test");
 		WeekDAO dao = context.getBean(WeekDAO.class);
-		
+
 		List<Week> listOfWeeks = new ArrayList<Week>();
-		
+
 		logger.debug(" fetching all week records where batch weekNumber = 1 \n");
 		listOfWeeks = dao.getWeekByWeekNumber(1);
-		
+
 		assertEquals(1, listOfWeeks.get(0).getWeekNumber());
 		logger.debug(" successfully fetched week records where weekNumber = 1  \n");
 	}
@@ -51,28 +53,27 @@ public class WeekDAOImplementationTest {
 	public void getWeekByBatchIdTest() {
 		logger.debug("Getting Week records for specific batch Test");
 		WeekDAO dao = context.getBean(WeekDAO.class);
-		
+
 		List<Week> listOfWeeks = new ArrayList<Week>();
-		
+
 		logger.debug(" fetching all week records where batch id = 1 \n");
 		listOfWeeks = dao.getWeekByBatchId(1);
-		
+
 		assertEquals(1, listOfWeeks.get(0).getBatch().getBatchId());
 		logger.debug(" successfully fetched all week records  \n");
-		
+
 	}
 
 	@Test
 	public void getAllWeekTest() {
 		logger.debug("Getting all Week records Test. \n");
 		WeekDAO dao = context.getBean(WeekDAO.class);
-		
-	
+
 		List<Week> listOfWeeks = new ArrayList<Week>();
-		
+
 		logger.debug(" fetching all week records \n");
 		listOfWeeks = dao.getAllWeeks();
-		
+
 		assertNotNull(listOfWeeks);
 		logger.debug(" successfully fetched all week records  \n");
 	}
@@ -103,12 +104,12 @@ public class WeekDAOImplementationTest {
 
 		sql = "DELETE FROM CALIBER_WEEK WHERE WEEK_NUMBER = ?";
 		q = session.createSQLQuery(sql);
-		
+
 		q.setInteger(0, 999);
 		q.executeUpdate();
-		
+
 		tx.commit();
-        session.close();
+		session.close();
 	}
 
 }

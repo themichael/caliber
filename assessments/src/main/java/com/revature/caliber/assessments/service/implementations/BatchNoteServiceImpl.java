@@ -39,4 +39,15 @@ class BatchNoteServiceImpl implements BatchNoteService {
 		
 	}
 
+	@Override
+	public List<BatchNote> allBatchNotes(int batchId) {
+		return facade.allBatchNotes(batchId);
+	}
+
+	@Override
+	public void deleteBatchNote(BatchNote batchNote) {
+		facade.deleteBatchNote(batchNote);
+		
+	}
+
 }

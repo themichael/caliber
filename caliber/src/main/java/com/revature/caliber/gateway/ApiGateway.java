@@ -17,26 +17,54 @@ import com.revature.caliber.beans.Trainer;
 public interface ApiGateway {
 
 	/**
+	 * Create a new batch
+	 * @param batch
+	 */
+	public void createBatch(Batch batch);
+
+	/**
+	 * Get all batches
+	 * @return
+	 */
+	public List<Batch> allBatch();
+	/**
 	 * Get all Batches for a given Trainer.
 	 * @param trainer
 	 * @return
 	 */
 	public List<Batch> getBatches(Trainer trainer);
-	
+
 	/**
-	 * Get all Batches in the company. Useful for
-	 * VP and QC roles to aggregate company data.
-	 * 
+	 * Get all current Batches
 	 * @return
 	 */
-	//TODO public List<Batch> getBatches();
-	
+	public List<Batch> currentBatch();
+
 	/**
-	 * Get all Batches currently within the window
-	 * of their training period. 
+	 * Get all current Batches for a given Trainer
+	 * @param trainer
 	 * @return
 	 */
-	// TODO public List<Batch> getCurrentBatches();
+	public List<Batch> currentBatch(Trainer trainer);
+
+	/**
+	 * Get a batch by ID
+	 * @param id
+	 * @return
+	 */
+	public Batch getBatch (Integer id);
+
+	/**
+	 * Update a Batch
+	 * @param batch
+	 */
+	public void updateBatch(Batch batch);
+
+	/**
+	 * Delete a Batch
+	 * @param batch
+	 */
+	public void deleteBatch(Batch batch);
 
 	//Trainee
 	/**
@@ -80,5 +108,40 @@ public interface ApiGateway {
 
 	//end of Trainee Service
 	
+	//Trainer
+	/**
+     * Creates new trainer
+     * @param trainer trainer to create
+     */
+	void createTrainer(Trainer trainer);
 	
+	/**
+	 * Gets a trainer by id
+	 * @param id: id of the trainer
+	 * @return: Trainer object
+	 */
+	Trainer getTrainer(Integer id);
+	
+	/**
+	 * Gets a trainer by email
+	 * @param email: email of the trainer
+	 * @return: Trainer object
+	 */
+	Trainer getTrainer(String email);
+
+	/**
+	 * Gets a list of all trainers
+	 * @return: a list of Trainer objects
+	 */
+	List<Trainer> getAllTrainers();
+	
+	/**
+	 * Updates a trainer
+	 * @param trainer: the trainer object to update
+	 */
+	void updateTrainer(Trainer trainer);
+
+	void deleteTrainer(Trainer trainer);
+	
+	//End of Trainer Service
 }

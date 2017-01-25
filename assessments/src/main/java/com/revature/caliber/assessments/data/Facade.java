@@ -84,8 +84,13 @@ public interface Facade {
     BatchNote getWeeklyBatchNote(int batchId, int weekId);
 
     List<BatchNote> allBatchNotesInWeek(int weekId);
-
+    
+    List<BatchNote> allBatchNotes(int batchId);
+    
     void updateBatchNote(BatchNote batchNote);
+    
+    void deleteBatchNote(BatchNote batchNote);
+    
 
 
 //    Grade
@@ -160,7 +165,7 @@ public interface Facade {
     //QCNote
     void createQCNote(QCNote note);
 
-    QCNote getQCNoteById(Integer QCNoteId);
+    QCNote getQCNoteById(Integer qcNoteId);
 
     QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
 
