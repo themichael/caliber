@@ -104,9 +104,9 @@ public interface BusinessDelegate {
 	void makeBatchNote(BatchNote batchNote);
 	
 	/**
-	 * Get the batch note within a given week corresponding to a specific batch 
+	 * Get a list of the batch notes within a given week corresponding to a specific batch 
 	 */
-	BatchNote weeklyBatchNote(int batchId, int weekId);	
+	List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId);	
 	
 	/**
 	 * Get a list of all BatchNotes within a given week
@@ -114,11 +114,17 @@ public interface BusinessDelegate {
 	 */
 	List<BatchNote> allBatchNotesInWeek(int weekId);
 	
-
+	/**
+	 * Get a BatchNote from the specific NoteID
+	 */
+	BatchNote getBatchNoteById(int batchNoteId);
+	
 	/**
 	 * Get a list of all BatchNotes for a particular Batch
 	 */
 	List<BatchNote> allBatchNotes(int batchId);
+	
+	
 	
 	/**
 	 * Update a BatchNote  
