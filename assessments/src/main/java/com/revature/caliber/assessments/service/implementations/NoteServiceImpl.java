@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.caliber.assessments.beans.Note;
 import com.revature.caliber.assessments.data.Facade;
+import com.revature.caliber.assessments.service.NoteService;
 
 @Service(value="noteService")
 public class NoteServiceImpl implements NoteService{

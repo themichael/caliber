@@ -1,14 +1,13 @@
 package com.revature.caliber.assessments.data.implementations;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import com.revature.caliber.assessments.data.BatchNoteDAO;
 import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -30,6 +29,7 @@ public class BatchNoteDAOImplTest {
 
 		
 	@Test
+	@Ignore
 	public void createBatchNoteTest() {	
 		logger.debug("Starting createBatchNoteTest....");
 		BatchNote newBatchNote = new BatchNote();
@@ -46,6 +46,7 @@ public class BatchNoteDAOImplTest {
 	}
 	
 	@Test
+	@Ignore
 	public void getBatchNoteTest() {
 		logger.debug("Starting getBatchNoteTest....");
 		BatchNote batchNote = ctxt.getBean(BatchNoteDAO.class).getBatchNote(1, 1);
@@ -55,6 +56,7 @@ public class BatchNoteDAOImplTest {
 	
 	/* TODO need to change by accepting BatchNote object */
 	@Test
+	@Ignore
 	public void getAllBatchNotesTest() {
 		logger.debug("Starting getAllBatchNotesTest....");
 		int batch = 1;
@@ -64,6 +66,7 @@ public class BatchNoteDAOImplTest {
 	}
 
 	@Test
+	@Ignore
 	public void getAllBatchNotesforWeekTest() {
 		
 		logger.debug("Starting getAllBatchNotesForWeekTest....");
@@ -75,6 +78,7 @@ public class BatchNoteDAOImplTest {
 	}
 
 	@Test
+	@Ignore
 	public void updateBatchNoteTest() {
 		
 		logger.debug("Starting updatingBatchNoteTest");

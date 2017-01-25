@@ -36,10 +36,10 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
     public BatchNote getBatchNote(int batchId, int weekId) {
-        BatchNote batchNote = (BatchNote) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
+        return (BatchNote) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
                 .add(Restrictions.eq("batch", batchId))
                 .add(Restrictions.eq("week", weekId)).uniqueResult();
-        return batchNote;
+        
     }
 
     //List all BatchNotes within a given week
@@ -48,9 +48,8 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
             Exception.class})
     @SuppressWarnings("unchecked")
     public List<BatchNote> allBatchNotesByWeek(int weekId) {
-        List<BatchNote> batchNotes = sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
+        return (List<BatchNote>) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
                 .add(Restrictions.eq("week", weekId)).list();
-        return batchNotes;
     }
 
     @Override
@@ -67,9 +66,8 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
 	public List<BatchNote> allBatchNotes(int batchId) {
-		 List<BatchNote> batchNotes = sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
+		 return (List<BatchNote>) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
 	             .add(Restrictions.eq("batch", batchId)).list();
-	     return batchNotes;
 	}
 
 	//Delete a BatchNote
