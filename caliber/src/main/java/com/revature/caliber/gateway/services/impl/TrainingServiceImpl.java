@@ -163,6 +163,47 @@ public class TrainingServiceImpl implements TrainingService{
 	}
 	//End of Trainee -------------------------------------------------------------------------------
 
+	//Trainer --------------------------------------------------------------------------------------
+	@Override
+	public void createTrainer(Trainer trainer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Trainer getTrainer(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Trainer getTrainer(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Trainer> getAllTrainers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateTrainer(Trainer trainer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteTrainer(Trainer trainer) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	//End of Trainer ----------------------------------------------------------------------------
+	
+	
+	
 	/////////// SETTERS ////////////////
 	public void setHostname(String hostname) {
 		this.hostname = hostname;
@@ -182,4 +223,6 @@ public class TrainingServiceImpl implements TrainingService{
 	public void setGetTraineeByNamePath(String getTraineeByNamePath) { this.getTraineeByNamePath = getTraineeByNamePath; }
 	public void setGetTraineesByBatchPath(String getTraineesByBatchPath) { this.getTraineesByBatchPath = getTraineesByBatchPath; }
 	//end of Trainee
+
+
 }
