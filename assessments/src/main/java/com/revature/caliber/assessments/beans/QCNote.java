@@ -17,6 +17,14 @@ public class QCNote extends Note{
 		this.week = week;
 	}
 
+	public QCNote() {
+		super();
+	}
+	
+	public QCNote(String content, boolean sugarCoated) {
+		super(content, sugarCoated);
+	}
+
 	public int getTrainee() {
 		return trainee;
 	}
@@ -32,13 +40,4 @@ public class QCNote extends Note{
 	public void setWeek(int week) {
 		this.week = week;
 	}
-
-	public QCNote() {
-		super();
-	}
-	
-	public QCNote(String content, boolean sugarCoated) {
-		super(content, sugarCoated);
-	}
-	
 }
