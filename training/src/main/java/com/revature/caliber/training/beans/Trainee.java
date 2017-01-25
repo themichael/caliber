@@ -11,6 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
+
 /**
  * Bean for Trainee
  */
@@ -48,8 +52,9 @@ public class Trainee {
 	/**
 	 * Batch that the Trainee belongs to
 	 */
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "BATCH_ID", nullable = false)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "BATCH_ID", nullable = false)
+	@JsonManagedReference
 	private Batch batch;
 
 	public Trainee() {

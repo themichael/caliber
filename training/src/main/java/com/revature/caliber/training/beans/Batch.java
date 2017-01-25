@@ -1,5 +1,9 @@
 package com.revature.caliber.training.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
@@ -28,12 +32,14 @@ public class Batch {
 	@Column(name = "TRAINING_NAME")
 	private String trainingName;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
+	@JsonManagedReference
 	private Trainer trainer;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CO_TRAINER_ID")
+	@JsonManagedReference
 	private Trainer coTrainer;
 
 	@Column(name = "SKILL_TYPE")
@@ -58,10 +64,12 @@ public class Batch {
 	private short borderlineGradeThreshold;
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	@OneToMany(mappedBy = "batch"/* , cascade = CascadeType.REMOVE */)
+	@OneToMany(mappedBy = "batch"/*, cascade = CascadeType.REMOVE*/)
+	@JsonBackReference
 	private Set<Trainee> trainees;
 
 	@OneToMany(mappedBy = "batch")
+	@JsonBackReference
 	private Set<Week> weeks;
 
 	/*
