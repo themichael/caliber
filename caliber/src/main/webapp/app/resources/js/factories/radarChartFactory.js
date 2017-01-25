@@ -4,39 +4,41 @@ angular.module("charts").factory("radarChartFactory", function($log){
 	var radarChart = {};
 	
 	radarChart.batchRankComparison = function(standard, batch){
-		var radarData = {};
+		var chartData = {};
 
 		// This relies on both data charts having the same labels
 		
 		// series 
-		radarData.series = [ "Average", "Batch" ];
+		chartData.series = [ "Average", "Batch" ];
 
 		// labels and data
-		radarData.labels = [];
-		radarData.data = [];
+		chartData.labels = [];
+		chartData.data = [];
 		
 		// push empty arrays for data
-		radarData.data.push([]);
-		radarData.data.push([]);
+		chartData.data.push([]);
+		chartData.data.push([]);
 		
 		// loop through standard data - create labels only once
 		standard.forEach(function(element){
-			radarData.data[0].push(element.average);
-			radarData.labels.push(element.tech);
+			chartData.data[0].push(element.average);
+			chartData.labels.push(element.tech);
 		});
 		
 		// loop through batch data
 		batch.forEach(function(element){
-			radarData.data[1].push(element.average);
+			chartData.data[1].push(element.average);
 		});
 
-		$log.log("Radar Data: ");
-		$log.log(radarData.data);
-		$log.log("Radar labels: ");
-		$log.log(radarData.labels);
-
-		return radarData;
+        // set radar options
+        chartData.options = {
+            legend : {
+                display : true,
+                position : 'bottom'
+            }
+        };
+		return chartData;
 	};
-	
+
 	return radarChart;
 });
