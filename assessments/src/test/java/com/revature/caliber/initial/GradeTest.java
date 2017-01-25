@@ -82,6 +82,13 @@ public class GradeTest {
 		System.out.println("avg grades by week "+ grades);
 	}
 	
+	@Ignore
+	@Test
+	public void avgGradeBy(){
+		List grades =ctxt.getBean(GradeDAO.class).avgGradeByTrainer(1);
+		System.out.println("trainer: "+ grades);
+	}
+	
 	
 	//@BeforeClass
 	@Ignore
@@ -102,7 +109,7 @@ public class GradeTest {
 		Grade grade = ctxt.getBean(GradeDAO.class).getGradeByGradeId(150);
 		grade.setScore(80);
 		ctxt.getBean(GradeDAO.class).updateGrade(grade);
-	}
+	}	
 
 	@Ignore
 	@Test

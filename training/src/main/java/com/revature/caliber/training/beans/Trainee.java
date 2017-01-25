@@ -114,4 +114,13 @@ public class Trainee {
 		this.batch = batch;
 	}
 
+    @Override
+    public String toString() {
+        return "Trainee{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", trainingStatus='" + trainingStatus + '\'' +
+                ", batch=" + batch +
+                '}';
+    }
 }
