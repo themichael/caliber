@@ -12,5 +12,10 @@ public interface BatchNoteService {
 	
 	List<BatchNote> allBatchNotesInWeek(int weekId);
 	
+	List<BatchNote> allBatchNotes(int batchId);
+	
 	void updateBatchNote(BatchNote batchNote);
+	
+	void deleteBatchNote(BatchNote batchNote);
+	
 }

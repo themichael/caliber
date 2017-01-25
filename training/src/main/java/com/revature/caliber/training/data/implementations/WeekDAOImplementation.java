@@ -15,17 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.training.beans.Week;
 import com.revature.caliber.training.data.WeekDAO;
 
-
 /**
- * Implementations for Week DAO CRUD methods
- * Methods are self-explanatory
+ * Implementations for Week DAO CRUD methods Methods are self-explanatory
  */
 @Repository
 public class WeekDAOImplementation implements WeekDAO {
 
 	private SessionFactory sessionFactory;
+
 	@Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) { this.sessionFactory = sessionFactory; }
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -37,9 +38,9 @@ public class WeekDAOImplementation implements WeekDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Week> getWeekByBatchId(int batchId) {
 		Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Week.class);
-        criteria.add(Restrictions.eq("batch.batchId", batchId));
-        return criteria.list();
+		Criteria criteria = session.createCriteria(Week.class);
+		criteria.add(Restrictions.eq("batch.batchId", batchId));
+		return criteria.list();
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -51,9 +52,9 @@ public class WeekDAOImplementation implements WeekDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Week> getWeekByWeekNumber(int weekNumber) {
 		Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Week.class);
-        criteria.add(Restrictions.eq("weekNumber", weekNumber));
-        return criteria.list();
+		Criteria criteria = session.createCriteria(Week.class);
+		criteria.add(Restrictions.eq("weekNumber", weekNumber));
+		return criteria.list();
 	}
 
 }

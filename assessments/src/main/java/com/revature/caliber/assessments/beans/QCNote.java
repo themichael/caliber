@@ -3,6 +3,7 @@ package com.revature.caliber.assessments.beans;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+
 @Entity(name="CALIBER_QC_NOTE")
 public class QCNote extends Note{
 
@@ -15,6 +16,14 @@ public class QCNote extends Note{
 		super();
 		this.trainee = trainee;
 		this.week = week;
+	}
+
+	public QCNote() {
+		super();
+	}
+
+	public QCNote(String content, boolean sugarCoated) {
+		super(content, sugarCoated);
 	}
 
 	public int getTrainee() {
@@ -33,12 +42,12 @@ public class QCNote extends Note{
 		this.week = week;
 	}
 
-	public QCNote() {
-		super();
+	@Override
+	public String toString() {
+		return super.toString() + " > QCNote{" +
+				"trainee=" + trainee +
+				", week=" + week +
+				'}';
 	}
-	
-	public QCNote(String content, boolean sugarCoated) {
-		super(content, sugarCoated);
-	}
-	
+
 }
