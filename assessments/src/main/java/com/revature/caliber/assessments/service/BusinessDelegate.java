@@ -49,28 +49,6 @@ public interface BusinessDelegate {
 	 */
     void deleteAssessment(Assessment assessment);
 
-//    BatchNote
-    /**
-     * Create a batchNote
-     */
-    void makeBatchNote(BatchNote batchNote);
-
-    /**
-     * Get the batch note within a given week corresponding to a specific batch
-     */
-    BatchNote weeklyBatchNote(int batchId, int weekId);
-
-    /**
-     * Get a list of all BatchNotes within a given week
-     * provided that multiple batches are training simultaneously
-     */
-    List<BatchNote> allBatchNotesInWeek(int weekId);
-
-    /**
-     * Update a BatchNote
-     */
-    void updateBatchNote(BatchNote batchNote);
-
 //    Grade
     /**
      * Returns a list of all grade entries
@@ -117,6 +95,42 @@ public interface BusinessDelegate {
  	 */
  	void updateGrade(Grade grade);
 
+	
+	//Batch Note
+	
+	/**
+	 * Create a batchNote 
+	 */
+	void makeBatchNote(BatchNote batchNote);
+	
+	/**
+	 * Get the batch note within a given week corresponding to a specific batch 
+	 */
+	BatchNote weeklyBatchNote(int batchId, int weekId);	
+	
+	/**
+	 * Get a list of all BatchNotes within a given week
+	 * provided that multiple batches are training simultaneously
+	 */
+	List<BatchNote> allBatchNotesInWeek(int weekId);
+	
+
+	/**
+	 * Get a list of all BatchNotes for a particular Batch
+	 */
+	List<BatchNote> allBatchNotes(int batchId);
+	
+	/**
+	 * Update a BatchNote  
+	 */
+	void updateBatchNote(BatchNote batchNote);
+	
+	/**
+	 * Delete a BatchNote  
+	 */
+	void deleteBatchNote(BatchNote batchNote);
+	
+
 //    QCNote
     void createQCNote(QCNote note);
 
@@ -147,5 +161,22 @@ public interface BusinessDelegate {
     void updateTrainerNote(TrainerNote note);
 
     void deleteTrainerNote(TrainerNote note);
+    
+    
+    //Note
+    /**
+	 * 
+	 * Return a single note
+	 * 
+	 */
+	public Note getNote(String note);
+	
+	/**
+	 * 
+	 * Return a list of all notes
+	 * 
+	 */
+	public List<Note> getAllNotes();
+	//Note End
 
 }

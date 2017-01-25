@@ -121,8 +121,20 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public void updateBatchNote(BatchNote batchNote) {
-        batchNoteDAO.updateBatchNote(batchNote);
+    public List<BatchNote> allBatchNotes(int batchId) {
+        return batchNoteDAO.allBatchNotes(batchId);
+    }
+    
+    @Override
+    public void updateBatchNote(BatchNote batchNote){
+    	batchNoteDAO.updateBatchNote(batchNote);
+    }
+
+
+    
+    @Override
+    public void deleteBatchNote(BatchNote batchNote){
+    	batchNoteDAO.deleteBatchNote(batchNote);
     }
 
 
