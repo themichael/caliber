@@ -21,7 +21,12 @@
 
 	<mvc:resources mapping="/pages/**" location="/pages/" />
 	<mvc:resources mapping="/app/**" location="/app/"/>
-	
+
+	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
+		<property name="hostname" value="http://www.pjw6193.tech" />
+		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
+	</bean>
+
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
 		<property name="hostname" value="http://www.pjw6193.tech" />
 		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
