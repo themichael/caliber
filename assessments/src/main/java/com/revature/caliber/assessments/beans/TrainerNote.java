@@ -2,9 +2,6 @@ package com.revature.caliber.assessments.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity(name="CALIBER_TRAINER_NOTE")
 public class TrainerNote extends Note{
@@ -20,7 +17,10 @@ public class TrainerNote extends Note{
 	 */
 	@Column(name="WEEK_ID", nullable=false)
 	private int week;
-	
+
+	public TrainerNote() {
+		super();
+	}
 	
 	public TrainerNote(String content, boolean sugarCoated) {
 		super(content, sugarCoated);
@@ -42,8 +42,5 @@ public class TrainerNote extends Note{
 		this.week = week;
 	}
 
-	public TrainerNote() {
-		super();
-	}
-	
+
 }

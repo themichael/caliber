@@ -1,16 +1,7 @@
 package com.revature.caliber.assessments.data;
 
 
-import java.util.List;
-import java.util.Set;
-
 import com.revature.caliber.assessments.beans.*;
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.BatchNote;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.beans.Note;
-import com.revature.caliber.assessments.beans.TrainerNote;
-
 
 import java.util.List;
 import java.util.Set;
@@ -23,59 +14,70 @@ public interface Facade {
 
 //    Assessment
     //    Get
+
     /**
      * Returns a Set of all Assessments
+     *
      * @return a Set of Assessments
      */
     Set<Assessment> getAllAssessments();
 
     /**
      * Return Assessment with AssessmentId
+     *
      * @return an Assessment
      */
     Assessment getAssessmentById(long id);
 
     /**
      * Returns HashSet of Assessments with WeekId
+     *
      * @param id the Week ID
      * @return a Set of Assessments
      */
     Set<Assessment> getAssessmentsByWeekId(long id);
 
     //    Create
+
     /**
      * Inserts Assessment
+     *
      * @param assessment an Assessment to be inserted
      */
     long insertAssessment(Assessment assessment);
 
     //    Update
+
     /**
      * Updates Assessment
+     *
      * @param assessment an Assessment to be updated
      */
     void updateAssessment(Assessment assessment);
 
     //    Delete
+
     /**
      * Deletes Assessment
+     *
      * @param assessment and Assessment to delete
      */
     void deleteAssessment(Assessment assessment);
 
-    
-//    Batch Note
+
+    //    Batch Note
     void makeBatchNote(BatchNote batchNote);
 
     BatchNote getWeeklyBatchNote(int batchId, int weekId);
 
     List<BatchNote> allBatchNotesInWeek(int weekId);
-    
+
     void updateBatchNote(BatchNote batchNote);
-    
+
 
 //    Grade
     //Gets
+
     /**
      * Returns a list of all grade entries
      */
@@ -98,7 +100,7 @@ public interface Facade {
      *
      * @param assessmentId
      */
-    List<Grade> getGradesByAssesessment(long assessmentId);
+    List<Grade> getGradesByAssessment(long assessmentId);
 
     //Insert
 
@@ -123,25 +125,38 @@ public interface Facade {
 
     //Note
     Note getNote(String note);
-	List<Note> getAllNotes();
-	//End Note
 
-//	Trainer Note
-void createTrainerNote(TrainerNote note);
+    List<Note> getAllNotes();
+    //End Note
+
+    //	Trainer Note
+    void createTrainerNote(TrainerNote note);
+
     TrainerNote getTrainerNoteById(Integer trainerNoteId);
+
     TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
+
     Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
+
     Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
+
     void updateTrainerNote(TrainerNote note);
+
     void deleteTrainerNote(TrainerNote note);
 
     //QCNote
     void createQCNote(QCNote note);
+
     QCNote getQCNoteById(Integer QCNoteId);
+
     QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
+
     List<QCNote> getQCNotesByTrainee(Integer traineeId);
+
     List<QCNote> getQCNotesByWeek(Integer weekId);
+
     void updateQCNote(QCNote note);
+
     void deleteQCNote(QCNote note);
     //QCNote end
 }
