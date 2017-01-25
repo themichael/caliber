@@ -32,16 +32,19 @@ import com.revature.caliber.training.service.BusinessDelegate;
 public class TrainerController {
 
 	private BusinessDelegate businessDelegate;
+
 	@Autowired
 	public void setBusinessDelegate(BusinessDelegate businessDelegate) {
 		this.businessDelegate = businessDelegate;
 	}
 
 	/**
-     * Creates a new trainer by making a PUT request to the URL
-     * @param: trainer to put
-     * @return: Response with appropriate status
-     */
+	 * Creates a new trainer by making a PUT request to the URL
+	 * 
+	 * @param: trainer
+	 *             to put
+	 * @return: Response with appropriate status
+	 */
 	@RequestMapping(value = "trainers/new", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Serializable> createTrainer(@RequestBody @Valid Trainer trainer) {
 		ResponseEntity<Serializable> returnEntity;
@@ -94,9 +97,10 @@ public class TrainerController {
 	}
 
 	/**
-     * Get a list of all trainers by making a GET request to the URL
-     * @return Response with list of trainer objects and/or status
-     */
+	 * Get a list of all trainers by making a GET request to the URL
+	 * 
+	 * @return Response with list of trainer objects and/or status
+	 */
 	@RequestMapping(value = "trainers/all", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 		ResponseEntity<List<Trainer>> returnEntity;
@@ -117,10 +121,12 @@ public class TrainerController {
 	}
 
 	/**
-     * Update a trainer by making a POST request to the URL
-     * @param: trainer to update
-     * @return: Response with appropriate status
-     */
+	 * Update a trainer by making a POST request to the URL
+	 * 
+	 * @param: trainer
+	 *             to update
+	 * @return: Response with appropriate status
+	 */
 	@RequestMapping(value = "trainers/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Serializable> updateTrainer(@RequestBody @Valid Trainer trainer) {
 		ResponseEntity<Serializable> returnEntity;
