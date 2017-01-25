@@ -17,12 +17,12 @@ public interface CategoryDAO {
 	 * 
 	 */
 	public Category getCategory(int categoryId);
-	
+
 	/**
 	 * 
 	 * Returns a list of all categories
 	 * 
 	 */
 	public List<Category> getAllCategories();
-	
+
 }

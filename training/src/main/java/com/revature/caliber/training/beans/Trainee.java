@@ -1,6 +1,15 @@
 package com.revature.caliber.training.beans;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  * Bean for Trainee
@@ -12,10 +21,10 @@ public class Trainee {
 	/**
 	 * id for Trainee (PK)
 	 */
-    @Id
-    @Column(name = "TRAINEE_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRAINEE_ID_SEQUENCE")
-    @SequenceGenerator(name = "TRAINEE_ID_SEQUENCE", sequenceName = "TRAINEE_ID_SEQUENCE")
+	@Id
+	@Column(name = "TRAINEE_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRAINEE_ID_SEQUENCE")
+	@SequenceGenerator(name = "TRAINEE_ID_SEQUENCE", sequenceName = "TRAINEE_ID_SEQUENCE")
 	private int traineeId;
 
 	/**
@@ -27,7 +36,7 @@ public class Trainee {
 	/**
 	 * Trainee's e-mail
 	 */
-    @Column(name = "TRAINEE_EMAIL")
+	@Column(name = "TRAINEE_EMAIL")
 	private String email;
 
 	/**
@@ -39,12 +48,11 @@ public class Trainee {
 	/**
 	 * Batch that the Trainee belongs to
 	 */
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "BATCH_ID", nullable = false)
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "BATCH_ID", nullable = false)
 	private Batch batch;
-	
-    
-    public Trainee() {
+
+	public Trainee() {
 		super();
 	}
 
@@ -64,11 +72,12 @@ public class Trainee {
 		this.trainingStatus = trainingStatus;
 		this.batch = batch;
 	}
-	
+
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	public int getTraineeId() {
 		return traineeId;
 	}
+
 	public void setTraineeId(int traineeId) {
 		this.traineeId = traineeId;
 	}
@@ -76,6 +85,7 @@ public class Trainee {
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -83,6 +93,7 @@ public class Trainee {
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -90,6 +101,7 @@ public class Trainee {
 	public String getTrainingStatus() {
 		return trainingStatus;
 	}
+
 	public void setTrainingStatus(String trainingStatus) {
 		this.trainingStatus = trainingStatus;
 	}
@@ -97,9 +109,9 @@ public class Trainee {
 	public Batch getBatch() {
 		return batch;
 	}
+
 	public void setBatch(Batch batch) {
 		this.batch = batch;
 	}
 
-	
 }
