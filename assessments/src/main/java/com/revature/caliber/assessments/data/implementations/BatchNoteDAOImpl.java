@@ -68,12 +68,14 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
             Exception.class})
 	public List<BatchNote> allBatchNotes(int batchId) {
 		 List<BatchNote> batchNotes = sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
-	             .add(Restrictions.eq("batchId", batchId)).list();
+	             .add(Restrictions.eq("batch", batchId)).list();
 	     return batchNotes;
 	}
 
 	//Delete a BatchNote
 	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
 	public void deleteBatchNote(BatchNote batchNote) {
 		sessionFactory.getCurrentSession().delete(batchNote);
 	}

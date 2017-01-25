@@ -9,6 +9,14 @@ import javax.persistence.OneToOne;
 @Entity(name="CALIBER_BATCH_NOTE")
 public class BatchNote extends Note{
 
+	@Override
+	public String toString() {
+		return "BatchNote [week=" + week + ", batch=" + batch + ", getWeek()=" + getWeek() + ", getBatch()="
+				+ getBatch() + ", getNoteId()=" + getNoteId() + ", getContent()=" + getContent()
+				+ ", getSugarCoatedContent()=" + getSugarCoatedContent() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
+
 	/**
 	 * The week of the batch's evaluation
 	 */
