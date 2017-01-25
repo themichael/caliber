@@ -19,7 +19,7 @@ public class FacadeImplementation implements Facade {
     //  DI via Spring setter injection
     private AssessmentDAO assessmentDAO;
     private BatchNoteDAO batchNoteDAO;
-    //    private CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO;
     private GradeDAO gradeDAO;
     private NoteDAO noteDAO;
     private QCNoteDAO qcNoteDAO;
@@ -37,10 +37,10 @@ public class FacadeImplementation implements Facade {
         this.batchNoteDAO = batchNoteDAO;
     }
 
-    /*    @Autowired
+    @Autowired
     public void setCategoryDAO(CategoryDAO categoryDAO) {
         this.categoryDAO = categoryDAO;
-    }*/
+    }
 
     @Autowired
     public void setGradeDAO(GradeDAO gradeDAO) {
@@ -67,7 +67,7 @@ public class FacadeImplementation implements Facade {
         this.trainerNoteDAO = trainerNoteDAO;
     }
 
-    //  Assessment
+//  Assessment
     // Get
     @Override
     public Set<Assessment> getAllAssessments() {
@@ -121,13 +121,34 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public void updateBatchNote(BatchNote batchNote) {
-        batchNoteDAO.updateBatchNote(batchNote);
+    public List<BatchNote> allBatchNotes(int batchId) {
+        return batchNoteDAO.allBatchNotes(batchId);
+    }
+    
+    @Override
+    public void updateBatchNote(BatchNote batchNote){
+    	batchNoteDAO.updateBatchNote(batchNote);
     }
 
 
-// Grade
+    
+    @Override
+    public void deleteBatchNote(BatchNote batchNote){
+    	batchNoteDAO.deleteBatchNote(batchNote);
+    }
 
+    //    Category
+    @Override
+    public Set<Category> getAllCategories() {
+        return categoryDAO.getAll();
+    }
+
+    @Override
+    public Category getCategoryById(int id) {
+        return categoryDAO.getById(id);
+    }
+
+    // Grade
     //Gets
     @Override
     public List<Grade> getAllGrades() {
@@ -205,9 +226,7 @@ public class FacadeImplementation implements Facade {
     }
 
     @Override
-    public QCNote getQCNoteById(Integer QCNoteId) {
-        return qcNoteDAO.getQCNoteById(QCNoteId);
-    }
+    public QCNote getQCNoteById(Integer qcNoteId) { return qcNoteDAO.getQCNoteById(qcNoteId); }
 
     @Override
     public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) {
