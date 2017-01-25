@@ -179,4 +179,19 @@ public interface BusinessDelegate {
 	public List<Note> getAllNotes();
 	//Note End
 
+//    Category
+	/**
+	 * Returns Set of all Categories
+	 * @return Set of all Categories
+	 */
+	Set<Category> getAllCategories();
+
+	/**
+	 * Returns Category
+	 *  with provided ID
+	 * @param id
+	 * @return Category
+	 */
+	Category getCategoryById(int id);
+
 }

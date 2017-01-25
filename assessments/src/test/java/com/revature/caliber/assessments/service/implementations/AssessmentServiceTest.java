@@ -27,6 +27,7 @@ public class AssessmentServiceTest {
 
     @BeforeClass
     public static void setUp() {
+
         context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
         // rootLogger is for debugging purposes
         log = Logger.getRootLogger();
@@ -123,7 +124,6 @@ public class AssessmentServiceTest {
 
         //delete the created Assessment
         assessmentService.delete(fetchedAssessment);
-        fetchedAssessment = null; //set to null to reuse in next line
         fetchedAssessment = assessmentService.getById(createdAssessmentId);
         assertNull(fetchedAssessment);
 

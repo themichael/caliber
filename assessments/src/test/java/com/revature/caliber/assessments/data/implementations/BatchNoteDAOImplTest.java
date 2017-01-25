@@ -98,8 +98,8 @@ public class BatchNoteDAOImplTest {
 				+ "' with new contents.");
 	}
 
-	
 	@Test
+	@Ignore
 	public void deleteBatchNote() {
 		
 		logger.debug("Starting deleteBatchNoteTest....");
