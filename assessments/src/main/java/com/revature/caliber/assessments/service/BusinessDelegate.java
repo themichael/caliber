@@ -193,5 +193,12 @@ public interface BusinessDelegate {
 	 * @return Category
 	 */
 	Category getCategoryById(int id);
+	
+	
+	
+	//QCStatus
+	public Set<QCStatus> getAllStatus();
+	public Set<Assessment> getAssessmentByStatus(String status);
+	
 
 }
