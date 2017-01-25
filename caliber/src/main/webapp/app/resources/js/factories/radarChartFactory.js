@@ -30,6 +30,14 @@ angular.module("charts").factory("radarChartFactory", function($log){
 			radarData.data[1].push(element.average);
 		});
 
+        // set pie options
+        radarData.options = {
+            legend : {
+                display : true,
+                position : 'left'
+            }
+        };
+
 		return radarData;
 	};
 	

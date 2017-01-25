@@ -68,10 +68,11 @@ angular.module("vp").controller(
                     {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
 
 				if($scope.currentTech == "Select" && $scope.currentTrainee == "Select"){
-                    var radarBatchCompareData = radarChartFactory.batchRankComparison($scope.batchSampleDataStandard, $scope.batchSampleDataBatch);
-                    $scope.batchRankLabels = radarBatchCompareData.labels;
-                    $scope.batchRankData = radarBatchCompareData.data;
-                    $scope.batchRankSeries = radarBatchCompareData.series;
+                    var radarData = radarChartFactory.batchRankComparison($scope.batchSampleDataStandard, $scope.batchSampleDataBatch);
+                    $scope.batchRankLabels = radarData.labels;
+                    $scope.batchRankData = radarData.data;
+                    $scope.batchRankSeries = radarData.series;
+                    $scope.batchRankOptions = radarData.options;
 
                     // create the other chart
 				}else if($scope.currentTrainee == "Select"){
