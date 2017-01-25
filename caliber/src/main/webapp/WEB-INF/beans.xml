@@ -48,5 +48,8 @@
 		<property name="getTrainerByIdPath" value="trainers/byid/" />
 		<property name="getTrainerByEmailPath" value="trainers/byemail/" />
 	</bean>
+	
+	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
+	</bean>
 
 </beans>

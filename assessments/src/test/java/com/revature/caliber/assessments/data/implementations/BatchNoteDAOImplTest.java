@@ -1,14 +1,13 @@
 package com.revature.caliber.assessments.data.implementations;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import com.revature.caliber.assessments.data.BatchNoteDAO;
 import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -96,6 +95,7 @@ public class BatchNoteDAOImplTest {
 
 	
 	@Test
+	@Ignore
 	public void deleteBatchNote() {
 		
 		logger.debug("Starting deleteBatchNoteTest....");
