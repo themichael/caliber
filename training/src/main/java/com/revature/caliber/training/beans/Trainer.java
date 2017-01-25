@@ -83,7 +83,7 @@ public class Trainer {
 	/**
 	 * Tier of the Trainer
 	 */
-	@ManyToOne
+	@ManyToOne(fetch =FetchType.EAGER)
 	@JoinColumn(name = "TIER", nullable = false)
 	private Tier tier;
 
