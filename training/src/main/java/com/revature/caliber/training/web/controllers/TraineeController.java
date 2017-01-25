@@ -103,7 +103,7 @@ public class TraineeController {
 	 *            id as part of URL
 	 * @return Response with trainee object and/or appropriate status
 	 */
-	@RequestMapping(value = "trainees/byid/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainees/byid/{identifier}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainee> getTraineeById(@PathVariable("identifier") int id) {
 		ResponseEntity<Trainee> returnEntity;
 
