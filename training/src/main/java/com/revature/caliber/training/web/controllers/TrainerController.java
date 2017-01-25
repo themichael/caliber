@@ -1,23 +1,19 @@
 package com.revature.caliber.training.web.controllers;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.revature.caliber.training.beans.Trainer;
+import com.revature.caliber.training.service.BusinessDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
 
-import com.revature.caliber.training.beans.Trainer;
-import com.revature.caliber.training.service.BusinessDelegate;
+import javax.validation.Valid;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Trainer Controller
@@ -79,23 +75,13 @@ public class TrainerController {
      * @param: email as part of URL
      * @return Response with trainer object and/or status
      */
-	@RequestMapping(value = "trainers/byemail/{identifier}/", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	@RequestMapping(value="trainers/byemail/{identifier}/", method=RequestMethod.GET,
+			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainer> getTrainerByEmail(@PathVariable("identifier") String email) {
-		ResponseEntity<Trainer> returnEntity;
-
-		try {
 			Trainer result = businessDelegate.getTrainer(email);
-
-			if (result == null) {
-				returnEntity = new ResponseEntity<Trainer>(result, HttpStatus.NOT_FOUND);
-			} else {
-				returnEntity = new ResponseEntity<Trainer>(result, HttpStatus.OK);
-			}
-		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<Trainer>(HttpStatus.BAD_REQUEST);
-		}
-
-		return returnEntity;
+			return new ResponseEntity<Trainer>(result, corsHeaders(),
+				HttpStatus.OK);
 	}
 
 	/**
@@ -138,5 +124,19 @@ public class TrainerController {
 		}
 
 		return returnEntity;
+	}
+
+	public MultiValueMap<String, String> corsHeaders(){
+		MultiValueMap<String, String> headers =
+				new LinkedMultiValueMap<String, String>();
+		headers.put("Access-Control-Allow-Origin",
+				Arrays.asList(new String[]{"*"}));
+		headers.put("Access-Control-Allow-Methods",
+				Arrays.asList(new String[]{"POST", "GET", "OPTIONS"}));
+		headers.put("Access-Control-Allow-Headers",
+				Arrays.asList(new String[]{"X-PINGOTHER", "Content-Type"}));
+		headers.put("Access-Control-Max-Age",
+				Arrays.asList(new String[]{"10"}));
+		return headers;
 	}
 }
