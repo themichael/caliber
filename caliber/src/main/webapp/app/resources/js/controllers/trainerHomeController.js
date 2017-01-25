@@ -55,13 +55,13 @@ angular.module("trainer").controller(
 			
 			// Sample Data representing all trainee averages per technology
 			var sampleHbarData = [{trainee: "Rikki", average: 100},
-			                      {trainee: "Kyle", average: 50},
-			                      {trainee: "Osher", average: 40},
-			                      {trainee: "Danny P", average: 80},
-			                      {trainee: "Bryan", average: 75},
-			                      {trainee: "Brayn", average: 95}];
-			
-			// line chart function that retrieves
+                {trainee: "Kyle", average: 50},
+                {trainee: "Osher", average: 40},
+                {trainee: "Danny P", average: 80},
+                {trainee: "Bryan", average: 75},
+                {trainee: "Brayn", average: 95}];
+
+            // line chart function that retrieves
 			// Week by week progression for a trainee/ batch on a line chart
 			var lineChartObject = lineChartFactory.getTraineeProgressChart(sampleLineData);
 			$scope.lineLabels = lineChartObject.lineLabels;

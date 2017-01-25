@@ -3,6 +3,9 @@ angular.module("vp").controller(
 		function($scope, $log, radarChartFactory, hbarChartFactory, lineChartFactory, delegateFactory) {
 			$log.debug("Booted vp home controller.");
 
+			// decides what charts are to be shown
+			var viewCharts = 0;
+
 			// VP API Test
 			$log.log("Get All Batches: ");
 			$log.log(delegateFactory.vp.getAllBatches());
@@ -27,27 +30,38 @@ angular.module("vp").controller(
                 $scope.currentTech = "Tech";
                 $scope.currentTrainee = "Trainee";
                 // turn of batches
-                if(index === -1) $scope.currentBatch = "Batch";
-				else $scope.currentBatch = $scope.batches[index];
-				createCharts();
+                if(index === -1){
+                    viewCharts = 0;
+                    $scope.currentBatch = "Batch";
+                }
+				else {
+                    $scope.currentBatch = $scope.batches[index];
+                    viewCharts = 1;
+                    createBatchCharts();
+                }
 			};
 			
 			$scope.selectCurrentTech = function(index) {
                 if (index === -1) {
                 	$scope.currentTrainee = "Trainee";
                 	$scope.currentTech = "Tech";
+                	viewCharts = 0;
 				}else{
 					$scope.currentTech = $scope.tech[index];
-					// select chart
+					viewCharts = 2;
+					createTechCharts();
 				}
 			};
 
-			$scope.selectCurrentTrainee = function(index){
-				if(index === -1)
-					$scope.currentTrainee = "Trainee";
-				else{
+			$scope.selectCurrentTrainee = function(index) {
+                if (index === -1) {
+                    $scope.currentTrainee = "Trainee";
+                    viewCharts = 2;
+                }
+                else{
 					$scope.currentTrainee = $scope.trainees[index];
-					// select chart
+					viewCharts = 3;
+					// create charts
 				}
 			};
 
@@ -65,15 +79,15 @@ angular.module("vp").controller(
                 return true;
             };
 
-			// hide default graphs
-			$scope.hideDefault = function(){
-			    if($scope.currentBatch === "Batch")
-			        return true;
-                return false;
-            }
+            // show charts
+            $scope.showCharts = function(charts){
+              if(charts === viewCharts)
+                  return true;
+              return false;
+            };
 
-			// create charts on dropdown selection
-			function createCharts() {
+			// create charts batch selection
+			function createBatchCharts() {
 
                 // batch rank comparison - radar chart
                 var batchSampleDataStandard = [{tech: "Java", average: ranNum()},
@@ -96,8 +110,6 @@ angular.module("vp").controller(
                     {week: "Week 9", average: ranNum()}, {week: "Week 10", average: ranNum()},
                     {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
 
-                if ($scope.currentTech === "Tech" && $scope.currentTrainee === "Trainee") {
-
                     // create batch radar chart
                     var radarData = radarChartFactory.getBatchRankComparisonChart(batchSampleDataStandard, batchSampleDataBatch);
                     $scope.batchRankLabels = radarData.labels;
@@ -112,9 +124,26 @@ angular.module("vp").controller(
                     $scope.batchProgressSeries = lineData.series;
                     $scope.batchProgressOptions = lineData.options;
                     $scope.batchProgressDatasetOverride = lineData.datasetOverride;
-                }
             }
 
+            // create charts on tech selection
+            function createTechCharts(){
+
+                var batchTechSampleData = [{trainee: "Rikki", average: ranNum()},
+                    {trainee: "Kyle", average: ranNum()},
+                    {trainee: "Osher", average: ranNum()},
+                    {trainee: "Danny P", average: ranNum()},
+                    {trainee: "Bryan", average: ranNum()},
+                    {trainee: "Brayn", average: ranNum()},
+                    {trainee: "Thomas", average: ranNum()},
+                    {trainee: "Mark", average: ranNum()},
+                    {trainee: "Michael", average: ranNum()}];
+
+                var techBarData = hbarChartFactory.getBatchTechEvalChart(batchTechSampleData);
+                $scope.batchTechLabels = techBarData.labels;
+                $scope.batchTechData = techBarData.data;
+                $scope.batchTechSeries = techBarData.series;
+            }
 
             /********* Default Charts *********/
             // trainer rank comparison - sample data
