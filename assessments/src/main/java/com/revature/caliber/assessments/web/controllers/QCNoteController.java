@@ -2,6 +2,7 @@ package com.revature.caliber.assessments.web.controllers;
 
 import com.revature.caliber.assessments.beans.QCNote;
 import com.revature.caliber.assessments.service.BusinessDelegate;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +27,8 @@ public class QCNoteController {
     @Autowired
     public void setBusinessDelegate(BusinessDelegate businessDelegate) { this.businessDelegate = businessDelegate; }
 
+    private static Logger logger = Logger.getRootLogger();
+
     /**
      * Create a new note by making a PUT request to the URL
      * @param note note to put
@@ -39,10 +42,11 @@ public class QCNoteController {
         ResponseEntity<Serializable> returnEntity;
         try {
             businessDelegate.createQCNote(note);
-            returnEntity =  new ResponseEntity<Serializable>(HttpStatus.CREATED);
+            returnEntity =  new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while creating note: " + note, e);
+            returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return returnEntity;
     }
@@ -60,10 +64,11 @@ public class QCNoteController {
         ResponseEntity<Serializable> returnEntity;
         try{
             businessDelegate.updateQCNote(note);
-            returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
+            returnEntity = new ResponseEntity<>(HttpStatus.OK);
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while updating note: " + note, e);
+            returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return returnEntity;
     }
@@ -76,10 +81,11 @@ public class QCNoteController {
         ResponseEntity<Serializable> returnEntity;
         try {
             businessDelegate.deleteQCNote(note);
-            returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
+            returnEntity = new ResponseEntity<>(HttpStatus.OK);
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while deleting note: " + note, e);
+            returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return returnEntity;
     }
@@ -93,14 +99,15 @@ public class QCNoteController {
         try {
             QCNote result = businessDelegate.getQCNoteById(id);
             if (result == null) {
-                returnEntity = new ResponseEntity<QCNote>(result, HttpStatus.NOT_FOUND);
+                returnEntity = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
             }
             else {
-                returnEntity = new ResponseEntity<QCNote>(result, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(result, HttpStatus.OK);
             }
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<QCNote>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while getting note by id: " + id, e);
+            returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return returnEntity;
     }
@@ -114,14 +121,15 @@ public class QCNoteController {
         try {
             QCNote result = businessDelegate.getQCNoteForTraineeWeek(traineeId, weekId);
             if (result == null) {
-                returnEntity = new ResponseEntity<QCNote>(result, HttpStatus.NOT_FOUND);
+                returnEntity = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
             }
             else {
-                returnEntity = new ResponseEntity<QCNote>(result, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(result, HttpStatus.OK);
             }
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<QCNote>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while getting note by week " + weekId + ", and trainee " + traineeId, e);
+            returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return returnEntity;
     }
@@ -135,14 +143,15 @@ public class QCNoteController {
         try {
             List<QCNote> result = businessDelegate.getQCNotesByTrainee(traineeId);
             if (result == null) {
-                returnEntity = new ResponseEntity<List<QCNote>>(result, HttpStatus.NOT_FOUND);
+                returnEntity = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
             }
             else {
-                returnEntity = new ResponseEntity<List<QCNote>>(result, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(result, HttpStatus.OK);
             }
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<List<QCNote>>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while getting notes by trainee " + traineeId, e);
+            returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return returnEntity;
     }
@@ -156,14 +165,15 @@ public class QCNoteController {
         try {
             List<QCNote> result = businessDelegate.getQCNotesByWeek(weekId);
             if (result == null) {
-                returnEntity = new ResponseEntity<List<QCNote>>(result, HttpStatus.NOT_FOUND);
+                returnEntity = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
             }
             else {
-                returnEntity = new ResponseEntity<List<QCNote>>(result, HttpStatus.OK);
+                returnEntity = new ResponseEntity<>(result, HttpStatus.OK);
             }
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<List<QCNote>>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while getting note by week " + weekId, e);
+            returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return returnEntity;
     }

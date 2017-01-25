@@ -138,8 +138,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	}
 
 	@Override
-	public QCNote getQCNoteById(Integer QCNoteId) {
-		return qcNoteService.getQCNoteById(QCNoteId);
+	public QCNote getQCNoteById(Integer qcNoteId) {
+		return qcNoteService.getQCNoteById(qcNoteId);
 	}
 
 	@Override
@@ -200,6 +200,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	// end trainer note
 
 	// BatchNote
+
 	@Override
 	public void makeBatchNote(BatchNote batchNote) {
 		batchNoteService.createBatchNote(batchNote);
