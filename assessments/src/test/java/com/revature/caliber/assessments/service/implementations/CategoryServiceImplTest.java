@@ -3,45 +3,76 @@ package com.revature.caliber.assessments.service.implementations;
 import com.revature.caliber.assessments.beans.Category;
 import com.revature.caliber.assessments.service.CategoryService;
 import org.apache.log4j.Logger;
+import org.hibernate.*;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class CategoryServiceImplTest {
 
     private static AbstractApplicationContext context;
+    private static int categoryId;
+    private static SessionFactory sessionFactory;
     private static Logger log;
-    private CategoryService categoryService;
+    private static CategoryService categoryService;
 
     @BeforeClass
     public static void setUp() {
-
-        context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
         // rootLogger is for debugging purposes
         log = Logger.getRootLogger();
 
         log.debug("Starting CategoryServiceTest");
+
+        context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
+
+        //set service
+        categoryService = (CategoryService) context.getBean("categoryService");
+
+        //set session factory
+        sessionFactory = (SessionFactory) context.getBean("sessionFactory");
+
+        //hard coding id
+        categoryId = 340504;
+
+        //open session and create test data
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        String sql =    "insert into caliber_assessment_category (category_id, skill_category) " +
+                            "values (:cat_id, :skill_cat)";
+        session.createSQLQuery(sql)
+                .setParameter("cat_id", categoryId)
+                .setParameter("skill_cat", "Core Java")
+                .executeUpdate();
+
+        tx.commit();
+        session.close();
     }
 
     @AfterClass
     public static void cleanUp() {
+        //removes test data
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        String sql = "delete from caliber_assessment_category where category_id = :cat_id";
+        session.createSQLQuery(sql)
+                .setParameter("cat_id", categoryId)
+                .executeUpdate();
+
+        tx.commit();
+        session.close();
+
         log.debug("Ending CategoryServiceTest");
     }
 
-    @Before
-    public void setUpTest() {
-        categoryService = (CategoryService) context.getBean("categoryService");
-    }
-
-    //    Waiting for additional data
     @Test
     public void getAll() throws Exception {
         log.debug("Starting getAllCategoriesTest");
@@ -54,7 +85,7 @@ public class CategoryServiceImplTest {
 
     @Test
     public void getById() throws Exception {
-        int id = 1;
+        int id = categoryId;
         log.debug("Starting getCategoryByIdTest = " + id);
 
         Category category = categoryService.getById(id);

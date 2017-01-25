@@ -124,7 +124,6 @@ public class AssessmentServiceTest {
 
         //delete the created Assessment
         assessmentService.delete(fetchedAssessment);
-        fetchedAssessment = null; //set to null to reuse in next line
         fetchedAssessment = assessmentService.getById(createdAssessmentId);
         assertNull(fetchedAssessment);
 
