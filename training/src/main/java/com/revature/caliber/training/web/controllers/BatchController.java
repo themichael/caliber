@@ -39,7 +39,7 @@ public class BatchController {
 	 * @param batch
 	 * @return
 	 */
-	@RequestMapping(value = "batch/new", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Serializable> createBatch(@RequestBody @Valid Batch batch) {
 		ResponseEntity<Serializable> returnEntity;
 		try {
