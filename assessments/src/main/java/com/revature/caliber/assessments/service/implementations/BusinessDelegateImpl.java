@@ -13,7 +13,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 
 	private AssessmentService assessmentService;
 	private BatchNoteService batchNoteService;
-	//private CategoryService categoryService;
+	private CategoryService categoryService;
 	private GradeService gradeService;
 	private NoteService noteService;
 	private QCNoteService qcNoteService;
@@ -31,10 +31,10 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 		this.batchNoteService = batchNoteService;
 	}
 
-	/*@Autowired
+	@Autowired
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
-	}*/
+	}
 
 	@Autowired
 	public void setGradeService(GradeService gradeService) {
@@ -242,6 +242,16 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	public List<Note> getAllNotes() {
 		return noteService.getAllNotes();
 	}
-	
-	
+
+//    Category
+	@Override
+	public Set<Category> getAllCategories() {
+		return categoryService.getAll();
+	}
+
+	@Override
+	public Category getCategoryById(int id) {
+		return categoryService.getById(id);
+	}
+
 }
