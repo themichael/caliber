@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
-@Repository(value="batchNoteDAO")
+@Repository(value = "batchNoteDAO")
 public class BatchNoteDAOImpl implements BatchNoteDAO {
 
     private SessionFactory sessionFactory;
@@ -49,14 +49,13 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
                 .add(Restrictions.eq("week", weekId)).list();
         return batchNotes;
     }
-    
+
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
     public void updateBatchNote(BatchNote batchNote) {
         sessionFactory.getCurrentSession().update(batchNote);
     }
-    
-    
+
 
 }
