@@ -8,7 +8,7 @@
                 </li>
                 <!-- Button Trigger for Create Batch Modal -->
                 <li role="button" class="pull-right" data-toggle="modal" data-target="#createBatchModal">
-                    <a>Create Batch<span class="glyphicon glyphicon-plus glyphicon-plus-style" aria-hidden="true">
+                    <a>Create Batch<span class="glyphicon glyphicon-plus" aria-hidden="true">
                     </span></a>
                 </li>
             </ul>
@@ -23,17 +23,17 @@
         <div class="col-md-12 col-lg-12">
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th>Training Name</th>
-                        <th>Training Type</th>
-                        <th>Skill Type</th>
-                        <th>Trainer</th>
-                        <th>Co-Trainer</th>
-                        <th>Location</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Add Trainee</th>
-                    </tr>
+                <tr>
+                    <th>Training Name</th>
+                    <th>Training Type</th>
+                    <th>Skill Type</th>
+                    <th>Trainer</th>
+                    <th>Co-Trainer</th>
+                    <th>Location</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Trainees</th>
+                </tr>
                 </thead>
                 <tbody>
                 <tr>
@@ -48,7 +48,7 @@
                     <td>
                         <!-- Button Trigger for Add Trainee Modal -->
                         <a role="button" data-toggle="modal" data-target="#addTraineeModal">
-                            <span class="glyphicon glyphicon-plus glyphicon-plus-style"></span>
+                            Add<span class="glyphicon glyphicon-plus"></span>
                         </a>
                     </td>
                 </tr>
@@ -64,7 +64,7 @@
                     <td>
                         <!-- Button Trigger for Add Trainee Modal -->
                         <a role="button" data-toggle="modal" data-target="#addTraineeModal">
-                            <span class="glyphicon glyphicon-plus glyphicon-plus-style"></span>
+                            Add<span class="glyphicon glyphicon-plus"></span>
                         </a>
                     </td>
                 </tr>
@@ -88,11 +88,12 @@
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainingName">Training Name:</label>
-                        <input type="text" class="form-control" id="trainingName" placeholder="Enter Training Name" required>
+                        <input ng-model="trainingName" type="text" class="form-control" id="trainingName"
+                               placeholder="Enter Training Name" required>
                     </div>
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainingType">Training Type:</label>
-                        <select class="form-control" id="trainingType" required>
+                        <select ng-model="trainingType" class="form-control" id="trainingType" required>
                             <option value="" disabled selected>Select Training Type</option>
                             <option>1</option>
                             <option>2</option>
@@ -104,7 +105,7 @@
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="skillType">Skill Type:</label>
-                        <select class="form-control" id="skillType" required>
+                        <select ng-model="skillType" class="form-control" id="skillType" required>
                             <option value="" disabled selected>Select Skill Type</option>
                             <option>1</option>
                             <option>2</option>
@@ -114,7 +115,7 @@
                     </div>
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="location">Location:</label>
-                        <select class="form-control" id="location" required>
+                        <select ng-model="location" class="form-control" id="location" required>
                             <option value="" disabled selected>Select Location</option>
                             <option>1</option>
                             <option>2</option>
@@ -126,7 +127,7 @@
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainer">Trainer:</label>
-                        <select class="form-control" id="trainer" required>
+                        <select ng-model="trainer" class="form-control" id="trainer" required>
                             <option value="" disabled selected>Select Trainer</option>
                             <option>1</option>
                             <option>2</option>
@@ -136,7 +137,7 @@
                     </div>
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="co-trainer">Co-Trainer:</label>
-                        <select class="form-control" id="co-trainer" required>
+                        <select ng-model="co-trainer" class="form-control" id="co-trainer" required>
                             <option value="" disabled selected>Select Co-Trainer</option>
                             <option>1</option>
                             <option>2</option>
@@ -149,7 +150,8 @@
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="start-date">Start Date:</label>
                         <div class="input-group" id="start-date" data-datepicker="true">
-                            <input class="date-input form-control date-selector" name="date" min="0"
+                            <input ng-model="start-date" class="date-input form-control date-selector" name="date"
+                                   min="0"
                                    type="date" required>
                             <span class="input-group-addon glyphicon glyphicon-calendar"></span>
                         </div>
@@ -157,7 +159,7 @@
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="end-date">End Date:</label>
                         <div class="input-group" id="end-date" data-datepicker="true">
-                            <input class="date-input form-control date-selector" name="date" min="0"
+                            <input ng-model="end-date" class="date-input form-control date-selector" name="date" min="0"
                                    type="date" required>
                             <span class="input-group-addon glyphicon glyphicon-calendar"></span>
                         </div>
@@ -185,18 +187,35 @@
             <div class="modal-body trainee-body-modal">
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
-                        <label for="firstName">First Name:</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" required>
-                    </div>
-                    <div class="form-group col-md-6 col-sm-6">
-                        <label for="lastName">Last Name:</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" required>
+                        <label for="traineeName">Full Name:</label>
+                        <input ng-model="traineeName" type="text" class="form-control" id="traineeName"
+                               placeholder="Enter Trainee Name" required>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <div class="row">
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label for="traineeEmail">Email:</label>
+                        <input ng-model="traineeEmail" type="text" class="form-control" id="traineeEmail"
+                               placeholder="Enter Trainee Email"
+                               required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label for="trainingStatus">Status:</label>
+                        <select ng-model="trainingStatus" class="form-control" id="trainingStatus" required>
+                            <option value="" disabled selected>Select Trainee Status</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button ng-click="saveNewTrainee" type="button" class="btn btn-primary">Save</button>
+                </div>
             </div>
         </div>
     </div>
