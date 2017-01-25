@@ -7,26 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.BatchNote;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.beans.QCNote;
-import com.revature.caliber.assessments.beans.Note;
-import com.revature.caliber.assessments.beans.TrainerNote;
-import com.revature.caliber.assessments.data.AssessmentDAO;
-import com.revature.caliber.assessments.data.BatchNoteDAO;
-import com.revature.caliber.assessments.data.Facade;
-import com.revature.caliber.assessments.data.GradeDAO;
-import com.revature.caliber.assessments.data.NoteDAO;
-import com.revature.caliber.assessments.data.QCNoteDAO;
-import com.revature.caliber.assessments.data.QCStatusDAO;
-import com.revature.caliber.assessments.data.TrainerNoteDAO;
 
 
 /**
@@ -53,13 +33,13 @@ public class FacadeImplementation implements Facade {
     }
 
     @Autowired
-    public void setCategoryDAO(CategoryDAO categoryDAO) {
-        this.categoryDAO = categoryDAO;
+    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
+        this.batchNoteDAO = batchNoteDAO;
     }
 
     @Autowired
-    public void setBatchNoteDAO(BatchNoteDAO batchNoteDAO) {
-        this.batchNoteDAO = batchNoteDAO;
+    public void setCategoryDAO(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
     }
 
     @Autowired
@@ -139,13 +119,13 @@ public class FacadeImplementation implements Facade {
     public List<BatchNote> allBatchNotesInWeek(int weekId) {
         return batchNoteDAO.allBatchNotesByWeek(weekId);
     }
-    
+
     @Override
-    public void updateBatchNote(BatchNote batchNote){
-    	batchNoteDAO.updateBatchNote(batchNote);
+    public void updateBatchNote(BatchNote batchNote) {
+        batchNoteDAO.updateBatchNote(batchNote);
     }
 
-//    Category
+    //    Category
     @Override
     public Set<Category> getAllCategories() {
         return categoryDAO.getAll();
@@ -156,7 +136,7 @@ public class FacadeImplementation implements Facade {
         return categoryDAO.getById(id);
     }
 
-// Grade
+    // Grade
     //Gets
     @Override
     public List<Grade> getAllGrades() {
@@ -199,46 +179,80 @@ public class FacadeImplementation implements Facade {
     }
 
     //TrainerNote
-    public void createTrainerNote(TrainerNote note) {trainerNoteDAO.createTrainerNote(note);}
-    public TrainerNote getTrainerNoteById(Integer trainerNoteId) {return trainerNoteDAO.getTrainerNoteById(trainerNoteId);}
-    public TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId) {return trainerNoteDAO.getTrainerNoteForTrainerWeek(trainerId, weekId);}
-    public Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId) {return trainerNoteDAO.getTrainerNotesByTrainer(trainerId);}
-    public Set<TrainerNote> getTrainerNotesByWeek(Integer weekId) {return trainerNoteDAO.getTrainerNotesByWeek(weekId);}
-    public void updateTrainerNote(TrainerNote note) {trainerNoteDAO.updateTrainerNote(note);}
-    public void deleteTrainerNote(TrainerNote note) {trainerNoteDAO.deleteTrainerNote(note);}
+    public void createTrainerNote(TrainerNote note) {
+        trainerNoteDAO.createTrainerNote(note);
+    }
+
+    public TrainerNote getTrainerNoteById(Integer trainerNoteId) {
+        return trainerNoteDAO.getTrainerNoteById(trainerNoteId);
+    }
+
+    public TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId) {
+        return trainerNoteDAO.getTrainerNoteForTrainerWeek(trainerId, weekId);
+    }
+
+    public Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId) {
+        return trainerNoteDAO.getTrainerNotesByTrainer(trainerId);
+    }
+
+    public Set<TrainerNote> getTrainerNotesByWeek(Integer weekId) {
+        return trainerNoteDAO.getTrainerNotesByWeek(weekId);
+    }
+
+    public void updateTrainerNote(TrainerNote note) {
+        trainerNoteDAO.updateTrainerNote(note);
+    }
+
+    public void deleteTrainerNote(TrainerNote note) {
+        trainerNoteDAO.deleteTrainerNote(note);
+    }
 
     //QCNote
     @Override
-    public void createQCNote(QCNote note) { qcNoteDAO.createQCNote(note); }
+    public void createQCNote(QCNote note) {
+        qcNoteDAO.createQCNote(note);
+    }
 
     @Override
-    public QCNote getQCNoteById(Integer QCNoteId) { return qcNoteDAO.getQCNoteById(QCNoteId); }
+    public QCNote getQCNoteById(Integer QCNoteId) {
+        return qcNoteDAO.getQCNoteById(QCNoteId);
+    }
 
     @Override
-    public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) { return qcNoteDAO.getQCNoteForTraineeWeek(traineeId, weekId); }
+    public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) {
+        return qcNoteDAO.getQCNoteForTraineeWeek(traineeId, weekId);
+    }
 
     @Override
-    public List<QCNote> getQCNotesByTrainee(Integer traineeId) { return qcNoteDAO.getQCNotesByTrainee(traineeId); }
+    public List<QCNote> getQCNotesByTrainee(Integer traineeId) {
+        return qcNoteDAO.getQCNotesByTrainee(traineeId);
+    }
 
     @Override
-    public List<QCNote> getQCNotesByWeek(Integer weekId) { return qcNoteDAO.getQCNotesByWeek(weekId); }
+    public List<QCNote> getQCNotesByWeek(Integer weekId) {
+        return qcNoteDAO.getQCNotesByWeek(weekId);
+    }
 
     @Override
-    public void updateQCNote(QCNote note) { qcNoteDAO.updateQCNote(note); }
+    public void updateQCNote(QCNote note) {
+        qcNoteDAO.updateQCNote(note);
+    }
 
     @Override
-    public void deleteQCNote(QCNote note) { qcNoteDAO.deleteQCNote(note); }
+    public void deleteQCNote(QCNote note) {
+        qcNoteDAO.deleteQCNote(note);
+    }
     //end QCNote
-    
+
     //Note Facade Methods
     @Override
-	public Note getNote(String note) {
-		return noteDAO.getNote(note);
-	}
+    public Note getNote(String note) {
+        return noteDAO.getNote(note);
+    }
 
-	@Override
-	public List<Note> getAllNotes() {
-		return noteDAO.getAllNotes();
-	}
+    @Override
+    public List<Note> getAllNotes() {
+        return noteDAO.getAllNotes();
+    }
 
 }
