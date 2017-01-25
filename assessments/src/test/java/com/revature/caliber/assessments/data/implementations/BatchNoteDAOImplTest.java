@@ -31,9 +31,9 @@ public class BatchNoteDAOImplTest {
 		logger.debug("Starting createBatchNoteTest....");
 		BatchNote newBatchNote = new BatchNote();
 
-		newBatchNote.setBatch(4);
-		newBatchNote.setNoteId(4);
-		newBatchNote.setWeek(4);
+		newBatchNote.setBatch(5);
+		newBatchNote.setNoteId(5);
+		newBatchNote.setWeek(5);
 		newBatchNote.setContent("This batch has a hard time understanding Spring.");
 		newBatchNote.setSugarCoatedContent("Very good on all topics but still can improve.");
 		ctxt.getBean(BatchNoteDAO.class).createBatchNote(newBatchNote);
@@ -96,7 +96,7 @@ public class BatchNoteDAOImplTest {
 	public void deleteBatchNote() {
 		
 		logger.debug("Starting deleteBatchNoteTest....");
-		BatchNote batchNote = ctxt.getBean(BatchNoteDAO.class).getBatchNote(3, 3);
+		BatchNote batchNote = ctxt.getBean(BatchNoteDAO.class).getBatchNote(5, 5);
 		ctxt.getBean(BatchNoteDAO.class).deleteBatchNote(batchNote);
 
 		assertNotNull(batchNote);
