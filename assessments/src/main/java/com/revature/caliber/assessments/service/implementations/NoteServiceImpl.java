@@ -3,10 +3,12 @@ package com.revature.caliber.assessments.service.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.revature.caliber.assessments.beans.Note;
 import com.revature.caliber.assessments.data.Facade;
 
+@Component
 public class NoteServiceImpl {
 
 	private Facade facade;
