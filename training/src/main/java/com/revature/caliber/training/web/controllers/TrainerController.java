@@ -45,7 +45,9 @@ public class TrainerController {
 	 *             to put
 	 * @return: Response with appropriate status
 	 */
-	@RequestMapping(value = "trainers/new/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "trainers/new", 
+					method = RequestMethod.POST, 
+					consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> createTrainer(@RequestBody @Valid Trainer trainer) {
 		ResponseEntity<Serializable> returnEntity;
 		try {
@@ -62,10 +64,10 @@ public class TrainerController {
      * @param: id as part of URL
      * @return: Response with trainer object and/or appropriate status
      */
-	@RequestMapping(value = "/trainer/{id}", 
+	@RequestMapping(value = "/trainers/byid/{identifier}", 
 					method = RequestMethod.GET, 
 					produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Trainer> getTrainerById(@PathVariable("id") int id) {
+	public ResponseEntity<Trainer> getTrainerById(@PathVariable("identifier") int id) {
 		ResponseEntity<Trainer> returnEntity;
 		try {
 			Trainer result = businessDelegate.getTrainer(id);
@@ -86,10 +88,10 @@ public class TrainerController {
      * @param: email as part of URL
      * @return Response with trainer object and/or status
      */
-	@RequestMapping(value = "trainer/{email}/", 
+	@RequestMapping(value = "trainers/byemail/{identifier}/", 
 					method = RequestMethod.GET, 
 					produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Trainer> getTrainerByEmail(@PathVariable("email") String email) {
+	public ResponseEntity<Trainer> getTrainerByEmail(@PathVariable("identifier") String email) {
 		Trainer result = businessDelegate.getTrainer(email);
 		return new ResponseEntity<Trainer>(result, corsHeaders(),
 			HttpStatus.OK);
@@ -132,14 +134,12 @@ public class TrainerController {
 					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> updateTrainer(@RequestBody @Valid Trainer trainer) {
 		ResponseEntity<Serializable> returnEntity;
-
 		try {
 			businessDelegate.updateTrainer(trainer);
 			returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
 		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
 		}
-
 		return returnEntity;
 	}
 	
