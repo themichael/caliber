@@ -70,10 +70,14 @@ public class TrainerNoteDAOImpl implements TrainerNoteDAO {
     @Transactional(isolation = Isolation.READ_COMMITTED,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
-    public void updateTrainerNote(TrainerNote note) {sessionFactory.getCurrentSession().update(note);}
+    public void updateTrainerNote(TrainerNote note) {
+        sessionFactory.getCurrentSession().update(note);
+    }
 
     @Transactional(isolation = Isolation.READ_COMMITTED,
             propagation = Propagation.REQUIRED,
             rollbackFor = {Exception.class})
-    public void deleteTrainerNote(TrainerNote note) {sessionFactory.getCurrentSession().delete(note);}
+    public void deleteTrainerNote(TrainerNote note) {
+        sessionFactory.getCurrentSession().delete(note);
+    }
 }

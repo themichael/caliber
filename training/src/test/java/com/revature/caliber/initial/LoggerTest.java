@@ -7,14 +7,14 @@ import org.junit.Test;
 public class LoggerTest {
 
 	private Logger logger;
-	
+
 	@Before
-	public void configureLogger(){
+	public void configureLogger() {
 		this.logger = Logger.getRootLogger();
 	}
-	
+
 	@Test
-	public void test(){
+	public void test() {
 		logger.trace("Lowest priority");
 		logger.debug("Low priority");
 		logger.info("Standard message");
@@ -22,5 +22,5 @@ public class LoggerTest {
 		logger.error("Higher priority");
 		logger.fatal("Highest priority");
 	}
-	
+
 }

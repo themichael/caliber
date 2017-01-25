@@ -13,6 +13,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import com.revature.caliber.training.beans.Category;
 import com.revature.caliber.training.data.CategoryDAO;
 import com.revature.caliber.training.data.Facade;
+import com.revature.caliber.training.service.BusinessDelegate;
 
 public class CategoryDAOImplTest {
 
@@ -43,11 +44,23 @@ public class CategoryDAOImplTest {
     //Testing the category methods in the Facade
     @Test
     public void getCategoryFacade(){
-    	logger.info(contxt.getBean(Facade.class).getCategory(1) + " Get individual category from Facade");
+    	logger.info(contxt.getBean(Facade.class).getCategory(1) + " Get individual category using Facade");
     }
     
     @Test
     public void getAllCategoryFacade(){
-    	logger.info(contxt.getBean(Facade.class).getAllCategories() + " Get all categories from Facade");
+    	logger.info(contxt.getBean(Facade.class).getAllCategories() + " Get all categories using Facade");
     }
+   
+    //Testing the category methods in the Business Delegate
+    @Test
+    public void getCategoryBDelegate(){
+    	logger.info(contxt.getBean(BusinessDelegate.class).getCategory(1) + " Get all categories using Business Delegate");
+    }
+    
+    @Test
+    public void getAllCategoryBDelegate(){
+    	logger.info(contxt.getBean(BusinessDelegate.class).getAllCategories() + " Get all categories using Business Delegate"); 	
+    }
+    
 }

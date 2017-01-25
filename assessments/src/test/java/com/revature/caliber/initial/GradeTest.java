@@ -75,6 +75,7 @@ public class GradeTest {
 		System.out.println("avg grades by WEEK HASHMAP ," + grades);
 	}
 	
+	@Ignore
 	@Test
 	public void getAvgGradeCategoryByTrainee(){
 		Map<Set<Category>, Double> grades = ctxt.getBean(GradeDAO.class).gradeByCategory(1);
