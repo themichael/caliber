@@ -175,13 +175,7 @@ public class BatchNoteDAOImplTest {
 	}
 
 	@Test
-<<<<<<< HEAD
-	//@Ignore
-=======
-	@Ignore
->>>>>>> a67a04f6a9b00a482eb5bf23c8dcd610857fac31
-	public void deleteBatchNote() {
-		
+	public void deleteBatchNote(){
 		logger.debug("Starting deleteBatchNoteTest....");
 		BatchNote batchNote = ctxt.getBean(BatchNoteDAO.class).getBatchNoteById(id);
 		ctxt.getBean(BatchNoteDAO.class).deleteBatchNote(batchNote);
