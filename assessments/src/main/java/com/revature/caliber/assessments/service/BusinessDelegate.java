@@ -1,10 +1,7 @@
 package com.revature.caliber.assessments.service;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.Category;
-import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.*;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,21 +19,21 @@ public interface BusinessDelegate {
 	 * Return Assessment with AssessmentId
 	 * @return an Assessment
 	 */
-    Assessment getAssessmentById(int id);
+    Assessment getAssessmentById(long id);
 
 	/**
 	 * Returns HashSet of Assessments with WeekId
 	 * @param id the Week ID
 	 * @return a Set of Assessments
 	 */
-    Set<Assessment> getAssessmentsByWeekId(int id);
+    Set<Assessment> getAssessmentsByWeekId(long id);
 
 	//    Create
 	/**
 	 * Inserts Assessment
 	 * @param assessment an Assessment to be inserted
 	 */
-    void insertAssessment(Assessment assessment);
+    long insertAssessment(Assessment assessment);
 
 	//    Update
 	/**
@@ -69,38 +66,61 @@ public interface BusinessDelegate {
 	 */
 	Category getCategoryById(int id);
 
- // Grade
- 	/**
- 	 * Returns a list of all grade entries
- 	 */
- 	List<Grade> getAllGrades();
+//    BatchNote
+    /**
+     * Create a batchNote
+     */
+    void makeBatchNote(BatchNote batchNote);
 
- 	/**
- 	 * Returns a grade object given a specific gradeId
- 	 */
- 	Grade getGradeByGradeId(long gradeId);
+    /**
+     * Get the batch note within a given week corresponding to a specific batch
+     */
+    BatchNote weeklyBatchNote(int batchId, int weekId);
 
- 	/**
- 	 * Returns a list of grades of a specific trainee based on traineeId as an
- 	 * input
- 	 * 
- 	 * @param traineeId
- 	 */
- 	List<Grade> getGradesByTraineeId(int traineeId);
+    /**
+     * Get a list of all BatchNotes within a given week
+     * provided that multiple batches are training simultaneously
+     */
+    List<BatchNote> allBatchNotesInWeek(int weekId);
+
+    /**
+     * Update a BatchNote
+     */
+    void updateBatchNote(BatchNote batchNote);
+
+//    Grade
+    /**
+     * Returns a list of all grade entries
+     */
+    List<Grade> getAllGrades();
+
+    /**
+     * Returns a grade object given a specific gradeId
+     */
+    Grade getGradeByGradeId(long gradeId);
+
+    /**
+     * Returns a list of grades of a specific trainee based on traineeId as an
+     * input
+     *
+     * @param traineeId
+     */
+    List<Grade> getGradesByTraineeId(int traineeId);
 
  	/**
  	 * Returns a list of grades of a specific assessment based on assessmentId
  	 * as an input
- 	 * 
+ 	 *
  	 * @param assessmentId
  	 */
- 	List<Grade> getGradesByAssesessment(long assessmentId);
+ 	List<Grade> getGradesByAssessment(long assessmentId);
 
- 	// Insert
- 	/**
- 	 * Inserts a new Grade into database
- 	 */
- 	void insertGrade(Grade grade);
+    // Insert
+
+    /**
+     * Inserts a new Grade into database
+     */
+    void insertGrade(Grade grade);
 
  	// Delete
  	/**
@@ -113,4 +133,36 @@ public interface BusinessDelegate {
  	 * Updates a grade
  	 */
  	void updateGrade(Grade grade);
+
+//    QCNote
+    void createQCNote(QCNote note);
+
+    QCNote getQCNoteById(Integer QCNoteId);
+
+    QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
+
+    List<QCNote> getQCNotesByTrainee(Integer traineeId);
+
+    List<QCNote> getQCNotesByWeek(Integer weekId);
+
+    void updateQCNote(QCNote note);
+
+    void deleteQCNote(QCNote note);
+    //QCNote end
+
+//    TrainerNotes
+    void createTrainerNote(TrainerNote note);
+
+    TrainerNote getTrainerNoteById(Integer trainerNoteId);
+
+    TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
+
+    Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
+
+    Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
+
+    void updateTrainerNote(TrainerNote note);
+
+    void deleteTrainerNote(TrainerNote note);
+
 }

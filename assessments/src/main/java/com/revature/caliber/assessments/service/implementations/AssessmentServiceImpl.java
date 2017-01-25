@@ -35,7 +35,7 @@ public class AssessmentServiceImpl implements AssessmentService {
             isolation = Isolation.READ_COMMITTED,
             rollbackFor = Exception.class,
             propagation = Propagation.REQUIRES_NEW)
-    public Assessment getById(int id) {
+    public Assessment getById(long id) {
         return facade.getAssessmentById(id);
     }
 
@@ -44,7 +44,7 @@ public class AssessmentServiceImpl implements AssessmentService {
             isolation = Isolation.READ_COMMITTED,
             rollbackFor = Exception.class,
             propagation = Propagation.REQUIRES_NEW)
-    public Set<Assessment> getByWeekId(int id) {
+    public Set<Assessment> getByWeekId(long id) {
         return facade.getAssessmentsByWeekId(id);
     }
 
@@ -53,8 +53,8 @@ public class AssessmentServiceImpl implements AssessmentService {
             isolation = Isolation.READ_COMMITTED,
             rollbackFor = Exception.class,
             propagation = Propagation.REQUIRES_NEW)
-    public void insert(Assessment assessment) {
-        facade.insertAssessment(assessment);
+    public long insert(Assessment assessment) {
+        return facade.insertAssessment(assessment);
     }
 
     @Override

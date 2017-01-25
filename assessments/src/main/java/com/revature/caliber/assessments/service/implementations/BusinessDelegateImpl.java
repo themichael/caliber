@@ -1,9 +1,7 @@
 package com.revature.caliber.assessments.service.implementations;
 
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.Category;
-import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.*;
 import com.revature.caliber.assessments.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +17,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     private CategoryService categoryService;
     private GradeService gradeService;
     //TODO finish service impl: private NoteService noteService;
-    //TODO finish service impl: private QCNoteService qcNoteService;
+    private QCNoteService qcNoteService;
     //TODO finish service impl: private QCStatusService qcStatusService;
     private TrainerNoteService trainerNoteService;
 
@@ -30,7 +28,7 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Autowired
-    public void setBatchNoteService(BatchNoteService batchNoteService) {
+    public void setBatchNoteService(BatchNoteService batchService) {
         this.batchNoteService = batchNoteService;
     }
 
@@ -38,37 +36,31 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-
     /* TODO wire the beans
     *
-
-
     @Autowired
     public void setGradeService(GradeService gradeService) {
         this.gradeService = gradeService;
     }
-
     @Autowired
     public void setNoteService(NoteService noteService) {
         this.noteService = noteService;
-    }
 
+    }*/
     @Autowired
     public void setQcNoteService(QCNoteService qcNoteService) {
         this.qcNoteService = qcNoteService;
     }
 
-    @Autowired
-    public void setQcStatusService(QCStatusService qcStatusService) {
-        this.qcStatusService = qcStatusService;
-    }
-
-    }*/
+    /*
+        @Autowired
+        public void setQcStatusService(QCStatusService qcStatusService) {
+            this.qcStatusService = qcStatusService;
+        }*/
     @Autowired
     public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
         this.trainerNoteService = trainerNoteService;
     }
-
 //    Assessment
     @Override
     public Set<Assessment> getAllAssessments() {
@@ -76,18 +68,18 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public Assessment getAssessmentById(int id) {
+    public Assessment getAssessmentById(long id) {
         return assessmentService.getById(id);
     }
 
     @Override
-    public Set<Assessment> getAssessmentsByWeekId(int id) {
+    public Set<Assessment> getAssessmentsByWeekId(long id) {
         return assessmentService.getByWeekId(id);
     }
 
     @Override
-    public void insertAssessment(Assessment assessment) {
-        assessmentService.insert(assessment);
+    public long insertAssessment(Assessment assessment) {
+        return assessmentService.insert(assessment);
     }
 
     @Override
@@ -100,7 +92,26 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         assessmentService.delete(assessment);
     }
 
-//    Batch
+//    BatchNote
+    @Override
+    public void makeBatchNote(BatchNote batchNote) {
+        batchNoteService.createBatchNote(batchNote);
+    }
+
+    @Override
+    public BatchNote weeklyBatchNote(int batchId, int weekId) {
+        return batchNoteService.weeklyBatchNote(batchId, weekId);
+    }
+
+    @Override
+    public List<BatchNote> allBatchNotesInWeek(int weekId) {
+        return batchNoteService.allBatchNotesInWeek(weekId);
+    }
+
+    @Override
+    public void updateBatchNote(BatchNote batchNote) {
+        batchNoteService.updateBatchNote(batchNote);
+    }
 
 //    Category
     @Override
@@ -130,8 +141,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public List<Grade> getGradesByAssesessment(long assessmentId) {
-        return gradeService.getGradesByAssesessment(assessmentId);
+    public List<Grade> getGradesByAssessment(long assessmentId) {
+        return gradeService.getGradesByAssessment(assessmentId);
     }
 
     @Override
@@ -149,4 +160,71 @@ public class BusinessDelegateImpl implements BusinessDelegate {
         gradeService.updateGrade(grade);
     }
 
+//    QCNote -------------------
+    @Override
+    public void createQCNote(QCNote note) {
+        qcNoteService.createQCNote(note);
+    }
+
+    @Override
+    public QCNote getQCNoteById(Integer QCNoteId) {
+        return qcNoteService.getQCNoteById(QCNoteId);
+    }
+
+    @Override
+    public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) {
+        return qcNoteService.getQCNoteForTraineeWeek(traineeId, weekId);
+    }
+
+    @Override
+    public List<QCNote> getQCNotesByTrainee(Integer traineeId) {
+        return qcNoteService.getQCNotesByTrainee(traineeId);
+    }
+
+    @Override
+    public List<QCNote> getQCNotesByWeek(Integer weekId) {
+        return qcNoteService.getQCNotesByWeek(weekId);
+    }
+
+    @Override
+    public void updateQCNote(QCNote note) {
+        qcNoteService.updateQCNote(note);
+    }
+
+    @Override
+    public void deleteQCNote(QCNote note) {
+        qcNoteService.deleteQCNote(note);
+    }
+    //end QCNote ---------------------
+
+//   Trainer Note
+    @Override
+    public void createTrainerNote(TrainerNote note) {
+        trainerNoteService.createTrainerNote(note);
+    }
+
+    public TrainerNote getTrainerNoteById(Integer trainerNoteId) {
+        return trainerNoteService.getTrainerNoteById(trainerNoteId);
+    }
+
+    public TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId) {
+        return trainerNoteService.getTrainerNoteForTrainerWeek(trainerId, weekId);
+    }
+
+    public Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId) {
+        return trainerNoteService.getTrainerNotesByTrainer(trainerId);
+    }
+
+    public Set<TrainerNote> getTrainerNotesByWeek(Integer weekId) {
+        return trainerNoteService.getTrainerNotesByWeek(weekId);
+    }
+
+    public void updateTrainerNote(TrainerNote note) {
+        trainerNoteService.updateTrainerNote(note);
+    }
+
+    public void deleteTrainerNote(TrainerNote note) {
+        trainerNoteService.deleteTrainerNote(note);
+    }
+    // end trainer note
 }

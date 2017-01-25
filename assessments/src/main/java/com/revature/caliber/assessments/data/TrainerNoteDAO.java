@@ -1,27 +1,62 @@
 package com.revature.caliber.assessments.data;
 
-import java.util.List;
-import java.util.Set;
-
 import com.revature.caliber.assessments.beans.TrainerNote;
+
+import java.util.Set;
 
 public interface TrainerNoteDAO {
 
+    /**
+     * create a trainer note
+     *
+     * @param note
+     */
+    void createTrainerNote(TrainerNote note);
 
-	/**
-	 * Get TrainerNotes with matching provided trainerId
-	 * @param trainerId
-	 * @return
-	 */
-	Set<TrainerNote> getTrainerNotesByTrainerId(int trainerId);
+    /**
+     * Get note by trainerNote id
+     *
+     * @param trainerNoteId
+     * @return
+     */
+    TrainerNote getTrainerNoteById(Integer trainerNoteId);
 
-	/**
-	 * Insert provided TrainerNote into database
-	 * @param trainerNote
-	 */
-	void createTrainerNote(TrainerNote trainerNote);
-	
-	//Get a TrainerNote from a Trainer for a specific week
-	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
-	
+    /**
+     * get note by trainer id and week id
+     *
+     * @param trainerId
+     * @param weekId
+     * @return
+     */
+    TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
+
+    /**
+     * get note by trainer id
+     *
+     * @param trainerId
+     * @return
+     */
+    Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
+
+    /**
+     * get trainer note by week id
+     *
+     * @param weekId
+     * @return
+     */
+    Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
+
+    /**
+     * update note
+     *
+     * @param note
+     */
+    void updateTrainerNote(TrainerNote note);
+
+    /**
+     * delete note
+     *
+     * @param note
+     */
+    void deleteTrainerNote(TrainerNote note);
 }

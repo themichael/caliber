@@ -66,7 +66,7 @@ public class AssessmentController {
             value = "/assessment/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Assessment> getById(@PathVariable("id") int id) {
+    public ResponseEntity<Assessment> getById(@PathVariable("id") long id) {
         Assessment assessment = delegate.getAssessmentById(id);
         if (assessment == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -85,7 +85,7 @@ public class AssessmentController {
             value = "/assessment/week{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Assessment>> getByWeekId(@PathVariable("id") int id) {
+    public ResponseEntity<Set<Assessment>> getByWeekId(@PathVariable("id") long id) {
         Set<Assessment> assessments = delegate.getAssessmentsByWeekId(id);
         if (assessments.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
