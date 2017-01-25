@@ -3,7 +3,7 @@ angular.module("charts").factory("pieChartFactory", function($log) {
 	
 	var pieChart = {};
 
-	pieChart.getTraineeProgressChart = function(dataArray) {
+	pieChart.getTraineeTechProgressChart = function(dataArray) {
 		var chartData = {};
 		
 		// data and labels
@@ -11,10 +11,10 @@ angular.module("charts").factory("pieChartFactory", function($log) {
 		chartData.pieLabels = [];
 				
 		// traverse through array of objects and grab labels and data
-		for (let element of dataArray){
+		dataArray.forEach(function(element){
 			chartData.pieData.push(element.average);
 			chartData.pieLabels.push(element.skillCategory);
-		}
+		});
 		
 		// set pie options
 		chartData.pieOptions = {

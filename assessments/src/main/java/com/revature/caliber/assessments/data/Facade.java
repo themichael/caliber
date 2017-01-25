@@ -33,21 +33,21 @@ public interface Facade {
      * Return Assessment with AssessmentId
      * @return an Assessment
      */
-    Assessment getById(int id);
+    Assessment getAssessmentById(long id);
 
     /**
      * Returns HashSet of Assessments with WeekId
      * @param id the Week ID
      * @return a Set of Assessments
      */
-    Set<Assessment> getAssessmentsByWeekId(int id);
+    Set<Assessment> getAssessmentsByWeekId(long id);
 
     //    Create
     /**
      * Inserts Assessment
      * @param assessment an Assessment to be inserted
      */
-    void insertAssessment(Assessment assessment);
+    long insertAssessment(Assessment assessment);
 
     //    Update
     /**
@@ -102,7 +102,7 @@ public interface Facade {
      *
      * @param assessmentId
      */
-    List<Grade> getGradesByAssesessment(long assessmentId);
+    List<Grade> getGradesByAssessment(long assessmentId);
 
     //Insert
 

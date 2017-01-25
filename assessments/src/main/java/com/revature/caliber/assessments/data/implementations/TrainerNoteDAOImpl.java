@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@Repository(value="trainerNoteDAO")
+@Repository
 public class TrainerNoteDAOImpl implements TrainerNoteDAO {
 
     private SessionFactory sessionFactory;

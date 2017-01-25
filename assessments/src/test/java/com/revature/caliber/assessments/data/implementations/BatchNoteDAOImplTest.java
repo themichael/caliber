@@ -26,9 +26,33 @@ public class BatchNoteDAOImplTest {
 		logger = Logger.getRootLogger();
 	}
 
+		
+	@Test
+	public void createBatchNoteTest() {	
+		logger.debug("Starting createBatchNoteTest....");
+		BatchNote newBatchNote = new BatchNote();
+
+		newBatchNote.setBatch(4);
+		newBatchNote.setNoteId(4);
+		newBatchNote.setWeek(4);
+		newBatchNote.setContent("This batch has a hard time understanding Spring.");
+		newBatchNote.setSugarCoatedContent("Very good on all topics but still can improve.");
+		ctxt.getBean(BatchNoteDAO.class).createBatchNote(newBatchNote);
+
+		assertNotNull(newBatchNote);
+		logger.debug("BatchNote was successfully created");
+	}
+	
+	@Test
+	public void getBatchNoteTest() {
+		logger.debug("Starting getBatchNoteTest....");
+		BatchNote batchNote = ctxt.getBean(BatchNoteDAO.class).getBatchNote(1, 1);
+		assertNotNull(batchNote);
+		logger.debug("Get the BtachNote object: " + batchNote);
+	}
+	
 	/* TODO need to change by accepting BatchNote object */
 	@Test
-	@Ignore
 	public void getAllBatchNotesTest() {
 		logger.debug("Starting getAllBatchNotesTest....");
 		int batch = 1;
@@ -38,7 +62,6 @@ public class BatchNoteDAOImplTest {
 	}
 
 	@Test
-	@Ignore
 	public void getAllBatchNotesforWeekTest() {
 		
 		logger.debug("Starting getAllBatchNotesForWeekTest....");
@@ -50,7 +73,6 @@ public class BatchNoteDAOImplTest {
 	}
 
 	@Test
-	@Ignore
 	public void updateBatchNoteTest() {
 		
 		logger.debug("Starting updatingBatchNoteTest");
@@ -70,26 +92,8 @@ public class BatchNoteDAOImplTest {
 				+ "' with new contents.");
 	}
 
+	
 	@Test
-	@Ignore
-	public void createBatchNoteTest() {
-		
-		logger.debug("Starting createBatchNoteTest....");
-		BatchNote newBatchNote = new BatchNote();
-
-		newBatchNote.setBatch(3);
-		newBatchNote.setNoteId(3);
-		newBatchNote.setWeek(3);
-		newBatchNote.setContent("This batch is horrible in design patterns.");
-		newBatchNote.setSugarCoatedContent("Needs some improvement in design patterns.");
-		ctxt.getBean(BatchNoteDAO.class).createBatchNote(newBatchNote);
-
-		assertNotNull(newBatchNote);
-		logger.debug("BatchNote was successfully created");
-	}
-
-	@Test
-	@Ignore
 	public void deleteBatchNote() {
 		
 		logger.debug("Starting deleteBatchNoteTest....");
@@ -98,15 +102,6 @@ public class BatchNoteDAOImplTest {
 
 		assertNotNull(batchNote);
 		logger.debug("BatchNote was deleted");
-	}
-
-	@Test
-	//@Ignore
-	public void getBatchNoteTest() {
-		logger.debug("Starting getBatchNoteTest....");
-		BatchNote batchNote = ctxt.getBean(BatchNoteDAO.class).getBatchNote(1, 1);
-		assertNotNull(batchNote);
-		logger.debug("Get the BtachNote object: " + batchNote);
 	}
 
 }

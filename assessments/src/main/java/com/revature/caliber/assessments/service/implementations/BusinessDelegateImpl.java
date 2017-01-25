@@ -43,18 +43,18 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public Assessment getAssessmentById(int id) {
+    public Assessment getAssessmentById(long id) {
         return assessmentService.getById(id);
     }
 
     @Override
-    public Set<Assessment> getAssessmentsByWeekId(int id) {
+    public Set<Assessment> getAssessmentsByWeekId(long id) {
         return assessmentService.getByWeekId(id);
     }
 
     @Override
-    public void insertAssessment(Assessment assessment) {
-        assessmentService.insert(assessment);
+    public long insertAssessment(Assessment assessment) {
+        return assessmentService.insert(assessment);
     }
 
     @Override
@@ -87,8 +87,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public List<Grade> getGradesByAssesessment(long assessmentId) {
-        return gradeService.getGradesByAssesessment(assessmentId);
+    public List<Grade> getGradesByAssessment(long assessmentId) {
+        return gradeService.getGradesByAssessment(assessmentId);
     }
 
     @Override

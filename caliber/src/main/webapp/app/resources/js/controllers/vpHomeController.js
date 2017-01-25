@@ -1,6 +1,6 @@
 angular.module("vp").controller(
 		"vpHomeController",
-		function($scope, $log, delegateFactory) {
+		function($scope, $log, radarChartFactory, hbarChartFactory, delegateFactory) {
 			$log.debug("Booted vp home controller.");
 
 			// VP API Test
@@ -13,45 +13,129 @@ angular.module("vp").controller(
 			$log.log("Get Current Batch with Id: ");
 			$log.log(delegateFactory.vp.getCurrentBatch(5));
 			
-			// Dropdown menu selection
+			// UI - Dropdown menu selection
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
 			$scope.tech = [ "Spring", "Hibernate", "JSP" ];
 			$scope.trainees = [ "Osher", "Kyle", "Rikki" ];
-			
-      $scope.currentBatch = $scope.batches[0];
-			
-			$scope.currentTech = "Technology";
-				
-			$scope.currentTrainee = "Trainee";
+
+			// dropdown defaults
+			$scope.currentBatch = "Select";
+			$scope.currentTech = "Select";
+			$scope.currentTrainee = "Select";
 			
 			$scope.selectCurrentBatch = function(index){
-				$scope.currentBatch = $scope.batches[index];
+                $scope.currentTech = "Select";
+                $scope.currentTrainee = "Select";
+                // turn of batches
+                if(index === -1) $scope.currentBatch = "Select";
+				else $scope.currentBatch = $scope.batches[index];
+				createCharts();
 			};
 			
-			$scope.selectCurrentTech = function(index){
-				$scope.currentTech = $scope.tech[index];
+			$scope.selectCurrentTech = function(index) {
+                if (index === -1) {
+                	$scope.currentTrainee = "Select";
+                	$scope.currentTech = "Select";
+				}else{
+					$scope.currentTech = $scope.tech[index];
+					// select chart
+				}
 			};
-			
+
 			$scope.selectCurrentTrainee = function(index){
-				$scope.currentTrainee = $scope.trainees[index];
+				if(index === -1)
+					$scope.currentTrainee = "Select";
+				else{
+					$scope.currentTrainee = $scope.trainees[index];
+					// select chart
+				}
 			};
 
-			// batch rank comparison - radar chart
-			$scope.batchRankLabels = [ "Java", "Servlet", "Spring",
-					"Hibernate", "REST", "SOAP", "Javascript", "Angular" ];
+			// hide trainee Tab
+			$scope.hideTraineeTab = function(){
+				if($scope.currentTech === "Select")
+					return false;
+				return true;
+			};
 
-			$scope.batchRankData = [ [ 65, 59, 90, 81, 56, 55, 40, 89 ],
-					[ 28, 48, 40, 19, 96, 27, 100, 78 ] ];
+			// hide tech tab
+            $scope.hideTechTab = function(){
+                if($scope.currentBatch === "Select")
+                    return false;
+                return true;
+            };
 
-			$scope.batchRankSeries = [ "Average", "Batch" ];
+			// hide default graphs
+			$scope.hideDefault = function(){
+			    if($scope.currentBatch === "Select")
+			        return true;
+                return false;
+            }
 
-			// trainer qc eval chart
-			$scope.labels = ["Patrick", "Joe", "Brian", "Karan",
-				"Steven", "Nick", "Richard", "Fred", "Genesis", "Emily", "Ankit", "Ryan"];
-		    $scope.series = ['QC Eval'];
+			// create charts on dropdown selection
+			function createCharts() {
 
-		    $scope.data = [
-		      [70, 78, 80, 81, 85, 90, 70, 66, 89, 100, 78, 89]
-		    ];
+                // batch rank comparison - radar chart
+                var batchSampleDataStandard = [{tech: "Java", average: ranNum()},
+                    {tech: "Servlet", average: ranNum()}, {tech: "Spring", average: ranNum()},
+                    {tech: "Hibernate", average: ranNum()}, {tech: "REST", average: ranNum()},
+                    {tech: "SOAP", average: ranNum()}, {tech: "Javascript", average: ranNum()},
+                    {tech: "Angular", average: ranNum()}];
 
+                var batchSampleDataBatch = [{tech: "Java", average: ranNum()},
+                    {tech: "Servlet", average: ranNum()}, {tech: "Spring", average: ranNum()},
+                    {tech: "Hibernate", average: ranNum()}, {tech: "REST", average: ranNum()},
+                    {tech: "SOAP", average: ranNum()}, {tech: "Javascript", average: ranNum()},
+                    {tech: "Angular", average: ranNum()}];
+
+                if ($scope.currentTech === "Select" && $scope.currentTrainee === "Select") {
+                    // create batch radar chart
+                    var radarData = radarChartFactory.batchRankComparison(batchSampleDataStandard, batchSampleDataBatch);
+                    $scope.batchRankLabels = radarData.labels;
+                    $scope.batchRankData = radarData.data;
+                    $scope.batchRankSeries = radarData.series;
+                    $scope.batchRankOptions = radarData.options;
+
+                    // create other charts
+                }
+
+            }
+
+
+            /********* Default Charts *********/
+            // trainer rank comparison - sample data
+            var trainerEvalSampledata = [{name: "Patrick", score: ranNum()}, {name: "Joe", score: ranNum()},
+                    {name: "Brian", score: ranNum()}, {name: "Ryan", score: ranNum()},
+                    {name: "Karan", score: ranNum()}, {name: "Steven", score: ranNum()},
+                    {name: "Nick", score: ranNum()}, {name: "Richard", score: ranNum()},
+                    {name: "Fred", score: ranNum()}, {name: "Geneses", score: ranNum()},
+                    {name: "Emily", score: ranNum()}, {name: "Ankit", score: ranNum()},
+                    {name: "Ankit", score: ranNum()}];
+
+            // create trainer hbar chart
+            var hbarTrainerData = hbarChartFactory.getTrainerEvalChart(trainerEvalSampledata);
+            $scope.trainerRankLabels = hbarTrainerData.labels;
+            $scope.trainerRankData = hbarTrainerData.data;
+            $scope.trainerRankSeries = hbarTrainerData.series;
+
+            // batch rank comparison - sample data
+            var batchEvalSampledata = [{name: "Batch1342", score: ranNum()}, {name: "Batch1526", score: ranNum()},
+                {name: "Batch0354", score: ranNum()}, {name: "Batch1822", score: ranNum()},
+                {name: "Batch9355", score: ranNum()}, {name: "Batch1232", score: ranNum()},
+                {name: "Batch7241", score: ranNum()}, {name: "Batch1782", score: ranNum()},
+                {name: "Batch7341", score: ranNum()}, {name: "Batch2312", score: ranNum()},
+                {name: "Batch8453", score: ranNum()}, {name: "Batch6345", score: ranNum()},
+                {name: "Batch1431", score: ranNum()}];
+
+            // batch rank comparison - hbar chart
+            var hbarBatchData = hbarChartFactory.getAllBatchesEvalChart(batchEvalSampledata);
+            $scope.allBatchesRankLabels = hbarBatchData.labels;
+            $scope.allBatchesRankData = hbarBatchData.data;
+            $scope.allBatchesRankSeries = hbarBatchData.series;
+
+            // random number gen - sample data only!
+		    function ranNum(){
+		        var num = (Math.random() % 50) * 100;
+		        return num.toFixed(2);
+            }
 		});
