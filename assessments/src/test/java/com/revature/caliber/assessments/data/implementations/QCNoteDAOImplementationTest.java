@@ -12,6 +12,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -45,16 +47,17 @@ public class QCNoteDAOImplementationTest {
         String sql = "";
         int id = 0;
 
-        sql = "SELECT * FROM CALIBER_NOTE";
+        sql = "SELECT NOTE_ID FROM CALIBER_NOTE";
 
         Query q = session.createSQLQuery(sql);
 
-        List<Note> list = q.list();
+        List<BigDecimal> list = q.list();
+        list.sort(BigDecimal::compareTo);
 
         id = 1;
 
-        for (Note note : list) {
-            if (note.getNoteId() == id) { id++; }
+        for (BigDecimal objId : list) {
+            if (objId.intValue() == id) { id++; }
         }
 
         int resultNum = 0;
@@ -168,22 +171,21 @@ public class QCNoteDAOImplementationTest {
         //Test if it was created
         String sql;
         Session session = ((SessionFactory) context.getBean("sessionFactory")).openSession();
-        sql = "SELECT * FROM CALIBER_NOTE" +
-                " WHERE NOTE_CONTENT = ?" +
-                " INNER JOIN CALIBER_QC_NOTE ON CALIBER_NOTE.NOTE_ID = CALIBER_QC_NOTE.NOTE_ID";
+        sql = "SELECT NOTE_ID, NOTE_CONTENT FROM CALIBER_NOTE" +
+                " WHERE NOTE_CONTENT = ?";
         Query q = session.createSQLQuery(sql);
         q.setString(0, "Some test content (QCNote DAO Test)");
-        QCNote newnote = (QCNote) q.uniqueResult();
-        assertEquals(note.getNoteId(), newnote.getNoteId());
-        assertEquals(note.getContent(), newnote.getContent());
+        Object[] result = (Object[]) q.uniqueResult();
+        assertEquals(note.getNoteId(), ((BigDecimal) result[0]).intValue());
+        assertEquals(note.getContent(), result[1]);
 
-        logger.debug("    .. note with content \"" + newnote.getContent() + "\" was successfully created");
+        logger.debug("    .. note with content \"" + result[1] + "\" was successfully created");
 
         logger.debug("    .. cleanup process");
         //cleanup
         Transaction tx = session.beginTransaction();
 
-        int rowsDeleted = deleteQCNoteById(session, newnote.getNoteId());
+        int rowsDeleted = deleteQCNoteById(session, ((BigDecimal) result[0]).intValue());
 
         tx.commit();
         logger.debug("    .. cleanup completed, rows deleted: " + rowsDeleted);
@@ -287,12 +289,18 @@ public class QCNoteDAOImplementationTest {
         logger.debug("    .. test note with id " + id + " was created");
 
         //now get that note from db as an object
-        String sql = "SELECT * FROM CALIBER_NOTE" +
-                " WHERE NOTE_ID = ?" +
-                " INNER JOIN CALIBER_QC_NOTE ON CALIBER_NOTE.NOTE_ID = CALIBER_QC_NOTE.NOTE_ID;";
+        String sql = "SELECT CALIBER_NOTE.NOTE_ID, NOTE_CONTENT, NOTE_SUGAR, TRAINEE_ID, WEEK_ID FROM CALIBER_NOTE" +
+                " INNER JOIN CALIBER_QC_NOTE ON CALIBER_NOTE.NOTE_ID = CALIBER_QC_NOTE.NOTE_ID" +
+                " WHERE CALIBER_NOTE.NOTE_ID = ?";
         Query q = session.createSQLQuery(sql);
         q.setInteger(0, id);
-        QCNote note = (QCNote) q.uniqueResult();
+        Object[] result = (Object[]) q.uniqueResult();
+        QCNote note = new QCNote();
+        note.setNoteId(((BigDecimal)result[0]).intValue());
+        note.setContent((String)result[1]);
+        note.setSugarCoatedContent((String)result[2]);
+        note.setTrainee(((BigDecimal)result[3]).intValue());
+        note.setWeek(((BigDecimal)result[4]).intValue());
 
         logger.debug("    .. trying to delete the note");
         QCNoteDAO dao = context.getBean(QCNoteDAO.class);
@@ -301,7 +309,7 @@ public class QCNoteDAOImplementationTest {
 
         //test if it was deleted
         Criteria criteria = session.createCriteria(QCNote.class);
-        criteria.add(Restrictions.eq("", "Some test content 2(QCNote DAO Test)"));
+        criteria.add(Restrictions.eq("content", "Some test content 2(QCNote DAO Test)"));
         note = (QCNote) criteria.uniqueResult();
 
         //manual cleanup
