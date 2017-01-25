@@ -7,9 +7,7 @@ import static org.junit.Assert.assertNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -19,72 +17,75 @@ import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.data.TierDAO;
 
 public class TierDAOImplementationTest {
-	private static ApplicationContext context;
-	private static Logger logger;
+	private static ApplicationContext context;	
 	
     @BeforeClass
     public static void preClass () {
         context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
     }
     
-    @Ignore
+    @Test
     public void createTierTest() {
     	
-    	short id = 2;
-    	short rank = 2;
-    	TierDAO tDao = (TierDAO) context.getBean("tierDAO");
+    	short id = 3;
+    	short rank = 3;
+    	TierDAO tDao = (TierDAO) context.getBean(TierDAO.class);
         Tier tier = new Tier();
         
         tier.setTierId(id);
-        tier.setTier("QC");
+        tier.setTier("VP");
         tier.setRanking(rank);
         
         tDao.createTier(tier);
+        
+        assertNotNull(tier);
        
     }
     
-    @Ignore
+    @Test
     public void getTierByIdTest(){
     	
     	short num = 1;
-        TierDAO tDAO = (TierDAO) context.getBean("tierDAO");
+        TierDAO tDAO = (TierDAO) context.getBean(TierDAO.class);
 
         Tier tier = tDAO.getTier(num);
+        
+        assertNotNull(tier);
     }
     
-    @Ignore
+    @Test
     public void getTierByNameTest(){
     	
-        TierDAO tDAO = (TierDAO) context.getBean("tierDAO");
+        TierDAO tDAO = (TierDAO) context.getBean(TierDAO.class);
         Tier tier = tDAO.getTier("VP");
+        
+        assertNotNull(tier);
     }
     
-    @Ignore
+    @Test
     public void getAllTiers() {
-    	TierDAO tDAO = (TierDAO) context.getBean("tierDAO");
-    	List<Tier> tiers = new ArrayList<Tier>();
+    	TierDAO tDAO = (TierDAO) context.getBean(TierDAO.class);
+    	List<Tier> tiers = new ArrayList<>();
     	
     	tiers = tDAO.getAllTiers();
+    	
+    	assertNotNull(tiers);
     }
     
     @Test
     public void getTrainersInTierTest() {
     	short num = 1;
     	
-    	TierDAO tDao = (TierDAO) context.getBean("tierDAO");
+    	TierDAO tDao = (TierDAO) context.getBean(TierDAO.class);
         List<Trainer> trainers = tDao.getTrainersInTier(num);
         
         assertNotNull(trainers);
         assertNotEquals(0, trainers.size());
-        
-        for (Trainer t : trainers) {
-        	System.out.println(t.getName());
-        }
     }
     
-    @Ignore
+    @Test
     public void deleteTier() {
-    	TierDAO tDAO = (TierDAO) context.getBean("tierDAO");
+    	TierDAO tDAO = (TierDAO) context.getBean(TierDAO.class);
     
     	Tier tier = tDAO.getTier("VP");
     	assertNotNull(tier);

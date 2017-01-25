@@ -99,6 +99,7 @@ public class BatchControllerImplementationTest {
 
         HttpEntity<Batch> entity = controller.getBatch(2);
         Batch batch = entity.getBody();
+        System.out.println(batch + "!!!!!!!!!!!!!!!!11");
 
         log.debug("got batch by id " + batch);
     }
