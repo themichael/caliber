@@ -1,8 +1,11 @@
 package com.revature.caliber.assessments.data;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.revature.caliber.assessments.beans.Category;
 import com.revature.caliber.assessments.beans.Grade;
 
 public interface GradeDAO {
@@ -36,7 +39,11 @@ public interface GradeDAO {
 	//Aggregate Functions
 	HashMap<Integer, Double> avgGradesOfTrainees();
 	
-	HashMap<Long, Double>  avgGradesOfAssessments();
+	Map<Long, Double> avgGradesOfAssessments();
+
+	Map<Set<Category>, Double> gradeByCategory(int traineeId);
+	
+	Map<Long, Double> gradeByWeek(int traineeId);
 	// Insert
 	/**
 	 * Inserts a new Grade into database
