@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,6 +25,7 @@ public class TrainingServiceImpl implements TrainingService{
 	//paths for trainee (look at beans.xml for the paths themselves)
 	private String addTraineePath, updateTraineePath, deleteTraineePath, getTraineeByIdPath, getTraineeByNamePath,
 			getTraineesByBatchPath;
+	private String addTrainerPath, updateTrainerPath, getAllTrainersPath, getTrainerByIdPath, getTrainerByEmailPath;
 
 	/***********************************Batch**********************************/
 	@Override
@@ -48,14 +50,18 @@ public class TrainingServiceImpl implements TrainingService{
 		// Build Service URL
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allBatch)
 						.build().toUriString();
+		System.out.println(URI);
 		// Invoke the service
 		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
 
 		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
-			throw new RuntimeException("Batches not found.");
+			throw new RuntimeException("Bad request.");
 		}else if(response.getStatusCode() == HttpStatus.OK){
 			return Arrays.asList(response.getBody());
-		}else {
+		}else if(response.getStatusCode() == HttpStatus.NOT_FOUND){
+			System.out.println("Not found");
+			return new ArrayList<>();
+		}else{
 			// Includes 404 and other responses. Give back no data.
 			return new ArrayList<>();
 		}
@@ -64,9 +70,10 @@ public class TrainingServiceImpl implements TrainingService{
 	@Override
 	public List<Batch> getBatches(Trainer trainer) {
 		RestTemplate service = new RestTemplate();
+		Integer id = trainer.getTraineeId();
 		// Build Service URL
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber + allBatchesForTrainer)
-				.path(trainer.getName()).build().toUriString();
+				.path( id.toString() ).build().toUriString();
 
 		// Invoke the service
 		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
@@ -135,7 +142,7 @@ public class TrainingServiceImpl implements TrainingService{
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Trainee could not be created");
+			throw new TrainingServiceTraineeOperationException("Trainee could not be created");
 		}
 	}
 
@@ -149,7 +156,7 @@ public class TrainingServiceImpl implements TrainingService{
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.postForEntity(URI, trainee, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Trainer could not be updated");
+			throw new TrainingServiceTraineeOperationException("Trainer could not be updated");
 		}
 	}
 
@@ -165,7 +172,7 @@ public class TrainingServiceImpl implements TrainingService{
 		ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Failed to retrieve the trainee by id.");
+			throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by id.");
 		}
 		else if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
@@ -187,7 +194,7 @@ public class TrainingServiceImpl implements TrainingService{
 		ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Failed to retrieve the trainee by name.");
+			throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by name.");
 		}
 		else if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
@@ -209,7 +216,7 @@ public class TrainingServiceImpl implements TrainingService{
 		ResponseEntity<Trainee[]> response = service.getForEntity(URI, Trainee[].class);
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Failed to retrieve trainees by batch.");
+			throw new TrainingServiceTraineeOperationException("Failed to retrieve trainees by batch.");
 		}
 		else if (response.getStatusCode() == HttpStatus.OK) {
 			return Arrays.asList(response.getBody());
@@ -233,7 +240,7 @@ public class TrainingServiceImpl implements TrainingService{
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Trainee could not be deleted");
+			throw new TrainingServiceTraineeOperationException("Trainee could not be deleted");
 		}
 	}
 	//End of Trainee -------------------------------------------------------------------------------
@@ -241,38 +248,99 @@ public class TrainingServiceImpl implements TrainingService{
 	//Trainer --------------------------------------------------------------------------------------
 	@Override
 	public void createTrainer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addTrainerPath)
+				.build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<Trainer> entity = new HttpEntity<>(trainer, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Trainee could not be created");
+		}
 	}
 
 	@Override
 	public Trainer getTrainer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByIdPath)
+				.path(id.toString())
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Trainer> response = service.getForEntity(URI, Trainer.class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Failed to retrieve the trainer by id.");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public Trainer getTrainer(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByEmailPath)
+				.path(email)
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Trainer> response = service.getForEntity(URI, Trainer.class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Failed to retrieve the trainer by email.");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Trainer> getAllTrainers() {
-		// TODO Auto-generated method stub
-		return null;
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getAllTrainersPath)
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Trainer[]> response = service.getForEntity(URI, Trainer[].class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Failed to retrieve all trainers.");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return Arrays.asList(response.getBody());
+		}
+		else {
+			return new ArrayList<>();
+		}
 	}
 
 	@Override
 	public void updateTrainer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		
-	}
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTrainerPath)
+				.build().toUriString();
 
-	@Override
-	public void deleteTrainer(Trainer trainer) {
-		// TODO Auto-generated method stub
-		
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.postForEntity(URI, trainer, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Trainer could not be updated");
+		}
 	}
 	
 	//End of Trainer ----------------------------------------------------------------------------
@@ -306,6 +374,15 @@ public class TrainingServiceImpl implements TrainingService{
 	public void setGetTraineeByNamePath(String getTraineeByNamePath) { this.getTraineeByNamePath = getTraineeByNamePath; }
 	public void setGetTraineesByBatchPath(String getTraineesByBatchPath) { this.getTraineesByBatchPath = getTraineesByBatchPath; }
 	//end of Trainee
+
+	//Trainer
+	public void setAddTrainerPath(String addTrainerPath) {this.addTrainerPath = addTrainerPath;}
+	public void setUpdateTrainerPath(String updateTrainerPath) {this.updateTrainerPath = updateTrainerPath;}
+	public void setGetAllTrainersPath(String getAllTrainersPath) {this.getAllTrainersPath = getAllTrainersPath;}
+	public void setGetTrainerByIdPath(String getTrainerByIdPath) {this.getTrainerByIdPath = getTrainerByIdPath;}
+	public void setGetTrainerByEmailPath(String getTrainerByEmailPath) {this.getTrainerByEmailPath = getTrainerByEmailPath;}
+	//End of Trainer
+	
 
 
 }
