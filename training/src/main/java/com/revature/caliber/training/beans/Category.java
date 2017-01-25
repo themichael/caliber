@@ -34,6 +34,29 @@ public class Category {
 	@JoinTable(name="CATEGORY_COVERED")
 	private Set<Week> weeks;
 
+	
+	public Category() {
+		super();
+	}
+
+	public Category(String skillCategory) {
+		super();
+		this.skillCategory = skillCategory;
+	}
+
+	public Category(int categoryId, String skillCategory) {
+		super();
+		this.categoryId = categoryId;
+		this.skillCategory = skillCategory;
+	}
+
+	public Category(int categoryId, String skillCategory, Set<Week> weeks) {
+		super();
+		this.categoryId = categoryId;
+		this.skillCategory = skillCategory;
+		this.weeks = weeks;
+	}
+	
 	public int getCategoryId() {
 		return categoryId;
 	}
@@ -58,26 +81,11 @@ public class Category {
 		this.weeks = weeks;
 	}
 
-	public Category() {
-		super();
+	@Override
+	public String toString() {
+		return "Category [categoryId=" + categoryId + ", skillCategory=" + skillCategory + ", weeks=" + weeks + "]";
 	}
 
-	public Category(String skillCategory) {
-		super();
-		this.skillCategory = skillCategory;
-	}
-
-	public Category(int categoryId, String skillCategory) {
-		super();
-		this.categoryId = categoryId;
-		this.skillCategory = skillCategory;
-	}
-
-	public Category(int categoryId, String skillCategory, Set<Week> weeks) {
-		super();
-		this.categoryId = categoryId;
-		this.skillCategory = skillCategory;
-		this.weeks = weeks;
-	}
+	
 
 }

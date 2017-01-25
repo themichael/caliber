@@ -88,6 +88,57 @@ public class Trainer {
 	@OneToMany(mappedBy="trainer")
 	private Set<Batch> batches;
 
+	public Trainer() {
+		super();
+	}
+	
+	public Trainer(String name, String title, String email, String salesforceAccount, 
+			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
+		super();
+		this.name = name;
+		this.title = title;
+		this.email = email;
+		this.salesforceAccount = salesforceAccount;
+		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
+		this.salesforceRefreshToken = salesforceRefreshToken;
+		this.tier = tier;
+	}
+
+	public Trainer(String name, String title, String email, String salesforceAccount,
+			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier, Set<Batch> batches) {
+		super();
+		this.name = name;
+		this.title = title;
+		this.email = email;
+		this.salesforceAccount = salesforceAccount;
+		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
+		this.salesforceRefreshToken = salesforceRefreshToken;
+		this.tier = tier;
+		this.batches = batches;
+	}
+	
+	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier) {
+		super();
+		this.trainerId = trainerId;
+		this.name = name;
+		this.title = title;
+		this.email = email;
+		this.salesforceAccount = salesforceAccount;
+		this.tier = tier;
+	}
+
+	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier,
+			Set<Batch> batches) {
+		super();
+		this.trainerId = trainerId;
+		this.name = name;
+		this.title = title;
+		this.email = email;
+		this.salesforceAccount = salesforceAccount;
+		this.tier = tier;
+		this.batches = batches;
+	}
+	
 	public int getTrainerId() {
 		return trainerId;
 	}
@@ -152,32 +203,6 @@ public class Trainer {
 		this.batches = batches;
 	}
 
-	public Trainer() {
-		super();
-	}
-
-	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier) {
-		super();
-		this.trainerId = trainerId;
-		this.name = name;
-		this.title = title;
-		this.email = email;
-		this.salesforceAccount = salesforceAccount;
-		this.tier = tier;
-	}
-
-	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier,
-			Set<Batch> batches) {
-		super();
-		this.trainerId = trainerId;
-		this.name = name;
-		this.title = title;
-		this.email = email;
-		this.salesforceAccount = salesforceAccount;
-		this.tier = tier;
-		this.batches = batches;
-	}
-
 	public String getSalesforceRefreshToken() {
 		return salesforceRefreshToken;
 	}
@@ -186,29 +211,6 @@ public class Trainer {
 		this.salesforceRefreshToken = salesforceRefreshToken;
 	}
 
-	public Trainer(String name, String title, String email, String salesforceAccount, 
-			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
-		super();
-		this.name = name;
-		this.title = title;
-		this.email = email;
-		this.salesforceAccount = salesforceAccount;
-		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
-		this.salesforceRefreshToken = salesforceRefreshToken;
-		this.tier = tier;
-	}
-
-	public Trainer(String name, String title, String email, String salesforceAccount,
-			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier, Set<Batch> batches) {
-		super();
-		this.name = name;
-		this.title = title;
-		this.email = email;
-		this.salesforceAccount = salesforceAccount;
-		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
-		this.salesforceRefreshToken = salesforceRefreshToken;
-		this.tier = tier;
-		this.batches = batches;
-	}
+	
 	
 }

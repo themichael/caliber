@@ -27,6 +27,28 @@ public class Week {
 	@ManyToMany(mappedBy = "weeks", fetch = FetchType.EAGER)
 	private Set<Category> topics;
 
+	
+
+	public Week(long weekId, int weekNumber, Batch batch, Set<Category> topics) {
+		super();
+		this.weekId = weekId;
+		this.weekNumber = weekNumber;
+		this.batch = batch;
+		this.topics = topics;
+	}
+
+	public Week(int weekNumber, Batch batch, Set<Category> topics) {
+		super();
+		this.weekNumber = weekNumber;
+		this.batch = batch;
+		this.topics = topics;
+	}
+
+	public Week() {
+		super();
+	}
+
+	
 	public long getWeekId() {
 		return weekId;
 	}
@@ -57,25 +79,6 @@ public class Week {
 
 	public void setTopics(Set<Category> topics) {
 		this.topics = topics;
-	}
-
-	public Week(long weekId, int weekNumber, Batch batch, Set<Category> topics) {
-		super();
-		this.weekId = weekId;
-		this.weekNumber = weekNumber;
-		this.batch = batch;
-		this.topics = topics;
-	}
-
-	public Week(int weekNumber, Batch batch, Set<Category> topics) {
-		super();
-		this.weekNumber = weekNumber;
-		this.batch = batch;
-		this.topics = topics;
-	}
-
-	public Week() {
-		super();
 	}
 
 	@Override

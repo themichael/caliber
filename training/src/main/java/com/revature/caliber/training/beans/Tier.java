@@ -29,6 +29,7 @@ public class Tier {
 	@NotNull
 	private short ranking;
 	
+
 	public Tier() {
 		super();
 	}
@@ -62,4 +63,5 @@ public class Tier {
 	public void setRanking(short ranking) {
 		this.ranking = ranking;
 	}
+
 }
