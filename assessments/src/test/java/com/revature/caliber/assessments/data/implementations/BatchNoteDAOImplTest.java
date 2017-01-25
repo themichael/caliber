@@ -100,6 +100,7 @@ public class BatchNoteDAOImplTest {
 
 	@Ignore
 	@Test
+	@Ignore
 	public void deleteBatchNote() {
 		
 		logger.debug("Starting deleteBatchNoteTest....");

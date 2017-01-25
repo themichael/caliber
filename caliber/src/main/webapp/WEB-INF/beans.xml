@@ -41,6 +41,15 @@
 		<property name="getTraineeByIdPath" value="trainees/byid/" />
 		<property name="getTraineeByNamePath" value="trainees/byname/" />
 		<property name="getTraineesByBatchPath" value="trainees/bybatch/" />
+		
+		<property name="addTrainerPath" value="trainers/new" />
+		<property name="getAllTrainersPath" value="trainers/all" />
+		<property name="updateTrainerPath" value="trainers/update" />
+		<property name="getTrainerByIdPath" value="trainers/byid/" />
+		<property name="getTrainerByEmailPath" value="trainers/byemail/" />
+	</bean>
+	
+	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
 	</bean>
 
 </beans>
