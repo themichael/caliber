@@ -40,7 +40,7 @@ public interface AssessmentService {
 	 *
 	 * @param assessmentId
 	 */
-	List<Grade> getGradesByAssessment(long assessmentId);
+	List<Grade> getGradesByAssessment(Integer assessmentId);
 
 
 	/**
