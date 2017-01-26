@@ -15,12 +15,12 @@ public class ServiceLocatorImpl implements ServiceLocator{
 	
 	@Autowired
 	private AssessmentService assessmentService;
-	
+
 	@Override
 	public TrainingService getTrainingService() {
 		return trainingService;
 	}
-	
+
 	@Override
 	public AssessmentService getAssessmentService() {
 		return assessmentService;
@@ -30,7 +30,7 @@ public class ServiceLocatorImpl implements ServiceLocator{
 	public void setTrainingService(TrainingService trainingService) {
 		this.trainingService = trainingService;
 	}
-	
+
 	public void setAssessmentService(AssessmentService assessmentService) {
 		this.assessmentService = assessmentService;
 	}
