@@ -16,51 +16,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     private String hostname;
     private String portNumber;
     
-    @Override
-	public Set<Assessment> getAllAssessments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Assessment getAssessmentById(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Set<Assessment> getAssessmentsByWeekId(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public long insertAssessment(Assessment assessment) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public void updateAssessment(Assessment assessment) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void deleteAssessment(Assessment assessment) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public List<Grade> getAllGrades() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Grade getGradeByGradeId(long gradeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<Grade> getGradesByTraineeId(int traineeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	@Override
 	public List<Grade> getGradesByAssessment(long assessmentId) {
 		// TODO Auto-generated method stub
@@ -72,15 +28,11 @@ public class AssessmentServiceImpl implements AssessmentService {
 		
 	}
 	@Override
-	public void deleteGrade(Grade grade) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public void updateGrade(Grade grade) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public void makeBatchNote(BatchNote batchNote) {
 		// TODO Auto-generated method stub
@@ -181,26 +133,13 @@ public class AssessmentServiceImpl implements AssessmentService {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public Note getNote(String note) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<Note> getAllNotes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	@Override
 	public Set<Category> getAllCategories() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public Category getCategoryById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
     /////////// SETTERS ////////////////
     public void setHostname(String hostname) {
