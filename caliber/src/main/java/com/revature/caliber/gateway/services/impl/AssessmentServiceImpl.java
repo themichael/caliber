@@ -94,7 +94,20 @@ public class AssessmentServiceImpl implements AssessmentService {
 		
 	}
 	
+	@Override
+	public void updateGrade(Grade grade) {
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateGradePath)
+				.build().toUriString();
 
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.postForEntity(URI, grade, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceGradeOperationException("Trainer could not be updated");
+		}
+		
+	}
 	
 	@Override
 	public void makeBatchNote(BatchNote batchNote) {
