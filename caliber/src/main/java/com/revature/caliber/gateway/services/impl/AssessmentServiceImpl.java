@@ -19,11 +19,10 @@ import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCNote;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainerNote;
-import com.revature.caliber.beans.exceptions.AssessmentServiceGradeOperationException;
+import com.revature.caliber.beans.exceptions.AssessmentServiceOperationException;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
 import com.revature.caliber.gateway.services.AssessmentService;
 
@@ -34,7 +33,13 @@ public class AssessmentServiceImpl implements AssessmentService {
     private String portNumber;
     
     //paths for Grades
-    private String addGradePath, updateGradePath, getGradesByAssessmentPath;
+    //TODO add the paths to the bean.xml
+    private String 	addGradePath, 
+    				updateGradePath, 
+    				getGradesByAssessmentPath;
+    //paths for Trainer Note
+    private String 	deleteTrainerNotePath, 
+    				updateTrainerNotePath;
     
 
     @Override
@@ -89,7 +94,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new AssessmentServiceGradeOperationException("Grade could not be inserted");
+			throw new AssessmentServiceOperationException("Grade could not be inserted");
 		}
 		
 	}
@@ -104,7 +109,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.postForEntity(URI, grade, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new AssessmentServiceGradeOperationException("Trainer could not be updated");
+			throw new AssessmentServiceOperationException("Trainer could not be updated");
 		}
 		
 	}
@@ -201,13 +206,33 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 	@Override
 	public void updateTrainerNote(TrainerNote note) {
-		// TODO Auto-generated method stub
-		
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTrainerNotePath)
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.postForEntity(URI, note, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceOperationException("Trainer Note could not be updated");
+		}
 	}
 	@Override
 	public void deleteTrainerNote(TrainerNote note) {
-		// TODO Auto-generated method stub
-		
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteTrainerNotePath)
+				.build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<TrainerNote> entity = new HttpEntity<>(note, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceOperationException("Trainer Note could not be deleted");
+		}
 	}
 	
 	@Override
