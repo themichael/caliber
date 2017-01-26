@@ -1,7 +1,7 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.gateway.impl.ApiGatewayImpl;
+import java.util.Set;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.gateway.impl.ApiGatewayImpl;
 
 @RestController
 @RequestMapping("/vp")
@@ -59,5 +59,17 @@ public class VPBatchController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Batch> getBatchFromAllBatchesById(@PathVariable int id) {
 		return new ResponseEntity<>(new ApiGatewayImpl().getBatchFromAllBatchesById(), HttpStatus.OK);
+	}
+
+
+	public ResponseEntity<Batch> getBatch(int batchId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public ResponseEntity<Batch> getCurrentBatch(int batchId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
