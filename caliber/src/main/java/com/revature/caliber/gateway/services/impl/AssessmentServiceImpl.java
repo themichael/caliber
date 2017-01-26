@@ -1,16 +1,13 @@
 package com.revature.caliber.gateway.services.impl;
 
+import com.revature.caliber.beans.*;
+import com.revature.caliber.gateway.services.AssessmentService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.TrainerNote;
-import com.revature.caliber.gateway.services.AssessmentService;
 
 public class AssessmentServiceImpl implements AssessmentService {
     private String hostname;
@@ -58,8 +55,10 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 	@Override
 	public List<Grade> getGradesByTraineeId(int traineeId) {
-		// TODO Auto-generated method stub
-		return null;
+		RestTemplate rest = new RestTemplate();
+		ResponseEntity<Grade[]> response =
+				rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+traineeId, Grade[].class);
+		return Arrays.asList(response.getBody());
 	}
 	@Override
 	public List<Grade> getGradesByAssessment(long assessmentId) {

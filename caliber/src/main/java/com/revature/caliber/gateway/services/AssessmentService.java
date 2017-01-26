@@ -1,15 +1,9 @@
 package com.revature.caliber.gateway.services;
 
+import com.revature.caliber.beans.*;
+
 import java.util.List;
 import java.util.Set;
-
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.TrainerNote;
 
 public interface AssessmentService {
 

@@ -1,27 +1,32 @@
 package com.revature.caliber.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity(name = "CALIBER_BATCH_NOTE")
 public class BatchNote extends Note {
 
-    private Week week;
-    private Batch batch;
+    @Override
+	public String toString() {
+		return "BatchNote [week=" + week + ", batch=" + batch + ", getWeek()=" + getWeek() + ", getBatch()="
+				+ getBatch() + ", getNoteId()=" + getNoteId() + ", getContent()=" + getContent()
+				+ ", getSugarCoatedContent()=" + getSugarCoatedContent() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
 
-    public Week getWeek() {
-        return week;
-    }
+	/**
+     * The week of the batch's evaluation
+     */
+    @Column(name = "WEEK_ID", nullable = false)
+    private int week;
 
-    public void setWeek(Week week) {
-        this.week = week;
-    }
+    /**
+     * The batch identifier
+     */
+    @Column(name = "BATCH_ID")
+    private int batch;
 
-    public Batch getBatch() {
-        return batch;
-    }
-
-    public void setBatch(Batch batch) {
-        this.batch = batch;
-    }
-
-    public BatchNote(Week week, Batch batch) {
+    public BatchNote(int week, int batch) {
         super();
         this.week = week;
         this.batch = batch;
@@ -33,6 +38,22 @@ public class BatchNote extends Note {
 
     public BatchNote(String content, boolean sugarCoated) {
         super(content, sugarCoated);
+    }
+
+    public int getWeek() {
+        return week;
+    }
+
+    public void setWeek(int week) {
+        this.week = week;
+    }
+
+    public long getBatch() {
+        return batch;
+    }
+
+    public void setBatch(int batch) {
+        this.batch = batch;
     }
 
 }

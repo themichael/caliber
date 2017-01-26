@@ -1,26 +1,19 @@
 package com.revature.caliber.training.web.controllers;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.revature.caliber.training.beans.Trainer;
+import com.revature.caliber.training.service.BusinessDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.revature.caliber.training.beans.Trainer;
-import com.revature.caliber.training.service.BusinessDelegate;
+import javax.validation.Valid;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Trainer Controller

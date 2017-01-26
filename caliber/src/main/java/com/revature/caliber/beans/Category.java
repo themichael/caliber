@@ -1,15 +1,60 @@
 package com.revature.caliber.beans;
 
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity(name = "CALIBER_ASSESSMENT_CATEGORY")
 public class Category {
 
+    @Id
+    @Column(name = "CATEGORY_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORY_ID_SEQUENCE")
+    @SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE")
     private int categoryId;
+
+    @Column(name = "SKILL_CATEGORY")
     private String skillCategory;
 
     // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
     private Set<Assessment> assessments;
-    private Set<Week> weeks;
+
+    @Column
+    @ElementCollection(targetClass = Integer.class)
+    private Set<Integer> weeks;
+
+    public Category() {
+        super();
+    }
+
+    public Category(String skillCategory) {
+        super();
+        this.skillCategory = skillCategory;
+    }
+
+    public Category(int categoryId, String skillCategory) {
+        super();
+        this.categoryId = categoryId;
+        this.skillCategory = skillCategory;
+    }
+
+    public Category(int categoryId, String skillCategory, Set<Assessment> assessments, Set<Integer> weeks) {
+        super();
+        this.categoryId = categoryId;
+        this.skillCategory = skillCategory;
+        this.assessments = assessments;
+        this.weeks = weeks;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", skillCategory='" + skillCategory + '\'' +
+                ", assessments=" + assessments +
+                ", weeks=" + weeks +
+                '}';
+    }
 
     public int getCategoryId() {
         return categoryId;
@@ -35,34 +80,11 @@ public class Category {
         this.assessments = assessments;
     }
 
-    public Set<Week> getWeeks() {
+    public Set<Integer> getWeeks() {
         return weeks;
     }
 
-    public void setWeeks(Set<Week> weeks) {
-        this.weeks = weeks;
-    }
-
-    public Category() {
-        super();
-    }
-
-    public Category(String skillCategory) {
-        super();
-        this.skillCategory = skillCategory;
-    }
-
-    public Category(int categoryId, String skillCategory) {
-        super();
-        this.categoryId = categoryId;
-        this.skillCategory = skillCategory;
-    }
-
-    public Category(int categoryId, String skillCategory, Set<Assessment> assessments, Set<Week> weeks) {
-        super();
-        this.categoryId = categoryId;
-        this.skillCategory = skillCategory;
-        this.assessments = assessments;
+    public void setWeeks(Set<Integer> weeks) {
         this.weeks = weeks;
     }
 

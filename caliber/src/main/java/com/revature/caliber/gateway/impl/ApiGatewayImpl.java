@@ -1,16 +1,17 @@
 package com.revature.caliber.gateway.impl;
 
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class ApiGatewayImpl implements ApiGateway {
@@ -108,7 +109,9 @@ public class ApiGatewayImpl implements ApiGateway {
         serviceLocator.getTrainingService().updateTrainer(trainer);
     }
 
-	public Set<Batch> getAllBatches() {
+
+
+    public Set<Batch> getAllBatches() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -142,4 +145,14 @@ public class ApiGatewayImpl implements ApiGateway {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+    @Override
+    public HashMap<String, String[]> getAggregatedGradesForTrainee(int id) {
+        List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
+        Grade grade = allGrades.get(0);
+        System.out.println(grade.toString());
+        return null;
+    }
 }

@@ -1,19 +1,125 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * This is the hibernate annotated bean that for the
+ * CALIBER_ASSESSMENT table in the database
+ */
+@Entity
+@Table(name = "CALIBER_ASSESSMENT")
 public class Assessment {
 
+    /**
+     * This is the PK ID using a unique sequence generator
+     */
+    @Id
+    @Column(name = "ASSESSMENT_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ASSESSMENT_ID_SEQUENCE")
+    @SequenceGenerator(name = "ASSESSMENT_ID_SEQUENCE", sequenceName = "ASSESSMENT_ID_SEQUENCE")
     private long assessmentId;
-    private String title;
-    private Batch batch;
-    private int rawScore;
-    private String type;
-    private Week week;
 
-    // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+    /**
+     * Trainer inputted title,
+     * can be anything to help identify this assessment
+     */
+    @Column(name = "ASSESSMENT_TITLE", nullable = false)
+    private String title;
+
+    /**
+     * Batch ID reference
+     */
+    @Column(name = "BATCH_ID", nullable = false)
+    private int batch;
+
+    /**
+     * Raw numerical score before calculations
+     */
+    @Column(name = "RAW_SCORE")
+    private int rawScore;
+
+    /**
+     * Assessment type, e.g. LMS, Verbal
+     */
+    @Column(name = "ASSESSMENT_TYPE", nullable = false)
+    private String type;
+
+    /**
+     * WeekID for reference
+     */
+    @Column(name = "WEEK_ID", nullable = false)
+    private long week;
+
+    /**
+     * QCStatus for a week, statuses can be
+     * good, ok, bad
+     * indicated with smiley, meh and frowny face
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "WEEKLY_STATUS")
+    @JsonIgnore
     private QCStatus weeklyStatus;
+
+    /**
+     * Set of Categories for Assessments (for Hibernate ORM)
+     */
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "CALIBER_ASSESSMENT_CATEGORIES")
+    @JsonIgnore
     private Set<Category> categories;
+
+    public Assessment(long assessmentId,
+                      String title,
+                      int batch,
+                      int rawScore,
+                      String type,
+                      long week,
+                      Set<Category> categories) {
+        super();
+        this.assessmentId = assessmentId;
+        this.title = title;
+        this.batch = batch;
+        this.rawScore = rawScore;
+        this.type = type;
+        this.week = week;
+        this.categories = categories;
+    }
+
+    public Assessment() {
+        super();
+    }
+
+    public Assessment(String title,
+                      int batch,
+                      int rawScore,
+                      String type,
+                      long week,
+                      Set<Category> categories) {
+        super();
+        this.title = title;
+        this.batch = batch;
+        this.rawScore = rawScore;
+        this.type = type;
+        this.week = week;
+        this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "Assessment{" +
+                "assessmentId=" + assessmentId +
+                ", title='" + title + '\'' +
+                ", batch=" + batch +
+                ", rawScore=" + rawScore +
+                ", type='" + type + '\'' +
+                ", week=" + week +
+                ", weeklyStatus=" + weeklyStatus.getStatus() +
+                ", categories=" + categories +
+                '}';
+    }
 
     public long getAssessmentId() {
         return assessmentId;
@@ -31,11 +137,11 @@ public class Assessment {
         this.title = title;
     }
 
-    public Batch getBatch() {
+    public int getBatch() {
         return batch;
     }
 
-    public void setBatch(Batch batch) {
+    public void setBatch(int batch) {
         this.batch = batch;
     }
 
@@ -55,11 +161,11 @@ public class Assessment {
         this.type = type;
     }
 
-    public Week getWeek() {
+    public long getWeek() {
         return week;
     }
 
-    public void setWeek(Week week) {
+    public void setWeek(long week) {
         this.week = week;
     }
 
@@ -78,32 +184,5 @@ public class Assessment {
     public void setWeeklyStatus(QCStatus weeklyStatus) {
         this.weeklyStatus = weeklyStatus;
     }
-
-    public Assessment(long assessmentId, String title, Batch batch, int rawScore, String type, Week week,
-                      Set<Category> categories) {
-        super();
-        this.assessmentId = assessmentId;
-        this.title = title;
-        this.batch = batch;
-        this.rawScore = rawScore;
-        this.type = type;
-        this.week = week;
-        this.categories = categories;
-    }
-
-    public Assessment() {
-        super();
-    }
-
-    public Assessment(String title, Batch batch, int rawScore, String type, Week week, Set<Category> categories) {
-        super();
-        this.title = title;
-        this.batch = batch;
-        this.rawScore = rawScore;
-        this.type = type;
-        this.week = week;
-        this.categories = categories;
-    }
-
 
 }
