@@ -40,7 +40,7 @@ public class WeekDAOImplementation implements WeekDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Week.class);
 		criteria.add(Restrictions.eq("batch.batchId", batchId));
-		return criteria.list();
+		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -54,7 +54,7 @@ public class WeekDAOImplementation implements WeekDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Week.class);
 		criteria.add(Restrictions.eq("weekNumber", weekNumber));
-		return criteria.list();
+		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
 }

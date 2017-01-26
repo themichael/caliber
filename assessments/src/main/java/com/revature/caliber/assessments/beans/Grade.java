@@ -1,7 +1,10 @@
 package com.revature.caliber.assessments.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 
 /**
@@ -25,6 +28,7 @@ public class Grade {
      */
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ASSESSMENT_ID", nullable = false)
+    //@JsonBackReference(value = "AssessmentAndGrades")
     private Assessment assessment;
 
     /**
@@ -110,7 +114,7 @@ public class Grade {
 
     @Override
     public String toString() {
-        return "Grade [gradeId=" + gradeId + ", assessment=" + assessment + ", trainee=" + trainee + ", dateReceived="
+        return "Grade [gradeId=" + gradeId + ", assessment=" + assessment.getAssessmentId() + ", trainee=" + trainee + ", dateReceived="
                 + dateReceived + ", score=" + score + "]";
     }
 

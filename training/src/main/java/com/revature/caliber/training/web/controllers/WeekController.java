@@ -112,11 +112,10 @@ public class WeekController {
 	 * @param week
 	 * @return
 	 */
-    @RequestMapping(value = "/week/new/{batchId}",
+    @RequestMapping(value = "/week/new",
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Serializable> createWeek(@PathVariable("batchId") int batchId, @RequestBody @Valid Week week) {
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Serializable> createWeek( @RequestBody @Valid Week week ) {
         ResponseEntity<Serializable> returnEntity;
         try {
             businessDelegate.createWeek(week);
@@ -127,5 +126,4 @@ public class WeekController {
         }
         return returnEntity;
     }
-	
 }
