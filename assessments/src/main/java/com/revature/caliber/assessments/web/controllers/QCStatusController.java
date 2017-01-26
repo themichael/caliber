@@ -58,7 +58,6 @@ public class QCStatusController {
 	 */
 	@RequestMapping(value = "/qcstatus/assessment/{status}", 
 			method = RequestMethod.GET, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Set<Assessment>> getWeekByBatchId(@PathVariable("status") String status) {
 		ResponseEntity<Set<Assessment>> returnEntity;
