@@ -126,6 +126,16 @@
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
+  
+--------------------------------------------------------
+--  DDL for Table CALIBER_CATEGORY_WEEKS
+--------------------------------------------------------
+
+CREATE TABLE CALIBER_CATEGORY_WEEKS (
+  Category_CATEGORY_ID NUMBER NOT NULL,
+  WEEK_ID NUMBER NOT NULL
+);
+
 --------------------------------------------------------
 --  DDL for Index SYS_C005845
 --------------------------------------------------------
@@ -327,6 +337,14 @@
 
   ALTER TABLE "CALIBER"."CATEGORY_WEEKS" ADD CONSTRAINT "FK_71WXRGMIHAJE94F4S024RH58T" FOREIGN KEY ("CATEGORY_CATEGORY_ID")
 	  REFERENCES "CALIBER"."CALIBER_ASSESSMENT_CATEGORY" ("CATEGORY_ID") ENABLE;
+
+--------------------------------------------------------
+--  Ref Constraints for Table CALIBER_CATEGORY_WEEKS
+--------------------------------------------------------
+ALTER TABLE CALIBER_CATEGORY_WEEKS 
+ADD CONSTRAINT FK_SRRGW463Y FOREIGN KEY (Category_CATEGORY_ID) 
+REFERENCES CALIBER_ASSESSMENT_CATEGORY (CATEGORY_ID);
+     
 --------------------------------------------------------
 --  DDL for Sequence CATEGORY_ID_SEQUENCE
 --------------------------------------------------------
@@ -351,4 +369,6 @@
 --  DDL for Sequence QC_STATUS_ID_SEQUENCE
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "CALIBER"."QC_STATUS_ID_SEQUENCE"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOPARTITION ;
+   CREATE SEQUENCE  "CALIBER"."QC_STATUS_ID_SEQUENCE"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOPARTITION ; 
+   
+

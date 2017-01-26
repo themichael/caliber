@@ -37,14 +37,13 @@ public class WeekController {
 	 */
 	@RequestMapping(value = "/week/all", 
 			method = RequestMethod.GET, 
-			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Week>> getAllWeek() {
 
 		ResponseEntity<List<Week>> returnEntity;
 
 		try {
 			List<Week> result = businessDelegate.getAllWeeks();
-			System.out.println(result);
 
 			if (result == null) {
 				returnEntity = new ResponseEntity<List<Week>>(result, HttpStatus.NOT_FOUND);
@@ -63,15 +62,13 @@ public class WeekController {
 	 */
 	@RequestMapping(value = "/week/batchid/{batchId}", 
 			method = RequestMethod.GET, 
-			consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, 
-			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Week>> getWeekByBatchId(@PathVariable("batchId") int batchId) {
 		ResponseEntity<List<Week>> returnEntity;
 
 		try {
 			List<Week> result = businessDelegate.getWeekByBatchId(batchId);
-			System.out.println(batchId);
-			System.out.println(result);
+			
 			if (result == null) {
 				returnEntity = new ResponseEntity<List<Week>>(result, HttpStatus.NOT_FOUND);
 			} else {
@@ -91,14 +88,13 @@ public class WeekController {
 	 */
 	@RequestMapping(value = "/week/weeknumber/{weeknumber}", 
 			method = RequestMethod.GET, 
-			consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, 
-			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Week>> getWeekByWeekNumber(@PathVariable("weeknumber") int weeknumber) {
 		ResponseEntity<List<Week>> returnEntity;
 
 		try {
 			List<Week> result = businessDelegate.getWeekByWeekNumber(weeknumber);
-			System.out.println(result);
+
 			if (result == null) {
 				returnEntity = new ResponseEntity<List<Week>>(result, HttpStatus.NOT_FOUND);
 			} else {
@@ -116,11 +112,10 @@ public class WeekController {
 	 * @param week
 	 * @return
 	 */
-    @RequestMapping(value = "/week/new/{batchId}",
+    @RequestMapping(value = "/week/new",
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Serializable> createWeek(@PathVariable("batchId") int batchId, @RequestBody @Valid Week week) {
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Serializable> createWeek( @RequestBody @Valid Week week ) {
         ResponseEntity<Serializable> returnEntity;
         try {
             businessDelegate.createWeek(week);
@@ -131,5 +126,4 @@ public class WeekController {
         }
         return returnEntity;
     }
-	
 }

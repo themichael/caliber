@@ -1,6 +1,9 @@
 package com.revature.caliber.assessments.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+
 import java.util.Set;
 
 @Entity(name = "CALIBER_ASSESSMENT_CATEGORY")
@@ -16,11 +19,13 @@ public class Category {
     private String skillCategory;
 
     // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
+    @JsonBackReference(value = "Temporary")
     private Set<Assessment> assessments;
 
-    @Column
-    @ElementCollection(targetClass = Integer.class)
+    @ElementCollection(targetClass = Integer.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "CALIBER_CATEGORY_WEEKS")
+    @Column(name = "WEEK_ID")
     private Set<Integer> weeks;
 
     public Category() {

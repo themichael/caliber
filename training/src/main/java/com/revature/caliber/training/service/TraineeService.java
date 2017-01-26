@@ -17,7 +17,7 @@ public interface TraineeService {
 
 	Trainee getTrainee(Integer id);
 
-	Trainee getTrainee(String name);
+	Trainee getTrainee(String email);
 
 	List<Trainee> getTraineesInBatch(Integer batchId);
 
