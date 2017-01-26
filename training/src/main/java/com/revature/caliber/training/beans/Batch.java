@@ -1,11 +1,5 @@
 package com.revature.caliber.training.beans;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
@@ -14,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,12 +33,12 @@ public class Batch {
 
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
-	@JsonManagedReference
+	@JsonIgnore
 	private Trainer trainer;
 
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CO_TRAINER_ID")
-	@JsonManagedReference
+	@JsonIgnore
 	private Trainer coTrainer;
 
 	@Column(name = "SKILL_TYPE")
@@ -69,12 +64,12 @@ public class Batch {
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER/*, cascade = CascadeType.REMOVE*/)
+	@JsonIgnore
 	private Set<Trainee> trainees;
 
 	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER)
-	@JsonBackReference
+	@JsonIgnore
 	private Set<Week> weeks;
 
 	/*

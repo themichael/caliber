@@ -43,7 +43,7 @@ angular.module("trainer").controller(
 				{week: "Week 5", average: 86}, {week: "Week 6", average: 76},
 				{week: "Week 7", average: 79}, {week: "Week 8", average: 89}, 
 				{week: "Week 9", average: 72}, {week: "Week 10", average: 94}, 
-				{week: "Week 11", average: 86}, {week: "Week 12", average: 65}]
+				{week: "Week 11", average: 86}, {week: "Week 12", average: 65}];
 			
 			// Sample Data representing trainee strengths per technology
 			var samplePieData =[{skillCategory:"Core Java", average: 85},
@@ -51,38 +51,38 @@ angular.module("trainer").controller(
 			                    {skillCategory:"Spring", average: 95},
 			                    {skillCategory:"Hibernate", average: 75},
 			                    {skillCategory:"AngularJS", average: 90},
-			                    {skillCategory:"REST", average: 80}]
+			                    {skillCategory:"REST", average: 80}];
 			
 			// Sample Data representing all trainee averages per technology
 			var sampleHbarData = [{trainee: "Rikki", average: 100},
-			                      {trainee: "Kyle", average: 50},
-			                      {trainee: "Osher", average: 40},
-			                      {trainee: "Danny P", average: 80},
-			                      {trainee: "Bryan", average: 75},
-			                      {trainee: "Brayn", average: 95}]
-			
-			// line chart function that retrieves
+                {trainee: "Kyle", average: 50},
+                {trainee: "Osher", average: 40},
+                {trainee: "Danny P", average: 80},
+                {trainee: "Bryan", average: 75},
+                {trainee: "Brayn", average: 95}];
+
+            // line chart function that retrieves
 			// Week by week progression for a trainee/ batch on a line chart
 			var lineChartObject = lineChartFactory.getTraineeProgressChart(sampleLineData);
-			$scope.lineLabels = lineChartObject.lineLabels;
-			$scope.lineSeries = lineChartObject.lineSeries;
-			$scope.lineData = lineChartObject.lineData;
-			$scope.lineDatasetOverride = lineChartObject.lineDatasetOverride;
-			$scope.lineOptions = lineChartObject.lineOptions;
+			$scope.lineLabels = lineChartObject.labels;
+			$scope.lineSeries = lineChartObject.series;
+			$scope.lineData = lineChartObject.data;
+			$scope.lineDatasetOverride = lineChartObject.datasetOverride;
+			$scope.lineOptions = lineChartObject.options;
 
 			// pie chart function that retrieves 
 			// data for batch/ trainee technology strengths
 			var pieChartObject = pieChartFactory.getTraineeTechProgressChart(samplePieData);
-			$scope.pieLabels = pieChartObject.pieLabels;
-			$scope.pieData = pieChartObject.pieData;
-			$scope.pieOptions = pieChartObject.pieOptions;
+			$scope.pieLabels = pieChartObject.labels;
+			$scope.pieData = pieChartObject.data;
+			$scope.pieOptions = pieChartObject.options;
 			
 			// Horizontal bar chart for trainee averages per technology
 			var hbarChartObject = hbarChartFactory.getBatchAvgChart(sampleHbarData);
-			$scope.hbarLabels = hbarChartObject.hbarLabels;
-			$scope.hbarData = hbarChartObject.hbarData;
-			$scope.hbarDatasetOverride = hbarChartObject.hbarDatasetOverride;
-			$scope.hbarOptions = hbarChartObject.hbarOptions;
+			$scope.hbarLabels = hbarChartObject.labels;
+			$scope.hbarData = hbarChartObject.data;
+			$scope.hbarDatasetOverride = hbarChartObject.datasetOverride;
+			$scope.hbarOptions = hbarChartObject.options;
 
 			// Radar chart for batch rank comparison
 			$scope.radarLabels = [ "Java", "Servlet", "Spring", "Hibernate",

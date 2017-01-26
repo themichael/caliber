@@ -89,13 +89,26 @@ public class BatchNoteController {
         return new ResponseEntity<>(batchNote, HttpStatus.OK);
     }
       
+ 
+	  @RequestMapping(
+	            value = "/batchNote/byId/{id}",
+	            method = RequestMethod.GET,
+	            produces = MediaType.APPLICATION_JSON_VALUE)
+	    public ResponseEntity<BatchNote> getBatchNoteById (@PathVariable("id") int id) {
+	        BatchNote batchNote = delegate.getBatchNoteById(id);
+	        if (batchNote == null) {
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        }
+	        return new ResponseEntity<>(batchNote, HttpStatus.OK);
+	    }
+    
     
     @RequestMapping(
-            value = "/batchNote/batch{batchId}/weekId{weekId}",
+            value = "/batchNote/batch{batchId}/weekId{weekId}/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BatchNote> getBatchNote(@PathVariable("batchId") int batchId, @PathVariable("weekId") int weekId) {
-    	  BatchNote batchNote = delegate.weeklyBatchNote(batchId, weekId);
+    public ResponseEntity<List<BatchNote>> getBatchesNoteListInWeek(@PathVariable("batchId") int batchId, @PathVariable("weekId") int weekId) {
+    	List<BatchNote> batchNote = delegate.getBatchesNotesListInWeek(batchId, weekId);
           if (batchNote == null) {
               return new ResponseEntity<>(HttpStatus.NOT_FOUND);
           }

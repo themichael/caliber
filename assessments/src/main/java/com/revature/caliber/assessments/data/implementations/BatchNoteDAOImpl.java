@@ -31,17 +31,19 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
         sessionFactory.getCurrentSession().save(batchNote);
     }
 
-    //Get a specific BatchNote by a BatchID, and WeekID
-    @Override
+    //Get a List of BatchNotes for a batch within a week pertaining to a single Batch
+    //If two trainers have separate feedback
+    @SuppressWarnings("unchecked")
+	@Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
-    public BatchNote getBatchNote(int batchId, int weekId) {
-        return (BatchNote) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
+    public List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId) {
+        return (List<BatchNote>) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
                 .add(Restrictions.eq("batch", batchId))
-                .add(Restrictions.eq("week", weekId)).uniqueResult();
-        
+                .add(Restrictions.eq("week", weekId)).list();
     }
-
+    
+    
     //List all BatchNotes within a given week
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
@@ -52,6 +54,7 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
                 .add(Restrictions.eq("week", weekId)).list();
     }
 
+    //Update a BatchNote
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
@@ -60,7 +63,7 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
     }
 
 
-    //List all batchNotes for a specific batch
+    //List all batchNotes for a specific batch for the duration of Training
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
@@ -76,6 +79,14 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
             Exception.class})
 	public void deleteBatchNote(BatchNote batchNote) {
 		sessionFactory.getCurrentSession().delete(batchNote);
+	}
+
+	//Get a BatchNote by a specific ID
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
+	public BatchNote getBatchNoteById(int batchNoteId) {
+		return (BatchNote) sessionFactory.getCurrentSession().get(BatchNote.class, batchNoteId);
 	}
     
 }
