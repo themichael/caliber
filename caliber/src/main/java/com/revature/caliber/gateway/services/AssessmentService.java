@@ -1,15 +1,9 @@
 package com.revature.caliber.gateway.services;
 
+import com.revature.caliber.beans.*;
+
 import java.util.List;
 import java.util.Set;
-
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.TrainerNote;
 
 public interface AssessmentService {
 
@@ -63,9 +57,8 @@ public interface AssessmentService {
 	Grade getGradeByGradeId(long gradeId);
 
 	/**
-	 * Returns a list of grades of a specific trainee based on traineeId as an
-	 * input
-	 * @param traineeId
+	 * Returns a list of grades of a specific trainee based on traineeId as an input
+	 * @param traineeId - The id of the trainee
 	 */
 	List<Grade> getGradesByTraineeId(int traineeId);
 
@@ -73,7 +66,7 @@ public interface AssessmentService {
 	 * Returns a list of grades of a specific assessment based on assessmentId
 	 * as an input
 	 *
-	 * @param assessmentId
+	 * @param assessmentId - The id of the assessment
 	 */
 	List<Grade> getGradesByAssessment(long assessmentId);
 
@@ -157,14 +150,14 @@ public interface AssessmentService {
 	 * Return a single note
 	 * 
 	 */
-	public Note getNote(String note);
+	Note getNote(String note);
 
 	/**
 	 * 
 	 * Return a list of all notes
 	 * 
 	 */
-	public List<Note> getAllNotes();
+	List<Note> getAllNotes();
 
 	/**
 	 * Returns Set of all Categories
@@ -176,7 +169,7 @@ public interface AssessmentService {
 	/**
 	 * Returns Category with provided ID
 	 * 
-	 * @param id
+	 * @param id - The id
 	 * @return Category
 	 */
 	Category getCategoryById(int id);

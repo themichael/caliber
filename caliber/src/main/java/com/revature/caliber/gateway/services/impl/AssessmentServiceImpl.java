@@ -1,17 +1,14 @@
 package com.revature.caliber.gateway.services.impl;
 
+import com.revature.caliber.beans.*;
+import com.revature.caliber.gateway.services.AssessmentService;
+
 import java.util.List;
 import java.util.Set;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.TrainerNote;
-import com.revature.caliber.gateway.services.AssessmentService;
-
+/**
+ * The type Assessment service.
+ */
 public class AssessmentServiceImpl implements AssessmentService {
     private String hostname;
     private String portNumber;
@@ -202,11 +199,21 @@ public class AssessmentServiceImpl implements AssessmentService {
 		return null;
 	}
 
-    /////////// SETTERS ////////////////
+    /**
+     * Sets hostname.
+     *
+     * @param hostname the hostname
+     */
+/////////// SETTERS ////////////////
     public void setHostname(String hostname) {
         this.hostname = hostname;
     }
 
+    /**
+     * Sets port number.
+     *
+     * @param portNumber the port number
+     */
     public void setPortNumber(String portNumber) {
         this.portNumber = portNumber;
     }

@@ -9,12 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class ApiGatewayImpl implements ApiGateway {
 
-    @Autowired
+
     private ServiceLocator serviceLocator;
+
+    @Autowired
+    public void setServiceLocator(ServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+    }
 
     /****************************Batch*******************************/
     public void createBatch(Batch batch) {
@@ -104,5 +110,43 @@ public class ApiGatewayImpl implements ApiGateway {
     @Override
     public void updateTrainer(Trainer trainer) {
         serviceLocator.getTrainingService().updateTrainer(trainer);
+    }
+
+    public Batch getBatchFromCurrentBatchesById(int id) {
+        Batch batch = new Batch();
+        batch.setBatchId(id);
+        return batch;
+    }
+
+    public Batch getCurrentBatch() {
+        return null;
+    }
+
+    public Batch getBatchFromAllBatchesById(int id) {
+        Batch batch = new Batch();
+        batch.setBatchId(id);
+        return batch;
+    }
+
+    public Set<Batch> getAllBatches() {
+        return null;
+    }
+
+    public Batch updateBatchFromCurrentBatchesById(Batch batch) {
+        return batch;
+    }
+
+    public Batch insertBatchIntoCurrentBatches(Batch batch) {
+        return batch;
+    }
+
+    public Batch deleteBatchFromCurrentBatchesById(int id) {
+        Batch batch = new Batch();
+        batch.setBatchId(id);
+        return batch;
+    }
+
+    public Set <Batch> updateAllCurrentBatches(Set<Batch> batches) {
+        return batches;
     }
 }
