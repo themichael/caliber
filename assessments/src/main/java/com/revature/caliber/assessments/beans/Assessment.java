@@ -1,5 +1,7 @@
 package com.revature.caliber.assessments.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -61,7 +63,7 @@ public class Assessment {
      */
     @ManyToOne
     @JoinColumn(name = "WEEKLY_STATUS")
-    @JsonIgnore
+    @JsonBackReference(value = "statusAndAssessments")
     private QCStatus weeklyStatus;
 
     /**

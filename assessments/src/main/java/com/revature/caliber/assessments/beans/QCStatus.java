@@ -1,5 +1,7 @@
 package com.revature.caliber.assessments.beans;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,7 +25,7 @@ public class QCStatus {
 	private String status;
 
 	@OneToMany(mappedBy = "weeklyStatus", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JsonIgnore
+	@JsonManagedReference(value = "statusAndAssessments")
 	private Set<Assessment> assessments;
 
 	public QCStatus() {
