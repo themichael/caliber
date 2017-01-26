@@ -45,4 +45,9 @@ public class TrainerBatchController {
         return new ResponseEntity<>(new ApiGatewayImpl().getBatchByTrainerId(id), HttpStatus.OK);
     }
 
+	public ResponseEntity<Batch> getBatch(int batchId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
