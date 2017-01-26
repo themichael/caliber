@@ -28,14 +28,13 @@ public class GradeTest {
 		ctxt = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
 	}
 
-	@Ignore
+	
 	@Test
 	public void getAllGrades() {
 		List<Grade> grades = ctxt.getBean(GradeDAO.class).getAllGrades();
-		System.out.println(grades.toString());
+		System.out.println(grades);
 	}
 
-	@Ignore
 	@Test
 	public void getGradeByGradeId(){
 		Grade grade = ctxt.getBean(GradeDAO.class).getGradeByGradeId(150);
