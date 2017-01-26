@@ -16,7 +16,7 @@ public interface AssessmentService {
 	 * Inserts Assessment
 	 * @param assessment an Assessment to be inserted
 	 */
-	long insertAssessment(Assessment assessment);
+	void insertAssessment(Assessment assessment);
 
 	/**
 	 * Updates Assessment
