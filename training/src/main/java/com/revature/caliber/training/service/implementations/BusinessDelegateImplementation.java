@@ -59,9 +59,7 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 		return traineeService.getTrainee(id);
 	}
 
-	public Trainee getTrainee(String email) {
-		return traineeService.getTrainee(email);
-	}
+	public Trainee getTrainee(String email) { return traineeService.getTrainee(email); }
 
 	public List<Trainee> getTraineesInBatch(Integer batchId) {
 		return traineeService.getTraineesInBatch(batchId);

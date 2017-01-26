@@ -152,6 +152,8 @@ public class TraineeController {
                     method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainee> getTraineeByName(@PathVariable("identifier") String email) {
+		email = email.replace("_dot_", ".");
+		System.out.println(email);
 		ResponseEntity<Trainee> returnEntity;
 
 		try {

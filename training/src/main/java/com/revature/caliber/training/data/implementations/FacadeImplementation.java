@@ -81,9 +81,7 @@ public class FacadeImplementation implements Facade {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public Trainee getTrainee(String email) {
-		return traineeDAO.getTrainee(email);
-	}
+	public Trainee getTrainee(String email) { return traineeDAO.getTrainee(email); }
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public List<Trainee> getTraineesInBatch(Integer batchId) {

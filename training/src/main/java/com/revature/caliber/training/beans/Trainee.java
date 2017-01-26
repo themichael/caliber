@@ -41,7 +41,7 @@ public class Trainee {
 	/**
 	 * Batch that the Trainee belongs to
 	 */
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
 	@JsonBackReference(value = "traineeAndBatch")
 	private Batch batch;
