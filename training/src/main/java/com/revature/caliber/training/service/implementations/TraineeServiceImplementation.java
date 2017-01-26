@@ -35,8 +35,8 @@ public class TraineeServiceImplementation implements TraineeService {
 		return facade.getTrainee(id);
 	}
 
-	public Trainee getTrainee(String name) {
-		return facade.getTrainee(name);
+	public Trainee getTrainee(String email) {
+		return facade.getTrainee(email);
 	}
 
 	public List<Trainee> getTraineesInBatch(Integer batchId) {
