@@ -9,14 +9,14 @@
 							role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a>
 						</li>
 					</ul></li>
-				<li role="button" class="dropdown"><a class="dropdown-toggle"
+				<li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideOtherTabs()"
 					data-toggle="dropdown">{{currentTech}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="menuItem in tech track by $index"><a
 							role="button" ng-click="selectCurrentTech($index)">{{menuItem}}</a>
 						</li>
 					</ul></li>
-				<li role="button" class="dropdown"><a class="dropdown-toggle"
+				<li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideOtherTabs()"
 					data-toggle="dropdown">{{currentTrainee}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="menuItem in trainees track by $index"><a
@@ -34,10 +34,22 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
-					<div class="col-sm-6 col-md-6">
+					<div class="col-sm-6 col-md-6" ng-show="showCharts(0)">
 						<div class="panel panel-default">
-							<div class="panel-heading">Week by week progression for a
-								trainee/ batch</div>
+							<div class="panel-heading">All My Batches</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="batchesRank" class="chart-horizontal-bar" chart-data="allBatchesRankData"
+											chart-labels="allBatchesRankLabels"  chart-series="allBatchesRankSeries"
+											height="100" width="100">
+									</canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-6" ng-show = "showCharts(0)">
+						<div class="panel panel-default">
+							<div class="panel-heading">Week by week progression for a {{currentTrainee}}</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="line" class="chart chart-line"
