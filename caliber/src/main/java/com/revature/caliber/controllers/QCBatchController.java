@@ -37,4 +37,9 @@ public class QCBatchController {
     public ResponseEntity<Batch> getBatchFromCurrentBatchesById(@PathVariable int id) {
         return new ResponseEntity<>(new ApiGatewayImpl().getBatchFromCurrentBatchesById(id), HttpStatus.OK);
     }
+
+	public ResponseEntity<Batch> getCurrentBatch(int batchId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
