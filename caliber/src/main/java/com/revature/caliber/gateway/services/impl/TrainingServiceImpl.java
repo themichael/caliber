@@ -204,18 +204,19 @@ public class TrainingServiceImpl implements TrainingService{
 	}
 
 	@Override
-	public Trainee getTrainee(String name) {
+	public Trainee getTrainee(String email) {
+		email = email.replace("@", "%40").replace(".", "_dot_");
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineeByNamePath)
-				.path(name)
+				.path(email)
 				.build().toUriString();
 
 		//Invoke the service
 		ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by name.");
+			throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by email.");
 		}
 		else if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
