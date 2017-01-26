@@ -44,14 +44,14 @@ public class AssessmentServiceImpl implements AssessmentService {
     				createTrainerNotePath;
     
     //paths for assessments
-    private String insertAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
+    private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
     
 
     @Override
 	public void insertAssessment(Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(insertAssessmentPath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addAssessmentPath)
 				.build().toUriString();
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -303,12 +303,18 @@ public class AssessmentServiceImpl implements AssessmentService {
         this.portNumber = portNumber;
     }
 	
+
     //Grade
     public void setGradesByAssessments(String getGradesByAssessmentPath){this.getGradesByAssessmentPath = getGradesByAssessmentPath;}
     public void setInsertGrade(String addGradePath){this.addGradePath = addGradePath;}
     public void setUpdateGrade(String updateGradePath){this.updateGradePath = updateGradePath;}
     //end of Grade
     
+    //Assessment
+    public void setDeleteAssessment(String deleteAssessmentPath){this.deleteAssessmentPath = deleteAssessmentPath;}
+    public void setInsertAssessment(String addAssessmentPath){this.addAssessmentPath = addAssessmentPath;}
+    public void setUpdateAssessment(String updateAssessmentPath){this.updateAssessmentPath = updateAssessmentPath;}
+    //end of Assessment
     
     //TrainerNote
     public void setDeleteTrainerNotePath(String deleteTrainerNotePath){this.deleteTrainerNotePath = deleteTrainerNotePath;}
@@ -316,15 +322,4 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setCreateTrainerNotePath(String createTrainerNotePath){this.createTrainerNotePath = createTrainerNotePath;}
     //end of TrainerNote
     
-    /*//Batch
-  	public void setNewBatch(String newBatch) {this.newBatch = newBatch;}
-  	public void setAllBatch(String allBatch) {this.allBatch = allBatch;}
-  	public void setAllBatchesForTrainer(String allBatchesForTrainer) {this.allBatchesForTrainer = allBatchesForTrainer;}
-  	public void setAllCurrentBatch(String allCurrentBatch) {this.allCurrentBatch = allCurrentBatch;}
-  	public void setAllCurrentBatchByTrainer(String allCurrentBatchByTrainer) {this.allCurrentBatchByTrainer = allCurrentBatchByTrainer;}
-  	public void setBatchById(String batchById) {this.batchById = batchById;}
-  	public void setUpdateBatch(String updateBatch) {this.updateBatch = updateBatch;}
-  	public void setDeleteBatch(String deleteBatch) {this.deleteBatch = deleteBatch;}
-  	//end of batch
-*/	
 }
