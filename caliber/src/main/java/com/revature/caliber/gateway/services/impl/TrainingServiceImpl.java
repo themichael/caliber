@@ -17,6 +17,7 @@ import java.util.List;
 
 public class TrainingServiceImpl implements TrainingService{
 
+	private String localhost = "http://localhost:9001";
 	private String hostname;
 	private String portNumber;
 	//paths for batch
@@ -48,7 +49,7 @@ public class TrainingServiceImpl implements TrainingService{
 	public List<Batch> allBatch() {
 		RestTemplate service = new RestTemplate();
 		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allBatch)
+		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(allBatch)
 						.build().toUriString();
 		System.out.println(URI);
 		// Invoke the service
@@ -68,9 +69,8 @@ public class TrainingServiceImpl implements TrainingService{
 	}
 
 	@Override
-	public List<Batch> getBatches(Trainer trainer) {
+	public List<Batch> getBatches(Integer id) {
 		RestTemplate service = new RestTemplate();
-		Integer id = trainer.getTraineeId();
 		// Build Service URL
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber + allBatchesForTrainer)
 				.path( id.toString() ).build().toUriString();
@@ -131,7 +131,7 @@ public class TrainingServiceImpl implements TrainingService{
 	@Override
 	public Batch getBatch(Integer id) {
 		RestTemplate service = new RestTemplate();
-		String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(batchById).path(String.valueOf(id)).build().toUriString();
+		String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(batchById).path(String.valueOf(id)).build().toUriString();
 		ResponseEntity<Batch> response = service.getForEntity(URI,Batch.class);
 		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
 			throw new RuntimeException("Batch not found");
