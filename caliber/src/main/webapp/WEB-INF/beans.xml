@@ -25,6 +25,11 @@
 	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
 		<property name="hostname" value="http://www.pjw6193.tech" />
 		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
+		
+		<!-- Add the properties for addGradePath, updateGradePath, getGradesByAssessmentPath here -->
+		<property name="addAssessmentPath" value="assessments/assessment/new" />
+		<property name="updateAssessmentPath" value="assessments/assessment/update" />
+		<property name="deleteAssessmentPath" value="training/trainers/delete" />
 	</bean>
 
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
@@ -52,8 +57,7 @@
 		<property name="updateTrainerPath" value="training/trainers/update" />
 		<property name="getTrainerByIdPath" value="training/trainers/byid/" />
 		<property name="getTrainerByEmailPath" value="training/trainers/byemail/" />
-		
-		<!-- Add the properties for addGradePath, updateGradePath, getGradesByAssessmentPath here -->
+	
 	</bean>
 
 </beans>

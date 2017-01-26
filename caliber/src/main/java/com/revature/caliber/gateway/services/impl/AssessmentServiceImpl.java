@@ -43,14 +43,14 @@ public class AssessmentServiceImpl implements AssessmentService {
     				updateTrainerNotePath;
     
     //paths for assessments
-    private String insertAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
+    private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
     
 
     @Override
 	public void insertAssessment(Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(insertAssessmentPath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addAssessmentPath)
 				.build().toUriString();
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -289,6 +289,17 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setPortNumber(String portNumber) {
         this.portNumber = portNumber;
     }
+      
+	getGradesByAssessmentPath;
+    private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
+	
+    /** GRADES **/
+    public void setAddGradePath(String addGradePath) { this.addGradePath = addGradePath; }
+	public void setUpdateGradePath(String updateGradePath) { this.updateGradePath = updateGradePath; }
 	
 	
+	public void setDeleteTraineePath(String deleteTraineePath) { this.deleteTraineePath = deleteTraineePath; }
+	public void setGetTraineeByIdPath(String getTraineeByIdPath) { this.getTraineeByIdPath = getTraineeByIdPath; }
+	public void setGetTraineeByNamePath(String getTraineeByNamePath) { this.getTraineeByNamePath = getTraineeByNamePath; }
+	public void setGetTraineesByBatchPath(String getTraineesByBatchPath) { this.getTraineesByBatchPath = getTraineesByBatchPath; }
 }
