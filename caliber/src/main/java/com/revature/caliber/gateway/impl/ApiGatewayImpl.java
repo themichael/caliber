@@ -68,8 +68,8 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     @Override
-    public Trainee getTrainee(String name) {
-        return serviceLocator.getTrainingService().getTrainee(name);
+    public Trainee getTrainee(String email) {
+        return serviceLocator.getTrainingService().getTrainee(email);
     }
 
     @Override
