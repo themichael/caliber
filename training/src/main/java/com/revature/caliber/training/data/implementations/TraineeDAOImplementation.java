@@ -1,11 +1,13 @@
 package com.revature.caliber.training.data.implementations;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
@@ -38,15 +40,9 @@ public class TraineeDAOImplementation implements TraineeDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainee.class);
 		criteria.add(Restrictions.eq("batch.batchId", batchId));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-		//remove duplicates
-		HashSet<Trainee> set = new HashSet<>(criteria.list());
-		Iterator<Trainee> it = set.iterator();
-		List<Trainee> result = new ArrayList<>();
-		while (it.hasNext()) {
-			result.add(it.next());
-		}
-		return result;
+		return criteria.list();
 	}
 
 	@Override
@@ -62,10 +58,10 @@ public class TraineeDAOImplementation implements TraineeDAO {
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public Trainee getTrainee(String name) {
+	public Trainee getTrainee(String email) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainee.class);
-		criteria.add(Restrictions.eq("name", name));
+		criteria.add(Restrictions.eq("email", email));
 		return (Trainee) criteria.uniqueResult();
 	}
 
