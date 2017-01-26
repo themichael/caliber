@@ -7,27 +7,27 @@ angular.module("charts").factory("lineChartFactory", function ($log) {
 		var chartData = {};
 
 		// series
-		chartData.lineSeries = [ 'Average', 'Fail Threshold' ];
+		chartData.series = [ 'Average', 'Fail Threshold' ];
 
 		// data and labels
-		chartData.lineData = [];
-		chartData.lineLabels = [];
+		chartData.data = [];
+		chartData.labels = [];
 
 		// push empty array for averages into parent array
-		chartData.lineData.push([]);
+		chartData.data.push([]);
 
 		// push empty array for threshold into parent array
-		chartData.lineData.push([]);
+		chartData.data.push([]);
 
 		// traverse through array of objects and grab labels and data
 		dataArray.forEach(function(element){
-			chartData.lineData[0].push(element.average);
-			chartData.lineData[1].push(40);
-			chartData.lineLabels.push(element.week);
+			chartData.data[0].push(element.average);
+			chartData.data[1].push(40);
+			chartData.labels.push(element.week);
 		});
 
 		// set data override
-		chartData.lineDatasetOverride = [ {
+		chartData.datasetOverride = [ {
 			yAxisID : 'y-axis-1',
 			fill : false
 		}, {
@@ -39,7 +39,7 @@ angular.module("charts").factory("lineChartFactory", function ($log) {
 		} ];
 
 		// set line options
-		chartData.lineOptions = {
+		chartData.options = {
 				legend : {
 					display : true,
 					position : 'bottom'

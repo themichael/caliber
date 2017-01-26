@@ -7,20 +7,20 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
 		var chartData = {};
 		
 		// data and labels
-		chartData.hbarData = [];
-		chartData.hbarLabels = [];
+		chartData.data = [];
+		chartData.labels = [];
 				
 		// traverse through array of objects and grab labels and data
 		dataArray.forEach(function(element){
-			chartData.hbarLabels.push(element.trainee);
-			chartData.hbarData.push(element.average);
+			chartData.labels.push(element.trainee);
+			chartData.data.push(element.average);
 		});
 		
-		chartData.hbarDatasetOverride = [{
+		chartData.datasetOverride = [{
 			xAxisID: 'x-axis-1'
 		}];
 
-		chartData.hbarOptions = {
+		chartData.options = {
 				scales: {
 					xAxes: [{
 						id: 'x-axis-1',

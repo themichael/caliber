@@ -166,16 +166,16 @@ angular.module("vp").controller(
 
                 // Create line chart
                 var lineChartObject = lineChartFactory.getTraineeProgressChart(sample5);
-                $scope.traineeProgressLabels = lineChartObject.lineLabels;
-                $scope.traineeProgressSeries = lineChartObject.lineSeries;
-                $scope.traineeProgressData = lineChartObject.lineData;
-                $scope.traineeProgressDatasetOverride = lineChartObject.lineDatasetOverride;
-                $scope.traineeProgressOptions = lineChartObject.lineOptions;
+                $scope.traineeProgressLabels = lineChartObject.labels;
+                $scope.traineeProgressSeries = lineChartObject.series;
+                $scope.traineeProgressData = lineChartObject.data;
+                $scope.traineeProgressDatasetOverride = lineChartObject.datasetOverride;
+                $scope.traineeProgressOptions = lineChartObject.options;
 
                 var pieChartObject = pieChartFactory.getTraineeTechProgressChart(sample6);
-                $scope.techScoreLabels = pieChartObject.pieLabels;
-                $scope.techScoreData = pieChartObject.pieData;
-                $scope.techScoreOptions = pieChartObject.pieOptions;
+                $scope.techScoreLabels = pieChartObject.labels;
+                $scope.techScoreData = pieChartObject.data;
+                $scope.techScoreOptions = pieChartObject.options;
             }
 
             /********* Default Charts *********/
