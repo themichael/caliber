@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Set;
 
 /**
@@ -71,7 +69,6 @@ public class Assessment {
      */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "CALIBER_ASSESSMENT_CATEGORIES")
-    @JsonIgnore
     private Set<Category> categories;
 
     public Assessment(long assessmentId,

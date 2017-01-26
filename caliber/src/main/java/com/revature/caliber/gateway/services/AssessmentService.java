@@ -14,25 +14,6 @@ import com.revature.caliber.beans.TrainerNote;
 public interface AssessmentService {
 
 	/**
-	 * Returns a Set of all Assessments
-	 * @return a Set of Assessments
-	 */
-	Set<Assessment> getAllAssessments();
-
-	/**
-	 * Return Assessment with AssessmentId
-	 * @return an Assessment
-	 */
-	Assessment getAssessmentById(long id);
-
-	/**
-	 * Returns HashSet of Assessments with WeekId
-	 * @param id the Week ID
-	 * @return a Set of Assessments
-	 */
-	Set<Assessment> getAssessmentsByWeekId(long id);
-
-	/**
 	 * Inserts Assessment
 	 * @param assessment an Assessment to be inserted
 	 */
@@ -52,22 +33,6 @@ public interface AssessmentService {
 	 */
 	void deleteAssessment(Assessment assessment);
 
-	/**
-	 * Returns a list of all grade entries
-	 */
-	List<Grade> getAllGrades();
-
-	/**
-	 * Returns a grade object given a specific gradeId
-	 */
-	Grade getGradeByGradeId(long gradeId);
-
-	/**
-	 * Returns a list of grades of a specific trainee based on traineeId as an
-	 * input
-	 * @param traineeId
-	 */
-	List<Grade> getGradesByTraineeId(int traineeId);
 
 	/**
 	 * Returns a list of grades of a specific assessment based on assessmentId
@@ -82,11 +47,6 @@ public interface AssessmentService {
 	 * Inserts a new Grade into database
 	 */
 	void insertGrade(Grade grade);
-
-	/**
-	 * Deletes a grade
-	 */
-	void deleteGrade(Grade grade);
 
 	/**
 	 * Updates a grade
@@ -152,20 +112,7 @@ public interface AssessmentService {
 
 	void deleteTrainerNote(TrainerNote note);
 
-	/**
-	 * 
-	 * Return a single note
-	 * 
-	 */
-	public Note getNote(String note);
-
-	/**
-	 * 
-	 * Return a list of all notes
-	 * 
-	 */
-	public List<Note> getAllNotes();
-
+	
 	/**
 	 * Returns Set of all Categories
 	 * 
@@ -173,11 +120,5 @@ public interface AssessmentService {
 	 */
 	Set<Category> getAllCategories();
 
-	/**
-	 * Returns Category with provided ID
-	 * 
-	 * @param id
-	 * @return Category
-	 */
-	Category getCategoryById(int id);
+	
 }
