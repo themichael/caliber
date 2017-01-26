@@ -1,6 +1,7 @@
 package com.revature.caliber.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.Helper;
 import com.revature.caliber.models.SalesforceToken;
 import com.revature.caliber.models.SalesforceUser;
 import org.apache.http.HttpResponse;
@@ -22,7 +23,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Controller
-public class BootController extends Helper{
+public class BootController extends Helper {
     SalesforceToken token;
     HttpClient httpClient;
 
