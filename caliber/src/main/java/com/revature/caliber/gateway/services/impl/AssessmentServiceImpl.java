@@ -17,6 +17,21 @@ public class AssessmentServiceImpl implements AssessmentService {
     private String portNumber;
     
 
+    @Override
+	public long insertAssessment(Assessment assessment) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void updateAssessment(Assessment assessment) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void deleteAssessment(Assessment assessment) {
+		// TODO Auto-generated method stub
+		
+	}
 	@Override
 	public List<Grade> getGradesByAssessment(long assessmentId) {
 		// TODO Auto-generated method stub
@@ -149,5 +164,6 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setPortNumber(String portNumber) {
         this.portNumber = portNumber;
     }
+	
 	
 }
