@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.Set;
-import static org.junit.Assert.*;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -28,8 +27,10 @@ public class TrainerNoteDAOImplTest {
 	private static TrainerNoteDAO trainerNoteDAO;
 	private static SessionFactory sf;
 	static Logger logger;
-	private static int id = 3050, trainerId = 5, weekId = 123;
-
+	private static int id = 3050;
+	private static int trainerId = 5;
+	private static int weekId = 123;
+	
 	@BeforeClass
 	public static void preClass () {
 		context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
@@ -44,9 +45,8 @@ public class TrainerNoteDAOImplTest {
 	 * Populates table with Assessment used for testing
 	 */
 	private static void populateTable() {
-		String sql = "";
 
-		sql = "INSERT INTO CALIBER_NOTE(NOTE_ID, NOTE_CONTENT, NOTE_SUGAR)" +
+		String sql = "INSERT INTO CALIBER_NOTE(NOTE_ID, NOTE_CONTENT, NOTE_SUGAR)" +
 				" VALUES (?, ?, ?)";
 
 		Session session = sf.openSession();
@@ -123,10 +123,10 @@ public class TrainerNoteDAOImplTest {
 
 	@Test
 	public void getTrainerNoteById(){
-		int id = 3050;
-		logger.debug("Starting getTrainerNoteById = " + id);
+		int noteId = 3050;
+		logger.debug("Starting getTrainerNoteById = " + noteId);
 
-		TrainerNote trainerNote = trainerNoteDAO.getTrainerNoteById(id);
+		TrainerNote trainerNote = trainerNoteDAO.getTrainerNoteById(noteId);
 		assertNotNull(trainerNote);
 
 		logger.debug("Ending getTrainerNoteById");
@@ -184,5 +184,7 @@ public class TrainerNoteDAOImplTest {
 		assertNotNull(trainerNote);
 
 		logger.debug("Ending updateTrainerNote");
+
 	}
-}
+	
+}	

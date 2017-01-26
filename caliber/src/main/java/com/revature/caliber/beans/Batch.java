@@ -21,6 +21,8 @@ public class Batch {
 
 	private Set<Trainee> trainees;
 	private Set<Week> weeks;
+
+	//Getters and setters
 	public int getBatchId() {
 		return batchId;
 	}

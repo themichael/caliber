@@ -40,7 +40,7 @@ public class GradeController {
 		if(grades == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
-			return new ResponseEntity<List<Grade>>(grades, HttpStatus.OK);
+			return new ResponseEntity<>(grades, HttpStatus.OK);
 		}
 		
 	}
@@ -53,7 +53,7 @@ public class GradeController {
 		if(grade == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			return new ResponseEntity<Grade>(grade,HttpStatus.OK);
+			return new ResponseEntity<>(grade,HttpStatus.OK);
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class GradeController {
 		if(grades == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			return new ResponseEntity<List<Grade>>(grades,HttpStatus.OK);
+			return new ResponseEntity<>(grades,HttpStatus.OK);
 		}
 	}
 	
@@ -77,7 +77,7 @@ public class GradeController {
 		if(grades == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			return new ResponseEntity<List<Grade>>(grades,HttpStatus.OK);
+			return new ResponseEntity<>(grades,HttpStatus.OK);
 		}
 	}
 	

@@ -49,7 +49,7 @@ public class AssessmentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Assessment>> getAll() {
         Set<Assessment> assessments = delegate.getAllAssessments();
-        if (assessments == null) {
+        if (assessments.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(assessments, HttpStatus.OK);
@@ -87,7 +87,7 @@ public class AssessmentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Assessment>> getByWeekId(@PathVariable("id") long id) {
         Set<Assessment> assessments = delegate.getAssessmentsByWeekId(id);
-        if (assessments == null) {
+        if (assessments.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(assessments, HttpStatus.OK);

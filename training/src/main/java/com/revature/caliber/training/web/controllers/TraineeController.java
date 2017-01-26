@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,6 +37,8 @@ public class TraineeController {
 		this.businessDelegate = businessDelegate;
 	}
 
+	private static Logger logger = LoggerFactory.getLogger(TraineeController.class);
+
 	/**
 	 * Greate a new trainee by making a PUT request to the URL
 	 * 
@@ -47,9 +51,10 @@ public class TraineeController {
 		ResponseEntity<Serializable> returnEntity;
 		try {
 			businessDelegate.createTrainee(trainee);
-			returnEntity = new ResponseEntity<Serializable>(HttpStatus.CREATED);
+			returnEntity = new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while creating trainee: " + trainee, e);
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return returnEntity;
 	}
@@ -67,9 +72,10 @@ public class TraineeController {
 
 		try {
 			businessDelegate.updateTrainee(trainee);
-			returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
+			returnEntity = new ResponseEntity<>(HttpStatus.OK);
 		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while updating trainee: " + trainee, e);
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return returnEntity;
@@ -88,9 +94,10 @@ public class TraineeController {
 
 		try {
 			businessDelegate.deleteTrainee(trainee);
-			returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
+			returnEntity = new ResponseEntity<>(HttpStatus.OK);
 		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while deleting trainee: " + trainee, e);
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return returnEntity;
@@ -103,7 +110,7 @@ public class TraineeController {
 	 *            id as part of URL
 	 * @return Response with trainee object and/or appropriate status
 	 */
-	@RequestMapping(value = "trainees/byid/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainees/byid/{identifier}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainee> getTraineeById(@PathVariable("identifier") int id) {
 		ResponseEntity<Trainee> returnEntity;
 
@@ -111,12 +118,13 @@ public class TraineeController {
 			Trainee result = businessDelegate.getTrainee(id);
 
 			if (result == null) {
-				returnEntity = new ResponseEntity<Trainee>(result, HttpStatus.NOT_FOUND);
+				returnEntity = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 			} else {
-				returnEntity = new ResponseEntity<Trainee>(result, HttpStatus.OK);
+				returnEntity = new ResponseEntity<>(result, HttpStatus.OK);
 			}
 		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<Trainee>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while getting trainee with id: " + id, e);
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return returnEntity;
@@ -137,12 +145,13 @@ public class TraineeController {
 			Trainee result = businessDelegate.getTrainee(name);
 
 			if (result == null) {
-				returnEntity = new ResponseEntity<Trainee>(result, HttpStatus.NOT_FOUND);
+				returnEntity = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 			} else {
-				returnEntity = new ResponseEntity<Trainee>(result, HttpStatus.OK);
+				returnEntity = new ResponseEntity<>(result, HttpStatus.OK);
 			}
 		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<Trainee>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while getting trainee with name: \"" + name + "\"", e);
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return returnEntity;
@@ -163,12 +172,13 @@ public class TraineeController {
 			List<Trainee> result = businessDelegate.getTraineesInBatch(batchId);
 
 			if (result == null) {
-				returnEntity = new ResponseEntity<List<Trainee>>(result, HttpStatus.NOT_FOUND);
+				returnEntity = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 			} else {
-				returnEntity = new ResponseEntity<List<Trainee>>(result, HttpStatus.OK);
+				returnEntity = new ResponseEntity<>(result, HttpStatus.OK);
 			}
 		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<List<Trainee>>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while getting trainees with batchId: " + batchId, e);
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return returnEntity;
