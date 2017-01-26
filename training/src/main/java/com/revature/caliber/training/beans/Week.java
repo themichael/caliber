@@ -16,8 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 /**
  * Bean for Week
  */
@@ -34,7 +32,7 @@ public class Week {
 	@Column(name = "WEEK_NUMBER")
 	private int weekNumber;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID")
 	@JsonBackReference(value = "batchAndWeeks")
 	private Batch batch;
