@@ -2,6 +2,7 @@ package com.revature.caliber.training.beans;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,49 +16,62 @@ public class Batch {
 	@Column(name = "BATCH_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="BATCH_ID_SEQUENCE")
 	@SequenceGenerator(name = "BATCH_ID_SEQUENCE", sequenceName = "BATCH_ID_SEQUENCE")
+	@JsonProperty
 	private int batchId;
 
 	@Column(name = "TRAINING_NAME")
+	@JsonProperty
 	private String trainingName;
 
 	@ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
 	@JsonManagedReference
+	@JsonProperty
 	private Trainer trainer;
 
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CO_TRAINER_ID")
 	@JsonManagedReference
+	@JsonProperty
 	private Trainer coTrainer;
 
 	@Column(name = "SKILL_TYPE")
+	@JsonProperty
 	private String skillType;
 
 	@Column(name = "TRAINING_TYPE")
+	@JsonProperty
 	private String trainingType;
 
 	@Column(name = "START_DATE", nullable = false)
+	@JsonProperty
 	private Date startDate;
 
 	@Column(name = "END_DATE", nullable = false)
+	@JsonProperty
 	private Date endDate;
 
 	@Column(name = "LOCATION", nullable = false)
+	@JsonProperty
 	private String location;
 
 	@Column(name = "GOOD_GRADE_THRESHOLD")
+	@JsonProperty
 	private short goodGradeThreshold;
 
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
+	@JsonProperty
 	private short borderlineGradeThreshold;
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@OneToMany(mappedBy = "batch"/*, cascade = CascadeType.REMOVE*/)
 	@JsonBackReference
+	@JsonProperty
 	private Set<Trainee> trainees;
 
 	@OneToMany(mappedBy = "batch")
 	@JsonBackReference
+	@JsonProperty
 	private Set<Week> weeks;
 
 	/*
@@ -105,6 +119,8 @@ public class Batch {
 		this.trainees = trainees;
 		this.weeks = weeks;
 	}
+
+
 
 	/*
 	Setters and Getters
