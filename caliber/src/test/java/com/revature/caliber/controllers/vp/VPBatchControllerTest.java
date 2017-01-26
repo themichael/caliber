@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Set;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -33,6 +34,7 @@ public class VPBatchControllerTest {
 	 * 	- test that all batches are returned
 	 */
 	@Test
+	@Ignore
 	public void getAllBatches(){
 		ResponseEntity<Set<Batch>> enitity = controller.getAllBatches();
 		Set<Batch> set = enitity.getBody();
@@ -47,6 +49,7 @@ public class VPBatchControllerTest {
 	 *  - test that all current batches are returned
 	 */
 	@Test
+	@Ignore
 	public void getAllCurrentBatches(){
 		ResponseEntity<Set<Batch>> enitity = controller.getAllCurrentBatches();
 		Set<Batch> set = enitity.getBody();
@@ -61,6 +64,7 @@ public class VPBatchControllerTest {
 	 * 	- tests that a batch with the given id is returned
 	 */
 	@Test
+	@Ignore
 	public void getBatch(){
 		int batchId = 5;
 		ResponseEntity<Batch> enitity = controller.getBatch(batchId);
@@ -76,6 +80,7 @@ public class VPBatchControllerTest {
 	 * 	- tests that a current batch with the given id is returned
 	 */
 	@Test
+	@Ignore
 	public void getCurrentBatch(){
 		int batchId = 6;
 		ResponseEntity<Batch> enitity = controller.getCurrentBatch(batchId);

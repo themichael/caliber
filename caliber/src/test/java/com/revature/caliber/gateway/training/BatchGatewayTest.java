@@ -31,4 +31,10 @@ public class BatchGatewayTest {
         List<Batch> batches = trainingService.allBatch();*/
        /* System.out.println(batches);*/
     }
+
+    @Test
+    public void getBatch(){
+
+        //trainingService.getBatch(1);
+    }
 }
