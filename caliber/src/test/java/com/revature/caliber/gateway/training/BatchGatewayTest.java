@@ -4,6 +4,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.gateway.services.TrainingService;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -24,6 +25,7 @@ public class BatchGatewayTest {
         trainingService = context.getBean(TrainingService.class);
     }
 
+    @Ignore
     @Test
     public void getAll(){
         Trainer trainer = new Trainer();
