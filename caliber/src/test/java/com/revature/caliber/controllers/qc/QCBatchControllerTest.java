@@ -3,6 +3,7 @@ package com.revature.caliber.controllers.qc;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.controllers.QCBatchController;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -30,6 +31,7 @@ public class QCBatchControllerTest {
 	 	 *  - returns all current batches
 	 	 */
 	 	@Test
+		@Ignore
 	 	public void getCurrentBatches(){
 	 		ResponseEntity<Set<Batch>> entity = controller.getAllCurrentBatches();
 	 		Set<Batch> set = entity.getBody();
@@ -43,6 +45,7 @@ public class QCBatchControllerTest {
 	 	 * - returns a current batch with the given id
 	 	 */
 	 	@Test
+		@Ignore
 	 	public void getCurrentBatch(){
 	 		int batchId = 9;
 	 		ResponseEntity<Batch> entity = controller.getCurrentBatch(batchId);
