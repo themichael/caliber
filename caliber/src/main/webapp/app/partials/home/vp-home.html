@@ -55,7 +55,7 @@
                             <div class="panel-heading">Week by Week progression of {{currentBatch}}</div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
-                                    <canvas id="line" class="chart chart-line"
+                                    <canvas id="batch-line" class="chart chart-line"
                                             chart-data="batchProgressData" chart-labels="batchProgressLabels"
                                             chart-series="batchProgressSeries" chart-options="batchProgressOptions"
                                             chart-dataset-override="batchProgressDatasetOverride"
@@ -78,9 +78,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        
                     </div>
                     <div class="col-sm-6 col-md-6" ng-show="showCharts(0)">
                         <div class="panel panel-default">
@@ -108,6 +105,34 @@
 							</div>
                         </div>
 					</div>
+                    <div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Week by Week progression of {{currentTrainee}}</div>
+                            <div class="panel-body">
+                                <div class="chart-container top5">
+                                    <canvas id="trainee-line" class="chart chart-line"
+                                            chart-data="traineeProgressData" chart-labels="traineeProgressLabels"
+                                            chart-series="traineeProgressSeries" chart-options="traineeProgressOptions"
+                                            chart-dataset-override="traineeProgressDatasetOverride"
+                                            height="50" width="50">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Tech Scores for {{currentTrainee}}</div>
+                            <div class="panel-body">
+                                <div class="chart-container top5">
+                                    <canvas id="pie" class="chart chart-pie" chart-data="techScoreData"
+                                            chart-labels="techScoreLabels" chart-options="techScoreOptions"
+                                            height="50" width="50">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
