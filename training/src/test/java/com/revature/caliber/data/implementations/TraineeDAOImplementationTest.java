@@ -74,7 +74,7 @@ public class TraineeDAOImplementationTest {
                 + "VALUES(?, ?, ?, ?, ?)";
         Query traineeq = session.createSQLQuery(sql);
         traineeq.setInteger(0, resultId);
-        traineeq.setString(1, "new_email");
+        traineeq.setString(1, email);
         traineeq.setString(2, name);
         traineeq.setString(3, "new_status");
         traineeq.setInteger(4, newBatchId);
