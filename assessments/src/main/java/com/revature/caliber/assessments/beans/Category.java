@@ -16,7 +16,7 @@ public class Category {
     private String skillCategory;
 
     // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
     private Set<Assessment> assessments;
 
     @Column

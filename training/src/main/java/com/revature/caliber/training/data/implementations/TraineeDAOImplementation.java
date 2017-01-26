@@ -1,11 +1,13 @@
 package com.revature.caliber.training.data.implementations;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
@@ -38,6 +40,8 @@ public class TraineeDAOImplementation implements TraineeDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainee.class);
 		criteria.add(Restrictions.eq("batch.batchId", batchId));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
 		return criteria.list();
 	}
 
@@ -54,10 +58,10 @@ public class TraineeDAOImplementation implements TraineeDAO {
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public Trainee getTrainee(String name) {
+	public Trainee getTrainee(String email) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainee.class);
-		criteria.add(Restrictions.eq("name", name));
+		criteria.add(Restrictions.eq("email", email));
 		return (Trainee) criteria.uniqueResult();
 	}
 

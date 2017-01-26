@@ -3,7 +3,7 @@ angular.module("charts").factory("radarChartFactory", function($log){
 	
 	var radarChart = {};
 	
-	radarChart.batchRankComparison = function(standard, batch){
+	radarChart.getBatchRankComparisonChart = function(standard, batch){
 		var chartData = {};
 
 		// This relies on both data charts having the same labels

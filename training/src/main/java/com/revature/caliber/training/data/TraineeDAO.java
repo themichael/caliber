@@ -37,11 +37,11 @@ public interface TraineeDAO {
 	/**
 	 * Get trainee by full name
 	 * 
-	 * @param name
-	 *            name of trainee to get
+	 * @param email
+	 *            email of trainee to get
 	 * @return Trainee object or null if trainee with name doesn't exist
 	 */
-	Trainee getTrainee(String name);
+	Trainee getTrainee(String email);
 
 	/**
 	 * Get list of trainees for a certain batch

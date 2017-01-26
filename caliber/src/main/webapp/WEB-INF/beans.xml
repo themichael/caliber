@@ -44,9 +44,9 @@
 		<property name="deleteTraineePath" value="training/trainees/delete" />
 		<property name="updateTraineePath" value="training/trainees/update" />
 		<property name="getTraineeByIdPath" value="training/trainees/byid/" />
-		<property name="getTraineeByNamePath" value="training/trainees/byname/" />
+		<property name="getTraineeByNamePath" value="training/trainees/byemail/" />
 		<property name="getTraineesByBatchPath" value="training/trainees/bybatch/" />
-		
+
 		<property name="addTrainerPath" value="training/trainers/new" />
 		<property name="getAllTrainersPath" value="training/trainers/all" />
 		<property name="updateTrainerPath" value="training/trainers/update" />
