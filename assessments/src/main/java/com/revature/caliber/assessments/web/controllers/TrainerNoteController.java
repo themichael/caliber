@@ -100,7 +100,7 @@ public class TrainerNoteController {
     }
 
     @RequestMapping(
-            value = "/TrainerNote/delete",
+            value = "/trainerNote/delete",
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteAssessment(@RequestBody TrainerNote trainerNote) {

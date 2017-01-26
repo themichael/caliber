@@ -39,7 +39,8 @@ public class AssessmentServiceImpl implements AssessmentService {
     				getGradesByAssessmentPath;
     //paths for Trainer Note
     private String 	deleteTrainerNotePath, 
-    				updateTrainerNotePath;
+    				updateTrainerNotePath,
+    				createTrainerNotePath;
     
 
     @Override
@@ -181,8 +182,20 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 	@Override
 	public void createTrainerNote(TrainerNote note) {
-		// TODO Auto-generated method stub
-		
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(createTrainerNotePath)
+				.build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<TrainerNote> entity = new HttpEntity<>(note, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new TrainingServiceTraineeOperationException("Trainer Note could not be created");
+		}
 	}
 	@Override
 	public TrainerNote getTrainerNoteById(Integer trainerNoteId) {
@@ -251,5 +264,28 @@ public class AssessmentServiceImpl implements AssessmentService {
         this.portNumber = portNumber;
     }
 	
-	
+    //Grade
+    public void setGradesByAssessments(String getGradesByAssessmentPath){this.getGradesByAssessmentPath = getGradesByAssessmentPath;}
+    public void setInsertGrade(String addGradePath){this.addGradePath = addGradePath;}
+    public void setUpdateGrade(String updateGradePath){this.updateGradePath = updateGradePath;}
+    //end of Grade
+    
+    
+    //TrainerNote
+    public void setDeleteTrainerNotePath(String deleteTrainerNotePath){this.deleteTrainerNotePath = deleteTrainerNotePath;}
+    public void setUpdateTrainerNotePath(String updateTrainerNotePath){this.updateTrainerNotePath = updateTrainerNotePath;}
+    public void setCreateTrainerNotePath(String createTrainerNotePath){this.createTrainerNotePath = createTrainerNotePath;}
+    //end of TrainerNote
+    
+    /*//Batch
+  	public void setNewBatch(String newBatch) {this.newBatch = newBatch;}
+  	public void setAllBatch(String allBatch) {this.allBatch = allBatch;}
+  	public void setAllBatchesForTrainer(String allBatchesForTrainer) {this.allBatchesForTrainer = allBatchesForTrainer;}
+  	public void setAllCurrentBatch(String allCurrentBatch) {this.allCurrentBatch = allCurrentBatch;}
+  	public void setAllCurrentBatchByTrainer(String allCurrentBatchByTrainer) {this.allCurrentBatchByTrainer = allCurrentBatchByTrainer;}
+  	public void setBatchById(String batchById) {this.batchById = batchById;}
+  	public void setUpdateBatch(String updateBatch) {this.updateBatch = updateBatch;}
+  	public void setDeleteBatch(String deleteBatch) {this.deleteBatch = deleteBatch;}
+  	//end of batch
+*/	
 }
