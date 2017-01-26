@@ -206,6 +206,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setHostname(String hostname) {
         this.hostname = hostname;
     }
+
     public void setPortNumber(String portNumber) {
         this.portNumber = portNumber;
     }
