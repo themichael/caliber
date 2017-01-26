@@ -1,17 +1,19 @@
 package com.revature.caliber.gateway.services.impl;
 
 import java.io.Serializable;
-import java.util.*;
 
+import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
+import com.revature.caliber.gateway.services.TrainingService;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.gateway.services.TrainingService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TrainingServiceImpl implements TrainingService{
 
@@ -77,7 +79,7 @@ public class TrainingServiceImpl implements TrainingService{
 		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
 
 		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
-			throw new RuntimeException("Trainer not found.");
+			throw new RuntimeException("Trainer not found in batch.");
 		}else if(response.getStatusCode() == HttpStatus.OK){
 			return Arrays.asList(response.getBody());
 		}else {
@@ -401,7 +403,5 @@ public class TrainingServiceImpl implements TrainingService{
 	public void setGetTrainerByIdPath(String getTrainerByIdPath) {this.getTrainerByIdPath = getTrainerByIdPath;}
 	public void setGetTrainerByEmailPath(String getTrainerByEmailPath) {this.getTrainerByEmailPath = getTrainerByEmailPath;}
 	//End of Trainer
-	
-
 
 }
