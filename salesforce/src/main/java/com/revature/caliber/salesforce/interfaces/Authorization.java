@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * Created by Martino on 1/25/2017.
  */
-public interface Authentication {
+public interface Authorization {
 
     /**
      * Generates authURI with provided parameters
@@ -22,12 +22,4 @@ public interface Authentication {
      * @throws IOException
      */
     void generateSalesforceToken(String code) throws IOException;
-
-    /**
-     * Gets the in memory salesforce user
-     * @return JSON representation of the salesforceUser
-     * @throws NullPointerException if the user is not authenticated with salesforce
-     * @throws JsonProcessingException if the salesforce API mapping is changed
-     */
-    String getSalesforceUser() throws NullPointerException, IOException;
 }

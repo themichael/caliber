@@ -2,7 +2,7 @@ package com.revature.caliber.salesforce.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.salesforce.Helper;
-import com.revature.caliber.salesforce.interfaces.Authentication;
+import com.revature.caliber.salesforce.interfaces.Authorization;
 import com.revature.caliber.salesforce.models.SalesforceToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ import java.util.List;
 
 @RestController
 @Scope(value = "session")
-public class AuthenticationImpl extends Helper implements Authentication {
+public class AuthorizationImpl implements Authorization {
     @Value("#{systemEnvironment['SALESFORCE_AUTH_URL']}")
     private String authURL;
     @Value("#{systemEnvironment['SALESFORCE_ACCESS_TOKEN_URL']}")
@@ -47,7 +46,7 @@ public class AuthenticationImpl extends Helper implements Authentication {
     private HttpClient httpClient;
     private HttpResponse response;
 
-    public AuthenticationImpl() {
+    public AuthorizationImpl() {
         httpClient = HttpClientBuilder.create().build();
     }
 
@@ -71,14 +70,6 @@ public class AuthenticationImpl extends Helper implements Authentication {
             response = httpClient.execute(post);
             salesforceToken =
                     new ObjectMapper().readValue(response.getEntity().getContent(), SalesforceToken.class);
-    }
-
-    @RequestMapping(value = "/getSalesforceUser", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getSalesforceUser() throws NullPointerException, IOException {
-        HttpGet get = new HttpGet(salesforceToken.getId() + "?access_token=" +
-                salesforceToken.getAccessToken());
-        response = httpClient.execute(get);
-        return toJsonString(response.getEntity().getContent()) ;
     }
 
     public void setAuthURL(String authURL) {
