@@ -1,5 +1,6 @@
 package com.revature.caliber.training.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Set;
@@ -35,7 +36,7 @@ public class Week {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID")
-	@JsonIgnore
+	@JsonBackReference(value = "batchAndWeeks")
 	private Batch batch;
 
 	@ManyToMany(mappedBy = "weeks", fetch = FetchType.EAGER)

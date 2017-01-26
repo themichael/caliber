@@ -48,7 +48,7 @@ public class Trainee {
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
-	@JsonIgnore
+	@JsonBackReference(value = "traineeAndBatch")
 	private Batch batch;
 
 	public Trainee() {
