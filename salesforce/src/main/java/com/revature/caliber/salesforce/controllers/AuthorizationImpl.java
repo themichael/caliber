@@ -1,5 +1,6 @@
 package com.revature.caliber.salesforce.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.salesforce.Helper;
 import com.revature.caliber.salesforce.interfaces.Authorization;
@@ -30,8 +31,7 @@ import java.util.List;
 
 
 @RestController
-@Scope(value = "session")
-public class AuthorizationImpl implements Authorization {
+public class AuthorizationImpl extends Helper implements Authorization {
     @Value("#{systemEnvironment['SALESFORCE_AUTH_URL']}")
     private String authURL;
     @Value("#{systemEnvironment['SALESFORCE_ACCESS_TOKEN_URL']}")
@@ -70,6 +70,11 @@ public class AuthorizationImpl implements Authorization {
             response = httpClient.execute(post);
             salesforceToken =
                     new ObjectMapper().readValue(response.getEntity().getContent(), SalesforceToken.class);
+    }
+
+    @RequestMapping(value = "/getSalesforceToken", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getSalesforceToken() throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString(salesforceToken);
     }
 
     public void setAuthURL(String authURL) {
