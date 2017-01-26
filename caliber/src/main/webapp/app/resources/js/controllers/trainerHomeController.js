@@ -13,29 +13,92 @@ angular.module("trainer").controller(
 			$log.log("Get Batch with id");
 			$log.log(delegateFactory.trainer.getBatch(6));
 
-			// UI
+            /*********************************************** UI ***************************************************/
+			var viewCharts = 0;
+
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512",
 					"Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
 			$scope.tech = [ "Spring", "Hibernate", "JSP" ];
 			$scope.trainees = [ "Osher", "Kyle", "Rikki" ];
 
-			$scope.currentBatch = $scope.batches[0];
+			$scope.currentBatch = "Batch";
 
 			$scope.currentTech = "Technology";
 
 			$scope.currentTrainee = "Trainee";
 
-			$scope.selectCurrentBatch = function (index) {
-				$scope.currentBatch = $scope.batches[index];
-			};
+			// on batch selection
+            $scope.selectCurrentBatch = function(index){
+                $scope.currentTech = "Tech";
+                $scope.currentTrainee = "Trainee";
+                // turn of batches
+                if(index === -1){
+                    viewCharts = 0;
+                    $scope.currentBatch = "Batch";
+                }
+                else {
+                    $scope.currentBatch = $scope.batches[index];
+                    viewCharts = 1;
+                    createBatchCharts();
+                }
+            };
 
-			$scope.selectCurrentTech = function (index) {
-				$scope.currentTech = $scope.tech[index];
-			};
+            // on tech selection
+            $scope.selectCurrentTech = function(index) {
+                if (index === -1) {
+                    $scope.currentTrainee = "Trainee";
+                    $scope.currentTech = "Tech";
+                    viewCharts = 0;
+                }else{
+                    $scope.currentTrainee = "Trainee";
+                    $scope.currentTech = $scope.tech[index];
+                    viewCharts = 2;
+                    createTechCharts();
+                }
+            };
 
-			$scope.selectCurrentTrainee = function (index) {
-				$scope.currentTrainee = $scope.trainees[index];
-			};
+            // on trainee selection
+            $scope.selectCurrentTrainee = function(index) {
+                if (index === -1) {
+                    $scope.currentTrainee = "Trainee";
+                    viewCharts = 2;
+                }
+                else{
+                    $scope.currentTech = "Tech";
+                    $scope.currentTrainee = $scope.trainees[index];
+                    viewCharts = 3;
+                    createTraineeCharts();
+                }
+            };
+
+            // hide filter tabs
+            $scope.hideOtherTabs = function(){
+                if($scope.currentBatch === "Batch")
+                    return false;
+                return true;
+            };
+
+            // show charts
+            $scope.showCharts = function(charts){
+                if(charts === viewCharts)
+                    return true;
+                return false;
+            };
+
+            // create charts on batch selection
+			function createBatchCharts(){
+
+			}
+
+			// create charts on tech selection
+			function createTechCharts(){
+
+			}
+
+			// create charts on trainee selection
+			function createTraineeCharts(){
+
+			}
 
 			// Sample Data representing trainee average over 12 weeks
 			var sampleData = [{week: "Week 1", average: 79}, {week: "Week 2", average: 89}, 
