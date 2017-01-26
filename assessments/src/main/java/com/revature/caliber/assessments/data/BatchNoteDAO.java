@@ -3,6 +3,7 @@ package com.revature.caliber.assessments.data;
 import java.util.List;
 
 import com.revature.caliber.assessments.beans.BatchNote;
+import com.revature.caliber.assessments.beans.TrainerNote;
 
 public interface BatchNoteDAO {
 	
@@ -12,13 +13,21 @@ public interface BatchNoteDAO {
 	 * @param batchNote
 	 **/
 	void createBatchNote(BatchNote batchNote);
-	
-	//Get BatchNote using both batchID, and the weekID  
+		
 	/**
-	 * Get BatchNote using both the batchID, and the weekID
+	 * Get note by batchNote Id
+	 * @param batchNoteId
+	 * @return
+	 */
+	BatchNote getBatchNoteById(int batchNoteId);
+	
+	//Get BatchNote List using both batchID, and the weekID  
+	/**
+	 * Create a List of all batchNotes for a specific batch within a week
 	 * @param batchId, weekId
-	 **/
-	BatchNote getBatchNote(int batchId, int weekId);	
+	 * @return list
+	 * */
+	List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId);	
 	
 	//Create a List of all BatchNotes
 	/**
