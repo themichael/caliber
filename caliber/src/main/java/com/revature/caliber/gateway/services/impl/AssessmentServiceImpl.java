@@ -40,7 +40,8 @@ public class AssessmentServiceImpl implements AssessmentService {
     				getGradesByAssessmentPath;
     //paths for Trainer Note
     private String 	deleteTrainerNotePath, 
-    				updateTrainerNotePath;
+    				updateTrainerNotePath,
+    				createTrainerNotePath;
     
     //paths for assessments
     private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
@@ -220,8 +221,20 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 	@Override
 	public void createTrainerNote(TrainerNote note) {
-		// TODO Auto-generated method stub
-		
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(createTrainerNotePath)
+				.build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<TrainerNote> entity = new HttpEntity<>(note, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new TrainingServiceTraineeOperationException("Trainer Note could not be created");
+		}
 	}
 	@Override
 	public TrainerNote getTrainerNoteById(Integer trainerNoteId) {
@@ -289,17 +302,24 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setPortNumber(String portNumber) {
         this.portNumber = portNumber;
     }
-      
-	getGradesByAssessmentPath;
-    private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
 	
-    /** GRADES **/
-    public void setAddGradePath(String addGradePath) { this.addGradePath = addGradePath; }
-	public void setUpdateGradePath(String updateGradePath) { this.updateGradePath = updateGradePath; }
-	
-	
-	public void setDeleteTraineePath(String deleteTraineePath) { this.deleteTraineePath = deleteTraineePath; }
-	public void setGetTraineeByIdPath(String getTraineeByIdPath) { this.getTraineeByIdPath = getTraineeByIdPath; }
-	public void setGetTraineeByNamePath(String getTraineeByNamePath) { this.getTraineeByNamePath = getTraineeByNamePath; }
-	public void setGetTraineesByBatchPath(String getTraineesByBatchPath) { this.getTraineesByBatchPath = getTraineesByBatchPath; }
+
+    //Grade
+    public void setGradesByAssessments(String getGradesByAssessmentPath){this.getGradesByAssessmentPath = getGradesByAssessmentPath;}
+    public void setInsertGrade(String addGradePath){this.addGradePath = addGradePath;}
+    public void setUpdateGrade(String updateGradePath){this.updateGradePath = updateGradePath;}
+    //end of Grade
+    
+    //Assessment
+    public void setDeleteAssessment(String deleteAssessmentPath){this.deleteAssessmentPath = deleteAssessmentPath;}
+    public void setInsertAssessment(String addAssessmentPath){this.addAssessmentPath = addAssessmentPath;}
+    public void setUpdateAssessment(String updateAssessmentPath){this.updateAssessmentPath = updateAssessmentPath;}
+    //end of Assessment
+    
+    //TrainerNote
+    public void setDeleteTrainerNotePath(String deleteTrainerNotePath){this.deleteTrainerNotePath = deleteTrainerNotePath;}
+    public void setUpdateTrainerNotePath(String updateTrainerNotePath){this.updateTrainerNotePath = updateTrainerNotePath;}
+    public void setCreateTrainerNotePath(String createTrainerNotePath){this.createTrainerNotePath = createTrainerNotePath;}
+    //end of TrainerNote
+    
 }

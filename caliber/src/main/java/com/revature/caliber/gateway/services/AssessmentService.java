@@ -7,7 +7,6 @@ import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCNote;
 import com.revature.caliber.beans.TrainerNote;
 
