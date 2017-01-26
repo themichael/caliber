@@ -7,17 +7,17 @@ angular.module("charts").factory("pieChartFactory", function($log) {
 		var chartData = {};
 		
 		// data and labels
-		chartData.pieData = [];
-		chartData.pieLabels = [];
+		chartData.data = [];
+		chartData.labels = [];
 				
 		// traverse through array of objects and grab labels and data
 		dataArray.forEach(function(element){
-			chartData.pieData.push(element.average);
-			chartData.pieLabels.push(element.skillCategory);
+			chartData.data.push(element.average);
+			chartData.labels.push(element.skillCategory);
 		});
 		
 		// set pie options
-		chartData.pieOptions = {
+		chartData.options = {
 			legend : {
 				display : true,
 				position : 'left'

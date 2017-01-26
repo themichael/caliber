@@ -28,7 +28,7 @@ import com.revature.caliber.training.service.BusinessDelegate;
 
 @RestController
 @CrossOrigin(origins = { "*" }, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-		RequestMethod.DELETE, RequestMethod.OPTIONS }, allowedHeaders = { "X-PINGOTHER", "Content-Type" }, maxAge = 10)
+		RequestMethod.DELETE }, allowedHeaders = { "X-PINGOTHER", "Content-Type" }, maxAge = 10)
 public class TrainerController {
 
 	private BusinessDelegate businessDelegate;
@@ -45,7 +45,9 @@ public class TrainerController {
 	 *             to put
 	 * @return: Response with appropriate status
 	 */
-	@RequestMapping(value = "trainers/new", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainers/new", 
+					method = RequestMethod.POST, 
+					consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> createTrainer(@RequestBody @Valid Trainer trainer) {
 		ResponseEntity<Serializable> returnEntity;
 		try {
@@ -62,9 +64,11 @@ public class TrainerController {
      * @param: id as part of URL
      * @return: Response with trainer object and/or appropriate status
      */
-	@RequestMapping(value = "trainers/byid/{identifier}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Trainer> getTrainerById(@PathVariable("identifier") Integer id) {
-		/*ResponseEntity<Trainer> returnEntity;
+	@RequestMapping(value = "/trainers/byid/{identifier}", 
+					method = RequestMethod.GET, 
+					produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Trainer> getTrainerById(@PathVariable("identifier") int id) {
+		ResponseEntity<Trainer> returnEntity;
 		try {
 			Trainer result = businessDelegate.getTrainer(id);
 
@@ -76,12 +80,7 @@ public class TrainerController {
 		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity<Trainer>(HttpStatus.BAD_REQUEST);
 		}
-
-		return returnEntity;*/
-		
-		Trainer result = businessDelegate.getTrainer(id);
-		return new ResponseEntity<Trainer>(result, corsHeaders(),
-			HttpStatus.OK);
+		return returnEntity;
 	}
 
 	/**
@@ -89,7 +88,9 @@ public class TrainerController {
      * @param: email as part of URL
      * @return Response with trainer object and/or status
      */
-	@RequestMapping(value = "trainers/byemail/{identifier}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainers/byemail/{identifier}/", 
+					method = RequestMethod.GET, 
+					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainer> getTrainerByEmail(@PathVariable("identifier") String email) {
 		Trainer result = businessDelegate.getTrainer(email);
 		return new ResponseEntity<Trainer>(result, corsHeaders(),
@@ -101,10 +102,11 @@ public class TrainerController {
 	 * 
 	 * @return Response with list of trainer objects and/or status
 	 */
-	@RequestMapping(value = "trainers/all", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainers/all", 
+					method = RequestMethod.GET, 
+					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 		ResponseEntity<List<Trainer>> returnEntity;
-
 		try {
 			List<Trainer> result = businessDelegate.getAllTrainers();
 
@@ -116,7 +118,6 @@ public class TrainerController {
 		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity<List<Trainer>>(HttpStatus.BAD_REQUEST);
 		}
-
 		return returnEntity;
 	}
 
@@ -127,17 +128,18 @@ public class TrainerController {
 	 *             to update
 	 * @return: Response with appropriate status
 	 */
-	@RequestMapping(value = "trainers/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "trainers/update", 
+					method = RequestMethod.POST, 
+					consumes = MediaType.APPLICATION_JSON_VALUE, 
+					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> updateTrainer(@RequestBody @Valid Trainer trainer) {
 		ResponseEntity<Serializable> returnEntity;
-
 		try {
 			businessDelegate.updateTrainer(trainer);
 			returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
 		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
 		}
-
 		return returnEntity;
 	}
 	

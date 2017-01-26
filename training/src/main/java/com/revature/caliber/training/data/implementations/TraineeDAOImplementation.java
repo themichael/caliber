@@ -1,6 +1,6 @@
 package com.revature.caliber.training.data.implementations;
 
-import java.util.List;
+import java.util.*;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -38,7 +38,15 @@ public class TraineeDAOImplementation implements TraineeDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainee.class);
 		criteria.add(Restrictions.eq("batch.batchId", batchId));
-		return criteria.list();
+
+		//remove duplicates
+		HashSet<Trainee> set = new HashSet<>(criteria.list());
+		Iterator<Trainee> it = set.iterator();
+		List<Trainee> result = new ArrayList<>();
+		while (it.hasNext()) {
+			result.add(it.next());
+		}
+		return result;
 	}
 
 	@Override
