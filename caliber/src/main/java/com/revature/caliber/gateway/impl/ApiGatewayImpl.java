@@ -1,5 +1,11 @@
 package com.revature.caliber.gateway.impl;
 
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
@@ -31,8 +37,8 @@ public class ApiGatewayImpl implements ApiGateway {
         return serviceLocator.getTrainingService().allBatch();
     }
 
-    public List<Batch> getBatches(Trainer trainer) {
-        return serviceLocator.getTrainingService().getBatches(trainer);
+    public List<Batch> getBatches(Integer id) {
+        return serviceLocator.getTrainingService().getBatches(id);
     }
 
     public List<Batch> currentBatch() {
@@ -72,8 +78,8 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     @Override
-    public Trainee getTrainee(String name) {
-        return serviceLocator.getTrainingService().getTrainee(name);
+    public Trainee getTrainee(String email) {
+        return serviceLocator.getTrainingService().getTrainee(email);
     }
 
     @Override
@@ -149,4 +155,39 @@ public class ApiGatewayImpl implements ApiGateway {
     public Set <Batch> updateAllCurrentBatches(Set<Batch> batches) {
         return batches;
     }
+
+	public Set<Batch> getAllBatches() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Batch getBatchFromCurrentBatchesById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Batch getCurrentBatch() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Batch getBatchByTrainerId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Set<Batch> getAllCurrentBatches() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Batch getBatchFromCurrentBatchesById() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Batch getBatchFromAllBatchesById() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

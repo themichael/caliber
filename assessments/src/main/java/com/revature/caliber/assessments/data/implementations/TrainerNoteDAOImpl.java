@@ -46,7 +46,7 @@ public class TrainerNoteDAOImpl implements TrainerNoteDAO {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TrainerNote.class);
         criteria.add(Restrictions.eq("trainer", trainerId));
         criteria.add(Restrictions.eq("week", weekId));
-        return (TrainerNote) criteria.uniqueResult();
+        return (TrainerNote) criteria.setMaxResults(1).uniqueResult();
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED,

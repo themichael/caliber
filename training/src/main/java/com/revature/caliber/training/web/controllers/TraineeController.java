@@ -144,18 +144,20 @@ public class TraineeController {
 	/**
 	 * Get trainee by name by making a GET request to the URL
 	 * 
-	 * @param name
-	 *            name as part of URL
+	 * @param email
+	 *            email as part of URL
 	 * @return Response with trainee object and/or status
 	 */
-	@RequestMapping(value = "trainees/byname/{identifier}",
+	@RequestMapping(value = "trainees/byemail/{identifier}",
                     method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Trainee> getTraineeByName(@PathVariable("identifier") String name) {
+	public ResponseEntity<Trainee> getTraineeByName(@PathVariable("identifier") String email) {
+		email = email.replace("_dot_", ".");
+		System.out.println(email);
 		ResponseEntity<Trainee> returnEntity;
 
 		try {
-			Trainee result = businessDelegate.getTrainee(name);
+			Trainee result = businessDelegate.getTrainee(email);
 
 			if (result == null) {
 				returnEntity = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
@@ -163,7 +165,7 @@ public class TraineeController {
 				returnEntity = new ResponseEntity<>(result, HttpStatus.OK);
 			}
 		} catch (RuntimeException e) {
-            logger.error("Error while getting trainee with name: \"" + name + "\"", e);
+            logger.error("Error while getting trainee with name: \"" + email + "\"", e);
 			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 

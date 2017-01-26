@@ -82,4 +82,9 @@ public class QCBatchController {
     public ResponseEntity<Batch> deleteBatchFromCurrentBatchesById(@PathVariable int id) {
         return new ResponseEntity<>(new ApiGatewayImpl().deleteBatchFromCurrentBatchesById(id), HttpStatus.OK);
     }
+
+	public ResponseEntity<Batch> getCurrentBatch(int batchId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

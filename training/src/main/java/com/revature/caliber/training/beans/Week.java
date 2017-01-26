@@ -1,7 +1,6 @@
 package com.revature.caliber.training.beans;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -16,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * Bean for Week
