@@ -1,7 +1,10 @@
+<div id="home">
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
+			<!-- Charts Filters -->
 			<ul class="nav nav-tabs">
+				<!-- Select batch -->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown">{{currentBatch}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
@@ -9,6 +12,7 @@
 							role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a>
 						</li>
 					</ul></li>
+				<!-- Select technology -->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown">{{currentTech}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
@@ -16,6 +20,7 @@
 							role="button" ng-click="selectCurrentTech($index)">{{menuItem}}</a>
 						</li>
 					</ul></li>
+				<!-- Select trainee -->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown">{{currentTrainee}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
@@ -34,6 +39,7 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
+					<!-- Line chart -->
 					<div class="col-sm-6 col-md-6">
 						<div class="panel panel-default">
 							<div class="panel-heading">Week by week progression for a
@@ -50,6 +56,7 @@
 							</div>
 						</div>
 					</div>
+					<!-- Pie chart -->
 					<div class="col-sm-6 col-md-6">
 						<div class="panel panel-default">
 							<div class="panel-heading">Averages scores per technology
@@ -66,8 +73,9 @@
 							</div>
 						</div>
 					</div>
-				</div>	<!-- row -->
+				</div>
 				<div class="row">
+					<!-- Horizontal bar chart -->
 					<div class="col-sm-6 col-md-6">
 						<div class="panel panel-default">
 							<div class="panel-heading">Averages scores per technology
@@ -84,6 +92,7 @@
 							</div>
 						</div>
 					</div>
+					<!-- Radar chart -->
 					<div class="col-sm-6 col-md-6">
 						<div class="panel panel-default">
 							<div class="panel-heading">Comparison of batch "name" to all other batches</div>
@@ -102,4 +111,5 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>
