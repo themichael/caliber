@@ -3,9 +3,6 @@ angular.module("vp").controller(
 		function($scope, $log, radarChartFactory, hbarChartFactory, pieChartFactory, lineChartFactory, delegateFactory) {
 			$log.debug("Booted vp home controller.");
 
-			// decides what charts are to be shown
-			var viewCharts = 0;
-
 			// VP API Test
 			$log.log("Get All Batches: ");
 			$log.log(delegateFactory.vp.getAllBatches());
@@ -15,7 +12,11 @@ angular.module("vp").controller(
 			$log.log(delegateFactory.vp.getBatch(7));
 			$log.log("Get Current Batch with Id: ");
 			$log.log(delegateFactory.vp.getCurrentBatch(5));
-			
+
+			/*********************************************** UI ***************************************************/
+			// decides what charts are to be shown
+            var viewCharts = 0;
+
 			// UI - Dropdown menu selection
 			$scope.batches = [ "Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
 			$scope.tech = [ "Spring", "Hibernate", "JSP" ];
@@ -25,7 +26,8 @@ angular.module("vp").controller(
 			$scope.currentBatch = "Batch";
 			$scope.currentTech = "Tech";
 			$scope.currentTrainee = "Trainee";
-			
+
+			// on batch selection
 			$scope.selectCurrentBatch = function(index){
                 $scope.currentTech = "Tech";
                 $scope.currentTrainee = "Trainee";
@@ -40,40 +42,37 @@ angular.module("vp").controller(
                     createBatchCharts();
                 }
 			};
-			
+
+			// on tech selection
 			$scope.selectCurrentTech = function(index) {
                 if (index === -1) {
                 	$scope.currentTrainee = "Trainee";
                 	$scope.currentTech = "Tech";
                 	viewCharts = 0;
 				}else{
+                    $scope.currentTrainee = "Trainee";
 					$scope.currentTech = $scope.tech[index];
 					viewCharts = 2;
 					createTechCharts();
 				}
 			};
 
+			// on trainee selection
 			$scope.selectCurrentTrainee = function(index) {
                 if (index === -1) {
                     $scope.currentTrainee = "Trainee";
                     viewCharts = 2;
                 }
                 else{
+                    $scope.currentTech = "Tech";
 					$scope.currentTrainee = $scope.trainees[index];
 					viewCharts = 3;
 					createTraineeCharts();
 				}
 			};
 
-			// hide trainee Tab
-			$scope.hideTraineeTab = function(){
-				if($scope.currentTech === "Tech")
-					return false;
-				return true;
-			};
-
-			// hide tech tab
-            $scope.hideTechTab = function(){
+			// hide filter tabs
+            $scope.hideOtherTabs = function(){
                 if($scope.currentBatch === "Batch")
                     return false;
                 return true;
@@ -85,6 +84,8 @@ angular.module("vp").controller(
                   return true;
               return false;
             };
+
+            /************************************** Chart Creation Functions *************************************/
 
 			// create charts batch selection
 			function createBatchCharts() {
@@ -178,8 +179,8 @@ angular.module("vp").controller(
                 $scope.techScoreOptions = pieChartObject.options;
             }
 
-            /********* Default Charts *********/
-            // trainer rank comparison - sample data
+            /**************************************** Default Charts *******************************************/
+                // trainer rank comparison - sample data
             var sample6 = [{name: "Patrick", score: ranNum()}, {name: "Joe", score: ranNum()},
                     {name: "Brian", score: ranNum()}, {name: "Ryan", score: ranNum()},
                     {name: "Karan", score: ranNum()}, {name: "Steven", score: ranNum()},
