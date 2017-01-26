@@ -20,7 +20,7 @@ public interface BusinessDelegate {
 
 	public Trainee getTrainee(Integer id);
 
-	public Trainee getTrainee(String name);
+	public Trainee getTrainee(String email);
 
 	public List<Trainee> getTraineesInBatch(Integer batchId);
 
