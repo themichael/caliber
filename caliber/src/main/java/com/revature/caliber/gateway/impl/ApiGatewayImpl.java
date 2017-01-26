@@ -9,12 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class ApiGatewayImpl implements ApiGateway {
 
-    @Autowired
+
     private ServiceLocator serviceLocator;
+
+    @Autowired
+    public ServiceLocator getServiceLocator() {
+        return serviceLocator;
+    }
 
     /****************************Batch*******************************/
     public void createBatch(Batch batch) {
@@ -104,5 +110,35 @@ public class ApiGatewayImpl implements ApiGateway {
     @Override
     public void updateTrainer(Trainer trainer) {
         serviceLocator.getTrainingService().updateTrainer(trainer);
+    }
+
+    public Set<Batch> getAllBatches() {
+        return null;
+    }
+
+    public Batch getCurrentBatch() {
+        return null;
+    }
+
+    public Batch getBatchFromCurrentBatchesById(int id) {
+        Batch batch = new Batch();
+        batch.setBatchId(id);
+        return batch;
+    }
+
+    public Batch getBatchByTrainerId(int id) {
+        Batch batch = new Batch();
+        batch.setBatchId(id);
+        return batch;
+    }
+
+    public Batch getBatchFromAllBatchesById(int id) {
+        Batch batch = new Batch();
+        batch.setBatchId(id);
+        return batch;
+    }
+
+    public Set<Batch> getAllCurrentBatches() {
+        return null;
     }
 }
