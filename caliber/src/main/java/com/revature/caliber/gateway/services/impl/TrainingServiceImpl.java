@@ -51,7 +51,6 @@ public class TrainingServiceImpl implements TrainingService{
 		// Build Service URL
 		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(allBatch)
 						.build().toUriString();
-		System.out.println(URI);
 		// Invoke the service
 		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
 
@@ -60,7 +59,6 @@ public class TrainingServiceImpl implements TrainingService{
 		}else if(response.getStatusCode() == HttpStatus.OK){
 			return Arrays.asList(response.getBody());
 		}else if(response.getStatusCode() == HttpStatus.NOT_FOUND){
-			System.out.println("Not found");
 			return new ArrayList<>();
 		}else{
 			// Includes 404 and other responses. Give back no data.

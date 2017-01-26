@@ -36,12 +36,13 @@ public class Batch {
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
 	@JsonBackReference(value = "batchAndTrainer")
-	@JsonIgnore
+	//@JsonIgnore
 	private Trainer trainer;
 
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CO_TRAINER_ID")
-	@JsonIgnore
+	@JsonBackReference(value = "batchAndTrainer")
+	//@JsonIgnore
 	private Trainer coTrainer;
 
 	@Column(name = "SKILL_TYPE")
@@ -69,9 +70,11 @@ public class Batch {
 
 	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER/*, cascade = CascadeType.REMOVE*/)
 	@JsonManagedReference(value = "traineeAndBatch")
+	//@JsonIgnore
 	private Set<Trainee> trainees;
 
 	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER)
+	//@JsonIgnore
 	@JsonManagedReference(value = "batchAndWeeks")
 	private Set<Week> weeks;
 

@@ -37,6 +37,7 @@ public class Week {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID")
 	@JsonBackReference(value = "batchAndWeeks")
+	//JsonIgnore
 	private Batch batch;
 
 	@ManyToMany(mappedBy = "weeks", fetch = FetchType.EAGER)
@@ -57,9 +58,7 @@ public class Week {
 		this.topics = topics;
 	}
 
-	public Week() {
-		super();
-	}
+	public Week() {super();}
 
 	public long getWeekId() {
 		return weekId;
@@ -95,7 +94,7 @@ public class Week {
 
 	@Override
 	public String toString() {
-		return "Week [weekId=" + weekId + ", weekNumber=" + weekNumber + ", batch=" + batch + ", topics=" + topics
+		return "Week [weekId=" + weekId + ", weekNumber=" + weekNumber + ", batch=" + batch.getBatchId() + ", topics=" + topics
 				+ "]";
 	}
 
