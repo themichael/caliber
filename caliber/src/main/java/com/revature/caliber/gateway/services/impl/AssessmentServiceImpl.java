@@ -23,6 +23,7 @@ import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCNote;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainerNote;
+import com.revature.caliber.beans.exceptions.AssessmentServiceAssessmentOperationException;
 import com.revature.caliber.beans.exceptions.AssessmentServiceGradeOperationException;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
 import com.revature.caliber.gateway.services.AssessmentService;
@@ -36,20 +37,57 @@ public class AssessmentServiceImpl implements AssessmentService {
     //paths for Grades
     private String addGradePath, updateGradePath, getGradesByAssessmentPath;
     
+    //paths for assessments
+    private String insertAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
+    
 
     @Override
-	public long insertAssessment(Assessment assessment) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void insertAssessment(Assessment assessment) {
+		RestTemplate service = new RestTemplate();
+		
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(insertAssessmentPath)
+				.build().toUriString();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<Assessment> entity = new HttpEntity<>(assessment, headers);
+		
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceAssessmentOperationException("Assessment could not be made");
+		}
 	}
+    
 	@Override
 	public void updateAssessment(Assessment assessment) {
-		// TODO Auto-generated method stub
+		RestTemplate service = new RestTemplate();
 		
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateAssessmentPath).build().toUriString();
+		
+		//invoke the service
+		ResponseEntity<Serializable> response = service.postForEntity(URI, assessment, Serializable.class);
+		
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceAssessmentOperationException("Assessment could not be updated");
+		}
 	}
 	@Override
 	public void deleteAssessment(Assessment assessment) {
-		// TODO Auto-generated method stub
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteAssessmentPath)
+				.build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<Assessment> entity = new HttpEntity<>(assessment, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceAssessmentOperationException("Assessment could not be deleted");
+		}
 		
 	}
 	
@@ -104,7 +142,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.postForEntity(URI, grade, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new AssessmentServiceGradeOperationException("Trainer could not be updated");
+			throw new AssessmentServiceGradeOperationException("Grade could not be updated");
 		}
 		
 	}
