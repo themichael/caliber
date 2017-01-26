@@ -33,7 +33,7 @@ public class Week {
 	@Column(name = "WEEK_NUMBER")
 	private int weekNumber;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID")
 	@JsonIgnore
 	private Batch batch;
