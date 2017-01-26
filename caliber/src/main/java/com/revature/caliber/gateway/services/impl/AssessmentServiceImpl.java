@@ -74,7 +74,28 @@ public class AssessmentServiceImpl implements AssessmentService {
 			return new ArrayList<>();
 		}
 	}
+	
+	@Override
+	public void insertGrade(Grade grade) {
+		RestTemplate service = new RestTemplate();
+		//Build Parameter
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addGradePath)
+				.build().toUriString();
 
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<Grade> entity = new HttpEntity<>(grade, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceGradeOperationException("Grade could not be inserted");
+		}
+		
+	}
+	
+
+	
 	@Override
 	public void makeBatchNote(BatchNote batchNote) {
 		// TODO Auto-generated method stub
