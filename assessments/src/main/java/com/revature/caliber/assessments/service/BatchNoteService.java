@@ -8,7 +8,7 @@ public interface BatchNoteService {
 
 	void createBatchNote(BatchNote batchNote);
 	
-	BatchNote weeklyBatchNote(int batchId, int weekId);	
+	List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId);	
 	
 	List<BatchNote> allBatchNotesInWeek(int weekId);
 	
@@ -18,4 +18,6 @@ public interface BatchNoteService {
 	
 	void deleteBatchNote(BatchNote batchNote);
 	
+	BatchNote getBatchNoteById(int batchNoteId);
+    	
 }
