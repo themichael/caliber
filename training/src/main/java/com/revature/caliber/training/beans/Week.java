@@ -1,8 +1,6 @@
 package com.revature.caliber.training.beans;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Set;
 
 import javax.persistence.Column;

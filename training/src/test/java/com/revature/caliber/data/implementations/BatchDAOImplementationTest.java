@@ -176,5 +176,5 @@ public class BatchDAOImplementationTest {
 	}
 
 	// Work on delete method
-	
+
 }
