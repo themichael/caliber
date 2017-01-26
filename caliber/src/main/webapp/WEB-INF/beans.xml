@@ -52,6 +52,8 @@
 		<property name="updateTrainerPath" value="training/trainers/update" />
 		<property name="getTrainerByIdPath" value="training/trainers/byid/" />
 		<property name="getTrainerByEmailPath" value="training/trainers/byemail/" />
+		
+		<!-- Add the properties for addGradePath, updateGradePath, getGradesByAssessmentPath here -->
 	</bean>
 
 </beans>
