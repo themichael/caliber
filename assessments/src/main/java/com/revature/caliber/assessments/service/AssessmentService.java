@@ -8,37 +8,35 @@ public interface AssessmentService {
 
 //    Get
     /**
-     * Returns HashSet of all Assessments
-     * @return List of Assessments
+     * Returns a Set of all Assessments
+     * @return a Set of Assessments
      */
     Set<Assessment> getAll();
 
     /**
-     * Return Assessment
-     *  with AssessmentId
-     * @return Assessment
+     * Return Assessment with AssessmentId
+     * @return an Assessment
      */
-    Assessment getById(int id);
+    Assessment getById(long id);
 
     /**
-     * Returns HashSet of Assessments
-     *  with WeekId
-     * @param id
-     * @return List of Assessments
+     * Returns HashSet of Assessments with WeekId
+     * @param id the Week ID
+     * @return a Set of Assessments
      */
-    Set<Assessment> getByWeekId(int id);
+    Set<Assessment> getByWeekId(long id);
 
 //    Create
     /**
      * Inserts Assessment
-     * @param assessment
+     * @param assessment an Assessment to be inserted
      */
-    void insert(Assessment assessment);
+    long insert(Assessment assessment);
 
 //    Update
     /**
      * Updates Assessment
-     * @param assessment
+     * @param assessment an Assessment to be updated
      */
     void update(Assessment assessment);
 
@@ -46,7 +44,7 @@ public interface AssessmentService {
 //    Delete
     /**
      * Deletes Assessment
-     * @param assessment
+     * @param assessment and Assessment to delete
      */
     void delete(Assessment assessment);
 

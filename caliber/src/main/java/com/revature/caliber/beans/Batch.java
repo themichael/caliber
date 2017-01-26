@@ -20,6 +20,8 @@ public class Batch {
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	private Set<Trainee> trainees;
 	private Set<Week> weeks;
+
+	//Getters and setters
 	public int getBatchId() {
 		return batchId;
 	}

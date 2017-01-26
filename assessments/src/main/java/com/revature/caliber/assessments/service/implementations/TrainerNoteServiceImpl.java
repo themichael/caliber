@@ -6,7 +6,7 @@ import com.revature.caliber.assessments.service.TrainerNoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
 
 
 @Service(value = "trainerNoteService")
@@ -20,20 +20,31 @@ public class TrainerNoteServiceImpl implements TrainerNoteService {
         this.facade = facade;
     }
 
-
-    @Override
-    public void createTrainerNote(int trainerId) {
-        facade.makeTrainerNote(trainerId);
+    public void createTrainerNote(TrainerNote note) {
+        facade.createTrainerNote(note);
     }
 
-    @Override
-    public List<TrainerNote> getAllNotesByTrainer(int trainerId) {
-        return facade.listTrainerNotes(trainerId);
+    public TrainerNote getTrainerNoteById(Integer trainerNoteId) {
+        return facade.getTrainerNoteById(trainerNoteId);
     }
 
-    @Override
-    public TrainerNote getTrainerNoteForWeek(int trainerId, int weekId) {
-        return facade.getTrainerNoteForWeek(trainerId, weekId);
+    public TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId) {
+        return facade.getTrainerNoteForTrainerWeek(trainerId, weekId);
     }
 
+    public Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId) {
+        return facade.getTrainerNotesByTrainer(trainerId);
+    }
+
+    public Set<TrainerNote> getTrainerNotesByWeek(Integer weekId) {
+        return facade.getTrainerNotesByWeek(weekId);
+    }
+
+    public void updateTrainerNote(TrainerNote note) {
+        facade.updateTrainerNote(note);
+    }
+
+    public void deleteTrainerNote(TrainerNote note) {
+        facade.deleteTrainerNote(note);
+    }
 }

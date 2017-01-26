@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * This is the hibernate annotated bean that for the
- *  CALIBER_ASSESSMENT table in the database
+ * CALIBER_ASSESSMENT table in the database
  */
 @Entity
 @Table(name = "CALIBER_ASSESSMENT")
@@ -22,7 +22,7 @@ public class Assessment {
 
     /**
      * Trainer inputted title,
-     *  can be anything to help identify this assessment
+     * can be anything to help identify this assessment
      */
     @Column(name = "ASSESSMENT_TITLE", nullable = false)
     private String title;
@@ -51,11 +51,10 @@ public class Assessment {
     @Column(name = "WEEK_ID", nullable = false)
     private long week;
 
-// TODO Bi-directional mapping -- to avoid recursion, make DTO to send to UI
     /**
      * QCStatus for a week, statuses can be
-     *  good, ok, bad
-     *  indicated with smiley, meh and frowny face
+     * good, ok, bad
+     * indicated with smiley, meh and frowny face
      */
     @ManyToOne
     @JoinColumn(name = "WEEKLY_STATUS")
@@ -65,22 +64,8 @@ public class Assessment {
      * Set of Categories for Assessments (for Hibernate ORM)
      */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name="CALIBER_ASSESSMENT_CATEGORIES")
+    @JoinTable(name = "CALIBER_ASSESSMENT_CATEGORIES")
     private Set<Category> categories;
-
-    @Override
-    public String toString() {
-        return "Assessment{" +
-                "assessmentId=" + assessmentId +
-                ", title='" + title + '\'' +
-                ", batch=" + batch +
-                ", rawScore=" + rawScore +
-                ", type='" + type + '\'' +
-                ", week=" + week +
-                ", weeklyStatus=" + weeklyStatus +
-                ", categories=" + categories +
-                '}';
-    }
 
     public Assessment(long assessmentId,
                       String title,
@@ -116,6 +101,20 @@ public class Assessment {
         this.type = type;
         this.week = week;
         this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "Assessment{" +
+                "assessmentId=" + assessmentId +
+                ", title='" + title + '\'' +
+                ", batch=" + batch +
+                ", rawScore=" + rawScore +
+                ", type='" + type + '\'' +
+                ", week=" + week +
+                ", weeklyStatus=" + weeklyStatus.getStatus() +
+                ", categories=" + categories +
+                '}';
     }
 
     public long getAssessmentId() {
@@ -181,6 +180,5 @@ public class Assessment {
     public void setWeeklyStatus(QCStatus weeklyStatus) {
         this.weeklyStatus = weeklyStatus;
     }
-
 
 }

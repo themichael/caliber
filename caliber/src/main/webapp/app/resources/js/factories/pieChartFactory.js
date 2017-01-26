@@ -3,21 +3,21 @@ angular.module("charts").factory("pieChartFactory", function($log) {
 	
 	var pieChart = {};
 
-	pieChart.getTraineeProgressChart = function(dataArray) {
+	pieChart.getTraineeTechProgressChart = function(dataArray) {
 		var chartData = {};
 		
 		// data and labels
-		chartData.pieData = [];
-		chartData.pieLabels = [];
+		chartData.data = [];
+		chartData.labels = [];
 				
 		// traverse through array of objects and grab labels and data
-		for (let element of dataArray){
-			chartData.pieData.push(element.average);
-			chartData.pieLabels.push(element.skillCategory);
-		}
+		dataArray.forEach(function(element){
+			chartData.data.push(element.average);
+			chartData.labels.push(element.skillCategory);
+		});
 		
 		// set pie options
-		chartData.pieOptions = {
+		chartData.options = {
 			legend : {
 				display : true,
 				position : 'left'

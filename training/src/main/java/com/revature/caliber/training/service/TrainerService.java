@@ -6,9 +6,12 @@ import com.revature.caliber.training.beans.Trainer;
 
 public interface TrainerService {
 	void createTrainer(Trainer trainer);
+
 	Trainer getTrainer(Integer id);
-	List<Trainer> getTrainer(String name);
+
+	Trainer getTrainer(String email);
+
 	List<Trainer> getAllTrainers();
+
 	void updateTrainer(Trainer trainer);
-	void deleteTrainer(Trainer trainer);
 }

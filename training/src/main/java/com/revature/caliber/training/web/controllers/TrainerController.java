@@ -1,13 +1,17 @@
 package com.revature.caliber.training.web.controllers;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,21 +28,26 @@ import com.revature.caliber.training.service.BusinessDelegate;
 
 @RestController
 @CrossOrigin(origins = { "*" }, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-		RequestMethod.DELETE, RequestMethod.OPTIONS }, allowedHeaders = { "X-PINGOTHER", "Content-Type" }, maxAge = 10)
+		RequestMethod.DELETE }, allowedHeaders = { "X-PINGOTHER", "Content-Type" }, maxAge = 10)
 public class TrainerController {
 
 	private BusinessDelegate businessDelegate;
 
+	@Autowired
 	public void setBusinessDelegate(BusinessDelegate businessDelegate) {
 		this.businessDelegate = businessDelegate;
 	}
 
 	/**
-     * Creates a new trainer by making a PUT request to the URL
-     * @param: trainer to put
-     * @return: Response with appropriate status
-     */
-	@RequestMapping(value = "trainers/new", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	 * Creates a new trainer by making a PUT request to the URL
+	 * 
+	 * @param: trainer
+	 *             to put
+	 * @return: Response with appropriate status
+	 */
+	@RequestMapping(value = "trainers/new", 
+					method = RequestMethod.POST, 
+					consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> createTrainer(@RequestBody @Valid Trainer trainer) {
 		ResponseEntity<Serializable> returnEntity;
 		try {
@@ -55,7 +64,9 @@ public class TrainerController {
      * @param: id as part of URL
      * @return: Response with trainer object and/or appropriate status
      */
-	@RequestMapping(value = "trainers/byid/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/trainers/byid/{identifier}", 
+					method = RequestMethod.GET, 
+					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainer> getTrainerById(@PathVariable("identifier") int id) {
 		ResponseEntity<Trainer> returnEntity;
 		try {
@@ -69,42 +80,33 @@ public class TrainerController {
 		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity<Trainer>(HttpStatus.BAD_REQUEST);
 		}
-
 		return returnEntity;
 	}
 
 	/**
-     * Get a list of trainers by name by making a GET request to the URL
-     * @param: name as part of URL
+     * Get a list of trainers by email by making a GET request to the URL
+     * @param: email as part of URL
      * @return Response with trainer object and/or status
      */
-	@RequestMapping(value = "trainers/byname/{identifier}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<Trainer>> getTrainerByName(@PathVariable("identifier") String name) {
-		ResponseEntity<List<Trainer>> returnEntity;
-
-		try {
-			List<Trainer> result = businessDelegate.getTrainer(name);
-
-			if (result == null) {
-				returnEntity = new ResponseEntity<List<Trainer>>(result, HttpStatus.NOT_FOUND);
-			} else {
-				returnEntity = new ResponseEntity<List<Trainer>>(result, HttpStatus.OK);
-			}
-		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<List<Trainer>>(HttpStatus.BAD_REQUEST);
-		}
-
-		return returnEntity;
+	@RequestMapping(value = "trainers/byemail/{identifier}/", 
+					method = RequestMethod.GET, 
+					produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Trainer> getTrainerByEmail(@PathVariable("identifier") String email) {
+		Trainer result = businessDelegate.getTrainer(email);
+		return new ResponseEntity<Trainer>(result, corsHeaders(),
+			HttpStatus.OK);
 	}
 
 	/**
-     * Get a list of all trainers by making a GET request to the URL
-     * @return Response with list of trainer objects and/or status
-     */
-	@RequestMapping(value = "trainers/all", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	 * Get a list of all trainers by making a GET request to the URL
+	 * 
+	 * @return Response with list of trainer objects and/or status
+	 */
+	@RequestMapping(value = "trainers/all", 
+					method = RequestMethod.GET, 
+					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 		ResponseEntity<List<Trainer>> returnEntity;
-
 		try {
 			List<Trainer> result = businessDelegate.getAllTrainers();
 
@@ -116,45 +118,42 @@ public class TrainerController {
 		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity<List<Trainer>>(HttpStatus.BAD_REQUEST);
 		}
-
 		return returnEntity;
 	}
 
 	/**
-     * Update a trainer by making a POST request to the URL
-     * @param: trainer to update
-     * @return: Response with appropriate status
-     */
-	@RequestMapping(value = "trainers/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	 * Update a trainer by making a POST request to the URL
+	 * 
+	 * @param: trainer
+	 *             to update
+	 * @return: Response with appropriate status
+	 */
+	@RequestMapping(value = "trainers/update", 
+					method = RequestMethod.POST, 
+					consumes = MediaType.APPLICATION_JSON_VALUE, 
+					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> updateTrainer(@RequestBody @Valid Trainer trainer) {
 		ResponseEntity<Serializable> returnEntity;
-
 		try {
 			businessDelegate.updateTrainer(trainer);
 			returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
 		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
 		}
-
 		return returnEntity;
 	}
-
-	/**
-     * Delete a trainer by making a DELETE request to the URL
-     * @param: trainer to delete
-     * @return: Response with appropriate status
-     */
-	@RequestMapping(value = "trainers/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Serializable> deleteTrainer(@RequestBody @Valid Trainer trainer) {
-		ResponseEntity<Serializable> returnEntity;
-
-		try {
-			businessDelegate.deleteTrainer(trainer);
-			returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
-		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
-		}
-
-		return returnEntity;
+	
+	public MultiValueMap<String, String> corsHeaders(){
+		MultiValueMap<String, String> headers =
+				new LinkedMultiValueMap<String, String>();
+		headers.put("Access-Control-Allow-Origin",
+				Arrays.asList(new String[]{"*"}));
+		headers.put("Access-Control-Allow-Methods",
+				Arrays.asList(new String[]{"POST", "GET", "OPTIONS"}));
+		headers.put("Access-Control-Allow-Headers",
+				Arrays.asList(new String[]{"X-PINGOTHER", "Content-Type"}));
+		headers.put("Access-Control-Max-Age",
+				Arrays.asList(new String[]{"10"}));
+		return headers;
 	}
 }

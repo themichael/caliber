@@ -1,13 +1,9 @@
 package com.revature.caliber.assessments.service.implementations;
 
-
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.beans.*;
+import com.revature.caliber.assessments.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-
 
 import java.util.List;
 import java.util.Set;
@@ -15,127 +11,264 @@ import java.util.Set;
 @Component(value = "delegate")
 public class BusinessDelegateImpl implements BusinessDelegate {
 
-    private AssessmentService assessmentService;
-    private BatchNoteService batchNoteService;
-    //private CategoryService categoryService;
-    private GradeService gradeService;
-    //TODO finish service impl: private NoteService noteService;
-    //TODO finish service impl: private QCNoteService qcNoteService;
-    //TODO finish service impl: private QCStatusService qcStatusService;
-    private TrainerNoteService trainerNoteService;
+	private AssessmentService assessmentService;
+	private BatchNoteService batchNoteService;
+	private CategoryService categoryService;
+	private GradeService gradeService;
+	private NoteService noteService;
+	private QCNoteService qcNoteService;
+	private QCStatusService qcStatusService;
+	private TrainerNoteService trainerNoteService;
 
-//    Assessment
-    @Override
-    public HashSet<Assessment> getAllAssessments() {
-        return (HashSet<Assessment>) assessmentService.getAll();
-    }
+	// Spring setter based DI
+	@Autowired
+	public void setAssessmentService(AssessmentService assessmentService) {
+		this.assessmentService = assessmentService;
+	}
 
-    @Override
-    public Assessment getAssessmentById(int id) {
-        return assessmentService.getById(id);
-    }
+	@Autowired
+	public void setBatchNoteService(BatchNoteService batchNoteService) {
+		this.batchNoteService = batchNoteService;
+	}
 
-    @Override
-    public HashSet<Assessment> getAssessmentsByWeekId(int id) {
-        return (HashSet<Assessment>) assessmentService.getByWeekId(id);
-    }
+	@Autowired
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
 
-    @Override
-    public HashSet<Assessment> getAssessmentsByBatchId(int id) {
-        return (HashSet<Assessment>) assessmentService.getByBatchId(id);
-    }
+	@Autowired
+	public void setGradeService(GradeService gradeService) {
+		this.gradeService = gradeService;
+	}
 
-    @Override
-    public void insertAssessment(Assessment assessment) {
-        assessmentService.insert(assessment);
-    }
+	@Autowired
+	public void setNoteService(NoteService noteService) {
+		this.noteService = noteService;
 
-    @Override
-    public void updateAssessment(Assessment assessment) {
-        assessmentService.update(assessment);
-    }
+	}
 
-    @Override
-    public void deleteAssessment(Assessment assessment) {
-        assessmentService.delete(assessment);
-    }
+	@Autowired
+	public void setQcNoteService(QCNoteService qcNoteService) {
+		this.qcNoteService = qcNoteService;
+	}
+	
+	@Autowired
+	public void setQcStatusService(QCStatusService qcStatusService) {
+		this.qcStatusService = qcStatusService;
+	}
 
-//    Batch
+	@Autowired
+	public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
+		this.trainerNoteService = trainerNoteService;
+	}
 
+	// Assessment
+	@Override
+	public Set<Assessment> getAllAssessments() {
+		return assessmentService.getAll();
+	}
 
-    // Grade
-    @Override
-    public List<Grade> getAllGrades() {
-        return gradeService.getAllGrades();
-    }
+	@Override
+	public Assessment getAssessmentById(long id) {
+		return assessmentService.getById(id);
+	}
 
-    @Override
-    public Grade getGradeByGradeId(long gradeId) {
-        return gradeService.getGradeByGradeId(gradeId);
-    }
+	@Override
+	public Set<Assessment> getAssessmentsByWeekId(long id) {
+		return assessmentService.getByWeekId(id);
+	}
 
-    @Override
-    public List<Grade> getGradesByTraineeId(int traineeId) {
-        return gradeService.getGradesByTraineeId(traineeId);
-    }
+	@Override
+	public long insertAssessment(Assessment assessment) {
+		return assessmentService.insert(assessment);
+	}
 
-    @Override
-    public List<Grade> getGradesByAssesessment(long assessmentId) {
-        return gradeService.getGradesByAssesessment(assessmentId);
-    }
+	@Override
+	public void updateAssessment(Assessment assessment) {
+		assessmentService.update(assessment);
+	}
 
-    @Override
-    public void insertGrade(Grade grade) {
-        gradeService.insertGrade(grade);
-    }
+	@Override
+	public void deleteAssessment(Assessment assessment) {
+		assessmentService.delete(assessment);
+	}
+	// End Assessment
 
-    @Override
-    public void deleteGrade(Grade grade) {
-        gradeService.deleteGrade(grade);
-    }
+	// Grade
+	@Override
+	public List<Grade> getAllGrades() {
+		return gradeService.getAllGrades();
+	}
 
-    @Override
-    public void updateGrade(Grade grade) {
-        gradeService.updateGrade(grade);
-    }
+	@Override
+	public Grade getGradeByGradeId(long gradeId) {
+		return gradeService.getGradeByGradeId(gradeId);
+	}
 
+	@Override
+	public List<Grade> getGradesByTraineeId(int traineeId) {
+		return gradeService.getGradesByTraineeId(traineeId);
+	}
 
-    //    Spring setter based DI
-    @Autowired
-    public void setAssessmentService(AssessmentService assessmentService) {
-        this.assessmentService = assessmentService;
-    }
+	@Override
+	public List<Grade> getGradesByAssessment(long assessmentId) {
+		return gradeService.getGradesByAssessment(assessmentId);
+	}
 
-    @Autowired
-    public void setBatchNoteService(BatchNoteService batchService) {
-        this.batchNoteService = batchNoteService;
-    }
+	@Override
+	public void insertGrade(Grade grade) {
+		gradeService.insertGrade(grade);
+	}
 
-    /* TODO wire the beans
-    *
-    @Autowired
-    public void setCategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
-    @Autowired
-    public void setGradeService(GradeService gradeService) {
-        this.gradeService = gradeService;
-    }
-    @Autowired
-    public void setNoteService(NoteService noteService) {
-        this.noteService = noteService;
-    }
-    @Autowired
-    public void setQcNoteService(QCNoteService qcNoteService) {
-        this.qcNoteService = qcNoteService;
-    }
-    @Autowired
-    public void setQcStatusService(QCStatusService qcStatusService) {
-        this.qcStatusService = qcStatusService;
-    }*/
-    @Autowired
-    public void setTrainerNoteService(TrainerNoteService trainerNoteService) {
-        this.trainerNoteService = trainerNoteService;
-    }
+	@Override
+	public void deleteGrade(Grade grade) {
+		gradeService.deleteGrade(grade);
+	}
+
+	@Override
+	public void updateGrade(Grade grade) {
+		gradeService.updateGrade(grade);
+	}
+	// End Grade
+
+	// QC Note -------------------
+	@Override
+	public void createQCNote(QCNote note) {
+		qcNoteService.createQCNote(note);
+	}
+
+	@Override
+	public QCNote getQCNoteById(Integer qcNoteId) {
+		return qcNoteService.getQCNoteById(qcNoteId);
+	}
+
+	@Override
+	public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) {
+		return qcNoteService.getQCNoteForTraineeWeek(traineeId, weekId);
+	}
+
+	@Override
+	public List<QCNote> getQCNotesByTrainee(Integer traineeId) {
+		return qcNoteService.getQCNotesByTrainee(traineeId);
+	}
+
+	@Override
+	public List<QCNote> getQCNotesByWeek(Integer weekId) {
+		return qcNoteService.getQCNotesByWeek(weekId);
+	}
+
+	@Override
+	public void updateQCNote(QCNote note) {
+		qcNoteService.updateQCNote(note);
+	}
+
+	@Override
+	public void deleteQCNote(QCNote note) {
+		qcNoteService.deleteQCNote(note);
+	}
+	// end QCNote ---------------------
+
+	// Trainer Note
+	@Override
+	public void createTrainerNote(TrainerNote note) {
+		trainerNoteService.createTrainerNote(note);
+	}
+
+	public TrainerNote getTrainerNoteById(Integer trainerNoteId) {
+		return trainerNoteService.getTrainerNoteById(trainerNoteId);
+	}
+
+	public TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId) {
+		return trainerNoteService.getTrainerNoteForTrainerWeek(trainerId, weekId);
+	}
+
+	public Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId) {
+		return trainerNoteService.getTrainerNotesByTrainer(trainerId);
+	}
+
+	public Set<TrainerNote> getTrainerNotesByWeek(Integer weekId) {
+		return trainerNoteService.getTrainerNotesByWeek(weekId);
+	}
+
+	public void updateTrainerNote(TrainerNote note) {
+		trainerNoteService.updateTrainerNote(note);
+	}
+
+	public void deleteTrainerNote(TrainerNote note) {
+		trainerNoteService.deleteTrainerNote(note);
+	}
+	// end trainer note
+
+	// BatchNote
+
+	@Override
+	public void makeBatchNote(BatchNote batchNote) {
+		batchNoteService.createBatchNote(batchNote);
+	}
+
+	@Override
+	public List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId) {
+		return batchNoteService.getBatchesNotesListInWeek(batchId, weekId);
+	}
+	
+	@Override
+	public BatchNote getBatchNoteById(int batchNoteId){
+		return batchNoteService.getBatchNoteById(batchNoteId);
+	}
+	
+	@Override
+	public List<BatchNote> allBatchNotes(int batchId) {
+		return batchNoteService.allBatchNotes(batchId);
+	}
+
+	@Override
+	public List<BatchNote> allBatchNotesInWeek(int weekId) {
+		return batchNoteService.allBatchNotesInWeek(weekId);
+	}
+
+	@Override
+	public void updateBatchNote(BatchNote batchNote) {
+		batchNoteService.updateBatchNote(batchNote);
+	}
+
+	@Override
+	public void deleteBatchNote(BatchNote batchNote) {
+		batchNoteService.deleteBatchNote(batchNote);
+	}
+	// End BatchNote
+
+	// Note
+	@Override
+	public Note getNote(String note) {
+		return noteService.getNote(note);
+	}
+
+	@Override
+	public List<Note> getAllNotes() {
+		return noteService.getAllNotes();
+	}
+
+	// Category
+	@Override
+	public Set<Category> getAllCategories() {
+		return categoryService.getAll();
+	}
+
+	@Override
+	public Category getCategoryById(int id) {
+		return categoryService.getById(id);
+	}
+	
+	
+	//QCStatus
+	@Override
+	public Set<QCStatus> getAllStatus() {
+		return qcStatusService.getAllStatus();
+	}
+
+	@Override
+	public Set<Assessment> getAssessmentByStatus(String status) {
+		return qcStatusService.getAssessmentByStatus(status);
+	}
 
 }

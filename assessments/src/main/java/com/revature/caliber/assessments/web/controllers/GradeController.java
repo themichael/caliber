@@ -40,7 +40,7 @@ public class GradeController {
 		if(grades == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
-			return new ResponseEntity<List<Grade>>(grades, HttpStatus.OK);
+			return new ResponseEntity<>(grades, HttpStatus.OK);
 		}
 		
 	}
@@ -53,7 +53,7 @@ public class GradeController {
 		if(grade == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			return new ResponseEntity<Grade>(grade,HttpStatus.OK);
+			return new ResponseEntity<>(grade,HttpStatus.OK);
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class GradeController {
 		if(grades == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			return new ResponseEntity<List<Grade>>(grades,HttpStatus.OK);
+			return new ResponseEntity<>(grades,HttpStatus.OK);
 		}
 	}
 	
@@ -73,11 +73,11 @@ public class GradeController {
 			method=RequestMethod.GET,
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Grade>> getGradesByAssessmentId(@PathVariable (value="assessmentId") int assessmentId){
-		List<Grade> grades = delegate.getGradesByAssesessment(assessmentId);
+		List<Grade> grades = delegate.getGradesByAssessment(assessmentId);
 		if(grades == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			return new ResponseEntity<List<Grade>>(grades,HttpStatus.OK);
+			return new ResponseEntity<>(grades,HttpStatus.OK);
 		}
 	}
 	

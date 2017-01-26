@@ -19,18 +19,40 @@ class BatchNoteServiceImpl implements BatchNoteService {
     }
 
     @Override
-    public void makeBatchNote(int batchId, int weekId) {
-        facade.makeBatchNote(batchId, weekId);
-    }
-
-    @Override
-    public BatchNote weeklyBatchNote(int batchId, int weekId) {
-        return facade.getWeeklyBatchNote(batchId, weekId);
+    public void createBatchNote(BatchNote batchNote) {
+        facade.makeBatchNote(batchNote);
     }
 
     @Override
     public List<BatchNote> allBatchNotesInWeek(int weekId) {
         return facade.allBatchNotesInWeek(weekId);
     }
+
+	@Override
+	public void updateBatchNote(BatchNote batchNote) {
+		facade.updateBatchNote(batchNote);
+		
+	}
+
+	@Override
+	public List<BatchNote> allBatchNotes(int batchId) {
+		return facade.allBatchNotes(batchId);
+	}
+
+	@Override
+	public void deleteBatchNote(BatchNote batchNote) {
+		facade.deleteBatchNote(batchNote);
+		
+	}
+
+	@Override
+	public List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId) {
+		return facade.getBatchesNotesListInWeek(batchId, weekId);
+	}
+
+	@Override
+	public BatchNote getBatchNoteById(int batchNoteId) {
+		return facade.getBatchNoteById(batchNoteId);
+	}
 
 }

@@ -44,6 +44,11 @@ angular.module("app").config(
                 url: "/home",
                 controller: "trainerHomeController"
             })
+            .state("trainer.manage", {
+                templateUrl: "app/partials/home/manage-batch.html",
+                url: "/manage",
+                controller: "trainerManageController"
+            })
 
             // vp
             .state("vp", {
@@ -55,5 +60,9 @@ angular.module("app").config(
                 templateUrl: "app/partials/home/vp-home.html",
                 url: "/home",
                 controller: "vpHomeController"
+            })
+            .state("vp.manage", {
+                templateUrl: "app/partials/home/manage-batch.html",
+                url: "/manage"
             });
     });

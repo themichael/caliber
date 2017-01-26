@@ -1,8 +1,22 @@
 package com.revature.caliber.training.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * Bean for Week
@@ -22,10 +36,30 @@ public class Week {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "BATCH_ID")
+	@JsonBackReference(value = "batchAndWeeks")
 	private Batch batch;
 
 	@ManyToMany(mappedBy = "weeks", fetch = FetchType.EAGER)
 	private Set<Category> topics;
+
+	public Week(long weekId, int weekNumber, Batch batch, Set<Category> topics) {
+		super();
+		this.weekId = weekId;
+		this.weekNumber = weekNumber;
+		this.batch = batch;
+		this.topics = topics;
+	}
+
+	public Week(int weekNumber, Batch batch, Set<Category> topics) {
+		super();
+		this.weekNumber = weekNumber;
+		this.batch = batch;
+		this.topics = topics;
+	}
+
+	public Week() {
+		super();
+	}
 
 	public long getWeekId() {
 		return weekId;
@@ -57,25 +91,6 @@ public class Week {
 
 	public void setTopics(Set<Category> topics) {
 		this.topics = topics;
-	}
-
-	public Week(long weekId, int weekNumber, Batch batch, Set<Category> topics) {
-		super();
-		this.weekId = weekId;
-		this.weekNumber = weekNumber;
-		this.batch = batch;
-		this.topics = topics;
-	}
-
-	public Week(int weekNumber, Batch batch, Set<Category> topics) {
-		super();
-		this.weekNumber = weekNumber;
-		this.batch = batch;
-		this.topics = topics;
-	}
-
-	public Week() {
-		super();
 	}
 
 	@Override

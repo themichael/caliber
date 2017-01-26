@@ -1,9 +1,6 @@
 package com.revature.caliber.assessments.data;
 
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.BatchNote;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.beans.TrainerNote;
+import com.revature.caliber.assessments.beans.*;
 
 import java.util.List;
 import java.util.Set;
@@ -15,48 +12,45 @@ import java.util.Set;
 public interface Facade {
 
 //    Assessment
-
     //    Get
 
     /**
-     * Returns HashSet of all Assessments
+     * Returns a Set of all Assessments
      *
-     * @return Set of Assessments
+     * @return a Set of Assessments
      */
     Set<Assessment> getAllAssessments();
 
     /**
-     * Return Assessment
-     * with AssessmentId
+     * Return Assessment with AssessmentId
      *
-     * @return Assessment
+     * @return an Assessment
      */
-    Assessment getById(int id);
-    
+    Assessment getAssessmentById(long id);
+
     /**
-     * Returns HashSet of Assessments
-     * with WeekId
+     * Returns HashSet of Assessments with WeekId
      *
-     * @param id
-     * @return Set of Assessments
+     * @param id the Week ID
+     * @return a Set of Assessments
      */
-    Set<Assessment> getAssessmentsByWeekId(int id);
+    Set<Assessment> getAssessmentsByWeekId(long id);
 
     //    Create
 
     /**
      * Inserts Assessment
      *
-     * @param assessment
+     * @param assessment an Assessment to be inserted
      */
-    void insertAssessment(Assessment assessment);
+    long insertAssessment(Assessment assessment);
 
     //    Update
 
     /**
      * Updates Assessment
      *
-     * @param assessment
+     * @param assessment an Assessment to be updated
      */
     void updateAssessment(Assessment assessment);
 
@@ -65,29 +59,50 @@ public interface Facade {
     /**
      * Deletes Assessment
      *
-     * @param assessment
+     * @param assessment and Assessment to delete
      */
     void deleteAssessment(Assessment assessment);
-    
+
+//    Category
+    /**
+     * Returns Set of all Categories
+     * @return Set of all Categories
+     */
+    Set<Category> getAllCategories();
+
+    /**
+     * Returns Category
+     *  with provided ID
+     * @param id
+     * @return Category
+     */
+    Category getCategoryById(int id);
+
     //    Batch Note
-    void makeBatchNote(int batchId, int weekId);
-	
-	BatchNote getWeeklyBatchNote(int batchId, int weekId);	
-	 
-	List<BatchNote> allBatchNotesInWeek(int weekId);
-	
-	
-	//	Trainer Note
-	void makeTrainerNote(int trainerId);
-	
-	List<TrainerNote> listTrainerNotes(int trainerId);
-	
-	TrainerNote getTrainerNoteForWeek(int trainerId, int weekId);
+    void makeBatchNote(BatchNote batchNote);
 
-//    Batch
+    //List all the Batches' batchNotes within a given week
+    List<BatchNote> allBatchNotesInWeek(int weekId);
+    
+    //List all batchNotes for a batch for the duration of the training
+    List<BatchNote> allBatchNotes(int batchId);
+    
+    //Update a batchNote
+    void updateBatchNote(BatchNote batchNote);
+    
+    //Delete a BatchNote
+    void deleteBatchNote(BatchNote batchNote);
+    
+    //Get a single batchNote by its unique Note ID
+    BatchNote getBatchNoteById(int batchNoteId);
+    
+	//A list of batch notes for a specific batch within a single week
+    //Used if two people have separate evaluations
+	List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId);	
+    
 
-// Grade
 
+//    Grade
     //Gets
 
     /**
@@ -112,7 +127,7 @@ public interface Facade {
      *
      * @param assessmentId
      */
-    List<Grade> getGradesByAssesessment(long assessmentId);
+    List<Grade> getGradesByAssessment(long assessmentId);
 
     //Insert
 
@@ -135,4 +150,44 @@ public interface Facade {
      */
     void updateGrade(Grade grade);
 
+    //Note
+    Note getNote(String note);
+
+    List<Note> getAllNotes();
+    //End Note
+
+    //	Trainer Note
+    void createTrainerNote(TrainerNote note);
+
+    TrainerNote getTrainerNoteById(Integer trainerNoteId);
+
+    TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
+
+    Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
+
+    Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
+
+    void updateTrainerNote(TrainerNote note);
+
+    void deleteTrainerNote(TrainerNote note);
+
+    //QCNote
+    void createQCNote(QCNote note);
+
+    QCNote getQCNoteById(Integer qcNoteId);
+
+    QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
+
+    List<QCNote> getQCNotesByTrainee(Integer traineeId);
+
+    List<QCNote> getQCNotesByWeek(Integer weekId);
+
+    void updateQCNote(QCNote note);
+
+    void deleteQCNote(QCNote note);
+    //QCNote end
+    
+   //QCStatus
+    public Set<QCStatus> getAllStatus();
+	public Set<Assessment> getAssessmentByStatus(String status);
 }
