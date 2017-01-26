@@ -10,7 +10,7 @@
 							role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a>
 						</li>
 					</ul></li>
-				<li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideTechTab()"
+				<li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideOtherTabs()"
 					data-toggle="dropdown">{{currentTech}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentTech(-1)">None</a></li>
@@ -18,7 +18,7 @@
 							role="button" ng-click="selectCurrentTech($index)">{{menuItem}}</a>
 						</li>
 					</ul></li>
-				<li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideTraineeTab()"
+				<li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideOtherTabs()"
 					data-toggle="dropdown">{{currentTrainee}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentTrainee(-1)">None</a></li>
@@ -36,6 +36,42 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
+                    <div class="col-sm-6 col-md-6" ng-show="showCharts(0)">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                All Current Batches
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Tech <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        lists of tech
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="chart-container top5">
+                                    <canvas id="batchesRank" class="chart-horizontal-bar" chart-data="allBatchesRankData"
+                                            chart-labels="allBatchesRankLabels"  chart-series="allBatchesRankSeries"
+                                            height="50" width="50">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-show="showCharts(0)">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Trainer Rank</div>
+                            <div class="panel-body">
+                                <div class="chart-container top5">
+                                    <canvas id="trainerRank" class="chart-horizontal-bar" chart-data="trainerRankData"
+                                            chart-labels="trainerRankLabels" chart-series="trainerRankSeries"
+                                            height="50" width="50">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 					<div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
 						<div class="panel panel-default">
 							<div class="panel-heading">{{currentBatch}} Rank</div>
@@ -55,7 +91,7 @@
                             <div class="panel-heading">Week by Week progression of {{currentBatch}}</div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
-                                    <canvas id="line" class="chart chart-line"
+                                    <canvas id="batch-line" class="chart chart-line"
                                             chart-data="batchProgressData" chart-labels="batchProgressLabels"
                                             chart-series="batchProgressSeries" chart-options="batchProgressOptions"
                                             chart-dataset-override="batchProgressDatasetOverride"
@@ -79,35 +115,35 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        
-                    </div>
-                    <div class="col-sm-6 col-md-6" ng-show="showCharts(0)">
+
+                    <div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
                         <div class="panel panel-default">
-                            <div class="panel-heading">All Current Batches</div>
+                            <div class="panel-heading">Week by Week progression of {{currentTrainee}}</div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
-                                    <canvas id="batchesRank" class="chart-horizontal-bar" chart-data="allBatchesRankData"
-                                            chart-labels="allBatchesRankLabels"  chart-series="allBatchesRankSeries"
+                                    <canvas id="trainee-line" class="chart chart-line"
+                                            chart-data="traineeProgressData" chart-labels="traineeProgressLabels"
+                                            chart-series="traineeProgressSeries" chart-options="traineeProgressOptions"
+                                            chart-dataset-override="traineeProgressDatasetOverride"
                                             height="50" width="50">
                                     </canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-					<div class="col-sm-6 col-md-6" ng-show="showCharts(0)">
-						<div class="panel panel-default">
-							<div class="panel-heading">Trainer Rank</div>
-							<div class="panel-body">
+                    <div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Tech Scores for {{currentTrainee}}</div>
+                            <div class="panel-body">
                                 <div class="chart-container top5">
-                                    <canvas id="trainerRank" class="chart-horizontal-bar" chart-data="trainerRankData"
-                                            chart-labels="trainerRankLabels" chart-series="trainerRankSeries"
+                                    <canvas id="pie" class="chart chart-pie" chart-data="techScoreData"
+                                            chart-labels="techScoreLabels" chart-options="techScoreOptions"
                                             height="50" width="50">
                                     </canvas>
                                 </div>
-							</div>
+                            </div>
                         </div>
-					</div>
+                    </div>
 				</div>
 			</div>
 		</div>

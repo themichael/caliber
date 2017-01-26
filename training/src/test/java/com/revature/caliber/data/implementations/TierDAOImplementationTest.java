@@ -3,8 +3,6 @@ package com.revature.caliber.data.implementations;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -65,7 +63,7 @@ public class TierDAOImplementationTest {
     @Test
     public void getAllTiers() {
     	TierDAO tDAO = (TierDAO) context.getBean(TierDAO.class);
-    	List<Tier> tiers = new ArrayList<>();
+    	List<Tier> tiers;
     	
     	tiers = tDAO.getAllTiers();
     	
