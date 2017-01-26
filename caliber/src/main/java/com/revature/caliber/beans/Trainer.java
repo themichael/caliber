@@ -4,129 +4,128 @@ import java.util.Set;
 
 public class Trainer {
 
-	private int trainerId;
-	private String name;
-	private String title;
-	private String email;
-	private String salesforceAccount;
-	private String salesforceAuthenticationToken;
-	private String salesforceRefreshToken;
-	private Tier tier;
-	
-	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	private Set<Batch> batches;
+    private int trainerId;
+    private String name;
+    private String title;
+    private String email;
+    private String salesforceAccount;
+    private String salesforceAuthenticationToken;
+    private String salesforceRefreshToken;
+    private Tier tier;
 
-	public int getTraineeId() {
-		return trainerId;
-	}
+    // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+    private Set<Batch> batches;
 
-	public void setTraineeId(int traineeId) {
-		this.trainerId = traineeId;
-	}
+    public int getTraineeId() {
+        return trainerId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setTraineeId(int traineeId) {
+        this.trainerId = traineeId;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getSalesforceAccount() {
-		return salesforceAccount;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setSalesforceAccount(String salesforceAccount) {
-		this.salesforceAccount = salesforceAccount;
-	}
+    public String getSalesforceAccount() {
+        return salesforceAccount;
+    }
 
-	public String getSalesforceAuthenticationToken() {
-		return salesforceAuthenticationToken;
-	}
+    public void setSalesforceAccount(String salesforceAccount) {
+        this.salesforceAccount = salesforceAccount;
+    }
 
-	public void setSalesforceAuthenticationToken(String salesforceAuthenticationToken) {
-		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
-	}
+    public String getSalesforceAuthenticationToken() {
+        return salesforceAuthenticationToken;
+    }
 
-	public Tier getTier() {
-		return tier;
-	}
+    public void setSalesforceAuthenticationToken(String salesforceAuthenticationToken) {
+        this.salesforceAuthenticationToken = salesforceAuthenticationToken;
+    }
 
-	public void setTier(Tier tier) {
-		this.tier = tier;
-	}
+    public Tier getTier() {
+        return tier;
+    }
 
-	public Set<Batch> getBatches() {
-		return batches;
-	}
+    public void setTier(Tier tier) {
+        this.tier = tier;
+    }
 
-	public void setBatches(Set<Batch> batches) {
-		this.batches = batches;
-	}
+    public Set<Batch> getBatches() {
+        return batches;
+    }
 
-	public Trainer() {
-		super();
-	}
+    public void setBatches(Set<Batch> batches) {
+        this.batches = batches;
+    }
 
-	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier) {
-		super();
-		this.trainerId = traineeId;
-		this.name = name;
-		this.title = title;
-		this.email = email;
-		this.salesforceAccount = salesforceAccount;
-		this.tier = tier;
-	}
+    public Trainer() {
+        super();
+    }
 
-	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier,
-			Set<Batch> batches) {
-		super();
-		this.trainerId = traineeId;
-		this.name = name;
-		this.title = title;
-		this.email = email;
-		this.salesforceAccount = salesforceAccount;
-		this.tier = tier;
-		this.batches = batches;
-	}
+    public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier) {
+        super();
+        this.trainerId = traineeId;
+        this.name = name;
+        this.title = title;
+        this.email = email;
+        this.salesforceAccount = salesforceAccount;
+        this.tier = tier;
+    }
 
-	public String getSalesforceRefreshToken() {
-		return salesforceRefreshToken;
-	}
+    public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier,
+                   Set<Batch> batches) {
+        super();
+        this.trainerId = traineeId;
+        this.name = name;
+        this.title = title;
+        this.email = email;
+        this.salesforceAccount = salesforceAccount;
+        this.tier = tier;
+        this.batches = batches;
+    }
 
-	public void setSalesforceRefreshToken(String salesforceRefreshToken) {
-		this.salesforceRefreshToken = salesforceRefreshToken;
-	}
+    public String getSalesforceRefreshToken() {
+        return salesforceRefreshToken;
+    }
 
-	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, 
-			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
-		super();
-		this.trainerId = trainerId;
-		this.name = name;
-		this.title = title;
-		this.email = email;
-		this.salesforceAccount = salesforceAccount;
-		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
-		this.salesforceRefreshToken = salesforceRefreshToken;
-		this.tier = tier;
-	}
-	
-	
-	
+    public void setSalesforceRefreshToken(String salesforceRefreshToken) {
+        this.salesforceRefreshToken = salesforceRefreshToken;
+    }
+
+    public Trainer(int trainerId, String name, String title, String email, String salesforceAccount,
+                   String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
+        super();
+        this.trainerId = trainerId;
+        this.name = name;
+        this.title = title;
+        this.email = email;
+        this.salesforceAccount = salesforceAccount;
+        this.salesforceAuthenticationToken = salesforceAuthenticationToken;
+        this.salesforceRefreshToken = salesforceRefreshToken;
+        this.tier = tier;
+    }
+
+
 }
