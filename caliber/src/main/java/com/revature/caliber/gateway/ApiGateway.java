@@ -1,11 +1,10 @@
 package com.revature.caliber.gateway;
 
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Gathers data from appropriate services and
@@ -33,10 +32,10 @@ public interface ApiGateway {
     /**
      * Get all Batches for a given Trainer.
      *
-     * @param trainer - The trainer
+     * @param id - The trainer
      * @return All batches for a given trainer
      */
-    List<Batch> getBatches(Trainer trainer);
+    List<Batch> getBatches(Integer id);
 
     /**
      * Get all current Batches
@@ -102,10 +101,10 @@ public interface ApiGateway {
     /**
      * Get trainee by full name
      *
-     * @param name name of trainee to get
+     * @param email email of trainee to get (conversions needed (server side restrictions): '@' -> "%40", '.' -> "_dot_")
      * @return Trainee object or null if trainee with name doesn't exist
      */
-    Trainee getTrainee(String name);
+    Trainee getTrainee(String email);
 
     /**
      * Get list of trainees for a certain batch
@@ -166,4 +165,7 @@ public interface ApiGateway {
     //End of Trainer Service
 
 	HashMap<String, String[]> getAggregatedGradesForTrainee(int id);
+
+
+
 }

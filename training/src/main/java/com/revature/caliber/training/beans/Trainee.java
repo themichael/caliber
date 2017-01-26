@@ -1,13 +1,7 @@
 package com.revature.caliber.training.beans;
 
+import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import javax.persistence.*;
 
 /**
  * Bean for Trainee
@@ -48,7 +42,7 @@ public class Trainee {
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
-	@JsonIgnore
+	@JsonBackReference(value = "traineeAndBatch")
 	private Batch batch;
 
 	public Trainee() {

@@ -13,21 +13,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     private String hostname;
     private String portNumber;
     
-    @Override
-	public Set<Assessment> getAllAssessments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Assessment getAssessmentById(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Set<Assessment> getAssessmentsByWeekId(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	@Override
 	public long insertAssessment(Assessment assessment) {
 		// TODO Auto-generated method stub
@@ -43,16 +29,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public List<Grade> getAllGrades() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Grade getGradeByGradeId(long gradeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	@Override
 	public List<Grade> getGradesByTraineeId(int traineeId) {
 		RestTemplate rest = new RestTemplate();
@@ -195,6 +172,22 @@ public class AssessmentServiceImpl implements AssessmentService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Set<Assessment> getAllAssessments() {
+		return null;
+	}
+
+	@Override
+	public Assessment getAssessmentById(long id) {
+		return null;
+	}
+
+	@Override
+	public Set<Assessment> getAssessmentsByWeekId(long id) {
+		return null;
+	}
+
 	@Override
 	public Category getCategoryById(int id) {
 		// TODO Auto-generated method stub

@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.io.Serializable;
 import java.util.List;
 
 @RestController
@@ -27,7 +29,7 @@ public class GradeController {
 		this.delegate = delegate;
 	}
 	
-	@RequestMapping(value="/grade/all",
+	@RequestMapping(value="/grades/all",
 					method=RequestMethod.GET,
 					produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Grade>> getAllGrades(){
@@ -40,7 +42,7 @@ public class GradeController {
 		
 	}
 	
-	@RequestMapping(value="/grade/{gradeId}",
+	@RequestMapping(value="/grades/{gradeId}",
 			method=RequestMethod.GET,
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Grade> getGradesById(@PathVariable (value="gradeId") int gradeId){
@@ -75,9 +77,40 @@ public class GradeController {
 			return new ResponseEntity<>(grades,HttpStatus.OK);
 		}
 	}
-	
 
-	
-	
+	@RequestMapping (value = "/grades/create",
+					method = RequestMethod.PUT,
+					consumes = MediaType.APPLICATION_JSON_VALUE,
+					produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Serializable> createGrade(@RequestBody @Valid Grade grade) {
+		ResponseEntity<Serializable> returnEntity;
+
+		try {
+			delegate.insertGrade(grade);
+			returnEntity = new ResponseEntity<>(HttpStatus.OK);
+		}
+		catch (RuntimeException e) {
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return returnEntity;
+	}
+
+	@RequestMapping (value = "/grades/update",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Serializable> updateGrade(@RequestBody @Valid Grade grade) {
+		ResponseEntity<Serializable> returnEntity;
+
+		try {
+			delegate.updateGrade(grade);
+			returnEntity = new ResponseEntity<>(HttpStatus.OK);
+		}
+		catch (RuntimeException e) {
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return returnEntity;
+	}
+
 
 }
