@@ -49,7 +49,7 @@ public class TraineeDAOImplementationTest {
 	 * tx.commit();
 	 * Also execute only after new batch with newBatchId was created (variable is set up).
 	 */
-	private static int findFreeTraineeIdAnCreateTrainee(Session session, String name) {
+	private static int findFreeTraineeIdAnCreateTrainee(Session session, String name, String email) {
 
         String sql;
         int id;
@@ -214,7 +214,7 @@ public class TraineeDAOImplementationTest {
             fail("Failed to create test Batch");
         }
 
-        newTraineeId = findFreeTraineeIdAnCreateTrainee(session, "Some test trainee(Trainee DAO Test)");
+        newTraineeId = findFreeTraineeIdAnCreateTrainee(session, "Some test trainee(Trainee DAO Test)", "testemail");
 
 		tx.commit();
 		session.close();
@@ -320,16 +320,16 @@ public class TraineeDAOImplementationTest {
 	}
 
 	@Test
-	public void getTraineeTestGetByName() {
-		logger.info(" > Get trainee by name test.");
-		logger.info("    .. trying to get previously created trainee \"Some test trainee(Trainee DAO Test)\"");
+	public void getTraineeTestGetByEmail() {
+		logger.info(" > Get trainee by email test.");
+		logger.info("    .. trying to get previously created trainee \"testemail\"");
 
 		TraineeDAO dao = context.getBean(TraineeDAO.class);
 
-		Trainee trainee = dao.getTrainee("Some test trainee(Trainee DAO Test)");
+		Trainee trainee = dao.getTrainee("testemail");
 
 		assertNotNull(trainee);
-		assertEquals("Some test trainee(Trainee DAO Test)", trainee.getName());
+		assertEquals("testemail", trainee.getEmail());
 
 		logger.info("    .. received trainee with name: " + trainee.getName());
 		logger.info("    -- getting trainee by name test completed.");
@@ -359,7 +359,7 @@ public class TraineeDAOImplementationTest {
 		logger.info("    .. creating a test trainee");
 		Session session  = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		int id = findFreeTraineeIdAnCreateTrainee(session, "Some other test trainee(yup).");
+		int id = findFreeTraineeIdAnCreateTrainee(session, "Some other test trainee(yup).", "someotheremail");
 		tx.commit();
 
 		logger.info("    .. trainee created with id " + id);
@@ -400,7 +400,7 @@ public class TraineeDAOImplementationTest {
 
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		int id = findFreeTraineeIdAnCreateTrainee(session, "Test trainee that will be deleted.");
+		int id = findFreeTraineeIdAnCreateTrainee(session, "Test trainee that will be deleted.", "deleteemail");
 		tx.commit();
 
 		logger.info("    .. trainee was created with id " + id);
