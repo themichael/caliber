@@ -32,10 +32,10 @@ public interface ApiGateway {
     /**
      * Get all Batches for a given Trainer.
      *
-     * @param trainer - The trainer
+     * @param id - The trainer
      * @return All batches for a given trainer
      */
-    List<Batch> getBatches(Trainer trainer);
+    List<Batch> getBatches(Integer id);
 
     /**
      * Get all current Batches

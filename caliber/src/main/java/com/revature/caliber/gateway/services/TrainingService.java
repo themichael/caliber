@@ -25,10 +25,10 @@ public interface TrainingService {
     /**
      * Get all Batches for a given Trainer.
      *
-     * @param trainer
+     * @param id
      * @return
      */
-    List<Batch> getBatches(Trainer trainer);
+    List<Batch> getBatches(Integer id);
 
     /**
      * Get all current Batches
