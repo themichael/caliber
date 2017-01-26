@@ -64,25 +64,25 @@ angular.module("trainer").controller(
             // line chart function that retrieves
 			// Week by week progression for a trainee/ batch on a line chart
 			var lineChartObject = lineChartFactory.getTraineeProgressChart(sampleLineData);
-			$scope.lineLabels = lineChartObject.lineLabels;
-			$scope.lineSeries = lineChartObject.lineSeries;
-			$scope.lineData = lineChartObject.lineData;
-			$scope.lineDatasetOverride = lineChartObject.lineDatasetOverride;
-			$scope.lineOptions = lineChartObject.lineOptions;
+			$scope.lineLabels = lineChartObject.labels;
+			$scope.lineSeries = lineChartObject.series;
+			$scope.lineData = lineChartObject.data;
+			$scope.lineDatasetOverride = lineChartObject.datasetOverride;
+			$scope.lineOptions = lineChartObject.options;
 
 			// pie chart function that retrieves 
 			// data for batch/ trainee technology strengths
 			var pieChartObject = pieChartFactory.getTraineeTechProgressChart(samplePieData);
-			$scope.pieLabels = pieChartObject.pieLabels;
-			$scope.pieData = pieChartObject.pieData;
-			$scope.pieOptions = pieChartObject.pieOptions;
+			$scope.pieLabels = pieChartObject.labels;
+			$scope.pieData = pieChartObject.data;
+			$scope.pieOptions = pieChartObject.options;
 			
 			// Horizontal bar chart for trainee averages per technology
 			var hbarChartObject = hbarChartFactory.getBatchAvgChart(sampleHbarData);
-			$scope.hbarLabels = hbarChartObject.hbarLabels;
-			$scope.hbarData = hbarChartObject.hbarData;
-			$scope.hbarDatasetOverride = hbarChartObject.hbarDatasetOverride;
-			$scope.hbarOptions = hbarChartObject.hbarOptions;
+			$scope.hbarLabels = hbarChartObject.labels;
+			$scope.hbarData = hbarChartObject.data;
+			$scope.hbarDatasetOverride = hbarChartObject.datasetOverride;
+			$scope.hbarOptions = hbarChartObject.options;
 
 			// Radar chart for batch rank comparison
 			$scope.radarLabels = [ "Java", "Servlet", "Spring", "Hibernate",
