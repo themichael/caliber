@@ -1,6 +1,9 @@
 package com.revature.caliber.assessments.beans;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
 /**
@@ -58,6 +61,7 @@ public class Assessment {
      */
     @ManyToOne
     @JoinColumn(name = "WEEKLY_STATUS")
+    @JsonIgnore
     private QCStatus weeklyStatus;
 
     /**
@@ -65,6 +69,7 @@ public class Assessment {
      */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "CALIBER_ASSESSMENT_CATEGORIES")
+    @JsonIgnore
     private Set<Category> categories;
 
     public Assessment(long assessmentId,

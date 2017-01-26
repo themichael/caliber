@@ -1,6 +1,9 @@
 package com.revature.caliber.assessments.beans;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
 /**
@@ -20,6 +23,7 @@ public class QCStatus {
 	private String status;
 
 	@OneToMany(mappedBy = "weeklyStatus", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Assessment> assessments;
 
 	public QCStatus() {

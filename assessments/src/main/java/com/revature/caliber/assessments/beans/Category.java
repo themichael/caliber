@@ -1,6 +1,9 @@
 package com.revature.caliber.assessments.beans;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
 @Entity(name = "CALIBER_ASSESSMENT_CATEGORY")
@@ -17,6 +20,7 @@ public class Category {
 
     // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
+    @JsonIgnore
     private Set<Assessment> assessments;
 
     @Column

@@ -2,6 +2,9 @@ package com.revature.caliber.assessments.beans;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 /**
@@ -25,6 +28,7 @@ public class Grade {
      */
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ASSESSMENT_ID", nullable = false)
+    @JsonIgnore
     private Assessment assessment;
 
     /**
