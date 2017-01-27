@@ -3,6 +3,7 @@ package com.revature.caliber.gateway.services.impl;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.Week;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
 import com.revature.caliber.gateway.services.TrainingService;
 import org.springframework.http.*;
@@ -28,7 +29,10 @@ public class TrainingServiceImpl implements TrainingService {
     //paths for trainee (look at beans.xml for the paths themselves)
     private String addTraineePath, updateTraineePath, deleteTraineePath, getTraineeByIdPath, getTraineeByNamePath,
             getTraineesByBatchPath;
+    //paths for trainer
     private String addTrainerPath, updateTrainerPath, getAllTrainersPath, getTrainerByIdPath, getTrainerByEmailPath;
+    //paths for week
+    private String addWeekPath, getAllWeekPath;
 
     /***********************************Batch**********************************/
     @Override
@@ -355,6 +359,51 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     //End of Trainer ----------------------------------------------------------------------------
+    
+    
+	// Week
+	@Override
+	public List<Week> getAllWeek() {
+
+		RestTemplate service = new RestTemplate();
+		// Build Service URL
+		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path("training/week/all").build().toUriString();
+		
+		System.out.println(URI);
+		// Invoke the service
+		ResponseEntity<Week[]> response = service.getForEntity(URI, Week[].class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Bad request.");
+		} else if (response.getStatusCode() == HttpStatus.OK) {
+			return Arrays.asList(response.getBody());
+		} else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+			System.out.println("Not found");
+			return new ArrayList<>();
+		} else {
+			// Includes 404 and other responses. Give back no data.
+			return new ArrayList<>();
+		}
+	}
+
+	@Override
+	public void createWeek(Week week) {
+		RestTemplate service = new RestTemplate();
+		// Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path("training/week/new").build()
+				.toUriString();
+
+		System.out.println(URI);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<Week> entity = new HttpEntity<>(week, headers);
+
+		// Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Trainee could not be created");
+		}
+	}
 
 
 	/////////// SETTERS ////////////////
@@ -393,4 +442,11 @@ public class TrainingServiceImpl implements TrainingService {
 	public void setGetTrainerByEmailPath(String getTrainerByEmailPath) {this.getTrainerByEmailPath = getTrainerByEmailPath;}
 	//End of Trainer
 
+	
+	//Week
+	public void setAddWeekPath(String addWeekPath) { this.addWeekPath = addWeekPath; }
+	public void setGetAllWeekPath(String getAllWeekPath) { this.getAllWeekPath = getAllWeekPath; }
+
+
+	
 }
