@@ -90,6 +90,10 @@
 .top40 { margin-top: 40em; }
 .top45 { margin-top: 45em; }
 
+/* Accordion style tables*/
+.hiddenRow td{
+    padding: 0 !important;
+}
 
 /************************
 	Footer
@@ -111,4 +115,8 @@ html, body {
 footer {
 	height: 148px;
 	background-color: #f1f2f4;
+}
+
+.center{
+    text-align: center;
 }
