@@ -56,7 +56,7 @@ public class Category {
         return "Category{" +
                 "categoryId=" + categoryId +
                 ", skillCategory='" + skillCategory + '\'' +
-                ", assessments=" + assessments +
+                ", assessments=" + assessments.size() +
                 ", weeks=" + weeks +
                 '}';
     }
