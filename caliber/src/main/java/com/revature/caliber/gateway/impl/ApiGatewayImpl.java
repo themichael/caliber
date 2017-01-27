@@ -58,8 +58,8 @@ public class ApiGatewayImpl implements ApiGateway {
         return serviceLocator.getTrainingService().currentBatch();
     }
 
-    public List<Batch> currentBatch(Integer id) {
-        return serviceLocator.getTrainingService().currentBatch(id);
+    public List<Batch> currentBatch(Trainer trainer) {
+        return serviceLocator.getTrainingService().currentBatch(trainer);
     }
 
     public Batch getBatch(Integer id) {
@@ -345,8 +345,8 @@ public class ApiGatewayImpl implements ApiGateway {
 		HashMap<String, Double[]> grades = new HashMap<>();//result
 		
 		for(Grade grade : allGrades){
-			long week = grade.getAssessment().getAssessmentId();
-			System.out.println(week);
+			Assessment assessment = grade.getAssessment();
+			Week week = serviceLocator.getAssessmentService().getwe
 //			if(!grades.containsKey(week.getWeekNumber())){
 //				grades.put(Integer.toString(week.getWeekNumber()), new Double[] {0.0,0.0,0.0,0.0});
 //			}

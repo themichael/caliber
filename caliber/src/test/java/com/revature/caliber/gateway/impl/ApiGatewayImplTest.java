@@ -24,7 +24,7 @@ public class ApiGatewayImplTest {
         apiGateway = context.getBean(ApiGateway.class);
     }
 
-    @Ignore
+    
     @Test
     @Ignore
     public void getAggregatedGradesForTrainee() throws Exception {
