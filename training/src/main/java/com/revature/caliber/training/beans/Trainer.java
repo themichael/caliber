@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-
 /**
  * Bean for Trainer
  */
