@@ -135,7 +135,7 @@ public interface ApiGateway {
     /**
      * Gets a trainer by id
      *
-     * @param id: id of the trainer
+     * @param id : id of the trainer
      * @return Trainer object
      */
     Trainer getTrainer(Integer id);
@@ -143,7 +143,7 @@ public interface ApiGateway {
     /**
      * Gets a trainer by email
      *
-     * @param email: email of the trainer
+     * @param email : email of the trainer
      * @return Trainer object
      */
     Trainer getTrainer(String email);
@@ -158,7 +158,7 @@ public interface ApiGateway {
     /**
      * Updates a trainer
      *
-     * @param trainer: the trainer object to update
+     * @param trainer : the trainer object to update
      */
     void updateTrainer(Trainer trainer);
 

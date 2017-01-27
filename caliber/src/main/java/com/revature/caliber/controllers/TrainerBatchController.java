@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+/**
+ * The type Trainer batch controller.
+ */
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/trainer")
@@ -45,9 +48,15 @@ public class TrainerBatchController {
         return new ResponseEntity<>(new ApiGatewayImpl().getBatchByTrainerId(id), HttpStatus.OK);
     }
 
-	public ResponseEntity<Batch> getBatch(int batchId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * Gets batch.
+     *
+     * @param batchId the batch id
+     * @return the batch
+     */
+    public ResponseEntity<Batch> getBatch(int batchId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
