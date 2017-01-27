@@ -231,30 +231,18 @@ public class Trainer {
         this.salesforceRefreshToken = salesforceRefreshToken;
     }
 
-    /**
-     * Instantiates a new Trainer.
-     *
-     * @param trainerId                     the trainer id
-     * @param name                          the name
-     * @param title                         the title
-     * @param email                         the email
-     * @param salesforceAccount             the salesforce account
-     * @param salesforceAuthenticationToken the salesforce authentication token
-     * @param salesforceRefreshToken        the salesforce refresh token
-     * @param tier                          the tier
-     */
-    public Trainer(int trainerId, String name, String title, String email, String salesforceAccount,
-                   String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
-        super();
-        this.trainerId = trainerId;
-        this.name = name;
-        this.title = title;
-        this.email = email;
-        this.salesforceAccount = salesforceAccount;
-        this.salesforceAuthenticationToken = salesforceAuthenticationToken;
-        this.salesforceRefreshToken = salesforceRefreshToken;
-        this.tier = tier;
-    }
-
-
+	@Override
+	public String toString() {
+		return "Trainer{" +
+				"trainerId=" + trainerId +
+				", name='" + name + '\'' +
+				", title='" + title + '\'' +
+				", email='" + email + '\'' +
+				", salesforceAccount='" + salesforceAccount + '\'' +
+				", salesforceAuthenticationToken='" + salesforceAuthenticationToken + '\'' +
+				", salesforceRefreshToken='" + salesforceRefreshToken + '\'' +
+				", tier=" + tier +
+				", batches=" + batches +
+				'}';
+	}
 }

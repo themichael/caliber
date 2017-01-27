@@ -1,6 +1,8 @@
 package com.revature.caliber.gateway.services.impl;
 
 import com.revature.caliber.beans.Batch;
+import java.io.Serializable;
+
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
@@ -9,7 +11,6 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -106,18 +107,17 @@ public class TrainingServiceImpl implements TrainingService{
 
 	//	LOUIS START HERE
 	@Override
+
 	public List<Batch> currentBatch(Trainer trainer) {
 		RestTemplate service = new RestTemplate();
-		// Build Service URL
 		final String URI =
-				UriComponentsBuilder.fromHttpUrl(hostname + portNumber
-						+ allCurrentBatchByTrainer).path(String.valueOf(trainer.getTraineeId()))
+				UriComponentsBuilder.fromHttpUrl("http://localhost:8080")
+						//TODO get actually trainers id do not hard code
+						.path(allCurrentBatchByTrainer).path(String.valueOf("1"))
 						.build().toUriString();
 		// Invoke the service
 		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Trainer not found.");
-		} else if (response.getStatusCode() == HttpStatus.OK) {
+		if (response.getStatusCode() == HttpStatus.OK) {
 			return Arrays.asList(response.getBody());
 		} else {
 			// Includes 404 and other responses. Give back no data.
@@ -128,20 +128,54 @@ public class TrainingServiceImpl implements TrainingService{
 	@Override
 	public Batch getBatch(Integer id) {
 		RestTemplate service = new RestTemplate();
-		String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(batchById).path(String.valueOf(id)).build().toUriString();
+		String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").path(batchById).
+				path(String.valueOf(id)).build().toUriString();
 		ResponseEntity<Batch> response = service.getForEntity(URI, Batch.class);
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Batch not found");
-		} else return response.getBody();
+
+		if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+			throw new RuntimeException("No batch found");
+		} else if (response.getStatusCode() == HttpStatus.OK)
+			return response.getBody();
+
+		return null;
 	}
 
 	@Override
 	public void updateBatch(Batch batch) {
+		RestTemplate service = new RestTemplate();
+		String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").
+				path(updateBatch).build().toUriString();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<Batch> entity = new HttpEntity<>(batch, headers);
+
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST,
+				entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Batch could not be updated");
+		}
 
 	}
 
 	@Override
 	public void deleteBatch(Batch batch) {
+
+		RestTemplate service = new RestTemplate();
+		String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").
+				path(deleteBatch).build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity entity = new HttpEntity<>(batch, headers);
+
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE,
+				entity, Serializable.class);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
+			System.err.println("Batch was deleted");
+		}
 
 	}
 
@@ -350,9 +384,9 @@ public class TrainingServiceImpl implements TrainingService{
 	}
 
 	//End of Trainer ----------------------------------------------------------------------------
-	
-	
-	
+
+
+
 	/////////// SETTERS ////////////////
 	public void setHostname(String hostname) {
 		this.hostname = hostname;
@@ -389,4 +423,3 @@ public class TrainingServiceImpl implements TrainingService{
 	public void setGetTrainerByEmailPath(String getTrainerByEmailPath) {this.getTrainerByEmailPath = getTrainerByEmailPath;}
 	//End of Trainer
 }
-
