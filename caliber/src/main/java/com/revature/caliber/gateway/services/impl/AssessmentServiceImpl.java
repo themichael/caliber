@@ -43,6 +43,9 @@ public class AssessmentServiceImpl implements AssessmentService {
     				updateTrainerNotePath,
     				createTrainerNotePath;
     
+    //paths for QC Note
+    private String createQCNotePath;
+    
     //paths for assessments
     private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
     
@@ -109,7 +112,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		ResponseEntity<Grade[]> response = service.getForEntity(URI, Grade[].class);
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new TrainingServiceTraineeOperationException("Failed to retrieve trainees by batch.");
+			throw new TrainingServiceTraineeOperationException("Failed to retrieve grades from the assessment.");
 		}
 		else if (response.getStatusCode() == HttpStatus.OK) {
 			return Arrays.asList(response.getBody());
@@ -186,8 +189,20 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 	@Override
 	public void createQCNote(QCNote note) {
-		// TODO Auto-generated method stub
-		
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(createQCNotePath)
+				.build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<QCNote> entity = new HttpEntity<>(note, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new TrainingServiceTraineeOperationException("QC Note could not be created");
+		}
 	}
 	@Override
 	public QCNote getQCNoteById(Integer qcNoteId) {
@@ -321,5 +336,10 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setUpdateTrainerNotePath(String updateTrainerNotePath){this.updateTrainerNotePath = updateTrainerNotePath;}
     public void setCreateTrainerNotePath(String createTrainerNotePath){this.createTrainerNotePath = createTrainerNotePath;}
     //end of TrainerNote
+    
+    //QCNote
+    public void setCreateQCNotePath(String createQCNotePath){this.createQCNotePath = createQCNotePath;}
+    
+    //end of QCNote
     
 }
