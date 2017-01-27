@@ -1,6 +1,5 @@
 package com.revature.caliber.training.beans;
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
@@ -8,17 +7,6 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-
-=======
-import java.util.Set;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import org.hibernate.validator.constraints.Email;
->>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
 
 /**
  * Bean for Trainer
