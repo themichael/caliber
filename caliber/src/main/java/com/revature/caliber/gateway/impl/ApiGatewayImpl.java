@@ -1,6 +1,5 @@
 package com.revature.caliber.gateway.impl;
 
-
 import com.revature.caliber.beans.*;
 
 import com.revature.caliber.beans.Assessment;
@@ -143,20 +142,14 @@ public class ApiGatewayImpl implements ApiGateway {
 	@Override
 	public void insertGrade(Grade grade) {
 		serviceLocator.getAssessmentService().insertGrade(grade);
-		
+
 	}
 
-	@Override
-	public void updateGrade(Grade grade) {
-		serviceLocator.getAssessmentService().updateGrade(grade);
-	}
-
-	
 	/***********************************Trainer Notes**********************************/
 	@Override
 	public void createTrainerNote(TrainerNote note) {
 		serviceLocator.getAssessmentService().createTrainerNote(note);
-		
+
 	}
 
 	@Override
@@ -167,28 +160,28 @@ public class ApiGatewayImpl implements ApiGateway {
 	@Override
 	public void deleteTrainerNote(TrainerNote note) {
 		serviceLocator.getAssessmentService().deleteTrainerNote(note);
-		
+
 	}
 
 	/****************************Batch Notes**********************************/
 	@Override
 	public void createBatchNote(BatchNote batchNote) {
 		serviceLocator.getAssessmentService().createBatchNote(batchNote);
-		
+
 	}
 
 	@Override
 	public void updateBatchNote(BatchNote batchNote) {
 		serviceLocator.getAssessmentService().updateBatchNote(batchNote);
-		
+
 	}
 
 	@Override
 	public void deleteBatchNote(BatchNote batchNote) {
 		serviceLocator.getAssessmentService().deleteBatchNote(batchNote);
-		
+
 	}
-	
+
 	/****************************Assessment**********************************/
 	@Override
 	public void insertAssessment(Assessment assessment) {
@@ -214,7 +207,7 @@ public class ApiGatewayImpl implements ApiGateway {
 	@Override
 	public void updateQCNote(QCNote note) {
 		serviceLocator.getAssessmentService().updateQCNote(note);
-		
+
 	}
 
     /**
@@ -386,6 +379,20 @@ public class ApiGatewayImpl implements ApiGateway {
 
         return grades;
 
+    }
+
+    public void createNewWeek(Week week) {
+
+    }
+
+    public Set<Grade> getAssessmentGradesById(int id) {
+        return null;
+    }
+
+    public void createGrade(Grade grade) {
+    }
+
+    public void updateGrade(Grade grade) {
     }
 
 
