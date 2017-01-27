@@ -127,82 +127,83 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
 
-	/**************************************Grade************************************/
-	@Override
-	public List<Grade> getGradesByAssessment(Integer assessmentId) {
-		return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
-	}
+    /**************************************Grade************************************/
+    @Override
+    public List<Grade> getGradesByAssessment(Integer assessmentId) {
+        return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
+    }
 
-	@Override
-	public void insertGrade(Grade grade) {
-		serviceLocator.getAssessmentService().insertGrade(grade);
+    @Override
+    public void insertGrade(Grade grade) {
+        serviceLocator.getAssessmentService().insertGrade(grade);
 
-	}
+    }
 
-	/***********************************Trainer Notes**********************************/
-	@Override
-	public void createTrainerNote(TrainerNote note) {
-		serviceLocator.getAssessmentService().createTrainerNote(note);
+    /***********************************Trainer Notes**********************************/
+    @Override
+    public void createTrainerNote(TrainerNote note) {
+        serviceLocator.getAssessmentService().createTrainerNote(note);
 
-	}
+    }
 
-	@Override
-	public void updateTrainerNote(TrainerNote note) {
-		serviceLocator.getAssessmentService().updateTrainerNote(note);
-	}
+    @Override
+    public void updateTrainerNote(TrainerNote note) {
+        serviceLocator.getAssessmentService().updateTrainerNote(note);
+    }
 
-	@Override
-	public void deleteTrainerNote(TrainerNote note) {
-		serviceLocator.getAssessmentService().deleteTrainerNote(note);
+    @Override
+    public void deleteTrainerNote(TrainerNote note) {
+        serviceLocator.getAssessmentService().deleteTrainerNote(note);
 
-	}
+    }
 
-	/****************************Batch Notes**********************************/
-	@Override
-	public void createBatchNote(BatchNote batchNote) {
-		serviceLocator.getAssessmentService().createBatchNote(batchNote);
+    /****************************Batch Notes**********************************/
+    @Override
+    public void createBatchNote(BatchNote batchNote) {
+        serviceLocator.getAssessmentService().createBatchNote(batchNote);
 
-	}
+    }
 
-	@Override
-	public void updateBatchNote(BatchNote batchNote) {
-		serviceLocator.getAssessmentService().updateBatchNote(batchNote);
+    @Override
+    public void updateBatchNote(BatchNote batchNote) {
+        serviceLocator.getAssessmentService().updateBatchNote(batchNote);
 
-	}
+    }
 
-	@Override
-	public void deleteBatchNote(BatchNote batchNote) {
-		serviceLocator.getAssessmentService().deleteBatchNote(batchNote);
+    @Override
+    public void deleteBatchNote(BatchNote batchNote) {
+        serviceLocator.getAssessmentService().deleteBatchNote(batchNote);
 
-	}
+    }
 
-	/****************************Assessment**********************************/
-	@Override
-	public void insertAssessment(Assessment assessment) {
-		serviceLocator.getAssessmentService().insertAssessment(assessment);
-	}
+    /****************************Assessment**********************************/
+    @Override
+    public void insertAssessment(Assessment assessment) {
+        serviceLocator.getAssessmentService().insertAssessment(assessment);
+    }
 
-	@Override
-	public void updateAssessment(Assessment assessment) {
-		serviceLocator.getAssessmentService().updateAssessment(assessment);
-	}
+    @Override
+    public void updateAssessment(Assessment assessment) {
+        serviceLocator.getAssessmentService().updateAssessment(assessment);
+    }
 
-	@Override
-	public void deleteAssessment(Assessment assessment) {
-		serviceLocator.getAssessmentService().deleteAssessment(assessment);
-	}
+    @Override
+    public void deleteAssessment(Assessment assessment) {
+        serviceLocator.getAssessmentService().deleteAssessment(assessment);
+    }
 
-	/****************************QCNote**********************************/
-	@Override
-	public void createQCNote(QCNote note) {
-		serviceLocator.getAssessmentService().createQCNote(note);
-	}
+    /****************************QCNote**********************************/
+    @Override
+    public void createQCNote(QCNote note) {
+        serviceLocator.getAssessmentService().createQCNote(note);
+    }
 
-	@Override
-	public void updateQCNote(QCNote note) {
-		serviceLocator.getAssessmentService().updateQCNote(note);
+    @Override
+    public void updateQCNote(QCNote note) {
+        serviceLocator.getAssessmentService().updateQCNote(note);
 
-	}
+    }
+
     /**
      * Gets batch from current batches by id.
      *
@@ -315,14 +316,30 @@ public class ApiGatewayImpl implements ApiGateway {
         return null;
     }
 
+    /**
+     * Create new week.
+     *
+     * @param week the week
+     */
     public void createNewWeek(Week week) {
 
     }
 
+    /**
+     * Gets assessment grades by id.
+     *
+     * @param id the id
+     * @return the assessment grades by id
+     */
     public Set<Grade> getAssessmentGradesById(int id) {
         return null;
     }
 
+    /**
+     * Create grade.
+     *
+     * @param grade the grade
+     */
     public void createGrade(Grade grade) {
     }
 
@@ -330,4 +347,19 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
 
+    /**
+     * Create assessment.
+     *
+     * @param assessment the assessment
+     */
+    public void createAssessment(Assessment assessment) {
+    }
+
+    public Set<Assessment> getAllAssessments() {
+        return null;
+    }
+
+    public void updateAssessmentNote(Note note) {
+
+    }
 }
