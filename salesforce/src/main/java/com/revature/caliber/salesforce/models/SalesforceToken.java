@@ -6,60 +6,60 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by Shehar on 1/19/2017.
  */
 public class SalesforceToken {
-    @JsonProperty
-    private String access_token;
+    @JsonProperty(value = "access_token")
+    private String accessToken;
 
-    @JsonProperty
-    private String refresh_token;
+    @JsonProperty(value = "refresh_token")
+    private String refreshToken;
 
-    @JsonProperty
+    @JsonProperty(value = "signature")
     private String signature;
 
-    @JsonProperty
+    @JsonProperty(value = "scope")
     private String scope;
 
-    @JsonProperty
-    private String id_token;
+    @JsonProperty(value = "id_token")
+    private String idToken;
 
-    @JsonProperty
-    private String instance_url;
+    @JsonProperty(value = "instance_url")
+    private String instanceUrl;
 
-    @JsonProperty
+    @JsonProperty(value = "id")
     private String id;
 
-    @JsonProperty
-    private String token_type;
+    @JsonProperty(value = "token_type")
+    private String tokenType;
 
-    @JsonProperty
-    private String issued_at;
+    @JsonProperty(value = "issued_at")
+    private String issuedAt;
 
 
     public SalesforceToken() {}
 
-    public SalesforceToken(String access_token, String signature, String scope, String instance_url, String id, String token_type, String issued_at) {
-        this.access_token = access_token;
+    public SalesforceToken(String accessToken, String signature, String scope, String instance_url, String id, String tokenType, String issuedAt) {
+        this.accessToken = accessToken;
         this.signature = signature;
         this.scope = scope;
-        this.instance_url = instance_url;
+        this.instanceUrl = instance_url;
         this.id = id;
-        this.token_type = token_type;
-        this.issued_at = issued_at;
+        this.tokenType = tokenType;
+        this.issuedAt = issuedAt;
     }
 
-    public String getAccess_token() {
-        return access_token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setAccess_token(String access_token) {
-        this.access_token = access_token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public String getRefresh_token() {
-        return refresh_token;
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
-    public void setRefresh_token(String refresh_token) {
-        this.refresh_token = refresh_token;
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
     public String getSignature() {
@@ -78,20 +78,20 @@ public class SalesforceToken {
         this.scope = scope;
     }
 
-    public String getId_token() {
-        return id_token;
+    public String getIdToken() {
+        return idToken;
     }
 
-    public void setId_token(String id_token) {
-        this.id_token = id_token;
+    public void setIdToken(String idToken) {
+        this.idToken = idToken;
     }
 
-    public String getInstance_url() {
-        return instance_url;
+    public String getInstanceUrl() {
+        return instanceUrl;
     }
 
-    public void setInstance_url(String instance_url) {
-        this.instance_url = instance_url;
+    public void setInstanceUrl(String instanceUrl) {
+        this.instanceUrl = instanceUrl;
     }
 
     public String getId() {
@@ -102,33 +102,34 @@ public class SalesforceToken {
         this.id = id;
     }
 
-    public String getToken_type() {
-        return token_type;
+    public String getTokenType() {
+        return tokenType;
     }
 
-    public void setToken_type(String token_type) {
-        this.token_type = token_type;
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
     }
 
-    public String getIssued_at() {
-        return issued_at;
+    public String getIssuedAt() {
+        return issuedAt;
     }
 
-    public void setIssued_at(String issued_at) {
-        this.issued_at = issued_at;
+    public void setIssuedAt(String issuedAt) {
+        this.issuedAt = issuedAt;
     }
 
     @Override
     public String toString() {
         return "SalesforceToken{" +
-                "access_token='" + access_token + '\'' +
-                ", refresh_token='" + refresh_token + '\'' +
+                "accessToken='" + accessToken + '\'' +
+                ", refreshToken='" + refreshToken + '\'' +
                 ", signature='" + signature + '\'' +
                 ", scope='" + scope + '\'' +
-                ", instance_url='" + instance_url + '\'' +
+                ", idToken='" + idToken + '\'' +
+                ", instanceUrl='" + instanceUrl + '\'' +
                 ", id='" + id + '\'' +
-                ", token_type='" + token_type + '\'' +
-                ", issued_at='" + issued_at + '\'' +
+                ", tokenType='" + tokenType + '\'' +
+                ", issuedAt='" + issuedAt + '\'' +
                 '}';
     }
 }

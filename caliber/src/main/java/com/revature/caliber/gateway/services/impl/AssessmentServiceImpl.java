@@ -1,31 +1,17 @@
 package com.revature.caliber.gateway.services.impl;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.QCNote;
-
-import com.revature.caliber.beans.TrainerNote;
+import com.revature.caliber.beans.*;
 import com.revature.caliber.beans.exceptions.AssessmentServiceAssessmentOperationException;
 import com.revature.caliber.beans.exceptions.AssessmentServiceOperationException;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
 import com.revature.caliber.gateway.services.AssessmentService;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.io.Serializable;
+import java.util.*;
+
 
 public class AssessmentServiceImpl implements AssessmentService {
 	
@@ -357,6 +343,49 @@ public class AssessmentServiceImpl implements AssessmentService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public List<Grade> getGradesByTraineeId(int id) {
+		RestTemplate rest = new RestTemplate();
+		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response =
+				rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+ id,
+						com.revature.caliber.assessment.beans.Grade[].class);
+
+		com.revature.caliber.assessment.beans.Grade[] grades = response.getBody();
+
+		List<Grade> newGrades = new ArrayList<>();
+
+		for (com.revature.caliber.assessment.beans.Grade someGrade : grades) {
+			Grade someNewGrade  = new Grade();
+
+			com.revature.caliber.assessment.beans.Assessment someAssessment = someGrade.getAssessment();
+			Assessment someNewAssessment = new Assessment();
+			someNewAssessment.setAssessmentId(someAssessment.getAssessmentId());
+
+			Set<Category> someNewCategories = new HashSet<>();
+			Set<com.revature.caliber.assessment.beans.Category> someCategories = someAssessment.getCategories();
+			for (com.revature.caliber.assessment.beans.Category category : someCategories) {
+				Category newCategory = new Category();
+				newCategory.setCategoryId(category.getCategoryId());
+				newCategory.setSkillCategory(category.getSkillCategory());
+				someNewCategories.add(newCategory);
+			}
+			someNewAssessment.setCategories(someNewCategories);
+
+			someNewGrade.setScore(someGrade.getScore());
+			someNewGrade.setAssessment(someNewAssessment);
+			someNewGrade.setGradeId(someGrade.getGradeId());
+
+
+			newGrades.add(someNewGrade);
+		}
+		//ResponseEntity<Grade[]> response =
+				//rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+id, Grade[].class); //TODO change ip to get from config file
+		return newGrades;
+	}
+
+
 
 
     /**

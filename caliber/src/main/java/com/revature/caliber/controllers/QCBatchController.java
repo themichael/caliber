@@ -15,7 +15,7 @@ import java.util.Set;
  * The type Qc batch controller.
  */
 @RestController
-@RequestMapping("/qc")
+//@RequestMapping("/qc")
 public class QCBatchController {
     /**
      * Gets all batches.
