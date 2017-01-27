@@ -1,6 +1,7 @@
 package com.revature.caliber.controllers;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Week;
 import com.revature.caliber.gateway.impl.ApiGatewayImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -59,4 +60,16 @@ public class TrainerBatchController {
         return null;
     }
 
+    /**
+     * Create new week response entity.
+     *
+     * @param week the week
+     * @return the response entity
+     */
+    @RequestMapping(value = "/week/new", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createNewWeek(@PathVariable Week week) {
+        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
+        apiGateway.createNewWeek(week);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
