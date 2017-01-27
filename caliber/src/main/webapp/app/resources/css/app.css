@@ -1,6 +1,5 @@
 /************************
 	Revature Fonts
-************************/
 
 @font-face {
   font-family: 'Futura-Std-Medium';
@@ -22,6 +21,7 @@
   src: url('Futura-Std-Bold.otf')  format('opentype');
 }
 
+************************/
 
 /************************
 	Revature Colors
@@ -71,6 +71,7 @@
 .glyphicon { top: 0px; }
 .glyphicon-plus { padding-left: .5em; }
 .glyphicon-user { padding-left: .5em; }
+.glyph-top-margin { padding-top: 2em; }
 
 /************************
 	Margins

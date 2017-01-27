@@ -3,6 +3,9 @@ angular.module("trainer").controller(
     function ($scope, $log) {
         $log.debug("Booted trainer manage controller.");
 
+        /**
+         * Add & View Batches
+         */
         $scope.batches=[{batchId: 1, trainingName: 'Batch123', trainingType: 'CUNY', skillType: 'Java', location: 'Queens, NY',
                 trainer: 'Patrick', coTrainer: '', startDate: new Date(), endDate: new Date()},
             {batchId: 2, trainingName: 'Batch456', trainingType: 'Corporate', skillType: 'Java', location: 'Reston, VA',
@@ -41,6 +44,8 @@ angular.module("trainer").controller(
         $scope.endDate={
             model: null
         };
+
+        /* Save Batch */
         $scope.addNewBatch = function( ){
             $scope.batches.push({trainingName: $scope.trainingName.model,
                                 trainingType: $scope.trainingType.model,
@@ -50,5 +55,38 @@ angular.module("trainer").controller(
                                 coTrainer: $scope.coTrainer.model,
                                 startDate: $scope.startDate.model,
                                 endDate: $scope.endDate.model})
-            };
+        };
+
+        /**
+         *  View/ Add Trainees in a Batch
+         */
+        $scope.trainees=[{traineeName: 'John Smith', email: 'jsmith@gmail.com'},
+                        {traineeName: 'Jane Doe', email: 'jdoe@yahoo.com'}
+        ];
+        $scope.traineeName ={
+            model: null
+        };
+        $scope.email ={
+            model: null
+        };
+
+        /* Save Trainee */
+        $scope.addNewTrainee = function( ){
+            $scope.batches.push({traineeName: $scope.traineeName.model,
+                                email: $scope.email.model})
+        };
+
+        /* Add Or Remove New Trainee Form */
+        $scope.receivers=[{value:"Test"}];
+        $scope.addTrainee = function(receiver) {
+            $scope.receivers.push({value:"Test1"});
+        }
+        $scope.deleteTrainee = function(receiver) {
+            for(var i=0; i<$scope.receivers.length; i++) {
+                if($scope.receivers[i] === receiver) {
+                    $scope.receivers.splice(i, 1);
+                    break;
+                }
+            }
+        }
     });
