@@ -357,25 +357,40 @@ public class TrainingServiceImpl implements TrainingService {
     //End of Trainer ----------------------------------------------------------------------------
 
 
-    /**
-     * Sets hostname.
-     *
-     * @param hostname the hostname
-     */
-/////////// SETTERS ////////////////
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
-    }
+	/////////// SETTERS ////////////////
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
+	public void setPortNumber(String portNumber) {
+		this.portNumber = portNumber;
+	}
 
-    /**
-     * Sets port number.
-     *
-     * @param portNumber the port number
-     */
-    public void setPortNumber(String portNumber) {
-        this.portNumber = portNumber;
-    }
+	//Batch
+	public void setNewBatch(String newBatch) {this.newBatch = newBatch;}
+	public void setAllBatch(String allBatch) {this.allBatch = allBatch;}
+	public void setAllBatchesForTrainer(String allBatchesForTrainer) {this.allBatchesForTrainer = allBatchesForTrainer;}
+	public void setAllCurrentBatch(String allCurrentBatch) {this.allCurrentBatch = allCurrentBatch;}
+	public void setAllCurrentBatchByTrainer(String allCurrentBatchByTrainer) {this.allCurrentBatchByTrainer = allCurrentBatchByTrainer;}
+	public void setBatchById(String batchById) {this.batchById = batchById;}
+	public void setUpdateBatch(String updateBatch) {this.updateBatch = updateBatch;}
+	public void setDeleteBatch(String deleteBatch) {this.deleteBatch = deleteBatch;}
+	//end of batch
 
-    //End of Trainer ----------------------------------------------------------------------------
+	//Trainee
+	public void setAddTraineePath(String addTraineePath) { this.addTraineePath = addTraineePath; }
+	public void setUpdateTraineePath(String updateTraineePath) { this.updateTraineePath = updateTraineePath; }
+	public void setDeleteTraineePath(String deleteTraineePath) { this.deleteTraineePath = deleteTraineePath; }
+	public void setGetTraineeByIdPath(String getTraineeByIdPath) { this.getTraineeByIdPath = getTraineeByIdPath; }
+	public void setGetTraineeByNamePath(String getTraineeByNamePath) { this.getTraineeByNamePath = getTraineeByNamePath; }
+	public void setGetTraineesByBatchPath(String getTraineesByBatchPath) { this.getTraineesByBatchPath = getTraineesByBatchPath; }
+	//end of Trainee
+
+	//Trainer
+	public void setAddTrainerPath(String addTrainerPath) {this.addTrainerPath = addTrainerPath;}
+	public void setUpdateTrainerPath(String updateTrainerPath) {this.updateTrainerPath = updateTrainerPath;}
+	public void setGetAllTrainersPath(String getAllTrainersPath) {this.getAllTrainersPath = getAllTrainersPath;}
+	public void setGetTrainerByIdPath(String getTrainerByIdPath) {this.getTrainerByIdPath = getTrainerByIdPath;}
+	public void setGetTrainerByEmailPath(String getTrainerByEmailPath) {this.getTrainerByEmailPath = getTrainerByEmailPath;}
+	//End of Trainer
 
 }
