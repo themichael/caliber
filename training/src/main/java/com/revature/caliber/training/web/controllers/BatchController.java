@@ -169,7 +169,7 @@ public class BatchController {
 	@RequestMapping(value = "batch/update", method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public HttpEntity<Batch> updateBatch(@RequestBody @Valid Batch batch) {
+	public ResponseEntity<Batch> updateBatch(@RequestBody @Valid Batch batch) {
 		ResponseEntity<Batch> returnEntity;
 		try {
 			businessDelegate.updateBatch(batch);
