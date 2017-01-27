@@ -106,7 +106,24 @@ angular.module("trainer").controller(
                 $scope.radarLabels = radarChartObject.labels;
                 $scope.radarSeries = radarChartObject.series;
                 $scope.radarOptions = radarChartObject.options;
-			}
+
+                // batch week by week sample data
+                var sample3 = [{week: "Week 1", average: ranNum()}, {week: "Week 2", average: ranNum()},
+                    {week: "Week 3", average: ranNum()}, {week: "Week 4", average: ranNum()},
+                    {week: "Week 5", average: ranNum()}, {week: "Week 6", average: ranNum()},
+                    {week: "Week 7", average: ranNum()}, {week: "Week 8", average: ranNum()},
+                    {week: "Week 9", average: ranNum()}, {week: "Week 10", average: ranNum()},
+                    {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
+
+                // create batch progress charts
+                var lineChartObject = lineChartFactory.getBatchProgressChart(sample3);
+                $scope.batchProgressLabels = lineChartObject.labels;
+                $scope.batchProgressData = lineChartObject.data;
+                $scope.batchProgressSeries = lineChartObject.series;
+                $scope.batchProgressOptions = lineChartObject.options;
+                $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
+
+            }
 
 			// create charts on tech selection
 			function createTechCharts(){

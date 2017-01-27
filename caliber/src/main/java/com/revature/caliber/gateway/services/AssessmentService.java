@@ -37,7 +37,7 @@ public interface AssessmentService {
 	 * Returns a list of grades of a specific assessment based on assessmentId
 	 * as an input
 	 *
-	 * @param assessmentId
+	 * @param assessmentId - The id of the assessment
 	 */
 	List<Grade> getGradesByAssessment(Integer assessmentId);
 
@@ -111,7 +111,7 @@ public interface AssessmentService {
 
 	void deleteTrainerNote(TrainerNote note);
 
-	
+
 	/**
 	 * Returns Set of all Categories
 	 * 
@@ -119,5 +119,4 @@ public interface AssessmentService {
 	 */
 	Set<Category> getAllCategories();
 
-	
 }

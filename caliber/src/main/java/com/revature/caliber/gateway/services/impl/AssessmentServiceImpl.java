@@ -294,11 +294,21 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 	
 
-    /////////// SETTERS ////////////////
+    /**
+     * Sets hostname.
+     *
+     * @param hostname the hostname
+     */
+/////////// SETTERS ////////////////
     public void setHostname(String hostname) {
         this.hostname = hostname;
     }
 
+    /**
+     * Sets port number.
+     *
+     * @param portNumber the port number
+     */
     public void setPortNumber(String portNumber) {
         this.portNumber = portNumber;
     }
