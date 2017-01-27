@@ -39,7 +39,7 @@ public class TrainingServiceImpl implements TrainingService{
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<Batch> entity = new HttpEntity<>(batch, headers);
 
-		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new RuntimeException("Batch could not be created");
 		}
