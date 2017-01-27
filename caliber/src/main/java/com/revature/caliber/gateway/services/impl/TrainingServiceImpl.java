@@ -130,7 +130,8 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public Batch getBatch(Integer id) {
         RestTemplate service = new RestTemplate();
-        String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").path(batchById).
+        String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").
+                path(batchById).
                 path(String.valueOf(id)).build().toUriString();
         ResponseEntity<Batch> response = service.getForEntity(URI, Batch.class);
 

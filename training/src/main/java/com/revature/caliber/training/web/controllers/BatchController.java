@@ -176,10 +176,9 @@ public class BatchController {
      */
     @RequestMapping(value = "batch/update",
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Batch> updateBatch(@RequestBody Batch batch) {
-        ResponseEntity<Batch> returnEntity;
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Serializable> updateBatch(@RequestBody Batch batch) {
+        ResponseEntity<Serializable> returnEntity;
         try {
             businessDelegate.updateBatch(batch);
             returnEntity = new ResponseEntity(HttpStatus.OK);
@@ -187,7 +186,7 @@ public class BatchController {
             returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
             log.error("Runtime Exception.", e);
         }
-        return returnEntity;
+        return new ResponseEntity<Serializable>(HttpStatus.OK);
     }
 
     /**

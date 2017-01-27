@@ -1,16 +1,26 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Set;
 
 public class Trainer {
 
+	@JsonProperty
 	private int trainerId;
+	@JsonProperty
 	private String name;
+	@JsonProperty
 	private String title;
+	@JsonProperty
 	private String email;
+	@JsonProperty
 	private String salesforceAccount;
+	@JsonProperty
 	private String salesforceAuthenticationToken;
+	@JsonProperty
 	private String salesforceRefreshToken;
+	@JsonProperty
 	private Tier tier;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
