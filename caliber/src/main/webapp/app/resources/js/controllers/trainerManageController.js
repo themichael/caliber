@@ -72,7 +72,7 @@ angular.module("trainer").controller(
 
         /* Save Trainee */
         $scope.addNewTrainee = function( ){
-            $scope.batches.push({traineeName: $scope.traineeName.model,
+            $scope.trainees.push({traineeName: $scope.traineeName.model,
                                 email: $scope.email.model})
         };
 
