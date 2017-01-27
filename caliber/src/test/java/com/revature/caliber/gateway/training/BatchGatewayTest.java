@@ -25,6 +25,7 @@ public class BatchGatewayTest {
         trainingService = context.getBean(TrainingService.class);
     }
 
+    @Ignore
     @Test
     public void create(){
 

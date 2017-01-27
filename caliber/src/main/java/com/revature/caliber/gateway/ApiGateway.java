@@ -47,7 +47,7 @@ public interface ApiGateway {
     /**
      * Get all current Batches for a given Trainer
      *
-     * @param trainer
+     * @param trainer - The trainer for whom we are returning the current batch
      * @return A list of batches
      */
     List<Batch> currentBatch(Trainer trainer);
@@ -55,22 +55,22 @@ public interface ApiGateway {
     /**
      * Get a batch by ID
      *
-     * @param id
-     * @return
+     * @param id The id of the batch
+     * @return A batch that corresponds with the id provided
      */
     Batch getBatch(Integer id);
 
     /**
      * Update a Batch
      *
-     * @param batch
+     * @param batch The batch to be updated
      */
     void updateBatch(Batch batch);
 
     /**
      * Delete a Batch
      *
-     * @param batch
+     * @param batch The batch to be deleted
      */
     void deleteBatch(Batch batch);
 
@@ -135,7 +135,7 @@ public interface ApiGateway {
     /**
      * Gets a trainer by id
      *
-     * @param id: id of the trainer
+     * @param id : id of the trainer
      * @return Trainer object
      */
     Trainer getTrainer(Integer id);
@@ -143,7 +143,7 @@ public interface ApiGateway {
     /**
      * Gets a trainer by email
      *
-     * @param email: email of the trainer
+     * @param email : email of the trainer
      * @return Trainer object
      */
     Trainer getTrainer(String email);
@@ -158,9 +158,11 @@ public interface ApiGateway {
     /**
      * Updates a trainer
      *
-     * @param trainer: the trainer object to update
+     * @param trainer : the trainer object to update
      */
     void updateTrainer(Trainer trainer);
+
+
 
     //End of Trainer Service
 }

@@ -31,7 +31,6 @@ public class QCStatusDAOImpl implements QCStatusDAO {
     @SuppressWarnings("unchecked")
     @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public Set<QCStatus> getAllStatus() {
-    	System.out.println("in DAO");
         return new HashSet<>(sessionFactory.getCurrentSession()
                 .createQuery("from com.revature.caliber.assessments.beans.QCStatus").list());
     }

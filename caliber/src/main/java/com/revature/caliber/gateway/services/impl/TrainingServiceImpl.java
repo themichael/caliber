@@ -1,7 +1,5 @@
 package com.revature.caliber.gateway.services.impl;
 
-import java.io.Serializable;
-
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
@@ -11,6 +9,7 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -105,7 +104,7 @@ public class TrainingServiceImpl implements TrainingService{
 		}
 	}
 
-//	LOUIS START HERE
+	//	LOUIS START HERE
 	@Override
 	public List<Batch> currentBatch(Trainer trainer) {
 		RestTemplate service = new RestTemplate();
@@ -115,12 +114,12 @@ public class TrainingServiceImpl implements TrainingService{
 						+ allCurrentBatchByTrainer).path(String.valueOf(trainer.getTraineeId()))
 						.build().toUriString();
 		// Invoke the service
-		ResponseEntity<Batch[]> response = service.getForEntity(URI,Batch[].class);
-		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
+		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new RuntimeException("Trainer not found.");
-		}else if(response.getStatusCode() == HttpStatus.OK){
+		} else if (response.getStatusCode() == HttpStatus.OK) {
 			return Arrays.asList(response.getBody());
-		}else {
+		} else {
 			// Includes 404 and other responses. Give back no data.
 			return new ArrayList<>();
 		}
@@ -130,10 +129,10 @@ public class TrainingServiceImpl implements TrainingService{
 	public Batch getBatch(Integer id) {
 		RestTemplate service = new RestTemplate();
 		String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(batchById).path(String.valueOf(id)).build().toUriString();
-		ResponseEntity<Batch> response = service.getForEntity(URI,Batch.class);
-		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
+		ResponseEntity<Batch> response = service.getForEntity(URI, Batch.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new RuntimeException("Batch not found");
-		}else return response.getBody();
+		} else return response.getBody();
 	}
 
 	@Override
@@ -192,11 +191,9 @@ public class TrainingServiceImpl implements TrainingService{
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by id.");
-		}
-		else if (response.getStatusCode() == HttpStatus.OK) {
+		} else if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
@@ -215,11 +212,9 @@ public class TrainingServiceImpl implements TrainingService{
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by email.");
-		}
-		else if (response.getStatusCode() == HttpStatus.OK) {
+		} else if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
@@ -237,11 +232,9 @@ public class TrainingServiceImpl implements TrainingService{
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new TrainingServiceTraineeOperationException("Failed to retrieve trainees by batch.");
-		}
-		else if (response.getStatusCode() == HttpStatus.OK) {
+		} else if (response.getStatusCode() == HttpStatus.OK) {
 			return Arrays.asList(response.getBody());
-		}
-		else {
+		} else {
 			return new ArrayList<>();
 		}
 	}
@@ -291,17 +284,14 @@ public class TrainingServiceImpl implements TrainingService{
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByIdPath)
 				.path(id.toString())
 				.build().toUriString();
-
 		//Invoke the service
 		ResponseEntity<Trainer> response = service.getForEntity(URI, Trainer.class);
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new RuntimeException("Failed to retrieve the trainer by id.");
-		}
-		else if (response.getStatusCode() == HttpStatus.OK) {
+		} else if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
@@ -319,11 +309,9 @@ public class TrainingServiceImpl implements TrainingService{
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new RuntimeException("Failed to retrieve the trainer by email.");
-		}
-		else if (response.getStatusCode() == HttpStatus.OK) {
+		} else if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
@@ -340,11 +328,9 @@ public class TrainingServiceImpl implements TrainingService{
 
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new RuntimeException("Failed to retrieve all trainers.");
-		}
-		else if (response.getStatusCode() == HttpStatus.OK) {
+		} else if (response.getStatusCode() == HttpStatus.OK) {
 			return Arrays.asList(response.getBody());
-		}
-		else {
+		} else {
 			return new ArrayList<>();
 		}
 	}
@@ -362,7 +348,7 @@ public class TrainingServiceImpl implements TrainingService{
 			throw new RuntimeException("Trainer could not be updated");
 		}
 	}
-	
+
 	//End of Trainer ----------------------------------------------------------------------------
 	
 	
@@ -402,5 +388,5 @@ public class TrainingServiceImpl implements TrainingService{
 	public void setGetTrainerByIdPath(String getTrainerByIdPath) {this.getTrainerByIdPath = getTrainerByIdPath;}
 	public void setGetTrainerByEmailPath(String getTrainerByEmailPath) {this.getTrainerByEmailPath = getTrainerByEmailPath;}
 	//End of Trainer
-
 }
+
