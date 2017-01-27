@@ -1,8 +1,13 @@
 package com.revature.caliber.gateway.impl;
 
+import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.QCNote;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerNote;
 import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,6 +125,89 @@ public class ApiGatewayImpl implements ApiGateway {
         serviceLocator.getTrainingService().updateTrainer(trainer);
     }
 
+
+	/**************************************Grade************************************/
+	@Override
+	public List<Grade> getGradesByAssessment(Integer assessmentId) {
+		return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
+	}
+
+	@Override
+	public void insertGrade(Grade grade) {
+		serviceLocator.getAssessmentService().insertGrade(grade);
+		
+	}
+
+	@Override
+	public void updateGrade(Grade grade) {
+		serviceLocator.getAssessmentService().updateGrade(grade);
+	}
+
+	
+	/***********************************Trainer Notes**********************************/
+	@Override
+	public void createTrainerNote(TrainerNote note) {
+		serviceLocator.getAssessmentService().createTrainerNote(note);
+		
+	}
+
+	@Override
+	public void updateTrainerNote(TrainerNote note) {
+		serviceLocator.getAssessmentService().updateTrainerNote(note);
+	}
+
+	@Override
+	public void deleteTrainerNote(TrainerNote note) {
+		serviceLocator.getAssessmentService().deleteTrainerNote(note);
+		
+	}
+
+	/****************************Batch Notes**********************************/
+	@Override
+	public void createBatchNote(BatchNote batchNote) {
+		serviceLocator.getAssessmentService().createBatchNote(batchNote);
+		
+	}
+
+	@Override
+	public void updateBatchNote(BatchNote batchNote) {
+		serviceLocator.getAssessmentService().updateBatchNote(batchNote);
+		
+	}
+
+	@Override
+	public void deleteBatchNote(BatchNote batchNote) {
+		serviceLocator.getAssessmentService().deleteBatchNote(batchNote);
+		
+	}
+	
+	/****************************Assessment**********************************/
+	@Override
+	public void insertAssessment(Assessment assessment) {
+		serviceLocator.getAssessmentService().insertAssessment(assessment);
+	}
+
+	@Override
+	public void updateAssessment(Assessment assessment) {
+		serviceLocator.getAssessmentService().updateAssessment(assessment);
+	}
+
+	@Override
+	public void deleteAssessment(Assessment assessment) {
+		serviceLocator.getAssessmentService().deleteAssessment(assessment);
+	}
+
+	/****************************QCNote**********************************/
+	@Override
+	public void createQCNote(QCNote note) {
+		serviceLocator.getAssessmentService().createQCNote(note);
+	}
+
+	@Override
+	public void updateQCNote(QCNote note) {
+		serviceLocator.getAssessmentService().updateQCNote(note);
+		
+	}
     /**
      * Gets batch from current batches by id.
      *
@@ -231,4 +319,6 @@ public class ApiGatewayImpl implements ApiGateway {
         // TODO Auto-generated method stub
         return null;
     }
+
+
 }
