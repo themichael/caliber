@@ -108,12 +108,14 @@ public class TrainingServiceImpl implements TrainingService {
     public List<Batch> currentBatch(Integer id) {
         RestTemplate service = new RestTemplate();
         final String URI =
-                UriComponentsBuilder.fromHttpUrl("http://localhost:8080")
+                UriComponentsBuilder.fromHttpUrl(hostname + portNumber)
                         .path(allCurrentBatchByTrainer).path(String.valueOf(id))
                         .build().toUriString();
         // Invoke the service
         ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
-        if (response.getStatusCode() == HttpStatus.OK) {
+        if (response.getStatusCode() == HttpStatus.NOT_FOUND){
+            throw new RuntimeException("Could not find batch");
+        }else if(response.getStatusCode() == HttpStatus.OK) {
             return Arrays.asList(response.getBody());
         } else {
             // Includes 404 and other responses. Give back no data.
@@ -124,12 +126,12 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public Batch getBatch(Integer id) {
         RestTemplate service = new RestTemplate();
-        String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").path(batchById).
+        String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(batchById).
                 path(String.valueOf(id)).build().toUriString();
         // Invoke the service
         ResponseEntity<Batch> response = service.getForEntity(URI, Batch.class);
         if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-            throw new RuntimeException("No batch found");
+            throw new RuntimeException("Could not find batch");
         } else if (response.getStatusCode() == HttpStatus.OK)
             return response.getBody();
         return null;
@@ -138,7 +140,7 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public void updateBatch(Batch batch) {
         RestTemplate service = new RestTemplate();
-        String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").
+        String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).
                 path(updateBatch).build().toUriString();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -153,7 +155,7 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public void deleteBatch(Batch batch) {
         RestTemplate service = new RestTemplate();
-        String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").
+        String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).
                 path(deleteBatch).build().toUriString();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

@@ -223,4 +223,18 @@ public class Week {
 
     public Week() {
     }
+
+    @Override
+    public String toString() {
+        return "Week{" +
+                "weekId=" + weekId +
+                ", weekNumber=" + weekNumber +
+                ", batch=" + batch +
+                ", topics=" + topics +
+                ", assessments=" + assessments +
+                ", batchNotes=" + batchNotes +
+                ", qcNotes=" + qcNotes +
+                ", trainerNotes=" + trainerNotes +
+                '}';
+    }
 }
