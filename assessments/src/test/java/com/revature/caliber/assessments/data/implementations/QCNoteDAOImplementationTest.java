@@ -2,69 +2,76 @@ package com.revature.caliber.assessments.data.implementations;
 
 import com.revature.caliber.assessments.beans.QCNote;
 import com.revature.caliber.assessments.data.QCNoteDAO;
-import org.apache.log4j.Logger;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import java.util.Comparator;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 /**
- * Tests for QCNote DAO
+ * Tests for QCNote DAO.
+ * Uses regular sql to check the correctness of hibernate mappings and dao methods
+ * (I do not use hibernate to check hibernate)
+ * I tried to make tests as transient as possible
  */
 public class QCNoteDAOImplementationTest {
     private static ApplicationContext context;
     private static SessionFactory sf;
-    private static Logger logger;
+    private static final Logger logger = LoggerFactory.getLogger(QCNoteDAOImplementationTest.class);
 
-    private static int newQCNoteId, weekId = 2828, traineeId = 2828;
+    private static int newQCNoteId;
+    private static int weekId = 2828;
+    private static int traineeId = 2828;
 
-    @BeforeClass
-    public static void preClass () {
-        context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
+    /* Helper method so that I don't have to copy-paste code.
+     * It does not change any static values, it just finds free id for note in db
+     * and inserts a new note for it.
+     * Then it inserts new QCNote into db using SQL.
+     * Has to be used between
+     * Transaction tx = session.beginTransaction();
+     * and
+     * tx.commit();
+     * to guarantee that no record is inserted while searching
+    */
+    private static int findFreeNoteIdAndCreateQCNote(Session session, Integer weekId, Integer traineeId, String content) {
+        String sql;
+        int id;
 
+        sql = "SELECT NOTE_ID FROM CALIBER_NOTE";
 
-        //create transient SQL test data
-        sf = (SessionFactory) context.getBean("sessionFactory");
-        Session session = sf.openSession();
-        Transaction tx = session.beginTransaction();
+        Query q = session.createSQLQuery(sql);
 
-        Criteria criteria = session.createCriteria(QCNote.class);
+        List<BigDecimal> list = q.list();
+        list.sort(BigDecimal::compareTo);
 
-        List<QCNote> list = criteria.list();
+        id = 1;
 
-        list.sort(Comparator.comparingInt(QCNote::getNoteId));
-
-        //find empty id
-        int id = 1;
-        for (QCNote note : list) {
-            if (note.getNoteId() == id) { id++; }
+        for (BigDecimal objId : list) {
+            if (objId.intValue() == id) { id++; }
         }
-        newQCNoteId = id;
 
-        String sql = "";
         int resultNum = 0;
 
         sql = "INSERT INTO CALIBER_NOTE(NOTE_ID, NOTE_CONTENT, NOTE_SUGAR)" +
                 " VALUES (?, ?, ?)";
 
         Query noteq = session.createSQLQuery(sql);
-        noteq.setInteger(0, newQCNoteId);
-        noteq.setString(1, "content");
-        noteq.setString(2, "sugar");
+        noteq.setInteger(0, id);
+        noteq.setString(1, content);
+        noteq.setString(2, "sugar: " + content);
 
         resultNum = noteq.executeUpdate();
 
         if (resultNum != 1) {
-            tx.commit();
-            session.close();
             fail("Failed to create test Note");
         }
 
@@ -74,50 +81,81 @@ public class QCNoteDAOImplementationTest {
         Query qcnoteq = session.createSQLQuery(sql);
         qcnoteq.setInteger(0, traineeId);
         qcnoteq.setInteger(1, weekId);
-        qcnoteq.setInteger(2, newQCNoteId);
+        qcnoteq.setInteger(2, id);
 
         resultNum = qcnoteq.executeUpdate();
 
         if (resultNum != 1) {
-            tx.commit();
-            session.close();
             fail("Failed to create test QCNote");
         }
+
+        return id;
+    }
+
+    /*
+     * Another helper method to delete note by id.
+     * Returns the number of rows affected by the query
+     */
+    private static int deleteQCNoteById(Session session, Integer id) {
+        String sql;
+        Query q;
+        int rowsAffected = 0;
+
+        sql = "DELETE FROM CALIBER_QC_NOTE WHERE NOTE_ID = ?";
+        q = session.createSQLQuery(sql);
+        q.setInteger(0, id);
+        rowsAffected += q.executeUpdate();
+
+        sql = "DELETE FROM CALIBER_NOTE WHERE NOTE_ID = ?";
+        q = session.createSQLQuery(sql);
+        q.setInteger(0, id);
+        rowsAffected += q.executeUpdate();
+
+        return rowsAffected;
+    }
+
+
+
+    @BeforeClass
+    public static void preClass () {
+        context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
+
+        logger.info("\n--- QCNOTE DAO IMPLEMENTATION TEST START ---\n");
+        logger.info(" > Creating test db data (preClass)");
+
+        //create transient SQL test data
+        sf = (SessionFactory) context.getBean("sessionFactory");
+        Session session = sf.openSession();
+        Transaction tx = session.beginTransaction();
+
+        newQCNoteId = findFreeNoteIdAndCreateQCNote(session, weekId, traineeId, "test content");
 
         tx.commit();
         session.close();
 
-        logger = Logger.getRootLogger();
-        logger.debug("\n--- QCNOTE DAO IMPLEMENTATION TEST START ---\n");
+        logger.info("    .. created a note with id " + newQCNoteId);
     }
 
     @AfterClass
     public static void afterClass() {
+        logger.info(" > Deleting data created in preClass (afterClass)");
+
         Session session = sf.openSession();
         Transaction tx = session.beginTransaction();
 
-        String sql = "";
-        Query q;
-
-        sql = "DELETE FROM CALIBER_QC_NOTE WHERE NOTE_ID = ?";
-        q = session.createSQLQuery(sql);
-        q.setInteger(0, newQCNoteId);
-        q.executeUpdate();
-
-        sql = "DELETE FROM CALIBER_NOTE WHERE NOTE_ID = ?";
-        q = session.createSQLQuery(sql);
-        q.setInteger(0, newQCNoteId);
-        q.executeUpdate();
+        int rowsAffected = deleteQCNoteById(session, newQCNoteId);
 
         tx.commit();
         session.close();
 
-        logger.debug("\n--- QCNOTE DAO IMPLEMENTATION TEST END ---\n");
+        logger.info("    .. data successfully deleted, rows affected: " + rowsAffected);
+
+        logger.info("\n--- QCNOTE DAO IMPLEMENTATION TEST END ---\n");
     }
 
     @Test
     public void testCreate(){
-        logger.debug("   Create QCNote test.");
+        logger.info(" > Create QCNote test");
         QCNoteDAO dao = context.getBean(QCNoteDAO.class);
 
         QCNote note = new QCNote();
@@ -129,101 +167,140 @@ public class QCNoteDAOImplementationTest {
         dao.createQCNote(note);
 
         //Test if it was created
-        Session session = ((SessionFactory) context.getBean("sessionFactory")).openSession();
-        Criteria criteria = session.createCriteria(QCNote.class);
-        criteria.add(Restrictions.eq("content", "Some test content (QCNote DAO Test)"));
-        QCNote newnote = (QCNote) criteria.uniqueResult();
-        assertEquals(note.getNoteId(), newnote.getNoteId());
-        assertEquals(note.getContent(), newnote.getContent());
+        String sql;
+        Session session = sf.openSession();
+        sql = "SELECT NOTE_ID, NOTE_CONTENT FROM CALIBER_NOTE" +
+                " WHERE NOTE_CONTENT = ?";
+        Query q = session.createSQLQuery(sql);
+        q.setString(0, "Some test content (QCNote DAO Test)");
+        Object[] result = (Object[]) q.uniqueResult();
+        assertEquals(note.getNoteId(), ((BigDecimal) result[0]).intValue());
+        assertEquals(note.getContent(), result[1]);
 
+        logger.info("    .. note with content \"" + result[1] + "\" was successfully created");
+
+        logger.info("    .. cleanup process");
         //cleanup
         Transaction tx = session.beginTransaction();
-        session.delete(newnote);
+
+        int rowsDeleted = deleteQCNoteById(session, ((BigDecimal) result[0]).intValue());
+
         tx.commit();
+        logger.info("    .. cleanup completed, rows deleted: " + rowsDeleted);
         session.close();
 
-        logger.debug("      QCNote created");
+        logger.info("    -- test of creating QCNote completed.");
     }
 
     @Test
     public void testGetById() {
-
+        logger.info(" > Get QCNote by id test");
         QCNoteDAO dao = context.getBean(QCNoteDAO.class);
-
         QCNote note = dao.getQCNoteById(newQCNoteId);
-
         assertNotNull(note);
         assertEquals(newQCNoteId, note.getNoteId());
-
-        logger.debug("     got qc note with id: " + note.getNoteId() + ", and content: " + note.getContent());
+        logger.info("    .. got qc note with id: " + note.getNoteId() + ", and content: \"" + note.getContent() + "\"");
+        logger.info("    -- test of getting QCNote by id completed.");
     }
 
     @Test
     public void testGetByBothIds() {
-        logger.debug("   Get QCNote by both ids test.");
+        logger.info(" > Get QCNote by both ids (week, trainee) test");
         QCNoteDAO dao = context.getBean(QCNoteDAO.class);
-
         QCNote note = dao.getQCNoteForTraineeWeek(traineeId, weekId);
         assertNotNull(note);
         assertEquals(newQCNoteId, note.getNoteId());
-        logger.debug("     got note with id: " + note.getNoteId());
+        logger.info("    .. got note with id: " + note.getNoteId());
+        logger.info("    -- test of getting QCNote by week and trainee ids completed.");
     }
 
     @Test
     public void testGetByTrainee() {
-        logger.debug("   Get by trainee test.");
+        logger.info(" > Get QCNote by trainee test");
         QCNoteDAO dao = context.getBean(QCNoteDAO.class);
-
         List<QCNote> list = dao.getQCNotesByTrainee(traineeId);
         assertNotEquals(0, list.size());
-        logger.debug("     list size: " + list.size());
+        logger.info("    .. list size: " + list.size() + " (expected > 0)");
+        logger.info("    -- test of getting QCNote by trainee completed.");
     }
 
     @Test
     public void testGetByWeek() {
-        logger.debug("   Get by week test.");
+        logger.info(" > Get QCNote by week test");
         QCNoteDAO dao = context.getBean(QCNoteDAO.class);
         List<QCNote> list = dao.getQCNotesByWeek(weekId);
         assertNotEquals(0, list.size());
-        logger.debug("     list size: " + list.size());
+        logger.info("    .. list size: " + list.size() + " (expected > 0)");
+        logger.info("    -- test of getting QCNote by week completed");
     }
 
     @Test
     public void testUpdateNote() {
-        logger.debug("   Update note test.");
+        logger.info(" > Update QCNote test.");
+
+        //first, create a test note
+        int id, weekId = 6565, traineeId = 6565;
+        Session session = sf.openSession();
+        Transaction tx = session.beginTransaction();
+
+        id = findFreeNoteIdAndCreateQCNote(session, weekId, traineeId, "some content here (another test).");
+
+        tx.commit();
+
+        //Test itself
         QCNoteDAO dao = context.getBean(QCNoteDAO.class);
 
-        QCNote note = dao.getQCNoteById(newQCNoteId);
+        QCNote note = dao.getQCNoteById(id);
         assertNotNull(note);
         note.setTrainee(8282);
 
         dao.updateQCNote(note);
 
-        note = dao.getQCNoteById(newQCNoteId);
+        note = dao.getQCNoteById(id);
         assertNotNull(note);
         assertNotEquals(traineeId, note.getTrainee());
-        logger.debug("     successfully changed trainee id from " + traineeId + " to " + 8282);
-        traineeId = 8282; //NOT A BUG, THESE TESTS CAN'T RUN IN PARALLEL ANYWAY (EACH TEST LOCKS THE DB).
+        logger.info("    .. successfully changed trainee id from " + traineeId + " to " + note.getTrainee());
+
+        logger.info("    .. cleanup process");
+        tx = session.beginTransaction();
+
+        int rowsDeleted = deleteQCNoteById(session, id);
+
+        tx.commit();
+        logger.info("    .. cleanup completed, rows deleted: " + rowsDeleted);
+        session.close();
+
+        logger.info("    -- test of updating QCNote completed.");
     }
 
     @Test
     public void testDeleteNote() {
-        logger.debug("   Delete QCNote test.");
+        logger.info(" > Delete QCNote test.");
 
         //create a test note first
-        QCNote note = new QCNote();
-        note.setContent("Some test content 2(QCNote DAO Test)");
-        note.setSugarCoatedContent("Some sugar content");
-        note.setTrainee(2829);
-        note.setWeek(2829);
-
-        //then create that note
-        Session session = ((SessionFactory) context.getBean("sessionFactory")).openSession();
+        Session session = sf.openSession();
         Transaction tx = session.beginTransaction();
-        session.save(note);
+
+        int id = findFreeNoteIdAndCreateQCNote(session, 9797, 9797, "super content");
+
         tx.commit();
+        logger.info("    .. test note with id " + id + " was created");
 
+        //now get that note from db as an object
+        String sql = "SELECT CALIBER_NOTE.NOTE_ID, NOTE_CONTENT, NOTE_SUGAR, TRAINEE_ID, WEEK_ID FROM CALIBER_NOTE" +
+                " INNER JOIN CALIBER_QC_NOTE ON CALIBER_NOTE.NOTE_ID = CALIBER_QC_NOTE.NOTE_ID" +
+                " WHERE CALIBER_NOTE.NOTE_ID = ?";
+        Query q = session.createSQLQuery(sql);
+        q.setInteger(0, id);
+        Object[] result = (Object[]) q.uniqueResult();
+        QCNote note = new QCNote();
+        note.setNoteId(((BigDecimal)result[0]).intValue());
+        note.setContent((String)result[1]);
+        note.setSugarCoatedContent((String)result[2]);
+        note.setTrainee(((BigDecimal)result[3]).intValue());
+        note.setWeek(((BigDecimal)result[4]).intValue());
 
+        logger.info("    .. trying to delete the note");
         QCNoteDAO dao = context.getBean(QCNoteDAO.class);
 
         dao.deleteQCNote(note);
@@ -232,11 +309,19 @@ public class QCNoteDAOImplementationTest {
         Criteria criteria = session.createCriteria(QCNote.class);
         criteria.add(Restrictions.eq("content", "Some test content 2(QCNote DAO Test)"));
         note = (QCNote) criteria.uniqueResult();
+
+        //manual cleanup
+        if (note != null) {
+            logger.info("    .. test failed, note was note deleted, doing manual cleanup");
+            int rowsAffected = deleteQCNoteById(session, id);
+            logger.info("    .. manual cleanup completed, rows affected: " + rowsAffected);
+        }
+
         session.close();
+
         assertNull(note);
 
-        logger.debug("     note was successfully deleted.");
-
+        logger.info("    .. note was successfully deleted");
+        logger.info("    -- test of deleting a note completed.");
     }
-
 }

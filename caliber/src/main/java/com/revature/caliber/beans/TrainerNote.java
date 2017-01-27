@@ -1,35 +1,33 @@
 package com.revature.caliber.beans;
 
-public class TrainerNote extends Note{
+public class TrainerNote extends Note {
 
-	private Trainee trainee;
-	private Week week;
-	
-	public TrainerNote(String content, boolean sugarCoated) {
-		super(content, sugarCoated);
-	}
+    private Trainee trainee;
+    private Week week;
 
-	public Trainee getTrainee() {
-		return trainee;
-	}
+    public TrainerNote(String content, boolean sugarCoated) {
+        super(content, sugarCoated);
+    }
 
-	public void setTrainee(Trainee trainee) {
-		this.trainee = trainee;
-	}
+    public Trainee getTrainee() {
+        return trainee;
+    }
 
-	public Week getWeek() {
-		return week;
-	}
+    public void setTrainee(Trainee trainee) {
+        this.trainee = trainee;
+    }
 
-	public void setWeek(Week week) {
-		this.week = week;
-	}
+    public Week getWeek() {
+        return week;
+    }
 
-	public TrainerNote() {
-		super();
-	}
-	
-	
-	
-	
+    public void setWeek(Week week) {
+        this.week = week;
+    }
+
+    public TrainerNote() {
+        super();
+    }
+
+
 }
