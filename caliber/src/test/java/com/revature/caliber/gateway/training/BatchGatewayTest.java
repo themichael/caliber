@@ -32,7 +32,7 @@ public class BatchGatewayTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void getAll(){
         Trainer trainer = new Trainer();
         trainer.setTraineeId(1);
@@ -48,6 +48,7 @@ public class BatchGatewayTest {
     }
 
     @Test
+    @Ignore
     public void getById(){
         Batch batch = trainingService.getBatch(3);
         System.out.println(batch);

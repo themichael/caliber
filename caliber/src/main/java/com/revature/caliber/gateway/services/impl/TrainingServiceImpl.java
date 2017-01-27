@@ -385,8 +385,6 @@ public class TrainingServiceImpl implements TrainingService{
 
 	//End of Trainer ----------------------------------------------------------------------------
 
-
-
 	/////////// SETTERS ////////////////
 	public void setHostname(String hostname) {
 		this.hostname = hostname;
