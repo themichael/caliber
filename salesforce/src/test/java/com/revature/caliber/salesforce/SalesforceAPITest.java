@@ -8,8 +8,6 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Value;
-import sun.tools.java.Environment;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SalesforceAPITest {
     Map<String, String> environment = System.getenv();
-    private String CHROME_DRIVER_PATH = environment.get("CHROME_DRIVER_PATH") ;
+    private String CHROME_DRIVER_PATH = environment.get("CHROME_DRIVER_PATH");
     private static WebDriver driver;
     private SalesforceLoginPage loginPage;
 

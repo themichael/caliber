@@ -202,7 +202,7 @@
 						<url>http://localhost:80/manager/text</url>
 						<update>true</update>
 						<server>caliberbot</server>
-						<path>/salesforce</path>
+						<path>/</path>
 					</configuration>
 				</plugin>
 			</plugins>

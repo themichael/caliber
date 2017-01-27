@@ -19,7 +19,7 @@ public class SalesforceLoginPage {
     private WebDriver driver;
     public SalesforceLoginPage(WebDriver driver){
         this.driver = driver;
-        driver.get("http://localhost:8080/salesforce");
+        driver.get("http://localhost:8080/");
     }
 
     public void setUsername(String username) {

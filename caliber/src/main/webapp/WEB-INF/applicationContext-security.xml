@@ -9,8 +9,13 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     <security:http auto-config="true" use-expressions="true">
         <security:form-login login-page="/"/>
         <security:intercept-url pattern="/vp/**" access="hasRole('ROLE_VP')"/>
-        <security:intercept-url pattern="/qc/**" access="hasAnyRole('ROLE_VP','ROLE_QC')"/>
-        <security:intercept-url pattern="/trainer/**" access="hasAnyRole('ROLE_VP','ROLE_QC','ROLE_TRAINER')" />
+        <security:intercept-url pattern="/qc/**" access="hasRole('ROLE_QC')"/>
+        <security:intercept-url pattern="/trainer/**" access="hasRole('ROLE_TRAINER')" />
+        <security:intercept-url pattern="/all/**" access="isFullyAuthenticated()" />
+        <security:intercept-url pattern="/#/vp/**" access="hasRole('ROLE_VP')"/>
+        <security:intercept-url pattern="/#/qc/**" access="hasRole('ROLE_QC')"/>
+        <security:intercept-url pattern="/#/trainer/**" access="hasRole('ROLE_TRAINER')" />
+        <security:intercept-url pattern="/#/all/**" access="isFullyAuthenticated()" />
         <security:remember-me key="wow" />
 
         <!-- logout functionality: delete cookies and redirect. Use /j_spring_security_logout as route -->
