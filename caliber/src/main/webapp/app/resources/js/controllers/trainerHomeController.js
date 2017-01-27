@@ -48,7 +48,7 @@ angular.module("trainer").controller(
                 if (index === -1) {
                     $scope.currentTrainee = "Trainee";
                     $scope.currentTech = "Tech";
-                    viewCharts = 0;
+                    viewCharts = 1;
                 }else{
                     $scope.currentTrainee = "Trainee";
                     $scope.currentTech = $scope.tech[index];

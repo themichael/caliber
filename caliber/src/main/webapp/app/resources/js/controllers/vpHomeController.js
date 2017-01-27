@@ -7,11 +7,6 @@ angular.module("vp").controller(
 			$log.log("Get All Batches: ");
 			$log.log(delegateFactory.vp.getAllBatches());
 			$log.log("Get All Current Batches: ");
-			$log.log(delegateFactory.vp.getAllCurrentBatches());
-			$log.log("Get Batch With Id: ");
-			$log.log(delegateFactory.vp.getBatch(7));
-			$log.log("Get Current Batch with Id: ");
-			$log.log(delegateFactory.vp.getCurrentBatch(5));
 
 			/*********************************************** UI ***************************************************/
 			// decides what charts are to be shown
@@ -48,7 +43,7 @@ angular.module("vp").controller(
                 if (index === -1) {
                 	$scope.currentTrainee = "Trainee";
                 	$scope.currentTech = "Tech";
-                	viewCharts = 0;
+                	viewCharts = 1;
 				}else{
                     $scope.currentTrainee = "Trainee";
 					$scope.currentTech = $scope.tech[index];
