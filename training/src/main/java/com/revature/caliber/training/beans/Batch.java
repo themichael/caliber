@@ -1,6 +1,5 @@
 package com.revature.caliber.training.beans;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -20,12 +19,8 @@ public class Batch {
 	@Column(name = "TRAINING_NAME")
 	private String trainingName;
 
-<<<<<<< HEAD
 
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
-=======
 	@ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
->>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
 	@JsonManagedReference(value = "batchAndTrainer")
 	private Trainer trainer;
