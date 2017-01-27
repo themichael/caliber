@@ -22,12 +22,12 @@ public class Batch {
 
 	@ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
-	@JsonBackReference(value = "batchAndTrainer")
+	@JsonManagedReference(value = "batchAndTrainer")
 	private Trainer trainer;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "CO_TRAINER_ID")
-	@JsonBackReference(value = "batchAndCoTrainer")
+	@JsonManagedReference(value = "batchAndCoTrainer")
 	private Trainer coTrainer;
 
 	@Column(name = "SKILL_TYPE")

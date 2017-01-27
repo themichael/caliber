@@ -32,12 +32,12 @@ public class BatchGatewayTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void getAll(){
         Trainer trainer = new Trainer();
         trainer.setTraineeId(1);
         List<Batch> batches = trainingService.allBatch();
-        System.out.println(batches.get(1));
+        System.out.println(batches);
     }
 
     @Test
@@ -45,5 +45,11 @@ public class BatchGatewayTest {
     public void getBatches(){
         List<Batch> batches = trainingService.getBatches(1);
         System.out.println(batches);
+    }
+
+    @Test
+    public void getById(){
+        Batch batch = trainingService.getBatch(3);
+        System.out.println(batch);
     }
 }

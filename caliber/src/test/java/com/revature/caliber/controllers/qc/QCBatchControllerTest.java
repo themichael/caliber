@@ -39,7 +39,7 @@ public class QCBatchControllerTest {
 	 		assertNotNull(set);
 	 		assertEquals(100, set.size());
 	 	}
-	 	
+
 	 	/**
 	 	 * Tests qc batch controller method(getCurrentBatch)
 	 	 * - returns a current batch with the given id
@@ -54,4 +54,5 @@ public class QCBatchControllerTest {
 	 		assertNotNull(batch);
 	 		assertEquals(batchId, batch.getBatchId());
 	 	}
+
 }

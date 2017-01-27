@@ -49,7 +49,7 @@ public class TrainingServiceImpl implements TrainingService{
 	public List<Batch> allBatch() {
 		RestTemplate service = new RestTemplate();
 		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allBatch)
+		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(allBatch)
 						.build().toUriString();
 		// Invoke the service
 		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);

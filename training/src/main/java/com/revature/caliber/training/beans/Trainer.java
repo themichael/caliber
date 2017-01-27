@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import org.hibernate.validator.constraints.Email;
 
@@ -81,7 +80,7 @@ public class Trainer {
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@OneToMany(mappedBy="trainer", fetch=FetchType.EAGER)
-	@JsonManagedReference(value = "batchAndTrainer")
+	@JsonBackReference(value = "batchAndTrainer")
 	private Set<Batch> batches;
 
 	public int getTrainerId() {
