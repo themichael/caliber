@@ -1,188 +1,216 @@
 package com.revature.caliber.beans;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.util.Set;
 
 /**
- * This is the hibernate annotated bean that for the
- * CALIBER_ASSESSMENT table in the database
+ * The type Assessment.
  */
-@Entity
-@Table(name = "CALIBER_ASSESSMENT")
 public class Assessment {
 
-    /**
-     * This is the PK ID using a unique sequence generator
-     */
-    @Id
-    @Column(name = "ASSESSMENT_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ASSESSMENT_ID_SEQUENCE")
-    @SequenceGenerator(name = "ASSESSMENT_ID_SEQUENCE", sequenceName = "ASSESSMENT_ID_SEQUENCE")
     private long assessmentId;
-
-    /**
-     * Trainer inputted title,
-     * can be anything to help identify this assessment
-     */
-    @Column(name = "ASSESSMENT_TITLE", nullable = false)
     private String title;
-
-    /**
-     * Batch ID reference
-     */
-    @Column(name = "BATCH_ID", nullable = false)
-    private int batch;
-
-    /**
-     * Raw numerical score before calculations
-     */
-    @Column(name = "RAW_SCORE")
+    private Batch batch;
     private int rawScore;
-
-    /**
-     * Assessment type, e.g. LMS, Verbal
-     */
-    @Column(name = "ASSESSMENT_TYPE", nullable = false)
     private String type;
+    private Week week;
 
-    /**
-     * WeekID for reference
-     */
-    @Column(name = "WEEK_ID", nullable = false)
-    private long week;
-
-    /**
-     * QCStatus for a week, statuses can be
-     * good, ok, bad
-     * indicated with smiley, meh and frowny face
-     */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "WEEKLY_STATUS")
-    @JsonIgnore
+    // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
     private QCStatus weeklyStatus;
-
-    /**
-     * Set of Categories for Assessments (for Hibernate ORM)
-     */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "CALIBER_ASSESSMENT_CATEGORIES")
-    @JsonIgnore
     private Set<Category> categories;
 
-    public Assessment(long assessmentId,
-                      String title,
-                      int batch,
-                      int rawScore,
-                      String type,
-                      long week,
-                      Set<Category> categories) {
-        super();
-        this.assessmentId = assessmentId;
-        this.title = title;
-        this.batch = batch;
-        this.rawScore = rawScore;
-        this.type = type;
-        this.week = week;
-        this.categories = categories;
-    }
-
-    public Assessment() {
-        super();
-    }
-
-    public Assessment(String title,
-                      int batch,
-                      int rawScore,
-                      String type,
-                      long week,
-                      Set<Category> categories) {
-        super();
-        this.title = title;
-        this.batch = batch;
-        this.rawScore = rawScore;
-        this.type = type;
-        this.week = week;
-        this.categories = categories;
-    }
-
-    @Override
-    public String toString() {
-        return "Assessment{" +
-                "assessmentId=" + assessmentId +
-                ", title='" + title + '\'' +
-                ", batch=" + batch +
-                ", rawScore=" + rawScore +
-                ", type='" + type + '\'' +
-                ", week=" + week +
-                ", weeklyStatus=" + weeklyStatus.getStatus() +
-                ", categories=" + categories +
-                '}';
-    }
-
+    /**
+     * Gets assessment id.
+     *
+     * @return the assessment id
+     */
     public long getAssessmentId() {
         return assessmentId;
     }
 
+    /**
+     * Sets assessment id.
+     *
+     * @param assessmentId the assessment id
+     */
     public void setAssessmentId(long assessmentId) {
         this.assessmentId = assessmentId;
     }
 
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets title.
+     *
+     * @param title the title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public int getBatch() {
+    /**
+     * Gets batch.
+     *
+     * @return the batch
+     */
+    public Batch getBatch() {
         return batch;
     }
 
-    public void setBatch(int batch) {
+    /**
+     * Sets batch.
+     *
+     * @param batch the batch
+     */
+    public void setBatch(Batch batch) {
         this.batch = batch;
     }
 
+    /**
+     * Gets raw score.
+     *
+     * @return the raw score
+     */
     public int getRawScore() {
         return rawScore;
     }
 
+    /**
+     * Sets raw score.
+     *
+     * @param rawScore the raw score
+     */
     public void setRawScore(int rawScore) {
         this.rawScore = rawScore;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Sets type.
+     *
+     * @param type the type
+     */
     public void setType(String type) {
         this.type = type;
     }
 
-    public long getWeek() {
+    /**
+     * Gets week.
+     *
+     * @return the week
+     */
+    public Week getWeek() {
         return week;
     }
 
-    public void setWeek(long week) {
+    /**
+     * Sets week.
+     *
+     * @param week the week
+     */
+    public void setWeek(Week week) {
         this.week = week;
     }
 
+    /**
+     * Gets categories.
+     *
+     * @return the categories
+     */
     public Set<Category> getCategories() {
         return categories;
     }
 
+    /**
+     * Sets categories.
+     *
+     * @param categories the categories
+     */
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 
+    /**
+     * Gets weekly status.
+     *
+     * @return the weekly status
+     */
     public QCStatus getWeeklyStatus() {
         return weeklyStatus;
     }
 
+    /**
+     * Sets weekly status.
+     *
+     * @param weeklyStatus the weekly status
+     */
     public void setWeeklyStatus(QCStatus weeklyStatus) {
         this.weeklyStatus = weeklyStatus;
     }
+
+    /**
+     * Instantiates a new Assessment.
+     *
+     * @param assessmentId the assessment id
+     * @param title        the title
+     * @param batch        the batch
+     * @param rawScore     the raw score
+     * @param type         the type
+     * @param week         the week
+     * @param categories   the categories
+     */
+    public Assessment(long assessmentId, String title, Batch batch, int rawScore, String type, Week week,
+                      Set<Category> categories) {
+        super();
+        this.assessmentId = assessmentId;
+        this.title = title;
+        this.batch = batch;
+        this.rawScore = rawScore;
+        this.type = type;
+        this.week = week;
+        this.categories = categories;
+    }
+
+    /**
+     * Instantiates a new Assessment.
+     */
+    public Assessment() {
+        super();
+    }
+
+    /**
+     * Instantiates a new Assessment.
+     *
+     * @param title      the title
+     * @param batch      the batch
+     * @param rawScore   the raw score
+     * @param type       the type
+     * @param week       the week
+     * @param categories the categories
+     */
+    public Assessment(String title, Batch batch, int rawScore, String type, Week week, Set<Category> categories) {
+        super();
+        this.title = title;
+        this.batch = batch;
+        this.rawScore = rawScore;
+        this.type = type;
+        this.week = week;
+        this.categories = categories;
+    }
+
 
 }

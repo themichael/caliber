@@ -14,7 +14,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     private String portNumber;
     
 
-	@Override
+    @Override
 	public long insertAssessment(Assessment assessment) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -29,14 +29,6 @@ public class AssessmentServiceImpl implements AssessmentService {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public List<Grade> getGradesByTraineeId(int traineeId) {
-		RestTemplate rest = new RestTemplate();
-		ResponseEntity<Grade[]> response =
-				rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+traineeId, Grade[].class);
-		return Arrays.asList(response.getBody());
-	}
 	@Override
 	public List<Grade> getGradesByAssessment(long assessmentId) {
 		// TODO Auto-generated method stub
@@ -48,15 +40,11 @@ public class AssessmentServiceImpl implements AssessmentService {
 		
 	}
 	@Override
-	public void deleteGrade(Grade grade) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public void updateGrade(Grade grade) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public void makeBatchNote(BatchNote batchNote) {
 		// TODO Auto-generated method stub
@@ -157,16 +145,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public Note getNote(String note) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<Note> getAllNotes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	@Override
 	public Set<Category> getAllCategories() {
 		// TODO Auto-generated method stub
@@ -174,27 +153,15 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
-	public Set<Assessment> getAllAssessments() {
-		return null;
+	public List<Grade> getGradesByTraineeId(int id) {
+		RestTemplate rest = new RestTemplate();
+		ResponseEntity<Grade[]> response =
+				rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+id, Grade[].class);
+		return Arrays.asList(response.getBody());
 	}
 
-	@Override
-	public Assessment getAssessmentById(long id) {
-		return null;
-	}
 
-	@Override
-	public Set<Assessment> getAssessmentsByWeekId(long id) {
-		return null;
-	}
-
-	@Override
-	public Category getCategoryById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-    /////////// SETTERS ////////////////
+	/////////// SETTERS ////////////////
     public void setHostname(String hostname) {
         this.hostname = hostname;
     }
@@ -202,5 +169,6 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setPortNumber(String portNumber) {
         this.portNumber = portNumber;
     }
+	
 	
 }

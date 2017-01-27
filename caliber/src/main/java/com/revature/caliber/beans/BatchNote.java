@@ -1,59 +1,76 @@
 package com.revature.caliber.beans;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
-@Entity(name = "CALIBER_BATCH_NOTE")
+/**
+ * The type Batch note.
+ */
 public class BatchNote extends Note {
 
-    @Override
-	public String toString() {
-		return "BatchNote [week=" + week + ", batch=" + batch + ", getWeek()=" + getWeek() + ", getBatch()="
-				+ getBatch() + ", getNoteId()=" + getNoteId() + ", getContent()=" + getContent()
-				+ ", getSugarCoatedContent()=" + getSugarCoatedContent() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-	}
-
-	/**
-     * The week of the batch's evaluation
-     */
-    @Column(name = "WEEK_ID", nullable = false)
-    private int week;
+    private Week week;
+    private Batch batch;
 
     /**
-     * The batch identifier
+     * Gets week.
+     *
+     * @return the week
      */
-    @Column(name = "BATCH_ID")
-    private int batch;
+    public Week getWeek() {
+        return week;
+    }
 
-    public BatchNote(int week, int batch) {
+    /**
+     * Sets week.
+     *
+     * @param week the week
+     */
+    public void setWeek(Week week) {
+        this.week = week;
+    }
+
+    /**
+     * Gets batch.
+     *
+     * @return the batch
+     */
+    public Batch getBatch() {
+        return batch;
+    }
+
+    /**
+     * Sets batch.
+     *
+     * @param batch the batch
+     */
+    public void setBatch(Batch batch) {
+        this.batch = batch;
+    }
+
+    /**
+     * Instantiates a new Batch note.
+     *
+     * @param week  the week
+     * @param batch the batch
+     */
+    public BatchNote(Week week, Batch batch) {
         super();
         this.week = week;
         this.batch = batch;
     }
 
+    /**
+     * Instantiates a new Batch note.
+     */
     public BatchNote() {
         super();
     }
 
+    /**
+     * Instantiates a new Batch note.
+     *
+     * @param content     the content
+     * @param sugarCoated the sugar coated
+     */
     public BatchNote(String content, boolean sugarCoated) {
         super(content, sugarCoated);
-    }
-
-    public int getWeek() {
-        return week;
-    }
-
-    public void setWeek(int week) {
-        this.week = week;
-    }
-
-    public long getBatch() {
-        return batch;
-    }
-
-    public void setBatch(int batch) {
-        this.batch = batch;
     }
 
 }

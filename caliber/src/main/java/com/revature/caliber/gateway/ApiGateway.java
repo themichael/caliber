@@ -1,10 +1,11 @@
 package com.revature.caliber.gateway;
 
-import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Gathers data from appropriate services and
@@ -164,7 +165,7 @@ public interface ApiGateway {
 
     //End of Trainer Service
 
-	HashMap<String, String[]> getAggregatedGradesForTrainee(int id);
+	HashMap<String, Double[]> getAggregatedGradesForTrainee(int id);
 
 
 

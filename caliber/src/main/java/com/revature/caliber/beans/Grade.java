@@ -1,117 +1,147 @@
 package com.revature.caliber.beans;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * Java Bean for Grade Object
+ * The type Grade.
  */
-@Entity
-@Table(name = "CALIBER_GRADE")
 public class Grade {
 
-    /**
-     * gradeId- primary key for Grade table
-     */
-    @Id
-    @Column(name = "GRADE_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRADE_ID_SEQUENCE")
-    @SequenceGenerator(name = "GRADE_ID_SEQUENCE", sequenceName = "GRADE_ID_SEQUENCE")
     private long gradeId;
-
-    /**
-     * Assessment - A trainee received a grade on specified assessment
-     */
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    @JoinColumn(name = "ASSESSMENT_ID", nullable = false)
     private Assessment assessment;
-
-    /**
-     * Trainee- the trainee that receives this Grade object
-     */
-    @Column(name = "TRAINEE_ID", nullable = false)
-    private int trainee;
-
-    /**
-     * dateReceived- date this Grade object was received
-     */
-    @Column(name = "DATE_RECEIVED")
-    @NotNull
+    private Trainee trainee;
     private Date dateReceived;
-
-    /**
-     * score - score of the grade
-     */
-    @Column(name = "SCORE")
-    @NotNull
     private int score;
 
-    public Grade() {
-        super();
-    }
-
-    public Grade(long gradeId, Assessment assessment, int trainee, Date dateReceived, int score) {
-        super();
-        this.gradeId = gradeId;
-        this.assessment = assessment;
-        this.trainee = trainee;
-        this.dateReceived = dateReceived;
-        this.score = score;
-    }
-
-    public Grade(Assessment assessment, int trainee, Date dateReceived, int score) {
-        super();
-        this.assessment = assessment;
-        this.trainee = trainee;
-        this.dateReceived = dateReceived;
-        this.score = score;
-    }
-
+    /**
+     * Gets grade id.
+     *
+     * @return the grade id
+     */
     public long getGradeId() {
         return gradeId;
     }
 
+    /**
+     * Sets grade id.
+     *
+     * @param gradeId the grade id
+     */
     public void setGradeId(long gradeId) {
         this.gradeId = gradeId;
     }
 
+    /**
+     * Gets assessment.
+     *
+     * @return the assessment
+     */
     public Assessment getAssessment() {
         return assessment;
     }
 
+    /**
+     * Sets assessment.
+     *
+     * @param assessment the assessment
+     */
     public void setAssessment(Assessment assessment) {
         this.assessment = assessment;
     }
 
-    public int getTrainee() {
+    /**
+     * Gets trainee.
+     *
+     * @return the trainee
+     */
+    public Trainee getTrainee() {
         return trainee;
     }
 
-    public void setTrainee(int trainee) {
+    /**
+     * Sets trainee.
+     *
+     * @param trainee the trainee
+     */
+    public void setTrainee(Trainee trainee) {
         this.trainee = trainee;
     }
 
+    /**
+     * Gets date received.
+     *
+     * @return the date received
+     */
     public Date getDateReceived() {
         return dateReceived;
     }
 
+    /**
+     * Sets date received.
+     *
+     * @param dateReceived the date received
+     */
     public void setDateReceived(Date dateReceived) {
         this.dateReceived = dateReceived;
     }
 
+    /**
+     * Gets score.
+     *
+     * @return the score
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Sets score.
+     *
+     * @param score the score
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
-    @Override
-    public String toString() {
-        return "Grade [gradeId=" + gradeId + ", assessment=" + assessment + ", trainee=" + trainee + ", dateReceived="
-                + dateReceived + ", score=" + score + "]";
+    /**
+     * Instantiates a new Grade.
+     *
+     * @param gradeId      the grade id
+     * @param assessment   the assessment
+     * @param trainee      the trainee
+     * @param dateReceived the date received
+     * @param score        the score
+     */
+    public Grade(long gradeId, Assessment assessment, Trainee trainee, Date dateReceived, int score) {
+        super();
+        this.gradeId = gradeId;
+        this.assessment = assessment;
+        this.trainee = trainee;
+        this.dateReceived = dateReceived;
+        this.score = score;
+    }
+
+    /**
+     * Instantiates a new Grade.
+     */
+    public Grade() {
+        super();
+    }
+
+    /**
+     * Instantiates a new Grade.
+     *
+     * @param assessment   the assessment
+     * @param trainee      the trainee
+     * @param dateReceived the date received
+     * @param score        the score
+     */
+    public Grade(Assessment assessment, Trainee trainee, Date dateReceived, int score) {
+        super();
+        this.assessment = assessment;
+        this.trainee = trainee;
+        this.dateReceived = dateReceived;
+        this.score = score;
     }
 
 

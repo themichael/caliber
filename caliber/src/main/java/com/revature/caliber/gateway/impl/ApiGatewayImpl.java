@@ -1,17 +1,16 @@
 package com.revature.caliber.gateway.impl;
 
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.*;
 import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class ApiGatewayImpl implements ApiGateway {
@@ -149,10 +148,52 @@ public class ApiGatewayImpl implements ApiGateway {
 
 
     @Override
-    public HashMap<String, String[]> getAggregatedGradesForTrainee(int id) {
+    public HashMap<String, Double[]> getAggregatedGradesForTrainee(int id) {
         List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
-        Grade grade = allGrades.get(0);
-        System.out.println(grade.toString());
-        return null;
+        HashMap<String,Double[]> grades = new HashMap<>();
+        HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values
+
+        for ( Grade grade : allGrades) {
+            List<Category> catList = grade.getAssessment().getCategories().stream().collect(Collectors.toList());
+            if (catList.size() < 1) { continue; }
+            Category category = catList.get(0);
+
+            if (!grades.containsKey(category.getSkillCategory())) {
+                grades.put(category.getSkillCategory(), new Double[] {0.0, 0.0, 0.0, 0.0});
+                gradeValues.put(category.getSkillCategory(), new ArrayList<>());
+            }
+
+            grades.get(category.getSkillCategory())[0] += grade.getScore();
+            gradeValues.get(category.getSkillCategory()).add(grade.getScore());
+        }
+
+        for (String categoryName : grades.keySet()) {
+            Double [] gradeV = grades.get(categoryName);
+            List<Integer> list = gradeValues.get(categoryName);
+            list.sort(Integer::compareTo);
+
+            if (list.size() < 1) { continue; }
+
+            //average
+            gradeV[0] = gradeV[0] / list.size();
+            //medium
+            if (list.size() > 1) {
+                gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
+                        (list.get(list.size() / 2).doubleValue() + list.get(list.size() / 2 - 1).doubleValue()) / 2;
+            }
+            else {
+                gradeV[1] = list.get(0).doubleValue();
+            }
+            //high
+            gradeV[3] = list.get(0).doubleValue();
+            //low
+            gradeV[2] = list.get(list.size() - 1).doubleValue();
+
+            //System.out.println(categoryName + " - " + gradeV[0] + " " + gradeV[1] + " " + gradeV[2] + " " + gradeV[3]);
+
+            grades.put(categoryName, gradeV);
+        }
+
+        return grades;
     }
 }

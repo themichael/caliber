@@ -114,17 +114,6 @@ public interface AssessmentService {
 	 */
 	Set<Category> getAllCategories();
 
-	Set<Assessment> getAllAssessments() ;
-	Assessment getAssessmentById(long id) ;
-	Set<Assessment> getAssessmentsByWeekId(long id) ;
-	List<Grade> getGradesByTraineeId(int traineeId);
-	void deleteGrade(Grade grade);
-	Category getCategoryById(int id);
 
-
-	public Note getNote(String note);
-	public List<Note> getAllNotes();
-
-
-
+    List<Grade> getGradesByTraineeId(int id);
 }

@@ -1,45 +1,64 @@
 package com.revature.caliber.beans;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+/**
+ * The type Trainer note.
+ */
+public class TrainerNote extends Note {
 
-@Entity(name="CALIBER_TRAINER_NOTE")
-public class TrainerNote extends Note{
-	
-	/**
-	 * The trainer who made the comment
-	 */
-	@Column(name="TRAINER_ID")
-	private int trainer;
-	
-	/**
-	 * The week that the trainer made the evaluation 
-	 */
-	@Column(name="WEEK_ID", nullable=false)
-	private int week;
+	private Trainee trainee;
+	private Week week;
 
-	public TrainerNote() {
-		super();
-	}
-	
+	/**
+	 * Instantiates a new Trainer note.
+	 *
+	 * @param content     the content
+	 * @param sugarCoated the sugar coated
+	 */
 	public TrainerNote(String content, boolean sugarCoated) {
 		super(content, sugarCoated);
 	}
 
-	public int getTrainer() {
-		return trainer;
+	/**
+	 * Gets trainee.
+	 *
+	 * @return the trainee
+	 */
+	public Trainee getTrainee() {
+		return trainee;
 	}
 
-	public void setTrainer(int trainer) {
-		this.trainer = trainer;
+	/**
+	 * Sets trainee.
+	 *
+	 * @param trainee the trainee
+	 */
+	public void setTrainee(Trainee trainee) {
+		this.trainee = trainee;
 	}
 
-	public int getWeek() {
+	/**
+	 * Gets week.
+	 *
+	 * @return the week
+	 */
+	public Week getWeek() {
 		return week;
 	}
 
-	public void setWeek(int week) {
+	/**
+	 * Sets week.
+	 *
+	 * @param week the week
+	 */
+	public void setWeek(Week week) {
 		this.week = week;
+	}
+
+	/**
+	 * Instantiates a new Trainer note.
+	 */
+	public TrainerNote() {
+		super();
 	}
 
 

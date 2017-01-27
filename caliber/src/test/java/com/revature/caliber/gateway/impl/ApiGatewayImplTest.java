@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Shehar on 1/26/2017.
@@ -25,10 +24,8 @@ public class ApiGatewayImplTest {
 
     @Test
     public void getAggregatedGradesForTrainee() throws Exception {
-        HashMap<String, String[]> grades = apiGateway.getAggregatedGradesForTrainee(1);
-        for (Map.Entry<String, String[]> entry : grades.entrySet()) {
-            System.out.println(entry.getKey() + "/" + entry.getValue());
-        }
+        HashMap<String, Double[]> grades = apiGateway.getAggregatedGradesForTrainee(1);
+
     }
 
 }
