@@ -1,9 +1,6 @@
 package com.revature.caliber.gateway.impl;
 
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.Week;
+import com.revature.caliber.beans.*;
 import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -235,5 +232,15 @@ public class ApiGatewayImpl implements ApiGateway {
 
     public void createNewWeek(Week week) {
 
+    }
+
+    public Set<Grade> getAssessmentGradesById(int id) {
+        return null;
+    }
+
+    public void createGrade(Grade grade) {
+    }
+
+    public void updateGrade(Grade grade) {
     }
 }
