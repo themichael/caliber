@@ -7,33 +7,46 @@ import com.revature.caliber.gateway.services.AssessmentService;
 import com.revature.caliber.gateway.services.ServiceLocator;
 import com.revature.caliber.gateway.services.TrainingService;
 
+/**
+ * The type Service locator.
+ */
 @Component
-public class ServiceLocatorImpl implements ServiceLocator{
+public class ServiceLocatorImpl implements ServiceLocator {
 
-	@Autowired
-	private TrainingService trainingService;
-	
-	@Autowired
-	private AssessmentService assessmentService;
+    private TrainingService trainingService;
 
-	@Override
-	public TrainingService getTrainingService() {
-		return trainingService;
-	}
+    private AssessmentService assessmentService;
 
-	@Override
-	public AssessmentService getAssessmentService() {
-		return assessmentService;
-	}
+    @Override
+    public TrainingService getTrainingService() {
+        return trainingService;
+    }
 
-	//////////SETTERS//////////////
-	public void setTrainingService(TrainingService trainingService) {
-		this.trainingService = trainingService;
-	}
+    @Override
+    public AssessmentService getAssessmentService() {
+        return assessmentService;
+    }
 
-	public void setAssessmentService(AssessmentService assessmentService) {
-		this.assessmentService = assessmentService;
-	}
+    /**
+     * Sets training service.
+     *
+     * @param trainingService the training service
+     */
+//////////SETTERS//////////////
+    @Autowired
+    public void setTrainingService(TrainingService trainingService) {
+        this.trainingService = trainingService;
+    }
+
+    /**
+     * Sets assessment service.
+     *
+     * @param assessmentService the assessment service
+     */
+    @Autowired
+    public void setAssessmentService(AssessmentService assessmentService) {
+        this.assessmentService = assessmentService;
+    }
 
 
 }

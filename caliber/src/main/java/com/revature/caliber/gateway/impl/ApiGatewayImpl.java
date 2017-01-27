@@ -1,22 +1,26 @@
 package com.revature.caliber.gateway.impl;
 
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class ApiGatewayImpl implements ApiGateway {
 
-    @Autowired
+
     private ServiceLocator serviceLocator;
+
+    @Autowired
+    public void setServiceLocator(ServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+    }
 
     /****************************Batch*******************************/
     public void createBatch(Batch batch) {
@@ -108,38 +112,55 @@ public class ApiGatewayImpl implements ApiGateway {
         serviceLocator.getTrainingService().updateTrainer(trainer);
     }
 
-	public Set<Batch> getAllBatches() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Batch getBatchFromCurrentBatchesById(int id) {
+        Batch batch = new Batch();
+        batch.setBatchId(id);
+        return batch;
+    }
 
-	public Batch getBatchFromCurrentBatchesById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Batch getCurrentBatch() {
+        return null;
+    }
 
-	public Batch getCurrentBatch() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public Batch getBatchByTrainerId(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Set<Batch> getAllBatches() {
+        return null;
+    }
 
-	public Set<Batch> getAllCurrentBatches() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Batch updateBatchFromCurrentBatchesById(Batch batch) {
+        return batch;
+    }
 
-	public Batch getBatchFromCurrentBatchesById() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Batch insertBatchIntoCurrentBatches(Batch batch) {
+        return batch;
+    }
 
-	public Batch getBatchFromAllBatchesById() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Batch deleteBatchFromCurrentBatchesById(int id) {
+        return null;
+    }
+
+    public Set<Batch> updateAllCurrentBatches(Set<Batch> batches) {
+        return batches;
+    }
+
+
+    public Batch getBatchByTrainerId(int id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Set<Batch> getAllCurrentBatches() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Batch getBatchFromCurrentBatchesById() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Batch getBatchFromAllBatchesById() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
