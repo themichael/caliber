@@ -10,6 +10,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerNote;
 import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
 
@@ -144,7 +145,7 @@ public class ApiGatewayImpl implements ApiGateway {
 		return null;
 	}
 
-	/********************Grade************************/
+	/**************************************Grade************************************/
 	@Override
 	public List<Grade> getGradesByAssessment(Integer assessmentId) {
 		return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
@@ -159,5 +160,24 @@ public class ApiGatewayImpl implements ApiGateway {
 	@Override
 	public void updateGrade(Grade grade) {
 		serviceLocator.getAssessmentService().updateGrade(grade);
+	}
+
+	
+	/***********************************Trainer Notes**********************************/
+	@Override
+	public void createTrainerNote(TrainerNote note) {
+		serviceLocator.getAssessmentService().createTrainerNote(note);
+		
+	}
+
+	@Override
+	public void updateTrainerNote(TrainerNote note) {
+		serviceLocator.getAssessmentService().updateTrainerNote(note);
+	}
+
+	@Override
+	public void deleteTrainerNote(TrainerNote note) {
+		serviceLocator.getAssessmentService().deleteTrainerNote(note);
+		
 	}
 }

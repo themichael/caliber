@@ -4,6 +4,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerNote;
 
 import java.util.List;
 
@@ -184,4 +185,22 @@ public interface ApiGateway {
      * @param grade
      */
     void updateGrade(Grade grade);
+    
+    /**
+     * Create a Trainer Note
+     * @param note
+     */
+    void createTrainerNote(TrainerNote note);
+    
+    /**
+     * Update the Trainer Note
+     * @param note
+     */
+    void updateTrainerNote(TrainerNote note);
+    
+    /**
+     * Delete the Trainer Note
+     * @param note
+     */
+    void deleteTrainerNote(TrainerNote note);
 }
