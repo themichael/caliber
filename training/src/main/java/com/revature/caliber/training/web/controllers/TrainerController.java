@@ -135,7 +135,8 @@ public class TrainerController {
 		}
 		return returnEntity;
 	}
-	
+
+
 	public MultiValueMap<String, String> corsHeaders(){
 		MultiValueMap<String, String> headers =
 				new LinkedMultiValueMap<String, String>();
