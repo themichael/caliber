@@ -68,13 +68,9 @@
 	border-radius: 6px;
 }
 
-.glyphicon {
-	top: 0px;
-}
-
-.glyphicon-plus {
-	padding-left: .5em;
-}
+.glyphicon { top: 0px; }
+.glyphicon-plus { padding-left: .5em; }
+.glyphicon-user { padding-left: .5em; }
 
 /************************
 	Margins
