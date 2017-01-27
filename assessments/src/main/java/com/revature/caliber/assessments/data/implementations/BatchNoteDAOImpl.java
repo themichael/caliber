@@ -22,7 +22,8 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-
+    
+    //Create BatchNote
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
@@ -30,26 +31,30 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
         sessionFactory.getCurrentSession().save(batchNote);
     }
 
-    @Override
+    //Get a List of BatchNotes for a batch within a week pertaining to a single Batch
+    //If two trainers have separate feedback
+    @SuppressWarnings("unchecked")
+	@Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
-    public BatchNote getBatchNote(int batchId, int weekId) {
-        BatchNote batchNote = (BatchNote) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
+    public List<BatchNote> getBatchesNotesListInWeek(int batchId, int weekId) {
+        return (List<BatchNote>) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
                 .add(Restrictions.eq("batch", batchId))
-                .add(Restrictions.eq("week", weekId)).uniqueResult();
-        return batchNote;
+                .add(Restrictions.eq("week", weekId)).list();
     }
-
+    
+    
+    //List all BatchNotes within a given week
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
     @SuppressWarnings("unchecked")
     public List<BatchNote> allBatchNotesByWeek(int weekId) {
-        List<BatchNote> batchNotes = sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
+        return (List<BatchNote>) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
                 .add(Restrictions.eq("week", weekId)).list();
-        return batchNotes;
     }
 
+    //Update a BatchNote
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
@@ -58,4 +63,30 @@ public class BatchNoteDAOImpl implements BatchNoteDAO {
     }
 
 
+    //List all batchNotes for a specific batch for the duration of Training
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
+	public List<BatchNote> allBatchNotes(int batchId) {
+		 return (List<BatchNote>) sessionFactory.getCurrentSession().createCriteria(BatchNote.class)
+	             .add(Restrictions.eq("batch", batchId)).list();
+	}
+
+	//Delete a BatchNote
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
+	public void deleteBatchNote(BatchNote batchNote) {
+		sessionFactory.getCurrentSession().delete(batchNote);
+	}
+
+	//Get a BatchNote by a specific ID
+	@Override
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
+            Exception.class})
+	public BatchNote getBatchNoteById(int batchNoteId) {
+		return (BatchNote) sessionFactory.getCurrentSession().get(BatchNote.class, batchNoteId);
+	}
+    
 }

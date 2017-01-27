@@ -1,9 +1,15 @@
 package com.revature.caliber.data.implementations;
 
-import com.revature.caliber.training.beans.Batch;
-import com.revature.caliber.training.beans.Trainee;
-import com.revature.caliber.training.data.TraineeDAO;
-import org.apache.log4j.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,48 +17,126 @@ import org.hibernate.Transaction;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import static org.junit.Assert.*;
+import com.revature.caliber.training.beans.Batch;
+import com.revature.caliber.training.beans.Trainee;
+import com.revature.caliber.training.data.TraineeDAO;
 
 /**
- *  Test for TraineeDAOImplementation.
- *  Assumes that DB has at least one trainee with id 1. (IMPORTANT) //TODO fix
+ * Test for TraineeDAOImplementation.
+ * @author Ilya
  */
 public class TraineeDAOImplementationTest {
 
-    private static ApplicationContext context;
-    private static SessionFactory sf;
-    private static Logger logger;
+	private static ApplicationContext context;
+	private static SessionFactory sf;
+	private static final Logger logger = LoggerFactory.getLogger(TraineeDAOImplementationTest.class);
 
-    private static int newBatchId, newTrainerId, newTierId, newTraineeId;
+	private static int newTierId;
+	private static int newTrainerId;
+	private static int newBatchId;
+	private static int newTraineeId;
 
-    @BeforeClass
-    public static void preClass () {
-        context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
+	/*
+	 * Helper method to find a free id in db and create a test trainee with it.
+	 * Has to be used between
+	 * Transaction tx = session.beginTransaction()
+	 * and
+	 * tx.commit();
+	 * Also execute only after new batch with newBatchId was created (variable is set up).
+	 */
+	private static int findFreeTraineeIdAnCreateTrainee(Session session, String name, String email) {
+
+        String sql;
+        int id;
+        int resultNum;
+
+        int resultId;
+
+        sql = "SELECT TRAINEE_ID from CALIBER_TRAINEE";
+        Query q = session.createSQLQuery(sql);
+
+        List<BigDecimal> list = q.list();
+        list.sort(BigDecimal::compareTo);
+
+        id = 1;
+        for (BigDecimal objId : list) {
+            if (objId.intValue() == id) { id++; }
+        }
+
+        resultId = id;
+
+        sql = "INSERT INTO CALIBER_TRAINEE(TRAINEE_ID, TRAINEE_EMAIL, TRAINEE_NAME, TRAINING_STATUS, BATCH_ID) "
+                + "VALUES(?, ?, ?, ?, ?)";
+        Query traineeq = session.createSQLQuery(sql);
+        traineeq.setInteger(0, resultId);
+        traineeq.setString(1, email);
+        traineeq.setString(2, name);
+        traineeq.setString(3, "new_status");
+        traineeq.setInteger(4, newBatchId);
+
+        resultNum = traineeq.executeUpdate();
+
+        if (resultNum != 1) {
+            fail("Failed to create test Batch");
+        }
+
+        return resultId;
+    }
+
+    /*
+     * Another helper method to delete data from db.
+     * Also has to be used after transaction opening.
+     * Returns the number of rows affected.
+     */
+    private static int deleteTrainee(Session session, int traineeId) {
+
+        int rowsAffected;
+
+        String sql;
+        Query q;
+
+        sql = "DELETE FROM CALIBER_TRAINEE WHERE TRAINEE_ID = ?";
+        q = session.createSQLQuery(sql);
+        q.setInteger(0, traineeId);
+        rowsAffected = q.executeUpdate();
+
+        return rowsAffected;
+    }
 
 
-        //create transient SQL test data
-        sf = (SessionFactory) context.getBean("sessionFactory");
-        Session session = sf.openSession();
-        Transaction tx = session.beginTransaction();
-        String sql = "";
-        int index = 0;
-        int resultNum = 0;
+	@BeforeClass
+	public static void preClass() {
+		context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
 
-        index = 1;
-        do {
-            sql = "SELECT count(*) from CALIBER_TIER where TIER_ID  = ?";
-            Query q = session.createSQLQuery(sql);
-            q.setInteger(0, index++);
-            resultNum = ((BigDecimal) q.uniqueResult()).intValue();
-        } while (resultNum > 0);
+        logger.info("\n--- TRAINEE DAO IMPLEMENTATION TEST START ---\n");
+        logger.info(" > Creating test db data (preClass)");
 
-        newTierId = index - 1;
+		// create transient SQL test data
+		sf = (SessionFactory) context.getBean("sessionFactory");
+		Session session = sf.openSession();
+		Transaction tx = session.beginTransaction();
+
+        String sql;
+        int id;
+        int resultNum;
+
+        sql = "SELECT TIER_ID from CALIBER_TIER";
+        Query q = session.createSQLQuery(sql);
+
+        List<BigDecimal> list = q.list();
+        list.sort(BigDecimal::compareTo);
+
+        id = 1;
+        for (BigDecimal objId : list) {
+            if (objId.intValue() == id) { id++; }
+        }
+
+        newTierId = id;
 
         sql = "INSERT INTO CALIBER_TIER(TIER_ID, RANKING, TIER) VALUES(?, ?, ?)";
         Query tierq = session.createSQLQuery(sql);
@@ -63,23 +147,24 @@ public class TraineeDAOImplementationTest {
         resultNum = tierq.executeUpdate();
 
         if (resultNum != 1) {
-            tx.commit();
-            session.close();
             fail("Failed to create test tier");
         }
 
-        index = 1;
-        do {
-            sql = "SELECT count(*) FROM CALIBER_TRAINER WHERE TRAINER_ID = ?";
-            Query q = session.createSQLQuery(sql);
-            q.setInteger(0, index++);
-            resultNum = ((BigDecimal) q.uniqueResult()).intValue();
-        } while (resultNum > 0);
+        sql = "SELECT TRAINER_ID from CALIBER_TRAINER";
+        q = session.createSQLQuery(sql);
 
-        newTrainerId = index - 1;
+        list = q.list();
+        list.sort(BigDecimal::compareTo);
 
-        sql = "INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, SF_ACCOUNT, SF_AUTHENTICATION_TOKEN, SF_REFRESH_TOKEN, TITLE, TIER) " +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        id = 1;
+        for (BigDecimal objId : list) {
+            if (objId.intValue() == id) { id++; }
+        }
+
+        newTrainerId = id;
+
+        sql = "INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, SF_ACCOUNT, SF_AUTHENTICATION_TOKEN, SF_REFRESH_TOKEN, TITLE, TIER) "
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         Query trainerq = session.createSQLQuery(sql);
         trainerq.setInteger(0, newTrainerId);
         trainerq.setString(1, "email");
@@ -93,25 +178,24 @@ public class TraineeDAOImplementationTest {
         resultNum = trainerq.executeUpdate();
 
         if (resultNum != 1) {
-            tx.commit();
-            session.close();
             fail("Failed to create test Trainer");
         }
 
+        sql = "SELECT BATCH_ID from CALIBER_BATCH";
+        q = session.createSQLQuery(sql);
 
-        index = 1;
-        do {
-            sql = "SELECT count(*) FROM CALIBER_BATCH WHERE BATCH_ID = ?";
-            Query q = session.createSQLQuery(sql);
-            q.setInteger(0, index++);
-            resultNum = ((BigDecimal) q.uniqueResult()).intValue();
+        list = q.list();
+        list.sort(BigDecimal::compareTo);
 
-        } while (resultNum > 0);
+        id = 1;
+        for (BigDecimal objId : list) {
+            if (objId.intValue() == id) { id++; }
+        }
 
-        newBatchId = index - 1;
+        newBatchId = id;
 
-        sql = "INSERT INTO CALIBER_BATCH(BATCH_ID, BORDERLINE_GRADE_THRESHOLD, END_DATE, GOOD_GRADE_THRESHOLD, LOCATION, SKILL_TYPE, START_DATE, TRAINING_NAME, TRAINING_TYPE, TRAINER_ID)" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        sql = "INSERT INTO CALIBER_BATCH(BATCH_ID, BORDERLINE_GRADE_THRESHOLD, END_DATE, GOOD_GRADE_THRESHOLD, LOCATION, SKILL_TYPE, START_DATE, TRAINING_NAME, TRAINING_TYPE, TRAINER_ID)"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Query batchq = session.createSQLQuery(sql);
         batchq.setInteger(0, newBatchId);
         batchq.setInteger(1, 10);
@@ -127,210 +211,212 @@ public class TraineeDAOImplementationTest {
         resultNum = batchq.executeUpdate();
 
         if (resultNum != 1) {
-            tx.commit();
-            session.close();
             fail("Failed to create test Batch");
         }
 
-        index = 1;
-        do {
-            sql = "SELECT count(*) FROM CALIBER_TRAINEE WHERE TRAINEE_ID = ?";
-            Query q = session.createSQLQuery(sql);
-            q.setInteger(0, index++);
-            resultNum = ((BigDecimal) q.uniqueResult()).intValue();
+        newTraineeId = findFreeTraineeIdAnCreateTrainee(session, "Some test trainee(Trainee DAO Test)", "testemail");
 
-        } while (resultNum > 0);
+		tx.commit();
+		session.close();
+		// end of creating data
+        logger.info("    .. data created, tierId " + newTierId + ", batchId " + newBatchId +
+                ", trainerId " + newTrainerId + ", traineeId " + newTraineeId);
 
-        newTraineeId = index - 1;
+	}
 
-        sql = "INSERT INTO CALIBER_TRAINEE(TRAINEE_ID, TRAINEE_EMAIL, TRAINEE_NAME, TRAINING_STATUS, BATCH_ID) " +
-                "VALUES(?, ?, ?, ?, ?)";
-        Query traineeq = session.createSQLQuery(sql);
-        traineeq.setInteger(0, newTraineeId);
-        traineeq.setString(1, "new_email");
-        traineeq.setString(2, "Test Trainee (TraineeDAO Test)");
-        traineeq.setString(3, "new_status");
-        traineeq.setInteger(4, newBatchId);
+	@AfterClass
+	public static void afterClass() {
 
-        resultNum = traineeq.executeUpdate();
+        logger.info(" > Deleting created data (afterClass)");
+		// Delete created data
+		Session session = sf.openSession();
+		Transaction tx = session.beginTransaction();
 
-        if (resultNum != 1) {
-            tx.commit();
-            session.close();
-            fail("Failed to create test Batch");
-        }
+        int rowsAffected = 0;
+        rowsAffected += deleteTrainee(session, newTraineeId);
 
-        tx.commit();
-        session.close();
-        //end of creating data
-
-        logger = Logger.getRootLogger();
-        logger.debug("\n--- TRAINEE DAO IMPLEMENTATION TEST START ---\n");
-    }
-
-    @AfterClass
-    public static void afterClass() {
-
-        //Delete created data
-        Session session = sf.openSession();
-        Transaction tx = session.beginTransaction();
-
-        String sql = "";
+        String sql;
         Query q;
-
-        sql = "DELETE FROM CALIBER_TRAINEE WHERE TRAINEE_ID = ?";
-        q = session.createSQLQuery(sql);
-        q.setInteger(0, newTraineeId);
-        q.executeUpdate();
 
         sql = "DELETE FROM CALIBER_BATCH WHERE BATCH_ID = ?";
         q = session.createSQLQuery(sql);
         q.setInteger(0, newBatchId);
-        q.executeUpdate();
+        rowsAffected += q.executeUpdate();
 
         sql = "DELETE FROM CALIBER_TRAINER WHERE TRAINER_ID = ?";
         q = session.createSQLQuery(sql);
         q.setInteger(0, newTrainerId);
-        q.executeUpdate();
+        rowsAffected += q.executeUpdate();
 
         sql = "DELETE FROM CALIBER_TIER WHERE TIER_ID = ?";
         q = session.createSQLQuery(sql);
-        q.setInteger(0, newTierId);
-        q.executeUpdate();
+        q.setInteger(0, newTrainerId);
+        rowsAffected += q.executeUpdate();
 
-        sql = "DELETE FROM CALIBER_TRAINEE WHERE TRAINEE_ID = ?";
-        q = session.createSQLQuery(sql);
-        q.setInteger(0, newTraineeId);
-        q.executeUpdate();
+		tx.commit();
+		session.close();
+		// end delete of data
+        logger.info("    .. data was deleted, rows affected: " + rowsAffected);
 
-        tx.commit();
-        session.close();
-        //end delete of data
+		logger.info("\n--- TRAINEE DAO IMPLEMENTATION TEST END ---\n");
+	}
 
-        logger.debug("\n--- TRAINEE DAO IMPLEMENTATION TEST END ---\n");
-    }
+	@Test
+	public void createTraineeTest() {
+		logger.info(" > Create trainee test.");
 
+		TraineeDAO dao = context.getBean(TraineeDAO.class);
 
-    @Test
-    public void createTraineeTest() {
-        logger.debug("   Create trainee test.");
+		Batch batch = new Batch();
+		batch.setBatchId(newBatchId);
 
-        TraineeDAO dao = context.getBean(TraineeDAO.class);
+		Trainee trainee = new Trainee();
+		trainee.setTraineeId(1);
+		trainee.setName("Super Mario Bros (Trainee DAO Test)");
+		trainee.setEmail("tismario@mario.io");
+		trainee.setTrainingStatus("Super Dope");
+		trainee.setBatch(batch);
 
-        Batch batch = new Batch();
-        batch.setBatchId(newBatchId);
+		dao.createTrainee(trainee);
 
-        Trainee trainee = new Trainee();
-        trainee.setTraineeId(1);
-        trainee.setName("Super Mario Bros");
-        trainee.setEmail("tismario@mario.io");
-        trainee.setTrainingStatus("Super Dope");
-        trainee.setBatch(batch);
+        //check if trainee was created
+        Session session = sf.openSession();
+        String sql = "SELECT TRAINEE_ID, TRAINEE_NAME, TRAINEE_EMAIL FROM CALIBER_TRAINEE" +
+                " WHERE TRAINEE_NAME = ?";
+        Query q = session.createSQLQuery(sql);
+        q.setString(0, "Super Mario Bros (Trainee DAO Test)");
 
-        dao.createTrainee(trainee);
-        assertTrue(true); //if doesn't throw Exception, means created
-
-        logger.debug("     trainee created");
-    }
-
-    @Test
-    public void getTraineeTestGetById() {
-        logger.debug("   Get trainee by id test.");
-
-        TraineeDAO dao = context.getBean(TraineeDAO.class);
-
-        logger.debug("     using id " + newTraineeId);
-        Trainee trainee = dao.getTrainee(newTraineeId);
+        Object[] result = (Object[]) q.uniqueResult();
+        assertEquals(trainee.getName(), result[1]);
+        assertEquals(trainee.getEmail(), result[2]);
 
 
-        assertNotNull(trainee);
-        assertEquals(newTraineeId, trainee.getTraineeId());
+		logger.info("    .. trainee was successfully created with id " + ((BigDecimal)result[0]).intValue()
+            + ", name \"" + result[1] + "\", and email \"" + result[2] + "\"");
 
-        logger.debug("     trainee that I got:" + trainee);
-        logger.debug("       trainee id: " + trainee.getTraineeId());
-    }
+		logger.info("    .. doing cleanup");
+		Transaction tx = session.beginTransaction();
+		int rowsAffected = deleteTrainee(session, ((BigDecimal)result[0]).intValue());
+		tx.commit();
+		session.close();
+        logger.info("    .. cleanup complete, rows affected:" + rowsAffected);
+		logger.info("    -- creating trainee test completed.");
+	}
 
-    @Test
-    public void getTraineeTestGetByName(){
-        logger.debug("   Get trainee by name test.");
-        logger.debug("     trying to get previously create trainee \"Super Mario Bros\"");
+	@Test
+	public void getTraineeTestGetById() {
+		logger.info(" > Get trainee by id test.");
 
-        TraineeDAO dao = context.getBean(TraineeDAO.class);
+		TraineeDAO dao = context.getBean(TraineeDAO.class);
 
-        Trainee trainee = dao.getTrainee("Super Mario Bros");
+		logger.info("    .. using id " + newTraineeId);
+		Trainee trainee = dao.getTrainee(newTraineeId);
 
-        assertNotNull(trainee);
-        assertEquals("Super Mario Bros", trainee.getName());
+		assertNotNull(trainee);
+		assertEquals(newTraineeId, trainee.getTraineeId());
 
-        logger.debug("     trainee that I got:" + trainee);
-        logger.debug("       trainee name: " + trainee.getName());
-    }
+		logger.info("    .. trainee received with id: " + trainee.getTraineeId());
+		logger.info("    -- getting trainee by id test completed.");
+	}
 
-    @Test
-    public void getTraineesInBatchTest(){
-        logger.debug("   Get trainees in a batch test.");
-        logger.debug("     \"Super Mario Bros\" trainee is in the batch with id 1");
+	@Test
+	public void getTraineeTestGetByEmail() {
+		logger.info(" > Get trainee by email test.");
+		logger.info("    .. trying to get previously created trainee \"testemail\"");
 
-        TraineeDAO dao = context.getBean(TraineeDAO.class);
+		TraineeDAO dao = context.getBean(TraineeDAO.class);
 
-        List<Trainee> trainees = dao.getTraineesInBatch(newBatchId);
+		Trainee trainee = dao.getTrainee("testemail");
 
-        assertNotNull(trainees);
-        assertNotEquals(0, trainees.size());
+		assertNotNull(trainee);
+		assertEquals("testemail", trainee.getEmail());
 
-        logger.debug("     trainees that I got " + trainees);
-        logger.debug("     their size(should be at least 1): " + trainees.size());
-    }
+		logger.info("    .. received trainee with name: " + trainee.getName());
+		logger.info("    -- getting trainee by name test completed.");
+	}
 
-    @Test
-    public void updateTraineeTest(){
-        logger.debug("   Update trainee test.");
-        logger.debug("     let's take \"Super Mario Bros\" and change it's name");
+	@Test
+	public void getTraineesInBatchTest() {
+		logger.info(" > Get trainees in a batch test.");
+		logger.info("    .. trying to get all trainees for the batch with id: " + newBatchId);
 
-        TraineeDAO dao = context.getBean(TraineeDAO.class);
+		TraineeDAO dao = context.getBean(TraineeDAO.class);
 
-        Trainee trainee = dao.getTrainee("Super Mario Bros");
-        assertNotNull(trainee);
+		List<Trainee> trainees = dao.getTraineesInBatch(newBatchId);
 
-        String newName = "Trololo lolo lolo";
-        trainee.setName(newName);
+		assertNotNull(trainees);
+		assertNotEquals(0, trainees.size());
 
-        int id = trainee.getTraineeId();
 
-        dao.updateTrainee(trainee);
+		logger.info("    .. got some trainees, list size: " + trainees.size() + " (expected > 0)");
+		logger.info("    -- getting trainees by batch test completed.");
+	}
 
-        logger.debug("     updated trainee");
+	@Test
+	public void updateTraineeTest() {
+		logger.info(" > Update trainee test.");
 
-        trainee = dao.getTrainee(id);
-        assertNotNull(trainee);
-        assertEquals(newName, trainee.getName());
+		logger.info("    .. creating a test trainee");
+		Session session  = sf.openSession();
+		Transaction tx = session.beginTransaction();
+		int id = findFreeTraineeIdAnCreateTrainee(session, "Some other test trainee(yup).", "someotheremail");
+		tx.commit();
 
-        logger.debug("     checking trainee:");
-        logger.debug("       trainee that I got: " + trainee);
-        logger.debug("       it's name: " + trainee.getName());
-    }
+		logger.info("    .. trainee created with id " + id);
 
-    @Test
-    public void deleteTraineeTest() {
-        logger.debug("   Delete trainee test.");
-        logger.debug("     let's get trainee with id 1 and just wipe it!");
+		TraineeDAO dao = context.getBean(TraineeDAO.class);
 
-        TraineeDAO dao = context.getBean(TraineeDAO.class);
+		Trainee trainee = dao.getTrainee(id);
+		assertNotNull(trainee);
 
-        Trainee trainee = dao.getTrainee("Trololo lolo lolo");
-        assertNotNull(trainee);
+		String oldName = trainee.getName();
+		String newName = "Trololo lolo lolo";
+		trainee.setName(newName);
 
-        logger.debug("     trainee was read.");
+		dao.updateTrainee(trainee);
 
-        int id = trainee.getTraineeId();
+		logger.info("    .. updated trainee, get it again and check.");
 
-        dao.deleteTrainee(trainee);
+		trainee = dao.getTrainee(id);
+		assertNotNull(trainee);
+		assertEquals(newName, trainee.getName());
+		assertNotEquals(oldName, trainee.getName());
 
-        trainee = dao.getTrainee(id);
-        assertNull(trainee);
+		logger.info("    .. trainee's name successfully changed from \"" + oldName + "\" to \"" + trainee.getName() + "\"");
+		logger.info("    .. cleanup");
+		tx = session.beginTransaction();
+		int rowsAffected = deleteTrainee(session, id);
+		tx.commit();
+		session.close();
 
-        logger.debug("     trainee with id [" + id + "] was deleted.");
-    }
+		logger.info("    .. cleanup completed, rows affected: " + rowsAffected);
+		logger.info("    -- updating trainee test completed.");
+	}
 
+	@Test
+	public void deleteTraineeTest() {
+		logger.info(" > Delete trainee test.");
+		logger.info("    .. creating trainee to delete");
+
+		Session session = sf.openSession();
+		Transaction tx = session.beginTransaction();
+		int id = findFreeTraineeIdAnCreateTrainee(session, "Test trainee that will be deleted.", "deleteemail");
+		tx.commit();
+
+		logger.info("    .. trainee was created with id " + id);
+
+		TraineeDAO dao = context.getBean(TraineeDAO.class);
+
+		Trainee trainee = dao.getTrainee(id);
+		assertNotNull(trainee);
+
+		dao.deleteTrainee(trainee);
+
+		trainee = dao.getTrainee(id);
+		assertNull(trainee);
+
+		logger.info("    .. trainee with id [" + id + "] was deleted");
+		logger.info("    -- deleting trainee test completed.");
+	}
 
 }

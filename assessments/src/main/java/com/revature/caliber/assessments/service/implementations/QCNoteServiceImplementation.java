@@ -23,7 +23,7 @@ public class QCNoteServiceImplementation implements QCNoteService {
     public void createQCNote(QCNote note) { facade.createQCNote(note); }
 
     @Override
-    public QCNote getQCNoteById(Integer QCNoteId) { return facade.getQCNoteById(QCNoteId); }
+    public QCNote getQCNoteById(Integer qcNoteId) { return facade.getQCNoteById(qcNoteId); }
 
     @Override
     public QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId) { return facade.getQCNoteForTraineeWeek(traineeId, weekId); }

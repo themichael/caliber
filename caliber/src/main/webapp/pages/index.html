@@ -60,11 +60,14 @@
 <body ng-app="app">
 	<!-- Header -->
 
-	<!-- states inserts here -->
-	<ui-view></ui-view>
+	<div class="wrapper">
+		<!-- states inserts here -->
+		<ui-view></ui-view>
+	</div>
+
 
 	<!-- Footer -->
-	<div id="footer" class="footer">
+	<footer>
 		<div class="container">
 			<div class="row">
 				<div class="footer-margin">
@@ -86,7 +89,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</footer>
 
 	<!-- App Config -->
 	<script type="text/javascript"
@@ -104,6 +107,8 @@
 	<script type="text/javascript"
 		src="../app/resources/js/factories/vpFactory.js"></script>
 	<script type="text/javascript"
+			src="../app/resources/js/factories/vpFactory.js"></script>
+	<script type="text/javascript"
 		src="../app/resources/js/factories/lineChartFactory.js"></script>
 	<script type="text/javascript"
 		src="../app/resources/js/factories/pieChartFactory.js"></script>
@@ -111,6 +116,7 @@
  		src="../app/resources/js/factories/radarChartFactory.js"></script>
 	<script type="text/javascript"
 		src="../app/resources/js/factories/hbarChartFactory.js"></script>
+
 
 	<!-- Controllers -->
 	<script type="text/javascript"

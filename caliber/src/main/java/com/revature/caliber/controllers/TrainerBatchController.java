@@ -1,7 +1,7 @@
 package com.revature.caliber.controllers;
 
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.middleTier.BusinessDelegate;
+import com.revature.caliber.gateway.impl.ApiGatewayImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+/**
+ * The type Trainer batch controller.
+ */
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/trainer")
@@ -19,12 +22,9 @@ public class TrainerBatchController {
      *
      * @return in JSON, a set of batch objects
      */
-    @RequestMapping(value = "/batch/all", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllBatches() {
-
-    	BusinessDelegate businessDelegate = new BusinessDelegate();
-        return new ResponseEntity<>(businessDelegate.getAllBatches(), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiGatewayImpl().getAllBatches(), HttpStatus.OK);
     }
 
     /**
@@ -32,12 +32,9 @@ public class TrainerBatchController {
      *
      * @return - in JSON, a batch object
      */
-    @RequestMapping(value = "/batch/current", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Batch> getCurrentBatch() {
-
-        BusinessDelegate delegate = new BusinessDelegate();
-        return new ResponseEntity<>(delegate.getCurrentBatch(), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiGatewayImpl().getCurrentBatch(), HttpStatus.OK);
     }
 
     /**
@@ -46,13 +43,20 @@ public class TrainerBatchController {
      * @param id - batch id
      * @return - in JSON, a batch object
      */
-    @RequestMapping(value = "/batch/{id}", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Batch> getBatch(@PathVariable int id) {
-        BusinessDelegate delegate = new BusinessDelegate();
-        Batch batch = delegate.getCurrentBatch();
-        batch.setBatchId(id);
-        return new ResponseEntity<>(batch, HttpStatus.OK);
+    @RequestMapping(value = "/batch/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Batch> getBatchByTrainerId(@PathVariable int id) {
+        return new ResponseEntity<>(new ApiGatewayImpl().getBatchByTrainerId(id), HttpStatus.OK);
+    }
+
+    /**
+     * Gets batch.
+     *
+     * @param batchId the batch id
+     * @return the batch
+     */
+    public ResponseEntity<Batch> getBatch(int batchId) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

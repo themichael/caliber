@@ -21,25 +21,53 @@
 
 	<mvc:resources mapping="/pages/**" location="/pages/" />
 	<mvc:resources mapping="/app/**" location="/app/"/>
-	
+
+	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
+		<property name="hostname" value="http://www.pjw6193.tech" />
+		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
+		
+		<property name="insertAssessment" value="assessments/assessment/new"/>
+		<property name="deleteAssessment" value="assessments/assessment/delete" />
+		<property name="updateAssessment" value="assessments/assesment/update" />
+
+
+		<property name="insertGrade" value="assessments/grades/create/"/>
+		<property name="updateGrade" value="assessments/grades/update/"/>
+		<property name="gradesByAssessments" value="assessments/grades/assessment/"/>
+		
+		<property name="updateTrainerNotePath" value="assessments/trainerNote/update/" />
+		<property name="deleteTrainerNotePath" value="assessments/trainerNote/delete/" />
+		<property name="createTrainerNotePath" value="assessments/trainerNote/new/" />
+		
+	</bean>
+
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
 		<property name="hostname" value="http://www.pjw6193.tech" />
 		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
 
-		<property name="newBatch" value="batch/create/" />
-		<property name="allBatch" value="batch/all/" />
-		<property name="allBatchesForTrainer" value="batch/byTrainerId/" />
-		<property name="allCurrentBatch" value="batch/current/" />
+		<property name="newBatch" value="training/batch/create/" />
+		<property name="allBatch" value="training/batch/all/" />
+		<property name="allBatchesForTrainer" value="training/batch/byTrainerId/" />
+		<property name="allCurrentBatch" value="training/batch/current/" />
 		<property name="allCurrentBatchByTrainer" value="training/batch/current/" />
 		<property name="batchById" value="training/batch/byId/" />
 		<property name="updateBatch" value="training/batch/update/" />
 		<property name="deleteBatch" value="training/batch/delete/" />
 
-		<property name="addTraineePath" value="trainees/new" />
-		<property name="deleteTraineePath" value="trainees/delete" />
-		<property name="updateTraineePath" value="trainees/update" />
-		<property name="getTraineeByIdPath" value="trainees/byid/" />
-		<property name="getTraineeByNamePath" value="trainees/byname/" />
-		<property name="getTraineesByBatchPath" value="trainees/bybatch/" />
+		<property name="addTraineePath" value="training/trainees/new" />
+		<property name="deleteTraineePath" value="training/trainees/delete" />
+		<property name="updateTraineePath" value="training/trainees/update" />
+		<property name="getTraineeByIdPath" value="training/trainees/byid/" />
+		<property name="getTraineeByNamePath" value="training/trainees/byemail/" />
+		<property name="getTraineesByBatchPath" value="training/trainees/bybatch/" />
+
+		<property name="addTrainerPath" value="training/trainers/new" />
+		<property name="getAllTrainersPath" value="training/trainers/all" />
+		<property name="updateTrainerPath" value="training/trainers/update" />
+		<property name="getTrainerByIdPath" value="training/trainers/byid/" />
+		<property name="getTrainerByEmailPath" value="training/trainers/byemail/" />
+
+	
 	</bean>
+
 </beans>

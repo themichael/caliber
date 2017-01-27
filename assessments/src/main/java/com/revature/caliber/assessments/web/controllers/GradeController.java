@@ -1,19 +1,18 @@
 package com.revature.caliber.assessments.web.controllers;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.service.BusinessDelegate;
+
+import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = { "*" }, 
@@ -32,7 +31,7 @@ public class GradeController {
 		this.delegate = delegate;
 	}
 	
-	@RequestMapping(value="/grade/all",
+	@RequestMapping(value="/grades/all",
 					method=RequestMethod.GET,
 					produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Grade>> getAllGrades(){
@@ -40,12 +39,12 @@ public class GradeController {
 		if(grades == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
-			return new ResponseEntity<List<Grade>>(grades, HttpStatus.OK);
+			return new ResponseEntity<>(grades, HttpStatus.OK);
 		}
 		
 	}
 	
-	@RequestMapping(value="/grade/{gradeId}",
+	@RequestMapping(value="/grades/{gradeId}",
 			method=RequestMethod.GET,
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Grade> getGradesById(@PathVariable (value="gradeId") int gradeId){
@@ -53,7 +52,7 @@ public class GradeController {
 		if(grade == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			return new ResponseEntity<Grade>(grade,HttpStatus.OK);
+			return new ResponseEntity<>(grade,HttpStatus.OK);
 		}
 	}
 	
@@ -65,7 +64,7 @@ public class GradeController {
 		if(grades == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			return new ResponseEntity<List<Grade>>(grades,HttpStatus.OK);
+			return new ResponseEntity<>(grades,HttpStatus.OK);
 		}
 	}
 	
@@ -77,12 +76,43 @@ public class GradeController {
 		if(grades == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else{
-			return new ResponseEntity<List<Grade>>(grades,HttpStatus.OK);
+			return new ResponseEntity<>(grades,HttpStatus.OK);
 		}
 	}
-	
 
-	
-	
+	@RequestMapping (value = "/grades/create",
+					method = RequestMethod.PUT,
+					consumes = MediaType.APPLICATION_JSON_VALUE,
+					produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Serializable> createGrade(@RequestBody @Valid Grade grade) {
+		ResponseEntity<Serializable> returnEntity;
+
+		try {
+			delegate.insertGrade(grade);
+			returnEntity = new ResponseEntity<>(HttpStatus.OK);
+		}
+		catch (RuntimeException e) {
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return returnEntity;
+	}
+
+	@RequestMapping (value = "/grades/update",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Serializable> updateGrade(@RequestBody @Valid Grade grade) {
+		ResponseEntity<Serializable> returnEntity;
+
+		try {
+			delegate.updateGrade(grade);
+			returnEntity = new ResponseEntity<>(HttpStatus.OK);
+		}
+		catch (RuntimeException e) {
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return returnEntity;
+	}
+
 
 }

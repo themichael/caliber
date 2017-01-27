@@ -33,98 +33,91 @@ public class BatchController {
         this.businessDelegate = businessDelegate;
     }
 
-    /**
-     * Request for new batch to be created
-     *
-     * @param batch
-     * @return
-     */
-    @RequestMapping(value = "batch/create",
-            method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Serializable> createBatch(@RequestBody @Valid Batch batch) {
-        ResponseEntity<Serializable> returnEntity;
-        try {
-            businessDelegate.createBatch(batch);
-            returnEntity = new ResponseEntity(HttpStatus.CREATED);
-        } catch (RuntimeException e) {
-            returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
-            log.error("Runtime Exception.", e);
-        }
-        return returnEntity;
-    }
+	/**
+	 * Request for new batch to be created
+	 * 
+	 * @param batch
+	 * @return
+	 */
+	@RequestMapping(value = "batch/create", method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Serializable> createBatch(@RequestBody @Valid Batch batch) {
+		ResponseEntity<Serializable> returnEntity;
+		try {
+			businessDelegate.createBatch(batch);
+			returnEntity = new ResponseEntity(HttpStatus.CREATED);
+		} catch (RuntimeException e) {
+			returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+			log.error("Runtime Exception.", e);
+		}
+		return returnEntity;
+	}
 
-    /**
-     * Request to get all batches
-     *
-     * @return
-     */
-    @RequestMapping(value = "batch/all",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<List<Batch>> getAllBatches() {
-        ResponseEntity<List<Batch>> returnEntity;
-        try {
-            List<Batch> batches = businessDelegate.getAllBatch();
-            if (batches == null)
-                returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
-            else
-                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
-            log.error("Runtime Exception.", e);
-        }
-        return returnEntity;
-    }
+	/**
+	 * Request to get all batches
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public HttpEntity<List<Batch>> getAllBatches() {
+		ResponseEntity<List<Batch>> returnEntity;
+		try {
+			List<Batch> batches = businessDelegate.getAllBatch();
+			if (batches == null)
+				returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
+			else
+				returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
+		} catch (RuntimeException e) {
+			returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+			log.error("Runtime Exception.", e);
+		}
+		return returnEntity;
+	}
 
-    /**
-     * Request to get all batches by Trainer id
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "batch/byTrainerId/{id}",
-            method = RequestMethod.GET,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("id") Integer id) {
-        ResponseEntity<List<Batch>> returnEntity;
-        try {
-            List<Batch> batches = businessDelegate.getTrainerBatch(id);
-            if (batches == null)
-                returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
-            else
-                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
-            log.error("Runtime Exception.", e);
-        }
-        return returnEntity;
-    }
+	/**
+	 * Request to get all batches by Trainer id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "batch/byTrainerId/{id}", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("id") Integer id) {
+		ResponseEntity<List<Batch>> returnEntity;
+		try {
+			List<Batch> batches = businessDelegate.getTrainerBatch(id);
+			if (batches == null)
+				returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
+			else
+				returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
+		} catch (RuntimeException e) {
+			returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+			log.error("Runtime Exception.", e);
+		}
+		return returnEntity;
+	}
 
-    /**
-     * Request to get all active batches
-     *
-     * @return
-     */
-    @RequestMapping(value = "batch/current",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<List<Batch>> getCurrentBatch() {
-        ResponseEntity<List<Batch>> returnEntity;
-        try {
-            List<Batch> batches = businessDelegate.getCurrentBatch();
-            if (batches == null)
-                returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
-            else
-                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
-            log.error("Runtime Exception.", e);
-        }
-        return returnEntity;
-    }
+	/**
+	 * Request to get all active batches
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public HttpEntity<List<Batch>> getCurrentBatch() {
+		ResponseEntity<List<Batch>> returnEntity;
+		try {
+			List<Batch> batches = businessDelegate.getCurrentBatch();
+			if (batches == null)
+				returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
+			else
+				returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
+		} catch (RuntimeException e) {
+			returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+			log.error("Runtime Exception.", e);
+		}
+		return returnEntity;
+	}
 
     /**
      * Request to get active batches by Trainer id
@@ -167,27 +160,26 @@ public class BatchController {
         return new ResponseEntity<>(batch, HttpStatus.OK);
     }
 
-
-    /**
-     * Request to update a batch
-     *
-     * @param batch
-     * @return
-     */
-    @RequestMapping(value = "batch/update",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Serializable> updateBatch(@RequestBody Batch batch) {
-        ResponseEntity<Serializable> returnEntity;
-        try {
-            businessDelegate.updateBatch(batch);
-            returnEntity = new ResponseEntity(HttpStatus.OK);
-        } catch (RuntimeException e) {
-            returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
-            log.error("Runtime Exception.", e);
-        }
-        return new ResponseEntity<Serializable>(HttpStatus.OK);
-    }
+	/**
+	 * Request to update a batch
+	 * 
+	 * @param batch
+	 * @return
+	 */
+	@RequestMapping(value = "batch/update", method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public HttpEntity<Batch> updateBatch(@RequestBody @Valid Batch batch) {
+		ResponseEntity<Batch> returnEntity;
+		try {
+			businessDelegate.updateBatch(batch);
+			returnEntity = new ResponseEntity(HttpStatus.OK);
+		} catch (RuntimeException e) {
+			returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+			log.error("Runtime Exception.", e);
+		}
+		return returnEntity;
+	}
 
     /**
      * Request to delete a batch
@@ -203,10 +195,10 @@ public class BatchController {
         ResponseEntity<Serializable> returnEntity;
         try {
             businessDelegate.deleteBatch(batch);
-            returnEntity = new ResponseEntity<Serializable>(HttpStatus.OK);
+            returnEntity = new ResponseEntity<>(HttpStatus.OK);
         } catch (RuntimeException e) {
             e.printStackTrace();
-            returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
+            returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return returnEntity;
     }

@@ -1,11 +1,16 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-import com.revature.caliber.assessments.beans.TrainerNote;
+import java.util.Set;
 import org.apache.log4j.Logger;
-import org.hibernate.*;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,17 +18,19 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.revature.caliber.assessments.beans.TrainerNote;
 import com.revature.caliber.assessments.data.TrainerNoteDAO;
 
-import java.util.Set;
-
 public class TrainerNoteDAOImplTest {
+
 	private static AbstractApplicationContext context;
 	private static TrainerNoteDAO trainerNoteDAO;
 	private static SessionFactory sf;
 	static Logger logger;
-	private static int id = 3050, trainerId = 5, weekId = 123;
-
+	private static int id = 3050;
+	private static int trainerId = 5;
+	private static int weekId = 123;
+	
 	@BeforeClass
 	public static void preClass () {
 		context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
@@ -38,9 +45,8 @@ public class TrainerNoteDAOImplTest {
 	 * Populates table with Assessment used for testing
 	 */
 	private static void populateTable() {
-		String sql = "";
 
-		sql = "INSERT INTO CALIBER_NOTE(NOTE_ID, NOTE_CONTENT, NOTE_SUGAR)" +
+		String sql = "INSERT INTO CALIBER_NOTE(NOTE_ID, NOTE_CONTENT, NOTE_SUGAR)" +
 				" VALUES (?, ?, ?)";
 
 		Session session = sf.openSession();
@@ -117,10 +123,10 @@ public class TrainerNoteDAOImplTest {
 
 	@Test
 	public void getTrainerNoteById(){
-		int id = 3050;
-		logger.debug("Starting getTrainerNoteById = " + id);
+		int noteId = 3050;
+		logger.debug("Starting getTrainerNoteById = " + noteId);
 
-		TrainerNote trainerNote = trainerNoteDAO.getTrainerNoteById(id);
+		TrainerNote trainerNote = trainerNoteDAO.getTrainerNoteById(noteId);
 		assertNotNull(trainerNote);
 
 		logger.debug("Ending getTrainerNoteById");
@@ -178,5 +184,7 @@ public class TrainerNoteDAOImplTest {
 		assertNotNull(trainerNote);
 
 		logger.debug("Ending updateTrainerNote");
+
 	}
-}
+	
+}	

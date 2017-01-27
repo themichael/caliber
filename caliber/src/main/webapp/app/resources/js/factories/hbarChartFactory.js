@@ -7,31 +7,19 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
 		var chartData = {};
 		
 		// data and labels
-		chartData.hbarData = [];
-		chartData.hbarLabels = [];
+		chartData.data = [];
+		chartData.labels = [];
 				
 		// traverse through array of objects and grab labels and data
 		dataArray.forEach(function(element){
-			chartData.hbarLabels.push(element.trainee);
-			chartData.hbarData.push(element.average);
+			chartData.labels.push(element.trainee);
+			chartData.data.push(element.average);
 		});
 		
-		chartData.hbarDatasetOverride = [{
+		chartData.datasetOverride = [{
 			xAxisID: 'x-axis-1'
 		}];
 
-		chartData.hbarOptions = {
-				scales: {
-					xAxes: [{
-						id: 'x-axis-1',
-						position: 'bottom',
-						ticks: {
-							min: 30,
-							max: 100
-						}
-					}]
-				}
-		}
 		return chartData;
 	};
 
@@ -72,6 +60,26 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
 
         return chartData;
     };
+
+    hbarChart.getBatchTechEvalChart = function(dataArray){
+        var chartData = {};
+
+        // series
+        chartData.series = ["Tech Batch Eval"];
+
+        // labels and data
+        chartData.data = [];
+        chartData.labels = [];
+
+        // loop through object array
+        dataArray.forEach(function(element){
+            chartData.data.push(element.average);
+            chartData.labels.push(element.trainee);
+        });
+
+        return chartData;
+    };
+
 
 	return hbarChart;
 });

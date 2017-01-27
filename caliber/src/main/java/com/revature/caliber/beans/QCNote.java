@@ -1,38 +1,76 @@
 package com.revature.caliber.beans;
 
-public class QCNote extends Note{
+/**
+ * The type Qc note.
+ */
+public class QCNote extends Note {
 
-	private Trainee trainee;
-	private Week week;
-	
-	public QCNote(Trainee trainee, Week week) {
-		super();
-		this.trainee = trainee;
-		this.week = week;
-	}
+    private Trainee trainee;
+    private Week week;
 
-	public Trainee getTrainee() {
-		return trainee;
-	}
+    /**
+     * Instantiates a new Qc note.
+     *
+     * @param trainee the trainee
+     * @param week    the week
+     */
+    public QCNote(Trainee trainee, Week week) {
+        super();
+        this.trainee = trainee;
+        this.week = week;
+    }
 
-	public void setTrainee(Trainee trainee) {
-		this.trainee = trainee;
-	}
+    /**
+     * Gets trainee.
+     *
+     * @return the trainee
+     */
+    public Trainee getTrainee() {
+        return trainee;
+    }
 
-	public Week getWeek() {
-		return week;
-	}
+    /**
+     * Sets trainee.
+     *
+     * @param trainee the trainee
+     */
+    public void setTrainee(Trainee trainee) {
+        this.trainee = trainee;
+    }
 
-	public void setWeek(Week week) {
-		this.week = week;
-	}
+    /**
+     * Gets week.
+     *
+     * @return the week
+     */
+    public Week getWeek() {
+        return week;
+    }
 
-	public QCNote() {
-		super();
-	}
-	
-	public QCNote(String content, boolean sugarCoated) {
-		super(content, sugarCoated);
-	}
-	
+    /**
+     * Sets week.
+     *
+     * @param week the week
+     */
+    public void setWeek(Week week) {
+        this.week = week;
+    }
+
+    /**
+     * Instantiates a new Qc note.
+     */
+    public QCNote() {
+        super();
+    }
+
+    /**
+     * Instantiates a new Qc note.
+     *
+     * @param content     the content
+     * @param sugarCoated the sugar coated
+     */
+    public QCNote(String content, boolean sugarCoated) {
+        super(content, sugarCoated);
+    }
+
 }
