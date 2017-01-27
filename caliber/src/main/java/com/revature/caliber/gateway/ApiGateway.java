@@ -216,19 +216,16 @@ public interface ApiGateway {
     //Batch note service
     /**
      * Create a Batch Note
-     * @param note
      */
     void createBatchNote(BatchNote batchNote);
     
     /**
      * Update the Batch Note
-     * @param note
      */
     void updateBatchNote(BatchNote batchNote);
     
     /**
      * Delete the Batch Note
-     * @param note
      */
     void deleteBatchNote(BatchNote batchNote);
     //End of batch note service

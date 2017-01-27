@@ -87,7 +87,7 @@ public class Trainer {
 	 */
 	@ManyToOne(fetch =FetchType.EAGER)
 	@JoinColumn(name = "TIER", nullable = false)
-	@JsonBackReference
+	@JsonManagedReference
 	private Tier tier;
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
