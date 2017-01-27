@@ -20,7 +20,7 @@ import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.Trainee;
+
 import com.revature.caliber.beans.TrainerNote;
 import com.revature.caliber.beans.exceptions.AssessmentServiceAssessmentOperationException;
 import com.revature.caliber.beans.exceptions.AssessmentServiceOperationException;
@@ -44,7 +44,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     				createTrainerNotePath;
     
     //paths for QC Note
-    private String createQCNotePath;
+    private String createQCNotePath, updateQCNotePath;
     
     //paths for assessments
     private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
@@ -204,6 +204,22 @@ public class AssessmentServiceImpl implements AssessmentService {
 			throw new AssessmentServiceOperationException("QC Note could not be created");
 		}
 	}
+	
+	@Override
+	public void updateQCNote(QCNote note) {
+		RestTemplate service = new RestTemplate();
+		
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTrainerNotePath)
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.postForEntity(URI, note, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceOperationException("QC Note could not be updated");
+		}
+		
+	}
+	
 	@Override
 	public QCNote getQCNoteById(Integer qcNoteId) {
 		// TODO Auto-generated method stub
@@ -224,11 +240,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public void updateQCNote(QCNote note) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	@Override
 	public void deleteQCNote(QCNote note) {
 		// TODO Auto-generated method stub
@@ -284,6 +296,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 			throw new AssessmentServiceOperationException("Trainer Note could not be updated");
 		}
 	}
+	
 	@Override
 	public void deleteTrainerNote(TrainerNote note) {
 		RestTemplate service = new RestTemplate();
@@ -339,7 +352,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     
     //QCNote
     public void setCreateQCNotePath(String createQCNotePath){this.createQCNotePath = createQCNotePath;}
-    
+    public void setUpdateQCNotePath(String updateQCNotePath){this.updateQCNotePath = updateQCNotePath;}
     //end of QCNote
     
 }

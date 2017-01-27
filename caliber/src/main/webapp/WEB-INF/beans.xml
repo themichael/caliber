@@ -40,7 +40,7 @@
 		<property name="createTrainerNotePath" value="assessments/trainerNote/new/" />
 		
 		<property name="createQCNotePath" value="assessments/qcnotes/new" />
-		
+		<property name="updateQCNotePath" value="assessments/qcnotes/update" />
 	</bean>
 
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
