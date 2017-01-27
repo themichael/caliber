@@ -85,7 +85,18 @@ public class Trainee {
 		this.trainerNotes = trainerNotes;
 		this.qcNotes = qcNotes;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Trainee{" +
+				"traineeId=" + traineeId +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", trainingStatus='" + trainingStatus + '\'' +
+				", batch=" + batch +
+				", grades=" + grades +
+				", trainerNotes=" + trainerNotes +
+				", qcNotes=" + qcNotes +
+				'}';
+	}
 }

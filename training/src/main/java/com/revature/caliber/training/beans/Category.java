@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
@@ -28,11 +27,32 @@ public class Category {
 	@Column(name = "SKILL_CATEGORY")
 	private String skillCategory;
 
-	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	@ManyToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER) 
-	@JoinTable(name="CATEGORY_COVERED")
+	@ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@JoinTable(name = "CATEGORY_COVERED")
 	private Set<Week> weeks;
+
+	public Category() {
+		super();
+	}
+
+	public Category(String skillCategory) {
+		super();
+		this.skillCategory = skillCategory;
+	}
+
+	public Category(int categoryId, String skillCategory) {
+		super();
+		this.categoryId = categoryId;
+		this.skillCategory = skillCategory;
+	}
+
+	public Category(int categoryId, String skillCategory, Set<Week> weeks) {
+		super();
+		this.categoryId = categoryId;
+		this.skillCategory = skillCategory;
+		this.weeks = weeks;
+	}
 
 	public int getCategoryId() {
 		return categoryId;
@@ -58,26 +78,9 @@ public class Category {
 		this.weeks = weeks;
 	}
 
-	public Category() {
-		super();
-	}
-
-	public Category(String skillCategory) {
-		super();
-		this.skillCategory = skillCategory;
-	}
-
-	public Category(int categoryId, String skillCategory) {
-		super();
-		this.categoryId = categoryId;
-		this.skillCategory = skillCategory;
-	}
-
-	public Category(int categoryId, String skillCategory, Set<Week> weeks) {
-		super();
-		this.categoryId = categoryId;
-		this.skillCategory = skillCategory;
-		this.weeks = weeks;
+	@Override
+	public String toString() {
+		return "Category [categoryId=" + categoryId + ", skillCategory=" + skillCategory + ", weeks=" + weeks + "]";
 	}
 
 }
