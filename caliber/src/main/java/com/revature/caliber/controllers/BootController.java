@@ -1,7 +1,9 @@
 package com.revature.caliber.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.revature.caliber.Helper;
+import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.models.SalesforceToken;
 import com.revature.caliber.models.SalesforceUser;
 import org.apache.http.HttpResponse;
@@ -9,6 +11,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONObject;
+import org.json.JSONString;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,6 +52,7 @@ public class BootController extends Helper {
                 break;
             }
         }
+        //Http request to the salesforce module to get the salesforce user
         URIBuilder uriBuilder = new URIBuilder();
         uriBuilder.setScheme("http")
                 .setHost("localhost")
@@ -61,9 +66,32 @@ public class BootController extends Helper {
         String user = toJsonString(response.getEntity().getContent());
         SalesforceUser salesforceUser = new ObjectMapper().readValue(user,SalesforceUser.class);
         salesforceUser.setSalesforceToken(salesforceToken);
-        salesforceUser.setRole("ROLE_TRAINER");
+
+        //Http request to the training module to get the caliber user
+        String email = salesforceUser.getEmail();
+        uriBuilder = new URIBuilder();
+        uriBuilder.setScheme("http")
+                .setHost("localhost")
+                .setPort(8080)
+                .setPath("/training/trainers/byemail/"+ email+"/");
+        uri = uriBuilder.build();
+        httpGet = new HttpGet(uri);
+        response = httpClient.execute(httpGet);
+        String jsonString = toJsonString(response.getEntity().getContent());
+        JSONObject jsonObject = new JSONObject(jsonString);
+        if(jsonObject.getString("email").equals(salesforceUser.getEmail()))
+            salesforceUser.setRole(jsonObject.getJSONObject("tier").getString("tier"));
+        else throw new NullPointerException("No such user");
         Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
+        switch (jsonObject.getJSONObject("tier").getInt("tierId")){
+            case 1:
+                return "forward:/vp/batch/all";
+            case 2:
+                return "forward:/qc/batch/all";
+            case 3:
+                return "forward:/trainer/batch/all";
+        }
         return "index";
     }
 }
