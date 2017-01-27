@@ -59,7 +59,7 @@ public class WeekDAOImplementationTest {
 		logger.debug(" fetching all week records where batch id = 1 \n");
 		listOfWeeks = dao.getWeekByBatchId(1);
 
-		assertNotNull(listOfWeeks);;
+		assertEquals(1, listOfWeeks.get(0).getBatch().getBatchId());
 		logger.debug(" successfully fetched all week records  \n");
 
 	}
