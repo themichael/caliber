@@ -1,6 +1,6 @@
 angular.module("app").config(
     function ($stateProvider, $locationProvider, $urlRouterProvider,
-              ChartJsProvider, $logProvider) {
+              ChartJsProvider, $logProvider, authFtry) {
 
     	// Turn on/off debug messages
     	$logProvider.debugEnabled(false);
@@ -19,14 +19,20 @@ angular.module("app").config(
         $stateProvider
             .state("routing", {
                 url: "/routing",
-                templateUrl: "app/partials/helloWorld.html"
+                templateUrl: "app/partials/helloWorld.html",
+                onEnter: function(){
+                    authFtry.auth();
+                }
             })
 
             // qc
             .state("qc", {
                 abstract: true,
                 url: "/qc",
-                templateUrl: "app/partials/abstracts/qc.html"
+                templateUrl: "app/partials/abstracts/qc.html",
+                onEnter: function(){
+                    authFtry.authQC();
+                }
             })
             .state("qc.home", {
                 url: "/home",
@@ -37,7 +43,10 @@ angular.module("app").config(
             .state("trainer", {
                 abstract: true,
                 url: "/trainer",
-                templateUrl: "app/partials/abstracts/trainer.html"
+                templateUrl: "app/partials/abstracts/trainer.html",
+                onEnter: function(){
+                    authFtry.authTrainer();
+                }
             })
             .state("trainer.home", {
                 templateUrl: "app/partials/home/trainer-home.html",
@@ -54,7 +63,10 @@ angular.module("app").config(
             .state("vp", {
                 abstract: true,
                 templateUrl: "app/partials/abstracts/vp.html",
-                url: "/vp"
+                url: "/vp",
+                onEnter: function(){
+                    authFtry.authVP();
+                }
             })
             .state("vp.home", {
                 templateUrl: "app/partials/home/vp-home.html",
