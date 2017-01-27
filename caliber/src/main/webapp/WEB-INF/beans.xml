@@ -72,6 +72,9 @@
 		<property name="updateTrainerPath" value="training/trainers/update" />
 		<property name="getTrainerByIdPath" value="training/trainers/byid/" />
 		<property name="getTrainerByEmailPath" value="training/trainers/byemail/" />
+		
+		<property name="addWeekPath" value="training/week/new" />
+		<property name="getAllWeekPath" value="training/week/all" />
 	
 	</bean>
 
