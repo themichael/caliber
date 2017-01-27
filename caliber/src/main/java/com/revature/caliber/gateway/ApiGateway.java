@@ -1,6 +1,7 @@
 package com.revature.caliber.gateway;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 
@@ -163,4 +164,24 @@ public interface ApiGateway {
     void updateTrainer(Trainer trainer);
 
     //End of Trainer Service
+    
+    //Grade Service
+    /**
+     * Retrieves the Grade using the assessmentId
+     * @param assessmentId
+     * @return
+     */
+    List<Grade> getGradesByAssessment(Integer assessmentId);
+    
+    /**
+     * Inserts a grade
+     * @param grade
+     */
+    void insertGrade(Grade grade);
+    
+    /**
+     * Updates a grade
+     * @param grade
+     */
+    void updateGrade(Grade grade);
 }

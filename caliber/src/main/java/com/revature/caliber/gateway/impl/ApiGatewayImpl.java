@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.gateway.ApiGateway;
@@ -141,5 +142,22 @@ public class ApiGatewayImpl implements ApiGateway {
 	public Batch getBatchFromAllBatchesById() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/********************Grade************************/
+	@Override
+	public List<Grade> getGradesByAssessment(Integer assessmentId) {
+		return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
+	}
+
+	@Override
+	public void insertGrade(Grade grade) {
+		serviceLocator.getAssessmentService().insertGrade(grade);
+		
+	}
+
+	@Override
+	public void updateGrade(Grade grade) {
+		serviceLocator.getAssessmentService().updateGrade(grade);
 	}
 }

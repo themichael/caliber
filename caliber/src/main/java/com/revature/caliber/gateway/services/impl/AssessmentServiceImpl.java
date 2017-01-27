@@ -201,7 +201,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new TrainingServiceTraineeOperationException("QC Note could not be created");
+			throw new AssessmentServiceOperationException("QC Note could not be created");
 		}
 	}
 	@Override
