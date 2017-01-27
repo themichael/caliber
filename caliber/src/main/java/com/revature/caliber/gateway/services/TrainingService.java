@@ -3,6 +3,7 @@ package com.revature.caliber.gateway.services;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.Week;
 
 import java.util.List;
 
@@ -41,12 +42,12 @@ public interface TrainingService {
     List<Batch> currentBatch();
 
     /**
-     * Get all current Batches for a given Trainer
+     * Get all current Batches for a given Trainer id
      *
-     * @param trainer - The trainer requesting a list of all his current batches
+     * @param id - The trainer requesting a list of all his current batches
      * @return A list of the trainers current batches
      */
-    List<Batch> currentBatch(Trainer trainer);
+    List<Batch> currentBatch(Integer id);
 
     /**
      * Get a batch by ID
@@ -158,4 +159,20 @@ public interface TrainingService {
     void updateTrainer(Trainer trainer);
 
     //End of Trainer
+    
+    
+    //Week
+    /**
+     * Get a list of all Weeks
+     * @return A list of Week objects
+     */
+    List<Week> getAllWeek();
+    
+    /**
+     * Create a new Week object
+     * @param Week object
+     */
+    void createWeek(Week week);
+    
+    
 }

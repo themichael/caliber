@@ -1,23 +1,18 @@
 package com.revature.caliber.web.controller.implementations;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.http.HttpEntity;
-
 import com.revature.caliber.training.beans.Tier;
 import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.data.TrainerDAO;
 import com.revature.caliber.training.web.controllers.TrainerController;
+import org.apache.log4j.Logger;
+import org.junit.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.http.HttpEntity;
+
+import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
 
 public class TrainerControllerImplementationTest {
 	private static ApplicationContext context;

@@ -1,18 +1,16 @@
 package com.revature.caliber.assessments.web.controllers;
 
-import java.io.Serializable;
-import java.util.List;
-
+import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.service.BusinessDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.service.BusinessDelegate;
-
 import javax.validation.Valid;
+import java.io.Serializable;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = { "*" }, 

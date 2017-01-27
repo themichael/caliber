@@ -9,6 +9,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerNote;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -55,7 +56,7 @@ public interface ApiGateway {
      * @param trainer - The trainer for whom we are returning the current batch
      * @return A list of batches
      */
-    List<Batch> currentBatch(Trainer trainer);
+    List<Batch> currentBatch(Integer id);
 
     /**
      * Get a batch by ID
@@ -170,6 +171,14 @@ public interface ApiGateway {
 
 
     //End of Trainer Service
+
+    /**
+     * retreive tech grade for a trainee with AVG , MEDIAN , MAX , MIN
+     * @param id
+     * @return
+     */
+	HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
+
     
     //Grade Service
     /**
@@ -216,16 +225,28 @@ public interface ApiGateway {
     //Batch note service
     /**
      * Create a Batch Note
+<<<<<<< HEAD
+     * @param batchNote
+=======
+>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
      */
     void createBatchNote(BatchNote batchNote);
     
     /**
      * Update the Batch Note
+<<<<<<< HEAD
+     * @param batchNote
+=======
+>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
      */
     void updateBatchNote(BatchNote batchNote);
     
     /**
      * Delete the Batch Note
+<<<<<<< HEAD
+     * @param batchNote
+=======
+>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
      */
     void deleteBatchNote(BatchNote batchNote);
     //End of batch note service
@@ -252,6 +273,7 @@ public interface ApiGateway {
     void createQCNote(QCNote note);
     
     void updateQCNote(QCNote note);
+
 
 
 }
