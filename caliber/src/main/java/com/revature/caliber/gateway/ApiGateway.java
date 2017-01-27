@@ -225,19 +225,28 @@ public interface ApiGateway {
     //Batch note service
     /**
      * Create a Batch Note
+<<<<<<< HEAD
      * @param batchNote
+=======
+>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
      */
     void createBatchNote(BatchNote batchNote);
     
     /**
      * Update the Batch Note
+<<<<<<< HEAD
      * @param batchNote
+=======
+>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
      */
     void updateBatchNote(BatchNote batchNote);
     
     /**
      * Delete the Batch Note
+<<<<<<< HEAD
      * @param batchNote
+=======
+>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
      */
     void deleteBatchNote(BatchNote batchNote);
     //End of batch note service

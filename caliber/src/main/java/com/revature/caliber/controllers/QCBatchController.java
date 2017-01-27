@@ -17,7 +17,7 @@ import java.util.Set;
  * The type Qc batch controller.
  */
 @RestController
-@RequestMapping("/qc")
+//@RequestMapping("/qc")
 public class QCBatchController {
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllBatches() {
