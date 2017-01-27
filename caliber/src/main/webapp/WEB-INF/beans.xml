@@ -39,6 +39,10 @@
 		<property name="deleteTrainerNotePath" value="assessments/trainerNote/delete/" />
 		<property name="createTrainerNotePath" value="assessments/trainerNote/new/" />
 		
+		<property name="createBatchNotePath" value="assessments/batchNote/new"/>
+		<property name="deleteBatchNotePath" value="assessments/batchNote/update"/>
+		<property name="updateBatchNotePath" value="assessments/batchNote/delete"/>
+		
 		<property name="createQCNotePath" value="assessments/qcnotes/new" />
 		
 	</bean>

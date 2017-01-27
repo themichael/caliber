@@ -46,6 +46,11 @@ public class AssessmentServiceImpl implements AssessmentService {
     //paths for QC Note
     private String createQCNotePath;
     
+    //paths for Batch Note
+    private String 	createBatchNotePath,
+    				updateBatchNotePath,
+    				deleteBatchNotePath;
+    
     //paths for assessments
     private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
     
@@ -158,9 +163,21 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 	
 	@Override
-	public void makeBatchNote(BatchNote batchNote) {
-		// TODO Auto-generated method stub
-		
+	public void createBatchNote(BatchNote batchNote) {
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(createBatchNotePath)
+				.build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<BatchNote> entity = new HttpEntity<>(batchNote, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceOperationException("Batch Note could not be created");
+		}
 	}
 	@Override
 	public BatchNote weeklyBatchNote(int batchId, int weekId) {
@@ -179,13 +196,33 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 	@Override
 	public void updateBatchNote(BatchNote batchNote) {
-		// TODO Auto-generated method stub
-		
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateBatchNotePath)
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.postForEntity(URI, batchNote, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceOperationException("Batch Note could not be updated");
+		}
 	}
 	@Override
 	public void deleteBatchNote(BatchNote batchNote) {
-		// TODO Auto-generated method stub
-		
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteBatchNotePath)
+				.build().toUriString();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<BatchNote> entity = new HttpEntity<>(batchNote, headers);
+
+		//Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceOperationException("Batch Note could not be deleted");
+		}
 	}
 	@Override
 	public void createQCNote(QCNote note) {
@@ -341,5 +378,10 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setCreateQCNotePath(String createQCNotePath){this.createQCNotePath = createQCNotePath;}
     
     //end of QCNote
+    
+    //BatchNote
+    public void setCreateBatchNotePath(String createBatchNotePath){this.createBatchNotePath = createBatchNotePath;}
+    public void setUpdateBatchNotePath(String updateBatchNotePath){this.updateBatchNotePath = updateBatchNotePath;}
+    public void setDeleteBatchNotePath(String deleteBatchNotePath){this.deleteBatchNotePath = deleteBatchNotePath;}
     
 }
