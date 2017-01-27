@@ -1,6 +1,6 @@
 angular.module("trainer").controller(
 		"trainerHomeController",
-		function($scope, $log, delegateFactory, lineChartFactory, pieChartFactory, hbarChartFactory) {
+		function($scope, $log, delegateFactory, radarChartFactory, lineChartFactory, pieChartFactory, hbarChartFactory) {
 			$log.debug("Booted trainer home controller.");
 
 			// Trainer API Test
@@ -87,40 +87,67 @@ angular.module("trainer").controller(
 
             // create charts on batch selection
 			function createBatchCharts(){
+                // Radar chart for batch rank comparison
+                var sample8 = [
+                    {tech: "Java", average: ranNum()}, {tech: "Servlet", average: ranNum()},
+                    {tech: "Spring", average: ranNum()}, {tech: "Hibernate", average: ranNum()},
+                    {tech: "REST", average: ranNum()}, {tech: "SOAP", average: ranNum()},
+                    {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
+
+                var sample9 = [
+                    {tech: "Java", average: ranNum()}, {tech: "Servlet", average: ranNum()},
+                    {tech: "Spring", average: ranNum()}, {tech: "Hibernate", average: ranNum()},
+                    {tech: "REST", average: ranNum()}, {tech: "SOAP", average: ranNum()},
+                    {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
+
+                // Generate chart
+                var radarChartObject = radarChartFactory.getBatchRankComparisonChart(sample8, sample9);
+                $scope.radarData = radarChartObject.data;
+                $scope.radarLabels = radarChartObject.labels;
+                $scope.radarSeries = radarChartObject.series;
+                $scope.radarOptions = radarChartObject.options;
+			}
+
+			// create charts on tech selection
+			function createTechCharts(){
                 // Sample Data representing all trainee averages per technology
-                var sampleHbarData = [{trainee: "Rikki", average: 100},
-                    {trainee: "Kyle", average: 50},
-                    {trainee: "Osher", average: 40},
-                    {trainee: "Danny P", average: 80},
-                    {trainee: "Bryan", average: 75},
-                    {trainee: "Brayn", average: 95}];
+                var sampleHbarData = [
+                    {trainee: "Rikki", average: ranNum()},
+                    {trainee: "Kyle", average: ranNum()},
+                    {trainee: "Osher", average: ranNum()},
+                    {trainee: "Karina", average: ranNum()},
+                    {trainee: "Bryan", average: ranNum()},
+                    {trainee: "Shehar", average: ranNum()},
+                    {trainee: "Louis", average: ranNum()},
+                    {trainee: "Andrew", average: ranNum()},
+                    {trainee: "Sam", average: ranNum()},
+                    {trainee: "Ilya", average: ranNum()},
+                    {trainee: "David", average: ranNum()},
+                    {trainee: "Travis", average: ranNum()},
+                    {trainee: "Andrew", average: ranNum()}];
 
                 // Horizontal bar chart for trainee averages per technology
                 var hbarChartObject = hbarChartFactory.getBatchAvgChart(sampleHbarData);
                 $scope.hbarLabels = hbarChartObject.labels;
                 $scope.hbarData = hbarChartObject.data;
-                $scope.hbarDatasetOverride = hbarChartObject.datasetOverride;
                 $scope.hbarOptions = hbarChartObject.options;
-			}
-
-			// create charts on tech selection
-			function createTechCharts(){
-
 			}
 
 			// create charts on trainee selection
 			function createTraineeCharts(){
 
                 // Sample Data representing trainee average over 12 weeks
-                var sampleLineData = [{week: "Week 1", average: 79}, {week: "Week 2", average: 89},
-                    {week: "Week 3", average: 67}, {week: "Week 4", average: 79},
-                    {week: "Week 5", average: 86}, {week: "Week 6", average: 76},
-                    {week: "Week 7", average: 79}, {week: "Week 8", average: 89},
-                    {week: "Week 9", average: 72}, {week: "Week 10", average: 94},
-                    {week: "Week 11", average: 86}, {week: "Week 12", average: 65}];
+                var sampleLineData = [
+                    {week: "Week 1", average: ranNum()}, {week: "Week 2", average: ranNum()},
+                    {week: "Week 3", average: ranNum()}, {week: "Week 4", average: ranNum()},
+                    {week: "Week 5", average: ranNum()}, {week: "Week 6", average: ranNum()},
+                    {week: "Week 7", average: ranNum()}, {week: "Week 8", average: ranNum()},
+                    {week: "Week 9", average: ranNum()}, {week: "Week 10", average: ranNum()},
+                    {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
 
                 // Sample Data representing trainee strengths per technology
-                var samplePieData =[{skillCategory:"Core Java", average: 85},
+                var samplePieData =[
+                    {skillCategory:"Core Java", average: 85},
                     {skillCategory:"SQL", average: 75},
                     {skillCategory:"Spring", average: 95},
                     {skillCategory:"Hibernate", average: 75},
@@ -145,28 +172,11 @@ angular.module("trainer").controller(
 			}
 
 
-			
-
-
-			// Radar chart for batch rank comparison
-			$scope.radarLabels = [ "Java", "Servlet", "Spring", "Hibernate",
-					"REST", "SOAP", "Javascript", "Angular" ];
-
-			$scope.radarData = [ [ 65, 59, 90, 81, 56, 55, 40, 89 ],
-					[ 28, 48, 40, 19, 96, 27, 100, 78 ] ];
-
-			$scope.radarSeries = [ "Average", "All Batches" ];
-			$scope.radarOptions = {
-				legend : {
-					display : true,
-					position : 'bottom'
-				}
-			}
-
             /**************************************** Default Charts *******************************************/
 
             // batch rank comparison - sample data
-            var sample7 = [{name: "Batch1342", score: ranNum()}, {name: "Batch1526", score: ranNum()},
+            var sample7 = [
+                {name: "Batch1342", score: ranNum()}, {name: "Batch1526", score: ranNum()},
                 {name: "Batch0354", score: ranNum()}, {name: "Batch1822", score: ranNum()},
                 {name: "Batch9355", score: ranNum()}, {name: "Batch1232", score: ranNum()},
                 {name: "Batch7241", score: ranNum()}, {name: "Batch1782", score: ranNum()},
@@ -182,7 +192,7 @@ angular.module("trainer").controller(
 
             // random number gen - sample data only!
             function ranNum(){
-                var num = (Math.random() % 50) * 100;
+                var num = (Math.random() * 50) + 50;
                 return num.toFixed(2);
             }
 

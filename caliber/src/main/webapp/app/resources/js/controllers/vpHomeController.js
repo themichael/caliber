@@ -207,7 +207,7 @@ angular.module("vp").controller(
 
             // random number gen - sample data only!
 		    function ranNum(){
-		        var num = (Math.random() % 50) * 100;
+                var num = (Math.random() * 50) + 50;
 		        return num.toFixed(2);
             }
 		});

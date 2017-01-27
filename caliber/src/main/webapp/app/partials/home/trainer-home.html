@@ -44,21 +44,35 @@
 								<div class="chart-container top5">
 									<canvas id="batchesRank" class="chart-horizontal-bar" chart-data="allBatchesRankData"
 											chart-labels="allBatchesRankLabels"  chart-series="allBatchesRankSeries"
-											height="50" width="50">
+											height="100" width="100">
 									</canvas>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-6 col-md-6" ng-show="showCharts(0)">
+					<div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
 						<div class="panel panel-default">
-							<div class="panel-heading">Comparison of batch "name" to all other batches</div>
+							<div class="panel-heading">Comparison of {{currentBatch}} to my batches</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="radar" class="chart chart-radar"
 											chart-data="radarData" chart-options="radarOptions"
 											chart-labels="radarLabels" chart-series="radarSeries"
-											chart-click="radarOnClick" height="100" width="100">
+											height="100" width="100">
+									</canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-6" ng-show="showCharts(2)">
+						<div class="panel panel-default">
+							<div class="panel-heading">Averages scores per {{currentTech}}
+								for all trainees</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="hbar" class="chart chart-horizontal-bar"
+											chart-data="hbarData" chart-labels="hbarLabels"
+											chart-options="hbarOptions" height="100" width="100">
 									</canvas>
 								</div>
 							</div>
@@ -96,24 +110,6 @@
 						</div>
 					</div>
 				</div>	<!-- row -->
-				<div class="row">
-					<div class="col-sm-6 col-md-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">Averages scores per technology
-								for all trainees</div>
-							<div class="panel-body">
-								<div class="chart-container top5">
-									<canvas id="hbar" class="chart chart-horizontal-bar"
-										chart-data="hbarData" chart-labels="hbarLabels"
-										chart-options="hbarOptions"
-										chart-dataset-override="hbarDatasetOverride"
-										chart-click="hbarOnClick" height="75" width="100">
-									</canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

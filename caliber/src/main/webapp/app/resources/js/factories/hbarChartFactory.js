@@ -20,18 +20,6 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
 			xAxisID: 'x-axis-1'
 		}];
 
-		chartData.options = {
-				scales: {
-					xAxes: [{
-						id: 'x-axis-1',
-						position: 'bottom',
-						ticks: {
-							min: 30,
-							max: 100
-						}
-					}]
-				}
-		}
 		return chartData;
 	};
 
