@@ -1,6 +1,7 @@
 package com.revature.caliber.gateway;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
@@ -203,4 +204,22 @@ public interface ApiGateway {
      * @param note
      */
     void deleteTrainerNote(TrainerNote note);
+    
+    /**
+     * Create a Batch Note
+     * @param note
+     */
+    void createBatchNote(BatchNote batchNote);
+    
+    /**
+     * Update the Batch Note
+     * @param note
+     */
+    void updateBatchNote(BatchNote batchNote);
+    
+    /**
+     * Delete the Batch Note
+     * @param note
+     */
+    void deleteBatchNote(BatchNote batchNote);
 }

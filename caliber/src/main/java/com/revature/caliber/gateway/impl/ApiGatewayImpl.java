@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
@@ -178,6 +179,25 @@ public class ApiGatewayImpl implements ApiGateway {
 	@Override
 	public void deleteTrainerNote(TrainerNote note) {
 		serviceLocator.getAssessmentService().deleteTrainerNote(note);
+		
+	}
+
+	/****************************Batch Notes**********************************/
+	@Override
+	public void createBatchNote(BatchNote batchNote) {
+		serviceLocator.getAssessmentService().createBatchNote(batchNote);
+		
+	}
+
+	@Override
+	public void updateBatchNote(BatchNote batchNote) {
+		serviceLocator.getAssessmentService().updateBatchNote(batchNote);
+		
+	}
+
+	@Override
+	public void deleteBatchNote(BatchNote batchNote) {
+		serviceLocator.getAssessmentService().deleteBatchNote(batchNote);
 		
 	}
 }
