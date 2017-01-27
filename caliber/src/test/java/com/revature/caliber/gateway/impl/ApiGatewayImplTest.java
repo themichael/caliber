@@ -24,7 +24,7 @@ public class ApiGatewayImplTest {
 
     @Test
     public void getAggregatedGradesForTrainee() throws Exception {
-        HashMap<String, Double[]> grades = apiGateway.getAggregatedGradesForTrainee(1);
+        HashMap<String, Double[]> grades = apiGateway.getTechGradeDataForTrainee(1);
 
     }
 

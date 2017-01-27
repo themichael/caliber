@@ -238,34 +238,41 @@ public class ApiGatewayImpl implements ApiGateway {
 
 
     @Override
-    public HashMap<String, Double[]> getAggregatedGradesForTrainee(int id) {
-        List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
-        HashMap<String,Double[]> grades = new HashMap<>();
+    public HashMap<String, Double[]> getTechGradeDataForTrainee(int id) {
+        List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id); //grade data that we get from assessment module
+        HashMap<String,Double[]> grades = new HashMap<>(); //our result map
         HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values
 
+        //processing
         for ( Grade grade : allGrades) {
             List<Category> catList = grade.getAssessment().getCategories().stream().collect(Collectors.toList());
             if (catList.size() < 1) { continue; }
-            Category category = catList.get(0);
+            Category category = catList.get(0); //assume there is only one category per assessment
 
+            //map does not have the key yet
             if (!grades.containsKey(category.getSkillCategory())) {
                 grades.put(category.getSkillCategory(), new Double[] {0.0, 0.0, 0.0, 0.0});
                 gradeValues.put(category.getSkillCategory(), new ArrayList<>());
             }
 
+            //add grade to total number
             grades.get(category.getSkillCategory())[0] += grade.getScore();
+            //add grade to list of grades for a tech
             gradeValues.get(category.getSkillCategory()).add(grade.getScore());
         }
 
+        //actually processing the values
         for (String categoryName : grades.keySet()) {
+            //convenience
             Double [] gradeV = grades.get(categoryName);
             List<Integer> list = gradeValues.get(categoryName);
-            list.sort(Integer::compareTo);
+            list.sort(Integer::compareTo); //sort list of grades for convenience
 
+            //assume there is at least one grade
             if (list.size() < 1) { continue; }
 
             //average
-            gradeV[0] = gradeV[0] / list.size();
+            gradeV[0] = gradeV[0] / list.size(); //just divide the total by list size
             //medium
             if (list.size() > 1) {
                 gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
@@ -274,14 +281,13 @@ public class ApiGatewayImpl implements ApiGateway {
             else {
                 gradeV[1] = list.get(0).doubleValue();
             }
+            //since the list of grades is sorted, we can get high and low just by one call for each
             //high
             gradeV[3] = list.get(0).doubleValue();
             //low
             gradeV[2] = list.get(list.size() - 1).doubleValue();
 
-            //System.out.println(categoryName + " - " + gradeV[0] + " " + gradeV[1] + " " + gradeV[2] + " " + gradeV[3]);
-
-            grades.put(categoryName, gradeV);
+            grades.put(categoryName, gradeV); //put the result array back to the map
         }
 
         return grades;

@@ -167,7 +167,7 @@ public interface ApiGateway {
 
     //End of Trainer Service
 
-	HashMap<String, Double[]> getAggregatedGradesForTrainee(int id);
+	HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
 
 
 
