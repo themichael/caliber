@@ -6,6 +6,9 @@ import com.revature.caliber.beans.Trainer;
 
 import java.util.List;
 
+/**
+ * The interface Training service.
+ */
 public interface TrainingService {
 
     /**
@@ -25,10 +28,8 @@ public interface TrainingService {
     /**
      * Get all Batches for a given Trainer.
      *
-     * @param trainer - The trainer for whom all of his current batches are being retrieved
+     * @param id the id
      * @return A list of this trainer's current batches
-     * @param id
-     * @return
      */
     List<Batch> getBatches(Integer id);
 
@@ -129,7 +130,7 @@ public interface TrainingService {
     /**
      * Gets a trainer by id
      *
-     * @param id: id of the trainer
+     * @param id : id of the trainer
      * @return Trainer object
      */
     Trainer getTrainer(Integer id);
@@ -137,7 +138,7 @@ public interface TrainingService {
     /**
      * Gets a trainer by email
      *
-     * @param email: email of the trainer
+     * @param email : email of the trainer
      * @return A Trainer object
      */
     Trainer getTrainer(String email);
@@ -152,7 +153,7 @@ public interface TrainingService {
     /**
      * Updates a trainer
      *
-     * @param trainer: the trainer object to update
+     * @param trainer : the trainer object to update
      */
     void updateTrainer(Trainer trainer);
 

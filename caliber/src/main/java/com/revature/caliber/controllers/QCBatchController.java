@@ -26,6 +26,11 @@ public class QCBatchController {
         return new ResponseEntity<>(new ApiGatewayImpl().getAllBatches(), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<Batch>> getAllBatches() {
+        return new ResponseEntity<>(new ApiGatewayImpl().getAllBatches(), HttpStatus.OK);
+    }
+
     /**
      * Update all current batches response entity.
      *
@@ -36,6 +41,7 @@ public class QCBatchController {
     public ResponseEntity<Set<Batch>> updateAllCurrentBatches(@RequestBody Set<Batch> batches) {
         return new ResponseEntity<>(new ApiGatewayImpl().updateAllCurrentBatches(batches), HttpStatus.OK);
     }
+
 
     /**
      * getCurrentBatch - REST API method, retrieves a batch from a list of
@@ -83,8 +89,14 @@ public class QCBatchController {
         return new ResponseEntity<>(new ApiGatewayImpl().deleteBatchFromCurrentBatchesById(id), HttpStatus.OK);
     }
 
-	public ResponseEntity<Batch> getCurrentBatch(int batchId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * Gets current batch.
+     *
+     * @param batchId the batch id
+     * @return the current batch
+     */
+    public ResponseEntity<Batch> getCurrentBatch(int batchId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
