@@ -161,8 +161,17 @@ public class Week {
     public void setTrainerNotes(Set<TrainerNote> trainerNotes) {
         this.trainerNotes = trainerNotes;
     }
-
+    
+    
+    
     /**
+     * Instantiates a new Week.
+     */
+    public Week() {
+		super();
+	}
+
+	/**
      * Instantiates a new Week.
      *
      * @param weekId      the week id
@@ -221,6 +230,11 @@ public class Week {
         this.assessments = assessments;
     }
 
-    public Week() {
-    }
+	@Override
+	public String toString() {
+		return "Week [weekId=" + weekId + ", weekNumber=" + weekNumber + ", batch=" + batch + ", topics=" + topics
+				+ ", assessments=" + assessments + ", batchNotes=" + batchNotes + ", qcNotes=" + qcNotes
+				+ ", trainerNotes=" + trainerNotes + "]";
+	}
+
 }
