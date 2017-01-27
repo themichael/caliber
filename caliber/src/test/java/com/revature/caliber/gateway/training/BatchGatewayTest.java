@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BatchGatewayTest {

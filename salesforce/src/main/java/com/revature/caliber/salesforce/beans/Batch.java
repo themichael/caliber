@@ -1,7 +1,6 @@
-package com.revature.caliber.training.beans;
+package com.revature.caliber.salesforce.beans;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,19 +19,13 @@ public class Batch {
 	@Column(name = "TRAINING_NAME")
 	private String trainingName;
 
-<<<<<<< HEAD
-
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
-=======
 	@ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
->>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
-	@JsonManagedReference(value = "batchAndTrainer")
+	@JsonBackReference
 	private Trainer trainer;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "CO_TRAINER_ID")
-	@JsonManagedReference(value = "batchAndCoTrainer")
 	private Trainer coTrainer;
 
 	@Column(name = "SKILL_TYPE")
@@ -57,13 +50,10 @@ public class Batch {
 	private short borderlineGradeThreshold;
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-
-	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER/*, cascade = CascadeType.REMOVE*/)
-	@JsonManagedReference(value = "traineeAndBatch")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "batch"/*, cascade = CascadeType.REMOVE*/)
 	private Set<Trainee> trainees;
 
-	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER)
-	@JsonManagedReference(value = "batchAndWeeks")
+	@OneToMany(fetch= FetchType.EAGER, mappedBy = "batch")
 	private Set<Week> weeks;
 
 	/*
@@ -111,8 +101,6 @@ public class Batch {
 		this.trainees = trainees;
 		this.weeks = weeks;
 	}
-
-
 
 	/*
 	Setters and Getters

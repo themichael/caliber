@@ -1,8 +1,4 @@
-package com.revature.caliber.assessments.beans;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import javax.persistence.*;
+package com.revature.caliber.assessment.beans;
 
 import java.util.Set;
 
@@ -10,48 +6,38 @@ import java.util.Set;
  * This is the hibernate annotated bean that for the
  * CALIBER_ASSESSMENT table in the database
  */
-@Entity
-@Table(name = "CALIBER_ASSESSMENT")
+
 public class Assessment {
 
     /**
      * This is the PK ID using a unique sequence generator
      */
-    @Id
-    @Column(name = "ASSESSMENT_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ASSESSMENT_ID_SEQUENCE")
-    @SequenceGenerator(name = "ASSESSMENT_ID_SEQUENCE", sequenceName = "ASSESSMENT_ID_SEQUENCE")
     private long assessmentId;
 
     /**
      * Trainer inputted title,
      * can be anything to help identify this assessment
      */
-    @Column(name = "ASSESSMENT_TITLE", nullable = false)
     private String title;
 
     /**
      * Batch ID reference
      */
-    @Column(name = "BATCH_ID", nullable = false)
     private int batch;
 
     /**
      * Raw numerical score before calculations
      */
-    @Column(name = "RAW_SCORE")
     private int rawScore;
 
     /**
      * Assessment type, e.g. LMS, Verbal
      */
-    @Column(name = "ASSESSMENT_TYPE", nullable = false)
     private String type;
 
     /**
      * WeekID for reference
      */
-    @Column(name = "WEEK_ID", nullable = false)
     private long week;
 
     /**
@@ -59,16 +45,11 @@ public class Assessment {
      * good, ok, bad
      * indicated with smiley, meh and frowny face
      */
-    @ManyToOne
-    @JoinColumn(name = "WEEKLY_STATUS")
-    @JsonBackReference(value = "statusAndAssessments")
     private QCStatus weeklyStatus;
 
     /**
      * Set of Categories for Assessments (for Hibernate ORM)
      */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "CALIBER_ASSESSMENT_CATEGORIES")
     private Set<Category> categories;
 
     public Assessment(long assessmentId,
