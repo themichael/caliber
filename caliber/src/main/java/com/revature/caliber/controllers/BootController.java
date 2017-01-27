@@ -43,7 +43,7 @@ public class BootController extends Helper {
     }
 
     @RequestMapping(value = "/")
-    public String getHomePage(HttpServletRequest servletRequest) throws IOException, URISyntaxException {
+    public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws IOException, URISyntaxException {
         Cookie [] cookies = servletRequest.getCookies();
         SalesforceToken salesforceToken = null;
         for (Cookie cookie: cookies) {
@@ -84,14 +84,7 @@ public class BootController extends Helper {
         else throw new NullPointerException("No such user");
         Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
-        switch (jsonObject.getJSONObject("tier").getInt("tierId")){
-            case 1:
-                return "forward:/vp/batch/all";
-            case 2:
-                return "forward:/qc/batch/all";
-            case 3:
-                return "forward:/trainer/batch/all";
-        }
+        servletResponse.addCookie(new Cookie("role",jsonObject.getJSONObject("tier").getString("tier")));
         return "index";
     }
 }
