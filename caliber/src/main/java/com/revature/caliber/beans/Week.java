@@ -237,5 +237,4 @@ public class Week {
 				+ ", trainerNotes=" + trainerNotes + "]";
 	}
 
-
 }

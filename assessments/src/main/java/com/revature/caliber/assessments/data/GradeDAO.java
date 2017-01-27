@@ -1,12 +1,12 @@
 package com.revature.caliber.assessments.data;
 
+import com.revature.caliber.assessments.beans.Category;
+import com.revature.caliber.assessments.beans.Grade;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.revature.caliber.assessments.beans.Category;
-import com.revature.caliber.assessments.beans.Grade;
 
 public interface GradeDAO {
 

@@ -1,5 +1,7 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Set;
 
 /**
@@ -7,13 +9,21 @@ import java.util.Set;
  */
 public class Trainer {
 
+    @JsonProperty
     private int trainerId;
+    @JsonProperty
     private String name;
+    @JsonProperty
     private String title;
+    @JsonProperty
     private String email;
+    @JsonProperty
     private String salesforceAccount;
+    @JsonProperty
     private String salesforceAuthenticationToken;
+    @JsonProperty
     private String salesforceRefreshToken;
+    @JsonProperty
     private Tier tier;
 
     // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
@@ -231,30 +241,18 @@ public class Trainer {
         this.salesforceRefreshToken = salesforceRefreshToken;
     }
 
-    /**
-     * Instantiates a new Trainer.
-     *
-     * @param trainerId                     the trainer id
-     * @param name                          the name
-     * @param title                         the title
-     * @param email                         the email
-     * @param salesforceAccount             the salesforce account
-     * @param salesforceAuthenticationToken the salesforce authentication token
-     * @param salesforceRefreshToken        the salesforce refresh token
-     * @param tier                          the tier
-     */
-    public Trainer(int trainerId, String name, String title, String email, String salesforceAccount,
-                   String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
-        super();
-        this.trainerId = trainerId;
-        this.name = name;
-        this.title = title;
-        this.email = email;
-        this.salesforceAccount = salesforceAccount;
-        this.salesforceAuthenticationToken = salesforceAuthenticationToken;
-        this.salesforceRefreshToken = salesforceRefreshToken;
-        this.tier = tier;
-    }
-
-
+	@Override
+	public String toString() {
+		return "Trainer{" +
+				"trainerId=" + trainerId +
+				", name='" + name + '\'' +
+				", title='" + title + '\'' +
+				", email='" + email + '\'' +
+				", salesforceAccount='" + salesforceAccount + '\'' +
+				", salesforceAuthenticationToken='" + salesforceAuthenticationToken + '\'' +
+				", salesforceRefreshToken='" + salesforceRefreshToken + '\'' +
+				", tier=" + tier +
+				", batches=" + batches +
+				'}';
+	}
 }

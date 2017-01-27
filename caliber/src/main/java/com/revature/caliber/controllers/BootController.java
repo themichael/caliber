@@ -57,9 +57,9 @@ public class BootController extends Helper {
         }
         //Http request to the salesforce module to get the salesforce user
         URIBuilder uriBuilder = new URIBuilder();
-        uriBuilder.setScheme("http")
-                .setHost("localhost")
-                .setPort(8080)
+        uriBuilder.setScheme(servletRequest.getScheme())
+                .setHost(servletRequest.getServerName())
+                .setPort(servletRequest.getServerPort())
                 .setPath("/getSalesforceUser/")
                 .setParameter("endpoint",salesforceToken.getId())
                 .setParameter("accessToken",salesforceToken.getAccessToken());
@@ -73,9 +73,9 @@ public class BootController extends Helper {
         //Http request to the training module to get the caliber user
         String email = salesforceUser.getEmail();
         uriBuilder = new URIBuilder();
-        uriBuilder.setScheme("http")
-                .setHost("localhost")
-                .setPort(8080)
+        uriBuilder.setScheme(servletRequest.getScheme())
+                .setHost(servletRequest.getServerName())
+                .setPort(servletRequest.getServerPort())
                 .setPath("/training/trainers/byemail/"+ email+"/");
         uri = uriBuilder.build();
         httpGet = new HttpGet(uri);
