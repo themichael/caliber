@@ -26,6 +26,14 @@ public class ApiGatewayImplTest {
     public void getAggregatedGradesForTrainee() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getTechGradeDataForTrainee(1);
 
+        for (String grade : grades.keySet()) {
+            System.out.print(grade + " -> [");
+            for (Double d : grades.get(grade)) {
+                System.out.print(d + ", ");
+            }
+            System.out.println("]");
+        }
+
     }
 
 }

@@ -1,30 +1,6 @@
 package com.revature.caliber.gateway.services.impl;
 
-import com.revature.caliber.gateway.services.AssessmentService;
 import com.revature.caliber.beans.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.QCNote;
-
-import com.revature.caliber.beans.TrainerNote;
-
 import com.revature.caliber.beans.exceptions.AssessmentServiceAssessmentOperationException;
 import com.revature.caliber.beans.exceptions.AssessmentServiceOperationException;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
@@ -372,10 +348,14 @@ public class AssessmentServiceImpl implements AssessmentService {
 	@Override
 	public List<Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
-		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response = rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+ id, com.revature.caliber.assessment.beans.Grade[].class);
+		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response =
+				rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+ id,
+						com.revature.caliber.assessment.beans.Grade[].class);
 
 		com.revature.caliber.assessment.beans.Grade[] grades = response.getBody();
+
 		List<Grade> newGrades = new ArrayList<>();
+
 		for (com.revature.caliber.assessment.beans.Grade someGrade : grades) {
 			Grade someNewGrade  = new Grade();
 

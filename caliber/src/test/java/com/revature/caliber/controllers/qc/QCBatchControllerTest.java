@@ -1,18 +1,9 @@
 package com.revature.caliber.controllers.qc;
 
-import com.revature.caliber.beans.Batch;
 import com.revature.caliber.controllers.QCBatchController;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.http.ResponseEntity;
-
-import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class QCBatchControllerTest {
 
@@ -29,7 +20,7 @@ public class QCBatchControllerTest {
 	 	/**
 	 	 *  Tests qc batch controller method(getAllCurrentBatches)
 	 	 *  - returns all current batches
-	 	 */
+	 	 *
 	 	@Test
 		@Ignore
 	 	public void getCurrentBatches(){
@@ -43,7 +34,7 @@ public class QCBatchControllerTest {
 	 	/**
 	 	 * Tests qc batch controller method(getCurrentBatch)
 	 	 * - returns a current batch with the given id
-	 	 */
+	 	 *
 	 	@Test
 		@Ignore
 	 	public void getCurrentBatch(){
@@ -54,4 +45,5 @@ public class QCBatchControllerTest {
 	 		assertNotNull(batch);
 	 		assertEquals(batchId, batch.getBatchId());
 	 	}
+		*/
 }

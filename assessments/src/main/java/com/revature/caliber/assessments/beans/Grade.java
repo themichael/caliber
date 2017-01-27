@@ -27,7 +27,6 @@ public class Grade {
      */
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinColumn(name = "ASSESSMENT_ID", nullable = false)
-    @JsonIgnore
     private Assessment assessment;
 
     /**

@@ -46,7 +46,7 @@ public class TrainerBatchControllerTest {
     /**
      * Tests trainer batch controller method(getBatch)
      * - returns a batch with the given id
-     */
+     *
     @Test
     @Ignore
     public void getBatch() {

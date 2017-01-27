@@ -1,10 +1,7 @@
 package com.revature.caliber.controllers.vp;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.Set;
-
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.controllers.VPBatchController;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,8 +9,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.http.ResponseEntity;
 
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.controllers.VPBatchController;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class VPBatchControllerTest {
 
@@ -47,7 +46,7 @@ public class VPBatchControllerTest {
 	 *  Tests vp batch controller method(getAllCurrentBatches)
 	 *  
 	 *  - test that all current batches are returned
-	 */
+	 *
 	@Test
 	@Ignore
 	public void getAllCurrentBatches(){
@@ -62,7 +61,7 @@ public class VPBatchControllerTest {
 	 * 	Tests vp batch controller method(getBatch)
 	 * 
 	 * 	- tests that a batch with the given id is returned
-	 */
+	 *
 	@Test
 	@Ignore
 	public void getBatch(){
@@ -78,7 +77,7 @@ public class VPBatchControllerTest {
 	 * 	Tests vp batch controller method(getCurrentBatch)
 	 * 
 	 * 	- tests that a current batch with the given id is returned
-	 */
+	 *
 	@Test
 	@Ignore
 	public void getCurrentBatch(){
@@ -89,5 +88,5 @@ public class VPBatchControllerTest {
 		assertNotNull(batch);
 		assertEquals(batchId, batch.getBatchId());
 	}
-	
+	*/
 }
