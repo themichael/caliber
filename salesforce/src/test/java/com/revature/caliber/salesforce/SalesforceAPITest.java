@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SalesforceAPITest {
     Map<String, String> environment = System.getenv();
-    private String CHROME_DRIVER_PATH = environment.get("CHROME_DRIVER_PATH") ;
+    private String CHROME_DRIVER_PATH = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe";
     private static WebDriver driver;
     private SalesforceLoginPage loginPage;
 

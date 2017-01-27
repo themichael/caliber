@@ -1,10 +1,7 @@
 package com.revature.caliber.salesforce.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.salesforce.Helper;
 import com.revature.caliber.salesforce.interfaces.Authorization;
-import com.revature.caliber.salesforce.models.SalesforceToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -13,21 +10,16 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UTFDataFormatException;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +29,11 @@ import java.util.List;
 
 
 @Controller
+@Scope("prototype")
 public class AuthorizationImpl extends Helper implements Authorization{
-    @Value("#{systemEnvironment['SALESFORCE_AUTH_URL']}")
+    @Value("https://login.salesforce.com/services/oauth2/authorize")
     private String authURL;
-    @Value("#{systemEnvironment['SALESFORCE_ACCESS_TOKEN_URL']}")
+    @Value("https://login.salesforce.com/services/oauth2/token")
     private String accessTokenURL;
     @Value("#{systemEnvironment['SALESFORCE_CLIENT_ID']}")
     private String clientId;
@@ -49,8 +42,7 @@ public class AuthorizationImpl extends Helper implements Authorization{
     @Value("#{systemEnvironment['SALESFORCE_REDIRECT_URI']}")
     private String redirectUri;
     @Value("http://localhost:8080/caliber/")
-    private String caliberForwardUrl;
-    private SalesforceToken salesforceToken;
+    private String redirectUrl;
     private HttpClient httpClient;
     private HttpResponse response;
 
@@ -66,7 +58,7 @@ public class AuthorizationImpl extends Helper implements Authorization{
     }
 
     @RequestMapping("/authenticated")
-    public String generateSalesforceToken(@RequestParam(value = "code") String code, HttpServletResponse servletResponse) throws IOException {
+    public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code, HttpServletResponse servletResponse) throws IOException {
             HttpPost post = new HttpPost(accessTokenURL);
             List<NameValuePair> parameters = new ArrayList<>();
             parameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
@@ -77,12 +69,7 @@ public class AuthorizationImpl extends Helper implements Authorization{
             post.setEntity(new UrlEncodedFormEntity(parameters));
             response = httpClient.execute(post);
             servletResponse.addCookie(new Cookie("token",URLEncoder.encode(toJsonString(response.getEntity().getContent()),"UTF-8")));
-            return "redirect:"+caliberForwardUrl;
-    }
-
-    @RequestMapping(value = "/getSalesforceToken", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getSalesforceToken() throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(salesforceToken);
+            return new ModelAndView("redirect:"+ redirectUrl);
     }
 
     public void setAuthURL(String authURL) {
