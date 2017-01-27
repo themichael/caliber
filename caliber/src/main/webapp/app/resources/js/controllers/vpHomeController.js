@@ -106,20 +106,20 @@ angular.module("vp").controller(
                     {week: "Week 9", average: ranNum()}, {week: "Week 10", average: ranNum()},
                     {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
 
-                    // create batch radar chart
-                    var radarChartObject = radarChartFactory.getBatchRankComparisonChart(sample1, sample2);
-                    $scope.batchRankLabels = radarChartObject.labels;
-                    $scope.batchRankData = radarChartObject.data;
-                    $scope.batchRankSeries = radarChartObject.series;
-                    $scope.batchRankOptions = radarChartObject.options;
+                // create batch radar chart
+                var radarChartObject = radarChartFactory.getBatchRankComparisonChart(sample1, sample2);
+                $scope.batchRankLabels = radarChartObject.labels;
+                $scope.batchRankData = radarChartObject.data;
+                $scope.batchRankSeries = radarChartObject.series;
+                $scope.batchRankOptions = radarChartObject.options;
 
-                    // create other charts
-                    var lineChartObject = lineChartFactory.getBatchProgressChart(sample3);
-                    $scope.batchProgressLabels = lineChartObject.labels;
-                    $scope.batchProgressData = lineChartObject.data;
-                    $scope.batchProgressSeries = lineChartObject.series;
-                    $scope.batchProgressOptions = lineChartObject.options;
-                    $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
+                // create other charts
+                var lineChartObject = lineChartFactory.getBatchProgressChart(sample3);
+                $scope.batchProgressLabels = lineChartObject.labels;
+                $scope.batchProgressData = lineChartObject.data;
+                $scope.batchProgressSeries = lineChartObject.series;
+                $scope.batchProgressOptions = lineChartObject.options;
+                $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
             }
 
             // create charts on tech selection

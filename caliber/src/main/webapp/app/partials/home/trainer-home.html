@@ -64,6 +64,21 @@
 							</div>
 						</div>
 					</div>
+					<div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
+						<div class="panel panel-default">
+							<div class="panel-heading">Week by Week progression of {{currentBatch}}</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="batch-line" class="chart chart-line"
+											chart-data="batchProgressData" chart-labels="batchProgressLabels"
+											chart-series="batchProgressSeries" chart-options="batchProgressOptions"
+											chart-dataset-override="batchProgressDatasetOverride"
+											height="50" width="50">
+									</canvas>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="col-sm-6 col-md-6" ng-show="showCharts(2)">
 						<div class="panel panel-default">
 							<div class="panel-heading">Averages scores per {{currentTech}}
