@@ -339,16 +339,31 @@ public class ApiGatewayImpl implements ApiGateway {
      * @param id
      * @return
      */
+	@Override
+	public HashMap<String, Double[]> getWeekGradeDataForTrainee(int id) {
+		List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
+		HashMap<String, Double[]> grades = new HashMap<>();//result
+		
+		for(Grade grade : allGrades){
+			long week = grade.getAssessment().getAssessmentId();
+			System.out.println(week);
+//			if(!grades.containsKey(week.getWeekNumber())){
+//				grades.put(Integer.toString(week.getWeekNumber()), new Double[] {0.0,0.0,0.0,0.0});
+//			}
+		}
+		return grades;
+	}
+
 
     @Override
     public HashMap<String, Double[]> getTechGradeDataForTrainee(int id) {
         List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id); //grade data that we get from assessment module
         HashMap<String,Double[]> grades = new HashMap<>(); //our result map
-        HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values
+        HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values //what 
 
         //processing
         for ( Grade grade : allGrades) {
-            List<Category> catList = grade.getAssessment().getCategories().stream().collect(Collectors.toList());
+            List<Category> catList = grade.getAssessment().getCategories().stream().collect(Collectors.toList());//makes a list out of the set
             if (catList.size() < 1) { continue; }
             Category category = catList.get(0); //assume there is only one category per assessment
 
@@ -396,6 +411,7 @@ public class ApiGatewayImpl implements ApiGateway {
         return grades;
 
     }
+    
 
 
 
@@ -412,6 +428,8 @@ public class ApiGatewayImpl implements ApiGateway {
 
     public void updateGrade(Grade grade) {
     }
+
+
 
 
 }

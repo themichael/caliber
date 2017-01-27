@@ -179,7 +179,7 @@ public interface ApiGateway {
      */
 	HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
 
-    
+    HashMap<String, Double[]> getWeekGradeDataForTrainee(int id);
     //Grade Service
     /**
      * Retrieves the Grade using the assessmentId
