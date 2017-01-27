@@ -3,6 +3,7 @@ package com.revature.caliber.gateway.services.impl;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.gateway.services.AssessmentService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -24,6 +25,7 @@ public class AssessmentServiceImplTest {
     }
 
     @Test
+    @Ignore
     public void getGradesByTraineeId() throws Exception {
         List<Grade> grades = assessmentService.getGradesByTraineeId(1);
         for(int i=0;i<grades.size();i++){
