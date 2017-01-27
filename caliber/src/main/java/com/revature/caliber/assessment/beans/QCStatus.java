@@ -1,29 +1,16 @@
-package com.revature.caliber.assessments.beans;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import javax.persistence.*;
+package com.revature.caliber.assessment.beans;
 
 import java.util.Set;
 
 /**
  * JavaBean for QCStatus Object Status of assessments determine by Quality Control (Trainer Object)
  */
-@Entity
-@Table(name = "CALIBER_QC_STATUS")
 public class QCStatus {
 
-	@Id
-	@Column(name = "STATUS_ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QC_STATUS_ID_SEQUENCE")
-	@SequenceGenerator(name = "QC_STATUS_ID_SEQUENCE", sequenceName = "QC_STATUS_ID_SEQUENCE")
 	private short statusId;
 
-	@Column(name = "QC_STATUS")
 	private String status;
 
-	@OneToMany(mappedBy = "weeklyStatus", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JsonManagedReference(value = "statusAndAssessments")
 	private Set<Assessment> assessments;
 
 	public QCStatus() {

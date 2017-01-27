@@ -1,53 +1,38 @@
-package com.revature.caliber.assessments.beans;
+package com.revature.caliber.assessment.beans;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * Java Bean for Grade Object
  */
-@Entity
-@Table(name = "CALIBER_GRADE")
 public class Grade {
 
     /**
      * gradeId- primary key for Grade table
      */
-    @Id
-    @Column(name = "GRADE_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRADE_ID_SEQUENCE")
-    @SequenceGenerator(name = "GRADE_ID_SEQUENCE", sequenceName = "GRADE_ID_SEQUENCE")
     private long gradeId;
 
     /**
      * Assessment - A trainee received a grade on specified assessment
      */
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    @JoinColumn(name = "ASSESSMENT_ID", nullable = false)
     private Assessment assessment;
 
     /**
      * Trainee- the trainee that receives this Grade object
      */
-    @Column(name = "TRAINEE_ID", nullable = false)
     private int trainee;
 
     /**
      * dateReceived- date this Grade object was received
      */
-    @Column(name = "DATE_RECEIVED")
-    @NotNull
     @JsonIgnore
     private Date dateReceived;
 
     /**
      * score - score of the grade
      */
-    @Column(name = "SCORE")
-    @NotNull
     private int score;
 
     public Grade() {
