@@ -32,6 +32,9 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Map;
 
+/**
+ * The type Boot controller.
+ */
 @Controller
 @SessionAttributes("token")
 public class BootController extends Helper {
@@ -85,6 +88,7 @@ public class BootController extends Helper {
         Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
         servletResponse.addCookie(new Cookie("role",jsonObject.getJSONObject("tier").getString("tier")));
+
         return "index";
     }
 }
