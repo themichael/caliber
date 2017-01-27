@@ -1,12 +1,15 @@
 package com.revature.caliber.training.beans;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.validator.constraints.Email;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Email;
+
 /**
  * Bean for Trainer
  */
@@ -73,13 +76,12 @@ public class Trainer {
 	 */
 	@ManyToOne(fetch =FetchType.EAGER)
 	@JoinColumn(name = "TIER", nullable = false)
-	@JsonManagedReference
 	private Tier tier;
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-
 	@OneToMany(mappedBy="trainer", fetch=FetchType.EAGER)
-	@JsonBackReference(value = "batchAndTrainer")
+	//@JsonBackReference(value = "batchAndTrainer")
+	@JsonIgnore
 	private Set<Batch> batches;
 
 	public int getTrainerId() {
