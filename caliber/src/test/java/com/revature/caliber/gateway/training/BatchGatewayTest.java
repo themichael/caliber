@@ -27,16 +27,30 @@ public class BatchGatewayTest {
 
     @Ignore
     @Test
+    public void create(){
+
+    }
+
+    @Test
+    @Ignore
     public void getAll(){
         Trainer trainer = new Trainer();
         trainer.setTraineeId(1);
         List<Batch> batches = trainingService.allBatch();
-       /* System.out.println(batches);*/
+        System.out.println(batches);
     }
 
     @Test
-    public void getBatch(){
+    @Ignore
+    public void getBatches(){
+        List<Batch> batches = trainingService.getBatches(1);
+        System.out.println(batches);
+    }
 
-        //trainingService.getBatch(1);
+    @Test
+    @Ignore
+    public void getById(){
+        Batch batch = trainingService.getBatch(3);
+        System.out.println(batch);
     }
 }

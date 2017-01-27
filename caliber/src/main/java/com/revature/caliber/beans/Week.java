@@ -221,5 +221,6 @@ public class Week {
         this.assessments = assessments;
     }
 
-
+    public Week() {
+    }
 }
