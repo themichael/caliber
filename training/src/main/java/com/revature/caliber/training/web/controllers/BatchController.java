@@ -134,9 +134,8 @@ public class BatchController {
      */
     @RequestMapping(value = "batch/current/{id}",
             method = RequestMethod.GET,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<List<Batch>> getCurrentBatch(@PathVariable("id") Integer id) {
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Batch>> getCurrentBatch(@PathVariable("id") Integer id) {
         ResponseEntity<List<Batch>> returnEntity;
         try {
             List<Batch> batches = businessDelegate.getCurrentBatch(id);
@@ -177,9 +176,9 @@ public class BatchController {
      */
     @RequestMapping(value = "batch/update",
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<Batch> updateBatch(@RequestBody @Valid Batch batch) {
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Batch> updateBatch(@RequestBody Batch batch) {
         ResponseEntity<Batch> returnEntity;
         try {
             businessDelegate.updateBatch(batch);
@@ -201,7 +200,7 @@ public class BatchController {
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Serializable> deleteBatch(@RequestBody @Valid Batch batch) {
+    public ResponseEntity<Serializable> deleteBatch(@RequestBody Batch batch) {
         ResponseEntity<Serializable> returnEntity;
         try {
             businessDelegate.deleteBatch(batch);

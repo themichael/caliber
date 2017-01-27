@@ -30,10 +30,10 @@
 		<property name="allBatch" value="batch/all/" />
 		<property name="allBatchesForTrainer" value="batch/byTrainerId/" />
 		<property name="allCurrentBatch" value="batch/current/" />
-		<property name="allCurrentBatchByTrainer" value="batch/current/" />
+		<property name="allCurrentBatchByTrainer" value="training/batch/current/" />
 		<property name="batchById" value="training/batch/byId/" />
-		<property name="updateBatch" value="batch/update/" />
-		<property name="deleteBatch" value="batch/delete/" />
+		<property name="updateBatch" value="training/batch/update/" />
+		<property name="deleteBatch" value="training/batch/delete/" />
 
 		<property name="addTraineePath" value="trainees/new" />
 		<property name="deleteTraineePath" value="trainees/delete" />
@@ -42,5 +42,4 @@
 		<property name="getTraineeByNamePath" value="trainees/byname/" />
 		<property name="getTraineesByBatchPath" value="trainees/bybatch/" />
 	</bean>
-
 </beans>

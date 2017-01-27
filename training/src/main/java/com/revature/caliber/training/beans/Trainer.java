@@ -79,7 +79,7 @@ public class Trainer {
 	
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@OneToMany(mappedBy="trainer", fetch = FetchType.EAGER)
-	@JsonBackReference
+	@JsonBackReference(value = "SET_BATCHES")
 	private Set<Batch> batches;
 
 	public int getTrainerId() {

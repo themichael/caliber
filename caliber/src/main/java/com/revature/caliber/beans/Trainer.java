@@ -126,7 +126,19 @@ public class Trainer {
 		this.salesforceRefreshToken = salesforceRefreshToken;
 		this.tier = tier;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Trainer{" +
+				"trainerId=" + trainerId +
+				", name='" + name + '\'' +
+				", title='" + title + '\'' +
+				", email='" + email + '\'' +
+				", salesforceAccount='" + salesforceAccount + '\'' +
+				", salesforceAuthenticationToken='" + salesforceAuthenticationToken + '\'' +
+				", salesforceRefreshToken='" + salesforceRefreshToken + '\'' +
+				", tier=" + tier +
+				", batches=" + batches +
+				'}';
+	}
 }

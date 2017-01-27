@@ -137,4 +137,23 @@ public class Batch {
 	public Batch() {
 		super();
 	}
+
+	@Override
+	public String toString() {
+		return "Batch{" +
+				"batchId=" + batchId +
+				", trainingName='" + trainingName + '\'' +
+				", trainer=" + trainer +
+				", coTrainer=" + coTrainer +
+				", skillType='" + skillType + '\'' +
+				", trainingType='" + trainingType + '\'' +
+				", startDate=" + startDate +
+				", endDate=" + endDate +
+				", location='" + location + '\'' +
+				", goodGradeThreshold=" + goodGradeThreshold +
+				", borderlineGradeThreshold=" + borderlineGradeThreshold +
+				", trainees=" + trainees +
+				", weeks=" + weeks +
+				'}';
+	}
 }

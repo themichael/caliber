@@ -109,18 +109,17 @@ public class TrainingServiceImpl implements TrainingService {
 
     //	LOUIS START HERE
     @Override
+
     public List<Batch> currentBatch(Trainer trainer) {
         RestTemplate service = new RestTemplate();
-        // Build Service URL
         final String URI =
-                UriComponentsBuilder.fromHttpUrl(hostname + portNumber
-                        + allCurrentBatchByTrainer).path(String.valueOf(trainer.getTraineeId()))
+                UriComponentsBuilder.fromHttpUrl("http://localhost:8080")
+                        //TODO get actually trainers id do not hard code
+                        .path(allCurrentBatchByTrainer).path(String.valueOf("1"))
                         .build().toUriString();
         // Invoke the service
         ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
-        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-            throw new RuntimeException("Trainer not found.");
-        } else if (response.getStatusCode() == HttpStatus.OK) {
+        if (response.getStatusCode() == HttpStatus.OK) {
             return Arrays.asList(response.getBody());
         } else {
             // Includes 404 and other responses. Give back no data.
@@ -145,6 +144,18 @@ public class TrainingServiceImpl implements TrainingService {
 
     @Override
     public void updateBatch(Batch batch) {
+        RestTemplate service = new RestTemplate();
+        String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").
+                path(updateBatch).build().toUriString();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Batch> entity = new HttpEntity<>(batch, headers);
+
+        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST,
+                entity, Serializable.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Batch could not be updated");
+        }
 
     }
 
@@ -152,14 +163,17 @@ public class TrainingServiceImpl implements TrainingService {
     public void deleteBatch(Batch batch) {
 
         RestTemplate service = new RestTemplate();
-        String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").path(deleteBatch).build().toUriString();
+        String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").
+                path(deleteBatch).build().toUriString();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity entity = new HttpEntity(batch, headers);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity entity = new HttpEntity<>(batch, headers);
+
 
         //Invoke the service
-        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);
+        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE,
+                entity, Serializable.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
             System.err.println("Batch was deleted");

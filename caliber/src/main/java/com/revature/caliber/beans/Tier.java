@@ -37,7 +37,13 @@ public class Tier {
 		this.tier = tier;
 		this.ranking = ranking;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Tier{" +
+				"tierId=" + tierId +
+				", tier='" + tier + '\'' +
+				", ranking=" + ranking +
+				'}';
+	}
 }
