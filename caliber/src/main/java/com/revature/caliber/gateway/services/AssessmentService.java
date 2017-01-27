@@ -11,7 +11,7 @@ public interface AssessmentService {
 	 * Inserts Assessment
 	 * @param assessment an Assessment to be inserted
 	 */
-	long insertAssessment(Assessment assessment);
+	void insertAssessment(Assessment assessment);
 
 	/**
 	 * Updates Assessment
@@ -32,9 +32,9 @@ public interface AssessmentService {
 	 * Returns a list of grades of a specific assessment based on assessmentId
 	 * as an input
 	 *
-	 * @param assessmentId
+	 * @param assessmentId - The id of the assessment
 	 */
-	List<Grade> getGradesByAssessment(long assessmentId);
+	List<Grade> getGradesByAssessment(Integer assessmentId);
 
 
 	/**
@@ -106,7 +106,7 @@ public interface AssessmentService {
 
 	void deleteTrainerNote(TrainerNote note);
 
-	
+
 	/**
 	 * Returns Set of all Categories
 	 * 
@@ -116,4 +116,5 @@ public interface AssessmentService {
 
 
     List<Grade> getGradesByTraineeId(int id);
+
 }

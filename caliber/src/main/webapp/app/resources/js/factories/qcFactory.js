@@ -6,11 +6,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
 
 	var qc = {};
 
-	// test connection to factory -- remove on release
-	qc.test = function () {
-		return "QC factory test successful.";
-	};
-
+    /*************************** Batch ************************/
 	qc.getAllBatches = function () {
 		var data = [];
 		$http({
@@ -18,6 +14,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
 			method: "GET"
 		}).then(function (response) {
 			$log.debug(response);
+			// copy array
 			angular.copy(response.data, data);
 		}, function (response) {
 			data = null;
@@ -26,20 +23,121 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
 		return data;
 	};
 
-	qc.getBatchById = function (id) {
-		var data = {};
-		$http({
-			url: "/qc/batch/" + id,
-			method: "GET"
-		}).then(function (response) {
-			$log.debug(response);
-			angular.copy(response.data, data);
-		}, function (response) {
-			data = null;
-			$log.error("There was an error: " + response.status);
-		});
-		return data;
-	};
+    /*************************** Grade ************************/
+    // add a new grade
+    qc.addGrade = function(gradeObj){
+        $http({
+            url: "/qc/grade/create",
+            method: "POST",
+            data: gradeObj
+        }).then(function(response){
+            $log.debug(response);
+            // update ui
+        }, function(response){
+            $log.error("There was an error: " + response.status);
+        });
+    };
+
+    // update grade
+    qc.updateGrade = function(gradeObj){
+        $http({
+            url: "/qc/grade/update",
+            method: "PUT",
+            data: gradeObj
+        }).then(function(response){
+            $log.debug(response);
+            // update ui
+        }, function(response){
+            $log.error("There was an error: " + response.status);
+        });
+    };
+
+    /************************* Assessment ***********************/
+    // create assessment
+    qc.createAssessment = function(assessmentObj){
+        $http({
+            url: "/qc/assessment/create",
+            method: "POST",
+            data: assessmentObj
+        }).then(function(response){
+            $log.debug(response);
+            // update ui
+        }, function(response){
+            $log.error("There was an error: " + response.status);
+        });
+    };
+
+    // get all assessments
+    qc.getAllAssessments = function(weekId){
+        var data = [];
+        $http({
+            url: "/qc/assessment/byWeek/" + weekId,
+            method: "GET",
+        }).then(function(response){
+            $log.debug(response);
+            // copy data
+            angular.copy(response.data, data);
+        }, function(response){
+            $log.error("There was an error: " + response.status);
+        });
+        return data;
+    };
+
+    // update assessment
+    qc.updateAssessment = function(assessmentObj){
+        $http({
+            url: "/qc/assessment/update/",
+            method: "PUT",
+            data: assessmentObj
+        }).then(function(response){
+            $log.debug(response);
+            // update ui
+        }, function(response){
+            $log.error("There was an error: " + response.status);
+        });
+    };
+
+    // delete assessment
+    qc.deleteAssessment = function(assessmentId){
+        $http({
+            url: "/qc/assessment/delete/" + assessmentId,
+            method: "DELETE",
+        }).then(function(response){
+            $log.debug(response);
+            // update ui
+        }, function(response){
+            $log.error("There was an error: " + response.status);
+        });
+    };
+
+    /************************** Notes *************************/
+    // create note
+    qc.createNote = function(noteObj){
+        $http({
+            url: "/qc/assessment/note/create",
+            method: "POST",
+            data: noteObj
+        }).then(function(response){
+            $log.debug(response);
+            // update ui
+        }, function(response){
+            $log.error("There was an error: " + response.status);
+        });
+    };
+
+    // update note
+    qc.updateNote = function(noteObj){
+        $http({
+            url: "/qc/assessment/note/update",
+            method: "PUT",
+            data: noteObj
+        }).then(function(response){
+            $log.debug(response);
+            // update ui
+        }, function(response){
+            $log.error("There was an error: " + response.status);
+        });
+    };
 
 	return qc;
 });
