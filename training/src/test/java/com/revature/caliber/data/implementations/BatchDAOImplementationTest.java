@@ -85,7 +85,6 @@ public class BatchDAOImplementationTest {
 
 	// Works
 	@Test
-	@Ignore
 	public void createBatch() {
 		log.debug("Create batch test.");
 
@@ -95,7 +94,7 @@ public class BatchDAOImplementationTest {
 		tier.setTierId((short) 1);
 		Date startDate = new Date(1481394352000L);
 		Date endDate = new Date(1458757552000L);
-		Batch batch = new Batch(9999, "trainingName", trainer, null, "skillType", "trainingType", startDate, endDate,
+		Batch batch = new Batch( "the name", trainer, null, "skillType", "trainingType", startDate, endDate,
 				"Virgina", (short) 60, (short) 80, null, null);
 
 		batchDAO.createBatch(batch);
@@ -104,7 +103,7 @@ public class BatchDAOImplementationTest {
 
 		Session session = ((SessionFactory) context.getBean("sessionFactory")).openSession();
 		Criteria criteria = session.createCriteria(Batch.class);
-		criteria.add(Restrictions.eq("LOCATION", "Virgina"));
+		criteria.add(Restrictions.eq("trainingName", "the name"));
 		Batch newBatch = (Batch) criteria.uniqueResult();
 		assertEquals(batch.getBatchId(), newBatch.getBatchId());
 		assertEquals(batch.getLocation(), newBatch.getLocation());
@@ -165,10 +164,11 @@ public class BatchDAOImplementationTest {
 
 	// Works
 	@Test
+	@Ignore
 	public void updateBatch() {
 		log.debug("Updating batch");
 
-		Batch batch = batchDAO.getBatch(id);
+		Batch batch = batchDAO.getBatch(14500);
 		batch.setLocation("New York");
 		batchDAO.updateBatch(batch);
 
@@ -176,5 +176,10 @@ public class BatchDAOImplementationTest {
 	}
 
 	// Work on delete method
+	@Test
+	@Ignore
+	public void delete(){
+		batchDAO.deleteBatch(batchDAO.getBatch(15650));
+	}
 
 }

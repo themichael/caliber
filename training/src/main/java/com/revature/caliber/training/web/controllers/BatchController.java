@@ -39,7 +39,9 @@ public class BatchController {
 	 * @param batch
 	 * @return
 	 */
-	@RequestMapping(value = "batch/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/create", method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> createBatch(@RequestBody @Valid Batch batch) {
 		ResponseEntity<Serializable> returnEntity;
 		try {
@@ -57,7 +59,7 @@ public class BatchController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<List<Batch>> getAllBatches() {
 		ResponseEntity<List<Batch>> returnEntity;
 		try {
@@ -79,7 +81,8 @@ public class BatchController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "batch/byTrainerId/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/byTrainerId/{id}", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("id") Integer id) {
 		ResponseEntity<List<Batch>> returnEntity;
 		try {
@@ -100,7 +103,7 @@ public class BatchController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<List<Batch>> getCurrentBatch() {
 		ResponseEntity<List<Batch>> returnEntity;
 		try {
@@ -122,7 +125,9 @@ public class BatchController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "batch/current/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/current/{id}", method = RequestMethod.GET,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<List<Batch>> getCurrentBatch(@PathVariable("id") Integer id) {
 		ResponseEntity<List<Batch>> returnEntity;
 		try {
@@ -167,7 +172,9 @@ public class BatchController {
 	 * @param batch
 	 * @return
 	 */
-	@RequestMapping(value = "batch/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/update", method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<Batch> updateBatch(@RequestBody @Valid Batch batch) {
 		ResponseEntity<Batch> returnEntity;
 		try {
@@ -186,7 +193,9 @@ public class BatchController {
 	 * @param batch
 	 * @return
 	 */
-	@RequestMapping(value = "batch/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/delete", method = RequestMethod.DELETE,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<Batch> deleteBatch(@RequestBody @Valid Batch batch) {
 		ResponseEntity<Batch> returnEntity;
 		try {

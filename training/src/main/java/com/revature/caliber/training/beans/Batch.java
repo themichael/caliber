@@ -1,7 +1,6 @@
 package com.revature.caliber.training.beans;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.Date;
@@ -40,7 +39,7 @@ public class Batch {
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "CO_TRAINER_ID")
-	@JsonBackReference(value = "batchAndTrainer")
+	@JsonBackReference(value = "batchAndCoTrainer")
 	private Trainer coTrainer;
 
 	@Column(name = "SKILL_TYPE")
@@ -68,11 +67,9 @@ public class Batch {
 
 	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER/*, cascade = CascadeType.REMOVE*/)
 	@JsonManagedReference(value = "traineeAndBatch")
-	//@JsonIgnore
 	private Set<Trainee> trainees;
 
 	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER)
-	//@JsonIgnore
 	@JsonManagedReference(value = "batchAndWeeks")
 	private Set<Week> weeks;
 

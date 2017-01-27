@@ -33,10 +33,10 @@ public class TrainingServiceImpl implements TrainingService{
 	public void createBatch(Batch batch) {
 		RestTemplate service = new RestTemplate();
 		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl( hostname + portNumber ).path(newBatch)
+		final String URI = UriComponentsBuilder.fromHttpUrl( localhost ).path(newBatch)
 						.build().toUriString();
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<Batch> entity = new HttpEntity<>(batch, headers);
 
 		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
@@ -49,7 +49,7 @@ public class TrainingServiceImpl implements TrainingService{
 	public List<Batch> allBatch() {
 		RestTemplate service = new RestTemplate();
 		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(allBatch)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allBatch)
 						.build().toUriString();
 		// Invoke the service
 		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
