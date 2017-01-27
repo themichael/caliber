@@ -72,7 +72,6 @@
 		<property name="updateTrainerPath" value="training/trainers/update" />
 		<property name="getTrainerByIdPath" value="training/trainers/byid/" />
 		<property name="getTrainerByEmailPath" value="training/trainers/byemail/" />
-
 	
 	</bean>
 
