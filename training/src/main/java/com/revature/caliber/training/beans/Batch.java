@@ -40,7 +40,7 @@ public class Batch {
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "CO_TRAINER_ID")
-	@JsonBackReference(value = "batchAndTrainer")
+	@JsonBackReference(value = "batchAndCoTrainer")
 	private Trainer coTrainer;
 
 	@Column(name = "SKILL_TYPE")
