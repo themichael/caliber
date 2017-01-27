@@ -1,8 +1,10 @@
 package com.revature.caliber.salesforce.interfaces;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -21,5 +23,5 @@ public interface Authorization {
      * @param code the string returned from the authURI required for getting token from salesforce
      * @throws IOException
      */
-    void generateSalesforceToken(String code) throws IOException;
+    String generateSalesforceToken(String code, HttpServletResponse httpServletResponse) throws IOException;
 }

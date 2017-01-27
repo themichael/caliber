@@ -9,20 +9,27 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.Map;
 
 @Controller
+@SessionAttributes("token")
 public class BootController extends Helper {
     SalesforceToken token;
     HttpClient httpClient;
@@ -31,36 +38,32 @@ public class BootController extends Helper {
         httpClient = HttpClientBuilder.create().build();
     }
 
-    @RequestMapping(
-            value = {"/"},
-            method = {RequestMethod.GET}
-    )
-    public String homePage() {
-        return "index";
-    }
-
-    @RequestMapping(value = {"/getToken"}, produces = {"application/json"})
-    @ResponseBody
-    public String getToken(HttpServletRequest request) throws IOException, URISyntaxException {
-        HttpGet httpGet = new HttpGet("http://localhost:8080/salesforce/getSalesforceToken");
-        HttpResponse response = httpClient.execute(httpGet);
-        token = new ObjectMapper().readValue(response.getEntity().getContent(),SalesforceToken.class);
+    @RequestMapping(value = "/")
+    public String getHomePage(HttpServletRequest servletRequest) throws IOException, URISyntaxException {
+        Cookie [] cookies = servletRequest.getCookies();
+        SalesforceToken salesforceToken = null;
+        for (Cookie cookie: cookies) {
+            if(cookie.getName().equals("token")) {
+                salesforceToken = new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(),"UTF-8"),SalesforceToken.class);
+                break;
+            }
+        }
         URIBuilder uriBuilder = new URIBuilder();
         uriBuilder.setScheme("http")
                 .setHost("localhost")
                 .setPort(8080)
-                .setPath("/salesforce/getSalesforceUser/")
-                .setParameter("endpoint",token.getId())
-                .setParameter("accessToken",token.getAccess_token());
+                .setPath("/getSalesforceUser/")
+                .setParameter("endpoint",salesforceToken.getId())
+                .setParameter("accessToken",salesforceToken.getAccessToken());
         URI uri = uriBuilder.build();
-        httpGet = new HttpGet(uri);
-        response = httpClient.execute(httpGet);
+        HttpGet httpGet = new HttpGet(uri);
+        HttpResponse response = httpClient.execute(httpGet);
         String user = toJsonString(response.getEntity().getContent());
         SalesforceUser salesforceUser = new ObjectMapper().readValue(user,SalesforceUser.class);
-        salesforceUser.setSalesforceToken(token);
+        salesforceUser.setSalesforceToken(salesforceToken);
         salesforceUser.setRole("ROLE_TRAINER");
         Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
-        return user.toString();
+        return "index";
     }
 }
