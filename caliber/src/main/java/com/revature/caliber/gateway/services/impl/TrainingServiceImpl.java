@@ -16,7 +16,7 @@ import java.util.List;
 
 public class TrainingServiceImpl implements TrainingService {
 
-    private String localhost = "http://localhost:9001";
+
     private String hostname;
     private String portNumber;
     //paths for batch
@@ -35,7 +35,7 @@ public class TrainingServiceImpl implements TrainingService {
     public void createBatch(Batch batch) {
         RestTemplate service = new RestTemplate();
         // Build Service URL
-        final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(newBatch)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(newBatch)
                 .build().toUriString();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -51,7 +51,7 @@ public class TrainingServiceImpl implements TrainingService {
     public List<Batch> allBatch() {
         RestTemplate service = new RestTemplate();
         // Build Service URL
-        final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(allBatch)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allBatch)
                 .build().toUriString();
         // Invoke the service
         ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
@@ -385,7 +385,7 @@ public class TrainingServiceImpl implements TrainingService {
 
 		RestTemplate service = new RestTemplate();
 		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path("training/week/all").build().toUriString();
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("training/week/all").build().toUriString();
 		
 		System.out.println(URI);
 		// Invoke the service
@@ -408,7 +408,7 @@ public class TrainingServiceImpl implements TrainingService {
 	public void createWeek(Week week) {
 		RestTemplate service = new RestTemplate();
 		// Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path("training/week/new").build()
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("training/week/new").build()
 				.toUriString();
 
 		System.out.println(URI);
