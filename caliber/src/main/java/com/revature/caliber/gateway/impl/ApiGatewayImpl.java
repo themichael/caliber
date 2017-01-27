@@ -323,6 +323,22 @@ public class ApiGatewayImpl implements ApiGateway {
 	}
 
 
+    /**
+     * // Trainee
+     // Shehar
+     Aggregate grades by all tech for a Trainee // param - traineeId
+     - HashMap
+     - key Tech(Category)
+     - value double array
+     - average
+     - median
+     - high
+     - low
+     Key: REST, Value: [83.54, 78.56, 90.56, 78.56]
+     Key: SOAP, Value: [83.54, 78.56, 90.56, 78.56]
+     * @param id
+     * @return
+     */
 
     @Override
     public HashMap<String, Double[]> getTechGradeDataForTrainee(int id) {
@@ -369,9 +385,9 @@ public class ApiGatewayImpl implements ApiGateway {
                 gradeV[1] = list.get(0).doubleValue();
             }
             //since the list of grades is sorted, we can get high and low just by one call for each
-            //high
-            gradeV[3] = list.get(0).doubleValue();
             //low
+            gradeV[3] = list.get(0).doubleValue();
+            //high
             gradeV[2] = list.get(list.size() - 1).doubleValue();
 
             grades.put(categoryName, gradeV); //put the result array back to the map
@@ -380,6 +396,8 @@ public class ApiGatewayImpl implements ApiGateway {
         return grades;
 
     }
+
+
 
     public void createNewWeek(Week week) {
 

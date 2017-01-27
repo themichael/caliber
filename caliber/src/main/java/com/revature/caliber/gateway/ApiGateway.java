@@ -172,6 +172,11 @@ public interface ApiGateway {
 
     //End of Trainer Service
 
+    /**
+     * retreive tech grade for a trainee with AVG , MEDIAN , MAX , MIN
+     * @param id
+     * @return
+     */
 	HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
 
     
