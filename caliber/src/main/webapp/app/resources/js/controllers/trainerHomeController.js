@@ -3,16 +3,6 @@ angular.module("trainer").controller(
 		function($scope, $log, delegateFactory, radarChartFactory, lineChartFactory, pieChartFactory, hbarChartFactory) {
 			$log.debug("Booted trainer home controller.");
 
-			// Trainer API Test
-			$log.log("Get All Batches: ");
-			$log.log(delegateFactory.trainer.getAllBatches());
-			
-			$log.log("Get Current Batch: ");
-			$log.log(delegateFactory.trainer.getCurrentBatch());
-		
-			$log.log("Get Batch with id");
-			$log.log(delegateFactory.trainer.getBatch(6));
-
             /*********************************************** UI ***************************************************/
 			var viewCharts = 0;
 
