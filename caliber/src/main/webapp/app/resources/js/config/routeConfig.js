@@ -1,6 +1,6 @@
 angular.module("app").config(
     function ($stateProvider, $locationProvider, $urlRouterProvider,
-              ChartJsProvider, $logProvider, authFtry) {
+              ChartJsProvider, $logProvider) {
 
     	// Turn on/off debug messages
     	$logProvider.debugEnabled(false);
@@ -20,8 +20,8 @@ angular.module("app").config(
             .state("routing", {
                 url: "/routing",
                 templateUrl: "app/partials/helloWorld.html",
-                onEnter: function(){
-                    authFtry.auth();
+                onEnter: function(authFactory){
+                    authFactory.auth();
                 }
             })
 
@@ -30,8 +30,8 @@ angular.module("app").config(
                 abstract: true,
                 url: "/qc",
                 templateUrl: "app/partials/abstracts/qc.html",
-                onEnter: function(){
-                    authFtry.authQC();
+                onEnter: function(authFactory){
+                    authFactory.authQC();
                 }
             })
             .state("qc.home", {
@@ -44,8 +44,8 @@ angular.module("app").config(
                 abstract: true,
                 url: "/trainer",
                 templateUrl: "app/partials/abstracts/trainer.html",
-                onEnter: function(){
-                    authFtry.authTrainer();
+                onEnter: function(authFactory){
+                    authFactory.authTrainer();
                 }
             })
             .state("trainer.home", {
@@ -64,8 +64,8 @@ angular.module("app").config(
                 abstract: true,
                 templateUrl: "app/partials/abstracts/vp.html",
                 url: "/vp",
-                onEnter: function(){
-                    authFtry.authVP();
+                onEnter: function(authFactory){
+                    authFactory.authVP();
                 }
             })
             .state("vp.home", {

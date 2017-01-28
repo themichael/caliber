@@ -1,4 +1,4 @@
-auth.module("auth").factory("authfactory", function($log, $http, $cookies){
+angular.module("auth").factory("authFactory", function($log, $http, $cookies){
     var auth = {};
 
     $log.debug("Booted Authentication Factory");
@@ -20,7 +20,7 @@ auth.module("auth").factory("authfactory", function($log, $http, $cookies){
     };
 
     function getCookie(){
-        return $cookie.get("");
+        return $cookies.get("   ");
     }
 
     return auth;
