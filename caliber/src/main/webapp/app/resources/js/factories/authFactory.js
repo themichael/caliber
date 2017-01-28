@@ -4,7 +4,7 @@ auth.module("auth").factory("authfactory", function($log, $http, $cookies){
     $log.debug("Booted Authentication Factory");
 
     auth.auth = function(){
-        
+
     };
 
     auth.authQC = function(){
