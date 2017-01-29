@@ -10,30 +10,13 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	trainer.getAllBatches = function() {
 		var data = [];
 		$http({
-			url : "/trainer/batch/all",
+			url : " /trainer/batch/all",
 			method : "GET",
 		}).then(function(response) {
 			$log.debug(response);
 			// copy array
 			angular.copy(response.data, data);
 		}, function(response) {
-			data = null;
-			$log.error("There was an error: " + response.status);
-		});
-		return data;
-	};
-
-	// grab current batch
-	trainer.getCurrentBatch = function(){
-		var data = {};
-		$http({
-			url: "/trainer/batch/current",
-			method: "GET"
-		}).then(function(response){
-			$log.debug(response);
-			// copy object
-			angular.copy(response.data, data);
-		}, function(response){
 			data = null;
 			$log.error("There was an error: " + response.status);
 		});

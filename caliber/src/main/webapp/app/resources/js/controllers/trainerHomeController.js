@@ -1,6 +1,6 @@
 angular.module("trainer").controller(
 		"trainerHomeController",
-		function($scope, $log, delegateFactory, radarChartFactory, lineChartFactory, pieChartFactory, hbarChartFactory) {
+		function($scope, $log, caliberDelegate, chartsDelegate) {
 			$log.debug("Booted trainer home controller.");
 
             /*********************************************** UI ***************************************************/
@@ -91,7 +91,7 @@ angular.module("trainer").controller(
                     {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
 
                 // Generate chart
-                var radarChartObject = radarChartFactory.getBatchRankComparisonChart(sample8, sample9);
+                var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(sample8, sample9);
                 $scope.radarData = radarChartObject.data;
                 $scope.radarLabels = radarChartObject.labels;
                 $scope.radarSeries = radarChartObject.series;
@@ -106,7 +106,7 @@ angular.module("trainer").controller(
                     {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
 
                 // create batch progress charts
-                var lineChartObject = lineChartFactory.getBatchProgressChart(sample3);
+                var lineChartObject = chartsDelegate.line.getBatchProgressChart(sample3);
                 $scope.batchProgressLabels = lineChartObject.labels;
                 $scope.batchProgressData = lineChartObject.data;
                 $scope.batchProgressSeries = lineChartObject.series;
@@ -134,7 +134,7 @@ angular.module("trainer").controller(
                     {trainee: "Andrew", average: ranNum()}];
 
                 // Horizontal bar chart for trainee averages per technology
-                var hbarChartObject = hbarChartFactory.getBatchAvgChart(sampleHbarData);
+                var hbarChartObject = chartsDelegate.hbar.getBatchAvgChart(sampleHbarData);
                 $scope.hbarLabels = hbarChartObject.labels;
                 $scope.hbarData = hbarChartObject.data;
                 $scope.hbarOptions = hbarChartObject.options;
@@ -163,7 +163,7 @@ angular.module("trainer").controller(
 
                 // line chart function that retrieves
                 // Week by week progression for a trainee/ batch on a line chart
-                var lineChartObject = lineChartFactory.getTraineeProgressChart(sampleLineData);
+                var lineChartObject = chartsDelegate.line.getTraineeProgressChart(sampleLineData);
                 $scope.lineLabels = lineChartObject.labels;
                 $scope.lineSeries = lineChartObject.series;
                 $scope.lineData = lineChartObject.data;
@@ -172,7 +172,7 @@ angular.module("trainer").controller(
 
                 // pie chart function that retrieves
                 // data for batch/ trainee technology strengths
-                var pieChartObject = pieChartFactory.getTraineeTechProgressChart(samplePieData);
+                var pieChartObject = chartsDelegate.pie.getTraineeTechProgressChart(samplePieData);
                 $scope.pieLabels = pieChartObject.labels;
                 $scope.pieData = pieChartObject.data;
                 $scope.pieOptions = pieChartObject.options;
@@ -192,7 +192,7 @@ angular.module("trainer").controller(
                 {name: "Batch1431", score: ranNum()}];
 
             // batch rank comparison - hbar chart
-            var hbarChartObject = hbarChartFactory.getAllBatchesEvalChart(sample7);
+            var hbarChartObject = chartsDelegate.hbar.getAllBatchesEvalChart(sample7);
             $scope.allBatchesRankLabels = hbarChartObject.labels;
             $scope.allBatchesRankData = hbarChartObject.data;
             $scope.allBatchesRankSeries = hbarChartObject.series;
