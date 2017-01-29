@@ -76,7 +76,7 @@ public class BootController extends Helper {
         uriBuilder.setScheme(servletRequest.getScheme())
                 .setHost(servletRequest.getServerName())
                 .setPort(servletRequest.getServerPort())
-                .setPath("/caliber/training/trainers/byemail/"+ email+"/");
+                .setPath("/training/trainers/byemail/"+ email+"/");
         uri = uriBuilder.build();
         httpGet = new HttpGet(uri);
         response = httpClient.execute(httpGet);
