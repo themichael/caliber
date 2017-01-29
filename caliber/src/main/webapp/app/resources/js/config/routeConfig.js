@@ -19,7 +19,7 @@ angular.module("app").config(
         $stateProvider
             .state("routing", {
                 url: "/routing",
-                templateUrl: "app/partials/helloWorld.html",
+                templateUrl: "app/partials/routing.html",
                 onEnter:
                     function(authFactory){
                         authFactory.auth();
