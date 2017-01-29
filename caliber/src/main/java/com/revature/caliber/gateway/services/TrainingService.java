@@ -3,67 +3,71 @@ package com.revature.caliber.gateway.services;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.Week;
 
 import java.util.List;
 
+/**
+ * The interface Training service.
+ */
 public interface TrainingService {
 
     /**
      * Create a new batch
      *
-     * @param A new batch
+     * @param batch new batch
      */
     void createBatch(Batch batch);
 
     /**
      * Get all batches
      *
-     * @return
+     * @return A list of all batches
      */
     List<Batch> allBatch();
 
     /**
      * Get all Batches for a given Trainer.
      *
-     * @param id
-     * @return
+     * @param id the id
+     * @return A list of this trainer's current batches
      */
     List<Batch> getBatches(Integer id);
 
     /**
      * Get all current Batches
      *
-     * @return
+     * @return A list of all the current batches
      */
     List<Batch> currentBatch();
 
     /**
-     * Get all current Batches for a given Trainer
+     * Get all current Batches for a given Trainer id
      *
-     * @param trainer
-     * @return
+     * @param id - The trainer requesting a list of all his current batches
+     * @return A list of the trainers current batches
      */
-    List<Batch> currentBatch(Trainer trainer);
+    List<Batch> currentBatch(Integer id);
 
     /**
      * Get a batch by ID
      *
-     * @param id
-     * @return
+     * @param id - The id of the batch being retreived
+     * @return The batch that is being retrieved
      */
     Batch getBatch(Integer id);
 
     /**
      * Update a Batch
      *
-     * @param batch
+     * @param batch - The batch being updated
      */
     void updateBatch(Batch batch);
 
     /**
      * Delete a Batch
      *
-     * @param batch
+     * @param batch - The batch being deleted
      */
     void deleteBatch(Batch batch);
 
@@ -127,32 +131,48 @@ public interface TrainingService {
     /**
      * Gets a trainer by id
      *
-     * @param id: id of the trainer
-     * @return: Trainer object
+     * @param id : id of the trainer
+     * @return Trainer object
      */
     Trainer getTrainer(Integer id);
 
     /**
      * Gets a trainer by email
      *
-     * @param email: email of the trainer
-     * @return: Trainer object
+     * @param email : email of the trainer
+     * @return A Trainer object
      */
     Trainer getTrainer(String email);
 
     /**
      * Gets a list of all trainers
      *
-     * @return: a list of Trainer objects
+     * @return A list of Trainer objects
      */
     List<Trainer> getAllTrainers();
 
     /**
      * Updates a trainer
      *
-     * @param trainer: the trainer object to update
+     * @param trainer : the trainer object to update
      */
     void updateTrainer(Trainer trainer);
 
     //End of Trainer
+    
+    
+    //Week
+    /**
+     * Get a list of all Weeks
+     * @return A list of Week objects
+     */
+    List<Week> getAllWeek();
+    
+    /**
+     * Create a new Week object
+     * @param Week object
+     */
+    void createWeek(Week week);
+    
+    
 }

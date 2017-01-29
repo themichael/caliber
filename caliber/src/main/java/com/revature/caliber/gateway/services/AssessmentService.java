@@ -1,15 +1,9 @@
 package com.revature.caliber.gateway.services;
 
+import com.revature.caliber.beans.*;
+
 import java.util.List;
 import java.util.Set;
-
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.TrainerNote;
 
 public interface AssessmentService {
 
@@ -17,7 +11,7 @@ public interface AssessmentService {
 	 * Inserts Assessment
 	 * @param assessment an Assessment to be inserted
 	 */
-	long insertAssessment(Assessment assessment);
+	void insertAssessment(Assessment assessment);
 
 	/**
 	 * Updates Assessment
@@ -38,9 +32,9 @@ public interface AssessmentService {
 	 * Returns a list of grades of a specific assessment based on assessmentId
 	 * as an input
 	 *
-	 * @param assessmentId
+	 * @param assessmentId - The id of the assessment
 	 */
-	List<Grade> getGradesByAssessment(long assessmentId);
+	List<Grade> getGradesByAssessment(Integer assessmentId);
 
 
 	/**
@@ -56,7 +50,7 @@ public interface AssessmentService {
 	/**
 	 * Create a batchNote
 	 */
-	void makeBatchNote(BatchNote batchNote);
+	void createBatchNote(BatchNote batchNote);
 
 	/**
 	 * Get the batch note within a given week corresponding to a specific batch
@@ -112,7 +106,7 @@ public interface AssessmentService {
 
 	void deleteTrainerNote(TrainerNote note);
 
-	
+
 	/**
 	 * Returns Set of all Categories
 	 * 
@@ -120,5 +114,7 @@ public interface AssessmentService {
 	 */
 	Set<Category> getAllCategories();
 
-	
+
+    List<Grade> getGradesByTraineeId(int id);
+
 }

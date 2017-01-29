@@ -1,9 +1,15 @@
 package com.revature.caliber.gateway;
 
+import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.QCNote;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerNote;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -47,30 +53,30 @@ public interface ApiGateway {
     /**
      * Get all current Batches for a given Trainer
      *
-     * @param trainer
+     * @param trainer - The trainer for whom we are returning the current batch
      * @return A list of batches
      */
-    List<Batch> currentBatch(Trainer trainer);
+    List<Batch> currentBatch(Integer id);
 
     /**
      * Get a batch by ID
      *
-     * @param id
-     * @return
+     * @param id The id of the batch
+     * @return A batch that corresponds with the id provided
      */
     Batch getBatch(Integer id);
 
     /**
      * Update a Batch
      *
-     * @param batch
+     * @param batch The batch to be updated
      */
     void updateBatch(Batch batch);
 
     /**
      * Delete a Batch
      *
-     * @param batch
+     * @param batch The batch to be deleted
      */
     void deleteBatch(Batch batch);
 
@@ -135,7 +141,7 @@ public interface ApiGateway {
     /**
      * Gets a trainer by id
      *
-     * @param id: id of the trainer
+     * @param id : id of the trainer
      * @return Trainer object
      */
     Trainer getTrainer(Integer id);
@@ -143,7 +149,7 @@ public interface ApiGateway {
     /**
      * Gets a trainer by email
      *
-     * @param email: email of the trainer
+     * @param email : email of the trainer
      * @return Trainer object
      */
     Trainer getTrainer(String email);
@@ -158,9 +164,116 @@ public interface ApiGateway {
     /**
      * Updates a trainer
      *
-     * @param trainer: the trainer object to update
+     * @param trainer : the trainer object to update
      */
     void updateTrainer(Trainer trainer);
 
+
+
     //End of Trainer Service
+
+    /**
+     * retreive tech grade for a trainee with AVG , MEDIAN , MAX , MIN
+     * @param id
+     * @return
+     */
+	HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
+
+    
+    //Grade Service
+    /**
+     * Retrieves the Grade using the assessmentId
+     * @param assessmentId
+     * @return
+     */
+    List<Grade> getGradesByAssessment(Integer assessmentId);
+    
+    /**
+     * Inserts a grade
+     * @param grade
+     */
+    void insertGrade(Grade grade);
+    
+    /**
+     * Updates a grade
+     * @param grade
+     */
+    void updateGrade(Grade grade);
+    
+    /**
+     * Create a Trainer Note
+     * @param note
+     */
+    //End of grade Service
+    
+    //TrainerNoteService
+    void createTrainerNote(TrainerNote note);
+    
+    /**
+     * Update the Trainer Note
+     * @param note
+     */
+    void updateTrainerNote(TrainerNote note);
+    
+    /**
+     * Delete the Trainer Note
+     * @param note
+     */
+    void deleteTrainerNote(TrainerNote note);
+    //End of trainer note service
+    
+    //Batch note service
+    /**
+     * Create a Batch Note
+<<<<<<< HEAD
+     * @param batchNote
+=======
+>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     */
+    void createBatchNote(BatchNote batchNote);
+    
+    /**
+     * Update the Batch Note
+<<<<<<< HEAD
+     * @param batchNote
+=======
+>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     */
+    void updateBatchNote(BatchNote batchNote);
+    
+    /**
+     * Delete the Batch Note
+<<<<<<< HEAD
+     * @param batchNote
+=======
+>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     */
+    void deleteBatchNote(BatchNote batchNote);
+    //End of batch note service
+    
+    //Assessment service
+    /**
+     * Add an assessment
+     * @param assessment
+     */
+    void insertAssessment(Assessment assessment);
+    
+    /**
+     * update an assessment
+     * @param assessment
+     */
+    void updateAssessment(Assessment assessment);
+    
+    /**
+     * Delete an assessment
+     * @param assessment
+     */
+    void deleteAssessment(Assessment assessment);
+    
+    void createQCNote(QCNote note);
+    
+    void updateQCNote(QCNote note);
+
+
+
 }
