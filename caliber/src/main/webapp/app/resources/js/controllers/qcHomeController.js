@@ -1,5 +1,5 @@
 angular.module("qc").controller("qcHomeController", function
-    ($scope, $log, caliberDelegate, hbarChartFactory, radarChartFactory, pieChartFactory, lineChartFactory) {
+    ($scope, $log, caliberDelegate, chartsDelegate) {
 
     $scope.batches = ["Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408"];
     $scope.tech = ["Spring", "Hibernate", "JSP"];
@@ -88,7 +88,7 @@ angular.module("qc").controller("qcHomeController", function
             {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
 
         // create other charts
-        var lineChartObject = lineChartFactory.getBatchProgressChart(sample3);
+        var lineChartObject = chartsDelegate.line.getBatchProgressChart(sample3);
         $scope.batchProgressLabels = lineChartObject.labels;
         $scope.batchProgressData = lineChartObject.data;
         $scope.batchProgressSeries = lineChartObject.series;
@@ -115,7 +115,7 @@ angular.module("qc").controller("qcHomeController", function
             {trainee: "Andrew", average: ranNum()}];
 
         // Horizontal bar chart for trainee averages per technology
-        var hbarChartObject = hbarChartFactory.getBatchAvgChart(sampleHbarData);
+        var hbarChartObject = chartsDelegate.hbar.getBatchAvgChart(sampleHbarData);
         $scope.hbarLabels = hbarChartObject.labels;
         $scope.hbarData = hbarChartObject.data;
         $scope.hbarOptions = hbarChartObject.options;
@@ -144,7 +144,7 @@ angular.module("qc").controller("qcHomeController", function
 
         // line chart function that retrieves
         // Week by week progression for a trainee/ batch on a line chart
-        var lineChartObject = lineChartFactory.getTraineeProgressChart(sampleLineData);
+        var lineChartObject = chartsDelegate.line.getTraineeProgressChart(sampleLineData);
         $scope.lineLabels = lineChartObject.labels;
         $scope.lineSeries = lineChartObject.series;
         $scope.lineData = lineChartObject.data;
@@ -153,7 +153,7 @@ angular.module("qc").controller("qcHomeController", function
 
         // pie chart function that retrieves
         // data for batch/ trainee technology strengths
-        var pieChartObject = pieChartFactory.getTraineeTechProgressChart(samplePieData);
+        var pieChartObject = chartsDelegate.pie.getTraineeTechProgressChart(samplePieData);
         $scope.pieLabels = pieChartObject.labels;
         $scope.pieData = pieChartObject.data;
         $scope.pieOptions = pieChartObject.options;
@@ -173,7 +173,7 @@ angular.module("qc").controller("qcHomeController", function
             {name: "Batch1431", score: ranNum()}];
 
     // batch rank comparison - hbar chart
-    var hbarChartObject = hbarChartFactory.getAllBatchesEvalChart(sample7);
+    var hbarChartObject = chartsDelegate.hbar.getAllBatchesEvalChart(sample7);
     $scope.allBatchesRankLabels = hbarChartObject.labels;
     $scope.allBatchesRankData = hbarChartObject.data;
     $scope.allBatchesRankSeries = hbarChartObject.series;

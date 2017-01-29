@@ -1,11 +1,11 @@
 /**
  * Delegates API calls to the appropriate API factory
  */
-// TODO: remove deleted ajax functions and add correct ajax functions
-// TODO: change name of file to apiFactory
+
 angular.module("delegate").factory("caliberDelegate",
 		function($log, trainerFactory, vpFactory, qcFactory, allFactory) {
 	$log.debug("Booted Delegate Factory");
+
 	var delegate = {};
 
 	delegate.all = {};
