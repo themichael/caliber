@@ -20,10 +20,11 @@ angular.module("app").config(
             .state("routing", {
                 url: "/routing",
                 templateUrl: "app/partials/routing.html",
-                onEnter:
-                    function(authFactory){
-                        authFactory.auth();
-                    }
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.auth();
+                //     }
             })
             .state("testPage", {
                 url: "/testpage",
@@ -36,10 +37,11 @@ angular.module("app").config(
                 abstract: true,
                 url: "/qc",
                 templateUrl: "app/partials/abstracts/qc.html",
-                onEnter:
-                    function(authFactory){
-                        authFactory.authQC();
-                    }
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.authQC();
+                //     }
 
             })
             .state("qc.home", {
@@ -62,10 +64,11 @@ angular.module("app").config(
                 abstract: true,
                 url: "/trainer",
                 templateUrl: "app/partials/abstracts/trainer.html",
-                onEnter:
-                    function(authFactory){
-                        authFactory.authTrainer();
-                    }
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.authTrainer();
+                //     }
             })
             .state("trainer.home", {
                 templateUrl: "app/partials/home/trainer-home.html",
@@ -91,11 +94,13 @@ angular.module("app").config(
             // vp
             .state("vp", {
                 abstract: true,
-                templateUrl: "app/partials/abstracts/vp.html",
                 url: "/vp",
-                onEnter: function(authFactory){
-                        authFactory.authVP();
-                }
+                templateUrl: "app/partials/abstracts/vp.html",
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.authVP();
+                //     }
 
             })
             .state("vp.home", {
