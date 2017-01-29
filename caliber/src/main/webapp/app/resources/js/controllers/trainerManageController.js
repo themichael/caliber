@@ -6,9 +6,9 @@ angular.module("trainer").controller(
         /**
          * Add & View Batches
          */
-        $scope.batches=[{batchId: 1, trainingName: 'Batch123', trainingType: 'CUNY', skillType: 'Java', location: 'Queens, NY',
+        $scope.batches=[{trainingName: 'Batch123', trainingType: 'CUNY', skillType: 'Java', location: 'Queens, NY',
                 trainer: 'Patrick', coTrainer: '', startDate: new Date(), endDate: new Date()},
-            {batchId: 2, trainingName: 'Batch456', trainingType: 'Corporate', skillType: 'Java', location: 'Reston, VA',
+            {trainingName: 'Batch456', trainingType: 'Corporate', skillType: 'Java', location: 'Reston, VA',
                 trainer: 'Ryan', coTrainer: 'Brian', startDate: new Date(), endDate: new Date()}
         ];
         $scope.trainingName={

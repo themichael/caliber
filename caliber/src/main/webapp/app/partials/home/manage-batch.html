@@ -31,34 +31,34 @@
             <div class="col-md-12 col-lg-12">
                 <table class="table table-hover">
                     <thead>
-                    <tr>
-                        <th>Training Name</th>
-                        <th>Training Type</th>
-                        <th>Skill Type</th>
-                        <th>Trainer</th>
-                        <th>Co-Trainer</th>
-                        <th>Location</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Trainees</th>
-                    </tr>
+                        <tr>
+                            <th>Training Name</th>
+                            <th>Training Type</th>
+                            <th>Skill Type</th>
+                            <th>Trainer</th>
+                            <th>Co-Trainer</th>
+                            <th>Location</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Trainees</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="batch in batches">
-                        <td>{{batch.trainingName}}</td>
-                        <td>{{batch.trainingType}}</td>
-                        <td>{{batch.skillType}}</td>
-                        <td>{{batch.trainer}}</td>
-                        <td>{{batch.coTrainer}}</td>
-                        <td>{{batch.location}}</td>
-                        <td>{{batch.startDate|date}}</td>
-                        <td>{{batch.endDate|date}}</td>
-                        <td><!-- Button Trigger for Add Trainee Modal -->
-                            <a role="button" data-toggle="modal" data-target="#addTraineeModal">
-                                View/ Add<span class="glyphicon glyphicon-user"></span>
-                            </a>
-                        </td>
-                    </tr>
+                        <tr ng-repeat="batch in batches">
+                            <td>{{batch.trainingName}}</td>
+                            <td>{{batch.trainingType}}</td>
+                            <td>{{batch.skillType}}</td>
+                            <td>{{batch.trainer}}</td>
+                            <td>{{batch.coTrainer}}</td>
+                            <td>{{batch.location}}</td>
+                            <td>{{batch.startDate|date}}</td>
+                            <td>{{batch.endDate|date}}</td>
+                            <td><!-- Button Trigger for Add Trainee Modal -->
+                                <a role="button" data-toggle="modal" data-target="#addTraineeModal">
+                                    View/ Add<span class="glyphicon glyphicon-user"></span>
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -191,14 +191,14 @@
                                 <td>
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="traineeName">Full Name:</label>
-                                        <input ng-model="traineeName.value" type="text" class="form-control"
+                                        <input ng-model="traineeName.model" type="text" class="form-control"
                                                id="traineeName" placeholder="Name" required>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="traineeEmail">Email:</label>
-                                        <input ng-model="traineeEmail.value" type="text" class="form-control"
+                                        <input ng-model="traineeEmail.model" type="text" class="form-control"
                                                id="traineeEmail" placeholder="Email" required>
                                     </div>
                                 </td>
