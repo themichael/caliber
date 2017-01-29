@@ -79,7 +79,7 @@ angular.module("delegate").factory("caliberDelegate",
 		return trainerFactory.updateNote(noteObj);
 	};
 
-	/*************************** Batch ***************************/
+	/*************************** VP ***************************/
 	delegate.vp.getAllBatches = function() {
 		return vpFactory.getAllBatches();
 	};
@@ -88,21 +88,33 @@ angular.module("delegate").factory("caliberDelegate",
 		return vpFactory.getAllCurrentBatches();
 	};
 
-	delegate.vp.getBatch = function(id){
-		return vpFactory.getBatch(id);
-	};
-
-	delegate.vp.getCurrentBatch = function(id){
-		return vpFactory.getCurrentBatch(id);
-	};
-
-	// QC API
+	/************************** QC *****************************/
 	delegate.qc.getAllBatches = function () {
 		return qcFactory.getAllBatches();
 	};
 
-	delegate.qc.getBatchById = function (id) {
-		return qcFactory.getBatchById(id);
+	delegate.updateGrade = function(gradeObj){
+		return qcFactory.updateGrade(gradeObj);
+	};
+
+	delegate.createAssessment = function(assessmentObj){
+		return qcFactory.createAssessment(assessmentObj);
+	};
+
+	delegate.getAllAssessments = function(weekId){
+		return qcFactory.getAllAssessments(weekId);
+	};
+
+	delegate.deleteAssessment = function(assessmentId){
+		return qcFactory.deleteAssessment(assessmentId);
+	};
+
+	delegate.createNote = function(noteObj){
+		return qcFactory.createNote(noteObj);
+	};
+
+	delegate.updateNote = function(noteObj){
+		return qcFactory.updateNote(noteObj);
 	};
 
 	return delegate;
