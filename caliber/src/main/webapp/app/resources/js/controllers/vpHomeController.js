@@ -1,12 +1,7 @@
 angular.module("vp").controller(
 		"vpHomeController",
-		function($scope, $log, radarChartFactory, hbarChartFactory, pieChartFactory, lineChartFactory, delegateFactory) {
+		function($scope, $log, radarChartFactory, hbarChartFactory, pieChartFactory, lineChartFactory, caliberDelegate) {
 			$log.debug("Booted vp home controller.");
-
-			// VP API Test
-			$log.log("Get All Batches: ");
-			$log.log(delegateFactory.vp.getAllBatches());
-			$log.log("Get All Current Batches: ");
 
 			/*********************************************** UI ***************************************************/
 			// decides what charts are to be shown

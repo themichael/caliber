@@ -1,5 +1,5 @@
 angular.module("qc").controller("qcHomeController", function
-    ($scope, $log, delegateFactory, hbarChartFactory, radarChartFactory, pieChartFactory, lineChartFactory) {
+    ($scope, $log, caliberDelegate, hbarChartFactory, radarChartFactory, pieChartFactory, lineChartFactory) {
 
     $scope.batches = ["Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408"];
     $scope.tech = ["Spring", "Hibernate", "JSP"];
