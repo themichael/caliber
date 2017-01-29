@@ -1,23 +1,16 @@
 package com.revature.caliber.data.implementations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-
 import com.revature.caliber.training.beans.Tier;
 import com.revature.caliber.training.beans.Trainer;
 import com.revature.caliber.training.data.TrainerDAO;
+import org.apache.log4j.Logger;
+import org.junit.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Test for TrainerDAOImplementation.

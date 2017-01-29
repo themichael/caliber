@@ -1,132 +1,258 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Set;
 
+/**
+ * The type Trainer.
+ */
 public class Trainer {
 
-	private int trainerId;
-	private String name;
-	private String title;
-	private String email;
-	private String salesforceAccount;
-	private String salesforceAuthenticationToken;
-	private String salesforceRefreshToken;
-	private Tier tier;
-	
-	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-	private Set<Batch> batches;
+    @JsonProperty
+    private int trainerId;
+    @JsonProperty
+    private String name;
+    @JsonProperty
+    private String title;
+    @JsonProperty
+    private String email;
+    @JsonProperty
+    private String salesforceAccount;
+    @JsonProperty
+    private String salesforceAuthenticationToken;
+    @JsonProperty
+    private String salesforceRefreshToken;
+    @JsonProperty
+    private Tier tier;
 
-	public int getTraineeId() {
-		return trainerId;
-	}
+    // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+    private Set<Batch> batches;
 
-	public void setTraineeId(int traineeId) {
-		this.trainerId = traineeId;
-	}
+    /**
+     * Gets trainee id.
+     *
+     * @return the trainee id
+     */
+    public int getTraineeId() {
+        return trainerId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * Sets trainee id.
+     *
+     * @param traineeId the trainee id
+     */
+    public void setTraineeId(int traineeId) {
+        this.trainerId = traineeId;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * Sets title.
+     *
+     * @param title the title
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
-	public String getSalesforceAccount() {
-		return salesforceAccount;
-	}
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setSalesforceAccount(String salesforceAccount) {
-		this.salesforceAccount = salesforceAccount;
-	}
+    /**
+     * Gets salesforce account.
+     *
+     * @return the salesforce account
+     */
+    public String getSalesforceAccount() {
+        return salesforceAccount;
+    }
 
-	public String getSalesforceAuthenticationToken() {
-		return salesforceAuthenticationToken;
-	}
+    /**
+     * Sets salesforce account.
+     *
+     * @param salesforceAccount the salesforce account
+     */
+    public void setSalesforceAccount(String salesforceAccount) {
+        this.salesforceAccount = salesforceAccount;
+    }
 
-	public void setSalesforceAuthenticationToken(String salesforceAuthenticationToken) {
-		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
-	}
+    /**
+     * Gets salesforce authentication token.
+     *
+     * @return the salesforce authentication token
+     */
+    public String getSalesforceAuthenticationToken() {
+        return salesforceAuthenticationToken;
+    }
 
-	public Tier getTier() {
-		return tier;
-	}
+    /**
+     * Sets salesforce authentication token.
+     *
+     * @param salesforceAuthenticationToken the salesforce authentication token
+     */
+    public void setSalesforceAuthenticationToken(String salesforceAuthenticationToken) {
+        this.salesforceAuthenticationToken = salesforceAuthenticationToken;
+    }
 
-	public void setTier(Tier tier) {
-		this.tier = tier;
-	}
+    /**
+     * Gets tier.
+     *
+     * @return the tier
+     */
+    public Tier getTier() {
+        return tier;
+    }
 
-	public Set<Batch> getBatches() {
-		return batches;
-	}
+    /**
+     * Sets tier.
+     *
+     * @param tier the tier
+     */
+    public void setTier(Tier tier) {
+        this.tier = tier;
+    }
 
-	public void setBatches(Set<Batch> batches) {
-		this.batches = batches;
-	}
+    /**
+     * Gets batches.
+     *
+     * @return the batches
+     */
+    public Set<Batch> getBatches() {
+        return batches;
+    }
 
-	public Trainer() {
-		super();
-	}
+    /**
+     * Sets batches.
+     *
+     * @param batches the batches
+     */
+    public void setBatches(Set<Batch> batches) {
+        this.batches = batches;
+    }
 
-	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier) {
-		super();
-		this.trainerId = traineeId;
-		this.name = name;
-		this.title = title;
-		this.email = email;
-		this.salesforceAccount = salesforceAccount;
-		this.tier = tier;
-	}
+    /**
+     * Instantiates a new Trainer.
+     */
+    public Trainer() {
+        super();
+    }
 
-	public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier,
-			Set<Batch> batches) {
-		super();
-		this.trainerId = traineeId;
-		this.name = name;
-		this.title = title;
-		this.email = email;
-		this.salesforceAccount = salesforceAccount;
-		this.tier = tier;
-		this.batches = batches;
-	}
+    /**
+     * Instantiates a new Trainer.
+     *
+     * @param traineeId         the trainee id
+     * @param name              the name
+     * @param title             the title
+     * @param email             the email
+     * @param salesforceAccount the salesforce account
+     * @param tier              the tier
+     */
+    public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier) {
+        super();
+        this.trainerId = traineeId;
+        this.name = name;
+        this.title = title;
+        this.email = email;
+        this.salesforceAccount = salesforceAccount;
+        this.tier = tier;
+    }
 
-	public String getSalesforceRefreshToken() {
-		return salesforceRefreshToken;
-	}
+    /**
+     * Instantiates a new Trainer.
+     *
+     * @param traineeId         the trainee id
+     * @param name              the name
+     * @param title             the title
+     * @param email             the email
+     * @param salesforceAccount the salesforce account
+     * @param tier              the tier
+     * @param batches           the batches
+     */
+    public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier,
+                   Set<Batch> batches) {
+        super();
+        this.trainerId = traineeId;
+        this.name = name;
+        this.title = title;
+        this.email = email;
+        this.salesforceAccount = salesforceAccount;
+        this.tier = tier;
+        this.batches = batches;
+    }
 
-	public void setSalesforceRefreshToken(String salesforceRefreshToken) {
-		this.salesforceRefreshToken = salesforceRefreshToken;
-	}
+    /**
+     * Gets salesforce refresh token.
+     *
+     * @return the salesforce refresh token
+     */
+    public String getSalesforceRefreshToken() {
+        return salesforceRefreshToken;
+    }
 
-	public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, 
-			String salesforceAuthenticationToken, String salesforceRefreshToken, Tier tier) {
-		super();
-		this.trainerId = trainerId;
-		this.name = name;
-		this.title = title;
-		this.email = email;
-		this.salesforceAccount = salesforceAccount;
-		this.salesforceAuthenticationToken = salesforceAuthenticationToken;
-		this.salesforceRefreshToken = salesforceRefreshToken;
-		this.tier = tier;
+    /**
+     * Sets salesforce refresh token.
+     *
+     * @param salesforceRefreshToken the salesforce refresh token
+     */
+    public void setSalesforceRefreshToken(String salesforceRefreshToken) {
+        this.salesforceRefreshToken = salesforceRefreshToken;
+    }
+
+	@Override
+	public String toString() {
+		return "Trainer{" +
+				"trainerId=" + trainerId +
+				", name='" + name + '\'' +
+				", title='" + title + '\'' +
+				", email='" + email + '\'' +
+				", salesforceAccount='" + salesforceAccount + '\'' +
+				", salesforceAuthenticationToken='" + salesforceAuthenticationToken + '\'' +
+				", salesforceRefreshToken='" + salesforceRefreshToken + '\'' +
+				", tier=" + tier +
+				", batches=" + batches +
+				'}';
 	}
-	
-	
-	
 }

@@ -25,6 +25,26 @@
 	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
 		<property name="hostname" value="http://www.pjw6193.tech" />
 		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
+		
+		<property name="insertAssessment" value="assessments/assessment/new"/>
+		<property name="deleteAssessment" value="assessments/assessment/delete" />
+		<property name="updateAssessment" value="assessments/assesment/update" />
+
+
+		<property name="insertGrade" value="assessments/grades/create/"/>
+		<property name="updateGrade" value="assessments/grades/update/"/>
+		<property name="gradesByAssessments" value="assessments/grades/assessment/"/>
+		
+		<property name="updateTrainerNotePath" value="assessments/trainerNote/update/" />
+		<property name="deleteTrainerNotePath" value="assessments/trainerNote/delete/" />
+		<property name="createTrainerNotePath" value="assessments/trainerNote/new/" />
+		
+		<property name="createBatchNotePath" value="assessments/batchNote/new"/>
+		<property name="deleteBatchNotePath" value="assessments/batchNote/update"/>
+		<property name="updateBatchNotePath" value="assessments/batchNote/delete"/>
+		
+		<property name="createQCNotePath" value="assessments/qcnotes/new" />
+		<property name="updateQCNotePath" value="assessments/qcnotes/update" />
 	</bean>
 
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
@@ -44,14 +64,18 @@
 		<property name="deleteTraineePath" value="training/trainees/delete" />
 		<property name="updateTraineePath" value="training/trainees/update" />
 		<property name="getTraineeByIdPath" value="training/trainees/byid/" />
-		<property name="getTraineeByNamePath" value="training/trainees/byname/" />
+		<property name="getTraineeByNamePath" value="training/trainees/byemail/" />
 		<property name="getTraineesByBatchPath" value="training/trainees/bybatch/" />
-		
+
 		<property name="addTrainerPath" value="training/trainers/new" />
 		<property name="getAllTrainersPath" value="training/trainers/all" />
 		<property name="updateTrainerPath" value="training/trainers/update" />
 		<property name="getTrainerByIdPath" value="training/trainers/byid/" />
 		<property name="getTrainerByEmailPath" value="training/trainers/byemail/" />
+		
+		<property name="addWeekPath" value="training/week/new" />
+		<property name="getAllWeekPath" value="training/week/all" />
+	
 	</bean>
 
 </beans>

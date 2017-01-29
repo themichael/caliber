@@ -1,37 +1,37 @@
 package com.revature.caliber.training.web.controllers;
 
-import java.io.Serializable;
-import java.util.List;
 
-import javax.validation.Valid;
-
+import com.revature.caliber.training.beans.Batch;
+import com.revature.caliber.training.service.BusinessDelegate;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
 
-import com.revature.caliber.training.beans.Batch;
-import com.revature.caliber.training.service.BusinessDelegate;
+import javax.validation.Valid;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.DELETE, RequestMethod.POST, RequestMethod.GET,
-		RequestMethod.PUT }, allowedHeaders = { "X-PINGOTHER", "Content-Type" })
+@CrossOrigin(origins = "*",
+        methods = {RequestMethod.DELETE, RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT},
+        allowedHeaders = {"X-PINGOTHER", "Content-Type"}
+)
 public class BatchController {
-	private static Logger log = Logger.getLogger(BatchController.class);
-	private BusinessDelegate businessDelegate;
+    private static Logger log = Logger.getLogger(BatchController.class);
+    private BusinessDelegate businessDelegate;
 
-	@Autowired
-	public void setBusinessDelegate(BusinessDelegate businessDelegate) {
-		this.businessDelegate = businessDelegate;
-	}
+    @Autowired
+    public void setBusinessDelegate(BusinessDelegate businessDelegate) {
+        this.businessDelegate = businessDelegate;
+    }
 
 	/**
 	 * Request for new batch to be created
@@ -39,7 +39,9 @@ public class BatchController {
 	 * @param batch
 	 * @return
 	 */
-	@RequestMapping(value = "batch/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/create", method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> createBatch(@RequestBody @Valid Batch batch) {
 		ResponseEntity<Serializable> returnEntity;
 		try {
@@ -57,7 +59,7 @@ public class BatchController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<List<Batch>> getAllBatches() {
 		ResponseEntity<List<Batch>> returnEntity;
 		try {
@@ -79,7 +81,8 @@ public class BatchController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "batch/byTrainerId/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/byTrainerId/{id}", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("id") Integer id) {
 		ResponseEntity<List<Batch>> returnEntity;
 		try {
@@ -100,7 +103,7 @@ public class BatchController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<List<Batch>> getCurrentBatch() {
 		ResponseEntity<List<Batch>> returnEntity;
 		try {
@@ -116,49 +119,46 @@ public class BatchController {
 		return returnEntity;
 	}
 
-	/**
-	 * Request to get active batches by Trainer id
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "batch/current/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public HttpEntity<List<Batch>> getCurrentBatch(@PathVariable("id") Integer id) {
-		ResponseEntity<List<Batch>> returnEntity;
-		try {
-			List<Batch> batches = businessDelegate.getCurrentBatch(id);
-			if (batches == null)
-				returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
-			else
-				returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
-		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
-			log.error("Runtime Exception.", e);
-		}
-		return returnEntity;
-	}
+    /**
+     * Request to get active batches by Trainer id
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "batch/current/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Batch>> getCurrentBatch(@PathVariable("id") Integer id) {
+        ResponseEntity<List<Batch>> returnEntity;
+        try {
+            List<Batch> batches = businessDelegate.getCurrentBatch(id);
+            if (batches == null)
+                returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
+            else
+                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
+        }
+        return returnEntity;
+    }
 
-	/**
-	 * Request to get a single batch by id
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "batch/byId/{id}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public HttpEntity<Batch> getBatch(@PathVariable("id") int id) {
-		ResponseEntity<Batch> returnEntity;
-		try {
-			Batch batch = businessDelegate.getBatch(id);
-			if (batch == null)
-				returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
-			else
-				returnEntity = new ResponseEntity<>(batch, HttpStatus.OK);
-		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
-			log.error("Runtime Exception.", e);
-		}
-		return returnEntity;
-	}
+    /**
+     * Request to get a single batch by id
+     *
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "batch/byId/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Batch> getBatch(@PathVariable("id") int id) {
+        System.err.println("IN BATCH CONTROLLER");
+        Batch batch = businessDelegate.getBatch(id);
+        System.err.println(batch.toString());
+        return new ResponseEntity<>(batch, HttpStatus.OK);
+    }
 
 	/**
 	 * Request to update a batch
@@ -166,8 +166,10 @@ public class BatchController {
 	 * @param batch
 	 * @return
 	 */
-	@RequestMapping(value = "batch/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public HttpEntity<Batch> updateBatch(@RequestBody @Valid Batch batch) {
+	@RequestMapping(value = "batch/update", method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Batch> updateBatch(@RequestBody @Valid Batch batch) {
 		ResponseEntity<Batch> returnEntity;
 		try {
 			businessDelegate.updateBatch(batch);
@@ -179,22 +181,26 @@ public class BatchController {
 		return returnEntity;
 	}
 
-	/**
-	 * Request to delete a batch
-	 * 
-	 * @param batch
-	 * @return
-	 */
-	@RequestMapping(value = "batch/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public HttpEntity<Batch> deleteBatch(@RequestBody @Valid Batch batch) {
-		ResponseEntity<Batch> returnEntity;
-		try {
-			businessDelegate.deleteBatch(batch);
-			returnEntity = new ResponseEntity(HttpStatus.OK);
-		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
-			log.error("Runtime Exception.", e);
-		}
-		return returnEntity;
-	}
+    /**
+     * Request to delete a batch
+     *
+     * @param batch
+     * @return
+     */
+    @RequestMapping(value = "batch/delete",
+            method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Serializable> deleteBatch(@RequestBody Batch batch) {
+        ResponseEntity<Serializable> returnEntity;
+        try {
+            businessDelegate.deleteBatch(batch);
+            returnEntity = new ResponseEntity<>(HttpStatus.OK);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return returnEntity;
+    }
+
 }

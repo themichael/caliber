@@ -4,19 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.*;
 
 /**
  * Bean for Week
@@ -57,9 +45,7 @@ public class Week {
 		this.topics = topics;
 	}
 
-	public Week() {
-		super();
-	}
+	public Week() {super();}
 
 	public long getWeekId() {
 		return weekId;
@@ -95,7 +81,7 @@ public class Week {
 
 	@Override
 	public String toString() {
-		return "Week [weekId=" + weekId + ", weekNumber=" + weekNumber + ", batch=" + batch + ", topics=" + topics
+		return "Week [weekId=" + weekId + ", weekNumber=" + weekNumber + ", batch=" + batch.getBatchId() + ", topics=" + topics
 				+ "]";
 	}
 

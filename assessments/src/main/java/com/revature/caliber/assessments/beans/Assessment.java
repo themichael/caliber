@@ -1,6 +1,9 @@
 package com.revature.caliber.assessments.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+
 import java.util.Set;
 
 /**
@@ -58,6 +61,7 @@ public class Assessment {
      */
     @ManyToOne
     @JoinColumn(name = "WEEKLY_STATUS")
+    @JsonBackReference(value = "statusAndAssessments")
     private QCStatus weeklyStatus;
 
     /**
@@ -112,8 +116,7 @@ public class Assessment {
                 ", rawScore=" + rawScore +
                 ", type='" + type + '\'' +
                 ", week=" + week +
-                ", weeklyStatus=" + weeklyStatus.getStatus() +
-                ", categories=" + categories +
+                ", categories=" + categories.size() +
                 '}';
     }
 

@@ -9,8 +9,10 @@ import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
@@ -54,6 +56,7 @@ public class GradeDAOImpl implements GradeDAO {
 	public List<Grade> getGradesByTraineeId(int traineeId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class);
 		criteria.add(Restrictions.eq("trainee", traineeId));
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		return criteria.list();
 	}
 

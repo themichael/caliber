@@ -54,7 +54,7 @@ public class QCNoteDAOImpl implements QCNoteDAO {
         Criteria criteria = session.createCriteria(QCNote.class);
         criteria.add(Restrictions.eq("trainee", traineeId));
         criteria.add(Restrictions.eq("week", weekId));
-        return (QCNote) criteria.uniqueResult();
+        return (QCNote) criteria.setMaxResults(1).uniqueResult();
     }
 
     @Override

@@ -7,11 +7,6 @@ angular.module("vp").controller(
 			$log.log("Get All Batches: ");
 			$log.log(delegateFactory.vp.getAllBatches());
 			$log.log("Get All Current Batches: ");
-			$log.log(delegateFactory.vp.getAllCurrentBatches());
-			$log.log("Get Batch With Id: ");
-			$log.log(delegateFactory.vp.getBatch(7));
-			$log.log("Get Current Batch with Id: ");
-			$log.log(delegateFactory.vp.getCurrentBatch(5));
 
 			/*********************************************** UI ***************************************************/
 			// decides what charts are to be shown
@@ -48,7 +43,7 @@ angular.module("vp").controller(
                 if (index === -1) {
                 	$scope.currentTrainee = "Trainee";
                 	$scope.currentTech = "Tech";
-                	viewCharts = 0;
+                	viewCharts = 1;
 				}else{
                     $scope.currentTrainee = "Trainee";
 					$scope.currentTech = $scope.tech[index];
@@ -111,20 +106,20 @@ angular.module("vp").controller(
                     {week: "Week 9", average: ranNum()}, {week: "Week 10", average: ranNum()},
                     {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
 
-                    // create batch radar chart
-                    var radarChartObject = radarChartFactory.getBatchRankComparisonChart(sample1, sample2);
-                    $scope.batchRankLabels = radarChartObject.labels;
-                    $scope.batchRankData = radarChartObject.data;
-                    $scope.batchRankSeries = radarChartObject.series;
-                    $scope.batchRankOptions = radarChartObject.options;
+                // create batch radar chart
+                var radarChartObject = radarChartFactory.getBatchRankComparisonChart(sample1, sample2);
+                $scope.batchRankLabels = radarChartObject.labels;
+                $scope.batchRankData = radarChartObject.data;
+                $scope.batchRankSeries = radarChartObject.series;
+                $scope.batchRankOptions = radarChartObject.options;
 
-                    // create other charts
-                    var lineChartObject = lineChartFactory.getBatchProgressChart(sample3);
-                    $scope.batchProgressLabels = lineChartObject.labels;
-                    $scope.batchProgressData = lineChartObject.data;
-                    $scope.batchProgressSeries = lineChartObject.series;
-                    $scope.batchProgressOptions = lineChartObject.options;
-                    $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
+                // create other charts
+                var lineChartObject = lineChartFactory.getBatchProgressChart(sample3);
+                $scope.batchProgressLabels = lineChartObject.labels;
+                $scope.batchProgressData = lineChartObject.data;
+                $scope.batchProgressSeries = lineChartObject.series;
+                $scope.batchProgressOptions = lineChartObject.options;
+                $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
             }
 
             // create charts on tech selection
@@ -212,7 +207,7 @@ angular.module("vp").controller(
 
             // random number gen - sample data only!
 		    function ranNum(){
-		        var num = (Math.random() % 50) * 100;
+                var num = (Math.random() * 50) + 50;
 		        return num.toFixed(2);
             }
 		});
