@@ -49,6 +49,16 @@ angular.module("app").config(
                 templateUrl: "app/partials/home/qc-home.html",
                 controller: "qcHomeController"
             })
+            .state("qc.manage", {
+                url: "/manage",
+                templateUrl: "app/partials/manage/qc-manage.html",
+                controller: "qcManageController"
+            })
+            .state("qc.assess", {
+                url: "/assess",
+                templateUrl: "app/partials/assess/qc-assess.html",
+                controller: "qcAssessController"
+            })
             // trainer
             .state("trainer", {
                 abstract: true,
@@ -69,6 +79,16 @@ angular.module("app").config(
                 templateUrl: "app/partials/home/manage-batch.html",
                 url: "/manage",
                 controller: "trainerManageController"
+            })
+            .state("trainer.assess", {
+                templateUrl: "app/partials/assess/trainer-assess.html",
+                url: "/assess",
+                controller: "trainerAssessController"
+            })
+            .state("trainer.reports", {
+                templateUrl: "app/partials/reports/trainer-reports.html",
+                url: "/reports",
+                controller: "trainerReportsController"
             })
 
             // vp
