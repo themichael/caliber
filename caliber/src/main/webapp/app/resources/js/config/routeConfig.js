@@ -3,7 +3,7 @@ angular.module("app").config(
               ChartJsProvider, $logProvider) {
 
     	// Turn on/off debug messages
-    	$logProvider.debugEnabled(false);
+    	$logProvider.debugEnabled(true);
     	
         // chart options
         ChartJsProvider.setOptions({
@@ -20,9 +20,15 @@ angular.module("app").config(
             .state("routing", {
                 url: "/routing",
                 templateUrl: "app/partials/helloWorld.html",
-                onEnter: function(authFactory){
-                    authFactory.auth();
-                }
+                onEnter:
+                    function(authFactory){
+                        authFactory.auth();
+                    }
+            })
+            .state("testPage", {
+                url: "/testpage",
+                templateUrl: "app/partials/testPage.html",
+                controller: "testAPIController"
             })
 
             // qc
@@ -30,9 +36,11 @@ angular.module("app").config(
                 abstract: true,
                 url: "/qc",
                 templateUrl: "app/partials/abstracts/qc.html",
-                onEnter: function(authFactory){
-                    authFactory.authQC();
-                }
+                onEnter:
+                    function(authFactory){
+                        authFactory.authQC();
+                    }
+
             })
             .state("qc.home", {
                 url: "/home",
@@ -44,9 +52,10 @@ angular.module("app").config(
                 abstract: true,
                 url: "/trainer",
                 templateUrl: "app/partials/abstracts/trainer.html",
-                onEnter: function(authFactory){
-                    authFactory.authTrainer();
-                }
+                onEnter:
+                    function(authFactory){
+                        authFactory.authTrainer();
+                    }
             })
             .state("trainer.home", {
                 templateUrl: "app/partials/home/trainer-home.html",
@@ -65,8 +74,9 @@ angular.module("app").config(
                 templateUrl: "app/partials/abstracts/vp.html",
                 url: "/vp",
                 onEnter: function(authFactory){
-                    authFactory.authVP();
+                        authFactory.authVP();
                 }
+
             })
             .state("vp.home", {
                 templateUrl: "app/partials/home/vp-home.html",
