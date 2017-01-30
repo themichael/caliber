@@ -10,6 +10,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -26,17 +27,17 @@ import static org.junit.Assert.assertNull;
 public class BatchDAOImplementationTest {
 	private static AbstractApplicationContext context;
 	private static SessionFactory sf;
-	static Logger log;
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(TraineeDAOImplementationTest.class);
 	static int id = 2434;
 	private static BatchDAO batchDAO;
 
 	@BeforeClass
 	public static void preClass () {
 		context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
-		log = Logger.getRootLogger();
 		batchDAO = context.getBean(BatchDAO.class);
-		log.debug("Starting BatchTest");
+		log.info("Starting BatchTest");
 		sf = context.getBean(SessionFactory.class);
+		populateTable();
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class BatchDAOImplementationTest {
 		Transaction tx = session.beginTransaction();
 
 		Query noteq = session.createSQLQuery(sql);
-		noteq.setInteger(0, 2);
+		noteq.setInteger(0, id);
 		noteq.setInteger(1, 1);
 		noteq.setTimestamp(2, endDate);
 		noteq.setTimestamp(3, startDate);
@@ -80,13 +81,13 @@ public class BatchDAOImplementationTest {
 			assertNull(batch);
 		}
 
-		log.debug("Ending AssessmentServiceTest");
+		log.info("Ending AssessmentServiceTest");
 	}
 
 	// Works
 	@Test
 	public void createBatch() {
-		log.debug("Create batch test.");
+		log.info("Create batch test.");
 
 		TrainerDAO trainerDAO = context.getBean(TrainerDAO.class);
 		Trainer trainer = trainerDAO.getTrainer(1);
@@ -99,7 +100,7 @@ public class BatchDAOImplementationTest {
 
 		batchDAO.createBatch(batch);
 
-		log.debug("Batch created");
+		log.info("Batch created");
 
 		Session session = ((SessionFactory) context.getBean("sessionFactory")).openSession();
 		Criteria criteria = session.createCriteria(Batch.class);
@@ -114,72 +115,76 @@ public class BatchDAOImplementationTest {
 		tx.commit();
 		session.close();
 
-		log.debug("Delete after create");
+		log.info("Delete after create");
 
 	}
 
 	// Works
 	@Test
 	public void getAll() {
-		log.debug(" Get all Batch test");
+		log.info(" Get all Batch test");
 		List<Batch> batch = batchDAO.getAllBatch();
-		log.debug("Got All " + batch);
+		log.info("Got All " + batch);
 	}
 
 	// Work
 	@Test
 	public void getTrainerBatch() {
-		log.debug("Get batch by Trainer id");
+		log.info("Get batch by Trainer id");
 		List<Batch> batch = batchDAO.getTrainerBatch(1);
-		log.debug("got batches by trainer id " + batch);
+		log.info("got batches by trainer id " + batch);
 	}
 
 	// Works
 	@Test
 	public void getCurrentBatch() {
-		log.debug("Get active batches");
+		log.info("Get active batches");
 		List<Batch> batch = batchDAO.getCurrentBatch();
-		log.debug("Got active batches " + batch);
+		log.info("Got active batches " + batch);
 	}
 
 	// Work
 	@Test
 	public void getCurrentBatchWithId() {
-		log.debug("Get active batches with trainer id");
+		log.info("Get active batches with trainer id");
 
 		List<Batch> batch = batchDAO.getCurrentBatch(id);
 
-		log.debug("Got active batches with trainer id " + batch);
+		log.info("Got active batches with trainer id " + batch);
 	}
 
 	// Works
 	@Test
 	public void getBatch() {
-		log.debug("Get batch by id");
+		log.info("Get batch by id");
 
-		Batch batch = batchDAO.getBatch(id);
+		Batch batch = batchDAO.getBatch(1);
 
-		log.debug("got batch by id " + batch);
+		log.info("got batch by id " + batch);
 	}
 
 	// Works
 	@Test
 	@Ignore
 	public void updateBatch() {
-		log.debug("Updating batch");
+		log.info("Updating batch");
 
-		Batch batch = batchDAO.getBatch(14500);
+		Batch batch = batchDAO.getBatch(id);
+		batch.setGoodGradeThreshold((short)100);
 		batch.setLocation("New York");
 		batchDAO.updateBatch(batch);
 
-		log.debug("updated batch");
+		log.info("updated batch");
 	}
 
 	// Work on delete method
 	@Test
-	@Ignore
 	public void delete(){
-		batchDAO.deleteBatch(batchDAO.getBatch(22300));
+		log.info("Starting delete");
+
+		batchDAO.deleteBatch(batchDAO.getBatch(id));
+
+		log.info("ending delete");
 	}
 
 }
