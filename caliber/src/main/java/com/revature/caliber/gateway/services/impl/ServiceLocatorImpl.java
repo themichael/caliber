@@ -47,6 +47,4 @@ public class ServiceLocatorImpl implements ServiceLocator {
     public void setAssessmentService(AssessmentService assessmentService) {
         this.assessmentService = assessmentService;
     }
-
-
 }

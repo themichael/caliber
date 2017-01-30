@@ -82,6 +82,12 @@ public class AllController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Delete trainee response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @RequestMapping(value = "/trainee/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity deleteTrainee(@PathVariable int id) {
         ApiGatewayImpl apiGateway = new ApiGatewayImpl();
@@ -91,6 +97,12 @@ public class AllController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Gets assessment grades by id.
+     *
+     * @param id the id
+     * @return the assessment grades by id
+     */
     @RequestMapping(value = "/grades/assessment/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Set<Grade>> getAssessmentGradesById(@PathVariable int id) {
         return new ResponseEntity<>(new ApiGatewayImpl().getAssessmentGradesById(id), HttpStatus.OK);
