@@ -8,13 +8,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
  * The type Qc batch controller.
  */
 @RestController
-//@RequestMapping("/qc")
+@RequestMapping("/qc")
 public class QCBatchController {
 
     private ApiGateway apiGateway;
@@ -35,8 +36,8 @@ public class QCBatchController {
      * @return the all batches
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Batch>> getAllBatches() {
-        return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
+    public ResponseEntity<List<Batch>> getAllBatches() {
+        return new ResponseEntity<>(apiGateway.getCurrentBatches(), HttpStatus.OK);
     }
 
     /**

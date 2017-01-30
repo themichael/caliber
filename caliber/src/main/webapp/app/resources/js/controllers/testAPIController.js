@@ -3,10 +3,9 @@
  */
 angular.module("app")
     .controller("testAPIController", function($scope, $log, caliberDelegate){
-   $log.log("Log");
-   $log.debug("Debug");
-   $log.error("Error");
+   $log.debug("Launched REST API");
 
-   $scope.allBatches = caliberDelegate.trainer.getAllBatches();
+
+   $scope.qcBatches = caliberDelegate.qc.getAllBatches();
 
 });

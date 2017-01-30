@@ -43,7 +43,8 @@ public interface ApiGateway {
      *
      * @return All batches
      */
-    List<Batch> currentBatch();
+    List<Batch> getCurrentBatches();
+
 
     /**
      * Get all current Batches for a given Trainer
