@@ -49,6 +49,7 @@ li { font-family: 'Futura-Std-Heavy'; }
 
 .navbar-right{ margin-top: .75em; margin-right: 5em; }
 .header-styles{	background-color: white; }
+a { color: #F26925;}
 
 
 /**********************
@@ -70,6 +71,12 @@ li { font-family: 'Futura-Std-Heavy'; }
 	border-radius: .3em;
 }
 
+.panel > .panel-heading {
+	background-image: none;
+	background-color: #B9B9BA;
+	color: white;
+
+}
 
 /************************
 	Manage Batch
@@ -89,6 +96,7 @@ li { font-family: 'Futura-Std-Heavy'; }
 .glyphicon-plus { padding-left: .5em; }
 .glyphicon-user { padding-left: .5em; }
 .glyph-top-margin { padding-top: 2em; }
+
 
 /************************
 	Margins
