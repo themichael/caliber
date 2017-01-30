@@ -33,8 +33,6 @@ public class BatchGatewayTest {
     @Test
     @Ignore
     public void getAll(){
-        Trainer trainer = new Trainer();
-        trainer.setTraineeId(1);
         List<Batch> batches = trainingService.allBatch();
         System.out.println(batches);
     }

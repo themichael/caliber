@@ -1,15 +1,13 @@
 package com.revature.caliber.gateway.impl;
 
-import java.util.HashMap;
-
+import com.revature.caliber.gateway.ApiGateway;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import com.revature.caliber.gateway.ApiGateway;
-import com.revature.caliber.gateway.services.ServiceLocator;
+import java.util.HashMap;
 
 /**
  * Created by Shehar on 1/26/2017.
@@ -27,9 +25,9 @@ public class ApiGatewayImplTest {
 
     
     @Test
+    @Ignore
     public void getAggregatedGradesForTrainee() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getTechGradeDataForTrainee(1);
-
         for (String grade : grades.keySet()) {
             System.out.print(grade + " -> [");
             for (Double d : grades.get(grade)) {
@@ -62,6 +60,7 @@ public class ApiGatewayImplTest {
     }
 
     @Test
+    @Ignore
     public void getGradesForBatchWeekly() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getGradesForBatchWeekly(1);
 

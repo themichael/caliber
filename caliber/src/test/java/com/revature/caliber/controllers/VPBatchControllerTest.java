@@ -5,6 +5,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class VPBatchControllerTest {
+    @Test
+    public void setApiGateway() throws Exception {
+
+    }
+
+    @Test
+    public void getAllBatches1() throws Exception {
+
+    }
+
     @Before
     public void setUp() throws Exception {
 
