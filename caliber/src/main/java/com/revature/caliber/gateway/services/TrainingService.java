@@ -160,22 +160,24 @@ public interface TrainingService {
 
     //End of Trainer
 
-
     //Week
 
     /**
-     * Get a list of all Weeks
+     * get week by Batch ID
      *
+     */
+    List<Week> getWeekByBatch(int batchId);
+
+    
+    
+    //Week
+    /**
+     * Get a list of all Weeks
      * @return A list of Week objects
      */
     List<Week> getAllWeek();
+    
 
-    /**
-     * Create a new Week object
-     *
-     * @param week the week
-     */
     void createWeek(Week week);
-
 
 }
