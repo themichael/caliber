@@ -28,6 +28,11 @@ public interface AssessmentService {
      */
     void deleteAssessment(Assessment assessment);
 
+    /**
+     * Get all assessments
+     *
+     */
+    List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments();
 
     /**
      * Returns a list of grades of a specific assessment based on assessmentId

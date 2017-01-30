@@ -568,22 +568,20 @@ public class ApiGatewayImpl implements ApiGateway {
     @Override
     public HashMap<String, Double[]> getWeekGradeDataForTrainee(int id) {
         List<Week> weeks = serviceLocator.getTrainingService().getAllWeek();
+
+        List<com.revature.caliber.assessment.beans.Grade> allGrades =
+                serviceLocator.getAssessmentService().getGradesByTraineeId(id);
+
         HashMap<String, Double[]> grades = new HashMap<>();
-        List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
 
         for (Week week : weeks) {
             List<Integer> scores = new ArrayList<>();
-            for (Grade grade : allGrades) {
-                for (Assessment assessment : week.getAssessments()) {
-                    if (week.getWeekId() == assessment.getWeek().getWeekId()) {
+            //get the grades for that week
+            for (com.revature.caliber.assessment.beans.Grade grade : allGrades) {
+                if (week.getWeekId() == grade.getAssessment().getWeek()) {
                         scores.add(grade.getScore());
                     }
                 }
-//				if(week.getWeekId()==grade.getAssessment().getWeek().getWeekId()){//TODO this won't work because it'll give null ptr
-//					
-//					scores.add(grade.getScore());
-//				}
-            }
             //aggregate functions here
             Collections.sort(scores);
             Double[] aggregates = new Double[4];

@@ -1,6 +1,13 @@
 package com.revature.caliber.gateway.services.impl;
 
+import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.QCNote;
+import com.revature.caliber.beans.TrainerNote;
 import com.revature.caliber.beans.exceptions.AssessmentServiceAssessmentOperationException;
 import com.revature.caliber.beans.exceptions.AssessmentServiceOperationException;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
@@ -30,7 +37,8 @@ public class AssessmentServiceImpl implements AssessmentService {
     				createTrainerNotePath;
     
     //paths for QC Note
-    private String createQCNotePath, updateQCNotePath;
+    private String createQCNotePath,
+			       updateQCNotePath;
     
     //paths for Batch Note
     private String 	createBatchNotePath,
@@ -38,7 +46,10 @@ public class AssessmentServiceImpl implements AssessmentService {
     				deleteBatchNotePath;
     
     //paths for assessments
-    private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
+    private String addAssessmentPath,
+			       updateAssessmentPath,
+			       deleteAssessmentPath,
+	               getAllAssessmentsPath;
     
 
     @Override
@@ -90,7 +101,30 @@ public class AssessmentServiceImpl implements AssessmentService {
 		}
 		
 	}
-	
+
+	@Override
+	public List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments() {
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getAllAssessmentsPath)
+				.build().toUriString();
+
+
+		//Invoke the service
+		ResponseEntity<com.revature.caliber.assessment.beans.Assessment[]> response =
+				service.getForEntity(URI, com.revature.caliber.assessment.beans.Assessment[].class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceAssessmentOperationException("Assessments could not be gotten");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return Arrays.asList(response.getBody());
+		}
+		else {
+			return new ArrayList<>();
+		}
+
+	}
+
 	@Override
 	public List<Grade> getGradesByAssessment(Integer assessmentId) {
 		RestTemplate service = new RestTemplate();
