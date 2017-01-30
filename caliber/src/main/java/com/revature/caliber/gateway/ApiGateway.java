@@ -266,7 +266,6 @@ public interface ApiGateway {
 
     /**
      * Delete the Batch Note
-     * <<<<<<< HEAD
      *
      * @param batchNote the batch note
      */
