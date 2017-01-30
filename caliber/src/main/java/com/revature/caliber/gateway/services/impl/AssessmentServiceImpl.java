@@ -350,7 +350,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public List<com.revature.caliber.assessment.beans.Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
 
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteTrainerNotePath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getGradesByTraineePath).path("/" + id)
                 .build().toUriString();
 
 		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> responseAssessmentModule =

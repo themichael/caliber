@@ -451,7 +451,7 @@ public class ApiGatewayImpl implements ApiGateway {
                 list.sort(Integer::compareTo); //sort list of grades for convenience
                 //assume there is at least one grade
                 if (list.size() < 1) { continue; }
-                if (list.size() > 1) {
+                if (list.size() >= 1) {
                     gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
                             (list.get(list.size() / 2).doubleValue() + list.get(list.size() / 2 - 1).doubleValue()) / 2;
                 }
