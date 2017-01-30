@@ -105,8 +105,14 @@ public class QCBatchController {
     }
 
     @RequestMapping(value = "assessment/note/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateAssessmentNote(Note note) {
+    public ResponseEntity updateAssessmentNote(@RequestBody Note note) {
         apiGateway.updateAssessmentNote(note);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/assessment/note/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createAssessmentNote(@RequestBody Note note) {
+        apiGateway.createAssessmentNote(note);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
