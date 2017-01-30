@@ -3,7 +3,7 @@ angular.module("app").config(
               ChartJsProvider, $logProvider) {
 
     	// Turn on/off debug messages
-    	$logProvider.debugEnabled(false);
+    	$logProvider.debugEnabled(true);
     	
         // chart options
         ChartJsProvider.setOptions({
@@ -19,10 +19,17 @@ angular.module("app").config(
         $stateProvider
             .state("routing", {
                 url: "/routing",
-                templateUrl: "app/partials/helloWorld.html",
-                onEnter: function(authFactory){
-                    authFactory.auth();
-                }
+                templateUrl: "app/partials/routing.html",
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.auth();
+                //     }
+            })
+            .state("testPage", {
+                url: "/testpage",
+                templateUrl: "app/partials/testPage.html",
+                controller: "testAPIController"
             })
 
             // qc
@@ -30,9 +37,12 @@ angular.module("app").config(
                 abstract: true,
                 url: "/qc",
                 templateUrl: "app/partials/abstracts/qc.html",
-                onEnter: function(authFactory){
-                    authFactory.authQC();
-                }
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.authQC();
+                //     }
+
             })
             .state("qc.home", {
                 url: "/home",
@@ -41,7 +51,7 @@ angular.module("app").config(
             })
             .state("qc.manage", {
                 url: "/manage",
-                templateUrl: "app/partials/manage/qc-manage.html",
+                templateUrl: "app/partials/qc-manage.html",
                 controller: "qcManageController"
             })
             .state("qc.assess", {
@@ -54,9 +64,11 @@ angular.module("app").config(
                 abstract: true,
                 url: "/trainer",
                 templateUrl: "app/partials/abstracts/trainer.html",
-                onEnter: function(authFactory){
-                    authFactory.authTrainer();
-                }
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.authTrainer();
+                //     }
             })
             .state("trainer.home", {
                 templateUrl: "app/partials/home/trainer-home.html",
@@ -64,7 +76,7 @@ angular.module("app").config(
                 controller: "trainerHomeController"
             })
             .state("trainer.manage", {
-                templateUrl: "app/partials/home/manage-batch.html",
+                templateUrl: "app/partials/manage-batch.html",
                 url: "/manage",
                 controller: "trainerManageController"
             })
@@ -82,11 +94,14 @@ angular.module("app").config(
             // vp
             .state("vp", {
                 abstract: true,
-                templateUrl: "app/partials/abstracts/vp.html",
                 url: "/vp",
-                onEnter: function(authFactory){
-                    authFactory.authVP();
-                }
+                templateUrl: "app/partials/abstracts/vp.html",
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.authVP();
+                //     }
+
             })
             .state("vp.home", {
                 templateUrl: "app/partials/home/vp-home.html",
@@ -94,7 +109,7 @@ angular.module("app").config(
                 controller: "vpHomeController"
             })
             .state("vp.manage", {
-                templateUrl: "app/partials/home/manage-batch.html",
+                templateUrl: "app/partials/manage-batch.html",
                 url: "/manage"
             });
     });

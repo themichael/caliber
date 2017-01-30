@@ -23,10 +23,46 @@ public class ApiGatewayImplTest {
         apiGateway = context.getBean(ApiGateway.class);
     }
 
+    
     @Test
     @Ignore
     public void getAggregatedGradesForTrainee() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getTechGradeDataForTrainee(1);
+        for (String grade : grades.keySet()) {
+            System.out.print(grade + " -> [");
+            for (Double d : grades.get(grade)) {
+                System.out.print(d + ", ");
+            }
+            System.out.println("]");
+        }
+
+    }
+    
+    @Ignore
+    @Test
+    public void testo(){
+    	HashMap<String, Double []> hey = apiGateway.getTechGradeDataForBatch(1);
+    }
+
+    @Ignore
+    @Test
+    public void getWeekAggregatedGradesForTrainee() throws Exception {
+        HashMap<String, Double[]> grades = apiGateway.getWeekGradeDataForTrainee(1);
+
+//        for (String grade : grades.keySet()) {
+//            System.out.print(grade + " -> [");
+//            for (Double d : grades.get(grade)) {
+//                System.out.print(d + ", ");
+//            }
+//            System.out.println("]");
+//        }
+
+    }
+
+    @Test
+    @Ignore
+    public void getGradesForBatchWeekly() throws Exception {
+        HashMap<String, Double[]> grades = apiGateway.getGradesForBatchWeekly(1);
 
         for (String grade : grades.keySet()) {
             System.out.print(grade + " -> [");
@@ -37,5 +73,4 @@ public class ApiGatewayImplTest {
         }
 
     }
-
 }

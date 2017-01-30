@@ -159,6 +159,15 @@ public interface TrainingService {
     void updateTrainer(Trainer trainer);
 
     //End of Trainer
+
+    //Week
+
+    /**
+     * get week by Batch ID
+     *
+     */
+    List<Week> getWeekByBatch(int batchId);
+
     
     
     //Week
@@ -168,11 +177,7 @@ public interface TrainingService {
      */
     List<Week> getAllWeek();
     
-    /**
-     * Create a new Week object
-     * @param Week object
-     */
+
     void createWeek(Week week);
-    
-    
+
 }

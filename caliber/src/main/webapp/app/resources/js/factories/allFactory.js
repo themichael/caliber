@@ -82,5 +82,22 @@ angular.module("api").factory("allFactory", function($log, $http){
         });
     };
 
+    /************************** Grades **************************/
+
+    all.getGrades = function(assessmentId){
+        var data = [];
+        $http({
+            url: "/all/grades/assessment/" + assessmentId,
+            method: "GET"
+        }).then(function (response) {
+            $log.debug(response);
+            // copy response data
+            angular.copy(response.data, data);
+        }, function (response) {
+            $log.error("There was an error: " + response.status);
+        });
+        return data;
+    };
+
     return all;
 });

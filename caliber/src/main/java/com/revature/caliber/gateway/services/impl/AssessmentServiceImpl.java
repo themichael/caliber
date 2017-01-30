@@ -15,7 +15,7 @@ import java.util.*;
 
 public class AssessmentServiceImpl implements AssessmentService {
 	
-	private String localhost = "http://localhost:9001";
+	private String localhost = "http://localhost:8081";
     private String hostname;
     private String portNumber;
     
@@ -39,7 +39,8 @@ public class AssessmentServiceImpl implements AssessmentService {
     
     //paths for assessments
     private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
-    
+    private String getGradesByTraineePath;
+
 
     @Override
 	public void insertAssessment(Assessment assessment) {
@@ -349,7 +350,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public List<Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
 		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response =
-				rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+ id,
+				rest.getForEntity(hostname + portNumber + id,
 						com.revature.caliber.assessment.beans.Grade[].class);
 
 		com.revature.caliber.assessment.beans.Grade[] grades = response.getBody();
@@ -435,5 +436,12 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setCreateBatchNotePath(String createBatchNotePath){this.createBatchNotePath = createBatchNotePath;}
     public void setUpdateBatchNotePath(String updateBatchNotePath){this.updateBatchNotePath = updateBatchNotePath;}
     public void setDeleteBatchNotePath(String deleteBatchNotePath){this.deleteBatchNotePath = deleteBatchNotePath;}
-    
+
+    public void setGetGradesByTraineePath(String getGradesByTraineePath) {
+        this.getGradesByTraineePath = getGradesByTraineePath;
+    }
+
+    public String getGetGradesByTraineePath() {
+        return getGradesByTraineePath;
+    }
 }
