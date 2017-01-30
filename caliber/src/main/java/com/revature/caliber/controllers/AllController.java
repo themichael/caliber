@@ -3,12 +3,15 @@ package com.revature.caliber.controllers;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.impl.ApiGatewayImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -17,6 +20,14 @@ import java.util.Set;
 @RestController
 @RequestMapping("/all")
 public class AllController {
+
+    private ApiGateway apiGateway;
+
+    @Autowired
+    public void setApiGateway(ApiGateway apiGateway) {
+        this.apiGateway = apiGateway;
+    }
+
     /**
      * Create batch response entity.
      *
@@ -106,6 +117,47 @@ public class AllController {
     @RequestMapping(value = "/grades/assessment/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Set<Grade>> getAssessmentGradesById(@PathVariable int id) {
         return new ResponseEntity<>(new ApiGatewayImpl().getAssessmentGradesById(id), HttpStatus.OK);
+    }
+
+    /**
+     * Aggregate function - get values for trainee by tech
+     * @param traineeId
+     * @return
+     */
+    @RequestMapping(value = "/agg/tech/trainee/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Double[]>> aggregateTechTrainee(@PathVariable("id") int traineeId) {
+        return new ResponseEntity<>(apiGateway.getTechGradeDataForTrainee(traineeId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/agg/week/trainee/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Double[]>> aggregateWeekTrainee(@PathVariable("id") int traineeId) {
+        return new ResponseEntity<>(apiGateway.getWeekGradeDataForTrainee(traineeId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/agg/tech/batch/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Double[]>> aggregateTechBatch(@PathVariable("id") int batchId) {
+        return new ResponseEntity<>(apiGateway.getTechGradeDataForBatch(batchId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/agg/week/batch/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Double[]>> aggregateWeekBatch(@PathVariable("id") int batchId) {
+        return new ResponseEntity<>(apiGateway.getGradesForBatchWeekly(batchId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/agg/tech/batch/all",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Double[]>> aggregateTechForAllBatches() {
+        //return new ResponseEntity<>(apiGateway.getTechGradeDataForBatch(batchId), HttpStatus.OK);
+        return null;
     }
 
 }
