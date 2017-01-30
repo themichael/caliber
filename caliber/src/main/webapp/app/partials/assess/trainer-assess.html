@@ -1,11 +1,3 @@
-<!-- need to change this into angular
-    $('.collapse').on('show.bs.collapse', function () {
-        $('.collapse.in').collapse('hide');
-    });
-
-    to hide other rows upon opening another one
--->
-
 <!-- Year selector and Add Assessment button -->
 <div class="container">
     <div class="row">
@@ -107,96 +99,50 @@
 </div>
 
 <!-- Create Batch Modal -->
-<!--<div class="modal fade" id="createAssessmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-    <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
-                        <!--aria-hidden="true">&times;</span></button>-->
-                <!--<h4 class="modal-title" id="myModalLabel">Create New Batch</h4>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; Add Batch Info &ndash;&gt;-->
-            <!--<div class="modal-body">-->
-                <!--<div class="row">-->
-                    <!--<div class="form-group col-md-6 col-sm-6">-->
-                        <!--<label for="trainingName">Training Name:</label>-->
-                        <!--<input ng-model="trainingName" type="text" class="form-control" id="trainingName"-->
-                               <!--placeholder="Enter title" required>-->
-                    <!--</div>-->
-                    <!--<div class="form-group col-md-6 col-sm-6">-->
-                        <!--<label for="trainingName">Training type:</label>-->
-                        <!--<input ng-model="trainingType" type="text" class="form-control" id="trainingType"-->
-                               <!--placeholder="Enter training type" required>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                    <!--<div class="form-group col-md-6 col-sm-6">-->
-                        <!--<label for="skillType">Skill Type:</label>-->
-                        <!--<select ng-model="skillType" class="form-control" id="skillType" required>-->
-                            <!--<option value="" disabled selected>Select Skill Type</option>-->
-                            <!--<option>1</option>-->
-                            <!--<option>2</option>-->
-                            <!--<option>3</option>-->
-                            <!--<option>4</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                    <!--<div class="form-group col-md-6 col-sm-6">-->
-                        <!--<label for="location">Location:</label>-->
-                        <!--<select ng-model="location" class="form-control" id="location" required>-->
-                            <!--<option value="" disabled selected>Select Location</option>-->
-                            <!--<option>1</option>-->
-                            <!--<option>2</option>-->
-                            <!--<option>3</option>-->
-                            <!--<option>4</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                    <!--<div class="form-group col-md-6 col-sm-6">-->
-                        <!--<label for="trainer">Trainer:</label>-->
-                        <!--<select ng-model="trainer" class="form-control" id="trainer" required>-->
-                            <!--<option value="" disabled selected>Select Trainer</option>-->
-                            <!--<option>1</option>-->
-                            <!--<option>2</option>-->
-                            <!--<option>3</option>-->
-                            <!--<option>4</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                    <!--<div class="form-group col-md-6 col-sm-6">-->
-                        <!--<label for="co-trainer">Co-Trainer:</label>-->
-                        <!--<select ng-model="co-trainer" class="form-control" id="co-trainer" required>-->
-                            <!--<option value="" disabled selected>Select Co-Trainer</option>-->
-                            <!--<option>1</option>-->
-                            <!--<option>2</option>-->
-                            <!--<option>3</option>-->
-                            <!--<option>4</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                    <!--<div class="form-group col-md-6 col-sm-6">-->
-                        <!--<label for="start-date">Start Date:</label>-->
-                        <!--<div class="input-group" id="start-date" data-datepicker="true">-->
-                            <!--<input ng-model="start-date" class="date-input form-control date-selector" name="date"-->
-                                   <!--min="0"-->
-                                   <!--type="date" required>-->
-                            <!--<span class="input-group-addon glyphicon glyphicon-calendar"></span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group col-md-6 col-sm-6">-->
-                        <!--<label for="end-date">End Date:</label>-->
-                        <!--<div class="input-group" id="end-date" data-datepicker="true">-->
-                            <!--<input ng-model="end-date" class="date-input form-control date-selector" name="date" min="0"-->
-                                   <!--type="date" required>-->
-                            <!--<span class="input-group-addon glyphicon glyphicon-calendar"></span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                <!--<button type="button" class="btn btn-primary">Save</button>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
+<div class="modal fade" id="createAssessmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+
+                <h4 class="modal-title" id="myModalLabel">Create New Assessment</h4>
+            </div>
+            <!-- Add Batch Info -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label for="trainingName">Training Name:</label>
+                        <input ng-model="trainingName" type="text" class="form-control" id="trainingName"
+                               placeholder="Title" required>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label for="trainingType">Training type:</label>
+                        <input ng-model="trainingType" type="text" class="form-control" id="trainingType"
+                               placeholder="Training type" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label for="skillType">Skill Type:</label>
+                        <select ng-model="skillType" class="form-control" id="skillType" required>
+                            <option value="" disabled selected>Select Skill Type</option>
+                            <option ng-repeat="category in skill_categories track by $index">
+                                {{category.skillCategory}}
+                                </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label for="rawScore">Raw Score:</label>
+                        <input ng-model="rawScore" type="number" class="form-control" id="rawScore"
+                               placeholder="99" min="0" step="1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button ng-click="addAssessment()" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

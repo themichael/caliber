@@ -11,6 +11,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.http.HttpEntity;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -84,8 +85,8 @@ public class TrainerControllerImplementationTest {
 		log.debug("Get all trainers");
 
 		trainerDao.createTrainer(trainer);
-		HttpEntity<List<Trainer>> entity = controller.getAllTrainers();
-		List<Trainer> trainers = entity.getBody();
+		HttpEntity<Set<Trainer>> entity = controller.getAllTrainers();
+		Set<Trainer> trainers = entity.getBody();
 
 		log.debug("Got all trainers: " + trainers);
 	}
