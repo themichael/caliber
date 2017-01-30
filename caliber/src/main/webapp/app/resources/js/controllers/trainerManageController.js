@@ -3,8 +3,9 @@ angular.module("trainer").controller(
     function ($scope, $log) {
         $log.debug("Booted trainer manage controller.");
 
-
-
+        /**
+         * Filter batches by year
+         */
         $scope.years = addYears();
         function addYears(){
             var currentYear = new Date().getFullYear();
@@ -17,14 +18,15 @@ angular.module("trainer").controller(
             return data;
         }
 
-        $scope.getBatches=[];
+        $scope.selectedBatches=[];
         $scope.selectYear= function(index) {
             $scope.selectedYear = $scope.years[index];
             for(var i=0; i < $scope.batches.length; i++){
                 if($scope.batches[i].startDate.getFullYear() === $scope.selectedYear){
-                    $scope.getBatches.push($scope.batches[i]);
+                    $scope.selectedBatches.push($scope.batches[i]);
                 }
             }
+            $scope.batches = $scope.selectedBatches;
         };
 
         /**
