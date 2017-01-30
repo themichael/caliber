@@ -48,8 +48,8 @@ public class ApiGatewayImpl implements ApiGateway {
         return serviceLocator.getTrainingService().currentBatch();
     }
 
-    public List<Batch> currentBatch(Trainer trainer) {
-        return serviceLocator.getTrainingService().currentBatch(trainer);
+    public List<Batch> currentBatch(Integer id) {
+        return serviceLocator.getTrainingService().currentBatch(id);
     }
 
     public Batch getBatch(Integer id) {

@@ -2,6 +2,7 @@ package com.revature.caliber.gateway.impl;
 
 import com.revature.caliber.gateway.ApiGateway;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -23,6 +24,7 @@ public class ApiGatewayImplTest {
     }
 
     @Test
+    @Ignore
     public void getAggregatedGradesForTrainee() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getTechGradeDataForTrainee(1);
 

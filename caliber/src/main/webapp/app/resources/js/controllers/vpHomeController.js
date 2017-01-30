@@ -1,12 +1,7 @@
 angular.module("vp").controller(
 		"vpHomeController",
-		function($scope, $log, radarChartFactory, hbarChartFactory, pieChartFactory, lineChartFactory, delegateFactory) {
+		function($scope, $log, caliberDelegate, chartsDelegate) {
 			$log.debug("Booted vp home controller.");
-
-			// VP API Test
-			$log.log("Get All Batches: ");
-			$log.log(delegateFactory.vp.getAllBatches());
-			$log.log("Get All Current Batches: ");
 
 			/*********************************************** UI ***************************************************/
 			// decides what charts are to be shown
@@ -107,14 +102,14 @@ angular.module("vp").controller(
                     {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
 
                 // create batch radar chart
-                var radarChartObject = radarChartFactory.getBatchRankComparisonChart(sample1, sample2);
+                var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(sample1, sample2);
                 $scope.batchRankLabels = radarChartObject.labels;
                 $scope.batchRankData = radarChartObject.data;
                 $scope.batchRankSeries = radarChartObject.series;
                 $scope.batchRankOptions = radarChartObject.options;
 
                 // create other charts
-                var lineChartObject = lineChartFactory.getBatchProgressChart(sample3);
+                var lineChartObject = chartsDelegate.line.getBatchProgressChart(sample3);
                 $scope.batchProgressLabels = lineChartObject.labels;
                 $scope.batchProgressData = lineChartObject.data;
                 $scope.batchProgressSeries = lineChartObject.series;
@@ -135,7 +130,7 @@ angular.module("vp").controller(
                     {trainee: "Mark", average: ranNum()},
                     {trainee: "Michael", average: ranNum()}];
 
-                var techBarData = hbarChartFactory.getBatchTechEvalChart(sample4);
+                var techBarData = chartsDelegate.hbar.getBatchTechEvalChart(sample4);
                 $scope.batchTechLabels = techBarData.labels;
                 $scope.batchTechData = techBarData.data;
                 $scope.batchTechSeries = techBarData.series;
@@ -161,14 +156,14 @@ angular.module("vp").controller(
                     {skillCategory:"REST", average: ranNum()}];
 
                 // Create line chart
-                var lineChartObject = lineChartFactory.getTraineeProgressChart(sample5);
+                var lineChartObject = chartsDelegate.line.getTraineeProgressChart(sample5);
                 $scope.traineeProgressLabels = lineChartObject.labels;
                 $scope.traineeProgressSeries = lineChartObject.series;
                 $scope.traineeProgressData = lineChartObject.data;
                 $scope.traineeProgressDatasetOverride = lineChartObject.datasetOverride;
                 $scope.traineeProgressOptions = lineChartObject.options;
 
-                var pieChartObject = pieChartFactory.getTraineeTechProgressChart(sample6);
+                var pieChartObject = chartsDelegate.pie.getTraineeTechProgressChart(sample6);
                 $scope.techScoreLabels = pieChartObject.labels;
                 $scope.techScoreData = pieChartObject.data;
                 $scope.techScoreOptions = pieChartObject.options;
@@ -185,7 +180,7 @@ angular.module("vp").controller(
                     {name: "Ankit", score: ranNum()}];
 
             // create trainer hbar chart
-            var hbarChartObject = hbarChartFactory.getTrainerEvalChart(sample6);
+            var hbarChartObject = chartsDelegate.hbar.getTrainerEvalChart(sample6);
             $scope.trainerRankLabels = hbarChartObject.labels;
             $scope.trainerRankData = hbarChartObject.data;
             $scope.trainerRankSeries = hbarChartObject.series;
@@ -200,7 +195,7 @@ angular.module("vp").controller(
                 {name: "Batch1431", score: ranNum()}];
 
             // batch rank comparison - hbar chart
-            var hbarChartObject2 = hbarChartFactory.getAllBatchesEvalChart(sample7);
+            var hbarChartObject2 = chartsDelegate.hbar.getAllBatchesEvalChart(sample7);
             $scope.allBatchesRankLabels = hbarChartObject2.labels;
             $scope.allBatchesRankData = hbarChartObject2.data;
             $scope.allBatchesRankSeries = hbarChartObject2.series;

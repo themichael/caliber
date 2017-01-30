@@ -1,15 +1,16 @@
 package com.revature.caliber.gateway.services.impl;
 
 import com.revature.caliber.beans.Batch;
+import java.io.Serializable;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.Week;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
 import com.revature.caliber.gateway.services.TrainingService;
 import com.revature.caliber.beans.Week;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,98 +33,340 @@ public class TrainingServiceImpl implements TrainingService{
 			getTraineesByBatchPath;
 	private String addTrainerPath, updateTrainerPath, getAllTrainersPath, getTrainerByIdPath, getTrainerByEmailPath;
 	private String getWeekByBatch;
+    //paths for week
+    private String addWeekPath, getAllWeekPath;
 
-	/***********************************Batch**********************************/
+    /***********************************Batch**********************************/
+    @Override
+    public void createBatch(Batch batch) {
+        RestTemplate service = new RestTemplate();
+        // Build Service URL
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(newBatch)
+                .build().toUriString();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Batch> entity = new HttpEntity<>(batch, headers);
+
+        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Batch could not be created");
+        }
+    }
+
+    @Override
+    public List<Batch> allBatch() {
+        RestTemplate service = new RestTemplate();
+        // Build Service URL
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allBatch)
+                .build().toUriString();
+        // Invoke the service
+        ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
+
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Bad request.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return Arrays.asList(response.getBody());
+        } else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+            return new ArrayList<>();
+        } else {
+            // Includes 404 and other responses. Give back no data.
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Batch> getBatches(Integer id) {
+        RestTemplate service = new RestTemplate();
+        // Build Service URL
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber + allBatchesForTrainer)
+                .path(id.toString()).build().toUriString();
+
+        // Invoke the service
+        ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
+
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Trainer not found in batch.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return Arrays.asList(response.getBody());
+        } else {
+            // Includes 404 and other responses. Give back no data.
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Batch> currentBatch() {
+        RestTemplate service = new RestTemplate();
+        // Build Service URL
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allCurrentBatch)
+                .build().toUriString();
+        // Invoke the service
+        ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
+
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("No Current batches.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return Arrays.asList(response.getBody());
+        } else {
+            // Includes 404 and other responses. Give back no data.
+            return new ArrayList<>();
+        }
+    }
+
+
+    @Override
+    public List<Batch> currentBatch(Integer id) {
+        RestTemplate service = new RestTemplate();
+        final String URI =
+                UriComponentsBuilder.fromHttpUrl(hostname + portNumber)
+                        .path(allCurrentBatchByTrainer).path(String.valueOf(id))
+                        .build().toUriString();
+        // Invoke the service
+        ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
+        if (response.getStatusCode() == HttpStatus.NOT_FOUND){
+            throw new RuntimeException("Could not find batch");
+        }else if(response.getStatusCode() == HttpStatus.OK) {
+            return Arrays.asList(response.getBody());
+        } else {
+            // Includes 404 and other responses. Give back no data.
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public Batch getBatch(Integer id) {
+        RestTemplate service = new RestTemplate();
+        String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(batchById).
+                path(String.valueOf(id)).build().toUriString();
+        // Invoke the service
+        ResponseEntity<Batch> response = service.getForEntity(URI, Batch.class);
+        if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+            throw new RuntimeException("Could not find batch");
+        } else if (response.getStatusCode() == HttpStatus.OK)
+            return response.getBody();
+        return null;
+    }
+
+    @Override
+    public void updateBatch(Batch batch) {
+        RestTemplate service = new RestTemplate();
+        String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).
+                path(updateBatch).build().toUriString();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Batch> entity = new HttpEntity<>(batch, headers);
+        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST,
+                entity, Serializable.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Batch could not be updated");
+        }
+    }
+
+    @Override
+    public void deleteBatch(Batch batch) {
+        RestTemplate service = new RestTemplate();
+        String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).
+                path(deleteBatch).build().toUriString();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity entity = new HttpEntity<>(batch, headers);
+        //Invoke the service
+        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE,
+                entity, Serializable.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Batch could not be updated");
+        }
+    }
+
+    //Trainee------------------------------------------------------------
+    @Override
+    public void createTrainee(Trainee trainee) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addTraineePath)
+                .build().toUriString();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        HttpEntity<Trainee> entity = new HttpEntity<>(trainee, headers);
+
+        //Invoke the service
+        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new TrainingServiceTraineeOperationException("Trainee could not be created");
+        }
+    }
+
+    @Override
+    public void updateTrainee(Trainee trainee) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTraineePath)
+                .build().toUriString();
+
+        //Invoke the service
+        ResponseEntity<Serializable> response = service.postForEntity(URI, trainee, Serializable.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new TrainingServiceTraineeOperationException("Trainer could not be updated");
+        }
+    }
+
+    @Override
+    public Trainee getTrainee(Integer id) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineeByIdPath)
+                .path(id.toString())
+                .build().toUriString();
+
+        //Invoke the service
+        ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
+
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by id.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return response.getBody();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Trainee getTrainee(String email) {
+        email = email.replace("@", "%40").replace(".", "_dot_");
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineeByNamePath)
+                .path(email)
+                .build().toUriString();
+
+        //Invoke the service
+        ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
+
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by email.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return response.getBody();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Trainee> getTraineesInBatch(Integer batchId) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineesByBatchPath)
+                .path(batchId.toString())
+                .build().toUriString();
+
+        //Invoke the service
+        ResponseEntity<Trainee[]> response = service.getForEntity(URI, Trainee[].class);
+
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new TrainingServiceTraineeOperationException("Failed to retrieve trainees by batch.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return Arrays.asList(response.getBody());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public void deleteTrainee(Trainee trainee) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteTraineePath)
+                .build().toUriString();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        HttpEntity<Trainee> entity = new HttpEntity<>(trainee, headers);
+
+        //Invoke the service
+        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new TrainingServiceTraineeOperationException("Trainee could not be deleted");
+        }
+    }
+    //End of Trainee -------------------------------------------------------------------------------
+
+    //Trainer --------------------------------------------------------------------------------------
+    @Override
+    public void createTrainer(Trainer trainer) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addTrainerPath)
+                .build().toUriString();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        HttpEntity<Trainer> entity = new HttpEntity<>(trainer, headers);
+
+        //Invoke the service
+        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Trainee could not be created");
+        }
+    }
+
+    @Override
+    public Trainer getTrainer(Integer id) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByIdPath)
+                .path(id.toString())
+                .build().toUriString();
+        //Invoke the service
+        ResponseEntity<Trainer> response = service.getForEntity(URI, Trainer.class);
+
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Failed to retrieve the trainer by id.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return response.getBody();
+        } else {
+            return null;
+        }
+    }
+
+
+
+    @Override
+    public void updateTrainer(Trainer trainer) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTrainerPath)
+                .build().toUriString();
+
+        //Invoke the service
+        ResponseEntity<Serializable> response = service.postForEntity(URI, trainer, Serializable.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Trainer could not be updated");
+        }
+    }
+
+    //End of Trainer ----------------------------------------------------------------------------
+    
+    
+	// Week
 	@Override
-	public void createBatch(Batch batch) {
+	public List<Week> getAllWeek() {
+
 		RestTemplate service = new RestTemplate();
 		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl( localhost ).path(newBatch)
-						.build().toUriString();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<Batch> entity = new HttpEntity<>(batch, headers);
-
-		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Batch could not be created");
-		}
-	}
-
-	@Override
-	public List<Batch> allBatch() {
-		RestTemplate service = new RestTemplate();
-		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(allBatch)
-						.build().toUriString();
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("training/week/all").build().toUriString();
+		
+		System.out.println(URI);
 		// Invoke the service
-		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
+		ResponseEntity<Week[]> response = service.getForEntity(URI, Week[].class);
 
-		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new RuntimeException("Bad request.");
-		}else if(response.getStatusCode() == HttpStatus.OK){
+		} else if (response.getStatusCode() == HttpStatus.OK) {
 			return Arrays.asList(response.getBody());
-		}else if(response.getStatusCode() == HttpStatus.NOT_FOUND){
+		} else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+			System.out.println("Not found");
 			return new ArrayList<>();
-		}else{
-			// Includes 404 and other responses. Give back no data.
-			return new ArrayList<>();
-		}
-	}
-
-	@Override
-	public List<Batch> getBatches(Integer id) {
-		RestTemplate service = new RestTemplate();
-		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber + allBatchesForTrainer)
-				.path( id.toString() ).build().toUriString();
-
-		// Invoke the service
-		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
-
-		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
-			throw new RuntimeException("Trainer not found in batch.");
-		}else if(response.getStatusCode() == HttpStatus.OK){
-			return Arrays.asList(response.getBody());
-		}else {
-			// Includes 404 and other responses. Give back no data.
-			return new ArrayList<>();
-		}
-	}
-
-	@Override
-	public List<Batch> currentBatch() {
-		RestTemplate service = new RestTemplate();
-		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allCurrentBatch)
-				.build().toUriString();
-		// Invoke the service
-		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
-
-		if(response.getStatusCode() == HttpStatus.BAD_REQUEST){
-			throw new RuntimeException("No Current batches.");
-		}else if(response.getStatusCode() == HttpStatus.OK){
-			return Arrays.asList(response.getBody());
-		}else {
-			// Includes 404 and other responses. Give back no data.
-			return new ArrayList<>();
-		}
-	}
-
-	//	LOUIS START HERE
-	@Override
-
-	public List<Batch> currentBatch(Trainer trainer) {
-		RestTemplate service = new RestTemplate();
-		final String URI =
-				UriComponentsBuilder.fromHttpUrl("http://localhost:8080")
-						//TODO get actually trainers id do not hard code
-						.path(allCurrentBatchByTrainer).path(String.valueOf("1"))
-						.build().toUriString();
-		// Invoke the service
-		ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
-		if (response.getStatusCode() == HttpStatus.OK) {
-			return Arrays.asList(response.getBody());
 		} else {
 			// Includes 404 and other responses. Give back no data.
 			return new ArrayList<>();
@@ -131,209 +374,24 @@ public class TrainingServiceImpl implements TrainingService{
 	}
 
 	@Override
-	public Batch getBatch(Integer id) {
+	public void createWeek(Week week) {
 		RestTemplate service = new RestTemplate();
-		String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").path(batchById).
-				path(String.valueOf(id)).build().toUriString();
-		ResponseEntity<Batch> response = service.getForEntity(URI, Batch.class);
+		// Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("training/week/new").build()
+				.toUriString();
 
-		if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-			throw new RuntimeException("No batch found");
-		} else if (response.getStatusCode() == HttpStatus.OK)
-			return response.getBody();
-
-		return null;
-	}
-
-	@Override
-	public void updateBatch(Batch batch) {
-		RestTemplate service = new RestTemplate();
-		String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").
-				path(updateBatch).build().toUriString();
+		System.out.println(URI);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<Batch> entity = new HttpEntity<>(batch, headers);
+		HttpEntity<Week> entity = new HttpEntity<>(week, headers);
 
-		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST,
-				entity, Serializable.class);
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Batch could not be updated");
-		}
-
-	}
-
-	@Override
-	public void deleteBatch(Batch batch) {
-
-		RestTemplate service = new RestTemplate();
-		String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:8080").
-				path(deleteBatch).build().toUriString();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity entity = new HttpEntity<>(batch, headers);
-
-
-		//Invoke the service
-		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE,
-				entity, Serializable.class);
-
-		if (response.getStatusCode() == HttpStatus.OK) {
-			System.err.println("Batch was deleted");
-		}
-
-	}
-
-	//Trainee------------------------------------------------------------
-	@Override
-	public void createTrainee(Trainee trainee) {
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addTraineePath)
-				.build().toUriString();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-		HttpEntity<Trainee> entity = new HttpEntity<>(trainee, headers);
-
-		//Invoke the service
-		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new TrainingServiceTraineeOperationException("Trainee could not be created");
-		}
-	}
-
-	@Override
-	public void updateTrainee(Trainee trainee) {
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTraineePath)
-				.build().toUriString();
-
-		//Invoke the service
-		ResponseEntity<Serializable> response = service.postForEntity(URI, trainee, Serializable.class);
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new TrainingServiceTraineeOperationException("Trainer could not be updated");
-		}
-	}
-
-	@Override
-	public Trainee getTrainee(Integer id) {
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineeByIdPath)
-				.path(id.toString())
-				.build().toUriString();
-
-		//Invoke the service
-		ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
-
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by id.");
-		} else if (response.getStatusCode() == HttpStatus.OK) {
-			return response.getBody();
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public Trainee getTrainee(String email) {
-		email = email.replace("@", "%40").replace(".", "_dot_");
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineeByNamePath)
-				.path(email)
-				.build().toUriString();
-
-		//Invoke the service
-		ResponseEntity<Trainee> response = service.getForEntity(URI, Trainee.class);
-
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new TrainingServiceTraineeOperationException("Failed to retrieve the trainee by email.");
-		} else if (response.getStatusCode() == HttpStatus.OK) {
-			return response.getBody();
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public List<Trainee> getTraineesInBatch(Integer batchId) {
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineesByBatchPath)
-				.path(batchId.toString())
-				.build().toUriString();
-
-		//Invoke the service
-		ResponseEntity<Trainee[]> response = service.getForEntity(URI, Trainee[].class);
-
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new TrainingServiceTraineeOperationException("Failed to retrieve trainees by batch.");
-		} else if (response.getStatusCode() == HttpStatus.OK) {
-			return Arrays.asList(response.getBody());
-		} else {
-			return new ArrayList<>();
-		}
-	}
-
-	@Override
-	public void deleteTrainee(Trainee trainee) {
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteTraineePath)
-				.build().toUriString();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-		HttpEntity<Trainee> entity = new HttpEntity<>(trainee, headers);
-
-		//Invoke the service
-		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new TrainingServiceTraineeOperationException("Trainee could not be deleted");
-		}
-	}
-	//End of Trainee -------------------------------------------------------------------------------
-
-	//Trainer --------------------------------------------------------------------------------------
-	@Override
-	public void createTrainer(Trainer trainer) {
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addTrainerPath)
-				.build().toUriString();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-		HttpEntity<Trainer> entity = new HttpEntity<>(trainer, headers);
-
-		//Invoke the service
-		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		// Invoke the service
+		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new RuntimeException("Trainee could not be created");
 		}
 	}
 
-	@Override
-	public Trainer getTrainer(Integer id) {
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByIdPath)
-				.path(id.toString())
-				.build().toUriString();
-		//Invoke the service
-		ResponseEntity<Trainer> response = service.getForEntity(URI, Trainer.class);
-
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Failed to retrieve the trainer by id.");
-		} else if (response.getStatusCode() == HttpStatus.OK) {
-			return response.getBody();
-		} else {
-			return null;
-		}
-	}
 
 	@Override
 	public Trainer getTrainer(String email) {
@@ -371,20 +429,6 @@ public class TrainingServiceImpl implements TrainingService{
 			return Arrays.asList(response.getBody());
 		} else {
 			return new ArrayList<>();
-		}
-	}
-
-	@Override
-	public void updateTrainer(Trainer trainer) {
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTrainerPath)
-				.build().toUriString();
-
-		//Invoke the service
-		ResponseEntity<Serializable> response = service.postForEntity(URI, trainer, Serializable.class);
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Trainer could not be updated");
 		}
 	}
 
@@ -462,4 +506,9 @@ public class TrainingServiceImpl implements TrainingService{
 
 	//Week
 	public void setGetWeekByBatch(String getWeekByBatch) {this.getWeekByBatch = getWeekByBatch;}
+	public void setAddWeekPath(String addWeekPath) { this.addWeekPath = addWeekPath; }
+	public void setGetAllWeekPath(String getAllWeekPath) { this.getAllWeekPath = getAllWeekPath; }
+	//End of Week
+
 }
+

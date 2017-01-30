@@ -1,0 +1,202 @@
+<!-- need to change this into angular
+    $('.collapse').on('show.bs.collapse', function () {
+        $('.collapse.in').collapse('hide');
+    });
+
+    to hide other rows upon opening another one
+-->
+
+<!-- Year selector and Add Assessment button -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
+            <button class="btn btn-primary" ng-click="back()">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
+            </button>
+        </div>
+        <div class="col-md-12 col-lg-12 top10">
+            <!-- top ui for viewing all assesments -->
+            <ul class="nav nav-tabs" ng-show="currentView">
+                <li role="button" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        {{ currentBatch.trainingName }} - {{ currentBatch.startDate | date:'shortDate' }}
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="batch in batches track by $index">
+                            <a role="button" ng-click="selectCurrentBatch($index)">
+                                {{ batch.trainingName }} - {{ batch.startDate | date:'shortDate' }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Button Trigger for Create Assessment Modal -->
+                <li role="button" class="pull-right" ng-show="currentView"
+                    data-toggle="modal" data-target="#createAssessmentModal">
+                    <a>Create Assessment<span class="glyphicon glyphicon-plus" aria-hidden="true">
+                    </span></a>
+                </li>
+            </ul>
+            <!-- top ui for viewing trainee grades -->
+            <ul class="nav nav-tabs" ng-show="!currentView">
+                <li role="button" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        {{ currentAssessment.title }}
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="assessment in currentAssessments track by $index">
+                            <a role="button" ng-click="selectAssessment($index)">
+                                {{ assessment.title }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Button Trigger for Create Assessment Modal -->
+                <li role="button" class="pull-right" ng-show="currentView"
+                    data-toggle="modal" data-target="#createAssessmentModal">
+                    <a>Create Assessment<span class="glyphicon glyphicon-plus" aria-hidden="true">
+                    </span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 top5" >
+            <ul class="nav nav-tabs">
+                <li role="button" class="{{showActiveWeek($index)}}" ng-click="selectWeek($index)"
+                    ng-repeat="week in currentBatch.weeks track by $index">
+                    <a>Week {{week.weekNumber}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Assessments table -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 top5">
+            <!-- Accordian table -->
+            <table class="table table-condensed" style="border-collapse:collapse;" ng-show="currentView">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Raw score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr role="button" ng-repeat="assessment in currentAssessments track by $index"
+                        ng-click="selectAssessment($index)">
+                        <td>{{ assessment.title }}</td>
+                        <td>{{ assessment.type }}</td>
+                        <td><span ng-repeat="category in assessment.categories">{{ category.skillCategory }},</span></td>
+                        <td>{{ assessment.rawScore }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="col-md-6 table table-condensed" ng-show="!currentView">
+                <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+                <tr ng-repeat="trainee in currentBatch.trainees">
+                    <td>{{ trainee.name }}</td>
+                    <td>{{ findGrade(trainee.traineeId) }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Create Batch Modal -->
+<!--<div class="modal fade" id="createAssessmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+    <!--<div class="modal-dialog" role="document">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+                        <!--aria-hidden="true">&times;</span></button>-->
+                <!--<h4 class="modal-title" id="myModalLabel">Create New Batch</h4>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; Add Batch Info &ndash;&gt;-->
+            <!--<div class="modal-body">-->
+                <!--<div class="row">-->
+                    <!--<div class="form-group col-md-6 col-sm-6">-->
+                        <!--<label for="trainingName">Training Name:</label>-->
+                        <!--<input ng-model="trainingName" type="text" class="form-control" id="trainingName"-->
+                               <!--placeholder="Enter title" required>-->
+                    <!--</div>-->
+                    <!--<div class="form-group col-md-6 col-sm-6">-->
+                        <!--<label for="trainingName">Training type:</label>-->
+                        <!--<input ng-model="trainingType" type="text" class="form-control" id="trainingType"-->
+                               <!--placeholder="Enter training type" required>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="form-group col-md-6 col-sm-6">-->
+                        <!--<label for="skillType">Skill Type:</label>-->
+                        <!--<select ng-model="skillType" class="form-control" id="skillType" required>-->
+                            <!--<option value="" disabled selected>Select Skill Type</option>-->
+                            <!--<option>1</option>-->
+                            <!--<option>2</option>-->
+                            <!--<option>3</option>-->
+                            <!--<option>4</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                    <!--<div class="form-group col-md-6 col-sm-6">-->
+                        <!--<label for="location">Location:</label>-->
+                        <!--<select ng-model="location" class="form-control" id="location" required>-->
+                            <!--<option value="" disabled selected>Select Location</option>-->
+                            <!--<option>1</option>-->
+                            <!--<option>2</option>-->
+                            <!--<option>3</option>-->
+                            <!--<option>4</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="form-group col-md-6 col-sm-6">-->
+                        <!--<label for="trainer">Trainer:</label>-->
+                        <!--<select ng-model="trainer" class="form-control" id="trainer" required>-->
+                            <!--<option value="" disabled selected>Select Trainer</option>-->
+                            <!--<option>1</option>-->
+                            <!--<option>2</option>-->
+                            <!--<option>3</option>-->
+                            <!--<option>4</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                    <!--<div class="form-group col-md-6 col-sm-6">-->
+                        <!--<label for="co-trainer">Co-Trainer:</label>-->
+                        <!--<select ng-model="co-trainer" class="form-control" id="co-trainer" required>-->
+                            <!--<option value="" disabled selected>Select Co-Trainer</option>-->
+                            <!--<option>1</option>-->
+                            <!--<option>2</option>-->
+                            <!--<option>3</option>-->
+                            <!--<option>4</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="form-group col-md-6 col-sm-6">-->
+                        <!--<label for="start-date">Start Date:</label>-->
+                        <!--<div class="input-group" id="start-date" data-datepicker="true">-->
+                            <!--<input ng-model="start-date" class="date-input form-control date-selector" name="date"-->
+                                   <!--min="0"-->
+                                   <!--type="date" required>-->
+                            <!--<span class="input-group-addon glyphicon glyphicon-calendar"></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-group col-md-6 col-sm-6">-->
+                        <!--<label for="end-date">End Date:</label>-->
+                        <!--<div class="input-group" id="end-date" data-datepicker="true">-->
+                            <!--<input ng-model="end-date" class="date-input form-control date-selector" name="date" min="0"-->
+                                   <!--type="date" required>-->
+                            <!--<span class="input-group-addon glyphicon glyphicon-calendar"></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                <!--<button type="button" class="btn btn-primary">Save</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
