@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.http.HttpEntity;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertNotNull;
@@ -55,7 +56,7 @@ public class TrainerControllerImplementationTest {
 
 	@Test
 	public void getTrainerById() {
-		TrainerDAO trainerDao = context.getBean(TrainerDAO.class);
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 		log.debug("Create trainer by id test.");
 
 		trainerDao.createTrainer(trainer);
@@ -67,7 +68,7 @@ public class TrainerControllerImplementationTest {
 
 	@Test
 	public void getTrainerByEmail() {
-		TrainerDAO trainerDao = context.getBean(TrainerDAO.class);
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 		log.debug("Create trainer by email test.");
 
 		trainerDao.createTrainer(trainer);
@@ -80,7 +81,7 @@ public class TrainerControllerImplementationTest {
 
 	@Test
 	public void getAllTrainers() {
-		TrainerDAO trainerDao = context.getBean(TrainerDAO.class);
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 		log.debug("Get all trainers");
 
 		trainerDao.createTrainer(trainer);
@@ -92,7 +93,7 @@ public class TrainerControllerImplementationTest {
 
 	@Test
 	public void updateTrainer() {
-		TrainerDAO trainerDao = context.getBean(TrainerDAO.class);
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 		log.debug("Updating trainer");
 
 		trainerDao.createTrainer(trainer);
@@ -105,7 +106,7 @@ public class TrainerControllerImplementationTest {
 	}
 
 	public static void deleteData() {
-		TrainerDAO trainerDao = context.getBean(TrainerDAO.class);
+		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 		trainerDao.deleteTrainer(trainer);
 	}
 

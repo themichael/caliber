@@ -15,6 +15,7 @@ import org.hibernate.criterion.Restrictions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -87,6 +88,8 @@ public class TrainerNoteDAOImplTest {
 		}
 
 		logger.debug("Ending AssessmentServiceTest");
+
+		((ConfigurableApplicationContext) context).close();
 	}
 
 	@Test
