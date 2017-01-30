@@ -1,17 +1,11 @@
 package com.revature.caliber.gateway;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerNote;
+import com.revature.caliber.beans.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Gathers data from appropriate services and
@@ -181,10 +175,28 @@ public interface ApiGateway {
     HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
 
 
+    /**
+     * Gets week grade data for trainee.
+     *
+     * @param id the id
+     * @return the week grade data for trainee
+     */
     HashMap<String, Double[]> getWeekGradeDataForTrainee(int id);
-    
+
+    /**
+     * Gets tech grade data for batch.
+     *
+     * @param batchId the batch id
+     * @return the tech grade data for batch
+     */
     HashMap<String, Double[]> getTechGradeDataForBatch(int batchId);
-    
+
+    /**
+     * Gets trainee grade data for trainer.
+     *
+     * @param trainerId the trainer id
+     * @return the trainee grade data for trainer
+     */
     Map<String, Double[]> getTraineeGradeDataForTrainer(int trainerId);
 
     //Grade Service
@@ -240,17 +252,15 @@ public interface ApiGateway {
 
     /**
      * Create a Batch Note
-     * <<<<<<< HEAD
      *
-     * @param batchNote =======>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     * @param batchNote the batch note
      */
     void createBatchNote(BatchNote batchNote);
 
     /**
      * Update the Batch Note
-     * <<<<<<< HEAD
      *
-     * @param batchNote =======>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     * @param batchNote the batch note
      */
     void updateBatchNote(BatchNote batchNote);
 
@@ -258,7 +268,7 @@ public interface ApiGateway {
      * Delete the Batch Note
      * <<<<<<< HEAD
      *
-     * @param batchNote =======>>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     * @param batchNote the batch note
      */
     void deleteBatchNote(BatchNote batchNote);
     //End of batch note service
@@ -308,5 +318,22 @@ public interface ApiGateway {
      */
     HashMap<String, Double[]> getGradesForBatchWeekly(int batchID);
 
+    /**
+     * Gets all batches.
+     *
+     * @return the all batches
+     */
+    Set<Batch> getAllBatches();
 
+    void updateAssessmentNote(Note note);
+
+    Set<Assessment> getAllAssessments();
+
+    void createAssessment(Assessment assessment);
+
+    void createGrade(Grade grade);
+
+    void createAssessmentNote(Note note);
+
+    void createNewWeek(Week week);
 }
