@@ -1,8 +1,6 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Week;
+import com.revature.caliber.beans.*;
 import com.revature.caliber.gateway.impl.ApiGatewayImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +16,8 @@ import java.util.Set;
 @CrossOrigin(origins = "*")
 @RequestMapping("/trainer")
 public class TrainerBatchController {
+
+
     /**
      * getAllBatches - REST API method, retrieves all batches belonging to the trainer
      *
@@ -59,4 +59,36 @@ public class TrainerBatchController {
         apiGateway.updateGrade(grade);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/assessment/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createAssessment(@RequestBody Assessment assessment) {
+        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
+        apiGateway.createAssessment(assessment);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/assessment/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteAssessment(@PathVariable int id) {
+        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
+        Assessment assessment = new Assessment();
+        assessment.setAssessmentId(id);
+        apiGateway.deleteAssessment(assessment);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/assessment/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateAssessment(@RequestBody Assessment assessment) {
+        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
+        apiGateway.updateAssessment(assessment);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/assessment/note/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateAssessmentNote(@RequestBody Note note) {
+        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
+        apiGateway.updateAssessmentNote(note);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
 }

@@ -279,6 +279,7 @@ public interface ApiGateway {
     
     void updateQCNote(QCNote note);
 
+    HashMap<String, Double[]> getGradesForBatchWeekly(int batchID);
 
 
 }
