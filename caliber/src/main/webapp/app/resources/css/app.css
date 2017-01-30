@@ -1,28 +1,30 @@
 /************************
 	Revature Fonts
+************************/
 
 @font-face {
   font-family: 'Futura-Std-Medium';
-  src: url('Futura-Std-Medium.otf')  format('opentype');
+  src: url('fonts/Futura-Std-Medium.otf')  format('opentype');
 }
 
 @font-face {
   font-family: 'Futura-Std-Book';
-  src: url('Futura-Std-Book.otf')  format('opentype');
+  src: url('fonts/Futura-Std-Book.otf')  format('opentype');
 }
 
 @font-face {
   font-family: 'Futura-Std-Heavy';
-  src: url('Futura-Std-Heavy.otf')  format('opentype');
+  src: url('fonts/Futura-Std-Heavy.otf')  format('opentype');
 }
 
 @font-face {
   font-family: 'Futura-Std-Bold';
-  src: url('Futura-Std-Bold.otf')  format('opentype');
+  src: url('fonts/Futura-Std-Bold.otf')  format('opentype');
 }
 
-************************/
-
+body{
+	font-family: 'Futura-Std-Book';
+}
 /************************
 	Revature Colors
 ************************/
@@ -38,9 +40,13 @@
 	--light-grey: #B9B9BA;
 }
 
-footer a, footer a:hover{
-	color: #B9B9BA;
-}
+
+/**********************
+	Header
+**********************/
+
+.navbar-right{ margin-top: .75em; }
+.header-styles{	background-color: white; }
 
 
 /**********************
@@ -127,3 +133,6 @@ footer {
 .contact-info{	color: #B9B9BA; }
 .fa-copyright { padding-right: .5em; }
 
+footer a, footer a:hover{
+	color: #B9B9BA;
+}
