@@ -27,7 +27,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
     // add a new grade
     qc.addGrade = function(gradeObj){
         $http({
-            url: "/qc/grade/create",
+            url: "/caliber/qc/grade/create",
             method: "POST",
             data: gradeObj
         }).then(function(response){
@@ -41,7 +41,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
     // update grade
     qc.updateGrade = function(gradeObj){
         $http({
-            url: "/qc/grade/update",
+            url: "/caliber/qc/grade/update",
             method: "PUT",
             data: gradeObj
         }).then(function(response){
@@ -56,7 +56,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
     // create assessment
     qc.createAssessment = function(assessmentObj){
         $http({
-            url: "/qc/assessment/create",
+            url: "/caliber/qc/assessment/create",
             method: "POST",
             data: assessmentObj
         }).then(function(response){
@@ -71,7 +71,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
     qc.getAllAssessments = function(weekId){
         var data = [];
         $http({
-            url: "/qc/assessment/byWeek/" + weekId,
+            url: "/caliber/qc/assessment/byWeek/" + weekId,
             method: "GET",
         }).then(function(response){
             $log.debug(response);
@@ -86,7 +86,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
     // update assessment
     qc.updateAssessment = function(assessmentObj){
         $http({
-            url: "/qc/assessment/update/",
+            url: "/caliber/qc/assessment/update/",
             method: "PUT",
             data: assessmentObj
         }).then(function(response){
@@ -100,7 +100,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
     // delete assessment
     qc.deleteAssessment = function(assessmentId){
         $http({
-            url: "/qc/assessment/delete/" + assessmentId,
+            url: "/caliber/qc/assessment/delete/" + assessmentId,
             method: "DELETE",
         }).then(function(response){
             $log.debug(response);
@@ -114,7 +114,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
     // create note
     qc.createNote = function(noteObj){
         $http({
-            url: "/qc/assessment/note/create",
+            url: "/caliber/qc/assessment/note/create",
             method: "POST",
             data: noteObj
         }).then(function(response){
@@ -128,7 +128,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
     // update note
     qc.updateNote = function(noteObj){
         $http({
-            url: "/qc/assessment/note/update",
+            url: "/caliber/qc/assessment/note/update",
             method: "PUT",
             data: noteObj
         }).then(function(response){
