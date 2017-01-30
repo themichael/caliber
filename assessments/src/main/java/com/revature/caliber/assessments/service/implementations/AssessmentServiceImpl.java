@@ -11,11 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
+/**
+ * The type Assessment service.
+ */
 @Service(value = "assessmentService")
 public class AssessmentServiceImpl implements AssessmentService {
 
     private Facade facade;
-    //    Spring setter based DI
+
+    /**
+     * Sets facade.
+     *
+     * @param facade the facade
+     */
+//    Spring setter based DI
     @Autowired
     public void setFacade(Facade facade) {
         this.facade = facade;

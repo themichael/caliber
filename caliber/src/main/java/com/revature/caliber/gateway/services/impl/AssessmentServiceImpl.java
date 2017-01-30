@@ -15,7 +15,7 @@ import java.util.*;
 
 public class AssessmentServiceImpl implements AssessmentService {
 	
-	private String localhost = "http://localhost:9001";
+	private String localhost = "http://localhost:8081";
     private String hostname;
     private String portNumber;
     
@@ -23,8 +23,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     //TODO add the paths to the bean.xml
     private String 	addGradePath, 
     				updateGradePath, 
-    				getGradesByAssessmentPath,
-					getGradesByTraineePath;
+    				getGradesByAssessmentPath;
     //paths for Trainer Note
     private String 	deleteTrainerNotePath, 
     				updateTrainerNotePath,
@@ -349,6 +348,9 @@ public class AssessmentServiceImpl implements AssessmentService {
 	@Override
 	public List<com.revature.caliber.assessment.beans.Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
+		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response =
+				rest.getForEntity("http://localhost:8081/assessments/grades/trainee/"+ id,
+						com.revature.caliber.assessment.beans.Grade[].class);
 
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getGradesByTraineePath).path("/" + id)
                 .build().toUriString();
@@ -360,6 +362,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		com.revature.caliber.assessment.beans.Grade[] grades = responseAssessmentModule.getBody();
 
 		List<com.revature.caliber.assessment.beans.Grade> newGrades = Arrays.asList(grades);
+
 		return newGrades;
 	}
 
@@ -390,8 +393,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setGradesByAssessments(String getGradesByAssessmentPath){this.getGradesByAssessmentPath = getGradesByAssessmentPath;}
     public void setInsertGrade(String addGradePath){this.addGradePath = addGradePath;}
     public void setUpdateGrade(String updateGradePath){this.updateGradePath = updateGradePath;}
-	public void setGetGradesByTraineePath(String getGradesByTraineePath) { this.getGradesByTraineePath = getGradesByTraineePath; }
-	//end of Grade
+    //end of Grade
     
     //Assessment
     public void setDeleteAssessment(String deleteAssessmentPath){this.deleteAssessmentPath = deleteAssessmentPath;}

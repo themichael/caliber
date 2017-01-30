@@ -179,7 +179,7 @@ public class BatchDAOImplementationTest {
 	@Test
 	@Ignore
 	public void delete(){
-		batchDAO.deleteBatch(batchDAO.getBatch(15650));
+		batchDAO.deleteBatch(batchDAO.getBatch(22300));
 	}
 
 }
