@@ -420,22 +420,6 @@ public class ApiGatewayImpl implements ApiGateway {
      Key: Week 1, Value: [83.54, 78.56, 90.56, 78.56]
      Key: Week 2, Value: [83.54, 78.56, 90.56, 78.56]           etc.
      * @param batchID
-=======
-     * // Shehar
-     * Aggregate grades per week for a Batch // param - batchId
-     * - HashMap
-     * - key week
-     * - value double array
-     * - average
-     * - median
-     * - high
-     * - low
-     * Key: Week 1, Value: [83.54, 78.56, 90.56, 78.56]
-     * Key: Week 2, Value: [83.54, 78.56, 90.56, 78.56]           etc.
-     *
-     * @param batchID A batch id
->>>>>>> master
-     * @return grades
      *
      * @author Shehar
      */

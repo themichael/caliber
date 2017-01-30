@@ -1,10 +1,12 @@
 package com.revature.caliber.gateway.services.impl;
 
 import com.revature.caliber.gateway.services.AssessmentService;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.List;
@@ -39,6 +41,11 @@ public class AssessmentServiceImplTest {
         for(int i=0;i<grades.size();i++){
             System.out.println(grades.get(i).toString());
         }
+    }
+
+    @AfterClass
+    public void close(){
+        ((AbstractApplicationContext)context).registerShutdownHook();
     }
 
 }
