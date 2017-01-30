@@ -21,6 +21,11 @@ public class VPBatchController {
 
     private ApiGatewayImpl apiGateway;
 
+    /**
+     * Sets api gateway.
+     *
+     * @param apiGateway the api gateway
+     */
     @Autowired
     public void setApiGateway(ApiGatewayImpl apiGateway) {
         this.apiGateway = apiGateway;

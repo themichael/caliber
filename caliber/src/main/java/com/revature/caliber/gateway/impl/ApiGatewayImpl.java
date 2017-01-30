@@ -501,7 +501,6 @@ public class ApiGatewayImpl implements ApiGateway {
         List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
         HashMap<String, Double[]> grades = new HashMap<>();//result
         List<Week> week = serviceLocator.getTrainingService().getAllWeek();
-
         for (Grade grade : allGrades) {
 //			int weeknum = grade.getAssessment().getWeek().getWeekNumber(); //Should get back a weeknum which should be unique for all
             long assessmentId = grade.getAssessment().getAssessmentId();
