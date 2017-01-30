@@ -365,4 +365,8 @@ public interface ApiGateway {
      * @param week the week
      */
     void createNewWeek(Week week);
+
+    Set<Grade> getAssessmentGradesById(int id);
+
+    Batch getCurrentBatch();
 }
