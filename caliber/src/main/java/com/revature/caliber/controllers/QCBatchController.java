@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,7 +36,7 @@ public class QCBatchController {
      * @return the all batches
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Batch>> getAllBatches() {
+    public ResponseEntity<List<Batch>> getAllBatches() {
         return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
     }
 

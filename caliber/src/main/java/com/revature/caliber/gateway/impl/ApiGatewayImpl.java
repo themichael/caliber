@@ -229,8 +229,8 @@ public class ApiGatewayImpl implements ApiGateway {
      * @return the all batches
      */
     @Override
-    public Set<Batch> getAllBatches() {
-        return null;
+    public List<Batch> getAllBatches() {
+        return serviceLocator.getTrainingService().allBatch();
     }
 
     /**
