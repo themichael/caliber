@@ -48,8 +48,8 @@ public class TrainerBatchController {
      * @return - in JSON, a batch object
      */
     @RequestMapping(value = "/batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Batch> getCurrentBatch() {
-        return new ResponseEntity<>(new ApiGatewayImpl().getCurrentBatch(), HttpStatus.OK);
+    public ResponseEntity<List<Batch>> getCurrentBatch() {
+        return new ResponseEntity<>(apiGateway.currentBatch(), HttpStatus.OK);
     }
 
     /**
