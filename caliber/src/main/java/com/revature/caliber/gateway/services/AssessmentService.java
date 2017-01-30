@@ -115,6 +115,6 @@ public interface AssessmentService {
 	Set<Category> getAllCategories();
 
 
-    List<Grade> getGradesByTraineeId(int id);
+    List<com.revature.caliber.assessment.beans.Grade> getGradesByTraineeId(int id);
 
 }

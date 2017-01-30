@@ -6,10 +6,7 @@ import com.revature.caliber.gateway.services.ServiceLocator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -316,8 +313,7 @@ public class ApiGatewayImpl implements ApiGateway {
 
 
     /**
-     * // Trainee
-     // Shehar
+     * Trainee
      Aggregate grades by all tech for a Trainee // param - traineeId
      - HashMap
      - key Tech(Category)
@@ -329,19 +325,26 @@ public class ApiGatewayImpl implements ApiGateway {
      Key: REST, Value: [83.54, 78.56, 90.56, 78.56]
      Key: SOAP, Value: [83.54, 78.56, 90.56, 78.56]
      * @param id
-     * @return
+     * @return Hashmap as explained above
+     *
+     * @author Shehar
      */
 
     @Override
     public HashMap<String, Double[]> getTechGradeDataForTrainee(int id) {
-        List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id); //grade data that we get from assessment module
+        //grade data that we get from assessment module
+        List<com.revature.caliber.assessment.beans.Grade> allGrades =
+                serviceLocator.getAssessmentService().getGradesByTraineeId(id);
+
         HashMap<String,Double[]> grades = new HashMap<>(); //our result map
         HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values
         //processing
-        for ( Grade grade : allGrades) {
-            List<Category> catList = grade.getAssessment().getCategories().stream().collect(Collectors.toList());
+        for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
+            List<com.revature.caliber.assessment.beans.Category> catList =
+                    grade.getAssessment().getCategories().stream().collect(Collectors.toList());
             if (catList.size() < 1) { continue; }
-            Category category = catList.get(0); //assume there is only one category per assessment
+            //assume there is only one category per assessment
+            com.revature.caliber.assessment.beans.Category category = catList.get(0);
 
             //map does not have the key yet
             if (!grades.containsKey(category.getSkillCategory())) {
@@ -385,7 +388,7 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     /**
-     * // Shehar
+     *
      Aggregate grades per week for a Batch // param - batchId
      - HashMap
      - key week
@@ -398,20 +401,33 @@ public class ApiGatewayImpl implements ApiGateway {
      Key: Week 2, Value: [83.54, 78.56, 90.56, 78.56]           etc.
      * @param batchID
      * @return grades
+     *
+     * @author Shehar
      */
     @Override
     public HashMap<String, Double[]> getGradesForBatchWeekly(int batchID) {
-        List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(batchID); //grade data that we get from assessment module
+        //grade data that we get from assessment module
+        List<com.revature.caliber.assessment.beans.Grade> allGrades =
+                serviceLocator.getAssessmentService().getGradesByTraineeId(batchID);
         HashMap<String,Double[]> grades = new HashMap<>(); //our result map
         HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values
         Double [] gradeV;
         List<Integer> list;
-        int highestWeek =0;
-        for ( Grade grade : allGrades) {
-            if(grade.getAssessment().getWeek().getWeekNumber()>highestWeek) {
-                highestWeek = grade.getAssessment().getWeek().getWeekNumber();
+        int highestWeek = 0;
+
+        //get all weeks and reassemble them into the map by week id
+        List<Week> weekList = serviceLocator.getTrainingService().getAllWeek();
+        TreeMap<Long, Week> weekTreeMap = new TreeMap<>();
+        for (Week week : weekList) {
+            weekTreeMap.put(week.getWeekId(), week);
+        }
+
+        for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
+            if (weekTreeMap.get(new Long(grade.getAssessment().getWeek())).getWeekNumber() > highestWeek) {
+                highestWeek = weekTreeMap.get(new Long(grade.getAssessment().getWeek())).getWeekNumber();
             }
-            Week weekNumber = grade.getAssessment().getWeek();
+
+            Week weekNumber = weekTreeMap.get(grade.getAssessment().getWeek());
             if (!grades.containsKey(weekNumber.getWeekNumber())) {
                 grades.put(String.valueOf(weekNumber.getWeekNumber()), new Double[] {0.0, 0.0, 0.0, 0.0});
                 gradeValues.put(String.valueOf(weekNumber.getWeekNumber()), new ArrayList<>());
@@ -424,10 +440,10 @@ public class ApiGatewayImpl implements ApiGateway {
         //grade average holder
         int[] gradeAverage = new int[highestWeek];
         //computation
-        for ( Grade grade : allGrades) {
-            Week weekNumber = grade.getAssessment().getWeek();
-            weeks[grade.getAssessment().getWeek().getWeekNumber()-1] += 1;
-            gradeTotal[grade.getAssessment().getWeek().getWeekNumber()-1] += grade.getScore();
+        for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
+            Week weekNumber = weekTreeMap.get(new Long(grade.getAssessment().getWeek()));
+            weeks[weekNumber.getWeekNumber() - 1] += 1;
+            gradeTotal[weekNumber.getWeekNumber() - 1] += grade.getScore();
             gradeValues.get(String.valueOf(weekNumber.getWeekNumber())).add(grade.getScore());
             for (String weekName : grades.keySet()) {
                 gradeV = grades.get(weekName);

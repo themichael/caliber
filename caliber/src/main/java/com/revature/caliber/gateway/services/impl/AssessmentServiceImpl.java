@@ -347,11 +347,9 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 
 	@Override
-	public List<Grade> getGradesByTraineeId(int id) {
+	public List<com.revature.caliber.assessment.beans.Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
 
-//		final String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:" + "8080").path(getGradesByTraineePath + "/" + id)
-//				.build().toUriString();
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteTrainerNotePath)
                 .build().toUriString();
 
@@ -361,43 +359,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 		com.revature.caliber.assessment.beans.Grade[] grades = responseAssessmentModule.getBody();
 
-		List<Grade> newGrades = new ArrayList<>();
-
-		for (com.revature.caliber.assessment.beans.Grade someGrade : grades) {
-			Grade someNewGrade  = new Grade();
-
-			com.revature.caliber.assessment.beans.Assessment someAssessment = someGrade.getAssessment();
-			Assessment someNewAssessment = new Assessment();
-			someNewAssessment.setAssessmentId(someAssessment.getAssessmentId());
-
-			Set<Category> someNewCategories = new HashSet<>();
-			Set<com.revature.caliber.assessment.beans.Category> someCategories = someAssessment.getCategories();
-			for (com.revature.caliber.assessment.beans.Category category : someCategories) {
-				Category newCategory = new Category();
-				newCategory.setCategoryId(category.getCategoryId());
-				newCategory.setSkillCategory(category.getSkillCategory());
-				someNewCategories.add(newCategory);
-			}
-
-			//adding week
-			Set<Week> someNewWeek = new HashSet<>();
-			long someWeeks = someAssessment.getWeek();
-            Week newWeek = new Week();
-            newWeek.setWeekId(someWeeks);
-            newWeek.setWeekNumber((int) someWeeks);
-            someNewWeek.add(newWeek);
-            someNewAssessment.setWeek(newWeek);
-
-			someNewAssessment.setCategories(someNewCategories);
-
-			someNewGrade.setScore(someGrade.getScore());
-			someNewGrade.setAssessment(someNewAssessment);
-			someNewGrade.setGradeId(someGrade.getGradeId());
-
-
-			newGrades.add(someNewGrade);
-		}
-
+		List<com.revature.caliber.assessment.beans.Grade> newGrades = Arrays.asList(grades);
 		return newGrades;
 	}
 
