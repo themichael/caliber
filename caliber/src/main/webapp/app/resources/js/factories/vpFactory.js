@@ -9,7 +9,7 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 	vp.getAllBatches = function() {
 		var data = [];
 		$http({
-			url : "/vp/batch/all",
+			url : "/caliber/vp/batch/all",
 			method : "GET"
 		}).then(function(response) {
 			$log.debug(response);
@@ -26,7 +26,7 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 	vp.getAllCurrentBatches = function(){
 		var data = [];
 		$http({
-			url: "/vp/batch/current/all",
+			url: "/caliber/vp/batch/current/all",
 			method: "GET"
 		}).then(function(response){
 			$log.debug(response);
