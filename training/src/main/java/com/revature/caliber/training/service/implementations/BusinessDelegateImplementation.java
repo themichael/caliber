@@ -1,6 +1,7 @@
 package com.revature.caliber.training.service.implementations;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -117,7 +118,7 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 		return trainerService.getTrainer(email);
 	}
 
-	public List<Trainer> getAllTrainers() {
+	public Set<Trainer> getAllTrainers() {
 		return trainerService.getAllTrainers();
 	}
 

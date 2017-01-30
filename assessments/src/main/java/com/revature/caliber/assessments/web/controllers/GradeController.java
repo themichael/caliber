@@ -78,10 +78,9 @@ public class GradeController {
 		}
 	}
 
-	@RequestMapping (value = "/grades/create",
+	@RequestMapping (value = "grades/create",
 					method = RequestMethod.PUT,
-					consumes = MediaType.APPLICATION_JSON_VALUE,
-					produces = MediaType.APPLICATION_JSON_VALUE)
+					consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> createGrade(@RequestBody @Valid Grade grade) {
 		ResponseEntity<Serializable> returnEntity;
 

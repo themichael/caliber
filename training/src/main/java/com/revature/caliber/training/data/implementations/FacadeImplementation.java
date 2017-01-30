@@ -1,6 +1,7 @@
 package com.revature.caliber.training.data.implementations;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -166,7 +167,7 @@ public class FacadeImplementation implements Facade {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public List<Trainer> getAllTrainers() {
+	public Set<Trainer> getAllTrainers() {
 		return trainerDAO.getAllTrainers();
 	}
 
