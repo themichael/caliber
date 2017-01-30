@@ -1,6 +1,7 @@
 package com.revature.caliber.training.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.revature.caliber.training.beans.Trainer;
 
@@ -11,7 +12,7 @@ public interface TrainerService {
 
 	Trainer getTrainer(String email);
 
-	List<Trainer> getAllTrainers();
+	Set<Trainer> getAllTrainers();
 
 	void updateTrainer(Trainer trainer);
 }

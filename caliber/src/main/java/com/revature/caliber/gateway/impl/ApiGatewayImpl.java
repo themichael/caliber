@@ -97,7 +97,7 @@ public class ApiGatewayImpl implements ApiGateway {
         serviceLocator.getTrainingService().deleteTrainee(trainee);
     }
 
-    //
+    /****************************Trainer*******************************/
     @Override
     public void createTrainer(Trainer trainer) {
         serviceLocator.getTrainingService().createTrainer(trainer);
