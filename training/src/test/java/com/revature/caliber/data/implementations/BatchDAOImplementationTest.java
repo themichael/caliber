@@ -12,6 +12,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -82,6 +83,8 @@ public class BatchDAOImplementationTest {
 		}
 
 		log.info("Ending AssessmentServiceTest");
+
+		((ConfigurableApplicationContext) context).close();
 	}
 
 	// Works
