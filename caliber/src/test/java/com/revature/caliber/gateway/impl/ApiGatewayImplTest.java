@@ -38,4 +38,17 @@ public class ApiGatewayImplTest {
 
     }
 
+    @Test
+    public void getGradesForBatchWeekly() throws Exception {
+        HashMap<String, Double[]> grades = apiGateway.getGradesForBatchWeekly(1);
+
+        for (String grade : grades.keySet()) {
+            System.out.print(grade + " -> [");
+            for (Double d : grades.get(grade)) {
+                System.out.print(d + ", ");
+            }
+            System.out.println("]");
+        }
+
+    }
 }

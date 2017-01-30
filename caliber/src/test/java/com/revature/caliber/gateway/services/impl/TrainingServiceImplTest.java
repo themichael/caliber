@@ -1,23 +1,36 @@
 package com.revature.caliber.gateway.services.impl;
 
-
-import java.util.List;
-
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Week;
+import com.revature.caliber.gateway.services.TrainingService;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import com.revature.caliber.beans.Week;
-import com.revature.caliber.gateway.services.impl.TrainingServiceImpl;
-
-import com.revature.caliber.beans.Batch;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-/**
- * Created by louislopez on 1/25/17.
- */
+import java.util.List;
 
 public class TrainingServiceImplTest {
+
+    private static ApplicationContext context;
+    private static TrainingService trainingService;
+
+    @Before
+    public void setUp() throws Exception {
+        context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
+        trainingService = context.getBean(TrainingService.class);
+    }
+
+    @Test
+    public void getWeekByBatch() throws Exception {
+        List<com.revature.caliber.beans.Week> week = trainingService.getWeekByBatch(1);
+        for(int i=0;i<week.size();i++){
+            System.out.println(week.get(i).getWeekNumber());
+        }
+
+    }
+
     @Test
     @Ignore
     public void currentBatch() throws Exception {
