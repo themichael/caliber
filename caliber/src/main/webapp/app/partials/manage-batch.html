@@ -5,13 +5,13 @@
                 <ul class="nav nav-tabs">
                     <!-- Filter batches by year -->
                     <li role="button" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">2017<span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">2016</a></li>
-                            <li><a href="#">2015</a></li>
-                            <li><a href="#">2014</a></li>
-                            <li><a href="#">2013</a></li>
-                            <li><a href="#">2012</a></li>
+
+                            <li ng-repeat="menuItem in years track by $index">
+                                <a role="button" ng-click="selectYear($index)">{{menuItem}}</a>
+                            </li>
+
                         </ul>
                     </li>
                     <!-- Button Trigger for Create Batch Modal -->
@@ -165,7 +165,7 @@
                 <div class="modal-body trainee-body-modal">
                     <!-- View Trainees in Batch -->
                     <h3>Trainees in Batch</h3>
-                    <div class="row">
+                    <div class="row scrollable-div">
                         <div class="col-md-12 col-lg-12">
                             <table class="table table-responsive">
                                 <thead>
@@ -191,14 +191,14 @@
                                 <td>
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="traineeName">Full Name:</label>
-                                        <input ng-model="traineeName.model" type="text" class="form-control"
+                                        <input ng-model="receiver.traineeName" type="text" class="form-control"
                                                id="traineeName" placeholder="Name" required>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="traineeEmail">Email:</label>
-                                        <input ng-model="traineeEmail.model" type="text" class="form-control"
+                                        <input ng-model="receiver.email" type="text" class="form-control"
                                                id="traineeEmail" placeholder="Email" required>
                                     </div>
                                 </td>

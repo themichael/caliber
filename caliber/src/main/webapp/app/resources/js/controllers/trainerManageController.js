@@ -3,6 +3,30 @@ angular.module("trainer").controller(
     function ($scope, $log) {
         $log.debug("Booted trainer manage controller.");
 
+
+
+        $scope.years = addYears();
+        function addYears(){
+            var currentYear = new Date().getFullYear();
+            $scope.selectedYear = currentYear;
+
+            var data = [];
+            for(var y=currentYear; y>=2014; y--) {
+                data.push(y)
+            }
+            return data;
+        }
+
+        $scope.getBatches=[];
+        $scope.selectYear= function(index) {
+            $scope.selectedYear = $scope.years[index];
+            for(var i=0; i < $scope.batches.length; i++){
+                if($scope.batches[i].startDate.getFullYear() === $scope.selectedYear){
+                    $scope.getBatches.push($scope.batches[i]);
+                }
+            }
+        };
+
         /**
          * Add & View Batches
          */
@@ -70,16 +94,10 @@ angular.module("trainer").controller(
             model: null
         };
 
-        /* Save Trainee */
-        $scope.addNewTrainee = function( ){
-            $scope.trainees.push({traineeName: $scope.traineeName.model,
-                                email: $scope.email.model})
-        };
-
         /* Add Or Remove New Trainee Form */
-        $scope.receivers=[{value:"Test"}];
-        $scope.addTrainee = function(receiver) {
-            $scope.receivers.push({value:"Test1"});
+        $scope.receivers=[{traineeName:"", email:""}];
+        $scope.addTrainee = function() {
+            $scope.receivers.push({traineeName: "", email: ""});
         }
         $scope.deleteTrainee = function(receiver) {
             for(var i=0; i<$scope.receivers.length; i++) {
@@ -89,4 +107,15 @@ angular.module("trainer").controller(
                 }
             }
         }
+
+        /* Save Trainee */
+        $scope.addNewTrainee = function( ){
+            for(var i=0; i<$scope.receivers.length; i++) {
+                $scope.trainees.push({
+                    traineeName: $scope.receivers[i].traineeName,
+                    email: $scope.receivers[i].email
+                })
+            }
+            $scope.receivers=[{traineeName:"", email:""}];
+        };
     });
