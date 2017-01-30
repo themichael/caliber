@@ -1,15 +1,17 @@
 package com.revature.caliber.gateway.impl;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.gateway.ApiGateway;
-import com.revature.caliber.gateway.services.ServiceLocator;
 
 /**
  * Created by Shehar on 1/26/2017.
@@ -27,6 +29,7 @@ public class ApiGatewayImplTest {
 
     
     @Test
+    @Ignore
     public void getAggregatedGradesForTrainee() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getTechGradeDataForTrainee(1);
 
@@ -46,22 +49,38 @@ public class ApiGatewayImplTest {
     	HashMap<String, Double []> hey = apiGateway.getTechGradeDataForBatch(1);
     }
 
-    @Ignore
     @Test
+    @Ignore
     public void getWeekAggregatedGradesForTrainee() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getWeekGradeDataForTrainee(1);
 
-//        for (String grade : grades.keySet()) {
-//            System.out.print(grade + " -> [");
-//            for (Double d : grades.get(grade)) {
-//                System.out.print(d + ", ");
-//            }
-//            System.out.println("]");
-//        }
+        for (String grade : grades.keySet()) {
+            System.out.print(grade + " -> [");
+            for (Double d : grades.get(grade)) {
+                System.out.print(d + ", ");
+            }
+            System.out.println("]");
+        }
 
+    }
+    
+    @Test
+    @Ignore
+    public void getTraineeGradeDataForTrainer(){
+    	Map<String, Double[]> grades = apiGateway.getTraineeGradeDataForTrainer(1);
+        for (String grade : grades.keySet()) {
+            System.out.print(grade + " -> [");
+            for (Double d : grades.get(grade)) {
+                System.out.print(d + ", ");
+            }
+            System.out.println("]");
+        }
+    	
+    	
     }
 
     @Test
+    @Ignore
     public void getGradesForBatchWeekly() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getGradesForBatchWeekly(1);
 
@@ -73,5 +92,9 @@ public class ApiGatewayImplTest {
             System.out.println("]");
         }
 
+    }
+    @After
+    public void  close(){
+    	((AbstractApplicationContext)context).registerShutdownHook();
     }
 }

@@ -569,10 +569,8 @@ public class ApiGatewayImpl implements ApiGateway {
     @Override
     public HashMap<String, Double[]> getWeekGradeDataForTrainee(int id) {
         List<Week> weeks = serviceLocator.getTrainingService().getAllWeek();
-
         List<com.revature.caliber.assessment.beans.Grade> allGrades =
                 serviceLocator.getAssessmentService().getGradesByTraineeId(id);
-
         HashMap<String, Double[]> grades = new HashMap<>();
 
         for (Week week : weeks) {
@@ -584,7 +582,6 @@ public class ApiGatewayImpl implements ApiGateway {
                     }
                 }
             if (scores.size() < 1) { continue; }
-            //aggregate functions here
             Collections.sort(scores);
             Double[] aggregates = new Double[4];
             aggregates[0] = getAverage(scores);
@@ -627,7 +624,13 @@ public class ApiGatewayImpl implements ApiGateway {
 
     @Override
     public Map<String, Double[]> getTraineeGradeDataForTrainer(int trainerId) {
-        List<Trainee> trainees = null;//serviceLocator.getTrainingService().getTraineesByTrainer(?)/getallTrainees
+    	//query all batches where trainer is X then query all trainee in those batches
+        List<Batch> batches = serviceLocator.getTrainingService().allBatch();
+        List<Trainee> trainees = new ArrayList<>();
+        for(Batch batch:batches){
+        	List<Trainee> temptrainees = serviceLocator.getTrainingService().getTraineesInBatch(batch.getBatchId());
+        	trainees.addAll(temptrainees);
+        	}
         HashMap<String, Double[]> grades = new HashMap<>();
         for (Trainee trainee : trainees) {
             List<com.revature.caliber.assessment.beans.Grade> tgrades =
@@ -638,12 +641,14 @@ public class ApiGatewayImpl implements ApiGateway {
             }
 
             //agregate here
+            if(scores.size()<1){
+            	continue;
+            }
+            Collections.sort(scores);
             Double[] aggregates = new Double[2];
             aggregates[0] = getAverage(scores);
             aggregates[1] = getMedian(scores);
-            if (scores.size() > 1) {
-                grades.put(trainee.getName(), aggregates);
-            }
+            grades.put(trainee.getName(), aggregates);
 
         }
         return grades;
@@ -663,7 +668,7 @@ public class ApiGatewayImpl implements ApiGateway {
         if (list.size() % 2 == 1) {
             return list.get(middle);
         } else {
-            return (double)(list.get(middle - 1) + list.get(middle - 2)) / 2;
+            return (double)((list.get(middle - 1) + list.get(middle - 2)) / 2);
         }
 
     }
