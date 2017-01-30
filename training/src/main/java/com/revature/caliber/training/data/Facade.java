@@ -1,6 +1,7 @@
 package com.revature.caliber.training.data;
 
 import java.util.List;
+import java.util.Set;
 
 import com.revature.caliber.training.beans.Batch;
 import com.revature.caliber.training.beans.Category;
@@ -56,7 +57,7 @@ public interface Facade {
 
 	public Trainer getTrainer(String email);
 
-	public List<Trainer> getAllTrainers();
+	public Set<Trainer> getAllTrainers();
 
 	public void updateTrainer(Trainer trainer);
 
