@@ -230,11 +230,19 @@ public class Week {
         this.assessments = assessments;
     }
 
-	@Override
-	public String toString() {
-		return "Week [weekId=" + weekId + ", weekNumber=" + weekNumber + ", batch=" + batch + ", topics=" + topics
-				+ ", assessments=" + assessments + ", batchNotes=" + batchNotes + ", qcNotes=" + qcNotes
-				+ ", trainerNotes=" + trainerNotes + "]";
-	}
+
+    @Override
+    public String toString() {
+        return "Week{" +
+                "weekId=" + weekId +
+                ", weekNumber=" + weekNumber +
+                ", batch=" + batch +
+                ", topics=" + topics +
+                ", assessments=" + assessments +
+                ", batchNotes=" + batchNotes +
+                ", qcNotes=" + qcNotes +
+                ", trainerNotes=" + trainerNotes +
+                '}';
+    }
 
 }

@@ -3,7 +3,7 @@ angular.module("app").config(
               ChartJsProvider, $logProvider) {
 
     	// Turn on/off debug messages
-    	$logProvider.debugEnabled(false);
+    	$logProvider.debugEnabled(true);
     	
         // chart options
         ChartJsProvider.setOptions({
@@ -19,25 +19,56 @@ angular.module("app").config(
         $stateProvider
             .state("routing", {
                 url: "/routing",
-                templateUrl: "app/partials/helloWorld.html"
+                templateUrl: "app/partials/routing.html",
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.auth();
+                //     }
+            })
+            .state("testPage", {
+                url: "/testpage",
+                templateUrl: "app/partials/testPage.html",
+                controller: "testAPIController"
             })
 
             // qc
             .state("qc", {
                 abstract: true,
                 url: "/qc",
-                templateUrl: "app/partials/abstracts/qc.html"
+                templateUrl: "app/partials/abstracts/qc.html",
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.authQC();
+                //     }
+
             })
             .state("qc.home", {
                 url: "/home",
                 templateUrl: "app/partials/home/qc-home.html",
                 controller: "qcHomeController"
             })
+            .state("qc.manage", {
+                url: "/manage",
+                templateUrl: "app/partials/qc-manage.html",
+                controller: "qcManageController"
+            })
+            .state("qc.assess", {
+                url: "/assess",
+                templateUrl: "app/partials/assess/qc-assess.html",
+                controller: "qcAssessController"
+            })
             // trainer
             .state("trainer", {
                 abstract: true,
                 url: "/trainer",
-                templateUrl: "app/partials/abstracts/trainer.html"
+                templateUrl: "app/partials/abstracts/trainer.html",
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.authTrainer();
+                //     }
             })
             .state("trainer.home", {
                 templateUrl: "app/partials/home/trainer-home.html",
@@ -45,16 +76,32 @@ angular.module("app").config(
                 controller: "trainerHomeController"
             })
             .state("trainer.manage", {
-                templateUrl: "app/partials/home/manage-batch.html",
+                templateUrl: "app/partials/manage-batch.html",
                 url: "/manage",
                 controller: "trainerManageController"
+            })
+            .state("trainer.assess", {
+                templateUrl: "app/partials/assess/trainer-assess.html",
+                url: "/assess",
+                controller: "trainerAssessController"
+            })
+            .state("trainer.reports", {
+                templateUrl: "app/partials/reports/trainer-reports.html",
+                url: "/reports",
+                controller: "trainerReportsController"
             })
 
             // vp
             .state("vp", {
                 abstract: true,
+                url: "/vp",
                 templateUrl: "app/partials/abstracts/vp.html",
-                url: "/vp"
+                // uncomment when dev is complete
+                // onEnter:
+                //     function(authFactory){
+                //         authFactory.authVP();
+                //     }
+
             })
             .state("vp.home", {
                 templateUrl: "app/partials/home/vp-home.html",
@@ -62,7 +109,7 @@ angular.module("app").config(
                 controller: "vpHomeController"
             })
             .state("vp.manage", {
-                templateUrl: "app/partials/home/manage-batch.html",
+                templateUrl: "app/partials/manage-batch.html",
                 url: "/manage"
             });
     });

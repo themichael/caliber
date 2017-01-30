@@ -56,7 +56,7 @@ public interface ApiGateway {
      * @param trainer - The trainer for whom we are returning the current batch
      * @return A list of batches
      */
-    List<Batch> currentBatch(Trainer trainer);
+    List<Batch> currentBatch(Integer id);
 
     /**
      * Get a batch by ID

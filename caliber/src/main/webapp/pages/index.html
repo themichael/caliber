@@ -26,6 +26,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"
 	crossorigin="anonymous"></script>
 
+	<!-- Cookies  -->
+	<script src="https://code.angularjs.org/1.5.7/angular-cookies.js"></script>
+
 <!-- Angular-Charts -->
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.js">
@@ -76,7 +79,6 @@
 							src="./app/resources/images/rev-footer.png" alt="revature"
 							height="175" width="175" />
 					</div>
-					<a href="http://localhost:8080/salesforce" target="_blank">Login to salesforce</a>
 					<div class="col-sm-3 col-sm-offset-5 contact-info">
 						<span class="glyphicon glyphicon-home"></span><span>&nbsp;11730
 							Plaza America Drive<br>Reston, VA 20190
@@ -100,13 +102,19 @@
 
 	<!-- Services -->
 	<script type="text/javascript"
-		src="./app/resources/js/factories/delegateFactory.js"></script>
+		src="./app/resources/js/factories/caliberDelegateFactory.js"></script>
+	<script type="text/javascript"
+		src="./app/resources/js/factories/authFactory.js"></script>
 	<script type="text/javascript"
 		src="./app/resources/js/factories/qcFactory.js"></script>
 	<script type="text/javascript"
 		src="./app/resources/js/factories/trainerFactory.js"></script>
 	<script type="text/javascript"
 		src="./app/resources/js/factories/vpFactory.js"></script>
+	<script type="text/javascript"
+		src="./app/resources/js/factories/allFactory.js"></script>
+	<script type="text/javascript"
+		src="./app/resources/js/factories/chartsDelegateFactory.js"></script>
 	<script type="text/javascript"
 		src="./app/resources/js/factories/lineChartFactory.js"></script>
 	<script type="text/javascript"
@@ -117,6 +125,7 @@
 		src="./app/resources/js/factories/hbarChartFactory.js"></script>
 
 
+
 	<!-- Controllers -->
 	<script type="text/javascript"
 		src="./app/resources/js/controllers/vpHomeController.js"></script>
@@ -124,6 +133,12 @@
 		src="./app/resources/js/controllers/qcHomeController.js"></script>
 	<script type="text/javascript"
 		src="./app/resources/js/controllers/trainerHomeController.js"></script>
+	<script type="text/javascript"
+		src="./app/resources/js/controllers/testAPIController.js"></script>
+	<script type="text/javascript"
+		src="./app/resources/js/controllers/trainerManageController.js"></script>
+	<script type="text/javascript"
+		src="./app/resources/js/controllers/trainerAssessController.js"></script>
 
 </body>
 </html>
