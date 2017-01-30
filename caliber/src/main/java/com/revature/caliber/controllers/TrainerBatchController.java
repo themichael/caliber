@@ -1,7 +1,9 @@
 package com.revature.caliber.controllers;
 
 import com.revature.caliber.beans.*;
+import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.impl.ApiGatewayImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,12 @@ import java.util.Set;
 @RequestMapping("/trainer")
 public class TrainerBatchController {
 
+    private ApiGateway apiGateway;
+
+    @Autowired
+    public void setApiGateway(ApiGateway apiGateway) {
+        this.apiGateway = apiGateway;
+    }
 
     /**
      * getAllBatches - REST API method, retrieves all batches belonging to the trainer
@@ -25,7 +33,8 @@ public class TrainerBatchController {
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllBatches() {
-        return new ResponseEntity<>(new ApiGatewayImpl().getAllBatches(), HttpStatus.OK);
+
+        return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
     }
 
     /**
