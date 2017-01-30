@@ -583,6 +583,7 @@ public class ApiGatewayImpl implements ApiGateway {
                         scores.add(grade.getScore());
                     }
                 }
+            if (scores.size() < 1) { continue; }
             //aggregate functions here
             Collections.sort(scores);
             Double[] aggregates = new Double[4];
