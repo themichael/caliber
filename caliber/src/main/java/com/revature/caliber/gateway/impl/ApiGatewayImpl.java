@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 /**
  * The type Api gateway.
  */
@@ -226,6 +225,7 @@ public class ApiGatewayImpl implements ApiGateway {
      *
      * @return the all batches
      */
+    @Override
     public Set<Batch> getAllBatches() {
         return null;
     }

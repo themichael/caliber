@@ -1,16 +1,10 @@
 package com.revature.caliber.gateway;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerNote;
+import com.revature.caliber.beans.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Gathers data from appropriate services and
@@ -301,5 +295,13 @@ public interface ApiGateway {
      */
     HashMap<String, Double[]> getGradesForBatchWeekly(int batchID);
 
+    Set<Assessment> getAllAssessments();
 
+    void updateAssessmentNote(Note note);
+
+    void createAssessment(Assessment assessment);
+
+    void createGrade(Grade grade);
+
+    Set<Batch> getAllBatches();
 }
