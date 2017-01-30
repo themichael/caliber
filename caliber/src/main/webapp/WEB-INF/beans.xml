@@ -35,6 +35,7 @@
 		<property name="updateGrade" value="assessments/grades/update/"/>
 		<property name="gradesByAssessments" value="assessments/grades/assessment/"/>
 		<property name="getGradesByTraineePath" value="assessments/grades/trainee" />
+		<property name="allGradesPath" value="assessments/grades/all" />
 		
 		<property name="updateTrainerNotePath" value="assessments/trainerNote/update/" />
 		<property name="deleteTrainerNotePath" value="assessments/trainerNote/delete/" />
@@ -77,7 +78,6 @@
 		
 		<property name="addWeekPath" value="training/week/new" />
 		<property name="getAllWeekPath" value="training/week/all" />
-	
 	</bean>
 
 </beans>

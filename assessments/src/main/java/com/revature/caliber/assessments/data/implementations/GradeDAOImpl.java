@@ -1,27 +1,24 @@
 package com.revature.caliber.assessments.data.implementations;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.revature.caliber.assessments.beans.Category;
+import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.data.GradeDAO;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.assessments.beans.Category;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.data.GradeDAO;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Implementation for Grade DAO crud methods
@@ -85,7 +82,10 @@ public class GradeDAOImpl implements GradeDAO {
 	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
 	public List<Grade> getAllGrades() {
-		return new ArrayList<>(sessionFactory.getCurrentSession().createCriteria(Grade.class).list());
+		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Grade.class);
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return criteria.list();
 	}
 
 	@Override	
@@ -187,23 +187,4 @@ public class GradeDAOImpl implements GradeDAO {
 		return map;
 	}
 
-	@Override
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor={
-			Exception.class})
-	public List avgGradeByTrainer(int trainerId) {
-		String HQL="SELECT T.name, avg(score) "
-				+ "FROM Grade G "
-				+ "join G.trainee T "
-				+ "join T.batch B "
-				+ "join B.trainer TR "
-				+ "where TR.trainerId =:trainer "
-				+ "group by T.name";
-		Query query = sessionFactory.getCurrentSession().createQuery(HQL);
-		query.setInteger("trainer", trainerId);
-		List<Object[]> grades = query.list();
-//		for(Object[] grade:grades){
-//			Double score = (Double) grade[0]
-//		}
-		return query.list();
-	}
 }

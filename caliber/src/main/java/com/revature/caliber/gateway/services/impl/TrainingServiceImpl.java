@@ -1,16 +1,15 @@
 package com.revature.caliber.gateway.services.impl;
 
 import com.revature.caliber.beans.Batch;
-import java.io.Serializable;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.Week;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
 import com.revature.caliber.gateway.services.TrainingService;
-import com.revature.caliber.beans.Week;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class TrainingServiceImpl implements TrainingService{
 
-	private String localhost = "http://localhost:9001";
+	private String localhost = "http://localhost:8080";
 	private String hostname;
 	private String portNumber;
 
@@ -354,7 +353,7 @@ public class TrainingServiceImpl implements TrainingService{
 
 		RestTemplate service = new RestTemplate();
 		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("training/week/all").build().toUriString();
+		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path("training/week/all").build().toUriString();
 		
 		System.out.println(URI);
 		// Invoke the service
@@ -443,7 +442,7 @@ public class TrainingServiceImpl implements TrainingService{
 	@Override
 	public List<Week> getWeekByBatch(int batchId) {
 		RestTemplate service = new RestTemplate();
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getWeekByBatch).path(String.valueOf(batchId))
+		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(getWeekByBatch).path(String.valueOf(batchId))
 				.build().toUriString();
 
 //		final String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:" + "8080/").path(getWeekByBatch).path(String.valueOf(batchId))
