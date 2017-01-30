@@ -149,4 +149,16 @@ public class TrainerBatchController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/assessment/batch/note/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createBatchNoteForAssessment(@RequestBody BatchNote batchNote) {
+        apiGateway.createBatchNote(batchNote);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/assessment/batch/note/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateBatchNoteForAssessment(@RequestBody BatchNote batchNote) {
+        apiGateway.updateBatchNote(batchNote);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }

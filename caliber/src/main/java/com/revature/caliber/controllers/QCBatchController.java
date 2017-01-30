@@ -1,9 +1,6 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.*;
 import com.revature.caliber.gateway.ApiGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,16 +14,26 @@ import java.util.Set;
  * The type Qc batch controller.
  */
 @RestController
-//@RequestMapping("/qc")
+@RequestMapping("/qc")
 public class QCBatchController {
 
     private ApiGateway apiGateway;
 
+    /**
+     * Sets api gateway.
+     *
+     * @param apiGateway the api gateway
+     */
     @Autowired
     public void setApiGateway(ApiGateway apiGateway) {
         this.apiGateway = apiGateway;
     }
 
+    /**
+     * Gets all batches.
+     *
+     * @return the all batches
+     */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllBatches() {
         return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
@@ -104,15 +111,40 @@ public class QCBatchController {
         return new ResponseEntity<>(apiGateway.getAllAssessments(), HttpStatus.OK);
     }
 
+    /**
+     * Update assessment note response entity.
+     *
+     * @param note the note
+     * @return the response entity
+     */
     @RequestMapping(value = "assessment/note/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateAssessmentNote(@RequestBody Note note) {
         apiGateway.updateAssessmentNote(note);
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Create assessment note response entity.
+     *
+     * @param note the note
+     * @return the response entity
+     */
     @RequestMapping(value = "/assessment/note/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createAssessmentNote(@RequestBody Note note) {
         apiGateway.createAssessmentNote(note);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    /**
+     * Update batch note for assessment response entity.
+     *
+     * @param batchNote the batch note
+     * @return the response entity
+     */
+    @RequestMapping(value = "/assessment/batch/note/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateBatchNoteForAssessment(@RequestBody BatchNote batchNote) {
+        apiGateway.updateBatchNote(batchNote);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }
