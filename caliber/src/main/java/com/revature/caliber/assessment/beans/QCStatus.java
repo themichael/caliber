@@ -7,52 +7,96 @@ import java.util.Set;
  */
 public class QCStatus {
 
-	private short statusId;
+    private short statusId;
 
-	private String status;
+    private String status;
 
-	private Set<Assessment> assessments;
+    private Set<Assessment> assessments;
 
-	public QCStatus() {
-		super();
-	}
+    /**
+     * Instantiates a new Qc status.
+     */
+    public QCStatus() {
+        super();
+    }
 
-	public QCStatus(String status) {
-		this.status = status;
-	}
+    /**
+     * Instantiates a new Qc status.
+     *
+     * @param status the status
+     */
+    public QCStatus(String status) {
+        this.status = status;
+    }
 
-	public QCStatus(short statusId, String status) {
-		this.statusId = statusId;
-		this.status = status;
-	}
+    /**
+     * Instantiates a new Qc status.
+     *
+     * @param statusId the status id
+     * @param status   the status
+     */
+    public QCStatus(short statusId, String status) {
+        this.statusId = statusId;
+        this.status = status;
+    }
 
-	public short getStatusId() {
-		return statusId;
-	}
+    /**
+     * Gets status id.
+     *
+     * @return the status id
+     */
+    public short getStatusId() {
+        return statusId;
+    }
 
-	public void setStatusId(short statusId) {
-		this.statusId = statusId;
-	}
+    /**
+     * Sets status id.
+     *
+     * @param statusId the status id
+     */
+    public void setStatusId(short statusId) {
+        this.statusId = statusId;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    /**
+     * Gets status.
+     *
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    /**
+     * Sets status.
+     *
+     * @param status the status
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public Set<Assessment> getAssessments() {
-		return assessments;
-	}
+    /**
+     * Gets assessments.
+     *
+     * @return the assessments
+     */
+    public Set<Assessment> getAssessments() {
+        return assessments;
+    }
 
-	public void setAssessments(Set<Assessment> assessments) {
-		this.assessments = assessments;
-	}
+    /**
+     * Sets assessments.
+     *
+     * @param assessments the assessments
+     */
+    public void setAssessments(Set<Assessment> assessments) {
+        this.assessments = assessments;
+    }
 
-	@Override
-	public String toString() {
-		return "QCStatus [statusId=" + statusId + ", status=" + status + ", assessments=" + assessments + "]";
-	}
+    @Override
+    public String toString() {
+        return "QCStatus [statusId=" + statusId + ", status=" + status + ", assessments=" + assessments + "]";
+    }
 
 }

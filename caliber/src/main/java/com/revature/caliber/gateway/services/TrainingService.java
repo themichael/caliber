@@ -42,12 +42,12 @@ public interface TrainingService {
     List<Batch> currentBatch();
 
     /**
-     * Get all current Batches for a given Trainer
+     * Get all current Batches for a given Trainer id
      *
-     * @param trainer - The trainer requesting a list of all his current batches
+     * @param id - The trainer requesting a list of all his current batches
      * @return A list of the trainers current batches
      */
-    List<Batch> currentBatch(Trainer trainer);
+    List<Batch> currentBatch(Integer id);
 
     /**
      * Get a batch by ID
@@ -159,6 +159,15 @@ public interface TrainingService {
     void updateTrainer(Trainer trainer);
 
     //End of Trainer
+
+    //Week
+
+    /**
+     * get week by Batch ID
+     *
+     */
+    List<Week> getWeekByBatch(int batchId);
+
     
     
     //Week
@@ -168,11 +177,7 @@ public interface TrainingService {
      */
     List<Week> getAllWeek();
     
-    /**
-     * Create a new Week object
-     * @param Week object
-     */
+
     void createWeek(Week week);
-    
-    
+
 }

@@ -1,9 +1,9 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Week;
+import com.revature.caliber.beans.*;
+import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.impl.ApiGatewayImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +18,19 @@ import java.util.Set;
 @CrossOrigin(origins = "*")
 @RequestMapping("/trainer")
 public class TrainerBatchController {
+
+    private ApiGateway apiGateway;
+
+    /**
+     * Sets api gateway.
+     *
+     * @param apiGateway the api gateway
+     */
+    @Autowired
+    public void setApiGateway(ApiGateway apiGateway) {
+        this.apiGateway = apiGateway;
+    }
+
     /**
      * getAllBatches - REST API method, retrieves all batches belonging to the trainer
      *
@@ -25,7 +38,7 @@ public class TrainerBatchController {
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllBatches() {
-        return new ResponseEntity<>(new ApiGatewayImpl().getAllBatches(), HttpStatus.OK);
+        return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
     }
 
     /**
@@ -38,25 +51,114 @@ public class TrainerBatchController {
         return new ResponseEntity<>(new ApiGatewayImpl().getCurrentBatch(), HttpStatus.OK);
     }
 
-
+    /**
+     * Create new week response entity.
+     *
+     * @param week the week
+     * @return the response entity
+     */
     @RequestMapping(value = "/week/new", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createNewWeek(@RequestBody Week week) {
-        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
         apiGateway.createNewWeek(week);
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Create grade response entity.
+     *
+     * @param grade the grade
+     * @return the response entity
+     */
     @RequestMapping(value = "/grade/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createGrade(@RequestBody Grade grade) {
-        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
         apiGateway.createGrade(grade);
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Update grade response entity.
+     *
+     * @param grade the grade
+     * @return the response entity
+     */
     @RequestMapping(value = "/grade/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateGrade(@RequestBody Grade grade) {
-        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
         apiGateway.updateGrade(grade);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    /**
+     * Create assessment response entity.
+     *
+     * @param assessment the assessment
+     * @return the response entity
+     */
+    @RequestMapping(value = "/assessment/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createAssessment(@RequestBody Assessment assessment) {
+        apiGateway.createAssessment(assessment);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * Delete assessment response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
+    @RequestMapping(value = "/assessment/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteAssessment(@PathVariable int id) {
+        Assessment assessment = new Assessment();
+        assessment.setAssessmentId(id);
+        apiGateway.deleteAssessment(assessment);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * Update assessment response entity.
+     *
+     * @param assessment the assessment
+     * @return the response entity
+     */
+    @RequestMapping(value = "/assessment/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateAssessment(@RequestBody Assessment assessment) {
+        apiGateway.updateAssessment(assessment);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * Update assessment note response entity.
+     *
+     * @param note the note
+     * @return the response entity
+     */
+    @RequestMapping(value = "/assessment/note/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateAssessmentNote(@RequestBody Note note) {
+        apiGateway.updateAssessmentNote(note);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * Create assessment note response entity.
+     *
+     * @param note the note
+     * @return the response entity
+     */
+    @RequestMapping(value = "/assessment/note/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createAssessmentNote(@RequestBody Note note) {
+        apiGateway.createAssessmentNote(note);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/assessment/batch/note/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createBatchNoteForAssessment(@RequestBody BatchNote batchNote) {
+        apiGateway.createBatchNote(batchNote);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/assessment/batch/note/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateBatchNoteForAssessment(@RequestBody BatchNote batchNote) {
+        apiGateway.updateBatchNote(batchNote);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }

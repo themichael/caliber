@@ -15,7 +15,7 @@ import java.util.*;
 
 public class AssessmentServiceImpl implements AssessmentService {
 	
-	private String localhost = "http://localhost:9001";
+	private String localhost = "http://localhost:8081";
     private String hostname;
     private String portNumber;
     
@@ -349,7 +349,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public List<Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
 		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response =
-				rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+ id,
+				rest.getForEntity("http://localhost:8081/assessments/grades/trainee/"+ id,
 						com.revature.caliber.assessment.beans.Grade[].class);
 
 		com.revature.caliber.assessment.beans.Grade[] grades = response.getBody();
