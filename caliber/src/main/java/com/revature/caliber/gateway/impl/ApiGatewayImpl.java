@@ -138,12 +138,6 @@ public class ApiGatewayImpl implements ApiGateway {
         return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
     }
 
-	/**************************************Grade************************************/
-	@Override
-	public List<Grade> getGradesByAssessment(Integer assessmentId) {
-		return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
-	}
-
     @Override
     public void insertGrade(Grade grade) {
         serviceLocator.getAssessmentService().insertGrade(grade);
@@ -214,8 +208,6 @@ public class ApiGatewayImpl implements ApiGateway {
         serviceLocator.getAssessmentService().updateQCNote(note);
 
     }
-
-	}
 
     /**
      * Gets batch from current batches by id.
@@ -327,46 +319,43 @@ public class ApiGatewayImpl implements ApiGateway {
     public Batch getBatchFromAllBatchesById() {
         // TODO Auto-generated method stub
         return null;
-	}
+    }
+
 
     /**
-     * Create new week.
      *
-     * @param week the week
-     */
-
-    /**
-     * // Trainee
-     // Shehar
-     Aggregate grades by all tech for a Trainee // param - traineeId
-     - HashMap
-     - key Tech(Category)
-     - value double array
-     - average
-     - median
-     - high
-     - low
-     Key: REST, Value: [83.54, 78.56, 90.56, 78.56]
-     Key: SOAP, Value: [83.54, 78.56, 90.56, 78.56]
-     * @param id
-     * @return
+     * Aggregate grades by all tech for a Trainee // param - traineeId
+     * - HashMap
+     * - key Tech(Category)
+     * - value double array
+     * - average
+     * - median
+     * - high
+     * - low
+     * Key: REST, Value: [83.54, 78.56, 90.56, 78.56]
+     * Key: SOAP, Value: [83.54, 78.56, 90.56, 78.56]
+     *
+     * @param id the id
+     * @return something
      */
 
     @Override
     public HashMap<String, Double[]> getTechGradeDataForTrainee(int id) {
         List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id); //grade data that we get from assessment module
-        HashMap<String,Double[]> grades = new HashMap<>(); //our result map
+        HashMap<String, Double[]> grades = new HashMap<>(); //our result map
         HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values
 
         //processing
-        for ( Grade grade : allGrades) {
+        for (Grade grade : allGrades) {
             List<Category> catList = grade.getAssessment().getCategories().stream().collect(Collectors.toList());
-            if (catList.size() < 1) { continue; }
+            if (catList.size() < 1) {
+                continue;
+            }
             Category category = catList.get(0); //assume there is only one category per assessment
 
             //map does not have the key yet
             if (!grades.containsKey(category.getSkillCategory())) {
-                grades.put(category.getSkillCategory(), new Double[] {0.0, 0.0, 0.0, 0.0});
+                grades.put(category.getSkillCategory(), new Double[]{0.0, 0.0, 0.0, 0.0});
                 gradeValues.put(category.getSkillCategory(), new ArrayList<>());
             }
 
@@ -379,12 +368,14 @@ public class ApiGatewayImpl implements ApiGateway {
         //actually processing the values
         for (String categoryName : grades.keySet()) {
             //convenience
-            Double [] gradeV = grades.get(categoryName);
+            Double[] gradeV = grades.get(categoryName);
             List<Integer> list = gradeValues.get(categoryName);
             list.sort(Integer::compareTo); //sort list of grades for convenience
 
             //assume there is at least one grade
-            if (list.size() < 1) { continue; }
+            if (list.size() < 1) {
+                continue;
+            }
 
             //average
             gradeV[0] = gradeV[0] / list.size(); //just divide the total by list size
@@ -392,8 +383,7 @@ public class ApiGatewayImpl implements ApiGateway {
             if (list.size() > 1) {
                 gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
                         (list.get(list.size() / 2).doubleValue() + list.get(list.size() / 2 - 1).doubleValue()) / 2;
-            }
-            else {
+            } else {
                 gradeV[1] = list.get(0).doubleValue();
             }
             //since the list of grades is sorted, we can get high and low just by one call for each
@@ -410,7 +400,11 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
 
-
+    /**
+     * Create new week.
+     *
+     * @param week the week
+     */
     public void createNewWeek(Week week) {
 
     }
@@ -444,10 +438,20 @@ public class ApiGatewayImpl implements ApiGateway {
     public void createAssessment(Assessment assessment) {
     }
 
+    /**
+     * Gets all assessments.
+     *
+     * @return the all assessments
+     */
     public Set<Assessment> getAllAssessments() {
         return null;
     }
 
+    /**
+     * Update assessment note.
+     *
+     * @param note the note
+     */
     public void updateAssessmentNote(Note note) {
 
     }
