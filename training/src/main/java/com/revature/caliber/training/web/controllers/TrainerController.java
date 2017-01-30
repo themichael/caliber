@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Trainer Controller
@@ -98,18 +99,18 @@ public class TrainerController {
 	@RequestMapping(value = "trainers/all", 
 					method = RequestMethod.GET, 
 					produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Trainer>> getAllTrainers() {
-		ResponseEntity<List<Trainer>> returnEntity;
+	public ResponseEntity<Set<Trainer>> getAllTrainers() {
+		ResponseEntity<Set<Trainer>> returnEntity;
 		try {
-			List<Trainer> result = businessDelegate.getAllTrainers();
+			Set<Trainer> result = businessDelegate.getAllTrainers();
 
 			if (result == null) {
-				returnEntity = new ResponseEntity<List<Trainer>>(result, HttpStatus.NOT_FOUND);
+				returnEntity = new ResponseEntity<Set<Trainer>>(result, HttpStatus.NOT_FOUND);
 			} else {
-				returnEntity = new ResponseEntity<List<Trainer>>(result, HttpStatus.OK);
+				returnEntity = new ResponseEntity<Set<Trainer>>(result, HttpStatus.OK);
 			}
 		} catch (RuntimeException e) {
-			returnEntity = new ResponseEntity<List<Trainer>>(HttpStatus.BAD_REQUEST);
+			returnEntity = new ResponseEntity<Set<Trainer>>(HttpStatus.BAD_REQUEST);
 		}
 		return returnEntity;
 	}

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -37,7 +38,7 @@ public class VPBatchController {
      * @return in JSON, a set of batch objects
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Batch>> getAllBatches() {
+    public ResponseEntity<List<Batch>> getAllBatches() {
         return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
     }
 }

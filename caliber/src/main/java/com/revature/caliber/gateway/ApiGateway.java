@@ -322,7 +322,7 @@ public interface ApiGateway {
      *
      * @return the all batches
      */
-    Set<Batch> getAllBatches();
+    List<Batch> getAllBatches();
 
     /**
      * Update assessment note.
