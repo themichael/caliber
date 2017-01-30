@@ -202,7 +202,6 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
 
-
     /**
      * Gets batch from current batches by id.
      *
@@ -317,7 +316,6 @@ public class ApiGatewayImpl implements ApiGateway {
 
 
     /**
-     *
      * Aggregate grades by all tech for a Trainee // param - traineeId
      * - HashMap
      * - key Tech(Category)
@@ -390,34 +388,35 @@ public class ApiGatewayImpl implements ApiGateway {
 
     /**
      * // Shehar
-     Aggregate grades per week for a Batch // param - batchId
-     - HashMap
-     - key week
-     - value double array
-     - average
-     - median
-     - high
-     - low
-     Key: Week 1, Value: [83.54, 78.56, 90.56, 78.56]
-     Key: Week 2, Value: [83.54, 78.56, 90.56, 78.56]           etc.
-     * @param batchID
+     * Aggregate grades per week for a Batch // param - batchId
+     * - HashMap
+     * - key week
+     * - value double array
+     * - average
+     * - median
+     * - high
+     * - low
+     * Key: Week 1, Value: [83.54, 78.56, 90.56, 78.56]
+     * Key: Week 2, Value: [83.54, 78.56, 90.56, 78.56]           etc.
+     *
+     * @param batchID A batch id
      * @return grades
      */
     @Override
     public HashMap<String, Double[]> getGradesForBatchWeekly(int batchID) {
         List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(batchID); //grade data that we get from assessment module
-        HashMap<String,Double[]> grades = new HashMap<>(); //our result map
+        HashMap<String, Double[]> grades = new HashMap<>(); //our result map
         HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values
-        Double [] gradeV;
+        Double[] gradeV;
         List<Integer> list;
-        int highestWeek =0;
-        for ( Grade grade : allGrades) {
-            if(grade.getAssessment().getWeek().getWeekNumber()>highestWeek) {
+        int highestWeek = 0;
+        for (Grade grade : allGrades) {
+            if (grade.getAssessment().getWeek().getWeekNumber() > highestWeek) {
                 highestWeek = grade.getAssessment().getWeek().getWeekNumber();
             }
             Week weekNumber = grade.getAssessment().getWeek();
             if (!grades.containsKey(weekNumber.getWeekNumber())) {
-                grades.put(String.valueOf(weekNumber.getWeekNumber()), new Double[] {0.0, 0.0, 0.0, 0.0});
+                grades.put(String.valueOf(weekNumber.getWeekNumber()), new Double[]{0.0, 0.0, 0.0, 0.0});
                 gradeValues.put(String.valueOf(weekNumber.getWeekNumber()), new ArrayList<>());
             }
         }
@@ -428,22 +427,23 @@ public class ApiGatewayImpl implements ApiGateway {
         //grade average holder
         int[] gradeAverage = new int[highestWeek];
         //computation
-        for ( Grade grade : allGrades) {
+        for (Grade grade : allGrades) {
             Week weekNumber = grade.getAssessment().getWeek();
-            weeks[grade.getAssessment().getWeek().getWeekNumber()-1] += 1;
-            gradeTotal[grade.getAssessment().getWeek().getWeekNumber()-1] += grade.getScore();
+            weeks[grade.getAssessment().getWeek().getWeekNumber() - 1] += 1;
+            gradeTotal[grade.getAssessment().getWeek().getWeekNumber() - 1] += grade.getScore();
             gradeValues.get(String.valueOf(weekNumber.getWeekNumber())).add(grade.getScore());
             for (String weekName : grades.keySet()) {
                 gradeV = grades.get(weekName);
                 list = gradeValues.get(weekName);
                 list.sort(Integer::compareTo); //sort list of grades for convenience
                 //assume there is at least one grade
-                if (list.size() < 1) { continue; }
+                if (list.size() < 1) {
+                    continue;
+                }
                 if (list.size() > 1) {
                     gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
                             (list.get(list.size() / 2).doubleValue() + list.get(list.size() / 2 - 1).doubleValue()) / 2;
-                }
-                else {
+                } else {
                     gradeV[1] = list.get(0).doubleValue();
                 }
                 gradeV[3] = list.get(0).doubleValue();
@@ -451,9 +451,9 @@ public class ApiGatewayImpl implements ApiGateway {
                 grades.put(weekName, gradeV); //put the result array back to the map
             }
         }
-        for (int i=0;i<gradeAverage.length;i++){
-            gradeAverage[i] = gradeTotal[i]/weeks[i];
-            grades.get(String.valueOf(i+1))[0] = Double.valueOf(gradeAverage[i]);
+        for (int i = 0; i < gradeAverage.length; i++) {
+            gradeAverage[i] = gradeTotal[i] / weeks[i];
+            grades.get(String.valueOf(i + 1))[0] = Double.valueOf(gradeAverage[i]);
 
         }
         return grades;

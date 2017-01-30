@@ -38,7 +38,12 @@ public class TrainerBatchController {
         return new ResponseEntity<>(new ApiGatewayImpl().getCurrentBatch(), HttpStatus.OK);
     }
 
-
+    /**
+     * Create new week response entity.
+     *
+     * @param week the week
+     * @return the response entity
+     */
     @RequestMapping(value = "/week/new", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createNewWeek(@RequestBody Week week) {
         ApiGatewayImpl apiGateway = new ApiGatewayImpl();
@@ -46,6 +51,12 @@ public class TrainerBatchController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Create grade response entity.
+     *
+     * @param grade the grade
+     * @return the response entity
+     */
     @RequestMapping(value = "/grade/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createGrade(@RequestBody Grade grade) {
         ApiGatewayImpl apiGateway = new ApiGatewayImpl();
@@ -53,6 +64,12 @@ public class TrainerBatchController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Update grade response entity.
+     *
+     * @param grade the grade
+     * @return the response entity
+     */
     @RequestMapping(value = "/grade/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateGrade(@RequestBody Grade grade) {
         ApiGatewayImpl apiGateway = new ApiGatewayImpl();
@@ -60,6 +77,12 @@ public class TrainerBatchController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Create assessment response entity.
+     *
+     * @param assessment the assessment
+     * @return the response entity
+     */
     @RequestMapping(value = "/assessment/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createAssessment(@RequestBody Assessment assessment) {
         ApiGatewayImpl apiGateway = new ApiGatewayImpl();
@@ -67,6 +90,12 @@ public class TrainerBatchController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Delete assessment response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @RequestMapping(value = "/assessment/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteAssessment(@PathVariable int id) {
         ApiGatewayImpl apiGateway = new ApiGatewayImpl();
@@ -76,6 +105,12 @@ public class TrainerBatchController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Update assessment response entity.
+     *
+     * @param assessment the assessment
+     * @return the response entity
+     */
     @RequestMapping(value = "/assessment/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateAssessment(@RequestBody Assessment assessment) {
         ApiGatewayImpl apiGateway = new ApiGatewayImpl();
@@ -83,6 +118,12 @@ public class TrainerBatchController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Update assessment note response entity.
+     *
+     * @param note the note
+     * @return the response entity
+     */
     @RequestMapping(value = "/assessment/note/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateAssessmentNote(@RequestBody Note note) {
         ApiGatewayImpl apiGateway = new ApiGatewayImpl();

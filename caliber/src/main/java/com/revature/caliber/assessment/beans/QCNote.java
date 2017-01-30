@@ -1,46 +1,84 @@
 package com.revature.caliber.assessment.beans;
 
-public class QCNote extends Note{
+/**
+ * The type Qc note.
+ */
+public class QCNote extends Note {
 
-	private int trainee;
-	private int week;
-	
-	public QCNote(int trainee, int week) {
-		super();
-		this.trainee = trainee;
-		this.week = week;
-	}
+    private int trainee;
+    private int week;
 
-	public QCNote() {
-		super();
-	}
+    /**
+     * Instantiates a new Qc note.
+     *
+     * @param trainee the trainee
+     * @param week    the week
+     */
+    public QCNote(int trainee, int week) {
+        super();
+        this.trainee = trainee;
+        this.week = week;
+    }
 
-	public QCNote(String content, boolean sugarCoated) {
-		super(content, sugarCoated);
-	}
+    /**
+     * Instantiates a new Qc note.
+     */
+    public QCNote() {
+        super();
+    }
 
-	public int getTrainee() {
-		return trainee;
-	}
+    /**
+     * Instantiates a new Qc note.
+     *
+     * @param content     the content
+     * @param sugarCoated the sugar coated
+     */
+    public QCNote(String content, boolean sugarCoated) {
+        super(content, sugarCoated);
+    }
 
-	public void setTrainee(int trainee) {
-		this.trainee = trainee;
-	}
+    /**
+     * Gets trainee.
+     *
+     * @return the trainee
+     */
+    public int getTrainee() {
+        return trainee;
+    }
 
-	public int getWeek() {
-		return week;
-	}
+    /**
+     * Sets trainee.
+     *
+     * @param trainee the trainee
+     */
+    public void setTrainee(int trainee) {
+        this.trainee = trainee;
+    }
 
-	public void setWeek(int week) {
-		this.week = week;
-	}
+    /**
+     * Gets week.
+     *
+     * @return the week
+     */
+    public int getWeek() {
+        return week;
+    }
 
-	@Override
-	public String toString() {
-		return super.toString() + " > QCNote{" +
-				"trainee=" + trainee +
-				", week=" + week +
-				'}';
-	}
+    /**
+     * Sets week.
+     *
+     * @param week the week
+     */
+    public void setWeek(int week) {
+        this.week = week;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " > QCNote{" +
+                "trainee=" + trainee +
+                ", week=" + week +
+                '}';
+    }
 
 }

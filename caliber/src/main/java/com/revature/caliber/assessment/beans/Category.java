@@ -2,6 +2,9 @@ package com.revature.caliber.assessment.beans;
 
 import java.util.Set;
 
+/**
+ * The type Category.
+ */
 public class Category {
 
     private int categoryId;
@@ -13,21 +16,43 @@ public class Category {
 
     private Set<Integer> weeks;
 
+    /**
+     * Instantiates a new Category.
+     */
     public Category() {
         super();
     }
 
+    /**
+     * Instantiates a new Category.
+     *
+     * @param skillCategory the skill category
+     */
     public Category(String skillCategory) {
         super();
         this.skillCategory = skillCategory;
     }
 
+    /**
+     * Instantiates a new Category.
+     *
+     * @param categoryId    the category id
+     * @param skillCategory the skill category
+     */
     public Category(int categoryId, String skillCategory) {
         super();
         this.categoryId = categoryId;
         this.skillCategory = skillCategory;
     }
 
+    /**
+     * Instantiates a new Category.
+     *
+     * @param categoryId    the category id
+     * @param skillCategory the skill category
+     * @param assessments   the assessments
+     * @param weeks         the weeks
+     */
     public Category(int categoryId, String skillCategory, Set<Assessment> assessments, Set<Integer> weeks) {
         super();
         this.categoryId = categoryId;
@@ -46,34 +71,74 @@ public class Category {
                 '}';
     }
 
+    /**
+     * Gets category id.
+     *
+     * @return the category id
+     */
     public int getCategoryId() {
         return categoryId;
     }
 
+    /**
+     * Sets category id.
+     *
+     * @param categoryId the category id
+     */
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
+    /**
+     * Gets skill category.
+     *
+     * @return the skill category
+     */
     public String getSkillCategory() {
         return skillCategory;
     }
 
+    /**
+     * Sets skill category.
+     *
+     * @param skillCategory the skill category
+     */
     public void setSkillCategory(String skillCategory) {
         this.skillCategory = skillCategory;
     }
 
+    /**
+     * Gets assessments.
+     *
+     * @return the assessments
+     */
     public Set<Assessment> getAssessments() {
         return assessments;
     }
 
+    /**
+     * Sets assessments.
+     *
+     * @param assessments the assessments
+     */
     public void setAssessments(Set<Assessment> assessments) {
         this.assessments = assessments;
     }
 
+    /**
+     * Gets weeks.
+     *
+     * @return the weeks
+     */
     public Set<Integer> getWeeks() {
         return weeks;
     }
 
+    /**
+     * Sets weeks.
+     *
+     * @param weeks the weeks
+     */
     public void setWeeks(Set<Integer> weeks) {
         this.weeks = weeks;
     }
