@@ -53,10 +53,15 @@ public interface AssessmentService {
      */
     void updateGrade(Grade grade);
 
-    /**
-     * Create a batchNote
-     */
-    void createBatchNote(BatchNote batchNote);
+	/**
+	 * Get all grades
+	 */
+	List<com.revature.caliber.assessment.beans.Grade> getAllGrades();
+
+	/**
+	 * Create a batchNote
+	 */
+	void createBatchNote(BatchNote batchNote);
 
     /**
      * Get the batch note within a given week corresponding to a specific batch

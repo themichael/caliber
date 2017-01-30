@@ -120,7 +120,7 @@ public class Assessment {
                 ", rawScore=" + rawScore +
                 ", type='" + type + '\'' +
                 ", week=" + week +
-                ", weeklyStatus=" + weeklyStatus.getStatus() +
+                ", weeklyStatus=" + weeklyStatus +
                 ", categories=" + categories +
                 '}';
     }

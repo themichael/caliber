@@ -17,6 +17,7 @@ import java.util.List;
 
 public class TrainingServiceImpl implements TrainingService {
 
+
     private String localhost = "http://localhost:9001";
     private String hostname;
     private String portNumber;
@@ -346,6 +347,7 @@ public class TrainingServiceImpl implements TrainingService {
     //End of Trainer ----------------------------------------------------------------------------
 
 
+
     // Week
     @Override
     public List<Week> getAllWeek() {
@@ -441,9 +443,6 @@ public class TrainingServiceImpl implements TrainingService {
         RestTemplate service = new RestTemplate();
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getWeekByBatch).path(String.valueOf(batchId))
                 .build().toUriString();
-
-//		final String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:" + "8080/").path(getWeekByBatch).path(String.valueOf(batchId))
-//				.build().toUriString();
 
         //Invoke the service
         ResponseEntity<Week[]> response = service.getForEntity(URI, Week[].class);

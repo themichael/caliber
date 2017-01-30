@@ -5,15 +5,12 @@ import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
+import java.util.Collections;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -423,22 +420,6 @@ public class ApiGatewayImpl implements ApiGateway {
      Key: Week 1, Value: [83.54, 78.56, 90.56, 78.56]
      Key: Week 2, Value: [83.54, 78.56, 90.56, 78.56]           etc.
      * @param batchID
-=======
-     * // Shehar
-     * Aggregate grades per week for a Batch // param - batchId
-     * - HashMap
-     * - key week
-     * - value double array
-     * - average
-     * - median
-     * - high
-     * - low
-     * Key: Week 1, Value: [83.54, 78.56, 90.56, 78.56]
-     * Key: Week 2, Value: [83.54, 78.56, 90.56, 78.56]           etc.
-     *
-     * @param batchID A batch id
->>>>>>> master
-     * @return grades
      *
      * @author Shehar
      */
@@ -446,29 +427,23 @@ public class ApiGatewayImpl implements ApiGateway {
     public HashMap<String, Double[]> getGradesForBatchWeekly(int batchID) {
         //grade data that we get from assessment module
         List<com.revature.caliber.assessment.beans.Grade> allGrades =
-                serviceLocator.getAssessmentService().getGradesByTraineeId(batchID);
+                serviceLocator.getAssessmentService().getAllGrades();//get all grades
         HashMap<String,Double[]> grades = new HashMap<>(); //our result map
         HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values
         Double[] gradeV;
         List<Integer> list;
-        int highestWeek = 0;
-
-        //get all weeks and reassemble them into the map by week id
-        List<Week> weekList = serviceLocator.getTrainingService().getAllWeek();
-        TreeMap<Long, Week> weekTreeMap = new TreeMap<>();
-        for (Week week : weekList) {
-            weekTreeMap.put(week.getWeekId(), week);
-        }
-
+        int highestWeek =0;
         for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
-            if (weekTreeMap.get(new Long(grade.getAssessment().getWeek())).getWeekNumber() > highestWeek) {
-                highestWeek = weekTreeMap.get(new Long(grade.getAssessment().getWeek())).getWeekNumber();
-            }
-
-            Week weekNumber = weekTreeMap.get(grade.getAssessment().getWeek());
-            if (!grades.containsKey(weekNumber.getWeekNumber())) {
-                grades.put(String.valueOf(weekNumber.getWeekNumber()), new Double[]{0.0, 0.0, 0.0, 0.0});
-                gradeValues.put(String.valueOf(weekNumber.getWeekNumber()), new ArrayList<>());
+            if(grade.getAssessment().getBatch()==batchID) {
+                System.out.println("GRADE: " + grade.getScore() + "    BATCH: " + grade.getAssessment().getBatch() + "     WEEK: " + grade.getAssessment().getWeek());
+                if (grade.getAssessment().getWeek() > highestWeek) {
+                    highestWeek = (int) grade.getAssessment().getWeek();
+                }
+                long weekNumber = grade.getAssessment().getWeek();
+                if (!grades.containsKey(weekNumber)) {
+                    grades.put(String.valueOf(weekNumber), new Double[]{0.0, 0.0, 0.0, 0.0});
+                    gradeValues.put(String.valueOf(weekNumber), new ArrayList<>());
+                }
             }
         }
         //find how many weeks
@@ -477,13 +452,11 @@ public class ApiGatewayImpl implements ApiGateway {
         int[] gradeTotal = new int[highestWeek];
         //grade average holder
         int[] gradeAverage = new int[highestWeek];
-        //computation
-
         for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
-            Week weekNumber = weekTreeMap.get(new Long(grade.getAssessment().getWeek()));
-            weeks[weekNumber.getWeekNumber() - 1] += 1;
-            gradeTotal[weekNumber.getWeekNumber() - 1] += grade.getScore();
-            gradeValues.get(String.valueOf(weekNumber.getWeekNumber())).add(grade.getScore());
+            long weekNumber = grade.getAssessment().getWeek();
+            weeks[(int) (grade.getAssessment().getWeek()-1)] += 1;
+            gradeTotal[(int) (grade.getAssessment().getWeek()-1)] += grade.getScore();
+            gradeValues.get(String.valueOf(weekNumber)).add(grade.getScore());
             for (String weekName : grades.keySet()) {
                 gradeV = grades.get(weekName);
                 list = gradeValues.get(weekName);
@@ -503,12 +476,13 @@ public class ApiGatewayImpl implements ApiGateway {
                 grades.put(weekName, gradeV); //put the result array back to the map
             }
         }
-        for (int i = 0; i < gradeAverage.length; i++) {
-            gradeAverage[i] = gradeTotal[i] / weeks[i];
-            grades.get(String.valueOf(i + 1))[0] = Double.valueOf(gradeAverage[i]);
+        for (int i=0;i<gradeAverage.length;i++){
+            gradeAverage[i] = gradeTotal[i]/weeks[i];
+            grades.get(String.valueOf(i+1))[0] = Double.valueOf(gradeAverage[i]);
 
         }
         return grades;
+
     }
 
 

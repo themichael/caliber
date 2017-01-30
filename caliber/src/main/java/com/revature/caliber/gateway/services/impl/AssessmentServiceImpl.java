@@ -1,13 +1,6 @@
 package com.revature.caliber.gateway.services.impl;
 
-import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.TrainerNote;
 import com.revature.caliber.beans.exceptions.AssessmentServiceAssessmentOperationException;
 import com.revature.caliber.beans.exceptions.AssessmentServiceOperationException;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
@@ -17,11 +10,14 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 
 public class AssessmentServiceImpl implements AssessmentService {
-	
+
 	private String localhost = "http://localhost:8081";
     private String hostname;
     private String portNumber;
@@ -31,7 +27,9 @@ public class AssessmentServiceImpl implements AssessmentService {
     private String 	addGradePath, 
     				updateGradePath, 
     				getGradesByAssessmentPath,
-					getGradesByTraineePath;
+					getGradesByTraineePath,
+                    allGradesPath;
+
     //paths for Trainer Note
     private String 	deleteTrainerNotePath, 
     				updateTrainerNotePath,
@@ -51,7 +49,6 @@ public class AssessmentServiceImpl implements AssessmentService {
 			       updateAssessmentPath,
 			       deleteAssessmentPath,
 	               getAllAssessmentsPath;
-    
 
     @Override
 	public void insertAssessment(Assessment assessment) {
@@ -180,8 +177,25 @@ public class AssessmentServiceImpl implements AssessmentService {
 			throw new AssessmentServiceOperationException("Grade could not be updated");
 
 		}
-		
 	}
+
+	@Override
+	public List<com.revature.caliber.assessment.beans.Grade> getAllGrades(){
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allGradesPath)
+                .build().toUriString();
+
+        //Invoke the service
+        ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response = service.getForEntity(URI, com.revature.caliber.assessment.beans.Grade[].class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            return Arrays.asList(response.getBody());
+        }
+        else {
+            return new ArrayList<>();
+        }
+    }
 	
 	@Override
 	public void createBatchNote(BatchNote batchNote) {
@@ -429,7 +443,8 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setInsertGrade(String addGradePath){this.addGradePath = addGradePath;}
     public void setUpdateGrade(String updateGradePath){this.updateGradePath = updateGradePath;}
 	public void setGetGradesByTraineePath(String getGradesByTraineePath) { this.getGradesByTraineePath = getGradesByTraineePath; }
-	//end of Grade
+    public void setAllGradesPath(String allGradesPath) {this.allGradesPath = allGradesPath;}
+    //end of Grade
     
     //Assessment
     public void setDeleteAssessment(String deleteAssessmentPath){this.deleteAssessmentPath = deleteAssessmentPath;}
@@ -453,5 +468,5 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setCreateBatchNotePath(String createBatchNotePath){this.createBatchNotePath = createBatchNotePath;}
     public void setUpdateBatchNotePath(String updateBatchNotePath){this.updateBatchNotePath = updateBatchNotePath;}
     public void setDeleteBatchNotePath(String deleteBatchNotePath){this.deleteBatchNotePath = deleteBatchNotePath;}
-    
+
 }

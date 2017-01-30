@@ -1,14 +1,13 @@
 package com.revature.caliber.initial;
 
-import java.util.List;
-
+import com.revature.caliber.gateway.services.AssessmentService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import com.revature.caliber.gateway.services.AssessmentService;
+import java.util.List;
 
 public class AssessmentServiceImplTest {
 	   private static ApplicationContext context;
@@ -31,8 +30,8 @@ public class AssessmentServiceImplTest {
 	   
 	   @Test
 	   public void getGradesByTrainee(){
-		   List<com.revature.caliber.beans.Grade> grades = assessmentService.getGradesByTraineeId(1);
-		   for (com.revature.caliber.beans.Grade grade : grades) {
+		   List<com.revature.caliber.assessment.beans.Grade> grades = assessmentService.getGradesByTraineeId(1);
+		   for (com.revature.caliber.assessment.beans.Grade grade : grades) {
 			   System.out.println("Grade #"+ grade.getGradeId() + ": " + grade.getScore());
 		   }
 	   }
