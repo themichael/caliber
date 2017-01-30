@@ -75,7 +75,18 @@ public class ApiGatewayImplTest {
             }
             System.out.println("]");
         }
-    	
+    }
+    
+    @Test
+    public void getTechGradeDataForBatch(){
+    	Map<String, Double[]> grades = apiGateway.getTechGradeDataForBatch(1);
+        for (String grade : grades.keySet()) {
+            System.out.print(grade + " -> [");
+            for (Double d : grades.get(grade)) {
+                System.out.print(d + ", ");
+            }
+            System.out.println("]");
+        }
     	
     }
 
