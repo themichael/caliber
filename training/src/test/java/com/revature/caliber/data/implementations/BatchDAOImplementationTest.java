@@ -27,7 +27,7 @@ import static org.junit.Assert.assertNull;
 public class BatchDAOImplementationTest {
 	private static AbstractApplicationContext context;
 	private static SessionFactory sf;
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(TraineeDAOImplementationTest.class);
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(BatchDAOImplementationTest.class);
 	static int id = 2434;
 	private static BatchDAO batchDAO;
 
