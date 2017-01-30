@@ -30,7 +30,8 @@ public class AssessmentServiceImpl implements AssessmentService {
     //TODO add the paths to the bean.xml
     private String 	addGradePath, 
     				updateGradePath, 
-    				getGradesByAssessmentPath;
+    				getGradesByAssessmentPath,
+					getGradesByTraineePath;
     //paths for Trainer Note
     private String 	deleteTrainerNotePath, 
     				updateTrainerNotePath,
@@ -427,13 +428,15 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setGradesByAssessments(String getGradesByAssessmentPath){this.getGradesByAssessmentPath = getGradesByAssessmentPath;}
     public void setInsertGrade(String addGradePath){this.addGradePath = addGradePath;}
     public void setUpdateGrade(String updateGradePath){this.updateGradePath = updateGradePath;}
-    //end of Grade
+	public void setGetGradesByTraineePath(String getGradesByTraineePath) { this.getGradesByTraineePath = getGradesByTraineePath; }
+	//end of Grade
     
     //Assessment
     public void setDeleteAssessment(String deleteAssessmentPath){this.deleteAssessmentPath = deleteAssessmentPath;}
     public void setInsertAssessment(String addAssessmentPath){this.addAssessmentPath = addAssessmentPath;}
     public void setUpdateAssessment(String updateAssessmentPath){this.updateAssessmentPath = updateAssessmentPath;}
-    //end of Assessment
+	public void setGetAllAssessmentsPath(String getAllAssessmentsPath) { this.getAllAssessmentsPath = getAllAssessmentsPath; }
+	//end of Assessment
     
     //TrainerNote
     public void setDeleteTrainerNotePath(String deleteTrainerNotePath){this.deleteTrainerNotePath = deleteTrainerNotePath;}

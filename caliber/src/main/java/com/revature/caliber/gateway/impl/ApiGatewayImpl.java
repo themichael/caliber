@@ -549,11 +549,12 @@ public class ApiGatewayImpl implements ApiGateway {
 
     //@Override
     public HashMap<String, Double[]> getWeekGradeDataForTraineeInit(int id) {
-        List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
+        List<com.revature.caliber.assessment.beans.Grade> allGrades =
+                serviceLocator.getAssessmentService().getGradesByTraineeId(id);
         HashMap<String, Double[]> grades = new HashMap<>();//result
         List<Week> week = serviceLocator.getTrainingService().getAllWeek();
 
-        for (Grade grade : allGrades) {
+        for (com.revature.caliber.assessment.beans.Grade grade : allGrades) {
 //			int weeknum = grade.getAssessment().getWeek().getWeekNumber(); //Should get back a weeknum which should be unique for all
             long assessmentId = grade.getAssessment().getAssessmentId();
             //Assessment assessment =serviceLocator.getAssessmentService().getAssessmentById();
@@ -628,9 +629,10 @@ public class ApiGatewayImpl implements ApiGateway {
         List<Trainee> trainees = null;//serviceLocator.getTrainingService().getTraineesByTrainer(?)/getallTrainees
         HashMap<String, Double[]> grades = new HashMap<>();
         for (Trainee trainee : trainees) {
-            List<Grade> tgrades = serviceLocator.getAssessmentService().getGradesByTraineeId(trainee.getTraineeId());
+            List<com.revature.caliber.assessment.beans.Grade> tgrades =
+                    serviceLocator.getAssessmentService().getGradesByTraineeId(trainee.getTraineeId());
             List<Integer> scores = new ArrayList<>();
-            for (Grade grade : tgrades) {
+            for (com.revature.caliber.assessment.beans.Grade grade : tgrades) {
                 scores.add(grade.getScore());
             }
 

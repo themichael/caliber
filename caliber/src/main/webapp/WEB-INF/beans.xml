@@ -28,7 +28,8 @@
 		
 		<property name="insertAssessment" value="assessments/assessment/new"/>
 		<property name="deleteAssessment" value="assessments/assessment/delete" />
-		<property name="updateAssessment" value="assessments/assesment/update" />
+		<property name="updateAssessment" value="assessments/assessment/update" />
+		<property name="getAllAssessmentsPath" value="assessments/assessment/all" />
 
 
 		<property name="insertGrade" value="assessments/grades/create/"/>
