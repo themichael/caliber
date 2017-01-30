@@ -15,7 +15,7 @@ import java.util.*;
 
 public class AssessmentServiceImpl implements AssessmentService {
 	
-	private String localhost = "http://localhost:9001";
+	private String localhost = "http://localhost:8081";
     private String hostname;
     private String portNumber;
     
@@ -23,8 +23,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     //TODO add the paths to the bean.xml
     private String 	addGradePath, 
     				updateGradePath, 
-    				getGradesByAssessmentPath,
-					getGradesByTraineePath;
+    				getGradesByAssessmentPath;
     //paths for Trainer Note
     private String 	deleteTrainerNotePath, 
     				updateTrainerNotePath,
@@ -349,17 +348,11 @@ public class AssessmentServiceImpl implements AssessmentService {
 	@Override
 	public List<Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
+		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response =
+				rest.getForEntity("http://localhost:8081/assessments/grades/trainee/"+ id,
+						com.revature.caliber.assessment.beans.Grade[].class);
 
-//		final String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:" + "8080").path(getGradesByTraineePath + "/" + id)
-//				.build().toUriString();
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteTrainerNotePath)
-                .build().toUriString();
-
-		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> responseAssessmentModule =
-				rest.getForEntity(URI, com.revature.caliber.assessment.beans.Grade[].class);
-
-
-		com.revature.caliber.assessment.beans.Grade[] grades = responseAssessmentModule.getBody();
+		com.revature.caliber.assessment.beans.Grade[] grades = response.getBody();
 
 		List<Grade> newGrades = new ArrayList<>();
 
@@ -378,16 +371,6 @@ public class AssessmentServiceImpl implements AssessmentService {
 				newCategory.setSkillCategory(category.getSkillCategory());
 				someNewCategories.add(newCategory);
 			}
-
-			//adding week
-			Set<Week> someNewWeek = new HashSet<>();
-			long someWeeks = someAssessment.getWeek();
-            Week newWeek = new Week();
-            newWeek.setWeekId(someWeeks);
-            newWeek.setWeekNumber((int) someWeeks);
-            someNewWeek.add(newWeek);
-            someNewAssessment.setWeek(newWeek);
-
 			someNewAssessment.setCategories(someNewCategories);
 
 			someNewGrade.setScore(someGrade.getScore());
@@ -397,7 +380,8 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 			newGrades.add(someNewGrade);
 		}
-
+		//ResponseEntity<Grade[]> response =
+				//rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+id, Grade[].class); //TODO change ip to get from config file
 		return newGrades;
 	}
 
@@ -428,8 +412,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setGradesByAssessments(String getGradesByAssessmentPath){this.getGradesByAssessmentPath = getGradesByAssessmentPath;}
     public void setInsertGrade(String addGradePath){this.addGradePath = addGradePath;}
     public void setUpdateGrade(String updateGradePath){this.updateGradePath = updateGradePath;}
-	public void setGetGradesByTraineePath(String getGradesByTraineePath) { this.getGradesByTraineePath = getGradesByTraineePath; }
-	//end of Grade
+    //end of Grade
     
     //Assessment
     public void setDeleteAssessment(String deleteAssessmentPath){this.deleteAssessmentPath = deleteAssessmentPath;}
