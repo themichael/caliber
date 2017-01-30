@@ -3,6 +3,7 @@ package com.revature.caliber.initial;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -25,6 +26,11 @@ public class ApiGatewayTest {
 	@Test
 	public void beansWired(){
 		assertNotNull(context.getBean(ApiGateway.class));
+	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
 	}
 	
 }

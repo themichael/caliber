@@ -3,10 +3,13 @@ package com.revature.caliber.gateway.services.impl;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Week;
 import com.revature.caliber.gateway.services.TrainingService;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.List;
@@ -108,5 +111,9 @@ public class TrainingServiceImplTest {
 		TrainingServiceImpl training = new TrainingServiceImpl();
 		training.createWeek(newWeek);
 	}
-
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
+	}
 }
