@@ -34,7 +34,6 @@
 		<property name="insertGrade" value="assessments/grades/create/"/>
 		<property name="updateGrade" value="assessments/grades/update/"/>
 		<property name="gradesByAssessments" value="assessments/grades/assessment/"/>
-		<property name="getGradesByTraineePath" value="assessments/grades/trainee" />
 		
 		<property name="updateTrainerNotePath" value="assessments/trainerNote/update/" />
 		<property name="deleteTrainerNotePath" value="assessments/trainerNote/delete/" />
@@ -49,8 +48,8 @@
 	</bean>
 
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
-		<property name="hostname" value="http://www.pjw6193.tech" />
-		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
+		<property name="hostname" value="http://localhost" />
+		<property name="portNumber" value=":8080/" /> <!-- use 443 for SSL -->
 
 		<property name="newBatch" value="training/batch/create/" />
 		<property name="allBatch" value="training/batch/all/" />

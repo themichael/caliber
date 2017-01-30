@@ -35,8 +35,77 @@ angular.module("trainer")
         var grades = [
             {gradeId: 14, assessment: 51, trainee: 53, dateReceived: new Date(), score: 94},
             {gradeId: 15, assessment: 51, trainee: 65, dateReceived: new Date(), score: 84},
-            {gradeId: 16, assessment: 51, trainee: 78, dateReceived: new Date(), score: 74},
+            {gradeId: 16, assessment: 51, trainee: 78, dateReceived: new Date(), score: 74}
+        ];
+
+        $scope.skill_categories = [
+            {"categoryId":5,"skillCategory":"HIBERNATE","weeks":[]},
+            {"categoryId":4,"skillCategory":"SPRING","weeks":[]},
+            {"categoryId":2,"skillCategory":"REST","weeks":[]},
+            {"categoryId":3,"skillCategory":"SOAP","weeks":[1,2,3]},
+            {"categoryId":1,"skillCategory":"Core Java","weeks":[]}
+        ];
+
+        $scope.trainers = [
+            {
+                "trainerId":1,
+                "name":"Name",
+                "title":"title",
+                "email":"email3",
+                "salesforceAccount":"account",
+                "salesforceAuthenticationToken":"token",
+                "salesforceRefreshToken":"token",
+                "tier":{
+                    "tierId":1,
+                    "tier":"ROLE_VP",
+                    "ranking":1
+                }
+            },
+            {
+                "trainerId":7,
+                "name":"Martino",
+                "title":"title",
+                "email":"nikolovski23@gmail.com",
+                "salesforceAccount":"nikolovski23@gmail.com",
+                "salesforceAuthenticationToken":"auth_token",
+                "salesforceRefreshToken":"refr_token",
+                "tier":{
+                    "tierId":1,
+                    "tier":"ROLE_VP",
+                    "ranking":1
+                }
+            },
+            {
+                "trainerId":5,
+                "name":"Test trainee (TraineeDAO Test)",
+                "title":"title",
+                "email":"email5",
+                "salesforceAccount":"sf_account",
+                "salesforceAuthenticationToken":"sf_auth_token",
+                "salesforceRefreshToken":"sf_refr_token",
+                "tier":{
+                    "tierId":3,
+                    "tier":"ROLE_TRAINER",
+                    "ranking":999
+                }
+            },
+            {
+                "trainerId":29100,
+                "name":"Kristy Kim",
+                "title":"Trainer at Hunter",
+                "email":"kkim@revature.com",
+                "salesforceAccount":"sfaccountex",
+                "salesforceAuthenticationToken":"sfauthenticationtoken",
+                "salesforceRefreshToken":"sfrefreshtoken",
+                "tier":{
+                    "tierId":3,
+                    "tier":"ROLE_TRAINER",
+                    "ranking":999
+                }
+            }
         ]
+
+        // END TEST DATA *********************
 
         /******************************************* UI ***********************************************/
         // starting scope vars
@@ -89,6 +158,17 @@ angular.module("trainer")
             });
 
             return grade.score;
+        };
+
+        /* Save Assessment */
+        $scope.addAssessment = function( ){
+            assessments.push({
+                trainingName: $scope.trainingName,
+                trainingType: $scope.trainingType,
+                skillType: $scope.skillType,
+                weekId: $scope.weekId,
+                rawScore: $scope.rawScore
+            })
         };
 
         // test function - get assessment

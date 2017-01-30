@@ -267,7 +267,6 @@ public interface ApiGateway {
 
     /**
      * Delete the Batch Note
-     * <<<<<<< HEAD
      *
      * @param batchNote the batch note
      */
@@ -324,7 +323,7 @@ public interface ApiGateway {
      *
      * @return the all batches
      */
-    Set<Batch> getAllBatches();
+    List<Batch> getAllBatches();
 
     /**
      * Update assessment note.
@@ -367,4 +366,8 @@ public interface ApiGateway {
      * @param week the week
      */
     void createNewWeek(Week week);
+
+    Set<Grade> getAssessmentGradesById(int id);
+
+    Batch getCurrentBatch();
 }

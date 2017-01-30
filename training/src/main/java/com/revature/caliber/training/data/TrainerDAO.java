@@ -1,6 +1,7 @@
 package com.revature.caliber.training.data;
 
 import java.util.List;
+import java.util.Set;
 
 import com.revature.caliber.training.beans.Trainer;
 
@@ -40,7 +41,7 @@ public interface TrainerDAO {
 	 * 
 	 * @return: a list of Trainer objects
 	 */
-	List<Trainer> getAllTrainers();
+	Set<Trainer> getAllTrainers();
 
 	/**
 	 * Updates a trainer

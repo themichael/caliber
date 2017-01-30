@@ -350,7 +350,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public List<Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
 		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response =
-				rest.getForEntity("http://localhost:8081/assessments/grades/trainee/"+ id,
+				rest.getForEntity(hostname + portNumber + id,
 						com.revature.caliber.assessment.beans.Grade[].class);
 
 		com.revature.caliber.assessment.beans.Grade[] grades = response.getBody();
@@ -444,4 +444,5 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public String getGetGradesByTraineePath() {
 		return getGradesByTraineePath;
 	}
+
 }
