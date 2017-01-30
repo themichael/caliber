@@ -1,16 +1,16 @@
 package com.revature.caliber.gateway.services.impl;
 
 import com.revature.caliber.beans.Batch;
-import java.io.Serializable;
-
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
 import com.revature.caliber.gateway.services.TrainingService;
+import com.revature.caliber.beans.Week;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +20,10 @@ public class TrainingServiceImpl implements TrainingService{
 	private String localhost = "http://localhost:9001";
 	private String hostname;
 	private String portNumber;
+
+	//path for week
+	private String weekId, weekNumber, batch, topics;
+
 	//paths for batch
 	private String newBatch, allBatch, allBatchesForTrainer, allCurrentBatch, allCurrentBatchByTrainer,
 			batchById, updateBatch, deleteBatch;
@@ -27,6 +31,7 @@ public class TrainingServiceImpl implements TrainingService{
 	private String addTraineePath, updateTraineePath, deleteTraineePath, getTraineeByIdPath, getTraineeByNamePath,
 			getTraineesByBatchPath;
 	private String addTrainerPath, updateTrainerPath, getAllTrainersPath, getTrainerByIdPath, getTrainerByEmailPath;
+	private String getWeekByBatch;
 
 	/***********************************Batch**********************************/
 	@Override
@@ -383,7 +388,41 @@ public class TrainingServiceImpl implements TrainingService{
 		}
 	}
 
+
 	//End of Trainer ----------------------------------------------------------------------------
+
+
+
+
+	//Week --------------------------------------------------------------------------------------
+
+	@Override
+	public List<Week> getWeekByBatch(int batchId) {
+		RestTemplate service = new RestTemplate();
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getWeekByBatch).path(String.valueOf(batchId))
+				.build().toUriString();
+
+//		final String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:" + "8080/").path(getWeekByBatch).path(String.valueOf(batchId))
+//				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<Week[]> response = service.getForEntity(URI, Week[].class);
+
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new RuntimeException("Failed to retrieve Week by Batch.");
+		} else if (response.getStatusCode() == HttpStatus.OK) {
+			return Arrays.asList(response.getBody());
+		} else {
+			return new ArrayList<>();
+		}
+	}
+
+
+
+
+
+
+	//End of Week     ----------------------------------------------------------------------------
 
 	/////////// SETTERS ////////////////
 	public void setHostname(String hostname) {
@@ -420,4 +459,7 @@ public class TrainingServiceImpl implements TrainingService{
 	public void setGetTrainerByIdPath(String getTrainerByIdPath) {this.getTrainerByIdPath = getTrainerByIdPath;}
 	public void setGetTrainerByEmailPath(String getTrainerByEmailPath) {this.getTrainerByEmailPath = getTrainerByEmailPath;}
 	//End of Trainer
+
+	//Week
+	public void setGetWeekByBatch(String getWeekByBatch) {this.getWeekByBatch = getWeekByBatch;}
 }
