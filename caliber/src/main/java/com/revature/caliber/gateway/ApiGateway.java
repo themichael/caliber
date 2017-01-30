@@ -169,111 +169,129 @@ public interface ApiGateway {
     void updateTrainer(Trainer trainer);
 
 
-
     //End of Trainer Service
 
     /**
      * retreive tech grade for a trainee with AVG , MEDIAN , MAX , MIN
-     * @param id
-     * @return
+     *
+     * @param id the id
+     * @return tech grade data for trainee
      */
-	HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
+    HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
 
-    
+
     //Grade Service
+
     /**
      * Retrieves the Grade using the assessmentId
-     * @param assessmentId
-     * @return
+     *
+     * @param assessmentId the assessment id
+     * @return grades by assessment
      */
     List<Grade> getGradesByAssessment(Integer assessmentId);
-    
+
     /**
      * Inserts a grade
-     * @param grade
+     *
+     * @param grade the grade
      */
     void insertGrade(Grade grade);
-    
+
     /**
      * Updates a grade
-     * @param grade
+     *
+     * @param grade the grade
      */
     void updateGrade(Grade grade);
-    
+
     /**
      * Create a Trainer Note
-     * @param note
+     *
+     * @param note the note
      */
-    //End of grade Service
-    
+//End of grade Service
+
     //TrainerNoteService
     void createTrainerNote(TrainerNote note);
-    
+
     /**
      * Update the Trainer Note
-     * @param note
+     *
+     * @param note the note
      */
     void updateTrainerNote(TrainerNote note);
-    
+
     /**
      * Delete the Trainer Note
-     * @param note
+     *
+     * @param note the note
      */
     void deleteTrainerNote(TrainerNote note);
     //End of trainer note service
-    
+
     //Batch note service
+
     /**
      * Create a Batch Note
-<<<<<<< HEAD
-     * @param batchNote
-=======
->>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     * <<<<<<< HEAD
+     *
+     * @param batchNote =======                  >>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
      */
     void createBatchNote(BatchNote batchNote);
-    
+
     /**
      * Update the Batch Note
-<<<<<<< HEAD
-     * @param batchNote
-=======
->>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     * <<<<<<< HEAD
+     *
+     * @param batchNote =======                  >>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
      */
     void updateBatchNote(BatchNote batchNote);
-    
+
     /**
      * Delete the Batch Note
-<<<<<<< HEAD
-     * @param batchNote
-=======
->>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     * <<<<<<< HEAD
+     *
+     * @param batchNote =======                  >>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
      */
     void deleteBatchNote(BatchNote batchNote);
     //End of batch note service
-    
+
     //Assessment service
+
     /**
      * Add an assessment
-     * @param assessment
+     *
+     * @param assessment the assessment
      */
     void insertAssessment(Assessment assessment);
-    
+
     /**
      * update an assessment
-     * @param assessment
+     *
+     * @param assessment the assessment
      */
     void updateAssessment(Assessment assessment);
-    
+
     /**
      * Delete an assessment
-     * @param assessment
+     *
+     * @param assessment the assessment
      */
     void deleteAssessment(Assessment assessment);
-    
-    void createQCNote(QCNote note);
-    
-    void updateQCNote(QCNote note);
 
+    /**
+     * Create qc note.
+     *
+     * @param note the note
+     */
+    void createQCNote(QCNote note);
+
+    /**
+     * Update qc note.
+     *
+     * @param note the note
+     */
+    void updateQCNote(QCNote note);
 
 
 }

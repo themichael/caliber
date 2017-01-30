@@ -159,20 +159,23 @@ public interface TrainingService {
     void updateTrainer(Trainer trainer);
 
     //End of Trainer
-    
-    
+
+
     //Week
+
     /**
      * Get a list of all Weeks
+     *
      * @return A list of Week objects
      */
     List<Week> getAllWeek();
-    
+
     /**
      * Create a new Week object
-     * @param Week object
+     *
+     * @param week the week
      */
     void createWeek(Week week);
-    
-    
+
+
 }
