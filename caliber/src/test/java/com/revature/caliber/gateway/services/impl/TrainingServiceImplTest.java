@@ -1,4 +1,4 @@
-package com.revature.caliber.services.impl;
+package com.revature.caliber.gateway.services.impl;
 
 import java.util.List;
 
@@ -27,8 +27,6 @@ public class TrainingServiceImplTest {
 		TrainingServiceImpl training = new TrainingServiceImpl();
 		training.createWeek(newWeek);
 	}
-	
-	
-	
+
 
 }
