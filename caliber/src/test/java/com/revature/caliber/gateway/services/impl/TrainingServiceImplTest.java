@@ -1,6 +1,6 @@
 package com.revature.caliber.gateway.services.impl;
 
-<<<<<<< HEAD
+
 import java.util.List;
 
 import org.junit.Ignore;
@@ -9,39 +9,9 @@ import org.junit.Test;
 import com.revature.caliber.beans.Week;
 import com.revature.caliber.gateway.services.impl.TrainingServiceImpl;
 
-public class TrainingServiceImplTest {
-	
-	@Test
-	@Ignore
-	public void getAllWeekTest(){
-		
-		TrainingServiceImpl training = new TrainingServiceImpl();
-		List<Week> weeks = training.getAllWeek();
-		System.out.println(weeks);
-	}
-	
-	@Test
-	@Ignore
-	public void addNewWeekTest(){
-		Week newWeek = new Week();
-		newWeek.setWeekNumber(2099);
-		TrainingServiceImpl training = new TrainingServiceImpl();
-		training.createWeek(newWeek);
-	}
-
-
-}
-=======
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Tier;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.gateway.services.TrainingService;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by louislopez on 1/25/17.
@@ -94,6 +64,24 @@ public class TrainingServiceImplTest {
 //        Batch batch = ts.getBatch(6550);
 //        ts.deleteBatch(batch);
 //    }
+    
+    
+	@Test
+	@Ignore
+	public void getAllWeekTest(){
+		
+		TrainingServiceImpl training = new TrainingServiceImpl();
+		List<Week> weeks = training.getAllWeek();
+		System.out.println(weeks);
+	}
+	
+	@Test
+	@Ignore
+	public void addNewWeekTest(){
+		Week newWeek = new Week();
+		newWeek.setWeekNumber(2099);
+		TrainingServiceImpl training = new TrainingServiceImpl();
+		training.createWeek(newWeek);
+	}
 
 }
->>>>>>> c270f12ed4504ef5cd2e742eb1d73c1c3f40c345
