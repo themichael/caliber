@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.gateway.ApiGateway;
+import com.revature.caliber.gateway.services.ServiceLocator;
 
 /**
  * Created by Shehar on 1/26/2017.
@@ -26,7 +27,6 @@ public class ApiGatewayImplTest {
 
     
     @Test
-    @Ignore
     public void getAggregatedGradesForTrainee() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getTechGradeDataForTrainee(1);
 
@@ -39,8 +39,14 @@ public class ApiGatewayImplTest {
         }
 
     }
-
     
+    @Ignore
+    @Test
+    public void testo(){
+    	HashMap<String, Double []> hey = apiGateway.getTechGradeDataForBatch(1);
+    }
+
+    @Ignore
     @Test
     public void getWeekAggregatedGradesForTrainee() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getWeekGradeDataForTrainee(1);

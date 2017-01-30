@@ -17,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -58,8 +60,8 @@ public class ApiGatewayImpl implements ApiGateway {
         return serviceLocator.getTrainingService().currentBatch();
     }
 
-    public List<Batch> currentBatch(Trainer trainer) {
-        return serviceLocator.getTrainingService().currentBatch(trainer);
+    public List<Batch> currentBatch(Integer id) {
+        return serviceLocator.getTrainingService().currentBatch(id);
     }
 
     public Batch getBatch(Integer id) {
@@ -339,31 +341,17 @@ public class ApiGatewayImpl implements ApiGateway {
      * @param id
      * @return
      */
-	@Override
-	public HashMap<String, Double[]> getWeekGradeDataForTrainee(int id) {
-		List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
-		HashMap<String, Double[]> grades = new HashMap<>();//result
-		
-		for(Grade grade : allGrades){
-			Assessment assessment = grade.getAssessment();
-			Week week = serviceLocator.getAssessmentService().getwe
-//			if(!grades.containsKey(week.getWeekNumber())){
-//				grades.put(Integer.toString(week.getWeekNumber()), new Double[] {0.0,0.0,0.0,0.0});
-//			}
-		}
-		return grades;
-	}
-
 
     @Override
     public HashMap<String, Double[]> getTechGradeDataForTrainee(int id) {
         List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id); //grade data that we get from assessment module
         HashMap<String,Double[]> grades = new HashMap<>(); //our result map
-        HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values //what 
+        HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values
 
         //processing
         for ( Grade grade : allGrades) {
-            List<Category> catList = grade.getAssessment().getCategories().stream().collect(Collectors.toList());//makes a list out of the set
+        	System.out.println(grade.getAssessment());
+            List<Category> catList = grade.getAssessment().getCategories().stream().collect(Collectors.toList());
             if (catList.size() < 1) { continue; }
             Category category = catList.get(0); //assume there is only one category per assessment
 
@@ -411,7 +399,6 @@ public class ApiGatewayImpl implements ApiGateway {
         return grades;
 
     }
-    
 
 
 
@@ -429,7 +416,127 @@ public class ApiGatewayImpl implements ApiGateway {
     public void updateGrade(Grade grade) {
     }
 
+	//@Override
+	public HashMap<String, Double[]> getWeekGradeDataForTraineeInit(int id) {
+		List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
+		HashMap<String, Double[]> grades = new HashMap<>();//result
+		List<Week> week = serviceLocator.getTrainingService().getAllWeek();
 
+		for(Grade grade : allGrades){
+//			int weeknum = grade.getAssessment().getWeek().getWeekNumber(); //Should get back a weeknum which should be unique for all
+			long assessmentId = grade.getAssessment().getAssessmentId();
+			//Assessment assessment =serviceLocator.getAssessmentService().getAssessmentById();
+			System.out.println(grade.getAssessment());
+//			if(!grades.containsKey(weeknum)){
+//				grades.put(Integer.toString(weeknum), new Double[] {0.0,0.0,0.0,0.0});
+//			}
+		}
+		return grades;
+	}
+
+	@Override
+	public HashMap<String, Double[]> getWeekGradeDataForTrainee(int id) {
+		List<Week> weeks = serviceLocator.getTrainingService().getAllWeek();
+		HashMap<String, Double[]> grades = new HashMap<>();
+		List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
+		
+		for(Week week: weeks){
+			List<Integer> scores = new ArrayList<>();
+			for(Grade grade: allGrades){
+				for(Assessment assessment: week.getAssessments()){
+					if(week.getWeekId() == assessment.getWeek().getWeekId()){
+						scores.add(grade.getScore());
+					}
+				}
+//				if(week.getWeekId()==grade.getAssessment().getWeek().getWeekId()){//TODO this won't work because it'll give null ptr
+//					
+//					scores.add(grade.getScore());
+//				}
+			}
+			//aggregate functions here
+			Collections.sort(scores);
+			Double[] aggregates = new Double[4];
+			aggregates[0] = getAverage(scores);
+			aggregates[1] = getMedian(scores);
+			aggregates[2]= (double) scores.get(0);
+			aggregates[3] = (double) scores.get(scores.size()-1);	
+			if (scores.size()>0){
+				grades.put( Integer.toString(week.getWeekNumber()), aggregates);
+			}		
+		}
+		return grades;
+	}
+
+	//TODO gonna be kinda funky because it's a set of categories not one category
+	@Override
+	public HashMap<String, Double[]> getTechGradeDataForBatch(int batchId) {
+		Set<Category> categories = serviceLocator.getAssessmentService().getAllCategories();
+		HashMap<String, Double[]> grades = new HashMap<>();
+		for(Category category: categories){
+			//get one category
+			List<Grade> bgrades = null; //serviceLocator.getAssessmentService().getAllGrades();
+			List<Integer> scores = new ArrayList<>();
+			for(Grade grade:bgrades){
+				int traineeId = grade.getTrainee().getTraineeId(); //TODO Fix this will prolly get null pointer
+				Trainee t = serviceLocator.getTrainingService().getTrainee(traineeId);
+				if(t.getBatch().getBatchId()==batchId && grade.getAssessment().getCategories()==category  ){
+					scores.add(grade.getScore());
+				}
+			}
+			Double[] aggregates = new Double[2];
+			aggregates[0] = getAverage(scores);
+			aggregates[1] = getMedian(scores);		
+			if(scores.size()>1){
+				grades.put(category.getSkillCategory(), aggregates);
+			}
+				
+ 		}
+		return grades;
+	}
+
+	@Override
+	public Map<String, Double[]> getTraineeGradeDataForTrainer(int trainerId) {
+		List<Trainee> trainees = null;//serviceLocator.getTrainingService().getTraineesByTrainer(?)/getallTrainees
+		HashMap<String, Double[]> grades = new HashMap<>();
+		for (Trainee trainee: trainees){
+			List<Grade> tgrades = serviceLocator.getAssessmentService().getGradesByTraineeId(trainee.getTraineeId());
+			List<Integer> scores = new ArrayList<>();
+			for (Grade grade: tgrades){
+				scores.add(grade.getScore());
+			}
+			
+			//agregate here
+			Double[] aggregates = new Double[2];
+			aggregates[0] = getAverage(scores);
+			aggregates[1] = getMedian(scores);		
+			if(scores.size()>1){
+				grades.put(trainee.getName(), aggregates);
+			}
+					
+		}
+		return grades;
+	}
+	
+	public double getAverage(List<Integer> list){
+		int sum = 0;
+		for(int nums: list){
+			sum += nums;
+		}
+		double avg = sum/list.size();
+		return avg;
+	}
+	
+	public double getMedian(List<Integer> list){
+		int middle = list.size()/2;
+		if(list.size()%2==1){
+			return list.get(middle);
+		}else{
+			return (list.get(middle-1)+list.get(middle-2))/2;
+		}
+		
+	}
+	
+	
 
 
 }

@@ -11,6 +11,7 @@ import com.revature.caliber.beans.TrainerNote;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Gathers data from appropriate services and
@@ -180,6 +181,10 @@ public interface ApiGateway {
 	HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
 
     HashMap<String, Double[]> getWeekGradeDataForTrainee(int id);
+    
+    HashMap<String, Double[]> getTechGradeDataForBatch(int batchId);
+    
+    Map<String, Double[]> getTraineeGradeDataForTrainer(int trainerId);
     //Grade Service
     /**
      * Retrieves the Grade using the assessmentId
