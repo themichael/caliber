@@ -23,12 +23,24 @@ public class TrainingServiceImplTest {
     }
 
     @Test
+    @Ignore
     public void getWeekByBatch() throws Exception {
         List<com.revature.caliber.beans.Week> week = trainingService.getWeekByBatch(1);
         for(int i=0;i<week.size();i++){
             System.out.println(week.get(i).getWeekNumber());
         }
 
+    }
+
+    @Test
+    @Ignore
+    public void allBatch() throws Exception {
+        //Goes to - > training/batch/current/1
+        ApplicationContext context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
+        TrainingServiceImpl ts = (TrainingServiceImpl) context.getBean("trainingService");
+        ts.setHostname("http://localhost:");
+        ts.setPortNumber("9001");
+        System.err.println( ts.allBatch());
     }
 
     @Test

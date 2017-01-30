@@ -27,6 +27,7 @@ public class ApiGatewayImplTest {
 
     
     @Test
+    @Ignore
     public void getAggregatedGradesForTrainee() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getTechGradeDataForTrainee(1);
 
@@ -62,6 +63,7 @@ public class ApiGatewayImplTest {
     }
 
     @Test
+    @Ignore
     public void getGradesForBatchWeekly() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getGradesForBatchWeekly(1);
 

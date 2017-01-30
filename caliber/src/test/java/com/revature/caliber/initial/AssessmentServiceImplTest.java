@@ -30,6 +30,7 @@ public class AssessmentServiceImplTest {
 	   }
 	   
 	   @Test
+	   @Ignore
 	   public void getGradesByTrainee(){
 		   List<com.revature.caliber.beans.Grade> grades = assessmentService.getGradesByTraineeId(1);
 		   for (com.revature.caliber.beans.Grade grade : grades) {
