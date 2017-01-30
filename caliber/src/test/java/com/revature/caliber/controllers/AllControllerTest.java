@@ -8,7 +8,6 @@ public class AllControllerTest {
     @Before
     public void setUp() throws Exception {
 
-
     }
 
     @Test

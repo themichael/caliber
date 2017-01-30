@@ -2,7 +2,6 @@ package com.revature.caliber.controllers;
 
 import com.revature.caliber.beans.*;
 import com.revature.caliber.gateway.ApiGateway;
-import com.revature.caliber.gateway.impl.ApiGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * The type Trainer batch controller.
@@ -49,7 +47,7 @@ public class TrainerBatchController {
      */
     @RequestMapping(value = "/batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Batch> getCurrentBatch() {
-        return new ResponseEntity<>(new ApiGatewayImpl().getCurrentBatch(), HttpStatus.OK);
+        return new ResponseEntity<>(apiGateway.getCurrentBatch(), HttpStatus.OK);
     }
 
     /**
