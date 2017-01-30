@@ -90,8 +90,9 @@ public class GradeTest {
 	
 	
 	//@BeforeClass
-	@Ignore
-	public static void insertGrade() {
+	//@Ignore
+	@Test
+	public void insertGrade() {
 		Assessment assessment = ctxt.getBean(AssessmentService.class).getById(2);
 	    Calendar currenttime = Calendar.getInstance();
 	    Date date = new Date((currenttime.getTime()).getTime());

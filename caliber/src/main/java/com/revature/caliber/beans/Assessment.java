@@ -14,7 +14,14 @@ public class Assessment {
     private String type;
     private Week week;
 
-    // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+    @Override
+	public String toString() {
+		return "Assessment [assessmentId=" + assessmentId + ", title=" + title + ", batch=" + batch + ", rawScore="
+				+ rawScore + ", type=" + type + ", week=" + week + ", weeklyStatus=" + weeklyStatus + ", categories="
+				+ categories + "]";
+	}
+
+	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
     private QCStatus weeklyStatus;
     private Set<Category> categories;
 

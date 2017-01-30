@@ -46,14 +46,14 @@ public class Batch {
 	private String location;
 
 	@Column(name = "GOOD_GRADE_THRESHOLD")
-	private short goodGradeThreshold;
+	private Short goodGradeThreshold;
 
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
-	private short borderlineGradeThreshold;
+	private Short borderlineGradeThreshold;
 
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 
-	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER/*, cascade = CascadeType.REMOVE*/)
+	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JsonManagedReference(value = "traineeAndBatch")
 	private Set<Trainee> trainees;
 
@@ -70,8 +70,8 @@ public class Batch {
 	Constructor with ID
 	 */
 	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
-				 String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
-				 short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
+				 String trainingType, Date startDate, Date endDate, String location, Short goodGradeThreshold,
+				 Short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
 		this.batchId = batchId;
 		this.trainingName = trainingName;
 		this.trainer = trainer;
@@ -91,7 +91,7 @@ public class Batch {
 	Constructor with no ID
 	 */
 	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
-				 Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
+				 Date startDate, Date endDate, String location, Short goodGradeThreshold, Short borderlineGradeThreshold,
 				 Set<Trainee> trainees, Set<Week> weeks) {
 		this.trainingName = trainingName;
 		this.trainer = trainer;
@@ -163,19 +163,17 @@ public class Batch {
 	public String getLocation() {
 		return location;
 	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
+	public void setLocation(String location) {this.location = location;}
 	public short getGoodGradeThreshold() {
 		return goodGradeThreshold;
 	}
-	public void setGoodGradeThreshold(short goodGradeThreshold) {
+	public void setGoodGradeThreshold(Short goodGradeThreshold) {
 		this.goodGradeThreshold = goodGradeThreshold;
 	}
 	public short getBorderlineGradeThreshold() {
 		return borderlineGradeThreshold;
 	}
-	public void setBorderlineGradeThreshold(short borderlineGradeThreshold) {this.borderlineGradeThreshold = borderlineGradeThreshold;}
+	public void setBorderlineGradeThreshold(Short borderlineGradeThreshold) {this.borderlineGradeThreshold = borderlineGradeThreshold;}
 	public Set<Trainee> getTrainees() {
 		return trainees;
 	}

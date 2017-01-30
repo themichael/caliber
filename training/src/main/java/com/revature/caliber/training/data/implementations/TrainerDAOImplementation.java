@@ -1,6 +1,8 @@
 package com.revature.caliber.training.data.implementations;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -59,10 +61,10 @@ public class TrainerDAOImplementation implements TrainerDAO {
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public List<Trainer> getAllTrainers() {
+	public Set<Trainer> getAllTrainers() {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Trainer.class);
-		return criteria.list();
+		return new HashSet<>(criteria.list());
 	}
 
 	@Override

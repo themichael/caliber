@@ -38,6 +38,10 @@ angular.module("delegate").factory("caliberDelegate",
 		return allFactory.deleteTrainee(traineeId);
 	};
 
+	delegate.all.getGrades = function(traineeId){
+		return allFactory.getGrades(traineeId);
+	};
+
 	/************************* Trainer ****************************/
 	delegate.trainer.getAllBatches = function() {
 		return trainerFactory.getAllBatches();
@@ -93,27 +97,27 @@ angular.module("delegate").factory("caliberDelegate",
 		return qcFactory.getAllBatches();
 	};
 
-	delegate.updateGrade = function(gradeObj){
+	delegate.qc.updateGrade = function(gradeObj){
 		return qcFactory.updateGrade(gradeObj);
 	};
 
-	delegate.createAssessment = function(assessmentObj){
+	delegate.qc.createAssessment = function(assessmentObj){
 		return qcFactory.createAssessment(assessmentObj);
 	};
 
-	delegate.getAllAssessments = function(weekId){
+	delegate.qc.getAllAssessments = function(weekId){
 		return qcFactory.getAllAssessments(weekId);
 	};
 
-	delegate.deleteAssessment = function(assessmentId){
+	delegate.qc.deleteAssessment = function(assessmentId){
 		return qcFactory.deleteAssessment(assessmentId);
 	};
 
-	delegate.createNote = function(noteObj){
+	delegate.qc.createNote = function(noteObj){
 		return qcFactory.createNote(noteObj);
 	};
 
-	delegate.updateNote = function(noteObj){
+	delegate.qc.updateNote = function(noteObj){
 		return qcFactory.updateNote(noteObj);
 	};
 
