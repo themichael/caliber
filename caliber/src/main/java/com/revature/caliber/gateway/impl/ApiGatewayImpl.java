@@ -654,7 +654,7 @@ public class ApiGatewayImpl implements ApiGateway {
         for (int nums : list) {
             sum += nums;
         }
-        double avg = sum / list.size();
+        double avg = (double)sum / list.size();
         return avg;
     }
 
@@ -663,7 +663,7 @@ public class ApiGatewayImpl implements ApiGateway {
         if (list.size() % 2 == 1) {
             return list.get(middle);
         } else {
-            return (list.get(middle - 1) + list.get(middle - 2)) / 2;
+            return (double)(list.get(middle - 1) + list.get(middle - 2)) / 2;
         }
 
     }
