@@ -18,11 +18,16 @@ public abstract class Helper {
     private BufferedReader bufferedReader;
     private StringBuilder stringBuilder;
 
-    public String toJsonString (InputStream inputStream) {
+    /**
+     * To json string string.
+     *
+     * @param inputStream the input stream
+     * @return the string
+     */
+    public String toJsonString(InputStream inputStream) {
         bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         stringBuilder = new StringBuilder();
         String inputString;
-
         try {
             while ((inputString = bufferedReader.readLine()) != null)
                 stringBuilder.append(inputString);
@@ -34,7 +39,10 @@ public abstract class Helper {
         return stringBuilder.toString();
     }
 
-    public void closeStream(){
+    /**
+     * Close stream.
+     */
+    public void closeStream() {
         try {
             bufferedReader.close();
         } catch (IOException e) {

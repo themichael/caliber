@@ -1,16 +1,11 @@
 package com.revature.caliber.gateway;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerNote;
+import com.revature.caliber.beans.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Gathers data from appropriate services and
@@ -53,7 +48,7 @@ public interface ApiGateway {
     /**
      * Get all current Batches for a given Trainer
      *
-     * @param trainer - The trainer for whom we are returning the current batch
+     * @param id the id
      * @return A list of batches
      */
     List<Batch> currentBatch(Integer id);
@@ -169,112 +164,176 @@ public interface ApiGateway {
     void updateTrainer(Trainer trainer);
 
 
-
     //End of Trainer Service
 
     /**
-     * retreive tech grade for a trainee with AVG , MEDIAN , MAX , MIN
-     * @param id
-     * @return
+     * retrieve tech grade for a trainee with AVG , MEDIAN , MAX , MIN
+     *
+     * @param id the id
+     * @return tech grade data for trainee
      */
-	HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
+    HashMap<String, Double[]> getTechGradeDataForTrainee(int id);
 
-    
+
+    /**
+     * Gets week grade data for trainee.
+     *
+     * @param id the id
+     * @return the week grade data for trainee
+     */
+    HashMap<String, Double[]> getWeekGradeDataForTrainee(int id);
+
+    /**
+     * Gets tech grade data for batch.
+     *
+     * @param batchId the batch id
+     * @return the tech grade data for batch
+     */
+    HashMap<String, Double[]> getTechGradeDataForBatch(int batchId);
+
+    /**
+     * Gets trainee grade data for trainer.
+     *
+     * @param trainerId the trainer id
+     * @return the trainee grade data for trainer
+     */
+    Map<String, Double[]> getTraineeGradeDataForTrainer(int trainerId);
+
     //Grade Service
+
     /**
      * Retrieves the Grade using the assessmentId
-     * @param assessmentId
-     * @return
+     *
+     * @param assessmentId the assessment id
+     * @return grades by assessment
      */
     List<Grade> getGradesByAssessment(Integer assessmentId);
-    
+
     /**
      * Inserts a grade
-     * @param grade
+     *
+     * @param grade the grade
      */
     void insertGrade(Grade grade);
-    
+
     /**
      * Updates a grade
-     * @param grade
+     *
+     * @param grade the grade
      */
     void updateGrade(Grade grade);
-    
+
     /**
      * Create a Trainer Note
-     * @param note
+     *
+     * @param note the note
      */
-    //End of grade Service
-    
+//End of grade Service
+
     //TrainerNoteService
     void createTrainerNote(TrainerNote note);
-    
+
     /**
      * Update the Trainer Note
-     * @param note
+     *
+     * @param note the note
      */
     void updateTrainerNote(TrainerNote note);
-    
+
     /**
      * Delete the Trainer Note
-     * @param note
+     *
+     * @param note the note
      */
     void deleteTrainerNote(TrainerNote note);
     //End of trainer note service
-    
+
     //Batch note service
+
     /**
      * Create a Batch Note
-<<<<<<< HEAD
-     * @param batchNote
-=======
->>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     *
+     * @param batchNote the batch note
      */
     void createBatchNote(BatchNote batchNote);
-    
+
     /**
      * Update the Batch Note
-<<<<<<< HEAD
-     * @param batchNote
-=======
->>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     *
+     * @param batchNote the batch note
      */
     void updateBatchNote(BatchNote batchNote);
-    
+
     /**
      * Delete the Batch Note
-<<<<<<< HEAD
-     * @param batchNote
-=======
->>>>>>> e460ca5859d751280cb56d2dce02fe703fcea9b0
+     * <<<<<<< HEAD
+     *
+     * @param batchNote the batch note
      */
     void deleteBatchNote(BatchNote batchNote);
     //End of batch note service
-    
+
     //Assessment service
+
     /**
      * Add an assessment
-     * @param assessment
+     *
+     * @param assessment the assessment
      */
     void insertAssessment(Assessment assessment);
-    
+
     /**
      * update an assessment
-     * @param assessment
+     *
+     * @param assessment the assessment
      */
     void updateAssessment(Assessment assessment);
-    
+
     /**
      * Delete an assessment
-     * @param assessment
+     *
+     * @param assessment the assessment
      */
     void deleteAssessment(Assessment assessment);
-    
+
+    /**
+     * Create qc note.
+     *
+     * @param note the note
+     */
     void createQCNote(QCNote note);
-    
+
+    /**
+     * Update qc note.
+     *
+     * @param note the note
+     */
     void updateQCNote(QCNote note);
 
+    /**
+     * Gets grades for batch weekly.
+     *
+     * @param batchID the batch id
+     * @return the grades for batch weekly
+     */
     HashMap<String, Double[]> getGradesForBatchWeekly(int batchID);
 
+    /**
+     * Gets all batches.
+     *
+     * @return the all batches
+     */
+    Set<Batch> getAllBatches();
 
+    void updateAssessmentNote(Note note);
+
+    Set<Assessment> getAllAssessments();
+
+    void createAssessment(Assessment assessment);
+
+    void createGrade(Grade grade);
+
+    void createAssessmentNote(Note note);
+
+    void createNewWeek(Week week);
 }

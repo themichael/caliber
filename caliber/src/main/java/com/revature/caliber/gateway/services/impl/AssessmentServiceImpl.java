@@ -10,12 +10,15 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 
 public class AssessmentServiceImpl implements AssessmentService {
-	
-	private String localhost = "http://localhost:8080";
+
+	private String localhost = "http://localhost:8081";
     private String hostname;
     private String portNumber;
     
@@ -33,7 +36,8 @@ public class AssessmentServiceImpl implements AssessmentService {
     				createTrainerNotePath;
     
     //paths for QC Note
-    private String createQCNotePath, updateQCNotePath;
+    private String createQCNotePath,
+			       updateQCNotePath;
     
     //paths for Batch Note
     private String 	createBatchNotePath,
@@ -41,8 +45,10 @@ public class AssessmentServiceImpl implements AssessmentService {
     				deleteBatchNotePath;
     
     //paths for assessments
-    private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
-
+    private String addAssessmentPath,
+			       updateAssessmentPath,
+			       deleteAssessmentPath,
+	               getAllAssessmentsPath;
 
     @Override
 	public void insertAssessment(Assessment assessment) {
@@ -94,6 +100,28 @@ public class AssessmentServiceImpl implements AssessmentService {
 		
 	}
 
+	@Override
+	public List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments() {
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getAllAssessmentsPath)
+				.build().toUriString();
+
+
+		//Invoke the service
+		ResponseEntity<com.revature.caliber.assessment.beans.Assessment[]> response =
+				service.getForEntity(URI, com.revature.caliber.assessment.beans.Assessment[].class);
+		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+			throw new AssessmentServiceAssessmentOperationException("Assessments could not be gotten");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return Arrays.asList(response.getBody());
+		}
+		else {
+			return new ArrayList<>();
+		}
+
+	}
 
 	@Override
 	public List<Grade> getGradesByAssessment(Integer assessmentId) {
@@ -369,6 +397,9 @@ public class AssessmentServiceImpl implements AssessmentService {
 	@Override
 	public List<com.revature.caliber.assessment.beans.Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
+		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response =
+				rest.getForEntity("http://localhost:8081/assessments/grades/trainee/"+ id,
+						com.revature.caliber.assessment.beans.Grade[].class);
 
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getGradesByTraineePath).path("/" + id)
                 .build().toUriString();
@@ -380,6 +411,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		com.revature.caliber.assessment.beans.Grade[] grades = responseAssessmentModule.getBody();
 
 		List<com.revature.caliber.assessment.beans.Grade> newGrades = Arrays.asList(grades);
+
 		return newGrades;
 	}
 
@@ -418,7 +450,8 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setDeleteAssessment(String deleteAssessmentPath){this.deleteAssessmentPath = deleteAssessmentPath;}
     public void setInsertAssessment(String addAssessmentPath){this.addAssessmentPath = addAssessmentPath;}
     public void setUpdateAssessment(String updateAssessmentPath){this.updateAssessmentPath = updateAssessmentPath;}
-    //end of Assessment
+	public void setGetAllAssessmentsPath(String getAllAssessmentsPath) { this.getAllAssessmentsPath = getAllAssessmentsPath; }
+	//end of Assessment
     
     //TrainerNote
     public void setDeleteTrainerNotePath(String deleteTrainerNotePath){this.deleteTrainerNotePath = deleteTrainerNotePath;}

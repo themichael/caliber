@@ -5,11 +5,12 @@ import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.Collections;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -122,84 +123,82 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
 
+    /**************************************Grade************************************/
+    @Override
+    public List<Grade> getGradesByAssessment(Integer assessmentId) {
+        return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
+    }
 
-	/**************************************Grade************************************/
-	@Override
-	public List<Grade> getGradesByAssessment(Integer assessmentId) {
-		return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
-	}
+    @Override
+    public void insertGrade(Grade grade) {
+        serviceLocator.getAssessmentService().insertGrade(grade);
 
-	@Override
-	public void insertGrade(Grade grade) {
-		serviceLocator.getAssessmentService().insertGrade(grade);
+    }
 
-	}
+    /***********************************Trainer Notes**********************************/
+    @Override
+    public void createTrainerNote(TrainerNote note) {
+        serviceLocator.getAssessmentService().createTrainerNote(note);
 
-	/***********************************Trainer Notes**********************************/
-	@Override
-	public void createTrainerNote(TrainerNote note) {
-		serviceLocator.getAssessmentService().createTrainerNote(note);
+    }
 
-	}
+    @Override
+    public void updateTrainerNote(TrainerNote note) {
+        serviceLocator.getAssessmentService().updateTrainerNote(note);
+    }
 
-	@Override
-	public void updateTrainerNote(TrainerNote note) {
-		serviceLocator.getAssessmentService().updateTrainerNote(note);
-	}
+    @Override
+    public void deleteTrainerNote(TrainerNote note) {
+        serviceLocator.getAssessmentService().deleteTrainerNote(note);
 
-	@Override
-	public void deleteTrainerNote(TrainerNote note) {
-		serviceLocator.getAssessmentService().deleteTrainerNote(note);
+    }
 
-	}
+    /****************************Batch Notes**********************************/
+    @Override
+    public void createBatchNote(BatchNote batchNote) {
+        serviceLocator.getAssessmentService().createBatchNote(batchNote);
 
-	/****************************Batch Notes**********************************/
-	@Override
-	public void createBatchNote(BatchNote batchNote) {
-		serviceLocator.getAssessmentService().createBatchNote(batchNote);
+    }
 
-	}
+    @Override
+    public void updateBatchNote(BatchNote batchNote) {
+        serviceLocator.getAssessmentService().updateBatchNote(batchNote);
 
-	@Override
-	public void updateBatchNote(BatchNote batchNote) {
-		serviceLocator.getAssessmentService().updateBatchNote(batchNote);
+    }
 
-	}
+    @Override
+    public void deleteBatchNote(BatchNote batchNote) {
+        serviceLocator.getAssessmentService().deleteBatchNote(batchNote);
 
-	@Override
-	public void deleteBatchNote(BatchNote batchNote) {
-		serviceLocator.getAssessmentService().deleteBatchNote(batchNote);
+    }
 
-	}
+    /****************************Assessment**********************************/
+    @Override
+    public void insertAssessment(Assessment assessment) {
+        serviceLocator.getAssessmentService().insertAssessment(assessment);
+    }
 
-	/****************************Assessment**********************************/
-	@Override
-	public void insertAssessment(Assessment assessment) {
-		serviceLocator.getAssessmentService().insertAssessment(assessment);
-	}
+    @Override
+    public void updateAssessment(Assessment assessment) {
+        serviceLocator.getAssessmentService().updateAssessment(assessment);
+    }
 
-	@Override
-	public void updateAssessment(Assessment assessment) {
-		serviceLocator.getAssessmentService().updateAssessment(assessment);
-	}
+    @Override
+    public void deleteAssessment(Assessment assessment) {
+        serviceLocator.getAssessmentService().deleteAssessment(assessment);
+    }
 
-	@Override
-	public void deleteAssessment(Assessment assessment) {
-		serviceLocator.getAssessmentService().deleteAssessment(assessment);
-	}
+    /****************************QCNote**********************************/
+    @Override
+    public void createQCNote(QCNote note) {
+        serviceLocator.getAssessmentService().createQCNote(note);
+    }
 
-	/****************************QCNote**********************************/
-	@Override
-	public void createQCNote(QCNote note) {
-		serviceLocator.getAssessmentService().createQCNote(note);
-	}
+    @Override
+    public void updateQCNote(QCNote note) {
+        serviceLocator.getAssessmentService().updateQCNote(note);
 
-	@Override
-	public void updateQCNote(QCNote note) {
-		serviceLocator.getAssessmentService().updateQCNote(note);
-
-	}
-
+    }
 
 
     /**
@@ -228,6 +227,7 @@ public class ApiGatewayImpl implements ApiGateway {
      *
      * @return the all batches
      */
+    @Override
     public Set<Batch> getAllBatches() {
         return null;
     }
@@ -312,10 +312,11 @@ public class ApiGatewayImpl implements ApiGateway {
     public Batch getBatchFromAllBatchesById() {
         // TODO Auto-generated method stub
         return null;
-	}
+    }
 
 
     /**
+<<<<<<< HEAD
      * Trainee
      Aggregate grades by all tech for a Trainee // param - traineeId
      - HashMap
@@ -331,6 +332,21 @@ public class ApiGatewayImpl implements ApiGateway {
      * @return Hashmap as explained above
      *
      * @author Shehar
+=======
+     * Aggregate grades by all tech for a Trainee // param - traineeId
+     * - HashMap
+     * - key Tech(Category)
+     * - value double array
+     * - average
+     * - median
+     * - high
+     * - low
+     * Key: REST, Value: [83.54, 78.56, 90.56, 78.56]
+     * Key: SOAP, Value: [83.54, 78.56, 90.56, 78.56]
+     *
+     * @param id the id
+     * @return something
+>>>>>>> master
      */
 
     @Override
@@ -348,10 +364,9 @@ public class ApiGatewayImpl implements ApiGateway {
             if (catList.size() < 1) { continue; }
             //assume there is only one category per assessment
             com.revature.caliber.assessment.beans.Category category = catList.get(0);
-
             //map does not have the key yet
             if (!grades.containsKey(category.getSkillCategory())) {
-                grades.put(category.getSkillCategory(), new Double[] {0.0, 0.0, 0.0, 0.0});
+                grades.put(category.getSkillCategory(), new Double[]{0.0, 0.0, 0.0, 0.0});
                 gradeValues.put(category.getSkillCategory(), new ArrayList<>());
             }
             //add grade to total number
@@ -362,12 +377,14 @@ public class ApiGatewayImpl implements ApiGateway {
         //actually processing the values
         for (String categoryName : grades.keySet()) {
             //convenience
-            Double [] gradeV = grades.get(categoryName);
+            Double[] gradeV = grades.get(categoryName);
             List<Integer> list = gradeValues.get(categoryName);
             list.sort(Integer::compareTo); //sort list of grades for convenience
 
             //assume there is at least one grade
-            if (list.size() < 1) { continue; }
+            if (list.size() < 1) {
+                continue;
+            }
 
             //average
             gradeV[0] = gradeV[0] / list.size(); //just divide the total by list size
@@ -375,8 +392,7 @@ public class ApiGatewayImpl implements ApiGateway {
             if (list.size() > 1) {
                 gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
                         (list.get(list.size() / 2).doubleValue() + list.get(list.size() / 2 - 1).doubleValue()) / 2;
-            }
-            else {
+            } else {
                 gradeV[1] = list.get(0).doubleValue();
             }
             //since the list of grades is sorted, we can get high and low just by one call for each
@@ -391,6 +407,7 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     /**
+<<<<<<< HEAD
      *
      Aggregate grades per week for a Batch // param - batchId
      - HashMap
@@ -403,6 +420,21 @@ public class ApiGatewayImpl implements ApiGateway {
      Key: Week 1, Value: [83.54, 78.56, 90.56, 78.56]
      Key: Week 2, Value: [83.54, 78.56, 90.56, 78.56]           etc.
      * @param batchID
+=======
+     * // Shehar
+     * Aggregate grades per week for a Batch // param - batchId
+     * - HashMap
+     * - key week
+     * - value double array
+     * - average
+     * - median
+     * - high
+     * - low
+     * Key: Week 1, Value: [83.54, 78.56, 90.56, 78.56]
+     * Key: Week 2, Value: [83.54, 78.56, 90.56, 78.56]           etc.
+     *
+     * @param batchID A batch id
+>>>>>>> master
      * @return grades
      *
      * @author Shehar
@@ -414,7 +446,7 @@ public class ApiGatewayImpl implements ApiGateway {
                 serviceLocator.getAssessmentService().getAllGrades();//get all grades
         HashMap<String,Double[]> grades = new HashMap<>(); //our result map
         HashMap<String, List<Integer>> gradeValues = new HashMap<>(); //get grade values
-        Double [] gradeV;
+        Double[] gradeV;
         List<Integer> list;
         int highestWeek =0;
         for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
@@ -436,7 +468,6 @@ public class ApiGatewayImpl implements ApiGateway {
         int[] gradeTotal = new int[highestWeek];
         //grade average holder
         int[] gradeAverage = new int[highestWeek];
-//computation
         for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
             long weekNumber = grade.getAssessment().getWeek();
             weeks[(int) (grade.getAssessment().getWeek()-1)] += 1;
@@ -447,12 +478,13 @@ public class ApiGatewayImpl implements ApiGateway {
                 list = gradeValues.get(weekName);
                 list.sort(Integer::compareTo); //sort list of grades for convenience
                 //assume there is at least one grade
+
                 if (list.size() < 1) { continue; }
                 if (list.size() > 1) {
+
                     gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
                             (list.get(list.size() / 2).doubleValue() + list.get(list.size() / 2 - 1).doubleValue()) / 2;
-                }
-                else {
+                } else {
                     gradeV[1] = list.get(0).doubleValue();
                 }
                 gradeV[3] = list.get(0).doubleValue();
@@ -460,7 +492,6 @@ public class ApiGatewayImpl implements ApiGateway {
                 grades.put(weekName, gradeV); //put the result array back to the map
             }
         }
-
         for (int i=0;i<gradeAverage.length;i++){
             gradeAverage[i] = gradeTotal[i]/weeks[i];
             grades.get(String.valueOf(i+1))[0] = Double.valueOf(gradeAverage[i]);
@@ -471,20 +502,186 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
 
-
+    /**
+     * Create new week.
+     *
+     * @param week the week
+     */
     public void createNewWeek(Week week) {
 
     }
 
+    /**
+     * Gets assessment grades by id.
+     *
+     * @param id the id
+     * @return the assessment grades by id
+     */
     public Set<Grade> getAssessmentGradesById(int id) {
         return null;
     }
 
+    /**
+     * Create grade.
+     *
+     * @param grade the grade
+     */
     public void createGrade(Grade grade) {
+    }
+
+    @Override
+    public void createAssessmentNote(Note note) {
+
     }
 
     public void updateGrade(Grade grade) {
     }
 
+    //@Override
+    public HashMap<String, Double[]> getWeekGradeDataForTraineeInit(int id) {
+        List<com.revature.caliber.assessment.beans.Grade> allGrades =
+                serviceLocator.getAssessmentService().getGradesByTraineeId(id);
+        HashMap<String, Double[]> grades = new HashMap<>();//result
+        List<Week> week = serviceLocator.getTrainingService().getAllWeek();
 
+        for (com.revature.caliber.assessment.beans.Grade grade : allGrades) {
+//			int weeknum = grade.getAssessment().getWeek().getWeekNumber(); //Should get back a weeknum which should be unique for all
+            long assessmentId = grade.getAssessment().getAssessmentId();
+            //Assessment assessment =serviceLocator.getAssessmentService().getAssessmentById();
+            System.out.println(grade.getAssessment());
+//			if(!grades.containsKey(weeknum)){
+//				grades.put(Integer.toString(weeknum), new Double[] {0.0,0.0,0.0,0.0});
+//			}
+        }
+        return grades;
+    }
+
+    @Override
+    public HashMap<String, Double[]> getWeekGradeDataForTrainee(int id) {
+        List<Week> weeks = serviceLocator.getTrainingService().getAllWeek();
+
+        List<com.revature.caliber.assessment.beans.Grade> allGrades =
+                serviceLocator.getAssessmentService().getGradesByTraineeId(id);
+
+        HashMap<String, Double[]> grades = new HashMap<>();
+
+        for (Week week : weeks) {
+            List<Integer> scores = new ArrayList<>();
+            //get the grades for that week
+            for (com.revature.caliber.assessment.beans.Grade grade : allGrades) {
+                if (week.getWeekId() == grade.getAssessment().getWeek()) {
+                        scores.add(grade.getScore());
+                    }
+                }
+            if (scores.size() < 1) { continue; }
+            //aggregate functions here
+            Collections.sort(scores);
+            Double[] aggregates = new Double[4];
+            aggregates[0] = getAverage(scores);
+            aggregates[1] = getMedian(scores);
+            aggregates[2] = (double) scores.get(0);
+            aggregates[3] = (double) scores.get(scores.size() - 1);
+            if (scores.size() > 0) {
+                grades.put(Integer.toString(week.getWeekNumber()), aggregates);
+            }
+        }
+        return grades;
+    }
+
+    //TODO gonna be kinda funky because it's a set of categories not one category
+    @Override
+    public HashMap<String, Double[]> getTechGradeDataForBatch(int batchId) {
+        Set<Category> categories = serviceLocator.getAssessmentService().getAllCategories();
+        HashMap<String, Double[]> grades = new HashMap<>();
+        for (Category category : categories) {
+            //get one category
+            List<Grade> bgrades = null; //serviceLocator.getAssessmentService().getAllGrades();
+            List<Integer> scores = new ArrayList<>();
+            for (Grade grade : bgrades) {
+                int traineeId = grade.getTrainee().getTraineeId(); //TODO Fix this will probably get null pointer
+                Trainee t = serviceLocator.getTrainingService().getTrainee(traineeId);
+                if (t.getBatch().getBatchId() == batchId && grade.getAssessment().getCategories() == category) {
+                    scores.add(grade.getScore());
+                }
+            }
+            Double[] aggregates = new Double[2];
+            aggregates[0] = getAverage(scores);
+            aggregates[1] = getMedian(scores);
+            if (scores.size() > 1) {
+                grades.put(category.getSkillCategory(), aggregates);
+            }
+
+        }
+        return grades;
+    }
+
+    @Override
+    public Map<String, Double[]> getTraineeGradeDataForTrainer(int trainerId) {
+        List<Trainee> trainees = null;//serviceLocator.getTrainingService().getTraineesByTrainer(?)/getallTrainees
+        HashMap<String, Double[]> grades = new HashMap<>();
+        for (Trainee trainee : trainees) {
+            List<com.revature.caliber.assessment.beans.Grade> tgrades =
+                    serviceLocator.getAssessmentService().getGradesByTraineeId(trainee.getTraineeId());
+            List<Integer> scores = new ArrayList<>();
+            for (com.revature.caliber.assessment.beans.Grade grade : tgrades) {
+                scores.add(grade.getScore());
+            }
+
+            //agregate here
+            Double[] aggregates = new Double[2];
+            aggregates[0] = getAverage(scores);
+            aggregates[1] = getMedian(scores);
+            if (scores.size() > 1) {
+                grades.put(trainee.getName(), aggregates);
+            }
+
+        }
+        return grades;
+    }
+
+    public double getAverage(List<Integer> list) {
+        int sum = 0;
+        for (int nums : list) {
+            sum += nums;
+        }
+        double avg = (double)sum / list.size();
+        return avg;
+    }
+
+    public double getMedian(List<Integer> list) {
+        int middle = list.size() / 2;
+        if (list.size() % 2 == 1) {
+            return list.get(middle);
+        } else {
+            return (double)(list.get(middle - 1) + list.get(middle - 2)) / 2;
+        }
+
+    }
+
+
+    /**
+     * Create assessment.
+     *
+     * @param assessment the assessment
+     */
+    public void createAssessment(Assessment assessment) {
+    }
+
+    /**
+     * Gets all assessments.
+     *
+     * @return the all assessments
+     */
+    public Set<Assessment> getAllAssessments() {
+        return null;
+    }
+
+    /**
+     * Update assessment note.
+     *
+     * @param note the note
+     */
+    public void updateAssessmentNote(Note note) {
+
+    }
 }

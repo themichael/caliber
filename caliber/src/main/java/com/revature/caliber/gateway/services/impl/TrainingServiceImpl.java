@@ -15,23 +15,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TrainingServiceImpl implements TrainingService{
+public class TrainingServiceImpl implements TrainingService {
 
-	private String localhost = "http://localhost:8080";
-	private String hostname;
-	private String portNumber;
 
-	//path for week
-	private String weekId, weekNumber, batch, topics;
+    private String localhost = "http://localhost:9001";
+    private String hostname;
+    private String portNumber;
 
-	//paths for batch
-	private String newBatch, allBatch, allBatchesForTrainer, allCurrentBatch, allCurrentBatchByTrainer,
-			batchById, updateBatch, deleteBatch;
-	//paths for trainee (look at beans.xml for the paths themselves)
-	private String addTraineePath, updateTraineePath, deleteTraineePath, getTraineeByIdPath, getTraineeByNamePath,
-			getTraineesByBatchPath;
-	private String addTrainerPath, updateTrainerPath, getAllTrainersPath, getTrainerByIdPath, getTrainerByEmailPath;
-	private String getWeekByBatch;
+    //path for week
+    private String weekId, weekNumber, batch, topics;
+
+    //paths for batch
+    private String newBatch, allBatch, allBatchesForTrainer, allCurrentBatch, allCurrentBatchByTrainer,
+            batchById, updateBatch, deleteBatch;
+    //paths for trainee (look at beans.xml for the paths themselves)
+    private String addTraineePath, updateTraineePath, deleteTraineePath, getTraineeByIdPath, getTraineeByNamePath,
+            getTraineesByBatchPath;
+    private String addTrainerPath, updateTrainerPath, getAllTrainersPath, getTrainerByIdPath, getTrainerByEmailPath;
+    private String getWeekByBatch;
     //paths for week
     private String addWeekPath, getAllWeekPath;
 
@@ -122,9 +123,9 @@ public class TrainingServiceImpl implements TrainingService{
                         .build().toUriString();
         // Invoke the service
         ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
-        if (response.getStatusCode() == HttpStatus.NOT_FOUND){
+        if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
             throw new RuntimeException("Could not find batch");
-        }else if(response.getStatusCode() == HttpStatus.OK) {
+        } else if (response.getStatusCode() == HttpStatus.OK) {
             return Arrays.asList(response.getBody());
         } else {
             // Includes 404 and other responses. Give back no data.
@@ -329,7 +330,6 @@ public class TrainingServiceImpl implements TrainingService{
     }
 
 
-
     @Override
     public void updateTrainer(Trainer trainer) {
         RestTemplate service = new RestTemplate();
@@ -345,169 +345,224 @@ public class TrainingServiceImpl implements TrainingService{
     }
 
     //End of Trainer ----------------------------------------------------------------------------
-    
-    
-	// Week
-	@Override
-	public List<Week> getAllWeek() {
-
-		RestTemplate service = new RestTemplate();
-		// Build Service URL
-		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path("training/week/all").build().toUriString();
-		
-		System.out.println(URI);
-		// Invoke the service
-		ResponseEntity<Week[]> response = service.getForEntity(URI, Week[].class);
-
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Bad request.");
-		} else if (response.getStatusCode() == HttpStatus.OK) {
-			return Arrays.asList(response.getBody());
-		} else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-			System.out.println("Not found");
-			return new ArrayList<>();
-		} else {
-			// Includes 404 and other responses. Give back no data.
-			return new ArrayList<>();
-		}
-	}
-
-	@Override
-	public void createWeek(Week week) {
-		RestTemplate service = new RestTemplate();
-		// Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("training/week/new").build()
-				.toUriString();
-
-		System.out.println(URI);
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<Week> entity = new HttpEntity<>(week, headers);
-
-		// Invoke the service
-		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Trainee could not be created");
-		}
-	}
-
-
-	@Override
-	public Trainer getTrainer(String email) {
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByEmailPath)
-				.path(email)
-				.build().toUriString();
-
-		//Invoke the service
-		ResponseEntity<Trainer> response = service.getForEntity(URI, Trainer.class);
-
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Failed to retrieve the trainer by email.");
-		} else if (response.getStatusCode() == HttpStatus.OK) {
-			return response.getBody();
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public List<Trainer> getAllTrainers() {
-		RestTemplate service = new RestTemplate();
-		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getAllTrainersPath)
-				.build().toUriString();
-
-		//Invoke the service
-		ResponseEntity<Trainer[]> response = service.getForEntity(URI, Trainer[].class);
-
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Failed to retrieve all trainers.");
-		} else if (response.getStatusCode() == HttpStatus.OK) {
-			return Arrays.asList(response.getBody());
-		} else {
-			return new ArrayList<>();
-		}
-	}
-
-
-	//End of Trainer ----------------------------------------------------------------------------
 
 
 
+    // Week
+    @Override
+    public List<Week> getAllWeek() {
 
-	//Week --------------------------------------------------------------------------------------
+        RestTemplate service = new RestTemplate();
+        // Build Service URL
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("training/week/all").build().toUriString();
 
-	@Override
-	public List<Week> getWeekByBatch(int batchId) {
-		RestTemplate service = new RestTemplate();
-		final String URI = UriComponentsBuilder.fromHttpUrl(localhost).path(getWeekByBatch).path(String.valueOf(batchId))
-				.build().toUriString();
+        System.out.println(URI);
+        // Invoke the service
+        ResponseEntity<Week[]> response = service.getForEntity(URI, Week[].class);
 
-//		final String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:" + "8080/").path(getWeekByBatch).path(String.valueOf(batchId))
-//				.build().toUriString();
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Bad request.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return Arrays.asList(response.getBody());
+        } else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+            System.out.println("Not found");
+            return new ArrayList<>();
+        } else {
+            // Includes 404 and other responses. Give back no data.
+            return new ArrayList<>();
+        }
+    }
 
-		//Invoke the service
-		ResponseEntity<Week[]> response = service.getForEntity(URI, Week[].class);
+    @Override
+    public void createWeek(Week week) {
+        RestTemplate service = new RestTemplate();
+        // Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("training/week/new").build()
+                .toUriString();
 
-		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
-			throw new RuntimeException("Failed to retrieve Week by Batch.");
-		} else if (response.getStatusCode() == HttpStatus.OK) {
-			return Arrays.asList(response.getBody());
-		} else {
-			return new ArrayList<>();
-		}
-	}
+        System.out.println(URI);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Week> entity = new HttpEntity<>(week, headers);
+
+        // Invoke the service
+        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Trainee could not be created");
+        }
+    }
 
 
+    @Override
+    public Trainer getTrainer(String email) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByEmailPath)
+                .path(email)
+                .build().toUriString();
+
+        //Invoke the service
+        ResponseEntity<Trainer> response = service.getForEntity(URI, Trainer.class);
+
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Failed to retrieve the trainer by email.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return response.getBody();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Trainer> getAllTrainers() {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getAllTrainersPath)
+                .build().toUriString();
+
+        //Invoke the service
+        ResponseEntity<Trainer[]> response = service.getForEntity(URI, Trainer[].class);
+
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Failed to retrieve all trainers.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return Arrays.asList(response.getBody());
+        } else {
+            return new ArrayList<>();
+        }
+    }
 
 
+    //End of Trainer ----------------------------------------------------------------------------
 
 
-	//End of Week     ----------------------------------------------------------------------------
+    //Week --------------------------------------------------------------------------------------
 
-	/////////// SETTERS ////////////////
-	public void setHostname(String hostname) {
-		this.hostname = hostname;
-	}
-	public void setPortNumber(String portNumber) {
-		this.portNumber = portNumber;
-	}
+    @Override
+    public List<Week> getWeekByBatch(int batchId) {
+        RestTemplate service = new RestTemplate();
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getWeekByBatch).path(String.valueOf(batchId))
+                .build().toUriString();
 
-	//Batch
-	public void setNewBatch(String newBatch) {this.newBatch = newBatch;}
-	public void setAllBatch(String allBatch) {this.allBatch = allBatch;}
-	public void setAllBatchesForTrainer(String allBatchesForTrainer) {this.allBatchesForTrainer = allBatchesForTrainer;}
-	public void setAllCurrentBatch(String allCurrentBatch) {this.allCurrentBatch = allCurrentBatch;}
-	public void setAllCurrentBatchByTrainer(String allCurrentBatchByTrainer) {this.allCurrentBatchByTrainer = allCurrentBatchByTrainer;}
-	public void setBatchById(String batchById) {this.batchById = batchById;}
-	public void setUpdateBatch(String updateBatch) {this.updateBatch = updateBatch;}
-	public void setDeleteBatch(String deleteBatch) {this.deleteBatch = deleteBatch;}
-	//end of batch
+        //Invoke the service
+        ResponseEntity<Week[]> response = service.getForEntity(URI, Week[].class);
 
-	//Trainee
-	public void setAddTraineePath(String addTraineePath) { this.addTraineePath = addTraineePath; }
-	public void setUpdateTraineePath(String updateTraineePath) { this.updateTraineePath = updateTraineePath; }
-	public void setDeleteTraineePath(String deleteTraineePath) { this.deleteTraineePath = deleteTraineePath; }
-	public void setGetTraineeByIdPath(String getTraineeByIdPath) { this.getTraineeByIdPath = getTraineeByIdPath; }
-	public void setGetTraineeByNamePath(String getTraineeByNamePath) { this.getTraineeByNamePath = getTraineeByNamePath; }
-	public void setGetTraineesByBatchPath(String getTraineesByBatchPath) { this.getTraineesByBatchPath = getTraineesByBatchPath; }
-	//end of Trainee
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new RuntimeException("Failed to retrieve Week by Batch.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return Arrays.asList(response.getBody());
+        } else {
+            return new ArrayList<>();
+        }
+    }
 
-	//Trainer
-	public void setAddTrainerPath(String addTrainerPath) {this.addTrainerPath = addTrainerPath;}
-	public void setUpdateTrainerPath(String updateTrainerPath) {this.updateTrainerPath = updateTrainerPath;}
-	public void setGetAllTrainersPath(String getAllTrainersPath) {this.getAllTrainersPath = getAllTrainersPath;}
-	public void setGetTrainerByIdPath(String getTrainerByIdPath) {this.getTrainerByIdPath = getTrainerByIdPath;}
-	public void setGetTrainerByEmailPath(String getTrainerByEmailPath) {this.getTrainerByEmailPath = getTrainerByEmailPath;}
-	//End of Trainer
 
-	//Week
-	public void setGetWeekByBatch(String getWeekByBatch) {this.getWeekByBatch = getWeekByBatch;}
-	public void setAddWeekPath(String addWeekPath) { this.addWeekPath = addWeekPath; }
-	public void setGetAllWeekPath(String getAllWeekPath) { this.getAllWeekPath = getAllWeekPath; }
-	//End of Week
+    //End of Week     ----------------------------------------------------------------------------
+
+    /////////// SETTERS ////////////////
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+
+    public void setPortNumber(String portNumber) {
+        this.portNumber = portNumber;
+    }
+
+    //Batch
+    public void setNewBatch(String newBatch) {
+        this.newBatch = newBatch;
+    }
+
+    public void setAllBatch(String allBatch) {
+        this.allBatch = allBatch;
+    }
+
+    public void setAllBatchesForTrainer(String allBatchesForTrainer) {
+        this.allBatchesForTrainer = allBatchesForTrainer;
+    }
+
+    public void setAllCurrentBatch(String allCurrentBatch) {
+        this.allCurrentBatch = allCurrentBatch;
+    }
+
+    public void setAllCurrentBatchByTrainer(String allCurrentBatchByTrainer) {
+        this.allCurrentBatchByTrainer = allCurrentBatchByTrainer;
+    }
+
+    public void setBatchById(String batchById) {
+        this.batchById = batchById;
+    }
+
+    public void setUpdateBatch(String updateBatch) {
+        this.updateBatch = updateBatch;
+    }
+
+    public void setDeleteBatch(String deleteBatch) {
+        this.deleteBatch = deleteBatch;
+    }
+    //end of batch
+
+    //Trainee
+    public void setAddTraineePath(String addTraineePath) {
+        this.addTraineePath = addTraineePath;
+    }
+
+    public void setUpdateTraineePath(String updateTraineePath) {
+        this.updateTraineePath = updateTraineePath;
+    }
+
+    public void setDeleteTraineePath(String deleteTraineePath) {
+        this.deleteTraineePath = deleteTraineePath;
+    }
+
+    public void setGetTraineeByIdPath(String getTraineeByIdPath) {
+        this.getTraineeByIdPath = getTraineeByIdPath;
+    }
+
+    public void setGetTraineeByNamePath(String getTraineeByNamePath) {
+        this.getTraineeByNamePath = getTraineeByNamePath;
+    }
+
+    public void setGetTraineesByBatchPath(String getTraineesByBatchPath) {
+        this.getTraineesByBatchPath = getTraineesByBatchPath;
+    }
+    //end of Trainee
+
+    //Trainer
+    public void setAddTrainerPath(String addTrainerPath) {
+        this.addTrainerPath = addTrainerPath;
+    }
+
+    public void setUpdateTrainerPath(String updateTrainerPath) {
+        this.updateTrainerPath = updateTrainerPath;
+    }
+
+    public void setGetAllTrainersPath(String getAllTrainersPath) {
+        this.getAllTrainersPath = getAllTrainersPath;
+    }
+
+    public void setGetTrainerByIdPath(String getTrainerByIdPath) {
+        this.getTrainerByIdPath = getTrainerByIdPath;
+    }
+
+    public void setGetTrainerByEmailPath(String getTrainerByEmailPath) {
+        this.getTrainerByEmailPath = getTrainerByEmailPath;
+    }
+    //End of Trainer
+
+    //Week
+    public void setGetWeekByBatch(String getWeekByBatch) {
+        this.getWeekByBatch = getWeekByBatch;
+    }
+
+    public void setAddWeekPath(String addWeekPath) {
+        this.addWeekPath = addWeekPath;
+    }
+
+    public void setGetAllWeekPath(String getAllWeekPath) {
+        this.getAllWeekPath = getAllWeekPath;
+    }
+    //End of Week
 
 }
 

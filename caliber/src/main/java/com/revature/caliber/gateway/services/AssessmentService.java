@@ -7,45 +7,51 @@ import java.util.Set;
 
 public interface AssessmentService {
 
-	/**
-	 * Inserts Assessment
-	 * @param assessment an Assessment to be inserted
-	 */
-	void insertAssessment(Assessment assessment);
+    /**
+     * Inserts Assessment
+     *
+     * @param assessment an Assessment to be inserted
+     */
+    void insertAssessment(Assessment assessment);
 
-	/**
-	 * Updates Assessment
-	 * 
-	 * @param assessment an Assessment to be updated
-	 */
-	void updateAssessment(Assessment assessment);
+    /**
+     * Updates Assessment
+     *
+     * @param assessment an Assessment to be updated
+     */
+    void updateAssessment(Assessment assessment);
 
-	/**
-	 * Deletes Assessment
-	 * 
-	 * @param assessment and Assessment to delete
-	 */
-	void deleteAssessment(Assessment assessment);
+    /**
+     * Deletes Assessment
+     *
+     * @param assessment and Assessment to delete
+     */
+    void deleteAssessment(Assessment assessment);
+
+    /**
+     * Get all assessments
+     *
+     */
+    List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments();
+
+    /**
+     * Returns a list of grades of a specific assessment based on assessmentId
+     * as an input
+     *
+     * @param assessmentId - The id of the assessment
+     */
+    List<Grade> getGradesByAssessment(Integer assessmentId);
 
 
-	/**
-	 * Returns a list of grades of a specific assessment based on assessmentId
-	 * as an input
-	 *
-	 * @param assessmentId - The id of the assessment
-	 */
-	List<Grade> getGradesByAssessment(Integer assessmentId);
+    /**
+     * Inserts a new Grade into database
+     */
+    void insertGrade(Grade grade);
 
-
-	/**
-	 * Inserts a new Grade into database
-	 */
-	void insertGrade(Grade grade);
-
-	/**
-	 * Updates a grade
-	 */
-	void updateGrade(Grade grade);
+    /**
+     * Updates a grade
+     */
+    void updateGrade(Grade grade);
 
 	/**
 	 * Get all grades
@@ -57,67 +63,67 @@ public interface AssessmentService {
 	 */
 	void createBatchNote(BatchNote batchNote);
 
-	/**
-	 * Get the batch note within a given week corresponding to a specific batch
-	 */
-	BatchNote weeklyBatchNote(int batchId, int weekId);
+    /**
+     * Get the batch note within a given week corresponding to a specific batch
+     */
+    BatchNote weeklyBatchNote(int batchId, int weekId);
 
-	/**
-	 * Get a list of all BatchNotes within a given week provided that multiple
-	 * batches are training simultaneously
-	 */
-	List<BatchNote> allBatchNotesInWeek(int weekId);
+    /**
+     * Get a list of all BatchNotes within a given week provided that multiple
+     * batches are training simultaneously
+     */
+    List<BatchNote> allBatchNotesInWeek(int weekId);
 
-	/**
-	 * Get a list of all BatchNotes for a particular Batch
-	 */
-	List<BatchNote> allBatchNotes(int batchId);
+    /**
+     * Get a list of all BatchNotes for a particular Batch
+     */
+    List<BatchNote> allBatchNotes(int batchId);
 
-	/**
-	 * Update a BatchNote
-	 */
-	void updateBatchNote(BatchNote batchNote);
+    /**
+     * Update a BatchNote
+     */
+    void updateBatchNote(BatchNote batchNote);
 
-	/**
-	 * Delete a BatchNote
-	 */
-	void deleteBatchNote(BatchNote batchNote);
+    /**
+     * Delete a BatchNote
+     */
+    void deleteBatchNote(BatchNote batchNote);
 
-	void createQCNote(QCNote note);
+    void createQCNote(QCNote note);
 
-	QCNote getQCNoteById(Integer qcNoteId);
+    QCNote getQCNoteById(Integer qcNoteId);
 
-	QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
+    QCNote getQCNoteForTraineeWeek(Integer traineeId, Integer weekId);
 
-	List<QCNote> getQCNotesByTrainee(Integer traineeId);
+    List<QCNote> getQCNotesByTrainee(Integer traineeId);
 
-	List<QCNote> getQCNotesByWeek(Integer weekId);
+    List<QCNote> getQCNotesByWeek(Integer weekId);
 
-	void updateQCNote(QCNote note);
+    void updateQCNote(QCNote note);
 
-	void deleteQCNote(QCNote note);
+    void deleteQCNote(QCNote note);
 
-	void createTrainerNote(TrainerNote note);
+    void createTrainerNote(TrainerNote note);
 
-	TrainerNote getTrainerNoteById(Integer trainerNoteId);
+    TrainerNote getTrainerNoteById(Integer trainerNoteId);
 
-	TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
+    TrainerNote getTrainerNoteForTrainerWeek(Integer trainerId, Integer weekId);
 
-	Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
+    Set<TrainerNote> getTrainerNotesByTrainer(Integer trainerId);
 
-	Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
+    Set<TrainerNote> getTrainerNotesByWeek(Integer weekId);
 
-	void updateTrainerNote(TrainerNote note);
+    void updateTrainerNote(TrainerNote note);
 
-	void deleteTrainerNote(TrainerNote note);
+    void deleteTrainerNote(TrainerNote note);
 
 
-	/**
-	 * Returns Set of all Categories
-	 * 
-	 * @return Set of all Categories
-	 */
-	Set<Category> getAllCategories();
+    /**
+     * Returns Set of all Categories
+     *
+     * @return Set of all Categories
+     */
+    Set<Category> getAllCategories();
 
 
     List<com.revature.caliber.assessment.beans.Grade> getGradesByTraineeId(int id);
