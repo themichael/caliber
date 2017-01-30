@@ -7,11 +7,9 @@
                     <li role="button" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-
                             <li ng-repeat="menuItem in years track by $index">
                                 <a role="button" ng-click="selectYear($index)">{{menuItem}}</a>
                             </li>
-
                         </ul>
                     </li>
                     <!-- Button Trigger for Create Batch Modal -->

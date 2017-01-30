@@ -22,9 +22,11 @@
   src: url('fonts/Futura-Std-Bold.otf')  format('opentype');
 }
 
-body{
-	font-family: 'Futura-Std-Book';
-}
+body {font-family: 'Futura-Std-Book'; }
+th { font-family: 'Futura-Std-Bold'; }
+li { font-family: 'Futura-Std-Heavy'; }
+
+
 /************************
 	Revature Colors
 ************************/
@@ -45,7 +47,7 @@ body{
 	Header
 **********************/
 
-.navbar-right{ margin-top: .75em; }
+.navbar-right{ margin-top: .75em; margin-right: 5em; }
 .header-styles{	background-color: white; }
 
 

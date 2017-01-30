@@ -25,8 +25,8 @@ angular.module("trainer").controller(
                 if($scope.batches[i].startDate.getFullYear() === $scope.selectedYear){
                     $scope.selectedBatches.push($scope.batches[i]);
                 }
+                $scope.batches = $scope.selectedBatches;
             }
-            $scope.batches = $scope.selectedBatches;
         };
 
         /**
