@@ -94,7 +94,7 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
-    public List<Batch> currentBatch() {
+    public List<Batch> currentBatches() {
         RestTemplate service = new RestTemplate();
         // Build Service URL
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allCurrentBatch)
@@ -114,7 +114,7 @@ public class TrainingServiceImpl implements TrainingService {
 
 
     @Override
-    public List<Batch> currentBatch(Integer id) {
+    public List<Batch> currentBatches(Integer id) {
         RestTemplate service = new RestTemplate();
         final String URI =
                 UriComponentsBuilder.fromHttpUrl(hostname + portNumber)

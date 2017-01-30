@@ -51,7 +51,7 @@ public class TrainingServiceImplTest {
         TrainingServiceImpl ts = (TrainingServiceImpl) context.getBean("trainingService");
         ts.setHostname("http://localhost:");
         ts.setPortNumber("8080");
-        System.err.println( ts.currentBatch(1));
+        System.err.println( ts.currentBatches(1));
     }
 
     @Test
