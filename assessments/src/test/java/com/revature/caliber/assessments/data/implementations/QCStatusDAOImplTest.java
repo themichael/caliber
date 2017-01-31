@@ -5,9 +5,11 @@ import static org.junit.Assert.assertNotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.assessments.beans.Assessment;
@@ -35,6 +37,11 @@ public class QCStatusDAOImplTest {
 		String status = "good";
 		Set<Assessment> setOfAssessment = context.getBean(QCStatusDAO.class).getAssessmentByStatus(status);
 		assertNotNull(setOfAssessment);
+	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
 	}
 	
 }

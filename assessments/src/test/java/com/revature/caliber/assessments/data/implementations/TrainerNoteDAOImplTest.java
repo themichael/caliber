@@ -12,9 +12,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -87,6 +89,8 @@ public class TrainerNoteDAOImplTest {
 		}
 
 		logger.debug("Ending AssessmentServiceTest");
+
+		((ConfigurableApplicationContext) context).close();
 	}
 
 	@Test
@@ -185,6 +189,11 @@ public class TrainerNoteDAOImplTest {
 
 		logger.debug("Ending updateTrainerNote");
 
+	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
 	}
 	
 }	

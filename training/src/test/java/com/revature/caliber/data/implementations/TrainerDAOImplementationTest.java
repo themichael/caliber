@@ -6,9 +6,11 @@ import com.revature.caliber.training.data.TrainerDAO;
 import org.apache.log4j.Logger;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +19,7 @@ import static org.junit.Assert.*;
  */
 public class TrainerDAOImplementationTest {
 
-	private static ApplicationContext context;
+	private static AbstractApplicationContext context;
 	private static Logger logger;
 	private static Trainer trainer = null;
 
@@ -58,6 +60,7 @@ public class TrainerDAOImplementationTest {
 
 	@AfterClass
 	public static void afterClass() {
+	    context.registerShutdownHook();
 		logger.debug("\n--- TRAINER DAO IMPLEMENTATION TEST END ---\n");
 	}
 
@@ -114,7 +117,7 @@ public class TrainerDAOImplementationTest {
 
 		TrainerDAO trainerDao = (TrainerDAO) context.getBean(TrainerDAO.class);
 
-		List<Trainer> trainers = trainerDao.getAllTrainers();
+		Set<Trainer> trainers = trainerDao.getAllTrainers();
 
 		assertNotNull(trainers);
 		logger.debug("     trainers that I got " + trainers);
@@ -143,5 +146,10 @@ public class TrainerDAOImplementationTest {
 		logger.debug("     checking trainer:");
 		logger.debug("       trainer that I got: " + updatedTrainer);
 		logger.debug("       its id: " + updatedTrainer.getTrainerId());
+	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
 	}
 }

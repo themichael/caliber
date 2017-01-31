@@ -39,7 +39,7 @@ public interface TrainingService {
      *
      * @return A list of all the current batches
      */
-    List<Batch> currentBatch();
+    List<Batch> currentBatches();
 
     /**
      * Get all current Batches for a given Trainer id
@@ -47,7 +47,7 @@ public interface TrainingService {
      * @param id - The trainer requesting a list of all his current batches
      * @return A list of the trainers current batches
      */
-    List<Batch> currentBatch(Integer id);
+    List<Batch> currentBatches(Integer id);
 
     /**
      * Get a batch by ID

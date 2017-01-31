@@ -7,10 +7,12 @@ import com.revature.caliber.training.web.controllers.TrainerController;
 import org.apache.log4j.Logger;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.http.HttpEntity;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -84,8 +86,8 @@ public class TrainerControllerImplementationTest {
 		log.debug("Get all trainers");
 
 		trainerDao.createTrainer(trainer);
-		HttpEntity<List<Trainer>> entity = controller.getAllTrainers();
-		List<Trainer> trainers = entity.getBody();
+		HttpEntity<Set<Trainer>> entity = controller.getAllTrainers();
+		Set<Trainer> trainers = entity.getBody();
 
 		log.debug("Got all trainers: " + trainers);
 	}
@@ -115,8 +117,8 @@ public class TrainerControllerImplementationTest {
 	}
 
 	@AfterClass
-	public static void afterClass() {
+	public static void close() {
 		log.debug("\n--- TRAINER CONTROLLER IMPLEMENTATION TEST END ---\n");
+		((AbstractApplicationContext) context).registerShutdownHook();
 	}
-
 }

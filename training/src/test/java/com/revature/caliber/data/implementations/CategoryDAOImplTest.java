@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.training.beans.Category;
@@ -63,4 +65,8 @@ public class CategoryDAOImplTest {
     	logger.info(contxt.getBean(BusinessDelegate.class).getAllCategories() + " Get all categories using Business Delegate"); 	
     }
     
+	@After
+	public void close() {
+		((AbstractApplicationContext) contxt).registerShutdownHook();
+	}
 }
