@@ -4,6 +4,7 @@ import com.revature.caliber.assessments.beans.Category;
 import com.revature.caliber.assessments.service.CategoryService;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -93,4 +94,9 @@ public class CategoryServiceImplTest {
 
         log.debug("Ending getCategoryById");
     }
+    
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
+	}
 }

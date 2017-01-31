@@ -14,12 +14,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.training.beans.Batch;
@@ -417,6 +419,11 @@ public class TraineeDAOImplementationTest {
 
 		logger.info("    .. trainee with id [" + id + "] was deleted");
 		logger.info("    -- deleting trainee test completed.");
+	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
 	}
 
 }
