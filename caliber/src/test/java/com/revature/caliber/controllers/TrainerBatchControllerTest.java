@@ -1,5 +1,6 @@
 package com.revature.caliber.controllers;
 
+import com.revature.caliber.assessment.beans.Grade;
 import com.revature.caliber.models.SalesforceUser;
 import org.apache.http.client.utils.URIBuilder;
 import org.junit.After;
@@ -76,6 +77,7 @@ public class TrainerBatchControllerTest {
 
     @Test
     public void createGrade() throws Exception {
+
 
     }
 
