@@ -121,12 +121,12 @@ public class ApiGatewayImpl implements ApiGateway {
 
     /**************************************Grade************************************/
     @Override
-    public List<Grade> getGradesByAssessment(Integer assessmentId) {
+    public List<com.revature.caliber.assessment.beans.Grade> getGradesByAssessment(Integer assessmentId) {
         return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
     }
 
     @Override
-    public void insertGrade(Grade grade) {
+    public void insertGrade(com.revature.caliber.assessment.beans.Grade grade) {
         serviceLocator.getAssessmentService().insertGrade(grade);
 
     }
@@ -496,17 +496,7 @@ public class ApiGatewayImpl implements ApiGateway {
      * @param id the id
      * @return the assessment grades by id
      */
-    public Set<Grade> getAssessmentGradesById(int id) {
-        return null;
-    }
-
-    /**
-     * Create grade.
-     *
-     * @param grade the grade
-     */
-    public void createGrade(Grade grade) {
-    }
+    public List<com.revature.caliber.assessment.beans.Grade> getAssessmentGradesById(int id) { return serviceLocator.getAssessmentService().getGradesByAssessment(id); }
 
     @Override
     public void createAssessmentNote(Note note) {

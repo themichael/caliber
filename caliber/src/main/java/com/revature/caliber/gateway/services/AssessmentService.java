@@ -40,13 +40,13 @@ public interface AssessmentService {
      *
      * @param assessmentId - The id of the assessment
      */
-    List<Grade> getGradesByAssessment(Integer assessmentId);
+    List<com.revature.caliber.assessment.beans.Grade> getGradesByAssessment(Integer assessmentId);
 
 
     /**
      * Inserts a new Grade into database
      */
-    void insertGrade(Grade grade);
+    void insertGrade(com.revature.caliber.assessment.beans.Grade grade);
 
     /**
      * Updates a grade

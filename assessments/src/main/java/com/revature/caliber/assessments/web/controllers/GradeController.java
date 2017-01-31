@@ -84,7 +84,6 @@ public class GradeController {
 					produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> createGrade(@RequestBody @Valid Grade grade) {
 		ResponseEntity<Serializable> returnEntity;
-
 		try {
 			delegate.insertGrade(grade);
 			returnEntity = new ResponseEntity<>(HttpStatus.OK);
