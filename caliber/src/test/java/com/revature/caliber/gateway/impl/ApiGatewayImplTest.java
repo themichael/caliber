@@ -70,7 +70,8 @@ public class ApiGatewayImplTest {
             System.out.println("]");
         }
     }
-    
+
+    @Ignore
     @Test
     public void getTechGradeDataForBatch(){
     	Map<String, Double[]> grades = apiGateway.getTechGradeDataForBatch(1);
