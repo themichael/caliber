@@ -1,6 +1,7 @@
 package com.revature.caliber.training.service.implementations;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class TrainerServiceImplementation implements TrainerService {
 	}
 
 	@Override
-	public List<Trainer> getAllTrainers() {
+	public Set<Trainer> getAllTrainers() {
 		return facade.getAllTrainers();
 	}
 

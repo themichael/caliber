@@ -12,9 +12,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.training.beans.Week;
@@ -110,6 +112,11 @@ public class WeekDAOImplementationTest {
 
 		tx.commit();
 		session.close();
+	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
 	}
 
 }

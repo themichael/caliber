@@ -1,6 +1,6 @@
-angular.module("trainer")
-    .controller("trainerAssessController", function($log, $scope, chartsDelegate, caliberDelegate){
-        $log.debug("Booted Trainer Aesess Controller");
+angular.module("qc")
+    .controller("qcAssessController", function($log, $scope, chartsDelegate, caliberDelegate){
+        $log.debug("Booted Trainer Assess Controller");
 
         /******************************** Sample Data *******************************/
         $scope.batches=[
@@ -25,7 +25,7 @@ angular.module("trainer")
                 categories: [{categoryId: 13, skillCategory: "Java"}]},
                 {assessmentId: 58, title: "Java Core Verbal", rawScore: 60, type: "Verbal",
                     categories: [{categoryId: 13, skillCategory: "Java"},
-                                {categoryId: 15, skillCategory: "SQL"}]}],
+                        {categoryId: 15, skillCategory: "SQL"}]}],
             [{assessmentId: 78, title: "Java Core Test II", rawScore: 50, type: "Mul Choice",
                 categories: [{categoryId: 13, skillCategory: "Java"}]},
                 {assessmentId: 89, title: "Java Core Verbal I", rawScore: 60, type: "Verbal",
@@ -154,7 +154,7 @@ angular.module("trainer")
         // find grade for trainee
         $scope.findGrade = function(traineeId){
             var grade = grades.find(function(element){
-               return element.trainee ===  traineeId;
+                return element.trainee ===  traineeId;
             });
 
             return grade.score;

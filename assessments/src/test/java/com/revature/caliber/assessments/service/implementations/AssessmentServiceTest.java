@@ -3,6 +3,7 @@ package com.revature.caliber.assessments.service.implementations;
 import com.revature.caliber.assessments.beans.Assessment;
 import com.revature.caliber.assessments.service.AssessmentService;
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -147,4 +148,9 @@ public class AssessmentServiceTest {
         //populating table again for other tests
         populateTable();
     }
+    
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
+	}
 }

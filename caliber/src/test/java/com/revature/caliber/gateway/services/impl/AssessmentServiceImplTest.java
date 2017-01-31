@@ -1,7 +1,7 @@
 package com.revature.caliber.gateway.services.impl;
 
 import com.revature.caliber.gateway.services.AssessmentService;
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -42,10 +42,11 @@ public class AssessmentServiceImplTest {
             System.out.println(grades.get(i).toString());
         }
     }
+    
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
+	}
 
-    @AfterClass
-    public void close(){
-        ((AbstractApplicationContext)context).registerShutdownHook();
-    }
 
 }

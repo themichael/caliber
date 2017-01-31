@@ -1,10 +1,8 @@
 package com.revature.caliber.controllers;
-
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.gateway.ApiGateway;
-import com.revature.caliber.gateway.impl.ApiGatewayImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,7 +34,7 @@ public class AllController {
      */
     @RequestMapping(value = "/batch/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity createBatch(@RequestBody Batch batch) {
-        new ApiGatewayImpl().createBatch(batch);
+        apiGateway.createBatch(batch);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -48,7 +46,7 @@ public class AllController {
      */
     @RequestMapping(value = "/batch/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity updateBatch(@RequestBody Batch batch) {
-        new ApiGatewayImpl().updateBatch(batch);
+        apiGateway.updateBatch(batch);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -60,7 +58,6 @@ public class AllController {
      */
     @RequestMapping(value = "batch/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity deleteBatch(@PathVariable int id) {
-        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
         Batch batch = new Batch();
         batch.setBatchId(id);
         apiGateway.deleteBatch(batch);
@@ -75,7 +72,6 @@ public class AllController {
      */
     @RequestMapping(value = "/trainee/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity createTrainee(@RequestBody Trainee trainee) {
-        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
         apiGateway.createTrainee(trainee);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -88,7 +84,6 @@ public class AllController {
      */
     @RequestMapping(value = "/trainee/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity updateTrainee(@RequestBody Trainee trainee) {
-        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
         apiGateway.updateTrainee(trainee);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -101,7 +96,6 @@ public class AllController {
      */
     @RequestMapping(value = "/trainee/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity deleteTrainee(@PathVariable int id) {
-        ApiGatewayImpl apiGateway = new ApiGatewayImpl();
         Trainee trainee = new Trainee();
         trainee.setTraineeId(id);
         apiGateway.deleteTrainee(trainee);
@@ -116,7 +110,7 @@ public class AllController {
      */
     @RequestMapping(value = "/grades/assessment/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Set<Grade>> getAssessmentGradesById(@PathVariable int id) {
-        return new ResponseEntity<>(new ApiGatewayImpl().getAssessmentGradesById(id), HttpStatus.OK);
+        return new ResponseEntity<>(apiGateway.getAssessmentGradesById(id), HttpStatus.OK);
     }
 
     /**

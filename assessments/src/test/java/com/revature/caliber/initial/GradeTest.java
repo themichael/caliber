@@ -5,14 +5,18 @@ import com.revature.caliber.assessments.beans.Category;
 import com.revature.caliber.assessments.beans.Grade;
 import com.revature.caliber.assessments.data.GradeDAO;
 import com.revature.caliber.assessments.service.AssessmentService;
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-
-import java.sql.Date;
-import java.util.*;
 
 public class GradeTest {
 
@@ -79,8 +83,9 @@ public class GradeTest {
 	
 	
 	//@BeforeClass
-	@Ignore
-	public static void insertGrade() {
+	//@Ignore
+	@Test
+	public void insertGrade() {
 		Assessment assessment = ctxt.getBean(AssessmentService.class).getById(2);
 	    Calendar currenttime = Calendar.getInstance();
 	    Date date = new Date((currenttime.getTime()).getTime());
@@ -105,6 +110,11 @@ public class GradeTest {
 		Grade grade = ctxt.getBean(GradeDAO.class).getGradeByGradeId(100);
 		ctxt.getBean(GradeDAO.class).deleteGrade(grade);
 
+	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) ctxt).registerShutdownHook();
 	}
 
 }

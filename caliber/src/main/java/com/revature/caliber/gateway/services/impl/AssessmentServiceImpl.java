@@ -27,7 +27,6 @@ public class AssessmentServiceImpl implements AssessmentService {
     private String 	addGradePath, 
     				updateGradePath, 
     				getGradesByAssessmentPath,
-					getGradesByTraineePath,
                     allGradesPath;
 
     //paths for Trainer Note
@@ -45,12 +44,12 @@ public class AssessmentServiceImpl implements AssessmentService {
     				deleteBatchNotePath;
     
     //paths for assessments
-    private String addAssessmentPath,
-			       updateAssessmentPath,
-			       deleteAssessmentPath,
-	               getAllAssessmentsPath;
+    private String getAllAssessmentsPath;
+    private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
+	private String getGradesByTraineePath;
 
-    @Override
+
+	@Override
 	public void insertAssessment(Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		
@@ -397,17 +396,13 @@ public class AssessmentServiceImpl implements AssessmentService {
 	@Override
 	public List<com.revature.caliber.assessment.beans.Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
+
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getGradesByTraineePath).path("/" + id)
                 .build().toUriString();
-
 		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> responseAssessmentModule =
 				rest.getForEntity(URI, com.revature.caliber.assessment.beans.Grade[].class);
-
-
 		com.revature.caliber.assessment.beans.Grade[] grades = responseAssessmentModule.getBody();
-
 		List<com.revature.caliber.assessment.beans.Grade> newGrades = Arrays.asList(grades);
-
 		return newGrades;
 	}
 
@@ -464,5 +459,10 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setCreateBatchNotePath(String createBatchNotePath){this.createBatchNotePath = createBatchNotePath;}
     public void setUpdateBatchNotePath(String updateBatchNotePath){this.updateBatchNotePath = updateBatchNotePath;}
     public void setDeleteBatchNotePath(String deleteBatchNotePath){this.deleteBatchNotePath = deleteBatchNotePath;}
+
+	public String getGetGradesByTraineePath() {
+		return getGradesByTraineePath;
+	}
+
 
 }

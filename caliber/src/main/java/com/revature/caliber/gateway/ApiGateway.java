@@ -43,7 +43,8 @@ public interface ApiGateway {
      *
      * @return All batches
      */
-    List<Batch> currentBatch();
+    List<Batch> getCurrentBatches();
+
 
     /**
      * Get all current Batches for a given Trainer
@@ -266,7 +267,6 @@ public interface ApiGateway {
 
     /**
      * Delete the Batch Note
-     * <<<<<<< HEAD
      *
      * @param batchNote the batch note
      */
@@ -325,17 +325,51 @@ public interface ApiGateway {
      *
      * @return the all batches
      */
-    Set<Batch> getAllBatches();
+    List<Batch> getAllBatches();
 
+    /**
+     * Update assessment note.
+     *
+     * @param note the note
+     */
     void updateAssessmentNote(Note note);
 
+    /**
+     * Gets all assessments.
+     *
+     * @return the all assessments
+     */
     Set<Assessment> getAllAssessments();
 
+    /**
+     * Create assessment.
+     *
+     * @param assessment the assessment
+     */
     void createAssessment(Assessment assessment);
 
+    /**
+     * Create grade.
+     *
+     * @param grade the grade
+     */
     void createGrade(Grade grade);
 
+    /**
+     * Create assessment note.
+     *
+     * @param note the note
+     */
     void createAssessmentNote(Note note);
 
+    /**
+     * Create new week.
+     *
+     * @param week the week
+     */
     void createNewWeek(Week week);
+
+    Set<Grade> getAssessmentGradesById(int id);
+
+    Batch getCurrentBatch();
 }

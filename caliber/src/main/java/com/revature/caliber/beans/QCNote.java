@@ -5,8 +5,8 @@ package com.revature.caliber.beans;
  */
 public class QCNote extends Note {
 
-	private Trainee trainee;
-	private Week week;
+    private Trainee trainee;
+    private Week week;
 
 
     /**
