@@ -136,7 +136,7 @@ a { color: #F26925;}
 	Footer
 ************************/
 
-.footer-margin{ margin-top: 1em; }
+.footer-margin{ margin-top: .5em; }
 .footer-img { margin-top: 1.5em; }
 .contact-info {	margin-bottom: 1em; }
 
@@ -146,12 +146,13 @@ html, body {
 }
 .wrapper {
 	min-height: 100%;
-	margin-bottom: -148px;
-	padding-bottom: 148px;
+	margin-bottom: -103px;
+	padding-bottom: 103px;
 }
 footer {
-	height: 148px;
+	height: 103px;
 	background-color: #474C55;
+    font-size: .75em;
 }
 
 .center{ text-align: center;}
