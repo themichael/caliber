@@ -2,12 +2,17 @@ package com.revature.caliber.controllers;
 
 import com.revature.caliber.beans.*;
 import com.revature.caliber.gateway.ApiGateway;
+import com.revature.caliber.models.SalesforceUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
@@ -37,8 +42,9 @@ public class TrainerBatchController {
      * @return in JSON, a set of batch objects
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Batch>> getAllBatches() {
-        return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
+    public ResponseEntity<List<Batch>> getAllBatches(Authentication authentication) {
+        SalesforceUser salesforceUser = (SalesforceUser) authentication.getPrincipal();
+        return new ResponseEntity<>(apiGateway.getBatches(salesforceUser.getCaliberId()), HttpStatus.OK);
     }
 
     /**
@@ -47,8 +53,9 @@ public class TrainerBatchController {
      * @return - in JSON, a batch object
      */
     @RequestMapping(value = "/batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Batch> getCurrentBatch() {
-        return new ResponseEntity<>(apiGateway.getCurrentBatch(), HttpStatus.OK);
+    public ResponseEntity<List<Batch>> getCurrentBatch() {
+        SalesforceUser salesforceUser = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return new ResponseEntity<>(apiGateway.currentBatch(salesforceUser.getCaliberId()), HttpStatus.OK);
     }
 
     /**
@@ -57,7 +64,7 @@ public class TrainerBatchController {
      * @param week the week
      * @return the response entity
      */
-    @RequestMapping(value = "/week/new", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/week/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createNewWeek(@RequestBody Week week) {
         apiGateway.createNewWeek(week);
         return new ResponseEntity(HttpStatus.OK);

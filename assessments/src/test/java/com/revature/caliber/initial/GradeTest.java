@@ -1,24 +1,22 @@
 package com.revature.caliber.initial;
 
+import com.revature.caliber.assessments.beans.Assessment;
+import com.revature.caliber.assessments.beans.Category;
+import com.revature.caliber.assessments.beans.Grade;
+import com.revature.caliber.assessments.data.GradeDAO;
+import com.revature.caliber.assessments.service.AssessmentService;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-
-import com.revature.caliber.assessments.beans.Assessment;
-import com.revature.caliber.assessments.beans.Category;
-import com.revature.caliber.assessments.beans.Grade;
-import com.revature.caliber.assessments.data.GradeDAO;
-import com.revature.caliber.assessments.service.AssessmentService;
 
 public class GradeTest {
 
@@ -81,13 +79,7 @@ public class GradeTest {
 		Map<Set<Category>, Double> grades = ctxt.getBean(GradeDAO.class).gradeByCategory(1);
 		System.out.println("avg grades by week "+ grades);
 	}
-	
-	@Ignore
-	@Test
-	public void avgGradeBy(){
-		List grades =ctxt.getBean(GradeDAO.class).avgGradeByTrainer(1);
-		System.out.println("trainer: "+ grades);
-	}
+
 	
 	
 	//@BeforeClass

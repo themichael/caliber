@@ -1,5 +1,6 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Set;
@@ -27,24 +28,25 @@ public class Trainer {
     private Tier tier;
 
     // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+    @JsonIgnore
     private Set<Batch> batches;
 
     /**
-     * Gets trainee id.
+     * Gets trainer id.
      *
-     * @return the trainee id
+     * @return the trainer id
      */
-    public int getTraineeId() {
+    public int getTrainerId() {
         return trainerId;
     }
 
     /**
-     * Sets trainee id.
+     * Sets trainer id.
      *
-     * @param traineeId the trainee id
+     * @param trainerId the trainer id
      */
-    public void setTraineeId(int traineeId) {
-        this.trainerId = traineeId;
+    public void setTrainerId(int trainerId) {
+        this.trainerId = trainerId;
     }
 
     /**
@@ -183,16 +185,16 @@ public class Trainer {
     /**
      * Instantiates a new Trainer.
      *
-     * @param traineeId         the trainee id
+     * @param trainerId         the trainer id
      * @param name              the name
      * @param title             the title
      * @param email             the email
      * @param salesforceAccount the salesforce account
      * @param tier              the tier
      */
-    public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier) {
+    public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier) {
         super();
-        this.trainerId = traineeId;
+        this.trainerId = trainerId;
         this.name = name;
         this.title = title;
         this.email = email;
@@ -203,7 +205,7 @@ public class Trainer {
     /**
      * Instantiates a new Trainer.
      *
-     * @param traineeId         the trainee id
+     * @param trainerId         the trainer id
      * @param name              the name
      * @param title             the title
      * @param email             the email
@@ -211,10 +213,10 @@ public class Trainer {
      * @param tier              the tier
      * @param batches           the batches
      */
-    public Trainer(int traineeId, String name, String title, String email, String salesforceAccount, Tier tier,
+    public Trainer(int trainerId, String name, String title, String email, String salesforceAccount, Tier tier,
                    Set<Batch> batches) {
         super();
-        this.trainerId = traineeId;
+        this.trainerId = trainerId;
         this.name = name;
         this.title = title;
         this.email = email;
