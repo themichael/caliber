@@ -2,6 +2,7 @@ package com.revature.caliber.controllers;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.gateway.ApiGateway;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("/vp")
 public class VPBatchController {
 
+    private static Logger log = Logger.getLogger(VPBatchController.class);
     private ApiGateway apiGateway;
 
     /**
@@ -36,8 +38,21 @@ public class VPBatchController {
      *
      * @return in JSON, a set of batch objects
      */
-    @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/batch/all",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Batch>> getAllBatches() {
-        return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
+        ResponseEntity<List<Batch>> returnEntity;
+        try {
+            List<Batch> batches = apiGateway.getAllBatches();
+            if (batches == null)
+                returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
+            else
+                returnEntity = new ResponseEntity<>(batches, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            log.error("Runtime Exception.", e);
+        }
+        return returnEntity;
     }
 }
