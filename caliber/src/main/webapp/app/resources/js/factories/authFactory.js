@@ -1,4 +1,4 @@
-angular.module("auth").factory("authFactory", function($log, $http, $cookies, $state, $location){
+angular.module("auth").factory("authFactory", function ($log, $http, $cookies, $state, $location) {
     $log.debug("Booted Authentication Factory");
 
     var auth = {};
@@ -19,15 +19,15 @@ angular.module("auth").factory("authFactory", function($log, $http, $cookies, $s
     var trainerHome = "/trainer/home";
 
     // retrieves role from cookie
-    function getCookie(){
+    function getCookie() {
         return $cookies.get("role");
     }
 
     // moves user to home page
     // when entering root
-    auth.auth = function(){
+    auth.auth = function () {
         var role = getCookie();
-        if(role === trainerRole)
+        if (role === trainerRole)
             $state.go(trainerState);
         else if (role === qcRole)
             $state.go(qcState);
@@ -36,33 +36,33 @@ angular.module("auth").factory("authFactory", function($log, $http, $cookies, $s
 
     // moves user to home page
     // if user is not of role qc
-    auth.authQC = function(){
+    auth.authQC = function () {
         var role = getCookie();
-        if(role === qcRole)
+        if (role === qcRole)
             $log.debug("Authenticated user as QC");
-        else if(role === trainerRole)
+        else if (role === trainerRole)
             $location.path(trainerHome);
         else $location.path(vpHome);
     };
 
     // moves user to home page
     // if user is not of role vp
-    auth.authVP = function(){
+    auth.authVP = function () {
         var role = getCookie();
-        if(role === vpRole)
+        if (role === vpRole)
             $log.debug("Authenticate user as VP");
-        else if(role === trainerRole)
+        else if (role === trainerRole)
             $location.path(trainerHome);
         else $location.path(qcHome);
     };
 
     // moves user to home page
     // if user is not of role trainer
-    auth.authTrainer = function(){
+    auth.authTrainer = function () {
         var role = getCookie();
-        if(role === trainerRole)
+        if (role === trainerRole)
             $log.debug("Authenticated user as Trainer");
-        else if(role === qcRole)
+        else if (role === qcRole)
             $location.path(qcHome);
         else $location.path(vpHome);
     };
