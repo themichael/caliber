@@ -444,7 +444,6 @@ public class TrainingServiceImpl implements TrainingService {
         RestTemplate service = new RestTemplate();
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getWeekByBatch).path(String.valueOf(batchId))
                 .build().toUriString();
-
         //Invoke the service
         ResponseEntity<Week[]> response = service.getForEntity(URI, Week[].class);
 
