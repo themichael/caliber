@@ -1,5 +1,8 @@
 angular.module("qc").controller("qcHomeController", function
-    ($scope, $log, caliberDelegate, chartsDelegate) {
+    ($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
+
+    $log.log("All Batches: ");
+    $log.log(allBatches);
 
     $scope.batches = ["Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408"];
     $scope.tech = ["Spring", "Hibernate", "JSP"];
@@ -8,8 +11,10 @@ angular.module("qc").controller("qcHomeController", function
     /*********************************************** UI ***************************************************/
     var viewCharts = 0;
 
-    $scope.batches = [ "Batch1311", "Batch1612", "Batch1512",
-        "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
+    $scope.batches =
+
+        // [ "Batch1311", "Batch1612", "Batch1512",
+        // "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
     $scope.tech = [ "Spring", "Hibernate", "JSP" ];
     $scope.trainees = [ "Osher", "Kyle", "Rikki" ];
 
