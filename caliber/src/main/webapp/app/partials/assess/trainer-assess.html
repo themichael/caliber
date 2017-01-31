@@ -83,7 +83,14 @@
                             <span ng-repeat=" grade in grades track by $index">
                                 <span ng-if="grade.assessment === assessment.assessmentId &&
                                                grade.trainee === trainee.traineeId">
-                                    {{grade.score}}
+                                    <span ng-switch on="{{grade.score}}">
+                                        <span ng-switch-when="null">
+                                            <input type="text" name="" id="">
+                                        </span>
+                                        <span ng-switch-default>
+                                            {{grade.score}}
+                                        </span>
+                                    </span>
                                 </span>
                             </span>
                     </td>
