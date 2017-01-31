@@ -27,35 +27,36 @@
 		<property name="hostname" value="http://pjw6193.tech" />
 		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
 		
-		<property name="insertAssessment" value="assessments/assessment/new"/>
-		<property name="deleteAssessment" value="assessments/assessment/delete" />
-		<property name="updateAssessment" value="assessments/assessment/update" />
-		<property name="getAllAssessmentsPath" value="assessments/assessment/all" />
+		<property name="insertAssessment" value="assessment/assessment/new"/>
+		<property name="deleteAssessment" value="assessment/assessment/delete" />
+		<property name="updateAssessment" value="assessment/assessment/update" />
+		<property name="getAllAssessmentsPath" value="assessment/assessment/all" />
 
 
-		<property name="insertGrade" value="assessments/grades/create/"/>
-		<property name="updateGrade" value="assessments/grades/update/"/>
-		<property name="gradesByAssessments" value="assessments/grades/assessment/"/>
-		<property name="getGradesByTraineePath" value="assessments/grades/trainee" />
-		<property name="allGradesPath" value="assessments/grades/all" />
+		<property name="insertGrade" value="assessment/grades/create/"/>
+		<property name="updateGrade" value="assessment/grades/update/"/>
+		<property name="gradesByAssessments" value="assessment/grades/assessment/"/>
+		<property name="getGradesByTraineePath" value="assessment/grades/trainee" />
+		<property name="allGradesPath" value="assessment/grades/all" />
 
 		
-		<property name="updateTrainerNotePath" value="assessments/trainerNote/update/" />
-		<property name="deleteTrainerNotePath" value="assessments/trainerNote/delete/" />
-		<property name="createTrainerNotePath" value="assessments/trainerNote/new/" />
+		<property name="updateTrainerNotePath" value="assessment/trainerNote/update/" />
+		<property name="deleteTrainerNotePath" value="assessment/trainerNote/delete/" />
+		<property name="createTrainerNotePath" value="assessment/trainerNote/new/" />
 		
-		<property name="createBatchNotePath" value="assessments/batchNote/new"/>
-		<property name="deleteBatchNotePath" value="assessments/batchNote/update"/>
-		<property name="updateBatchNotePath" value="assessments/batchNote/delete"/>
+		<property name="createBatchNotePath" value="assessment/batchNote/new"/>
+		<property name="deleteBatchNotePath" value="assessment/batchNote/update"/>
+		<property name="updateBatchNotePath" value="assessment/batchNote/delete"/>
 		
-		<property name="createQCNotePath" value="assessments/qcnotes/new" />
-		<property name="updateQCNotePath" value="assessments/qcnotes/update" />
+		<property name="createQCNotePath" value="assessment/qcnotes/new" />
+		<property name="updateQCNotePath" value="assessment/qcnotes/update" />
 	</bean>
 
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
+		<!--<property name="hostname" value="http://localhost" />-->
+		<!--<property name="portNumber" value=":8080/" /> &lt;!&ndash; use 443 for SSL &ndash;&gt;-->
 		<property name="hostname" value="http://pjw6193.tech" />
 		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
-
 		<property name="newBatch" value="training/batch/create/" />
 		<property name="allBatch" value="training/batch/all/" />
 		<property name="allBatchesForTrainer" value="training/batch/byTrainerId/" />
