@@ -74,7 +74,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
-	public void updateAssessment(Assessment assessment) {
+	public void updateAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateAssessmentPath).build().toUriString();
@@ -87,7 +87,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		}
 	}
 	@Override
-	public void deleteAssessment(Assessment assessment) {
+	public void deleteAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteAssessmentPath)
@@ -95,7 +95,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-		HttpEntity<Assessment> entity = new HttpEntity<>(assessment, headers);
+		HttpEntity<com.revature.caliber.assessment.beans.Assessment> entity = new HttpEntity<>(assessment, headers);
 
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);

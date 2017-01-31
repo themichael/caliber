@@ -293,14 +293,14 @@ public interface ApiGateway {
      *
      * @param assessment the assessment
      */
-    void updateAssessment(Assessment assessment);
+    void updateAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * Delete an assessment
      *
      * @param assessment the assessment
      */
-    void deleteAssessment(Assessment assessment);
+    void deleteAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * Create qc note.

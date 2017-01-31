@@ -25,14 +25,14 @@ public interface AssessmentService {
      *
      * @param assessment an Assessment to be updated
      */
-    void updateAssessment(Assessment assessment);
+    void updateAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * Deletes Assessment
      *
      * @param assessment and Assessment to delete
      */
-    void deleteAssessment(Assessment assessment);
+    void deleteAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * Get all assessments

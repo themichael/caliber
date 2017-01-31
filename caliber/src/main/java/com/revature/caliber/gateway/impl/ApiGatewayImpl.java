@@ -181,12 +181,12 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     @Override
-    public void updateAssessment(Assessment assessment) {
+    public void updateAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
         serviceLocator.getAssessmentService().updateAssessment(assessment);
     }
 
     @Override
-    public void deleteAssessment(Assessment assessment) {
+    public void deleteAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
         serviceLocator.getAssessmentService().deleteAssessment(assessment);
     }
 
