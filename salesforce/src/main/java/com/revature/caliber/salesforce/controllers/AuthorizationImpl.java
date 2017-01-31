@@ -43,12 +43,9 @@ public class AuthorizationImpl extends Helper implements Authorization{
     @Value("#{systemEnvironment['SALESFORCE_REDIRECT_URI']}")
     private String redirectUri;
 
-    @Value("#{systemEnvironment['CALIBER_PROJECT_URL']}")
-    private String projectURL;
-    @Value("#{systemEnvironment['CALIBER_PROJECT_PORT_NUMBER']}")
-    private String portNumber;
     //e.g. http://localhost:9001/caliber/
-    private String redirectUrl = projectURL + ":" + portNumber + "/caliber/";
+    @Value("#{systemEnvironment['CALIBER_PROJECT_URL']}")
+    private String redirectUrl;
 
     private HttpClient httpClient;
     private HttpResponse response;
