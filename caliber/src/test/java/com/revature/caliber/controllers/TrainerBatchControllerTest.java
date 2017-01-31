@@ -1,18 +1,27 @@
 package com.revature.caliber.controllers;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.models.SalesforceUser;
 import org.apache.http.client.utils.URIBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class TrainerBatchControllerTest {
+public class TrainerBatchControllerTest{
     RestTemplate restTemplate;
     URIBuilder uriBuilder;
     @Before
@@ -30,6 +39,8 @@ public class TrainerBatchControllerTest {
     }
 
     @Test
+    @PreAuthorize("authentication(fullyAuthenticated)")
+    @WithMockUser(username = "testrevature@gmail.com", roles = "ROLE_TRAINER")
     public void getAllBatches() throws Exception {
         uriBuilder.setPath("/caliber/trainer/batch/all");
         ResponseEntity<Batch[]> responseEntity
@@ -39,6 +50,7 @@ public class TrainerBatchControllerTest {
     }
 
     @Test
+    @WithMockUser(username="testrevature@gmail.com", roles = "ROLE_TRAINER")
     public void getCurrentBatch() throws Exception {
         uriBuilder.setPath("/caliber/trainer/batch/current");
         ResponseEntity<Batch[]> responseEntity
