@@ -101,6 +101,10 @@ angular.module("delegate").factory("caliberDelegate",
 		return qcFactory.getAllBatches();
 	};
 
+	delegate.qc.addGrade = function(){
+		return qcFactory.addGrade();
+	};
+
 	delegate.qc.updateGrade = function(gradeObj){
 		return qcFactory.updateGrade(gradeObj);
 	};
