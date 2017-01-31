@@ -563,7 +563,7 @@ public class ApiGatewayImpl implements ApiGateway {
             com.revature.caliber.assessment.beans.Category category = catList.get(0);
             //map does not have the key yet
             if (!grades.containsKey(category.getSkillCategory())) {
-                grades.put(category.getSkillCategory(), new Double[]{0.0, 0.0, 0.0});
+                grades.put(category.getSkillCategory(), new Double[]{0.0, 0.0, 0.0, 0.0});
                 gradeValues.put(category.getSkillCategory(), new ArrayList<>());
             }
             //add grade to total number
@@ -617,7 +617,7 @@ public class ApiGatewayImpl implements ApiGateway {
                 scores.add(grade.getScore());
             }
 
-            //agregate here
+            //aggregate here
             if(scores.size()<1){
             	continue;
             }
@@ -636,12 +636,16 @@ public class ApiGatewayImpl implements ApiGateway {
                 serviceLocator.getAssessmentService().getAllGrades();
         HashMap<String,HashMap<String,Double[]>> grades = new HashMap<>(); //our result map
         HashMap<String, Double[]> techGrade = new HashMap<>();
-        //get all batches
+
+        Set<Integer> batchIds = new TreeSet<>();
+
         for (com.revature.caliber.assessment.beans.Grade grade : allGrades) {
-            System.out.println("Grade " + grade.getScore() + "      " + grade.getAssessment().getAssessmentId() + "     " + grade.getAssessment().getBatch());
-            if(!grades.containsKey(grade.getAssessment().getBatch())){
-                techGrade = getTechGradeDataForBatch(grade.getAssessment().getBatch());
-                grades.put(String.valueOf(grade.getAssessment().getBatch()),techGrade);
+            batchIds.add(grade.getAssessment().getBatch());
+        }
+        for (Integer batchId : batchIds) {
+            if(!grades.containsKey(batchId)){
+                techGrade = getTechGradeDataForBatch(batchId);
+                grades.put(String.valueOf(batchId),techGrade);
             }
         }
         return grades;
@@ -673,7 +677,7 @@ public class ApiGatewayImpl implements ApiGateway {
         if (list.size() % 2 == 1) {
             return list.get(middle);
         } else {
-            return (double)((list.get(middle - 1) + list.get(middle - 2)) / 2);
+            return (double)((list.get(middle - 1) + list.get(middle)) / 2);
         }
 
     }

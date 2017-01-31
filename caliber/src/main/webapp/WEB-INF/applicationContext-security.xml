@@ -15,8 +15,8 @@ http://www.springframework.org/schema/security/spring-security.xsd">
         <!-- change to hasRole('ROLE_TRAINER') after development is complete -->
         <security:intercept-url pattern="/trainer/**" access="permitAll" />
         <security:intercept-url pattern="/all/**" access="permitAll" />
+        <security:remember-me key="wow" />
         <security:csrf disabled="true" />
-        <!--<security:remember-me key="wow" />-->
 
         <!-- logout functionality: delete cookies and redirect. Use /j_spring_security_logout as route -->
         <security:logout delete-cookies="JSESSIONID"/>
