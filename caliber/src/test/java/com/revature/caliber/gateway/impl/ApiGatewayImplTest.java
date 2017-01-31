@@ -1,10 +1,13 @@
 package com.revature.caliber.gateway.impl;
 
 import com.revature.caliber.gateway.ApiGateway;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.HashMap;
@@ -69,4 +72,9 @@ public class ApiGatewayImplTest {
         }
 
     }
+    
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
+	}
 }

@@ -11,6 +11,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -183,6 +184,11 @@ public class BatchNoteDAOImplTest {
 		assertNotNull(batchNote);
 		System.out.println("Delete BatchNoteTest was fine");
 		logger.debug("BatchNote was deleted");
+	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) ctxt).registerShutdownHook();
 	}
 
 }

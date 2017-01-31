@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -117,6 +118,11 @@ public class GradeTest {
 		Grade grade = ctxt.getBean(GradeDAO.class).getGradeByGradeId(100);
 		ctxt.getBean(GradeDAO.class).deleteGrade(grade);
 
+	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) ctxt).registerShutdownHook();
 	}
 
 }
