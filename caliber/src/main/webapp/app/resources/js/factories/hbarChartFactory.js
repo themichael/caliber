@@ -1,48 +1,48 @@
-angular.module("charts").factory("hbarChartFactory", function($log) {
-	$log.debug("Booted Horizontal Bar Chart Factory");
-	
-	var hbarChart = {};
+angular.module("charts").factory("hbarChartFactory", function ($log) {
+    $log.debug("Booted Horizontal Bar Chart Factory");
 
-	hbarChart.getBatchAvgChart = function(dataArray) {
-		var chartData = {};
-		
-		// data and labels
-		chartData.data = [];
-		chartData.labels = [];
-				
-		// traverse through array of objects and grab labels and data
-		dataArray.forEach(function(element){
-			chartData.labels.push(element.trainee);
-			chartData.data.push(element.average);
-		});
-		
-		chartData.datasetOverride = [{
-			xAxisID: 'x-axis-1'
-		}];
+    var hbarChart = {};
 
-		return chartData;
-	};
+    hbarChart.getBatchAvgChart = function (dataArray) {
+        var chartData = {};
 
-	hbarChart.getTrainerEvalChart = function(dataArray){
-		var chartData = {};
+        // data and labels
+        chartData.data = [];
+        chartData.labels = [];
 
-		// series
-		chartData.series = ["QC Eval"];
+        // traverse through array of objects and grab labels and data
+        dataArray.forEach(function (element) {
+            chartData.labels.push(element.trainee);
+            chartData.data.push(element.average);
+        });
+
+        chartData.datasetOverride = [{
+            xAxisID: 'x-axis-1'
+        }];
+
+        return chartData;
+    };
+
+    hbarChart.getTrainerEvalChart = function (dataArray) {
+        var chartData = {};
+
+        // series
+        chartData.series = ["QC Eval"];
 
         // labels and data
         chartData.data = [];
         chartData.labels = [];
 
         // loop through object array
-        dataArray.forEach(function(element){
-        	chartData.data.push(element.score);
-        	chartData.labels.push(element.name);
-		});
+        dataArray.forEach(function (element) {
+            chartData.data.push(element.score);
+            chartData.labels.push(element.name);
+        });
 
-		return chartData;
-	};
+        return chartData;
+    };
 
-    hbarChart.getAllBatchesEvalChart = function(dataArray){
+    hbarChart.getAllBatchesEvalChart = function (dataArray) {
         var chartData = {};
 
         // series
@@ -53,7 +53,7 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
         chartData.labels = [];
 
         // loop through object array
-        dataArray.forEach(function(element){
+        dataArray.forEach(function (element) {
             chartData.data.push(element.score);
             chartData.labels.push(element.name);
         });
@@ -61,7 +61,7 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
         return chartData;
     };
 
-    hbarChart.getBatchTechEvalChart = function(dataArray){
+    hbarChart.getBatchTechEvalChart = function (dataArray) {
         var chartData = {};
 
         // series
@@ -72,7 +72,7 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
         chartData.labels = [];
 
         // loop through object array
-        dataArray.forEach(function(element){
+        dataArray.forEach(function (element) {
             chartData.data.push(element.average);
             chartData.labels.push(element.trainee);
         });
@@ -81,5 +81,5 @@ angular.module("charts").factory("hbarChartFactory", function($log) {
     };
 
 
-	return hbarChart;
+    return hbarChart;
 });
