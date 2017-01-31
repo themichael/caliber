@@ -85,11 +85,6 @@ angular.module("app").config(
                 url: "/assess",
                 controller: "trainerAssessController"
             })
-            .state("trainer.reports", {
-                templateUrl: "app/partials/reports/trainer-reports.html",
-                url: "/reports",
-                controller: "trainerReportsController"
-            })
 
             // vp
             .state("vp", {
