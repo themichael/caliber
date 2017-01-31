@@ -32,7 +32,9 @@ public class AllController {
      * @param batch the batch
      * @return the response entity
      */
-    @RequestMapping(value = "/batch/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/batch/create",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity createBatch(@RequestBody Batch batch) {
         apiGateway.createBatch(batch);
         return new ResponseEntity(HttpStatus.CREATED);
