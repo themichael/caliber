@@ -117,12 +117,8 @@ public class TrainerControllerImplementationTest {
 	}
 
 	@AfterClass
-	public static void afterClass() {
+	public static void close() {
 		log.debug("\n--- TRAINER CONTROLLER IMPLEMENTATION TEST END ---\n");
-	}
-
-	@AfterClass
-	public void close() {
 		((AbstractApplicationContext) context).registerShutdownHook();
 	}
 }
