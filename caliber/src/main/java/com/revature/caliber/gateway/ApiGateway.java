@@ -1,6 +1,12 @@
 package com.revature.caliber.gateway;
 
+import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.QCNote;
+import com.revature.caliber.beans.TrainerNote;
 
 import java.util.HashMap;
 import java.util.List;
@@ -208,21 +214,21 @@ public interface ApiGateway {
      * @param assessmentId the assessment id
      * @return grades by assessment
      */
-    List<Grade> getGradesByAssessment(Integer assessmentId);
+    List<com.revature.caliber.assessment.beans.Grade> getGradesByAssessment(Integer assessmentId);
 
     /**
      * Inserts a grade
      *
      * @param grade the grade
      */
-    void insertGrade(Grade grade);
+    void insertGrade(com.revature.caliber.assessment.beans.Grade grade);
 
     /**
      * Updates a grade
      *
      * @param grade the grade
      */
-    void updateGrade(Grade grade);
+    void updateGrade(com.revature.caliber.assessment.beans.Grade grade);
 
     /**
      * Create a Trainer Note
@@ -348,12 +354,6 @@ public interface ApiGateway {
      */
     void createAssessment(Assessment assessment);
 
-    /**
-     * Create grade.
-     *
-     * @param grade the grade
-     */
-    void createGrade(Grade grade);
 
     /**
      * Create assessment note.
@@ -369,7 +369,7 @@ public interface ApiGateway {
      */
     void createNewWeek(Week week);
 
-    Set<Grade> getAssessmentGradesById(int id);
+    List<com.revature.caliber.assessment.beans.Grade> getAssessmentGradesById(int id);
 
     Batch getCurrentBatch();
 }

@@ -26,7 +26,7 @@ public class AssessmentServiceImplTest {
 	   @Test
 	   @Ignore
 	   public void getGradesByAssessment(){
-		   List<com.revature.caliber.beans.Grade> grades = assessmentService.getGradesByAssessment(1);
+		   List<com.revature.caliber.assessment.beans.Grade> grades = assessmentService.getGradesByAssessment(1);
 		   System.out.println("assess grades" + grades);
 	   }
 	   

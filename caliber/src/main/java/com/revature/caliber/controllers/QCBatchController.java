@@ -52,9 +52,12 @@ public class QCBatchController {
      * @param grade the grade
      * @return the response entity
      */
-    @RequestMapping(value = "/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createGrade(@RequestBody Grade grade) {
-        apiGateway.createGrade(grade);
+    @RequestMapping(value = "/grade/create",
+                    method = RequestMethod.POST,
+                    consumes = MediaType.APPLICATION_JSON_VALUE,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
+        apiGateway.insertGrade(grade);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -66,7 +69,6 @@ public class QCBatchController {
      */
     @RequestMapping(value = "/grade/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
-        System.out.println(grade);
         apiGateway.updateGrade(grade);
         return new ResponseEntity(HttpStatus.OK);
     }
