@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * The type Trainer batch controller.
@@ -122,6 +123,18 @@ public class TrainerBatchController {
     public ResponseEntity updateAssessment(@RequestBody Assessment assessment) {
         apiGateway.updateAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * Update assessment response entity.
+     *
+     * @param assessment the assessment
+     * @return the response entity
+     */
+    @RequestMapping(value = "/assessment/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<Assessment>> getAllAssessments(@RequestBody Assessment assessment) {
+        Set<Assessment> set = apiGateway.getAllAssessments();
+        return new ResponseEntity(set, HttpStatus.OK);
     }
 
     /**
