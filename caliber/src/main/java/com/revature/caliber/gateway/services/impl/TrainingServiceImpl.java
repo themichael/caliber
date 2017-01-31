@@ -18,7 +18,7 @@ import java.util.List;
 public class TrainingServiceImpl implements TrainingService {
 
 
-    private String localhost = "http://localhost:9001";
+    private String localhost = "http://localhost:8080";
     private String hostname;
     private String portNumber;
 

@@ -1,8 +1,6 @@
 package com.revature.caliber.gateway.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.revature.caliber.gateway.ApiGateway;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -11,7 +9,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import com.revature.caliber.gateway.ApiGateway;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Shehar on 1/26/2017.
@@ -102,8 +101,30 @@ public class ApiGatewayImplTest {
             }
             System.out.println("]");
         }
+    }
+
+    @Test
+    @Ignore
+    public void getTechGradeAllBatch() throws Exception {
+        HashMap<String,HashMap<String,Double[]>> grades = apiGateway.getTechGradeAllBatch();
+
+        for(String batch : grades.keySet()){
+            System.out.println(batch + " -> [");
+
+            for(String tech : grades.get(batch).keySet()){
+                System.out.println(tech + " -> [");
+                for(Double d: grades.get(batch).get(tech)){
+                    System.out.println(d + ", ");
+                }
+                System.out.println("]");
+            }
+            System.out.println("]");
+        }
+
 
     }
+
+
     @After
     public void  close(){
     	((AbstractApplicationContext)context).registerShutdownHook();

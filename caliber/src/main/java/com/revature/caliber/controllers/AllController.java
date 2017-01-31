@@ -155,9 +155,8 @@ public class AllController {
     @RequestMapping(value = "/agg/tech/batch/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HashMap<String, Double[]>> aggregateTechForAllBatches() {
-        //return new ResponseEntity<>(apiGateway.getTechGradeDataForBatch(batchId), HttpStatus.OK);
-        return null;
+    public ResponseEntity<HashMap<String, HashMap<String,Double[]>>> aggregateTechForAllBatches() {
+        return new ResponseEntity<>(apiGateway.getTechGradeAllBatch(), HttpStatus.OK);
     }
 
 }

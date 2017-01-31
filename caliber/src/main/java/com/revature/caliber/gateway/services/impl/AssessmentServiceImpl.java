@@ -18,7 +18,7 @@ import java.util.Set;
 
 public class AssessmentServiceImpl implements AssessmentService {
 
-	private String localhost = "http://localhost:8081";
+	private String localhost = "http://localhost:8080";
     private String hostname;
     private String portNumber;
     
@@ -397,10 +397,6 @@ public class AssessmentServiceImpl implements AssessmentService {
 	@Override
 	public List<com.revature.caliber.assessment.beans.Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
-		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> response =
-				rest.getForEntity("http://localhost:8081/assessments/grades/trainee/"+ id,
-						com.revature.caliber.assessment.beans.Grade[].class);
-
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getGradesByTraineePath).path("/" + id)
                 .build().toUriString();
 
