@@ -96,10 +96,10 @@ public class BootController extends Helper {
         if (jsonObject.getString("email").equals(salesforceUser.getEmail()))
             salesforceUser.setRole(jsonObject.getJSONObject("tier").getString("tier"));
         else throw new NullPointerException("No such user");
+        salesforceUser.setCaliberId(jsonObject.getInt("trainerId"));
         Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(), salesforceUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
         servletResponse.addCookie(new Cookie("role", jsonObject.getJSONObject("tier").getString("tier")));
-
         return "index";
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,12 @@ public class SalesforceUser implements UserDetails {
     private boolean is_app_installed;
     @JsonProperty
     private String role;
+
+    @JsonProperty
     private SalesforceToken salesforceToken;
+
+    @JsonProperty
+    private int caliberId;
 
     /**
      * Instantiates a new Salesforce user.
@@ -667,6 +673,15 @@ public class SalesforceUser implements UserDetails {
      */
     public void setSalesforceToken(SalesforceToken salesforceToken) {
         this.salesforceToken = salesforceToken;
+    }
+
+
+    public int getCaliberId() {
+        return caliberId;
+    }
+
+    public void setCaliberId(int caliberId) {
+        this.caliberId = caliberId;
     }
 
     public String getUsername() {
