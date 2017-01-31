@@ -39,10 +39,10 @@ public class AssessmentServiceImpl implements AssessmentService {
     
     //paths for assessments
     private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
-    private String getGradesByTraineePath;
+	private String getGradesByTraineePath;
 
 
-    @Override
+	@Override
 	public void insertAssessment(Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		
@@ -437,11 +437,12 @@ public class AssessmentServiceImpl implements AssessmentService {
     public void setUpdateBatchNotePath(String updateBatchNotePath){this.updateBatchNotePath = updateBatchNotePath;}
     public void setDeleteBatchNotePath(String deleteBatchNotePath){this.deleteBatchNotePath = deleteBatchNotePath;}
 
-    public void setGetGradesByTraineePath(String getGradesByTraineePath) {
-        this.getGradesByTraineePath = getGradesByTraineePath;
-    }
+	public void setGetGradesByTraineePath(String getGradesByTraineePath) {
+		this.getGradesByTraineePath = getGradesByTraineePath;
+	}
 
-    public String getGetGradesByTraineePath() {
-        return getGradesByTraineePath;
-    }
+	public String getGetGradesByTraineePath() {
+		return getGradesByTraineePath;
+	}
+
 }

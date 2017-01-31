@@ -4,12 +4,14 @@ import com.revature.caliber.assessments.beans.QCNote;
 import com.revature.caliber.assessments.data.QCNoteDAO;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.math.BigDecimal;
@@ -324,4 +326,9 @@ public class QCNoteDAOImplementationTest {
         logger.info("    .. note was successfully deleted");
         logger.info("    -- test of deleting a note completed.");
     }
+    
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
+	}
 }

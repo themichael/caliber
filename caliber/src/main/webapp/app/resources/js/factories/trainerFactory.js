@@ -10,7 +10,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	trainer.getAllBatches = function() {
 		var data = [];
 		$http({
-			url : " /trainer/batch/all",
+			url : "/caliber/trainer/batch/all",
 			method : "GET",
 		}).then(function(response) {
 			$log.debug(response);
@@ -27,7 +27,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	// create a new week
 	trainer.createWeek = function(weekObj){
 		$http({
-			url: "/trainer/week/new",
+			url: "/caliber/trainer/week/new",
 			method: "POST",
 			data: weekObj
 		}).then(function(response){
@@ -42,7 +42,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	// add a new grade
 	trainer.addGrade = function(gradeObj){
         $http({
-            url: "/trainer/grade/create",
+            url: "/caliber/trainer/grade/create",
             method: "POST",
             data: gradeObj
         }).then(function(response){
@@ -56,7 +56,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	// update trainer grade
 	trainer.updateGrade = function(gradeObj){
         $http({
-            url: "/trainer/grade/update",
+            url: "/caliber/trainer/grade/update",
             method: "PUT",
             data: gradeObj
         }).then(function(response){
@@ -71,7 +71,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	// create assessment
     trainer.createAssessment = function(assessmentObj){
         $http({
-            url: "/trainer/assessment/create",
+            url: "/caliber/trainer/assessment/create",
             method: "POST",
             data: assessmentObj
         }).then(function(response){
@@ -86,7 +86,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
     trainer.getAllAssessments = function(weekId){
         var data = [];
         $http({
-            url: "/trainer/assessment/byWeek/" + weekId,
+            url: "/caliber/trainer/assessment/byWeek/" + weekId,
             method: "GET",
         }).then(function(response){
             $log.debug(response);
@@ -101,7 +101,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	// update assessment
 	trainer.updateAssessment = function(assessmentObj){
         $http({
-            url: "/trainer/assessment/update/",
+            url: "/caliber/trainer/assessment/update/",
             method: "PUT",
 			data: assessmentObj
         }).then(function(response){
@@ -115,7 +115,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
     // delete assessment
     trainer.deleteAssessment = function(assessmentId){
         $http({
-            url: "/trainer/assessment/delete/" + assessmentId,
+            url: "/caliber/trainer/assessment/delete/" + assessmentId,
             method: "DELETE",
         }).then(function(response){
             $log.debug(response);
@@ -128,7 +128,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
     /************************** Notes *************************/
     trainer.createNote = function(noteObj){
         $http({
-            url: "/trainer/assessment/note/create",
+            url: "/caliber/trainer/assessment/note/create",
             method: "POST",
 			data: noteObj
         }).then(function(response){
@@ -141,7 +141,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 
     trainer.updateNote = function(noteObj){
         $http({
-            url: "/trainer/assessment/note/update",
+            url: "/caliber/trainer/assessment/note/update",
             method: "PUT",
             data: noteObj
         }).then(function(response){

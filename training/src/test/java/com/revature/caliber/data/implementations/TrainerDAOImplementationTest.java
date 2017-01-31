@@ -147,4 +147,9 @@ public class TrainerDAOImplementationTest {
 		logger.debug("       trainer that I got: " + updatedTrainer);
 		logger.debug("       its id: " + updatedTrainer.getTrainerId());
 	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
+	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -188,6 +189,11 @@ public class BatchDAOImplementationTest {
 		batchDAO.deleteBatch(batchDAO.getBatch(id));
 
 		log.info("ending delete");
+	}
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
 	}
 
 }
