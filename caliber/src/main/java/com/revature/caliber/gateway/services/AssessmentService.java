@@ -12,7 +12,7 @@ public interface AssessmentService {
      *
      * @param assessment an Assessment to be inserted
      */
-    void insertAssessment(Assessment assessment);
+    void insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * Updates Assessment

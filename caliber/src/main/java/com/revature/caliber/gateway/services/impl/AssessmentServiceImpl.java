@@ -50,7 +50,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 
 	@Override
-	public void insertAssessment(Assessment assessment) {
+	public void insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addAssessmentPath)
@@ -58,7 +58,8 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-		HttpEntity<Assessment> entity = new HttpEntity<>(assessment, headers);
+		HttpEntity<com.revature.caliber.assessment.beans.Assessment> entity =
+				new HttpEntity<>(assessment, headers);
 
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
