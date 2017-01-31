@@ -4,10 +4,7 @@ import com.revature.caliber.assessments.beans.QCNote;
 import com.revature.caliber.assessments.data.QCNoteDAO;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -24,7 +21,10 @@ import static org.junit.Assert.*;
  * Uses regular sql to check the correctness of hibernate mappings and dao methods
  * (I do not use hibernate to check hibernate)
  * I tried to make tests as transient as possible
+ *
+ * Ignored the test since DAO is completed
  */
+@Ignore
 public class QCNoteDAOImplementationTest {
     private static ApplicationContext context;
     private static SessionFactory sf;
