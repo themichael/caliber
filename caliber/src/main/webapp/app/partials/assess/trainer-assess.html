@@ -12,7 +12,7 @@
                 <li role="button" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         {{ currentBatch.trainingName }} - {{ currentBatch.startDate | date:'shortDate' }}
-                    <span class="caret"></span></a>
+                        <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li ng-repeat="batch in batches track by $index">
                             <a role="button" ng-click="selectCurrentBatch($index)">
@@ -50,7 +50,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 top5" >
+        <div class="col-sm-12 col-md-12 col-lg-12 top5">
             <ul class="nav nav-tabs">
                 <li role="button" class="{{showActiveWeek($index)}}" ng-click="selectWeek($index)"
                     ng-repeat="week in currentBatch.weeks track by $index">
@@ -67,21 +67,28 @@
             <!-- Accordian table -->
             <table class="table table-condensed" style="border-collapse:collapse;" ng-show="currentView">
                 <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Type</th>
-                        <th>Category</th>
-                        <th>Raw score</th>
-                    </tr>
+                <tr>
+                    <th>Trainee</th>
+                    <th role="button" ng-repeat="assessment in currentAssessments track by $index"
+                        ng-click="selectAssessment($index)">
+                        {{assessment.title}}
+                    </th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr role="button" ng-repeat="assessment in currentAssessments track by $index"
-                        ng-click="selectAssessment($index)">
-                        <td>{{ assessment.title }}</td>
-                        <td>{{ assessment.type }}</td>
-                        <td><span ng-repeat="category in assessment.categories">{{ category.skillCategory }},</span></td>
-                        <td>{{ assessment.rawScore }}</td>
-                    </tr>
+
+                <tr role="button" ng-repeat="trainee in currentBatch.trainees track by $index">
+                    <td>{{ trainee.name }}</td>
+                    <td ng-repeat="assessment in currentAssessments track by $index">
+                            <span ng-repeat=" grade in grades track by $index">
+                                <span ng-if="grade.assessment === assessment.assessmentId &&
+                                               grade.trainee === trainee.traineeId">
+                                    {{grade.score}}
+                                </span>
+                            </span>
+                    </td>
+
+                </tr>
                 </tbody>
             </table>
             <table class="col-md-6 table table-condensed" ng-show="!currentView">
@@ -129,7 +136,7 @@
                             <option value="" disabled selected>select skill type</option>
                             <option ng-repeat="category in skill_categories track by $index">
                                 {{category.skillCategory}}
-                                </option>
+                            </option>
                         </select>
                     </div>
                     <div class="form-group col-md-6 col-sm-6">

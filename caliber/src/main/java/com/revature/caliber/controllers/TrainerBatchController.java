@@ -78,7 +78,7 @@ public class TrainerBatchController {
     @RequestMapping(value = "/grade/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createGrade(@RequestBody Grade grade) {
         apiGateway.createGrade(grade);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     /**

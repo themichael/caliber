@@ -3,6 +3,9 @@ angular.module("trainer")
         $log.debug("Booted Trainer Aesess Controller");
 
         /******************************** Sample Data *******************************/
+
+        $scope.realBatches = caliberDelegate.trainer.getAllBatches();
+
         $scope.batches=[
             {
                 batchId: 451, trainingName: 'Batch123', trainer: 'Patrick', coTrainer: '',
@@ -32,10 +35,13 @@ angular.module("trainer")
                     categories: [{categoryId: 13, skillCategory: "Java"}]}]
         ];
 
-        var grades = [
+        $scope.grades = [
             {gradeId: 14, assessment: 51, trainee: 53, dateReceived: new Date(), score: 94},
             {gradeId: 15, assessment: 51, trainee: 65, dateReceived: new Date(), score: 84},
-            {gradeId: 16, assessment: 51, trainee: 78, dateReceived: new Date(), score: 74}
+            {gradeId: 16, assessment: 51, trainee: 78, dateReceived: new Date(), score: 74},
+            {gradeId: 14, assessment: 58, trainee: 53, dateReceived: new Date(), score: 34},
+            {gradeId: 15, assessment: 58, trainee: 65, dateReceived: new Date(), score: 99},
+            {gradeId: 16, assessment: 58, trainee: 78, dateReceived: new Date(), score: 79}
         ];
 
         $scope.skill_categories = [
@@ -129,8 +135,10 @@ angular.module("trainer")
 
             /** replace with ajax call to get assessments by weekId **/
             // test function to grab assessments
-            $scope.currentAssessments = getAssessments(index);
+            $scope.currentAssessments = getGradesAssessments(index);
+
         };
+
 
         // select week
         $scope.selectWeek = function(index){
