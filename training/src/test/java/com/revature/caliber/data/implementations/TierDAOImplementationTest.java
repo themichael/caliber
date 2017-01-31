@@ -5,9 +5,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.training.beans.Tier;
@@ -94,4 +96,9 @@ public class TierDAOImplementationTest {
     	tier = tDAO.getTier(id);
     	assertNull(tier);
     }   
+    
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
+	}
 }

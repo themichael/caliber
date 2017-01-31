@@ -2,10 +2,12 @@ package com.revature.caliber.initial;
 
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.revature.caliber.beans.Batch;
@@ -86,4 +88,9 @@ public class ControllerTests {
 	}
 	
 	//@Test
+	
+	@After
+	public void close() {
+		((AbstractApplicationContext) context).registerShutdownHook();
+	}
 }

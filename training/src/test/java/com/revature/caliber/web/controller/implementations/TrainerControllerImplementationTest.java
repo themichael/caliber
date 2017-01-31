@@ -7,6 +7,7 @@ import com.revature.caliber.training.web.controllers.TrainerController;
 import org.apache.log4j.Logger;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.http.HttpEntity;
 
@@ -116,8 +117,8 @@ public class TrainerControllerImplementationTest {
 	}
 
 	@AfterClass
-	public static void afterClass() {
+	public static void close() {
 		log.debug("\n--- TRAINER CONTROLLER IMPLEMENTATION TEST END ---\n");
+		((AbstractApplicationContext) context).registerShutdownHook();
 	}
-
 }
