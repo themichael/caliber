@@ -53,8 +53,8 @@
 	</bean>
 
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
-		<property name="hostname" value="http://localhost" />
-		<property name="portNumber" value=":8080/" /> <!-- use 443 for SSL -->
+		<property name="hostname" value="http://pjw6193.tech" />
+		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
 
 		<property name="newBatch" value="training/batch/create/" />
 		<property name="allBatch" value="training/batch/all/" />

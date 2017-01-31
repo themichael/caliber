@@ -5,7 +5,7 @@ angular.module("api")
         var agg = {};
 
         agg.techTrainee = function(traineeId){
-            var data = [];
+            var data = {};
             $http({
                 url: "/caliber/agg/tech/trainee/" + traineeId,
                 method: "GET"
@@ -21,7 +21,7 @@ angular.module("api")
         };
 
         agg.weekTrainee = function(traineeId){
-            var data = [];
+            var data = {};
             $http({
                 url: "/caliber/agg/week/trainee/" + traineeId,
                 method: "GET"
@@ -37,7 +37,7 @@ angular.module("api")
         };
 
         agg.techBatch = function(batchId){
-            var data = [];
+            var data = {};
             $http({
                 url: "/caliber/agg/tech/batch/" + batchId,
                 method: "GET"
@@ -53,7 +53,7 @@ angular.module("api")
         };
 
         agg.weekBatch = function(batchId){
-            var data = [];
+            var data = {};
             $http({
                 url: "/caliber/agg/week/batch/" + batchId,
                 method: "GET"
@@ -69,7 +69,7 @@ angular.module("api")
         };
 
         agg.techAllBatch = function() {
-            var data = [];
+            var data = {};
             $http({
                 url: "/caliber/agg/tech/batch/all",
                 method: "GET"
@@ -85,7 +85,7 @@ angular.module("api")
         };
 
         agg.batchTrainer = function(trainerId){
-            var data = [];
+            var data = {};
             $http({
                 url: "/caliber/agg/batch/trainer/" + trainerId,
                 method: "GET"
