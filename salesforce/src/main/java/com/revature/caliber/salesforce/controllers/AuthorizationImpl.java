@@ -42,8 +42,6 @@ public class AuthorizationImpl extends Helper implements Authorization{
     private String clientSecret;
     @Value("#{systemEnvironment['SALESFORCE_REDIRECT_URI']}")
     private String redirectUri;
-
-    //e.g. http://localhost:9001/caliber/
     @Value("#{systemEnvironment['CALIBER_PROJECT_URL']}")
     private String redirectUrl;
 
