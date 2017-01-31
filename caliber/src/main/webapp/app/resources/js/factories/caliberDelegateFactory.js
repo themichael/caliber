@@ -3,7 +3,7 @@
  */
 
 angular.module("delegate").factory("caliberDelegate",
-		function($log, trainerFactory, vpFactory, qcFactory, allFactory) {
+		function($log, trainerFactory, vpFactory, qcFactory, allFactory, aggFactory) {
 	$log.debug("Booted Delegate Factory");
 
 	var delegate = {};
@@ -12,6 +12,7 @@ angular.module("delegate").factory("caliberDelegate",
 	delegate.trainer = {};
 	delegate.qc = {};
 	delegate.vp = {};
+	delegate.agg = {};
 
 	/**************************** All *****************************/
 	delegate.all.createBatch = function(batchObj){
@@ -127,6 +128,31 @@ angular.module("delegate").factory("caliberDelegate",
 
 	delegate.qc.updateNote = function(noteObj){
 		return qcFactory.updateNote(noteObj);
+	};
+
+	/************************** Aggregate *****************************/
+	delegate.agg.getAggTechTrainee = function(traineeId){
+		return aggFactory.techTrainee(traineeId);
+	};
+
+	delegate.agg.getAggWeekTrainee = function(traineeId){
+		return aggFactory.weekTrainee(traineeId);
+	};
+
+	delegate.agg.getAggTechBatch = function(batchId){
+		return aggFactory.techBatch(batchId);
+	};
+
+	delegate.agg.getAggWeekBatch = function(batchId){
+		return aggFactory.weekBatch(batchId);
+	};
+
+	delegate.agg.getAggTechAllBatch = function(batchId){
+		return aggFactory.techAllBatch();
+	};
+
+	delegate.agg.getAggBatchAllTrainer = function(trainerId){
+		return aggFactory.batchTrainer();
 	};
 
 	return delegate;
