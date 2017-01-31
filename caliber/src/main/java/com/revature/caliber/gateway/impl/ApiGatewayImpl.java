@@ -586,10 +586,11 @@ public class ApiGatewayImpl implements ApiGateway {
             //average
             gradeV[0] = gradeV[0] / list.size(); //just divide the total by list size
             //since the list of grades is sorted, we can get high and low just by one call for each
-            //low
-            gradeV[2] = list.get(0).doubleValue();
+            gradeV[1] = getMedian(list);
             //high
-            gradeV[1] = list.get(list.size() - 1).doubleValue();
+            gradeV[2] = list.get(list.size() - 1).doubleValue();
+            //low
+            gradeV[3] = list.get(0).doubleValue();
 
             grades.put(categoryName, gradeV); //put the result array back to the map
         }
