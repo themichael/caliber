@@ -63,7 +63,7 @@ public class TrainerBatchController {
      * @param week the week
      * @return the response entity
      */
-    @RequestMapping(value = "/week/new", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/week/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createNewWeek(@RequestBody Week week) {
         apiGateway.createNewWeek(week);
         return new ResponseEntity(HttpStatus.OK);
