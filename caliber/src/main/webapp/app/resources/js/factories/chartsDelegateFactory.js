@@ -1,5 +1,5 @@
 angular.module("delegate").factory("chartsDelegate",
-    function($log, hbarChartFactory, radarChartFactory, pieChartFactory, lineChartFactory){
+    function($log, hbarChartFactory, radarChartFactory, lineChartFactory){
     $log.debug("Booted charts delegate");
 
     var delegate = {};
@@ -26,14 +26,13 @@ angular.module("delegate").factory("chartsDelegate",
         return hbarChartFactory.getBatchTechEvalChart(dataArray);
     };
 
-    /**************************** Pie ****************************/
-    delegate.pie.getTraineeTechProgressChart = function(dataArray){
-        return pieChartFactory.getTraineeTechProgressChart(dataArray);
-    };
-
     /**************************** Radar **************************/
     delegate.radar.getBatchRankComparisonChart = function(dataArray1, dataArray2){
         return radarChartFactory.getBatchRankComparisonChart(dataArray1, dataArray2);
+    };
+
+    delegate.radar.getTraineeTechProgressChart = function(dataArray){
+        return radarChartFactory.getTraineeTechProgressChart(dataArray);
     };
 
     /**************************** Line ***************************/

@@ -163,10 +163,10 @@ angular.module("vp").controller(
                 $scope.traineeProgressDatasetOverride = lineChartObject.datasetOverride;
                 $scope.traineeProgressOptions = lineChartObject.options;
 
-                var pieChartObject = chartsDelegate.pie.getTraineeTechProgressChart(sample6);
-                $scope.techScoreLabels = pieChartObject.labels;
-                $scope.techScoreData = pieChartObject.data;
-                $scope.techScoreOptions = pieChartObject.options;
+                var radarChartObject = chartsDelegate.radar.getTraineeTechProgressChart(sample6);
+                $scope.techScoreLabels = radarChartObject.labels;
+                $scope.techScoreData = radarChartObject.data;
+                $scope.techScoreOptions = radarChartObject.options;
             }
 
             /**************************************** Default Charts *******************************************/
