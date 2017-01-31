@@ -117,7 +117,7 @@ public class QCBatchController {
      * @return the all assessments
      */
     @RequestMapping(value = "/assessment/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Assessment>> getAllAssessments() {
+    public ResponseEntity<List<com.revature.caliber.assessment.beans.Assessment>> getAllAssessments() {
         return new ResponseEntity<>(apiGateway.getAllAssessments(), HttpStatus.OK);
     }
 

@@ -345,7 +345,7 @@ public interface ApiGateway {
      *
      * @return the all assessments
      */
-    Set<Assessment> getAllAssessments();
+    List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments();
 
     /**
      * Create assessment.

@@ -690,8 +690,10 @@ public class ApiGatewayImpl implements ApiGateway {
      *
      * @return the all assessments
      */
-    public Set<Assessment> getAllAssessments() {
-        return null;
+    public List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments() {
+
+        return serviceLocator.getAssessmentService().getAllAssessments();
+
     }
 
     /**

@@ -157,7 +157,6 @@ public class AssessmentServiceImpl implements AssessmentService {
 		//Build Parameter
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addGradePath)
 				.build().toUriString();
-		System.out.println(URI + " -> " + grade.getGradeId() + " " + grade.getAssessment().getAssessmentId() + " " + grade.getScore() + " " + grade.getTrainee() + " " + grade.getDateReceived());
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
