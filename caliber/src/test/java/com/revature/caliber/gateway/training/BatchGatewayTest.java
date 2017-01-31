@@ -3,10 +3,12 @@ package com.revature.caliber.gateway.training;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.gateway.services.TrainingService;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.List;
@@ -24,6 +26,11 @@ public class BatchGatewayTest {
         trainingService = context.getBean(TrainingService.class);
     }
 
+    @AfterClass
+    public static void post(){
+        ((ConfigurableApplicationContext) context).close();
+    }
+
     @Ignore
     @Test
     public void create(){
@@ -33,8 +40,6 @@ public class BatchGatewayTest {
     @Test
     @Ignore
     public void getAll(){
-        Trainer trainer = new Trainer();
-        trainer.setTraineeId(1);
         List<Batch> batches = trainingService.allBatch();
         System.out.println(batches);
     }

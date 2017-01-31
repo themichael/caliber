@@ -10,7 +10,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
 	qc.getAllBatches = function () {
 		var data = [];
 		$http({
-			url: "/qc/batch/all",
+			url: "/caliber/qc/batch/all",
 			method: "GET"
 		}).then(function (response) {
 			$log.debug(response);

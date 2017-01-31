@@ -46,12 +46,12 @@ public class ApiGatewayImpl implements ApiGateway {
         return serviceLocator.getTrainingService().getBatches(id);
     }
 
-    public List<Batch> currentBatch() {
-        return serviceLocator.getTrainingService().currentBatch();
+    public List<Batch> getCurrentBatches() {
+        return serviceLocator.getTrainingService().currentBatches();
     }
 
     public List<Batch> currentBatch(Integer id) {
-        return serviceLocator.getTrainingService().currentBatch(id);
+        return serviceLocator.getTrainingService().currentBatches(id);
     }
 
     public Batch getBatch(Integer id) {
@@ -97,7 +97,7 @@ public class ApiGatewayImpl implements ApiGateway {
         serviceLocator.getTrainingService().deleteTrainee(trainee);
     }
 
-    //
+    /****************************Trainer*******************************/
     @Override
     public void createTrainer(Trainer trainer) {
         serviceLocator.getTrainingService().createTrainer(trainer);
@@ -496,7 +496,13 @@ public class ApiGatewayImpl implements ApiGateway {
     public void updateGrade(Grade grade) {
     }
 
-    //@Override
+    /**
+     * Gets week grade data for trainee init.
+     *
+     * @param id the id
+     * @return the week grade data for trainee init
+     */
+//@Override
     public HashMap<String, Double[]> getWeekGradeDataForTraineeInit(int id) {
         List<Grade> allGrades = serviceLocator.getAssessmentService().getGradesByTraineeId(id);
         HashMap<String, Double[]> grades = new HashMap<>();//result
@@ -596,6 +602,12 @@ public class ApiGatewayImpl implements ApiGateway {
         return grades;
     }
 
+    /**
+     * Gets average.
+     *
+     * @param list the list
+     * @return the average
+     */
     public double getAverage(List<Integer> list) {
         int sum = 0;
         for (int nums : list) {
@@ -605,6 +617,12 @@ public class ApiGatewayImpl implements ApiGateway {
         return avg;
     }
 
+    /**
+     * Gets median.
+     *
+     * @param list the list
+     * @return the median
+     */
     public double getMedian(List<Integer> list) {
         int middle = list.size() / 2;
         if (list.size() % 2 == 1) {
