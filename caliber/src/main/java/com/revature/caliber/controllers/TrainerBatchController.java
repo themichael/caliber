@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -135,13 +136,21 @@ public class TrainerBatchController {
     /**
      * Update assessment response entity.
      *
-     * @param assessment the assessment
      * @return the response entity
      */
     @RequestMapping(value = "/assessment/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Assessment>> getAllAssessments(@RequestBody Assessment assessment) {
-        Set<Assessment> set = apiGateway.getAllAssessments();
-        return new ResponseEntity(set, HttpStatus.OK);
+    public ResponseEntity<List<com.revature.caliber.assessment.beans.Assessment>> getAllAssessments() {
+        List<com.revature.caliber.assessment.beans.Assessment> list = apiGateway.getAllAssessments();
+        int i = 0;
+        while (i < list.size()) {
+            if (list.get(i).getWeeklyStatus() != null) {
+                list.remove(i);
+            }
+            else {
+                i++;
+            }
+        }
+        return new ResponseEntity(list, HttpStatus.OK);
     }
 
     /**
