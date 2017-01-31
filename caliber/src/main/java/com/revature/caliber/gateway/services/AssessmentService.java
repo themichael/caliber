@@ -28,6 +28,11 @@ public interface AssessmentService {
      */
     void deleteAssessment(Assessment assessment);
 
+    /**
+     * Get all assessments
+     *
+     */
+    List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments();
 
     /**
      * Returns a list of grades of a specific assessment based on assessmentId
@@ -48,10 +53,15 @@ public interface AssessmentService {
      */
     void updateGrade(Grade grade);
 
-    /**
-     * Create a batchNote
-     */
-    void createBatchNote(BatchNote batchNote);
+	/**
+	 * Get all grades
+	 */
+	List<com.revature.caliber.assessment.beans.Grade> getAllGrades();
+
+	/**
+	 * Create a batchNote
+	 */
+	void createBatchNote(BatchNote batchNote);
 
     /**
      * Get the batch note within a given week corresponding to a specific batch
@@ -116,6 +126,6 @@ public interface AssessmentService {
     Set<Category> getAllCategories();
 
 
-    List<Grade> getGradesByTraineeId(int id);
+    List<com.revature.caliber.assessment.beans.Grade> getGradesByTraineeId(int id);
 
 }

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:security="http://www.springframework.org/schema/security"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<tx:annotation-driven/> <mvc:annotation-driven />
 	<context:component-scan base-package="com.revature.caliber" />
@@ -23,17 +24,21 @@
 	<mvc:resources mapping="/app/**" location="/app/"/>
 
 	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
-		<property name="hostname" value="http://www.pjw6193.tech" />
+		<property name="hostname" value="http://pjw6193.tech" />
 		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
 		
 		<property name="insertAssessment" value="assessments/assessment/new"/>
 		<property name="deleteAssessment" value="assessments/assessment/delete" />
-		<property name="updateAssessment" value="assessments/assesment/update" />
+		<property name="updateAssessment" value="assessments/assessment/update" />
+		<property name="getAllAssessmentsPath" value="assessments/assessment/all" />
 
 
 		<property name="insertGrade" value="assessments/grades/create/"/>
 		<property name="updateGrade" value="assessments/grades/update/"/>
 		<property name="gradesByAssessments" value="assessments/grades/assessment/"/>
+		<property name="getGradesByTraineePath" value="assessments/grades/trainee" />
+		<property name="allGradesPath" value="assessments/grades/all" />
+
 		
 		<property name="updateTrainerNotePath" value="assessments/trainerNote/update/" />
 		<property name="deleteTrainerNotePath" value="assessments/trainerNote/delete/" />
@@ -76,7 +81,7 @@
 		
 		<property name="addWeekPath" value="training/week/new" />
 		<property name="getAllWeekPath" value="training/week/all" />
-	
 	</bean>
+
 
 </beans>
