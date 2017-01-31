@@ -131,7 +131,7 @@ public class TrainerBatchController {
      * @param assessment the assessment
      * @return the response entity
      */
-    @RequestMapping(value = "/assessment/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/assessment/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Assessment>> getAllAssessments(@RequestBody Assessment assessment) {
         Set<Assessment> set = apiGateway.getAllAssessments();
         return new ResponseEntity(set, HttpStatus.OK);

@@ -17,7 +17,7 @@ import java.util.List;
 
 public class TrainingServiceImpl implements TrainingService {
 
-    private String localhost = "http://localhost:9001";
+    private String localhost = "http://localhost:8080";
     private String hostname;
     private String portNumber;
 
@@ -444,7 +444,7 @@ public class TrainingServiceImpl implements TrainingService {
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getWeekByBatch).path(String.valueOf(batchId))
                 .build().toUriString();
 
-//		final String URI = UriComponentsBuilder.fromHttpUrl("http://localhost:" + "8080/").path(getWeekByBatch).path(String.valueOf(batchId))
+//		final String URI = UriComponentsBuilder.fromHttpUrl("http://hostname + portNumber:" + "8080/").path(getWeekByBatch).path(String.valueOf(batchId))
 //				.build().toUriString();
 
         //Invoke the service

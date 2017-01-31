@@ -15,7 +15,7 @@ import java.util.*;
 
 public class AssessmentServiceImpl implements AssessmentService {
 	
-	private String localhost = "http://localhost:8081";
+	private String localhost = "http://localhost:8080";
     private String hostname;
     private String portNumber;
     
@@ -382,7 +382,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 			newGrades.add(someNewGrade);
 		}
 		//ResponseEntity<Grade[]> response =
-				//rest.getForEntity("http://localhost:8080/assessments/grades/trainee/"+id, Grade[].class); //TODO change ip to get from config file
+				//rest.getForEntity("http://hostname + portNumber:8080/assessments/grades/trainee/"+id, Grade[].class); //TODO change ip to get from config file
 		return newGrades;
 	}
 

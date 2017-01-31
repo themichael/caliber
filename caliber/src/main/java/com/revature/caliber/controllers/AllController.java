@@ -70,7 +70,7 @@ public class AllController {
      * @param trainee the trainee
      * @return the response entity
      */
-    @RequestMapping(value = "/trainee/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/trainee/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity createTrainee(@RequestBody Trainee trainee) {
         apiGateway.createTrainee(trainee);
         return new ResponseEntity(HttpStatus.OK);
@@ -82,7 +82,7 @@ public class AllController {
      * @param trainee the trainee
      * @return the response entity
      */
-    @RequestMapping(value = "/trainee/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/trainee/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity updateTrainee(@RequestBody Trainee trainee) {
         apiGateway.updateTrainee(trainee);
         return new ResponseEntity(HttpStatus.OK);
