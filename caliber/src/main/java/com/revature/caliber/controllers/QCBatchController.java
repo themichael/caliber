@@ -1,6 +1,11 @@
 package com.revature.caliber.controllers;
 
+import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Note;
 import com.revature.caliber.gateway.ApiGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +52,7 @@ public class QCBatchController {
      * @param grade the grade
      * @return the response entity
      */
-    @RequestMapping(value = "/grade/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createGrade(@RequestBody Grade grade) {
         apiGateway.createGrade(grade);
         return new ResponseEntity(HttpStatus.OK);
@@ -59,8 +64,9 @@ public class QCBatchController {
      * @param grade the grade
      * @return the response entity
      */
-    @RequestMapping(value = "/grade/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateGrade(@RequestBody Grade grade) {
+    @RequestMapping(value = "/grade/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
+        System.out.println(grade);
         apiGateway.updateGrade(grade);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -71,7 +77,7 @@ public class QCBatchController {
      * @param assessment the assessment
      * @return the response entity
      */
-    @RequestMapping(value = "/assessment/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/assessment/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createAssessment(@RequestBody Assessment assessment) {
         apiGateway.createAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);

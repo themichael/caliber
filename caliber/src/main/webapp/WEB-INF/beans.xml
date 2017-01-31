@@ -24,8 +24,8 @@
 	<mvc:resources mapping="/app/**" location="/app/"/>
 
 	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
-		<property name="hostname" value="http://pjw6193.tech" />
-		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
+		<property name="hostname" value="http://localhost" />
+		<property name="portNumber" value=":9001/" /> <!-- use 443 for SSL -->
 		
 		<property name="insertAssessment" value="assessment/assessment/new"/>
 		<property name="deleteAssessment" value="assessment/assessment/delete" />
@@ -33,9 +33,9 @@
 		<property name="getAllAssessmentsPath" value="assessment/assessment/all" />
 
 
-		<property name="insertGrade" value="assessment/grades/create/"/>
-		<property name="updateGrade" value="assessment/grades/update/"/>
-		<property name="gradesByAssessments" value="assessment/grades/assessment/"/>
+		<property name="insertGrade" value="assessment/grades/create"/>
+		<property name="updateGrade" value="assessment/grades/update"/>
+		<property name="gradesByAssessments" value="assessment/grades/assessment"/>
 		<property name="getGradesByTraineePath" value="assessment/grades/trainee" />
 		<property name="allGradesPath" value="assessment/grades/all" />
 

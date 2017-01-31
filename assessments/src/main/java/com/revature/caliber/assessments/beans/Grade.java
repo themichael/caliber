@@ -40,7 +40,7 @@ public class Grade {
      */
     @Column(name = "DATE_RECEIVED")
     @NotNull
-    @JsonIgnore
+    //@JsonIgnore
     private Date dateReceived;
 
     /**

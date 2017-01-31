@@ -513,9 +513,7 @@ public class ApiGatewayImpl implements ApiGateway {
 
     }
 
-    public void updateGrade(Grade grade) {
-    }
-
+    public void updateGrade(Grade grade) { serviceLocator.getAssessmentService().updateGrade(grade);}
 
 
     @Override
