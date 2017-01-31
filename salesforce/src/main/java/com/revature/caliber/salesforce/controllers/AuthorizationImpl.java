@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -41,8 +42,9 @@ public class AuthorizationImpl extends Helper implements Authorization{
     private String clientSecret;
     @Value("#{systemEnvironment['SALESFORCE_REDIRECT_URI']}")
     private String redirectUri;
-    @Value("http://localhost:9001/caliber/")
+    @Value("#{systemEnvironment['CALIBER_PROJECT_URL']}")
     private String redirectUrl;
+
     private HttpClient httpClient;
     private HttpResponse response;
 
