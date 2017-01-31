@@ -7,7 +7,7 @@
             </button>
         </div>
         <div class="col-md-12 col-lg-12 top10">
-            <!-- top ui for viewing all assesments -->
+            <!-- top ui for viewing all assessments -->
             <ul class="nav nav-tabs" ng-show="currentView">
                 <li role="button" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
@@ -50,7 +50,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 top5" >
+        <div class="col-sm-12 col-md-12 col-lg-12 top5">
             <ul class="nav nav-tabs">
                 <li role="button" class="{{showActiveWeek($index)}}" ng-click="selectWeek($index)"
                     ng-repeat="week in currentBatch.weeks track by $index">
@@ -105,9 +105,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Create New Assessment</h4>
             </div>
             <!-- Add Batch Info -->
@@ -115,8 +113,7 @@
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainingName">Training Name:</label>
-                        <input ng-model="trainingName" type="text" class="form-control" id="trainingName"
-                               placeholder="Title" required>
+                        <input ng-model="trainingName" type="text" class="form-control" id="trainingName" placeholder="Title" required>
                     </div>
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainingType">Training type:</label>

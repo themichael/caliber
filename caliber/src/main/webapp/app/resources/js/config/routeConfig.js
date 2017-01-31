@@ -2,9 +2,9 @@ angular.module("app").config(
     function ($stateProvider, $locationProvider, $urlRouterProvider,
               ChartJsProvider, $logProvider) {
 
-    	// Turn on/off debug messages
-    	$logProvider.debugEnabled(true);
-    	
+        // Turn on/off debug messages
+        $logProvider.debugEnabled(true);
+
         // chart options
         ChartJsProvider.setOptions({
 
@@ -19,7 +19,7 @@ angular.module("app").config(
         $stateProvider
             .state("routing", {
                 url: "/routing",
-                templateUrl: "app/partials/routing.html",
+                templateUrl: "app/partials/routing.html"
                 // uncomment when dev is complete
                 // onEnter:
                 //     function(authFactory){
