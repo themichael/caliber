@@ -153,13 +153,13 @@ angular.module("trainer").controller(
                     {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
 
                 // Sample Data representing trainee strengths per technology
-                var samplePieData =[
-                    {skillCategory:"Core Java", average: 85},
-                    {skillCategory:"SQL", average: 75},
-                    {skillCategory:"Spring", average: 95},
-                    {skillCategory:"Hibernate", average: 75},
-                    {skillCategory:"AngularJS", average: 90},
-                    {skillCategory:"REST", average: 80}];
+                var sampleRadarData =[
+                    {skillCategory:"Core Java", average: ranNum()},
+                    {skillCategory:"SQL", average: ranNum()},
+                    {skillCategory:"Spring", average: ranNum()},
+                    {skillCategory:"Hibernate", average: ranNum()},
+                    {skillCategory:"AngularJS", average: ranNum()},
+                    {skillCategory:"REST", average: ranNum()}];
 
                 // line chart function that retrieves
                 // Week by week progression for a trainee/ batch on a line chart
@@ -170,12 +170,13 @@ angular.module("trainer").controller(
                 $scope.lineDatasetOverride = lineChartObject.datasetOverride;
                 $scope.lineOptions = lineChartObject.options;
 
-                // pie chart function that retrieves
+                // radar chart function that retrieves
                 // data for batch/ trainee technology strengths
-                var pieChartObject = chartsDelegate.pie.getTraineeTechProgressChart(samplePieData);
-                $scope.pieLabels = pieChartObject.labels;
-                $scope.pieData = pieChartObject.data;
-                $scope.pieOptions = pieChartObject.options;
+                var radarChartObject = chartsDelegate.radar.getTraineeTechProgressChart(sampleRadarData);
+                $scope.radarLabels = radarChartObject.labels;
+                $scope.radarSeries = radarChartObject.series;
+                $scope.radarData = radarChartObject.data;
+                $scope.radarOptions = radarChartObject.options;
 			}
 
 

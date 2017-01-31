@@ -97,6 +97,21 @@ a { color: #F26925;}
 .glyphicon-user { padding-left: .5em; }
 .glyph-top-margin { padding-top: 2em; }
 
+.btn-primary {
+	color: white !important;
+	border-color: white !important;
+	background-color: #F26925 !important;
+	background-image: none;
+}
+
+
+/************************
+	Manage Batch
+************************/
+
+.fa-smile-o { color: green; }
+.fa-meh-o { color: yellow; }
+.fa-frown-o { color: red; }
 
 /************************
 	Margins
@@ -121,9 +136,8 @@ a { color: #F26925;}
 	Footer
 ************************/
 
-.footer-margin{ margin-top: .5em; }
+.footer-margin{ margin-top: .85em; }
 .footer-img { margin-top: 1.5em; }
-.contact-info {	margin-bottom: 1em; }
 
 /* Footer, set footer height to actual height of footer*/
 html, body {

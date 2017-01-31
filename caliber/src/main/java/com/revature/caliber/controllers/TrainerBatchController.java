@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The type Trainer batch controller.
@@ -63,7 +64,7 @@ public class TrainerBatchController {
      * @param week the week
      * @return the response entity
      */
-    @RequestMapping(value = "/week/new", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/week/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createNewWeek(@RequestBody Week week) {
         apiGateway.createNewWeek(week);
         return new ResponseEntity(HttpStatus.OK);
@@ -129,6 +130,18 @@ public class TrainerBatchController {
     public ResponseEntity updateAssessment(@RequestBody Assessment assessment) {
         apiGateway.updateAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * Update assessment response entity.
+     *
+     * @param assessment the assessment
+     * @return the response entity
+     */
+    @RequestMapping(value = "/assessment/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<Assessment>> getAllAssessments(@RequestBody Assessment assessment) {
+        Set<Assessment> set = apiGateway.getAllAssessments();
+        return new ResponseEntity(set, HttpStatus.OK);
     }
 
     /**

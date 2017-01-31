@@ -3,7 +3,6 @@ package com.revature.caliber.gateway.services.impl;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Week;
 import com.revature.caliber.gateway.services.TrainingService;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -85,13 +84,6 @@ public class TrainingServiceImplTest {
         System.out.println("Updated batch -> " + ts.getBatch(1));
     }
 
-//    @Test
-//    public void deleteBatch() throws Exception {
-//        ApplicationContext context = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
-//        TrainingServiceImpl ts = (TrainingServiceImpl) context.getBean("trainingService");
-//        Batch batch = ts.getBatch(6550);
-//        ts.deleteBatch(batch);
-//    }
     
     
 	@Test

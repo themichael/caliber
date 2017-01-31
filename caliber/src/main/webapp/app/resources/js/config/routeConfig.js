@@ -37,6 +37,11 @@ angular.module("app").config(
                 abstract: true,
                 url: "/qc",
                 templateUrl: "app/partials/abstracts/qc.html",
+                resolve: {
+                    allBatches: function(caliberDelegate){
+                        return caliberDelegate.qc.getAllBatches();
+                    }
+                }
                 // uncomment when dev is complete
                 // onEnter:
                 //     function(authFactory){
@@ -64,6 +69,11 @@ angular.module("app").config(
                 abstract: true,
                 url: "/trainer",
                 templateUrl: "app/partials/abstracts/trainer.html",
+                resolve: {
+                    allBatches: function(caliberDelegate){
+                        return caliberDelegate.trainer.getAllBatches();
+                    }
+                }
                 // uncomment when dev is complete
                 // onEnter:
                 //     function(authFactory){
@@ -85,17 +95,17 @@ angular.module("app").config(
                 url: "/assess",
                 controller: "trainerAssessController"
             })
-            .state("trainer.reports", {
-                templateUrl: "app/partials/reports/trainer-reports.html",
-                url: "/reports",
-                controller: "trainerReportsController"
-            })
 
             // vp
             .state("vp", {
                 abstract: true,
                 url: "/vp",
                 templateUrl: "app/partials/abstracts/vp.html",
+                resolve: {
+                    allBatches: function(caliberDelegate){
+                        return caliberDelegate.vp.getAllBatches();
+                    }
+                }
                 // uncomment when dev is complete
                 // onEnter:
                 //     function(authFactory){
