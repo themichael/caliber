@@ -1,7 +1,6 @@
 package com.revature.caliber.gateway.impl;
 
 import com.revature.caliber.gateway.ApiGateway;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -11,6 +10,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ApiGatewayImplTest {
 
@@ -43,19 +43,45 @@ public class ApiGatewayImplTest {
     	HashMap<String, Double []> hey = apiGateway.getTechGradeDataForBatch(1);
     }
 
-    @Ignore
     @Test
+    @Ignore
     public void getWeekAggregatedGradesForTrainee() throws Exception {
         HashMap<String, Double[]> grades = apiGateway.getWeekGradeDataForTrainee(1);
 
-//        for (String grade : grades.keySet()) {
-//            System.out.print(grade + " -> [");
-//            for (Double d : grades.get(grade)) {
-//                System.out.print(d + ", ");
-//            }
-//            System.out.println("]");
-//        }
+        for (String grade : grades.keySet()) {
+            System.out.print(grade + " -> [");
+            for (Double d : grades.get(grade)) {
+                System.out.print(d + ", ");
+            }
+            System.out.println("]");
+        }
 
+    }
+    
+    @Test
+    @Ignore
+    public void getTraineeGradeDataForTrainer(){
+    	Map<String, Double[]> grades = apiGateway.getTraineeGradeDataForTrainer(1);
+        for (String grade : grades.keySet()) {
+            System.out.print(grade + " -> [");
+            for (Double d : grades.get(grade)) {
+                System.out.print(d + ", ");
+            }
+            System.out.println("]");
+        }
+    }
+    
+    @Test
+    public void getTechGradeDataForBatch(){
+    	Map<String, Double[]> grades = apiGateway.getTechGradeDataForBatch(1);
+        for (String grade : grades.keySet()) {
+            System.out.print(grade + " -> [");
+            for (Double d : grades.get(grade)) {
+                System.out.print(d + ", ");
+            }
+            System.out.println("]");
+        }
+    	
     }
 
     @Test
@@ -70,11 +96,33 @@ public class ApiGatewayImplTest {
             }
             System.out.println("]");
         }
+    }
+
+    @Test
+    @Ignore
+    public void getTechGradeAllBatch() throws Exception {
+        HashMap<String,HashMap<String,Double[]>> grades = apiGateway.getTechGradeAllBatch();
+
+        for(String batch : grades.keySet()){
+            System.out.println(batch + " -> [");
+
+            for(String tech : grades.get(batch).keySet()){
+                System.out.println(tech + " -> [");
+                for(Double d: grades.get(batch).get(tech)){
+                    System.out.println(d + ", ");
+                }
+                System.out.println("]");
+            }
+            System.out.println("]");
+        }
+
 
     }
-    
-	@After
-	public void close() {
-		((AbstractApplicationContext) context).registerShutdownHook();
-	}
+
+
+    @After
+    public void  close(){
+    	((AbstractApplicationContext)context).registerShutdownHook();
+    }
+
 }

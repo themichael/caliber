@@ -1,8 +1,6 @@
 package com.revature.caliber.gateway.services.impl;
 
-import com.revature.caliber.beans.Grade;
 import com.revature.caliber.gateway.services.AssessmentService;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -29,8 +27,17 @@ public class AssessmentServiceImplTest {
 
     @Test
     @Ignore
+    public void getAllGrades() throws Exception {
+        List<com.revature.caliber.assessment.beans.Grade> grades = assessmentService.getAllGrades();
+        for(int i=0;i<grades.size();i++){
+            System.out.println(grades.get(i));
+        }
+    }
+
+    @Test
+    @Ignore
     public void getGradesByTraineeId() throws Exception {
-        List<Grade> grades = assessmentService.getGradesByTraineeId(1);
+        List<com.revature.caliber.assessment.beans.Grade> grades = assessmentService.getGradesByTraineeId(1);
         for(int i=0;i<grades.size();i++){
             System.out.println(grades.get(i).toString());
         }

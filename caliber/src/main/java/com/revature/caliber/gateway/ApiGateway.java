@@ -318,6 +318,8 @@ public interface ApiGateway {
      */
     HashMap<String, Double[]> getGradesForBatchWeekly(int batchID);
 
+    HashMap<String,HashMap<String,Double[]>> getTechGradeAllBatch();
+
     /**
      * Gets all batches.
      *
