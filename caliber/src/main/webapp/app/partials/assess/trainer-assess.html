@@ -114,19 +114,19 @@
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainingName">Training Name:</label>
                         <input ng-model="trainingName" type="text" class="form-control" id="trainingName"
-                               placeholder="Title" required>
+                               placeholder="title" required>
                     </div>
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainingType">Training type:</label>
                         <input ng-model="trainingType" type="text" class="form-control" id="trainingType"
-                               placeholder="Training type" required>
+                               placeholder="training type" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="skillType">Skill Type:</label>
                         <select ng-model="skillType" class="form-control" id="skillType" required>
-                            <option value="" disabled selected>Select Skill Type</option>
+                            <option value="" disabled selected>select skill type</option>
                             <option ng-repeat="category in skill_categories track by $index">
                                 {{category.skillCategory}}
                                 </option>
