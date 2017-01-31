@@ -97,6 +97,13 @@ a { color: #F26925;}
 .glyphicon-user { padding-left: .5em; }
 .glyph-top-margin { padding-top: 2em; }
 
+.btn-primary {
+	color: white !important;
+	border-color: white !important;
+	background-color: #F26925 !important;
+	background-image: none;
+}
+
 
 /************************
 	Margins
