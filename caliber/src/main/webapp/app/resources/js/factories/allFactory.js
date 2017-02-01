@@ -6,7 +6,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
 
     /*************************** Batch ************************/
     all.createBatch = function(batchObj) {
-        $http({
+        return $http({
             url: "/caliber/all/batch/create",
             method: "POST",
             data: batchObj

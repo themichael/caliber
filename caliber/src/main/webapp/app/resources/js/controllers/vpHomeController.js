@@ -232,9 +232,16 @@ angular.module("vp").controller(
                     $scope.allBatchesRankData = hbarChartObject2.data;
                     $scope.allBatchesRankSeries = hbarChartObject2.series;
                     $log.debug($scope.aggBatchData);
-                }, function(response){
-                // on error
-            });
+                });
+
+            var data = caliberDelegate.all.createBatch(null)
+                .then(function(data){
+                    $log.log("Pass: " + data);
+                }, function(data){
+                   $log.log("Fail: " + data);
+                });
+            $log.debug(data);
+
         })();
 
         // random number gen - sample data only!
