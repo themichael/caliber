@@ -61,6 +61,29 @@ public class TraineeController {
 		}
 		return returnEntity;
 	}
+	/**
+	 * Create a new trainees by making a PUT request to the URL
+	 *
+	 * @param trainees
+	 *            trainees to put
+	 * @return Response with appropriate status
+	 */
+	@RequestMapping(
+	        value = "trainees/bulk",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Long> createTrainee(@RequestBody @Valid Trainee[] trainees) {
+		ResponseEntity<Long> returnEntity;
+		try {
+			for (Trainee trainee:trainees) {
+				businessDelegate.createTrainee(trainee);
+			}
+			returnEntity = new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (RuntimeException e) {
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return returnEntity;
+	}
 
 	/**
 	 * Update a trainee by making a POST request to the URL
