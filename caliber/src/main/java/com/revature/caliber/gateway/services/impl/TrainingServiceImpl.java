@@ -378,7 +378,7 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
-    public void createWeek(Week week) {
+    public Long createWeek(Week week) {
         RestTemplate service = new RestTemplate();
         // Build Parameters
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path("training/week/new").build()
@@ -390,10 +390,12 @@ public class TrainingServiceImpl implements TrainingService {
         HttpEntity<Week> entity = new HttpEntity<>(week, headers);
 
         // Invoke the service
-        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
+        ResponseEntity<Long> response = service.exchange(URI, HttpMethod.POST, entity, Long.class);
         if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
             throw new RuntimeException("Trainee could not be created");
         }
+
+        return response.getBody();
     }
 
 

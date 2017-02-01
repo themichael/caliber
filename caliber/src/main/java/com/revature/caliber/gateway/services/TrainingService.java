@@ -178,6 +178,6 @@ public interface TrainingService {
     List<Week> getAllWeek();
     
 
-    void createWeek(Week week);
+    Long createWeek(Week week);
 
 }

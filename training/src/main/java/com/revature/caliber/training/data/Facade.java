@@ -57,16 +57,13 @@ public interface Facade {
 
     public void updateTrainer(Trainer trainer);
 
-
-    //Week methods
-    List<Week> getAllWeeks();
-
-    List<Week> getWeekByBatchId(int batchId);
-
-    List<Week> getWeekByWeekNumber(int weekNumber);
-
-    void createWeek(Week newWeek);
-    //end of week methods
-
-
+	
+	//Week methods
+	List<Week> getAllWeeks();
+	List<Week> getWeekByBatchId(int batchId);
+	List<Week> getWeekByWeekNumber(int weekNumber);
+	Long createWeek(Week newWeek);
+	//end of week methods
+	
+	
 }
