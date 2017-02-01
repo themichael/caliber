@@ -1,6 +1,6 @@
 angular.module("trainer").controller(
     "trainerManageController",
-    function ($scope, $log, caliberDelegate, allBatches) {
+    function ($scope, $log, $q, caliberDelegate, allBatches) {
         $log.debug("Booted trainer manage controller.");
 
         /**************************** Batch *****************************/
