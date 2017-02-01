@@ -56,7 +56,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 
 	@Override
-	public void insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
+	public long insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(addAssessmentPath)
@@ -68,10 +68,11 @@ public class AssessmentServiceImpl implements AssessmentService {
 				new HttpEntity<>(assessment, headers);
 
 		//Invoke the service
-		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+		ResponseEntity<Long> response = service.exchange(URI, HttpMethod.PUT, entity, Long.class);
 		if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
 			throw new AssessmentServiceAssessmentOperationException("Assessment could not be made");
 		}
+        return response.getBody();
 	}
 
 	@Override
