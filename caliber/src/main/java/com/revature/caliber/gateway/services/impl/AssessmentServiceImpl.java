@@ -59,7 +59,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addAssessmentPath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(addAssessmentPath)
 				.build().toUriString();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -78,7 +78,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void updateAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateAssessmentPath).build().toUriString();
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(updateAssessmentPath).build().toUriString();
 
 		//invoke the service
 		ResponseEntity<Serializable> response = service.postForEntity(URI, assessment, Serializable.class);
@@ -91,7 +91,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void deleteAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteAssessmentPath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(deleteAssessmentPath)
 				.build().toUriString();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -110,7 +110,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments() {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getAllAssessmentsPath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getAllAssessmentsPath)
 				.build().toUriString();
 
 
@@ -133,7 +133,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public List<com.revature.caliber.assessment.beans.Grade> getGradesByAssessment(Integer assessmentId) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getGradesByAssessmentPath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getGradesByAssessmentPath)
 				.path(assessmentId.toString())
 				.build().toUriString();
 
@@ -156,7 +156,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void insertGrade(com.revature.caliber.assessment.beans.Grade grade) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameter
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addGradePath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(addGradePath)
 				.build().toUriString();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -176,7 +176,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void updateGrade(com.revature.caliber.assessment.beans.Grade grade) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateGradePath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(updateGradePath)
 				.build().toUriString();
 
 		//Invoke the service
@@ -191,7 +191,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public List<com.revature.caliber.assessment.beans.Grade> getAllGrades(){
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allGradesPath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(allGradesPath)
                 .build().toUriString();
 
         //Invoke the service
@@ -209,7 +209,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void createBatchNote(BatchNote batchNote) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(createBatchNotePath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(createBatchNotePath)
 				.build().toUriString();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -241,7 +241,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void updateBatchNote(BatchNote batchNote) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateBatchNotePath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(updateBatchNotePath)
 				.build().toUriString();
 
 		//Invoke the service
@@ -254,7 +254,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void deleteBatchNote(BatchNote batchNote) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteBatchNotePath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(deleteBatchNotePath)
 				.build().toUriString();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -271,7 +271,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void createQCNote(QCNote note) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(createQCNotePath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(createQCNotePath)
 				.build().toUriString();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -289,7 +289,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void updateQCNote(QCNote note) {
 		RestTemplate service = new RestTemplate();
 
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTrainerNotePath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(updateTrainerNotePath)
 				.build().toUriString();
 
 		//Invoke the service
@@ -330,7 +330,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void createTrainerNote(TrainerNote note) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(createTrainerNotePath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(createTrainerNotePath)
 				.build().toUriString();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -367,7 +367,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void updateTrainerNote(TrainerNote note) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTrainerNotePath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(updateTrainerNotePath)
 				.build().toUriString();
 
 		//Invoke the service
@@ -381,7 +381,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void deleteTrainerNote(TrainerNote note) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
-		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteTrainerNotePath)
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(deleteTrainerNotePath)
 				.build().toUriString();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -406,7 +406,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public List<com.revature.caliber.assessment.beans.Grade> getGradesByTraineeId(int id) {
 		RestTemplate rest = new RestTemplate();
 
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getGradesByTraineePath).path("/" + id)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getGradesByTraineePath).path("/" + id)
                 .build().toUriString();
 		ResponseEntity<com.revature.caliber.assessment.beans.Grade[]> responseAssessmentModule =
 				rest.getForEntity(URI, com.revature.caliber.assessment.beans.Grade[].class);
