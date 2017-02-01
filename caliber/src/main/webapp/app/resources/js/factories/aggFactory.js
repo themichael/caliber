@@ -6,7 +6,7 @@ angular.module("api")
 
         agg.techTrainee = function(traineeId) {
             return $http({
-                url: "/caliber/agg/tech/trainee/" + traineeId,
+                url: "/caliber/all/agg/tech/trainee/" + traineeId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug(response);
@@ -19,7 +19,7 @@ angular.module("api")
 
         agg.weekTrainee = function(traineeId) {
             return $http({
-                url: "/caliber/agg/week/trainee/" + traineeId,
+                url: "/caliber/all/agg/week/trainee/" + traineeId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug(response);
@@ -32,7 +32,7 @@ angular.module("api")
 
         agg.techBatch = function(batchId) {
             return $http({
-                url: "/caliber/agg/tech/batch/" + batchId,
+                url: "/caliber/all/agg/tech/batch/" + batchId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug(response);
@@ -45,7 +45,7 @@ angular.module("api")
 
         agg.weekBatch = function(batchId) {
             return $http({
-                url: "/caliber/agg/week/batch/" + batchId,
+                url: "/caliber/all/agg/week/batch/" + batchId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug(response);
@@ -58,7 +58,7 @@ angular.module("api")
 
         agg.techAllBatch = function() {
             return $http({
-                url: "/caliber/agg/tech/batch/all",
+                url: "/caliber/all/agg/tech/batch/all",
                 method: "GET"
             }).then(function (response) {
                 $log.debug(response);
@@ -71,7 +71,7 @@ angular.module("api")
 
         agg.batchTrainer = function(trainerId) {
             return $http({
-                url: "/caliber/agg/batch/trainer/" + trainerId,
+                url: "/caliber/vp/agg/batch/trainer/" + trainerId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug(response);
