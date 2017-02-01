@@ -1,3 +1,11 @@
+/**
+ *
+ * @param $log
+ * @param hbarChartFactory
+ * @param radarChartFactory
+ * @param lineChartFactory
+ * @returns {{}}
+ */
 angular.module("delegate").factory("chartsDelegate",
     function ($log, hbarChartFactory, radarChartFactory, lineChartFactory) {
         $log.debug("Booted charts delegate");

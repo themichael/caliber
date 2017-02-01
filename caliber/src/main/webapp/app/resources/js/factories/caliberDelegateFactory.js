@@ -1,7 +1,13 @@
 /**
  * Delegates API calls to the appropriate API factory
+ * @param $log
+ * @param trainerFactory
+ * @param vpFactory
+ * @param qcFactory
+ * @param allFactory
+ * @param aggFactory
+ * @returns {{}}
  */
-
 angular.module("delegate").factory("caliberDelegate",
     function ($log, trainerFactory, vpFactory, qcFactory, allFactory, aggFactory) {
         $log.debug("Booted Delegate Factory");
