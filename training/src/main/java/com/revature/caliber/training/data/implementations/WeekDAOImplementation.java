@@ -44,8 +44,8 @@ public class WeekDAOImplementation implements WeekDAO {
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void createWeek(Week newWeek) {
-		sessionFactory.getCurrentSession().save(newWeek);
+	public Long createWeek(Week newWeek) {
+		return (long) sessionFactory.getCurrentSession().save(newWeek);
 	}
 
 	@SuppressWarnings("unchecked")
