@@ -14,7 +14,7 @@ public class Batch {
 	@Column(name = "BATCH_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="BATCH_ID_SEQUENCE")
 	@SequenceGenerator(name = "BATCH_ID_SEQUENCE", sequenceName = "BATCH_ID_SEQUENCE")
-	private int batchId;
+	private long batchId;
 
 	@Column(name = "TRAINING_NAME")
 	private String trainingName;
@@ -69,7 +69,7 @@ public class Batch {
 	/*
 	Constructor with ID
 	 */
-	public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
+	public Batch(long batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
 				 String trainingType, Date startDate, Date endDate, String location, Short goodGradeThreshold,
 				 Short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
 		this.batchId = batchId;
@@ -112,10 +112,10 @@ public class Batch {
 	/*
 	Setters and Getters
 	 */
-	public int getBatchId() {
+	public long getBatchId() {
 		return batchId;
 	}
-	public void setBatchId(int batchId) {
+	public void setBatchId(long batchId) {
 		this.batchId = batchId;
 	}
 	public String getTrainingName() {

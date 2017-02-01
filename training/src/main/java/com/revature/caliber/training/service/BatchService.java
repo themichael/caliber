@@ -10,7 +10,7 @@ public interface BatchService {
 	 * 
 	 * @param batch
 	 */
-	public long createBatch(Batch batch);
+	public Long createBatch(Batch batch);
 
 	/**
 	 * Get all batches in a table

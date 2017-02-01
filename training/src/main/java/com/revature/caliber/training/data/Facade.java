@@ -29,7 +29,7 @@ public interface Facade {
 	// end of Trainee methods
 
 	// Batch methods
-	public long createBatch(Batch batch);
+	public Long createBatch(Batch batch);
 
 	public List<Batch> getAllBatch();
 
