@@ -19,6 +19,7 @@ angular.module("api")
             }, function(response) {
                 $log.error("There was an error: " + response.status);
             });
+
         };
         /**
          *
