@@ -330,6 +330,9 @@ public class Batch {
         this.weeks = weeks;
     }
 
+    /**
+     * Instantiates a new Batch.
+     */
     public Batch() {
         super();
     }
