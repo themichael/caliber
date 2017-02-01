@@ -181,9 +181,11 @@ angular.module("trainer")
 
         //create week
         $scope.createWeek = function () {
-
+            var weekNumber = $scope.currentBatch.weeks;
+            if(!weekNumber) weekNumber = 1;
+            console.log(weekNumber);
             return caliberDelegate.trainer.createWeek({
-                weekNumber: $scope.weekNumber,
+                weekNumber: weekNumber,
                 batchId: $scope.currentBatch.batchId
             });
         };

@@ -56,8 +56,7 @@
                     ng-repeat="week in currentBatch.weeks track by $index">
                     <a>Week {{week.weekNumber}}</a></li>
                 <!-- Button Trigger for Create Week Modal -->
-                <li role="button" ng-show="currentView"
-                    data-toggle="modal" data-target="#createWeekModal">
+                <li role="button" ng-show="currentView" ng-click="createWeek()">
                     <a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
                 </li>
             </ul>
@@ -155,33 +154,6 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button ng-click="addAssessment()" type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Create Week Modal -->
-<div class="modal fade" id="createWeekModal" tabindex="-1" role="dialog" aria-labelledby="createWeekLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-
-                <h4 class="modal-title" id="createWeekLabel">Create New Week</h4>
-            </div>
-            <!-- Add Batch Info -->
-            <div class="modal-body">
-                <div class="row">
-                    <div class="form-group col-md-6 col-sm-6">
-                        <label for="trainingName">Week Number:</label>
-                        <input ng-model="trainingName" type="number" class="form-control" id="weekNumber"
-                               placeholder="title" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button ng-click="createWeek()" type="button" class="btn btn-primary">Save</button>
-                </div>
             </div>
         </div>
     </div>
