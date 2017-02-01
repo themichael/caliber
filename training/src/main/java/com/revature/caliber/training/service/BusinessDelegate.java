@@ -29,7 +29,7 @@ public interface BusinessDelegate {
 	// end of TraineeService
 
 	// BatchService methods
-	public void createBatch(Batch batch);
+	public Long createBatch(Batch batch);
 
 	public List<Batch> getAllBatch();
 

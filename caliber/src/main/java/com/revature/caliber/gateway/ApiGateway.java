@@ -27,7 +27,7 @@ public interface ApiGateway {
      *
      * @param batch - A new batch
      */
-    void createBatch(Batch batch);
+    Long createBatch(Batch batch);
 
     /**
      * Get all batches
