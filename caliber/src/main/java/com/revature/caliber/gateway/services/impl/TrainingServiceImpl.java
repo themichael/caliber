@@ -37,7 +37,7 @@ public class TrainingServiceImpl implements TrainingService {
 
     /***********************************Batch**********************************/
     @Override
-    public void createBatch(Batch batch) {
+    public Long createBatch(Batch batch) {
         RestTemplate service = new RestTemplate();
         // Build Service URL
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(newBatch)
@@ -46,10 +46,12 @@ public class TrainingServiceImpl implements TrainingService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Batch> entity = new HttpEntity<>(batch, headers);
 
-        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
+        ResponseEntity<Long> response = service.exchange(URI, HttpMethod.POST, entity, Long.class);
         if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
             throw new RuntimeException("Batch could not be created");
         }
+
+        return response.getBody();
     }
 
     @Override

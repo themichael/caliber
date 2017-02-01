@@ -40,9 +40,7 @@ public class GradeServiceImpl implements GradeService{
 	}
 
 	@Override
-	public void insertGrade(Grade grade) {
-		facade.insertGrade(grade);
-	}
+	public Long insertGrade(Grade grade){ return facade.insertGrade(grade); }
 
 	@Override
 	public void deleteGrade(Grade grade) {
