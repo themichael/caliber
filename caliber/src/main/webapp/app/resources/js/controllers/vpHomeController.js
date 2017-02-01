@@ -216,15 +216,17 @@ angular.module("vp").controller(
 
         /***************************** Agg Functions ****************************/
         (function(){
+            // ajax call thru delegate
             caliberDelegate.agg.getAggTechAllBatch()
+                // success or failure
                 .then(function(data){
                     $scope.aggBatchData = [];
                     angular.forEach(data, function(value, key){
-                        var sum = 0; var numBatches = 0;
+                        var sum = 0; var numTech = 0;
                         angular.forEach(value, function(value, key2){
-                            sum = sum + value[0]; numBatches++;
+                            sum = sum + value[0]; numTech++;
                         });
-                        var average = sum/numBatches;
+                        var average = sum/numTech;
                         $scope.aggBatchData.push({name: key, score: average});
                     });
                     var hbarChartObject2 = chartsDelegate.hbar.getAllBatchesEvalChart($scope.aggBatchData);
