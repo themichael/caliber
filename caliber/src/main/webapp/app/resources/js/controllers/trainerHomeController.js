@@ -7,7 +7,7 @@ angular.module("trainer").controller(
         var viewCharts = 0;
 
         $scope.batches = allBatches;
-        $scope.trainees = ["Osher", "Kyle", "Rikki"];
+        $scope.trainees = allBatches.trainees;
 
         $scope.currentBatch = {};
         $scope.currentBatch.trainingName = "Batch";
