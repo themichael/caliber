@@ -84,7 +84,7 @@ public class TrainerBatchController {
     @RequestMapping(value = "/grade/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
         apiGateway.insertGrade(grade);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     /**
