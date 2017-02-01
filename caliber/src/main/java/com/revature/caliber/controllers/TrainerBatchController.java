@@ -109,9 +109,9 @@ public class TrainerBatchController {
                     method = RequestMethod.PUT,
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createAssessment(@RequestBody com.revature.caliber.assessment.beans.Assessment assessment) {
-        apiGateway.insertAssessment(assessment);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<Long> createAssessment(@RequestBody com.revature.caliber.assessment.beans.Assessment assessment) {
+        long assessmentId = apiGateway.createAssessment(assessment);
+        return new ResponseEntity(assessmentId, HttpStatus.OK);
     }
 
     /**

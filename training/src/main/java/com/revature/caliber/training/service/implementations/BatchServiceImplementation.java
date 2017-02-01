@@ -19,8 +19,8 @@ public class BatchServiceImplementation implements BatchService {
 		this.facade = facade;
 	}
 
-	public void createBatch(Batch batch) {
-		facade.createBatch(batch);
+	public long createBatch(Batch batch) {
+		return facade.createBatch(batch);
 	}
 
 	public List<Batch> getAllBatch() {

@@ -104,9 +104,9 @@ public class AssessmentController {
             value = "/assessment/new",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createAssessment(@RequestBody Assessment assessment) {
-        delegate.insertAssessment(assessment);
-        return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity<Long> createAssessment(@RequestBody Assessment assessment) {
+        long assessmentId = delegate.insertAssessment(assessment);
+        return new ResponseEntity(assessmentId, HttpStatus.CREATED);
     }
 
 //    Update

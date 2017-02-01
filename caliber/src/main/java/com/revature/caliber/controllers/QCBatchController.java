@@ -84,7 +84,7 @@ public class QCBatchController {
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createAssessment(@RequestBody com.revature.caliber.assessment.beans.Assessment assessment) {
-        apiGateway.insertAssessment(assessment);
+        apiGateway.createAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);
     }
 
