@@ -17,7 +17,7 @@ public interface TrainingService {
      *
      * @param batch new batch
      */
-    void createBatch(Batch batch);
+    Long createBatch(Batch batch);
 
     /**
      * Get all batches

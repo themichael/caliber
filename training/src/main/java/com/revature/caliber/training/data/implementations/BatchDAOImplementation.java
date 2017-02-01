@@ -27,9 +27,7 @@ public class BatchDAOImplementation implements BatchDAO {
 
 	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public void createBatch(Batch batch) {
-		sessionFactory.getCurrentSession().save(batch);
-	}
+	public long createBatch(Batch batch) {return (long) sessionFactory.getCurrentSession().save(batch);}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })

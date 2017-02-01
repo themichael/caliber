@@ -1,3 +1,8 @@
+/**
+ *
+ * @param $log
+ * @returns {{}}
+ */
 angular.module("charts").factory("radarChartFactory", function ($log) {
     $log.debug("Booted Radar Chart Factory");
 

@@ -41,11 +41,10 @@ public class BatchController {
 	 */
 	@RequestMapping(value = "batch/create", method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Serializable> createBatch(@RequestBody @Valid Batch batch) {
-		ResponseEntity<Serializable> returnEntity;
+	public ResponseEntity<Long> createBatch(@RequestBody @Valid Batch batch) {
+		ResponseEntity<Long> returnEntity;
 		try {
-			businessDelegate.createBatch(batch);
-			returnEntity = new ResponseEntity(HttpStatus.CREATED);
+			returnEntity = new ResponseEntity(businessDelegate.createBatch(batch), HttpStatus.CREATED);
 		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
 			log.error("Runtime Exception.", e);
