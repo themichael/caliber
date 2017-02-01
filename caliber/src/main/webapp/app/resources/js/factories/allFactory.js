@@ -68,7 +68,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
     all.createTrainee = function(traineeObj) {
         return $http({
             url: "/caliber/all/trainee/create",
-            method: "POST",
+            method: "PUT",
             data: traineeObj
         }).then(function(response) {
             $log.debug("Trainee successfully deleted.")

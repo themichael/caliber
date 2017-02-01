@@ -43,17 +43,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="batch in batches">
+                    <tr ng-repeat="batch in batches track by $index">
                         <td>{{batch.trainingName}}</td>
                         <td>{{batch.trainingType}}</td>
                         <td>{{batch.skillType}}</td>
-                        <td>{{batch.trainer}}</td>
-                        <td>{{batch.coTrainer}}</td>
+                        <td>{{batch.trainer.name}}</td>
+                        <td>{{batch.coTrainer.name}}</td>
                         <td>{{batch.location}}</td>
                         <td>{{batch.startDate|date}}</td>
                         <td>{{batch.endDate|date}}</td>
                         <td><!-- Button Trigger for Add Trainee Modal -->
-                            <a role="button" data-toggle="modal" data-target="#addTraineeModal">
+                            <a role="button" data-toggle="modal" ng-click="selectCurrentBatch($index)"
+                               data-target="#addTraineeModal">
                                 View/ Add<span class="glyphicon glyphicon-user"></span>
                             </a>
                         </td>
@@ -111,14 +112,14 @@
                                 <label for="trainer">Trainer:</label>
                                 <select ng-model="trainer.model" class="form-control" id="trainer" required>
                                     <option value="" disabled selected>Select Trainer</option>
-                                    <option ng-repeat="option in trainer.options">{{option}}</option>
+                                    <option ng-repeat="option in trainers">{{option.name}}</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="co-trainer">Co-Trainer:</label>
                                 <select ng-model="coTrainer.model" class="form-control" id="co-trainer" required>
                                     <option value="" disabled selected>Select Co-Trainer</option>
-                                    <option ng-repeat="option in coTrainer.options">{{option}}</option>
+                                    <option ng-repeat="option in trainers">{{option.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -176,7 +177,7 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="trainee in trainees">
-                                    <td>{{trainee.traineeName}}</td>
+                                    <td>{{trainee.name}}</td>
                                     <td>{{trainee.email}}</td>
                                 </tr>
                                 </tbody>
@@ -191,7 +192,7 @@
                                 <td>
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="traineeName">Full Name:</label>
-                                        <input ng-model="receiver.traineeName" type="text" class="form-control"
+                                        <input ng-model="receiver.name" type="text" class="form-control"
                                                id="traineeName" placeholder="Name" required>
                                     </div>
                                 </td>
