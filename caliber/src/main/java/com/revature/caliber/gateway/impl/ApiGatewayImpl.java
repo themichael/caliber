@@ -467,9 +467,7 @@ public class ApiGatewayImpl implements ApiGateway {
 
 
         return grades;
-
     }
-
 
 
     /**
