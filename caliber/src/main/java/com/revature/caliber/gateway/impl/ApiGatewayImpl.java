@@ -377,7 +377,7 @@ public class ApiGatewayImpl implements ApiGateway {
             if (list.size() < 1) {
                 continue;
             }
-
+//
             //average
             gradeV[0] = gradeV[0] / list.size(); //just divide the total by list size
             //medium
@@ -426,7 +426,6 @@ public class ApiGatewayImpl implements ApiGateway {
 
         for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
             if(grade.getAssessment().getBatch()==batchID) {
-                System.out.println("GRADE: " + grade.getScore() + "    BATCH: " + grade.getAssessment().getBatch() + "     WEEK: " + grade.getAssessment().getWeek() + "     Assessment ID; " + grade.getAssessment().getAssessmentId());
                 long weekNumber = grade.getAssessment().getWeek();
                 if (!grades.containsKey(weekNumber)) {
                     grades.put(String.valueOf(weekNumber), new Double[]{0.0, 0.0, 0.0, 0.0});
