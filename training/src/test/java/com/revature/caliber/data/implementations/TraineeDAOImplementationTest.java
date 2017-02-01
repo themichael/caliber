@@ -14,10 +14,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -30,8 +27,10 @@ import com.revature.caliber.training.data.TraineeDAO;
 
 /**
  * Test for TraineeDAOImplementation.
+ * Ignored test since DAO is completed
  * @author Ilya
  */
+@Ignore
 public class TraineeDAOImplementationTest {
 
 	private static ApplicationContext context;

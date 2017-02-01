@@ -176,7 +176,7 @@ public class ApiGatewayImpl implements ApiGateway {
 
     /****************************Assessment**********************************/
     @Override
-    public void insertAssessment(Assessment assessment) {
+    public void insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
         serviceLocator.getAssessmentService().insertAssessment(assessment);
     }
 
@@ -682,7 +682,8 @@ public class ApiGatewayImpl implements ApiGateway {
      *
      * @param assessment the assessment
      */
-    public void createAssessment(Assessment assessment) {
+    public void createAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
+        serviceLocator.getAssessmentService().insertAssessment(assessment);
     }
 
     /**
