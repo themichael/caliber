@@ -3,6 +3,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.gateway.ApiGateway;
+import com.revature.caliber.training.beans.Trainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -154,6 +155,13 @@ public class AllController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HashMap<String, HashMap<String,Double[]>>> aggregateTechForAllBatches() {
         return new ResponseEntity<>(apiGateway.getTechGradeAllBatch(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/trainer/all",
+                    method = RequestMethod.GET,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<com.revature.caliber.training.beans.Trainer>> getAllTrainers(){
+        return new ResponseEntity(apiGateway.getAllTrainers(), HttpStatus.OK);
     }
 
 }

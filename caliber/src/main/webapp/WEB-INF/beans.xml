@@ -25,7 +25,7 @@
 
 	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
 		<property name="hostname" value="http://localhost" />
-		<property name="portNumber" value=":9001/" /> <!-- use 443 for SSL -->
+		<property name="portNumber" value=":8080/" /> <!-- use 443 for SSL -->
 		<!--<property name="hostname" value="http://pjw6193.tech" />-->
 		<!--<property name="portNumber" value=":80/" /> &lt;!&ndash; use 443 for SSL &ndash;&gt;-->
 
@@ -55,7 +55,7 @@
 
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
 		<property name="hostname" value="http://localhost" />
-		<property name="portNumber" value=":9001/" /> <!-- use 443 for SSL -->
+		<property name="portNumber" value=":8080/" /> <!-- use 443 for SSL -->
 		<!--<property name="hostname" value="http://pjw6193.tech" />-->
 		<!--<property name="portNumber" value=":80/" /> &lt;!&ndash; use 443 for SSL &ndash;&gt;-->
 
