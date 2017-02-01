@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -111,7 +112,7 @@ public class AllController {
      * @return the assessment grades by id
      */
     @RequestMapping(value = "/grades/assessment/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Set<Grade>> getAssessmentGradesById(@PathVariable int id) {
+    ResponseEntity<List<com.revature.caliber.assessment.beans.Grade>> getAssessmentGradesById(@PathVariable int id) {
         return new ResponseEntity<>(apiGateway.getAssessmentGradesById(id), HttpStatus.OK);
     }
 

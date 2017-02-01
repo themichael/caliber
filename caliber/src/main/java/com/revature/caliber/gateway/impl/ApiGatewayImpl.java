@@ -1,6 +1,12 @@
 package com.revature.caliber.gateway.impl;
 
+import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.QCNote;
+import com.revature.caliber.beans.TrainerNote;
 import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,12 +127,12 @@ public class ApiGatewayImpl implements ApiGateway {
 
     /**************************************Grade************************************/
     @Override
-    public List<Grade> getGradesByAssessment(Integer assessmentId) {
+    public List<com.revature.caliber.assessment.beans.Grade> getGradesByAssessment(Integer assessmentId) {
         return serviceLocator.getAssessmentService().getGradesByAssessment(assessmentId);
     }
 
     @Override
-    public void insertGrade(Grade grade) {
+    public void insertGrade(com.revature.caliber.assessment.beans.Grade grade) {
         serviceLocator.getAssessmentService().insertGrade(grade);
 
     }
@@ -175,12 +181,12 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     @Override
-    public void updateAssessment(Assessment assessment) {
+    public void updateAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
         serviceLocator.getAssessmentService().updateAssessment(assessment);
     }
 
     @Override
-    public void deleteAssessment(Assessment assessment) {
+    public void deleteAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
         serviceLocator.getAssessmentService().deleteAssessment(assessment);
     }
 
@@ -496,26 +502,14 @@ public class ApiGatewayImpl implements ApiGateway {
      * @param id the id
      * @return the assessment grades by id
      */
-    public Set<Grade> getAssessmentGradesById(int id) {
-        return null;
-    }
-
-    /**
-     * Create grade.
-     *
-     * @param grade the grade
-     */
-    public void createGrade(Grade grade) {
-    }
+    public List<com.revature.caliber.assessment.beans.Grade> getAssessmentGradesById(int id) { return serviceLocator.getAssessmentService().getGradesByAssessment(id); }
 
     @Override
     public void createAssessmentNote(Note note) {
 
     }
 
-    public void updateGrade(Grade grade) {
-    }
-
+    public void updateGrade(com.revature.caliber.assessment.beans.Grade grade) { serviceLocator.getAssessmentService().updateGrade(grade);}
 
 
     @Override
@@ -696,8 +690,10 @@ public class ApiGatewayImpl implements ApiGateway {
      *
      * @return the all assessments
      */
-    public Set<Assessment> getAllAssessments() {
-        return null;
+    public List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments() {
+
+        return serviceLocator.getAssessmentService().getAllAssessments();
+
     }
 
     /**
