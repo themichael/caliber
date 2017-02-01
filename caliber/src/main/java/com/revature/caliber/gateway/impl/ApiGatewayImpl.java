@@ -1,12 +1,6 @@
 package com.revature.caliber.gateway.impl;
 
-import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.BatchNote;
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.QCNote;
-import com.revature.caliber.beans.TrainerNote;
 import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -433,12 +427,10 @@ public class ApiGatewayImpl implements ApiGateway {
         Double[] gradeV;
         List<Integer> list;
         int highestWeek =0;
+
         for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
             if(grade.getAssessment().getBatch()==batchID) {
-                System.out.println("GRADE: " + grade.getScore() + "    BATCH: " + grade.getAssessment().getBatch() + "     WEEK: " + grade.getAssessment().getWeek());
-                if (grade.getAssessment().getWeek() > highestWeek) {
-                    highestWeek = (int) grade.getAssessment().getWeek();
-                }
+                System.out.println("GRADE: " + grade.getScore() + "    BATCH: " + grade.getAssessment().getBatch() + "     WEEK: " + grade.getAssessment().getWeek() + "     Assessment ID; " + grade.getAssessment().getAssessmentId());
                 long weekNumber = grade.getAssessment().getWeek();
                 if (!grades.containsKey(weekNumber)) {
                     grades.put(String.valueOf(weekNumber), new Double[]{0.0, 0.0, 0.0, 0.0});
@@ -446,41 +438,39 @@ public class ApiGatewayImpl implements ApiGateway {
                 }
             }
         }
-        //find how many weeks
-        int[] weeks = new int[highestWeek];
-        //add all the grades
-        int[] gradeTotal = new int[highestWeek];
-        //grade average holder
-        int[] gradeAverage = new int[highestWeek];
         for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
-            long weekNumber = grade.getAssessment().getWeek();
-            weeks[(int) (grade.getAssessment().getWeek()-1)] += 1;
-            gradeTotal[(int) (grade.getAssessment().getWeek()-1)] += grade.getScore();
-            gradeValues.get(String.valueOf(weekNumber)).add(grade.getScore());
-            for (String weekName : grades.keySet()) {
-                gradeV = grades.get(weekName);
-                list = gradeValues.get(weekName);
-                list.sort(Integer::compareTo); //sort list of grades for convenience
-                //assume there is at least one grade
-
-                if (list.size() < 1) { continue; }
-                if (list.size() > 1) {
-
-                    gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
-                            (list.get(list.size() / 2).doubleValue() + list.get(list.size() / 2 - 1).doubleValue()) / 2;
-                } else {
-                    gradeV[1] = list.get(0).doubleValue();
-                }
-                gradeV[3] = list.get(0).doubleValue();
-                gradeV[2] = list.get(list.size() - 1).doubleValue();
-                grades.put(weekName, gradeV); //put the result array back to the map
+            if(grade.getAssessment().getBatch()==batchID) {
+                long weekNumber = grade.getAssessment().getWeek();
+                grades.get(String.valueOf(weekNumber))[0] += grade.getScore();
+                gradeValues.get(String.valueOf(weekNumber)).add(grade.getScore());
             }
         }
-        for (int i=0;i<gradeAverage.length;i++){
-            gradeAverage[i] = gradeTotal[i]/weeks[i];
-            grades.get(String.valueOf(i+1))[0] = Double.valueOf(gradeAverage[i]);
 
+        for (String weekName : grades.keySet()) {
+            gradeV = grades.get(weekName);
+            list = gradeValues.get(weekName);
+            list.sort(Integer::compareTo); //sort list of grades for convenience
+            //assume there is at least one grade
+
+            if (list.size() < 1) {
+                continue;
+            }
+
+            gradeV[0] = gradeV[0] / list.size();
+
+            if (list.size() > 1) {
+
+                gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
+                        (list.get(list.size() / 2).doubleValue() + list.get(list.size() / 2 - 1).doubleValue()) / 2;
+            } else {
+                gradeV[1] = list.get(0).doubleValue();
+            }
+            gradeV[3] = list.get(0).doubleValue();
+            gradeV[2] = list.get(list.size() - 1).doubleValue();
+            grades.put(weekName, gradeV); //put the result array back to the map
         }
+
+
         return grades;
 
     }
