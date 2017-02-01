@@ -72,8 +72,8 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 	// end of trainee
 
 	// batch
-	public void createBatch(Batch batch) {
-		batchService.createBatch(batch);
+	public long createBatch(Batch batch) {
+		return batchService.createBatch(batch);
 	}
 
 	public List<Batch> getAllBatch() {
