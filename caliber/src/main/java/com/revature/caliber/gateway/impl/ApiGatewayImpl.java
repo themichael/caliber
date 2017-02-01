@@ -488,8 +488,8 @@ public class ApiGatewayImpl implements ApiGateway {
      *
      * @param week the week
      */
-    public void createNewWeek(Week week) {
-        serviceLocator.getTrainingService().createWeek(week);
+    public Long createNewWeek(Week week) {
+        return serviceLocator.getTrainingService().createWeek(week);
     }
 
     /**

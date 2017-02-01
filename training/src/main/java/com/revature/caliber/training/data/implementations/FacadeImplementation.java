@@ -188,6 +188,6 @@ public class FacadeImplementation implements Facade {
 	public List<Week> getWeekByWeekNumber(int weekNumber) { return weekDAO.getWeekByWeekNumber(weekNumber); }
     
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-	public void createWeek(Week newWeek) { weekDAO.createWeek(newWeek); }
+	public Long createWeek(Week newWeek) { return weekDAO.createWeek(newWeek); }
     //End Week
 }
