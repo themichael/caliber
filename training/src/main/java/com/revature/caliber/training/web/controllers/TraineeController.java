@@ -40,21 +40,21 @@ public class TraineeController {
 	private static Logger logger = LoggerFactory.getLogger(TraineeController.class);
 
 	/**
-	 * Greate a new trainee by making a PUT request to the URL
+	 * Create a new trainee by making a PUT request to the URL
 	 * 
 	 * @param trainee
 	 *            trainee to put
 	 * @return Response with appropriate status
 	 */
-	@RequestMapping(value = "trainees/new",
-                    method = RequestMethod.PUT,
-                    consumes = MediaType.APPLICATION_JSON_VALUE,
-                    produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Serializable> createTrainee(@RequestBody @Valid Trainee trainee) {
-		ResponseEntity<Serializable> returnEntity;
+	@RequestMapping(
+	        value = "trainees/new",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Long> createTrainee(@RequestBody @Valid Trainee trainee) {
+		ResponseEntity<Long> returnEntity;
 		try {
-			businessDelegate.createTrainee(trainee);
-			returnEntity = new ResponseEntity<>(HttpStatus.CREATED);
+			long traineeId = businessDelegate.createTrainee(trainee);
+			returnEntity = new ResponseEntity<>(traineeId, HttpStatus.CREATED);
 		} catch (RuntimeException e) {
             logger.error("Error while creating trainee: " + trainee, e);
 			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);

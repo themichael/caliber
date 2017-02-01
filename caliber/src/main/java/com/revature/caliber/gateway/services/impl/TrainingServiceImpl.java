@@ -37,7 +37,7 @@ public class TrainingServiceImpl implements TrainingService {
 
     /***********************************Batch**********************************/
     @Override
-    public void createBatch(Batch batch) {
+    public Long createBatch(Batch batch) {
         RestTemplate service = new RestTemplate();
         // Build Service URL
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(newBatch)
@@ -46,10 +46,12 @@ public class TrainingServiceImpl implements TrainingService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Batch> entity = new HttpEntity<>(batch, headers);
 
-        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
+        ResponseEntity<Long> response = service.exchange(URI, HttpMethod.POST, entity, Long.class);
         if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
             throw new RuntimeException("Batch could not be created");
         }
+
+        return response.getBody();
     }
 
     @Override
@@ -179,7 +181,7 @@ public class TrainingServiceImpl implements TrainingService {
 
     //Trainee------------------------------------------------------------
     @Override
-    public void createTrainee(Trainee trainee) {
+    public long createTrainee(com.revature.caliber.training.beans.Trainee trainee) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(addTraineePath)
@@ -187,13 +189,14 @@ public class TrainingServiceImpl implements TrainingService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity<Trainee> entity = new HttpEntity<>(trainee, headers);
+        HttpEntity<com.revature.caliber.training.beans.Trainee> entity = new HttpEntity<>(trainee, headers);
 
         //Invoke the service
-        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.PUT, entity, Serializable.class);
+        ResponseEntity<Long> response = service.exchange(URI, HttpMethod.PUT, entity, Long.class);
         if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
             throw new TrainingServiceTraineeOperationException("Trainee could not be created");
         }
+        return response.getBody();
     }
 
     @Override
@@ -375,7 +378,7 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
-    public void createWeek(Week week) {
+    public Long createWeek(Week week) {
         RestTemplate service = new RestTemplate();
         // Build Parameters
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path("training/week/new").build()
@@ -387,10 +390,12 @@ public class TrainingServiceImpl implements TrainingService {
         HttpEntity<Week> entity = new HttpEntity<>(week, headers);
 
         // Invoke the service
-        ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.POST, entity, Serializable.class);
+        ResponseEntity<Long> response = service.exchange(URI, HttpMethod.POST, entity, Long.class);
         if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
             throw new RuntimeException("Trainee could not be created");
         }
+
+        return response.getBody();
     }
 
 

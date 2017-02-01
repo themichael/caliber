@@ -27,7 +27,7 @@ public interface ApiGateway {
      *
      * @param batch - A new batch
      */
-    void createBatch(Batch batch);
+    Long createBatch(Batch batch);
 
     /**
      * Get all batches
@@ -89,7 +89,7 @@ public interface ApiGateway {
      *
      * @param trainee trainee to create
      */
-    void createTrainee(Trainee trainee);
+    long createTrainee(com.revature.caliber.training.beans.Trainee trainee);
 
     /**
      * Update trainee's info
@@ -221,7 +221,7 @@ public interface ApiGateway {
      *
      * @param grade the grade
      */
-    void insertGrade(com.revature.caliber.assessment.beans.Grade grade);
+    Long insertGrade(com.revature.caliber.assessment.beans.Grade grade);
 
     /**
      * Updates a grade
@@ -282,11 +282,18 @@ public interface ApiGateway {
     //Assessment service
 
     /**
-     * Add an assessment
+     * Gets all assessments.
+     *
+     * @return the all assessments
+     */
+    List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments();
+
+    /**
+     * Create assessment.
      *
      * @param assessment the assessment
      */
-    void insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
+    long createAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * update an assessment
@@ -341,21 +348,6 @@ public interface ApiGateway {
     void updateAssessmentNote(Note note);
 
     /**
-     * Gets all assessments.
-     *
-     * @return the all assessments
-     */
-    List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments();
-
-    /**
-     * Create assessment.
-     *
-     * @param assessment the assessment
-     */
-    void createAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
-
-
-    /**
      * Create assessment note.
      *
      * @param note the note
@@ -367,7 +359,7 @@ public interface ApiGateway {
      *
      * @param week the week
      */
-    void createNewWeek(Week week);
+    Long createNewWeek(Week week);
 
     List<com.revature.caliber.assessment.beans.Grade> getAssessmentGradesById(int id);
 

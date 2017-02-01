@@ -11,7 +11,7 @@ import com.revature.caliber.training.beans.Trainee;
  * @see com.revature.caliber.training.data.TraineeDAO
  */
 public interface TraineeService {
-	void createTrainee(Trainee trainee);
+	long createTrainee(Trainee trainee);
 
 	void updateTrainee(Trainee trainee);
 

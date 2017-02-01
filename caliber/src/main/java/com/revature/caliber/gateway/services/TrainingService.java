@@ -17,7 +17,7 @@ public interface TrainingService {
      *
      * @param batch new batch
      */
-    void createBatch(Batch batch);
+    Long createBatch(Batch batch);
 
     /**
      * Get all batches
@@ -78,7 +78,7 @@ public interface TrainingService {
      *
      * @param trainee trainee to create
      */
-    void createTrainee(Trainee trainee);
+    long createTrainee(com.revature.caliber.training.beans.Trainee trainee);
 
     /**
      * Update trainee's info
@@ -178,6 +178,6 @@ public interface TrainingService {
     List<Week> getAllWeek();
     
 
-    void createWeek(Week week);
+    Long createWeek(Week week);
 
 }

@@ -1,8 +1,6 @@
 package com.revature.caliber.gateway.impl;
 
-import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
-import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCNote;
@@ -35,9 +33,7 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     /****************************Batch*******************************/
-    public void createBatch(Batch batch) {
-        serviceLocator.getTrainingService().createBatch(batch);
-    }
+    public Long createBatch(Batch batch) {return serviceLocator.getTrainingService().createBatch(batch);}
 
     public List<Batch> allBatch() {
         return serviceLocator.getTrainingService().allBatch();
@@ -69,8 +65,8 @@ public class ApiGatewayImpl implements ApiGateway {
 
     /****************************Trainee*******************************/
     @Override
-    public void createTrainee(Trainee trainee) {
-        serviceLocator.getTrainingService().createTrainee(trainee);
+    public long createTrainee(com.revature.caliber.training.beans.Trainee trainee) {
+        return serviceLocator.getTrainingService().createTrainee(trainee);
     }
 
     @Override
@@ -132,9 +128,7 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     @Override
-    public void insertGrade(com.revature.caliber.assessment.beans.Grade grade) {
-        serviceLocator.getAssessmentService().insertGrade(grade);
-
+    public Long insertGrade(com.revature.caliber.assessment.beans.Grade grade) {return serviceLocator.getAssessmentService().insertGrade(grade);
     }
 
     /***********************************Trainer Notes**********************************/
@@ -176,8 +170,8 @@ public class ApiGatewayImpl implements ApiGateway {
 
     /****************************Assessment**********************************/
     @Override
-    public void insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
-        serviceLocator.getAssessmentService().insertAssessment(assessment);
+    public long createAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
+        return serviceLocator.getAssessmentService().createAssessment(assessment);
     }
 
     @Override
@@ -387,7 +381,7 @@ public class ApiGatewayImpl implements ApiGateway {
             if (list.size() < 1) {
                 continue;
             }
-
+//
             //average
             gradeV[0] = gradeV[0] / list.size(); //just divide the total by list size
             //medium
@@ -433,12 +427,9 @@ public class ApiGatewayImpl implements ApiGateway {
         Double[] gradeV;
         List<Integer> list;
         int highestWeek =0;
+
         for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
             if(grade.getAssessment().getBatch()==batchID) {
-                System.out.println("GRADE: " + grade.getScore() + "    BATCH: " + grade.getAssessment().getBatch() + "     WEEK: " + grade.getAssessment().getWeek());
-                if (grade.getAssessment().getWeek() > highestWeek) {
-                    highestWeek = (int) grade.getAssessment().getWeek();
-                }
                 long weekNumber = grade.getAssessment().getWeek();
                 if (!grades.containsKey(weekNumber)) {
                     grades.put(String.valueOf(weekNumber), new Double[]{0.0, 0.0, 0.0, 0.0});
@@ -446,45 +437,41 @@ public class ApiGatewayImpl implements ApiGateway {
                 }
             }
         }
-        //find how many weeks
-        int[] weeks = new int[highestWeek];
-        //add all the grades
-        int[] gradeTotal = new int[highestWeek];
-        //grade average holder
-        int[] gradeAverage = new int[highestWeek];
         for ( com.revature.caliber.assessment.beans.Grade grade : allGrades) {
-            long weekNumber = grade.getAssessment().getWeek();
-            weeks[(int) (grade.getAssessment().getWeek()-1)] += 1;
-            gradeTotal[(int) (grade.getAssessment().getWeek()-1)] += grade.getScore();
-            gradeValues.get(String.valueOf(weekNumber)).add(grade.getScore());
-            for (String weekName : grades.keySet()) {
-                gradeV = grades.get(weekName);
-                list = gradeValues.get(weekName);
-                list.sort(Integer::compareTo); //sort list of grades for convenience
-                //assume there is at least one grade
-
-                if (list.size() < 1) { continue; }
-                if (list.size() > 1) {
-
-                    gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
-                            (list.get(list.size() / 2).doubleValue() + list.get(list.size() / 2 - 1).doubleValue()) / 2;
-                } else {
-                    gradeV[1] = list.get(0).doubleValue();
-                }
-                gradeV[3] = list.get(0).doubleValue();
-                gradeV[2] = list.get(list.size() - 1).doubleValue();
-                grades.put(weekName, gradeV); //put the result array back to the map
+            if(grade.getAssessment().getBatch()==batchID) {
+                long weekNumber = grade.getAssessment().getWeek();
+                grades.get(String.valueOf(weekNumber))[0] += grade.getScore();
+                gradeValues.get(String.valueOf(weekNumber)).add(grade.getScore());
             }
         }
-        for (int i=0;i<gradeAverage.length;i++){
-            gradeAverage[i] = gradeTotal[i]/weeks[i];
-            grades.get(String.valueOf(i+1))[0] = Double.valueOf(gradeAverage[i]);
 
+        for (String weekName : grades.keySet()) {
+            gradeV = grades.get(weekName);
+            list = gradeValues.get(weekName);
+            list.sort(Integer::compareTo); //sort list of grades for convenience
+            //assume there is at least one grade
+
+            if (list.size() < 1) {
+                continue;
+            }
+
+            gradeV[0] = gradeV[0] / list.size();
+
+            if (list.size() > 1) {
+
+                gradeV[1] = list.size() % 2 == 1 ? list.get(list.size() / 2).doubleValue() :
+                        (list.get(list.size() / 2).doubleValue() + list.get(list.size() / 2 - 1).doubleValue()) / 2;
+            } else {
+                gradeV[1] = list.get(0).doubleValue();
+            }
+            gradeV[3] = list.get(0).doubleValue();
+            gradeV[2] = list.get(list.size() - 1).doubleValue();
+            grades.put(weekName, gradeV); //put the result array back to the map
         }
+
+
         return grades;
-
     }
-
 
 
     /**
@@ -492,8 +479,8 @@ public class ApiGatewayImpl implements ApiGateway {
      *
      * @param week the week
      */
-    public void createNewWeek(Week week) {
-        serviceLocator.getTrainingService().createWeek(week);
+    public Long createNewWeek(Week week) {
+        return serviceLocator.getTrainingService().createWeek(week);
     }
 
     /**
@@ -674,16 +661,6 @@ public class ApiGatewayImpl implements ApiGateway {
             return (double)((list.get(middle - 1) + list.get(middle)) / 2);
         }
 
-    }
-
-
-    /**
-     * Create assessment.
-     *
-     * @param assessment the assessment
-     */
-    public void createAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
-        serviceLocator.getAssessmentService().insertAssessment(assessment);
     }
 
     /**

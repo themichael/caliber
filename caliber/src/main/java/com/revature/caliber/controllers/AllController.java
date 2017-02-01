@@ -1,9 +1,8 @@
 package com.revature.caliber.controllers;
+
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.gateway.ApiGateway;
-import com.revature.caliber.training.beans.Trainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * The type All controller.
@@ -34,12 +32,10 @@ public class AllController {
      * @param batch the batch
      * @return the response entity
      */
-    @RequestMapping(value = "/batch/create",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity createBatch(@RequestBody Batch batch) {
-        apiGateway.createBatch(batch);
-        return new ResponseEntity(HttpStatus.CREATED);
+    @RequestMapping(value = "/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Long> createBatch(@RequestBody Batch batch) {
+        Long id = apiGateway.createBatch(batch);
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     /**
@@ -75,9 +71,9 @@ public class AllController {
      * @return the response entity
      */
     @RequestMapping(value = "/trainee/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity createTrainee(@RequestBody Trainee trainee) {
-        apiGateway.createTrainee(trainee);
-        return new ResponseEntity(HttpStatus.OK);
+    ResponseEntity createTrainee(@RequestBody com.revature.caliber.training.beans.Trainee trainee) {
+        long traineeId =  apiGateway.createTrainee(trainee);
+        return new ResponseEntity(traineeId, HttpStatus.OK);
     }
 
     /**
@@ -119,6 +115,7 @@ public class AllController {
 
     /**
      * Aggregate function - get values for trainee by tech
+     *
      * @param traineeId
      * @return
      */
@@ -153,14 +150,14 @@ public class AllController {
     @RequestMapping(value = "/agg/tech/batch/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HashMap<String, HashMap<String,Double[]>>> aggregateTechForAllBatches() {
+    public ResponseEntity<HashMap<String, HashMap<String, Double[]>>> aggregateTechForAllBatches() {
         return new ResponseEntity<>(apiGateway.getTechGradeAllBatch(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/trainer/all",
-                    method = RequestMethod.GET,
-                    produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<com.revature.caliber.training.beans.Trainer>> getAllTrainers(){
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<com.revature.caliber.training.beans.Trainer>> getAllTrainers() {
         return new ResponseEntity(apiGateway.getAllTrainers(), HttpStatus.OK);
     }
 

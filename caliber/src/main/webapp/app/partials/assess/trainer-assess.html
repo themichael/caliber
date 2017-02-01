@@ -31,22 +31,19 @@
             <!-- top ui for viewing trainee grades -->
             <ul class="nav nav-tabs" ng-show="!currentView">
                 <li role="button" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        {{ currentAssessment.title }}
-                        <span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown">{{ currentAssessment.title }}<span
+                            class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li ng-repeat="assessment in currentAssessments track by $index">
-                            <a role="button" ng-click="selectAssessment($index)">
-                                {{ assessment.title }}
-                            </a>
+                            <a role="button" ng-click="selectAssessment($index)">{{ assessment.title }}</a>
                         </li>
                     </ul>
                 </li>
                 <!-- Button Trigger for Create Assessment Modal -->
-                <li role="button" class="pull-right" ng-show="currentView"
-                    data-toggle="modal" data-target="#createAssessmentModal">
-                    <a>Create Assessment<span class="glyphicon glyphicon-plus" aria-hidden="true">
-                    </span></a>
+                <li role="button" class="pull-right" ng-show="currentView" data-toggle="modal"
+                    data-target="#createAssessmentModal">
+                    <a>Create Assessment<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
                 </li>
             </ul>
         </div>
@@ -55,6 +52,10 @@
                 <li role="button" class="{{showActiveWeek($index)}}" ng-click="selectWeek($index)"
                     ng-repeat="week in currentBatch.weeks track by $index">
                     <a>Week {{week.weekNumber}}</a></li>
+                <!-- Button Trigger for Create Week Modal -->
+                <li role="button" ng-show="currentView" ng-click="createWeek()">
+                    <a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                </li>
             </ul>
         </div>
     </div>
@@ -69,9 +70,8 @@
                 <thead>
                 <tr>
                     <th>Trainee</th>
-                    <th role="button" ng-repeat="assessment in currentAssessments track by $index"
-                        ng-click="selectAssessment($index)">
-                        {{assessment.title}}
+                    <th role="button" ng-repeat="assessment in currentAssessments track by $index">
+                        fs
                     </th>
                 </tr>
                 </thead>
@@ -86,7 +86,7 @@
                                             {{grade.score}}]
                                     </span>
                                 </span>
-                            </span>
+                        </span>
                     </td>
 
                 </tr>
@@ -122,19 +122,19 @@
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainingName">Training Name:</label>
                         <input ng-model="trainingName" type="text" class="form-control" id="trainingName"
-                               placeholder="title" required>
+                               placeholder="Title" required>
                     </div>
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainingType">Training type:</label>
                         <input ng-model="trainingType" type="text" class="form-control" id="trainingType"
-                               placeholder="training type" required>
+                               placeholder="Training Type" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="skillType">Skill Type:</label>
                         <select ng-model="skillType" class="form-control" id="skillType" required>
-                            <option value="" disabled selected>select skill type</option>
+                            <option value="" disabled selected>Select Skill Type</option>
                             <option ng-repeat="category in skill_categories track by $index">
                                 {{category.skillCategory}}
                             </option>

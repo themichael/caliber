@@ -1,21 +1,18 @@
 angular.module("trainer").controller(
     "trainerHomeController",
-    function ($scope, $log, caliberDelegate, chartsDelegate) {
+    function ($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
         $log.debug("Booted trainer home controller.");
 
-        /*********************************************** UI ***************************************************/
-        var viewCharts = 0;
+    /*********************************************** UI ***************************************************/
+    var viewCharts = 0;
 
-        $scope.batches = ["Batch1311", "Batch1612", "Batch1512",
-            "Batch1812", "Batch0910", "Batch0805", "Batch0408"];
-        $scope.tech = ["Spring", "Hibernate", "JSP"];
-        $scope.trainees = ["Osher", "Kyle", "Rikki"];
+    $scope.batches = allBatches;
+    $scope.trainees = allBatches.trainees;
 
-        $scope.currentBatch = "Batch";
-
-        $scope.currentTech = "Technology";
-
-        $scope.currentTrainee = "Trainee";
+    $scope.currentBatch = {};
+    $scope.currentBatch.trainingName = "Batch";
+    $scope.currentTech = "Technology";
+    $scope.currentTrainee = "Trainee";
 
         // on batch selection
         $scope.selectCurrentBatch = function (index) {
@@ -175,6 +172,22 @@ angular.module("trainer").controller(
             $scope.radarSeries = radarChartObject.series;
             $scope.radarData = radarChartObject.data;
             $scope.radarOptions = radarChartObject.options;
+
+            caliberDelegate.agg.getAggWeekBatch($scope.currentBatch.batchId)
+                .then(function(data){
+                    $log.debug(data);
+                    var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
+                    $scope.radarData = radarChartObject.data;
+                    $scope.radarLabels = radarChartObject.labels;
+                    $scope.radarSeries = radarChartObject.series;
+                    $scope.radarOptions = radarChartObject.options;
+                });
+
+            caliberDelegate.agg.getAggTechBatch($scope.currentBatch.batchId)
+                .then(function(data){
+                    $log.debug(data);
+
+                });
         }
 
 
@@ -201,6 +214,7 @@ angular.module("trainer").controller(
             var num = (Math.random() * 50) + 50;
             return num.toFixed(2);
         }
+
 
     });
 

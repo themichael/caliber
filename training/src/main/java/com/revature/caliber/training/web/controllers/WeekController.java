@@ -115,14 +115,13 @@ public class WeekController {
     @RequestMapping(value = "/week/new",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Serializable> createWeek( @RequestBody @Valid Week week ) {
-        ResponseEntity<Serializable> returnEntity;
+    public ResponseEntity<Long> createWeek( @RequestBody @Valid Week week ) {
+        ResponseEntity<Long> returnEntity;
         try {
-            businessDelegate.createWeek(week);
-            returnEntity =  new ResponseEntity<Serializable>(HttpStatus.CREATED);
+            returnEntity =  new ResponseEntity<>(businessDelegate.createWeek(week), HttpStatus.CREATED);
         }
         catch (RuntimeException e) {
-            returnEntity = new ResponseEntity<Serializable>(HttpStatus.BAD_REQUEST);
+            returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return returnEntity;
     }

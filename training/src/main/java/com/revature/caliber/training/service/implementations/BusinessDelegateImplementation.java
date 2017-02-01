@@ -48,8 +48,8 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 
 
 	// trainee
-	public void createTrainee(Trainee trainee) {
-		traineeService.createTrainee(trainee);
+	public long createTrainee(Trainee trainee) {
+		return traineeService.createTrainee(trainee);
 	}
 
 	public void updateTrainee(Trainee trainee) {
@@ -72,8 +72,8 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 	// end of trainee
 
 	// batch
-	public void createBatch(Batch batch) {
-		batchService.createBatch(batch);
+	public Long createBatch(Batch batch) {
+		return batchService.createBatch(batch);
 	}
 
 	public List<Batch> getAllBatch() {
@@ -141,6 +141,6 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 	public List<Week> getAllWeeks() { return weekService.getAllWeeks(); }
 	public List<Week> getWeekByBatchId(int batchId) { return weekService.getWeekByBatchId(batchId); }
 	public List<Week> getWeekByWeekNumber(int weekNumber) { return weekService.getWeekByWeekNumber(weekNumber); }
-	public void createWeek(Week newWeek) { weekService.createWeek(newWeek); }
+	public Long createWeek(Week newWeek) { return weekService.createWeek(newWeek); }
 
 }

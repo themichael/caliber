@@ -57,8 +57,7 @@ public class QCBatchController {
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
-        apiGateway.insertGrade(grade);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(apiGateway.insertGrade(grade), HttpStatus.OK);
     }
 
     /**
@@ -84,7 +83,7 @@ public class QCBatchController {
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createAssessment(@RequestBody com.revature.caliber.assessment.beans.Assessment assessment) {
-        apiGateway.insertAssessment(assessment);
+        apiGateway.createAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);
     }
 

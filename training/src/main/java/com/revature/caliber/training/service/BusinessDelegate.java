@@ -15,7 +15,7 @@ import com.revature.caliber.training.beans.Week;
 public interface BusinessDelegate {
 
 	// TraineeService methods
-	public void createTrainee(Trainee trainee);
+	public long createTrainee(Trainee trainee);
 
 	public void updateTrainee(Trainee trainee);
 
@@ -29,7 +29,8 @@ public interface BusinessDelegate {
 	// end of TraineeService
 
 	// BatchService methods
-	public void createBatch(Batch batch);
+	public Long createBatch(Batch batch);
+
 
 	public List<Batch> getAllBatch();
 
@@ -67,6 +68,6 @@ public interface BusinessDelegate {
 	public List<Week> getAllWeeks();
 	public List<Week> getWeekByBatchId(int batchId);
 	public List<Week> getWeekByWeekNumber(int weekNumber);
-	public void createWeek(Week newWeek);
+	public Long createWeek(Week newWeek);
 
 }

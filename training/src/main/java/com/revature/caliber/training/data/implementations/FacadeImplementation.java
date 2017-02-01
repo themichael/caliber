@@ -67,8 +67,8 @@ public class FacadeImplementation implements Facade {
 
 	// Trainee
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void createTrainee(Trainee trainee) {
-		traineeDAO.createTrainee(trainee);
+	public long createTrainee(Trainee trainee) {
+		return traineeDAO.createTrainee(trainee);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -98,8 +98,8 @@ public class FacadeImplementation implements Facade {
 	// Batch
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void createBatch(Batch batch) {
-		batchDAO.createBatch(batch);
+	public Long createBatch(Batch batch) {
+		return batchDAO.createBatch(batch);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -176,18 +176,18 @@ public class FacadeImplementation implements Facade {
 		trainerDAO.updateTrainer(trainer);
 	}
 	// End Trainer
-	
+
 	//Week
     @Transactional (propagation = Propagation.REQUIRES_NEW)
 	public List<Week> getAllWeeks() { return weekDAO.getAllWeeks(); }
-    
+
     @Transactional (propagation = Propagation.REQUIRES_NEW)
 	public List<Week> getWeekByBatchId(int batchId) { return weekDAO.getWeekByBatchId(batchId); }
-    
+
     @Transactional (propagation = Propagation.REQUIRES_NEW)
 	public List<Week> getWeekByWeekNumber(int weekNumber) { return weekDAO.getWeekByWeekNumber(weekNumber); }
-    
+
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-	public void createWeek(Week newWeek) { weekDAO.createWeek(newWeek); }
+	public Long createWeek(Week newWeek) { return weekDAO.createWeek(newWeek); }
     //End Week
 }
