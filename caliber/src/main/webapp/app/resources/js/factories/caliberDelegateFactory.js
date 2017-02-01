@@ -147,12 +147,12 @@ angular.module("delegate").factory("caliberDelegate",
             return aggFactory.weekBatch(batchId);
         };
 
-        delegate.agg.getAggTechAllBatch = function (batchId) {
+        delegate.agg.getAggTechAllBatch = function () {
             return aggFactory.techAllBatch();
         };
 
         delegate.agg.getAggBatchAllTrainer = function (trainerId) {
-            return aggFactory.batchTrainer();
+            return aggFactory.batchTrainer(trainerId);
         };
 
         return delegate;
