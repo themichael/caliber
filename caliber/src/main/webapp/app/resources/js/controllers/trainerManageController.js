@@ -1,7 +1,15 @@
 angular.module("trainer").controller(
     "trainerManageController",
-    function ($scope, $log) {
+    function ($scope, $log, caliberDelegate, allBatches) {
         $log.debug("Booted trainer manage controller.");
+
+        (function start(){
+            caliberDelegate.getAllTrainers().then(
+                function(trainers){
+                    $scope.trainers = trainers;
+                    $log.log(trainers);
+                });
+        })();
 
         /**
          * Filter batches by year
@@ -32,15 +40,7 @@ angular.module("trainer").controller(
         /**
          * Add & View Batches
          */
-        $scope.batches = [{
-            trainingName: 'Batch123', trainingType: 'CUNY', skillType: 'Java', location: 'Queens, NY',
-            trainer: 'Patrick', coTrainer: '', startDate: new Date(), endDate: new Date()
-        },
-            {
-                trainingName: 'Batch456', trainingType: 'Corporate', skillType: 'Java', location: 'Reston, VA',
-                trainer: 'Ryan', coTrainer: 'Brian', startDate: new Date(), endDate: new Date()
-            }
-        ];
+        $scope.batches = allBatches;
         $scope.trainingName = {
             model: null
         };
@@ -56,10 +56,10 @@ angular.module("trainer").controller(
             model: null,
             options: ['Reston, VA', 'Queens, NY', 'Manhattan, NY']
         };
-        $scope.trainer = {
+       /* $scope.trainer = {
             model: null,
             options: ['Patrick', 'Joe', 'Brian', 'Ryan']
-        };
+        };*/
         $scope.coTrainer = {
             model: null,
             options: ['Karan', 'Steven', 'Nick']
