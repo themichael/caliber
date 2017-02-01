@@ -26,28 +26,28 @@
 	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
 		<property name="hostname" value="#{systemEnvironment['CALIBER_SERVER_URL']}" />
 
-		<property name="insertAssessment" value="assessment/assessment/new"/>
-		<property name="deleteAssessment" value="assessment/assessment/delete" />
-		<property name="updateAssessment" value="assessment/assessment/update" />
-		<property name="getAllAssessmentsPath" value="assessment/assessment/all" />
+		<property name="insertAssessment" value="assessments/assessment/new"/>
+		<property name="deleteAssessment" value="assessments/assessment/delete" />
+		<property name="updateAssessment" value="assessments/assessment/update" />
+		<property name="getAllAssessmentsPath" value="assessments/assessment/all" />
 
 
-		<property name="addGradePath" value="assessment/grades/create/"/>
-		<property name="updateGrade" value="assessment/grades/update/"/>
-		<property name="getGradesByAssessmentPath" value="assessment/grades/assessment/"/>
-		<property name="allGradesPath" value="assessment/grades/all" />
+		<property name="addGradePath" value="assessments/grades/create/"/>
+		<property name="updateGrade" value="assessments/grades/update/"/>
+		<property name="getGradesByAssessmentPath" value="assessments/grades/assessment/"/>
+		<property name="allGradesPath" value="assessments/grades/all" />
 
 		
-		<property name="updateTrainerNotePath" value="assessment/trainerNote/update/" />
-		<property name="deleteTrainerNotePath" value="assessment/trainerNote/delete/" />
-		<property name="createTrainerNotePath" value="assessment/trainerNote/new/" />
+		<property name="updateTrainerNotePath" value="assessments/trainerNote/update/" />
+		<property name="deleteTrainerNotePath" value="assessments/trainerNote/delete/" />
+		<property name="createTrainerNotePath" value="assessments/trainerNote/new/" />
 		
-		<property name="createBatchNotePath" value="assessment/batchNote/new"/>
-		<property name="deleteBatchNotePath" value="assessment/batchNote/update"/>
-		<property name="updateBatchNotePath" value="assessment/batchNote/delete"/>
+		<property name="createBatchNotePath" value="assessments/batchNote/new"/>
+		<property name="deleteBatchNotePath" value="assessments/batchNote/update"/>
+		<property name="updateBatchNotePath" value="assessments/batchNote/delete"/>
 		
-		<property name="createQCNotePath" value="assessment/qcnotes/new" />
-		<property name="updateQCNotePath" value="assessment/qcnotes/update" />
+		<property name="createQCNotePath" value="assessments/qcnotes/new" />
+		<property name="updateQCNotePath" value="assessments/qcnotes/update" />
 	</bean>
 
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">

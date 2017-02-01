@@ -31,6 +31,7 @@ public interface BusinessDelegate {
 	// BatchService methods
 	public Long createBatch(Batch batch);
 
+
 	public List<Batch> getAllBatch();
 
 	public List<Batch> getTrainerBatch(Integer id);
