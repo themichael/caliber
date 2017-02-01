@@ -18,7 +18,7 @@ public interface AssessmentService {
      *
      * @param assessment an Assessment to be inserted
      */
-    void insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
+    long insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * Updates Assessment
@@ -52,7 +52,7 @@ public interface AssessmentService {
     /**
      * Inserts a new Grade into database
      */
-    void insertGrade(com.revature.caliber.assessment.beans.Grade grade);
+    Long insertGrade(com.revature.caliber.assessment.beans.Grade grade);
 
     /**
      * Updates a grade

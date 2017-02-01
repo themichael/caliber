@@ -29,9 +29,7 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     /****************************Batch*******************************/
-    public void createBatch(Batch batch) {
-        serviceLocator.getTrainingService().createBatch(batch);
-    }
+    public Long createBatch(Batch batch) {return serviceLocator.getTrainingService().createBatch(batch);}
 
     public List<Batch> allBatch() {
         return serviceLocator.getTrainingService().allBatch();
@@ -126,9 +124,7 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     @Override
-    public void insertGrade(com.revature.caliber.assessment.beans.Grade grade) {
-        serviceLocator.getAssessmentService().insertGrade(grade);
-
+    public Long insertGrade(com.revature.caliber.assessment.beans.Grade grade) {return serviceLocator.getAssessmentService().insertGrade(grade);
     }
 
     /***********************************Trainer Notes**********************************/
@@ -170,8 +166,8 @@ public class ApiGatewayImpl implements ApiGateway {
 
     /****************************Assessment**********************************/
     @Override
-    public void insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
-        serviceLocator.getAssessmentService().insertAssessment(assessment);
+    public long createAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
+        return serviceLocator.getAssessmentService().insertAssessment(assessment);
     }
 
     @Override
@@ -664,16 +660,6 @@ public class ApiGatewayImpl implements ApiGateway {
             return (double)((list.get(middle - 1) + list.get(middle)) / 2);
         }
 
-    }
-
-
-    /**
-     * Create assessment.
-     *
-     * @param assessment the assessment
-     */
-    public void createAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
-        serviceLocator.getAssessmentService().insertAssessment(assessment);
     }
 
     /**

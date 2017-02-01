@@ -82,11 +82,10 @@ public class GradeController {
 					method = RequestMethod.PUT,
 					consumes = MediaType.APPLICATION_JSON_VALUE,
 					produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Serializable> createGrade(@RequestBody @Valid Grade grade) {
-		ResponseEntity<Serializable> returnEntity;
+	public ResponseEntity<Long> createGrade(@RequestBody @Valid Grade grade) {
+		ResponseEntity<Long> returnEntity;
 		try {
-			delegate.insertGrade(grade);
-			returnEntity = new ResponseEntity<>(HttpStatus.OK);
+			returnEntity = new ResponseEntity<>(delegate.insertGrade(grade), HttpStatus.OK);
 		}
 		catch (RuntimeException e) {
 			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
