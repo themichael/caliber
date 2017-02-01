@@ -192,13 +192,7 @@ angular.module("trainer")
                 batch: $scope.currentBatch,
                 topics:null
             };
-            $scope.currentBatch.weeks.push({
-                weekId:1,
-                weekNumber: weekNumber,
-                batch: null,
-                topics:null
-            });
-            return caliberDelegate.trainer.createWeek(weekObj);
+            $scope.weekId = caliberDelegate.trainer.createWeek(weekObj);
         };
 
         // select assessment from list
