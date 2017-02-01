@@ -15,7 +15,7 @@ public interface TraineeDAO {
 	 * @param trainee
 	 *            trainee to create
 	 */
-	void createTrainee(Trainee trainee);
+	long createTrainee(Trainee trainee);
 
 	/**
 	 * Update trainee's info

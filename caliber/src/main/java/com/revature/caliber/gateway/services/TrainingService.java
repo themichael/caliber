@@ -78,7 +78,7 @@ public interface TrainingService {
      *
      * @param trainee trainee to create
      */
-    void createTrainee(Trainee trainee);
+    long createTrainee(com.revature.caliber.training.beans.Trainee trainee);
 
     /**
      * Update trainee's info

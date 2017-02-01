@@ -56,7 +56,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 
 	@Override
-	public long insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
+	public long createAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(addAssessmentPath)
