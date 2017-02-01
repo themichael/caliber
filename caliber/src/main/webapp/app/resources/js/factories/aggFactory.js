@@ -15,7 +15,7 @@ angular.module("api")
                 $log.error("There was an error: " + response.status);
                 return null;
             });
-        };
+    };
 
         agg.weekTrainee = function(traineeId) {
             return $http({
