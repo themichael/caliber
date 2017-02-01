@@ -72,7 +72,7 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
         }).then(function (response) {
             $log.debug("Week successfully created.");
             $log.debug(response);
-            return true;
+            return response.data;
         },function (response) {
             $log.error("There was an error: " + response.status);
         });
