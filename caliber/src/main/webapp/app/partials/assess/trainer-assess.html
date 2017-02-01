@@ -14,7 +14,7 @@
                         {{ currentBatch.trainingName }} - {{ currentBatch.startDate | date:'shortDate' }}
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="batch in allBatches track by $index">
+                        <li ng-repeat="batch in batches track by $index">
                             <a role="button" ng-click="selectCurrentBatch($index)">
                                 {{ batch.trainingName }} - {{ batch.startDate | date:'shortDate' }}
                             </a>
@@ -70,9 +70,8 @@
                 <thead>
                 <tr>
                     <th>Trainee</th>
-                    <th role="button" ng-repeat="assessment in currentAssessments track by $index"
-                        ng-click="selectAssessment($index)">
-                        {{assessment.title}}
+                    <th role="button" ng-repeat="assessment in currentAssessments track by $index">
+                        fs
                     </th>
                 </tr>
                 </thead>
