@@ -18,13 +18,20 @@ angular.module("auth").factory("authFactory", function ($log, $http, $cookies, $
     var qcHome = "/qc/home";
     var trainerHome = "/trainer/home";
 
-    // retrieves role from cookie
+    //
+    /**
+     * Retrieves role from cookie
+     * @returns A cookie that contains the role
+     */
     function getCookie() {
         return $cookies.get("role");
     }
 
-    // moves user to home page
-    // when entering root
+    //
+
+    /**
+     * Moves user to home page when entering root
+     */
     auth.auth = function () {
         var role = getCookie();
         if (role === trainerRole)
@@ -34,8 +41,9 @@ angular.module("auth").factory("authFactory", function ($log, $http, $cookies, $
         else $state.go(vpState);
     };
 
-    // moves user to home page
-    // if user is not of role qc
+    /**
+     *  Moves user to home page if user is not of role qc
+     */
     auth.authQC = function () {
         var role = getCookie();
         if (role === qcRole)
@@ -45,8 +53,11 @@ angular.module("auth").factory("authFactory", function ($log, $http, $cookies, $
         else $location.path(vpHome);
     };
 
-    // moves user to home page
-    // if user is not of role vp
+    //
+
+    /**
+     * moves user to home page if user is not of role vp
+     */
     auth.authVP = function () {
         var role = getCookie();
         if (role === vpRole)
@@ -56,8 +67,9 @@ angular.module("auth").factory("authFactory", function ($log, $http, $cookies, $
         else $location.path(qcHome);
     };
 
-    // moves user to home page
-    // if user is not of role trainer
+    /**
+     * Moves user to home page if user is not of role trainer
+     */
     auth.authTrainer = function () {
         var role = getCookie();
         if (role === trainerRole)

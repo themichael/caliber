@@ -1,5 +1,8 @@
 /**
  * API for making vp related AJAX calls to the backend
+ * @param $log
+ * @param $http
+ * @returns {{}}
  */
 angular.module("api").factory("vpFactory", function ($log, $http) {
     $log.debug("Booted VP API Factory");

@@ -5,6 +5,11 @@ angular.module("api").factory("allFactory", function ($log, $http) {
     var all = {};
 
     /*************************** Batch ************************/
+
+    /**
+     *
+     * @param batchObj
+     */
     all.createBatch = function(batchObj) {
         return $http({
             url: "/caliber/all/batch/create",
@@ -19,6 +24,11 @@ angular.module("api").factory("allFactory", function ($log, $http) {
         });
     };
 
+    /**
+     *
+     * @param batchObj
+     * @returns {*}
+     */
     all.updateBatch = function(batchObj) {
         return $http({
             url: "/caliber/all/batch/update",
@@ -33,6 +43,11 @@ angular.module("api").factory("allFactory", function ($log, $http) {
         });
     };
 
+    /**
+     *
+     * @param batchId
+     * @returns {*}
+     */
     all.deleteBatch = function(batchId) {
         return $http({
             url: "/caliber/all/batch/delete" + batchId,
@@ -47,6 +62,12 @@ angular.module("api").factory("allFactory", function ($log, $http) {
     };
 
     /*************************** Trainee ************************/
+
+    /**
+     *
+     * @param traineeObj
+     * @returns {*}
+     */
     all.createTrainee = function(traineeObj) {
         return $http({
             url: "/caliber/all/trainee/create",
@@ -61,6 +82,11 @@ angular.module("api").factory("allFactory", function ($log, $http) {
         });
     };
 
+    /**
+     *
+     * @param traineeObj
+     * @returns {*}
+     */
     all.updateTrainee = function(traineeObj) {
         return $http({
             url: "/caliber/all/trainee/update",
@@ -75,6 +101,10 @@ angular.module("api").factory("allFactory", function ($log, $http) {
         });
     };
 
+    /**
+     *
+     * @param traineeId
+     */
     all.deleteTrainee = function (traineeId) {
         $http({
             url: "/caliber/all/trainee/delete/" + traineeId,
@@ -90,6 +120,11 @@ angular.module("api").factory("allFactory", function ($log, $http) {
 
     /************************** Grades **************************/
 
+    /**
+     *
+     * @param assessmentId
+     * @returns {*}
+     */
     all.getGrades = function(assessmentId) {
         return $http({
             url: "/caliber/all/grades/assessment/" + assessmentId,
@@ -104,6 +139,11 @@ angular.module("api").factory("allFactory", function ($log, $http) {
     };
 
     /************************* Trainer **********************/
+
+    /**
+     *
+     * @returns {*}
+     */
     all.getAllTrainers = function () {
         return $http({
             url: "/caliber/all/trainer/all/",
