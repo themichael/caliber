@@ -71,9 +71,9 @@ public class AllController {
      * @return the response entity
      */
     @RequestMapping(value = "/trainee/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity createTrainee(@RequestBody Trainee trainee) {
-        apiGateway.createTrainee(trainee);
-        return new ResponseEntity(HttpStatus.OK);
+    ResponseEntity createTrainee(@RequestBody com.revature.caliber.training.beans.Trainee trainee) {
+        long traineeId =  apiGateway.createTrainee(trainee);
+        return new ResponseEntity(traineeId, HttpStatus.OK);
     }
 
     /**
