@@ -24,9 +24,11 @@
 	<mvc:resources mapping="/app/**" location="/app/"/>
 
 	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
-		<property name="hostname" value="http://pjw6193.tech" />
-		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
-		
+		<property name="hostname" value="http://localhost" />
+		<property name="portNumber" value=":9001/" /> <!-- use 443 for SSL -->
+		<!--<property name="hostname" value="http://pjw6193.tech" />-->
+		<!--<property name="portNumber" value=":80/" /> &lt;!&ndash; use 443 for SSL &ndash;&gt;-->
+
 		<property name="insertAssessment" value="assessment/assessment/new"/>
 		<property name="deleteAssessment" value="assessment/assessment/delete" />
 		<property name="updateAssessment" value="assessment/assessment/update" />
@@ -53,10 +55,10 @@
 	</bean>
 
 	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
-		<!--<property name="hostname" value="http://localhost" />-->
-		<!--<property name="portNumber" value=":8080/" /> &lt;!&ndash; use 443 for SSL &ndash;&gt;-->
-		<property name="hostname" value="http://pjw6193.tech" />
-		<property name="portNumber" value=":80/" /> <!-- use 443 for SSL -->
+		<property name="hostname" value="http://localhost" />
+		<property name="portNumber" value=":9001/" /> <!-- use 443 for SSL -->
+		<!--<property name="hostname" value="http://pjw6193.tech" />-->
+		<!--<property name="portNumber" value=":80/" /> &lt;!&ndash; use 443 for SSL &ndash;&gt;-->
 			
 		<property name="newBatch" value="training/batch/create/" />
 		<property name="allBatch" value="training/batch/all/" />

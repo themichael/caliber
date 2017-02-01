@@ -8,19 +8,16 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
     /*************************** Batch ************************/
 	// grab all batches
 	trainer.getAllBatches = function() {
-		var data = [];
-		$http({
+		return $http({
 			url : "/caliber/trainer/batch/all",
 			method : "GET",
 		}).then(function(response) {
 			$log.debug(response);
 			// copy array
-			angular.copy(response.data, data);
+			return response.data;
 		}, function(response) {
-			data = null;
 			$log.error("There was an error: " + response.status);
 		});
-		return data;
 	};
 
 	/*************************** Week ************************/
