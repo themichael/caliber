@@ -9,6 +9,19 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
     var trainer = {};
 
     /*************************** Batch ************************/
+	// grab all batches
+	trainer.getAllBatches = function() {
+		return $http({
+			url : "/caliber/trainer/batch/all",
+			method : "GET",
+		}).then(function(response) {
+		    $log.debug("Batches successfully retrieved")
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
     // grab all batches
     trainer.getAllBatches = function () {
         return $http({
@@ -31,11 +44,13 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
             method: "POST",
             data: weekObj
         }).then(function (response) {
+        }).then(function(response) {
+            $log.debug("Week successfully created.");
             $log.debug(response);
             return true;
         }, function (response) {
+        }, function(response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -47,11 +62,13 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
             method: "POST",
             data: gradeObj
         }).then(function (response) {
+        }).then(function(response) {
+            $log.debug("Grade successfully created.");
             $log.debug(response);
+        }, function(response) {
             return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -62,11 +79,13 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
             method: "PUT",
             data: gradeObj
         }).then(function (response) {
+        }).then(function(response) {
+            $log.debug("Grade successfully updated");
             $log.debug(response);
             return true;
         }, function (response) {
+        }, function(response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -78,11 +97,13 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
             method: "POST",
             data: assessmentObj
         }).then(function (response) {
+        }).then(function(response) {
+            $log.debug("Assessment successfully created.");
             $log.debug(response);
             return true;
         }, function (response) {
+        }, function(response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -92,11 +113,12 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
             url: "/caliber/trainer/assessment/byWeek/" + weekId,
             method: "GET",
         }).then(function (response) {
+        }).then(function(response) {
+            $log.debug("Assessments successfully retrieved");
             $log.debug(response);
             return response.data;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return null;
         });
     };
 
@@ -107,11 +129,10 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
             method: "PUT",
             data: assessmentObj
         }).then(function (response) {
+            $log.debug("Assessments successfully updated");
             $log.debug(response);
-            return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -121,11 +142,11 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
             url: "/caliber/trainer/assessment/delete/" + assessmentId,
             method: "DELETE",
         }).then(function (response) {
+        }).then(function(response) {
+            $log.debug("Assessment successfully deleted");
             $log.debug(response);
-            return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -135,12 +156,14 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
             url: "/caliber/trainer/assessment/note/create",
             method: "POST",
             data: noteObj
+        }).then(function(response) {
+            $log.debug("Notes successfully created");
         }).then(function (response) {
             $log.debug(response);
+        }, function(response) {
             return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -149,12 +172,14 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
             url: "/caliber/trainer/assessment/note/update",
             method: "PUT",
             data: noteObj
+        }).then(function(response) {
+            $log.debug("Assessments successfully updated");
         }).then(function (response) {
             $log.debug(response);
+        }, function(response) {
             return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 

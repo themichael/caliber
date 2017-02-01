@@ -13,11 +13,11 @@ angular.module("api")
                 url: "/caliber/all/agg/tech/trainee/" + traineeId,
                 method: "GET"
             }).then(function(response) {
+                $log.debug("Agg - Tech - trainee -- success");
                 $log.debug(response);
                 return response.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
         /**
@@ -30,11 +30,11 @@ angular.module("api")
                 url: "/caliber/all/agg/week/trainee/" + traineeId,
                 method: "GET"
             }).then(function(response) {
+                $log.debug("Agg - Week - trainee -- success");
                 $log.debug(response);
                 return reponse.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
@@ -48,11 +48,11 @@ angular.module("api")
                 url: "/caliber/all/agg/tech/batch/" + batchId,
                 method: "GET"
             }).then(function(response) {
+                $log.debug("Agg - Tech - Batch -- success");
                 $log.debug(response);
                 return response.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
@@ -66,11 +66,11 @@ angular.module("api")
                 url: "/caliber/all/agg/week/batch/" + batchId,
                 method: "GET"
             }).then(function(response) {
+                $log.debug("Agg - Week - Batch -- success");
                 $log.debug(response);
                 return response.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
@@ -83,11 +83,11 @@ angular.module("api")
                 url: "/caliber/all/agg/tech/batch/all",
                 method: "GET"
             }).then(function (response) {
+                $log.debug("Agg - Tech - Batch - All -- success");
                 $log.debug(response);
                 return response.data;
             }, function (response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
@@ -101,11 +101,11 @@ angular.module("api")
                 url: "/caliber/vp/agg/batch/trainer/" + trainerId,
                 method: "GET"
             }).then(function(response) {
+                $log.debug("Agg - Batch - Trainer -- success");
                 $log.debug(response);
                 return response.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
