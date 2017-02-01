@@ -141,6 +141,6 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 	public List<Week> getAllWeeks() { return weekService.getAllWeeks(); }
 	public List<Week> getWeekByBatchId(int batchId) { return weekService.getWeekByBatchId(batchId); }
 	public List<Week> getWeekByWeekNumber(int weekNumber) { return weekService.getWeekByWeekNumber(weekNumber); }
-	public void createWeek(Week newWeek) { weekService.createWeek(newWeek); }
+	public Long createWeek(Week newWeek) { return weekService.createWeek(newWeek); }
 
 }

@@ -3,26 +3,52 @@ angular.module("qc").controller("qcHomeController",
         $log.log("All Batches: ");
         $log.log(allBatches);
 
-        $scope.batches = ["Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408"];
         $scope.tech = ["Core Java", "SQL", "JDBC", "HTML5", "CSS3", "Bootstrap", "XML", "Spring", "Hibernate", "JSP"];
         $scope.trainees = ["Osher", "Kyle", "Rikki"];
 
         /*********************************************** UI ***************************************************/
         var viewCharts = 0;
 
-        $scope.batches =
-
-            // [ "Batch1311", "Batch1612", "Batch1512",
-            // "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
-            $scope.tech = ["Spring", "Hibernate", "JSP"];
-        $scope.trainees = ["Osher", "Kyle", "Rikki"];
+        $scope.batches = allBatches;
 
         $scope.currentBatch = "Batch";
+        $scope.currentBatch = {};
+        $scope.currentBatch.trainingName = "Batch";
 
         $scope.currentTech = "Technology";
 
         $scope.currentTrainee = "Trainee";
 
+        // on batch selection
+        $scope.selectCurrentBatch = function (index) {
+            $scope.currentTech = "Tech";
+            $scope.currentTrainee = "Trainee";
+            // turn of batches
+            if (index === -1) {
+                viewCharts = 0;
+                $scope.currentBatch.trainingName = "Batch";
+            }
+            else {
+                $scope.currentBatch = allBatches[index];
+                viewCharts = 1;
+                createBatchCharts();
+            }
+        };
+        // on batch selection
+        $scope.selectCurrentBatch = function (index) {
+            $scope.currentTech = "Tech";
+            $scope.currentTrainee = "Trainee";
+            // turn of batches
+            if (index === -1) {
+                viewCharts = 0;
+                $scope.currentBatch = "Batch";
+            }
+            else {
+                $scope.currentBatch = $scope.batches[index];
+                viewCharts = 1;
+                createBatchCharts();
+            }
+        };
         // on batch selection
         $scope.selectCurrentBatch = function (index) {
             $scope.currentTech = "Tech";

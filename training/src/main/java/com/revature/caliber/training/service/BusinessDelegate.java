@@ -68,6 +68,6 @@ public interface BusinessDelegate {
 	public List<Week> getAllWeeks();
 	public List<Week> getWeekByBatchId(int batchId);
 	public List<Week> getWeekByWeekNumber(int weekNumber);
-	public void createWeek(Week newWeek);
+	public Long createWeek(Week newWeek);
 
 }

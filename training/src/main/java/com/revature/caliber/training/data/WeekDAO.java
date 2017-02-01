@@ -39,6 +39,6 @@ public interface WeekDAO {
 	 * @param Week
 	 *            object
 	 */
-	void createWeek(Week newWeek);
+	Long createWeek(Week newWeek);
 
 }

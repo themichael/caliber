@@ -66,7 +66,7 @@ public interface Facade {
 	List<Week> getAllWeeks();
 	List<Week> getWeekByBatchId(int batchId);
 	List<Week> getWeekByWeekNumber(int weekNumber);
-	void createWeek(Week newWeek);
+	Long createWeek(Week newWeek);
 	//end of week methods
 	
 	
