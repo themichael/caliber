@@ -1,10 +1,10 @@
 angular.module("api")
-    .factory("aggFactory", function($http, $log){
+    .factory("aggFactory", function ($http, $log) {
         $log.debug("Booted Aggregate Factory");
 
         var agg = {};
 
-        agg.techTrainee = function(traineeId){
+        agg.techTrainee = function (traineeId) {
             var data = {};
             $http({
                 url: "/caliber/agg/tech/trainee/" + traineeId,
@@ -20,7 +20,7 @@ angular.module("api")
             return data;
         };
 
-        agg.weekTrainee = function(traineeId){
+        agg.weekTrainee = function (traineeId) {
             var data = {};
             $http({
                 url: "/caliber/agg/week/trainee/" + traineeId,
@@ -36,7 +36,7 @@ angular.module("api")
             return data;
         };
 
-        agg.techBatch = function(batchId){
+        agg.techBatch = function (batchId) {
             var data = {};
             $http({
                 url: "/caliber/agg/tech/batch/" + batchId,
@@ -52,7 +52,7 @@ angular.module("api")
             return data;
         };
 
-        agg.weekBatch = function(batchId){
+        agg.weekBatch = function (batchId) {
             var data = {};
             $http({
                 url: "/caliber/agg/week/batch/" + batchId,
@@ -68,7 +68,7 @@ angular.module("api")
             return data;
         };
 
-        agg.techAllBatch = function() {
+        agg.techAllBatch = function () {
             var data = {};
             $http({
                 url: "/caliber/agg/tech/batch/all",
@@ -84,7 +84,7 @@ angular.module("api")
             return data;
         };
 
-        agg.batchTrainer = function(trainerId){
+        agg.batchTrainer = function (trainerId) {
             var data = {};
             $http({
                 url: "/caliber/agg/batch/trainer/" + trainerId,

@@ -5,7 +5,8 @@
                 <ul class="nav nav-tabs">
                     <!-- Filter batches by year -->
                     <li role="button" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown">{{selectedYear}}<span
+                                class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li ng-repeat="menuItem in years track by $index">
                                 <a role="button" ng-click="selectYear($index)">{{menuItem}}</a>
@@ -29,34 +30,34 @@
             <div class="col-md-12 col-lg-12">
                 <table class="table table-hover">
                     <thead>
-                        <tr>
-                            <th>Training Name</th>
-                            <th>Training Type</th>
-                            <th>Skill Type</th>
-                            <th>Trainer</th>
-                            <th>Co-Trainer</th>
-                            <th>Location</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Trainees</th>
-                        </tr>
+                    <tr>
+                        <th>Training Name</th>
+                        <th>Training Type</th>
+                        <th>Skill Type</th>
+                        <th>Trainer</th>
+                        <th>Co-Trainer</th>
+                        <th>Location</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Trainees</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="batch in batches">
-                            <td>{{batch.trainingName}}</td>
-                            <td>{{batch.trainingType}}</td>
-                            <td>{{batch.skillType}}</td>
-                            <td>{{batch.trainer}}</td>
-                            <td>{{batch.coTrainer}}</td>
-                            <td>{{batch.location}}</td>
-                            <td>{{batch.startDate|date}}</td>
-                            <td>{{batch.endDate|date}}</td>
-                            <td><!-- Button Trigger for Add Trainee Modal -->
-                                <a role="button" data-toggle="modal" data-target="#addTraineeModal">
-                                    View/ Add<span class="glyphicon glyphicon-user"></span>
-                                </a>
-                            </td>
-                        </tr>
+                    <tr ng-repeat="batch in batches">
+                        <td>{{batch.trainingName}}</td>
+                        <td>{{batch.trainingType}}</td>
+                        <td>{{batch.skillType}}</td>
+                        <td>{{batch.trainer}}</td>
+                        <td>{{batch.coTrainer}}</td>
+                        <td>{{batch.location}}</td>
+                        <td>{{batch.startDate|date}}</td>
+                        <td>{{batch.endDate|date}}</td>
+                        <td><!-- Button Trigger for Add Trainee Modal -->
+                            <a role="button" data-toggle="modal" data-target="#addTraineeModal">
+                                View/ Add<span class="glyphicon glyphicon-user"></span>
+                            </a>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -168,16 +169,16 @@
                         <div class="col-md-12 col-lg-12">
                             <table class="table table-responsive">
                                 <thead>
-                                    <tr>
-                                        <th>Trainee Name</th>
-                                        <th>Trainee Email</th>
-                                    </tr>
+                                <tr>
+                                    <th>Trainee Name</th>
+                                    <th>Trainee Email</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="trainee in trainees">
-                                        <td>{{trainee.traineeName}}</td>
-                                        <td>{{trainee.email}}</td>
-                                    </tr>
+                                <tr ng-repeat="trainee in trainees">
+                                    <td>{{trainee.traineeName}}</td>
+                                    <td>{{trainee.email}}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

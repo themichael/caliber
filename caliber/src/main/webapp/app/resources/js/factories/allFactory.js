@@ -1,11 +1,11 @@
-angular.module("api").factory("allFactory", function($log, $http){
+angular.module("api").factory("allFactory", function ($log, $http) {
 
     $log.debug("Booted all api factory");
 
     var all = {};
 
     /*************************** Batch ************************/
-    all.createBatch = function(batchObj){
+    all.createBatch = function (batchObj) {
         $http({
             url: "/caliber/all/batch/create",
             method: "POST",
@@ -18,7 +18,7 @@ angular.module("api").factory("allFactory", function($log, $http){
         });
     };
 
-    all.updateBatch = function(batchObj){
+    all.updateBatch = function (batchObj) {
         $http({
             url: "/caliber/all/batch/update",
             method: "PUT",
@@ -31,7 +31,7 @@ angular.module("api").factory("allFactory", function($log, $http){
         });
     };
 
-    all.deleteBatch = function(batchId){
+    all.deleteBatch = function (batchId) {
         $http({
             url: "/caliber/all/batch/delete" + batchId,
             method: "DELETE"
@@ -44,7 +44,7 @@ angular.module("api").factory("allFactory", function($log, $http){
     };
 
     /*************************** Trainee ************************/
-    all.createTrainee = function(traineeObj){
+    all.createTrainee = function (traineeObj) {
         $http({
             url: "/caliber/all/trainee/create",
             method: "POST",
@@ -57,7 +57,7 @@ angular.module("api").factory("allFactory", function($log, $http){
         });
     };
 
-    all.updateTrainee = function(traineeObj){
+    all.updateTrainee = function (traineeObj) {
         $http({
             url: "/caliber/all/trainee/update",
             method: "PUT",
@@ -70,7 +70,7 @@ angular.module("api").factory("allFactory", function($log, $http){
         });
     };
 
-    all.deleteTrainee = function(traineeId){
+    all.deleteTrainee = function (traineeId) {
         $http({
             url: "/caliber/all/trainee/delete/" + traineeId,
             method: "DELETE"
@@ -84,7 +84,7 @@ angular.module("api").factory("allFactory", function($log, $http){
 
     /************************** Grades **************************/
 
-    all.getGrades = function(assessmentId){
+    all.getGrades = function (assessmentId) {
         var data = [];
         $http({
             url: "/caliber/all/grades/assessment/" + assessmentId,
@@ -100,7 +100,7 @@ angular.module("api").factory("allFactory", function($log, $http){
     };
 
     /************************* Trainer **********************/
-    all.getAllTrainers = function(){
+    all.getAllTrainers = function () {
         var data = [];
         $http({
             url: "/caliber/all/trainer/all/",
@@ -114,6 +114,5 @@ angular.module("api").factory("allFactory", function($log, $http){
         });
         return data;
     };
-
     return all;
 });
