@@ -27,7 +27,6 @@ public class Grade {
     /**
      * dateReceived- date this Grade object was received
      */
-    @JsonIgnore
     private Date dateReceived;
 
     /**
