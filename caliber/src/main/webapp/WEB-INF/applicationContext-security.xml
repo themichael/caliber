@@ -17,11 +17,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
         <security:intercept-url pattern="/all/**" access="permitAll" />
         <security:csrf disabled="true"/>
         <!-- logout functionality: delete cookies and redirect. Use /j_spring_security_logout as route -->
-        <security:logout delete-cookies="JSESSIONID"/>
-        <!-- Allowed one session : change max-sessions if you like -->
-        <security:session-management>
-            <security:concurrency-control max-sessions="1" />
-        </security:session-management>
+        <security:logout delete-cookies="token, JSESSIONID"/>
     </security:http>
 
     <security:authentication-manager>

@@ -52,6 +52,10 @@
                 <li role="button" class="{{showActiveWeek($index)}}" ng-click="selectWeek($index)"
                     ng-repeat="week in currentBatch.weeks track by $index">
                     <a>Week {{week.weekNumber}}</a></li>
+                <!-- Button Trigger for Create Week Modal -->
+                <li role="button" ng-show="currentView" ng-click="createWeek()">
+                    <a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                </li>
             </ul>
         </div>
     </div>

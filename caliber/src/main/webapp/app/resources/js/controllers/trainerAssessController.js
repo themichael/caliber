@@ -179,6 +179,17 @@ angular.module("trainer")
                 return "active";
         };
 
+        //create week
+        $scope.createWeek = function () {
+            var weekNumber = $scope.currentBatch.weeks;
+            if(!weekNumber) weekNumber = 1;
+            console.log(weekNumber);
+            return caliberDelegate.trainer.createWeek({
+                weekNumber: weekNumber,
+                batchId: $scope.currentBatch.batchId
+            });
+        };
+
         // select assessment from list
         $scope.selectAssessment = function (index) {
             $scope.currentAssessment = $scope.currentAssessments[index];
