@@ -1,14 +1,25 @@
 package com.revature.caliber.controllers;
 
+import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Note;
 import com.revature.caliber.gateway.ApiGateway;
+import com.revature.caliber.models.SalesforceUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The type Trainer batch controller.
@@ -36,8 +47,9 @@ public class TrainerBatchController {
      * @return in JSON, a set of batch objects
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Batch>> getAllBatches() {
-        return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
+    public ResponseEntity<List<Batch>> getAllBatches(Authentication authentication) {
+        SalesforceUser salesforceUser = (SalesforceUser) authentication.getPrincipal();
+        return new ResponseEntity<>(apiGateway.getBatches(salesforceUser.getCaliberId()), HttpStatus.OK);
     }
 
     /**
@@ -46,8 +58,9 @@ public class TrainerBatchController {
      * @return - in JSON, a batch object
      */
     @RequestMapping(value = "/batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Batch> getCurrentBatch() {
-        return new ResponseEntity<>(apiGateway.getCurrentBatch(), HttpStatus.OK);
+    public ResponseEntity<List<Batch>> getCurrentBatch() {
+        SalesforceUser salesforceUser = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return new ResponseEntity<>(apiGateway.currentBatch(salesforceUser.getCaliberId()), HttpStatus.OK);
     }
 
     /**
@@ -56,7 +69,7 @@ public class TrainerBatchController {
      * @param week the week
      * @return the response entity
      */
-    @RequestMapping(value = "/week/new", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/week/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createNewWeek(@RequestBody Week week) {
         apiGateway.createNewWeek(week);
         return new ResponseEntity(HttpStatus.OK);
@@ -69,9 +82,9 @@ public class TrainerBatchController {
      * @return the response entity
      */
     @RequestMapping(value = "/grade/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createGrade(@RequestBody Grade grade) {
-        apiGateway.createGrade(grade);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity createGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
+        apiGateway.insertGrade(grade);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     /**
@@ -80,8 +93,8 @@ public class TrainerBatchController {
      * @param grade the grade
      * @return the response entity
      */
-    @RequestMapping(value = "/grade/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateGrade(@RequestBody Grade grade) {
+    @RequestMapping(value = "/grade/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
         apiGateway.updateGrade(grade);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -104,9 +117,11 @@ public class TrainerBatchController {
      * @param id the id
      * @return the response entity
      */
-    @RequestMapping(value = "/assessment/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/assessment/delete/{id}",
+            method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteAssessment(@PathVariable int id) {
-        Assessment assessment = new Assessment();
+        com.revature.caliber.assessment.beans.Assessment assessment = new com.revature.caliber.assessment.beans.Assessment();
         assessment.setAssessmentId(id);
         apiGateway.deleteAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);
@@ -118,10 +133,30 @@ public class TrainerBatchController {
      * @param assessment the assessment
      * @return the response entity
      */
-    @RequestMapping(value = "/assessment/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateAssessment(@RequestBody Assessment assessment) {
+    @RequestMapping(value = "/assessment/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateAssessment(@RequestBody com.revature.caliber.assessment.beans.Assessment assessment) {
         apiGateway.updateAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * Update assessment response entity.
+     *
+     * @return the response entity
+     */
+    @RequestMapping(value = "/assessment/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<com.revature.caliber.assessment.beans.Assessment>> getAllAssessments() {
+        List<com.revature.caliber.assessment.beans.Assessment> list = apiGateway.getAllAssessments();
+        int i = 0;
+        while (i < list.size()) {
+            if (list.get(i).getWeeklyStatus() != null) {
+                list.remove(i);
+            }
+            else {
+                i++;
+            }
+        }
+        return new ResponseEntity(list, HttpStatus.OK);
     }
 
     /**

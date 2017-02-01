@@ -1,5 +1,8 @@
 angular.module("qc").controller("qcHomeController", function
-    ($scope, $log, caliberDelegate, chartsDelegate) {
+    ($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
+
+    $log.log("All Batches: ");
+    $log.log(allBatches);
 
     $scope.batches = ["Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408"];
     $scope.tech = ["Spring", "Hibernate", "JSP"];
@@ -8,10 +11,12 @@ angular.module("qc").controller("qcHomeController", function
     /*********************************************** UI ***************************************************/
     var viewCharts = 0;
 
-    $scope.batches = [ "Batch1311", "Batch1612", "Batch1512",
-        "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
-    $scope.tech = [ "Spring", "Hibernate", "JSP" ];
-    $scope.trainees = [ "Osher", "Kyle", "Rikki" ];
+    $scope.batches =
+
+        // [ "Batch1311", "Batch1612", "Batch1512",
+        // "Batch1812", "Batch0910", "Batch0805", "Batch0408" ];
+        $scope.tech = ["Spring", "Hibernate", "JSP"];
+    $scope.trainees = ["Osher", "Kyle", "Rikki"];
 
     $scope.currentBatch = "Batch";
 
@@ -20,11 +25,11 @@ angular.module("qc").controller("qcHomeController", function
     $scope.currentTrainee = "Trainee";
 
     // on batch selection
-    $scope.selectCurrentBatch = function(index){
+    $scope.selectCurrentBatch = function (index) {
         $scope.currentTech = "Tech";
         $scope.currentTrainee = "Trainee";
         // turn of batches
-        if(index === -1){
+        if (index === -1) {
             viewCharts = 0;
             $scope.currentBatch = "Batch";
         }
@@ -36,12 +41,13 @@ angular.module("qc").controller("qcHomeController", function
     };
 
     // on tech selection
-    $scope.selectCurrentTech = function(index) {
+    $scope.selectCurrentTech = function (index) {
         if (index === -1) {
             $scope.currentTrainee = "Trainee";
             $scope.currentTech = "Tech";
             viewCharts = 1;
-        }else{
+        }
+        else {
             $scope.currentTrainee = "Trainee";
             $scope.currentTech = $scope.tech[index];
             viewCharts = 2;
@@ -50,12 +56,12 @@ angular.module("qc").controller("qcHomeController", function
     };
 
     // on trainee selection
-    $scope.selectCurrentTrainee = function(index) {
+    $scope.selectCurrentTrainee = function (index) {
         if (index === -1) {
             $scope.currentTrainee = "Trainee";
             viewCharts = 2;
         }
-        else{
+        else {
             $scope.currentTech = "Tech";
             $scope.currentTrainee = $scope.trainees[index];
             viewCharts = 3;
@@ -64,21 +70,17 @@ angular.module("qc").controller("qcHomeController", function
     };
 
     // hide filter tabs
-    $scope.hideOtherTabs = function(){
-        if($scope.currentBatch === "Batch")
-            return false;
-        return true;
+    $scope.hideOtherTabs = function () {
+        return $scope.currentBatch !== "Batch";
     };
 
     // show charts
-    $scope.showCharts = function(charts){
-        if(charts === viewCharts)
-            return true;
-        return false;
+    $scope.showCharts = function (charts) {
+        return charts === viewCharts;
     };
 
     // create charts on batch selection
-    function createBatchCharts(){
+    function createBatchCharts() {
         // batch week by week sample data
         var sample3 = [{week: "Week 1", average: ranNum()}, {week: "Week 2", average: ranNum()},
             {week: "Week 3", average: ranNum()}, {week: "Week 4", average: ranNum()},
@@ -97,7 +99,7 @@ angular.module("qc").controller("qcHomeController", function
     }
 
     // create charts on tech selection
-    function createTechCharts(){
+    function createTechCharts() {
         // Sample Data representing all trainee averages per technology
         var sampleHbarData = [
             {trainee: "Rikki", average: ranNum()},
@@ -122,7 +124,7 @@ angular.module("qc").controller("qcHomeController", function
     }
 
     // create charts on trainee selection
-    function createTraineeCharts(){
+    function createTraineeCharts() {
 
         // Sample Data representing trainee average over 12 weeks
         var sampleLineData = [
@@ -134,13 +136,13 @@ angular.module("qc").controller("qcHomeController", function
             {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
 
         // Sample Data representing trainee strengths per technology
-        var samplePieData =[
-            {skillCategory:"Core Java", average: 85},
-            {skillCategory:"SQL", average: 75},
-            {skillCategory:"Spring", average: 95},
-            {skillCategory:"Hibernate", average: 75},
-            {skillCategory:"AngularJS", average: 90},
-            {skillCategory:"REST", average: 80}];
+        var sampleRadarData = [
+            {skillCategory: "Core Java", average: ranNum()},
+            {skillCategory: "SQL", average: ranNum()},
+            {skillCategory: "Spring", average: ranNum()},
+            {skillCategory: "Hibernate", average: ranNum()},
+            {skillCategory: "AngularJS", average: ranNum()},
+            {skillCategory: "REST", average: ranNum()}];
 
         // line chart function that retrieves
         // Week by week progression for a trainee/ batch on a line chart
@@ -151,12 +153,13 @@ angular.module("qc").controller("qcHomeController", function
         $scope.lineDatasetOverride = lineChartObject.datasetOverride;
         $scope.lineOptions = lineChartObject.options;
 
-        // pie chart function that retrieves
+        // radar chart function that retrieves
         // data for batch/ trainee technology strengths
-        var pieChartObject = chartsDelegate.pie.getTraineeTechProgressChart(samplePieData);
-        $scope.pieLabels = pieChartObject.labels;
-        $scope.pieData = pieChartObject.data;
-        $scope.pieOptions = pieChartObject.options;
+        var radarChartObject = chartsDelegate.radar.getTraineeTechProgressChart(sampleRadarData);
+        $scope.radarLabels = radarChartObject.labels;
+        $scope.radarSeries = radarChartObject.series;
+        $scope.radarData = radarChartObject.data;
+        $scope.radarOptions = radarChartObject.options;
     }
 
 
@@ -179,7 +182,7 @@ angular.module("qc").controller("qcHomeController", function
     $scope.allBatchesRankSeries = hbarChartObject.series;
 
     // random number gen - sample data only!
-    function ranNum(){
+    function ranNum() {
         var num = (Math.random() * 50) + 50;
         return num.toFixed(2);
     }

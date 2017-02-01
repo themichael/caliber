@@ -1,167 +1,202 @@
 angular.module("trainer")
-    .controller("trainerAssessController", function($log, $scope, chartsDelegate, caliberDelegate){
+    .controller("trainerAssessController", function($log, $scope, chartsDelegate, caliberDelegate, allBatches){
+
         $log.debug("Booted Trainer Aesess Controller");
 
         /******************************** Sample Data *******************************/
-        $scope.batches=[
+        $scope.batches = [
             {
                 batchId: 451, trainingName: 'Batch123', trainer: 'Patrick', coTrainer: '',
                 skillType: 'Java', trainingType: 'CUNY', startDate: new Date(), endDate: new Date(),
                 location: 'Queens, NY', goodGradeThreshold: 75, borderlineGradeThreshold: 40,
-                trainees:[{traineeId: 53, name: "Charles", email: "charles@gmail.com", trainingStatus: "Active"},
+                trainees: [{traineeId: 53, name: "Charles", email: "charles@gmail.com", trainingStatus: "Active"},
                     {traineeId: 65, name: "Mike", email: "Mike@gmail.com", trainingStatus: "Active"},
                     {traineeId: 78, name: "Rebecca", email: "Rebecca@gmail.com", trainingStatus: "Active"}],
-                weeks: [{ weekId: 421, weekNumber: 1, topics: [{categoryId: 13, skillCategory: "Java Core"}]},
-                    { weekId: 476, weekNumber: 2, topics: [{categoryId: 13, skillCategory: "SQL"}] },
-                    { weekId: 486, weekNumber: 3, topics: [{categoryId: 13, skillCategory: "Design Patterns"}] },
-                    { weekId: 495, weekNumber: 4, topics: [{categoryId: 13, skillCategory: "Hibernate"}] }]
+                weeks: [{weekId: 421, weekNumber: 1, topics: [{categoryId: 13, skillCategory: "Java Core"}]},
+                    {weekId: 476, weekNumber: 2, topics: [{categoryId: 13, skillCategory: "SQL"}]},
+                    {weekId: 486, weekNumber: 3, topics: [{categoryId: 13, skillCategory: "Design Patterns"}]},
+                    {weekId: 495, weekNumber: 4, topics: [{categoryId: 13, skillCategory: "Hibernate"}]}]
             },
-            {trainingName: 'Batch456', trainingType: 'Corporate', skillType: 'Java', location: 'Reston, VA',
-                trainer: 'Ryan', coTrainer: 'Brian', startDate: new Date(), endDate: new Date()}
+            {
+                trainingName: 'Batch456', trainingType: 'Corporate', skillType: 'Java', location: 'Reston, VA',
+                trainer: 'Ryan', coTrainer: 'Brian', startDate: new Date(), endDate: new Date()
+            }
         ];
 
         var assessments = [
-            [{assessmentId: 51, title: "Java Core Test I", rawScore: 50, type: "Mul Choice",
-                categories: [{categoryId: 13, skillCategory: "Java"}]},
-                {assessmentId: 58, title: "Java Core Verbal", rawScore: 60, type: "Verbal",
+            [{
+                assessmentId: 51, title: "Java Core Test I", rawScore: 50, type: "Mul Choice",
+                categories: [{categoryId: 13, skillCategory: "Java"}]
+            },
+                {
+                    assessmentId: 58, title: "Java Core Verbal", rawScore: 60, type: "Verbal",
                     categories: [{categoryId: 13, skillCategory: "Java"},
-                                {categoryId: 15, skillCategory: "SQL"}]}],
-            [{assessmentId: 78, title: "Java Core Test II", rawScore: 50, type: "Mul Choice",
-                categories: [{categoryId: 13, skillCategory: "Java"}]},
-                {assessmentId: 89, title: "Java Core Verbal I", rawScore: 60, type: "Verbal",
-                    categories: [{categoryId: 13, skillCategory: "Java"}]}]
+                        {categoryId: 15, skillCategory: "SQL"}]
+                }],
+            [{
+                assessmentId: 78, title: "Java Core Test II", rawScore: 50, type: "Mul Choice",
+                categories: [{categoryId: 13, skillCategory: "Java"}]
+            },
+                {
+                    assessmentId: 89, title: "Java Core Verbal I", rawScore: 60, type: "Verbal",
+                    categories: [{categoryId: 13, skillCategory: "Java"}]
+                }]
         ];
 
-        var grades = [
+        $scope.grades = [
             {gradeId: 14, assessment: 51, trainee: 53, dateReceived: new Date(), score: 94},
             {gradeId: 15, assessment: 51, trainee: 65, dateReceived: new Date(), score: 84},
-            {gradeId: 16, assessment: 51, trainee: 78, dateReceived: new Date(), score: 74}
+            {gradeId: 16, assessment: 51, trainee: 78, dateReceived: new Date(), score: 74},
+            {gradeId: 14, assessment: 58, trainee: 53, dateReceived: new Date(), score: 34},
+            {gradeId: 15, assessment: 58, trainee: 65, dateReceived: new Date(), score: 99},
+            {gradeId: 16, assessment: 58, trainee: 78, dateReceived: new Date(), score: 79}
         ];
 
         $scope.skill_categories = [
-            {"categoryId":5,"skillCategory":"HIBERNATE","weeks":[]},
-            {"categoryId":4,"skillCategory":"SPRING","weeks":[]},
-            {"categoryId":2,"skillCategory":"REST","weeks":[]},
-            {"categoryId":3,"skillCategory":"SOAP","weeks":[1,2,3]},
-            {"categoryId":1,"skillCategory":"Core Java","weeks":[]}
+            {"categoryId": 5, "skillCategory": "HIBERNATE", "weeks": []},
+            {"categoryId": 4, "skillCategory": "SPRING", "weeks": []},
+            {"categoryId": 2, "skillCategory": "REST", "weeks": []},
+            {"categoryId": 3, "skillCategory": "SOAP", "weeks": [1, 2, 3]},
+            {"categoryId": 1, "skillCategory": "Core Java", "weeks": []}
         ];
 
         $scope.trainers = [
             {
-                "trainerId":1,
-                "name":"Name",
-                "title":"title",
-                "email":"email3",
-                "salesforceAccount":"account",
-                "salesforceAuthenticationToken":"token",
-                "salesforceRefreshToken":"token",
-                "tier":{
-                    "tierId":1,
-                    "tier":"ROLE_VP",
-                    "ranking":1
+                "trainerId": 1,
+                "name": "Name",
+                "title": "title",
+                "email": "email3",
+                "salesforceAccount": "account",
+                "salesforceAuthenticationToken": "token",
+                "salesforceRefreshToken": "token",
+                "tier": {
+                    "tierId": 1,
+                    "tier": "ROLE_VP",
+                    "ranking": 1
                 }
             },
             {
-                "trainerId":7,
-                "name":"Martino",
-                "title":"title",
-                "email":"nikolovski23@gmail.com",
-                "salesforceAccount":"nikolovski23@gmail.com",
-                "salesforceAuthenticationToken":"auth_token",
-                "salesforceRefreshToken":"refr_token",
-                "tier":{
-                    "tierId":1,
-                    "tier":"ROLE_VP",
-                    "ranking":1
+                "trainerId": 7,
+                "name": "Martino",
+                "title": "title",
+                "email": "nikolovski23@gmail.com",
+                "salesforceAccount": "nikolovski23@gmail.com",
+                "salesforceAuthenticationToken": "auth_token",
+                "salesforceRefreshToken": "refr_token",
+                "tier": {
+                    "tierId": 1,
+                    "tier": "ROLE_VP",
+                    "ranking": 1
                 }
             },
             {
-                "trainerId":5,
-                "name":"Test trainee (TraineeDAO Test)",
-                "title":"title",
-                "email":"email5",
-                "salesforceAccount":"sf_account",
-                "salesforceAuthenticationToken":"sf_auth_token",
-                "salesforceRefreshToken":"sf_refr_token",
-                "tier":{
-                    "tierId":3,
-                    "tier":"ROLE_TRAINER",
-                    "ranking":999
+                "trainerId": 5,
+                "name": "Test trainee (TraineeDAO Test)",
+                "title": "title",
+                "email": "email5",
+                "salesforceAccount": "sf_account",
+                "salesforceAuthenticationToken": "sf_auth_token",
+                "salesforceRefreshToken": "sf_refr_token",
+                "tier": {
+                    "tierId": 3,
+                    "tier": "ROLE_TRAINER",
+                    "ranking": 999
                 }
             },
             {
-                "trainerId":29100,
-                "name":"Kristy Kim",
-                "title":"Trainer at Hunter",
-                "email":"kkim@revature.com",
-                "salesforceAccount":"sfaccountex",
-                "salesforceAuthenticationToken":"sfauthenticationtoken",
-                "salesforceRefreshToken":"sfrefreshtoken",
-                "tier":{
-                    "tierId":3,
-                    "tier":"ROLE_TRAINER",
-                    "ranking":999
+                "trainerId": 29100,
+                "name": "Kristy Kim",
+                "title": "Trainer at Hunter",
+                "email": "kkim@revature.com",
+                "salesforceAccount": "sfaccountex",
+                "salesforceAuthenticationToken": "sfauthenticationtoken",
+                "salesforceRefreshToken": "sfrefreshtoken",
+                "tier": {
+                    "tierId": 3,
+                    "tier": "ROLE_TRAINER",
+                    "ranking": 999
                 }
             }
-        ]
+        ];
 
         // END TEST DATA *********************
 
         /******************************************* UI ***********************************************/
+
+        $log.debug("Batches " + allBatches);
+
+        (function start(allBatches){
+           if(allBatches.length > 0){
+               $scope.currentBatch = allBatches[0];
+               if(allBatches[0].weeks.length > 0)
+                   $scope.currentWeek = allBatches[0].weeks;
+               else $scope.currentWeek = null;
+           }else{
+               $scope.currentBatch = null;
+               $scope.currentWeek = null;
+           }
+           $log.debug("Starting Values: currentBatch and currentWeek");
+           $log.debug($scope.currentBatch);
+           $log.debug($scope.currentWeek);
+        })(allBatches);
+
         // starting scope vars
-        $scope.currentBatch = $scope.batches[0];
-        $scope.currentWeek = $scope.currentBatch.weeks[0];
+        // $scope.currentBatch = allBatches[0];
+        // $scope.currentWeek = allBatches[0].weeks[0];
         $scope.currentAssessments = getAssessments(0);
 
         // default -- view assessments table
         $scope.currentView = true;
 
         // back button
-        $scope.back = function(){
+        $scope.back = function () {
             $scope.currentView = true;
         };
 
         // batch drop down select
         $scope.selectCurrentBatch = function(index){
-            $scope.currentBatch = $scope.batches[index];
+            $scope.currentBatch = allBatches;
+
             // set week
             $scope.currentWeek = $scope.currentBatch.weeks[0];
 
             /** replace with ajax call to get assessments by weekId **/
             // test function to grab assessments
-            $scope.currentAssessments = getAssessments(index);
+            $scope.currentAssessments = getGradesAssessments(index);
+
         };
 
+
         // select week
-        $scope.selectWeek = function(index){
+        $scope.selectWeek = function (index) {
             $scope.currentWeek = $scope.currentBatch.weeks[index];
             /** ajax call to get assessments by weekId **/
         };
 
         // active week
-        $scope.showActiveWeek = function(index){
-            if($scope.currentWeek === $scope.currentBatch.weeks[index])
+        $scope.showActiveWeek = function (index) {
+            if ($scope.currentWeek === $scope.currentBatch.weeks[index])
                 return "active";
         };
 
         // select assessment from list
-        $scope.selectAssessment = function(index){
+        $scope.selectAssessment = function (index) {
             $scope.currentAssessment = $scope.currentAssessments[index];
             $scope.currentView = false;
             /** replace with ajax call to get grades by assessmentId **/
         };
 
         // find grade for trainee
-        $scope.findGrade = function(traineeId){
-            var grade = grades.find(function(element){
-               return element.trainee ===  traineeId;
+        $scope.findGrade = function (traineeId) {
+            var grade = grades.find(function (element) {
+                return element.trainee === traineeId;
             });
 
             return grade.score;
         };
 
         /* Save Assessment */
-        $scope.addAssessment = function( ){
+        $scope.addAssessment = function () {
             assessments.push({
                 trainingName: $scope.trainingName,
                 trainingType: $scope.trainingType,
@@ -172,7 +207,7 @@ angular.module("trainer")
         };
 
         // test function - get assessment
-        function getAssessments(index){
+        function getAssessments(index) {
             return assessments[index];
         }
 

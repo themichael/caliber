@@ -136,9 +136,8 @@ a { color: #F26925;}
 	Footer
 ************************/
 
-.footer-margin{ margin-top: .5em; }
+.footer-margin{ margin-top: .85em; }
 .footer-img { margin-top: 1.5em; }
-.contact-info {	margin-bottom: 1em; }
 
 /* Footer, set footer height to actual height of footer*/
 html, body {

@@ -1,119 +1,120 @@
-angular.module("api").factory("allFactory", function($log, $http){
+angular.module("api").factory("allFactory", function ($log, $http) {
 
     $log.debug("Booted all api factory");
 
     var all = {};
 
     /*************************** Batch ************************/
-    all.createBatch = function(batchObj){
+    all.createBatch = function(batchObj) {
         $http({
             url: "/caliber/all/batch/create",
             method: "POST",
             data: batchObj
-        }).then(function (response) {
+        }).then(function(response) {
             $log.debug(response);
-            // update ui
-        }, function (response) {
+            return true;
+        }, function(response) {
             $log.error("There was an error: " + response.status);
+            return false;
         });
     };
 
-    all.updateBatch = function(batchObj){
-        $http({
+    all.updateBatch = function(batchObj) {
+        return $http({
             url: "/caliber/all/batch/update",
             method: "PUT",
             data: batchObj
-        }).then(function (response) {
+        }).then(function(response) {
             $log.debug(response);
-            // update ui
-        }, function (response) {
+            return true;
+        }, function(response) {
             $log.error("There was an error: " + response.status);
+            return false;
         });
     };
 
-    all.deleteBatch = function(batchId){
-        $http({
+    all.deleteBatch = function(batchId) {
+        return $http({
             url: "/caliber/all/batch/delete" + batchId,
             method: "DELETE"
-        }).then(function (response) {
+        }).then(function(response) {
             $log.debug(response);
-            // update ui
+            return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
+            return false;
         });
     };
 
     /*************************** Trainee ************************/
-    all.createTrainee = function(traineeObj){
-        $http({
+    all.createTrainee = function(traineeObj) {
+        return $http({
             url: "/caliber/all/trainee/create",
             method: "POST",
             data: traineeObj
-        }).then(function (response) {
+        }).then(function(response) {
             $log.debug(response);
-            // update ui
-        }, function (response) {
+            return true;
+        }, function(response) {
             $log.error("There was an error: " + response.status);
+            return false;
         });
     };
 
-    all.updateTrainee = function(traineeObj){
-        $http({
+    all.updateTrainee = function(traineeObj) {
+        return $http({
             url: "/caliber/all/trainee/update",
             method: "PUT",
             data: traineeObj
         }).then(function (response) {
             $log.debug(response);
-            // update ui
+            return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
+            return false;
         });
     };
 
-    all.deleteTrainee = function(traineeId){
+    all.deleteTrainee = function (traineeId) {
         $http({
             url: "/caliber/all/trainee/delete/" + traineeId,
             method: "DELETE"
         }).then(function (response) {
             $log.debug(response);
-            // update ui
+            return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
+            return false;
         });
     };
 
     /************************** Grades **************************/
 
-    all.getGrades = function(assessmentId){
-        var data = [];
-        $http({
+    all.getGrades = function(assessmentId) {
+        return $http({
             url: "/caliber/all/grades/assessment/" + assessmentId,
             method: "GET"
-        }).then(function (response) {
+        }).then(function(response) {
             $log.debug(response);
-            // copy response data
-            angular.copy(response.data, data);
-        }, function (response) {
+            return response.data;
+        }, function(response) {
             $log.error("There was an error: " + response.status);
+            return null;
         });
-        return data;
     };
 
     /************************* Trainer **********************/
-    all.getAllTrainers = function(){
-        var data = [];
-        $http({
+    all.getAllTrainers = function () {
+        return $http({
             url: "/caliber/all/trainer/all/",
             method: "GET"
         }).then(function (response) {
             $log.debug(response);
-            // copy response data
-            angular.copy(response.data, data);
+            return response.data;
         }, function (response) {
             $log.error("There was an error: " + response.status);
+            return null;
         });
-        return data;
     };
-
     return all;
 });

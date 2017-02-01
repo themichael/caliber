@@ -2,26 +2,28 @@
     <div class="row">
         <div class="col-md-12 col-lg-12">
             <ul class="nav nav-tabs">
-                <li role="button" class="dropdown"><a class="dropdown-toggle"
-                    data-toggle="dropdown">{{currentBatch}}<span class="caret"></span></a>
+                <li role="button" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">{{currentBatch}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
-                        <li ng-repeat="menuItem in batches track by $index"><a
-                                role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a>
+                        <li ng-repeat="menuItem in allBatches track by $index">
+                            <a role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a>
                         </li>
                     </ul>
                 </li>
-                <li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideOtherTabs()"
-                  data-toggle="dropdown">{{currentTech}}<span class="caret"></span></a>
+                <li role="button" class="dropdown">
+                    <a class="dropdown-toggle" ng-show="hideOtherTabs()" data-toggle="dropdown">{{currentTech}}<span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a role="button" ng-click="selectCurrentTech(-1)">None</a></li>
-                        <li ng-repeat="menuItem in tech track by $index"><a
-                                role="button" ng-click="selectCurrentTech($index)">{{menuItem}}</a>
+                        <li ng-repeat="menuItem in tech track by $index">
+                            <a role="button" ng-click="selectCurrentTech($index)">{{menuItem}}</a>
                         </li>
                     </ul>
                 </li>
                 <li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideOtherTabs()"
-                      data-toggle="dropdown">{{currentTrainee}}<span class="caret"></span></a>
+                                                      data-toggle="dropdown">{{currentTrainee}}<span
+                        class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a role="button" ng-click="selectCurrentTrainee(-1)">None</a></li>
                         <li ng-repeat="menuItem in trainees track by $index"><a
@@ -44,8 +46,9 @@
                             <div class="panel-heading">All Current Batches</div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
-                                    <canvas id="batchesRank" class="chart-horizontal-bar" chart-data="allBatchesRankData"
-                                            chart-labels="allBatchesRankLabels"  chart-series="allBatchesRankSeries"
+                                    <canvas id="batchesRank" class="chart-horizontal-bar"
+                                            chart-data="allBatchesRankData"
+                                            chart-labels="allBatchesRankLabels" chart-series="allBatchesRankSeries"
                                             height="100" width="100">
                                     </canvas>
                                 </div>
@@ -61,7 +64,7 @@
                                             chart-data="batchProgressData" chart-labels="batchProgressLabels"
                                             chart-series="batchProgressSeries" chart-options="batchProgressOptions"
                                             chart-dataset-override="batchProgressDatasetOverride"
-                                            height="50" width="50">
+                                            height="100" width="100">
                                     </canvas>
                                 </div>
                             </div>
@@ -70,7 +73,8 @@
                     <div class="col-sm-6 col-md-6" ng-show="showCharts(2)">
                         <div class="panel panel-default">
                             <div class="panel-heading">Averages scores per {{currentTech}}
-                                for all trainees</div>
+                                for all trainees
+                            </div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
                                     <canvas id="hbar" class="chart chart-horizontal-bar"
@@ -90,7 +94,7 @@
                                             chart-data="lineData" chart-labels="lineLabels"
                                             chart-series="lineSeries" chart-options="lineOptions"
                                             chart-dataset-override="lineDatasetOverride"
-                                            chart-click="lineOnClick" height="75" width="100">
+                                            chart-click="lineOnClick" height="100" width="100">
                                     </canvas>
                                 </div>
                             </div>
@@ -99,20 +103,20 @@
                     <div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
                         <div class="panel panel-default">
                             <div class="panel-heading">Averages scores per technology
-                                for trainee {{currentTrainee}}</div>
+                                for trainee {{currentTrainee}}
+                            </div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
-                                    <canvas id="pie" class="chart chart-pie" chart-data="pieData"
-                                            chart-labels="pieLabels" chart-colors="pieColors"
-                                            chart-options="pieOptions"
-                                            chart-dataset-override="pieDatasetOverride"
-                                            chart-click="pieOnClick" height="75" width="100">
+                                    <canvas id="radar" class="chart chart-radar" chart-data="radarData"
+                                            chart-labels="radarLabels" chart-colors="radarColors"
+                                            chart-options="radarOptions" chart-series="radarSeries"
+                                            height="100" width="100">
                                     </canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>	<!-- row -->
+                </div>    <!-- row -->
             </div>
         </div>
     </div>

@@ -44,8 +44,7 @@ public interface GradeDAO {
 	Map<Set<Category>, Double> gradeByCategory(int traineeId);
 	
 	Map<Long, Double> gradeByWeek(int traineeId);
-	
-	List avgGradeByTrainer(int trainerId);
+
 	// Insert
 	/**
 	 * Inserts a new Grade into database
