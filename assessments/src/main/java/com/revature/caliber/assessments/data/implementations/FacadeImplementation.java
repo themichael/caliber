@@ -179,10 +179,7 @@ public class FacadeImplementation implements Facade {
 
     //Insert
     @Override
-    public void insertGrade(Grade grade) {
-        gradeDAO.insertGrade(grade);
-
-    }
+    public Long insertGrade(Grade grade) {return gradeDAO.insertGrade(grade);}
 
     //Delete
     @Override

@@ -159,8 +159,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
     }
 
     @Override
-    public void insertGrade(Grade grade) {
-        gradeService.insertGrade(grade);
+    public Long insertGrade(Grade grade) {
+        return gradeService.insertGrade(grade);
     }
 
     @Override

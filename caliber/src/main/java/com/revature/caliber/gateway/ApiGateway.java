@@ -221,7 +221,7 @@ public interface ApiGateway {
      *
      * @param grade the grade
      */
-    void insertGrade(com.revature.caliber.assessment.beans.Grade grade);
+    Long insertGrade(com.revature.caliber.assessment.beans.Grade grade);
 
     /**
      * Updates a grade
@@ -359,7 +359,7 @@ public interface ApiGateway {
      *
      * @param week the week
      */
-    void createNewWeek(Week week);
+    Long createNewWeek(Week week);
 
     List<com.revature.caliber.assessment.beans.Grade> getAssessmentGradesById(int id);
 

@@ -4,11 +4,11 @@
             <ul class="nav nav-tabs">
                 <!-- Select Batch-->
                 <li role="button" class="dropdown"><a class="dropdown-toggle"
-                                                      data-toggle="dropdown">{{currentBatch}}<span class="caret"></span></a>
+                                                      data-toggle="dropdown">{{currentBatch.trainingName}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
                         <li ng-repeat="menuItem in batches track by $index"><a
-                                role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a>
+                                role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}</a>
                         </li>
                     </ul>
                 </li>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Comparison of {{currentBatch}} to my batches</div>
+                            <div class="panel-heading">Batch {{currentBatch.trainingName}} Technology Progress</div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
                                     <canvas id="radar" class="chart chart-radar"
@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Week by Week progression of {{currentBatch}}</div>
+                            <div class="panel-heading">Week by Week progression of {{currentBatch.trainingName}}</div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
                                     <canvas id="batch-line" class="chart chart-line"

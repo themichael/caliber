@@ -33,7 +33,7 @@ angular.module("api")
             }).then(function(response) {
                 $log.debug("Agg - Week - trainee -- success");
                 $log.debug(response);
-                return reponse.data;
+                return response.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
             });
