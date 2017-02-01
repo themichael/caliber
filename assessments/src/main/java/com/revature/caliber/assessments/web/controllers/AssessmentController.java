@@ -102,7 +102,7 @@ public class AssessmentController {
     //POST is used over PUT since we are not specifying specific assessment url
     @RequestMapping(
             value = "/assessment/new",
-            method = RequestMethod.POST,
+            method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createAssessment(@RequestBody Assessment assessment) {
         delegate.insertAssessment(assessment);

@@ -40,7 +40,7 @@ public class TrainingServiceImpl implements TrainingService {
     public void createBatch(Batch batch) {
         RestTemplate service = new RestTemplate();
         // Build Service URL
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(newBatch)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(newBatch)
                 .build().toUriString();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -56,7 +56,7 @@ public class TrainingServiceImpl implements TrainingService {
     public List<Batch> allBatch() {
         RestTemplate service = new RestTemplate();
         // Build Service URL
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allBatch)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(allBatch)
                 .build().toUriString();
         // Invoke the service
         ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
@@ -77,7 +77,7 @@ public class TrainingServiceImpl implements TrainingService {
     public List<Batch> getBatches(Integer id) {
         RestTemplate service = new RestTemplate();
         // Build Service URL
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber + allBatchesForTrainer)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + allBatchesForTrainer)
                 .path(id.toString()).build().toUriString();
 
         // Invoke the service
@@ -97,7 +97,7 @@ public class TrainingServiceImpl implements TrainingService {
     public List<Batch> currentBatches() {
         RestTemplate service = new RestTemplate();
         // Build Service URL
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(allCurrentBatch)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(allCurrentBatch)
                 .build().toUriString();
         // Invoke the service
         ResponseEntity<Batch[]> response = service.getForEntity(URI, Batch[].class);
@@ -117,7 +117,7 @@ public class TrainingServiceImpl implements TrainingService {
     public List<Batch> currentBatches(Integer id) {
         RestTemplate service = new RestTemplate();
         final String URI =
-                UriComponentsBuilder.fromHttpUrl(hostname + portNumber)
+                UriComponentsBuilder.fromHttpUrl(hostname)
                         .path(allCurrentBatchByTrainer).path(String.valueOf(id))
                         .build().toUriString();
         // Invoke the service
@@ -135,7 +135,7 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public Batch getBatch(Integer id) {
         RestTemplate service = new RestTemplate();
-        String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(batchById).
+        String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(batchById).
                 path(String.valueOf(id)).build().toUriString();
         // Invoke the service
         ResponseEntity<Batch> response = service.getForEntity(URI, Batch.class);
@@ -149,7 +149,7 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public void updateBatch(Batch batch) {
         RestTemplate service = new RestTemplate();
-        String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).
+        String URI = UriComponentsBuilder.fromHttpUrl(hostname).
                 path(updateBatch).build().toUriString();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -164,7 +164,7 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public void deleteBatch(Batch batch) {
         RestTemplate service = new RestTemplate();
-        String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).
+        String URI = UriComponentsBuilder.fromHttpUrl(hostname).
                 path(deleteBatch).build().toUriString();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -182,7 +182,7 @@ public class TrainingServiceImpl implements TrainingService {
     public void createTrainee(Trainee trainee) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addTraineePath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(addTraineePath)
                 .build().toUriString();
 
         HttpHeaders headers = new HttpHeaders();
@@ -200,7 +200,7 @@ public class TrainingServiceImpl implements TrainingService {
     public void updateTrainee(Trainee trainee) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTraineePath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(updateTraineePath)
                 .build().toUriString();
 
         //Invoke the service
@@ -214,7 +214,7 @@ public class TrainingServiceImpl implements TrainingService {
     public Trainee getTrainee(Integer id) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineeByIdPath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getTraineeByIdPath)
                 .path(id.toString())
                 .build().toUriString();
 
@@ -235,7 +235,7 @@ public class TrainingServiceImpl implements TrainingService {
         email = email.replace("@", "%40").replace(".", "_dot_");
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineeByNamePath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getTraineeByNamePath)
                 .path(email)
                 .build().toUriString();
 
@@ -255,7 +255,7 @@ public class TrainingServiceImpl implements TrainingService {
     public List<Trainee> getTraineesInBatch(Integer batchId) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTraineesByBatchPath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getTraineesByBatchPath)
                 .path(batchId.toString())
                 .build().toUriString();
 
@@ -275,7 +275,7 @@ public class TrainingServiceImpl implements TrainingService {
     public void deleteTrainee(Trainee trainee) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteTraineePath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(deleteTraineePath)
                 .build().toUriString();
 
         HttpHeaders headers = new HttpHeaders();
@@ -295,7 +295,7 @@ public class TrainingServiceImpl implements TrainingService {
     public void createTrainer(Trainer trainer) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(addTrainerPath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(addTrainerPath)
                 .build().toUriString();
 
         HttpHeaders headers = new HttpHeaders();
@@ -313,7 +313,7 @@ public class TrainingServiceImpl implements TrainingService {
     public Trainer getTrainer(Integer id) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByIdPath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getTrainerByIdPath)
                 .path(id.toString())
                 .build().toUriString();
         //Invoke the service
@@ -333,7 +333,7 @@ public class TrainingServiceImpl implements TrainingService {
     public void updateTrainer(Trainer trainer) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateTrainerPath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(updateTrainerPath)
                 .build().toUriString();
 
         //Invoke the service
@@ -355,7 +355,7 @@ public class TrainingServiceImpl implements TrainingService {
 
         RestTemplate service = new RestTemplate();
         // Build Service URL
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("training/week/all").build().toUriString();
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path("training/week/all").build().toUriString();
 
         System.out.println(URI);
         // Invoke the service
@@ -378,7 +378,7 @@ public class TrainingServiceImpl implements TrainingService {
     public void createWeek(Week week) {
         RestTemplate service = new RestTemplate();
         // Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path("training/week/new").build()
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path("training/week/new").build()
                 .toUriString();
 
         System.out.println(URI);
@@ -398,7 +398,7 @@ public class TrainingServiceImpl implements TrainingService {
     public Trainer getTrainer(String email) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getTrainerByEmailPath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getTrainerByEmailPath)
                 .path(email)
                 .build().toUriString();
 
@@ -418,7 +418,7 @@ public class TrainingServiceImpl implements TrainingService {
     public List<Trainer> getAllTrainers() {
         RestTemplate service = new RestTemplate();
         //Build Parameters
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getAllTrainersPath)
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getAllTrainersPath)
                 .build().toUriString();
 
         //Invoke the service
@@ -442,7 +442,7 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public List<Week> getWeekByBatch(int batchId) {
         RestTemplate service = new RestTemplate();
-        final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(getWeekByBatch).path(String.valueOf(batchId))
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getWeekByBatch).path(String.valueOf(batchId))
                 .build().toUriString();
         //Invoke the service
         ResponseEntity<Week[]> response = service.getForEntity(URI, Week[].class);

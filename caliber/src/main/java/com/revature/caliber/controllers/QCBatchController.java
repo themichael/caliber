@@ -79,9 +79,12 @@ public class QCBatchController {
      * @param assessment the assessment
      * @return the response entity
      */
-    @RequestMapping(value = "/assessment/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createAssessment(@RequestBody Assessment assessment) {
-        apiGateway.createAssessment(assessment);
+    @RequestMapping(value = "/assessment/create",
+                    method = RequestMethod.PUT,
+                    consumes = MediaType.APPLICATION_JSON_VALUE,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createAssessment(@RequestBody com.revature.caliber.assessment.beans.Assessment assessment) {
+        apiGateway.insertAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);
     }
 

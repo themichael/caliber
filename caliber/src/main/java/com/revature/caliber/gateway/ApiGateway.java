@@ -286,7 +286,7 @@ public interface ApiGateway {
      *
      * @param assessment the assessment
      */
-    void insertAssessment(Assessment assessment);
+    void insertAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * update an assessment
@@ -352,7 +352,7 @@ public interface ApiGateway {
      *
      * @param assessment the assessment
      */
-    void createAssessment(Assessment assessment);
+    void createAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
 
     /**
