@@ -1,30 +1,27 @@
 angular.module("trainer").controller(
     "trainerHomeController",
-    function ($scope, $log, caliberDelegate, chartsDelegate) {
+    function ($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
         $log.debug("Booted trainer home controller.");
 
         /*********************************************** UI ***************************************************/
         var viewCharts = 0;
 
-        $scope.batches = ["Batch1311", "Batch1612", "Batch1512",
-            "Batch1812", "Batch0910", "Batch0805", "Batch0408"];
-        $scope.tech = ["Spring", "Hibernate", "JSP"];
+        $scope.batches = allBatches;
         $scope.trainees = ["Osher", "Kyle", "Rikki"];
 
-        $scope.currentBatch = "Batch";
-
+        $scope.currentBatch = {};
+        $scope.currentBatch.trainingName = "Batch";
         $scope.currentTech = "Technology";
-
         $scope.currentTrainee = "Trainee";
 
         // on batch selection
-        $scope.selectCurrentBatch = function (index) {
+        $scope.selectCurrentBatch = function(index) {
             $scope.currentTech = "Tech";
             $scope.currentTrainee = "Trainee";
             // turn of batches
             if (index === -1) {
                 viewCharts = 0;
-                $scope.currentBatch = "Batch";
+                $scope.currentBatch.trainingName = "Batch";
             }
             else {
                 $scope.currentBatch = $scope.batches[index];
@@ -63,7 +60,7 @@ angular.module("trainer").controller(
 
         // hide filter tabs
         $scope.hideOtherTabs = function () {
-            return $scope.currentBatch !== "Batch";
+            return $scope.currentBatch.trainingName !== "Batch";
 
         };
 
@@ -75,25 +72,25 @@ angular.module("trainer").controller(
 
         // create charts on batch selection
         function createBatchCharts() {
-            // Radar chart for batch rank comparison
-            var sample8 = [
-                {tech: "Java", average: ranNum()}, {tech: "Servlet", average: ranNum()},
-                {tech: "Spring", average: ranNum()}, {tech: "Hibernate", average: ranNum()},
-                {tech: "REST", average: ranNum()}, {tech: "SOAP", average: ranNum()},
-                {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
-
-            var sample9 = [
-                {tech: "Java", average: ranNum()}, {tech: "Servlet", average: ranNum()},
-                {tech: "Spring", average: ranNum()}, {tech: "Hibernate", average: ranNum()},
-                {tech: "REST", average: ranNum()}, {tech: "SOAP", average: ranNum()},
-                {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
-
-            // Generate chart
-            var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(sample8, sample9);
-            $scope.radarData = radarChartObject.data;
-            $scope.radarLabels = radarChartObject.labels;
-            $scope.radarSeries = radarChartObject.series;
-            $scope.radarOptions = radarChartObject.options;
+            // // Radar chart for batch rank comparison
+            // var sample8 = [
+            //     {tech: "Java", average: ranNum()}, {tech: "Servlet", average: ranNum()},
+            //     {tech: "Spring", average: ranNum()}, {tech: "Hibernate", average: ranNum()},
+            //     {tech: "REST", average: ranNum()}, {tech: "SOAP", average: ranNum()},
+            //     {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
+            //
+            // var sample9 = [
+            //     {tech: "Java", average: ranNum()}, {tech: "Servlet", average: ranNum()},
+            //     {tech: "Spring", average: ranNum()}, {tech: "Hibernate", average: ranNum()},
+            //     {tech: "REST", average: ranNum()}, {tech: "SOAP", average: ranNum()},
+            //     {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
+            //
+            // // Generate chart
+            // var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(sample8, sample9);
+            // $scope.radarData = radarChartObject.data;
+            // $scope.radarLabels = radarChartObject.labels;
+            // $scope.radarSeries = radarChartObject.series;
+            // $scope.radarOptions = radarChartObject.options;
 
             // batch week by week sample data
             var sample3 = [{week: "Week 1", average: ranNum()}, {week: "Week 2", average: ranNum()},
@@ -111,6 +108,21 @@ angular.module("trainer").controller(
             $scope.batchProgressOptions = lineChartObject.options;
             $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
 
+            caliberDelegate.agg.getAggWeekBatch($scope.currentBatch.batchId)
+                .then(function(data){
+                    $log.debug(data);
+                    var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
+                    $scope.radarData = radarChartObject.data;
+                    $scope.radarLabels = radarChartObject.labels;
+                    $scope.radarSeries = radarChartObject.series;
+                    $scope.radarOptions = radarChartObject.options;
+                });
+
+            caliberDelegate.agg.getAggTechBatch($scope.currentBatch.batchId)
+                .then(function(data){
+                    $log.debug(data);
+
+                });
         }
 
         // create charts on tech selection
