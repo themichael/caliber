@@ -52,7 +52,7 @@ public interface AssessmentService {
     /**
      * Inserts a new Grade into database
      */
-    void insertGrade(com.revature.caliber.assessment.beans.Grade grade);
+    Long insertGrade(com.revature.caliber.assessment.beans.Grade grade);
 
     /**
      * Updates a grade

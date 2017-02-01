@@ -130,9 +130,7 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     @Override
-    public void insertGrade(com.revature.caliber.assessment.beans.Grade grade) {
-        serviceLocator.getAssessmentService().insertGrade(grade);
-
+    public Long insertGrade(com.revature.caliber.assessment.beans.Grade grade) {return serviceLocator.getAssessmentService().insertGrade(grade);
     }
 
     /***********************************Trainer Notes**********************************/
