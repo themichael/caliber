@@ -1,30 +1,42 @@
 angular.module("vp").controller(
     "vpHomeController",
-    function ($scope, $log, caliberDelegate, chartsDelegate) {
+    function ($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
         $log.debug("Booted vp home controller.");
+        $log.debug("VP ALL Batches: ");
+        $log.debug(allBatches);
 
         /*********************************************** UI ***************************************************/
-            // decides what charts are to be shown
+        // decides what charts are to be shown
         var viewCharts = 0;
 
         // UI - Dropdown menu selection
-        $scope.batches = ["Batch1311", "Batch1612", "Batch1512", "Batch1812", "Batch0910", "Batch0805", "Batch0408"];
+        $scope.batches = allBatches;
         $scope.tech = ["Spring", "Hibernate", "JSP"];
         $scope.trainees = ["Osher", "Kyle", "Rikki"];
 
         // dropdown defaults
-        $scope.currentBatch = "Batch";
-        $scope.currentTech = "Tech";
-        $scope.currentTrainee = "Trainee";
+        $scope.currentBatch = {};
+        $scope.currentBatch.trainingName = "Batch";
+        $scope.currentTech = {};
+        $scope.currentTech.name = "Tech";
+        $scope.currentTrainee = {};
+        $scope.currentTrainee.name = "Trainee";
+
+        //  none selected check
+        // $scope.noneSelected = function(){
+        //     if($scope.currentBatch !== "Batch")
+        //         return $scope.currentBatch.trainingName;
+        //     return $scope.currentBatch;
+        // };
 
         // on batch selection
         $scope.selectCurrentBatch = function (index) {
-            $scope.currentTech = "Tech";
-            $scope.currentTrainee = "Trainee";
+            $scope.currentTech.name = "Tech";
+            $scope.currentTrainee.name = "Trainee";
             // turn of batches
             if (index === -1) {
                 viewCharts = 0;
-                $scope.currentBatch = "Batch";
+                $scope.currentBatch.trainingName = "Batch";
             }
             else {
                 $scope.currentBatch = $scope.batches[index];
@@ -36,11 +48,11 @@ angular.module("vp").controller(
         // on tech selection
         $scope.selectCurrentTech = function (index) {
             if (index === -1) {
-                $scope.currentTrainee = "Trainee";
-                $scope.currentTech = "Tech";
+                $scope.currentTrainee.name = "Trainee";
+                $scope.currentTech.name = "Tech";
                 viewCharts = 1;
             } else {
-                $scope.currentTrainee = "Trainee";
+                $scope.currentTrainee.name = "Trainee";
                 $scope.currentTech = $scope.tech[index];
                 viewCharts = 2;
                 createTechCharts();
@@ -50,20 +62,20 @@ angular.module("vp").controller(
         // on trainee selection
         $scope.selectCurrentTrainee = function (index) {
             if (index === -1) {
-                $scope.currentTrainee = "Trainee";
+                $scope.currentTrainee.name = "Trainee";
                 viewCharts = 2;
             }
             else {
-                $scope.currentTech = "Tech";
-                $scope.currentTrainee = $scope.trainees[index];
+                $scope.currentTech.name = "Tech";
+                $scope.currentTrainee = $scope.currentBatch.trainees[index];
                 viewCharts = 3;
-                createTraineeCharts();
+                createTraineeCharts($scope.currentTrainee.traineeId);
             }
         };
 
         // hide filter tabs
         $scope.hideOtherTabs = function () {
-            return $scope.currentBatch !== "Batch";
+            return $scope.currentBatch.trainingName !== "Batch";
 
         };
 
@@ -135,7 +147,7 @@ angular.module("vp").controller(
         }
 
         // create charts on trainee section
-        function createTraineeCharts() {
+        function createTraineeCharts(traineeId) {
 
             // Sample Data representing trainee average over 12 weeks
             var sample5 = [{week: "Week 1", average: 79}, {week: "Week 2", average: 89},
@@ -165,6 +177,9 @@ angular.module("vp").controller(
             $scope.techScoreLabels = radarChartObject.labels;
             $scope.techScoreData = radarChartObject.data;
             $scope.techScoreOptions = radarChartObject.options;
+
+            caliberDelegate.agg.getAggTechTrainee(traineeId);
+            caliberDelegate.agg.getAggWeekTrainee(traineeId);
         }
 
         /**************************************** Default Charts *******************************************/
@@ -197,6 +212,37 @@ angular.module("vp").controller(
         $scope.allBatchesRankLabels = hbarChartObject2.labels;
         $scope.allBatchesRankData = hbarChartObject2.data;
         $scope.allBatchesRankSeries = hbarChartObject2.series;
+
+
+        /***************************** Agg Functions ****************************/
+        (function(){
+            caliberDelegate.agg.getAggTechAllBatch()
+                .then(function(data){
+                    $scope.aggBatchData = [];
+                    angular.forEach(data, function(value, key){
+                        var sum = 0; var numBatches = 0;
+                        angular.forEach(value, function(value, key2){
+                            sum = sum + value[0]; numBatches++;
+                        });
+                        var average = sum/numBatches;
+                        $scope.aggBatchData.push({name: key, score: average});
+                    });
+                    var hbarChartObject2 = chartsDelegate.hbar.getAllBatchesEvalChart($scope.aggBatchData);
+                    $scope.allBatchesRankLabels = hbarChartObject2.labels;
+                    $scope.allBatchesRankData = hbarChartObject2.data;
+                    $scope.allBatchesRankSeries = hbarChartObject2.series;
+                    $log.debug($scope.aggBatchData);
+                });
+
+            var data = caliberDelegate.all.createBatch(null)
+                .then(function(data){
+                    $log.log("Pass: " + data);
+                }, function(data){
+                   $log.log("Fail: " + data);
+                });
+            $log.debug(data);
+
+        })();
 
         // random number gen - sample data only!
         function ranNum() {

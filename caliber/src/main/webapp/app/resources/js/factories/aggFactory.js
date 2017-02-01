@@ -6,79 +6,79 @@ angular.module("api")
 
         agg.techTrainee = function(traineeId) {
             return $http({
-                url: "/caliber/agg/tech/trainee/" + traineeId,
+                url: "/caliber/all/agg/tech/trainee/" + traineeId,
                 method: "GET"
             }).then(function(response) {
+                $log.debug("Agg - Tech - trainee -- success");
                 $log.debug(response);
                 return response.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
         agg.weekTrainee = function(traineeId) {
             return $http({
-                url: "/caliber/agg/week/trainee/" + traineeId,
+                url: "/caliber/all/agg/week/trainee/" + traineeId,
                 method: "GET"
             }).then(function(response) {
+                $log.debug("Agg - Week - trainee -- success");
                 $log.debug(response);
                 return reponse.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
         agg.techBatch = function(batchId) {
             return $http({
-                url: "/caliber/agg/tech/batch/" + batchId,
+                url: "/caliber/all/agg/tech/batch/" + batchId,
                 method: "GET"
             }).then(function(response) {
+                $log.debug("Agg - Tech - Batch -- success");
                 $log.debug(response);
                 return response.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
         agg.weekBatch = function(batchId) {
             return $http({
-                url: "/caliber/agg/week/batch/" + batchId,
+                url: "/caliber/all/agg/week/batch/" + batchId,
                 method: "GET"
             }).then(function(response) {
+                $log.debug("Agg - Week - Batch -- success");
                 $log.debug(response);
                 return response.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
         agg.techAllBatch = function() {
             return $http({
-                url: "/caliber/agg/tech/batch/all",
+                url: "/caliber/all/agg/tech/batch/all",
                 method: "GET"
             }).then(function (response) {
+                $log.debug("Agg - Tech - Batch - All -- success");
                 $log.debug(response);
                 return response.data;
             }, function (response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
         agg.batchTrainer = function(trainerId) {
             return $http({
-                url: "/caliber/agg/batch/trainer/" + trainerId,
+                url: "/caliber/vp/agg/batch/trainer/" + trainerId,
                 method: "GET"
             }).then(function(response) {
+                $log.debug("Agg - Batch - Trainer -- success");
                 $log.debug(response);
                 return response.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
-                return null;
             });
         };
 
