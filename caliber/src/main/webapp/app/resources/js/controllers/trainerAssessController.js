@@ -1,5 +1,6 @@
 angular.module("trainer")
-    .controller("trainerAssessController", function ($log, $scope, chartsDelegate, caliberDelegate) {
+    .controller("trainerAssessController", function($log, $scope, chartsDelegate, caliberDelegate, allBatches){
+
         $log.debug("Booted Trainer Aesess Controller");
 
         /******************************** Sample Data *******************************/
@@ -121,9 +122,27 @@ angular.module("trainer")
         // END TEST DATA *********************
 
         /******************************************* UI ***********************************************/
+
+        $log.debug("Batches " + allBatches);
+
+        (function start(allBatches){
+           if(allBatches.length > 0){
+               $scope.currentBatch = allBatches[0];
+               if(allBatches[0].weeks.length > 0)
+                   $scope.currentWeek = allBatches[0].weeks;
+               else $scope.currentWeek = null;
+           }else{
+               $scope.currentBatch = null;
+               $scope.currentWeek = null;
+           }
+           $log.debug("Starting Values: currentBatch and currentWeek");
+           $log.debug($scope.currentBatch);
+           $log.debug($scope.currentWeek);
+        })(allBatches);
+
         // starting scope vars
-        $scope.currentBatch = $scope.batches[0];
-        $scope.currentWeek = $scope.currentBatch.weeks[0];
+        // $scope.currentBatch = allBatches[0];
+        // $scope.currentWeek = allBatches[0].weeks[0];
         $scope.currentAssessments = getAssessments(0);
 
         // default -- view assessments table
@@ -135,8 +154,9 @@ angular.module("trainer")
         };
 
         // batch drop down select
-        $scope.selectCurrentBatch = function (index) {
-            $scope.currentBatch = $scope.batches[index];
+        $scope.selectCurrentBatch = function(index){
+            $scope.currentBatch = allBatches;
+
             // set week
             $scope.currentWeek = $scope.currentBatch.weeks[0];
 

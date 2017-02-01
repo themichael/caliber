@@ -6,22 +6,19 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
     var trainer = {};
 
     /*************************** Batch ************************/
-    // grab all batches
-    trainer.getAllBatches = function () {
-        var data = [];
-        $http({
-            url: "/caliber/trainer/batch/all",
-            method: "GET",
-        }).then(function (response) {
-            $log.debug(response);
-            // copy array
-            angular.copy(response.data, data);
-        }, function (response) {
-            data = null;
-            $log.error("There was an error: " + response.status);
-        });
-        return data;
-    };
+	// grab all batches
+	trainer.getAllBatches = function() {
+		return $http({
+			url : "/caliber/trainer/batch/all",
+			method : "GET",
+		}).then(function(response) {
+			$log.debug(response);
+			// copy array
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
 
     /*************************** Week ************************/
     // create a new week
