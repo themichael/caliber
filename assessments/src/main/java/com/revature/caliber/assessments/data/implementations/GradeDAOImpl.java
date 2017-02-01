@@ -36,9 +36,7 @@ public class GradeDAOImpl implements GradeDAO {
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public void insertGrade(Grade grade) {
-		sessionFactory.getCurrentSession().save(grade);
-	}
+	public Long insertGrade(Grade grade) {return (long)sessionFactory.getCurrentSession().save(grade);}
 
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {

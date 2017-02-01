@@ -134,7 +134,7 @@ public interface Facade {
     /**
      * Inserts a new Grade into database
      */
-    void insertGrade(Grade grade);
+    Long insertGrade(Grade grade);
 
     //Delete
 
