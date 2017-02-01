@@ -2,9 +2,9 @@ angular.module("app").config(
     function ($stateProvider, $locationProvider, $urlRouterProvider,
               ChartJsProvider, $logProvider) {
 
-    	// Turn on/off debug messages
-    	$logProvider.debugEnabled(true);
-    	
+        // Turn on/off debug messages
+        $logProvider.debugEnabled(true);
+
         // chart options
         ChartJsProvider.setOptions({
 
@@ -19,7 +19,7 @@ angular.module("app").config(
         $stateProvider
             .state("routing", {
                 url: "/routing",
-                templateUrl: "app/partials/routing.html",
+                templateUrl: "app/partials/routing.html"
                 // uncomment when dev is complete
                 // onEnter:
                 //     function(authFactory){
@@ -37,6 +37,11 @@ angular.module("app").config(
                 abstract: true,
                 url: "/qc",
                 templateUrl: "app/partials/abstracts/qc.html",
+                resolve: {
+                    allBatches: function(caliberDelegate){
+                        return caliberDelegate.qc.getAllBatches();
+                    }
+                }
                 // uncomment when dev is complete
                 // onEnter:
                 //     function(authFactory){
@@ -64,6 +69,11 @@ angular.module("app").config(
                 abstract: true,
                 url: "/trainer",
                 templateUrl: "app/partials/abstracts/trainer.html",
+                resolve: {
+                    allBatches: function(caliberDelegate){
+                        return caliberDelegate.trainer.getAllBatches();
+                    }
+                }
                 // uncomment when dev is complete
                 // onEnter:
                 //     function(authFactory){
@@ -91,6 +101,11 @@ angular.module("app").config(
                 abstract: true,
                 url: "/vp",
                 templateUrl: "app/partials/abstracts/vp.html",
+                resolve: {
+                    allBatches: function(caliberDelegate){
+                        return caliberDelegate.vp.getAllBatches();
+                    }
+                }
                 // uncomment when dev is complete
                 // onEnter:
                 //     function(authFactory){

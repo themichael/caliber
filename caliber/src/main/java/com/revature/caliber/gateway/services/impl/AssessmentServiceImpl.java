@@ -1,6 +1,12 @@
 package com.revature.caliber.gateway.services.impl;
 
+import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.QCNote;
+import com.revature.caliber.beans.TrainerNote;
 import com.revature.caliber.beans.exceptions.AssessmentServiceAssessmentOperationException;
 import com.revature.caliber.beans.exceptions.AssessmentServiceOperationException;
 import com.revature.caliber.beans.exceptions.TrainingServiceTraineeOperationException;
@@ -69,7 +75,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
-	public void updateAssessment(Assessment assessment) {
+	public void updateAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateAssessmentPath).build().toUriString();
@@ -82,7 +88,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		}
 	}
 	@Override
-	public void deleteAssessment(Assessment assessment) {
+	public void deleteAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(deleteAssessmentPath)
@@ -90,7 +96,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-		HttpEntity<Assessment> entity = new HttpEntity<>(assessment, headers);
+		HttpEntity<com.revature.caliber.assessment.beans.Assessment> entity = new HttpEntity<>(assessment, headers);
 
 		//Invoke the service
 		ResponseEntity<Serializable> response = service.exchange(URI, HttpMethod.DELETE, entity, Serializable.class);
@@ -167,7 +173,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
-	public void updateGrade(Grade grade) {
+	public void updateGrade(com.revature.caliber.assessment.beans.Grade grade) {
 		RestTemplate service = new RestTemplate();
 		//Build Parameters
 		final String URI = UriComponentsBuilder.fromHttpUrl(hostname + portNumber).path(updateGradePath)

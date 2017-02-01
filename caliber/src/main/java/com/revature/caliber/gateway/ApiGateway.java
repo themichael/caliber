@@ -1,6 +1,12 @@
 package com.revature.caliber.gateway;
 
+import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.QCNote;
+import com.revature.caliber.beans.TrainerNote;
 
 import java.util.HashMap;
 import java.util.List;
@@ -222,7 +228,7 @@ public interface ApiGateway {
      *
      * @param grade the grade
      */
-    void updateGrade(Grade grade);
+    void updateGrade(com.revature.caliber.assessment.beans.Grade grade);
 
     /**
      * Create a Trainer Note
@@ -287,14 +293,14 @@ public interface ApiGateway {
      *
      * @param assessment the assessment
      */
-    void updateAssessment(Assessment assessment);
+    void updateAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * Delete an assessment
      *
      * @param assessment the assessment
      */
-    void deleteAssessment(Assessment assessment);
+    void deleteAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * Create qc note.

@@ -40,8 +40,7 @@ public class BatchController {
 	 * @return
 	 */
 	@RequestMapping(value = "batch/create", method = RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+			consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Serializable> createBatch(@RequestBody @Valid Batch batch) {
 		ResponseEntity<Serializable> returnEntity;
 		try {

@@ -1,6 +1,10 @@
 package com.revature.caliber.controllers;
 
+import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Note;
 import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.models.SalesforceUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +84,7 @@ public class TrainerBatchController {
     @RequestMapping(value = "/grade/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
         apiGateway.insertGrade(grade);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     /**
@@ -89,8 +93,8 @@ public class TrainerBatchController {
      * @param grade the grade
      * @return the response entity
      */
-    @RequestMapping(value = "/grade/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateGrade(@RequestBody Grade grade) {
+    @RequestMapping(value = "/grade/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
         apiGateway.updateGrade(grade);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -116,9 +120,11 @@ public class TrainerBatchController {
      * @param id the id
      * @return the response entity
      */
-    @RequestMapping(value = "/assessment/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/assessment/delete/{id}",
+            method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteAssessment(@PathVariable int id) {
-        Assessment assessment = new Assessment();
+        com.revature.caliber.assessment.beans.Assessment assessment = new com.revature.caliber.assessment.beans.Assessment();
         assessment.setAssessmentId(id);
         apiGateway.deleteAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);
@@ -130,8 +136,8 @@ public class TrainerBatchController {
      * @param assessment the assessment
      * @return the response entity
      */
-    @RequestMapping(value = "/assessment/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateAssessment(@RequestBody Assessment assessment) {
+    @RequestMapping(value = "/assessment/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateAssessment(@RequestBody com.revature.caliber.assessment.beans.Assessment assessment) {
         apiGateway.updateAssessment(assessment);
         return new ResponseEntity(HttpStatus.OK);
     }

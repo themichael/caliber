@@ -1,6 +1,12 @@
 package com.revature.caliber.gateway.services;
 
+import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.QCNote;
+import com.revature.caliber.beans.TrainerNote;
 
 import java.util.List;
 import java.util.Set;
@@ -19,14 +25,14 @@ public interface AssessmentService {
      *
      * @param assessment an Assessment to be updated
      */
-    void updateAssessment(Assessment assessment);
+    void updateAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * Deletes Assessment
      *
      * @param assessment and Assessment to delete
      */
-    void deleteAssessment(Assessment assessment);
+    void deleteAssessment(com.revature.caliber.assessment.beans.Assessment assessment);
 
     /**
      * Get all assessments
@@ -51,7 +57,7 @@ public interface AssessmentService {
     /**
      * Updates a grade
      */
-    void updateGrade(Grade grade);
+    void updateGrade(com.revature.caliber.assessment.beans.Grade grade);
 
 	/**
 	 * Get all grades

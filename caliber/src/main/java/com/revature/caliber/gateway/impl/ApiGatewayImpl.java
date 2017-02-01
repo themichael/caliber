@@ -1,6 +1,12 @@
 package com.revature.caliber.gateway.impl;
 
+import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.BatchNote;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.QCNote;
+import com.revature.caliber.beans.TrainerNote;
 import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.gateway.services.ServiceLocator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,12 +181,12 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     @Override
-    public void updateAssessment(Assessment assessment) {
+    public void updateAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
         serviceLocator.getAssessmentService().updateAssessment(assessment);
     }
 
     @Override
-    public void deleteAssessment(Assessment assessment) {
+    public void deleteAssessment(com.revature.caliber.assessment.beans.Assessment assessment) {
         serviceLocator.getAssessmentService().deleteAssessment(assessment);
     }
 
@@ -503,9 +509,7 @@ public class ApiGatewayImpl implements ApiGateway {
 
     }
 
-    public void updateGrade(Grade grade) {
-    }
-
+    public void updateGrade(com.revature.caliber.assessment.beans.Grade grade) { serviceLocator.getAssessmentService().updateGrade(grade);}
 
 
     @Override
