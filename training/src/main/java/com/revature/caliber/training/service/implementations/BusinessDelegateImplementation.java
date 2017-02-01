@@ -48,8 +48,8 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 
 
 	// trainee
-	public void createTrainee(Trainee trainee) {
-		traineeService.createTrainee(trainee);
+	public long createTrainee(Trainee trainee) {
+		return traineeService.createTrainee(trainee);
 	}
 
 	public void updateTrainee(Trainee trainee) {

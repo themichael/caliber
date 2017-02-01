@@ -15,7 +15,7 @@ import com.revature.caliber.training.beans.Week;
 public interface BusinessDelegate {
 
 	// TraineeService methods
-	public void createTrainee(Trainee trainee);
+	public long createTrainee(Trainee trainee);
 
 	public void updateTrainee(Trainee trainee);
 
