@@ -3,7 +3,11 @@ angular.module("api")
         $log.debug("Booted Aggregate Factory");
 
         var agg = {};
-
+        /**
+         *
+         * @param traineeId
+         * @returns {*}
+         */
         agg.techTrainee = function(traineeId) {
             return $http({
                 url: "/caliber/all/agg/tech/trainee/" + traineeId,
@@ -16,7 +20,11 @@ angular.module("api")
                 $log.error("There was an error: " + response.status);
             });
         };
-
+        /**
+         *
+         * @param traineeId
+         * @returns {*}
+         */
         agg.weekTrainee = function(traineeId) {
             return $http({
                 url: "/caliber/all/agg/week/trainee/" + traineeId,
@@ -30,6 +38,11 @@ angular.module("api")
             });
         };
 
+        /**
+         *
+         * @param batchId
+         * @returns {*}
+         */
         agg.techBatch = function(batchId) {
             return $http({
                 url: "/caliber/all/agg/tech/batch/" + batchId,
@@ -43,6 +56,11 @@ angular.module("api")
             });
         };
 
+        /**
+         *
+         * @param batchId
+         * @returns {*}
+         */
         agg.weekBatch = function(batchId) {
             return $http({
                 url: "/caliber/all/agg/week/batch/" + batchId,
@@ -56,6 +74,10 @@ angular.module("api")
             });
         };
 
+        /**
+         *
+         * @returns {*}
+         */
         agg.techAllBatch = function() {
             return $http({
                 url: "/caliber/all/agg/tech/batch/all",
@@ -69,6 +91,11 @@ angular.module("api")
             });
         };
 
+        /**
+         *
+         * @param trainerId
+         * @returns {*}
+         */
         agg.batchTrainer = function(trainerId) {
             return $http({
                 url: "/caliber/vp/agg/batch/trainer/" + trainerId,
