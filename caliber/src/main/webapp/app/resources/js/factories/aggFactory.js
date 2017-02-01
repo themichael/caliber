@@ -4,100 +4,82 @@ angular.module("api")
 
         var agg = {};
 
-        agg.techTrainee = function (traineeId) {
-            var data = {};
-            $http({
+        agg.techTrainee = function(traineeId) {
+            return $http({
                 url: "/caliber/agg/tech/trainee/" + traineeId,
                 method: "GET"
-            }).then(function (response) {
+            }).then(function(response) {
                 $log.debug(response);
-                // copy array
-                angular.copy(response.data, data);
-            }, function (response) {
-                data = null;
+                return response.data;
+            }, function(response) {
                 $log.error("There was an error: " + response.status);
+                return null;
             });
-            return data;
         };
 
-        agg.weekTrainee = function (traineeId) {
-            var data = {};
-            $http({
+        agg.weekTrainee = function(traineeId) {
+            return $http({
                 url: "/caliber/agg/week/trainee/" + traineeId,
                 method: "GET"
-            }).then(function (response) {
+            }).then(function(response) {
                 $log.debug(response);
-                // copy array
-                angular.copy(response.data, data);
-            }, function (response) {
-                data = null;
+                return reponse.data;
+            }, function(response) {
                 $log.error("There was an error: " + response.status);
+                return null;
             });
-            return data;
         };
 
-        agg.techBatch = function (batchId) {
-            var data = {};
-            $http({
+        agg.techBatch = function(batchId) {
+            return $http({
                 url: "/caliber/agg/tech/batch/" + batchId,
                 method: "GET"
-            }).then(function (response) {
+            }).then(function(response) {
                 $log.debug(response);
-                // copy array
-                angular.copy(response.data, data);
-            }, function (response) {
-                data = null;
+                return response.data;
+            }, function(response) {
                 $log.error("There was an error: " + response.status);
+                return null;
             });
-            return data;
         };
 
-        agg.weekBatch = function (batchId) {
-            var data = {};
-            $http({
+        agg.weekBatch = function(batchId) {
+            return $http({
                 url: "/caliber/agg/week/batch/" + batchId,
                 method: "GET"
-            }).then(function (response) {
+            }).then(function(response) {
                 $log.debug(response);
-                // copy array
-                angular.copy(response.data, data);
-            }, function (response) {
-                data = null;
+                return response.data;
+            }, function(response) {
                 $log.error("There was an error: " + response.status);
+                return null;
             });
-            return data;
         };
 
-        agg.techAllBatch = function () {
-            var data = {};
-            $http({
+        agg.techAllBatch = function() {
+            return $http({
                 url: "/caliber/agg/tech/batch/all",
                 method: "GET"
             }).then(function (response) {
                 $log.debug(response);
-                // copy array
-                angular.copy(response.data, data);
+                return response.data;
             }, function (response) {
-                data = null;
                 $log.error("There was an error: " + response.status);
+                return null;
             });
-            return data;
         };
 
-        agg.batchTrainer = function (trainerId) {
-            var data = {};
-            $http({
+        agg.batchTrainer = function(trainerId) {
+            return $http({
                 url: "/caliber/agg/batch/trainer/" + trainerId,
                 method: "GET"
-            }).then(function (response) {
+            }).then(function(response) {
                 $log.debug(response);
-                // copy array
-                angular.copy(response.data, data);
-            }, function (response) {
-                data = null;
+                return response.data;
+            }, function(response) {
                 $log.error("There was an error: " + response.status);
+                return null;
             });
-            return data;
         };
 
         return agg;
