@@ -44,8 +44,7 @@ public class BatchController {
 	public ResponseEntity<Long> createBatch(@RequestBody @Valid Batch batch) {
 		ResponseEntity<Long> returnEntity;
 		try {
-			long batchId = businessDelegate.createBatch(batch);
-			returnEntity = new ResponseEntity(batchId, HttpStatus.CREATED);
+			returnEntity = new ResponseEntity(businessDelegate.createBatch(batch), HttpStatus.CREATED);
 		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
 			log.error("Runtime Exception.", e);

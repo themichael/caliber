@@ -35,9 +35,7 @@ public class ApiGatewayImpl implements ApiGateway {
     }
 
     /****************************Batch*******************************/
-    public void createBatch(Batch batch) {
-        serviceLocator.getTrainingService().createBatch(batch);
-    }
+    public Long createBatch(Batch batch) {return serviceLocator.getTrainingService().createBatch(batch);}
 
     public List<Batch> allBatch() {
         return serviceLocator.getTrainingService().allBatch();

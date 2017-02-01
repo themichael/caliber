@@ -98,7 +98,7 @@ public class FacadeImplementation implements Facade {
 	// Batch
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public long createBatch(Batch batch) {
+	public Long createBatch(Batch batch) {
 		return batchDAO.createBatch(batch);
 	}
 
