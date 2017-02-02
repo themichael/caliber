@@ -3,6 +3,17 @@ angular.module("trainer")
 
         $log.debug("Booted Trainer Aesess Controller");
 
+        /******************************TEST DATA***********************/
+        $scope.skill_categories = [
+            {skillCategory:"C# .NET"},
+            {skillCategory:"NodeJS"},
+            {skillCategory:"Java2EE"},
+            {skillCategory:"PHP Laravel"}
+        ];
+
+
+
+
         /******************************************* UI ***********************************************/
 
         $log.debug("Batches " + allBatches);
@@ -91,6 +102,24 @@ angular.module("trainer")
             $scope.currentView = false;
             /** replace with ajax call to get grades by assessmentId **/
         };
-
+        
+        $scope.addAssessment = function () {
+            var assessment = {
+                assessmentId: 1,
+                title: $scope.trainingName,
+                batch: $scope.currentBatch,
+                type: $scope.trainingType,
+                categories:  $scope.selectedCategories,
+                weeklyStatus: null,
+                rawScore: $scope.rawScore
+            };
+            console.log(assessment);
+        };
+        $scope.selectedCategories = [];
+        $scope.toggleSelection = function (category) {
+            var index = $scope.selectedCategories.indexOf(category);
+            if(index > -1) $scope.selectedCategories.splice(index,1);
+            else $scope.selectedCategories.push(category);
+        }
 
     });
