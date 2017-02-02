@@ -36,7 +36,7 @@ public class TraineeDAOImplementation implements TraineeDAO {
     public List<Trainee> getTraineesInBatch(Integer batchId) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Trainee.class);
-        criteria.add(Restrictions.eq("batch.batchId", batchId));
+        criteria.add(Restrictions.eq("batch.batchId", batchId.longValue()));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
         return criteria.list();

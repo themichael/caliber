@@ -3,6 +3,7 @@ angular.module("trainer").controller(
     function ($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
         $log.debug("Booted trainer home controller.");
 
+    /*********************************** On Start *****************************/
     (function start(){
         createDefaultChart();
     })();
@@ -24,20 +25,16 @@ angular.module("trainer").controller(
     var viewCharts = 0;
 
     $scope.batches = allBatches;
-    $scope.currentBatch = {};
-    $scope.currentBatch.trainingName = "Batch";
-    $scope.currentTech = "Technology";
-    $scope.currentTrainee = {};
-    $scope.currentTrainee.name = "Trainee";
+    $scope.currentBatch = {trainingName: "Batch"};
+    $scope.currentTrainee = {name: "Trainee"};
 
         // on batch selection
         $scope.selectCurrentBatch = function (index) {
-            $scope.currentTech = "Tech";
-            $scope.currentTrainee.name = "Trainee";
+            $scope.currentTrainee = {name: "Trainee"};
             // turn of batches
             if (index === -1) {
                 viewCharts = 0;
-                $scope.currentBatch.trainingName = "Batch";
+                $scope.currentBatch = {trainingName: "Batch"};
                 createDefaultChart();
             }
             else {
@@ -47,28 +44,14 @@ angular.module("trainer").controller(
             }
         };
 
-        // on tech selection
-        $scope.selectCurrentTech = function (index) {
-            if (index === -1) {
-                $scope.currentTrainee.name = "Trainee";
-                $scope.currentTech = "Tech";
-                viewCharts = 1;
-            } else {
-                $scope.currentTrainee.name = "Trainee";
-                $scope.currentTech = $scope.tech[index];
-                viewCharts = 2;
-                createTechCharts();
-            }
-        };
-
         // on trainee selection
         $scope.selectCurrentTrainee = function (index) {
             if (index === -1) {
-                $scope.currentTrainee.name = "Trainee";
-                viewCharts = 2;
+                $scope.currentTrainee = {name: "Trainee"};
+                viewCharts = 1;
+                createBatchCharts();
             }
             else {
-                $scope.currentTech = "Tech";
                 $scope.currentTrainee = $scope.currentBatch.trainees[index];
                 viewCharts = 3;
                 createTraineeCharts();
@@ -77,14 +60,12 @@ angular.module("trainer").controller(
 
         // hide filter tabs
         $scope.hideOtherTabs = function () {
-            return $scope.currentBatch !== "Batch";
-
+            return $scope.currentBatch.trainingName !== "Batch";
         };
 
         // show charts
         $scope.showCharts = function (charts) {
             return charts === viewCharts;
-
         };
 
         // create charts on batch selection
@@ -111,31 +92,6 @@ angular.module("trainer").controller(
                 });
         }
 
-        // create charts on tech selection
-        function createTechCharts() {
-            // Sample Data representing all trainee averages per technology
-            var sampleHbarData = [
-                {trainee: "Rikki", average: ranNum()},
-                {trainee: "Kyle", average: ranNum()},
-                {trainee: "Osher", average: ranNum()},
-                {trainee: "Karina", average: ranNum()},
-                {trainee: "Bryan", average: ranNum()},
-                {trainee: "Shehar", average: ranNum()},
-                {trainee: "Louis", average: ranNum()},
-                {trainee: "Andrew", average: ranNum()},
-                {trainee: "Sam", average: ranNum()},
-                {trainee: "Ilya", average: ranNum()},
-                {trainee: "David", average: ranNum()},
-                {trainee: "Travis", average: ranNum()},
-                {trainee: "Andrew", average: ranNum()}];
-
-            // Horizontal bar chart for trainee averages per technology
-            var hbarChartObject = chartsDelegate.hbar.getBatchAvgChart(sampleHbarData);
-            $scope.hbarLabels = hbarChartObject.labels;
-            $scope.hbarData = hbarChartObject.data;
-            $scope.hbarOptions = hbarChartObject.options;
-        }
-
         // create charts on trainee selection
         function createTraineeCharts() {
 
@@ -143,6 +99,7 @@ angular.module("trainer").controller(
             caliberDelegate.agg.getAggWeekTrainee($scope.currentTrainee.traineeId)
                 .then(function(data){
                     $log.debug(data);
+                    NProgress.done();
                     var lineChartObject = chartsDelegate.line.getTraineeProgressChart(data);
                     $scope.lineLabels = lineChartObject.labels;
                     $scope.lineSeries = lineChartObject.series;
@@ -154,7 +111,6 @@ angular.module("trainer").controller(
             caliberDelegate.agg.getAggTechTrainee($scope.currentTrainee.traineeId)
                 .then(function(data){
                     $log.debug(data);
-                    NProgress.done();
                     var radarChartObject = chartsDelegate.radar.getTraineeTechProgressChart(data);
                     $scope.radarData = radarChartObject.data;
                     $scope.radarLabels = radarChartObject.labels;
@@ -162,17 +118,6 @@ angular.module("trainer").controller(
                     $scope.radarOptions = radarChartObject.options;
                 });
         }
-
-
-        /**************************************** Default Charts *******************************************/
-
-        // random number gen - sample data only!
-        function ranNum() {
-            var num = (Math.random() * 50) + 50;
-            return num.toFixed(2);
-        }
-
-
 
     });
 
