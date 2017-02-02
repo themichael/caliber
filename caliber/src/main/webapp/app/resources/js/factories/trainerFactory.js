@@ -72,6 +72,7 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
         }).then(function (response) {
             $log.debug("Week successfully created.");
             $log.debug(response);
+            // return id
             return response.data;
         },function (response) {
             $log.error("There was an error: " + response.status);
@@ -117,6 +118,8 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
         }).then(function (response) {
             $log.debug("Assessment successfully created.");
             $log.debug(response);
+            // return id
+            return response.data;
         }, function(response) {
             $log.error("There was an error: " + response.status);
         });
@@ -172,6 +175,8 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
         }).then(function(response) {
             $log.debug("Notes successfully created");
             $log.debug(response);
+            // return id
+            return response.data;
         }, function (response) {
             $log.error("There was an error: " + response.status);
         });
