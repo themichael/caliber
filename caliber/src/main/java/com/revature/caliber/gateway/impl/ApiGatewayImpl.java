@@ -588,17 +588,17 @@ public class ApiGatewayImpl implements ApiGateway {
 
     @Override
     public Map<String, Double[]> getTraineeGradeDataForTrainer(int trainerId) {
-    	//query all batches where trainer is X then query all trainee in those batches
-        Set<Batch> batches = serviceLocator.getTrainingService().allBatch();
-        List<Trainee> trainees = new ArrayList<>();
-        for(Batch batch:batches){
-        	List<Trainee> temptrainees = serviceLocator.getTrainingService().getTraineesInBatch(batch.getBatchId());
-        	trainees.addAll(temptrainees);
-        	}
+        List<Trainee> trainees = serviceLocator.getTrainingService().getTraineesByTrainer(new Long(trainerId));
+        List<com.revature.caliber.assessment.beans.Grade> allGrades =
+                serviceLocator.getAssessmentService().getAllGrades();
         HashMap<String, Double[]> grades = new HashMap<>();
         for (Trainee trainee : trainees) {
-            List<com.revature.caliber.assessment.beans.Grade> tgrades =
-                    serviceLocator.getAssessmentService().getGradesByTraineeId(trainee.getTraineeId());
+            List<com.revature.caliber.assessment.beans.Grade> tgrades = new ArrayList<>();
+            for (com.revature.caliber.assessment.beans.Grade gr : allGrades) {
+                if (gr.getTrainee() == trainee.getTraineeId()) {
+                    tgrades.add(gr);
+                }
+            }
             List<Integer> scores = new ArrayList<>();
             for (com.revature.caliber.assessment.beans.Grade grade : tgrades) {
                 scores.add(grade.getScore());
