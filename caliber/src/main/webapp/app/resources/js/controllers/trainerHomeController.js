@@ -167,6 +167,16 @@ angular.module("trainer").controller(
             return num.toFixed(2);
         }
 
+        (function start(){
+            caliberDelegate.agg.getAggTechAllBatch()
+                .then(function(data){
+                    $log.debug(data);
+                    chartsDelegate.hbar.getAllBatchesEvalChart(data);
+                    $scope.allBatchesRankLabels = hbarChartObject.labels;
+                    $scope.allBatchesRankData = hbarChartObject.data;
+                    $scope.allBatchesRankSeries = hbarChartObject.series;
+                });
+        })();
 
     });
 
