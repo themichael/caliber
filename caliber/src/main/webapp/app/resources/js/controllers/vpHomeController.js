@@ -9,7 +9,8 @@ angular.module("vp").controller(
         })();
 
         function createDefaultCharts(){
-
+            //Finishes any left over ajax animation from another page
+            NProgress.done();
             NProgress.start();
             caliberDelegate.agg.getAggTechAllBatch()
                 .then(function(data){
