@@ -71,7 +71,6 @@
                 <tr>
                     <th>Trainee</th>
                     <th role="button" ng-repeat="assessment in currentAssessments track by $index">
-                        fs
                     </th>
                 </tr>
                 </thead>
@@ -132,13 +131,17 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
-                        <label for="skillType">Skill Type:</label>
-                        <select ng-model="skillType" class="form-control" id="skillType" required>
-                            <option value="" disabled selected>Select Skill Type</option>
-                            <option ng-repeat="category in skill_categories track by $index">
-                                {{category.skillCategory}}
-                            </option>
-                        </select>
+                        <label>Skill Type:</label>
+                        <br>
+                        <!--<select class="form-control" ng-model="skillType" id="skillType"-->
+                                <!--ng-options="category as category.skillCategory for category in skill_categories" ng-change="updateSkillCategory()">-->
+                        <!--</select>-->
+                        <span ng-repeat="category in skill_categories track by $index">
+                            <input type="checkbox" ng-checked="selectedCategories.indexOf(category.skillCategory) > -1" ng-click="toggleSelection(category.skillCategory)" id="{{category}}">
+                            <label for="{{category}}">{{category.skillCategory}}</label>
+                            <br>
+                        </span>
+
                     </div>
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="rawScore">Raw Score:</label>
