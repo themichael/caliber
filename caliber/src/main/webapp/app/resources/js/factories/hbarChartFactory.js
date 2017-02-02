@@ -59,7 +59,9 @@ angular.module("charts").factory("hbarChartFactory", function ($log) {
 
             // loop through object array
             angular.forEach(data, function (value, key) {
+                $log.debug(value);
                 chartData.data.push(value[0]);
+                $log.debug(key);
                 chartData.labels.push(key);
             });
 
