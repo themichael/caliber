@@ -23,8 +23,12 @@ angular.module("trainer")
             $scope.batches = allBatches;
            if(allBatches.length > 0){
                $scope.currentBatch = allBatches[0];
-               if(allBatches[0].weeks.length > 0)
-                   $scope.currentWeek = allBatches[0].weeks;
+               if(allBatches[0].weeks.length > 0){
+                   allBatches[0].weeks.sort(weekComparator);
+                   $scope.currentWeek = allBatches[0].weeks[0];
+
+               }
+
                else $scope.currentWeek = null;
            }else{
                $scope.currentBatch = null;
@@ -62,6 +66,7 @@ angular.module("trainer")
         // select week
         $scope.selectWeek = function (index) {
             $scope.currentWeek = $scope.currentBatch.weeks[index];
+            console.log($scope.currentWeek);
             /** ajax call to get assessments by weekId **/
         };
 
@@ -107,19 +112,26 @@ angular.module("trainer")
             var assessment = {
                 assessmentId: 1,
                 title: $scope.trainingName,
-                batch: $scope.currentBatch,
+                batch: $scope.currentBatch.batchId,
                 type: $scope.trainingType,
                 categories:  $scope.selectedCategories,
+                week: $scope.currentWeek.weekId,
                 weeklyStatus: null,
                 rawScore: $scope.rawScore
             };
             console.log(assessment);
+            caliberDelegate.trainer.createAssessment(assessment);
         };
         $scope.selectedCategories = [];
         $scope.toggleSelection = function (category) {
             var index = $scope.selectedCategories.indexOf(category);
             if(index > -1) $scope.selectedCategories.splice(index,1);
             else $scope.selectedCategories.push(category);
+        }
+
+        function weekComparator(w1,w2) {
+            return (w1.weekNumber>w2.weekNumber)? 1:
+                (w2.weekNumber>w1.weekNumber)?-1 : 0;
         }
 
     });
