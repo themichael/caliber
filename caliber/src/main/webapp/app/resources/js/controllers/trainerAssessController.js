@@ -24,10 +24,7 @@ angular.module("trainer")
            if(allBatches.length > 0){
                $scope.currentBatch = allBatches[0];
                if(allBatches[0].weeks.length > 0){
-                   allBatches[0].weeks.sort(function (w1, w2) {
-                      return (w1.weekNumber>w2.weekNumber)? 1:
-                          (w2.weekNumber>w1.weekNumber)?-1 : 0;
-                   });
+                   allBatches[0].weeks.sort(weekComparator);
                    $scope.currentWeek = allBatches[0].weeks[0];
 
                }
@@ -130,6 +127,11 @@ angular.module("trainer")
             var index = $scope.selectedCategories.indexOf(category);
             if(index > -1) $scope.selectedCategories.splice(index,1);
             else $scope.selectedCategories.push(category);
+        }
+
+        function weekComparator(w1,w2) {
+            return (w1.weekNumber>w2.weekNumber)? 1:
+                (w2.weekNumber>w1.weekNumber)?-1 : 0;
         }
 
     });
