@@ -120,7 +120,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
     /************************** Grades **************************/
 
     /**
-     *
+     * Gets all grades for a given Assessment
      * @param assessmentId
      * @returns {*}
      */

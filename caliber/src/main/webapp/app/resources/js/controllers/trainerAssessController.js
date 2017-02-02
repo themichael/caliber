@@ -140,22 +140,55 @@ angular.module("trainer")
             else $scope.selectedCategories.push(category);
         };
 
-        $scope.updateGrade = function (traineeId, assessment) {
-            $log.debug(traineeId);
-            var grade = {
-                gradeId: 1,
-                assessment: assessment,
-                trainee: traineeId,
-                dateReceived: new Date(),
-                score: document.getElementById((traineeId+""+assessment.assessmentId)).value,
+        /**
+         * Updates Grade if exists,
+         *  else create new Grade,
+         *  then saves to $scope
+         * @param gradeId
+         * @param traineeId
+         * @param assessment
+         */
+        $scope.updateGrade = function (gradeId, traineeId, assessment) {
+            $log.debug("Starting updateGrade for "
+                        + "traineeId: " + traineeId + ", "
+                        + "assessment: " + assessment + ", "
+                        + "and gradeId: " + gradeId);
 
+            // constructs Grade object from the data in table
+            var grade = {
+                gradeId: gradeId,
+                trainee: traineeId,
+                assessment: assessment,
+                dateReceived: new Date(),
+                score: document.getElementById((traineeId+""+assessment.assessmentId)).value
             };
 
-            caliberDelegate.trainer.addGrade(grade).then(function (response) {
-                $log.debug("======= ADD GRADE =======");
+            // adds new Grade if not exists, else update,
+            //    response contains the ID of the created/updated Grade
+            caliberDelegate.trainer.addGrade(grade)
+            .then(function (response) {
+                $log.debug("Adding grade to $scope");
+                /**
+                 * checks if new Grade was created or updated
+                 *  assigns newGradeId = created Grade id
+                 *  else takes the id of previously fetched Grade ID from view
+                 */
+                var newGradeId;
+                if(response != null)
+                    newGradeId = response;
+                else
+                    newGradeId = gradeId;
+                $scope.grade.push(
+                    {
+                        gradeId: newGradeId,
+                        assessment: assessment,
+                        trainee: traineeId,
+                        dateReceived: new Date()
+                    }
+                );
                 $log.debug(response);
             })
-        }
+        }; // updateGrade
 
         function weekComparator(w1,w2) {
             return (w1.weekNumber>w2.weekNumber)? 1:
