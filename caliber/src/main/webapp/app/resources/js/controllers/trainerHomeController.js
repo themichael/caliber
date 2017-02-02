@@ -9,6 +9,8 @@ angular.module("trainer").controller(
     })();
 
     function createDefaultChart(){
+        //Finishes any left over ajax animation from another page
+        NProgress.done();
         NProgress.start();
         caliberDelegate.agg.getAggBatchAllTrainer(allBatches[0].trainer.trainerId)
             .then(function(data){
@@ -18,6 +20,8 @@ angular.module("trainer").controller(
                 $scope.allBatchesRankLabels = hbarChartObject.labels;
                 $scope.allBatchesRankData = hbarChartObject.data;
                 $scope.allBatchesRankSeries = hbarChartObject.series;
+            }, function(){
+                NProgress.done();
             });
     }
 
@@ -78,6 +82,8 @@ angular.module("trainer").controller(
                     $scope.radarLabels = radarChartObject.labels;
                     $scope.radarSeries = radarChartObject.series;
                     $scope.radarOptions = radarChartObject.options;
+                }, function(){
+                    NProgress.done();
                 });
 
             caliberDelegate.agg.getAggWeekBatch($scope.currentBatch.batchId)
@@ -89,6 +95,8 @@ angular.module("trainer").controller(
                     $scope.batchProgressSeries = lineChartObject.series;
                     $scope.batchProgressOptions = lineChartObject.options;
                     $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
+                }, function(){
+                    NProgress.done();
                 });
         }
 
@@ -106,6 +114,8 @@ angular.module("trainer").controller(
                     $scope.lineData = lineChartObject.data;
                     $scope.lineDatasetOverride = lineChartObject.datasetOverride;
                     $scope.lineOptions = lineChartObject.options;
+                }, function(){
+                    NProgress.done();
                 });
 
             caliberDelegate.agg.getAggTechTrainee($scope.currentTrainee.traineeId)
@@ -116,6 +126,8 @@ angular.module("trainer").controller(
                     $scope.radarLabels = radarChartObject.labels;
                     $scope.radarSeries = radarChartObject.series;
                     $scope.radarOptions = radarChartObject.options;
+                }, function(){
+                    NProgress.done();
                 });
         }
 
