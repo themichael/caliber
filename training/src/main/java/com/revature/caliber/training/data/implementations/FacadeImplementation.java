@@ -67,8 +67,8 @@ public class FacadeImplementation implements Facade {
 
 	// Trainee
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void createTrainee(Trainee trainee) {
-		traineeDAO.createTrainee(trainee);
+	public long createTrainee(Trainee trainee) {
+		return traineeDAO.createTrainee(trainee);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -93,6 +93,9 @@ public class FacadeImplementation implements Facade {
 	public void deleteTrainee(Trainee trainee) {
 		traineeDAO.deleteTrainee(trainee);
 	}
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public List<Trainee> getTraineesByTrainer(Long trainerId) { return traineeDAO.getTraineesByTrainer(trainerId); }
 	// end of trainee
 
 	// Batch
@@ -103,12 +106,10 @@ public class FacadeImplementation implements Facade {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public List<Batch> getAllBatch() {
-		return batchDAO.getAllBatch();
-	}
+	public Set<Batch> getAllBatch() { return batchDAO.getAllBatch(); }
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public List<Batch> getTrainerBatch(Integer id) {
+	public Set<Batch> getTrainerBatch(Integer id) {
 		return batchDAO.getTrainerBatch(id);
 	}
 
@@ -176,18 +177,18 @@ public class FacadeImplementation implements Facade {
 		trainerDAO.updateTrainer(trainer);
 	}
 	// End Trainer
-	
+
 	//Week
     @Transactional (propagation = Propagation.REQUIRES_NEW)
 	public List<Week> getAllWeeks() { return weekDAO.getAllWeeks(); }
-    
+
     @Transactional (propagation = Propagation.REQUIRES_NEW)
 	public List<Week> getWeekByBatchId(int batchId) { return weekDAO.getWeekByBatchId(batchId); }
-    
+
     @Transactional (propagation = Propagation.REQUIRES_NEW)
 	public List<Week> getWeekByWeekNumber(int weekNumber) { return weekDAO.getWeekByWeekNumber(weekNumber); }
-    
+
     @Transactional (propagation = Propagation.REQUIRES_NEW)
-	public void createWeek(Week newWeek) { weekDAO.createWeek(newWeek); }
+	public Long createWeek(Week newWeek) { return weekDAO.createWeek(newWeek); }
     //End Week
 }

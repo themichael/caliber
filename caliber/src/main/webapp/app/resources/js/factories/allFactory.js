@@ -18,6 +18,8 @@ angular.module("api").factory("allFactory", function ($log, $http) {
         }).then(function(response) {
             $log.debug("Object successfully created");
             $log.debug(response);
+            // return id
+            return response.data;
         }, function(response) {
             $log.error("There was an error: " + response.status);
         });
@@ -68,11 +70,13 @@ angular.module("api").factory("allFactory", function ($log, $http) {
     all.createTrainee = function(traineeObj) {
         return $http({
             url: "/caliber/all/trainee/create",
-            method: "POST",
+            method: "PUT",
             data: traineeObj
         }).then(function(response) {
-            $log.debug("Trainee successfully deleted.")
+            $log.debug("Trainee successfully created.")
             $log.debug(response);
+            // return id
+            return response.data;
         }, function(response) {
             $log.error("There was an error: " + response.status);
         });

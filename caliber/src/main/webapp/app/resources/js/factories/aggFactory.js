@@ -19,6 +19,7 @@ angular.module("api")
             }, function(response) {
                 $log.error("There was an error: " + response.status);
             });
+
         };
         /**
          *
@@ -32,7 +33,7 @@ angular.module("api")
             }).then(function(response) {
                 $log.debug("Agg - Week - trainee -- success");
                 $log.debug(response);
-                return reponse.data;
+                return response.data;
             }, function(response) {
                 $log.error("There was an error: " + response.status);
             });
@@ -80,7 +81,7 @@ angular.module("api")
          */
         agg.techAllBatch = function() {
             return $http({
-                url: "/caliber/all/agg/tech/batch/all",
+                url: "/caliber/vp/agg/tech/batch/all",
                 method: "GET"
             }).then(function (response) {
                 $log.debug("Agg - Tech - Batch - All -- success");
@@ -98,7 +99,7 @@ angular.module("api")
          */
         agg.batchTrainer = function(trainerId) {
             return $http({
-                url: "/caliber/vp/agg/batch/trainer/" + trainerId,
+                url: "/caliber/all/agg/batch/trainer/" + trainerId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug("Agg - Batch - Trainer -- success");

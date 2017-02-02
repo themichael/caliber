@@ -40,23 +40,46 @@ public class TraineeController {
 	private static Logger logger = LoggerFactory.getLogger(TraineeController.class);
 
 	/**
-	 * Greate a new trainee by making a PUT request to the URL
+	 * Create a new trainee by making a PUT request to the URL
 	 * 
 	 * @param trainee
 	 *            trainee to put
 	 * @return Response with appropriate status
 	 */
-	@RequestMapping(value = "trainees/new",
-                    method = RequestMethod.PUT,
-                    consumes = MediaType.APPLICATION_JSON_VALUE,
-                    produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Serializable> createTrainee(@RequestBody @Valid Trainee trainee) {
-		ResponseEntity<Serializable> returnEntity;
+	@RequestMapping(
+	        value = "trainees/new",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Long> createTrainee(@RequestBody @Valid Trainee trainee) {
+		ResponseEntity<Long> returnEntity;
 		try {
-			businessDelegate.createTrainee(trainee);
-			returnEntity = new ResponseEntity<>(HttpStatus.CREATED);
+			long traineeId = businessDelegate.createTrainee(trainee);
+			returnEntity = new ResponseEntity<>(traineeId, HttpStatus.CREATED);
 		} catch (RuntimeException e) {
             logger.error("Error while creating trainee: " + trainee, e);
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return returnEntity;
+	}
+	/**
+	 * Create a new trainees by making a PUT request to the URL
+	 *
+	 * @param trainees
+	 *            trainees to put
+	 * @return Response with appropriate status
+	 */
+	@RequestMapping(
+	        value = "trainees/bulk",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Long> createTrainee(@RequestBody @Valid Trainee[] trainees) {
+		ResponseEntity<Long> returnEntity;
+		try {
+			for (Trainee trainee:trainees) {
+				businessDelegate.createTrainee(trainee);
+			}
+			returnEntity = new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (RuntimeException e) {
 			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return returnEntity;
@@ -195,6 +218,35 @@ public class TraineeController {
 			}
 		} catch (RuntimeException e) {
             logger.error("Error while getting trainees with batchId: " + batchId, e);
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return returnEntity;
+	}
+
+	/**
+	 * Get a list of trainees by trainer by making a GET request to the URL
+	 *
+	 * @param trainerId
+	 *            id as part of URL
+	 * @return Response with list of trainee objects and/or status
+	 */
+	@RequestMapping(value = "trainees/bytrainer/{identifier}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Trainee>> getTraineesByTrainer(@PathVariable("identifier") long trainerId) {
+		ResponseEntity<List<Trainee>> returnEntity;
+
+		try {
+			List<Trainee> result = businessDelegate.getTraineesByTrainer(trainerId);
+
+			if (result == null) {
+				returnEntity = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+			} else {
+				returnEntity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+		} catch (RuntimeException e) {
+			logger.error("Error while getting trainees by trainerId: " + trainerId, e);
 			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 

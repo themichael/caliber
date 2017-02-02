@@ -1,12 +1,13 @@
 package com.revature.caliber.gateway;
 
-import com.revature.caliber.assessment.beans.*;
-import com.revature.caliber.beans.*;
-import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCNote;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerNote;
+import com.revature.caliber.beans.Week;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ public interface ApiGateway {
      *
      * @return All batches
      */
-    List<Batch> allBatch();
+    Set<Batch> allBatch();
 
     /**
      * Get all Batches for a given Trainer.
@@ -42,7 +43,7 @@ public interface ApiGateway {
      * @param id - The trainer
      * @return All batches for a given trainer
      */
-    List<Batch> getBatches(Integer id);
+    Set<Batch> getBatches(Integer id);
 
     /**
      * Get all current Batches
@@ -89,7 +90,7 @@ public interface ApiGateway {
      *
      * @param trainee trainee to create
      */
-    void createTrainee(Trainee trainee);
+    long createTrainee(com.revature.caliber.training.beans.Trainee trainee);
 
     /**
      * Update trainee's info
@@ -289,6 +290,13 @@ public interface ApiGateway {
     List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments();
 
     /**
+     * Gets assessments by week id.
+     *
+     * @return the all assessments
+     */
+    List<com.revature.caliber.assessment.beans.Assessment> getAssessmentsByWeekId(long weekId);
+
+    /**
      * Create assessment.
      *
      * @param assessment the assessment
@@ -338,7 +346,7 @@ public interface ApiGateway {
      *
      * @return the all batches
      */
-    List<Batch> getAllBatches();
+    Set<Batch> getAllBatches();
 
     /**
      * Update assessment note.
@@ -359,9 +367,12 @@ public interface ApiGateway {
      *
      * @param week the week
      */
-    void createNewWeek(Week week);
+    Long createNewWeek(Week week);
 
     List<com.revature.caliber.assessment.beans.Grade> getAssessmentGradesById(int id);
 
     Batch getCurrentBatch();
+
+
+    long createTrainees(com.revature.caliber.training.beans.Trainee[] trainees);
 }

@@ -82,7 +82,7 @@ public class ApiGatewayImplTest {
             }
             System.out.println("]");
         }
-    	
+
     }
 
     @Test

@@ -15,7 +15,7 @@ public interface TraineeDAO {
 	 * @param trainee
 	 *            trainee to create
 	 */
-	void createTrainee(Trainee trainee);
+	long createTrainee(Trainee trainee);
 
 	/**
 	 * Update trainee's info
@@ -59,4 +59,11 @@ public interface TraineeDAO {
 	 *            trainee to delete
 	 */
 	void deleteTrainee(Trainee trainee);
+
+	/**
+	 * Get all trainees that were trained by a trainer with trainerId
+	 * @param trainerId id of that trainer
+	 * @return list of trainees
+	 */
+	List<Trainee> getTraineesByTrainer(Long trainerId);
 }

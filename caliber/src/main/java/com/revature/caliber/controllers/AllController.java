@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type All controller.
@@ -71,9 +72,20 @@ public class AllController {
      * @return the response entity
      */
     @RequestMapping(value = "/trainee/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity createTrainee(@RequestBody Trainee trainee) {
-        apiGateway.createTrainee(trainee);
-        return new ResponseEntity(HttpStatus.OK);
+    ResponseEntity createTrainee(@RequestBody com.revature.caliber.training.beans.Trainee trainee) {
+        long traineeId =  apiGateway.createTrainee(trainee);
+        return new ResponseEntity(traineeId, HttpStatus.OK);
+    }
+    /**
+     * Create trainees response entity.
+     *
+     * @param trainees the trainee
+     * @return the response entity
+     */
+    @RequestMapping(value = "/trainees/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity createTrainees(@RequestBody com.revature.caliber.training.beans.Trainee [] trainees) {
+        apiGateway.createTrainees(trainees);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     /**
@@ -147,11 +159,11 @@ public class AllController {
         return new ResponseEntity<>(apiGateway.getGradesForBatchWeekly(batchId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/agg/tech/batch/all",
+    @RequestMapping(value = "/agg/batch/trainer/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HashMap<String, HashMap<String, Double[]>>> aggregateTechForAllBatches() {
-        return new ResponseEntity<>(apiGateway.getTechGradeAllBatch(), HttpStatus.OK);
+    public ResponseEntity<Map<String, Double[]>> aggregateTraineesTrainer(@PathVariable("id") int trainerId) {
+        return new ResponseEntity<>(apiGateway.getTraineeGradeDataForTrainer(trainerId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/trainer/all",

@@ -22,6 +22,6 @@ public class WeekServiceImplementation implements WeekService {
 	public List<Week> getAllWeeks() { return facade.getAllWeeks(); }
 	public List<Week> getWeekByBatchId(int batchId) { return facade.getWeekByBatchId(batchId); }
 	public List<Week> getWeekByWeekNumber(int weekNumber) { return facade.getWeekByWeekNumber(weekNumber); }
-	public void createWeek(Week newWeek) { facade.createWeek(newWeek); }
+	public Long createWeek(Week newWeek) { return facade.createWeek(newWeek); }
 
 }

@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*",
@@ -58,10 +59,10 @@ public class BatchController {
 	 * @return
 	 */
 	@RequestMapping(value = "batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public HttpEntity<List<Batch>> getAllBatches() {
-		ResponseEntity<List<Batch>> returnEntity;
+	public HttpEntity<Set<Batch>> getAllBatches() {
+		ResponseEntity<Set<Batch>> returnEntity;
 		try {
-			List<Batch> batches = businessDelegate.getAllBatch();
+			Set<Batch> batches = businessDelegate.getAllBatch();
 			if (batches == null)
 				returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
 			else
@@ -81,10 +82,10 @@ public class BatchController {
 	 */
 	@RequestMapping(value = "batch/byTrainerId/{id}", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("id") Integer id) {
-		ResponseEntity<List<Batch>> returnEntity;
+	public HttpEntity<Set<Batch>> getTrainerBatch(@PathVariable("id") Integer id) {
+		ResponseEntity<Set<Batch>> returnEntity;
 		try {
-			List<Batch> batches = businessDelegate.getTrainerBatch(id);
+			Set<Batch> batches = businessDelegate.getTrainerBatch(id);
 			if (batches == null)
 				returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
 			else

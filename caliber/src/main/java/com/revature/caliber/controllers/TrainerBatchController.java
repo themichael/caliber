@@ -47,7 +47,7 @@ public class TrainerBatchController {
      * @return in JSON, a set of batch objects
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Batch>> getAllBatches(Authentication authentication) {
+    public ResponseEntity<Set<Batch>> getAllBatches(Authentication authentication) {
         SalesforceUser salesforceUser = (SalesforceUser) authentication.getPrincipal();
         return new ResponseEntity<>(apiGateway.getBatches(salesforceUser.getCaliberId()), HttpStatus.OK);
     }
@@ -71,8 +71,7 @@ public class TrainerBatchController {
      */
     @RequestMapping(value = "/week/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createNewWeek(@RequestBody Week week) {
-        apiGateway.createNewWeek(week);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(apiGateway.createNewWeek(week), HttpStatus.CREATED);
     }
 
     /**
@@ -159,6 +158,12 @@ public class TrainerBatchController {
             }
         }
         return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/assessment/week/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<com.revature.caliber.assessment.beans.Assessment>> getAssessmentsByWeekId(@PathVariable long id){
+        List<com.revature.caliber.assessment.beans.Assessment> list = apiGateway.getAssessmentsByWeekId(id);
+        return new ResponseEntity(list,HttpStatus.OK);
     }
 
     /**

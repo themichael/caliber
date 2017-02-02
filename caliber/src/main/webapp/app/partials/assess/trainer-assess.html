@@ -70,10 +70,10 @@
                 <thead>
                 <tr>
                     <th>Trainee</th>
-                    <th role="button" ng-repeat="assessment in currentAssessments track by $index"
-                        ng-click="selectAssessment($index)">
+                    <th role="button" ng-repeat="assessment in currentAssessments track by $index">
                         {{assessment.title}}
                     </th>
+                    <th>Notes</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -81,13 +81,12 @@
                 <tr role="button" ng-repeat="trainee in currentBatch.trainees track by $index">
                     <td>{{ trainee.name }}</td>
                     <td ng-repeat="assessment in currentAssessments track by $index">
-                            <span ng-repeat=" grade in grades track by $index">
-                                <span ng-if="grade.assessment === assessment.assessmentId &&
-                                               grade.trainee === trainee.traineeId">
-                                            {{grade.score}}]
-                                    </span>
-                                </span>
-                        </span>
+                        <input class="form-control" type="number" width="10px"
+                               min="0" max="{{assessment.rawScore}}" id="{{trainee.traineeId}}{{assessment.assessmentId}}"
+                               ng-blur="updateGrade(trainee.traineeId,assessment)">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="note" cols="20" rows="2"></textarea>
                     </td>
 
                 </tr>
@@ -123,23 +122,28 @@
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainingName">Training Name:</label>
                         <input ng-model="trainingName" type="text" class="form-control" id="trainingName"
-                               placeholder="title" required>
+                               placeholder="Title" required>
                     </div>
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="trainingType">Training type:</label>
                         <input ng-model="trainingType" type="text" class="form-control" id="trainingType"
-                               placeholder="training type" required>
+                               placeholder="Training Type" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
-                        <label for="skillType">Skill Type:</label>
-                        <select ng-model="skillType" class="form-control" id="skillType" required>
-                            <option value="" disabled selected>select skill type</option>
-                            <option ng-repeat="category in skill_categories track by $index">
-                                {{category.skillCategory}}
-                            </option>
-                        </select>
+                        <label>Skill Type:</label>
+                        <br>
+                        <!--<select class="form-control" ng-model="skillType" id="skillType"-->
+                        <!--ng-options="category as category.skillCategory for category in skill_categories" ng-change="updateSkillCategory()">-->
+                        <!--</select>-->
+                        <span ng-repeat="category in skill_categories track by $index">
+                            <input type="checkbox" ng-checked="selectedCategories.indexOf(category.skillCategory) > -1"
+                                   ng-click="toggleSelection(category.skillCategory)" id="{{category}}">
+                            <label for="{{category}}">{{category.skillCategory}}</label>
+                            <br>
+                        </span>
+
                     </div>
                     <div class="form-group col-md-6 col-sm-6">
                         <label for="rawScore">Raw Score:</label>

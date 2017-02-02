@@ -23,8 +23,8 @@ public class TraineeServiceImplementation implements TraineeService {
 	}
 
 	// trainee (just delegation, no business logic)
-	public void createTrainee(Trainee trainee) {
-		facade.createTrainee(trainee);
+	public long createTrainee(Trainee trainee) {
+		return facade.createTrainee(trainee);
 	}
 
 	public void updateTrainee(Trainee trainee) {
@@ -44,5 +44,7 @@ public class TraineeServiceImplementation implements TraineeService {
 	public void deleteTrainee(Trainee trainee) {
 		facade.deleteTrainee(trainee);
 	}
+
+	public List<Trainee> getTraineesByTrainer(Long trainerId) { return facade.getTraineesByTrainer(trainerId); }
 	// end of trainee
 }

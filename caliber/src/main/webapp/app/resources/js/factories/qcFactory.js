@@ -15,11 +15,11 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
             url: "/caliber/qc/batch/all",
             method: "GET"
         }).then(function (response) {
+            $log.log("Batches retrieved successfully");
             $log.debug(response);
             return response.data;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return null;
         });
     };
 
@@ -31,11 +31,10 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
             method: "POST",
             data: gradeObj
         }).then(function (response) {
+            $log.debug("Grades added successfully");
             $log.debug(response);
-            return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -46,11 +45,10 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
             method: "PUT",
             data: gradeObj
         }).then(function (response) {
+            $log.debug("Grade updated successfully");
             $log.debug(response);
-            return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -62,11 +60,11 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
             method: "POST",
             data: assessmentObj
         }).then(function (response) {
+            $log.debug("Assessment created successfully");
             $log.debug(response);
-            return true;
+            return response.data;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -76,11 +74,11 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
             url: "/caliber/qc/assessment/byWeek/" + weekId,
             method: "GET"
         }).then(function (response) {
+            $log.debug("Assessments retrieved successfully");
             $log.debug(response);
             return response.data;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return null;
         });
     };
 
@@ -91,11 +89,10 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
             method: "PUT",
             data: assessmentObj
         }).then(function (response) {
+            $log.debug("Assessments updated successfully");
             $log.debug(response);
-            return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -105,11 +102,10 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
             url: "/caliber/qc/assessment/delete/" + assessmentId,
             method: "DELETE"
         }).then(function (response) {
+            $log.debug("Assessment deleted successfully");
             $log.debug(response);
-            return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -121,11 +117,11 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
             method: "POST",
             data: noteObj
         }).then(function (response) {
+            $log.debug("Note created successfully");
             $log.debug(response);
-            return true;
+            return response.data;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
 
@@ -141,11 +137,10 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
             method: "PUT",
             data: noteObj
         }).then(function (response) {
+            $log.debug("Note updated successfully");
             $log.debug(response);
-            return true;
         }, function (response) {
             $log.error("There was an error: " + response.status);
-            return false;
         });
     };
     return qc;

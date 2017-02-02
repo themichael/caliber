@@ -6,6 +6,7 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.Week;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * The interface Training service.
@@ -24,7 +25,7 @@ public interface TrainingService {
      *
      * @return A list of all batches
      */
-    List<Batch> allBatch();
+    Set<Batch> allBatch();
 
     /**
      * Get all Batches for a given Trainer.
@@ -32,7 +33,7 @@ public interface TrainingService {
      * @param id the id
      * @return A list of this trainer's current batches
      */
-    List<Batch> getBatches(Integer id);
+    Set<Batch> getBatches(Integer id);
 
     /**
      * Get all current Batches
@@ -78,7 +79,7 @@ public interface TrainingService {
      *
      * @param trainee trainee to create
      */
-    void createTrainee(Trainee trainee);
+    long createTrainee(com.revature.caliber.training.beans.Trainee trainee);
 
     /**
      * Update trainee's info
@@ -117,6 +118,8 @@ public interface TrainingService {
      * @param trainee trainee to delete
      */
     void deleteTrainee(Trainee trainee);
+
+    List<Trainee> getTraineesByTrainer (Long trainerId);
     //End of Trainee
 
     //Trainer
@@ -178,6 +181,7 @@ public interface TrainingService {
     List<Week> getAllWeek();
     
 
-    void createWeek(Week week);
+    Long createWeek(Week week);
 
+    long createTrainees(com.revature.caliber.training.beans.Trainee[] trainees);
 }

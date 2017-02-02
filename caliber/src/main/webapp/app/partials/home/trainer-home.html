@@ -4,32 +4,22 @@
             <ul class="nav nav-tabs">
                 <!-- Select Batch-->
                 <li role="button" class="dropdown"><a class="dropdown-toggle"
-                                                      data-toggle="dropdown">{{currentBatch}}<span class="caret"></span></a>
+                                                      data-toggle="dropdown">{{currentBatch.trainingName}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
                         <li ng-repeat="menuItem in batches track by $index"><a
-                                role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- Select Technology-->
-                <li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideOtherTabs()"
-                                                      data-toggle="dropdown">{{currentTech}}<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a role="button" ng-click="selectCurrentTech(-1)">None</a></li>
-                        <li ng-repeat="menuItem in tech track by $index"><a
-                                role="button" ng-click="selectCurrentTech($index)">{{menuItem}}</a>
+                                role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}</a>
                         </li>
                     </ul>
                 </li>
                 <!-- Select Trainee-->
                 <li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideOtherTabs()"
-                                                      data-toggle="dropdown">{{currentTrainee}}<span
+                                                      data-toggle="dropdown">{{currentTrainee.name}}<span
                         class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a role="button" ng-click="selectCurrentTrainee(-1)">None</a></li>
-                        <li ng-repeat="menuItem in trainees track by $index"><a
-                                role="button" ng-click="selectCurrentTrainee($index)">{{menuItem}}</a>
+                        <li ng-repeat="menuItem in currentBatch.trainees track by $index"><a
+                                role="button" ng-click="selectCurrentTrainee($index)">{{menuItem.name}}</a>
                         </li>
                     </ul>
                 </li>
@@ -42,9 +32,9 @@
 <div class="container">
     <div class="top10 data-container">
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
                 <div class="row">
-                    <div class="col-sm-6 col-md-6" ng-show="showCharts(0)">
+                    <div class="col-sm-12 col-md-12" ng-show="showCharts(0)">
                         <div class="panel panel-default">
                             <div class="panel-heading">All My Batches</div>
                             <div class="panel-body">
@@ -60,7 +50,7 @@
                     </div>
                     <div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Comparison of {{currentBatch}} to my batches</div>
+                            <div class="panel-heading">Batch {{currentBatch.trainingName}} Technology Progress</div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
                                     <canvas id="radar" class="chart chart-radar"
@@ -74,29 +64,14 @@
                     </div>
                     <div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Week by Week progression of {{currentBatch}}</div>
+                            <div class="panel-heading">Week by Week progression of {{currentBatch.trainingName}}</div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
                                     <canvas id="batch-line" class="chart chart-line"
                                             chart-data="batchProgressData" chart-labels="batchProgressLabels"
                                             chart-series="batchProgressSeries" chart-options="batchProgressOptions"
                                             chart-dataset-override="batchProgressDatasetOverride"
-                                            height="50" width="50">
-                                    </canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6" ng-show="showCharts(2)">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Averages scores for {{currentTech}}
-                                for all trainees
-                            </div>
-                            <div class="panel-body">
-                                <div class="chart-container top5">
-                                    <canvas id="hbar" class="chart chart-horizontal-bar"
-                                            chart-data="hbarData" chart-labels="hbarLabels"
-                                            chart-options="hbarOptions" height="100" width="100">
+                                            height="100" width="100">
                                     </canvas>
                                 </div>
                             </div>
@@ -104,14 +79,14 @@
                     </div>
                     <div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Week by week progression for a {{currentTrainee}}</div>
+                            <div class="panel-heading">Week by week progression for a {{currentTrainee.name}}</div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
                                     <canvas id="line" class="chart chart-line"
                                             chart-data="lineData" chart-labels="lineLabels"
                                             chart-series="lineSeries" chart-options="lineOptions"
                                             chart-dataset-override="lineDatasetOverride"
-                                            chart-click="lineOnClick" height="75" width="100">
+                                            chart-click="lineOnClick" height="100" width="100">
                                     </canvas>
                                 </div>
                             </div>
@@ -120,13 +95,13 @@
                     <div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
                         <div class="panel panel-default">
                             <div class="panel-heading">Averages scores per technology
-                                for trainee {{currentTrainee}}
+                                for trainee {{currentTrainee.name}}
                             </div>
                             <div class="panel-body">
                                 <div class="chart-container top5">
                                     <canvas id="radar2" class="chart chart-radar" chart-data="radarData"
                                             chart-labels="radarLabels"
-                                            chart-options="radarOptions" height="75" width="100">
+                                            chart-options="radarOptions" height="100" width="100">
                                     </canvas>
                                 </div>
                             </div>

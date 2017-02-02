@@ -3,133 +3,32 @@ angular.module("trainer")
 
         $log.debug("Booted Trainer Aesess Controller");
 
-        /******************************** Sample Data *******************************/
-        $scope.batches = [
-            {
-                batchId: 451, trainingName: 'Batch123', trainer: 'Patrick', coTrainer: '',
-                skillType: 'Java', trainingType: 'CUNY', startDate: new Date(), endDate: new Date(),
-                location: 'Queens, NY', goodGradeThreshold: 75, borderlineGradeThreshold: 40,
-                trainees: [{traineeId: 53, name: "Charles", email: "charles@gmail.com", trainingStatus: "Active"},
-                    {traineeId: 65, name: "Mike", email: "Mike@gmail.com", trainingStatus: "Active"},
-                    {traineeId: 78, name: "Rebecca", email: "Rebecca@gmail.com", trainingStatus: "Active"}],
-                weeks: [{weekId: 421, weekNumber: 1, topics: [{categoryId: 13, skillCategory: "Java Core"}]},
-                    {weekId: 476, weekNumber: 2, topics: [{categoryId: 13, skillCategory: "SQL"}]},
-                    {weekId: 486, weekNumber: 3, topics: [{categoryId: 13, skillCategory: "Design Patterns"}]},
-                    {weekId: 495, weekNumber: 4, topics: [{categoryId: 13, skillCategory: "Hibernate"}]}]
-            },
-            {
-                trainingName: 'Batch456', trainingType: 'Corporate', skillType: 'Java', location: 'Reston, VA',
-                trainer: 'Ryan', coTrainer: 'Brian', startDate: new Date(), endDate: new Date()
-            }
-        ];
-
-        var assessments = [
-            [{
-                assessmentId: 51, title: "Java Core Test I", rawScore: 50, type: "Mul Choice",
-                categories: [{categoryId: 13, skillCategory: "Java"}]
-            },
-                {
-                    assessmentId: 58, title: "Java Core Verbal", rawScore: 60, type: "Verbal",
-                    categories: [{categoryId: 13, skillCategory: "Java"},
-                        {categoryId: 15, skillCategory: "SQL"}]
-                }],
-            [{
-                assessmentId: 78, title: "Java Core Test II", rawScore: 50, type: "Mul Choice",
-                categories: [{categoryId: 13, skillCategory: "Java"}]
-            },
-                {
-                    assessmentId: 89, title: "Java Core Verbal I", rawScore: 60, type: "Verbal",
-                    categories: [{categoryId: 13, skillCategory: "Java"}]
-                }]
-        ];
-
-        $scope.grades = [
-            {gradeId: 14, assessment: 51, trainee: 53, dateReceived: new Date(), score: 94},
-            {gradeId: 15, assessment: 51, trainee: 65, dateReceived: new Date(), score: 84},
-            {gradeId: 16, assessment: 51, trainee: 78, dateReceived: new Date(), score: 74},
-            {gradeId: 14, assessment: 58, trainee: 53, dateReceived: new Date(), score: 34},
-            {gradeId: 15, assessment: 58, trainee: 65, dateReceived: new Date(), score: 99},
-            {gradeId: 16, assessment: 58, trainee: 78, dateReceived: new Date(), score: 79}
-        ];
-
+        /******************************TEST DATA***********************/
         $scope.skill_categories = [
-            {"categoryId": 5, "skillCategory": "HIBERNATE", "weeks": []},
-            {"categoryId": 4, "skillCategory": "SPRING", "weeks": []},
-            {"categoryId": 2, "skillCategory": "REST", "weeks": []},
-            {"categoryId": 3, "skillCategory": "SOAP", "weeks": [1, 2, 3]},
-            {"categoryId": 1, "skillCategory": "Core Java", "weeks": []}
+            {skillCategory:"C# .NET"},
+            {skillCategory:"NodeJS"},
+            {skillCategory:"Java2EE"},
+            {skillCategory:"PHP Laravel"}
         ];
 
-        $scope.trainers = [
-            {
-                "trainerId": 1,
-                "name": "Name",
-                "title": "title",
-                "email": "email3",
-                "salesforceAccount": "account",
-                "salesforceAuthenticationToken": "token",
-                "salesforceRefreshToken": "token",
-                "tier": {
-                    "tierId": 1,
-                    "tier": "ROLE_VP",
-                    "ranking": 1
-                }
-            },
-            {
-                "trainerId": 7,
-                "name": "Martino",
-                "title": "title",
-                "email": "nikolovski23@gmail.com",
-                "salesforceAccount": "nikolovski23@gmail.com",
-                "salesforceAuthenticationToken": "auth_token",
-                "salesforceRefreshToken": "refr_token",
-                "tier": {
-                    "tierId": 1,
-                    "tier": "ROLE_VP",
-                    "ranking": 1
-                }
-            },
-            {
-                "trainerId": 5,
-                "name": "Test trainee (TraineeDAO Test)",
-                "title": "title",
-                "email": "email5",
-                "salesforceAccount": "sf_account",
-                "salesforceAuthenticationToken": "sf_auth_token",
-                "salesforceRefreshToken": "sf_refr_token",
-                "tier": {
-                    "tierId": 3,
-                    "tier": "ROLE_TRAINER",
-                    "ranking": 999
-                }
-            },
-            {
-                "trainerId": 29100,
-                "name": "Kristy Kim",
-                "title": "Trainer at Hunter",
-                "email": "kkim@revature.com",
-                "salesforceAccount": "sfaccountex",
-                "salesforceAuthenticationToken": "sfauthenticationtoken",
-                "salesforceRefreshToken": "sfrefreshtoken",
-                "tier": {
-                    "tierId": 3,
-                    "tier": "ROLE_TRAINER",
-                    "ranking": 999
-                }
-            }
-        ];
 
-        // END TEST DATA *********************
+
 
         /******************************************* UI ***********************************************/
 
         $log.debug("Batches " + allBatches);
+        $log.debug(allBatches);
 
         (function start(allBatches){
+            $scope.batches = allBatches;
            if(allBatches.length > 0){
                $scope.currentBatch = allBatches[0];
-               if(allBatches[0].weeks.length > 0)
-                   $scope.currentWeek = allBatches[0].weeks;
+               if(allBatches[0].weeks.length > 0){
+                   allBatches[0].weeks.sort(weekComparator);
+                   $scope.currentWeek = allBatches[0].weeks[0];
+                   getAllAssessmentsForWeek();
+               }
+
                else $scope.currentWeek = null;
            }else{
                $scope.currentBatch = null;
@@ -140,10 +39,7 @@ angular.module("trainer")
            $log.debug($scope.currentWeek);
         })(allBatches);
 
-        // starting scope vars
-        // $scope.currentBatch = allBatches[0];
-        // $scope.currentWeek = allBatches[0].weeks[0];
-        $scope.currentAssessments = getAssessments(0);
+        $scope.grades = [];
 
         // default -- view assessments table
         $scope.currentView = true;
@@ -155,22 +51,25 @@ angular.module("trainer")
 
         // batch drop down select
         $scope.selectCurrentBatch = function(index){
-            $scope.currentBatch = allBatches;
+            $scope.currentBatch = $scope.batches[index];
 
-            // set week
-            $scope.currentWeek = $scope.currentBatch.weeks[0];
+            if($scope.currentBatch.weeks.length > 0){
+                $scope.currentBatch.weeks.sort(weekComparator);
+                $scope.currentWeek = $scope.currentBatch.weeks[0];
+            }
+            else $scope.currentWeek = null;
 
             /** replace with ajax call to get assessments by weekId **/
-            // test function to grab assessments
-            $scope.currentAssessments = getGradesAssessments(index);
-
+            getAllAssessmentsForWeek()
         };
 
 
         // select week
         $scope.selectWeek = function (index) {
             $scope.currentWeek = $scope.currentBatch.weeks[index];
+            $log.debug($scope.currentWeek);
             /** ajax call to get assessments by weekId **/
+            getAllAssessmentsForWeek();
         };
 
         // active week
@@ -181,45 +80,102 @@ angular.module("trainer")
 
         //create week
         $scope.createWeek = function () {
-            var weekNumber = $scope.currentBatch.weeks;
-            if(!weekNumber) weekNumber = 1;
-            console.log(weekNumber);
-            return caliberDelegate.trainer.createWeek({
+            var weekNumber;
+            if(!$scope.currentBatch.weeks)
+                weekNumber  = 1;
+            else weekNumber = $scope.currentBatch.weeks.length+1;
+            $log.debug(weekNumber);
+            var weekObj = {
+                weekId:1,
                 weekNumber: weekNumber,
-                batchId: $scope.currentBatch.batchId
+                batch: $scope.currentBatch,
+                topics:null
+            };
+            caliberDelegate.trainer.createWeek(weekObj).then(function (response) {
+                $scope.currentBatch.weeks.push({
+                    weekId:response,
+                    weekNumber: weekNumber,
+                    batch: null,
+                    topics:null
+                });
+                $log.debug($scope.currentBatch.weeks);
             });
+
         };
 
         // select assessment from list
         $scope.selectAssessment = function (index) {
-            $scope.currentAssessment = $scope.currentAssessments[index];
+            $scope.currentAssessment = $scope.currentAssessment[index];
             $scope.currentView = false;
             /** replace with ajax call to get grades by assessmentId **/
         };
-
-        // find grade for trainee
-        $scope.findGrade = function (traineeId) {
-            var grade = grades.find(function (element) {
-                return element.trainee === traineeId;
-            });
-
-            return grade.score;
-        };
-
-        /* Save Assessment */
+        
         $scope.addAssessment = function () {
-            assessments.push({
-                trainingName: $scope.trainingName,
-                trainingType: $scope.trainingType,
-                skillType: $scope.skillType,
-                weekId: $scope.weekId,
+            var assessment = {
+                assessmentId: 1,
+                title: $scope.trainingName,
+                batch: $scope.currentBatch.batchId,
+                type: $scope.trainingType,
+                categories:  $scope.selectedCategories,
+                week: $scope.currentWeek.weekId,
+                weeklyStatus: null,
                 rawScore: $scope.rawScore
-            })
+            };
+            $log.debug(assessment);
+            caliberDelegate.trainer.createAssessment(assessment).then(function (response) {
+              $log.debug(response);
+              if($scope.currentAssessments > 0)
+                    $scope.currentAssessments.push(assessment);
+              else $scope.currentAssessments = assessment;
+                getAllAssessmentsForWeek();
+                $("#createAssessmentModal").modal('toggle');
+
+            });
+        };
+        $scope.selectedCategories = [];
+
+        $scope.toggleSelection = function (category) {
+            var index = $scope.selectedCategories.indexOf(category);
+            if(index > -1) $scope.selectedCategories.splice(index,1);
+            else $scope.selectedCategories.push(category);
         };
 
-        // test function - get assessment
-        function getAssessments(index) {
-            return assessments[index];
+        $scope.updateGrade = function (traineeId, assessment) {
+            $log.debug(traineeId);
+            var grade = {
+                gradeId: 1,
+                assessment: assessment,
+                trainee: traineeId,
+                dateReceived: new Date(),
+                score: document.getElementById((traineeId+""+assessment.assessmentId)).value,
+
+            };
+
+            caliberDelegate.trainer.addGrade(grade).then(function (response) {
+                $log.debug("======= ADD GRADE =======");
+                $log.debug(response);
+            })
+        }
+
+        function weekComparator(w1,w2) {
+            return (w1.weekNumber>w2.weekNumber)? 1:
+                (w2.weekNumber>w1.weekNumber)?-1 : 0;
+        }
+
+        function getAllAssessmentsForWeek(){
+            caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekId)
+                .then(function(data){
+                    $scope.currentAssessments = data;
+                    $log.debug($scope.currentAssessments);
+                    $scope.currentAssessments.forEach(function (assessment) {
+                        caliberDelegate.all.getGrades(assessment.assessmentId).then(function (response) {
+                            $scope.grades.push(response.data);
+                            $log.debug("====== GRADES ======");
+                            $log.debug($scope.grades);
+                        });
+                    });
+
+                });
         }
 
     });

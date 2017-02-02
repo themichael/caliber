@@ -1,72 +1,70 @@
 package com.revature.caliber.training.data;
 
+import com.revature.caliber.training.beans.*;
+
 import java.util.List;
 import java.util.Set;
-
-import com.revature.caliber.training.beans.Batch;
-import com.revature.caliber.training.beans.Category;
-import com.revature.caliber.training.beans.Trainee;
-import com.revature.caliber.training.beans.Trainer;
-import com.revature.caliber.training.beans.Week;
 
 /**
  * Facade interface for data tier.
  */
 public interface Facade {
 
-	// Trainee methods, see TraineeDAO interface
-	public void createTrainee(Trainee trainee);
+    // Trainee methods, see TraineeDAO interface
+    public long createTrainee(Trainee trainee);
 
-	public void updateTrainee(Trainee trainee);
+    public void updateTrainee(Trainee trainee);
 
-	public Trainee getTrainee(Integer id);
+    public Trainee getTrainee(Integer id);
 
-	public Trainee getTrainee(String email);
+    public Trainee getTrainee(String email);
 
-	public List<Trainee> getTraineesInBatch(Integer batchId);
+    public List<Trainee> getTraineesInBatch(Integer batchId);
 
-	public void deleteTrainee(Trainee trainee);
-	// end of Trainee methods
+    public void deleteTrainee(Trainee trainee);
 
-	// Batch methods
-	public Long createBatch(Batch batch);
+    public List<Trainee> getTraineesByTrainer(Long trainerId);
+    // end of Trainee methods
 
-	public List<Batch> getAllBatch();
+    // Batch methods
+    public Long createBatch(Batch batch);
 
-	public List<Batch> getTrainerBatch(Integer id);
+    public Set<Batch> getAllBatch();
 
-	public List<Batch> getCurrentBatch();
+    public Set<Batch> getTrainerBatch(Integer id);
 
-	public List<Batch> getCurrentBatch(Integer id);
+    public List<Batch> getCurrentBatch();
 
-	public Batch getBatch(Integer id);
+    public List<Batch> getCurrentBatch(Integer id);
 
-	public void updateBatch(Batch batch);
+    public Batch getBatch(Integer id);
 
-	public void deleteBatch(Batch batch);
+    public void updateBatch(Batch batch);
 
-	// Category methods
-	public Category getCategory(int categoryId);
+    public void deleteBatch(Batch batch);
 
-	public List<Category> getAllCategories();
+    // Category methods
+    public Category getCategory(int categoryId);
 
-	// Trainer methods
-	public void createTrainer(Trainer trainer);
+    public List<Category> getAllCategories();
 
-	public Trainer getTrainer(Integer id);
+    // Trainer methods
+    public void createTrainer(Trainer trainer);
 
-	public Trainer getTrainer(String email);
+    public Trainer getTrainer(Integer id);
 
-	public Set<Trainer> getAllTrainers();
+    public Trainer getTrainer(String email);
 
-	public void updateTrainer(Trainer trainer);
+    public Set<Trainer> getAllTrainers();
+
+    public void updateTrainer(Trainer trainer);
 
 	
 	//Week methods
 	List<Week> getAllWeeks();
 	List<Week> getWeekByBatchId(int batchId);
 	List<Week> getWeekByWeekNumber(int weekNumber);
-	void createWeek(Week newWeek);
+	Long createWeek(Week newWeek);
 	//end of week methods
 	
 	

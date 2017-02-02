@@ -1,6 +1,7 @@
 package com.revature.caliber.training.service.implementations;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,11 +24,11 @@ public class BatchServiceImplementation implements BatchService {
 		return facade.createBatch(batch);
 	}
 
-	public List<Batch> getAllBatch() {
+	public Set<Batch> getAllBatch() {
 		return facade.getAllBatch();
 	}
 
-	public List<Batch> getTrainerBatch(Integer id) {
+	public Set<Batch> getTrainerBatch(Integer id) {
 		return facade.getTrainerBatch(id);
 	}
 
