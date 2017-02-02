@@ -71,6 +71,7 @@
                 <tr>
                     <th>Trainee</th>
                     <th role="button" ng-repeat="assessment in currentAssessments track by $index">
+                        {{assessment.title}}
                     </th>
                 </tr>
                 </thead>
@@ -80,6 +81,9 @@
                     <td>{{ trainee.name }}</td>
                     <td ng-repeat="assessment in currentAssessments track by $index">
                             <span ng-repeat=" grade in grades track by $index">
+                                <span ng-if="grade === null">
+                                    <input type="text">
+                                </span>
                                 <span ng-if="grade.assessment === assessment.assessmentId &&
                                                grade.trainee === trainee.traineeId">
                                             {{grade.score}}]
