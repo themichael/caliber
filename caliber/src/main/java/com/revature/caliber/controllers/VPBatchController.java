@@ -44,10 +44,10 @@ public class VPBatchController {
         return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/agg/batch/trainer/{id}",
+    @RequestMapping(value = "/agg/tech/batch/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, Double[]>> aggregateTraineesTrainer(@PathVariable("id") int trainerId) {
-        return new ResponseEntity<>(apiGateway.getTraineeGradeDataForTrainer(trainerId), HttpStatus.OK);
+    public ResponseEntity<HashMap<String, HashMap<String, Double[]>>> aggregateTechForAllBatches() {
+        return new ResponseEntity<>(apiGateway.getTechGradeAllBatch(), HttpStatus.OK);
     }
 }
