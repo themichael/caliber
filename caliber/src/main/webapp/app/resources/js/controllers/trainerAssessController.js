@@ -26,7 +26,6 @@ angular.module("trainer")
                if(allBatches[0].weeks.length > 0){
                    allBatches[0].weeks.sort(weekComparator);
                    $scope.currentWeek = allBatches[0].weeks[0];
-
                }
 
                else $scope.currentWeek = null;
@@ -51,9 +50,11 @@ angular.module("trainer")
         $scope.selectCurrentBatch = function(index){
             $scope.currentBatch = $scope.batches[index];
 
-            // check weeks null
-            // set week
-            $scope.currentWeek = $scope.currentBatch.weeks[0];
+            if($scope.currentBatch.weeks.length > 0){
+                $scope.currentBatch.weeks.sort(weekComparator);
+                $scope.currentWeek = $scope.currentBatch.weeks[0];
+            }
+            else $scope.currentWeek = null;
 
             /** replace with ajax call to get assessments by weekId **/
             caliberDelegate.all.getAllAssessments($scope.currentWeek.weekId)
@@ -127,7 +128,7 @@ angular.module("trainer")
             var index = $scope.selectedCategories.indexOf(category);
             if(index > -1) $scope.selectedCategories.splice(index,1);
             else $scope.selectedCategories.push(category);
-        }
+        };
 
         function weekComparator(w1,w2) {
             return (w1.weekNumber>w2.weekNumber)? 1:
