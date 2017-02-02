@@ -1,6 +1,7 @@
 package com.revature.caliber.training.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.revature.caliber.training.beans.Batch;
 
@@ -17,7 +18,7 @@ public interface BatchService {
 	 * 
 	 * @return
 	 */
-	public List<Batch> getAllBatch();
+	public Set<Batch> getAllBatch();
 
 	/**
 	 * Get all batches associated to a trainer

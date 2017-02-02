@@ -103,7 +103,7 @@ public class FacadeImplementation implements Facade {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public List<Batch> getAllBatch() {
+	public Set<Batch> getAllBatch() {
 		return batchDAO.getAllBatch();
 	}
 

@@ -15,6 +15,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.List;
+import java.util.Set;
 
 public class BatchGatewayTest {
     private static ApplicationContext context;
@@ -43,7 +44,7 @@ public class BatchGatewayTest {
     @Test
     @Ignore
     public void getAll(){
-        List<Batch> batches = trainingService.allBatch();
+        Set<Batch> batches = trainingService.allBatch();
         System.out.println(batches);
     }
 

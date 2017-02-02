@@ -40,7 +40,7 @@ public class VPBatchController {
      * @return in JSON, a set of batch objects
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Batch>> getAllBatches() {
+    public ResponseEntity<Set<Batch>> getAllBatches() {
         return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
     }
 

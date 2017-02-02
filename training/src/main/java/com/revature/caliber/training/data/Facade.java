@@ -27,7 +27,7 @@ public interface Facade {
     // Batch methods
     public Long createBatch(Batch batch);
 
-    public List<Batch> getAllBatch();
+    public Set<Batch> getAllBatch();
 
     public List<Batch> getTrainerBatch(Integer id);
 

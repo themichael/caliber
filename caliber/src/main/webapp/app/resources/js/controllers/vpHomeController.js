@@ -2,8 +2,23 @@ angular.module("vp").controller(
     "vpHomeController",
     function ($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
         $log.debug("Booted vp home controller.");
-        $log.debug("VP ALL Batches: ");
         $log.debug(allBatches);
+
+        (function(){
+            // ajax call thru delegate
+            caliberDelegate.agg.getAggTechAllBatch()
+            // success or failure
+                .then(function(data){
+                    $scope.aggBatchData = [];
+                    
+                    var hbarChartObject2 = chartsDelegate.hbar.getAllBatchesEvalChart($scope.aggBatchData, allBatches);
+                    $scope.allBatchesRankLabels = hbarChartObject2.labels;
+                    $scope.allBatchesRankData = hbarChartObject2.data;
+                    $scope.allBatchesRankSeries = hbarChartObject2.series;
+                    $log.debug($scope.aggBatchData);
+                });
+
+        })();
 
         /*********************************************** UI ***************************************************/
         // decides what charts are to be shown
@@ -198,53 +213,7 @@ angular.module("vp").controller(
         $scope.trainerRankData = hbarChartObject.data;
         $scope.trainerRankSeries = hbarChartObject.series;
 
-        // batch rank comparison - sample data
-        var sample7 = [{name: "Batch1342", score: ranNum()}, {name: "Batch1526", score: ranNum()},
-            {name: "Batch0354", score: ranNum()}, {name: "Batch1822", score: ranNum()},
-            {name: "Batch9355", score: ranNum()}, {name: "Batch1232", score: ranNum()},
-            {name: "Batch7241", score: ranNum()}, {name: "Batch1782", score: ranNum()},
-            {name: "Batch7341", score: ranNum()}, {name: "Batch2312", score: ranNum()},
-            {name: "Batch8453", score: ranNum()}, {name: "Batch6345", score: ranNum()},
-            {name: "Batch1431", score: ranNum()}];
-
-        // batch rank comparison - hbar chart
-        var hbarChartObject2 = chartsDelegate.hbar.getAllBatchesEvalChart(sample7);
-        $scope.allBatchesRankLabels = hbarChartObject2.labels;
-        $scope.allBatchesRankData = hbarChartObject2.data;
-        $scope.allBatchesRankSeries = hbarChartObject2.series;
-
-
         /***************************** Agg Functions ****************************/
-        (function(){
-            // ajax call thru delegate
-            caliberDelegate.agg.getAggTechAllBatch()
-                // success or failure
-                .then(function(data){
-                    $scope.aggBatchData = [];
-                    angular.forEach(data, function(value, key){
-                        var sum = 0; var numTech = 0;
-                        angular.forEach(value, function(value, key2){
-                            sum = sum + value[0]; numTech++;
-                        });
-                        var average = sum/numTech;
-                        $scope.aggBatchData.push({name: key, score: average});
-                    });
-                    var hbarChartObject2 = chartsDelegate.hbar.getAllBatchesEvalChart($scope.aggBatchData);
-                    $scope.allBatchesRankLabels = hbarChartObject2.labels;
-                    $scope.allBatchesRankData = hbarChartObject2.data;
-                    $scope.allBatchesRankSeries = hbarChartObject2.series;
-                    $log.debug($scope.aggBatchData);
-                });
-
-            var data = caliberDelegate.all.createBatch(null)
-                .then(function(data){
-                    $log.log("Pass: " + data);
-                }, function(data){
-                   $log.log("Fail: " + data);
-                });
-            $log.debug(data);
-
-        })();
 
         // random number gen - sample data only!
         function ranNum() {

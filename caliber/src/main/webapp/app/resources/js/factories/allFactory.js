@@ -73,7 +73,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
             method: "PUT",
             data: traineeObj
         }).then(function(response) {
-            $log.debug("Trainee successfully deleted.")
+            $log.debug("Trainee successfully created.")
             $log.debug(response);
             // return id
             return response.data;

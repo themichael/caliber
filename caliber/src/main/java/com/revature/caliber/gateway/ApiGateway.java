@@ -1,8 +1,5 @@
 package com.revature.caliber.gateway;
 
-import com.revature.caliber.assessment.beans.*;
-import com.revature.caliber.beans.*;
-import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Note;
@@ -11,7 +8,6 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerNote;
 import com.revature.caliber.beans.Week;
-import com.revature.caliber.training.beans.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +35,7 @@ public interface ApiGateway {
      *
      * @return All batches
      */
-    List<Batch> allBatch();
+    Set<Batch> allBatch();
 
     /**
      * Get all Batches for a given Trainer.
@@ -343,7 +339,7 @@ public interface ApiGateway {
      *
      * @return the all batches
      */
-    List<Batch> getAllBatches();
+    Set<Batch> getAllBatches();
 
     /**
      * Update assessment note.

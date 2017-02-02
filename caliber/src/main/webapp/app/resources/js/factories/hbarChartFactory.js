@@ -47,7 +47,7 @@ angular.module("charts").factory("hbarChartFactory", function ($log) {
             return chartData;
         };
 
-        hbarChart.getAllBatchesEvalChart = function (data) {
+        hbarChart.getAllBatchesEvalChart = function (data, batches) {
             var chartData = {};
 
             // series

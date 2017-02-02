@@ -1,7 +1,9 @@
 package com.revature.caliber.training.data.implementations;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -31,8 +33,8 @@ public class BatchDAOImplementation implements BatchDAO {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public List<Batch> getAllBatch() {
-		return sessionFactory.getCurrentSession().createCriteria(Batch.class).list();
+	public Set<Batch> getAllBatch() {
+		return new HashSet<>(sessionFactory.getCurrentSession().createCriteria(Batch.class).list());
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {

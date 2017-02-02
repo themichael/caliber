@@ -35,7 +35,7 @@ public class ApiGatewayImpl implements ApiGateway {
     /****************************Batch*******************************/
     public Long createBatch(Batch batch) {return serviceLocator.getTrainingService().createBatch(batch);}
 
-    public List<Batch> allBatch() {
+    public Set<Batch> allBatch() {
         return serviceLocator.getTrainingService().allBatch();
     }
 
@@ -228,7 +228,7 @@ public class ApiGatewayImpl implements ApiGateway {
      * @return the all batches
      */
     @Override
-    public List<Batch> getAllBatches() {
+    public Set<Batch> getAllBatches() {
         return serviceLocator.getTrainingService().allBatch();
     }
 
@@ -587,7 +587,7 @@ public class ApiGatewayImpl implements ApiGateway {
     @Override
     public Map<String, Double[]> getTraineeGradeDataForTrainer(int trainerId) {
     	//query all batches where trainer is X then query all trainee in those batches
-        List<Batch> batches = serviceLocator.getTrainingService().allBatch();
+        Set<Batch> batches = serviceLocator.getTrainingService().allBatch();
         List<Trainee> trainees = new ArrayList<>();
         for(Batch batch:batches){
         	List<Trainee> temptrainees = serviceLocator.getTrainingService().getTraineesInBatch(batch.getBatchId());
