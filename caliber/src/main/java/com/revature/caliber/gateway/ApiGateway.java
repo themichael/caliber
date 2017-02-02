@@ -3,10 +3,15 @@ package com.revature.caliber.gateway;
 import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
 import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCNote;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerNote;
+import com.revature.caliber.beans.Week;
+import com.revature.caliber.training.beans.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -364,4 +369,7 @@ public interface ApiGateway {
     List<com.revature.caliber.assessment.beans.Grade> getAssessmentGradesById(int id);
 
     Batch getCurrentBatch();
+
+
+    long createTrainees(com.revature.caliber.training.beans.Trainee[] trainees);
 }

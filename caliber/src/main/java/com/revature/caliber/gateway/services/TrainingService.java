@@ -180,4 +180,5 @@ public interface TrainingService {
 
     Long createWeek(Week week);
 
+    long createTrainees(com.revature.caliber.training.beans.Trainee[] trainees);
 }

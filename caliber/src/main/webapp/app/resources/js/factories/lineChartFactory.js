@@ -8,7 +8,7 @@ angular.module("charts").factory("lineChartFactory", function ($log) {
 
     var lineChart = {};
 
-    lineChart.getTraineeProgressChart = function (dataArray) {
+    lineChart.getTraineeProgressChart = function (data) {
         var chartData = {};
 
         // series
@@ -25,10 +25,10 @@ angular.module("charts").factory("lineChartFactory", function ($log) {
         chartData.data.push([]);
 
         // traverse through array of objects and grab labels and data
-        dataArray.forEach(function (element) {
-            chartData.data[0].push(element.average);
+        angular.forEach(data, function (value, key) {
+            chartData.data[0].push(value[0]);
             chartData.data[1].push(40);
-            chartData.labels.push(element.week);
+            chartData.labels.push(key);
         });
 
         // set data override
@@ -74,7 +74,7 @@ angular.module("charts").factory("lineChartFactory", function ($log) {
         return chartData;
     };
 
-    lineChart.getBatchProgressChart = function (dataArray) {
+    lineChart.getBatchProgressChart = function (data) {
         var chartData = {};
 
         // series
@@ -88,9 +88,9 @@ angular.module("charts").factory("lineChartFactory", function ($log) {
         chartData.data.push([]);
 
         // loop through array
-        dataArray.forEach(function (element) {
-            chartData.data[0].push(element.average);
-            chartData.labels.push(element.week);
+        angular.forEach(data, function (value, key) {
+            chartData.data[0].push(value[0]);
+            chartData.labels.push(key);
         });
 
         // set data override
