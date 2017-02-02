@@ -10,8 +10,12 @@ angular.module("trainer").controller(
             caliberDelegate.all.getAllTrainers().then(
                 function(trainers){
                     $scope.trainers = trainers;
-                    $log.log(trainers);
+                    $log.debug(trainers);
                 });
+            $log.debug(allBatches);
+            $scope.batches = allBatches;
+            $scope.selectedBatches = [];
+            sortByDate(new Date().getFullYear());
         })();
 
         /**     Filter batches by year      **/
@@ -28,20 +32,22 @@ angular.module("trainer").controller(
             return data;
         }
 
-        /**     Load all batches in the selected year    **/
-        $scope.selectedBatches = [];
         $scope.selectYear = function (index) {
             $scope.selectedYear = $scope.years[index];
-            for (var i = 0; i < $scope.batches.length; i++) {
-                if ($scope.batches[i].startDate.getFullYear === $scope.selectedYear) {
-                    $scope.selectedBatches.push($scope.batches[i]);
-                }
-                $scope.batches = $scope.selectedBatches;
-            }
+            sortByDate($scope.selectedYear);
         };
 
+        function sortByDate(currentYear){
+            $scope.selectedBatches = [];
+            for (var i = 0; i < $scope.batches.length; i++) {
+                var date = new Date($scope.batches[i].startDate);
+                if (date.getFullYear() === currentYear) {
+                    $scope.selectedBatches.push($scope.batches[i]);
+                }
+            }
+        }
+
         /**     Add & View Batches     **/
-        $scope.batches = allBatches;
         $scope.trainingName = {
             model: null
         };
@@ -67,11 +73,17 @@ angular.module("trainer").controller(
         $scope.endDate = {
             model: null
         };
+        $scope.goodGradeThreshold = {
+            model: null
+        };
+        $scope.borderlineGradeThreshold = {
+            model: null
+        };
 
         /**     Get batches for user and trainees in each batch     **/
         $scope.selectCurrentBatch = function(index) {
-            $scope.currentBatch = $scope.batches[index];
-            $scope.trainees = $scope.batches[index].trainees;
+            $scope.currentBatch = $scope.selectedBatches[index];
+            $scope.trainees = $scope.selectedBatches[index].trainees;
         };
 
         /**      Save Batch     **/
@@ -85,7 +97,9 @@ angular.module("trainer").controller(
                 trainer: {},
                 coTrainer: {},
                 startDate: $scope.startDate.model,
-                endDate: $scope.endDate.model
+                endDate: $scope.endDate.model,
+                goodGradeThreshold: $scope.goodGradeThreshold.model,
+                borderlineGradeThreshold: $scope.borderlineGradeThreshold.model
             };
             var trainer_name = $scope.trainer.model;
             var cotrainer_name = $scope.coTrainer.model;
@@ -100,7 +114,7 @@ angular.module("trainer").controller(
                 }
             }
 
-            $log.log(newBatch);
+            $log.debug(newBatch);
 
             result = caliberDelegate.all.createBatch(newBatch);
 
@@ -113,7 +127,9 @@ angular.module("trainer").controller(
                     trainer: $scope.trainer.model,
                     coTrainer: $scope.coTrainer.model,
                     startDate: $scope.startDate.model,
-                    endDate: $scope.endDate.model
+                    endDate: $scope.endDate.model,
+                    goodGradeThreshold: $scope.goodGradeThreshold.model,
+                    borderlineGradeThreshold: $scope.borderlineGradeThreshold.model
                 });
             });
 

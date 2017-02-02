@@ -39,11 +39,13 @@
                         <th>Location</th>
                         <th>Start Date</th>
                         <th>End Date</th>
+                        <th>Good Grade</th>
+                        <th>Passing Grade</th>
                         <th>Trainees</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="batch in batches track by $index">
+                    <tr ng-repeat="batch in selectedBatches track by $index">
                         <td>{{batch.trainingName}}</td>
                         <td>{{batch.trainingType}}</td>
                         <td>{{batch.skillType}}</td>
@@ -52,6 +54,8 @@
                         <td>{{batch.location}}</td>
                         <td>{{batch.startDate|date}}</td>
                         <td>{{batch.endDate|date}}</td>
+                        <td>{{batch.goodGradeThreshold}}</td>
+                        <td>{{batch.borderlineGradeThreshold}}</td>
                         <td><!-- Button Trigger for Add Trainee Modal -->
                             <a role="button" data-toggle="modal" ng-click="selectCurrentBatch($index)"
                                data-target="#addTraineeModal">
@@ -141,6 +145,20 @@
                                            min="0" type="date" required>
                                     <span class="input-group-addon glyphicon glyphicon-calendar"></span>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 col-sm-6">
+                                <label for="goodGrade">Good Grade Threshold:</label>
+                                <input ng-model="goodGradeThreshold.model" type="number"
+                                       min="0" step=".01" class="form-control" id="goodGrade"
+                                       placeholder="Enter Good Grade Threshold" required>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6">
+                                <label for="borderlineGrade">Borderline Grade Threshold:</label>
+                                <input ng-model="borderlineGradeThreshold.model" type="number"
+                                       min="0" step=".01" class="form-control" id="borderlineGrade"
+                                       placeholder="Enter Borderline Grade Threshold" required>
                             </div>
                         </div>
                     </div>
