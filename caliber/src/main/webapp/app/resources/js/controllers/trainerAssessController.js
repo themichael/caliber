@@ -26,6 +26,7 @@ angular.module("trainer")
                if(allBatches[0].weeks.length > 0){
                    allBatches[0].weeks.sort(weekComparator);
                    $scope.currentWeek = allBatches[0].weeks[0];
+                   getAllAssessmentsForWeek();
                }
 
                else $scope.currentWeek = null;
@@ -37,6 +38,8 @@ angular.module("trainer")
            $log.debug($scope.currentBatch);
            $log.debug($scope.currentWeek);
         })(allBatches);
+
+        $scope.grades = [];
 
         // default -- view assessments table
         $scope.currentView = true;
@@ -57,11 +60,7 @@ angular.module("trainer")
             else $scope.currentWeek = null;
 
             /** replace with ajax call to get assessments by weekId **/
-            caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekId)
-                .then(function(data){
-                    $scope.currentAssessments = data;
-                    $log.debug($scope.currentAssessments);
-                });
+            getAllAssessmentsForWeek()
         };
 
 
@@ -70,6 +69,7 @@ angular.module("trainer")
             $scope.currentWeek = $scope.currentBatch.weeks[index];
             $log.debug($scope.currentWeek);
             /** ajax call to get assessments by weekId **/
+            getAllAssessmentsForWeek();
         };
 
         // active week
@@ -105,7 +105,7 @@ angular.module("trainer")
 
         // select assessment from list
         $scope.selectAssessment = function (index) {
-            $scope.currentAssessment = $scope.currentAssessments[index];
+            $scope.currentAssessment = $scope.currentAssessment[index];
             $scope.currentView = false;
             /** replace with ajax call to get grades by assessmentId **/
         };
@@ -122,18 +122,60 @@ angular.module("trainer")
                 rawScore: $scope.rawScore
             };
             $log.debug(assessment);
-            caliberDelegate.trainer.createAssessment(assessment);
+            caliberDelegate.trainer.createAssessment(assessment).then(function (response) {
+              $log.debug(response);
+              if($scope.currentAssessments > 0)
+                    $scope.currentAssessments.push(assessment);
+              else $scope.currentAssessments = assessment;
+                getAllAssessmentsForWeek();
+                $("#createAssessmentModal").modal('toggle');
+
+            });
         };
         $scope.selectedCategories = [];
+
         $scope.toggleSelection = function (category) {
             var index = $scope.selectedCategories.indexOf(category);
             if(index > -1) $scope.selectedCategories.splice(index,1);
             else $scope.selectedCategories.push(category);
         };
 
+        $scope.updateGrade = function (traineeId, assessment) {
+            $log.debug(traineeId);
+            var grade = {
+                gradeId: 1,
+                assessment: assessment,
+                trainee: traineeId,
+                dateReceived: new Date(),
+                score: document.getElementById((traineeId+""+assessment.assessmentId)).value,
+
+            };
+
+            caliberDelegate.trainer.addGrade(grade).then(function (response) {
+                $log.debug("======= ADD GRADE =======");
+                $log.debug(response);
+            })
+        }
+
         function weekComparator(w1,w2) {
             return (w1.weekNumber>w2.weekNumber)? 1:
                 (w2.weekNumber>w1.weekNumber)?-1 : 0;
+        }
+
+        function getAllAssessmentsForWeek(){
+            caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekId)
+                .then(function(data){
+                    $scope.currentAssessments = data;
+                    $log.debug($scope.currentAssessments);
+                    $scope.currentAssessments.forEach(function (assessment) {
+                        caliberDelegate.all.getGrades(assessment.assessmentId).then(function (response) {
+                            $scope.grades.push(response.data);
+                            $log.debug("====== GRADES ======");
+                            $log.debug($scope.grades);
+                        });
+                    });
+
+                });
         }
 
     });

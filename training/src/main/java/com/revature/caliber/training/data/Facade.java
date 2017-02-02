@@ -29,7 +29,7 @@ public interface Facade {
 
     public Set<Batch> getAllBatch();
 
-    public List<Batch> getTrainerBatch(Integer id);
+    public Set<Batch> getTrainerBatch(Integer id);
 
     public List<Batch> getCurrentBatch();
 

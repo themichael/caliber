@@ -43,7 +43,7 @@ public interface ApiGateway {
      * @param id - The trainer
      * @return All batches for a given trainer
      */
-    List<Batch> getBatches(Integer id);
+    Set<Batch> getBatches(Integer id);
 
     /**
      * Get all current Batches
