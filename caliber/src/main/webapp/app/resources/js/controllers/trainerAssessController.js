@@ -39,6 +39,8 @@ angular.module("trainer")
            $log.debug($scope.currentWeek);
         })(allBatches);
 
+        $scope.grades = [];
+
         // default -- view assessments table
         $scope.currentView = true;
 
@@ -138,6 +140,23 @@ angular.module("trainer")
             else $scope.selectedCategories.push(category);
         };
 
+        $scope.updateGrade = function (traineeId, assessment) {
+            $log.debug(traineeId);
+            var grade = {
+                gradeId: 1,
+                assessment: assessment,
+                trainee: traineeId,
+                dateReceived: new Date(),
+                score: document.getElementById((traineeId+""+assessment.assessmentId)).value,
+
+            };
+
+            caliberDelegate.trainer.addGrade(grade).then(function (response) {
+                $log.debug("======= ADD GRADE =======");
+                $log.debug(response);
+            })
+        }
+
         function weekComparator(w1,w2) {
             return (w1.weekNumber>w2.weekNumber)? 1:
                 (w2.weekNumber>w1.weekNumber)?-1 : 0;
@@ -148,6 +167,14 @@ angular.module("trainer")
                 .then(function(data){
                     $scope.currentAssessments = data;
                     $log.debug($scope.currentAssessments);
+                    $scope.currentAssessments.forEach(function (assessment) {
+                        caliberDelegate.all.getGrades(assessment.assessmentId).then(function (response) {
+                            $scope.grades.push(response.data);
+                            $log.debug("====== GRADES ======");
+                            $log.debug($scope.grades);
+                        });
+                    });
+
                 });
         }
 
