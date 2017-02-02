@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type All controller.
@@ -158,11 +159,11 @@ public class AllController {
         return new ResponseEntity<>(apiGateway.getGradesForBatchWeekly(batchId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/agg/tech/batch/all",
+    @RequestMapping(value = "/agg/batch/trainer/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HashMap<String, HashMap<String, Double[]>>> aggregateTechForAllBatches() {
-        return new ResponseEntity<>(apiGateway.getTechGradeAllBatch(), HttpStatus.OK);
+    public ResponseEntity<Map<String, Double[]>> aggregateTraineesTrainer(@PathVariable("id") int trainerId) {
+        return new ResponseEntity<>(apiGateway.getTraineeGradeDataForTrainer(trainerId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/trainer/all",
