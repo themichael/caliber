@@ -3,6 +3,23 @@ angular.module("trainer").controller(
     function ($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
         $log.debug("Booted trainer home controller.");
 
+    (function start(){
+        createDefaultChart();
+    })();
+
+    function createDefaultChart(){
+        NProgress.start();
+        caliberDelegate.agg.getAggBatchAllTrainer(allBatches[0].trainer.trainerId)
+            .then(function(data){
+                $log.debug(data);
+                NProgress.done();
+                var hbarChartObject = chartsDelegate.hbar.getAllBatchesEvalChart(data);
+                $scope.allBatchesRankLabels = hbarChartObject.labels;
+                $scope.allBatchesRankData = hbarChartObject.data;
+                $scope.allBatchesRankSeries = hbarChartObject.series;
+            });
+    }
+
     /*********************************************** UI ***************************************************/
     var viewCharts = 0;
 
@@ -21,6 +38,7 @@ angular.module("trainer").controller(
             if (index === -1) {
                 viewCharts = 0;
                 $scope.currentBatch.trainingName = "Batch";
+                createDefaultChart();
             }
             else {
                 $scope.currentBatch = $scope.batches[index];
@@ -71,7 +89,7 @@ angular.module("trainer").controller(
 
         // create charts on batch selection
         function createBatchCharts() {
-
+            NProgress.start();
             caliberDelegate.agg.getAggTechBatch($scope.currentBatch.batchId)
                 .then(function(data){
                     var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
@@ -83,6 +101,7 @@ angular.module("trainer").controller(
 
             caliberDelegate.agg.getAggWeekBatch($scope.currentBatch.batchId)
                 .then(function(data){
+                    NProgress.done();
                     var lineChartObject = chartsDelegate.line.getBatchProgressChart(data);
                     $scope.batchProgressLabels = lineChartObject.labels;
                     $scope.batchProgressData = lineChartObject.data;
@@ -120,6 +139,7 @@ angular.module("trainer").controller(
         // create charts on trainee selection
         function createTraineeCharts() {
 
+            NProgress.start();
             caliberDelegate.agg.getAggWeekTrainee($scope.currentTrainee.traineeId)
                 .then(function(data){
                     $log.debug(data);
@@ -134,6 +154,7 @@ angular.module("trainer").controller(
             caliberDelegate.agg.getAggTechTrainee($scope.currentTrainee.traineeId)
                 .then(function(data){
                     $log.debug(data);
+                    NProgress.done();
                     var radarChartObject = chartsDelegate.radar.getTraineeTechProgressChart(data);
                     $scope.radarData = radarChartObject.data;
                     $scope.radarLabels = radarChartObject.labels;
@@ -145,27 +166,12 @@ angular.module("trainer").controller(
 
         /**************************************** Default Charts *******************************************/
 
-            // batch rank comparison - sample data
-        var sample7 = [
-                {name: "Batch1342", score: ranNum()}, {name: "Batch1526", score: ranNum()},
-                {name: "Batch0354", score: ranNum()}, {name: "Batch1822", score: ranNum()},
-                {name: "Batch9355", score: ranNum()}, {name: "Batch1232", score: ranNum()},
-                {name: "Batch7241", score: ranNum()}, {name: "Batch1782", score: ranNum()},
-                {name: "Batch7341", score: ranNum()}, {name: "Batch2312", score: ranNum()},
-                {name: "Batch8453", score: ranNum()}, {name: "Batch6345", score: ranNum()},
-                {name: "Batch1431", score: ranNum()}];
-
-        // batch rank comparison - hbar chart
-        var hbarChartObject = chartsDelegate.hbar.getAllBatchesEvalChart(sample7);
-        $scope.allBatchesRankLabels = hbarChartObject.labels;
-        $scope.allBatchesRankData = hbarChartObject.data;
-        $scope.allBatchesRankSeries = hbarChartObject.series;
-
         // random number gen - sample data only!
         function ranNum() {
             var num = (Math.random() * 50) + 50;
             return num.toFixed(2);
         }
+
 
 
     });

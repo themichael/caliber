@@ -47,7 +47,7 @@ angular.module("charts").factory("hbarChartFactory", function ($log) {
             return chartData;
         };
 
-        hbarChart.getAllBatchesEvalChart = function (dataArray) {
+        hbarChart.getAllBatchesEvalChart = function (data) {
             var chartData = {};
 
             // series
@@ -58,9 +58,11 @@ angular.module("charts").factory("hbarChartFactory", function ($log) {
             chartData.labels = [];
 
             // loop through object array
-            dataArray.forEach(function (element) {
-                chartData.data.push(element.score);
-                chartData.labels.push(element.name);
+            angular.forEach(data, function (value, key) {
+                $log.debug(value);
+                chartData.data.push(value[0]);
+                $log.debug(key);
+                chartData.labels.push(key);
             });
 
             return chartData;
