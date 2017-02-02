@@ -44,5 +44,7 @@ public class TraineeServiceImplementation implements TraineeService {
 	public void deleteTrainee(Trainee trainee) {
 		facade.deleteTrainee(trainee);
 	}
+
+	public List<Trainee> getTraineesByTrainer(Long trainerId) { return facade.getTraineesByTrainer(trainerId); }
 	// end of trainee
 }

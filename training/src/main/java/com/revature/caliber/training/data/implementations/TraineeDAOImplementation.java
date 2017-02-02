@@ -43,6 +43,19 @@ public class TraineeDAOImplementation implements TraineeDAO {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public List<Trainee> getTraineesByTrainer(Long trainerId){
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Trainee.class);
+        criteria.createAlias("batch", "b").
+                createAlias("b.trainer", "t").
+                add(Restrictions.eq("t.trainerId", trainerId.intValue()));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+        return criteria.list();
+    }
+
+    @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
             Exception.class})
     public Trainee getTrainee(Integer id) {

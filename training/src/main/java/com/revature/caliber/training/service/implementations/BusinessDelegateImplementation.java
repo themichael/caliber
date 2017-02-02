@@ -69,6 +69,8 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 	public void deleteTrainee(Trainee trainee) {
 		traineeService.deleteTrainee(trainee);
 	}
+
+	public List<Trainee> getTraineesByTrainer(Long trainerId) { return traineeService.getTraineesByTrainer(trainerId); }
 	// end of trainee
 
 	// batch
