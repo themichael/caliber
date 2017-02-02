@@ -30,7 +30,7 @@ public interface BatchDAO {
 	 * @param id
 	 * @return
 	 */
-	public List<Batch> getTrainerBatch(Integer id);
+	public Set<Batch> getTrainerBatch(Integer id);
 
 	/**
 	 * Get in active batches

@@ -82,7 +82,7 @@ public class AssessmentController {
      * @return ResponseEntity containing a set of Assessments and a HttpStatus
      */
     @RequestMapping(
-            value = "/assessment/week{id}",
+            value = "/assessment/week/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Assessment>> getByWeekId(@PathVariable("id") long id) {

@@ -28,7 +28,7 @@ public class BatchServiceImplementation implements BatchService {
 		return facade.getAllBatch();
 	}
 
-	public List<Batch> getTrainerBatch(Integer id) {
+	public Set<Batch> getTrainerBatch(Integer id) {
 		return facade.getTrainerBatch(id);
 	}
 

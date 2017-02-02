@@ -82,10 +82,10 @@ public class BatchController {
 	 */
 	@RequestMapping(value = "batch/byTrainerId/{id}", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public HttpEntity<List<Batch>> getTrainerBatch(@PathVariable("id") Integer id) {
-		ResponseEntity<List<Batch>> returnEntity;
+	public HttpEntity<Set<Batch>> getTrainerBatch(@PathVariable("id") Integer id) {
+		ResponseEntity<Set<Batch>> returnEntity;
 		try {
-			List<Batch> batches = businessDelegate.getTrainerBatch(id);
+			Set<Batch> batches = businessDelegate.getTrainerBatch(id);
 			if (batches == null)
 				returnEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
 			else

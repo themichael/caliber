@@ -82,7 +82,7 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 		return batchService.getAllBatch();
 	}
 
-	public List<Batch> getTrainerBatch(Integer id) {
+	public Set<Batch> getTrainerBatch(Integer id) {
 		return batchService.getTrainerBatch(id);
 	}
 

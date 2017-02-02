@@ -75,7 +75,7 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
-    public List<Batch> getBatches(Integer id) {
+    public Set<Batch> getBatches(Integer id) {
         RestTemplate service = new RestTemplate();
         // Build Service URL
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname + allBatchesForTrainer)
@@ -87,10 +87,10 @@ public class TrainingServiceImpl implements TrainingService {
         if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
             throw new RuntimeException("Trainer not found in batch.");
         } else if (response.getStatusCode() == HttpStatus.OK) {
-            return Arrays.asList(response.getBody());
+            return new HashSet(Arrays.asList(response.getBody()));
         } else {
             // Includes 404 and other responses. Give back no data.
-            return new ArrayList<>();
+            return new HashSet<>();
         }
     }
 

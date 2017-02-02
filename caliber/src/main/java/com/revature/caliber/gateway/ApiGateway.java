@@ -43,7 +43,7 @@ public interface ApiGateway {
      * @param id - The trainer
      * @return All batches for a given trainer
      */
-    List<Batch> getBatches(Integer id);
+    Set<Batch> getBatches(Integer id);
 
     /**
      * Get all current Batches
@@ -288,6 +288,13 @@ public interface ApiGateway {
      * @return the all assessments
      */
     List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments();
+
+    /**
+     * Gets assessments by week id.
+     *
+     * @return the all assessments
+     */
+    List<com.revature.caliber.assessment.beans.Assessment> getAssessmentsByWeekId(long weekId);
 
     /**
      * Create assessment.

@@ -39,10 +39,10 @@ public class BatchDAOImplementation implements BatchDAO {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public List<Batch> getTrainerBatch(Integer id) {
+	public Set<Batch> getTrainerBatch(Integer id) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Batch.class);
 		criteria.add(Restrictions.eq("trainer.trainerId", id));
-		return criteria.list();
+		return new HashSet<>(criteria.list());
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {

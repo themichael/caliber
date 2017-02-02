@@ -53,6 +53,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     private String getAllAssessmentsPath;
     private String addAssessmentPath, updateAssessmentPath, deleteAssessmentPath;
 	private String getGradesByTraineePath;
+	private String getAssessmentsByWeekId;
 
 
 	@Override
@@ -128,6 +129,29 @@ public class AssessmentServiceImpl implements AssessmentService {
 			return new ArrayList<>();
 		}
 
+	}
+
+	@Override
+	public List<com.revature.caliber.assessment.beans.Assessment> getAssessmentsByWeekId(long weekId) {
+		RestTemplate service = new RestTemplate();
+		//Build Parameters
+		final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getAssessmentsByWeekId)
+				.path("/"+String.valueOf(weekId))
+				.build().toUriString();
+
+		//Invoke the service
+		ResponseEntity<com.revature.caliber.assessment.beans.Assessment[]> response =
+				service.getForEntity(URI, com.revature.caliber.assessment.beans.Assessment[].class);
+
+		if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+			throw new TrainingServiceTraineeOperationException("Failed to retrieve assessment from the given week id.");
+		}
+		else if (response.getStatusCode() == HttpStatus.OK) {
+			return Arrays.asList(response.getBody());
+		}
+		else {
+			return new ArrayList<>();
+		}
 	}
 
 	@Override
@@ -475,4 +499,11 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 
+	public void setGetAssessmentsByWeekId(String getAssessmentsByWeekId) {
+		this.getAssessmentsByWeekId = getAssessmentsByWeekId;
+	}
+
+	public String getGetAssessmentsByWeekId() {
+		return getAssessmentsByWeekId;
+	}
 }

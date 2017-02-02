@@ -40,6 +40,14 @@ public interface AssessmentService {
      */
     List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments();
 
+
+
+    /**
+     * Get assessments by week id
+     *
+     */
+    List<com.revature.caliber.assessment.beans.Assessment> getAssessmentsByWeekId(long weekId);
+
     /**
      * Returns a list of grades of a specific assessment based on assessmentId
      * as an input
