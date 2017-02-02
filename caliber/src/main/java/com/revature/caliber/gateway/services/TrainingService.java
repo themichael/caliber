@@ -6,6 +6,7 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.Week;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * The interface Training service.
@@ -24,7 +25,7 @@ public interface TrainingService {
      *
      * @return A list of all batches
      */
-    List<Batch> allBatch();
+    Set<Batch> allBatch();
 
     /**
      * Get all Batches for a given Trainer.

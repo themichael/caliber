@@ -11,9 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class TrainingServiceImpl implements TrainingService {
 
@@ -56,7 +54,7 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
-    public List<Batch> allBatch() {
+    public Set<Batch> allBatch() {
         RestTemplate service = new RestTemplate();
         // Build Service URL
         final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(allBatch)
@@ -67,12 +65,12 @@ public class TrainingServiceImpl implements TrainingService {
         if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
             throw new RuntimeException("Bad request.");
         } else if (response.getStatusCode() == HttpStatus.OK) {
-            return Arrays.asList(response.getBody());
+            return  new HashSet(Arrays.asList(response.getBody()));
         } else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-            return new ArrayList<>();
+            return new HashSet<>();
         } else {
             // Includes 404 and other responses. Give back no data.
-            return new ArrayList<>();
+            return new HashSet<>();
         }
     }
 

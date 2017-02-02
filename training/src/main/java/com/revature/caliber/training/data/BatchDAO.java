@@ -1,6 +1,7 @@
 package com.revature.caliber.training.data;
 
 import java.util.List;
+import java.util.Set;
 
 import com.revature.caliber.training.beans.Batch;
 
@@ -21,7 +22,7 @@ public interface BatchDAO {
 	 * 
 	 * @return
 	 */
-	public List<Batch> getAllBatch();
+	public Set<Batch> getAllBatch();
 
 	/**
 	 * Get all batches associated to a trainer

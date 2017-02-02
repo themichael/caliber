@@ -1,6 +1,7 @@
 package com.revature.caliber.initial;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -52,7 +53,7 @@ public class ControllerTests {
 	@Ignore
 	@Test
 	public void getAllBatches(){
-		List<Batch> batches = context.getBean(ServiceLocator.class).getTrainingService().allBatch();
+		Set<Batch> batches = context.getBean(ServiceLocator.class).getTrainingService().allBatch();
 		System.out.println("batches: " + batches);
 		//batches in trainer, trainees, weeks is null
 	}

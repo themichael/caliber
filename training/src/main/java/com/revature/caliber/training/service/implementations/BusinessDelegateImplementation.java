@@ -76,7 +76,7 @@ public class BusinessDelegateImplementation implements BusinessDelegate {
 		return batchService.createBatch(batch);
 	}
 
-	public List<Batch> getAllBatch() {
+	public Set<Batch> getAllBatch() {
 		return batchService.getAllBatch();
 	}
 
