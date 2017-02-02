@@ -160,6 +160,12 @@ public class TrainerBatchController {
         return new ResponseEntity(list, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/assessment/week/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<com.revature.caliber.assessment.beans.Assessment>> getAssessmentsByWeekId(@PathVariable long id){
+        List<com.revature.caliber.assessment.beans.Assessment> list = apiGateway.getAssessmentsByWeekId(id);
+        return new ResponseEntity(list,HttpStatus.OK);
+    }
+
     /**
      * Update assessment note response entity.
      *

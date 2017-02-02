@@ -17,7 +17,7 @@ angular.module("trainer")
         /******************************************* UI ***********************************************/
 
         $log.debug("Batches " + allBatches);
-        console.log(allBatches);
+        $log.debug(allBatches);
 
         (function start(allBatches){
             $scope.batches = allBatches;
@@ -57,9 +57,10 @@ angular.module("trainer")
             else $scope.currentWeek = null;
 
             /** replace with ajax call to get assessments by weekId **/
-            caliberDelegate.all.getAllAssessments($scope.currentWeek.weekId)
+            caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekId)
                 .then(function(data){
                     $scope.currentAssessments = data;
+                    $log.debug($scope.currentAssessments);
                 });
         };
 
@@ -67,7 +68,7 @@ angular.module("trainer")
         // select week
         $scope.selectWeek = function (index) {
             $scope.currentWeek = $scope.currentBatch.weeks[index];
-            console.log($scope.currentWeek);
+            $log.debug($scope.currentWeek);
             /** ajax call to get assessments by weekId **/
         };
 
@@ -83,7 +84,7 @@ angular.module("trainer")
             if(!$scope.currentBatch.weeks)
                 weekNumber  = 1;
             else weekNumber = $scope.currentBatch.weeks.length+1;
-            console.log(weekNumber);
+            $log.debug(weekNumber);
             var weekObj = {
                 weekId:1,
                 weekNumber: weekNumber,
@@ -97,7 +98,7 @@ angular.module("trainer")
                     batch: null,
                     topics:null
                 });
-                console.log($scope.currentBatch.weeks);
+                $log.debug($scope.currentBatch.weeks);
             });
 
         };
@@ -120,7 +121,7 @@ angular.module("trainer")
                 weeklyStatus: null,
                 rawScore: $scope.rawScore
             };
-            console.log(assessment);
+            $log.debug(assessment);
             caliberDelegate.trainer.createAssessment(assessment);
         };
         $scope.selectedCategories = [];

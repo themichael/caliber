@@ -294,6 +294,13 @@ public interface ApiGateway {
     List<com.revature.caliber.assessment.beans.Assessment> getAllAssessments();
 
     /**
+     * Gets assessments by week id.
+     *
+     * @return the all assessments
+     */
+    List<com.revature.caliber.assessment.beans.Assessment> getAssessmentsByWeekId(long weekId);
+
+    /**
      * Create assessment.
      *
      * @param assessment the assessment

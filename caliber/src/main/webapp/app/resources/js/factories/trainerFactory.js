@@ -128,7 +128,7 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
     // get all assessments
     trainer.getAllAssessments = function (weekId) {
         return $http({
-            url: "/caliber/trainer/assessment/byWeek/" + weekId,
+            url: "/caliber/trainer/assessment/week/" + weekId,
             method: "GET"
         }).then(function(response) {
             $log.debug("Assessments successfully retrieved");

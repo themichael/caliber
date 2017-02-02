@@ -1,5 +1,7 @@
 package com.revature.caliber.gateway.impl;
 
+import com.revature.caliber.assessment.beans.*;
+import com.revature.caliber.assessment.beans.Assessment;
 import com.revature.caliber.beans.*;
 import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Note;
@@ -676,6 +678,11 @@ public class ApiGatewayImpl implements ApiGateway {
 
         return serviceLocator.getAssessmentService().getAllAssessments();
 
+    }
+
+    @Override
+    public List<Assessment> getAssessmentsByWeekId(long weekId) {
+        return serviceLocator.getAssessmentService().getAssessmentsByWeekId(weekId);
     }
 
     /**
