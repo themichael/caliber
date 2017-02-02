@@ -7,21 +7,20 @@ angular.module("trainer").controller(
     var viewCharts = 0;
 
     $scope.batches = allBatches;
-    $scope.trainees = allBatches.trainees;
-
     $scope.currentBatch = {};
     $scope.currentBatch.trainingName = "Batch";
     $scope.currentTech = "Technology";
-    $scope.currentTrainee = "Trainee";
+    $scope.currentTrainee = {};
+    $scope.currentTrainee.name = "Trainee";
 
         // on batch selection
         $scope.selectCurrentBatch = function (index) {
             $scope.currentTech = "Tech";
-            $scope.currentTrainee = "Trainee";
+            $scope.currentTrainee.name = "Trainee";
             // turn of batches
             if (index === -1) {
                 viewCharts = 0;
-                $scope.currentBatch = "Batch";
+                $scope.currentBatch.trainingName = "Batch";
             }
             else {
                 $scope.currentBatch = $scope.batches[index];
@@ -33,11 +32,11 @@ angular.module("trainer").controller(
         // on tech selection
         $scope.selectCurrentTech = function (index) {
             if (index === -1) {
-                $scope.currentTrainee = "Trainee";
+                $scope.currentTrainee.name = "Trainee";
                 $scope.currentTech = "Tech";
                 viewCharts = 1;
             } else {
-                $scope.currentTrainee = "Trainee";
+                $scope.currentTrainee.name = "Trainee";
                 $scope.currentTech = $scope.tech[index];
                 viewCharts = 2;
                 createTechCharts();
@@ -47,12 +46,12 @@ angular.module("trainer").controller(
         // on trainee selection
         $scope.selectCurrentTrainee = function (index) {
             if (index === -1) {
-                $scope.currentTrainee = "Trainee";
+                $scope.currentTrainee.name = "Trainee";
                 viewCharts = 2;
             }
             else {
                 $scope.currentTech = "Tech";
-                $scope.currentTrainee = $scope.trainees[index];
+                $scope.currentTrainee = $scope.currentBatch.trainees[index];
                 viewCharts = 3;
                 createTraineeCharts();
             }
@@ -72,42 +71,25 @@ angular.module("trainer").controller(
 
         // create charts on batch selection
         function createBatchCharts() {
-            // Radar chart for batch rank comparison
-            var sample8 = [
-                {tech: "Java", average: ranNum()}, {tech: "Servlet", average: ranNum()},
-                {tech: "Spring", average: ranNum()}, {tech: "Hibernate", average: ranNum()},
-                {tech: "REST", average: ranNum()}, {tech: "SOAP", average: ranNum()},
-                {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
 
-            var sample9 = [
-                {tech: "Java", average: ranNum()}, {tech: "Servlet", average: ranNum()},
-                {tech: "Spring", average: ranNum()}, {tech: "Hibernate", average: ranNum()},
-                {tech: "REST", average: ranNum()}, {tech: "SOAP", average: ranNum()},
-                {tech: "Javascript", average: ranNum()}, {tech: "Angular", average: ranNum()}];
+            caliberDelegate.agg.getAggTechBatch($scope.currentBatch.batchId)
+                .then(function(data){
+                    var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
+                    $scope.radarData = radarChartObject.data;
+                    $scope.radarLabels = radarChartObject.labels;
+                    $scope.radarSeries = radarChartObject.series;
+                    $scope.radarOptions = radarChartObject.options;
+                });
 
-            // Generate chart
-            var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(sample8, sample9);
-            $scope.radarData = radarChartObject.data;
-            $scope.radarLabels = radarChartObject.labels;
-            $scope.radarSeries = radarChartObject.series;
-            $scope.radarOptions = radarChartObject.options;
-
-            // batch week by week sample data
-            var sample3 = [{week: "Week 1", average: ranNum()}, {week: "Week 2", average: ranNum()},
-                {week: "Week 3", average: ranNum()}, {week: "Week 4", average: ranNum()},
-                {week: "Week 5", average: ranNum()}, {week: "Week 6", average: ranNum()},
-                {week: "Week 7", average: ranNum()}, {week: "Week 8", average: ranNum()},
-                {week: "Week 9", average: ranNum()}, {week: "Week 10", average: ranNum()},
-                {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
-
-            // create batch progress charts
-            var lineChartObject = chartsDelegate.line.getBatchProgressChart(sample3);
-            $scope.batchProgressLabels = lineChartObject.labels;
-            $scope.batchProgressData = lineChartObject.data;
-            $scope.batchProgressSeries = lineChartObject.series;
-            $scope.batchProgressOptions = lineChartObject.options;
-            $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
-
+            caliberDelegate.agg.getAggWeekBatch($scope.currentBatch.batchId)
+                .then(function(data){
+                    var lineChartObject = chartsDelegate.line.getBatchProgressChart(data);
+                    $scope.batchProgressLabels = lineChartObject.labels;
+                    $scope.batchProgressData = lineChartObject.data;
+                    $scope.batchProgressSeries = lineChartObject.series;
+                    $scope.batchProgressOptions = lineChartObject.options;
+                    $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
+                });
         }
 
         // create charts on tech selection
@@ -138,55 +120,25 @@ angular.module("trainer").controller(
         // create charts on trainee selection
         function createTraineeCharts() {
 
-            // Sample Data representing trainee average over 12 weeks
-            var sampleLineData = [
-                {week: "Week 1", average: ranNum()}, {week: "Week 2", average: ranNum()},
-                {week: "Week 3", average: ranNum()}, {week: "Week 4", average: ranNum()},
-                {week: "Week 5", average: ranNum()}, {week: "Week 6", average: ranNum()},
-                {week: "Week 7", average: ranNum()}, {week: "Week 8", average: ranNum()},
-                {week: "Week 9", average: ranNum()}, {week: "Week 10", average: ranNum()},
-                {week: "Week 11", average: ranNum()}, {week: "Week 12", average: ranNum()}];
-
-            // Sample Data representing trainee strengths per technology
-            var sampleRadarData = [
-                {skillCategory: "Core Java", average: ranNum()},
-                {skillCategory: "SQL", average: ranNum()},
-                {skillCategory: "Spring", average: ranNum()},
-                {skillCategory: "Hibernate", average: ranNum()},
-                {skillCategory: "AngularJS", average: ranNum()},
-                {skillCategory: "REST", average: ranNum()}];
-
-            // line chart function that retrieves
-            // Week by week progression for a trainee/ batch on a line chart
-            var lineChartObject = chartsDelegate.line.getTraineeProgressChart(sampleLineData);
-            $scope.lineLabels = lineChartObject.labels;
-            $scope.lineSeries = lineChartObject.series;
-            $scope.lineData = lineChartObject.data;
-            $scope.lineDatasetOverride = lineChartObject.datasetOverride;
-            $scope.lineOptions = lineChartObject.options;
-
-            // radar chart function that retrieves
-            // data for batch/ trainee technology strengths
-            var radarChartObject = chartsDelegate.radar.getTraineeTechProgressChart(sampleRadarData);
-            $scope.radarLabels = radarChartObject.labels;
-            $scope.radarSeries = radarChartObject.series;
-            $scope.radarData = radarChartObject.data;
-            $scope.radarOptions = radarChartObject.options;
-
-            caliberDelegate.agg.getAggWeekBatch($scope.currentBatch.batchId)
+            caliberDelegate.agg.getAggWeekTrainee($scope.currentTrainee.traineeId)
                 .then(function(data){
                     $log.debug(data);
-                    var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
+                    var lineChartObject = chartsDelegate.line.getTraineeProgressChart(data);
+                    $scope.lineLabels = lineChartObject.labels;
+                    $scope.lineSeries = lineChartObject.series;
+                    $scope.lineData = lineChartObject.data;
+                    $scope.lineDatasetOverride = lineChartObject.datasetOverride;
+                    $scope.lineOptions = lineChartObject.options;
+                });
+
+            caliberDelegate.agg.getAggTechTrainee($scope.currentTrainee.traineeId)
+                .then(function(data){
+                    $log.debug(data);
+                    var radarChartObject = chartsDelegate.radar.getTraineeTechProgressChart(data);
                     $scope.radarData = radarChartObject.data;
                     $scope.radarLabels = radarChartObject.labels;
                     $scope.radarSeries = radarChartObject.series;
                     $scope.radarOptions = radarChartObject.options;
-                });
-
-            caliberDelegate.agg.getAggTechBatch($scope.currentBatch.batchId)
-                .then(function(data){
-                    $log.debug(data);
-
                 });
         }
 

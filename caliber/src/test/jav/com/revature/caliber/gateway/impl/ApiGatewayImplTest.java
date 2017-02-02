@@ -88,7 +88,7 @@ public class ApiGatewayImplTest {
     @Test
     @Ignore
     public void getGradesForBatchWeekly() throws Exception {
-        HashMap<String, Double[]> grades = apiGateway.getGradesForBatchWeekly(2);
+        HashMap<String, Double[]> grades = apiGateway.getGradesForBatchWeekly(1);
 
         for (String grade : grades.keySet()) {
             System.out.print(grade + " -> [");
