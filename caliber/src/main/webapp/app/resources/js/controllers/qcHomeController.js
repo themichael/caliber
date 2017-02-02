@@ -9,6 +9,9 @@ angular.module("qc").controller("qcHomeController",
         })();
 
         function createDefaultChart(){
+            //Finishes any left over ajax animation from another page
+            NProgress.done();
+
             $scope.batches = allBatches;
             $scope.currentBatch = allBatches[0];
             NProgress.start();
@@ -19,6 +22,8 @@ angular.module("qc").controller("qcHomeController",
                     $scope.radarLabels = radarChartObject.labels;
                     $scope.radarSeries = radarChartObject.series;
                     $scope.radarOptions = radarChartObject.options;
+                }, function(){
+                    NProgress.done();
                 });
 
             caliberDelegate.agg.getAggWeekBatch($scope.currentBatch.batchId)
@@ -30,6 +35,8 @@ angular.module("qc").controller("qcHomeController",
                     $scope.batchProgressSeries = lineChartObject.series;
                     $scope.batchProgressOptions = lineChartObject.options;
                     $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
+                }, function(){
+                    NProgress.done();
                 });
         }
 
@@ -79,6 +86,8 @@ angular.module("qc").controller("qcHomeController",
                     $scope.radarLabels = radarChartObject.labels;
                     $scope.radarSeries = radarChartObject.series;
                     $scope.radarOptions = radarChartObject.options;
+                }, function(){
+                    NProgress.done();
                 });
 
             caliberDelegate.agg.getAggWeekBatch($scope.currentBatch.batchId)
@@ -90,6 +99,8 @@ angular.module("qc").controller("qcHomeController",
                     $scope.batchProgressSeries = lineChartObject.series;
                     $scope.batchProgressOptions = lineChartObject.options;
                     $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
+                }, function(){
+                    NProgress.done();
                 });
         }
 
@@ -107,6 +118,8 @@ angular.module("qc").controller("qcHomeController",
                     $scope.lineData = lineChartObject.data;
                     $scope.lineDatasetOverride = lineChartObject.datasetOverride;
                     $scope.lineOptions = lineChartObject.options;
+                }, function(){
+                    NProgress.done();
                 });
 
             caliberDelegate.agg.getAggTechTrainee($scope.currentTrainee.traineeId)
@@ -117,7 +130,10 @@ angular.module("qc").controller("qcHomeController",
                     $scope.radarLabels = radarChartObject.labels;
                     $scope.radarSeries = radarChartObject.series;
                     $scope.radarOptions = radarChartObject.options;
-                });
+                }, function() {
+                    NProgress.done();
+                }
+            );
         }
 
     });
