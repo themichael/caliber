@@ -43,6 +43,10 @@ angular.module("delegate").factory("chartsDelegate",
             return radarChartFactory.getTraineeTechProgressChart(dataArray);
         };
 
+        delegate.radar.getAllBatchRankComparisonChart = function(dataArray){
+            return radarChartFactory.getAllBatchRankComparisonChart(dataArray);
+        };
+
         /**************************** Line ***************************/
         delegate.line.getTraineeProgressChart = function (dataArray) {
             return lineChartFactory.getTraineeProgressChart(dataArray);
