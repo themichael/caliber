@@ -36,6 +36,7 @@
 		<property name="updateGrade" value="assessment/grades/update/"/>
 		<property name="getGradesByAssessmentPath" value="assessment/grades/assessment/"/>
 		<property name="allGradesPath" value="assessment/grades/all" />
+		<property name="getGradesByTraineePath" value="assessment/grades/trainee" />
 
 		
 		<property name="updateTrainerNotePath" value="assessment/trainerNote/update/" />
