@@ -75,6 +75,17 @@ public class AllController {
         long traineeId =  apiGateway.createTrainee(trainee);
         return new ResponseEntity(traineeId, HttpStatus.OK);
     }
+    /**
+     * Create trainees response entity.
+     *
+     * @param trainees the trainee
+     * @return the response entity
+     */
+    @RequestMapping(value = "/trainees/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity createTrainees(@RequestBody com.revature.caliber.training.beans.Trainee [] trainees) {
+        apiGateway.createTrainees(trainees);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
 
     /**
      * Update trainee response entity.

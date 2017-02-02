@@ -68,6 +68,10 @@ public class ApiGatewayImpl implements ApiGateway {
     public long createTrainee(com.revature.caliber.training.beans.Trainee trainee) {
         return serviceLocator.getTrainingService().createTrainee(trainee);
     }
+    @Override
+    public long createTrainees(com.revature.caliber.training.beans.Trainee[] trainees) {
+        return serviceLocator.getTrainingService().createTrainees(trainees);
+    }
 
     @Override
     public void updateTrainee(Trainee trainee) {

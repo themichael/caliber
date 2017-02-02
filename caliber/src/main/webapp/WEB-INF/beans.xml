@@ -63,6 +63,7 @@
 		<property name="deleteBatch" value="training/batch/delete/" />
 
 		<property name="addTraineePath" value="training/trainees/new" />
+		<property name="addTraineesPath" value="training/trainees/bulk" />
 		<property name="deleteTraineePath" value="training/trainees/delete" />
 		<property name="updateTraineePath" value="training/trainees/update" />
 		<property name="getTraineeByIdPath" value="training/trainees/byid/" />

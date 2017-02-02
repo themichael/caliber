@@ -34,6 +34,7 @@ public class TrainingServiceImpl implements TrainingService {
     private String getWeekByBatch;
     //paths for week
     private String addWeekPath, getAllWeekPath;
+    private String addTraineesPath;
 
     /***********************************Batch**********************************/
     @Override
@@ -198,6 +199,25 @@ public class TrainingServiceImpl implements TrainingService {
         }
         return response.getBody();
     }
+    @Override
+    public long createTrainees(com.revature.caliber.training.beans.Trainee[] trainees) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(addTraineesPath)
+                .build().toUriString();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        HttpEntity<com.revature.caliber.training.beans.Trainee[]> entity
+                = new HttpEntity(trainees, headers);
+
+        //Invoke the service
+        ResponseEntity<Long> response = service.exchange(URI, HttpMethod.PUT, entity, Long.class);
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new TrainingServiceTraineeOperationException("Trainees could not be created");
+        }
+        return response.getBody();
+    }
 
     @Override
     public void updateTrainee(Trainee trainee) {
@@ -312,6 +332,7 @@ public class TrainingServiceImpl implements TrainingService {
         }
     }
 
+
     @Override
     public Trainer getTrainer(Integer id) {
         RestTemplate service = new RestTemplate();
@@ -397,6 +418,8 @@ public class TrainingServiceImpl implements TrainingService {
 
         return response.getBody();
     }
+
+
 
 
     @Override
@@ -566,6 +589,14 @@ public class TrainingServiceImpl implements TrainingService {
 
     public void setGetAllWeekPath(String getAllWeekPath) {
         this.getAllWeekPath = getAllWeekPath;
+    }
+
+    public void setAddTraineesPath(String addTraineesPath) {
+        this.addTraineesPath = addTraineesPath;
+    }
+
+    public String getAddTraineesPath() {
+        return addTraineesPath;
     }
     //End of Week
 
