@@ -41,7 +41,7 @@ public class ApiGatewayImpl implements ApiGateway {
         return serviceLocator.getTrainingService().allBatch();
     }
 
-    public List<Batch> getBatches(Integer id) {
+    public Set<Batch> getBatches(Integer id) {
         return serviceLocator.getTrainingService().getBatches(id);
     }
 

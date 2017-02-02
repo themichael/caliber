@@ -33,7 +33,7 @@ public interface TrainingService {
      * @param id the id
      * @return A list of this trainer's current batches
      */
-    List<Batch> getBatches(Integer id);
+    Set<Batch> getBatches(Integer id);
 
     /**
      * Get all current Batches

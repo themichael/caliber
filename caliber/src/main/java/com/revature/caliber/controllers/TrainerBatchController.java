@@ -47,7 +47,7 @@ public class TrainerBatchController {
      * @return in JSON, a set of batch objects
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Batch>> getAllBatches(Authentication authentication) {
+    public ResponseEntity<Set<Batch>> getAllBatches(Authentication authentication) {
         SalesforceUser salesforceUser = (SalesforceUser) authentication.getPrincipal();
         return new ResponseEntity<>(apiGateway.getBatches(salesforceUser.getCaliberId()), HttpStatus.OK);
     }
