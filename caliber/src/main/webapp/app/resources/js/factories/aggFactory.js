@@ -81,7 +81,7 @@ angular.module("api")
          */
         agg.techAllBatch = function() {
             return $http({
-                url: "/caliber/all/agg/tech/batch/all",
+                url: "/caliber/vp/agg/tech/batch/all",
                 method: "GET"
             }).then(function (response) {
                 $log.debug("Agg - Tech - Batch - All -- success");
@@ -99,7 +99,7 @@ angular.module("api")
          */
         agg.batchTrainer = function(trainerId) {
             return $http({
-                url: "/caliber/vp/agg/batch/trainer/" + trainerId,
+                url: "/caliber/all/agg/batch/trainer/" + trainerId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug("Agg - Batch - Trainer -- success");
