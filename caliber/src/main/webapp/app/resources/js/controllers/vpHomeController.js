@@ -16,6 +16,12 @@ angular.module("vp").controller(
                 .then(function(data){
                     NProgress.done();
                     var radarChartObject =  chartsDelegate.radar.getAllBatchRankComparisonChart(data);
+                    $log.debug("Data Values: ");
+                    $log.debug(radarChartObject.data);
+                    $log.debug("Series: ");
+                    $log.debug(radarChartObject.series);
+                    $log.debug("Labels: ");
+                    $log.debug(radarChartObject.labels);
                     $scope.radarData = radarChartObject.data;
                     $scope.radarLabels = radarChartObject.labels;
                     $scope.radarSeries = radarChartObject.series;
@@ -94,25 +100,6 @@ angular.module("vp").controller(
                     $scope.batchProgressOptions = lineChartObject.options;
                     $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
                 });
-        }
-
-        // create charts on tech selection
-        function createTechCharts() {
-
-            var sample4 = [{trainee: "Rikki", average: ranNum()},
-                {trainee: "Kyle", average: ranNum()},
-                {trainee: "Osher", average: ranNum()},
-                {trainee: "Danny P", average: ranNum()},
-                {trainee: "Bryan", average: ranNum()},
-                {trainee: "Brayn", average: ranNum()},
-                {trainee: "Thomas", average: ranNum()},
-                {trainee: "Mark", average: ranNum()},
-                {trainee: "Michael", average: ranNum()}];
-
-            var techBarData = chartsDelegate.hbar.getBatchTechEvalChart(sample4);
-            $scope.batchTechLabels = techBarData.labels;
-            $scope.batchTechData = techBarData.data;
-            $scope.batchTechSeries = techBarData.series;
         }
 
         // create charts on trainee selection
