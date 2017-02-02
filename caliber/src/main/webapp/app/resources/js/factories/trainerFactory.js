@@ -112,7 +112,7 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
     trainer.createAssessment = function (assessmentObj) {
         return $http({
             url: "/caliber/trainer/assessment/create",
-            method: "POST",
+            method: "PUT",
             data: assessmentObj
         }).then(function (response) {
             $log.debug("Assessment successfully created.");
