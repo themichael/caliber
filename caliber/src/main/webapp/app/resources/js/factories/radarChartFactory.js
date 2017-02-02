@@ -8,10 +8,8 @@ angular.module("charts").factory("radarChartFactory", function ($log) {
 
     var radarChart = {};
 
-    radarChart.getBatchRankComparisonChart = function (batch) {
+    radarChart.getBatchRankComparisonChart = function (data) {
         var chartData = {};
-
-        $log.log(batch);
 
         // series
         chartData.series = ["Batch"];
@@ -24,10 +22,9 @@ angular.module("charts").factory("radarChartFactory", function ($log) {
         chartData.data.push([]);
 
         // loop through batch data
-        angular.forEach(batch, function (value, key) {
+        angular.forEach(data, function (value, key) {
             chartData.labels.push(key);
             chartData.data[0].push(value[0]);
-            $log.debug(value);
         });
 
         // set radar options
@@ -40,10 +37,8 @@ angular.module("charts").factory("radarChartFactory", function ($log) {
         return chartData;
     };
 
-    radarChart.getTraineeTechProgressChart = function (dataArray) {
+    radarChart.getTraineeTechProgressChart = function (data) {
         var chartData = {};
-
-        // This relies on both data charts having the same labels
 
         // series
         chartData.series = ["Technology"];
@@ -55,12 +50,11 @@ angular.module("charts").factory("radarChartFactory", function ($log) {
         // push empty arrays for data
         chartData.data.push([]);
 
-        // loop through data
-        dataArray.forEach(function (element) {
-            chartData.data[0].push(element.average);
-            chartData.labels.push(element.skillCategory);
+        // loop through batch data
+        angular.forEach(data, function (value, key) {
+            chartData.labels.push(key);
+            chartData.data[0].push(value[0]);
         });
-
         // set radar options
         chartData.options = {
             legend: {
