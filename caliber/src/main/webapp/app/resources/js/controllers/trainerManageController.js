@@ -131,6 +131,7 @@ angular.module("trainer").controller(
                     goodGradeThreshold: $scope.goodGradeThreshold.model,
                     borderlineGradeThreshold: $scope.borderlineGradeThreshold.model
                 });
+                sortByDate($scope.selectedYear);
             });
 
         };
@@ -156,7 +157,7 @@ angular.module("trainer").controller(
                     trainingStatus: $scope.trainingStatus,
                     batch: $scope.currentBatch
                 };
-                $log.log(newTrainee);
+                $log.debug(newTrainee);
                 caliberDelegate.all.createTrainee(newTrainee).then(function () {
                     $scope.trainees.push({
                         name: newTrainee.name,

@@ -57,7 +57,7 @@ angular.module("app").config(
             .state("qc.manage", {
                 url: "/manage",
                 templateUrl: "app/partials/qc-manage.html",
-                controller: "qcManageController"
+                controller: "trainerManageController"
             })
             .state("qc.assess", {
                 url: "/assess",
@@ -120,6 +120,7 @@ angular.module("app").config(
             })
             .state("vp.manage", {
                 templateUrl: "app/partials/manage-batch.html",
-                url: "/manage"
+                url: "/manage",
+                controller: "trainerManageController"
             });
     });
