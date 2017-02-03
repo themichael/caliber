@@ -4,40 +4,27 @@ angular.module("qc").controller("qcHomeController",
         $log.debug(allBatches);
         /********************************************* On Start ************************************************/
 
-        (function start(){
-            createDefaultChart();
-        })();
-
-        function createDefaultChart(){
+        (function start() {
             //Finishes any left over ajax animation from another page
             NProgress.done();
 
+            // batch null check
+            if (allBatches.length === 0) {
+                $scope.noBatches = true;
+                $scope.noBatchesMessage = "There are no current batches.";
+                $scope.currentBatch = {trainingName: "Batch"};
+            } else {
+                $scope.noBatches = false;
+                createDefaultCharts();
+            }
+        })();
+
+        function createDefaultCharts(){
             $scope.batches = allBatches;
             $scope.currentBatch = allBatches[0];
-            NProgress.start();
-            caliberDelegate.agg.getAggTechBatch($scope.currentBatch.batchId)
-                .then(function(data){
-                    var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
-                    $scope.radarData = radarChartObject.data;
-                    $scope.radarLabels = radarChartObject.labels;
-                    $scope.radarSeries = radarChartObject.series;
-                    $scope.radarOptions = radarChartObject.options;
-                }, function(){
-                    NProgress.done();
-                });
 
-            caliberDelegate.agg.getAggWeekBatch($scope.currentBatch.batchId)
-                .then(function(data){
-                    NProgress.done();
-                    var lineChartObject = chartsDelegate.line.getBatchProgressChart(data);
-                    $scope.batchProgressLabels = lineChartObject.labels;
-                    $scope.batchProgressData = lineChartObject.data;
-                    $scope.batchProgressSeries = lineChartObject.series;
-                    $scope.batchProgressOptions = lineChartObject.options;
-                    $scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
-                }, function(){
-                    NProgress.done();
-                });
+            NProgress.start();
+            createBatchCharts();
         }
 
         /*********************************************** UI ***************************************************/
@@ -81,11 +68,11 @@ angular.module("qc").controller("qcHomeController",
             NProgress.start();
             caliberDelegate.agg.getAggTechBatch($scope.currentBatch.batchId)
                 .then(function(data){
-                    var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
-                    $scope.radarData = radarChartObject.data;
-                    $scope.radarLabels = radarChartObject.labels;
-                    $scope.radarSeries = radarChartObject.series;
-                    $scope.radarOptions = radarChartObject.options;
+                    var radarChartObject2 = chartsDelegate.radar.getBatchRankComparisonChart(data);
+                    $scope.batchTechData = radarChartObject2.data;
+                    $scope.batchTechLabels = radarChartObject2.labels;
+                    $scope.batchTechSeries = radarChartObject2.series;
+                    $scope.batchTechOptions = radarChartObject2.options;
                 }, function(){
                     NProgress.done();
                 });
@@ -113,11 +100,11 @@ angular.module("qc").controller("qcHomeController",
                     $log.debug(data);
                     NProgress.done();
                     var lineChartObject = chartsDelegate.line.getTraineeProgressChart(data);
-                    $scope.lineLabels = lineChartObject.labels;
-                    $scope.lineSeries = lineChartObject.series;
-                    $scope.lineData = lineChartObject.data;
-                    $scope.lineDatasetOverride = lineChartObject.datasetOverride;
-                    $scope.lineOptions = lineChartObject.options;
+                    $scope.traineeProgressLabels = lineChartObject.labels;
+                    $scope.traineeProgressSeries = lineChartObject.series;
+                    $scope.traineeProgressData = lineChartObject.data;
+                    $scope.traineeProgressDatasetOverride = lineChartObject.datasetOverride;
+                    $scope.traineeProgressOptions = lineChartObject.options;
                 }, function(){
                     NProgress.done();
                 });
@@ -126,10 +113,10 @@ angular.module("qc").controller("qcHomeController",
                 .then(function (data) {
                     $log.debug(data);
                     var radarChartObject = chartsDelegate.radar.getTraineeTechProgressChart(data);
-                    $scope.radarData = radarChartObject.data;
-                    $scope.radarLabels = radarChartObject.labels;
-                    $scope.radarSeries = radarChartObject.series;
-                    $scope.radarOptions = radarChartObject.options;
+                    $scope.traineeTechData = radarChartObject.data;
+                    $scope.traineeTechLabels = radarChartObject.labels;
+                    $scope.traineeTechSeries = radarChartObject.series;
+                    $scope.traineeTechOptions = radarChartObject.options;
                 }, function() {
                     NProgress.done();
                 }
