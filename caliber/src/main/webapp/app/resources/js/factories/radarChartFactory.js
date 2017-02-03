@@ -65,8 +65,12 @@ angular.module("charts").factory("radarChartFactory", function ($log) {
         return chartData;
     };
 
-    radarChart.getAllBatchRankComparisonChart = function (data) {
+    radarChart.getAllBatchRankComparisonChart = function (data, charts) {
         var chartData = {};
+
+        // TODO: use charts to find chart name
+        $log.debug("All Charts: ");
+        $log.debug(charts);
 
         // series
         chartData.series = [];

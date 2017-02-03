@@ -35,16 +35,16 @@ angular.module("delegate").factory("chartsDelegate",
         };
 
         /**************************** Radar **************************/
-        delegate.radar.getBatchRankComparisonChart = function (dataArray1, dataArray2) {
-            return radarChartFactory.getBatchRankComparisonChart(dataArray1, dataArray2);
+        delegate.radar.getBatchRankComparisonChart = function (dataArray) {
+            return radarChartFactory.getBatchRankComparisonChart(dataArray);
         };
 
         delegate.radar.getTraineeTechProgressChart = function (dataArray) {
             return radarChartFactory.getTraineeTechProgressChart(dataArray);
         };
 
-        delegate.radar.getAllBatchRankComparisonChart = function(dataArray){
-            return radarChartFactory.getAllBatchRankComparisonChart(dataArray);
+        delegate.radar.getAllBatchRankComparisonChart = function(dataArray1, dataArray2){
+            return radarChartFactory.getAllBatchRankComparisonChart(dataArray1, dataArray2);
         };
 
         /**************************** Line ***************************/

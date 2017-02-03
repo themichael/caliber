@@ -24,17 +24,17 @@ angular.module("vp").controller(
             caliberDelegate.agg.getAggTechAllBatch()
                 .then(function(data){
                     NProgress.done();
-                    // var radarChartObject =  chartsDelegate.radar.getAllBatchRankComparisonChart(data);
-                    // $log.debug("Data Values: ");
-                    // $log.debug(radarChartObject.data);
-                    // $log.debug("Series: ");
-                    // $log.debug(radarChartObject.series);
-                    // $log.debug("Labels: ");
-                    // $log.debug(radarChartObject.labels);
-                    // $scope.radarData = radarChartObject.data;
-                    // $scope.radarLabels = radarChartObject.labels;
-                    // $scope.radarSeries = radarChartObject.series;
-                    // $scope.radarOptions = radarChartObject.options;
+                    var radarChartObject =  chartsDelegate.radar.getAllBatchRankComparisonChart(data, allBatches);
+                    $log.debug("Data Values: ");
+                    $log.debug(radarChartObject.data);
+                    $log.debug("Series: ");
+                    $log.debug(radarChartObject.series);
+                    $log.debug("Labels: ");
+                    $log.debug(radarChartObject.labels);
+                    $scope.radarData = radarChartObject.data;
+                    $scope.radarLabels = radarChartObject.labels;
+                    $scope.radarSeries = radarChartObject.series;
+                    $scope.radarOptions = radarChartObject.options;
                 });
         }
 

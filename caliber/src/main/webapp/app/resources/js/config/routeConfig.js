@@ -19,17 +19,12 @@ angular.module("app").config(
         $stateProvider
             .state("routing", {
                 url: "/routing",
-                templateUrl: "app/partials/routing.html"
+                templateUrl: "app/partials/routing.html",
                 // uncomment when dev is complete
-                // onEnter:
-                //     function(authFactory){
-                //         authFactory.auth();
-                //     }
-            })
-            .state("testPage", {
-                url: "/testpage",
-                templateUrl: "app/partials/testPage.html",
-                controller: "testAPIController"
+                onEnter:
+                    function(authFactory){
+                        authFactory.auth();
+                    }
             })
 
             // qc
@@ -41,12 +36,12 @@ angular.module("app").config(
                     allBatches: function(caliberDelegate){
                         return caliberDelegate.qc.getAllBatches();
                     }
-                }
+                },
                 // uncomment when dev is complete
-                // onEnter:
-                //     function(authFactory){
-                //         authFactory.authQC();
-                //     }
+                onEnter:
+                    function(authFactory){
+                        authFactory.authQC();
+                    }
 
             })
             .state("qc.home", {
@@ -56,8 +51,8 @@ angular.module("app").config(
             })
             .state("qc.manage", {
                 url: "/manage",
-                templateUrl: "app/partials/qc-manage.html",
-                controller: "qcManageController"
+                templateUrl: "app/partials/manage-batch.html",
+                controller: "trainerManageController"
             })
             .state("qc.assess", {
                 url: "/assess",
@@ -105,12 +100,12 @@ angular.module("app").config(
                     allBatches: function(caliberDelegate){
                         return caliberDelegate.vp.getAllBatches();
                     }
-                }
+                },
                 // uncomment when dev is complete
-                // onEnter:
-                //     function(authFactory){
-                //         authFactory.authVP();
-                //     }
+                onEnter:
+                    function(authFactory){
+                        authFactory.authVP();
+                    }
 
             })
             .state("vp.home", {
@@ -120,6 +115,7 @@ angular.module("app").config(
             })
             .state("vp.manage", {
                 templateUrl: "app/partials/manage-batch.html",
-                url: "/manage"
+                url: "/manage",
+                controller: "trainerManageController"
             });
     });
