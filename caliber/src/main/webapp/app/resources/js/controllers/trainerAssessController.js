@@ -81,7 +81,6 @@ angular.module("trainer")
            $log.debug($scope.currentWeek);
         })(allBatches);
 
-        $scope.grades = [];
 
         // default -- view assessments table
         $scope.currentView = true;
@@ -182,22 +181,43 @@ angular.module("trainer")
             else $scope.selectedCategories.push(category);
         };
 
+        /**
+         * Updates Grade if exists,
+         *  else create new Grade,
+         *  then saves to $scope
+         * @param gradeId
+         * @param traineeId
+         * @param assessment
+         */
         $scope.updateGrade = function (traineeId, assessment) {
-            $log.debug(traineeId);
-            var grade = {
-                gradeId: 1,
-                assessment: assessment,
-                trainee: traineeId,
-                dateReceived: new Date(),
-                score: document.getElementById((traineeId+""+assessment.assessmentId)).value,
+            $log.debug("Starting updateGrade for "
+                        + "traineeId: " + traineeId + ", "
+                        + "and assessment: " + assessment);
 
-            };
+            if($scope.findGrade(traineeId,assessment.assessmentId)){
+                var foundGrade = $scope.findGrade(traineeId, assessment.assessmentId);
+                foundGrade.score = document.getElementById((traineeId+"_"+assessment.assessmentId)).value;
+                caliberDelegate.trainer.updateGrade(foundGrade).then(function (response) {
+                    $log.debug(response);
+                    foundGrade.gradeId = response;
+                    $scope.grades.push(foundGrade);
+                })
+            }else {
+                
+            }
+        }; // updateGrade
 
-            caliberDelegate.trainer.addGrade(grade).then(function (response) {
-                $log.debug("======= ADD GRADE =======");
-                $log.debug(response);
-            })
-        }
+        $scope.findGrade = function (traineeId, assessmentId) {
+            for(var i in $scope.grades){
+                if($scope.grades[i].trainee=== traineeId && $scope.grades[i].assessment.assessmentId === assessmentId)
+                {
+                    $log.debug("HEREEEEE")
+                    $log.debug($scope.grades[i]);
+                    return $scope.grades[i];
+                }
+
+            }
+        };
 
         function weekComparator(w1,w2) {
             return (w1.weekNumber>w2.weekNumber)? 1:
@@ -205,15 +225,17 @@ angular.module("trainer")
         }
 
         function getAllAssessmentsForWeek(){
+            $scope.grades = [];
             caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekId)
                 .then(function(data){
                     $scope.currentAssessments = data;
                     $log.debug($scope.currentAssessments);
                     $scope.currentAssessments.forEach(function (assessment) {
-                        caliberDelegate.all.getGrades(assessment.assessmentId).then(function (response) {
-                            $scope.grades.push(response.data);
-                            $log.debug("====== GRADES ======");
-                            $log.debug($scope.grades);
+                        caliberDelegate.all.getGrades(assessment.assessmentId).then(function (data) {
+                            $log.debug(data);
+                            for(var i in data){
+                                $scope.grades.push(data[i]);
+                            }
                         });
                     });
 

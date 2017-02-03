@@ -61,8 +61,8 @@ public class ControllerTests {
 	@Ignore
 	@Test
 	public void getBatches(){
-		List<Batch> batches = context.getBean(ServiceLocator.class).getTrainingService().getBatches(1);
-		System.out.println("get batches: " + batches);
+		//List<Batch> batches = context.getBean(ServiceLocator.class).getTrainingService().getBatches(1);
+		//System.out.println("get batches: " + batches);
 		//based on trainer id
 	}
 	

@@ -33,10 +33,21 @@ public class GradeDAOImpl implements GradeDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
+    /**
+     * Save Grade if does not already exist
+     *  else updates existing record and returns null
+     * @param grade
+     * @return the id of created Grade, else returns null
+     */
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {
 			Exception.class })
-	public Long insertGrade(Grade grade) {return (long)sessionFactory.getCurrentSession().save(grade);}
+	public Long insertGrade(Grade grade) {
+	    if(grade.getGradeId() == 0)
+            return (long)sessionFactory.getCurrentSession().save(grade);
+        sessionFactory.getCurrentSession().update(grade);
+	    return null;
+	}
 
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = {

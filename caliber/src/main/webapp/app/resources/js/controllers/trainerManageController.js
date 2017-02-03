@@ -6,10 +6,11 @@ angular.module("trainer").controller(
         /**************************** Batch *****************************/
 
         /**     On page start --> load all trainers     **/
-        (function start() {
+        (function start(){
             caliberDelegate.all.getAllTrainers().then(
-                function (trainers) {
+                function(trainers){
                     $scope.trainers = trainers;
+                    $log.debug("=========TRAINERS=========");
                     $log.debug(trainers);
                 });
             $log.debug(allBatches);
@@ -37,7 +38,7 @@ angular.module("trainer").controller(
             sortByDate($scope.selectedYear);
         };
 
-        function sortByDate(currentYear) {
+        function sortByDate(currentYear){
             $scope.selectedBatches = [];
             for (var i = 0; i < $scope.batches.length; i++) {
                 var date = new Date($scope.batches[i].startDate);
@@ -81,7 +82,7 @@ angular.module("trainer").controller(
         };
 
         /**     Get batches for user and trainees in each batch     **/
-        $scope.selectCurrentBatch = function (index) {
+        $scope.selectCurrentBatch = function(index) {
             $scope.currentBatch = $scope.selectedBatches[index];
             $scope.trainees = $scope.selectedBatches[index].trainees;
         };
@@ -94,8 +95,8 @@ angular.module("trainer").controller(
                 trainingType: $scope.trainingType.model,
                 skillType: $scope.skillType.model,
                 location: $scope.location.model,
-                trainer: {},
-                coTrainer: {},
+                trainer: null,
+                coTrainer: null,
                 startDate: $scope.startDate.model,
                 endDate: $scope.endDate.model,
                 goodGradeThreshold: $scope.goodGradeThreshold.model,
@@ -107,10 +108,10 @@ angular.module("trainer").controller(
             for (var i = 0; i < $scope.trainers.length; i++) {
 
                 if ($scope.trainers[i].name == trainer_name) {
-                    newBatch.trainer.trainerId = $scope.trainers[i].trainerId;
+                    newBatch.trainer = $scope.trainers[i];
                 }
                 else if ($scope.trainers[i].name == cotrainer_name) {
-                    newBatch.coTrainer.trainerId = $scope.trainers[i].trainerId;
+                    newBatch.coTrainer =  $scope.trainers[i];
                 }
             }
 
@@ -138,7 +139,7 @@ angular.module("trainer").controller(
 
         /**************************** Trainees *****************************/
 
-        /**     Load trainees for batch    **/
+         /**     Load trainees for batch    **/
         $scope.name = {
             model: null
         };
