@@ -1,6 +1,6 @@
 angular.module("trainer").controller(
     "trainerManageController",
-    function ($scope, $log, $q, caliberDelegate, allBatches) {
+    function ($scope, $log, caliberDelegate, allBatches) {
         $log.debug("Booted trainer manage controller.");
 
         /**************************** Batch *****************************/
@@ -105,7 +105,7 @@ angular.module("trainer").controller(
             var trainer_name = $scope.trainer.model;
             var cotrainer_name = $scope.coTrainer.model;
 
-            for (var i =0; i < $scope.trainers.length; i++) {
+            for (var i = 0; i < $scope.trainers.length; i++) {
 
                 if ($scope.trainers[i].name == trainer_name) {
                     newBatch.trainer = $scope.trainers[i];
@@ -119,7 +119,7 @@ angular.module("trainer").controller(
 
             result = caliberDelegate.all.createBatch(newBatch);
 
-            result.then(function() {
+            result.then(function () {
                 $scope.batches.push({
                     trainingName: $scope.trainingName.model,
                     trainingType: $scope.trainingType.model,
@@ -132,6 +132,7 @@ angular.module("trainer").controller(
                     goodGradeThreshold: $scope.goodGradeThreshold.model,
                     borderlineGradeThreshold: $scope.borderlineGradeThreshold.model
                 });
+                sortByDate($scope.selectedYear);
             });
 
         };
@@ -154,11 +155,11 @@ angular.module("trainer").controller(
                 var newTrainee = {
                     name: $scope.receivers[i].name,
                     email: $scope.receivers[i].email,
-                    trainingStatus:  $scope.trainingStatus,
+                    trainingStatus: $scope.trainingStatus,
                     batch: $scope.currentBatch
                 };
-                $log.log(newTrainee);
-                caliberDelegate.all.createTrainee(newTrainee).then(function() {
+                $log.debug(newTrainee);
+                caliberDelegate.all.createTrainee(newTrainee).then(function () {
                     $scope.trainees.push({
                         name: newTrainee.name,
                         email: newTrainee.email,
@@ -167,7 +168,6 @@ angular.module("trainer").controller(
                     });
                 });
             }
-
             $scope.receivers = [{name: "", email: ""}];
         };
 
