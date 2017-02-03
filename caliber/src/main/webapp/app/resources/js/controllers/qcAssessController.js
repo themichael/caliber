@@ -162,9 +162,9 @@ angular.module("qc")
         };
 
         // find grade for trainee
-        $scope.findGrade = function (traineeId) {
-            var grade = grades.find(function (element) {
-                return element.trainee === traineeId;
+        $scope.findGrade = function (traineeId, assessmentId) {
+            var grade = grades.find(function (grade) {
+                return grade.trainee === traineeId && grade.assessment.assessmentId === assessmentId;
             });
 
             return grade.score;

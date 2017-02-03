@@ -10,6 +10,7 @@ angular.module("trainer").controller(
             caliberDelegate.all.getAllTrainers().then(
                 function(trainers){
                     $scope.trainers = trainers;
+                    $log.debug("=========TRAINERS=========");
                     $log.debug(trainers);
                 });
             $log.debug(allBatches);
@@ -94,8 +95,8 @@ angular.module("trainer").controller(
                 trainingType: $scope.trainingType.model,
                 skillType: $scope.skillType.model,
                 location: $scope.location.model,
-                trainer: {},
-                coTrainer: {},
+                trainer: null,
+                coTrainer: null,
                 startDate: $scope.startDate.model,
                 endDate: $scope.endDate.model,
                 goodGradeThreshold: $scope.goodGradeThreshold.model,
@@ -107,10 +108,10 @@ angular.module("trainer").controller(
             for (var i =0; i < $scope.trainers.length; i++) {
 
                 if ($scope.trainers[i].name == trainer_name) {
-                    newBatch.trainer.trainerId = $scope.trainers[i].trainerId;
+                    newBatch.trainer = $scope.trainers[i];
                 }
                 else if ($scope.trainers[i].name == cotrainer_name) {
-                    newBatch.coTrainer.trainerId =  $scope.trainers[i].trainerId;
+                    newBatch.coTrainer =  $scope.trainers[i];
                 }
             }
 

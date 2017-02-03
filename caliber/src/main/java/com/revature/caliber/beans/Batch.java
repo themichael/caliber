@@ -1,5 +1,7 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -10,6 +12,7 @@ public class Batch {
 
     private int batchId;
     private String trainingName;
+    @JsonProperty
     private Trainer trainer;
     private Trainer coTrainer;
     private String skillType;
