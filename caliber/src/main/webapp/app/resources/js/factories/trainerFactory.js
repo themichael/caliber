@@ -98,7 +98,7 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
     trainer.updateGrade = function (gradeObj) {
         return $http({
             url: "/caliber/trainer/grade/update",
-            method: "PUT",
+            method: "POST",
             data: gradeObj
         }).then(function (response) {
             $log.debug("Grade successfully updated");

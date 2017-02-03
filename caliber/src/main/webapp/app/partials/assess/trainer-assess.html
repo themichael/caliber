@@ -81,7 +81,10 @@
                 <tr role="button" ng-repeat="trainee in currentBatch.trainees track by $index">
                     <td>{{ trainee.name }}</td>
                     <td ng-repeat="assessment in currentAssessments track by $index">
-                        {{findGrade(trainee.traineeId, assessment.assessmentId)}}
+                        <input class="form-control" type="number"
+                               value="{{findGrade(trainee.traineeId, assessment.assessmentId).score}}"
+                               ng-blur="updateGrade(trainee.traineeId,assessment)"
+                               id="{{trainee.traineeId}}_{{assessment.assessmentId}}">
                         <!--<input class="form-control" type="number" width="10px"
                                min="0" max="{{assessment.rawScore}}"
                                id="{{trainee.traineeId}}-{{assessment.assessmentId}}"
