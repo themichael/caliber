@@ -223,4 +223,33 @@ public class TraineeController {
 
 		return returnEntity;
 	}
+
+	/**
+	 * Get a list of trainees by trainer by making a GET request to the URL
+	 *
+	 * @param trainerId
+	 *            id as part of URL
+	 * @return Response with list of trainee objects and/or status
+	 */
+	@RequestMapping(value = "trainees/bytrainer/{identifier}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Trainee>> getTraineesByTrainer(@PathVariable("identifier") long trainerId) {
+		ResponseEntity<List<Trainee>> returnEntity;
+
+		try {
+			List<Trainee> result = businessDelegate.getTraineesByTrainer(trainerId);
+
+			if (result == null) {
+				returnEntity = new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+			} else {
+				returnEntity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+		} catch (RuntimeException e) {
+			logger.error("Error while getting trainees by trainerId: " + trainerId, e);
+			returnEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return returnEntity;
+	}
 }

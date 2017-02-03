@@ -22,4 +22,6 @@ public interface TraineeService {
 	List<Trainee> getTraineesInBatch(Integer batchId);
 
 	void deleteTrainee(Trainee trainee);
+
+	List<Trainee> getTraineesByTrainer(Long trainerId);
 }

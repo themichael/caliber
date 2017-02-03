@@ -27,7 +27,7 @@ public class TrainingServiceImpl implements TrainingService {
             batchById, updateBatch, deleteBatch;
     //paths for trainee (look at beans.xml for the paths themselves)
     private String addTraineePath, updateTraineePath, deleteTraineePath, getTraineeByIdPath, getTraineeByNamePath,
-            getTraineesByBatchPath;
+            getTraineesByBatchPath, getTraineesByTrainerPath;
     private String addTrainerPath, updateTrainerPath, getAllTrainersPath, getTrainerByIdPath, getTrainerByEmailPath;
     private String getWeekByBatch;
     //paths for week
@@ -293,6 +293,27 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
+    public List<Trainee> getTraineesByTrainer (Long trainerId) {
+        RestTemplate service = new RestTemplate();
+        //Build Parameters
+        final String URI = UriComponentsBuilder.fromHttpUrl(hostname).path(getTraineesByTrainerPath)
+                .path("/" + trainerId.toString())
+                .build().toUriString();
+
+        //Invoke the service
+        ResponseEntity<Trainee[]> response = service.getForEntity(URI, Trainee[].class);
+
+        if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new TrainingServiceTraineeOperationException("Failed to retrieve trainees by trainer.");
+        } else if (response.getStatusCode() == HttpStatus.OK) {
+            return Arrays.asList(response.getBody());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+
+    @Override
     public void deleteTrainee(Trainee trainee) {
         RestTemplate service = new RestTemplate();
         //Build Parameters
@@ -552,6 +573,11 @@ public class TrainingServiceImpl implements TrainingService {
     public void setGetTraineesByBatchPath(String getTraineesByBatchPath) {
         this.getTraineesByBatchPath = getTraineesByBatchPath;
     }
+
+    public void setGetTraineesByTrainerPath(String getTraineesByTrainerPath) {
+        this.getTraineesByTrainerPath = getTraineesByTrainerPath;
+    }
+
     //end of Trainee
 
     //Trainer

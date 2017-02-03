@@ -71,6 +71,7 @@
 		<property name="getTraineeByIdPath" value="training/trainees/byid/" />
 		<property name="getTraineeByNamePath" value="training/trainees/byemail/" />
 		<property name="getTraineesByBatchPath" value="training/trainees/bybatch/" />
+		<property name="getTraineesByTrainerPath" value="training/trainees/bytrainer" />
 
 		<property name="addTrainerPath" value="training/trainers/new" />
 		<property name="getAllTrainersPath" value="training/trainers/all" />

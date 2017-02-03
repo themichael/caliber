@@ -151,6 +151,7 @@
 						<url>http://localhost:80/manager/text</url>
 						<update>true</update>
 						<server>caliberbot</server>
+						<path>/assessment/</path>
 					</configuration>
 				</plugin>
 			</plugins>

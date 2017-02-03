@@ -26,6 +26,8 @@ public interface BusinessDelegate {
 	public List<Trainee> getTraineesInBatch(Integer batchId);
 
 	public void deleteTrainee(Trainee trainee);
+
+	public List<Trainee> getTraineesByTrainer(Long trainerId);
 	// end of TraineeService
 
 	// BatchService methods

@@ -118,6 +118,8 @@ public interface TrainingService {
      * @param trainee trainee to delete
      */
     void deleteTrainee(Trainee trainee);
+
+    List<Trainee> getTraineesByTrainer (Long trainerId);
     //End of Trainee
 
     //Trainer
