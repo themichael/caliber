@@ -73,7 +73,7 @@ a { color: #F26925;}
 
 .panel > .panel-heading {
 	background-image: none;
-	background-color: #B9B9BA;
+	background-color: var(--yellow);
 	color: white;
 
 }
@@ -109,9 +109,9 @@ a { color: #F26925;}
 	Manage Batch
 ************************/
 
-.fa-smile-o { color: green; }
-.fa-meh-o { color: yellow; }
-.fa-frown-o { color: red; }
+.fa-smile-o:hover { color: green; }
+.fa-meh-o:hover { color: yellow; }
+.fa-frown-o:hover { color: red; }
 
 /************************
 	Margins
