@@ -24,11 +24,14 @@ angular.module("charts").factory("lineChartFactory", function ($log) {
         // push empty array for threshold into parent array
         chartData.data.push([]);
 
+        var index = 1;
+
         // traverse through array of objects and grab labels and data
         angular.forEach(data, function (value, key) {
             chartData.data[0].push(value[0]);
             chartData.data[1].push(40);
-            chartData.labels.push(key);
+            chartData.labels.push(index);
+            index++
         });
 
         // set data override
@@ -87,10 +90,13 @@ angular.module("charts").factory("lineChartFactory", function ($log) {
         // push empty array to hold data
         chartData.data.push([]);
 
+        var index = 1;
+
         // loop through array
         angular.forEach(data, function (value, key) {
             chartData.data[0].push(value[0]);
-            chartData.labels.push(key);
+            chartData.labels.push(index);
+            index++;
         });
 
         // set data override

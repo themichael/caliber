@@ -5,27 +5,36 @@ angular.module("vp").controller(
         $log.debug(allBatches);
 
         (function start(){
-            createDefaultCharts();
+            //Finishes any left over ajax animation from another page
+            NProgress.done();
+
+            // batch null check
+            if (allBatches.length === 0) {
+                $scope.noBatches = true;
+                $scope.noBatchesMessage = "No Batches were found.";
+            } else {
+                $scope.noBatches = false;
+                createDefaultCharts();
+            }
         })();
 
         function createDefaultCharts(){
             //Finishes any left over ajax animation from another page
-            NProgress.done();
             NProgress.start();
             caliberDelegate.agg.getAggTechAllBatch()
                 .then(function(data){
                     NProgress.done();
-                    var radarChartObject =  chartsDelegate.radar.getAllBatchRankComparisonChart(data);
-                    $log.debug("Data Values: ");
-                    $log.debug(radarChartObject.data);
-                    $log.debug("Series: ");
-                    $log.debug(radarChartObject.series);
-                    $log.debug("Labels: ");
-                    $log.debug(radarChartObject.labels);
-                    $scope.radarData = radarChartObject.data;
-                    $scope.radarLabels = radarChartObject.labels;
-                    $scope.radarSeries = radarChartObject.series;
-                    $scope.radarOptions = radarChartObject.options;
+                    // var radarChartObject =  chartsDelegate.radar.getAllBatchRankComparisonChart(data);
+                    // $log.debug("Data Values: ");
+                    // $log.debug(radarChartObject.data);
+                    // $log.debug("Series: ");
+                    // $log.debug(radarChartObject.series);
+                    // $log.debug("Labels: ");
+                    // $log.debug(radarChartObject.labels);
+                    // $scope.radarData = radarChartObject.data;
+                    // $scope.radarLabels = radarChartObject.labels;
+                    // $scope.radarSeries = radarChartObject.series;
+                    // $scope.radarOptions = radarChartObject.options;
                 });
         }
 
@@ -43,7 +52,7 @@ angular.module("vp").controller(
             if (index === -1) {
                 viewCharts = 0;
                 $scope.currentBatch = {trainingName: "Batch"};
-                createDefaultChart();
+                createDefaultCharts();
             }
             else {
                 $scope.currentBatch = $scope.batches[index];
@@ -84,10 +93,10 @@ angular.module("vp").controller(
             caliberDelegate.agg.getAggTechBatch($scope.currentBatch.batchId)
                 .then(function(data){
                     var radarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
-                    $scope.radarData = radarChartObject.data;
-                    $scope.radarLabels = radarChartObject.labels;
-                    $scope.radarSeries = radarChartObject.series;
-                    $scope.radarOptions = radarChartObject.options;
+                    $scope.batchTechData = radarChartObject.data;
+                    $scope.batchTechLabels = radarChartObject.labels;
+                    $scope.batchTechSeries = radarChartObject.series;
+                    $scope.batchTechOptions = radarChartObject.options;
                 });
 
             caliberDelegate.agg.getAggWeekBatch($scope.currentBatch.batchId)
@@ -110,22 +119,22 @@ angular.module("vp").controller(
                 .then(function(data){
                     $log.debug(data);
                     NProgress.done();
-                    var lineChartObject = chartsDelegate.line.getTraineeProgressChart(data);
-                    $scope.lineLabels = lineChartObject.labels;
-                    $scope.lineSeries = lineChartObject.series;
-                    $scope.lineData = lineChartObject.data;
-                    $scope.lineDatasetOverride = lineChartObject.datasetOverride;
-                    $scope.lineOptions = lineChartObject.options;
+                    var lineChartObject2 = chartsDelegate.line.getTraineeProgressChart(data);
+                    $scope.traineeProgressLabels = lineChartObject2.labels;
+                    $scope.traineeProgressSeries = lineChartObject2.series;
+                    $scope.traineeProgressData = lineChartObject2.data;
+                    $scope.traineeProgressDatasetOverride = lineChartObject2.datasetOverride;
+                    $scope.traineeProgressOptions = lineChartObject2.options;
                 });
 
             caliberDelegate.agg.getAggTechTrainee($scope.currentTrainee.traineeId)
                 .then(function(data){
                     $log.debug(data);
-                    var radarChartObject = chartsDelegate.radar.getTraineeTechProgressChart(data);
-                    $scope.radarData = radarChartObject.data;
-                    $scope.radarLabels = radarChartObject.labels;
-                    $scope.radarSeries = radarChartObject.series;
-                    $scope.radarOptions = radarChartObject.options;
+                    var radarChartObject2 = chartsDelegate.radar.getTraineeTechProgressChart(data);
+                    $scope.traineeTechData = radarChartObject2.data;
+                    $scope.traineeTechLabels = radarChartObject2.labels;
+                    $scope.traineeTechSeries = radarChartObject2.series;
+                    $scope.traineeTechOptions = radarChartObject2.options;
                 });
         }
     });

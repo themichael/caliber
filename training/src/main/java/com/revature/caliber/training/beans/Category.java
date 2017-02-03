@@ -1,5 +1,7 @@
 package com.revature.caliber.training.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,6 +32,7 @@ public class Category {
 	// Bi-directional mapping -- to avoid recursion, make DTO to send to UI
 	@ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@JoinTable(name = "CATEGORY_COVERED")
+	@JsonIgnore
 	private Set<Week> weeks;
 
 	public Category() {
