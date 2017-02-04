@@ -9,14 +9,13 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     <security:http auto-config="true" use-expressions="true">
         <security:form-login login-page="/"/>
         <!-- change to hasRole('ROLE_VP') after development is complete -->
-        <security:intercept-url pattern="/vp/**" access="permitAll"/>
+        <security:intercept-url pattern="/vp/**" access="hasRole('ROLE_VP')"/>
         <!-- change to hasRole('ROLE_QC') after development is complete -->
-        <security:intercept-url pattern="/qc/**" access="permitAll"/>
+        <security:intercept-url pattern="/qc/**" access="hasRole('ROLE_QC')"/>
         <!-- change to hasRole('ROLE_TRAINER') after development is complete -->
-        <security:intercept-url pattern="/trainer/**" access="permitAll" />
+        <security:intercept-url pattern="/trainer/**" access="hasRole('ROLE_TRAINER')" />
         <security:intercept-url pattern="/all/**" access="permitAll" />
         <security:csrf disabled="true"/>
-        <!-- logout functionality: delete cookies and redirect. Use /j_spring_security_logout as route -->
         <security:logout delete-cookies="token, JSESSIONID"/>
     </security:http>
 
