@@ -15,5 +15,20 @@ The Caliber suite also provides a variety of reports on different levels of gran
 #Screenshots
 <img src="https://github.com/pjw6193/caliber/blob/master/images/all%20batch%20chart.png?raw=true" height="500" width="600"/>
 <br/>
+#Environment 
+* Requires registration as a Salesforce connected app
+* Users registered in the Salesforce with matching email in Users table
+* Necessary Environment variables:
+
+JAVA_HOME=/usr/java/jdk1.8.0_111/
+CALIBER_DB_URL=jdbc:oracle:thin:@something:1521:orcl
+CALIBER_DB_USER=scott
+CALIBER_DB_PASS=tiger
+SALESFORCE_CLIENT_ID=omnomnom
+SALESFORCE_CLIENT_SECRET=orz
+SALESFORCE_REDIRECT_URI=https://caliber.revature.tech:443/authenticated
+CALIBER_PROJECT_URL=http://caliber.revature.tech/caliber/
+CALIBER_SERVER_URL=http://caliber.revature.tech/
+
 
 ![alt tag](https://media.glassdoor.com/sqll/1266141/revature-squarelogo-1461616605672.png "Revature")
