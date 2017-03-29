@@ -20,15 +20,15 @@ The Caliber suite also provides a variety of reports on different levels of gran
 * Users registered in the Salesforce with matching email in Users table
 * Necessary Environment variables:
 
-JAVA_HOME=/usr/java/jdk1.8.0_111/
-CALIBER_DB_URL=jdbc:oracle:thin:@something:1521:orcl
-CALIBER_DB_USER=scott
-CALIBER_DB_PASS=tiger
-SALESFORCE_CLIENT_ID=omnomnom
-SALESFORCE_CLIENT_SECRET=orz
-SALESFORCE_REDIRECT_URI=https://caliber.revature.tech:443/authenticated
-CALIBER_PROJECT_URL=http://caliber.revature.tech/caliber/
-CALIBER_SERVER_URL=http://caliber.revature.tech/
+<br/>JAVA_HOME=/usr/java/jdk1.8.0_111/
+<br/>CALIBER_DB_URL=jdbc:oracle:thin:@something:1521:orcl
+<br/>CALIBER_DB_USER=scott
+<br/>CALIBER_DB_PASS=tiger
+<br/>SALESFORCE_CLIENT_ID=omnomnom
+<br/>SALESFORCE_CLIENT_SECRET=orz
+<br/>SALESFORCE_REDIRECT_URI=https://caliber.revature.tech:443/authenticated
+<br/>CALIBER_PROJECT_URL=http://caliber.revature.tech/caliber/
+<br/>CALIBER_SERVER_URL=http://caliber.revature.tech/
 
 
 ![alt tag](https://media.glassdoor.com/sqll/1266141/revature-squarelogo-1461616605672.png "Revature")
