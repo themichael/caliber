@@ -12,9 +12,6 @@ Caliber is a performance management suite to collect and analyze evaluations of 
 
 The Caliber suite also provides a variety of reports on different levels of granularity.
 
-#Screenshots
-<img src="https://github.com/pjw6193/caliber/blob/master/images/all%20batch%20chart.png?raw=true" height="500" width="600"/>
-<br/>
 #Environment 
 * Requires registration as a Salesforce connected app
 * Users registered in the Salesforce with matching email in Users table
@@ -30,5 +27,22 @@ The Caliber suite also provides a variety of reports on different levels of gran
 <br/>CALIBER_PROJECT_URL=http://caliber.revature.tech/caliber/
 <br/>CALIBER_SERVER_URL=http://caliber.revature.tech/
 
+#ERD (3/31/2017)
+<img src="https://github.com/pjw6193/caliber/blob/master/images/caliber-local.png?raw=true" height="200" width="300"/>
+<br/>
+
+#Screenshots
+All My Trainees' Performance (trainer)
+<img src="https://github.com/pjw6193/caliber/blob/master/images/all%20batch%20chart.png?raw=true" height="200" width="300"/>
+<br/>
+All Batch Performance (vp)
+<img src="https://github.com/pjw6193/caliber/blob/master/images/batch-performance.png?raw=true" height="200" width="300"/>
+<br/>
+Individual Trainee Performance (all)
+<img src="https://github.com/pjw6193/caliber/blob/master/images/trainee-performance.png?raw=true" height="200" width="300"/>
+<br/>
+Week Progress (all)
+<img src="https://github.com/pjw6193/caliber/blob/master/images/vp-week-progress.png?raw=true" height="200" width="300"/> 
+<br/>
 
 ![alt tag](https://media.glassdoor.com/sqll/1266141/revature-squarelogo-1461616605672.png "Revature")
