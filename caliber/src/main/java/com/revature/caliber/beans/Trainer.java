@@ -5,30 +5,74 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+
 /**
  * The type Trainer.
  */
+@Entity
+@Table(name="CALIBER_TRAINER")
 public class Trainer {
 
-    @JsonProperty
+	@Id
+	@Column(name="TRAINER_ID", nullable=false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="TRAINER_ID_SEQUENCE")
+	@SequenceGenerator(name = "TRAINER_ID_SEQUENCE", sequenceName= "TRAINER_ID_SEQUENCE")
+	@NotNull
+	@JsonProperty
     private int trainerId;
-    @JsonProperty
+    
+	@Column(name="NAME", nullable=false)
+	@NotNull
+	@JsonProperty
     private String name;
-    @JsonProperty
+    
+	@Column(name="TITLE", nullable=false)
+	@NotNull
+	@JsonProperty
     private String title;
-    @JsonProperty
+    
+	@Column(name="EMAIL", nullable=false, unique=true)
+	@Email
+	@NotNull
+	@JsonProperty
     private String email;
-    @JsonProperty
+    
+	@Column(name="SF_ACCOUNT", nullable=false)
+	@NotNull
+	@JsonProperty
     private String salesforceAccount;
-    @JsonProperty
+    
+	@Column(name="SF_AUTHENTICATION_TOKEN", nullable=false)
+	@NotNull
+	@JsonProperty
     private String salesforceAuthenticationToken;
-    @JsonProperty
+    
+	@Column(name="SF_REFRESH_TOKEN", nullable=false)
+	@NotNull
+	@JsonProperty
     private String salesforceRefreshToken;
-    @JsonProperty
+    
+	@ManyToOne(fetch =FetchType.EAGER)
+	@JoinColumn(name = "TIER", nullable = false)
+	@JsonProperty
     private Tier tier;
 
-    // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-    @JsonIgnore
+	@OneToMany(mappedBy="trainer", fetch=FetchType.EAGER)
+	@JsonIgnore
     private Set<Batch> batches;
 
     /**

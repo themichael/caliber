@@ -2,17 +2,38 @@ package com.revature.caliber.beans;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The type Category.
  */
+@Entity
+@Table(name = "CALIBER_CATEGORY")
 public class Category {
 
+	@Id
+	@Column(name = "CATEGORY_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORY_ID_SEQUENCE")
+	@SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE")
     private int categoryId;
-    private String skillCategory;
+	
+	@Column(name = "SKILL_CATEGORY")
+	private String skillCategory;
 
-    // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-    private Set<Assessment> assessments;
-    private Set<Week> weeks;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy="category")
+	@JsonIgnore
+	private Set<Assessment> assessments;
 
     /**
      * Gets category id.
@@ -68,24 +89,7 @@ public class Category {
         this.assessments = assessments;
     }
 
-    /**
-     * Gets weeks.
-     *
-     * @return the weeks
-     */
-    public Set<Week> getWeeks() {
-        return weeks;
-    }
-
-    /**
-     * Sets weeks.
-     *
-     * @param weeks the weeks
-     */
-    public void setWeeks(Set<Week> weeks) {
-        this.weeks = weeks;
-    }
-
+   
     /**
      * Instantiates a new Category.
      */
@@ -123,12 +127,11 @@ public class Category {
      * @param assessments   the assessments
      * @param weeks         the weeks
      */
-    public Category(int categoryId, String skillCategory, Set<Assessment> assessments, Set<Week> weeks) {
+    public Category(int categoryId, String skillCategory, Set<Assessment> assessments) {
         super();
         this.categoryId = categoryId;
         this.skillCategory = skillCategory;
         this.assessments = assessments;
-        this.weeks = weeks;
     }
 
 

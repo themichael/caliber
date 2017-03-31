@@ -2,15 +2,46 @@ package com.revature.caliber.beans;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 /**
  * The type Grade.
  */
+@Entity
+@Table(name = "CALIBER_GRADE")
 public class Grade {
-
+	
+    @Id
+    @Column(name = "GRADE_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRADE_ID_SEQUENCE")
+    @SequenceGenerator(name = "GRADE_ID_SEQUENCE", sequenceName = "GRADE_ID_SEQUENCE")
     private long gradeId;
+    
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @JoinColumn(name = "ASSESSMENT_ID", nullable = false)
     private Assessment assessment;
+    
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @JoinColumn(name = "TRAINEE_ID", nullable = false)
     private Trainee trainee;
+    
+    @Column(name = "DATE_RECEIVED")
+    @NotNull
     private Date dateReceived;
+    
+    @Column(name = "SCORE")
+    @NotNull
     private int score;
 
     /**

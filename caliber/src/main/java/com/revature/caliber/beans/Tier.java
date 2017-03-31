@@ -1,13 +1,35 @@
 package com.revature.caliber.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 /**
  * The type Tier.
  */
+@Entity
+@Table(name = "CALIBER_TIER")
 public class Tier {
 
+	@Id
+	@Column(name = "TIER_ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TIER_ID_SEQUENCE")
+	@SequenceGenerator(name = "TIER_ID_SEQUENCE", sequenceName = "TIER_ID_SEQUENCE")
+	@NotNull
     private short tierId;
-    private String tier;
-    private short ranking;
+    
+	@Column(name = "TIER", nullable = false)
+	@NotNull
+	private String tier;
+
+	@Column(name = "RANKING", nullable = false)
+	@NotNull
+	private short ranking;
 
     /**
      * Gets tier id.

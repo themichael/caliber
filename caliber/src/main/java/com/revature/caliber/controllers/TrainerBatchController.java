@@ -1,12 +1,16 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.assessment.beans.*;
 import com.revature.caliber.beans.*;
 import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.BatchNote;
 import com.revature.caliber.beans.Note;
-import com.revature.caliber.gateway.ApiGateway;
 import com.revature.caliber.models.SalesforceUser;
+import com.revature.caliber.service.AssessmentService;
+import com.revature.caliber.service.BatchService;
+import com.revature.caliber.service.GradeService;
+import com.revature.caliber.service.NoteService;
+import com.revature.caliber.service.TraineeService;
+import com.revature.caliber.service.TrainerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,17 +33,12 @@ import java.util.Set;
 @RequestMapping("/trainer")
 public class TrainerBatchController {
 
-    private ApiGateway apiGateway;
-
-    /**
-     * Sets api gateway.
-     *
-     * @param apiGateway the api gateway
-     */
-    @Autowired
-    public void setApiGateway(ApiGateway apiGateway) {
-        this.apiGateway = apiGateway;
-    }
+	private AssessmentService assessmentService;
+	private BatchService batchService;
+	private GradeService gradeService;
+	private NoteService noteService;
+	private TrainerService trainerService;
+	private TraineeService traineeService;
 
     /**
      * getAllBatches - REST API method, retrieves all batches belonging to the trainer
@@ -48,8 +47,10 @@ public class TrainerBatchController {
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllBatches(Authentication authentication) {
-        SalesforceUser salesforceUser = (SalesforceUser) authentication.getPrincipal();
-        return new ResponseEntity<>(apiGateway.getBatches(salesforceUser.getCaliberId()), HttpStatus.OK);
+    	SalesforceUser salesforceUser = (SalesforceUser) authentication.getPrincipal();
+        Trainer trainer = trainerService.getTrainer(salesforceUser.getEmail());
+        Set<Batch> batches = batchService.getTrainerBatch(trainer.getTrainerId());
+		return new ResponseEntity<Set<Batch>>(batches, HttpStatus.OK);
     }
 
     /**
@@ -60,8 +61,10 @@ public class TrainerBatchController {
     @RequestMapping(value = "/batch/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Batch>> getCurrentBatch() {
         SalesforceUser salesforceUser = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return new ResponseEntity<>(apiGateway.currentBatch(salesforceUser.getCaliberId()), HttpStatus.OK);
-    }
+		Trainer trainer = trainerService.getTrainer(salesforceUser.getEmail());
+		List<Batch> batches = batchService.getCurrentBatch(trainer.getTrainerId());
+		return new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+	}
 
     /**
      * Create new week response entity.
@@ -70,8 +73,11 @@ public class TrainerBatchController {
      * @return the response entity
      */
     @RequestMapping(value = "/week/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createNewWeek(@RequestBody Week week) {
-        return new ResponseEntity(apiGateway.createNewWeek(week), HttpStatus.CREATED);
+    public ResponseEntity createNewWeek(@RequestBody Batch batch) {
+		short weeks = batch.getWeeks();
+		batch.setWeeks(++weeks);
+		batchService.updateBatch(batch);
+		return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     /**
@@ -81,8 +87,9 @@ public class TrainerBatchController {
      * @return the response entity
      */
     @RequestMapping(value = "/grade/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
-        return new ResponseEntity( apiGateway.insertGrade(grade), HttpStatus.CREATED);
+    public ResponseEntity createGrade(@RequestBody Grade grade) {
+		//TODO Implement me
+		throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
@@ -92,9 +99,9 @@ public class TrainerBatchController {
      * @return the response entity
      */
     @RequestMapping(value = "/grade/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateGrade(@RequestBody com.revature.caliber.assessment.beans.Grade grade) {
-        apiGateway.updateGrade(grade);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity updateGrade(@RequestBody Grade grade) {
+		//TODO Implement me
+		throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
@@ -107,9 +114,9 @@ public class TrainerBatchController {
                     method = RequestMethod.PUT,
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> createAssessment(@RequestBody com.revature.caliber.assessment.beans.Assessment assessment) {
-        long assessmentId = apiGateway.createAssessment(assessment);
-        return new ResponseEntity(assessmentId, HttpStatus.OK);
+    public ResponseEntity<Long> createAssessment(@RequestBody Assessment assessment) {
+		//TODO Implement me
+		throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
@@ -122,10 +129,8 @@ public class TrainerBatchController {
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteAssessment(@PathVariable int id) {
-        com.revature.caliber.assessment.beans.Assessment assessment = new com.revature.caliber.assessment.beans.Assessment();
-        assessment.setAssessmentId(id);
-        apiGateway.deleteAssessment(assessment);
-        return new ResponseEntity(HttpStatus.OK);
+		//TODO Implement me
+		throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
@@ -135,9 +140,9 @@ public class TrainerBatchController {
      * @return the response entity
      */
     @RequestMapping(value = "/assessment/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateAssessment(@RequestBody com.revature.caliber.assessment.beans.Assessment assessment) {
-        apiGateway.updateAssessment(assessment);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity updateAssessment(@RequestBody Assessment assessment) {
+		//TODO Implement me
+		throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
@@ -146,72 +151,39 @@ public class TrainerBatchController {
      * @return the response entity
      */
     @RequestMapping(value = "/assessment/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<com.revature.caliber.assessment.beans.Assessment>> getAllAssessments() {
-        List<com.revature.caliber.assessment.beans.Assessment> list = apiGateway.getAllAssessments();
-        int i = 0;
-        while (i < list.size()) {
-            if (list.get(i).getWeeklyStatus() != null) {
-                list.remove(i);
-            }
-            else {
-                i++;
-            }
-        }
-        return new ResponseEntity(list, HttpStatus.OK);
+    public ResponseEntity<List<Assessment>> getAllAssessments() {
+		//TODO Implement me
+		throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    @RequestMapping(value = "/assessment/week/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<com.revature.caliber.assessment.beans.Assessment>> getAssessmentsByWeekId(@PathVariable long id){
-        List<com.revature.caliber.assessment.beans.Assessment> list = apiGateway.getAssessmentsByWeekId(id);
-        return new ResponseEntity(list,HttpStatus.OK);
+    @RequestMapping(value = "/assessment/week/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Assessment>> getAssessmentsByWeek(@PathVariable long batchId){
+		//TODO Implement me
+		throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    /**
-     * Update assessment note response entity.
-     *
-     * @param note the note
-     * @return the response entity
-     */
-    @RequestMapping(value = "/assessment/note/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateAssessmentNote(@RequestBody Note note) {
-        apiGateway.updateAssessmentNote(note);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    /**
-     * Create assessment note response entity.
-     *
-     * @param note the note
-     * @return the response entity
-     */
-    @RequestMapping(value = "/assessment/note/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createAssessmentNote(@RequestBody Note note) {
-        apiGateway.createAssessmentNote(note);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    /**
-     * Create batch note for assessment response entity.
-     *
-     * @param batchNote the batch note
-     * @return the response entity
-     */
-    @RequestMapping(value = "/assessment/batch/note/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createBatchNoteForAssessment(@RequestBody BatchNote batchNote) {
-        apiGateway.createBatchNote(batchNote);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    /**
-     * Update batch note for assessment response entity.
-     *
-     * @param batchNote the batch note
-     * @return the response entity
-     */
-    @RequestMapping(value = "/assessment/batch/note/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateBatchNoteForAssessment(@RequestBody BatchNote batchNote) {
-        apiGateway.updateBatchNote(batchNote);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
+    @Autowired
+    public void setAssessmentService(AssessmentService assessmentService) {
+		this.assessmentService = assessmentService;
+	}
+    @Autowired
+	public void setBatchService(BatchService batchService) {
+		this.batchService = batchService;
+	}
+    @Autowired
+	public void setGradeService(GradeService gradeService) {
+		this.gradeService = gradeService;
+	}
+    @Autowired
+	public void setNoteService(NoteService noteService) {
+		this.noteService = noteService;
+	}
+    @Autowired
+	public void setTrainerService(TrainerService trainerService) {
+		this.trainerService = trainerService;
+	}
+    @Autowired
+	public void setTraineeService(TraineeService traineeService) {
+		this.traineeService = traineeService;
+	}
 }

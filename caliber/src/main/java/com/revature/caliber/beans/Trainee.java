@@ -2,21 +2,50 @@ package com.revature.caliber.beans;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * The type Trainee.
  */
+@Entity
+@Table(name = "CALIBER_TRAINEE")
 public class Trainee {
 
+	@Id
+	@Column(name = "TRAINEE_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRAINEE_ID_SEQUENCE")
+	@SequenceGenerator(name = "TRAINEE_ID_SEQUENCE", sequenceName = "TRAINEE_ID_SEQUENCE")
     private int traineeId;
-    private String name;
-    private String email;
-    private String trainingStatus;
-    private Batch batch;
+    
+	@Column(name = "TRAINEE_NAME")
+	private String name;
+    
+	@Column(name = "TRAINEE_EMAIL")
+	private String email;
+    
+	@Column(name = "TRAINING_STATUS")
+	private String trainingStatus;
+    
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(name = "BATCH_ID", nullable = false)
+	@JsonBackReference(value = "traineeAndBatch")
+	private Batch batch;
 
-    // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
+	@OneToMany(mappedBy="trainee")
     private Set<Grade> grades;
-    private Set<TrainerNote> trainerNotes;
-    private Set<QCNote> qcNotes;
 
     /**
      * Gets trainee id.
@@ -127,42 +156,6 @@ public class Trainee {
     }
 
     /**
-     * Gets trainer notes.
-     *
-     * @return the trainer notes
-     */
-    public Set<TrainerNote> getTrainerNotes() {
-        return trainerNotes;
-    }
-
-    /**
-     * Sets trainer notes.
-     *
-     * @param trainerNotes the trainer notes
-     */
-    public void setTrainerNotes(Set<TrainerNote> trainerNotes) {
-        this.trainerNotes = trainerNotes;
-    }
-
-    /**
-     * Gets qc notes.
-     *
-     * @return the qc notes
-     */
-    public Set<QCNote> getQcNotes() {
-        return qcNotes;
-    }
-
-    /**
-     * Sets qc notes.
-     *
-     * @param qcNotes the qc notes
-     */
-    public void setQcNotes(Set<QCNote> qcNotes) {
-        this.qcNotes = qcNotes;
-    }
-
-    /**
      * Instantiates a new Trainee.
      */
     public Trainee() {
@@ -199,8 +192,7 @@ public class Trainee {
      * @param trainerNotes   the trainer notes
      * @param qcNotes        the qc notes
      */
-    public Trainee(int traineeId, String name, String email, String trainingStatus, Batch batch, Set<Grade> grades,
-                   Set<TrainerNote> trainerNotes, Set<QCNote> qcNotes) {
+    public Trainee(int traineeId, String name, String email, String trainingStatus, Batch batch, Set<Grade> grades) {
         super();
         this.traineeId = traineeId;
         this.name = name;
@@ -208,8 +200,6 @@ public class Trainee {
         this.trainingStatus = trainingStatus;
         this.batch = batch;
         this.grades = grades;
-        this.trainerNotes = trainerNotes;
-        this.qcNotes = qcNotes;
     }
 
     @Override
@@ -221,8 +211,6 @@ public class Trainee {
                 ", trainingStatus='" + trainingStatus + '\'' +
                 ", batch=" + batch +
                 ", grades=" + grades +
-                ", trainerNotes=" + trainerNotes +
-                ", qcNotes=" + qcNotes +
                 '}';
     }
 }

@@ -1,32 +1,96 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 import java.util.Set;
 
-/**
- * The type Batch.
- */
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="CALIBER_BATCH")
 public class Batch {
 
+	@Id
+	@Column(name = "BATCH_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="BATCH_ID_SEQUENCE")
+	@SequenceGenerator(name = "BATCH_ID_SEQUENCE", sequenceName = "BATCH_ID_SEQUENCE")
     private int batchId;
+	
+	@Column(name = "TRAINING_NAME")
     private String trainingName;
-    @JsonProperty
+	
+	@ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+	@JoinColumn(name = "TRAINER_ID", nullable = false)
+	@JsonProperty
     private Trainer trainer;
-    private Trainer coTrainer;
-    private String skillType;
-    private String trainingType;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "CO_TRAINER_ID")
+	private Trainer coTrainer;
+    
+	@Enumerated(EnumType.STRING)
+	@Column(name = "SKILL_TYPE")
+	private SkillType skillType;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TRAINING_TYPE")
+    private TrainingType trainingType;
+    
+	@Column(name = "START_DATE", nullable = false)
     private Date startDate;
+    
+	@Column(name = "END_DATE", nullable = false)
     private Date endDate;
+    
+	@Column(name = "LOCATION", nullable = false)
     private String location;
+    
+	@Column(name = "GOOD_GRADE_THRESHOLD")
     private short goodGradeThreshold;
+    
+	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
     private short borderlineGradeThreshold;
+	
+	@Column(name="NUMBER_OF_WEEKS")
+    private short weeks;
+	
+	/**
+	 * How far back in time to compare this batch against the average
+	 */
+	@Column(name = "BENCHMARK_START_DATE")
+    private Date benchmarkStartDate;
+    
+	/**
+	 * When to stop comparing this batch against the average
+	 */
+	@Column(name = "BENCHMARK_END_DATE")
+    private Date benchmarkEndDate;
 
     // Bi-directional mapping -- to avoid recursion, make DTO to send to UI
-
+	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@JsonManagedReference(value = "traineeAndBatch")
     private Set<Trainee> trainees;
-    private Set<Week> weeks;
+	
+	@OneToMany(mappedBy="batch")
+	private Set<Note> notes;
+	
+	@OneToMany(mappedBy="batch")
+	private Set<Assessment> assessments;
 
     /**
      * Gets batch id.
@@ -38,7 +102,23 @@ public class Batch {
         return batchId;
     }
 
-    /**
+    public Set<Note> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(Set<Note> notes) {
+		this.notes = notes;
+	}
+
+	public Set<Assessment> getAssessments() {
+		return assessments;
+	}
+
+	public void setAssessments(Set<Assessment> assessments) {
+		this.assessments = assessments;
+	}
+
+	/**
      * Sets batch id.
      *
      * @param batchId the batch id
@@ -106,7 +186,7 @@ public class Batch {
      *
      * @return the skill type
      */
-    public String getSkillType() {
+    public SkillType getSkillType() {
         return skillType;
     }
 
@@ -115,7 +195,7 @@ public class Batch {
      *
      * @param skillType the skill type
      */
-    public void setSkillType(String skillType) {
+    public void setSkillType(SkillType skillType) {
         this.skillType = skillType;
     }
 
@@ -124,7 +204,7 @@ public class Batch {
      *
      * @return the training type
      */
-    public String getTrainingType() {
+    public TrainingType getTrainingType() {
         return trainingType;
     }
 
@@ -133,7 +213,7 @@ public class Batch {
      *
      * @param trainingType the training type
      */
-    public void setTrainingType(String trainingType) {
+    public void setTrainingType(TrainingType trainingType) {
         this.trainingType = trainingType;
     }
 
@@ -250,7 +330,7 @@ public class Batch {
      *
      * @return the weeks
      */
-    public Set<Week> getWeeks() {
+    public short getWeeks() {
         return weeks;
     }
 
@@ -259,7 +339,7 @@ public class Batch {
      *
      * @param weeks the weeks
      */
-    public void setWeeks(Set<Week> weeks) {
+    public void setWeeks(short weeks) {
         this.weeks = weeks;
     }
 
@@ -280,9 +360,9 @@ public class Batch {
      * @param trainees                 the trainees
      * @param weeks                    the weeks
      */
-    public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, String skillType,
-                 String trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
-                 short borderlineGradeThreshold, Set<Trainee> trainees, Set<Week> weeks) {
+    public Batch(int batchId, String trainingName, Trainer trainer, Trainer coTrainer, SkillType skillType,
+    		TrainingType trainingType, Date startDate, Date endDate, String location, short goodGradeThreshold,
+                 short borderlineGradeThreshold, Set<Trainee> trainees, short weeks, Date benchmarkStartDate, Date benchmarkEndDate) {
         super();
         this.batchId = batchId;
         this.trainingName = trainingName;
@@ -297,6 +377,8 @@ public class Batch {
         this.borderlineGradeThreshold = borderlineGradeThreshold;
         this.trainees = trainees;
         this.weeks = weeks;
+		this.benchmarkStartDate = benchmarkStartDate;
+		this.benchmarkEndDate = benchmarkEndDate;
     }
 
     /**
@@ -315,9 +397,9 @@ public class Batch {
      * @param trainees                 the trainees
      * @param weeks                    the weeks
      */
-    public Batch(String trainingName, Trainer trainer, Trainer coTrainer, String skillType, String trainingType,
+    public Batch(String trainingName, Trainer trainer, Trainer coTrainer, SkillType skillType, TrainingType trainingType,
                  Date startDate, Date endDate, String location, short goodGradeThreshold, short borderlineGradeThreshold,
-                 Set<Trainee> trainees, Set<Week> weeks) {
+                 Set<Trainee> trainees, short weeks, Date benchmarkStartDate, Date benchmarkEndDate) {
         super();
         this.trainingName = trainingName;
         this.trainer = trainer;
@@ -331,6 +413,8 @@ public class Batch {
         this.borderlineGradeThreshold = borderlineGradeThreshold;
         this.trainees = trainees;
         this.weeks = weeks;
+		this.benchmarkStartDate = benchmarkStartDate;
+		this.benchmarkEndDate = benchmarkEndDate;
     }
 
     /**
@@ -348,7 +432,7 @@ public class Batch {
                 ", trainer=" + trainer +
                 ", coTrainer=" + coTrainer +
                 ", skillType='" + skillType + '\'' +
-                ", trainingType='" + trainingType + '\'' +
+                ", trainingType='" + trainingType.getType() + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", location='" + location + '\'' +
@@ -358,4 +442,6 @@ public class Batch {
                 ", weeks=" + weeks +
                 '}';
     }
+
+    
 }

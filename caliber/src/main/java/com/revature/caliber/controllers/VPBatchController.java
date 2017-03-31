@@ -1,7 +1,13 @@
 package com.revature.caliber.controllers;
 
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.gateway.ApiGateway;
+import com.revature.caliber.service.AssessmentService;
+import com.revature.caliber.service.BatchService;
+import com.revature.caliber.service.GradeService;
+import com.revature.caliber.service.NoteService;
+import com.revature.caliber.service.TraineeService;
+import com.revature.caliber.service.TrainerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,17 +28,12 @@ import java.util.List;
 @RequestMapping("/vp")
 public class VPBatchController {
 
-    private ApiGateway apiGateway;
-
-    /**
-     * Sets api gateway.
-     *
-     * @param apiGateway the api gateway
-     */
-    @Autowired
-    public void setApiGateway(ApiGateway apiGateway) {
-        this.apiGateway = apiGateway;
-    }
+	private AssessmentService assessmentService;
+	private BatchService batchService;
+	private GradeService gradeService;
+	private NoteService noteService;
+	private TrainerService trainerService;
+	private TraineeService traineeService;
 
     /**
      * getAllBatches - REST API method, retrieves all the batches
@@ -41,13 +42,39 @@ public class VPBatchController {
      */
     @RequestMapping(value = "/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Batch>> getAllBatches() {
-        return new ResponseEntity<>(apiGateway.getAllBatches(), HttpStatus.OK);
+		Set<Batch> allBatches = batchService.getAllBatch();
+		return new ResponseEntity<Set<Batch>>(allBatches, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/agg/tech/batch/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HashMap<String, HashMap<String, Double[]>>> aggregateTechForAllBatches() {
-        return new ResponseEntity<>(apiGateway.getTechGradeAllBatch(), HttpStatus.OK);
+		//TODO Implement me
+		throw new UnsupportedOperationException("Not yet implemented");
     }
+    @Autowired
+    public void setAssessmentService(AssessmentService assessmentService) {
+		this.assessmentService = assessmentService;
+	}
+    @Autowired
+	public void setBatchService(BatchService batchService) {
+		this.batchService = batchService;
+	}
+    @Autowired
+	public void setGradeService(GradeService gradeService) {
+		this.gradeService = gradeService;
+	}
+    @Autowired
+	public void setNoteService(NoteService noteService) {
+		this.noteService = noteService;
+	}
+    @Autowired
+	public void setTrainerService(TrainerService trainerService) {
+		this.trainerService = trainerService;
+	}
+    @Autowired
+	public void setTraineeService(TraineeService traineeService) {
+		this.traineeService = traineeService;
+	}
 }
