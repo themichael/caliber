@@ -161,6 +161,11 @@ public class TrainerBatchController {
 		//TODO Implement me
 		throw new UnsupportedOperationException("Not yet implemented");
     }
+    
+    @RequestMapping(value = "/byemail/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Trainer> getTrainerByEmail(@PathVariable String email){
+    	return new ResponseEntity<Trainer>(trainerService.getTrainer(email), HttpStatus.OK);
+    }
 
     @Autowired
     public void setAssessmentService(AssessmentService assessmentService) {

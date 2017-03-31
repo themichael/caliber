@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.util.Date;
 
 /**
  * The type Boot controller.
@@ -87,11 +88,15 @@ public class BootController extends Helper {
         uriBuilder.setScheme(servletRequest.getScheme())
                 .setHost(servletRequest.getServerName())
                 .setPort(servletRequest.getServerPort())
-                .setPath("/training/trainers/byemail/" + email + "/");
+                .setPath("/trainer/byemail/" + email + "/");
         uri = uriBuilder.build();
         httpGet = new HttpGet(uri);
         response = httpClient.execute(httpGet);
         String jsonString = toJsonString(response.getEntity().getContent());
+        if(jsonString==null) {
+        	System.out.println(new Date() + " in dev.. no users");
+        	servletResponse.sendRedirect("http://www.revature.com/");
+        }
         JSONObject jsonObject = new JSONObject(jsonString);
         if (jsonObject.getString("email").equals(salesforceUser.getEmail()))
             salesforceUser.setRole(jsonObject.getJSONObject("tier").getString("tier"));
