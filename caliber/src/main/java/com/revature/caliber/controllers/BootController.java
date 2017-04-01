@@ -91,21 +91,23 @@ public class BootController extends Helper{
 		String email = salesforceUser.getEmail();
 		uriBuilder = new URIBuilder();
 		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())
-				.setPort(servletRequest.getServerPort()).setPath("/training/trainers/byemail/" + email + "/");
+				.setPort(servletRequest.getServerPort()).setPath("/training/trainer/byemail/" + email + "/");
 		uri = uriBuilder.build();
 		httpGet = new HttpGet(uri);
 		response = httpClient.execute(httpGet);
 		String jsonString = toJsonString(response.getEntity().getContent());
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail()))
-			salesforceUser.setRole(jsonObject.getJSONObject("tier").getString("tier"));
+			//salesforceUser.setRole(jsonObject.getJSONObject("tier").getString("tier"));
+			salesforceUser.setRole(jsonObject.getString("tier"));
 		else
 			throw new NullPointerException("No such user");
 		salesforceUser.setCaliberId(jsonObject.getInt("trainerId"));
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		servletResponse.addCookie(new Cookie("role", jsonObject.getJSONObject("tier").getString("tier")));
+		//servletResponse.addCookie(new Cookie("role", jsonObject.getJSONObject("tier").getString("tier")));
+		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
 		return "index";
 	}
 
