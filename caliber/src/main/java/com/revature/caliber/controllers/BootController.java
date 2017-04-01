@@ -70,11 +70,10 @@ public class BootController extends Helper{
 	public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
 		Cookie[] cookies = servletRequest.getCookies();
-		log.info(cookies); //TODO remove
 		SalesforceToken salesforceToken = null;
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals("token")) {
-				log.info("Parse token " + cookie.getValue());
+				log.debug("Parse salesforce token: " + cookie.getValue());
 				salesforceToken = new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
 						SalesforceToken.class);
 				break;
@@ -104,11 +103,14 @@ public class BootController extends Helper{
 		String jsonString = toJsonString(response.getEntity().getContent());
 		log.info("Training DAO returned JSONString: " + jsonString);
 		JSONObject jsonObject = new JSONObject(jsonString);
-		if (jsonObject.getString("email").equals(salesforceUser.getEmail()))
+		if (jsonObject.getString("email").equals(salesforceUser.getEmail())){
 			//salesforceUser.setRole(jsonObject.getJSONObject("tier").getString("tier"));
+			log.info(jsonObject.getString("email") +" hasRole: " + jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
-		else
-			throw new NullPointerException("No such user");
+		}
+		else{
+			throw new IllegalArgumentException("No such user");
+		}
 		salesforceUser.setCaliberId(jsonObject.getInt("trainerId"));
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
 				salesforceUser.getAuthorities());
