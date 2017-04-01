@@ -48,6 +48,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
+	<!-- Logging -->
 	<bean id="log4jInitialization"
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
@@ -59,4 +60,6 @@
 		</property>
 	</bean>
 
+	<!-- Allow Pre-authorize for back end security -->
+	<security:global-method-security pre-post-annotations="enabled" />
 </beans>

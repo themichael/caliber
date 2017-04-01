@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,8 +46,9 @@ public class TrainingController {
 	}
 	
 	@RequestMapping(value="trainer/batch/all", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('TRAINER')")
 	public ResponseEntity<List<Batch>> getAllTrainerBatches(Authentication auth){
-		// access user details through SecurityContext 
+		// TODO :: read me:: access user details through SecurityContext by injecting Authentication into Controller method 
 		SalesforceUser userPrincipal = (SalesforceUser) auth.getPrincipal();
 		log.info("Getting all batches for trainerid:" + userPrincipal.getCaliberId() + 
 				" with email " + userPrincipal.getEmail() + " and role " + userPrincipal.getRole());
