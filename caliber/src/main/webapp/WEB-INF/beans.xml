@@ -16,12 +16,11 @@
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/pages/" />
+		<property name="prefix" value="/static/pages/" />
 		<property name="suffix" value=".html" />
 	</bean>
 
-	<mvc:resources mapping="/pages/**" location="/pages/" />
-	<mvc:resources mapping="/app/**" location="/app/" />
+	<mvc:resources mapping="/static/**" location="/static/" />
 
 	<context:annotation-config />
 
