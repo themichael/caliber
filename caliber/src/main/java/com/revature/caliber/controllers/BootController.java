@@ -104,8 +104,7 @@ public class BootController extends Helper{
 		log.debug("Training API returned JSONString: " + jsonString);
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())){
-			//salesforceUser.setRole(jsonObject.getJSONObject("tier").getString("tier"));
-			log.fatal(jsonObject.getString("email") +" hasRole: " + jsonObject.getString("tier"));
+			log.info("Logged in user " + jsonObject.getString("email") +" now hasRole: " + jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
 		}
 		else{
@@ -115,7 +114,7 @@ public class BootController extends Helper{
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		//servletResponse.addCookie(new Cookie("role", jsonObject.getJSONObject("tier").getString("tier")));
+		// TODO make it so they cannot easily change they role by editing the cookie!!!!!!!!!
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
 		return "index";
 	}

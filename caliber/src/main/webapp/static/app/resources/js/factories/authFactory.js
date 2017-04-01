@@ -4,9 +4,9 @@ angular.module("auth").factory("authFactory", function ($log, $http, $cookies, $
     var auth = {};
 
     // Roles
-    var vpRole = "ROLE_VP";
-    var qcRole = "ROLE_QC";
-    var trainerRole = "ROLE_TRAINER";
+    var vpRole = "VP";
+    var qcRole = "QC";
+    var trainerRole = "TRAINER";
 
     // home states
     var vpState = "vp.home";
