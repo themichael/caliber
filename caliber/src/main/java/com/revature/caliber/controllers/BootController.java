@@ -106,11 +106,12 @@ public class BootController extends Helper{
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())){
 			log.info("Logged in user " + jsonObject.getString("email") +" now hasRole: " + jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
+			salesforceUser.setCaliberId(jsonObject.getInt("trainerId"));
 		}
 		else{
 			throw new IllegalArgumentException("No such user");
 		}
-		salesforceUser.setCaliberId(jsonObject.getInt("trainerId"));
+		// store custom user Authentication obj in SecurityContext
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
