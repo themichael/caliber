@@ -48,7 +48,7 @@ public class TrainingController {
 	public ResponseEntity<List<Batch>> getAllTrainerBatches(Authentication auth){
 		// access user details through SecurityContext 
 		SalesforceUser userPrincipal = (SalesforceUser) auth.getPrincipal();
-		log.debug("Getting all batches for trainerid:" + userPrincipal.getCaliberId() + 
+		log.info("Getting all batches for trainerid:" + userPrincipal.getCaliberId() + 
 				" with email " + userPrincipal.getEmail() + " and role " + userPrincipal.getRole());
 		return new ResponseEntity<List<Batch>>(new ArrayList<Batch>(), HttpStatus.OK);
 	}
