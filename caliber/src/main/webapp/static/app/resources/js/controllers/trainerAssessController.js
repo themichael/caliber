@@ -1,3 +1,6 @@
+/**
+ * Refactor to use week index instead of Week object
+ */
 angular.module("trainer")
     .controller("trainerAssessController", function($log, $scope, chartsDelegate, caliberDelegate, allBatches){
 

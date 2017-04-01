@@ -12,7 +12,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
      */
     all.createBatch = function(batchObj) {
         return $http({
-            url: "/caliber/all/batch/create",
+            url: "/all/batch/create",
             method: "POST",
             data: batchObj
         }).then(function(response) {
@@ -32,7 +32,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
      */
     all.updateBatch = function(batchObj) {
         return $http({
-            url: "/caliber/all/batch/update",
+            url: "/all/batch/update",
             method: "PUT",
             data: batchObj
         }).then(function(response) {
@@ -50,7 +50,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
      */
     all.deleteBatch = function(batchId) {
         return $http({
-            url: "/caliber/all/batch/delete" + batchId,
+            url: "/all/batch/delete" + batchId,
             method: "DELETE"
         }).then(function(response) {
             $log.debug("Batch successfully deleted");
@@ -69,8 +69,8 @@ angular.module("api").factory("allFactory", function ($log, $http) {
      */
     all.createTrainee = function(traineeObj) {
         return $http({
-            url: "/caliber/all/trainee/create",
-            method: "PUT",
+            url: "/all/trainee/create",
+            method: "POST",
             data: traineeObj
         }).then(function(response) {
             $log.debug("Trainee successfully created.")
@@ -89,7 +89,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
      */
     all.updateTrainee = function(traineeObj) {
         return $http({
-            url: "/caliber/all/trainee/update",
+            url: "/all/trainee/update",
             method: "PUT",
             data: traineeObj
         }).then(function (response) {
@@ -107,7 +107,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
      */
     all.deleteTrainee = function (traineeId) {
         $http({
-            url: "/caliber/all/trainee/delete/" + traineeId,
+            url: "/all/trainee/delete/" + traineeId,
             method: "DELETE"
         }).then(function (response) {
             $log.debug("Trainee successfully deleted.");
@@ -126,7 +126,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
      */
     all.getGrades = function(assessmentId) {
         return $http({
-            url: "/caliber/all/grades/assessment/" + assessmentId,
+            url: "/all/grades/assessment/" + assessmentId,
             method: "GET"
         }).then(function(response) {
             $log.debug("Grades successfully retrieved.");
@@ -145,7 +145,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
      */
     all.getAllTrainers = function () {
         return $http({
-            url: "/caliber/all/trainer/all/",
+            url: "/all/trainer/all/",
             method: "GET"
         }).then(function (response) {
             $log.debug("Trainers successfully retrieved");

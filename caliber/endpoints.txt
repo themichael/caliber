@@ -1,0 +1,39 @@
+# These endpoints are from version 1. Erase this comment when they are v2-compliant :)
+GET 	/all/tech/trainee/{traineeId}
+GET 	/all/agg/week/trainee/{traineeId}
+GET 	/all/agg/tech/batch/{batchId}
+GET 	/all/agg/week/batch/{batchId}
+GET 	/vp/agg/tech/batch/all
+GET 	/all/agg/batch/trainer/{trainerId}
+POST 	/all/batch/create
+PUT 	/all/batch/update
+DELETE 	/all/batch/delete
+POST	/all/trainee/create
+PUT		/all/trainee/update
+DELETE	/all/trainee/delete/
+GET		/all/grades/assessment/
+GET		/all/trainer/all/
+
+GET		/qc/batch/all
+POST	/qc/grade/create
+PUT		/qc/grade/update
+POST	/qc/assessment/create
+GET		/qc/assessment/byWeek/
+PUT		/qc/assessment/update/
+DELETE	/qc/assessment/delete/
+POST	/qc/assessment/note/create
+PUT		/qc/assessment/note/update
+
+GET 	/trainer/batch/all
+POST	/trainer/week/new
+POST	/trainer/grade/create
+PUT		/trainer/grade/update
+POST	/trainer/assessment/create
+GET		/trainer/assessment/{batchId}/{weekId}
+PUT		/trainer/assessment/update/
+DELETE	/trainer/assessment/delete/
+POST	/trainer/assessment/note/create
+PUT		/trainer/assessment/note/update
+
+GET		/vp/batch/all
+GET		/vp/batch/current/all

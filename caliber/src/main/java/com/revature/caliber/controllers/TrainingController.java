@@ -27,10 +27,10 @@ import com.revature.caliber.services.TrainingService;
  *
  */
 @RestController
-@RequestMapping(value="training", produces=MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 public class TrainingController {
 
-	private static Logger log = Logger.getLogger(TrainingController.class);
+	private final static Logger log = Logger.getLogger(TrainingController.class);
 	private TrainingService trainingService;
 	
 	@Autowired
@@ -38,17 +38,24 @@ public class TrainingController {
 		this.trainingService = trainingService;
 	}
 
-	@RequestMapping(value="trainer/byemail/{email}", method=RequestMethod.GET)
+	@RequestMapping(value="/training/trainer/byemail/{email}", method=RequestMethod.GET)
 	public ResponseEntity<Trainer> getByEmail(@PathVariable String email){
 		log.info("Find trainer by email " + email);
 		Trainer trainer = trainingService.getByEmail(email);
 		return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="trainer/batch/all", method=RequestMethod.GET)
+	/**
+	 * TODO :: read me:: 
+	 * 	Access user details through SecurityContext by injecting Authentication into Controller method.
+	 * 	Use @PreAuthorize with Spring Expression Language (SpEL) to send 403 forbidden 
+	 * 		http://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html
+	 * @param auth
+	 * @return
+	 */
+	@RequestMapping(value="/training/trainer/batch/all", method=RequestMethod.GET)
 	@PreAuthorize("hasRole('TRAINER')")
 	public ResponseEntity<List<Batch>> getAllTrainerBatches(Authentication auth){
-		// TODO :: read me:: access user details through SecurityContext by injecting Authentication into Controller method 
 		SalesforceUser userPrincipal = (SalesforceUser) auth.getPrincipal();
 		log.info("Getting all batches for trainerid:" + userPrincipal.getCaliberId() + 
 				" with email " + userPrincipal.getEmail() + " and role " + userPrincipal.getRole());

@@ -11,7 +11,7 @@ angular.module("api").factory("vpFactory", function ($log, $http) {
     // Get all batches
     vp.getAllBatches = function () {
         return $http({
-            url: "/caliber/vp/batch/all",
+            url: "/vp/batch/all",
             method: "GET"
         }).then(function (response) {
             $log.debug("Batches successfully retrieved.");
@@ -25,7 +25,7 @@ angular.module("api").factory("vpFactory", function ($log, $http) {
     // Get all current batches
     vp.getAllCurrentBatches = function () {
         return $http({
-            url: "/caliber/vp/batch/current/all",
+            url: "/vp/batch/current/all",
             method: "GET"
         }).then(function (response) {
             $log.debug("Batches successfully retrieved");

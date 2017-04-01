@@ -10,7 +10,7 @@ angular.module("api")
          */
         agg.techTrainee = function(traineeId) {
             return $http({
-                url: "/caliber/all/agg/tech/trainee/" + traineeId,
+                url: "/all/tech/trainee/" + traineeId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug("Agg - Tech - trainee -- success");
@@ -28,7 +28,7 @@ angular.module("api")
          */
         agg.weekTrainee = function(traineeId) {
             return $http({
-                url: "/caliber/all/agg/week/trainee/" + traineeId,
+                url: "/all/agg/week/trainee/" + traineeId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug("Agg - Week - trainee -- success");
@@ -46,7 +46,7 @@ angular.module("api")
          */
         agg.techBatch = function(batchId) {
             return $http({
-                url: "/caliber/all/agg/tech/batch/" + batchId,
+                url: "/all/agg/tech/batch/" + batchId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug("Agg - Tech - Batch -- success");
@@ -64,7 +64,7 @@ angular.module("api")
          */
         agg.weekBatch = function(batchId) {
             return $http({
-                url: "/caliber/all/agg/week/batch/" + batchId,
+                url: "/all/agg/week/batch/" + batchId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug("Agg - Week - Batch -- success");
@@ -81,7 +81,7 @@ angular.module("api")
          */
         agg.techAllBatch = function() {
             return $http({
-                url: "/caliber/vp/agg/tech/batch/all",
+                url: "/vp/agg/tech/batch/all",
                 method: "GET"
             }).then(function (response) {
                 $log.debug("Agg - Tech - Batch - All -- success");
@@ -99,7 +99,7 @@ angular.module("api")
          */
         agg.batchTrainer = function(trainerId) {
             return $http({
-                url: "/caliber/all/agg/batch/trainer/" + trainerId,
+                url: "/all/agg/batch/trainer/" + trainerId,
                 method: "GET"
             }).then(function(response) {
                 $log.debug("Agg - Batch - Trainer -- success");
