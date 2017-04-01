@@ -101,11 +101,11 @@ public class BootController extends Helper{
 		httpGet = new HttpGet(uri);
 		response = httpClient.execute(httpGet);
 		String jsonString = toJsonString(response.getEntity().getContent());
-		log.info("Training DAO returned JSONString: " + jsonString);
+		log.debug("Training API returned JSONString: " + jsonString);
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())){
 			//salesforceUser.setRole(jsonObject.getJSONObject("tier").getString("tier"));
-			log.info(jsonObject.getString("email") +" hasRole: " + jsonObject.getString("tier"));
+			log.fatal(jsonObject.getString("email") +" hasRole: " + jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
 		}
 		else{
