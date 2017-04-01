@@ -19,7 +19,7 @@ angular.module("app").config(
         $stateProvider
             .state("routing", {
                 url: "/routing",
-                templateUrl: "app/partials/routing.html",
+                templateUrl: "/static/app/partials/routing.html",
                 // uncomment when dev is complete
                 onEnter:
                     function(authFactory){
@@ -31,7 +31,7 @@ angular.module("app").config(
             .state("qc", {
                 abstract: true,
                 url: "/qc",
-                templateUrl: "app/partials/abstracts/qc.html",
+                templateUrl: "/static/app/partials/abstracts/qc.html",
                 resolve: {
                     allBatches: function(caliberDelegate){
                         return caliberDelegate.qc.getAllBatches();
@@ -46,24 +46,24 @@ angular.module("app").config(
             })
             .state("qc.home", {
                 url: "/home",
-                templateUrl: "app/partials/home/qc-home.html",
+                templateUrl: "/static/app/partials/home/qc-home.html",
                 controller: "qcHomeController"
             })
             .state("qc.manage", {
                 url: "/manage",
-                templateUrl: "app/partials/manage-batch.html",
+                templateUrl: "/static/app/partials/manage-batch.html",
                 controller: "trainerManageController"
             })
             .state("qc.assess", {
                 url: "/assess",
-                templateUrl: "app/partials/assess/trainer-assess.html",
+                templateUrl: "/static/app/partials/assess/trainer-assess.html",
                 controller: "trainerAssessController"
             })
             // trainer
             .state("trainer", {
                 abstract: true,
                 url: "/trainer",
-                templateUrl: "app/partials/abstracts/trainer.html",
+                templateUrl: "/static/app/partials/abstracts/trainer.html",
                 resolve: {
                     allBatches: function(caliberDelegate){
                         return caliberDelegate.trainer.getAllBatches();
@@ -76,17 +76,17 @@ angular.module("app").config(
                 //     }
             })
             .state("trainer.home", {
-                templateUrl: "app/partials/home/trainer-home.html",
+                templateUrl: "/static/app/partials/home/trainer-home.html",
                 url: "/home",
                 controller: "trainerHomeController"
             })
             .state("trainer.manage", {
-                templateUrl: "app/partials/manage-batch.html",
+                templateUrl: "/static/app/partials/manage-batch.html",
                 url: "/manage",
                 controller: "trainerManageController"
             })
             .state("trainer.assess", {
-                templateUrl: "app/partials/assess/trainer-assess.html",
+                templateUrl: "/static/app/partials/assess/trainer-assess.html",
                 url: "/assess",
                 controller: "trainerAssessController"
             })
@@ -95,7 +95,7 @@ angular.module("app").config(
             .state("vp", {
                 abstract: true,
                 url: "/vp",
-                templateUrl: "app/partials/abstracts/vp.html",
+                templateUrl: "/static/app/partials/abstracts/vp.html",
                 resolve: {
                     allBatches: function(caliberDelegate){
                         return caliberDelegate.vp.getAllBatches();
@@ -109,12 +109,12 @@ angular.module("app").config(
 
             })
             .state("vp.home", {
-                templateUrl: "app/partials/home/vp-home.html",
+                templateUrl: "/static/app/partials/home/vp-home.html",
                 url: "/home",
                 controller: "vpHomeController"
             })
             .state("vp.manage", {
-                templateUrl: "app/partials/manage-batch.html",
+                templateUrl: "/static/app/partials/manage-batch.html",
                 url: "/manage",
                 controller: "trainerManageController"
             });
