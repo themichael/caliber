@@ -27,7 +27,6 @@ import com.revature.caliber.services.TrainingService;
  *
  */
 @RestController
-@RequestMapping(produces=MediaType.APPLICATION_JSON_VALUE)
 public class TrainingController {
 
 	private final static Logger log = Logger.getLogger(TrainingController.class);
@@ -38,7 +37,7 @@ public class TrainingController {
 		this.trainingService = trainingService;
 	}
 
-	@RequestMapping(value="/training/trainer/byemail/{email}", method=RequestMethod.GET)
+	@RequestMapping(value="/training/trainer/byemail/{email}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainer> getByEmail(@PathVariable String email){
 		log.info("Find trainer by email " + email);
 		Trainer trainer = trainingService.getByEmail(email);
@@ -53,7 +52,7 @@ public class TrainingController {
 	 * @param auth
 	 * @return
 	 */
-	@RequestMapping(value="/training/trainer/batch/all", method=RequestMethod.GET)
+	@RequestMapping(value="/training/trainer/batch/all", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('TRAINER')")
 	public ResponseEntity<List<Batch>> getAllTrainerBatches(Authentication auth){
 		SalesforceUser userPrincipal = (SalesforceUser) auth.getPrincipal();

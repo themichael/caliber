@@ -17,7 +17,6 @@ import com.revature.caliber.services.ReportingService;
  *
  */
 @RestController
-@RequestMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 public class ReportingController {
 
 	private final static Logger log = Logger.getLogger(ReportingController.class);

@@ -18,7 +18,6 @@ import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.CategoryService;
 
 @RestController
-@RequestMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 public class CategoryController {
 
 	private final static Logger log = Logger.getLogger(CategoryController.class);
@@ -37,7 +36,7 @@ public class CategoryController {
 	 * @param auth
 	 * @return
 	 */
-	@RequestMapping(value="/category/all", method=RequestMethod.GET)
+	@RequestMapping(value="/category/all", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("permitAll")
 	public ResponseEntity<List<Category>> findAll(Authentication auth){
 		log.debug("Getting categories for trainer: " + ((SalesforceUser)auth).getCaliberId());

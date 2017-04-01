@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.security.impl.Helper;
-import com.revature.caliber.security.models.EmptyTrainerDatabaseException;
+import com.revature.caliber.security.models.AuthenticationConfigurationException;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
 
@@ -102,10 +102,10 @@ public class BootController extends Helper{
 		httpGet = new HttpGet(uri);
 		response = httpClient.execute(httpGet);
 		String jsonString = toJsonString(response.getEntity().getContent());
-		// check if we actually got back JSON from the Salesforce
-		if((jsonString.charAt(1) != '{') || (jsonString.charAt(0) != '{')){
-			log.fatal("Training API returned JSONString: " + jsonString);
-			throw new EmptyTrainerDatabaseException();
+		// check if we actually got back JSON object from the Salesforce
+		if(!jsonString.contains(email)){
+			log.fatal("Training API returned: " + jsonString);
+			throw new AuthenticationConfigurationException();
 		}
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())){
@@ -113,7 +113,7 @@ public class BootController extends Helper{
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberId(jsonObject.getInt("trainerId"));
 		}else{
-			throw new IllegalArgumentException("Email does not match Salesforce email");
+			throw new AuthenticationConfigurationException();
 		}
 		// store custom user Authentication obj in SecurityContext
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),

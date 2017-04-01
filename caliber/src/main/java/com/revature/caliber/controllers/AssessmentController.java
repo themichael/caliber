@@ -15,7 +15,6 @@ import com.revature.caliber.services.AssessmentService;
  *
  */
 @RestController
-@RequestMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 public class AssessmentController {
 
 	private final static Logger log = Logger.getLogger(AssessmentController.class);
