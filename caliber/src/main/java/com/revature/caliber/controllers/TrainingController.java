@@ -49,4 +49,12 @@ public class TrainingController {
 		log.info("Testing SecurityContext " + user);
 		return new ResponseEntity<Trainer>(new Trainer(), HttpStatus.OK);
 	}
+	
+	//@PreAuthorize(value = "hasAnyRole('vp,qc')")
+	@PreAuthorize(value = "hasRole('trainer')")
+	@RequestMapping(value="caliber/qc/batch/all", method=RequestMethod.GET)
+	public ResponseEntity<Trainer> getQC(@AuthenticationPrincipal SalesforceUser user){
+		log.info("Testing SecurityContext " + user);
+		return new ResponseEntity<Trainer>(new Trainer(), HttpStatus.OK);
+	}
 }
