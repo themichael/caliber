@@ -28,11 +28,16 @@ The Caliber suite also provides a variety of reports on different levels of gran
 <br/>CALIBER_SERVER_URL=http://caliber.revature.tech/
 
 #ERD (3/31/2017)
+<<<<<<< HEAD
+=======
+<br/>
+>>>>>>> 6c301b1637748a8b823fdf79a736782b1d48795a
 <img src="https://github.com/pjw6193/caliber/blob/master/images/caliber-local.png?raw=true" height="200" width="300"/>
 <br/>
 
 #Screenshots
 All My Trainees' Performance (trainer)
+<<<<<<< HEAD
 <img src="https://github.com/pjw6193/caliber/blob/master/images/all%20batch%20chart.png?raw=true" height="200" width="300"/>
 <br/>
 All Batch Performance (vp)
@@ -42,6 +47,21 @@ Individual Trainee Performance (all)
 <img src="https://github.com/pjw6193/caliber/blob/master/images/trainee-performance.png?raw=true" height="200" width="300"/>
 <br/>
 Week Progress (all)
+=======
+<br/>
+<img src="https://github.com/pjw6193/caliber/blob/master/images/all%20batch%20chart.png?raw=true" height="200" width="300"/>
+<br/>
+All Batch Performance (vp)
+<br/>
+<img src="https://github.com/pjw6193/caliber/blob/master/images/batch-performance.png?raw=true" height="200" width="300"/>
+<br/>
+Individual Trainee Performance (all)
+<br/>
+<img src="https://github.com/pjw6193/caliber/blob/master/images/trainee-performance.png?raw=true" height="200" width="300"/>
+<br/>
+Week Progress (all)
+<br/>
+>>>>>>> 6c301b1637748a8b823fdf79a736782b1d48795a
 <img src="https://github.com/pjw6193/caliber/blob/master/images/vp-week-progress.png?raw=true" height="200" width="300"/> 
 <br/>
 
