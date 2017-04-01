@@ -27,7 +27,7 @@ import com.revature.caliber.services.TrainingService;
  *
  */
 @RestController
-@RequestMapping(consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces=MediaType.APPLICATION_JSON_VALUE)
 public class TrainingController {
 
 	private final static Logger log = Logger.getLogger(TrainingController.class);
