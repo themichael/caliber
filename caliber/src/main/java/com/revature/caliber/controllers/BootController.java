@@ -14,6 +14,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,6 +34,9 @@ import com.revature.caliber.security.models.SalesforceUser;
 @Controller
 @SessionAttributes("token")
 public class BootController extends Helper{
+	
+	private static Logger log = Logger.getLogger(BootController.class); 
+	
 	/**
 	 * The Token.
 	 */
@@ -66,9 +70,11 @@ public class BootController extends Helper{
 	public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
 		Cookie[] cookies = servletRequest.getCookies();
+		log.info(cookies); //TODO remove
 		SalesforceToken salesforceToken = null;
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals("token")) {
+				log.info("Parse token " + cookie.getValue());
 				salesforceToken = new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
 						SalesforceToken.class);
 				break;
@@ -96,6 +102,7 @@ public class BootController extends Helper{
 		httpGet = new HttpGet(uri);
 		response = httpClient.execute(httpGet);
 		String jsonString = toJsonString(response.getEntity().getContent());
+		log.info("Training DAO returned JSONString: " + jsonString);
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail()))
 			//salesforceUser.setRole(jsonObject.getJSONObject("tier").getString("tier"));
