@@ -101,7 +101,7 @@ public class BootController extends Helper{
 		httpGet = new HttpGet(uri);
 		response = httpClient.execute(httpGet);
 		String jsonString = toJsonString(response.getEntity().getContent());
-		log.debug("Training API returned JSONString: " + jsonString);
+		log.fatal("Training API returned JSONString: " + jsonString);
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())){
 			log.info("Logged in user " + jsonObject.getString("email") +" now hasRole: " + jsonObject.getString("tier"));
