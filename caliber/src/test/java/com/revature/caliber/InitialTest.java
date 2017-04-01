@@ -2,8 +2,6 @@ package com.revature.caliber;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class InitialTest {
 	
@@ -11,9 +9,6 @@ public class InitialTest {
 	
 	@Test
 	public void testing() {
-		log.info("Testing Spring bean configurations");
-		AbstractApplicationContext ctxt =
-				new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/beans.xml");
-		ctxt.close();
+		log.info("Don't forget to test your code :)");
 	}	
 }
