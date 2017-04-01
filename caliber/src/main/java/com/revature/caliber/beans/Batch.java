@@ -221,14 +221,13 @@ public class Batch {
 		this.notes = notes;
 	}
 
-	public Batch(String trainingName, Trainer trainer, Trainer coTrainer, 
-			SkillType skillType, TrainingType trainingType, Date startDate, 
+	public Batch(String trainingName, Trainer trainer, SkillType skillType,
+			TrainingType trainingType, Date startDate, 
 			Date endDate, Date benchmarkStartDate, String location,
 			short goodGradeThreshold, short borderlineGradeThreshold, int weeks) {
 		super();
 		this.trainingName = trainingName;
 		this.trainer = trainer;
-		this.coTrainer = coTrainer;
 		this.skillType = skillType;
 		this.trainingType = trainingType;
 		this.startDate = startDate;

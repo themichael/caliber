@@ -130,18 +130,153 @@ public class Note {
 	public void setQcStatus(QCStatus qcStatus) {
 		this.qcStatus = qcStatus;
 	}
+	
+	/**
+	 * Factory method to construct new QC weekly batch note
+	 * @param content
+	 * @param week
+	 * @param batch
+	 * @param qcStatus
+	 * @param isPublic
+	 * @return
+	 */
+	public static Note qcBatchNote(String content, short week, Batch batch, QCStatus qcStatus, boolean isPublic){
+		if(isPublic)
+			return new Note(content, week, batch, NoteType.PUBLIC_BATCH, qcStatus);
+		else
+			return new Note(content, week, batch, NoteType.QC_BATCH, qcStatus);
+	} 
+	
+	/**
+	 * Factory method for creating new QC weekly individual trainee note
+	 * @param content
+	 * @param week
+	 * @param trainee
+	 * @param qcStatus
+	 * @param isPublic
+	 * @return
+	 */
+	public static Note qcIndividualNote(String content, short week, Trainee trainee, QCStatus qcStatus, boolean isPublic){
+		if(isPublic)
+			return new Note(content, week, trainee, NoteType.PUBLIC_TRAINEE, qcStatus);
+		else
+			return new Note(content, week, trainee, NoteType.QC_TRAINEE, qcStatus);
+	} 
 
-	public Note(String content, short week, Batch batch, Trainee trainee, TrainerRole maxVisibility, NoteType type,
-			boolean qcFeedback, QCStatus qcStatus) {
+	/**
+	 * Factory method for creating a new Trainer weekly batch note
+	 * @param content
+	 * @param week
+	 * @param batch
+	 * @return
+	 */
+	public static Note trainerBatchNote(String content, short week, Batch batch){
+		return new Note(content, week, batch);
+	} 
+
+	/**
+	 * Factory method for creating a new Trainer weekly individual trainee note
+	 * @param content
+	 * @param week
+	 * @param trainee
+	 * @return
+	 */
+	public static Note trainerIndividualNote(String content, short week, Trainee trainee){
+		return new Note(content, week, trainee);
+	}
+	
+	
+	/**
+	 * QC Status for the batch. 
+	 * Constructs the note and it's visibility
+	 * If the feedback is public, anyone can view.
+	 * If not, the feedback can only be viewed by QC and the VP.
+	 * @param content
+	 * @param week
+	 * @param batch
+	 * @param maxVisibility
+	 * @param type
+	 * @param qcFeedback
+	 * @param qcStatus
+	 */
+	private Note(String content, short week, Batch batch, NoteType type, QCStatus qcStatus) {
 		super();
 		this.content = content;
 		this.week = week;
 		this.batch = batch;
-		this.trainee = trainee;
-		this.maxVisibility = maxVisibility;
+		if(type == NoteType.QC_BATCH)
+			this.maxVisibility = TrainerRole.QC;
+		else if(type == NoteType.PUBLIC_BATCH)
+			this.maxVisibility = TrainerRole.TRAINER;
+		else
+			throw new IllegalArgumentException("Select proper NoteType");
 		this.type = type;
-		this.qcFeedback = qcFeedback;
+		this.qcFeedback = true;
 		this.qcStatus = qcStatus;
+	}
+	/**
+	 * QC Status for each trainee.
+	 * Constructs the note and it's visibility
+	 * If the feedback is public, anyone can view.
+	 * If not, the feedback can only be viewed by QC and the VP.
+	 * @param content
+	 * @param week
+	 * @param batch
+	 * @param maxVisibility
+	 * @param type
+	 * @param qcFeedback
+	 * @param qcStatus
+	 */
+	private Note(String content, short week, Trainee trainee, NoteType type, QCStatus qcStatus) {
+		super();
+		this.content = content;
+		this.week = week;
+		this.trainee = trainee;
+		if(type == NoteType.QC_TRAINEE)
+			this.maxVisibility = TrainerRole.QC;
+		else if(type == NoteType.PUBLIC_TRAINEE)
+			this.maxVisibility = TrainerRole.TRAINER;
+		else
+			throw new IllegalArgumentException("Select proper NoteType");
+		this.type = type;
+		this.qcFeedback = true;
+		this.qcStatus = qcStatus;
+	}
+	
+	/**
+	 * Trainer feedback for a trainee
+	 * @param content
+	 * @param week
+	 * @param trainee
+	 * @param maxVisibility
+	 * @param type
+	 */
+	private Note(String content, short week, Trainee trainee) {
+		super();
+		this.content = content;
+		this.week = week;
+		this.trainee = trainee;
+		this.maxVisibility = TrainerRole.TRAINER;
+		this.type = NoteType.TRAINEE;
+		this.qcFeedback = false;
+	}
+	
+	/**
+	 * Trainer feedback for a batch
+	 * @param content
+	 * @param week
+	 * @param trainee
+	 * @param maxVisibility
+	 * @param type
+	 */
+	private Note(String content, short week, Batch batch) {
+		super();
+		this.content = content;
+		this.week = week;
+		this.batch = batch;
+		this.maxVisibility = TrainerRole.TRAINER;
+		this.type = NoteType.BATCH;
+		this.qcFeedback = false;
 	}
 
 	public Note() {

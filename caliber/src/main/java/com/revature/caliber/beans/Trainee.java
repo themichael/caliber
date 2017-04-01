@@ -22,6 +22,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The type Trainee.
+ * 
+ * (NOTE) 
+ * Further iterations should include the following from the Salesforce: 
+ * 		 recruiter_name, account_name, project_completion
+ * This way we can analyze performance based on 
+ * where they went to college, who recruited them, and if they finished RevaturePro.
  */
 @Entity
 @Table(name = "CALIBER_TRAINEE")
@@ -47,6 +53,15 @@ public class Trainee {
 	@JoinColumn(name = "BATCH_ID", nullable = false)
 	@JsonBackReference(value = "traineeAndBatch")
     private Batch batch;
+	
+	@Column(name="PHONE_NUMBER")
+	private String phoneNumber;
+	
+	@Column(name="SKYPE_ID")
+	private String skypeId;
+	
+	@Column(name="PROFILE_URL")
+	private String profileUrl;
 
 	@OneToMany(mappedBy="trainee")
     private Set<Grade> grades;
@@ -111,16 +126,44 @@ public class Trainee {
 		this.notes = notes;
 	}
 
-	public Trainee() {
-		super();
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public Trainee(String name, String email, TrainingStatus trainingStatus, Batch batch) {
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getSkypeId() {
+		return skypeId;
+	}
+
+	public void setSkypeId(String skypeId) {
+		this.skypeId = skypeId;
+	}
+
+	public String getProfileUrl() {
+		return profileUrl;
+	}
+
+	public void setProfileUrl(String profileUrl) {
+		this.profileUrl = profileUrl;
+	}
+
+	public Trainee(String name, String email, TrainingStatus trainingStatus, String phoneNumber,
+			String skypeId, String profileUrl, Batch batch) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.trainingStatus = trainingStatus;
 		this.batch = batch;
+		this.phoneNumber = phoneNumber;
+		this.skypeId = skypeId;
+		this.profileUrl = profileUrl;
+	}
+
+	public Trainee() {
+		super();
 	}
 
 }

@@ -9,12 +9,14 @@ import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.security.models.SalesforceUser;
 
 @Repository
 public class BatchDAO {
@@ -47,7 +49,8 @@ public class BatchDAO {
 	
 	@Transactional(isolation=Isolation.READ_COMMITTED,
 			propagation=Propagation.REQUIRES_NEW)
-	public List<Batch> findAllByTrainer(int trainerId){
+	public List<Batch> findAllByTrainer(Authentication auth){
+		int trainerId = ((SalesforceUser)auth).getCaliberId();
 		log.debug("Fetching all batches for trainer: " + trainerId);
 		
 		@SuppressWarnings("unchecked")

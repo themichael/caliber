@@ -1,0 +1,992 @@
+package com.revature.caliber;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.hamcrest.CoreMatchers;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.AssessmentType;
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.SkillType;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainingStatus;
+import com.revature.caliber.beans.TrainingType;
+import com.revature.caliber.data.AssessmentDAO;
+import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.data.CategoryDAO;
+import com.revature.caliber.data.GradeDAO;
+import com.revature.caliber.data.NoteDAO;
+import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TrainerDAO;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
+public class SampleDataSetup {
+
+	private static Logger log = Logger.getLogger(SampleDataSetup.class);
+
+	@Autowired
+	private TrainerDAO trainerDAO;
+	@Autowired
+	private CategoryDAO categoryDAO;
+	@Autowired
+	private BatchDAO batchDAO;
+	@Autowired
+	private TraineeDAO traineeDAO;
+	@Autowired
+	private AssessmentDAO assessmentDAO;
+	@Autowired
+	private GradeDAO gradeDAO;
+	@Autowired
+	private NoteDAO noteDAO;
+	
+	@Test
+	public void testing() {
+		log.info("Don't forget to test your code :)");
+		assertNotNull(trainerDAO);
+		assertThat(trainerDAO, CoreMatchers.instanceOf(TrainerDAO.class));
+		batchOne(); batchTwo(); batchThree();
+	}
+
+	private void batchOne() {
+		// batch 1
+		log.info("Fetching Patrick Walsh");
+		Trainer trainer = trainerDAO.getByEmail("pjw6193@hotmail.com");
+		Calendar startDate = Calendar.getInstance();
+		startDate.set(2017, Calendar.APRIL, 3);
+		Calendar endDate = Calendar.getInstance();
+		endDate.set(2017, Calendar.JUNE, 9);
+		Calendar benchmarkStartDate = Calendar.getInstance();
+		benchmarkStartDate.set(2003, Calendar.JANUARY, 1);
+
+		log.info("Creating batch 1602 Java for " + trainer.getName());
+		Batch batch = new Batch("1602 Apr03 Java", trainer, SkillType.J2EE, TrainingType.Revature, startDate.getTime(),
+				endDate.getTime(), benchmarkStartDate.getTime(),
+				"Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190", (short) 70, (short) 50, 10);
+		batchDAO.save(batch);
+
+		log.info("Creating trainees");
+		Trainee denis = new Trainee("Antonov, Denis", "ds@gmail.com", TrainingStatus.Dropped,"(678) 763-3425", null, null, batch);
+		Trainee jon = new Trainee("Tech, Jonathon", "jth@gmail.com", TrainingStatus.Employed, "(918) 504-6497","jt", "https://app.revature.com/myResumePublish?id=1823734", batch);
+		Trainee kevin = new Trainee("Haas, Kevin", "kh@georgiasouthern.edu", TrainingStatus.Employed,"(229) 255-6651", "kh", "https://app.revature.com/myResumePublish?id=2847081", batch);
+		Trainee issac = new Trainee("Fouche, Issac", "if@gmail.com", TrainingStatus.Employed, "(301) 606-9785","iss", "https://app.revature.com/myResumePublish?id=3109432", batch);
+		Trainee jimmy = new Trainee("Huang, Jimmy", "zh@buffalo.edu", TrainingStatus.Employed, "(917) 916-6425","jimm", "https://app.revature.com/myResumePublish?id=2426772", batch);
+		Trainee erika = new Trainee("Castillo, Erika", "enc@gmail.com", TrainingStatus.Employed,"(229) 669-7528", "ecast", "https://app.revature.com/myResumePublish?id=3156402", batch);
+		Trainee wyatt = new Trainee("Duling, Wyatt", "wyd@gmail.com", TrainingStatus.Employed, "563-343-6978","WyD", "https://app.revature.com/myResumePublish?id=2783206", batch);
+		Trainee martin = new Trainee("Blanchard, Martin", "m.b@post.com", TrainingStatus.Dropped,"(603) 264-6975", null, null, batch);
+		Trainee manya = new Trainee("Almatar, Manya", "ma@gmail.com", TrainingStatus.Dropped, "(773) 954-5468",null, null, batch);
+		Trainee russ = new Trainee("Peters, Russell", "rd@gmail.com", TrainingStatus.Dropped, "(240) 678-3465",null, null, batch);
+		traineeDAO.save(denis);
+		traineeDAO.save(jon);
+		traineeDAO.save(kevin);
+		traineeDAO.save(issac);
+		traineeDAO.save(jimmy);
+		traineeDAO.save(erika);
+		traineeDAO.save(wyatt);
+		traineeDAO.save(martin);
+		traineeDAO.save(manya);
+		traineeDAO.save(russ);
+
+		log.info("Fetching categories for assessment");
+		List<Category> categories = categoryDAO.findAll();
+
+		log.info("Creating/'autograding' assessments: week 1");
+		// Java
+		Assessment assessment = new Assessment("Java Test", batch, 100, AssessmentType.Exam, (short) 1, categories.get(0));
+		assessmentDAO.save(assessment);
+		Date dateReceived = endDate.getTime(); // I'm lazy
+		gradeDAO.save(new Grade(assessment, denis, dateReceived, 67.9));
+		gradeDAO.save(new Grade(assessment, wyatt, dateReceived, 86.8));
+		gradeDAO.save(new Grade(assessment, martin, dateReceived, 77.7));
+		gradeDAO.save(new Grade(assessment, jon, dateReceived, 81));
+		gradeDAO.save(new Grade(assessment, manya, dateReceived, 92.3));
+		gradeDAO.save(new Grade(assessment, jimmy, dateReceived, 87));
+		gradeDAO.save(new Grade(assessment, kevin, dateReceived, 90.2));
+		gradeDAO.save(new Grade(assessment, russ, dateReceived, 79.8));
+		gradeDAO.save(new Grade(assessment, issac, dateReceived, 86.63));
+		gradeDAO.save(new Grade(assessment, erika, dateReceived, 88.3));
+
+		Assessment assessment05 = new Assessment("Java Interview", batch, 100, AssessmentType.Verbal, (short) 1, categories.get(0));
+		assessmentDAO.save(assessment05);
+		gradeDAO.save(new Grade(assessment05, denis, dateReceived, 60));
+		gradeDAO.save(new Grade(assessment05, wyatt, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment05, martin, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment05, jon, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment05, manya, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment05, jimmy, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment05, kevin, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment05, russ, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment05, issac, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment05, erika, dateReceived, 80));
+		
+		log.info("Creating notes: week 1");
+		noteDAO.save(Note.trainerIndividualNote("Not confident in mock interview.", (short) 1, denis));
+		noteDAO.save(Note.trainerIndividualNote("Technically good", (short) 1, wyatt));
+		noteDAO.save(Note.trainerIndividualNote("Not confident", (short) 1, martin));
+		noteDAO.save(Note.trainerIndividualNote("Very talkative and outgoing", (short) 1, jon));
+		noteDAO.save(Note.trainerIndividualNote("Very strong technically", (short) 1, manya));
+		noteDAO.save(Note.trainerIndividualNote("Technically strong", (short) 1, jimmy));
+		noteDAO.save(Note.trainerIndividualNote("Outgoing, polished communication, and technically very strong.", (short) 1, kevin));
+		noteDAO.save(Note.trainerIndividualNote("Quiet guy", (short) 1, russ));
+		noteDAO.save(Note.trainerIndividualNote("Fun and energetic personality", (short) 1, issac));
+		noteDAO.save(Note.trainerIndividualNote("Very shy. Technically good", (short) 1, erika));
+		noteDAO.save(Note.trainerBatchNote("Week 1 was great", (short) 1, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Didn't know things", (short) 1, denis, QCStatus.Poor, false));
+		noteDAO.save(Note.qcIndividualNote("Cool guy", (short) 1, wyatt, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Shy", (short) 1, martin, QCStatus.Average, false));
+		noteDAO.save(Note.qcIndividualNote("Talkative", (short) 1, jon, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Okay", (short) 1, manya, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Quiet", (short) 1, jimmy, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Excellent stuff", (short) 1, kevin, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Quiet guy", (short) 1, russ, QCStatus.Average, false));
+		noteDAO.save(Note.qcIndividualNote("Great personality", (short) 1, issac, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Quiet", (short) 1, erika, QCStatus.Average, false));
+		noteDAO.save(Note.qcBatchNote("Great start", (short) 1, batch, QCStatus.Good, false));
+
+		// SQL
+		log.info("Creating/'autograding' assessments: week 2");
+		Assessment assessment2 = new Assessment("SQL Test", batch, 100, AssessmentType.Exam, (short) 2, categories.get(1));
+		assessmentDAO.save(assessment2);
+		
+		gradeDAO.save(new Grade(assessment2, wyatt, dateReceived, 88.9));
+		gradeDAO.save(new Grade(assessment2, martin, dateReceived, 64.8));
+		gradeDAO.save(new Grade(assessment2, jon, dateReceived, 77.8));
+		gradeDAO.save(new Grade(assessment2, manya, dateReceived, 86.3));
+		gradeDAO.save(new Grade(assessment2, jimmy, dateReceived, 93));
+		gradeDAO.save(new Grade(assessment2, kevin, dateReceived, 97.8));
+		gradeDAO.save(new Grade(assessment2, russ, dateReceived, 70.74));
+		gradeDAO.save(new Grade(assessment2, issac, dateReceived, 96.29));
+		gradeDAO.save(new Grade(assessment2, erika, dateReceived, 89.63));
+		
+		Assessment assessment25 = new Assessment("JDBC Interview", batch, 100, AssessmentType.Verbal, (short) 2, categories.get(8));
+		assessmentDAO.save(assessment25);
+		gradeDAO.save(new Grade(assessment25, wyatt, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment25, martin, dateReceived, 60));
+		gradeDAO.save(new Grade(assessment25, jon, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment25, manya, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment25, jimmy, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment25, kevin, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment25, russ, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment25, issac, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment25, erika, dateReceived, 80));
+
+		log.info("Creating notes: week 2");
+		noteDAO.save(Note.trainerIndividualNote("Made great progress on his project", (short) 2,wyatt));
+		noteDAO.save(Note.trainerIndividualNote("Cannot keep up with the pace.",(short) 2, martin));
+		noteDAO.save(Note.trainerIndividualNote("Good understanding of SQL",(short) 2, jon));
+		noteDAO.save(Note.trainerIndividualNote("Very good knowledge in SQL",(short) 2, manya));
+		noteDAO.save(Note.trainerIndividualNote("Outstanding work on his project", (short) 2, jimmy));
+		noteDAO.save(Note.trainerIndividualNote("Superstar. Impeccable project, very strong technically.", (short) 2,kevin));
+		noteDAO.save(Note.trainerIndividualNote("Struggled with the project",(short) 2, russ));
+		noteDAO.save(Note.trainerIndividualNote("Amazing work on the project and fantastic interview skills and confidence.", (short) 2, issac));
+		noteDAO.save(Note.trainerIndividualNote("Very good work on the project! Great understanding in SQL.", (short) 2,erika));
+		noteDAO.save(Note.trainerBatchNote("Week 2 was great", (short) 2, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Great guy", (short) 2, wyatt, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Decent knowledge", (short) 2, martin, QCStatus.Poor, false));
+		noteDAO.save(Note.qcIndividualNote("Outgoing", (short) 2, jon, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("A little shy", (short) 2, manya, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Still quiet", (short) 2, jimmy, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Superb work", (short) 2, kevin, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Kind of shy", (short) 2, russ, QCStatus.Average, false));
+		noteDAO.save(Note.qcIndividualNote("Great work!", (short) 2, issac, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Great stuff", (short) 2, erika, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("Keep it up!", (short) 2, batch, QCStatus.Good, false));
+
+		// JSP
+		log.info("Creating/'autograding' assessments: week 3");
+		Assessment assessment3 = new Assessment("JSP Test", batch, 100, AssessmentType.Exam, (short) 3, categories.get(3));
+		assessmentDAO.save(assessment3);
+		gradeDAO.save(new Grade(assessment3, wyatt, dateReceived, 86.8));
+		gradeDAO.save(new Grade(assessment3, martin, dateReceived, 77.7));
+		gradeDAO.save(new Grade(assessment3, jon, dateReceived, 81));
+		gradeDAO.save(new Grade(assessment3, manya, dateReceived, 92.3));
+		gradeDAO.save(new Grade(assessment3, jimmy, dateReceived, 87));
+		gradeDAO.save(new Grade(assessment3, kevin, dateReceived, 90.2));
+		gradeDAO.save(new Grade(assessment3, russ, dateReceived, 79.8));
+		gradeDAO.save(new Grade(assessment3, issac, dateReceived, 86.63));
+		gradeDAO.save(new Grade(assessment3, erika, dateReceived, 88.3));
+
+		Assessment assessment35 = new Assessment("JSP Interview", batch, 100, AssessmentType.Verbal, (short) 3, categories.get(3));
+		assessmentDAO.save(assessment35);
+		gradeDAO.save(new Grade(assessment35, wyatt, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment35, martin, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment35, jon, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment35, manya, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment35, jimmy, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment35, kevin, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment35, russ, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment35, issac, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment35, erika, dateReceived, 80));
+		
+		Assessment assessment355 = new Assessment("Project", batch, 50, AssessmentType.Project, (short) 3, categories.get(3));
+		assessmentDAO.save(assessment355);
+		gradeDAO.save(new Grade(assessment355, wyatt, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment355, martin, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment355, jon, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment355, manya, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment355, jimmy, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment355, kevin, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment355, russ, dateReceived, 60));
+		gradeDAO.save(new Grade(assessment355, issac, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment355, erika, dateReceived, 80));
+		
+		log.info("Creating notes: week 3");
+		noteDAO.save(Note.trainerIndividualNote("Good progress this week. ", (short) 3, wyatt));
+		noteDAO.save(Note.trainerIndividualNote("Made less than 70 on his LMS test again, but is making good overall progress. ", (short) 3, jon));
+		noteDAO.save(Note.trainerIndividualNote("Great work so far! Picks up on the material very quickly and made significant progress on her project.",(short) 3, manya));
+		noteDAO.save(Note.trainerIndividualNote("Great work from Jimmy this week.", (short) 3, jimmy));
+		noteDAO.save(Note.trainerIndividualNote("All-star. Finished his project early and helps other classmates work on theirs. Aced the LMS test where others fell behind a bit.",(short) 3, kevin));
+		noteDAO.save(Note.trainerIndividualNote("Dropped. He insisted that he couldn't keep up with the pace. See Nan for more detail.",(short) 3, russ));
+		noteDAO.save(Note.trainerIndividualNote("Good work. Very strong technically, and still a friendly outgoing personality shining through.",(short) 3, issac));
+		noteDAO.save(Note.trainerIndividualNote("Great progress on her project. Very good technically and seems to be becoming more comfortable in her confidence and presentation skills. ",(short) 3, erika));
+		noteDAO.save(Note.trainerBatchNote("Week 3 was great", (short) 3, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Good", (short) 3, wyatt, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Well understanding", (short) 3, jon, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Quiet week", (short) 3, manya, QCStatus.Average, false));
+		noteDAO.save(Note.qcIndividualNote("Great guy", (short) 3, jimmy, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Fantastic ", (short) 3, kevin, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Wow", (short) 3, issac, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Good stuff", (short) 3, erika, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("Great week guys", (short) 3, batch, QCStatus.Good, false));
+
+		// Hibernate
+		log.info("Creating/'autograding' assessments: week 4");
+		Assessment assessment4 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 4, categories.get(17));
+		assessmentDAO.save(assessment4);
+		gradeDAO.save(new Grade(assessment4, wyatt, dateReceived, 84.24));
+		gradeDAO.save(new Grade(assessment4, jon, dateReceived, 86.56));
+		gradeDAO.save(new Grade(assessment4, manya, dateReceived, 90.91));
+		gradeDAO.save(new Grade(assessment4, jimmy, dateReceived, 88.28));
+		gradeDAO.save(new Grade(assessment4, kevin, dateReceived, 97.98));
+		gradeDAO.save(new Grade(assessment4, issac, dateReceived, 85.25));
+		gradeDAO.save(new Grade(assessment4, erika, dateReceived, 90.91));
+		
+		Assessment assessment45 = new Assessment("Interview", batch, 100, AssessmentType.Verbal, (short) 4, categories.get(17));
+		assessmentDAO.save(assessment45);
+		gradeDAO.save(new Grade(assessment45, wyatt, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment45, jon, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment45, manya, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment45, jimmy, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment45, kevin, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment45, issac, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment45, erika, dateReceived, 90));
+		
+		Assessment assessment455 = new Assessment("Project", batch, 100, AssessmentType.Project, (short) 4, categories.get(17));
+		assessmentDAO.save(assessment455);
+		gradeDAO.save(new Grade(assessment455, wyatt, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment455, jon, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment455, manya, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment455, jimmy, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment455, kevin, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment455, issac, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment455, erika, dateReceived, 90));
+
+		log.info("Creating notes: week 4");
+		noteDAO.save(Note.trainerIndividualNote("Great work this week. Put a lot of work into his chess application. Did okay on interview but struggled with AngularJS on the test.",(short) 4, wyatt));
+		noteDAO.save(Note.trainerIndividualNote("Good work on his project and in class. ", (short) 4, jon));
+		noteDAO.save(Note.trainerIndividualNote("Struggled on the test but put so much effort into the project and mock interview.", (short) 4, manya));
+		noteDAO.save(Note.trainerIndividualNote("Very good work here! I am pleased with his project.", (short) 4, jimmy));
+		noteDAO.save(Note.trainerIndividualNote("Great work. Seems very confident in the interview and exceeded expectations on the test.", (short) 4,kevin));
+		noteDAO.save(Note.trainerIndividualNote("Great work on the project and in class.", (short) 4, issac));
+		noteDAO.save(Note.trainerIndividualNote("Very confident in interview and did very well on the project.",(short) 4, erika));
+		noteDAO.save(Note.trainerBatchNote("Week 4 was great", (short) 4, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Great", (short) 4, wyatt, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Wow", (short) 4, jon, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Good", (short) 4, manya, QCStatus.Average, false));
+		noteDAO.save(Note.qcIndividualNote("Stellar", (short) 4, jimmy, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Outstanding", (short) 4, kevin, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Jeez.. wow", (short) 4, issac, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Great", (short) 4, erika, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("That batch tho", (short) 4, batch, QCStatus.Good, false));
+		// Spring
+		log.info("Creating/'autograding' assessments: week 5");
+		Assessment assessment5 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 5, categories.get(18));
+		assessmentDAO.save(assessment5);
+		gradeDAO.save(new Grade(assessment5, wyatt, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment5, jon, dateReceived, 83.68));
+		gradeDAO.save(new Grade(assessment5, manya, dateReceived, 86.84));
+		gradeDAO.save(new Grade(assessment5, jimmy, dateReceived, 93.86));
+		gradeDAO.save(new Grade(assessment5, kevin, dateReceived, 97.37));
+		gradeDAO.save(new Grade(assessment5, issac, dateReceived, 89.65));
+		gradeDAO.save(new Grade(assessment5, erika, dateReceived, 87.72));
+
+		Assessment assessment55 = new Assessment("Interview", batch, 100, AssessmentType.Verbal, (short) 5, categories.get(18));
+		assessmentDAO.save(assessment55);
+		gradeDAO.save(new Grade(assessment55, wyatt, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment55, jon, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment55, manya, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment55, jimmy, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment55, kevin, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment55, issac, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment55, erika, dateReceived, 80));
+		
+		Assessment assessment555 = new Assessment("Project", batch, 100, AssessmentType.Project, (short) 5, categories.get(18));
+		assessmentDAO.save(assessment555);
+		gradeDAO.save(new Grade(assessment555, wyatt, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment555, jon, dateReceived, 75));
+		gradeDAO.save(new Grade(assessment555, manya, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment555, jimmy, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment555, kevin, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment555, issac, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment555, erika, dateReceived, 85));
+		
+		log.info("Creating notes: week 5");
+		noteDAO.save(Note.trainerIndividualNote("Great week for this guy", (short) 5, wyatt));
+		noteDAO.save(Note.trainerIndividualNote("Massive improvements", (short) 5, jon));
+		noteDAO.save(Note.trainerIndividualNote("Dropped.",(short) 5, manya));
+		noteDAO.save(Note.trainerIndividualNote("Jimmy is a great developer", (short) 5, jimmy));
+		noteDAO.save(Note.trainerIndividualNote("Wow factor", (short) 5, kevin));
+		noteDAO.save(Note.trainerIndividualNote("Super developer", (short) 5, issac));
+		noteDAO.save(Note.trainerIndividualNote("Seem lot of improvements in interpersonal skill", (short) 5, erika));
+		noteDAO.save(Note.trainerBatchNote("Week 5 was great", (short) 5, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Wow", (short) 5, wyatt, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Holy cow", (short) 5, jon, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Good", (short) 5, manya, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Great!", (short) 5, jimmy, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Insane", (short) 5, kevin, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Tremendous", (short) 5, issac, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Stellar", (short) 5, erika, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("This batch is glorious", (short) 5, batch, QCStatus.Good, false));
+
+		// REST
+		log.info("Creating/'autograding' assessments: week 6");
+		Assessment assessment6 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 6, categories.get(20));
+		assessmentDAO.save(assessment6);
+		gradeDAO.save(new Grade(assessment6, wyatt, dateReceived, 92.31));
+		gradeDAO.save(new Grade(assessment6, jon, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment6, manya, dateReceived, 86.15));
+		gradeDAO.save(new Grade(assessment6, jimmy, dateReceived, 88.33));
+		gradeDAO.save(new Grade(assessment6, kevin, dateReceived, 98.08));
+		gradeDAO.save(new Grade(assessment6, issac, dateReceived, 90.9));
+		gradeDAO.save(new Grade(assessment6, erika, dateReceived, 89.49));
+		
+		Assessment assessment65 = new Assessment("Mock Interview", batch, 100, AssessmentType.Verbal, (short) 6, categories.get(20));
+		assessmentDAO.save(assessment65);
+		gradeDAO.save(new Grade(assessment65, wyatt, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment65, jon, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment65, manya, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment65, jimmy, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment65, kevin, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment65, issac, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment65, erika, dateReceived, 85));
+		
+		Assessment assessment655 = new Assessment("Project", batch, 100, AssessmentType.Project, (short) 6, categories.get(20));
+		assessmentDAO.save(assessment655);
+		gradeDAO.save(new Grade(assessment655, wyatt, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment655, jon, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment655, manya, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment655, jimmy, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment655, kevin, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment655, issac, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment655, erika, dateReceived, 80));
+
+		log.info("Creating notes: week 6");
+		noteDAO.save(Note.trainerIndividualNote("Good understanding on Web Services. A little behind on project work.",(short) 6, wyatt));
+		noteDAO.save(Note.trainerIndividualNote("Great at talking Web Services. Networking knowledge definitely paid off for him here. Project is going okay.",(short) 6, jon));
+		noteDAO.save(Note.trainerIndividualNote("Great work this week. Good project progress.", (short) 6, jimmy));
+		noteDAO.save(Note.trainerIndividualNote("Fantastic work. Nearly finished with second project and implemented Web Service communication between them. ",(short) 6, kevin));
+		noteDAO.save(Note.trainerIndividualNote("Great work. Just about finished up with his second project.",(short) 6, issac));
+		noteDAO.save(Note.trainerIndividualNote("Great progress! Good understanding on Web Services and nearly finished on second project.", (short) 6,erika));
+		noteDAO.save(Note.trainerBatchNote("Week 6 was great", (short) 6, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Wow", (short) 6, wyatt, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Fabulous", (short) 6, jon, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Tremendous", (short) 6, jimmy, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Splendid", (short) 6, kevin, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Glorious", (short) 6, issac, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Fantastic", (short) 6, erika, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("Fantastical batch", (short) 6, batch, QCStatus.Good, false));
+
+		// AngularJS
+		log.info("Creating/'autograding' assessments: week 7");
+		Assessment assessment7 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 7, categories.get(21));
+		assessmentDAO.save(assessment7);
+		gradeDAO.save(new Grade(assessment7, wyatt, dateReceived, 88.28));
+		gradeDAO.save(new Grade(assessment7, jon, dateReceived, 86.77));
+		gradeDAO.save(new Grade(assessment7, jimmy, dateReceived, 90.45));
+		gradeDAO.save(new Grade(assessment7, kevin, dateReceived, 94.95));
+		gradeDAO.save(new Grade(assessment7, issac, dateReceived, 89.95));
+		gradeDAO.save(new Grade(assessment7, erika, dateReceived, 90.61));
+		
+		Assessment assessment75 = new Assessment("One on One Interview", batch, 100, AssessmentType.Exam, (short) 7, categories.get(21));
+		assessmentDAO.save(assessment75);
+		gradeDAO.save(new Grade(assessment75, wyatt, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment75, jon, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment75, jimmy, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment75, kevin, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment75, issac, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment75, erika, dateReceived, 90));
+		
+		Assessment assessment755 = new Assessment("Project Demonstration", batch, 100, AssessmentType.Exam, (short) 7, categories.get(21));
+		assessmentDAO.save(assessment755);
+		gradeDAO.save(new Grade(assessment755, wyatt, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment755, jon, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment755, jimmy, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment755, kevin, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment755, issac, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment755, erika, dateReceived, 95));
+
+		log.info("Creating notes: week 7");
+		noteDAO.save(Note.trainerIndividualNote("Very good knowledge of Spring.", (short) 7, wyatt));
+		noteDAO.save(Note.trainerIndividualNote("Good knowledge of Spring.", (short) 7, jon));
+		noteDAO.save(
+				Note.trainerIndividualNote("Good work on the project and on Spring evaluations.", (short) 7, jimmy));
+		noteDAO.save(Note.trainerIndividualNote("Excellent work this week and on project.", (short) 7, kevin));
+		noteDAO.save(Note.trainerIndividualNote("Great work on projects and Spring.", (short) 7, issac));
+		noteDAO.save(Note.trainerIndividualNote("Excellent work on the project and evaluations", (short) 7, erika));
+		noteDAO.save(Note.trainerBatchNote("Week 7 was great", (short) 7, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Great", (short) 7, wyatt, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Wow", (short) 7, jon, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Fun", (short) 7, jimmy, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Fantastic", (short) 7, kevin, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Excellent", (short) 7, issac, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Flawless victory", (short) 7, erika, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("Not bad at all", (short) 7, batch, QCStatus.Good, false));
+	}
+
+	private void batchTwo() {
+		// batch 2
+		log.info("Fetching Patrick Walsh");
+		Trainer trainer = trainerDAO.getByEmail("pjw6193@hotmail.com");
+		Calendar startDate = Calendar.getInstance();
+		startDate.set(2017, Calendar.MARCH, 27);
+		Calendar endDate = Calendar.getInstance();
+		endDate.set(2017, Calendar.JUNE, 2);
+		Calendar benchmarkStartDate = Calendar.getInstance();
+		benchmarkStartDate.set(2003, Calendar.JANUARY, 1);
+
+		log.info("Creating batch 1604 Java for " + trainer.getName());
+		Batch batch = new Batch("1604 Mar27 Java", trainer, SkillType.J2EE, TrainingType.Revature, startDate.getTime(),
+				endDate.getTime(), benchmarkStartDate.getTime(),
+				"Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190", (short) 70, (short) 50, 10);
+		batchDAO.save(batch);
+
+		log.info("Creating trainees");
+		Trainee wong = new Trainee("Wong, Steven", "sw@gmail.com", TrainingStatus.Dropped,"(757) 289-4488", null, null, batch);
+		Trainee jeff = new Trainee("Lovell, Jeffrey", "jlvl@hotmail.com", TrainingStatus.Employed, "414-801-9214","j.lo", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=98CB90616B7168BE", batch);
+		Trainee denny = new Trainee("Ayard, Denny", "deyd@yahoo.com", TrainingStatus.Employed,"626-394-4631", "d.ay", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=1A4891AD002361F3", batch);
+		Trainee jason = new Trainee("Spruce, Jason", "js@gmail.com", TrainingStatus.Dropped, "417-793-8764","jspru", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=C2C31DA539BA9204", batch);
+		Trainee sidak = new Trainee("Dhillon, Sidak", "sdh@hotmail.com", TrainingStatus.Dropped, "6783084664","", "", batch);
+		Trainee tyler = new Trainee("Welborn, Tyler", "tyw@yahoo.com", TrainingStatus.Employed,"(806) 831-7765", "", "", batch);
+		Trainee tony = new Trainee("Hill, Anthony", "thill@yahoo.com", TrainingStatus.Dropped, "312-752-1124","", "", batch);
+		Trainee justin = new Trainee("Atkinson, Justin", "jat@gmail.com", TrainingStatus.Employed,"267-229-7896", "j.atkin", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=6B5AE92F8B9E7B42", batch);
+		Trainee matt = new Trainee("Olson, Matthew", "mols", TrainingStatus.Dropped, "(573) 382-4546",null, null, batch);
+		Trainee yan = new Trainee("Lin, Yan", "ylin@gmail.com", TrainingStatus.Employed, "(646) 641-8863","Yliin", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=BA50174314ADF183", batch);
+		Trainee tad = new Trainee("Detlef, Tad", "tdet@hotmail.com", TrainingStatus.Employed, "980-254-7725","t.det", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=760BB40801D49E08", batch);
+		Trainee fagbemi = new Trainee("Young, Fagbemi", "fyung@gmail.com", TrainingStatus.Dropped, "(757) 478-3687",null, null, batch);
+		Trainee josh = new Trainee("Brown, Joshua", "jbrown@yahoo.com", TrainingStatus.Employed, "301-917-7689","j.brown", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=187ABBDC1C05325F", batch);
+		traineeDAO.save(wong);
+		traineeDAO.save(jeff);
+		traineeDAO.save(denny);
+		traineeDAO.save(jason);
+		traineeDAO.save(sidak);
+		traineeDAO.save(tyler);
+		traineeDAO.save(tony);
+		traineeDAO.save(justin);
+		traineeDAO.save(matt);
+		traineeDAO.save(yan);
+		traineeDAO.save(tad);
+		traineeDAO.save(fagbemi);
+		traineeDAO.save(josh);
+
+		log.info("Fetching categories for assessment");
+		List<Category> categories = categoryDAO.findAll();
+
+		log.info("Creating/'autograding' assessments: week 1");
+		// Java
+		Assessment assessment = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 1, categories.get(0));
+		assessmentDAO.save(assessment);
+		Date dateReceived = endDate.getTime(); // I'm still lazy
+		gradeDAO.save(new Grade(assessment, wong, dateReceived, 60));
+		gradeDAO.save(new Grade(assessment, jeff, dateReceived, 96));
+		gradeDAO.save(new Grade(assessment, denny, dateReceived, 93));
+		gradeDAO.save(new Grade(assessment, jason, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment, sidak, dateReceived, 88));
+		gradeDAO.save(new Grade(assessment, tyler, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment, tony, dateReceived, 75));
+		gradeDAO.save(new Grade(assessment, justin, dateReceived, 81));
+		gradeDAO.save(new Grade(assessment, matt, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment, yan, dateReceived, 87));
+		gradeDAO.save(new Grade(assessment, tad, dateReceived, 83));
+		gradeDAO.save(new Grade(assessment, fagbemi, dateReceived, 73));
+		gradeDAO.save(new Grade(assessment, josh, dateReceived, 85)); 
+		
+		Assessment assessment0 = new Assessment("Interview", batch, 100, AssessmentType.Verbal, (short) 1, categories.get(0));
+		assessmentDAO.save(assessment0);
+		gradeDAO.save(new Grade(assessment0, wong, dateReceived, 65));
+		gradeDAO.save(new Grade(assessment0, jeff, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment0, denny, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment0, jason, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment0, sidak, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment0, tyler, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment0, tony, dateReceived, 75));
+		gradeDAO.save(new Grade(assessment0, justin, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment0, matt, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment0, yan, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment0, tad, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment0, fagbemi, dateReceived, 75));
+		gradeDAO.save(new Grade(assessment0, josh, dateReceived, 85)); 
+		
+		log.info("Creating notes: week 1");
+		noteDAO.save(Note.trainerIndividualNote("Dropped",(short) 1, wong));
+		noteDAO.save(Note.trainerIndividualNote("Dropped",(short) 1, fagbemi));
+		noteDAO.save(Note.trainerBatchNote("The thread questions were usually the ones missed.", (short) 1, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Great stuff!", (short) 1, yan, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Great work", (short) 1, denny, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Great job", (short) 1, josh, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Great efforts", (short) 1, justin, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Tremendous", (short) 1, tad, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Fabulous", (short) 1, jeff, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("Great start to this batch", (short) 1, batch, QCStatus.Good, false));
+
+		// SQL
+		log.info("Creating/'autograding' assessments: week 2");
+		Assessment assessment2 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 2, categories.get(1));
+		assessmentDAO.save(assessment2);
+		gradeDAO.save(new Grade(assessment2, jeff, dateReceived, 97));
+		gradeDAO.save(new Grade(assessment2, denny, dateReceived, 92));
+		gradeDAO.save(new Grade(assessment2, jason, dateReceived, 86));
+		gradeDAO.save(new Grade(assessment2, sidak, dateReceived, 94));
+		gradeDAO.save(new Grade(assessment2, tyler, dateReceived, 87));
+		gradeDAO.save(new Grade(assessment2, tony, dateReceived, 92));
+		gradeDAO.save(new Grade(assessment2, justin, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment2, matt, dateReceived, 92));
+		gradeDAO.save(new Grade(assessment2, yan, dateReceived, 98));
+		gradeDAO.save(new Grade(assessment2, tad, dateReceived, 92));
+		gradeDAO.save(new Grade(assessment2, josh, dateReceived, 98)); 
+		
+		Assessment assessment25 = new Assessment("Interview", batch, 100, AssessmentType.Verbal, (short) 2, categories.get(1));
+		assessmentDAO.save(assessment25);
+		gradeDAO.save(new Grade(assessment25, jeff, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment25, denny, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment25, jason, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment25, sidak, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment25, tyler, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment25, tony, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment25, justin, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment25, matt, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment25, yan, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment25, tad, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment25, josh, dateReceived, 90)); 
+
+		log.info("Creating notes: week 2");
+		noteDAO.save(Note.trainerIndividualNote("Struggled on test",(short) 2, justin));
+		noteDAO.save(Note.trainerBatchNote("SQL went well. Thanks again Brian for stepping in.", (short) 2, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Wow! Great stuff!", (short) 2, yan, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Superb! Great work", (short) 2, denny, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Boom! Great job", (short) 2, josh, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Nice! Great efforts", (short) 2, justin, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Very tremendous", (short) 2, tad, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Most Fabulous", (short) 2, jeff, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("Great progress in this batch", (short) 2, batch, QCStatus.Good, false));
+
+		// JSP
+		log.info("Creating/'autograding' assessments: week 3");
+		Assessment assessment3 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 3, categories.get(3));
+		assessmentDAO.save(assessment3);
+		gradeDAO.save(new Grade(assessment3, jeff, dateReceived, 93.94));
+		gradeDAO.save(new Grade(assessment3, denny, dateReceived, 92.43));
+		gradeDAO.save(new Grade(assessment3, jason, dateReceived, 84.87));
+		gradeDAO.save(new Grade(assessment3, sidak, dateReceived, 84.87));
+		gradeDAO.save(new Grade(assessment3, tyler, dateReceived, 63.31));
+		gradeDAO.save(new Grade(assessment3, tony, dateReceived, 83.34));
+		gradeDAO.save(new Grade(assessment3, justin, dateReceived, 67.32));
+		gradeDAO.save(new Grade(assessment3, matt, dateReceived, 65.34));
+		gradeDAO.save(new Grade(assessment3, yan, dateReceived, 87.9));
+		gradeDAO.save(new Grade(assessment3, tad, dateReceived, 79.87));
+		gradeDAO.save(new Grade(assessment3, josh, dateReceived, 89.4)); 
+		
+		Assessment assessment35 = new Assessment("Interviews", batch, 100, AssessmentType.Exam, (short) 3, categories.get(3));
+		assessmentDAO.save(assessment35);
+		gradeDAO.save(new Grade(assessment35, jeff, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment35, denny, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment35, jason, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment35, sidak, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment35, tyler, dateReceived, 60));
+		gradeDAO.save(new Grade(assessment35, tony, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment35, justin, dateReceived, 60));
+		gradeDAO.save(new Grade(assessment35, matt, dateReceived, 60));
+		gradeDAO.save(new Grade(assessment35, yan, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment35, tad, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment35, josh, dateReceived, 80)); 
+
+		log.info("Creating notes: week 3");
+		noteDAO.save(Note.trainerBatchNote("Good week in the JSP", (short) 3, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Nice.", (short) 3, yan, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Excellent", (short) 3, denny, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Cool", (short) 3, josh, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Indeed", (short) 3, justin, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Baboom", (short) 3, tad, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Fantastic", (short) 3, jeff, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcBatchNote("Great work in this week of batch", (short) 3, batch, QCStatus.Good, false));
+
+		// Hibernate
+		log.info("Creating/'autograding' assessments: week 4");
+		Assessment assessment4 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 4, categories.get(17));
+		assessmentDAO.save(assessment4);
+		gradeDAO.save(new Grade(assessment4, jeff, dateReceived, 72.5));
+		gradeDAO.save(new Grade(assessment4, denny, dateReceived,94.23));
+		gradeDAO.save(new Grade(assessment4, jason, dateReceived,71.46));
+		gradeDAO.save(new Grade(assessment4, sidak, dateReceived,72.23));
+		gradeDAO.save(new Grade(assessment4, tyler, dateReceived,70.27));
+		gradeDAO.save(new Grade(assessment4, justin, dateReceived,74.5));
+		gradeDAO.save(new Grade(assessment4, matt, dateReceived, 75.5));
+		gradeDAO.save(new Grade(assessment4, yan, dateReceived, 80.77));
+		gradeDAO.save(new Grade(assessment4, tad, dateReceived, 77.5));
+		gradeDAO.save(new Grade(assessment4, josh, dateReceived, 93.27));
+		
+		Assessment assessment45 = new Assessment("Interviews", batch, 100, AssessmentType.Verbal, (short) 4, categories.get(17));
+		assessmentDAO.save(assessment45);
+		gradeDAO.save(new Grade(assessment45, jeff, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment45, denny, dateReceived,90));
+		gradeDAO.save(new Grade(assessment45, jason, dateReceived,70));
+		gradeDAO.save(new Grade(assessment45, sidak, dateReceived,70));
+		gradeDAO.save(new Grade(assessment45, tyler, dateReceived,70));
+		gradeDAO.save(new Grade(assessment45, justin, dateReceived,70));
+		gradeDAO.save(new Grade(assessment45, matt, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment45, yan, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment45, tad, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment45, josh, dateReceived, 90));
+
+		Assessment assessment455 = new Assessment("Projects", batch, 100, AssessmentType.Project, (short) 4, categories.get(17));
+		assessmentDAO.save(assessment455);
+		gradeDAO.save(new Grade(assessment455, jeff, dateReceived, 75));
+		gradeDAO.save(new Grade(assessment455, denny, dateReceived,95));
+		gradeDAO.save(new Grade(assessment455, jason, dateReceived,75));
+		gradeDAO.save(new Grade(assessment455, sidak, dateReceived,75));
+		gradeDAO.save(new Grade(assessment455, tyler, dateReceived,75));
+		gradeDAO.save(new Grade(assessment455, justin, dateReceived,75));
+		gradeDAO.save(new Grade(assessment455, matt, dateReceived, 75));
+		gradeDAO.save(new Grade(assessment455, yan, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment455, tad, dateReceived, 75));
+		gradeDAO.save(new Grade(assessment455, josh, dateReceived, 95));
+		
+		log.info("Creating notes: week 4");
+		noteDAO.save(Note.trainerBatchNote("Good progress on Hibernate!", (short) 4, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Nice stuff", (short) 4, yan, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Excellent stuff", (short) 4, denny, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Cool stuff", (short) 4, josh, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Indeedily doo", (short) 4, justin, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Baboommma", (short) 4, tad, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Fantastical stuff", (short) 4, jeff, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("Great stuff in this batch", (short) 4, batch, QCStatus.Good, false));
+		// Spring
+		log.info("Creating/'autograding' assessments: week 5");
+		Assessment assessment5 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 5, categories.get(18));
+		assessmentDAO.save(assessment5);
+		gradeDAO.save(new Grade(assessment5, jeff, dateReceived, 89.47));
+		gradeDAO.save(new Grade(assessment5, denny, dateReceived,100));
+		gradeDAO.save(new Grade(assessment5, jason, dateReceived,71.05));
+		gradeDAO.save(new Grade(assessment5, justin, dateReceived,68.42));
+		gradeDAO.save(new Grade(assessment5, yan, dateReceived, 78.95));
+		gradeDAO.save(new Grade(assessment5, tad, dateReceived, 73.68));
+		gradeDAO.save(new Grade(assessment5, josh, dateReceived, 73.68));
+		
+		Assessment assessment55 = new Assessment("Project", batch, 100, AssessmentType.Project, (short) 5, categories.get(18));
+		assessmentDAO.save(assessment55);
+		gradeDAO.save(new Grade(assessment55, jeff, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment55, denny, dateReceived,90));
+		gradeDAO.save(new Grade(assessment55, jason, dateReceived,70));
+		gradeDAO.save(new Grade(assessment55, justin, dateReceived,60));
+		gradeDAO.save(new Grade(assessment55, yan, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment55, tad, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment55, josh, dateReceived, 70));
+
+		log.info("Creating notes: week 5");
+		noteDAO.save(Note.trainerBatchNote("Good week. Some preinterviews setting a few people back, but altogether they did well.", (short) 5, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Nice stuff", (short) 5, yan, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Excellent stuff", (short) 5, denny, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Cool stuff", (short) 5, josh, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Indeedily doo", (short) 5, justin, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Baboommma", (short) 5, tad, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Fantastical stuff", (short) 5, jeff, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("Great stuff in this batch", (short) 5, batch, QCStatus.Good, false));
+
+		// REST
+		log.info("Creating/'autograding' assessments: week 6");
+		Assessment assessment6 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 6, categories.get(20));
+		assessmentDAO.save(assessment6);
+		gradeDAO.save(new Grade(assessment6, jeff, dateReceived, 90.46));
+		gradeDAO.save(new Grade(assessment6, denny, dateReceived,95.46));
+		gradeDAO.save(new Grade(assessment6, jason, dateReceived,71.37));
+		gradeDAO.save(new Grade(assessment6, justin, dateReceived,63.34));
+		gradeDAO.save(new Grade(assessment6, yan, dateReceived, 82.43));
+		gradeDAO.save(new Grade(assessment6, tad, dateReceived, 67.88));
+		gradeDAO.save(new Grade(assessment6, josh, dateReceived, 87.43));
+		
+		Assessment assessment65 = new Assessment("Interviews", batch, 100, AssessmentType.Verbal, (short) 6, categories.get(20));
+		assessmentDAO.save(assessment65);
+		gradeDAO.save(new Grade(assessment65, jeff, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment65, denny, dateReceived,95));
+		gradeDAO.save(new Grade(assessment65, jason, dateReceived,75));
+		gradeDAO.save(new Grade(assessment65, justin, dateReceived,65));
+		gradeDAO.save(new Grade(assessment65, yan, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment65, tad, dateReceived, 65));
+		gradeDAO.save(new Grade(assessment65, josh, dateReceived, 85));
+		
+		Assessment assessment655 = new Assessment("Projects", batch, 100, AssessmentType.Project, (short) 6, categories.get(20));
+		assessmentDAO.save(assessment655);
+		gradeDAO.save(new Grade(assessment655, jeff, dateReceived, 91));
+		gradeDAO.save(new Grade(assessment655, denny, dateReceived,91));
+		gradeDAO.save(new Grade(assessment655, jason, dateReceived,71));
+		gradeDAO.save(new Grade(assessment655, justin, dateReceived,61));
+		gradeDAO.save(new Grade(assessment655, yan, dateReceived, 81));
+		gradeDAO.save(new Grade(assessment655, tad, dateReceived, 61));
+		gradeDAO.save(new Grade(assessment655, josh, dateReceived, 81));
+
+		log.info("Creating notes: week 6");
+		noteDAO.save(Note.trainerBatchNote("Many topics this week. The batch handled this week very well!", (short) 5, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Great", (short) 6, yan, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Wow", (short) 6, denny, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Nice", (short) 6, josh, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Super", (short) 6, justin, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Fun", (short) 6, tad, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Wowwwie!", (short) 6, jeff, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("I sense great knowledge in this batch", (short) 6, batch, QCStatus.Good, false));
+
+		// AngularJS
+		log.info("Creating/'autograding' assessments: week 7");
+		Assessment assessment7 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 7, categories.get(21));
+		assessmentDAO.save(assessment7);
+		gradeDAO.save(new Grade(assessment7, jeff, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment7, denny, dateReceived,100));
+		gradeDAO.save(new Grade(assessment7, jason, dateReceived,66));
+		gradeDAO.save(new Grade(assessment7, justin, dateReceived,69));
+		gradeDAO.save(new Grade(assessment7, yan, dateReceived, 86));
+		gradeDAO.save(new Grade(assessment7, tad, dateReceived, 82));
+		gradeDAO.save(new Grade(assessment7, josh, dateReceived, 86));
+		
+		Assessment assessment75 = new Assessment("Verbal", batch, 100, AssessmentType.Verbal, (short) 7, categories.get(21));
+		assessmentDAO.save(assessment75);
+		gradeDAO.save(new Grade(assessment75, jeff, dateReceived, 95));
+		gradeDAO.save(new Grade(assessment75, denny, dateReceived,95));
+		gradeDAO.save(new Grade(assessment75, jason, dateReceived,65));
+		gradeDAO.save(new Grade(assessment75, justin, dateReceived,65));
+		gradeDAO.save(new Grade(assessment75, yan, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment75, tad, dateReceived, 85));
+		gradeDAO.save(new Grade(assessment75, josh, dateReceived, 85));
+
+		log.info("Creating notes: week 7");
+		noteDAO.save(Note.trainerBatchNote("Good week.", (short) 7, batch));
+
+		noteDAO.save(Note.qcIndividualNote("Graet", (short) 7, yan, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Great", (short) 7, denny, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Grate", (short) 7, josh, QCStatus.Superstar, false));
+		noteDAO.save(Note.qcIndividualNote("Grite", (short) 7, justin, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Grain", (short) 7, tad, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Grown", (short) 7, jeff, QCStatus.Good, false));
+		noteDAO.save(Note.qcBatchNote("I sense grep knowledge in this batch", (short) 7, batch, QCStatus.Good, false));
+	}
+
+	private void batchThree() {
+		// batch 3
+		log.info("Fetching Igor");
+		Trainer trainer = trainerDAO.getByEmail("igluskin94@gmail.com");
+		Calendar startDate = Calendar.getInstance();
+		startDate.set(2017, Calendar.MARCH, 27);
+		Calendar endDate = Calendar.getInstance();
+		endDate.set(2017, Calendar.JUNE, 2);
+		Calendar benchmarkStartDate = Calendar.getInstance();
+		benchmarkStartDate.set(2003, Calendar.JANUARY, 1);
+
+		log.info("Creating batch 1605 Java for " + trainer.getName());
+		Batch batch = new Batch("1605 Mar27 Java", trainer, SkillType.J2EE, TrainingType.University, startDate.getTime(),
+				endDate.getTime(), benchmarkStartDate.getTime(),
+				"Tech Incubator at Queens College, 65-30 Kissena Blvd, CEP Hall 2, Queens, NY 11367", (short) 70, (short) 50, 10);
+		batchDAO.save(batch);
+
+		log.info("Creating trainees");
+		Trainee mike = new Trainee("Cartagena, Michael", "mcaez@gmail.com", TrainingStatus.Employed,"347-782-9856", null, null, batch);
+		Trainee yani = new Trainee("Peralta, Yanilda", "yany@hotmail.com", TrainingStatus.Employed, "347-638-6734",null,null, batch);
+		Trainee jack = new Trainee("Duong, Jack", "jackd@yahoo.com", TrainingStatus.Employed,"(646) 417-7845", null,null, batch);
+		Trainee hendy = new Trainee("Valcin, Hendy", "hendy@gmail.com", TrainingStatus.Employed, "347-272-3422",null, null, batch);
+		Trainee hossain = new Trainee("Yahya, Hossain", "boss.hoss@hotmail.com", TrainingStatus.Employed, "347-595-6794",null, null, batch);
+		Trainee fareed = new Trainee("Ali, Fareed", "fareed@yahoo.com", TrainingStatus.Employed,"347-526-9875", null, null, batch);
+		Trainee kam = new Trainee("Lam, Kam", "kam@yahoo.com", TrainingStatus.Employed, "917-951-4568",null, null, batch);
+		Trainee pier = new Trainee("Yos, Pier", "pier@gmail.com", TrainingStatus.Employed,"347-238-4978", null,null, batch);
+		Trainee sudish = new Trainee("Itwaru, Sudish", "sudish@itwaru.com", TrainingStatus.Employed, "718-415-6485",null, null, batch);
+		Trainee daniel = new Trainee("Liu, Daniel", "dan@gmail.com", TrainingStatus.Employed, "646-275-6584",null,null, batch);
+		Trainee kevin = new Trainee("Guan, Kevin", "kevin@hotmail.com", TrainingStatus.Employed, "347-447-6455",null,null, batch);
+		Trainee sean = new Trainee("Connelly, Sean", "sean@gmail.com", TrainingStatus.Employed, "(718) 772-6457",null, null, batch);
+
+		traineeDAO.save(mike);
+		traineeDAO.save(yani);
+		traineeDAO.save(jack);
+		traineeDAO.save(hendy);
+		traineeDAO.save(hossain);
+		traineeDAO.save(fareed);
+		traineeDAO.save(kam);
+		traineeDAO.save(pier);
+		traineeDAO.save(sudish);
+		traineeDAO.save(daniel);
+		traineeDAO.save(kevin);
+		traineeDAO.save(sean);
+
+		log.info("Fetching categories for assessment");
+		List<Category> categories = categoryDAO.findAll();
+
+		log.info("Creating/'autograding' assessments: week 1");
+		// Java
+		Assessment assessment = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 1, categories.get(0));
+		assessmentDAO.save(assessment);
+		Date dateReceived = endDate.getTime(); // I'm super lazy
+		gradeDAO.save(new Grade(assessment, mike, dateReceived, 60.71));
+		gradeDAO.save(new Grade(assessment, yani, dateReceived, 67.86));
+		gradeDAO.save(new Grade(assessment, jack, dateReceived, 64.29));
+		gradeDAO.save(new Grade(assessment, hendy, dateReceived, 75));
+		gradeDAO.save(new Grade(assessment, hossain, dateReceived, 76.79));
+		gradeDAO.save(new Grade(assessment, fareed, dateReceived, 75));
+		gradeDAO.save(new Grade(assessment, kam, dateReceived, 48.21));
+		gradeDAO.save(new Grade(assessment, pier, dateReceived, 69.64));
+		gradeDAO.save(new Grade(assessment, sudish, dateReceived, 62.5));
+		gradeDAO.save(new Grade(assessment, daniel, dateReceived, 76.79));
+		gradeDAO.save(new Grade(assessment, kevin, dateReceived, 73.21));
+		gradeDAO.save(new Grade(assessment, sean, dateReceived, 67.86));
+		
+		Assessment assessment0 = new Assessment("Interview", batch, 100, AssessmentType.Verbal, (short) 1, categories.get(0));
+		assessmentDAO.save(assessment0);
+		gradeDAO.save(new Grade(assessment0, mike, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment0, yani, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment0, jack, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment0, hendy, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment0, hossain, dateReceived,90));
+		gradeDAO.save(new Grade(assessment0, fareed, dateReceived, 10));
+		gradeDAO.save(new Grade(assessment0, kam, dateReceived, 50));
+		gradeDAO.save(new Grade(assessment0, pier, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment0, sudish, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment0, daniel, dateReceived, 60));
+		gradeDAO.save(new Grade(assessment0, kevin, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment0, sean, dateReceived, 90));
+		
+		log.info("Creating notes: week 1.. jk");
+
+		// SQL
+		log.info("Creating/'autograding' assessments: week 2");
+		Assessment assessment2 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 2, categories.get(1));
+		assessmentDAO.save(assessment2);
+		gradeDAO.save(new Grade(assessment2, mike, dateReceived, 77.83));
+		gradeDAO.save(new Grade(assessment2, sean, dateReceived, 67.45));
+		gradeDAO.save(new Grade(assessment2, yani, dateReceived, 75.47));
+		gradeDAO.save(new Grade(assessment2, jack, dateReceived, 91.51));
+		gradeDAO.save(new Grade(assessment2, hendy, dateReceived, 61.32));
+		gradeDAO.save(new Grade(assessment2, hossain, dateReceived, 94.34));
+		gradeDAO.save(new Grade(assessment2, fareed, dateReceived, 78.3));
+		gradeDAO.save(new Grade(assessment2, kam, dateReceived, 87.74));
+		gradeDAO.save(new Grade(assessment2, pier, dateReceived, 91.98));
+		gradeDAO.save(new Grade(assessment2, sudish, dateReceived, 82.08));
+		gradeDAO.save(new Grade(assessment2, daniel, dateReceived, 93.4));
+		gradeDAO.save(new Grade(assessment2, kevin, dateReceived, 64.62));
+		
+		Assessment assessment25 = new Assessment("Interview", batch, 100, AssessmentType.Verbal, (short) 2, categories.get(1));
+		assessmentDAO.save(assessment25);
+		gradeDAO.save(new Grade(assessment2, mike, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment2, sean, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment2, yani, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment2, jack, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment2, hendy, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment2, hossain, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment2, fareed, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment2, kam, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment2, pier, dateReceived, 110));
+		gradeDAO.save(new Grade(assessment2, sudish, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment2, daniel, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment2, kevin, dateReceived, 70));
+
+		log.info("Creating notes: week 2");
+
+		// JSP
+		log.info("Creating/'autograding' assessments: week 3");
+		Assessment assessment3 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 3, categories.get(3));
+		assessmentDAO.save(assessment3);
+		gradeDAO.save(new Grade(assessment3, mike, dateReceived, 64.1));
+		gradeDAO.save(new Grade(assessment3, sean, dateReceived, 56.41));
+		gradeDAO.save(new Grade(assessment3, yani, dateReceived, 74.36));
+		gradeDAO.save(new Grade(assessment3, jack, dateReceived, 76.92));
+		gradeDAO.save(new Grade(assessment3, hendy, dateReceived, 66.67));
+		gradeDAO.save(new Grade(assessment3, hossain, dateReceived, 84.62));
+		gradeDAO.save(new Grade(assessment3, fareed, dateReceived, 61.54));
+		gradeDAO.save(new Grade(assessment3, kam, dateReceived, 56.41));
+		gradeDAO.save(new Grade(assessment3, pier, dateReceived, 76.92));
+		gradeDAO.save(new Grade(assessment3, sudish, dateReceived, 61.54));
+		gradeDAO.save(new Grade(assessment3, daniel, dateReceived, 61.54));
+		gradeDAO.save(new Grade(assessment3, kevin, dateReceived, 64.1)); 
+		
+		Assessment assessment35 = new Assessment("Interviews", batch, 100, AssessmentType.Verbal, (short) 3, categories.get(3));
+		assessmentDAO.save(assessment35);
+		gradeDAO.save(new Grade(assessment35, mike, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment35, sean, dateReceived,80));
+		gradeDAO.save(new Grade(assessment35, yani, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment35, jack, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment35, hendy, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment35, hossain, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment35, fareed, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment35, kam, dateReceived, 60));
+		gradeDAO.save(new Grade(assessment35, pier, dateReceived, 100));
+		gradeDAO.save(new Grade(assessment35, sudish, dateReceived, 70));
+		gradeDAO.save(new Grade(assessment35, daniel, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment35, kevin, dateReceived, 70));
+
+		log.info("Creating notes: week 3");
+
+		// Hibernate
+		log.info("Creating/'autograding' assessments: week 4");
+		Assessment assessment4 = new Assessment("LMS", batch, 100, AssessmentType.Exam, (short) 4, categories.get(17));
+		assessmentDAO.save(assessment4);
+		gradeDAO.save(new Grade(assessment4, mike, dateReceived, 53.33));
+		gradeDAO.save(new Grade(assessment4, sean, dateReceived, 67.88));
+		gradeDAO.save(new Grade(assessment4, yani, dateReceived, 65.11));
+		gradeDAO.save(new Grade(assessment4, jack, dateReceived,81.11));
+		gradeDAO.save(new Grade(assessment4, hendy, dateReceived,66.56));
+		gradeDAO.save(new Grade(assessment4, hossain, dateReceived,80.58));
+		gradeDAO.save(new Grade(assessment4, fareed, dateReceived,62.86));
+		gradeDAO.save(new Grade(assessment4, pier, dateReceived,78.07));
+		gradeDAO.save(new Grade(assessment4, sudish, dateReceived, 66.83));
+		gradeDAO.save(new Grade(assessment4, daniel, dateReceived, 74.23));
+		gradeDAO.save(new Grade(assessment4, kevin, dateReceived, 73.04));
+		
+		Assessment assessment45 = new Assessment("Interviews", batch, 100, AssessmentType.Verbal, (short) 4, categories.get(17));
+		assessmentDAO.save(assessment45);
+		gradeDAO.save(new Grade(assessment45, mike, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment45, sean, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment45, yani, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment45, jack, dateReceived,90));
+		gradeDAO.save(new Grade(assessment45, hendy, dateReceived,70));
+		gradeDAO.save(new Grade(assessment45, hossain, dateReceived,100));
+		gradeDAO.save(new Grade(assessment45, fareed, dateReceived,80));
+		gradeDAO.save(new Grade(assessment45, pier, dateReceived,100));
+		gradeDAO.save(new Grade(assessment45, sudish, dateReceived, 80));
+		gradeDAO.save(new Grade(assessment45, daniel, dateReceived, 90));
+		gradeDAO.save(new Grade(assessment45, kevin, dateReceived, 90));
+		
+		log.info("Creating notes: week 4");
+	}
+
+}

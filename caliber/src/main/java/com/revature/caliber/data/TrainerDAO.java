@@ -22,6 +22,11 @@ public class TrainerDAO{
 		this.sessionFactory = sessionFactory;
 	}
 
+	/**
+	 * Used to help login a user by their email address ID
+	 * @param email
+	 * @return
+	 */
 	@Transactional(isolation=Isolation.READ_COMMITTED,
 		propagation=Propagation.REQUIRES_NEW)
 	public Trainer getByEmail(String email) {
