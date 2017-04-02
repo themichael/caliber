@@ -89,6 +89,16 @@ public class TrainingService {
 	 */
 	
 	/**
+	 * Returns a list of commonly used locations.
+	 * Allows user to select from locations, but also add new locations manually.
+	 * Suggested UI component is the HTML5 <datalist> 
+	 * @return
+	 */
+	public List<String> findCommonLocations(){
+		return batchDAO.findCommonLocations();
+	}
+	
+	/**
 	 * ADD ANOTHER WEEK TO BATCH
 	 * @param batchId
 	 */

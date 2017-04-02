@@ -48,8 +48,7 @@ public class CheckDAO {
 
 	@Test
 	public void testmethod() {
-		
-		
+
 	}
 
 }
