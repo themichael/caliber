@@ -1,6 +1,5 @@
 package com.revature.caliber.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -38,9 +37,9 @@ public class TrainingController {
 	}
 
 	@RequestMapping(value="/training/trainer/byemail/{email}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Trainer> getByEmail(@PathVariable String email){
+	public ResponseEntity<Trainer> findTrainer(@PathVariable String email){
 		log.info("Find trainer by email " + email);
-		Trainer trainer = trainingService.getByEmail(email);
+		Trainer trainer = trainingService.findTrainer(email);
 		return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
 	}
 	
@@ -54,10 +53,11 @@ public class TrainingController {
 	 */
 	@RequestMapping(value="/training/trainer/batch/all", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('TRAINER')")
-	public ResponseEntity<List<Batch>> getAllTrainerBatches(Authentication auth){
+	public ResponseEntity<List<Batch>> findAllBatchesByTrainer(Authentication auth){
 		SalesforceUser userPrincipal = (SalesforceUser) auth.getPrincipal();
 		log.info("Getting all batches for trainerid:" + userPrincipal.getCaliberId() + 
 				" with email " + userPrincipal.getEmail() + " and role " + userPrincipal.getRole());
-		return new ResponseEntity<List<Batch>>(new ArrayList<Batch>(), HttpStatus.OK);
+		List<Batch> batches = trainingService.findAllBatches(userPrincipal.getCaliberId());
+		return new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
 	}
 }

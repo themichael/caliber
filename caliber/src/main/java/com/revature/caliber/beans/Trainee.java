@@ -42,7 +42,7 @@ public class Trainee {
 	@Column(name = "TRAINEE_NAME")
     private String name;
 	
-	@Column(name = "TRAINEE_EMAIL")
+	@Column(name="TRAINEE_EMAIL", nullable=false, unique=true)
     private String email;
 	
 	@Enumerated(EnumType.STRING)
@@ -166,4 +166,9 @@ public class Trainee {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return "Trainee [traineeId=" + traineeId + ", name=" + name + ", email=" + email + ", trainingStatus="
+				+ trainingStatus + "]";
+	}
 }

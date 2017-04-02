@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Category;
-import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.CategoryService;
 
 @RestController
@@ -28,20 +26,18 @@ public class CategoryController {
 		this.categoryService = categoryService;
 	}
 	
-	/**
-	 * TODO :: read me:: 
-	 * 	Access user details through SecurityContext by injecting Authentication into Controller method.
-	 * 	Use @PreAuthorize with Spring Expression Language (SpEL) to send 403 forbidden 
-	 * 		http://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html
-	 * @param auth
-	 * @return
-	 */
 	@RequestMapping(value="/category/all", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("permitAll")
-	public ResponseEntity<List<Category>> findAll(Authentication auth){
-		log.debug("Getting categories for trainer: " + ((SalesforceUser)auth).getCaliberId());
-		List<Category> categories = categoryService.findAll();
+	public ResponseEntity<List<Category>> findAllCategories(){
+		log.debug("Getting categories");
+		List<Category> categories = categoryService.findAllCategories();
 		return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/category/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Category> findCategoryById(@PathVariable int id){
+		log.debug("Getting category: " + id);
+		Category category = categoryService.findCategory(id);
+		return new ResponseEntity<Category>(category, HttpStatus.OK);
 	}
 	
 }

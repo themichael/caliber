@@ -41,7 +41,7 @@ public class Trainer {
     @JsonProperty
     private String title;
 	
-	@Column(name="EMAIL", nullable=false, unique=true)
+	@Column(name="EMAIL", nullable=false, unique=true, updatable=false)
 	@Email
     @JsonProperty
     private String email;
@@ -112,6 +112,12 @@ public class Trainer {
 		this.title = title;
 		this.email = email;
 		this.tier = tier;
+	}
+
+	@Override
+	public String toString() {
+		return "Trainer [trainerId=" + trainerId + ", name=" + name + ", title=" + title + ", email=" + email
+				+ ", tier=" + tier + "]";
 	}
   
 }

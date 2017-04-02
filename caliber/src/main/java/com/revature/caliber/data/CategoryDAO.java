@@ -3,6 +3,7 @@ package com.revature.caliber.data;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,17 @@ public class CategoryDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Transactional(isolation=Isolation.READ_COMMITTED,
-			propagation=Propagation.REQUIRES_NEW)
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public List<Category> findAll(){
-		log.debug("Fetching categories");
-		
-		return sessionFactory.getCurrentSession()
-				.createCriteria(Category.class)
-				.addOrder(Order.desc("categoryId")).list();
+		log.debug("Fetching categories");		
+		return sessionFactory.getCurrentSession().createCriteria(Category.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.addOrder(Order.asc("categoryId")).list();
 	}
+	
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
+    public Category findOne(Integer id) {
+        return (Category) sessionFactory.getCurrentSession().get(Category.class, id);
+    }
 	
 }

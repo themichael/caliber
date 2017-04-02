@@ -128,5 +128,9 @@ public class Category {
         this.assessments = assessments;
     }
 
+	@Override
+	public String toString() {
+		return skillCategory;
+	}
 
 }

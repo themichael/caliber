@@ -1,6 +1,9 @@
 package com.revature.caliber.data;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +26,13 @@ public class TrainerDAO{
 	}
 
 	/**
-	 * Used to help login a user by their email address ID
+	 * Find a trainer by their email address.
+	 * Practical for authenticating users through SSO 
 	 * @param email
 	 * @return
 	 */
-	@Transactional(isolation=Isolation.READ_COMMITTED,
-		propagation=Propagation.REQUIRES_NEW)
-	public Trainer getByEmail(String email) {
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
+	public Trainer findByEmail(String email) {
 		Trainer trainer = (Trainer) sessionFactory.getCurrentSession().createCriteria(Trainer.class)
 				.add(Restrictions.eq("email", email))
 				.uniqueResult();
@@ -37,4 +40,62 @@ public class TrainerDAO{
 		return trainer;
 	}
 
+	/**
+	 * Find all trainers. Useful for listing available trainers to select as trainer and cotrainer
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
+	public List<Trainer> findAll(){
+		log.info("Finding all trainers");
+		return sessionFactory.getCurrentSession().createCriteria(Trainer.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
+	}
+	
+	/**
+	 * Convenience method only. Not practical in production since trainers must be registered
+	 * in the Salesforce with a matching email address.
+	 * @param trainer
+	 */
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void save(Trainer trainer) {
+		log.info("Save trainer " + trainer);
+		sessionFactory.getCurrentSession().save(trainer);
+	}
+
+	/**
+	 * Find trainer by the given identifier
+	 * @param id
+	 * @return
+	 */
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
+	public Trainer findOne(Integer trainerId) {
+		log.info("Find trainer by id: " + trainerId);
+		return (Trainer) sessionFactory.getCurrentSession().createCriteria(Trainer.class)
+				.add(Restrictions.eq("trainerId", trainerId))
+				.uniqueResult();
+	}
+
+	/**
+	 * Updates a trainer in the database.
+	 * @param trainer
+	 */
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void update(Trainer trainer) {
+		log.info("Update trainer " + trainer);
+		sessionFactory.getCurrentSession().saveOrUpdate(trainer);
+	}
+
+	/**
+	 * Convenience method only. Deletes a trainer from the database.
+	 * Trainer will still be registered with a Salesforce account.
+	 * @param trainer
+	 */
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void delete(Trainer trainer) {
+		log.info("Delete trainer " + trainer);
+		sessionFactory.getCurrentSession().delete(trainer);
+	}
+	
 }

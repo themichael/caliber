@@ -123,14 +123,20 @@ public class Assessment {
 		super();
 	}
 
-	public Assessment(String title, Batch batch, int rawScore, AssessmentType type, short week, Category category) {
+	public Assessment(String title, Batch batch, Integer rawScore, AssessmentType type, Integer week, Category category) {
 		super();
 		this.title = title;
 		this.batch = batch;
 		this.rawScore = rawScore;
 		this.type = type;
-		this.week = week;
+		this.week = week.shortValue();
 		this.category = category;
 	}
 
+	@Override
+	public String toString() {
+		return "Assessment [assessmentId=" + assessmentId + ", rawScore=" + rawScore + ", type=" + type + ", category="
+				+ category + "]";
+	}
+	
 }

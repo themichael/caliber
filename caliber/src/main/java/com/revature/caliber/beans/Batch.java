@@ -224,7 +224,7 @@ public class Batch {
 	public Batch(String trainingName, Trainer trainer, SkillType skillType,
 			TrainingType trainingType, Date startDate, 
 			Date endDate, Date benchmarkStartDate, String location,
-			short goodGradeThreshold, short borderlineGradeThreshold, int weeks) {
+			Integer goodGradeThreshold, Integer borderlineGradeThreshold, Integer weeks) {
 		super();
 		this.trainingName = trainingName;
 		this.trainer = trainer;
@@ -234,13 +234,19 @@ public class Batch {
 		this.endDate = endDate;
 		this.benchmarkStartDate = benchmarkStartDate;
 		this.location = location;
-		this.goodGradeThreshold = goodGradeThreshold;
-		this.borderlineGradeThreshold = borderlineGradeThreshold;
+		this.goodGradeThreshold = goodGradeThreshold.shortValue();
+		this.borderlineGradeThreshold = borderlineGradeThreshold.shortValue();
 		this.weeks = weeks;
 	}
 
 	public Batch() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Batch [batchId=" + batchId + ", trainingName=" + trainingName + ", skillType=" + skillType
+				+ ", trainingType=" + trainingType + "]";
 	}
 	
 }

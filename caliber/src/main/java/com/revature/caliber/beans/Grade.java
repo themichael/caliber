@@ -22,40 +22,41 @@ import javax.validation.constraints.NotNull;
 @Table(name = "CALIBER_GRADE")
 public class Grade {
 
-    @Id
-    @Column(name = "GRADE_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRADE_ID_SEQUENCE")
-    @SequenceGenerator(name = "GRADE_ID_SEQUENCE", sequenceName = "GRADE_ID_SEQUENCE")
-    private long gradeId;
-    
-    /**
-     * Assessment - The specified assessment taken by the Trainee
-     */
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    @JoinColumn(name = "ASSESSMENT_ID", nullable = false)
-    private Assessment assessment;
-    
-    /**
-     * Trainee- the trainee that receives this Grade 
-     */
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    @JoinColumn(name = "TRAINEE_ID", nullable = false)
-    private Trainee trainee;
-    
-    /**
-     * dateReceived- date this Grade was earned
-     */
-    @Column(name = "DATE_RECEIVED")
-    @NotNull
-    private Date dateReceived;
-    
-    /**
-     * score - points earned. should be based on raw score of Assessment.
-     * Example: Assessment is worth 200 points, and Trainee made a 75% thus score is 150
-     */
-    @Column(name = "SCORE")
-    @NotNull
-    private double score;
+	@Id
+	@Column(name = "GRADE_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRADE_ID_SEQUENCE")
+	@SequenceGenerator(name = "GRADE_ID_SEQUENCE", sequenceName = "GRADE_ID_SEQUENCE")
+	private long gradeId;
+
+	/**
+	 * Assessment - The specified assessment taken by the Trainee
+	 */
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ASSESSMENT_ID", nullable = false)
+	private Assessment assessment;
+
+	/**
+	 * Trainee- the trainee that receives this Grade
+	 */
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "TRAINEE_ID", nullable = false)
+	private Trainee trainee;
+
+	/**
+	 * dateReceived- date this Grade was earned
+	 */
+	@Column(name = "DATE_RECEIVED")
+	@NotNull
+	private Date dateReceived;
+
+	/**
+	 * score - points earned. should be based on raw score of Assessment.
+	 * Example: Assessment is worth 200 points, and Trainee made a 75% thus
+	 * score is 150
+	 */
+	@Column(name = "SCORE")
+	@NotNull
+	private double score;
 
 	public long getGradeId() {
 		return gradeId;
@@ -107,6 +108,12 @@ public class Grade {
 
 	public Grade() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Grade [gradeId=" + gradeId + ", assessment=" + assessment + ", trainee=" + trainee + ", dateReceived="
+				+ dateReceived + ", score=" + score + "]";
 	}
 
 }
