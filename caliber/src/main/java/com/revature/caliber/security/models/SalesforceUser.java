@@ -1,12 +1,14 @@
 package com.revature.caliber.security.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.revature.caliber.beans.Trainer;
 
 /**
  * The type Salesforce user.
@@ -78,8 +80,8 @@ public class SalesforceUser implements UserDetails {
     private SalesforceToken salesforceToken;
 
     @JsonProperty
-    private int caliberId;
-
+    private Trainer caliberUser;
+    
     /**
      * Instantiates a new Salesforce user.
      */
@@ -127,6 +129,24 @@ public class SalesforceUser implements UserDetails {
     }
 
     /**
+     * Gets the Caliber user associated with the Salesforce account.
+     * Loaded in by BootController
+     * @return
+     */
+    public Trainer getCaliberUser() {
+		return caliberUser;
+	}
+	
+    /**
+	 * Sets the Caliber user associated with the Salesforce account.
+     * Loaded in by BootController 
+	 * @param caliberUser
+	 */
+	public void setCaliberUser(Trainer caliberUser) {
+		this.caliberUser = caliberUser;
+	}
+
+	/**
      * Gets role.
      *
      * @return the role
@@ -673,15 +693,6 @@ public class SalesforceUser implements UserDetails {
      */
     public void setSalesforceToken(SalesforceToken salesforceToken) {
         this.salesforceToken = salesforceToken;
-    }
-
-
-    public int getCaliberId() {
-        return caliberId;
-    }
-
-    public void setCaliberId(int caliberId) {
-        this.caliberId = caliberId;
     }
 
     public String getUsername() {

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.security.impl.Helper;
 import com.revature.caliber.security.models.AuthenticationConfigurationException;
 import com.revature.caliber.security.models.SalesforceToken;
@@ -55,7 +56,11 @@ public class BootController extends Helper{
 	}
 
 	/**
-	 * Gets home page.
+	 * Salesforce authentication controller (AuthenticationImpl) 
+	 * forwards the OAuth token to this controller method 
+	 * to login into the Caliber applications.
+	 * 
+	 * Forwards to the landing page.
 	 *
 	 * @param servletRequest
 	 *            the servlet request
@@ -70,6 +75,7 @@ public class BootController extends Helper{
 	@RequestMapping(value = "/caliber")
 	public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
+		// get Salesforce token from cookie
 		Cookie[] cookies = servletRequest.getCookies();
 		SalesforceToken salesforceToken = null;
 		for (Cookie cookie : cookies) {
@@ -111,7 +117,7 @@ public class BootController extends Helper{
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())){
 			log.info("Logged in user " + jsonObject.getString("email") +" now hasRole: " + jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
-			salesforceUser.setCaliberId(jsonObject.getInt("trainerId"));
+			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
 		}else{
 			throw new AuthenticationConfigurationException();
 		}
@@ -119,7 +125,7 @@ public class BootController extends Helper{
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		// TODO make it so they cannot easily change they role by editing the cookie!!!!!!!!!
+		
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
 		return "index";
 	}

@@ -46,7 +46,7 @@ public class TrainingController {
 	/**
 	 * TODO :: read me:: 
 	 * 	Access user details through SecurityContext by injecting Authentication into Controller method.
-	 * 	Use @PreAuthorize with Spring Expression Language (SpEL) to send 403 forbidden 
+	 * 	Use @PreAuthorize with Spring Expression Language (SpEL) to send 403 forbidden if not authorized 
 	 * 		http://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html
 	 * @param auth
 	 * @return
@@ -54,10 +54,10 @@ public class TrainingController {
 	@RequestMapping(value="/training/trainer/batch/all", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('TRAINER')")
 	public ResponseEntity<List<Batch>> findAllBatchesByTrainer(Authentication auth){
-		SalesforceUser userPrincipal = (SalesforceUser) auth.getPrincipal();
-		log.info("Getting all batches for trainerid:" + userPrincipal.getCaliberId() + 
-				" with email " + userPrincipal.getEmail() + " and role " + userPrincipal.getRole());
-		List<Batch> batches = trainingService.findAllBatches(userPrincipal.getCaliberId());
+		Trainer userPrincipal = ((SalesforceUser) auth.getPrincipal()).getCaliberUser();
+		log.info("Getting all batches for trainerid:" + userPrincipal + 
+				" with email " + userPrincipal.getEmail() + " and role " + userPrincipal.getTier());
+		List<Batch> batches = trainingService.findAllBatches(userPrincipal.getTrainerId());
 		return new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
 	}
 }
