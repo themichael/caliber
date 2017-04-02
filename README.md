@@ -33,20 +33,11 @@ The Caliber suite also provides a variety of reports on different levels of gran
 <br/>
 
 #Screenshots
-All My Trainees' Performance (trainer)
-<img src="https://github.com/pjw6193/caliber/blob/master/images/all%20batch%20chart.png?raw=true" height="200" width="300"/>
-<br/>
 All Batch Performance (vp)
-<img src="https://github.com/pjw6193/caliber/blob/master/images/batch-performance.png?raw=true" height="200" width="300"/>
 <br/>
-Individual Trainee Performance (all)
-<img src="https://github.com/pjw6193/caliber/blob/master/images/trainee-performance.png?raw=true" height="200" width="300"/>
+<img src="https://github.com/pjw6193/caliber/blob/master/images/all-current-batch.png" height="200" width="300"/>
 <br/>
-Week Progress (all)
-<br/>
-<img src="https://github.com/pjw6193/caliber/blob/master/images/all%20batch%20chart.png?raw=true" height="200" width="300"/>
-<br/>
-All Batch Performance (vp)
+Batch Performance (vp)
 <br/>
 <img src="https://github.com/pjw6193/caliber/blob/master/images/batch-performance.png?raw=true" height="200" width="300"/>
 <br/>
