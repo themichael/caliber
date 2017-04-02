@@ -10,8 +10,8 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<security:access-denied-handler error-page="/caliber" />
 		<security:form-login login-page="/" />
 		
-		<!-- enable HTTPS across the board -->
-		<security:intercept-url pattern="/**" requires-channel="https"/>
+		<!-- enable HTTPS across the board.. need CA_cert -->
+<!-- 		<security:intercept-url pattern="/**" requires-channel="https"/> -->
 		
 		<!-- change to hasRole('ROLE_VP') after development is complete -->
 		<security:intercept-url pattern="/vp/**"
