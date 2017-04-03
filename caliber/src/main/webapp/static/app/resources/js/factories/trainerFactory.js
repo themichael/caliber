@@ -64,7 +64,7 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
 
     /*************************** Week ************************/
     // create a new week
-    trainer.createWeek = function (weekObj) {
+    trainer.createWeek = function (weekObj) {										// TODO fix
         return $http({
             url: "/trainer/week/new",
             method: "POST",

@@ -68,12 +68,19 @@ angular.module("trainer")
             $scope.batches = allBatches;
             if(allBatches.length > 0){
                 $scope.currentBatch = allBatches[0];
+                // lazy, so I change all weeks to arrays
+                for ( var b in allBatches) {
+					b.weeks = new Array(b.weeks);
+					for (var int = 0; int < b.weeks.length; int++) {
+						b.weeks[int].weekNumber = int + 1;
+					}
+				}
+                // I can stop being lazy now
                 if(allBatches[0].weeks.length > 0){
                     allBatches[0].weeks.sort(weekComparator);
                     $scope.currentWeek = allBatches[0].weeks[0];
                     getAllAssessmentsForWeek();
                 }
-
                 else $scope.currentWeek = null;
             }else{
                 $scope.currentBatch = null;
