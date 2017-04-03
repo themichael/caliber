@@ -48,7 +48,7 @@ public class CheckDAO {
 
 	@Test
 	public void testmethod() {
-
+		log.info("Testing my code");
 	}
 
 }

@@ -114,7 +114,7 @@ public class TrainingService {
 	 * SAVE BATCH
 	 * @param batch
 	 */
-	public void saveBatch(Batch batch){
+	public void save(Batch batch){
 		log.debug("Saving batch: " + batch);
 		batchDAO.save(batch);
 	}
@@ -171,7 +171,7 @@ public class TrainingService {
 	 * UPDATE BATCH
 	 * @param batch
 	 */
-	public void updateBatch(Batch batch){
+	public void update(Batch batch){
 		log.debug("Update batch " + batch);
 		batchDAO.update(batch);
 	}
@@ -180,8 +180,10 @@ public class TrainingService {
 	 * DELETE BATCH
 	 * @param batch
 	 */
-	public void deleteBatch(Batch batch){
+	public void delete(Batch batch){
 		log.debug("Delete batch " + batch);
+		// load batch into persistent state
+		batch = batchDAO.findOne(batch.getBatchId());
 		batchDAO.delete(batch);
 	}
 	
@@ -255,6 +257,8 @@ public class TrainingService {
 	 */
 	public void delete(Trainee trainee){
 		log.debug("Delete trainee " + trainee);
+		// load trainee into persistent state
+		trainee = traineeDAO.findOne(trainee.getTraineeId());
 		traineeDAO.delete(trainee);
 	}
 	

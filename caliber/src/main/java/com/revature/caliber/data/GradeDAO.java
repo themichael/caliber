@@ -1,14 +1,10 @@
 package com.revature.caliber.data;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,10 +12,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Trainee;
 
 /**
  * Accesses grades from the database

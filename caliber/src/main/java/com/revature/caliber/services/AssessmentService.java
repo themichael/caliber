@@ -80,6 +80,7 @@ public class AssessmentService {
 	 */
 	public void update(Assessment assessment) {
 		log.debug("Updating assessment " + assessment);
+		
 		assessmentDAO.update(assessment);
 	}
 
@@ -89,6 +90,8 @@ public class AssessmentService {
 	 */
 	public void delete(Assessment assessment) {
 		log.debug("Deleting assessment " + assessment);
+		//load assessment into persistent state
+		assessment = assessmentDAO.findOne(assessment.getAssessmentId());
 		assessmentDAO.delete(assessment);
 	}
 
