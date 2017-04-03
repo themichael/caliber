@@ -92,7 +92,7 @@ public class AssessmentController {
 	}
 	
 	/**
-	 * Get assessment types for dropdown selection
+	 * Get assessment types for dropdown selection on the UI
 	 *
 	 * @param assessment
 	 *            the assessment
