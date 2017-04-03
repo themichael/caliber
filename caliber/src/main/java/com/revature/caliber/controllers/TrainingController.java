@@ -28,6 +28,7 @@ import com.revature.caliber.services.TrainingService;
  *
  */
 @RestController
+@CrossOrigin(origins = "*")
 public class TrainingController {
 
 	private final static Logger log = Logger.getLogger(TrainingController.class);
