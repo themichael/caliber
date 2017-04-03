@@ -2,7 +2,7 @@ angular.module("trainer").controller(
     "trainerHomeController",
     function ($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
         $log.debug("Booted trainer home controller.");
-
+        console.log('test code');
     /*********************************** On Start *****************************/
     (function start(){
         //Finishes any left over ajax animation from another page
