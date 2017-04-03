@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The type Category.
@@ -28,6 +29,7 @@ public class Category {
     private String skillCategory;
 
 	@OneToMany(mappedBy="category")
+	@JsonIgnore
     private Set<Assessment> assessments;
 
     /**

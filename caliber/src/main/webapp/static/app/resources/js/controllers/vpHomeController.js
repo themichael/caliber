@@ -9,7 +9,7 @@ angular.module("vp").controller(
             NProgress.done();
 
             // batch null check
-            if (allBatches.length === 0) {
+            if (!allBatches || allBatches.length === 0) {
                 $scope.noBatches = true;
                 $scope.noBatchesMessage = "No Batches were found.";
             } else {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
@@ -28,6 +29,7 @@ import com.revature.caliber.services.TrainingService;
  *
  */
 @RestController
+@CrossOrigin(origins = "*")
 public class TrainingController {
 
 	private final static Logger log = Logger.getLogger(TrainingController.class);
