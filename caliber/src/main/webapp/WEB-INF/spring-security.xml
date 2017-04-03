@@ -10,19 +10,19 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<security:access-denied-handler error-page="/caliber" />
 		<security:form-login login-page="/" />
 		
-		<!-- change to hasRole('ROLE_VP') after development is complete -->
+		<!-- change to hasRole('ROLE_VP') after development is complete 
 		<security:intercept-url pattern="/vp/**"
-			access="hasRole('VP')" />
+			access="hasRole('VP')" /> -->
 		
-		<!-- change to hasRole('ROLE_QC') after development is complete -->
+		<!-- change to hasRole('ROLE_QC') after development is complete 
 		<security:intercept-url pattern="/qc/**"
-			access="hasRole('QC')" />
+			access="hasRole('QC')" /> -->
 		
-		<!-- change to hasRole('ROLE_TRAINER') after development is complete -->
+		<!-- change to hasRole('ROLE_TRAINER') after development is complete 
 		<security:intercept-url pattern="/trainer/**"
-			access="hasRole('TRAINER')" />
+			access="hasRole('TRAINER')" /> -->
 		
-		<security:intercept-url pattern="/all/**"
+		<security:intercept-url pattern="/**"
 			access="permitAll" />
 		
 		<security:csrf disabled="true" />
