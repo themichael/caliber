@@ -72,6 +72,7 @@ angular.module("trainer")
                 for ( var b in allBatches) {
                 	var totalNumberOfWeeks = b.weeks;
 					b.weeks = new Array(totalNumberOfWeeks);
+					$log.debug(b.batchId + ' has ' + b.weeks.length + ' weeks');
 					for (var int = 0; int < totalNumberOfWeeks; int++) {
 						b.weeks[int].weekNumber = int + 1;
 					}
@@ -137,7 +138,7 @@ angular.module("trainer")
                 weekNumber  = 1;
             else weekNumber = $scope.currentBatch.weeks.length+1;
             $log.debug(weekNumber);
-            caliberDelegate.trainer.createWeek($scope.currentBatch).then(function (response) {
+            caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(function (response) {
                 pushUnique($scope.currentBatch.weeks, weekNumber);
                 $log.debug($scope.currentBatch.weeks);
             });
