@@ -1,6 +1,3 @@
-/**
- * Refactor to use week index instead of Week object
- */
 angular.module("trainer")
     .controller("trainerAssessController", function($log, $scope, chartsDelegate, caliberDelegate, allBatches){
 
@@ -59,7 +56,7 @@ angular.module("trainer")
 
 
 
-        /******************************************* UI *********************************************/
+        /******************************************* UI ***********************************************/
 
         $log.debug("Batches " + allBatches);
         $log.debug(allBatches);
@@ -68,21 +65,12 @@ angular.module("trainer")
             $scope.batches = allBatches;
             if(allBatches.length > 0){
                 $scope.currentBatch = allBatches[0];
-                // lazy, so I change all weeks to arrays
-                for ( var b in allBatches) {
-                	var totalNumberOfWeeks = b.weeks;
-					b.weeks = new Array(totalNumberOfWeeks);
-					$log.debug(b.batchId + ' has ' + b.weeks.length + ' weeks');
-					for (var int = 0; int < totalNumberOfWeeks; int++) {
-						b.weeks[int].weekNumber = int + 1;
-					}
-				}
-                // I can stop being lazy now
                 if(allBatches[0].weeks.length > 0){
                     allBatches[0].weeks.sort(weekComparator);
                     $scope.currentWeek = allBatches[0].weeks[0];
                     getAllAssessmentsForWeek();
                 }
+
                 else $scope.currentWeek = null;
             }else{
                 $scope.currentBatch = null;
@@ -113,7 +101,7 @@ angular.module("trainer")
             else $scope.currentWeek = null;
 
             /** replace with ajax call to get assessments by weekId **/
-            getAllAssessmentsForWeek();
+            getAllAssessmentsForWeek()
         };
 
 
@@ -138,8 +126,19 @@ angular.module("trainer")
                 weekNumber  = 1;
             else weekNumber = $scope.currentBatch.weeks.length+1;
             $log.debug(weekNumber);
-            caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(function (response) {
-                pushUnique($scope.currentBatch.weeks, weekNumber);
+            var weekObj = {
+                weekId:1,
+                weekNumber: weekNumber,
+                batch: $scope.currentBatch,
+                topics:null
+            };
+            caliberDelegate.trainer.createWeek(weekObj).then(function (response) {
+                pushUnique($scope.currentBatch.weeks, {
+                    weekId:response,
+                    weekNumber: weekNumber,
+                    batch: null,
+                    topics:null
+                });
                 $log.debug($scope.currentBatch.weeks);
             });
 
@@ -160,7 +159,7 @@ angular.module("trainer")
                 batch: $scope.currentBatch.batchId,
                 type: $scope.trainingType,
                 categories:  $scope.selectedCategories,
-                week: $scope.currentWeek.weekNumber,
+                week: $scope.currentWeek.weekId,
                 weeklyStatus: null,
                 rawScore: $scope.rawScore
             };
@@ -237,7 +236,7 @@ angular.module("trainer")
                 "and assessment"+assessmentId +" in the  grades array:");
             $log.debug($scope.grades);
             for(var i in $scope.grades){
-                if($scope.grades[i].trainee===traineeId && $scope.grades[i].assessment.assessmentId===assessmentId)
+                if($scope.grades[i].trainee== traineeId && $scope.grades[i].assessment.assessmentId == assessmentId)
                 {
                     $log.debug("FOUND GRADE " + $scope.grades[i].gradeId);
                     $log.debug($scope.grades[i]);
@@ -254,7 +253,7 @@ angular.module("trainer")
 
         function getAllAssessmentsForWeek(){
             $scope.grades = [];
-            caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekNumber)
+            caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekId)
                 .then(function(data){
                     $scope.currentAssessments = data;
                     $log.debug("These are the assessments");
@@ -274,8 +273,7 @@ angular.module("trainer")
                 });
         }
         function pushUnique(arr, item){
-        	if (!arr) return;
-            if (arr.indexOf(item) === -1) {
+            if (arr.indexOf(item) == -1) {
                 arr.push(item);
             }
         }
