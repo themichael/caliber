@@ -122,7 +122,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/all/grade/batch/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public List<Grade> findByBatch(@PathVariable Integer batchId) {
 		log.info("Finding all grades for batch: " + batchId);
 		return evaluationService.findGradesByBatch(batchId);
