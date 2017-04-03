@@ -37,9 +37,9 @@ import com.revature.caliber.data.TrainerDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
-public class SampleDataSetupTest {
+public class SampleDataSetup {
 
-	private static Logger log = Logger.getLogger(SampleDataSetupTest.class);
+	private static Logger log = Logger.getLogger(SampleDataSetup.class);
 
 	@Autowired
 	private TrainerDAO trainerDAO;
