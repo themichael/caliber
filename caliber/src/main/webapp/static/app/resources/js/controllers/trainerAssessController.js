@@ -112,7 +112,7 @@ angular.module("trainer")
             else $scope.currentWeek = null;
 
             /** replace with ajax call to get assessments by weekId **/
-            getAllAssessmentsForWeek()
+            getAllAssessmentsForWeek();
         };
 
 
@@ -137,19 +137,8 @@ angular.module("trainer")
                 weekNumber  = 1;
             else weekNumber = $scope.currentBatch.weeks.length+1;
             $log.debug(weekNumber);
-            var weekObj = {
-                weekId:1,
-                weekNumber: weekNumber,
-                batch: $scope.currentBatch,
-                topics:null
-            };
-            caliberDelegate.trainer.createWeek(weekObj).then(function (response) {
-                pushUnique($scope.currentBatch.weeks, {
-                    weekId:response,
-                    weekNumber: weekNumber,
-                    batch: null,
-                    topics:null
-                });
+            caliberDelegate.trainer.createWeek($scope.currentBatch).then(function (response) {
+                pushUnique($scope.currentBatch.weeks, weekNumber);
                 $log.debug($scope.currentBatch.weeks);
             });
 
@@ -170,7 +159,7 @@ angular.module("trainer")
                 batch: $scope.currentBatch.batchId,
                 type: $scope.trainingType,
                 categories:  $scope.selectedCategories,
-                week: $scope.currentWeek.weekId,
+                week: $scope.currentWeek.weekNumber,
                 weeklyStatus: null,
                 rawScore: $scope.rawScore
             };
@@ -264,7 +253,7 @@ angular.module("trainer")
 
         function getAllAssessmentsForWeek(){
             $scope.grades = [];
-            caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekId)
+            caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekNumber)
                 .then(function(data){
                     $scope.currentAssessments = data;
                     $log.debug("These are the assessments");
@@ -284,6 +273,7 @@ angular.module("trainer")
                 });
         }
         function pushUnique(arr, item){
+        	if (!arr) return;
             if (arr.indexOf(item) === -1) {
                 arr.push(item);
             }
