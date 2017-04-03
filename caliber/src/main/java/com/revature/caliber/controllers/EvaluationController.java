@@ -1,6 +1,8 @@
 package com.revature.caliber.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.services.EvaluationService;
 
 /**
@@ -311,5 +315,5 @@ public class EvaluationController {
 		log.info("Finding all week " + week + " individual notes for trainee: " + traineeId);
 		return new ResponseEntity<List<Note>>(evaluationService.findAllIndividualNotes(traineeId, week), HttpStatus.OK);
 	}
-
+	
 }

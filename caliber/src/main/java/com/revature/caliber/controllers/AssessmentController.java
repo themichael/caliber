@@ -1,6 +1,5 @@
 package com.revature.caliber.controllers;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -89,23 +88,6 @@ public class AssessmentController {
 		log.info("Updating assessment: " + assessment);
 		assessmentService.update(assessment);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	}
-	
-	/**
-	 * Get assessment types for dropdown selection on the UI
-	 *
-	 * @param assessment
-	 *            the assessment
-	 * @return the response entity
-	 */
-	@RequestMapping(value = "/assessment/type/all", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<List<String>> allAssessmentTypes() {
-		log.info("Fetching assessment types");
-		List<String> types = Stream.of(AssessmentType.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
 	}
 
 }
