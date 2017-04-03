@@ -1,8 +1,6 @@
 package com.revature.caliber.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.services.AssessmentService;
 
 /**
@@ -42,7 +39,7 @@ public class AssessmentController {
 	 *
 	 *******************************************************
 	 */
-	
+
 	/**
 	 * Create assessment response entity.
 	 *
@@ -51,7 +48,7 @@ public class AssessmentController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/assessment/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createAssessment(@RequestBody Assessment assessment) {
 		log.info("Creating assessment: " + assessment);
 		assessmentService.save(assessment);
@@ -66,7 +63,7 @@ public class AssessmentController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/assessment/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> deleteAssessment(@PathVariable Long id) {
 		log.info("Deleting assessment: " + id);
 		Assessment assessment = new Assessment();
@@ -83,11 +80,25 @@ public class AssessmentController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/assessment/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateAssessment(@RequestBody Assessment assessment) {
 		log.info("Updating assessment: " + assessment);
 		assessmentService.update(assessment);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
+	/**
+	 * FIND ASSESSMENT BY WEEK
+	 * 
+	 * @param batch
+	 * @param week
+	 * @return
+	 */
+	@RequestMapping(value = "/trainer/assessment/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Assessment>> findAssessmentByWeek(@PathVariable Integer batchId,
+			@PathVariable Integer week) {
+		log.debug("Find assessment by week number " + week + " for batch " + batchId + " ");
+		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, week);
+		return new ResponseEntity<List<Assessment>>(assessments, HttpStatus.OK);
+	}
 }
