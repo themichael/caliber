@@ -1,6 +1,6 @@
 angular.module("trainer")
     .controller("trainerAssessController", function($log, $scope, chartsDelegate, caliberDelegate, allBatches){
-    	$log.debug('test trainerassess -j');
+    	$log.debug('test trainer assess -j');
         $log.debug("Booted Trainer Aesess Controller");
 
         /******************************TEST DATA***********************/
