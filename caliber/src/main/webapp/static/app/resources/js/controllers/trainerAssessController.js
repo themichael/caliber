@@ -3,7 +3,7 @@
  */
 angular.module("trainer")
     .controller("trainerAssessController", function($log, $scope, chartsDelegate, caliberDelegate, allBatches){
-
+    	alert('test');
         $log.debug("Booted Trainer Aesess Controller");
 
         /******************************TEST DATA***********************/
