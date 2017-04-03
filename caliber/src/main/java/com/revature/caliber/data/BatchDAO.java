@@ -103,7 +103,7 @@ public class BatchDAO {
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches");
 
-		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class).createAlias("trainees", "trainees").createAlias("trainees.grades", "grades")
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime()))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();

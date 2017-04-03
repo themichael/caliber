@@ -50,7 +50,7 @@ public class TrainingController {
 	/**
 	 * Finds a trainer by email. Used for logging in a user with the Salesforce
 	 * controller
-	 * 
+	 *	`
 	 * @param email
 	 * @return
 	 */
@@ -61,7 +61,13 @@ public class TrainingController {
 		return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
 	}
 
+	/**
+	 * Returns all trainers from the database
+	 * `
+	 * @return
+	 */
 	@RequestMapping(value = "/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 		log.info("Fetching all trainers");
 		List<Trainer> trainers = trainingService.findAllTrainers();
@@ -82,6 +88,7 @@ public class TrainingController {
 	 * @return
 	 */
 	@RequestMapping(value = "/trainer/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	//@PreAuthorize("hasRole('TRAINER')")
 	public ResponseEntity<List<Batch>> findAllBatchesByTrainer(Authentication auth) {
 		Trainer userPrincipal = getPrincipal(auth);
 		log.info("Getting all batches for trainer: " + userPrincipal);

@@ -59,7 +59,7 @@ angular.module("trainer")
 
 
 
-        /******************************************* UI ***********************************************/
+        /******************************************* UI *********************************************/
 
         $log.debug("Batches " + allBatches);
         $log.debug(allBatches);
@@ -239,7 +239,7 @@ angular.module("trainer")
                 "and assessment"+assessmentId +" in the  grades array:");
             $log.debug($scope.grades);
             for(var i in $scope.grades){
-                if($scope.grades[i].trainee== traineeId && $scope.grades[i].assessment.assessmentId == assessmentId)
+                if($scope.grades[i].trainee===traineeId && $scope.grades[i].assessment.assessmentId===assessmentId)
                 {
                     $log.debug("FOUND GRADE " + $scope.grades[i].gradeId);
                     $log.debug($scope.grades[i]);
@@ -276,7 +276,7 @@ angular.module("trainer")
                 });
         }
         function pushUnique(arr, item){
-            if (arr.indexOf(item) == -1) {
+            if (arr.indexOf(item) === -1) {
                 arr.push(item);
             }
         }

@@ -1,11 +1,15 @@
 package com.revature.caliber.controllers;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.services.AssessmentService;
 
 /**
@@ -84,6 +89,23 @@ public class AssessmentController {
 		log.info("Updating assessment: " + assessment);
 		assessmentService.update(assessment);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+	
+	/**
+	 * Get assessment types for dropdown selection on the UI
+	 *
+	 * @param assessment
+	 *            the assessment
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/assessment/type/all", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<List<String>> allAssessmentTypes() {
+		log.info("Fetching assessment types");
+		List<String> types = Stream.of(AssessmentType.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
 	}
 
 }
