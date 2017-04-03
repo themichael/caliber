@@ -70,8 +70,9 @@ angular.module("trainer")
                 $scope.currentBatch = allBatches[0];
                 // lazy, so I change all weeks to arrays
                 for ( var b in allBatches) {
-					b.weeks = new Array(b.weeks);
-					for (var int = 0; int < b.weeks.length; int++) {
+                	var totalNumberOfWeeks = b.weeks;
+					b.weeks = new Array(totalNumberOfWeeks);
+					for (var int = 0; int < totalNumberOfWeeks; int++) {
 						b.weeks[int].weekNumber = int + 1;
 					}
 				}
