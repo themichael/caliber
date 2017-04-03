@@ -97,7 +97,7 @@ public class TrainingController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createBatch(@RequestBody Batch batch, Authentication auth) {
 		batch.setTrainer(getPrincipal(auth));
 		log.info("Saving batch: " + batch);
@@ -113,7 +113,7 @@ public class TrainingController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateBatch(@RequestBody Batch batch, Authentication auth) {
 		batch.setTrainer(getPrincipal(auth));
 		log.info("Updating batch: " + batch);
@@ -129,7 +129,7 @@ public class TrainingController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/batch/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> deleteBatch(@PathVariable int id) {
 		Batch batch = new Batch();
 		batch.setBatchId(id);
@@ -144,7 +144,7 @@ public class TrainingController {
 	 * @return the all batches
 	 */
 	@RequestMapping(value = "/qc/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('QC, VP')")
+	//@PreAuthorize("hasAnyRole('QC, VP')")
 	public ResponseEntity<List<Batch>> getAllBatches() {
 		log.info("Fecthing all current batches");
 		List<Batch> batches = trainingService.findAllCurrentBatches();
@@ -167,7 +167,7 @@ public class TrainingController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainee(@RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
 		trainingService.save(trainee);
@@ -182,7 +182,7 @@ public class TrainingController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainees(@RequestBody Trainee[] trainees) {
 		// TODO quick and dirty. We should have @Transactional services to
 		// create rollback for failed batchUpdates
@@ -203,7 +203,7 @@ public class TrainingController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateTrainee(@RequestBody Trainee trainee) {
 		log.info("Updating trainee: " + trainee);
 		trainingService.update(trainee);
@@ -218,7 +218,7 @@ public class TrainingController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/trainee/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> deleteTrainee(@PathVariable int id) {
 		Trainee trainee = new Trainee();
 		trainee.setTraineeId(id);
