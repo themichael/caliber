@@ -27,6 +27,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value="/category/all", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<Category>> findAllCategories(){
 		log.debug("Getting categories");
 		List<Category> categories = categoryService.findAllCategories();
@@ -34,6 +35,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value="/category/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Category> findCategoryById(@PathVariable int id){
 		log.debug("Getting category: " + id);
 		Category category = categoryService.findCategory(id);

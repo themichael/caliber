@@ -63,6 +63,7 @@ public class Trainee {
 	@Column(name="PROFILE_URL")
 	private String profileUrl;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="trainee")
     private Set<Grade> grades;
 
