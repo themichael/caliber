@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.NoteType;
@@ -24,6 +25,8 @@ import com.revature.caliber.beans.TrainingType;
  * @author Patrick Walsh
  *
  */
+@RestController
+@RequestMapping(value = "types", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TypeController {
 
 	private static final Logger log = Logger.getLogger(TypeController.class);
@@ -40,7 +43,7 @@ public class TypeController {
 	 *
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/types/skill/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/skill/all", method = RequestMethod.GET)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<String>> allSkillTypes() {
 		log.info("Fetching skill types");
@@ -53,7 +56,7 @@ public class TypeController {
 	 *
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/types/training/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/training/all", method = RequestMethod.GET)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<String>> allTrainingTypes() {
 		log.info("Fetching training types");
@@ -66,7 +69,7 @@ public class TypeController {
 	 *
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/types/trainingstatus/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/trainingstatus/all", method = RequestMethod.GET)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<String>> allTrainingStatusTypes() {
 		log.info("Fetching training status types");
@@ -79,7 +82,7 @@ public class TypeController {
 	 *
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/types/note/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/note/all", method = RequestMethod.GET)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<String>> allNoteTypes() {
 		log.info("Fetching note types");
@@ -92,7 +95,7 @@ public class TypeController {
 	 *
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/types/qcstatus/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/qcstatus/all", method = RequestMethod.GET)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<String>> allQCStatusTypes() {
 		log.info("Fetching QC status types");
@@ -107,7 +110,7 @@ public class TypeController {
 	 *            the assessment
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/assessment/type/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/assessment/all", method = RequestMethod.GET)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<String>> allAssessmentTypes() {
 		log.info("Fetching assessment types");
