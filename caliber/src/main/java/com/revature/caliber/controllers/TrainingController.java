@@ -1,6 +1,8 @@
 package com.revature.caliber.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainingStatus;
+import com.revature.caliber.beans.TrainingType;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
 
@@ -233,7 +239,7 @@ public class TrainingController {
 		trainingService.delete(trainee);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-
+	
 	/**
 	 * Convenience method for accessing the Trainer information from the User
 	 * Principal.
