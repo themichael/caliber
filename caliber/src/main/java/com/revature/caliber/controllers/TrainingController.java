@@ -79,7 +79,7 @@ public class TrainingController {
 	 * @param auth
 	 * @return
 	 */
-	@RequestMapping(value = "/training/trainer/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/trainer/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('TRAINER')")
 	public ResponseEntity<List<Batch>> findAllBatchesByTrainer(Authentication auth) {
 		Trainer userPrincipal = getPrincipal(auth);
