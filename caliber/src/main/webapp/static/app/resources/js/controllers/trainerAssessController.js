@@ -276,7 +276,7 @@ angular.module("trainer")
                 });
         }
         function pushUnique(arr, item){
-            if (arr.indexOf(item) == -1) {
+            if (arr.indexOf(item) === -1) {
                 arr.push(item);
             }
         }
