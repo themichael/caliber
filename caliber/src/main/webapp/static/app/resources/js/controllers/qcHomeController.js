@@ -9,7 +9,7 @@ angular.module("qc").controller("qcHomeController",
             NProgress.done();
 
             // batch null check
-            if (allBatches.length === 0) {
+            if (!allBatches || allBatches.length === 0) {
                 $scope.noBatches = true;
                 $scope.noBatchesMessage = "There are no current batches.";
                 $scope.currentBatch = {trainingName: "Batch"};
