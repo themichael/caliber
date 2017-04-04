@@ -205,7 +205,13 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<Trainee, Double[]> getAvgBatchWeek(Integer batchId, Integer week,  AssessmentType assessmentType) {
+		Map<Trainee, Double[]> results = new HashMap<>(); 
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 
+		
+		
+		
+		
 		return null;
 	}
 
