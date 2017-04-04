@@ -44,6 +44,19 @@ angular.module("api").factory("allFactory", function ($log, $http) {
         });
     };
 	
+	all.enumSkillType = function() {
+        return $http({
+            url: "/types/skill/all",
+            method: "GET"
+        }).then(function(response) {
+            $log.debug("enum skill types successfully retrieved.");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+	
 	all.enumTrainingStatus = function() {
         return $http({
             url: "/types/trainingstatus/all",
@@ -57,6 +70,19 @@ angular.module("api").factory("allFactory", function ($log, $http) {
         });
     };
 	
+    all.enumTrainingType = function() {
+        return $http({
+            url: "/types/training/all",
+            method: "GET"
+        }).then(function(response) {
+            $log.debug("enum training types successfully retrieved.");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+    
     
     /*************************** Batch ************************/
 
