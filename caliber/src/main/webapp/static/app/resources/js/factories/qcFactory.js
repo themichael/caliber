@@ -53,6 +53,20 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
     };
 
     /************************* Assessment ***********************/
+    // get all assessments by batchid
+    qc.getAllAssessments = function (batchId) {
+        return $http({
+            url: "/assessment/" + batchId,
+            method: "GET"
+        }).then(function (response) {
+            $log.debug("Assessments retrieved successfully");
+            $log.debug(response);
+            return response.data;
+        }, function (response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+    
     // create assessment
     qc.createAssessment = function (assessmentObj) {
         return $http({
@@ -109,6 +123,8 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
         });
     };
 
+    // 
+    
     /************************** Notes *************************/
     // create note
     qc.createNote = function (noteObj) {
