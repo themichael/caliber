@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.services.ReportingService;
 
@@ -128,4 +130,13 @@ public class ReportingController {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<HashMap<QCStatus,Integer>> aggregateQCPieChart(@PathVariable Integer batchId, Integer weekId) {
+		
+		HashMap<QCStatus,Integer> results = (HashMap<QCStatus, Integer>) reportingService.batchWeekPieChart(batchId, weekId);
+		
+		
+		return new ResponseEntity<HashMap<QCStatus,Integer>>(results, HttpStatus.OK);
+	}
+	
 }
