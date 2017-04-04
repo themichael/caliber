@@ -128,10 +128,18 @@ public class ReportingController {
 		// TODO implement me
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
-
-	public ResponseEntity<Map<Integer, Double>> findAvgGradeByWeek(int traineeId) {
-		// TODO implement me
-		throw new UnsupportedOperationException("Not yet implemented");
+	@RequestMapping(value = "/all/reports/batch/{bacthId}/week/{week}/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Integer, Double> >lineCharAVG(int batchId, int week, int traineeId){
+		return new ResponseEntity<Map<Integer, Double>>(reportingService.lineCharAVG(batchId, week, traineeId),  HttpStatus.OK);
+	}
+	@RequestMapping(value = "/all/reports/batch/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Integer, Double>> findAvgGradeByWeek(@PathVariable int traineeId) {
+		return new ResponseEntity<Map<Integer, Double>>(reportingService.findAvgGradeByWeek(traineeId),  HttpStatus.OK);
+	}
+	@RequestMapping(value = "/all/reports/batch/{bacthId}/week/{week}/barchart", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Trainee, Double>> barCharAVG(@PathVariable int batchId, int week) {
+		
+		return new ResponseEntity<Map<Trainee, Double>>(reportingService.barCharAVG(batchId, week),  HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/agg/tech/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -148,5 +156,5 @@ public class ReportingController {
 		
 		return new ResponseEntity<HashMap<QCStatus,Integer>>(results, HttpStatus.OK);
 	}
-	
+	//public ResponseEntity<Map<>>
 }
