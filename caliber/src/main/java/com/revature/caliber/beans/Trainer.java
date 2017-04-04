@@ -1,5 +1,6 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,7 +25,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Entity
 @Table(name="CALIBER_TRAINER")
-public class Trainer {
+public class Trainer implements Serializable{
+
+	private static final long serialVersionUID = -2546407792912483570L;
 
 	@Id
 	@Column(name="TRAINER_ID", nullable=false)
