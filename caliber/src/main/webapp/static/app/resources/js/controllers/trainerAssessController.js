@@ -20,67 +20,12 @@ angular.module("trainer")
         	})
         	
         };
-        	
-        	/*
-        	[
-            {categoryId: 1, skillCategory:"Java"},
-            {categoryId: 2, skillCategory:"SQL"},
-            {categoryId: 3, skillCategory:"Servlet"},
-            {categoryId: 4, skillCategory:"JSP"},
-            {categoryId: 5, skillCategory:"XML"},
-            {categoryId: 6, skillCategory:"Git"},
-            {categoryId: 7, skillCategory:"JUnit"},
-            {categoryId: 8, skillCategory:"Maven"},
-            {categoryId: 9, skillCategory:"JDBC"},
-            {categoryId: 10, skillCategory:"HTML"},
-            {categoryId: 11, skillCategory:"CSS"},
-            {categoryId: 12, skillCategory:"Javascript"},
-            {categoryId: 13, skillCategory:"JQuery"},
-            {categoryId: 14, skillCategory:"AJAX"},
-            {categoryId: 15, skillCategory:"UNIX"},
-            {categoryId: 16, skillCategory:"AWS"},
-            {categoryId: 17, skillCategory:"Jenkins"},
-            {categoryId: 18, skillCategory:"Hibernate"},
-            {categoryId: 19, skillCategory:"Spring"},
-            {categoryId: 20, skillCategory:"SOAP"},
-            {categoryId: 21, skillCategory:"REST"},
-            {categoryId: 22, skillCategory:"AngularJS"},
-            {categoryId: 23, skillCategory:"Selenium"},
-            {categoryId: 24, skillCategory:"Cucumber"},
-            {categoryId: 25, skillCategory:"UFT"},
-            {categoryId: 26, skillCategory:"Python"},
-            {categoryId: 27, skillCategory:"Robot Framework"},
-            {categoryId: 28, skillCategory:"ALM"},
-            {categoryId: 29, skillCategory:"SDLC"},
-            {categoryId: 30, skillCategory:"Agile"},
-            {categoryId: 31, skillCategory:"Testing"},
-            {categoryId: 32, skillCategory:"VBScript"},
-            {categoryId: 33, skillCategory:"SOAP UI"},
-            {categoryId: 34, skillCategory:"TestNG"},
-            {categoryId: 35, skillCategory:"Chef"},
-            {categoryId: 36, skillCategory:"Docker"},
-            {categoryId: 37, skillCategory:"Kafka"},
-            {categoryId: 38, skillCategory:"Microservices"},
-            {categoryId: 39, skillCategory:"NoSQL"},
-            {categoryId: 40, skillCategory:"C#"},
-            {categoryId: 41, skillCategory:"ASP.NET"},
-            {categoryId: 42, skillCategory:"ADO.NET"},
-            {categoryId: 43, skillCategory:"Entity Framework"},
-            {categoryId: 44, skillCategory:"MSBuild"},
-            {categoryId: 45, skillCategory:"WPF"},
-            {categoryId: 46, skillCategory:"WCF"}
-        ];
-*/
-
-
-
         /******************************************* UI *********************************************/
         ///////////////////////////////////////////////////////////////////////////////////////////// load note types
         caliberDelegate.all.enumNoteType().then(function(noteTypes) {
         	$log.debug(noteTypes);
         	// do something with note type
         });
-        ///////////////////////////////////////////////////////////////////////////////////////////// load assessment types
         $scope.assessmentType= {
                 model: null,
                 options: []
