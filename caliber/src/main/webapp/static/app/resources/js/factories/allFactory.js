@@ -83,6 +83,25 @@ angular.module("api").factory("allFactory", function ($log, $http) {
         });
     };
     
+
+    /**
+    * @param allcategories
+    * @returns {*}
+    */
+    
+    all.getAllCategories = function (){
+    	return $http({
+    		url: "/category/all/",
+    		method: "GET"
+    	}).then(function(response) {
+            $log.debug("Categories successfully retrieved.");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+
     
     /*************************** Batch ************************/
 
