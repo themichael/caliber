@@ -1,7 +1,18 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum SkillType {
-	J2EE("J2EE"), NET(".NET"), SDET("SDET"), BPM("BPM"), OTHER("Other");
+	@JsonProperty("J2EE")
+	J2EE("J2EE"),
+	@JsonProperty(".NET")
+	NET(".NET"),
+	@JsonProperty("SDET")
+	SDET("SDET"),
+	@JsonProperty("BPM")
+	BPM("BPM"),
+	@JsonProperty("Other")
+	OTHER("Other");
 	
 	private String type;
 

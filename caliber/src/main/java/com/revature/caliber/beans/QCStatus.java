@@ -1,5 +1,14 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum QCStatus {
-	Poor, Average, Good, Superstar
+	@JsonProperty("Poor")
+	Poor,
+	@JsonProperty("Average")
+	Average,
+	@JsonProperty("Good")
+	Good,
+	@JsonProperty("Superstar")
+	Superstar
 }
