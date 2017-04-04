@@ -130,7 +130,7 @@ public class ReportingController {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
-	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/reports/batch/{batchId}/week/{weekId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HashMap<QCStatus,Integer>> aggregateQCPieChart(@PathVariable Integer batchId, Integer weekId) {
 		
 		HashMap<QCStatus,Integer> results = (HashMap<QCStatus, Integer>) reportingService.batchWeekPieChart(batchId, weekId);
