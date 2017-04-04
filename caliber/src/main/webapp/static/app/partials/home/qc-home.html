@@ -13,15 +13,6 @@
                         </li>
                     </ul>
                 </li>
-                <!-- Week selection -->
-                 <li role="button" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">{{currentBatch.trainingName}}<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="menuItem in batches track by $index">
-                            <a role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}</a>
-                        </li>
-                    </ul>
-                </li>
                 <!-- Trainee Selection -->
                 <li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideOtherTabs()"
                                                       data-toggle="dropdown">{{currentTrainee.name}}<span
