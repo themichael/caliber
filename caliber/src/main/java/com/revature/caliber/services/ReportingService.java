@@ -1,10 +1,15 @@
 package com.revature.caliber.services;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
@@ -28,6 +33,7 @@ public class ReportingService
 	private BatchDAO batchDAO;
 	private TraineeDAO traineeDAO;
 	private NoteDAO noteDAO;
+	private AssessmentDAO assessmentDAO;
 	
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -49,12 +55,29 @@ public class ReportingService
 		this.noteDAO = noteDAO;
 	}
 
-	
-	public Map<QCStatus qc, int num> batchWeekPieChart(){
-		
+	@Autowired
+	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
+		this.assessmentDAO = assessmentDAO;
 	}
 	
 	
+	// Radar Chart of the Independent Skills/Technologies of Trainees
+	// Batch > Week > Trainee
+	public Map<String, Double> getRadar(Integer batchId, Integer weekNumber, Integer traineeId){
+		Map<String, Double> results = new HashMap<>();
+		Batch batch = batchDAO.findOne(batchId);
+		
+		
+		return null;
+	}
+	
+
+	public Map<QCStatus, Integer> batchWeekPieChart(){
+		
+		
+		return null;
+	}
+
 	
 	
 	
