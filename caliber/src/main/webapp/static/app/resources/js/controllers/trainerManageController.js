@@ -1,6 +1,6 @@
 angular.module("trainer").controller(
     "trainerManageController",
-    function ($scope, $log, caliberDelegate, allBatches) {
+    function ($scope, $window, $log, caliberDelegate, allBatches) {
         $log.debug("Booted trainer manage controller.");
         $log.debug('test trainermanager cntroller -j');
         /**************************** Batch *****************************/
@@ -210,6 +210,10 @@ angular.module("trainer").controller(
             }
             $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
         };
+        
+        $scope.opennewtab = function (url) {
+        	$window.open(url)};
+        
 
         /**  Add Or Remove New Trainee Form */
         $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];

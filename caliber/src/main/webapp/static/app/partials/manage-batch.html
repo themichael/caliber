@@ -216,7 +216,7 @@
 										<th>Training Status</th>
 										<th>Phone Number</th>
 										<th>Skype Id</th>
-										<th>Profile url</th>
+										<th>Profile Link</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -226,7 +226,7 @@
 										<td>{{trainee.trainingStatus}}</td>
 										<td>{{trainee.phoneNumber}}</td>
 										<td>{{trainee.skypeId}}</td>
-										<td>{{trainee.profileUrl}}</td>
+										<td><a ng-click= "opennewtab(trainee.profileUrl)" >pic</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -277,25 +277,7 @@
 								</div>
 							</div>
 						</div>
-						<!-- 	Remove from view until synchronization issue is solved
-							<div class="row">
-								<div class="form-group col-md-2 col-sm-2">
-									<div ng-click="addTrainee(receiver)">
-										<a role="button" class="glyph-top-margin"> <span
-											class="glyphicon glyphicon-plus glyph-top-margin"
-											aria-hidden="true"></span>
-										</a>
-									</div>
-								</div>
-								<div class="form-group col-md-2 col-sm-2">
-									<div ng-click="deleteTrainee(receiver)">
-										<a role="button"> <span
-											class="glyphicon glyphicon-minus glyph-top-margin"
-											aria-hidden="true"></span>
-										</a>
-									</div>
-								</div>
-							</div> -->
+						
 					</div>
 
 					<div class="modal-footer">
