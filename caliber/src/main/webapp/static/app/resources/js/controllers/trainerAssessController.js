@@ -7,23 +7,22 @@ angular.module("trainer")
         $log.debug("Booted Trainer Aesess Controller");
 
         /******************************TEST DATA***********************/
+       
+
+        
         $scope.skill_categories = function (){
         	var allCategories = [];
-        	delegate.all.getAllCategories().then(function(categories){
+        	caliberDelegate.all.getAllCategories().then(function(categories){
         		$scope.categories = categories;
         		$log.debug("all Categories");
                 $log.debug(categories);
-        		for (p of categories){
-        			allCategories.push(p);
-        			console.log(p);
-        		}
         		
         	})
         	
         };
         	
-        	
-        	/*[
+        	/*
+        	[
             {categoryId: 1, skillCategory:"Java"},
             {categoryId: 2, skillCategory:"SQL"},
             {categoryId: 3, skillCategory:"Servlet"},
@@ -70,8 +69,8 @@ angular.module("trainer")
             {categoryId: 44, skillCategory:"MSBuild"},
             {categoryId: 45, skillCategory:"WPF"},
             {categoryId: 46, skillCategory:"WCF"}
-        ];*/
-
+        ];
+*/
 
 
 
