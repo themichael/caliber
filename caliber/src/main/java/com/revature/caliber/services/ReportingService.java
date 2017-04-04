@@ -2,12 +2,15 @@ package com.revature.caliber.services;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
@@ -61,15 +64,22 @@ public class ReportingService
 
 	// Radar Chart of the Independent Skills/Technologies of Trainees
 	// Batch > Week > Trainee
-	public Map<String, Double> getRadar(Integer batchId, Integer weekNumber, Integer traineeId){
+	public Map<String, Double> getRadar(Integer batchId, Integer week, Integer traineeId){
 		Map<String, Double> results = new HashMap<>();
-		Batch batch = batchDAO.findOne(batchId);
+		
 		
 		
 		return null;
 	}
 	
-	
+	public  Map<String, Double> getWeightedAverageGradesOfTraineeByWeek(Trainee trainee, Integer week){
+		Set<Grade> gradesForTheWeek = trainee.getGrades().stream().filter(el -> el.getAssessment().getWeek() == week).collect(Collectors.toSet());
+		Double rawScore =  gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
+		
+		
+		
+		return null;
+	}
 	
 	
 	

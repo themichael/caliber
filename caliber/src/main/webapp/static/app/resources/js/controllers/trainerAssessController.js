@@ -57,7 +57,18 @@ angular.module("trainer")
 
 
         /******************************************* UI ***********************************************/
-
+        ///////////////////////////////////////////////////////////////////////////////////////////// load note types
+        caliberDelegate.all.enumNoteType().then(function(noteTypes) {
+        	$log.debug(noteTypes);
+        	// do something with note type
+        });
+        ///////////////////////////////////////////////////////////////////////////////////////////// load assessment types
+        caliberDelegate.all.enumNoteType().then(function(trainingTypes) {
+        	$log.debug(trainingTypes);
+        	$scope.note.options = trainingTypes;
+        });
+        
+        
         $log.debug("Batches " + allBatches);
         $log.debug(allBatches);
 
@@ -164,11 +175,11 @@ angular.module("trainer")
             getAllAssessmentsForWeek();
             var assessment = {
                 assessmentId: 1,
-                title: $scope.trainingName,
+                title: $scope.assessName,
                 batch: $scope.currentBatch.batchId,
-                type: $scope.trainingType,
-                categories:  $scope.selectedCategories,
+                type: $scope.assessType,
                 /************************************************TODO REFACTOR***************************************/
+                categories:  $scope.selectedCategories,
                 week: $scope.currentWeek.weekId,
                 /************************************************TODO REFACTOR***************************************/
                 weeklyStatus: null,
