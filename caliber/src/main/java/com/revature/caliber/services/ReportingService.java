@@ -180,9 +180,20 @@ public class ReportingService {
 	 * @param assessmentId
 	 * @return
 	 */
-	public Double getAvgTraineeWeek(Integer traineeId, Integer week, AssessmentType assessmentType) {
-
-		return null;
+	public Double[] getAvgTraineeWeek(Integer traineeId, Integer week, AssessmentType assessmentType) {
+		
+		List<Grade> allGrade = gradeDAO.findByTrainee(traineeId);
+		List<Grade> gradesForTheWeek = allGrade.stream()
+				.filter(el -> el.getAssessment().getWeek() == week && el.getAssessment().getType().name()==assessmentType.toString())
+				.collect(Collectors.toList());
+		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
+		Double []result = new Double[2];
+		for (Grade grade : gradesForTheWeek) {
+			result[0]+= (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+			result[1] += grade.getAssessment().getRawScore();
+		}
+		result[1]=result[1]/ totalRawScore;
+		return result;
 	}
 
 	/**
