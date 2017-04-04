@@ -82,6 +82,7 @@ angular.module("trainer")
             $scope.batches = allBatches;
             if(allBatches.length > 0){
                 $scope.currentBatch = allBatches[0];
+                $log.debug("This is the current batch " + $scope.currentBatch);
                 if(allBatches[0].weeks > 0){
                  //TODO check if it is sorting as objects-->  allBatches[0].weeks.sort(weekComparator);
                     
@@ -122,14 +123,14 @@ angular.module("trainer")
         $scope.selectCurrentBatch = function(index){
             $scope.currentBatch = $scope.batches[index];
             /************************************************TODO REFACTOR***************************************/
-            if($scope.currentBatch.weeks.length > 0){
+            if($scope.currentBatch.allWeeks.length > 0){
                 $scope.currentBatch.weeks.sort(weekComparator);
-                $scope.currentWeek = $scope.currentBatch.weeks[0];
+                $scope.currentWeek = $scope.currentBatch.allWeeks[0];
             }
             else $scope.currentWeek = null;
             /************************************************TODO REFACTOR***************************************/
             /** replace with ajax call to get assessments by weekId **/
-            getAllAssessmentsForWeek();
+            getAllAssessmentsForWeek($scope.currentBatch,batchId, $scope.currentWeek);
         };
 
 
@@ -291,7 +292,7 @@ angular.module("trainer")
         function getAllAssessmentsForWeek(){
             $scope.grades = [];
             /************************************************TODO REFACTOR***************************************/
-            caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekId)
+            caliberDelegate.trainer.getAllAssessments($scope.currentBatch.batchId, $scope.currentWeek)
             /************************************************TODO REFACTOR***************************************/
                 .then(function(data){
                     $scope.currentAssessments = data;
