@@ -49,6 +49,30 @@ angular.module("trainer").controller(
         }
 
         /**     Add & View Batches     **/
+        $scope.enumSkillType = 
+    		$http({
+                url: "/types/skill/all",
+                method: "GET"
+            }).then(function(response) {
+                $log.debug("enum skill types successfully retrieved.");
+                $log.debug(response);
+                return response.data;
+            }, function(response) {
+                $log.error("There was an error: " + response.status);
+            });
+        $scope.enumTrainingType = 
+        	$http({
+                url: "/types/training/all",
+                method: "GET"
+            }).then(function(response) {
+                $log.debug("enum training types successfully retrieved.");
+                $log.debug(response);
+                return response.data;
+            }, function(response) {
+                $log.error("There was an error: " + response.status);
+            });
+        
+        
         $scope.trainingName = {
             model: null
         };
