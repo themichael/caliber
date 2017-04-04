@@ -143,8 +143,6 @@ public class ReportingService {
 
 	}
 
-	
-
 	/**
 	 * Weighted Average of a Trainee's Grade Scores for a given week number
 	 * 
