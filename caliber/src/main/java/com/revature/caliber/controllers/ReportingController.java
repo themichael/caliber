@@ -48,11 +48,10 @@ public class ReportingController {
 	 * @param week
 	 * @return JSON result of Map<Trainee, Double>
 	 */
-	@RequestMapping(value = "/all/reports/week/batch/{batchId}/week/{week}/line", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Trainee, Double>> getBatchWeeklyAvgAssessmentScore(int batchId, int week){
-		Map<Trainee, Double> results = reportingService.getBatchWeeklyAvgAssessmentScore(batchId, week);
+	@RequestMapping(value = "/all/reports/week/batch/{batchId}/week/{week}/bar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Trainee, Double>> getBatchWeeklyAvgAssessmentScore(@PathVariable int batchId,@PathVariable int week){
+		Map<Trainee, Double> results = reportingService.getBatchWeeklyAssessmentScore(batchId, week);
 		return new ResponseEntity<Map<Trainee, Double>>(results, HttpStatus.OK);
-		
 	}
 	/**
 	 * Get aggregated grades by Category for a Trainee
