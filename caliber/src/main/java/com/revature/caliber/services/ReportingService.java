@@ -94,39 +94,39 @@ public class ReportingService {
 
 	//public Map<Integer, Double> lineCharAVG(int batchId, int week, int traineeId) {
 	public Map<Integer, Double> lineCharAVG(int batchId, int week, int traineeId) {
+
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		Map<Integer, Double> data = new HashMap<Integer, Double>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
 		for(int  w= 0;w<=week;w++){
 			data.put(w,getWeightedAverageGradesOfTraineeByWeek(traineeId, w)
-					.get(trainee.getGrades().iterator().next().getAssessment().getTitle()));
+					.values().iterator().next());
 		}
 
 		return data;
 	}
 
 	public Map<Trainee, Double> barCharAVG(int batchId, int week) {
-		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
-		Map<Trainee, Double> data = new HashMap<Trainee, Double>();
-		for (Trainee t : trainees) {
-			data.put(t, getWeightedAverageGradesOfTraineeByWeek(t.getTraineeId(), week)
-					.get(t.getGrades().iterator().next().getAssessment().getTitle()));
+		Map <Trainee, Double> data= new HashMap<Trainee, Double>();
+		List<Grade> grades=gradeDAO.findByWeek(batchId, week);
+		for(Grade g: grades){
+			data.put(g.getTrainee(), g.getScore());
 		}
-
-		return data;
+		return data; 
 	}
+	
 
 	public Map<Integer, Double> findAvgGradeByWeek(int traineeId) {
-
+		
 		Trainee trainee = traineeDAO.findOne(traineeId);
 
 		Map<Integer, Double> data = new HashMap<Integer, Double>();
 		int weeks = trainee.getBatch().getWeeks();
+		
 
 		for (int week = 0; week < weeks; week++) {
-
-			data.put(week, getWeightedAverageGradesOfTraineeByWeek(traineeId, week)
-					.get(trainee.getGrades().iterator().next().getAssessment().getTitle()));
+			
+			data.put(week, getWeightedAverageGradesOfTraineeByWeek(traineeId, week).values().iterator().next());
 
 		}
 
