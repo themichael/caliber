@@ -1,5 +1,11 @@
 angular.module("trainer")
     .controller("trainerAssessController", function($log, $scope, chartsDelegate, caliberDelegate, allBatches){
+    	// Week object
+    	function Week(weekNumb, assessments) {
+    		this.weekNumb = weekNumb;
+    		this.assessments = assessments;
+    	}
+    	
     	$log.debug('test trainer assess -j');
         $log.debug("Booted Trainer Aesess Controller");
 
@@ -76,11 +82,20 @@ angular.module("trainer")
             $scope.batches = allBatches;
             if(allBatches.length > 0){
                 $scope.currentBatch = allBatches[0];
-            /************************************************TODO REFACTOR***************************************/
-                if(allBatches[0].weeks.length > 0){
-                    allBatches[0].weeks.sort(weekComparator);
-                    $scope.currentWeek = allBatches[0].weeks[0];
-                    getAllAssessmentsForWeek();
+                if(allBatches[0].weeks > 0){
+                 //TODO check if it is sorting as objects-->  allBatches[0].weeks.sort(weekComparator);
+                    
+                	var totalWeeks = allBatches[0].weeks; // the number of weeks for that batch
+                
+                	$scope.currentBatch.allWeeks = [];
+	               	 for(var i = 1; i <= totalWeeks; i++){
+	               		 	var assesments = getAllAssessmentsForWeek(allBatches[0].batchId, i);
+	               		 	var week = new Week(i, assesments);
+	       
+						 	$scope.currentBatch.allWeeks.push(week);
+					 }
+	                    $scope.currentWeek = $scope.currentBatch.allWeeks[0];
+
                 }
 
                 else $scope.currentWeek = null;
@@ -131,7 +146,7 @@ angular.module("trainer")
         // active week
         $scope.showActiveWeek = function (index) {
         	/************************************************TODO REFACTOR***************************************/
-            if ($scope.currentWeek === $scope.currentBatch.weeks[index])
+             if ($scope.currentWeek === $scope.currentBatch.weeks)
             /************************************************TODO REFACTOR***************************************/
                 return "active";
 
