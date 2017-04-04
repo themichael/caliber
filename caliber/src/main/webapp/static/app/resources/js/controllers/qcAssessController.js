@@ -3,6 +3,9 @@ angular.module("qc")
         $log.debug("Booted Trainer Assess Controller");
 
         /******************************** Sample Data *******************************/
+        $scope.demoTrainees = [{traineeId: 53, name: "Dan Pickles"},
+            {traineeId: 65, name: "Howard Johnson"},
+            {traineeId: 78, name: "Randolph Scott"}];
         $scope.batches = [
             {
                 batchId: 451, trainingName: 'Batch123', trainer: 'Patrick', coTrainer: '',
@@ -118,11 +121,35 @@ angular.module("qc")
         // END TEST DATA *********************
 
         /******************************************* UI ***********************************************/
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////// load QC status types
-        caliberDelegate.all.enumQCStatus().then(function(statusTypes) {
-        	$log.debug(statusTypes);
-        	// do something with qc status
+		// get status types
+        $scope.qcStatusTypes= {
+            options: []
+        };
+        caliberDelegate.all.enumQCStatus().then(function(qcStatusTypes) {
+        	$log.debug(qcStatusTypes);
+        	$scope.qcStatusTypes.options = qcStatusTypes;
         });
+        
+		///////////////////////// overall feedback////////////////////////// 
+        $scope.finalQCBatchNote = {
+            model: null,
+        };
+        $scope.pickOverallStatus = function(batch, pick) {
+			$scope.qcBatchAssess = pick;
+			$log.debug(batch.trainingName + " " + pick);
+		};
+		
+		///////////////////////// individual feedback/////////////////////
+		
+		$scope.faces = []; // used to store which rows have what faces
+		
+		$scope.pickIndividualStatus = function(trainee, status, index){
+			$log.debug(trainee);
+			$log.debug(status);
+			// update face
+			$scope.faces[index] = status;
+		};
+		
         ///////////////////////////////////////////////////////////////////////////////////////////// load note types
         caliberDelegate.all.enumNoteType().then(function(noteTypes) {
         	$log.debug(noteTypes);

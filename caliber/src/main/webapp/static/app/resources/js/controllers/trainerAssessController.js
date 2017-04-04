@@ -12,17 +12,12 @@ angular.module("trainer")
         $log.debug("Booted Trainer Aesess Controller");
 
         /******************************TEST DATA***********************/
-       
-
-        
         $scope.skill_categories = function (){
         	caliberDelegate.all.getAllCategories().then(function(categories){
         		$scope.categories = categories;
         		$log.debug("all Categories");
                 $log.debug(categories);
-        		
         	})
-        	
         };
         /******************************************* UI *********************************************/
         ///////////////////////////////////////////////////////////////////////////////////////////// load note types
@@ -33,7 +28,7 @@ angular.module("trainer")
         $scope.assessmentType= {
                 model: null,
                 options: []
-            };
+        };
         caliberDelegate.all.enumAssessmentType().then(function(assessmentTypes) {
         	$log.debug(assessmentTypes);
         	$scope.assessmentType.options = assessmentTypes;
