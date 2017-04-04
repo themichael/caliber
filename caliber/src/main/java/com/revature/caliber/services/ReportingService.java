@@ -79,7 +79,7 @@ public class ReportingService
 	 * get all trainee's avg score of all assessments.
 	 * @param batchId
 	 * @param week
-	 * @return Map<String (trainee's name), Double (Avg score)>
+	 * @return Map<String (trainee's name, Double (Avg score)>
 	 * @author Pier Yos
 	 */
 	public Map<String, Double> getBatchWeeklyAssessmentScore(int batchId, int week){
@@ -123,6 +123,17 @@ public class ReportingService
 		}
 		return results;
 	}
+	
+	public Double merr(Set<Grade> grades, Integer week){
+		Double results = 0d;
+		Set<Grade> gradesForTheWeek = grades.stream().filter(el -> el.getAssessment().getWeek() == week).collect(Collectors.toSet());
+		Double totalRawScore =  gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
+		for(Grade grade: gradesForTheWeek){
+			results = grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore;
+		}
+		return results;
+	}
+
 	//Pie chart displaying number of trainees that recieved red, yellow, green, or superstar
 	//returns Map relating the number of trainees per QCStatus
 	public Map<QCStatus, Integer> batchWeekPieChart(Integer batchId, Integer weekNumber){
