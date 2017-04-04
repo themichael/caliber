@@ -525,6 +525,7 @@
 										<th>Phone Number</th>
 										<th>Skype Id</th>
 										<th>URL</th>
+										<th>Edit</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -535,6 +536,8 @@
 										<td>{{trainee.phoneNumber}}</td>
 										<td>{{trainee.skypeId}}</td>
 										<td>{{}}</td>
+										<td><button ng-click="loadTrainee()" type="submit"
+							class="btn btn-primary">Edit</button></td>
 									</tr>
 								</tbody>
 							</table>
