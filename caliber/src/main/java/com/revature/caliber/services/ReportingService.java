@@ -3,12 +3,15 @@ package com.revature.caliber.services;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.QCStatus;
@@ -102,7 +105,19 @@ public class ReportingService
 		return results;
 	}
 
-	
-	
-	
+	/**
+	 * Weighted Average of a Trainee's Grade Scores for a given week number 
+	 * @param trainee For which to get the Average Scores
+	 * @param week number to get the grades for 
+	 * @return A Map of String Names of Assessment Types, and 
+	 */
+	public  Map<String, Double> getWeightedAverageGradesOfTraineeByWeek(Trainee trainee, Integer week){
+		Map<String, Double> results = new HashMap<>();
+		Set<Grade> gradesForTheWeek = trainee.getGrades().stream().filter(el -> el.getAssessment().getWeek() == week).collect(Collectors.toSet());
+		Double totalRawScore =  gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
+		for(Grade grade: gradesForTheWeek){
+			results.put(grade.getAssessment().getType().name(), grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+		}
+		return results;
+	}
 }
