@@ -185,9 +185,9 @@ angular.module("trainer").controller(
                     name: $scope.receivers[i].name,
                     email: $scope.receivers[i].email,
                     trainingStatus: $scope.receivers[i].trainingStatus,
-                    phoneNumber: receivers[i].phoneNumber,
-                    skypeId :receivers[i].skypeId,
-                    profileUrl :receivers[i].profileUrl,
+                    phoneNumber: $scope.receivers[i].phoneNumber,
+                    skypeId: $scope.receivers[i].skypeId,
+                    profileUrl: $scope.receivers[i].profileUrl,
                     batch: $scope.currentBatch
                 };
                 $log.debug(newTrainee);
