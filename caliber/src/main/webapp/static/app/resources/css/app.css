@@ -96,10 +96,10 @@ a { color: #F26925;}
 .glyphicon-plus { padding-left: .5em; }
 .glyphicon-user { padding-left: .5em; }
 .glyphicon-question-sign { 
-	padding-left: .5em; 
-	color: white !important;
+	padding-left: .25em; 
+	color: #F26925 !important;
 	border-color: white !important;
-	background-color: #F26925 !important;
+	background-color: white !important;
 }
 .glyph-top-margin { padding-top: 2em; }
 
