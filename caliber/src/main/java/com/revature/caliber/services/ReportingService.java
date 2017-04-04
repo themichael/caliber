@@ -34,15 +34,14 @@ import com.revature.caliber.data.TraineeDAO;
  *
  */
 @Service
-public class ReportingService
-{
+public class ReportingService {
 	private final static Logger log = Logger.getLogger(ReportingService.class);
 	private GradeDAO gradeDAO;
 	private BatchDAO batchDAO;
 	private TraineeDAO traineeDAO;
 	private NoteDAO noteDAO;
 	private AssessmentDAO assessmentDAO;
-	
+
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
 		this.gradeDAO = gradeDAO;
@@ -67,101 +66,105 @@ public class ReportingService
 	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
 		this.assessmentDAO = assessmentDAO;
 	}
-	
-	
+
 	// Radar Chart of the Independent Skills/Technologies of Trainees
 	// Batch > Week > Trainee
-	public Map<String, Double> getRadar(Integer batchId, Integer weekNumber, Integer traineeId){
+	public Map<String, Double> getRadar(Integer batchId, Integer weekNumber, Integer traineeId) {
 		Map<String, Double> results = new HashMap<>();
 		Batch batch = batchDAO.findOne(batchId);
-		
-		
+
 		return null;
 	}
-	
 
-	//Pie chart displaying number of trainees that recieved red, yellow, green, or superstar
-	//returns Map relating the number of trainees per QCStatus
-	public Map<QCStatus, Integer> batchWeekPieChart(Integer batchId, Integer weekNumber){
-		
+	// Pie chart displaying number of trainees that recieved red, yellow, green,
+	// or superstar
+	// returns Map relating the number of trainees per QCStatus
+	public Map<QCStatus, Integer> batchWeekPieChart(Integer batchId, Integer weekNumber) {
+
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		Map<QCStatus, Integer> results = new HashMap<>();
-		 for(QCStatus s : QCStatus.values()){
-			 results.put(s, 0);
-		 }
-		 for (Trainee t : trainees){
-			 for (Note n : t.getNotes()){
-				 if (n.getWeek()==weekNumber){
-					 if (n.getType()==NoteType.QC_TRAINEE){
-						 QCStatus status = n.getQcStatus();
-						 Integer temp = results.get(status);
-						 temp++;
-						 results.remove(status);
-						 results.put(status, temp);
-					 }
-				 }
-			 }
-		 }
-		 
+		for (QCStatus s : QCStatus.values()) {
+			results.put(s, 0);
+		}
+		for (Trainee t : trainees) {
+			for (Note n : t.getNotes()) {
+				if (n.getWeek() == weekNumber) {
+					if (n.getType() == NoteType.QC_TRAINEE) {
+						QCStatus status = n.getQcStatus();
+						Integer temp = results.get(status);
+						temp++;
+						results.remove(status);
+						results.put(status, temp);
+					}
+				}
+			}
+		}
+
 		return results;
 	}
 
-/*	public HashMap<Trainee, Double[]>  barChar(int batchId, int week) {
-		//BatchDAO  
+	//public Map<Integer, Double> lineCharAVG(int batchId, int week, int traineeId) {
+	public Map<Integer, Double> lineCharAVG(int batchId, int week, int traineeId) {
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		Map<Integer, Double> data = new HashMap<Integer, Double>();
+		Trainee trainee = traineeDAO.findOne(traineeId);
+		for(int  w= 0;w<=week;w++){
+			data.put(w,getWeightedAverageGradesOfTraineeByWeek(trainee, w)
+					.get(trainee.getGrades().iterator().next().getAssessment().getTitle()));
+		}
 
-		
-	
-	}*/
+		return data;
+	}
+
+	public Map<Trainee, Double> barCharAVG(int batchId, int week) {
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		Map<Trainee, Double> data = new HashMap<Trainee, Double>();
+		for (Trainee t : trainees) {
+			data.put(t, getWeightedAverageGradesOfTraineeByWeek(t, week)
+					.get(t.getGrades().iterator().next().getAssessment().getTitle()));
+		}
+
+		return data;
+	}
 
 	public Map<Integer, Double> findAvgGradeByWeek(int traineeId) {
-		
-		TraineeDAO td= new TraineeDAO();
-		GradeDAO gd= new GradeDAO();
-		AssessmentDAO ad= new AssessmentDAO(); 
-		
-		Trainee trainee =td.findOne(traineeId);
-		List<Grade> gt=gd.findByTrainee(traineeId);
-		
-		Map<Integer, Double> data = new HashMap<Integer, Double>();
-		
-		
 
-		int week = 0;
-		
-		
-		for(Grade g: gt){
-			//List<Double> thescorelist = gt.stream().map(g.getAssessment().getWeek():: g.getScore() ).collect(Collectors.toList());
-		
-			//data.put( g.getAssessment().getWeek(), mean(thescorelist));
+		Trainee trainee = traineeDAO.findOne(traineeId);
+
+		Map<Integer, Double> data = new HashMap<Integer, Double>();
+		int weeks = trainee.getBatch().getWeeks();
+
+		for (int week = 0; week < weeks; week++) {
+
+			data.put(week, getWeightedAverageGradesOfTraineeByWeek(trainee, week)
+					.get(trainee.getGrades().iterator().next().getAssessment().getTitle()));
+
 		}
-		
+
 		return data;
-		
+
 	}
-	
-	public double mean ( ArrayList<Double> list){
-		double sum= 0.0;
-		int length= list.size();
-		for(double item : list){
-			sum+=item;
-		}
-		return sum/length;
-	}
+
 	
 	/**
-	 * Weighted Average of a Trainee's Grade Scores for a given week number 
-	 * @param trainee For which to get the Average Scores
-	 * @param week number to get the grades for 
-	 * @return A Map of String Names of Assessment Types, and 
+	 * Weighted Average of a Trainee's Grade Scores for a given week number
+	 * 
+	 * @param trainee
+	 *            For which to get the Average Scores
+	 * @param week
+	 *            number to get the grades for
+	 * @return A Map of String Names of Assessment Types, and
 	 */
-	public  Map<String, Double> getWeightedAverageGradesOfTraineeByWeek(Trainee trainee, Integer week){
+	public Map<String, Double> getWeightedAverageGradesOfTraineeByWeek(Trainee trainee, Integer week) {
 		Map<String, Double> results = new HashMap<>();
-		Set<Grade> gradesForTheWeek = trainee.getGrades().stream().filter(el -> el.getAssessment().getWeek() == week).collect(Collectors.toSet());
-		Double totalRawScore =  gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
-		for(Grade grade: gradesForTheWeek){
-			results.put(grade.getAssessment().getTitle(), grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+		Set<Grade> gradesForTheWeek = trainee.getGrades().stream().filter(el -> el.getAssessment().getWeek() == week)
+				.collect(Collectors.toSet());
+		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
+		for (Grade grade : gradesForTheWeek) {
+			results.put(grade.getAssessment().getTitle(),
+					grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
 		}
 		return results;
 	}
-	
+
 }
