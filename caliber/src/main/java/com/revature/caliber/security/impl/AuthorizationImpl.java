@@ -8,6 +8,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -45,18 +46,42 @@ public class AuthorizationImpl extends Helper implements Authorization{
 
     private HttpClient httpClient;
     private HttpResponse response;
-
+    private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
+    
     public AuthorizationImpl() {
         httpClient = HttpClientBuilder.create().build();
     }
 
+    /**
+     * ------------------------DEVELOPMENT ONLY------------------------
+     * 	Pretends to redirect to Salesforce for authentication.
+     * 
+     * 	TODO remove @RequestMapping at go-live
+     */
     @RequestMapping("/")
+    public ModelAndView dummyAuth() {
+        return new ModelAndView("redirect:" + redirectUrl);
+    }
+
+    
+    /**
+     * ------------------------PRODUCTION ONLY------------------------
+     * 	Redirects to Salesforce for authentication.
+     * 
+     * 	TODO enable at go-live
+     */
+    //@RequestMapping("/")
     public ModelAndView openAuthURI() {
         return new ModelAndView("redirect:" + authURL +
                 "?response_type=code&client_id=" + clientId +
                 "&redirect_uri=" + redirectUri);
     }
 
+    /**
+     * ------------------------PRODUCTION ONLY------------------------
+     * 	Retrieves Salesforce authentication token.
+     * 
+     */
     @RequestMapping("/authenticated")
     public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code, HttpServletResponse servletResponse) throws IOException {
             HttpPost post = new HttpPost(accessTokenURL);
@@ -67,8 +92,10 @@ public class AuthorizationImpl extends Helper implements Authorization{
             parameters.add(new BasicNameValuePair("redirect_uri", redirectUri));
             parameters.add(new BasicNameValuePair("code", code));
             post.setEntity(new UrlEncodedFormEntity(parameters));
+            log.info("Generating Salesforce token");
             response = httpClient.execute(post);
-            servletResponse.addCookie(new Cookie("token",URLEncoder.encode(toJsonString(response.getEntity().getContent()),"UTF-8")));
+            String token = URLEncoder.encode(toJsonString(response.getEntity().getContent()),"UTF-8");
+            servletResponse.addCookie(new Cookie("token", token));
             return new ModelAndView("redirect:"+ redirectUrl);
     }
 
