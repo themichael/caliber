@@ -56,12 +56,10 @@ angular.module("trainer").controller(
             model: null,
             options: caliberDelegate.all.enumTrainingType()
         };
-        $log.debug("types: " + $scope.trainingType);
         $scope.skillType = {														
             model: null,
             options: caliberDelegate.all.enumSkillType()
         };
-        $log.debug("types: " + $scope.skillType);
         $scope.location = {
             model: null,
             options: ['Reston, VA', 'Queens, NY', 'Manhattan, NY']
