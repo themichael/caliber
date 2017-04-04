@@ -210,23 +210,29 @@ public class ReportingService {
 	}
 
 	/**
-	 * Get Weighted Average for a single assessment for a given Trainee ID, returning weeks as keys in the map and the
+	 * Get Weighted Average for a single assessment type for a given Trainee ID, returning weeks as keys in the map and the
 	 * corresponding values of weight(%) and scores.
 	 * 
 	 * @param traineeId
-	 * @param assessmentId
-	 * @return
+	 * @param assessmentType
+	 * @return Map<'week', {'score', 'weight'}>
 	 */
 	public Map<Integer, Double[]> getAvgTraineeOverall(Integer traineeId, AssessmentType assessmentType) {
 
+		Map<Integer, Double[]> results = new HashMap<>();
 		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
 		List<Grade> assessments = grades.stream()
 										.filter(g -> g.getAssessment().getType() == assessmentType)
 										.collect(Collectors.toList());
+		Double totalRawScore = grades.stream().mapToDouble(g -> g.getAssessment().getRawScore()).sum();
+		for (Grade grade : grades){
+			Double weight = grade.getAssessment().getRawScore() / totalRawScore;
+			results.put(Integer.valueOf(grade.getAssessment().getWeek()), new Double[]{(grade.getScore()*weight), weight} );
+		}
 		
 		return null;
 	}
-
+	
 	/**
 	 * 
 	 * @param batchId
