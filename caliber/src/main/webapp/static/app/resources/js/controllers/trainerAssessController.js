@@ -91,8 +91,8 @@ angular.module("trainer")
                 	$scope.currentBatch.allWeeks = [];
 	               	 for(var i = 1; i <= totalWeeks; i++){
 	               		 $scope.currentWeek = i;
-	               		 var assesments = getAllAssessmentsForWeek();
-	               		 var week = new Week(i, assesments);
+	               		 getAllAssessmentsForWeek();
+	               		 var week = new Week(i, $scope.currentAssessments);
 	               		 $scope.currentBatch.allWeeks.push(week);
 	       
 					 }
@@ -300,7 +300,12 @@ angular.module("trainer")
                     $log.debug("These are the assessments");
                     $log.debug($scope.currentAssessments);
                     $scope.currentAssessments.forEach(function (assessment) {
-                        caliberDelegate.all.getGrades(assessment.assessmentId).then(function (data) {
+                        for(currentBatch of $scope.currentBatch.allWeeks){
+                        	if(assessment.week === currentBatch.weekNumb){
+                        		currentBatch.assessment = assessment;
+                        	}
+                        }
+                    	caliberDelegate.all.getGrades(assessment.assessmentId).then(function (data) {
                             $log.debug("These are the grades");
                             $log.debug(data);
                             for(var i in data){
