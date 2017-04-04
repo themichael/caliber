@@ -64,11 +64,10 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
 
     /*************************** Week ************************/
     // create a new week
-    trainer.createWeek = function (weekObj) {
+    trainer.createWeek = function (batchId) {
         return $http({
-            url: "/trainer/week/new",
+            url: "/trainer/week/new/"+batchId,
             method: "POST",
-            data: weekObj
         }).then(function (response) {
             $log.debug("Week successfully created.");
             $log.debug(response);

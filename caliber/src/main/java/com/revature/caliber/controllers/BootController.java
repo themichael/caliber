@@ -59,6 +59,7 @@ public class BootController extends Helper{
 	 * Salesforce authentication controller (AuthenticationImpl) 
 	 * forwards the OAuth token to this controller method 
 	 * to login into the Caliber applications.
+	 * Adds the SalesforceUser to the Security Context.
 	 * 
 	 * Forwards to the landing page.
 	 *

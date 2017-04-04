@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -159,6 +158,19 @@ public class TrainingController {
 
 	}
 
+	/**
+	 * Adds a new week to the batch. Increments counter of total_weeks in database
+	 * @param batchId
+	 * @return
+	 */
+	@RequestMapping(value = "/trainer/week/new/{batchId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<Void> createWeek(@PathVariable int batchId) {
+		log.info("Adding week to batch: " + batchId);
+		trainingService.addWeek(batchId);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
 	/*
 	 *******************************************************
 	 * TODO TRAINEE SERVICES
@@ -173,7 +185,7 @@ public class TrainingController {
 	 *            the trainee
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainee(@RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
@@ -188,7 +200,7 @@ public class TrainingController {
 	 *            the trainee
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainees(@RequestBody Trainee[] trainees) {
 		// TODO quick and dirty. We should have @Transactional services to
@@ -209,7 +221,7 @@ public class TrainingController {
 	 *            the trainee
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateTrainee(@RequestBody Trainee trainee) {
 		log.info("Updating trainee: " + trainee);
@@ -224,7 +236,7 @@ public class TrainingController {
 	 *            the id
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainee/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/trainee/delete/{id}", method = RequestMethod.DELETE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> deleteTrainee(@PathVariable int id) {
 		Trainee trainee = new Trainee();
@@ -233,7 +245,7 @@ public class TrainingController {
 		trainingService.delete(trainee);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-
+	
 	/**
 	 * Convenience method for accessing the Trainer information from the User
 	 * Principal.
