@@ -56,16 +56,16 @@
                         <td>{{batch.endDate|date}}</td>
                         <td>{{batch.goodGradeThreshold}}</td>
                         <td>{{batch.borderlineGradeThreshold}}</td>
-                        <td><!-- Button Trigger for Add Trainee Modal -->
-                            <a role="button" data-toggle="modal" ng-click="selectCurrentBatch($index)"
-                               data-target="#viewTraineeModal">
-                                <span class="glyphicon glyphicon-list-alt"></span>
-                            </a>
-                        </td>
-                        <td><!-- Button Trigger for Add Trainee Modal -->
+                        <td>
                             <a role="button" data-toggle="modal" ng-click="selectCurrentBatch($index)"
                                data-target="#addTraineeModal">
-                                View <span class="glyphicon glyphicon-plus"></span>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a role="button" data-toggle="modal" ng-click="selectCurrentBatch($index)"
+                               data-target="#viewTraineeModal">
+								<span class="glyphicon glyphicon-list-alt"></span>
                             </a>
                         </td>
                     </tr>
