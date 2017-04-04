@@ -221,14 +221,22 @@ public class ReportingService {
 	public Map<Integer, Double[]> getAvgTraineeOverall(Integer traineeId, AssessmentType assessmentType) {
 
 		Map<Integer, Double[]> results = new HashMap<>();
-		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
+		/*List<Grade> grades = gradeDAO.findByTrainee(traineeId);
 		List<Grade> assessments = grades.stream()
-										.filter(g -> g.getAssessment().getType() == assessmentType)
+										.filter(g -> g.getAssessment().getType().name().equals(assessmentType.name()))
 										.collect(Collectors.toList());
+		for ( short week : assessments)
+		
 		Double totalRawScore = assessments.stream().mapToDouble(g -> g.getAssessment().getRawScore()).sum();
 		for (Grade assessment : assessments){
 			Double weight = assessment.getAssessment().getRawScore() / totalRawScore;
 			results.put(Integer.valueOf(assessment.getAssessment().getWeek()), new Double[]{(assessment.getScore()*weight), weight} );
+		}
+		*/
+		Trainee trainee = traineeDAO.findOne(traineeId);
+		int weeks = trainee.getBatch().getWeeks();
+		for (Integer i=0 ; i< weeks ; i++){
+			results.put(i,getAvgTraineeWeek(traineeId, i,assessmentType));
 		}
 		
 		return results;
