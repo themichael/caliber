@@ -204,7 +204,7 @@ public class Note {
 	 * @param qcStatus
 	 */
 	private Note(String content, short week, Batch batch, NoteType type, QCStatus qcStatus) {
-		super();
+		this();
 		this.content = content;
 		this.week = week;
 		this.batch = batch;
@@ -233,7 +233,7 @@ public class Note {
 	 * @param qcStatus
 	 */
 	private Note(String content, short week, Trainee trainee, NoteType type, QCStatus qcStatus) {
-		super();
+		this();
 		this.content = content;
 		this.week = week;
 		this.trainee = trainee;
@@ -258,7 +258,7 @@ public class Note {
 	 * @param type
 	 */
 	private Note(String content, short week, Trainee trainee) {
-		super();
+		this();
 		this.content = content;
 		this.week = week;
 		this.trainee = trainee;
@@ -277,7 +277,7 @@ public class Note {
 	 * @param type
 	 */
 	private Note(String content, short week, Batch batch) {
-		super();
+		this();
 		this.content = content;
 		this.week = week;
 		this.batch = batch;
@@ -288,6 +288,7 @@ public class Note {
 
 	public Note() {
 		super();
+		this.maxVisibility = TrainerRole.TRAINER;
 	}
 
 	@Override
