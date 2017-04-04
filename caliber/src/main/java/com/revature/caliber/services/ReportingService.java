@@ -92,8 +92,6 @@ public class ReportingService {
 		return results;
 	}
 
-	// public Map<Integer, Double> lineCharAVG(int batchId, int week, int
-	// traineeId) {
 	public Map<Integer, Double> lineCharAVG(int batchId, int week, int traineeId) {
 
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
