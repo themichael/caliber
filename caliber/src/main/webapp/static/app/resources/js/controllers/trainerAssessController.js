@@ -14,7 +14,8 @@ angular.module("trainer")
         		$log.debug("all Categories");
                 $log.debug(categories);
         		for (p of categories){
-        			allCategories.push(p)
+        			allCategories.push(p);
+        			console.log(p);
         		}
         		
         	})
