@@ -57,19 +57,11 @@ angular.module("trainer").controller(
             model: null,
             options: []
         };
-        caliberDelegate.all.enumTrainingType().then(function(trainingTypes) {
-        	$log.debug(trainingTypes);
-        	$scope.trainingType.options = trainingTypes;
-        });
         
         $scope.skillType = {														
             model: null,
             options: []
         };
-        caliberDelegate.all.enumSkillType().then(function(skillTypes) {
-        	$log.debug(skillTypes);
-        	$scope.skillType.options = skillTypes;
-        });
         
         $log.debug("Skill types");
         $log.debug($scope.skillType.options);
@@ -149,6 +141,15 @@ angular.module("trainer").controller(
             });
 
         };
+        
+        caliberDelegate.all.enumTrainingType().then(function(trainingTypes) {
+        	$log.debug(trainingTypes);
+        	$scope.trainingType.options = trainingTypes;
+        });
+        caliberDelegate.all.enumSkillType().then(function(skillTypes) {
+        	$log.debug(skillTypes);
+        	$scope.skillType.options = skillTypes;
+        });
 
         /**************************** Trainees *****************************/
 
