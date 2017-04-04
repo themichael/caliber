@@ -118,7 +118,7 @@ public class ReportingController {
 		// TODO implement me
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
-	@RequestMapping(value = "/all/reports/batch/{bacthId}/week/{week}/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<Integer, Double> >lineCharAVG(int batchId, int week, int traineeId){
 		return new ResponseEntity<Map<Integer, Double>>(reportingService.lineCharAVG(batchId, week, traineeId),  HttpStatus.OK);
 	}
