@@ -1,11 +1,16 @@
 package com.revature.caliber.services;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
@@ -30,6 +35,7 @@ public class ReportingService
 	private BatchDAO batchDAO;
 	private TraineeDAO traineeDAO;
 	private NoteDAO noteDAO;
+	private AssessmentDAO assessmentDAO;
 	
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -52,8 +58,43 @@ public class ReportingService
 	}
 
 	
+	@Autowired
+	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
+		this.assessmentDAO = assessmentDAO;
+	}
+
+	// Radar Chart of the Independent Skills/Technologies of Trainees
+	// Batch > Week > Trainee
+	public Map<String, Double> getRadar(Integer batchId, Integer weekNumber, Integer traineeId){
+		Map<String, Double> results = new HashMap<>();
+		Batch batch = batchDAO.findOne(batchId);
+	}
+	
+	/**
+	 * get all train
+	 * @param batchId
+	 * @param week
+	 * @return Map<Trainee, Double (Avg score)>
+	 */
 	public Map<Trainee, Double> getBatchWeeklyAssessmentScore(int batchId, int week){
-		return null;
+		Map<Trainee, Double> results = new HashMap<>();
+		Batch batch = batchDAO.findOne(batchId);
+		for(Trainee trainee : batch.getTrainees()) {
+			// pass in trainee to get avg by week
+			// double avg = getAvg(batchId, week);
+			// results.put(trainee, avg)
+		}
+		return results;
+	}
+	/**
+	 * 
+	 * @param batchId
+	 * @return Map<Integer (Week Num), Double (Avg score)>
+	 */
+	public Map<Integer, Double> getBatchOverallAvgScore(int batchId){
+		Map<Integer, Double> results = new HashMap<>();
+		
+		return results;
 	}
 	
 	
