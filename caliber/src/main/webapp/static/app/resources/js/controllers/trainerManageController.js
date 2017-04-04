@@ -10,8 +10,6 @@ angular.module("trainer").controller(
             caliberDelegate.all.getAllTrainers().then(
                 function(trainers){
                     $scope.trainers = trainers;
-                    $log.debug("=========TRAINERS=========");
-                    $log.debug(trainers);
                 });
             $log.debug(allBatches);
             $scope.batches = allBatches;
