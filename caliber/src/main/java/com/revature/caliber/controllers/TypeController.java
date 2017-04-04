@@ -47,7 +47,7 @@ public class TypeController {
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<String>> allSkillTypes() {
 		log.info("Fetching skill types");
-		List<String> types = Stream.of(SkillType.values()).map(Enum::name).collect(Collectors.toList());
+		List<String> types = Stream.of(SkillType.values()).map(Enum::toString).collect(Collectors.toList());
 		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
 	}
 

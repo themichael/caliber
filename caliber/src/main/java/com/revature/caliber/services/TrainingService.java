@@ -105,6 +105,7 @@ public class TrainingService {
 	public void addWeek(Integer batchId){
 		log.debug("Adding week to batch: " + batchId);
 		Batch batch = batchDAO.findOne(batchId);
+		if(batch==null) throw new IllegalArgumentException("Invalid batch");
 		int weeks = batch.getWeeks();
 		batch.setWeeks(++weeks);
 		batchDAO.update(batch);

@@ -1,15 +1,12 @@
 package com.revature.caliber.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,12 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.QCStatus;
-import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainingStatus;
-import com.revature.caliber.beans.TrainingType;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
 
@@ -55,8 +48,8 @@ public class TrainingController {
 
 	/**
 	 * Finds a trainer by email. Used for logging in a user with the Salesforce
-	 * controller
-	 *	`
+	 * controller `
+	 * 
 	 * @param email
 	 * @return
 	 */
@@ -68,12 +61,12 @@ public class TrainingController {
 	}
 
 	/**
-	 * Returns all trainers from the database
-	 * `
+	 * Returns all trainers from the database `
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	@RequestMapping(value = "all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 		log.info("Fetching all trainers");
 		List<Trainer> trainers = trainingService.findAllTrainers();
@@ -94,7 +87,7 @@ public class TrainingController {
 	 * @return
 	 */
 	@RequestMapping(value = "/trainer/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasRole('TRAINER')")
+	// @PreAuthorize("hasRole('TRAINER')")
 	public ResponseEntity<List<Batch>> findAllBatchesByTrainer(Authentication auth) {
 		Trainer userPrincipal = getPrincipal(auth);
 		log.info("Getting all batches for trainer: " + userPrincipal);
@@ -110,7 +103,7 @@ public class TrainingController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createBatch(@RequestBody Batch batch, Authentication auth) {
 		batch.setTrainer(getPrincipal(auth));
 		log.info("Saving batch: " + batch);
@@ -126,7 +119,7 @@ public class TrainingController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateBatch(@RequestBody Batch batch, Authentication auth) {
 		batch.setTrainer(getPrincipal(auth));
 		log.info("Updating batch: " + batch);
@@ -142,7 +135,7 @@ public class TrainingController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/batch/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> deleteBatch(@PathVariable int id) {
 		Batch batch = new Batch();
 		batch.setBatchId(id);
@@ -157,12 +150,27 @@ public class TrainingController {
 	 * @return the all batches
 	 */
 	@RequestMapping(value = "/qc/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('QC, VP')")
+	// @PreAuthorize("hasAnyRole('QC, VP')")
 	public ResponseEntity<List<Batch>> getAllBatches() {
 		log.info("Fecthing all current batches");
 		List<Batch> batches = trainingService.findAllCurrentBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 
+	}
+
+	/**
+	 * Adds a new week to the batch. Increments counter of total_weeks in
+	 * database
+	 * 
+	 * @param batchId
+	 * @return
+	 */
+	@RequestMapping(value = "/trainer/week/new/{batchId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<Void> createWeek(@PathVariable int batchId) {
+		log.info("Adding week to batch: " + batchId);
+		trainingService.addWeek(batchId);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	/*
@@ -179,8 +187,8 @@ public class TrainingController {
 	 *            the trainee
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainee(@RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
 		trainingService.save(trainee);
@@ -194,8 +202,8 @@ public class TrainingController {
 	 *            the trainee
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainees(@RequestBody Trainee[] trainees) {
 		// TODO quick and dirty. We should have @Transactional services to
 		// create rollback for failed batchUpdates
@@ -215,8 +223,8 @@ public class TrainingController {
 	 *            the trainee
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateTrainee(@RequestBody Trainee trainee) {
 		log.info("Updating trainee: " + trainee);
 		trainingService.update(trainee);
@@ -230,8 +238,8 @@ public class TrainingController {
 	 *            the id
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainee/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	@RequestMapping(value = "/all/trainee/delete/{id}", method = RequestMethod.DELETE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> deleteTrainee(@PathVariable int id) {
 		Trainee trainee = new Trainee();
 		trainee.setTraineeId(id);
@@ -239,7 +247,13 @@ public class TrainingController {
 		trainingService.delete(trainee);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
+	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<String>> findCommonLocations() {
+		log.info("Fetching common training locations");
+		return new ResponseEntity<>(trainingService.findCommonLocations(), HttpStatus.OK);
+	}
+
 	/**
 	 * Convenience method for accessing the Trainer information from the User
 	 * Principal.
