@@ -145,8 +145,8 @@
           
            	       <div class="form-group col-md-6 col-sm-6">
             				 <label>Skills:</label>
-            	 		<select class="form-control">
-             				<option ng-repeat="category in categories track by $index">{{category.skillCategory}}</option>
+            	 		<select class="form-control" ng-model="selectedCategories.category">
+             				<option ng-repeat="category in categories track by $index" value="{{category.skillCategory}}">{{category.skillCategory}}</option>
              	 		</select>
           		   </div>
             
