@@ -1,5 +1,7 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * System access roles. 
  * 
@@ -9,5 +11,10 @@ package com.revature.caliber.beans;
  *
  */
 public enum TrainerRole {
-	VP, QC, TRAINER
+	@JsonProperty("VP")
+	VP,
+	@JsonProperty("QC")
+	QC,
+	@JsonProperty("TRAINER")
+	TRAINER
 }

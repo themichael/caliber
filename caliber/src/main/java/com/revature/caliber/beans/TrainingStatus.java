@@ -1,5 +1,20 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum TrainingStatus {
-	Signed, Selected, Training, Marketing, Confirmed, Employed, Dropped
+	@JsonProperty("Signed")
+	Signed,
+	@JsonProperty("Selected")
+	Selected,
+	@JsonProperty("Training")
+	Training,
+	@JsonProperty("Marketing")
+	Marketing,
+	@JsonProperty("Confirmed")
+	Confirmed,
+	@JsonProperty("Employed")
+	Employed,
+	@JsonProperty("Dropped")
+	Dropped
 }
