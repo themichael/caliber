@@ -57,14 +57,21 @@ angular.module("trainer").controller(
             model: null,
             options: []
         };
-        
+        // load training types
+        caliberDelegate.all.enumTrainingType().then(function(trainingTypes) {
+        	$log.debug(trainingTypes);
+        	$scope.trainingType.options = trainingTypes.data;
+        });
+        // load skill types        
         $scope.skillType = {														
             model: null,
             options: []
         };
+        caliberDelegate.all.enumSkillType().then(function(skillTypes) {
+        	$log.debug(skillTypes);
+        	$scope.skillType.options = skillTypes.data;
+        });
         
-        $log.debug("Skill types");
-        $log.debug($scope.skillType.options);
         $scope.location = {
             model: null,
             options: ['Reston, VA', 'Queens, NY', 'Manhattan, NY']
@@ -141,15 +148,6 @@ angular.module("trainer").controller(
             });
 
         };
-        
-        caliberDelegate.all.enumTrainingType().then(function(trainingTypes) {
-        	$log.debug(trainingTypes);
-        	$scope.trainingType.options = trainingTypes;
-        });
-        caliberDelegate.all.enumSkillType().then(function(skillTypes) {
-        	$log.debug(skillTypes);
-        	$scope.skillType.options = skillTypes;
-        });
 
         /**************************** Trainees *****************************/
 
