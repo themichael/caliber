@@ -177,7 +177,7 @@ public class ReportingService {
 	 * 
 	 * @param traineeId
 	 * @param week
-	 * @param assessmentId
+	 * @param assessmentType
 	 * @return
 	 */
 	public Double getAvgTraineeWeek(Integer traineeId, Integer week, AssessmentType assessmentType) {
@@ -190,7 +190,7 @@ public class ReportingService {
 	 * 
 	 * @param batchId
 	 * @param week
-	 * @param assessmentId
+	 * @param assessmentType
 	 * @return
 	 */
 	public Map<Trainee, Double[]> getAvgBatchWeek(Integer batchId, Integer week,  AssessmentType assessmentType) {
@@ -213,23 +213,32 @@ public class ReportingService {
 		List<Grade> assessments = grades.stream()
 										.filter(g -> g.getAssessment().getType() == assessmentType)
 										.collect(Collectors.toList());
-		Double totalRawScore = grades.stream().mapToDouble(g -> g.getAssessment().getRawScore()).sum();
-		for (Grade grade : grades){
-			Double weight = grade.getAssessment().getRawScore() / totalRawScore;
-			results.put(Integer.valueOf(grade.getAssessment().getWeek()), new Double[]{(grade.getScore()*weight), weight} );
+		Double totalRawScore = assessments.stream().mapToDouble(g -> g.getAssessment().getRawScore()).sum();
+		for (Grade assessment : assessments){
+			Double weight = assessment.getAssessment().getRawScore() / totalRawScore;
+			results.put(Integer.valueOf(assessment.getAssessment().getWeek()), new Double[]{(assessment.getScore()*weight), weight} );
 		}
 		
-		return null;
+		return results;
 	}
 	
 	/**
-	 * 
+	 * Get Weighted Average for a the whole batch for all the weeks per an assessment
 	 * @param batchId
-	 * @param assessmentId
-	 * @return Trainee: The Trainee, Double[]: 0: Week#, 1: Average Score for that Assessment
+	 * @param assessmentType
+	 * @return Trainee: The Trainee, Double[]: 0: Score, 1: Weight, 2: Week
 	 */
 	public Map<Trainee, Double[]> getAvgBatchOverall(Integer batchId, AssessmentType assessmentType) {
-
+		Map<Trainee, Double[]> results = new HashMap<>();
+		List<Grade> grades = gradeDAO.findByBatch(batchId);
+		List<Grade> assessments = grades.stream()
+										.filter(g -> g.getAssessment().getType() == assessmentType)
+										.collect(Collectors.toList());
+		Double totalRawScore = assessments.stream().mapToDouble(g -> g.getAssessment().getRawScore()).sum();
+		for (Grade assessment : assessments){
+			Double weight = assessment.getAssessment().getRawScore() / totalRawScore;
+			results.put(assessment.getTrainee(), new Double[]{(assessment.getScore()*weight), weight, Double.valueOf(assessment.getAssessment().getWeek())} );
+		}
 		return null;
 	}
   
