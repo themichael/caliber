@@ -1,5 +1,6 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -20,7 +21,9 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "CALIBER_GRADE")
-public class Grade {
+public class Grade implements Serializable{
+
+	private static final long serialVersionUID = -2031135710502844800L;
 
 	@Id
 	@Column(name = "GRADE_ID")

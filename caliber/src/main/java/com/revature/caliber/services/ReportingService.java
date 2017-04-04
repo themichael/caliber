@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
@@ -70,35 +69,29 @@ public class ReportingService {
 	// returns Map relating the number of trainees per QCStatus
 	public Map<QCStatus, Integer> batchWeekPieChart(Integer batchId, Integer weekNumber) {
 
-		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		List<Note> notes = noteDAO.findQCBatchNotes(batchId, weekNumber);
 		Map<QCStatus, Integer> results = new HashMap<>();
 		for (QCStatus s : QCStatus.values()) {
 			results.put(s, 0);
 		}
-		for (Trainee t : trainees) {
-			for (Note n : t.getNotes()) {
-				if (n.getWeek() == weekNumber) {
-					if (n.getType() == NoteType.QC_TRAINEE) {
-						QCStatus status = n.getQcStatus();
-						Integer temp = results.get(status);
-						temp++;
-						results.remove(status);
-						results.put(status, temp);
-					}
-				}
+		for (Note n : notes) {
+			QCStatus status = n.getQcStatus();
+			Integer temp = results.get(status);
+			temp++;
+			results.remove(status);
+			results.put(status, temp);
 			}
-		}
-
 		return results;
 	}
 
-	//public Map<Integer, Double> lineCharAVG(int batchId, int week, int traineeId) {
+	// public Map<Integer, Double> lineCharAVG(int batchId, int week, int
+	// traineeId) {
 	public Map<Integer, Double> lineCharAVG(int batchId, int week, int traineeId) {
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		Map<Integer, Double> data = new HashMap<Integer, Double>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
-		for(int  w= 0;w<=week;w++){
-			data.put(w,getWeightedAverageGradesOfTraineeByWeek(traineeId, w)
+		for (int w = 0; w <= week; w++) {
+			data.put(w, getWeightedAverageGradesOfTraineeByWeek(traineeId, w)
 					.get(trainee.getGrades().iterator().next().getAssessment().getTitle()));
 		}
 
@@ -146,9 +139,8 @@ public class ReportingService {
 	public Map<String, Double[]> getWeightedAverageGradesOfTraineeByWeek2(Integer traineeId, Integer week) {
 		Map<String, Double[]> results = new HashMap<>();
 		List<Grade> allGrades = gradeDAO.findByTrainee(traineeId);
-		List<Grade> gradesForTheWeek = allGrades.stream()
-												.filter(el -> el.getAssessment().getWeek() == week)
-												.collect(Collectors.toList());
+		List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
+				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		for (Grade grade : gradesForTheWeek) {
 			Double[] temp = new Double[2];
@@ -162,45 +154,65 @@ public class ReportingService {
 	public Map<String, Double> getWeightedAverageGradesOfTraineeByWeek(Integer traineeId, Integer week) {
 		Map<String, Double> results = new HashMap<>();
 		List<Grade> allGrades = gradeDAO.findByTrainee(traineeId);
-		List<Grade> gradesForTheWeek = allGrades.stream()
-												.filter(el -> el.getAssessment().getWeek() == week)
-												.collect(Collectors.toList());
+		List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
+				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		for (Grade grade : gradesForTheWeek) {
-			results.put(grade.getAssessment().getType().name(), grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+			results.put(grade.getAssessment().getType().name(),
+					grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
 		}
 		return results;
 	}
-	
+
 	/**
-	 * Gets the average for a given Trainee ID for the entire week for one particular assessment.
+	 * Gets the average for a given Trainee ID for the entire week for one
+	 * particular assessment.
 	 * 
 	 * @param traineeId
 	 * @param week
 	 * @param assessmentType
 	 * @return
 	 */
-	public Double getAvgTraineeWeek(Integer traineeId, Integer week, AssessmentType assessmentType) {
-
-		return null;
+	public Double[] getAvgTraineeWeek(Integer traineeId, Integer week, AssessmentType assessmentType) {
+		List<Grade> allGrade = gradeDAO.findByTrainee(traineeId);
+		List<Grade> gradesForTheWeek = allGrade.stream()
+				.filter(el -> el.getAssessment().getWeek() == week
+						&& el.getAssessment().getType().name() == assessmentType.toString())
+				.collect(Collectors.toList());
+		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
+		Double[] result = new Double[2];
+		for (Grade grade : gradesForTheWeek) {
+			result[0] += (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+			result[1] += grade.getAssessment().getRawScore();
+		}
+		result[1] = result[1] / totalRawScore;
+		return result;
 	}
 
 	/**
-	 * Gets the average for a given Batch ID for the entire week for one particular assessment.
+	 * Gets the average for a given Batch ID for the entire week for one
+	 * particular assessment.
 	 * 
 	 * @param batchId
 	 * @param week
 	 * @param assessmentType
 	 * @return
 	 */
-	public Map<Trainee, Double[]> getAvgBatchWeek(Integer batchId, Integer week,  AssessmentType assessmentType) {
 
+	public Map<Trainee, Double[]> getAvgBatchWeek(Integer batchId, Integer week,  AssessmentType assessmentType) {
+		Map<Trainee, Double[]> results = new HashMap<>(); 
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+	
+		
+		
+		
 		return null;
 	}
 
 	/**
-	 * Get Weighted Average for a single assessment type for a given Trainee ID, returning weeks as keys in the map and the
-	 * corresponding values of weight(%) and scores.
+	 * Get Weighted Average for a single assessment type for a given Trainee ID,
+	 * returning weeks as keys in the map and the corresponding values of
+	 * weight(%) and scores.
 	 * 
 	 * @param traineeId
 	 * @param assessmentType
@@ -221,13 +233,13 @@ public class ReportingService {
 		
 		return results;
 	}
-	
+
 	/**
 	 * Get Weighted Average for a the whole batch for all the weeks per an assessment
 	 * @param batchId
 	 * @param assessmentType
 	 * @return Trainee: The Trainee, Double[]: 0: Score, 1: Weight, 2: Week
-	 */
+	*/
 	public Map<Trainee, Double[]> getAvgBatchOverall(Integer batchId, AssessmentType assessmentType) {
 		Map<Trainee, Double[]> results = new HashMap<>();
 		List<Grade> grades = gradeDAO.findByBatch(batchId);
@@ -239,7 +251,7 @@ public class ReportingService {
 			Double weight = assessment.getAssessment().getRawScore() / totalRawScore;
 			results.put(assessment.getTrainee(), new Double[]{(assessment.getScore()*weight), weight, Double.valueOf(assessment.getAssessment().getWeek())} );
 		}
-		return null;
+		return results;
 	}
   
 }

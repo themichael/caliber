@@ -1,5 +1,6 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -31,7 +32,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "CALIBER_TRAINEE")
-public class Trainee {
+public class Trainee implements Serializable{
+
+	private static final long serialVersionUID = -9090223980655307018L;
 
 	@Id
 	@Column(name = "TRAINEE_ID")
@@ -64,11 +67,11 @@ public class Trainee {
 	private String profileUrl;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="trainee")
+	@OneToMany(mappedBy="trainee", cascade = CascadeType.ALL)
     private Set<Grade> grades;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="trainee")
+	@OneToMany(mappedBy="trainee", cascade = CascadeType.ALL)
 	private Set<Note> notes;
 
 	public int getTraineeId() {

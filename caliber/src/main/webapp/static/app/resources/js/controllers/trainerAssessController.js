@@ -1,10 +1,28 @@
+/**
+ * Refactor to use week index instead of Week object
+ */
 angular.module("trainer")
     .controller("trainerAssessController", function($log, $scope, chartsDelegate, caliberDelegate, allBatches){
-    	$log.debug('test trainer assess -j');
+
         $log.debug("Booted Trainer Aesess Controller");
 
         /******************************TEST DATA***********************/
-        $scope.skill_categories = [
+       
+
+        
+        $scope.skill_categories = function (){
+        	var allCategories = [];
+        	caliberDelegate.all.getAllCategories().then(function(categories){
+        		$scope.categories = categories;
+        		$log.debug("all Categories");
+                $log.debug(categories);
+        		
+        	})
+        	
+        };
+        	
+        	/*
+        	[
             {categoryId: 1, skillCategory:"Java"},
             {categoryId: 2, skillCategory:"SQL"},
             {categoryId: 3, skillCategory:"Servlet"},
@@ -52,22 +70,25 @@ angular.module("trainer")
             {categoryId: 45, skillCategory:"WPF"},
             {categoryId: 46, skillCategory:"WCF"}
         ];
+*/
 
 
 
-
-        /******************************************* UI ***********************************************/
+        /******************************************* UI *********************************************/
         ///////////////////////////////////////////////////////////////////////////////////////////// load note types
         caliberDelegate.all.enumNoteType().then(function(noteTypes) {
         	$log.debug(noteTypes);
         	// do something with note type
         });
         ///////////////////////////////////////////////////////////////////////////////////////////// load assessment types
-        caliberDelegate.all.enumNoteType().then(function(trainingTypes) {
-        	$log.debug(trainingTypes);
-        	$scope.note.options = trainingTypes;
+        $scope.assessmentType= {
+                model: null,
+                options: []
+            };
+        caliberDelegate.all.enumAssessmentType().then(function(assessmentTypes) {
+        	$log.debug(assessmentTypes);
+        	$scope.assessmentType.options = assessmentTypes;
         });
-        
         
         $log.debug("Batches " + allBatches);
         $log.debug(allBatches);
@@ -76,7 +97,6 @@ angular.module("trainer")
             $scope.batches = allBatches;
             if(allBatches.length > 0){
                 $scope.currentBatch = allBatches[0];
-            /************************************************TODO REFACTOR***************************************/
                 if(allBatches[0].weeks.length > 0){
                     allBatches[0].weeks.sort(weekComparator);
                     $scope.currentWeek = allBatches[0].weeks[0];
@@ -88,7 +108,6 @@ angular.module("trainer")
                 $scope.currentBatch = null;
                 $scope.currentWeek = null;
             }
-            /************************************************TODO REFACTOR***************************************/
             $log.debug("Starting Values: currentBatch and currentWeek");
             $log.debug($scope.currentBatch);
             $log.debug($scope.currentWeek);
@@ -106,40 +125,34 @@ angular.module("trainer")
         // batch drop down select
         $scope.selectCurrentBatch = function(index){
             $scope.currentBatch = $scope.batches[index];
-            /************************************************TODO REFACTOR***************************************/
+
             if($scope.currentBatch.weeks.length > 0){
                 $scope.currentBatch.weeks.sort(weekComparator);
                 $scope.currentWeek = $scope.currentBatch.weeks[0];
             }
             else $scope.currentWeek = null;
-            /************************************************TODO REFACTOR***************************************/
+
             /** replace with ajax call to get assessments by weekId **/
-            getAllAssessmentsForWeek();
+            getAllAssessmentsForWeek()
         };
 
 
         // select week
         $scope.selectWeek = function (index) {
-        	/************************************************TODO REFACTOR***************************************/
             $scope.currentWeek = $scope.currentBatch.weeks[index];
             $log.debug($scope.currentWeek);
-            /************************************************TODO REFACTOR***************************************/
             /** ajax call to get assessments by weekId **/
             getAllAssessmentsForWeek();
         };
 
         // active week
         $scope.showActiveWeek = function (index) {
-        	/************************************************TODO REFACTOR***************************************/
             if ($scope.currentWeek === $scope.currentBatch.weeks[index])
-            /************************************************TODO REFACTOR***************************************/
                 return "active";
-
         };
 
         //create week
         $scope.createWeek = function () {
-        	/************************************************TODO REFACTOR***************************************/
             var weekNumber;
             if(!$scope.currentBatch.weeks)
                 weekNumber  = 1;
@@ -150,7 +163,7 @@ angular.module("trainer")
                 weekNumber: weekNumber,
                 batch: $scope.currentBatch,
                 topics:null
-            };		/***************************NOW TAKES BATCHID--NO OBJECT************************/
+            };
             caliberDelegate.trainer.createWeek(weekObj).then(function (response) {
                 pushUnique($scope.currentBatch.weeks, {
                     weekId:response,
@@ -160,7 +173,6 @@ angular.module("trainer")
                 });
                 $log.debug($scope.currentBatch.weeks);
             });
-            /************************************************TODO REFACTOR***************************************/
 
         };
 
@@ -175,13 +187,11 @@ angular.module("trainer")
             getAllAssessmentsForWeek();
             var assessment = {
                 assessmentId: 1,
-                title: $scope.assessName,
+                title: $scope.trainingName,
                 batch: $scope.currentBatch.batchId,
-                type: $scope.assessType,
-                /************************************************TODO REFACTOR***************************************/
+                type: $scope.trainingType,
                 categories:  $scope.selectedCategories,
                 week: $scope.currentWeek.weekId,
-                /************************************************TODO REFACTOR***************************************/
                 weeklyStatus: null,
                 rawScore: $scope.rawScore
             };
@@ -258,7 +268,7 @@ angular.module("trainer")
                 "and assessment"+assessmentId +" in the  grades array:");
             $log.debug($scope.grades);
             for(var i in $scope.grades){
-                if($scope.grades[i].trainee== traineeId && $scope.grades[i].assessment.assessmentId == assessmentId)
+                if($scope.grades[i].trainee===traineeId && $scope.grades[i].assessment.assessmentId===assessmentId)
                 {
                     $log.debug("FOUND GRADE " + $scope.grades[i].gradeId);
                     $log.debug($scope.grades[i]);
@@ -267,17 +277,15 @@ angular.module("trainer")
 
             }
         };
-        /************************************************TODO REFACTOR***************************************/
+
         function weekComparator(w1,w2) {
             return (w1.weekNumber>w2.weekNumber)? 1:
                 (w2.weekNumber>w1.weekNumber)?-1 : 0;
         }
-        /************************************************TODO REFACTOR***************************************/
+
         function getAllAssessmentsForWeek(){
             $scope.grades = [];
-            /************************************************TODO REFACTOR***************************************/
             caliberDelegate.trainer.getAllAssessments($scope.currentWeek.weekId)
-            /************************************************TODO REFACTOR***************************************/
                 .then(function(data){
                     $scope.currentAssessments = data;
                     $log.debug("These are the assessments");
@@ -296,11 +304,10 @@ angular.module("trainer")
 
                 });
         }
-        /************************************************TODO POSSIBLE REFACTOR FOR WEEK PROBLEM***************************************/
         function pushUnique(arr, item){
-            if (arr.indexOf(item) == -1) {
+            if (arr.indexOf(item) === -1) {
                 arr.push(item);
             }
         }
-        /************************************************TODO POSSIBLE REFACTOR***************************************/
+
     });

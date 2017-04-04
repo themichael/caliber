@@ -1,8 +1,10 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum SkillType {
+public enum SkillType implements Serializable{
 	@JsonProperty("J2EE")
 	J2EE("J2EE"),
 	@JsonProperty(".NET")
