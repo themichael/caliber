@@ -60,7 +60,9 @@ angular.module("trainer").controller(
         // load training types
         caliberDelegate.all.enumTrainingType().then(function(trainingTypes) {
         	$log.debug(trainingTypes);
-        	$scope.trainingType.options = trainingTypes.data;
+        	angular.forEach(trainingTypes, function(value, key) {
+        		$scope.trainingType.options.push(value);
+        	});
         });
         // load skill types        
         $scope.skillType = {														
@@ -69,7 +71,7 @@ angular.module("trainer").controller(
         };
         caliberDelegate.all.enumSkillType().then(function(skillTypes) {
         	$log.debug(skillTypes);
-        	$scope.skillType.options = skillTypes.data;
+        	$scope.skillType.options = skillTypes;
         });
         
         $scope.location = {
