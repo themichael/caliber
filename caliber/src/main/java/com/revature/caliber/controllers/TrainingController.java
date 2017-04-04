@@ -187,7 +187,7 @@ public class TrainingController {
 	 *            the trainee
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainee(@RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
