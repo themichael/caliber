@@ -63,9 +63,13 @@ angular.module("trainer")
         	// do something with note type
         });
         ///////////////////////////////////////////////////////////////////////////////////////////// load assessment types
-        caliberDelegate.all.enumNoteType().then(function(trainingTypes) {
-        	$log.debug(trainingTypes);
-        	$scope.note.options = trainingTypes;
+        $scope.assessmentType= {
+                model: null,
+                options: []
+            };
+        caliberDelegate.all.enumAssessmentType().then(function(assessmentTypes) {
+        	$log.debug(assessmentTypes);
+        	$scope.assessmentType.options = assessmentTypes;
         });
         
         

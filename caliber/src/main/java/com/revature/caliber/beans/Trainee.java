@@ -64,11 +64,11 @@ public class Trainee {
 	private String profileUrl;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="trainee")
+	@OneToMany(mappedBy="trainee", cascade = CascadeType.ALL)
     private Set<Grade> grades;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="trainee")
+	@OneToMany(mappedBy="trainee", cascade = CascadeType.ALL)
 	private Set<Note> notes;
 
 	public int getTraineeId() {

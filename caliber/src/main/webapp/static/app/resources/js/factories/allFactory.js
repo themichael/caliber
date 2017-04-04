@@ -17,7 +17,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
     };
     
     
-	all.enumNoteType = function() {
+	all.enumAssessmentType = function() {
         return $http({
             url: "/types/assessment/all",
             method: "GET"
