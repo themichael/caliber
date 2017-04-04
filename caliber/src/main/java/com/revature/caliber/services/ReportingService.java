@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
@@ -49,7 +50,9 @@ public class ReportingService
 	}
 
 	
-	
+	public Map<QCStatus qc, int num> batchWeekPieChart(){
+		
+	}
 	
 	
 	
