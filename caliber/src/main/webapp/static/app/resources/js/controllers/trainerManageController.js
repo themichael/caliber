@@ -2,7 +2,7 @@ angular.module("trainer").controller(
     "trainerManageController",
     function ($scope, $log, caliberDelegate, allBatches) {
         $log.debug("Booted trainer manage controller.");
-
+        $log.debug('test trainermanager cntroller -j')
         /**************************** Batch *****************************/
 
         /**     On page start --> load all trainers     **/
