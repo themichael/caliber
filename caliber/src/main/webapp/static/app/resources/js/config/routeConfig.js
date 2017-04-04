@@ -56,7 +56,7 @@ angular.module("app").config(
             })
             .state("qc.assess", {
                 url: "/assess",
-                templateUrl: "/static/app/partials/assess/trainer-assess.html",
+                templateUrl: "/static/app/partials/assess/qc-assess.html",
                 controller: "qcAssessController"
             })
             // trainer
