@@ -41,28 +41,30 @@ public class AssessmentController {
 	 */
 
 	/**
+	 * QC can no longer create assessment, trainer only function
 	 * Create assessment response entity.
 	 *
 	 * @param assessment
 	 *            the assessment
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/assessment/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	/*@RequestMapping(value = "/all/assessment/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createAssessment(@RequestBody Assessment assessment) {
 		log.info("Creating assessment: " + assessment);
 		assessmentService.save(assessment);
 		return new ResponseEntity<>(HttpStatus.CREATED);
-	}
+	}*/
 
 	/**
+	 * QC can not delete assessment, VP only function
 	 * Delete assessment response entity.
 	 *
 	 * @param id
 	 *            the id
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/assessment/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+/*	@RequestMapping(value = "/all/assessment/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> deleteAssessment(@PathVariable Long id) {
 		log.info("Deleting assessment: " + id);
@@ -70,7 +72,7 @@ public class AssessmentController {
 		assessment.setAssessmentId(id);
 		assessmentService.delete(assessment);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
+	}*/
 
 	/**
 	 * Update assessment response entity.
@@ -114,4 +116,6 @@ public class AssessmentController {
 		List<Assessment> assessments = assessmentService.findAssessmentByBatchId(batchId);
 		return new ResponseEntity<List<Assessment>>(assessments, HttpStatus.OK);
 	}
+	
+		
 }

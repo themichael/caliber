@@ -54,7 +54,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
 
     /************************* Assessment ***********************/
     // get all assessments by batchid
-    qc.getAllAssessments = function (batchId) {
+    qc.getAssessmentsByBatchId = function (batchId) {
         return $http({
             url: "/assessment/" + batchId,
             method: "GET"
@@ -67,21 +67,6 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
         });
     };
     
-    // create assessment
-    qc.createAssessment = function (assessmentObj) {
-        return $http({
-            url: "/qc/assessment/create",
-            method: "POST",
-            data: assessmentObj
-        }).then(function (response) {
-            $log.debug("Assessment created successfully");
-            $log.debug(response);
-            return response.data;
-        }, function (response) {
-            $log.error("There was an error: " + response.status);
-        });
-    };
-
     // get all assessments
     qc.getAllAssessments = function (weekId) {
         return $http({
@@ -95,9 +80,27 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
             $log.error("There was an error: " + response.status);
         });
     };
+    
+	// QC no longer can create assessment
+    // create assessment
+    /*
+    qc.createAssessment = function (assessmentObj) {
+        return $http({
+            url: "/qc/assessment/create",
+            method: "POST",
+            data: assessmentObj
+        }).then(function (response) {
+            $log.debug("Assessment created successfully");
+            $log.debug(response);
+            return response.data;
+        }, function (response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };*/
 
     // update assessment
-    qc.updateAssessment = function (assessmentObj) {
+    // QC can no longer overwrite assessments
+/*    qc.updateAssessment = function (assessmentObj) {
         return $http({
             url: "/qc/assessment/update/",
             method: "PUT",
@@ -108,10 +111,11 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
         }, function (response) {
             $log.error("There was an error: " + response.status);
         });
-    };
+    };*/
 
     // delete assessment
-    qc.deleteAssessment = function (assessmentId) {
+    // QC can not delete assessment
+/*    qc.deleteAssessment = function (assessmentId) {
         return $http({
             url: "/qc/assessment/delete/" + assessmentId,
             method: "DELETE"
@@ -121,7 +125,7 @@ angular.module("api").factory("qcFactory", function ($log, $http) {
         }, function (response) {
             $log.error("There was an error: " + response.status);
         });
-    };
+    };*/
 
     // 
     
