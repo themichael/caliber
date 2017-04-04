@@ -145,7 +145,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-2 col-xs-2"
                          ng-repeat="category in skill_categories track by $index">
                             <input type="checkbox" ng-checked="selectedCategories.indexOf(category.skillCategory) > -1"
-                                   ng-click="toggleSelection(category.skillCategory)" id="{{p.category}}">
+                                   ng-click="toggleSelection(category.skillCategory)" id="{{category}}">
                             <label for="{{category}}">{{category.skillCategory}}</label>
                             <br>
                         </div>
