@@ -61,6 +61,7 @@ angular.module("trainer").controller(
             model: null
         };
         $scope.enumSkillType = caliberDelegate.all.enumSkillType();
+        $log.debug("LOAD! " + $scope.enumSkillType);
         
         $scope.location = {
             model: null,
