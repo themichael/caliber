@@ -5,6 +5,18 @@ angular.module("api").factory("allFactory", function ($log, $http) {
     var all = {};
 
     /*************************** Enum constants ************************/
+    all.enumCommonLocations = function(){ 
+		 return $http({
+	         url: "/all/locations",
+	         method: "GET"
+	     }).then(function(response) {
+	         return response.data;
+	     }, function(response) {
+	         $log.error("There was an error: " + response.status);
+	     });
+    };
+    
+    
 	all.enumNoteType = function() {
         return $http({
             url: "/types/assessment/all",

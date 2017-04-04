@@ -55,18 +55,19 @@ angular.module("trainer").controller(
         
         $scope.trainingType = {
             model: null,
-            options: []
+            options: ['Revature']
         };
         // load training types
         caliberDelegate.all.enumTrainingType().then(function(trainingTypes) {
         	$log.debug(trainingTypes);
         	$scope.trainingType.options = trainingTypes;
         });
-        // load skill types        
+     
         $scope.skillType = {														
             model: null,
-            options: []
+            options: ['J2EE','.NET','SDET']
         };
+        // load skill types   
         caliberDelegate.all.enumSkillType().then(function(skillTypes) {
         	$log.debug(skillTypes);
         	$scope.skillType.options = skillTypes;
@@ -74,8 +75,14 @@ angular.module("trainer").controller(
         
         $scope.location = {
             model: null,
-            options: ['Reston, VA', 'Queens, NY', 'Manhattan, NY']
+            options: ['Reston, VA']
         };
+        // load common locations
+        caliberDelegate.all.enumCommonLocations().then(function(locations) {
+        	$log.debug(locations);
+        	$scope.location.options = locations;
+        });
+        
         $scope.receivers = [{value: ""}];
         $scope.addRecipient = function () {
             $scope.receivers.push({value: ""});
@@ -159,7 +166,7 @@ angular.module("trainer").controller(
             model: null
         };
         /* Set default training status for new trainee */
-        $scope.trainingStatus = "Trainee";
+        $scope.trainingStatus = "Training";
 
         /**      Save New Trainee Input     **/
         $scope.addNewTrainee = function () {
@@ -167,7 +174,10 @@ angular.module("trainer").controller(
                 var newTrainee = {
                     name: $scope.receivers[i].name,
                     email: $scope.receivers[i].email,
-                    trainingStatus: $scope.trainingStatus,
+                    trainingStatus: $scope.receivers[i].trainingStatus,
+                    phoneNumber: receivers[i].phoneNumber,
+                    skypeId :receivers[i].skypeId,
+                    profileUrl :receivers[i].profileUrl,
                     batch: $scope.currentBatch
                 };
                 $log.debug(newTrainee);
@@ -176,17 +186,20 @@ angular.module("trainer").controller(
                         name: newTrainee.name,
                         email: newTrainee.email,
                         trainingStatus: newTrainee.trainingStatus,
+                        phoneNumber: newTrainee.phoneNumber,
+                        skypeId: newTrainee.skypeId,
+                        profileUrl: newTrainee.profileUrl,
                         batch: null
                     });
                 });
             }
-            $scope.receivers = [{name: "", email: ""}];
+            $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
         };
 
         /**  Add Or Remove New Trainee Form */
-        $scope.receivers = [{name: "", email: ""}];
+        $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
         $scope.addTrainee = function () {
-            $scope.receivers.push({name: "", email: ""});
+            $scope.receivers.push({name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""});
         };
         $scope.deleteTrainee = function (receiver) {
             for (var i = 0; i < $scope.receivers.length; i++) {

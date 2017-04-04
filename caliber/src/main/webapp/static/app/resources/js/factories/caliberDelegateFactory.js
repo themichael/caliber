@@ -55,6 +55,10 @@ angular.module("delegate").factory("caliberDelegate",
         
         /************************* Enum constants ****************************/
         
+        delegate.all.enumCommonLocations = function() {
+			return allFactory.enumCommonLocations();
+		};
+        
         delegate.all.enumAssessmentType = function () {
             return allFactory.enumAssessmentType();
         };

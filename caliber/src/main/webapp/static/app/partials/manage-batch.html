@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <!-- Create Batch Modal -->
+    <!--********************************************* Create Batch Modal ************************************-->
     <form>
         <div class="modal fade" id="createBatchModal" tabindex="-1" role="dialog" aria-labelledby="batchModalLabel">
             <div class="modal-dialog" role="document">
@@ -85,7 +85,7 @@
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="trainingName">Training Name:</label>
                                 <input ng-model="trainingName.model" type="text" class="form-control" id="trainingName"
-                                       placeholder="Enter Training Name" required>
+                                       placeholder="1611 Jul11 Java" required>
                             </div>
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="trainingType">Training Type:</label>
@@ -171,7 +171,7 @@
         </div>
     </form>
 
-    <!-- Add Trainee Modal-->
+  <!--********************************************* Add Trainee Modal ************************************-->
     <form>
         <div class="modal fade" id="addTraineeModal" tabindex="-1" role="dialog" aria-labelledby="traineeModalLabel">
             <div class="modal-dialog" role="document">
@@ -220,6 +220,35 @@
                                             <label for="traineeEmail">Email:</label>
                                             <input ng-model="receiver.email" type="text" class="form-control"
                                                    id="traineeEmail" placeholder="Email" required>
+                                        </div>
+                                    </td>
+<!-- ----------------------------------------- CHANGE TO < SELECT >  -->
+                                    <td>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <label for="traineeStatus">Training Status</label>
+                                            <input ng-model="receiver.trainingStatus" type="text" class="form-control"
+                                                   id="traineeStatus" placeholder="Training Status" required>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <label for="traineePhone">Phone:</label>
+                                            <input ng-model="receiver.phoneNumber" type="text" class="form-control"
+                                                   id="traineePhone" placeholder="(xxx) xxx-xxxx" required>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <label for="traineeSkype">Skype Id:</label>
+                                            <input ng-model="receiver.skypeId" type="text" class="form-control"
+                                                   id="traineeSkype" placeholder="Skype Id" required>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <label for="traineeProfile">Profile URL:</label>
+                                            <input ng-model="receiver.profileUrl" type="text" class="form-control"
+                                                   id="traineeProfile" placeholder="https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=AOQI8718A" required>
                                         </div>
                                     </td>
                                     <!-- Remove from view until synchronization issue is solved
