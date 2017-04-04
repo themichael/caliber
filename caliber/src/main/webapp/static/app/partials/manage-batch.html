@@ -155,16 +155,36 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-md-6 col-sm-6">
-								<label for="goodGrade">Good Grade Threshold:</label> <input
+								<label for="goodGrade">Good Grade:</label> <input
 									ng-model="goodGradeThreshold.model" type="number" min="0"
 									step="1" class="form-control" id="goodGrade"
-									placeholder="Enter Good Grade Threshold" required>
+									placeholder="80" required>
+								<a href="#" data-toggle="popover"
+								 data-content="The minimum acceptable grade.">
+								 	<span class="glyphicon-question-sign"></span></a>
 							</div>
 							<div class="form-group col-md-6 col-sm-6">
-								<label for="borderlineGrade">Borderline Grade Threshold:</label>
+								<label for="borderlineGrade">Passing Grade:</label>
 								<input ng-model="borderlineGradeThreshold.model" type="number"
 									min="0" step="1" class="form-control" id="borderlineGrade"
-									placeholder="Enter Borderline Grade Threshold" required>
+									placeholder="50" required>
+								<a href="#" data-toggle="popover"
+								 data-content="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action.">
+								 	<span class="glyphicon-question-sign"></span></a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-lg-12 col-md-12 col-sm-12">
+								<label for="benchmark-date">Benchmark Start Date:</label>
+								<div class="input-group" id="benchmark-date" data-datepicker="true">
+									<input ng-model="benchmarkStartDate.model"
+										class="date-input form-control date-selector" name="date"
+										min="0" type="date" required> <span
+										class="input-group-addon glyphicon glyphicon-calendar"></span>
+								<a href="#" data-toggle="popover"
+								 data-content="How far back in time the reports should go when comparing your batch against others.">
+								 	<span class="glyphicon-question-sign"></span></a>
+								</div>
 							</div>
 						</div>
 					</div>

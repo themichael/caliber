@@ -99,6 +99,9 @@ angular.module("trainer").controller(
         $scope.borderlineGradeThreshold = {
             model: null
         };
+        $scope.benchmarkStartDate = {
+        	model: null	
+        };
 
         /**     Get batches for user and trainees in each batch     **/
         $scope.selectCurrentBatch = function(index) {
@@ -119,7 +122,8 @@ angular.module("trainer").controller(
                 startDate: $scope.startDate.model,
                 endDate: $scope.endDate.model,
                 goodGradeThreshold: $scope.goodGradeThreshold.model,
-                borderlineGradeThreshold: $scope.borderlineGradeThreshold.model
+                borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
+                benchmarkStartDate: $scope.benchmarkStartDate.model
             };
             var trainer_name = $scope.trainer.model;
             var cotrainer_name = $scope.coTrainer.model;
@@ -149,7 +153,8 @@ angular.module("trainer").controller(
                     startDate: $scope.startDate.model,
                     endDate: $scope.endDate.model,
                     goodGradeThreshold: $scope.goodGradeThreshold.model,
-                    borderlineGradeThreshold: $scope.borderlineGradeThreshold.model
+                    borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
+                    benchmarkStartDate: $scope.benchmarkStartDate.model
                 });
                 sortByDate($scope.selectedYear);
             });
