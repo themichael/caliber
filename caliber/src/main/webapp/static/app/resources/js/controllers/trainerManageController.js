@@ -58,6 +58,7 @@ angular.module("trainer").controller(
             options: []
         };
         caliberDelegate.all.enumTrainingType().then(function(trainingTypes) {
+        	$log.debug(trainingTypes);
         	$scope.trainingType.options = trainingTypes;
         });
         
@@ -66,6 +67,7 @@ angular.module("trainer").controller(
             options: []
         };
         caliberDelegate.all.enumSkillType().then(function(skillTypes) {
+        	$log.debug(skillTypes);
         	$scope.skillType.options = skillTypes;
         });
         
