@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +42,18 @@ public class ReportingController {
 	 *
 	 *******************************************************
 	 */
-	
+	/**
+	 * For Displaying line graph of all trainee in batch and Avg score
+	 * @param batchId
+	 * @param week
+	 * @return JSON result of Map<Trainee, Double>
+	 */
+	@RequestMapping(value = "/all/reports/week/batch/{batchId}/week/{week}/line", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Trainee, Double>> getBatchWeeklyAvgAssessmentScore(int batchId, int week){
+		Map<Trainee, Double> results = reportingService.getBatchWeeklyAvgAssessmentScore(batchId, week);
+		return new ResponseEntity<Map<Trainee, Double>>(results, HttpStatus.OK);
+		
+	}
 	/**
 	 * Get aggregated grades by Category for a Trainee
 	 *
