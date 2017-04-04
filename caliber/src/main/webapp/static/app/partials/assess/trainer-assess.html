@@ -1,5 +1,5 @@
 <!-- Year selector and Add Assessment button -->
-<div class="container">
+<div class="container" ng-init="skill_categories()">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
             <button class="btn back-btn" ng-click="back()">
@@ -124,31 +124,45 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
-                        <label for="assessName">Training Name:</label>
-                        <input ng-model="assessName" type="text" class="form-control" id="assessName"
+                        <label for="assessmentName">Assessment Name:</label>
+                        <input ng-model="assessmentName" type="text" class="form-control" id="assessName"
                                placeholder="Title" required>
                     </div>
                     <!------------------------------------------------------------------------------------------ CHANGE TO < SELECT > -->
                     <div class="form-group col-md-6 col-sm-6">
-                        <label for="assessType">Training type:</label>
-                        <input ng-model="assessType" type="text" class="form-control" id="assessType"
-                               placeholder="Assessment Type" required>
-                    </div>
+						<label for="assessmentType">Assessment Type:</label> <select
+							ng-model="assessmentType.model" class="form-control"
+							id="assessmentType" required>
+							<option value="" disabled selected>Select Assessment Type</option>
+							<option ng-repeat="option in assessmentType.options">{{option}}</option>
+						</select>
+					</div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-6">
-                        <label for="rawScore">Raw Score:</label>
+                        <label for="rawScore">Max Points:</label>
                         <input ng-model="rawScore" type="number" class="form-control" id="rawScore"
                                placeholder="99" min="0" step="1" required>
                     </div>
                      <!------------------------------------------------------------------------------------------ CHANGE TO < SELECT > -->
-                    <div class="col-lg-4 col-md-4 col-sm-2 col-xs-2"
-                         ng-repeat="category in skill_categories track by $index">
+          
+           	       <div class="form-group col-md-6 col-sm-6">
+            				 <label>Skills:</label>
+            	 		<select class="form-control" ng-model="selectedCategories.category">
+             				<option ng-repeat="category in categories track by $index" value="{{category.skillCategory}}">{{category.skillCategory}}</option>
+             	 		</select>
+          		   </div>
+            
+             
+             
+                 <!--    <div class="col-lg-4 col-md-4 col-sm-2 col-xs-2"
+    
+                         ng-repeat="category in categories track by $index">
                             <input type="checkbox" ng-checked="selectedCategories.indexOf(category.skillCategory) > -1"
                                    ng-click="toggleSelection(category.skillCategory)" id="{{category}}">
                             <label for="{{category}}">{{category.skillCategory}}</label>
                             <br>
-                        </div>
+                        </div> -->
                 </div>
             </div>
             <div class="modal-footer">

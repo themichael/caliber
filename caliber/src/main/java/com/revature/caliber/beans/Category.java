@@ -1,5 +1,6 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,7 +18,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "CALIBER_CATEGORY")
-public class Category {
+public class Category implements Serializable{
+
+	private static final long serialVersionUID = 3363756954535297728L;
 
 	@Id
 	@Column(name = "CATEGORY_ID")
