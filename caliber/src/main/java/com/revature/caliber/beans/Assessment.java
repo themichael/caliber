@@ -1,5 +1,7 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,49 +21,49 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CALIBER_ASSESSMENT")
-public class Assessment {
+public class Assessment implements Serializable{
 
-    @Id
-    @Column(name = "ASSESSMENT_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ASSESSMENT_ID_SEQUENCE")
-    @SequenceGenerator(name = "ASSESSMENT_ID_SEQUENCE", sequenceName = "ASSESSMENT_ID_SEQUENCE")
-    private long assessmentId;
-    
-    /**
-     * Trainer inputted title,
-     * can be anything to help identify this assessment
-     */
-    @Column(name = "ASSESSMENT_TITLE", nullable = false)
-    private String title;
-    
-    /**
-     * Batch ID reference
-     */
-    @ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "BATCH_ID", nullable = false)
-    private Batch batch;
-    
-    /**
-     * Raw numerical score before calculations
-     * This value is the maximum number of points
-     * that can be earned on this assignment.
-     */
-    @Column(name = "RAW_SCORE")
-    private int rawScore;
-    
-    /**
-     * Assessment type, e.g. LMS, Verbal
-     */
-    @Enumerated(EnumType.STRING)
-    @Column(name = "ASSESSMENT_TYPE", nullable = false)
-    private AssessmentType type;
-    
-    @Column(name="WEEK_NUMBER")
-    private short week;
-    
-    @ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-    @JoinColumn(name="ASSESSMENT_CATEGORY")
-    private Category category;
+	private static final long serialVersionUID = 5030264218154828822L;
+
+	@Id
+	@Column(name = "ASSESSMENT_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ASSESSMENT_ID_SEQUENCE")
+	@SequenceGenerator(name = "ASSESSMENT_ID_SEQUENCE", sequenceName = "ASSESSMENT_ID_SEQUENCE")
+	private long assessmentId;
+
+	/**
+	 * Trainer inputted title, can be anything to help identify this assessment
+	 */
+	@Column(name = "ASSESSMENT_TITLE", nullable = false)
+	private String title;
+
+	/**
+	 * Batch ID reference
+	 */
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "BATCH_ID", nullable = false)
+	private Batch batch;
+
+	/**
+	 * Raw numerical score before calculations This value is the maximum number
+	 * of points that can be earned on this assignment.
+	 */
+	@Column(name = "RAW_SCORE", nullable = false)
+	private int rawScore;
+
+	/**
+	 * Assessment type, e.g. LMS, Verbal
+	 */
+	@Enumerated(EnumType.STRING)
+	@Column(name = "ASSESSMENT_TYPE", nullable = false)
+	private AssessmentType type;
+
+	@Column(name = "WEEK_NUMBER", nullable = false)
+	private short week;
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
+	private Category category;
 
 	public long getAssessmentId() {
 		return assessmentId;
@@ -72,7 +74,7 @@ public class Assessment {
 	}
 
 	public String getTitle() {
-		return title;
+		return this.category.getSkillCategory() + " " + this.type.name();
 	}
 
 	public void setTitle(String title) {
@@ -123,7 +125,8 @@ public class Assessment {
 		super();
 	}
 
-	public Assessment(String title, Batch batch, Integer rawScore, AssessmentType type, Integer week, Category category) {
+	public Assessment(String title, Batch batch, Integer rawScore, AssessmentType type, Integer week,
+			Category category) {
 		super();
 		this.title = title;
 		this.batch = batch;
@@ -138,5 +141,5 @@ public class Assessment {
 		return "Assessment [assessmentId=" + assessmentId + ", rawScore=" + rawScore + ", type=" + type + ", category="
 				+ category + "]";
 	}
-	
+
 }

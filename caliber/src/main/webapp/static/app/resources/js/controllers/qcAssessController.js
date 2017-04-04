@@ -3,6 +3,9 @@ angular.module("qc")
         $log.debug("Booted Trainer Assess Controller");
 
         /******************************** Sample Data *******************************/
+        $scope.demoTrainees = [{traineeId: 53, name: "Dan Pickles"},
+            {traineeId: 65, name: "Howard Johnson"},
+            {traineeId: 78, name: "Randolph Scott"}];
         $scope.batches = [
             {
                 batchId: 451, trainingName: 'Batch123', trainer: 'Patrick', coTrainer: '',
@@ -118,7 +121,44 @@ angular.module("qc")
         // END TEST DATA *********************
 
         /******************************************* UI ***********************************************/
+		// get status types
+        $scope.qcStatusTypes= {
+            options: []
+        };
+        caliberDelegate.all.enumQCStatus().then(function(qcStatusTypes) {
+        	$log.debug(qcStatusTypes);
+        	$scope.qcStatusTypes.options = qcStatusTypes;
+        });
+        
+		///////////////////////// overall feedback////////////////////////// 
+        $scope.finalQCBatchNote = {
+            model: null,
+        };
+        $scope.pickOverallStatus = function(batch, pick) {
+			$scope.qcBatchAssess = pick;
+			$log.debug(batch.trainingName + " " + pick);
+		};
+		
+		///////////////////////// individual feedback/////////////////////
+		
+		$scope.faces = []; // used to store which rows have what faces
+		
+		$scope.pickIndividualStatus = function(trainee, status, index){
+			$log.debug(trainee);
+			$log.debug(status);
+			// update face
+			$scope.faces[index] = status;
+		};
+		
+        ///////////////////////////////////////////////////////////////////////////////////////////// load note types
+        caliberDelegate.all.enumNoteType().then(function(noteTypes) {
+        	$log.debug(noteTypes);
+        	// do something with note type
+        });
+        
         // starting scope vars
+/************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
+/************************************************TODO REFACTOR: QC FEEDBACK IS NOTE.. NOT ASSESSMENT***************************************/
         $scope.currentBatch = $scope.batches[0];
         $scope.currentWeek = $scope.currentBatch.weeks[0];
         $scope.currentAssessments = getAssessments(0);
@@ -132,6 +172,7 @@ angular.module("qc")
         };
 
         // batch drop down select
+        /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectCurrentBatch = function (index) {
             $scope.currentBatch = $scope.batches[index];
             // set week
@@ -143,12 +184,14 @@ angular.module("qc")
         };
 
         // select week
+        /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectWeek = function (index) {
             $scope.currentWeek = $scope.currentBatch.weeks[index];
             /** ajax call to get assessments by weekId **/
         };
 
         // active week
+        /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.showActiveWeek = function (index) {
             if ($scope.currentWeek === $scope.currentBatch.weeks[index])
                 return "active";
@@ -170,6 +213,7 @@ angular.module("qc")
             return grade.score;
         };
 
+        /************************************************TODO REFACTOR***************************************/
         /* Save Assessment */
         $scope.addAssessment = function () {
             assessments.push({
@@ -181,7 +225,7 @@ angular.module("qc")
             });
             qcFactory.createAssessment()
         };
-
+        /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         // test function - get assessment
         function getAssessments(index) {
             return assessments[index];

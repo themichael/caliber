@@ -1,5 +1,7 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +18,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "CALIBER_NOTE")
-public class Note {
+public class Note implements Serializable{
+
+	private static final long serialVersionUID = -4960654794116385953L;
 
 	@Id
 	@Column(name = "NOTE_ID", nullable = false)
@@ -204,7 +208,7 @@ public class Note {
 	 * @param qcStatus
 	 */
 	private Note(String content, short week, Batch batch, NoteType type, QCStatus qcStatus) {
-		super();
+		this();
 		this.content = content;
 		this.week = week;
 		this.batch = batch;
@@ -233,7 +237,7 @@ public class Note {
 	 * @param qcStatus
 	 */
 	private Note(String content, short week, Trainee trainee, NoteType type, QCStatus qcStatus) {
-		super();
+		this();
 		this.content = content;
 		this.week = week;
 		this.trainee = trainee;
@@ -258,7 +262,7 @@ public class Note {
 	 * @param type
 	 */
 	private Note(String content, short week, Trainee trainee) {
-		super();
+		this();
 		this.content = content;
 		this.week = week;
 		this.trainee = trainee;
@@ -277,7 +281,7 @@ public class Note {
 	 * @param type
 	 */
 	private Note(String content, short week, Batch batch) {
-		super();
+		this();
 		this.content = content;
 		this.week = week;
 		this.batch = batch;
@@ -288,6 +292,7 @@ public class Note {
 
 	public Note() {
 		super();
+		this.maxVisibility = TrainerRole.TRAINER;
 	}
 
 	@Override

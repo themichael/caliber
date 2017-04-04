@@ -58,7 +58,7 @@ public class TraineeDAO {
 	public List<Trainee> findAllByBatch(Integer batchId) {
 		log.info("Fetching all trainees by batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.add(Restrictions.eq("batch.batchId", batchId.longValue()))
+				.add(Restrictions.eq("batch.batchId", batchId))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}

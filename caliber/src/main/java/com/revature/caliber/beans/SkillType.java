@@ -1,7 +1,20 @@
 package com.revature.caliber.beans;
 
-public enum SkillType {
-	J2EE("J2EE"), NET(".NET"), SDET("SDET"), BPM("BPM"), OTHER("Other");
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public enum SkillType implements Serializable{
+	@JsonProperty("J2EE")
+	J2EE("J2EE"),
+	@JsonProperty(".NET")
+	NET(".NET"),
+	@JsonProperty("SDET")
+	SDET("SDET"),
+	@JsonProperty("BPM")
+	BPM("BPM"),
+	@JsonProperty("Other")
+	OTHER("Other");
 	
 	private String type;
 
@@ -10,6 +23,11 @@ public enum SkillType {
 	}
 
 	public String getType() {
+		return type;
+	}
+	
+	@Override
+	public String toString() {
 		return type;
 	}
 	
