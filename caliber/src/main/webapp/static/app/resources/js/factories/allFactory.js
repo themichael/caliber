@@ -5,34 +5,83 @@ angular.module("api").factory("allFactory", function ($log, $http) {
     var all = {};
 
     /*************************** Enum constants ************************/
-    all.enumAssessmentType = function() {
-		return $http.get("/types/assessment/all").success(function(data, status, headers, config) {
-			return data;
-		});
-	};
-    all.enumNoteType = function() {
-		return $http.get("/types/note/all").success(function(data, status, headers, config) {
-			return data;
-		});
-	};
-    all.enumQCStatus = function() {
-		return $http.get("/types/qcstatus/all").success(function(data, status, headers, config) {
-			return data;
-		});
-	};
-    all.enumSkillType = function() {
-		return $http.get("/types/skill/all").success(function(data, status, headers, config) {
-			return data;
-		});
-	};
-    all.enumTrainingStatus = function() {
-		return $http.get("/types/trainingstatus/all").success(function(data, status, headers, config) {
-			return data;
-		});
-	};
-    all.enumTrainingType = $http.get("/types/training/all").success(function(data, status, headers, config) {
-		$log.debug("server sent enum training type");
-	});
+	all.enumNoteType = function() {
+        return $http({
+            url: "/types/assessment/all",
+            method: "GET"
+        }).then(function(response) {
+            $log.debug("enum assessment types successfully retrieved.");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+	
+	all.enumNoteType = function() {
+        return $http({
+            url: "/types/note/all",
+            method: "GET"
+        }).then(function(response) {
+            $log.debug("enum note types successfully retrieved.");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+	
+	all.enumQCStatus = function() {
+        return $http({
+            url: "/types/qcstatus/all",
+            method: "GET"
+        }).then(function(response) {
+            $log.debug("enum qc status types successfully retrieved.");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+	
+	all.enumSkillType = function() {
+        return $http({
+            url: "/types/skill/all",
+            method: "GET"
+        }).then(function(response) {
+            $log.debug("enum skill types successfully retrieved.");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+	
+	all.enumTrainingStatus = function() {
+        return $http({
+            url: "/types/trainingstatus/all",
+            method: "GET"
+        }).then(function(response) {
+            $log.debug("enum training status types successfully retrieved.");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+	
+    all.enumTrainingType = function() {
+        return $http({
+            url: "/types/training/all",
+            method: "GET"
+        }).then(function(response) {
+            $log.debug("enum training types successfully retrieved.");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
     
     
     /*************************** Batch ************************/
