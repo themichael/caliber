@@ -44,7 +44,7 @@ public class Assessment {
 	 * Raw numerical score before calculations This value is the maximum number
 	 * of points that can be earned on this assignment.
 	 */
-	@Column(name = "RAW_SCORE")
+	@Column(name = "RAW_SCORE", nullable = false)
 	private int rawScore;
 
 	/**
@@ -58,7 +58,7 @@ public class Assessment {
 	private short week;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "ASSESSMENT_CATEGORY")
+	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
 	private Category category;
 
 	public long getAssessmentId() {
