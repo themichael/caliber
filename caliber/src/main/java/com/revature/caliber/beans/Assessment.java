@@ -70,7 +70,7 @@ public class Assessment {
 	}
 
 	public String getTitle() {
-		return this.category.getSkillCategory() + this.type.name();
+		return this.category.getSkillCategory() + " " + this.type.name();
 	}
 
 	public void setTitle(String title) {
