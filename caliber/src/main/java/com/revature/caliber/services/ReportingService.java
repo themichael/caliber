@@ -1,5 +1,7 @@
 package com.revature.caliber.services;
 
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
 
+import com.revature.caliber.beans.Trainee;
 /**
  * Exclusively used to generate data for charts
  * 
@@ -49,7 +52,9 @@ public class ReportingService
 	}
 
 	
-	
+	public Map<Trainee, Double> getBatchWeeklyAssessmentScore(int batchId, int week){
+		return null;
+	}
 	
 	
 	
