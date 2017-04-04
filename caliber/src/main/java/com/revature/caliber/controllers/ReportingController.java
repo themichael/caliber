@@ -49,11 +49,11 @@ public class ReportingController {
 	 * @param week
 	 * @return JSON result of Map<Trainee, Double>
 	 */
-	@RequestMapping(value = "/all/reports/week/batch/{batchId}/week/{week}/bar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, Double>> getBatchWeeklyAvgAssessmentScore(@PathVariable int batchId,@PathVariable int week){
-		Map<String, Double> results = reportingService.getBatchWeeklyAssessmentScore(batchId, week);
-		return new ResponseEntity<Map<String, Double>>(results, HttpStatus.OK);
-	}
+//	@RequestMapping(value = "/all/reports/week/batch/{batchId}/week/{week}/bar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<Map<String, Double>> getBatchWeeklyAvgAssessmentScore(@PathVariable int batchId,@PathVariable int week){
+//		Map<String, Double> results = reportingService.getBatchWeeklyAssessmentScore(batchId, week);
+//		return new ResponseEntity<Map<String, Double>>(results, HttpStatus.OK);
+//	}
 	/**
 	 * Get aggregated grades by Category for a Trainee
 	 *
@@ -148,7 +148,7 @@ public class ReportingController {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
-	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/reports/batch/{batchId}/week/{weekId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HashMap<QCStatus,Integer>> aggregateQCPieChart(@PathVariable Integer batchId, Integer weekId) {
 		
 		HashMap<QCStatus,Integer> results = (HashMap<QCStatus, Integer>) reportingService.batchWeekPieChart(batchId, weekId);
