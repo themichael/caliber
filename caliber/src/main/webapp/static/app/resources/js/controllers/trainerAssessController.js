@@ -90,10 +90,11 @@ angular.module("trainer")
                 
                 	$scope.currentBatch.allWeeks = [];
 	               	 for(var i = 1; i <= totalWeeks; i++){
-	               		 	var assesments = getAllAssessmentsForWeek(allBatches[0].batchId, i);
-	               		 	var week = new Week(i, assesments);
+	               		 $scope.currentWeek = i;
+	               		 var assesments = getAllAssessmentsForWeek();
+	               		 var week = new Week(i, assesments);
+	               		 $scope.currentBatch.allWeeks.push(week);
 	       
-						 	$scope.currentBatch.allWeeks.push(week);
 					 }
 	                    $scope.currentWeek = $scope.currentBatch.allWeeks[0];
 
