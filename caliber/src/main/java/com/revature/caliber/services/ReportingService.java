@@ -70,25 +70,18 @@ public class ReportingService {
 	// returns Map relating the number of trainees per QCStatus
 	public Map<QCStatus, Integer> batchWeekPieChart(Integer batchId, Integer weekNumber) {
 
-		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		List<Note> notes = noteDAO.findQCBatchNotes(batchId, weekNumber);
 		Map<QCStatus, Integer> results = new HashMap<>();
 		for (QCStatus s : QCStatus.values()) {
 			results.put(s, 0);
 		}
-		for (Trainee t : trainees) {
-			for (Note n : t.getNotes()) {
-				if (n.getWeek() == weekNumber) {
-					if (n.getType() == NoteType.QC_TRAINEE) {
-						QCStatus status = n.getQcStatus();
-						Integer temp = results.get(status);
-						temp++;
-						results.remove(status);
-						results.put(status, temp);
-					}
-				}
+		for (Note n : notes) {
+			QCStatus status = n.getQcStatus();
+			Integer temp = results.get(status);
+			temp++;
+			results.remove(status);
+			results.put(status, temp);
 			}
-		}
-
 		return results;
 	}
 
