@@ -1,8 +1,10 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum TrainingType {
+public enum TrainingType implements Serializable {
 	@JsonProperty("Revature")
 	Revature,
 	@JsonProperty("Corporate")

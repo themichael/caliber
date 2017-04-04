@@ -198,7 +198,7 @@ public class TrainingController {
 	/**
 	 * Create trainees
 	 *
-	 *Uneeded. just do multiple calls to create Trainee
+	 *Uneeded. just do multiple calls to createTrainee
 	 * @param trainees
 	 *            the trainee
 	 * @return the response entity

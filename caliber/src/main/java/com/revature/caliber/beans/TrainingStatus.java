@@ -1,8 +1,10 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum TrainingStatus {
+public enum TrainingStatus implements Serializable{
 	@JsonProperty("Signed")
 	Signed,
 	@JsonProperty("Selected")
