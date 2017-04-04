@@ -1,5 +1,7 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -10,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Patrick Walsh
  *
  */
-public enum TrainerRole {
+public enum TrainerRole implements Serializable{
 	@JsonProperty("VP")
 	VP,
 	@JsonProperty("QC")
