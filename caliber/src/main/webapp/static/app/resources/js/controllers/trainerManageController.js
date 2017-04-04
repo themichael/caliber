@@ -167,7 +167,13 @@ angular.module("trainer").controller(
         };
         /* Set default training status for new trainee */
         $scope.trainingStatus = "Training";
-
+        // load training status types
+        caliberDelegate.all.enumTrainingStatus().then(function(statuses) {
+        	$log.debug(statuses);
+        	$scope.trainingStatues = statuses;
+        });
+        
+        
         /**      Save New Trainee Input     **/
         $scope.addNewTrainee = function () {
             for (var i = 0; i < $scope.receivers.length; i++) {
