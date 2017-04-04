@@ -146,6 +146,7 @@ public class ReportingService {
 	}
 
 	
+
 	/**
 	 * Weighted Average of a Trainee's Grade Scores for a given week number
 	 * 
@@ -155,16 +156,69 @@ public class ReportingService {
 	 *            number to get the grades for
 	 * @return A Map of String Names of Assessment Types, and
 	 */
-	public Map<String, Double> getWeightedAverageGradesOfTraineeByWeek(Trainee trainee, Integer week) {
-		Map<String, Double> results = new HashMap<>();
-		Set<Grade> gradesForTheWeek = trainee.getGrades().stream().filter(el -> el.getAssessment().getWeek() == week)
-				.collect(Collectors.toSet());
+	public Map<String, Double[]> getWeightedAverageGradesOfTraineeByWeek(Integer traineeId, Integer week) {
+		Map<String, Double[]> results = new HashMap<>();
+		List<Grade> allGrades = gradeDAO.findByTrainee(traineeId);
+		List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
+				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		for (Grade grade : gradesForTheWeek) {
-			results.put(grade.getAssessment().getTitle(),
-					grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+			Double[] temp = new Double[2];
+			temp[0] = grade.getAssessment().getRawScore() / totalRawScore;
+			temp[1] = grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore;
+			results.put(grade.getAssessment().getType().name(), temp);
 		}
 		return results;
 	}
 
+	/**
+	 * Gets the average for a given Trainee ID for the entire week for one particular assessment.
+	 * 
+	 * @param traineeId
+	 * @param week
+	 * @param assessmentId
+	 * @return
+	 */
+	public Double getAvgTraineeWeek(Integer traineeId, Integer week, Integer assessmentId) {
+
+		return null;
+	}
+
+	/**
+	 * Gets the average for a given Batch ID for the entire week for one particular assessment.
+	 * 
+	 * @param batchId
+	 * @param week
+	 * @param assessmentId
+	 * @return
+	 */
+	public Map<Trainee, Double[]> getAvgBatchWeek(Integer batchId, Integer week, Integer assessmentId) {
+
+		return null;
+	}
+
+	/**
+	 * Get Weighted Average for a single assessment for a given Trainee ID, returning weeks as keys in the map and the
+	 * corresponding values of weight(%) and scores.
+	 * 
+	 * @param traineeId
+	 * @param assessmentId
+	 * @return
+	 */
+	public Map<Integer, Double[]> getAvgTraineeOverall(Integer traineeId, Integer assessmentId) {
+
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param batchId
+	 * @param assessmentId
+	 * @return Trainee: The Trainee, Double[]: 0: Week#, 1: Average Score for that Assessment
+	 */
+	public Map<Trainee, Double[]> getAvgBatchOverall(Integer batchId, Integer assessmentId) {
+
+		return null;
+	}
+  
 }
