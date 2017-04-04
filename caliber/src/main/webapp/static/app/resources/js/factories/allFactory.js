@@ -4,6 +4,39 @@ angular.module("api").factory("allFactory", function ($log, $http) {
 
     var all = {};
 
+    /*************************** Enum constants ************************/
+    all.enumAssessmentType = function() {
+		return $http.get("types/assessment/all").success(function(data, status, headers, config) {
+			return data;
+		});
+	};
+    all.enumNoteType = function() {
+		return $http.get("types/note/all").success(function(data, status, headers, config) {
+			return data;
+		});
+	};
+    all.enumQCStatus = function() {
+		return $http.get("types/qcstatus/all").success(function(data, status, headers, config) {
+			return data;
+		});
+	};
+    all.enumSkillType = function() {
+		return $http.get("types/skill/all").success(function(data, status, headers, config) {
+			return data;
+		});
+	};
+    all.enumTrainingStatus = function() {
+		return $http.get("types/trainingstatus/all").success(function(data, status, headers, config) {
+			return data;
+		});
+	};
+    all.enumTrainingType = function() {
+		return $http.get("types/training/all").success(function(data, status, headers, config) {
+			return data;
+		});
+	};
+    
+    
     /*************************** Batch ************************/
 
     /**

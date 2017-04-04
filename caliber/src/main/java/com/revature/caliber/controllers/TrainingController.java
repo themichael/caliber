@@ -65,7 +65,7 @@ public class TrainingController {
 	 * `
 	 * @return
 	 */
-	@RequestMapping(value = "/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 		log.info("Fetching all trainers");

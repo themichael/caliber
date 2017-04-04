@@ -48,17 +48,17 @@ angular.module("trainer").controller(
             }
         }
 
-        /**     Add & View Batches     **/
+        /*****************************     Add & View Batch Modal     *****************************/
         $scope.trainingName = {
             model: null
         };
         $scope.trainingType = {
             model: null,
-            options: ['Corporate', 'CUNY', 'Other']
+            options: caliberDelegate.all.enumTrainingType()
         };
-        $scope.skillType = {
+        $scope.skillType = {														
             model: null,
-            options: ['Java', '.Net', 'C#']
+            options: caliberDelegate.all.enumSkillType()
         };
         $scope.location = {
             model: null,
