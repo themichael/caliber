@@ -95,6 +95,12 @@ a { color: #F26925;}
 .glyphicon { top: 0px; }
 .glyphicon-plus { padding-left: .5em; }
 .glyphicon-user { padding-left: .5em; }
+.glyphicon-question-sign { 
+	padding-left: .5em; 
+	color: white !important;
+	border-color: white !important;
+	background-color: #F26925 !important;
+}
 .glyph-top-margin { padding-top: 2em; }
 
 .btn-primary {
