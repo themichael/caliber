@@ -71,7 +71,6 @@ angular.module("delegate").factory("caliberDelegate",
             return allFactory.enumTrainingStatus();
         };
         delegate.all.enumTrainingType = function () {
-        	$log.debug("types: " + allFactory.enumTrainingType());
             return allFactory.enumTrainingType();
         };
 
