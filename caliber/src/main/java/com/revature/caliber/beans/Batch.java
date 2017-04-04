@@ -1,5 +1,6 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -30,7 +31,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Entity
 @Table(name="CALIBER_BATCH")
-public class Batch {
+public class Batch implements Serializable{
+
+	private static final long serialVersionUID = -5755409643112884001L;
 
 	@Id
 	@Column(name = "BATCH_ID")
