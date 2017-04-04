@@ -50,6 +50,8 @@ angular.module("trainer").controller(
 
         /*****************************     Add & View Batch Modal     *****************************/
         var trainingType = caliberDelegate.all.enumTrainingType();
+        $log.debug("Enum Training Types");
+        $log.debug(trainingType);
         $scope.trainingName = {
             model: null
         };
