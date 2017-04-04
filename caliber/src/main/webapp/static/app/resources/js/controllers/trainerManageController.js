@@ -142,7 +142,7 @@ angular.module("trainer").controller(
 
             result = caliberDelegate.all.createBatch(newBatch);
 
-            result.then(function () {
+            result.success(function () {
                 $scope.batches.push({
                     trainingName: $scope.trainingName.model,
                     trainingType: $scope.trainingType.model,
@@ -224,5 +224,7 @@ angular.module("trainer").controller(
                 }
             }
         };
+        
+        
 
     });

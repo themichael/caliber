@@ -216,6 +216,7 @@
 										<th>Training Status</th>
 										<th>Phone Number</th>
 										<th>Skype Id</th>
+										<th>Profile url</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -225,6 +226,7 @@
 										<td>{{trainee.trainingStatus}}</td>
 										<td>{{trainee.phoneNumber}}</td>
 										<td>{{trainee.skypeId}}</td>
+										<td>{{trainee.profileUrl}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -240,7 +242,7 @@
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeEmail">Email:</label> <input
-										ng-model="receiver.email" type="text" class="form-control"
+										ng-model="receiver.email" type="email" class="form-control"
 										id="traineeEmail" placeholder="Email" required>
 								</div>
 							</div>
@@ -255,6 +257,13 @@
 										ng-model="receiver.phoneNumber" type="text"
 										class="form-control" id="traineePhone"
 										placeholder="(xxx) xxx-xxxx" required>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-lg-12 col-md-12 col-sm-12">
+									<label for="traineeProfile">Profile URL:</label> <input
+										ng-model="receiver.profileUrl" type="text" class="form-control"
+										id="traineeName" placeholder="http://www.example.com" required>
 								</div>
 							</div>
 							<div class="row">
