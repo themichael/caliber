@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.services.ReportingService;
 
@@ -49,9 +50,9 @@ public class ReportingController {
 	 * @return JSON result of Map<Trainee, Double>
 	 */
 	@RequestMapping(value = "/all/reports/week/batch/{batchId}/week/{week}/bar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Trainee, Double>> getBatchWeeklyAvgAssessmentScore(@PathVariable int batchId,@PathVariable int week){
-		Map<Trainee, Double> results = reportingService.getBatchWeeklyAssessmentScore(batchId, week);
-		return new ResponseEntity<Map<Trainee, Double>>(results, HttpStatus.OK);
+	public ResponseEntity<Map<String, Double>> getBatchWeeklyAvgAssessmentScore(@PathVariable int batchId,@PathVariable int week){
+		Map<String, Double> results = reportingService.getBatchWeeklyAssessmentScore(batchId, week);
+		return new ResponseEntity<Map<String, Double>>(results, HttpStatus.OK);
 	}
 	/**
 	 * Get aggregated grades by Category for a Trainee
@@ -139,4 +140,13 @@ public class ReportingController {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<HashMap<QCStatus,Integer>> aggregateQCPieChart(@PathVariable Integer batchId, Integer weekId) {
+		
+		HashMap<QCStatus,Integer> results = (HashMap<QCStatus, Integer>) reportingService.batchWeekPieChart(batchId, weekId);
+		
+		
+		return new ResponseEntity<HashMap<QCStatus,Integer>>(results, HttpStatus.OK);
+	}
+	
 }

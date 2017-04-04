@@ -64,7 +64,7 @@ public class Trainee {
 	private String profileUrl;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="trainee")
+	@OneToMany(mappedBy="trainee", fetch= FetchType.EAGER)
     private Set<Grade> grades;
 
 	@JsonIgnore

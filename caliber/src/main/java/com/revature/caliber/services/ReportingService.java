@@ -11,9 +11,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
@@ -21,7 +22,6 @@ import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
 
-import com.revature.caliber.beans.Trainee;
 /**
  * Exclusively used to generate data for charts
  * 
@@ -79,21 +79,22 @@ public class ReportingService
 	 * get all trainee's avg score of all assessments.
 	 * @param batchId
 	 * @param week
-	 * @return Map<Trainee, Double (Avg score)>
+	 * @return Map<String (trainee's name), Double (Avg score)>
+	 * @author Pier Yos
 	 */
-	public Map<Trainee, Double> getBatchWeeklyAssessmentScore(int batchId, int week){
-		Map<Trainee, Double> results = new HashMap<>();
-		Map<String, Double> assessmentNscore = new HashMap<>();
-		List<Trainee> batch = traineeDAO.findAllByBatch(batchId);
-		for(Trainee trainee : batch) {
+	public Map<String, Double> getBatchWeeklyAssessmentScore(int batchId, int week){
+		Map<String, Double> results = new HashMap<>();
+		Map<String, Double> assessmentNscoreMap = new HashMap<>();
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		for(Trainee trainee : trainees) {
 			double score = 0;
 			int count = 0;
-			assessmentNscore = getWeightedAverageGradesOfTraineeByWeek(trainee, week);
-			for(Map.Entry<String, Double> assessmentScore : assessmentNscore.entrySet()){
+			assessmentNscoreMap = getWeightedAverageGradesOfTraineeByWeek(trainee, week);
+			for(Map.Entry<String, Double> assessmentScore : assessmentNscoreMap.entrySet()){
 				score += assessmentScore.getValue();
 				count++;
-			}
-			results.put(trainee, score/count);
+			}			
+			results.put(trainee.getName(), score/count);
 		}
 		return results;
 	}
@@ -122,7 +123,71 @@ public class ReportingService
 		}
 		return results;
 	}
+	//Pie chart displaying number of trainees that recieved red, yellow, green, or superstar
+	//returns Map relating the number of trainees per QCStatus
+	public Map<QCStatus, Integer> batchWeekPieChart(Integer batchId, Integer weekNumber){
+		
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		Map<QCStatus, Integer> results = new HashMap<>();
+		 for(QCStatus s : QCStatus.values()){
+			 results.put(s, 0);
+		 }
+		 for (Trainee t : trainees){
+			 for (Note n : t.getNotes()){
+				 if (n.getWeek()==weekNumber){
+					 if (n.getType()==NoteType.QC_TRAINEE){
+						 QCStatus status = n.getQcStatus();
+						 Integer temp = results.get(status);
+						 temp++;
+						 results.remove(status);
+						 results.put(status, temp);
+					 }
+				 }
+			 }
+		 }
+		 
+		return results;
+	}
+
+/*	public HashMap<Trainee, Double[]>  barChar(int batchId, int week) {
+		//BatchDAO  
+
+		
 	
+	}*/
+
+	public Map<Integer, Double> findAvgGradeByWeek(int traineeId) {
+		
+		TraineeDAO td= new TraineeDAO();
+		GradeDAO gd= new GradeDAO();
+		AssessmentDAO ad= new AssessmentDAO(); 
+		
+		Trainee trainee =td.findOne(traineeId);
+		List<Grade> gt=gd.findByTrainee(traineeId);
+		
+		Map<Integer, Double> data = new HashMap<Integer, Double>();
+		
+		
+
+		int week = 0;
+		
+		
+		for(Grade g: gt){
+			//List<Double> thescorelist = gt.stream().map(g.getAssessment().getWeek():: g.getScore() ).collect(Collectors.toList());
+		
+			//data.put( g.getAssessment().getWeek(), mean(thescorelist));
+		}
+		
+		return data;
+		
+	}
 	
-	
+	public double mean ( ArrayList<Double> list){
+		double sum= 0.0;
+		int length= list.size();
+		for(double item : list){
+			sum+=item;
+		}
+		return sum/length;
+	}
 }

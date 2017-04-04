@@ -1,5 +1,14 @@
 package com.revature.caliber.beans;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum TrainingType {
-	Revature, Corporate, University, Other
+	@JsonProperty("Revature")
+	Revature,
+	@JsonProperty("Corporate")
+	Corporate,
+	@JsonProperty("University")
+	University,
+	@JsonProperty("Other")
+	Other
 }
