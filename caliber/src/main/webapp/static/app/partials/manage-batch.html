@@ -182,10 +182,10 @@
                         </button>
                         <h4 class="modal-title" id="traineeModalLabel">View/ Add Trainees</h4>
                     </div>
-                    <div class="modal-body trainee-body-modal">
+                    <div class="modal-body">
                         <!-- View Trainees in Batch -->
                         <h3>Trainees in Batch</h3>
-                        <div class="row scrollable-div">
+<!--                         <div class="row scrollable-div"> -->
                             <div class="col-md-12 col-lg-12">
                                 <table class="table table-responsive">
                                     <thead>
@@ -210,7 +210,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+<!--                         </div> -->
                         <!-- Add New Trainee -->
                         <h3>Add Trainee</h3>
                         <div class="row">
@@ -239,14 +239,6 @@
 			                                    <option ng-repeat="option in trainingStatuses.options">{{option}}</option>
 			                                </select>
                            				 </div>
-                                    </td>
-                                    
-                                    <td>
-                                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
-                                            <label for="traineeStatus">Training Status</label>
-                                            <input ng-model="receiver.trainingStatus" type="text" class="form-control"
-                                                   id="traineeStatus" placeholder="Training Status" required>
-                                        </div>
                                     </td>
                                     <td>
                                         <div class="form-group col-lg-12 col-md-12 col-sm-12">
