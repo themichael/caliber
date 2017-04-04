@@ -160,6 +160,11 @@ angular.module("delegate").factory("caliberDelegate",
         delegate.qc.updateNote = function (noteObj) {
             return qcFactory.updateNote(noteObj);
         };
+        
+        delegate.qc.getAssessmentsByBatchId = function (batchId) {
+        	$log.debug("Testing delegate");
+        	return qcFactory.getAssessmentsByBatchId(batchId);
+        }
 
         /************************** Aggregate *****************************/
         delegate.agg.getAggTechTrainee = function (traineeId) {

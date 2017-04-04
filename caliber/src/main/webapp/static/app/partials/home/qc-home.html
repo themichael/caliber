@@ -8,7 +8,8 @@
                     <a class="dropdown-toggle" data-toggle="dropdown">{{currentBatch.trainingName}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li ng-repeat="menuItem in batches track by $index">
-                            <a role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}</a>
+                            <a role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}</a>  
+                            <!-- <a role="button" ng-click="getAllAssessmentByBatchId(1050)"> {{menuItem.trainingName}}</a> -->
                         </li>
                     </ul>
                 </li>
@@ -35,6 +36,23 @@
             </ul>
         </div>
     </div>
+</div>
+
+<!-- Show all assessment from batch id -->
+<div class = "container" ng-show="!noBatches">
+	<div class="row">
+		<div class="col-md-10">
+			<table class="table table-hover table-condensed table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>
+							<a role="button" ng-click="getAssessmentsByBatchId"> {{menuItem.trainingName}}</a>
+						</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
 </div>
 
 <div class="container" ng-show="!noBatches">

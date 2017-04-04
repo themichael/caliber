@@ -110,7 +110,7 @@ public class AssessmentController {
 	 * @param batch
 	 * @return
 	 */
-	@RequestMapping(value = "/assessment/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/qc/assessment/byBatchId/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Assessment>> findAssessmentByBatchId(@PathVariable Integer batchId) {
 		log.debug("Find assessment by batchId " + batchId + " ");
 		List<Assessment> assessments = assessmentService.findAssessmentByBatchId(batchId);
