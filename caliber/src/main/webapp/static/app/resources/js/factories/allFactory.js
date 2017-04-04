@@ -30,11 +30,9 @@ angular.module("api").factory("allFactory", function ($log, $http) {
 			return data;
 		});
 	};
-    all.enumTrainingType = function() {
-		return $http.get("/types/training/all").success(function(data, status, headers, config) {
-			return data;
-		});
-	};
+    all.enumTrainingType = $http.get("/types/training/all").success(function(data, status, headers, config) {
+		$log.debug("server sent enum training type");
+	});
     
     
     /*************************** Batch ************************/
