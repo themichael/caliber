@@ -1,5 +1,6 @@
 package com.revature.caliber.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,6 +106,48 @@ public class ReportingService
 		return results;
 	}
 
+/*	public HashMap<Trainee, Double[]>  barChar(int batchId, int week) {
+		//BatchDAO  
+
+		
+	
+	}*/
+
+	public Map<Integer, Double> findAvgGradeByWeek(int traineeId) {
+		
+		TraineeDAO td= new TraineeDAO();
+		GradeDAO gd= new GradeDAO();
+		AssessmentDAO ad= new AssessmentDAO(); 
+		
+		Trainee trainee =td.findOne(traineeId);
+		List<Grade> gt=gd.findByTrainee(traineeId);
+		
+		Map<Integer, Double> data = new HashMap<Integer, Double>();
+		
+		
+
+		int week = 0;
+		
+		
+		for(Grade g: gt){
+			//List<Double> thescorelist = gt.stream().map(g.getAssessment().getWeek():: g.getScore() ).collect(Collectors.toList());
+		
+			//data.put( g.getAssessment().getWeek(), mean(thescorelist));
+		}
+		
+		return data;
+		
+	}
+	
+	public double mean ( ArrayList<Double> list){
+		double sum= 0.0;
+		int length= list.size();
+		for(double item : list){
+			sum+=item;
+		}
+		return sum/length;
+	}
+	
 	/**
 	 * Weighted Average of a Trainee's Grade Scores for a given week number 
 	 * @param trainee For which to get the Average Scores
@@ -116,8 +159,9 @@ public class ReportingService
 		Set<Grade> gradesForTheWeek = trainee.getGrades().stream().filter(el -> el.getAssessment().getWeek() == week).collect(Collectors.toSet());
 		Double totalRawScore =  gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		for(Grade grade: gradesForTheWeek){
-			results.put(grade.getAssessment().getType().name(), grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+			results.put(grade.getAssessment().getTitle(), grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
 		}
 		return results;
 	}
+	
 }
