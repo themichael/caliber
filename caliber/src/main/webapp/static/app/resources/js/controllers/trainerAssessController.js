@@ -11,7 +11,6 @@ angular.module("trainer")
 
         
         $scope.skill_categories = function (){
-        	var allCategories = [];
         	caliberDelegate.all.getAllCategories().then(function(categories){
         		$scope.categories = categories;
         		$log.debug("all Categories");
@@ -135,7 +134,7 @@ angular.module("trainer")
                 title: $scope.trainingName,
                 batch: $scope.currentBatch.batchId,
                 type: $scope.trainingType,
-                categories:  $scope.selectedCategories,
+                categories:  $scope.selectedCategories.category,
                 week: $scope.currentWeek.weekId,
                 weeklyStatus: null,
                 rawScore: $scope.rawScore
