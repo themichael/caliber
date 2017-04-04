@@ -52,6 +52,31 @@ angular.module("delegate").factory("caliberDelegate",
         delegate.all.getAllTrainers = function () {
             return allFactory.getAllTrainers();
         };
+        
+        /************************* Enum constants ****************************/
+        
+        delegate.all.enumCommonLocations = function() {
+			return allFactory.enumCommonLocations();
+		};
+        
+        delegate.all.enumAssessmentType = function () {
+            return allFactory.enumAssessmentType();
+        };
+        delegate.all.enumNoteType = function () {
+            return allFactory.enumNoteType();
+        };
+        delegate.all.enumQCStatus = function () {
+            return allFactory.enumQCStatus();
+        };
+        delegate.all.enumSkillType = function () {
+            return allFactory.enumSkillType();
+        };
+        delegate.all.enumTrainingStatus = function () {
+            return allFactory.enumTrainingStatus();
+        };
+        delegate.all.enumTrainingType = function () {
+            return allFactory.enumTrainingType();
+        };
 
         /************************* Trainer ****************************/
         delegate.trainer.getAllBatches = function () {
