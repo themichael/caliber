@@ -41,6 +41,7 @@ public class AssessmentController {
 	 */
 
 	/**
+	 * QC can no longer create assessment, trainer only function
 	 * Create assessment response entity.
 	 *
 	 * @param assessment
@@ -56,6 +57,7 @@ public class AssessmentController {
 	}
 
 	/**
+	 * QC can not delete assessment, VP only function
 	 * Delete assessment response entity.
 	 *
 	 * @param id
@@ -114,4 +116,6 @@ public class AssessmentController {
 		List<Assessment> assessments = assessmentService.findAssessmentByBatchId(batchId);
 		return new ResponseEntity<List<Assessment>>(assessments, HttpStatus.OK);
 	}
+	
+		
 }
