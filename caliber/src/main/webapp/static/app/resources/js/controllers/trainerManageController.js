@@ -54,11 +54,11 @@ angular.module("trainer").controller(
         };
         $scope.trainingType = {
             model: null,
-            options: caliberDelegate.all.enumTrainingType
+            options: caliberDelegate.all.enumTrainingType()
         };
         $scope.skillType = {														
             model: null,
-            options: caliberDelegate.all.enumSkillType
+            options: caliberDelegate.all.enumSkillType()
         };
         $scope.location = {
             model: null,
