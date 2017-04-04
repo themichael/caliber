@@ -17,7 +17,7 @@ angular.module("api").factory("allFactory", function ($log, $http) {
     };
     
     
-	all.enumNoteType = function() {
+	all.enumAssessmentType = function() {
         return $http({
             url: "/types/assessment/all",
             method: "GET"
@@ -83,6 +83,25 @@ angular.module("api").factory("allFactory", function ($log, $http) {
         });
     };
     
+
+    /**
+    * @param allcategories
+    * @returns {*}
+    */
+    
+    all.getAllCategories = function (){
+    	return $http({
+    		url: "/category/all/",
+    		method: "GET"
+    	}).then(function(response) {
+            $log.debug("Categories successfully retrieved.");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+
     
     /*************************** Batch ************************/
 
@@ -219,25 +238,6 @@ angular.module("api").factory("allFactory", function ($log, $http) {
 
     /************************* Trainer **********************/
 
-    /**
-    * @param allcategories
-    * @returns {*}
-    */
-    
-    all.getAllCategories = function (){
-    	return $http({
-    		url: "/category/all/",
-    		method: "GET"
-    	}).then(function(response) {
-            $log.debug("Categories successfully retrieved.");
-            $log.debug(response);
-            return response.data;
-        }, function(response) {
-            $log.error("There was an error: " + response.status);
-        });
-    };
-    
-    
     /**
      *
      * @returns {*}

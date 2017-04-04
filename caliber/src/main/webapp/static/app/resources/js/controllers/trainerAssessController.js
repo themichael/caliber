@@ -75,7 +75,21 @@ angular.module("trainer")
 
 
         /******************************************* UI *********************************************/
-
+        ///////////////////////////////////////////////////////////////////////////////////////////// load note types
+        caliberDelegate.all.enumNoteType().then(function(noteTypes) {
+        	$log.debug(noteTypes);
+        	// do something with note type
+        });
+        ///////////////////////////////////////////////////////////////////////////////////////////// load assessment types
+        $scope.assessmentType= {
+                model: null,
+                options: []
+            };
+        caliberDelegate.all.enumAssessmentType().then(function(assessmentTypes) {
+        	$log.debug(assessmentTypes);
+        	$scope.assessmentType.options = assessmentTypes;
+        });
+        
         $log.debug("Batches " + allBatches);
         $log.debug(allBatches);
 

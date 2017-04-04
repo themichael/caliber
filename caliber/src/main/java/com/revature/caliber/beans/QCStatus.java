@@ -1,8 +1,10 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum QCStatus {
+public enum QCStatus implements Serializable{
 	@JsonProperty("Poor")
 	Poor,
 	@JsonProperty("Average")
