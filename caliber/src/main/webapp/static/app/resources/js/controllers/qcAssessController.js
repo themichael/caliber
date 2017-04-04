@@ -119,10 +119,15 @@ angular.module("qc")
 
         /******************************************* UI ***********************************************/
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////// load QC status types
+        
+        $scope.qcstatustype = function(){
         caliberDelegate.all.enumQCStatus().then(function(statusTypes) {
+        	$scope.statusTypes = statusTypes;
+        	$log.debug("get all Status Types");
         	$log.debug(statusTypes);
         	// do something with qc status
-        });
+        })
+        };
         ///////////////////////////////////////////////////////////////////////////////////////////// load note types
         caliberDelegate.all.enumNoteType().then(function(noteTypes) {
         	$log.debug(noteTypes);
