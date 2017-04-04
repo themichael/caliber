@@ -174,7 +174,7 @@
   <!--********************************************* Add Trainee Modal ************************************-->
     <form>
         <div class="modal fade" id="addTraineeModal" tabindex="-1" role="dialog" aria-labelledby="traineeModalLabel">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -204,6 +204,7 @@
                                         <td>{{trainee.email}}</td>
                                         <td>{{trainee.trainingStatus}}</td>
                                         <td>{{trainee.phoneNumber}}</td>
+                                        <td>{{trainee.skypeId}}</td>
                                         <td>{{trainee.profileUrl}}</td>
                                     </tr>
                                     </tbody>
@@ -216,14 +217,14 @@
                             <table>
                                 <tr ng-repeat="receiver in receivers">
                                     <td>
-                                        <div class="form-group col-md-12 col-sm-12">
+                                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
                                             <label for="traineeName">Full Name:</label>
                                             <input ng-model="receiver.name" type="text" class="form-control"
                                                    id="traineeName" placeholder="Name" required>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="form-group col-md-12 col-sm-12">
+                                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
                                             <label for="traineeEmail">Email:</label>
                                             <input ng-model="receiver.email" type="text" class="form-control"
                                                    id="traineeEmail" placeholder="Email" required>
@@ -231,7 +232,7 @@
                                     </td>
 <!-- ----------------------------------------- CHANGE TRAINING STATUS TO < SELECT > .. SEE OTHER EXAMPLES HERE -->
                                     <td>
-                                         <div class="form-group col-md-12 col-sm-12">
+                                         <div class="form-group col-lg-12 col-md-12 col-sm-12">
 			                                <label for="traineeStatus">Training Status</label>
 			                                <select ng-model="receiver.trainingStatus" class="form-control" id="traineeStatus" required>
 			                                    <option value="" disabled selected>Select Status</option>
@@ -241,28 +242,28 @@
                                     </td>
                                     
                                     <td>
-                                        <div class="form-group col-md-12 col-sm-12">
+                                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
                                             <label for="traineeStatus">Training Status</label>
                                             <input ng-model="receiver.trainingStatus" type="text" class="form-control"
                                                    id="traineeStatus" placeholder="Training Status" required>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="form-group col-md-12 col-sm-12">
+                                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
                                             <label for="traineePhone">Phone:</label>
                                             <input ng-model="receiver.phoneNumber" type="text" class="form-control"
                                                    id="traineePhone" placeholder="(xxx) xxx-xxxx" required>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="form-group col-md-12 col-sm-12">
+                                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
                                             <label for="traineeSkype">Skype Id:</label>
                                             <input ng-model="receiver.skypeId" type="text" class="form-control"
                                                    id="traineeSkype" placeholder="Skype Id" required>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="form-group col-md-12 col-sm-12">
+                                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
                                             <label for="traineeProfile">Profile URL:</label>
                                             <input ng-model="receiver.profileUrl" type="text" class="form-control"
                                                    id="traineeProfile" placeholder="https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=AOQI8718A" required>
