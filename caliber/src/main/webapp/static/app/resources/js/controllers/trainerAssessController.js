@@ -9,7 +9,15 @@ angular.module("trainer")
         /******************************TEST DATA***********************/
         $scope.skill_categories = function (){
         	var allCategories = [];
-        	
+        	delegate.all.getAllCategories().then(function(categories){
+        		$scope.categories = categories;
+        		$log.debug("all Categories");
+                $log.debug(categories);
+        		for (p of categories){
+        			allCategories.push(p)
+        		}
+        		
+        	})
         	
         };
         	
