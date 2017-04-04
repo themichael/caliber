@@ -13,4 +13,9 @@ public enum SkillType {
 		return type;
 	}
 	
+	@Override
+	public String toString() {
+		return type;
+	}
+	
 }
