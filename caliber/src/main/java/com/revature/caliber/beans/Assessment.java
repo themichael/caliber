@@ -136,10 +136,5 @@ public class Assessment implements Serializable{
 		this.category = category;
 	}
 
-	@Override
-	public String toString() {
-		return "Assessment [assessmentId=" + assessmentId + ", rawScore=" + rawScore + ", type=" + type + ", category="
-				+ category + "]";
-	}
 
 }
