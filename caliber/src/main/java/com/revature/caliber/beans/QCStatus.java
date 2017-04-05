@@ -5,12 +5,12 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum QCStatus implements Serializable{
-	@JsonProperty("Poor")
-	Poor,
-	@JsonProperty("Average")
-	Average,
+	@JsonProperty("Superstar")
+	Superstar,
 	@JsonProperty("Good")
 	Good,
-	@JsonProperty("Superstar")
-	Superstar
+	@JsonProperty("Average")
+	Average,
+	@JsonProperty("Poor")
+	Poor
 }
