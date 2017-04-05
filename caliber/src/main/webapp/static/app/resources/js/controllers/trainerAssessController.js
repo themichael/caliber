@@ -27,8 +27,10 @@ angular.module("trainer")
         });
         $scope.assessmentType= {
                 model: null,
+                
                 options: []
         };
+
         caliberDelegate.all.enumAssessmentType().then(function(assessmentTypes) {
         	$log.debug(assessmentTypes);
         	$scope.assessmentType.options = assessmentTypes;
@@ -156,7 +158,7 @@ angular.module("trainer")
                 batch: $scope.currentBatch.batchId,
                 type: $scope.assessType,
                 /************************************************TODO REFACTOR***************************************/
-                categories:  $scope.selectedCategories,
+                categories:  $scope.selectedCategories.category,
                 week: $scope.currentWeek.weekId,
                 /************************************************TODO REFACTOR***************************************/
                 weeklyStatus: null,
