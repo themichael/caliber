@@ -124,6 +124,29 @@ angular.module("qc")
         	 return "active";
         }
         
+        //create week
+        $scope.createWeek = function () {
+            var weekNumber;
+            if(!$scope.weeks)
+                weekNumber  = 1;
+            else weekNumber = $scope.weeks.length+1;
+            $log.debug(weekNumber);
+            /*var weekObj = {
+                weekNumber: weekNumber,
+                batch: $scope.currentBatch,
+                topics:null
+            };
+            caliberDelegate.trainer.createWeek(weekObj).then(function (response) {
+                pushUnique($scope.currentBatch.weeks, {
+                    weekId:response,
+                    weekNumber: weekNumber,
+                    batch: null,
+                    topics:null
+                });
+                $log.debug($scope.currentBatch.weeks);
+            });*/
+        };
+        
         /////// wipe faces ;)  and selections ///////      
         function wipeFaces(){
         	$scope.faces = [];
