@@ -125,8 +125,12 @@ angular.module("trainer").controller(
                 borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
                 benchmarkStartDate: $scope.benchmarkStartDate.model
             };
-            var trainer_name = $scope.trainer.model;
-            var cotrainer_name = $scope.coTrainer.model;
+            if($scope.trainer){
+            	var trainer_name = $scope.trainer.model;
+            }
+            if($scope.coTrainer){
+            	var cotrainer_name = $scope.coTrainer.model;
+            }
 
             for (var i = 0; i < $scope.trainers.length; i++) {
 

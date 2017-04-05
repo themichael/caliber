@@ -83,12 +83,12 @@ public class SampleDataSetup {
 
 		log.info("Creating trainees");
 		Trainee denis = new Trainee("Antonov, Denis", "ds@gmail.com", TrainingStatus.Dropped,"(678) 763-3425", null, null, batch);
-		Trainee jon = new Trainee("Tech, Jonathon", "jth@gmail.com", TrainingStatus.Employed, "(918) 504-6497","jt", "https://app.revature.com/myResumePublish?id=1823734", batch);
-		Trainee kevin = new Trainee("Haas, Kevin", "kh@georgiasouthern.edu", TrainingStatus.Employed,"(229) 255-6651", "kh", "https://app.revature.com/myResumePublish?id=2847081", batch);
-		Trainee issac = new Trainee("Fouche, Issac", "if@gmail.com", TrainingStatus.Employed, "(301) 606-9785","iss", "https://app.revature.com/myResumePublish?id=3109432", batch);
-		Trainee jimmy = new Trainee("Huang, Jimmy", "zh@buffalo.edu", TrainingStatus.Employed, "(917) 916-6425","jimm", "https://app.revature.com/myResumePublish?id=2426772", batch);
-		Trainee erika = new Trainee("Castillo, Erika", "enc@gmail.com", TrainingStatus.Employed,"(229) 669-7528", "ecast", "https://app.revature.com/myResumePublish?id=3156402", batch);
-		Trainee wyatt = new Trainee("Duling, Wyatt", "wyd@gmail.com", TrainingStatus.Employed, "563-343-6978","WyD", "https://app.revature.com/myResumePublish?id=2783206", batch);
+		Trainee jon = new Trainee("Tech, Jonathon", "jth@gmail.com", TrainingStatus.Employed, "(918) 504-6497","jt", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=98CB90616B7168BE", batch);
+		Trainee kevin = new Trainee("Haas, Kevin", "kh@georgiasouthern.edu", TrainingStatus.Employed,"(229) 255-6651", "kh", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=98CB90616B7168BE", batch);
+		Trainee issac = new Trainee("Fouche, Issac", "if@gmail.com", TrainingStatus.Employed, "(301) 606-9785","iss", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=98CB90616B7168BE", batch);
+		Trainee jimmy = new Trainee("Huang, Jimmy", "zh@buffalo.edu", TrainingStatus.Employed, "(917) 916-6425","jimm", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=98CB90616B7168BE", batch);
+		Trainee erika = new Trainee("Castillo, Erika", "enc@gmail.com", TrainingStatus.Employed,"(229) 669-7528", "ecast", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=98CB90616B7168BE", batch);
+		Trainee wyatt = new Trainee("Duling, Wyatt", "wyd@gmail.com", TrainingStatus.Employed, "563-343-6978","WyD", "https://app.revature.com/core/admin/pages/portfolio_ta?profile&view&proId=98CB90616B7168BE", batch);
 		Trainee martin = new Trainee("Blanchard, Martin", "m.b@post.com", TrainingStatus.Dropped,"(603) 264-6975", null, null, batch);
 		Trainee manya = new Trainee("Almatar, Manya", "ma@gmail.com", TrainingStatus.Dropped, "(773) 954-5468",null, null, batch);
 		Trainee russ = new Trainee("Peters, Russell", "rd@gmail.com", TrainingStatus.Dropped, "(240) 678-3465",null, null, batch);
