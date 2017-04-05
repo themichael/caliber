@@ -93,6 +93,11 @@ angular.module("qc")
         
         /************************************************** GETTING NOTES ON TRAINEE **********************************************/
         $scope.noteOnTrainee = function (traineeName) {
-        	$log.debug(traineeName);
+        	
+        	$log.debug($scope.tnote);
+        	/*for (i=0; i<$scope.currentBatch.trainees.length; i++)
+        		*/
+        	
+        	return traineeName;
         };
     });
