@@ -75,15 +75,11 @@ angular
 							.then(
 									function(notes) {
 										$scope.bnote = notes;
-										$log.debug("Batch QC Notes");
-										$log.debug($scope.bnote);
 										// Put qc notes into week object
 										for (i = 0; i < $scope.bnote.length; i++) {
 											$scope.weeks[$scope.bnote[i].week - 1].note
 													.push($scope.bnote[i]);
 										}
-										$log.debug("weeks");
-										$log.debug($scope.weeks);
 									});
 					// Get qc notes for trainees in selected batch
 					caliberDelegate.qc
@@ -91,15 +87,11 @@ angular
 							.then(
 									function(notes) {
 										$scope.tnote = notes;
-										$log.debug("Batch Trainee Notes");
-										$log.debug($scope.tnote);
 										// Put qc notes into week object
 										for (i = 0; i < $scope.tnote.length; i++) {
 											$scope.weeks[$scope.tnote[i].week - 1].note
 													.push($scope.tnote[i]);
 										}
-										$log.debug("weeks");
-										$log.debug($scope.weeks);
 									});
 					// default -- view assessments table
 					$scope.currentView = true;
@@ -126,15 +118,11 @@ angular
 								.then(
 										function(notes) {
 											$scope.bnote = notes;
-											$log.debug("Batch QC Notes");
-											$log.debug($scope.bnote);
 											// Put qc notes into week object
 											for (i = 0; i < $scope.bnote.length; i++) {
 												$scope.weeks[$scope.bnote[i].week - 1].note
 														.push($scope.bnote[i]);
 											}
-											$log.debug("weeks");
-											$log.debug($scope.weeks);
 										});
 						// Get qc notes for trainees in selected batch
 						caliberDelegate.qc
@@ -142,15 +130,11 @@ angular
 								.then(
 										function(notes) {
 											$scope.tnote = notes;
-											$log.debug("Batch Trainee Notes");
-											$log.debug($scope.tnote);
 											// Put qc notes into week object
 											for (i = 0; i < $scope.tnote.length; i++) {
 												$scope.weeks[$scope.tnote[i].week - 1].note
 														.push($scope.tnote[i]);
 											}
-											$log.debug("weeks");
-											$log.debug($scope.weeks);
 										});
 						wipeFaces();
 					};
@@ -199,19 +183,24 @@ angular
 					 * *********************************************
 					 */
 					$scope.noteOnTrainee = function(traineeName) {
-						$log.debug(traineeName);
-						// $log.debug($scope.weeks[$scope.currentWeek.weekNumber
-						// - 1].note[1].trainee.name);
-						// $log.debug($scope.currentWeek);
-						// $log.debug($scope.weeks[$scope.currentWeek]);
-						for (i = 0; i < $scope.weeks[$scope.currentWeek.weekNumber - 1].note.length; i++)
+						for (i = 0; i < $scope.weeks[$scope.currentWeek.weekNumber - 1].note.length; i++) {
 							if ($scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].trainee != null) {
 								if (traineeName === $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].trainee.name) {
-									$log.debug("Content of note")
-									$log.debug($scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].content);
 									return $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].content;
 								}
 							}
+						}
+					};
+					
+					$scope.noteOnbatch = function(trainingName) {
+						$log.debug("BATCH NOTE!!!!!!!!!!!!!!")
+						for (i = 0; i < $scope.weeks[$scope.currentWeek.weekNumber - 1].note.length; i++) {
+							if ($scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].batch != null) {
+								if (trainingName === $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].batch.trainingName) {
+									return $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].content;
+								}
+							}
+						}
 					};
 
 					$scope.addedNotes = function() {
