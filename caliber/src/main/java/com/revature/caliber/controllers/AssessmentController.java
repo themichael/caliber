@@ -41,6 +41,7 @@ public class AssessmentController {
 	 */
 
 	/**
+	 * QC can no longer create assessment, trainer only function
 	 * Create assessment response entity.
 	 *
 	 * @param assessment
@@ -101,4 +102,5 @@ public class AssessmentController {
 		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, week);
 		return new ResponseEntity<List<Assessment>>(assessments, HttpStatus.OK);
 	}
+		
 }
