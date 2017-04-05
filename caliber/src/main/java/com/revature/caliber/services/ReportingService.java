@@ -9,8 +9,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.javafaker.Cat;
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
@@ -89,7 +91,7 @@ public class ReportingService {
 		}
 		return results;
 	}
-	
+
 	/**
 	 * 
 	 * @param batchId
@@ -109,7 +111,7 @@ public class ReportingService {
 		}
 		return results;
 	}
-	
+
 	/**
 	 * 
 	 * @param batchId
@@ -133,7 +135,8 @@ public class ReportingService {
 	 * @param traineeId
 	 * @param week
 	 * @param assessmentType
-	 * @return Double {average trainee score for the week for assessmentType , weight of that assessment type}
+	 * @return Double {average trainee score for the week for assessmentType ,
+	 *         weight of that assessment type}
 	 */
 	public Double[] getAvgTraineeWeek(Integer traineeId, Integer week, AssessmentType assessmentType) {
 		List<Grade> allGrade = gradeDAO.findByTrainee(traineeId);
@@ -160,7 +163,8 @@ public class ReportingService {
 	 * @param batchId
 	 * @param week
 	 * @param assessmentType
-	 * @return Map<'trainee', Double{avg score for all trainees for the week for assessmentType, weight for assessment} 
+	 * @return Map<'trainee', Double{avg score for all trainees for the week for
+	 *         assessmentType, weight for assessment}
 	 */
 	public Map<Trainee, Double[]> getAvgBatchWeek(Integer batchId, Integer week, AssessmentType assessmentType) {
 		Map<Trainee, Double[]> results = new HashMap<>();
@@ -217,7 +221,7 @@ public class ReportingService {
 		}
 		return results;
 	}
-	
+
 	/**
 	 * 
 	 * @param traineeId
@@ -287,6 +291,33 @@ public class ReportingService {
 			}
 			avg[0] = avg[0] / temp.size();
 			results.put(i, avg);
+		}
+		return results;
+	}
+
+	/**
+	 * 
+	 * @param traineeId
+	 * @param weekNumber
+	 * @return Map<'skill, Double{average, number of assessments for that skill}>
+	 */
+	public Map<Category, Double[]> getAvgSkillsTraineeWeek(Integer traineeId, Integer weekNumber) {
+		Map<Category, Double[]> results = new HashMap<>();
+		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
+		List<Grade> weekgrades = grades.stream().filter(g -> g.getAssessment().getWeek() == weekNumber)
+				.collect(Collectors.toList());
+		for (Grade g : weekgrades) {
+			Category skill = g.getAssessment().getCategory();
+			if (results.get(skill) == null) {
+				Double temp[] = { g.getScore(), 1.0 };
+				results.put(skill, temp);
+			} else {
+				Double[] temp = results.get(skill);
+				temp[0] = ((temp[0] * temp[1]) + g.getScore()) / (temp[1] + 1);
+				temp[1] = temp[1] + 1;
+				results.remove(skill);
+				results.put(skill, temp);
+			}
 		}
 		return results;
 	}
