@@ -1,6 +1,7 @@
+
 angular.module("trainer").controller(
     "trainerManageController",
-    function ($scope, $window, $log, caliberDelegate, allBatches) {
+    function ($scope, $log, caliberDelegate, allBatches) {
         $log.debug("Booted trainer manage controller.");
         $log.debug('test trainermanager cntroller -j');
         /**************************** Batch *****************************/
@@ -75,7 +76,7 @@ angular.module("trainer").controller(
         
         $scope.location = {
             model: null,
-            options: ['Reston, VA']
+            options: ['Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190']
         };
         // load common locations
         caliberDelegate.all.enumCommonLocations().then(function(locations) {
@@ -108,10 +109,6 @@ angular.module("trainer").controller(
             $scope.currentBatch = $scope.selectedBatches[index];
             $scope.trainees = $scope.selectedBatches[index].trainees;
         };
-        
-        /** Opens profile url in new tab when clicked**/
-        $scope.openProfileLink = function (url) {
-        	$window.open(url)};
 
         /**      Save Batch     **/
         $scope.addNewBatch = function () {
@@ -129,8 +126,12 @@ angular.module("trainer").controller(
                 borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
                 benchmarkStartDate: $scope.benchmarkStartDate.model
             };
-            var trainer_name = $scope.trainer.model;
-            var cotrainer_name = $scope.coTrainer.model;
+            if($scope.trainer){
+            	var trainer_name = $scope.trainer.model;
+            }
+            if($scope.coTrainer){
+            	var cotrainer_name = $scope.coTrainer.model;
+            }
 
             for (var i = 0; i < $scope.trainers.length; i++) {
 
@@ -144,23 +145,38 @@ angular.module("trainer").controller(
 
             $log.debug(newBatch);
 
-            result = caliberDelegate.all.createBatch(newBatch);
-
-            result.success(function () {
-                $scope.batches.push({
-                    trainingName: $scope.trainingName.model,
-                    trainingType: $scope.trainingType.model,
-                    skillType: $scope.skillType.model,
-                    location: $scope.location.model,
-                    trainer: $scope.trainer.model,
-                    coTrainer: $scope.coTrainer.model,
-                    startDate: $scope.startDate.model,
-                    endDate: $scope.endDate.model,
-                    goodGradeThreshold: $scope.goodGradeThreshold.model,
-                    borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
-                    benchmarkStartDate: $scope.benchmarkStartDate.model
-                });
+            caliberDelegate.all.createBatch(newBatch).then(function () {
+                // coTrainer may be undefined
+            	if($scope.coTrainer){
+	            	$scope.batches.push({
+	                    trainingName: $scope.trainingName.model,
+	                    trainingType: $scope.trainingType.model,
+	                    skillType: $scope.skillType.model,
+	                    location: $scope.location.model,
+	                    trainer: $scope.trainer.model,
+	                    coTrainer: $scope.coTrainer.model,
+	                    startDate: $scope.startDate.model,
+	                    endDate: $scope.endDate.model,
+	                    goodGradeThreshold: $scope.goodGradeThreshold.model,
+	                    borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
+	                    benchmarkStartDate: $scope.benchmarkStartDate.model
+	                });
+                }else{
+	            	$scope.batches.push({
+	                    trainingName: $scope.trainingName.model,
+	                    trainingType: $scope.trainingType.model,
+	                    skillType: $scope.skillType.model,
+	                    location: $scope.location.model,
+	                    trainer: $scope.trainer.model,
+	                    startDate: $scope.startDate.model,
+	                    endDate: $scope.endDate.model,
+	                    goodGradeThreshold: $scope.goodGradeThreshold.model,
+	                    borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
+	                    benchmarkStartDate: $scope.benchmarkStartDate.model
+	                });
+                }
                 sortByDate($scope.selectedYear);
+                angular.element("#createBatchModal").modal("hide");
             });
 
         };
@@ -214,8 +230,6 @@ angular.module("trainer").controller(
             }
             $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
         };
-        
-         
 
         /**  Add Or Remove New Trainee Form */
         $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
@@ -230,7 +244,5 @@ angular.module("trainer").controller(
                 }
             }
         };
-        
-        
 
-    });
+});
