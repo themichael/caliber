@@ -67,28 +67,40 @@ angular
 					for (i = 1; i <= $scope.currentBatch.weeks; i++) {
 						$scope.weeks.push(new Week(i, []));
 					}
+					// Set current week to first week
 					$scope.currentWeek = $scope.weeks[0];
+					// Get qc notes for selected batch
 					caliberDelegate.qc
 							.batchNote($scope.currentBatch.batchId)
 							.then(
 									function(notes) {
 										$scope.bnote = notes;
+										$log.debug("Batch QC Notes");
+										$log.debug($scope.bnote);
+										// Put qc notes into week object
 										for (i = 0; i < $scope.bnote.length; i++) {
 											$scope.weeks[$scope.bnote[i].week - 1].note
 													.push($scope.bnote[i]);
 										}
+										$log.debug("weeks");
+										$log.debug($scope.weeks);
 									});
+					// Get qc notes for trainees in selected batch
 					caliberDelegate.qc
 							.traineeNote($scope.currentBatch.batchId)
 							.then(
 									function(notes) {
 										$scope.tnote = notes;
+										$log.debug("Batch Trainee Notes");
+										$log.debug($scope.tnote);
+										// Put qc notes into week object
 										for (i = 0; i < $scope.tnote.length; i++) {
 											$scope.weeks[$scope.tnote[i].week - 1].note
 													.push($scope.tnote[i]);
 										}
+										$log.debug("weeks");
+										$log.debug($scope.weeks);
 									});
-
 					// default -- view assessments table
 					$scope.currentView = true;
 
@@ -187,22 +199,29 @@ angular
 					 * *********************************************
 					 */
 					$scope.noteOnTrainee = function(traineeName) {
-
-						// $log.debug($scope.tnote);
-						for (i = 0; i < $scope.tnote.length; i++)
-							if (traineeName == $scope.tnote[i].trainee.name)
-								return $scope.tnote[i].content;
-						return "Note on " + traineeName;
+						$log.debug(traineeName);
+						// $log.debug($scope.weeks[$scope.currentWeek.weekNumber
+						// - 1].note[1].trainee.name);
+						// $log.debug($scope.currentWeek);
+						// $log.debug($scope.weeks[$scope.currentWeek]);
+						for (i = 0; i < $scope.weeks[$scope.currentWeek.weekNumber - 1].note.length; i++)
+							if ($scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].trainee != null) {
+								if (traineeName === $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].trainee.name) {
+									$log.debug("Content of note")
+									$log.debug($scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].content);
+									return $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].content;
+								}
+							}
 					};
 
 					$scope.inputData = [];
 
 					$scope.addedNotes = function(index) {
 						$log.debug(index + ": " + $scope.inputData[index]);
+					}
+
+					$scope.addedNotes = function() {
+						$log.debug(document.getElementById("noteTextArea").value);
 					};
 
-					$scope.reset = function() {
-						document.getElementById("noteTextArea").value = null;
-						$(this).val("");
-					};
 				});

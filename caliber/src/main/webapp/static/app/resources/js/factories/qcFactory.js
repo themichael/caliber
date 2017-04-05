@@ -23,7 +23,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
+
 	// Call EvaluationController's getAllQCBatchNotes method
 	qc.getAllQCBatchNote = function(batchId) {
 		return $http({
@@ -36,7 +36,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
+
 	// Call EvaluationController's getAllQCTraineeNotes method
 	qc.getAllQCTraineeNote = function(batchId) {
 		return $http({

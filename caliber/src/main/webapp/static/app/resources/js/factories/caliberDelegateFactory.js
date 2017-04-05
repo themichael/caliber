@@ -1,5 +1,6 @@
 /**
  * Delegates API calls to the appropriate API factory
+ * 
  * @param $log
  * @param trainerFactory
  * @param vpFactory
