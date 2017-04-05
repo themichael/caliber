@@ -35,7 +35,7 @@ import com.revature.caliber.data.TraineeDAO;
 @Service
 public class ReportingService {
 	private final static Logger log = Logger.getLogger(ReportingService.class);
-	
+
 	private GradeDAO gradeDAO;
 	private BatchDAO batchDAO;
 	private TraineeDAO traineeDAO;
@@ -255,7 +255,6 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			results.put(trainee, getAvgTraineeWeek(trainee.getTraineeId(), week));
 		}
-		System.out.println(results);
 		return results;
 	}
 
@@ -265,7 +264,6 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<Integer, Double[]> getAvgTraineeOverall(Integer traineeId) {
-
 		Map<Integer, Double[]> results = new HashMap<>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
 		int weeks = trainee.getBatch().getWeeks();
@@ -315,7 +313,8 @@ public class ReportingService {
 	 * 
 	 * @param traineeId
 	 * @param weekNumber
-	 * @return Map<'skill, Double{average, number of assessments for that skill}>
+	 * @return Map<'skill, Double{average, number of assessments for that
+	 *         skill}>
 	 */
 	public Map<Category, Double[]> getAvgSkillsTraineeWeek(Integer traineeId, Integer weekNumber) {
 		Map<Category, Double[]> results = new HashMap<>();
