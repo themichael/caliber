@@ -116,7 +116,11 @@ angular.module("trainer").controller(
             $scope.trainee = trainee;
         }
         
-        
+        /**populates batch info in update form**/
+        $scope.populateBatch = function(index){
+        	$scope.trainingName.model = $scope.selectedBatches[index].trainingName;
+        $scope.borderlineGradeThreshold.model = $scope.selectedBatches[index].borderlineGradeThreshold;
+        };
 
         /**      Save Batch     **/
         $scope.addNewBatch = function () {
