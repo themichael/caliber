@@ -168,9 +168,10 @@ public class NoteDAO {
 	 */
 	@SuppressWarnings("unchecked")
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public List<Note> findAllQCBatchNotes() {
+    public List<Note> findAllQCBatchNotes(Integer batchId) {
         log.info("Find All QC Batch notes");
         return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
+        		.add(Restrictions.eq("b.batchId", batchId))
         		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.addOrder(Order.asc("week")).list();
@@ -185,7 +186,7 @@ public class NoteDAO {
     public List<Note> findAllQCTraineeNotes() {
         log.info("Find All QC Trainee notes");
         return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
-        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
+        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC)).createAlias("trainee", "t")
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.addOrder(Order.asc("week")).list();
     }

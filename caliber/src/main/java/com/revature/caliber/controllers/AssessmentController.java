@@ -57,7 +57,6 @@ public class AssessmentController {
 	}
 
 	/**
-	 * QC can not delete assessment, VP only function
 	 * Delete assessment response entity.
 	 *
 	 * @param id
@@ -103,19 +102,5 @@ public class AssessmentController {
 		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, week);
 		return new ResponseEntity<List<Assessment>>(assessments, HttpStatus.OK);
 	}
-	
-	/**
-	 * FIND ALL ASSESSMENT BY BATCHID
-	 * 
-	 * @param batch
-	 * @return
-	 */
-	@RequestMapping(value = "/qc/assessment/byBatchId/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Assessment>> findAssessmentByBatchId(@PathVariable Integer batchId) {
-		log.debug("Find assessment by batchId " + batchId + " ");
-		List<Assessment> assessments = assessmentService.findAssessmentByBatchId(batchId);
-		return new ResponseEntity<List<Assessment>>(assessments, HttpStatus.OK);
-	}
-	
 		
 }
