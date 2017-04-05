@@ -54,8 +54,8 @@ public class Grade implements Serializable{
 
 	/**
 	 * score - points earned. should be based on raw score of Assessment.
-	 * Example: Assessment is worth 200 points, and Trainee made a 75% thus
-	 * score is 150
+	 * Example: Assessment is worth 200 points, and Trainee made a 150 thus
+	 * score is stored as percentage, 75%
 	 */
 	@Column(name = "SCORE")
 	@NotNull
