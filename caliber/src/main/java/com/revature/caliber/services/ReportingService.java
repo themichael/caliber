@@ -235,7 +235,7 @@ public class ReportingService {
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		Double result = 0d;
 		for (Grade grade : gradesForTheWeek) {
-			result += (grade.getScore() / 100.0 * grade.getAssessment().getRawScore() / totalRawScore);
+			result += (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
 		}
 		return result;
 	}
