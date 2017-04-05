@@ -3,6 +3,7 @@ package com.revature.caliber.services;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -318,5 +319,46 @@ public class ReportingService {
 		}
 		return results;
 	}
-
+/**
+ * @param batchId
+ * 
+ * 
+ * */
+	public Map<Trainee, Double> getBarChartBatchOverAll(Integer batchId) {
+		Batch batch = batchDAO.findOne(batchId);
+		Map<Trainee, Double> results = new HashMap<>();
+		int weeks = batch.getWeeks();
+		Double avg = 0.d;
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		for (Trainee trainee : trainees) {
+			for (Integer i = 0; i < weeks; i++) {
+				avg += getAvgTraineeWeek(trainee.getTraineeId(), i);
+			}
+			results.put(trainee, avg);
+		}
+		return results;
+	}
+/**
+ * @param batchId,
+ * @param traineeId
+ * @return map<number of weeks in total, array of batch overall 
+ * average and trainee overall average>
+ * 
+ * */
+	public Map<Integer, Double[]> getLineChartTraineeGradeAvgOfAllWeeks(Integer batchId, Integer traineeId) {
+		Map<Integer, Double> batchAvgOverall = getAvgBatchOverall(batchId);
+		Map<Integer, Double> traineeAvgOverall = getAvgTraineeOverall(traineeId);
+		Map<Integer, Double[]> results = new HashMap<>();
+		Double[] result = { 0.d, 0.d };
+		int weeks = 0;
+		for (Map.Entry<Integer, Double> temp : batchAvgOverall.entrySet()) {
+			weeks += temp.getKey();
+			result[0] += temp.getValue();
+		}
+		for (Map.Entry<Integer, Double> temp1 : traineeAvgOverall.entrySet()) {
+			result[1] += temp1.getValue();
+		}
+		results.put(weeks, result);
+		return results;
+	}
 }

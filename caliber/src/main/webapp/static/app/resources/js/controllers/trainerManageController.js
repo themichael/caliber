@@ -4,9 +4,9 @@ angular.module("trainer").controller(
     function ($scope, $log, caliberDelegate, allBatches) {
         $log.debug("Booted trainer manage controller.");
         $log.debug('test trainermanager cntroller -j');
-        /**************************** Batch *****************************/
+        /** ************************** Batch **************************** */
 
-        /**     On page start --> load all trainers     **/
+        /** On page start --> load all trainers * */
         (function start(){
             caliberDelegate.all.getAllTrainers().then(
                 function(trainers){
@@ -20,7 +20,7 @@ angular.module("trainer").controller(
             sortByDate(new Date().getFullYear());
         })();
 
-        /**     Filter batches by year      **/
+        /** Filter batches by year * */
         $scope.years = addYears();
         function addYears() {
             var currentYear = new Date().getFullYear();
@@ -49,7 +49,7 @@ angular.module("trainer").controller(
             }
         }
 
-        /**     Add & View Batches     **/
+        /** Add & View Batches * */
         $scope.trainingName = {
             model: null
         };
@@ -68,7 +68,7 @@ angular.module("trainer").controller(
             model: null,
             options: ['J2EE','.NET','SDET']
         };
-        // load skill types   
+        // load skill types
         caliberDelegate.all.enumSkillType().then(function(skillTypes) {
         	$log.debug(skillTypes);
         	$scope.skillType.options = skillTypes;
@@ -104,15 +104,15 @@ angular.module("trainer").controller(
         	model: null	
         };
 
-        /**     Get batches for user and trainees in each batch     **/
+        /** Get batches for user and trainees in each batch * */
         $scope.selectCurrentBatch = function(index) {
             $scope.currentBatch = $scope.selectedBatches[index];
             $scope.trainees = $scope.selectedBatches[index].trainees;
         };
 
-        /**      Save Batch     **/
+        /** Save Batch * */
         $scope.addNewBatch = function () {
-            //  Ajax call check for 200 --> then assemble batch
+            // Ajax call check for 200 --> then assemble batch
             var newBatch = {
                 trainingName: $scope.trainingName.model,
                 trainingType: $scope.trainingType.model,
@@ -181,9 +181,9 @@ angular.module("trainer").controller(
 
         };
 
-        /**************************** Trainees *****************************/
+        /** ************************** Trainees **************************** */
 
-         /**     Load trainees for batch    **/
+         /** Load trainees for batch * */
         $scope.name = {
             model: null
         };
@@ -203,7 +203,7 @@ angular.module("trainer").controller(
         });
         
         
-        /**      Save New Trainee Input     **/
+        /** Save New Trainee Input * */
         $scope.addNewTrainee = function () {
             for (var i = 0; i < $scope.receivers.length; i++) {
                 var newTrainee = {
@@ -231,7 +231,7 @@ angular.module("trainer").controller(
             $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
         };
 
-        /**  Add Or Remove New Trainee Form */
+        /** Add Or Remove New Trainee Form */
         $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
         $scope.addTrainee = function () {
             $scope.receivers.push({name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""});
@@ -251,9 +251,9 @@ angular.module("trainer").controller(
     function ($scope, $log, caliberDelegate, allBatches) {
         $log.debug("Booted trainer manage controller.");
         $log.debug('test trainermanager cntroller -j');
-        /**************************** Batch *****************************/
+        /** ************************** Batch **************************** */
 
-        /**     On page start --> load all trainers     **/
+        /** On page start --> load all trainers * */
         (function start(){
             caliberDelegate.all.getAllTrainers().then(
                 function(trainers){
@@ -267,7 +267,7 @@ angular.module("trainer").controller(
             sortByDate(new Date().getFullYear());
         })();
 
-        /**     Filter batches by year      **/
+        /** Filter batches by year * */
         $scope.years = addYears();
         function addYears() {
             var currentYear = new Date().getFullYear();
@@ -296,7 +296,7 @@ angular.module("trainer").controller(
             }
         }
 
-        /**     Add & View Batches     **/
+        /** Add & View Batches * */
         $scope.trainingName = {
             model: null
         };
@@ -315,7 +315,7 @@ angular.module("trainer").controller(
             model: null,
             options: ['J2EE','.NET','SDET']
         };
-        // load skill types   
+        // load skill types
         caliberDelegate.all.enumSkillType().then(function(skillTypes) {
         	$log.debug(skillTypes);
         	$scope.skillType.options = skillTypes;
@@ -351,13 +351,13 @@ angular.module("trainer").controller(
         	model: null	
         };
 
-        /**     Get batches for user and trainees in each batch     **/
+        /** Get batches for user and trainees in each batch * */
         $scope.selectCurrentBatch = function(index) {
             $scope.currentBatch = $scope.selectedBatches[index];
             $scope.trainees = $scope.selectedBatches[index].trainees;
         };
         
-        /** Get trainee info**/
+        /** Get trainee info* */
         $scope.getTrainee = function (trainee)
         {
             $scope.trainee = trainee;
@@ -365,9 +365,9 @@ angular.module("trainer").controller(
         
         
 
-        /**      Save Batch     **/
+        /** Save Batch * */
         $scope.addNewBatch = function () {
-            //  Ajax call check for 200 --> then assemble batch
+            // Ajax call check for 200 --> then assemble batch
             var newBatch = {
                 trainingName: $scope.trainingName.model,
                 trainingType: $scope.trainingType.model,
@@ -436,9 +436,9 @@ angular.module("trainer").controller(
 
         };
 
-        /**************************** Trainees *****************************/
+        /** ************************** Trainees **************************** */
 
-         /**     Load trainees for batch    **/
+         /** Load trainees for batch * */
         $scope.name = {
             model: null
         };
@@ -458,7 +458,7 @@ angular.module("trainer").controller(
         });
         
         
-        /**      Save New Trainee Input     **/
+        /** Save New Trainee Input * */
         $scope.addNewTrainee = function () {
             for (var i = 0; i < $scope.receivers.length; i++) {
                 var newTrainee = {
@@ -486,7 +486,7 @@ angular.module("trainer").controller(
             $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
         };
 
-        /**  Add Or Remove New Trainee Form */
+        /** Add Or Remove New Trainee Form */
         $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
         $scope.addTrainee = function () {
             $scope.receivers.push({name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""});
