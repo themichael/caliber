@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.AssessmentType;
+import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
@@ -244,8 +245,12 @@ public class ReportingService {
 		Map<Trainee, Double[]> results = new HashMap<>();
 		List<Grade> grades = gradeDAO.findByBatch(batchId);
 		List<Grade> assessments = grades.stream()
-										.filter(g -> g.getAssessment().getType() == assessmentType)
+										.filter(g -> g.getAssessment().getType().name().equals(assessmentType.name()))
 										.collect(Collectors.toList());
+		Batch batch = batchDAO.findOne(batchId);
+		int weeks = batch.getWeeks();
+		for (Integer i = 0; i < weeks; i++) {
+		}
 		Double totalRawScore = assessments.stream().mapToDouble(g -> g.getAssessment().getRawScore()).sum();
 		for (Grade assessment : assessments){
 			Double weight = assessment.getAssessment().getRawScore() / totalRawScore;
