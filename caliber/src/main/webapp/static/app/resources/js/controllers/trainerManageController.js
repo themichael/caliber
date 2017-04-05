@@ -154,7 +154,6 @@ angular.module("trainer").controller(
 
             $log.debug(newBatch);
 
-
             caliberDelegate.all.createBatch(newBatch).then(function () {
                 // coTrainer may be undefined
             	if($scope.coTrainer){
