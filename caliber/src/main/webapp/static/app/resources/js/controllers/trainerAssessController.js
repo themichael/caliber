@@ -32,9 +32,7 @@ angular.module("trainer")
         caliberDelegate.all.enumAssessmentType().then(function(assessmentTypes) {
         	$log.debug(assessmentTypes);
         	$scope.assessmentType.options = assessmentTypes;
-        });
-<<<<<<< HEAD
-        
+        });        
         $log.debug("Batches " + allBatches);
         $log.debug(allBatches);
 
