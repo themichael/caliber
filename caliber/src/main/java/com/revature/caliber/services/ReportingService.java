@@ -140,13 +140,14 @@ public class ReportingService {
 	 */
 	public Double[] getAvgTraineeWeek(Integer traineeId, Integer week, AssessmentType assessmentType) {
 		List<Grade> allGrade = gradeDAO.findByTrainee(traineeId);
-		List<Grade> gradesForTheWeek = allGrade.stream()
-				.filter(el -> el.getAssessment().getWeek() == week
-						&& el.getAssessment().getType().name().equalsIgnoreCase(assessmentType.name()))
+		List<Grade> gradesForTheWeek = allGrade.stream().filter(el -> el.getAssessment().getWeek() == week)
 				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
+		List<Grade> gradesForAssessment = gradesForTheWeek.stream()
+				.filter(e -> e.getAssessment().getType().name().equalsIgnoreCase(assessmentType.name()))
+				.collect(Collectors.toList());
 		Double[] result = { 0d, 0d };
-		for (Grade grade : gradesForTheWeek) {
+		for (Grade grade : gradesForAssessment) {
 			result[0] += (grade.getScore() / 100.0 * grade.getAssessment().getRawScore() / totalRawScore);
 			result[1] += grade.getAssessment().getRawScore();
 		}
@@ -211,10 +212,9 @@ public class ReportingService {
 		for (Integer i = 0; i < weeks; i++) {
 			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, i, assessmentType);
 			Double[] avg = { 0d, 0d };
-
+			avg[1] = temp.values().iterator().next()[1];
 			for (Map.Entry<Trainee, Double[]> t : temp.entrySet()) {
 				avg[0] += t.getValue()[0];
-				avg[1] = t.getValue()[1];
 			}
 			avg[0] = avg[0] / temp.size();
 			results.put(i, avg);
@@ -286,10 +286,8 @@ public class ReportingService {
 		for (Integer i = 0; i < weeks; i++) {
 			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, i);
 			Double[] avg = { 0d, 0d };
-
 			for (Map.Entry<Trainee, Double[]> t : temp.entrySet()) {
 				avg[0] += t.getValue()[0];
-				avg[1] = t.getValue()[1];
 			}
 			avg[0] = avg[0] / temp.size();
 			results.put(i, avg);
