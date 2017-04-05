@@ -48,7 +48,7 @@ angular.module("delegate").factory("caliberDelegate",
         delegate.all.getGrades = function (traineeId) {
             return allFactory.getGrades(traineeId);
         };
-
+        
         delegate.all.getAllTrainers = function () {
             return allFactory.getAllTrainers();
         };
@@ -77,14 +77,18 @@ angular.module("delegate").factory("caliberDelegate",
         delegate.all.enumTrainingType = function () {
             return allFactory.enumTrainingType();
         };
+        
+        delegate.all.getAllCategories = function () {
+        	return allFactory.getAllCategories();
+        };
 
         /************************* Trainer ****************************/
         delegate.trainer.getAllBatches = function () {
             return trainerFactory.getAllBatches();
         };
 
-        delegate.trainer.createWeek = function (batchId) {
-            return trainerFactory.createWeek(batchId);
+        delegate.trainer.createWeek = function (weekObj) {
+            return trainerFactory.createWeek(weekObj);
         };
 
         delegate.trainer.addGrade = function (gradeObj) {
@@ -160,11 +164,6 @@ angular.module("delegate").factory("caliberDelegate",
         delegate.qc.updateNote = function (noteObj) {
             return qcFactory.updateNote(noteObj);
         };
-        
-        delegate.qc.getAssessmentsByBatchId = function (batchId) {
-        	$log.debug("Testing delegate");
-        	return qcFactory.getAssessmentsByBatchId(batchId);
-        }
 
         /************************** Aggregate *****************************/
         delegate.agg.getAggTechTrainee = function (traineeId) {

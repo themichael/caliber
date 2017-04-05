@@ -102,8 +102,8 @@ public class BatchDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches");
-
-		return sessionFactory.getCurrentSession().createCriteria(Batch.class).createAlias("trainees", "trainees").createAlias("trainees.grades", "grades")
+		// trainees eagerly loaded. using alias or other fetch style causes a left join.. and inaccurate results
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime()))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
