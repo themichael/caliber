@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 angular.module("trainer").controller(
     "trainerManageController",
     function ($scope, $log, caliberDelegate, allBatches) {
@@ -245,7 +244,7 @@ angular.module("trainer").controller(
             }
         };
 
-=======
+
 angular.module("trainer").controller(
     "trainerManageController",
     function ($scope, $log, caliberDelegate, allBatches) {
@@ -500,5 +499,4 @@ angular.module("trainer").controller(
             }
         };
 
->>>>>>> 74423adc655cf5daf4df877eccf996aa3c9088c9
     });
