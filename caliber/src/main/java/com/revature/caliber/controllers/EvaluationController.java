@@ -92,7 +92,7 @@ public class EvaluationController {
 	 * @param assessmentId
 	 * @return
 	 */
-	@RequestMapping(value = "/all/grade/assessment/{assessmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/grades/assessment/{assessmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public List<Grade> findByAssessment(@PathVariable Long assessmentId) {
 		log.info("Finding grades for assessment: " + assessmentId);
