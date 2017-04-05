@@ -47,7 +47,7 @@ public class EvaluationController {
 	 * @param grade
 	 * @return 
 	 */
-	@RequestMapping(value = "/all/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/trainer/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createGrade(@RequestBody Grade grade) {
 		log.info("Saving grade: " + grade);
@@ -61,7 +61,7 @@ public class EvaluationController {
 	 * @param grade
 	 * @return 
 	 */
-	@RequestMapping(value = "/all/grade/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/trainer/grade/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateGrade(@RequestBody Grade grade) {
 		log.info("Updating grade: " + grade);
@@ -92,7 +92,7 @@ public class EvaluationController {
 	 * @param assessmentId
 	 * @return
 	 */
-	@RequestMapping(value = "/all/grade/assessment/{assessmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/grades/assessment/{assessmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public List<Grade> findByAssessment(@PathVariable Long assessmentId) {
 		log.info("Finding grades for assessment: " + assessmentId);
@@ -150,7 +150,7 @@ public class EvaluationController {
 	 * @param week
 	 * @return
 	 */
-	@RequestMapping(value = "/all/grade/batch/{batchId}/week/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/grades/batch/{batchId}/week/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public List<Grade> findByWeek(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("Finding week " + week + " grades for batch: " + batchId);
