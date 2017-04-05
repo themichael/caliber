@@ -53,16 +53,16 @@ public class ReportingController {
 	 * @return JSON result of Map<Trainee, Double>
 	 */
 	@RequestMapping(value = "/all/reports/week/batch/{batchId}/week/{week}/bar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, Double[]>> getBatchWeeklyAvgAssessmentScore(@PathVariable int batchId,
+	public ResponseEntity<Map<String, Double>> getBatchWeeklyAvgAssessmentScore(@PathVariable int batchId,
 			@PathVariable int week) {
-		Map<String, Double[]> result = reportingService.barChartAvgBatchWeek(batchId, week);
-		return new ResponseEntity<Map<String, Double[]>>(result, HttpStatus.OK);
+		Map<String, Double> result = reportingService.barChartAvgBatchWeek(batchId, week);
+		return new ResponseEntity<Map<String, Double>>(result, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/all/reports/overall/batch/{batchId}/line", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Integer, Double[]>> getBatchOverallAvgAssessmentScore(@PathVariable int batchId){
-		Map<Integer, Double[]> result = reportingService.getAvgBatchOverall(batchId);
-		return new ResponseEntity<Map<Integer, Double[]>>(result, HttpStatus.OK);
+	public ResponseEntity<Map<Integer, Double>> getBatchOverallAvgAssessmentScore(@PathVariable int batchId){
+		Map<Integer, Double> result = reportingService.getAvgBatchOverall(batchId);
+		return new ResponseEntity<Map<Integer, Double>>(result, HttpStatus.OK);
 	}
 	
 	/**
