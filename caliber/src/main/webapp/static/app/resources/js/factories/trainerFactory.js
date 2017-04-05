@@ -125,7 +125,7 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
     };
 
     // get all assessments
-    trainer.getAllAssessments = function (batchId, week) {
+    trainer.getAllAssessmentsForWeek = function (batchId, week) {
         return $http({
             url: "/trainer/assessment/"+ batchId +"/" + week,
             method: "GET"
