@@ -251,5 +251,4 @@ angular.module("trainer").controller(
                 }
             }
         };
-
     });
