@@ -326,8 +326,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	<!-- Manage batch table -->
 	<div class="container">
 		<div class="row">
@@ -375,7 +373,7 @@
 	</div>
 
 	<!--********************************************* Create Batch Modal ************************************-->
-	<form>
+	<form ng-submit="addNewBatch()">
 		<div class="modal fade" id="createBatchModal" tabindex="-1"
 			role="dialog" aria-labelledby="batchModalLabel">
 			<div class="modal-dialog" role="document">
@@ -399,8 +397,7 @@
 								<label for="trainingType">Training Type:</label> <select
 									ng-model="trainingType.model" class="form-control"
 									id="trainingType" required>
-									<option value="" disabled selected>Select Training
-										Type</option>
+									<option value="" disabled>Select Training Type</option>
 									<option ng-repeat="option in trainingType.options">{{option}}</option>
 								</select>
 							</div>
@@ -410,7 +407,7 @@
 								<label for="skillType">Skill Type:</label> <select
 									ng-model="skillType.model" class="form-control" id="skillType"
 									required>
-									<option value="" disabled selected>Select Skill Type</option>
+									<option value="" disabled>Select Skill Type</option>
 									<option ng-repeat="option in skillType.options">{{option}}</option>
 								</select>
 							</div>
@@ -418,7 +415,7 @@
 								<label for="location">Location:</label> <select
 									ng-model="location.model" class="form-control" id="location"
 									required>
-									<option value="" disabled selected>Select Location</option>
+									<option value="" disabled>Select Location</option>
 									<option ng-repeat="option in location.options">{{option}}</option>
 								</select>
 							</div>
@@ -428,15 +425,14 @@
 								<label for="trainer">Trainer:</label> <select
 									ng-model="trainer.model" class="form-control" id="trainer"
 									required>
-									<option value="" disabled selected>Select Trainer</option>
+									<option value="" disabled>Select Trainer</option>
 									<option ng-repeat="option in trainers">{{option.name}}</option>
 								</select>
 							</div>
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="co-trainer">Co-Trainer:</label> <select
-									ng-model="coTrainer.model" class="form-control" id="co-trainer"
-									required>
-									<option value="" disabled selected>Select Co-Trainer</option>
+									ng-model="coTrainer.model" class="form-control" id="co-trainer">
+									<option value="" disabled>Select Co-Trainer</option>
 									<option ng-repeat="option in trainers">{{option.name}}</option>
 								</select>
 							</div>
@@ -463,22 +459,32 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-md-6 col-sm-6">
-								<label for="goodGrade">Good Grade: <span title="The minimum acceptable grade." alt="The minimum acceptable grade." class="glyphicon glyphicon-question-sign"></span></label> <input
+								<label for="goodGrade">Good Grade: <span
+									title="The minimum acceptable grade."
+									alt="The minimum acceptable grade."
+									class="glyphicon glyphicon-question-sign"></span></label> <input
 									ng-model="goodGradeThreshold.model" type="number" min="0"
-									step="1" class="form-control" id="goodGrade"
-									placeholder="80" required>
+									step="1" class="form-control" id="goodGrade" placeholder="80"
+									required>
 							</div>
 							<div class="form-group col-md-6 col-sm-6">
-								<label for="borderlineGrade">Passing Grade: <span title="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action." alt="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action." class="glyphicon glyphicon-question-sign"></span></label>
-								<input ng-model="borderlineGradeThreshold.model" type="number"
-									min="0" step="1" class="form-control" id="borderlineGrade"
+								<label for="borderlineGrade">Passing Grade: <span
+									title="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action."
+									alt="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action."
+									class="glyphicon glyphicon-question-sign"></span></label> <input
+									ng-model="borderlineGradeThreshold.model" type="number" min="0"
+									step="1" class="form-control" id="borderlineGrade"
 									placeholder="50" required>
 							</div>
 						</div>
 						<div class="row">
 							<div class="form-group col-lg-12 col-md-12 col-sm-12">
-								<label for="benchmark-date">Benchmark Date: <span title="How far back in time the reports should go when comparing your batch against others." alt="How far back in time the reports should go when comparing your batch against others." class="glyphicon glyphicon-question-sign"></span></label>
-								<div class="input-group" id="benchmark-date" data-datepicker="true">
+								<label for="benchmark-date">Benchmark Date: <span
+									title="How far back in time the reports should go when comparing your batch against others."
+									alt="How far back in time the reports should go when comparing your batch against others."
+									class="glyphicon glyphicon-question-sign"></span></label>
+								<div class="input-group" id="benchmark-date"
+									data-datepicker="true">
 									<input ng-model="benchmarkStartDate.model"
 										class="date-input form-control date-selector" name="date"
 										min="0" type="date" required> <span
@@ -489,8 +495,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button ng-click="addNewBatch()" type="button"
-							class="btn btn-primary">Save</button>
+						<input type="submit" value="Save" class="btn btn-primary">
 					</div>
 				</div>
 			</div>
@@ -498,7 +503,7 @@
 	</form>
 
 	<!--********************************************* Add Trainee Modal ************************************-->
-	<form>
+	<form ng-submit="addNewTrainee()">
 		<div class="modal fade" id="addTraineeModal" tabindex="-1"
 			role="dialog" aria-labelledby="traineeModalLabel">
 			<div class="modal-dialog modal-lg" role="document">
@@ -508,7 +513,7 @@
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" id="traineeModalLabel">View/ Add
+						<h4 class="modal-title" id="traineeModalLabel">View/Add
 							Trainees</h4>
 					</div>
 					<div class="modal-body">
@@ -526,6 +531,7 @@
 										<th>Skype Id</th>
 										<th>URL</th>
 										<th>Edit</th>
+										<th>Profile Url</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -535,9 +541,14 @@
 										<td>{{trainee.trainingStatus}}</td>
 										<td>{{trainee.phoneNumber}}</td>
 										<td>{{trainee.skypeId}}</td>
-										<td>{{}}</td>
+
+										<td><span ng-if="trainee.profileUrl"> <a
+												href="{{trainee.profileUrl}}" target="_blank"><i
+													class="fa fa-file-code-o" aria-hidden="true"></i></a>
+										</span></td>
 										<td><button ng-click="loadTrainee()" type="submit"
 							class="btn btn-primary">Edit</button></td>
+
 									</tr>
 								</tbody>
 							</table>
@@ -561,7 +572,7 @@
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeSkype">Skype Id:</label> <input
 										ng-model="receiver.skypeId" type="text" class="form-control"
-										id="traineeSkype" placeholder="Skype Id" required>
+										id="traineeSkype" placeholder="Skype Id">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineePhone">Phone:</label> <input
@@ -582,7 +593,7 @@
 									<label for="traineeStatus">Training Status</label> <select
 										ng-model="receiver.trainingStatus" class="form-control"
 										id="traineeStatus" required>
-										<option value="" disabled selected>Select Status</option>
+										<option value="" disabled>Select Status</option>
 										<option ng-repeat="option in trainingStatuses.options">{{option}}</option>
 									</select>
 								</div>
@@ -611,12 +622,10 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button ng-click="addNewTrainee()" type="submit"
-							class="btn btn-primary">Save</button>
+						<input type="submit" value="Save" class="btn btn-primary">
 					</div>
 				</div>
 			</div>
 		</div>
-</div>
-</form>
+	</form>
 </div>

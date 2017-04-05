@@ -133,8 +133,12 @@ angular.module("trainer").controller(
                 borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
                 benchmarkStartDate: $scope.benchmarkStartDate.model
             };
-            var trainer_name = $scope.trainer.model;
-            var cotrainer_name = $scope.coTrainer.model;
+            if($scope.trainer){
+            	var trainer_name = $scope.trainer.model;
+            }
+            if($scope.coTrainer){
+            	var cotrainer_name = $scope.coTrainer.model;
+            }
 
             for (var i = 0; i < $scope.trainers.length; i++) {
 
@@ -148,23 +152,38 @@ angular.module("trainer").controller(
 
             $log.debug(newBatch);
 
-            result = caliberDelegate.all.createBatch(newBatch);
-
-            result.then(function () {
-                $scope.batches.push({
-                    trainingName: $scope.trainingName.model,
-                    trainingType: $scope.trainingType.model,
-                    skillType: $scope.skillType.model,
-                    location: $scope.location.model,
-                    trainer: $scope.trainer.model,
-                    coTrainer: $scope.coTrainer.model,
-                    startDate: $scope.startDate.model,
-                    endDate: $scope.endDate.model,
-                    goodGradeThreshold: $scope.goodGradeThreshold.model,
-                    borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
-                    benchmarkStartDate: $scope.benchmarkStartDate.model
-                });
+            caliberDelegate.all.createBatch(newBatch).then(function () {
+                // coTrainer may be undefined
+            	if($scope.coTrainer){
+	            	$scope.batches.push({
+	                    trainingName: $scope.trainingName.model,
+	                    trainingType: $scope.trainingType.model,
+	                    skillType: $scope.skillType.model,
+	                    location: $scope.location.model,
+	                    trainer: $scope.trainer.model,
+	                    coTrainer: $scope.coTrainer.model,
+	                    startDate: $scope.startDate.model,
+	                    endDate: $scope.endDate.model,
+	                    goodGradeThreshold: $scope.goodGradeThreshold.model,
+	                    borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
+	                    benchmarkStartDate: $scope.benchmarkStartDate.model
+	                });
+                }else{
+	            	$scope.batches.push({
+	                    trainingName: $scope.trainingName.model,
+	                    trainingType: $scope.trainingType.model,
+	                    skillType: $scope.skillType.model,
+	                    location: $scope.location.model,
+	                    trainer: $scope.trainer.model,
+	                    startDate: $scope.startDate.model,
+	                    endDate: $scope.endDate.model,
+	                    goodGradeThreshold: $scope.goodGradeThreshold.model,
+	                    borderlineGradeThreshold: $scope.borderlineGradeThreshold.model,
+	                    benchmarkStartDate: $scope.benchmarkStartDate.model
+	                });
+                }
                 sortByDate($scope.selectedYear);
+                angular.element("#createBatchModal").modal("hide");
             });
 
         };
