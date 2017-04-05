@@ -47,7 +47,7 @@ public class EvaluationController {
 	 * @param grade
 	 * @return 
 	 */
-	@RequestMapping(value = "/all/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/trainer/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createGrade(@RequestBody Grade grade) {
 		log.info("Saving grade: " + grade);
@@ -61,7 +61,7 @@ public class EvaluationController {
 	 * @param grade
 	 * @return 
 	 */
-	@RequestMapping(value = "/all/grade/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/trainer/grade/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateGrade(@RequestBody Grade grade) {
 		log.info("Updating grade: " + grade);
