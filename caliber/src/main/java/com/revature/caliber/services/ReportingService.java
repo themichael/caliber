@@ -254,7 +254,7 @@ public class ReportingService {
 	 * All Weeks -> All Trainees In Batch -> Average Score -> One Assessment Type
 	 * @param batchId
 	 * @param assessmentType
-	 * @return Trainee: The Trainee, Double[]: 0: Score, 1: Weight, 2: Week
+	 * @return Map<Week #s, Double[]: 0: Score, 1: Weight>
 	 */
 	public Map<Integer, Double[]> getAvgBatchOverall(Integer batchId, AssessmentType assessmentType) {
 		Map<Integer, Double[]> results = new HashMap<>();
@@ -268,10 +268,14 @@ public class ReportingService {
 				avg[0] += t.getValue()[0];
 				avg[1] = t.getValue()[1];
 			}
-			avg[0] = avg[0]/temp.size();
+			avg[0] = avg[0] / temp.size();
 			results.put(i, avg);
 		}
 		return results;
+	}
+	//Average Grades of All Assessments
+	public Map<Trainee, Double> getAvgOfAllAssessementForBatch(){
+		return null;
 	}
   
 }
