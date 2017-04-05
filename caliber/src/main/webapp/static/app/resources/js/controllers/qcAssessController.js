@@ -4,11 +4,13 @@ angular.module("qc")
 
         /******************************** Sample Data *******************************/
         $scope.batches = allBatches;
-        $scope.bnote = batchNotes;
+        $scope.bnote = [];
+        $scope.tnote = [];
+        /*$scope.bnote = batchNotes;
         $scope.tnote = traineeNotes;
-        $log.debug($scope.tnote);
+        $log.debug($scope.tnote);*/
 
-        var assessments = [
+       /* var assessments = [
             [{
                 assessmentId: 51, title: "Java Core Test I", rawScore: 50, type: "Mul Choice",
                 categories: [{categoryId: 13, skillCategory: "Java"}]
@@ -99,7 +101,7 @@ angular.module("qc")
                     "ranking": 999
                 }
             }
-        ];
+        ];*/
 
         // END TEST DATA *********************
 
@@ -141,8 +143,22 @@ angular.module("qc")
 /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
 /************************************************TODO REFACTOR: QC FEEDBACK IS NOTE.. NOT ASSESSMENT***************************************/
         $scope.currentBatch = $scope.batches[0];
-        $scope.currentWeek = $scope.currentBatch.weeks[0];
-        $scope.currentAssessments = getAssessments(0);
+        // Set bnote to current batch qc notes
+        angular.forEach(batchNotes, function(note, key) {
+        	if(note.batch.batchId === $scope.currentBatch.batchId) {
+        		$scope.bnote.push(note);
+        	}
+    	});
+        // Set tnote to current batch trainee qc notes
+        angular.forEach(traineeNotes, function(note, key) {
+        	angular.forEach($scope.currentBatch.trainees, function(trainee, key) {
+            	if(trainee.traineeId === note.trainee.traineeId) {
+            		$scope.tnote.push(note);
+            	}
+        	})
+        });
+        //$scope.currentWeek = $scope.currentBatch.weeks[0];
+        //$scope.currentAssessments = getAssessments(0);
         
         // default -- view assessments table
         $scope.currentView = true;
@@ -156,51 +172,70 @@ angular.module("qc")
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectCurrentBatch = function (index) {
             $scope.currentBatch = $scope.batches[index];
-            
+            $scope.bnote = [];
+            $scope.tnote = [];
+            // Set bnote to current batch qc note
+            angular.forEach(batchNotes, function(note, key) {
+            	if(note.batch.batchId === $scope.currentBatch.batchId) {
+            		$scope.bnote.push(note);
+            	}
+        	});
+            // Set tnote to current batch trainee qc note
+            angular.forEach(traineeNotes, function(note, key) {
+            	angular.forEach($scope.currentBatch.trainees, function(trainee, key) {
+                	if(trainee.traineeId === note.trainee.traineeId) {
+                		$scope.tnote.push(note);
+                	}
+            	})
+        	});
+            $log.debug("Batch QC Notes");
+            $log.debug($scope.bnote);
+            $log.debug("Batch Trainee Notes");
+            $log.debug($scope.tnote);
             wipeFaces(); 
             
             // set week
-            $scope.currentWeek = $scope.currentBatch.weeks[0];
+            //$scope.currentWeek = $scope.currentBatch.weeks[0];
 
             /** replace with ajax call to get assessments by weekId **/
             // test function to grab assessments
-            $scope.currentAssessments = getAssessments(index);
+            //$scope.currentAssessments = getAssessments(index);
         };
 
         // select week
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectWeek = function (index) {
-            $scope.currentWeek = $scope.currentBatch.weeks[index];
+            //$scope.currentWeek = $scope.currentBatch.weeks[index];
             /** ajax call to get notes and statuses by weekId **/
             wipeFaces();
         };
 
         // active week
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
-        $scope.showActiveWeek = function (index) {
+       /* $scope.showActiveWeek = function (index) {
             if ($scope.currentWeek === $scope.currentBatch.weeks[index])
                 return "active";
-        };
+        };*/
 
         // select assessment from list
-        $scope.selectAssessment = function (index) {
+        /*$scope.selectAssessment = function (index) {
             $scope.currentAssessment = $scope.currentAssessments[index];
             $scope.currentView = false;
-            /** replace with ajax call to get grades by assessmentId **/
-        };
+            *//** replace with ajax call to get grades by assessmentId **//*
+        };*/
 
         // find grade for trainee
-        $scope.findGrade = function (traineeId, assessmentId) {
+       /* $scope.findGrade = function (traineeId, assessmentId) {
             var grade = grades.find(function (grade) {
                 return grade.trainee === traineeId && grade.assessment.assessmentId === assessmentId;
             });
 
             return grade.score;
-        };
+        };*/
 
         /************************************************TODO REFACTOR***************************************/
         /* Save Assessment */
-        $scope.addAssessment = function () {
+       /* $scope.addAssessment = function () {
             assessments.push({
                 trainingName: $scope.trainingName,
                 trainingType: $scope.trainingType,
@@ -209,12 +244,12 @@ angular.module("qc")
                 rawScore: $scope.rawScore
             });
             qcFactory.createAssessment()
-        };
+        };*/
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         // test function - get assessment
-        function getAssessments(index) {
+        /*function getAssessments(index) {
             return assessments[index];
-        }
+        }*/
         
         /////// wipe faces ;)  and selections ///////      
         function wipeFaces(){

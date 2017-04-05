@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -171,7 +172,8 @@ public class NoteDAO {
         log.info("Find All QC Batch notes");
         return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
         		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
-				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.addOrder(Order.asc("week")).list();
     }
 	
 	/**
@@ -184,6 +186,7 @@ public class NoteDAO {
         log.info("Find All QC Trainee notes");
         return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
         		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
-				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.addOrder(Order.asc("week")).list();
     }
 }
