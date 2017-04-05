@@ -84,5 +84,9 @@ angular.module("qc")
             $scope.qcBatchAssess = null;
             $scope.finalQCBatchNote = null;
         }
-
+        
+        /************************************************** GETTING NOTES ON TRAINEE **********************************************/
+        $scope.noteOnTrainee = function (traineeName) {
+        	$log.debug(traineeName);
+        };
     });
