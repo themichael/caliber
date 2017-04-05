@@ -23,6 +23,34 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	
+	// Call EvaluationController's getAllQCBatchNotes method
+	qc.getAllQCBatchNote = function() {
+		return $http({
+			url : "/qc/batch/note/all",
+			method : "GET"
+		}).then(function(response) {
+			$log.log("QC Batch Note retrieved successfully");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
+	// Call EvaluationController's getAllQCTraineeNotes method
+	qc.getAllQCTraineeNote = function() {
+		return $http({
+			url : "/qc/trainee/note/all",
+			method : "GET"
+		}).then(function(response) {
+			$log.log("QC Trainee Note retrieved successfully");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
 
 	/** ************************* Grade *********************** */
 	// add a new grade
