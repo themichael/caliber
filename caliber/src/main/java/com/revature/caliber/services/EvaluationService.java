@@ -265,9 +265,7 @@ public class EvaluationService {
 	public List<Note> findAllQCTraineeNotes(Integer batchId) {
 		log.debug("Find All QC Trainee Notes");
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
-		System.out.println("trainess: " + trainees);
 		List<Note> notes = noteDAO.findAllQCTraineeNotes();
-		System.out.println("notes: " + notes);
 		List<Note> traineeNotes = new ArrayList();
 		for(Trainee trainee:trainees) {
 			for(Note note:notes) {
