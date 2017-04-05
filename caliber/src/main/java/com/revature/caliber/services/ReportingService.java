@@ -135,6 +135,7 @@ public class ReportingService {
 
 	}
 
+
 	public Map<Trainee, Double> getBatchWeeklyAssessmentScore(int batchId, int week) {
 		Map<Trainee, Double> results = new HashMap<>();
 		Map<String, Double> assessmentNscoreMap = new HashMap<>();
