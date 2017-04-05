@@ -199,7 +199,7 @@ public class EvaluationService {
 	 * @param week
 	 * @return
 	 */
-	public List<Note> findQCBatchNotes(Integer batchId, Integer week) {
+	public Note findQCBatchNotes(Integer batchId, Integer week) {
 		log.debug("Finding week " + week + " QC batch notes for batch: " + batchId);
 		return noteDAO.findQCBatchNotes(batchId, week);
 	}
@@ -240,4 +240,8 @@ public class EvaluationService {
 		return noteDAO.findAllIndividualNotes(traineeId, week);
 	}
 
+	public List<Note> findAllQCNotes() {
+        log.debug("Find All QC notes");
+        return noteDAO.findAllQCNotes();
+    }
 }

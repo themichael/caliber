@@ -1,26 +1,9 @@
 angular.module("qc")
-    .controller("qcAssessController", function ($log, $scope, chartsDelegate, caliberDelegate, qcFactory) {
+    .controller("qcAssessController", function ($log, $scope, chartsDelegate, caliberDelegate, qcFactory, allBatches) {
         $log.debug("Booted Trainer Assess Controller");
 
         /******************************** Sample Data *******************************/
-        $scope.batches = [
-            {
-                batchId: 451, trainingName: 'Batch123', trainer: 'Patrick', coTrainer: '',
-                skillType: 'Java', trainingType: 'CUNY', startDate: new Date(), endDate: new Date(),
-                location: 'Queens, NY', goodGradeThreshold: 75, borderlineGradeThreshold: 40,
-                trainees: [{traineeId: 53, name: "Charles", email: "charles@gmail.com", trainingStatus: "Active"},
-                    {traineeId: 65, name: "Mike", email: "Mike@gmail.com", trainingStatus: "Active"},
-                    {traineeId: 78, name: "Rebecca", email: "Rebecca@gmail.com", trainingStatus: "Active"}],
-                weeks: [{weekId: 421, weekNumber: 1, topics: [{categoryId: 13, skillCategory: "Java Core"}]},
-                    {weekId: 476, weekNumber: 2, topics: [{categoryId: 13, skillCategory: "SQL"}]},
-                    {weekId: 486, weekNumber: 3, topics: [{categoryId: 13, skillCategory: "Design Patterns"}]},
-                    {weekId: 495, weekNumber: 4, topics: [{categoryId: 13, skillCategory: "Hibernate"}]}]
-            },
-            {
-                trainingName: 'Batch456', trainingType: 'Corporate', skillType: 'Java', location: 'Reston, VA',
-                trainer: 'Ryan', coTrainer: 'Brian', startDate: new Date(), endDate: new Date()
-            }
-        ];
+        $scope.batches = allBatches;
 
         var assessments = [
             [{
