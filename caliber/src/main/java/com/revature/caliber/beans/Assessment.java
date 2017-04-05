@@ -24,7 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CALIBER_ASSESSMENT")
-public class Assessment implements Serializable{
+public class Assessment implements Serializable {
 
 	private static final long serialVersionUID = 5030264218154828822L;
 
@@ -70,8 +70,8 @@ public class Assessment implements Serializable{
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
 	private Category category;
-	
-	@OneToMany(mappedBy="assessment", fetch=FetchType.LAZY)
+
+	@OneToMany(mappedBy = "assessment", fetch = FetchType.LAZY)
 	private Set<Grade> grades = new HashSet<>();
 
 	public long getAssessmentId() {
@@ -158,5 +158,4 @@ public class Assessment implements Serializable{
 		return "Assessment [title=" + title + ", batch=" + batch + ", type=" + type + ", week=" + week + ", category="
 				+ category + "]";
 	}
-
 }
