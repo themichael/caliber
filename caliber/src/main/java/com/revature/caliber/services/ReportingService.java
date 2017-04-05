@@ -294,7 +294,12 @@ public class ReportingService {
 		}
 		return results;
 	}
-	//Average Grades of All Assessments Over the week
+	/**
+	 * Average Grades of All Assessments Over the week
+	 * @param batchId
+	 * @param week
+	 * @return
+	 */
 	public Map<String, Double[]> barChartAvgBatchWeek(int batchId, int week){
 		Map<Trainee, Double[]> avgBatchWeek = getAvgBatchWeek(batchId, week);
 		Map<String, Double[]> result = new HashMap<>();
