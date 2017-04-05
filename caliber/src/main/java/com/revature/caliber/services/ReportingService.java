@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
@@ -34,6 +35,7 @@ import com.revature.caliber.data.TraineeDAO;
 @Service
 public class ReportingService {
 	private final static Logger log = Logger.getLogger(ReportingService.class);
+	
 	private GradeDAO gradeDAO;
 	private BatchDAO batchDAO;
 	private TraineeDAO traineeDAO;
@@ -146,10 +148,11 @@ public class ReportingService {
 				.collect(Collectors.toList());
 		Double[] result = { 0d, 0d };
 		for (Grade grade : gradesForAssessment) {
-			result[0] += (grade.getScore() / 100.0 * grade.getAssessment().getRawScore() / totalRawScore);
+			result[0] += (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
 			result[1] += grade.getAssessment().getRawScore();
 		}
-		result[1] = result[1] / totalRawScore;
+		result[1] = result[1] / totalRawScore * 100;
+		result[0] = result[0] / result[1] * 100;
 		return result;
 	}
 
@@ -170,7 +173,6 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			results.put(trainee, getAvgTraineeWeek(trainee.getTraineeId(), week, assessmentType));
 		}
-		System.out.println(results);
 		return results;
 	}
 
@@ -188,7 +190,7 @@ public class ReportingService {
 		Map<Integer, Double[]> results = new HashMap<>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
 		int weeks = trainee.getBatch().getWeeks();
-		for (Integer i = 0; i < weeks; i++) {
+		for (Integer i = 1; i <= weeks; i++) {
 			results.put(i, getAvgTraineeWeek(traineeId, i, assessmentType));
 		}
 		return results;
@@ -207,7 +209,7 @@ public class ReportingService {
 		Map<Integer, Double[]> results = new HashMap<>();
 		Batch batch = batchDAO.findOne(batchId);
 		int weeks = batch.getWeeks();
-		for (Integer i = 0; i < weeks; i++) {
+		for (Integer i = 1; i <= weeks; i++) {
 			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, i, assessmentType);
 			Double[] avg = { 0d, 0d };
 			avg[1] = temp.values().iterator().next()[1];
@@ -237,6 +239,7 @@ public class ReportingService {
 			result[1] += grade.getAssessment().getRawScore();
 		}
 		result[1] = result[1] / totalRawScore;
+		result[0] = result[0] / result[1] * 100;
 		return result;
 	}
 
@@ -266,7 +269,7 @@ public class ReportingService {
 		Map<Integer, Double[]> results = new HashMap<>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
 		int weeks = trainee.getBatch().getWeeks();
-		for (Integer i = 0; i < weeks; i++) {
+		for (Integer i = 1; i < weeks; i++) {
 			results.put(i, getAvgTraineeWeek(traineeId, i));
 		}
 		return results;
@@ -281,9 +284,10 @@ public class ReportingService {
 		Map<Integer, Double[]> results = new HashMap<>();
 		Batch batch = batchDAO.findOne(batchId);
 		int weeks = batch.getWeeks();
-		for (Integer i = 0; i < weeks; i++) {
+		for (Integer i = 1; i < weeks; i++) {
 			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, i);
 			Double[] avg = { 0d, 0d };
+			avg[1] = temp.values().iterator().next()[1];
 			for (Map.Entry<Trainee, Double[]> t : temp.entrySet()) {
 				avg[0] += t.getValue()[0];
 			}
@@ -305,5 +309,32 @@ public class ReportingService {
 	
 	public Map<Integer, Double[]> lineChartAvgBatchOverall(int batchId){
 		return getAvgBatchOverall(batchId);
+	}
+
+	/**
+	 * 
+	 * @param traineeId
+	 * @param weekNumber
+	 * @return Map<'skill, Double{average, number of assessments for that skill}>
+	 */
+	public Map<Category, Double[]> getAvgSkillsTraineeWeek(Integer traineeId, Integer weekNumber) {
+		Map<Category, Double[]> results = new HashMap<>();
+		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
+		List<Grade> weekgrades = grades.stream().filter(g -> g.getAssessment().getWeek() == weekNumber)
+				.collect(Collectors.toList());
+		for (Grade g : weekgrades) {
+			Category skill = g.getAssessment().getCategory();
+			if (results.get(skill) == null) {
+				Double temp[] = { g.getScore(), 1.0 };
+				results.put(skill, temp);
+			} else {
+				Double[] temp = results.get(skill);
+				temp[0] = ((temp[0] * temp[1]) + g.getScore()) / (temp[1] + 1);
+				temp[1] = temp[1] + 1;
+				results.remove(skill);
+				results.put(skill, temp);
+			}
+		}
+		return results;
 	}
 }
