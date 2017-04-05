@@ -8,8 +8,8 @@ angular.module("qc")
         $scope.weeks = [];
 
         /******************** Weeks **************************************/
-        function Week(weekNum, note) {
-        	this.week = weekNum;
+        function Week(weekNumber, note) {
+        	this.weekNumber = weekNumber;
         	this.note = note;
         }
         
@@ -48,14 +48,22 @@ angular.module("qc")
         });
         
         // starting scope vars
-/************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
-/************************************************TODO REFACTOR: QC FEEDBACK IS NOTE.. NOT ASSESSMENT***************************************/
         $scope.currentBatch = $scope.batches[0];
+        for(i = 1; i <= $scope.currentBatch.weeks; i++) {
+    		$scope.weeks.push(new Week(i, []));
+    	}
+        $scope.currentWeek = $scope.weeks[0];
         caliberDelegate.qc.batchNote($scope.currentBatch.batchId).then(function(notes){
     		$scope.bnote = notes;
+    		for(i = 0; i < $scope.bnote.length; i++) {
+            	$scope.weeks[$scope.bnote[i].week - 1].note.push($scope.bnote[i]);
+            }
     	});
         caliberDelegate.qc.traineeNote($scope.currentBatch.batchId).then(function(notes){
     		$scope.tnote = notes;
+    		for(i = 0; i < $scope.tnote.length; i++) {
+            	$scope.weeks[$scope.tnote[i].week - 1].note.push($scope.tnote[i]);
+            }
     	});
         
         // default -- view assessments table
@@ -67,31 +75,54 @@ angular.module("qc")
         };
 
         // batch drop down select
-        /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectCurrentBatch = function (index) {
         	$log.debug("SELECTED DIFFERENT BATCH");
+        	$scope.currentBatch = $scope.batches[index];
+        	// Create week array for batch selected
+        	$scope.weeks = [];
         	for(i = 1; i <= $scope.currentBatch.weeks; i++) {
         		$scope.weeks.push(new Week(i, []));
         	}
-        	$scope.currentBatch = $scope.batches[index];
+        	// Set current week to first week
+        	$scope.currentWeek = $scope.weeks[0];
+        	// Get qc notes for selected batch
             caliberDelegate.qc.batchNote($scope.currentBatch.batchId).then(function(notes){
         		$scope.bnote = notes;
         		$log.debug("Batch QC Notes");
                 $log.debug($scope.bnote);
+                // Put qc notes into week object
                 for(i = 0; i < $scope.bnote.length; i++) {
-                	$scope.weeks[$scope.bnote[i].week].note.push($scope.bnote[i]);
+                	$scope.weeks[$scope.bnote[i].week - 1].note.push($scope.bnote[i]);
                 }
                 $log.debug("weeks");
             	$log.debug($scope.weeks);
         	});
+            // Get qc notes for trainees in selected batch 
             caliberDelegate.qc.traineeNote($scope.currentBatch.batchId).then(function(notes){
         		$scope.tnote = notes;
         		$log.debug("Batch Trainee Notes");
                 $log.debug($scope.tnote);
+                // Put qc notes into week object
+                for(i = 0; i < $scope.tnote.length; i++) {
+                	$scope.weeks[$scope.tnote[i].week - 1].note.push($scope.tnote[i]);
+                }
+                $log.debug("weeks");
+            	$log.debug($scope.weeks);
         	});
             wipeFaces(); 
         };
 
+        // Select week
+        $scope.selectWeek = function (index) {
+        	$scope.currentWeek = $scope.weeks[index]
+        	wipeFaces();
+        };
+         
+        // Show week
+        $scope.showActiveWeek = function (index) {
+        	 if ($scope.currentWeek === $scope.weeks[index])
+        	 return "active";
+        }
         
         /////// wipe faces ;)  and selections ///////      
         function wipeFaces(){
