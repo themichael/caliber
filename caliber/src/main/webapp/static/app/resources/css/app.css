@@ -114,11 +114,20 @@ a { color: #F26925;}
 /************************
 	Manage Batch
 ************************/
+.fa-smile-o { color: #B9B9BA; }
+.fa-meh-o { color: #B9B9BA; }
+.fa-frown-o { color: #B9B9BA; }
+.fa-star { color: #B9B9BA; }
 
-.fa-smile-o:hover { color: green; }
-.fa-meh-o:hover { color: yellow; }
-.fa-frown-o:hover { color: red; }
+.fa-smile-o:hover { color: #81f575; }
+.fa-meh-o:hover { color: #fff575; }
+.fa-frown-o:hover { color: #ff7575; }
+.fa-star:hover { color: #7972ff; }
 
+.fa-smile-o.pick { color: #81f575 !important; }
+.fa-meh-o.pick { color: #fff575 !important; }
+.fa-frown-o.pick { color: #ff7575 !important; }
+.fa-star.pick { color: #7972ff !important; }
 /************************
 	Margins
 ************************/
