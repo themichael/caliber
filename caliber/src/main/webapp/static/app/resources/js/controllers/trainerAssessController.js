@@ -158,7 +158,7 @@ angular.module("trainer")
                 batch: $scope.currentBatch.batchId,
                 type: $scope.assessType,
                 /************************************************TODO REFACTOR***************************************/
-                categories:  $scope.selectedCategory,
+                categories:  $scope.selectedCategories,
                 week: $scope.currentWeek.weekId,
                 /************************************************TODO REFACTOR***************************************/
                 weeklyStatus: null,
