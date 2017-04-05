@@ -8,8 +8,8 @@ angular.module("qc")
         $scope.weeks = [];
 
         /******************** Weeks **************************************/
-        function Week(weekNum, note) {
-        	this.week = weekNum;
+        function Week(weekNumber, note) {
+        	this.weekNumber = weekNumber;
         	this.note = note;
         }
         
@@ -51,11 +51,20 @@ angular.module("qc")
 /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
 /************************************************TODO REFACTOR: QC FEEDBACK IS NOTE.. NOT ASSESSMENT***************************************/
         $scope.currentBatch = $scope.batches[0];
+        for(i = 1; i <= $scope.currentBatch.weeks; i++) {
+    		$scope.weeks.push(new Week(i, []));
+    	}
         caliberDelegate.qc.batchNote($scope.currentBatch.batchId).then(function(notes){
     		$scope.bnote = notes;
+    		for(i = 0; i < $scope.bnote.length; i++) {
+            	$scope.weeks[$scope.bnote[i].week - 1].note.push($scope.bnote[i]);
+            }
     	});
         caliberDelegate.qc.traineeNote($scope.currentBatch.batchId).then(function(notes){
     		$scope.tnote = notes;
+    		for(i = 0; i < $scope.tnote.length; i++) {
+            	$scope.weeks[$scope.tnote[i].week - 1].note.push($scope.tnote[i]);
+            }
     	});
         
         // default -- view assessments table
@@ -70,16 +79,18 @@ angular.module("qc")
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectCurrentBatch = function (index) {
         	$log.debug("SELECTED DIFFERENT BATCH");
+        	$scope.currentBatch = $scope.batches[index];
+        	// Create week object
+        	$scope.weeks = [];
         	for(i = 1; i <= $scope.currentBatch.weeks; i++) {
         		$scope.weeks.push(new Week(i, []));
         	}
-        	$scope.currentBatch = $scope.batches[index];
             caliberDelegate.qc.batchNote($scope.currentBatch.batchId).then(function(notes){
         		$scope.bnote = notes;
         		$log.debug("Batch QC Notes");
                 $log.debug($scope.bnote);
                 for(i = 0; i < $scope.bnote.length; i++) {
-                	$scope.weeks[$scope.bnote[i].week].note.push($scope.bnote[i]);
+                	$scope.weeks[$scope.bnote[i].week - 1].note.push($scope.bnote[i]);
                 }
                 $log.debug("weeks");
             	$log.debug($scope.weeks);
@@ -88,6 +99,11 @@ angular.module("qc")
         		$scope.tnote = notes;
         		$log.debug("Batch Trainee Notes");
                 $log.debug($scope.tnote);
+                for(i = 0; i < $scope.tnote.length; i++) {
+                	$scope.weeks[$scope.tnote[i].week - 1].note.push($scope.tnote[i]);
+                }
+                $log.debug("weeks");
+            	$log.debug($scope.weeks);
         	});
             wipeFaces(); 
         };
