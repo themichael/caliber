@@ -102,7 +102,8 @@
 
 						</td>
 						<td>
-							<textarea class ="form-group" placeholder="{{noteOnTrainee(trainee.name)}} " rows="3"cols="110"></textarea>
+							<textarea id="noteTextArea" class ="form-group" placeholder="Note on trainee.name" ng-blur="addedNotes()"
+							rows="3"cols="110">{{noteOnTrainee(trainee.name)}} </textarea>
 						</td>
 					</tr>
 				</tbody>
