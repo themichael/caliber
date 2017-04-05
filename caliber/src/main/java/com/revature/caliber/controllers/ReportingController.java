@@ -164,18 +164,6 @@ public class ReportingController {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
-	/**
-	 * 
-	 * @param batchId
-	 * @param week
-	 * @return
-	 */
-	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/barchart", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Trainee, Double>> barCharAVG(@PathVariable int batchId, @PathVariable int week) {
-
-		return new ResponseEntity<Map<Trainee, Double>>(reportingService.barChartAvg(batchId, week), HttpStatus.OK);
-	}
-
 	@RequestMapping(value = "/agg/tech/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HashMap<Category, HashMap<Batch, Double[]>>> aggregateTechForAllBatches() {
 		// TODO implement me
