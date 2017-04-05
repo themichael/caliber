@@ -203,14 +203,11 @@ angular
 						}
 					};
 
-					$scope.inputData = [];
-
-					$scope.addedNotes = function(index) {
-						$log.debug(index + ": " + $scope.inputData[index]);
-					}
-
 					$scope.addedNotes = function() {
 						$log.debug(document.getElementById("noteTextArea").value);
 					};
 
+					$scope.reset = function() {
+						document.getElementById("noteTextArea").value = null;
+					};
 				});
