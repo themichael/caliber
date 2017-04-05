@@ -164,6 +164,14 @@ angular.module("delegate").factory("caliberDelegate",
         delegate.qc.updateNote = function (noteObj) {
             return qcFactory.updateNote(noteObj);
         };
+        
+        delegate.qc.batchNote = function () {
+        	return qcFactory.getAllQCBatchNote();
+        }
+        
+        delegate.qc.traineeNote = function () {
+        	return qcFactory.getAllQCTraineeNote();
+        }
 
         /************************** Aggregate *****************************/
         delegate.agg.getAggTechTrainee = function (traineeId) {
