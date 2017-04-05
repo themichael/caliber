@@ -112,8 +112,18 @@ angular.module("trainer").controller(
         /** Get trainee info**/
         $scope.getTrainee = function (trainee)
         {
-            $scope.trainee = trainee;
+        	console.log("<<<<<<<We entered the thingy>>>>>>>>>>>>")
+        	console.log(trainee)
+           /* $scope.editTrainee = trainee;*/
+            $scope.name = trainee.name;
+        	$scope.email = trainee.email;
+           /* $scope.receivers. = $scope.editTrainee.trainingName;*/
         }
+        
+        $scope.populateTrainee = function(index){
+        	$scope.receivers.model = $scope.editTrainee.trainingName;
+        $scope.borderlineGradeThreshold.model = $scope.selectedBatches[index].borderlineGradeThreshold;
+        };
         
         
 
@@ -225,7 +235,7 @@ angular.module("trainer").controller(
                 };
                 $log.debug(newTrainee);
                 caliberDelegate.all.createTrainee(newTrainee).then(function () {
-                    $scope.trainees.push({
+												                    $scope.trainees.push({
                         name: newTrainee.name,
                         email: newTrainee.email,
                         trainingStatus: newTrainee.trainingStatus,
