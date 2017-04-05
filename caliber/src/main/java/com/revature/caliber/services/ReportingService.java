@@ -228,18 +228,15 @@ public class ReportingService {
 	 * @param week
 	 * @return
 	 */
-	public Double[] getAvgTraineeWeek(Integer traineeId, Integer week) {
+	public Double getAvgTraineeWeek(Integer traineeId, Integer week) {
 		List<Grade> allGrade = gradeDAO.findByTrainee(traineeId);
 		List<Grade> gradesForTheWeek = allGrade.stream().filter(el -> el.getAssessment().getWeek() == week)
 				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
-		Double[] result = { 0d, 0d };
+		Double result = 0d;
 		for (Grade grade : gradesForTheWeek) {
-			result[0] += (grade.getScore() / 100.0 * grade.getAssessment().getRawScore() / totalRawScore);
-			result[1] += grade.getAssessment().getRawScore();
+			result += (grade.getScore() / 100.0 * grade.getAssessment().getRawScore() / totalRawScore);
 		}
-		result[1] = result[1] / totalRawScore;
-		result[0] = result[0] / result[1] * 100;
 		return result;
 	}
 
@@ -249,8 +246,8 @@ public class ReportingService {
 	 * @param week
 	 * @return
 	 */
-	public Map<Trainee, Double[]> getAvgBatchWeek(Integer batchId, Integer week) {
-		Map<Trainee, Double[]> results = new HashMap<>();
+	public Map<Trainee, Double> getAvgBatchWeek(Integer batchId, Integer week) {
+		Map<Trainee, Double> results = new HashMap<>();
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		for (Trainee trainee : trainees) {
 			results.put(trainee, getAvgTraineeWeek(trainee.getTraineeId(), week));
@@ -263,8 +260,8 @@ public class ReportingService {
 	 * @param traineeId
 	 * @return
 	 */
-	public Map<Integer, Double[]> getAvgTraineeOverall(Integer traineeId) {
-		Map<Integer, Double[]> results = new HashMap<>();
+	public Map<Integer, Double> getAvgTraineeOverall(Integer traineeId) {
+		Map<Integer, Double> results = new HashMap<>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
 		int weeks = trainee.getBatch().getWeeks();
 		for (Integer i = 0; i < weeks; i++) {
@@ -278,18 +275,17 @@ public class ReportingService {
 	 * @param batchId
 	 * @return
 	 */
-	public Map<Integer, Double[]> getAvgBatchOverall(Integer batchId) {
-		Map<Integer, Double[]> results = new HashMap<>();
+	public Map<Integer, Double> getAvgBatchOverall(Integer batchId) {
+		Map<Integer, Double> results = new HashMap<>();
 		Batch batch = batchDAO.findOne(batchId);
 		int weeks = batch.getWeeks();
 		for (Integer i = 0; i < weeks; i++) {
-			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, i);
-			Double[] avg = { 0d, 0d };
-			avg[1] = temp.values().iterator().next()[1];
-			for (Map.Entry<Trainee, Double[]> t : temp.entrySet()) {
-				avg[0] += t.getValue()[0];
+			Map<Trainee, Double> temp = getAvgBatchWeek(batchId, i);
+			Double avg = 0d;
+			for (Map.Entry<Trainee, Double> t : temp.entrySet()) {
+				avg += t.getValue();
 			}
-			avg[0] = avg[0] / temp.size();
+			avg = avg / temp.size();
 			results.put(i, avg);
 		}
 		return results;
