@@ -354,7 +354,7 @@ public class ReportingService {
 		int weeks = trainee.getBatch().getWeeks();
 		for (Integer i = 1; i <= weeks; i++) {
 			Map<Category, Double[]> temp = getAvgSkillsTraineeWeek(trainee.getTraineeId(), i);
-			temp.forEach((k, v) -> results.merge(k, v, (v1, v2) -> new Double[]{((v1[0] * v1[1]) + v2[0]) / (v1[1] + 1), ++v1[1]}));
+			
 		}
 		return results;
 	}
