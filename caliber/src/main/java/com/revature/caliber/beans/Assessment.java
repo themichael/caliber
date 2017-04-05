@@ -21,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CALIBER_ASSESSMENT")
-public class Assessment implements Serializable{
+public class Assessment implements Serializable {
 
 	private static final long serialVersionUID = 5030264218154828822L;
 
@@ -45,8 +45,8 @@ public class Assessment implements Serializable{
 	private Batch batch;
 
 	/**
-	 * Raw numerical score before calculations This value is the maximum number
-	 * of points that can be earned on this assignment.
+	 * Raw numerical score before calculations This value is the maximum number of points that can be earned on this
+	 * assignment.
 	 */
 	@Column(name = "RAW_SCORE", nullable = false)
 	private int rawScore;
@@ -64,6 +64,21 @@ public class Assessment implements Serializable{
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
 	private Category category;
+
+	public Assessment() {
+		super();
+	}
+
+	public Assessment(String title, Batch batch, Integer rawScore, AssessmentType type, Integer week,
+			Category category) {
+		super();
+		this.title = title;
+		this.batch = batch;
+		this.rawScore = rawScore;
+		this.type = type;
+		this.week = week.shortValue();
+		this.category = category;
+	}
 
 	public long getAssessmentId() {
 		return assessmentId;
@@ -121,20 +136,10 @@ public class Assessment implements Serializable{
 		this.category = category;
 	}
 
-	public Assessment() {
-		super();
+	@Override
+	public String toString() {
+		return "Assessment [assessmentId=" + assessmentId + ", rawScore=" + rawScore + ", type=" + type + ", category="
+				+ category + "]";
 	}
-
-	public Assessment(String title, Batch batch, Integer rawScore, AssessmentType type, Integer week,
-			Category category) {
-		super();
-		this.title = title;
-		this.batch = batch;
-		this.rawScore = rawScore;
-		this.type = type;
-		this.week = week.shortValue();
-		this.category = category;
-	}
-
 
 }
