@@ -75,7 +75,7 @@ angular.module("trainer").controller(
         
         $scope.location = {
             model: null,
-            options: ['Reston, VA']
+            options: ['Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190']
         };
         // load common locations
         caliberDelegate.all.enumCommonLocations().then(function(locations) {
@@ -142,7 +142,7 @@ angular.module("trainer").controller(
 
             result = caliberDelegate.all.createBatch(newBatch);
 
-            result.then(function () {
+            result.success(function () {
                 $scope.batches.push({
                     trainingName: $scope.trainingName.model,
                     trainingType: $scope.trainingType.model,

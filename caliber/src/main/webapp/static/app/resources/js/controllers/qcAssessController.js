@@ -3,6 +3,9 @@ angular.module("qc")
         $log.debug("Booted Trainer Assess Controller");
 
         /******************************** Sample Data *******************************/
+        $scope.demoTrainees = [{traineeId: 53, name: "Dan Pickles"},
+            {traineeId: 65, name: "Howard Johnson"},
+            {traineeId: 78, name: "Randolph Scott"}];
         $scope.batches = [
             {
                 batchId: 451, trainingName: 'Batch123', trainer: 'Patrick', coTrainer: '',
@@ -118,11 +121,34 @@ angular.module("qc")
         // END TEST DATA *********************
 
         /******************************************* UI ***********************************************/
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////// load QC status types
-        caliberDelegate.all.enumQCStatus().then(function(statusTypes) {
-        	$log.debug(statusTypes);
-        	// do something with qc status
+		// get status types
+        $scope.qcStatusTypes= {
+            options: []
+        };
+        caliberDelegate.all.enumQCStatus().then(function(qcStatusTypes) {
+        	$log.debug(qcStatusTypes);
+        	$scope.qcStatusTypes.options = qcStatusTypes;
         });
+        
+		///////////////////////// overall feedback////////////////////////// 
+        $scope.finalQCBatchNote = {
+            model: null,
+        };
+        $scope.pickOverallStatus = function(batch, pick) {
+			$scope.qcBatchAssess = pick;
+			$log.debug(batch.trainingName + " " + pick);
+		};
+		
+		///////////////////////// individual feedback/////////////////////		
+		$scope.pickIndividualStatus = function(trainee, status, index){
+			$log.debug(trainee);
+			$log.debug(status);
+			// do your logic to update this trainee feedback
+			
+			// update face
+			$scope.faces[index] = status;
+		};
+		
         ///////////////////////////////////////////////////////////////////////////////////////////// load note types
         caliberDelegate.all.enumNoteType().then(function(noteTypes) {
         	$log.debug(noteTypes);
@@ -135,7 +161,10 @@ angular.module("qc")
         $scope.currentBatch = $scope.batches[0];
         $scope.currentWeek = $scope.currentBatch.weeks[0];
         $scope.currentAssessments = getAssessments(0);
-
+        
+        // used to store which rows have what faces/value
+        $scope.faces = []; 
+        
         // default -- view assessments table
         $scope.currentView = true;
 
@@ -148,6 +177,10 @@ angular.module("qc")
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectCurrentBatch = function (index) {
             $scope.currentBatch = $scope.batches[index];
+            
+            // wipe faces ;)
+            $scope.faces = [];
+            
             // set week
             $scope.currentWeek = $scope.currentBatch.weeks[0];
 

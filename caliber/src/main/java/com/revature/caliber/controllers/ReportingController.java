@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.QCStatus;
@@ -43,7 +44,17 @@ public class ReportingController {
 	 *
 	 *******************************************************
 	 */
-	
+	/**
+	 * For Displaying line graph of all trainee in batch and Avg score
+	 * @param batchId
+	 * @param week
+	 * @return JSON result of Map<Trainee, Double>
+	 */
+//	@RequestMapping(value = "/all/reports/week/batch/{batchId}/week/{week}/bar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<Map<String, Double>> getBatchWeeklyAvgAssessmentScore(@PathVariable int batchId,@PathVariable int week){
+//		Map<String, Double> results = reportingService.getBatchWeeklyAssessmentScore(batchId, week);
+//		return new ResponseEntity<Map<String, Double>>(results, HttpStatus.OK);
+//	}
 	/**
 	 * Get aggregated grades by Category for a Trainee
 	 *
@@ -118,16 +129,17 @@ public class ReportingController {
 		// TODO implement me
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
-	@RequestMapping(value = "/all/reports/batch/{bacthId}/week/{week}/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Integer, Double> >lineCharAVG(int batchId, int week, int traineeId){
+
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Integer, Double> >lineCharAVG(@PathVariable int batchId, @PathVariable int week, @PathVariable int traineeId){
 		return new ResponseEntity<Map<Integer, Double>>(reportingService.lineCharAVG(batchId, week, traineeId),  HttpStatus.OK);
 	}
 	@RequestMapping(value = "/all/reports/batch/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<Integer, Double>> findAvgGradeByWeek(@PathVariable int traineeId) {
 		return new ResponseEntity<Map<Integer, Double>>(reportingService.findAvgGradeByWeek(traineeId),  HttpStatus.OK);
 	}
-	@RequestMapping(value = "/all/reports/batch/{bacthId}/week/{week}/barchart", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Trainee, Double>> barCharAVG(@PathVariable int batchId, int week) {
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/barchart", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Trainee, Double>> barCharAVG(@PathVariable int batchId, @PathVariable int week) {
 		
 		return new ResponseEntity<Map<Trainee, Double>>(reportingService.barCharAVG(batchId, week),  HttpStatus.OK);
 	}
@@ -139,12 +151,30 @@ public class ReportingController {
 	}
 
 	@RequestMapping(value = "/reports/batch/{batchId}/week/{weekId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HashMap<QCStatus,Integer>> aggregateQCPieChart(@PathVariable Integer batchId, Integer weekId) {
+	public ResponseEntity<HashMap<QCStatus,Integer>> aggregateQCPieChart(@PathVariable Integer batchId, @PathVariable Integer weekId) {
 		
 		HashMap<QCStatus,Integer> results = (HashMap<QCStatus, Integer>) reportingService.batchWeekPieChart(batchId, weekId);
 		
 		
 		return new ResponseEntity<HashMap<QCStatus,Integer>>(results, HttpStatus.OK);
 	}
-	//public ResponseEntity<Map<>>
+
+
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/reports/{week}/{batchId}/{assessmentType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Trainee, Double[]>> getAvgBatchWeek(@PathVariable Integer batchId,
+			@PathVariable Integer week, @PathVariable AssessmentType assessmentType) {
+		return new ResponseEntity<Map<Trainee, Double[]>>(reportingService.getAvgBatchWeek(batchId, week, assessmentType), HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
 }
