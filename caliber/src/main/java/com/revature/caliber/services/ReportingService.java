@@ -95,16 +95,16 @@ public class ReportingService {
 	 */
 	public Map<Integer, Double> lineCharAVG(int batchId, int week, int traineeId) {
 
-		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
-		Map<Integer, Double> data = new HashMap<Integer, Double>();
-		Trainee trainee = traineeDAO.findOne(traineeId);
-
-		for (int w = 0; w <= week; w++) {
-			data.put(w, getWeightedAverageGradesOfTraineeByWeek(traineeId, w).values().iterator().next());
-
+		Map<Integer, Double> results = new HashMap<>();
+		List<Grade> allGrades = gradeDAO.findByTrainee(traineeId);
+		List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
+				.collect(Collectors.toList());
+		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
+		for (Grade grade : gradesForTheWeek) {
+			results.put((int)grade.getAssessment().getWeek(),
+					grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
 		}
-
-		return data;
+		return results;
 	}
 
 	/**
@@ -130,20 +130,24 @@ public class ReportingService {
 	 */
 	public Map<Integer, Double> findAvgGradeByWeek(int traineeId) {
 
-		Trainee trainee = traineeDAO.findOne(traineeId);
-
+		//Trainee trainee = traineeDAO.findOne(traineeId);
+		//List<Grade> allGrades = gradeDAO.findByTrainee(traineeId);
 		Map<Integer, Double> data = new HashMap<Integer, Double>();
-		int weeks = trainee.getBatch().getWeeks();
+		//int weeks = trainee.getBatch().getWeeks();
 
-		for (int week = 0; week < weeks; week++) {
+	/*	for (int week = 0; week < weeks; week++) {
+			List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
+					.collect(Collectors.toList());
+			Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
+			 
+		//	 data.put(week, );
 
-			data.put(week, getWeightedAverageGradesOfTraineeByWeek(traineeId, week).values().iterator().next());
-
-		}
+		}*/
 
 		return data;
 
 	}
+
 
 	public Map<Trainee, Double> getBatchWeeklyAssessmentScore(int batchId, int week) {
 		Map<Trainee, Double> results = new HashMap<>();
