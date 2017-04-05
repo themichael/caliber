@@ -148,10 +148,11 @@ public class ReportingService {
 				.collect(Collectors.toList());
 		Double[] result = { 0d, 0d };
 		for (Grade grade : gradesForAssessment) {
-			result[0] += (grade.getScore() / 100.0 * grade.getAssessment().getRawScore() / totalRawScore);
+			result[0] += (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
 			result[1] += grade.getAssessment().getRawScore();
 		}
-		result[1] = result[1] / totalRawScore;
+		result[1] = result[1] / totalRawScore * 100;
+		result[0] = result[0] / result[1] * 100;
 		return result;
 	}
 
@@ -239,6 +240,7 @@ public class ReportingService {
 			result[1] += grade.getAssessment().getRawScore();
 		}
 		result[1] = result[1] / totalRawScore;
+		result[0] = result[0] / result[1] * 100;
 		return result;
 	}
 
@@ -286,6 +288,7 @@ public class ReportingService {
 		for (Integer i = 0; i < weeks; i++) {
 			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, i);
 			Double[] avg = { 0d, 0d };
+			avg[1] = temp.values().iterator().next()[1];
 			for (Map.Entry<Trainee, Double[]> t : temp.entrySet()) {
 				avg[0] += t.getValue()[0];
 			}
