@@ -112,7 +112,15 @@ angular.module("trainer").controller(
         /** Get trainee info**/
         $scope.getTrainee = function (trainee)
         {
-            $scope.trainee = trainee;
+        	//TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN FINISHED 
+            $scope.editTrainee = trainee;
+//            name: $scope.receivers[i].name,
+//            email: $scope.receivers[i].email,
+//            trainingStatus: $scope.receivers[i].trainingStatus,
+//            phoneNumber: $scope.receivers[i].phoneNumber,
+//            skypeId: $scope.receivers[i].skypeId,
+//            profileUrl: $scope.receivers[i].profileUrl,
+     
         }
         
         
