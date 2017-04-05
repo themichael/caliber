@@ -61,7 +61,7 @@
 </div>
 
 <!-- Assessments table -->
-<div class="container">
+<div class="container" ng-init="qcstatustype()">
     <div class="row">
         <div class="col-md-12 col-lg-12 top5">
             <!-- Accordian table -->
@@ -89,10 +89,12 @@
             <table class="col-md-6 table table-condensed" ng-show="!currentView">
                 <tr>
                     <th>Name</th>
-                    <th>Score</th>
+                    <th>Status</th>
+                    <th>Note</th>
                 </tr>
                 <tr ng-repeat="trainee in currentBatch.trainees">
                     <td>{{ trainee.name }}</td>
+                    <td>{{statusTypes}}</td>
                     <td>{{ findGrade(trainee.traineeId) }}</td>
                 </tr>
             </table>
