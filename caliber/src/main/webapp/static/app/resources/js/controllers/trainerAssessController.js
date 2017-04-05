@@ -164,10 +164,10 @@ angular.module("trainer")
                 assessmentId: 1,
                 title: $scope.assessName,
                 batch: $scope.currentBatch.batchId,
-                type: $scope.assessType,
+                type: $scope.assessmentType.model,
                 /************************************************TODO REFACTOR***************************************/
                 categories:  $scope.selectedCategories,
-                week: $scope.currentWeek.weekId,
+                week: /*$scope.currentWeek.weekId*/5,
                 /************************************************TODO REFACTOR***************************************/
                 weeklyStatus: null,
                 rawScore: $scope.rawScore

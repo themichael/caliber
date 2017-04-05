@@ -47,7 +47,7 @@ public class AssessmentController {
 	 *            the assessment
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/assessment/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/trainer/assessment/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createAssessment(@RequestBody Assessment assessment) {
 		log.info("Creating assessment: " + assessment);
