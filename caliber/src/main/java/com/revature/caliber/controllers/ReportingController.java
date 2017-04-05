@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.QCStatus;
@@ -157,5 +158,23 @@ public class ReportingController {
 		
 		return new ResponseEntity<HashMap<QCStatus,Integer>>(results, HttpStatus.OK);
 	}
-	//public ResponseEntity<Map<>>
+
+
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/reports/{week}/{batchId}/{assessmentType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Trainee, Double[]>> getAvgBatchWeek(@PathVariable Integer batchId,
+			@PathVariable Integer week, @PathVariable AssessmentType assessmentType) {
+		return new ResponseEntity<Map<Trainee, Double[]>>(reportingService.getAvgBatchWeek(batchId, week, assessmentType), HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
 }

@@ -179,7 +179,7 @@ public class ReportingService {
 		List<Grade> allGrade = gradeDAO.findByTrainee(traineeId);
 		List<Grade> gradesForTheWeek = allGrade.stream()
 				.filter(el -> el.getAssessment().getWeek() == week
-						&& el.getAssessment().getType().name().equals(assessmentType.name()))
+						&& el.getAssessment().getType().name().equalsIgnoreCase(assessmentType.name()))
 				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		Double[] result = {0d, 0d};
