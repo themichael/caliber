@@ -37,7 +37,7 @@ public class Assessment implements Serializable {
 	/**
 	 * Trainer inputted title, can be anything to help identify this assessment
 	 */
-	@Column(name = "ASSESSMENT_TITLE", nullable = false)
+	@Column(name = "ASSESSMENT_TITLE")
 	private String title;
 
 	/**

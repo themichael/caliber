@@ -12,13 +12,17 @@ angular.module("trainer")
         $log.debug("Booted Trainer Aesess Controller");
 
         /******************************TEST DATA***********************/
-        $scope.skill_categories = function (){
-        	caliberDelegate.all.getAllCategories().then(function(categories){
-        		$scope.categories = categories;
-        		$log.debug("all Categories");
-                $log.debug(categories);
-        	})
+        
+
+        $scope.category= {
+                model: null,
+                options: []
         };
+        caliberDelegate.all.getAllCategories().then(function(categories) {
+        	$log.debug(categories);
+        	$scope.category.options = categories;
+        });  
+        
         /******************************************* UI *********************************************/
         ////////////////////////////////////////////////////////////////////////// load note types
         caliberDelegate.all.enumNoteType().then(function(noteTypes) {
@@ -161,15 +165,13 @@ angular.module("trainer")
         $scope.addAssessment = function () {
             getAllAssessmentsForWeek();
             var assessment = {
-                assessmentId: 1,
-                title: $scope.assessName,
-                batch: $scope.currentBatch.batchId,
+                batch: $scope.currentBatch,
                 type: $scope.assessmentType.model,
                 /************************************************TODO REFACTOR***************************************/
-                categories:  $scope.selectedCategories,
+                category: $scope.category.model,
                 week: /*$scope.currentWeek.weekId*/5,
                 /************************************************TODO REFACTOR***************************************/
-                weeklyStatus: null,
+                /*weeklyStatus: null,*/
                 rawScore: $scope.rawScore
             };
             $log.debug(assessment);
