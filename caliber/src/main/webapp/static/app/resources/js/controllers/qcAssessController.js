@@ -139,13 +139,12 @@ angular.module("qc")
 			$log.debug(batch.trainingName + " " + pick);
 		};
 		
-		///////////////////////// individual feedback/////////////////////
-		
-		$scope.faces = []; // used to store which rows have what faces
-		
+		///////////////////////// individual feedback/////////////////////		
 		$scope.pickIndividualStatus = function(trainee, status, index){
 			$log.debug(trainee);
 			$log.debug(status);
+			// do your logic to update this trainee feedback
+			
 			// update face
 			$scope.faces[index] = status;
 		};
@@ -162,7 +161,10 @@ angular.module("qc")
         $scope.currentBatch = $scope.batches[0];
         $scope.currentWeek = $scope.currentBatch.weeks[0];
         $scope.currentAssessments = getAssessments(0);
-
+        
+        // used to store which rows have what faces/value
+        $scope.faces = []; 
+        
         // default -- view assessments table
         $scope.currentView = true;
 
@@ -175,6 +177,10 @@ angular.module("qc")
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectCurrentBatch = function (index) {
             $scope.currentBatch = $scope.batches[index];
+            
+            // wipe faces ;)
+            $scope.faces = [];
+            
             // set week
             $scope.currentWeek = $scope.currentBatch.weeks[0];
 
