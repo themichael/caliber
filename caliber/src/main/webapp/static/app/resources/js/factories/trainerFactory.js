@@ -82,7 +82,7 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
     // add a new grade
     trainer.addGrade = function (gradeObj) {
         return $http({
-            url: "/all/grade/create",
+            url: "/trainer/grade/create",
             method: "POST",
             data: gradeObj
         }).then(function (response) {
@@ -96,7 +96,7 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
     // update trainer grade
     trainer.updateGrade = function (gradeObj) {
         return $http({
-            url: "/all/grade/update",
+            url: "/trainer/grade/update",
             method: "PUT",
             data: gradeObj
         }).then(function (response) {
