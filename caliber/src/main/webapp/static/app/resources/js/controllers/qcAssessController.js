@@ -195,12 +195,14 @@ angular
 						return "Note on " + traineeName;
 					};
 
-					$scope.addedNotes = function() {
-						$log
-								.debug(document.getElementById("noteTextArea").value);
+					$scope.inputData = [];
+
+					$scope.addedNotes = function(index) {
+						$log.debug(index + ": " + $scope.inputData[index]);
 					};
 
 					$scope.reset = function() {
 						document.getElementById("noteTextArea").value = null;
+						$(this).val("");
 					};
 				});
