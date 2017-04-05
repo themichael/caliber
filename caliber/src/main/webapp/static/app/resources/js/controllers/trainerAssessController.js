@@ -1,6 +1,6 @@
-/**
- * Refactor to use week index instead of Week object
- */
+s/**
+	 * Refactor to use week index instead of Week object
+	 */
 angular
 		.module("trainer")
 		.controller(
@@ -47,7 +47,6 @@ angular
 									});
 					$log.debug("Batches " + allBatches);
 					$log.debug(allBatches);
-
 					(function start(allBatches) {
 						$scope.batches = allBatches;
 						if (allBatches.length > 0) {
@@ -78,7 +77,7 @@ angular
 								 */
 								caliberDelegate.trainer
 										.getAllAssessmentsForWeek(
-												$scope.currentBatch.batchId, 1)
+												$scope.currentBatch.batchId, $scope.currentWeek)
 										.then(
 												function(data) {
 													$log
@@ -318,7 +317,6 @@ angular
 							score : document
 									.getElementById((traineeId + "-" + assessment.assessmentId)).value
 						};
-
 						// adds new Grade if not exists, else update,
 						// response contains the ID of the created/updated Grade
 						caliberDelegate.trainer.addGrade(grade).then(

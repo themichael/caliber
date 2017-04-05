@@ -123,7 +123,10 @@ angular
 
 					/** Get trainee info* */
 					$scope.getTrainee = function(trainee) {
-						$scope.trainee = trainee;
+						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
+						// FINISHED
+						$scope.editTrainee = trainee;
+
 					}
 
 					/** Save Batch * */
@@ -292,4 +295,5 @@ angular
 							}
 						}
 					};
+
 				});
