@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class ReportingServiceTest {
 	
 	
 	@Test
+	@Ignore
 	public void getAvgBatchWeekTest(){
 		Integer batchId = 1050;
 		Integer week = 3;
@@ -76,8 +78,13 @@ public class ReportingServiceTest {
 	}
 	
 	@Test
+	@Ignore
 	public void getAvgBatchOverallTest(){
 		System.out.println(reportingService.getAvgBatchOverall(1050, AssessmentType.Exam));
+	}
+	@Test
+	public void getbatchAverageAssementOverallTest(){
+		System.out.println(reportingService.batchAverageAssementOverall(1050));
 	}
 
 }

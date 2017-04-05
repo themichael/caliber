@@ -100,7 +100,7 @@ public class ReportingService {
 				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		for (Grade grade : gradesForTheWeek) {
-			results.put((int)grade.getAssessment().getWeek(),
+			results.put((int) grade.getAssessment().getWeek(),
 					grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
 		}
 		return results;
@@ -117,19 +117,22 @@ public class ReportingService {
 
 	public Map<Integer, Double> findAvgGradeByWeek(int traineeId) {
 
-		//Trainee trainee = traineeDAO.findOne(traineeId);
-		//List<Grade> allGrades = gradeDAO.findByTrainee(traineeId);
+		// Trainee trainee = traineeDAO.findOne(traineeId);
+		// List<Grade> allGrades = gradeDAO.findByTrainee(traineeId);
 		Map<Integer, Double> data = new HashMap<Integer, Double>();
-		//int weeks = trainee.getBatch().getWeeks();
+		// int weeks = trainee.getBatch().getWeeks();
 
-	/*	for (int week = 0; week < weeks; week++) {
-			List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
-					.collect(Collectors.toList());
-			Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
-			 
-		//	 data.put(week, );
-
-		}*/
+		/*
+		 * for (int week = 0; week < weeks; week++) { List<Grade>
+		 * gradesForTheWeek = allGrades.stream().filter(el ->
+		 * el.getAssessment().getWeek() == week) .collect(Collectors.toList());
+		 * Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el ->
+		 * el.getAssessment().getRawScore()).sum();
+		 * 
+		 * // data.put(week, );
+		 * 
+		 * }
+		 */
 
 		return data;
 
@@ -296,13 +299,14 @@ public class ReportingService {
 		}
 		return results;
 	}
-	//Average Grades of All Assessments
-	public Map<Trainee, Double> getAvgOfAllAssessementForBatch(){
+
+	// Average Grades of All Assessments
+	public Map<Trainee, Double> getAvgOfAllAssessementForBatch() {
 		return null;
 	}
-  
 
 	public Map<Trainee, Double> batchAverageAssementOverall(Integer batchId) {
 		return null;
+	
 	}
 }
