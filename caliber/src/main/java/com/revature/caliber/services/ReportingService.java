@@ -280,7 +280,7 @@ public class ReportingService {
 		Batch batch = batchDAO.findOne(batchId);
 		int weeks = batch.getWeeks();
 
-		for (Integer i = 0; i < weeks; i++) {
+		for (Integer i = 1; i < weeks; i++) {
 			Map<Trainee, Double> temp = getAvgBatchWeek(batchId, i);
 			Double avg = 0d;
 			for (Map.Entry<Trainee, Double> t : temp.entrySet()) {
