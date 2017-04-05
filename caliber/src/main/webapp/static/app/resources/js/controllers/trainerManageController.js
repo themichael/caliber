@@ -109,6 +109,14 @@ angular.module("trainer").controller(
             $scope.currentBatch = $scope.selectedBatches[index];
             $scope.trainees = $scope.selectedBatches[index].trainees;
         };
+        
+        /** Get trainee info**/
+        $scope.getTrainee = function (trainee)
+        {
+            $scope.trainee = trainee;
+        }
+        
+        
 
         /**      Save Batch     **/
         $scope.addNewBatch = function () {

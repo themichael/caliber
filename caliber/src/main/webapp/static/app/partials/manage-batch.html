@@ -1,3 +1,4 @@
+
 <div id="manage">
 	<div class="container">
 		<div class="row">
@@ -221,20 +222,26 @@
 										<th>Training Status</th>
 										<th>Phone Number</th>
 										<th>Skype Id</th>
+										<th>URL</th>
+										<th>Edit</th>
 										<th>Profile Url</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="trainee in trainees">
+									<tr ng-repeat="trainee in trainees" ng-click="">
 										<td>{{trainee.name}}</td>
 										<td>{{trainee.email}}</td>
 										<td>{{trainee.trainingStatus}}</td>
 										<td>{{trainee.phoneNumber}}</td>
 										<td>{{trainee.skypeId}}</td>
+
 										<td><span ng-if="trainee.profileUrl"> <a
 												href="{{trainee.profileUrl}}" target="_blank"><i
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 										</span></td>
+										<td><button ng-click="loadTrainee()" type="submit"
+							class="btn btn-primary">Edit</button></td>
+
 									</tr>
 								</tbody>
 							</table>
@@ -265,6 +272,13 @@
 										ng-model="receiver.phoneNumber" type="text"
 										class="form-control" id="traineePhone"
 										placeholder="(xxx) xxx-xxxx" required>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-lg-12 col-md-12 col-sm-12">
+									<label for="traineeProfile">Profile URL:</label> <input
+										ng-model="receiver.profileUrl" type="text" class="form-control"
+										id="traineeName" placeholder="http://www.example.com/revature" required>
 								</div>
 							</div>
 							<div class="row">

@@ -49,6 +49,10 @@ angular.module("delegate").factory("caliberDelegate",
             return allFactory.getGrades(traineeId);
         };
         
+        delegate.all.getGradesForWeek = function(batchId,weekId){
+        	return allFactory.getGradesForWeek(batchId,weekId);
+        }
+        
         delegate.all.getAllTrainers = function () {
             return allFactory.getAllTrainers();
         };
@@ -103,8 +107,8 @@ angular.module("delegate").factory("caliberDelegate",
             return trainerFactory.createAssessment(assessmentObj);
         };
 
-        delegate.trainer.getAllAssessments = function (batchId, week) {
-            return trainerFactory.getAllAssessments(batchId, week);
+        delegate.trainer.getAllAssessmentsForWeek = function (batchId, week) {
+            return trainerFactory.getAllAssessmentsForWeek(batchId, week);
         };
 
         delegate.trainer.updateAssessment = function (assessmentObj) {
