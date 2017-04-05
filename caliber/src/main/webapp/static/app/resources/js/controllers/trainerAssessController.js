@@ -1,4 +1,4 @@
-s/**
+/**
 	 * Refactor to use week index instead of Week object
 	 */
 angular
@@ -61,7 +61,8 @@ angular
         
 
         $scope.category= {
-                model: null,
+                id:  null,
+                cat: null,
                 options: []
         };
         caliberDelegate.all.getAllCategories().then(function(categories) {
@@ -272,24 +273,21 @@ angular
 					};
 
 					$scope.addAssessment = function() {
-						getAllAssessmentsForWeek($scope.currentBatch.batchId,
+						$scope.getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
 						var assessment = {
-							assessmentId : 1,
-							title : $scope.assessName,
-							batch : $scope.currentBatch.batchId,
-							type : $scope.assessType,
+							batch : $scope.currentBatch,
+							type : $scope.assessmentType.model,
 							/**
 							 * **********************************************TODO
 							 * REFACTOR**************************************
 							 */
-							categories : $scope.selectedCategories,
-							week : $scope.currentWeek.weekId,
+							category : $scope.category.model,
+							week : $scope.currentWeek,
 							/**
 							 * **********************************************TODO
 							 * REFACTOR**************************************
 							 */
-							weeklyStatus : null,
 							rawScore : $scope.rawScore
 						};
 						$log.debug(assessment);
@@ -298,7 +296,7 @@ angular
 								.then(
 										function(response) {
 											$log.debug(response);
-											getAllAssessmentsForWeek(
+											$scope.getAllAssessmentsForWeek(
 													$scope.currentBatch.batchId,
 													$scope.currentWeek);
 											if ($scope.currentAssessments > 0)
@@ -338,12 +336,12 @@ angular
 										+ "and gradeId: " + gradeId);
 
         $scope.addAssessment = function () {
-            getAllAssessmentsForWeek();
+            $scope.getAllAssessmentsForWeek();
             var assessment = {
                 batch: $scope.currentBatch,
                 type: $scope.assessmentType.model,
                 /************************************************TODO REFACTOR***************************************/
-                category: $scope.category.model,
+                category: $scope.category.id,
                 week: /*$scope.currentWeek.weekId*/5,
                 /************************************************TODO REFACTOR***************************************/
                 /*weeklyStatus: null,*/
@@ -352,7 +350,7 @@ angular
             $log.debug(assessment);
             caliberDelegate.trainer.createAssessment(assessment).then(function (response) {
                 $log.debug(response);
-                getAllAssessmentsForWeek();
+                $scope.getAllAssessmentsForWeek();
                 if($scope.currentAssessments > 0)
                     $scope.currentAssessments.unshift(assessment);
                 else $scope.currentAssessments = assessment;
