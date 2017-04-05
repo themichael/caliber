@@ -1,6 +1,8 @@
 package com.revature.caliber.beans;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -45,8 +48,8 @@ public class Assessment implements Serializable {
 	private Batch batch;
 
 	/**
-	 * Raw numerical score before calculations This value is the maximum number of points that can be earned on this
-	 * assignment.
+	 * Raw numerical score before calculations This value is the maximum number
+	 * of points that can be earned on this assignment.
 	 */
 	@Column(name = "RAW_SCORE", nullable = false)
 	private int rawScore;
@@ -61,24 +64,15 @@ public class Assessment implements Serializable {
 	@Column(name = "WEEK_NUMBER", nullable = false)
 	private short week;
 
+	/**
+	 * TODO make Lazy fetching and update queries in DAOss
+	 */
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
 	private Category category;
 
-	public Assessment() {
-		super();
-	}
-
-	public Assessment(String title, Batch batch, Integer rawScore, AssessmentType type, Integer week,
-			Category category) {
-		super();
-		this.title = title;
-		this.batch = batch;
-		this.rawScore = rawScore;
-		this.type = type;
-		this.week = week.shortValue();
-		this.category = category;
-	}
+	@OneToMany(mappedBy = "assessment", fetch = FetchType.LAZY)
+	private Set<Grade> grades = new HashSet<>();
 
 	public long getAssessmentId() {
 		return assessmentId;
@@ -136,10 +130,32 @@ public class Assessment implements Serializable {
 		this.category = category;
 	}
 
-	@Override
-	public String toString() {
-		return "Assessment [assessmentId=" + assessmentId + ", rawScore=" + rawScore + ", type=" + type + ", category="
-				+ category + "]";
+	public Set<Grade> getGrades() {
+		return grades;
 	}
 
+	public void setGrades(Set<Grade> grades) {
+		this.grades = grades;
+	}
+
+	public Assessment() {
+		super();
+	}
+
+	public Assessment(String title, Batch batch, Integer rawScore, AssessmentType type, Integer week,
+			Category category) {
+		super();
+		this.title = title;
+		this.batch = batch;
+		this.rawScore = rawScore;
+		this.type = type;
+		this.week = week.shortValue();
+		this.category = category;
+	}
+
+	@Override
+	public String toString() {
+		return "Assessment [title=" + title + ", batch=" + batch + ", type=" + type + ", week=" + week + ", category="
+				+ category + "]";
+	}
 }
