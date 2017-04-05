@@ -2,11 +2,16 @@ angular.module("qc")
     .controller("qcAssessController", function ($log, $scope, chartsDelegate, caliberDelegate, qcFactory, allBatches) {
         $log.debug("Booted Trainer Assess Controller");
 
-        /******************************** Sample Data *******************************/
         $scope.batches = allBatches;
         $scope.bnote = [];
         $scope.tnote = [];
 
+        /******************** Weeks **************************************/
+        function week(weekNum, note) {
+        	this.week = weekNum;
+        	this.note = note;
+        }
+        
         /******************************************* UI ***********************************************/
 		// get status types
         $scope.qcStatusTypes = [];
@@ -64,6 +69,7 @@ angular.module("qc")
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectCurrentBatch = function (index) {
         	$log.debug("SELECTED DIFFERENT BATCH");
+        	$scope.currentBatch = $scope.batches[index];
             caliberDelegate.qc.batchNote($scope.currentBatch.batchId).then(function(notes){
         		$scope.bnote = notes;
         	});
