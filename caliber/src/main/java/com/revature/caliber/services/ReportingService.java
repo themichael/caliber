@@ -3,6 +3,7 @@ package com.revature.caliber.services;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -338,4 +339,27 @@ public class ReportingService {
 		}
 		return results;
 	}
+	
+	public Map<Category, Double[]> getAvgSkillsTraineeOverall(Integer traineeId){
+		Map<Category, Double[]> results = new HashMap<>();
+		Trainee trainee = traineeDAO.findOne(traineeId);
+		int weeks = trainee.getBatch().getWeeks();
+		for (Integer i = 1; i <= weeks; i++) {
+			
+		}
+		return results;
+	}
+	
+	
+	
+	public Map<String, Double> getRadarChartForTraineeWeek(Integer traineeId, Integer weekNumber){
+		Map<Category, Double[]> radarValues = getAvgSkillsTraineeWeek(traineeId, weekNumber);
+		Map<String, Double> radarValuesWithLabels = new HashMap<>();
+		for(Entry<Category, Double[]> entry : radarValues.entrySet()){
+			radarValuesWithLabels.put(entry.getKey().getSkillCategory(), entry.getValue()[0]);
+		}
+		return radarValuesWithLabels;
+	}
+	
+	
 }
