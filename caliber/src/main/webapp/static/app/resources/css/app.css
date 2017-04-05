@@ -95,7 +95,7 @@ a { color: #F26925;}
 .glyphicon { top: 0px; }
 .glyphicon-plus { padding-left: .5em; }
 .glyphicon-user { padding-left: .5em; }
-.glyphicon-question-sign { 
+.glyphicon-question-sign, .fa-question-circle { 
 	padding-left: .25em; 
 	color: #F26925 !important;
 	border-color: white !important;
@@ -103,7 +103,7 @@ a { color: #F26925;}
 }
 .glyph-top-margin { padding-top: 2em; }
 
-.btn-primary {
+.btn-primary, .fa .fa-file-code-o {
 	color: white !important;
 	border-color: white !important;
 	background-color: #F26925 !important;
@@ -112,22 +112,29 @@ a { color: #F26925;}
 
 
 /************************
-	Manage Batch
+	QC Assess
 ************************/
-.fa-smile-o { color: #B9B9BA; }
-.fa-meh-o { color: #B9B9BA; }
-.fa-frown-o { color: #B9B9BA; }
-.fa-star { color: #B9B9BA; }
+.fa-smile-o, .fa-meh-o, .fa-frown-o, .fa-star { 
+	color: #B9B9BA; 
+}
 
 .fa-smile-o:hover { color: #81f575; }
-.fa-meh-o:hover { color: #fff575; }
+/* .fa-meh-o:hover { color: #e8b00b; } */ 
+ .fa-meh-o:hover { color: #fff575; }   					/*probably too light of a yellow? get opinions! */
 .fa-frown-o:hover { color: #ff7575; }
 .fa-star:hover { color: #7972ff; }
 
 .fa-smile-o.pick { color: #81f575 !important; }
-.fa-meh-o.pick { color: #fff575 !important; }
+/* .fa-meh-o.pick { color: #e8b00b !important; } */ 	/* darker yellow */
+.fa-meh-o.pick { color: #fff575 !important; } 
 .fa-frown-o.pick { color: #ff7575 !important; }
 .fa-star.pick { color: #7972ff !important; }
+
+#qcTrainees{
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	border-bottom-color: #474C55;
+}
 /************************
 	Margins
 ************************/
@@ -147,6 +154,15 @@ a { color: #F26925;}
     padding: 0 !important;
 }
 
+/**********************
+ 	Input styles
+**********************/
+.overall-feedback {
+    margin: 2em;
+}
+textarea {
+    resize: none;
+}
 /************************
 	Footer
 ************************/

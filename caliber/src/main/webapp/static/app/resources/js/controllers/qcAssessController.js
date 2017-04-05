@@ -122,30 +122,28 @@ angular.module("qc")
 
         /******************************************* UI ***********************************************/
 		// get status types
-        $scope.qcStatusTypes= {
-            options: []
-        };
-        caliberDelegate.all.enumQCStatus().then(function(qcStatusTypes) {
-        	$log.debug(qcStatusTypes);
-        	$scope.qcStatusTypes.options = qcStatusTypes;
+        $scope.qcStatusTypes = [];
+        caliberDelegate.all.enumQCStatus().then(function(types) {
+        	$log.debug(types);
+        	$scope.qcStatusTypes = types;
         });
         
 		///////////////////////// overall feedback////////////////////////// 
-        $scope.finalQCBatchNote = {
-            model: null,
-        };
+        $scope.finalQCBatchNote = null;
         $scope.pickOverallStatus = function(batch, pick) {
 			$scope.qcBatchAssess = pick;
 			$log.debug(batch.trainingName + " " + pick);
 		};
 		
-		///////////////////////// individual feedback/////////////////////
-		
-		$scope.faces = []; // used to store which rows have what faces
-		
+		///////////////////////// individual feedback/////////////////////		
+
+		// used to store which rows have what faces/value
+        $scope.faces = []; 
 		$scope.pickIndividualStatus = function(trainee, status, index){
 			$log.debug(trainee);
 			$log.debug(status);
+			// do your logic to update this trainee feedback
+			
 			// update face
 			$scope.faces[index] = status;
 		};
@@ -162,7 +160,7 @@ angular.module("qc")
         $scope.currentBatch = $scope.batches[0];
         $scope.currentWeek = $scope.currentBatch.weeks[0];
         $scope.currentAssessments = getAssessments(0);
-
+        
         // default -- view assessments table
         $scope.currentView = true;
 
@@ -175,6 +173,9 @@ angular.module("qc")
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectCurrentBatch = function (index) {
             $scope.currentBatch = $scope.batches[index];
+            
+            wipeFaces(); 
+            
             // set week
             $scope.currentWeek = $scope.currentBatch.weeks[0];
 
@@ -187,7 +188,8 @@ angular.module("qc")
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectWeek = function (index) {
             $scope.currentWeek = $scope.currentBatch.weeks[index];
-            /** ajax call to get assessments by weekId **/
+            /** ajax call to get notes and statuses by weekId **/
+            wipeFaces();
         };
 
         // active week
@@ -229,6 +231,13 @@ angular.module("qc")
         // test function - get assessment
         function getAssessments(index) {
             return assessments[index];
+        }
+        
+        /////// wipe faces ;)  and selections ///////      
+        function wipeFaces(){
+        	$scope.faces = [];
+            $scope.qcBatchAssess = null;
+            $scope.finalQCBatchNote = null;
         }
 
     });
