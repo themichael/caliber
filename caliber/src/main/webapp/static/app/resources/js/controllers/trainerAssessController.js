@@ -47,7 +47,9 @@ angular.module("trainer")
                     
                 	var totalWeeks = allBatches[0].weeks; // the number of weeks for that batch
                 	$log.debug("this is the total week for this batch "+ allBatches[0].trainingName +": " + totalWeeks);
-                	$scope.currentBatch.allWeeks = [];
+         
+                	$scope.currentWeek = totalWeeks;
+                   	$scope.currentBatch.allWeeks = [];           	
 	               	 for(var i = 1; i <= totalWeeks; i++){
 	               		 $scope.currentWeek = i;
 	               		 getAllAssessmentsForWeek();
@@ -55,8 +57,17 @@ angular.module("trainer")
 	               		 $scope.currentBatch.allWeeks.push(week);
 	       
 					 }
-	                   // $scope.currentWeek = $scope.currentBatch.allWeeks[0];
+	                 // $scope.currentWeek = $scope.currentBatch.allWeeks[0];
+/*                	getAllAssessmentsForWeek();
+                	var week = new Week($scope.currentWeek, $scope.currentAssessments)
+                	$scope.currentBatch.displayWeek = week;
+                	
+                	$log.debug($scope.currentBatch);*/
+                	
+        
 
+                	
+                	$log.debug("[THIS IS THE CURRENT BATCH AND THE NUMBER WEEK]" + allBatches[0] + " : " + totalWeeks);
                 }
 
                 else $scope.currentWeek = null;
@@ -258,12 +269,12 @@ angular.module("trainer")
                     $log.debug("These are the assessments");
                     $log.debug($scope.currentAssessments);
                     $scope.currentAssessments.forEach(function (assessment) {
-                       for(curWeek of $scope.currentBatch.allWeeks){
+                      for(curWeek of $scope.currentBatch.allWeeks){
                         	if(assessment.week === currentBatch.weekNumb){
                         		currentBatch.assessment = assessment;
                         	}
                         }
-                    	caliberDelegate.all.getGrades(assessment.assessmentId).then(function (data) {
+ /*                   	caliberDelegate.all.getGrades(assessment.assessmentId).then(function (data) {
                             $log.debug("These are the grades");
                             $log.debug(data);
                             for(var i in data){
@@ -271,7 +282,7 @@ angular.module("trainer")
                                 $log.debug(data[i]);
                                 pushUnique($scope.grades,data[i]);
                             }
-                        });
+                        });*/
                     });
 
                 });
