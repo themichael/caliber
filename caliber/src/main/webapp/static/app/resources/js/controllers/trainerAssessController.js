@@ -55,7 +55,8 @@ angular.module("trainer")
 	               		 $scope.currentBatch.allWeeks.push(week);
 	       
 					 }
-	                   // $scope.currentWeek = $scope.currentBatch.allWeeks[0];
+	                    $scope.currentWeek = $scope.currentBatch.allWeeks[0];
+	                    getAllGradesForWeek();
 
                 }
 
@@ -249,7 +250,6 @@ angular.module("trainer")
         }
         /************************************************TODO REFACTOR***************************************/
         function getAllAssessmentsForWeek(){
-            $scope.grades = [];
             /************************************************TODO REFACTOR***************************************/
             caliberDelegate.trainer.getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek)
             /************************************************TODO REFACTOR***************************************/
@@ -263,18 +263,21 @@ angular.module("trainer")
                         		currentBatch.assessment = assessment;
                         	}
                         }
-                    	caliberDelegate.all.getGrades(assessment.assessmentId).then(function (data) {
-                            $log.debug("These are the grades");
-                            $log.debug(data);
-                            for(var i in data){
-                                $log.debug("Fetching ");
-                                $log.debug(data[i]);
-                                pushUnique($scope.grades,data[i]);
-                            }
-                        });
                     });
 
                 });
+        }
+        function getAllGradesForWeek(){
+            $scope.grades = [];
+            caliberDelegate.all.getGradesForWeek($scope.currentBatch.batchId, $scope.currentWeek.weekNumb ).then(function (data) {
+            	$log.debug("These are the grades");
+            	$log.debug(data);
+            	for(var i in data){
+            		$log.debug("Fetching ");
+            		$log.debug(data[i]);
+            		pushUnique($scope.grades,data[i]);
+            	}
+            });
         }
         /************************************************TODO POSSIBLE REFACTOR FOR WEEK PROBLEM***************************************/
         function pushUnique(arr, item){
