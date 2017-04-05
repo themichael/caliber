@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- Year selector and Add Assessment button -->
 <div class="container" ng-init="skill_categories()">
 	<div class="row">
@@ -126,39 +127,38 @@
 				<h4 class="modal-title" id="myModalLabel">Create New Assessment</h4>
 			</div>
 			<!-- Add Assessment Info -->
-			<form  ng-submit="addAssessment()">
+			<form ng-submit="addAssessment()">
 				<div class="modal-body">
-				<div class="row">
-					<div class="form-group col-lg-12 col-md-12 col-sm-12">
-						<label>Assessment Category:</label> <select class="form-control"
-							ng-model="selectedCategories.category" id="assessCategories" required>
-							<option ng-repeat="category in categories track by $index"
-								value="{{category.skillCategory}}">{{category.skillCategory}}</option>
-						</select>
+					<div class="row">
+						<div class="form-group col-lg-12 col-md-12 col-sm-12">
+							<label>Assessment Category:</label> <select class="form-control"
+								ng-model="selectedCategories.category" id="assessCategories"
+								required>
+								<option ng-repeat="category in categories track by $index"
+									value="{{category.skillCategory}}">{{category.skillCategory}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-6 col-sm-6">
+							<label for="rawScore">Max Points:</label> <input
+								ng-model="rawScore" type="number" class="form-control"
+								id="rawScore" placeholder="99" min="0" step="1" required>
+						</div>
+						<div class="form-group col-md-6 col-sm-6">
+							<label for="assessmentType">Assessment Type:</label> <select
+								ng-model="assessmentType.model" class="form-control"
+								id="assessmentType" required>
+								<option value="" disabled>Select Assessment Type</option>
+								<option ng-repeat="option in assessmentType.options">{{option}}</option>
+							</select>
+						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group col-md-6 col-sm-6">
-						<label for="rawScore">Max Points:</label> <input
-							ng-model="rawScore" type="number" class="form-control"
-							id="rawScore" placeholder="99" min="0" step="1" required>
-					</div>
-					<div class="form-group col-md-6 col-sm-6">
-						<label for="assessmentType">Assessment Type:</label> <select
-							ng-model="assessmentType.model" class="form-control"
-							id="assessmentType" required>
-							<option value="" disabled>Select Assessment
-								Type</option>
-							<option ng-repeat="option in assessmentType.options">{{option}}</option>
-						</select>
-					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" value="Save" class="btn btn-primary">
 				</div>
-			</div>
-			
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<input type="submit" value="Save" class="btn btn-primary">
-			</div>
 			</form>
 		</div>
 	</div>
