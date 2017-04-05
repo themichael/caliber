@@ -57,7 +57,8 @@ angular.module("trainer")
 					 }*/
                 	
 	                 // $scope.currentWeek = $scope.currentBatch.allWeeks[0];
-                	$scope.getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+                	getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+                	
                 	$log.debug("Break here and check what $scope.currentAssessments is ");
                 	var week = new Week($scope.currentWeek, $scope.currentAssessments)
                 	$scope.currentBatch.displayWeek = week;
@@ -256,14 +257,14 @@ angular.module("trainer")
         }
         /************************************************TODO REFACTOR***************************************/
         
-        $scope.getAllAssessmentsForWeek = function(batchId, week){
+        function getAllAssessmentsForWeek(batchId, week){
         	
         	$log.debug("[THIS IS THE BATCH]: " + batchId + " [THIS IS THE WEEK]: " + week);
         	
             /*caliberDelegate.trainer.getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek)*/
             caliberDelegate.trainer.getAllAssessmentsForWeek(batchId, week)
                 .then(function(data){
-                    /*$scope.currentAssessments = data;
+                   /* $scope.currentAssessments = data;
                     
                 	$log.debug("Break here and check what $scope.currentAssessments is ");
                     $log.debug($scope.currentAssessments);*/
