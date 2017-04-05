@@ -1,3 +1,4 @@
+
 package com.revature.caliber.services;
 
 import java.util.HashMap;
@@ -85,7 +86,13 @@ public class ReportingService {
 		}
 		return results;
 	}
-
+	/**
+	 * 
+	 * @param batchId
+	 * @param week
+	 * @param traineeId
+	 * @return
+	 */
 	public Map<Integer, Double> lineCharAVG(int batchId, int week, int traineeId) {
 
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
@@ -100,6 +107,12 @@ public class ReportingService {
 		return data;
 	}
 
+	/**
+	 * 
+	 * @param batchId
+	 * @param week
+	 * @return
+	 */
 	public Map<Trainee, Double> barCharAVG(int batchId, int week) {
 		Map<Trainee, Double> data = new HashMap<Trainee, Double>();
 		List<Grade> grades = gradeDAO.findByWeek(batchId, week);
@@ -109,6 +122,12 @@ public class ReportingService {
 		return data;
 	}
 
+	
+	/**
+	 * 
+	 * @param traineeId
+	 * @return
+	 */
 	public Map<Integer, Double> findAvgGradeByWeek(int traineeId) {
 
 		Trainee trainee = traineeDAO.findOne(traineeId);
@@ -300,3 +319,4 @@ public class ReportingService {
 	}
 
 }
+
