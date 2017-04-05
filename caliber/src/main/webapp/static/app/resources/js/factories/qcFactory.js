@@ -24,6 +24,32 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 		});
 	};
 
+	// Call EvaluationController's getAllQCBatchNotes method
+	qc.getAllQCBatchNote = function(batchId) {
+		return $http({
+			url : "/qc/batch/note/" + batchId,
+			method : "GET"
+		}).then(function(response) {
+			$log.log("QC Batch Note retrieved successfully");
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
+	// Call EvaluationController's getAllQCTraineeNotes method
+	qc.getAllQCTraineeNote = function(batchId) {
+		return $http({
+			url : "/qc/trainee/note/" + batchId,
+			method : "GET"
+		}).then(function(response) {
+			$log.log("QC Trainee Note retrieved successfully");
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
 	/** ************************* Grade *********************** */
 	// add a new grade
 	qc.addGrade = function(gradeObj) {
@@ -54,14 +80,14 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	};
 
 	/** *********************** Assessment ********************** */
-	// create assessment
-	qc.createAssessment = function(assessmentObj) {
+	// get all assessments by batchid
+	qc.getAssessmentsByBatchId = function(batchId) {
+		$log.debug("In assessment");
 		return $http({
-			url : "/qc/assessment/create",
-			method : "POST",
-			data : assessmentObj
+			url : "/qc/assessment/byBatchId/" + batchId,
+			method : "GET"
 		}).then(function(response) {
-			$log.debug("Assessment created successfully");
+			$log.debug("Assessments retrieved successfully");
 			$log.debug(response);
 			return response.data;
 		}, function(response) {
@@ -78,33 +104,6 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.debug("Assessments retrieved successfully");
 			$log.debug(response);
 			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-	};
-
-	// update assessment
-	qc.updateAssessment = function(assessmentObj) {
-		return $http({
-			url : "/qc/assessment/update/",
-			method : "PUT",
-			data : assessmentObj
-		}).then(function(response) {
-			$log.debug("Assessments updated successfully");
-			$log.debug(response);
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-	};
-
-	// delete assessment
-	qc.deleteAssessment = function(assessmentId) {
-		return $http({
-			url : "/qc/assessment/delete/" + assessmentId,
-			method : "DELETE"
-		}).then(function(response) {
-			$log.debug("Assessment deleted successfully");
-			$log.debug(response);
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 		});

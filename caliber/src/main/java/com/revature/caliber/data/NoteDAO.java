@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -88,14 +89,13 @@ public class NoteDAO {
 	 * @param week
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Note> findQCBatchNotes(Integer batchId, Integer week) {
+	public Note findQCBatchNotes(Integer batchId, Integer week) {
 		log.info("Finding QC batch notes for week " + week + " for batch: " + batchId);
-		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
+		return (Note) sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
 				.add(Restrictions.eq("batch.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
-				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).uniqueResult();
 	}
 
 	/**
@@ -161,4 +161,33 @@ public class NoteDAO {
 				.add(Restrictions.ge("maxVisibility", TrainerRole.TRAINER))
 				.list();
 	}
+	
+	/**
+	 * Returns all qc notes for a batch
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public List<Note> findAllQCBatchNotes(Integer batchId) {
+        log.info("Find All QC Batch notes");
+        return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
+        		.add(Restrictions.eq("b.batchId", batchId))
+        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
+				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.addOrder(Order.asc("week")).list();
+    }
+	
+	/**
+	 * Returns all qc notes for trainee
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public List<Note> findAllQCTraineeNotes() {
+        log.info("Find All QC Trainee notes");
+        return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
+        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
+				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.addOrder(Order.asc("week")).list();
+    }
 }

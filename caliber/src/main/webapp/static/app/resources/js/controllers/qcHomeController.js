@@ -136,7 +136,6 @@ angular
 										}, function() {
 											NProgress.done();
 										});
-
 						caliberDelegate.agg
 								.getAggTechTrainee(
 										$scope.currentTrainee.traineeId)

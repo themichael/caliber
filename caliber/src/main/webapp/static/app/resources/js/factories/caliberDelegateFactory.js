@@ -176,7 +176,7 @@ angular
 					delegate.qc.deleteAssessment = function(assessmentId) {
 						return qcFactory.deleteAssessment(assessmentId);
 					};
-
+          // Notes
 					delegate.qc.createNote = function(noteObj) {
 						return qcFactory.createNote(noteObj);
 					};
@@ -184,6 +184,13 @@ angular
 					delegate.qc.updateNote = function(noteObj) {
 						return qcFactory.updateNote(noteObj);
 					};
+          delegate.qc.batchNote = function (batchId) {
+        	  return qcFactory.getAllQCBatchNote(batchId);
+          }
+        
+          delegate.qc.traineeNote = function (batchId) {
+        	  return qcFactory.getAllQCTraineeNote(batchId);
+          }
 
 					/**
 					 * ************************ Aggregate

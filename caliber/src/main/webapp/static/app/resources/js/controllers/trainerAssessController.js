@@ -77,7 +77,7 @@ angular
 								 */
 								caliberDelegate.trainer
 										.getAllAssessmentsForWeek(
-												$scope.currentBatch.batchId, 1)
+												$scope.currentBatch.batchId, $scope.currentWeek)
 										.then(
 												function(data) {
 													$log
