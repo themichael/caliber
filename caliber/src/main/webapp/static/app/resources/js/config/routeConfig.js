@@ -35,6 +35,12 @@ angular.module("app").config(
                 resolve: {
                     allBatches: function(caliberDelegate){
                         return caliberDelegate.qc.getAllBatches();
+                    },
+                    batchNotes: function(caliberDelegate) {
+                    	return caliberDelegate.qc.batchNote();
+                    },
+                    traineeNotes: function(caliberDelegate) {
+                    	return caliberDelegate.qc.traineeNote();
                     }
                 },
                 // uncomment when dev is complete

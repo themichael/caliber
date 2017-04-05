@@ -1,10 +1,12 @@
 angular.module("qc")
-    .controller("qcAssessController", function ($log, $scope, chartsDelegate, caliberDelegate, qcFactory, allBatches) {
+    .controller("qcAssessController", function ($log, $scope, chartsDelegate, caliberDelegate, qcFactory, allBatches, batchNotes, traineeNotes) {
         $log.debug("Booted Trainer Assess Controller");
 
         /******************************** Sample Data *******************************/
         $scope.batches = allBatches;
-        $log.debug("batches: " + $scope.batches);
+        $scope.bnote = batchNotes;
+        $scope.tnote = traineeNotes;
+        $log.debug($scope.tnote);
 
         var assessments = [
             [{
@@ -188,13 +190,13 @@ angular.module("qc")
         };
 
         // find grade for trainee
-        /*$scope.findGrade = function (traineeId, assessmentId) {
+        $scope.findGrade = function (traineeId, assessmentId) {
             var grade = grades.find(function (grade) {
                 return grade.trainee === traineeId && grade.assessment.assessmentId === assessmentId;
             });
 
             return grade.score;
-        };*/
+        };
 
         /************************************************TODO REFACTOR***************************************/
         /* Save Assessment */
