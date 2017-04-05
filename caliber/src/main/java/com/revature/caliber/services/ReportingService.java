@@ -168,7 +168,7 @@ public class ReportingService {
 	/**
 	 * Gets the average for a given Trainee ID for the entire week for one
 	 * particular assessment.
-	 * 
+	 * One Week -> One Trainee -> Average Score -> One Assessment Type
 	 * @param traineeId
 	 * @param week
 	 * @param assessmentType
@@ -183,17 +183,17 @@ public class ReportingService {
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		Double[] result = {0d, 0d};
 		for (Grade grade : gradesForTheWeek) {
-			result[0] += (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+			result[0] += (grade.getScore() / 100.0 * grade.getAssessment().getRawScore() / totalRawScore);
 			result[1] += grade.getAssessment().getRawScore();
 		}
-		//result[1] = result[1] / totalRawScore;
+		result[1] = result[1] / totalRawScore;
 		return result;
 	}
 
 	/**
 	 * Gets the average for a given Batch ID for the entire week for one
 	 * particular assessment.
-	 * 
+	 * One Week -> All Trainees in Batch -> Average Score -> One Assessment Type
 	 * @param batchId
 	 * @param week
 	 * @param assessmentType
@@ -202,21 +202,7 @@ public class ReportingService {
 	public Map<Trainee, Double[]> getAvgBatchWeek(Integer batchId, Integer week, AssessmentType assessmentType) {
 		Map<Trainee, Double[]> results = new HashMap<>();
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
-		//Double totalRawScore = 0d;
 		for (Trainee trainee : trainees) {
-/*			Double[] temp = new Double[2];
-			List<Grade> grades = gradeDAO.findByTrainee(trainee.getTraineeId());
-			List<Grade> gradesForTheWeek = grades.stream()
-					.filter(el -> el.getAssessment().getWeek() == week
-							&& el.getAssessment().getType().name().equals(assessmentType.name()))
-					.collect(Collectors.toList());
-			if (totalRawScore == 0d) {
-				totalRawScore = gradesForTheWeek.stream().map(Grade::getAssessment).mapToDouble(Assessment::getRawScore).sum();
-			}
-			for (Grade grade : gradesForTheWeek) {
-				temp[0] += (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
-				temp[1] += grade.getAssessment().getRawScore();
-			}*/
 			results.put(trainee, getAvgTraineeWeek(trainee.getTraineeId(), week, assessmentType));	
 		}
 		System.out.println(results);
@@ -227,7 +213,7 @@ public class ReportingService {
 	 * Get Weighted Average for a single assessment type for a given Trainee ID,
 	 * returning weeks as keys in the map and the corresponding values of
 	 * weight(%) and scores.
-	 * 
+	 * All Weeks -> One Trainee -> Average Score -> One Assessment Type
 	 * @param traineeId
 	 * @param assessmentType
 	 * @return Map<'week', {'score', 'weight'}>
@@ -258,6 +244,7 @@ public class ReportingService {
 
 	/**
 	 * Get Weighted Average for a the whole batch for all the weeks per an assessment
+	 * All Weeks -> All Trainees In Batch -> Average Score -> One Assessment Type
 	 * @param batchId
 	 * @param assessmentType
 	 * @return Trainee: The Trainee, Double[]: 0: Score, 1: Weight, 2: Week

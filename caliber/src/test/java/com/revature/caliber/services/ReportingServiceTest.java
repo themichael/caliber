@@ -22,6 +22,8 @@ import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
+import static org.junit.Assert.*;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
 public class ReportingServiceTest {
@@ -49,15 +51,16 @@ public class ReportingServiceTest {
 	@Test
 	public void getAvgBatchWeekTest(){
 		Integer batchId = 1050;
-		Integer week = 1;
-		//AssessmentType assessmentType = assessmentDAO.findOne(1069).getType();
-		Map<Trainee, Double[]> results = reportingService.getAvgBatchWeek(batchId, week, AssessmentType.Exam);
+		Integer week = 3;
+		AssessmentType assessmentType =  AssessmentType.Project;
+		Map<Trainee, Double[]> results = reportingService.getAvgBatchWeek(batchId, week, assessmentType);
+		
 		for(Entry<Trainee, Double[]> entry: results.entrySet()){
 			if(entry.getKey().getTraineeId() == 1059){
 				System.out.println("---------------------------------------------------");
 				System.out.println("Trainee Name: " + entry.getKey().getName());
-				System.out.println("Assessment Type: " + AssessmentType.Exam.name());
-				System.out.println("Traine Average Score: " + entry.getValue()[0]);
+				System.out.println("Assessment Type: " + assessmentType);
+				System.out.println("Trainee Average Score: " + entry.getValue()[0]);
 				System.out.println("Total Possible Score: " + entry.getValue()[1]);
 			}
 		}
