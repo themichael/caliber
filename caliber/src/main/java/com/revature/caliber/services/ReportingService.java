@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
@@ -168,7 +169,7 @@ public class ReportingService {
 	/**
 	 * Gets the average for a given Trainee ID for the entire week for one
 	 * particular assessment.
-	 * 
+	 * One Week -> One Trainee -> Average Score -> One Assessment Type
 	 * @param traineeId
 	 * @param week
 	 * @param assessmentType
@@ -178,12 +179,12 @@ public class ReportingService {
 		List<Grade> allGrade = gradeDAO.findByTrainee(traineeId);
 		List<Grade> gradesForTheWeek = allGrade.stream()
 				.filter(el -> el.getAssessment().getWeek() == week
-						&& el.getAssessment().getType().name() == assessmentType.toString())
+						&& el.getAssessment().getType().name().equals(assessmentType.name()))
 				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
-		Double[] result = new Double[2];
+		Double[] result = {0d, 0d};
 		for (Grade grade : gradesForTheWeek) {
-			result[0] += (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+			result[0] += (grade.getScore() / 100.0 * grade.getAssessment().getRawScore() / totalRawScore);
 			result[1] += grade.getAssessment().getRawScore();
 		}
 		result[1] = result[1] / totalRawScore;
@@ -193,28 +194,27 @@ public class ReportingService {
 	/**
 	 * Gets the average for a given Batch ID for the entire week for one
 	 * particular assessment.
-	 * 
+	 * One Week -> All Trainees in Batch -> Average Score -> One Assessment Type
 	 * @param batchId
 	 * @param week
 	 * @param assessmentType
 	 * @return
 	 */
-
-	public Map<Trainee, Double[]> getAvgBatchWeek(Integer batchId, Integer week,  AssessmentType assessmentType) {
-		Map<Trainee, Double[]> results = new HashMap<>(); 
+	public Map<Trainee, Double[]> getAvgBatchWeek(Integer batchId, Integer week, AssessmentType assessmentType) {
+		Map<Trainee, Double[]> results = new HashMap<>();
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
-	
-		
-		
-		
-		return null;
+		for (Trainee trainee : trainees) {
+			results.put(trainee, getAvgTraineeWeek(trainee.getTraineeId(), week, assessmentType));	
+		}
+		System.out.println(results);
+		return results;
 	}
 
 	/**
 	 * Get Weighted Average for a single assessment type for a given Trainee ID,
 	 * returning weeks as keys in the map and the corresponding values of
 	 * weight(%) and scores.
-	 * 
+	 * All Weeks -> One Trainee -> Average Score -> One Assessment Type
 	 * @param traineeId
 	 * @param assessmentType
 	 * @return Map<'week', {'score', 'weight'}>
@@ -245,6 +245,7 @@ public class ReportingService {
 
 	/**
 	 * Get Weighted Average for a the whole batch for all the weeks per an assessment
+	 * All Weeks -> All Trainees In Batch -> Average Score -> One Assessment Type
 	 * @param batchId
 	 * @param assessmentType
 	 * @return Trainee: The Trainee, Double[]: 0: Score, 1: Weight, 2: Week
