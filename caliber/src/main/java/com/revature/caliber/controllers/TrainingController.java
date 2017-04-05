@@ -105,7 +105,6 @@ public class TrainingController {
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createBatch(@RequestBody Batch batch, Authentication auth) {
-		//batch.setTrainer(getPrincipal(auth));
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
 		return new ResponseEntity<>(HttpStatus.CREATED);
@@ -198,13 +197,14 @@ public class TrainingController {
 	/**
 	 * Create trainees
 	 *
-	 *Uneeded. just do multiple calls to createTrainee
+	 * Uneeded. just do multiple calls to createTrainee
+	 * 
 	 * @param trainees
 	 *            the trainee
 	 * @return the response entity
 	 * 
 	 */
-	@Deprecated 
+	@Deprecated
 	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainees(@RequestBody Trainee[] trainees) {
@@ -264,7 +264,8 @@ public class TrainingController {
 	 * TODO :: read me:: Access user details through SecurityContext by
 	 * injecting Authentication into Controller method. Use @PreAuthorize with
 	 * Spring Expression Language (SpEL) to send 403 forbidden if not authorized
-	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html
+	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el
+	 * -access.html
 	 * 
 	 * @param auth
 	 * @return
