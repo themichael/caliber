@@ -113,10 +113,4 @@ public class Grade implements Serializable{
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "Grade [gradeId=" + gradeId + ", assessment=" + assessment + ", trainee=" + trainee + ", dateReceived="
-				+ dateReceived + ", score=" + score + "]";
-	}
-
 }

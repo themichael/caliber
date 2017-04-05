@@ -25,7 +25,6 @@ import javax.validation.constraints.Past;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * The type Batch.
  */
@@ -244,12 +243,6 @@ public class Batch implements Serializable{
 
 	public Batch() {
 		super();
-	}
-
-	@Override
-	public String toString() {
-		return "Batch [batchId=" + batchId + ", trainingName=" + trainingName + ", skillType=" + skillType
-				+ ", trainingType=" + trainingType + "]";
 	}
 	
 }

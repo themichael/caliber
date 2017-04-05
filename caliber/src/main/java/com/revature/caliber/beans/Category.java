@@ -118,21 +118,6 @@ public class Category implements Serializable{
         this.skillCategory = skillCategory;
     }
 
-    /**
-     * Instantiates a new Category.
-     *
-     * @param categoryId    the category id
-     * @param skillCategory the skill category
-     * @param assessments   the assessments
-     * @param weeks         the weeks
-     */
-    public Category(int categoryId, String skillCategory, Set<Assessment> assessments) {
-        super();
-        this.categoryId = categoryId;
-        this.skillCategory = skillCategory;
-        this.assessments = assessments;
-    }
-
 	@Override
 	public String toString() {
 		return skillCategory;
