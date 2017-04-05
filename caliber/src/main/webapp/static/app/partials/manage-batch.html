@@ -234,8 +234,10 @@
 										<td>{{trainee.trainingStatus}}</td>
 										<td>{{trainee.phoneNumber}}</td>
 										<td>{{trainee.skypeId}}</td>
-										<td><a href="{{trainee.profileUrl}}" target="_blank"><i
-												class="fa fa-file-code-o" aria-hidden="true"></i></a></td>
+										<td><span ng-if="trainee.profileUrl"> <a
+												href="{{trainee.profileUrl}}" target="_blank"><i
+													class="fa fa-file-code-o" aria-hidden="true"></i></a>
+										</span></td>
 									</tr>
 								</tbody>
 							</table>
