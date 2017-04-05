@@ -139,8 +139,9 @@ public class ReportingController {
 	 */
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<Integer, Double> >lineCharAVG(@PathVariable int batchId, @PathVariable int week, @PathVariable int traineeId){
-		return new ResponseEntity<Map<Integer, Double>>(reportingService.lineCharAVG(batchId, week, traineeId),  HttpStatus.OK);
+		return new ResponseEntity<Map<Integer, Double>>(reportingService.lineChartAvg(week, traineeId),  HttpStatus.OK);
 	}
+	
 	/**
 	 * 
 	 * @param traineeId
@@ -148,7 +149,8 @@ public class ReportingController {
 	 */
 	@RequestMapping(value = "/all/reports/batch/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<Integer, Double>> findAvgGradeByWeek(@PathVariable int traineeId) {
-		return new ResponseEntity<Map<Integer, Double>>(reportingService.findAvgGradeByWeek(traineeId),  HttpStatus.OK);
+		// TODO implement me
+		throw new UnsupportedOperationException("Not yet implemented");
 	}
 	/**
 	 * 
@@ -159,7 +161,7 @@ public class ReportingController {
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/barchart", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<Trainee, Double>> barCharAVG(@PathVariable int batchId, @PathVariable int week) {
 		
-		return new ResponseEntity<Map<Trainee, Double>>(reportingService.barCharAVG(batchId, week),  HttpStatus.OK);
+		return new ResponseEntity<Map<Trainee, Double>>(reportingService.barChartAvg(batchId, week),  HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/agg/tech/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
