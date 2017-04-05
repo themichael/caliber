@@ -1,8 +1,6 @@
 package com.revature.caliber;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -12,11 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
@@ -53,7 +48,16 @@ public class CheckDAO {
 	public void testmethod() {
 		log.info("Testing my code");
 		try {
-			log.info(assessmentDAO.findOne(1050));
+			List<Assessment> assessments = assessmentDAO.findByWeek(1050, 1);
+			for (Iterator iterator = assessments.iterator(); iterator.hasNext();) {
+				Assessment assessment = (Assessment) iterator.next();
+				log.info(assessment);
+				for(Grade g : assessment.getGrades())
+					log.info(g);
+			}
+/*			List<Grade> grades = gradeDAO.findByWeek(1050, 1);
+			for(Grade g : grades)
+				log.info(g);*/
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
