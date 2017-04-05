@@ -50,6 +50,7 @@ angular.module("trainer")
                 	$scope.currentWeek = totalWeeks;
                    	$scope.currentBatch.allWeeks = [];           	
 /*	               	 for(var i = 1; i <= totalWeeks; i++){
+
 	               		 $scope.currentWeek = i;
 	               		 getAllAssessmentsForWeek();
 	               		 var week = new Week(i, $scope.currentAssessments);
