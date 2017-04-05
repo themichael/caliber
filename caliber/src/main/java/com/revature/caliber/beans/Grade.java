@@ -61,6 +61,18 @@ public class Grade implements Serializable{
 	@NotNull
 	private double score;
 
+	public Grade() {
+		super();
+	}
+
+	public Grade(Assessment assessment, Trainee trainee, Date dateReceived, double score) {
+		super();
+		this.assessment = assessment;
+		this.trainee = trainee;
+		this.dateReceived = dateReceived;
+		this.score = score;
+	}
+
 	public long getGradeId() {
 		return gradeId;
 	}
@@ -101,22 +113,9 @@ public class Grade implements Serializable{
 		this.score = score;
 	}
 
-	public Grade(Assessment assessment, Trainee trainee, Date dateReceived, double score) {
-		super();
-		this.assessment = assessment;
-		this.trainee = trainee;
-		this.dateReceived = dateReceived;
-		this.score = score;
-	}
-
-	public Grade() {
-		super();
-	}
-
 	@Override
 	public String toString() {
 		return "Grade [gradeId=" + gradeId + ", assessment=" + assessment + ", trainee=" + trainee + ", dateReceived="
 				+ dateReceived + ", score=" + score + "]";
 	}
-
 }
