@@ -153,5 +153,22 @@ angular.module("qc")
             $scope.qcBatchAssess = null;
             $scope.finalQCBatchNote = null;
         }
-
+        
+        /************************************************** GETTING NOTES ON TRAINEE **********************************************/
+        $scope.noteOnTrainee = function (traineeName) {
+        	
+        	//$log.debug($scope.tnote);
+        	for (i=0; i<$scope.tnote.length; i++)
+        		if (traineeName == $scope.tnote[i].trainee.name)
+        			return $scope.tnote[i].content;
+        	return "Note on " + traineeName;
+        };
+        
+        $scope.addedNotes = function () {
+        	$log.debug(document.getElementById("noteTextArea").value);
+        };
+        
+        $scope.reset = function () {
+        	document.getElementById("noteTextArea").value = "";
+        };
     });
