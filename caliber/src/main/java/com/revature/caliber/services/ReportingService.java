@@ -113,20 +113,7 @@ public class ReportingService {
 		return results;
 	}
 
-	/**
-	 * 
-	 * @param batchId
-	 * @param week
-	 * @return Map<'trainee', 'score'>
-	 */
-	public Map<Trainee, Double> barChartAvg(int batchId, int week) {
-		Map<Trainee, Double> data = new HashMap<Trainee, Double>();
-		List<Grade> grades = gradeDAO.findByWeek(batchId, week);
-		for (Grade g : grades) {
-			data.put(g.getTrainee(), g.getScore());
-		}
-		return data;
-	}
+
 
 	/**
 	 * Gets the average for a given Trainee ID for the entire week for one
@@ -265,7 +252,7 @@ public class ReportingService {
 		Map<Integer, Double> results = new HashMap<>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
 		int weeks = trainee.getBatch().getWeeks();
-		for (Integer i = 1; i < weeks; i++) {
+		for (Integer i = 1; i <= weeks; i++) {
 			results.put(i, getAvgTraineeWeek(traineeId, i));
 		}
 		return results;
@@ -281,7 +268,7 @@ public class ReportingService {
 		Batch batch = batchDAO.findOne(batchId);
 		int weeks = batch.getWeeks();
 
-		for (Integer i = 0; i < weeks; i++) {
+		for (Integer i = 1; i <= weeks; i++) {
 			Map<Trainee, Double> temp = getAvgBatchWeek(batchId, i);
 			Double avg = 0d;
 			for (Map.Entry<Trainee, Double> t : temp.entrySet()) {
