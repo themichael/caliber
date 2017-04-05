@@ -108,6 +108,10 @@ angular.module("trainer").controller(
             $scope.currentBatch = $scope.selectedBatches[index];
             $scope.trainees = $scope.selectedBatches[index].trainees;
         };
+        
+        /** Opens profile url in new tab when clicked**/
+        $scope.openProfileLink = function (url) {
+        	$window.open(url)};
 
         /**      Save Batch     **/
         $scope.addNewBatch = function () {
@@ -211,8 +215,6 @@ angular.module("trainer").controller(
             $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
         };
         
-        $scope.opennewtab = function (url) {
-        	$window.open(url)};
          
 
         /**  Add Or Remove New Trainee Form */

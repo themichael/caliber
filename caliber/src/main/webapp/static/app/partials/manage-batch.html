@@ -226,7 +226,7 @@
 										<td>{{trainee.trainingStatus}}</td>
 										<td>{{trainee.phoneNumber}}</td>
 										<td>{{trainee.skypeId}}</td>
-										<td><a ng-click= "opennewtab(trainee.profileUrl)" >pic</a></td>
+										<td><a ng-if = "trainee.profileUrl !== null" ng-click= "openProfileLink(trainee.profileUrl)" >pic</a></td>
 									</tr>
 								</tbody>
 							</table>
