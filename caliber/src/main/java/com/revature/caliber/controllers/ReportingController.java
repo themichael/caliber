@@ -183,7 +183,7 @@ public class ReportingController {
 	
 	
 	
-	
+	//assessmentType is case sensitive so call with uppercase first letter
 	@RequestMapping(value = "/reports/{week}/{batchId}/{assessmentType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<Trainee, Double[]>> getAvgBatchWeek(@PathVariable Integer batchId,
 			@PathVariable Integer week, @PathVariable AssessmentType assessmentType) {
