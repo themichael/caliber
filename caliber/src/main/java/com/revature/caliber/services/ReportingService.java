@@ -319,11 +319,12 @@ public class ReportingService {
 		}
 		return results;
 	}
-/**
- * @param batchId
- * 
- * 
- * */
+
+	/**
+	 * @param batchId
+	 * 
+	 * 
+	 */
 	public Map<Trainee, Double> getBarChartBatchOverAll(Integer batchId) {
 		Batch batch = batchDAO.findOne(batchId);
 		Map<Trainee, Double> results = new HashMap<>();
@@ -338,13 +339,14 @@ public class ReportingService {
 		}
 		return results;
 	}
-/**
- * @param batchId,
- * @param traineeId
- * @return map<number of weeks in total, array of batch overall 
- * average and trainee overall average>
- * 
- * */
+
+	/**
+	 * @param batchId,
+	 * @param traineeId
+	 * @return map<number of weeks in total, array of batch overall average and
+	 *         trainee overall average>
+	 * 
+	 */
 	public Map<Integer, Double[]> getLineChartTraineeGradeAvgOfAllWeeks(Integer batchId, Integer traineeId) {
 		Map<Integer, Double> batchAvgOverall = getAvgBatchOverall(batchId);
 		Map<Integer, Double> traineeAvgOverall = getAvgTraineeOverall(traineeId);
