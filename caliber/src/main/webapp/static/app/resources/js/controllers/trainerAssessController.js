@@ -13,7 +13,7 @@ angular
 						this.assessments = assessments;
 					}
 					$log.debug("Booted Trainer Aesess Controller");
-					
+
 					// load categories
 					$scope.skill_categories = function() {
 						caliberDelegate.all.getAllCategories().then(
@@ -24,8 +24,7 @@ angular
 								})
 					};
 					/**
-					 * ***************************************** 
-					 * UI
+					 * ***************************************** UI
 					 * ********************************************
 					 */
 					// ////////////////////////////////////////////////////////////////////////
@@ -60,12 +59,12 @@ angular
 								// allBatches[0].weeks.sort(weekComparator);
 
 								var totalWeeks = allBatches[0].weeks; // the
-																		// number
-																		// of
-																		// weeks
-																		// for
-																		// that
-																		// batch
+								// number
+								// of
+								// weeks
+								// for
+								// that
+								// batch
 								$log
 										.debug("this is the total week for this batch "
 												+ allBatches[0].trainingName
