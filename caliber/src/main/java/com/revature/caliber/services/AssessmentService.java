@@ -73,6 +73,16 @@ public class AssessmentService {
 		log.debug("Find assessment by week number " + week + " for batch " + batchId + " ");
 		return assessmentDAO.findByWeek(batchId, week);
 	}
+	
+	/**
+	 * FIND ASSESSMENT BY BATCHID
+	 * @param 
+	 * @return
+	 */
+	public List<Assessment> findAssessmentByBatchId(Integer batchId) {
+		log.debug("Find assessment by batchId " + batchId + " ");
+		return assessmentDAO.findByBatchId(batchId);
+	}
 
 	/**
 	 * UPDATE ASSESSMENT

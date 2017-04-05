@@ -124,10 +124,10 @@ a { color: #F26925;}
 .fa-frown-o:hover { color: #ff7575; }
 .fa-star:hover { color: #7972ff; }
 
-.fa-smile-o.pick { color: #81f575 !important; }
-/* .fa-meh-o.pick { color: #e8b00b !important; } */ 	/* darker yellow */
-.fa-meh-o.pick { color: #fff575 !important; } 
-.fa-frown-o.pick { color: #ff7575 !important; }
+.fa-smile-o.pick { color: #24d810!important; }
+ .fa-meh-o.pick { color: #e8b00b !important; }  	/* darker yellow */
+/*.fa-meh-o.pick { color: #fff575 !important; } */
+.fa-frown-o.pick { color: #ff0000!important; }
 .fa-star.pick { color: #7972ff !important; }
 
 #qcTrainees{
