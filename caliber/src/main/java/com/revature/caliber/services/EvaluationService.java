@@ -240,8 +240,21 @@ public class EvaluationService {
 		return noteDAO.findAllIndividualNotes(traineeId, week);
 	}
 
-	public List<Note> findAllQCNotes() {
-        log.debug("Find All QC notes");
-        return noteDAO.findAllQCNotes();
+	/**
+	 * Find all qc batch notes
+	 * @return
+	 */
+	public List<Note> findAllQCBatchNotes() {
+        log.debug("Find All QC Batch notes");
+        return noteDAO.findAllQCBatchNotes();
     }
+	
+	/**
+	 * Find all qc trainee notes
+	 * @return
+	 */
+	public List<Note> findAllQCTraineeNotes() {
+		log.debug("Find All QC Trainee Notes");
+		return noteDAO.findAllQCTraineeNotes();
+	}
 }

@@ -311,9 +311,23 @@ public class EvaluationController {
 		return new ResponseEntity<List<Note>>(evaluationService.findAllIndividualNotes(traineeId, week), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/qc/note/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	    public ResponseEntity<List<Note>> getAllQCNotes() {
-	        log.info("Getting all notes by QC");
-	        return new ResponseEntity<List<Note>>(evaluationService.findAllQCNotes(), HttpStatus.OK);
-	    }
+	/**
+	 * Find all qc batch notes
+	 * @return
+	 */
+	@RequestMapping(value = "/qc/batch/note/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Note>> getAllQCBatchNotes() {
+        log.info("Getting all batch notes by QC");
+        return new ResponseEntity<List<Note>>(evaluationService.findAllQCBatchNotes(), HttpStatus.OK);
+    }
+	
+	/**
+	 * Find all qc trainee notes
+	 * @return
+	 */
+	@RequestMapping(value = "/qc/trainee/note/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Note>> getAllQCTraineeNotes() {
+        log.info("Getting all trainee notes by QC");
+        return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(), HttpStatus.OK);
+    }
 }

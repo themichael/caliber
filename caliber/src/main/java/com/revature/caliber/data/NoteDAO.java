@@ -161,13 +161,29 @@ public class NoteDAO {
 				.list();
 	}
 	
+	/**
+	 * Returns all qc notes for batches
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public List<Note> findAllQCNotes() {
-        log.info("Find All QC notes");
-        
-        return sessionFactory.getCurrentSession().createCriteria(Note.class)
-        		.add(Restrictions.eq("maxVisibility", TrainerRole.QC))
+    public List<Note> findAllQCBatchNotes() {
+        log.info("Find All QC Batch notes");
+        return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
+        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
+				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+    }
+	
+	/**
+	 * Returns all qc notes for trainee
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public List<Note> findAllQCTraineeNotes() {
+        log.info("Find All QC Trainee notes");
+        return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
+        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 }
