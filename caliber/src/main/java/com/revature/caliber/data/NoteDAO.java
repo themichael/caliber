@@ -163,7 +163,7 @@ public class NoteDAO {
 	}
 	
 	/**
-	 * Returns all qc notes for batches
+	 * Returns all qc notes for a batch
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -186,7 +186,7 @@ public class NoteDAO {
     public List<Note> findAllQCTraineeNotes() {
         log.info("Find All QC Trainee notes");
         return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
-        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC)).createAlias("trainee", "t")
+        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.addOrder(Order.asc("week")).list();
     }

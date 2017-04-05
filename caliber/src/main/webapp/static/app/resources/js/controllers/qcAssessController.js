@@ -1,5 +1,5 @@
 angular.module("qc")
-    .controller("qcAssessController", function ($log, $scope, chartsDelegate, caliberDelegate, qcFactory, allBatches, batchNotes, traineeNotes) {
+    .controller("qcAssessController", function ($log, $scope, chartsDelegate, caliberDelegate, qcFactory, allBatches) {
         $log.debug("Booted Trainer Assess Controller");
 
         /******************************** Sample Data *******************************/
@@ -45,20 +45,8 @@ angular.module("qc")
 /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
 /************************************************TODO REFACTOR: QC FEEDBACK IS NOTE.. NOT ASSESSMENT***************************************/
         $scope.currentBatch = $scope.batches[0];
-        // Set bnote to current batch qc notes
-        angular.forEach(batchNotes, function(note, key) {
-        	if(note.batch.batchId === $scope.currentBatch.batchId) {
-        		$scope.bnote.push(note);
-        	}
-    	});
-        // Set tnote to current batch trainee qc notes
-        angular.forEach(traineeNotes, function(note, key) {
-        	angular.forEach($scope.currentBatch.trainees, function(trainee, key) {
-            	if(trainee.traineeId === note.trainee.traineeId) {
-            		$scope.tnote.push(note);
-            	}
-        	})
-        });
+        $scope.bnote = caliberDelegate.qc.batchNote($scope.currentBatch.batchId);
+        $scope.tnote = caliberDelegate.qc.traineeNote($scope.currentBatch.batchId);
         
         // default -- view assessments table
         $scope.currentView = true;
@@ -72,22 +60,8 @@ angular.module("qc")
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectCurrentBatch = function (index) {
             $scope.currentBatch = $scope.batches[index];
-            $scope.bnote = [];
-            $scope.tnote = [];
-            // Set bnote to current batch qc note
-            angular.forEach(batchNotes, function(note, key) {
-            	if(note.batch.batchId === $scope.currentBatch.batchId) {
-            		$scope.bnote.push(note);
-            	}
-        	});
-            // Set tnote to current batch trainee qc note
-            angular.forEach(traineeNotes, function(note, key) {
-            	angular.forEach($scope.currentBatch.trainees, function(trainee, key) {
-                	if(trainee.traineeId === note.trainee.traineeId) {
-                		$scope.tnote.push(note);
-                	}
-            	})
-        	});
+            $scope.bnote = caliberDelegate.qc.batchNote($scope.currentBatch.batchId);
+            $scope.tnote = caliberDelegate.qc.traineeNote($scope.currentBatch.batchId);
             $log.debug("Batch QC Notes");
             $log.debug($scope.bnote);
             $log.debug("Batch Trainee Notes");
