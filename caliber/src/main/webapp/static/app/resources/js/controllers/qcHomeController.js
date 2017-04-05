@@ -122,5 +122,11 @@ angular.module("qc").controller("qcHomeController",
                 }
             );
         }
-
+        
+        $scope.getAllAssessmentByBatchId = function (batchId) {
+        	caliberDelegate.qc.getAssessmentsByBatchId(batchId)
+        	.then(function (data) {
+        		$log.debug(data);
+        	})
+        }
     });

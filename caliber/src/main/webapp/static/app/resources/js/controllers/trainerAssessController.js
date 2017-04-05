@@ -168,8 +168,7 @@ angular.module("trainer")
                 if($scope.currentAssessments > 0)
                     $scope.currentAssessments.unshift(assessment);
                 else $scope.currentAssessments = assessment;
-                $("#createAssessmentModal").modal('toggle');
-
+                angular.element("#createAssessmentModal").modal("hide");
             });
         };
         $scope.selectedCategories = [];

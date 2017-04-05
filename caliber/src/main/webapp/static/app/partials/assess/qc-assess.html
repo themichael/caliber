@@ -65,8 +65,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="temp in demoTrainees">
-						<td>{{ temp.name }}</td>
+					<tr ng-repeat="trainee in currentBatch.trainees track by $index">
+						<td>{{ trainee.name }}</td>
 						<td>
 
 							<form>
@@ -100,23 +100,23 @@
 								</div>
 							</form>
 
-
 						</td>
 						<td><textarea placeholder="Notes on {{temp.name}}" rows="3"
 								cols="110"></textarea></td>
 					</tr>
 				</tbody>
 			</table>
-			<table class="col-md-6 table table-condensed" ng-show="!currentView">
+			<!-- Not sure what this table is for -->
+			<!-- <table class="col-md-6 table table-condensed" ng-show="!currentView">
 				<tr>
 					<th>Name</th>
 					<th>Score</th>
 				</tr>
-				<tr ng-repeat="trainee in currentBatch.trainees">
+				<tr ng-repeat="trainee in currentBatch.trainees track by $index">
 					<td>{{ trainee.name }}</td>
 					<td>{{ findGrade(trainee.traineeId) }}</td>
 				</tr>
-			</table>
+			</table> -->
 		</div>
 	</div>
 	<!-- QC batch note -- overall qualitative feedback -->
