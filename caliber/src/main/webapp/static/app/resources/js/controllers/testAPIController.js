@@ -119,5 +119,4 @@ angular.module("app")
 					// $scope.qc.updatedNote =
 					// caliberDelegate.qc.updateNote(noteObj);
 
->>>>>>> 177f1d29a6f8524b999e82dd06e2610c7d2fdaef
 				});

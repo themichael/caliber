@@ -195,5 +195,4 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		});
 	};
 	return trainer;
->>>>>>> d06f06865f7ee7272154069ce7e8f201e1f724f6
 });
