@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.AssessmentType;
+import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
@@ -248,17 +248,21 @@ public class ReportingService {
 	 * @param batchId
 	 * @param assessmentType
 	 * @return Trainee: The Trainee, Double[]: 0: Score, 1: Weight, 2: Week
-	*/
-	public Map<Trainee, Double[]> getAvgBatchOverall(Integer batchId, AssessmentType assessmentType) {
-		Map<Trainee, Double[]> results = new HashMap<>();
-		List<Grade> grades = gradeDAO.findByBatch(batchId);
-		List<Grade> assessments = grades.stream()
-										.filter(g -> g.getAssessment().getType() == assessmentType)
-										.collect(Collectors.toList());
-		Double totalRawScore = assessments.stream().mapToDouble(g -> g.getAssessment().getRawScore()).sum();
-		for (Grade assessment : assessments){
-			Double weight = assessment.getAssessment().getRawScore() / totalRawScore;
-			results.put(assessment.getTrainee(), new Double[]{(assessment.getScore()*weight), weight, Double.valueOf(assessment.getAssessment().getWeek())} );
+	 */
+	public Map<Integer, Double[]> getAvgBatchOverall(Integer batchId, AssessmentType assessmentType) {
+		Map<Integer, Double[]> results = new HashMap<>();
+		Batch batch = batchDAO.findOne(batchId);
+		int weeks = batch.getWeeks();
+		for (Integer i = 0; i < weeks; i++) {
+			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, i, assessmentType);
+			Double[] avg = {0d, 0d};
+		
+			for(Map.Entry<Trainee, Double[]> t : temp.entrySet()){
+				avg[0] += t.getValue()[0];
+				avg[1] = t.getValue()[1];
+			}
+			avg[0] = avg[0]/temp.size();
+			results.put(i, avg);
 		}
 		return results;
 	}

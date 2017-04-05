@@ -22,8 +22,6 @@ import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
 public class ReportingServiceTest {
@@ -75,9 +73,11 @@ public class ReportingServiceTest {
 				System.out.println("Raw Score: " + grade.getAssessment().getRawScore());
 			}
 		}
-
-
-		
+	}
+	
+	@Test
+	public void getAvgBatchOverallTest(){
+		System.out.println(reportingService.getAvgBatchOverall(1050, AssessmentType.Exam));
 	}
 
 }
