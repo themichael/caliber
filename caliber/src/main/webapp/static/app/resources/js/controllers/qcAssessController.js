@@ -4,7 +4,7 @@ angular.module("qc")
 
         /******************************** Sample Data *******************************/
         $scope.batches = allBatches;
-
+        $log.debug("batches: " + $scope.batches);
 
         var assessments = [
             [{
@@ -188,13 +188,13 @@ angular.module("qc")
         };
 
         // find grade for trainee
-        $scope.findGrade = function (traineeId, assessmentId) {
+        /*$scope.findGrade = function (traineeId, assessmentId) {
             var grade = grades.find(function (grade) {
                 return grade.trainee === traineeId && grade.assessment.assessmentId === assessmentId;
             });
 
             return grade.score;
-        };
+        };*/
 
         /************************************************TODO REFACTOR***************************************/
         /* Save Assessment */
