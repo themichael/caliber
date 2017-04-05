@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,7 @@ public class TraineeDAO {
 	public Trainee findOne(Integer traineeId) {
 		log.info("Fetch trainee by id: " + traineeId);
 		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.setFetchMode("batch", FetchMode.JOIN)
 				.add(Restrictions.eq("traineeId", traineeId))
 				.uniqueResult();
 	}
