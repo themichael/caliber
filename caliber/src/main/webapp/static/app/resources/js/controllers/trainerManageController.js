@@ -113,8 +113,6 @@ angular.module("trainer").controller(
         $scope.getTrainee = function (trainee)
         {
             $scope.trainee = trainee;
-            receiver.name = trainee.name;
-            receiver.email = trainee.email;
         }
         
         

@@ -1,23 +1,6 @@
 <div id="manage">
 	<div class="container">
-		<div class="row">
-			<div class="col-md-12 col-lg-12">
-				<ul class="nav nav-tabs">
-					<!-- Filter batches by year -->
-					<li role="button" class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li ng-repeat="menuItem in years track by $index"><a
-								role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
-						</ul></li>
-					<!-- Button Trigger for Create Batch Modal -->
-					<li role="button" class="pull-right" data-toggle="modal"
-						data-target="#createBatchModal"><a>Create Batch<span
-							class="glyphicon glyphicon-plus" aria-hidden="true"> </span></a></li>
-				</ul>
-			</div>
-		</div>************************* Create Batch Modal ************************************-->
-	<form>
+		<form>
 		<div class="modal fade" id="createBatchModal" tabindex="-1"
 			role="dialog" aria-labelledby="batchModalLabel">
 			<div class="modal-dialog" role="document">
@@ -479,7 +462,6 @@
 										<th>Training Status</th>
 										<th>Phone Number</th>
 										<th>Skype Id</th>
-
 										<th>URL</th>
 										<th>Edit</th>
 										<th>Profile Url</th>
@@ -501,6 +483,7 @@
 										</span></td>
 										<td><button ng-click="loadTrainee()" type="submit"
 							class="btn btn-primary">Edit</button></td>
+							<td>sometging</td>
 
 									</tr>
 								</tbody>
