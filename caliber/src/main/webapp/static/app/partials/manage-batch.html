@@ -1,6 +1,3 @@
-
-
-
 <div id="manage">
 	<div class="container">
 		<div class="row">
@@ -107,12 +104,14 @@
 								</select>
 							</div>
 							<div class="form-group col-md-6 col-sm-6">
-								<label for="location">Location:</label> <select
-									ng-model="location.model" class="form-control" id="location"
-									required>
-									<option value="" disabled>Select Location</option>
-									<option ng-repeat="option in location.options">{{option}}</option>
-								</select>
+								<label for="commonLocations">Location:</label> <input
+									list="commonLocations" type="text" ng-model="location.model"
+									id="location" required placeholder="Enter location"
+									class="form-control">
+								<datalist id="commonLocations">
+									<option ng-repeat="option in location.options"
+										value="{{option}}" />
+								</datalist>
 							</div>
 						</div>
 						<div class="row">
@@ -225,8 +224,8 @@
 										<th>Phone Number</th>
 										<th>Skype Id</th>
 										<th>Profile URL</th>
-										<th>Edit</th>
 
+										<th>Edit</th>
 
 									</tr>
 								</thead>
@@ -243,9 +242,8 @@
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 
 										</span></td>
-										<td><button ng-click="getTrainee(trainee)" type="submit"
-							class="btn btn-primary">Edit</button></td>
-							
+										<td><button ng-click="getTrainee(trainee)" type="button"
+												class="btn btn-primary">Edit</button></td>
 
 									</tr>
 								</tbody>
@@ -257,37 +255,44 @@
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeName">Full Name:</label> <input
-										ng-model="name" type="text" class="form-control"
-										id="traineeName" placeholder="Name"  required >
+										ng-model="receiver.name" type="text" class="form-control"
+										id="traineeName" placeholder="Name"
+										ng-value="editTrainee.name" required>
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeEmail">Email:</label> <input
-										ng-model="email" type="text" class="form-control"
-										id="traineeEmail" placeholder="Email" value="{{editTrainee.email}}"  required>
+										ng-model="receiver.email" type="email" class="form-control"
+										id="traineeEmail" placeholder="Email"
+										ng-value="editTrainee.email" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeSkype">Skype Id:</label> <input
 										ng-model="receiver.skypeId" type="text" class="form-control"
-										id="traineeSkype" placeholder="Skype Id" value="{{editTrainee.skypeId}}">
+										id="traineeSkype" placeholder="Skype Id"
+										ng-value="editTrainee.skypeId">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineePhone">Phone:</label> <input
 										ng-model="receiver.phoneNumber" type="text"
 										class="form-control" id="traineePhone"
-										placeholder="(xxx) xxx-xxxx" text="{{editTrainee.phoneNumber}}" required>
+										placeholder="(xxx)-xxx-xxxx"
+										ng-value="editTrainee.phoneNumber" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeProfile">Profile URL:</label> <input
-										ng-model="receiver.profileUrl" type="text" class="form-control"
-										id="traineeName" placeholder="http://www.example.com/revature" required>
+										ng-model="receiver.profileUrl" type="text"
+										class="form-control" id="traineeName"
+										placeholder="http://www.example.com/revature"
+										ng-value="editTrainee.profileURL">
+
 								</div>
 							</div>
 							<div class="row">
-							
+
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeStatus">Training Status</label> <select
 										ng-model="receiver.trainingStatus" class="form-control"
@@ -298,7 +303,6 @@
 								</div>
 							</div>
 						</div>
-
 						<!-- 	Remove from view until synchronization issue is solved
 							<div class="row">
 								<div class="form-group col-md-2 col-sm-2">
