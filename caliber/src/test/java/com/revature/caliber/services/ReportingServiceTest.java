@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,9 +76,11 @@ public class ReportingServiceTest {
 				System.out.println("Raw Score: " + grade.getAssessment().getRawScore());
 			}
 		}
-
-
-		
+	}
+	
+	@Test
+	public void getAvgBatchOverallTest(){
+		System.out.println(reportingService.getAvgBatchOverall(1050, AssessmentType.Exam));
 	}
 
 }
