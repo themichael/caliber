@@ -20,7 +20,7 @@ angular.module("trainer")
         	})
         };
         /******************************************* UI *********************************************/
-        ///////////////////////////////////////////////////////////////////////////////////////////// load note types
+        ////////////////////////////////////////////////////////////////////////// load note types
         caliberDelegate.all.enumNoteType().then(function(noteTypes) {
         	$log.debug(noteTypes);
         	// do something with note type
@@ -46,7 +46,7 @@ angular.module("trainer")
                  //TODO check if it is sorting as objects-->  allBatches[0].weeks.sort(weekComparator);
                     
                 	var totalWeeks = allBatches[0].weeks; // the number of weeks for that batch
-                
+                	$log.debug("this is the total week for this batch "+ allBatches[0].trainingName +": " + totalWeeks);
                 	$scope.currentBatch.allWeeks = [];
 	               	 for(var i = 1; i <= totalWeeks; i++){
 	               		 $scope.currentWeek = i;
@@ -55,7 +55,7 @@ angular.module("trainer")
 	               		 $scope.currentBatch.allWeeks.push(week);
 	       
 					 }
-	                    $scope.currentWeek = $scope.currentBatch.allWeeks[0];
+	                   // $scope.currentWeek = $scope.currentBatch.allWeeks[0];
 
                 }
 
@@ -251,14 +251,14 @@ angular.module("trainer")
         function getAllAssessmentsForWeek(){
             $scope.grades = [];
             /************************************************TODO REFACTOR***************************************/
-            caliberDelegate.trainer.getAllAssessments($scope.currentBatch.batchId, $scope.currentWeek)
+            caliberDelegate.trainer.getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek)
             /************************************************TODO REFACTOR***************************************/
                 .then(function(data){
                     $scope.currentAssessments = data;
                     $log.debug("These are the assessments");
                     $log.debug($scope.currentAssessments);
                     $scope.currentAssessments.forEach(function (assessment) {
-                        for(currentBatch of $scope.currentBatch.allWeeks){
+                       for(curWeek of $scope.currentBatch.allWeeks){
                         	if(assessment.week === currentBatch.weekNumb){
                         		currentBatch.assessment = assessment;
                         	}
