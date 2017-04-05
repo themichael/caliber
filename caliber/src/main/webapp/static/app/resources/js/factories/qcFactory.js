@@ -31,7 +31,6 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Batch Note retrieved successfully");
-			$log.debug(response);
 			return response.data;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
@@ -45,7 +44,6 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Note retrieved successfully");
-			$log.debug(response);
 			return response.data;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);

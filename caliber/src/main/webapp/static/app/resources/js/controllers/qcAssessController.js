@@ -45,8 +45,12 @@ angular.module("qc")
 /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
 /************************************************TODO REFACTOR: QC FEEDBACK IS NOTE.. NOT ASSESSMENT***************************************/
         $scope.currentBatch = $scope.batches[0];
-        $scope.bnote = caliberDelegate.qc.batchNote($scope.currentBatch.batchId);
-        $scope.tnote = caliberDelegate.qc.traineeNote($scope.currentBatch.batchId);
+        caliberDelegate.qc.batchNote($scope.currentBatch.batchId).then(function(notes){
+    		$scope.bnote = notes;
+    	});
+        caliberDelegate.qc.traineeNote($scope.currentBatch.batchId).then(function(notes){
+    		$scope.tnote = notes;
+    	});
         
         // default -- view assessments table
         $scope.currentView = true;
@@ -59,9 +63,13 @@ angular.module("qc")
         // batch drop down select
         /************************************************TODO REFACTOR: WEEK IS NOT OBJECT ANYMORE***************************************/
         $scope.selectCurrentBatch = function (index) {
-            $scope.currentBatch = $scope.batches[index];
-            $scope.bnote = caliberDelegate.qc.batchNote($scope.currentBatch.batchId);
-            $scope.tnote = caliberDelegate.qc.traineeNote($scope.currentBatch.batchId);
+        	$log.debug("SELECTED DIFFERENT BATCH");
+            caliberDelegate.qc.batchNote($scope.currentBatch.batchId).then(function(notes){
+        		$scope.bnote = notes;
+        	});
+            caliberDelegate.qc.traineeNote($scope.currentBatch.batchId).then(function(notes){
+        		$scope.tnote = notes;
+        	});
             $log.debug("Batch QC Notes");
             $log.debug($scope.bnote);
             $log.debug("Batch Trainee Notes");
