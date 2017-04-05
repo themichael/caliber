@@ -198,10 +198,13 @@ public class TrainingController {
 	/**
 	 * Create trainees
 	 *
+	 *Uneeded. just do multiple calls to createTrainee
 	 * @param trainees
 	 *            the trainee
 	 * @return the response entity
+	 * 
 	 */
+	@Deprecated 
 	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainees(@RequestBody Trainee[] trainees) {
