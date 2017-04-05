@@ -1,5 +1,7 @@
 package com.revature.caliber.beans;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +21,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CALIBER_ASSESSMENT")
-public class Assessment {
+public class Assessment implements Serializable{
+
+	private static final long serialVersionUID = 5030264218154828822L;
 
 	@Id
 	@Column(name = "ASSESSMENT_ID")
@@ -70,7 +74,7 @@ public class Assessment {
 	}
 
 	public String getTitle() {
-		return title;
+		return this.category.getSkillCategory() + " " + this.type.name();
 	}
 
 	public void setTitle(String title) {

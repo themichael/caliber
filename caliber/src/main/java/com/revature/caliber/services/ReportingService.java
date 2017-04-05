@@ -1,19 +1,27 @@
 package com.revature.caliber.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.data.AssessmentDAO;
+import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
-import com.revature.caliber.intel.ClassroomStatisticalAnalysisBean;
+import com.revature.caliber.data.NoteDAO;
+import com.revature.caliber.data.TraineeDAO;
 
 /**
  * Exclusively used to generate data for charts
@@ -26,89 +34,134 @@ import com.revature.caliber.intel.ClassroomStatisticalAnalysisBean;
  *
  */
 @Service
-public class ReportingService //implements ClassroomStatisticalAnalysisBean
+public class ReportingService
 {
 	private final static Logger log = Logger.getLogger(ReportingService.class);
 	private GradeDAO gradeDAO;
-
+	private BatchDAO batchDAO;
+	private TraineeDAO traineeDAO;
+	private NoteDAO noteDAO;
+	private AssessmentDAO assessmentDAO;
+	
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
 		this.gradeDAO = gradeDAO;
 	}
 
-	/**
-	 * Get aggregated grades by Category for a Trainee
-	 *
-	 * @param traineeId
-	 * @return
-	 */
-	public HashMap<Trainee, Double[]> aggregateTechTrainee(@PathVariable("id") int traineeId) {
-		// TODO implement me
-		throw new UnsupportedOperationException("Not yet implemented");
+	@Autowired
+	public void setBatchDAO(BatchDAO batchDAO) {
+		this.batchDAO = batchDAO;
 	}
 
-	/**
-	 * Get aggregated grades by Week for a Trainee
-	 *
-	 * @param traineeId
-	 * @return
-	 */
-
-	public HashMap<Trainee, Double[]> aggregateWeekTrainee(int traineeId) {
-		// TODO implement me
-		throw new UnsupportedOperationException("Not yet implemented");
+	@Autowired
+	public void setTraineeDAO(TraineeDAO traineeDAO) {
+		this.traineeDAO = traineeDAO;
 	}
 
-	/**
-	 * Get aggregated grades by Category for a Batch
-	 *
-	 * @param batchId
-	 * @return
-	 */
-	public HashMap<Batch, Double[]> aggregateTechBatch(int batchId) {
-		// TODO implement me
-		throw new UnsupportedOperationException("Not yet implemented");
+	@Autowired
+	public void setNoteDAO(NoteDAO noteDAO) {
+		this.noteDAO = noteDAO;
 	}
 
-	/**
-	 * Get aggregated grades by Category for a Batch
-	 *
-	 * @param traineeId
-	 * @return
-	 */
-	public HashMap<Batch, Double[]> aggregateWeekBatch(int batchId) {
-		// TODO implement me
-		throw new UnsupportedOperationException("Not yet implemented");
+	@Autowired
+	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
+		this.assessmentDAO = assessmentDAO;
+	}
+	
+	
+	// Radar Chart of the Independent Skills/Technologies of Trainees
+	// Batch > Week > Trainee
+	public Map<String, Double> getRadar(Integer batchId, Integer weekNumber, Integer traineeId){
+		Map<String, Double> results = new HashMap<>();
+		Batch batch = batchDAO.findOne(batchId);
+		
+		
+		return null;
+	}
+	
+
+	//Pie chart displaying number of trainees that recieved red, yellow, green, or superstar
+	//returns Map relating the number of trainees per QCStatus
+	public Map<QCStatus, Integer> batchWeekPieChart(Integer batchId, Integer weekNumber){
+		
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		Map<QCStatus, Integer> results = new HashMap<>();
+		 for(QCStatus s : QCStatus.values()){
+			 results.put(s, 0);
+		 }
+		 for (Trainee t : trainees){
+			 for (Note n : t.getNotes()){
+				 if (n.getWeek()==weekNumber){
+					 if (n.getType()==NoteType.QC_TRAINEE){
+						 QCStatus status = n.getQcStatus();
+						 Integer temp = results.get(status);
+						 temp++;
+						 results.remove(status);
+						 results.put(status, temp);
+					 }
+				 }
+			 }
+		 }
+		 
+		return results;
 	}
 
-	/**
-	 * Get aggregated grades for all Trainees by Trainer
-	 *
-	 * @param traineeId
-	 * @return
-	 */
-	public Map<String, Double[]> aggregateTraineesTrainer(int trainerId) {
-		// TODO implement me
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
+/*	public HashMap<Trainee, Double[]>  barChar(int batchId, int week) {
+		//BatchDAO  
 
-	public Map<Trainee, Double> findAvgGradesForEachTrainee() {
-		// TODO implement me
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
-
-	public Map<Assessment, Double> findAvgGradesForEachAssessment() {
-		// TODO implement me
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
-
-	public Map<Category, Double> findAvgGradeByCategory(int traineeId) {
-		// TODO implement me
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
+		
+	
+	}*/
 
 	public Map<Integer, Double> findAvgGradeByWeek(int traineeId) {
-		// TODO implement me
-		throw new UnsupportedOperationException("Not yet implemented");
+		
+		TraineeDAO td= new TraineeDAO();
+		GradeDAO gd= new GradeDAO();
+		AssessmentDAO ad= new AssessmentDAO(); 
+		
+		Trainee trainee =td.findOne(traineeId);
+		List<Grade> gt=gd.findByTrainee(traineeId);
+		
+		Map<Integer, Double> data = new HashMap<Integer, Double>();
+		
+		
+
+		int week = 0;
+		
+		
+		for(Grade g: gt){
+			//List<Double> thescorelist = gt.stream().map(g.getAssessment().getWeek():: g.getScore() ).collect(Collectors.toList());
+		
+			//data.put( g.getAssessment().getWeek(), mean(thescorelist));
+		}
+		
+		return data;
+		
 	}
+	
+	public double mean ( ArrayList<Double> list){
+		double sum= 0.0;
+		int length= list.size();
+		for(double item : list){
+			sum+=item;
+		}
+		return sum/length;
+	}
+	
+	/**
+	 * Weighted Average of a Trainee's Grade Scores for a given week number 
+	 * @param trainee For which to get the Average Scores
+	 * @param week number to get the grades for 
+	 * @return A Map of String Names of Assessment Types, and 
+	 */
+	public  Map<String, Double> getWeightedAverageGradesOfTraineeByWeek(Trainee trainee, Integer week){
+		Map<String, Double> results = new HashMap<>();
+		Set<Grade> gradesForTheWeek = trainee.getGrades().stream().filter(el -> el.getAssessment().getWeek() == week).collect(Collectors.toSet());
+		Double totalRawScore =  gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
+		for(Grade grade: gradesForTheWeek){
+			results.put(grade.getAssessment().getTitle(), grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+		}
+		return results;
+	}
+	
 }

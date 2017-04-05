@@ -213,7 +213,7 @@ angular.module("trainer").controller(
         
         $scope.opennewtab = function (url) {
         	$window.open(url)};
-        
+         
 
         /**  Add Or Remove New Trainee Form */
         $scope.receivers = [{name: "", email: "", phoneNumber: "", skypeId: "", profileUrl: ""}];
