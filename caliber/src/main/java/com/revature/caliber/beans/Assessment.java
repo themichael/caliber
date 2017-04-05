@@ -1,6 +1,8 @@
 package com.revature.caliber.beans;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,7 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CALIBER_ASSESSMENT")
-public class Assessment implements Serializable{
+public class Assessment implements Serializable {
 
 	private static final long serialVersionUID = 5030264218154828822L;
 
@@ -61,9 +64,15 @@ public class Assessment implements Serializable{
 	@Column(name = "WEEK_NUMBER", nullable = false)
 	private short week;
 
+	/**
+	 * TODO make Lazy fetching and update queries in DAOss
+	 */
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
 	private Category category;
+
+	@OneToMany(mappedBy = "assessment", fetch = FetchType.LAZY)
+	private Set<Grade> grades = new HashSet<>();
 
 	public long getAssessmentId() {
 		return assessmentId;
@@ -121,6 +130,14 @@ public class Assessment implements Serializable{
 		this.category = category;
 	}
 
+	public Set<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(Set<Grade> grades) {
+		this.grades = grades;
+	}
+
 	public Assessment() {
 		super();
 	}
@@ -138,8 +155,7 @@ public class Assessment implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Assessment [assessmentId=" + assessmentId + ", rawScore=" + rawScore + ", type=" + type + ", category="
+		return "Assessment [title=" + title + ", batch=" + batch + ", type=" + type + ", week=" + week + ", category="
 				+ category + "]";
 	}
-
 }
