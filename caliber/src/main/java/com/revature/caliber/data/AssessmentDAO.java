@@ -58,6 +58,17 @@ public class AssessmentDAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Assessment> findByBatchId(Integer batchId) {
+		log.info("Find assessment by batchId" + batchId + " ");
+		return sessionFactory.getCurrentSession().createCriteria(Assessment.class)
+				.add(Restrictions.and(
+						Restrictions.eq("batch.batchId", batchId)))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
+	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void update(Assessment assessment) {
