@@ -131,7 +131,6 @@ angular.module("api").factory("trainerFactory", function ($log, $http) {
             method: "GET"
         }).then(function(response) {
             $log.debug("Assessments successfully retrieved");
-            $log.debug(response);
             return response.data;
         }, function (response) {
             $log.error("There was an error: " + response.status);
