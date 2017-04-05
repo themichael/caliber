@@ -82,9 +82,4 @@ public class ReportingServiceTest {
 	public void getAvgBatchOverallTest(){
 		log.info(reportingService.getAvgBatchOverall(1050, AssessmentType.Exam));
 	}
-	@Test
-	public void getbatchAverageAssementOverallTest(){
-		System.out.println(reportingService.batchAverageAssementOverall(1050));
-	}
-
 }
