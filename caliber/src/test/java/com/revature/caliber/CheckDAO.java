@@ -53,8 +53,8 @@ public class CheckDAO {
 	public void testmethod() {
 		log.info("Testing my code");
 		try {
-			log.info(new ObjectMapper().writeValueAsString(batchDAO.findOne(1050)));
-		} catch (JsonProcessingException e) {
+			log.info(assessmentDAO.findOne(1050));
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
