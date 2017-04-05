@@ -103,8 +103,8 @@ angular.module("delegate").factory("caliberDelegate",
             return trainerFactory.createAssessment(assessmentObj);
         };
 
-        delegate.trainer.getAllAssessments = function (batchId, week) {
-            return trainerFactory.getAllAssessments(batchId, week);
+        delegate.trainer.getAllAssessmentsForWeek = function (batchId, week) {
+            return trainerFactory.getAllAssessmentsForWeek(batchId, week);
         };
 
         delegate.trainer.updateAssessment = function (assessmentObj) {
