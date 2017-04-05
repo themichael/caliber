@@ -49,6 +49,10 @@ angular.module("delegate").factory("caliberDelegate",
             return allFactory.getGrades(traineeId);
         };
         
+        delegate.all.getGradesForWeek = function(batchId,weekId){
+        	return allFactory.getGradesForWeek(batchId,weekId);
+        }
+        
         delegate.all.getAllTrainers = function () {
             return allFactory.getAllTrainers();
         };

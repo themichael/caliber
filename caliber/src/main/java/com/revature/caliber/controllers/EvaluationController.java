@@ -150,7 +150,7 @@ public class EvaluationController {
 	 * @param week
 	 * @return
 	 */
-	@RequestMapping(value = "/all/grade/batch/{batchId}/week/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/grades/batch/{batchId}/week/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public List<Grade> findByWeek(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("Finding week " + week + " grades for batch: " + batchId);
