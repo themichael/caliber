@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.javafaker.Cat;
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
@@ -36,6 +35,7 @@ import com.revature.caliber.data.TraineeDAO;
 @Service
 public class ReportingService {
 	private final static Logger log = Logger.getLogger(ReportingService.class);
+	
 	private GradeDAO gradeDAO;
 	private BatchDAO batchDAO;
 	private TraineeDAO traineeDAO;
@@ -173,7 +173,6 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			results.put(trainee, getAvgTraineeWeek(trainee.getTraineeId(), week, assessmentType));
 		}
-		System.out.println(results);
 		return results;
 	}
 
