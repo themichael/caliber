@@ -81,7 +81,7 @@ angular
 								/**
 								 * *****************************************
 								 * getAllAssessmentsForWeek
-								 * ********************************************************************************************************************************************************************************************************************************
+								 * ***************************************************************************************88888******************************************************************************************************************************************************************************************
 								 */
 								getAllAssessmentsForWeek(
 										$scope.currentBatch.batchId,
@@ -137,31 +137,17 @@ angular
 
 					// select week
 					$scope.selectWeek = function(index) {
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
+					
 						$scope.currentWeek = $scope.currentBatch.arrayWeeks[index];
 						$log.debug("[***********This is the week selected*************]:  "+$scope.currentWeek);
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
+	
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
 					};
 
 					// active week
 					$scope.showActiveWeek = function(index) {
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
-						if ($scope.currentWeek === $scope.currentBatch.weeks)
-							/**
-							 * **********************************************TODO
-							 * REFACTOR**************************************
-							 */
+						if ($scope.currentWeek === $scope.currentBatch.arrayWeeks[index])
 							return "active";
 
 					};
@@ -253,7 +239,7 @@ angular
 
 
 					// get all assesments
-					// **********************************************************************************************************
+					// **********************************************************8888888888***********************************************************
 					function getAllAssessmentsForWeek(batchId, weekNumb) {
 						if (!weekNumb)
 							return;
@@ -267,10 +253,11 @@ angular
 											var week = new Week(
 													$scope.currentWeek,
 													$scope.currentAssessments);
+											
 											$scope.currentBatch.displayWeek = week;
 											$scope.currentBatch.arrayWeeks = [];
 											
-											for(i = 1; i <= weekNumb; i++){
+											for(i = 1; i <= $scope.currentBatch.weeks; i++){
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
 											
