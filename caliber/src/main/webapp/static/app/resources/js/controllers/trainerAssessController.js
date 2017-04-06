@@ -141,8 +141,8 @@ angular
 						 * **********************************************TODO
 						 * REFACTOR**************************************
 						 */
-						$scope.currentWeek = $scope.currentBatch.weeks[index];
-						$log.debug($scope.currentWeek);
+						$scope.currentWeek = $scope.currentBatch.arrayWeeks[index];
+						$log.debug("[***********This is the week selected*************]:  "+$scope.currentWeek);
 						/**
 						 * **********************************************TODO
 						 * REFACTOR**************************************
