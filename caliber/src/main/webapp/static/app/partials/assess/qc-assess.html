@@ -45,7 +45,7 @@
 				<li role="button" class="{{showActiveWeek($index)}}"
 					ng-click="selectWeek($index)"
 					ng-repeat="week in weeks track by $index"><a>Week
-						{{week.weekNumber}}</a></li>
+						{{week}}</a></li>
 				<li role="button" ng-show="currentView" ng-click="createWeek()">
 					<a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 				</li>
@@ -142,7 +142,6 @@
 				<textarea ng-model="finalQCBatchNote" class="form-control"
 					id="qcBatchNotes"
 					placeholder="Enter your overall feedback on the batch" required>
-				ouhouhu
 				</textarea>
 			</div>
 		</form>
