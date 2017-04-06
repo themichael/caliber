@@ -295,7 +295,7 @@ angular
 									.then(
 											$scope.selectedBatches[$scope.row] = $scope.currentBatch)
 						} else {
-							var newBatch={};
+							var newBatch = {};
 							createBatchObject(newBatch);
 							console.log('this is' + newBatch);
 							caliberDelegate.all
