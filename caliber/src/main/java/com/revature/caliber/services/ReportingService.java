@@ -107,8 +107,8 @@ public class ReportingService {
 				batchAvg += e.getValue()[0];
 			}
 			batchAvg = batchAvg / avgBatchWeek.size();
-			if (!avgTraineeWeek[0].isNaN()) {
-				results.put(a.name(), new Double[] { avgTraineeWeek[0], batchAvg, avgTraineeWeek[1] });
+			if (batchAvg!=0){
+			results.put(a.name(), new Double[] { avgTraineeWeek[0], batchAvg, avgTraineeWeek[1] });
 			}
 		}
 		return results;
@@ -140,10 +140,7 @@ public class ReportingService {
 					traineeAvg += e.getValue()[0];
 				}
 				traineeAvg = traineeAvg/counts[0];
-				
-				if (!avgTraineeWeek.values().iterator().next()[0].isNaN()) {
 				results.put(a.name(), new Double[] {traineeAvg, batchAvg});
-				}
 			}
 		}
 		return results;
