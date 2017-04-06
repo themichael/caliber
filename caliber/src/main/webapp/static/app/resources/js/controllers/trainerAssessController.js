@@ -12,6 +12,10 @@ angular
 						this.weekNumb = weekNumb;
 						this.assessments = assessments;
 					}
+					
+					// array of weeks to parse through and display tabs
+					arrayWeeks = [];
+					
 					$log.debug("Booted Trainer Aesess Controller");
 
 					// load categories
@@ -257,11 +261,11 @@ angular
 
 					// get all assesments
 					// **********************************************************************************************************
-					function getAllAssessmentsForWeek(batchId, week) {
-						if (!week)
+					function getAllAssessmentsForWeek(batchId, weekNumb) {
+						if (!weekNumb)
 							return;
 						caliberDelegate.trainer
-								.getAllAssessmentsForWeek(batchId, week)
+								.getAllAssessmentsForWeek(batchId, weekNumb)
 								.then(
 										function(data) {
 											$log.debug(data);
@@ -270,17 +274,16 @@ angular
 													$scope.currentWeek,
 													$scope.currentAssessments);
 											$scope.currentBatch.displayWeek = week;
-
+											$scope.currentBatch.arrayWeeks = arrayWeeks;
+											
+											for(i = 1; i <= weekNumb; i++){
+												$scope.currentBatch.arrayWeeks.push(i);
+											}
+											
 											getAllGradesForWeek();
 
-											$log
-													.debug("[THIS IS THE CURRENT BATCH AND THE NUMBER WEEK]"
-															+ allBatches[0]
-															+ " : "
-															+ totalWeeks);
 										});
-					}
-					;
+					};
 
 					/**
 					 * Updates Grade if exists, else create new Grade, then
