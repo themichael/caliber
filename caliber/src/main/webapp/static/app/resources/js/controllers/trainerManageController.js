@@ -129,7 +129,6 @@ angular
 						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
 						// FINISHED
 						$scope.editTrainee = trainee;
-
 					}
 					$scope.update = function(editedTrainee) {
 
