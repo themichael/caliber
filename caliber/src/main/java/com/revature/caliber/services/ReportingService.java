@@ -79,15 +79,71 @@ public class ReportingService {
 			results.put(s, 0);
 		}
 		for (Trainee t : trainees) {
-			List<Note> notes = noteDAO.findAllIndividualNotes(t.getTraineeId(), weekNumber);
+			List<Note> notes = noteDAO.findQCIndividualNotes(t.getTraineeId(), weekNumber);
 			for (Note n : notes) {
-				if (n.isQcFeedback()) {
-					QCStatus status = n.getQcStatus();
-					Integer temp = results.get(status);
-					temp++;
-					results.remove(status);
-					results.put(status, temp);
-				}
+				QCStatus status = n.getQcStatus();
+				Integer temp = results.get(status);
+				temp++;
+				results.remove(status);
+				results.put(status, temp);
+			}
+		}
+		return results;
+	}
+
+	/**
+	 * 
+	 * @param traineeId
+	 * @param week
+	 * @return map<'assessmentType', {traineeAvg, batchAvg, weight Percentage}
+	 */
+	public Map<String, Double[]> getBarChartBatchWeekTrainee(Integer batchId, Integer traineeId, Integer week) {
+		Map<String, Double[]> results = new HashMap<>();
+		for (AssessmentType a : AssessmentType.values()) {
+			Double[] avgTraineeWeek = getAvgTraineeWeek(traineeId, week, a);
+			Map<Trainee, Double[]> avgBatchWeek = getAvgBatchWeek(batchId, week, a);
+			Double batchAvg = 0d;
+			for (Map.Entry<Trainee, Double[]> e : avgBatchWeek.entrySet()) {
+				batchAvg += e.getValue()[0];
+			}
+			batchAvg = batchAvg / avgBatchWeek.size();
+			if (!avgTraineeWeek[0].isNaN()) {
+				results.put(a.name(), new Double[] { avgTraineeWeek[0], batchAvg, avgTraineeWeek[1] });
+			}
+		}
+		return results;
+	}
+
+	/**
+	 * 
+	 * @param traineeId
+	 * @param week
+	 * @return map<'assessmentType', {traineeAvg, batchAvg, weight Percentage}
+	 */
+
+	public Map<String, Double[]> getBarChartBatchOverallTrainee(Integer batchId, Integer traineeId) {
+		Map<String, Double[]> results = new HashMap<>();
+		for (AssessmentType a : AssessmentType.values()) {
+			Map<Integer, Double[]> avgTraineeWeek = getAvgTraineeOverall(traineeId, a);
+			log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!avgTraineeWeek: " + avgTraineeWeek);
+			Map<Integer, Double> avgBatchWeek = getAvgBatchOverall(batchId);
+			log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!avgBatchWeek: " + avgBatchWeek);
+			Double batchAvg = 0d;
+			avgTraineeWeek.forEach( (k,v) -> log.info("!!!!!!!!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
+			/*for (Map.Entry<Integer, Double[]> e : avgBatchWeek.entrySet()) {
+				log.info(e.getValue()[0]);
+				batchAvg += e.getValue()[0];
+			}*/
+			batchAvg = batchAvg / avgBatchWeek.size();
+			Double traineeAvg = 0d;
+			for (Map.Entry<Integer, Double[]> e : avgTraineeWeek.entrySet()) {
+				log.info(e.getValue()[0]);
+				traineeAvg += e.getValue()[0];
+			}
+			traineeAvg = traineeAvg/avgTraineeWeek.size();
+			
+			if (!avgTraineeWeek.values().iterator().next()[0].isNaN()) {
+			results.put(a.name(), new Double[] {traineeAvg, batchAvg});
 			}
 		}
 		return results;
@@ -171,6 +227,7 @@ public class ReportingService {
 		}
 		result[1] = result[1] / totalRawScore * 100;
 		result[0] = result[0] / result[1] * 100;
+		log.info( "TRAINEEWEEKWITHASSESSMENT "+ result[0] + "!!!!!!!!!!" + result[1]);
 		return result;
 	}
 
@@ -209,8 +266,10 @@ public class ReportingService {
 		Trainee trainee = traineeDAO.findOne(traineeId);
 		int weeks = trainee.getBatch().getWeeks();
 		for (Integer i = 1; i <= weeks; i++) {
-			results.put(i, getAvgTraineeWeek(traineeId, i, assessmentType));
+			Double[] avg = getAvgTraineeWeek(traineeId, i, assessmentType);
+			results.put(i, avg);
 		}
+		results.forEach( (k,v) -> log.info("!!!!!!TRAINEEOVERALL!!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
 		return results;
 	}
 
@@ -233,10 +292,13 @@ public class ReportingService {
 			avg[1] = temp.values().iterator().next()[1];
 			for (Map.Entry<Trainee, Double[]> t : temp.entrySet()) {
 				avg[0] += t.getValue()[0];
+				log.info(t.getValue()[0] + "!!!!!!" + avg[0]);
+				
 			}
 			avg[0] = avg[0] / temp.size();
 			results.put(i, avg);
 		}
+		results.forEach( (k,v) -> log.info("!!!!!!!BATCHOVERALL!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
 		return results;
 	}
 
@@ -307,13 +369,19 @@ public class ReportingService {
 			avg = avg / temp.size();
 			results.put(i, avg);
 		}
+		results.forEach( (k,v) -> log.info("!!!!!!!BATCHOVERALLnonAssessment!!!!!!" + k + "!!!!!!!!!!!" + v + "!!!!!!!!!!"));
 		return results;
 	}
 
 	/**
+<<<<<<< HEAD
+	 * Average Grades of All Assessments Over the week
+	 * 
+=======
 	 * Method for Controller to fetch Weekly Batch Avg SCore
 	 * 
 	 * @Author Pier Yos
+>>>>>>> branch 'uncharted-sandbox-1' of https://github.com/pjw6193/caliber.git
 	 * @param batchId
 	 * @param week
 	 * @return Map<Trainee's name, Double Avg Score>
