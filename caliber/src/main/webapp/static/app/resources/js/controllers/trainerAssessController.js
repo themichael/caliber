@@ -444,7 +444,7 @@ angular
 					 * POSSIBLE REFACTOR**************************************
 					 */
 
-					$scope.test = function(d) {
-						console.log(d);
+					$scope.test = function(d){
+						$log.debug(d);
 					}
 				});
