@@ -156,8 +156,8 @@ public class ReportingController {
 	 * @return
 	 */
 
-	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Integer, Double>> lineCharAVG(@PathVariable int batchId, @PathVariable int week,
+	@RequestMapping(value = "/all/reports/batch/week/{week}/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Integer, Double>> lineCharAVG(@PathVariable int week,
 			@PathVariable int traineeId) {
 		return new ResponseEntity<Map<Integer, Double>>(reportingService.lineChartAvg(week, traineeId), HttpStatus.OK);
 	}
