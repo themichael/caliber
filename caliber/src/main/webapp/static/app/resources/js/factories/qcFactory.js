@@ -135,7 +135,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	qc.updateNote = function(noteObj) {
 		return $http({
 			url : "/note/update",
-			method : "PUT",
+			method : "POST",
 			data : noteObj
 		}).then(function(response) {
 			$log.debug("Note updated successfully");
