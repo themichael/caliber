@@ -277,16 +277,8 @@ angular
 						var assessment = {
 							batch : $scope.currentBatch,
 							type : $scope.assessmentType.model,
-							/**
-							 * **********************************************TODO
-							 * REFACTOR**************************************
-							 */
 							category : angular.fromJson($scope.category.model),
 							week : $scope.currentWeek,
-							/**
-							 * **********************************************TODO
-							 * REFACTOR**************************************
-							 */
 							rawScore : $scope.rawScore
 						};
 						$log.debug(assessment);
