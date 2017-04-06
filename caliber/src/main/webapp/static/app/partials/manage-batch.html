@@ -285,9 +285,9 @@
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeProfile">Profile URL:</label> <input
 										ng-model="receiver.profileUrl" type="text"
-										class="form-control" id="traineeName"
+										class="form-control" id="traineeUrl"
 										placeholder="http://www.example.com/revature"
-										ng-value="editTrainee.profileURL">
+										ng-value="editTrainee.profileUrl">
 
 								</div>
 							</div>
@@ -314,7 +314,7 @@
 									</div>
 								</div>
 								<div class="form-group col-md-2 col-sm-2">
-									<div ng-click="deleteTrainee(receiver)">
+									<div ng-click="deleteTrainee(receiver)">	
 										<a role="button"> <span
 											class="glyphicon glyphicon-minus glyph-top-margin"
 											aria-hidden="true"></span>
@@ -327,6 +327,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<input type="submit" value="Save" class="btn btn-primary">
+						<button type="button"  ng-click="update(editTrainee)"class="btn btn-default">Update</button>
 					</div>
 				</div>
 			</div>

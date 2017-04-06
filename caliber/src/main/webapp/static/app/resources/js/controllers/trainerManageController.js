@@ -45,10 +45,13 @@ angular
 
 					function sortByDate(currentYear) {
 						$scope.selectedBatches = [];
-						for (var i = 0; i < $scope.batches.length; i++) {
-							var date = new Date($scope.batches[i].startDate);
-							if (date.getFullYear() === currentYear) {
-								$scope.selectedBatches.push($scope.batches[i]);
+						if ($scope.batches) {
+							for (var i = 0; i < $scope.batches.length; i++) {
+								var date = new Date($scope.batches[i].startDate);
+								if (date.getFullYear() === currentYear) {
+									$scope.selectedBatches
+											.push($scope.batches[i]);
+								}
 							}
 						}
 					}
@@ -126,8 +129,55 @@ angular
 						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
 						// FINISHED
 						$scope.editTrainee = trainee;
-
 					}
+					$scope.update = function(editedTrainee) {
+
+						console.log(editedTrainee);
+						for (var i = 0; i < $scope.receivers.length; i++) {
+
+							if ($scope.receivers[i].name == "") {
+								$scope.receivers[i].name = editedTrainee.name;
+							}
+
+							if ($scope.receivers[i].email == "") {
+								$scope.receivers[i].email = editedTrainee.email;
+							}
+
+							if ($scope.receivers[i].trainingStatus == "") {
+								$scope.receivers[i].trainingStatus = editedTrainee.trainingStatus;
+							}
+
+							if ($scope.receivers[i].phoneNumber == "") {
+								$scope.receivers[i].phoneNumber = editedTrainee.phoneNumber;
+							}
+
+							if ($scope.receivers[i].skypeId == "") {
+								$scope.receivers[i].skypeId = editedTrainee.skypeId;
+							}
+							var updTrainee = {
+								traineeId : editedTrainee.traineeId,
+								name : $scope.receivers[i].name,
+								email : $scope.receivers[i].email,
+								trainingStatus : $scope.receivers[i].trainingStatus,
+								phoneNumber : $scope.receivers[i].phoneNumber,
+								skypeId : $scope.receivers[i].skypeId,
+								profileUrl : $scope.receivers[i].profileUrl,
+								batch : $scope.currentBatch
+							};
+
+						}
+						console.log(updTrainee);
+						editedTrainee = updTrainee;
+						console.log(editedTrainee);
+						caliberDelegate.all.updateTrainee(editedTrainee).then(
+								$scope.clear = function(editedTrainee) {
+									$scope.editTrainee.name = "";
+									$scope.editTrainee.email = "";
+									$scope.editTrainee.phoneNumber = "";
+									$scope.editTrainee.skypeId = "";
+									$scope.editTrainee.profileUrl = "";
+								});
+					};
 
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
@@ -257,7 +307,7 @@ angular
 															phoneNumber : newTrainee.phoneNumber,
 															skypeId : newTrainee.skypeId,
 															profileUrl : newTrainee.profileUrl,
-															batch : null
+															batch : newTrainee.batch
 														});
 											});
 						}
@@ -296,4 +346,22 @@ angular
 						}
 					};
 
+					/** Delete Trainee* */
+
+					$scope.removeTrainee = function(traineeId) {
+						console.log(traineeId);
+						caliberDelegate.all
+								.deleteTrainee(traineeId)
+								.then(
+										function() {
+											for (var i = 0; i < $scope.receivers.length; i++) {
+												if ($scope.receivers[i] === receiver) {
+													$scope.receivers.splice(i,
+															1);
+													break;
+												}
+											}
+										})
+
+					};
 				});
