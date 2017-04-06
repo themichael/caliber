@@ -443,7 +443,7 @@ angular
 					 */
 
 					$scope.test = function(d){
-						console.log(d);
+						$log.console(d);
 					}
 				});
 
