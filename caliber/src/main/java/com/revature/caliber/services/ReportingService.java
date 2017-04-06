@@ -157,9 +157,6 @@ public class ReportingService {
 
 	public Map<Integer, Double> lineChartAvg(int week, int traineeId) {
 		Map<Integer, Double> results = new HashMap<>();
-		Trainee trainee = traineeDAO.findOne(traineeId);
-		int weeks = trainee.getBatch().getWeeks();
-
 		for (int w = 1; w <= week; w++) {
 			Double temp = getAvgTraineeWeek(traineeId, w);
 			results.put(w, temp);
