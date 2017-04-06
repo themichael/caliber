@@ -343,6 +343,11 @@ angular
 
 					};
 
+					/** Delete batch* */
+					$scope.deleteBatch = function(batch, index) {
+						caliberDelegate.all.deleteBatch(batch.batchId).then(
+								$scope.selectedBatches[$scope.row] = null);
+					}
 					/**
 					 * ************************** Trainees
 					 * ****************************
