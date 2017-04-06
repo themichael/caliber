@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -150,10 +149,7 @@ public class Category implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Category [categoryId=" + categoryId + ", skillCategory=" + skillCategory + "]";
+		return skillCategory;
 	}
-
-	
-	
 
 }
