@@ -141,7 +141,7 @@ public class ReportingController {
 	}
 
 	/**
-	 * 
+	 * Yanilda 
 	 * @param batchId
 	 * @param week
 	 * @param traineeId
@@ -152,6 +152,12 @@ public class ReportingController {
 			@PathVariable int traineeId) {
 		return new ResponseEntity<Map<Integer, Double>>(reportingService.lineChartAvg(week, traineeId), HttpStatus.OK);
 	}
+	/**
+	 * Yanilda
+	 * @param batchId
+	 * @param week
+	 * @return
+	 */
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/barAssesment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Double[]>> barChartPerAssessments(@PathVariable int batchId, @PathVariable int week) {
 		return new ResponseEntity<Map<String, Double[]>>(reportingService.barChartPerAssessments(batchId, week), HttpStatus.OK);
