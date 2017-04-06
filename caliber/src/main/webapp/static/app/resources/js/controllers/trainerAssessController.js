@@ -14,7 +14,6 @@ angular
 					}
 					
 					// array of weeks to parse through and display tabs
-					arrayWeeks = [];
 					
 					$log.debug("Booted Trainer Aesess Controller");
 
@@ -275,11 +274,12 @@ angular
 										function(data) {
 											$log.debug(data);
 											$scope.currentAssessments = data;
+											
 											var week = new Week(
 													$scope.currentWeek,
 													$scope.currentAssessments);
 											$scope.currentBatch.displayWeek = week;
-											$scope.currentBatch.arrayWeeks = arrayWeeks;
+											$scope.currentBatch.arrayWeeks = [];
 											
 											for(i = 1; i <= weekNumb; i++){
 												$scope.currentBatch.arrayWeeks.push(i);
