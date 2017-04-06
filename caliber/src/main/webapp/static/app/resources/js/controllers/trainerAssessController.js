@@ -254,9 +254,7 @@ angular
 							$scope.selectedCategories.push(category);
 					};
 
-					$scope.test = function(assessment) {
-						$log.debug(assessment);
-					}
+
 					// get all assesments
 					// **********************************************************************************************************
 					function getAllAssessmentsForWeek(batchId, week) {
