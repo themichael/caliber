@@ -132,7 +132,37 @@ angular
 					{
 						console.log(editedTrainee);
 						for (var i = 0; i < $scope.receivers.length; i++) {
-						var updTrainee = {
+							
+							if ($scope.receivers[i].name == "")
+							{
+								$scope.receivers[i].name = editedTrainee.name; 
+							}
+							
+							if ($scope.receivers[i].email == "")
+							{
+								$scope.receivers[i].email = editedTrainee.email; 
+							}
+							
+							if ($scope.receivers[i].trainingStatus == "")
+							{
+								$scope.receivers[i].trainingStatus = editedTrainee.trainingStatus; 
+							}
+							
+							if ($scope.receivers[i].phoneNumber == "")
+							{
+								$scope.receivers[i].phoneNumber = editedTrainee.phoneNumber; 
+							}
+							
+							if ($scope.receivers[i].skypeId == "")
+							{
+								$scope.receivers[i].skypeId = editedTrainee.skypeId; 
+							}
+							
+							if ($scope.receivers[i].profileUrl == "")
+							{
+								$scope.receivers[i].profileUrl = editedTrainee.profileUrl; 
+							}
+							var updTrainee = {
 								traineeId : editedTrainee.traineeId,
 								name : $scope.receivers[i].name,
 								email : $scope.receivers[i].email,
