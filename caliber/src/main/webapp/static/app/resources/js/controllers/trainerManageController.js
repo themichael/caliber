@@ -129,6 +129,18 @@ angular
 
 					}
 
+					/** Fill update form with batch previous data* */
+					$scope.populateBatch = function(batch) {
+						console.log(batch);
+						$scope.nameUpdate = batch.trainingName;
+						$scope.locationUpdate = batch.location;
+						$scope.startDateUpdate = batch.startDate;
+						$scope.endDateUpdate = batch.endDate;
+						$scope.goodGradeUpdate = batch.goodGradeThreshold;
+						$scope.borderlineGradeUpdate = batch.borderlineGradeThreshold;
+						$scope.benchmarkUpdate = batch.benchmarkStartDate;
+					}
+
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
