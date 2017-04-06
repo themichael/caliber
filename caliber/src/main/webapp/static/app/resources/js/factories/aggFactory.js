@@ -108,6 +108,41 @@ angular.module("api").factory("aggFactory", function($http, $log) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	
+	/**
+	 * 
+	 */
+	agg.reportLineChart = function(week, traineeId) {
+		return $http({
+			url : "/all/reports/batch/week/"+week+"/trainee/"+traineeId,
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Agg - Batch - Trainer -- success");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	/**
+	 * 
+	 */
+	agg.reporAssesmentChart = function(batchId, week) {
+		return $http({
+			url : "/all/reports/batch/"+batchId+"/week/"+week+"/barAssesment",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Agg - Batch - batchId, Week -- success");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
+	
+	
+	
 
 	return agg;
 });

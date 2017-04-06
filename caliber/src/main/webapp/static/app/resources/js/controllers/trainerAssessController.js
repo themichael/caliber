@@ -1,6 +1,6 @@
 /**
-	 * Refactor to use week index instead of Week object
-	 */
+ * Refactor to use week index instead of Week object
+ */
 angular
 		.module("trainer")
 		.controller(
@@ -21,7 +21,7 @@ angular
 									$scope.categories = categories;
 									$log.debug("all Categories");
 									$log.debug(categories);
-								})
+								});
 					};
 					/**
 					 * ***************************************** UI
@@ -56,6 +56,48 @@ angular
 							if (allBatches[0].weeks > 0) {
 								// TODO check if it is sorting as objects-->
 								// allBatches[0].weeks.sort(weekComparator);
+
+								/**
+								 * ****************************TEST
+								 * DATA**********************
+								 */
+
+								$scope.category = {
+									model : null,
+									options : []
+								};
+								caliberDelegate.all
+										.getAllCategories()
+										.then(
+												function(categories) {
+													$log.debug(categories);
+													$scope.category.options = categories;
+												});
+
+								/**
+								 * ***************************************** UI
+								 * ********************************************
+								 */
+								// ////////////////////////////////////////////////////////////////////////
+								// load note types
+								caliberDelegate.all.enumNoteType().then(
+										function(noteTypes) {
+											$log.debug(noteTypes);
+											// do something with note type
+										});
+								$scope.assessmentType = {
+									model : null,
+									options : []
+								};
+								caliberDelegate.all
+										.enumAssessmentType()
+										.then(
+												function(assessmentTypes) {
+													$log.debug(assessmentTypes);
+													$scope.assessmentType.options = assessmentTypes;
+												});
+								$log.debug("Batches " + allBatches);
+								$log.debug(allBatches);
 
 								var totalWeeks = allBatches[0].weeks; // the
 								// number
@@ -188,7 +230,6 @@ angular
 						 * **********************************************TODO
 						 * REFACTOR**************************************
 						 */
-
 						if ($scope.currentWeek === $scope.currentBatch.weeks)
 							/**
 							 * **********************************************TODO
@@ -245,24 +286,23 @@ angular
 					};
 
 					$scope.addAssessment = function() {
-						getAllAssessmentsForWeek($scope.currentBatch.batchId,
-								$scope.currentWeek);
+						$scope
+								.getAllAssessmentsForWeek(
+										$scope.currentBatch.batchId,
+										$scope.currentWeek);
 						var assessment = {
-							assessmentId : 1,
-							title : $scope.assessName,
-							batch : $scope.currentBatch.batchId,
-							type : $scope.assessType,
+							batch : $scope.currentBatch,
+							type : $scope.assessmentType.model,
 							/**
 							 * **********************************************TODO
 							 * REFACTOR**************************************
 							 */
-							categories : $scope.selectedCategories,
-							week : $scope.currentWeek.weekId,
+							category : $scope.category.model,
+							week : $scope.currentWeek,
 							/**
 							 * **********************************************TODO
 							 * REFACTOR**************************************
 							 */
-							weeklyStatus : null,
 							rawScore : $scope.rawScore
 						};
 						$log.debug(assessment);
@@ -271,9 +311,10 @@ angular
 								.then(
 										function(response) {
 											$log.debug(response);
-											getAllAssessmentsForWeek(
-													$scope.currentBatch.batchId,
-													$scope.currentWeek);
+											$scope
+													.getAllAssessmentsForWeek(
+															$scope.currentBatch.batchId,
+															$scope.currentWeek);
 											if ($scope.currentAssessments > 0)
 												$scope.currentAssessments
 														.unshift(assessment);
@@ -310,6 +351,44 @@ angular
 										+ "assessment: " + assessment + ", "
 										+ "and gradeId: " + gradeId);
 
+						$scope.addAssessment = function() {
+							$scope.getAllAssessmentsForWeek();
+							var assessment = {
+								batch : $scope.currentBatch,
+								type : $scope.assessmentType.model,
+								/**
+								 * **********************************************TODO
+								 * REFACTOR**************************************
+								 */
+								category : $scope.category.id,
+								week : /* $scope.currentWeek.weekId */5,
+								/**
+								 * **********************************************TODO
+								 * REFACTOR**************************************
+								 */
+								/* weeklyStatus: null, */
+								rawScore : $scope.rawScore
+							};
+							$log.debug(assessment);
+							caliberDelegate.trainer
+									.createAssessment(assessment)
+									.then(
+											function(response) {
+												$log.debug(response);
+												$scope
+														.getAllAssessmentsForWeek();
+												if ($scope.currentAssessments > 0)
+													$scope.currentAssessments
+															.unshift(assessment);
+												else
+													$scope.currentAssessments = assessment;
+												angular
+														.element(
+																"#createAssessmentModal")
+														.modal("hide");
+											});
+						};
+						$scope.selectedCategories = [];
 						// constructs Grade object from the data in table
 						var grade = {
 							gradeId : gradeId,
@@ -344,7 +423,6 @@ angular
 									$log.debug(response);
 								})
 					}; // updateGrade
-
 					$scope.findGrade = function(traineeId, assessmentId) {
 						for ( var i in $scope.grades) {
 							if ($scope.grades[i].trainee == traineeId
@@ -398,5 +476,4 @@ angular
 					 * **********************************************TODO
 					 * POSSIBLE REFACTOR**************************************
 					 */
-
 				});
