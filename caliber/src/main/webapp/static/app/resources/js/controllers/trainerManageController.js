@@ -127,22 +127,21 @@ angular
 						// FINISHED
 						$scope.editTrainee = trainee;
 						console.log(editTrainee);
-						editTrainee.batch = $scope.currentBatch;
+						editTrainee.batch= $scope.currentBatch;
 
 					}
-					$scope.update = function(editedTrainee) {
-						// $scope.editedTrainee.batch = $scope.currentBatch;
+					$scope.update = function(editedTrainee)
+					{
+						//$scope.editedTrainee.batch = $scope.currentBatch;
 						console.log(editedTrainee);
 						caliberDelegate.all.updateTrainee(editedTrainee);
-
-						/*
-						 * $scope.editTrainee.name = "";
-						 * $scope.editTrainee.email = "";
-						 * $scope.editTrainee.phoneNumber = "";
-						 * $scope.editTrainee.skypeId = "";
-						 * $scope.editTrainee.profileUrl = "";
-						 */
-
+						
+						/*$scope.editTrainee.name = "";
+						$scope.editTrainee.email = "";
+						$scope.editTrainee.phoneNumber = "";
+						$scope.editTrainee.skypeId = "";
+						$scope.editTrainee.profileUrl = "";*/
+						
 					};
 
 					/** Save Batch * */
@@ -311,25 +310,6 @@ angular
 								break;
 							}
 						}
-					};
-
-					/** Delete Trainee* */
-
-					$scope.removeTrainee = function(traineeId) {
-						console.log(traineeId);
-						caliberDelegate.all
-								.deleteTrainee(traineeId)
-								.then(
-										function() {
-											for (var i = 0; i < $scope.receivers.length; i++) {
-												if ($scope.receivers[i] === receiver) {
-													$scope.receivers.splice(i,
-															1);
-													break;
-												}
-											}
-										})
-
 					};
 
 				});

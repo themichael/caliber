@@ -169,8 +169,9 @@ public class Trainee implements Serializable{
 	public Trainee() {
 		super();
 	}
-
-	@Override
+	
+	
+	/*@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -181,7 +182,7 @@ public class Trainee implements Serializable{
 		result = prime * result + ((skypeId == null) ? 0 : skypeId.hashCode());
 		result = prime * result + ((trainingStatus == null) ? 0 : trainingStatus.hashCode());
 		return result;
-	}
+	}*/
 
 	@Override
 	public boolean equals(Object obj) {
@@ -196,6 +197,11 @@ public class Trainee implements Serializable{
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
+			return false;
+		if (grades == null) {
+			if (other.grades != null)
+				return false;
+		} else if (!grades.equals(other.grades))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -227,5 +233,4 @@ public class Trainee implements Serializable{
 		return "Trainee [traineeId=" + traineeId + ", name=" + name + ", email=" + email + ", trainingStatus="
 				+ trainingStatus + "]";
 	}
-	
 }
