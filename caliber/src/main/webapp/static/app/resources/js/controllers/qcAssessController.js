@@ -191,7 +191,7 @@ angular
 							}
 						}
 					};
-					
+
 					$scope.noteOnbatch = function(trainingName) {
 						$log.debug("BATCH NOTE!!!!!!!!!!!!!!")
 						for (i = 0; i < $scope.weeks[$scope.currentWeek.weekNumber - 1].note.length; i++) {
@@ -204,7 +204,8 @@ angular
 					};
 
 					$scope.addedNotes = function() {
-						$log.debug(document.getElementById("noteTextArea").value);
+						$log
+								.debug(document.getElementById("noteTextArea").value);
 					};
 
 					$scope.reset = function() {
