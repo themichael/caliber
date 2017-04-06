@@ -290,11 +290,12 @@ angular
 								.getAllAssessmentsForWeek(
 										$scope.currentBatch.batchId,
 										$scope.currentWeek);
+						$scope.category.model.assessments = null;
 						var assessment = {
 								batch : $scope.currentBatch,
 								type : $scope.assessmentType.model,
 								category : angular.fromJson($scope.category.model),
-								week : $scope.currentBatch.weeks,
+								week : $scope.currentWeek,
 								rawScore : $scope.rawScore
 						};
 						$log.debug(assessment);

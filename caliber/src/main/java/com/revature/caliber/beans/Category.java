@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -36,7 +37,6 @@ public class Category implements Serializable {
 	private String skillCategory;
 
 	@OneToMany(mappedBy = "category")
-	@JsonIgnore
 	private Set<Assessment> assessments;
 
 	/**
@@ -149,7 +149,10 @@ public class Category implements Serializable {
 
 	@Override
 	public String toString() {
-		return skillCategory;
+		return "Category [categoryId=" + categoryId + ", skillCategory=" + skillCategory + "]";
 	}
+
+	
+	
 
 }
