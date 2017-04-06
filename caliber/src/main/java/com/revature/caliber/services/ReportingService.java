@@ -281,7 +281,7 @@ public class ReportingService {
 	public Map<Integer, Double> getAvgTraineeOverall(Integer traineeId) {
 		Map<Integer, Double> results = new HashMap<>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
-		int weeks = trainee.getBatch().getWeeks();
+		int weeks = 5;
 		for (Integer i = 1; i <= weeks; i++) {
 			results.put(i, getAvgTraineeWeek(traineeId, i));
 		}
@@ -419,7 +419,7 @@ public class ReportingService {
 
 	public Map<String, Double> getRadarChartForTraineeWeek(Integer traineeId, Integer weekNumber) {
 		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
-		List<Grade> weekgrades = grades.stream().filter(g -> g.getAssessment().getWeek() == weekNumber)
+		List<Grade> weekgrades = grades.stream().filter(g -> g.getAssessment().getWeek() <= weekNumber)
 				.collect(Collectors.toList());
 		Map<Category, Double[]> skills = getAvgSkills(weekgrades);
 		return replaceCategoryWithSkillName(skills);
