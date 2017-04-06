@@ -19,7 +19,9 @@ angular
 					// go to home on startup
 					$urlRouterProvider.otherwise('/routing');
 
-					// app states
+					/***********************************************************
+					 * App states
+					 **********************************************************/
 					$stateProvider
 							.state(
 									"routing",
@@ -32,7 +34,9 @@ angular
 										}
 									})
 
-							// qc
+							/***************************************************
+							 * QC
+							 **************************************************/
 							.state(
 									"qc",
 									{
@@ -46,7 +50,7 @@ angular
 														.getAllBatches();
 											}
 										},
-										// uncomment when dev is complete
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authQC();
 										}
@@ -67,13 +71,15 @@ angular
 										controller : "trainerManageController"
 									})
 							.state(
-									"qc.assess",
+									"qc.audit",
 									{
-										url : "/assess",
+										url : "/audit",
 										templateUrl : "/static/app/partials/assess/qc-assess.html",
 										controller : "qcAssessController"
 									})
-							// trainer
+							/***************************************************
+							 * TRAINER
+							 **************************************************/
 							.state(
 									"trainer",
 									{
@@ -86,12 +92,11 @@ angular
 												return caliberDelegate.trainer
 														.getAllBatches();
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authTrainer();
 										}
-									// uncomment when dev is complete
-									// onEnter:
-									// function(authFactory){
-									// authFactory.authTrainer();
-									// }
 									})
 							.state(
 									"trainer.home",
@@ -114,6 +119,11 @@ angular
 										url : "/assess",
 										controller : "trainerAssessController"
 									})
+
+
+							/***************************************************
+							 * VP
+							 **************************************************/
 							.state(
 									"vp",
 									{
@@ -127,7 +137,7 @@ angular
 														.getAllBatches();
 											}
 										},
-										// uncomment when dev is complete
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authVP();
 										}
@@ -146,5 +156,19 @@ angular
 										templateUrl : "/static/app/partials/manage-batch.html",
 										url : "/manage",
 										controller : "trainerManageController"
+									})
+							.state(
+									"vp.assess",
+									{
+										templateUrl : "/static/app/partials/trainer-assess.html",
+										url : "/assess",
+										controller : "trainerAssessController"
+									})
+							.state(
+									"vp.audit",
+									{
+										templateUrl : "/static/app/partials/qc-assess.html",
+										url : "/audit",
+										controller : "qcAssessController"
 									});
 				});

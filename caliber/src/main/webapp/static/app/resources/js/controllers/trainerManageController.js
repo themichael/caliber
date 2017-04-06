@@ -135,8 +135,71 @@ angular
 						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
 						// FINISHED
 						$scope.editTrainee = trainee;
+						console.log(editTrainee);
+						editTrainee.batch= $scope.currentBatch;
 
 					}
+
+					$scope.update = function(editedTrainee)
+					{
+
+						console.log(editedTrainee);
+						for (var i = 0; i < $scope.receivers.length; i++) {
+							
+							if ($scope.receivers[i].name == "")
+							{
+								$scope.receivers[i].name = editedTrainee.name; 
+							}
+							
+							if ($scope.receivers[i].email == "")
+							{
+								$scope.receivers[i].email = editedTrainee.email; 
+							}
+							
+							if ($scope.receivers[i].trainingStatus == "")
+							{
+								$scope.receivers[i].trainingStatus = editedTrainee.trainingStatus; 
+							}
+							
+							if ($scope.receivers[i].phoneNumber == "")
+							{
+								$scope.receivers[i].phoneNumber = editedTrainee.phoneNumber; 
+							}
+							
+							if ($scope.receivers[i].skypeId == "")
+							{
+								$scope.receivers[i].skypeId = editedTrainee.skypeId; 
+							}
+							
+							if ($scope.receivers[i].profileUrl == "")
+							{
+								$scope.receivers[i].profileUrl = editedTrainee.profileUrl; 
+							}
+							var updTrainee = {
+								traineeId : editedTrainee.traineeId,
+								name : $scope.receivers[i].name,
+								email : $scope.receivers[i].email,
+								trainingStatus : $scope.receivers[i].trainingStatus,
+								phoneNumber : $scope.receivers[i].phoneNumber,
+								skypeId : $scope.receivers[i].skypeId,
+								profileUrl : $scope.receivers[i].profileUrl,
+								batch : $scope.currentBatch
+							};
+						
+						}
+						console.log(updTrainee);
+						editedTrainee = updTrainee;
+						console.log(editedTrainee);
+						caliberDelegate.all.updateTrainee(editedTrainee);
+						
+						/*$scope.editTrainee.name = "";
+						$scope.editTrainee.email = "";
+						$scope.editTrainee.phoneNumber = "";
+						$scope.editTrainee.skypeId = "";
+						$scope.editTrainee.profileUrl = "";*/
+						
+					};
+
 
 					/** Fill update form with batch previous data* */
 					$scope.populateBatch = function(batch) {
@@ -331,7 +394,8 @@ angular
 															phoneNumber : newTrainee.phoneNumber,
 															skypeId : newTrainee.skypeId,
 															profileUrl : newTrainee.profileUrl,
-															batch : $scope.currentBatch
+															batch : null
+
 														});
 											});
 						}

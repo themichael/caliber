@@ -5,14 +5,17 @@
 				<ul class="nav nav-tabs">
 					<!-- Filter batches by year -->
 					<li role="button" class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a><ul class="dropdown-menu">
-							<li ng-repeat="menuItem in years track by $index"><a role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
-						</ul>
-						</li>
+						data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li ng-repeat="menuItem in years track by $index"><a
+								role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
+						</ul></li>
 					<!-- Button Trigger for Create Batch Modal -->
 					<li role="button" class="pull-right" data-toggle="modal"
-						data-target="#createBatchModal" ng-click="resetBatchForm()"><a>Create Batch<span
-							class="glyphicon glyphicon-plus" aria-hidden="true"> </span></a></li>
+						data-target="#createBatchModal" ng-click="resetBatchForm()"><a>Create
+							Batch<span class="glyphicon glyphicon-plus" aria-hidden="true">
+						</span>
+					</a></li>
 				</ul>
 			</div>
 		</div>
@@ -78,7 +81,8 @@
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" ng-bind="batchFormName" id="batchModalLabel">Create New Batch</h4>
+						<h4 class="modal-title" ng-bind="batchFormName"
+							id="batchModalLabel">Create New Batch</h4>
 					</div>
 					<!-- Add Batch Info -->
 					<div class="modal-body">
@@ -245,12 +249,14 @@
 										</span></td>
 										<td><button ng-click="getTrainee(trainee)" type="button"
 												class="btn btn-primary">Edit</button>
-												<button ng-Click="removeTrainee(trainee.traineeId); selectCurrentBatch($index)"
+											<button
+												ng-Click="removeTrainee(trainee.traineeId); selectCurrentBatch($index)"
 												type="button" value="delete" class="btn btn-primary">Delete</button></td>
 
 
-										</span></td>
-										
+										</span>
+										</td>
+
 
 									</tr>
 								</tbody>
@@ -336,9 +342,10 @@
 					</div>
 
 					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Update</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<input type="submit" value="Save" class="btn btn-primary">
-						<button type="button"  ng-click="update()"class="btn btn-default">Update</button>
+						<button type="button" ng-click="update()" class="btn btn-default">Update</button>
 					</div>
 				</div>
 			</div>
