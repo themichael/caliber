@@ -1,375 +1,204 @@
-angular.module("qc").controller(
-		"qcAssessController",
-		function($log, $scope, chartsDelegate, caliberDelegate, qcFactory) {
-			$log.debug("Booted Trainer Assess Controller");
+angular
+		.module("qc")
+		.controller(
+				"qcAssessController",
+				function($log, $scope, chartsDelegate, caliberDelegate,
+						qcFactory, allBatches) {
+					$log.debug("Booted Trainer Assess Controller");
+					$scope.batches = allBatches;
+					$scope.bnote = [];
+					$scope.tnote = [];
+					$scope.weeks = [];
 
-			/**
-			 * ****************************** Sample Data
-			 * ******************************
-			 */
-			$scope.demoTrainees = [ {
-				traineeId : 53,
-				name : "Dan Pickles"
-			}, {
-				traineeId : 65,
-				name : "Howard Johnson"
-			}, {
-				traineeId : 78,
-				name : "Randolph Scott"
-			} ];
-			$scope.batches = [ {
-				batchId : 451,
-				trainingName : 'Batch123',
-				trainer : 'Patrick',
-				coTrainer : '',
-				skillType : 'Java',
-				trainingType : 'CUNY',
-				startDate : new Date(),
-				endDate : new Date(),
-				location : 'Queens, NY',
-				goodGradeThreshold : 75,
-				borderlineGradeThreshold : 40,
-				trainees : [ {
-					traineeId : 53,
-					name : "Charles",
-					email : "charles@gmail.com",
-					trainingStatus : "Active"
-				}, {
-					traineeId : 65,
-					name : "Mike",
-					email : "Mike@gmail.com",
-					trainingStatus : "Active"
-				}, {
-					traineeId : 78,
-					name : "Rebecca",
-					email : "Rebecca@gmail.com",
-					trainingStatus : "Active"
-				} ],
-				weeks : [ {
-					weekId : 421,
-					weekNumber : 1,
-					topics : [ {
-						categoryId : 13,
-						skillCategory : "Java Core"
-					} ]
-				}, {
-					weekId : 476,
-					weekNumber : 2,
-					topics : [ {
-						categoryId : 13,
-						skillCategory : "SQL"
-					} ]
-				}, {
-					weekId : 486,
-					weekNumber : 3,
-					topics : [ {
-						categoryId : 13,
-						skillCategory : "Design Patterns"
-					} ]
-				}, {
-					weekId : 495,
-					weekNumber : 4,
-					topics : [ {
-						categoryId : 13,
-						skillCategory : "Hibernate"
-					} ]
-				} ]
-			}, {
-				trainingName : 'Batch456',
-				trainingType : 'Corporate',
-				skillType : 'Java',
-				location : 'Reston, VA',
-				trainer : 'Ryan',
-				coTrainer : 'Brian',
-				startDate : new Date(),
-				endDate : new Date()
-			} ];
+					/**
+					 * ****************** Weeks
+					 * *************************************
+					 */
+					function Week(weekNumber, note) {
+						this.weekNumber = weekNumber;
+						this.note = note;
+					}
 
-			var assessments = [ [ {
-				assessmentId : 51,
-				title : "Java Core Test I",
-				rawScore : 50,
-				type : "Mul Choice",
-				categories : [ {
-					categoryId : 13,
-					skillCategory : "Java"
-				} ]
-			}, {
-				assessmentId : 58,
-				title : "Java Core Verbal",
-				rawScore : 60,
-				type : "Verbal",
-				categories : [ {
-					categoryId : 13,
-					skillCategory : "Java"
-				}, {
-					categoryId : 15,
-					skillCategory : "SQL"
-				} ]
-			} ], [ {
-				assessmentId : 78,
-				title : "Java Core Test II",
-				rawScore : 50,
-				type : "Mul Choice",
-				categories : [ {
-					categoryId : 13,
-					skillCategory : "Java"
-				} ]
-			}, {
-				assessmentId : 89,
-				title : "Java Core Verbal I",
-				rawScore : 60,
-				type : "Verbal",
-				categories : [ {
-					categoryId : 13,
-					skillCategory : "Java"
-				} ]
-			} ] ];
+					/**
+					 * ***************************************** UI
+					 * **********************************************
+					 */
+					// get status types
+					$scope.qcStatusTypes = [];
+					caliberDelegate.all.enumQCStatus().then(function(types) {
+						$log.debug(types);
+						$scope.qcStatusTypes = types;
+					});
 
-			var grades = [ {
-				gradeId : 14,
-				assessment : 51,
-				trainee : 53,
-				dateReceived : new Date(),
-				score : 94
-			}, {
-				gradeId : 15,
-				assessment : 51,
-				trainee : 65,
-				dateReceived : new Date(),
-				score : 84
-			}, {
-				gradeId : 16,
-				assessment : 51,
-				trainee : 78,
-				dateReceived : new Date(),
-				score : 74
-			} ];
+					// /////////////////////// overall
+					// feedback//////////////////////////
+					$scope.finalQCBatchNote = null;
+					$scope.pickOverallStatus = function(batch, pick) {
+						$scope.qcBatchAssess = pick;
+						$log.debug(batch.trainingName + " " + pick);
+					};
 
-			$scope.skill_categories = [ {
-				"categoryId" : 5,
-				"skillCategory" : "HIBERNATE",
-				"weeks" : []
-			}, {
-				"categoryId" : 4,
-				"skillCategory" : "SPRING",
-				"weeks" : []
-			}, {
-				"categoryId" : 2,
-				"skillCategory" : "REST",
-				"weeks" : []
-			}, {
-				"categoryId" : 3,
-				"skillCategory" : "SOAP",
-				"weeks" : [ 1, 2, 3 ]
-			}, {
-				"categoryId" : 1,
-				"skillCategory" : "Core Java",
-				"weeks" : []
-			} ];
+					// /////////////////////// individual
+					// feedback/////////////////////
 
-			$scope.trainers = [ {
-				"trainerId" : 1,
-				"name" : "Name",
-				"title" : "title",
-				"email" : "email3",
-				"salesforceAccount" : "account",
-				"salesforceAuthenticationToken" : "token",
-				"salesforceRefreshToken" : "token",
-				"tier" : {
-					"tierId" : 1,
-					"tier" : "ROLE_VP",
-					"ranking" : 1
-				}
-			}, {
-				"trainerId" : 7,
-				"name" : "Martino",
-				"title" : "title",
-				"email" : "nikolovski23@gmail.com",
-				"salesforceAccount" : "nikolovski23@gmail.com",
-				"salesforceAuthenticationToken" : "auth_token",
-				"salesforceRefreshToken" : "refr_token",
-				"tier" : {
-					"tierId" : 1,
-					"tier" : "ROLE_VP",
-					"ranking" : 1
-				}
-			}, {
-				"trainerId" : 5,
-				"name" : "Test trainee (TraineeDAO Test)",
-				"title" : "title",
-				"email" : "email5",
-				"salesforceAccount" : "sf_account",
-				"salesforceAuthenticationToken" : "sf_auth_token",
-				"salesforceRefreshToken" : "sf_refr_token",
-				"tier" : {
-					"tierId" : 3,
-					"tier" : "ROLE_TRAINER",
-					"ranking" : 999
-				}
-			}, {
-				"trainerId" : 29100,
-				"name" : "Kristy Kim",
-				"title" : "Trainer at Hunter",
-				"email" : "kkim@revature.com",
-				"salesforceAccount" : "sfaccountex",
-				"salesforceAuthenticationToken" : "sfauthenticationtoken",
-				"salesforceRefreshToken" : "sfrefreshtoken",
-				"tier" : {
-					"tierId" : 3,
-					"tier" : "ROLE_TRAINER",
-					"ranking" : 999
-				}
-			} ];
+					// used to store which rows have what faces/value
+					$scope.faces = [];
+					$scope.pickIndividualStatus = function(trainee, status,
+							index) {
+						$log.debug(trainee);
+						$log.debug(status);
+						// do your logic to update this trainee feedback
 
-			// END TEST DATA *********************
+						// update face
+						$scope.faces[index] = status;
+					};
+					// ///////////////////////////////////////////////////////////////////////////////////////////
+					// load note types
+					caliberDelegate.all.enumNoteType().then(
+							function(noteTypes) {
+								$log.debug(noteTypes);
+								// do something with note type
+							});
 
-			/**
-			 * ***************************************** UI
-			 * **********************************************
-			 */
-			// get status types
-			$scope.qcStatusTypes = [];
-			caliberDelegate.all.enumQCStatus().then(function(types) {
-				$log.debug(types);
-				$scope.qcStatusTypes = types;
-			});
+					// starting scope vars
+					$scope.currentBatch = $scope.batches[0];
+					for (i = 1; i <= $scope.currentBatch.weeks; i++) {
+						$scope.weeks.push(new Week(i, []));
+					}
+					// Set current week to first week
+					$scope.currentWeek = $scope.weeks[0];
+					// Get qc notes for selected batch
+					caliberDelegate.qc
+							.batchNote($scope.currentBatch.batchId)
+							.then(
+									function(notes) {
+										$scope.bnote = notes;
+										// Put qc notes into week object
+										for (i = 0; i < $scope.bnote.length; i++) {
+											$scope.weeks[$scope.bnote[i].week - 1].note
+													.push($scope.bnote[i]);
+										}
+									});
+					// Get qc notes for trainees in selected batch
+					caliberDelegate.qc
+							.traineeNote($scope.currentBatch.batchId)
+							.then(
+									function(notes) {
+										$scope.tnote = notes;
+										// Put qc notes into week object
+										for (i = 0; i < $scope.tnote.length; i++) {
+											$scope.weeks[$scope.tnote[i].week - 1].note
+													.push($scope.tnote[i]);
+										}
+									});
+					// default -- view assessments table
+					$scope.currentView = true;
+					// back button
+					$scope.back = function() {
+						$scope.currentView = true;
+					};
+					// batch drop down select
+					$scope.selectCurrentBatch = function(index) {
+						$log.debug("SELECTED DIFFERENT BATCH");
+						$scope.currentBatch = $scope.batches[index];
+						// Create week array for batch selected
+						$scope.weeks = [];
+						for (i = 1; i <= $scope.currentBatch.weeks; i++) {
+							$scope.weeks.push(new Week(i, []));
+						}
+						// Set current week to first week
+						$scope.currentWeek = $scope.weeks[0];
+						// Get qc notes for selected batch
+						caliberDelegate.qc
+								.batchNote($scope.currentBatch.batchId)
+								.then(
+										function(notes) {
+											$scope.bnote = notes;
+											// Put qc notes into week object
+											for (i = 0; i < $scope.bnote.length; i++) {
+												$scope.weeks[$scope.bnote[i].week - 1].note
+														.push($scope.bnote[i]);
+											}
+										});
+						// Get qc notes for trainees in selected batch
+						caliberDelegate.qc
+								.traineeNote($scope.currentBatch.batchId)
+								.then(
+										function(notes) {
+											$scope.tnote = notes;
+											// Put qc notes into week object
+											for (i = 0; i < $scope.tnote.length; i++) {
+												$scope.weeks[$scope.tnote[i].week - 1].note
+														.push($scope.tnote[i]);
+											}
+										});
+						wipeFaces();
+					};
+					// Select week
+					$scope.selectWeek = function(index) {
+						$scope.currentWeek = $scope.weeks[index]
+						wipeFaces();
+					};
+					// Show week
+					$scope.showActiveWeek = function(index) {
+						if ($scope.currentWeek === $scope.weeks[index])
+							return "active";
+					}
+					// create week
+					$scope.createWeek = function() {
+						var weekNumber;
+						if (!$scope.weeks)
+							weekNumber = 1;
+						else
+							weekNumber = $scope.weeks.length + 1;
+						$log.debug(weekNumber);
+						/*
+						 * var weekObj = { weekNumber: weekNumber, batch:
+						 * $scope.currentBatch, topics:null };
+						 * caliberDelegate.trainer.createWeek(weekObj).then(function
+						 * (response) { pushUnique($scope.currentBatch.weeks, {
+						 * weekId:response, weekNumber: weekNumber, batch: null,
+						 * topics:null });
+						 * $log.debug($scope.currentBatch.weeks); });
+						 */
+					};
+					// ///// wipe faces ;) and selections ///////
+					function wipeFaces() {
+						$scope.faces = [];
+						$scope.qcBatchAssess = null;
+						$scope.finalQCBatchNote = null;
+					}
+					/**
+					 * ************************************************ GETTING
+					 * NOTES ON TRAINEE
+					 * *********************************************
+					 */
+					$scope.noteOnTrainee = function(traineeName) {
+						for (i = 0; i < $scope.weeks[$scope.currentWeek.weekNumber - 1].note.length; i++) {
+							if ($scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].trainee != null) {
+								if (traineeName === $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].trainee.name) {
+									return $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].content;
+								}
+							}
+						}
+					};
 
-			// /////////////////////// overall
-			// feedback//////////////////////////
-			$scope.finalQCBatchNote = null;
-			$scope.pickOverallStatus = function(batch, pick) {
-				$scope.qcBatchAssess = pick;
-				$log.debug(batch.trainingName + " " + pick);
-			};
+					$scope.noteOnbatch = function(trainingName) {
+						$log.debug("BATCH NOTE!!!!!!!!!!!!!!")
+						for (i = 0; i < $scope.weeks[$scope.currentWeek.weekNumber - 1].note.length; i++) {
+							if ($scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].batch != null) {
+								if (trainingName === $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].batch.trainingName) {
+									return $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].content;
+								}
+							}
+						}
+					};
 
-			// /////////////////////// individual feedback/////////////////////
-
-			// used to store which rows have what faces/value
-			$scope.faces = [];
-			$scope.pickIndividualStatus = function(trainee, status, index) {
-				$log.debug(trainee);
-				$log.debug(status);
-				// do your logic to update this trainee feedback
-
-				// update face
-				$scope.faces[index] = status;
-			};
-
-			// ///////////////////////////////////////////////////////////////////////////////////////////
-			// load note types
-			caliberDelegate.all.enumNoteType().then(function(noteTypes) {
-				$log.debug(noteTypes);
-				// do something with note type
-			});
-
-			// starting scope vars
-			/**
-			 * **********************************************TODO REFACTOR: WEEK
-			 * IS NOT OBJECT ANYMORE**************************************
-			 */
-			/**
-			 * **********************************************TODO REFACTOR: QC
-			 * FEEDBACK IS NOTE.. NOT
-			 * ASSESSMENT**************************************
-			 */
-			$scope.currentBatch = $scope.batches[0];
-			$scope.currentWeek = $scope.currentBatch.weeks[0];
-			$scope.currentAssessments = getAssessments(0);
-
-			// default -- view assessments table
-			$scope.currentView = true;
-
-			// back button
-			$scope.back = function() {
-				$scope.currentView = true;
-			};
-
-			// batch drop down select
-			/**
-			 * **********************************************TODO REFACTOR: WEEK
-			 * IS NOT OBJECT ANYMORE**************************************
-			 */
-			$scope.selectCurrentBatch = function(index) {
-				$scope.currentBatch = $scope.batches[index];
-
-				wipeFaces();
-
-				// set week
-				$scope.currentWeek = $scope.currentBatch.weeks[0];
-
-				/** replace with ajax call to get assessments by weekId * */
-				// test function to grab assessments
-				$scope.currentAssessments = getAssessments(index);
-			};
-
-			// select week
-			/**
-			 * **********************************************TODO REFACTOR: WEEK
-			 * IS NOT OBJECT ANYMORE**************************************
-			 */
-			$scope.selectWeek = function(index) {
-				$scope.currentWeek = $scope.currentBatch.weeks[index];
-				/** ajax call to get notes and statuses by weekId * */
-				wipeFaces();
-			};
-
-			// active week
-			/**
-			 * **********************************************TODO REFACTOR: WEEK
-			 * IS NOT OBJECT ANYMORE**************************************
-			 */
-			$scope.showActiveWeek = function(index) {
-				if ($scope.currentWeek === $scope.currentBatch.weeks[index])
-					return "active";
-			};
-
-			// select assessment from list
-			$scope.selectAssessment = function(index) {
-				$scope.currentAssessment = $scope.currentAssessments[index];
-				$scope.currentView = false;
-				/** replace with ajax call to get grades by assessmentId * */
-			};
-
-			// find grade for trainee
-			$scope.findGrade = function(traineeId, assessmentId) {
-				var grade = grades.find(function(grade) {
-					return grade.trainee === traineeId
-							&& grade.assessment.assessmentId === assessmentId;
+					$scope.addedNotes = function() {
+						$log
+								.debug(document.getElementById("noteTextArea").value);
+					};
+					$scope.reset = function() {
+						document.getElementById("noteTextArea").value = null;
+					};
 				});
-
-				return grade.score;
-			};
-
-			/**
-			 * **********************************************TODO
-			 * REFACTOR**************************************
-			 */
-			/* Save Assessment */
-			$scope.addAssessment = function() {
-				assessments.push({
-					trainingName : $scope.trainingName,
-					trainingType : $scope.trainingType,
-					skillType : $scope.skillType,
-					weekId : $scope.weekId,
-					rawScore : $scope.rawScore
-				});
-				qcFactory.createAssessment()
-			};
-			/**
-			 * **********************************************TODO REFACTOR: WEEK
-			 * IS NOT OBJECT ANYMORE**************************************
-			 */
-			// test function - get assessment
-			function getAssessments(index) {
-				return assessments[index];
-			}
-
-			// ///// wipe faces ;) and selections ///////
-			function wipeFaces() {
-				$scope.faces = [];
-				$scope.qcBatchAssess = null;
-				$scope.finalQCBatchNote = null;
-			}
-
-		});

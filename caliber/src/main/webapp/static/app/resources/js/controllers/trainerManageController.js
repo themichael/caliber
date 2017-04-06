@@ -123,7 +123,10 @@ angular
 
 					/** Get trainee info* */
 					$scope.getTrainee = function(trainee) {
-						$scope.trainee = trainee;
+						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
+						// FINISHED
+						$scope.editTrainee = trainee;
+
 					}
 
 					/** Save Batch * */
@@ -248,8 +251,6 @@ angular
 											function() {
 												$scope.trainees
 														.push({
-
-															traineeId : newTrainee.traineeId,
 															name : newTrainee.name,
 															email : newTrainee.email,
 															trainingStatus : newTrainee.trainingStatus,
@@ -299,11 +300,18 @@ angular
 
 					$scope.removeTrainee = function(traineeId) {
 						console.log(traineeId);
-						caliberDelegate.all.deleteTrainee(traineeId).then(
-								function() {
-
-								})
+						caliberDelegate.all
+								.deleteTrainee(traineeId)
+								.then(
+										function() {
+											for (var i = 0; i < $scope.receivers.length; i++) {
+												if ($scope.receivers[i] === receiver) {
+													$scope.receivers.splice(i,
+															1);
+													break;
+												}
+											}
+										})
 
 					};
-
 				});

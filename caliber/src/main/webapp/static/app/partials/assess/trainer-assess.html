@@ -112,7 +112,7 @@
 	</div>
 </div>
 
-<!-- Create Batch Modal -->
+<!-- Create Assessment Modal -->
 <div class="modal fade" id="createAssessmentModal" tabindex="-1"
 	role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
@@ -126,12 +126,13 @@
 				<h4 class="modal-title" id="myModalLabel">Create New Assessment</h4>
 			</div>
 			<!-- Add Assessment Info -->
-			<form ng-click="addAssessment()">
+			<form ng-submit="addAssessment()">
 				<div class="modal-body">
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
 							<label>Assessment Category:</label> <select class="form-control"
-								ng-model="selectedCategories.category" required>
+								ng-model="selectedCategories.category" id="assessCategories"
+								required>
 								<option ng-repeat="category in categories track by $index"
 									value="{{category.skillCategory}}">{{category.skillCategory}}</option>
 							</select>
@@ -153,11 +154,11 @@
 						</div>
 					</div>
 				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" value="Save" class="btn btn-primary">
+				</div>
 			</form>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<input type="submit" value="Save" class="btn btn-primary">
-			</div>
 		</div>
 	</div>
 </div>
