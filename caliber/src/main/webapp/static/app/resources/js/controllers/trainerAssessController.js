@@ -1,4 +1,4 @@
-s/**
+/**
 	 * Refactor to use week index instead of Week object
 	 */
 angular
