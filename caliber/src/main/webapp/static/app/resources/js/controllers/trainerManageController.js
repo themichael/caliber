@@ -128,6 +128,15 @@ angular
 						$scope.editTrainee = trainee;
 
 					}
+					$scope.update = function() {
+
+						$scope.editTrainee.name = "";
+						$scope.editTrainee.email = "";
+						$scope.editTrainee.phoneNumber = "";
+						$scope.editTrainee.skypeId = "";
+						$scope.editTrainee.profileUrl = "";
+
+					};
 
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
@@ -257,7 +266,7 @@ angular
 															phoneNumber : newTrainee.phoneNumber,
 															skypeId : newTrainee.skypeId,
 															profileUrl : newTrainee.profileUrl,
-															batch : null
+															batch : $scope.currentBatch
 														});
 											});
 						}
@@ -314,4 +323,5 @@ angular
 										})
 
 					};
+
 				});
