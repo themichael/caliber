@@ -472,4 +472,7 @@ angular
 					 * POSSIBLE REFACTOR**************************************
 					 */
 					getAllGradesForWeek();
+					$scope.test = function(d){
+						console.log(d);
+					}
 				});
