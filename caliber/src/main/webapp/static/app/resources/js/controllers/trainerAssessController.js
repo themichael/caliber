@@ -339,6 +339,7 @@ angular
 
 										});
 					};
+					
 					/**
 					 * Updates Grade if exists, else create new Grade, then
 					 * saves to $scope
