@@ -149,11 +149,25 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value = "/qc/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {"/qc/batch/all", "/vp/batch/all/current"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('QC, VP')")
-	public ResponseEntity<List<Batch>> getAllBatches() {
-		log.info("Fecthing all current batches");
+	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
+		log.info("Fetching all current batches");
 		List<Batch> batches = trainingService.findAllCurrentBatches();
+		return new ResponseEntity<>(batches, HttpStatus.OK);
+
+	}
+	
+	/**
+	 * Gets all batches
+	 *
+	 * @return the all batches
+	 */
+	@RequestMapping(value = "/vp/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<Batch>> getAllBatches() {
+		log.info("Fetching all batches");
+		List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 
 	}

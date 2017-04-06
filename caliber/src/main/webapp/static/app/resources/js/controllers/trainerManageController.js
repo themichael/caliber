@@ -45,10 +45,13 @@ angular
 
 					function sortByDate(currentYear) {
 						$scope.selectedBatches = [];
-						for (var i = 0; i < $scope.batches.length; i++) {
-							var date = new Date($scope.batches[i].startDate);
-							if (date.getFullYear() === currentYear) {
-								$scope.selectedBatches.push($scope.batches[i]);
+						if ($scope.batches) {
+							for (var i = 0; i < $scope.batches.length; i++) {
+								var date = new Date($scope.batches[i].startDate);
+								if (date.getFullYear() === currentYear) {
+									$scope.selectedBatches
+											.push($scope.batches[i]);
+								}
 							}
 						}
 					}
@@ -129,6 +132,7 @@ angular
 
 					}
 					$scope.update = function(editedTrainee) {
+
 						console.log(editedTrainee);
 						for (var i = 0; i < $scope.receivers.length; i++) {
 
@@ -173,7 +177,6 @@ angular
 									$scope.editTrainee.phoneNumber = "";
 									$scope.editTrainee.skypeId = "";
 									$scope.editTrainee.profileUrl = "";
-
 								});
 					};
 
@@ -344,4 +347,22 @@ angular
 						}
 					};
 
+					/** Delete Trainee* */
+
+					$scope.removeTrainee = function(traineeId) {
+						console.log(traineeId);
+						caliberDelegate.all
+								.deleteTrainee(traineeId)
+								.then(
+										function() {
+											for (var i = 0; i < $scope.receivers.length; i++) {
+												if ($scope.receivers[i] === receiver) {
+													$scope.receivers.splice(i,
+															1);
+													break;
+												}
+											}
+										})
+
+					};
 				});
