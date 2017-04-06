@@ -73,7 +73,7 @@
 				<thead>
 					<tr>
 						<th>Trainee</th>
-						<th role="button"
+						<th role="button" ng-init = "test(assessment)"
 							ng-repeat="assessment in currentAssessments track by $index">
 							{{assessment.title}}</th>
 						<th>Notes</th>

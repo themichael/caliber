@@ -1,6 +1,6 @@
 /**
-	 * Refactor to use week index instead of Week object
-	 */
+* Refactor to use week index instead of Week object
+*/
 angular
 		.module("trainer")
 		.controller(
@@ -75,49 +75,22 @@ angular
 								 * getAllAssessmentsForWeek
 								 * ********************************************************************************************************************************************************************************************************************************
 								 */
+								
 								caliberDelegate.trainer
-										.getAllAssessmentsForWeek(
-												$scope.currentBatch.batchId, $scope.currentWeek)
-										.then(
-												function(data) {
-													$log
-															.debug("Week "
-																	+ 1
-																	+ " Assessments for "
-																	+ $scope.currentBatch.batchId);
+										.getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek)
+										.then(function(data) {
 													$log.debug(data);
 													$scope.currentAssessments = data;
-													$scope.getAllAssessmentsForWeek = function(
-															batchId, week) {
-														if (!week)
-															return;
-														caliberDelegate.trainer
-																.getAllAssessmentsForWeek(
-																		batchId,
-																		week)
-																.then(
-																		function(
-																				data) {
-																			$log
-																					.debug("Week "
-																							+ 1
-																							+ " Assessments for "
-																							+ $scope.currentBatch.batchId);
-																			$scope.currentAssessments = data;
-																		});
-													};
-												});
-								var week = new Week($scope.currentWeek,
-										$scope.currentAssessments);
-								$scope.currentBatch.displayWeek = week;
+													var week = new Week($scope.currentWeek,
+															$scope.currentAssessments);
+													$scope.currentBatch.displayWeek = week;
 
-								getAllGradesForWeek();
+													getAllGradesForWeek();
 
-								$log
-										.debug("[THIS IS THE CURRENT BATCH AND THE NUMBER WEEK]"
-												+ allBatches[0]
-												+ " : "
-												+ totalWeeks);
+													$log.debug("[THIS IS THE CURRENT BATCH AND THE NUMBER WEEK]"
+																	+ allBatches[0] + " : " + totalWeeks);
+										});
+							
 							} else
 								$scope.currentWeek = null;
 						} else {
@@ -153,14 +126,16 @@ angular
 						if ($scope.currentBatch.weeks > 0) {
 							// $scope.currentBatch.weeks.sort(weekComparator);
 							$scope.currentWeek = $scope.currentBatch.weeks;
+							$scope.getAllAssessmentsForWeek(
+									$scope.currentBatch.batchId,
+									$scope.currentWeek);
 						} else
 							$scope.currentWeek = null;
 						/**
 						 * **********************************************TODO
 						 * REFACTOR**************************************
 						 */
-						$scope
-								.getAllAssessmentsForWeek(
+						$scope.getAllAssessmentsForWeek(
 										$scope.currentBatch.batchId,
 										$scope.currentWeek);
 					};
@@ -292,6 +267,31 @@ angular
 							$scope.selectedCategories.push(category);
 					};
 
+					
+					$scope.test= function(assessment){
+						$log.debug(assessment);
+					}
+					// get all assesments **********************************************************************************************************
+					//$scope.getAllAssessmentsForWeek = function(batchId, week) {
+					function getAllAssessmentsForWeek(batchId, week) {
+						if (!week)
+							return;
+						caliberDelegate.trainer
+								.getAllAssessmentsForWeek(batchId, week)
+								.then(function(data) {
+											$scope.currentAssessments = data;
+											// here i added the stuff into the promise
+/*											var week = new Week($scope.currentWeek,
+													$scope.currentAssessments);
+											$scope.currentBatch.displayWeek = week;
+
+											getAllGradesForWeek();
+
+											$log.debug("[THIS IS THE CURRENT BATCH AND THE NUMBER WEEK]"
+															+ allBatches[0] + " : " + totalWeeks);*/
+								});
+					};
+					
 					/**
 					 * Updates Grade if exists, else create new Grade, then
 					 * saves to $scope
