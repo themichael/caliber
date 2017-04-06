@@ -12,9 +12,8 @@ angular
 						this.weekNumb = weekNumb;
 						this.assessments = assessments;
 					}
-					$log.debug("Booted Trainer Aesess Controller");
-
-					// load categories
+					$log.debug("Booted Trainer Aesess Controller"); // load
+																	// categories
 					$scope.skill_categories = function() {
 						caliberDelegate.all.getAllCategories().then(
 								function(categories) {
