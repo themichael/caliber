@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The type Category.
@@ -27,8 +28,10 @@ public class Category implements Serializable {
 	@Column(name = "CATEGORY_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORY_ID_SEQUENCE")
 	@SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE")
+	@JsonProperty(value="categoryId")
 	private int categoryId;
 
+	@JsonProperty(value="skillCategory")
 	@Column(name = "SKILL_CATEGORY")
 	private String skillCategory;
 

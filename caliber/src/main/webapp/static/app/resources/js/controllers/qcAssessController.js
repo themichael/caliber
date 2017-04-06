@@ -178,20 +178,11 @@ angular
 					 * NOTES ON TRAINEE
 					 * *********************************************
 					 */
-					// Note content
+					// Note for trainee
 					$scope.noteOnTrainee = function(traineeName) {
 						for(i = 0; i < $scope.tnote.length; i++) {
 							if(traineeName === $scope.tnote[i].trainee.name) {
 								return $scope.tnote[i];
-							}
-						}
-					};
-					
-					// QCFeedBack
-					$scope.feedBackOnTrainee = function(traineeName) {
-						for(i = 0; i < $scope.tnote.length; i++) {
-							if(traineeName === $scope.tnote[i].trainee.name) {
-								return $scope.tnote[i].qcStatus;
 							}
 						}
 					};
