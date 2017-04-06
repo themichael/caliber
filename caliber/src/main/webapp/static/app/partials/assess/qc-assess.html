@@ -73,30 +73,30 @@
 						<td>
 
 							<form>
-								<span ng-hide="faces[$index]"
+								<span ng-hide="faces[$index].status"
 									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 									title="Click to update your feedback."
 									alt="Click to update your feedback."
 									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
 									<i class="fa fa-question-circle fa-2x"></i>
 								</span>
-								<div ng-hide="faces[$index] !== qcStatusTypes[0]"
+								<div ng-hide="faces[$index].status !== qcStatusTypes[0]"
 									title="Excellent"
 									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);">
 									<i class="fa fa-star fa-2x pick"></i>
 								</div>
-								<div ng-hide="faces[$index] !== qcStatusTypes[1]" title="Good"
+								<div ng-hide="faces[$index].status !== qcStatusTypes[1]" title="Good"
 									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);">
 									<i class="fa fa-smile-o fa-2x pick"></i>
 								</div>
-								<div ng-hide="faces[$index] !== qcStatusTypes[2]" title="Fair"
+								<div ng-hide="faces[$index].status !== qcStatusTypes[2]" title="Fair"
 									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);">
 									<i class="fa fa-meh-o fa-2x pick"></i>
 								</div>
-								<div ng-hide="faces[$index] !== qcStatusTypes[3]" title="Poor"
+								<div ng-hide="faces[$index].status !== qcStatusTypes[3]" title="Poor"
 									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
 									<i class="fa fa-frown-o fa-2x pick"></i>
@@ -104,8 +104,8 @@
 							</form>
 
 						</td>
-						<td><textarea ng-model="noteOnTrainee(trainee.name).content" id="noteTextArea" class="form-group"
-								placeholder="Note on {{trainee.name}}" ng-blur="saveTraineeNotes()"
+						<td><textarea ng-model="noteOnTrainee($index).content" id="noteTextArea" class="form-group"
+								placeholder="Note on {{trainee.name}}" ng-blur="addIndividualNote(trainee, $index)"
 								rows="3" cols="110"></textarea>
 						</td>
 					</tr>

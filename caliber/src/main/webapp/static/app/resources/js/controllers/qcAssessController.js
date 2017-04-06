@@ -9,7 +9,17 @@ angular
 					$scope.batches = allBatches;
 					$scope.bnote = null;
 					$scope.tnote = [];
+					$scope.faces = [];
 					$scope.weeks = [];
+					
+					function Note(noteId, content, status, week, batch, trainee) {
+						this.noteId = noteId;
+						this.content = content;
+						this.status = status;
+						this.week = week;
+						this.batch = batch;
+						this.trainee = trainee;
+					}
 
 					/**
 					 * ***************************************** UI
@@ -28,17 +38,6 @@ angular
 						$log.debug(batch.trainingName + " " + pick);
 					};
 
-					// used to store which rows have what faces/value
-					$scope.faces = [];
-					$scope.pickIndividualStatus = function(trainee, status,
-							index) {
-						$log.debug(trainee);
-						$log.debug(status);
-						// do your logic to update this trainee feedback
-
-						// update face
-						$scope.faces[index] = status;
-					};
 
 					// ///////////////////////////////////////////////////////////////////////////////////////////
 					// load note types
@@ -50,9 +49,11 @@ angular
 
 					// starting scope vars
 					$scope.currentBatch = $scope.batches[0];
+					// create an array of numbers for number of weeks
 					for (i = 1; i <= $scope.currentBatch.weeks; i++) {
 						$scope.weeks.push(i);
 					}
+					
 					// Set current week to first week
 					$scope.currentWeek = $scope.weeks[0];
 					// Check if there are no weeks
@@ -69,9 +70,34 @@ angular
 								.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
 								.then(
 										function(notes) {
-											$scope.tnote = notes;
+											//$scope.tnote = notes;
+											for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
+												var content = null;
+												var status = null;
+												var id = null;
+												for(j = 0; j < notes.length; j++) {
+													/*$log.debug("$scope.currentBatch.trainees[i].name");
+													$log.debug($scope.currentBatch.trainees[i].name);
+													$log.debug("$scope.notes[j].trainee.name");
+													$log.debug(notes[j].trainee.name);*/
+													if($scope.currentBatch.trainees[i].name === notes[j].trainee.name) {
+														content = notes[j].content;
+														status = notes[j].qcStatus;
+														id = notes[j].noteId;
+													}
+												}
+												$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
+											}
+											$log.debug($scope.faces);
 										});
 					}
+					
+					$scope.pickIndividualStatus = function(trainee, status,
+							index) {
+						$scope.faces[index].status = status;
+						$log.debug($scope.faces[index]);
+					};
+					
 					// default -- view assessments table
 					$scope.currentView = true;
 
@@ -179,12 +205,8 @@ angular
 					 * *********************************************
 					 */
 					// Note for trainee
-					$scope.noteOnTrainee = function(traineeName) {
-						for(i = 0; i < $scope.tnote.length; i++) {
-							if(traineeName === $scope.tnote[i].trainee.name) {
-								return $scope.tnote[i];
-							}
-						}
+					$scope.noteOnTrainee = function(index) {
+						return $scope.faces[index];
 					};
 
 	/********************************************* QCFeedBack ***********************************************************/
