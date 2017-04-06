@@ -233,23 +233,24 @@ angular
 					}
 
 					/** Create new Batch Object * */
-					function createBatchObject() {
-						var newBatch = {
-							trainingName : $scope.trainingName.model,
-							trainingType : $scope.trainingType.model,
-							skillType : $scope.skillType.model,
-							location : $scope.location.model,
-							trainer : null,
-							coTrainer : null,
-							startDate : $scope.startDate.model,
-							endDate : $scope.endDate.model,
-							goodGradeThreshold : $scope.goodGradeThreshold.model,
-							borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
-							benchmarkStartDate : $scope.benchmarkStartDate.model
-						};
-						if ($scope.currentBatch) {
-							newBatch.batchId = $scope.currentBatch.batchId;
-						}
+					function createBatchObject(batch) {
+
+						batch.trainingName = $scope.trainingName.model;
+						batch.trainingType = $scope.trainingType.model;
+						batch.skillType = $scope.skillType.model;
+						batch.location = $scope.location.model;
+						batch.trainer = null;
+						batch.coTrainer = null;
+						batch.startDate = $scope.startDate.model;
+						batch.endDate = $scope.endDate.model;
+						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
+						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
+						batch.benchmarkStartDate = $scope.benchmarkStartDate.model;
+
+						/*
+						 * if ($scope.currentBatch) { newBatch.batchId =
+						 * $scope.currentBatch.batchId; }
+						 */
 
 						if ($scope.trainer) {
 							var trainer_name = $scope.trainer.model;
@@ -260,14 +261,14 @@ angular
 						for (var i = 0; i < $scope.trainers.length; i++) {
 
 							if ($scope.trainers[i].name == trainer_name) {
-								newBatch.trainer = $scope.trainers[i];
+								batch.trainer = $scope.trainers[i];
 							}
 							if ($scope.trainers[i].name == cotrainer_name) {
-								newBatch.coTrainer = $scope.trainers[i];
+								batch.coTrainer = $scope.trainers[i];
 							}
 						}
 
-						return newBatch;
+						// return newBatch;
 					}
 
 					$scope.update = function() {
@@ -283,15 +284,17 @@ angular
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
-						var newBatch = createBatchObject();
-						console.log('this is' + newBatch);
 						// $log.debug($scope.currentBatch);
 						if ($scope.currentBatch) {
+							createBatchObject($scope.currentBatch);
 							caliberDelegate.all
-									.updateBatch(newBatch)
+									.updateBatch($scope.currentBatch)
 									.then(
-											$scope.selectedBatches[$scope.row] = newBatch)
+											$scope.selectedBatches[$scope.row] = $scope.currentBatch)
 						} else {
+							var newBatch;
+							createBatchObject(newBatch);
+							console.log('this is' + newBatch);
 							caliberDelegate.all
 									.createBatch(newBatch)
 									.then(
