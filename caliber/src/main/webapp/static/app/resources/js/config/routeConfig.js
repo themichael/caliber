@@ -71,9 +71,9 @@ angular.module("app").config(
                 }
                 // uncomment when dev is complete
                 // onEnter:
-                //     function(authFactory){
-                //         authFactory.authTrainer();
-                //     }
+                // function(authFactory){
+                // authFactory.authTrainer();
+                // }
             })
             .state("trainer.home", {
                 templateUrl: "/static/app/partials/home/trainer-home.html",

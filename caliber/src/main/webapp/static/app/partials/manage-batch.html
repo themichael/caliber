@@ -18,7 +18,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Manage batch table -->
 	<div class="container">
 		<div class="row">
@@ -212,7 +211,7 @@
 					<div class="modal-body">
 						<!-- View Trainees in Batch -->
 						<h3>Trainees in Batch</h3>
-						<!--                         <div class="row scrollable-div"> -->
+						<!--                   <div class="row scrollable-div"> -->
 						<div class="col-md-12 col-lg-12">
 							<table class="table table-responsive">
 								<thead>
@@ -222,7 +221,9 @@
 										<th>Training Status</th>
 										<th>Phone Number</th>
 										<th>Skype Id</th>
-										<th>Profile Url</th>
+										<th>Profile URL</th>
+										<th>Edit</th>
+
 									</tr>
 								</thead>
 								<tbody>
@@ -232,10 +233,16 @@
 										<td>{{trainee.trainingStatus}}</td>
 										<td>{{trainee.phoneNumber}}</td>
 										<td>{{trainee.skypeId}}</td>
+
 										<td><span ng-if="trainee.profileUrl"> <a
 												href="{{trainee.profileUrl}}" target="_blank"><i
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 										</span></td>
+										<td><button ng-click="loadTrainee()" type="submit"
+												class="btn btn-primary">Edit</button>
+											<button ng-Click="removeTrainee(trainee.traineeId)"
+												type="button" value="delete" class="btn btn-primary">Delete</button></td>
+
 									</tr>
 								</tbody>
 							</table>
@@ -270,6 +277,14 @@
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
+									<label for="traineeProfile">Profile URL:</label> <input
+										ng-model="receiver.profileUrl" type="text"
+										class="form-control" id="traineeName"
+										placeholder="http://www.example.com/revature" required>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeStatus">Training Status</label> <select
 										ng-model="receiver.trainingStatus" class="form-control"
 										id="traineeStatus" required>
@@ -289,6 +304,8 @@
 										</a>
 									</div>
 								</div>
+								
+								
 								<div class="form-group col-md-2 col-sm-2">
 									<div ng-click="deleteTrainee(receiver)">
 										<a role="button"> <span
@@ -297,7 +314,9 @@
 										</a>
 									</div>
 								</div>
-							</div> -->
+							</div>
+				-->
+
 					</div>
 
 					<div class="modal-footer">
