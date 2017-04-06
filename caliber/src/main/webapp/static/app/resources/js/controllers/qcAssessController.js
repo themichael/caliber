@@ -61,7 +61,7 @@ angular
 					// Set current week to first week
 					$scope.currentWeek = $scope.weeks[0];
 					// Check if there are no weeks
-					if($scope.currentWeek === "undefined") {
+					if($scope.currentWeek !== undefined) {
 						// Get qc notes for selected batch
 						caliberDelegate.qc
 								.batchNote($scope.currentBatch.batchId, $scope.currentWeek)
@@ -97,7 +97,7 @@ angular
 						// Set current week to first week
 						$scope.currentWeek = $scope.weeks[0];
 						// Check if there are no weeks
-						if($scope.currentWeek === "undefined") {
+						if($scope.currentWeek !== undefined) {
 							// Get qc notes for selected batch
 							caliberDelegate.qc
 									.batchNote($scope.currentBatch.batchId, $scope.currentWeek)
@@ -124,7 +124,7 @@ angular
 					$scope.selectWeek = function(index) {
 						$scope.currentWeek = $scope.weeks[index];
 						// Check if there are no weeks
-						if($scope.currentWeek === "undefined") {
+						if($scope.currentWeek !== undefined) {
 							// Get qc notes for selected batch
 							caliberDelegate.qc
 									.batchNote($scope.currentBatch.batchId, $scope.currentWeek)
