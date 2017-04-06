@@ -105,7 +105,7 @@ public class TrainingController {
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createBatch(@RequestBody Batch batch, Authentication auth) {
-		batch.setTrainer(getPrincipal(auth));
+		//batch.setTrainer(getPrincipal(auth));
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
 		return new ResponseEntity<>(HttpStatus.CREATED);
@@ -122,7 +122,7 @@ public class TrainingController {
 
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateBatch(@RequestBody Batch batch, Authentication auth) {
-		batch.setTrainer(getPrincipal(auth));
+		//batch.setTrainer(getPrincipal(auth));
 		log.info("Updating batch: " + batch);
 		trainingService.update(batch);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

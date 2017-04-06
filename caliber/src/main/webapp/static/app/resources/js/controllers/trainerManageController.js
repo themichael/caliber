@@ -230,6 +230,9 @@ angular
 						$scope.borderlineGradeThreshold.model = "";
 						$scope.benchmarkStartDate.model = "";
 						$scope.Save = "Save";
+						if ($scope.currentBatch) {
+							$scope.currentBatch = null;
+						}
 					}
 
 					/** Create new Batch Object * */
@@ -292,7 +295,7 @@ angular
 									.then(
 											$scope.selectedBatches[$scope.row] = $scope.currentBatch)
 						} else {
-							var newBatch;
+							var newBatch={};
 							createBatchObject(newBatch);
 							console.log('this is' + newBatch);
 							caliberDelegate.all
