@@ -118,7 +118,8 @@ public class TrainingController {
 	 *            the batch
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/batch/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateBatch(@RequestBody Batch batch, Authentication auth) {
 		batch.setTrainer(getPrincipal(auth));
@@ -149,11 +150,25 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value = "/qc/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {"/qc/batch/all", "/vp/batch/all/current"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('QC, VP')")
-	public ResponseEntity<List<Batch>> getAllBatches() {
-		log.info("Fecthing all current batches");
+	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
+		log.info("Fetching all current batches");
 		List<Batch> batches = trainingService.findAllCurrentBatches();
+		return new ResponseEntity<>(batches, HttpStatus.OK);
+
+	}
+	
+	/**
+	 * Gets all batches
+	 *
+	 * @return the all batches
+	 */
+	@RequestMapping(value = "/vp/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<Batch>> getAllBatches() {
+		log.info("Fetching all batches");
+		List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 
 	}
@@ -198,13 +213,17 @@ public class TrainingController {
 	/**
 	 * Create trainees
 	 *
-	 *Uneeded. just do multiple calls to createTrainee
+	 * <<<<<<< HEAD Uneeded. just do multiple calls to createTrainee =======
+	 * Uneeded. just do multiple calls to createTrainee
+	 * 
+	 * >>>>>>> 5aedf4196dfe4b91cac204fa623c7755fec4a5df
+	 * 
 	 * @param trainees
 	 *            the trainee
 	 * @return the response entity
 	 * 
 	 */
-	@Deprecated 
+	@Deprecated
 	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainees(@RequestBody Trainee[] trainees) {
@@ -264,7 +283,11 @@ public class TrainingController {
 	 * TODO :: read me:: Access user details through SecurityContext by
 	 * injecting Authentication into Controller method. Use @PreAuthorize with
 	 * Spring Expression Language (SpEL) to send 403 forbidden if not authorized
+	 * <<<<<<< HEAD
 	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html
+	 * =======
+	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el
+	 * -access.html >>>>>>> 5aedf4196dfe4b91cac204fa623c7755fec4a5df
 	 * 
 	 * @param auth
 	 * @return

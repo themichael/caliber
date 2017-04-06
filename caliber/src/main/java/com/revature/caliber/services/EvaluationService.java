@@ -216,9 +216,9 @@ public class EvaluationService {
 	 * @param week
 	 * @return
 	 */
-	public List<Note> findIndividualNotes(Integer traineeId, Integer week) {
-		log.debug("Finding week " + week + " individual notes for trainee: " + traineeId);
-		return noteDAO.findIndividualNotes(traineeId, week);
+	public List<Note> findIndividualNotes(Integer batchId, Integer week) {
+		log.debug("Finding week " + week + " individual notes for batch: " + batchId);
+		return noteDAO.findIndividualNotes(batchId, week);
 	}
 
 	/**
@@ -269,24 +269,16 @@ public class EvaluationService {
 		return noteDAO.findAllIndividualNotes(traineeId, week);
 	}
 
-	/**
-	 * Find all qc batch notes
-	 * @return
-	 */
-	public List<Note> findAllQCBatchNotes(Integer batchId) {
-        log.debug("Find All QC Batch notes");
-        return noteDAO.findAllQCBatchNotes(batchId);
-    }
 	
 	/**
 	 * Find all qc trainee notes
 	 * @return
 	 */
-	public List<Note> findAllQCTraineeNotes(Integer batchId) {
+	public List<Note> findAllQCTraineeNotes(Integer batchId, Integer week) {
 		log.debug("Find All QC Trainee Notes");
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
-		List<Note> notes = noteDAO.findAllQCTraineeNotes();
-		List<Note> traineeNotes = new ArrayList<>();
+		List<Note> notes = noteDAO.findAllQCTraineeNotes(week);
+		List<Note> traineeNotes = new ArrayList<Note>();
 		for(Trainee trainee:trainees) {
 			for(Note note:notes) {
 				if(note.getTrainee().getTraineeId() == trainee.getTraineeId()) {

@@ -28,10 +28,10 @@ public class Category implements Serializable {
 	@Column(name = "CATEGORY_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORY_ID_SEQUENCE")
 	@SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE")
-	@JsonProperty(value="categoryId")
+	@JsonProperty(value = "categoryId")
 	private int categoryId;
 
-	@JsonProperty(value="skillCategory")
+	@JsonProperty(value = "skillCategory")
 	@Column(name = "SKILL_CATEGORY")
 	private String skillCategory;
 
