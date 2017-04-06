@@ -37,6 +37,7 @@ public class Category implements Serializable {
 	private String skillCategory;
 
 	@OneToMany(mappedBy = "category")
+	@JsonIgnore
 	private Set<Assessment> assessments;
 
 	/**
