@@ -70,7 +70,7 @@ public class ReportingController {
 		Map<Integer, Double> result = reportingService.getLineChartBatchOverallAvg(batchId);
 		return new ResponseEntity<Map<Integer, Double>>(result, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Get aggregated grades by Category for a Trainee
 	 *
@@ -147,6 +147,7 @@ public class ReportingController {
 	}
 
 	/**
+	 * Yanilda
 	 * 
 	 * @param batchId
 	 * @param week
@@ -158,9 +159,19 @@ public class ReportingController {
 			@PathVariable int traineeId) {
 		return new ResponseEntity<Map<Integer, Double>>(reportingService.lineChartAvg(week, traineeId), HttpStatus.OK);
 	}
+
+	/**
+	 * Yanilda
+	 * 
+	 * @param batchId
+	 * @param week
+	 * @return
+	 */
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/barAssesment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, Double[]>> barChartPerAssessments(@PathVariable int batchId, @PathVariable int week) {
-		return new ResponseEntity<Map<String, Double[]>>(reportingService.barChartPerAssessments(batchId, week), HttpStatus.OK);
+	public ResponseEntity<Map<String, Double[]>> barChartPerAssessments(@PathVariable int batchId,
+			@PathVariable int week) {
+		return new ResponseEntity<Map<String, Double[]>>(reportingService.barChartPerAssessments(batchId, week),
+				HttpStatus.OK);
 	}
 
 	/**
@@ -197,26 +208,49 @@ public class ReportingController {
 		return new ResponseEntity<Map<Trainee, Double[]>>(
 				reportingService.getAvgBatchWeek(batchId, week, assessmentType), HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/all/reports/week/{week}/trainee/{traineeId}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Double>> getRadarChartForTraineeWeek(@PathVariable Integer traineeId,
 			@PathVariable Integer week) {
-		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForTraineeWeek(traineeId, week), HttpStatus.OK);
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForTraineeWeek(traineeId, week),
+				HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/all/reports/trainee/{traineeId}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Double>> getRadarChartForTraineeOverall(@PathVariable Integer traineeId) {
-		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForTraineeOverall(traineeId), HttpStatus.OK);
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForTraineeOverall(traineeId),
+				HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, Double>> getRadarChartForBatchWeek(@PathVariable Integer batchId, @PathVariable Integer week) {
-		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForBatchWeek(batchId, week), HttpStatus.OK);
+	public ResponseEntity<Map<String, Double>> getRadarChartForBatchWeek(@PathVariable Integer batchId,
+			@PathVariable Integer week) {
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForBatchWeek(batchId, week),
+				HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/all/reports/batch/{batchId}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Double>> getRadarChartForBatchOverall(@PathVariable Integer batchId) {
-		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForBatchOverall(batchId), HttpStatus.OK);
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForBatchOverall(batchId),
+				HttpStatus.OK);
+	}
+
+	/**
+	 * @author Hossain
+	 */
+	@RequestMapping(value = "/all/reports/batch/{batchId}/trainee/{traineeId}/line", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Integer, Double[]>> getLineChartTraineeoverAll(@PathVariable Integer batchId,
+			@PathVariable Integer traineeId) {
+		return new ResponseEntity<Map<Integer, Double[]>>(
+				reportingService.getLineChartTraineeOverall(batchId, traineeId), HttpStatus.OK);
+	}
+
+	/**
+	 * @author Hossain
+	 */
+	@RequestMapping(value = "/all/reports/batch/overall/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Trainee, Double>> getBarChartOverAll(@PathVariable Integer batchId) {
+		return new ResponseEntity<Map<Trainee, Double>>(reportingService.getBarChartOverAll(batchId), HttpStatus.OK);
 	}
 
 }

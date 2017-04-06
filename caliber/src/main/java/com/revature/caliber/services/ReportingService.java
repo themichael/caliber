@@ -94,7 +94,7 @@ public class ReportingService {
 	}
 
 	/**
-	 * 
+	 * Yanilda
 	 * @param batchId
 	 * @param week
 	 * @param traineeId
@@ -112,7 +112,12 @@ public class ReportingService {
 		}
 		return results;
 	}
-
+	/**
+	 * Yanilda
+	 * @param batchId
+	 * @param week
+	 * @return
+	 */
 	public Map<String, Double[]> barChartPerAssessments(int batchId, int week) {
 		Map<String, Double[]> data = new HashMap();
 		for (AssessmentType a : AssessmentType.values()) {
