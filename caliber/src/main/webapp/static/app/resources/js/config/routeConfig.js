@@ -114,6 +114,14 @@ angular
 										url : "/assess",
 										controller : "trainerAssessController"
 									})
+							.state(
+									"trainer.reports",
+									{
+										templateUrl : "/static/app/partials/reports/all.html",
+										url : "/reports", 
+										controller : "allReportController"
+									}
+							)
 
 							// vp
 							.state(

@@ -252,5 +252,4 @@ public class ReportingController {
 	public ResponseEntity<Map<Trainee, Double>> getBarChartOverAll(@PathVariable Integer batchId) {
 		return new ResponseEntity<Map<Trainee, Double>>(reportingService.getBarChartOverAll(batchId), HttpStatus.OK);
 	}
-
 }
