@@ -1,6 +1,7 @@
 package com.revature.caliber.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +43,13 @@ public class EvaluationController {
 	 */
 
 	/**
-	 * Create grade 
+	 * Create grade
 	 *
 	 * @param grade
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping(value = "/trainer/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createGrade(@RequestBody Grade grade) {
 		log.info("Saving grade: " + grade);
 		evaluationService.save(grade);
@@ -56,19 +57,19 @@ public class EvaluationController {
 	}
 
 	/**
-	 * Update grade 
+	 * Update grade
 	 *
 	 * @param grade
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping(value = "/trainer/grade/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateGrade(@RequestBody Grade grade) {
 		log.info("Updating grade: " + grade);
 		evaluationService.update(grade);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	/**
 	 * Returns absolutely all grades for only the most coarsely-grained
 	 * reporting. Useful for feeding data into application for statistical
@@ -79,7 +80,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/vp/grade/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasRole('VP')")
+	// @PreAuthorize("hasRole('VP')")
 	public List<Grade> findAll() {
 		log.info("Finding all grades");
 		return evaluationService.findAllGrades();
@@ -93,7 +94,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/all/grades/assessment/{assessmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public List<Grade> findByAssessment(@PathVariable Long assessmentId) {
 		log.info("Finding grades for assessment: " + assessmentId);
 		return evaluationService.findGradesByAssessment(assessmentId);
@@ -107,7 +108,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/all/grade/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public List<Grade> findByTrainee(@PathVariable Integer traineeId) {
 		log.info("Finding all grades for trainee: " + traineeId);
 		return evaluationService.findGradesByTrainee(traineeId);
@@ -121,7 +122,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/all/grade/batch/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public List<Grade> findByBatch(@PathVariable Integer batchId) {
 		log.info("Finding all grades for batch: " + batchId);
 		return evaluationService.findGradesByBatch(batchId);
@@ -135,7 +136,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/all/grade/category/{categoryId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public List<Grade> findByCategory(@PathVariable Integer categoryId) {
 		log.info("Finding all grades for category: " + categoryId);
 		return evaluationService.findGradesByCategory(categoryId);
@@ -151,10 +152,12 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/all/grades/batch/{batchId}/week/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public List<Grade> findByWeek(@PathVariable Integer batchId, @PathVariable Integer week) {
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<Map<Integer, List<Grade>>> findByWeek(@PathVariable Integer batchId,
+			@PathVariable Integer week) {
 		log.info("Finding week " + week + " grades for batch: " + batchId);
-		return evaluationService.findGradesByWeek(batchId, week);
+		Map<Integer, List<Grade>> table = evaluationService.findGradesByWeek(batchId, week);
+		return new ResponseEntity<Map<Integer, List<Grade>>>(table, HttpStatus.OK);
 	}
 
 	/**
@@ -167,7 +170,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/all/grade/trainer/{trainerId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public List<Grade> findByTrainer(@PathVariable Integer trainerId) {
 		log.info("Finding all grades for trainer: " + trainerId);
 		return evaluationService.findGradesByTrainer(trainerId);
@@ -187,7 +190,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/note/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createNote(@RequestBody Note note) {
 		log.info("Creating note: " + note);
 		evaluationService.save(note);
@@ -201,7 +204,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/note/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateNote(@RequestBody Note note) {
 		log.info("Updating note: " + note);
 		evaluationService.update(note);
@@ -222,7 +225,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/trainer/note/batch/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<Note>> findBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("Finding week " + week + " batch notes for batch: " + batchId);
 		return new ResponseEntity<List<Note>>(evaluationService.findBatchNotes(batchId, week), HttpStatus.OK);
@@ -256,7 +259,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/qc/note/batch/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('QC, VP')")
+	// @PreAuthorize("hasAnyRole('QC, VP')")
 	public ResponseEntity<Note> findQCBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("Finding week " + week + " QC batch notes for batch: " + batchId);
 		return new ResponseEntity<Note>(evaluationService.findQCBatchNotes(batchId, week), HttpStatus.OK);
@@ -266,12 +269,15 @@ public class EvaluationController {
 	 * FIND WEEKLY QC INDIVIDUAL NOTES (NOT FOR TRAINERS)
 	 * 
 	 * @param trainee
+	 * 
 	 * @param week
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/qc/note/trainee/{traineeId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('QC, VP')")
-	public ResponseEntity<List<Note>> findQCIndividualNotes(@PathVariable Integer traineeId, @PathVariable Integer week) {
+	// @PreAuthorize("hasAnyRole('QC, VP')")
+	public ResponseEntity<List<Note>> findQCIndividualNotes(@PathVariable Integer traineeId,
+			@PathVariable Integer week) {
 		log.info("Finding week " + week + " QC individual notes for trainee: " + traineeId);
 		return new ResponseEntity<List<Note>>(evaluationService.findQCIndividualNotes(traineeId, week), HttpStatus.OK);
 	}
@@ -282,7 +288,7 @@ public class EvaluationController {
 	 *
 	 *******************************************************
 	 */
-	
+
 	/**
 	 * FIND ALL WEEKLY BATCH NOTES (VP ONLY)
 	 * 
@@ -291,7 +297,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/vp/note/batch/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasRole('VP')")
+	// @PreAuthorize("hasRole('VP')")
 	public ResponseEntity<List<Note>> findAllBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("Finding week " + week + " batch notes for batch: " + batchId);
 		return new ResponseEntity<List<Note>>(evaluationService.findAllBatchNotes(batchId, week), HttpStatus.OK);
@@ -305,29 +311,33 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/vp/note/trainee/{traineeId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasRole('VP')")
-	public ResponseEntity<List<Note>> findAllIndividualNotes(@PathVariable Integer traineeId, @PathVariable Integer week) {
+	// @PreAuthorize("hasRole('VP')")
+	public ResponseEntity<List<Note>> findAllIndividualNotes(@PathVariable Integer traineeId,
+			@PathVariable Integer week) {
 		log.info("Finding all week " + week + " individual notes for trainee: " + traineeId);
 		return new ResponseEntity<List<Note>>(evaluationService.findAllIndividualNotes(traineeId, week), HttpStatus.OK);
 	}
 
 	/**
 	 * Find all qc batch notes
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/qc/batch/note/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Note>> getAllQCBatchNotes(@PathVariable Integer batchId) {
-        log.info("Getting all batch notes by QC");
-        return new ResponseEntity<List<Note>>(evaluationService.findAllQCBatchNotes(batchId), HttpStatus.OK);
-    }
-	
+	public ResponseEntity<List<Note>> getAllQCBatchNotes(@PathVariable Integer batchId) {
+		log.info("Getting all batch notes by QC");
+		return new ResponseEntity<List<Note>>(evaluationService.findAllQCBatchNotes(batchId), HttpStatus.OK);
+	}
+
 	/**
 	 * Find all qc trainee notes
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/qc/trainee/note/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Note>> getAllQCTraineeNotes(@PathVariable Integer batchId) {
-        log.info("Getting all trainee notes by QC");
-        return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(batchId), HttpStatus.OK);
-    }
+	public ResponseEntity<List<Note>> getAllQCTraineeNotes(@PathVariable Integer batchId) {
+		log.info("Getting all trainee notes by QC");
+		return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(batchId), HttpStatus.OK);
+	}
 }
+
