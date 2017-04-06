@@ -305,13 +305,14 @@ public class ReportingService {
 	}
 
 	/**
-	 * Average Grades of All Assessments Over the week
+	 * Method for Controller to fetch Weekly Batch Avg SCore
 	 * 
+	 * @Author Pier Yos
 	 * @param batchId
 	 * @param week
-	 * @return
+	 * @return Map<Trainee's name, Double Avg Score>
 	 */
-	public Map<String, Double> barChartAvgBatchWeek(int batchId, int week) {
+	public Map<String, Double> getBarChartBatchWeeklyAvg(int batchId, int week) {
 		Map<Trainee, Double> avgBatchWeek = getAvgBatchWeek(batchId, week);
 		Map<String, Double> result = new HashMap<>();
 
@@ -320,8 +321,14 @@ public class ReportingService {
 		}
 		return result;
 	}
-
-	public Map<Integer, Double> lineChartAvgBatchOverall(int batchId) {
+	/**
+	 * Method for Controller to fetch Week number Batch Avg  Score
+	 * 
+	 * @Author Pier Yos
+	 * @param batchId
+	 * @return Map<Week#, Double Avg Score>
+	 */
+	public Map<Integer, Double> getLineChartBatchOverallAvg(int batchId) {
 		return getAvgBatchOverall(batchId);
 	}
 

@@ -45,23 +45,29 @@ public class ReportingController {
 	 *******************************************************
 	 */
 	/**
-	 * For Displaying line graph of all trainee in batch and Avg score
+	 * For Displaying Bar Chart of all trainees (One Batch) and Weekly Avg score
 	 * 
 	 * @Author Pier Yos
 	 * @param batchId
 	 * @param week
-	 * @return JSON result of Map<Trainee, Double>
+	 * @return JSON result of Map<Trainee's name, Double Avg Score>
 	 */
-	@RequestMapping(value = "/all/reports/week/batch/{batchId}/week/{week}/bar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, Double>> getBatchWeeklyAvgAssessmentScore(@PathVariable int batchId,
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/bar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Double>> getBarChartBatchWeeklyAvg(@PathVariable int batchId,
 			@PathVariable int week) {
-		Map<String, Double> result = reportingService.barChartAvgBatchWeek(batchId, week);
+		Map<String, Double> result = reportingService.getBarChartBatchWeeklyAvg(batchId, week);
 		return new ResponseEntity<Map<String, Double>>(result, HttpStatus.OK);
 	}
-
-	@RequestMapping(value = "/all/reports/overall/batch/{batchId}/line", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Integer, Double>> getBatchOverallAvgAssessmentScore(@PathVariable int batchId) {
-		Map<Integer, Double> result = reportingService.getAvgBatchOverall(batchId);
+	/**
+	 * For Displaying Line Chart of all trainees (One Batch) and Avg score
+	 * 
+	 * @Author Pier Yos
+	 * @param batchId
+	 * @return JSON result of Map<Week#, Double Avg Score>
+	 */
+	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/line", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<Integer, Double>> getLineChartBatchOverallAvg(@PathVariable int batchId){
+		Map<Integer, Double> result = reportingService.getLineChartBatchOverallAvg(batchId);
 		return new ResponseEntity<Map<Integer, Double>>(result, HttpStatus.OK);
 	}
 
