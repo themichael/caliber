@@ -179,4 +179,8 @@ angular
 										});
 					}
 
+					$scope.test = function(t,index){
+						console.log('asfd');
+							
+					}
 				});
