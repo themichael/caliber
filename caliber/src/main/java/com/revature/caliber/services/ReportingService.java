@@ -107,8 +107,8 @@ public class ReportingService {
 				batchAvg += e.getValue()[0];
 			}
 			batchAvg = batchAvg / avgBatchWeek.size();
-			if (batchAvg!=0){
-			results.put(a.name(), new Double[] { avgTraineeWeek[0], batchAvg, avgTraineeWeek[1] });
+			if (batchAvg != 0) {
+				results.put(a.name(), new Double[] { avgTraineeWeek[0], batchAvg, avgTraineeWeek[1] });
 			}
 		}
 		return results;
@@ -124,23 +124,23 @@ public class ReportingService {
 	public Map<String, Double[]> getBarChartBatchOverallTrainee(Integer batchId, Integer traineeId) {
 		Map<String, Double[]> results = new HashMap<>();
 		for (AssessmentType a : AssessmentType.values()) {
-			int[] counts = {0,0};
+			int[] counts = { 0, 0 };
 			Map<Integer, Double[]> avgTraineeWeek = getAvgTraineeOverall(traineeId, a);
 			Map<Integer, Double[]> avgBatchWeek = getAvgBatchOverall(batchId, a);
 			Double batchAvg = 0d;
 			for (Map.Entry<Integer, Double[]> e : avgBatchWeek.entrySet()) {
-				counts[1]+=e.getValue()[2];
-				batchAvg += e.getValue()[0]*e.getValue()[2];
+				counts[1] += e.getValue()[2];
+				batchAvg += e.getValue()[0] * e.getValue()[2];
 			}
-			if (counts[1]>0){
+			if (counts[1] > 0) {
 				batchAvg = batchAvg / counts[1];
 				Double traineeAvg = 0d;
 				for (Map.Entry<Integer, Double[]> e : avgTraineeWeek.entrySet()) {
-					counts[0]+=e.getValue()[2];
+					counts[0] += e.getValue()[2];
 					traineeAvg += e.getValue()[0];
 				}
-				traineeAvg = traineeAvg/counts[0];
-				results.put(a.name(), new Double[] {traineeAvg, batchAvg});
+				traineeAvg = traineeAvg / counts[0];
+				results.put(a.name(), new Double[] { traineeAvg, batchAvg });
 			}
 		}
 		return results;
@@ -215,11 +215,10 @@ public class ReportingService {
 		List<Grade> gradesForAssessment = gradesForTheWeek.stream()
 				.filter(e -> e.getAssessment().getType().name().equalsIgnoreCase(assessmentType.name()))
 				.collect(Collectors.toList());
-		Double[] result = { 0d, 0d, 0d};
+		Double[] result = { 0d, 0d, 0d };
 		if (gradesForAssessment.size() == 0) {
 			return result;
-		}
-		else {
+		} else {
 			result[2] = (double) gradesForAssessment.size();
 		}
 		for (Grade grade : gradesForAssessment) {
@@ -287,7 +286,7 @@ public class ReportingService {
 		int weeks = batch.getWeeks();
 		for (Integer i = 1; i <= weeks; i++) {
 			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, i, assessmentType);
-			Double[] avg = { 0d, 0d, 0d};
+			Double[] avg = { 0d, 0d, 0d };
 			avg[1] = temp.values().iterator().next()[1];
 			avg[2] = temp.values().iterator().next()[2];
 			for (Map.Entry<Trainee, Double[]> t : temp.entrySet()) {
