@@ -58,13 +58,13 @@ public class ReportingController {
 		Map<String, Double> result = reportingService.barChartAvgBatchWeek(batchId, week);
 		return new ResponseEntity<Map<String, Double>>(result, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/all/reports/overall/batch/{batchId}/line", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Integer, Double>> getBatchOverallAvgAssessmentScore(@PathVariable int batchId){
+	public ResponseEntity<Map<Integer, Double>> getBatchOverallAvgAssessmentScore(@PathVariable int batchId) {
 		Map<Integer, Double> result = reportingService.getAvgBatchOverall(batchId);
 		return new ResponseEntity<Map<Integer, Double>>(result, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Get aggregated grades by Category for a Trainee
 	 *
@@ -147,7 +147,7 @@ public class ReportingController {
 	 * @param traineeId
 	 * @return
 	 */
-	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/trainee/{traineeId}/line", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<Integer, Double>> lineCharAVG(@PathVariable int batchId, @PathVariable int week,
 			@PathVariable int traineeId) {
 		return new ResponseEntity<Map<Integer, Double>>(reportingService.lineChartAvg(week, traineeId), HttpStatus.OK);
@@ -182,7 +182,7 @@ public class ReportingController {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
-	@RequestMapping(value = "/reports/batch/{batchId}/week/{weekId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HashMap<QCStatus, Integer>> aggregateQCPieChart(@PathVariable Integer batchId,
 			@PathVariable Integer weekId) {
 
@@ -190,6 +190,23 @@ public class ReportingController {
 				weekId);
 
 		return new ResponseEntity<HashMap<QCStatus, Integer>>(results, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/trainee/{traineeId}/bar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<HashMap<String, Double[]>> aggregateQCPieChart(@PathVariable Integer batchId,
+			@PathVariable Integer weekId, @PathVariable Integer traineeId) {
+
+		HashMap<String, Double[]> results = (HashMap<String, Double[]>) reportingService.getBarChartBatchWeekTrainee(batchId, traineeId,weekId);
+
+		return new ResponseEntity<HashMap<String, Double[]>>(results, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/trainee/{traineeId}/bar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<HashMap<String, Double[]>> getBarChartBatchOverallTrainee(@PathVariable Integer batchId, @PathVariable Integer traineeId) {
+
+		HashMap<String, Double[]> results = (HashMap<String, Double[]>) reportingService.getBarChartBatchOverallTrainee(batchId, traineeId);
+
+		return new ResponseEntity<HashMap<String, Double[]>>(results, HttpStatus.OK);
 	}
 
 	// assessmentType is case sensitive so call with uppercase first letter
