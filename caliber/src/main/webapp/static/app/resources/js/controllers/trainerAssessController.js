@@ -263,7 +263,7 @@ angular
 										function(data) {
 											$log.debug(data);
 											$scope.currentAssessments = data;
-											
+											$scope.getAllGradesForWeek($scope.currentBatch.batchId,$scope.currentWeek);
 											var week = new Week(
 													$scope.currentWeek,
 													$scope.currentAssessments);
@@ -274,7 +274,6 @@ angular
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
 											
-											getAllGradesForWeek();
 
 										});
 					};
@@ -354,11 +353,11 @@ angular
 					 * REFACTOR**************************************
 					 */
 
-					function getAllGradesForWeek() {
+					 $scope.getAllGradesForWeek=function(batchId,weekId) {
 						$scope.grades;
 						caliberDelegate.all
-								.getGradesForWeek($scope.currentBatch.batchId,
-										$scope.currentWeek).then(
+								.getGradesForWeek(batchId,
+										weekId).then(
 										function(data) {
 											$log.debug("These are the grades");
 											$log.debug(data);
@@ -387,7 +386,6 @@ angular
 					 * POSSIBLE REFACTOR**************************************
 					 */
 
-					getAllGradesForWeek();
 					$scope.test = function(d){
 						console.log(d);
 					}

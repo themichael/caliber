@@ -92,8 +92,8 @@
 							ng-blur="updateGrade(findGrade(trainee.traineeId, assessment.assessmentId).gradeId,
                                trainee.traineeId,assessment)">
 						</td> -->
-						<td ng-init="test(trainee)" ng-repeat="assessment in currentAssessments" >
-							<input type="text" >
+						<td ng-repeat="assessment in currentAssessments" >
+							<input type="text" ng-value="grades[trainee.traineeId][$index].score">
 						</td>
 						<td><textarea class="form-control" name="note" cols="20"
 								rows="2"></textarea></td>
