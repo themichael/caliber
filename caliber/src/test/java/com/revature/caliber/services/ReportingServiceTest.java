@@ -53,7 +53,7 @@ public class ReportingServiceTest {
 		Integer batchId = 1050;
 		Integer week = 3;
 		AssessmentType assessmentType =  AssessmentType.Project;
-		Map<Trainee, Double[]> results = reportingService.getAvgBatchWeek(batchId, week, assessmentType);
+		Map<Trainee, Double[]> results = reportingService.utilAvgBatchWeek(batchId, week, assessmentType);
 		
 		for(Entry<Trainee, Double[]> entry: results.entrySet()){
 			if(entry.getKey().getTraineeId() == 1059){
@@ -80,7 +80,7 @@ public class ReportingServiceTest {
 	@Test
 	@Ignore
 	public void getAvgBatchOverallTest(){
-		log.info(reportingService.getAvgBatchOverall(1050, AssessmentType.Exam));
+		log.info(reportingService.utilAvgBatchOverall(1050, AssessmentType.Exam));
 	}
 	
 }

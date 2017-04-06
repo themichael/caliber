@@ -16,14 +16,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 /**
  * The type Grade.
  */
 @Entity
 @Table(name = "CALIBER_GRADE")
-public class Grade implements Serializable{
+public class Grade implements Serializable {
 
 	private static final long serialVersionUID = -2031135710502844800L;
 
@@ -38,7 +36,6 @@ public class Grade implements Serializable{
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ASSESSMENT_ID", nullable = false)
-	@JsonManagedReference("grades")
 	private Assessment assessment;
 
 	/**
@@ -57,8 +54,8 @@ public class Grade implements Serializable{
 
 	/**
 	 * score - points earned. should be based on raw score of Assessment.
-	 * Example: Assessment is worth 200 points, and Trainee made a 150 thus
-	 * score is stored as percentage, 75%
+	 * Example: Assessment is worth 200 points, and Trainee made a 75% thus
+	 * score is 150
 	 */
 	@Column(name = "SCORE")
 	@NotNull
