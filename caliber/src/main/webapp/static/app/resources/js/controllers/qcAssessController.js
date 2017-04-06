@@ -187,7 +187,7 @@ angular
 						}
 					};
 					
-					// QCFeedBack
+	/********************************************* QCFeedBack ***********************************************************/
 					$scope.feedBackOnTrainee = function(traineeName) {
 						for(i = 0; i < $scope.tnote.length; i++) {
 							if(traineeName === $scope.tnote[i].trainee.name) {
@@ -196,7 +196,7 @@ angular
 						}
 					};
 
-					$scope.addedNotes = function() {
+					$scope.saveTraineeNotes = function() {
 						$log.debug(document.getElementById("noteTextArea").value);
 						$log.debug(caliberDelegate.qc.updateNote($scope.tnote));
 					};
