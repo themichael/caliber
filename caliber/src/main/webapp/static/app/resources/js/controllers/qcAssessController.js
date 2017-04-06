@@ -189,10 +189,10 @@ angular
 
 	/********************************************* QCFeedBack ***********************************************************/
 
-					$scope.saveTraineeNotes = function() {
-						$log.debug($scope.tnote);
+					$scope.saveTraineeNotes = function(index) {
+						$log.debug($scope.tnote[index]);
 						//$log.debug(caliberDelegate.qc.updateNote($scope.tnote));
-						caliberDelegate.qc.updateNote($scope.tnote[0]);
+						caliberDelegate.qc.updateNote($scope.tnote[index]);
 					};
 					
 					$scope.saveQCNotes = function() {
