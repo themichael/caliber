@@ -22,16 +22,11 @@ angular
 						$scope.qcStatusTypes = types;
 					});
 
-					// /////////////////////// overall
-					// feedback//////////////////////////
-					$scope.finalQCBatchNote = null;
+					// Used to pick face for batch
 					$scope.pickOverallStatus = function(batch, pick) {
 						$scope.qcBatchAssess = pick;
 						$log.debug(batch.trainingName + " " + pick);
 					};
-
-					// /////////////////////// individual
-					// feedback/////////////////////
 
 					// used to store which rows have what faces/value
 					$scope.faces = [];
@@ -183,24 +178,23 @@ angular
 					 * NOTES ON TRAINEE
 					 * *********************************************
 					 */
+					// Note content
 					$scope.noteOnTrainee = function(traineeName) {
 						for(i = 0; i < $scope.tnote.length; i++) {
 							if(traineeName === $scope.tnote[i].trainee.name) {
-								return $scope.tnote[i].content;
+								return $scope.tnote[i];
 							}
 						}
 					};
 					
-					/*$scope.noteOnbatch = function(trainingName) {
-						$log.debug("BATCH NOTE!!!!!!!!!!!!!!")
-						for (i = 0; i < $scope.weeks[$scope.currentWeek.weekNumber - 1].note.length; i++) {
-							if ($scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].batch != null) {
-								if (trainingName === $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].batch.trainingName) {
-									return $scope.weeks[$scope.currentWeek.weekNumber - 1].note[i].content;
-								}
+					// QCFeedBack
+					$scope.feedBackOnTrainee = function(traineeName) {
+						for(i = 0; i < $scope.tnote.length; i++) {
+							if(traineeName === $scope.tnote[i].trainee.name) {
+								return $scope.tnote[i].qcStatus;
 							}
 						}
-					};*/
+					};
 
 					$scope.addedNotes = function() {
 						$log.debug(document.getElementById("noteTextArea").value);
