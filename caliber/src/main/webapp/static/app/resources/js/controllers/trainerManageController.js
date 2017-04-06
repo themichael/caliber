@@ -275,11 +275,9 @@ angular
 												}
 
 												sortByDate($scope.selectedYear);
-												angular.element(
-														"#createBatchModal")
-														.modal("hide");
 											});
 						}
+						angular.element("#createBatchModal").modal("hide");
 
 					};
 
