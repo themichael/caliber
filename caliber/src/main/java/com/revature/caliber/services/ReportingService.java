@@ -275,7 +275,7 @@ public class ReportingService {
 	public Map<Integer, Double> getAvgTraineeOverall(Integer traineeId) {
 		Map<Integer, Double> results = new HashMap<>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
-		int weeks = 5;
+		int weeks = trainee.getBatch().getWeeks();
 		for (Integer i = 1; i <= weeks; i++) {
 			results.put(i, getAvgTraineeWeek(traineeId, i));
 		}
