@@ -5,6 +5,7 @@ angular
 				function($log, $scope, chartsDelegate, caliberDelegate,
 						qcFactory, allBatches) {
 					$log.debug("Booted Trainer Assess Controller");
+
 					$scope.batches = allBatches;
 					$scope.bnote = [];
 					$scope.tnote = [];
@@ -52,6 +53,7 @@ angular
 						// update face
 						$scope.faces[index] = status;
 					};
+
 					// ///////////////////////////////////////////////////////////////////////////////////////////
 					// load note types
 					caliberDelegate.all.enumNoteType().then(
@@ -93,10 +95,12 @@ angular
 									});
 					// default -- view assessments table
 					$scope.currentView = true;
+
 					// back button
 					$scope.back = function() {
 						$scope.currentView = true;
 					};
+
 					// batch drop down select
 					$scope.selectCurrentBatch = function(index) {
 						$log.debug("SELECTED DIFFERENT BATCH");
@@ -134,16 +138,19 @@ angular
 										});
 						wipeFaces();
 					};
+
 					// Select week
 					$scope.selectWeek = function(index) {
 						$scope.currentWeek = $scope.weeks[index]
 						wipeFaces();
 					};
+
 					// Show week
 					$scope.showActiveWeek = function(index) {
 						if ($scope.currentWeek === $scope.weeks[index])
 							return "active";
 					}
+
 					// create week
 					$scope.createWeek = function() {
 						var weekNumber;
@@ -162,12 +169,14 @@ angular
 						 * $log.debug($scope.currentBatch.weeks); });
 						 */
 					};
+
 					// ///// wipe faces ;) and selections ///////
 					function wipeFaces() {
 						$scope.faces = [];
 						$scope.qcBatchAssess = null;
 						$scope.finalQCBatchNote = null;
 					}
+
 					/**
 					 * ************************************************ GETTING
 					 * NOTES ON TRAINEE
@@ -198,6 +207,7 @@ angular
 						$log
 								.debug(document.getElementById("noteTextArea").value);
 					};
+
 					$scope.reset = function() {
 						document.getElementById("noteTextArea").value = null;
 					};
