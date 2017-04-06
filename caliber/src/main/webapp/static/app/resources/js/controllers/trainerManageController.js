@@ -393,8 +393,7 @@ angular
 															phoneNumber : newTrainee.phoneNumber,
 															skypeId : newTrainee.skypeId,
 															profileUrl : newTrainee.profileUrl,
-															batch : null
-
+															batch : newTrainee.batch
 														});
 											});
 						}
