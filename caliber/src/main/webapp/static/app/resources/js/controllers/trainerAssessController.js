@@ -52,6 +52,7 @@ angular
 					$log.debug(allBatches);
 					(function start(allBatches) {
 						$scope.batches = allBatches;
+						if (!allBatches) return;
 						if (allBatches.length > 0) {
 							$scope.currentBatch = allBatches[0];
 							$log.debug("This is the current batch "
