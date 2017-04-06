@@ -54,9 +54,6 @@ angular
 					}
 
 					/** Add & View Batches * */
-					$scope.batchId = {
-						model : null
-					}
 					$scope.trainingName = {
 						model : null
 					};
@@ -136,44 +133,37 @@ angular
 						// FINISHED
 						$scope.editTrainee = trainee;
 						console.log(editTrainee);
-						editTrainee.batch= $scope.currentBatch;
+						editTrainee.batch = $scope.currentBatch;
 
 					}
 
-					$scope.update = function(editedTrainee)
-					{
+					$scope.update = function(editedTrainee) {
 
 						console.log(editedTrainee);
 						for (var i = 0; i < $scope.receivers.length; i++) {
-							
-							if ($scope.receivers[i].name == "")
-							{
-								$scope.receivers[i].name = editedTrainee.name; 
+
+							if ($scope.receivers[i].name == "") {
+								$scope.receivers[i].name = editedTrainee.name;
 							}
-							
-							if ($scope.receivers[i].email == "")
-							{
-								$scope.receivers[i].email = editedTrainee.email; 
+
+							if ($scope.receivers[i].email == "") {
+								$scope.receivers[i].email = editedTrainee.email;
 							}
-							
-							if ($scope.receivers[i].trainingStatus == "")
-							{
-								$scope.receivers[i].trainingStatus = editedTrainee.trainingStatus; 
+
+							if ($scope.receivers[i].trainingStatus == "") {
+								$scope.receivers[i].trainingStatus = editedTrainee.trainingStatus;
 							}
-							
-							if ($scope.receivers[i].phoneNumber == "")
-							{
-								$scope.receivers[i].phoneNumber = editedTrainee.phoneNumber; 
+
+							if ($scope.receivers[i].phoneNumber == "") {
+								$scope.receivers[i].phoneNumber = editedTrainee.phoneNumber;
 							}
-							
-							if ($scope.receivers[i].skypeId == "")
-							{
-								$scope.receivers[i].skypeId = editedTrainee.skypeId; 
+
+							if ($scope.receivers[i].skypeId == "") {
+								$scope.receivers[i].skypeId = editedTrainee.skypeId;
 							}
-							
-							if ($scope.receivers[i].profileUrl == "")
-							{
-								$scope.receivers[i].profileUrl = editedTrainee.profileUrl; 
+
+							if ($scope.receivers[i].profileUrl == "") {
+								$scope.receivers[i].profileUrl = editedTrainee.profileUrl;
 							}
 							var updTrainee = {
 								traineeId : editedTrainee.traineeId,
@@ -185,27 +175,26 @@ angular
 								profileUrl : $scope.receivers[i].profileUrl,
 								batch : $scope.currentBatch
 							};
-						
+
 						}
 						console.log(updTrainee);
 						editedTrainee = updTrainee;
 						console.log(editedTrainee);
 						caliberDelegate.all.updateTrainee(editedTrainee);
-						
-						/*$scope.editTrainee.name = "";
-						$scope.editTrainee.email = "";
-						$scope.editTrainee.phoneNumber = "";
-						$scope.editTrainee.skypeId = "";
-						$scope.editTrainee.profileUrl = "";*/
-						
+
+						/*
+						 * $scope.editTrainee.name = "";
+						 * $scope.editTrainee.email = "";
+						 * $scope.editTrainee.phoneNumber = "";
+						 * $scope.editTrainee.skypeId = "";
+						 * $scope.editTrainee.profileUrl = "";
+						 */
+
 					};
 
-
 					/** Fill update form with batch previous data* */
-					$scope.populateBatch = function(batch) {
-						console.log(batch);
+					$scope.populateBatch = function(batch, index) {
 						$scope.batchFormName = "Update Batch";
-						$scope.batchId.model = batch.batchId;
 						$scope.trainingName.model = batch.trainingName;
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
@@ -223,12 +212,12 @@ angular
 						$scope.benchmarkStartDate.model = new Date(
 								batch.benchmarkStartDate);
 						$scope.Save = "Update";
+						$scope.row = index;
 					}
 
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
 						$scope.batchFormName = "Create New Batch"
-						$scope.batchId.model = "";
 						$scope.trainingName.model = "";
 						$scope.trainingType.model = "";
 						$scope.skillType.model = "";
@@ -246,7 +235,6 @@ angular
 					/** Create new Batch Object * */
 					function createBatchObject() {
 						var newBatch = {
-							batchId : $scope.batchId.model,
 							trainingName : $scope.trainingName.model,
 							trainingType : $scope.trainingType.model,
 							skillType : $scope.skillType.model,
@@ -259,6 +247,10 @@ angular
 							borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
 							benchmarkStartDate : $scope.benchmarkStartDate.model
 						};
+						if ($scope.currentBatch) {
+							newBatch.batchId = $scope.currentBatch.batchId;
+						}
+
 						if ($scope.trainer) {
 							var trainer_name = $scope.trainer.model;
 						}
@@ -293,10 +285,12 @@ angular
 						// Ajax call check for 200 --> then assemble batch
 						var newBatch = createBatchObject();
 						console.log('this is' + newBatch);
-
-						$log.debug(newBatch);
-						if (newBatch.batchId) {
-							caliberDelegate.all.updateBatch(newBatch).then()
+						// $log.debug($scope.currentBatch);
+						if ($scope.currentBatch) {
+							caliberDelegate.all
+									.updateBatch(newBatch)
+									.then(
+											$scope.selectedBatches[$scope.row] = newBatch)
 						} else {
 							caliberDelegate.all
 									.createBatch(newBatch)
@@ -319,7 +313,6 @@ angular
 																borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
 																benchmarkStartDate : $scope.benchmarkStartDate.model
 															});
-													console.log($scope.batches)
 												} else {
 													$scope.batches
 															.push({
