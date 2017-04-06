@@ -131,6 +131,22 @@ angular
 					$scope.update = function(editedTrainee)
 					{
 						console.log(editedTrainee);
+						for (var i = 0; i < $scope.receivers.length; i++) {
+						var updTrainee = {
+								traineeId : editedTrainee.traineeId,
+								name : $scope.receivers[i].name,
+								email : $scope.receivers[i].email,
+								trainingStatus : $scope.receivers[i].trainingStatus,
+								phoneNumber : $scope.receivers[i].phoneNumber,
+								skypeId : $scope.receivers[i].skypeId,
+								profileUrl : $scope.receivers[i].profileUrl,
+								batch : $scope.currentBatch
+							};
+						
+						}
+						console.log(updTrainee);
+						editedTrainee = updTrainee;
+						console.log(editedTrainee);
 						caliberDelegate.all.updateTrainee(editedTrainee);
 						
 						/*$scope.editTrainee.name = "";
