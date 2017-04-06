@@ -365,6 +365,7 @@ public class ReportingService {
 			for (Integer i = 0; i < weeks; i++) {
 				avg += getAvgTraineeWeek(trainee.getTraineeId(), i);
 			}
+			avg = avg/weeks;
 			results.put(trainee, avg);
 		}
 		return results;
