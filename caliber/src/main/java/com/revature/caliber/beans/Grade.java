@@ -16,7 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * The type Grade.
@@ -38,7 +38,7 @@ public class Grade implements Serializable{
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ASSESSMENT_ID", nullable = false)
-	@JsonIgnore
+	@JsonManagedReference("grades")
 	private Assessment assessment;
 
 	/**
