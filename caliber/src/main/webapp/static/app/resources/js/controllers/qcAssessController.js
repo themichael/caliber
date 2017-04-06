@@ -8,7 +8,6 @@ angular
 
 					$scope.batches = allBatches;
 					$scope.bnote = null;
-					$scope.tnote = [];
 					$scope.faces = [];
 					$scope.weeks = [];
 					
@@ -131,7 +130,24 @@ angular
 									.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
 									.then(
 											function(notes) {
-												$scope.tnote = notes;
+												for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
+													var content = null;
+													var status = null;
+													var id = null;
+													for(j = 0; j < notes.length; j++) {
+														/*$log.debug("$scope.currentBatch.trainees[i].name");
+														$log.debug($scope.currentBatch.trainees[i].name);
+														$log.debug("$scope.notes[j].trainee.name");
+														$log.debug(notes[j].trainee.name);*/
+														if($scope.currentBatch.trainees[i].name === notes[j].trainee.name) {
+															content = notes[j].content;
+															status = notes[j].qcStatus;
+															id = notes[j].noteId;
+														}
+													}
+													$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
+												}
+												$log.debug($scope.faces);
 											});
 						} else {
 							$log.debug("No weeks");
@@ -158,7 +174,24 @@ angular
 									.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
 									.then(
 											function(notes) {
-												$scope.tnote = notes;
+												for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
+													var content = null;
+													var status = null;
+													var id = null;
+													for(j = 0; j < notes.length; j++) {
+														/*$log.debug("$scope.currentBatch.trainees[i].name");
+														$log.debug($scope.currentBatch.trainees[i].name);
+														$log.debug("$scope.notes[j].trainee.name");
+														$log.debug(notes[j].trainee.name);*/
+														if($scope.currentBatch.trainees[i].name === notes[j].trainee.name) {
+															content = notes[j].content;
+															status = notes[j].qcStatus;
+															id = notes[j].noteId;
+														}
+													}
+													$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
+												}
+												$log.debug($scope.faces);
 											});
 						} else {
 							$scope.bnote = null;
