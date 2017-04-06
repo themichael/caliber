@@ -238,11 +238,11 @@ public class EvaluationController {
 	 * @param week
 	 * @return
 	 */
-	@RequestMapping(value = "/trainer/note/trainee/{traineeId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<List<Note>> findIndividualNotes(@PathVariable Integer traineeId, @PathVariable Integer week) {
-		log.info("Finding week " + week + " individual notes for trainee: " + traineeId);
-		return new ResponseEntity<List<Note>>(evaluationService.findIndividualNotes(traineeId, week), HttpStatus.OK);
+	@RequestMapping(value = "/trainer/note/trainee/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<List<Note>> findIndividualNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
+		log.info("Finding week " + week + " individual notes for trainee: " + batchId); 
+		return new ResponseEntity<List<Note>>(evaluationService.findIndividualNotes(batchId, week), HttpStatus.OK);
 	}
 
 	/*
@@ -319,24 +319,14 @@ public class EvaluationController {
 	}
 
 	/**
-	 * Find all qc batch notes
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/qc/batch/note/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Note>> getAllQCBatchNotes(@PathVariable Integer batchId) {
-		log.info("Getting all batch notes by QC");
-		return new ResponseEntity<List<Note>>(evaluationService.findAllQCBatchNotes(batchId), HttpStatus.OK);
-	}
-
-	/**
 	 * Find all qc trainee notes
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/qc/trainee/note/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Note>> getAllQCTraineeNotes(@PathVariable Integer batchId) {
-		log.info("Getting all trainee notes by QC");
-		return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(batchId), HttpStatus.OK);
-	}
+	@RequestMapping(value = "/qc/trainee/note/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Note>> getAllQCTraineeNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
+        log.info("Getting all trainee notes by QC");
+        return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(batchId, week), HttpStatus.OK);
+    }
 }
+
