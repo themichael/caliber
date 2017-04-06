@@ -184,12 +184,13 @@ angular
 					delegate.qc.updateNote = function(noteObj) {
 						return qcFactory.updateNote(noteObj);
 					};
-					delegate.qc.batchNote = function(batchId) {
-						return qcFactory.getAllQCBatchNote(batchId);
+					
+					delegate.qc.batchNote = function(batchId, week) {
+						return qcFactory.getQCBatchNote(batchId, week);
 					}
 
-					delegate.qc.traineeNote = function(batchId) {
-						return qcFactory.getAllQCTraineeNote(batchId);
+					delegate.qc.traineeNote = function(batchId, week) {
+						return qcFactory.getAllQCTraineeNote(batchId, week);
 					}
 
 					/**
