@@ -173,9 +173,8 @@ angular
 						$scope.benchmarkStartDate.model = "";
 					}
 					/** Save Batch * */
-					$scope.addNewBatch = function() {
-						// Ajax call check for 200 --> then assemble batch
-						var newBatch = {
+					function createBatchObject(){
+						return {
 							trainingName : $scope.trainingName.model,
 							trainingType : $scope.trainingType.model,
 							skillType : $scope.skillType.model,
@@ -187,8 +186,13 @@ angular
 							goodGradeThreshold : $scope.goodGradeThreshold.model,
 							borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
 							benchmarkStartDate : $scope.benchmarkStartDate.model
-						};
-						console.log(newBatch);
+						}
+					}
+					
+					$scope.addNewBatch = function() {
+						// Ajax call check for 200 --> then assemble batch
+						var newBatch = createBatchObject();
+						console.log('this is' + newBatch);
 						if ($scope.trainer) {
 							var trainer_name = $scope.trainer.model;
 						}
