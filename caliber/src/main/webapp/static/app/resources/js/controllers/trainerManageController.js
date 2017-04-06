@@ -126,10 +126,13 @@ angular
 						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
 						// FINISHED
 						$scope.editTrainee = trainee;
+						console.log(editTrainee);
+						editTrainee.batch= $scope.currentBatch;
 
 					}
 					$scope.update = function(editedTrainee)
 					{
+						//$scope.editedTrainee.batch = $scope.currentBatch;
 						console.log(editedTrainee);
 						caliberDelegate.all.updateTrainee(editedTrainee);
 						
@@ -269,7 +272,7 @@ angular
 															phoneNumber : newTrainee.phoneNumber,
 															skypeId : newTrainee.skypeId,
 															profileUrl : newTrainee.profileUrl,
-															batch : newTrainee.batch
+															batch : null
 
 														});
 											});
