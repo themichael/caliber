@@ -198,9 +198,19 @@ public class ReportingController {
 		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForTraineeWeek(traineeId, week), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/all/reports/trainee/{traineeId}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Double>> getRadarChartForTraineeOverall(@PathVariable Integer traineeId) {
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForTraineeOverall(traineeId), HttpStatus.OK);
+	}
 	
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Double>> getRadarChartForBatchWeek(@PathVariable Integer batchId, @PathVariable Integer week) {
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForBatchWeek(batchId, week), HttpStatus.OK);
+	}
 	
-	
-	
+	@RequestMapping(value = "/all/reports/batch/{batchId}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Double>> getRadarChartForBatchOverall(@PathVariable Integer batchId) {
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForBatchOverall(batchId), HttpStatus.OK);
+	}
 
 }
