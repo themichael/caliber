@@ -21,7 +21,7 @@ angular
 									$scope.categories = categories;
 									$log.debug("all Categories");
 									$log.debug(categories);
-								})
+								});
 					};
 					/**
 					 * ***************************************** UI
@@ -185,7 +185,7 @@ angular
 						$scope.currentView = true;
 					};
 
-					// batch drop down select-
+					// batch drop down select
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batches[index];
 						$log.debug("Selected batch " + index);
@@ -291,11 +291,11 @@ angular
 										$scope.currentBatch.batchId,
 										$scope.currentWeek);
 						var assessment = {
-							batch : $scope.currentBatch,
-							type : $scope.assessmentType.model,
-							category : angular.fromJson($scope.category.model),
-							week : $scope.currentBatch.weeks,
-							rawScore : $scope.rawScore
+								batch : $scope.currentBatch,
+								type : $scope.assessmentType.model,
+								category : angular.fromJson($scope.category.model),
+								week : $scope.currentBatch.weeks,
+								rawScore : $scope.rawScore
 						};
 						$log.debug(assessment);
 						caliberDelegate.trainer
@@ -352,7 +352,7 @@ angular
 								 * **********************************************TODO
 								 * REFACTOR**************************************
 								 */
-								category : $scope.category.model,
+								category : $scope.category.id,
 								week : /* $scope.currentWeek.weekId */5,
 								/**
 								 * **********************************************TODO
