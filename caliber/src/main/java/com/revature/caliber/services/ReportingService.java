@@ -101,18 +101,14 @@ public class ReportingService {
 	 * @param traineeId
 	 * @return Map<'week', 'avgScore'>
 	 */
-	public Map<Integer, Double[]> lineChartAvg(int week, int traineeId) {
-		Map<Integer, Double[]> results = new HashMap<>();
+	public Map<Integer, Double> lineChartAvg(int week, int traineeId) {
+		Map<Integer, Double> results = new HashMap<>();
 		Trainee trainee=traineeDAO.findOne(traineeId);
-		int weeks = (int)trainee.getBatch().getWeeks();
-		System.out.println(weeks);
-		List<Grade> allGrades = gradeDAO.findByTrainee(traineeId);
-		List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
-				.collect(Collectors.toList());
-		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
-		for (Grade grade : gradesForTheWeek) {
-			Double[] temp = { (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore), totalRawScore };
-			results.put((int) grade.getAssessment().getWeek(), temp);
+		int weeks = trainee.getBatch().getWeeks();
+
+		for(int w=1 ;w<=week; w++){
+			Double temp = getAvgTraineeWeek(traineeId, w);
+			results.put(w, temp );
 		}
 		return results;
 	}
