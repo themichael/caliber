@@ -196,9 +196,9 @@ public class EvaluationService {
 	 * @param week
 	 * @return
 	 */
-	public List<Note> findIndividualNotes(Integer traineeId, Integer week) {
-		log.debug("Finding week " + week + " individual notes for trainee: " + traineeId);
-		return noteDAO.findIndividualNotes(traineeId, week);
+	public List<Note> findIndividualNotes(Integer batchId, Integer week) {
+		log.debug("Finding week " + week + " individual notes for batch: " + batchId);
+		return noteDAO.findIndividualNotes(batchId, week);
 	}
 
 	/**
