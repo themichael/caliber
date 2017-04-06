@@ -115,7 +115,7 @@ angular
 								/**
 								 * *****************************************
 								 * getAllAssessmentsForWeek
-								 * ********************************************************************************************************************************************************************************************************************************
+								 * ***************************************************************************************88888******************************************************************************************************************************************************************************************
 								 */
 								caliberDelegate.trainer
 										.getAllAssessmentsForWeek(
@@ -210,31 +210,17 @@ angular
 
 					// select week
 					$scope.selectWeek = function(index) {
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
-						$scope.currentWeek = $scope.currentBatch.weeks[index];
-						$log.debug($scope.currentWeek);
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
+					
+						$scope.currentWeek = $scope.currentBatch.arrayWeeks[index];
+						$log.debug("[***********This is the week selected*************]:  "+$scope.currentWeek);
+	
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
 					};
 
 					// active week
 					$scope.showActiveWeek = function(index) {
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
-						if ($scope.currentWeek === $scope.currentBatch.weeks)
-							/**
-							 * **********************************************TODO
-							 * REFACTOR**************************************
-							 */
+						if ($scope.currentWeek === $scope.currentBatch.arrayWeeks[index])
 							return "active";
 
 					};
@@ -328,6 +314,33 @@ angular
 							$scope.selectedCategories.push(category);
 					};
 
+					// get all assesments
+					// **********************************************************8888888888***********************************************************
+					function getAllAssessmentsForWeek(batchId, weekNumb) {
+						if (!weekNumb)
+							return;
+						caliberDelegate.trainer
+								.getAllAssessmentsForWeek(batchId, weekNumb)
+								.then(
+										function(data) {
+											$log.debug(data);
+											$scope.currentAssessments = data;
+											$scope.getAllGradesForWeek($scope.currentBatch.batchId,$scope.currentWeek);
+											var week = new Week(
+													$scope.currentWeek,
+													$scope.currentAssessments);
+											
+											$scope.currentBatch.displayWeek = week;
+											$scope.currentBatch.arrayWeeks = [];
+											
+											for(i = 1; i <= $scope.currentBatch.weeks; i++){
+												$scope.currentBatch.arrayWeeks.push(i);
+											}
+											
+
+										});
+					};
+
 					/**
 					 * Updates Grade if exists, else create new Grade, then
 					 * saves to $scope
@@ -396,20 +409,22 @@ angular
 					 * REFACTOR**************************************
 					 */
 
-					function getAllGradesForWeek() {
-						$scope.grades = [];
-						caliberDelegate.all.getGradesForWeek(
-								$scope.currentBatch.batchId,
-								$scope.currentWeek.weekNumb).then(
-								function(data) {
-									$log.debug("These are the grades");
-									$log.debug(data);
-									for ( var i in data) {
-										$log.debug("Fetching ");
-										$log.debug(data[i]);
-										pushUnique($scope.grades, data[i]);
-									}
-								});
+					 $scope.getAllGradesForWeek=function(batchId,weekId) {
+						$scope.grades;
+						caliberDelegate.all
+								.getGradesForWeek(batchId,
+										weekId).then(
+										function(data) {
+											$log.debug("These are the grades");
+											$log.debug(data);
+											// for ( var i in data) {
+											// $log.debug("Fetching ");
+											// $log.debug(data[i]);
+											// pushUnique($scope.grades,
+											// data[i]);
+											// }
+											$scope.grades = data;
+										});
 					}
 					/**
 					 * **********************************************TODO
@@ -421,8 +436,14 @@ angular
 							arr.push(item);
 						}
 					}
+
 					/**
 					 * **********************************************TODO
 					 * POSSIBLE REFACTOR**************************************
 					 */
+
+					$scope.test = function(d){
+						console.log(d);
+					}
 				});
+
