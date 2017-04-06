@@ -81,10 +81,10 @@
 				</thead>
 				<tbody>
 
-					<tr role="button"
+					<tr ng-init="test(trainee)" role="button"
 						ng-repeat="trainee in currentBatch.trainees track by $index">
 						<td>{{ trainee.name }}</td>
-						<td ng-repeat="assessment in currentAssessments track by $index">
+						<td ng-init="test(assessment)" ng-repeat="assessment in currentAssessments track by $index">
 							<input class="form-control" type="number" width="10px" min="0"
 							max="{{assessment.rawScore}}"
 							id="{{trainee.traineeId}}-{{assessment.assessmentId}}"
