@@ -150,37 +150,54 @@ public class ReportingService {
 	}
 
 	/**
+	 * Yanilda
 	 * 
 	 * @param batchId
 	 * @param week
 	 * @param traineeId
 	 * @return Map<'week', 'avgScore'>
 	 */
-	public Map<Integer, Double> lineChartAvg(int week, int traineeId) {
-		Map<Integer, Double> results = new HashMap<>();
+	public Map<Integer, Double[]> lineChartAvg(int week, int traineeId) {
+		Map<Integer, Double[]> results = new HashMap<>();
+		Trainee trainee=traineeDAO.findOne(traineeId);
+		int weeks = (int)trainee.getBatch().getWeeks();
+		System.out.println(weeks);
 		List<Grade> allGrades = gradeDAO.findByTrainee(traineeId);
 		List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
 				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		for (Grade grade : gradesForTheWeek) {
-			results.put((int) grade.getAssessment().getWeek(),
-					grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+			Double[] temp = { (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore), totalRawScore };
+			results.put((int) grade.getAssessment().getWeek(), temp);
 		}
 		return results;
 	}
 
 	/**
+	 * Yanilda
 	 * 
 	 * @param batchId
 	 * @param week
-	 * @return Map<'trainee', 'score'>
+	 * @return
 	 */
-	public Map<Trainee, Double> barChartAvg(int batchId, int week) {
-		Map<Trainee, Double> data = new HashMap<Trainee, Double>();
-		List<Grade> grades = gradeDAO.findByWeek(batchId, week);
-		for (Grade g : grades) {
-			data.put(g.getTrainee(), g.getScore());
+	public Map<String, Double[]> barChartPerAssessments(int batchId, int week) {
+		Map<String, Double[]> data = new HashMap<>();
+		for (AssessmentType a : AssessmentType.values()) {
+			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, week, a);
+			Double batchAvg = 0d;
+			double batchRaw = temp.entrySet().iterator().next().getValue()[1];
+
+			for (Map.Entry<Trainee, Double[]> e : temp.entrySet()) {
+				batchAvg += e.getValue()[0];
+
+			}
+
+			batchAvg = batchAvg / temp.size();
+			if (!temp.entrySet().iterator().next().getValue()[0].isNaN()) {
+				data.put(a.name(), new Double[] { batchAvg, batchRaw });
+			}
 		}
+
 		return data;
 	}
 
@@ -327,7 +344,7 @@ public class ReportingService {
 		Map<Integer, Double> results = new HashMap<>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
 		int weeks = trainee.getBatch().getWeeks();
-		for (Integer i = 1; i < weeks; i++) {
+		for (Integer i = 1; i <= weeks; i++) {
 			results.put(i, getAvgTraineeWeek(traineeId, i));
 		}
 		return results;
@@ -343,7 +360,7 @@ public class ReportingService {
 		Batch batch = batchDAO.findOne(batchId);
 		int weeks = batch.getWeeks();
 
-		for (Integer i = 1; i < weeks; i++) {
+		for (Integer i = 1; i <= weeks; i++) {
 			Map<Trainee, Double> temp = getAvgBatchWeek(batchId, i);
 			Double avg = 0d;
 			for (Map.Entry<Trainee, Double> t : temp.entrySet()) {
@@ -357,13 +374,19 @@ public class ReportingService {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Average Grades of All Assessments Over the week
 	 * 
+=======
+	 * Method for Controller to fetch Weekly Batch Avg SCore
+	 * 
+	 * @Author Pier Yos
+>>>>>>> branch 'uncharted-sandbox-1' of https://github.com/pjw6193/caliber.git
 	 * @param batchId
 	 * @param week
-	 * @return
+	 * @return Map<Trainee's name, Double Avg Score>
 	 */
-	public Map<String, Double> barChartAvgBatchWeek(int batchId, int week) {
+	public Map<String, Double> getBarChartBatchWeeklyAvg(int batchId, int week) {
 		Map<Trainee, Double> avgBatchWeek = getAvgBatchWeek(batchId, week);
 		Map<String, Double> result = new HashMap<>();
 
@@ -373,7 +396,14 @@ public class ReportingService {
 		return result;
 	}
 
-	public Map<Integer, Double> lineChartAvgBatchOverall(int batchId) {
+	/**
+	 * Method for Controller to fetch Week number Batch Avg Score
+	 * 
+	 * @Author Pier Yos
+	 * @param batchId
+	 * @return Map<Week#, Double Avg Score>
+	 */
+	public Map<Integer, Double> getLineChartBatchOverallAvg(int batchId) {
 		return getAvgBatchOverall(batchId);
 	}
 
@@ -384,12 +414,9 @@ public class ReportingService {
 	 * @return Map<'skill, Double{average, number of assessments for that
 	 *         skill}>
 	 */
-	public Map<Category, Double[]> getAvgSkillsTraineeWeek(Integer traineeId, Integer weekNumber) {
+	public Map<Category, Double[]> getAvgSkills(List<Grade> grades) {
 		Map<Category, Double[]> results = new HashMap<>();
-		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
-		List<Grade> weekgrades = grades.stream().filter(g -> g.getAssessment().getWeek() == weekNumber)
-				.collect(Collectors.toList());
-		for (Grade g : weekgrades) {
+		for (Grade g : grades) {
 			Category skill = g.getAssessment().getCategory();
 			if (results.get(skill) == null) {
 				Double temp[] = { g.getScore(), 1.0 };
@@ -403,5 +430,84 @@ public class ReportingService {
 			}
 		}
 		return results;
+	}
+
+	/**
+	 * @param batchId
+	 * 
+	 * 
+	 */
+	public Map<Trainee, Double> getBarChartOverAll(Integer batchId) {
+		Batch batch = batchDAO.findOne(batchId);
+		Map<Trainee, Double> results = new HashMap<>();
+		int weeks = batch.getWeeks();
+		Double avg = 0.d;
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		for (Trainee trainee : trainees) {
+			for (Integer i = 0; i < weeks; i++) {
+				avg += getAvgTraineeWeek(trainee.getTraineeId(), i);
+			}
+			avg = avg / weeks;
+			results.put(trainee, avg);
+		}
+		return results;
+	}
+
+	/**
+	 * @param batchId,
+	 * @param traineeId
+	 * @return map<number of weeks in total, array of batch overall average and
+	 *         trainee overall average>
+	 * 
+	 */
+	public Map<Integer, Double[]> getLineChartTraineeOverall(Integer batchId, Integer traineeId) {
+		Map<Integer, Double> batchAvgOverall = getAvgBatchOverall(batchId);
+		Map<Integer, Double> traineeAvgOverall = getAvgTraineeOverall(traineeId);
+		Map<Integer, Double[]> results = new HashMap<>();
+		Double[] result = { 0.d, 0.d };
+		int weeks = 0;
+		for (Map.Entry<Integer, Double> temp : batchAvgOverall.entrySet()) {
+			result[0] += temp.getValue();
+			weeks=temp.getKey();
+		}
+		for (Map.Entry<Integer, Double> temp1 : traineeAvgOverall.entrySet()) {
+			result[1] += temp1.getValue();
+		}
+		results.put(weeks, result);
+		return results;
+	}
+
+	public Map<String, Double> replaceCategoryWithSkillName(Map<Category, Double[]> skills) {
+		Map<String, Double> skillsWithLabels = new HashMap<>();
+		for (Entry<Category, Double[]> entry : skills.entrySet()) {
+			skillsWithLabels.put(entry.getKey().getSkillCategory(), entry.getValue()[0]);
+		}
+		return skillsWithLabels;
+	}
+
+	public Map<String, Double> getRadarChartForTraineeWeek(Integer traineeId, Integer weekNumber) {
+		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
+		List<Grade> weekgrades = grades.stream().filter(g -> g.getAssessment().getWeek() <= weekNumber)
+				.collect(Collectors.toList());
+		Map<Category, Double[]> skills = getAvgSkills(weekgrades);
+		return replaceCategoryWithSkillName(skills);
+	}
+
+	public Map<String, Double> getRadarChartForTraineeOverall(Integer traineeId) {
+		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
+		Map<Category, Double[]> skills = getAvgSkills(grades);
+		return replaceCategoryWithSkillName(skills);
+	}
+
+	public Map<String, Double> getRadarChartForBatchWeek(Integer batchId, Integer week) {
+		List<Grade> grades = gradeDAO.findByWeek(batchId, week);
+		Map<Category, Double[]> skills = getAvgSkills(grades);
+		return replaceCategoryWithSkillName(skills);
+	}
+
+	public Map<String, Double> getRadarChartForBatchOverall(Integer batchId) {
+		List<Grade> grades = gradeDAO.findByBatch(batchId);
+		Map<Category, Double[]> skills = getAvgSkills(grades);
+		return replaceCategoryWithSkillName(skills);
 	}
 }
