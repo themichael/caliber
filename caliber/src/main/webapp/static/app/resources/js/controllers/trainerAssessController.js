@@ -338,50 +338,6 @@ angular
 					 */
 					$scope.updateGrade = function(gradeId, traineeId,
 							assessment) {
-						$log
-								.debug("Starting updateGrade for "
-										+ "traineeId: " + traineeId + ", "
-										+ "assessment: " + assessment + ", "
-										+ "and gradeId: " + gradeId);
-
-						$scope.addAssessment = function() {
-							$scope.getAllAssessmentsForWeek();
-							var assessment = {
-								batch : $scope.currentBatch,
-								type : $scope.assessmentType.model,
-								/**
-								 * **********************************************TODO
-								 * REFACTOR**************************************
-								 */
-								category : $scope.category.id,
-								week : /* $scope.currentWeek.weekId */5,
-								/**
-								 * **********************************************TODO
-								 * REFACTOR**************************************
-								 */
-								/* weeklyStatus: null, */
-								rawScore : $scope.rawScore
-							};
-							$log.debug(assessment);
-							caliberDelegate.trainer
-									.createAssessment(assessment)
-									.then(
-											function(response) {
-												$log.debug(response);
-												$scope
-														.getAllAssessmentsForWeek();
-												if ($scope.currentAssessments > 0)
-													$scope.currentAssessments
-															.unshift(assessment);
-												else
-													$scope.currentAssessments = assessment;
-												angular
-														.element(
-																"#createAssessmentModal")
-														.modal("hide");
-											});
-						};
-						$scope.selectedCategories = [];
 						// constructs Grade object from the data in table
 						var grade = {
 							gradeId : gradeId,

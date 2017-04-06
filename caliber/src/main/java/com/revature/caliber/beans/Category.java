@@ -1,15 +1,18 @@
 package com.revature.caliber.beans;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -31,6 +34,10 @@ public class Category implements Serializable {
 	@JsonProperty(value = "skillCategory")
 	@Column(name = "SKILL_CATEGORY")
 	private String skillCategory;
+
+	@OneToMany(mappedBy = "category")
+	@JsonIgnore
+	private Set<Assessment> assessments;
 
 	/**
 	 * Instantiates a new Category.
@@ -62,6 +69,25 @@ public class Category implements Serializable {
 		super();
 		this.categoryId = categoryId;
 		this.skillCategory = skillCategory;
+	}
+
+	/**
+	 * Instantiates a new Category.
+	 *
+	 * @param categoryId
+	 *            the category id
+	 * @param skillCategory
+	 *            the skill category
+	 * @param assessments
+	 *            the assessments
+	 * @param weeks
+	 *            the weeks
+	 */
+	public Category(int categoryId, String skillCategory, Set<Assessment> assessments) {
+		super();
+		this.categoryId = categoryId;
+		this.skillCategory = skillCategory;
+		this.assessments = assessments;
 	}
 
 	/**
@@ -102,12 +128,28 @@ public class Category implements Serializable {
 		this.skillCategory = skillCategory;
 	}
 
+	/**
+	 * Gets assessments.
+	 *
+	 * @return the assessments
+	 */
+	public Set<Assessment> getAssessments() {
+		return assessments;
+	}
+
+	/**
+	 * Sets assessments.
+	 *
+	 * @param assessments
+	 *            the assessments
+	 */
+	public void setAssessments(Set<Assessment> assessments) {
+		this.assessments = assessments;
+	}
+
 	@Override
 	public String toString() {
 		return skillCategory;
 	}
-
-	
-	
 
 }
