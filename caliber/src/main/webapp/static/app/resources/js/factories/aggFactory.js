@@ -110,6 +110,23 @@ angular.module("api").factory(
 					$log.error("There was an error: " + response.status);
 				});
 			};
+			/**
+			 * 
+			 * @param trainerId
+			 * @returns {*}
+			 */
+			agg.batchTrainer = function(trainerId) {
+				return $http({
+					url : "/all/agg/batch/trainer/" + trainerId,
+					method : "GET"
+				}).then(function(response) {
+					$log.debug("Agg - Batch - Trainer -- success");
+					$log.debug(response);
+					return response.data;
+				}, function(response) {
+					$log.error("There was an error: " + response.status);
+				});
+			};
 
 			/**
 			 * 
