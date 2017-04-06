@@ -47,7 +47,7 @@ angular
 								$log.debug(noteTypes);
 								// do something with note type
 							});
-
+					if (!$scope.currentBatch) return;
 					// starting scope vars
 					$scope.currentBatch = $scope.batches[0];
 					for (i = 1; i <= $scope.currentBatch.weeks; i++) {
