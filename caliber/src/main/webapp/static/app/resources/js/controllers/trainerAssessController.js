@@ -185,7 +185,7 @@ angular
 						$scope.currentView = true;
 					};
 
-					// batch drop down select
+					// batch drop down select-
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batches[index];
 						$log.debug("Selected batch " + index);
@@ -294,7 +294,7 @@ angular
 							batch : $scope.currentBatch,
 							type : $scope.assessmentType.model,
 							category : angular.fromJson($scope.category.model),
-							week : $scope.currentWeek,
+							week : $scope.currentBatch.weeks,
 							rawScore : $scope.rawScore
 						};
 						$log.debug(assessment);
