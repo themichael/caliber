@@ -77,6 +77,13 @@ angular
 										templateUrl : "/static/app/partials/assess/qc-assess.html",
 										controller : "qcAssessController"
 									})
+							.state(
+									"qc.reports",
+									{
+										templateUrl : "/static/app/partials/reports.html",
+										url : "/reports",
+										controller : "qcHomeController"
+									})
 							/***************************************************
 							 * TRAINER
 							 **************************************************/
@@ -119,7 +126,13 @@ angular
 										url : "/assess",
 										controller : "trainerAssessController"
 									})
-
+							.state(
+									"trainer.reports",
+									{
+										templateUrl : "/static/app/partials/reports.html",
+										url : "/reports",
+										controller : "trainerHomeController"
+									})
 
 							/***************************************************
 							 * VP
@@ -160,15 +173,22 @@ angular
 							.state(
 									"vp.assess",
 									{
-										templateUrl : "/static/app/partials/trainer-assess.html",
+										templateUrl : "/static/app/partials/assess/trainer-assess.html",
 										url : "/assess",
 										controller : "trainerAssessController"
 									})
 							.state(
 									"vp.audit",
 									{
-										templateUrl : "/static/app/partials/qc-assess.html",
+										templateUrl : "/static/app/partials/assess/qc-assess.html",
 										url : "/audit",
 										controller : "qcAssessController"
+									})
+							.state(
+									"vp.reports",
+									{
+										templateUrl : "/static/app/partials/reports.html",
+										url : "/reports",
+										controller : "vpHomeController"
 									});
 				});
