@@ -59,9 +59,9 @@
 							</a>
 							</td>
 							<td><a role="button" class="pull-right" data-toggle="modal"
-						data-target="#updateBatchModal" ng-click="populateBatch(batch)" >Update<span
-							class="glyphicon glyphicon-pencil" aria-hidden="true"> </span></a></td>
-							
+								data-target="#updateBatchModal" ng-click="populateBatch(batch)">Update<span
+									class="glyphicon glyphicon-pencil" aria-hidden="true"> </span></a></td>
+
 						</tr>
 					</tbody>
 				</table>
@@ -109,17 +109,19 @@
 								</select>
 							</div>
 							<div class="form-group col-md-6 col-sm-6">
-								<label for="location">Location:</label> <select
-									ng-model="location.model" class="form-control" id="location"
-									required>
-									<option value="" disabled>Select Location</option>
-									<option ng-repeat="option in location.options">{{option}}</option>
-								</select>
+								<label for="commonLocations">Location:</label> <input
+									list="commonLocations" type="text" ng-model="location.model"
+									id="location" required placeholder="Enter location"
+									class="form-control">
+								<datalist id="commonLocations">
+									<option ng-repeat="option in location.options"
+										value="{{option}}" />
+								</datalist>
 							</div>
 						</div>
 						<div class="row">
 							<div class="form-group col-md-6 col-sm-6">
-								<label for="trainer">Trainer:</label> <select 
+								<label for="trainer">Trainer:</label> <select
 									ng-model="trainer.model" class="form-control" id="trainer"
 									required>
 									<option value="" disabled>Select Trainer</option>
@@ -200,136 +202,7 @@
 		</div>
 	</form>
 
-<!-- ***************** Update batch modal**-->
-<form ng-submit="updateBatch()">
-		<div class="modal fade" id="updateBatchModal" tabindex="-1"
-			role="dialog" aria-labelledby="batchModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="batchModalLabel">Update Batch</h4>
-					</div>
-					<!-- Add Batch Info -->
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="trainingName">Training Name:</label> <input
-									ng-value= "tname" ng-model="trainingName.model" type="text" class="form-control"
-									id="trainingName" placeholder="1611 Jul11 Java" required>
-							</div>
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="trainingType">Training Type:</label> <select
-									ng-model="trainingType.model" class="form-control"
-									id="trainingType" required>
-									<option value="" disabled>Select Training Type</option>
-									<option ng-repeat="option in trainingType.options">{{option}}</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="skillType">Skill Type:</label> <select
-									ng-model="skillType.model" class="form-control" id="skillType"
-									required>
-									<option value="" disabled>Select Skill Type</option>
-									<option ng-repeat="option in skillType.options">{{option}}</option>
-								</select>
-							</div>
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="location">Location:</label> <select
-									ng-model="location.model" class="form-control" id="location"
-									required>
-									<option value="" disabled>Select Location</option>
-									<option ng-repeat="option in location.options">{{option}}</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="trainer">Trainer:</label> <select 
-									ng-model="trainer.model" class="form-control" id="trainer"
-									required>
-									<option value="" disabled>Select Trainer</option>
-									<option  ng-repeat="option in trainers">{{option.name}}</option>
-								</select>
 
-							</div>
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="co-trainer">Co-Trainer:</label> <select
-									ng-model="coTrainer.model" class="form-control" id="co-trainer">
-									<option value="" disabled>Select Co-Trainer</option>
-									<option ng-repeat="option in trainers">{{option.name}}</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="start-date">Start Date:</label>
-								<div class="input-group" id="start-date" data-datepicker="true">
-									<input ng-value = "sdate"ng-model="startDate.model"
-										class="date-input form-control date-selector" name="date"
-										min="0" type="date" required> <span
-										class="input-group-addon glyphicon glyphicon-calendar"></span>
-								</div>
-							</div>
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="end-date">End Date:</label>
-								<div class="input-group" id="end-date" data-datepicker="true">
-									<input ng-model="endDate.model"
-										class="date-input form-control date-selector" name="date"
-										min="0" type="date" required> <span
-										class="input-group-addon glyphicon glyphicon-calendar"></span>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="goodGrade">Good Grade: <span
-									title="The minimum acceptable grade."
-									alt="The minimum acceptable grade."
-									class="glyphicon glyphicon-question-sign"></span></label> <input
-									ng-model="goodGradeThreshold.model" type="number" min="0"
-									step="1" class="form-control" id="goodGrade" placeholder="80"
-									required>
-							</div>
-							<div class="form-group col-md-6 col-sm-6">
-								<label for="borderlineGrade">Passing Grade: <span
-									title="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action."
-									alt="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action."
-									class="glyphicon glyphicon-question-sign"></span></label> <input
-									ng-model="borderlineGradeThreshold.model" type="number" min="0"
-									step="1" class="form-control" id="borderlineGrade"
-									placeholder="50" required>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-lg-12 col-md-12 col-sm-12">
-								<label for="benchmark-date">Benchmark Date: <span
-									title="How far back in time the reports should go when comparing your batch against others."
-									alt="How far back in time the reports should go when comparing your batch against others."
-									class="glyphicon glyphicon-question-sign"></span></label>
-								<div class="input-group" id="benchmark-date"
-									data-datepicker="true">
-									<input ng-model="benchmarkStartDate.model"
-										class="date-input form-control date-selector" name="date"
-										min="0" type="date" required> <span
-										class="input-group-addon glyphicon glyphicon-calendar"></span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<input type="submit" value="Save" class="btn btn-primary">
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
 	<!--********************************************* Add Trainee Modal ************************************-->
 	<form ng-submit="addNewTrainee()">
 		<div class="modal fade" id="addTraineeModal" tabindex="-1"
@@ -388,25 +261,29 @@
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeName">Full Name:</label> <input
 										ng-model="receiver.name" type="text" class="form-control"
-										id="traineeName" placeholder="Name" required>
+										id="traineeName" placeholder="Name"
+										ng-value="editTrainee.name" required>
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeEmail">Email:</label> <input
-										ng-model="receiver.email" type="text" class="form-control"
-										id="traineeEmail" placeholder="Email" required>
+										ng-model="receiver.email" type="email" class="form-control"
+										id="traineeEmail" placeholder="Email"
+										ng-value="editTrainee.email" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeSkype">Skype Id:</label> <input
 										ng-model="receiver.skypeId" type="text" class="form-control"
-										id="traineeSkype" placeholder="Skype Id">
+										id="traineeSkype" placeholder="Skype Id"
+										ng-value="editTrainee.skypeId">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineePhone">Phone:</label> <input
 										ng-model="receiver.phoneNumber" type="text"
 										class="form-control" id="traineePhone"
-										placeholder="(xxx) xxx-xxxx" required>
+										placeholder="(xxx)-xxx-xxxx"
+										ng-value="editTrainee.phoneNumber" required>
 								</div>
 							</div>
 							<div class="row">
@@ -414,10 +291,13 @@
 									<label for="traineeProfile">Profile URL:</label> <input
 										ng-model="receiver.profileUrl" type="text"
 										class="form-control" id="traineeName"
-										placeholder="http://www.example.com/revature" required>
+										placeholder="http://www.example.com/revature"
+										ng-value="editTrainee.profileURL">
+
 								</div>
 							</div>
 							<div class="row">
+
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeStatus">Training Status</label> <select
 										ng-model="receiver.trainingStatus" class="form-control"

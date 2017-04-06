@@ -123,19 +123,11 @@ angular
 
 					/** Get trainee info* */
 					$scope.getTrainee = function(trainee) {
-						$scope.trainee = trainee;
-					}
+						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
+						// FINISHED
+						$scope.editTrainee = trainee;
 
-					/** populates batch info in update form* */
-					$scope.populateBatch = function(batch) {
-						console.log(batch);
-						console.log(batch.startDate);
-						$scope.tname = batch.trainingName;
-						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
-						$scope.trainingType.model = batch.trainingType;
-						$scope.sdate = batch.startDate;
-						$scope.ttain = batch.trainer;
-					};
+					}
 
 					/** Save Batch * */
 					$scope.addNewBatch = function() {

@@ -1,5 +1,6 @@
 package com.revature.caliber.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -8,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
+import com.revature.caliber.data.TraineeDAO;
 
 /**
  * Used to add grades for assessments and input notes Application logic has no
@@ -25,6 +28,7 @@ public class EvaluationService {
 	private static final Logger log = Logger.getLogger(EvaluationService.class);
 	private GradeDAO gradeDAO;
 	private NoteDAO noteDAO;
+	private TraineeDAO traineeDAO;
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -34,6 +38,11 @@ public class EvaluationService {
 	@Autowired
 	public void setNoteDAO(NoteDAO noteDAO) {
 		this.noteDAO = noteDAO;
+	}
+	
+	@Autowired
+	public void setTraineeDAO(TraineeDAO traineeDAO) {
+		this.traineeDAO = traineeDAO;
 	}
 
 	/*
@@ -199,7 +208,7 @@ public class EvaluationService {
 	 * @param week
 	 * @return
 	 */
-	public List<Note> findQCBatchNotes(Integer batchId, Integer week) {
+	public Note findQCBatchNotes(Integer batchId, Integer week) {
 		log.debug("Finding week " + week + " QC batch notes for batch: " + batchId);
 		return noteDAO.findQCBatchNotes(batchId, week);
 	}
@@ -240,4 +249,32 @@ public class EvaluationService {
 		return noteDAO.findAllIndividualNotes(traineeId, week);
 	}
 
+	/**
+	 * Find all qc batch notes
+	 * @return
+	 */
+	public List<Note> findAllQCBatchNotes(Integer batchId) {
+        log.debug("Find All QC Batch notes");
+        return noteDAO.findAllQCBatchNotes(batchId);
+    }
+	
+	/**
+	 * Find all qc trainee notes
+	 * @return
+	 */
+	public List<Note> findAllQCTraineeNotes(Integer batchId) {
+		log.debug("Find All QC Trainee Notes");
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		List<Note> notes = noteDAO.findAllQCTraineeNotes();
+		List<Note> traineeNotes = new ArrayList();
+		for(Trainee trainee:trainees) {
+			for(Note note:notes) {
+				if(note.getTrainee().getTraineeId() == trainee.getTraineeId()) {
+					traineeNotes.add(note);
+					log.debug("Note added");
+				}
+			}
+		}
+		return traineeNotes;
+	}
 }

@@ -1,4 +1,4 @@
-	angular.module("auth").factory("authFactory",
+angular.module("auth").factory("authFactory",
 		function($log, $http, $cookies, $state, $location) {
 			$log.debug("Booted Authentication Factory");
 
