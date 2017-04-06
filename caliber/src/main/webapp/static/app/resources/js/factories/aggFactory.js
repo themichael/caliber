@@ -110,7 +110,7 @@ angular.module("api").factory("aggFactory", function($http, $log) {
 	};
 	
 	/**
-	 * 
+	 * Yanilda
 	 */
 	agg.reportLineChart = function(week, traineeId) {
 		return $http({
@@ -125,7 +125,7 @@ angular.module("api").factory("aggFactory", function($http, $log) {
 		});
 	};
 	/**
-	 * 
+	 * Yanilda
 	 */
 	agg.reporAssesmentChart = function(batchId, week) {
 		return $http({
