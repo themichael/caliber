@@ -165,6 +165,7 @@ angular
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
 						$scope.batchFormName = "Create New Batch"
+						$scope.batchId.model = "";
 						$scope.trainingName.model = "";
 						$scope.trainingType.model = "";
 						$scope.skillType.model = "";
@@ -180,7 +181,7 @@ angular
 					}
 					/** Save Batch * */
 					function createBatchObject() {
-						return {
+						var newBatch = {
 							batchId : $scope.batchId.model,
 							trainingName : $scope.trainingName.model,
 							trainingType : $scope.trainingType.model,
@@ -193,20 +194,13 @@ angular
 							goodGradeThreshold : $scope.goodGradeThreshold.model,
 							borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
 							benchmarkStartDate : $scope.benchmarkStartDate.model
-						}
-					}
-
-					$scope.addNewBatch = function() {
-						// Ajax call check for 200 --> then assemble batch
-						var newBatch = createBatchObject();
-						console.log('this is' + newBatch);
+						};
 						if ($scope.trainer) {
 							var trainer_name = $scope.trainer.model;
 						}
 						if ($scope.coTrainer) {
 							var cotrainer_name = $scope.coTrainer.model;
 						}
-
 						for (var i = 0; i < $scope.trainers.length; i++) {
 
 							if ($scope.trainers[i].name == trainer_name) {
@@ -216,57 +210,53 @@ angular
 							}
 						}
 
+						return newBatch;
+					}
+
+					$scope.addNewBatch = function() {
+						// Ajax call check for 200 --> then assemble batch
+						var newBatch = createBatchObject();
+						console.log('this is' + newBatch);
+
 						$log.debug(newBatch);
 						if (newBatch.batchId) {
-							caliberDelegate.all.updateBatch(newBatch).then(
-
-							)
+							caliberDelegate.all.updateBatch(newBatch).then()
 						} else {
 							caliberDelegate.all
 									.createBatch(newBatch)
 									.then(
 											function() {
 												// coTrainer may be undefined
-												// if ($scope.coTrainer) {
-												$scope.batches
-														.push({
-															trainingName : $scope.trainingName.model,
-															trainingType : $scope.trainingType.model,
-															skillType : $scope.skillType.model,
-															location : $scope.location.model,
-															trainer : $scope.trainer.model,
-															coTrainer : $scope.coTrainer.model,
-															startDate : $scope.startDate.model,
-															endDate : $scope.endDate.model,
-															goodGradeThreshold : $scope.goodGradeThreshold.model,
-															borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
-															benchmarkStartDate : $scope.benchmarkStartDate.model
-														});
-												// } else {
-												// $scope.batches
-												// .push({
-												// trainingName :
-												// $scope.trainingName.model,
-												// trainingType :
-												// $scope.trainingType.model,
-												// skillType :
-												// $scope.skillType.model,
-												// location :
-												// $scope.location.model,
-												// trainer :
-												// $scope.trainer.model,
-												// startDate :
-												// $scope.startDate.model,
-												// endDate :
-												// $scope.endDate.model,
-												// goodGradeThreshold :
-												// $scope.goodGradeThreshold.model,
-												// borderlineGradeThreshold :
-												// $scope.borderlineGradeThreshold.model,
-												// benchmarkStartDate :
-												// $scope.benchmarkStartDate.model
-												// });
-												// }
+												if ($scope.coTrainer) {
+													$scope.batches
+															.push({
+																trainingName : $scope.trainingName.model,
+																trainingType : $scope.trainingType.model,
+																skillType : $scope.skillType.model,
+																location : $scope.location.model,
+																trainer : $scope.trainer.model,
+																coTrainer : $scope.coTrainer.model,
+																startDate : $scope.startDate.model,
+																endDate : $scope.endDate.model,
+																goodGradeThreshold : $scope.goodGradeThreshold.model,
+																borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
+																benchmarkStartDate : $scope.benchmarkStartDate.model
+															});
+												} else {
+													$scope.batches
+															.push({
+																trainingName : $scope.trainingName.model,
+																trainingType : $scope.trainingType.model,
+																skillType : $scope.skillType.model,
+																location : $scope.location.model,
+																trainer : $scope.trainer.model,
+																startDate : $scope.startDate.model,
+																endDate : $scope.endDate.model,
+																goodGradeThreshold : $scope.goodGradeThreshold.model,
+																borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
+																benchmarkStartDate : $scope.benchmarkStartDate.model
+															});
+												}
 
 											});
 						}
