@@ -1,7 +1,9 @@
 package com.revature.caliber.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,9 +136,27 @@ public class EvaluationService {
 	 * @param week
 	 * @return
 	 */
-	public List<Grade> findGradesByWeek(Integer batchId, Integer week) {
+	public Map<Integer, List<Grade>> findGradesByWeek(Integer batchId, Integer week) {
 		log.debug("Finding week " + week + " grades for batch: " + batchId);
-		return gradeDAO.findByWeek(batchId, week);
+		List<Grade> grades = gradeDAO.findByWeek(batchId, week);
+		Map<Integer, List<Grade>> table = new HashMap<>();
+		for(Grade grade : grades){
+			Integer key = grade.getTrainee().getTraineeId();
+			if(table.containsKey(grade.getTrainee().getTraineeId())){
+				// eliminate nested records first
+				grade.getAssessment().setBatch(null);
+				// get the trainee's assessments and add the new assessment
+				table.get(key).add(grade);
+			}else{
+				// eliminate nested records first
+				grade.getAssessment().setBatch(null);
+				// add the first assessment
+				List<Grade> assessments = new ArrayList<>();
+				assessments.add(grade);
+				table.put(key, assessments);
+			}
+		}
+		return table;
 	}
 
 	/**
@@ -266,7 +286,7 @@ public class EvaluationService {
 		log.debug("Find All QC Trainee Notes");
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		List<Note> notes = noteDAO.findAllQCTraineeNotes();
-		List<Note> traineeNotes = new ArrayList();
+		List<Note> traineeNotes = new ArrayList<>();
 		for(Trainee trainee:trainees) {
 			for(Note note:notes) {
 				if(note.getTrainee().getTraineeId() == trainee.getTraineeId()) {
