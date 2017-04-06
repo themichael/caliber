@@ -99,6 +99,12 @@ angular
 							value : ""
 						});
 					};
+					$scope.trainer = {
+						model : null
+					};
+					$scope.coTrainer = {
+						model : null
+					}
 					$scope.startDate = {
 						model : null
 					};
@@ -134,19 +140,32 @@ angular
 						console.log(batch);
 						$scope.batchFormName = "Update Batch";
 						$scope.trainingName.model = batch.trainingName;
+						$scope.trainingType.model = batch.trainingType
+						$scope.skillType.model = batch.skillType;
 						$scope.location.model = batch.location;
+						$scope.trainer.model = batch.trainer.name;
+						if (batch.coTrainer) {
+							$scope.coTrainer.model = batch.coTrainer.name;
+						} else {
+							$scope.coTrainer.model = ""
+						}
 						$scope.startDate.model = new Date(batch.startDate);
 						$scope.endDate.model = new Date(batch.endDate);
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
-						$scope.benchmarkStartDate.model = new Date(batch.benchmarkStartDate);
+						$scope.benchmarkStartDate.model = new Date(
+								batch.benchmarkStartDate);
 					}
 
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
 						$scope.batchFormName = "Create New Batch"
 						$scope.trainingName.model = "";
+						$scope.trainingType.model = "";
+						$scope.skillType.model = "";
 						$scope.location.model = "";
+						$scope.trainer.model = "";
+						$scope.coTrainer.model = "";
 						$scope.startDate.model = "";
 						$scope.endDate.model = "";
 						$scope.goodGradeThreshold.model = "";
