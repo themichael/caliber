@@ -24,10 +24,10 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 		});
 	};
 
-	// Call EvaluationController's getAllQCBatchNotes method
-	qc.getAllQCBatchNote = function(batchId) {
+	// Call EvaluationController's findQCBatchNotes method
+	qc.getQCBatchNote = function(batchId, week) {
 		return $http({
-			url : "/qc/batch/ note/" + batchId,
+			url : "/qc/note/batch/" + batchId + "/" + week,
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Batch Note retrieved successfully");
@@ -38,9 +38,9 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	};
 
 	// Call EvaluationController's getAllQCTraineeNotes method
-	qc.getAllQCTraineeNote = function(batchId) {
+	qc.getAllQCTraineeNote = function(batchId, week) {
 		return $http({
-			url : "/qc/trainee/note/" + batchId,
+			url : "/qc/trainee/note/" + batchId + "/" + week,
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Note retrieved successfully");
@@ -134,8 +134,8 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	 */
 	qc.updateNote = function(noteObj) {
 		return $http({
-			url : "/qc/assessment/note/update",
-			method : "PUT",
+			url : "/note/update",
+			method : "POST",
 			data : noteObj
 		}).then(function(response) {
 			$log.debug("Note updated successfully");

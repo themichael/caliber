@@ -75,12 +75,11 @@ public class NoteDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Note> findIndividualNotes(Integer batchId, Integer week) {
-		log.info("Finding individual notes for week " + week + " for batch: " + batchId);
-		return sessionFactory.getCurrentSession().createCriteria(Note.class)
-				.createAlias("trainee", "t").createAlias("t.batch", "b")
-				.add(Restrictions.eq("b.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
-				.add(Restrictions.eq("maxVisibility", TrainerRole.TRAINER))
+	public List<Note> findIndividualNotes(Integer traineeId, Integer week) {
+		log.info("Finding individual notes for week " + week + " for trainee: " + traineeId);
+		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
+				.add(Restrictions.eq("t.traineeId", traineeId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.le("maxVisibility", TrainerRole.TRAINER))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -184,10 +183,11 @@ public class NoteDAO {
 	 */
 	@SuppressWarnings("unchecked")
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public List<Note> findAllQCTraineeNotes() {
+    public List<Note> findAllQCTraineeNotes(Integer week) {
         log.info("Find All QC Trainee notes");
         return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
         		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
+        		.add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.addOrder(Order.asc("week")).list();
     }
