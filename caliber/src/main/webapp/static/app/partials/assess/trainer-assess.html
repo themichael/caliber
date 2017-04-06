@@ -46,13 +46,13 @@
 				</a></li>
 			</ul>
 		</div>
-		<!-------------/********************************TODO REFACTOR********************************/------------------->
 		<div class="col-sm-12 col-md-12 col-lg-12 top5">
 			<ul class="nav nav-tabs">
 				<li role="button" class="{{showActiveWeek($index)}}"
 					ng-click="selectWeek($index)"
 					ng-repeat="week in currentBatch.arrayWeeks track by $index"><a>Week
 						{{week}}</a></li>
+<!-------------/********************************TODO REFACTOR********************************/------------------->						
 				<!-- Button Trigger for Create Week Modal -->
 				<li role="button" ng-show="currentView" ng-click="createWeek()">
 					<a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
@@ -98,6 +98,16 @@
 					</tr>
 				</tbody>
 			</table>
+			<div
+                class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
+                <textarea ng-model="finalQCBatchNote" class="form-control"
+                    id="qcBatchNotes"
+                    placeholder="Enter your overall feedback on the batch" required>
+                
+                </textarea>
+            </div>
+			
+			
 			<!--<table class="col-md-6 table table-condensed" ng-show="!currentView">
                 <tr>
                     <th>Name</th>

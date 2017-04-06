@@ -216,22 +216,11 @@ angular
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
 						var assessment = {
-							assessmentId : 1,
-							title : $scope.assessName,
-							batch : $scope.currentBatch.batchId,
-							type : $scope.assessType,
-							/**
-							 * **********************************************TODO
-							 * REFACTOR**************************************
-							 */
-							categories : $scope.selectedCategories,
-							week : $scope.currentWeek.weekId,
-							/**
-							 * **********************************************TODO
-							 * REFACTOR**************************************
-							 */
-							weeklyStatus : null,
-							rawScore : $scope.rawScore
+								batch : $scope.currentBatch,
+								type : $scope.assessmentType.model,
+								category : angular.fromJson($scope.category.model),
+								week : $scope.currentBatch.weeks,
+								rawScore : $scope.rawScore
 						};
 						$log.debug(assessment);
 						caliberDelegate.trainer
