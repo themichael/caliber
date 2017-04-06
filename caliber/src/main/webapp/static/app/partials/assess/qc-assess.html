@@ -108,6 +108,10 @@
 								placeholder="Note on {{trainee.name}}" ng-blur="addIndividualNote(trainee, $index)"
 								rows="3" cols="110"></textarea>
 						</td>
+						<td><ul class="nav nav-tabs">
+						<li role="button"
+							ng-click="saveTraineeNotes(trainee.name)"
+							><a>Save</a></li></ul></td>
 					</tr>
 				</tbody>
 			</table>

@@ -211,10 +211,17 @@ angular
 
 	/********************************************* QCFeedBack ***********************************************************/
 
-					$scope.saveTraineeNotes = function() {
-						$log.debug($scope.tnote);
-						//$log.debug(caliberDelegate.qc.updateNote($scope.tnote));
-						caliberDelegate.qc.updateNote($scope.tnote[0]);
+					$scope.saveTraineeNotes = function(traineeName) {
+						//$log.debug(index);
+						//$log.debug(($scope.tnote));
+						
+						for(i = 0; i < $scope.tnote.length; i++) {
+							if(traineeName === $scope.tnote[i].trainee.name) {
+								caliberDelegate.qc.updateNote($scope.tnote[i]);
+							}
+						}
+						
+						// caliberDelegate.qc.updateNote($scope.tnote[index]);
 					};
 					
 					$scope.saveQCNotes = function() {

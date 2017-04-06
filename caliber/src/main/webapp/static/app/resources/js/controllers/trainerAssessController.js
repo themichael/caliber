@@ -291,19 +291,11 @@ angular
 										$scope.currentBatch.batchId,
 										$scope.currentWeek);
 						var assessment = {
-							batch : $scope.currentBatch,
-							type : $scope.assessmentType.model,
-							/**
-							 * **********************************************TODO
-							 * REFACTOR**************************************
-							 */
-							category : $scope.category.model,
-							week : $scope.currentWeek,
-							/**
-							 * **********************************************TODO
-							 * REFACTOR**************************************
-							 */
-							rawScore : $scope.rawScore
+								batch : $scope.currentBatch,
+								type : $scope.assessmentType.model,
+								category : angular.fromJson($scope.category.model),
+								week : $scope.currentBatch.weeks,
+								rawScore : $scope.rawScore
 						};
 						$log.debug(assessment);
 						caliberDelegate.trainer
