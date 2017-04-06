@@ -80,8 +80,7 @@ public class TraineeDAO {
 				.list();
 	}
 
-	/**
-	 * Find a trainee by the given identifier
+	/** * Find a trainee by the given identifier
 	 * @param traineeId
 	 * @return
 	 */

@@ -81,7 +81,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		var chartData = {};
 
 		// series
-		chartData.series = [ "Average" ];
+		chartData.series = [ "Average Score" ];
 
 		// labels and data
 		chartData.labels = [];
