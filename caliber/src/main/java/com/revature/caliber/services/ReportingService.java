@@ -350,7 +350,7 @@ public class ReportingService {
 	 * 
 	 * 
 	 */
-	public Map<Trainee, Double> getBarChartBatchOverAll(Integer batchId) {
+	public Map<Trainee, Double> getBarChartOverAll(Integer batchId) {
 		Batch batch = batchDAO.findOne(batchId);
 		Map<Trainee, Double> results = new HashMap<>();
 		int weeks = batch.getWeeks();
@@ -372,7 +372,7 @@ public class ReportingService {
 	 *         trainee overall average>
 	 * 
 	 */
-	public Map<Integer, Double[]> getLineChartTraineeGradeAvgOfAllWeeks(Integer batchId, Integer traineeId) {
+	public Map<Integer, Double[]> getLineChartTraineeOverall(Integer batchId, Integer traineeId) {
 		Map<Integer, Double> batchAvgOverall = getAvgBatchOverall(batchId);
 		Map<Integer, Double> traineeAvgOverall = getAvgTraineeOverall(traineeId);
 		Map<Integer, Double[]> results = new HashMap<>();
