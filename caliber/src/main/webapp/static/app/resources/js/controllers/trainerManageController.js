@@ -54,6 +54,9 @@ angular
 					}
 
 					/** Add & View Batches * */
+					$scope.batchId = {
+						model : null
+					}
 					$scope.trainingName = {
 						model : null
 					};
@@ -139,6 +142,7 @@ angular
 					$scope.populateBatch = function(batch) {
 						console.log(batch);
 						$scope.batchFormName = "Update Batch";
+						$scope.batchId.model = batch.batchId;
 						$scope.trainingName.model = batch.trainingName;
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
@@ -173,8 +177,9 @@ angular
 						$scope.benchmarkStartDate.model = "";
 					}
 					/** Save Batch * */
-					function createBatchObject(){
+					function createBatchObject() {
 						return {
+							batchId : $scope.batchId.model,
 							trainingName : $scope.trainingName.model,
 							trainingType : $scope.trainingType.model,
 							skillType : $scope.skillType.model,
@@ -188,7 +193,7 @@ angular
 							benchmarkStartDate : $scope.benchmarkStartDate.model
 						}
 					}
-					
+
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
 						var newBatch = createBatchObject();
@@ -210,13 +215,15 @@ angular
 						}
 
 						$log.debug(newBatch);
-
-						caliberDelegate.all
-								.createBatch(newBatch)
-								.then(
-										function() {
-											// coTrainer may be undefined
-											if ($scope.coTrainer) {
+						if (newBatch.batchId) {
+							caliberDelegate.all.updateBatch(newBatch).then(console.log('update'));
+						} else {
+							caliberDelegate.all
+									.createBatch(newBatch)
+									.then(
+											function() {
+												// coTrainer may be undefined
+												// if ($scope.coTrainer) {
 												$scope.batches
 														.push({
 															trainingName : $scope.trainingName.model,
@@ -231,27 +238,37 @@ angular
 															borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
 															benchmarkStartDate : $scope.benchmarkStartDate.model
 														});
-											} else {
-												$scope.batches
-														.push({
-															trainingName : $scope.trainingName.model,
-															trainingType : $scope.trainingType.model,
-															skillType : $scope.skillType.model,
-															location : $scope.location.model,
-															trainer : $scope.trainer.model,
-															startDate : $scope.startDate.model,
-															endDate : $scope.endDate.model,
-															goodGradeThreshold : $scope.goodGradeThreshold.model,
-															borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
-															benchmarkStartDate : $scope.benchmarkStartDate.model
-														});
-											}
-											sortByDate($scope.selectedYear);
-											angular
-													.element(
-															"#createBatchModal")
-													.modal("hide");
-										});
+												// } else {
+												// $scope.batches
+												// .push({
+												// trainingName :
+												// $scope.trainingName.model,
+												// trainingType :
+												// $scope.trainingType.model,
+												// skillType :
+												// $scope.skillType.model,
+												// location :
+												// $scope.location.model,
+												// trainer :
+												// $scope.trainer.model,
+												// startDate :
+												// $scope.startDate.model,
+												// endDate :
+												// $scope.endDate.model,
+												// goodGradeThreshold :
+												// $scope.goodGradeThreshold.model,
+												// borderlineGradeThreshold :
+												// $scope.borderlineGradeThreshold.model,
+												// benchmarkStartDate :
+												// $scope.benchmarkStartDate.model
+												// });
+												// }
+												sortByDate($scope.selectedYear);
+												angular.element(
+														"#createBatchModal")
+														.modal("hide");
+											});
+						}
 
 					};
 
