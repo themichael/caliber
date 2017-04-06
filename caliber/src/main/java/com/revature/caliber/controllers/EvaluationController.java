@@ -200,7 +200,7 @@ public class EvaluationController {
 	 * @param note
 	 * @return
 	 */
-	@RequestMapping(value = "/qc/assessment/note/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/note/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateNote(@RequestBody Note note) {
 		log.info("Updating note: " + note);
