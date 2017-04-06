@@ -1,4 +1,4 @@
-angular.module("trainer").controller("allReportController",
+angular.module("reports").controller("allReportController",
 		function($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
 
 			console.log("Booted Report Controller");
