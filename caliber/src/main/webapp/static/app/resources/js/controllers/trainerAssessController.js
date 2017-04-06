@@ -1,6 +1,6 @@
-s/**
-	 * Refactor to use week index instead of Week object
-	 */
+/**
+ * Refactor to use week index instead of Week object
+ */
 angular
 		.module("trainer")
 		.controller(
@@ -56,7 +56,6 @@ angular
 							if (allBatches[0].weeks > 0) {
 								// TODO check if it is sorting as objects-->
 								// allBatches[0].weeks.sort(weekComparator);
-
 								var totalWeeks = allBatches[0].weeks; // the
 								// number
 								// of
@@ -68,7 +67,6 @@ angular
 										.debug("this is the total week for this batch "
 												+ allBatches[0].trainingName
 												+ ": " + totalWeeks);
-
 								$scope.currentWeek = totalWeeks;
 								/**
 								 * *****************************************
@@ -77,7 +75,8 @@ angular
 								 */
 								caliberDelegate.trainer
 										.getAllAssessmentsForWeek(
-												$scope.currentBatch.batchId, $scope.currentWeek)
+												$scope.currentBatch.batchId,
+												$scope.currentWeek)
 										.then(
 												function(data) {
 													$log
@@ -110,9 +109,6 @@ angular
 								var week = new Week($scope.currentWeek,
 										$scope.currentAssessments);
 								$scope.currentBatch.displayWeek = week;
-
-								getAllGradesForWeek();
-
 								$log
 										.debug("[THIS IS THE CURRENT BATCH AND THE NUMBER WEEK]"
 												+ allBatches[0]
@@ -164,7 +160,6 @@ angular
 										$scope.currentBatch.batchId,
 										$scope.currentWeek);
 					};
-
 					// select week
 					$scope.selectWeek = function(index) {
 						/**
@@ -195,7 +190,6 @@ angular
 							return "active";
 
 					};
-
 					// create week
 					$scope.createWeek = function() {
 						/**
@@ -283,7 +277,6 @@ angular
 										});
 					};
 					$scope.selectedCategories = [];
-
 					$scope.toggleSelection = function(category) {
 						var index = $scope.selectedCategories.indexOf(category);
 						if (index > -1)
@@ -291,7 +284,6 @@ angular
 						else
 							$scope.selectedCategories.push(category);
 					};
-
 					/**
 					 * Updates Grade if exists, else create new Grade, then
 					 * saves to $scope
@@ -342,7 +334,6 @@ angular
 									$log.debug(response);
 								})
 					}; // updateGrade
-
 					$scope.findGrade = function(traineeId, assessmentId) {
 						for ( var i in $scope.grades) {
 							if ($scope.grades[i].trainee == traineeId
@@ -366,7 +357,6 @@ angular
 					 * **********************************************TODO
 					 * REFACTOR**************************************
 					 */
-
 					function getAllGradesForWeek() {
 						$scope.grades = [];
 						caliberDelegate.all.getGradesForWeek(

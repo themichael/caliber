@@ -114,8 +114,6 @@ angular
 										url : "/assess",
 										controller : "trainerAssessController"
 									})
-
-							// vp
 							.state(
 									"vp",
 									{

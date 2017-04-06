@@ -212,7 +212,7 @@
 					<div class="modal-body">
 						<!-- View Trainees in Batch -->
 						<h3>Trainees in Batch</h3>
-						<!--                         <div class="row scrollable-div"> -->
+						<!--                   <div class="row scrollable-div"> -->
 						<div class="col-md-12 col-lg-12">
 							<table class="table table-responsive">
 								<thead>
@@ -223,13 +223,12 @@
 										<th>Phone Number</th>
 										<th>Skype Id</th>
 										<th>Profile URL</th>
-
 										<th>Edit</th>
 
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="trainee in trainees" ng-click="">
+									<tr ng-repeat="trainee in trainees">
 										<td>{{trainee.name}}</td>
 										<td>{{trainee.email}}</td>
 										<td>{{trainee.trainingStatus}}</td>
@@ -239,6 +238,11 @@
 										<td><span ng-if="trainee.profileUrl"> <a
 												href="{{trainee.profileUrl}}" target="_blank"><i
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
+										</span></td>
+										<td><button ng-click="loadTrainee()" type="submit"
+												class="btn btn-primary">Edit</button>
+											<button ng-Click="removeTrainee(trainee.traineeId); selectCurrentBatch($index)"
+												type="button" value="delete" class="btn btn-primary">Delete</button></td>
 
 										</span></td>
 										<td><button ng-click="getTrainee(trainee)" type="button"
@@ -312,6 +316,8 @@
 										</a>
 									</div>
 								</div>
+								
+								
 								<div class="form-group col-md-2 col-sm-2">
 									<div ng-click="deleteTrainee(receiver)">	
 										<a role="button"> <span
@@ -320,7 +326,9 @@
 										</a>
 									</div>
 								</div>
-							</div> -->
+							</div>
+				-->
+
 					</div>
 
 					<div class="modal-footer">
