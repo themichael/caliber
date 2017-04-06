@@ -204,9 +204,15 @@ angular
 
 					$scope.addedNotes = function() {
 						$log.debug(document.getElementById("noteTextArea").value);
+						$log.debug(caliberDelegate.qc.updateNote($scope.tnote));
 					};
 
 					$scope.reset = function() {
 						document.getElementById("noteTextArea").value = null;
 					};
+					
+					$scope.saveQCNotes = function() {
+						$log.debug(document.getElementById("qcBatchNotes").value);
+						$log.debug(caliberDelegate.qc.updateNote($scope.bnote));
+					}
 				});

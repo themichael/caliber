@@ -140,7 +140,7 @@
 			<div
 				class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
 				<textarea ng-model="bnote.content" class="form-control"
-					id="qcBatchNotes"
+					id="qcBatchNotes" ng-blur="saveQCNotes()"
 					placeholder="Enter your overall feedback on the batch" required>
 				</textarea>
 			</div>
