@@ -93,7 +93,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			method : "GET"
 		}).then(function(response) {
 			$log.debug("Categories successfully retrieved.");
-			$log.debug(response);
+			$log.debug(response.data);
 			return response.data;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
