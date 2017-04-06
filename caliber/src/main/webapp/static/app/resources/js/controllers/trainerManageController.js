@@ -159,6 +159,7 @@ angular
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
 								batch.benchmarkStartDate);
+						$scope.Save = "Update";
 					}
 
 					/** Resets batch form for creating new batch* */
@@ -175,6 +176,7 @@ angular
 						$scope.goodGradeThreshold.model = "";
 						$scope.borderlineGradeThreshold.model = "";
 						$scope.benchmarkStartDate.model = "";
+						$scope.Save = "Save";
 					}
 					/** Save Batch * */
 					function createBatchObject() {
@@ -216,7 +218,9 @@ angular
 
 						$log.debug(newBatch);
 						if (newBatch.batchId) {
-							caliberDelegate.all.updateBatch(newBatch).then(console.log('update'));
+							caliberDelegate.all.updateBatch(newBatch).then(
+
+							)
 						} else {
 							caliberDelegate.all
 									.createBatch(newBatch)
@@ -263,12 +267,11 @@ angular
 												// $scope.benchmarkStartDate.model
 												// });
 												// }
-												sortByDate($scope.selectedYear);
-												angular.element(
-														"#createBatchModal")
-														.modal("hide");
+
 											});
 						}
+						sortByDate($scope.selectedYear);
+						angular.element("#createBatchModal").modal("hide");
 
 					};
 
