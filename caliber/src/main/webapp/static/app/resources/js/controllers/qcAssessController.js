@@ -35,6 +35,7 @@ angular
 					$scope.pickOverallStatus = function(batch, pick) {
 						$scope.qcBatchAssess = pick;
 						$log.debug(batch.trainingName + " " + pick);
+						//caliberDelegate.qc.updateNote($scope.faces[index]);
 					};
 
 
@@ -63,6 +64,7 @@ angular
 								.then(
 										function(notes) {
 											$scope.bnote = notes;
+											$scope.qcBatchAssess = notes.qcStatus;
 										});
 						// Get qc notes for trainees in selected batch
 						caliberDelegate.qc
@@ -125,6 +127,7 @@ angular
 									.then(
 											function(notes) {
 												$scope.bnote = notes;
+												$scope.qcBatchAssess = notes.qcStatus;
 											});
 							// Get qc notes for trainees in selected batch
 							caliberDelegate.qc
@@ -168,6 +171,7 @@ angular
 									.then(
 											function(notes) {
 												$scope.bnote = notes;
+												$scope.qcBatchAssess = notes.qcStatus;
 											});
 							// Get qc notes for trainees in selected batch
 							caliberDelegate.qc
@@ -246,7 +250,7 @@ angular
 					$scope.saveTraineeNote = function(index) {
 						//$log.debug(index);
 						$log.debug($scope.faces[index]);
-						//caliberDelegate.qc.updateNote($scope.faces[index]);
+						caliberDelegate.qc.updateNote($scope.faces[index]);
 					};
 					
 					$scope.saveQCNotes = function() {
