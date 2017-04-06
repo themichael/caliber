@@ -25,7 +25,7 @@ angular
 									$scope.categories = categories;
 									$log.debug("all Categories");
 									$log.debug(categories);
-								})
+								});
 					};
 					/**
 					 * ***************************************** UI
@@ -61,6 +61,11 @@ angular
 								// TODO check if it is sorting as objects-->
 								// allBatches[0].weeks.sort(weekComparator);
 
+
+                                $scope.category = {
+									model : null,
+									options : []
+								};
 								var totalWeeks = allBatches[0].weeks; // the
 								// number
 								// of
