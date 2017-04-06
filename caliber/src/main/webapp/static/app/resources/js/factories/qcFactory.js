@@ -27,7 +27,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// Call EvaluationController's getAllQCBatchNotes method
 	qc.getAllQCBatchNote = function(batchId) {
 		return $http({
-			url : "/qc/batch/note/" + batchId,
+			url : "/qc/batch/ note/" + batchId,
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Batch Note retrieved successfully");
