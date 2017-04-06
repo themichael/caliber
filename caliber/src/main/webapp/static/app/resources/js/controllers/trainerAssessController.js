@@ -61,8 +61,7 @@ angular
         
 
         $scope.category= {
-                id:  null,
-                cat: null,
+                model: null,
                 options: []
         };
         caliberDelegate.all.getAllCategories().then(function(categories) {
@@ -282,7 +281,7 @@ angular
 							 * **********************************************TODO
 							 * REFACTOR**************************************
 							 */
-							category : $scope.category.model,
+							category : angular.fromJson($scope.category.model),
 							week : $scope.currentWeek,
 							/**
 							 * **********************************************TODO
@@ -341,7 +340,7 @@ angular
                 batch: $scope.currentBatch,
                 type: $scope.assessmentType.model,
                 /************************************************TODO REFACTOR***************************************/
-                category: $scope.category.id,
+                category: $scope.category.model,
                 week: /*$scope.currentWeek.weekId*/5,
                 /************************************************TODO REFACTOR***************************************/
                 /*weeklyStatus: null,*/
