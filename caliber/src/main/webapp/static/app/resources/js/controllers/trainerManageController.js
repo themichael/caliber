@@ -128,14 +128,16 @@ angular
 						$scope.editTrainee = trainee;
 
 					}
-					$scope.update = function()
+					$scope.update = function(editedTrainee)
 					{
+						console.log(editedTrainee);
+						caliberDelegate.all.updateTrainee(editedTrainee);
 						
-						$scope.editTrainee.name = "";
+						/*$scope.editTrainee.name = "";
 						$scope.editTrainee.email = "";
 						$scope.editTrainee.phoneNumber = "";
 						$scope.editTrainee.skypeId = "";
-						$scope.editTrainee.profileUrl = "";
+						$scope.editTrainee.profileUrl = "";*/
 						
 					};
 
@@ -267,7 +269,7 @@ angular
 															phoneNumber : newTrainee.phoneNumber,
 															skypeId : newTrainee.skypeId,
 															profileUrl : newTrainee.profileUrl,
-															batch : null
+															batch : newTrainee.batch
 														});
 											});
 						}

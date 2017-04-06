@@ -226,7 +226,7 @@ public class TrainingController {
 	 *            the trainee
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateTrainee(@RequestBody Trainee trainee) {
 		log.info("Updating trainee: " + trainee);
