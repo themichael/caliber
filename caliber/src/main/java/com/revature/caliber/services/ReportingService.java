@@ -107,7 +107,7 @@ public class ReportingService {
 				batchAvg += e.getValue()[0];
 			}
 			batchAvg = batchAvg / avgBatchWeek.size();
-			if (!avgTraineeWeek[0].isNaN()) {
+			if (batchAvg != 0) {
 				results.put(a.name(), new Double[] { avgTraineeWeek[0], batchAvg, avgTraineeWeek[1] });
 			}
 		}
@@ -124,25 +124,22 @@ public class ReportingService {
 	public Map<String, Double[]> getBarChartBatchOverallTrainee(Integer batchId, Integer traineeId) {
 		Map<String, Double[]> results = new HashMap<>();
 		for (AssessmentType a : AssessmentType.values()) {
+			int[] counts = { 0, 0 };
 			Map<Integer, Double[]> avgTraineeWeek = getAvgTraineeOverall(traineeId, a);
-			log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!avgTraineeWeek: " + avgTraineeWeek);
-			Map<Integer, Double> avgBatchWeek = getAvgBatchOverall(batchId);
-			log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!avgBatchWeek: " + avgBatchWeek);
+			Map<Integer, Double[]> avgBatchWeek = getAvgBatchOverall(batchId, a);
 			Double batchAvg = 0d;
-			avgTraineeWeek.forEach((k, v) -> log.info("!!!!!!!!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
-			/*
-			 * for (Map.Entry<Integer, Double[]> e : avgBatchWeek.entrySet()) {
-			 * log.info(e.getValue()[0]); batchAvg += e.getValue()[0]; }
-			 */
-			batchAvg = batchAvg / avgBatchWeek.size();
-			Double traineeAvg = 0d;
-			for (Map.Entry<Integer, Double[]> e : avgTraineeWeek.entrySet()) {
-				log.info(e.getValue()[0]);
-				traineeAvg += e.getValue()[0];
+			for (Map.Entry<Integer, Double[]> e : avgBatchWeek.entrySet()) {
+				counts[1] += e.getValue()[2];
+				batchAvg += e.getValue()[0] * e.getValue()[2];
 			}
-			traineeAvg = traineeAvg / avgTraineeWeek.size();
-
-			if (!avgTraineeWeek.values().iterator().next()[0].isNaN()) {
+			if (counts[1] > 0) {
+				batchAvg = batchAvg / counts[1];
+				Double traineeAvg = 0d;
+				for (Map.Entry<Integer, Double[]> e : avgTraineeWeek.entrySet()) {
+					counts[0] += e.getValue()[2];
+					traineeAvg += e.getValue()[0];
+				}
+				traineeAvg = traineeAvg / counts[0];
 				results.put(a.name(), new Double[] { traineeAvg, batchAvg });
 			}
 		}
@@ -157,9 +154,9 @@ public class ReportingService {
 	 * @param traineeId
 	 * @return Map<'week', 'avgScore'>
 	 */
+
 	public Map<Integer, Double> lineChartAvg(int week, int traineeId) {
 		Map<Integer, Double> results = new HashMap<>();
-
 		for (int w = 1; w <= week; w++) {
 			Double temp = getAvgTraineeWeek(traineeId, w);
 			results.put(w, temp);
@@ -183,9 +180,7 @@ public class ReportingService {
 
 			for (Map.Entry<Trainee, Double[]> e : temp.entrySet()) {
 				batchAvg += e.getValue()[0];
-
 			}
-
 			batchAvg = batchAvg / temp.size();
 			if (!temp.entrySet().iterator().next().getValue()[0].isNaN()) {
 				data.put(a.name(), new Double[] { batchAvg, batchRaw });
@@ -214,14 +209,18 @@ public class ReportingService {
 		List<Grade> gradesForAssessment = gradesForTheWeek.stream()
 				.filter(e -> e.getAssessment().getType().name().equalsIgnoreCase(assessmentType.name()))
 				.collect(Collectors.toList());
-		Double[] result = { 0d, 0d };
+		Double[] result = { 0d, 0d, 0d };
+		if (gradesForAssessment.size() == 0) {
+			return result;
+		} else {
+			result[2] = (double) gradesForAssessment.size();
+		}
 		for (Grade grade : gradesForAssessment) {
 			result[0] += (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
 			result[1] += grade.getAssessment().getRawScore();
 		}
 		result[1] = result[1] / totalRawScore * 100;
 		result[0] = result[0] / result[1] * 100;
-		log.info("TRAINEEWEEKWITHASSESSMENT " + result[0] + "!!!!!!!!!!" + result[1]);
 		return result;
 	}
 
@@ -263,7 +262,6 @@ public class ReportingService {
 			Double[] avg = getAvgTraineeWeek(traineeId, i, assessmentType);
 			results.put(i, avg);
 		}
-		results.forEach((k, v) -> log.info("!!!!!!TRAINEEOVERALL!!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
 		return results;
 	}
 
@@ -282,17 +280,15 @@ public class ReportingService {
 		int weeks = batch.getWeeks();
 		for (Integer i = 1; i <= weeks; i++) {
 			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, i, assessmentType);
-			Double[] avg = { 0d, 0d };
+			Double[] avg = { 0d, 0d, 0d };
 			avg[1] = temp.values().iterator().next()[1];
+			avg[2] = temp.values().iterator().next()[2];
 			for (Map.Entry<Trainee, Double[]> t : temp.entrySet()) {
 				avg[0] += t.getValue()[0];
-				log.info(t.getValue()[0] + "!!!!!!" + avg[0]);
-
 			}
 			avg[0] = avg[0] / temp.size();
 			results.put(i, avg);
 		}
-		results.forEach((k, v) -> log.info("!!!!!!!BATCHOVERALL!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
 		return results;
 	}
 
@@ -363,8 +359,6 @@ public class ReportingService {
 			avg = avg / temp.size();
 			results.put(i, avg);
 		}
-		results.forEach(
-				(k, v) -> log.info("!!!!!!!BATCHOVERALLnonAssessment!!!!!!" + k + "!!!!!!!!!!!" + v + "!!!!!!!!!!"));
 		return results;
 	}
 
