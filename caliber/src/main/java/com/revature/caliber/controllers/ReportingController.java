@@ -141,6 +141,7 @@ public class ReportingController {
 	}
 
 	/**
+	 * Yanilda
 	 * 
 	 * @param batchId
 	 * @param week
@@ -153,6 +154,13 @@ public class ReportingController {
 		return new ResponseEntity<Map<Integer, Double>>(reportingService.lineChartAvg(week, traineeId), HttpStatus.OK);
 	}
 
+	/**
+	 * Yanilda
+	 * 
+	 * @param batchId
+	 * @param week
+	 * @return
+	 */
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/barAssesment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Double[]>> barChartPerAssessments(@PathVariable int batchId,
 			@PathVariable int week) {
@@ -221,17 +229,22 @@ public class ReportingController {
 				HttpStatus.OK);
 	}
 
+	/**
+	 * @author Hossain
+	 */
 	@RequestMapping(value = "/all/reports/batch/{batchId}/trainee/{traineeId}/line", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<Integer, Double[]>> getLineChartTraineeoverAll(@PathVariable Integer batchId,
 			@PathVariable Integer traineeId) {
 		return new ResponseEntity<Map<Integer, Double[]>>(
 				reportingService.getLineChartTraineeOverall(batchId, traineeId), HttpStatus.OK);
-
 	}
+
+	/**
+	 * @author Hossain
+	 */
 	@RequestMapping(value = "/all/reports/batch/overall/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<Trainee, Double>> getBarChartOverAll(@PathVariable Integer batchId) {
-		return new ResponseEntity<Map<Trainee, Double>>(reportingService.getBarChartOverAll(batchId),
-				HttpStatus.OK);
+		return new ResponseEntity<Map<Trainee, Double>>(reportingService.getBarChartOverAll(batchId), HttpStatus.OK);
 	}
 
 }
