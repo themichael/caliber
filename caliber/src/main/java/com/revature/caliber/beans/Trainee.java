@@ -169,6 +169,64 @@ public class Trainee implements Serializable{
 	public Trainee() {
 		super();
 	}
+	
+	
+	/*@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
+		result = prime * result + ((profileUrl == null) ? 0 : profileUrl.hashCode());
+		result = prime * result + ((skypeId == null) ? 0 : skypeId.hashCode());
+		result = prime * result + ((trainingStatus == null) ? 0 : trainingStatus.hashCode());
+		return result;
+	}*/
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Trainee other = (Trainee) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (grades == null) {
+			if (other.grades != null)
+				return false;
+		} else if (!grades.equals(other.grades))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (phoneNumber == null) {
+			if (other.phoneNumber != null)
+				return false;
+		} else if (!phoneNumber.equals(other.phoneNumber))
+			return false;
+		if (profileUrl == null) {
+			if (other.profileUrl != null)
+				return false;
+		} else if (!profileUrl.equals(other.profileUrl))
+			return false;
+		if (skypeId == null) {
+			if (other.skypeId != null)
+				return false;
+		} else if (!skypeId.equals(other.skypeId))
+			return false;
+		if (trainingStatus != other.trainingStatus)
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
