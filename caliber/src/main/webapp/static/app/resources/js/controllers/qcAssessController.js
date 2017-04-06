@@ -7,7 +7,7 @@ angular
 					$log.debug("Booted Trainer Assess Controller");
 
 					$scope.batches = allBatches;
-					$scope.bnote = [];
+					$scope.bnote = null;
 					$scope.tnote = [];
 					$scope.weeks = [];
 
@@ -60,20 +60,23 @@ angular
 					}
 					// Set current week to first week
 					$scope.currentWeek = $scope.weeks[0];
-					// Get qc notes for selected batch
-					caliberDelegate.qc
-							.batchNote($scope.currentBatch.batchId, $scope.currentWeek)
-							.then(
-									function(notes) {
-										$scope.bnote = notes;
-									});
-					// Get qc notes for trainees in selected batch
-					caliberDelegate.qc
-							.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
-							.then(
-									function(notes) {
-										$scope.tnote = notes;
-									});
+					// Check if there are no weeks
+					if($scope.currentWeek === "undefined") {
+						// Get qc notes for selected batch
+						caliberDelegate.qc
+								.batchNote($scope.currentBatch.batchId, $scope.currentWeek)
+								.then(
+										function(notes) {
+											$scope.bnote = notes;
+										});
+						// Get qc notes for trainees in selected batch
+						caliberDelegate.qc
+								.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
+								.then(
+										function(notes) {
+											$scope.tnote = notes;
+										});
+					}
 					// default -- view assessments table
 					$scope.currentView = true;
 
@@ -93,39 +96,53 @@ angular
 						}
 						// Set current week to first week
 						$scope.currentWeek = $scope.weeks[0];
-						// Get qc notes for selected batch
-						caliberDelegate.qc
-								.batchNote($scope.currentBatch.batchId, $scope.currentWeek)
-								.then(
-										function(notes) {
-											$scope.bnote = notes;
-										});
-						// Get qc notes for trainees in selected batch
-						caliberDelegate.qc
-								.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
-								.then(
-										function(notes) {
-											$scope.tnote = notes;
-										});
+						// Check if there are no weeks
+						if($scope.currentWeek === "undefined") {
+							// Get qc notes for selected batch
+							caliberDelegate.qc
+									.batchNote($scope.currentBatch.batchId, $scope.currentWeek)
+									.then(
+											function(notes) {
+												$scope.bnote = notes;
+											});
+							// Get qc notes for trainees in selected batch
+							caliberDelegate.qc
+									.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
+									.then(
+											function(notes) {
+												$scope.tnote = notes;
+											});
+						} else {
+							$log.debug("No weeks");
+							$scope.bnote = null;
+							$scope.tnote = [];
+						}
 						wipeFaces();
 					};
 
 					// Select week
 					$scope.selectWeek = function(index) {
 						$scope.currentWeek = $scope.weeks[index];
-						caliberDelegate.qc
-						.batchNote($scope.currentBatch.batchId, $scope.currentWeek)
-						.then(
-								function(notes) {
-									$scope.bnote = notes;
-								});
-				// Get qc notes for trainees in selected batch
-				caliberDelegate.qc
-						.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
-						.then(
-								function(notes) {
-									$scope.tnote = notes;
-								});
+						// Check if there are no weeks
+						if($scope.currentWeek === "undefined") {
+							// Get qc notes for selected batch
+							caliberDelegate.qc
+									.batchNote($scope.currentBatch.batchId, $scope.currentWeek)
+									.then(
+											function(notes) {
+												$scope.bnote = notes;
+											});
+							// Get qc notes for trainees in selected batch
+							caliberDelegate.qc
+									.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
+									.then(
+											function(notes) {
+												$scope.tnote = notes;
+											});
+						} else {
+							$scope.bnote = null;
+							$scope.tnote = [];
+						}
 						wipeFaces();
 					};
 
