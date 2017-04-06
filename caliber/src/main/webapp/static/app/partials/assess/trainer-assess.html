@@ -72,18 +72,18 @@
 				style="border-collapse: collapse;" ng-show="currentView">
 				<thead>
 					<tr>
-						<th>Trainee</th>
-						<th role="button" 
-							ng-repeat="assessment in currentBatch.displayWeek.assessments track by $index">
+						<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
+						<th class="col-sm-2 col-md-2 col-lg-2" role="button" 
+							ng-repeat="assessment in currentAssessments track by $index">
 							{{assessment.title}}</th>
-						<th>Notes</th>
+						<th class="col-sm-6 col-md-6 col-lg-6">Notes</th>
 					</tr>
 				</thead>
 				<tbody>
 
 					<tr role="button"
 						ng-repeat="trainee in currentBatch.trainees track by $index">
-						<td>{{ trainee.name }}</td>
+						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
 <!-- 						<td ng-init="test(tg,$index)" ng-repeat="tg in grades track by $index">
 							<input class="form-control" type="number" width="10px" min="0"
 							max="{{assessment.rawScore}}"
@@ -92,10 +92,10 @@
 							ng-blur="updateGrade(findGrade(trainee.traineeId, assessment.assessmentId).gradeId,
                                trainee.traineeId,assessment)">
 						</td> -->
-						<td ng-repeat="assessment in currentAssessments" >
+						<td class="col-sm-2 col-md-2 col-lg-2" ng-repeat="assessment in currentAssessments" >
 							<input type="text" ng-value="grades[trainee.traineeId][$index].score">
 						</td>
-						<td><textarea class="form-control" name="note" cols="20"
+						<td class="col-sm-6 col-md-6 col-lg-6"><textarea class="form-control" name="note" cols="20"
 								rows="2"></textarea></td>
 
 					</tr>
