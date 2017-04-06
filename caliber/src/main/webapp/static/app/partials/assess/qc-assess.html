@@ -104,9 +104,9 @@
 							</form>
 
 						</td>
-						<td><textarea id="noteTextArea" class="form-group"
+						<td><textarea ng-model="noteOnTrainee(trainee.name)" id="noteTextArea" class="form-group"
 								placeholder="Note on {{trainee.name}}" ng-blur="addedNotes()"
-								rows="3" cols="110">{{noteOnTrainee(trainee.name)}} </textarea>
+								rows="3" cols="110"></textarea>
 						</td>
 					</tr>
 				</tbody>
@@ -139,7 +139,7 @@
 			</div>
 			<div
 				class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-				<textarea ng-model="finalQCBatchNote" class="form-control"
+				<textarea ng-model="bnote.content" class="form-control"
 					id="qcBatchNotes"
 					placeholder="Enter your overall feedback on the batch" required>
 				</textarea>
