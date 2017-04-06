@@ -95,31 +95,37 @@ public class ReportingService {
 
 	/**
 	 * Yanilda
+	 * 
 	 * @param batchId
 	 * @param week
 	 * @param traineeId
 	 * @return Map<'week', 'avgScore'>
 	 */
-	public Map<Integer, Double> lineChartAvg(int week, int traineeId) {
-		Map<Integer, Double> results = new HashMap<>();
+	public Map<Integer, Double[]> lineChartAvg(int week, int traineeId) {
+		Map<Integer, Double[]> results = new HashMap<>();
+		Trainee trainee=traineeDAO.findOne(traineeId);
+		int weeks = (int)trainee.getBatch().getWeeks();
+		System.out.println(weeks);
 		List<Grade> allGrades = gradeDAO.findByTrainee(traineeId);
 		List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
 				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		for (Grade grade : gradesForTheWeek) {
-			results.put((int) grade.getAssessment().getWeek(),
-					grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
+			Double[] temp = { (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore), totalRawScore };
+			results.put((int) grade.getAssessment().getWeek(), temp);
 		}
 		return results;
 	}
+
 	/**
 	 * Yanilda
+	 * 
 	 * @param batchId
 	 * @param week
 	 * @return
 	 */
 	public Map<String, Double[]> barChartPerAssessments(int batchId, int week) {
-		Map<String, Double[]> data = new HashMap();
+		Map<String, Double[]> data = new HashMap<>();
 		for (AssessmentType a : AssessmentType.values()) {
 			Map<Trainee, Double[]> temp = getAvgBatchWeek(batchId, week, a);
 			Double batchAvg = 0d;
@@ -321,8 +327,9 @@ public class ReportingService {
 		}
 		return result;
 	}
+
 	/**
-	 * Method for Controller to fetch Week number Batch Avg  Score
+	 * Method for Controller to fetch Week number Batch Avg Score
 	 * 
 	 * @Author Pier Yos
 	 * @param batchId
@@ -372,7 +379,7 @@ public class ReportingService {
 			for (Integer i = 0; i < weeks; i++) {
 				avg += getAvgTraineeWeek(trainee.getTraineeId(), i);
 			}
-			avg = avg/weeks;
+			avg = avg / weeks;
 			results.put(trainee, avg);
 		}
 		return results;
