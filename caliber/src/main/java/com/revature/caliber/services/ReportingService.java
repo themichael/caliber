@@ -399,8 +399,8 @@ public class ReportingService {
 		Double[] result = { 0.d, 0.d };
 		int weeks = 0;
 		for (Map.Entry<Integer, Double> temp : batchAvgOverall.entrySet()) {
-			weeks += temp.getKey();
 			result[0] += temp.getValue();
+			weeks=temp.getKey();
 		}
 		for (Map.Entry<Integer, Double> temp1 : traineeAvgOverall.entrySet()) {
 			result[1] += temp1.getValue();
