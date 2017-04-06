@@ -197,12 +197,9 @@ angular
 					};
 
 					$scope.saveTraineeNotes = function() {
-						$log.debug(document.getElementById("noteTextArea").value);
-						$log.debug(caliberDelegate.qc.updateNote($scope.tnote));
-					};
-
-					$scope.reset = function() {
-						document.getElementById("noteTextArea").value = null;
+						$log.debug($scope.tnote);
+						//$log.debug(caliberDelegate.qc.updateNote($scope.tnote));
+						caliberDelegate.qc.updateNote($scope.tnote[0]);
 					};
 					
 					$scope.saveQCNotes = function() {
