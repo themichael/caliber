@@ -179,7 +179,7 @@ angular
 						$scope.benchmarkStartDate.model = "";
 						$scope.Save = "Save";
 					}
-					/** Save Batch * */
+					/** Create new Batch Object * */
 					function createBatchObject() {
 						var newBatch = {
 							batchId : $scope.batchId.model,
@@ -205,14 +205,15 @@ angular
 
 							if ($scope.trainers[i].name == trainer_name) {
 								newBatch.trainer = $scope.trainers[i];
-							} else if ($scope.trainers[i].name == cotrainer_name) {
+							}
+							if ($scope.trainers[i].name == cotrainer_name) {
 								newBatch.coTrainer = $scope.trainers[i];
 							}
 						}
 
 						return newBatch;
 					}
-
+					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
 						var newBatch = createBatchObject();
@@ -227,6 +228,7 @@ angular
 									.then(
 											function() {
 												// coTrainer may be undefined
+
 												if ($scope.coTrainer) {
 													$scope.batches
 															.push({
@@ -234,14 +236,15 @@ angular
 																trainingType : $scope.trainingType.model,
 																skillType : $scope.skillType.model,
 																location : $scope.location.model,
-																trainer : $scope.trainer.model,
-																coTrainer : $scope.coTrainer.model,
+																trainer : newBatch.trainer,
+																coTrainer : newBatch.coTrainer,
 																startDate : $scope.startDate.model,
 																endDate : $scope.endDate.model,
 																goodGradeThreshold : $scope.goodGradeThreshold.model,
 																borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
 																benchmarkStartDate : $scope.benchmarkStartDate.model
 															});
+													console.log($scope.batches)
 												} else {
 													$scope.batches
 															.push({
@@ -249,19 +252,22 @@ angular
 																trainingType : $scope.trainingType.model,
 																skillType : $scope.skillType.model,
 																location : $scope.location.model,
-																trainer : $scope.trainer.model,
+																trainer : newBatch.coTrainer,
 																startDate : $scope.startDate.model,
 																endDate : $scope.endDate.model,
 																goodGradeThreshold : $scope.goodGradeThreshold.model,
 																borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
 																benchmarkStartDate : $scope.benchmarkStartDate.model
 															});
+													console.log($scope.batches)
 												}
 
+												sortByDate($scope.selectedYear);
+												angular.element(
+														"#createBatchModal")
+														.modal("hide");
 											});
 						}
-						sortByDate($scope.selectedYear);
-						angular.element("#createBatchModal").modal("hide");
 
 					};
 
