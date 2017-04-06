@@ -45,7 +45,7 @@
 				<li role="button" class="{{showActiveWeek($index)}}"
 					ng-click="selectWeek($index)"
 					ng-repeat="week in weeks track by $index"><a>Week
-						{{week.weekNumber}}</a></li>
+						{{week}}</a></li>
 				<li role="button" ng-show="currentView" ng-click="createWeek()">
 					<a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 				</li>
@@ -104,9 +104,9 @@
 							</form>
 
 						</td>
-						<td><textarea id="noteTextArea" class="form-group"
-								placeholder="Note on {{trainee.name}}" ng-blur="addedNotes()"
-								rows="3" cols="110">{{noteOnTrainee(trainee.name)}} </textarea>
+						<td><textarea ng-model="noteOnTrainee(trainee.name).content" id="noteTextArea" class="form-group"
+								placeholder="Note on {{trainee.name}}" ng-blur="saveTraineeNotes(trainee.name)"
+								rows="3" cols="110"></textarea>
 						</td>
 					</tr>
 				</tbody>
@@ -139,10 +139,9 @@
 			</div>
 			<div
 				class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-				<textarea ng-model="finalQCBatchNote" class="form-control"
-					id="qcBatchNotes"
+				<textarea ng-model="bnote.content" class="form-control"
+					id="qcBatchNotes" ng-blur="saveQCNotes()"
 					placeholder="Enter your overall feedback on the batch" required>
-				ouhouhu
 				</textarea>
 			</div>
 		</form>
