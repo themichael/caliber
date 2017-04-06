@@ -1,6 +1,6 @@
 /** modules * */
 angular.module("app", [ "ui.router", "ngCookies", "auth", "chart.js", "vp",
-		"qc", "trainer", "api", "delegate", "charts", "reportApi", "reports"]);
+		"qc", "trainer", "api", "delegate", "charts", "reportApi"]);
 
 // add modules here
 angular.module("vp", []);
