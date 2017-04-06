@@ -132,15 +132,27 @@ angular
 					/** Fill update form with batch previous data* */
 					$scope.populateBatch = function(batch) {
 						console.log(batch);
-						$scope.nameUpdate = batch.trainingName;
-						$scope.locationUpdate = batch.location;
-						$scope.startDateUpdate = batch.startDate;
-						$scope.endDateUpdate = batch.endDate;
-						$scope.goodGradeUpdate = batch.goodGradeThreshold;
-						$scope.borderlineGradeUpdate = batch.borderlineGradeThreshold;
-						$scope.benchmarkUpdate = batch.benchmarkStartDate;
+						$scope.batchFormName = "Update Batch";
+						$scope.trainingName.model = batch.trainingName;
+						$scope.location.model = batch.location;
+						$scope.startDate.model = new Date(batch.startDate);
+						$scope.endDate.model = new Date(batch.endDate);
+						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
+						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
+						$scope.benchmarkStartDate.model = new Date(batch.benchmarkStartDate);
 					}
 
+					/** Resets batch form for creating new batch* */
+					$scope.resetBatchForm = function() {
+						$scope.batchFormName = "Create New Batch"
+						$scope.trainingName.model = "";
+						$scope.location.model = "";
+						$scope.startDate.model = "";
+						$scope.endDate.model = "";
+						$scope.goodGradeThreshold.model = "";
+						$scope.borderlineGradeThreshold.model = "";
+						$scope.benchmarkStartDate.model = "";
+					}
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
@@ -157,6 +169,7 @@ angular
 							borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
 							benchmarkStartDate : $scope.benchmarkStartDate.model
 						};
+						console.log(newBatch);
 						if ($scope.trainer) {
 							var trainer_name = $scope.trainer.model;
 						}
