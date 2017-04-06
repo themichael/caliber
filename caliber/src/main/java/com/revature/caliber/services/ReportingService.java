@@ -129,21 +129,21 @@ public class ReportingService {
 			Map<Integer, Double> avgBatchWeek = getAvgBatchOverall(batchId);
 			log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!avgBatchWeek: " + avgBatchWeek);
 			Double batchAvg = 0d;
-			avgTraineeWeek.forEach( (k,v) -> log.info("!!!!!!!!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
-			/*for (Map.Entry<Integer, Double[]> e : avgBatchWeek.entrySet()) {
-				log.info(e.getValue()[0]);
-				batchAvg += e.getValue()[0];
-			}*/
+			avgTraineeWeek.forEach((k, v) -> log.info("!!!!!!!!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
+			/*
+			 * for (Map.Entry<Integer, Double[]> e : avgBatchWeek.entrySet()) {
+			 * log.info(e.getValue()[0]); batchAvg += e.getValue()[0]; }
+			 */
 			batchAvg = batchAvg / avgBatchWeek.size();
 			Double traineeAvg = 0d;
 			for (Map.Entry<Integer, Double[]> e : avgTraineeWeek.entrySet()) {
 				log.info(e.getValue()[0]);
 				traineeAvg += e.getValue()[0];
 			}
-			traineeAvg = traineeAvg/avgTraineeWeek.size();
-			
+			traineeAvg = traineeAvg / avgTraineeWeek.size();
+
 			if (!avgTraineeWeek.values().iterator().next()[0].isNaN()) {
-			results.put(a.name(), new Double[] {traineeAvg, batchAvg});
+				results.put(a.name(), new Double[] { traineeAvg, batchAvg });
 			}
 		}
 		return results;
@@ -159,12 +159,10 @@ public class ReportingService {
 	 */
 	public Map<Integer, Double> lineChartAvg(int week, int traineeId) {
 		Map<Integer, Double> results = new HashMap<>();
-		Trainee trainee=traineeDAO.findOne(traineeId);
-		int weeks = trainee.getBatch().getWeeks();
 
-		for(int w=1 ;w<=week; w++){
+		for (int w = 1; w <= week; w++) {
 			Double temp = getAvgTraineeWeek(traineeId, w);
-			results.put(w, temp );
+			results.put(w, temp);
 		}
 		return results;
 	}
@@ -223,7 +221,7 @@ public class ReportingService {
 		}
 		result[1] = result[1] / totalRawScore * 100;
 		result[0] = result[0] / result[1] * 100;
-		log.info( "TRAINEEWEEKWITHASSESSMENT "+ result[0] + "!!!!!!!!!!" + result[1]);
+		log.info("TRAINEEWEEKWITHASSESSMENT " + result[0] + "!!!!!!!!!!" + result[1]);
 		return result;
 	}
 
@@ -265,7 +263,7 @@ public class ReportingService {
 			Double[] avg = getAvgTraineeWeek(traineeId, i, assessmentType);
 			results.put(i, avg);
 		}
-		results.forEach( (k,v) -> log.info("!!!!!!TRAINEEOVERALL!!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
+		results.forEach((k, v) -> log.info("!!!!!!TRAINEEOVERALL!!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
 		return results;
 	}
 
@@ -289,12 +287,12 @@ public class ReportingService {
 			for (Map.Entry<Trainee, Double[]> t : temp.entrySet()) {
 				avg[0] += t.getValue()[0];
 				log.info(t.getValue()[0] + "!!!!!!" + avg[0]);
-				
+
 			}
 			avg[0] = avg[0] / temp.size();
 			results.put(i, avg);
 		}
-		results.forEach( (k,v) -> log.info("!!!!!!!BATCHOVERALL!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
+		results.forEach((k, v) -> log.info("!!!!!!!BATCHOVERALL!!!!!!" + v[0] + "!!!!!!!!!!!" + v[1] + "!!!!!!!!!!"));
 		return results;
 	}
 
@@ -365,19 +363,18 @@ public class ReportingService {
 			avg = avg / temp.size();
 			results.put(i, avg);
 		}
-		results.forEach( (k,v) -> log.info("!!!!!!!BATCHOVERALLnonAssessment!!!!!!" + k + "!!!!!!!!!!!" + v + "!!!!!!!!!!"));
+		results.forEach(
+				(k, v) -> log.info("!!!!!!!BATCHOVERALLnonAssessment!!!!!!" + k + "!!!!!!!!!!!" + v + "!!!!!!!!!!"));
 		return results;
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Average Grades of All Assessments Over the week
+	 * <<<<<<< HEAD Average Grades of All Assessments Over the week
 	 * 
-=======
-	 * Method for Controller to fetch Weekly Batch Avg SCore
+	 * ======= Method for Controller to fetch Weekly Batch Avg SCore
 	 * 
-	 * @Author Pier Yos
->>>>>>> branch 'uncharted-sandbox-1' of https://github.com/pjw6193/caliber.git
+	 * @Author Pier Yos >>>>>>> branch 'uncharted-sandbox-1' of
+	 *         https://github.com/pjw6193/caliber.git
 	 * @param batchId
 	 * @param week
 	 * @return Map<Trainee's name, Double Avg Score>
@@ -463,7 +460,7 @@ public class ReportingService {
 		int totalWeeks = traineeAvgOverall.size();
 		for (int i = 1; i <= totalWeeks; i++) {
 			Double[] temp = { traineeAvgOverall.get(i), batchAvgOverall.get(i) };
-			if(temp[1] == 0){
+			if (temp[1] == 0) {
 				continue;
 			}
 			results.put(i, temp);

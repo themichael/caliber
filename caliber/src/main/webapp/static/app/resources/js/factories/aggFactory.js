@@ -117,7 +117,7 @@ angular.module("api").factory("aggFactory", function($http, $log) {
 			url : "/all/reports/batch/week/"+week+"/trainee/"+traineeId,
 			method : "GET"
 		}).then(function(response) {
-			$log.debug("Agg - Batch - Trainer -- success");
+			$log.debug("Agg - Batch - week-- trainee -- success");
 			$log.debug(response);
 			return response.data;
 		}, function(response) {
