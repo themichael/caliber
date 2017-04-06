@@ -3,7 +3,7 @@ package com.revature.caliber.services;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -327,12 +327,9 @@ public class ReportingService {
 	 * @return Map<'skill, Double{average, number of assessments for that
 	 *         skill}>
 	 */
-	public Map<Category, Double[]> getAvgSkillsTraineeWeek(Integer traineeId, Integer weekNumber) {
+	public Map<Category, Double[]> getAvgSkills(List<Grade> grades) {
 		Map<Category, Double[]> results = new HashMap<>();
-		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
-		List<Grade> weekgrades = grades.stream().filter(g -> g.getAssessment().getWeek() == weekNumber)
-				.collect(Collectors.toList());
-		for (Grade g : weekgrades) {
+		for (Grade g : grades) {
 			Category skill = g.getAssessment().getCategory();
 			if (results.get(skill) == null) {
 				Double temp[] = { g.getScore(), 1.0 };
@@ -390,5 +387,39 @@ public class ReportingService {
 		}
 		results.put(weeks, result);
 		return results;
+	}
+
+	public Map<String, Double> replaceCategoryWithSkillName(Map<Category, Double[]> skills) {
+		Map<String, Double> skillsWithLabels = new HashMap<>();
+		for (Entry<Category, Double[]> entry : skills.entrySet()) {
+			skillsWithLabels.put(entry.getKey().getSkillCategory(), entry.getValue()[0]);
+		}
+		return skillsWithLabels;
+	}
+
+	public Map<String, Double> getRadarChartForTraineeWeek(Integer traineeId, Integer weekNumber) {
+		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
+		List<Grade> weekgrades = grades.stream().filter(g -> g.getAssessment().getWeek() == weekNumber)
+				.collect(Collectors.toList());
+		Map<Category, Double[]> skills = getAvgSkills(weekgrades);
+		return replaceCategoryWithSkillName(skills);
+	}
+
+	public Map<String, Double> getRadarChartForTraineeOverall(Integer traineeId) {
+		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
+		Map<Category, Double[]> skills = getAvgSkills(grades);
+		return replaceCategoryWithSkillName(skills);
+	}
+
+	public Map<String, Double> getRadarChartForBatchWeek(Integer batchId, Integer week) {
+		List<Grade> grades = gradeDAO.findByWeek(batchId, week);
+		Map<Category, Double[]> skills = getAvgSkills(grades);
+		return replaceCategoryWithSkillName(skills);
+	}
+
+	public Map<String, Double> getRadarChartForBatchOverall(Integer batchId) {
+		List<Grade> grades = gradeDAO.findByBatch(batchId);
+		Map<Category, Double[]> skills = getAvgSkills(grades);
+		return replaceCategoryWithSkillName(skills);
 	}
 }

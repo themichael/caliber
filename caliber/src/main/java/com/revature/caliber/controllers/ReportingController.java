@@ -185,11 +185,32 @@ public class ReportingController {
 	}
 
 	// assessmentType is case sensitive so call with uppercase first letter
-	@RequestMapping(value = "/reports/{week}/{batchId}/{assessmentType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/assessment/{assessmentType}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<Trainee, Double[]>> getAvgBatchWeek(@PathVariable Integer batchId,
 			@PathVariable Integer week, @PathVariable AssessmentType assessmentType) {
 		return new ResponseEntity<Map<Trainee, Double[]>>(
 				reportingService.getAvgBatchWeek(batchId, week, assessmentType), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/all/reports/week/{week}/trainee/{traineeId}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Double>> getRadarChartForTraineeWeek(@PathVariable Integer traineeId,
+			@PathVariable Integer week) {
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForTraineeWeek(traineeId, week), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/all/reports/trainee/{traineeId}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Double>> getRadarChartForTraineeOverall(@PathVariable Integer traineeId) {
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForTraineeOverall(traineeId), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Double>> getRadarChartForBatchWeek(@PathVariable Integer batchId, @PathVariable Integer week) {
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForBatchWeek(batchId, week), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/all/reports/batch/{batchId}/radar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Double>> getRadarChartForBatchOverall(@PathVariable Integer batchId) {
+		return new ResponseEntity<Map<String, Double>>(reportingService.getRadarChartForBatchOverall(batchId), HttpStatus.OK);
 	}
 
 }
