@@ -274,14 +274,26 @@ public class EvaluationController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/qc/note/trainee/{traineeId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	//@RequestMapping(value = "/qc/note/trainee/{traineeId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('QC, VP')")
+	@Deprecated
 	public ResponseEntity<List<Note>> findQCIndividualNotes(@PathVariable Integer traineeId,
 			@PathVariable Integer week) {
 		log.info("Finding week " + week + " QC individual notes for trainee: " + traineeId);
 		return new ResponseEntity<List<Note>>(evaluationService.findQCIndividualNotes(traineeId, week), HttpStatus.OK);
 	}
 
+	/**
+	 * Find all qc trainee notes
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/qc/note/trainee/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Note>> getAllQCTraineeNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
+        log.info("Getting all trainee notes by QC");
+        return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(batchId, week), HttpStatus.OK);
+    }
+	
 	/*
 	 *******************************************************
 	 * TODO VP NOTE SERVICES
@@ -317,16 +329,5 @@ public class EvaluationController {
 		log.info("Finding all week " + week + " individual notes for trainee: " + traineeId);
 		return new ResponseEntity<List<Note>>(evaluationService.findAllIndividualNotes(traineeId, week), HttpStatus.OK);
 	}
-
-	/**
-	 * Find all qc trainee notes
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/qc/trainee/note/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Note>> getAllQCTraineeNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
-        log.info("Getting all trainee notes by QC");
-        return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(batchId, week), HttpStatus.OK);
-    }
 }
 
