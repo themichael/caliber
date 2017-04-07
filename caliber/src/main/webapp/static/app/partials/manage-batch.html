@@ -342,15 +342,17 @@
 										</a>
 									</div>
 								</div>
-							</div>
-				-->
-
+							</div> -->
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<input type="submit" value="Save" class="btn btn-primary">
-						<button type="button" ng-click="update()" class="btn btn-default">Update</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" ng-show= "!Updating">Close</button>
+						<input type="submit" value="Save" class="btn btn-primary" ng-show= "!Updating">
+						
+						
+						<button type="button" class="btn btn-default"  ng-click="clear" ng-show= "Updating">Clear</button>
+						<button type="button" id="updateTraineeButton" class="btn btn-primary" ng-click="updateTrainee(editTrainee)"class="btn btn-default" ng-show="Updating">Update</button>
+						
 					</div>
 				</div>
 			</div>

@@ -32,7 +32,7 @@ angular
 
 						var data = [];
 						// List all years from 2014 --> current year
-						for (var y = currentYear; y >= 2014; y--) {
+						for (var y = currentYear+1; y >= currentYear-2; y--) {
 							data.push(y)
 						}
 						return data;
@@ -131,13 +131,15 @@ angular
 					$scope.getTrainee = function(trainee) {
 						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
 						// FINISHED
+						
 						$scope.editTrainee = trainee;
-						$log.log(editTrainee);
-						editTrainee.batch = $scope.currentBatch;
+						$scope.Updating=true;
 
 					}
-
-					$scope.update = function(editedTrainee) {
+					
+					$scope.Updating=false;
+					$scope.updateTrainee = function(editedTrainee)
+					{
 
 						$log.log(editedTrainee);
 						for (var i = 0; i < $scope.receivers.length; i++) {
@@ -179,17 +181,16 @@ angular
 						}
 						$log.log(updTrainee);
 						editedTrainee = updTrainee;
-						$log.log(editedTrainee);
-						caliberDelegate.all.updateTrainee(editedTrainee);
-
-						/*
-						 * $scope.editTrainee.name = "";
-						 * $scope.editTrainee.email = "";
-						 * $scope.editTrainee.phoneNumber = "";
-						 * $scope.editTrainee.skypeId = "";
-						 * $scope.editTrainee.profileUrl = "";
-						 */
-
+						$log.debug(editedTrainee);
+						caliberDelegate.all.updateTrainee(editedTrainee).then(
+								$scope.clear = function(editedTrainee) {
+									$scope.editTrainee.name = "";
+									$scope.editTrainee.email = "";
+									$scope.editTrainee.phoneNumber = "";
+									$scope.editTrainee.skypeId = "";
+									$scope.editTrainee.profileUrl = "";
+									$scope.Updating= false;
+								});
 					};
 
 					/** Fill update form with batch previous data* */

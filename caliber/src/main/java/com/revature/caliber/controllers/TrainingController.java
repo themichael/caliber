@@ -212,13 +212,17 @@ public class TrainingController {
 	/**
 	 * Create trainees
 	 *
-	 *Uneeded. just do multiple calls to createTrainee
+	 * <<<<<<< HEAD Uneeded. just do multiple calls to createTrainee =======
+	 * Uneeded. just do multiple calls to createTrainee
+	 * 
+	 * >>>>>>> 5aedf4196dfe4b91cac204fa623c7755fec4a5df
+	 * 
 	 * @param trainees
 	 *            the trainee
 	 * @return the response entity
 	 * 
 	 */
-	@Deprecated 
+	@Deprecated
 	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> createTrainees(@RequestBody Trainee[] trainees) {
@@ -278,7 +282,11 @@ public class TrainingController {
 	 * TODO :: read me:: Access user details through SecurityContext by
 	 * injecting Authentication into Controller method. Use @PreAuthorize with
 	 * Spring Expression Language (SpEL) to send 403 forbidden if not authorized
+	 * <<<<<<< HEAD
 	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html
+	 * =======
+	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el
+	 * -access.html >>>>>>> 5aedf4196dfe4b91cac204fa623c7755fec4a5df
 	 * 
 	 * @param auth
 	 * @return
