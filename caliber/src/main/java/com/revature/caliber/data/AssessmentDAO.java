@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,18 @@ public class AssessmentDAO {
 				.add(Restrictions.and(
 						Restrictions.eq("batch.batchId", batchId),
 						Restrictions.eq("week", week.shortValue())))
+				.setFetchMode("grades", FetchMode.JOIN)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Assessment> findByBatchId(Integer batchId) {
+		log.info("Find assessment by batchId" + batchId + " ");
+		return sessionFactory.getCurrentSession().createCriteria(Assessment.class)
+				.add(Restrictions.and(
+						Restrictions.eq("batch.batchId", batchId)))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
