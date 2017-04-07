@@ -327,6 +327,9 @@ angular
 						}
 						
 					}
+					$scope.setTraineeModel = function(traineeId){
+						return $scope.trainee[traineeId];
+					}
 					$scope.findGrade = function(traineeId, assessmentId) {
 							if($scope && $scope.grades && ($scope.grades[traineeId] === undefined)){ 
 								return;
