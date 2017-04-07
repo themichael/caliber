@@ -11,7 +11,8 @@ angular.module("api").factory(
 			 */
 			agg.techTrainee = function(traineeId) {
 				return $http({
-					url : "/all/tech/trainee/" + traineeId,
+					//url : "/all/tech/trainee/" + traineeId,
+					url: "/all/reports/trainee/" + traineeId + "/radar-trainee-overall",
 					method : "GET"
 				}).then(function(response) {
 					$log.debug("Agg - Tech - trainee -- success");
@@ -47,7 +48,8 @@ angular.module("api").factory(
 			 */
 			agg.techBatch = function(batchId) {
 				return $http({
-					url : "/all/agg/tech/batch/" + batchId,
+					//url : "/all/agg/tech/batch/" + batchId,
+					url: "/all/reports/batch/" + batchId + "/overall/radar-batch-overall",
 					method : "GET"
 				}).then(function(response) {
 					$log.debug("Agg - Tech - Batch -- success");
