@@ -314,14 +314,10 @@ angular
 					}; // updateGrade
 
 					$scope.findGrade = function(traineeId, assessmentId) {
-						for ( var i in $scope.grades) {
-							if ($scope.grades[i].trainee == traineeId
-									&& $scope.grades[i].assessment.assessmentId == assessmentId) {
-								$log.debug("FOUND GRADE "
-										+ $scope.grades[i].gradeId);
-								return $scope.grades[i];
+						for(var grade of $scope.grades[traineeId]){
+							if(grade.assessment.assessmentId == assessmentId){
+								return grade.score;
 							}
-
 						}
 					};
 
