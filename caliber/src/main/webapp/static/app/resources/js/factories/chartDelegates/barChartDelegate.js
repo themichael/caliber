@@ -1,83 +1,91 @@
 /**
  * 
  * @param $log
- * @param hbarChartFactory
- * @param radarChartFactory
- * @param lineChartFactory
  * @returns {{}}
  */
-angular
-		.module("delegate")
-		.factory(
-				"barChartDelegate",
-				function($log, hbarChartFactory, radarChartFactory,
-						lineChartFactory) {
-					$log.debug("Booted charts delegate");
+angular.module("charts").factory("barChartDelegate", function($log) {
+	$log.debug("Booted Horizontal Bar Chart Factory");
 
-					var delegate = {};
-					delegate.bar = {};
-					delegate.pie = {};
-					delegate.radar = {};
-					delegate.line = {};
+	var barChart = {};
 
-					/**
-					 * ********************* Horizontal Bar
-					 * *********************
-					 */
-					delegate.hbar.getBatchAvgChart = function(dataArray) {
-						return hbarChartFactory.getBatchAvgChart(dataArray);
-					};
+	barChart.getBatchAvgChart = function(dataArray) {
+		var chartData = {};
 
-					delegate.hbar.getTrainerEvalChart = function(dataArray) {
-						return hbarChartFactory.getTrainerEvalChart(dataArray);
-					};
+		// data and labels
+		chartData.data = [];
+		chartData.labels = [];
 
-					delegate.hbar.getAllBatchesEvalChart = function(dataArray) {
-						return hbarChartFactory
-								.getAllBatchesEvalChart(dataArray);
-					};
+		// traverse through array of objects and grab labels and data
+		dataArray.forEach(function(element) {
+			chartData.labels.push(element.trainee);
+			chartData.data.push(element.average);
+		});
 
-					delegate.hbar.getBatchTechEvalChart = function(dataArray) {
-						return hbarChartFactory
-								.getBatchTechEvalChart(dataArray);
-					};
+		chartData.datasetOverride = [ {
+			xAxisID : 'x-axis-1'
+		} ];
 
-					/**
-					 * ************************** Radar
-					 * *************************
-					 */
-					delegate.radar.getBatchRankComparisonChart = function(
-							dataArray) {
-						return radarChartFactory
-								.getBatchRankComparisonChart(dataArray);
-					};
+		return chartData;
+	};
 
-					delegate.radar.getTraineeTechProgressChart = function(
-							dataArray) {
-						return radarChartFactory
-								.getTraineeTechProgressChart(dataArray);
-					};
+	barChart.getTrainerEvalChart = function(dataArray) {
+		var chartData = {};
 
-					delegate.radar.getAllBatchRankComparisonChart = function(
-							dataArray1, dataArray2) {
-						return radarChartFactory
-								.getAllBatchRankComparisonChart(dataArray1,
-										dataArray2);
-					};
+		// series
+		chartData.series = [ "QC Eval" ];
 
-					/**
-					 * ************************** Line
-					 * **************************
-					 */
-					delegate.line.getTraineeProgressChart = function(dataArray) {
-						return lineChartFactory
-								.getTraineeProgressChart(dataArray);
-					};
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
 
-					delegate.line.getBatchProgressChart = function(dataArray) {
-						return lineChartFactory
-								.getBatchProgressChart(dataArray);
-					};
+		// loop through object array
+		dataArray.forEach(function(element) {
+			chartData.data.push(element.score);
+			chartData.labels.push(element.name);
+		});
 
-					return delegate;
-				});
+		return chartData;
+	};
+
+	barChart.getAllBatchesEvalChart = function(data, batches) {
+		var chartData = {};
+
+		// series
+		chartData.series = [ "All Batch Eval" ];
+
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+
+		// loop through object array
+		angular.forEach(data, function(value, key) {
+			$log.debug(value);
+			chartData.data.push(value[0]);
+			$log.debug(key);
+			chartData.labels.push(key);
+		});
+
+		return chartData;
+	};
+
+	barChart.getBatchTechEvalChart = function(dataArray) {
+		var chartData = {};
+
+		// series
+		chartData.series = [ "Tech Batch Eval" ];
+
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+
+		// loop through object array
+		dataArray.forEach(function(element) {
+			chartData.data.push(element.average);
+			chartData.labels.push(element.trainee);
+		});
+
+		return chartData;
+	};
+
+	return barChart;
+});
