@@ -58,10 +58,6 @@ angular
 							$log.debug("This is the current batch "
 									+ $scope.currentBatch);
 							if (allBatches[0].weeks > 0) {
-								// TODO check if it is sorting as objects-->
-								// allBatches[0].weeks.sort(weekComparator);
-
-
                                 $scope.category = {
 									model : null,
 									options : []
@@ -122,12 +118,7 @@ angular
 							$scope.currentBatch = null;
 							$scope.currentWeek = null;
 						}
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
-						$log
-								.debug("Starting Values: currentBatch and currentWeek");
+						$log.debug("Starting Values: currentBatch and currentWeek");
 						$log.debug($scope.currentBatch);
 						$log.debug($scope.currentWeek);
 					})(allBatches);
@@ -144,22 +135,15 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batches[index];
 						$log.debug("Selected batch " + index);
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
+
 						if ($scope.currentBatch.weeks > 0) {
-							// $scope.currentBatch.weeks.sort(weekComparator);
 							$scope.currentWeek = $scope.currentBatch.weeks;
 							getAllAssessmentsForWeek(
 									$scope.currentBatch.batchId,
 									$scope.currentWeek);
 						} else
 							$scope.currentWeek = null;
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
+
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
 					};
@@ -183,41 +167,22 @@ angular
 
 					// create week
 					$scope.createWeek = function() {
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
+
 						var weekNumber;
 						if (!$scope.currentBatch.weeks)
 							weekNumber = 1;
 						else
-							weekNumber = $scope.currentBatch.weeks.length + 1;
-						$log.debug(weekNumber);
-						var weekObj = {
-							weekId : 1,
-							weekNumber : weekNumber,
-							batch : $scope.currentBatch,
-							topics : null
-						};
-						/**
-						 * *************************NOW TAKES BATCHID--NO
-						 * OBJECT***********************
-						 */
-						caliberDelegate.trainer.createWeek(weekObj).then(
+							weekNumber = $scope.currentBatch.weeks + 1;
+							$scope.currentBatch.weeks += 1;
+						$log.debug($scope.currentBatch.weeks);
+
+						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
 								function(response) {
-									pushUnique($scope.currentBatch.weeks, {
-										weekId : response,
-										weekNumber : weekNumber,
-										batch : null,
-										topics : null
-									});
+
+									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
+									$scope.selectWeek($scope.currentBatch.weeks);
 									$log.debug($scope.currentBatch.weeks);
 								});
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
-
 					};
 
 					// select assessment from list
@@ -356,14 +321,7 @@ angular
 
 						}
 					};
-					/**
-					 * **********************************************TODO
-					 * REFACTOR**************************************
-					 */
-					function weekComparator(w1, w2) {
-						return (w1.weekNumber > w2.weekNumber) ? 1
-								: (w2.weekNumber > w1.weekNumber) ? -1 : 0;
-					}
+
 					/**
 					 * **********************************************TODO
 					 * REFACTOR**************************************
