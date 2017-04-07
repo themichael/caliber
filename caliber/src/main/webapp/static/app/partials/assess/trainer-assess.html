@@ -66,15 +66,15 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12 top5">
 			<!-- Accordian table -->
-			<table class="table table-condensed"
+			<table class="table table-responsive"
 				style="border-collapse: collapse;" ng-show="currentView">
 				<thead>
 					<tr>
 						<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
-						<th class="col-sm-2 col-md-2 col-lg-2" role="button" 
+						<th class="col-sm-1 col-md-1 col-lg-1" role="button" 
 							ng-repeat="assessment in currentAssessments track by $index">
 							{{assessment.title}}</th>
-						<th class="col-sm-6 col-md-6 col-lg-6">Notes</th>
+						<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -90,10 +90,10 @@
 							ng-blur="updateGrade(findGrade(trainee.traineeId, assessment.assessmentId).gradeId,
                                trainee.traineeId,assessment)">
 						</td> -->
-						<td class="col-sm-2 col-md-2 col-lg-2" ng-repeat="assessment in currentAssessments" >
-							<input type="text" ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
+						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments" >
+							<input class='form-control' type="text" ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
 						</td>
-						<td class="col-sm-6 col-md-6 col-lg-6"><textarea class="form-control" name="note" cols="20"
+						<td class="col-sm-9 col-md-9 col-lg-9"><textarea class="form-control" name="note" cols="20"
 								rows="2"></textarea></td>
 
 					</tr>
