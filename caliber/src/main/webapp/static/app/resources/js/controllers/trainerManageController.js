@@ -130,9 +130,11 @@ angular
 						// FINISHED
 						
 						$scope.editTrainee = trainee;
-						$scope.document.notUpdating="false";
+						$scope.Updating=true;
 
 					}
+					
+					$scope.Updating=false;
 					$scope.updateTrainee = function(editedTrainee)
 					{
 
@@ -180,7 +182,7 @@ angular
 									$scope.editTrainee.phoneNumber = "";
 									$scope.editTrainee.skypeId = "";
 									$scope.editTrainee.profileUrl = "";
-									$scope.document.notUpdating= "true";
+									$scope.Updating= false;
 								});
 					};
 
