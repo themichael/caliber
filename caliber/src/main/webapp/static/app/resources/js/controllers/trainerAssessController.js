@@ -12,8 +12,20 @@ angular
 						this.weekNumb = weekNumb;
 						this.assessments = assessments;
 					}
+					
+					// array of weeks to parse through and display tabs
+					
 					$log.debug("Booted Trainer Aesess Controller");
 
+					// load categories
+					$scope.skill_categories = function() {
+						caliberDelegate.all.getAllCategories().then(
+								function(categories) {
+									$scope.categories = categories;
+									$log.debug("all Categories");
+									$log.debug(categories);
+								});
+					};
 					/**
 					 * ***************************************** UI
 					 * ********************************************
@@ -38,22 +50,16 @@ angular
 									});
 					$log.debug("Batches " + allBatches);
 					$log.debug(allBatches);
+					
 					(function start(allBatches) {
 						$scope.batches = allBatches;
+						if (!allBatches) return;
 						if (allBatches.length > 0) {
-							$scope.currentBatch = allBatches[0];
+							$scope.currentBatch = allBatches[allBatches.length-1]; // shows the latest batches
 							$log.debug("This is the current batch "
 									+ $scope.currentBatch);
 							if (allBatches[0].weeks > 0) {
-								// TODO check if it is sorting as objects-->
-								// allBatches[0].weeks.sort(weekComparator);
-
-								/**
-								 * ****************************TEST
-								 * DATA**********************
-								 */
-
-								$scope.category = {
+                                $scope.category = {
 									model : null,
 									options : []
 								};
@@ -65,12 +71,7 @@ angular
 													$scope.category.options = categories;
 												});
 
-								/**
-								 * ***************************************** UI
-								 * ********************************************
-								 */
-								// ////////////////////////////////////////////////////////////////////////
-								// load note types
+
 								caliberDelegate.all.enumNoteType().then(
 										function(noteTypes) {
 											$log.debug(noteTypes);
@@ -90,7 +91,7 @@ angular
 								$log.debug("Batches " + allBatches);
 								$log.debug(allBatches);
 
-								var totalWeeks = allBatches[0].weeks; // the
+								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
 								// number
 								// of
 								// weeks
@@ -99,7 +100,7 @@ angular
 								// batch
 								$log
 										.debug("this is the total week for this batch "
-												+ allBatches[0].trainingName
+												+ allBatches[allBatches.length-1].trainingName
 												+ ": " + totalWeeks);
 
 								$scope.currentWeek = totalWeeks;
@@ -108,83 +109,17 @@ angular
 								 * getAllAssessmentsForWeek
 								 * ***************************************************************************************88888******************************************************************************************************************************************************************************************
 								 */
-								caliberDelegate.trainer
-										.getAllAssessmentsForWeek(
-												$scope.currentBatch.batchId,
-												$scope.currentWeek)
-										.then(
-												function(data) {
-													$log
-															.debug("Week "
-																	+ 1
-																	+ " Assessments for "
-																	+ $scope.currentBatch.batchId);
-													$log.debug(data);
-													$scope.currentAssessments = data;
-													$scope.getAllAssessmentsForWeek = function(
-															batchId, week) {
-														if (!week)
-															return;
-														caliberDelegate.trainer
-																.getAllAssessmentsForWeek(
-																		batchId,
-																		week)
-																.then(
-																		function(
-																				data) {
-																			$log
-																					.debug("Week "
-																							+ 1
-																							+ " Assessments for "
-																							+ $scope.currentBatch.batchId);
-																			$scope.currentAssessments = data;
-																		});
-													};
-												});
-								/**
-								 * *****************************************
-								 * getAllGradesForWeek
-								 * ***************************************************************************************88888******************************************************************************************************************************************************************************************
-								 */
-								$scope.getAllGradesForWeek = function(batchId, weekId) {
-									$scope.grades;
-									caliberDelegate.all.getGradesForWeek(batchId, weekId)
-											.then(function(data) {
-												$log.debug("These are the grades");
-												$log.debug(data);
-												// for ( var i in data) {
-												// $log.debug("Fetching ");
-												// $log.debug(data[i]);
-												// pushUnique($scope.grades,
-												// data[i]);
-												// }
-												$scope.grades = data;
-											});
-								}
-								
-								var week = new Week($scope.currentWeek,
-										$scope.currentAssessments);
-								$scope.currentBatch.displayWeek = week;
+								getAllAssessmentsForWeek(
+										$scope.currentBatch.batchId,
+										$scope.currentWeek);
 
-								$scope.getAllGradesForWeek($scope.currentBatch.batchId, week.weekNumb);
-
-								$log
-										.debug("[THIS IS THE CURRENT BATCH AND THE NUMBER WEEK]"
-												+ allBatches[0]
-												+ " : "
-												+ totalWeeks);
 							} else
 								$scope.currentWeek = null;
 						} else {
 							$scope.currentBatch = null;
 							$scope.currentWeek = null;
 						}
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
-						$log
-								.debug("Starting Values: currentBatch and currentWeek");
+						$log.debug("Starting Values: currentBatch and currentWeek");
 						$log.debug($scope.currentBatch);
 						$log.debug($scope.currentWeek);
 					})(allBatches);
@@ -201,37 +136,27 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batches[index];
 						$log.debug("Selected batch " + index);
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
+
 						if ($scope.currentBatch.weeks > 0) {
-							// $scope.currentBatch.weeks.sort(weekComparator);
 							$scope.currentWeek = $scope.currentBatch.weeks;
+							getAllAssessmentsForWeek(
+									$scope.currentBatch.batchId,
+									$scope.currentWeek);
 						} else
 							$scope.currentWeek = null;
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
-						$scope
-								.getAllAssessmentsForWeek(
-										$scope.currentBatch.batchId,
-										$scope.currentWeek);
+
+						getAllAssessmentsForWeek($scope.currentBatch.batchId,
+								$scope.currentWeek);
 					};
 
 					// select week
 					$scope.selectWeek = function(index) {
-
+					
 						$scope.currentWeek = $scope.currentBatch.arrayWeeks[index];
-						$log
-								.debug("[***********This is the week selected*************]:  "
-										+ $scope.currentWeek);
-
-						$scope
-								.getAllAssessmentsForWeek(
-										$scope.currentBatch.batchId,
-										$scope.currentWeek);
+						$log.debug("[***********This is the week selected*************]:  "+$scope.currentWeek);
+	
+						getAllAssessmentsForWeek($scope.currentBatch.batchId,
+								$scope.currentWeek);
 					};
 
 					// active week
@@ -243,41 +168,32 @@ angular
 
 					// create week
 					$scope.createWeek = function() {
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
-						var weekNumber;
-						if (!$scope.currentBatch.weeks)
-							weekNumber = 1;
-						else
-							weekNumber = $scope.currentBatch.weeks.length + 1;
-						$log.debug(weekNumber);
-						var weekObj = {
-							weekId : 1,
-							weekNumber : weekNumber,
-							batch : $scope.currentBatch,
-							topics : null
-						};
-						/**
-						 * *************************NOW TAKES BATCHID--NO
-						 * OBJECT***********************
-						 */
-						caliberDelegate.trainer.createWeek(weekObj).then(
+
+						if (!$scope.currentBatch.arrayWeeks){
+						//	$scope.currentWeek = 1;
+							//$scope.currentBatch.arrayWeeks = [];
+							//$scope.currentBatch.arrayWeeks.push(1);
+							//$scope.currentBatch.weeks = 1;
+							$log.debug("[------------ The batch has no weeks -----------]");
+						}
+						else{
+							//$scope.currentBatch.weeks += 1;
+							//$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
+							$log.debug("[------------ The batch has weeks -----------]");
+						}
+						
+						$log.debug($scope.currentBatch.weeks);
+
+						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
 								function(response) {
-									pushUnique($scope.currentBatch.weeks, {
-										weekId : response,
-										weekNumber : weekNumber,
-										batch : null,
-										topics : null
-									});
+									$scope.currentBatch.weeks += 1;
+									//$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
+									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
+									$scope.selectWeek($scope.currentBatch.weeks);
+									
+									//showActiveWeek($index+1);
 									$log.debug($scope.currentBatch.weeks);
 								});
-						/**
-						 * **********************************************TODO
-						 * REFACTOR**************************************
-						 */
-
 					};
 
 					// select assessment from list
@@ -288,17 +204,14 @@ angular
 					};
 
 					$scope.addAssessment = function() {
-						$scope
-								.getAllAssessmentsForWeek(
-										$scope.currentBatch.batchId,
-										$scope.currentWeek);
-						$scope.category.model.assessments = null;
+						getAllAssessmentsForWeek($scope.currentBatch.batchId,
+								$scope.currentWeek);
 						var assessment = {
-							batch : $scope.currentBatch,
-							type : $scope.assessmentType.model,
-							category : angular.fromJson($scope.category.model),
-							week : $scope.currentWeek,
-							rawScore : $scope.rawScore
+								batch : $scope.currentBatch,
+								type : $scope.assessmentType.model,
+								category : angular.fromJson($scope.category.model),
+								week : $scope.currentWeek,
+								rawScore : $scope.rawScore
 						};
 						$log.debug(assessment);
 						caliberDelegate.trainer
@@ -306,10 +219,9 @@ angular
 								.then(
 										function(response) {
 											$log.debug(response);
-											$scope
-													.getAllAssessmentsForWeek(
-															$scope.currentBatch.batchId,
-															$scope.currentWeek);
+											getAllAssessmentsForWeek(
+													$scope.currentBatch.batchId,
+													$scope.currentWeek);
 											if ($scope.currentAssessments > 0)
 												$scope.currentAssessments
 														.unshift(assessment);
@@ -329,10 +241,12 @@ angular
 						else
 							$scope.selectedCategories.push(category);
 					};
+
+
 					// get all assesments
 					// **********************************************************8888888888***********************************************************
-					$scope.getAllAssessmentsForWeek = function(batchId,
-							weekNumb) {
+					$scope.grades={};
+					function getAllAssessmentsForWeek(batchId, weekNumb) {
 						if (!weekNumb)
 							return;
 						caliberDelegate.trainer
@@ -341,21 +255,18 @@ angular
 										function(data) {
 											$log.debug(data);
 											$scope.currentAssessments = data;
-											$scope
-													.getAllGradesForWeek(
-															$scope.currentBatch.batchId,
-															$scope.currentWeek);
+											$scope.getAllGradesForWeek($scope.currentBatch.batchId,$scope.currentWeek);
 											var week = new Week(
 													$scope.currentWeek,
 													$scope.currentAssessments);
-
+											
 											$scope.currentBatch.displayWeek = week;
 											$scope.currentBatch.arrayWeeks = [];
-
-											for (i = 1; i <= $scope.currentBatch.weeks; i++) {
-												$scope.currentBatch.arrayWeeks
-														.push(i);
+											
+											for(i = 1; i <= $scope.currentBatch.weeks; i++){
+												$scope.currentBatch.arrayWeeks.push(i);
 											}
+											
 
 										});
 					};
@@ -368,8 +279,19 @@ angular
 					 * @param traineeId
 					 * @param assessment
 					 */
+					$scope.generateGradeModel = function(traineeId){
+						$scope.traineeGrade ={
+								traineeId:traineeId
+						}
+					}
 					$scope.updateGrade = function(gradeId, traineeId,
 							assessment) {
+						$log
+								.debug("Starting updateGrade for "
+										+ "traineeId: " + traineeId + ", "
+										+ "assessment: " + assessment + ", "
+										+ "and gradeId: " + gradeId);
+
 						// constructs Grade object from the data in table
 						var grade = {
 							gradeId : gradeId,
@@ -404,30 +326,55 @@ angular
 									$log.debug(response);
 								})
 					}; // updateGrade
-					$scope.findGrade = function(traineeId, assessmentId) {
-						for ( var i in $scope.grades) {
-							if ($scope.grades[i].trainee == traineeId
-									&& $scope.grades[i].assessment.assessmentId == assessmentId) {
-								$log.debug("FOUND GRADE "
-										+ $scope.grades[i].gradeId);
-								return $scope.grades[i];
-							}
-
+					$scope.trainee={};
+					$scope.assignScope = function(trainee){
+						var traineeId = trainee.traineeId;
+						if($scope.trainee[traineeId] === undefined){
+							$scope.trainee[traineeId] = true;
+							return $scope.trainee[traineeId];
 						}
-					};
-					/**
-					 * **********************************************TODO
-					 * REFACTOR**************************************
-					 */
-					function weekComparator(w1, w2) {
-						return (w1.weekNumber > w2.weekNumber) ? 1
-								: (w2.weekNumber > w1.weekNumber) ? -1 : 0;
+						
 					}
+					$scope.setTraineeModel = function(traineeId){
+						return $scope.trainee[traineeId];
+					}
+					$scope.findGrade = function(traineeId, assessmentId) {
+							if($scope && $scope.grades && ($scope.grades[traineeId] === undefined)){ 
+								return;
+							}
+							for(var grade of $scope.grades[traineeId]){
+								if(grade.assessment.assessmentId == assessmentId){
+//									$scope.traineeGrade[traineeId] ={
+//											assessmentId:grade.assessment.assessmentId,
+//											gradeId:grade.gradeId
+//									}
+									return grade.score;
+								}
+							}
+					};
+
 					/**
 					 * **********************************************TODO
 					 * REFACTOR**************************************
 					 */
 
+					 $scope.getAllGradesForWeek=function(batchId,weekId) {
+						
+						caliberDelegate.all
+								.getGradesForWeek(batchId,
+										weekId).then(
+										function(data) {
+											$log.debug("These are the grades");
+											$log.debug(data);
+											// for ( var i in data) {
+											// $log.debug("Fetching ");
+											// $log.debug(data[i]);
+											// pushUnique($scope.grades,
+											// data[i]);
+											// }
+											$scope.grades = data;
+										});
+					}
 					/**
 					 * **********************************************TODO
 					 * POSSIBLE REFACTOR FOR WEEK
@@ -445,6 +392,6 @@ angular
 					 */
 
 					$scope.test = function(d){
-						$log.debug(d);
+						console.log(d);
 					}
 				});
