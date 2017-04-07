@@ -85,7 +85,6 @@ angular
 												}
 												$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
 											}
-											$log.debug($scope.faces);
 										});
 					} else {
 						$scope.bnote = null;
@@ -148,7 +147,6 @@ angular
 													}
 													$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
 												}
-												$log.debug($scope.faces);
 											});
 						} else {
 							$log.debug("No weeks");
@@ -192,7 +190,6 @@ angular
 													}
 													$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
 												}
-												$log.debug($scope.faces);
 											});
 						} else {
 							$scope.bnote = null;
@@ -250,7 +247,7 @@ angular
 					$scope.saveTraineeNote = function(index) {
 						//$log.debug(index);
 						$log.debug($scope.faces[index]);
-						caliberDelegate.qc.updateNote($scope.faces[index]);
+						//caliberDelegate.qc.updateNote($scope.faces[index]);
 					};
 					
 					$scope.saveQCNotes = function() {
