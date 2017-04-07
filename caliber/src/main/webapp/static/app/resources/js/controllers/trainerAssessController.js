@@ -237,6 +237,7 @@ angular
 
 					// get all assesments
 					// **********************************************************8888888888***********************************************************
+					$scope.grades={};
 					function getAllAssessmentsForWeek(batchId, weekNumb) {
 						if (!weekNumb)
 							return;
@@ -270,6 +271,11 @@ angular
 					 * @param traineeId
 					 * @param assessment
 					 */
+					$scope.generateGradeModel = function(traineeId){
+						$scope.traineeGrade ={
+								traineeId:traineeId
+						}
+					}
 					$scope.updateGrade = function(gradeId, traineeId,
 							assessment) {
 						$log
@@ -312,13 +318,28 @@ angular
 									$log.debug(response);
 								})
 					}; // updateGrade
-
-					$scope.findGrade = function(traineeId, assessmentId) {
-						for(var grade of $scope.grades[traineeId]){
-							if(grade.assessment.assessmentId == assessmentId){
-								return grade.score;
-							}
+					$scope.trainee={};
+					$scope.assignScope = function(trainee){
+						var traineeId = trainee.traineeId;
+						if($scope.trainee[traineeId] === undefined){
+							$scope.trainee[traineeId] = true;
+							return $scope.trainee[traineeId];
 						}
+						
+					}
+					$scope.findGrade = function(traineeId, assessmentId) {
+							if($scope && $scope.grades && ($scope.grades[traineeId] === undefined)){ 
+								return;
+							}
+							for(var grade of $scope.grades[traineeId]){
+								if(grade.assessment.assessmentId == assessmentId){
+//									$scope.traineeGrade[traineeId] ={
+//											assessmentId:grade.assessment.assessmentId,
+//											gradeId:grade.gradeId
+//									}
+									return grade.score;
+								}
+							}
 					};
 
 					/**
@@ -327,7 +348,7 @@ angular
 					 */
 
 					 $scope.getAllGradesForWeek=function(batchId,weekId) {
-						$scope.grades;
+						
 						caliberDelegate.all
 								.getGradesForWeek(batchId,
 										weekId).then(
