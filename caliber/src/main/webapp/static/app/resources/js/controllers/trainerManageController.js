@@ -132,14 +132,14 @@ angular
 						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
 						// FINISHED
 						$scope.editTrainee = trainee;
-						console.log(editTrainee);
+						$log.log(editTrainee);
 						editTrainee.batch = $scope.currentBatch;
 
 					}
 
 					$scope.update = function(editedTrainee) {
 
-						console.log(editedTrainee);
+						$log.log(editedTrainee);
 						for (var i = 0; i < $scope.receivers.length; i++) {
 
 							if ($scope.receivers[i].name == "") {
@@ -177,9 +177,9 @@ angular
 							};
 
 						}
-						console.log(updTrainee);
+						$log.log(updTrainee);
 						editedTrainee = updTrainee;
-						console.log(editedTrainee);
+						$log.log(editedTrainee);
 						caliberDelegate.all.updateTrainee(editedTrainee);
 
 						/*
@@ -297,7 +297,7 @@ angular
 						} else {
 							var newBatch = {};
 							createBatchObject(newBatch);
-							console.log('this is' + newBatch);
+							$log.log('this is' + newBatch);
 							caliberDelegate.all
 									.createBatch(newBatch)
 									.then(
@@ -333,7 +333,7 @@ angular
 																borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
 																benchmarkStartDate : $scope.benchmarkStartDate.model
 															});
-													console.log($scope.batches)
+													$log.log($scope.batches)
 												}
 
 												sortByDate($scope.selectedYear);
@@ -346,7 +346,7 @@ angular
 					/** Delete batch* */
 					$scope.deleteBatch = function(batch, index) {
 						caliberDelegate.all.deleteBatch(batch.batchId).then(
-								$scope.selectedBatches[$scope.row] = null);
+								$scope.selectedBatches.splice(index, 1))
 					}
 					/**
 					 * ************************** Trainees
@@ -440,7 +440,7 @@ angular
 					/** Delete Trainee* */
 
 					$scope.removeTrainee = function(traineeId) {
-						console.log(traineeId);
+						$log.log(traineeId);
 						caliberDelegate.all
 								.deleteTrainee(traineeId)
 								.then(
