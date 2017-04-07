@@ -105,8 +105,8 @@ angular
 						return trainerFactory.getAllBatches();
 					};
 
-					delegate.trainer.createWeek = function(weekObj) {
-						return trainerFactory.createWeek(weekObj);
+					delegate.trainer.createWeek = function(batchId) {
+						return trainerFactory.createWeek(batchId);
 					};
 
 					delegate.trainer.addGrade = function(gradeObj) {

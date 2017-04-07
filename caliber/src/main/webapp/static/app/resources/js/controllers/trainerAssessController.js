@@ -50,6 +50,7 @@ angular
 									});
 					$log.debug("Batches " + allBatches);
 					$log.debug(allBatches);
+					
 					(function start(allBatches) {
 						$scope.batches = allBatches;
 						if (!allBatches) return;
@@ -169,11 +170,14 @@ angular
 					$scope.createWeek = function() {
 
 						var weekNumber;
-						if (!$scope.currentBatch.weeks)
+						if (!$scope.currentBatch.weeks){
 							weekNumber = 1;
-						else
+						}
+						else{
 							weekNumber = $scope.currentBatch.weeks + 1;
 							$scope.currentBatch.weeks += 1;
+						}
+						
 						$log.debug($scope.currentBatch.weeks);
 
 						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
