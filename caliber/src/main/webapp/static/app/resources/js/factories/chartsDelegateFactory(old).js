@@ -1,7 +1,7 @@
 /**
  * 
  * @param $log
- * @param barChartFactory
+ * @param hbarChartFactory
  * @param radarChartFactory
  * @param lineChartFactory
  * @returns {{}}
@@ -10,14 +10,14 @@ angular
 		.module("delegate")
 		.factory(
 				"chartsDelegate",
-				function($log, barChartFactory, radarChartFactory,
+				function($log, hbarChartFactory, radarChartFactory,
 						lineChartFactory) {
 					$log.debug("Booted charts delegate");
 
 					var delegate = {};
 
-					delegate.bar = {};
-					delegate.doughnut = {};
+					delegate.hbar = {};
+					delegate.pie = {};
 					delegate.radar = {};
 					delegate.line = {};
 
@@ -25,21 +25,21 @@ angular
 					 * ********************* Horizontal Bar
 					 * *********************
 					 */
-					delegate.bar.getBatchAvgChart = function(dataArray) {
-						return barChartFactory.getBatchAvgChart(dataArray);
+					delegate.hbar.getBatchAvgChart = function(dataArray) {
+						return hbarChartFactory.getBatchAvgChart(dataArray);
 					};
 
-					delegate.bar.getTrainerEvalChart = function(dataArray) {
-						return barChartFactory.getTrainerEvalChart(dataArray);
+					delegate.hbar.getTrainerEvalChart = function(dataArray) {
+						return hbarChartFactory.getTrainerEvalChart(dataArray);
 					};
 
-					delegate.bar.getAllBatchesEvalChart = function(dataArray) {
-						return barChartFactory
+					delegate.hbar.getAllBatchesEvalChart = function(dataArray) {
+						return hbarChartFactory
 								.getAllBatchesEvalChart(dataArray);
 					};
 
-					delegate.bar.getBatchTechEvalChart = function(dataArray) {
-						return barChartFactory
+					delegate.hbar.getBatchTechEvalChart = function(dataArray) {
+						return hbarChartFactory
 								.getBatchTechEvalChart(dataArray);
 					};
 
