@@ -114,7 +114,10 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		return $http({
 			url : "/trainer/assessment/create",
 			method : "POST",
-			data : assessmentObj
+			data : assessmentObj,
+			headers : {
+				"Content-Type" : "application/json"
+			}
 		}).then(function(response) {
 			$log.debug("Assessment successfully created.");
 			$log.debug(response);
