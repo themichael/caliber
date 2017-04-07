@@ -170,7 +170,7 @@ angular
 					$scope.createWeek = function() {
 
 						var weekNumber;
-						if (!$scope.currentBatch.weeks){
+						if (!$scope.currentBatch.arrayWeeks){
 							weekNumber = 1;
 						}
 						else{
@@ -182,7 +182,6 @@ angular
 
 						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
 								function(response) {
-
 									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
 									$scope.selectWeek($scope.currentBatch.weeks);
 									$log.debug($scope.currentBatch.weeks);
