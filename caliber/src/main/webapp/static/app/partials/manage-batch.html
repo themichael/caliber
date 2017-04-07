@@ -242,8 +242,8 @@
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 
 										</span></td>
-										<td><button ng-model="all" ng-click="getTrainee(trainee)" type="button"
-												class="btn btn-primary" >Edit</button></td>
+										<td><button ng-click="getTrainee(trainee)" type="button"
+												class="btn btn-primary">Edit</button></td>
 
 									</tr>
 								</tbody>
@@ -325,9 +325,13 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" ng-show= "!Updating">Close</button>
 						<input type="submit" value="Save" class="btn btn-primary" ng-show= "!Updating">
+						
+						
+						<button type="button" class="btn btn-default"  ng-click="clear" ng-show= "Updating">Clear</button>
 						<button type="button" id="updateTraineeButton" class="btn btn-primary" ng-click="updateTrainee(editTrainee)"class="btn btn-default" ng-show="Updating">Update</button>
+						
 					</div>
 				</div>
 			</div>
