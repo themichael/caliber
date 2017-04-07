@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The type Assessment.
@@ -74,7 +74,7 @@ public class Assessment implements Serializable {
 	private Category category;
 
 	@OneToMany(mappedBy = "assessment", fetch = FetchType.LAZY)
-	@JsonBackReference("grades")
+	@JsonIgnore
 	private Set<Grade> grades = new HashSet<>();
 
 	public long getAssessmentId() {

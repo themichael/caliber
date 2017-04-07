@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,37 +48,39 @@ public class ReportingServiceTest {
 	
 	
 	@Test
+	@Ignore
 	public void getAvgBatchWeekTest(){
 		Integer batchId = 1050;
 		Integer week = 3;
 		AssessmentType assessmentType =  AssessmentType.Project;
-		Map<Trainee, Double[]> results = reportingService.getAvgBatchWeek(batchId, week, assessmentType);
+		Map<Trainee, Double[]> results = reportingService.utilAvgBatchWeek(batchId, week, assessmentType);
 		
 		for(Entry<Trainee, Double[]> entry: results.entrySet()){
 			if(entry.getKey().getTraineeId() == 1059){
-				System.out.println("---------------------------------------------------");
-				System.out.println("Trainee Name: " + entry.getKey().getName());
-				System.out.println("Assessment Type: " + assessmentType);
-				System.out.println("Trainee Average Score: " + entry.getValue()[0]);
-				System.out.println("Total Possible Score: " + entry.getValue()[1]);
+				log.info("---------------------------------------------------");
+				log.info("Trainee Name: " + entry.getKey().getName());
+				log.info("Assessment Type: " + assessmentType);
+				log.info("Trainee Average Score: " + entry.getValue()[0]);
+				log.info("Total Possible Score: " + entry.getValue()[1]);
 			}
 		}
 
 		List<Grade> testGrades = gradeDAO.findByWeek(batchId, week);
 		for(Grade grade: testGrades){
 			if(grade.getTrainee().getTraineeId() == 1059){
-				System.out.println("---------------------------------------------------");
-				System.out.println("Trainee Name: " + grade.getTrainee().getName());
-				System.out.println("Assessment: " + grade.getAssessment().getType().name());
-				System.out.println("Score: " + grade.getScore());
-				System.out.println("Raw Score: " + grade.getAssessment().getRawScore());
+				log.info("---------------------------------------------------");
+				log.info("Trainee Name: " + grade.getTrainee().getName());
+				log.info("Assessment: " + grade.getAssessment().getType().name());
+				log.info("Score: " + grade.getScore());
+				log.info("Raw Score: " + grade.getAssessment().getRawScore());
 			}
 		}
 	}
 	
 	@Test
+	@Ignore
 	public void getAvgBatchOverallTest(){
-		System.out.println(reportingService.getAvgBatchOverall(1050, AssessmentType.Exam));
+		log.info(reportingService.utilAvgBatchOverall(1050, AssessmentType.Exam));
 	}
-
+	
 }
