@@ -11,13 +11,16 @@ angular
 					$scope.faces = [];
 					$scope.weeks = [];
 					
-					function Note(noteId, content, status, week, batch, trainee) {
+					function Note(noteId, content, status, week, batch, trainee, maxVisibility, type, qcFeedback) {
 						this.noteId = noteId;
-						this.content = content;
-						this.status = status;
-						this.week = week;
-						this.batch = batch;
-						this.trainee = trainee;
+					    this.content = content;
+					    this.week = week;
+					    this.batch = batch;
+					    this.trainee = trainee;
+					    this.maxVisibility = maxVisibility;
+					    this.type = type;
+					    this.qcFeedback = qcFeedback;
+					    this.qcStatus = status;
 					}
 
 					/**
@@ -84,19 +87,20 @@ angular
 														break;
 													}
 												}
-												$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
+												$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i], "QC", "QC_TRAINEE", true));
 											}
 										});
 					} else {
 						$scope.bnote = null;
 						for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
-							$scope.faces.push(new Note(null, null, null, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
+							$scope.faces.push(new Note(null, null, null, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i], "QC", "QC_TRAINEE", true));
 						}
 					}
 					
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
-						$scope.faces[index].status = status;
+						$scope.faces[index].qcStatus = status;
+						caliberDelegate.qc.updateNote($scope.faces[index]);
 						$log.debug($scope.faces[index]);
 					};
 					
@@ -146,14 +150,14 @@ angular
 															break;
 														}
 													}
-													$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
+													$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i], "QC", "QC_TRAINEE", true));
 												}
 											});
 						} else {
 							$log.debug("No weeks");
 							$scope.bnote = null;
 							for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
-								$scope.faces.push(new Note(null, null, null, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
+								$scope.faces.push(new Note(null, null, null, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i], "QC", "QC_TRAINEE", true));
 							}
 						}
 						wipeFaces();
@@ -189,13 +193,13 @@ angular
 															break;
 														}
 													}
-													$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
+													$scope.faces.push(new Note(id, content, status, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i], "QC", "QC_TRAINEE", true));
 												}
 											});
 						} else {
 							$scope.bnote = null;
 							for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
-								$scope.faces.push(new Note(null, null, null, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i]));
+								$scope.faces.push(new Note(null, null, null, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i], "QC", "QC_TRAINEE", true));
 							}
 						}
 						wipeFaces();
@@ -248,7 +252,7 @@ angular
 					$scope.saveTraineeNote = function(index) {
 						//$log.debug(index);
 						$log.debug($scope.faces[index]);
-						//caliberDelegate.qc.updateNote($scope.faces[index]);
+						caliberDelegate.qc.updateNote($scope.faces[index]);
 					};
 					
 					$scope.saveQCNotes = function() {
