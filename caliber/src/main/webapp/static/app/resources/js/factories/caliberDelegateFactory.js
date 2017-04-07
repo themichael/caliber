@@ -143,6 +143,11 @@ angular
 						return trainerFactory.updateNote(noteObj);
 					};
 
+					delegate.trainer.getTrainerBatchNote = function(batchId,
+							week) {
+						return trainer.getTrainerBatchNote(batchId, week);
+					};
+
 					/** ************************* VP ************************** */
 					delegate.vp.getAllBatches = function() {
 						return vpFactory.getAllBatches();
@@ -184,7 +189,7 @@ angular
 					delegate.qc.updateNote = function(noteObj) {
 						return qcFactory.updateNote(noteObj);
 					};
-					
+
 					delegate.qc.batchNote = function(batchId, week) {
 						return qcFactory.getQCBatchNote(batchId, week);
 					}
