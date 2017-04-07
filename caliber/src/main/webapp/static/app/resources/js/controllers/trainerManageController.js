@@ -22,6 +22,7 @@ angular
 						$scope.batches = allBatches;
 						$scope.selectedBatches = [];
 						sortByDate(new Date().getFullYear());
+						$scope.notUpdating= "true";
 					})();
 
 					/** Filter batches by year * */
@@ -130,7 +131,7 @@ angular
 						// FINISHED
 						
 						$scope.editTrainee = trainee;
-						$scope.document.notUpdating="false";
+						notUpdating="";
 
 					}
 					$scope.updateTrainee = function(editedTrainee)
@@ -180,7 +181,7 @@ angular
 									$scope.editTrainee.phoneNumber = "";
 									$scope.editTrainee.skypeId = "";
 									$scope.editTrainee.profileUrl = "";
-									$scope.document.notUpdating= "true";
+									$scope.notUpdating= "true";
 								});
 					};
 

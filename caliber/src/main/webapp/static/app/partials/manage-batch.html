@@ -242,8 +242,8 @@
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 
 										</span></td>
-										<td><button ng-click="getTrainee(trainee)" type="button"
-												class="btn btn-primary">Edit</button></td>
+										<td><button ng-model="all" ng-click="getTrainee(trainee)" type="button"
+												class="btn btn-primary" >Edit</button></td>
 
 									</tr>
 								</tbody>
@@ -327,7 +327,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<input type="submit" value="Save" class="btn btn-primary">
-						<button type="button" id="updateTraineeButton" ng-click="updateTrainee(editTrainee)"class="btn btn-default" ng-disabled="true">Update</button>
+						<button type="button" id="updateTraineeButton" ng-click="updateTrainee(editTrainee)"class="btn btn-default" ng-disabled="all">Update</button>
 					</div>
 				</div>
 			</div>
