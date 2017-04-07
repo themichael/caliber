@@ -35,7 +35,8 @@ angular
 					$scope.pickOverallStatus = function(batch, pick) {
 						$scope.qcBatchAssess = pick;
 						$log.debug(batch.trainingName + " " + pick);
-						//caliberDelegate.qc.updateNote($scope.faces[index]);
+						$scope.bnote.qcStatus = pick;
+						caliberDelegate.qc.updateNote($scope.bnote);
 					};
 
 
