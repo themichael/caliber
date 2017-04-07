@@ -55,7 +55,7 @@ angular
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) {
-							$scope.currentBatch = allBatches[0];
+							$scope.currentBatch = allBatches[allBatches.length-1]; // shows the latest batches
 							$log.debug("This is the current batch "
 									+ $scope.currentBatch);
 							if (allBatches[0].weeks > 0) {
@@ -91,7 +91,7 @@ angular
 								$log.debug("Batches " + allBatches);
 								$log.debug(allBatches);
 
-								var totalWeeks = allBatches[0].weeks; // the
+								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
 								// number
 								// of
 								// weeks
@@ -100,7 +100,7 @@ angular
 								// batch
 								$log
 										.debug("this is the total week for this batch "
-												+ allBatches[0].trainingName
+												+ allBatches[allBatches.length-1].trainingName
 												+ ": " + totalWeeks);
 
 								$scope.currentWeek = totalWeeks;
