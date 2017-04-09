@@ -23,7 +23,7 @@ angular
 								function(categories) {
 									$scope.categories = categories;
 									$log.debug("all Categories");
-									$log.debug(categories);
+									//$log.debug(categories);
 								});
 					};
 					/**
@@ -36,15 +36,15 @@ angular
 									.getGradesForWeek(batchId,
 											weekId).then(
 											function(data) {
-												$log.debug("These are the grades");
-												$log.debug(data);
+												$scope.grades = data;
+												//$log.debug("These are the grades");
+												//$log.debug(data);
 												// for ( var i in data) {
 												// $log.debug("Fetching ");
 												// $log.debug(data[i]);
 												// pushUnique($scope.grades,
 												// data[i]);
 												// }
-												$scope.grades = data;
 											});
 						}
 						$scope.assignTraineeScope = function(traineeId){
@@ -168,7 +168,7 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batches[index];
 						$log.debug("Selected batch " + index);
-						
+					// create new scope of trainees
 						$scope.trainees={};						
 						for(trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);
@@ -321,17 +321,13 @@ angular
 									$log.debug(response);
 								})
 					}; 
-					$scope.trainee={};
-					
-					$scope.setTraineeModel = function(traineeId){
-						return $scope.trainee[traineeId];
-					}
+
 					$scope.findGrade = function(traineeId, assessmentId) {
 							if($scope && $scope.grades && ($scope.grades[traineeId] === undefined)){ 
 								return;
 							}
 							for(var grade of $scope.grades[traineeId]){
-								/* create a assssment object that contains gradeId for each $scope.trainees[trainee]*/
+								/* create a assessment object that contains gradeId for each $scope.trainees[trainee]*/
 								if(grade.assessment.assessmentId == assessmentId){
 									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
 										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
