@@ -316,7 +316,7 @@ angular
 						}
 					}
 					$scope.updateGrade = function(trainee,assessment) {
-
+						
 						// constructs Grade object from the data in table
 						var grade = {
 							trainee : trainee,
@@ -324,6 +324,9 @@ angular
 							dateReceived : new Date(),
 							score : angular.fromJson($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score)
 						};
+						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
+							grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
+						}
 						// adds new Grade if not exists, else update,
 						// response contains the ID of the created/updated Grade
 						caliberDelegate.trainer.addGrade(grade).then(
@@ -361,10 +364,12 @@ angular
 							}
 							for(var grade of $scope.grades[traineeId]){
 								if(grade.assessment.assessmentId == assessmentId){
-//									$scope.traineeGrade[traineeId] ={
-//											assessmentId:grade.assessment.assessmentId,
-//											gradeId:grade.gradeId
-//									}
+									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
+										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
+									}
+									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId === undefined){
+										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId = grade.gradeId;
+									}									
 									return grade.score;
 								}
 							}
