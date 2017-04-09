@@ -31,8 +31,7 @@ angular
 					 * ********************************************
 					 */
 					$scope.grades={};
-					 $scope.getAllGradesForWeek=function(batchId,weekId) {
-							
+					 $scope.getAllGradesForWeek=function(batchId,weekId) {							
 							caliberDelegate.all
 									.getGradesForWeek(batchId,
 											weekId).then(
@@ -47,7 +46,14 @@ angular
 												// }
 												$scope.grades = data;
 											});
-						}					
+						}
+						$scope.assignTraineeScope = function(traineeId){
+							if($scope.trainees[traineeId] === undefined){
+								$scope.trainees[traineeId] = true;
+								return $scope.trainees[traineeId];
+							}
+							
+						}					 
 					// ////////////////////////////////////////////////////////////////////////
 					// load note types
 					caliberDelegate.all.enumNoteType().then(
@@ -142,14 +148,7 @@ angular
 						$log.debug($scope.currentBatch);
 						$log.debug($scope.currentWeek);
 						
-						$scope.trainees={};
-						$scope.assignTraineeScope = function(traineeId){
-							if($scope.trainee[traineeId] === undefined){
-								$scope.trainee[traineeId] = true;
-								return $scope.trainee[traineeId];
-							}
-							
-						}						
+						$scope.trainees={};						
 						
 						for(trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);
