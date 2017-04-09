@@ -30,6 +30,24 @@ angular
 					 * ***************************************** UI
 					 * ********************************************
 					 */
+					$scope.grades={};
+					 $scope.getAllGradesForWeek=function(batchId,weekId) {
+							
+							caliberDelegate.all
+									.getGradesForWeek(batchId,
+											weekId).then(
+											function(data) {
+												$log.debug("These are the grades");
+												$log.debug(data);
+												// for ( var i in data) {
+												// $log.debug("Fetching ");
+												// $log.debug(data[i]);
+												// pushUnique($scope.grades,
+												// data[i]);
+												// }
+												$scope.grades = data;
+											});
+						}					
 					// ////////////////////////////////////////////////////////////////////////
 					// load note types
 					caliberDelegate.all.enumNoteType().then(
@@ -90,6 +108,7 @@ angular
 												});
 								$log.debug("Batches " + allBatches);
 								$log.debug(allBatches);
+								
 
 								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
 								// number
@@ -122,6 +141,19 @@ angular
 						$log.debug("Starting Values: currentBatch and currentWeek");
 						$log.debug($scope.currentBatch);
 						$log.debug($scope.currentWeek);
+						
+						$scope.trainees={};
+						$scope.assignTraineeScope = function(traineeId){
+							if($scope.trainee[traineeId] === undefined){
+								$scope.trainee[traineeId] = true;
+								return $scope.trainee[traineeId];
+							}
+							
+						}						
+						
+						for(trainee of $scope.currentBatch.trainees){
+							$scope.assignTraineeScope(trainee.traineeId);
+						}
 					})(allBatches);
 
 					// default -- view assessments table
@@ -245,7 +277,6 @@ angular
 
 					// get all assesments
 					// **********************************************************8888888888***********************************************************
-					$scope.grades={};
 					function getAllAssessmentsForWeek(batchId, weekNumb) {
 						if (!weekNumb)
 							return;
@@ -327,14 +358,7 @@ angular
 								})
 					}; // updateGrade
 					$scope.trainee={};
-					$scope.assignScope = function(trainee){
-						var traineeId = trainee.traineeId;
-						if($scope.trainee[traineeId] === undefined){
-							$scope.trainee[traineeId] = true;
-							return $scope.trainee[traineeId];
-						}
-						
-					}
+					
 					$scope.setTraineeModel = function(traineeId){
 						return $scope.trainee[traineeId];
 					}
@@ -358,23 +382,6 @@ angular
 					 * REFACTOR**************************************
 					 */
 
-					 $scope.getAllGradesForWeek=function(batchId,weekId) {
-						
-						caliberDelegate.all
-								.getGradesForWeek(batchId,
-										weekId).then(
-										function(data) {
-											$log.debug("These are the grades");
-											$log.debug(data);
-											// for ( var i in data) {
-											// $log.debug("Fetching ");
-											// $log.debug(data[i]);
-											// pushUnique($scope.grades,
-											// data[i]);
-											// }
-											$scope.grades = data;
-										});
-					}
 					/**
 					 * **********************************************TODO
 					 * POSSIBLE REFACTOR FOR WEEK
