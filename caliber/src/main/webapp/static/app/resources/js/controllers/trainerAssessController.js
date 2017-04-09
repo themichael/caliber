@@ -200,31 +200,12 @@ angular
 
 					// create week
 					$scope.createWeek = function() {
-
-						if (!$scope.currentBatch.arrayWeeks){
-						//	$scope.currentWeek = 1;
-							//$scope.currentBatch.arrayWeeks = [];
-							//$scope.currentBatch.arrayWeeks.push(1);
-							//$scope.currentBatch.weeks = 1;
-							$log.debug("[------------ The batch has no weeks -----------]");
-						}
-						else{
-							//$scope.currentBatch.weeks += 1;
-							//$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
-							$log.debug("[------------ The batch has weeks -----------]");
-						}
-						
-						$log.debug($scope.currentBatch.weeks);
-
 						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
 								function(response) {
 									$scope.currentBatch.weeks += 1;
-									//$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
 									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
-									$scope.selectWeek($scope.currentBatch.weeks);
-									
-									//showActiveWeek($index+1);
-									$log.debug($scope.currentBatch.weeks);
+									$scope.showActiveWeek($scope.currentBatch.weeks);
+									$scope.selectWeek($scope.currentBatch.weeks-1); // the new index of the week selected
 								});
 					};
 
