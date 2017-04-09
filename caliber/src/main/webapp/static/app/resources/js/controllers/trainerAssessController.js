@@ -30,6 +30,31 @@ angular
 					 * ***************************************** UI
 					 * ********************************************
 					 */
+					$scope.grades={};
+					 $scope.getAllGradesForWeek=function(batchId,weekId) {							
+							caliberDelegate.all
+									.getGradesForWeek(batchId,
+											weekId).then(
+											function(data) {
+												$log.debug("These are the grades");
+												$log.debug(data);
+												// for ( var i in data) {
+												// $log.debug("Fetching ");
+												// $log.debug(data[i]);
+												// pushUnique($scope.grades,
+												// data[i]);
+												// }
+												$scope.grades = data;
+											});
+						}
+						$scope.assignTraineeScope = function(traineeId){
+							if($scope.trainees[traineeId] === undefined){
+								$scope.trainees[traineeId] = {};
+								$scope.trainees[traineeId].assessments=[];
+								return $scope.trainees[traineeId];
+							}
+							
+						}					 
 					// ////////////////////////////////////////////////////////////////////////
 					// load note types
 					caliberDelegate.all.enumNoteType().then(
@@ -90,6 +115,7 @@ angular
 												});
 								$log.debug("Batches " + allBatches);
 								$log.debug(allBatches);
+								
 
 								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
 								// number
@@ -122,6 +148,12 @@ angular
 						$log.debug("Starting Values: currentBatch and currentWeek");
 						$log.debug($scope.currentBatch);
 						$log.debug($scope.currentWeek);
+						
+						$scope.trainees={};						
+						
+						for(trainee of $scope.currentBatch.trainees){
+							$scope.assignTraineeScope(trainee.traineeId);
+						}
 					})(allBatches);
 
 					// default -- view assessments table
@@ -245,7 +277,6 @@ angular
 
 					// get all assesments
 					// **********************************************************8888888888***********************************************************
-					$scope.grades={};
 					function getAllAssessmentsForWeek(batchId, weekNumb) {
 						if (!weekNumb)
 							return;
@@ -284,57 +315,43 @@ angular
 								traineeId:traineeId
 						}
 					}
-					$scope.updateGrade = function(gradeId, traineeId,
-							assessment) {
-						$log
-								.debug("Starting updateGrade for "
-										+ "traineeId: " + traineeId + ", "
-										+ "assessment: " + assessment + ", "
-										+ "and gradeId: " + gradeId);
+					$scope.updateGrade = function(trainee,assessment) {
 
 						// constructs Grade object from the data in table
 						var grade = {
-							gradeId : gradeId,
-							trainee : traineeId,
+							trainee : trainee,
 							assessment : assessment,
 							dateReceived : new Date(),
-							score : document
-									.getElementById((traineeId + "-" + assessment.assessmentId)).value
+							score : angular.fromJson($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score)
 						};
 						// adds new Grade if not exists, else update,
 						// response contains the ID of the created/updated Grade
 						caliberDelegate.trainer.addGrade(grade).then(
 								function(response) {
 									$log.debug("Adding grade to $scope");
-									/**
-									 * checks if new Grade was created or
-									 * updated assigns newGradeId = created
-									 * Grade id else takes the id of previously
-									 * fetched Grade ID from view
-									 */
-									var newGradeId;
-									if (response != null)
-										newGradeId = response;
-									else
-										newGradeId = gradeId;
-									pushUnique($scope.grades, {
-										gradeId : newGradeId,
-										assessment : assessment,
-										trainee : traineeId,
-										dateReceived : new Date()
-									});
-									$log.debug(response);
+//									/**
+//									 * checks if new Grade was created or
+//									 * updated assigns newGradeId = created
+//									 * Grade id else takes the id of previously
+//									 * fetched Grade ID from view
+//									 */
+//									var newGradeId;
+//									if (response != null)
+//										newGradeId = response;
+//									else
+//										newGradeId = gradeId;
+//									pushUnique($scope.grades, {
+//										gradeId : newGradeId,
+//										assessment : assessment,
+//										trainee : traineeId,
+//										dateReceived : new Date()
+//									});
+//									$log.debug(response);
+									console.log(response);
 								})
 					}; // updateGrade
 					$scope.trainee={};
-					$scope.assignScope = function(trainee){
-						var traineeId = trainee.traineeId;
-						if($scope.trainee[traineeId] === undefined){
-							$scope.trainee[traineeId] = true;
-							return $scope.trainee[traineeId];
-						}
-						
-					}
+					
 					$scope.setTraineeModel = function(traineeId){
 						return $scope.trainee[traineeId];
 					}
@@ -358,23 +375,6 @@ angular
 					 * REFACTOR**************************************
 					 */
 
-					 $scope.getAllGradesForWeek=function(batchId,weekId) {
-						
-						caliberDelegate.all
-								.getGradesForWeek(batchId,
-										weekId).then(
-										function(data) {
-											$log.debug("These are the grades");
-											$log.debug(data);
-											// for ( var i in data) {
-											// $log.debug("Fetching ");
-											// $log.debug(data[i]);
-											// pushUnique($scope.grades,
-											// data[i]);
-											// }
-											$scope.grades = data;
-										});
-					}
 					/**
 					 * **********************************************TODO
 					 * POSSIBLE REFACTOR FOR WEEK

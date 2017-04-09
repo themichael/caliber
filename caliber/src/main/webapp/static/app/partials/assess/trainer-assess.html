@@ -90,9 +90,8 @@
 							ng-blur="updateGrade(findGrade(trainee.traineeId, assessment.assessmentId).gradeId,
                                trainee.traineeId,assessment)">
 						</td> -->
-						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments">
-							<input class='form-control' type="text" ng-model="setTraineeModel(trainee.traineeId).score" ng-blur="updateGrade()" ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
-							{{trainee[trainee.traineeId]}}
+						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">
+							<input class='form-control' type="text" ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score" ng-blur="updateGrade(trainee,assessment)" ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
 						</td>
 						<td class="col-sm-9 col-md-9 col-lg-9">
 							<textarea class="form-control" name="note" cols="20"
