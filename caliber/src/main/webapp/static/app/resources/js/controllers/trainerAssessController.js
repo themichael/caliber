@@ -315,45 +315,39 @@ angular
 								traineeId:traineeId
 						}
 					}
-					$scope.updateGrade = function(traineeId,assessmentId) {
-//						$log
-//								.debug("Starting updateGrade for "
-										+ "traineeId: " + traineeId + ", "
-//										+ "assessment: " + assessment + ", "
-//										+ "and gradeId: " + gradeId);
+					$scope.updateGrade = function(trainee,assessment) {
 
 						// constructs Grade object from the data in table
 						var grade = {
-							gradeId : gradeId,
-							trainee : traineeId,
+							trainee : trainee,
 							assessment : assessment,
 							dateReceived : new Date(),
-							score : document
-									.getElementById((traineeId + "-" + assessment.assessmentId)).value
+							score : angular.fromJson($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score)
 						};
 						// adds new Grade if not exists, else update,
 						// response contains the ID of the created/updated Grade
 						caliberDelegate.trainer.addGrade(grade).then(
 								function(response) {
 									$log.debug("Adding grade to $scope");
-									/**
-									 * checks if new Grade was created or
-									 * updated assigns newGradeId = created
-									 * Grade id else takes the id of previously
-									 * fetched Grade ID from view
-									 */
-									var newGradeId;
-									if (response != null)
-										newGradeId = response;
-									else
-										newGradeId = gradeId;
-									pushUnique($scope.grades, {
-										gradeId : newGradeId,
-										assessment : assessment,
-										trainee : traineeId,
-										dateReceived : new Date()
-									});
-									$log.debug(response);
+//									/**
+//									 * checks if new Grade was created or
+//									 * updated assigns newGradeId = created
+//									 * Grade id else takes the id of previously
+//									 * fetched Grade ID from view
+//									 */
+//									var newGradeId;
+//									if (response != null)
+//										newGradeId = response;
+//									else
+//										newGradeId = gradeId;
+//									pushUnique($scope.grades, {
+//										gradeId : newGradeId,
+//										assessment : assessment,
+//										trainee : traineeId,
+//										dateReceived : new Date()
+//									});
+//									$log.debug(response);
+									console.log(response);
 								})
 					}; // updateGrade
 					$scope.trainee={};
