@@ -219,12 +219,14 @@ angular
 						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
 								function(response) {
 									$scope.currentBatch.weeks += 1;
-									//$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
 									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
-									$scope.selectWeek($scope.currentBatch.weeks);
-									
+									$scope.showActiveWeek($scope.currentBatch.weeks);
+									$scope.selectWeek($scope.currentBatch.weeks-1); // the index
+									getAllAssessmentsForWeek($scope.currentBatch.batchId,
+											$scope.currentWeek);
 									//showActiveWeek($index+1);
-									$log.debug($scope.currentBatch.weeks);
+									$log.debug($scope.currentBatch.weeks +" [IS THE NEW SELECTED WEEK]");
+									 //$log.debug(""$index);
 								});
 					};
 
