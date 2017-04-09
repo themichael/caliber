@@ -168,7 +168,11 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batches[index];
 						$log.debug("Selected batch " + index);
-
+						
+						$scope.trainees={};						
+						for(trainee of $scope.currentBatch.trainees){
+							$scope.assignTraineeScope(trainee.traineeId);
+						}
 						if ($scope.currentBatch.weeks > 0) {
 							$scope.currentWeek = $scope.currentBatch.weeks;
 							getAllAssessmentsForWeek(
@@ -344,6 +348,7 @@ angular
 								return;
 							}
 							for(var grade of $scope.grades[traineeId]){
+								/* create a assssment object that contains gradeId for each $scope.trainees[trainee]*/
 								if(grade.assessment.assessmentId == assessmentId){
 									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
 										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
