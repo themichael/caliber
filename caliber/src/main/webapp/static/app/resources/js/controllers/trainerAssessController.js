@@ -49,7 +49,8 @@ angular
 						}
 						$scope.assignTraineeScope = function(traineeId){
 							if($scope.trainees[traineeId] === undefined){
-								$scope.trainees[traineeId] = true;
+								$scope.trainees[traineeId] = {};
+								$scope.trainees[traineeId].assessments=[];
 								return $scope.trainees[traineeId];
 							}
 							
@@ -314,13 +315,12 @@ angular
 								traineeId:traineeId
 						}
 					}
-					$scope.updateGrade = function(gradeId, traineeId,
-							assessment) {
-						$log
-								.debug("Starting updateGrade for "
+					$scope.updateGrade = function(traineeId,assessmentId) {
+//						$log
+//								.debug("Starting updateGrade for "
 										+ "traineeId: " + traineeId + ", "
-										+ "assessment: " + assessment + ", "
-										+ "and gradeId: " + gradeId);
+//										+ "assessment: " + assessment + ", "
+//										+ "and gradeId: " + gradeId);
 
 						// constructs Grade object from the data in table
 						var grade = {
