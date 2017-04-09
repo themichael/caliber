@@ -309,6 +309,7 @@ angular
 							dateReceived : new Date(),
 							score : angular.fromJson($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score)
 						};
+						/*if assessment object has gradeId, define it in grade object*/
 						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
 							grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
 						}
@@ -317,27 +318,9 @@ angular
 						caliberDelegate.trainer.addGrade(grade).then(
 								function(response) {
 									$log.debug("Adding grade to $scope");
-//									/**
-//									 * checks if new Grade was created or
-//									 * updated assigns newGradeId = created
-//									 * Grade id else takes the id of previously
-//									 * fetched Grade ID from view
-//									 */
-//									var newGradeId;
-//									if (response != null)
-//										newGradeId = response;
-//									else
-//										newGradeId = gradeId;
-//									pushUnique($scope.grades, {
-//										gradeId : newGradeId,
-//										assessment : assessment,
-//										trainee : traineeId,
-//										dateReceived : new Date()
-//									});
-//									$log.debug(response);
-									console.log(response);
+									$log.debug(response);
 								})
-					}; // updateGrade
+					}; 
 					$scope.trainee={};
 					
 					$scope.setTraineeModel = function(traineeId){
@@ -355,6 +338,7 @@ angular
 									}
 									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId === undefined){
 										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId = grade.gradeId;
+										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].score = grade.score;
 									}									
 									return grade.score;
 								}
