@@ -11,16 +11,24 @@ angular
 		.factory(
 				"chartsDelegate",
 				function($log, hbarChartFactory, radarChartFactory,
-						lineChartFactory) {
+						lineChartFactory, doughnutChartDataFactory) {
 					$log.debug("Booted charts delegate");
 
 					var delegate = {};
 
 					delegate.hbar = {};
-					delegate.pie = {};
+					delegate.doughnut = {};
 					delegate.radar = {};
 					delegate.line = {};
 
+					/**
+					 * ********************* Doughnut
+					 * *********************
+					 */
+					delegate.doughnut.getQCStats = function(dataArray) {
+						return doughnutChartDataFactory.report.batchWeekQCPie(dataArray);
+					};
+					
 					/**
 					 * ********************* Horizontal Bar
 					 * *********************

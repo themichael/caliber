@@ -4,86 +4,24 @@
  * @returns {{}}
  */
 angular.module("charts").factory("doughnutChartFactory", function($log) {
-	$log.debug("Booted Horizontal Bar Chart Factory");
+	$log.debug("Booted Doughtnut Bar Chart Factory");
 
 	var doughnutChart = {};
 
-	doughnutChart.getBatchAvgChart = function(dataArray) {
+	doughnutChart.batchWeekQCPie = function(dataArray) {
 		var chartData = {};
 
 		// data and labels
 		chartData.data = [];
 		chartData.labels = [];
+		chartData.options = {legend:{display:true}};
 
 		// traverse through array of objects and grab labels and data
-		dataArray.forEach(function(element) {
-			chartData.labels.push(element.trainee);
-			chartData.data.push(element.average);
-		});
-
-		chartData.datasetOverride = [ {
-			xAxisID : 'x-axis-1'
-		} ];
-
-		return chartData;
-	};
-
-	doughnutChart.getTrainerEvalChart = function(dataArray) {
-		var chartData = {};
-
-		// series
-		chartData.series = [ "QC Eval" ];
-
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
-
-		// loop through object array
-		dataArray.forEach(function(element) {
-			chartData.data.push(element.score);
-			chartData.labels.push(element.name);
-		});
-
-		return chartData;
-	};
-
-	doughnutChart.getAllBatchesEvalChart = function(data, batches) {
-		var chartData = {};
-
-		// series
-		chartData.series = [ "All Batch Eval" ];
-
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
-
-		// loop through object array
-		angular.forEach(data, function(value, key) {
-			$log.debug(value);
-			chartData.data.push(value[0]);
-			$log.debug(key);
+		angular.forEach(dataArray, function(key, value) {
 			chartData.labels.push(key);
+			chartData.data.push(value);
 		});
-
-		return chartData;
-	};
-
-	doughnutChart.getBatchTechEvalChart = function(dataArray) {
-		var chartData = {};
-
-		// series
-		chartData.series = [ "Tech Batch Eval" ];
-
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
-
-		// loop through object array
-		dataArray.forEach(function(element) {
-			chartData.data.push(element.average);
-			chartData.labels.push(element.trainee);
-		});
-
+		
 		return chartData;
 	};
 
