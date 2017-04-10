@@ -46,14 +46,24 @@ angular
 												// data[i]);
 												// }
 											});
-						}
+					 }
 						$scope.assignTraineeScope = function(traineeId){
 							if($scope.trainees[traineeId] === undefined){
 								$scope.trainees[traineeId] = {};
 								$scope.trainees[traineeId].assessments=[];
+								$scope.trainees[traineeId].note={};
 							}								
 							return $scope.trainees[traineeId];							
-						}					 
+						}	
+						//get trainee notes and put into $scope.trainees[traineeId].note
+						$scope.getTraineeBatchNotesForWeek=function(batchId,weekId){
+							caliberDelegate.trainer.getTraineeBatchNotesForWeek(batchId,weekId).then(function(data){
+								$scope.notes = data;
+								for(note of $scope.notes){
+									$scope.trainees[note.trainee.traineeId].note = note;
+								}
+							});
+						}
 					// ////////////////////////////////////////////////////////////////////////
 					// load note types
 					caliberDelegate.all.enumNoteType().then(
@@ -274,7 +284,6 @@ angular
 											var week = new Week(
 													$scope.currentWeek,
 													$scope.currentAssessments);
-											
 											$scope.currentBatch.displayWeek = week;
 											$scope.currentBatch.arrayWeeks = [];
 											//create array of assessments mapped by assessment Id;
@@ -286,7 +295,8 @@ angular
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
 											
-
+										}).then(function(){
+											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
 										});
 					};
 					
