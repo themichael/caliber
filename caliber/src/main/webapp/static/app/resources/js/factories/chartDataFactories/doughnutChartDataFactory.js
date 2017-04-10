@@ -7,7 +7,7 @@ angular.module("reportApi").factory(
 
 			report.batchWeekQCPie = function(batchId, weekNum) {
 				return $http({
-					url : "all/reports/batch/" + batchId + "/week/" + weekNum
+					url : "/all/reports/batch/" + batchId + "/week/" + weekNum
 							+ "/pie",
 					method : "GET"
 				})

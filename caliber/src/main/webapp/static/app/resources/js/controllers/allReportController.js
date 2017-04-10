@@ -25,22 +25,22 @@ angular
 					function createDefaultCharts() {
 						// Finishes any left over ajax animation from another
 						// page
-//						NProgress.done();
-//						NProgress.start();
-//						chartsDelegate.doughnut.data
-//								.getQCStatsData(50, 1)
-//								.then(
-//										function(data) {
-//											$log.debug(data);
-//											NProgress.done();
-//											var doughnutChartObject = chartsDelegate.doughnut
-//													.getQCStats(data);
-//											$scope.qcStatsLabels = doughnutChartObject.labels;
-//											$scope.qcStatsData = doughnutChartObject.data;
-//											$scope.qcStatsOptions = doughnutChartObject.options;
-//										}, function() {
-//											NProgress.done();
-//										});
+						NProgress.done();
+						NProgress.start();
+						chartsDelegate.doughnut.data
+								.getQCStatsData(50, 1)
+								.then(
+										function(data) {
+											$log.debug(data);
+											NProgress.done();
+											var doughnutChartObject = chartsDelegate.doughnut
+													.getQCStats(data);
+											$scope.qcStatsLabels = doughnutChartObject.labels;
+											$scope.qcStatsData = doughnutChartObject.data;
+											$scope.qcStatsOptions = doughnutChartObject.options;
+										}, function() {
+											NProgress.done();
+										});
 					}
 
 				});
