@@ -22,6 +22,7 @@ angular
 						$scope.batches = allBatches;
 						$scope.selectedBatches = [];
 						sortByDate(new Date().getFullYear());
+						$scope.notUpdating = "true";
 					})();
 
 					/** Filter batches by year * */
@@ -32,7 +33,7 @@ angular
 
 						var data = [];
 						// List all years from 2014 --> current year
-						for (var y = currentYear+1; y >= currentYear-2; y--) {
+						for (var y = currentYear + 1; y >= currentYear - 2; y--) {
 							data.push(y)
 						}
 						return data;
@@ -125,21 +126,21 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
 						$scope.trainees = $scope.selectedBatches[index].trainees;
+						$scope.row = index;
 					};
 
 					/** Get trainee info* */
 					$scope.getTrainee = function(trainee) {
 						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
 						// FINISHED
-						
+
 						$scope.editTrainee = trainee;
-						$scope.Updating=true;
+						$scope.Updating = true;
 
 					}
-					
-					$scope.Updating=false;
-					$scope.updateTrainee = function(editedTrainee)
-					{
+
+					$scope.Updating = false;
+					$scope.updateTrainee = function(editedTrainee) {
 
 						$log.log(editedTrainee);
 						for (var i = 0; i < $scope.receivers.length; i++) {
@@ -182,19 +183,26 @@ angular
 						$log.log(updTrainee);
 						editedTrainee = updTrainee;
 						$log.debug(editedTrainee);
-						caliberDelegate.all.updateTrainee(editedTrainee).then(
-								$scope.clear = function(editedTrainee) {
-									$scope.editTrainee.name = "";
-									$scope.editTrainee.email = "";
-									$scope.editTrainee.phoneNumber = "";
-									$scope.editTrainee.skypeId = "";
-									$scope.editTrainee.profileUrl = "";
-									$scope.Updating= false;
-								});
+						caliberDelegate.all
+								.updateTrainee(editedTrainee)
+								.then(
+										$scope.clear = function(editedTrainee) {
+											$scope.editTrainee.name = "";
+											$scope.editTrainee.email = "";
+											$scope.editTrainee.phoneNumber = "";
+											$scope.editTrainee.skypeId = "";
+											$scope.editTrainee.profileUrl = "";
+											$scope.Updating = false;
+
+											for (var i = 0; i < $scope.receivers.length; i++) {
+												$scope.receivers[i] = null;
+											}
+
+										});
 					};
 
 					/** Fill update form with batch previous data* */
-					$scope.populateBatch = function(batch, index) {
+					$scope.populateBatch = function(batch) {
 						$scope.batchFormName = "Update Batch";
 						$scope.trainingName.model = batch.trainingName;
 						$scope.trainingType.model = batch.trainingType
@@ -213,7 +221,6 @@ angular
 						$scope.benchmarkStartDate.model = new Date(
 								batch.benchmarkStartDate);
 						$scope.Save = "Update";
-						$scope.row = index;
 					}
 
 					/** Resets batch form for creating new batch* */
@@ -299,55 +306,67 @@ angular
 							var newBatch = {};
 							createBatchObject(newBatch);
 							$log.log('this is' + newBatch);
-							caliberDelegate.all
-									.createBatch(newBatch)
-									.then(
-											function() {
-												// coTrainer may be undefined
+							caliberDelegate.all.createBatch(newBatch).then(
+									function(response) {
+										// coTrainer may be undefined
 
-												if ($scope.coTrainer) {
-													$scope.batches
-															.push({
-																trainingName : $scope.trainingName.model,
-																trainingType : $scope.trainingType.model,
-																skillType : $scope.skillType.model,
-																location : $scope.location.model,
-																trainer : newBatch.trainer,
-																coTrainer : newBatch.coTrainer,
-																startDate : $scope.startDate.model,
-																endDate : $scope.endDate.model,
-																goodGradeThreshold : $scope.goodGradeThreshold.model,
-																borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
-																benchmarkStartDate : $scope.benchmarkStartDate.model
-															});
-												} else {
-													$scope.batches
-															.push({
-																trainingName : $scope.trainingName.model,
-																trainingType : $scope.trainingType.model,
-																skillType : $scope.skillType.model,
-																location : $scope.location.model,
-																trainer : newBatch.coTrainer,
-																startDate : $scope.startDate.model,
-																endDate : $scope.endDate.model,
-																goodGradeThreshold : $scope.goodGradeThreshold.model,
-																borderlineGradeThreshold : $scope.borderlineGradeThreshold.model,
-																benchmarkStartDate : $scope.benchmarkStartDate.model
-															});
-													$log.log($scope.batches)
-												}
+										if ($scope.coTrainer) {
+											$scope.batches.push(response.data
+											// trainingName :
+											// $scope.trainingName.model,
+											// trainingType :
+											// $scope.trainingType.model,
+											// skillType :
+											// $scope.skillType.model,
+											// location : $scope.location.model,
+											// trainer : newBatch.trainer,
+											// coTrainer : newBatch.coTrainer,
+											// startDate :
+											// $scope.startDate.model,
+											// endDate : $scope.endDate.model,
+											// goodGradeThreshold :
+											// $scope.goodGradeThreshold.model,
+											// borderlineGradeThreshold :
+											// $scope.borderlineGradeThreshold.model,
+											// benchmarkStartDate :
+											// $scope.benchmarkStartDate.model
+											);
+										} else {
+											$scope.batches.push(response.data
+											// trainingName :
+											// $scope.trainingName.model,
+											// trainingType :
+											// $scope.trainingType.model,
+											// skillType :
+											// $scope.skillType.model,
+											// location : $scope.location.model,
+											// trainer : newBatch.coTrainer,
+											// startDate :
+											// $scope.startDate.model,
+											// endDate : $scope.endDate.model,
+											// goodGradeThreshold :
+											// $scope.goodGradeThreshold.model,
+											// borderlineGradeThreshold :
+											// $scope.borderlineGradeThreshold.model,
+											// benchmarkStartDate :
+											// $scope.benchmarkStartDate.model
+											);
+											$log.log($scope.batches)
+										}
 
-												sortByDate($scope.selectedYear);
-											});
+										sortByDate($scope.selectedYear);
+									});
 						}
 						angular.element("#createBatchModal").modal("hide");
 
 					};
 
 					/** Delete batch* */
-					$scope.deleteBatch = function(batch, index) {
-						caliberDelegate.all.deleteBatch(batch.batchId).then(
-								$scope.selectedBatches.splice(index, 1))
+					$scope.deleteBatch = function() {
+						caliberDelegate.all.deleteBatch(
+								$scope.currentBatch.batchId).then(
+								$scope.selectedBatches.splice($scope.row, 1));
+						angular.element("#deleteBatchModal").modal("hide");
 					}
 					/**
 					 * ************************** Trainees

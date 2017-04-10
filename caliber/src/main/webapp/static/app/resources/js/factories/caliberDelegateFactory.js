@@ -196,6 +196,10 @@ angular
 						return qcFactory.getQCBatchNote(batchId, week);
 					}
 
+					delegate.qc.aTraineeNote = function(traineeId, week) {
+						return qcFactory.getAQCTraineeNote(traineeId, week);
+					}
+					
 					delegate.qc.traineeNote = function(batchId, week) {
 						return qcFactory.getAllQCTraineeNote(batchId, week);
 					}

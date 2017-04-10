@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
@@ -103,9 +104,11 @@ public class BatchDAO {
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches");
 		// trainees eagerly loaded. using alias or other fetch style causes a left join.. and inaccurate results
+		
 		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime()))
+				.addOrder(Order.desc("trainingName"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 

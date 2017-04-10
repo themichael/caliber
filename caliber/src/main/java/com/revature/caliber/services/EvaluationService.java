@@ -174,9 +174,9 @@ public class EvaluationService {
 	 * 
 	 * @param note
 	 */
-	public void save(Note note) {
+	public int save(Note note) {
 		log.debug("Saving note: " + note);
-		noteDAO.save(note);
+		return noteDAO.save(note);
 	}
 
 	/**
