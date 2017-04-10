@@ -95,4 +95,22 @@ angular
 										}); // end then
 					};
 					
+					report.getBatchOverallBarChart = function(batchId){
+						return $http({
+							url : "/all/reports/batch/" + batchId + "/overall/bar-batch-overall",
+							method : "GET"
+						})
+						.then(
+								function(response) {
+									$log.debug("batch - overall");
+									$log.debug(response);
+									return response.data;
+									
+								},
+								function(response) {
+									$log.error("There was an error: " + response.status);
+									
+								});
+					};
+					
 				})
