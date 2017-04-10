@@ -1,7 +1,7 @@
 angular.module("reportApi").factory(
 		"radarChartDataFactory",
 		function($http, $log) {
-			$log.debug("Booted Report Factory");
+			$log.debug("Booted radarChartDataFactory");
 
 			var report = {};
 

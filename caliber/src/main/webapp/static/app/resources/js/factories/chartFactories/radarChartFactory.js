@@ -4,11 +4,11 @@
  * @returns {{}}
  */
 angular.module("charts").factory("radarChartFactory", function($log) {
-	$log.debug("Booted Horizontal Bar Chart Factory");
+	$log.debug("Booted radarChartFactory");
 
 	var radar = {};
 
-	radar.getBatchAvgChart = function(dataArray) {
+	radar.getBatchOverallRadarChart = function(dataArray) {
 		var chartData = {};
 		
 		chartData.series = [ "Batch" ];

@@ -10,7 +10,7 @@ angular
 		.module("delegate")
 		.factory(
 				"chartsDelegate",
-				function($log, hbarChartFactory, radarChartFactory,
+				function($log, hbarChartFactory, radarChartDataFactory,
 						lineChartFactory, doughnutChartDataFactory) {
 					$log.debug("Booted charts delegate");
 
@@ -55,23 +55,8 @@ angular
 					 * ************************** Radar
 					 * *************************
 					 */
-					delegate.radar.getBatchRankComparisonChart = function(
-							dataArray) {
-						return radarChartFactory
-								.getBatchRankComparisonChart(dataArray);
-					};
-
-					delegate.radar.getTraineeTechProgressChart = function(
-							dataArray) {
-						return radarChartFactory
-								.getTraineeTechProgressChart(dataArray);
-					};
-
-					delegate.radar.getAllBatchRankComparisonChart = function(
-							dataArray1, dataArray2) {
-						return radarChartFactory
-								.getAllBatchRankComparisonChart(dataArray1,
-										dataArray2);
+					delegate.radar.getBatchAvgChart = function(batchId, week) {
+						return radarChartDataFactory.report.getBatchOverallRadarChart(batchId, week);
 					};
 
 					/**
