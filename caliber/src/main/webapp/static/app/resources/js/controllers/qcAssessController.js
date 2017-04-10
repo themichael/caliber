@@ -57,7 +57,7 @@ angular
 					// starting scope vars
 					$scope.currentBatch = $scope.batches[0];
 					// create an array of numbers for number of weeks
-					for (i = 1; i <= $scope.currentBatch.weeks; i++) {
+					for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
 						$scope.weeks.push(i);
 					}
 
@@ -95,11 +95,11 @@ angular
 										$scope.currentWeek)
 								.then(
 										function(notes) {
-											for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
+											for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 												var content = null;
 												var status = null;
 												var id = null;
-												for (j = 0; j < notes.length; j++) {
+												for (var j = 0; j < notes.length; j++) {
 													if ($scope.currentBatch.trainees[i].name === notes[j].trainee.name) {
 														content = notes[j].content;
 														status = notes[j].qcStatus;
@@ -122,7 +122,7 @@ angular
 										});
 					} else {
 						$scope.bnote = null;
-						for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
+						for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 							$scope.faces.push(new Note(null, null, null,
 									$scope.currentWeek, $scope.currentBatch,
 									$scope.currentBatch.trainees[i], "QC",
@@ -151,7 +151,7 @@ angular
 						$scope.currentBatch = $scope.batches[index];
 						// Create week array for batch selected
 						$scope.weeks = [];
-						for (i = 1; i <= $scope.currentBatch.weeks; i++) {
+						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
 							$scope.weeks.push(i);
 						}
 						// Set current week to first week
@@ -190,11 +190,11 @@ angular
 											$scope.currentWeek)
 									.then(
 											function(notes) {
-												for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
+												for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 													var content = null;
 													var status = null;
 													var id = null;
-													for (j = 0; j < notes.length; j++) {
+													for (var j = 0; j < notes.length; j++) {
 														if ($scope.currentBatch.trainees[i].name === notes[j].trainee.name) {
 															content = notes[j].content;
 															status = notes[j].qcStatus;
@@ -218,7 +218,7 @@ angular
 						} else {
 							$log.debug("No weeks");
 							$scope.bnote = null;
-							for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
+							for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 								$scope.faces.push(new Note(null, null, null,
 										$scope.currentWeek,
 										$scope.currentBatch,
@@ -266,11 +266,11 @@ angular
 											$scope.currentWeek)
 									.then(
 											function(notes) {
-												for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
+												for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 													var content = null;
 													var status = null;
 													var id = null;
-													for (j = 0; j < notes.length; j++) {
+													for (var j = 0; j < notes.length; j++) {
 														if ($scope.currentBatch.trainees[i].name === notes[j].trainee.name) {
 															content = notes[j].content;
 															status = notes[j].qcStatus;
@@ -293,7 +293,7 @@ angular
 											});
 						} else {
 							$scope.bnote = null;
-							for (i = 0; i < $scope.currentBatch.trainees.length; i++) {
+							for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 								$scope.faces.push(new Note(null, null, null,
 										$scope.currentWeek,
 										$scope.currentBatch,
@@ -369,9 +369,9 @@ angular
 					 */
 					var readMe = false;
 					$scope.readOnlyPage = function() {
-						 readMe = !readMe;
-						 $log.debug(readMe);
-						 return readMe;
+						readMe = !readMe;
+						$log.debug(readMe);
+						return readMe;
 					}
 
 					$scope.saveTraineeNote = function(index) {
