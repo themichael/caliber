@@ -126,14 +126,27 @@ angular
 										url : "/assess",
 										controller : "trainerAssessController"
 									})
-							.state(
+/*							.state(
 									"trainer.reports",
 									{
 										templateUrl : "/static/app/partials/reports.html",
 										url : "/reports",
 										controller : "trainerHomeController"
+									})*/
+/*							.state(
+									"trainer.display",
+									{
+										templateUrl : "/static/app/partials/trainer-display.html",
+										url : "/display",
+										controller : "trainerAssessController"
+									})*/
+																.state(
+									"trainer.reports",
+									{
+										templateUrl : "/static/app/partials/trainer-display.html",
+										url : "/reports",
+										controller : "trainerAssessController"
 									})
-
 							/***************************************************
 							 * VP
 							 **************************************************/
