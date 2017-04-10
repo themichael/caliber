@@ -11,6 +11,7 @@ angular
 					$scope.faces = [];
 					$scope.weeks = [];
 					
+					// Note object
 					function Note(noteId, content, status, week, batch, trainee, maxVisibility, type, qcFeedback) {
 						this.noteId = noteId;
 					    this.content = content;
@@ -38,6 +39,8 @@ angular
 					$scope.pickOverallStatus = function(batch, pick) {
 						$scope.qcBatchAssess = pick;
 						$log.debug(batch.trainingName + " " + pick);
+						$log.debug("bnote");
+						$log.debug($scope.bnote);
 						$scope.bnote.qcStatus = pick;
 						caliberDelegate.qc.updateNote($scope.bnote);
 					};
@@ -96,6 +99,8 @@ angular
 							$scope.faces.push(new Note(null, null, null, $scope.currentWeek, $scope.currentBatch, $scope.currentBatch.trainees[i], "QC", "QC_TRAINEE", true));
 						}
 					}
+					
+					$log.debug($scope.faces);
 					
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
@@ -257,7 +262,14 @@ angular
 					$scope.saveTraineeNote = function(index) {
 						//$log.debug(index);
 						$log.debug($scope.faces[index]);
-						caliberDelegate.qc.updateNote($scope.faces[index]);
+						if($scope.faces[index].id !== null) {
+							$log.debug("update");
+							caliberDelegate.qc.updateNote($scope.faces[index]);
+						}
+						else{
+							$log.debug("create");
+							caliberDelegate.qc.createNote($scope.faces[index]);
+						}
 					};
 					
 					$scope.saveQCNotes = function() {
