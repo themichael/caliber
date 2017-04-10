@@ -217,14 +217,14 @@ angular
 					}
 
 					// create week
-					$scope.createWeek = function() {
+					/*$scope.createWeek = function() {
 						var weekNumber;
 						if (!$scope.weeks)
 							weekNumber = 1;
 						else
 							weekNumber = $scope.weeks.length + 1;
 						$log.debug(weekNumber);
-						/*
+						
 						 * var weekObj = { weekNumber: weekNumber, batch:
 						 * $scope.currentBatch, topics:null };
 						 * caliberDelegate.trainer.createWeek(weekObj).then(function
@@ -232,7 +232,17 @@ angular
 						 * weekId:response, weekNumber: weekNumber, batch: null,
 						 * topics:null });
 						 * $log.debug($scope.currentBatch.weeks); });
-						 */
+						 
+					};*/
+					
+					$scope.createWeek = function() {
+						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
+								function(response) {
+									$scope.currentBatch.weeks += 1;
+									$scope.weeks.push($scope.currentBatch.weeks);
+									$scope.showActiveWeek($scope.currentBatch.weeks);
+									$scope.selectWeek($scope.currentBatch.weeks-1); // the new index of the week selected
+								});
 					};
 
 					// ///// wipe faces ;) and selections ///////
