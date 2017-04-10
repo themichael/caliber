@@ -39,7 +39,7 @@
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="radar" class="chart chart-radar" chart-data="batchTechData"
-										chart-options="batchTechOptions" chart-labels="batchTechLabels"
+										chart-options="qcStatsLabels" chart-labels="batchTechLabels"
 										chart-series="batchTechSeries" height="100" width="100">
                                     </canvas>
 								</div>
@@ -49,12 +49,12 @@
 
 					<div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
 						<div class="panel panel-default">
-							<div class="panel-heading">Technology Progress for {{currentTrainee.name}}</div>
+							<div class="panel-heading">QC Status</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="radar2" class="chart chart-radar" chart-data="traineeTechData"
-										chart-labels="traineeTechLabels" chartData="traineeTechSeries"
-										chart-options="traineeTechOptions" height="100" width="100">
+									<canvas id="doughtnut1" class="chart chart-doughtnut" 
+										chart-labels="qcStatsLabels" chartData="qcStatsData"
+										chart-options="qcStatsOptions" height="100" width="100">
                                     </canvas>
 								</div>
 							</div>

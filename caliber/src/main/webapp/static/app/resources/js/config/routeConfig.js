@@ -131,7 +131,7 @@ angular
 									{
 										templateUrl : "/static/app/partials/reports.html",
 										url : "/reports",
-										controller : "trainerHomeController"
+										controller : "allReportController"
 									})
 
 							/***************************************************
