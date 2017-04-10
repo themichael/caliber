@@ -23,7 +23,7 @@ angular
 								function(categories) {
 									$scope.categories = categories;
 									$log.debug("all Categories");
-									//$log.debug(categories);
+									$log.debug(categories);
 								});
 					};
 					/**
@@ -36,23 +36,24 @@ angular
 									.getGradesForWeek(batchId,
 											weekId).then(
 											function(data) {
-												$scope.grades = data;
-												//$log.debug("These are the grades");
-												//$log.debug(data);
+												$log.debug("These are the grades");
+												$log.debug(data);
 												// for ( var i in data) {
 												// $log.debug("Fetching ");
 												// $log.debug(data[i]);
 												// pushUnique($scope.grades,
 												// data[i]);
 												// }
+												$scope.grades = data;
 											});
 						}
 						$scope.assignTraineeScope = function(traineeId){
 							if($scope.trainees[traineeId] === undefined){
 								$scope.trainees[traineeId] = {};
 								$scope.trainees[traineeId].assessments=[];
-							}								
-							return $scope.trainees[traineeId];							
+								return $scope.trainees[traineeId];
+							}
+							
 						}					 
 					// ////////////////////////////////////////////////////////////////////////
 					// load note types
@@ -167,11 +168,7 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batches[index];
 						$log.debug("Selected batch " + index);
-					// create new scope of trainees
-						$scope.trainees={};						
-						for(trainee of $scope.currentBatch.trainees){
-							$scope.assignTraineeScope(trainee.traineeId);
-						}
+
 						if ($scope.currentBatch.weeks > 0) {
 							$scope.currentWeek = $scope.currentBatch.weeks;
 							getAllAssessmentsForWeek(
@@ -277,10 +274,6 @@ angular
 											
 											$scope.currentBatch.displayWeek = week;
 											$scope.currentBatch.arrayWeeks = [];
-											//create array of assessments mapped by assessment Id;
-											$scope.assessmentsById=[]
-											
-											$scope.generateArrAssessmentById(data);
 											
 											for(i = 1; i <= $scope.currentBatch.weeks; i++){
 												$scope.currentBatch.arrayWeeks.push(i);
@@ -289,13 +282,6 @@ angular
 
 										});
 					};
-					
-					$scope.generateArrAssessmentById = function(assessments){
-						for(a of assessments){
-							$scope.assessmentsById[a.assessmentId] = {};
-							$scope.assessmentsById[a.assessmentId].total = 0;
-						}						
-					}
 
 					/**
 					 * Updates Grade if exists, else create new Grade, then
@@ -311,7 +297,7 @@ angular
 						}
 					}
 					$scope.updateGrade = function(trainee,assessment) {
-						
+
 						// constructs Grade object from the data in table
 						var grade = {
 							trainee : trainee,
@@ -319,33 +305,47 @@ angular
 							dateReceived : new Date(),
 							score : angular.fromJson($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score)
 						};
-						/*if assessment object has gradeId, define it in grade object*/
-						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
-							grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
-						}
 						// adds new Grade if not exists, else update,
 						// response contains the ID of the created/updated Grade
 						caliberDelegate.trainer.addGrade(grade).then(
 								function(response) {
 									$log.debug("Adding grade to $scope");
-									$log.debug(response);
+//									/**
+//									 * checks if new Grade was created or
+//									 * updated assigns newGradeId = created
+//									 * Grade id else takes the id of previously
+//									 * fetched Grade ID from view
+//									 */
+//									var newGradeId;
+//									if (response != null)
+//										newGradeId = response;
+//									else
+//										newGradeId = gradeId;
+//									pushUnique($scope.grades, {
+//										gradeId : newGradeId,
+//										assessment : assessment,
+//										trainee : traineeId,
+//										dateReceived : new Date()
+//									});
+//									$log.debug(response);
+									console.log(response);
 								})
-					}; 
-
+					}; // updateGrade
+					$scope.trainee={};
+					
+					$scope.setTraineeModel = function(traineeId){
+						return $scope.trainee[traineeId];
+					}
 					$scope.findGrade = function(traineeId, assessmentId) {
 							if($scope && $scope.grades && ($scope.grades[traineeId] === undefined)){ 
 								return;
 							}
 							for(var grade of $scope.grades[traineeId]){
-								/* create a assessment object that contains gradeId for each $scope.trainees[trainee]*/
-								if(grade.assessment.assessmentId === assessmentId){
-									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
-										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
-									}
-									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId === undefined){
-										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId = grade.gradeId;
-										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].score = grade.score;										
-									}
+								if(grade.assessment.assessmentId == assessmentId){
+//									$scope.traineeGrade[traineeId] ={
+//											assessmentId:grade.assessment.assessmentId,
+//											gradeId:grade.gradeId
+//									}
 									return grade.score;
 								}
 							}
@@ -372,20 +372,7 @@ angular
 					 * POSSIBLE REFACTOR**************************************
 					 */
 
-					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
-						
-						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
-						if($scope.assessmentTotals[assessment.assessmentId] == undefined) $scope.assessmentTotals[assessment.assessmentId] = {};
-							
-						$scope.assessmentTotals[assessment.assessmentId].total = 0;
-						$scope.assessmentTotals[assessment.assessmentId].count = 0;
-							for(var traineeKey in trainees){
-								if(trainees[traineeKey].assessments[assessment.assessmentId]){
-									$scope.assessmentTotals[assessment.assessmentId].total+= Number(trainees[traineeKey].assessments[assessment.assessmentId].score);								
-									$scope.assessmentTotals[assessment.assessmentId].count +=1;
-								}
-							}
-						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
+					$scope.test = function(d){
+						console.log(d);
 					}
-
 				});
