@@ -19,6 +19,7 @@ angular
 							$scope.noBatchesMessage = "No Batches belonging to you were found.";
 						} else {
 							$scope.noBatches = false;
+							$log.debug("Here AGAIN!!!!!!");
 							createDefaultCharts();
 						}
 					})();
@@ -35,40 +36,6 @@ angular
 					};
 					$scope.currentTrainee = {
 						name : "Trainee"
-					};
-
-					// on batch selection
-					$scope.selectCurrentBatch = function(index) {
-						$scope.currentTrainee = {
-							name : "Trainee"
-						};
-						// turn of batches
-						if (index === -1) {
-							viewCharts = 0;
-							$scope.currentBatch = {
-								trainingName : "Batch"
-							};
-							createDefaultChart();
-						} else {
-							$scope.currentBatch = $scope.batches[index];
-							viewCharts = 1;
-							createBatchCharts();
-						}
-					};
-
-					// on trainee selection
-					$scope.selectCurrentTrainee = function(index) {
-						if (index === -1) {
-							$scope.currentTrainee = {
-								name : "Trainee"
-							};
-							viewCharts = 1;
-							createBatchCharts();
-						} else {
-							$scope.currentTrainee = $scope.currentBatch.trainees[index];
-							viewCharts = 3;
-							createTraineeCharts();
-						}
 					};
 
 					// hide filter tabs
@@ -100,31 +67,7 @@ angular
 										}, function() {
 											NProgress.done();
 										});
-					
-					
-					chartsDelegate.radar.getBatchAvgChart(1, traineeId)
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+
 					}
 
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 				});
