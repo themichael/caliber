@@ -1,68 +1,91 @@
-angular
-		.module("reportApi")
-		.factory(
-				"radarChartFactory",
-				function($http, $log) {
-					$log.debug("Booted Report Factory");
+/**
+ * 
+ * @param $log
+ * @returns {{}}
+ */
+angular.module("charts").factory("radarChartFactory", function($log) {
+	$log.debug("Booted Horizontal Bar Chart Factory");
 
-					var report = {};
+	var radar = {};
 
-					report.getTraineeUpToWeekRadarChart = function(week,
-							traineeId) {
-						return $http(
-								{
-									url : "/all/reports/week/" + week
-											+ "/trainee/" + traineeId
-											+ "/radar-trainee-up-to-week",
-									method : "GET"
-								})
-								.then(
-										function(response) {
-											$log
-													.debug("Week - Trainee Up To Week Radar Chart");
-											$log.debug(response);
-											return response.data;
-										},
-										function(response) {
-											$log.error("There was an error: "
-													+ response.status);
-										}); // end then
-					};
+	radar.getBatchAvgChart = function(dataArray) {
+		var chartData = {};
 
-					report.getTraineeOverallRadarChart = function(traineeId) {
-						return $http(
-								{
-									url : "/all/reports/trainee/" + traineeId
-											+ "/radar-trainee-overall",
-									method : "GET"
-								}).then(
-								function(response) {
-									$log.debug("Trainee Overall Radar Chart");
-									$log.debug(response);
-									return response.data;
-								},
-								function(response) {
-									$log.error("There was an error: "
-											+ response.status);
-								}); // end then
-					};
+		// data and labels
+		chartData.data = [];
+		chartData.labels = [];
 
-					report.getBatchOverallRadarChart = function(batchId) {
-						return $http(
-								{
-									url : "/all/reports/batch/" + batchId
-											+ "/overall/radar-batch-overall",
-									method : "GET"
-								}).then(
-								function(response) {
-									$log.debug("Batch Overall Radar Chart");
-									$log.debug(response);
-									return response.data;
-								},
-								function(response) {
-									$log.error("There was an error: "
-											+ response.status);
-								}); // end then
-					};
-					
-				})
+		// traverse through array of objects and grab labels and data
+		dataArray.forEach(function(element) {
+			chartData.labels.push(element.trainee);
+			chartData.data.push(element.average);
+		});
+
+		chartData.datasetOverride = [ {
+			xAxisID : 'x-axis-1'
+		} ];
+
+		return chartData;
+	};
+
+	radar.getTrainerEvalChart = function(dataArray) {
+		var chartData = {};
+
+		// series
+		chartData.series = [ "QC Eval" ];
+
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+
+		// loop through object array
+		dataArray.forEach(function(element) {
+			chartData.data.push(element.score);
+			chartData.labels.push(element.name);
+		});
+
+		return chartData;
+	};
+
+	radar.getAllBatchesEvalChart = function(data, batches) {
+		var chartData = {};
+
+		// series
+		chartData.series = [ "All Batch Eval" ];
+
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+
+		// loop through object array
+		angular.forEach(data, function(value, key) {
+			$log.debug(value);
+			chartData.data.push(value[0]);
+			$log.debug(key);
+			chartData.labels.push(key);
+		});
+
+		return chartData;
+	};
+
+	radar.getBatchTechEvalChart = function(dataArray) {
+		var chartData = {};
+
+		// series
+		chartData.series = [ "Tech Batch Eval" ];
+
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+
+		// loop through object array
+		dataArray.forEach(function(element) {
+			chartData.data.push(element.average);
+			chartData.labels.push(element.trainee);
+		});
+
+		return chartData;
+	};
+
+	return radar;
+});
