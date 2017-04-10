@@ -385,7 +385,6 @@ angular
 									$scope.assessmentTotals[assessment.assessmentId].count +=1;
 								}
 							}
-													
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
 
