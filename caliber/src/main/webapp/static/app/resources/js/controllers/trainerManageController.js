@@ -185,6 +185,11 @@ angular
 									$scope.editTrainee.skypeId = "";
 									$scope.editTrainee.profileUrl = "";
 									$scope.Updating= false;
+									
+									for (var i = 0; i < $scope.receivers.length; i++)
+										{
+											$scope.receivers[i]= null;
+										}
 								});
 					};
 
