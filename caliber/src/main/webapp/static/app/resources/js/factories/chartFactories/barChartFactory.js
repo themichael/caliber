@@ -14,7 +14,8 @@ angular
 						return $http(
 								{
 									url : "/all/reports/batch/" + batchId
-											+ "/week/" + week + "/bar-batch-week-avg",
+											+ "/week/" + week
+											+ "/bar-batch-week-avg",
 									method : "GET"
 								})
 								.then(
@@ -29,7 +30,7 @@ angular
 													+ response.status);
 										});
 					};
-					
+
 					report.batchWeekTraineeAssessBar = function(batchId,
 							weekNum, traineeId) {
 						return $http(
@@ -94,5 +95,25 @@ angular
 													+ response.status);
 										}); // end then
 					};
-					
+
+					report.getBatchOverallBarChart = function(batchId) {
+						return $http(
+								{
+									url : "/all/reports/batch/" + batchId
+											+ "/overall/bar-batch-overall",
+									method : "GET"
+								}).then(
+								function(response) {
+									$log.debug("batch - overall");
+									$log.debug(response);
+									return response.data;
+
+								},
+								function(response) {
+									$log.error("There was an error: "
+											+ response.status);
+
+								});
+					};
+
 				})

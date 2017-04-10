@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.QCStatus;
-import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.services.ReportingService;
 
 /**
@@ -68,9 +67,9 @@ public class ReportingController {
 	}
 	
 	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/bar-batch-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Trainee, Double>> getBatchOverallBarChart(@PathVariable Integer batchId) {
+	public ResponseEntity<Map<String, Double>> getBatchOverallBarChart(@PathVariable Integer batchId) {
 		log.info("getBatchOverallBarChart   ===>   /all/reports/batch/{batchId}/overall/bar-batch-overall");
-		return new ResponseEntity<Map<Trainee, Double>>(reportingService.getBatchOverallBarChart(batchId), HttpStatus.OK);
+		return new ResponseEntity<Map<String, Double>>(reportingService.getBatchOverallBarChart(batchId), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/trainee/{traineeId}/bar-batch-week-trainee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

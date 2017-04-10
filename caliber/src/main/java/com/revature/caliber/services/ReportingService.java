@@ -175,14 +175,14 @@ public class ReportingService {
 	}
 		
 	/**
-	 * x-Axis: 
-	 * y-Axis: 
+	 * x-Axis: Trainee
+	 * y-Axis: Average score
 	 * @param batchId
 	 * @return
 	 */
-	public Map<Trainee, Double> getBatchOverallBarChart(Integer batchId) {
+	public Map<String, Double> getBatchOverallBarChart(Integer batchId) {
 		Batch batch = batchDAO.findOne(batchId);
-		Map<Trainee, Double> results = new HashMap<>();
+		Map<String, Double> results = new HashMap<>();
 		int weeks = batch.getWeeks();
 		Double avg = 0.d;
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
@@ -191,7 +191,7 @@ public class ReportingService {
 				avg += utilAvgTraineeWeek(trainee.getTraineeId(), i);
 			}
 			avg = avg / weeks;
-			results.put(trainee, avg);
+			results.put(trainee.getName(), avg);
 		}
 		return results;
 	}
@@ -245,8 +245,8 @@ public class ReportingService {
 	}
 	
 	/**
-	 * x-Axis: 
-	 * y-Axis: 
+	 * x-Axis: trainee avg, batch avg
+	 * y-Axis: week
 	 * @param batchId,
 	 * @param traineeId
 	 * @return Map<Total Weeks, Double[0:Trainee Overall Average 1: Batch Overall Average]>
