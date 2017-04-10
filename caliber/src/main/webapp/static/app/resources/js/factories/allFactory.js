@@ -115,7 +115,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.debug("Object successfully created");
 			$log.debug(response);
 			// return id
-			return response.data;
+			return response;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 		});
