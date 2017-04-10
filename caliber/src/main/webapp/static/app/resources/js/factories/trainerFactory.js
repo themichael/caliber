@@ -170,6 +170,21 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	};
 
 	/** ************************ Notes ************************ */
+	// Call EvaluationController's findTrainerBatchNotes method
+	trainer.getTrainerBatchNote = function(batchId, week) {
+		return $http({
+			url : "/trainer/note/batch/"+ batchId + "/" + week,
+			method : "GET"
+		}).then(function(response) {
+			$log.log("Trainer Batch Note retrieved successfully");
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
+	
+	
 	trainer.createNote = function(noteObj) {
 		return $http({
 			url : "/trainer/assessment/note/create",
