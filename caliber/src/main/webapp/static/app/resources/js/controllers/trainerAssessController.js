@@ -115,6 +115,20 @@ angular
 								$log.debug("Batches " + allBatches);
 								$log.debug(allBatches);
 								
+								/*********TrainerBatch Notes***********/		
+								$scope.tbatchNote = {
+										model : null,
+										options : []
+									};
+									caliberDelegate.trainer
+											.getTrainerBatchNote($scope.currentBatch.batchId, $scope.currentWeek)
+											.then(
+													function(tbatchNotes) {
+														$log.debug(tbatchNotes);
+														$scope.tbatchNote.options = tbatchNotes;
+													});
+
+								
 
 								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
 								// number
