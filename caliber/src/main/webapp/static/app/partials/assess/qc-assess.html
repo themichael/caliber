@@ -236,7 +236,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- Assessments table -->
+
+	<!-- Read only table -->
 	<div class="container">
 		<div class="row" id="qcTrainees">
 			<div class="col-md-12 col-lg-12 top5">
@@ -285,10 +286,7 @@
 								</form>
 
 							</td>
-							<td><textarea ng-model="noteOnTrainee($index).content"
-									id="noteTextArea" class="form-group"
-									placeholder="Note on {{trainee.name}}" rows="3" cols="75"
-									readonly></textarea></td>
+							<td>{{noteOnTrainee($index).content}}</td>
 							<td><ul class="nav nav-tabs">
 						</tr>
 					</tbody>
@@ -299,51 +297,30 @@
 		<div class="row">
 			<h4 class="text-center">Overall Feedback</h4>
 			<form>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-					<i class="fa fa-star fa-2x"
-						ng-class="{pick : qcBatchAssess === qcStatusTypes[0]}"></i>
+				<div ng-hide="bnote.qcStatus !== qcStatusTypes[0]"
+					title="Excellent"
+					class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
+					<i class="fa fa-star fa-2x pick"></i>
 				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-					<i class="fa fa-smile-o fa-2x"
-						ng-class="{pick : qcBatchAssess === qcStatusTypes[1]}"></i>
+				<div ng-hide="bnote.qcStatus !== qcStatusTypes[1]"
+					title="Good"
+					class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
+					<i class="fa fa-smile-o fa-2x pick"></i>
 				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-					<i class="fa fa-meh-o fa-2x"
-						ng-class="{pick : qcBatchAssess === qcStatusTypes[2]}"></i>
+				<div ng-hide="bnote.qcStatus !== qcStatusTypes[2]"
+					title="Fair"
+					class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
+					<i class="fa fa-meh-o fa-2x pick"></i>
 				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-					<i class="fa fa-frown-o fa-2x"
-						ng-class="{pick : qcBatchAssess === qcStatusTypes[3]}"></i>
+				<div ng-hide="bnote.qcStatus !== qcStatusTypes[3]"
+					title="Poor"
+					class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
+					<i class="fa fa-frown-o fa-2x pick"></i>
 				</div>
 				<div
 					class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-					<textarea ng-model="bnote.content" class="form-control"
-						id="qcBatchNotes"
-						placeholder="Enter your overall feedback on the batch" readonly>
-				</textarea>
-					<div class="pull-right">
-						<!-- 
-					<ul class="nav nav-tabs">
-						<li role="button" ng-click="saveQCandTrainee()"><a>Save
-								your batch notes<span class="fa-floppy-o" aria-hidden="true">
-							</span>
-						</a></li>
-					</ul> -->
-
-						<button class="btn-primary" ng-click="saveQCandTrainee()">
-							<span class="fa fa-floppy-o fa-2x" aria-hidden="true"></span>
-							Save your batch notes
-						</button>
-
-					</div>
-					<!-- testing
-				<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-				ng-click="saveQCandTrainee()">
-				<i class="fa fa-floppy-o fa-2x"
-					ng-class="{pick : qcBatchAssess === qcStatusTypes[1]}"></i>
-					-->
+					{{bnote.content}}
 				</div>
 			</form>
 		</div>
-		<!-- overall -->
 	</div>
