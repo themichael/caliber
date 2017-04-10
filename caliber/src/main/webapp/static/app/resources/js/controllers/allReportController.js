@@ -2,8 +2,7 @@ angular
 		.module("charts")
 		.controller(
 				"allReportController",
-				function($scope, $log, caliberDelegate, chartsDelegate,
-						allBatches) {
+				function($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
 
 					$log.debug("Booted Report Controller");
 					$log.debug("Peacepapi is here!!!!!");
@@ -28,8 +27,8 @@ angular
 						// page
 						NProgress.done();
 						NProgress.start();
-						chartDelegate.report
-								.batchWeekQCPie(50, 1)
+						chartsDelegate.doughnut.data
+								.getQCStatsData(50, 1)
 								.then(
 										function(data) {
 											$log.debug(data);
