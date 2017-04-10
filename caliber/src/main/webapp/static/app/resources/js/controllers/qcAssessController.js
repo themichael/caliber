@@ -322,8 +322,7 @@ angular
 					 * (response) { pushUnique($scope.currentBatch.weeks, {
 					 * weekId:response, weekNumber: weekNumber, batch: null,
 					 * topics:null }); $log.debug($scope.currentBatch.weeks);
-					 * });
-					 *  };
+					 * }); };
 					 */
 
 					$scope.createWeek = function() {
@@ -338,12 +337,12 @@ angular
 													.showActiveWeek($scope.currentBatch.weeks);
 											$scope
 													.selectWeek($scope.currentBatch.weeks - 1); // the
-																								// new
-																								// index
-																								// of
-																								// the
-																								// week
-																								// selected
+											// new
+											// index
+											// of
+											// the
+											// week
+											// selected
 										});
 					};
 
@@ -368,6 +367,10 @@ angular
 					 * ******************************************* QCFeedBack
 					 * **********************************************************
 					 */
+					$scope.readOnlyPage = function() {
+						window.open("http://localhost:8081/caliber#/qc/audit",
+								'_blank');
+					}
 
 					$scope.saveTraineeNote = function(index) {
 						$log.debug($scope.faces[index]);
