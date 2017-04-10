@@ -66,8 +66,8 @@ public class ReportingController {
 	}
 	
 	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/bar-batch-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Trainee, Double>> getBatchOverallBarChart(@PathVariable Integer batchId) {
-		return new ResponseEntity<Map<Trainee, Double>>(reportingService.getBatchOverallBarChart(batchId), HttpStatus.OK);
+	public ResponseEntity<Map<String, Double>> getBatchOverallBarChart(@PathVariable Integer batchId) {
+		return new ResponseEntity<Map<String, Double>>(reportingService.getBatchOverallBarChart(batchId), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/trainee/{traineeId}/bar-batch-week-trainee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
