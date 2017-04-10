@@ -100,19 +100,19 @@ public class NoteDAO {
 	}
 
 	/**
-	 * Returns all individual notes written by QC for a given week.
+	 * Returns a individuals note written by QC for a given week.
 	 * @param traineeId
 	 * @param week
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Note> findQCIndividualNotes(Integer traineeId, Integer week) {
+	public Note findQCIndividualNotes(Integer traineeId, Integer week) {
 		log.info("Finding QC individual notes for week " + week + " for trainee: " + traineeId);
-		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
+		return (Note) sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
+        		.createAlias("t.batch", "b")
 				.add(Restrictions.eq("t.traineeId", traineeId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
-				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).uniqueResult();
 	}
 
 	/**

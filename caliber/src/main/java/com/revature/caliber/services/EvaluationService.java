@@ -232,7 +232,7 @@ public class EvaluationService {
 	 * @param week
 	 * @return
 	 */
-	public List<Note> findQCIndividualNotes(Integer traineeId, Integer week) {
+	public Note findQCIndividualNotes(Integer traineeId, Integer week) {
 		log.debug("Finding week " + week + " QC individual notes for trainee: " + traineeId);
 		return noteDAO.findQCIndividualNotes(traineeId, week);
 	}

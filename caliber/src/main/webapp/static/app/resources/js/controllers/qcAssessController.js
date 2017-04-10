@@ -100,8 +100,6 @@ angular
 						}
 					}
 					
-					$log.debug($scope.faces);
-					
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
 						$scope.faces[index].qcStatus = status;
@@ -257,13 +255,24 @@ angular
 					$scope.saveTraineeNote = function(index) {
 						//$log.debug(index);
 						$log.debug($scope.faces[index]);
-						if($scope.faces[index].id !== null) {
-							$log.debug("update");
-							caliberDelegate.qc.updateNote($scope.faces[index]);
-						}
-						else{
+						// Create if noteId is null so nothing in database
+						if($scope.faces[index].noteId === null) {
 							$log.debug("create");
 							caliberDelegate.qc.createNote($scope.faces[index]);
+							// Set 
+							caliberDelegate.qc.aTraineeNote($scope.faces[index].trainee.traineeId, $scope.currentWeek)
+							.then(
+									function(note){
+										$scope.faces[index] = note;
+									}
+							);
+							$log.debug("new note id:");
+							$log.debug($scope.faces[index]);
+						}
+						// Update if noteId is there
+						else{
+							$log.debug("update");
+							caliberDelegate.qc.updateNote($scope.faces[index]);
 						}
 					};
 					
