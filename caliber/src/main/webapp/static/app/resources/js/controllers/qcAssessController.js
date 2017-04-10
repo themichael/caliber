@@ -253,21 +253,18 @@ angular
 	/********************************************* QCFeedBack ***********************************************************/
 
 					$scope.saveTraineeNote = function(index) {
-						//$log.debug(index);
 						$log.debug($scope.faces[index]);
 						// Create if noteId is null so nothing in database
 						if($scope.faces[index].noteId === null) {
 							$log.debug("create");
 							caliberDelegate.qc.createNote($scope.faces[index]);
-							// Set 
+							// Set note to new note created in database
 							caliberDelegate.qc.aTraineeNote($scope.faces[index].trainee.traineeId, $scope.currentWeek)
 							.then(
 									function(note){
 										$scope.faces[index] = note;
 									}
 							);
-							$log.debug("new note id:");
-							$log.debug($scope.faces[index]);
 						}
 						// Update if noteId is there
 						else{
