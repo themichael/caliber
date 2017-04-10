@@ -120,7 +120,9 @@ angular
 					delegate.trainer.createAssessment = function(assessmentObj) {
 						return trainerFactory.createAssessment(assessmentObj);
 					};
-
+					delegate.trainer.getTraineeBatchNotesForWeek = function(batchId,week){
+						return trainerFactory.getTraineeBatchNotesForWeek(batchId,week);
+					}
 					delegate.trainer.getAllAssessmentsForWeek = function(
 							batchId, week) {
 						return trainerFactory.getAllAssessmentsForWeek(batchId,
@@ -194,6 +196,10 @@ angular
 						return qcFactory.getQCBatchNote(batchId, week);
 					}
 
+					delegate.qc.aTraineeNote = function(traineeId, week) {
+						return qcFactory.getAQCTraineeNote(traineeId, week);
+					}
+					
 					delegate.qc.traineeNote = function(batchId, week) {
 						return qcFactory.getAllQCTraineeNote(batchId, week);
 					}

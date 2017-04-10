@@ -191,10 +191,9 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/note/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> createNote(@RequestBody Note note) {
+	public ResponseEntity<Integer> createNote(@RequestBody Note note) {
 		log.info("Creating note: " + note);
-		evaluationService.save(note);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<Integer>(evaluationService.save(note), HttpStatus.CREATED);
 	}
 
 	/**

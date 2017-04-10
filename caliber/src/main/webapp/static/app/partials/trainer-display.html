@@ -1,0 +1,97 @@
+<!-- Year selector and Add Assessment button -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
+			<button class="btn back-btn" ng-click="back()">
+				<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+				Back
+			</button>
+		</div>
+		<div class="col-md-12 col-lg-12 top10">
+			<!-- top ui for viewing all assessments -->
+			<ul class="nav nav-tabs" ng-show="currentView">
+			
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
+						currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="batch in batches track by $index"><a
+							role="button" ng-click="selectCurrentBatch($index)"> {{
+								batch.trainingName }} - {{ batch.startDate | date:'shortDate' }}
+						</a></li>
+					</ul></li>
+			</ul>
+			<!-- top ui for viewing trainee grades -->
+			<ul class="nav nav-tabs" ng-show="!currentView">
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">{{ currentAssessment.title }}<span
+						class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="assessment in currentAssessments track by $index">
+							<a role="button" ng-click="selectAssessment($index)">{{
+								assessment.title }}</a>
+						</li>
+					</ul></li>
+			</ul>
+		</div>
+		<div class="col-sm-12 col-md-12 col-lg-12 top5">
+			<ul class="nav nav-tabs">
+				<li role="button" class="{{showActiveWeek($index)}}"
+					ng-click="selectWeek($index)"
+					ng-repeat="week in currentBatch.arrayWeeks track by $index"><a>Week
+						{{week}}</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- display table for the batch and week selected -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 col-lg-12 top5">
+			<!-- Accordian table -->
+			<table class="table table-responsive"
+				style="border-collapse: collapse;" ng-show="currentView">
+				<thead>
+					<tr>
+						<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
+						<th class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by $index">
+							{{assessment.title}}(%)</th>
+						<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr ng-repeat="trainee in currentBatch.trainees track by $index">
+						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
+						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{findGrade(trainee.traineeId,assessment.assessmentId)}}
+ 						</td>
+						<td class="col-sm-9 col-md-9 col-lg-9">
+						<!-- TODO refactor when notes for student is complete -->
+							<textarea class="form-control" name="note" cols="20"
+								rows="2">
+							</textarea>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<td>Average</td>
+					<td ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees) ? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) + "%" : "-"}}</td>
+					<td></td>
+				</tfoot>
+			</table>
+			
+			<!-- TODO come back and refactor when notes for batch -->
+			<div
+                class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
+                <textarea ng-model="finalQCBatchNote" class="form-control"
+                    id="qcBatchNotes"
+                    placeholder="Enter your overall feedback on the batch" required>
+                
+                </textarea>
+            </div>
+		</div>
+	</div>
+</div>

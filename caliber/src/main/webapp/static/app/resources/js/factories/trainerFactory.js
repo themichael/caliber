@@ -94,7 +94,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		});
 	};
 
-	// update trainer grade
+	// update trainer grade	
 	trainer.updateGrade = function(gradeObj) {
 		return $http({
 			url : "/trainer/grade/update",
@@ -183,6 +183,16 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		});
 	};
 	
+	trainer.getTraineeBatchNotesForWeek = function(batchId,week){
+		return $http({
+			url: "/trainer/note/trainee/" + batchId + "/" + week,
+			method:"GET"
+		}).then(function(response){
+			return response.data;
+		},function(response){
+			$log.error("Error retrieving " + response.status);
+		});
+	};
 	
 	
 	trainer.createNote = function(noteObj) {

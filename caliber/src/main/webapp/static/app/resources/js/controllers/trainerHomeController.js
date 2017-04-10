@@ -131,7 +131,6 @@ angular
 													.getBatchProgressChart(data);
 											$scope.batchProgressLabels = lineChartObject.labels;
 											$scope.batchProgressData = lineChartObject.data;
-											s
 											$scope.batchProgressSeries = lineChartObject.series;
 											$scope.batchProgressOptions = lineChartObject.options;
 											$scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
