@@ -362,7 +362,7 @@ angular
 					 * PROBLEM**************************************
 					 */
 					function pushUnique(arr, item) {
-						if (arr.indexOf(item) == -1) {
+						if (arr.indexOf(item) === -1) {
 							arr.push(item);
 						}
 					}
@@ -375,7 +375,7 @@ angular
 					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
 						
 						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
-						if($scope.assessmentTotals[assessment.assessmentId] == undefined) $scope.assessmentTotals[assessment.assessmentId] = {};
+						if($scope.assessmentTotals[assessment.assessmentId] === undefined) $scope.assessmentTotals[assessment.assessmentId] = {};
 							
 						$scope.assessmentTotals[assessment.assessmentId].total = 0;
 						$scope.assessmentTotals[assessment.assessmentId].count = 0;
