@@ -174,9 +174,9 @@ public class EvaluationService {
 	 * 
 	 * @param note
 	 */
-	public void save(Note note) {
+	public int save(Note note) {
 		log.debug("Saving note: " + note);
-		noteDAO.save(note);
+		return noteDAO.save(note);
 	}
 
 	/**
@@ -212,9 +212,14 @@ public class EvaluationService {
 		log.debug("Finding week " + week + " individual notes for batch: " + batchId);
 		List <Note>notes_temp = noteDAO.findIndividualNotes(batchId,week);
 		List <Note> notes = new ArrayList<>();
-		for(Note n : notes_temp){
-			n.getBatch().setTrainees(null);
-			notes.add(n);
+		System.out.println(notes_temp);
+		if(notes_temp !=null){
+			for(Note n : notes_temp){
+				System.out.println(n.getBatch());
+				n.setBatch(null);
+				notes.add(n);
+			}
+			return notes;
 		}
 		return notes;
 	}
