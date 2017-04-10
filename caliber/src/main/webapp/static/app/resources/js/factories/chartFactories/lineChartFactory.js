@@ -1,51 +1,91 @@
-angular.module("reportApi").factory(
-		"lineChartFactory",
-		function($http, $log) {
-			$log.debug("Booted Report Factory");
+/**
+ * 
+ * @param $log
+ * @returns {{}}
+ */
+angular.module("charts").factory("lineChartFactory", function($log) {
+	$log.debug("Booted Horizontal Bar Chart Factory");
 
-			var report = {};
+	var lineChart = {};
 
-			/**
-			 * Yanilda
-			 */
-			report.getTraineeUpToWeekLineChart = function(week, traineeId) {
-				return $http(
-						{
-							url : "/all/reports/batch/week/" + week
-									+ "/trainee/" + traineeId
-									+ "/line-trainee-up-to-week",
-							method : "GET"
-						}).then(function(response) {
-					$log.debug("Agg - Batch - week-- trainee -- success");
-					$log.debug(response);
-					return response.data;
-				}, function(response) {
-					$log.error("There was an error: " + response.status);
-				});
-			};
+	lineChart.getBatchAvgChart = function(dataArray) {
+		var chartData = {};
 
-			report.getTraineeOverallLineChart = function(batchId, traineeId) {
+		// data and labels
+		chartData.data = [];
+		chartData.labels = [];
 
-				return $http(
+		// traverse through array of objects and grab labels and data
+		dataArray.forEach(function(element) {
+			chartData.labels.push(element.trainee);
+			chartData.data.push(element.average);
+		});
 
-						{
-							url : "/all/reports/batch/" + batchId
-									+ "/overall/trainee/" + traineeId
-									+ "/line-trainee-overall",
-							method : "GET"
+		chartData.datasetOverride = [ {
+			xAxisID : 'x-axis-1'
+		} ];
 
-						}).then(
+		return chartData;
+	};
 
-				function(response) {
-					$log.debug("All-reports-Batch-overall-trainee-overall");
-					$log.debug(response);
-					return response.data;
+	lineChart.getTrainerEvalChart = function(dataArray) {
+		var chartData = {};
 
-				}, function(response) {
+		// series
+		chartData.series = [ "QC Eval" ];
 
-					$log.error("There was an error: " + response.status);
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
 
-				});
-			};
+		// loop through object array
+		dataArray.forEach(function(element) {
+			chartData.data.push(element.score);
+			chartData.labels.push(element.name);
+		});
 
-		})
+		return chartData;
+	};
+
+	lineChart.getAllBatchesEvalChart = function(data, batches) {
+		var chartData = {};
+
+		// series
+		chartData.series = [ "All Batch Eval" ];
+
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+
+		// loop through object array
+		angular.forEach(data, function(value, key) {
+			$log.debug(value);
+			chartData.data.push(value[0]);
+			$log.debug(key);
+			chartData.labels.push(key);
+		});
+
+		return chartData;
+	};
+
+	lineChart.getBatchTechEvalChart = function(dataArray) {
+		var chartData = {};
+
+		// series
+		chartData.series = [ "Tech Batch Eval" ];
+
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+
+		// loop through object array
+		dataArray.forEach(function(element) {
+			chartData.data.push(element.average);
+			chartData.labels.push(element.trainee);
+		});
+
+		return chartData;
+	};
+
+	return lineChart;
+});

@@ -1,7 +1,7 @@
 angular
 		.module("reportApi")
 		.factory(
-				"pdfFactory",
+				"pdfDataFactory",
 				function($http, $log) {
 					$log.debug("Booted Report Factory");
 
