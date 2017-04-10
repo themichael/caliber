@@ -1,6 +1,6 @@
 <div id="manage">
 	<div class="container">
-		<div class="row">
+		<div class="row"> 
 			<div class="col-md-12 col-lg-12">
 				<ul class="nav nav-tabs">
 					<!-- Filter batches by year -->
@@ -281,13 +281,16 @@
 												href="{{trainee.profileUrl}}" target="_blank"><i
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 										</span></td>
-										<td><button ng-click="getTrainee(trainee)" type="button"
-												class="btn btn-primary"><span
-									class="glyphicon glyphicon-user"></span></button>
-											<button
-												ng-Click="removeTrainee(trainee.traineeId); selectCurrentBatch($index)"
-												type="button" value="delete" class="btn btn-primary"><span
-									class="glyphicon glyphicon-remove" aria-hidden="true"> </span></button></td>
+										<td><a role="button" ng-click="getTrainee(trainee)"
+											type="button"> <span class="glyphicon glyphicon-pencil"></span>
+										</a></td>
+
+										<td><a role="button"
+											ng-click="removeTrainee(trainee.traineeId); selectCurrentBatch($index)"
+											type="button" value="delete"> <span
+												class="glyphicon glyphicon-remove" aria-hidden="true">
+											</span>
+										</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -376,8 +379,8 @@
 							ng-show="!Updating">
 
 
-						<button type="button" class="btn btn-default" ng-click="clear"
-							ng-show="Updating">Clear</button>
+						<button type="button" class="btn btn-default"
+							ng-click="updateTrainee(editTrainee)" ng-show="Updating">Clear</button>
 						<button type="button" id="updateTraineeButton"
 							class="btn btn-primary" ng-click="updateTrainee(editTrainee)"
 							class="btn btn-default" ng-show="Updating">Update</button>

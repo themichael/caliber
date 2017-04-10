@@ -131,9 +131,16 @@ angular
 									{
 										templateUrl : "/static/app/partials/reports.html",
 										url : "/reports",
-										controller : "trainerHomeController"
+										controller : "allReportController"
 									})
-
+						/*this state is for testing..... change later*/
+							.state(
+									"trainer.display",
+									{
+										templateUrl : "/static/app/partials/trainer-display.html",
+										url : "/display",
+										controller : "trainerAssessController"
+									})
 							/***************************************************
 							 * VP
 							 **************************************************/

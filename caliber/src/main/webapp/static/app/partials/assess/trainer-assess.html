@@ -9,7 +9,9 @@
 		</div>
 		<div class="col-md-12 col-lg-12 top10">
 			<!-- top ui for viewing all assessments -->
-			<ul class="nav nav-tabs" ng-show="currentView">	<i class="fa fa-file-text" aria-hidden="true"></i>
+			<ul class="nav nav-tabs" ng-show="currentView">
+		<!-- for testing purposes  -->
+			<a ui-sref="trainer.display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
 			
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
@@ -107,9 +109,7 @@
                     placeholder="Enter your overall feedback on the batch" required>
                 
                 </textarea>
-            </div>
-			
-			
+      </div>
 			<!--<table class="col-md-6 table table-condensed" ng-show="!currentView">
                 <tr>
                     <th>Name</th>
