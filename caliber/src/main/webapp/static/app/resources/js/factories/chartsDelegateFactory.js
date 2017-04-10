@@ -22,13 +22,13 @@ angular
 					delegate.line = {};
 
 					/**
-					 * ********************* Doughnut
-					 * *********************
+					 * ********************* Doughnut *********************
 					 */
 					delegate.doughnut.getQCStats = function(dataArray) {
-						return doughnutChartDataFactory.report.batchWeekQCPie(dataArray);
+						return doughnutChartDataFactory.report
+								.batchWeekQCPie(dataArray);
 					};
-					
+
 					/**
 					 * ********************* Horizontal Bar
 					 * *********************
