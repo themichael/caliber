@@ -210,7 +210,13 @@ public class EvaluationService {
 	 */
 	public List<Note> findIndividualNotes(Integer batchId, Integer week) {
 		log.debug("Finding week " + week + " individual notes for batch: " + batchId);
-		return noteDAO.findIndividualNotes(batchId, week);
+		List <Note>notes_temp = noteDAO.findIndividualNotes(batchId,week);
+		List <Note> notes = new ArrayList<>();
+		for(Note n : notes_temp){
+			n.getBatch().setTrainees(null);
+			notes.add(n);
+		}
+		return notes;
 	}
 
 	/**
