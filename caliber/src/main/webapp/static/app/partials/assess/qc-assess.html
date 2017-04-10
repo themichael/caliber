@@ -21,8 +21,8 @@
 									batch.trainingName }} - {{ batch.startDate | date:'shortDate'
 									}} </a>
 						</ul></li>
-								<button type="button" class="btn btn-info"
-									ng-click="showMe=readOnlyPage()">Get Report</button>
+					<button type="button" class="btn btn-info"
+						ng-click="showMe=readOnlyPage()">Get Report</button>
 				</ul>
 				<!-- top ui for viewing trainee grades -->
 				<ul class="nav nav-tabs" ng-show="!currentView">
@@ -201,13 +201,12 @@
 								role="button" ng-click="selectCurrentBatch($index)"> {{
 									batch.trainingName }} - {{ batch.startDate | date:'shortDate'
 									}} </a></li>
-						</ul>
-						</li>
-						<button type="button" class="btn btn-info"
-							ng-click="showMe=readOnlyPage()">Edit Batch</button>
+						</ul></li>
+					<button type="button" class="btn btn-info"
+						ng-click="showMe=readOnlyPage()">Edit Batch</button>
 				</ul>
-				
-				
+
+
 				<!-- top ui for viewing trainee grades -->
 				<ul class="nav nav-tabs" ng-show="!currentView">
 					<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -233,9 +232,6 @@
 						ng-click="selectWeek($index)"
 						ng-repeat="week in weeks track by $index"><a>Week
 							{{week}}</a></li>
-					<li role="button" ng-show="currentView" ng-click="createWeek()">
-						<a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-					</li>
 				</ul>
 			</div>
 		</div>
@@ -263,32 +259,27 @@
 									<span ng-hide="faces[$index].qcStatus"
 										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 										title="Click to update your feedback."
-										alt="Click to update your feedback."
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
+										alt="Click to update your feedback.">
 										<i class="fa fa-question-circle fa-2x"></i>
 									</span>
 									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
 										title="Excellent"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);">
+										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
 										<i class="fa fa-star fa-2x pick"></i>
 									</div>
 									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
 										title="Good"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);">
+										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
 										<i class="fa fa-smile-o fa-2x pick"></i>
 									</div>
 									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
 										title="Fair"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);">
+										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
 										<i class="fa fa-meh-o fa-2x pick"></i>
 									</div>
 									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
 										title="Poor"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
+										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
 										<i class="fa fa-frown-o fa-2x pick"></i>
 									</div>
 								</form>
@@ -296,9 +287,8 @@
 							</td>
 							<td><textarea ng-model="noteOnTrainee($index).content"
 									id="noteTextArea" class="form-group"
-									placeholder="Note on {{trainee.name}}"
-									rows="3" cols="75" readonly></textarea>
-							</td>
+									placeholder="Note on {{trainee.name}}" rows="3" cols="75"
+									readonly></textarea></td>
 							<td><ul class="nav nav-tabs">
 						</tr>
 					</tbody>
@@ -353,8 +343,7 @@
 					ng-class="{pick : qcBatchAssess === qcStatusTypes[1]}"></i>
 					-->
 				</div>
+			</form>
 		</div>
-		</form>
+		<!-- overall -->
 	</div>
-	<!-- overall -->
-</div>
