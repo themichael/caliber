@@ -11,10 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.data.TraineeDAO;
 
 /**
  * Used to add grades for assessments and input notes Application logic has no
@@ -30,7 +28,6 @@ public class EvaluationService {
 	private static final Logger log = Logger.getLogger(EvaluationService.class);
 	private GradeDAO gradeDAO;
 	private NoteDAO noteDAO;
-	private TraineeDAO traineeDAO;
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -40,11 +37,6 @@ public class EvaluationService {
 	@Autowired
 	public void setNoteDAO(NoteDAO noteDAO) {
 		this.noteDAO = noteDAO;
-	}
-	
-	@Autowired
-	public void setTraineeDAO(TraineeDAO traineeDAO) {
-		this.traineeDAO = traineeDAO;
 	}
 
 	/*
@@ -276,17 +268,6 @@ public class EvaluationService {
 	 */
 	public List<Note> findAllQCTraineeNotes(Integer batchId, Integer week) {
 		log.debug("Find All QC Trainee Notes");
-		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
-		List<Note> notes = noteDAO.findAllQCTraineeNotes(week);
-		List<Note> traineeNotes = new ArrayList<Note>();
-		for(Trainee trainee:trainees) {
-			for(Note note:notes) {
-				if(note.getTrainee().getTraineeId() == trainee.getTraineeId()) {
-					traineeNotes.add(note);
-					log.debug("Note added");
-				}
-			}
-		}
-		return traineeNotes;
+		return noteDAO.findAllQCTraineeNotes(batchId, week);
 	}
 }
