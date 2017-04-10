@@ -10,11 +10,11 @@ angular
 					/**
 					 * Yanilda
 					 */
-					report.reportLineChart = function(week, traineeId) {
+					report.getTraineeUpToWeekLineChart = function(week, traineeId) {
 						return $http(
 								{
 									url : "/all/reports/batch/week/" + week
-											+ "/trainee/" + traineeId,
+											+ "/trainee/" + traineeId + "/line-trainee-up-to-week",
 									method : "GET"
 								})
 								.then(
