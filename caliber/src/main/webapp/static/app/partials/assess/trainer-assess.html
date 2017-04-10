@@ -1,0 +1,171 @@
+<!-- Year selector and Add Assessment button -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
+			<button class="btn back-btn" ng-click="back()">
+				<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+				Back
+			</button>
+		</div>
+		<div class="col-md-12 col-lg-12 top10">
+			<!-- top ui for viewing all assessments -->
+			<ul class="nav nav-tabs" ng-show="currentView">
+		<!-- for testing purposes  -->
+			<a ui-sref="trainer.display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
+			
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
+						currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="batch in batches track by $index"><a
+							role="button" ng-click="selectCurrentBatch($index)"> {{
+								batch.trainingName }} - {{ batch.startDate | date:'shortDate' }}
+						</a></li>
+					</ul></li>
+				<!-- Button Trigger for Create Assessment Modal -->
+				<li role="button" class="pull-right" ng-show="currentView"
+					data-toggle="modal" data-target="#createAssessmentModal"><a>Create
+						Assessment<span class="glyphicon glyphicon-plus"
+						aria-hidden="true"> </span>
+				</a></li>
+			</ul>
+			<!-- top ui for viewing trainee grades -->
+			<ul class="nav nav-tabs" ng-show="!currentView">
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">{{ currentAssessment.title }}<span
+						class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="assessment in currentAssessments track by $index">
+							<a role="button" ng-click="selectAssessment($index)">{{
+								assessment.title }}</a>
+						</li>
+					</ul></li>
+				<li role="button" class="pull-right" ng-show="currentView"
+					data-toggle="modal" data-target="#createAssessmentModal"><a>Create
+						Assessment<span class="glyphicon glyphicon-plus"
+						aria-hidden="true"></span>
+				</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-12 col-md-12 col-lg-12 top5">
+			<ul class="nav nav-tabs">
+				<li role="button" class="{{showActiveWeek($index)}}"
+					ng-click="selectWeek($index)"
+					ng-repeat="week in currentBatch.arrayWeeks track by $index"><a>Week
+						{{week}}</a></li>
+				<!-- Button Trigger for Create Week Modal -->
+				<li role="button" ng-show="currentView" ng-click="createWeek()">
+					<a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- Assessments table -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 col-lg-12 top5">
+			<!-- Accordian table -->
+			<table class="table table-responsive"
+				style="border-collapse: collapse;" ng-show="currentView">
+				<thead>
+					<tr>
+						<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
+						<th class="col-sm-1 col-md-1 col-lg-1" role="button" 
+							ng-repeat="assessment in currentAssessments track by $index">
+							{{assessment.title}}(%)</th>
+						<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr role="button"
+						ng-repeat="trainee in currentBatch.trainees track by $index">
+						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
+						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">
+							<input class='form-control' type="number" ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score" ng-blur="updateGrade(trainee,assessment)" ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
+						</td>
+						<td class="col-sm-9 col-md-9 col-lg-9">
+							<textarea class="form-control" name="note" cols="20"
+								rows="2" ng-model="trainees[trainee.traineeId].note.content">
+							</textarea>
+						</td>
+
+					</tr>
+				</tbody>
+				<tfoot>
+					<td>Average</td>
+					<td ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees) ? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) + "%" : "-"}}</td>
+					<td></td>
+				</tfoot>
+			</table>
+			<div
+                class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
+                <textarea ng-model="finalQCBatchNote" class="form-control"
+                    id="qcBatchNotes"
+                    placeholder="Enter your overall feedback on the batch" required>
+                
+                </textarea>
+      </div>
+		</div>
+	</div>
+</div>
+
+<!-- Create Assessment Modal -->
+<div class="modal fade" id="createAssessmentModal" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+				<h4 class="modal-title" id="myModalLabel">Create New Assessment</h4>
+			</div>
+			<!-- Add Assessment Info -->
+			<form ng-submit="addAssessment()">
+				<div class="modal-body">
+
+					<div class="row">
+						<div class="form-group col-lg-12 col-md-12 col-sm-12">
+							<label for="category">Assessment Category:</label> <select
+								ng-model="category.model" class="form-control"
+								id="category" required>
+								<option value="" disabled>Select Assessment Category</option>
+								<option ng-repeat="option in category.options" value="{{option}}">{{option.skillCategory}}</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-6 col-sm-6">
+							<label for="rawScore">Max Points:</label> <input
+								ng-model="rawScore" type="number" class="form-control"
+								id="rawScore" placeholder="99" min="0" step="1" required>
+						</div>
+
+
+						<div class="form-group col-md-6 col-sm-6">
+							<label for="assessmentType">Assessment Type:</label> <select
+								ng-model="assessmentType.model" class="form-control"
+								id="assessmentType" required>
+								<option value="" disabled>Select Assessment Type</option>
+								<option ng-repeat="option in assessmentType.options">{{option}}</option>
+							</select>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" value="Save" class="btn btn-primary">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
