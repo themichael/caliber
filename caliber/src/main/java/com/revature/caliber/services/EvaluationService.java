@@ -174,9 +174,9 @@ public class EvaluationService {
 	 * 
 	 * @param note
 	 */
-	public void save(Note note) {
+	public int save(Note note) {
 		log.debug("Saving note: " + note);
-		noteDAO.save(note);
+		return noteDAO.save(note);
 	}
 
 	/**
@@ -232,7 +232,7 @@ public class EvaluationService {
 	 * @param week
 	 * @return
 	 */
-	public Note findQCIndividualNotes(Integer traineeId, Integer week) {
+	public List<Note> findQCIndividualNotes(Integer traineeId, Integer week) {
 		log.debug("Finding week " + week + " QC individual notes for trainee: " + traineeId);
 		return noteDAO.findQCIndividualNotes(traineeId, week);
 	}

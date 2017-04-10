@@ -32,9 +32,9 @@ public class NoteDAO {
 	 * @param note
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void save(Note note) {
+	public int save(Note note) {
 		log.info("Saving Note " + note);
-		sessionFactory.getCurrentSession().save(note);
+		return (int) sessionFactory.getCurrentSession().save(note);
 	}
 
 	/**
@@ -100,19 +100,19 @@ public class NoteDAO {
 	}
 
 	/**
-	 * Returns a individuals note written by QC for a given week.
+	 * Returns all individual notes written by QC for a given week.
 	 * @param traineeId
 	 * @param week
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public Note findQCIndividualNotes(Integer traineeId, Integer week) {
+	public List<Note> findQCIndividualNotes(Integer traineeId, Integer week) {
 		log.info("Finding QC individual notes for week " + week + " for trainee: " + traineeId);
-		return (Note) sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
-        		.createAlias("t.batch", "b")
+		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
 				.add(Restrictions.eq("t.traineeId", traineeId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
-				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).uniqueResult();
+				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
 	/**
