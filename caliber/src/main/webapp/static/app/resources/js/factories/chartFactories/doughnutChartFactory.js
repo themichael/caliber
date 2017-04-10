@@ -4,13 +4,12 @@
  * @returns {{}}
  */
 angular.module("charts").factory("doughnutChartFactory", function($log) {
-	$log.debug("Booted Doughtnut Bar Chart Factory");
+	$log.debug("Booted Doughtnut Chart Factory");
 
 	var doughnutChart = {};
 
 	doughnutChart.batchWeekQCPie = function(dataArray) {
 		var chartData = {};
-
 		// data and labels
 		chartData.data = [];
 		chartData.labels = [];
@@ -21,7 +20,7 @@ angular.module("charts").factory("doughnutChartFactory", function($log) {
 		};
 
 		// traverse through array of objects and grab labels and data
-		angular.forEach(dataArray, function(key, value) {
+		angular.forEach(dataArray.data, function(value, key) {
 			chartData.labels.push(key);
 			chartData.data.push(value);
 		});

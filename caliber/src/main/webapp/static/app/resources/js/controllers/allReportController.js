@@ -2,7 +2,8 @@ angular
 		.module("charts")
 		.controller(
 				"allReportController",
-				function($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
+				function($scope, $log, caliberDelegate, chartsDelegate,
+						allBatches) {
 
 					$log.debug("Booted Report Controller");
 					$log.debug("Peacepapi is here!!!!!");
@@ -18,9 +19,34 @@ angular
 							$scope.noBatchesMessage = "No Batches belonging to you were found.";
 						} else {
 							$scope.noBatches = false;
+							$log.debug("Here AGAIN!!!!!!");
 							createDefaultCharts();
 						}
 					})();
+
+					/**
+					 * ********************************************* UI
+					 * **************************************************
+					 */
+					var viewCharts = 0;
+
+					$scope.batches = allBatches;
+					$scope.currentBatch = {
+						trainingName : "Batch"
+					};
+					$scope.currentTrainee = {
+						name : "Trainee"
+					};
+
+					// hide filter tabs
+					$scope.hideOtherTabs = function() {
+						return $scope.currentBatch.trainingName !== "Batch";
+					};
+
+					// show charts
+					$scope.showCharts = function(charts) {
+						return charts === viewCharts;
+					};
 
 					function createDefaultCharts() {
 						// Finishes any left over ajax animation from another
@@ -28,10 +54,9 @@ angular
 						NProgress.done();
 						NProgress.start();
 						chartsDelegate.doughnut.data
-								.getQCStatsData(50, 1)
+								.getQCStatsData(1050, 1)
 								.then(
 										function(data) {
-											$log.debug(data);
 											NProgress.done();
 											var doughnutChartObject = chartsDelegate.doughnut
 													.getQCStats(data);
@@ -41,31 +66,7 @@ angular
 										}, function() {
 											NProgress.done();
 										});
-					
-					
-					chartsDelegate.radar.getBatchAvgChart(1, traineeId)
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+
 					}
 
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 				});
