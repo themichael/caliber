@@ -1,7 +1,7 @@
 angular
-		.module("api")
+		.module("reportApi")
 		.factory(
-				"reportFactory",
+				"barChartDataFactory",
 				function($http, $log) {
 					$log.debug("Booted Report Factory");
 
@@ -10,59 +10,18 @@ angular
 					/**
 					 * Yanilda
 					 */
-					report.reportLineChart = function(week, traineeId) {
-						return $http(
-								{
-									url : "/all/reports/batch/week/" + week
-											+ "/trainee/" + traineeId,
-									method : "GET"
-								})
-								.then(
-										function(response) {
-											$log
-													.debug("Agg - Batch - week-- trainee -- success");
-											$log.debug(response);
-											return response.data;
-										},
-										function(response) {
-											$log.error("There was an error: "
-													+ response.status);
-										});
-					};
-					/**
-					 * Yanilda
-					 */
-					report.reportAssesmentChart = function(batchId, week) {
+					report.getBatchWeekAvgBarChart = function(batchId, week) {
 						return $http(
 								{
 									url : "/all/reports/batch/" + batchId
-											+ "/week/" + week + "/barAssesment",
+											+ "/week/" + week
+											+ "/bar-batch-week-avg",
 									method : "GET"
 								})
 								.then(
 										function(response) {
 											$log
 													.debug("Agg - Batch - batchId, Week -- success");
-											$log.debug(response);
-											return response.data;
-										},
-										function(response) {
-											$log.error("There was an error: "
-													+ response.status);
-										});
-					};
-
-					report.batchWeekQCPie = function(batchId, weekNum) {
-						return $http(
-								{
-									url : "all/reports/batch/" + batchId
-											+ "/week/" + weekNum + "/pie",
-									method : "GET"
-								})
-								.then(
-										function(response) {
-											$log
-													.debug("Reports - BatchWeekPie -- success");
 											$log.debug(response);
 											return response.data;
 										},
@@ -137,64 +96,24 @@ angular
 										}); // end then
 					};
 
-					report.getTraineeUpToWeekRadarChart = function(week,
-							traineeId) {
-						return $http(
-								{
-									url : "/all/reports/week/" + week
-											+ "/trainee/" + traineeId
-											+ "/radar-trainee-up-to-week",
-									method : "GET"
-								})
-								.then(
-										function(response) {
-											$log
-													.debug("Week - Trainee Up To Week Radar Chart");
-											$log.debug(response);
-											return response.data;
-										},
-										function(response) {
-											$log.error("There was an error: "
-													+ response.status);
-										}); // end then
-					};
-
-					report.getTraineeOverallRadarChart = function(traineeId) {
-						return $http(
-								{
-									url : "/all/reports/trainee/" + traineeId
-											+ "/radar-trainee-overall",
-									method : "GET"
-								}).then(
-								function(response) {
-									$log.debug("Trainee Overall Radar Chart");
-									$log.debug(response);
-									return response.data;
-								},
-								function(response) {
-									$log.error("There was an error: "
-											+ response.status);
-								}); // end then
-					};
-
-					report.getBatchOverallRadarChart = function(batchId) {
+					report.getBatchOverallBarChart = function(batchId) {
 						return $http(
 								{
 									url : "/all/reports/batch/" + batchId
-											+ "/overall/radar-batch-overall",
+											+ "/overall/bar-batch-overall",
 									method : "GET"
 								}).then(
 								function(response) {
-									$log.debug("Batch Overall Radar Chart");
+									$log.debug("batch - overall");
 									$log.debug(response);
 									return response.data;
+
 								},
 								function(response) {
 									$log.error("There was an error: "
 											+ response.status);
-								}); // end then
-					};
 
-					return report;
+								});
+					};
 
 				})
