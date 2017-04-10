@@ -175,8 +175,8 @@ public class ReportingService {
 	}
 		
 	/**
-	 * x-Axis: 
-	 * y-Axis: 
+	 * x-Axis: Trainee
+	 * y-Axis: Average score
 	 * @param batchId
 	 * @return
 	 */
@@ -245,8 +245,8 @@ public class ReportingService {
 	}
 	
 	/**
-	 * x-Axis: 
-	 * y-Axis: 
+	 * x-Axis: trainee avg, batch avg
+	 * y-Axis: week
 	 * @param batchId,
 	 * @param traineeId
 	 * @return Map<Total Weeks, Double[0:Trainee Overall Average 1: Batch Overall Average]>
