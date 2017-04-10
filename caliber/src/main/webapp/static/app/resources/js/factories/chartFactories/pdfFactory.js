@@ -1,5 +1,5 @@
 angular
-		.module("api")
+		.module("reportApi")
 		.factory(
 				"pdfFactory",
 				function($http, $log) {

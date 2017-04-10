@@ -1,5 +1,5 @@
 angular
-		.module("api")
+		.module("reportApi")
 		.factory(
 				"barChartFactory",
 				function($http, $log) {
@@ -10,11 +10,11 @@ angular
 					/**
 					 * Yanilda
 					 */
-					report.reportAssesmentChart = function(batchId, week) {
+					report.getBatchWeekAvgBarChart = function(batchId, week) {
 						return $http(
 								{
 									url : "/all/reports/batch/" + batchId
-											+ "/week/" + week + "/barAssesment",
+											+ "/week/" + week + "/bar-batch-week-avg",
 									method : "GET"
 								})
 								.then(
