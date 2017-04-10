@@ -105,6 +105,7 @@ public class Batch implements Serializable {
 
 	public Batch() {
 		super();
+		this.weeks = 1; 
 	}
 
 	public Batch(String trainingName, Trainer trainer, SkillType skillType, TrainingType trainingType, Date startDate,
@@ -121,7 +122,7 @@ public class Batch implements Serializable {
 		this.location = location;
 		this.goodGradeThreshold = goodGradeThreshold.shortValue();
 		this.borderlineGradeThreshold = borderlineGradeThreshold.shortValue();
-		this.weeks = weeks;
+		this.weeks = 1;
 	}
 
 	public int getBatchId() {
