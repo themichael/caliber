@@ -251,7 +251,12 @@ angular
 					};
 
 	/********************************************* QCFeedBack ***********************************************************/
-
+					$scope.showCurrentBatch = function() {
+						/*{{ currentBatch.trainingName }} - {{
+							currentBatch.startDate | date:'shortDate' }}*/
+						$log.debug($scope.currentBatch[$scope.currentBatch.length - 1].trainingName);
+					}
+					
 					$scope.saveTraineeNote = function(index) {
 						$log.debug($scope.faces[index]);
 						// Create if noteId is null so nothing in database
