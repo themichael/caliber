@@ -58,9 +58,18 @@ angular
 						//get trainee notes and put into $scope.trainees[traineeId].note
 						$scope.getTraineeBatchNotesForWeek=function(batchId,weekId){
 							caliberDelegate.trainer.getTraineeBatchNotesForWeek(batchId,weekId).then(function(data){
-								$scope.notes = data;
-								for(note of $scope.notes){
-									$scope.trainees[note.trainee.traineeId].note = note;
+								if(data.length > 0){
+									$scope.notes = data;
+									for(note of $scope.notes){
+										if($scope.trainees[note.trainee.traineeId].note.hasOwnProperty('noteId')){
+											$scope.trainees[note.trainee.traineeId].note = {};
+										}
+										$scope.trainees[note.trainee.traineeId].note = note;
+									}
+								}else{
+									angular.forEach($scope.trainees,function(key,value){
+										$scope.trainees[value].note = {};
+									});
 								}
 							});
 						}
@@ -295,9 +304,8 @@ angular
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
 											
-										}).then(function(){
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
-										});
+										})
 					};
 					
 					$scope.generateArrAssessmentById = function(assessments){
