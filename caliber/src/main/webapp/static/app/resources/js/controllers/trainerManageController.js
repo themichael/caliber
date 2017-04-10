@@ -214,12 +214,14 @@ angular
 						} else {
 							$scope.coTrainer.model = ""
 						}
-						$scope.startDate.model = new Date(batch.startDate);
-						$scope.endDate.model = new Date(batch.endDate);
+						$scope.startDate.model = new Date(batch.startDate
+								.replace(/-/g, '/'));
+						$scope.endDate.model = new Date(batch.endDate.replace(
+								/-/g, '/'));
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
-								batch.benchmarkStartDate);
+								batch.benchmarkStartDate.replace(/-/g, '/'));
 						$scope.Save = "Update";
 					}
 
