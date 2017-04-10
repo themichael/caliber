@@ -367,9 +367,11 @@ angular
 					 * ******************************************* QCFeedBack
 					 * **********************************************************
 					 */
+					var readMe = false;
 					$scope.readOnlyPage = function() {
-						window.open("http://localhost:8081/caliber#/qc/audit",
-								'_blank');
+						 readMe = !readMe;
+						 $log.debug(readMe);
+						 return readMe;
 					}
 
 					$scope.saveTraineeNote = function(index) {
