@@ -1,5 +1,5 @@
 angular
-		.module("api")
+		.module("reportApi")
 		.factory(
 				"lineChartFactory",
 				function($http, $log) {
