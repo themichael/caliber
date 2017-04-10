@@ -61,7 +61,9 @@ angular
 						$scope.weeks.push(i);
 					}
 
+					// function to get notes
 					$scope.getNotes = function() {
+						// Check if there are not weeks
 						if ($scope.currentWeek !== undefined) {
 							// Get qc notes for selected batch
 							caliberDelegate.qc
@@ -131,7 +133,7 @@ angular
 					
 					// Set current week to first week
 					$scope.currentWeek = $scope.weeks[0];
-					// Check if there are no weeks
+					// Get notes
 					$scope.getNotes();
 
 					$scope.pickIndividualStatus = function(trainee, status,
