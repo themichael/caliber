@@ -11,8 +11,8 @@
 			<!-- top ui for viewing all assessments -->
 			<ul class="nav nav-tabs" ng-show="currentView">
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown"> {{showCurrentBatch()}} <!-- {{ currentBatch.trainingName }} - {{
-						currentBatch.startDate | date:'shortDate' }} --> <span class="caret"></span>
+					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
+						currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="batch in batches track by $index"><a
