@@ -22,7 +22,7 @@ angular
 						$scope.batches = allBatches;
 						$scope.selectedBatches = [];
 						sortByDate(new Date().getFullYear());
-						$scope.notUpdating= "true";
+						$scope.notUpdating = "true";
 					})();
 
 					/** Filter batches by year * */
@@ -137,7 +137,6 @@ angular
 						$scope.editTrainee = trainee;
 						$scope.Updating = true;
 
-
 					}
 
 					$scope.Updating = false;
@@ -184,22 +183,22 @@ angular
 						$log.log(updTrainee);
 						editedTrainee = updTrainee;
 						$log.debug(editedTrainee);
-						caliberDelegate.all.updateTrainee(editedTrainee).then(
-								$scope.clear = function(editedTrainee) {
-									$scope.editTrainee.name = "";
-									$scope.editTrainee.email = "";
-									$scope.editTrainee.phoneNumber = "";
-									$scope.editTrainee.skypeId = "";
-									$scope.editTrainee.profileUrl = "";
-									$scope.Updating= false;
-									
-									for (var i = 0; i < $scope.receivers.length; i++)
-										{
-											$scope.receivers[i]= null;
-										}
+						caliberDelegate.all
+								.updateTrainee(editedTrainee)
+								.then(
+										$scope.clear = function(editedTrainee) {
+											$scope.editTrainee.name = "";
+											$scope.editTrainee.email = "";
+											$scope.editTrainee.phoneNumber = "";
+											$scope.editTrainee.skypeId = "";
+											$scope.editTrainee.profileUrl = "";
+											$scope.Updating = false;
 
+											for (var i = 0; i < $scope.receivers.length; i++) {
+												$scope.receivers[i] = null;
+											}
 
-								});
+										});
 					};
 
 					/** Fill update form with batch previous data* */
