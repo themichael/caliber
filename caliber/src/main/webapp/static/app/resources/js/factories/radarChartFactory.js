@@ -7,45 +7,20 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 	$log.debug("Booted Radar Chart Factory");
 
 	var radarChart = {};
-
+	
 	radarChart.getBatchRankComparisonChart = function(data) {
 		var chartData = {};
-
-		// series
 		chartData.series = [ "Batch" ];
-
-		// labels and data
-		chartData.labels = [];
 		chartData.data = [];
-
-		// push empty arrays for data
+		chartData.labels = [];
 		chartData.data.push([]);
 
-		// loop through batch data
 		angular.forEach(data, function(value, key) {
 			chartData.labels.push(key);
-			//chartData.data[0].push(value[0]);
 			chartData.data[0].push(value);
 		});
-
-		// set radar options
-		chartData.options = {
-			legend : {
-				display : true,
-				position : 'bottom'
-			},
-	        scale: {
-	            reverse: false,
-	            ticks: {
-	                beginAtZero: false,
-	                fixedStepSize: 5,
-	                max: 100,
-	                suggestedMin: 40
-	            }
-
-			
-	        }
-		};
+		
+		chartData.options = radarOptions;
 		return chartData;
 	};
 
@@ -71,24 +46,7 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		});
 		
 		// set radar options
-		chartData.options = {
-			legend : {
-				display : true,
-				position : 'bottom'
-			},
-	        scale: {
-	            reverse: false,
-	            ticks: {
-	                beginAtZero: false,
-	                fixedStepSize: 5,
-	                max: 100,
-	                suggestedMin: 40
-	            }
-
-			
-	        }
-		};
-		
+		chartData.options = radarOptions;
 		return chartData;
 	};
 
@@ -122,14 +80,29 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		});
 
 		// set radar options
-		chartData.options = {
-			legend : {
-				display : true,
-				position : 'bottom'
-			}
-		};
+		chartData.options = radarOptions;
 		return chartData;
 	};
+	
+
+	
+	radarOptions = {
+		legend : {
+			display : true,
+			position : 'bottom'
+		},
+		scale : {
+			reverse : false,
+			ticks : {
+				beginAtZero : false,
+				fixedStepSize : 5,
+				max : 100,
+				suggestedMin : 40
+			}
+
+		}
+	};
+	
 
 	return radarChart;
 });

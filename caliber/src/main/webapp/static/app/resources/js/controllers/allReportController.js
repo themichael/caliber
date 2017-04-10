@@ -100,6 +100,31 @@ angular
 										}, function() {
 											NProgress.done();
 										});
+					
+					
+					chartsDelegate.radar.getBatchAvgChart(1, traineeId)
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					}
 
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 				});
