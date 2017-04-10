@@ -39,7 +39,7 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void save(Grade grade) {
 		log.info("Saving grade " + grade);
-		sessionFactory.getCurrentSession().save(grade);
+		sessionFactory.getCurrentSession().saveOrUpdate(grade);
 	}
 
 	/**

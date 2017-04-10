@@ -40,7 +40,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// Call EvaluationController's getAllQCTraineeNotes method
 	qc.getAllQCTraineeNote = function(batchId, week) {
 		return $http({
-			url : "/qc/trainee/note/" + batchId + "/" + week,
+			url : "/qc/note/trainee/" + batchId + "/" + week,
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Note retrieved successfully");

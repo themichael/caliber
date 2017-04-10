@@ -146,7 +146,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	 */
 	all.deleteBatch = function(batchId) {
 		return $http({
-			url : "/all/batch/delete" + batchId,
+			url : "/all/batch/delete/" + batchId,
 			method : "DELETE"
 		}).then(function(response) {
 			$log.debug("Batch successfully deleted");
