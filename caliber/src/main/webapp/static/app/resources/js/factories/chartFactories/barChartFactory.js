@@ -1,5 +1,5 @@
 angular
-		.module("api")
+		.module("reportApi")
 		.factory(
 				"barChartFactory",
 				function($http, $log) {

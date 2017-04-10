@@ -9,8 +9,7 @@
 angular.module("delegate")
 		.factory(
 				"chartsDelegate",
-				function($log, barChartFactory, radarChartFactory,
-						lineChartFactory) {
+				function($log, barChartFactory, doughnutChartFactory, lineChartFactory, pdfFactory, radarChartFactory) {
 					$log.debug("Booted charts delegate");
 
 					var delegate = {};
