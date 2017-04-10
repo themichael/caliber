@@ -72,7 +72,13 @@ angular
 										function(notes) {
 											$scope.bnote = notes;
 											$scope.qcBatchAssess = notes.qcStatus;
-										});
+										})
+								// If note does not exist
+								.error(
+										function() {
+											$scope.bnote = new Note(null, null, null, $scope.currentWeek, null, "QC", "QC_BATCH", true);
+										}
+								);
 						// Get qc notes for trainees in selected batch
 						caliberDelegate.qc
 								.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
@@ -135,7 +141,12 @@ angular
 											function(notes) {
 												$scope.bnote = notes;
 												$scope.qcBatchAssess = notes.qcStatus;
-											});
+											})
+									// If note does not exist
+									.error(
+										function() {
+											$scope.bnote = new Note(null, null, null, $scope.currentWeek, null, "QC", "QC_BATCH", true);
+										});
 							// Get qc notes for trainees in selected batch
 							caliberDelegate.qc
 									.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
@@ -178,7 +189,12 @@ angular
 											function(notes) {
 												$scope.bnote = notes;
 												$scope.qcBatchAssess = notes.qcStatus;
-											});
+											})
+									// If note does not exist
+									.error(
+										function() {
+											$scope.bnote = new Note(null, null, null, $scope.currentWeek, null, "QC", "QC_BATCH", true);
+										});;
 							// Get qc notes for trainees in selected batch
 							caliberDelegate.qc
 									.traineeNote($scope.currentBatch.batchId, $scope.currentWeek)
@@ -279,7 +295,22 @@ angular
 					};
 					
 					$scope.saveQCNotes = function() {
-						$log.debug(document.getElementById("qcBatchNotes").value);
-						$log.debug(caliberDelegate.qc.updateNote($scope.bnote));
+						// Create note
+						if($scope.bnote.noteId === null) {
+							caliberDelegate.qc.createNote($scope.bnote);
+							// Set note to created note
+							caliberDelegate.qc
+							.batchNote($scope.currentBatch.batchId, $scope.currentWeek)
+							.then(
+									function(notes) {
+										$scope.bnote = notes;
+										$scope.qcBatchAssess = notes.qcStatus;
+									});
+						}
+						// Update existing note
+						else{
+							$log.debug(document.getElementById("qcBatchNotes").value);
+							$log.debug(caliberDelegate.qc.updateNote($scope.bnote));
+						}
 					}
 				});
