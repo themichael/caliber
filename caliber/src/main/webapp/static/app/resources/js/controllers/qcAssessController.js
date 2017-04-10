@@ -312,19 +312,8 @@ angular
 						return $scope.faces[index];
 					};
 
-					/**
-					 * ******************************************* QCFeedBack
-					 * **********************************************************
-					 */
-					$scope.showCurrentBatch = function() {
-						/*
-						 * {{ currentBatch.trainingName }} - {{
-						 * currentBatch.startDate | date:'shortDate' }}
-						 */
-						$log
-								.debug($scope.currentBatch[$scope.currentBatch.length - 1].trainingName);
-					}
-
+	/********************************************* QCFeedBack ***********************************************************/
+					
 					$scope.saveTraineeNote = function(index) {
 						$log.debug($scope.faces[index]);
 						// Create if noteId is null so nothing in database
@@ -358,5 +347,18 @@ angular
 							$log.debug(caliberDelegate.qc
 									.updateNote($scope.bnote));
 						}
+					}
+					
+					$scope.saveQCandTrainee = function(){
+						$log.debug($scope.faces);
+						
+							$log.debug("update");
+							caliberDelegate.qc.updateNote($scope.faces);
+
+							$log.debug("create");
+							caliberDelegate.qc.createNote($scope.faces);
+							
+						$log.debug(document.getElementById("qcBatchNotes").value);
+						$log.debug(caliberDelegate.qc.updateNote($scope.bnote));
 					}
 				});
