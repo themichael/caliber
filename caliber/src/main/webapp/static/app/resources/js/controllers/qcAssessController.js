@@ -99,6 +99,7 @@ angular
 													var content = null;
 													var status = null;
 													var id = null;
+													// Set content, status and id to note if found
 													for (var j = 0; j < notes.length; j++) {
 														if ($scope.currentBatch.trainees[i].name === notes[j].trainee.name) {
 															content = notes[j].content;
@@ -107,6 +108,7 @@ angular
 															break;
 														}
 													}
+													// Push note object into array, batch set to null for trainee note always
 													$scope.faces
 															.push(new Note(
 																	id,
@@ -120,6 +122,7 @@ angular
 																	true));
 												}
 											});
+						// If there are no weeks
 						} else {
 							$scope.bnote = null;
 							for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
