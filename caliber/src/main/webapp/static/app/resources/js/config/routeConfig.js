@@ -133,7 +133,14 @@ angular
 										url : "/reports",
 										controller : "allReportController"
 									})
-
+						/*this state is for testing..... change later*/
+							.state(
+									"trainer.display",
+									{
+										templateUrl : "/static/app/partials/trainer-display.html",
+										url : "/display",
+										controller : "trainerAssessController"
+									})
 							/***************************************************
 							 * VP
 							 **************************************************/
