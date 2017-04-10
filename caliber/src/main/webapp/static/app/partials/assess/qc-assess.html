@@ -20,6 +20,7 @@
 								batch.trainingName }} - {{ batch.startDate | date:'shortDate' }}
 						</a></li>
 					</ul></li>
+				<button type="button" class="btn btn-info" ng-click="Show">Get Report</button>
 			</ul>
 			<!-- top ui for viewing trainee grades -->
 			<ul class="nav nav-tabs" ng-show="!currentView">
@@ -103,9 +104,10 @@
 							</form>
 
 						</td>
-						<td><textarea ng-model="noteOnTrainee($index).content" id="noteTextArea" class="form-group"
-								placeholder="Note on {{trainee.name}}" ng-blur="saveTraineeNote($index)"
-								rows="3" cols="75"></textarea>
+						<td><textarea ng-model="noteOnTrainee($index).content"
+								id="noteTextArea" class="form-group"
+								placeholder="Note on {{trainee.name}}"
+								ng-blur="saveTraineeNote($index)" rows="3" cols="75"></textarea>
 						</td>
 						<td><ul class="nav nav-tabs">
 					</tr>
@@ -146,8 +148,8 @@
 				<div class="pull-right">
 					<ul class="nav nav-tabs">
 						<li role="button" ng-click="saveQCandTrainee()"><a>Save
-								your batch notes<span class="fa-floppy-o"
-								aria-hidden="true"> </span>
+								your batch notes<span class="fa-floppy-o" aria-hidden="true">
+							</span>
 						</a></li>
 					</ul>
 				</div>
