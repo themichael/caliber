@@ -335,7 +335,7 @@ public class ReportingService {
 	 * @param traineeId
 	 * @param week
 	 * @param assessmentType
-	 * @return Double [0: Average Trainee score for the week for AssessmentType, 1: Weight of that assessment type}
+	 * @return Double [0: Average Trainee score for the week for AssessmentType, 1: Weight of that assessment type, 2: Number of Assessments of Each Type}
 	 */
 	public Double[] utilAvgTraineeWeek(Integer traineeId, Integer week, AssessmentType assessmentType) {
 		List<Grade> allGrade = gradeDAO.findByTrainee(traineeId);
