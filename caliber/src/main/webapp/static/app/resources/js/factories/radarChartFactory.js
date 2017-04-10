@@ -49,6 +49,7 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		return chartData;
 	};
 
+	// TRAINEE OVERALL TECH PROGRESS
 	radarChart.getTraineeTechProgressChart = function(data) {
 		var chartData = {};
 
@@ -65,15 +66,29 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		// loop through batch data
 		angular.forEach(data, function(value, key) {
 			chartData.labels.push(key);
-			chartData.data[0].push(value[0]);
+			//chartData.data[0].push(value[0]);
+			chartData.data[0].push(value);
 		});
+		
 		// set radar options
 		chartData.options = {
 			legend : {
 				display : true,
 				position : 'bottom'
-			}
+			},
+	        scale: {
+	            reverse: false,
+	            ticks: {
+	                beginAtZero: false,
+	                fixedStepSize: 5,
+	                max: 100,
+	                suggestedMin: 40
+	            }
+
+			
+	        }
 		};
+		
 		return chartData;
 	};
 

@@ -28,9 +28,11 @@ angular.module("api").factory(
 			 * @param traineeId
 			 * @returns {*}
 			 */
+			// RADAR CHART TRAINEE TECHNOLOGY
 			agg.weekTrainee = function(traineeId) {
 				return $http({
-					url : "/all/agg/week/trainee/" + traineeId,
+					//url : "/all/agg/week/trainee/" + traineeId,
+					url : "/all/reports/trainee/" + traineeId + "/radar-trainee-overall",
 					method : "GET"
 				}).then(function(response) {
 					$log.debug("Agg - Week - trainee -- success");
