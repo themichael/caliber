@@ -429,7 +429,6 @@ angular
 									$log.debug(response);
 									return response;
 								}).then(function(response){
-									console.log(response);
 									return response;
 								}).then(function(response){
 									$scope.trainees[response.data.trainee.traineeId].assessments[response.data.assessment.assessmentId].gradeId = response.data.gradeId;
@@ -463,7 +462,6 @@ angular
 					   By Jack	
 					  */					 
 					$scope.saveOrUpdateTraineeNote=function(traineeId){
-						console.log($scope.trainees[traineeId].note.content);
 						var traineeNote = $scope.trainees[traineeId].note
 						var trainee = $scope.currentBatch.trainees.filter(function(trainee) {
 							  return trainee.traineeId === traineeId;
