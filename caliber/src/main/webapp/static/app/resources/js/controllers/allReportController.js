@@ -108,7 +108,7 @@ angular
 											$log.debug(data);
 											NProgress.done();
 											var barChartObject = chartsDelegate.bar
-													.getAverageTraineeScoresOverall(dataArray);
+													.getAverageTraineeScoresOverall(data);
 											console.log("batch avg chart");
 											$scope.batchTechLabels = barChartObject.labels;
 											$scope.batchTechData = barChartObject.data;
