@@ -32,9 +32,9 @@ public class NoteDAO {
 	 * @param note
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void save(Note note) {
+	public int save(Note note) {
 		log.info("Saving Note " + note);
-		sessionFactory.getCurrentSession().save(note);
+		return (int) sessionFactory.getCurrentSession().save(note);
 	}
 
 	/**

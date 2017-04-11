@@ -94,7 +94,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		});
 	};
 
-	// update trainer grade
+	// update trainer grade	
 	trainer.updateGrade = function(gradeObj) {
 		return $http({
 			url : "/trainer/grade/update",
@@ -183,11 +183,25 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		});
 	};
 	
+	trainer.getTraineeBatchNotesForWeek = function(batchId,week){
+		return $http({
+			url: "/trainer/note/trainee/" + batchId + "/" + week,
+			method:"GET"
+		}).then(function(response){
+			if(response.data){
+				return response.data;
+			}else{
+				return response;
+			}				
+		},function(response){
+			$log.error("Error retrieving " + response.status);
+		});
+	};
 	
 	
 	trainer.createNote = function(noteObj) {
 		return $http({
-			url : "/trainer/assessment/note/create",
+			url : "/note/create",
 			method : "POST",
 			data : noteObj
 		}).then(function(response) {
@@ -202,8 +216,8 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 
 	trainer.updateNote = function(noteObj) {
 		return $http({
-			url : "/trainer/assessment/note/update",
-			method : "PUT",
+			url : "/note/update",
+			method : "POST",
 			data : noteObj
 		}).then(function(response) {
 			$log.debug("Assessments successfully updated");

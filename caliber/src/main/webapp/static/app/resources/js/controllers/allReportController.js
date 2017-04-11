@@ -53,22 +53,58 @@ angular
 						// page
 						NProgress.done();
 						NProgress.start();
+						
+						createQCStatus();
+					}
+					
+					function createQCStatus() {
 						chartsDelegate.doughnut.data
-								.getQCStatsData(1051, 1)
-								.then(
-										function(data) {
-											NProgress.done();
-											var doughnutChartObject = chartsDelegate.doughnut
-													.getQCStats(data);
-											console.log("here we are, in the pie method");
-											console.log(doughnutChartObject);
-											$scope.qcStatsLabels = doughnutChartObject.labels;
-											$scope.qcStatsData = doughnutChartObject.data;
-											$scope.qcStatsOptions = doughnutChartObject.options;
-										}, function() {
-											NProgress.done();
-										});
+						.getQCStatsData(1050, 1)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var doughnutChartObject = chartsDelegate.doughnut
+											.getQCStats(data);
+									console.log("here we are, in the pie method");
+									console.log(doughnutChartObject);
+									$scope.qcStatsLabels = doughnutChartObject.labels;
+									$scope.qcStatsData = doughnutChartObject.data;
+									$scope.qcStatsOptions = doughnutChartObject.options;
+								}, function() {
+									NProgress.done();
+								});
+					}
+					
+					/**
+					 * Generates a PDF by sending HTML to server. Downloads
+					 * automatically in new tab.
+					 */
+					$scope.generatePDF = function() {
+						var html = "<div>Extract report contents into here</div>";
+						caliberDelegate.all.generatePDF(html).then(
+								function(pdf) {
+									// extract PDF bytes
+									var file = new Blob([ pdf ], {
+										type : "application/pdf"
+									});
+									// create temporary 'url' and download
+									// automatically
+									var fileURL = URL.createObjectURL(file);
+									var a = document.createElement("a");
+									a.href = fileURL;
+									a.target = "_blank";
+									a.download = "report.pdf";
+									document.body.appendChild(a);
+									a.click();
+>>>>>>> 7e41975b4469d495c67b11f132cfaea339e75478
 
+								}, function(error) {
+									$log.debug(reason);
+								}, function(value) {
+									$log.debug(value);
+								});
 					}
 
 				});
+
