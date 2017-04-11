@@ -63,7 +63,7 @@ angular.module("delegate")
 						return barChartFactory.getBatchOverallBarChart(dataArray);
 					};
 					
-					delegate.bar.data.getAverageTraineeScoresOverallData = function(){
+					delegate.bar.data.getAverageTraineeScoresOverallData = function(batchId){
 						return barChartDataFactory.getBatchOverallBarChart(batchId);
 					};
 					
@@ -99,9 +99,9 @@ angular.module("delegate")
 								.getTraineeUpToWeekRadarChart(dataArray);
 					};
 
-					delegate.radar.data.getTechnicalSkillsTraineeWeeklyData = function() {
+					delegate.radar.data.getTechnicalSkillsTraineeWeeklyData = function(week, traineeId) {
 						return radarChartDataFactory
-								.getTraineeUpToWeekRadarChartData(week, traineeId);
+								.getTraineeUpToWeekRadarChart(week, traineeId);
 					};
 
 					delegate.radar.getTechnicalSkillsTraineeOverall = function(
@@ -110,9 +110,9 @@ angular.module("delegate")
 								.getTraineeOverallRadarChart(dataArray);
 					};
 
-					delegate.radar.data.getTechnicalSkillsTraineeOverallData = function() {
+					delegate.radar.data.getTechnicalSkillsTraineeOverallData = function(traineeId) {
 						return radarChartDataFactory
-								.getTraineeOverallRadarChartData(traineeId);
+								.getTraineeOverallRadarChart(traineeId);
 					};
 
 					delegate.radar.getTechnicalSkillsBatchOverall = function(
@@ -121,9 +121,9 @@ angular.module("delegate")
 								.getBatchOverallRadarChart(dataArray);
 					};
 
-					delegate.radar.data.getTechnicalSkillsBatchOverallData = function() {
+					delegate.radar.data.getTechnicalSkillsBatchOverallData = function(batchId) {
 						return radarChartDataFactory
-								.getBatchOverallRadarChartData(batchId);
+								.getBatchOverallRadarChart(batchId);
 					};
 					
 

@@ -27,7 +27,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		return chartData;
 	};
-	//yanilda
+	// yanilda
 	barChart.getBatchWeekAvgBarChart = function(dataArray) {
 		var chartData = {};
 
@@ -47,7 +47,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		return chartData;
 	};
-	
+
 	barChart.getTrainerEvalChart = function(dataArray) {
 		var chartData = {};
 
@@ -106,21 +106,21 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		return chartData;
 	};
-	
+
 	barChart.getBatchOverallBarChart = function(dataArray) {
 		var chartData = {};
 
 		// series
-		//chartData.series = [ "Tech Batch Eval" ];
+		chartData.series = [ "batchTechSeries" ];
 
 		// labels and data
 		chartData.data = [];
 		chartData.labels = [];
 		chartData.options = {
-				legend : {
-					display : true
-				}
-			};
+			legend : {
+				display : true
+			}
+		};
 
 		// loop through object array
 		angular.forEach(dataArray.data, function(value, key) {

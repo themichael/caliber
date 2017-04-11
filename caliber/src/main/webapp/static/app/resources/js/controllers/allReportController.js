@@ -12,7 +12,7 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-						
+
 						// batch null check
 						if (!allBatches || allBatches.length === 0) {
 							$scope.noBatches = true;
@@ -101,6 +101,22 @@ angular
 					}
 
 					function createAverageTraineeScoresOverall() {
+						chartsDelegate.bar.data
+								.getAverageTraineeScoresOverallData(1051)
+								.then(
+										function(data) {
+											$log.debug(data);
+											NProgress.done();
+											var barChartObject = chartsDelegate.bar
+													.getAverageTraineeScoresOverall(data);
+											console.log("batch avg chart");
+											$scope.batchTechLabels = barChartObject.labels;
+											$scope.batchTechData = barChartObject.data;
+											$scope.batchTechOptions = barChartObject.options;
+
+										}, function() {
+											NProgress.done();
+										});
 
 					}
 					//Yanilda barchart
@@ -137,16 +153,25 @@ angular
 					// ***************************************
 
 					function createTechnicalSkillsBatchOverall() {
-						/*
-						 * chartsDelegate.radar.getTechnicalSkillsBatchOverallData($scope.currentBatch.batchId).then(function(data){
-						 * $log.debug(data); NProgress.done(); var
-						 * batchOverallRadarChartObject =
-						 * chartsDelegate.radar.getBatchRankComparisonChart(data);
-						 * $log.debug("Radar Chart: Created Batch Overall Batch
-						 * ID: " + $scope.currentBatch.batchId);
-						 * 
-						 * });
-						 */
+
+						chartsDelegate.radar.data
+								.getTechnicalSkillsBatchOverallData(1050)
+								.then(
+										function(data) {
+											$log.debug("Radar createTechnicalSkillsBatchOverall")
+											$log.debug(data);
+											NProgress.done();
+											var batchOverallRadarChartObject = chartsDelegate.radar
+													.getTechnicalSkillsBatchOverall(data);
+											$log
+													.debug("Radar Chart: Created Batch Overall BatchID:");
+
+											$scope.radarBatchOverallData = batchOverallRadarChartObject.data;
+											$scope.radarBatchOverallOptions = batchOverallRadarChartObject.options;
+											$scope.radarBatchOverallLabels = batchOverallRadarChartObject.labels;
+											$scope.radarBatchOverallSeries = batchOverallRadarChartObject.series;
+										});
+
 					}
 
 					function createTechnicalSkillsTraineeWeekly() {
