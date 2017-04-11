@@ -132,18 +132,23 @@ angular
 					/** Get trainee info* */
 					$scope.getTrainee = function(trainee) {
 
-						$scope.editTrainee = trainee;
+						$scope.editor = trainee;
 						$scope.Updating = true;
 
 					}
 
 					$scope.Updating = false;
-					$scope.updateTrainee = function(editedTrainee) {
+					$scope.updateTrainee = function() {
 
-						$log.log(editedTrainee);
-						for (var i = 0; i < $scope.receivers.length; i++) {
+						/*$log.log(updatedTrainee);*/
+						
+						
+						/*if ($scope.editor == null) {
+							$scope.editor = editedTrainee;
+                        }
 
-							if ($scope.editor.name == "") {
+							if ($scope.editor.name == "") 
+							{
 								$scope.editor.name = editedTrainee.name;
 							}
 
@@ -166,9 +171,9 @@ angular
 							if ($scope.editor.profileUrl == "") {
 								$scope.editor.profileUrl = editedTrainee.profileUrl;
 							}
-							
+*/							
 							var updTrainee = {
-								traineeId : editedTrainee.traineeId,
+								traineeId : $scope.editor.traineeId,
 								name : $scope.editor.name,
 								email : $scope.editor.email,
 								trainingStatus : $scope.editor.trainingStatus,
@@ -178,25 +183,20 @@ angular
 								batch : $scope.currentBatch
 							};
 
-						}
 						$log.log(updTrainee);
 						editedTrainee = updTrainee;
 						$log.debug(editedTrainee);
 						caliberDelegate.all
 								.updateTrainee(editedTrainee)
 								.then(
-										$scope.clear = function(editedTrainee) {
+										$scope.clear = function() {
 											$scope.editor.name = "";
 											$scope.editor.email = "";
 											$scope.editor.phoneNumber = "";
 											$scope.editor.skypeId = "";
 											$scope.editor.profileUrl = "";
 											$scope.Updating = false;
-
-											for (var i = 0; i < $scope.receivers.length; i++) {
-												$scope.receivers[i] = null;
-											}
-
+											$scope.selectCurrentBatch($scope.row);
 										});
 					};
 
@@ -281,7 +281,7 @@ angular
 						// return newBatch;
 					}
 
-					$scope.update = function() {
+					/*$scope.update = function() {
 
 						$scope.editTrainee.name = "";
 						$scope.editTrainee.email = "";
@@ -290,7 +290,7 @@ angular
 						$scope.editTrainee.profileUrl = "";
 
 					};
-
+*/
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch

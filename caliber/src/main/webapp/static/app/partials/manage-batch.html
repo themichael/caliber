@@ -350,35 +350,34 @@
 								</div>
 							</div>
 						</div>
-				     <div ng-repeat="receiver in receivers" ng-show="Updating">
+						
+						
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------->						
+				     <div ng-show="Updating">
 						<h3>Edit Trainee</h3>
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeName">Full Name:</label> <input
 										ng-model="editor.name" type="text" class="form-control"
-										id="traineeName" placeholder="Name"
-										ng-value="editTrainee.name" required>
+										id="traineeName" placeholder="Name" required>
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeEmail">Email:</label> <input
 										ng-model="editor.email" type="email" class="form-control"
-										id="traineeEmail" placeholder="Email"
-										ng-value="editTrainee.email" required>
+										id="traineeEmail" placeholder="Email" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeSkype">Skype Id:</label> <input
 										ng-model="editor.skypeId" type="text" class="form-control"
-										id="traineeSkype" placeholder="Skype Id"
-										ng-value="editTrainee.skypeId">
+										id="traineeSkype" placeholder="Skype Id">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineePhone">Phone:</label> <input
-										ng-model="editor.phoneNumber" type="text"
+										ng-model="editorphoneNumber" type="text"
 										class="form-control" id="traineePhone"
-										placeholder="(xxx)-xxx-xxxx"
-										ng-value="editTrainee.phoneNumber" required>
+										placeholder="(xxx)-xxx-xxxx" required>
 								</div>
 							</div>
 							<div class="row">
@@ -386,8 +385,7 @@
 									<label for="traineeProfile">Profile URL:</label> <input
 										ng-model="editor.profileUrl" type="text"
 										class="form-control" id="traineeName"
-										placeholder="http://www.example.com/revature"
-										ng-value="editTrainee.profileUrl">
+										placeholder="http://www.example.com/revature">
 
 								</div>
 							</div>
@@ -434,9 +432,9 @@
 
 
 						<button type="button" class="btn btn-default"
-							ng-click="updateTrainee(editor)" ng-show="Updating">Clear</button>
+							ng-click="updateTrainee()" ng-show="Updating">Clear</button>
 						<button type="button" id="updateTraineeButton"
-							class="btn btn-primary" ng-click="updateTrainee(editor)"
+							class="btn btn-primary" ng-click="updateTrainee()"
 							class="btn btn-default" ng-show="Updating">Update</button>
 
 					</div>
