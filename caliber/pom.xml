@@ -8,6 +8,11 @@
 	<name>caliber Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+	<properties>
+		<itext.pdf.version>5.5.11</itext.pdf.version>
+		<itext.tool.version>5.5.11</itext.tool.version>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -157,6 +162,20 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>${itext.pdf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf.tool</groupId>
+			<artifactId>xmlworker</artifactId>
+			<version>${itext.tool.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

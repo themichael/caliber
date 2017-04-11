@@ -3,6 +3,25 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	$log.debug("Booted all api factory");
 
 	var all = {};
+	
+	/****************************************************************
+	 * Server generates PDF from HTML 
+	 * Download via response data
+	 *
+	 ****************************************************************/
+	all.generatePDF = function(html) {
+		return $http({
+			url : "/report/generate",
+			method : "POST",
+			data : html,
+			responseType: "arraybuffer"
+		}).then(function(response) {
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
 
 	/** ************************* Enum constants *********************** */
 	all.enumCommonLocations = function() {
