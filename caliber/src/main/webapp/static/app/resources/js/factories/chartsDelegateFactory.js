@@ -63,7 +63,7 @@ angular.module("delegate")
 						return barChartFactory.getBatchOverallBarChart(dataArray);
 					};
 					
-					delegate.bar.data.getAverageTraineeScoresOverallData = function(){
+					delegate.bar.data.getAverageTraineeScoresOverallData = function(batchId){
 						return barChartDataFactory.getBatchOverallBarChart(batchId);
 					};
 					

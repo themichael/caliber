@@ -12,7 +12,7 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-						
+
 						// batch null check
 						if (!allBatches || allBatches.length === 0) {
 							$scope.noBatches = true;
@@ -101,6 +101,22 @@ angular
 					}
 
 					function createAverageTraineeScoresOverall() {
+						chartsDelegate.bar.data
+								.getAverageTraineeScoresOverallData(1051)
+								.then(
+										function(data) {
+											$log.debug(data);
+											NProgress.done();
+											var barChartObject = chartsDelegate.bar
+													.getAverageTraineeScoresOverall(dataArray);
+											console.log("batch avg chart");
+											$scope.batchTechLabels = barChartObject.labels;
+											$scope.batchTechData = barChartObject.data;
+											$scope.batchTechOptions = barChartObject.options;
+
+										}, function() {
+											NProgress.done();
+										});
 
 					}
 
