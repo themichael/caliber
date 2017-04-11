@@ -5,7 +5,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerAssessController",
-				function($log, $scope, chartsDelegate, caliberDelegate,
+				function($timeout,$log, $scope, chartsDelegate, caliberDelegate,
 						allBatches) {
 					// Week object
 					function Week(weekNumb, assessments) {
@@ -68,6 +68,7 @@ angular
 								$scope.trainees[traineeId] = {};
 								$scope.trainees[traineeId].assessments=[];
 								$scope.trainees[traineeId].note={};
+								$scope.trainees[traineeId].burrito=false
 							}								
 							return $scope.trainees[traineeId];							
 						}
@@ -509,24 +510,34 @@ angular
 					 * **********************************************TODO
 					 * POSSIBLE REFACTOR**************************************
 					 */
-
+					
 					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
-						
+						$scope.saving = [];
 						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
 						if($scope.assessmentTotals[assessment.assessmentId] === undefined) $scope.assessmentTotals[assessment.assessmentId] = {};
 							
 						$scope.assessmentTotals[assessment.assessmentId].total = 0;
 						$scope.assessmentTotals[assessment.assessmentId].count = 0;
+						var count =0
 							for(var traineeKey in trainees){
 								if(trainees[traineeKey].assessments[assessment.assessmentId]){
 									$scope.assessmentTotals[assessment.assessmentId].total+= Number(trainees[traineeKey].assessments[assessment.assessmentId].score);								
 									$scope.assessmentTotals[assessment.assessmentId].count +=1;
+									count +=1;
 								}
+								$scope.saving[count] = false;
 							}
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
-					$scope.loading=false;
-					$scope.doBurrito =function(){
-						$scope.loading=true;
+					
+					$scope.doBurrito =function(traineeId){
+							$scope.trainees[traineeId].burrito=true;
+							$timeout(function(){
+								$scope.trainees[traineeId].burrito=false;
+								$scope.stopBurrito(traineeId);
+							}, 500);
+					}
+					$scope.stopBurrito = function(traineeId){
+						$scope.trainees[traineeId].burrito=false;
 					}
 				});
