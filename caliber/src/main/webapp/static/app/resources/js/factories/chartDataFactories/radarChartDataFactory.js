@@ -50,4 +50,7 @@ angular.module("reportApi").factory(
 				}); // end then
 			};
 
+			
+			return report;
+			
 		});

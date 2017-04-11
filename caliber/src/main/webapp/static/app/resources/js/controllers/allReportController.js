@@ -53,15 +53,36 @@ angular
 						// page
 						NProgress.done();
 						NProgress.start();
-						
+
+						createQCStatus();
+						createAverageTraineeScoresWeekly();
+						createAverageTraineeScoresOverall();
+						createAssessmentAveragesBatchWeekly();
+						createAssessmentAveragesTraineeWeekly();
+						createAssessmentAveragesTraineeOverall();
+						createTechnicalSkillsBatchOverall();
+						createTechnicalSkillsTraineeWeekly();
+						createTechnicalSkillsTraineeOverall();
+						createWeeklyProgressBatchOverall();
+						createWeeklyProgressTraineeWeekly();
+						createWeeklyProgressTraineeOverall();
+
+					}
+
+					// ********************* Doughnut
+					// **************************************
+
+					function createQCStatus() {
 						chartsDelegate.doughnut.data
 								.getQCStatsData(1050, 1)
 								.then(
 										function(data) {
+											$log.debug(data);
 											NProgress.done();
 											var doughnutChartObject = chartsDelegate.doughnut
 													.getQCStats(data);
-											console.log("here we are, in the pie method");
+											console
+													.log("here we are, in the pie method");
 											console.log(doughnutChartObject);
 											$scope.qcStatsLabels = doughnutChartObject.labels;
 											$scope.qcStatsData = doughnutChartObject.data;
@@ -70,12 +91,72 @@ angular
 										}, function() {
 											NProgress.done();
 										});
+					}
+
+					// ***************************** Bar
+					// *********************************
+
+					function createAverageTraineeScoresWeekly() {
 
 					}
-					
+
+					function createAverageTraineeScoresOverall() {
+
+					}
+
+					function createAssessmentAveragesBatchWeekly() {
+
+					}
+
+					function createAssessmentAveragesTraineeWeekly() {
+
+					}
+
+					function createAssessmentAveragesTraineeOverall() {
+
+					}
+
+					// **************************** Radar
+					// ***************************************
+
+					function createTechnicalSkillsBatchOverall() {
+						/*chartsDelegate.radar.getTechnicalSkillsBatchOverallData($scope.currentBatch.batchId).then(function(data){
+							$log.debug(data);
+							NProgress.done();
+							var batchOverallRadarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
+							$log.debug("Radar Chart: Created Batch Overall Batch ID: " + $scope.currentBatch.batchId);
+							
+						});*/
+					}
+
+					function createTechnicalSkillsTraineeWeekly() {
+
+					}
+
+					function createTechnicalSkillsTraineeOverall() {
+
+					}
+
+					// ***************************** Line
+					// ***************************************
+
+					function createWeeklyProgressBatchOverall() {
+
+					}
+
+					function createWeeklyProgressTraineeWeekly() {
+
+					}
+
+					function createWeeklyProgressTraineeOverall() {
+
+					}
+
+					// *******************************************************************************
+
 					/**
-					 * Generates a PDF by sending HTML to server.
-					 * Downloads automatically in new tab.
+					 * Generates a PDF by sending HTML to server. Downloads
+					 * automatically in new tab.
 					 */
 					$scope.generatePDF = function() {
 						var html = "<div>Extract report contents into here</div>";
@@ -85,7 +166,8 @@ angular
 									var file = new Blob([ pdf ], {
 										type : "application/pdf"
 									});
-									// create temporary 'url' and download automatically
+									// create temporary 'url' and download
+									// automatically
 									var fileURL = URL.createObjectURL(file);
 									var a = document.createElement("a");
 									a.href = fileURL;

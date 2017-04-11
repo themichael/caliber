@@ -60,5 +60,7 @@ angular.module("reportApi").factory(
 					$log.error("There was an error in lineChartDataFactory -> getBatchOverallLineChart. " + response.status);
 				});	
 			};
-		}
-	);
+		return report;
+	}
+);
+
