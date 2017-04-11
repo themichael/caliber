@@ -50,10 +50,10 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/trainer/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Object> createGrade(@RequestBody Grade grade) {
+	public ResponseEntity<Grade> createGrade(@RequestBody Grade grade) {
 		log.info("Saving grade: " + grade);
 		evaluationService.save(grade);
-		return new ResponseEntity<Object>(grade,HttpStatus.CREATED);
+		return new ResponseEntity<>(grade,HttpStatus.CREATED);
 	}
 
 	/**
@@ -204,10 +204,10 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/note/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Object> updateNote(@RequestBody Note note) {
+	public ResponseEntity<Note> updateNote(@RequestBody Note note) {
 		log.info("Updating note: " + note);
 		evaluationService.update(note);
-		return new ResponseEntity<Object>(note,HttpStatus.CREATED);
+		return new ResponseEntity<>(note,HttpStatus.CREATED);
 	}
 
 	/*
