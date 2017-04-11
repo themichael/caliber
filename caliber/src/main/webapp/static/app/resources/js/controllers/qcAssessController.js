@@ -279,5 +279,13 @@ angular
 						$log
 								.debug(document.getElementById("qcBatchNotes").value);
 						$log.debug(caliberDelegate.qc.updateNote($scope.bnote));
+						
+						
 					}
+					
+					$("#saveButton").click(function(){
+				        $("#saveNotice").fadeIn(2000);
+				        $("#saveNotice").fadeOut(3000);
+				    });
+					
 				});
