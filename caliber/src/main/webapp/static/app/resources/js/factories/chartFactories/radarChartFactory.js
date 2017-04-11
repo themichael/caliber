@@ -9,11 +9,39 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 	var radar = {};
 	
 	radar.getTraineeUpToWeekRadarChart = function(dataArray) {
+		var chartData = {};
 		
+		chartData.series = [ "Trainee Up To Week" ];
+		
+		chartData.data = [];
+		chartData.labels = [];
+		chartData.data.push([]);
+
+		angular.forEach(data, function(value, key) {
+			chartData.labels.push(key);
+			chartData.data[0].push(value);
+		});
+		
+		chartData.options = radarOptions;
+		return chartData;
 	};
 	
 	radar.getTraineeOverallRadarChart = function(dataArray) {
+		var chartData = {};
 		
+		chartData.series = [ "Trainee Overall" ];
+		
+		chartData.data = [];
+		chartData.labels = [];
+		chartData.data.push([]);
+
+		angular.forEach(data, function(value, key) {
+			chartData.labels.push(key);
+			chartData.data[0].push(value);
+		});
+		
+		chartData.options = radarOptions;
+		return chartData;
 	};
 	
 	radar.getBatchOverallRadarChart = function(dataArray) {
