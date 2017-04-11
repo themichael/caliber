@@ -7,22 +7,20 @@ angular
 
 					$log.debug("Booted Report Controller");
 					$log.debug("Peacepapi is here!!!!!");
-					$log.debug("Come here often?");
 
 					(function start() {
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
+						
 						// batch null check
 						if (!allBatches || allBatches.length === 0) {
-							
 							$scope.noBatches = true;
 							$scope.noBatchesMessage = "No Batches belonging to you were found.";
 						} else {
 							$scope.noBatches = false;
-							createDefaultCharts();
 							$log.debug("Here AGAIN!!!!!!");
-							
+							createDefaultCharts();
 						}
 					})();
 
@@ -55,7 +53,7 @@ angular
 						// page
 						NProgress.done();
 						NProgress.start();
-						$log.debug("Yoooooo!!!!!");
+
 						createQCStatus();
 						createAverageTraineeScoresWeekly();
 						createAverageTraineeScoresOverall();
@@ -69,7 +67,7 @@ angular
 						createWeeklyProgressTraineeWeekly();
 						createWeeklyProgressTraineeOverall();
 
-					};
+					}
 
 					// ********************* Doughnut
 					// **************************************
@@ -83,15 +81,16 @@ angular
 											NProgress.done();
 											var doughnutChartObject = chartsDelegate.doughnut
 													.getQCStats(data);
-											console.log("here we are, in the pie method");
+											console
+													.log("here we are, in the pie method");
 											console.log(doughnutChartObject);
 											$scope.qcStatsLabels = doughnutChartObject.labels;
 											$scope.qcStatsData = doughnutChartObject.data;
 											$scope.qcStatsOptions = doughnutChartObject.options;
-											$scope.qcStatsColors = doughnutChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
+
 					}
 
 					// ***************************** Bar
@@ -121,13 +120,16 @@ angular
 					// ***************************************
 
 					function createTechnicalSkillsBatchOverall() {
-						/*chartsDelegate.radar.getTechnicalSkillsBatchOverallData($scope.currentBatch.batchId).then(function(data){
-							$log.debug(data);
-							NProgress.done();
-							var batchOverallRadarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
-							$log.debug("Radar Chart: Created Batch Overall Batch ID: " + $scope.currentBatch.batchId);
-							
-						});*/
+						/*
+						 * chartsDelegate.radar.getTechnicalSkillsBatchOverallData($scope.currentBatch.batchId).then(function(data){
+						 * $log.debug(data); NProgress.done(); var
+						 * batchOverallRadarChartObject =
+						 * chartsDelegate.radar.getBatchRankComparisonChart(data);
+						 * $log.debug("Radar Chart: Created Batch Overall Batch
+						 * ID: " + $scope.currentBatch.batchId);
+						 * 
+						 * });
+						 */
 					}
 
 					function createTechnicalSkillsTraineeWeekly() {
@@ -176,7 +178,6 @@ angular
 									a.download = "report.pdf";
 									document.body.appendChild(a);
 									a.click();
-
 								}, function(error) {
 									$log.debug(reason);
 								}, function(value) {
