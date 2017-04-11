@@ -12,7 +12,7 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-						createDefaultCharts();
+						
 						// batch null check
 						if (!allBatches || allBatches.length === 0) {
 							$scope.noBatches = true;
@@ -20,7 +20,7 @@ angular
 						} else {
 							$scope.noBatches = false;
 							$log.debug("Here AGAIN!!!!!!");
-							
+							createDefaultCharts();
 						}
 					})();
 
@@ -90,6 +90,7 @@ angular
 										}, function() {
 											NProgress.done();
 										});
+
 					}
 
 					// ***************************** Bar
@@ -119,13 +120,16 @@ angular
 					// ***************************************
 
 					function createTechnicalSkillsBatchOverall() {
-						/*chartsDelegate.radar.getTechnicalSkillsBatchOverallData($scope.currentBatch.batchId).then(function(data){
-							$log.debug(data);
-							NProgress.done();
-							var batchOverallRadarChartObject = chartsDelegate.radar.getBatchRankComparisonChart(data);
-							$log.debug("Radar Chart: Created Batch Overall Batch ID: " + $scope.currentBatch.batchId);
-							
-						});*/
+						/*
+						 * chartsDelegate.radar.getTechnicalSkillsBatchOverallData($scope.currentBatch.batchId).then(function(data){
+						 * $log.debug(data); NProgress.done(); var
+						 * batchOverallRadarChartObject =
+						 * chartsDelegate.radar.getBatchRankComparisonChart(data);
+						 * $log.debug("Radar Chart: Created Batch Overall Batch
+						 * ID: " + $scope.currentBatch.batchId);
+						 * 
+						 * });
+						 */
 					}
 
 					function createTechnicalSkillsTraineeWeekly() {
@@ -174,7 +178,6 @@ angular
 									a.download = "report.pdf";
 									document.body.appendChild(a);
 									a.click();
-
 								}, function(error) {
 									$log.debug(reason);
 								}, function(value) {

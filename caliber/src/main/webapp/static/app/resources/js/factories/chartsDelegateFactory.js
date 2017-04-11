@@ -42,7 +42,7 @@ angular.module("delegate")
 					/**
 					 * ************************* Bar *************************
 					 */
-					
+				
 					/*delegate.bar.getAverageTraineeScoresWeekly = function(dataArray){
 						return barChartFactory.(dataArray);
 					};
@@ -59,13 +59,13 @@ angular.module("delegate")
 						return barChartDataFactory.();
 					};*/
 					
-					/*delegate.bar.getAverageTraineeScoresOverall = function(dataArray){
-						return barChartFactory.(dataArray);
+					delegate.bar.getAverageTraineeScoresOverall = function(dataArray){
+						return barChartFactory.getBatchOverallBarChart(dataArray);
 					};
 					
 					delegate.bar.data.getAverageTraineeScoresOverallData = function(){
-						return barChartDataFactory.();
-					};*/
+						return barChartDataFactory.getBatchOverallBarChart(batchId);
+					};
 					
 					/*delegate.bar.getAssessmentAveragesTraineeWeekly = function(dataArray){
 						return barChartFactory.(dataArray);
