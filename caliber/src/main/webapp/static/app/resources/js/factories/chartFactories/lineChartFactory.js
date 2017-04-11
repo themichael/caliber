@@ -27,6 +27,27 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 		return chartData;
 	};
+	
+	//Yanilda
+	lineChart.getTraineeUpToWeekLineChart = function(dataArray) {
+		var chartData = {};
+
+		// data and labels
+		chartData.data = [];
+		chartData.labels = [];
+
+		// traverse through array of objects and grab labels and data
+		dataArray.forEach(function(element) {
+			chartData.labels.push(element.trainee);
+			chartData.data.push(element.average);
+		});
+
+		chartData.datasetOverride = [ {
+			xAxisID : 'x-axis-1'
+		} ];
+
+		return chartData;
+	};
 
 	lineChart.getTrainerEvalChart = function(dataArray) {
 		var chartData = {};

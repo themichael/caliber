@@ -73,7 +73,7 @@ angular
 					
 					function createQCStatus() {
 						chartsDelegate.doughnut.data
-						.getQCStatsData(50, 1)
+						.getQCStatsData(1050, 1)
 						.then(
 								function(data) {
 									$log.debug(data);
@@ -147,8 +147,8 @@ angular
 					
 					
 					/**
-					 * Generates a PDF by sending HTML to server.
-					 * Downloads automatically in new tab.
+					 * Generates a PDF by sending HTML to server. Downloads
+					 * automatically in new tab.
 					 */
 					$scope.generatePDF = function() {
 						var html = "<div>Extract report contents into here</div>";
@@ -158,7 +158,8 @@ angular
 									var file = new Blob([ pdf ], {
 										type : "application/pdf"
 									});
-									// create temporary 'url' and download automatically
+									// create temporary 'url' and download
+									// automatically
 									var fileURL = URL.createObjectURL(file);
 									var a = document.createElement("a");
 									a.href = fileURL;
@@ -166,6 +167,7 @@ angular
 									a.download = "report.pdf";
 									document.body.appendChild(a);
 									a.click();
+>>>>>>> 7e41975b4469d495c67b11f132cfaea339e75478
 
 								}, function(error) {
 									$log.debug(reason);
