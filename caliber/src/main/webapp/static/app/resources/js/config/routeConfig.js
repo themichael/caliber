@@ -130,7 +130,7 @@ angular
 														
 /*					  .state("reports",{
 					    views: {
-					      "trainer.reports@trainer": {
+					      "": {
 					    	  templateUrl : "/static/app/partials/reports.html",
 								url : "/reports",
 								controller : "trainerHomeController"
@@ -149,7 +149,7 @@ angular
 										url : "/reports",
 										controller : "allReportController"
 									})
-						/*this state is for testing..... change later*/
+						//this state is for testing..... change later
 							.state(
 									"trainer.display",
 									{
