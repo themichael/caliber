@@ -136,16 +136,25 @@ angular
 					// ***************************************
 
 					function createTechnicalSkillsBatchOverall() {
-						/*
-						 * chartsDelegate.radar.getTechnicalSkillsBatchOverallData($scope.currentBatch.batchId).then(function(data){
-						 * $log.debug(data); NProgress.done(); var
-						 * batchOverallRadarChartObject =
-						 * chartsDelegate.radar.getBatchRankComparisonChart(data);
-						 * $log.debug("Radar Chart: Created Batch Overall Batch
-						 * ID: " + $scope.currentBatch.batchId);
-						 * 
-						 * });
-						 */
+
+						chartsDelegate.radar.data
+								.getTechnicalSkillsBatchOverallData(1050)
+								.then(
+										function(data) {
+											$log.debug("Radar createTechnicalSkillsBatchOverall")
+											$log.debug(data);
+											NProgress.done();
+											var batchOverallRadarChartObject = chartsDelegate.radar
+													.getTechnicalSkillsBatchOverall(data);
+											$log
+													.debug("Radar Chart: Created Batch Overall BatchID:");
+
+											$scope.radarBatchOverallData = batchOverallRadarChartObject.data;
+											$scope.radarBatchOverallOptions = batchOverallRadarChartObject.options;
+											$scope.radarBatchOverallLabels = batchOverallRadarChartObject.labels;
+											$scope.radarBatchOverallSeries = batchOverallRadarChartObject.series;
+										});
+
 					}
 
 					function createTechnicalSkillsTraineeWeekly() {
