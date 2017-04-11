@@ -29,7 +29,7 @@
 <!-- Charts -->
 <div class="container" ng-show="!noBatches">
 	<div class="top10 data-container">
-		
+
 		<!-- Batch -> Week -->
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
@@ -79,7 +79,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Batch -> Overall -->
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
@@ -129,7 +129,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Batch -> Week -> Trainee-->
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
@@ -154,8 +154,9 @@
 							<div class="panel-heading">Technical Skills</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="doughnut1" class="chart chart-doughnut chart-xs" chart-data="qcStatsData"
-									chart-colors="qcStatsColors" chart-labels="qcStatsLabels" chart-options="qcStatsOptions">
+									<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
+										chart-data="qcStatsData" chart-colors="qcStatsColors"
+										chart-labels="qcStatsLabels" chart-options="qcStatsOptions">
                                     </canvas>
 								</div>
 							</div>
@@ -178,7 +179,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Batch -> Overall -> Trainee-->
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
@@ -228,11 +229,11 @@
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 	</div>
 	<!-- for testing purposes -->
-<!-- 		<li><a ui-sref="display">Display</a></li>
- --> <!-- 	<a><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>  			<div ui-view = display></div>
- --> 			<div ui-view = display></div>
+	<!--     <div ui-view = "display" ng-show = "displayTable()"></div> -->
+	<div ui-view="display" ng-show="true"></div>
+
 </div>
