@@ -22,6 +22,7 @@ angular
 							$log.debug("Here AGAIN!!!!!!");
 							createDefaultCharts();
 						}
+						
 					})();
 
 					/**
@@ -184,5 +185,13 @@ angular
 									$log.debug(value);
 								});
 					}
-					$scope.displayTable = function(){return false;}
+					/*scope function to display the table if a batch and week has been selected*/
+					$scope.displayTable = function(){
+						$scope.currentBatch.batchId = 1050;		// denise hard coded
+						$scope.currentWeek = 1;					// denise hard coded
+						if($scope.currentBatch.batchId && $scope.currentWeek){ // checking to see if the scope variables are null
+							return true;
+						}
+						return false;
+					}  // TODO refactor later to accommodate
 				});
