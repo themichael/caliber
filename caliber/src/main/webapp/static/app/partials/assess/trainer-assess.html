@@ -10,6 +10,9 @@
 		<div class="col-md-12 col-lg-12 top10">
 			<!-- top ui for viewing all assessments -->
 			<ul class="nav nav-tabs" ng-show="currentView">
+		<!-- for testing purposes  -->
+			<a ui-sref="trainer.display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
+			
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
 						currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
@@ -82,17 +85,8 @@
 					<tr role="button"
 						ng-repeat="trainee in currentBatch.trainees track by $index">
 						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
-<!-- 						<td ng-init="test(tg,$index)" ng-repeat="tg in grades track by $index">
-							<input class="form-control" type="number" width="10px" min="0"
-							max="{{assessment.rawScore}}"
-							id="{{trainee.traineeId}}-{{assessment.assessmentId}}"
-							value="{{findGrade(trainee.traineeId, assessment.assessmentId).score}}"
-							ng-blur="updateGrade(findGrade(trainee.traineeId, assessment.assessmentId).gradeId,
-                               trainee.traineeId,assessment)">
-						</td> -->
-						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments">
-							<input class='form-control' type="text" ng-model="setTraineeModel(trainee.traineeId).score" ng-blur="updateGrade()" ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
-							{{trainee[trainee.traineeId]}}
+						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">
+							<input class='form-control' type="number" ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score" ng-blur="updateGrade(trainee,assessment)" ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
 						</td>
 						<td class="col-sm-9 col-md-9 col-lg-9">
 							<textarea class="form-control" name="note" cols="20"
@@ -102,8 +96,12 @@
 
 					</tr>
 				</tbody>
+				<tfoot>
+					<td>Average</td>
+					<td ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees) ? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) + "%" : "-"}}</td>
+					<td></td>
+				</tfoot>
 			</table>
-			<hr/>
 			<div
                 class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
                 <textarea ng-model="finalQCBatchNote" class="form-control"
@@ -111,9 +109,7 @@
                     placeholder="Enter your overall feedback on the batch" required>
                 
                 </textarea>
-            </div>
-			
-			
+      </div>
 			<!--<table class="col-md-6 table table-condensed" ng-show="!currentView">
                 <tr>
                     <th>Name</th>
