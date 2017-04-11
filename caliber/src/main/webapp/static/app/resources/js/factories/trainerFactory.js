@@ -188,7 +188,11 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 			url: "/trainer/note/trainee/" + batchId + "/" + week,
 			method:"GET"
 		}).then(function(response){
-			return response.data;
+			if(response.data){
+				return response.data;
+			}else{
+				return response;
+			}				
 		},function(response){
 			$log.error("Error retrieving " + response.status);
 		});
