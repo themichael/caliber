@@ -54,12 +54,14 @@ angular
 						NProgress.done();
 						NProgress.start();
 						chartsDelegate.doughnut.data
-								.getQCStatsData(1050, 1)
+								.getQCStatsData(50, 1)
 								.then(
 										function(data) {
 											NProgress.done();
 											var doughnutChartObject = chartsDelegate.doughnut
 													.getQCStats(data);
+											console.log("here we are, in the pie method");
+											console.log(doughnutChartObject);
 											$scope.qcStatsLabels = doughnutChartObject.labels;
 											$scope.qcStatsData = doughnutChartObject.data;
 											$scope.qcStatsOptions = doughnutChartObject.options;
