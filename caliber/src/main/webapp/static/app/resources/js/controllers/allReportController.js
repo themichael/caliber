@@ -55,7 +55,21 @@ angular
 						NProgress.start();
 						
 						createQCStatus();
-					}
+						createAverageTraineeScoresWeekly();
+						createAverageTraineeScoresOverall();
+						createAssessmentAveragesBatchWeekly();
+						createAssessmentAveragesTraineeWeekly();
+						createAssessmentAveragesTraineeOverall();
+						createTechnicalSkillsBatchOverall();
+						createTechnicalSkillsTraineeWeekly();
+						createTechnicalSkillsTraineeOverall();
+						createWeeklyProgressBatchOverall();
+						createWeeklyProgressTraineeWeekly();
+						createWeeklyProgressTraineeOverall();
+						
+						
+					
+					// ********************* Doughnut **************************************
 					
 					function createQCStatus() {
 						chartsDelegate.doughnut.data
@@ -75,6 +89,62 @@ angular
 									NProgress.done();
 								});
 					}
+					
+					
+					//***************************** Bar *********************************
+					
+					function createAverageTraineeScoresWeekly(){
+						
+					}
+					
+					function createAverageTraineeScoresOverall(){
+						
+					}
+					
+					function createAssessmentAveragesBatchWeekly(){
+						
+					}
+					
+					function createAssessmentAveragesTraineeWeekly(){
+						
+					}
+					
+					function createAssessmentAveragesTraineeOverall(){
+						
+					}
+					
+					//**************************** Radar ***************************************
+					
+					
+					function createTechnicalSkillsBatchOverall(){
+						
+					}
+					
+					function createTechnicalSkillsTraineeWeekly(){
+						
+					}
+					
+					function createTechnicalSkillsTraineeOverall(){
+						
+					}
+					
+					
+					//***************************** Line ***************************************
+					
+					
+					function createWeeklyProgressBatchOverall(){
+						
+					}
+					
+					function createWeeklyProgressTraineeWeekly(){
+						
+					}
+					
+					function createWeeklyProgressTraineeOverall()
+					
+					
+					//*******************************************************************************
+					
 					
 					/**
 					 * Generates a PDF by sending HTML to server.
