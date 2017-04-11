@@ -4,11 +4,32 @@
  * @returns {{}}
  */
 angular.module("charts").factory("lineChartFactory", function($log) {
-	$log.debug("Booted Horizontal Bar Chart Factory");
+	$log.debug("Booted Line Chart Factory");
 
 	var lineChart = {};
 
-	lineChart.getBatchAvgChart = function(dataArray) {
+	lineChart.getBatchOverallLineChart = function(dataArray) {
+		var chartData = {};
+
+		// data and labels
+		chartData.data = [];
+		chartData.labels = [];
+
+		// traverse through array of objects and grab labels and data
+		dataArray.forEach(function(element) {
+			chartData.labels.push(element.trainee);
+			chartData.data.push(element.average);
+		});
+
+		chartData.datasetOverride = [ {
+			xAxisID : 'x-axis-1'
+		} ];
+
+		return chartData;
+	};
+	
+	//Yanilda
+	lineChart.getTraineeUpToWeekLineChart = function(dataArray) {
 		var chartData = {};
 
 		// data and labels
@@ -79,13 +100,12 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		chartData.labels = [];
 
 		// loop through object array
-		dataArray.forEach(function(element) {
-			chartData.data.push(element.average);
-			chartData.labels.push(element.trainee);
+		dataArray.forEach(function(key, value) {
+			chartData.data.push(value);
+			chartData.labels.push(key);
 		});
 
 		return chartData;
 	};
-
 	return lineChart;
 });

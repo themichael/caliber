@@ -133,7 +133,7 @@ angular
 					    views: {
 					      "": {
 					    	  templateUrl : "/static/app/partials/reports.html",
-								controller : "trainerHomeController"
+								controller : "allReportController"
 					      },
 					      "display@trainer.reports": {
 					    	  templateUrl : "/static/app/partials/trainer-display.html",
