@@ -100,9 +100,9 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		chartData.labels = [];
 
 		// loop through object array
-		dataArray.forEach(function(element) {
-			chartData.data.push(element.average);
-			chartData.labels.push(element.trainee);
+		dataArray.forEach(function(key, value) {
+			chartData.data.push(value);
+			chartData.labels.push(key);
 		});
 
 		return chartData;

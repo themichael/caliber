@@ -49,6 +49,7 @@ angular.module("reportApi").factory(
 					$log.error("There was an error: " + response.status);
 				}); // end then
 			};
+			return report;
 
 			
 			return report;
