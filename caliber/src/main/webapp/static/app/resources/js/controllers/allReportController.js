@@ -97,7 +97,6 @@ angular
 									a.download = "report.pdf";
 									document.body.appendChild(a);
 									a.click();
->>>>>>> 7e41975b4469d495c67b11f132cfaea339e75478
 
 								}, function(error) {
 									$log.debug(reason);

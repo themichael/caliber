@@ -47,5 +47,5 @@ angular.module("reportApi").factory(
 
 				});
 			};
-
+ return report;
 		})

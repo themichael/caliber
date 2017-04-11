@@ -115,5 +115,6 @@ angular
 
 								});
 					};
+					 return report;
 
 				})

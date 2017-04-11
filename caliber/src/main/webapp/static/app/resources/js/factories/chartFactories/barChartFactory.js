@@ -27,6 +27,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		return chartData;
 	};
+	//yanilda
 	barChart.getBatchWeekAvgBarChart = function(dataArray) {
 		var chartData = {};
 
@@ -36,7 +37,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		// traverse through array of objects and grab labels and data
 		dataArray.forEach(function(element) {
-			chartData.labels.push(element.trainee);
+			chartData.labels.push(element.exam);
 			chartData.data.push(element.average);
 		});
 
@@ -46,7 +47,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		return chartData;
 	};
-	//yanilda
+	
 	barChart.getTrainerEvalChart = function(dataArray) {
 		var chartData = {};
 
@@ -98,9 +99,9 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		chartData.labels = [];
 
 		// loop through object array
-		dataArray.forEach(function(element) {
-			chartData.data.push(element.average);
-			chartData.labels.push(element.trainee);
+		dataArray.forEach(function(key, value) {
+			chartData.data.push(value[0]);
+			chartData.labels.push(key);
 		});
 
 		return chartData;
