@@ -3,18 +3,17 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	$log.debug("Booted all api factory");
 
 	var all = {};
-	
-	/****************************************************************
-	 * Server generates PDF from HTML 
-	 * Download via response data
-	 *
-	 ****************************************************************/
+
+	/***************************************************************************
+	 * Server generates PDF from HTML Download via response data
+	 * 
+	 **************************************************************************/
 	all.generatePDF = function(html) {
 		return $http({
 			url : "/report/generate",
 			method : "POST",
 			data : html,
-			responseType: "arraybuffer"
+			responseType : "arraybuffer"
 		}).then(function(response) {
 			$log.debug(response);
 			return response.data;
@@ -191,11 +190,12 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			data : traineeObj
 		}).then(function(response) {
 			$log.debug("Trainee successfully created.")
-			$log.debug(response);
+			$log.debug(response.data);
 			// return id
 			return response.data;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
+			return response.data;
 		});
 	};
 
