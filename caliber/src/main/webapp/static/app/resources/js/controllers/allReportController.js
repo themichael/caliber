@@ -12,7 +12,7 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-
+						createDefaultCharts();
 						// batch null check
 						if (!allBatches || allBatches.length === 0) {
 							$scope.noBatches = true;
@@ -20,7 +20,7 @@ angular
 						} else {
 							$scope.noBatches = false;
 							$log.debug("Here AGAIN!!!!!!");
-							createDefaultCharts();
+							
 						}
 					})();
 

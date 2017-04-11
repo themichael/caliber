@@ -101,7 +101,7 @@ angular.module("delegate")
 
 					delegate.radar.data.getTechnicalSkillsTraineeWeeklyData = function() {
 						return radarChartDataFactory
-								.getTraineeUpToWeekRadarChart(week, traineeId);
+								.getTraineeUpToWeekRadarChartData(week, traineeId);
 					};
 
 					delegate.radar.getTechnicalSkillsTraineeOverall = function(
@@ -112,7 +112,7 @@ angular.module("delegate")
 
 					delegate.radar.data.getTechnicalSkillsTraineeOverallData = function() {
 						return radarChartDataFactory
-								.getTraineeOverallRadarChart(traineeId);
+								.getTraineeOverallRadarChartData(traineeId);
 					};
 
 					delegate.radar.getTechnicalSkillsBatchOverall = function(
@@ -123,7 +123,7 @@ angular.module("delegate")
 
 					delegate.radar.data.getTechnicalSkillsBatchOverallData = function() {
 						return radarChartDataFactory
-								.getBatchOverallRadarChart(batchId);
+								.getBatchOverallRadarChartData(batchId);
 					};
 					
 
