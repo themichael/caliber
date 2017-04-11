@@ -1,6 +1,6 @@
 <div id="manage">
 	<div class="container">
-		<div class="row">
+		<div class="row"> 
 			<div class="col-md-12 col-lg-12">
 				<ul class="nav nav-tabs">
 					<!-- Filter batches by year -->
@@ -296,20 +296,21 @@
 							</table>
 						</div>
 						<!-- Add New Trainee -->
+						
+						<div ng-repeat="receiver in receivers" ng-show="!Updating">
 						<h3>Add Trainee</h3>
-						<div ng-repeat="receiver in receivers">
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeName">Full Name:</label> <input
 										ng-model="receiver.name" type="text" class="form-control"
 										id="traineeName" placeholder="Name"
-										ng-value="editTrainee.name" required>
+										 required>
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeEmail">Email:</label> <input
 										ng-model="receiver.email" type="email" class="form-control"
 										id="traineeEmail" placeholder="Email"
-										ng-value="editTrainee.email" required>
+										 required>
 								</div>
 							</div>
 							<div class="row">
@@ -317,11 +318,64 @@
 									<label for="traineeSkype">Skype Id:</label> <input
 										ng-model="receiver.skypeId" type="text" class="form-control"
 										id="traineeSkype" placeholder="Skype Id"
-										ng-value="editTrainee.skypeId">
+										>
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineePhone">Phone:</label> <input
 										ng-model="receiver.phoneNumber" type="text"
+										class="form-control" id="traineePhone"
+										placeholder="(xxx)-xxx-xxxx"
+										 required>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-lg-12 col-md-12 col-sm-12">
+									<label for="traineeProfile">Profile URL:</label> <input
+										ng-model="receiver.profileUrl" type="text"
+										class="form-control" id="traineeName"
+										placeholder="http://www.example.com/revature"
+										>
+
+								</div>
+							</div>
+							<div class="row">
+
+								<div class="form-group col-lg-12 col-md-12 col-sm-12">
+									<label for="traineeStatus">Training Status</label> <select
+										ng-model="receiver.trainingStatus" class="form-control"
+										id="traineeStatus" required>
+										<option value="" disabled>Select Status</option>
+										<option ng-repeat="option in trainingStatuses.options">{{option}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+				     <div ng-repeat="receiver in receivers" ng-show="Updating">
+						<h3>Edit Trainee</h3>
+							<div class="row">
+								<div class="form-group col-lg-6 col-md-6 col-sm-12">
+									<label for="traineeName">Full Name:</label> <input
+										ng-model="editor.name" type="text" class="form-control"
+										id="traineeName" placeholder="Name"
+										ng-value="editTrainee.name" required>
+								</div>
+								<div class="form-group col-lg-6 col-md-6 col-sm-12">
+									<label for="traineeEmail">Email:</label> <input
+										ng-model="editor.email" type="email" class="form-control"
+										id="traineeEmail" placeholder="Email"
+										ng-value="editTrainee.email" required>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-lg-6 col-md-6 col-sm-12">
+									<label for="traineeSkype">Skype Id:</label> <input
+										ng-model="editor.skypeId" type="text" class="form-control"
+										id="traineeSkype" placeholder="Skype Id"
+										ng-value="editTrainee.skypeId">
+								</div>
+								<div class="form-group col-lg-6 col-md-6 col-sm-12">
+									<label for="traineePhone">Phone:</label> <input
+										ng-model="editor.phoneNumber" type="text"
 										class="form-control" id="traineePhone"
 										placeholder="(xxx)-xxx-xxxx"
 										ng-value="editTrainee.phoneNumber" required>
@@ -330,7 +384,7 @@
 							<div class="row">
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeProfile">Profile URL:</label> <input
-										ng-model="receiver.profileUrl" type="text"
+										ng-model="editor.profileUrl" type="text"
 										class="form-control" id="traineeName"
 										placeholder="http://www.example.com/revature"
 										ng-value="editTrainee.profileUrl">
@@ -341,7 +395,7 @@
 
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeStatus">Training Status</label> <select
-										ng-model="receiver.trainingStatus" class="form-control"
+										ng-model="editTrainee.trainingStatus" class="form-control"
 										id="traineeStatus" required>
 										<option value="" disabled>Select Status</option>
 										<option ng-repeat="option in trainingStatuses.options">{{option}}</option>
@@ -380,9 +434,9 @@
 
 
 						<button type="button" class="btn btn-default"
-							ng-click="updateTrainee(editTrainee)" ng-show="Updating">Clear</button>
+							ng-click="updateTrainee(editor)" ng-show="Updating">Clear</button>
 						<button type="button" id="updateTraineeButton"
-							class="btn btn-primary" ng-click="updateTrainee(editTrainee)"
+							class="btn btn-primary" ng-click="updateTrainee(editor)"
 							class="btn btn-default" ng-show="Updating">Update</button>
 
 					</div>
