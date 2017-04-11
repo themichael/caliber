@@ -15,9 +15,16 @@ angular.module("delegate")
 					var delegate = {};
 					delegate.doughnut = {};
 					delegate.doughnut.data = {};
+					delegate.bar = {};
+					delegate.bar.data = {};
+					delegate.line = {};
+					delegate.line.data = {};
+					delegate.radar = {};
+					delegate.radar.data = {};
 
 					/**
-					 * ********************* Doughnut *********************
+					 * ********************* Doughnut
+					 * *************************************
 					 */
 					delegate.doughnut.getQCStats = function(dataArray) {
 						return doughnutChartFactory.batchWeekQCPie(dataArray);
@@ -28,6 +35,24 @@ angular.module("delegate")
 						return doughnutChartDataFactory.batchWeekQCPie(batchId,
 								weekId);
 					}
+
+					/**
+					 * ********************* Bars
+					 * *************************************
+					 */
+					delegate.bar.
+					
+					
+
+					/**
+					 * ********************* Lines
+					 * *************************************
+					 */
+
+					/**
+					 * ********************* Radars
+					 * *************************************
+					 */
 
 					return delegate;
 				});
