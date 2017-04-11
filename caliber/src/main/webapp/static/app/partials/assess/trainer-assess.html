@@ -84,12 +84,12 @@
 					<tr role="button"
 						ng-repeat="trainee in currentBatch.trainees track by $index">
 						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
-						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">
+						<td class="text-center col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">
 							<input class='form-control' type="number" ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score" ng-blur="updateGrade(trainee,assessment)" ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
 						</td>
 						<td class="col-sm-9 col-md-9 col-lg-9">
 							<textarea class="form-control" name="note" cols="20"
-								rows="2" ng-model="trainees[trainee.traineeId].note.content">
+								rows="2" ng-model="trainees[trainee.traineeId].note.content" ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
 							</textarea>
 						</td>
 
