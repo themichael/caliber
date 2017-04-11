@@ -7,7 +7,15 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 	$log.debug("Booted radarChartFactory");
 
 	var radar = {};
-
+	
+	radar.getTraineeUpToWeekRadarChart = function(dataArray) {
+		
+	};
+	
+	radar.getTraineeOverallRadarChart = function(dataArray) {
+		
+	};
+	
 	radar.getBatchOverallRadarChart = function(dataArray) {
 		var chartData = {};
 		
@@ -25,6 +33,9 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		chartData.options = radarOptions;
 		return chartData;
 	};
+	
+	
+	
 
 	radarOptions = {
 		legend : {
