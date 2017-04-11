@@ -20,7 +20,7 @@ angular.module("charts").factory("doughnutChartFactory", function($log) {
 		};
 
 		// traverse through array of objects and grab labels and data
-		angular.forEach(dataArray.data, function(key, value) {
+		angular.forEach(dataArray.data, function(value, key) {
 			chartData.labels.push(key);
 			chartData.data.push(value);
 		});
