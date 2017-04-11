@@ -17,6 +17,7 @@ angular
 									$scope.trainers = trainers;
 									$log.log("=========TRAINERS=========");
 									$log.debug(trainers);
+									$scope.role = $cookies.get("role");
 								});
 						$log.debug(allBatches);
 						$scope.batches = allBatches;
@@ -273,10 +274,10 @@ angular
 						}
 						for (var i = 0; i < $scope.trainers.length; i++) {
 
-							if ($scope.trainers[i].name == trainer_name) {
+							if ($scope.trainers[i].name === trainer_name) {
 								batch.trainer = $scope.trainers[i];
 							}
-							if ($scope.trainers[i].name == cotrainer_name) {
+							if ($scope.trainers[i].name === cotrainer_name) {
 								batch.coTrainer = $scope.trainers[i];
 							}
 						}
