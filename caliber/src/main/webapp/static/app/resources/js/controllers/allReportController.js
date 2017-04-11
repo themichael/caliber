@@ -53,22 +53,28 @@ angular
 						// page
 						NProgress.done();
 						NProgress.start();
-						chartsDelegate.doughnut.data
-								.getQCStatsData(50, 1)
-								.then(
-										function(data) {
-											NProgress.done();
-											var doughnutChartObject = chartsDelegate.doughnut
-													.getQCStats(data);
-											console.log("here we are, in the pie method");
-											console.log(doughnutChartObject);
-											$scope.qcStatsLabels = doughnutChartObject.labels;
-											$scope.qcStatsData = doughnutChartObject.data;
-											$scope.qcStatsOptions = doughnutChartObject.options;
-										}, function() {
-											NProgress.done();
-										});
+						createQCStatus();
 
+					}
+					
+					function createQCStatus() {
+						chartsDelegate.doughnut.data
+						.getQCStatsData(50, 1)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var doughnutChartObject = chartsDelegate.doughnut
+											.getQCStats(data);
+									console.log("here we are, in the pie method");
+									console.log(doughnutChartObject);
+									$scope.qcStatsLabels = doughnutChartObject.labels;
+									$scope.qcStatsData = doughnutChartObject.data;
+									$scope.qcStatsOptions = doughnutChartObject.options;
+								}, function() {
+									NProgress.done();
+								});
 					}
 
 				});
+
