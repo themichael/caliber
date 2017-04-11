@@ -18,10 +18,10 @@ angular
 							$scope.noBatchesMessage = "No Batches were found.";
 						} else {
 							$scope.noBatches = false;
-							createDefaultCharts();
+							//createDefaultCharts();
 						}
 					})();
-
+/*
 					function createDefaultCharts() {
 						// Finishes any left over ajax animation from another
 						// page
@@ -46,7 +46,7 @@ angular
 											$scope.radarOptions = radarChartObject.options;
 										});
 					}
-
+*/
 					/**
 					 * ********************************************* UI
 					 * **************************************************
@@ -76,7 +76,7 @@ angular
 						} else {
 							$scope.currentBatch = $scope.batches[index];
 							viewCharts = 1;
-							createBatchCharts();
+							//createBatchCharts();
 						}
 					};
 
@@ -87,11 +87,11 @@ angular
 								name : "Trainee"
 							};
 							viewCharts = 1;
-							createBatchCharts();
+							//createBatchCharts();
 						} else {
 							$scope.currentTrainee = $scope.currentBatch.trainees[index];
 							viewCharts = 3;
-							createTraineeCharts();
+							//createTraineeCharts();
 						}
 					};
 
@@ -109,7 +109,7 @@ angular
 					 * ************************************ Chart Creation
 					 * Functions ************************************
 					 */
-
+/*
 					// create charts on batch selection
 					function createBatchCharts() {
 						NProgress.start();
@@ -174,4 +174,5 @@ angular
 											$scope.traineeTechOptions = radarChartObject2.options;
 										});
 					}
+*/
 				});

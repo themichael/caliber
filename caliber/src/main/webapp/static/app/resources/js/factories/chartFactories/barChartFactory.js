@@ -27,7 +27,27 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		return chartData;
 	};
+	//yanilda
+	barChart.getBatchWeekAvgBarChart = function(dataArray) {
+		var chartData = {};
 
+		// data and labels
+		chartData.data = [];
+		chartData.labels = [];
+
+		// traverse through array of objects and grab labels and data
+		dataArray.forEach(function(element) {
+			chartData.labels.push(element.exam);
+			chartData.data.push(element.average);
+		});
+
+		chartData.datasetOverride = [ {
+			xAxisID : 'x-axis-1'
+		} ];
+
+		return chartData;
+	};
+	
 	barChart.getTrainerEvalChart = function(dataArray) {
 		var chartData = {};
 
@@ -79,9 +99,33 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		chartData.labels = [];
 
 		// loop through object array
-		dataArray.forEach(function(element) {
-			chartData.data.push(element.average);
-			chartData.labels.push(element.trainee);
+		dataArray.forEach(function(key, value) {
+			chartData.data.push(value[0]);
+			chartData.labels.push(key);
+		});
+
+		return chartData;
+	};
+	
+	barChart.getBatchOverallBarChart = function(dataArray) {
+		var chartData = {};
+
+		// series
+		//chartData.series = [ "Tech Batch Eval" ];
+
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+		chartData.options = {
+				legend : {
+					display : true
+				}
+			};
+
+		// loop through object array
+		angular.forEach(dataArray.data, function(value, key) {
+			chartData.labels.push(key);
+			chartData.data.push(value);
 		});
 
 		return chartData;

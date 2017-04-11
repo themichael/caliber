@@ -73,7 +73,7 @@ a { color: #F26925;}
 
 .panel > .panel-heading {
 	background-image: none;
-	background-color: var(--yellow);
+	background-color: var(--orange);
 	color: white;
 
 }
