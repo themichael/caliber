@@ -1,7 +1,7 @@
 angular.module("reportApi").factory(
 		"doughnutChartDataFactory",
 		function($http, $log) {
-			$log.debug("Booted Report Factory");
+			$log.debug("Booted doughnutChartData Factory");
 
 			var report = {};
 
@@ -10,9 +10,14 @@ angular.module("reportApi").factory(
 					url : "/all/reports/batch/" + batchId + "/week/" + weekNum
 							+ "/pie",
 					method : "GET"
-				})
-
+				}).then(function(response) {
+					$log.debug("Batch -> Week -> Pie Chart");
+					$log.debug(response);
+					return response.data;
+				}, function(response) {
+					$log.error("There was an error in doughnutChartDataFactory -> batchWeekQCPie. " + response.status);
+					}
+				);
 			};
-
 			return report;
-		})
+		});

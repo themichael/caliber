@@ -1,7 +1,7 @@
 angular.module("reportApi").factory(
 		"lineChartDataFactory",
 		function($http, $log) {
-			$log.debug("Booted Report Factory");
+			$log.debug("Booted Line Chart Data Factory");
 
 			var report = {};
 
@@ -47,5 +47,18 @@ angular.module("reportApi").factory(
 
 				});
 			};
-
-		})
+			
+			report.getBatchOverallLineChartData = function(batchId) {
+				return $http({
+					url : "/all/reports/batch/" + batchId + " /overall/line-batch-overall",
+					method : "GET"
+				}).then(function(response) {
+						$log.debug("Batch -> Overall");
+						$log.debug(response);
+					return response.data;
+				}, function(response) {
+					$log.error("There was an error in lineChartDataFactory -> getBatchOverallLineChart. " + response.status);
+				});	
+			};
+		}
+	);

@@ -53,6 +53,7 @@ angular
 						// page
 						NProgress.done();
 						NProgress.start();
+						
 						chartsDelegate.doughnut.data
 								.getQCStatsData(1050, 1)
 								.then(
@@ -65,6 +66,7 @@ angular
 											$scope.qcStatsLabels = doughnutChartObject.labels;
 											$scope.qcStatsData = doughnutChartObject.data;
 											$scope.qcStatsOptions = doughnutChartObject.options;
+											$scope.qcStatsColors = doughnutChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
