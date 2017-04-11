@@ -33,22 +33,24 @@
 </script>
 </head>
 <body ng-app="app">
-	<div id="line-chart" ng-controller="LineCtrl">
+	<div id="line-chart" ng-controller="BarCtrl">
 		<button ng-click="barChart()">Submit</button>
-<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" 
-chart-series="series" chart-options="options"
-chart-dataset-override="datasetOverride" chart-click="onClick"></canvas> 
-		
+		<!-- <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick"></canvas> -->
+		<canvas id="bar" class="chart chart-bar" chart-data="data"
+			chart-labels="labels"> chart-series="series"</canvas>
 	</div>
 </body>
+
+
+
+
+
 <script type="text/javascript">
+	angular.module("app", [ "chart.js" ]).controller("BarCtrl",
+			function($scope) {
+				$scope.barChart = function() {
 
-angular.module("app", ["chart.js"]).controller("LineCtrl", function ($scope) {
-
-
-  $scope.labels = ["Week1", "Week2", "Week3", "Week4", "Week5", "Week6", "Week7"];
-  $scope.series = ['Data', 'Average'];
-  $scope.data = {
+					var data = {
 						"Fouche, Issac" : 68.44513166666667,
 						"Peters, Russell" : 27.163330168465002,
 						"Antonov, Denis" : 6.3950000000000005,
@@ -59,31 +61,51 @@ angular.module("app", ["chart.js"]).controller("LineCtrl", function ($scope) {
 						"Huang, Jimmy" : 68.0218465,
 						"Duling, Wyatt" : 67.80016846499998,
 						"Almatar, Manya" : 54.443301684649995
+					}
+					$scope.labels = [];
+					$scope.data = [];
+					$scope.series = [ 'Data', 'Average' ];
+					var sorted = [];
+					$.each(data, function(key, value) {
+						sorted.push({
+							'name' : key,
+							'value' : value
+						})
+					});
+					sorted.sort(function(a, b) {
+						return b.value - a.value;
+					});
+					$.each(sorted, function(index, trainee) {
+						$scope.labels.push(trainee.name);
+						$scope.data.push(trainee.value)
+					});
+					$scope.datasetOverride = [ {
+						yAxisID : 'y-axis-1'
+					}, {
+						yAxisID : 'y-axis-2'
+					} ];
+					$scope.options = {
+						elements : {
+							line : {
+								fill : false
+							}
+						},
+						scales : {
+							yAxes : [ {
+								id : 'y-axis-1',
+								type : 'linear',
+								display : true,
+								position : 'left'
+							}, {
+								id : 'y-axis-2',
+								type : 'linear',
+								display : true,
+								position : 'right'
+							} ]
+						}
 					};
-  $scope.onClick = function (points, evt) {
-    console.log(points, evt);
-  };
-  $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-  $scope.options = {
-    scales: {
-      yAxes: [
-        {
-          id: 'y-axis-1',
-          type: 'linear',
-          display: true,
-          position: 'left'
-        },
-        {
-          id: 'y-axis-2',
-          type: 'linear',
-          display: true,
-          position: 'right'
-        }
-      ]
-    }
-  };
-});
-              
+				}
 
+			});
 </script>
 </html>
