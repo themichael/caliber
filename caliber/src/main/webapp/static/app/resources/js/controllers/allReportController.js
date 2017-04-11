@@ -57,7 +57,6 @@ angular
 								.getQCStatsData(50, 1)
 								.then(
 										function(data) {
-											$log.debug(data);
 											NProgress.done();
 											var doughnutChartObject = chartsDelegate.doughnut
 													.getQCStats(data);
