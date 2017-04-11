@@ -70,12 +70,26 @@ angular
 								$scope.trainees[traineeId].note={};
 							}								
 							return $scope.trainees[traineeId];							
-						}	
+						}
+						$scope.updateTraineeScopeWithCurrentAssessment = function(assessments){
+							angular.forEach($scope.trainees,function(key,value){
+								for(a in assessments){
+									if($scope.trainees[value].assessments[assessments[a].assessmentId] === undefined){
+										$scope.trainees[value].assessments[assessments[a].assessmentId] = {};
+										$scope.trainees[value].assessments[assessments[a].assessmentId].score='';
+									}
+								}
+							})
+						}
+					
 						// get trainee notes and put into
 						// $scope.trainees[traineeId].note
 						$scope.getTraineeBatchNotesForWeek=function(batchId,weekId){
 							caliberDelegate.trainer.getTraineeBatchNotesForWeek(batchId,weekId).then(function(data){
-								if(data.length > 0){
+								angular.forEach($scope.trainees,function(key,value){
+									$scope.trainees[value].note = {};
+								});
+								if(data && data.length > 0){
 									$scope.notes = data;
 									for(note of $scope.notes){
 										if($scope.trainees[note.trainee.traineeId].note.hasOwnProperty('noteId')){
@@ -83,10 +97,6 @@ angular
 										}
 										$scope.trainees[note.trainee.traineeId].note = note;
 									}
-								}else{
-									angular.forEach($scope.trainees,function(key,value){
-										$scope.trainees[value].note = {};
-									});
 								}
 							});
 						}
@@ -343,7 +353,7 @@ angular
 											$scope.assessmentsById=[]
 											
 											$scope.generateArrAssessmentById(data);
-											
+											$scope.updateTraineeScopeWithCurrentAssessment($scope.currentAssessments);
 											for(i = 1; i <= $scope.currentBatch.weeks; i++){
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
@@ -394,13 +404,15 @@ angular
 					 */
 
 					$scope.updateGrade = function(trainee,assessment) {
-						
+						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] === undefined){
+							$scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] = {};
+						}
 						// constructs Grade object from the data in table
 						var grade = {
 							trainee : trainee,
 							assessment : assessment,
 							dateReceived : new Date(),
-							score : angular.fromJson($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score)
+							score :$scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score,
 						};
 						/*
 						 * if assessment object has gradeId, define it in grade
@@ -415,7 +427,13 @@ angular
 								function(response) {
 									$log.debug("Adding grade to $scope");
 									$log.debug(response);
-								})
+									return response;
+								}).then(function(response){
+									console.log(response);
+									return response;
+								}).then(function(response){
+									$scope.trainees[response.data.trainee.traineeId].assessments[response.data.assessment.assessmentId].gradeId = response.data.gradeId;
+								});
 					}; 
 
 					$scope.findGrade = function(traineeId, assessmentId) {
