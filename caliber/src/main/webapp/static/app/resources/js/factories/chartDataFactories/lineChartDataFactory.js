@@ -26,25 +26,15 @@ angular.module("reportApi").factory(
 
 			report.getTraineeOverallLineChart = function(batchId, traineeId) {
 
-				return $http(
-
-						{
-							url : "/all/reports/batch/" + batchId
-									+ "/overall/trainee/" + traineeId
-									+ "/line-trainee-overall",
-							method : "GET"
-
-						}).then(
-
-				function(response) {
+				return $http({
+					url : "/all/reports/batch/" + batchId
+						+ "/overall/trainee/" + traineeId
+						+ "/line-trainee-overall",
+					method : "GET"
+				}).then(function(response) {
 					$log.debug("All-reports-Batch-overall-trainee-overall");
-					$log.debug(response);
-					return response.data;
-
 				}, function(response) {
-
 					$log.error("There was an error: " + response.status);
-
 				});
 			};
 			
@@ -54,7 +44,6 @@ angular.module("reportApi").factory(
 					method : "GET"
 				}).then(function(response) {
 						$log.debug("Batch -> Overall");
-						$log.debug(response);
 					return response.data;
 				}, function(response) {
 					$log.error("There was an error in lineChartDataFactory -> getBatchOverallLineChart. " + response.status);
