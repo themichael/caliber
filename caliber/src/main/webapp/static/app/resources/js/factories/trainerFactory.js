@@ -89,6 +89,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		}).then(function(response) {
 			$log.debug("Grade successfully created.");
 			$log.debug(response);
+			return response;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 		});
