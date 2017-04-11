@@ -151,8 +151,10 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		}).then(function(response) {
 			$log.debug("Batch successfully deleted");
 			$log.debug(response);
+			return response;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
+			return response;
 		});
 	};
 
