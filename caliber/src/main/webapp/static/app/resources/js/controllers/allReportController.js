@@ -12,7 +12,7 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-
+						createDefaultCharts();
 						// batch null check
 						if (!allBatches || allBatches.length === 0) {
 							$scope.noBatches = true;
@@ -20,7 +20,7 @@ angular
 						} else {
 							$scope.noBatches = false;
 							$log.debug("Here AGAIN!!!!!!");
-							createDefaultCharts();
+
 						}
 					})();
 
@@ -55,7 +55,22 @@ angular
 						NProgress.start();
 
 						createQCStatus();
+						createAverageTraineeScoresWeekly();
+						createAverageTraineeScoresOverall();
+						createAssessmentAveragesBatchWeekly();
+						createAssessmentAveragesTraineeWeekly();
+						createAssessmentAveragesTraineeOverall();
+						createTechnicalSkillsBatchOverall();
+						createTechnicalSkillsTraineeWeekly();
+						createTechnicalSkillsTraineeOverall();
+						createWeeklyProgressBatchOverall();
+						createWeeklyProgressTraineeWeekly();
+						createWeeklyProgressTraineeOverall();
+
 					}
+
+					// ********************* Doughnut
+					// **************************************
 
 					function createQCStatus() {
 						chartsDelegate.doughnut.data
@@ -75,8 +90,72 @@ angular
 										}, function() {
 											NProgress.done();
 										});
+
 					}
-				
+
+					// ***************************** Bar
+					// *********************************
+
+					function createAverageTraineeScoresWeekly() {
+
+					}
+
+					function createAverageTraineeScoresOverall() {
+
+					}
+
+					function createAssessmentAveragesBatchWeekly() {
+
+					}
+
+					function createAssessmentAveragesTraineeWeekly() {
+
+					}
+
+					function createAssessmentAveragesTraineeOverall() {
+
+					}
+
+					// **************************** Radar
+					// ***************************************
+
+					function createTechnicalSkillsBatchOverall() {
+						/*
+						 * chartsDelegate.radar.getTechnicalSkillsBatchOverallData($scope.currentBatch.batchId).then(function(data){
+						 * $log.debug(data); NProgress.done(); var
+						 * batchOverallRadarChartObject =
+						 * chartsDelegate.radar.getBatchRankComparisonChart(data);
+						 * $log.debug("Radar Chart: Created Batch Overall Batch
+						 * ID: " + $scope.currentBatch.batchId);
+						 * 
+						 * });
+						 */
+					}
+
+					function createTechnicalSkillsTraineeWeekly() {
+
+					}
+
+					function createTechnicalSkillsTraineeOverall() {
+
+					}
+
+					// ***************************** Line
+					// ***************************************
+
+					function createWeeklyProgressBatchOverall() {
+
+					}
+
+					function createWeeklyProgressTraineeWeekly() {
+
+					}
+
+					function createWeeklyProgressTraineeOverall() {
+
+					}
+
+					// *******************************************************************************
 
 					/**
 					 * Generates a PDF by sending HTML to server. Downloads

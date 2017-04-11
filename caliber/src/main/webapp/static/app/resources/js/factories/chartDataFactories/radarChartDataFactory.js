@@ -5,7 +5,7 @@ angular.module("reportApi").factory(
 
 			var report = {};
 
-			report.getTraineeUpToWeekRadarChart = function(week, traineeId) {
+			report.getTraineeUpToWeekRadarChartData = function(week, traineeId) {
 				return $http(
 						{
 							url : "/all/reports/week/" + week + "/trainee/"
@@ -20,7 +20,7 @@ angular.module("reportApi").factory(
 				}); // end then
 			};
 
-			report.getTraineeOverallRadarChart = function(traineeId) {
+			report.getTraineeOverallRadarChartData = function(traineeId) {
 				return $http(
 						{
 							url : "/all/reports/trainee/" + traineeId
@@ -35,7 +35,7 @@ angular.module("reportApi").factory(
 				}); // end then
 			};
 
-			report.getBatchOverallRadarChart = function(batchId) {
+			report.getBatchOverallRadarChartData = function(batchId) {
 				return $http(
 						{
 							url : "/all/reports/batch/" + batchId
@@ -49,5 +49,9 @@ angular.module("reportApi").factory(
 					$log.error("There was an error: " + response.status);
 				}); // end then
 			};
+			return report;
 
+			
+			return report;
+			
 		});

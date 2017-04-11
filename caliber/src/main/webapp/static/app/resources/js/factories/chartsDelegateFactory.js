@@ -84,34 +84,51 @@ angular.module("delegate")
 						return barChartDataFactory.();
 					};*/
 					
-					
-					/**
-					 * ************************ Radar ************************
-					 */
-					
-					/*delegate.radar.getTechnicalSkillsBatchOverall = function(dataArray){
-						return radarChartFactory.(dataArray);
+
+										
+
+
+
+										/**
+										 * ************************ Radar
+										 * ************************
+										 */
+					delegate.radar.getTechnicalSkillsTraineeWeekly = function(
+							dataArray) {
+						return radarChartFactory
+								.getTraineeUpToWeekRadarChart(dataArray);
+					};
+
+					delegate.radar.data.getTechnicalSkillsTraineeWeeklyData = function() {
+						return radarChartDataFactory
+								.getTraineeUpToWeekRadarChartData(week, traineeId);
+					};
+
+					delegate.radar.getTechnicalSkillsTraineeOverall = function(
+							dataArray) {
+						return radarChartFactory
+								.getTraineeOverallRadarChart(dataArray);
+					};
+
+					delegate.radar.data.getTechnicalSkillsTraineeOverallData = function() {
+						return radarChartDataFactory
+								.getTraineeOverallRadarChartData(traineeId);
+					};
+
+					delegate.radar.getTechnicalSkillsBatchOverall = function(
+							dataArray) {
+						return radarChartFactory
+								.getBatchOverallRadarChart(dataArray);
+					};
+
+					delegate.radar.data.getTechnicalSkillsBatchOverallData = function() {
+						return radarChartDataFactory
+								.getBatchOverallRadarChartData(batchId);
 					};
 					
-					delegate.radar.data.getTechnicalSkillsBatchOverallData = function(){
-						return radarChartDataFactory.();
-					};*/
+
 					
-					/*delegate.radar.getTechnicalSkillsTraineeWeekly = function(dataArray){
-						return radarChartFactory.(dataArray);
-					};
-					
-					delegate.radar.data.getTechnicalSkillsTraineeWeeklyData = function(){
-						return radarChartDataFactory.();
-					};*/
-					
-					/*delegate.radar.getTechnicalSkillsTraineeOverall = function(dataArray){
-						return radarChartFactory.(dataArray);
-					};
-					
-					delegate.radar.data.getTechnicalSkillsTraineeOverallData = function(){
-						return radarChartDataFactory.();
-					};*/
+
 					
 					
 					/**
