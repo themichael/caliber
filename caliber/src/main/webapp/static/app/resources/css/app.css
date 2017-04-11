@@ -192,3 +192,9 @@ footer {
 footer a, footer a:hover{
 	color: #B9B9BA;
 }
+/**********************
+	Table styles
+**********************/
+.vcenter{
+	vertical-align:middle !important;	
+}

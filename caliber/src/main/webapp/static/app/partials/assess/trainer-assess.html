@@ -83,6 +83,7 @@
 							ng-repeat="assessment in currentAssessments track by $index">
 							{{assessment.title}}(%)</th>
 						<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -98,13 +99,19 @@
 								rows="2" ng-model="trainees[trainee.traineeId].note.content" ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
 							</textarea>
 						</td>
-
+						<td class='vcenter'>
+							<div ng-click="doBurrito()"> 
+								<i ng-hide="loading" role="button" class="fa fa-file-text" aria-hidden="true"></i>
+								<i ng-show="loading" role="button" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+							</div>
+						</td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<td>Average</td>
 					<td class="text-center" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees) ? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) + "%" : "-"}}</td>
-					<td></td>
+					<td></td> <!-- match notes th -->
+					<td></td> <!--  match glyphicon  -->
 				</tfoot>
 			</table>
 					<div 

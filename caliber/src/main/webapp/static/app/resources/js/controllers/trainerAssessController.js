@@ -525,5 +525,8 @@ angular
 							}
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
-
+					$scope.loading=false;
+					$scope.doBurrito =function(){
+						$scope.loading=true;
+					}
 				});
