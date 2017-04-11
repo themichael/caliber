@@ -212,9 +212,12 @@ public class EvaluationService {
 		log.debug("Finding week " + week + " individual notes for batch: " + batchId);
 		List <Note>notes_temp = noteDAO.findIndividualNotes(batchId,week);
 		List <Note> notes = new ArrayList<>();
-		for(Note n : notes_temp){
-			n.getBatch().setTrainees(null);
-			notes.add(n);
+		if(notes_temp !=null){
+			for(Note n : notes_temp){
+				n.setBatch(null);
+				notes.add(n);
+			}
+			return notes;
 		}
 		return notes;
 	}

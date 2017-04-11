@@ -2,7 +2,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerHomeController",
-				function($scope, $log, caliberDelegate, chartsDelegate,
+				function($scope, $http, $log, caliberDelegate, chartsDelegate,
 						allBatches) {
 					$log.debug("Booted trainer home controller.");
 					$log.debug('test code in trainer home - jack');
@@ -21,10 +21,10 @@ angular
 							$scope.noBatchesMessage = "No Batches belonging to you were found.";
 						} else {
 							$scope.noBatches = false;
-							createDefaultCharts();
+							//createDefaultCharts();
 						}
 					})();
-
+/*
 					function createDefaultCharts() {
 						// Finishes any left over ajax animation from another
 						// page
@@ -46,7 +46,7 @@ angular
 											NProgress.done();
 										});
 					}
-
+*/
 					/**
 					 * ********************************************* UI
 					 * **************************************************
@@ -72,11 +72,11 @@ angular
 							$scope.currentBatch = {
 								trainingName : "Batch"
 							};
-							createDefaultChart();
+							//createDefaultChart();
 						} else {
 							$scope.currentBatch = $scope.batches[index];
 							viewCharts = 1;
-							createBatchCharts();
+							//createBatchCharts();
 						}
 					};
 
@@ -87,11 +87,11 @@ angular
 								name : "Trainee"
 							};
 							viewCharts = 1;
-							createBatchCharts();
+							//createBatchCharts();
 						} else {
 							$scope.currentTrainee = $scope.currentBatch.trainees[index];
 							viewCharts = 3;
-							createTraineeCharts();
+							//createTraineeCharts();
 						}
 					};
 
@@ -99,7 +99,7 @@ angular
 					$scope.hideOtherTabs = function() {
 						return $scope.currentBatch.trainingName !== "Batch";
 					};
-
+/*
 					// show charts
 					$scope.showCharts = function(charts) {
 						return charts === viewCharts;
@@ -178,8 +178,9 @@ angular
 										});
 					}
 
-					$scope.test = function(t,index){
-						console.log('asfd');
-							
+					$scope.test = function(t, index) {
+						$log.debug("asfd");
 					}
+					
+*/
 				});

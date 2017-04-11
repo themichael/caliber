@@ -73,7 +73,7 @@ a { color: #F26925;}
 
 .panel > .panel-heading {
 	background-image: none;
-	background-color: var(--yellow);
+	background-color: var(--orange);
 	color: white;
 
 }
@@ -119,16 +119,16 @@ a { color: #F26925;}
 }
 
 .fa-smile-o:hover { color: #81f575; }
-/* .fa-meh-o:hover { color: #e8b00b; } */ 
- .fa-meh-o:hover { color: #fff575; }   					/*probably too light of a yellow? get opinions! */
+.fa-meh-o:hover { color: #e8b00b; } 
 .fa-frown-o:hover { color: #ff7575; }
 .fa-star:hover { color: #7972ff; }
 
 .fa-smile-o.pick { color: #24d810!important; }
- .fa-meh-o.pick { color: #e8b00b !important; }  	/* darker yellow */
-/*.fa-meh-o.pick { color: #fff575 !important; } */
+.fa-meh-o.pick { color: #e8b00b !important; }
 .fa-frown-o.pick { color: #ff0000!important; }
 .fa-star.pick { color: #7972ff !important; }
+
+.fa-file-pdf-o { color: #d00a0a; } 
 
 #qcTrainees{
 	border-bottom-style: solid;

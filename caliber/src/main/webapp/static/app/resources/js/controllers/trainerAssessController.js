@@ -17,13 +17,28 @@ angular
 					
 					$log.debug("Booted Trainer Aesess Controller");
 
+					$scope.trainerBatchNote = null;
+					// Note object
+					function Note(noteId, content, status, week, batch,
+							trainee, maxVisibility, type, qcFeedback) {
+						this.noteId = noteId;
+						this.content = content;
+						this.week = week;
+						this.batch = batch;
+						this.trainee = trainee;
+						this.maxVisibility = maxVisibility;
+						this.type = type;
+						this.qcFeedback = qcFeedback;
+						this.qcStatus = status;
+					}
+					
 					// load categories
 					$scope.skill_categories = function() {
 						caliberDelegate.all.getAllCategories().then(
 								function(categories) {
 									$scope.categories = categories;
 									$log.debug("all Categories");
-									//$log.debug(categories);
+									// $log.debug(categories);
 								});
 					};
 					/**
@@ -37,8 +52,9 @@ angular
 											weekId).then(
 											function(data) {
 												$scope.grades = data;
-												//$log.debug("These are the grades");
-												//$log.debug(data);
+												// $log.debug("These are the
+												// grades");
+												// $log.debug(data);
 												// for ( var i in data) {
 												// $log.debug("Fetching ");
 												// $log.debug(data[i]);
@@ -46,14 +62,44 @@ angular
 												// data[i]);
 												// }
 											});
-						}
+					 }
 						$scope.assignTraineeScope = function(traineeId){
 							if($scope.trainees[traineeId] === undefined){
 								$scope.trainees[traineeId] = {};
 								$scope.trainees[traineeId].assessments=[];
+								$scope.trainees[traineeId].note={};
 							}								
 							return $scope.trainees[traineeId];							
-						}					 
+						}
+						$scope.updateTraineeScopeWithCurrentAssessment = function(assessments){
+							angular.forEach($scope.trainees,function(key,value){
+								for(a in assessments){
+									if($scope.trainees[value].assessments[assessments[a].assessmentId] === undefined){
+										$scope.trainees[value].assessments[assessments[a].assessmentId] = {};
+										$scope.trainees[value].assessments[assessments[a].assessmentId].score='';
+									}
+								}
+							})
+						}
+					
+						// get trainee notes and put into
+						// $scope.trainees[traineeId].note
+						$scope.getTraineeBatchNotesForWeek=function(batchId,weekId){
+							caliberDelegate.trainer.getTraineeBatchNotesForWeek(batchId,weekId).then(function(data){
+								angular.forEach($scope.trainees,function(key,value){
+									$scope.trainees[value].note = {};
+								});
+								if(data && data.length > 0){
+									$scope.notes = data;
+									for(note of $scope.notes){
+										if($scope.trainees[note.trainee.traineeId].note.hasOwnProperty('noteId')){
+											$scope.trainees[note.trainee.traineeId].note = {};
+										}
+										$scope.trainees[note.trainee.traineeId].note = note;
+									}
+								}
+							});
+						}
 					// ////////////////////////////////////////////////////////////////////////
 					// load note types
 					caliberDelegate.all.enumNoteType().then(
@@ -79,7 +125,10 @@ angular
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) {
-							$scope.currentBatch = allBatches[allBatches.length-1]; // shows the latest batches
+							$scope.currentBatch = allBatches[allBatches.length-1]; // shows
+																					// the
+																					// latest
+																					// batches
 							$log.debug("This is the current batch "
 									+ $scope.currentBatch);
 							if (allBatches[0].weeks > 0) {
@@ -153,6 +202,7 @@ angular
 						for(trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);
 						}
+						
 					})(allBatches);
 
 					// default -- view assessments table
@@ -186,13 +236,16 @@ angular
 
 					// select week
 					$scope.selectWeek = function(index) {
-					
+						
 						$scope.currentWeek = $scope.currentBatch.arrayWeeks[index];
 						$log.debug("[***********This is the week selected*************]:  "+$scope.currentWeek);
 	
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
+						
 					};
+					
+					
 
 					// active week
 					$scope.showActiveWeek = function(index) {
@@ -208,7 +261,13 @@ angular
 									$scope.currentBatch.weeks += 1;
 									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
 									$scope.showActiveWeek($scope.currentBatch.weeks);
-									$scope.selectWeek($scope.currentBatch.weeks-1); // the new index of the week selected
+									$scope.selectWeek($scope.currentBatch.weeks-1); // the
+																					// new
+																					// index
+																					// of
+																					// the
+																					// week
+																					// selected
 								});
 					};
 
@@ -257,7 +316,20 @@ angular
 						else
 							$scope.selectedCategories.push(category);
 					};
-
+					
+					/** *******TrainerBatch Notes********** */	
+					$scope.getTBatchNote = function (batchId, week){	
+								caliberDelegate.trainer
+										.getTrainerBatchNote(batchId, week)
+										.then(
+												function(trainerBatchNotes) {
+													if (trainerBatchNotes === undefined) {
+														$log.debug("EMPTY!");												
+													}else{																								
+													$scope.trainerBatchNote = trainerBatchNotes[0];
+													$log.debug(trainerBatchNotes);}
+												});
+						};
 
 					// get all assesments
 					// **********************************************************8888888888***********************************************************
@@ -274,22 +346,47 @@ angular
 											var week = new Week(
 													$scope.currentWeek,
 													$scope.currentAssessments);
-											
 											$scope.currentBatch.displayWeek = week;
 											$scope.currentBatch.arrayWeeks = [];
-											//create array of assessments mapped by assessment Id;
+											// create array of assessments
+											// mapped by assessment Id;
 											$scope.assessmentsById=[]
 											
 											$scope.generateArrAssessmentById(data);
-											
+											$scope.updateTraineeScopeWithCurrentAssessment($scope.currentAssessments);
 											for(i = 1; i <= $scope.currentBatch.weeks; i++){
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
-											
-
+											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
+											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
 										});
+										
 					};
 					
+					/** *******Save TrainerBatch Notes********** */	
+					$scope.saveTrainerNotes = function() {
+						// Create note
+						if ($scope.trainerBatchNote.noteId === undefined) {
+							$scope.trainerBatchNote = new Note(
+									null,
+									$scope.trainerBatchNote.content,
+									null,
+									$scope.currentWeek,
+									$scope.currentBatch,
+									null, "TRAINER",
+									"BATCH", false);	
+							caliberDelegate.trainer.createNote($scope.trainerBatchNote).then(
+							// Set id to created notes id
+							function(id) {
+								$scope.trainerBatchNote.noteId = id;
+							});
+						}  
+						// Update existing note
+						else {								
+							caliberDelegate.trainer.updateNote($scope.trainerBatchNote);
+						}
+					}
+								
 					$scope.generateArrAssessmentById = function(assessments){
 						for(a of assessments){
 							$scope.assessmentsById[a.assessmentId] = {};
@@ -305,21 +402,22 @@ angular
 					 * @param traineeId
 					 * @param assessment
 					 */
-					$scope.generateGradeModel = function(traineeId){
-						$scope.traineeGrade ={
-								traineeId:traineeId
-						}
-					}
+
 					$scope.updateGrade = function(trainee,assessment) {
-						
+						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] === undefined){
+							$scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] = {};
+						}
 						// constructs Grade object from the data in table
 						var grade = {
 							trainee : trainee,
 							assessment : assessment,
 							dateReceived : new Date(),
-							score : angular.fromJson($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score)
+							score :$scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score,
 						};
-						/*if assessment object has gradeId, define it in grade object*/
+						/*
+						 * if assessment object has gradeId, define it in grade
+						 * object
+						 */
 						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
 							grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
 						}
@@ -329,7 +427,12 @@ angular
 								function(response) {
 									$log.debug("Adding grade to $scope");
 									$log.debug(response);
-								})
+									return response;
+								}).then(function(response){
+									return response;
+								}).then(function(response){
+									$scope.trainees[response.data.trainee.traineeId].assessments[response.data.assessment.assessmentId].gradeId = response.data.gradeId;
+								});
 					}; 
 
 					$scope.findGrade = function(traineeId, assessmentId) {
@@ -337,7 +440,10 @@ angular
 								return;
 							}
 							for(var grade of $scope.grades[traineeId]){
-								/* create a assessment object that contains gradeId for each $scope.trainees[trainee]*/
+								/*
+								 * create a assessment object that contains
+								 * gradeId for each $scope.trainees[trainee]
+								 */
 								if(grade.assessment.assessmentId === assessmentId){
 									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
 										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
@@ -350,6 +456,38 @@ angular
 								}
 							}
 					};
+					
+					/* - save trainee note
+					   - send to "/note/update"
+					   By Jack	
+					  */					 
+					$scope.saveOrUpdateTraineeNote=function(traineeId){
+						var traineeNote = $scope.trainees[traineeId].note
+						var trainee = $scope.currentBatch.trainees.filter(function(trainee) {
+							  return trainee.traineeId === traineeId;
+							});
+						//create noteObj to send to controller
+						var noteObj={
+								content:traineeNote.content,
+								week:$scope.currentWeek,
+								trainee:trainee[0],
+								type:"TRAINEE",
+								batch:$scope.currentBatch
+						}
+						//if noteId exists, add it to noteObj to get noteObj in db to update
+						if($scope.trainees[traineeId].note.noteId !== undefined){
+							noteObj.noteId = traineeNote.noteId;
+						}
+						caliberDelegate.trainer.saveOrUpdateNote(noteObj)
+						.then(function(response){
+							return response;
+						}).then(function(response){
+							//set persisted note object into trainee.note
+							$log.debug("setting response note obj to trainee scope note obj")
+							$scope.trainees[response.data.trainee.traineeId].note = response.data
+						});
+					
+					}
 
 					/**
 					 * **********************************************TODO

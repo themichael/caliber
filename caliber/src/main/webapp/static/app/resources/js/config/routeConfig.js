@@ -126,6 +126,35 @@ angular
 										url : "/assess",
 										controller : "trainerAssessController"
 									})
+									
+														
+					  .state("trainer.reports",{
+  						url : "/reports",
+					    views: {
+					      "": {
+					    	  templateUrl : "/static/app/partials/reports.html",
+								controller : "allReportController"
+					      },
+					      "display@trainer.reports": {
+					    	  templateUrl : "/static/app/partials/trainer-display.html",
+								controller : "trainerAssessController"
+					      }
+					    }
+					  })
+									
+/*					.state("trainer.assess",{
+						url : "/assess",
+					    views: {
+					      "": {
+								templateUrl : "/static/app/partials/assess/trainer-assess.html",
+								controller : "trainerAssessController"
+					      },
+					      "display@trainer.assess": {
+					    	  templateUrl : "/static/app/partials/trainer-display.html",
+								controller : "trainerAssessController"
+					      }
+					    }
+					  })
 							.state(
 									"trainer.reports",
 									{
@@ -133,14 +162,9 @@ angular
 										url : "/reports",
 										controller : "allReportController"
 									})
-						/*this state is for testing..... change later*/
-							.state(
-									"trainer.display",
-									{
-										templateUrl : "/static/app/partials/trainer-display.html",
-										url : "/display",
-										controller : "trainerAssessController"
-									})
+									*/
+							
+
 							/***************************************************
 							 * VP
 							 **************************************************/
