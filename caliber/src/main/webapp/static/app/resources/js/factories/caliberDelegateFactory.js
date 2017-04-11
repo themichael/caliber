@@ -25,8 +25,16 @@ angular
 					delegate.vp = {};
 					delegate.agg = {};
 
+					/*****************************************************************
+					 * Generate PDF
+					 ****************************************************************/
+					delegate.all.generatePDF = function(html) {
+						return allFactory.generatePDF(html);
+					};
+					
 					/**
-					 * ************************** All
+					 * ************************** 
+					 * All
 					 * ****************************
 					 */
 					delegate.all.createBatch = function(batchObj) {
@@ -149,6 +157,10 @@ angular
 							week) {
 						return trainerFactory.getTrainerBatchNote(batchId, week);
 					};
+					
+					delegate.trainer.saveOrUpdateNote = function(noteObj){
+						return trainerFactory.saveOrUpdateNote(noteObj);
+					}
 
 					/** ************************* VP ************************** */
 					delegate.vp.getAllBatches = function() {
