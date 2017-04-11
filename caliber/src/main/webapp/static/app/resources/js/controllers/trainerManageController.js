@@ -15,7 +15,7 @@ angular
 						caliberDelegate.all.getAllTrainers().then(
 								function(trainers) {
 									$scope.trainers = trainers;
-									$log.log("=========TRAINERS=========");
+									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
 								});
 						$log.debug(allBatches);
@@ -150,7 +150,7 @@ angular
 					$scope.Updating = false;
 					$scope.updateTrainee = function(editedTrainee) {
 
-						$log.log(editedTrainee);
+						$log.debug(editedTrainee);
 						for (var i = 0; i < $scope.receivers.length; i++) {
 
 							if ($scope.receivers[i] == null) {
@@ -191,7 +191,7 @@ angular
 							};
 
 						}
-						$log.log(updTrainee);
+						$log.debug(updTrainee);
 						editedTrainee = updTrainee;
 						$log.debug(editedTrainee);
 						caliberDelegate.all
@@ -317,7 +317,7 @@ angular
 						} else {
 							var newBatch = {};
 							createBatchObject(newBatch);
-							$log.log('this is' + newBatch);
+							$log.debug('this is' + newBatch);
 							caliberDelegate.all.createBatch(newBatch).then(
 									function(response) {
 										// coTrainer may be undefined
@@ -400,13 +400,13 @@ angular
 												newTrainee.traineeId = response.traineeId
 												$scope.trainees.push(response);
 												$log
-														.log($scope.trainees[$scope.trainees.length - 1].traineeId)
+														.debug($scope.trainees[$scope.trainees.length - 1].traineeId)
 												$log
-														.log($scope.receivers[$scope.receivers.length - 1].traineeId)
+														.debug($scope.receivers[$scope.receivers.length - 1].traineeId)
 												$log
-														.log($scope.receivers[0].traineeId)
-												$log.log(newTrainee.traineeId)
-												$log.log(response.traineeId)
+														.debug($scope.receivers[0].traineeId)
+												$log.debug(newTrainee.traineeId)
+												$log.debug(response.traineeId)
 											});
 						}
 						$scope.receivers = [ {
@@ -447,9 +447,9 @@ angular
 
 					$scope.removeTrainee = function() {
 
-						$log.log($scope.traineeToBeDeleted.traineeId);
-						$log.log($scope.currentBatch.trainees[$scope.traineeRow]);
-						$log.log($scope.trainees[$scope.traineeRow].traineeId);
+						$log.debug($scope.traineeToBeDeleted.traineeId);
+						$log.debug($scope.currentBatch.trainees[$scope.traineeRow]);
+						$log.debug($scope.trainees[$scope.traineeRow].traineeId);
 
 						caliberDelegate.all
 								.deleteTrainee($scope.traineeToBeDeleted.traineeId);
