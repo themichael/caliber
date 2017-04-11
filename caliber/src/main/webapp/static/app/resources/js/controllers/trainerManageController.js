@@ -130,9 +130,10 @@ angular
 					};
 
 					/** Get trainee info* */
-					$scope.getTrainee = function(trainee) {
+					$scope.getTrainee = function(index) {
 
-						$scope.editor = trainee;
+						$scope.editor = $scope.trainees[index];
+						$scope.trow = index; 
 						$scope.Updating = true;
 
 					}
@@ -202,12 +203,12 @@ angular
 					
 					$scope.clear = function()
 					{
-						$scope.editor.name = "";
+						/*$scope.editor.name = "";
 						$scope.editor.email = "";
 						$scope.editor.phoneNumber = "";
 						$scope.editor.skypeId = "";
 						$scope.editor.profileUrl = "";
-						$scope.selectCurrentBatch($scope.row);
+						$scope.selectCurrentBatch($scope.row);*/
 						$scope.Updating = false;
 					}
 

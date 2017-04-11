@@ -281,7 +281,7 @@
 												href="{{trainee.profileUrl}}" target="_blank"><i
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 										</span></td>
-										<td><a role="button" ng-click="getTrainee(trainee)"
+										<td><a role="button" ng-click="getTrainee($index)"
 											type="button"> <span class="glyphicon glyphicon-pencil"></span>
 										</a></td>
 
@@ -432,7 +432,7 @@
 
 
 						<button type="button" class="btn btn-default"
-							ng-click="updateTrainee()" ng-show="Updating">Clear</button>
+							ng-click="clear()" ng-show="Updating">Clear</button>
 						<button type="button" id="updateTraineeButton"
 							class="btn btn-primary" ng-click="updateTrainee()"
 							class="btn btn-default" ng-show="Updating">Update</button>
