@@ -226,8 +226,10 @@
 					</div>
 					<!-- Add Batch Info -->
 					<h3>Are you sure you want to delete this batch?</h3>
-					<br /> <span ng-if="trainees.length > 0">
+					<br /> <span ng-if="trainees.length > 1">
 						<h4>There are {{trainees.length}} trainees in this batch</h4>
+					</span>  <span ng-if="trainees.length == 1">
+						<h4>There is only 1 trainee in this batch</h4>
 					</span> <span ng-if="trainees.length == 0||!trainees">
 						<h4>There are no trainees in this batch</h4>
 					</span>
