@@ -54,7 +54,7 @@ angular
 						NProgress.done();
 						NProgress.start();
 						chartsDelegate.doughnut.data
-								.getQCStatsData(50, 1)
+								.getQCStatsData(1051, 1)
 								.then(
 										function(data) {
 											NProgress.done();

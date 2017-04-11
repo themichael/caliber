@@ -27,7 +27,26 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		return chartData;
 	};
+	barChart.getBatchWeekAvgBarChart = function(dataArray) {
+		var chartData = {};
 
+		// data and labels
+		chartData.data = [];
+		chartData.labels = [];
+
+		// traverse through array of objects and grab labels and data
+		dataArray.forEach(function(element) {
+			chartData.labels.push(element.trainee);
+			chartData.data.push(element.average);
+		});
+
+		chartData.datasetOverride = [ {
+			xAxisID : 'x-axis-1'
+		} ];
+
+		return chartData;
+	};
+	//yanilda
 	barChart.getTrainerEvalChart = function(dataArray) {
 		var chartData = {};
 
