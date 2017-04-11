@@ -32,9 +32,9 @@ public class NoteDAO {
 	 * @param note
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void save(Note note) {
+	public int save(Note note) {
 		log.info("Saving Note " + note);
-		sessionFactory.getCurrentSession().save(note);
+		return (int) sessionFactory.getCurrentSession().save(note);
 	}
 
 	/**
@@ -184,9 +184,10 @@ public class NoteDAO {
 	 */
 	@SuppressWarnings("unchecked")
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public List<Note> findAllQCTraineeNotes(Integer week) {
+    public List<Note> findAllQCTraineeNotes(Integer batchId, Integer week) {
         log.info("Find All QC Trainee notes");
         return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
+        		.createAlias("t.batch", "b").add(Restrictions.eq("b.batchId", batchId))
         		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
         		.add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)

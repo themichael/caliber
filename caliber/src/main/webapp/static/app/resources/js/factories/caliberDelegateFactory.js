@@ -113,8 +113,8 @@ angular
 						return trainerFactory.getAllBatches();
 					};
 
-					delegate.trainer.createWeek = function(weekObj) {
-						return trainerFactory.createWeek(weekObj);
+					delegate.trainer.createWeek = function(batchId) {
+						return trainerFactory.createWeek(batchId);
 					};
 
 					delegate.trainer.addGrade = function(gradeObj) {
@@ -128,7 +128,9 @@ angular
 					delegate.trainer.createAssessment = function(assessmentObj) {
 						return trainerFactory.createAssessment(assessmentObj);
 					};
-
+					delegate.trainer.getTraineeBatchNotesForWeek = function(batchId,week){
+						return trainerFactory.getTraineeBatchNotesForWeek(batchId,week);
+					}
 					delegate.trainer.getAllAssessmentsForWeek = function(
 							batchId, week) {
 						return trainerFactory.getAllAssessmentsForWeek(batchId,
@@ -149,6 +151,11 @@ angular
 
 					delegate.trainer.updateNote = function(noteObj) {
 						return trainerFactory.updateNote(noteObj);
+					};
+
+					delegate.trainer.getTrainerBatchNote = function(batchId,
+							week) {
+						return trainerFactory.getTrainerBatchNote(batchId, week);
 					};
 
 					/** ************************* VP ************************** */
@@ -192,11 +199,15 @@ angular
 					delegate.qc.updateNote = function(noteObj) {
 						return qcFactory.updateNote(noteObj);
 					};
-					
+
 					delegate.qc.batchNote = function(batchId, week) {
 						return qcFactory.getQCBatchNote(batchId, week);
 					}
 
+					delegate.qc.aTraineeNote = function(traineeId, week) {
+						return qcFactory.getAQCTraineeNote(traineeId, week);
+					}
+					
 					delegate.qc.traineeNote = function(batchId, week) {
 						return qcFactory.getAllQCTraineeNote(batchId, week);
 					}
