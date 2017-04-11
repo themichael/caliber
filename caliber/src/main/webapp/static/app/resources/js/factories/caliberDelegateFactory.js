@@ -157,6 +157,10 @@ angular
 							week) {
 						return trainerFactory.getTrainerBatchNote(batchId, week);
 					};
+					
+					delegate.trainer.saveOrUpdateNote = function(noteObj){
+						return trainerFactory.saveOrUpdateNote(noteObj);
+					}
 
 					/** ************************* VP ************************** */
 					delegate.vp.getAllBatches = function() {
