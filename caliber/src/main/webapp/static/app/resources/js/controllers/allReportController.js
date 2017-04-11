@@ -103,8 +103,25 @@ angular
 					function createAverageTraineeScoresOverall() {
 
 					}
-
+					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
+						chartsDelegate.bar.data
+						.get(1050, 1)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var doughnutChartObject = chartsDelegate.doughnut
+											.getQCStats(data);
+									console
+											.log("here we are, in the pie method");
+									console.log(doughnutChartObject);
+									$scope.qcStatsLabels = doughnutChartObject.labels;
+									$scope.qcStatsData = doughnutChartObject.data;
+									$scope.qcStatsOptions = doughnutChartObject.options;
+								}, function() {
+									NProgress.done();
+								});
 
 					}
 
@@ -146,11 +163,11 @@ angular
 					function createWeeklyProgressBatchOverall() {
 
 					}
-
+					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {
 
 					}
-
+					
 					function createWeeklyProgressTraineeOverall() {
 
 					}

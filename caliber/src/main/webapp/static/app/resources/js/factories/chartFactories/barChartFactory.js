@@ -36,9 +36,9 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		chartData.labels = [];
 
 		// traverse through array of objects and grab labels and data
-		dataArray.forEach(function(element) {
-			chartData.labels.push(element.exam);
-			chartData.data.push(element.average);
+		dataArray.forEach(function(key, value) {
+			chartData.labels.push(key);
+			chartData.data.push(value[0]);
 		});
 
 		chartData.datasetOverride = [ {
