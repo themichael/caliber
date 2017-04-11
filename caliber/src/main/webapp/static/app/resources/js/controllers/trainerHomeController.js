@@ -2,7 +2,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerHomeController",
-				function($scope, $log, caliberDelegate, chartsDelegate,
+				function($scope, $http, $log, caliberDelegate, chartsDelegate,
 						allBatches) {
 					$log.debug("Booted trainer home controller.");
 					$log.debug('test code in trainer home - jack');
@@ -131,7 +131,6 @@ angular
 													.getBatchProgressChart(data);
 											$scope.batchProgressLabels = lineChartObject.labels;
 											$scope.batchProgressData = lineChartObject.data;
-											s
 											$scope.batchProgressSeries = lineChartObject.series;
 											$scope.batchProgressOptions = lineChartObject.options;
 											$scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
@@ -179,8 +178,7 @@ angular
 										});
 					}
 
-					$scope.test = function(t,index){
-						console.log('asfd');
-							
+					$scope.test = function(t, index) {
+						$log.debug("asfd");
 					}
 				});
