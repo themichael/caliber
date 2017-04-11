@@ -351,11 +351,7 @@ angular
 					 * @param traineeId
 					 * @param assessment
 					 */
-					$scope.generateGradeModel = function(traineeId){
-						$scope.traineeGrade ={
-								traineeId:traineeId
-						}
-					}
+
 					$scope.updateGrade = function(trainee,assessment) {
 						
 						// constructs Grade object from the data in table
