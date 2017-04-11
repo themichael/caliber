@@ -184,5 +184,5 @@ angular
 									$log.debug(value);
 								});
 					}
-
+					$scope.displayTable = function(){return false;}
 				});
