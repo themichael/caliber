@@ -86,6 +86,30 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		return chartData;
 	};
+	
+	barChart.getBatchOverallBarChart = function(dataArray) {
+		var chartData = {};
+
+		// series
+		//chartData.series = [ "Tech Batch Eval" ];
+
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+		chartData.options = {
+				legend : {
+					display : true
+				}
+			};
+
+		// loop through object array
+		angular.forEach(dataArray.data, function(value, key) {
+			chartData.labels.push(key);
+			chartData.data.push(value);
+		});
+
+		return chartData;
+	};
 
 	return barChart;
 });

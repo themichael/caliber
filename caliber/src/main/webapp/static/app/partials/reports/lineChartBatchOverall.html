@@ -48,8 +48,7 @@ angular.module("app", ["chart.js"]).controller("LineCtrl", function ($scope) {
 
   $scope.labels = ["Week1", "Week2", "Week3", "Week4", "Week5", "Week6", "Week7"];
   $scope.series = ['Data', 'Average'];
-  $scope.data = [
-    {
+  $scope.data = {
 						"Fouche, Issac" : 68.44513166666667,
 						"Peters, Russell" : 27.163330168465002,
 						"Antonov, Denis" : 6.3950000000000005,
@@ -60,8 +59,7 @@ angular.module("app", ["chart.js"]).controller("LineCtrl", function ($scope) {
 						"Huang, Jimmy" : 68.0218465,
 						"Duling, Wyatt" : 67.80016846499998,
 						"Almatar, Manya" : 54.443301684649995
-					}
-  ];
+					};
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
