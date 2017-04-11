@@ -190,15 +190,26 @@ angular
 								.updateTrainee(editedTrainee)
 								.then(
 										$scope.clear = function() {
-											$scope.editor.name = "";
+											/*$scope.editor.name = "Blaaa";
 											$scope.editor.email = "";
 											$scope.editor.phoneNumber = "";
 											$scope.editor.skypeId = "";
 											$scope.editor.profileUrl = "";
+											$scope.selectCurrentBatch($scope.row);*/
 											$scope.Updating = false;
-											$scope.selectCurrentBatch($scope.row);
 										});
 					};
+					
+					$scope.clear = function()
+					{
+						$scope.editor.name = "";
+						$scope.editor.email = "";
+						$scope.editor.phoneNumber = "";
+						$scope.editor.skypeId = "";
+						$scope.editor.profileUrl = "";
+						$scope.selectCurrentBatch($scope.row);
+						$scope.Updating = false;
+					}
 
 					/** Fill update form with batch previous data* */
 					$scope.populateBatch = function(batch) {
