@@ -64,7 +64,7 @@
 				</thead>
 				<tbody>
 
-					<tr rows="2" ng-repeat="trainee in currentBatch.trainees track by $index" >
+					<tr ng-repeat="trainee in currentBatch.trainees track by $index" >
 						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
 						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{findGrade(trainee.traineeId,assessment.assessmentId)}}
  						</td>
