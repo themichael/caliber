@@ -38,13 +38,13 @@ public class PDFServiceTest {
 			file.delete();
 			log.trace("Cleaning up test file");
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			log.warn("PDF test fail " + e.getClass() + " " + e.getMessage());
 			fail();
 		} catch (DocumentException e) {
-			e.printStackTrace();
+			log.warn("PDF test fail " + e.getClass() + " " + e.getMessage());
 			fail();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.warn("PDF test fail " + e.getClass() + " " + e.getMessage());
 			fail();
 		}
 	}
