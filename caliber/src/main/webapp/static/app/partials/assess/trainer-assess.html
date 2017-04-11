@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 <!-- Year selector and Add Assessment button -->
-=======
->>>>>>> 82a7e68b7586fa2575459ddfb65bd185360a6618
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
@@ -15,12 +12,12 @@
 			<ul class="nav nav-tabs" ng-show="currentView">
 		<!-- for testing purposes  -->
 <!-- 			<a ui-sref="report.display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
- -->
-<!--  <i role="button" class="fa fa-file-text" aria-hidden="true" ui-view = "display"></i>	
- --> <!-- <a ui-sref="#display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a> -->
-<!--  	<div ui-view = "display"></div>
+ 
+  <i role="button" class="fa fa-file-text" aria-hidden="true" ui-view = "display"></i>	
+ <a ui-sref="#display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
+  	<div ui-view = "display"></div>
  -->			<a ui-sref="trainer.display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
-			
+			<div ui-view = ui-serf></div>
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
 						currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
