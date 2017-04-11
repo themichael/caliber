@@ -22,6 +22,7 @@ angular
 						$scope.batches = allBatches;
 						$scope.selectedBatches = [];
 						sortByDate(new Date().getFullYear());
+						$scope.notUpdating = "true";
 					})();
 
 					/** Filter batches by year * */
@@ -182,15 +183,22 @@ angular
 						$log.log(updTrainee);
 						editedTrainee = updTrainee;
 						$log.debug(editedTrainee);
-						caliberDelegate.all.updateTrainee(editedTrainee).then(
-								$scope.clear = function(editedTrainee) {
-									$scope.editTrainee.name = "";
-									$scope.editTrainee.email = "";
-									$scope.editTrainee.phoneNumber = "";
-									$scope.editTrainee.skypeId = "";
-									$scope.editTrainee.profileUrl = "";
-									$scope.Updating = false;
-								});
+						caliberDelegate.all
+								.updateTrainee(editedTrainee)
+								.then(
+										$scope.clear = function(editedTrainee) {
+											$scope.editTrainee.name = "";
+											$scope.editTrainee.email = "";
+											$scope.editTrainee.phoneNumber = "";
+											$scope.editTrainee.skypeId = "";
+											$scope.editTrainee.profileUrl = "";
+											$scope.Updating = false;
+
+											for (var i = 0; i < $scope.receivers.length; i++) {
+												$scope.receivers[i] = null;
+											}
+
+										});
 					};
 
 					/** Fill update form with batch previous data* */
@@ -206,12 +214,14 @@ angular
 						} else {
 							$scope.coTrainer.model = ""
 						}
-						$scope.startDate.model = new Date(batch.startDate);
-						$scope.endDate.model = new Date(batch.endDate);
+						$scope.startDate.model = new Date(batch.startDate
+								.replace(/-/g, '/'));
+						$scope.endDate.model = new Date(batch.endDate.replace(
+								/-/g, '/'));
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
-								batch.benchmarkStartDate);
+								batch.benchmarkStartDate.replace(/-/g, '/'));
 						$scope.Save = "Update";
 					}
 
@@ -287,7 +297,7 @@ angular
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
-						// $log.debug($scope.currentBatch);
+						//if current batch is being edited, update batch otherwise create new batch
 						if ($scope.currentBatch) {
 							createBatchObject($scope.currentBatch);
 							caliberDelegate.all
@@ -303,46 +313,9 @@ angular
 										// coTrainer may be undefined
 
 										if ($scope.coTrainer) {
-											$scope.batches.push(response.data
-											// trainingName :
-											// $scope.trainingName.model,
-											// trainingType :
-											// $scope.trainingType.model,
-											// skillType :
-											// $scope.skillType.model,
-											// location : $scope.location.model,
-											// trainer : newBatch.trainer,
-											// coTrainer : newBatch.coTrainer,
-											// startDate :
-											// $scope.startDate.model,
-											// endDate : $scope.endDate.model,
-											// goodGradeThreshold :
-											// $scope.goodGradeThreshold.model,
-											// borderlineGradeThreshold :
-											// $scope.borderlineGradeThreshold.model,
-											// benchmarkStartDate :
-											// $scope.benchmarkStartDate.model
-											);
+											$scope.batches.push(response.data);
 										} else {
-											$scope.batches.push(response.data
-											// trainingName :
-											// $scope.trainingName.model,
-											// trainingType :
-											// $scope.trainingType.model,
-											// skillType :
-											// $scope.skillType.model,
-											// location : $scope.location.model,
-											// trainer : newBatch.coTrainer,
-											// startDate :
-											// $scope.startDate.model,
-											// endDate : $scope.endDate.model,
-											// goodGradeThreshold :
-											// $scope.goodGradeThreshold.model,
-											// borderlineGradeThreshold :
-											// $scope.borderlineGradeThreshold.model,
-											// benchmarkStartDate :
-											// $scope.benchmarkStartDate.model
-											);
+											$scope.batches.push(response.data);
 											$log.log($scope.batches)
 										}
 
@@ -355,9 +328,22 @@ angular
 
 					/** Delete batch* */
 					$scope.deleteBatch = function() {
-						caliberDelegate.all.deleteBatch(
-								$scope.currentBatch.batchId).then(
-								$scope.selectedBatches.splice($scope.row, 1));
+						caliberDelegate.all
+								.deleteBatch($scope.currentBatch.batchId)
+								.then(
+										function(response) {
+											if (response.status === 204) {
+												for (var i = 0; i < $scope.batches.length; i++) {
+													if ($scope.batches[i] === $scope.currentBatch) {
+														$scope.batches.splice(
+																i, 1);
+														break;
+													}
+												}
+												$scope.selectedBatches.splice(
+														$scope.row, 1);
+											}
+										});
 						angular.element("#deleteBatchModal").modal("hide");
 					}
 					/**
