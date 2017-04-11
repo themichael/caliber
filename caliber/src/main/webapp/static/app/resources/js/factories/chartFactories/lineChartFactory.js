@@ -4,11 +4,11 @@
  * @returns {{}}
  */
 angular.module("charts").factory("lineChartFactory", function($log) {
-	$log.debug("Booted Horizontal Bar Chart Factory");
+	$log.debug("Booted Line Chart Factory");
 
 	var lineChart = {};
 
-	lineChart.getBatchAvgChart = function(dataArray) {
+	lineChart.getBatchOverallLineChart = function(dataArray) {
 		var chartData = {};
 
 		// data and labels
@@ -107,6 +107,5 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 		return chartData;
 	};
-
 	return lineChart;
 });
