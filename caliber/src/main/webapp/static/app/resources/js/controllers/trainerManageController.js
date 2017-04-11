@@ -130,11 +130,13 @@ angular
 					};
 
 					/** Get trainee info* */
-					$scope.getTrainee = function(index) {
+					$scope.getTrainee = function(trainee, traineeB) {
 
-						$scope.editor = $scope.trainees[index];
-						$scope.trow = index; 
+						/*$scope.editor = $scope.trainees[index];
+						$scope.trow = index; */
+						$scope.editTrainee = trainee;
 						$scope.Updating = true;
+						$scope.sub = traineeB;
 
 					}
 
@@ -209,6 +211,7 @@ angular
 						$scope.editor.skypeId = "";
 						$scope.editor.profileUrl = "";
 						$scope.selectCurrentBatch($scope.row);*/
+						$scope.editTrainee = $scope.sub;
 						$scope.Updating = false;
 					}
 

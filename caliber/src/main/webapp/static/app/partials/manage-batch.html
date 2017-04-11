@@ -281,7 +281,7 @@
 												href="{{trainee.profileUrl}}" target="_blank"><i
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 										</span></td>
-										<td><a role="button" ng-click="getTrainee($index)"
+										<td><a role="button" ng-click="getTrainee(trainee, trainee)"
 											type="button"> <span class="glyphicon glyphicon-pencil"></span>
 										</a></td>
 
@@ -359,19 +359,22 @@
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeName">Full Name:</label> <input
 										ng-model="editor.name" type="text" class="form-control"
-										id="traineeName" placeholder="Name" required>
+										id="traineeName" placeholder="Name" 
+										ng-value="editTrainee.name" required>
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeEmail">Email:</label> <input
 										ng-model="editor.email" type="email" class="form-control"
-										id="traineeEmail" placeholder="Email" required>
+										id="traineeEmail" placeholder="Email" 
+										ng-value="editTrainee.email"required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeSkype">Skype Id:</label> <input
 										ng-model="editor.skypeId" type="text" class="form-control"
-										id="traineeSkype" placeholder="Skype Id">
+										id="traineeSkype" placeholder="Skype Id"
+										ng-value="editTrainee.skypeId">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineePhone">Phone:</label> <input
@@ -385,7 +388,8 @@
 									<label for="traineeProfile">Profile URL:</label> <input
 										ng-model="editor.profileUrl" type="text"
 										class="form-control" id="traineeName"
-										placeholder="http://www.example.com/revature">
+										placeholder="http://www.example.com/revature"
+										ng-value="editTrainee.profileUrl">
 
 								</div>
 							</div>
@@ -393,8 +397,9 @@
 
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeStatus">Training Status</label> <select
-										ng-model="editTrainee.trainingStatus" class="form-control"
-										id="traineeStatus" required>
+										ng-model="editor.trainingStatus" class="form-control"
+										id="traineeStatus" 
+										ng-value="editTrainee.profileUrl" required>
 										<option value="" disabled>Select Status</option>
 										<option ng-repeat="option in trainingStatuses.options">{{option}}</option>
 									</select>
