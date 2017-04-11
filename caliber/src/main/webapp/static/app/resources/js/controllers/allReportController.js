@@ -53,7 +53,7 @@ angular
 						// page
 						NProgress.done();
 						NProgress.start();
-						
+
 						createQCStatus();
 						createAverageTraineeScoresWeekly();
 						createAverageTraineeScoresOverall();
@@ -66,86 +66,87 @@ angular
 						createWeeklyProgressBatchOverall();
 						createWeeklyProgressTraineeWeekly();
 						createWeeklyProgressTraineeOverall();
-						
-						
-					
-					// ********************* Doughnut **************************************
-					
+
+					}
+
+					// ********************* Doughnut
+					// **************************************
+
 					function createQCStatus() {
 						chartsDelegate.doughnut.data
-						.getQCStatsData(1050, 1)
-						.then(
-								function(data) {
-									$log.debug(data);
-									NProgress.done();
-									var doughnutChartObject = chartsDelegate.doughnut
-											.getQCStats(data);
-									console.log("here we are, in the pie method");
-									console.log(doughnutChartObject);
-									$scope.qcStatsLabels = doughnutChartObject.labels;
-									$scope.qcStatsData = doughnutChartObject.data;
-									$scope.qcStatsOptions = doughnutChartObject.options;
-								}, function() {
-									NProgress.done();
-								});
+								.getQCStatsData(1050, 1)
+								.then(
+										function(data) {
+											$log.debug(data);
+											NProgress.done();
+											var doughnutChartObject = chartsDelegate.doughnut
+													.getQCStats(data);
+											console
+													.log("here we are, in the pie method");
+											console.log(doughnutChartObject);
+											$scope.qcStatsLabels = doughnutChartObject.labels;
+											$scope.qcStatsData = doughnutChartObject.data;
+											$scope.qcStatsOptions = doughnutChartObject.options;
+										}, function() {
+											NProgress.done();
+										});
 					}
-					
-					
-					//***************************** Bar *********************************
-					
-					function createAverageTraineeScoresWeekly(){
-						
+
+					// ***************************** Bar
+					// *********************************
+
+					function createAverageTraineeScoresWeekly() {
+
 					}
-					
-					function createAverageTraineeScoresOverall(){
-						
+
+					function createAverageTraineeScoresOverall() {
+
 					}
-					
-					function createAssessmentAveragesBatchWeekly(){
-						
+
+					function createAssessmentAveragesBatchWeekly() {
+
 					}
-					
-					function createAssessmentAveragesTraineeWeekly(){
-						
+
+					function createAssessmentAveragesTraineeWeekly() {
+
 					}
-					
-					function createAssessmentAveragesTraineeOverall(){
-						
+
+					function createAssessmentAveragesTraineeOverall() {
+
 					}
-					
-					//**************************** Radar ***************************************
-					
-					
-					function createTechnicalSkillsBatchOverall(){
-						
+
+					// **************************** Radar
+					// ***************************************
+
+					function createTechnicalSkillsBatchOverall() {
+
 					}
-					
-					function createTechnicalSkillsTraineeWeekly(){
-						
+
+					function createTechnicalSkillsTraineeWeekly() {
+
 					}
-					
-					function createTechnicalSkillsTraineeOverall(){
-						
+
+					function createTechnicalSkillsTraineeOverall() {
+
 					}
-					
-					
-					//***************************** Line ***************************************
-					
-					
-					function createWeeklyProgressBatchOverall(){
-						
+
+					// ***************************** Line
+					// ***************************************
+
+					function createWeeklyProgressBatchOverall() {
+
 					}
-					
-					function createWeeklyProgressTraineeWeekly(){
-						
+
+					function createWeeklyProgressTraineeWeekly() {
+
 					}
-					
-					function createWeeklyProgressTraineeOverall()
-					
-					
-					//*******************************************************************************
-					
-					
+
+					function createWeeklyProgressTraineeOverall() {
+
+					}
+
+					// *******************************************************************************
+
 					/**
 					 * Generates a PDF by sending HTML to server. Downloads
 					 * automatically in new tab.
@@ -167,7 +168,6 @@ angular
 									a.download = "report.pdf";
 									document.body.appendChild(a);
 									a.click();
->>>>>>> 7e41975b4469d495c67b11f132cfaea339e75478
 
 								}, function(error) {
 									$log.debug(reason);
@@ -177,4 +177,3 @@ angular
 					}
 
 				});
-
