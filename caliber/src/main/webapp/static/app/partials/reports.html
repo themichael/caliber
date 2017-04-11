@@ -1,8 +1,10 @@
-<button ng-click="generatePDF()">PDF</button>
-<div>
+<div id="report">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-lg-12">
+				<a href="" class="pull-right" ng-click="generatePDF()">
+					<i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+				</a>
 				<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
 				<ul class="nav nav-tabs" ng-show="!noBatches">
 					<!-- Select Batch-->
