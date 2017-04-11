@@ -7,18 +7,20 @@ angular
 
 					$log.debug("Booted Report Controller");
 					$log.debug("Peacepapi is here!!!!!");
+					$log.debug("Come here often?");
 
 					(function start() {
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-						createDefaultCharts();
 						// batch null check
 						if (!allBatches || allBatches.length === 0) {
+							
 							$scope.noBatches = true;
 							$scope.noBatchesMessage = "No Batches belonging to you were found.";
 						} else {
 							$scope.noBatches = false;
+							createDefaultCharts();
 							$log.debug("Here AGAIN!!!!!!");
 							
 						}
@@ -53,7 +55,7 @@ angular
 						// page
 						NProgress.done();
 						NProgress.start();
-
+						$log.debug("Yoooooo!!!!!");
 						createQCStatus();
 						createAverageTraineeScoresWeekly();
 						createAverageTraineeScoresOverall();
@@ -67,7 +69,7 @@ angular
 						createWeeklyProgressTraineeWeekly();
 						createWeeklyProgressTraineeOverall();
 
-					}
+					};
 
 					// ********************* Doughnut
 					// **************************************
@@ -81,8 +83,7 @@ angular
 											NProgress.done();
 											var doughnutChartObject = chartsDelegate.doughnut
 													.getQCStats(data);
-											console
-													.log("here we are, in the pie method");
+											console.log("here we are, in the pie method");
 											console.log(doughnutChartObject);
 											$scope.qcStatsLabels = doughnutChartObject.labels;
 											$scope.qcStatsData = doughnutChartObject.data;
