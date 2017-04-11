@@ -141,8 +141,8 @@ angular
 					}
 
 					$scope.getTraineeToDelete = function(index) {
-						var editTrainee2;
-						$scope.editTrainee2 = $scope.trainees[index];
+						var traineeToBeDeleted;
+						$scope.traineeToBeDeleted = $scope.trainees[index];
 						// $scope.editTrainee = $scope.trainees[index];
 						$scope.traineeRow = index;
 					}
@@ -291,7 +291,6 @@ angular
 								batch.coTrainer = $scope.trainers[i];
 							}
 						}
-
 						// return newBatch;
 					}
 
@@ -385,7 +384,6 @@ angular
 					$scope.addNewTrainee = function() {
 						for (var i = 0; i < $scope.receivers.length; i++) {
 							var newTrainee = {
-								// id : $scope.receivers[i].response.traineeId,
 								name : $scope.receivers[i].name,
 								email : $scope.receivers[i].email,
 								trainingStatus : $scope.receivers[i].trainingStatus,
@@ -449,12 +447,12 @@ angular
 
 					$scope.removeTrainee = function() {
 
-						$log.log($scope.editTrainee2.traineeId);
+						$log.log($scope.traineeToBeDeleted.traineeId);
 						$log.log($scope.currentBatch.trainees[$scope.traineeRow]);
 						$log.log($scope.trainees[$scope.traineeRow].traineeId);
 
 						caliberDelegate.all
-								.deleteTrainee($scope.editTrainee2.traineeId);
+								.deleteTrainee($scope.traineeToBeDeleted.traineeId);
 						$scope.currentBatch.trainees.splice($scope.traineeRow,
 								1);
 						angular.element("#deleteTraineeModal").modal("hide");
