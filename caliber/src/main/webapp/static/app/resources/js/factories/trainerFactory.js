@@ -226,5 +226,19 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	
+	trainer.saveOrUpdateNote = function(noteObj){
+		return $http({
+			url:"/note/update",
+			method:"POST",
+			data:noteObj
+		}).then(function(response){
+			$log.debug("note saved");
+			$log.debug(response)
+			return response;
+		}, function(response){
+			$log.error("there was an error " + response.status);
+		});
+	}
 	return trainer;
 });
