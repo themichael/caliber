@@ -188,8 +188,11 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 			url: "/trainer/note/trainee/" + batchId + "/" + week,
 			method:"GET"
 		}).then(function(response){
-			$log.console("Trainee Notes");
-			response.data;
+			if(response.data){
+				return response.data;
+			}else{
+				return response;
+			}				
 		},function(response){
 			$log.error("Error retrieving " + response.status);
 		});
@@ -198,7 +201,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	
 	trainer.createNote = function(noteObj) {
 		return $http({
-			url : "/trainer/assessment/note/create",
+			url : "/note/create",
 			method : "POST",
 			data : noteObj
 		}).then(function(response) {
@@ -213,8 +216,8 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 
 	trainer.updateNote = function(noteObj) {
 		return $http({
-			url : "/trainer/assessment/note/update",
-			method : "PUT",
+			url : "/note/update",
+			method : "POST",
 			data : noteObj
 		}).then(function(response) {
 			$log.debug("Assessments successfully updated");

@@ -256,7 +256,7 @@ angular
 							function(id) {
 								$scope.bnote.noteId = id;
 							});
-						}
+						}  
 						// Update existing note
 						else {
 							$log

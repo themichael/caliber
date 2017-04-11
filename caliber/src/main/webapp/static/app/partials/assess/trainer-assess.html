@@ -11,8 +11,13 @@
 			<!-- top ui for viewing all assessments -->
 			<ul class="nav nav-tabs" ng-show="currentView">
 		<!-- for testing purposes  -->
-			<a ui-sref="trainer.display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
-			
+<!-- 			<a ui-sref="report.display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
+ 
+  <i role="button" class="fa fa-file-text" aria-hidden="true" ui-view = "display"></i>	
+ <a ui-sref="#display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
+  	<div ui-view = "display"></div>
+ -->		<a ui-sref="trainer.display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
+			<div ui-view = ui-serf></div>
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
 						currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
@@ -85,12 +90,12 @@
 					<tr role="button"
 						ng-repeat="trainee in currentBatch.trainees track by $index">
 						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
-						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">
+						<td class="text-center col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">
 							<input class='form-control' type="number" ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score" ng-blur="updateGrade(trainee,assessment)" ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
 						</td>
 						<td class="col-sm-9 col-md-9 col-lg-9">
 							<textarea class="form-control" name="note" cols="20"
-								rows="2">
+								rows="2" ng-model="trainees[trainee.traineeId].note.content" ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
 							</textarea>
 						</td>
 
@@ -98,28 +103,17 @@
 				</tbody>
 				<tfoot>
 					<td>Average</td>
-					<td ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees) ? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) + "%" : "-"}}</td>
+					<td class="text-center" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees) ? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) + "%" : "-"}}</td>
 					<td></td>
 				</tfoot>
 			</table>
-			<div
+					<div 
                 class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-                <textarea ng-model="finalQCBatchNote" class="form-control"
-                    id="qcBatchNotes"
-                    placeholder="Enter your overall feedback on the batch" required>
-                
-                </textarea>
-      </div>
-			<!--<table class="col-md-6 table table-condensed" ng-show="!currentView">
-                <tr>
-                    <th>Name</th>
-                    <th>Score</th>
-                </tr>
-                <tr ng-repeat="trainee in currentBatch.trainees">
-                    <td>{{ trainee.name }}</td>
-                    <td>{{ findGrade(trainee.traineeId) }}</td>
-                </tr>
-            </table>-->
+				<textarea ng-model="trainerBatchNote.content" class="form-control"
+					id="tBatchNotes" ng-blur="saveTrainerNotes()"
+					placeholder="Enter your overall feedback on the batch" required>
+				</textarea>
+            </div>
 		</div>
 	</div>
 </div>
