@@ -399,7 +399,38 @@ angular
 							}
 					};
 					
+					/* - save trainee note
+					   - send to "/note/update"
+					   By Jack	
+					  */					 
+					$scope.saveOrUpdateTraineeNote=function(traineeId){
+						console.log($scope.trainees[traineeId].note.content);
+						var traineeNote = $scope.trainees[traineeId].note
+						var trainee = $scope.currentBatch.trainees.filter(function(trainee) {
+							  return trainee.traineeId === traineeId;
+							});
+						//create noteObj to send to controller
+						var noteObj={
+								content:traineeNote.content,
+								week:$scope.currentWeek,
+								trainee:trainee[0],
+								type:"TRAINEE",
+								batch:$scope.currentBatch
+						}
+						//if noteId exists, add it to noteObj to get noteObj in db to update
+						if($scope.trainees[traineeId].note.noteId !== undefined){
+							noteObj.noteId = traineeNote.noteId;
+						}
+						caliberDelegate.trainer.saveOrUpdateNote(noteObj)
+						.then(function(response){
+							return response;
+						}).then(function(response){
+							//set persisted note object into trainee.note
+							$log.debug("setting response note obj to trainee scope note obj")
+							$scope.trainees[response.data.trainee.traineeId].note = response.data
+						});
 					
+					}
 
 					/**
 					 * **********************************************TODO
