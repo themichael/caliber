@@ -16,9 +16,10 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		chartData.labels = [];
 
 		// traverse through array of objects and grab labels and data
-		dataArray.forEach(function(element) {
-			chartData.labels.push(element.trainee);
-			chartData.data.push(element.average);
+		angular.forEach(dataArray, function(value, key) {
+			$log.debug(key + " " + value);
+			chartData.labels.push(key);
+			chartData.data.push(value);
 		});
 
 		chartData.datasetOverride = [ {

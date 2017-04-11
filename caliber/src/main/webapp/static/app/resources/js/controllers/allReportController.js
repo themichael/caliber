@@ -87,6 +87,7 @@ angular
 											$scope.qcStatsLabels = doughnutChartObject.labels;
 											$scope.qcStatsData = doughnutChartObject.data;
 											$scope.qcStatsOptions = doughnutChartObject.options;
+											$scope.qcStatsColors = doughnutChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
@@ -101,7 +102,17 @@ angular
 					}
 
 					function createAverageTraineeScoresOverall() {
-
+						chartsDelegate.bar.data
+							.getAverageTraineeScoresOverallData(1050, 1)
+							.then(function(data) {
+								NProgress.done();
+								var barChartObj = chartsDelegate.bar.getAverageTraineeScoresOverall(data);
+								$scope.averageTraineeScoresWeeklyData = barChartObj.data;
+								$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
+								$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
+							}, function() {
+								NProgress.done();
+							});
 					}
 
 					function createAssessmentAveragesBatchWeekly() {
@@ -144,6 +155,16 @@ angular
 					// ***************************************
 
 					function createWeeklyProgressBatchOverall() {
+						chartsDelegate.line.data
+							.getWeeklyProgressBatchOverallData(1050)
+							.then(function(data) {
+									NProgress.done();
+									var lineChartObj = chartsDelegate.line.getWeeklyProgressBatchOverall(data);
+									$scope.weeklyProgressBatchOverallLabels = lineChartObj.labels;
+									$scope.weeklyProgressBatchOverallData = lineChartObj.data;
+							}, function() {
+								NProgress.done();
+							})
 
 					}
 

@@ -130,6 +130,20 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		return chartData;
 	};
+	
+	barChart.getBatchWeekSortedBarChart = function(dataArray) {
+		var chartData = {};
+
+		chartData.series = ['Average Score'];
+		chartData.data = [];
+		chartData.labels = [];
+		
+		angular.forEach(dataArray, function(value, key) {
+			chartData.labels.push(key);
+			chartData.data.push(value);
+		});
+		return chartData;
+	};
 
 	return barChart;
 });

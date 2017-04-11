@@ -42,10 +42,13 @@ angular.module("reportApi").factory(
 				return $http({
 					url : "/all/reports/batch/" + batchId + " /overall/line-batch-overall",
 					method : "GET"
-				}).then(function(response) {
-						$log.debug("Batch -> Overall");
+				}).then(
+				function(response) {
+					$log.debug("Batch -> Overall -> line chart");
+					$log.debug(response);
 					return response.data;
-				}, function(response) {
+				}, 
+				function(response) {
 					$log.error("There was an error in lineChartDataFactory -> getBatchOverallLineChart. " + response.status);
 				});	
 			};

@@ -3,7 +3,7 @@ angular
 		.factory(
 				"barChartDataFactory",
 				function($http, $log) {
-					$log.debug("Booted Report Factory");
+					$log.debug("Booted Bar Chart Data Factory");
 
 					var report = {};
 
@@ -96,28 +96,20 @@ angular
 										}); // end then
 					};
 
-					report.getBatchOverallBarChart = function(batchId) {
-						return $http(
-								{
-									url : "/all/reports/batch/" + batchId
-											+ "/overall/bar-batch-overall",
-									method : "GET"
-								}).then(
-								function(response) {
-									$log.debug("batch - overall");
-									$log.debug(response);
-									return response.data;
-
-								},
-								function(response) {
-									$log.error("There was an error: "
-											+ response.status);
-
-								});
+					report.getBatchWeekSortedBarChartData = function(batchId, week) {
+						return $http({
+							url : "/all/reports/batch/" + batchId + "/week/" + week + "/bar-batch-weekly-sorted",
+							method : "GET"
+						}).then(
+						function(response) {
+							$log.debug("Batch -> Week -> getBatchWeekSortedBarChartData")
+							$log.debug(response);
+							return response.data;
+						},
+						function(response) {
+							$log.error("There was an error in barChartDataFactory -> getBatchWeekSortedBarChartData " 
+									+ response.status);
+						});
 					};
 					 return report;
-
-					
-					return report;
-					
 				})
