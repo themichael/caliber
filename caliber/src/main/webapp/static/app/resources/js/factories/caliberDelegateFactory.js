@@ -25,8 +25,16 @@ angular
 					delegate.vp = {};
 					delegate.agg = {};
 
+					/*****************************************************************
+					 * Generate PDF
+					 ****************************************************************/
+					delegate.all.generatePDF = function(html) {
+						return allFactory.generatePDF(html);
+					};
+					
 					/**
-					 * ************************** All
+					 * ************************** 
+					 * All
 					 * ****************************
 					 */
 					delegate.all.createBatch = function(batchObj) {

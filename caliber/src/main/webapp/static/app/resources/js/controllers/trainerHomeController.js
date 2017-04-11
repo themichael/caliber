@@ -2,7 +2,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerHomeController",
-				function($scope, $log, caliberDelegate, chartsDelegate,
+				function($scope, $http, $log, caliberDelegate, chartsDelegate,
 						allBatches) {
 					$log.debug("Booted trainer home controller.");
 					$log.debug('test code in trainer home - jack');
@@ -178,8 +178,7 @@ angular
 										});
 					}
 
-					$scope.test = function(t,index){
-						console.log('asfd');
-							
+					$scope.test = function(t, index) {
+						$log.debug("asfd");
 					}
 				});
