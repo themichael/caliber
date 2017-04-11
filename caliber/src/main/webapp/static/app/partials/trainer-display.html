@@ -10,7 +10,7 @@
 		<div class="col-md-12 col-lg-12 top10">
 			<!-- top ui for viewing all assessments -->
 			<ul class="nav nav-tabs" ng-show="currentView">
-			
+
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
 						currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
@@ -57,7 +57,8 @@
 				<thead>
 					<tr>
 						<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
-						<th class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by $index">
+						<th class="col-sm-1 col-md-1 col-lg-1"
+							ng-repeat="assessment in currentAssessments track by $index">
 							{{assessment.title}}(%)</th>
 						<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
 					</tr>
@@ -66,32 +67,25 @@
 
 					<tr ng-repeat="trainee in currentBatch.trainees track by $index">
 						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
-						<td class="col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{findGrade(trainee.traineeId,assessment.assessmentId)}}
- 						</td>
-						<td class="col-sm-9 col-md-9 col-lg-9">
-						<!-- TODO refactor when notes for student is complete -->
-							<textarea class="form-control" name="note" cols="20"
-								rows="2">
-							</textarea>
+						<td class="col-sm-1 col-md-1 col-lg-1"
+							ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{findGrade(trainee.traineeId,assessment.assessmentId)}}
 						</td>
+						<td class="col-sm-9 col-md-9 col-lg-9">
+							{{trainees[trainee.traineeId].note.content}}</td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<td>Average</td>
-					<td ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees) ? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) + "%" : "-"}}</td>
+					<td
+						ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees)
+						? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
+						"%" : "-"}}</td>
 					<td></td>
 				</tfoot>
 			</table>
-			
-			<!-- TODO come back and refactor when notes for batch -->
-			<div
-                class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-                <textarea ng-model="finalQCBatchNote" class="form-control"
-                    id="qcBatchNotes"
-                    placeholder="Enter your overall feedback on the batch" required>
-                
-                </textarea>
-            </div>
+			<span class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
+				Batch Notes : {{trainerBatchNote.content}}
+			</span>
 		</div>
 	</div>
 </div>

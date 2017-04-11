@@ -104,11 +104,11 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> createBatch(@RequestBody Batch batch, Authentication auth) {
+	public ResponseEntity<Batch> createBatch(@RequestBody Batch batch, Authentication auth) {
 		//batch.setTrainer(getPrincipal(auth));
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<Batch>(batch,HttpStatus.CREATED);
 	}
 
 	/**
@@ -203,10 +203,10 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> createTrainee(@RequestBody Trainee trainee) {
+	public ResponseEntity<Trainee> createTrainee(@RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
 		trainingService.save(trainee);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<Trainee>(trainee, HttpStatus.CREATED);
 	}
 
 	/**

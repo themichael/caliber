@@ -15,7 +15,7 @@ angular
 						caliberDelegate.all.getAllTrainers().then(
 								function(trainers) {
 									$scope.trainers = trainers;
-									$log.log("=========TRAINERS=========");
+									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
 								});
 						$log.debug(allBatches);
@@ -134,17 +134,28 @@ angular
 						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
 						// FINISHED
 
-						$scope.editTrainee = trainee;
+						$scope.editTrainee = $scope.trainees[trainee];
+						$scope.traineeRow = trainee;
 						$scope.Updating = true;
 
+					}
+
+					$scope.getTraineeToDelete = function(index) {
+						var traineeToBeDeleted;
+						$scope.traineeToBeDeleted = $scope.trainees[index];
+						// $scope.editTrainee = $scope.trainees[index];
+						$scope.traineeRow = index;
 					}
 
 					$scope.Updating = false;
 					$scope.updateTrainee = function(editedTrainee) {
 
-						$log.log(editedTrainee);
+						$log.debug(editedTrainee);
 						for (var i = 0; i < $scope.receivers.length; i++) {
 
+							if ($scope.receivers[i] == null) {
+								$scope.receivers[i] = editedTrainee;
+							}
 							if ($scope.receivers[i].name == "") {
 								$scope.receivers[i].name = editedTrainee.name;
 							}
@@ -180,7 +191,7 @@ angular
 							};
 
 						}
-						$log.log(updTrainee);
+						$log.debug(updTrainee);
 						editedTrainee = updTrainee;
 						$log.debug(editedTrainee);
 						caliberDelegate.all
@@ -214,12 +225,14 @@ angular
 						} else {
 							$scope.coTrainer.model = ""
 						}
-						$scope.startDate.model = new Date(batch.startDate);
-						$scope.endDate.model = new Date(batch.endDate);
+						$scope.startDate.model = new Date(batch.startDate
+								.replace(/-/g, '/'));
+						$scope.endDate.model = new Date(batch.endDate.replace(
+								/-/g, '/'));
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
-								batch.benchmarkStartDate);
+								batch.benchmarkStartDate.replace(/-/g, '/'));
 						$scope.Save = "Update";
 					}
 
@@ -278,7 +291,6 @@ angular
 								batch.coTrainer = $scope.trainers[i];
 							}
 						}
-
 						// return newBatch;
 					}
 
@@ -305,56 +317,18 @@ angular
 						} else {
 							var newBatch = {};
 							createBatchObject(newBatch);
-							$log.log('this is' + newBatch);
+							$log.debug('this is' + newBatch);
 							caliberDelegate.all.createBatch(newBatch).then(
 									function(response) {
 										// coTrainer may be undefined
-
 										if ($scope.coTrainer) {
-											$scope.batches.push(response.data
-											// trainingName :
-											// $scope.trainingName.model,
-											// trainingType :
-											// $scope.trainingType.model,
-											// skillType :
-											// $scope.skillType.model,
-											// location : $scope.location.model,
-											// trainer : newBatch.trainer,
-											// coTrainer : newBatch.coTrainer,
-											// startDate :
-											// $scope.startDate.model,
-											// endDate : $scope.endDate.model,
-											// goodGradeThreshold :
-											// $scope.goodGradeThreshold.model,
-											// borderlineGradeThreshold :
-											// $scope.borderlineGradeThreshold.model,
-											// benchmarkStartDate :
-											// $scope.benchmarkStartDate.model
-											);
+											$scope.batches.push(response.data);
 										} else {
-											$scope.batches.push(response.data
-											// trainingName :
-											// $scope.trainingName.model,
-											// trainingType :
-											// $scope.trainingType.model,
-											// skillType :
-											// $scope.skillType.model,
-											// location : $scope.location.model,
-											// trainer : newBatch.coTrainer,
-											// startDate :
-											// $scope.startDate.model,
-											// endDate : $scope.endDate.model,
-											// goodGradeThreshold :
-											// $scope.goodGradeThreshold.model,
-											// borderlineGradeThreshold :
-											// $scope.borderlineGradeThreshold.model,
-											// benchmarkStartDate :
-											// $scope.benchmarkStartDate.model
-											);
-											$log.log($scope.batches)
+											$scope.batches.push(response.data);
 										}
 
 										sortByDate($scope.selectedYear);
+
 									});
 						}
 						angular.element("#createBatchModal").modal("hide");
@@ -363,9 +337,22 @@ angular
 
 					/** Delete batch* */
 					$scope.deleteBatch = function() {
-						caliberDelegate.all.deleteBatch(
-								$scope.currentBatch.batchId).then(
-								$scope.selectedBatches.splice($scope.row, 1));
+						caliberDelegate.all
+								.deleteBatch($scope.currentBatch.batchId)
+								.then(
+										function(response) {
+											if (response.status === 204) {
+												for (var i = 0; i < $scope.batches.length; i++) {
+													if ($scope.batches[i] === $scope.currentBatch) {
+														$scope.batches.splice(
+																i, 1);
+														break;
+													}
+												}
+												$scope.selectedBatches.splice(
+														$scope.row, 1);
+											}
+										});
 						angular.element("#deleteBatchModal").modal("hide");
 					}
 					/**
@@ -409,20 +396,21 @@ angular
 							caliberDelegate.all
 									.createTrainee(newTrainee)
 									.then(
-											function() {
-												$scope.trainees
-														.push({
-															name : newTrainee.name,
-															email : newTrainee.email,
-															trainingStatus : newTrainee.trainingStatus,
-															phoneNumber : newTrainee.phoneNumber,
-															skypeId : newTrainee.skypeId,
-															profileUrl : newTrainee.profileUrl,
-															batch : newTrainee.batch
-														});
+											function(response) {
+												newTrainee.traineeId = response.traineeId
+												$scope.trainees.push(response);
+												$log
+														.debug($scope.trainees[$scope.trainees.length - 1].traineeId)
+												$log
+														.debug($scope.receivers[$scope.receivers.length - 1].traineeId)
+												$log
+														.debug($scope.receivers[0].traineeId)
+												$log.debug(newTrainee.traineeId)
+												$log.debug(response.traineeId)
 											});
 						}
 						$scope.receivers = [ {
+							id : "",
 							name : "",
 							email : "",
 							phoneNumber : "",
@@ -433,6 +421,7 @@ angular
 
 					/** Add Or Remove New Trainee Form */
 					$scope.receivers = [ {
+						id : "",
 						name : "",
 						email : "",
 						phoneNumber : "",
@@ -441,6 +430,7 @@ angular
 					} ];
 					$scope.addTrainee = function() {
 						$scope.receivers.push({
+							id : "",
 							name : "",
 							email : "",
 							phoneNumber : "",
@@ -448,32 +438,24 @@ angular
 							profileUrl : ""
 						});
 					};
-					$scope.deleteTrainee = function(receiver) {
-						for (var i = 0; i < $scope.receivers.length; i++) {
-							if ($scope.receivers[i] === receiver) {
-								$scope.receivers.splice(i, 1);
-								break;
-							}
-						}
-					};
+					
+					$scope.hideUpdateModal = function(){
+						angular.element("#addTraineeModal").modal("hide");
+					}
 
 					/** Delete Trainee* */
 
-					$scope.removeTrainee = function(traineeId) {
-						$log.log(traineeId);
+					$scope.removeTrainee = function() {
+
+						$log.debug($scope.traineeToBeDeleted.traineeId);
+						$log.debug($scope.currentBatch.trainees[$scope.traineeRow]);
+						$log.debug($scope.trainees[$scope.traineeRow].traineeId);
+
 						caliberDelegate.all
-								.deleteTrainee(traineeId)
-								.then(
-										function() {
-											for (var i = 0; i < $scope.receivers.length; i++) {
-												if ($scope.receivers[i] === receiver) {
-													$scope.receivers.splice(i,
-															1);
-													break;
-												}
-											}
-										})
-
+								.deleteTrainee($scope.traineeToBeDeleted.traineeId);
+						$scope.currentBatch.trainees.splice($scope.traineeRow,
+								1);
+						angular.element("#deleteTraineeModal").modal("hide");
+						$scope.Updating = false;
 					};
-
 				});
