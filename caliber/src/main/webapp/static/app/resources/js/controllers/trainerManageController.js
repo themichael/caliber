@@ -131,8 +131,6 @@ angular
 
 					/** Get trainee info* */
 					$scope.getTrainee = function(trainee) {
-						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
-						// FINISHED
 
 						$scope.editTrainee = trainee;
 						$scope.Updating = true;
@@ -145,37 +143,38 @@ angular
 						$log.log(editedTrainee);
 						for (var i = 0; i < $scope.receivers.length; i++) {
 
-							if ($scope.receivers[i].name == "") {
-								$scope.receivers[i].name = editedTrainee.name;
+							if ($scope.editor.name == "") {
+								$scope.editor.name = editedTrainee.name;
 							}
 
-							if ($scope.receivers[i].email == "") {
-								$scope.receivers[i].email = editedTrainee.email;
+							if ($scope.editor.email == "") {
+								$scope.editor.email = editedTrainee.email;
 							}
 
-							if ($scope.receivers[i].trainingStatus == "") {
-								$scope.receivers[i].trainingStatus = editedTrainee.trainingStatus;
+							if ($scope.editor.trainingStatus == "") {
+								$scope.editor.trainingStatus = editedTrainee.trainingStatus;
 							}
 
-							if ($scope.receivers[i].phoneNumber == "") {
-								$scope.receivers[i].phoneNumber = editedTrainee.phoneNumber;
+							if ($scope.editor.phoneNumber == "") {
+								$scope.editor.phoneNumber = editedTrainee.phoneNumber;
 							}
 
-							if ($scope.receivers[i].skypeId == "") {
-								$scope.receivers[i].skypeId = editedTrainee.skypeId;
+							if ($scope.editor.skypeId == "") {
+								$scope.editor.skypeId = editedTrainee.skypeId;
 							}
 
-							if ($scope.receivers[i].profileUrl == "") {
-								$scope.receivers[i].profileUrl = editedTrainee.profileUrl;
+							if ($scope.editor.profileUrl == "") {
+								$scope.editor.profileUrl = editedTrainee.profileUrl;
 							}
+							
 							var updTrainee = {
 								traineeId : editedTrainee.traineeId,
-								name : $scope.receivers[i].name,
-								email : $scope.receivers[i].email,
-								trainingStatus : $scope.receivers[i].trainingStatus,
-								phoneNumber : $scope.receivers[i].phoneNumber,
-								skypeId : $scope.receivers[i].skypeId,
-								profileUrl : $scope.receivers[i].profileUrl,
+								name : $scope.editor.name,
+								email : $scope.editor.email,
+								trainingStatus : $scope.editor.trainingStatus,
+								phoneNumber : $scope.editor.phoneNumber,
+								skypeId : $scope.editor.skypeId,
+								profileUrl : $scope.editor.profileUrl,
 								batch : $scope.currentBatch
 							};
 
@@ -187,11 +186,11 @@ angular
 								.updateTrainee(editedTrainee)
 								.then(
 										$scope.clear = function(editedTrainee) {
-											$scope.editTrainee.name = "";
-											$scope.editTrainee.email = "";
-											$scope.editTrainee.phoneNumber = "";
-											$scope.editTrainee.skypeId = "";
-											$scope.editTrainee.profileUrl = "";
+											$scope.editor.name = "";
+											$scope.editor.email = "";
+											$scope.editor.phoneNumber = "";
+											$scope.editor.skypeId = "";
+											$scope.editor.profileUrl = "";
 											$scope.Updating = false;
 
 											for (var i = 0; i < $scope.receivers.length; i++) {
