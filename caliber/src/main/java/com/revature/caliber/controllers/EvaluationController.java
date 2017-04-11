@@ -204,10 +204,10 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/note/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> updateNote(@RequestBody Note note) {
+	public ResponseEntity<Object> updateNote(@RequestBody Note note) {
 		log.info("Updating note: " + note);
 		evaluationService.update(note);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Object>(note,HttpStatus.CREATED);
 	}
 
 	/*
