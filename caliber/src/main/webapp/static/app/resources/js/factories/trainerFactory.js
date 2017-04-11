@@ -201,7 +201,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	
 	trainer.createNote = function(noteObj) {
 		return $http({
-			url : "/trainer/assessment/note/create",
+			url : "/note/create",
 			method : "POST",
 			data : noteObj
 		}).then(function(response) {
@@ -216,8 +216,8 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 
 	trainer.updateNote = function(noteObj) {
 		return $http({
-			url : "/trainer/assessment/note/update",
-			method : "PUT",
+			url : "/note/update",
+			method : "POST",
 			data : noteObj
 		}).then(function(response) {
 			$log.debug("Assessments successfully updated");

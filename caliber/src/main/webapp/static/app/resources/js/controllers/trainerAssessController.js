@@ -18,6 +18,20 @@ angular
 					$log.debug("Booted Trainer Aesess Controller");
 
 					$scope.trainerBatchNote = null;
+					// Note object
+					function Note(noteId, content, status, week, batch,
+							trainee, maxVisibility, type, qcFeedback) {
+						this.noteId = noteId;
+						this.content = content;
+						this.week = week;
+						this.batch = batch;
+						this.trainee = trainee;
+						this.maxVisibility = maxVisibility;
+						this.type = type;
+						this.qcFeedback = qcFeedback;
+						this.qcStatus = status;
+					}
+					
 					// load categories
 					$scope.skill_categories = function() {
 						caliberDelegate.all.getAllCategories().then(
@@ -57,7 +71,8 @@ angular
 							}								
 							return $scope.trainees[traineeId];							
 						}	
-						//get trainee notes and put into $scope.trainees[traineeId].note
+						// get trainee notes and put into
+						// $scope.trainees[traineeId].note
 						$scope.getTraineeBatchNotesForWeek=function(batchId,weekId){
 							caliberDelegate.trainer.getTraineeBatchNotesForWeek(batchId,weekId).then(function(data){
 								if(data.length > 0){
@@ -294,15 +309,17 @@ angular
 					
 					/** *******TrainerBatch Notes********** */	
 					$scope.getTBatchNote = function (batchId, week){	
-				
 								caliberDelegate.trainer
 										.getTrainerBatchNote(batchId, week)
 										.then(
 												function(trainerBatchNotes) {
+													if (trainerBatchNotes === undefined) {
+														$log.debug("EMPTY!");												
+													}else{																								
 													$scope.trainerBatchNote = trainerBatchNotes[0];
-													$log.debug(trainerBatchNotes);
+													$log.debug(trainerBatchNotes);}
 												});
-						}			
+						};
 
 					// get all assesments
 					// **********************************************************8888888888***********************************************************
@@ -336,6 +353,30 @@ angular
 										
 					};
 					
+					/** *******Save TrainerBatch Notes********** */	
+					$scope.saveTrainerNotes = function() {
+						// Create note
+						if ($scope.trainerBatchNote.noteId === undefined) {
+							$scope.trainerBatchNote = new Note(
+									null,
+									$scope.trainerBatchNote.content,
+									null,
+									$scope.currentWeek,
+									$scope.currentBatch,
+									null, "TRAINER",
+									"BATCH", false);	
+							caliberDelegate.trainer.createNote($scope.trainerBatchNote).then(
+							// Set id to created notes id
+							function(id) {
+								$scope.trainerBatchNote.noteId = id;
+							});
+						}  
+						// Update existing note
+						else {								
+							caliberDelegate.trainer.updateNote($scope.trainerBatchNote);
+						}
+					}
+								
 					$scope.generateArrAssessmentById = function(assessments){
 						for(a of assessments){
 							$scope.assessmentsById[a.assessmentId] = {};

@@ -126,6 +126,22 @@ angular
 										url : "/assess",
 										controller : "trainerAssessController"
 									})
+									
+														
+/*					  .state("reports",{
+					    views: {
+					      "trainer.reports@trainer": {
+					    	  templateUrl : "/static/app/partials/reports.html",
+								url : "/reports",
+								controller : "trainerHomeController"
+					      },
+					      "display@reports": {
+					    	  templateUrl : "/static/app/partials/trainer-display.html",
+								url : "/display",
+								controller : "trainerAssessController"
+					      }
+					    }
+					  })*/
 							.state(
 									"trainer.reports",
 									{
@@ -141,6 +157,7 @@ angular
 										url : "/display",
 										controller : "trainerAssessController"
 									})
+
 							/***************************************************
 							 * VP
 							 **************************************************/

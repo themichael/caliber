@@ -58,7 +58,7 @@
 								<!-- Button Trigger for Add Trainee Modal --> <a role="button"
 								data-toggle="modal" ng-click="selectCurrentBatch($index)"
 								data-target="#addTraineeModal"><span
-									class="glyphicon glyphicon-user"></span> </a>
+									class="glyphicon glyphicon-user"><p>{{batch.trainees.length}}</p></span> </a>
 							</td>
 							<td><a role="button" class="pull-right"
 								ng-click="populateBatch(batch);selectCurrentBatch($index)"
@@ -225,11 +225,18 @@
 							Delete</h4>
 					</div>
 					<!-- Add Batch Info -->
-					Are you Sure?
+					<h3>Are you sure you want to delete this batch?</h3>
+					<br /> <span ng-if="trainees.length > 1">
+						<h4>There are {{trainees.length}} trainees in this batch</h4>
+					</span>  <span ng-if="trainees.length == 1">
+						<h4>There is only 1 trainee in this batch</h4>
+					</span> <span ng-if="trainees.length == 0||!trainees">
+						<h4>There are no trainees in this batch</h4>
+					</span>
 					<div class="modal-body"></div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						<input type="submit" ng-value="Delete" class="btn btn-primary">
+						<input type="submit" value="Yes" class="btn btn-primary">
+						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 					</div>
 				</div>
 			</div>
