@@ -288,7 +288,7 @@
 												href="{{trainee.profileUrl}}" target="_blank"><i
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 										</span></td>
-										<td><a role="button" ng-click="getTrainee(trainee)"
+										<td><a role="button" ng-click="populateTrainee(trainee);getTrainee($index)"
 											type="button"> <span class="glyphicon glyphicon-pencil"></span>
 										</a></td>
 
@@ -304,43 +304,38 @@
 						</div>
 						<!-- Add New Trainee -->
 						<h3>Add Trainee</h3>
-						<div ng-repeat="receiver in receivers">
+						<div >
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeName">Full Name:</label> <input
-										ng-model="receiver.name" type="text" class="form-control"
-										id="traineeName" placeholder="Name"
-										ng-value="editTrainee.name" required>
+										ng-model="traineeName" type="text" class="form-control"
+										id="traineeName" placeholder="Name" required>
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeEmail">Email:</label> <input
-										ng-model="receiver.email" type="email" class="form-control"
-										id="traineeEmail" placeholder="Email"
-										ng-value="editTrainee.email" required>
+										ng-model="traineeEmail" type="email" class="form-control"
+										id="traineeEmail" placeholder="Email" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeSkype">Skype Id:</label> <input
-										ng-model="receiver.skypeId" type="text" class="form-control"
-										id="traineeSkype" placeholder="Skype Id"
-										ng-value="editTrainee.skypeId">
+										ng-model="traineeSkypeId" type="text" class="form-control"
+										id="traineeSkype" placeholder="Skype Id">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineePhone">Phone:</label> <input
-										ng-model="receiver.phoneNumber" type="text"
+										ng-model="traineePhoneNumber" type="text"
 										class="form-control" id="traineePhone"
-										placeholder="(xxx)-xxx-xxxx"
-										ng-value="editTrainee.phoneNumber" required>
+										placeholder="(xxx)-xxx-xxxx">
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeProfile">Profile URL:</label> <input
-										ng-model="receiver.profileUrl" type="text"
+										ng-model="traineeProfileUrl" type="text"
 										class="form-control" id="traineeName"
-										placeholder="http://www.example.com/revature"
-										ng-value="editTrainee.profileUrl">
+										placeholder="http://www.example.com/revature">
 
 								</div>
 							</div>
@@ -348,7 +343,7 @@
 
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeStatus">Training Status</label> <select
-										ng-model="receiver.trainingStatus" class="form-control"
+										ng-model="traineeTrainingStatus" class="form-control"
 										id="traineeStatus" required>
 										<option value="" disabled>Select Status</option>
 										<option ng-repeat="option in trainingStatuses.options">{{option}}</option>
@@ -380,17 +375,10 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							ng-show="!Updating">Close</button>
-						<input type="submit" value="Save" class="btn btn-primary"
-							ng-show="!Updating">
+					<button type="button" class="btn btn-default" ng-click="resetTraineeForm()">Clear</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<input type="submit" ng-value="Save" class="btn btn-primary">
 
-
-						<button type="button" class="btn btn-default"
-							ng-click="updateTrainee(editTrainee)" ng-show="Updating">Clear</button>
-						<button type="button" id="updateTraineeButton"
-							class="btn btn-primary" ng-click="updateTrainee(editTrainee)"
-							class="btn btn-default" ng-show="Updating">Update</button>
 
 					</div>
 				</div>

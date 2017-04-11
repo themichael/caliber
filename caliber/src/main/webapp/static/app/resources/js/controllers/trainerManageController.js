@@ -127,16 +127,14 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
 						$scope.trainees = $scope.selectedBatches[index].trainees;
-						$scope.row = index;
+						$scope.batchRow = index;
 					};
 
 					/** Get trainee info* */
-					$scope.getTrainee = function(trainee) {
-						// TODO: MAKE EDIT BUTTON VISABLE AND INVISBLE WHEN
-						// FINISHED
+					$scope.getTrainee = function(index) {
 
-						$scope.editTrainee = trainee;
-						$scope.Updating = true;
+						$scope.currentTrainee = $scope.selectedBatches[$scope.batchRow].trainees[index];
+						$scope.traineeRow = index;
 
 					}
 
@@ -371,6 +369,33 @@ angular
 								$log.debug(statuses);
 								$scope.trainingStatuses.options = statuses;
 							});
+					
+					
+					/** Fill update form with trainee previous data* */
+					$scope.populateTrainee = function(trainee) {
+						$log.log(trainee);
+						$scope.traineeName = trainee.name;
+						$scope.traineeEmail = trainee.email;
+						$scope.traineeSkypeId = trainee.skypeId;
+						$scope.traineePhoneNumber = trainee.phoneNumber;
+						$scope.traineeProfileUrl= trainee.profileUrl;
+						$scope.Save = "Update";
+					}
+					
+					/** Resets trainee form for creating new batch* */
+					$scope.resetTraineeForm = function() {
+						$scope.traineeName = "";
+						$scope.traineeEmail = "";
+						$scope.traineeSkypeId = "";
+						$scope.traineePhoneNumber = "";
+						$scope.traineeProfileUrl = "";
+				
+						$scope.Save = "Save";
+						if ($scope.currentTrainee) {
+							$scope.currentTrainee = null;
+						}
+					}
+
 
 					/** Save New Trainee Input * */
 					$scope.addNewTrainee = function() {
