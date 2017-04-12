@@ -2,7 +2,7 @@ angular
 		.module("charts")
 		.controller(
 				"allReportController",
-				function($scope, $log, caliberDelegate, chartsDelegate,
+				function($scope, $state, $log, caliberDelegate, chartsDelegate,
 						allBatches) {
 
 					$log.debug("Booted Report Controller");
@@ -196,6 +196,7 @@ angular
 					};
 					/*scope function to display the table if a batch and week has been selected*/
 					$scope.displayTable = function(){
+						$state.reload(); // TODO come back here
 						if($scope.currentBatch.batchId && $scope.currentWeek){ // checking to see if the scope variables are null
 							return true; //change to false later
 						}

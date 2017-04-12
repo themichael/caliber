@@ -583,7 +583,7 @@ angular
 					$scope.stopBurrito = function(traineeId){
 						$scope.trainees[traineeId].burrito=false;
 					}
-/*					$scope.reloadController = function() {
+					$scope.reloadController = function() {
 			            $state.reload();
-			        };*/
+			        };
 				});
