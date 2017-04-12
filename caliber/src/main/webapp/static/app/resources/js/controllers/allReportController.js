@@ -140,10 +140,14 @@ angular
 									var barChartObject = chartsDelegate.bar
 									.getAssessmentAveragesBatchWeekly(data);
 									console.log("here we are, in the yani barchart method");
+									console.log(barChartObject.options);
 									console.log(barChartObject);
+									console.log(barChartObject.series);
+									
 									$scope.barcharAWLabels = barChartObject.labels;
 									$scope.barcharAWData = barChartObject.data;
-									
+									$scope.barcharAWOptions= barChartObject.options;
+									$scope.barcharAWseries= barChartObject.series;
 								}, function() {
 									NProgress.done();
 								});
@@ -282,6 +286,8 @@ angular
 									console.log(lineChartObjectwd);
 									$scope.linecharTWLabels = lineChartObjectwd.labels;
 									$scope.lineharTWData = lineChartObjectwd.data;
+									$scope.linechartWOptions= lineChartObjectwd.options;
+									$scope.linechartWSeries= lineChartObjectwd.series;
 									
 								}, function() {
 									NProgress.done();
