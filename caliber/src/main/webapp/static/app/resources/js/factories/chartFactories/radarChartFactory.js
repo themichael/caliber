@@ -72,14 +72,19 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 	};
 	
 	radar.addDataToExistingRadar = function(currentChartData, otherDataArray){
-		currentChartData.data.push([]);
+		var newData = [];
+		var totalTechs = currentChartData.labels.length;
+		currentChartData.series.push("TRAINEE PLACEHOLDER");
+
+		for(var i = 0; i < totalTechs; i++){
+			if(otherDataArray.hasOwnProperty(currentChartData.labels[i])){
+				newData.push((otherDataArray[currentChartData.labels[i]]).toFixed(2));
+			}
+		}
+
+		currentChartData.data.push(newData);
 		
-		angular.forEach(otherDataArray, function(value, key) {
-			
-			
-			
-		});
-		
+		return currentChartData;
 	};
 	
 
