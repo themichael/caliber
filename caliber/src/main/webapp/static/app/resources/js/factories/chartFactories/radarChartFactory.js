@@ -19,7 +19,7 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 
 		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
-			chartData.data[0].push(value);
+			chartData.data[0].push(value.toFixed(2));
 		});
 		
 		chartData.options = radarOptions;
@@ -37,7 +37,7 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 
 		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
-			chartData.data[0].push(value);
+			chartData.data[0].push(value.toFixed(2));
 		});
 		
 		chartData.options = radarOptions;
@@ -55,7 +55,7 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 
 		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
-			chartData.data[0].push(value);
+			chartData.data[0].push(value.toFixed(2));
 		});
 		
 		chartData.options = radarOptions;

@@ -57,7 +57,7 @@ angular
 						createQCStatus();
 						createAverageTraineeScoresWeekly();
 						createAverageTraineeScoresOverall();
-//						createAssessmentAveragesBatchWeekly();
+						createAssessmentAveragesBatchWeekly();
 						createAssessmentAveragesTraineeWeekly();
 						createAssessmentAveragesTraineeOverall();
 						createTechnicalSkillsBatchOverall();
@@ -87,7 +87,6 @@ angular
 											$scope.qcStatsLabels = doughnutChartObject.labels;
 											$scope.qcStatsData = doughnutChartObject.data;
 											$scope.qcStatsOptions = doughnutChartObject.options;
-											$scope.qcStatsColors = doughnutChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
@@ -111,40 +110,40 @@ angular
 						});
 					}
 
+					// Hossain bar chart trainee vs average all week score
 					function createAverageTraineeScoresOverall() {
-//						chartsDelegate.bar.data
-//						.getAverageTraineeScoresOverallData(1051)
-//								.then(
-//										function(data) {
-//											$log.debug(data);
-//											NProgress.done();
-//											var barChartObject = chartsDelegate.bar
-//													.getAverageTraineeScoresOverall(data);
-//											console.log("batch avg chart");
-//											$scope.batchTechLabels = barChartObject.labels;
-//											$scope.batchTechData = barChartObject.data;
-//											$scope.batchTechOptions = barChartObject.options;
-//
-//										}, function() {
-//											NProgress.done();
-//										});
-					}
+						chartsDelegate.bar.data
+								.getAverageTraineeScoresOverallData(1051)
+								.then(
+										function(data) {
+											$log.debug(data);
+											NProgress.done();
+											var barChartObject = chartsDelegate.bar
+													.getAverageTraineeScoresOverall(data);
+											console.log("batch avg chart");
+											$scope.batchOverAllLabels = barChartObject.labels;
+											$scope.batchOverAllData = barChartObject.data;
+											$scope.batchOverAllOptions = barChartObject.options;
+										}, function() {
+											NProgress.done();
+										});
+
+					};
 					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
 						chartsDelegate.bar.data
-						.get(1050, 1)
+						.getAssessmentAveragesBatchWeeklyData(1051, 1)
 						.then(
 								function(data) {
 									$log.debug(data);
 									NProgress.done();
-									var doughnutChartObject = chartsDelegate.doughnut
-											.getQCStats(data);
-									console
-											.log("here we are, in the pie method");
-									console.log(doughnutChartObject);
-									$scope.qcStatsLabels = doughnutChartObject.labels;
-									$scope.qcStatsData = doughnutChartObject.data;
-									$scope.qcStatsOptions = doughnutChartObject.options;
+									var barChartObject = chartsDelegate.bar
+									.getAssessmentAveragesBatchWeekly(data);
+									console.log("here we are, in the yani barchart method");
+									console.log(barChartObject);
+									$scope.barcharAWLabels = barChartObject.labels;
+									$scope.barcharAWData = barChartObject.data;
+									
 								}, function() {
 									NProgress.done();
 								});
@@ -228,16 +227,15 @@ angular
 
 					function createWeeklyProgressBatchOverall() {
 						chartsDelegate.line.data
-							.getWeeklyProgressBatchOverallData(1050)
-							.then(function(data) {
-									NProgress.done();
-									var lineChartObj = chartsDelegate.line.getWeeklyProgressBatchOverall(data);
-									$scope.weeklyProgressBatchOverallLabels = lineChartObj.labels;
-									$scope.weeklyProgressBatchOverallData = lineChartObj.data;
-							}, function() {
+						.getWeeklyProgressBatchOverallData(1050)
+						.then(function(data) {
 								NProgress.done();
-							})
-
+								var lineChartObj = chartsDelegate.line.getWeeklyProgressBatchOverall(data);
+								$scope.weeklyProgressBatchOverallLabels = lineChartObj.labels;
+								$scope.weeklyProgressBatchOverallData = lineChartObj.data;
+						}, function() {
+							NProgress.done();
+						})
 					}
 					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {

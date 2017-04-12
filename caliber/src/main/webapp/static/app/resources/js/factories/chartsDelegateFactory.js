@@ -44,25 +44,12 @@ angular
 					 * ************************* Bar *************************
 					 */
 
-					/*
-					 * delegate.bar.getAssessmentAveragesBatchWeekly =
-					 * function(dataArray){ return barChartFactory.(dataArray); };
-					 * 
-					 * delegate.bar.data.getAssessmentAveragesBatchWeeklyData =
-					 * function(){ return barChartDataFactory.(); };
-					 */
-
-//					delegate.bar.getAverageTraineeScoresOverall = function(
-//							dataArray) {
-//						return barChartFactory
-//								.getBatchWeekSortedBarChart(dataArray);
-//					};
 					//yani barchart
 					delegate.bar.getAssessmentAveragesBatchWeekly = function(dataArray){
 						return barChartFactory.getBatchWeekAvgBarChart(dataArray);
 					};
 					//yani barchart data
-					delegate.bar.data.getAssessmentAveragesBatchWeeklyData = function(){
+					delegate.bar.data.getAssessmentAveragesBatchWeeklyData = function(batchId, week){
 						return barChartDataFactory.getBatchWeekAvgBarChart(batchId, week);
 					};
 					
@@ -73,40 +60,13 @@ angular
 					delegate.bar.data.getAverageTraineeScoresWeeklyData = function(batchId, week){
 						return barChartDataFactory.getBatchWeekSortedBarChartData(batchId, week);
 					};
-					
-					/*delegate.bar.getAssessmentAveragesTraineeWeekly = function(dataArray){
-						return barChartFactory.(dataArray);
+						delegate.bar.getAverageTraineeScoresOverall = function(dataArray){
+						return barChartFactory.getBatchOverallBarChart(dataArray);
 					};
 					
-					delegate.bar.data.getAssessmentAveragesTraineeWeeklyData = function(){
-						return barChartDataFactory.();
-					}*/
-
-					
-					/*delegate.bar.getAssessmentAveragesTraineeOverall = function(dataArray){
-						return barChartFactory.(dataArray);
+					delegate.bar.data.getAverageTraineeScoresOverallData = function(batchId){
+						return barChartDataFactory.getBatchOverallBarChart(batchId);
 					};
-
-					delegate.bar.data.getAverageTraineeScoresOverallData = function(batchId, week) {
-						return barChartDataFactory
-								.getBatchWeekSortedBarChartData(batchId, week);
-					};
-
-					/*
-					 * delegate.bar.getAssessmentAveragesTraineeWeekly =
-					 * function(dataArray){ return barChartFactory.(dataArray); };
-					 * 
-					 * delegate.bar.data.getAssessmentAveragesTraineeWeeklyData =
-					 * function(){ return barChartDataFactory.(); }
-					 */
-
-					/*
-					 * delegate.bar.getAssessmentAveragesTraineeOverall =
-					 * function(dataArray){ return barChartFactory.(dataArray); };
-					 * 
-					 * delegate.bar.data.getAssessmentAveragesTraineeOverallData =
-					 * function(){ return barChartDataFactory.(); };
-					 */
 
 					/**
 					 * ************************ Radar ************************
@@ -166,12 +126,12 @@ angular
 					delegate.line.data.getWeeklyProgressBatchOverallData = function(){
 						return lineChartDataFactory.();
 					};*/
-					
+					//yani linechart
 					delegate.line.getWeeklyProgressTraineeWeekly = function(dataArray){
 						return lineChartFactory.getTraineeUpToWeekLineChart(dataArray);
 					};
 					
-					
+					//yani linechartdata
 					delegate.line.data.getWeeklyProgressTraineeWeeklyData = function(){
 						return lineChartDataFactory.getTraineeUpToWeekLineChart(week, traineeId);
 					};
