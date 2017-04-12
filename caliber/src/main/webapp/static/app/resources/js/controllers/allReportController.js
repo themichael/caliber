@@ -145,10 +145,41 @@ angular
 					}
 
 					function createAssessmentAveragesTraineeWeekly() {
+						chartsDelegate.bar.data.getAssessmentAveragesTraineeWeeklyData(1050, 1, 1054)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var barChartObject = chartsDelegate.bar
+											.getAssessmentAveragesTraineeWeekly(data);
+									$scope.AssessmentAveragesTraineeWeeklyLabels = barChartObject.labels;
+									$scope.AssessmentAveragesTraineeWeeklyData = barChartObject.data;
+									$scope.AssessmentAveragesTraineeWeeklyOptions = barChartObject.options;
+									$scope.AssessmentAveragesTraineeWeeklySeries = barChartObject.series;
+									console.log(barChartObject);
+								}, function() {
+									NProgress.done();
+								});
 
 					}
 
 					function createAssessmentAveragesTraineeOverall() {
+						chartsDelegate.bar.data.getAssessmentAveragesTraineeOverallData(1050, 1054)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var barChartObject = chartsDelegate.bar
+										.getAssessmentAveragesTraineeOverall(data);
+									$scope.AssessmentAveragesTraineeOverallLabels = barChartObject.labels;
+									$scope.AssessmentAveragesTraineeOverallData = barChartObject.data;
+									$scope.AssessmentAveragesTraineeOverallOptions = barChartObject.options;
+									$scope.AssessmentAveragesTraineeOverallSeries = barChartObject.series;
+									console.log(barChartObject);
+								}, function() {
+									NProgress.done();
+								});
+
 
 					}
 
@@ -221,6 +252,22 @@ angular
 					}
 					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {
+						chartsDelegate.line.data
+						.getWeeklyProgressTraineeWeeklyData(3, 1052)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var lineChartObjectwd = chartsDelegate.line
+									.getWeeklyProgressTraineeWeekly(data);
+									console.log("here we are, in the yani line method");
+									console.log(lineChartObjectwd);
+									$scope.linecharTWLabels = lineChartObjectwd.labels;
+									$scope.lineharTWData = lineChartObjectwd.data;
+									
+								}, function() {
+									NProgress.done();
+								});
 
 					}
 					

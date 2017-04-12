@@ -8,25 +8,6 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 	var barChart = {};
 
-	barChart.getBatchAvgChart = function(dataArray) {
-		var chartData = {};
-
-		// data and labels
-		chartData.data = [];
-		chartData.labels = [];
-
-		// traverse through array of objects and grab labels and data
-		dataArray.forEach(function(element) {
-			chartData.labels.push(element.trainee);
-			chartData.data.push(element.average);
-		});
-
-		chartData.datasetOverride = [ {
-			xAxisID : 'x-axis-1'
-		} ];
-
-		return chartData;
-	};
 	// yanilda
 	barChart.getBatchWeekAvgBarChart = function(dataArray) {
 		var chartData = {};
@@ -39,10 +20,68 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		// traverse through array of objects and grab labels and data
 		angular.forEach(dataArray,function(value, key) {
 			chartData.labels.push(key);
-			$log.debug(key);
 			chartData.data.push(value[0]);
-			$log.debug(value);
 		});
+
+		chartData.datasetOverride = [ {
+			xAxisID : 'x-axis-1'
+		} ];
+
+		return chartData;
+	};
+
+	barChart.getTraineeWeeklyAssessAvgs = function(dataArray) {
+		var chartData = {};
+
+		// series
+		chartData.series = ["Trainee", "Batch"];
+
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+		var trainee = [];
+		var batch = [];
+		chartData.options = {
+				legend : {
+					display : true
+				}}
+		// loop through object array
+		angular.forEach(dataArray, function(value, key) {
+			trainee.push(value[0]);
+			batch.push(value[1]);
+			chartData.labels.push(key);
+		});
+		
+		chartData.data.push(trainee);
+		chartData.data.push(batch);
+		
+		return chartData;
+	};
+
+	barChart.getTraineeOverallAssessAvgs = function(dataArray) {
+		var chartData = {};
+
+		// series
+		chartData.series = ["Trainee", "Batch"];
+		chartData.options = {
+				legend : {
+					display : true
+					}}
+		// labels and data
+		chartData.data = [];
+		chartData.labels = [];
+		var trainee = [];
+		var batch = [];
+		// loop through object array
+		angular.forEach(dataArray, function(value, key) {
+			trainee.push(value[0]);
+			batch.push(value[1]);
+			chartData.labels.push(key);
+		});
+		
+		chartData.data.push(trainee);
+		chartData.data.push(batch);
+
 		return chartData;
 	};
 
