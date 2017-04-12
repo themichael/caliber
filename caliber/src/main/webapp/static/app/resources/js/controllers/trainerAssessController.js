@@ -5,7 +5,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerAssessController",
-				function($timeout,$log, $scope, chartsDelegate, caliberDelegate,
+				function($timeout,$log, $scope, $state, chartsDelegate, caliberDelegate,
 						allBatches) {
 					// Week object
 					function Week(weekNumb, assessments) {
@@ -583,4 +583,7 @@ angular
 					$scope.stopBurrito = function(traineeId){
 						$scope.trainees[traineeId].burrito=false;
 					}
+/*					$scope.reloadController = function() {
+			            $state.reload();
+			        };*/
 				});
