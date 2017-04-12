@@ -40,9 +40,9 @@
 							<div class="panel-heading">Average Trainee Scores</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="radar" class="chart chart-radar"
-										chart-data="batchTechData" chart-options="qcStatsLabels"
-										chart-labels="batchTechLabels" chart-series="batchTechSeries">
+									<canvas id="bar1" class="chart chart-bar"
+										chart-data="averageTraineeScoresWeeklyData" chart-options=""
+										chart-labels="averageTraineeScoresWeeklyLabels" chart-series="averageTraineeScoresWeeklySeries">
                                     </canvas>
 								</div>
 							</div>
@@ -56,7 +56,7 @@
 								<div class="chart-container top5">
 									<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
 										chart-labels="qcStatsLabels" chart-data="qcStatsData"
-										chart-options="qcStatsOptions">
+										chart-options="qcStatsOptions" chart-colors="qcStatsColors">
                                     </canvas>
 								</div>
 							</div>
@@ -90,9 +90,8 @@
 							<div class="panel-heading">Weekly Averages Progress</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="NOTRADAR" class="chart chart-radar"
-										chart-data="" chart-options=""
-										chart-labels="" chart-series="">
+									<canvas id="line1" class="chart chart-line"
+										chart-data="weeklyProgressBatchOverallData" chart-labels="weeklyProgressBatchOverallLabels">
                                     </canvas>
 								</div>
 							</div>
