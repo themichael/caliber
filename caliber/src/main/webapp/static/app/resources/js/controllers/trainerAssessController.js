@@ -359,12 +359,15 @@ angular
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
+											$scope.allAssessmentsAvgForWeek = false;
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
 											caliberDelegate.all.getAssessmentsAverageForWeek(
 													$scope.currentBatch.batchId
 													, $scope.currentWeek
 													).then(function(response){
-														$scope.allAssessmentsAvgForWeek = response;
+														$timeout(function(){
+															$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
+														},4000);															
 													});
 										});
 										
