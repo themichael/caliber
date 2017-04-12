@@ -111,11 +111,14 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		var chartData = {};
 
 		// series
-		chartData.series = [ "batchTechSeries" ];
+		chartData.series = [ "Average Score" ];
 
 		// labels and data
 		chartData.data = [];
 		chartData.labels = [];
+		chartData.data.push([]);
+		
+		
 		chartData.options = {
 			legend : {
 				display : true
@@ -123,9 +126,9 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		};
 
 		// loop through object array
-		angular.forEach(dataArray.data, function(value, key) {
+		angular.forEach(dataArray, function(value,key) {
 			chartData.labels.push(key);
-			chartData.data.push(value);
+			chartData.data[0].push(value);
 		});
 
 		return chartData;
