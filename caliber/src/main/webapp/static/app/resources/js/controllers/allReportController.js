@@ -10,9 +10,9 @@ angular
 
 					const OVERALL = -1;
 					const ALL = -1;
-					$scope.currentBatch = null;
+					$scope.currentBatch = 1050;
 					$scope.currentWeek = OVERALL;
-					$scope.currentTrainee = ALL;
+					$scope.currentTrainee = 1059;
 					
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
