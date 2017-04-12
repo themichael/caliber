@@ -277,8 +277,13 @@ angular
 														break;
 													}
 												}
-												$scope.selectedBatches.splice(
-														$scope.row, 1);
+												for (var i = 0; i < $scope.selectedBatches.length; i++) {
+													if ($scope.selectedBatches[i] === $scope.currentBatch) {
+														$scope.selectedBatches.splice(
+																i, 1);
+														break;
+													}
+												}
 											}
 										});
 						angular.element("#deleteBatchModal").modal("hide");
@@ -339,7 +344,7 @@ angular
 						$scope.traineeSkypeId = "";
 						$scope.traineePhoneNumber = "";
 						$scope.traineeProfileUrl = "";
-
+						$scope.traineeTrainingStatus = "";
 						$scope.Save = "Save";
 						$scope.Updating = false;
 						if ($scope.currentTrainee) {
