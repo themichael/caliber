@@ -378,6 +378,7 @@ angular
 							caliberDelegate.all.createTrainee(newTrainee).then(
 									function(response) {
 										$scope.currentBatch.trainees.push(response);
+										$scope.resetTraineeForm();
 									});
 						}
 					};
