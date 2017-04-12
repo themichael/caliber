@@ -130,10 +130,19 @@ angular
 					};
 
 					/** Get trainee info* */
-					$scope.getTrainee = function(trainee, traineeB) {
+					$scope.getTrainee = function(trainee, traineeB , traineeC) {
 
-						/*$scope.editor = $scope.trainees[index];
-						$scope.trow = index; */
+						/*
+						 * $scope.editor = $scope.trainees[index]; $scope.trow =
+						 * index;
+						 */
+						if ($scope.editTrainee != null || $scope.sub != null) {
+
+							$scope.editTrainee = null;
+
+							$scope.sub = null;
+						}
+
 						$scope.editTrainee = trainee;
 						$scope.Updating = true;
 						$scope.sub = traineeB;
@@ -143,74 +152,70 @@ angular
 					$scope.Updating = false;
 					$scope.updateTrainee = function() {
 
-						/*$log.log(updatedTrainee);*/
-						
-						
-						/*if ($scope.editor == null) {
+						/* $log.log(updatedTrainee); */
+
+						if ($scope.editor == null) {
 							$scope.editor = editedTrainee;
-                        }
+						}
 
-							if ($scope.editor.name == "") 
-							{
-								$scope.editor.name = editedTrainee.name;
-							}
+						if ($scope.editor.name == "") {
+							$scope.editor.name = editedTrainee.name;
+						}
 
-							if ($scope.editor.email == "") {
-								$scope.editor.email = editedTrainee.email;
-							}
+						if ($scope.editor.email == "") {
+							$scope.editor.email = editedTrainee.email;
+						}
 
-							if ($scope.editor.trainingStatus == "") {
-								$scope.editor.trainingStatus = editedTrainee.trainingStatus;
-							}
+						if ($scope.editor.trainingStatus == "") {
+							$scope.editor.trainingStatus = editedTrainee.trainingStatus;
+						}
 
-							if ($scope.editor.phoneNumber == "") {
-								$scope.editor.phoneNumber = editedTrainee.phoneNumber;
-							}
+						if ($scope.editor.phoneNumber == "") {
+							$scope.editor.phoneNumber = editedTrainee.phoneNumber;
+						}
 
-							if ($scope.editor.skypeId == "") {
-								$scope.editor.skypeId = editedTrainee.skypeId;
-							}
+						if ($scope.editor.skypeId == "") {
+							$scope.editor.skypeId = editedTrainee.skypeId;
+						}
 
-							if ($scope.editor.profileUrl == "") {
-								$scope.editor.profileUrl = editedTrainee.profileUrl;
-							}
-*/							
-							var updTrainee = {
-								traineeId : $scope.editor.traineeId,
-								name : $scope.editor.name,
-								email : $scope.editor.email,
-								trainingStatus : $scope.editor.trainingStatus,
-								phoneNumber : $scope.editor.phoneNumber,
-								skypeId : $scope.editor.skypeId,
-								profileUrl : $scope.editor.profileUrl,
-								batch : $scope.currentBatch
-							};
+						if ($scope.editor.profileUrl == "") {
+							$scope.editor.profileUrl = editedTrainee.profileUrl;
+						}
+
+						var updTrainee = {
+							traineeId : $scope.editor.traineeId,
+							name : $scope.editor.name,
+							email : $scope.editor.email,
+							trainingStatus : $scope.editor.trainingStatus,
+							phoneNumber : $scope.editor.phoneNumber,
+							skypeId : $scope.editor.skypeId,
+							profileUrl : $scope.editor.profileUrl,
+							batch : $scope.currentBatch
+						};
 
 						$log.log(updTrainee);
 						editedTrainee = updTrainee;
 						$log.debug(editedTrainee);
-						caliberDelegate.all
-								.updateTrainee(editedTrainee)
-								.then(
-										$scope.clear = function() {
-											/*$scope.editor.name = "Blaaa";
-											$scope.editor.email = "";
-											$scope.editor.phoneNumber = "";
-											$scope.editor.skypeId = "";
-											$scope.editor.profileUrl = "";
-											$scope.selectCurrentBatch($scope.row);*/
-											$scope.Updating = false;
-										});
+						caliberDelegate.all.updateTrainee(editedTrainee).then(
+								$scope.clear = function() {
+									/*
+									 * $scope.editor.name = "Blaaa";
+									 * $scope.editor.email = "";
+									 * $scope.editor.phoneNumber = "";
+									 * $scope.editor.skypeId = "";
+									 * $scope.editor.profileUrl = "";
+									 * $scope.selectCurrentBatch($scope.row);
+									 */
+									$scope.Updating = false;
+								});
 					};
-					
-					$scope.clear = function()
-					{
-						/*$scope.editor.name = "";
+
+					$scope.clear = function() {
+						$scope.editor.name = "";
 						$scope.editor.email = "";
 						$scope.editor.phoneNumber = "";
 						$scope.editor.skypeId = "";
 						$scope.editor.profileUrl = "";
-						$scope.selectCurrentBatch($scope.row);*/
 						$scope.editTrainee = $scope.sub;
 						$scope.Updating = false;
 					}
@@ -296,16 +301,15 @@ angular
 						// return newBatch;
 					}
 
-					/*$scope.update = function() {
-
-						$scope.editTrainee.name = "";
-						$scope.editTrainee.email = "";
-						$scope.editTrainee.phoneNumber = "";
-						$scope.editTrainee.skypeId = "";
-						$scope.editTrainee.profileUrl = "";
-
-					};
-*/
+					/*
+					 * $scope.update = function() {
+					 * 
+					 * $scope.editTrainee.name = ""; $scope.editTrainee.email =
+					 * ""; $scope.editTrainee.phoneNumber = "";
+					 * $scope.editTrainee.skypeId = "";
+					 * $scope.editTrainee.profileUrl = "";
+					 *  };
+					 */
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
@@ -489,7 +493,5 @@ angular
 										})
 
 					};
-
-					
 
 				});
