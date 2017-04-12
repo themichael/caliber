@@ -8,65 +8,107 @@ angular
 					$log.debug("Booted Report Controller");
 					$log.debug("Peacepapi is here!!!!!");
 
+					const OVERALL = -1;
+					const ALL = -1;
+					$scope.currentBatch = null;
+					$scope.currentWeek = OVERALL;
+					$scope.currentTrainee = ALL;
+					
+					$scope.batchWeek = false;
+					$scope.batchWeekTrainee = false;
+					$scope.batchOverall = false;
+					$scope.batchOverallTrainee = false;
+					
 					(function start() {
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
 
 						// batch null check
-						if (!allBatches || allBatches.length === 0) {
-							$scope.noBatches = true;
-							$scope.noBatchesMessage = "No Batches belonging to you were found.";
+						if ($scope.currentBatch == null) {
+							$scope.noBatch=false;
 						} else {
-							$scope.noBatches = false;
-							$log.debug("Here AGAIN!!!!!!");
-							createDefaultCharts();
+							selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
 						}
+						
 					})();
+					
+					function selectView(batch, week, trainee){
+						
+						if (week == OVERALL ){
+							// All Weeks
+							if ( trainee == ALL){
+								// All Trainees
+								$scope.batchWeek = false;
+								$scope.batchWeekTrainee = false;
+								$scope.batchOverall = true;
+								$scope.batchOverallTrainee = false;
+								createBatchOverall();
+								
+							} else {
+								// Specific Trainee
+								$scope.batchWeek = false;
+								$scope.batchWeekTrainee = false;
+								$scope.batchOverall = false;
+								$scope.batchOverallTrainee = true;
+								createBatchOverallTrainee();
+							}
+						} else {
+							// Specific Week
+							if ( trainee == ALL){
+								// All Trainees
+								$scope.batchWeek = true;
+								$scope.batchWeekTrainee = false;
+								$scope.batchOverall = false;
+								$scope.batchOverallTrainee = false;
+								createBatchWeek();
+							} else {
+								// Specific trainee
+								$scope.batchWeek = false;
+								$scope.batchWeekTrainee = true;
+								$scope.batchOverall = false;
+								$scope.batchOverallTrainee = false;
+								createBatchWeekTrainee();
+							}
+							
+						}
+						
+					}
 
-					/**
-					 * ********************************************* UI
-					 * **************************************************
-					 */
-					var viewCharts = 0;
-
-					$scope.batches = allBatches;
-					$scope.currentBatch = {
-						trainingName : "Batch"
-					};
-					$scope.currentTrainee = {
-						name : "Trainee"
-					};
-
-					// hide filter tabs
-					$scope.hideOtherTabs = function() {
-						return $scope.currentBatch.trainingName !== "Batch";
-					};
-
-					// show charts
-					$scope.showCharts = function(charts) {
-						return charts === viewCharts;
-					};
-
-					function createDefaultCharts() {
-						// Finishes any left over ajax animation from another
-						// page
+					function createBatchWeek(){
 						NProgress.done();
 						NProgress.start();
-
+						
 						createQCStatus();
 						createAverageTraineeScoresWeekly();
-						createAverageTraineeScoresOverall();
 						createAssessmentAveragesBatchWeekly();
+					}
+					
+					function createBatchWeekTrainee(){
+						NProgress.done();
+						NProgress.start();
+						
 						createAssessmentAveragesTraineeWeekly();
-						createAssessmentAveragesTraineeOverall();
-						createTechnicalSkillsBatchOverall();
 						createTechnicalSkillsTraineeWeekly();
-						createTechnicalSkillsTraineeOverall();
-						createWeeklyProgressBatchOverall();
 						createWeeklyProgressTraineeWeekly();
-						createWeeklyProgressTraineeOverall();
+					}
+					
+					function createBatchOverall(){
+						NProgress.done();
+						NProgress.start();
+						
+						createAverageTraineeScoresOverall();
+						createTechnicalSkillsBatchOverall();
+						createWeeklyProgressBatchOverall();
+					}
 
+					function createBatchOverallTrainee(){
+						NProgress.done();
+						NProgress.start();
+						
+						createAssessmentAveragesTraineeOverall();
+						createWeeklyProgressTraineeOverall();
+						createTechnicalSkillsTraineeOverall();
 					}
 
 					// ********************* Doughnut
