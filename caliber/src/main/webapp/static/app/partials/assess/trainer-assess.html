@@ -10,14 +10,6 @@
 		<div class="col-md-12 col-lg-12 top10">
 			<!-- top ui for viewing all assessments -->
 			<ul class="nav nav-tabs" ng-show="currentView">
-		<!-- for testing purposes  -->
-<!-- 			<a ui-sref="report.display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
- 
-  <i role="button" class="fa fa-file-text" aria-hidden="true" ui-view = "display"></i>	
- <a ui-sref="#display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
-  	<div ui-view = "display"></div>
- -->		<a ui-sref="trainer.display"><i role="button" class="fa fa-file-text" aria-hidden="true"></i></a>
-			<div ui-view = ui-serf></div>
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
 						currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
@@ -79,9 +71,9 @@
 				<thead>
 					<tr>
 						<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
-						<th class="col-sm-1 col-md-1 col-lg-1" role="button" 
+						<th class="col-sm-1 col-md-1 col-lg-1" role="button"
 							ng-repeat="assessment in currentAssessments track by $index">
-							{{assessment.title}}(%)</th>
+							{{assessment.title}}({{assessmentsById[assessment.assessmentId].weightedScore}}%)</th>
 						<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
 					</tr>
 				</thead>
@@ -90,29 +82,47 @@
 					<tr role="button"
 						ng-repeat="trainee in currentBatch.trainees track by $index">
 						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
-						<td class="text-center col-sm-1 col-md-1 col-lg-1" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">
-							<input class='form-control' type="number" ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score" ng-blur="updateGrade(trainee,assessment)" ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
+						<td class="text-center col-sm-1 col-md-1 col-lg-1"
+							ng-repeat="assessment in currentAssessments track by assessment.assessmentId">
+							<input class='form-control' type="number"
+							ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score"
+							ng-blur="updateGrade(trainee,assessment)"
+							ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
 						</td>
-						<td class="col-sm-9 col-md-9 col-lg-9">
-							<textarea class="form-control" name="note" cols="20"
-								rows="2" ng-model="trainees[trainee.traineeId].note.content" ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
-							</textarea>
-						</td>
-
+						<td class="col-sm-9 col-md-9 col-lg-9"><textarea
+								class="form-control" name="note" cols="20" rows="2"
+								ng-model="trainees[trainee.traineeId].note.content"
+								ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
+							</textarea></td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<td>Average</td>
-					<td class="text-center" ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees) ? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) + "%" : "-"}}</td>
-					<td></td>
+					<td class="text-center"
+						ng-repeat="assessment in currentAssessments track by assessment.assessmentId">
+						{{getTotalAssessmentAvgForWeek(assessment,trainees)
+						? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
+						"%" : "-"}}</td>
+					<td>{{ (allAssessmentsAvgForWeek === false ? "Calculating Weekly Batch Avg " : "Weekly Batch Avg= " + allAssessmentsAvgForWeek) }}<i ng-show="!allAssessmentsAvgForWeek" class='fa fa-cog fa-spin'></i></td>
 				</tfoot>
 			</table>
-					<div 
-                class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
+			<div class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
 				<textarea ng-model="trainerBatchNote.content" class="form-control"
 					id="tBatchNotes" ng-blur="saveTrainerNotes()"
 					placeholder="Enter your overall feedback on the batch" required>
 				</textarea>
+            <div class='save-button-wrapper'>
+	            <a ng-click="doBurrito()" ng-show="showFloppy" class='save-button fade-in'> 
+	            	<span class="fa fa-floppy-o fa-2x" aria-hidden="true"></span>Save							
+				</a>
+				<div class='spinner fa-style' ng-show="showSaving">
+					<i  style="color:#F26925;" role="button" class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
+				</div>
+				<div id="checkMark" class='spinner fade fa-style' ng-show="showCheck">
+					<i role="button" class="fa fa-check fa-2x" aria-hidden="true"></i>
+				</div>
+			</div>
+			
             </div>
 		</div>
 	</div>
@@ -138,10 +148,11 @@
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
 							<label for="category">Assessment Category:</label> <select
-								ng-model="category.model" class="form-control"
-								id="category" required>
+								ng-model="category.model" class="form-control" id="category"
+								required>
 								<option value="" disabled>Select Assessment Category</option>
-								<option ng-repeat="option in category.options" value="{{option}}">{{option.skillCategory}}</option>
+								<option ng-repeat="option in category.options"
+									value="{{option}}">{{option.skillCategory}}</option>
 							</select>
 						</div>
 					</div>

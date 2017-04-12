@@ -77,13 +77,19 @@ angular
 										templateUrl : "/static/app/partials/assess/qc-assess.html",
 										controller : "qcAssessController"
 									})
-							.state(
-									"qc.reports",
-									{
-										templateUrl : "/static/app/partials/reports.html",
-										url : "/reports",
-										controller : "qcHomeController"
-									})
+						  .state("qc.reports",{
+	  						url : "/reports",
+						    views: {
+						      "": {
+						    	  templateUrl : "/static/app/partials/reports.html",
+									controller : "allReportController"
+						      },
+						      "trainer-display@trainer.reports": {
+						    	  templateUrl : "/static/app/partials/trainer-display.html",
+									controller : "trainerAssessController"
+						      }
+						    }
+						  })
 							/***************************************************
 							 * TRAINER
 							 **************************************************/
@@ -128,35 +134,21 @@ angular
 									})
 									
 														
-/*					  .state("reports",{
-					    views: {
-					      "trainer.reports@trainer": {
-					    	  templateUrl : "/static/app/partials/reports.html",
-								url : "/reports",
-								controller : "trainerHomeController"
-					      },
-					      "display@reports": {
-					    	  templateUrl : "/static/app/partials/trainer-display.html",
-								url : "/display",
-								controller : "trainerAssessController"
-					      }
-					    }
-					  })*/
-							.state(
-									"trainer.reports",
-									{
-										templateUrl : "/static/app/partials/reports.html",
-										url : "/reports",
-										controller : "allReportController"
-									})
-						/*this state is for testing..... change later*/
-							.state(
-									"trainer.display",
-									{
-										templateUrl : "/static/app/partials/trainer-display.html",
-										url : "/display",
-										controller : "trainerAssessController"
-									})
+						  .state("trainer.reports",{
+	  						url : "/reports",
+						    views: {
+						      "": {
+						    	  templateUrl : "/static/app/partials/reports.html",
+									controller : "allReportController"
+						      },
+						      "trainer-display@trainer.reports": {
+						    	  templateUrl : "/static/app/partials/trainer-display.html",
+									controller : "trainerAssessController"
+						      }
+						    }
+						  })
+									
+							
 
 							/***************************************************
 							 * VP
@@ -208,11 +200,17 @@ angular
 										url : "/audit",
 										controller : "qcAssessController"
 									})
-							.state(
-									"vp.reports",
-									{
-										templateUrl : "/static/app/partials/reports.html",
-										url : "/reports",
-										controller : "vpHomeController"
-									});
+						  .state("vp.reports",{
+	  						url : "/reports",
+						    views: {
+						      "": {
+						    	  templateUrl : "/static/app/partials/reports.html",
+									controller : "allReportController"
+						      },
+						      "trainer-display@trainer.reports": {
+						    	  templateUrl : "/static/app/partials/trainer-display.html",
+									controller : "trainerAssessController"
+						      }
+						    }
+						  })
 				});

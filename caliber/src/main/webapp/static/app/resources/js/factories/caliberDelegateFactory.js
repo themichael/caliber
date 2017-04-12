@@ -72,7 +72,10 @@ angular
 					delegate.all.getAllTrainers = function() {
 						return allFactory.getAllTrainers();
 					};
-
+					
+					delegate.all.getAssessmentsAverageForWeek = function(batchId, weekId){
+						return allFactory.getAssessmentsAverageForWeek(batchId,weekId);
+					}
 					/**
 					 * *********************** Enum constants
 					 * ***************************
@@ -157,6 +160,10 @@ angular
 							week) {
 						return trainerFactory.getTrainerBatchNote(batchId, week);
 					};
+					
+					delegate.trainer.saveOrUpdateNote = function(noteObj){
+						return trainerFactory.saveOrUpdateNote(noteObj);
+					}
 
 					/** ************************* VP ************************** */
 					delegate.vp.getAllBatches = function() {

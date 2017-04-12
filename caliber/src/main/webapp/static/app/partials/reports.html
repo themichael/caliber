@@ -1,19 +1,16 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
-			<a href="" class="pull-right" title="Download report" ng-click="generatePDF()"> <i
-				class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-			</a>
 			<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
 			<ul class="nav nav-tabs" ng-show="!noBatches">
 				<!-- Select Batch-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown">{{currentBatch.trainingName}}<span
-						class="caret"></span></a>
+					data-toggle="dropdown">{{currentBatch.trainingName}} - {{
+						currentBatch.startDate | date:'shortDate' }}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
 						<li ng-repeat="menuItem in batches track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}</a></li>
+							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}} - {{ menuItem.startDate | date:'shortDate' }}</a></li>
 					</ul></li>
 				<!-- Select Trainee-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -29,47 +26,212 @@
 	</div>
 </div>
 
-<div id="report">
-	<!-- Charts -->
-	<div class="container" ng-show="!noBatches">
-		<div class="top10 data-container">
-			<div class="row">
-				<div class="col-sm-12 col-md-12 col-lg-12">
-					<div class="row">
+<!-- Charts -->
+<div class="container" ng-show="!noBatches">
+	<div class="top10 data-container">
 
-						<div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
-							<div class="panel panel-default">
-								<div class="panel-heading">Technology Progress for
-									{{currentBatch.trainingName}}</div>
-								<div class="panel-body">
-									<div class="chart-container top5">
-										<canvas id="radar" class="chart chart-radar"
-											chart-data="batchTechData" chart-options="qcStatsLabels"
-											chart-labels="batchTechLabels" chart-series="batchTechSeries"
-											height="100" width="100">
+		<!-- Batch -> Week -->
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="row">
+
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Average Trainee Scores</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="radar" class="chart chart-radar"
+										chart-data="batchTechData" chart-options="qcStatsLabels"
+										chart-labels="batchTechLabels" chart-series="batchTechSeries">
                                     </canvas>
-									</div>
 								</div>
 							</div>
 						</div>
+					</div>
 
-						<div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
-							<div class="panel panel-default">
-								<div class="panel-heading">QC Status</div>
-								<div class="panel-body">
-									<div class="chart-container top5">
-										<canvas id="doughtnut1" class="chart chart-doughtnut"
-											chart-labels="qcStatsLabels" chartData="qcStatsData"
-											chart-options="qcStatsOptions" height="100" width="100">
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">QC Status</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
+										chart-labels="qcStatsLabels" chart-data="qcStatsData"
+										chart-options="qcStatsOptions">
                                     </canvas>
-									</div>
 								</div>
 							</div>
 						</div>
+					</div>
 
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Assessment Averages</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="radar" class="chart chart-radar"
+										chart-data="batchTechData" chart-options="batchTechOptions"
+										chart-labels="batchTechLabels" chart-series="batchTechSeries">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<!-- Batch -> Overall -->
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="row">
+
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Weekly Averages Progress</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="radar" class="chart chart-radar"
+										chart-data="batchTechData" chart-options="qcStatsLabels"
+										chart-labels="batchTechLabels" chart-series="batchTechSeries">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Technical Skill Averages</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
+										chart-labels="qcStatsLabels" chart-data="qcStatsData"
+										chart-options="qcStatsOptions">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Average Trainee Scores</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="radar" class="chart chart-radar"
+										chart-data="batchTechData" chart-options="batchTechOptions"
+										chart-labels="batchTechLabels" chart-series="batchTechSeries">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Batch -> Week -> Trainee-->
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="row">
+
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Weekly Averages Progress</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="radar" class="chart chart-radar"
+										chart-data="batchTechData" chart-options="qcStatsLabels"
+										chart-labels="batchTechLabels" chart-series="batchTechSeries">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Technical Skills</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
+										chart-data="qcStatsData" chart-colors="qcStatsColors"
+										chart-labels="qcStatsLabels" chart-options="qcStatsOptions">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Assessment Averages</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="radar" class="chart chart-radar"
+										chart-data="batchTechData" chart-options="batchTechOptions"
+										chart-labels="batchTechLabels" chart-series="batchTechSeries">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Batch -> Overall -> Trainee-->
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="row">
+
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Weekly Averages Progress</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="radar" class="chart chart-radar"
+										chart-data="batchTechData" chart-options="qcStatsLabels"
+										chart-labels="batchTechLabels" chart-series="batchTechSeries">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Technical Skill Averages</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
+										chart-labels="qcStatsLabels" chart-data="qcStatsData"
+										chart-options="qcStatsOptions">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">Assessment Averages</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="radar" class="chart chart-radar"
+										chart-data="batchTechData" chart-options="batchTechOptions"
+										chart-labels="batchTechLabels" chart-series="batchTechSeries">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 	</div>
+	<!-- for testing purposes -->
+	<div ui-view="trainer-display" ng-show="displayTable()"></div>
 </div>
