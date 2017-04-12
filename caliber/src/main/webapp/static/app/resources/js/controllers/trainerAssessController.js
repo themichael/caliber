@@ -125,7 +125,7 @@ angular
 					(function start(allBatches) {
 						$scope.batches = allBatches;
 						if (!allBatches) return;
-						if (allBatches.length > 0 && !($scope.currentBatch)) {		// !($scope.currentBatch) <-- for report, if currentBatch doesnt exist then continue as if in assess batch
+						if (allBatches.length > 0 /*&& !($scope.currentBatch)*/) { // TODO FIX !($scope.currentBatch) <-- for report, if currentBatch doesnt exist then continue as if in assess batch
 							$scope.currentBatch = allBatches[allBatches.length-1]; // shows
 																					// the
 																					// latest
