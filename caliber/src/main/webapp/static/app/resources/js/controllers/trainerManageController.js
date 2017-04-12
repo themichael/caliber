@@ -343,6 +343,7 @@ angular
 						$scope.traineeSkypeId = "";
 						$scope.traineePhoneNumber = "";
 						$scope.traineeProfileUrl = "";
+						$scope.traineeTrainingStatus = null;
 
 						$scope.Save = "Save";
 						$scope.Updating = false;
