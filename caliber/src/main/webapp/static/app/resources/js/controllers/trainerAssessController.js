@@ -68,7 +68,7 @@ angular
 								$scope.trainees[traineeId] = {};
 								$scope.trainees[traineeId].assessments=[];
 								$scope.trainees[traineeId].note={};
-								$scope.trainees[traineeId].burrito=false
+								$scope.trainees[traineeId].burrito=false;
 							}								
 							return $scope.trainees[traineeId];							
 						}
@@ -80,7 +80,7 @@ angular
 										$scope.trainees[value].assessments[assessments[a].assessmentId].score='';
 									}
 								}
-							})
+							});
 						}
 					
 						// get trainee notes and put into
@@ -125,13 +125,17 @@ angular
 					(function start(allBatches) {
 						$scope.batches = allBatches;
 						if (!allBatches) return;
-						if (allBatches.length > 0 /*&& !($scope.currentBatch)*/) { // TODO FIX !($scope.currentBatch) <-- for report, if currentBatch doesnt exist then continue as if in assess batch
-							$scope.currentBatch = allBatches[allBatches.length-1]; // shows
+						if (allBatches.length > 0) { 								// shows
 																					// the
 																					// latest
 																					// batches
+							
+							if(!$scope.currentBatch){ // if currentBatch is not yet in the scope, run for assess batch
+								$scope.currentBatch = allBatches[allBatches.length-1];
+							}
 							$log.debug("This is the current batch "
 									+ $scope.currentBatch);
+							
 							if (allBatches[0].weeks > 0) {
                                 $scope.category = {
 									model : null,
@@ -165,7 +169,7 @@ angular
 								$log.debug("Batches " + allBatches);
 								$log.debug(allBatches);
 								
-
+								if(!$scope.currentWeek){ // if currentWeek is not yet in the scope, run for assess batch
 								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
 								// number
 								// of
@@ -178,11 +182,12 @@ angular
 												+ allBatches[allBatches.length-1].trainingName
 												+ ": " + totalWeeks);
 
-								$scope.currentWeek = totalWeeks;
+								$scope.currentWeek = totalWeeks; // change here***********************************************************************************
+								}
 								/**
 								 * *****************************************
 								 * getAllAssessmentsForWeek
-								 * ***************************************************************************************88888******************************************************************************************************************************************************************************************
+								 * *********************************************************
 								 */
 								getAllAssessmentsForWeek(
 										$scope.currentBatch.batchId,
@@ -191,8 +196,8 @@ angular
 							} else
 								$scope.currentWeek = null;
 						} else {
-							$scope.currentBatch = null;
-							$scope.currentWeek = null;
+							/*$scope.currentBatch = null;
+							$scope.currentWeek = null;*/
 						}
 						$log.debug("Starting Values: currentBatch and currentWeek");
 						$log.debug($scope.currentBatch);
