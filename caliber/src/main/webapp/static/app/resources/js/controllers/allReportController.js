@@ -189,13 +189,16 @@ angular
 									$log.debug(value);
 								});
 					}
+					
+					$scope.selectCurrentBatch = function(index) {
+						$scope.currentBatch = $scope.batches[index];
+						$log.debug("Selected batch " + index);
+					};
 					/*scope function to display the table if a batch and week has been selected*/
 					$scope.displayTable = function(){
-						//$scope.currentBatch.batchId = 1050;		// denise hard coded
-						//$scope.currentWeek = 1;					// denise hard coded
 						if($scope.currentBatch.batchId && $scope.currentWeek){ // checking to see if the scope variables are null
-							return true;
+							return true; //change to false later
 						}
 						return true;
-					}  // TODO refactor later to accommodate
+					}
 				});
