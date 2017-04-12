@@ -75,7 +75,6 @@
 							ng-repeat="assessment in currentAssessments track by $index">
 							{{assessment.title}}({{assessmentsById[assessment.assessmentId].weightedScore}}%)</th>
 						<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -95,7 +94,6 @@
 								ng-model="trainees[trainee.traineeId].note.content"
 								ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
 							</textarea></td>
-						<td></td>
 					</tr>
 				</tbody>
 				<tfoot>
@@ -105,8 +103,7 @@
 						{{getTotalAssessmentAvgForWeek(assessment,trainees)
 						? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
 						"%" : "-"}}</td>
-					<td></td><!-- match notes th -->
-					<td>{{allAssessmentsAvgForWeek |number:2}}%</td>
+					<td>{{ (allAssessmentsAvgForWeek === false ? "Calculating Weekly Batch Avg " : "Weekly Batch Avg= " + allAssessmentsAvgForWeek) }}<i ng-show="!allAssessmentsAvgForWeek" class='fa fa-cog fa-spin'></i></td>
 				</tfoot>
 			</table>
 			<div class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
