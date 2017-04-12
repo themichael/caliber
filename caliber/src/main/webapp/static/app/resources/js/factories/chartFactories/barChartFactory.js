@@ -91,24 +91,24 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		var chartData = {};
 
 		// series
-		chartData.series = [ "Average Score" ];
+		chartData.series = [ "Trainee", "Average" ];
 
 		// labels and data
 		chartData.data = [];
 		chartData.labels = [];
 		chartData.data.push([]);
 		
-//		
-//		chartData.options = {
-//			legend : {
-//				display : true
-//			}
-//		};
+		
+		chartData.options = {
+			legend : {
+				display : true
+			}
+		};
 
 		// loop through object array
 		angular.forEach(dataArray, function(value,key) {
 			chartData.labels.push(key);
-			chartData.data[0].push(value);
+			chartData.data[0].push(value.toFixed(2));
 		});
 
 		return chartData;
