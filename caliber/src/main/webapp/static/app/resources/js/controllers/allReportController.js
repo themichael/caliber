@@ -97,7 +97,17 @@ angular
 					// *********************************
 
 					function createAverageTraineeScoresWeekly() {
-
+						chartsDelegate.bar.data
+						.getAverageTraineeScoresWeeklyData(1050, 1)
+						.then(function(data) {
+							NProgress.done();
+							var barChartObj = chartsDelegate.bar.getAverageTraineeScoresWeekly(data);
+							$scope.averageTraineeScoresWeeklyData = barChartObj.data;
+							$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
+							$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
+						}, function() {
+							NProgress.done();
+						});
 					}
 
 					// Hossain bar chart trainee vs average all week score
@@ -216,7 +226,16 @@ angular
 					// ***************************************
 
 					function createWeeklyProgressBatchOverall() {
-
+						chartsDelegate.line.data
+						.getWeeklyProgressBatchOverallData(1050)
+						.then(function(data) {
+								NProgress.done();
+								var lineChartObj = chartsDelegate.line.getWeeklyProgressBatchOverall(data);
+								$scope.weeklyProgressBatchOverallLabels = lineChartObj.labels;
+								$scope.weeklyProgressBatchOverallData = lineChartObj.data;
+						}, function() {
+							NProgress.done();
+						})
 					}
 					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {
