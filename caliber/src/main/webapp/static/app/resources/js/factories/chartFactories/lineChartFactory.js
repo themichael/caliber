@@ -120,8 +120,7 @@ angular
 						chartData.data = [];
 						// chartData.labels = [];
 
-						$log
-								.debug("THIS IS THE DOUBLE[] DATA SET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+						$log.debug("THIS IS THE DOUBLE[] DATA SET");
 						$log.debug(dataArray);
 
 						// loop through object array
