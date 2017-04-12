@@ -266,6 +266,16 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	all.getAssessmentsAverageForWeek = function(batchId, weekId){
+		return $http({
+			url:"/all/assessments/average/" + batchId + "/" + weekId,
+			method: "GET"
+		}).then(function(response){
+			return response.data;
+		}, function(response){
+			$log.error("There was a error " + response.status);
+		});
+	}
 
 	/** *********************** Trainer ********************* */
 

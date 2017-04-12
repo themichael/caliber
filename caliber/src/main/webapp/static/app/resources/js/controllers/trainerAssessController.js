@@ -360,6 +360,12 @@ angular
 											}
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+											caliberDelegate.all.getAssessmentsAverageForWeek(
+													$scope.currentBatch.batchId
+													, $scope.currentWeek
+													).then(function(response){
+														$scope.allAssessmentsAvgForWeek = response;
+													});
 										});
 										
 					};
