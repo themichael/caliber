@@ -365,6 +365,12 @@ angular
 											}
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+											caliberDelegate.all.getAssessmentsAverageForWeek(
+													$scope.currentBatch.batchId
+													, $scope.currentWeek
+													).then(function(response){
+														$scope.allAssessmentsAvgForWeek = response;
+													});
 										});
 										
 					};
@@ -394,10 +400,23 @@ angular
 					}
 								
 					$scope.generateArrAssessmentById = function(assessments){
+						var totalRawScore = 0;
 						for(a of assessments){
 							$scope.assessmentsById[a.assessmentId] = {};
 							$scope.assessmentsById[a.assessmentId].total = 0;
+							$scope.assessmentsById[a.assessmentId].rawScore = a.rawScore; 
+							totalRawScore += a.rawScore;
 						}						
+						for(a of assessments){
+							$scope.assessmentsById[a.assessmentId]
+							.weightedScore = $scope.getWeightedScore(
+									$scope.assessmentsById[a.assessmentId].rawScore
+									,totalRawScore
+									);
+						}
+					}
+					$scope.getWeightedScore = function(rawScore,totalRawScore){
+						return (rawScore/totalRawScore) * 100;
 					}
 
 					/**
