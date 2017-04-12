@@ -530,12 +530,26 @@ angular
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
 					
-					$scope.doBurrito =function(traineeId){
-							$scope.trainees[traineeId].burrito=true;
+					$scope.showSaving = false;
+					$scope.showCheck = false;
+					$scope.showFloppy = true;
+					$scope.doBurrito =function(){
+							$scope.showFloppy = false
 							$timeout(function(){
-								$scope.trainees[traineeId].burrito=false;
-								$scope.stopBurrito(traineeId);
-							}, 500);
+								$scope.showSaving=true;								
+							},480).then(function(){
+								$timeout(function(){
+									$scope.showSaving=false;
+								}, 1000).then(function(){
+									$scope.showCheck = true;
+									$timeout(function(){
+										$scope.showCheck = false;
+									},2000).then(function(){
+										$scope.showFloppy = true;
+									});
+								
+								})
+							})
 					}
 					$scope.stopBurrito = function(traineeId){
 						$scope.trainees[traineeId].burrito=false;
