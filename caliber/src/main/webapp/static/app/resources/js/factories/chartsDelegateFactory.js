@@ -85,8 +85,8 @@ angular
 						return barChartFactory.getBatchWeekSortedBarChart(dataArray);
 					};
 					
-					delegate.bar.data.getAverageTraineeScoresOverallData = function(batchId, week){
-						return barChartDataFactory.getBatchWeekSortedBarChartData(batchId, week);
+					delegate.bar.data.getAverageTraineeScoresOverallData = function(batchId){
+						return barChartDataFactory.getBatchWeekSortedBarChartData(batchId);
 					};
 					
 					/*delegate.bar.getAssessmentAveragesTraineeWeekly = function(dataArray){
