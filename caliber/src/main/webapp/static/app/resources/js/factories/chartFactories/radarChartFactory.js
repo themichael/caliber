@@ -9,12 +9,15 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 	var radar = {};
 	
 	radar.getTraineeUpToWeekRadarChart = function(dataArray) {
+		$log.debug("Data for getTraineeUpToWeekRadarChart");
+		$log.debug(dataArray);
 		var chartData = {};
 		
 		chartData.series = [ "Trainee Up To Week" ];
 		
-		chartData.data = [];
 		chartData.labels = [];
+		
+		chartData.data = [];
 		chartData.data.push([]);
 
 		angular.forEach(dataArray, function(value, key) {
@@ -27,12 +30,15 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 	};
 	
 	radar.getTraineeOverallRadarChart = function(dataArray) {
+		$log.debug("Data for getTraineeOverallRadarChart");
+		$log.debug(dataArray);
 		var chartData = {};
 		
 		chartData.series = [ "Trainee Overall" ];
 		
-		chartData.data = [];
 		chartData.labels = [];
+		
+		chartData.data = [];
 		chartData.data.push([]);
 
 		angular.forEach(dataArray, function(value, key) {
@@ -45,12 +51,15 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 	};
 	
 	radar.getBatchOverallRadarChart = function(dataArray) {
+		$log.debug("Data for getBatchOverallRadarChart");
+		$log.debug(dataArray);
 		var chartData = {};
 		
 		chartData.series = [ "Batch" ];
 		
-		chartData.data = [];
 		chartData.labels = [];
+		
+		chartData.data = [];
 		chartData.data.push([]);
 
 		angular.forEach(dataArray, function(value, key) {
@@ -62,7 +71,16 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		return chartData;
 	};
 	
-	
+	radar.addDataToExistingRadar = function(currentChartData, otherDataArray){
+		currentChartData.data.push([]);
+		
+		angular.forEach(otherDataArray, function(value, key) {
+			
+			
+			
+		});
+		
+	};
 	
 
 	radarOptions = {
