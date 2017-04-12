@@ -8,25 +8,6 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 	var barChart = {};
 
-	barChart.getBatchAvgChart = function(dataArray) {
-		var chartData = {};
-
-		// data and labels
-		chartData.data = [];
-		chartData.labels = [];
-
-		// traverse through array of objects and grab labels and data
-		dataArray.forEach(function(element) {
-			chartData.labels.push(element.trainee);
-			chartData.data.push(element.average);
-		});
-
-		chartData.datasetOverride = [ {
-			xAxisID : 'x-axis-1'
-		} ];
-
-		return chartData;
-	};
 	// yanilda
 	barChart.getBatchWeekAvgBarChart = function(dataArray) {
 		var chartData = {};
@@ -39,71 +20,72 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		// traverse through array of objects and grab labels and data
 		angular.forEach(dataArray,function(value, key) {
 			chartData.labels.push(key);
-			$log.debug(key);
 			chartData.data.push(value[0]);
-			$log.debug(value);
 		});
-		return chartData;
-	};
 
-	barChart.getTrainerEvalChart = function(dataArray) {
-		var chartData = {};
-
-		// series
-		chartData.series = [ "QC Eval" ];
-
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
-
-		// loop through object array
-		dataArray.forEach(function(element) {
-			chartData.data.push(element.score);
-			chartData.labels.push(element.name);
-		});
+		chartData.datasetOverride = [ {
+			xAxisID : 'x-axis-1'
+		} ];
 
 		return chartData;
 	};
 
-	barChart.getAllBatchesEvalChart = function(data, batches) {
+	barChart.getTraineeWeeklyAssessAvgs = function(dataArray) {
 		var chartData = {};
 
 		// series
-		chartData.series = [ "All Batch Eval" ];
+		chartData.series = ["Trainee", "Batch"];
 
 		// labels and data
 		chartData.data = [];
 		chartData.labels = [];
-
+		var trainee = [];
+		var batch = [];
+		chartData.options = {
+				legend : {
+					display : true
+				}}
 		// loop through object array
-		angular.forEach(data, function(value, key) {
-			$log.debug(value);
-			chartData.data.push(value[0]);
-			$log.debug(key);
+		angular.forEach(dataArray, function(value, key) {
+			trainee.push(value[0]);
+			batch.push(value[1]);
 			chartData.labels.push(key);
 		});
-
+		
+		chartData.data.push(trainee);
+		chartData.data.push(batch);
+		
 		return chartData;
 	};
 
-	barChart.getBatchTechEvalChart = function(dataArray) {
+	barChart.getTraineeOverallAssessAvgs = function(dataArray) {
 		var chartData = {};
 
 		// series
-		chartData.series = [ "Tech Batch Eval" ];
-
+		chartData.series = ["Trainee", "Batch"];
+		chartData.options = {
+				legend : {
+					display : true
+					}}
 		// labels and data
 		chartData.data = [];
 		chartData.labels = [];
-
+		var trainee = [];
+		var batch = [];
 		// loop through object array
-		dataArray.forEach(function(key, value) {
-			chartData.data.push(value[0]);
+		angular.forEach(dataArray, function(value, key) {
+			trainee.push(value[0]);
+			batch.push(value[1]);
 			chartData.labels.push(key);
 		});
+		
+		chartData.data.push(trainee);
+		chartData.data.push(batch);
 
 		return chartData;
 	};
+
+
 
 	barChart.getBatchOverallBarChart = function(dataArray) {
 		var chartData = {};
@@ -134,14 +116,24 @@ angular.module("charts").factory("barChartFactory", function($log) {
 	
 	barChart.getBatchWeekSortedBarChart = function(dataArray) {
 		var chartData = {};
-
+		//making a sorted array
+		var sorted = [];
+		//make the object to an array
+	    angular.forEach(dataArray, function(value, key) {
+	        sorted.push({'name' : key, 'value': value})
+	    });
+	    // sorted the array
+	    sorted.sort(function (a, b) {
+	      return b.value - a.value;
+	    });
+	     
 		chartData.series = ['Average Score'];
 		chartData.data = [];
 		chartData.labels = [];
 		
-		angular.forEach(dataArray, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data.push(value);
+		angular.forEach(sorted, function(obj) {
+			chartData.labels.push(obj.name);
+			chartData.data.push(obj.value);
 		});
 		return chartData;
 	};
