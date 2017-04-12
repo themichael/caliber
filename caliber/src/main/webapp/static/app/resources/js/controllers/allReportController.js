@@ -182,10 +182,14 @@ angular
 									var barChartObject = chartsDelegate.bar
 									.getAssessmentAveragesBatchWeekly(data);
 									console.log("here we are, in the yani barchart method");
+									console.log(barChartObject.options);
 									console.log(barChartObject);
+									console.log(barChartObject.series);
+									
 									$scope.barcharAWLabels = barChartObject.labels;
 									$scope.barcharAWData = barChartObject.data;
-									
+									$scope.barcharAWOptions= barChartObject.options;
+									$scope.barcharAWseries= barChartObject.series;
 								}, function() {
 									NProgress.done();
 								});
@@ -324,6 +328,8 @@ angular
 									console.log(lineChartObjectwd);
 									$scope.linecharTWLabels = lineChartObjectwd.labels;
 									$scope.lineharTWData = lineChartObjectwd.data;
+									$scope.linechartWOptions= lineChartObjectwd.options;
+									$scope.linechartWSeries= lineChartObjectwd.series;
 									
 								}, function() {
 									NProgress.done();
@@ -382,5 +388,19 @@ angular
 									$log.debug(value);
 								});
 					}
+					//on select trainee
+//					$scope.selectCurrentTrainee = function(index) {
+//						if (index === -1) {
+//							$scope.currentTrainee = {
+//								name : "Trainee"
+//							};
+//							viewCharts = 1;
+//							//createBatchCharts();
+//						} else {
+//							$scope.currentTrainee = $scope.currentBatch.trainees[index];
+//							viewCharts = 3;
+//							//createTraineeCharts();
+//						}
+//					};
 
 				});
