@@ -30,11 +30,15 @@ angular
 					 * **************************************************
 					 */
 					var viewCharts = 0;
+					
+					$scope.currentWeek = 1;					// denise hard coded
 
 					$scope.batches = allBatches;
 					$scope.currentBatch = {
-						trainingName : "Batch"
+						trainingName : "Batch",
+						batchId : 1050		// denise hard coded
 					};
+					$scope.currentBatch = allBatches[0]; // denise hard code/core
 					$scope.currentTrainee = {
 						name : "Trainee"
 					};
@@ -187,11 +191,11 @@ angular
 					}
 					/*scope function to display the table if a batch and week has been selected*/
 					$scope.displayTable = function(){
-						$scope.currentBatch.batchId = 1050;		// denise hard coded
-						$scope.currentWeek = 1;					// denise hard coded
+						//$scope.currentBatch.batchId = 1050;		// denise hard coded
+						//$scope.currentWeek = 1;					// denise hard coded
 						if($scope.currentBatch.batchId && $scope.currentWeek){ // checking to see if the scope variables are null
 							return true;
 						}
-						return false;
+						return true;
 					}  // TODO refactor later to accommodate
 				});
