@@ -100,6 +100,7 @@ angular
 
 					}
 
+					// Hossain bar chart trainee vs average all week score
 					function createAverageTraineeScoresOverall() {
 						chartsDelegate.bar.data
 								.getAverageTraineeScoresOverallData(1051)
@@ -110,15 +111,14 @@ angular
 											var barChartObject = chartsDelegate.bar
 													.getAverageTraineeScoresOverall(data);
 											console.log("batch avg chart");
-											$scope.batchTechLabels = barChartObject.labels;
-											$scope.batchTechData = barChartObject.data;
-											$scope.batchTechOptions = barChartObject.options;
-
+											$scope.batchOverAllLabels = barChartObject.labels;
+											$scope.batchOverAllData = barChartObject.data;
+											$scope.batchOverAllOptions = barChartObject.options;
 										}, function() {
 											NProgress.done();
 										});
 
-					}
+					};
 					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
 						chartsDelegate.bar.data
