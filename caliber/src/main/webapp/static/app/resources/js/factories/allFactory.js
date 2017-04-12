@@ -9,9 +9,9 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	 * Download via response data
 	 *
 	 ****************************************************************/
-	all.generatePDF = function(html) {
+	all.generatePDF = function(title, html) {
 		return $http({
-			url : "/report/generate",
+			url : "/report/generate?title=" + title,
 			method : "POST",
 			data : html,
 			responseType: "arraybuffer"
