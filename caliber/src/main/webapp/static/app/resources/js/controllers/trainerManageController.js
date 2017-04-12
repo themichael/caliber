@@ -326,10 +326,12 @@ angular
 						$scope.traineeTrainingStatus = trainee.trainingStatus;
 						$scope.Save = "Update";
 						$scope.Updating = true;
+						$scope.traineeFormName = "Update Trainee";
 					}
 
 					/** Resets trainee form for creating new trainee* */
 					$scope.resetTraineeForm = function() {
+						$scope.traineeFormName = "Add Trainee";
 						$scope.traineeName = "";
 						$scope.traineeEmail = "";
 						$scope.traineeSkypeId = "";
