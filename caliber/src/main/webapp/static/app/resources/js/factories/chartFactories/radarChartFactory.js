@@ -8,51 +8,20 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 
 	var radar = {};
 	
-	radar.getTraineeUpToWeekRadarChart = function(dataArray) {
-		$log.debug("Data for getTraineeUpToWeekRadarChart");
-		$log.debug(dataArray);
-		var chartData = {};
-		
-		chartData.series = [ "Trainee Up To Week" ];
-		
-		chartData.labels = [];
-		
-		chartData.data = [];
-		chartData.data.push([]);
-
-		angular.forEach(dataArray, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data[0].push(value.toFixed(2));
-		});
-		
-		chartData.options = radarOptions;
-		return chartData;
+	radar.getTraineeUpToWeekRadarChart = function(dataArray, seriesName) {
+		return createGenericRadarChartObject(dataArray, seriesName);
 	};
 	
-	radar.getTraineeOverallRadarChart = function(dataArray) {
-		$log.debug("Data for getTraineeOverallRadarChart");
-		$log.debug(dataArray);
-		var chartData = {};
-		
-		chartData.series = [ "Trainee Overall" ];
-		
-		chartData.labels = [];
-		
-		chartData.data = [];
-		chartData.data.push([]);
-
-		angular.forEach(dataArray, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data[0].push(value.toFixed(2));
-		});
-		
-		chartData.options = radarOptions;
-		return chartData;
+	radar.getTraineeOverallRadarChart = function(dataArray, seriesName) {
+		return createGenericRadarChartObject(dataArray, seriesName);
 	};
 	
-	radar.getBatchOverallRadarChart = function(dataArray) {
-		$log.debug("Data for getBatchOverallRadarChart");
-		$log.debug(dataArray);
+	radar.getBatchOverallRadarChart = function(dataArray, seriesName) {
+		return createGenericRadarChartObject(dataArray, seriesName);
+	};
+	
+	
+	var createGenericRadarChartObject = function(dataArray, seriesName){
 		var chartData = {};
 		
 		chartData.series = [ "Batch" ];
@@ -69,7 +38,8 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		
 		chartData.options = radarOptions;
 		return chartData;
-	};
+	}
+	
 	
 	radar.addDataToExistingRadar = function(currentChartData, otherDataArray){
 		var newData = [];
