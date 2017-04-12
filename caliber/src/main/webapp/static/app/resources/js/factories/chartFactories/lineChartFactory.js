@@ -1,146 +1,113 @@
-/**
- * 
- * @param $log
- * @returns {{}}
- */
-angular.module("charts").factory("lineChartFactory", function($log) {
-	$log.debug("Booted Line Chart Factory");
+angular
+		.module("charts")
+		.factory(
+				"lineChartFactory",
+				function($log) {
+					$log.debug("Booted Line Chart Factory");
 
-	var lineChart = {};
+					var lineChart = {};
 
-	lineChart.getBatchOverallLineChart = function(dataArray) {
-		var chartData = {};
+					lineChart.getBatchOverallLineChart = function(dataArray) {
+						var chartData = {};
 
-		// data and labels
-		chartData.data = [];
-		chartData.labels = [];
+						// data and labels
+						chartData.data = [];
+						chartData.labels = [];
 
-		// traverse through array of objects and grab labels and data
-		angular.forEach(dataArray, function(value, key) {
-			$log.debug(key + " " + value);
-			chartData.labels.push(key);
-			chartData.data.push(value);
-		});
+						// traverse through array of objects and grab labels and
+						// data
+						angular.forEach(dataArray, function(value, key) {
+							$log.debug(key + " " + value);
+							chartData.labels.push(key);
+							chartData.data.push(value);
+						});
 
-		chartData.datasetOverride = [ {
-			xAxisID : 'x-axis-1'
-		} ];
+						chartData.datasetOverride = [ {
+							xAxisID : 'x-axis-1'
+						} ];
 
-		return chartData;
-	};
-	
-	//Yanilda
-	lineChart.getTraineeUpToWeekLineChart = function(dataArray) {
-		var chartData = {};
+						return chartData;
+					};
 
-		// data and labels
-		chartData.data = [];
-		chartData.labels = [];
-		chartData.series=["Trainee", "Batch"];
-		chartData.options = {
-				scales: {
-				    xAxes: [{
-				    	  scaleLabel:{
-							  display: true,
-						        labelString: 'Week'
-						  }
-					  
-				    }],
-					yAxes: [{
-					  scaleLabel:{
-						  display: true,
-					        labelString: 'Score'
-					  },
-					  
-			        ticks: {
-			            min: 40,
-			            max: 100,
-			            stepSize: 20
-			        }
-			    }]},
-	
-		};
-		
-		
-		var series1 = [];
-		var series2 = [];
-		
-		// traverse through array of objects and grab labels and data
-		angular.forEach(dataArray, function(value, key) {
-			chartData.labels.push(key);
-			series1.push(value[0]);
-			series2.push(value[1]);
-			//chartData.data.push(value);
-		});
+					// Yanilda
+					lineChart.getTraineeUpToWeekLineChart = function(dataArray) {
+						var chartData = {};
 
-	/*	chartData.datasetOverride = [ {
-			xAxisID : 'x-axis-1'
-		} ];*/
+						// data and labels
+						chartData.data = [];
+						chartData.labels = [];
+						chartData.series = [ "Trainee", "Batch" ];
+						chartData.options = {
+							scales : {
+								xAxes : [ {
+									scaleLabel : {
+										display : true,
+										labelString : 'Week'
+									}
 
-		chartData.data.push(series1);
-		chartData.data.push(series2);
-		
-		
-		return chartData;
-	};
+								} ],
+								yAxes : [ {
+									scaleLabel : {
+										display : true,
+										labelString : 'Score'
+									},
 
-	lineChart.getTrainerEvalChart = function(dataArray) {
-		var chartData = {};
+									ticks : {
+										min : 40,
+										max : 100,
+										stepSize : 20
+									}
+								} ]
+							},
 
-		// series
-		chartData.series = [ "QC Eval" ];
+						};
 
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
+						var series1 = [];
+						var series2 = [];
 
-		// loop through object array
-		dataArray.forEach(function(element) {
-			chartData.data.push(element.score);
-			chartData.labels.push(element.name);
-		});
+						// traverse through array of objects and grab labels and
+						// data
+						angular.forEach(dataArray, function(value, key) {
+							chartData.labels.push(key);
+							series1.push(value[0]);
+							series2.push(value[1]);
+							// chartData.data.push(value);
+						});
 
-		return chartData;
-	};
+						/*
+						 * chartData.datasetOverride = [ { xAxisID : 'x-axis-1' } ];
+						 */
 
-	lineChart.getAllBatchesEvalChart = function(data, batches) {
-		var chartData = {};
+						chartData.data.push(series1);
+						chartData.data.push(series2);
 
-		// series
-		chartData.series = [ "All Batch Eval" ];
+						return chartData;
+					};
 
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
+					lineChart.getTraineeOverallLineChart = function(dataArray) {
+						var chartData = {};
+						chartData.series = [ "batch", "trainee" ]
+						chartData.data = [];
+						// chartData.labels = [];
 
-		// loop through object array
-		angular.forEach(data, function(value, key) {
-			$log.debug(value);
-			chartData.data.push(value[0]);
-			$log.debug(key);
-			chartData.labels.push(key);
-		});
+						$log
+								.debug("THIS IS THE DOUBLE[] DATA SET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+						$log.debug(dataArray);
 
-		return chartData;
-	};
+						// loop through object array
+						var trainee = [];
+						var batch = [];
+						var week = [];
+						angular.forEach(dataArray, function(value, key) {
+							trainee.push(value[0]);
+							batch.push(value[1]);
+							week.push(key);
+						});
+						chartData.data.push(trainee);
+						chartData.data.push(batch);
+						chartData.labels = week;
+						return chartData;
 
-	lineChart.getBatchTechEvalChart = function(dataArray) {
-		var chartData = {};
-
-		// series
-		chartData.series = [ "Tech Batch Eval" ];
-
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
-
-		// loop through object array
-		dataArray.forEach(function(key, value) {
-			chartData.data.push(value);
-			chartData.labels.push(key);
-		});
-
-		return chartData;
-	};
-	return lineChart;
-});
+					};
+					return lineChart;
+				});

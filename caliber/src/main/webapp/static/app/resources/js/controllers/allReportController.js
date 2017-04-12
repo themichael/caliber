@@ -296,6 +296,24 @@ angular
 					}
 					
 					function createWeeklyProgressTraineeOverall() {
+						chartsDelegate.line.data
+						.getWeeklyProgressTraineeOverallData(1051, 1051)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var lineChartObject = chartsDelegate.line
+									.getWeeklyProgressTraineeOverall(data);
+									console.log("chart completed!");
+									$scope.batchOverallWeeklyLabels = lineChartObject.labels;
+									$scope.batchOverallWeeklyData = lineChartObject.data;
+									$scope.batchOverallWeeklySeries = lineChartObject.series;
+									$scope.batchOverallWeeklyOptions = lineChartObject.options;
+									console.log(lineChartObject);
+
+								}, function() {
+									NProgress.done();
+								});
 
 					}
 
