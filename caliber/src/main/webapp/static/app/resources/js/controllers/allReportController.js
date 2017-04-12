@@ -12,7 +12,7 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-						
+
 						// batch null check
 						if (!allBatches || allBatches.length === 0) {
 							$scope.noBatches = true;
@@ -101,10 +101,43 @@ angular
 					}
 
 					function createAverageTraineeScoresOverall() {
+						chartsDelegate.bar.data
+								.getAverageTraineeScoresOverallData(1051)
+								.then(
+										function(data) {
+											$log.debug(data);
+											NProgress.done();
+											var barChartObject = chartsDelegate.bar
+													.getAverageTraineeScoresOverall(data);
+											console.log("batch avg chart");
+											$scope.batchTechLabels = barChartObject.labels;
+											$scope.batchTechData = barChartObject.data;
+											$scope.batchTechOptions = barChartObject.options;
+
+										}, function() {
+											NProgress.done();
+										});
 
 					}
-
+					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
+						chartsDelegate.bar.data
+						.get(1050, 1)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var doughnutChartObject = chartsDelegate.doughnut
+											.getQCStats(data);
+									console
+											.log("here we are, in the pie method");
+									console.log(doughnutChartObject);
+									$scope.qcStatsLabels = doughnutChartObject.labels;
+									$scope.qcStatsData = doughnutChartObject.data;
+									$scope.qcStatsOptions = doughnutChartObject.options;
+								}, function() {
+									NProgress.done();
+								});
 
 					}
 
@@ -186,11 +219,11 @@ angular
 					function createWeeklyProgressBatchOverall() {
 
 					}
-
+					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {
 
 					}
-
+					
 					function createWeeklyProgressTraineeOverall() {
 
 					}

@@ -50,20 +50,20 @@ angular.module("delegate")
 					delegate.bar.data.getAverageTraineeScoresWeeklyData = function(){
 						return barChartDataFactory.();
 					};*/
-					
-					/*delegate.bar.getAssessmentAveragesBatchWeekly = function(dataArray){
-						return barChartFactory.(dataArray);
+					//yani barchart
+					delegate.bar.getAssessmentAveragesBatchWeekly = function(dataArray){
+						return barChartFactory.getBatchWeekAvgBarChart(dataArray);
 					};
-					
+					//yani barchart data
 					delegate.bar.data.getAssessmentAveragesBatchWeeklyData = function(){
-						return barChartDataFactory.();
-					};*/
+						return barChartDataFactory.getBatchWeekAvgBarChart(batchId, week);
+					};
 					
 					delegate.bar.getAverageTraineeScoresOverall = function(dataArray){
 						return barChartFactory.getBatchOverallBarChart(dataArray);
 					};
 					
-					delegate.bar.data.getAverageTraineeScoresOverallData = function(){
+					delegate.bar.data.getAverageTraineeScoresOverallData = function(batchId){
 						return barChartDataFactory.getBatchOverallBarChart(batchId);
 					};
 					
@@ -143,13 +143,14 @@ angular.module("delegate")
 						return lineChartDataFactory.();
 					};*/
 					
-					/*delegate.line.getWeeklyProgressTraineeWeekly = function(dataArray){
-						return lineChartFactory.(dataArray);
+					delegate.line.getWeeklyProgressTraineeWeekly = function(dataArray){
+						return lineChartFactory.getTraineeUpToWeekLineChart(dataArray);
 					};
 					
+					
 					delegate.line.data.getWeeklyProgressTraineeWeeklyData = function(){
-						return lineChartDataFactory.();
-					};*/
+						return lineChartDataFactory.getTraineeUpToWeekLineChart(week, traineeId);
+					};
 					
 					/*delegate.line.getWeeklyProgressTraineeOverall = function(dataArray){
 						return lineChartFactory.(dataArray);
