@@ -118,36 +118,67 @@ angular
 
 					// **************************** Radar
 					// ***************************************
-
-					function createTechnicalSkillsBatchOverall() {
-
-						chartsDelegate.radar.data
-								.getTechnicalSkillsBatchOverallData(1050)
-								.then(
-										function(data) {
-											$log.debug("Radar createTechnicalSkillsBatchOverall")
-											$log.debug(data);
-											NProgress.done();
-											var batchOverallRadarChartObject = chartsDelegate.radar
-													.getTechnicalSkillsBatchOverall(data);
-											$log
-													.debug("Radar Chart: Created Batch Overall BatchID:");
-
-											$scope.radarBatchOverallData = batchOverallRadarChartObject.data;
-											$scope.radarBatchOverallOptions = batchOverallRadarChartObject.options;
-											$scope.radarBatchOverallLabels = batchOverallRadarChartObject.labels;
-											$scope.radarBatchOverallSeries = batchOverallRadarChartObject.series;
-										});
-
-					}
-
 					function createTechnicalSkillsTraineeWeekly() {
+						$log.debug("createTechnicalSkillsTraineeWeekly");
+						chartsDelegate.radar.data
+						.getTechnicalSkillsTraineeWeeklyData(5, 1059) // up to week, traineeId
+						.then(
+								function(data) {
+									NProgress.done();
+									var radarTraineeWeeklyChartObj = chartsDelegate.radar
+											.getTechnicalSkillsTraineeWeekly(data);
 
-					}
+									$log.debug("Radar Trainee Up To Week Chart Object:");
+									$log.debug(radarTraineeWeeklyChartObj);
+
+									$scope.radarTraineeWeeklyData = radarTraineeWeeklyChartObj.data;
+									$scope.radarTraineeWeeklyOptions = radarTraineeWeeklyChartObj.options;
+									$scope.radarTraineeWeeklyLabels = radarTraineeWeeklyChartObj.labels;
+									$scope.radarTraineeWeeklySeries = radarTraineeWeeklyChartObj.series;
+								});
+					};
 
 					function createTechnicalSkillsTraineeOverall() {
+						$log.debug("createTechnicalSkillsTraineeOverall");
+						chartsDelegate.radar.data
+						.getTechnicalSkillsTraineeOverallData(1059) // traineeId
+						.then(
+								function(data) {
+									NProgress.done();
+									var radarTraineeOverallChartObj = chartsDelegate.radar
+											.getTechnicalSkillsTraineeOverall(data);
+									
+									$log.debug("Radar Trainee Overall Chart Object:");
+									$log.debug(radarTraineeOverallChartObj);
 
-					}
+									$scope.radarTraineeOverallData = radarTraineeOverallChartObj.data;
+									$scope.radarTraineeOverallOptions = radarTraineeOverallChartObj.options;
+									$scope.radarTraineeOverallLabels = radarTraineeOverallChartObj.labels;
+									$scope.radarTraineeOverallSeries = radarTraineeOverallChartObj.series;
+								});
+					};
+					
+
+					function createTechnicalSkillsBatchOverall() {
+						$log.debug("createTechnicalSkillsBatchOverall");
+						chartsDelegate.radar.data
+								.getTechnicalSkillsBatchOverallData(1050) // batchId
+								.then(
+										function(data) {
+											NProgress.done();
+											var radarBatchOverallChartObject = chartsDelegate.radar
+													.getTechnicalSkillsBatchOverall(data);
+
+											$log.debug("Radar Batch Overall Chart Object:");
+											$log.debug(radarBatchOverallChartObject);
+											
+											$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
+											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
+											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
+											$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
+										});
+
+					};
 
 					// ***************************** Line
 					// ***************************************

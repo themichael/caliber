@@ -74,7 +74,7 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 			reverse : false,
 			ticks : {
 				beginAtZero : false,
-				fixedStepSize : 5,
+				fixedStepSize : 10,
 				max : 100,
 				suggestedMin : 40
 			}
