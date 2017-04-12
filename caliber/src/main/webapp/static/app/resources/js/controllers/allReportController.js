@@ -340,5 +340,19 @@ angular
 									$log.debug(value);
 								});
 					}
+					//on select trainee
+//					$scope.selectCurrentTrainee = function(index) {
+//						if (index === -1) {
+//							$scope.currentTrainee = {
+//								name : "Trainee"
+//							};
+//							viewCharts = 1;
+//							//createBatchCharts();
+//						} else {
+//							$scope.currentTrainee = $scope.currentBatch.trainees[index];
+//							viewCharts = 3;
+//							//createTraineeCharts();
+//						}
+//					};
 
 				});
