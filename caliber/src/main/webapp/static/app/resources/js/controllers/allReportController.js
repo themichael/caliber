@@ -220,6 +220,22 @@ angular
 					}
 					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {
+						chartsDelegate.line.data
+						.getWeeklyProgressTraineeWeeklyData(3, 1052)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var lineChartObjectwd = chartsDelegate.line
+									.getWeeklyProgressTraineeWeekly(data);
+									console.log("here we are, in the yani line method");
+									console.log(lineChartObjectwd);
+									$scope.linecharTWLabels = lineChartObjectwd.labels;
+									$scope.lineharTWData = lineChartObjectwd.data;
+									
+								}, function() {
+									NProgress.done();
+								});
 
 					}
 					

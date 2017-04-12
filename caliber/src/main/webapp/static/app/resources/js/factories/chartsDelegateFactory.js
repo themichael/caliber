@@ -187,7 +187,7 @@ angular
 					};
 					
 					//yani linechartdata
-					delegate.line.data.getWeeklyProgressTraineeWeeklyData = function(){
+					delegate.line.data.getWeeklyProgressTraineeWeeklyData = function(week, traineeId){
 						return lineChartDataFactory.getTraineeUpToWeekLineChart(week, traineeId);
 					};
 					

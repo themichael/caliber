@@ -11,7 +11,7 @@ angular.module("reportApi").factory(
 			report.getTraineeUpToWeekLineChart = function(week, traineeId) {
 				return $http(
 						{
-							url : "/all/reports/batch/week/" + week
+							url : "/all/reports/week/" + week
 									+ "/trainee/" + traineeId
 									+ "/line-trainee-up-to-week",
 							method : "GET"
