@@ -92,14 +92,38 @@ angular
 
 						$log.debug("THIS IS THE DOUBLE[] DATA SET");
 						$log.debug(dataArray);
+						chartData.options = {
+								scales : {
+									xAxes : [ {
+										scaleLabel : {
+											display : true,
+											labelString : 'Week'
+										}
+
+									} ],
+									yAxes : [ {
+										scaleLabel : {
+											display : true,
+											labelString : 'Score'
+										},
+
+										ticks : {
+											min : 40,
+											max : 100,
+											stepSize : 20
+										}
+									} ]
+								},
+
+							};
 
 						// loop through object array
 						var trainee = [];
 						var batch = [];
 						var week = [];
 						angular.forEach(dataArray, function(value, key) {
-							trainee.push(value[0]);
-							batch.push(value[1]);
+							trainee.push(value[0].toFixed(2));
+							batch.push(value[1].toFixed(2));
 							week.push(key);
 						});
 						chartData.data.push(trainee);
