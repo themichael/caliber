@@ -1,6 +1,6 @@
 <div id="manage">
 	<div class="container">
-		<div class="row">
+		<div class="row"> 
 			<div class="col-md-12 col-lg-12">
 				<ul class="nav nav-tabs">
 					<!-- Filter batches by year -->
@@ -56,11 +56,9 @@
 							<td>{{batch.borderlineGradeThreshold}}</td>
 							<td>
 								<!-- Button Trigger for Add Trainee Modal --> <a role="button"
-								data-toggle="modal"
-								ng-click="resetTraineeForm();selectCurrentBatch($index)"
+								data-toggle="modal" ng-click="selectCurrentBatch($index)"
 								data-target="#addTraineeModal"><span
-									class="glyphicon glyphicon-user"><p>{{batch.trainees.length}}</p></span>
-							</a>
+									class="glyphicon glyphicon-user"><p>{{batch.trainees.length}}</p></span> </a>
 							</td>
 							<td><a role="button" class="pull-right"
 								ng-click="populateBatch(batch);selectCurrentBatch($index)"
@@ -131,7 +129,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div ng-if="role !='TRAINER'"  class="form-group col-md-6 col-sm-6">
+							<div class="form-group col-md-6 col-sm-6">
 								<label for="trainer">Trainer:</label> <select
 									ng-model="trainer.model" class="form-control" id="trainer"
 									required>
@@ -227,11 +225,10 @@
 							Delete</h4>
 					</div>
 					<!-- Add Batch Info -->
-					<h3>Are you sure you want to delete batch
-						{{currentBatch.trainingName}}?</h3>
+					<h3>Are you sure you want to delete this batch?</h3>
 					<br /> <span ng-if="trainees.length > 1">
 						<h4>There are {{trainees.length}} trainees in this batch</h4>
-					</span> <span ng-if="trainees.length == 1">
+					</span>  <span ng-if="trainees.length == 1">
 						<h4>There is only 1 trainee in this batch</h4>
 					</span> <span ng-if="trainees.length == 0||!trainees">
 						<h4>There are no trainees in this batch</h4>
@@ -275,8 +272,7 @@
 										<th>Phone Number</th>
 										<th>Skype Id</th>
 										<th>Profile URL</th>
-										<th></th>
-										<th></th>
+										<th>Edit</th>
 
 									</tr>
 								</thead>
@@ -292,52 +288,59 @@
 												href="{{trainee.profileUrl}}" target="_blank"><i
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 										</span></td>
-										<td><a role="button"
-											ng-click="populateTrainee(trainee);getTrainee($index)"
+										<td><a role="button" ng-click="getTrainee(trainee)"
 											type="button"> <span class="glyphicon glyphicon-pencil"></span>
 										</a></td>
 
-										<td><a role="button" class="pull-right"
-											ng-click="getTraineeToDelete($index)" data-toggle="modal"
-											data-target="#deleteTraineeModal"><span
+										<td><a role="button"
+											ng-click="removeTrainee(trainee.traineeId); selectCurrentBatch($index)"
+											type="button" value="delete"> <span
 												class="glyphicon glyphicon-remove" aria-hidden="true">
-											</span></a></td>
+											</span>
+										</a></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 						<!-- Add New Trainee -->
-						<h3 ng-bind="traineeFormName">Add Trainee</h3>
-						<div>
+						<h3>Add Trainee</h3>
+						<div ng-repeat="receiver in receivers">
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeName">Full Name:</label> <input
-										ng-model="traineeName" type="text" class="form-control"
-										id="traineeName" placeholder="Name" required>
+										ng-model="receiver.name" type="text" class="form-control"
+										id="traineeName" placeholder="Name"
+										ng-value="editTrainee.name" required>
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeEmail">Email:</label> <input
-										ng-model="traineeEmail" type="email" class="form-control"
-										id="traineeEmail" placeholder="Email" required>
+										ng-model="receiver.email" type="email" class="form-control"
+										id="traineeEmail" placeholder="Email"
+										ng-value="editTrainee.email" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineeSkype">Skype Id:</label> <input
-										ng-model="traineeSkypeId" type="text" class="form-control"
-										id="traineeSkype" placeholder="Skype Id">
+										ng-model="receiver.skypeId" type="text" class="form-control"
+										id="traineeSkype" placeholder="Skype Id"
+										ng-value="editTrainee.skypeId">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="traineePhone">Phone:</label> <input
-										ng-model="traineePhoneNumber" type="text" class="form-control"
-										id="traineePhone" placeholder="(xxx)-xxx-xxxx">
+										ng-model="receiver.phoneNumber" type="text"
+										class="form-control" id="traineePhone"
+										placeholder="(xxx)-xxx-xxxx"
+										ng-value="editTrainee.phoneNumber" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeProfile">Profile URL:</label> <input
-										ng-model="traineeProfileUrl" type="text" class="form-control"
-										id="traineeName" placeholder="http://www.example.com/revature">
+										ng-model="receiver.profileUrl" type="text"
+										class="form-control" id="traineeName"
+										placeholder="http://www.example.com/revature"
+										ng-value="editTrainee.profileUrl">
 
 								</div>
 							</div>
@@ -345,7 +348,7 @@
 
 								<div class="form-group col-lg-12 col-md-12 col-sm-12">
 									<label for="traineeStatus">Training Status</label> <select
-										ng-model="traineeTrainingStatus" class="form-control"
+										ng-model="receiver.trainingStatus" class="form-control"
 										id="traineeStatus" required>
 										<option value="" disabled>Select Status</option>
 										<option ng-repeat="option in trainingStatuses.options">{{option}}</option>
@@ -353,41 +356,42 @@
 								</div>
 							</div>
 						</div>
+						<!-- 	Remove from view until synchronization issue is solved
+							<div class="row">
+								<div class="form-group col-md-2 col-sm-2">
+									<div ng-click="addTrainee(receiver)">
+										<a role="button" class="glyph-top-margin"> <span
+											class="glyphicon glyphicon-plus glyph-top-margin"
+											aria-hidden="true"></span>
+										</a>
+									</div>
+								</div>
+								
+								
+								<div class="form-group col-md-2 col-sm-2">
+									<div ng-click="deleteTrainee(receiver)">
+										<a role="button"> <span
+											class="glyphicon glyphicon-minus glyph-top-margin"
+											aria-hidden="true"></span>
+										</a>
+									</div>
+								</div>
+							</div> -->
 					</div>
 
 					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							ng-show="!Updating">Close</button>
+						<input type="submit" value="Save" class="btn btn-primary"
+							ng-show="!Updating">
+
+
 						<button type="button" class="btn btn-default"
-							ng-click="resetTraineeForm()">Clear</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<input type="submit" ng-value="Save" class="btn btn-primary">
+							ng-click="updateTrainee(editTrainee)" ng-show="Updating">Clear</button>
+						<button type="button" id="updateTraineeButton"
+							class="btn btn-primary" ng-click="updateTrainee(editTrainee)"
+							class="btn btn-default" ng-show="Updating">Update</button>
 
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
-
-	<!--********************************************* Confirm Trainee Delete Modal ************************************-->
-	<form ng-submit="removeTrainee()">
-		<div class="modal fade" id="deleteTraineeModal" tabindex="0"
-			role="dialog" aria-labelledby="traineeModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="traineeModalLabel">Delete Trainee</h4>
-					</div>
-					<h3>Are you sure you want to delete
-						{{traineeToBeDeleted.name}}?</h3>
-					<br />
-					<div class="modal-body"></div>
-					<div class="modal-footer">
-						<input type="submit" value="Yes" class="btn btn-primary">
-						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 					</div>
 				</div>
 			</div>
