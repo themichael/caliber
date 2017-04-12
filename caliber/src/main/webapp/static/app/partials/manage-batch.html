@@ -131,7 +131,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="form-group col-md-6 col-sm-6">
+							<div ng-if="role !='TRAINER'"  class="form-group col-md-6 col-sm-6">
 								<label for="trainer">Trainer:</label> <select
 									ng-model="trainer.model" class="form-control" id="trainer"
 									required>
@@ -275,7 +275,8 @@
 										<th>Phone Number</th>
 										<th>Skype Id</th>
 										<th>Profile URL</th>
-										<th>Edit</th>
+										<th></th>
+										<th></th>
 
 									</tr>
 								</thead>
