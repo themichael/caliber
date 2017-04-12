@@ -57,7 +57,7 @@ angular
 						createQCStatus();
 						createAverageTraineeScoresWeekly();
 						createAverageTraineeScoresOverall();
-						createAssessmentAveragesBatchWeekly();
+//						createAssessmentAveragesBatchWeekly();
 						createAssessmentAveragesTraineeWeekly();
 						createAssessmentAveragesTraineeOverall();
 						createTechnicalSkillsBatchOverall();

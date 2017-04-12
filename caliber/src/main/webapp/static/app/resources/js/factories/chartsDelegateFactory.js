@@ -82,11 +82,11 @@ angular
 					};
 					
 					delegate.bar.getAverageTraineeScoresOverall = function(dataArray){
-						return barChartFactory.getBatchOverallBarChart(dataArray);
+						return barChartFactory.getBatchWeekSortedBarChart(dataArray);
 					};
 					
-					delegate.bar.data.getAverageTraineeScoresOverallData = function(batchId){
-						return barChartDataFactory.getBatchOverallBarChart(batchId);
+					delegate.bar.data.getAverageTraineeScoresOverallData = function(batchId, week){
+						return barChartDataFactory.getBatchWeekSortedBarChartData(batchId, week);
 					};
 					
 					/*delegate.bar.getAssessmentAveragesTraineeWeekly = function(dataArray){
