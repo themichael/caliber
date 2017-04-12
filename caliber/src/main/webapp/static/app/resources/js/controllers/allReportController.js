@@ -12,7 +12,7 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-						
+
 						// batch null check
 						if (!allBatches || allBatches.length === 0) {
 							$scope.noBatches = true;
@@ -114,8 +114,40 @@ angular
 								NProgress.done();
 							});
 					}
-
+//								.getAverageTraineeScoresOverallData(1051)
+//								.then(
+//										function(data) {
+//											$log.debug(data);
+//											NProgress.done();
+//											var barChartObject = chartsDelegate.bar
+//													.getAverageTraineeScoresOverall(data);
+//											console.log("batch avg chart");
+//											$scope.batchTechLabels = barChartObject.labels;
+//											$scope.batchTechData = barChartObject.data;
+//											$scope.batchTechOptions = barChartObject.options;
+//
+//										}, function() {
+//											NProgress.done();
+//										});
+					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
+						chartsDelegate.bar.data
+						.get(1050, 1)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var doughnutChartObject = chartsDelegate.doughnut
+											.getQCStats(data);
+									console
+											.log("here we are, in the pie method");
+									console.log(doughnutChartObject);
+									$scope.qcStatsLabels = doughnutChartObject.labels;
+									$scope.qcStatsData = doughnutChartObject.data;
+									$scope.qcStatsOptions = doughnutChartObject.options;
+								}, function() {
+									NProgress.done();
+								});
 
 					}
 
@@ -129,27 +161,67 @@ angular
 
 					// **************************** Radar
 					// ***************************************
-
-					function createTechnicalSkillsBatchOverall() {
-						/*
-						 * chartsDelegate.radar.getTechnicalSkillsBatchOverallData($scope.currentBatch.batchId).then(function(data){
-						 * $log.debug(data); NProgress.done(); var
-						 * batchOverallRadarChartObject =
-						 * chartsDelegate.radar.getBatchRankComparisonChart(data);
-						 * $log.debug("Radar Chart: Created Batch Overall Batch
-						 * ID: " + $scope.currentBatch.batchId);
-						 * 
-						 * });
-						 */
-					}
-
 					function createTechnicalSkillsTraineeWeekly() {
+						$log.debug("createTechnicalSkillsTraineeWeekly");
+						chartsDelegate.radar.data
+						.getTechnicalSkillsTraineeWeeklyData(5, 1059) // up to week, traineeId
+						.then(
+								function(data) {
+									NProgress.done();
+									var radarTraineeWeeklyChartObj = chartsDelegate.radar
+											.getTechnicalSkillsTraineeWeekly(data);
 
-					}
+									$log.debug("Radar Trainee Up To Week Chart Object:");
+									$log.debug(radarTraineeWeeklyChartObj);
+
+									$scope.radarTraineeWeeklyData = radarTraineeWeeklyChartObj.data;
+									$scope.radarTraineeWeeklyOptions = radarTraineeWeeklyChartObj.options;
+									$scope.radarTraineeWeeklyLabels = radarTraineeWeeklyChartObj.labels;
+									$scope.radarTraineeWeeklySeries = radarTraineeWeeklyChartObj.series;
+								});
+					};
 
 					function createTechnicalSkillsTraineeOverall() {
+						$log.debug("createTechnicalSkillsTraineeOverall");
+						chartsDelegate.radar.data
+						.getTechnicalSkillsTraineeOverallData(1059) // traineeId
+						.then(
+								function(data) {
+									NProgress.done();
+									var radarTraineeOverallChartObj = chartsDelegate.radar
+											.getTechnicalSkillsTraineeOverall(data);
+									
+									$log.debug("Radar Trainee Overall Chart Object:");
+									$log.debug(radarTraineeOverallChartObj);
 
-					}
+									$scope.radarTraineeOverallData = radarTraineeOverallChartObj.data;
+									$scope.radarTraineeOverallOptions = radarTraineeOverallChartObj.options;
+									$scope.radarTraineeOverallLabels = radarTraineeOverallChartObj.labels;
+									$scope.radarTraineeOverallSeries = radarTraineeOverallChartObj.series;
+								});
+					};
+					
+
+					function createTechnicalSkillsBatchOverall() {
+						$log.debug("createTechnicalSkillsBatchOverall");
+						chartsDelegate.radar.data
+								.getTechnicalSkillsBatchOverallData(1050) // batchId
+								.then(
+										function(data) {
+											NProgress.done();
+											var radarBatchOverallChartObject = chartsDelegate.radar
+													.getTechnicalSkillsBatchOverall(data);
+
+											$log.debug("Radar Batch Overall Chart Object:");
+											$log.debug(radarBatchOverallChartObject);
+											
+											$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
+											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
+											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
+											$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
+										});
+
+					};
 
 					// ***************************** Line
 					// ***************************************
@@ -167,11 +239,11 @@ angular
 							})
 
 					}
-
+					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {
 
 					}
-
+					
 					function createWeeklyProgressTraineeOverall() {
 
 					}

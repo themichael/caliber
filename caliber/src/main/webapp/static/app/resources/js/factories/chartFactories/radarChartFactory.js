@@ -17,7 +17,7 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		chartData.labels = [];
 		chartData.data.push([]);
 
-		angular.forEach(data, function(value, key) {
+		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
 			chartData.data[0].push(value);
 		});
@@ -35,7 +35,7 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		chartData.labels = [];
 		chartData.data.push([]);
 
-		angular.forEach(data, function(value, key) {
+		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
 			chartData.data[0].push(value);
 		});
@@ -53,7 +53,7 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		chartData.labels = [];
 		chartData.data.push([]);
 
-		angular.forEach(data, function(value, key) {
+		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
 			chartData.data[0].push(value);
 		});
@@ -74,7 +74,7 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 			reverse : false,
 			ticks : {
 				beginAtZero : false,
-				fixedStepSize : 5,
+				fixedStepSize : 10,
 				max : 100,
 				suggestedMin : 40
 			}

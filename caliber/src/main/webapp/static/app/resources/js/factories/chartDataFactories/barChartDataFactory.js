@@ -111,5 +111,5 @@ angular
 									+ response.status);
 						});
 					};
-					 return report;
+				return report;
 				})
