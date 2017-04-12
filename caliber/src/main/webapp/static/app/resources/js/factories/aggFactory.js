@@ -67,6 +67,7 @@ angular.module("api").factory(
 			 * @param batchId
 			 * @returns {*}
 			 */
+			// Assessments ?
 			agg.weekBatch = function(batchId) {
 				return $http({
 					url : "/all/agg/week/batch/" + batchId,
