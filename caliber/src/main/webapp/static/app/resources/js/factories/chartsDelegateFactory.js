@@ -77,7 +77,7 @@ angular
 						return barChartFactory.getBatchWeekAvgBarChart(dataArray);
 					};
 					//yani barchart data
-					delegate.bar.data.getAssessmentAveragesBatchWeeklyData = function(){
+					delegate.bar.data.getAssessmentAveragesBatchWeeklyData = function(batchId, week){
 						return barChartDataFactory.getBatchWeekAvgBarChart(batchId, week);
 					};
 					
@@ -181,12 +181,12 @@ angular
 					delegate.line.data.getWeeklyProgressBatchOverallData = function(){
 						return lineChartDataFactory.();
 					};*/
-					
+					//yani linechart
 					delegate.line.getWeeklyProgressTraineeWeekly = function(dataArray){
 						return lineChartFactory.getTraineeUpToWeekLineChart(dataArray);
 					};
 					
-					
+					//yani linechartdata
 					delegate.line.data.getWeeklyProgressTraineeWeeklyData = function(){
 						return lineChartDataFactory.getTraineeUpToWeekLineChart(week, traineeId);
 					};

@@ -34,17 +34,15 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		// data and labels
 		chartData.data = [];
 		chartData.labels = [];
-
+		
+		console.log("Yanilda")
 		// traverse through array of objects and grab labels and data
-		dataArray.forEach(function(key, value) {
+		angular.forEach(dataArray,function(value, key) {
 			chartData.labels.push(key);
+			$log.debug(key);
 			chartData.data.push(value[0]);
+			$log.debug(value);
 		});
-
-		chartData.datasetOverride = [ {
-			xAxisID : 'x-axis-1'
-		} ];
-
 		return chartData;
 	};
 

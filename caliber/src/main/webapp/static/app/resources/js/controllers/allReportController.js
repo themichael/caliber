@@ -57,7 +57,7 @@ angular
 						createQCStatus();
 						createAverageTraineeScoresWeekly();
 						createAverageTraineeScoresOverall();
-//						createAssessmentAveragesBatchWeekly();
+						createAssessmentAveragesBatchWeekly();
 						createAssessmentAveragesTraineeWeekly();
 						createAssessmentAveragesTraineeOverall();
 						createTechnicalSkillsBatchOverall();
@@ -132,19 +132,18 @@ angular
 					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
 						chartsDelegate.bar.data
-						.get(1050, 1)
+						.getAssessmentAveragesBatchWeeklyData(1051, 1)
 						.then(
 								function(data) {
 									$log.debug(data);
 									NProgress.done();
-									var doughnutChartObject = chartsDelegate.doughnut
-											.getQCStats(data);
-									console
-											.log("here we are, in the pie method");
-									console.log(doughnutChartObject);
-									$scope.qcStatsLabels = doughnutChartObject.labels;
-									$scope.qcStatsData = doughnutChartObject.data;
-									$scope.qcStatsOptions = doughnutChartObject.options;
+									var barChartObject = chartsDelegate.bar
+									.getAssessmentAveragesBatchWeekly(data);
+									console.log("here we are, in the yani barchart method");
+									console.log(barChartObject);
+									$scope.barcharAWLabels = barChartObject.labels;
+									$scope.barcharAWData = barChartObject.data;
+									
 								}, function() {
 									NProgress.done();
 								});
