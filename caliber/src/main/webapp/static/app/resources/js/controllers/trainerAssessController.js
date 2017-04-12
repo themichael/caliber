@@ -529,6 +529,9 @@ angular
 							}
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
+					/****************************************************
+					 *Save Button **
+					 **************************************************/
 					
 					$scope.showSaving = false;
 					$scope.showCheck = false;
@@ -546,10 +549,9 @@ angular
 										$scope.showCheck = false;
 									},2000).then(function(){
 										$scope.showFloppy = true;
-									});
-								
-								})
-							})
+									});								
+								});
+							});
 					}
 					$scope.stopBurrito = function(traineeId){
 						$scope.trainees[traineeId].burrito=false;
