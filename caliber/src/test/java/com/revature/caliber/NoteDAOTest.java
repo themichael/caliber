@@ -1,0 +1,173 @@
+/**
+ * 
+ */
+package com.revature.caliber;
+
+import static org.junit.Assert.*;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.data.NoteDAO;
+
+/**
+ * @author Sudish
+ *
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
+public class NoteDAOTest {
+
+	private static Logger log = Logger.getLogger(NoteDAOTest.class);
+
+	@Autowired
+	private NoteDAO noteDAO;
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#setSessionFactory(org.hibernate.SessionFactory)}
+	 * .
+	 */
+	@Test
+	public void testSetSessionFactory() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#save(com.revature.caliber.beans.Note)}
+	 * .
+	 */
+	@Test
+	public void testSave() {
+		
+		try {
+			Note note = new Note();
+//			note.setContent("They are doing well");
+//			note.setMaxVisibility(TrainerRole.QC);
+//			Trainee trainee = new Trainee();
+//			trainee.setTraineeId(1079);
+//			note.setTrainee(trainee);
+//			note.setType(NoteType.QC_TRAINEE);
+//			note.setWeek((short) 8);
+//			note.setQcFeedback(true);
+//			note.setQcStatus(null);
+			log.info(noteDAO.save(note)); // TODO
+			
+		} catch (Exception e) {
+			fail("Save Note did not work:"+e);
+		}
+
+		
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#update(com.revature.caliber.beans.Note)}
+	 * .
+	 */
+	@Test
+	public void testUpdate() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#findBatchNotes(java.lang.Integer, java.lang.Integer)}
+	 * .
+	 */
+	@Test
+	public void testFindBatchNotes() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#findIndividualNotes(java.lang.Integer, java.lang.Integer)}
+	 * .
+	 */
+	@Test
+	public void testFindIndividualNotes() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#findQCBatchNotes(java.lang.Integer, java.lang.Integer)}
+	 * .
+	 */
+	@Test
+	public void testFindQCBatchNotes() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#findQCIndividualNotes(java.lang.Integer, java.lang.Integer)}
+	 * .
+	 */
+	@Test
+	public void testFindQCIndividualNotes() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#findAllBatchNotes(java.lang.Integer, java.lang.Integer)}
+	 * .
+	 */
+	@Test
+	public void testFindAllBatchNotes() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#findAllIndividualNotes(java.lang.Integer, java.lang.Integer)}
+	 * .
+	 */
+	@Test
+	public void testFindAllIndividualNotes() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#findAllPublicIndividualNotes(java.lang.Integer)}
+	 * .
+	 */
+	@Test
+	public void testFindAllPublicIndividualNotes() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#findAllQCBatchNotes(java.lang.Integer)}
+	 * .
+	 */
+	@Test
+	public void testFindAllQCBatchNotes() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.revature.caliber.data.NoteDAO#findAllQCTraineeNotes(java.lang.Integer, java.lang.Integer)}
+	 * .
+	 */
+	@Test
+	public void testFindAllQCTraineeNotes() {
+		fail("Not yet implemented"); // TODO
+	}
+
+}
