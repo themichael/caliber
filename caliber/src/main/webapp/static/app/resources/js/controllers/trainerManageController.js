@@ -390,23 +390,30 @@ angular
 							}
 						}
 					};
+					
+					/**Get Trainee to delete**/
+					$scope.getTraineeToDelete = function(index) {
+						var traineeToBeDeleted;
+						$scope.traineeToBeDeleted = $scope.trainees[index];
+						// $scope.editTrainee = $scope.trainees[index];
+						$scope.traineeRow = index;
+					}
 
 					/** Delete Trainee* */
 
 					$scope.removeTrainee = function(traineeId) {
-						$log.log(traineeId);
+						$log.debug($scope.traineeToBeDeleted.traineeId);
+						$log
+								.debug($scope.currentBatch.trainees[$scope.traineeRow]);
+						$log
+								.debug($scope.trainees[$scope.traineeRow].traineeId);
+
 						caliberDelegate.all
-								.deleteTrainee(traineeId)
-								.then(
-										function() {
-											for (var i = 0; i < $scope.receivers.length; i++) {
-												if ($scope.receivers[i] === receiver) {
-													$scope.receivers.splice(i,
-															1);
-													break;
-												}
-											}
-										})
+								.deleteTrainee($scope.traineeToBeDeleted.traineeId);
+						$scope.currentBatch.trainees.splice($scope.traineeRow,
+								1);
+						angular.element("#deleteTraineeModal").modal("hide");
+
 					};
 
 				});
