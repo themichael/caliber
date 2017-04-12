@@ -28,8 +28,8 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 		return chartData;
 	};
-	
-	//Yanilda
+
+	// Yanilda
 	lineChart.getTraineeUpToWeekLineChart = function(dataArray) {
 		var chartData = {};
 
@@ -107,6 +107,23 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		});
 
 		return chartData;
+	};
+	lineChart.getTraineeOverallLineChart = function(dataArray) {
+		var chartDAta = {};
+		chartData.data = [];
+		chartData.labels = [];
+
+		// loop through object array
+		dataArray.forEach(function(key, value) {
+			chartData.data.push(value[0]);
+			chartData.labels.push(key);
+		});
+		chartData.datasetOverride = [ {
+			xAxisID : 'x-axis-1'
+		} ];
+
+		return chartData;
+
 	};
 	return lineChart;
 });

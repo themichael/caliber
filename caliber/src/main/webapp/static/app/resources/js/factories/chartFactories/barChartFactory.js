@@ -118,12 +118,12 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		chartData.labels = [];
 		chartData.data.push([]);
 		
-		
-		chartData.options = {
-			legend : {
-				display : true
-			}
-		};
+//		
+//		chartData.options = {
+//			legend : {
+//				display : true
+//			}
+//		};
 
 		// loop through object array
 		angular.forEach(dataArray, function(value,key) {

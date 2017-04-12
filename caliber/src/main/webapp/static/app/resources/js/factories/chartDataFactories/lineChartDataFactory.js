@@ -23,7 +23,7 @@ angular.module("reportApi").factory(
 					$log.error("There was an error: " + response.status);
 				});
 			};
-
+			//Hossain
 			report.getTraineeOverallLineChart = function(batchId, traineeId) {
 
 				return $http({
