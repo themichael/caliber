@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
 
@@ -105,7 +107,7 @@ public class TrainingController {
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Batch> createBatch(@RequestBody Batch batch, Authentication auth) {
-		if (getPrincipal(auth).getTier().toString() == "TRAINER") {
+		if (getPrincipal(auth).getTier().equals(TrainerRole.TRAINER)) {
 			batch.setTrainer(getPrincipal(auth));
 		}
 		log.info("Saving batch: " + batch);
