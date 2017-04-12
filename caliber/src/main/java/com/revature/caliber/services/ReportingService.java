@@ -235,10 +235,11 @@ public class ReportingService {
 	 * @return Map<'week', 'avgScore'>
 	 */
 
-	public Map<Integer, Double> getTraineeUpToWeekLineChart(int week, int traineeId) {
-		Map<Integer, Double> results = new HashMap<>();
+	public Map<Integer, Double[]> getTraineeUpToWeekLineChart(int week, int traineeId) {
+		Map<Integer, Double[]> results = new HashMap<>();
+		int batchId= traineeDAO.findOne(traineeId).getBatch().getBatchId();
 		for (int w = 1; w <= week; w++) {
-			Double temp = utilAvgTraineeWeek(traineeId, w);
+			Double temp[] = {utilAvgTraineeWeek(traineeId, w),  utilAvgBatchWeekValue(batchId, w)};
 			results.put(w, temp);
 		}
 		return results;

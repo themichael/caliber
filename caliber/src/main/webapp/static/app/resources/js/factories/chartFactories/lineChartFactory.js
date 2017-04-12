@@ -36,17 +36,51 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		// data and labels
 		chartData.data = [];
 		chartData.labels = [];
-
+		chartData.series=["Trainee", "Batch"];
+		chartData.options = {
+				scales: {
+				    xAxes: [{
+				    	  scaleLabel:{
+							  display: true,
+						        labelString: 'Week'
+						  }
+					  
+				    }],
+					yAxes: [{
+					  scaleLabel:{
+						  display: true,
+					        labelString: 'Score'
+					  },
+					  
+			        ticks: {
+			            min: 40,
+			            max: 100,
+			            stepSize: 20
+			        }
+			    }]},
+	
+		};
+		
+		
+		var series1 = [];
+		var series2 = [];
+		
 		// traverse through array of objects and grab labels and data
 		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
-			chartData.data.push(value);
+			series1.push(value[0]);
+			series2.push(value[1]);
+			//chartData.data.push(value);
 		});
 
 	/*	chartData.datasetOverride = [ {
 			xAxisID : 'x-axis-1'
 		} ];*/
 
+		chartData.data.push(series1);
+		chartData.data.push(series2);
+		
+		
 		return chartData;
 	};
 

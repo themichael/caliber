@@ -15,18 +15,50 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		// data and labels
 		chartData.data = [];
 		chartData.labels = [];
+
+		chartData.options=[];
+		chartData.series=[];
 		
 		console.log("Yanilda")
+		
 		// traverse through array of objects and grab labels and data
 		angular.forEach(dataArray,function(value, key) {
-			chartData.labels.push(key);
-			chartData.data.push(value[0]);
+			if(value[0]>0)
+			{
+				chartData.labels.push(key);
+				chartData.series.push(key);
+				chartData.data.push(value[0]);
+			}
 		});
+		
+		chartData.options = {
+			  scales: {
+			  yAxes: [{  
+				  scaleLabel:{
+					  display: true,
+				        labelString: 'Score'
+				  },
+			  
+			        ticks: {
+			            min: 40,
+			            max: 100,
+			            stepSize: 20   
+			        }
+			    }],
+			    xAxes: [{
+			    	  scaleLabel:{
+						  display: true,
+					        labelString: 'Type'
+					  }
+				  
+			    }]
+		}
+		};
 
-		chartData.datasetOverride = [ {
+	/*	chartData.datasetOverride = [ {
 			xAxisID : 'x-axis-1'
 		} ];
-
+*/
 		return chartData;
 	};
 
