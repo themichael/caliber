@@ -25,7 +25,6 @@ angular.module("charts").factory("doughnutChartFactory", function($log) {
 
 		// traverse through array of objects and grab labels and data
 		angular.forEach(dataArray, function(value, key) {
-			$log.debug(value + " " + key);
 			//blue(Superstar) = #7972ff, green(Good) = #81f575, yellow(Average) = #e8b00b, red(Poor) = #ff7575
 			if(key === "Superstar") chartData.colors.push("#7972ff");
 			else if( key === "Good") chartData.colors.push("#81f575");
@@ -34,6 +33,7 @@ angular.module("charts").factory("doughnutChartFactory", function($log) {
 			chartData.labels.push(key);
 			chartData.data.push(value);
 		});
+		$log.debug(chartData.colors);
 
 		return chartData;
 	};

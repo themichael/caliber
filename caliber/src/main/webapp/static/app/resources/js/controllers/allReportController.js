@@ -19,7 +19,6 @@ angular
 							$scope.noBatchesMessage = "No Batches belonging to you were found.";
 						} else {
 							$scope.noBatches = false;
-							$log.debug("Here AGAIN!!!!!!");
 							createDefaultCharts();
 						}
 					})();
@@ -77,16 +76,13 @@ angular
 								.getQCStatsData(1050, 1)
 								.then(
 										function(data) {
-											$log.debug(data);
 											NProgress.done();
 											var doughnutChartObject = chartsDelegate.doughnut
 													.getQCStats(data);
-											console
-													.log("here we are, in the pie method");
-											console.log(doughnutChartObject);
 											$scope.qcStatsLabels = doughnutChartObject.labels;
 											$scope.qcStatsData = doughnutChartObject.data;
 											$scope.qcStatsOptions = doughnutChartObject.options;
+											$scope.qcStatsColors = doughnutChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
@@ -116,7 +112,6 @@ angular
 								.getAverageTraineeScoresOverallData(1051)
 								.then(
 										function(data) {
-											$log.debug(data);
 											NProgress.done();
 											var barChartObject = chartsDelegate.bar
 													.getAverageTraineeScoresOverall(data);
@@ -135,7 +130,6 @@ angular
 						.getAssessmentAveragesBatchWeeklyData(1051, 1)
 						.then(
 								function(data) {
-									$log.debug(data);
 									NProgress.done();
 									var barChartObject = chartsDelegate.bar
 									.getAssessmentAveragesBatchWeekly(data);
@@ -169,10 +163,6 @@ angular
 									NProgress.done();
 									var radarTraineeWeeklyChartObj = chartsDelegate.radar
 											.getTechnicalSkillsTraineeWeekly(data);
-
-									$log.debug("Radar Trainee Up To Week Chart Object:");
-									$log.debug(radarTraineeWeeklyChartObj);
-
 									$scope.radarTraineeWeeklyData = radarTraineeWeeklyChartObj.data;
 									$scope.radarTraineeWeeklyOptions = radarTraineeWeeklyChartObj.options;
 									$scope.radarTraineeWeeklyLabels = radarTraineeWeeklyChartObj.labels;
@@ -189,10 +179,6 @@ angular
 									NProgress.done();
 									var radarTraineeOverallChartObj = chartsDelegate.radar
 											.getTechnicalSkillsTraineeOverall(data);
-									
-									$log.debug("Radar Trainee Overall Chart Object:");
-									$log.debug(radarTraineeOverallChartObj);
-
 									$scope.radarTraineeOverallData = radarTraineeOverallChartObj.data;
 									$scope.radarTraineeOverallOptions = radarTraineeOverallChartObj.options;
 									$scope.radarTraineeOverallLabels = radarTraineeOverallChartObj.labels;
@@ -210,10 +196,6 @@ angular
 											NProgress.done();
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(data);
-
-											$log.debug("Radar Batch Overall Chart Object:");
-											$log.debug(radarBatchOverallChartObject);
-											
 											$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
 											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
 											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
