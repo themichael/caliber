@@ -98,23 +98,22 @@ angular
 					// *********************************
 
 					function createAverageTraineeScoresWeekly() {
-
+						chartsDelegate.bar.data
+						.getAverageTraineeScoresWeeklyData(1050, 1)
+						.then(function(data) {
+							NProgress.done();
+							var barChartObj = chartsDelegate.bar.getAverageTraineeScoresWeekly(data);
+							$scope.averageTraineeScoresWeeklyData = barChartObj.data;
+							$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
+							$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
+						}, function() {
+							NProgress.done();
+						});
 					}
 
 					function createAverageTraineeScoresOverall() {
-						chartsDelegate.bar.data
-							.getAverageTraineeScoresOverallData(1050, 1)
-							.then(function(data) {
-								NProgress.done();
-								var barChartObj = chartsDelegate.bar.getAverageTraineeScoresOverall(data);
-								$scope.averageTraineeScoresWeeklyData = barChartObj.data;
-								$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
-								$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
-							}, function() {
-								NProgress.done();
-							});
-					}
-//								.getAverageTraineeScoresOverallData(1051)
+//						chartsDelegate.bar.data
+//						.getAverageTraineeScoresOverallData(1051)
 //								.then(
 //										function(data) {
 //											$log.debug(data);
@@ -129,6 +128,7 @@ angular
 //										}, function() {
 //											NProgress.done();
 //										});
+					}
 					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
 						chartsDelegate.bar.data

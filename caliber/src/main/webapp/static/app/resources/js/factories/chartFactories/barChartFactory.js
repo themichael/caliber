@@ -48,64 +48,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		return chartData;
 	};
 
-	barChart.getTrainerEvalChart = function(dataArray) {
-		var chartData = {};
 
-		// series
-		chartData.series = [ "QC Eval" ];
-
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
-
-		// loop through object array
-		dataArray.forEach(function(element) {
-			chartData.data.push(element.score);
-			chartData.labels.push(element.name);
-		});
-
-		return chartData;
-	};
-
-	barChart.getAllBatchesEvalChart = function(data, batches) {
-		var chartData = {};
-
-		// series
-		chartData.series = [ "All Batch Eval" ];
-
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
-
-		// loop through object array
-		angular.forEach(data, function(value, key) {
-			$log.debug(value);
-			chartData.data.push(value[0]);
-			$log.debug(key);
-			chartData.labels.push(key);
-		});
-
-		return chartData;
-	};
-
-	barChart.getBatchTechEvalChart = function(dataArray) {
-		var chartData = {};
-
-		// series
-		chartData.series = [ "Tech Batch Eval" ];
-
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
-
-		// loop through object array
-		dataArray.forEach(function(key, value) {
-			chartData.data.push(value[0]);
-			chartData.labels.push(key);
-		});
-
-		return chartData;
-	};
 
 	barChart.getBatchOverallBarChart = function(dataArray) {
 		var chartData = {};
@@ -133,14 +76,24 @@ angular.module("charts").factory("barChartFactory", function($log) {
 	
 	barChart.getBatchWeekSortedBarChart = function(dataArray) {
 		var chartData = {};
-
+		//making a sorted array
+		var sorted = [];
+		//make the object to an array
+	    angular.forEach(dataArray, function(value, key) {
+	        sorted.push({'name' : key, 'value': value})
+	    });
+	    // sorted the array
+	    sorted.sort(function (a, b) {
+	      return b.value - a.value;
+	    });
+	     
 		chartData.series = ['Average Score'];
 		chartData.data = [];
 		chartData.labels = [];
 		
-		angular.forEach(dataArray, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data.push(value);
+		angular.forEach(sorted, function(obj) {
+			chartData.labels.push(obj.name);
+			chartData.data.push(obj.value);
 		});
 		return chartData;
 	};
