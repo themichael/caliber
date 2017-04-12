@@ -57,7 +57,7 @@ angular
 						createQCStatus();
 						createAverageTraineeScoresWeekly();
 						createAverageTraineeScoresOverall();
-//						createAssessmentAveragesBatchWeekly();
+						createAssessmentAveragesBatchWeekly();
 						createAssessmentAveragesTraineeWeekly();
 						createAssessmentAveragesTraineeOverall();
 						createTechnicalSkillsBatchOverall();
@@ -87,7 +87,6 @@ angular
 											$scope.qcStatsLabels = doughnutChartObject.labels;
 											$scope.qcStatsData = doughnutChartObject.data;
 											$scope.qcStatsOptions = doughnutChartObject.options;
-											$scope.qcStatsColors = doughnutChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
@@ -103,32 +102,23 @@ angular
 
 					function createAverageTraineeScoresOverall() {
 						chartsDelegate.bar.data
-							.getAverageTraineeScoresOverallData(1050, 1)
-							.then(function(data) {
-								NProgress.done();
-								var barChartObj = chartsDelegate.bar.getAverageTraineeScoresOverall(data);
-								$scope.averageTraineeScoresWeeklyData = barChartObj.data;
-								$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
-								$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
-							}, function() {
-								NProgress.done();
-							});
+								.getAverageTraineeScoresOverallData(1051)
+								.then(
+										function(data) {
+											$log.debug(data);
+											NProgress.done();
+											var barChartObject = chartsDelegate.bar
+													.getAverageTraineeScoresOverall(data);
+											console.log("batch avg chart");
+											$scope.batchTechLabels = barChartObject.labels;
+											$scope.batchTechData = barChartObject.data;
+											$scope.batchTechOptions = barChartObject.options;
+
+										}, function() {
+											NProgress.done();
+										});
+
 					}
-//								.getAverageTraineeScoresOverallData(1051)
-//								.then(
-//										function(data) {
-//											$log.debug(data);
-//											NProgress.done();
-//											var barChartObject = chartsDelegate.bar
-//													.getAverageTraineeScoresOverall(data);
-//											console.log("batch avg chart");
-//											$scope.batchTechLabels = barChartObject.labels;
-//											$scope.batchTechData = barChartObject.data;
-//											$scope.batchTechOptions = barChartObject.options;
-//
-//										}, function() {
-//											NProgress.done();
-//										});
 					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
 						chartsDelegate.bar.data
@@ -227,16 +217,6 @@ angular
 					// ***************************************
 
 					function createWeeklyProgressBatchOverall() {
-						chartsDelegate.line.data
-							.getWeeklyProgressBatchOverallData(1050)
-							.then(function(data) {
-									NProgress.done();
-									var lineChartObj = chartsDelegate.line.getWeeklyProgressBatchOverall(data);
-									$scope.weeklyProgressBatchOverallLabels = lineChartObj.labels;
-									$scope.weeklyProgressBatchOverallData = lineChartObj.data;
-							}, function() {
-								NProgress.done();
-							})
 
 					}
 					//Yanilda
