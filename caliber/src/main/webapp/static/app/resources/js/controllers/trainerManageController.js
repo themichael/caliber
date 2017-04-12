@@ -130,7 +130,7 @@ angular
 					};
 
 					/** Get trainee info* */
-					$scope.getTrainee = function(trainee, traineeB , traineeC) {
+					$scope.getTrainee = function(trainee, traineeB ) {
 
 						/*
 						 * $scope.editor = $scope.trainees[index]; $scope.trow =
