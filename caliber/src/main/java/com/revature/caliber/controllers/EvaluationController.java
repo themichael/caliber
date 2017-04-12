@@ -329,4 +329,3 @@ public class EvaluationController {
 		return new ResponseEntity<List<Note>>(evaluationService.findAllIndividualNotes(traineeId, week), HttpStatus.OK);
 	}
 }
-
