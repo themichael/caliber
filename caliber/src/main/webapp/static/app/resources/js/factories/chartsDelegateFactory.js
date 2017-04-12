@@ -55,7 +55,7 @@ angular.module("delegate")
 						return barChartFactory.getBatchWeekAvgBarChart(dataArray);
 					};
 					//yani barchart data
-					delegate.bar.data.getAssessmentAveragesBatchWeeklyData = function(){
+					delegate.bar.data.getAssessmentAveragesBatchWeeklyData = function(batchId, week){
 						return barChartDataFactory.getBatchWeekAvgBarChart(batchId, week);
 					};
 					
