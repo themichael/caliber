@@ -38,14 +38,14 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		chartData.labels = [];
 
 		// traverse through array of objects and grab labels and data
-		dataArray.forEach(function(key, value) {
+		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
 			chartData.data.push(value);
 		});
 
-		chartData.datasetOverride = [ {
+	/*	chartData.datasetOverride = [ {
 			xAxisID : 'x-axis-1'
-		} ];
+		} ];*/
 
 		return chartData;
 	};

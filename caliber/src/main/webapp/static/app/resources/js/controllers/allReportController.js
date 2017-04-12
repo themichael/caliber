@@ -57,7 +57,7 @@ angular
 						createQCStatus();
 						createAverageTraineeScoresWeekly();
 						createAverageTraineeScoresOverall();
-//						createAssessmentAveragesBatchWeekly();
+						createAssessmentAveragesBatchWeekly();
 						createAssessmentAveragesTraineeWeekly();
 						createAssessmentAveragesTraineeOverall();
 						createTechnicalSkillsBatchOverall();
@@ -87,7 +87,6 @@ angular
 											$scope.qcStatsLabels = doughnutChartObject.labels;
 											$scope.qcStatsData = doughnutChartObject.data;
 											$scope.qcStatsOptions = doughnutChartObject.options;
-											$scope.qcStatsColors = doughnutChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
@@ -98,7 +97,17 @@ angular
 					// *********************************
 
 					function createAverageTraineeScoresWeekly() {
-
+						chartsDelegate.bar.data
+						.getAverageTraineeScoresWeeklyData(1050, 1)
+						.then(function(data) {
+							NProgress.done();
+							var barChartObj = chartsDelegate.bar.getAverageTraineeScoresWeekly(data);
+							$scope.averageTraineeScoresWeeklyData = barChartObj.data;
+							$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
+							$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
+						}, function() {
+							NProgress.done();
+						});
 					}
 
 					// Hossain bar chart trainee vs average all week score
@@ -115,30 +124,26 @@ angular
 											$scope.batchOverAllLabels = barChartObject.labels;
 											$scope.batchOverAllData = barChartObject.data;
 											$scope.batchOverAllOptions = barChartObject.options;
-
 										}, function() {
 											NProgress.done();
 										});
-					}
-					;
-					
-					
+
+					};
 					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
 						chartsDelegate.bar.data
-						.get(1050, 1)
+						.getAssessmentAveragesBatchWeeklyData(1051, 1)
 						.then(
 								function(data) {
 									$log.debug(data);
 									NProgress.done();
-									var doughnutChartObject = chartsDelegate.doughnut
-											.getQCStats(data);
-									console
-											.log("here we are, in the pie method");
-									console.log(doughnutChartObject);
-									$scope.qcStatsLabels = doughnutChartObject.labels;
-									$scope.qcStatsData = doughnutChartObject.data;
-									$scope.qcStatsOptions = doughnutChartObject.options;
+									var barChartObject = chartsDelegate.bar
+									.getAssessmentAveragesBatchWeekly(data);
+									console.log("here we are, in the yani barchart method");
+									console.log(barChartObject);
+									$scope.barcharAWLabels = barChartObject.labels;
+									$scope.barcharAWData = barChartObject.data;
+									
 								}, function() {
 									NProgress.done();
 								});
@@ -146,10 +151,41 @@ angular
 					}
 
 					function createAssessmentAveragesTraineeWeekly() {
+						chartsDelegate.bar.data.getAssessmentAveragesTraineeWeeklyData(1050, 1, 1054)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var barChartObject = chartsDelegate.bar
+											.getAssessmentAveragesTraineeWeekly(data);
+									$scope.AssessmentAveragesTraineeWeeklyLabels = barChartObject.labels;
+									$scope.AssessmentAveragesTraineeWeeklyData = barChartObject.data;
+									$scope.AssessmentAveragesTraineeWeeklyOptions = barChartObject.options;
+									$scope.AssessmentAveragesTraineeWeeklySeries = barChartObject.series;
+									console.log(barChartObject);
+								}, function() {
+									NProgress.done();
+								});
 
 					}
 
 					function createAssessmentAveragesTraineeOverall() {
+						chartsDelegate.bar.data.getAssessmentAveragesTraineeOverallData(1050, 1054)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var barChartObject = chartsDelegate.bar
+										.getAssessmentAveragesTraineeOverall(data);
+									$scope.AssessmentAveragesTraineeOverallLabels = barChartObject.labels;
+									$scope.AssessmentAveragesTraineeOverallData = barChartObject.data;
+									$scope.AssessmentAveragesTraineeOverallOptions = barChartObject.options;
+									$scope.AssessmentAveragesTraineeOverallSeries = barChartObject.series;
+									console.log(barChartObject);
+								}, function() {
+									NProgress.done();
+								});
+
 
 					}
 
@@ -222,19 +258,34 @@ angular
 
 					function createWeeklyProgressBatchOverall() {
 						chartsDelegate.line.data
-							.getWeeklyProgressBatchOverallData(1050)
-							.then(function(data) {
-									NProgress.done();
-									var lineChartObj = chartsDelegate.line.getWeeklyProgressBatchOverall(data);
-									$scope.weeklyProgressBatchOverallLabels = lineChartObj.labels;
-									$scope.weeklyProgressBatchOverallData = lineChartObj.data;
-							}, function() {
+						.getWeeklyProgressBatchOverallData(1050)
+						.then(function(data) {
 								NProgress.done();
-							})
-
+								var lineChartObj = chartsDelegate.line.getWeeklyProgressBatchOverall(data);
+								$scope.weeklyProgressBatchOverallLabels = lineChartObj.labels;
+								$scope.weeklyProgressBatchOverallData = lineChartObj.data;
+						}, function() {
+							NProgress.done();
+						})
 					}
 					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {
+						chartsDelegate.line.data
+						.getWeeklyProgressTraineeWeeklyData(3, 1052)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var lineChartObjectwd = chartsDelegate.line
+									.getWeeklyProgressTraineeWeekly(data);
+									console.log("here we are, in the yani line method");
+									console.log(lineChartObjectwd);
+									$scope.linecharTWLabels = lineChartObjectwd.labels;
+									$scope.lineharTWData = lineChartObjectwd.data;
+									
+								}, function() {
+									NProgress.done();
+								});
 
 					}
 					
