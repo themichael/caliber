@@ -73,7 +73,7 @@ a { color: #F26925;}
 
 .panel > .panel-heading {
 	background-image: none;
-	background-color: var(--yellow);
+	background-color: var(--orange);
 	color: white;
 
 }
@@ -192,3 +192,66 @@ footer {
 footer a, footer a:hover{
 	color: #B9B9BA;
 }
+/**********************
+	Table styles
+**********************/
+.vcenter{
+	vertical-align:middle !important;	
+}
+/**********************
+	save button
+**********************/
+.save-button-wrapper{
+	width: 100%;
+    height: 76px;
+}
+.save-button{
+   	float:right;
+    margin-top: 10px;
+    border: solid 1px;
+    padding: 6px;
+    box-shadow: 1px 3px 4px #888888;
+    color: #F26925;
+    background: white;
+    border-radius: 5px;
+    transition: all ease 0.3s;
+    top:0px;
+    margin-right:6px;
+}
+
+.save-button:hover{
+	cursor:pointer;
+	text-decoration:none;
+}
+.save-button:active{
+ box-shadow: 0 3px 0px #888888;
+  margin-top: 13px;
+}
+a.save-button .fa-floppy-o{
+	margin-right: 6px;
+}
+.spinner{
+	float:right;
+    margin-top: 10px;
+    top:0px;
+}
+#checkMark{
+	color:#72A4C2;
+}
+.fa-style{
+	margin-right: 11px;
+    margin-top: 15px;
+}
+.fade.ng-hide-remove {
+    -webkit-transition : 1s ease-in opacity;
+    -moz-transition    : 1s ease-in opacity;
+    -ms-transition     : 1s ease-out opacity;
+    -o-transition      : 1s ease-out opacity;
+    transition         : 1s ease-out opacity;
+    opacity            : 1;
+}
+
+
+/* .fade-in.ng-hide-remove {
+  transition: all ease-out 3000ms;
+} */
