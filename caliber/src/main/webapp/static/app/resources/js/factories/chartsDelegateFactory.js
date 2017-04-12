@@ -43,7 +43,6 @@ angular
 					/**
 					 * ************************* Bar *************************
 					 */
-<<<<<<< HEAD
 
 					/*
 					 * delegate.bar.getAverageTraineeScoresWeekly =
@@ -65,8 +64,7 @@ angular
 							dataArray) {
 						return barChartFactory
 								.getBatchWeekSortedBarChart(dataArray);
-=======
-				
+					};
 					/*delegate.bar.getAverageTraineeScoresWeekly = function(dataArray){
 						return barChartFactory.(dataArray);
 					};
@@ -102,7 +100,6 @@ angular
 					
 					/*delegate.bar.getAssessmentAveragesTraineeOverall = function(dataArray){
 						return barChartFactory.(dataArray);
->>>>>>> d1800bf06df5851140c430362e1ffe9ad41a8c5f
 					};
 
 					delegate.bar.data.getAverageTraineeScoresOverallData = function(batchId, week) {
@@ -137,12 +134,7 @@ angular
 
 					delegate.radar.data.getTechnicalSkillsTraineeWeeklyData = function(week, traineeId) {
 						return radarChartDataFactory
-<<<<<<< HEAD
-								.getTraineeUpToWeekRadarChartData(week,
-										traineeId);
-=======
 								.getTraineeUpToWeekRadarChart(week, traineeId);
->>>>>>> d1800bf06df5851140c430362e1ffe9ad41a8c5f
 					};
 
 					delegate.radar.getTechnicalSkillsTraineeOverall = function(
@@ -170,7 +162,6 @@ angular
 					/**
 					 * ************************ Line ************************
 					 */
-<<<<<<< HEAD
 
 					delegate.line.getWeeklyProgressBatchOverall = function(
 							dataArray) {
@@ -182,8 +173,7 @@ angular
 							batchId) {
 						return lineChartDataFactory
 								.getBatchOverallLineChartData(batchId);
-=======
-					
+					};
 					/*delegate.line.getWeeklyProgressBatchOverall = function(dataArray){
 						return lineChartFactory.(dataArray);
 					};
@@ -203,7 +193,6 @@ angular
 					
 					/*delegate.line.getWeeklyProgressTraineeOverall = function(dataArray){
 						return lineChartFactory.(dataArray);
->>>>>>> d1800bf06df5851140c430362e1ffe9ad41a8c5f
 					};
 
 					/*
