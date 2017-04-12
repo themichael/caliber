@@ -145,6 +145,13 @@ angular
 								.getBatchOverallRadarChart(batchId);
 					};
 
+					
+					delegate.radar.addRadarToExistingRadar = function(currentChartData, otherDataArray){
+						return radarChartFactory.addDataToExistingRadar(currentChartData, otherDataArray);
+					}
+					
+					
+					
 					/**
 					 * ************************ Line ************************
 					 */

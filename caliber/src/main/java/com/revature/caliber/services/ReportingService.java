@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -523,7 +524,7 @@ public class ReportingService {
 	 * @return Map<Category Skill Name, Double Same as Input>
 	 */
 	public Map<String, Double> utilReplaceCategoryWithSkillName(Map<Category, Double[]> skills) {
-		Map<String, Double> skillsWithLabels = new HashMap<>();
+		Map<String, Double> skillsWithLabels = new TreeMap<>();
 		for (Entry<Category, Double[]> entry : skills.entrySet()) {
 			skillsWithLabels.put(entry.getKey().getSkillCategory(), entry.getValue()[0]);
 		}
