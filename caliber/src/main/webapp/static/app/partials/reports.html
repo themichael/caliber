@@ -34,20 +34,24 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
-
-					<div class="col-sm-4 col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-heading">Average Trainee Scores</div>
-							<div class="panel-body">
-								<div class="chart-container top5">
-									<canvas id="bar1" class="chart chart-bar"
-										chart-data="averageTraineeScoresWeeklyData" chart-options=""
-										chart-labels="averageTraineeScoresWeeklyLabels" chart-series="averageTraineeScoresWeeklySeries">
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">Average Trainee Scores</div>
+								<div class="panel-body">
+									<div class="chart-container top5">
+										<canvas id="bar1" class="chart chart-bar"
+											chart-data="averageTraineeScoresWeeklyData"
+											chart-options="averageTraineeScoresWeeklyOptions"
+											chart-labels="averageTraineeScoresWeeklyLabels"
+											chart-series="averageTraineeScoresWeeklySeries">
                                     </canvas>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
 
 					<div class="col-sm-4 col-md-4">
 						<div class="panel panel-default">
@@ -63,14 +67,14 @@
 						</div>
 					</div>
 					<!-- Yanilda -->
-					<div class="col-sm-4 col-md-4">
+					<div class="col-sm-8 col-md-8">
 						<div class="panel panel-default">
 							<div class="panel-heading">Assessment Averages</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="barchart" class="chart chart-bar"
-										chart-data="barcharAWData" 
-										chart-labels="barcharAWLabels">
+										chart-data="barcharAWData" chart-labels="barcharAWLabels"
+										chart-options="barcharAWOptions">
                                     </canvas>
 								</div>
 							</div>
@@ -84,19 +88,24 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
-
-					<div class="col-sm-4 col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-heading">Weekly Averages Progress</div>
-							<div class="panel-body">
-								<div class="chart-container top5">
-									<canvas id="line1" class="chart chart-line"
-										chart-data="weeklyProgressBatchOverallData" chart-labels="weeklyProgressBatchOverallLabels">
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">Average Trainee Scores</div>
+								<div class="panel-body">
+									<div class="chart-container top5">
+										<canvas id="bar6" class="chart chart-bar"
+											chart-data="batchOverAllData"
+											chart-options="batchOverAllOptions"
+											chart-labels="batchOverAllLabels"
+											chart-series="batchOverAllSeries">
                                     </canvas>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
 
 					<div class="col-sm-4 col-md-4">
 						<div class="panel panel-default">
@@ -104,22 +113,25 @@
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="radarBatchOverall" class="chart chart-radar"
-										chart-data="radarBatchOverallData" chart-options="radarBatchOverallOptions"
-										chart-labels="radarBatchOverallLabels" chart-series="radarBatchOverallSeries">
+										chart-data="radarBatchOverallData"
+										chart-options="radarBatchOverallOptions"
+										chart-labels="radarBatchOverallLabels"
+										chart-series="radarBatchOverallSeries">
                                     </canvas>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-sm-4 col-md-4">
+					<div class="col-sm-8 col-md-8">
 						<div class="panel panel-default">
-							<div class="panel-heading">Average Trainee Scores</div>
+							<div class="panel-heading">Weekly Averages Progress</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="bar6" class="chart chart-bar"
-										chart-data="batchOverAllData" chart-options="batchOverAllOptions"
-										chart-labels="batchOverAllLabels" chart-series="batchOverAllSeries">
+									<canvas id="line1" class="chart chart-line"
+										chart-data="weeklyProgressBatchOverallData"
+										chart-labels="weeklyProgressBatchOverallLabels"
+										chart-options="weeklyProgressBatchOverallOptions">
                                     </canvas>
 								</div>
 							</div>
@@ -133,20 +145,24 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
-					<!-- Yanilda -->
-					<div class="col-sm-4 col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-heading">Weekly Averages Progress</div>
-							<div class="panel-body">
-								<div class="chart-container top5">
-									<canvas id="linechart" class="chart chart-line"
-										chart-data="lineharTWData" 
-										chart-labels="linecharTWLabels">
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">Assessment Averages</div>
+								<div class="panel-body">
+									<div class="chart-container top5">
+										<canvas id="bar" class="chart chart-bar"
+											chart-data="AssessmentAveragesTraineeWeeklyData"
+											chart-options="AssessmentAveragesTraineeWeeklyOptions"
+											chart-labels="AssessmentAveragesTraineeWeeklyLabels"
+											chart-series="AssessmentAveragesTraineeWeeklySeries">
                                     </canvas>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
 
 					<div class="col-sm-4 col-md-4">
 						<div class="panel panel-default">
@@ -154,27 +170,32 @@
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="radarTraineeWeekly" class="chart chart-radar"
-										chart-data="radarTraineeWeeklyData" chart-labels="radarTraineeWeeklyLabels"
-										chart-options="radarTraineeWeeklyOptions" chart-series="radarTraineeWeeklySeries">
+										chart-data="radarTraineeWeeklyData"
+										chart-labels="radarTraineeWeeklyLabels"
+										chart-options="radarTraineeWeeklyOptions"
+										chart-series="radarTraineeWeeklySeries">
                                     </canvas>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-sm-4 col-md-4">
+					<!-- Yanilda -->
+					<div class="col-sm-8 col-md-8">
 						<div class="panel panel-default">
-							<div class="panel-heading">Assessment Averages</div>
+							<div class="panel-heading">Weekly Averages Progress</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="bar" class="chart chart-bar"
-										chart-data="AssessmentAveragesTraineeWeeklyData" chart-options="AssessmentAveragesTraineeWeeklyOptions"
-										chart-labels="AssessmentAveragesTraineeWeeklyLabels" chart-series="AssessmentAveragesTraineeWeeklySeries">
+									<canvas id="linechart" class="chart chart-line"
+										chart-data="linecharTWData" chart-labels="linecharTWLabels"
+										chart-options="linecharTWOptions"
+										chart-series="linecharTWSeries">
                                     </canvas>
 								</div>
 							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -183,8 +204,26 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">Assessment Averages</div>
+								<div class="panel-body">
+									<div class="chart-container top5">
+										<canvas id="bar" class="chart chart-bar"
+											chart-data="AssessmentAveragesTraineeOverallData"
+											chart-options="AssessmentAveragesTraineeOverallOptions"
+											chart-labels="AssessmentAveragesTraineeOverallLabels"
+											chart-series="AssessmentAveragesTraineeOverallSeries">
+                                    </canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
-					<div class="col-sm-4 col-md-4">
+
+					<div class="col-sm-6 col-md-6">
 						<div class="panel panel-default">
 							<div class="panel-heading">Weekly Averages Progress</div>
 							<div class="panel-body">
@@ -198,33 +237,22 @@
 						</div>
 					</div>
 
-					<div class="col-sm-4 col-md-4">
+					<div class="col-sm-6 col-md-6">
 						<div class="panel panel-default">
 							<div class="panel-heading">Trainee Overall Technical Skills</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="radarTraineeOverall" class="chart chart-radar"
-										chart-data="radarTraineeOverallData" chart-labels="radarTraineeOverallLabels"
-										chart-options="radarTraineeOverallOptions" chart-series="radarTraineeOverallSeries">
+										chart-data="radarTraineeOverallData"
+										chart-labels="radarTraineeOverallLabels"
+										chart-options="radarTraineeOverallOptions"
+										chart-series="radarTraineeOverallSeries">
                                     </canvas>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-sm-4 col-md-4">
-						<div class="panel panel-default">
-							<div class="panel-heading">Assessment Averages</div>
-							<div class="panel-body">
-								<div class="chart-container top5">
-									<canvas id="bar" class="chart chart-bar"
-										chart-data="AssessmentAveragesTraineeOverallData" chart-options="AssessmentAveragesTraineeOverallOptions"
-										chart-labels="AssessmentAveragesTraineeOverallLabels" chart-series="AssessmentAveragesTraineeOverallSeries">
-                                    </canvas>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

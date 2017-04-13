@@ -83,8 +83,6 @@ angular
 											$scope.qcStatsData = doughnutChartObject.data;
 											$scope.qcStatsOptions = doughnutChartObject.options;
 											$scope.qcStatsColors = doughnutChartObject.colors;
-										}, function() {
-											NProgress.done();
 										});
 
 					}
@@ -101,6 +99,7 @@ angular
 							$scope.averageTraineeScoresWeeklyData = barChartObj.data;
 							$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
 							$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
+							$scope.averageTraineeScoresWeeklyOptions = barChartObj.options;
 						}, function() {
 							NProgress.done();
 						});
@@ -115,7 +114,6 @@ angular
 											NProgress.done();
 											var barChartObject = chartsDelegate.bar
 													.getAverageTraineeScoresOverall(data);
-											console.log("batch avg chart");
 											$scope.batchOverAllLabels = barChartObject.labels;
 											$scope.batchOverAllData = barChartObject.data;
 											$scope.batchOverAllOptions = barChartObject.options;
@@ -133,10 +131,9 @@ angular
 									NProgress.done();
 									var barChartObject = chartsDelegate.bar
 									.getAssessmentAveragesBatchWeekly(data);
-									console.log("here we are, in the yani barchart method");
-									console.log(barChartObject);
 									$scope.barcharAWLabels = barChartObject.labels;
 									$scope.barcharAWData = barChartObject.data;
+									$scope.barcharAWOptions = barChartObject.options;
 									
 								}, function() {
 									NProgress.done();
@@ -148,7 +145,6 @@ angular
 						chartsDelegate.bar.data.getAssessmentAveragesTraineeWeeklyData(1050, 1, 1054)
 						.then(
 								function(data) {
-									$log.debug(data);
 									NProgress.done();
 									var barChartObject = chartsDelegate.bar
 											.getAssessmentAveragesTraineeWeekly(data);
@@ -156,7 +152,6 @@ angular
 									$scope.AssessmentAveragesTraineeWeeklyData = barChartObject.data;
 									$scope.AssessmentAveragesTraineeWeeklyOptions = barChartObject.options;
 									$scope.AssessmentAveragesTraineeWeeklySeries = barChartObject.series;
-									console.log(barChartObject);
 								}, function() {
 									NProgress.done();
 								});
@@ -167,7 +162,6 @@ angular
 						chartsDelegate.bar.data.getAssessmentAveragesTraineeOverallData(1050, 1054)
 						.then(
 								function(data) {
-									$log.debug(data);
 									NProgress.done();
 									var barChartObject = chartsDelegate.bar
 										.getAssessmentAveragesTraineeOverall(data);
@@ -175,7 +169,6 @@ angular
 									$scope.AssessmentAveragesTraineeOverallData = barChartObject.data;
 									$scope.AssessmentAveragesTraineeOverallOptions = barChartObject.options;
 									$scope.AssessmentAveragesTraineeOverallSeries = barChartObject.series;
-									console.log(barChartObject);
 								}, function() {
 									NProgress.done();
 								});
@@ -246,6 +239,7 @@ angular
 								var lineChartObj = chartsDelegate.line.getWeeklyProgressBatchOverall(data);
 								$scope.weeklyProgressBatchOverallLabels = lineChartObj.labels;
 								$scope.weeklyProgressBatchOverallData = lineChartObj.data;
+								$scope.weeklyProgressBatchOverallOptions = lineChartObj.options;
 						}, function() {
 							NProgress.done();
 						})
@@ -256,14 +250,13 @@ angular
 						.getWeeklyProgressTraineeWeeklyData(3, 1052)
 						.then(
 								function(data) {
-									$log.debug(data);
 									NProgress.done();
 									var lineChartObjectwd = chartsDelegate.line
 									.getWeeklyProgressTraineeWeekly(data);
-									console.log("here we are, in the yani line method");
-									console.log(lineChartObjectwd);
 									$scope.linecharTWLabels = lineChartObjectwd.labels;
-									$scope.lineharTWData = lineChartObjectwd.data;
+									$scope.linecharTWData = lineChartObjectwd.data;
+									$scope.linecharTWOptions = lineChartObjectwd.options;
+									$scope.linecharTWSeries = lineChartObjectwd.series;
 									
 								}, function() {
 									NProgress.done();

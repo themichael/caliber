@@ -15,8 +15,28 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		// data and labels
 		chartData.data = [];
 		chartData.labels = [];
-		
-		console.log("Yanilda")
+		chartData.options = {
+				scales: {
+				    yAxes: [{
+				      scaleLabel: {
+				        display: true,
+				        labelString: 'Average'
+				      },
+				      ticks : {
+				    	  suggestedMin : 40,
+				    	  max : 100,
+				    	  stepSize : 20
+				      }
+				    }],
+				    xAxes: [{
+				    	scaleLabel: {
+				    		display: true,
+				    		labelString: 'Assessment'
+				    	}
+				    }]
+				  }
+		};
+		$log.debug("Yanilda");
 		// traverse through array of objects and grab labels and data
 		angular.forEach(dataArray,function(value, key) {
 			chartData.labels.push(key);
@@ -42,9 +62,26 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		var trainee = [];
 		var batch = [];
 		chartData.options = {
-				legend : {
-					display : true
-				}}
+				scales: {
+				    yAxes: [{
+				      scaleLabel: {
+				        display: true,
+				        labelString: 'Average'
+				      },
+				      ticks : {
+				    	  suggestedMin : 40,
+				    	  max : 100,
+				    	  stepSize : 20
+				      }
+				    }],
+				    xAxes: [{
+				    	scaleLabel: {
+				    		display: true,
+				    		labelString: 'Assessment'
+				    	}
+				    }]
+				  }
+		};
 		// loop through object array
 		angular.forEach(dataArray, function(value, key) {
 			trainee.push(value[0]);
@@ -63,13 +100,30 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 		// series
 		chartData.series = ["Trainee", "Batch"];
-		chartData.options = {
-				legend : {
-					display : true
-					}}
 		// labels and data
 		chartData.data = [];
 		chartData.labels = [];
+		chartData.options = {
+				scales: {
+				    yAxes: [{
+				      scaleLabel: {
+				        display: true,
+				        labelString: 'Average'
+				      },
+				      ticks : {
+				    	  suggestedMin : 40,
+				    	  max : 100,
+				    	  stepSize : 20
+				      }
+				    }],
+				    xAxes: [{
+				    	scaleLabel: {
+				    		display: true,
+				    		labelString: 'Assessment'
+				    	}
+				    }]
+				  }
+		};
 		var trainee = [];
 		var batch = [];
 		// loop through object array
@@ -96,13 +150,28 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		// labels and data
 		chartData.data = [];
 		chartData.labels = [];
+		// make all bar same color
 		chartData.data.push([]);
-		
-		
 		chartData.options = {
-			legend : {
-				display : true
-			}
+			scales: {
+			    yAxes: [{
+			      scaleLabel: {
+			        display: true,
+			        labelString: 'Average'
+			      },
+			      ticks : {
+			    	  suggestedMin : 40,
+			    	  max : 100,
+			    	  stepSize : 20
+			      }
+			    }],
+			    xAxes: [{
+			    	scaleLabel: {
+			    		display: true,
+			    		labelString: 'Trainee'
+			    	}
+			    }]
+			  }
 		};
 
 		// loop through object array
@@ -110,7 +179,6 @@ angular.module("charts").factory("barChartFactory", function($log) {
 			chartData.labels.push(key);
 			chartData.data[0].push(value);
 		});
-
 		return chartData;
 	};
 	
@@ -129,11 +197,33 @@ angular.module("charts").factory("barChartFactory", function($log) {
 	     
 		chartData.series = ['Average Score'];
 		chartData.data = [];
+		chartData.data.push([]);
 		chartData.labels = [];
+		chartData.options = {
+				scales: {
+				    yAxes: [{
+				      scaleLabel: {
+				        display: true,
+				        labelString: 'Average'
+				      },
+				      ticks : {
+				    	  suggestedMin : 40,
+				    	  max : 100,
+				    	  stepSize : 20
+				      }
+				    }],
+				    xAxes: [{
+				    	scaleLabel: {
+				    		display: true,
+				    		labelString: 'Trainee'
+				    	}
+				    }]
+				  }
+		};
 		
 		angular.forEach(sorted, function(obj) {
 			chartData.labels.push(obj.name);
-			chartData.data.push(obj.value);
+			chartData.data[0].push(obj.value);
 		});
 		return chartData;
 	};
