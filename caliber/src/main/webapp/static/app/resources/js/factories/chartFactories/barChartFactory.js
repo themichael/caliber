@@ -16,6 +16,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		chartData.series = [];
 		chartData.data = [];
 		chartData.labels = [];
+		chartData.series = [];
 		chartData.options = {
 			scales : {
 				yAxes : [ {

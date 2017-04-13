@@ -7,9 +7,10 @@ angular
 
 					const OVERALL = -1;
 					const ALL = -1;
-					$scope.currentBatch = 1050;
+					// What you see when you open Reports
+					$scope.currentBatch = null;
 					$scope.currentWeek = OVERALL;
-					$scope.currentTrainee = 1054;
+					$scope.currentTraineeId = ALL;
 					
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
@@ -76,7 +77,37 @@ angular
 					 * ********************************************* UI
 					 * **************************************************
 					 */
-					var viewCharts = 0;
+					$scope.selectCurrentBatch = function(index) {
+						$scope.currentBatch = $scope.batches[index];
+						$log.debug("Selected batch " + index);
+						selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
+					};
+					
+					/*scope function to display the table if a batch and week has been selected*/
+					$scope.displayTable = function(){
+						if($scope.currentBatch.batchId && $scope.currentWeek){ // checking to see if the scope variables are null
+							return true; //change to false later
+						}
+						return true;
+					}	
+					$scope.selectCurrentTrainee = function(index) {
+						if (index == ALL) {
+							$scope.currentTrainee = {
+								name : "Trainee"
+							};
+							$scope.currentTraineeId = ALL;
+//							viewCharts = 1;
+							//createBatchCharts();
+						} else {
+							$scope.currentTraineeId = $scope.currentBatch.trainees[index].traineeId;
+							$log.debug($scope.currentTrainee);
+							selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
+							//viewCharts = 3;
+							//createTraineeCharts();
+						}
+					};
+					
+					
 					
 					$scope.currentWeek = 1;					// denise hard coded
 
@@ -95,12 +126,9 @@ angular
 						return $scope.currentBatch.trainingName !== "Batch";
 					};
 
-					// show charts
-					$scope.showCharts = function(charts) {
-						return charts === viewCharts;
-					};
+					
 
-					function createDefaultCharts() {
+					function createBatchWeek() {
 						NProgress.done();
 						NProgress.start();
 						
@@ -215,7 +243,7 @@ angular
 					}
 
 					function createAssessmentAveragesTraineeWeekly() {
-						chartsDelegate.bar.data.getAssessmentAveragesTraineeWeeklyData($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTrainee)
+						chartsDelegate.bar.data.getAssessmentAveragesTraineeWeeklyData($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId)
 						.then(
 								function(data) {
 									NProgress.done();
@@ -232,7 +260,7 @@ angular
 					}
 
 					function createAssessmentAveragesTraineeOverall() {
-						chartsDelegate.bar.data.getAssessmentAveragesTraineeOverallData($scope.currentBatch.batchId, $scope.currentTrainee)
+						chartsDelegate.bar.data.getAssessmentAveragesTraineeOverallData($scope.currentBatch.batchId, $scope.currentTraineeId)
 						.then(
 								function(data) {
 									NProgress.done();
@@ -254,7 +282,7 @@ angular
 					function createTechnicalSkillsTraineeWeekly() {
 						$log.debug("createTechnicalSkillsTraineeWeekly");
 						chartsDelegate.radar.data
-						.getTechnicalSkillsTraineeWeeklyData($scope.currentWeek, $scope.currentTrainee) // up to week, traineeId
+						.getTechnicalSkillsTraineeWeeklyData($scope.currentWeek, $scope.currentTraineeId) // up to week, traineeId
 						.then(
 								function(data) {
 									NProgress.done();
@@ -270,7 +298,7 @@ angular
 					function createTechnicalSkillsTraineeOverall() {
 						$log.debug("createTechnicalSkillsTraineeOverall");
 						chartsDelegate.radar.data
-						.getTechnicalSkillsTraineeOverallData($scope.currentTrainee) // traineeId
+						.getTechnicalSkillsTraineeOverallData($scope.currentTraineeId) // traineeId
 						.then(
 								function(data) {
 									NProgress.done();
@@ -320,7 +348,7 @@ angular
 					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {
 						chartsDelegate.line.data
-						.getWeeklyProgressTraineeWeeklyData($scope.currentWeek, $scope.currentTrainee)
+						.getWeeklyProgressTraineeWeeklyData($scope.currentWeek, $scope.currentTraineeId)
 						.then(
 								function(data) {
 									NProgress.done();
@@ -338,7 +366,7 @@ angular
 					
 					function createWeeklyProgressTraineeOverall() {
 						chartsDelegate.line.data
-						.getWeeklyProgressTraineeOverallData($scope.currentBatch.batchId, $scope.currentTrainee)
+						.getWeeklyProgressTraineeOverallData($scope.currentBatch.batchId, $scope.currentTraineeId)
 						.then(
 								function(data) {
 									$log.debug(data);
@@ -396,32 +424,7 @@ angular
 								});
 					}
 
-					$scope.selectCurrentBatch = function(index) {
-						$scope.currentBatch = $scope.batches[index];
-						$log.debug("Selected batch " + index);
-					};
 					
-					/*scope function to display the table if a batch and week has been selected*/
-					$scope.displayTable = function(){
-						if($scope.currentBatch.batchId && $scope.currentWeek){ // checking to see if the scope variables are null
-							return true; //change to false later
-						}
-						return true;
-					}	
-					$scope.selectCurrentTrainee = function(index) {
-						if (index === -1) {
-							$scope.currentTrainee = {
-								name : "Trainee"
-							};
-//							viewCharts = 1;
-							//createBatchCharts();
-						} else {
-							$scope.currentTrainee = $scope.currentBatch.trainees[index].traineeId;
-							$log.debug($scope.currentTrainee);
-							//viewCharts = 3;
-							//createTraineeCharts();
-						}
-					};
 
 					
 					
