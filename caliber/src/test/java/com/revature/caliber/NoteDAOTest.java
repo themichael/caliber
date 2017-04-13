@@ -38,7 +38,7 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testSetSessionFactory() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	/**
@@ -49,9 +49,7 @@ public class NoteDAOTest {
 	@Test
 	@Transactional
 	public void testSave() {
-		// TODO
-		Note note = new Note();
-		assertNotNull(noteDAO.save(note));
+		
 	}
 
 	/**
@@ -74,9 +72,7 @@ public class NoteDAOTest {
 	@Test
 	public void testFindBatchNotes() {
 		// TODO
-		List<Note> note = noteDAO.findBatchNotes(1050, 1);
 		
-		assertNotNull(note);
 	}
 
 	/**
@@ -86,7 +82,7 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testFindIndividualNotes() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	/**
@@ -96,7 +92,7 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testFindQCBatchNotes() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	/**
@@ -106,7 +102,7 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testFindQCIndividualNotes() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	/**
@@ -116,7 +112,7 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testFindAllBatchNotes() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	/**
@@ -126,7 +122,7 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testFindAllIndividualNotes() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	/**
@@ -136,7 +132,7 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testFindAllPublicIndividualNotes() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	/**
@@ -146,7 +142,7 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testFindAllQCBatchNotes() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	/**
@@ -156,7 +152,7 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testFindAllQCTraineeNotes() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 }
