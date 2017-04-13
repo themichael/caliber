@@ -5,22 +5,17 @@ package com.revature.caliber;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.event.TransactionalEventListener;
-
-import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.NoteType;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.data.NoteDAO;
 
 /**
@@ -67,12 +62,8 @@ public class NoteDAOTest {
 	@Test
 	public void testUpdate() {
 		// TODO
-		try {
+		fail("Could not update ");
 
-			// noteDAO.update(note);
-		} catch (Exception e) {
-			fail("Could not update " + e);
-		}
 	}
 
 	/**
@@ -83,11 +74,9 @@ public class NoteDAOTest {
 	@Test
 	public void testFindBatchNotes() {
 		// TODO
-		try {
-			log.info(noteDAO.findAllBatchNotes(1077, 3));
-		} catch (Exception e) {
-			fail("cannot find batch note successfully");
-		}
+		List<Note> note = noteDAO.findBatchNotes(1050, 1);
+		
+		assertNotNull(note);
 	}
 
 	/**
