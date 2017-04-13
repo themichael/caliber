@@ -12,7 +12,7 @@ angular
 					const ALL = -1;
 					$scope.currentBatch = 1050;
 					$scope.currentWeek = OVERALL;
-					$scope.currentTrainee = 1059;
+					$scope.currentTrainee = 1054;
 					
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
@@ -144,7 +144,7 @@ angular
 
 					function createQCStatus() {
 						chartsDelegate.doughnut.data
-								.getQCStatsData(1050, 1)
+								.getQCStatsData($scope.currentBatch, $scope.currentWeek)
 								.then(
 										function(data) {
 											NProgress.done();
@@ -163,7 +163,7 @@ angular
 
 					function createAverageTraineeScoresWeekly() {
 						chartsDelegate.bar.data
-						.getAverageTraineeScoresWeeklyData(1050, 1)
+						.getAverageTraineeScoresWeeklyData($scope.currentBatch, $scope.currentWeek)
 						.then(function(data) {
 							NProgress.done();
 							var barChartObj = chartsDelegate.bar.getAverageTraineeScoresWeekly(data);
@@ -179,7 +179,7 @@ angular
 					// Hossain bar chart trainee vs average all week score
 					function createAverageTraineeScoresOverall() {
 						chartsDelegate.bar.data
-								.getAverageTraineeScoresOverallData(1051)
+								.getAverageTraineeScoresOverallData($scope.currentBatch) // confirm if batch or trainee
 								.then(
 										function(data) {
 											NProgress.done();
@@ -196,7 +196,7 @@ angular
 					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
 						chartsDelegate.bar.data
-						.getAssessmentAveragesBatchWeeklyData(1051, 1)
+						.getAssessmentAveragesBatchWeeklyData($scope.currentBatch, $scope.currentWeek)
 						.then(
 								function(data) {
 									NProgress.done();
@@ -218,7 +218,7 @@ angular
 					}
 
 					function createAssessmentAveragesTraineeWeekly() {
-						chartsDelegate.bar.data.getAssessmentAveragesTraineeWeeklyData(1050, 1, 1054)
+						chartsDelegate.bar.data.getAssessmentAveragesTraineeWeeklyData($scope.currentBatch, $scope.currentWeek, $scope.currentTrainee)
 						.then(
 								function(data) {
 									NProgress.done();
@@ -235,7 +235,7 @@ angular
 					}
 
 					function createAssessmentAveragesTraineeOverall() {
-						chartsDelegate.bar.data.getAssessmentAveragesTraineeOverallData(1050, 1054)
+						chartsDelegate.bar.data.getAssessmentAveragesTraineeOverallData($scope.currentBatch, $scope.currentTrainee)
 						.then(
 								function(data) {
 									NProgress.done();
@@ -257,7 +257,7 @@ angular
 					function createTechnicalSkillsTraineeWeekly() {
 						$log.debug("createTechnicalSkillsTraineeWeekly");
 						chartsDelegate.radar.data
-						.getTechnicalSkillsTraineeWeeklyData(5, 1059) // up to week, traineeId
+						.getTechnicalSkillsTraineeWeeklyData($scope.currentWeek, $scope.currentTrainee) // up to week, traineeId
 						.then(
 								function(data) {
 									NProgress.done();
@@ -273,7 +273,7 @@ angular
 					function createTechnicalSkillsTraineeOverall() {
 						$log.debug("createTechnicalSkillsTraineeOverall");
 						chartsDelegate.radar.data
-						.getTechnicalSkillsTraineeOverallData(1059) // traineeId
+						.getTechnicalSkillsTraineeOverallData($scope.currentTrainee) // traineeId
 						.then(
 								function(data) {
 									NProgress.done();
@@ -290,7 +290,7 @@ angular
 					function createTechnicalSkillsBatchOverall() {
 						$log.debug("createTechnicalSkillsBatchOverall");
 						chartsDelegate.radar.data
-								.getTechnicalSkillsBatchOverallData(1050) // batchId
+								.getTechnicalSkillsBatchOverallData($scope.currentBatch) // batchId
 								.then(
 										function(data) {
 											NProgress.done();
@@ -309,7 +309,7 @@ angular
 
 					function createWeeklyProgressBatchOverall() {
 						chartsDelegate.line.data
-						.getWeeklyProgressBatchOverallData(1050)
+						.getWeeklyProgressBatchOverallData($scope.currentBatch)
 						.then(function(data) {
 								NProgress.done();
 								var lineChartObj = chartsDelegate.line.getWeeklyProgressBatchOverall(data);
@@ -323,7 +323,7 @@ angular
 					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {
 						chartsDelegate.line.data
-						.getWeeklyProgressTraineeWeeklyData(3, 1052)
+						.getWeeklyProgressTraineeWeeklyData($scope.currentWeek, $scope.currentTrainee)
 						.then(
 								function(data) {
 									NProgress.done();
@@ -341,7 +341,7 @@ angular
 					
 					function createWeeklyProgressTraineeOverall() {
 						chartsDelegate.line.data
-						.getWeeklyProgressTraineeOverallData(1051, 1051)
+						.getWeeklyProgressTraineeOverallData($scope.currentBatch, $scope.currentTrainee)
 						.then(
 								function(data) {
 									$log.debug(data);
