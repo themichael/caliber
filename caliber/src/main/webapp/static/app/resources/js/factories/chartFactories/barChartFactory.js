@@ -13,6 +13,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		var chartData = {};
 
 		// data and labels
+		chartData.series = [];
 		chartData.data = [];
 		chartData.labels = [];
 		chartData.series = [];
