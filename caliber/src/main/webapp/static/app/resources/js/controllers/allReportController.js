@@ -407,7 +407,22 @@ angular
 							return true; //change to false later
 						}
 						return true;
-					}			
+					}	
+					$scope.selectCurrentTrainee = function(index) {
+						if (index === -1) {
+							$scope.currentTrainee = {
+								name : "Trainee"
+							};
+//							viewCharts = 1;
+							//createBatchCharts();
+						} else {
+							$scope.currentTrainee = $scope.currentBatch.trainees[index].traineeId;
+							$log.debug($scope.currentTrainee);
+							//viewCharts = 3;
+							//createTraineeCharts();
+						}
+					};
+
 					
 					
 				});
