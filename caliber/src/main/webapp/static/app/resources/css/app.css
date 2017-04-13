@@ -69,7 +69,22 @@ a { color: #F26925;}
 	padding: .5em;
 	background-color: #ffffff;
 	border-radius: .3em;
-	min-height: 25.8em;
+
+}
+@media (max-width: 400px) {
+   .chart-container  {
+        min-height: 8.8em;
+    }
+}
+@media (min-width: 401px) and (max-width: 600px) {
+    .chart-container {
+        min-height: 11.8em;
+    }
+}
+@media (min-width: 601px){
+	  .chart-container {
+        min-height: 25.8em;
+    }
 }
 
 .panel > .panel-heading {
@@ -175,13 +190,16 @@ textarea {
 html, body {
 	height: 100%;
 }
+.img-responsive{
+	padding-bottom: 1em;
+}
 .wrapper {
 	min-height: 100%;
 	margin-bottom: -103px;
 	padding-bottom: 103px;
 }
 footer {
-	height: 103px;
+	min-height: 103px;
 	background-color: #474C55;
     font-size: .75em;
 }
