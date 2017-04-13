@@ -48,29 +48,6 @@ angular.module("charts").factory("barChartFactory", function($log) {
 			}
 		});
 
-		chartData.options = {
-			scales : {
-				yAxes : [ {
-					scaleLabel : {
-						display : true,
-						labelString : 'Score'
-					},
-
-					ticks : {
-						min : 40,
-						max : 100,
-						stepSize : 20
-					}
-				} ],
-				xAxes : [ {
-					scaleLabel : {
-						display : true,
-						labelString : 'Type'
-					}
-
-				} ]
-			}
-		};
 
 		/*
 		 * chartData.datasetOverride = [ { xAxisID : 'x-axis-1' } ];
