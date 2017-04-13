@@ -69,6 +69,7 @@ a { color: #F26925;}
 	padding: .5em;
 	background-color: #ffffff;
 	border-radius: .3em;
+	min-height: 25.8em;
 }
 
 .panel > .panel-heading {
