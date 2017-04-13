@@ -68,7 +68,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 					},
 
 					ticks : {
-						min : 40,
+						suggestedMin : 40,
 						max : 100,
 						stepSize : 20
 					}
