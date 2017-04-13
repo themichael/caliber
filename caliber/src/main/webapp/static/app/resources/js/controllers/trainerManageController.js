@@ -59,7 +59,6 @@ angular
 					/** Set end date in form* */
 					$scope.setEndDate = function() {
 						$scope.endDate.model = $scope.startDate.model;
-						sortByDate($scope.selectedYear);
 					};
 
 					/** prevent end date being before startdate* */
