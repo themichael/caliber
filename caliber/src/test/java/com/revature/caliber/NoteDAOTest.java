@@ -5,6 +5,8 @@ package com.revature.caliber;
 
 import static org.junit.Assert.*;
 
+import javax.transaction.Transactional;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,16 +52,11 @@ public class NoteDAOTest {
 	 * .
 	 */
 	@Test
+	@Transactional
 	public void testSave() {
 		// TODO
-		try {
-			Note note = new Note();
-			log.info(noteDAO.save(note));
-
-		} catch (Exception e) {
-			fail("Save Note did not work:" + e);
-		}
-
+		Note note = new Note();
+		assertNotNull(noteDAO.save(note));
 	}
 
 	/**
@@ -71,6 +68,8 @@ public class NoteDAOTest {
 	public void testUpdate() {
 		// TODO
 		try {
+
+			// noteDAO.update(note);
 		} catch (Exception e) {
 			fail("Could not update " + e);
 		}
