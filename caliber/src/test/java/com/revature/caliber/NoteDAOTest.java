@@ -9,8 +9,10 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Note;
@@ -87,7 +89,12 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testFindBatchNotes() {
-		fail("Not yet implemented"); // TODO
+		 // TODO
+		try{
+			log.info(noteDAO.findAllBatchNotes(1077, 3));
+		}catch(Exception e){
+			fail("cannot find batch note successfully");
+		}
 	}
 
 	/**
