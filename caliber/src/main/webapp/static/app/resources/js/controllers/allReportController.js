@@ -101,6 +101,7 @@ angular
 						} else {
 							$scope.currentTraineeId = $scope.currentBatch.trainees[index].traineeId;
 							$log.debug($scope.currentTrainee);
+							selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
 							//viewCharts = 3;
 							//createTraineeCharts();
 						}
