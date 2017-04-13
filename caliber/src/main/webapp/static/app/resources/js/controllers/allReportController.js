@@ -9,7 +9,7 @@ angular
 					const ALL = -1;
 					$scope.currentBatch = 1050;
 					$scope.currentWeek = OVERALL;
-					$scope.currentTrainee = 1054;
+					$scope.currentTrainee = ALL;
 					
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
@@ -76,7 +76,7 @@ angular
 					 * ********************************************* UI
 					 * **************************************************
 					 */
-					var viewCharts = 0;
+					
 					
 					$scope.currentWeek = 1;					// denise hard coded
 
@@ -95,12 +95,9 @@ angular
 						return $scope.currentBatch.trainingName !== "Batch";
 					};
 
-					// show charts
-					$scope.showCharts = function(charts) {
-						return charts === viewCharts;
-					};
+					
 
-					function createDefaultCharts() {
+					function createBatchWeek() {
 						NProgress.done();
 						NProgress.start();
 						
@@ -399,6 +396,7 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batches[index];
 						$log.debug("Selected batch " + index);
+						selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
 					};
 					
 					/*scope function to display the table if a batch and week has been selected*/
