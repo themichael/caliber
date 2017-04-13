@@ -31,7 +31,7 @@
 	<div class="top10 data-container">
 
 		<!-- Batch -> Week -->
-		<div class="row">
+		<div class="row" ng-show="batchWeek">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
 					<div class="row">
@@ -85,7 +85,7 @@
 		</div>
 
 		<!-- Batch -> Overall -->
-		<div class="row">
+		<div class="row" ng-show="batchOverall">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
 					<div class="row">
@@ -142,7 +142,7 @@
 		</div>
 
 		<!-- Batch -> Week -> Trainee-->
-		<div class="row">
+		<div class="row" ng-show="batchWeekTrainee">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
 					<div class="row">
@@ -201,7 +201,7 @@
 		</div>
 
 		<!-- Batch -> Overall -> Trainee-->
-		<div class="row">
+		<div class="row" ng-show="batchOverallTrainee">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
 					<div class="row">
@@ -222,22 +222,7 @@
 						</div>
 					</div>
 
-
-					<div class="col-sm-6 col-md-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">Weekly Averages Progress</div>
-							<div class="panel-body">
-								<div class="chart-container top5">
-									<canvas id="radar" class="chart chart-radar"
-										chart-data="batchTechData" chart-options="qcStatsLabels"
-										chart-labels="batchTechLabels" chart-series="batchTechSeries">
-                                    </canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-sm-6 col-md-6">
+					<div class="col-sm-4 col-md-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">Trainee Overall Technical Skills</div>
 							<div class="panel-body">
@@ -247,6 +232,22 @@
 										chart-labels="radarTraineeOverallLabels"
 										chart-options="radarTraineeOverallOptions"
 										chart-series="radarTraineeOverallSeries">
+                                    </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-8 col-md-8">
+						<div class="panel panel-default">
+							<div class="panel-heading">Weekly Averages Progress</div>
+							<div class="panel-body">
+								<div class="chart-container top5">
+									<canvas id="line9" class="chart chart-line"
+										chart-data="batchOverallWeeklyData"
+										chart-options="batchOverallWeeklyOptions"
+										chart-labels="batchOverallWeeklyLabels"
+										chart-series="batchOverallWeeklySeries">
                                     </canvas>
 								</div>
 							</div>

@@ -8,49 +8,27 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 
 	var radar = {};
 	
-	radar.getTraineeUpToWeekRadarChart = function(dataArray) {
-		var chartData = {};
-		
-		chartData.series = [ "Trainee Up To Week" ];
-		
-		chartData.data = [];
-		chartData.labels = [];
-		chartData.data.push([]);
-
-		angular.forEach(dataArray, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data[0].push(value.toFixed(2));
-		});
-		
-		chartData.options = radarOptions;
-		return chartData;
+	radar.getTraineeUpToWeekRadarChart = function(dataArray, seriesName) {
+		return createGenericRadarChartObject(dataArray, seriesName);
 	};
 	
-	radar.getTraineeOverallRadarChart = function(dataArray) {
-		var chartData = {};
-		
-		chartData.series = [ "Trainee Overall" ];
-		
-		chartData.data = [];
-		chartData.labels = [];
-		chartData.data.push([]);
-
-		angular.forEach(dataArray, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data[0].push(value.toFixed(2));
-		});
-		
-		chartData.options = radarOptions;
-		return chartData;
+	radar.getTraineeOverallRadarChart = function(dataArray, seriesName) {
+		return createGenericRadarChartObject(dataArray, seriesName);
 	};
 	
-	radar.getBatchOverallRadarChart = function(dataArray) {
+	radar.getBatchOverallRadarChart = function(dataArray, seriesName) {
+		return createGenericRadarChartObject(dataArray, seriesName);
+	};
+	
+	
+	var createGenericRadarChartObject = function(dataArray, seriesName){
 		var chartData = {};
 		
 		chartData.series = [ "Batch" ];
 		
-		chartData.data = [];
 		chartData.labels = [];
+		
+		chartData.data = [];
 		chartData.data.push([]);
 
 		angular.forEach(dataArray, function(value, key) {
@@ -60,9 +38,24 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 		
 		chartData.options = radarOptions;
 		return chartData;
+	}
+	
+	
+	radar.addDataToExistingRadar = function(currentChartData, otherDataArray){
+		var newData = [];
+		var totalTechs = currentChartData.labels.length;
+		currentChartData.series.push("TRAINEE PLACEHOLDER");
+
+		for(var i = 0; i < totalTechs; i++){
+			if(otherDataArray.hasOwnProperty(currentChartData.labels[i])){
+				newData.push((otherDataArray[currentChartData.labels[i]]).toFixed(2));
+			}
+		}
+
+		currentChartData.data.push(newData);
+		
+		return currentChartData;
 	};
-	
-	
 	
 
 	radarOptions = {

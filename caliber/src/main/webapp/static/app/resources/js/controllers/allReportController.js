@@ -8,64 +8,107 @@ angular
 					$log.debug("Booted Report Controller");
 					$log.debug("Peacepapi is here!!!!!");
 
+					const OVERALL = -1;
+					const ALL = -1;
+					$scope.currentBatch = 1050;
+					$scope.currentWeek = OVERALL;
+					$scope.currentTrainee = 1059;
+					
+					$scope.batchWeek = false;
+					$scope.batchWeekTrainee = false;
+					$scope.batchOverall = false;
+					$scope.batchOverallTrainee = false;
+					
 					(function start() {
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
 
 						// batch null check
-						if (!allBatches || allBatches.length === 0) {
-							$scope.noBatches = true;
-							$scope.noBatchesMessage = "No Batches belonging to you were found.";
+						if ($scope.currentBatch == null) {
+							$scope.noBatch=false;
 						} else {
-							$scope.noBatches = false;
-							createDefaultCharts();
+							selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
 						}
+						
 					})();
+					
+					function selectView(batch, week, trainee){
+						
+						if (week == OVERALL ){
+							// All Weeks
+							if ( trainee == ALL){
+								// All Trainees
+								$scope.batchWeek = false;
+								$scope.batchWeekTrainee = false;
+								$scope.batchOverall = true;
+								$scope.batchOverallTrainee = false;
+								createBatchOverall();
+								
+							} else {
+								// Specific Trainee
+								$scope.batchWeek = false;
+								$scope.batchWeekTrainee = false;
+								$scope.batchOverall = false;
+								$scope.batchOverallTrainee = true;
+								createBatchOverallTrainee();
+							}
+						} else {
+							// Specific Week
+							if ( trainee == ALL){
+								// All Trainees
+								$scope.batchWeek = true;
+								$scope.batchWeekTrainee = false;
+								$scope.batchOverall = false;
+								$scope.batchOverallTrainee = false;
+								createBatchWeek();
+							} else {
+								// Specific trainee
+								$scope.batchWeek = false;
+								$scope.batchWeekTrainee = true;
+								$scope.batchOverall = false;
+								$scope.batchOverallTrainee = false;
+								createBatchWeekTrainee();
+							}
+							
+						}
+						
+					}
 
-					/**
-					 * ********************************************* UI
-					 * **************************************************
-					 */
-					var viewCharts = 0;
-
-					$scope.batches = allBatches;
-					$scope.currentBatch = {
-						trainingName : "Batch"
-					};
-					$scope.currentTrainee = {
-						name : "Trainee"
-					};
-
-					// hide filter tabs
-					$scope.hideOtherTabs = function() {
-						return $scope.currentBatch.trainingName !== "Batch";
-					};
-
-					// show charts
-					$scope.showCharts = function(charts) {
-						return charts === viewCharts;
-					};
-
-					function createDefaultCharts() {
-						// Finishes any left over ajax animation from another
-						// page
+					function createBatchWeek(){
 						NProgress.done();
 						NProgress.start();
-
+						
 						createQCStatus();
 						createAverageTraineeScoresWeekly();
-						createAverageTraineeScoresOverall();
 						createAssessmentAveragesBatchWeekly();
+					}
+					
+					function createBatchWeekTrainee(){
+						NProgress.done();
+						NProgress.start();
+						
 						createAssessmentAveragesTraineeWeekly();
-						createAssessmentAveragesTraineeOverall();
-						createTechnicalSkillsBatchOverall();
 						createTechnicalSkillsTraineeWeekly();
-						createTechnicalSkillsTraineeOverall();
-						createWeeklyProgressBatchOverall();
 						createWeeklyProgressTraineeWeekly();
-						createWeeklyProgressTraineeOverall();
+					}
+					
+					function createBatchOverall(){
+						NProgress.done();
+						NProgress.start();
+						
+						createAverageTraineeScoresOverall();
+						createTechnicalSkillsBatchOverall();
+						createWeeklyProgressBatchOverall();
+					}
 
+					function createBatchOverallTrainee(){
+						NProgress.done();
+						NProgress.start();
+						
+						createAssessmentAveragesTraineeOverall();
+						createWeeklyProgressTraineeOverall();
+						createTechnicalSkillsTraineeOverall();
 					}
 
 					// ********************* Doughnut
@@ -131,10 +174,15 @@ angular
 									NProgress.done();
 									var barChartObject = chartsDelegate.bar
 									.getAssessmentAveragesBatchWeekly(data);
+									console.log("here we are, in the yani barchart method");
+									console.log(barChartObject.options);
+									console.log(barChartObject);
+									console.log(barChartObject.series);
+									
 									$scope.barcharAWLabels = barChartObject.labels;
 									$scope.barcharAWData = barChartObject.data;
-									$scope.barcharAWOptions = barChartObject.options;
-									
+									$scope.barcharAWOptions= barChartObject.options;
+									$scope.barcharAWseries= barChartObject.series;
 								}, function() {
 									NProgress.done();
 								});
@@ -186,7 +234,7 @@ angular
 								function(data) {
 									NProgress.done();
 									var radarTraineeWeeklyChartObj = chartsDelegate.radar
-											.getTechnicalSkillsTraineeWeekly(data);
+											.getTechnicalSkillsTraineeWeekly(data, "Temp Trainee Weekly");
 									$scope.radarTraineeWeeklyData = radarTraineeWeeklyChartObj.data;
 									$scope.radarTraineeWeeklyOptions = radarTraineeWeeklyChartObj.options;
 									$scope.radarTraineeWeeklyLabels = radarTraineeWeeklyChartObj.labels;
@@ -202,7 +250,7 @@ angular
 								function(data) {
 									NProgress.done();
 									var radarTraineeOverallChartObj = chartsDelegate.radar
-											.getTechnicalSkillsTraineeOverall(data);
+											.getTechnicalSkillsTraineeOverall(data, "Temp Trainee Overall");
 									$scope.radarTraineeOverallData = radarTraineeOverallChartObj.data;
 									$scope.radarTraineeOverallOptions = radarTraineeOverallChartObj.options;
 									$scope.radarTraineeOverallLabels = radarTraineeOverallChartObj.labels;
@@ -219,7 +267,7 @@ angular
 										function(data) {
 											NProgress.done();
 											var radarBatchOverallChartObject = chartsDelegate.radar
-													.getTechnicalSkillsBatchOverall(data);
+													.getTechnicalSkillsBatchOverall(data, "Temp Batch Overall");
 											$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
 											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
 											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
@@ -257,7 +305,6 @@ angular
 									$scope.linecharTWData = lineChartObjectwd.data;
 									$scope.linecharTWOptions = lineChartObjectwd.options;
 									$scope.linecharTWSeries = lineChartObjectwd.series;
-									
 								}, function() {
 									NProgress.done();
 								});
@@ -265,6 +312,24 @@ angular
 					}
 					
 					function createWeeklyProgressTraineeOverall() {
+						chartsDelegate.line.data
+						.getWeeklyProgressTraineeOverallData(1051, 1051)
+						.then(
+								function(data) {
+									$log.debug(data);
+									NProgress.done();
+									var lineChartObject = chartsDelegate.line
+									.getWeeklyProgressTraineeOverall(data);
+									console.log("chart completed!");
+									$scope.batchOverallWeeklyLabels = lineChartObject.labels;
+									$scope.batchOverallWeeklyData = lineChartObject.data;
+									$scope.batchOverallWeeklySeries = lineChartObject.series;
+									$scope.batchOverallWeeklyOptions = lineChartObject.options;
+									console.log(lineChartObject);
+
+								}, function() {
+									NProgress.done();
+								});
 
 					}
 
@@ -297,5 +362,19 @@ angular
 									$log.debug(value);
 								});
 					}
+					//on select trainee
+//					$scope.selectCurrentTrainee = function(index) {
+//						if (index === -1) {
+//							$scope.currentTrainee = {
+//								name : "Trainee"
+//							};
+//							viewCharts = 1;
+//							//createBatchCharts();
+//						} else {
+//							$scope.currentTrainee = $scope.currentBatch.trainees[index];
+//							viewCharts = 3;
+//							//createTraineeCharts();
+//						}
+//					};
 
 				});

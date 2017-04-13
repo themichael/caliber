@@ -23,7 +23,7 @@ angular.module("reportApi").factory(
 					$log.error("There was an error: " + response.status);
 				});
 			};
-
+			//Hossain
 			report.getTraineeOverallLineChart = function(batchId, traineeId) {
 
 				return $http({
@@ -33,6 +33,8 @@ angular.module("reportApi").factory(
 					method : "GET"
 				}).then(function(response) {
 					$log.debug("All-reports-Batch-overall-trainee-overall");
+					$log.debug(response);
+					return response.data;
 				}, function(response) {
 					$log.error("There was an error: " + response.status);
 				});

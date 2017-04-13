@@ -16,37 +16,63 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		chartData.data = [];
 		chartData.labels = [];
 		chartData.options = {
-				scales: {
-				    yAxes: [{
-				      scaleLabel: {
-				        display: true,
-				        labelString: 'Average'
-				      },
-				      ticks : {
-				    	  suggestedMin : 40,
-				    	  max : 100,
-				    	  stepSize : 20
-				      }
-				    }],
-				    xAxes: [{
-				    	scaleLabel: {
-				    		display: true,
-				    		labelString: 'Assessment'
-				    	}
-				    }]
-				  }
+			scales : {
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Average'
+					},
+					ticks : {
+						suggestedMin : 40,
+						max : 100,
+						stepSize : 20
+					}
+				} ],
+				xAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Assessment'
+					}
+				} ]
+			}
 		};
 		$log.debug("Yanilda");
 		// traverse through array of objects and grab labels and data
-		angular.forEach(dataArray,function(value, key) {
-			chartData.labels.push(key);
-			chartData.data.push(value[0]);
+		angular.forEach(dataArray, function(value, key) {
+			if (value[0] > 0) {
+				chartData.labels.push(key);
+				chartData.series.push(key);
+				chartData.data.push(value[0]);
+			}
 		});
 
-		chartData.datasetOverride = [ {
-			xAxisID : 'x-axis-1'
-		} ];
+		chartData.options = {
+			scales : {
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Score'
+					},
 
+					ticks : {
+						min : 40,
+						max : 100,
+						stepSize : 20
+					}
+				} ],
+				xAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Type'
+					}
+
+				} ]
+			}
+		};
+
+		/*
+		 * chartData.datasetOverride = [ { xAxisID : 'x-axis-1' } ];
+		 */
 		return chartData;
 	};
 
@@ -54,7 +80,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		var chartData = {};
 
 		// series
-		chartData.series = ["Trainee", "Batch"];
+		chartData.series = [ "Trainee", "Batch" ];
 
 		// labels and data
 		chartData.data = [];
@@ -62,25 +88,25 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		var trainee = [];
 		var batch = [];
 		chartData.options = {
-				scales: {
-				    yAxes: [{
-				      scaleLabel: {
-				        display: true,
-				        labelString: 'Average'
-				      },
-				      ticks : {
-				    	  suggestedMin : 40,
-				    	  max : 100,
-				    	  stepSize : 20
-				      }
-				    }],
-				    xAxes: [{
-				    	scaleLabel: {
-				    		display: true,
-				    		labelString: 'Assessment'
-				    	}
-				    }]
-				  }
+			scales : {
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Average'
+					},
+					ticks : {
+						suggestedMin : 40,
+						max : 100,
+						stepSize : 20
+					}
+				} ],
+				xAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Assessment'
+					}
+				} ]
+			}
 		};
 		// loop through object array
 		angular.forEach(dataArray, function(value, key) {
@@ -88,10 +114,10 @@ angular.module("charts").factory("barChartFactory", function($log) {
 			batch.push(value[1]);
 			chartData.labels.push(key);
 		});
-		
+
 		chartData.data.push(trainee);
 		chartData.data.push(batch);
-		
+
 		return chartData;
 	};
 
@@ -99,30 +125,30 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		var chartData = {};
 
 		// series
-		chartData.series = ["Trainee", "Batch"];
+		chartData.series = [ "Trainee", "Batch" ];
 		// labels and data
 		chartData.data = [];
 		chartData.labels = [];
 		chartData.options = {
-				scales: {
-				    yAxes: [{
-				      scaleLabel: {
-				        display: true,
-				        labelString: 'Average'
-				      },
-				      ticks : {
-				    	  suggestedMin : 40,
-				    	  max : 100,
-				    	  stepSize : 20
-				      }
-				    }],
-				    xAxes: [{
-				    	scaleLabel: {
-				    		display: true,
-				    		labelString: 'Assessment'
-				    	}
-				    }]
-				  }
+			scales : {
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Average'
+					},
+					ticks : {
+						suggestedMin : 40,
+						max : 100,
+						stepSize : 20
+					}
+				} ],
+				xAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Assessment'
+					}
+				} ]
+			}
 		};
 		var trainee = [];
 		var batch = [];
@@ -132,20 +158,18 @@ angular.module("charts").factory("barChartFactory", function($log) {
 			batch.push(value[1]);
 			chartData.labels.push(key);
 		});
-		
+
 		chartData.data.push(trainee);
 		chartData.data.push(batch);
 
 		return chartData;
 	};
 
-
-
 	barChart.getBatchOverallBarChart = function(dataArray) {
 		var chartData = {};
 
 		// series
-		chartData.series = [ "Average Score" ];
+		chartData.series = [ "Trainee", "Average" ];
 
 		// labels and data
 		chartData.data = [];
@@ -153,74 +177,77 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		// make all bar same color
 		chartData.data.push([]);
 		chartData.options = {
-			scales: {
-			    yAxes: [{
-			      scaleLabel: {
-			        display: true,
-			        labelString: 'Average'
-			      },
-			      ticks : {
-			    	  suggestedMin : 40,
-			    	  max : 100,
-			    	  stepSize : 20
-			      }
-			    }],
-			    xAxes: [{
-			    	scaleLabel: {
-			    		display: true,
-			    		labelString: 'Trainee'
-			    	}
-			    }]
-			  }
+			scales : {
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Average'
+					},
+					ticks : {
+						suggestedMin : 40,
+						max : 100,
+						stepSize : 20
+					}
+				} ],
+				xAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Trainee'
+					}
+				} ]
+			}
 		};
 
 		// loop through object array
-		angular.forEach(dataArray, function(value,key) {
+		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
-			chartData.data[0].push(value);
+			chartData.data[0].push(value.toFixed(2));
 		});
 		return chartData;
 	};
-	
+
 	barChart.getBatchWeekSortedBarChart = function(dataArray) {
 		var chartData = {};
-		//making a sorted array
+		// making a sorted array
 		var sorted = [];
-		//make the object to an array
-	    angular.forEach(dataArray, function(value, key) {
-	        sorted.push({'name' : key, 'value': value})
-	    });
-	    // sorted the array
-	    sorted.sort(function (a, b) {
-	      return b.value - a.value;
-	    });
-	     
-		chartData.series = ['Average Score'];
+		// make the object to an array
+		angular.forEach(dataArray, function(value, key) {
+			sorted.push({
+				'name' : key,
+				'value' : value
+			})
+		});
+		// sorted the array
+		sorted.sort(function(a, b) {
+			return b.value - a.value;
+		});
+
+		chartData.series = [ 'Average Score' ];
 		chartData.data = [];
 		chartData.data.push([]);
 		chartData.labels = [];
 		chartData.options = {
-				scales: {
-				    yAxes: [{
-				      scaleLabel: {
-				        display: true,
-				        labelString: 'Average'
-				      },
-				      ticks : {
-				    	  suggestedMin : 40,
-				    	  max : 100,
-				    	  stepSize : 20
-				      }
-				    }],
-				    xAxes: [{
-				    	scaleLabel: {
-				    		display: true,
-				    		labelString: 'Trainee'
-				    	}
-				    }]
-				  }
+			scales : {
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Average'
+					},
+					ticks : {
+						suggestedMin : 40,
+						max : 100,
+						stepSize : 20
+					}
+				} ],
+				xAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Trainee'
+					}
+				} ]
+			}
 		};
-		
+
 		angular.forEach(sorted, function(obj) {
 			chartData.labels.push(obj.name);
 			chartData.data[0].push(obj.value);
