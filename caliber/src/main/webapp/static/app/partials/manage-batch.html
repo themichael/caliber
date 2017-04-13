@@ -131,7 +131,8 @@
 							</div>
 						</div>
 						<div class="row">
-							<div ng-if="role !='TRAINER'"  class="form-group col-md-6 col-sm-6">
+							<div ng-if="role !='TRAINER'"
+								class="form-group col-md-6 col-sm-6">
 								<label for="trainer">Trainer:</label> <select
 									ng-model="trainer.model" class="form-control" id="trainer"
 									required>
@@ -226,20 +227,21 @@
 						<h4 class="modal-title" id="batchModalLabel">Confirm Batch
 							Delete</h4>
 					</div>
-					<!-- Add Batch Info -->
-					<h3>Are you sure you want to delete batch
-						{{currentBatch.trainingName}}?</h3>
-					<br /> <span ng-if="trainees.length > 1">
-						<h4>There are {{trainees.length}} trainees in this batch</h4>
-					</span> <span ng-if="trainees.length == 1">
-						<h4>There is only 1 trainee in this batch</h4>
-					</span> <span ng-if="trainees.length == 0||!trainees">
-						<h4>There are no trainees in this batch</h4>
-					</span>
-					<div class="modal-body"></div>
+					<div class="modal-body">
+						<!-- Add Batch Info -->
+						<h3>Are you sure you want to delete batch
+							{{currentBatch.trainingName}}?</h3>
+						<br /> <span ng-if="trainees.length > 1">
+							There are {{trainees.length}} trainees in this batch.
+						</span> <span ng-if="trainees.length === 1">
+							There is only 1 trainee in this batch.
+						</span> <span ng-if="trainees.length === 0|| !trainees">
+							There are no trainees in this batch.
+						</span>
+					</div>
 					<div class="modal-footer">
-						<input type="submit" value="Yes" class="btn btn-primary">
-						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+						<input type="submit" value="Delete" class="btn btn-lg btn-danger">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>
 			</div>
@@ -381,13 +383,14 @@
 						</button>
 						<h4 class="modal-title" id="traineeModalLabel">Delete Trainee</h4>
 					</div>
-					<h3>Are you sure you want to delete
-						{{traineeToBeDeleted.name}}?</h3>
-					<br />
-					<div class="modal-body"></div>
+					<div class="modal-body">
+						<h3>Are you sure you want to delete
+							{{traineeToBeDeleted.name}}?</h3>
+						<br />
+					</div>
 					<div class="modal-footer">
-						<input type="submit" value="Yes" class="btn btn-primary">
-						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+						<input type="submit" value="Delete" class="btn btn-lg btn-danger">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>
 			</div>
