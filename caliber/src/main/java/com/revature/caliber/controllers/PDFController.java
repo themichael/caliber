@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.exceptions.PDFGenerationException;
@@ -28,19 +29,21 @@ public class PDFController {
 	}
 
 	@RequestMapping(value = "/report/generate", method = RequestMethod.POST)
-	public HttpEntity<byte[]> generate(@RequestBody String html) {
+	public HttpEntity<byte[]> generate(
+			@RequestParam(name = "title", value = "title", defaultValue = "Performance at a Glance") String title,
+			@RequestBody String html) {
 		try {
-			File temp = pdfService.getPDF(html);
+			File temp = pdfService.getPDF(title, html);
 			byte[] pdf = FileUtils.readFileToByteArray(temp);
-			
+
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(new MediaType("application", "pdf"));
 			headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + temp.getPath());
 			headers.setContentLength(pdf.length);
 			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-		    headers.add("Pragma", "no-cache");
-		    headers.add("Expires", "0");
-		    
+			headers.add("Pragma", "no-cache");
+			headers.add("Expires", "0");
+
 			return new HttpEntity<>(pdf, headers);
 		} catch (Exception e) {
 			log.error("Error creating PDF file: " + e.getClass() + " --> " + e.getMessage());

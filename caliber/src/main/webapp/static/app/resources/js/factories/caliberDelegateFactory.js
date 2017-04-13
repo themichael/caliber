@@ -28,8 +28,8 @@ angular
 					/*****************************************************************
 					 * Generate PDF
 					 ****************************************************************/
-					delegate.all.generatePDF = function(html) {
-						return allFactory.generatePDF(html);
+					delegate.all.generatePDF = function(title, html) {
+						return allFactory.generatePDF(title, html);
 					};
 					
 					/**
