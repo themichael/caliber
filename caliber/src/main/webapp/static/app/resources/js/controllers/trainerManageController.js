@@ -2,7 +2,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerManageController",
-				function($scope, $log,$cookies, caliberDelegate, allBatches) {
+				function($scope, $log, $cookies, caliberDelegate, allBatches) {
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -53,6 +53,31 @@ angular
 							if (date.getFullYear() === currentYear) {
 								$scope.selectedBatches.push($scope.batches[i]);
 							}
+						}
+					}
+
+					/** Set end date in form* */
+					$scope.setEndDate = function() {
+						$scope.endDate.model = $scope.startDate.model;
+						sortByDate($scope.selectedYear);
+					};
+
+					/** prevent end date being before startdate* */
+					$scope.preventEndDate = function() {
+						if ($scope.endDate.model < $scope.startDate.model) {
+							$scope.setEndDate();
+						}
+					};
+
+					/** Set minimum grade* */
+					$scope.setMinGrade = function() {
+						$scope.borderlineGradeThreshold.model = $scope.goodGradeThreshold.model;
+					}
+
+					/** prevent minimum grade being more than good grade* */
+					$scope.lowerMinGrade = function() {
+						if ($scope.borderlineGradeThreshold.model > $scope.goodGradeThreshold.model) {
+							$scope.setMinGrade();
 						}
 					}
 
@@ -279,8 +304,8 @@ angular
 												}
 												for (var i = 0; i < $scope.selectedBatches.length; i++) {
 													if ($scope.selectedBatches[i] === $scope.currentBatch) {
-														$scope.selectedBatches.splice(
-																i, 1);
+														$scope.selectedBatches
+																.splice(i, 1);
 														break;
 													}
 												}
@@ -382,7 +407,8 @@ angular
 							createTraineeObject(newTrainee);
 							caliberDelegate.all.createTrainee(newTrainee).then(
 									function(response) {
-										$scope.currentBatch.trainees.push(response);
+										$scope.currentBatch.trainees
+												.push(response);
 										$scope.resetTraineeForm();
 									});
 						}

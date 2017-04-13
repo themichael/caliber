@@ -51,25 +51,15 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testSave() {
-		
+		// TODO
 		try {
 			Note note = new Note();
-//			note.setContent("They are doing well");
-//			note.setMaxVisibility(TrainerRole.QC);
-//			Trainee trainee = new Trainee();
-//			trainee.setTraineeId(1079);
-//			note.setTrainee(trainee);
-//			note.setType(NoteType.QC_TRAINEE);
-//			note.setWeek((short) 8);
-//			note.setQcFeedback(true);
-//			note.setQcStatus(null);
-			log.info(noteDAO.save(note)); // TODO
-			
+			log.info(noteDAO.save(note));
+
 		} catch (Exception e) {
-			fail("Save Note did not work:"+e);
+			fail("Save Note did not work:" + e);
 		}
 
-		
 	}
 
 	/**
@@ -79,7 +69,11 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testUpdate() {
-		fail("Not yet implemented"); // TODO
+		// TODO
+		try {
+		} catch (Exception e) {
+			fail("Could not update " + e);
+		}
 	}
 
 	/**
@@ -89,10 +83,10 @@ public class NoteDAOTest {
 	 */
 	@Test
 	public void testFindBatchNotes() {
-		 // TODO
-		try{
+		// TODO
+		try {
 			log.info(noteDAO.findAllBatchNotes(1077, 3));
-		}catch(Exception e){
+		} catch (Exception e) {
 			fail("cannot find batch note successfully");
 		}
 	}

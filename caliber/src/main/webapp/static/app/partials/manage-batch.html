@@ -152,7 +152,7 @@
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="start-date">Start Date:</label>
 								<div class="input-group" id="start-date" data-datepicker="true">
-									<input ng-model="startDate.model"
+									<input ng-model="startDate.model" ng-change="setEndDate()"
 										class="date-input form-control date-selector" name="date"
 										min="0" type="date" required> <span
 										class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -161,7 +161,7 @@
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="end-date">End Date:</label>
 								<div class="input-group" id="end-date" data-datepicker="true">
-									<input ng-model="endDate.model"
+									<input ng-model="endDate.model" ng-change="preventEndDate()"
 										class="date-input form-control date-selector" name="date"
 										type="date" required> <span
 										class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -174,18 +174,19 @@
 									title="The minimum acceptable grade."
 									alt="The minimum acceptable grade."
 									class="glyphicon glyphicon-question-sign"></span></label> <input
-									ng-model="goodGradeThreshold.model" type="number" min="0"
-									step="1" class="form-control" id="goodGrade" placeholder="80"
-									required>
+									ng-model="goodGradeThreshold.model" ng-change="setMinGrade()"
+									type="number" min="0" step="1" class="form-control"
+									id="goodGrade" placeholder="80" required>
 							</div>
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="borderlineGrade">Passing Grade: <span
 									title="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action."
 									alt="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action."
 									class="glyphicon glyphicon-question-sign"></span></label> <input
-									ng-model="borderlineGradeThreshold.model" type="number" min="0"
-									step="1" class="form-control" id="borderlineGrade"
-									placeholder="50" required>
+									ng-model="borderlineGradeThreshold.model"
+									ng-change="lowerMinGrade()" type="number" min = "0" step="1"
+									class="form-control" id="borderlineGrade" placeholder="50"
+									required>
 							</div>
 						</div>
 						<div class="row">
