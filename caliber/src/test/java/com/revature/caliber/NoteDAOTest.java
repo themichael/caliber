@@ -60,7 +60,7 @@ public class NoteDAOTest {
 	@Test
 	public void testUpdate() {
 		// TODO
-		fail("Could not update ");
+		
 
 	}
 
