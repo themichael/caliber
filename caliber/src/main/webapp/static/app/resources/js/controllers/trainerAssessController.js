@@ -5,7 +5,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerAssessController",
-				function($log, $scope, chartsDelegate, caliberDelegate,
+				function($timeout,$log, $scope, chartsDelegate, caliberDelegate,
 						allBatches) {
 					// Week object
 					function Week(weekNumb, assessments) {
@@ -68,6 +68,7 @@ angular
 								$scope.trainees[traineeId] = {};
 								$scope.trainees[traineeId].assessments=[];
 								$scope.trainees[traineeId].note={};
+								$scope.trainees[traineeId].burrito=false;
 							}								
 							return $scope.trainees[traineeId];							
 						}
@@ -79,7 +80,7 @@ angular
 										$scope.trainees[value].assessments[assessments[a].assessmentId].score='';
 									}
 								}
-							})
+							});
 						}
 					
 						// get trainee notes and put into
@@ -124,13 +125,17 @@ angular
 					(function start(allBatches) {
 						$scope.batches = allBatches;
 						if (!allBatches) return;
-						if (allBatches.length > 0) {
-							$scope.currentBatch = allBatches[allBatches.length-1]; // shows
+						if (allBatches.length > 0) { 								// shows
 																					// the
 																					// latest
 																					// batches
+							
+							if(!$scope.currentBatch){ // if currentBatch is not yet in the scope, run for assess batch
+								$scope.currentBatch = allBatches[allBatches.length-1];
+							}
 							$log.debug("This is the current batch "
 									+ $scope.currentBatch);
+							
 							if (allBatches[0].weeks > 0) {
                                 $scope.category = {
 									model : null,
@@ -164,7 +169,7 @@ angular
 								$log.debug("Batches " + allBatches);
 								$log.debug(allBatches);
 								
-
+								if(!$scope.currentWeek){ // if currentWeek is not yet in the scope, run for assess batch
 								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
 								// number
 								// of
@@ -177,11 +182,12 @@ angular
 												+ allBatches[allBatches.length-1].trainingName
 												+ ": " + totalWeeks);
 
-								$scope.currentWeek = totalWeeks;
+								$scope.currentWeek = totalWeeks; // change here***********************************************************************************
+								}
 								/**
 								 * *****************************************
 								 * getAllAssessmentsForWeek
-								 * ***************************************************************************************88888******************************************************************************************************************************************************************************************
+								 * *********************************************************
 								 */
 								getAllAssessmentsForWeek(
 										$scope.currentBatch.batchId,
@@ -190,8 +196,8 @@ angular
 							} else
 								$scope.currentWeek = null;
 						} else {
-							$scope.currentBatch = null;
-							$scope.currentWeek = null;
+							/*$scope.currentBatch = null;
+							$scope.currentWeek = null;*/
 						}
 						$log.debug("Starting Values: currentBatch and currentWeek");
 						$log.debug($scope.currentBatch);
@@ -358,7 +364,16 @@ angular
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
+											$scope.allAssessmentsAvgForWeek = false;
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+											caliberDelegate.all.getAssessmentsAverageForWeek(
+													$scope.currentBatch.batchId
+													, $scope.currentWeek
+													).then(function(response){
+														$timeout(function(){
+															$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
+														},4000);															
+													});
 										});
 										
 					};
@@ -388,10 +403,23 @@ angular
 					}
 								
 					$scope.generateArrAssessmentById = function(assessments){
+						var totalRawScore = 0;
 						for(a of assessments){
 							$scope.assessmentsById[a.assessmentId] = {};
 							$scope.assessmentsById[a.assessmentId].total = 0;
+							$scope.assessmentsById[a.assessmentId].rawScore = a.rawScore; 
+							totalRawScore += a.rawScore;
 						}						
+						for(a of assessments){
+							$scope.assessmentsById[a.assessmentId]
+							.weightedScore = $scope.getWeightedScore(
+									$scope.assessmentsById[a.assessmentId].rawScore
+									,totalRawScore
+									);
+						}
+					}
+					$scope.getWeightedScore = function(rawScore,totalRawScore){
+						return (rawScore/totalRawScore) * 100;
 					}
 
 					/**
@@ -509,21 +537,50 @@ angular
 					 * **********************************************TODO
 					 * POSSIBLE REFACTOR**************************************
 					 */
-
+					
 					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
-						
+						$scope.saving = [];
 						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
 						if($scope.assessmentTotals[assessment.assessmentId] === undefined) $scope.assessmentTotals[assessment.assessmentId] = {};
 							
 						$scope.assessmentTotals[assessment.assessmentId].total = 0;
 						$scope.assessmentTotals[assessment.assessmentId].count = 0;
+						var count =0
 							for(var traineeKey in trainees){
 								if(trainees[traineeKey].assessments[assessment.assessmentId]){
 									$scope.assessmentTotals[assessment.assessmentId].total+= Number(trainees[traineeKey].assessments[assessment.assessmentId].score);								
 									$scope.assessmentTotals[assessment.assessmentId].count +=1;
+									count +=1;
 								}
+								$scope.saving[count] = false;
 							}
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
-
+					/****************************************************
+					 *Save Button **
+					 **************************************************/
+					
+					$scope.showSaving = false;
+					$scope.showCheck = false;
+					$scope.showFloppy = true;
+					$scope.doBurrito =function(){
+							$scope.showFloppy = false
+							$timeout(function(){
+								$scope.showSaving=true;								
+							},480).then(function(){
+								$timeout(function(){
+									$scope.showSaving=false;
+								}, 1000).then(function(){
+									$scope.showCheck = true;
+									$timeout(function(){
+										$scope.showCheck = false;
+									},2000).then(function(){
+										$scope.showFloppy = true;
+									});								
+								});
+							});
+					}
+					$scope.stopBurrito = function(traineeId){
+						$scope.trainees[traineeId].burrito=false;
+					}
 				});

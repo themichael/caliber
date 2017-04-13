@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
 
@@ -105,10 +107,12 @@ public class TrainingController {
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Batch> createBatch(@RequestBody Batch batch, Authentication auth) {
-		//batch.setTrainer(getPrincipal(auth));
+		if (getPrincipal(auth).getTier().equals(TrainerRole.TRAINER)) {
+			batch.setTrainer(getPrincipal(auth));
+		}
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
-		return new ResponseEntity<Batch>(batch,HttpStatus.CREATED);
+		return new ResponseEntity<Batch>(batch, HttpStatus.CREATED);
 	}
 
 	/**
@@ -121,7 +125,7 @@ public class TrainingController {
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateBatch(@RequestBody Batch batch, Authentication auth) {
-		//batch.setTrainer(getPrincipal(auth));
+		// batch.setTrainer(getPrincipal(auth));
 		log.info("Updating batch: " + batch);
 		trainingService.update(batch);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -149,7 +153,8 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value = {"/qc/batch/all", "/vp/batch/all/current"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = { "/qc/batch/all",
+			"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('QC, VP')")
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
 		log.info("Fetching all current batches");
@@ -157,7 +162,7 @@ public class TrainingController {
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 
 	}
-	
+
 	/**
 	 * Gets all batches
 	 *
@@ -283,8 +288,8 @@ public class TrainingController {
 	 * injecting Authentication into Controller method. Use @PreAuthorize with
 	 * Spring Expression Language (SpEL) to send 403 forbidden if not authorized
 	 * <<<<<<< HEAD
-	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html
-	 * =======
+	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el
+	 * -access.html =======
 	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el
 	 * -access.html >>>>>>> 5aedf4196dfe4b91cac204fa623c7755fec4a5df
 	 * 

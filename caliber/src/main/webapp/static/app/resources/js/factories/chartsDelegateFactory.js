@@ -110,9 +110,9 @@ angular
 					 * ************************ Radar ************************
 					 */
 					delegate.radar.getTechnicalSkillsTraineeWeekly = function(
-							dataArray) {
+							dataArray, seriesName) {
 						return radarChartFactory
-								.getTraineeUpToWeekRadarChart(dataArray);
+								.getTraineeUpToWeekRadarChart(dataArray, seriesName);
 					};
 
 					delegate.radar.data.getTechnicalSkillsTraineeWeeklyData = function(
@@ -122,9 +122,9 @@ angular
 					};
 
 					delegate.radar.getTechnicalSkillsTraineeOverall = function(
-							dataArray) {
+							dataArray, seriesName) {
 						return radarChartFactory
-								.getTraineeOverallRadarChart(dataArray);
+								.getTraineeOverallRadarChart(dataArray, seriesName);
 					};
 
 					delegate.radar.data.getTechnicalSkillsTraineeOverallData = function(
@@ -134,9 +134,9 @@ angular
 					};
 
 					delegate.radar.getTechnicalSkillsBatchOverall = function(
-							dataArray) {
+							dataArray, seriesName) {
 						return radarChartFactory
-								.getBatchOverallRadarChart(dataArray);
+								.getBatchOverallRadarChart(dataArray, seriesName);
 					};
 
 					delegate.radar.data.getTechnicalSkillsBatchOverallData = function(
@@ -146,8 +146,8 @@ angular
 					};
 
 					
-					delegate.radar.addRadarToExistingRadar = function(currentChartData, otherDataArray){
-						return radarChartFactory.addDataToExistingRadar(currentChartData, otherDataArray);
+					delegate.radar.addRadarToExistingRadar = function(currentChartData, otherDataArray, seriesName){
+						return radarChartFactory.addDataToExistingRadar(currentChartData, otherDataArray, seriesName);
 					}
 					
 					

@@ -4,24 +4,6 @@ angular.module("api").factory("allFactory", function($log, $http) {
 
 	var all = {};
 
-	/***************************************************************************
-	 * Server generates PDF from HTML Download via response data
-	 * 
-	 **************************************************************************/
-	all.generatePDF = function(html) {
-		return $http({
-			url : "/report/generate",
-			method : "POST",
-			data : html,
-			responseType : "arraybuffer"
-		}).then(function(response) {
-			$log.debug(response);
-			return response.data;
-		}, function(response) {
-			$log.error("There was an error: " + response.status);
-		});
-	};
-
 	/** ************************* Enum constants *********************** */
 	all.enumCommonLocations = function() {
 		return $http({
@@ -267,6 +249,17 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		});
 	};
 
+	all.getAssessmentsAverageForWeek = function(batchId, weekId) {
+		return $http({
+			url : "/all/assessments/average/" + batchId + "/" + weekId,
+			method : "GET"
+		}).then(function(response) {
+			return response.data;
+		}, function(response) {
+			$log.error("There was a error " + response.status);
+		});
+	}
+
 	/** *********************** Trainer ********************* */
 
 	/**
@@ -285,5 +278,24 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+
+	/***************************************************************************
+	 * Server generates PDF from HTML Download via response data
+	 * 
+	 **************************************************************************/
+	all.generatePDF = function(title, html) {
+		return $http({
+			url : "/report/generate?title=" + title,
+			method : "POST",
+			data : html,
+			responseType : "arraybuffer"
+		}).then(function(response) {
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
 	return all;
 });
