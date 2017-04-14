@@ -24,6 +24,15 @@ angular
 						this.qcFeedback = qcFeedback;
 						this.qcStatus = status;
 					}
+					
+					// Used to sort trainees in batch
+					function compare(a,b) {
+					  if (a.name < b.name)
+					    return -1;
+					  if (a.name > b.name)
+					    return 1;
+					  return 0;
+					}
 
 					/**
 					 * ***************************************** UI
@@ -56,6 +65,7 @@ angular
 
 					// starting scope vars
 					$scope.currentBatch = $scope.batches[0];
+					$scope.currentBatch.trainees.sort(compare);
 					// create an array of numbers for number of weeks
 					for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
 						$scope.weeks.push(i);
@@ -158,6 +168,7 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$log.debug("SELECTED DIFFERENT BATCH");
 						$scope.currentBatch = $scope.batches[index];
+						$scope.currentBatch.trainees.sort(compare);
 						// Create week array for batch selected
 						$scope.weeks = [];
 						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
