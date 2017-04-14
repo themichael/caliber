@@ -2,7 +2,7 @@ angular
 		.module("charts")
 		.controller(
 				"allReportController",
-				function($scope, $state, $log, caliberDelegate, chartsDelegate,
+				function($rootScope, $scope, $state, $log, caliberDelegate, chartsDelegate,
 						allBatches) {
 
 					$log.debug("Booted Report Controller");

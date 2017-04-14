@@ -5,7 +5,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerAssessController",
-				function($timeout,$log, $scope, $state, chartsDelegate, caliberDelegate,
+				function($rootScope, $timeout,$log, $scope, $state, chartsDelegate, caliberDelegate,
 						allBatches) {
 					// Week object
 					function Week(weekNumb, assessments) {
