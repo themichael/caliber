@@ -232,13 +232,11 @@
 						<!-- Add Batch Info -->
 						<h3>Are you sure you want to delete batch
 							{{currentBatch.trainingName}}?</h3>
-						<br /> <span ng-if="trainees.length > 1">
-							There are {{trainees.length}} trainees in this batch.
-						</span> <span ng-if="trainees.length === 1">
-							There is only 1 trainee in this batch.
-						</span> <span ng-if="trainees.length === 0|| !trainees">
-							There are no trainees in this batch.
-						</span>
+						<br /> <span ng-if="trainees.length > 1"> There are
+							{{trainees.length}} trainees in this batch. </span> <span
+							ng-if="trainees.length === 1"> There is only 1 trainee in
+							this batch. </span> <span ng-if="trainees.length === 0|| !trainees">
+							There are no trainees in this batch. </span>
 					</div>
 					<div class="modal-footer">
 						<input type="submit" value="Delete" class="btn btn-lg btn-danger">
