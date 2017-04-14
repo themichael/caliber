@@ -10,14 +10,16 @@ angular
 					// What you see when you open Reports
 					$scope.currentBatch = null;
 					$scope.reportCurrentWeek = OVERALL;
+					$scope.batchWeeks = {"weeks":[]};
 					$scope.currentTraineeId = ALL;
-					$scope.batchWeeks = {};
+					
+					
 					$scope.noBatch=true;
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
-					$scope.batchWeeks = {};
+
 					(function start() {
 						// Finishes any left over ajax animation from another
 						// page
@@ -76,8 +78,9 @@ angular
 					}
 
 					function getCurrentBatchWeeks(weeks) {
-						for(var i = 1; i <= weeks;i++)
-						$scope.batchWeeks["week - " + i ] = i;
+						$scope.batchWeeks.week = [];
+						for(var i = 1; i <= weeks;i++) $scope.batchWeeks.week.push(i);
+						$log.debug($scope.batchWeeks);
 					}
 					/**
 					 * ********************************************* UI
@@ -85,15 +88,13 @@ angular
 					 */
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batches[index];
-						$log.debug($scope.currentBatch);
-						$log.debug("Selected batch " + index);
-						$scope.batchWeeks = getCurrentBatchWeeks($scope.currentBatch.weeks);
+						getCurrentBatchWeeks($scope.currentBatch.weeks);
+						$log.debug($scope.batchWeeks.week);
 						selectView($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId);
 					};
 					
 					$scope.selectCurrentWeek = function(week) {
 						$scope.reportCurrentWeek = week;
-						$log.debug($scope.reportCurrentWeek);
 						selectView($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId);
 					}
 					/*scope function to display the table if a batch and week has been selected*/

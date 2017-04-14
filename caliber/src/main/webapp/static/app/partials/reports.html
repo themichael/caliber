@@ -28,7 +28,7 @@
 				</a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentWeek(-1)">None</a></li>
-						<li ng-repeat="menuItem in batchWeeks track by $index"><a
+						<li ng-repeat="menuItem in batchWeeks.week"><a
 							role="button" ng-click="selectCurrentWeek(menuItem)">{{menuItem}}</a></li>
 					</ul></li>
 					
