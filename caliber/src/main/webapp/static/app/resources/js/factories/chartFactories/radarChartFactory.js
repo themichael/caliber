@@ -34,7 +34,8 @@ angular
 							seriesName) {
 						var chartData = {};
 
-						chartData.series = [ "Batch" ];
+						chartData.series = [];
+						chartData.series.push(seriesName);
 
 						chartData.labels = [];
 
@@ -51,10 +52,10 @@ angular
 					}
 
 					radar.addDataToExistingRadar = function(currentChartData,
-							otherDataArray) {
+							otherDataArray, seriesName) {
 						var newData = [];
 						var totalTechs = currentChartData.labels.length;
-						currentChartData.series.push("TRAINEE PLACEHOLDER");
+						currentChartData.series.push(seriesName);
 
 						for (var i = 0; i < totalTechs; i++) {
 							if (otherDataArray
