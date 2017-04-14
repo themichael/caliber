@@ -22,6 +22,17 @@
 							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}
 								- {{ menuItem.startDate | date:'shortDate' }}</a></li>
 					</ul></li>
+				<!-- Select Week-->
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">Week {{currentWeek}}<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
+						<li ng-repeat="menuItem in batches track by $index"><a
+							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}
+								- {{ menuItem.startDate | date:'shortDate' }}</a></li>
+					</ul></li>
+					
 				<!-- Select Trainee-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					ng-show="hideOtherTabs()" data-toggle="dropdown">{{currentTrainee.name}}<span
@@ -34,6 +45,10 @@
 			</ul>
 		</div>
 	</div>
+</div>
+<!-- No Selected Batches -->
+<div class="container" ng-show="noBatches">
+	<h1>Please select a batch</h1>
 </div>
 
 <!-- Charts -->
