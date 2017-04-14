@@ -1,8 +1,5 @@
 package com.revature.caliber.controllers;
 
-import java.io.File;
-
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -33,13 +30,11 @@ public class PDFController {
 			@RequestParam(name = "title", value = "title", defaultValue = "Performance at a Glance") String title,
 			@RequestBody String html) {
 		try {
-			File temp = pdfService.getPDF(title, html);
-			byte[] pdf = FileUtils.readFileToByteArray(temp);
-			temp.delete();
+			byte[] pdf = pdfService.generatePDF(title, html);;
 			
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(new MediaType("application", "pdf"));
-			headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + temp.getPath());
+			headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf");
 			headers.setContentLength(pdf.length);
 			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
 			headers.add("Pragma", "no-cache");
