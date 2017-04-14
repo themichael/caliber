@@ -415,7 +415,7 @@ angular
 							.weightedScore = $scope.getWeightedScore(
 									$scope.assessmentsById[a.assessmentId].rawScore
 									,totalRawScore
-									);
+									).toFixed(0).toString() + '%';;
 						}
 					}
 					$scope.getWeightedScore = function(rawScore,totalRawScore){
