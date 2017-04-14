@@ -105,7 +105,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public ModelAndView revoke(Authentication auth) throws IOException {
-		String token = ((SalesforceUser) auth).getSalesforceToken().getAccessToken();
+		String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
 		log.info("Revoking token: " + token);
 		HttpPost post = new HttpPost(revokeUrl);
 		List<NameValuePair> parameters = new ArrayList<>();
