@@ -26,9 +26,9 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			access="permitAll" /> -->
 		
 		<security:csrf disabled="true" />
-		<security:logout invalidate-session="true" logout-url="/logout" logout-success-url="/revoke" delete-cookies="JSESSIONID" />
-		<security:session-management invalid-session-url="/revoke">
-			<security:concurrency-control expired-url="/revoke" />
+		<security:logout invalidate-session="true" logout-url="/revoke" logout-success-url="/" delete-cookies="JSESSIONID" />
+		<security:session-management invalid-session-url="/logout">
+			<security:concurrency-control expired-url="/logout" />
 		</security:session-management>
 	</security:http>
 

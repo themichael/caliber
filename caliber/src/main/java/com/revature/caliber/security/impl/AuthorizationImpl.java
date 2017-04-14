@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -104,11 +103,16 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		return new ModelAndView("redirect:" + redirectUrl);
 	}
 
-	@RequestMapping(value="revoke", method=RequestMethod.GET)
-	public ModelAndView revoke(Authentication auth) {
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public ModelAndView revoke(Authentication auth) throws IOException {
 		String token = ((SalesforceUser) auth).getSalesforceToken().getAccessToken();
 		log.info("Revoking token: " + token);
-		return new ModelAndView("redirect:" + revokeUrl + "?token=" + token);
+		HttpPost post = new HttpPost(revokeUrl);
+		List<NameValuePair> parameters = new ArrayList<>();
+		parameters.add(new BasicNameValuePair("token", token));
+		post.setEntity(new UrlEncodedFormEntity(parameters));
+		httpClient.execute(post);
+		return new ModelAndView("redirect:revoke");
 	}
 
 	public void setAuthURL(String authURL) {
