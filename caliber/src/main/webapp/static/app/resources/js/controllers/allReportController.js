@@ -22,6 +22,7 @@ angular
 							$log.debug("Here AGAIN!!!!!!");
 							createDefaultCharts();
 						}
+						
 					})();
 
 					/**
@@ -29,11 +30,15 @@ angular
 					 * **************************************************
 					 */
 					var viewCharts = 0;
+					
+					$scope.currentWeek = 1;					// denise hard coded
 
 					$scope.batches = allBatches;
 					$scope.currentBatch = {
-						trainingName : "Batch"
+						trainingName : "Batch",
+						batchId : 1050		// denise hard coded
 					};
+					$scope.currentBatch = allBatches[0]; // denise hard code/core
 					$scope.currentTrainee = {
 						name : "Trainee"
 					};
@@ -162,8 +167,26 @@ angular
 					 * automatically in new tab.
 					 */
 					$scope.generatePDF = function() {
-						var html = "<div>Extract report contents into here</div>";
-						caliberDelegate.all.generatePDF(html).then(
+						// indicate to user the PDF is processing
+						$scope.reticulatingSplines = true;
+						
+						// get html element #caliber-container
+						var caliber = document.getElementById("caliber-container");
+						$log.debug(caliber);
+						
+						// iterate over all childrens to convert <canvas> to <img src=base64>
+						var html = $scope.generateImgFromCanvas(caliber).innerHTML;
+						$log.debug(html);
+						
+						var title = "Progress for " + $scope.currentBatch.trainingName;
+						// generate the title
+						if($scope.currentWeek)
+							title = "Week "+ $scope.currentWeek +" Progress for " + $scope.currentBatch.trainingName;
+						else if ($scope.currentTrainee)
+							title = "Progress for " + $scope.currentTrainee.name;
+						
+						// send to server and download generated PDF
+						caliberDelegate.all.generatePDF(title, html).then(
 								function(pdf) {
 									// extract PDF bytes
 									var file = new Blob([ pdf ], {
@@ -178,11 +201,38 @@ angular
 									a.download = "report.pdf";
 									document.body.appendChild(a);
 									a.click();
+									$scope.reticulatingSplines = false;
 								}, function(error) {
 									$log.debug(reason);
 								}, function(value) {
 									$log.debug(value);
 								});
 					}
-
+					
+					$scope.generateImgFromCanvas = function(dom){
+						for (var i = 0; i < dom.childNodes.length; i++) {
+						      var child = dom.childNodes[i];
+						      $scope.generateImgFromCanvas(child);
+						      if(child.tagName === "CANVAS"){
+						    	  // swap canvas for image with base64 src
+						    	  var image = new Image();
+						          image.src = child.toDataURL();
+						          dom.replaceChild(image, child);
+						          $log.debug(dom.childNodes[i]);
+						      }
+						}
+						return dom;
+					};
+					
+					$scope.selectCurrentBatch = function(index) {
+						$scope.currentBatch = $scope.batches[index];
+						$log.debug("Selected batch " + index);
+					};
+					/*scope function to display the table if a batch and week has been selected*/
+					$scope.displayTable = function(){
+						if($scope.currentBatch.batchId && $scope.currentWeek){ // checking to see if the scope variables are null
+							return true; //change to false later
+						}
+						return true;
+					}
 				});
