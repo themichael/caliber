@@ -74,6 +74,34 @@ angular.module("charts").factory("radarChartFactory", function($log) {
 
 		}
 	};
+	
+	
+	radar.dataToTable = function (dataset) {
+	    var html = '<table>';
+	    html += '<tr> <th style="width:120px;">#</th>';
+	 
+	    var columnCount = 0;
+	    jQuery.each(dataset.datasets, function (idx, item) {
+	        html += '<th style="background-color:' + item.fillColor + ';">' + item.label + '</th>';
+	        columnCount += 1;
+	    });
+	 
+	    jQuery.each(dataset.labels, function (idx, item) {
+	        html += '<tr><td>' + item + '</td>';
+	        for (i = 0; i < columnCount; i++) {
+	            html += '<td style="background-color:' + dataset.datasets[i].fillColor.replace('0.5', '0.2') + ';">' + (dataset.datasets[i].data[idx] === '0' ? '-' : dataset.datasets[i].data[idx]) + '</td>';
+	        }
+	        html += '</tr>'; //'<td></td>';
+	    });
+	 
+	    html += '</tr>';
+	    html += '</table>';
+	 
+	    return html;
+	};
+	
+	
+	
 
 	return radar;
 });
