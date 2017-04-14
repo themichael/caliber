@@ -9,7 +9,7 @@ angular
 					const ALL = -1;
 					// What you see when you open Reports
 					$scope.currentBatch = null;
-					$scope.currentWeek = OVERALL;
+					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentTraineeId = ALL;
 					
 					$scope.noBatch=true;
@@ -17,7 +17,7 @@ angular
 					$scope.batchWeekTrainee = false;
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
-					
+					$scope.batchWeeks = {};
 					(function start() {
 						// Finishes any left over ajax animation from another
 						// page
@@ -28,7 +28,7 @@ angular
 							$scope.noBatch=true;
 						} else {
 							$scope.noBatch=false;
-							selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
+							selectView($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId);
 						}
 						
 					})();
@@ -81,13 +81,14 @@ angular
 					 */
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batches[index];
+						$log.debug($scope.currentBatch);
 						$log.debug("Selected batch " + index);
-						selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
+						selectView($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId);
 					};
 					
 					/*scope function to display the table if a batch and week has been selected*/
 					$scope.displayTable = function(){
-						if($scope.currentBatch.batchId && $scope.currentWeek){ // checking to see if the scope variables are null
+						if($scope.currentBatch.batchId && $scope.reportCurrentWeek){ // checking to see if the scope variables are null
 							return true; //change to false later
 						}
 						return true;
@@ -107,7 +108,7 @@ angular
 							$scope.currentTrainee = {
 									name : $scope.currentBatch.trainees[index].name
 								};
-							selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
+							selectView($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId);
 							//viewCharts = 3;
 							//createTraineeCharts();
 						}
@@ -131,7 +132,6 @@ angular
 					};
 
 					
-
 					function createBatchWeek() {
 						NProgress.done();
 						NProgress.start();
@@ -174,7 +174,7 @@ angular
 
 					function createQCStatus() {
 						chartsDelegate.doughnut.data
-								.getQCStatsData($scope.currentBatch.batchId, $scope.currentWeek)
+								.getQCStatsData($scope.currentBatch.batchId, $scope.reportCurrentWeek)
 								.then(
 										function(data) {
 											NProgress.done();
@@ -193,7 +193,7 @@ angular
 
 					function createAverageTraineeScoresWeekly() {
 						chartsDelegate.bar.data
-						.getAverageTraineeScoresWeeklyData($scope.currentBatch.batchId, $scope.currentWeek)
+						.getAverageTraineeScoresWeeklyData($scope.currentBatch.batchId, $scope.reportCurrentWeek)
 						.then(function(data) {
 							NProgress.done();
 							var barChartObj = chartsDelegate.bar.getAverageTraineeScoresWeekly(data);
@@ -226,7 +226,7 @@ angular
 					//Yanilda barchart
 					function createAssessmentAveragesBatchWeekly() {
 						chartsDelegate.bar.data
-						.getAssessmentAveragesBatchWeeklyData($scope.currentBatch.batchId, $scope.currentWeek)
+						.getAssessmentAveragesBatchWeeklyData($scope.currentBatch.batchId, $scope.reportCurrentWeek)
 						.then(
 								function(data) {
 									NProgress.done();
@@ -248,7 +248,7 @@ angular
 					}
 
 					function createAssessmentAveragesTraineeWeekly() {
-						chartsDelegate.bar.data.getAssessmentAveragesTraineeWeeklyData($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId)
+						chartsDelegate.bar.data.getAssessmentAveragesTraineeWeeklyData($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId)
 						.then(
 								function(data) {
 									NProgress.done();
@@ -287,7 +287,7 @@ angular
 					function createTechnicalSkillsTraineeWeekly() {
 						$log.debug("createTechnicalSkillsTraineeWeekly");
 						chartsDelegate.radar.data
-						.getTechnicalSkillsTraineeWeeklyData($scope.currentWeek, $scope.currentTraineeId) // up to week, traineeId
+						.getTechnicalSkillsTraineeWeeklyData($scope.reportCurrentWeek, $scope.currentTraineeId) // up to week, traineeId
 						.then(
 								function(data) {
 									NProgress.done();
@@ -353,7 +353,7 @@ angular
 					//Yanilda
 					function createWeeklyProgressTraineeWeekly() {
 						chartsDelegate.line.data
-						.getWeeklyProgressTraineeWeeklyData($scope.currentWeek, $scope.currentTraineeId)
+						.getWeeklyProgressTraineeWeeklyData($scope.reportCurrentWeek, $scope.currentTraineeId)
 						.then(
 								function(data) {
 									NProgress.done();
