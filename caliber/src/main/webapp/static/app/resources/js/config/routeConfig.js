@@ -84,9 +84,13 @@ angular
 						    	  templateUrl : "/static/app/partials/reports.html",
 									controller : "allReportController"
 						      },
-						      "trainer-display@trainer.reports": {
+						      "trainer-display@qc.reports": {
 						    	  templateUrl : "/static/app/partials/trainer-display.html",
 									controller : "trainerAssessController"
+						      },
+						      "qc-display@qc.reports": {
+						    	  templateUrl : "/static/app/partials/qc-display.html",
+									controller : "qcAssessController"
 						      }
 						    }
 						  })
@@ -207,7 +211,7 @@ angular
 						    	  templateUrl : "/static/app/partials/reports.html",
 									controller : "allReportController"
 						      },
-						      "trainer-display@trainer.reports": {
+						      "trainer-display@vp.reports": {
 						    	  templateUrl : "/static/app/partials/trainer-display.html",
 									controller : "trainerAssessController"
 						      }
