@@ -309,6 +309,7 @@ angular
 									$scope.radarTraineeWeeklyLabels = radarTraineeWeeklyChartObj.labels;
 									$scope.radarTraineeWeeklySeries = radarTraineeWeeklyChartObj.series;
 									
+									$scope.radarTraineeWeeklyTable = chartsDelegate.radar.dataToTable(radarTraineeWeeklyChartObj);
 								});
 					};
 
@@ -325,6 +326,8 @@ angular
 									$scope.radarTraineeOverallOptions = radarTraineeOverallChartObj.options;
 									$scope.radarTraineeOverallLabels = radarTraineeOverallChartObj.labels;
 									$scope.radarTraineeOverallSeries = radarTraineeOverallChartObj.series;
+									
+									$scope.radarTraineeOverallTable = chartsDelegate.radar.dataToTable(radarTraineeOverallChartObj);
 								});
 					};
 					
@@ -343,13 +346,7 @@ angular
 											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
 											$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
 											
-											
-											$log.debug("Testing Table Data ________________________________________________________________")
-											$scope.testingBatchTechSkillsTable = chartsDelegate.radar.dataToTable(radarBatchOverallChartObject);
-											$log.debug(chartsDelegate.radar.dataToTable(radarBatchOverallChartObject));
-											
-											
-											
+											$scope.radarBatchOverallTable = chartsDelegate.radar.dataToTable(radarBatchOverallChartObject);
 										});
 
 					};

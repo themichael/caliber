@@ -3,105 +3,108 @@
  * @param $log
  * @returns {{}}
  */
-angular.module("charts").factory("radarChartFactory", function($log) {
-	$log.debug("Booted radarChartFactory");
+angular
+		.module("charts")
+		.factory(
+				"radarChartFactory",
+				function($log) {
+					$log.debug("Booted radarChartFactory");
 
-	var radar = {};
-	
-	radar.getTraineeUpToWeekRadarChart = function(dataArray, seriesName) {
-		return createGenericRadarChartObject(dataArray, seriesName);
-	};
-	
-	radar.getTraineeOverallRadarChart = function(dataArray, seriesName) {
-		return createGenericRadarChartObject(dataArray, seriesName);
-	};
-	
-	radar.getBatchOverallRadarChart = function(dataArray, seriesName) {
-		return createGenericRadarChartObject(dataArray, seriesName);
-	};
-	
-	
-	var createGenericRadarChartObject = function(dataArray, seriesName){
-		var chartData = {};
-		
-		chartData.series = [ "Batch" ];
-		
-		chartData.labels = [];
-		
-		chartData.data = [];
-		chartData.data.push([]);
+					var radar = {};
 
-		angular.forEach(dataArray, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data[0].push(value.toFixed(2));
-		});
-		
-		chartData.options = radarOptions;
-		return chartData;
-	}
-	
-	
-	radar.addDataToExistingRadar = function(currentChartData, otherDataArray){
-		var newData = [];
-		var totalTechs = currentChartData.labels.length;
-		currentChartData.series.push("TRAINEE PLACEHOLDER");
+					radar.getTraineeUpToWeekRadarChart = function(dataArray,
+							seriesName) {
+						return createGenericRadarChartObject(dataArray,
+								seriesName);
+					};
 
-		for(var i = 0; i < totalTechs; i++){
-			if(otherDataArray.hasOwnProperty(currentChartData.labels[i])){
-				newData.push((otherDataArray[currentChartData.labels[i]]).toFixed(2));
-			}
-		}
+					radar.getTraineeOverallRadarChart = function(dataArray,
+							seriesName) {
+						return createGenericRadarChartObject(dataArray,
+								seriesName);
+					};
 
-		currentChartData.data.push(newData);
-		
-		return currentChartData;
-	};
-	
+					radar.getBatchOverallRadarChart = function(dataArray,
+							seriesName) {
+						return createGenericRadarChartObject(dataArray,
+								seriesName);
+					};
 
-	radarOptions = {
-		legend : {
-			display : true,
-			position : 'bottom'
-		},
-		scale : {
-			reverse : false,
-			ticks : {
-				beginAtZero : false,
-				fixedStepSize : 10,
-				max : 100,
-				suggestedMin : 40
-			}
+					var createGenericRadarChartObject = function(dataArray,
+							seriesName) {
+						var chartData = {};
 
-		}
-	};
-	
-	
-	radar.dataToTable = function (dataset) {
-	    var html = '<table>';
-	    html += '<tr> <th style="width:120px;">#</th>';
-	 
-	    var columnCount = 0;
-	    jQuery.each(dataset.datasets, function (idx, item) {
-	        html += '<th style="background-color:' + item.fillColor + ';">' + item.label + '</th>';
-	        columnCount += 1;
-	    });
-	 
-	    jQuery.each(dataset.labels, function (idx, item) {
-	        html += '<tr><td>' + item + '</td>';
-	        for (i = 0; i < columnCount; i++) {
-	            html += '<td style="background-color:' + dataset.datasets[i].fillColor.replace('0.5', '0.2') + ';">' + (dataset.datasets[i].data[idx] === '0' ? '-' : dataset.datasets[i].data[idx]) + '</td>';
-	        }
-	        html += '</tr>'; //'<td></td>';
-	    });
-	 
-	    html += '</tr>';
-	    html += '</table>';
-	 
-	    return html;
-	};
-	
-	
-	
+						chartData.series = [];
+						chartData.series.push(seriesName);
 
-	return radar;
-});
+						chartData.labels = [];
+
+						chartData.data = [];
+						chartData.data.push([]);
+
+						angular.forEach(dataArray, function(value, key) {
+							chartData.labels.push(key);
+							chartData.data[0].push(value.toFixed(2));
+						});
+
+						chartData.options = radarOptions;
+						return chartData;
+					}
+
+					radar.addDataToExistingRadar = function(currentChartData,
+							otherDataArray, seriesName) {
+						var newData = [];
+						var totalTechs = currentChartData.labels.length;
+						currentChartData.series.push(seriesName);
+
+						for (var i = 0; i < totalTechs; i++) {
+							if (otherDataArray
+									.hasOwnProperty(currentChartData.labels[i])) {
+								newData
+										.push((otherDataArray[currentChartData.labels[i]])
+												.toFixed(2));
+							}
+						}
+
+						currentChartData.data.push(newData);
+
+						return currentChartData;
+					};
+
+					radarOptions = {
+						legend : {
+							display : true,
+							position : 'bottom'
+						},
+						scale : {
+							reverse : false,
+							ticks : {
+								beginAtZero : false,
+								fixedStepSize : 10,
+								max : 100,
+								suggestedMin : 40
+							}
+
+						}
+					};
+
+					radar.dataToTable = function(chartObject) {
+						var tableDataSet = [];
+						for (var i = 0; i < chartObject.labels.length; i++) {
+							var row = {};
+							row.label = chartObject.labels[i];
+							row.data = [];
+							angular.forEach(chartObject.data, function(value,
+									key) {
+								row.data.push(value[i]);
+							});
+
+							tableDataSet.push(row);
+						}
+
+						return tableDataSet;
+
+					};
+
+					return radar;
+				});
