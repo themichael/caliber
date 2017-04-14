@@ -12,6 +12,7 @@ angular
 					$scope.currentWeek = OVERALL;
 					$scope.currentTraineeId = ALL;
 					
+					$scope.noBatch=true;
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
 					$scope.batchOverall = false;
@@ -24,8 +25,9 @@ angular
 
 						// batch null check
 						if ($scope.currentBatch == null) {
-							$scope.noBatch=false;
+							$scope.noBatch=true;
 						} else {
+							$scope.noBatch=false;
 							selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
 						}
 						
@@ -100,7 +102,11 @@ angular
 							//createBatchCharts();
 						} else {
 							$scope.currentTraineeId = $scope.currentBatch.trainees[index].traineeId;
+							$scope.currentTrainee = $scope.currentBatch.trainees[index];
 							$log.debug($scope.currentTrainee);
+							$scope.currentTrainee = {
+									name : $scope.currentBatch.trainees[index].name
+								};
 							selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
 							//viewCharts = 3;
 							//createTraineeCharts();
@@ -109,14 +115,12 @@ angular
 					
 					
 					
-					$scope.currentWeek = 1;					// denise hard coded
-
 					$scope.batches = allBatches;
-					$scope.currentBatch = {
+					/*$scope.currentBatch = {
 						trainingName : "Batch",
 						batchId : 1050		// denise hard coded
-					};
-					$scope.currentBatch = allBatches[0]; // denise hard code/core
+					};*/
+					//$scope.currentBatch = allBatches[0]; // denise hard code/core
 					$scope.currentTrainee = {
 						name : "Trainee"
 					};
@@ -140,6 +144,7 @@ angular
 					function createBatchWeekTrainee(){
 						NProgress.done();
 						NProgress.start();
+						
 						
 						createAssessmentAveragesTraineeWeekly();
 						createTechnicalSkillsTraineeWeekly();
