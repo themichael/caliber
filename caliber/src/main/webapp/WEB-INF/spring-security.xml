@@ -26,7 +26,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			access="permitAll" /> -->
 		
 		<security:csrf disabled="true" />
-		<security:logout delete-cookies="token, JSESSIONID" />
+		<security:logout invalidate-session="true" logout-url="/logout" logout-success-url="/dan" delete-cookies="token, JSESSIONID" />
 	</security:http>
 
 	<security:authentication-manager>
