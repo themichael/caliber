@@ -11,7 +11,7 @@ angular
 					$scope.currentBatch = null;
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentTraineeId = ALL;
-					
+					$scope.batchWeeks = {};
 					$scope.noBatch=true;
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
@@ -75,6 +75,10 @@ angular
 						
 					}
 
+					function getCurrentBatchWeeks(weeks) {
+						for(var i = 1; i <= weeks;i++)
+						$scope.batchWeeks["week - " + i ] = i;
+					}
 					/**
 					 * ********************************************* UI
 					 * **************************************************
@@ -83,9 +87,15 @@ angular
 						$scope.currentBatch = $scope.batches[index];
 						$log.debug($scope.currentBatch);
 						$log.debug("Selected batch " + index);
+						$scope.batchWeeks = getCurrentBatchWeeks($scope.currentBatch.weeks);
 						selectView($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId);
 					};
 					
+					$scope.selectCurrentWeek = function(week) {
+						$scope.reportCurrentWeek = week;
+						$log.debug($scope.reportCurrentWeek);
+						selectView($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId);
+					}
 					/*scope function to display the table if a batch and week has been selected*/
 					$scope.displayTable = function(){
 						if($scope.currentBatch.batchId && $scope.reportCurrentWeek){ // checking to see if the scope variables are null
@@ -437,9 +447,4 @@ angular
 									$log.debug(value);
 								});
 					}
-
-					
-
-					
-					
 				});

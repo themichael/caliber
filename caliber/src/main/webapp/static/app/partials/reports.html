@@ -27,9 +27,9 @@
 					data-toggle="dropdown">Week {{reportCurrentWeek}}<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
-						<li ng-repeat="menuItem in batches.week track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a></li>
+						<li><a role="button" ng-click="selectCurrentWeek(-1)">None</a></li>
+						<li ng-repeat="menuItem in batchWeeks track by $index"><a
+							role="button" ng-click="selectCurrentWeek(menuItem)">{{menuItem}}</a></li>
 					</ul></li>
 					
 				<!-- Select Trainee-->
