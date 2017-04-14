@@ -8,6 +8,8 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -27,8 +29,15 @@ public class CacheControlFilter implements Filter {
 		resp.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); 
 		resp.addHeader("Cache-Control", "post-check=0, pre-check=0");
 		resp.setHeader("Pragma","no-cache"); 
-		resp.setDateHeader ("Expires", 0); 
-		chain.doFilter(request, response);
+		resp.setDateHeader ("Expires", 0);
+		
+		for (Cookie cookie : ((HttpServletRequest)request).getCookies()) {
+			if (cookie.getName().equals("token")) {
+				chain.doFilter(request, response);
+			}
+		}
+		// Salesforce token cookie not present
+		((HttpServletRequest)request).getRequestDispatcher("/").forward(request, response);
 		
 	}
 
