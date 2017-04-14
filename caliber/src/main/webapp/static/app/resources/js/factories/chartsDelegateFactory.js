@@ -150,7 +150,9 @@ angular
 						return radarChartFactory.addDataToExistingRadar(currentChartData, otherDataArray, seriesName);
 					}
 					
-					
+					delegate.radar.dataToTable = function(dataset){
+						return radarChartFactory.dataToTable(dataset);
+					}
 					
 					/**
 					 * ************************ Line ************************

@@ -297,6 +297,7 @@ angular
 									$scope.radarTraineeWeeklyOptions = radarTraineeWeeklyChartObj.options;
 									$scope.radarTraineeWeeklyLabels = radarTraineeWeeklyChartObj.labels;
 									$scope.radarTraineeWeeklySeries = radarTraineeWeeklyChartObj.series;
+									
 								});
 					};
 
@@ -330,6 +331,14 @@ angular
 											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
 											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
 											$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
+											
+											
+											$log.debug("Testing Table Data ________________________________________________________________")
+											$scope.testingBatchTechSkillsTable = chartsDelegate.radar.dataToTable(radarBatchOverallChartObject);
+											$log.debug(chartsDelegate.radar.dataToTable(radarBatchOverallChartObject));
+											
+											
+											
 										});
 
 					};
