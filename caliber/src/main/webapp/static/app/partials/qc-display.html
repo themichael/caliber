@@ -14,37 +14,31 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-						<td>{{ trainee.name }}</td>
-						<td>
-
-							<form>
-								<span ng-hide="faces[$index].qcStatus"
-									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-									title="Click to update your feedback."
-									alt="Click to update your feedback."> <i
-									class="fa fa-question-circle fa-2x"></i>
-								</span>
-								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
-									title="Excellent"
-									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-									<i class="fa fa-star fa-2x pick"></i>
-								</div>
-								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
-									title="Good" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-									<i class="fa fa-smile-o fa-2x pick"></i>
-								</div>
-								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
-									title="Fair" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-									<i class="fa fa-meh-o fa-2x pick"></i>
-								</div>
-								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
-									title="Poor" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-									<i class="fa fa-frown-o fa-2x pick"></i>
-								</div>
-							</form>
-
-						</td>
-						<td>{{noteOnTrainee($index).content}}</td>
+						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
+						<td><div ng-hide="faces[$index].qcStatus"
+								class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+								title="Click to update your feedback."
+								alt="Click to update your feedback.">
+								<i class="fa fa-question-circle fa-2x"></i>
+							</div>
+							<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
+								title="Excellent"
+								class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
+								<i class="fa fa-star fa-2x pick"></i>
+							</div>
+							<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
+								title="Good" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
+								<i class="fa fa-smile-o fa-2x pick"></i>
+							</div>
+							<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
+								title="Fair" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
+								<i class="fa fa-meh-o fa-2x pick"></i>
+							</div>
+							<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
+								title="Poor" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
+								<i class="fa fa-frown-o fa-2x pick"></i>
+							</div></td>
+						<td class="col-sm-9 col-md-9 col-lg-9">{{noteOnTrainee($index).content}}</td>
 						<td><ul class="nav nav-tabs">
 					</tr>
 				</tbody>
@@ -52,28 +46,22 @@
 		</div>
 	</div>
 	<!-- QC batch note -- overall qualitative feedback -->
-	<div class="row">
-		<h4 class="text-center">Overall Feedback</h4>
-		<form>
-			<div ng-hide="bnote.qcStatus !== qcStatusTypes[0]" title="Excellent"
-				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-				<i class="fa fa-star fa-2x pick"></i>
-			</div>
-			<div ng-hide="bnote.qcStatus !== qcStatusTypes[1]" title="Good"
-				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-				<i class="fa fa-smile-o fa-2x pick"></i>
-			</div>
-			<div ng-hide="bnote.qcStatus !== qcStatusTypes[2]" title="Fair"
-				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-				<i class="fa fa-meh-o fa-2x pick"></i>
-			</div>
-			<div ng-hide="bnote.qcStatus !== qcStatusTypes[3]" title="Poor"
-				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-				<i class="fa fa-frown-o fa-2x pick"></i>
-			</div>
-			<div
-				class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-				{{bnote.content}}</div>
-		</form>
-	</div>
+	<table class='table'>
+		<tr>
+			<td ng-hide="bnote.qcStatus !== qcStatusTypes[0]" title="Excellent"
+				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch Note: <i
+				class="fa fa-star fa-2x pick"></i></td>
+			<td ng-hide="bnote.qcStatus !== qcStatusTypes[1]" title="Good"
+				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch Note: <i
+				class="fa fa-smile-o fa-2x pick"></i></td>
+			<td ng-hide="bnote.qcStatus !== qcStatusTypes[2]" title="Fair"
+				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch Note: <i
+				class="fa fa-meh-o fa-2x pick"></i></td>
+			<td ng-hide="bnote.qcStatus !== qcStatusTypes[3]" title="Poor"
+				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch Note: <i
+				class="fa fa-frown-o fa-2x pick"></i></td>
+			<td class="form-group col-lg-10 col-md-10 col-sm-11 overall-feedback">
+				{{bnote.content}}</td>
+		</tr>
+	</table>
 </div>
