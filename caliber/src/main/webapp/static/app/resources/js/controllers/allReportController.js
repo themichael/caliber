@@ -438,9 +438,4 @@ angular
 									$log.debug(value);
 								});
 					}
-
-					
-
-					
-					
 				});
