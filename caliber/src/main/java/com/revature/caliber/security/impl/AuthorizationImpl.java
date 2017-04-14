@@ -1,6 +1,8 @@
 package com.revature.caliber.security.impl;
 
 import com.revature.caliber.security.Authorization;
+import com.revature.caliber.security.models.SalesforceUser;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -11,6 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,7 +105,8 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	}
 
 	@RequestMapping(value="revoke", method=RequestMethod.GET)
-	public ModelAndView revoke(@CookieValue String token) {
+	public ModelAndView revoke(Authentication auth) {
+		String token = ((SalesforceUser) auth).getSalesforceToken().getAccessToken();
 		log.info("Revoking token: " + token);
 		return new ModelAndView("redirect:" + revokeUrl + "?token=" + token);
 	}
