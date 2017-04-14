@@ -103,15 +103,17 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		return new ModelAndView("redirect:" + redirectUrl);
 	}
 
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView revoke(Authentication auth) throws IOException {
-		String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
-		log.info("Revoking token: " + token);
-		HttpPost post = new HttpPost(revokeUrl);
-		List<NameValuePair> parameters = new ArrayList<>();
-		parameters.add(new BasicNameValuePair("token", token));
-		post.setEntity(new UrlEncodedFormEntity(parameters));
-		httpClient.execute(post);
+		if (auth != null) {
+			String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
+			log.info("Revoking token: " + token);
+			HttpPost post = new HttpPost(revokeUrl);
+			List<NameValuePair> parameters = new ArrayList<>();
+			parameters.add(new BasicNameValuePair("token", token));
+			post.setEntity(new UrlEncodedFormEntity(parameters));
+			httpClient.execute(post);
+		}
 		return new ModelAndView("redirect:revoke");
 	}
 
