@@ -16,12 +16,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * 
 	 * TODO remove @RequestMapping at go-live
 	 */
-	// @RequestMapping("/")
+	 @RequestMapping("/")
 	public ModelAndView dummyAuth() {
 		return new ModelAndView("redirect:" + redirectUrl);
 	}
@@ -74,7 +75,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * 
 	 * TODO enable at go-live
 	 */
-	@RequestMapping("/")
+	//@RequestMapping("/")
 	public ModelAndView openAuthURI() {
 		return new ModelAndView(
 				"redirect:" + authURL + "?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri);
@@ -85,7 +86,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * Salesforce authentication token.
 	 * 
 	 */
-	@RequestMapping("/authenticated")
+	//@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
 			HttpServletResponse servletResponse) throws IOException {
 		HttpPost post = new HttpPost(accessTokenURL);
@@ -103,8 +104,17 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		return new ModelAndView("redirect:" + redirectUrl);
 	}
 
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView revoke(Authentication auth) throws IOException {
+	/**
+	 * Needs further testing and experimentation to revoke all tokens and logout
+	 * of connected app
+	 * 
+	 * @param auth
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 */
+	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public ModelAndView revoke(Authentication auth, HttpSession session) throws IOException {
 		if (auth != null) {
 			String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
 			log.info("Revoking token: " + token);
@@ -114,6 +124,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 			post.setEntity(new UrlEncodedFormEntity(parameters));
 			httpClient.execute(post);
 		}
+		session.invalidate();
 		return new ModelAndView("redirect:revoke");
 	}
 
