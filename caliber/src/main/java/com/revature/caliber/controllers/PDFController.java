@@ -35,7 +35,8 @@ public class PDFController {
 		try {
 			File temp = pdfService.getPDF(title, html);
 			byte[] pdf = FileUtils.readFileToByteArray(temp);
-
+			temp.delete();
+			
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(new MediaType("application", "pdf"));
 			headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + temp.getPath());
