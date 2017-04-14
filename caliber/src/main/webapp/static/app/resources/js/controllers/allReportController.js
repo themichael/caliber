@@ -100,6 +100,7 @@ angular
 							//createBatchCharts();
 						} else {
 							$scope.currentTraineeId = $scope.currentBatch.trainees[index].traineeId;
+							$scope.currentTrainee = $scope.currentBatch.trainees[index];
 							$log.debug($scope.currentTrainee);
 							selectView($scope.currentBatch.batchId, $scope.currentWeek, $scope.currentTraineeId);
 							//viewCharts = 3;
