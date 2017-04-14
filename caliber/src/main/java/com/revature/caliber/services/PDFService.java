@@ -120,6 +120,9 @@ public class PDFService {
 		 * @throws IOException
 		 */
 		public RevaturePDF(String title, String html) throws DocumentException, IOException {
+			// PDF generator needs 'properly' closed <img> tags
+			html = html.replaceAll("(<img[^>]*[^/]>)(?!\\s*</img>)", "$1</img>");
+			
 			// initialize document state
 			this.document = new Document(PageSize.A4, marginLeft, marginRight, marginTop, marginBottom);
 			this.title = title;
@@ -158,7 +161,7 @@ public class PDFService {
 			page.append(closeHtml);
 
 			// set title
-			document.addTitle("Revature | Training Performance Report");
+			document.addTitle("Revature | " + this.title);
 
 			// CSS
 			CSSResolver cssResolver = new StyleAttrCSSResolver();

@@ -176,9 +176,6 @@ angular
 						
 						// iterate over all childrens to convert <canvas> to <img src=base64>
 						var html = $scope.generateImgFromCanvas(caliber).innerHTML;
-						
-						// PDF generator needs 'properly' closed <img> tags
-						html = html.replace(/(<img("[^"]*"|[^\/">])*)>/g, "$1</img>");
 						$log.debug(html);
 						
 						var title = "Progress for " + $scope.currentBatch.trainingName;
