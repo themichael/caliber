@@ -145,7 +145,12 @@
 										chart-series="radarBatchOverallSeries">
                                     </canvas>
                                     <div>
-                                    	<table ></table>
+                                    	<table class="table table-responsive" style="border-collapse: collapse;">
+                                    		<tr ng-repeat="item in radarBatchOverallTable">
+                                    			<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
+                                    			<td class="col-sm-2 col-md-2 col-lg-2 ng-binding" ng-repeat="dataPoint in item.data track by $index">{{dataPoint}}</td>
+                                    		</tr>
+                                    	</table>
                                     </div>
 								</div>
 							</div>
@@ -204,6 +209,14 @@
 										chart-options="radarTraineeWeeklyOptions"
 										chart-series="radarTraineeWeeklySeries">
                                     </canvas>
+                                    <div>
+                                    	<table class="table table-responsive" style="border-collapse: collapse;">
+                                    		<tr ng-repeat="item in radarTraineeWeeklyTable">
+                                    			<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
+                                    			<td class="col-sm-2 col-md-2 col-lg-2 ng-binding" ng-repeat="dataPoint in item.data track by $index">{{dataPoint}}</td>
+                                    		</tr>
+                                    	</table>
+                                    </div>
 								</div>
 							</div>
 						</div>
@@ -263,6 +276,14 @@
 										chart-options="radarTraineeOverallOptions"
 										chart-series="radarTraineeOverallSeries">
                                     </canvas>
+                                    <div>
+                                    	<table class="table table-responsive" style="border-collapse: collapse;">
+                                    		<tr ng-repeat="item in radarTraineeOverallTable">
+                                    			<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
+                                    			<td class="col-sm-2 col-md-2 col-lg-2 ng-binding" ng-repeat="dataPoint in item.data track by $index">{{dataPoint}}</td>
+                                    		</tr>
+                                    	</table>
+                                    </div>
 								</div>
 							</div>
 						</div>
