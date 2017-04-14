@@ -84,7 +84,7 @@ angular
 						    	  templateUrl : "/static/app/partials/reports.html",
 									controller : "allReportController"
 						      },
-						      "trainer-display@trainer.reports": {
+						      "trainer-display@qc.reports": {
 						    	  templateUrl : "/static/app/partials/trainer-display.html",
 									controller : "trainerAssessController"
 						      }
@@ -207,7 +207,7 @@ angular
 						    	  templateUrl : "/static/app/partials/reports.html",
 									controller : "allReportController"
 						      },
-						      "trainer-display@trainer.reports": {
+						      "trainer-display@vp.reports": {
 						    	  templateUrl : "/static/app/partials/trainer-display.html",
 									controller : "trainerAssessController"
 						      }
