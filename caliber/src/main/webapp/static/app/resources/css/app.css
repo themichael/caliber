@@ -217,6 +217,9 @@ footer a, footer a:hover{
 .vcenter{
 	vertical-align:middle !important;	
 }
+.table-responsive{
+	display:block !important;	
+}
 /**********************
 	save button
 **********************/

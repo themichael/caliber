@@ -102,6 +102,7 @@ angular
 							//createBatchCharts();
 						} else {
 							$scope.currentTraineeId = $scope.currentBatch.trainees[index].traineeId;
+							$scope.currentTrainee = $scope.currentBatch.trainees[index];
 							$log.debug($scope.currentTrainee);
 							$scope.currentTrainee = {
 									name : $scope.currentBatch.trainees[index].name
