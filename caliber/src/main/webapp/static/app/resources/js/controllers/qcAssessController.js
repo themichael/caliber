@@ -2,7 +2,7 @@ angular
 		.module("qc")
 		.controller(
 				"qcAssessController",
-				function($log, $scope, chartsDelegate, caliberDelegate,
+				function($log, $scope, $timeout, chartsDelegate, caliberDelegate,
 						qcFactory, allBatches) {
 					$log.debug("Booted Trainer Assess Controller");
 
@@ -278,7 +278,7 @@ angular
 						}
 					}
 
-					$scope.saveQCandTrainee = function() {
+					/*$scope.saveQCandTrainee = function() {
 						$log.debug($scope.faces);
 
 						$log.debug("update");
@@ -292,11 +292,49 @@ angular
 						$log.debug(caliberDelegate.qc.updateNote($scope.bnote));
 						
 						
-					}
+					}*/
 					
 					$("#saveButton").click(function(){
 				        $("#saveNotice").fadeIn(2000);
 				        $("#saveNotice").fadeOut(3000);
 				    });
+					
+					/****************************************************
+					 *Save Button **
+					 **************************************************/
+					
+					$scope.showSaving = false;
+					$scope.showCheck = false;
+					$scope.showFloppy = true;
+					$scope.saveQCandTrainee =function(){
+						
+						$log.debug($scope.faces);
+
+						$log.debug("update");
+						caliberDelegate.qc.updateNote($scope.faces);
+
+						$log.debug("create");
+						caliberDelegate.qc.createNote($scope.faces);
+
+						$log
+								.debug(document.getElementById("qcBatchNotes").value);
+						$log.debug(caliberDelegate.qc.updateNote($scope.bnote));
+						
+							$scope.showFloppy = false
+							$timeout(function(){
+								$scope.showSaving=true;								
+							},480).then(function(){
+								$timeout(function(){
+									$scope.showSaving=false;
+								}, 1000).then(function(){
+									$scope.showCheck = true;
+									$timeout(function(){
+										$scope.showCheck = false;
+									},2000).then(function(){
+										$scope.showFloppy = true;
+									});								
+								});
+							});
+					}
 					
 				});
