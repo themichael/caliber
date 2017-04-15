@@ -5,7 +5,7 @@ angular
 				function($scope, $log, caliberDelegate, chartsDelegate,
 						allBatches) {
 
-					const OVERALL = -1;
+					const OVERALL = "(All)";
 					const ALL = -1;
 					// What you see when you open Reports
 					$scope.currentBatch = null;
@@ -110,6 +110,7 @@ angular
 								name : "Trainee"
 							};
 							$scope.currentTraineeId = ALL;
+							selectView($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId);
 //							viewCharts = 1;
 							//createBatchCharts();
 						} else {
@@ -409,6 +410,37 @@ angular
 								});
 
 					}
+					//********************************************************************************
+					/** Filter batches by year * */
+					
+					$scope.years = addYears();
+					function addYears() {
+						var currentYear = new Date().getFullYear();
+						$scope.selectedYear = currentYear;
+
+						var data = [];
+						// List all years from 2014 --> current year
+						for (var y = currentYear + 1; y >= currentYear - 2; y--) {
+							data.push(y)
+						}
+						return data;
+					}
+
+					$scope.selectYear = function(index) {
+						$scope.selectedYear = $scope.years[index];
+						sortByDate($scope.selectedYear);
+					};
+
+					function sortByDate(currentYear) {
+						$scope.selectedBatches = [];
+						for (var i = 0; i < $scope.batches.length; i++) {
+							var date = new Date($scope.batches[i].startDate);
+							if (date.getFullYear() === currentYear) {
+								$scope.selectedBatches.push($scope.batches[i]);
+							}
+						}
+					}
+					
 
 					// *******************************************************************************
 

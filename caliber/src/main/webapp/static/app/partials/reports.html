@@ -11,6 +11,13 @@
 				</a>
 			<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
 			<ul class="nav nav-tabs" ng-show="!noBatches">
+				<!-- Filter batches by year -->
+					<li role="button" class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li ng-repeat="menuItem in years track by $index"><a role="button"
+								ng-click="selectYear($index)">{{menuItem}}</a></li>
+						</ul></li>
 				<!-- Select Batch-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown">{{currentBatch.trainingName}} - {{
@@ -27,7 +34,7 @@
 					data-toggle="dropdown">Week {{reportCurrentWeek}}<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a role="button" ng-click="selectCurrentWeek(-1)">None</a></li>
+						<li><a role="button" ng-click="selectCurrentWeek(-1)">All</a></li>
 						<li ng-repeat="menuItem in batchWeeks.week"><a
 							role="button" ng-click="selectCurrentWeek(menuItem)">{{menuItem}}</a></li>
 					</ul></li>
@@ -37,7 +44,7 @@
 					ng-show="hideOtherTabs()" data-toggle="dropdown">{{currentTrainee.name}}<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a role="button" ng-click="selectCurrentTrainee(-1)">None</a></li>
+						<li><a role="button" ng-click="selectCurrentTrainee(-1)">All</a></li>
 						<li ng-repeat="menuItem in currentBatch.trainees track by $index"><a
 							role="button" ng-click="selectCurrentTrainee($index)">{{menuItem.name}}</a></li>
 					</ul></li>
@@ -46,7 +53,7 @@
 	</div>
 </div>
 <!-- No Selected Batches -->
-<div class="container" ng-show="noBatches">
+<div ng-show="noBatches">
 	<h1>Please select a batch</h1>
 </div>
 
