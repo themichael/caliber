@@ -34,6 +34,7 @@ angular.module("charts").factory("doughnutChartFactory", function($log) {
 			chartData.labels.push(key);
 			chartData.data.push(value);
 		});
+		
 		return chartData;
 	};
 	return doughnutChart;

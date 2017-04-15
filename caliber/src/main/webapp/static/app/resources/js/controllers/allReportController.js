@@ -212,6 +212,8 @@ angular
 							$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
 							$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
 							$scope.averageTraineeScoresWeeklyOptions = barChartObj.options;
+							
+							$scope.averageTraineeScoresWeeklyTable = chartsDelegate.utility.dataToTable(barChartObj);
 						}, function() {
 							NProgress.done();
 						});
@@ -309,7 +311,7 @@ angular
 									$scope.radarTraineeWeeklyLabels = radarTraineeWeeklyChartObj.labels;
 									$scope.radarTraineeWeeklySeries = radarTraineeWeeklyChartObj.series;
 									
-									$scope.radarTraineeWeeklyTable = chartsDelegate.radar.dataToTable(radarTraineeWeeklyChartObj);
+									$scope.radarTraineeWeeklyTable = chartsDelegate.utility.dataToTable(radarTraineeWeeklyChartObj);
 								});
 					};
 
@@ -327,7 +329,7 @@ angular
 									$scope.radarTraineeOverallLabels = radarTraineeOverallChartObj.labels;
 									$scope.radarTraineeOverallSeries = radarTraineeOverallChartObj.series;
 									
-									$scope.radarTraineeOverallTable = chartsDelegate.radar.dataToTable(radarTraineeOverallChartObj);
+									$scope.radarTraineeOverallTable = chartsDelegate.utility.dataToTable(radarTraineeOverallChartObj);
 								});
 					};
 					
@@ -346,7 +348,7 @@ angular
 											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
 											$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
 											
-											$scope.radarBatchOverallTable = chartsDelegate.radar.dataToTable(radarBatchOverallChartObject);
+											$scope.radarBatchOverallTable = chartsDelegate.utility.dataToTable(radarBatchOverallChartObject);
 										});
 
 					};

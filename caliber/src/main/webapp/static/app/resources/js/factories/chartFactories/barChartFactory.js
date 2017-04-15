@@ -44,7 +44,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 			if (value[0] > 0) {
 				chartData.labels.push(key);
 				chartData.series.push(key);
-				chartData.data.push(value[0]);
+				chartData.data.push(value[0].toFixed(2));
 			}
 		});
 
@@ -89,8 +89,8 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		};
 		// loop through object array
 		angular.forEach(dataArray, function(value, key) {
-			trainee.push(value[0]);
-			batch.push(value[1]);
+			trainee.push(value[0].toFixed(2));
+			batch.push(value[1].toFixed(2));
 			chartData.labels.push(key);
 		});
 
@@ -133,8 +133,8 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		var batch = [];
 		// loop through object array
 		angular.forEach(dataArray, function(value, key) {
-			trainee.push(value[0]);
-			batch.push(value[1]);
+			trainee.push(value[0].toFixed(2));
+			batch.push(value[1].toFixed(2));
 			chartData.labels.push(key);
 		});
 
@@ -233,6 +233,6 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		});
 		return chartData;
 	};
-
+	
 	return barChart;
 });

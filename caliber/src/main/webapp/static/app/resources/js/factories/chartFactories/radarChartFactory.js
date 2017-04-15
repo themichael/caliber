@@ -88,23 +88,5 @@ angular
 						}
 					};
 
-					radar.dataToTable = function(chartObject) {
-						var tableDataSet = [];
-						for (var i = 0; i < chartObject.labels.length; i++) {
-							var row = {};
-							row.label = chartObject.labels[i];
-							row.data = [];
-							angular.forEach(chartObject.data, function(value,
-									key) {
-								row.data.push(value[i]);
-							});
-
-							tableDataSet.push(row);
-						}
-
-						return tableDataSet;
-
-					};
-
 					return radar;
 				});

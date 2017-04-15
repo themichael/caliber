@@ -38,7 +38,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 				go = false;
 			if (go) {
 				chartData.labels.push(key);
-				chartData.data[0].push(value);
+				chartData.data[0].push(value.toFixed(2));
 			}
 		});
 		return chartData;
@@ -84,9 +84,8 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		// data
 		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
-			series1.push(value[0]);
-			series2.push(value[1]);
-			// chartData.data.push(value);
+			series1.push(value[0].toFixed(2));
+			series2.push(value[1].toFixed(2));
 		});
 
 		/*
