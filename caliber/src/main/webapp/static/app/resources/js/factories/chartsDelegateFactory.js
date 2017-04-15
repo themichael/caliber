@@ -25,6 +25,7 @@ angular
 					delegate.radar.data = {};
 					delegate.line = {};
 					delegate.line.data = {};
+					delegate.utility = {};
 
 					/**
 					 * ********************* Doughnut
@@ -149,11 +150,7 @@ angular
 					delegate.radar.addRadarToExistingRadar = function(currentChartData, otherDataArray, seriesName){
 						return radarChartFactory.addDataToExistingRadar(currentChartData, otherDataArray, seriesName);
 					}
-					
-					delegate.radar.dataToTable = function(dataset){
-						return radarChartFactory.dataToTable(dataset);
-					}
-					
+
 					/**
 					 * ************************ Line ************************
 					 */
@@ -169,13 +166,7 @@ angular
 						return lineChartDataFactory
 								.getBatchOverallLineChartData(batchId);
 					};
-					/*
-					 * delegate.line.getWeeklyProgressBatchOverall =
-					 * function(dataArray){ return lineChartFactory.(dataArray); };
-					 * 
-					 * delegate.line.data.getWeeklyProgressBatchOverallData =
-					 * function(){ return lineChartDataFactory.(); };
-					 */
+
 					// yani linechart
 					delegate.line.getWeeklyProgressTraineeWeekly = function(
 							dataArray) {
@@ -200,6 +191,28 @@ angular
 							batchId, traineeId) {
 						return lineChartDataFactory.getTraineeOverallLineChart(
 								batchId, traineeId);
+
+					};
+					
+					/**
+					 * ************************ Utility ************************
+					 */
+					
+					delegate.utility.dataToTable = function(chartObject) {
+						var tableDataSet = [];
+						for (var i = 0; i < chartObject.labels.length; i++) {
+							var row = {};
+							row.label = chartObject.labels[i];
+							row.data = [];
+							angular.forEach(chartObject.data, function(value,
+									key) {
+								row.data.push(value[i]);
+							});
+
+							tableDataSet.push(row);
+						}
+
+						return tableDataSet;
 
 					};
 
