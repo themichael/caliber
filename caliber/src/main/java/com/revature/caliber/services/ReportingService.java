@@ -36,7 +36,7 @@ import com.revature.caliber.data.TraineeDAO;
 @Service
 public class ReportingService {
 	
-	@SuppressWarnings("unused")
+	//@SuppressWarnings("unused")
 	private final static Logger log = Logger.getLogger(ReportingService.class);
 
 	private GradeDAO gradeDAO;
@@ -172,6 +172,7 @@ public class ReportingService {
 				results.put(a.name(), new Double[] { traineeAvg, batchAvg });
 			}
 		}
+		log.debug(results);
 		return results;
 	}
 		
@@ -185,15 +186,19 @@ public class ReportingService {
 		Batch batch = batchDAO.findOne(batchId);
 		Map<String, Double> results = new HashMap<>();
 		int weeks = batch.getWeeks();
+		log.debug("weeks are: " + weeks);
 		Double avg = 0.d;
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		for (Trainee trainee : trainees) {
 			for (Integer i = 0; i < weeks; i++) {
 				avg += utilAvgTraineeWeek(trainee.getTraineeId(), i);
+				log.debug("avg for the week" +avg);
 			}
 			avg = avg / weeks;
+			log.debug("avg after computation" + avg);
 			results.put(trainee.getName(), avg);
 		}
+		log.debug(results);
 		return results;
 	}
 	
@@ -434,13 +439,16 @@ public class ReportingService {
 	 */
 	public Double utilAvgTraineeWeek(Integer traineeId, Integer week) {
 		List<Grade> allGrade = gradeDAO.findByTrainee(traineeId);
+		log.debug("all grades in util = " + allGrade);
 		List<Grade> gradesForTheWeek = allGrade.stream().filter(el -> el.getAssessment().getWeek() == week)
 				.collect(Collectors.toList());
+		log.debug("filtered grades in util = " + gradesForTheWeek);
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
 		Double result = 0d;
 		for (Grade grade : gradesForTheWeek) {
 			result += (grade.getScore() * grade.getAssessment().getRawScore() / totalRawScore);
 		}
+		log.debug(result);
 		return result;
 	}
 
