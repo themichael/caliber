@@ -2,15 +2,13 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<!-- Generate PDF of current page -->
-			<a ng-hide="reticulatingSplines" href="" class="pull-right"
-				title="Download report" ng-click="generatePDF()"> <i
-				class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-			</a> <a href class="pull-right"
-				style="pointer-events: none; cursor: default;" title="Processing.."
-				ng-show="reticulatingSplines" ng-show="showSaving"> <i
-				style="color: #F26925;" class="fa fa-spinner fa-spin fa-2x"
+			<a ng-hide="reticulatingSplines" href="" class="pull-right" title="Download report"
+				ng-click="generatePDF()"> <i class="fa fa-file-pdf-o fa-2x"
 				aria-hidden="true"></i>
 			</a>
+				<a href class="pull-right" title="Processing.." ng-show="reticulatingSplines" ng-show="showSaving">
+					<i style="color: #F26925;" class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
+				</a>
 			<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
 			<ul class="nav nav-tabs" ng-show="!noBatches">
 				<!-- Filter batches by year -->
@@ -73,7 +71,6 @@
 								<div class="panel-heading">Average Trainee Scores</div>
 								<div class="panel-body">
 									<div class="chart-container top5">
-
 										<canvas id="bar1" class="chart chart-bar"
 											chart-data="averageTraineeScoresWeeklyData"
 											chart-options="averageTraineeScoresWeeklyOptions"
@@ -97,6 +94,7 @@
 								</div>
 							</div>
 						</div>
+					</div>
 
 					<div class="col-sm-4 col-md-4">
 						<div class="panel panel-default">
@@ -121,7 +119,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 					
 					<!-- Yanilda -->
@@ -154,7 +151,7 @@
 					</div>
 				</div>
 			</div>
-
+		</div>
 
 		<!-- Batch -> Overall -->
 		<div class="row" ng-show="batchOverall">
@@ -188,7 +185,7 @@
 								</div>
 							</div>
 						</div>
-
+					</div>
 
 
 					<div class="col-sm-4 col-md-4">
@@ -213,7 +210,7 @@
 								</div>
 							</div>
 						</div>
-
+					</div>
 
 					<div class="col-sm-8 col-md-8">
 						<div class="panel panel-default">
@@ -243,7 +240,7 @@
 					</div>
 				</div>
 			</div>
-
+		</div>
 
 		<!-- Batch -> Week -> Trainee-->
 		<div class="row" ng-show="batchWeekTrainee">
@@ -279,7 +276,7 @@
 								</div>
 							</div>
 						</div>
-
+					</div>
 
 
 					<div class="col-sm-4 col-md-4">
@@ -304,7 +301,7 @@
 								</div>
 							</div>
 						</div>
-
+					</div>
 
 					<!-- Yanilda -->
 					<div class="col-sm-8 col-md-8">
@@ -337,7 +334,7 @@
 					</div>
 				</div>
 			</div>
-
+		</div>
 
 		<!-- Batch -> Overall -> Trainee-->
 		<div class="row" ng-show="batchOverallTrainee">
@@ -374,7 +371,7 @@
 								</div>
 							</div>
 						</div>
-
+					</div>
 
 					<div class="col-sm-4 col-md-4">
 						<div class="panel panel-default">
@@ -432,12 +429,12 @@
 
 				</div>
 			</div>
-
-
 		</div>
-		<!-- for testing purposes -->
-		<div ui-view="trainer-display" ng-show="displayTable()"></div>
-		<!-- qc -->
-		<div ui-view="qc-display" ng-show=true></div>
+
+
 	</div>
+	<!-- trainer display -->
+	<div ui-view="trainer-display" ng-show="displayTable()"></div>
+	<!-- qc -->
+	<div ui-view="qc-display" ng-show=true></div>
 </div>
