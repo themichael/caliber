@@ -84,9 +84,9 @@ public class ReportingController {
 	 *******************************************************
 	 */
 	@RequestMapping(value = "/all/reports/week/{week}/trainee/{traineeId}/line-trainee-up-to-week", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Integer, Double>> getTraineeUpToWeekLineChart(@PathVariable int week, @PathVariable int traineeId) {
+	public ResponseEntity<Map<Integer, Double[]>> getTraineeUpToWeekLineChart(@PathVariable int week, @PathVariable int traineeId) {
 		log.info("getTraineeUpToWeekLineChart   ===>   /all/reports/week/{week}/trainee/{traineeId}/line-trainee-up-to-week");
-		return new ResponseEntity<Map<Integer, Double>>(reportingService.getTraineeUpToWeekLineChart(week, traineeId), HttpStatus.OK);
+		return new ResponseEntity<Map<Integer, Double[]>>(reportingService.getTraineeUpToWeekLineChart(week, traineeId), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/trainee/{traineeId}/line-trainee-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
