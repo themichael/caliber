@@ -76,26 +76,25 @@
 											chart-options="averageTraineeScoresWeeklyOptions"
 											chart-labels="averageTraineeScoresWeeklyLabels"
 											chart-series="averageTraineeScoresWeeklySeries">
-                                    </canvas>
-                                    <div>
-	                                   	<table class="table table-responsive" style="border-collapse: collapse;">
-												<tr>
-													<th class="col-sm-2 col-md-2 col-lg-2"
-														ng-repeat="label in averageTraineeScoresWeeklyLabels">{{label}}</th>
-												</tr>
-												<tr ng-repeat="series in averageTraineeScoresWeeklyData">
-													<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
-														ng-repeat="dataPoint in series track by $index">{{dataPoint}}
-													</td>
-												</tr>
-	                                   	</table>
-                                   	</div>
+	                                    </canvas>
+	                                    <div>
+		                                   	<table class="table table-responsive" style="border-collapse: collapse;">
+													<tr>
+														<th class="col-sm-2 col-md-2 col-lg-2"
+															ng-repeat="label in averageTraineeScoresWeeklyLabels">{{label}}</th>
+													</tr>
+													<tr ng-repeat="series in averageTraineeScoresWeeklyData">
+														<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+															ng-repeat="dataPoint in series track by $index">{{dataPoint}}
+														</td>
+													</tr>
+		                                   	</table>
+	                                   	</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
 
 					<div class="col-sm-4 col-md-4">
 						<div class="panel panel-default">
