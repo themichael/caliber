@@ -13,6 +13,13 @@
 			</a>
 			<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
 			<ul class="nav nav-tabs" ng-show="!noBatches">
+				<!-- Filter batches by year -->
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="menuItem in years track by $index"><a
+							role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
+					</ul></li>
 				<!-- Select Batch-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown">{{currentBatch.trainingName}} - {{
@@ -24,12 +31,23 @@
 							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}
 								- {{ menuItem.startDate | date:'shortDate' }}</a></li>
 					</ul></li>
+				<!-- Select Week-->
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">Week {{reportCurrentWeek}}<span
+						class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a role="button" ng-click="selectCurrentWeek(-1)">All</a></li>
+						<li ng-repeat="menuItem in batchWeeks.week"><a role="button"
+							ng-click="selectCurrentWeek(menuItem)">{{menuItem}}</a></li>
+					</ul></li>
+
 				<!-- Select Trainee-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					ng-show="hideOtherTabs()" data-toggle="dropdown">{{currentTrainee.name}}<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a role="button" ng-click="selectCurrentTrainee(-1)">None</a></li>
+						<li><a role="button" ng-click="selectCurrentTrainee(-1)">All</a></li>
 						<li ng-repeat="menuItem in currentBatch.trainees track by $index"><a
 							role="button" ng-click="selectCurrentTrainee($index)">{{menuItem.name}}</a></li>
 					</ul></li>
@@ -37,26 +55,45 @@
 		</div>
 	</div>
 </div>
+<!-- No Selected Batches -->
+<div ng-show="noBatches">
+	<h1>Please select a batch</h1>
+</div>
 
 <!-- Charts -->
-<div class="container" ng-show="!noBatches">
-	<div id="caliber-container">
-		<div class="top10 data-container">
+<div id="caliber-container" class="container" ng-show="!noBatches">
+	<div class="top10 data-container">
 
-			<!-- Batch Week -->
-			<div class="row">
-				<div class="col-sm-12 col-md-12 col-lg-12">
+		<!-- Batch -> Week -->
+		<div class="row" ng-show="batchWeek">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="row">
 					<div class="row">
-
-						<div class="col-sm-4 col-md-4">
+						<div class="col-sm-12 col-md-12">
 							<div class="panel panel-default">
 								<div class="panel-heading">Average Trainee Scores</div>
 								<div class="panel-body">
 									<div class="chart-container top5">
-										<canvas id="radar" class="chart chart-radar"
-											chart-data="batchTechData" chart-options="qcStatsLabels"
-											chart-labels="batchTechLabels" chart-series="batchTechSeries">
-                                    </canvas>
+										<canvas id="bar1" class="chart chart-bar"
+											chart-data="averageTraineeScoresWeeklyData"
+											chart-options="averageTraineeScoresWeeklyOptions"
+											chart-labels="averageTraineeScoresWeeklyLabels"
+											chart-series="averageTraineeScoresWeeklySeries">
+	                                    </canvas>
+										<div>
+											<table class="table table-responsive"
+												style="border-collapse: collapse;">
+												<tr>
+													<th class="col-sm-2 col-md-2 col-lg-2"
+														ng-repeat="label in averageTraineeScoresWeeklyLabels">{{label}}</th>
+												</tr>
+												<tr ng-repeat="series in averageTraineeScoresWeeklyData">
+													<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+														ng-repeat="dataPoint in series track by $index">{{dataPoint}}
+													</td>
+												</tr>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -69,22 +106,50 @@
 									<div class="chart-container top5">
 										<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
 											chart-labels="qcStatsLabels" chart-data="qcStatsData"
-											chart-options="qcStatsOptions">
+											chart-options="qcStatsOptions" chart-colors="qcStatsColors">
                                     </canvas>
+										<div>
+											<table class="table table-responsive"
+												style="border-collapse: collapse;">
+												<tr>
+													<th class="col-sm-2 col-md-2 col-lg-2"
+														ng-repeat="item in qcStatsLabels">{{item}}</th>
+												</tr>
+												<tr>
+													<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+														ng-repeat="dataPoint in qcStatsData track by $index">{{dataPoint}}</td>
+												</tr>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<div class="col-sm-4 col-md-4">
+						<!-- Yanilda -->
+						<div class="col-sm-8 col-md-8">
 							<div class="panel panel-default">
 								<div class="panel-heading">Assessment Averages</div>
 								<div class="panel-body">
 									<div class="chart-container top5">
-										<canvas id="radar" class="chart chart-radar"
-											chart-data="batchTechData" chart-options="batchTechOptions"
-											chart-labels="batchTechLabels" chart-series="batchTechSeries">
+										<canvas id="barchart" class="chart chart-bar"
+											chart-data="barcharAWData" chart-series="barcharAWSeries"
+											chart-labels="barcharAWLabels"
+											chart-options="barcharAWOptions">
                                     </canvas>
+										<div>
+											<table class="table table-responsive"
+												style="border-collapse: collapse;">
+												<tr>
+													<th class="col-sm-2 col-md-2 col-lg-2"
+														ng-repeat="label in barcharAWLabels">{{label}}</th>
+												</tr>
+												<tr>
+													<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+														ng-repeat="dataPoint in barcharAWData track by $index">{{dataPoint}}</td>
+												</tr>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -92,49 +157,92 @@
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<!-- Batch -> Overall -->
-			<div class="row">
-				<div class="col-sm-12 col-md-12 col-lg-12">
+		<!-- Batch -> Overall -->
+		<div class="row" ng-show="batchOverall">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="row">
 					<div class="row">
-
-						<div class="col-sm-4 col-md-4">
-							<div class="panel panel-default">
-								<div class="panel-heading">Weekly Averages Progress</div>
-								<div class="panel-body">
-									<div class="chart-container top5">
-										<canvas id="radar" class="chart chart-radar"
-											chart-data="batchTechData" chart-options="qcStatsLabels"
-											chart-labels="batchTechLabels" chart-series="batchTechSeries">
-                                    </canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-4 col-md-4">
-							<div class="panel panel-default">
-								<div class="panel-heading">Technical Skill Averages</div>
-								<div class="panel-body">
-									<div class="chart-container top5">
-										<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
-											chart-labels="qcStatsLabels" chart-data="qcStatsData"
-											chart-options="qcStatsOptions">
-                                    </canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-4 col-md-4">
+						<div class="col-sm-12 col-md-12">
 							<div class="panel panel-default">
 								<div class="panel-heading">Average Trainee Scores</div>
 								<div class="panel-body">
 									<div class="chart-container top5">
-										<canvas id="radar" class="chart chart-radar"
-											chart-data="batchTechData" chart-options="batchTechOptions"
-											chart-labels="batchTechLabels" chart-series="batchTechSeries">
+										<canvas id="bar6" class="chart chart-bar"
+											chart-data="batchOverAllData"
+											chart-options="batchOverAllOptions"
+											chart-labels="batchOverAllLabels"
+											chart-series="batchOverAllSeries">
                                     </canvas>
+										<div>
+											<table class="table table-responsive"
+												style="border-collapse: collapse;">
+												<tr>
+													<th class="col-sm-2 col-md-2 col-lg-2"
+														ng-repeat="label in batchOverAllLabels">{{label}}</th>
+												</tr>
+												<tr ng-repeat="series in batchOverAllData">
+													<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+														ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4 col-md-4">
+							<div class="panel panel-default">
+								<div class="panel-heading">Batch Technical Skills</div>
+								<div class="panel-body">
+									<div class="chart-container top5">
+										<canvas id="radarBatchOverall" class="chart chart-radar"
+											chart-data="radarBatchOverallData"
+											chart-options="radarBatchOverallOptions"
+											chart-labels="radarBatchOverallLabels"
+											chart-series="radarBatchOverallSeries">
+                                    </canvas>
+										<div>
+											<table class="table table-responsive"
+												style="border-collapse: collapse;">
+												<tr ng-repeat="item in radarBatchOverallTable">
+													<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
+													<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+														ng-repeat="dataPoint in item.data track by $index">{{dataPoint}}</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-8 col-md-8">
+								<div class="panel panel-default">
+									<div class="panel-heading">Weekly Averages Progress</div>
+									<div class="panel-body">
+										<div class="chart-container top5">
+											<canvas id="line1" class="chart chart-line"
+												chart-data="weeklyProgressBatchOverallData"
+												chart-labels="weeklyProgressBatchOverallLabels"
+												chart-options="weeklyProgressBatchOverallOptions">
+                                    </canvas>
+											<div>
+												<table class="table table-responsive"
+													style="border-collapse: collapse;">
+													<tr>
+														<th class="col-sm-2 col-md-2 col-lg-2"
+															ng-repeat="label in weeklyProgressBatchOverallLabels">Week
+															{{label}}</th>
+													</tr>
+													<tr>
+														<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+															ng-repeat="dataPoint in weeklyProgressBatchOverallData[0] track by $index">{{dataPoint}}</td>
+													</tr>
+												</table>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -142,110 +250,212 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- Batch -> Week -> Trainee-->
-			<div class="row">
-				<div class="col-sm-12 col-md-12 col-lg-12">
-					<div class="row">
-
-						<div class="col-sm-4 col-md-4">
-							<div class="panel panel-default">
-								<div class="panel-heading">Weekly Averages Progress</div>
-								<div class="panel-body">
-									<div class="chart-container top5">
-										<canvas id="radar" class="chart chart-radar"
-											chart-data="batchTechData" chart-options="qcStatsLabels"
-											chart-labels="batchTechLabels" chart-series="batchTechSeries">
-                                    </canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-4 col-md-4">
-							<div class="panel panel-default">
-								<div class="panel-heading">Technical Skills</div>
-								<div class="panel-body">
-									<div class="chart-container top5">
-										<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
-											chart-data="qcStatsData" chart-colors="qcStatsColors"
-											chart-labels="qcStatsLabels" chart-options="qcStatsOptions">
-                                    </canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-4 col-md-4">
-							<div class="panel panel-default">
-								<div class="panel-heading">Assessment Averages</div>
-								<div class="panel-body">
-									<div class="chart-container top5">
-										<canvas id="radar" class="chart chart-radar"
-											chart-data="batchTechData" chart-options="batchTechOptions"
-											chart-labels="batchTechLabels" chart-series="batchTechSeries">
-                                    </canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Batch -> Overall -> Trainee-->
-			<div class="row">
-				<div class="col-sm-12 col-md-12 col-lg-12">
-					<div class="row">
-
-						<div class="col-sm-4 col-md-4">
-							<div class="panel panel-default">
-								<div class="panel-heading">Weekly Averages Progress</div>
-								<div class="panel-body">
-									<div class="chart-container top5">
-										<canvas id="radar" class="chart chart-radar"
-											chart-data="batchTechData" chart-options="qcStatsLabels"
-											chart-labels="batchTechLabels" chart-series="batchTechSeries">
-                                    </canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-4 col-md-4">
-							<div class="panel panel-default">
-								<div class="panel-heading">Technical Skill Averages</div>
-								<div class="panel-body">
-									<div class="chart-container top5">
-										<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
-											chart-labels="qcStatsLabels" chart-data="qcStatsData"
-											chart-options="qcStatsOptions">
-                                    </canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-4 col-md-4">
-							<div class="panel panel-default">
-								<div class="panel-heading">Assessment Averages</div>
-								<div class="panel-body">
-									<div class="chart-container top5">
-										<canvas id="radar" class="chart chart-radar"
-											chart-data="batchTechData" chart-options="batchTechOptions"
-											chart-labels="batchTechLabels" chart-series="batchTechSeries">
-                                    </canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
 		</div>
-		<!-- for testing purposes -->
-		<div ui-view="trainer-display" ng-show="displayTable()"></div>
+
+		<!-- Batch -> Week -> Trainee-->
+		<div class="row" ng-show="batchWeekTrainee">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="row">
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">Assessment Averages</div>
+								<div class="panel-body">
+									<div class="chart-container top5">
+										<canvas id="bar" class="chart chart-bar"
+											chart-data="AssessmentAveragesTraineeWeeklyData"
+											chart-options="AssessmentAveragesTraineeWeeklyOptions"
+											chart-labels="AssessmentAveragesTraineeWeeklyLabels"
+											chart-series="AssessmentAveragesTraineeWeeklySeries">
+                                    	</canvas>
+										<div>
+											<table class="table table-responsive"
+												style="border-collapse: collapse;">
+												<tr>
+													<th></th>
+													<th class="col-sm-2 col-md-2 col-lg-2"
+														ng-repeat="label in AssessmentAveragesTraineeWeeklyLabels">{{label}}</th>
+												</tr>
+												<tr
+													ng-repeat="series in AssessmentAveragesTraineeWeeklyData track by $index">
+													<th>{{AssessmentAveragesTraineeWeeklySeries[$index]}}</th>
+													<td class="col-sm-2 col-md-2 col-lg-2"
+														ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4 col-md-4">
+							<div class="panel panel-default">
+								<div class="panel-heading">Trainee Weekly Technical Skills</div>
+								<div class="panel-body">
+									<div class="chart-container top5">
+										<canvas id="radarTraineeWeekly" class="chart chart-radar"
+											chart-data="radarTraineeWeeklyData"
+											chart-labels="radarTraineeWeeklyLabels"
+											chart-options="radarTraineeWeeklyOptions"
+											chart-series="radarTraineeWeeklySeries">
+                                    </canvas>
+										<div>
+											<table class="table table-responsive"
+												style="border-collapse: collapse;">
+												<tr ng-repeat="item in radarTraineeWeeklyTable">
+													<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
+													<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+														ng-repeat="dataPoint in item.data track by $index">{{dataPoint}}</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Yanilda -->
+							<div class="col-sm-8 col-md-8">
+								<div class="panel panel-default">
+									<div class="panel-heading">Weekly Averages Progress</div>
+									<div class="panel-body">
+										<div class="chart-container top5">
+											<canvas id="linechart" class="chart chart-line"
+												chart-data="linecharTWData" chart-labels="linecharTWLabels"
+												chart-options="linecharTWOptions"
+												chart-series="linecharTWSeries">
+                                    </canvas>
+											<div>
+												<table class="table table-responsive"
+													style="border-collapse: collapse;">
+													<tr>
+														<th></th>
+														<th class="col-sm-2 col-md-2 col-lg-2"
+															ng-repeat="label in linecharTWLabels">Week {{label}}</th>
+													</tr>
+													<tr ng-repeat="series in linecharTWData track by $index">
+														<th>{{linecharTWSeries[$index]}}</th>
+														<td class="col-sm-2 col-md-2 col-lg-2"
+															ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- Batch -> Overall -> Trainee-->
+			<div class="row" ng-show="batchOverallTrainee">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<div class="row">
+
+						<div class="row">
+							<div class="col-sm-12 col-md-12">
+								<div class="panel panel-default">
+									<div class="panel-heading">Assessment Averages</div>
+									<div class="panel-body">
+										<div class="chart-container top5">
+											<canvas id="bar" class="chart chart-bar"
+												chart-data="AssessmentAveragesTraineeOverallData"
+												chart-options="AssessmentAveragesTraineeOverallOptions"
+												chart-labels="AssessmentAveragesTraineeOverallLabels"
+												chart-series="AssessmentAveragesTraineeOverallSeries">
+                                    </canvas>
+											<div>
+												<table class="table table-responsive"
+													style="border-collapse: collapse;">
+													<tr>
+														<th></th>
+														<th class="col-sm-2 col-md-2 col-lg-2"
+															ng-repeat="label in AssessmentAveragesTraineeOverallLabels">{{label}}</th>
+													</tr>
+													<tr
+														ng-repeat="series in AssessmentAveragesTraineeOverallData track by $index">
+														<th>{{AssessmentAveragesTraineeOverallSeries[$index]}}</th>
+														<td class="col-sm-2 col-md-2 col-lg-2"
+															ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-4 col-md-4">
+								<div class="panel panel-default">
+									<div class="panel-heading">Trainee Overall Technical
+										Skills</div>
+									<div class="panel-body">
+										<div class="chart-container top5">
+											<canvas id="radarTraineeOverall" class="chart chart-radar"
+												chart-data="radarTraineeOverallData"
+												chart-labels="radarTraineeOverallLabels"
+												chart-options="radarTraineeOverallOptions"
+												chart-series="radarTraineeOverallSeries">
+                                    </canvas>
+											<div>
+												<table class="table table-responsive"
+													style="border-collapse: collapse;">
+													<tr ng-repeat="item in radarTraineeOverallTable">
+														<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
+														<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+															ng-repeat="dataPoint in item.data track by $index">{{dataPoint}}</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-8 col-md-8">
+								<div class="panel panel-default">
+									<div class="panel-heading">Weekly Averages Progress</div>
+									<div class="panel-body">
+										<div class="chart-container top5">
+											<canvas id="line9" class="chart chart-line"
+												chart-data="batchOverallWeeklyData"
+												chart-options="batchOverallWeeklyOptions"
+												chart-labels="batchOverallWeeklyLabels"
+												chart-series="batchOverallWeeklySeries">
+                                    </canvas>
+											<div>
+												<table class="table table-responsive"
+													style="border-collapse: collapse;">
+													<tr>
+														<th></th>
+														<th class="col-sm-2 col-md-2 col-lg-2"
+															ng-repeat="label in batchOverallWeeklyLabels">Week
+															{{label}}</th>
+													</tr>
+													<tr
+														ng-repeat="series in batchOverallWeeklyData track by $index">
+														<th>{{batchOverallWeeklySeries[$index]}}</th>
+														<td class="col-sm-2 col-md-2 col-lg-2"
+															ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+
+				</div>
+
+				<!-- for testing purposes -->
+				<div ui-view="trainer-display" ng-show="displayTable()"></div>
+			</div>
+		</div>
 	</div>
 </div>
