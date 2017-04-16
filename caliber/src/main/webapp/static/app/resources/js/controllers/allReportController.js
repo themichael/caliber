@@ -19,7 +19,7 @@ angular
 					$scope.batchWeekTrainee = false;
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
-
+					//$scope.currentBatch = allBatches[0];$scope.currentWeek =1; // denise debug line please ignore ... ill delete when im done TODO
 					(function start() {
 						// Finishes any left over ajax animation from another
 						// page
@@ -94,13 +94,15 @@ angular
 					};
 					
 					$scope.selectCurrentWeek = function(week) {
+						//$scope.currentWeek = week;
 						$scope.reportCurrentWeek = week;
 						selectView($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId);
 					}
 					/*scope function to display the table if a batch and week has been selected*/
 					$scope.displayTable = function(){
-						if($scope.currentBatch.batchId && $scope.reportCurrentWeek){ // checking to see if the scope variables are null
-							return true; //change to false later
+				//		$log.debug("[		THIS IS THE CURRENT BATCHID 		]" +$scope.currentBatch.batchId + " [		THIS IS THE CURRENTWEEK		]" + $scope.reportCurrentWeek);
+						if($scope.currentBatch === null  || $scope.currentWeek === null){ // checking to see if the scope variables are null
+							return false;
 						}
 						return true;
 					}	
