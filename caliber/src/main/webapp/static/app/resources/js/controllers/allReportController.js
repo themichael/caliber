@@ -8,7 +8,7 @@ angular
 					const OVERALL = "(All)";
 					const ALL = -1;
 					// What you see when you open Reports
-					$scope.currentBatch = null;
+					$scope.currentBatch = allBatches[allBatches.length-1];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.batchWeeks = {"weeks":[]};
 					$scope.currentTraineeId = ALL;
@@ -462,10 +462,12 @@ angular
 						
 						var title = "Progress for " + $scope.currentBatch.trainingName;
 						// generate the title
-						if($scope.currentWeek)
+						if($scope.reportCurrentWeek !== OVERALL)
 							title = "Week "+ $scope.currentWeek +" Progress for " + $scope.currentBatch.trainingName;
-						else if ($scope.currentTrainee)
+						else if ($scope.currentTraineeId !== ALL)
 							title = "Progress for " + $scope.currentTrainee.name;
+						else
+							title = "Performance at a Glance";
 						
 						// send to server and download generated PDF
 						caliberDelegate.all.generatePDF(title, html).then(
@@ -500,7 +502,6 @@ angular
 						    	  var image = new Image();
 						          image.src = child.toDataURL();
 						          dom.replaceChild(image, child);
-						          $log.debug(dom.childNodes[i]);
 						      }
 						}
 						return dom;
