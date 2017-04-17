@@ -88,7 +88,15 @@ angular
 						    	  templateUrl : "/static/app/partials/trainer-display.html",
 									controller : "trainerAssessController"
 						      },
-						      "qc-display@qc.reports": {
+						      "qc-batchOverall@qc.reports": {
+						    	  templateUrl : "/static/app/partials/qc-display.html",
+									controller : "qcAssessController"
+						      },
+						      "qc-traineeWeek@qc.reports": {
+						    	  templateUrl : "/static/app/partials/qc-display.html",
+									controller : "qcAssessController"
+						      },
+						      "qc-TraineeOverall@qc.reports": {
 						    	  templateUrl : "/static/app/partials/qc-display.html",
 									controller : "qcAssessController"
 						      }
