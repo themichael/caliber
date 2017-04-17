@@ -19,24 +19,30 @@ public class BaseDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch initializeActiveTrainees(Batch batch) {
 		Set<Trainee> trainees = new HashSet<>();
-		for (Trainee trainee : batch.getTrainees()) {
-			if (!trainee.getTrainingStatus().equals(TrainingStatus.Dropped)) {
-				trainees.add(trainee);
+		if (batch != null) {
+			for (Trainee trainee : batch.getTrainees()) {
+				if (trainee.getTrainingStatus() != null
+						&& !trainee.getTrainingStatus().equals(TrainingStatus.Dropped)) {
+					trainees.add(trainee);
+				}
 			}
+			batch.setTrainees(trainees);
 		}
-		batch.setTrainees(trainees);
 		return batch;
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Assessment initializeActiveTrainees(Assessment assessment) {
 		Set<Trainee> trainees = new HashSet<>();
-		for (Trainee trainee : assessment.getBatch().getTrainees()) {
-			if (!trainee.getTrainingStatus().equals(TrainingStatus.Dropped)) {
-				trainees.add(trainee);
+		if (assessment != null && assessment.getBatch() != null) {
+			for (Trainee trainee : assessment.getBatch().getTrainees()) {
+				if (trainee.getTrainingStatus() != null
+						&& !trainee.getTrainingStatus().equals(TrainingStatus.Dropped)) {
+					trainees.add(trainee);
+				}
 			}
+			assessment.getBatch().setTrainees(trainees);
 		}
-		assessment.getBatch().setTrainees(trainees);
 		return assessment;
 	}
 
