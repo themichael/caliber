@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
 public class AssessmentDAO {
@@ -56,8 +57,12 @@ public class AssessmentDAO {
 						Restrictions.eq("week", week.shortValue())))
 				.setFetchMode("grades", FetchMode.JOIN)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.ne("batch.trainee.trainingStatus", TrainingStatus.Dropped))
 				.list();
 	}
+	
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -67,8 +72,13 @@ public class AssessmentDAO {
 				.add(Restrictions.and(
 						Restrictions.eq("batch.batchId", batchId)))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.ne("batch.trainee.trainingStatus", TrainingStatus.Dropped))
 				.list();
 	}
+	
+	
+	
+	
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void update(Assessment assessment) {
