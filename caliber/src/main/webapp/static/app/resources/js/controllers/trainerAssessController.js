@@ -122,7 +122,7 @@ angular
 					$log.debug("Batches " + allBatches);
 					$log.debug(allBatches);
 					
-					(function start(allBatches) {
+					function start(allBatches) {
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) { 								// shows
@@ -209,7 +209,7 @@ angular
 							$scope.assignTraineeScope(trainee.traineeId);
 						}
 						
-					})(allBatches);
+					}
 
 					// default -- view assessments table
 					$scope.currentView = true;
@@ -559,6 +559,9 @@ angular
 					/****************************************************
 					 *Save Button **
 					 **************************************************/
+					$rootScope.testChild = function(){
+						alert('hti');
+					}
 					
 					$scope.showSaving = false;
 					$scope.showCheck = false;
@@ -586,4 +589,11 @@ angular
 					$scope.reloadController = function() {
 			            $state.reload();
 			        };
+//					$rootScope.reloadController();
+					$rootScope.$on('trainerasses',function(){
+						start(allBatches);
+					})
+					/* RUN START FUNCTION */
+					start(allBatches);
+				
 				});

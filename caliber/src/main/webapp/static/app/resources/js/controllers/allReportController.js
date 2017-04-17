@@ -145,6 +145,7 @@ angular
 						selectView($scope.currentBatch.batchId,
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
+						$rootScope.$emit('test');
 					}
 					/*scope function to display the table if a batch and week has been selected*/
 					$scope.displayTable = function(){
