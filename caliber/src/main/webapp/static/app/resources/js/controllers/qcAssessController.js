@@ -277,27 +277,8 @@ angular
 									.updateNote($scope.bnote));
 						}
 					}
-
-					/*$scope.saveQCandTrainee = function() {
-						$log.debug($scope.faces);
-
-						$log.debug("update");
-						caliberDelegate.qc.updateNote($scope.faces);
-
-						$log.debug("create");
-						caliberDelegate.qc.createNote($scope.faces);
-
-						$log
-								.debug(document.getElementById("qcBatchNotes").value);
-						$log.debug(caliberDelegate.qc.updateNote($scope.bnote));
-						
-						
-					}*/
+										
 					
-					$("#saveButton").click(function(){
-				        $("#saveNotice").fadeIn(2000);
-				        $("#saveNotice").fadeOut(3000);
-				    });
 					
 					/****************************************************
 					 *Save Button **
@@ -307,18 +288,6 @@ angular
 					$scope.showCheck = false;
 					$scope.showFloppy = true;
 					$scope.saveQCandTrainee =function(){
-						
-						$log.debug($scope.faces);
-
-						$log.debug("update");
-						caliberDelegate.qc.updateNote($scope.faces);
-
-						$log.debug("create");
-						caliberDelegate.qc.createNote($scope.faces);
-
-						$log
-								.debug(document.getElementById("qcBatchNotes").value);
-						$log.debug(caliberDelegate.qc.updateNote($scope.bnote));
 						
 							$scope.showFloppy = false
 							$timeout(function(){
