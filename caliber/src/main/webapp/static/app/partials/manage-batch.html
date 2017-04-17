@@ -55,13 +55,12 @@
 							<td>{{batch.goodGradeThreshold}}</td>
 							<td>{{batch.borderlineGradeThreshold}}</td>
 							<td>
-								<!-- Button Trigger for Add Trainee Modal -->
-								<p align="center">
-									<a role="button" data-toggle="modal"
-										ng-click="resetTraineeForm();selectCurrentBatch($index)"
-										data-target="#addTraineeModal"><span
-										class="glyphicon glyphicon-user">{{batch.trainees.length}}</span>
-									</a>
+								<!-- Button Trigger for Add Trainee Modal --> <a role="button"
+								data-toggle="modal"
+								ng-click="resetTraineeForm();selectCurrentBatch($index)"
+								data-target="#addTraineeModal"><span
+									class="glyphicon glyphicon-user"><p align="center">{{batch.trainees.length}}</p></span>
+							</a>
 							</td>
 							<td><a role="button" class="pull-right"
 								ng-click="populateBatch(batch);selectCurrentBatch($index)"
