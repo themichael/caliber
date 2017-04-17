@@ -165,17 +165,21 @@
 											chart-options="batchOverAllOptions" chart-labels="batchOverAllLabels"
 											chart-series="batchOverAllSeries">
                                     	</canvas>
-										<div>
+                                    	<div>
 											<table ng-if="batchOverAllLabels"
-												class="table table-responsive"
+												class="table table-responsive col-sm-12 col-md-12 col-lg-12"
 												style="border-collapse: collapse;">
-												<tr>
-													<th class="col-sm-2 col-md-2 col-lg-2"
-														ng-repeat="label in batchOverAllLabels">{{label}}</th>
-												</tr>
-												<tr ng-repeat="series in batchOverAllData">
-													<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
-														ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
+												<tr ng-repeat="label in batchOverAllLabels track by $index" ng-if="$index % 5 == 0">
+													<th>{{batchOverAllLabels[$index]}}</th>
+													<td>{{batchOverAllData[0][$index]}}</td>
+													<th>{{batchOverAllLabels[$index + 1]}}</th>
+													<td>{{batchOverAllData[0][$index + 1]}}</td>
+													<th>{{batchOverAllLabels[$index + 2]}}</th>
+													<td>{{batchOverAllData[0][$index + 2]}}</td>
+													<th>{{batchOverAllLabels[$index + 3]}}</th>
+													<td>{{batchOverAllData[0][$index + 3]}}</td>
+													<th>{{batchOverAllLabels[$index + 4]}}</th>
+													<td>{{batchOverAllData[0][$index + 4]}}</td>
 												</tr>
 											</table>
 										</div>
