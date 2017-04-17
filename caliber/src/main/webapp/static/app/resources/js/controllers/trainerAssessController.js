@@ -605,7 +605,10 @@ angular
 						getAllAssessmentsForWeek(
 								$scope.currentBatch.batchId,
 								$scope.currentWeek);
-					})
+					});
+					$rootScope.$on('GET_TRAINEE_OVERALL_CTRL',function(event,traineeId){
+						console.log(traineeId);
+					});
 					/* RUN START FUNCTION */
 					//start(allBatches);
 				
