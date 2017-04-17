@@ -100,7 +100,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 	lineChart.getTraineeOverallLineChart = function(dataArray) {
 		var chartData = {};
-		chartData.series = [ "batch", "trainee" ]
+		chartData.series = [ "trainee", "batch" ]
 		chartData.data = [];
 		// chartData.labels = [];
 
