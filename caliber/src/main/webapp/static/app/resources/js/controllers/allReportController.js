@@ -94,7 +94,7 @@ angular
 					};
 					
 					$scope.selectCurrentWeek = function(week) {
-						//$scope.currentWeek = week;
+						$scope.currentWeek = week;
 						$scope.reportCurrentWeek = week;
 						selectView($scope.currentBatch.batchId, $scope.reportCurrentWeek, $scope.currentTraineeId);
 					}

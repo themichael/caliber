@@ -2,13 +2,15 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<!-- Generate PDF of current page -->
-			<a ng-hide="reticulatingSplines" href="" class="pull-right" title="Download report"
-				ng-click="generatePDF()"> <i class="fa fa-file-pdf-o fa-2x"
+			<a ng-hide="reticulatingSplines" href="" class="pull-right"
+				title="Download report" ng-click="generatePDF()"> <i
+				class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+			</a> <a href class="pull-right"
+				style="pointer-events: none; cursor: default;" title="Processing.."
+				ng-show="reticulatingSplines" ng-show="showSaving"> <i
+				style="color: #F26925;" class="fa fa-spinner fa-spin fa-2x"
 				aria-hidden="true"></i>
 			</a>
-				<a href class="pull-right" title="Processing.." ng-show="reticulatingSplines" ng-show="showSaving">
-					<i style="color: #F26925;" class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
-				</a>
 			<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
 			<ul class="nav nav-tabs" ng-show="!noBatches">
 				<!-- Filter batches by year -->
@@ -78,7 +80,6 @@
 											chart-labels="averageTraineeScoresWeeklyLabels"
 											chart-series="averageTraineeScoresWeeklySeries">
 	                                    </canvas>
-
 										<div>
 											<table ng-if="averageTraineeScoresWeeklyLabels"
 												class="table table-responsive"
@@ -98,8 +99,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
-
 
 						<div class="col-sm-4 col-md-4">
 							<div class="panel panel-default">
@@ -195,7 +194,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
 
 						<div class="col-sm-4 col-md-4">
 							<div class="panel panel-default">
@@ -295,7 +293,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
 
 						<div class="col-sm-4 col-md-4">
 							<div class="panel panel-default">
@@ -359,7 +356,6 @@
 
 				</div>
 			</div>
-
 			<!-- Batch -> Overall -> Trainee-->
 			<div class="row" ng-if="batchOverallTrainee">
 				<div class="col-sm-12 col-md-12 col-lg-12">
@@ -464,22 +460,14 @@
 						</div>
 					</div>
 
+
 				</div>
-	<!-- 		</div>
-		</div>
-
- 				</div>
-
-			
-				<div ui-view="trainer-display" ng-if="displayTable()"></div>
-				qc
+				
+				<!-- for testing purposes -->
+				<div ui-view="trainer-display" ng-if=true>DENISE</div>
+				<!-- qc -->
 				<div ui-view="qc-display" ng-if=true></div>
 			</div>
 		</div>
->>>>>>> 69cbf672a489956edc99aa397efdff51a2f8edb7 
-	</div>-->
-	<!-- trainer display -->
-	<div ui-view="trainer-display" ng-show=true></div>
-	<!-- qc -->
-	<div ui-view="qc-display" ng-show=true></div>
+	</div>
 </div>
