@@ -564,17 +564,4 @@ angular
 						}
 						return dom;
 					};
-					
-					$scope.selectCurrentBatch = function(index) {
-						$scope.currentBatch = $scope.batches[index];
-						$log.debug("Selected batch " + index);
-					};
-					/*scope function to display the table if a batch and week has been selected*/
-					$scope.displayTable = function(){
-						//$state.reload(); // TODO come back here
-						if($scope.currentBatch.batchId && $scope.currentWeek){ // checking to see if the scope variables are null
-							return true; //change to false later
-						}
-						return true;
-					}
 				});
