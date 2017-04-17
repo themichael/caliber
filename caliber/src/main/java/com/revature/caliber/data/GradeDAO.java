@@ -116,9 +116,9 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByBatch(Integer batchId) {
 		log.info("Finding all grades for batch: " + batchId);
-		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee.batch", "b")
+		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee.batch", "b").createAlias("trainee", "t")
 				.add(Restrictions.eq("b.batchId", batchId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ne("b.trainee.trainingStatus", TrainingStatus.Dropped)).list();
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).list();
 	}
 
 
