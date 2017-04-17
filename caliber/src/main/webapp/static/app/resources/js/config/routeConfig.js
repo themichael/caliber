@@ -155,7 +155,15 @@ angular
 						      },
 						      "trainer-display@trainer.reports": {
 						    	  templateUrl : "/static/app/partials/trainer-display.html",
-									controller : "trainerAssessController"
+								  controller : "trainerAssessController"
+						      },
+						      "trainee-overall@trainer.reports":{
+						    	  templateUrl: "/static/app/partial/trainee-overall.html",
+						    	  controller: "trainerAssessController"
+						      },
+						      "trainee-week@trainer.reports":{
+						    	  templateUrl: "/static/app/partial/trainee-week.html",
+						    	  controller:"traineeAssessController"
 						      },
 						      "qc-display@trainer.reports": {
 						    	  templateUrl : "/static/app/partials/qc-display.html",
