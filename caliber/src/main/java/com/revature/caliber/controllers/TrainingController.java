@@ -2,8 +2,6 @@ package com.revature.caliber.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +21,6 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
-import com.revature.caliber.validator.BatchValidator;
 
 /**
  * Services requests for Trainer, Trainee, and Batch information
