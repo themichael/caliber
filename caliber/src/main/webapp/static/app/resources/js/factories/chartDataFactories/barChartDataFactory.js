@@ -3,7 +3,7 @@ angular
 		.factory(
 				"barChartDataFactory",
 				function($http, $log) {
-					$log.debug("Booted Report Factory");
+					$log.debug("Booted Bar Chart Data Factory");
 
 					var report = {};
 
@@ -35,7 +35,7 @@ angular
 							weekNum, traineeId) {
 						return $http(
 								{
-									url : "all/reports/batch/" + batchId
+									url : "/all/reports/batch/" + batchId
 											+ "/week/" + weekNum + "/trainee/"
 											+ traineeId
 											+ "/bar-batch-week-trainee",
@@ -58,7 +58,7 @@ angular
 							traineeId) {
 						return $http(
 								{
-									url : "all/reports/batch/" + batchId
+									url : "/	all/reports/batch/" + batchId
 											+ "/overall/trainee/" + traineeId
 											+ "/bar-batch-overall-trainee",
 									method : "GET"
@@ -96,28 +96,47 @@ angular
 										}); // end then
 					};
 
+					report.getBatchWeekSortedBarChartData = function(batchId,
+							week) {
+						return $http(
+								{
+									url : "/all/reports/batch/" + batchId
+											+ "/week/" + week
+											+ "/bar-batch-weekly-sorted",
+									method : "GET"
+								})
+								.then(
+										function(response) {
+											$log
+													.debug("Batch -> Week -> getBatchWeekSortedBarChartData")
+											$log.debug(response);
+											return response.data;
+										},
+										function(response) {
+											$log
+													.error("There was an error in barChartDataFactory -> getBatchWeekSortedBarChartData "
+															+ response.status);
+										});
+					};
 					report.getBatchOverallBarChart = function(batchId) {
 						return $http(
 								{
 									url : "/all/reports/batch/" + batchId
 											+ "/overall/bar-batch-overall",
 									method : "GET"
-								}).then(
-								function(response) {
-									$log.debug("batch - overall");
-									$log.debug(response);
-									return response.data;
-
-								},
-								function(response) {
-									$log.error("There was an error: "
-											+ response.status);
-
-								});
+								})
+								.then(
+										function(response) {
+											$log
+													.debug("Batch -> overall -> score")
+											$log.debug(response);
+											return response.data;
+										},
+										function(response) {
+											$log
+													.error("There was an error in barChartDataFactory -> getBatchOverallBarChart "
+															+ response.status);
+										});
 					};
-					 return report;
-
-					
 					return report;
-					
 				})
