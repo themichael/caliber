@@ -515,8 +515,7 @@ angular
 						// <img src=base64>
 						var html = $scope.generateImgFromCanvas(caliber, clone).innerHTML;
 						
-						var title = "Progress for "
-								+ $scope.currentBatch.trainingName;
+						var title = "";
 						// generate the title
 						if ($scope.reportCurrentWeek !== OVERALL)
 							title = "Week " + $scope.currentWeek
@@ -546,7 +545,7 @@ angular
 									a.click();
 									$scope.reticulatingSplines = false;
 								}, function(error) {
-									$log.debug(reason);
+									$log.debug(error);
 								}, function(value) {
 									$log.debug(value);
 								});
