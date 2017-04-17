@@ -164,7 +164,7 @@
 										<canvas id="bar6" class="chart chart-bar" chart-data="batchOverAllData"
 											chart-options="batchOverAllOptions" chart-labels="batchOverAllLabels"
 											chart-series="batchOverAllSeries">
-                                    </canvas>
+                                    	</canvas>
 										<div>
 											<table ng-if="batchOverAllLabels"
 												class="table table-responsive"
@@ -292,9 +292,9 @@
 										chart-series="radarTraineeWeeklySeries">
                                     </canvas>
 									<div>
-											<table ng-if="radarTraineeWeeklyTable"
-												class="table table-responsive"
-												style="border-collapse: collapse;">
+										<table ng-if="radarTraineeWeeklyTable"
+											class="table table-responsive"
+											style="border-collapse: collapse;">
 											<tr ng-repeat="item in radarTraineeWeeklyTable">
 												<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
 												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
@@ -340,7 +340,7 @@
 		</div> <!-- Row with all 3 Chart-->
 
 		<!-- Batch -> Overall -> Trainee-->
-		<div class="row" ng-show="batchOverallTrainee">
+		<div class="row" ng-if="batchOverallTrainee">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
 
