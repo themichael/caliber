@@ -59,8 +59,7 @@ public class CheckDAO {
 			for(Grade g : grades)
 				log.info(g);*/
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.info(e.getClass() + " " + e.getMessage());
 		}
 	}
 

@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
 public class TraineeDAO {
