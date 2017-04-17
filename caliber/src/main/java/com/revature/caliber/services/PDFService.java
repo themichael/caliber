@@ -2,14 +2,11 @@ package com.revature.caliber.services;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.util.Random;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
@@ -43,22 +40,6 @@ public class PDFService {
 	private static final Logger log = Logger.getLogger(PDFService.class);
 
 	/**
-	 * Consumes HTML content and renders into a PDF format. Saves the file in
-	 * memory and returns the filename.
-	 * 
-	 * @param html
-	 * @return
-	 * @throws IOException
-	 * @throws DocumentException
-	 */
-	public File getPDF(String title, String html) throws IOException, DocumentException {
-		byte[] data = generatePDF(title, html);
-		File file = generateFile();
-		FileUtils.writeByteArrayToFile(file, data);
-		return file;
-	}
-
-	/**
 	 * Consumes HTML content and renders into a PDF format.
 	 * 
 	 * @param html
@@ -66,24 +47,10 @@ public class PDFService {
 	 * @throws DocumentException
 	 * @throws IOException
 	 */
-	protected byte[] generatePDF(String title, String html) throws DocumentException, IOException {
+	public byte[] generatePDF(String title, String html) throws DocumentException, IOException {
 		log.debug(html);
 		RevaturePDF pdf = new RevaturePDF(title, html);
 		return pdf.toByteArray();
-	}
-
-	/**
-	 * Returns file with a unique random name and extension
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	protected File generateFile() throws IOException {
-		File file = null;
-		do{
-			file = new File((System.currentTimeMillis() - new Random().nextLong()) + ".pdf");
-		}while (file.exists());
-		return file;
 	}
 
 	/**
@@ -120,6 +87,9 @@ public class PDFService {
 		 * @throws IOException
 		 */
 		public RevaturePDF(String title, String html) throws DocumentException, IOException {
+			// PDF generator needs 'properly' closed <img> tags
+			html = html.replaceAll("(<img[^>]*[^/]>)(?!\\s*</img>)", "$1</img>");
+			
 			// initialize document state
 			this.document = new Document(PageSize.A4, marginLeft, marginRight, marginTop, marginBottom);
 			this.title = title;
@@ -158,7 +128,7 @@ public class PDFService {
 			page.append(closeHtml);
 
 			// set title
-			document.addTitle("Revature | Training Performance Report");
+			document.addTitle("Revature | " + this.title);
 
 			// CSS
 			CSSResolver cssResolver = new StyleAttrCSSResolver();
