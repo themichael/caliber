@@ -146,7 +146,20 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 	barChart.getBatchOverallBarChart = function(dataArray) {
 		var chartData = {};
-
+		
+		var sorted = [];
+		// make the object to an array
+		angular.forEach(dataArray, function(value, key) {
+			sorted.push({
+				'name' : key,
+				'value' : value
+			})
+		});
+		// sorted the array
+		sorted.sort(function(a, b) {
+			return b.value - a.value;
+		});
+		
 		// series
 		chartData.series = [ "Trainee", "Average" ];
 
@@ -178,9 +191,9 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		};
 
 		// loop through object array
-		angular.forEach(dataArray, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data[0].push(value.toFixed(2));
+		angular.forEach(sorted, function(obj) {
+			chartData.labels.push(obj.name);
+			chartData.data[0].push(obj.value.toFixed(2));
 		});
 		return chartData;
 	};

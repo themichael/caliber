@@ -3,6 +3,7 @@ var app =angular.module("app", [ "ui.router", "ngCookies", "auth", "chart.js", "
 		"qc", "trainer", "api", "delegate", "charts", "reportApi","ngAnimate"]).run(function($rootScope){
 			$rootScope.$on('test',function(){
 				$rootScope.$broadcast('trainerasses');
+				$rootScope.$broadcast('qcBatchOverall');
 			});
 		})
 // add modules here
