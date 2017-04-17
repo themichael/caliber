@@ -155,7 +155,13 @@ angular
 						}
 						return true;
 					}
-
+					$scope.displayTraineeOverallTable=function(){
+						if($scope.currentBatch === null  || $scope.currentWeek === null || $scope.batchOverallTrainee === null ){ // checking to see if the scope variables are null
+							return false;
+						}else{
+							return true;							
+						}
+					}
 					$scope.selectCurrentTrainee = function(index) {
 						if (index == ALL) {
 							$scope.currentTrainee = {
