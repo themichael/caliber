@@ -173,6 +173,10 @@ angular
 						$scope.getNotes();
 					}
 
+					function traineeWeek() {
+						
+					}
+					
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
 						$scope.faces[index].qcStatus = status;
@@ -343,5 +347,8 @@ angular
 					// Call start function when on reports page and batch and week selected
 					$rootScope.$on('qcBatchOverall', function() {
 						start();
+					});
+					$rootScope.$on('qcTraineeWeek', function() {
+						traineeWeek();
 					});
 				});
