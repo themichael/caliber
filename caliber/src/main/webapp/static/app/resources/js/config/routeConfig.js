@@ -158,11 +158,11 @@ angular
 								  controller : "trainerAssessController"
 						      },
 						      "trainee-overall@trainer.reports":{
-						    	  templateUrl: "/static/app/partial/trainee-overall.html",
+						    	  templateUrl: "/static/app/partials/trainee-overall.html",
 						    	  controller: "trainerAssessController"
 						      },
 						      "trainee-week@trainer.reports":{
-						    	  templateUrl: "/static/app/partial/trainee-week.html",
+						    	  templateUrl: "/static/app/partials/trainee-week.html",
 						    	  controller:"traineeAssessController"
 						      },
 						      "qc-display@trainer.reports": {
