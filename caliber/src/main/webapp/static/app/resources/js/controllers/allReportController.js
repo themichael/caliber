@@ -19,7 +19,8 @@ angular
 						"weeks" : []
 					};
 					$scope.currentTraineeId = ALL;
-
+					
+					
 					$scope.noBatch = true;
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
@@ -29,15 +30,16 @@ angular
 					(function start() {
 						// Finishes any left over ajax animation
 						NProgress.done();
-
 						// batch null check
 						if ($scope.currentBatch == null) {
 							$scope.noBatch = true;
 						} else {
 							$scope.noBatch = false;
+							getCurrentBatchWeeks($scope.currentBatch.weeks);
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
+							
 						}
 
 					})();
@@ -134,6 +136,8 @@ angular
 						$scope.currentBatch = $scope.batches[index];
 						getCurrentBatchWeeks($scope.currentBatch.weeks);
 						$log.debug($scope.batchWeeks.week);
+						$scope.selectCurrentWeek(OVERALL);
+						$scope.selectCurrentTrainee(ALL);
 						selectView($scope.currentBatch.batchId,
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
