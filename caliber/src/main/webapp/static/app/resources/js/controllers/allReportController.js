@@ -159,7 +159,6 @@ angular
 						if($scope.currentBatch === null  || $scope.currentWeek === null || $scope.batchOverallTrainee === null ){ // checking to see if the scope variables are null
 							return false;
 						}else{
-							$rootScope.$emit("GET_TRAINEE_OVERALL")
 							return true;							
 						}
 					}
@@ -179,6 +178,7 @@ angular
 							$scope.currentTrainee = {
 								name : $scope.currentBatch.trainees[index].name
 							};
+							$rootScope.$emit("GET_TRAINEE_OVERALL")
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
