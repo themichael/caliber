@@ -57,7 +57,7 @@ public class AssessmentDAO {
 						Restrictions.eq("week", week.shortValue())))
 				.setFetchMode("grades", FetchMode.JOIN)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ne("b.trainee.trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne("batch.trainee.trainingStatus", TrainingStatus.Dropped))
 				.list();
 	}
 	
@@ -72,7 +72,7 @@ public class AssessmentDAO {
 				.add(Restrictions.and(
 						Restrictions.eq("batch.batchId", batchId)))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ne("b.trainee.trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne("batch.trainee.trainingStatus", TrainingStatus.Dropped))
 				.list();
 	}
 	
