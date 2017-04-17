@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
 public class NoteDAO {
@@ -175,8 +176,12 @@ public class NoteDAO {
         		.add(Restrictions.eq("b.batchId", batchId))
         		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.ne("b.trainee.trainingStatus", TrainingStatus.Dropped))
 				.addOrder(Order.asc("week")).list();
     }
+	
+
+	
 	
 	/**
 	 * Returns all qc notes for trainee
@@ -192,5 +197,7 @@ public class NoteDAO {
         		.add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.addOrder(Order.asc("week")).list();
+        
+        
     }
 }
