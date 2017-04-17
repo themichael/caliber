@@ -152,7 +152,7 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
 						$scope.trainees = $scope.selectedBatches[index].trainees;
-
+//caliberdlegeate get trainees by batch id and load nto $scope
 						$scope.batchRow = index;
 						$log.debug($scope.currentBatch);
 					};
@@ -405,6 +405,7 @@ angular
 											$scope.trainees[$scope.traineeRow] = $scope.currentTrainee,
 											$scope.Updating = false,
 											$scope.resetTraineeForm())
+											//if trainee is dropped, splice from allbatches list
 						} else {
 							var newTrainee = {};
 							createTraineeObject(newTrainee);
@@ -438,6 +439,7 @@ angular
 					/** Delete Trainee* */
 
 					$scope.removeTrainee = function(traineeId) {
+						//search through allbatches trainees and splice from there
 						$log.debug($scope.traineeToBeDeleted.traineeId);
 						$log
 								.debug($scope.currentBatch.trainees[$scope.traineeRow]);
