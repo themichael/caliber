@@ -140,15 +140,19 @@
 					id="qcBatchNotes" ng-blur="saveQCNotes()"
 					placeholder="Enter your overall feedback on the batch" required>
 				</textarea>
-				<div class="pull-right">
-					<button class="btn-primary" id="saveButton"
-						ng-click="saveQCandTrainee()">
-						<span class="fa fa-floppy-o fa-2x" aria-hidden="true"></span> Save
-					</button>
+				<!-- QC Save burrito button-->
+				<div class='save-button-wrapper'>
+	            <a ng-click="saveQCandTrainee()" ng-show="showFloppy" class='save-button fade-in'> 
+	            	<span class="fa fa-floppy-o fa-2x" aria-hidden="true"></span>Save							
+				</a>
+				<div class='spinner fa-style' ng-show="showSaving">
+					<i  style="color:#F26925;" role="button" class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
 				</div>
-				<div class="pull-right" id="saveNotice"
-					style="width: 1065px; height: 35px; display: none; background-color: #42e594; opacity: 0.6; border-radius: 10px; text-align: center; color: white">Saved</div>
+				<div id="checkMark" class='spinner fade fa-style' ng-show="showCheck">
+					<i role="button" class="fa fa-check fa-2x" aria-hidden="true"></i>
+				</div>
 			</div>
+				</div>
 		</div>
 	</div>
 	<!-- overall -->
