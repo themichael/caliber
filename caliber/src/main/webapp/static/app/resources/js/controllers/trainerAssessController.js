@@ -591,6 +591,12 @@ angular
 			        };
 //					$rootScope.reloadController();
 					$rootScope.$on('trainerasses',function(){
+						$scope.trainees={};						
+						
+						for(trainee of $scope.currentBatch.trainees){
+							$scope.assignTraineeScope(trainee.traineeId);
+						}
+						
 						//start(allBatches);
 						getAllAssessmentsForWeek(
 								$scope.currentBatch.batchId,
