@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.TrainingStatus;
 
 /**
  * Accesses grades from the database
@@ -115,6 +116,35 @@ public class GradeDAO {
 		log.info("Finding all grades for batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee.batch", "b")
 				.add(Restrictions.eq("b.batchId", batchId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+
+	/**
+	 * overloaded of find by batch, if boolean is true returns only trainees not dropped.
+	 * false returns all trainees. 
+	 * Returns all grades for a batch. 
+	 * Useful for calculating
+	 * coarsely-grained data for reporting.
+	 * 
+	 * @param batchId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Grade> findByBatch(Integer batchId, boolean active) {
+       Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee.batch", "b")
+				.add(Restrictions.eq("b.batchId", batchId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				
+		if (active == true) {
+			log.info("Finding all grades for batch NOT DROPPED: " + batchId);
+			return criteria.add(Restrictions.ne("b.trainee.trainingStatus", TrainingStatus.Dropped)).list();
+
+			
+		} else {
+			log.info("Finding all grades for batch: " + batchId);
+			return criteria.list();
+
+		}
+
 	}
 
 	/**

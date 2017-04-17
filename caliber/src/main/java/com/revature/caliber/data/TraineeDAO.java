@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
 public class TraineeDAO {
@@ -63,6 +64,21 @@ public class TraineeDAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
+	public List<Trainee> findAllByBatch(Integer batchId, boolean active) {
+		log.info("Fetching all trainees by batch: " + batchId);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.eq("batch.batchId", batchId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		if(active==true){
+			return criteria.add(Restrictions.ne("batch.trainee.trainingStatus", TrainingStatus.Dropped)).list();
+		} else{
+			return criteria.list();
+		}
+	}
+	
 
 	/**
 	 * Find all trainees by the trainer's identifier

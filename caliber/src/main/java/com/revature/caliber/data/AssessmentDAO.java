@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
 public class AssessmentDAO {
@@ -59,6 +60,38 @@ public class AssessmentDAO {
 				.list();
 	}
 	
+	/**
+	 *  overloaded method for excluding trainees in the batch that have been dropped. 
+	 *  set active to true to return only trainees without dropped status
+	 *  setting active to false will return all trainees regardless of status.
+	 * @param batchId
+	 * @param week
+	 * @param active
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Assessment> findByWeek(Integer batchId, Integer week, boolean active) {
+		
+		Criteria criteria =sessionFactory.getCurrentSession().createCriteria(Assessment.class)
+				.add(Restrictions.and(
+						Restrictions.eq("batch.batchId", batchId),
+						Restrictions.eq("week", week.shortValue())))
+				.setFetchMode("grades", FetchMode.JOIN)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		if(active ==true ){
+			log.info("Find assessment by week number " + week + " for batch " + batchId + " " + "NOT DROPPED");
+			return criteria.add(Restrictions.ne("batch.trainee.trainingStatus", TrainingStatus.Dropped)).list();
+		} else {
+			log.info("Find assessment by week number " + week + " for batch " + batchId + " ");
+			return criteria.list();
+		}
+	}
+	
+	
+	
+	
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Assessment> findByBatchId(Integer batchId) {
@@ -69,6 +102,32 @@ public class AssessmentDAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
+	
+	
+	/**
+	 * overloaded method of findByBatchID
+	 * if active is set to true it will only return trainees in the batch that have not been dropped.
+	 * setting active to false will return all trainees regardless of status
+	 * @param batchId
+	 * @param active
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Assessment> findByBatchId(Integer batchId, boolean active) {
+		log.info("Find assessment by batchId" + batchId + " ");
+		Criteria criteria=  sessionFactory.getCurrentSession().createCriteria(Assessment.class)
+				.add(Restrictions.and(
+						Restrictions.eq("batch.batchId", batchId)))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		if(active==true){
+			return criteria.add(Restrictions.ne("batch.trainee.trainingStatus", TrainingStatus.Dropped)).list();
+		} else{
+			return criteria.list();
+		}
+		
+	}
+	
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void update(Assessment assessment) {
