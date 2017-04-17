@@ -96,7 +96,7 @@ angular
 						    	  templateUrl : "/static/app/partials/qc-display.html",
 									controller : "qcAssessController"
 						      },
-						      "qc-TraineeOverall@qc.reports": {
+						      "qc-traineeOverall@qc.reports": {
 						    	  templateUrl : "/static/app/partials/qc-display.html",
 									controller : "qcAssessController"
 						      }
