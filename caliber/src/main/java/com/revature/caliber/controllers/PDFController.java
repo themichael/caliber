@@ -31,7 +31,7 @@ public class PDFController {
 			@RequestBody String html) {
 		try {
 			byte[] pdf = pdfService.generatePDF(title, html);
-			
+
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(new MediaType("application", "pdf"));
 			headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf");

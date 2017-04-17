@@ -168,7 +168,7 @@ public class PDFService {
 							new CssResolverPipeline(cssResolver,
 									new HtmlPipeline(htmlPipelineContext, new PdfWriterPipeline(document, writer))),
 							true)).parse(new ByteArrayInputStream(page.toString().getBytes()));
-
+			
 			// close resources gracefully
 			this.document.close();
 			reader.close();

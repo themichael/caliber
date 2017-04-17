@@ -511,13 +511,15 @@ angular
 						// get html element #caliber-container
 						var caliber = document
 								.getElementById("caliber-container");
+						// create deep copy to manipulate for POST request body
+						var clone = document
+							.getElementById("caliber-container").cloneNode(true);
 						$log.debug(caliber);
 
 						// iterate over all childrens to convert <canvas> to
 						// <img src=base64>
-						var html = $scope.generateImgFromCanvas(caliber).innerHTML;
-						$log.debug(html);
-
+						var html = $scope.generateImgFromCanvas(caliber, clone).innerHTML;
+						
 						var title = "Progress for "
 								+ $scope.currentBatch.trainingName;
 						// generate the title
@@ -555,17 +557,21 @@ angular
 								});
 					}
 
-					$scope.generateImgFromCanvas = function(dom) {
+					/**
+					 * Replace canvas (in DOM) with img (in deep copy) 
+					 */
+					$scope.generateImgFromCanvas = function(dom, clone) {
 						for (var i = 0; i < dom.childNodes.length; i++) {
 							var child = dom.childNodes[i];
-							$scope.generateImgFromCanvas(child);
+							var cloneChild = clone.childNodes[i];
+							$scope.generateImgFromCanvas(child, cloneChild);
 							if (child.tagName === "CANVAS") {
 								// swap canvas for image with base64 src
 								var image = new Image();
 								image.src = child.toDataURL();
-								dom.replaceChild(image, child);
+								clone.replaceChild(image, cloneChild);
 							}
 						}
-						return dom;
+						return clone;
 					};
 				});
