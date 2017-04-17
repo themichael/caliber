@@ -2,7 +2,7 @@ angular
 		.module("qc")
 		.controller(
 				"qcAssessController",
-				function($log, $scope, $timeout, chartsDelegate,
+				function($log, $scope, $timeout, $rootScope, chartsDelegate,
 						caliberDelegate, qcFactory, allBatches) {
 					$log.debug("Booted Trainer Assess Controller");
 
@@ -38,39 +38,6 @@ angular
 					 * ***************************************** UI
 					 * **********************************************
 					 */
-					// get status types
-					$scope.qcStatusTypes = [];
-					caliberDelegate.all.enumQCStatus().then(function(types) {
-						$log.debug(types);
-						$scope.qcStatusTypes = types;
-					});
-
-					// Used to pick face for batch
-					$scope.pickOverallStatus = function(batch, pick) {
-						$scope.qcBatchAssess = pick;
-						$log.debug(batch.trainingName + " " + pick);
-						$log.debug("bnote");
-						$log.debug($scope.bnote);
-						$scope.bnote.qcStatus = pick;
-						$scope.saveQCNotes();
-					};
-
-					// ///////////////////////////////////////////////////////////////////////////////////////////
-					// load note types
-					caliberDelegate.all.enumNoteType().then(
-							function(noteTypes) {
-								$log.debug(noteTypes);
-								// do something with note type
-							});
-
-					// starting scope vars
-					$scope.currentBatch = $scope.batches[0];
-					$scope.currentBatch.trainees.sort(compare);
-					// create an array of numbers for number of weeks
-					for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-						$scope.weeks.push(i);
-					}
-
 					// function to get notes
 					$scope.getNotes = function() {
 						// Check if there are not weeks
@@ -150,10 +117,61 @@ angular
 						}
 					}
 
-					// Set current week to first week
-					$scope.currentWeek = $scope.weeks[0];
-					// Get notes
-					$scope.getNotes();
+					// Start function for reports to use
+					function start() {
+						// get status types
+						$scope.qcStatusTypes = [];
+						caliberDelegate.all.enumQCStatus().then(
+								function(types) {
+									$log.debug(types);
+									$scope.qcStatusTypes = types;
+								});
+
+						// Used to pick face for batch
+						$scope.pickOverallStatus = function(batch, pick) {
+							$scope.qcBatchAssess = pick;
+							$log.debug(batch.trainingName + " " + pick);
+							$log.debug("bnote");
+							$log.debug($scope.bnote);
+							$scope.bnote.qcStatus = pick;
+							$scope.saveQCNotes();
+						};
+
+						// ///////////////////////////////////////////////////////////////////////////////////////////
+						// load note types
+						caliberDelegate.all.enumNoteType().then(
+								function(noteTypes) {
+									$log.debug(noteTypes);
+									// do something with note type
+								});
+
+						// starting scope vars
+						$log.debug($scope.$parent.currentBatch);
+						// If in reports get reports current batch
+						if ($scope.$parent.currentBatch !== undefined) {
+							$scope.currentBatch = $scope.$parent.currentBatch;
+						} else {
+							$scope.currentBatch = $scope.batches[0];
+						}
+						$scope.currentBatch.trainees.sort(compare);
+						// create an array of numbers for number of weeks
+						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+							$scope.weeks.push(i);
+						}
+
+						// Set current week to first week
+						$log.debug("$scope.$parent.reportCurrentWeek");
+						$log.debug($scope.$parent.reportCurrentWeek);
+						// If reports week is selected
+						if ($scope.$parent.reportCurrentWeek !== undefined
+								&& $scope.$parent.reportCurrentWeek !== "(All)") {
+							$scope.currentWeek = $scope.$parent.reportCurrentWeek;
+						} else {
+							$scope.currentWeek = $scope.weeks[0];
+						}
+						// Get notes
+						$scope.getNotes();
+					}
 
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
@@ -173,7 +191,11 @@ angular
 					// batch drop down select
 					$scope.selectCurrentBatch = function(index) {
 						$log.debug("SELECTED DIFFERENT BATCH");
-						$scope.currentBatch = $scope.batches[index];
+						if ($scope.$parent.currentBatch !== undefined) {
+							$scope.currentBatch = $scope.$parent.currentBatch;
+						} else {
+							$scope.currentBatch = $scope.batches[index];
+						}
 						$scope.currentBatch.trainees.sort(compare);
 						// Create week array for batch selected
 						$scope.weeks = [];
@@ -188,7 +210,13 @@ angular
 
 					// Select week
 					$scope.selectWeek = function(index) {
-						$scope.currentWeek = $scope.weeks[index];
+						// If reports week is selected
+						if ($scope.$parent.reportCurrentWeek !== undefined
+								&& $scope.$parent.reportCurrentWeek !== "(All)") {
+							$scope.currentWeek = $scope.$parent.reportCurrentWeek;
+						} else {
+							$scope.currentWeek = $scope.weeks[index];
+						}
 						$scope.getNotes();
 						wipeFaces();
 					};
@@ -310,4 +338,10 @@ angular
 							});
 						});
 					}
+					// Call start function
+					start();
+					// Call start function when on reports page and batch and week selected
+					$rootScope.$on('qcBatchOverall', function() {
+						start();
+					});
 				});

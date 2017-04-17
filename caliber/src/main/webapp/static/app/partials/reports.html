@@ -157,7 +157,7 @@
 				<!-- for testing purposes -->
 				<div ui-view="trainer-display" ng-if="displayTable()"></div>
 				<!-- qc -->
-				<div ui-view="qc-display" ng-if=true></div>
+				<div ui-view="qc-batchOverall"></div>
 		</div>
 
 		<!-- Batch -> Overall -->
@@ -449,6 +449,8 @@
 					</div>
 				</div> <!-- Row With Bottom 2 Charts -->
 			</div>
+			<div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div>
+			<div ui-view="qc-traineeOverall" ng-if="displayTable()"></div>
 		</div> <!-- Row with all 3 Chart-->
 
 	</div> <!-- top10 data-container -->
