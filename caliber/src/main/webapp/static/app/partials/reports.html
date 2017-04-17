@@ -44,7 +44,7 @@
 					class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a role="button" ng-click="selectCurrentTrainee(-1)">All</a></li>
-					<li ng-repeat="menuItem in currentBatch.trainees track by $index"><a
+					<li ng-if="menuItem.trainingStatus != 'Dropped'" ng-repeat="menuItem in currentBatch.trainees track by $index"><a
 						role="button" ng-click="selectCurrentTrainee($index)">{{menuItem.name}}</a></li>
 				</ul></li>
 		</ul>
