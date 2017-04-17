@@ -98,9 +98,11 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByTrainee(Integer traineeId) {
 		log.info("Finding all grades for trainee: " + traineeId);
-		return sessionFactory.getCurrentSession().createCriteria(Grade.class)
+		List <Grade> grades = sessionFactory.getCurrentSession().createCriteria(Grade.class)
 				.add(Restrictions.eq("trainee.traineeId", traineeId))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		log.info(grades);
+		return grades;
 	}
 
 	/**

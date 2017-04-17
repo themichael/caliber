@@ -3,84 +3,90 @@
  * @param $log
  * @returns {{}}
  */
-angular.module("charts").factory("radarChartFactory", function($log) {
-	$log.debug("Booted radarChartFactory");
+angular
+		.module("charts")
+		.factory(
+				"radarChartFactory",
+				function($log) {
+					$log.debug("Booted radarChartFactory");
 
-	var radar = {};
-	
-	radar.getTraineeUpToWeekRadarChart = function(dataArray) {
-		var chartData = {};
-		
-		chartData.series = [ "Trainee Up To Week" ];
-		
-		chartData.data = [];
-		chartData.labels = [];
-		chartData.data.push([]);
+					var radar = {};
 
-		angular.forEach(data, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data[0].push(value);
-		});
-		
-		chartData.options = radarOptions;
-		return chartData;
-	};
-	
-	radar.getTraineeOverallRadarChart = function(dataArray) {
-		var chartData = {};
-		
-		chartData.series = [ "Trainee Overall" ];
-		
-		chartData.data = [];
-		chartData.labels = [];
-		chartData.data.push([]);
+					radar.getTraineeUpToWeekRadarChart = function(dataArray,
+							seriesName) {
+						return createGenericRadarChartObject(dataArray,
+								seriesName);
+					};
 
-		angular.forEach(data, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data[0].push(value);
-		});
-		
-		chartData.options = radarOptions;
-		return chartData;
-	};
-	
-	radar.getBatchOverallRadarChart = function(dataArray) {
-		var chartData = {};
-		
-		chartData.series = [ "Batch" ];
-		
-		chartData.data = [];
-		chartData.labels = [];
-		chartData.data.push([]);
+					radar.getTraineeOverallRadarChart = function(dataArray,
+							seriesName) {
+						return createGenericRadarChartObject(dataArray,
+								seriesName);
+					};
 
-		angular.forEach(data, function(value, key) {
-			chartData.labels.push(key);
-			chartData.data[0].push(value);
-		});
-		
-		chartData.options = radarOptions;
-		return chartData;
-	};
-	
-	
-	
+					radar.getBatchOverallRadarChart = function(dataArray,
+							seriesName) {
+						return createGenericRadarChartObject(dataArray,
+								seriesName);
+					};
 
-	radarOptions = {
-		legend : {
-			display : true,
-			position : 'bottom'
-		},
-		scale : {
-			reverse : false,
-			ticks : {
-				beginAtZero : false,
-				fixedStepSize : 5,
-				max : 100,
-				suggestedMin : 40
-			}
+					var createGenericRadarChartObject = function(dataArray,
+							seriesName) {
+						var chartData = {};
 
-		}
-	};
+						chartData.series = [];
+						chartData.series.push(seriesName);
 
-	return radar;
-});
+						chartData.labels = [];
+
+						chartData.data = [];
+						chartData.data.push([]);
+
+						angular.forEach(dataArray, function(value, key) {
+							chartData.labels.push(key);
+							chartData.data[0].push(value.toFixed(2));
+						});
+
+						chartData.options = radarOptions;
+						return chartData;
+					}
+
+					radar.addDataToExistingRadar = function(currentChartData,
+							otherDataArray, seriesName) {
+						var newData = [];
+						var totalTechs = currentChartData.labels.length;
+						currentChartData.series.push(seriesName);
+
+						for (var i = 0; i < totalTechs; i++) {
+							if (otherDataArray
+									.hasOwnProperty(currentChartData.labels[i])) {
+								newData
+										.push((otherDataArray[currentChartData.labels[i]])
+												.toFixed(2));
+							}
+						}
+
+						currentChartData.data.push(newData);
+
+						return currentChartData;
+					};
+
+					radarOptions = {
+						legend : {
+							display : true,
+							position : 'bottom'
+						},
+						scale : {
+							reverse : false,
+							ticks : {
+								beginAtZero : false,
+								fixedStepSize : 10,
+								max : 100,
+								suggestedMin : 40
+							}
+
+						}
+					};
+
+					return radar;
+				});

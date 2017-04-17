@@ -248,13 +248,14 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	all.getAssessmentsAverageForWeek = function(batchId, weekId){
+
+	all.getAssessmentsAverageForWeek = function(batchId, weekId) {
 		return $http({
-			url:"/all/assessments/average/" + batchId + "/" + weekId,
-			method: "GET"
-		}).then(function(response){
+			url : "/all/assessments/average/" + batchId + "/" + weekId,
+			method : "GET"
+		}).then(function(response) {
 			return response.data;
-		}, function(response){
+		}, function(response) {
 			$log.error("There was a error " + response.status);
 		});
 	}
@@ -277,18 +278,17 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
-	/****************************************************************
-	 * Server generates PDF from HTML 
-	 * Download via response data
-	 *
-	 ****************************************************************/
+
+	/***************************************************************************
+	 * Server generates PDF from HTML Download via response data
+	 * 
+	 **************************************************************************/
 	all.generatePDF = function(title, html) {
 		return $http({
 			url : "/report/generate?title=" + title,
 			method : "POST",
 			data : html,
-			responseType: "arraybuffer"
+			responseType : "arraybuffer"
 		}).then(function(response) {
 			$log.debug(response);
 			return response.data;
@@ -296,6 +296,6 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
+
 	return all;
 });
