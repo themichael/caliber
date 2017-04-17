@@ -122,7 +122,7 @@ angular
 					$log.debug("Batches " + allBatches);
 					$log.debug(allBatches);
 					
-					function start(allBatches) {
+					(function start(allBatches) {
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) { 								// shows
@@ -209,7 +209,7 @@ angular
 							$scope.assignTraineeScope(trainee.traineeId);
 						}
 						
-					}
+					})(allBatches);
 
 					// default -- view assessments table
 					$scope.currentView = true;
@@ -591,9 +591,12 @@ angular
 			        };
 //					$rootScope.reloadController();
 					$rootScope.$on('trainerasses',function(){
-						start(allBatches);
+						//start(allBatches);
+						getAllAssessmentsForWeek(
+								$scope.currentBatch.batchId,
+								$scope.currentWeek);
 					})
 					/* RUN START FUNCTION */
-					start(allBatches);
+					//start(allBatches);
 				
 				});
