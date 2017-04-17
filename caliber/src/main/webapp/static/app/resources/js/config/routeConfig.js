@@ -154,7 +154,7 @@ angular
 						    	  controller: "trainerAssessController"
 						      },
 						      "trainee-week@trainer.reports":{
-						    	  templateUrl: "/static/app/partial/trainee-week-overall.html",
+						    	  templateUrl: "/static/app/partial/trainee-week.html",
 						    	  controller:"traineeAssessController"
 						      },
 						      "qc-display@trainer.reports": {
