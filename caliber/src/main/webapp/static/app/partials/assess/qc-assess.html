@@ -70,7 +70,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="trainee in currentBatch.trainees track by $index">
+						<tr ng-if="trainee.trainingStatus != 'Dropped'" ng-repeat="trainee in currentBatch.trainees track by $index">
 							<td>{{ trainee.name }}</td>
 							<td><span ng-hide="faces[$index].qcStatus"
 								class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
