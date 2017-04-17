@@ -96,7 +96,7 @@ public class Batch implements Serializable {
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 
-	@OneToMany(mappedBy = "batch", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "batch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference(value = "traineeAndBatch")
 	private Set<Trainee> trainees;
 
@@ -251,7 +251,7 @@ public class Batch implements Serializable {
 	@Override
 	public String toString() {
 		return "Batch [batchId=" + batchId + ", trainingName=" + trainingName + ", skillType=" + skillType
-				+ ", trainingType=" + trainingType + "]";
+				+ ", trainingType=" + trainingType + " trainees=" + trainees + "]";
 	}
 
 }
