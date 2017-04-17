@@ -5,7 +5,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerAssessController",
-				function($timeout,$log, $scope, chartsDelegate, caliberDelegate,
+				function($rootScope, $timeout,$log, $scope, $state, chartsDelegate, caliberDelegate,
 						allBatches) {
 					// Week object
 					function Week(weekNumb, assessments) {
@@ -415,7 +415,7 @@ angular
 							.weightedScore = $scope.getWeightedScore(
 									$scope.assessmentsById[a.assessmentId].rawScore
 									,totalRawScore
-									);
+									).toFixed(0).toString() + '%';;
 						}
 					}
 					$scope.getWeightedScore = function(rawScore,totalRawScore){
@@ -583,4 +583,7 @@ angular
 					$scope.stopBurrito = function(traineeId){
 						$scope.trainees[traineeId].burrito=false;
 					}
+					$scope.reloadController = function() {
+			            $state.reload();
+			        };
 				});
