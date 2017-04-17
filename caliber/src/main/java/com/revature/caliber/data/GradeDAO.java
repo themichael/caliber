@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.TrainingStatus;
 
 /**
  * Accesses grades from the database
@@ -116,8 +117,10 @@ public class GradeDAO {
 	public List<Grade> findByBatch(Integer batchId) {
 		log.info("Finding all grades for batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee.batch", "b")
-				.add(Restrictions.eq("b.batchId", batchId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.add(Restrictions.eq("b.batchId", batchId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.ne("b.trainee.trainingStatus", TrainingStatus.Dropped)).list();
 	}
+
 
 	/**
 	 * Returns all grades for a category. Useful for improving performance time
@@ -150,7 +153,9 @@ public class GradeDAO {
 		log.info("Finding week " + week + " grades for batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee.batch", "b")
 				.add(Restrictions.eq("b.batchId", batchId)).createAlias("assessment", "a")
-				.add(Restrictions.eq("a.week", week.shortValue())).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.eq("a.week", week.shortValue()))
+				.add(Restrictions.ne("b.trainee.trainingStatus", TrainingStatus.Dropped))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
 
