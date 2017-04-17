@@ -51,13 +51,13 @@ public class AssessmentDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Assessment> findByWeek(Integer batchId, Integer week) {
 		log.info("Find assessment by week number " + week + " for batch " + batchId + " ");
-		return sessionFactory.getCurrentSession().createCriteria(Assessment.class)
+		return sessionFactory.getCurrentSession().createCriteria(Assessment.class).createAlias("batch", "batch").createAlias("batch.trainees", "t")
 				.add(Restrictions.and(
 						Restrictions.eq("batch.batchId", batchId),
 						Restrictions.eq("week", week.shortValue())))
 				.setFetchMode("grades", FetchMode.JOIN)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ne("batch.trainee.trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.list();
 	}
 	
@@ -68,11 +68,11 @@ public class AssessmentDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Assessment> findByBatchId(Integer batchId) {
 		log.info("Find assessment by batchId" + batchId + " ");
-		return sessionFactory.getCurrentSession().createCriteria(Assessment.class)
+		return sessionFactory.getCurrentSession().createCriteria(Assessment.class).createAlias("batch", "batch").createAlias("batch.trainees", "t")
 				.add(Restrictions.and(
 						Restrictions.eq("batch.batchId", batchId)))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ne("batch.trainee.trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.list();
 	}
 	
