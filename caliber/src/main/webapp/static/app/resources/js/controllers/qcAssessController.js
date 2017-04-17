@@ -338,9 +338,10 @@ angular
 							});
 						});
 					}
+					// Call start function
 					start();
-					$rootScope.$on('qcassess', function() {
-						$log.debug("NFKJHALSFHNALKS");
+					// Call start function when on reports page and batch and week selected
+					$rootScope.$on('qcBatchOverall', function() {
 						start();
 					});
 				});
