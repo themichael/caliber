@@ -61,6 +61,7 @@ public class TraineeDAO {
 		log.info("Fetching all trainees by batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.add(Restrictions.eq("batch.batchId", batchId))
+				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
@@ -79,6 +80,7 @@ public class TraineeDAO {
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.createAlias("batch", "b").createAlias("b.trainer", "t")
 				.add(Restrictions.eq("t.trainerId", trainerId))
+				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
@@ -93,6 +95,7 @@ public class TraineeDAO {
 		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.setFetchMode("batch", FetchMode.JOIN)
 				.add(Restrictions.eq("traineeId", traineeId))
+				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
 				.uniqueResult();
 	}
 

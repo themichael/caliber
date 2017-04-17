@@ -26,12 +26,12 @@ angular
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
 					//$scope.currentBatch = allBatches[0];$scope.currentWeek =1; // denise debug line please ignore ... ill delete when im done TODO
-					(function start() {
+					(function () {
 						// Finishes any left over ajax animation
 						NProgress.done();
 
 						// batch null check
-						if ($scope.currentBatch == null) {
+						if ($scope.currentBatch === null) {
 							$scope.noBatch = true;
 						} else {
 							$scope.noBatch = false;
@@ -43,9 +43,9 @@ angular
 					})();
 
 					function selectView(batch, week, trainee) {
-						if (week == OVERALL) {
+						if (week === OVERALL) {
 							// All Weeks
-							if (trainee == ALL) {
+							if (trainee === ALL) {
 								// All Trainees
 								$scope.batchWeek = false;
 								$scope.batchWeekTrainee = false;
@@ -63,7 +63,7 @@ angular
 							}
 						} else {
 							// Specific Week
-							if (trainee == ALL) {
+							if (trainee === ALL) {
 								// All Trainees
 								$scope.batchWeek = true;
 								$scope.batchWeekTrainee = false;
@@ -156,7 +156,7 @@ angular
 					}
 
 					$scope.selectCurrentTrainee = function(index) {
-						if (index == ALL) {
+						if (index === ALL) {
 							$scope.currentTrainee = {
 								name : "Trainee"
 							}
@@ -295,11 +295,10 @@ angular
 											NProgress.done();
 											var barChartObject = chartsDelegate.bar
 													.getAssessmentAveragesBatchWeekly(data);
-											console
-													.log("here we are, in the yani barchart method");
-											console.log(barChartObject.options);
-											console.log(barChartObject);
-											console.log(barChartObject.series);
+											$log.debug("here we are, in the yani barchart method");
+											$log.debug(barChartObject.options);
+											$log.debug(barChartObject);
+											$log.debug(barChartObject.series);
 
 											$scope.barcharAWLabels = barChartObject.labels;
 											$scope.barcharAWData = barChartObject.data;
@@ -480,12 +479,12 @@ angular
 											NProgress.done();
 											var lineChartObject = chartsDelegate.line
 													.getWeeklyProgressTraineeOverall(data);
-											console.log("chart completed!");
+											$log.debug("chart completed!");
 											$scope.batchOverallWeeklyLabels = lineChartObject.labels;
 											$scope.batchOverallWeeklyData = lineChartObject.data;
 											$scope.batchOverallWeeklySeries = lineChartObject.series;
 											$scope.batchOverallWeeklyOptions = lineChartObject.options;
-											console.log(lineChartObject);
+											$log.debug(lineChartObject);
 
 										}, function() {
 											NProgress.done();
@@ -507,15 +506,16 @@ angular
 						// get html element #caliber-container
 						var caliber = document
 								.getElementById("caliber-container");
+						// create deep copy to manipulate for POST request body
+						var clone = document
+							.getElementById("caliber-container").cloneNode(true);
 						$log.debug(caliber);
 
 						// iterate over all childrens to convert <canvas> to
 						// <img src=base64>
-						var html = $scope.generateImgFromCanvas(caliber).innerHTML;
-						$log.debug(html);
-
-						var title = "Progress for "
-								+ $scope.currentBatch.trainingName;
+						var html = $scope.generateImgFromCanvas(caliber, clone).innerHTML;
+						
+						var title = "";
 						// generate the title
 						if ($scope.reportCurrentWeek !== OVERALL)
 							title = "Week " + $scope.currentWeek
@@ -545,23 +545,27 @@ angular
 									a.click();
 									$scope.reticulatingSplines = false;
 								}, function(error) {
-									$log.debug(reason);
+									$log.debug(error);
 								}, function(value) {
 									$log.debug(value);
 								});
 					}
 
-					$scope.generateImgFromCanvas = function(dom) {
+					/**
+					 * Replace canvas (in DOM) with img (in deep copy) 
+					 */
+					$scope.generateImgFromCanvas = function(dom, clone) {
 						for (var i = 0; i < dom.childNodes.length; i++) {
 							var child = dom.childNodes[i];
-							$scope.generateImgFromCanvas(child);
+							var cloneChild = clone.childNodes[i];
+							$scope.generateImgFromCanvas(child, cloneChild);
 							if (child.tagName === "CANVAS") {
 								// swap canvas for image with base64 src
 								var image = new Image();
 								image.src = child.toDataURL();
-								dom.replaceChild(image, child);
+								clone.replaceChild(image, cloneChild);
 							}
 						}
-						return dom;
+						return clone;
 					};
 				});
