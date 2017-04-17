@@ -158,6 +158,10 @@
 					</div>
 				</div>
 			</div>
+				<!-- for testing purposes -->
+				<div ui-view="trainer-display" ng-if="displayTable()"></div>
+				<!-- qc -->
+				<div ui-view="qc-display" ng-if=true></div>
 		</div>
 
 		<!-- Batch -> Overall -->
@@ -462,11 +466,6 @@
 
 
 				</div>
-				
-				<!-- for testing purposes -->
-				<div ui-view="trainer-display" ng-if=true>DENISE</div>
-				<!-- qc -->
-				<div ui-view="qc-display" ng-if=true></div>
 			</div>
 		</div>
 	</div>
