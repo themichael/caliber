@@ -371,8 +371,12 @@ angular
 													, $scope.currentWeek
 													).then(function(response){
 														$timeout(function(){
-															$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
-														},4000);															
+															if(response){
+																$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
+															}else{
+																return;
+															}
+															},4000);															
 													});
 										});
 										
