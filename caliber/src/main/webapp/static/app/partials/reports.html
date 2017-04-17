@@ -64,7 +64,7 @@
 		<div class="row" ng-if="batchWeek">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
-					<div class="col-sm-12 col-md-12">
+					<div class="col-sm-12 col-md-12 col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">Average Trainee Scores</div>
 							<div class="panel-body">
@@ -78,14 +78,18 @@
 									<div>
 										<table ng-if="averageTraineeScoresWeeklyLabels" class="table table-responsive"
 											style="border-collapse: collapse;">
-											<tr>
-												<th class="col-sm-2 col-md-2 col-lg-2"
-													ng-repeat="label in averageTraineeScoresWeeklyLabels">{{label}}</th>
-											</tr>
-											<tr ng-repeat="series in averageTraineeScoresWeeklyData">
-												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
-													ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
-											</tr>
+												<tr ng-repeat="label in averageTraineeScoresWeeklyLabels track by $index" ng-if="$index % 5 == 0">
+													<th>{{averageTraineeScoresWeeklyLabels[$index]}}</th>
+													<td>{{averageTraineeScoresWeeklyData[0][$index]}}</td>
+													<th>{{averageTraineeScoresWeeklyLabels[$index + 1]}}</th>
+													<td>{{averageTraineeScoresWeeklyData[0][$index + 1]}}</td>
+													<th>{{averageTraineeScoresWeeklyLabels[$index + 2]}}</th>
+													<td>{{averageTraineeScoresWeeklyData[0][$index + 2]}}</td>
+													<th>{{averageTraineeScoresWeeklyLabels[$index + 3]}}</th>
+													<td>{{averageTraineeScoresWeeklyData[0][$index + 3]}}</td>
+													<th>{{averageTraineeScoresWeeklyLabels[$index + 4]}}</th>
+													<td>{{averageTraineeScoresWeeklyData[0][$index + 4]}}</td>
+												</tr>
 										</table>
 									</div>
 								</div>
@@ -95,7 +99,7 @@
 				</div> <!--  Row with First Chart -->
 
 				<div class="row">
-					<div class="col-sm-4 col-md-4">
+					<div class="col-sm-4 col-md-4 col-lg-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">QC Status</div>
 							<div class="panel-body">
@@ -122,7 +126,7 @@
 					</div>
 
 					<!-- Yanilda -->
-					<div class="col-sm-8 col-md-8">
+					<div class="col-sm-8 col-md-8 col-lg-8">
 						<div class="panel panel-default">
 							<div class="panel-heading">Assessment Averages</div>
 							<div class="panel-body">
