@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
 public class BatchDAO {
@@ -69,6 +70,7 @@ public class BatchDAO {
 		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
 						Restrictions.eq("coTrainer.trainerId", trainerId)))
+				.createAlias("trainees", "t").add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -89,6 +91,7 @@ public class BatchDAO {
 						Restrictions.eq("coTrainer.trainerId", trainerId)))
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime()))
+				.createAlias("trainees", "t").add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -103,12 +106,13 @@ public class BatchDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches");
-		// trainees eagerly loaded. using alias or other fetch style causes a left join.. and inaccurate results
-		
+		// trainees eagerly loaded. using alias or other fetch style causes a
+		// left join.. and inaccurate results
+
 		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime()))
-				.addOrder(Order.desc("trainingName"))
+				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime())).addOrder(Order.desc("trainingName"))
+				.createAlias("trainees", "t").add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -121,7 +125,9 @@ public class BatchDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch findOne(Integer batchId) {
 		log.info("Fetching batch: " + batchId);
-		return (Batch) sessionFactory.getCurrentSession().get(Batch.class, batchId);
+		return (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class).createAlias("trainees", "t")
+				.add(Restrictions.eq("batchId", batchId))
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).uniqueResult();
 	}
 
 	/**
