@@ -30,7 +30,7 @@ public class PDFController {
 			@RequestParam(name = "title", value = "title", defaultValue = "Performance at a Glance") String title,
 			@RequestBody String html) {
 		try {
-			byte[] pdf = pdfService.generatePDF(title, html);;
+			byte[] pdf = pdfService.generatePDF(title, html);
 			
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(new MediaType("application", "pdf"));
@@ -40,6 +40,7 @@ public class PDFController {
 			headers.add("Pragma", "no-cache");
 			headers.add("Expires", "0");
 
+			log.info("PDF Generated");
 			return new HttpEntity<>(pdf, headers);
 		} catch (Exception e) {
 			log.error("Error creating PDF file: " + e.getClass() + " --> " + e.getMessage());
