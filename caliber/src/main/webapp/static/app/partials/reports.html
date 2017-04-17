@@ -29,15 +29,15 @@
 							menuItem.startDate | date:'shortDate' }}</a></li>
 				</ul></li>
 			<!-- Select Week-->
-			<li role="button" class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown">Week {{reportCurrentWeek}}<span class="caret"></span>
-			</a>
-				<ul class="dropdown-menu">
-					<li><a role="button" ng-click="selectCurrentWeek(-1)">All</a></li>
-					<li ng-repeat="menuItem in batchWeeks.week"><a role="button"
-						ng-click="selectCurrentWeek(menuItem)">{{menuItem}}</a></li>
-				</ul></li>
-
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">Week {{reportCurrentWeek}}<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a role="button" ng-click="selectCurrentWeek('(All)')">All</a></li>
+						<li ng-repeat="menuItem in batchWeeks.week"><a
+							role="button" ng-click="selectCurrentWeek(menuItem)">{{menuItem}}</a></li>
+					</ul></li>
+					
 			<!-- Select Trainee-->
 			<li role="button" class="dropdown"><a class="dropdown-toggle"
 				ng-show="hideOtherTabs()" data-toggle="dropdown">{{currentTrainee.name}}<span
