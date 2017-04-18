@@ -134,7 +134,7 @@ public class PDFService {
 			CSSResolver cssResolver = new StyleAttrCSSResolver();
 			CssFile cssFile = XMLWorkerHelper.getCSS(CSS_STYLES);
 			cssResolver.addCss(cssFile);
-
+			
 			// HTML
 			HtmlPipelineContext htmlPipelineContext = new HtmlPipelineContext(null);
 			htmlPipelineContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
@@ -168,7 +168,7 @@ public class PDFService {
 							new CssResolverPipeline(cssResolver,
 									new HtmlPipeline(htmlPipelineContext, new PdfWriterPipeline(document, writer))),
 							true)).parse(new ByteArrayInputStream(page.toString().getBytes()));
-
+			
 			// close resources gracefully
 			this.document.close();
 			reader.close();

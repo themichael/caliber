@@ -178,6 +178,10 @@ angular
 
 					}
 
+					function traineeOverall() {
+						
+					}
+
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
 						$scope.faces[index].qcStatus = status;
@@ -353,8 +357,13 @@ angular
 					$rootScope.$on('qcBatchOverall', function() {
 						start();
 					});
+					// Execute when on reports page and trainee and week selected
 					$rootScope.$on('qcTraineeWeek', function() {
 						traineeWeek();
+					});
+					// Execute when on reports page and trainee and all week selected
+					$rootScope.$on('GET_TRAINEE_OVERALL', function() {
+						traineeOverall();
 					});
 
 					/**
