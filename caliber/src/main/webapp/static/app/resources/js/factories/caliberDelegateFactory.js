@@ -215,6 +215,12 @@ angular
 						return qcFactory.getAQCTraineeNote(traineeId, week);
 					}
 					
+					//GET TRAINEE WEEK - SADAT
+
+					delegate.qc.traineeWeekNote = function(traineeId, week) {
+						return qcFactory.getTraineeWeek(traineeId, week);
+					}
+					
 					delegate.qc.traineeNote = function(batchId, week) {
 						return qcFactory.getAllQCTraineeNote(batchId, week);
 					}
