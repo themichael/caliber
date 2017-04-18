@@ -17,7 +17,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
-public class TraineeDAO {
+public class TraineeDAO extends BaseDAO{
 
 	private final static Logger log = Logger.getLogger(TraineeDAO.class);
 	private SessionFactory sessionFactory;
@@ -59,11 +59,11 @@ public class TraineeDAO {
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public List<Trainee> findAllByBatch(Integer batchId) {
 		log.info("Fetching all trainees by batch: " + batchId);
-		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+		List<Trainee> trainees = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.add(Restrictions.eq("batch.batchId", batchId))
-				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
+		return initializeActiveTrainees(trainees);
 	}
 	
 	
@@ -77,12 +77,14 @@ public class TraineeDAO {
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public List<Trainee> findAllByTrainer(Integer trainerId) {
 		log.info("Fetch all trainees by trainer: " + trainerId);
-		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+		List<Trainee> trainees = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.createAlias("batch", "b").createAlias("b.trainer", "t")
+				.createAlias("grades", "g")
+				.createAlias("notes", "n")
 				.add(Restrictions.eq("t.trainerId", trainerId))
-				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
+		return initializeActiveTrainees(trainees);
 	}
 
 	/** * Find a trainee by the given identifier
