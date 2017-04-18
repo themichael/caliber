@@ -150,12 +150,12 @@ angular
 					/** Get batches for user and trainees in each batch * */
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
-						 $scope.trainees = $scope.selectedBatches[index].trainees;
-						/*caliberDelegate.all.getTrainees(
-								$scope.currentBatch.batchId).then(
-								function(data) {
-									$scope.trainees = data;
-								});*/
+						$scope.trainees = $scope.selectedBatches[index].trainees;
+						/*
+						 * caliberDelegate.all.getTrainees(
+						 * $scope.currentBatch.batchId).then( function(data) {
+						 * $scope.trainees = data; });
+						 */
 						// caliberdlegeate get trainees by batch id and load nto
 						// $scope
 						$scope.batchRow = index;
@@ -181,13 +181,14 @@ angular
 							$scope.coTrainer.model = ""
 						}
 
-						$scope.startDate.model = new Date(Date(batch.startDate).replace(/-/g, '/'));
-						$scope.endDate.model = new Date(Date(batch.endDate).replace(
+						$scope.startDate.model = new Date(batch.startDate
+								.replace(/-/g, '/'));
+						$scope.endDate.model = new Date(batch.endDate.replace(
 								/-/g, '/'));
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
-								Date(batch.benchmarkStartDate).replace(/-/g, '/'));
+								batch.benchmarkStartDate.replace(/-/g, '/'));
 					}
 
 					/** Resets batch form for creating new batch* */
@@ -275,21 +276,25 @@ angular
 							var newBatch = {};
 							createBatchObject(newBatch);
 							$log.debug('this is' + newBatch);
-							caliberDelegate.all.createBatch(newBatch).then(
-									function(response) {
-										// coTrainer may be undefined
-										var insertBatch = response.data;
-										$log.debug($scope.insertBatch)
-										insertBatch['trainees'] = [];
-										if ($scope.coTrainer) {
-											$scope.batches.push(insertBatch);
-										} else {
-											$scope.batches.push(insertBatch);
-											$log.debug($scope.batches)
-										}
+							caliberDelegate.all
+									.createBatch(newBatch)
+									.then(
+											function(response) {
+												// coTrainer may be undefined
+												var insertBatch = response.data;
+												insertBatch.startDate = new Date(insertBatch.startDate).toISOString();
+												insertBatch['trainees'] = [];
+												if ($scope.coTrainer) {
+													$scope.batches
+															.push(insertBatch);
+												} else {
+													$scope.batches
+															.push(insertBatch);
+													$log.debug($scope.batches)
+												}
 
-										sortByDate($scope.selectedYear);
-									});
+												sortByDate($scope.selectedYear);
+											});
 						}
 						angular.element("#createBatchModal").modal("hide");
 
