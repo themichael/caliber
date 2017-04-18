@@ -17,8 +17,8 @@
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li ng-repeat="menuItem in years track by $index"><a
-							role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
+						<li ng-repeat="year in years track by $index"><a
+							role="button" ng-click="selectYear($index)">{{year}}</a></li>
 					</ul></li>
 				<!-- Select Batch-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -38,7 +38,7 @@
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentWeek('(All)')">All</a></li>
 						<li ng-repeat="week in batchWeeks.weeks"><a role="button"
-							ng-click="selectCurrentWeek(week)">Week {{menuItem}}</a></li>
+							ng-click="selectCurrentWeek(week)">Week {{week}}</a></li>
 					</ul></li>
 
 				<!-- Select Trainee-->
