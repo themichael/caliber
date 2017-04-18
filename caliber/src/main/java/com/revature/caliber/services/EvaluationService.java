@@ -281,7 +281,7 @@ public class EvaluationService {
 	public List<Note> findAllIndividualNotesOverall(Integer traineeId){
 		log.debug("Find Overall notes for trainee " + traineeId);
 		return noteDAO.findAllPublicIndividualNotes(traineeId);
-	
+	}
 	/**
 	 * Find all qc trainee notes
 	 * @return
