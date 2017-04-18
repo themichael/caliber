@@ -30,7 +30,7 @@
 		<property name="username" value="#{systemEnvironment['CALIBER_DB_USER']}" />
 		<property name="password" value="#{systemEnvironment['CALIBER_DB_PASS']}" />
 		<property name="removeAbandoned" value="true" />
-		<property name="removeAbandonedTimeout" value="30" />
+		<property name="removeAbandonedTimeout" value="15" />
 	</bean>
 	<bean name="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
