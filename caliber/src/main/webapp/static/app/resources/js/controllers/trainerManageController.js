@@ -166,6 +166,7 @@ angular
 
 					/** Fill update form with batch previous data* */
 					$scope.populateBatch = function(batch) {
+						$log.debug(batch);
 						$scope.Save = "Update";
 						$scope.Updating = true;
 						$scope.batchFormName = "Update Batch";
@@ -180,13 +181,13 @@ angular
 							$scope.coTrainer.model = ""
 						}
 
-						$scope.startDate.model = new Date(batch.startDate.replace(/-/g, '/'));
-						$scope.endDate.model = new Date(batch.endDate.replace(
+						$scope.startDate.model = new Date(Date(batch.startDate).replace(/-/g, '/'));
+						$scope.endDate.model = new Date(Date(batch.endDate).replace(
 								/-/g, '/'));
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
-								batch.benchmarkStartDate.replace(/-/g, '/'));
+								Date(batch.benchmarkStartDate).replace(/-/g, '/'));
 					}
 
 					/** Resets batch form for creating new batch* */
