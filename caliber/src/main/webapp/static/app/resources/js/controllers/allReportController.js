@@ -67,6 +67,7 @@ angular
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = true;
 								createBatchOverallTrainee();
+								$rootScope.$emit("GET_TRAINEE_OVERALL",$scope.currentTraineeId);
 							}
 						} else {
 							// Specific Week
@@ -77,6 +78,7 @@ angular
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = false;
 								createBatchWeek();
+								$rootScope.$emit('test');
 							} else {
 								// Specific trainee
 								$scope.batchWeek = false;
@@ -161,7 +163,6 @@ angular
 						selectView($scope.currentBatch.batchId,
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
-						$rootScope.$emit('test');
 					}
 					/*scope function to display the table if a batch and week has been selected*/
 					$scope.displayTable = function(){
@@ -171,7 +172,13 @@ angular
 						}
 						return true;
 					}
-
+					$scope.displayTraineeOverallTable=function(){
+						if($scope.currentBatch === null  || $scope.currentWeek === null || $scope.batchOverallTrainee === null ){ // checking to see if the scope variables are null
+							return false;
+						}else{
+							return true;							
+						}
+					}
 					$scope.selectCurrentTrainee = function(index) {
 						if (index === ALL) {
 							$scope.currentTrainee = {
