@@ -172,11 +172,11 @@ angular
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
 											},
-											"qc-traineeWeek@qc.reports" : {
+											"qc-traineeWeek@trainer.reports" : {
 												templateUrl : "/static/app/partials/qc-traineeWeek.html",
 												controller : "qcAssessController"
 											},
-											"qc-traineeOverall@qc.reports" : {
+											"qc-traineeOverall@trainer.reports" : {
 												templateUrl : "/static/app/partials/qc-traineeOverall.html",
 												controller : "qcAssessController"
 											}
@@ -250,11 +250,11 @@ angular
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
 											},
-											"qc-traineeWeek@qc.reports" : {
+											"qc-traineeWeek@vp.reports" : {
 												templateUrl : "/static/app/partials/qc-traineeWeek.html",
 												controller : "qcAssessController"
 											},
-											"qc-traineeOverall@qc.reports" : {
+											"qc-traineeOverall@vp.reports" : {
 												templateUrl : "/static/app/partials/qc-traineeOverall.html",
 												controller : "qcAssessController"
 											}
