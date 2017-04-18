@@ -10,6 +10,7 @@ angular
 					$scope.bnote = null;
 					$scope.faces = [];
 					$scope.weeks = [];
+					$scope.batchesByYear = [];
 
 					// Note object
 					function Note(noteId, content, status, week, batch,
@@ -174,9 +175,9 @@ angular
 					}
 
 					function traineeWeek() {
-						
+
 					}
-					
+
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
 						$scope.faces[index].qcStatus = status;
@@ -344,11 +345,62 @@ angular
 					}
 					// Call start function
 					start();
-					// Call start function when on reports page and batch and week selected
+					// Call start function when on reports page and batch and
+					// week selected
 					$rootScope.$on('qcBatchOverall', function() {
 						start();
 					});
 					$rootScope.$on('qcTraineeWeek', function() {
 						traineeWeek();
 					});
+
+					/**
+					 * **************************************************
+					 * Duplicate code from trainerManageController.js
+					 * **************************************************
+					 */
+
+					/** Filter batches by year * */
+					$scope.years = addYears();
+					function addYears() {
+						var currentYear = new Date().getFullYear();
+						$scope.selectedYear = currentYear;
+
+						var data = [];
+						// List all years from 2014 --> current year+1
+						for (var y = currentYear + 1; y >= currentYear - 2; y--) {
+							data.push(y)
+						}
+						return data;
+					}
+
+					$scope.selectYear = function(index) {
+						$scope.selectedYear = $scope.years[index];
+						sortByDate($scope.selectedYear);
+						batchYears();
+					};
+
+					function sortByDate(currentYear) {
+						$scope.selectedBatches = [];
+						for (var i = 0; i < $scope.batches.length; i++) {
+							var date = new Date($scope.batches[i].startDate);
+							if (date.getFullYear() === currentYear) {
+								$scope.selectedBatches.push($scope.batches[i]);
+							}
+						}
+					}
+					
+					/**
+					 * *************************** 
+					 * Display Batch Years
+					 * ***************************
+					 */
+					
+					function batchYears() {						
+						for (var i = 0; i < $scope.batches.length; i++) 
+							if ($scope.selectedYear === parseInt($scope.batches[i].startDate)) 
+								$scope.batchesByYear.push($scope.batches[i].trainingName 
+										+ " - " 
+										+ $scope.batches[i].startDate);
+					}
 				});
