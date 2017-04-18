@@ -28,7 +28,8 @@
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
 						<li ng-repeat="menuItem in batchesByYear track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName + " " + menuItem.training.startDate}}</a></li>
+							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName
+								+ " " + menuItem.training.startDate}}</a></li>
 					</ul></li>
 				<!-- Select Week-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -64,7 +65,8 @@
 	<div class="top10 data-container">
 
 		<!-- Batch -> Week -->
-		<div class="row" ng-if="batchWeek">			<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="row" ng-if="batchWeek">
+			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-12">
 						<div class="panel panel-default">
@@ -130,32 +132,39 @@
 							<div class="panel-heading">Assessment Averages</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="barchart" class="chart chart-bar" chart-data="barchartAWData"
-										chart-series="barchartAWSeries" chart-labels="barchartAWLabels"
+									<canvas id="barchart" class="chart chart-bar"
+										chart-data="barchartAWData" chart-series="barchartAWSeries"
+										chart-labels="barchartAWLabels"
 										chart-options="barchartAWOptions">
                                     </canvas>
-                                 	<div class="wrap">
-									<div class='outer-bar-data' ng-if='barchartAWLabels.length <= 2'>
-											<table ng-if="barchartAWLabels" class="table table-responsive"
+									<div class="wrap">
+										<div class='outer-bar-data'
+											ng-if='barchartAWLabels.length <= 2'>
+											<table ng-if="barchartAWLabels"
+												class="table table-responsive"
 												style="border-collapse: collapse;">
-								        	<tr class="col-sm-2 col-md-2 col-lg-2 col-offset-sm-2 col-offset-md-2 col-lg-offset-2 "  
-													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
-												<th>{{label}}</th>
-												<td>{{barchartAWData[$index]}}</td>
-											</tr>
-										</table>
-									</div>
-								   
-								   <div ng-if='barchartAWLabels.length > 2'>
-											<table ng-if="barchartAWLabels" class="table table-responsive"
+												<tr
+													class="col-sm-2 col-md-2 col-lg-2 col-offset-sm-2 col-offset-md-2 col-lg-offset-2 "
+													ng-repeat="label in barchartAWLabels track by $index"
+													for="{{label}}">
+													<th>{{label}}</th>
+													<td>{{barchartAWData[$index]}}</td>
+												</tr>
+											</table>
+										</div>
+
+										<div ng-if='barchartAWLabels.length > 2'>
+											<table ng-if="barchartAWLabels"
+												class="table table-responsive"
 												style="border-collapse: collapse;">
-											<tr class="col-lg-2 col-lg-offset-2 "  
-													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
-												<th>{{label}}</th>
-												<td>{{barchartAWData[$index]}}</td>
-											</tr>
-										</table>
-									</div>
+												<tr class="col-lg-2 col-lg-offset-2 "
+													ng-repeat="label in barchartAWLabels track by $index"
+													for="{{label}}">
+													<th>{{label}}</th>
+													<td>{{barchartAWData[$index]}}</td>
+												</tr>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>

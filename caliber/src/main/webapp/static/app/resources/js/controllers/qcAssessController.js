@@ -192,8 +192,12 @@ angular
 					}
 
 					function traineeOverall(traineeId) {
+						$scope.faces = [];
+						$log.debug("TRAINEEOVERALL FUNCTION")
 						caliberDelegate.qc.traineeOverallNote(traineeId).then(
 								function(notes) {
+									$log.debug("OVERALL TRAINEE");
+									$log.debug(notes);
 									$scope.faces = notes;
 								});
 					}
@@ -371,6 +375,7 @@ angular
 					// Call start function when on reports page and batch and
 					// week selected
 					$rootScope.$on('qcBatchOverall', function() {
+						$log.debug("QCBATCHOVERALL");
 						start();
 					});
 					// Execute when on reports page and trainee and week selected
@@ -378,8 +383,10 @@ angular
 						traineeWeek();
 					});
 					// Execute when on reports page and trainee and all week selected
-					$rootScope.$on('GET_TRAINEE_OVERALL', function(event, param) {
-						traineeOverall(param.traineeId);
+					$rootScope.$on('GET_TRAINEE_OVERALL_CTRL', function(event, traineeId) {
+						$log.debug("GET TRAINEE OVERALL!!");
+						$log.debug(traineeId);
+						traineeOverall(traineeId);
 					});
 
 					/**

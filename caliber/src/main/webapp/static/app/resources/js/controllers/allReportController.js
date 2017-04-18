@@ -62,6 +62,7 @@ angular
 
 							} else {
 								// Specific Trainee
+								$rootScope.$emit('GET_TRAINEE_OVERALL_CTRL');
 								$scope.batchWeek = false;
 								$scope.batchWeekTrainee = false;
 								$scope.batchOverall = false;
@@ -72,6 +73,7 @@ angular
 							// Specific Week
 							if (trainee === ALL) {
 								// All Trainees
+								$rootScope.$emit('test');
 								$scope.batchWeek = true;
 								$scope.batchWeekTrainee = false;
 								$scope.batchOverall = false;
@@ -161,7 +163,6 @@ angular
 						selectView($scope.currentBatch.batchId,
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
-						$rootScope.$emit('test');
 					}
 					/*scope function to display the table if a batch and week has been selected*/
 					$scope.displayTable = function(){
