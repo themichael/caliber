@@ -9,8 +9,10 @@ angular
 					// *** UI
 					// *******************************************************************************
 
-					const OVERALL = "(All)";
-					const ALL = -1;
+					const
+					OVERALL = "(All)";
+					const
+					ALL = -1;
 
 					// What you see when you open Reports
 					$scope.currentBatch = allBatches[allBatches.length - 1];
@@ -25,15 +27,19 @@ angular
 					$scope.batchWeekTrainee = false;
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
+
 					//$scope.currentBatch = allBatches[0];$scope.currentWeek =1; // denise debug line please ignore ... ill delete when im done TODO
 					(function () {
 						// Finishes any left over ajax animation
 						NProgress.done();
 						// batch null check
+
 						if ($scope.currentBatch === null) {
 							$scope.noBatch = true;
 						} else {
 							$scope.noBatch = false;
+							$scope.selectedYear = Number ($scope.currentBatch.startDate.substr(0,4));
+							batchYears();
 							getCurrentBatchWeeks($scope.currentBatch.weeks);
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
@@ -85,10 +91,9 @@ angular
 					}
 
 					function getCurrentBatchWeeks(weeks) {
-						$scope.batchWeeks.week = [];
+						$scope.batchWeeks.weeks = [];
 						for (var i = 1; i <= weeks; i++)
-							$scope.batchWeeks.week.push(i);
-						$log.debug($scope.batchWeeks);
+							$scope.batchWeeks.weeks.push(i);
 					}
 
 					// Filter batches by year
@@ -115,10 +120,19 @@ angular
 						}
 						return data;
 					}
-
+					function batchYears() {
+						$scope.batchesByYear = [];
+						for (var i = 0; i < allBatches.length; i++) {
+							if ($scope.selectedYear === Number (allBatches[i].startDate.substr(0,4))) {
+								$scope.batchesByYear.push(allBatches[i]);
+							}
+						}
+					}
+					
 					$scope.selectYear = function(index) {
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
+						batchYears();
 					};
 
 					function sortByDate(currentYear) {
@@ -132,9 +146,8 @@ angular
 					}
 
 					$scope.selectCurrentBatch = function(index) {
-						$scope.currentBatch = $scope.batches[index];
+						$scope.currentBatch = $scope.batchesByYear[index];
 						getCurrentBatchWeeks($scope.currentBatch.weeks);
-						$log.debug($scope.batchWeeks.week);
 						$scope.selectCurrentWeek(OVERALL);
 						$scope.selectCurrentTrainee(ALL);
 						selectView($scope.currentBatch.batchId,
@@ -281,6 +294,8 @@ angular
 													.getAverageTraineeScoresOverall(data);
 											$scope.batchOverAllLabels = barChartObject.labels;
 											$scope.batchOverAllData = barChartObject.data;
+											$log.debug("SKALAGA!!!!");
+											$log.debug($scope.batchOverAllData);
 											$scope.batchOverAllOptions = barChartObject.options;
 										}, function() {
 											NProgress.done();
