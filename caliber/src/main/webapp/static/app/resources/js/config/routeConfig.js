@@ -77,13 +77,23 @@ angular
 										templateUrl : "/static/app/partials/assess/qc-assess.html",
 										controller : "qcAssessController"
 									})
-							.state(
-									"qc.reports",
-									{
-										templateUrl : "/static/app/partials/reports.html",
-										url : "/reports",
-										controller : "qcHomeController"
-									})
+						  .state("qc.reports",{
+	  						url : "/reports",
+						    views: {
+						      "": {
+						    	  templateUrl : "/static/app/partials/reports.html",
+									controller : "allReportController"
+						      },
+						      "trainer-display@qc.reports": {
+						    	  templateUrl : "/static/app/partials/trainer-display.html",
+									controller : "trainerAssessController"
+						      },
+						      "qc-display@qc.reports": {
+						    	  templateUrl : "/static/app/partials/qc-display.html",
+									controller : "qcAssessController"
+						      }
+						    }
+						  })
 							/***************************************************
 							 * TRAINER
 							 **************************************************/
@@ -128,41 +138,24 @@ angular
 									})
 									
 														
-					  .state("trainer.reports",{
-  						url : "/reports",
-					    views: {
-					      "": {
-					    	  templateUrl : "/static/app/partials/reports.html",
-								controller : "allReportController"
-					      },
-					      "display@trainer.reports": {
-					    	  templateUrl : "/static/app/partials/trainer-display.html",
-								controller : "trainerAssessController"
-					      }
-					    }
-					  })
+						  .state("trainer.reports",{
+	  						url : "/reports",
+						    views: {
+						      "": {
+						    	  templateUrl : "/static/app/partials/reports.html",
+									controller : "allReportController"
+						      },
+						      "trainer-display@trainer.reports": {
+						    	  templateUrl : "/static/app/partials/trainer-display.html",
+									controller : "trainerAssessController"
+						      },
+						      "qc-display@trainer.reports": {
+						    	  templateUrl : "/static/app/partials/qc-display.html",
+									controller : "qcAssessController"
+						      }
+						    }
+						  })
 									
-/*					.state("trainer.assess",{
-						url : "/assess",
-					    views: {
-					      "": {
-								templateUrl : "/static/app/partials/assess/trainer-assess.html",
-								controller : "trainerAssessController"
-					      },
-					      "display@trainer.assess": {
-					    	  templateUrl : "/static/app/partials/trainer-display.html",
-								controller : "trainerAssessController"
-					      }
-					    }
-					  })
-							.state(
-									"trainer.reports",
-									{
-										templateUrl : "/static/app/partials/reports.html",
-										url : "/reports",
-										controller : "allReportController"
-									})
-									*/
 							
 
 							/***************************************************
@@ -215,11 +208,21 @@ angular
 										url : "/audit",
 										controller : "qcAssessController"
 									})
-							.state(
-									"vp.reports",
-									{
-										templateUrl : "/static/app/partials/reports.html",
-										url : "/reports",
-										controller : "vpHomeController"
-									});
+						  .state("vp.reports",{
+	  						url : "/reports",
+						    views: {
+						      "": {
+						    	  templateUrl : "/static/app/partials/reports.html",
+									controller : "allReportController"
+						      },
+						      "trainer-display@vp.reports": {
+						    	  templateUrl : "/static/app/partials/trainer-display.html",
+									controller : "trainerAssessController"
+						      },
+						      "qc-display@vp.reports": {
+						    	  templateUrl : "/static/app/partials/qc-display.html",
+									controller : "qcAssessController"
+						      }
+						    }
+						  })
 				});

@@ -84,9 +84,9 @@ public class ReportingController {
 	 *******************************************************
 	 */
 	@RequestMapping(value = "/all/reports/week/{week}/trainee/{traineeId}/line-trainee-up-to-week", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<Integer, Double>> getTraineeUpToWeekLineChart(@PathVariable int week, @PathVariable int traineeId) {
+	public ResponseEntity<Map<Integer, Double[]>> getTraineeUpToWeekLineChart(@PathVariable int week, @PathVariable int traineeId) {
 		log.info("getTraineeUpToWeekLineChart   ===>   /all/reports/week/{week}/trainee/{traineeId}/line-trainee-up-to-week");
-		return new ResponseEntity<Map<Integer, Double>>(reportingService.getTraineeUpToWeekLineChart(week, traineeId), HttpStatus.OK);
+		return new ResponseEntity<Map<Integer, Double[]>>(reportingService.getTraineeUpToWeekLineChart(week, traineeId), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/trainee/{traineeId}/line-trainee-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -130,7 +130,7 @@ public class ReportingController {
 	 * Misc.
 	 *******************************************************
 	 */
-	@RequestMapping(value = "/all/assessments/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/assessments/average/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Double> getBatchWeekAverageValue(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("getBatchWeekAverageValue   ===>   /all/reports/batch/{batchId}/overall/line-batch-overall");
 		return new ResponseEntity<Double>(reportingService.utilAvgBatchWeekValue(batchId, week), HttpStatus.OK);

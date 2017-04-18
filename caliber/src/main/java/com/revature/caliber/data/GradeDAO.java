@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.TrainingStatus;
 
 /**
  * Accesses grades from the database
@@ -81,8 +82,9 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByAssessment(Long assessmentId) {
 		log.info("Finding grades for assessment: " + assessmentId);
-		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("assessment", "a")
+		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee", "trainee")
 				.add(Restrictions.eq("a.assessmentId", assessmentId))
+				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -97,9 +99,12 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByTrainee(Integer traineeId) {
 		log.info("Finding all grades for trainee: " + traineeId);
-		return sessionFactory.getCurrentSession().createCriteria(Grade.class)
+		List <Grade> grades = sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee", "trainee")
 				.add(Restrictions.eq("trainee.traineeId", traineeId))
+				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		log.info(grades);
+		return grades;
 	}
 
 	/**
@@ -113,9 +118,11 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByBatch(Integer batchId) {
 		log.info("Finding all grades for batch: " + batchId);
-		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee.batch", "b")
-				.add(Restrictions.eq("b.batchId", batchId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee", "trainee").createAlias("trainee.batch", "b")
+				.add(Restrictions.eq("b.batchId", batchId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped)).list();
 	}
+
 
 	/**
 	 * Returns all grades for a category. Useful for improving performance time
@@ -146,9 +153,11 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByWeek(Integer batchId, Integer week) {
 		log.info("Finding week " + week + " grades for batch: " + batchId);
-		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee.batch", "b")
+		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee", "trainee").createAlias("trainee.batch", "b")
 				.add(Restrictions.eq("b.batchId", batchId)).createAlias("assessment", "a")
-				.add(Restrictions.eq("a.week", week.shortValue())).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.eq("a.week", week.shortValue()))
+				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
 
@@ -165,7 +174,7 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByTrainer(Integer trainerId) {
 		log.info("Finding all grades for trainer: " + trainerId);
-		List<Grade> astrainer = sessionFactory.getCurrentSession().createCriteria(Grade.class)
+		List<Grade> astrainer = sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee", "trainee")
 				.createAlias("trainee.batch", "b").createAlias("b.trainer", "t")
 				.add(Restrictions.eq("t.trainerId", trainerId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();

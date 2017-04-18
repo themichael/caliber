@@ -69,6 +69,22 @@ a { color: #F26925;}
 	padding: .5em;
 	background-color: #ffffff;
 	border-radius: .3em;
+
+}
+@media (max-width: 400px) {
+   .chart-container  {
+        min-height: 8.8em;
+    }
+}
+@media (min-width: 401px) and (max-width: 600px) {
+    .chart-container {
+        min-height: 11.8em;
+    }
+}
+@media (min-width: 601px){
+	  .chart-container {
+        min-height: 25.8em;
+    }
 }
 
 .panel > .panel-heading {
@@ -174,13 +190,16 @@ textarea {
 html, body {
 	height: 100%;
 }
+.img-responsive{
+	padding-bottom: 1em;
+}
 .wrapper {
 	min-height: 100%;
 	margin-bottom: -103px;
 	padding-bottom: 103px;
 }
 footer {
-	height: 103px;
+	min-height: 103px;
 	background-color: #474C55;
     font-size: .75em;
 }
@@ -192,3 +211,69 @@ footer {
 footer a, footer a:hover{
 	color: #B9B9BA;
 }
+/**********************
+	Table styles
+**********************/
+.vcenter{
+	vertical-align:middle !important;	
+}
+.table-responsive{
+	display:block !important;	
+}
+/**********************
+	save button
+**********************/
+.save-button-wrapper{
+	width: 100%;
+    height: 76px;
+}
+.save-button{
+   	float:right;
+    margin-top: 10px;
+    border: solid 1px;
+    padding: 6px;
+    box-shadow: 1px 3px 4px #888888;
+    color: #F26925;
+    background: white;
+    border-radius: 5px;
+    transition: all ease 0.3s;
+    top:0px;
+    margin-right:6px;
+}
+
+.save-button:hover{
+	cursor:pointer;
+	text-decoration:none;
+}
+.save-button:active{
+ box-shadow: 0 3px 0px #888888;
+  margin-top: 13px;
+}
+a.save-button .fa-floppy-o{
+	margin-right: 6px;
+}
+.spinner{
+	float:right;
+    margin-top: 10px;
+    top:0px;
+}
+#checkMark{
+	color:#72A4C2;
+}
+.fa-style{
+	margin-right: 11px;
+    margin-top: 15px;
+}
+.fade.ng-hide-remove {
+    -webkit-transition : 1s ease-in opacity;
+    -moz-transition    : 1s ease-in opacity;
+    -ms-transition     : 1s ease-out opacity;
+    -o-transition      : 1s ease-out opacity;
+    transition         : 1s ease-out opacity;
+    opacity            : 1;
+}
+
+
+/* .fade-in.ng-hide-remove {
+  transition: all ease-out 3000ms;
+} */

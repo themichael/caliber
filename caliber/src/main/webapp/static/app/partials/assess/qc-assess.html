@@ -21,8 +21,6 @@
 									batch.trainingName }} - {{ batch.startDate | date:'shortDate'
 									}} </a>
 						</ul></li>
-					<button type="button" class="btn btn-info"
-						ng-click="showMe=readOnlyPage()">Get Report</button>
 				</ul>
 				<!-- top ui for viewing trainee grades -->
 				<ul class="nav nav-tabs" ng-show="!currentView">
@@ -74,45 +72,36 @@
 					<tbody>
 						<tr ng-repeat="trainee in currentBatch.trainees track by $index">
 							<td>{{ trainee.name }}</td>
-							<td>
-
-								<form>
-									<span ng-hide="faces[$index].qcStatus"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										title="Click to update your feedback."
-										alt="Click to update your feedback."
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
-										<i class="fa fa-question-circle fa-2x"></i>
-									</span>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
-										title="Excellent"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);">
-										<i class="fa fa-star fa-2x pick"></i>
-									</div>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
-										title="Good"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);">
-										<i class="fa fa-smile-o fa-2x pick"></i>
-									</div>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
-										title="Fair"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);">
-										<i class="fa fa-meh-o fa-2x pick"></i>
-									</div>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
-										title="Poor"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
-										<i class="fa fa-frown-o fa-2x pick"></i>
-									</div>
-								</form>
-
-							</td>
-							<td><textarea ng-model="noteOnTrainee($index).content"
-									id="noteTextArea" class="form-group"
+							<td><span ng-hide="faces[$index].qcStatus"
+								class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+								title="Click to update your feedback."
+								alt="Click to update your feedback."
+								ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
+									<i class="fa fa-question-circle fa-2x"></i>
+							</span>
+								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
+									title="Excellent"
+									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);">
+									<i class="fa fa-star fa-2x pick"></i>
+								</div>
+								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
+									title="Good" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);">
+									<i class="fa fa-smile-o fa-2x pick"></i>
+								</div>
+								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
+									title="Fair" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);">
+									<i class="fa fa-meh-o fa-2x pick"></i>
+								</div>
+								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
+									title="Poor" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
+									<i class="fa fa-frown-o fa-2x pick"></i>
+								</div></td>
+							<td class="col-sm-9 col-md-9 col-lg-9"><textarea ng-model="noteOnTrainee($index).content"
+									id="noteTextArea" class="form-control"
 									placeholder="Note on {{trainee.name}}"
 									ng-blur="saveTraineeNote($index)" rows="3" cols="75"></textarea>
 							</td>
@@ -125,202 +114,46 @@
 		<!-- QC batch note -- overall qualitative feedback -->
 		<div class="row">
 			<h4 class="text-center">Overall Feedback</h4>
-			<form>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-					ng-click="pickOverallStatus(currentBatch, qcStatusTypes[0])">
-					<i class="fa fa-star fa-2x"
-						ng-class="{pick : qcBatchAssess === qcStatusTypes[0]}"></i>
-				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-					ng-click="pickOverallStatus(currentBatch, qcStatusTypes[1])">
-					<i class="fa fa-smile-o fa-2x"
-						ng-class="{pick : qcBatchAssess === qcStatusTypes[1]}"></i>
-				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-					ng-click="pickOverallStatus(currentBatch, qcStatusTypes[2])">
-					<i class="fa fa-meh-o fa-2x"
-						ng-class="{pick : qcBatchAssess === qcStatusTypes[2]}"></i>
-				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-					ng-click="pickOverallStatus(currentBatch, qcStatusTypes[3])">
-					<i class="fa fa-frown-o fa-2x"
-						ng-class="{pick : qcBatchAssess === qcStatusTypes[3]}"></i>
-				</div>
-				<div
-					class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-					<textarea ng-model="bnote.content" class="form-control"
-						id="qcBatchNotes" ng-blur="saveQCNotes()"
-						placeholder="Enter your overall feedback on the batch" required>
-				</textarea>
-					<div class="pull-right">
-						<!-- 
-					<ul class="nav nav-tabs">
-						<li role="button" ng-click="saveQCandTrainee()"><a>Save
-								your batch notes<span class="fa-floppy-o" aria-hidden="true">
-							</span>
-						</a></li>
-					</ul> -->
-
-						<button class="btn-primary" ng-click="saveQCandTrainee()">
-							<span class="fa fa-floppy-o fa-2x" aria-hidden="true"></span>
-							Save your batch notes
-						</button>
-
-					</div>
-					<!-- testing
-				<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-				ng-click="saveQCandTrainee()">
-				<i class="fa fa-floppy-o fa-2x"
+			<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[0])">
+				<i class="fa fa-star fa-2x"
+					ng-class="{pick : qcBatchAssess === qcStatusTypes[0]}"></i>
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[1])">
+				<i class="fa fa-smile-o fa-2x"
 					ng-class="{pick : qcBatchAssess === qcStatusTypes[1]}"></i>
-					-->
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[2])">
+				<i class="fa fa-meh-o fa-2x"
+					ng-class="{pick : qcBatchAssess === qcStatusTypes[2]}"></i>
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[3])">
+				<i class="fa fa-frown-o fa-2x"
+					ng-class="{pick : qcBatchAssess === qcStatusTypes[3]}"></i>
+			</div>
+			<div
+				class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
+				<textarea ng-model="bnote.content" class="form-control"
+					id="qcBatchNotes" ng-blur="saveQCNotes()"
+					placeholder="Enter your overall feedback on the batch" required>
+				</textarea>
+				<!-- QC Save burrito button-->
+				<div class='save-button-wrapper'>
+	            <a ng-click="saveQCandTrainee()" ng-show="showFloppy" class='save-button fade-in'> 
+	            	<span class="fa fa-floppy-o fa-2x" aria-hidden="true"></span>Save							
+				</a>
+				<div class='spinner fa-style' ng-show="showSaving">
+					<i  style="color:#F26925;" role="button" class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
+				</div>
+				<div id="checkMark" class='spinner fade fa-style' ng-show="showCheck">
+					<i role="button" class="fa fa-check fa-2x" aria-hidden="true"></i>
+				</div>
+			</div>
 				</div>
 		</div>
-		</form>
 	</div>
 	<!-- overall -->
 </div>
-
-<div ng-show="showMe">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
-				<button class="btn back-btn" ng-click="back()">
-					<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-					Back
-				</button>
-			</div>
-			<div class="col-md-12 col-lg-12 top10">
-				<!-- top ui for viewing all assessments -->
-				<ul class="nav nav-tabs" ng-show="currentView">
-					<li role="button" class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
-							currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu">
-							<li ng-repeat="batch in batches track by $index"><a
-								role="button" ng-click="selectCurrentBatch($index)"> {{
-									batch.trainingName }} - {{ batch.startDate | date:'shortDate'
-									}} </a></li>
-						</ul></li>
-					<button type="button" class="btn btn-info"
-						ng-click="showMe=readOnlyPage()">Edit Batch</button>
-				</ul>
-
-
-				<!-- top ui for viewing trainee grades -->
-				<ul class="nav nav-tabs" ng-show="!currentView">
-					<li role="button" class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown"> {{ currentAssessment.title }} <span
-							class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li ng-repeat="assessment in currentAssessments track by $index">
-								<a role="button" ng-click="selectAssessment($index)"> {{
-									assessment.title }} </a>
-							</li>
-						</ul></li>
-					<!-- Button Trigger for Create Assessment Modal -->
-					<li role="button" class="pull-right" ng-show="currentView"
-						data-toggle="modal" data-target="#createAssessmentModal"><a>Create
-							Assessment<span class="glyphicon glyphicon-plus"
-							aria-hidden="true"> </span>
-					</a></li>
-				</ul>
-			</div>
-			<div class="col-sm-12 col-md-12 col-lg-12 top5">
-				<ul class="nav nav-tabs">
-					<li role="button" class="{{showActiveWeek($index)}}"
-						ng-click="selectWeek($index)"
-						ng-repeat="week in weeks track by $index"><a>Week
-							{{week}}</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<!-- Read only table -->
-	<div class="container">
-		<div class="row" id="qcTrainees">
-			<div class="col-md-12 col-lg-12 top5">
-				<!-- Accordian table -->
-				<table class="table table-condensed"
-					style="border-collapse: collapse;" ng-show="currentView">
-					<thead>
-						<tr>
-							<th>Trainee</th>
-							<th>Individual Feedback</th>
-							<th>Notes</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-							<td>{{ trainee.name }}</td>
-							<td>
-
-								<form>
-									<span ng-hide="faces[$index].qcStatus"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										title="Click to update your feedback."
-										alt="Click to update your feedback.">
-										<i class="fa fa-question-circle fa-2x"></i>
-									</span>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
-										title="Excellent"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-										<i class="fa fa-star fa-2x pick"></i>
-									</div>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
-										title="Good"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-										<i class="fa fa-smile-o fa-2x pick"></i>
-									</div>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
-										title="Fair"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-										<i class="fa fa-meh-o fa-2x pick"></i>
-									</div>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
-										title="Poor"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-										<i class="fa fa-frown-o fa-2x pick"></i>
-									</div>
-								</form>
-
-							</td>
-							<td>{{noteOnTrainee($index).content}}</td>
-							<td><ul class="nav nav-tabs">
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<!-- QC batch note -- overall qualitative feedback -->
-		<div class="row">
-			<h4 class="text-center">Overall Feedback</h4>
-			<form>
-				<div ng-hide="bnote.qcStatus !== qcStatusTypes[0]"
-					title="Excellent"
-					class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-					<i class="fa fa-star fa-2x pick"></i>
-				</div>
-				<div ng-hide="bnote.qcStatus !== qcStatusTypes[1]"
-					title="Good"
-					class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-					<i class="fa fa-smile-o fa-2x pick"></i>
-				</div>
-				<div ng-hide="bnote.qcStatus !== qcStatusTypes[2]"
-					title="Fair"
-					class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-					<i class="fa fa-meh-o fa-2x pick"></i>
-				</div>
-				<div ng-hide="bnote.qcStatus !== qcStatusTypes[3]"
-					title="Poor"
-					class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
-					<i class="fa fa-frown-o fa-2x pick"></i>
-				</div>
-				<div
-					class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-					{{bnote.content}}
-				</div>
-			</form>
-		</div>
-	</div>

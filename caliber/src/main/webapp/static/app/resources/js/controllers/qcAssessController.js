@@ -2,8 +2,8 @@ angular
 		.module("qc")
 		.controller(
 				"qcAssessController",
-				function($log, $scope, chartsDelegate, caliberDelegate,
-						qcFactory, allBatches) {
+				function($log, $scope, $timeout, chartsDelegate,
+						caliberDelegate, qcFactory, allBatches) {
 					$log.debug("Booted Trainer Assess Controller");
 
 					$scope.batches = allBatches;
@@ -23,6 +23,15 @@ angular
 						this.type = type;
 						this.qcFeedback = qcFeedback;
 						this.qcStatus = status;
+					}
+
+					// Used to sort trainees in batch
+					function compare(a, b) {
+						if (a.name < b.name)
+							return -1;
+						if (a.name > b.name)
+							return 1;
+						return 0;
 					}
 
 					/**
@@ -56,6 +65,7 @@ angular
 
 					// starting scope vars
 					$scope.currentBatch = $scope.batches[0];
+					$scope.currentBatch.trainees.sort(compare);
 					// create an array of numbers for number of weeks
 					for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
 						$scope.weeks.push(i);
@@ -75,12 +85,14 @@ angular
 												// empty note
 												if (notes === "") {
 													$log.debug("EMPTY!");
-													$scope.bnote = new Note(null,
-															null, null,
+													$scope.bnote = new Note(
+															null,
+															null,
+															null,
 															$scope.currentWeek,
 															$scope.currentBatch,
-															null, "QC", "QC_BATCH",
-															true);
+															null, "QC",
+															"QC_BATCH", true);
 												}
 												// If note found set to note and
 												// face
@@ -99,7 +111,8 @@ angular
 													var content = null;
 													var status = null;
 													var id = null;
-													// Set content, status and id to note if found
+													// Set content, status and
+													// id to note if found
 													for (var j = 0; j < notes.length; j++) {
 														if ($scope.currentBatch.trainees[i].name === notes[j].trainee.name) {
 															content = notes[j].content;
@@ -108,7 +121,9 @@ angular
 															break;
 														}
 													}
-													// Push note object into array, batch set to null for trainee note always
+													// Push note object into
+													// array, batch set to null
+													// for trainee note always
 													$scope.faces
 															.push(new Note(
 																	id,
@@ -122,18 +137,19 @@ angular
 																	true));
 												}
 											});
-						// If there are no weeks
+							// If there are no weeks
 						} else {
 							$scope.bnote = null;
 							for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 								$scope.faces.push(new Note(null, null, null,
-										$scope.currentWeek, $scope.currentBatch,
+										$scope.currentWeek,
+										$scope.currentBatch,
 										$scope.currentBatch.trainees[i], "QC",
 										"QC_TRAINEE", true));
 							}
 						}
 					}
-					
+
 					// Set current week to first week
 					$scope.currentWeek = $scope.weeks[0];
 					// Get notes
@@ -158,6 +174,7 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$log.debug("SELECTED DIFFERENT BATCH");
 						$scope.currentBatch = $scope.batches[index];
+						$scope.currentBatch.trainees.sort(compare);
 						// Create week array for batch selected
 						$scope.weeks = [];
 						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
@@ -231,6 +248,7 @@ angular
 						return readMe;
 					}
 
+					// Save trainee not for ng-blur
 					$scope.saveTraineeNote = function(index) {
 						$log.debug($scope.faces[index]);
 						// Create if noteId is null so nothing in database
@@ -248,6 +266,7 @@ angular
 						}
 					};
 
+					// Save batch note for ng-blur
 					$scope.saveQCNotes = function() {
 						// Create note
 						if ($scope.bnote.noteId === null) {
@@ -256,7 +275,7 @@ angular
 							function(id) {
 								$scope.bnote.noteId = id;
 							});
-						}  
+						}
 						// Update existing note
 						else {
 							$log
@@ -267,17 +286,28 @@ angular
 						}
 					}
 
+					/***********************************************************
+					 * Save Button **
+					 **********************************************************/
+
+					$scope.showSaving = false;
+					$scope.showCheck = false;
+					$scope.showFloppy = true;
 					$scope.saveQCandTrainee = function() {
-						$log.debug($scope.faces);
-
-						$log.debug("update");
-						caliberDelegate.qc.updateNote($scope.faces);
-
-						$log.debug("create");
-						caliberDelegate.qc.createNote($scope.faces);
-
-						$log
-								.debug(document.getElementById("qcBatchNotes").value);
-						$log.debug(caliberDelegate.qc.updateNote($scope.bnote));
+						$scope.showFloppy = false
+						$timeout(function() {
+							$scope.showSaving = true;
+						}, 480).then(function() {
+							$timeout(function() {
+								$scope.showSaving = false;
+							}, 1000).then(function() {
+								$scope.showCheck = true;
+								$timeout(function() {
+									$scope.showCheck = false;
+								}, 2000).then(function() {
+									$scope.showFloppy = true;
+								});
+							});
+						});
 					}
 				});

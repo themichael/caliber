@@ -35,10 +35,10 @@ import com.revature.caliber.security.models.SalesforceUser;
  */
 @Controller
 @SessionAttributes("token")
-public class BootController extends Helper{
-	
-	private final static Logger log = Logger.getLogger(BootController.class); 
-	
+public class BootController extends Helper {
+
+	private final static Logger log = Logger.getLogger(BootController.class);
+
 	/**
 	 * The Token.
 	 */
@@ -54,14 +54,14 @@ public class BootController extends Helper{
 	public BootController() {
 		httpClient = HttpClientBuilder.create().build();
 	}
-	
+
 	/**
-	 *	------------------------DEVELOPMENT ONLY------------------------
-	 * Pretends to do login. Defaults to login pjw6193@hotmail.com
+	 * ------------------------DEVELOPMENT ONLY------------------------ Pretends
+	 * to do login. Defaults to login pjw6193@hotmail.com
 	 * 
 	 * Forwards to the landing page.
 	 *
-	 *	TODO remove @RequestMapping at go-live
+	 * TODO remove @RequestMapping at go-live
 	 *
 	 * @param servletRequest
 	 *            the servlet request
@@ -90,39 +90,38 @@ public class BootController extends Helper{
 		HttpResponse response = httpClient.execute(httpGet);
 		String jsonString = toJsonString(response.getEntity().getContent());
 		// check if we actually got back JSON object from the Salesforce
-		if(!jsonString.contains(email)){
+		if (!jsonString.contains(email)) {
 			log.fatal("Training API returned: " + jsonString);
 			throw new ServiceNotAvailableException();
 		}
 		log.info(jsonString);
 		JSONObject jsonObject = new JSONObject(jsonString);
-		if (jsonObject.getString("email").equals(salesforceUser.getEmail())){
-			log.info("Logged in user " + jsonObject.getString("email") +" now hasRole: " + jsonObject.getString("tier"));
+		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
+			log.info("Logged in user " + jsonObject.getString("email") + " now hasRole: "
+					+ jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
-		}else{
+		} else {
 			throw new ServiceNotAvailableException();
 		}
 		// store custom user Authentication obj in SecurityContext
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		
+
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
 		return "index";
 	}
 
-
 	/**
-	 *	------------------------PRODUCTION ONLY------------------------
-	 * Salesforce authentication controller (AuthenticationImpl) 
-	 * forwards the OAuth token to this controller method 
-	 * to login into the Caliber applications.
-	 * Adds the SalesforceUser to the Security Context.
+	 * ------------------------PRODUCTION ONLY------------------------
+	 * Salesforce authentication controller (AuthenticationImpl) forwards the
+	 * OAuth token to this controller method to login into the Caliber
+	 * applications. Adds the SalesforceUser to the Security Context.
 	 *
 	 * Forwards to the landing page.
 	 *
-	 *	TODO enable at go-live
+	 * TODO enable at go-live
 	 *
 	 * @param servletRequest
 	 *            the servlet request
@@ -148,6 +147,7 @@ public class BootController extends Helper{
 				break;
 			}
 		}
+		if(salesforceToken == null) throw new ServiceNotAvailableException();
 		// Http request to the salesforce module to get the salesforce user
 		URIBuilder uriBuilder = new URIBuilder();
 		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())
@@ -171,23 +171,24 @@ public class BootController extends Helper{
 		response = httpClient.execute(httpGet);
 		String jsonString = toJsonString(response.getEntity().getContent());
 		// check if we actually got back JSON object from the Salesforce
-		if(!jsonString.contains(email)){
+		if (!jsonString.contains(email)) {
 			log.fatal("Training API returned: " + jsonString);
 			throw new ServiceNotAvailableException();
 		}
 		JSONObject jsonObject = new JSONObject(jsonString);
-		if (jsonObject.getString("email").equals(salesforceUser.getEmail())){
-			log.info("Logged in user " + jsonObject.getString("email") +" now hasRole: " + jsonObject.getString("tier"));
+		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
+			log.info("Logged in user " + jsonObject.getString("email") + " now hasRole: "
+					+ jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
-		}else{
+		} else {
 			throw new ServiceNotAvailableException();
 		}
 		// store custom user Authentication obj in SecurityContext
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		
+
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
 		return "index";
 	}

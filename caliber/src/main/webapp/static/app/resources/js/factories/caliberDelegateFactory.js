@@ -28,8 +28,8 @@ angular
 					/*****************************************************************
 					 * Generate PDF
 					 ****************************************************************/
-					delegate.all.generatePDF = function(html) {
-						return allFactory.generatePDF(html);
+					delegate.all.generatePDF = function(title, html) {
+						return allFactory.generatePDF(title, html);
 					};
 					
 					/**
@@ -72,7 +72,10 @@ angular
 					delegate.all.getAllTrainers = function() {
 						return allFactory.getAllTrainers();
 					};
-
+					
+					delegate.all.getAssessmentsAverageForWeek = function(batchId, weekId){
+						return allFactory.getAssessmentsAverageForWeek(batchId,weekId);
+					}
 					/**
 					 * *********************** Enum constants
 					 * ***************************
