@@ -168,6 +168,14 @@ angular
 						      "qc-display@trainer.reports": {
 						    	  templateUrl : "/static/app/partials/qc-display.html",
 									controller : "qcAssessController"
+						      },
+						      "qc-traineeWeek@qc.reports": {
+						    	  templateUrl : "/static/app/partials/qc-traineeWeek.html",
+									controller : "qcAssessController"
+						      },
+						      "qc-traineeOverall@qc.reports": {
+						    	  templateUrl : "/static/app/partials/qc-traineeOverall.html",
+									controller : "qcAssessController"
 						      }
 						    }
 						  })
@@ -237,6 +245,14 @@ angular
 						      },
 						      "qc-display@vp.reports": {
 						    	  templateUrl : "/static/app/partials/qc-display.html",
+									controller : "qcAssessController"
+						      },
+						      "qc-traineeWeek@qc.reports": {
+						    	  templateUrl : "/static/app/partials/qc-traineeWeek.html",
+									controller : "qcAssessController"
+						      },
+						      "qc-traineeOverall@qc.reports": {
+						    	  templateUrl : "/static/app/partials/qc-traineeOverall.html",
 									controller : "qcAssessController"
 						      }
 						    }
