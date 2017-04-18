@@ -5,7 +5,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 	lineChart.getBatchOverallLineChart = function(dataArray) {
 		var chartData = {};
-
 		// data and labels
 		chartData.data = [];
 		chartData.data.push([]);
@@ -21,12 +20,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 						suggestedMin : 40,
 						max : 100,
 						stepSize : 20
-					}
-				} ],
-				xAxes : [ {
-					scaleLabel : {
-						display : true,
-						labelString : 'Week'
 					}
 				} ]
 			}

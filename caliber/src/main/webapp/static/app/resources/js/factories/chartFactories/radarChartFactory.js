@@ -67,10 +67,41 @@ angular
 						}
 
 						currentChartData.data.push(newData);
-
 						return currentChartData;
-					};
+					}
 
+					radar.createFromTwoDataSets = function(batchDataSet, traineeDataSet, batchSeriesName, trainingSeriesName) {
+						$log.debug("radarChartFactory: createFromTwoDataSets");
+						var chartData = {};
+						
+						var batchSeries = [];
+						var traineeSeries = [];
+						var labels = [];
+						var totalTechs = batchDataSet.length;
+						
+						angular.forEach(batchDataSet, function(value, key) {
+							if (traineeDataSet.hasOwnProperty(key)) {
+								traineeSeries.push((traineeDataSet[key]).toFixed(2));
+								batchSeries.push((batchDataSet[key]).toFixed(2));
+								labels.push(key);
+							}
+						});
+						
+						chartData.labels = labels;
+						
+						chartData.series = [];
+						chartData.series.push(trainingSeriesName);
+						chartData.series.push(batchSeriesName);
+						
+						chartData.data = [];
+						chartData.data.push(traineeSeries);
+						chartData.data.push(batchSeries);
+						
+						chartData.options = radarOptions;
+						$log.debug(chartData);
+						return chartData;
+					}
+					
 					radarOptions = {
 						legend : {
 							display : true,
