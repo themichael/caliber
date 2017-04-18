@@ -25,7 +25,7 @@
 				</a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="batch in batchesByYear track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)"> {{batch.trainingName}}
+							role="button" ng-click="selectCurrentBatch($index)"> {{batch.trainingName}} - {{batch.startDate | date:'shortDate'}}
 						</a></li>
 					</ul></li>
 				<!-- Button Trigger for Create Assessment Modal -->

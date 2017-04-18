@@ -425,6 +425,7 @@ angular
 											for(i = 1; i <= $scope.currentBatch.weeks; i++){
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
+											$scope.selectedYear = parseInt($scope.currentBatch.startDate.substring(0,4));
 											batchYears();
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.allAssessmentsAvgForWeek = false;
