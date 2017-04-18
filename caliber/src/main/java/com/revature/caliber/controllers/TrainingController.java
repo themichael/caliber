@@ -2,6 +2,8 @@ package com.revature.caliber.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,15 +14,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
+import com.revature.caliber.validator.BatchValidator;
 
 /**
  * Services requests for Trainer, Trainee, and Batch information
@@ -105,7 +108,10 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Batch> createBatch(@RequestBody Batch batch) {
+	public ResponseEntity<Batch> createBatch(@RequestBody Batch batch, Authentication auth) {
+		if (getPrincipal(auth).getTier().equals(TrainerRole.TRAINER)) {
+			batch.setTrainer(getPrincipal(auth));
+		}
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
 		return new ResponseEntity<Batch>(batch, HttpStatus.CREATED);
@@ -120,7 +126,8 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> updateBatch(@RequestBody Batch batch) {
+	public ResponseEntity<Void> updateBatch(@RequestBody Batch batch, Authentication auth) {
+		// batch.setTrainer(getPrincipal(auth));
 		log.info("Updating batch: " + batch);
 		trainingService.update(batch);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -218,10 +225,8 @@ public class TrainingController {
 	/**
 	 * Create trainees
 	 *
-	 * <<<<<<< HEAD Uneeded. just do multiple calls to createTrainee =======
-	 * Uneeded. just do multiple calls to createTrainee
 	 * 
-	 * >>>>>>> 5aedf4196dfe4b91cac204fa623c7755fec4a5df
+	 * Uneeded. just do multiple calls to createTrainee
 	 * 
 	 * @param trainees
 	 *            the trainee

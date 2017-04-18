@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
 public class BatchDAO extends BaseDAO {
@@ -75,6 +76,20 @@ public class BatchDAO extends BaseDAO {
 		}
 		return batches;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Batch> findAllDroppedByTrainer(Integer trainerId) {
+		log.info("Fetching all batches for trainer: " + trainerId);
+
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
+						Restrictions.eq("coTrainer.trainerId", trainerId)))
+				.createAlias("trainees", "t").add(Restrictions.eq("t.trainingStatus", TrainingStatus.Dropped))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+	
+	
 
 	/**
 	 * Looks for all batches where the user was the trainer or cotrainer.
