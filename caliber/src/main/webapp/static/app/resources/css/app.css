@@ -224,15 +224,13 @@ footer a, footer a:hover{
     text-align: center;
 }
 
-.outer-yani {
+.outer-bar-data{
     display: inline-block;
     margin: 0 auto;
     padding:0;
 }
 
-.inner-yani {
-  
-}
+
 /**********************
 	save button
 **********************/
