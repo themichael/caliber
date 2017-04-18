@@ -36,6 +36,8 @@ angular
 							$scope.noBatch = true;
 						} else {
 							$scope.noBatch = false;
+							$scope.selectedYear = Number ($scope.currentBatch.startDate.substr(0,4));
+							batchYears();
 							getCurrentBatchWeeks($scope.currentBatch.weeks);
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
@@ -116,10 +118,19 @@ angular
 						}
 						return data;
 					}
-
+					function batchYears() {
+						$scope.batchesByYear = [];
+						for (var i = 0; i < allBatches.length; i++) {
+							if ($scope.selectedYear === Number (allBatches[i].startDate.substr(0,4))) {
+								$scope.batchesByYear.push(allBatches[i].trainingName + " - " + allBatches[i].startDate);
+							}
+						}
+					}
+					
 					$scope.selectYear = function(index) {
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
+						batchYears();
 					};
 
 					function sortByDate(currentYear) {
