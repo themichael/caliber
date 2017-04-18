@@ -211,6 +211,9 @@ angular
 						$scope.currentWeek = $scope.weeks[0];
 						$scope.getNotes();
 						wipeFaces();
+						
+						$scope.trainingNameDate = $scope.currentBatch.trainingName + " " + $scope.currentBatch.startDate;
+						$log.debug(trainingNameDate);
 					};
 
 					// Select week
