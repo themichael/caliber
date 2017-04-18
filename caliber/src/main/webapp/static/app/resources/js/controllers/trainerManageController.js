@@ -282,7 +282,6 @@ angular
 											function(response) {
 												// coTrainer may be undefined
 												var insertBatch = response.data;
-												insertBatch.startDate = new Date(insertBatch.startDate).toISOString();
 												insertBatch['trainees'] = [];
 												if ($scope.coTrainer) {
 													$scope.batches
@@ -418,7 +417,7 @@ angular
 												// if trainee is dropped, splice
 												// from allbatches list
 												if ($scope.trainees[$scope.traineeRow].trainingStatus === "Dropped") {
-													$log.log("droped");
+													$log.debug("droped");
 												}
 											});
 						} else {
