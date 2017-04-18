@@ -14,10 +14,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
-public class AssessmentDAO {
+public class AssessmentDAO extends BaseDAO {
 
 	private final static Logger log = Logger.getLogger(AssessmentDAO.class);
 	private SessionFactory sessionFactory;
@@ -35,7 +34,7 @@ public class AssessmentDAO {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Assessment findOne(long id) {
-		log.info("Finding one assessment " + id );
+		log.info("Finding one assessment " + id);
 		return (Assessment) sessionFactory.getCurrentSession().get(Assessment.class, id);
 	}
 
@@ -51,34 +50,30 @@ public class AssessmentDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Assessment> findByWeek(Integer batchId, Integer week) {
 		log.info("Find assessment by week number " + week + " for batch " + batchId + " ");
-		return sessionFactory.getCurrentSession().createCriteria(Assessment.class).createAlias("batch", "batch").createAlias("batch.trainees", "t")
-				.add(Restrictions.and(
-						Restrictions.eq("batch.batchId", batchId),
+		List<Assessment> assessments = sessionFactory.getCurrentSession().createCriteria(Assessment.class)
+				.createAlias("batch", "batch").createAlias("batch.trainees", "t")
+				.add(Restrictions.and(Restrictions.eq("batch.batchId", batchId),
 						Restrictions.eq("week", week.shortValue())))
-				.setFetchMode("grades", FetchMode.JOIN)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.list();
+				.setFetchMode("grades", FetchMode.JOIN).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		for (Assessment assessment : assessments) {
+			initializeActiveTrainees(assessment);
+		}
+		return assessments;
 	}
-	
-	
-	
-	
+
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Assessment> findByBatchId(Integer batchId) {
 		log.info("Find assessment by batchId" + batchId + " ");
-		return sessionFactory.getCurrentSession().createCriteria(Assessment.class).createAlias("batch", "batch").createAlias("batch.trainees", "t")
-				.add(Restrictions.and(
-						Restrictions.eq("batch.batchId", batchId)))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.list();
+		List<Assessment> assessments = sessionFactory.getCurrentSession().createCriteria(Assessment.class)
+				.createAlias("batch", "batch").createAlias("batch.trainees", "t")
+				.add(Restrictions.and(Restrictions.eq("batch.batchId", batchId)))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		for (Assessment assessment : assessments) {
+			initializeActiveTrainees(assessment);
+		}
+		return assessments;
 	}
-	
-	
-	
-	
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void update(Assessment assessment) {
