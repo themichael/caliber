@@ -139,7 +139,12 @@
 									<div class='outer-bar-data' ng-if='barchartAWLabels.length <= 2'>
 											<table ng-if="barchartAWLabels" class="table table-responsive"
 												style="border-collapse: collapse;">
-								        	<tr class="col-sm-2 col-md-2 col-lg-2 col-offset-sm-2 col-offset-md-2 col-lg-offset-2 "  
+								        	<tr  ng-if='barchartAWLabels.length == 2' class="col-lg-2 col-lg-offset-2"  
+													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
+												<th>{{label}}</th>
+												<td>{{barchartAWData[$index]}}</td>
+											</tr>
+											<tr  ng-if='barchartAWLabels.length == 1' class="col-lg-1"  
 													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
 												<th>{{label}}</th>
 												<td>{{barchartAWData[$index]}}</td>
@@ -150,7 +155,7 @@
 								   <div ng-if='barchartAWLabels.length > 2'>
 											<table ng-if="barchartAWLabels" class="table table-responsive"
 												style="border-collapse: collapse;">
-											<tr class="col-lg-2  col-lg-offset-2 "  
+											<tr class="col-lg-2 col-lg-offset-2 "  
 													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
 												<th>{{label}}</th>
 												<td>{{barchartAWData[$index]}}</td>
@@ -338,19 +343,19 @@
 							<div class="panel-heading">Weekly Averages Progress</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="linechart" class="chart chart-line" chart-data="linecharTWData"
-										chart-labels="linecharTWLabels" chart-options="linecharTWOptions"
-										chart-series="linecharTWSeries">
+									<canvas id="linechart" class="chart chart-line" chart-data="linechartTWData"
+										chart-labels="linechartTWLabels" chart-options="linechartTWOptions"
+										chart-series="linechartTWSeries">
                                     </canvas>
 									<div>
 										<table class="table table-responsive" style="border-collapse: collapse;">
 											<tr>
 												<th></th>
-												<th class="col-sm-2 col-md-2 col-lg-2" ng-repeat="label in linecharTWLabels">Week
+												<th class="col-sm-2 col-md-2 col-lg-2" ng-repeat="label in linechartTWLabels">Week
 													{{label}}</th>
 											</tr>
-											<tr ng-repeat="series in linecharTWData track by $index">
-												<th>{{linecharTWSeries[$index]}}</th>
+											<tr ng-repeat="series in linechartTWData track by $index">
+												<th>{{linechartTWSeries[$index]}}</th>
 												<td class="col-sm-2 col-md-2 col-lg-2"
 													ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
 											</tr>
