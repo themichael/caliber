@@ -9,8 +9,10 @@ angular
 					// *** UI
 					// *******************************************************************************
 
-					const OVERALL = "(All)";
-					const ALL = -1;
+					const
+					OVERALL = "(All)";
+					const
+					ALL = -1;
 
 					// What you see when you open Reports
 					$scope.currentBatch = allBatches[allBatches.length - 1];
@@ -19,8 +21,7 @@ angular
 						"weeks" : []
 					};
 					$scope.currentTraineeId = ALL;
-					
-					
+
 					$scope.noBatch = true;
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
@@ -39,7 +40,7 @@ angular
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
-							
+
 						}
 
 					})();
@@ -86,10 +87,9 @@ angular
 					}
 
 					function getCurrentBatchWeeks(weeks) {
-						$scope.batchWeeks.week = [];
+						$scope.batchWeeks.weeks = [];
 						for (var i = 1; i <= weeks; i++)
-							$scope.batchWeeks.week.push(i);
-						$log.debug($scope.batchWeeks);
+							$scope.batchWeeks.weeks.push(i);
 					}
 
 					// Filter batches by year
@@ -285,6 +285,8 @@ angular
 													.getAverageTraineeScoresOverall(data);
 											$scope.batchOverAllLabels = barChartObject.labels;
 											$scope.batchOverAllData = barChartObject.data;
+											$log.debug("SKALAGA!!!!");
+											$log.debug($scope.batchOverAllData);
 											$scope.batchOverAllOptions = barChartObject.options;
 										}, function() {
 											NProgress.done();

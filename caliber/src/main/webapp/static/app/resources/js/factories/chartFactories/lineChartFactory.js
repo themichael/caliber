@@ -5,7 +5,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 	lineChart.getBatchOverallLineChart = function(dataArray) {
 		var chartData = {};
-
 		// data and labels
 		chartData.data = [];
 		chartData.data.push([]);
