@@ -10,6 +10,7 @@ angular
 					$scope.bnote = null;
 					$scope.faces = [];
 					$scope.weeks = [];
+					$scope.batchesByYear = [];
 
 					// Note object
 					function Note(noteId, content, status, week, batch,
@@ -74,6 +75,8 @@ angular
 											$scope.currentWeek)
 									.then(
 											function(notes) {
+												$log.debug("NOTES RETRIEVED!");
+												$log.debug(notes);
 												for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 													var content = null;
 													var status = null;
@@ -116,9 +119,56 @@ angular
 							}
 						}
 					}
+					
+					// Used to pick face for batch
+					$scope.pickOverallStatus = function(batch, pick) {
+						$scope.qcBatchAssess = pick;
+						$log.debug(batch.trainingName + " " + pick);
+						$log.debug("bnote");
+						$log.debug($scope.bnote);
+						$scope.bnote.qcStatus = pick;
+						$scope.saveQCNotes();
+					};
+					
+					// starting scope vars
+					$log.debug($scope.$parent.currentBatch);
+					// If in reports get reports current batch
+					if ($scope.$parent.currentBatch !== undefined) {
+						$scope.currentBatch = $scope.$parent.currentBatch;
+					} else {
+						$scope.currentBatch = $scope.batches[0];
+					}
+					
+					// create an array of numbers for number of weeks
+					for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+						$scope.weeks.push(i);
+					}
 
 					// Start function for reports to use
 					function start() {
+						$log.debug(allBatches);
+						var curYear = new Date();
+						$log.debug("Year test: ");
+						$scope.selectedYear = curYear.getFullYear();
+						batchYears();
+						$log.debug($scope.batchesByYear);
+
+						// $log.debug($scope.selectedYear);
+						
+						// Sort trainees alphabetically
+						$scope.currentBatch.trainees.sort(compare);
+						
+						// Set current week to first week
+						// If reports week is selected
+						if ($scope.$parent.reportCurrentWeek !== undefined
+								&& $scope.$parent.reportCurrentWeek !== "(All)") {
+							$log.debug("Got report week");
+							$scope.currentWeek = $scope.$parent.reportCurrentWeek;
+						} else {
+							$log.debug("No report week");
+							$scope.currentWeek = $scope.weeks[0];
+						}
+						
 						// get status types
 						$scope.qcStatusTypes = [];
 						caliberDelegate.all.enumQCStatus().then(
@@ -127,16 +177,6 @@ angular
 									$scope.qcStatusTypes = types;
 								});
 
-						// Used to pick face for batch
-						$scope.pickOverallStatus = function(batch, pick) {
-							$scope.qcBatchAssess = pick;
-							$log.debug(batch.trainingName + " " + pick);
-							$log.debug("bnote");
-							$log.debug($scope.bnote);
-							$scope.bnote.qcStatus = pick;
-							$scope.saveQCNotes();
-						};
-
 						// ///////////////////////////////////////////////////////////////////////////////////////////
 						// load note types
 						caliberDelegate.all.enumNoteType().then(
@@ -144,31 +184,8 @@ angular
 									$log.debug(noteTypes);
 									// do something with note type
 								});
-
-						// starting scope vars
-						$log.debug($scope.$parent.currentBatch);
-						// If in reports get reports current batch
-						if ($scope.$parent.currentBatch !== undefined) {
-							$scope.currentBatch = $scope.$parent.currentBatch;
-						} else {
-							$scope.currentBatch = $scope.batches[0];
-						}
-						$scope.currentBatch.trainees.sort(compare);
-						// create an array of numbers for number of weeks
-						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-							$scope.weeks.push(i);
-						}
-
-						// Set current week to first week
-						$log.debug("$scope.$parent.reportCurrentWeek");
-						$log.debug($scope.$parent.reportCurrentWeek);
-						// If reports week is selected
-						if ($scope.$parent.reportCurrentWeek !== undefined
-								&& $scope.$parent.reportCurrentWeek !== "(All)") {
-							$scope.currentWeek = $scope.$parent.reportCurrentWeek;
-						} else {
-							$scope.currentWeek = $scope.weeks[0];
-						}
+						// Reset notes to empty array
+						$scope.faces = [];
 						// Get notes
 						$scope.getNotes();
 					}
@@ -176,7 +193,18 @@ angular
 					function traineeWeek() {
 						
 					}
-					
+
+					function traineeOverall(traineeId) {
+						$scope.faces = [];
+						$log.debug("TRAINEEOVERALL FUNCTION")
+						caliberDelegate.qc.traineeOverallNote(traineeId).then(
+								function(notes) {
+									$log.debug("OVERALL TRAINEE");
+									$log.debug(notes);
+									$scope.faces = notes;
+								});
+					}
+
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
 						$scope.faces[index].qcStatus = status;
@@ -210,6 +238,8 @@ angular
 						$scope.currentWeek = $scope.weeks[0];
 						$scope.getNotes();
 						wipeFaces();
+						
+						$scope.trainingNameDate = $scope.currentBatch.trainingName + " " + $scope.currentBatch.startDate;
 					};
 
 					// Select week
@@ -344,11 +374,75 @@ angular
 					}
 					// Call start function
 					start();
-					// Call start function when on reports page and batch and week selected
+					// Call start function when on reports page and batch and
+					// week selected
 					$rootScope.$on('qcBatchOverall', function() {
+						$log.debug("QCBATCHOVERALL");
 						start();
 					});
+					// Execute when on reports page and trainee and week selected
 					$rootScope.$on('qcTraineeWeek', function() {
 						traineeWeek();
 					});
+					// Execute when on reports page and trainee and all week selected
+					$rootScope.$on('GET_TRAINEE_OVERALL_CTRL', function(event, traineeId) {
+						$log.debug("GET TRAINEE OVERALL!!");
+						$log.debug(traineeId);
+						traineeOverall(traineeId);
+					});
+
+					/**
+					 * **************************************************
+					 * Duplicate code from trainerManageController.js
+					 * **************************************************
+					 */
+
+					/** Filter batches by year * */
+					$scope.years = addYears();
+					function addYears() {
+						var currentYear = new Date().getFullYear();
+						$scope.selectedYear = currentYear;
+
+						var data = [];
+						// List all years from 2014 --> current year+1
+						for (var y = currentYear + 1; y >= currentYear - 2; y--) {
+							data.push(y)
+						}
+						return data;
+					}
+
+					$scope.selectYear = function(index) {
+						$scope.selectedYear = $scope.years[index];
+						sortByDate($scope.selectedYear);
+						batchYears();
+						$log.debug($scope.batchesByYear);
+					};
+
+					function sortByDate(currentYear) {
+						$scope.selectedBatches = [];
+						for (var i = 0; i < $scope.batches.length; i++) {
+							var date = new Date($scope.batches[i].startDate);
+							if (date.getFullYear() === currentYear) {
+								$scope.selectedBatches.push($scope.batches[i]);
+							}
+						}
+					}
+					
+					/**
+					 * *************************** 
+					 * Display Batch Years
+					 * ***************************
+					 */
+					
+					function batchYears() {		
+						$scope.batchesByYear = [];
+						
+						for (var i = 0; i < $scope.batches.length; i++) {
+							if ($scope.selectedYear === parseInt($scope.batches[i].startDate.substring(0,4))) { 
+								$scope.batchesByYear.push($scope.batches[i].trainingName 
+										+ " - " 
+										+ $scope.batches[i].startDate);
+							}
+						}
+					}
 				});
