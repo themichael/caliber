@@ -13,11 +13,11 @@
 					</ul></li>
 				<!-- Select Trainee-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					ng-show="hideOtherTabs()" data-toggle="dropdown">{{currentTrainee.name}}<span
+				  	  ng-show="hideOtherTabs()" data-toggle="dropdown">{{currentTrainee.name}}<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentTrainee(-1)">None</a></li>
-						<li ng-repeat="menuItem in currentBatch.trainees track by $index"><a
+						<li ng-if="currentTrainee.trainingStatus != 'Dropped'" ng-repeat="menuItem in currentBatch.trainees track by $index"><a
 							role="button" ng-click="selectCurrentTrainee($index)">{{menuItem.name}}</a></li>
 					</ul></li>
 			</ul>
