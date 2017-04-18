@@ -88,8 +88,16 @@ angular
 						    	  templateUrl : "/static/app/partials/trainer-display.html",
 									controller : "trainerAssessController"
 						      },
-						      "qc-display@qc.reports": {
+						      "qc-batchOverall@qc.reports": {
 						    	  templateUrl : "/static/app/partials/qc-display.html",
+									controller : "qcAssessController"
+						      },
+						      "qc-traineeWeek@qc.reports": {
+						    	  templateUrl : "/static/app/partials/qc-traineeWeek.html",
+									controller : "qcAssessController"
+						      },
+						      "qc-traineeOverall@qc.reports": {
+						    	  templateUrl : "/static/app/partials/qc-traineeOverall.html",
 									controller : "qcAssessController"
 						      }
 						    }
@@ -147,10 +155,26 @@ angular
 						      },
 						      "trainer-display@trainer.reports": {
 						    	  templateUrl : "/static/app/partials/trainer-display.html",
-									controller : "trainerAssessController"
+								  controller : "trainerAssessController"
+						      },
+						      "trainee-overall@trainer.reports":{
+						    	  templateUrl: "/static/app/partials/trainee-overall.html",
+						    	  controller: "trainerAssessController"
+						      },
+						      "trainee-week@trainer.reports":{
+						    	  templateUrl: "/static/app/partials/trainee-week.html",
+						    	  controller:"traineeAssessController"
 						      },
 						      "qc-display@trainer.reports": {
 						    	  templateUrl : "/static/app/partials/qc-display.html",
+									controller : "qcAssessController"
+						      },						      
+						      "qc-traineeOverall@trainer.reports": {
+						    	  templateUrl : "/static/app/partials/qc-traineeOverall.html",
+									controller : "qcAssessController"
+						      },
+						      "qc-traineeWeek@trainer.reports": {
+						    	  templateUrl : "/static/app/partials/qc-traineeWeek.html",
 									controller : "qcAssessController"
 						      }
 						    }
