@@ -156,8 +156,6 @@ angular
 						$scope.currentBatch.trainees.sort(compare);
 						
 						// Set current week to first week
-						$log.debug("$scope.$parent.reportCurrentWeek");
-						$log.debug($scope.$parent.reportCurrentWeek);
 						// If reports week is selected
 						if ($scope.$parent.reportCurrentWeek !== undefined
 								&& $scope.$parent.reportCurrentWeek !== "(All)") {
@@ -183,6 +181,7 @@ angular
 									$log.debug(noteTypes);
 									// do something with note type
 								});
+						// Reset notes to empty array
 						$scope.faces = [];
 						// Get notes
 						$scope.getNotes();
