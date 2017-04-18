@@ -62,7 +62,6 @@ angular
 
 							} else {
 								// Specific Trainee
-								$rootScope.$emit('GET_TRAINEE_OVERALL_CTRL');
 								$scope.batchWeek = false;
 								$scope.batchWeekTrainee = false;
 								$scope.batchOverall = false;
