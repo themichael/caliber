@@ -75,6 +75,8 @@ angular
 											$scope.currentWeek)
 									.then(
 											function(notes) {
+												$log.debug("NOTES RETRIEVED!");
+												$log.debug(notes);
 												for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 													var content = null;
 													var status = null;
@@ -136,21 +138,10 @@ angular
 					} else {
 						$scope.currentBatch = $scope.batches[0];
 					}
-					$scope.currentBatch.trainees.sort(compare);
+					
 					// create an array of numbers for number of weeks
 					for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
 						$scope.weeks.push(i);
-					}
-
-					// Set current week to first week
-					$log.debug("$scope.$parent.reportCurrentWeek");
-					$log.debug($scope.$parent.reportCurrentWeek);
-					// If reports week is selected
-					if ($scope.$parent.reportCurrentWeek !== undefined
-							&& $scope.$parent.reportCurrentWeek !== "(All)") {
-						$scope.currentWeek = $scope.$parent.reportCurrentWeek;
-					} else {
-						$scope.currentWeek = $scope.weeks[0];
 					}
 
 					// Start function for reports to use
@@ -163,6 +154,20 @@ angular
 						$log.debug($scope.batchesByYear);
 
 						// $log.debug($scope.selectedYear);
+						
+						// Sort trainees alphabetically
+						$scope.currentBatch.trainees.sort(compare);
+						
+						// Set current week to first week
+						// If reports week is selected
+						if ($scope.$parent.reportCurrentWeek !== undefined
+								&& $scope.$parent.reportCurrentWeek !== "(All)") {
+							$log.debug("Got report week");
+							$scope.currentWeek = $scope.$parent.reportCurrentWeek;
+						} else {
+							$log.debug("No report week");
+							$scope.currentWeek = $scope.weeks[0];
+						}
 						
 						// get status types
 						$scope.qcStatusTypes = [];
@@ -179,17 +184,21 @@ angular
 									$log.debug(noteTypes);
 									// do something with note type
 								});
-
+						// Reset notes to empty array
+						$scope.faces = [];
 						// Get notes
 						$scope.getNotes();
 					}
 
 					function traineeWeek() {
-
+						
 					}
 
-					function traineeOverall() {
-						
+					function traineeOverall(traineeId) {
+						caliberDelegate.qc.traineeOverallNote(traineeId).then(
+								function(notes) {
+									$scope.faces = notes;
+								});
 					}
 
 					$scope.pickIndividualStatus = function(trainee, status,
@@ -372,7 +381,7 @@ angular
 					});
 					// Execute when on reports page and trainee and all week selected
 					$rootScope.$on('GET_TRAINEE_OVERALL', function(event, param) {
-						traineeOverall(param.trainee);
+						traineeOverall(param.traineeId);
 					});
 
 					/**

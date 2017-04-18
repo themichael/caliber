@@ -297,12 +297,12 @@ public class EvaluationController {
 	 * Find all QC trainee notes in a batch
 	 * 
 	 * @return
-	 *//*
-	@RequestMapping(value = "/qc/note/trainee/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Note>> getAllQCTraineeOverallNotes(@PathVariable Integer batchId) {
-        log.info("Getting all trainee notes by QC");
-        return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(batchId), HttpStatus.OK);
-    }*/
+	 */
+	@RequestMapping(value = "/qc/note/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Note>> getAllQCTraineeOverallNotes(@PathVariable Integer traineeId) {
+        log.info("Getting all trainee notes by QC for that trainee");
+        return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeOverallNotes(traineeId), HttpStatus.OK);
+    }
 	
 	/*
 	 *******************************************************
