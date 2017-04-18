@@ -97,10 +97,12 @@ angular
 								if(data && data.length > 0){
 									$scope.notes = data;
 									for(note of $scope.notes){
-										if($scope.trainees[note.trainee.traineeId].note.hasOwnProperty('noteId')){
+										if($scope.trainees[note.trainee.traineeId] !== undefined && $scope.trainees[note.trainee.traineeId].note.hasOwnProperty('noteId')){
 											$scope.trainees[note.trainee.traineeId].note = {};
 										}
-										$scope.trainees[note.trainee.traineeId].note = note;
+										if($scope.trainees[note.trainee.traineeId] !== undefined){
+											$scope.trainees[note.trainee.traineeId].note = note;
+										}
 									}
 								}
 							});
