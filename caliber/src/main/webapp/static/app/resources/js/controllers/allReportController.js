@@ -305,10 +305,10 @@ angular
 											console.log(barChartObject);
 											console.log(barChartObject.series);
 
-											$scope.barcharAWLabels = barChartObject.labels;
-											$scope.barcharAWData = barChartObject.data;
-											$scope.barcharAWOptions = barChartObject.options;
-											$scope.barcharAWseries = barChartObject.series;
+											$scope.barchartAWLabels = barChartObject.labels;
+											$scope.barchartAWData = barChartObject.data;
+											$scope.barchartAWOptions = barChartObject.options;
+											$scope.barchartAWseries = barChartObject.series;
 										}, function() {
 											NProgress.done();
 										});

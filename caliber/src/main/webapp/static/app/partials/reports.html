@@ -131,22 +131,34 @@
 							<div class="panel-heading">Assessment Averages</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="barchart" class="chart chart-bar" chart-data="barcharAWData"
-										chart-series="barcharAWSeries" chart-labels="barcharAWLabels"
-										chart-options="barcharAWOptions">
+									<canvas id="barchart" class="chart chart-bar" chart-data="barchartAWData"
+										chart-series="barchartAWSeries" chart-labels="barchartAWLabels"
+										chart-options="barchartAWOptions">
                                     </canvas>
                                  	<div class="wrap">
-									<div class='outer-yani'>
-											<table ng-if="barcharAWLabels" class="table table-responsive inner-yani"
+									<div class='outer-bar-data' ng-if='barchartAWLabels.length <= 2'>
+											<table ng-if="barchartAWLabels" class="table table-responsive"
 												style="border-collapse: collapse;">
-											<tr class="col-sm-1 col-md-1 col-lg-1 col-offset-sm-2 col-offset-md-2 col-lg-offset-2" 
-													ng-repeat="label in barcharAWLabels track by $index"for="{{label}}">
+								        	<tr class="col-sm-2 col-md-2 col-lg-2 col-offset-sm-2 col-offset-md-2 col-lg-offset-2 "  
+													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
 												<th>{{label}}</th>
-												<td>{{barcharAWData[$index]}}</td>
+												<td>{{barchartAWData[$index]}}</td>
 											</tr>
 										</table>
 									</div>
-								   </div>
+								   
+								   <div ng-if='barchartAWLabels.length > 2'>
+											<table ng-if="barchartAWLabels" class="table table-responsive"
+												style="border-collapse: collapse;">
+											<tr class="col-lg-2  col-lg-offset-2 "  
+													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
+												<th>{{label}}</th>
+												<td>{{barchartAWData[$index]}}</td>
+											</tr>
+										</table>
+									</div>
+									</div>
+								   
 								</div>
 							</div>
 						</div>
