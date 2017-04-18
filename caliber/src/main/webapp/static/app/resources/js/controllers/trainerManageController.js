@@ -150,13 +150,12 @@ angular
 					/** Get batches for user and trainees in each batch * */
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
-						// $scope.trainees =
-						// $scope.selectedBatches[index].trainees;
-						caliberDelegate.all.getTrainees(
+						 $scope.trainees = $scope.selectedBatches[index].trainees;
+						/*caliberDelegate.all.getTrainees(
 								$scope.currentBatch.batchId).then(
 								function(data) {
 									$scope.trainees = data;
-								});
+								});*/
 						// caliberdlegeate get trainees by batch id and load nto
 						// $scope
 						$scope.batchRow = index;
