@@ -220,17 +220,21 @@ footer a, footer a:hover{
 .table-responsive{
 	display:block !important;	
 }
-.wrap {
-    text-align: center;
+.table>tbody>tr {
+	border-top: 1px solid #ddd;
+}
+.table>tbody>tr>td, .table>tbody>tr>th {
+    border-top: 0;
 }
 
+.wrap {
+	text-align: center;
+}
 .outer-bar-data{
     display: inline-block;
     margin: 0 auto;
     padding:0;
 }
-
-
 /**********************
 	save button
 **********************/
