@@ -136,7 +136,7 @@ angular
 					} else {
 						$scope.currentBatch = $scope.batches[0];
 					}
-					$scope.currentBatch.trainees.sort(compare);
+					
 					// create an array of numbers for number of weeks
 					for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
 						$scope.weeks.push(i);
@@ -161,6 +161,9 @@ angular
 						batchYears();
 						// $log.debug($scope.selectedYear);
 						
+						// Sort trainees alphabetically
+						$scope.currentBatch.trainees.sort(compare);
+						
 						// get status types
 						$scope.qcStatusTypes = [];
 						caliberDelegate.all.enumQCStatus().then(
@@ -182,11 +185,14 @@ angular
 					}
 
 					function traineeWeek() {
-
+						
 					}
 
-					function traineeOverall() {
-						
+					function traineeOverall(traineeId) {
+						caliberDelegate.qc.traineeOverallNote(traineeId).then(
+								function(notes) {
+									$scope.faces = notes;
+								});
 					}
 
 					$scope.pickIndividualStatus = function(trainee, status,
@@ -370,7 +376,7 @@ angular
 					});
 					// Execute when on reports page and trainee and all week selected
 					$rootScope.$on('GET_TRAINEE_OVERALL', function(event, param) {
-						traineeOverall(param.trainee);
+						traineeOverall(param.traineeId);
 					});
 
 					/**

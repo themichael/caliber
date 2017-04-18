@@ -208,9 +208,6 @@ public class NoteDAO extends BaseDAO{
 		return notes;
     }
 	
-
-	
-	
 	/**
 	 * Returns all QC notes for trainee in the batch for the week
 	 * @return
@@ -223,6 +220,25 @@ public class NoteDAO extends BaseDAO{
         		.createAlias("t.batch", "b").add(Restrictions.eq("b.batchId", batchId))
         		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
         		.add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.addOrder(Order.asc("week")).list();
+		for(Note note : notes){
+			initializeActiveTrainees(note);
+		}
+		return notes;
+    }
+	
+	/**
+	 * Returns all QC notes for trainee in the batch
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public List<Note> findAllQCTraineeOverallNotes(Integer traineeId) {
+        log.info("Find All QC Trainee notes for that trainee");
+        List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
+        		.add(Restrictions.eq("t.traineeId", traineeId))
+        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.addOrder(Order.asc("week")).list();
 		for(Note note : notes){
