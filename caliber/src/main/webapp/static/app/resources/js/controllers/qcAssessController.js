@@ -421,16 +421,13 @@ angular
 					 * ***************************
 					 */
 					
-					function batchYears() {						
+					function batchYears() {		
+						$scope.batchesByYear = [];
+						
 						for (var i = 0; i < $scope.batches.length; i++) 
 							if ($scope.selectedYear === parseInt($scope.batches[i].startDate)) 
 								$scope.batchesByYear.push($scope.batches[i].trainingName 
 										+ " - " 
 										+ $scope.batches[i].startDate);
-					}
-					
-					$scope.clearDropDown = function() {
-						$log.debug("Clearning drop down");
-						$scope.batchesByYear = [];
 					}
 				});
