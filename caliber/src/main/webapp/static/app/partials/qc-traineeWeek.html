@@ -45,23 +45,4 @@
 			</table>
 		</div>
 	</div>
-	<!-- QC batch note -- overall qualitative feedback -->
-	<table class='table'>
-		<tr>
-			<td ng-hide="bnote.qcStatus !== qcStatusTypes[0]" title="Excellent"
-				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch Note: <i
-				class="fa fa-star fa-2x pick"></i></td>
-			<td ng-hide="bnote.qcStatus !== qcStatusTypes[1]" title="Good"
-				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch Note: <i
-				class="fa fa-smile-o fa-2x pick"></i></td>
-			<td ng-hide="bnote.qcStatus !== qcStatusTypes[2]" title="Fair"
-				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch Note: <i
-				class="fa fa-meh-o fa-2x pick"></i></td>
-			<td ng-hide="bnote.qcStatus !== qcStatusTypes[3]" title="Poor"
-				class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch Note: <i
-				class="fa fa-frown-o fa-2x pick"></i></td>
-			<td class="form-group col-lg-10 col-md-10 col-sm-11 overall-feedback">
-				{{bnote.content}}</td>
-		</tr>
-	</table>
 </div>
