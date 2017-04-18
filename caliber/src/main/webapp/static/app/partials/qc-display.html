@@ -15,12 +15,7 @@
 					<tbody>
 						<tr ng-repeat="trainee in currentBatch.trainees track by $index">
 							<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
-							<td><div ng-if="!faces[$index].qcStatus"
-									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-									title="Click to update your feedback."
-									alt="Click to update your feedback.">
-									<i class="fa fa-question-circle fa-2x"></i>
-								</div>
+							<td>
 								<div ng-if="faces[$index].qcStatus === qcStatusTypes[0]"
 									title="Excellent"
 									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
@@ -37,7 +32,8 @@
 								<div ng-if="faces[$index].qcStatus === qcStatusTypes[3]"
 									title="Poor" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
 									<i class="fa fa-frown-o fa-2x pick"></i>
-								</div></td>
+								</div>
+							</td>
 							<td class="col-sm-9 col-md-9 col-lg-9">{{noteOnTrainee($index).content}}</td>
 							<td><ul class="nav nav-tabs">
 						</tr>
@@ -46,8 +42,7 @@
 				<!-- QC batch note -- overall qualitative feedback -->
 				<table class='table'>
 					<tr>
-						<td ng-if="bnote.qcStatus === qcStatusTypes[0]"
-							title="Excellent"
+						<td ng-if="bnote.qcStatus === qcStatusTypes[0]" title="Excellent"
 							class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch
 							Note: <i class="fa fa-star fa-2x pick"></i>
 						</td>
