@@ -93,7 +93,7 @@ public class NoteDAO extends BaseDAO{
 	}
 
 	/**
-	 * Returns all 
+	 * Returns all trainee QC notes for the batch for the week
 	 * @param batchId
 	 * @param week
 	 * @return
@@ -212,7 +212,7 @@ public class NoteDAO extends BaseDAO{
 	
 	
 	/**
-	 * Returns all qc notes for trainee
+	 * Returns all QC notes for trainee in the batch for the week
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")

@@ -251,7 +251,7 @@ public class EvaluationController {
 	 *******************************************************
 	 */
 	/**
-	 * FIND WEEKLY QC BATCH NOTES (NOT FOR TRAINERS)
+	 * FIND THE WEEKLY QC BATCH NOTE FOR THE WEEK(NOT FOR TRAINERS)
 	 * 
 	 * @param batch
 	 * @param week
@@ -283,7 +283,7 @@ public class EvaluationController {
 	}
 
 	/**
-	 * Find all qc trainee notes
+	 * Find all QC trainee notes in a batch for the week
 	 * 
 	 * @return
 	 */
@@ -292,6 +292,17 @@ public class EvaluationController {
         log.info("Getting all trainee notes by QC");
         return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(batchId, week), HttpStatus.OK);
     }
+	
+	/**
+	 * Find all QC trainee notes in a batch
+	 * 
+	 * @return
+	 *//*
+	@RequestMapping(value = "/qc/note/trainee/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Note>> getAllQCTraineeOverallNotes(@PathVariable Integer batchId) {
+        log.info("Getting all trainee notes by QC");
+        return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(batchId), HttpStatus.OK);
+    }*/
 	
 	/*
 	 *******************************************************

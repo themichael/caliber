@@ -362,8 +362,8 @@ angular
 						traineeWeek();
 					});
 					// Execute when on reports page and trainee and all week selected
-					$rootScope.$on('GET_TRAINEE_OVERALL', function() {
-						traineeOverall();
+					$rootScope.$on('GET_TRAINEE_OVERALL', function(event, param) {
+						traineeOverall(param.trainee);
 					});
 
 					/**
