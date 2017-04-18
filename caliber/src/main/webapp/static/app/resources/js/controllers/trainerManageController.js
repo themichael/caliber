@@ -152,6 +152,7 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
 						$scope.trainees = $scope.selectedBatches[index].trainees;
+
 						$scope.batchRow = index;
 						$log.debug($scope.currentBatch);
 					};
@@ -171,6 +172,7 @@ angular
 						} else {
 							$scope.coTrainer.model = ""
 						}
+
 						$scope.startDate.model = new Date(batch.startDate
 								.replace(/-/g, '/'));
 						$scope.endDate.model = new Date(batch.endDate.replace(
@@ -242,6 +244,7 @@ angular
 
 						// return newBatch;
 					}
+
 
 					$scope.update = function() {
 
@@ -346,6 +349,7 @@ angular
 								$scope.trainingStatuses.options = statuses;
 							});
 
+
 					/** Fill update form with trainee previous data* */
 					$scope.populateTrainee = function(trainee) {
 						$log.debug(trainee);
@@ -421,6 +425,7 @@ angular
 							}
 						}
 					};
+
 
 					/** Get Trainee to delete* */
 					$scope.getTraineeToDelete = function(index) {

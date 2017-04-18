@@ -150,7 +150,15 @@ angular
 					delegate.radar.addRadarToExistingRadar = function(currentChartData, otherDataArray, seriesName){
 						return radarChartFactory.addDataToExistingRadar(currentChartData, otherDataArray, seriesName);
 					}
+					
+					delegate.radar.data.getTraineAndBatchSkillComparisonChart = function(batchId, week, traineeId){
+						return radarChartDataFactory.getTraineAndBatchSkillComparisonChart(batchId, week, traineeId);
+					} 
 
+					delegate.radar.createFromTwoDataSets = function(batchDataSet, traineeDataSet, batchSeriesName, trainingSeriesName){
+						return radarChartFactory.createFromTwoDataSets(batchDataSet, traineeDataSet, batchSeriesName, trainingSeriesName);
+					}
+					
 					/**
 					 * ************************ Line ************************
 					 */

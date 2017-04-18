@@ -1,5 +1,6 @@
 package com.revature.caliber.security.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -17,6 +18,7 @@ import java.io.InputStreamReader;
 public abstract class Helper {
     private BufferedReader bufferedReader;
     private StringBuilder stringBuilder;
+    private static final Logger log = Logger.getLogger(Helper.class);
 
     public String toJsonString (InputStream inputStream) {
         bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -27,7 +29,7 @@ public abstract class Helper {
             while ((inputString = bufferedReader.readLine()) != null)
                 stringBuilder.append(inputString);
         } catch (IOException e) {
-            e.printStackTrace();
+        	log.error("Unable to read input String: " + e.getClass() + " " + e.getMessage());	
             return null;
         }
         closeStream();
@@ -38,7 +40,7 @@ public abstract class Helper {
         try {
             bufferedReader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+        	log.error("Unable to close reader: " + e.getClass() + " " + e.getMessage());
         }
     }
 }

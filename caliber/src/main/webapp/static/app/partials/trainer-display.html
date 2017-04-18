@@ -1,16 +1,20 @@
 <!-- display table for the batch and week selected -->
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 col-lg-12 top5">
-			<!-- Accordian table -->
-			<table class="table table-responsive"
+		<div class="col-sm-12 col-md-12 col-lg-12 top5">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Trainer Feedback for the Week</div>
+				<div class="panel-body">
+					<div class="chart-container top5">
+				<table class="table table-responsive col-sm-12 col-md-12 col-lg-12"
 				style="border-collapse: collapse;" ng-show="currentView">
 				<thead>
 					<tr>
 						<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
 						<th class="col-sm-1 col-md-1 col-lg-1"
 							ng-repeat="assessment in currentAssessments track by $index">
-							{{assessment.title}}(%)</th>
+							{{assessment.title}}({{assessmentsById[assessment.assessmentId].weightedScore}})</th>
 						<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
 					</tr>
 				</thead>
@@ -31,18 +35,21 @@
 						ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees)
 						? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
 						"%" : "-"}}</td>
-					<td></td>
-			
-		
+					<td>{{ (allAssessmentsAvgForWeek === false ? "Calculating Weekly Batch Avg " : "Weekly Batch Avg= " + allAssessmentsAvgForWeek) }}<i ng-show="!allAssessmentsAvgForWeek" class='fa fa-cog fa-spin'></i></td>
+
+
 				</tfoot>
 			</table>
 			<table class='table'>
 				<tr>
-					<td class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-				Batch Notes : {{trainerBatchNote.content}}
-					</td>
+					<td
+						class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
+						Batch Notes : {{trainerBatchNote.content}}</td>
 				</tr>
 			</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

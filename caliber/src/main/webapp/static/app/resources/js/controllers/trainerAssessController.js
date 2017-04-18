@@ -432,8 +432,12 @@ angular
 													, $scope.currentWeek
 													).then(function(response){
 														$timeout(function(){
-															$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
-														},4000);															
+															if(response){
+																$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
+															}else{
+																return;
+															}
+															},4000);															
 													});
 										});
 										
@@ -600,26 +604,33 @@ angular
 					 */
 					
 					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
-						$scope.saving = [];
+						//assessmentTotals will assessment objects, each with properties
+						// - total(for total score)
+						// - count (for total number of trainees to divide by)
 						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
 						if($scope.assessmentTotals[assessment.assessmentId] === undefined) $scope.assessmentTotals[assessment.assessmentId] = {};
 							
 						$scope.assessmentTotals[assessment.assessmentId].total = 0;
 						$scope.assessmentTotals[assessment.assessmentId].count = 0;
-						var count =0
 							for(var traineeKey in trainees){
+						//checks if trainee has assessment
 								if(trainees[traineeKey].assessments[assessment.assessmentId]){
-									$scope.assessmentTotals[assessment.assessmentId].total+= Number(trainees[traineeKey].assessments[assessment.assessmentId].score);								
-									$scope.assessmentTotals[assessment.assessmentId].count +=1;
-									count +=1;
+						//Only increment count and add to total if score is not 0;
+									var score = trainees[traineeKey].assessments[assessment.assessmentId].score;
+									if(score && score !== 0){ //
+										$scope.assessmentTotals[assessment.assessmentId].total+= Number(trainees[traineeKey].assessments[assessment.assessmentId].score);								
+										$scope.assessmentTotals[assessment.assessmentId].count +=1;
+									}
 								}
-								$scope.saving[count] = false;
 							}
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
 					/****************************************************
 					 *Save Button **
 					 **************************************************/
+					$rootScope.testChild = function(){
+						alert('hti');
+					}
 					
 					$scope.showSaving = false;
 					$scope.showCheck = false;
@@ -647,4 +658,23 @@ angular
 					$scope.reloadController = function() {
 			            $state.reload();
 			        };
+//					$rootScope.reloadController();
+					$rootScope.$on('trainerasses',function(){
+						$scope.trainees={};						
+						
+						for(trainee of $scope.currentBatch.trainees){
+							$scope.assignTraineeScope(trainee.traineeId);
+						}
+						
+						//start(allBatches);
+						getAllAssessmentsForWeek(
+								$scope.currentBatch.batchId,
+								$scope.currentWeek);
+					});
+					$rootScope.$on('GET_TRAINEE_OVERALL_CTRL',function(event,traineeId){
+						console.log(traineeId);
+					});
+					/* RUN START FUNCTION */
+					//start(allBatches);
+				
 				});
