@@ -28,7 +28,8 @@
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
 						<li ng-repeat="batch in batchesByYear track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)">{{batch.trainingName}} - {{batch.startDate | date:'shortDate'}}</a></li>
+							role="button" ng-click="selectCurrentBatch($index)">{{batch.trainingName}}
+								- {{batch.startDate | date:'shortDate'}}</a></li>
 					</ul></li>
 				<!-- Select Week-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -37,7 +38,7 @@
 				</a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentWeek('(All)')">All</a></li>
-						<li ng-repeat="week in batchWeeks.weeks"><a role="button"
+						<li ng-repeat="week in batchWeeks"><a role="button"
 							ng-click="selectCurrentWeek(week)">Week {{week}}</a></li>
 					</ul></li>
 
@@ -48,7 +49,8 @@
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentTrainee(-1)">All</a></li>
 						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
-							role="button" ng-click="selectCurrentTrainee($index)">{{trainee .name}}</a></li>
+							role="button" ng-click="selectCurrentTrainee($index)">{{trainee
+								.name}}</a></li>
 					</ul></li>
 			</ul>
 		</div>
@@ -116,7 +118,7 @@
 												<th class="col-sm-2 col-md-2 col-lg-2"
 													ng-repeat="item in qcStatsLabels">{{item}}</th>
 											</tr>
-											<tr>
+											<tr class="text-center">
 												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
 													ng-repeat="dataPoint in qcStatsData track by $index">{{dataPoint}}</td>
 											</tr>
@@ -140,7 +142,7 @@
 										chart-options="barchartAWOptions">
                                     </canvas>
 									<div class="wrap">
-										<div class='outer-bar-data'
+										<div class=''
 											ng-if='barchartAWLabels.length <= 2'>
 											<table ng-if="barchartAWLabels"
 												class="table table-responsive"
@@ -182,10 +184,10 @@
 				</div>
 			</div>
 			<!-- Row With Bottom 2 Charts -->
-				<!-- trainer display -->
-				<div ui-view="trainer-display" ng-if="displayTable()"></div>
-				<!-- qc -->
-				<div ui-view="qc-batchOverall"></div>
+			<!-- trainer display -->
+			<div ui-view="trainer-display" ng-if="displayTable()"></div>
+			<!-- qc -->
+			<div ui-view="qc-batchOverall"></div>
 		</div>
 		<!-- Batch -> Overall -->
 		<div class="row" ng-if="batchOverall">
@@ -360,21 +362,20 @@
                                     </canvas>
 									<div>
 										<table class="table table-responsive"
-												style="border-collapse: collapse;">
+											style="border-collapse: collapse;">
 											<tr>
 												<th></th>
 												<th class="col-sm-2 col-md-2 col-lg-2"
-														ng-repeat="label in linechartTWLabels">Week
-													{{label}}</th>
+													ng-repeat="label in linechartTWLabels">Week {{label}}</th>
 											</tr>
 											<tr ng-repeat="series in linechartTWData track by $index">
 												<th>{{linechartTWSeries[$index]}}</th>
 												<td class="col-sm-2 col-md-2 col-lg-2"
-														ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
+													ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
 											</tr>
 										</table>
 									</div>
-								
+
 								</div>
 							</div>
 						</div>
@@ -383,7 +384,8 @@
 				<!-- Row With Bottom 2 Charts -->
 			</div>
 			<div ui-view="trainer-display" ng-if="displayTable()"></div>
-		</div> <!-- Row with all 3 Chart-->
+		</div>
+		<!-- Row with all 3 Chart-->
 
 		<!-- Batch -> Overall -> Trainee-->
 		<div class="row" ng-if="batchOverallTrainee">
@@ -487,9 +489,10 @@
 				</div>
 				<!-- Row With Bottom 2 Charts -->
 			</div>
-			 <div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div> 
-			 <div ui-view="qc-traineeOverall" ng-if="displayTable()"></div> 
-		</div> <!-- Row with all 3 Chart-->
+			<div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div>
+			<div ui-view="qc-traineeOverall" ng-if="displayTable()"></div>
+		</div>
+		<!-- Row with all 3 Chart-->
 
 	</div>
 	<!-- top10 data-container -->
