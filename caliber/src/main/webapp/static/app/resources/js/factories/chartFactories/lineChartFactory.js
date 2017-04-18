@@ -21,12 +21,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 						max : 100,
 						stepSize : 20
 					}
-				} ],
-				xAxes : [ {
-					scaleLabel : {
-						display : true,
-						labelString : 'Week'
-					}
 				} ]
 			}
 		}
