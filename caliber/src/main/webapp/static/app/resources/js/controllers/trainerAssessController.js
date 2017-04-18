@@ -265,15 +265,15 @@ angular
 						for (var i = 0; i < $scope.batches.length; i++) {
 							//$log.debug("Current Year: " + $scope.selectedYear);
 							if ($scope.selectedYear === parseInt($scope.batches[i].startDate)) {
-								$scope.batchesByYear.push($scope.batches[i].trainingName + " - " + $scope.batches[i].startDate);
+								$scope.batchesByYear.push($scope.batches[i]);
 								// $log.debug($scope.batches[i]);
 							}
 							
 							// $log.debug($scope.selectedYear + " === " + parseInt($scope.batches[i].startDate))
 
 						}
-						$log.debug("all" + $scope.batches);
-						$log.debug("filtered"+$scope.batchesByYear);
+						$log.debug($scope.batches);
+						$log.debug($scope.batchesByYear);
 						
 					}
 					
@@ -284,7 +284,7 @@ angular
 
 					// batch drop down select
 					$scope.selectCurrentBatch = function(index) {
-						$scope.currentBatch = $scope.batches[index];
+						$scope.currentBatch = $scope.batchesByYear[index];
 						$log.debug("Selected batch " + index);
 					// create new scope of trainees
 						$scope.trainees={};						
