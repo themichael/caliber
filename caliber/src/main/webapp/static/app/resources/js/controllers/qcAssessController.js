@@ -75,6 +75,8 @@ angular
 											$scope.currentWeek)
 									.then(
 											function(notes) {
+												$log.debug("NOTES RETRIEVED!");
+												$log.debug(notes);
 												for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 													var content = null;
 													var status = null;
@@ -142,17 +144,6 @@ angular
 						$scope.weeks.push(i);
 					}
 
-					// Set current week to first week
-					$log.debug("$scope.$parent.reportCurrentWeek");
-					$log.debug($scope.$parent.reportCurrentWeek);
-					// If reports week is selected
-					if ($scope.$parent.reportCurrentWeek !== undefined
-							&& $scope.$parent.reportCurrentWeek !== "(All)") {
-						$scope.currentWeek = $scope.$parent.reportCurrentWeek;
-					} else {
-						$scope.currentWeek = $scope.weeks[0];
-					}
-
 					// Start function for reports to use
 					function start() {
 						var curYear = new Date();
@@ -163,6 +154,19 @@ angular
 						
 						// Sort trainees alphabetically
 						$scope.currentBatch.trainees.sort(compare);
+						
+						// Set current week to first week
+						$log.debug("$scope.$parent.reportCurrentWeek");
+						$log.debug($scope.$parent.reportCurrentWeek);
+						// If reports week is selected
+						if ($scope.$parent.reportCurrentWeek !== undefined
+								&& $scope.$parent.reportCurrentWeek !== "(All)") {
+							$log.debug("Got report week");
+							$scope.currentWeek = $scope.$parent.reportCurrentWeek;
+						} else {
+							$log.debug("No report week");
+							$scope.currentWeek = $scope.weeks[0];
+						}
 						
 						// get status types
 						$scope.qcStatusTypes = [];
@@ -179,7 +183,7 @@ angular
 									$log.debug(noteTypes);
 									// do something with note type
 								});
-
+						$scope.faces = [];
 						// Get notes
 						$scope.getNotes();
 					}
