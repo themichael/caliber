@@ -215,8 +215,9 @@ public class ReportingService {
 	 */
 	public Map<String, Double[]> getBatchWeekTraineeBarChart(Integer batchId, Integer traineeId, Integer week) {
 		Map<String, Double[]> results = new HashMap<>();
+		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
 		for (AssessmentType a : AssessmentType.values()) {
-			Double[] avgTraineeWeek = utilAvgTraineeWeek(traineeId, week, a);
+			Double[] avgTraineeWeek = utilAvgTraineeWeek(week, a, grades);
 			Map<Trainee, Double[]> avgBatchWeek = utilAvgBatchWeek(batchId, week, a);
 			Double batchAvg = 0d;
 			for (Map.Entry<Trainee, Double[]> e : avgBatchWeek.entrySet()) {
@@ -353,8 +354,7 @@ public class ReportingService {
 	 *         1: Weight of that assessment type, 2: Number of Assessments of
 	 *         Each Type}
 	 */
-	public Double[] utilAvgTraineeWeek(Integer traineeId, Integer week, AssessmentType assessmentType) {
-		List<Grade> allGrade = gradeDAO.findByTrainee(traineeId);
+	public Double[] utilAvgTraineeWeek(Integer week, AssessmentType assessmentType, List<Grade> allGrade) {
 		List<Grade> gradesForTheWeek = allGrade.stream().filter(el -> el.getAssessment().getWeek() == week)
 				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
@@ -391,7 +391,8 @@ public class ReportingService {
 		Map<Trainee, Double[]> results = new HashMap<>();
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		for (Trainee trainee : trainees) {
-			results.put(trainee, utilAvgTraineeWeek(trainee.getTraineeId(), week, assessmentType));
+			List<Grade> gradeList = new ArrayList<Grade>(trainee.getGrades());
+			results.put(trainee, utilAvgTraineeWeek(week, assessmentType, gradeList));
 		}
 		return results;
 	}
@@ -409,9 +410,10 @@ public class ReportingService {
 	public Map<Integer, Double[]> utilAvgTraineeOverall(Integer traineeId, AssessmentType assessmentType) {
 		Map<Integer, Double[]> results = new HashMap<>();
 		Trainee trainee = traineeDAO.findOne(traineeId);
+		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
 		int weeks = trainee.getBatch().getWeeks();
 		for (Integer i = 1; i <= weeks; i++) {
-			Double[] avg = utilAvgTraineeWeek(traineeId, i, assessmentType);
+			Double[] avg = utilAvgTraineeWeek(i, assessmentType, grades);
 			results.put(i, avg);
 		}
 		return results;
