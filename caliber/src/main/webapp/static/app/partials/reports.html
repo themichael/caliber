@@ -83,13 +83,13 @@
 										<table ng-if="averageTraineeScoresWeeklyLabels"
 											class="table table-responsive"
 											style="border-collapse: collapse;">
-
-											<tr
-												ng-repeat="label in averageTraineeScoresWeeklyLabels track by $index"
+											
+											<tr ng-repeat="label in averageTraineeScoresWeeklyLabels track by $index"
 												class="col-md-3 col-lg-3 col-sm-3">
 												<th class="pull-left">{{label}}</th>
-												<td class="pull-right">{{averageTraineeScoresWeeklyLabels[0][$index]}}</td>
+												<td class="pull-right">{{averageTraineeScoresWeeklyData[0][$index]}}</td>
 											</tr>
+										
 										</table>
 									</div>
 								</div>
@@ -273,13 +273,13 @@
 										<table ng-if="AssessmentAveragesTraineeWeeklyLabels"
 											class="table table-responsive"
 											style="border-collapse: collapse;">
-
-
-											{{label}}
-											</th>
+											
+											
+											<tr>
+												<th></th>
+												<th class="col-sm-2 col-md-2 col-lg-2"
+													ng-repeat="label in AssessmentAveragesTraineeWeeklyLabels">{{label}}</th>
 											</tr>
-											
-											
 											<tr
 												ng-repeat="series in AssessmentAveragesTraineeWeeklyData track by $index">
 												<th>{{AssessmentAveragesTraineeWeeklySeries[$index]}}</th>
@@ -410,7 +410,6 @@
 											class="table table-responsive"
 											style="border-collapse: collapse;">
 											<tr ng-repeat="item in radarTraineeOverallTable">
-											
 											<tr ng-repeat="item in radarTraineeOverallTable">
 												<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
 												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
