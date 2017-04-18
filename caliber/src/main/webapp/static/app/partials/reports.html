@@ -83,13 +83,14 @@
 										<table ng-if="averageTraineeScoresWeeklyLabels"
 											class="table table-responsive"
 											style="border-collapse: collapse;">
-											
-											<tr ng-repeat="label in averageTraineeScoresWeeklyLabels track by $index"
+
+											<tr
+												ng-repeat="label in averageTraineeScoresWeeklyLabels track by $index"
 												class="col-md-3 col-lg-3 col-sm-3">
 												<th class="pull-left">{{label}}</th>
 												<td class="pull-right">{{averageTraineeScoresWeeklyData[0][$index]}}</td>
 											</tr>
-										
+
 										</table>
 									</div>
 								</div>
@@ -156,11 +157,9 @@
 						</div>
 					</div>
 				</div>
-				<!-- Row With Bottom 2 Charts -->
 			</div>
+			<!-- Row With Bottom 2 Charts -->
 		</div>
-		<!-- Row with all 3 Chart-->
-
 		<!-- Batch -> Overall -->
 		<div class="row" ng-if="batchOverall">
 			<div class="col-sm-12 col-md-12 col-lg-12">
@@ -273,8 +272,8 @@
 										<table ng-if="AssessmentAveragesTraineeWeeklyLabels"
 											class="table table-responsive"
 											style="border-collapse: collapse;">
-											
-											
+
+
 											<tr>
 												<th></th>
 												<th class="col-sm-2 col-md-2 col-lg-2"
@@ -470,3 +469,4 @@
 	<div ui-view="qc-display" ng-if=true></div>
 </div>
 <!-- caliber-container -->
+

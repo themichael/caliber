@@ -1,7 +1,10 @@
 /** modules * */
-angular.module("app", [ "ui.router", "ngCookies", "auth", "chart.js", "vp",
-		"qc", "trainer", "api", "delegate", "charts", "reportApi","ngAnimate"]);
-
+var app =angular.module("app", [ "ui.router", "ngCookies", "auth", "chart.js", "vp",
+		"qc", "trainer", "api", "delegate", "charts", "reportApi","ngAnimate"]).run(function($rootScope){
+			$rootScope.$on('test',function(){
+				$rootScope.$broadcast('trainerasses');
+			});
+		})
 // add modules here
 angular.module("vp", []);
 angular.module("qc", []);
