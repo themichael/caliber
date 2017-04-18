@@ -26,11 +26,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.revature.caliber.validator.BatchValObject;
+
 /**
  * The type Batch.
  */
 @Entity
 @Table(name = "CALIBER_BATCH")
+@BatchValObject
 public class Batch implements Serializable {
 
 	private static final long serialVersionUID = -5755409643112884001L;
@@ -87,12 +90,13 @@ public class Batch implements Serializable {
 	private short goodGradeThreshold;
 
 	/**
-	 * Anything above this grade but below goodGradeThreshold is YELLOW Anything below this grade is RED
+	 * Anything above this grade but below goodGradeThreshold is YELLOW Anything
+	 * below this grade is RED
 	 */
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 
-	@OneToMany(mappedBy = "batch", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "batch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference(value = "traineeAndBatch")
 	private Set<Trainee> trainees;
 
@@ -105,7 +109,7 @@ public class Batch implements Serializable {
 
 	public Batch() {
 		super();
-		this.weeks = 1; 
+		this.weeks = 1;
 	}
 
 	public Batch(String trainingName, Trainer trainer, SkillType skillType, TrainingType trainingType, Date startDate,
@@ -247,7 +251,7 @@ public class Batch implements Serializable {
 	@Override
 	public String toString() {
 		return "Batch [batchId=" + batchId + ", trainingName=" + trainingName + ", skillType=" + skillType
-				+ ", trainingType=" + trainingType + "]";
+				+ ", trainingType=" + trainingType + " trainees=" + trainees + "]";
 	}
 
 }
