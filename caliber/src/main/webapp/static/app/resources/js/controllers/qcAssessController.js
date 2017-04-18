@@ -155,10 +155,13 @@ angular
 
 					// Start function for reports to use
 					function start() {
+						$log.debug(allBatches);
 						var curYear = new Date();
 						$log.debug("Year test: ");
 						$scope.selectedYear = curYear.getFullYear();
 						batchYears();
+						$log.debug($scope.batchesByYear);
+
 						// $log.debug($scope.selectedYear);
 						
 						// get status types
@@ -224,7 +227,6 @@ angular
 						wipeFaces();
 						
 						$scope.trainingNameDate = $scope.currentBatch.trainingName + " " + $scope.currentBatch.startDate;
-						$log.debug(trainingNameDate);
 					};
 
 					// Select week
@@ -397,6 +399,7 @@ angular
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
 						batchYears();
+						$log.debug($scope.batchesByYear);
 					};
 
 					function sortByDate(currentYear) {
@@ -418,10 +421,12 @@ angular
 					function batchYears() {		
 						$scope.batchesByYear = [];
 						
-						for (var i = 0; i < $scope.batches.length; i++) 
-							if ($scope.selectedYear === parseInt($scope.batches[i].startDate)) 
+						for (var i = 0; i < $scope.batches.length; i++) {
+							if ($scope.selectedYear === parseInt($scope.batches[i].startDate.substring(0,4))) { 
 								$scope.batchesByYear.push($scope.batches[i].trainingName 
 										+ " - " 
 										+ $scope.batches[i].startDate);
+							}
+						}
 					}
 				});
