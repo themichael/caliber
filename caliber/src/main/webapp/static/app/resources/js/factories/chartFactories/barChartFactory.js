@@ -29,12 +29,6 @@ angular.module("charts").factory("barChartFactory", function($log) {
 						max : 100,
 						stepSize : 20
 					}
-				} ],
-				xAxes : [ {
-					scaleLabel : {
-						display : true,
-						labelString : 'Assessment'
-					}
 				} ]
 			}
 		};
@@ -47,7 +41,6 @@ angular.module("charts").factory("barChartFactory", function($log) {
 				chartData.data.push(value[0].toFixed(2));
 			}
 		});
-
 
 		/*
 		 * chartData.datasetOverride = [ { xAxisID : 'x-axis-1' } ];
@@ -146,7 +139,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 
 	barChart.getBatchOverallBarChart = function(dataArray) {
 		var chartData = {};
-		
+
 		var sorted = [];
 		// make the object to an array
 		angular.forEach(dataArray, function(value, key) {
@@ -159,7 +152,7 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		sorted.sort(function(a, b) {
 			return b.value - a.value;
 		});
-		
+
 		// series
 		chartData.series = [ "Trainee", "Average" ];
 
@@ -179,12 +172,6 @@ angular.module("charts").factory("barChartFactory", function($log) {
 						suggestedMin : 40,
 						max : 100,
 						stepSize : 20
-					}
-				} ],
-				xAxes : [ {
-					scaleLabel : {
-						display : true,
-						labelString : 'Trainee'
 					}
 				} ]
 			}
@@ -230,12 +217,6 @@ angular.module("charts").factory("barChartFactory", function($log) {
 						max : 100,
 						stepSize : 20
 					}
-				} ],
-				xAxes : [ {
-					scaleLabel : {
-						display : true,
-						labelString : 'Trainee'
-					}
 				} ]
 			}
 		};
@@ -246,6 +227,6 @@ angular.module("charts").factory("barChartFactory", function($log) {
 		});
 		return chartData;
 	};
-	
+
 	return barChart;
 });

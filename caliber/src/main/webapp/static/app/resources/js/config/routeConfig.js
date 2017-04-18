@@ -163,7 +163,7 @@ angular
 						      },
 						      "trainee-week@trainer.reports":{
 						    	  templateUrl: "/static/app/partials/trainee-week.html",
-						    	  controller:"traineeAssessController"
+						    	  controller:"trainerAssessController"
 						      },
 						      "qc-display@trainer.reports": {
 						    	  templateUrl : "/static/app/partials/qc-display.html",
