@@ -484,10 +484,10 @@ angular
 											NProgress.done();
 											var lineChartObjectwd = chartsDelegate.line
 													.getWeeklyProgressTraineeWeekly(data);
-											$scope.linecharTWLabels = lineChartObjectwd.labels;
-											$scope.linecharTWData = lineChartObjectwd.data;
-											$scope.linecharTWOptions = lineChartObjectwd.options;
-											$scope.linecharTWSeries = lineChartObjectwd.series;
+											$scope.linechartTWLabels = lineChartObjectwd.labels;
+											$scope.linechartTWData = lineChartObjectwd.data;
+											$scope.linechartTWOptions = lineChartObjectwd.options;
+											$scope.linechartTWSeries = lineChartObjectwd.series;
 										}, function() {
 											NProgress.done();
 										});

@@ -134,34 +134,47 @@
 							<div class="panel-body">
 								<div class="chart-container top5">
 
-									<canvas id="barchart" class="chart chart-bar" chart-data="barchartAWData"
-										chart-series="barchartAWSeries" chart-labels="barchartAWLabels"
+									<canvas id="barchart" class="chart chart-bar"
+										chart-data="barchartAWData" chart-series="barchartAWSeries"
+										chart-labels="barchartAWLabels"
 										chart-options="barchartAWOptions">
                                     </canvas>
-                                 	<div class="wrap">
-									<div class='outer-bar-data' ng-if='barchartAWLabels.length <= 2'>
-											<table ng-if="barchartAWLabels" class="table table-responsive"
+									<div class="wrap">
+										<div class='outer-bar-data'
+											ng-if='barchartAWLabels.length <= 2'>
+											<table ng-if="barchartAWLabels"
+												class="table table-responsive"
 												style="border-collapse: collapse;">
-								        	<tr class="col-sm-2 col-md-2 col-lg-2 col-offset-sm-2 col-offset-md-2 col-lg-offset-2 "  
-													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
-												<th>{{label}}</th>
-												<td>{{barchartAWData[$index]}}</td>
-											</tr>
-										</table>
-									</div>
-								   
-								   <div ng-if='barchartAWLabels.length > 2'>
-											<table ng-if="barchartAWLabels" class="table table-responsive"
+												<tr ng-if='barchartAWLabels.length == 2'
+													class="col-lg-2 col-lg-offset-2"
+													ng-repeat="label in barchartAWLabels track by $index"
+													for="{{label}}">
+													<th>{{label}}</th>
+													<td>{{barchartAWData[$index]}}</td>
+												</tr>
+												<tr ng-if='barchartAWLabels.length == 1' class="col-lg-1"
+													ng-repeat="label in barchartAWLabels track by $index"
+													for="{{label}}">
+													<th>{{label}}</th>
+													<td>{{barchartAWData[$index]}}</td>
+												</tr>
+											</table>
+										</div>
+
+										<div ng-if='barchartAWLabels.length > 2'>
+											<table ng-if="barchartAWLabels"
+												class="table table-responsive"
 												style="border-collapse: collapse;">
-											<tr class="col-lg-2 col-lg-offset-2 "  
-													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
-												<th>{{label}}</th>
-												<td>{{barchartAWData[$index]}}</td>
-											</tr>
-										</table>
+												<tr class="col-lg-2 col-lg-offset-2 "
+													ng-repeat="label in barchartAWLabels track by $index"
+													for="{{label}}">
+													<th>{{label}}</th>
+													<td>{{barchartAWData[$index]}}</td>
+												</tr>
+											</table>
+										</div>
 									</div>
-									</div>
-								   
+
 								</div>
 							</div>
 						</div>
@@ -337,25 +350,27 @@
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="linechart" class="chart chart-line"
-										chart-data="linecharTWData" chart-labels="linecharTWLabels"
-										chart-options="linecharTWOptions"
-										chart-series="linecharTWSeries">
+										chart-data="linechartTWData" chart-labels="linechartTWLabels"
+										chart-options="linechartTWOptions"
+										chart-series="linechartTWSeries">
                                     </canvas>
 									<div>
 										<table class="table table-responsive"
-											style="border-collapse: collapse;">
+												style="border-collapse: collapse;">
 											<tr>
 												<th></th>
 												<th class="col-sm-2 col-md-2 col-lg-2"
-													ng-repeat="label in linecharTWLabels">Week {{label}}</th>
+														ng-repeat="label in linechartTWLabels">Week
+													{{label}}</th>
 											</tr>
-											<tr ng-repeat="series in linecharTWData track by $index">
-												<th>{{linecharTWSeries[$index]}}</th>
+											<tr ng-repeat="series in linechartTWData track by $index">
+												<th>{{linechartTWSeries[$index]}}</th>
 												<td class="col-sm-2 col-md-2 col-lg-2"
-													ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
+														ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
 											</tr>
 										</table>
 									</div>
+								
 								</div>
 							</div>
 						</div>
