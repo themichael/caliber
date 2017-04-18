@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainingStatus;
 
@@ -44,6 +45,21 @@ public class BaseDAO {
 			assessment.getBatch().setTrainees(trainees);
 		}
 		return assessment;
+	}
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Note initializeActiveTrainees(Note note) {
+		Set<Trainee> trainees = new HashSet<>();
+		if (note != null && note.getBatch() != null) {
+			for (Trainee trainee : note.getBatch().getTrainees()) {
+				if (trainee.getTrainingStatus() != null
+						&& !trainee.getTrainingStatus().equals(TrainingStatus.Dropped)) {
+					trainees.add(trainee);
+				}
+			}
+			note.getBatch().setTrainees(trainees);
+		}
+		return note;
 	}
 
 }

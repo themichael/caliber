@@ -134,7 +134,7 @@ public class PDFService {
 			CSSResolver cssResolver = new StyleAttrCSSResolver();
 			CssFile cssFile = XMLWorkerHelper.getCSS(CSS_STYLES);
 			cssResolver.addCss(cssFile);
-
+			
 			// HTML
 			HtmlPipelineContext htmlPipelineContext = new HtmlPipelineContext(null);
 			htmlPipelineContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
