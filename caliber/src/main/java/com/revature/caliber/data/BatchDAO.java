@@ -69,7 +69,7 @@ public class BatchDAO extends BaseDAO {
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
 						Restrictions.eq("coTrainer.trainerId", trainerId)))
-				.createAlias("trainees", "t").setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for (Batch batch : batches) {
 			initializeActiveTrainees(batch);
 		}
