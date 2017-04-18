@@ -92,16 +92,16 @@ public class SampleDataSetup {
 		Trainee martin = new Trainee("Blanchard, Martin", "m.b@post.com", TrainingStatus.Dropped,"(603) 264-6975", null, null, batch);
 		Trainee manya = new Trainee("Almatar, Manya", "ma@gmail.com", TrainingStatus.Dropped, "(773) 954-5468",null, null, batch);
 		Trainee russ = new Trainee("Peters, Russell", "rd@gmail.com", TrainingStatus.Dropped, "(240) 678-3465",null, null, batch);
-//		traineeDAO.save(denis);
-//		traineeDAO.save(jon);
-//		traineeDAO.save(kevin);
-//		traineeDAO.save(issac);
-//		traineeDAO.save(jimmy);
-//		traineeDAO.save(erika);
-//		traineeDAO.save(wyatt);
-//		traineeDAO.save(martin);
-//		traineeDAO.save(manya);
-//		traineeDAO.save(russ);
+		traineeDAO.save(denis);
+		traineeDAO.save(jon);
+		traineeDAO.save(kevin);
+		traineeDAO.save(issac);
+		traineeDAO.save(jimmy);
+		traineeDAO.save(erika);
+		traineeDAO.save(wyatt);
+		traineeDAO.save(martin);
+		traineeDAO.save(manya);
+		traineeDAO.save(russ);
 
 		log.info("Fetching categories for assessment");
 		List<Category> categories = categoryDAO.findAll();
