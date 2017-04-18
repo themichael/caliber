@@ -227,6 +227,14 @@ footer a, footer a:hover{
     border-top: 0;
 }
 
+.wrap {
+	text-align: center;
+}
+.outer-bar-data{
+    display: inline-block;
+    margin: 0 auto;
+    padding:0;
+}
 /**********************
 	save button
 **********************/

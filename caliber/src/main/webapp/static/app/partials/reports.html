@@ -133,24 +133,35 @@
 							<div class="panel-heading">Assessment Averages</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="barchart" class="chart chart-bar"
-										chart-data="barcharAWData" chart-series="barcharAWSeries"
-										chart-labels="barcharAWLabels"
-										chart-options="barcharAWOptions">
+
+									<canvas id="barchart" class="chart chart-bar" chart-data="barchartAWData"
+										chart-series="barchartAWSeries" chart-labels="barchartAWLabels"
+										chart-options="barchartAWOptions">
                                     </canvas>
-									<div>
-										<table ng-if="barcharAWLabels" class="table table-responsive"
-											style="border-collapse: collapse;">
-												<tr class="col-md-12 col-sm-12 col-lg-12">
-													<th class="col-sm-6 col-md-6 col-lg-6"
-														ng-repeat="label in barcharAWLabels">{{label}}</th>
-												</tr>
-												<tr class="col-md-12 col-sm-12 col-lg-12">
-													<td class="col-sm-6 col-md-6 col-lg-6 ng-binding"
-														ng-repeat="dataPoint in barcharAWData track by $index">{{dataPoint}}</td>
-												</tr>
+                                 	<div class="wrap">
+									<div class='outer-bar-data' ng-if='barchartAWLabels.length <= 2'>
+											<table ng-if="barchartAWLabels" class="table table-responsive"
+												style="border-collapse: collapse;">
+								        	<tr class="col-sm-2 col-md-2 col-lg-2 col-offset-sm-2 col-offset-md-2 col-lg-offset-2 "  
+													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
+												<th>{{label}}</th>
+												<td>{{barchartAWData[$index]}}</td>
+											</tr>
 										</table>
 									</div>
+								   
+								   <div ng-if='barchartAWLabels.length > 2'>
+											<table ng-if="barchartAWLabels" class="table table-responsive"
+												style="border-collapse: collapse;">
+											<tr class="col-lg-2 col-lg-offset-2 "  
+													ng-repeat="label in barchartAWLabels track by $index"for="{{label}}"  >
+												<th>{{label}}</th>
+												<td>{{barchartAWData[$index]}}</td>
+											</tr>
+										</table>
+									</div>
+									</div>
+								   
 								</div>
 							</div>
 						</div>
