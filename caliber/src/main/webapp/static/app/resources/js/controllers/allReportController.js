@@ -27,11 +27,13 @@ angular
 					$scope.batchWeekTrainee = false;
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
+
 					//$scope.currentBatch = allBatches[0];$scope.currentWeek =1; // denise debug line please ignore ... ill delete when im done TODO
 					(function () {
 						// Finishes any left over ajax animation
 						NProgress.done();
 						// batch null check
+
 						if ($scope.currentBatch === null) {
 							$scope.noBatch = true;
 						} else {
