@@ -138,12 +138,14 @@
 									<div>
 											<table ng-if="barcharAWLabels" class="table table-responsive"
 												style="border-collapse: collapse;">
-											<tr>
-												<th class="col-sm-2 col-md-2 col-lg-2" ng-repeat="label in barcharAWLabels">{{label}}</th>
+											<tr class="col-sm-2 col-md-2 col-lg-2 col-offset-sm-2 col-offset-md-2 col-lg-offset-2" 
+													ng-repeat="label in barcharAWLabels track by $index"for="{{label}}">
+												<th>{{label}}</th>
+												<td>{{barcharAWData[$index]}}</td>
 											</tr>
 											<tr>
-												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
-													ng-repeat="dataPoint in barcharAWData track by $index">{{dataPoint}}</td>
+												<!-- <td 
+													ng-repeat="dataPoint in barcharAWData track by $index">{{dataPoint}}</td> -->
 											</tr>
 										</table>
 									</div>
@@ -234,7 +236,7 @@
 													class="table table-responsive"
 													style="border-collapse: collapse;">
 											<tr>
-												<th class="col-sm-2 col-md-2 col-lg-2"
+												<th class="col-sm-2 col-md-2 col-lg-2 ng-binding"
 													ng-repeat="label in weeklyProgressBatchOverallLabels">Week {{label}}</th>
 											</tr>
 											<tr>
@@ -273,12 +275,12 @@
 												style="border-collapse: collapse;">
 												<tr>
 													<th></th>
-													<th class="col-sm-2 col-md-2 col-lg-2"
+													<th 
 														ng-repeat="label in AssessmentAveragesTraineeWeeklyLabels">{{label}}</th>
 												</tr>
 												<tr ng-repeat="series in AssessmentAveragesTraineeWeeklyData track by $index">
 													<th>{{AssessmentAveragesTraineeWeeklySeries[$index]}}</th>
-													<td class="col-sm-2 col-md-2 col-lg-2"
+													<td class="col-sm-2 col-md-3 col-lg-3"
 														ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
 												</tr>
 											</table>
