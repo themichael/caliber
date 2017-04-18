@@ -120,6 +120,12 @@ angular
 
 					// Start function for reports to use
 					function start() {
+						var curYear = new Date();
+						$log.debug("Year test: ");
+						$scope.selectedYear = curYear.getFullYear();
+						batchYears();
+						// $log.debug($scope.selectedYear);
+						
 						// get status types
 						$scope.qcStatusTypes = [];
 						caliberDelegate.all.enumQCStatus().then(
@@ -414,5 +420,10 @@ angular
 								$scope.batchesByYear.push($scope.batches[i].trainingName 
 										+ " - " 
 										+ $scope.batches[i].startDate);
+					}
+					
+					$scope.clearDropDown = function() {
+						$log.debug("Clearning drop down");
+						$scope.batchesByYear = [];
 					}
 				});
