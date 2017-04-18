@@ -174,6 +174,10 @@ angular
 					}
 
 					function traineeWeek() {
+
+					}
+
+					function traineeOverall() {
 						
 					}
 					
@@ -344,11 +348,17 @@ angular
 					}
 					// Call start function
 					start();
-					// Call start function when on reports page and batch and week selected
+					// Call start function when on reports page and batch and
+					// week selected
 					$rootScope.$on('qcBatchOverall', function() {
 						start();
 					});
+					// Execute when on reports page and trainee and week selected
 					$rootScope.$on('qcTraineeWeek', function() {
 						traineeWeek();
+					});
+					// Execute when on reports page and trainee and all week selected
+					$rootScope.$on('GET_TRAINEE_OVERALL', function() {
+						traineeOverall();
 					});
 				});

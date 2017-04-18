@@ -154,7 +154,7 @@
 				</div> <!-- Row With Bottom 2 Charts -->
 			</div>
 
-				<!-- for testing purposes -->
+				<!-- trainer display -->
 				<div ui-view="trainer-display" ng-if="displayTable()"></div>
 				<!-- qc -->
 				<div ui-view="qc-batchOverall"></div>
@@ -351,6 +351,7 @@
 				</div> <!-- Row With Bottom 2 Charts -->
 			</div>
 			<div ui-view="qc-traineeWeek"></div>
+			<div ui-view="trainer-display" ng-if="displayTable()"></div>
 		</div> <!-- Row with all 3 Chart-->
 
 		<!-- Batch -> Overall -> Trainee-->
@@ -450,8 +451,13 @@
 					</div>
 				</div> <!-- Row With Bottom 2 Charts -->
 			</div>
+<<<<<<< HEAD
 			<div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div>
 			<div ui-view="qc-traineeOverall"></div>
+=======
+			 <div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div> 
+			 <div ui-view="qc-traineeOverall" ng-if="displayTable()"></div> 
+>>>>>>> 55adfbcc76c226a2bc50a3bd59b64a62bd63368c
 		</div> <!-- Row with all 3 Chart-->
 
 	</div> <!-- top10 data-container -->
