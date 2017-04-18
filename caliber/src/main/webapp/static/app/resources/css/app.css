@@ -220,6 +220,19 @@ footer a, footer a:hover{
 .table-responsive{
 	display:block !important;	
 }
+.wrap {
+    text-align: center;
+}
+
+.outer-yani {
+    display: inline-block;
+    margin: 0 auto;
+    padding:0;
+}
+
+.inner-yani {
+  
+}
 /**********************
 	save button
 **********************/
