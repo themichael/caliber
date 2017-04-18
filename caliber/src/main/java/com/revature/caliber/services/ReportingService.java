@@ -2,6 +2,7 @@ package com.revature.caliber.services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -556,6 +557,32 @@ public class ReportingService {
 		Map<Trainee, Double> traineeAverageGrades = utilAvgBatchWeek(batchId, week);
 		Double weeklyBatchAverage = traineeAverageGrades.entrySet().stream().mapToDouble(e-> e.getValue()).sum() / traineeAverageGrades.size();
 		return weeklyBatchAverage;
+	}
+	
+	public Map<Integer,Set<Category>> utilCategorybyWeek(Integer batchId){
+		List<Grade> grades = gradeDAO.findByBatch(batchId);
+		Set<Category> categories = new HashSet<>();
+		Map<Integer,Set<Category>> results = new HashMap<>();
+		for(Grade grade: grades){
+			categories.add(grade.getAssessment().getCategory());
+			results.put(Integer.valueOf(grade.getAssessment().getWeek()), categories);
+		}
+		return results;
+		
+		
+	}
+	
+	public Map<Integer,Set<Category>> utilCatagoryByWeekNumber(Integer batchId,Integer week){
+		Map<Integer,Set<Category>> allWeekCatagory = utilCategorybyWeek(batchId);
+		Map<Integer,Set<Category>> result = new HashMap<>();
+		for(Map.Entry<Integer, Set<Category>> entry : allWeekCatagory.entrySet()){
+			if(entry.getKey().equals(week)){
+				result.put(week,entry.getValue());
+			}
+			
+		}
+		return result;
+		
 	}
 	
 	
