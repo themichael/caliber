@@ -2,7 +2,7 @@ angular
 		.module("charts")
 		.controller(
 				"allReportController",
-				function($scope, $log, caliberDelegate, chartsDelegate,
+				function($rootScope, $scope, $state, $log, caliberDelegate, chartsDelegate,
 						allBatches) {
 
 					// *******************************************************************************
@@ -19,14 +19,13 @@ angular
 						"weeks" : []
 					};
 					$scope.currentTraineeId = ALL;
-					
-					
+
 					$scope.noBatch = true;
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
-
+					//$scope.currentBatch = allBatches[0];$scope.currentWeek =1; // denise debug line please ignore ... ill delete when im done TODO
 					(function start() {
 						// Finishes any left over ajax animation
 						NProgress.done();
@@ -39,7 +38,7 @@ angular
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
-							
+
 						}
 
 					})();
@@ -144,21 +143,18 @@ angular
 					}
 
 					$scope.selectCurrentWeek = function(week) {
+						$scope.currentWeek = week;
 						$scope.reportCurrentWeek = week;
 						selectView($scope.currentBatch.batchId,
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
+						$rootScope.$emit('test');
 					}
-
-					/*
-					 * scope function to display the table if a batch and week
-					 * has been selected
-					 */
-					$scope.displayTable = function() {
-						if ($scope.currentBatch.batchId
-								&& $scope.reportCurrentWeek) {
-							// checking to see if the scope variables are null
-							return true; // change to false later
+					/*scope function to display the table if a batch and week has been selected*/
+					$scope.displayTable = function(){
+				//		$log.debug("[		THIS IS THE CURRENT BATCHID 		]" +$scope.currentBatch.batchId + " [		THIS IS THE CURRENTWEEK		]" + $scope.reportCurrentWeek);
+						if($scope.currentBatch === null  || $scope.currentWeek === null){ // checking to see if the scope variables are null
+							return false;
 						}
 						return true;
 					}
@@ -366,48 +362,55 @@ angular
 					function createTechnicalSkillsTraineeWeekly() {
 						$log.debug("createTechnicalSkillsTraineeWeekly");
 						chartsDelegate.radar.data
-								.getTechnicalSkillsTraineeWeeklyData(
+								.getTraineAndBatchSkillComparisonChart(
+										$scope.currentBatch.batchId,
 										$scope.reportCurrentWeek,
 										$scope.currentTraineeId)
-								// up to week, traineeId
 								.then(
 										function(data) {
 											NProgress.done();
-											var radarTraineeWeeklyChartObj = chartsDelegate.radar
-													.getTechnicalSkillsTraineeWeekly(
-															data,
-															"Temp Trainee Weekly");
-											$scope.radarTraineeWeeklyData = radarTraineeWeeklyChartObj.data;
-											$scope.radarTraineeWeeklyOptions = radarTraineeWeeklyChartObj.options;
-											$scope.radarTraineeWeeklyLabels = radarTraineeWeeklyChartObj.labels;
-											$scope.radarTraineeWeeklySeries = radarTraineeWeeklyChartObj.series;
+											var radarChartObject = chartsDelegate.radar
+													.createFromTwoDataSets(
+															data.batch,
+															data.trainee,
+															$scope.currentBatch.trainingName,
+															$scope.currentTrainee.name);
+
+											$scope.radarTraineeWeeklyData = radarChartObject.data;
+											$scope.radarTraineeWeeklyOptions = radarChartObject.options;
+											$scope.radarTraineeWeeklyLabels = radarChartObject.labels;
+											$scope.radarTraineeWeeklySeries = radarChartObject.series;
 
 											$scope.radarTraineeWeeklyTable = chartsDelegate.utility
-													.dataToTable(radarTraineeWeeklyChartObj);
+													.dataToTable(radarChartObject);
 										});
 					}
-					;
 
 					function createTechnicalSkillsTraineeOverall() {
 						$log.debug("createTechnicalSkillsTraineeOverall");
 						chartsDelegate.radar.data
-								.getTechnicalSkillsTraineeOverallData(
+								.getTraineAndBatchSkillComparisonChart(
+										$scope.currentBatch.batchId,
+										$scope.reportCurrentWeek,
 										$scope.currentTraineeId)
-								// traineeId
 								.then(
 										function(data) {
+											$log.debug(data);
 											NProgress.done();
-											var radarTraineeOverallChartObj = chartsDelegate.radar
-													.getTechnicalSkillsTraineeOverall(
-															data,
-															"Temp Trainee Overall");
-											$scope.radarTraineeOverallData = radarTraineeOverallChartObj.data;
-											$scope.radarTraineeOverallOptions = radarTraineeOverallChartObj.options;
-											$scope.radarTraineeOverallLabels = radarTraineeOverallChartObj.labels;
-											$scope.radarTraineeOverallSeries = radarTraineeOverallChartObj.series;
+											var radarChartObject = chartsDelegate.radar
+													.createFromTwoDataSets(
+															data.batch,
+															data.trainee,
+															$scope.currentBatch.trainingName,
+															$scope.currentTrainee.name);
+
+											$scope.radarTraineeOverallData = radarChartObject.data;
+											$scope.radarTraineeOverallOptions = radarChartObject.options;
+											$scope.radarTraineeOverallLabels = radarChartObject.labels;
+											$scope.radarTraineeOverallSeries = radarChartObject.series;
 
 											$scope.radarTraineeOverallTable = chartsDelegate.utility
-													.dataToTable(radarTraineeOverallChartObj);
+													.dataToTable(radarChartObject);
 										});
 					}
 

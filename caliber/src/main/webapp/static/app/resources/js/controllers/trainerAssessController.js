@@ -5,7 +5,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerAssessController",
-				function($timeout,$log, $scope, chartsDelegate, caliberDelegate,
+				function($rootScope, $timeout,$log, $scope, $state, chartsDelegate, caliberDelegate,
 						allBatches) {
 					// Week object
 					function Week(weekNumb, assessments) {
@@ -419,7 +419,7 @@ angular
 							.weightedScore = $scope.getWeightedScore(
 									$scope.assessmentsById[a.assessmentId].rawScore
 									,totalRawScore
-									);
+									).toFixed(0).toString() + '%';;
 						}
 					}
 					$scope.getWeightedScore = function(rawScore,totalRawScore){
@@ -563,6 +563,9 @@ angular
 					/****************************************************
 					 *Save Button **
 					 **************************************************/
+					$rootScope.testChild = function(){
+						alert('hti');
+					}
 					
 					$scope.showSaving = false;
 					$scope.showCheck = false;
@@ -587,4 +590,23 @@ angular
 					$scope.stopBurrito = function(traineeId){
 						$scope.trainees[traineeId].burrito=false;
 					}
+					$scope.reloadController = function() {
+			            $state.reload();
+			        };
+//					$rootScope.reloadController();
+					$rootScope.$on('trainerasses',function(){
+						$scope.trainees={};						
+						
+						for(trainee of $scope.currentBatch.trainees){
+							$scope.assignTraineeScope(trainee.traineeId);
+						}
+						
+						//start(allBatches);
+						getAllAssessmentsForWeek(
+								$scope.currentBatch.batchId,
+								$scope.currentWeek);
+					})
+					/* RUN START FUNCTION */
+					//start(allBatches);
+				
 				});

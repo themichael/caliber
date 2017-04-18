@@ -47,7 +47,6 @@ public class NoteDAOTest {
 	 * .
 	 */
 	@Test
-	@Transactional
 	public void testSave() {
 		
 	}
