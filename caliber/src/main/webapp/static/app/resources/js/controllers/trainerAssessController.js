@@ -543,20 +543,24 @@ angular
 					 */
 					
 					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
-						$scope.saving = [];
+						//assessmentTotals will assessment objects, each with properties
+						// - total(for total score)
+						// - count (for total number of trainees to divide by)
 						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
 						if($scope.assessmentTotals[assessment.assessmentId] === undefined) $scope.assessmentTotals[assessment.assessmentId] = {};
 							
 						$scope.assessmentTotals[assessment.assessmentId].total = 0;
 						$scope.assessmentTotals[assessment.assessmentId].count = 0;
-						var count =0
 							for(var traineeKey in trainees){
+						//checks if trainee has assessment
 								if(trainees[traineeKey].assessments[assessment.assessmentId]){
-									$scope.assessmentTotals[assessment.assessmentId].total+= Number(trainees[traineeKey].assessments[assessment.assessmentId].score);								
-									$scope.assessmentTotals[assessment.assessmentId].count +=1;
-									count +=1;
+						//Only increment count and add to total if score is not 0;
+									var score = trainees[traineeKey].assessments[assessment.assessmentId].score;
+									if(score && score !== 0){ //
+										$scope.assessmentTotals[assessment.assessmentId].total+= Number(trainees[traineeKey].assessments[assessment.assessmentId].score);								
+										$scope.assessmentTotals[assessment.assessmentId].count +=1;
+									}
 								}
-								$scope.saving[count] = false;
 							}
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
