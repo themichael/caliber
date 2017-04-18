@@ -617,5 +617,5 @@ angular
 					});
 					/* RUN START FUNCTION */
 					//start(allBatches);
-				
+				$scope.test = function(){$log.debug("yer");}
 				});
