@@ -135,20 +135,18 @@
 										chart-series="barcharAWSeries" chart-labels="barcharAWLabels"
 										chart-options="barcharAWOptions">
                                     </canvas>
-									<div>
-											<table ng-if="barcharAWLabels" class="table table-responsive"
+                                 	<div class="wrap">
+									<div class='outer-yani'>
+											<table ng-if="barcharAWLabels" class="table table-responsive inner-yani"
 												style="border-collapse: collapse;">
-											<tr class="col-sm-2 col-md-2 col-lg-2 col-offset-sm-2 col-offset-md-2 col-lg-offset-2" 
+											<tr class="col-sm-1 col-md-1 col-lg-1 col-offset-sm-2 col-offset-md-2 col-lg-offset-2" 
 													ng-repeat="label in barcharAWLabels track by $index"for="{{label}}">
 												<th>{{label}}</th>
 												<td>{{barcharAWData[$index]}}</td>
 											</tr>
-											<tr>
-												<!-- <td 
-													ng-repeat="dataPoint in barcharAWData track by $index">{{dataPoint}}</td> -->
-											</tr>
 										</table>
 									</div>
+								   </div>
 								</div>
 							</div>
 						</div>
