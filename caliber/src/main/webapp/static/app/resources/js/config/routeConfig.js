@@ -168,6 +168,14 @@ angular
 						      "qc-display@trainer.reports": {
 						    	  templateUrl : "/static/app/partials/qc-display.html",
 									controller : "qcAssessController"
+						      },						      
+						      "qc-traineeOverall@trainer.reports": {
+						    	  templateUrl : "/static/app/partials/qc-traineeOverall.html",
+									controller : "qcAssessController"
+						      },
+						      "qc-traineeWeek@trainer.reports": {
+						    	  templateUrl : "/static/app/partials/qc-traineeWeek.html",
+									controller : "qcAssessController"
 						      }
 						    }
 						  })
