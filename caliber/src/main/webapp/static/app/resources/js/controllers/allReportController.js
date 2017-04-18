@@ -13,7 +13,7 @@ angular
 					const ALL = -1;
 
 					// What you see when you open Reports
-					$scope.currentBatch = allBatches[allBatches.length - 1];
+					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.batchWeeks = {
 						"weeks" : []

@@ -137,7 +137,7 @@ angular
 																					// batches
 							
 							if(!$scope.currentBatch){ // if currentBatch is not yet in the scope, run for assess batch
-								$scope.currentBatch = allBatches[allBatches.length-1];
+								$scope.currentBatch = allBatches[0];
 							}
 							$log.debug("This is the current batch "
 									+ $scope.currentBatch);
