@@ -27,8 +27,8 @@
 				</a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
-						<li ng-repeat="menuItem in batchesByYear track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName + " " + menuItem.training.startDate}}</a></li>
+						<li ng-repeat="batch in batchesByYear track by $index"><a
+							role="button" ng-click="selectCurrentBatch($index)">{{batch.trainingName}} - {{batch.startDate | date:'shortDate'}}</a></li>
 					</ul></li>
 				<!-- Select Week-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -37,8 +37,8 @@
 				</a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentWeek('(All)')">All</a></li>
-						<li ng-repeat="menuItem in batchWeeks.weeks"><a role="button"
-							ng-click="selectCurrentWeek(menuItem)">Week {{menuItem}}</a></li>
+						<li ng-repeat="week in batchWeeks.weeks"><a role="button"
+							ng-click="selectCurrentWeek(week)">Week {{menuItem}}</a></li>
 					</ul></li>
 
 				<!-- Select Trainee-->
@@ -47,8 +47,8 @@
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentTrainee(-1)">All</a></li>
-						<li ng-repeat="menuItem in currentBatch.trainees track by $index"><a
-							role="button" ng-click="selectCurrentTrainee($index)">{{menuItem.name}}</a></li>
+						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
+							role="button" ng-click="selectCurrentTrainee($index)">{{trainee .name}}</a></li>
 					</ul></li>
 			</ul>
 		</div>

@@ -38,7 +38,7 @@ angular
 							$scope.noBatch = true;
 						} else {
 							$scope.noBatch = false;
-							$scope.selectedYear = Number ($scope.currentBatch.startDate.substr(0,4));
+							$scope.selectedYear = Number($scope.currentBatch.startDate.substr(0,4));
 							batchYears();
 							getCurrentBatchWeeks($scope.currentBatch.weeks);
 							selectView($scope.currentBatch.batchId,
