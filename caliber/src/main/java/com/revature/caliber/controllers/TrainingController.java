@@ -193,7 +193,7 @@ public class TrainingController {
 	 *
 	 *******************************************************
 	 */
-	@RequestMapping(value = "all/trainee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/trainee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Trainee>> findAllByBatch(@RequestParam(required = true) Integer batch) {
 		log.info("Finding trainees for batch: " + batch);
 		List<Trainee> trainees = trainingService.findAllTraineesByBatch(batch);

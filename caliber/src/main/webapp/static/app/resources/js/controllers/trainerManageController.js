@@ -2,7 +2,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerManageController",
-				function($scope, $log, $cookies, caliberDelegate, allBatches) {
+				function($scope, $log, caliberDelegate, allBatches) {
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -17,7 +17,6 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
-									$scope.role = $cookies.get("role");
 									$log.debug($scope.role);
 								});
 						$log.debug(allBatches);
@@ -151,8 +150,15 @@ angular
 					/** Get batches for user and trainees in each batch * */
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
-						$scope.trainees = $scope.selectedBatches[index].trainees;
-//caliberdlegeate get trainees by batch id and load nto $scope
+						// $scope.trainees =
+						// $scope.selectedBatches[index].trainees;
+						caliberDelegate.all.getTrainees(
+								$scope.currentBatch.batchId).then(
+								function(data) {
+									$scope.trainees = data;
+								});
+						// caliberdlegeate get trainees by batch id and load nto
+						// $scope
 						$scope.batchRow = index;
 						$log.debug($scope.currentBatch);
 					};
@@ -245,7 +251,6 @@ angular
 						// return newBatch;
 					}
 
-
 					$scope.update = function() {
 
 						$scope.editTrainee.name = "";
@@ -337,7 +342,7 @@ angular
 					/** Get trainee info* */
 					$scope.getTrainee = function(index) {
 
-						$scope.currentTrainee = $scope.selectedBatches[$scope.batchRow].trainees[index];
+						$scope.currentTrainee = $scope.trainees[index];
 						$scope.traineeRow = index;
 
 					}
@@ -348,7 +353,6 @@ angular
 								$log.debug(statuses);
 								$scope.trainingStatuses.options = statuses;
 							});
-
 
 					/** Fill update form with trainee previous data* */
 					$scope.populateTrainee = function(trainee) {
@@ -402,10 +406,16 @@ angular
 							caliberDelegate.all
 									.updateTrainee($scope.currentTrainee)
 									.then(
-											$scope.trainees[$scope.traineeRow] = $scope.currentTrainee,
-											$scope.Updating = false,
-											$scope.resetTraineeForm())
-											//if trainee is dropped, splice from allbatches list
+											function() {
+												$scope.trainees[$scope.traineeRow] = $scope.currentTrainee;
+												$scope.Updating = false;
+												$scope.resetTraineeForm();
+												// if trainee is dropped, splice
+												// from allbatches list
+												if ($scope.trainees[$scope.traineeRow].trainingStatus === "Dropped") {
+													$log.log("droped");
+												}
+											});
 						} else {
 							var newTrainee = {};
 							createTraineeObject(newTrainee);
@@ -427,7 +437,6 @@ angular
 						}
 					};
 
-
 					/** Get Trainee to delete* */
 					$scope.getTraineeToDelete = function(index) {
 						var traineeToBeDeleted;
@@ -439,7 +448,8 @@ angular
 					/** Delete Trainee* */
 
 					$scope.removeTrainee = function(traineeId) {
-						//search through allbatches trainees and splice from there
+						// search through allbatches trainees and splice from
+						// there
 						$log.debug($scope.traineeToBeDeleted.traineeId);
 						$log
 								.debug($scope.currentBatch.trainees[$scope.traineeRow]);
