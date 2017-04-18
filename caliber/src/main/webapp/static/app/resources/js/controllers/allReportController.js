@@ -124,7 +124,7 @@ angular
 						$scope.batchesByYear = [];
 						for (var i = 0; i < allBatches.length; i++) {
 							if ($scope.selectedYear === Number (allBatches[i].startDate.substr(0,4))) {
-								$scope.batchesByYear.push(allBatches[i].trainingName + " - " + allBatches[i].startDate);
+								$scope.batchesByYear.push(allBatches[i]);
 							}
 						}
 					}
@@ -146,9 +146,8 @@ angular
 					}
 
 					$scope.selectCurrentBatch = function(index) {
-						$scope.currentBatch = $scope.batches[index];
+						$scope.currentBatch = $scope.batchesByYear[index];
 						getCurrentBatchWeeks($scope.currentBatch.weeks);
-						$log.debug($scope.batchWeeks.week);
 						$scope.selectCurrentWeek(OVERALL);
 						$scope.selectCurrentTrainee(ALL);
 						selectView($scope.currentBatch.batchId,

@@ -28,7 +28,7 @@
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
 						<li ng-repeat="menuItem in batchesByYear track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)">{{menuItem}}</a></li>
+							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName + " " + menuItem.training.startDate}}</a></li>
 					</ul></li>
 				<!-- Select Week-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
