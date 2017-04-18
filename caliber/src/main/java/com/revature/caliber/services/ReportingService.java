@@ -350,7 +350,6 @@ public class ReportingService {
 	 * 					2: Number of Assessments of Each Type}
 	 */
 	public Double[] utilAvgTraineeWeek(Integer week, AssessmentType assessmentType, List<Grade> allGrade) {
-		
 		List<Grade> gradesForTheWeek = allGrade.stream().filter(el -> el.getAssessment().getWeek() == week)
 				.collect(Collectors.toList());
 		Double totalRawScore = gradesForTheWeek.stream().mapToDouble(el -> el.getAssessment().getRawScore()).sum();
