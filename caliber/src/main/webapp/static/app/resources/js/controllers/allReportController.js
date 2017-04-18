@@ -56,23 +56,23 @@ angular
 
 							} else {
 								// Specific Trainee
+//								$rootScope.$emit("GET_TRAINEE_OVERALL",$scope.currentTraineeId);
 								$scope.batchWeek = false;
 								$scope.batchWeekTrainee = false;
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = true;
 								createBatchOverallTrainee();
-								$rootScope.$emit("GET_TRAINEE_OVERALL",$scope.currentTraineeId);
 							}
 						} else {
 							// Specific Week
 							if (trainee === ALL) {
 								// All Trainees
+								$rootScope.$emit('test');
 								$scope.batchWeek = true;
 								$scope.batchWeekTrainee = false;
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = false;
 								createBatchWeek();
-								$rootScope.$emit('test');
 							} else {
 								// Specific trainee
 								$scope.batchWeek = false;
