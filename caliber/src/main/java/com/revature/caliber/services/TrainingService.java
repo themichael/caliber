@@ -184,7 +184,7 @@ public class TrainingService {
 	public void delete(Batch batch){
 		log.debug("Delete batch " + batch);
 		// load batch into persistent state
-		batch = batchDAO.findOne(batch.getBatchId());
+		//batch = batchDAO.findOne(batch.getBatchId());
 		batchDAO.delete(batch);
 	}
 	
