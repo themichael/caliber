@@ -17,8 +17,8 @@
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li ng-repeat="menuItem in years track by $index"><a
-							role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
+						<li ng-repeat="year in years track by $index"><a
+							role="button" ng-click="selectYear($index)">{{year}}</a></li>
 					</ul></li>
 				<!-- Select Batch-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -27,9 +27,8 @@
 				</a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
-						<li ng-repeat="menuItem in batchesByYear track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName
-								+ " " + menuItem.training.startDate}}</a></li>
+						<li ng-repeat="batch in batchesByYear track by $index"><a
+							role="button" ng-click="selectCurrentBatch($index)">{{batch.trainingName}} - {{batch.startDate | date:'shortDate'}}</a></li>
 					</ul></li>
 				<!-- Select Week-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -38,8 +37,8 @@
 				</a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentWeek('(All)')">All</a></li>
-						<li ng-repeat="menuItem in batchWeeks.weeks"><a role="button"
-							ng-click="selectCurrentWeek(menuItem)">Week {{menuItem}}</a></li>
+						<li ng-repeat="week in batchWeeks.weeks"><a role="button"
+							ng-click="selectCurrentWeek(week)">Week {{week}}</a></li>
 					</ul></li>
 
 				<!-- Select Trainee-->
@@ -48,8 +47,8 @@
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentTrainee(-1)">All</a></li>
-						<li ng-repeat="menuItem in currentBatch.trainees track by $index"><a
-							role="button" ng-click="selectCurrentTrainee($index)">{{menuItem.name}}</a></li>
+						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
+							role="button" ng-click="selectCurrentTrainee($index)">{{trainee .name}}</a></li>
 					</ul></li>
 			</ul>
 		</div>
@@ -83,12 +82,14 @@
 										<table ng-if="averageTraineeScoresWeeklyLabels"
 											class="table table-responsive"
 											style="border-collapse: collapse;">
+
 											<tr
 												ng-repeat="label in averageTraineeScoresWeeklyLabels track by $index"
 												class="col-md-3 col-lg-3 col-sm-3">
 												<th class="pull-left">{{label}}</th>
 												<td class="pull-right">{{averageTraineeScoresWeeklyData[0][$index]}}</td>
 											</tr>
+
 										</table>
 									</div>
 								</div>
@@ -132,6 +133,7 @@
 							<div class="panel-heading">Assessment Averages</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
+
 									<canvas id="barchart" class="chart chart-bar"
 										chart-data="barchartAWData" chart-series="barchartAWSeries"
 										chart-labels="barchartAWLabels"
@@ -143,8 +145,14 @@
 											<table ng-if="barchartAWLabels"
 												class="table table-responsive"
 												style="border-collapse: collapse;">
-												<tr
-													class="col-sm-2 col-md-2 col-lg-2 col-offset-sm-2 col-offset-md-2 col-lg-offset-2 "
+												<tr ng-if='barchartAWLabels.length == 2'
+													class="col-lg-2 col-lg-offset-2"
+													ng-repeat="label in barchartAWLabels track by $index"
+													for="{{label}}">
+													<th>{{label}}</th>
+													<td>{{barchartAWData[$index]}}</td>
+												</tr>
+												<tr ng-if='barchartAWLabels.length == 1' class="col-lg-1"
 													ng-repeat="label in barchartAWLabels track by $index"
 													for="{{label}}">
 													<th>{{label}}</th>
@@ -166,18 +174,18 @@
 											</table>
 										</div>
 									</div>
+
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- Row With Bottom 2 Charts -->
 			</div>
-
-			<!-- trainer display -->
-			<div ui-view="trainer-display" ng-if="displayTable()"></div>
-			<!-- qc -->
-			<div ui-view="qc-batchOverall"></div>
+			<!-- Row With Bottom 2 Charts -->
+				<!-- trainer display -->
+				<div ui-view="trainer-display" ng-if="displayTable()"></div>
+				<!-- qc -->
+				<div ui-view="qc-batchOverall"></div>
 		</div>
 		<!-- Batch -> Overall -->
 		<div class="row" ng-if="batchOverall">
@@ -346,25 +354,27 @@
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="linechart" class="chart chart-line"
-										chart-data="linecharTWData" chart-labels="linecharTWLabels"
-										chart-options="linecharTWOptions"
-										chart-series="linecharTWSeries">
+										chart-data="linechartTWData" chart-labels="linechartTWLabels"
+										chart-options="linechartTWOptions"
+										chart-series="linechartTWSeries">
                                     </canvas>
 									<div>
 										<table class="table table-responsive"
-											style="border-collapse: collapse;">
+												style="border-collapse: collapse;">
 											<tr>
 												<th></th>
 												<th class="col-sm-2 col-md-2 col-lg-2"
-													ng-repeat="label in linecharTWLabels">Week {{label}}</th>
+														ng-repeat="label in linechartTWLabels">Week
+													{{label}}</th>
 											</tr>
-											<tr ng-repeat="series in linecharTWData track by $index">
-												<th>{{linecharTWSeries[$index]}}</th>
+											<tr ng-repeat="series in linechartTWData track by $index">
+												<th>{{linechartTWSeries[$index]}}</th>
 												<td class="col-sm-2 col-md-2 col-lg-2"
-													ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
+														ng-repeat="dataPoint in series track by $index">{{dataPoint}}</td>
 											</tr>
 										</table>
 									</div>
+								
 								</div>
 							</div>
 						</div>
@@ -372,10 +382,8 @@
 				</div>
 				<!-- Row With Bottom 2 Charts -->
 			</div>
-			<div ui-view="trainer-display" ng-if="displayTable()"></div>
-			<div ui-view="qc-traineeWeek"></div>
-		</div>
-		<!-- Row with all 3 Chart-->
+			<div ui-view="trainee-week" ng-if="displayTable()"></div>			
+		</div> <!-- Row with all 3 Chart-->
 
 		<!-- Batch -> Overall -> Trainee-->
 		<div class="row" ng-if="batchOverallTrainee">
@@ -479,10 +487,9 @@
 				</div>
 				<!-- Row With Bottom 2 Charts -->
 			</div>
-			<div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div>
-			<div ui-view="qc-traineeOverall"></div>
-		</div>
-		<!-- Row with all 3 Chart-->
+			 <div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div> 
+			 <div ui-view="qc-traineeOverall" ng-if="displayTable()"></div> 
+		</div> <!-- Row with all 3 Chart-->
 
 	</div>
 	<!-- top10 data-container -->

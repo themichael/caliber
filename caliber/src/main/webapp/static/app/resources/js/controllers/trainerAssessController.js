@@ -13,12 +13,14 @@ angular
 						this.assessments = assessments;
 					}
 					
+					
 					// array of weeks to parse through and display tabs
 					
 					$log.debug("Booted Trainer Aesess Controller");
-
+					
+					
 					$scope.trainerBatchNote = null;
-					// Note object
+					// Note object This is needed to create notes for batch. 
 					function Note(noteId, content, status, week, batch,
 							trainee, maxVisibility, type, qcFeedback) {
 						this.noteId = noteId;
@@ -45,6 +47,8 @@ angular
 					 * ***************************************** UI
 					 * ********************************************
 					 */
+					
+					
 					$scope.grades={};
 					 $scope.getAllGradesForWeek=function(batchId,weekId) {							
 							caliberDelegate.all
@@ -93,10 +97,12 @@ angular
 								if(data && data.length > 0){
 									$scope.notes = data;
 									for(note of $scope.notes){
-										if($scope.trainees[note.trainee.traineeId].note.hasOwnProperty('noteId')){
+										if($scope.trainees[note.trainee.traineeId] !== undefined && $scope.trainees[note.trainee.traineeId].note.hasOwnProperty('noteId')){
 											$scope.trainees[note.trainee.traineeId].note = {};
 										}
-										$scope.trainees[note.trainee.traineeId].note = note;
+										if($scope.trainees[note.trainee.traineeId] !== undefined){
+											$scope.trainees[note.trainee.traineeId].note = note;
+										}
 									}
 								}
 							});
@@ -131,7 +137,7 @@ angular
 																					// batches
 							
 							if(!$scope.currentBatch){ // if currentBatch is not yet in the scope, run for assess batch
-								$scope.currentBatch = allBatches[allBatches.length-1];
+								$scope.currentBatch = allBatches[0];
 							}
 							$log.debug("This is the current batch "
 									+ $scope.currentBatch);
@@ -218,10 +224,67 @@ angular
 					$scope.back = function() {
 						$scope.currentView = true;
 					};
+					
+					/******* Filter batches by year ************/
+					$scope.years = addYears();
+					function addYears() {
+						var currentYear = new Date().getFullYear();
+						$scope.selectedYear = currentYear;
+
+						var data = [];
+						// List all years from 2014 --> current year
+						for (var y = currentYear + 1; y >= currentYear - 2; y--) {
+							data.push(y)
+						}
+						return data;
+					}
+
+					$scope.selectYear = function(index) {
+						$scope.selectedYear = $scope.years[index];
+						sortByDate($scope.selectedYear);
+						batchYears();
+					};
+
+					function sortByDate(currentYear) {
+						$scope.selectedBatches = [];
+						for (var i = 0; i < $scope.batches.length; i++) {
+							var date = new Date($scope.batches[i].startDate);
+							if (date.getFullYear() === currentYear) {
+								$scope.selectedBatches.push($scope.batches[i]);
+							}
+						}
+					}
+					
+					/**
+					 * Get batch according to year
+					 */
+					
+					function batchYears() {
+						$scope.batchesByYear = [];
+						
+						for (var i = 0; i < $scope.batches.length; i++) {
+							//$log.debug("Current Year: " + $scope.selectedYear);
+							if ($scope.selectedYear === parseInt($scope.batches[i].startDate)) {
+								$scope.batchesByYear.push($scope.batches[i]);
+								// $log.debug($scope.batches[i]);
+							}
+							
+							// $log.debug($scope.selectedYear + " === " + parseInt($scope.batches[i].startDate))
+
+						}
+						$log.debug($scope.batches);
+						$log.debug($scope.batchesByYear);
+						
+					}
+					
+					
+					
+					/******* Filter batches by year ************/
+					
 
 					// batch drop down select
 					$scope.selectCurrentBatch = function(index) {
-						$scope.currentBatch = $scope.batches[index];
+						$scope.currentBatch = $scope.batchesByYear[index];
 						$log.debug("Selected batch " + index);
 					// create new scope of trainees
 						$scope.trainees={};						
@@ -248,7 +311,6 @@ angular
 	
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
-						
 					};
 					
 					
@@ -363,6 +425,8 @@ angular
 											for(i = 1; i <= $scope.currentBatch.weeks; i++){
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
+											$scope.selectedYear = parseInt($scope.currentBatch.startDate.substring(0,4));
+											batchYears();
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.allAssessmentsAvgForWeek = false;
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
@@ -615,5 +679,5 @@ angular
 					});
 					/* RUN START FUNCTION */
 					//start(allBatches);
-				
+				$scope.test = function(){$log.debug("yer");}
 				});

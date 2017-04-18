@@ -15,7 +15,7 @@ angular
 					ALL = -1;
 
 					// What you see when you open Reports
-					$scope.currentBatch = allBatches[allBatches.length - 1];
+					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.batchWeeks = {
 						"weeks" : []
@@ -38,7 +38,7 @@ angular
 							$scope.noBatch = true;
 						} else {
 							$scope.noBatch = false;
-							$scope.selectedYear = Number ($scope.currentBatch.startDate.substr(0,4));
+							$scope.selectedYear = Number($scope.currentBatch.startDate.substr(0,4));
 							batchYears();
 							getCurrentBatchWeeks($scope.currentBatch.weeks);
 							selectView($scope.currentBatch.batchId,
@@ -68,6 +68,7 @@ angular
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = true;
 								createBatchOverallTrainee();
+								$rootScope.$emit("GET_TRAINEE_OVERALL",$scope.currentTraineeId);
 							}
 						} else {
 							// Specific Week
@@ -79,6 +80,7 @@ angular
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = false;
 								createBatchWeek();
+								$rootScope.$emit('test');
 							} else {
 								// Specific trainee
 								$scope.batchWeek = false;
@@ -195,7 +197,6 @@ angular
 							$scope.currentTrainee = {
 								name : $scope.currentBatch.trainees[index].name
 							};
-							$rootScope.$emit("GET_TRAINEE_OVERALL",$scope.currentTraineeId);
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
@@ -492,10 +493,10 @@ angular
 											NProgress.done();
 											var lineChartObjectwd = chartsDelegate.line
 													.getWeeklyProgressTraineeWeekly(data);
-											$scope.linecharTWLabels = lineChartObjectwd.labels;
-											$scope.linecharTWData = lineChartObjectwd.data;
-											$scope.linecharTWOptions = lineChartObjectwd.options;
-											$scope.linecharTWSeries = lineChartObjectwd.series;
+											$scope.linechartTWLabels = lineChartObjectwd.labels;
+											$scope.linechartTWData = lineChartObjectwd.data;
+											$scope.linechartTWOptions = lineChartObjectwd.options;
+											$scope.linechartTWSeries = lineChartObjectwd.series;
 										}, function() {
 											NProgress.done();
 										});

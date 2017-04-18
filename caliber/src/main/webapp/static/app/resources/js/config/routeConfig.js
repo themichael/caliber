@@ -146,7 +146,6 @@ angular
 										url : "/assess",
 										controller : "trainerAssessController"
 									})
-
 							.state(
 									"trainer.reports",
 									{
@@ -161,23 +160,23 @@ angular
 												controller : "trainerAssessController"
 											},
 											"trainee-overall@trainer.reports" : {
-												templateUrl : "/static/app/partial/trainee-overall.html",
+												templateUrl : "/static/app/partials/trainee-overall.html",
 												controller : "trainerAssessController"
 											},
 											"trainee-week@trainer.reports" : {
-												templateUrl : "/static/app/partial/trainee-week.html",
-												controller : "traineeAssessController"
+												templateUrl : "/static/app/partials/trainee-week.html",
+												controller : "trainerAssessController"
 											},
 											"qc-display@trainer.reports" : {
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
 											},
-											"qc-traineeWeek@trainer.reports" : {
-												templateUrl : "/static/app/partials/qc-traineeWeek.html",
-												controller : "qcAssessController"
-											},
 											"qc-traineeOverall@trainer.reports" : {
 												templateUrl : "/static/app/partials/qc-traineeOverall.html",
+												controller : "qcAssessController"
+											},
+											"qc-traineeWeek@trainer.reports" : {
+												templateUrl : "/static/app/partials/qc-traineeWeek.html",
 												controller : "qcAssessController"
 											}
 										}
