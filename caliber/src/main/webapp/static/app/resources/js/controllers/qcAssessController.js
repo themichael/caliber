@@ -117,6 +117,41 @@ angular
 							}
 						}
 					}
+					
+					// Used to pick face for batch
+					$scope.pickOverallStatus = function(batch, pick) {
+						$scope.qcBatchAssess = pick;
+						$log.debug(batch.trainingName + " " + pick);
+						$log.debug("bnote");
+						$log.debug($scope.bnote);
+						$scope.bnote.qcStatus = pick;
+						$scope.saveQCNotes();
+					};
+					
+					// starting scope vars
+					$log.debug($scope.$parent.currentBatch);
+					// If in reports get reports current batch
+					if ($scope.$parent.currentBatch !== undefined) {
+						$scope.currentBatch = $scope.$parent.currentBatch;
+					} else {
+						$scope.currentBatch = $scope.batches[0];
+					}
+					$scope.currentBatch.trainees.sort(compare);
+					// create an array of numbers for number of weeks
+					for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+						$scope.weeks.push(i);
+					}
+
+					// Set current week to first week
+					$log.debug("$scope.$parent.reportCurrentWeek");
+					$log.debug($scope.$parent.reportCurrentWeek);
+					// If reports week is selected
+					if ($scope.$parent.reportCurrentWeek !== undefined
+							&& $scope.$parent.reportCurrentWeek !== "(All)") {
+						$scope.currentWeek = $scope.$parent.reportCurrentWeek;
+					} else {
+						$scope.currentWeek = $scope.weeks[0];
+					}
 
 					// Start function for reports to use
 					function start() {
@@ -134,16 +169,6 @@ angular
 									$scope.qcStatusTypes = types;
 								});
 
-						// Used to pick face for batch
-						$scope.pickOverallStatus = function(batch, pick) {
-							$scope.qcBatchAssess = pick;
-							$log.debug(batch.trainingName + " " + pick);
-							$log.debug("bnote");
-							$log.debug($scope.bnote);
-							$scope.bnote.qcStatus = pick;
-							$scope.saveQCNotes();
-						};
-
 						// ///////////////////////////////////////////////////////////////////////////////////////////
 						// load note types
 						caliberDelegate.all.enumNoteType().then(
@@ -152,30 +177,6 @@ angular
 									// do something with note type
 								});
 
-						// starting scope vars
-						$log.debug($scope.$parent.currentBatch);
-						// If in reports get reports current batch
-						if ($scope.$parent.currentBatch !== undefined) {
-							$scope.currentBatch = $scope.$parent.currentBatch;
-						} else {
-							$scope.currentBatch = $scope.batches[0];
-						}
-						$scope.currentBatch.trainees.sort(compare);
-						// create an array of numbers for number of weeks
-						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-							$scope.weeks.push(i);
-						}
-
-						// Set current week to first week
-						$log.debug("$scope.$parent.reportCurrentWeek");
-						$log.debug($scope.$parent.reportCurrentWeek);
-						// If reports week is selected
-						if ($scope.$parent.reportCurrentWeek !== undefined
-								&& $scope.$parent.reportCurrentWeek !== "(All)") {
-							$scope.currentWeek = $scope.$parent.reportCurrentWeek;
-						} else {
-							$scope.currentWeek = $scope.weeks[0];
-						}
 						// Get notes
 						$scope.getNotes();
 					}
@@ -368,8 +369,8 @@ angular
 						traineeWeek();
 					});
 					// Execute when on reports page and trainee and all week selected
-					$rootScope.$on('GET_TRAINEE_OVERALL', function() {
-						traineeOverall();
+					$rootScope.$on('GET_TRAINEE_OVERALL', function(event, param) {
+						traineeOverall(param.trainee);
 					});
 
 					/**
