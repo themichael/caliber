@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
 import com.revature.caliber.validator.BatchValidator;
