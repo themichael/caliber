@@ -75,6 +75,19 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	
+	// Call EvaluationController's getTraineeOverallNotes method
+	qc.getTraineeOverallNote = function(traineeId) {
+		return $http({
+			url : "/qc/note/trainee/" + traineeId,
+			method : "GET"
+		}).then(function(response) {
+			$log.log("QC Trainee Overall Note retrieved successfully");
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
 
 	/** ************************* Grade *********************** */
 	// add a new grade

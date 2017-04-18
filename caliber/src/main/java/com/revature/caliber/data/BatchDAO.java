@@ -92,7 +92,7 @@ public class BatchDAO extends BaseDAO {
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
 						Restrictions.eq("coTrainer.trainerId", trainerId)))
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime())).createAlias("trainees", "t")
+				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime()))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for (Batch batch : batches) {
 			initializeActiveTrainees(batch);
@@ -112,7 +112,7 @@ public class BatchDAO extends BaseDAO {
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches");
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t").add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
+				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime())).addOrder(Order.desc("trainingName"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for (Batch batch : batches) {

@@ -224,6 +224,10 @@ angular
 					delegate.qc.traineeNote = function(batchId, week) {
 						return qcFactory.getAllQCTraineeNote(batchId, week);
 					}
+					
+					delegate.qc.traineeOverallNote = function(traineeId) {
+						return qcFactory.getTraineeOverallNote(traineeId);
+					}
 
 					/**
 					 * ************************ Aggregate
