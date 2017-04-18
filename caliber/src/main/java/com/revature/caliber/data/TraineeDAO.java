@@ -98,7 +98,7 @@ public class TraineeDAO {
 				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
 				.uniqueResult();
 	}
-
+	
 	/**
 	 * Find a trainee by email address
 	 * @param email

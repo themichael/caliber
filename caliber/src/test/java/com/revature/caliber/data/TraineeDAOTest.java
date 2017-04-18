@@ -1,6 +1,8 @@
-/*package com.revature.caliber.data;
+package com.revature.caliber.data;
 
 import static org.junit.Assert.*;
+
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -23,16 +25,9 @@ public class TraineeDAOTest {
 
 	@Autowired
 	BatchDAO bDAO = new BatchDAO();
-	
-	
-	
-	 * For testing deleting and saving of trainees
-	 
+
+	/* For testing deleting and saving of trainees */
 	Batch batch;
-	
-	Trainee trainee = new Trainee("Tester", "Test@Test.com", TrainingStatus.Confirmed
-			  , "234-567-8901", "SkyperTest", "WWE.COM", batch);
-	trainee.
 
 	@Test
 	public void testSetSessionFactory() {
@@ -46,26 +41,43 @@ public class TraineeDAOTest {
 		}
 	}
 
-	
-	 * @Test public void testSave() { Batch batch = bDAO.findOne(1050);
-	 * dao.save(new Trainee("Tester", "Test@Test.com", TrainingStatus.Confirmed
-	 * , "234-567-8901", "SkyperTest", "WWE.COM", batch));
-	 * 
-	 * 
-	 * }
-	 
+	@Test
+	public void testSave() {
+		Batch batch = bDAO.findOne(1050);
 
-	
-	 * @Test public void testDelete() { Batch batch = bDAO.findOne(1050);
-	 * Trainee trainee = dao.findOne(2200); dao.delete(trainee); }
-	 
+		try {
+			dao.save(new Trainee("Tester", "Test@Test.com", TrainingStatus.Confirmed, "234-567-8901", "SkyperTest",
+					"WWE.COM", batch));
+			assertNotNull(dao.findByEmail("Test@Test.com"));
+			log.info("test Save persisted the new trainee Objects");
+
+		} catch (NullPointerException e) {
+			log.info("test Save did not persist the new trainee Object");
+		}
+	}
+
+	@Test
+	public void testDelete() {
+		try {
+			Trainee trainee = dao.findByEmail("Test@Test.com");
+			assertNotNull(dao.findByEmail("Test@Test.com"));
+			log.info("test delete retrieved the trainee Object");
+			dao.delete(trainee);
+			assertNull(dao.findByEmail("Test@Test.com"));
+			log.info("test delete deleted the trainee Object");
+		} catch (Exception e) {
+			log.info("The trainee Object wasn't deleted");
+		}
+	}
 
 	@Test
 	public void testFindAll() {
 
 		try {
-			System.out.println(dao.findAll());
+			List<Trainee> list = dao.findAll();
+			assertNotNull(list);
 		} catch (NullPointerException e) {
+			log.info("testFind all didn't retrieve ");
 			fail("exception was thrown" + e.getStackTrace());
 		}
 	}
@@ -73,8 +85,10 @@ public class TraineeDAOTest {
 	@Test
 	public void testFindAllByBatch() {
 		try {
-			System.out.println(dao.findAllByBatch(1050));
+			List<Trainee> list = dao.findAllByBatch(1050);
+			assertNotNull(list);
 		} catch (NullPointerException e) {
+			log.info("testFind all by batch didn't retrieve anything");
 			fail("exception was thrown" + e.getStackTrace());
 		}
 	}
@@ -82,23 +96,31 @@ public class TraineeDAOTest {
 	@Test
 	public void testFindAllByTrainer() {
 		try {
-			System.out.println(dao.findAllByTrainer(1050));
+			List<Trainee> list = dao.findAllByTrainer(1050);
+			assertNotNull(list);
 		} catch (NullPointerException e) {
+			log.info("testFind all by trainer didn't retrieve anything");
 			fail("exception was thrown" + e.getStackTrace());
 		}
 	}
 
-	
-	 * @Test @Autowired public void testFindOne() {
-	 * 
-	 * /*System.out.println(dao.findOne(1050)); }
-	 
+	/*@Test
+	public void testFindOne() {
+		try {
+			Trainee trainee = dao.findOne(1050);
+			log.info("<----------------------------------------------------------------------->" + trainee);
+			assertNotNull(trainee);
+		} catch (NullPointerException e) {
+			log.info("testFind one retrieve anything");
+			fail("exception was thrown" + e.getStackTrace());
+		}
 
-	
+	}*/
+
+	/*
 	 * @Test public void testFindByEmail() { fail("Not yet implemented"); }
 	 * 
 	 * @Test public void testUpdate() { fail("Not yet implemented"); }
-	 
+	 */
 
 }
-*/
