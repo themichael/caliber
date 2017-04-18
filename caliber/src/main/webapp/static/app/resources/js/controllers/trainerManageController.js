@@ -166,6 +166,8 @@ angular
 
 					/** Fill update form with batch previous data* */
 					$scope.populateBatch = function(batch) {
+						$scope.Save = "Update";
+						$scope.Updating = true;
 						$scope.batchFormName = "Update Batch";
 						$scope.trainingName.model = batch.trainingName;
 						$scope.trainingType.model = batch.trainingType
@@ -178,16 +180,13 @@ angular
 							$scope.coTrainer.model = ""
 						}
 
-						$scope.startDate.model = new Date(batch.startDate
-								.replace(/-/g, '/'));
+						$scope.startDate.model = new Date(batch.startDate.replace(/-/g, '/'));
 						$scope.endDate.model = new Date(batch.endDate.replace(
 								/-/g, '/'));
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
 								batch.benchmarkStartDate.replace(/-/g, '/'));
-						$scope.Save = "Update";
-						$scope.Updating = true;
 					}
 
 					/** Resets batch form for creating new batch* */
@@ -279,6 +278,7 @@ angular
 									function(response) {
 										// coTrainer may be undefined
 										var insertBatch = response.data;
+										$log.debug($scope.insertBatch)
 										insertBatch['trainees'] = [];
 										if ($scope.coTrainer) {
 											$scope.batches.push(insertBatch);
