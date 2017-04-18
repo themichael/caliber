@@ -5,6 +5,9 @@ var app =angular.module("app", [ "ui.router", "ngCookies", "auth", "chart.js", "
 				$rootScope.$broadcast('trainerasses');
 				$rootScope.$broadcast('qcBatchOverall');
 			});
+			$rootScope.$on('GET_TRAINEE_OVERALL',function(event,traineeId){
+				$rootScope.$broadcast('GET_TRAINEE_OVERALL', traineeId);
+			})
 		})
 // add modules here
 angular.module("vp", []);
