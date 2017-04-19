@@ -157,6 +157,26 @@ angular
 						$log.debug($scope.currentBatch);
 					};
 
+					/* Validation for the dates */
+					$scope.checkDates = function() {
+
+						$log.info($scope.startDate);
+						$log.info($scope.benchmarkStartDate);
+
+						if ($scope.startDate.model > $scope.benchmarkStartDate.model) {
+							/*$scope.validDate = false;*/
+							$log.info("True");
+							$scope.addNewBatch();
+						} else {
+							/*$scope.validDate = true;*/
+							$log.info("False");
+							return false;
+						}
+						
+						$log.info($scope.validDate);
+
+					}
+
 					$scope.Updating = false;
 
 					/** Fill update form with batch previous data* */
@@ -244,7 +264,6 @@ angular
 
 						// return newBatch;
 					}
-
 
 					$scope.update = function() {
 
@@ -349,7 +368,6 @@ angular
 								$scope.trainingStatuses.options = statuses;
 							});
 
-
 					/** Fill update form with trainee previous data* */
 					$scope.populateTrainee = function(trainee) {
 						$log.debug(trainee);
@@ -425,7 +443,6 @@ angular
 							}
 						}
 					};
-
 
 					/** Get Trainee to delete* */
 					$scope.getTraineeToDelete = function(index) {
