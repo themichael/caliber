@@ -241,6 +241,18 @@ angular
 						sortByDate($scope.selectedYear);
 						batchYears();
 						$scope.currentBatch = $scope.batchesByYear[0];
+						
+						if ($scope.currentBatch.weeks > 0) {
+							$scope.currentWeek = $scope.currentBatch.weeks;
+							getAllAssessmentsForWeek(
+									$scope.currentBatch.batchId,
+									$scope.currentWeek);
+						} else
+							$scope.currentWeek = null;
+
+						getAllAssessmentsForWeek($scope.currentBatch.batchId,
+								$scope.currentWeek);
+						
 					};
 
 					function sortByDate(currentYear) {
