@@ -196,13 +196,12 @@ angular
 						}
 
 						$scope.startDate.model = new Date(batch.startDate
-								.replace(/-/g, '/'));
-						$scope.endDate.model = new Date(batch.endDate.replace(
-								/-/g, '/'));
+								);
+						$scope.endDate.model = new Date(batch.endDate);
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
-								batch.benchmarkStartDate.replace(/-/g, '/'));
+								batch.benchmarkStartDate);
 					}
 
 					/** Resets batch form for creating new batch* */
