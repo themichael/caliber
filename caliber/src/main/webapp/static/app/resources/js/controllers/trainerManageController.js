@@ -164,13 +164,15 @@ angular
 						$log.debug($scope.currentBatch);
 					};
 
-					/** switch to dropped trainees* */
+					/** switch to and from dropped trainees* */
 					$scope.switchTraineeView = function() {
 						if ($scope.showdropped) {
 							$scope.trainees = $scope.activeTrainees;
+							$scope.resetTraineeForm();
 							$scope.showdropped = false;
 						} else {
 							$scope.trainees = $scope.droppedTrainees;
+							$scope.resetTraineeForm();
 							$scope.showdropped = true;
 						}
 
