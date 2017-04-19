@@ -170,6 +170,7 @@ angular
 						} else {
 							/*$scope.validDate = true;*/
 							$log.info("False");
+							window.alert("hi!....u buggin!!!");
 							return false;
 						}
 						
