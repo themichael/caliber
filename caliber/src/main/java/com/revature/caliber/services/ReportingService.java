@@ -126,7 +126,7 @@ public class ReportingService {
 		
 		for(Batch b: currentBatches){
 		
-		
+		}
 		return results;
 	}
 		
