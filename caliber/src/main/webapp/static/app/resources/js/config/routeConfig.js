@@ -90,6 +90,14 @@ angular
 												templateUrl : "/static/app/partials/trainer-display.html",
 												controller : "trainerAssessController"
 											},
+											"trainee-overall@qc.reports" : {
+												templateUrl : "/static/app/partials/trainee-overall.html",
+												controller : "allReportController"
+											},
+											"trainee-week@qc.reports" : {
+												templateUrl : "/static/app/partials/trainee-week.html",
+												controller : "trainerAssessController"
+											},
 											"qc-batchOverall@qc.reports" : {
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
@@ -161,7 +169,7 @@ angular
 											},
 											"trainee-overall@trainer.reports" : {
 												templateUrl : "/static/app/partials/trainee-overall.html",
-												controller : "trainerAssessController"
+												controller : "allReportController"
 											},
 											"trainee-week@trainer.reports" : {
 												templateUrl : "/static/app/partials/trainee-week.html",
