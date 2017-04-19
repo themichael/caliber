@@ -50,7 +50,7 @@ angular
 					};
 					
 					delegate.all.getDroppedTrainees = function(batchId){
-						return allFactory.getTrainees(batchId);
+						return allFactory.getDroppedTrainees(batchId);
 					};
 
 					delegate.all.createTrainee = function(traineeObj) {

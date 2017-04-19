@@ -150,19 +150,30 @@ angular
 					/** Get batches for user and trainees in each batch * */
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
-						// $scope.trainees =
-						// $scope.selectedBatches[index].trainees;
-
+						$scope.activetrainees = $scope.selectedBatches[index].trainees;
+						$scope.trainees = $scope.activetrainees;
 						caliberDelegate.all.getDroppedTrainees(
 								$scope.currentBatch.batchId).then(
 								function(data) {
-									$scope.trainees = data;
+									$scope.droppedTrainees = data;
 								});
 
 						// caliberdlegeate get trainees by batch id and load nto
-						// $scope
 						$scope.batchRow = index;
+						$scope.showdropped = false;
 						$log.debug($scope.currentBatch);
+					};			
+
+					/** switch to dropped trainees* */
+					$scope.switchTraineeView = function() {
+						if ($scope.showdropped) {
+							$scope.trainees = $scope.activetrainees;
+							$scope.showdropped = false;
+						}else{
+							$scope.trainees = $scope.droppedTrainees;
+							$scope.showdropped = true;
+						}
+
 					};
 
 					$scope.Updating = false;
