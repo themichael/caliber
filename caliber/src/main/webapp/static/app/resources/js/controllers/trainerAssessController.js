@@ -107,6 +107,7 @@ angular
 								}
 							});
 						}
+						
 					// ////////////////////////////////////////////////////////////////////////
 					// load note types
 					caliberDelegate.all.enumNoteType().then(

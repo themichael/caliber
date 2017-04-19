@@ -300,7 +300,7 @@ public class Note implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Note [noteId=" + noteId + ", content=" + content + ", week=" + week 
+		return "Note [noteId=" + noteId + ", content=" + content + ", week=" + week
 				+ ", trainee=" + trainee + ", maxVisibility=" + maxVisibility + ", type=" + type
 				+ ", qcFeedback=" + qcFeedback + ", qcStatus=" + qcStatus + "]";
 	}

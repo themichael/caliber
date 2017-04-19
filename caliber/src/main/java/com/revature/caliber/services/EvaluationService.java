@@ -220,6 +220,21 @@ public class EvaluationService {
 		}
 		return notes;
 	}
+	
+	/**
+	 * FIND TRAINEE NOTE FOR THE WEEK 
+	 * 
+	 * @param trainee
+	 * @param week
+	 * @return 
+	 */
+	public Note findTraineeNote(Integer traineeId, Integer week) {
+		Note note = noteDAO.findTraineeNote(traineeId,week);
+		
+		note.setBatch(null);
+		
+		return note;
+	}
 
 	/**
 	 * FIND WEEKLY QC BATCH NOTES (NOT FOR TRAINERS)
