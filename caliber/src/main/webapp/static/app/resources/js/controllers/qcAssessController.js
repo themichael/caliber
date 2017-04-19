@@ -146,6 +146,7 @@ angular
 
 					// Start function for reports to use
 					function start() {
+						$scope.trainingNameDate = $scope.batches[0].trainingName + " " + $scope.batches[0].startDate;
 						$log.debug(allBatches);
 						var curYear = new Date();
 						$log.debug("Year test: ");
@@ -192,17 +193,6 @@ angular
 
 					function traineeWeek() {
 						
-					}
-
-					function traineeOverall(traineeId) {
-						$scope.faces = [];
-						$log.debug("TRAINEEOVERALL FUNCTION")
-						caliberDelegate.qc.traineeOverallNote(traineeId).then(
-								function(notes) {
-									$log.debug("OVERALL TRAINEE");
-									$log.debug(notes);
-									$scope.faces = notes;
-								});
 					}
 
 					$scope.pickIndividualStatus = function(trainee, status,
@@ -384,12 +374,6 @@ angular
 					$rootScope.$on('qcTraineeWeek', function() {
 						traineeWeek();
 					});
-					// Execute when on reports page and trainee and all week selected
-					$rootScope.$on('GET_TRAINEE_OVERALL_CTRL', function(event, traineeId) {
-						$log.debug("GET TRAINEE OVERALL!!");
-						$log.debug(traineeId);
-						traineeOverall(traineeId);
-					});
 
 					/**
 					 * **************************************************
@@ -415,7 +399,13 @@ angular
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
 						batchYears();
-						$log.debug($scope.batchesByYear);
+						
+						if ($scope.selectedYear == parseInt($scope.batches[0].startDate) 
+								|| ($scope.selectedYear + 1) == parseInt($scope.batches[0].startDate)) {
+							$scope.trainingNameDate = $scope.batches[0].trainingName + " " + $scope.batches[0].startDate;
+						}
+						else
+							$scope.trainingNameDate = "";
 					};
 
 					function sortByDate(currentYear) {
