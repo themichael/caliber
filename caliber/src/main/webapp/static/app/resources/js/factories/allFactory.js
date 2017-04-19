@@ -165,9 +165,9 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	 * @param batchId
 	 * @returns {*}
 	 */
-	all.getTrainees = function(batchId) {
+	all.getDroppedTrainees = function(batchId) {
 		return $http({
-			url : "/all/trainee?batch="+batchId ,
+			url : "/all/trainee/dropped?batch="+batchId ,
 			method : "GET",
 		}).then(function(response) {
 			$log.debug("Trainee successfully created.")

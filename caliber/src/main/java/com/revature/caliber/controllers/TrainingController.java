@@ -207,7 +207,7 @@ public class TrainingController {
 		List<Trainee> trainees = trainingService.findAllTraineesByBatch(batch);
 		return new ResponseEntity<>(trainees, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/all/trainee/dropped", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Trainee>> findAllDroppedByBatch(@RequestParam(required = true) Integer batch) {
 		log.info("Finding dropped trainees for batch: " + batch);

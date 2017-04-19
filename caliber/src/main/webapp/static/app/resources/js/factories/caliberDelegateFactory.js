@@ -49,7 +49,7 @@ angular
 						return allFactory.deleteBatch(batchId);
 					};
 					
-					delegate.all.getTrainees = function(batchId){
+					delegate.all.getDroppedTrainees = function(batchId){
 						return allFactory.getTrainees(batchId);
 					};
 
