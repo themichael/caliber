@@ -26,7 +26,6 @@
 						currentBatch.startDate | date:'shortDate' }}<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
 						<li ng-repeat="batch in batchesByYear track by $index"><a
 							role="button" ng-click="selectCurrentBatch($index)">{{batch.trainingName}}
 								- {{batch.startDate | date:'shortDate'}}</a></li>
@@ -38,7 +37,7 @@
 				</a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentWeek('(All)')">All</a></li>
-						<li ng-repeat="week in batchWeeks"><a role="button"
+						<li ng-repeat="week in currentBatchWeeks"><a role="button"
 							ng-click="selectCurrentWeek(week)">Week {{week}}</a></li>
 					</ul></li>
 

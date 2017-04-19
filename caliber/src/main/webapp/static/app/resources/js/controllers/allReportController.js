@@ -17,7 +17,7 @@ angular
 					// What you see when you open Reports
 					$scope.currentBatch = allBatches[allBatches.length - 1];
 					$scope.reportCurrentWeek = OVERALL;
-					$scope.batchWeeks = [];
+					$scope.currentBatchWeeks = [];
 					$scope.currentTraineeId = ALL;
 
 					$scope.noBatch = true;
@@ -91,9 +91,9 @@ angular
 					}
 
 					function getCurrentBatchWeeks(weeks) {
-						$scope.batchWeeks = [];
+						$scope.currentBatchWeeks = [];
 						for (var i = 1; i <= weeks; i++)
-							$scope.batchWeeks.push(i);
+							$scope.currentBatchWeeks.push(i);
 					}
 
 					// Filter batches by year
