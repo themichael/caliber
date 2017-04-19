@@ -163,6 +163,29 @@ angular
 						$scope.showdropped = false;
 						$log.debug($scope.currentBatch);
 					};
+					
+					
+					/** Validation for the dates **/
+					$scope.checkDates = function() {
+
+						$log.info($scope.startDate);
+						$log.info($scope.benchmarkStartDate);
+
+						if ($scope.startDate.model > $scope.benchmarkStartDate.model) {
+							/*$scope.validDate = false;*/
+							$log.info("True");
+							$scope.addNewBatch();
+						} else {
+							/*$scope.validDate = true;*/
+							$log.info("False");
+							//window.alert("hi!....u buggin!!!");
+							angular.element("#benchmarkdateModal").modal("show");
+							return false;
+						}
+						
+						$log.info($scope.validDate);
+
+					}
 
 					/** switch to dropped trainees* */
 					$scope.switchTraineeView = function() {
@@ -195,14 +218,12 @@ angular
 							$scope.coTrainer.model = ""
 						}
 
-						$scope.startDate.model = new Date(batch.startDate
-								.replace(/-/g, '/'));
-						$scope.endDate.model = new Date(batch.endDate.replace(
-								/-/g, '/'));
+						$scope.startDate.model = new Date(batch.startDate);
+						$scope.endDate.model = new Date(batch.endDate);
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
-								batch.benchmarkStartDate.replace(/-/g, '/'));
+								batch.benchmarkStartDate);
 
 					}
 
