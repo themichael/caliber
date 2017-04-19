@@ -161,7 +161,7 @@ angular
 											},
 											"trainee-overall@trainer.reports" : {
 												templateUrl : "/static/app/partials/trainee-overall.html",
-												controller : "trainerAssessController"
+												controller : "allReportController"
 											},
 											"trainee-week@trainer.reports" : {
 												templateUrl : "/static/app/partials/trainee-week.html",
