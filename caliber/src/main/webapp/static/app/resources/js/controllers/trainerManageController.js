@@ -165,6 +165,29 @@ angular
 						$scope.showdropped = false;
 						$log.debug($scope.currentBatch);
 					};
+					
+					
+					/** Validation for the dates **/
+					$scope.checkDates = function() {
+
+						$log.info($scope.startDate);
+						$log.info($scope.benchmarkStartDate);
+
+						if ($scope.startDate.model > $scope.benchmarkStartDate.model) {
+							/*$scope.validDate = false;*/
+							$log.info("True");
+							$scope.addNewBatch();
+						} else {
+							/*$scope.validDate = true;*/
+							$log.info("False");
+							//window.alert("hi!....u buggin!!!");
+							angular.element("#benchmarkdateModal").modal("show");
+							return false;
+						}
+						
+						$log.info($scope.validDate);
+
+					}
 
 					/** switch to dropped trainees* */
 					$scope.switchTraineeView = function() {
@@ -205,6 +228,7 @@ angular
 								batch.benchmarkStartDate);
 						$scope.Save = "Update";
 						$scope.Updating = true;
+
 
 
 					}
