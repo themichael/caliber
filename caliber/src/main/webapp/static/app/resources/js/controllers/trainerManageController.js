@@ -2,7 +2,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerManageController",
-				function($scope, $log, $cookies, caliberDelegate, allBatches) {
+				function($scope, $log, caliberDelegate, allBatches) {
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -17,7 +17,6 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
-									$scope.role = $cookies.get("role");
 									$log.debug($scope.role);
 								});
 						$log.debug(allBatches);
@@ -151,16 +150,64 @@ angular
 					/** Get batches for user and trainees in each batch * */
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
-						$scope.trainees = $scope.selectedBatches[index].trainees;
+						$scope.activeTrainees = $scope.selectedBatches[index].trainees;
+						$scope.trainees = $scope.activeTrainees;
+						caliberDelegate.all.getDroppedTrainees(
+								$scope.currentBatch.batchId).then(
+								function(data) {
+									$scope.droppedTrainees = data;
+								});
 
+						// caliberdlegeate get trainees by batch id and load nto
 						$scope.batchRow = index;
+						$scope.showdropped = false;
 						$log.debug($scope.currentBatch);
+					};
+					
+					
+					/** Validation for the dates **/
+					$scope.checkDates = function() {
+
+						$log.info($scope.startDate);
+						$log.info($scope.benchmarkStartDate);
+
+						if ($scope.startDate.model > $scope.benchmarkStartDate.model) {
+							/*$scope.validDate = false;*/
+							$log.info("True");
+							$scope.addNewBatch();
+						} else {
+							/*$scope.validDate = true;*/
+							$log.info("False");
+							//window.alert("hi!....u buggin!!!");
+							angular.element("#benchmarkdateModal").modal("show");
+							return false;
+						}
+						
+						$log.info($scope.validDate);
+
+					}
+
+					/** switch to and from dropped trainees* */
+					$scope.switchTraineeView = function() {
+						if ($scope.showdropped) {
+							$scope.trainees = $scope.activeTrainees;
+							$scope.resetTraineeForm();
+							$scope.showdropped = false;
+						} else {
+							$scope.trainees = $scope.droppedTrainees;
+							$scope.resetTraineeForm();
+							$scope.showdropped = true;
+						}
+
 					};
 
 					$scope.Updating = false;
 
 					/** Fill update form with batch previous data* */
 					$scope.populateBatch = function(batch) {
+						$log.debug(batch);
+						$scope.Save = "Update";
+						$scope.Updating = true;
 						$scope.batchFormName = "Update Batch";
 						$scope.trainingName.model = batch.trainingName;
 						$scope.trainingType.model = batch.trainingType
@@ -173,16 +220,12 @@ angular
 							$scope.coTrainer.model = ""
 						}
 
-						$scope.startDate.model = new Date(batch.startDate
-								.replace(/-/g, '/'));
-						$scope.endDate.model = new Date(batch.endDate.replace(
-								/-/g, '/'));
+						$scope.startDate.model = new Date(batch.startDate);
+						$scope.endDate.model = new Date(batch.endDate);
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
-								batch.benchmarkStartDate.replace(/-/g, '/'));
-						$scope.Save = "Update";
-						$scope.Updating = true;
+								batch.benchmarkStartDate);
 					}
 
 					/** Resets batch form for creating new batch* */
@@ -244,7 +287,6 @@ angular
 
 						// return newBatch;
 					}
-
 
 					$scope.update = function() {
 
@@ -337,7 +379,7 @@ angular
 					/** Get trainee info* */
 					$scope.getTrainee = function(index) {
 
-						$scope.currentTrainee = $scope.selectedBatches[$scope.batchRow].trainees[index];
+						$scope.currentTrainee = $scope.trainees[index];
 						$scope.traineeRow = index;
 
 					}
@@ -348,7 +390,6 @@ angular
 								$log.debug(statuses);
 								$scope.trainingStatuses.options = statuses;
 							});
-
 
 					/** Fill update form with trainee previous data* */
 					$scope.populateTrainee = function(trainee) {
@@ -402,18 +443,51 @@ angular
 							caliberDelegate.all
 									.updateTrainee($scope.currentTrainee)
 									.then(
-											$scope.trainees[$scope.traineeRow] = $scope.currentTrainee,
-											$scope.Updating = false,
-											$scope.resetTraineeForm())
+											function() {
+												$scope.Updating = false;
+												$scope.trainees[$scope.traineeRow] = $scope.currentTrainee;
+												$scope.resetTraineeForm();
+												// if trainee is dropped, splice
+												// from allbatches list
+												if ($scope.trainees[$scope.traineeRow].trainingStatus === "Dropped") {
+													for (i = 0; i < $scope.activeTrainees.length; i++) {
+														if ($scope.activeTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
+															$scope.droppedTrainees
+																	.push($scope.trainees[$scope.traineeRow]);
+															$scope.activeTrainees
+																	.splice(i,
+																			1);
+
+														}
+													}
+												} else {
+													for (i = 0; i < $scope.droppedTrainees.length; i++) {
+														if ($scope.droppedTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
+															$scope.activeTrainees
+																	.push($scope.trainees[$scope.traineeRow]);
+															$scope.droppedTrainees
+																	.splice(i,
+																			1);
+														}
+													}
+												}
+											});
 						} else {
 							var newTrainee = {};
 							createTraineeObject(newTrainee);
-							caliberDelegate.all.createTrainee(newTrainee).then(
-									function(response) {
-										$scope.currentBatch.trainees
-												.push(response);
-										$scope.resetTraineeForm();
-									});
+							caliberDelegate.all
+									.createTrainee(newTrainee)
+									.then(
+											function(traineeData) {
+												if (traineeData.trainingStatus === "Dropped") {
+													$scope.droppedTrainees
+															.push(traineeData);
+												} else {
+													$scope.activeTrainees
+															.push(traineeData);
+												}
+												$scope.resetTraineeForm();
+											});
 						}
 					};
 
@@ -426,7 +500,6 @@ angular
 						}
 					};
 
-
 					/** Get Trainee to delete* */
 					$scope.getTraineeToDelete = function(index) {
 						var traineeToBeDeleted;
@@ -438,6 +511,8 @@ angular
 					/** Delete Trainee* */
 
 					$scope.removeTrainee = function(traineeId) {
+						// search through allbatches trainees and splice from
+						// there
 						$log.debug($scope.traineeToBeDeleted.traineeId);
 						$log
 								.debug($scope.currentBatch.trainees[$scope.traineeRow]);
@@ -446,8 +521,22 @@ angular
 
 						caliberDelegate.all
 								.deleteTrainee($scope.traineeToBeDeleted.traineeId);
-						$scope.currentBatch.trainees.splice($scope.traineeRow,
-								1);
+
+						if ($scope.traineeToBeDeleted.trainingStatus === "Dropped") {
+							for (i = 0; i < $scope.droppedTrainees.length; i++) {
+								if ($scope.droppedTrainees[i].traineeId === $scope.traineeToBeDeleted.traineeId) {
+									$scope.droppedTrainees.splice(i, 1);
+								}
+							}
+						} else {
+							for (i = 0; i < $scope.activeTrainees.length; i++) {
+								if ($scope.activeTrainees[i].traineeId === $scope.traineeToBeDeleted.traineeId) {
+									$scope.activeTrainees.splice(i, 1);
+
+								}
+							}
+						}
+
 						angular.element("#deleteTraineeModal").modal("hide");
 
 					};
