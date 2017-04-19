@@ -10,12 +10,6 @@ angular.module(
 					$rootScope.$broadcast('qcBatchOverall')
 				}, 100);
 			});
-			$rootScope.$on('GET_TRAINEE_OVERALL', function(event, traineeId) {
-				$timeout(function() {
-					$rootScope
-							.$broadcast('GET_TRAINEE_OVERALL_CTRL', traineeId)
-				}, 100);
-			})
 		})
 // add modules here
 angular.module("vp", []);

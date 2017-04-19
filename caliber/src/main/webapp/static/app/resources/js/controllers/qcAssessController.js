@@ -195,17 +195,6 @@ angular
 						
 					}
 
-					function traineeOverall(traineeId) {
-						$scope.faces = [];
-						$log.debug("TRAINEEOVERALL FUNCTION")
-						caliberDelegate.qc.traineeOverallNote(traineeId).then(
-								function(notes) {
-									$log.debug("OVERALL TRAINEE");
-									$log.debug(notes);
-									$scope.faces = notes;
-								});
-					}
-
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
 						$scope.faces[index].qcStatus = status;
@@ -384,12 +373,6 @@ angular
 					// Execute when on reports page and trainee and week selected
 					$rootScope.$on('qcTraineeWeek', function() {
 						traineeWeek();
-					});
-					// Execute when on reports page and trainee and all week selected
-					$rootScope.$on('GET_TRAINEE_OVERALL_CTRL', function(event, traineeId) {
-						$log.debug("GET TRAINEE OVERALL!!");
-						$log.debug(traineeId);
-						traineeOverall(traineeId);
 					});
 
 					/**
