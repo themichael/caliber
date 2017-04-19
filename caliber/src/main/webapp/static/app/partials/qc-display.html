@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12 top5">
 			<div class="panel panel-default">
-				<div class="panel-heading">QC Feedback for the Week</div>
+				<div class="panel-heading">Batch Feedback for the Week</div>
 				<table class="table table-responsive col-sm-12 col-md-12 col-lg-12"
 					style="border-collapse: collapse;" ng-show="currentView">
 					<thead>
@@ -42,14 +42,15 @@
 				<!-- QC batch note -- overall qualitative feedback -->
 				<table class='table'>
 					<tr>
-						<td class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2">Batch
-							QC Status:</td>
+						<td
+							class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 text-weight-bold"><strong>Overall
+								Feedback:</strong></td>
 						<td class="col-lg-10 col-md-10 col-sm-10 col-sm-offset-10">
 							{{bnote.qcStatus}}</td>
 					</tr>
 					<tr>
-						<td class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2">Batch
-							Note:</td>
+						<td
+							class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 text-weight-bold"><strong>Notes:</strong></td>
 						<td class="col-lg-10 col-md-10 col-sm-10 col-sm-offset-10">
 							{{bnote.content}}</td>
 					</tr>
