@@ -1,3 +1,19 @@
- <div ng-repeat="notes in traineeOverallNotes">
-	{{notes.content}}
-</div> 
+<table class='table table=responsive'>
+		<thead>
+		<tr>
+			<th class='center'>Week</th>
+			<th>Trainer Note</th>
+			<th class='center'>QC Status</th>
+			<th >QC Note</th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="report in traineeOverall">
+				<td class='center'>{{report.week}}</td>
+				<td>{{report.trainerNote.content ? report.trainerNote.content : "-"}}</td>
+				<td class='center'>{{report.qcNote.qcStatus ? report.qcNote.qcStatus : "-"}}</td>
+				<td>{{report.qcNote.content ? report.qcNote.qcStatus : "-"}}</td>
+			</tr>
+		</tbody>
+</table>
+

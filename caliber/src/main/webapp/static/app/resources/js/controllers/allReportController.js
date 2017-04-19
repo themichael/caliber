@@ -95,20 +95,30 @@ angular
 					}
 
 					function displayTraineeOverallTable(traineeId) {
-						$scope.traineeOverall = {};
-						$scope.traineeOverall.trainerNotes = [];
-						$scope.traineeOverall.qcNotes = [];
+						$scope.traineeOverall=[];	
+						for(weekNum in $scope.currentBatchWeeks){
+							var week = parseInt(weekNum) + 1
+							$scope.traineeOverall.push({week});
+						}
 						caliberDelegate.all
 								.getAllTraineeNotes(traineeId)
 								.then(
 										function(response) {
-											$scope.traineeOverall.trainerNotes = response;
+											for(note of response){
+												if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
+													$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
+												}
+											}											
 										});
 						caliberDelegate.qc.
 								traineeOverallNote(traineeId)
 								.then(
 										function(response) {
-											$scope.traineeOverall.qcNotes = response;
+											for(qcNote of response){
+												if($scope.traineeOverall[parseInt(qcNote.week)-1] !== undefined){
+													$scope.traineeOverall[parseInt(qcNote.week)-1].qcNote = qcNote;
+												}
+											}
 										});
 					}
 
