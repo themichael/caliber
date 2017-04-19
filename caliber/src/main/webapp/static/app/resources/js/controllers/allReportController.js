@@ -17,9 +17,7 @@ angular
 					// What you see when you open Reports
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
-					$scope.batchWeeks = {
-						"weeks" : []
-					};
+					$scope.currentBatchWeeks = [];
 					$scope.currentTraineeId = ALL;
 
 					$scope.noBatch = true;
@@ -94,9 +92,9 @@ angular
 					}
 
 					function getCurrentBatchWeeks(weeks) {
-						$scope.batchWeeks.weeks = [];
+						$scope.currentBatchWeeks = [];
 						for (var i = 1; i <= weeks; i++)
-							$scope.batchWeeks.weeks.push(i);
+							$scope.currentBatchWeeks.push(i);
 					}
 
 					// Filter batches by year
@@ -192,7 +190,6 @@ angular
 						} else {
 							$scope.currentTraineeId = $scope.currentBatch.trainees[index].traineeId;
 							$scope.currentTrainee = $scope.currentBatch.trainees[index];
-							$log.debug($scope.currentTrainee);
 							$scope.currentTrainee = {
 								name : $scope.currentBatch.trainees[index].name
 							};
@@ -302,8 +299,6 @@ angular
 													.getAverageTraineeScoresOverall(data);
 											$scope.batchOverAllLabels = barChartObject.labels;
 											$scope.batchOverAllData = barChartObject.data;
-											$log.debug("SKALAGA!!!!");
-											$log.debug($scope.batchOverAllData);
 											$scope.batchOverAllOptions = barChartObject.options;
 										}, function() {
 											NProgress.done();
@@ -322,11 +317,6 @@ angular
 											NProgress.done();
 											var barChartObject = chartsDelegate.bar
 													.getAssessmentAveragesBatchWeekly(data);
-											$log.debug("here we are, in the yani barchart method");
-											$log.debug(barChartObject.options);
-											$log.debug(barChartObject);
-											$log.debug(barChartObject.series);
-
 											$scope.barchartAWLabels = barChartObject.labels;
 											$scope.barchartAWData = barChartObject.data;
 											$scope.barchartAWOptions = barChartObject.options;
@@ -417,7 +407,6 @@ angular
 										$scope.currentTraineeId)
 								.then(
 										function(data) {
-											$log.debug(data);
 											NProgress.done();
 											var radarChartObject = chartsDelegate.radar
 													.createFromTwoDataSets(
@@ -448,7 +437,7 @@ angular
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(
 															data,
-															"Temp Batch Overall");
+															$scope.currentBatch.trainingName);
 											$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
 											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
 											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
@@ -509,17 +498,13 @@ angular
 										$scope.currentTraineeId)
 								.then(
 										function(data) {
-											$log.debug(data);
 											NProgress.done();
 											var lineChartObject = chartsDelegate.line
 													.getWeeklyProgressTraineeOverall(data);
-											$log.debug("chart completed!");
 											$scope.batchOverallWeeklyLabels = lineChartObject.labels;
 											$scope.batchOverallWeeklyData = lineChartObject.data;
 											$scope.batchOverallWeeklySeries = lineChartObject.series;
 											$scope.batchOverallWeeklyOptions = lineChartObject.options;
-											$log.debug(lineChartObject);
-
 										}, function() {
 											NProgress.done();
 										});
