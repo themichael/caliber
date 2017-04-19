@@ -5,8 +5,10 @@ angular.module(
 				"api", "delegate", "charts", "reportApi", "ngAnimate" ]).run(
 		function($rootScope, $timeout) {
 			$rootScope.$on('test', function() {
-				$rootScope.$broadcast('trainerasses');
-				$rootScope.$broadcast('qcBatchOverall');
+				$timeout(function() {
+					$rootScope.$broadcast('trainerasses');
+					$rootScope.$broadcast('qcBatchOverall')
+				}, 100);
 			});
 			$rootScope.$on('GET_TRAINEE_OVERALL', function(event, traineeId) {
 				$timeout(function() {
