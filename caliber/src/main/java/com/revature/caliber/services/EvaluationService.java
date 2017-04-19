@@ -217,7 +217,6 @@ public class EvaluationService {
 				n.setBatch(null);
 				notes.add(n);
 			}
-			return notes;
 		}
 		return notes;
 	}
