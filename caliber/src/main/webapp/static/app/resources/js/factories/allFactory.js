@@ -162,6 +162,26 @@ angular.module("api").factory("allFactory", function($log, $http) {
 
 	/**
 	 * 
+	 * @param batchId
+	 * @returns {*}
+	 */
+	all.getDroppedTrainees = function(batchId) {
+		return $http({
+			url : "/all/trainee/dropped?batch="+batchId ,
+			method : "GET",
+		}).then(function(response) {
+			$log.debug("Trainee successfully created.")
+			$log.debug(response.data);
+			// return id
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return response.data;
+		});
+	};
+	
+	/**
+	 * 
 	 * @param traineeObj
 	 * @returns {*}
 	 */

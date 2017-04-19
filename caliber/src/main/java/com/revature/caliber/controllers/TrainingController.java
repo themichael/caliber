@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -200,6 +201,19 @@ public class TrainingController {
 	 *
 	 *******************************************************
 	 */
+	@RequestMapping(value = "/all/trainee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Trainee>> findAllByBatch(@RequestParam(required = true) Integer batch) {
+		log.info("Finding trainees for batch: " + batch);
+		List<Trainee> trainees = trainingService.findAllTraineesByBatch(batch);
+		return new ResponseEntity<>(trainees, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/all/trainee/dropped", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Trainee>> findAllDroppedByBatch(@RequestParam(required = true) Integer batch) {
+		log.info("Finding dropped trainees for batch: " + batch);
+		List<Trainee> trainees = trainingService.findAllDroppedTraineesByBatch(batch);
+		return new ResponseEntity<>(trainees, HttpStatus.OK);
+	}
 
 	/**
 	 * Create trainee

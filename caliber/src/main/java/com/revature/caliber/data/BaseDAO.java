@@ -1,8 +1,11 @@
 package com.revature.caliber.data;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,6 +19,21 @@ import com.revature.caliber.beans.TrainingStatus;
 
 @Component
 public class BaseDAO {
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> initializeActiveTrainees(List<Trainee> trainees) {
+		List<Trainee> active = new ArrayList<>();
+		if (trainees != null) {
+			for (Trainee trainee : trainees) {
+				if (trainee.getTrainingStatus() != null
+						&& !trainee.getTrainingStatus().equals(TrainingStatus.Dropped)) {
+					Hibernate.initialize(trainee.getGrades());
+					active.add(trainee);
+				}
+			}
+		}
+		return active;
+	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch initializeActiveTrainees(Batch batch) {
@@ -46,7 +64,7 @@ public class BaseDAO {
 		}
 		return assessment;
 	}
-	
+
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Note initializeActiveTrainees(Note note) {
 		Set<Trainee> trainees = new HashSet<>();
@@ -60,6 +78,20 @@ public class BaseDAO {
 			note.getBatch().setTrainees(trainees);
 		}
 		return note;
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> initializeDroppedTrainees(List<Trainee> trainees) {
+		List<Trainee> dropped = new ArrayList<>();
+		if (trainees != null) {
+			for (Trainee trainee : trainees) {
+				if (trainee.getTrainingStatus() != null && trainee.getTrainingStatus().equals(TrainingStatus.Dropped)) {
+					Hibernate.initialize(trainee.getGrades());
+					dropped.add(trainee);
+				}
+			}
+		}
+		return dropped;
 	}
 
 }
