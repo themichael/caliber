@@ -134,6 +134,11 @@ angular
 					delegate.trainer.getTraineeBatchNotesForWeek = function(batchId,week){
 						return trainerFactory.getTraineeBatchNotesForWeek(batchId,week);
 					}
+					
+					delegate.trainer.getTraineeNote = function(traineeId,week){
+						return trainerFactory.getTraineeNote(traineeId,week);
+					}
+					
 					delegate.trainer.getAllAssessmentsForWeek = function(
 							batchId, week) {
 						return trainerFactory.getAllAssessmentsForWeek(batchId,
