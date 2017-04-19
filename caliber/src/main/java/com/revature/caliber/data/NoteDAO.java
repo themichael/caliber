@@ -110,8 +110,6 @@ public class NoteDAO extends BaseDAO{
 				.add(Restrictions.eq("type", NoteType.TRAINEE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).uniqueResult();
 
-		note.getBatch().setTrainees(new HashSet<>());
-		
 		return note;
 	}
 	

@@ -230,7 +230,11 @@ public class EvaluationService {
 	 * @return 
 	 */
 	public Note findTraineeNote(Integer traineeId, Integer week) {
-		return noteDAO.findTraineeNote(traineeId,week);
+		Note note = noteDAO.findTraineeNote(traineeId,week);
+		
+		note.setBatch(null);
+		
+		return note;
 	}
 
 	/**
