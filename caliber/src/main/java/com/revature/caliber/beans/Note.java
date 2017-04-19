@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "CALIBER_NOTE")
 public class Note implements Serializable{
@@ -39,6 +41,7 @@ public class Note implements Serializable{
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID", nullable = true)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Batch batch;
 
 	/**
@@ -297,7 +300,7 @@ public class Note implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Note [noteId=" + noteId + ", content=" + content + ", week=" + week + ", batch=" + batch
+		return "Note [noteId=" + noteId + ", content=" + content + ", week=" + week 
 				+ ", trainee=" + trainee + ", maxVisibility=" + maxVisibility + ", type=" + type
 				+ ", qcFeedback=" + qcFeedback + ", qcStatus=" + qcStatus + "]";
 	}

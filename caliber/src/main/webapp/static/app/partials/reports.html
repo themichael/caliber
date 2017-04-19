@@ -48,8 +48,7 @@
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentTrainee(-1)">All</a></li>
 						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
-							role="button" ng-click="selectCurrentTrainee($index)">{{trainee
-								.name}}</a></li>
+							role="button" ng-click="selectCurrentTrainee($index)">{{trainee.name}}</a></li>
 					</ul></li>
 			</ul>
 		</div>
@@ -143,7 +142,8 @@
 										chart-colors="barchartAWColors">
                                     </canvas>
 									<div class="wrap">
-										<div class='' ng-if='barchartAWLabels.length <= 2'>
+										<div class='outer-bar-data'
+											ng-if='barchartAWLabels.length <= 2'>
 											<table ng-if="barchartAWLabels"
 												class="table table-responsive"
 												style="border-collapse: collapse;">
@@ -385,9 +385,8 @@
 				</div>
 				<!-- Row With Bottom 2 Charts -->
 			</div>
-			<div ui-view="trainer-display" ng-if="displayTable()"></div>
-		</div>
-		<!-- Row with all 3 Chart-->
+			<div ui-view="trainee-week" ng-if="displayTable()"></div>			
+		</div> <!-- Row with all 3 Chart-->
 
 		<!-- Batch -> Overall -> Trainee-->
 		<div class="row" ng-if="batchOverallTrainee">
@@ -495,7 +494,6 @@
 				<!-- Row With Bottom 2 Charts -->
 			</div>
 			<div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div>
-			<div ui-view="qc-traineeOverall" ng-if="displayTable()"></div>
 		</div>
 		<!-- Row with all 3 Chart-->
 
@@ -503,4 +501,3 @@
 	<!-- top10 data-container -->
 </div>
 <!-- caliber-container -->
-
