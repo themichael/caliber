@@ -343,8 +343,6 @@ angular
 											$scope.AssessmentAveragesTraineeWeeklyData = barChartObject.data;
 											$scope.AssessmentAveragesTraineeWeeklyOptions = barChartObject.options;
 											$scope.AssessmentAveragesTraineeWeeklySeries = barChartObject.series;
-											$log.debug("@#@#@#@#@#@#");
-											$log.debug(barChartObject.series);
 											$scope.AssessmentAveragesTraineeWeeklyColors = barChartObject.colors;
 										}, function() {
 											NProgress.done();
@@ -397,6 +395,7 @@ angular
 											$scope.radarTraineeWeeklyOptions = radarChartObject.options;
 											$scope.radarTraineeWeeklyLabels = radarChartObject.labels;
 											$scope.radarTraineeWeeklySeries = radarChartObject.series;
+											$scope.radarTraineeWeeklyColors = radarChartObject.colors;
 
 											$scope.radarTraineeWeeklyTable = chartsDelegate.utility
 													.dataToTable(radarChartObject);
@@ -424,6 +423,7 @@ angular
 											$scope.radarTraineeOverallOptions = radarChartObject.options;
 											$scope.radarTraineeOverallLabels = radarChartObject.labels;
 											$scope.radarTraineeOverallSeries = radarChartObject.series;
+											$scope.radarTraineeOverallColors = radarChartObject.colors;
 
 											$scope.radarTraineeOverallTable = chartsDelegate.utility
 													.dataToTable(radarChartObject);
@@ -447,6 +447,7 @@ angular
 											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
 											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
 											$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
+											$scope.radarBatchOverallColors = radarBatchOverallChartObject.colors;
 
 											$scope.radarBatchOverallTable = chartsDelegate.utility
 													.dataToTable(radarBatchOverallChartObject);
