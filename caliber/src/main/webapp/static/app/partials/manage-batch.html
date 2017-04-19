@@ -263,10 +263,12 @@
 					</div>
 					<div class="modal-body">
 						<!-- View Trainees in Batch -->
-						<h3>Trainees in Batch</h3><button type="button" class="btn btn-default"
-							ng-click="switchTraineeView()" ng-show = "!showdropped" >Dropped</button>
-							<button type="button" class="btn btn-default"
-							ng-click="switchTraineeView()" ng-show = "showdropped">Active</button>
+						<h3>Trainees in Batch</h3><a role="button" class="pull-right"
+							ng-click="switchTraineeView()" ng-show = "!showdropped"><span
+									class="fa fa-toggle-off fa-2x" aria-hidden="true"> </span></a>
+							<a role="button" class="pull-right"
+							ng-click="switchTraineeView()" ng-show = "showdropped"><span
+									class="fa fa-toggle-on fa-2x" aria-hidden="true"> </span></a>
 						<!--                   <div class="row scrollable-div"> -->
 						<div class="col-md-12 col-lg-12">
 							<table class="table table-responsive">
