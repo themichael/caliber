@@ -150,8 +150,8 @@ angular
 					/** Get batches for user and trainees in each batch * */
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
-						$scope.activetrainees = $scope.selectedBatches[index].trainees;
-						$scope.trainees = $scope.activetrainees;
+						$scope.activeTrainees = $scope.selectedBatches[index].trainees;
+						$scope.trainees = $scope.activeTrainees;
 						caliberDelegate.all.getDroppedTrainees(
 								$scope.currentBatch.batchId).then(
 								function(data) {
@@ -162,14 +162,14 @@ angular
 						$scope.batchRow = index;
 						$scope.showdropped = false;
 						$log.debug($scope.currentBatch);
-					};			
+					};
 
 					/** switch to dropped trainees* */
 					$scope.switchTraineeView = function() {
 						if ($scope.showdropped) {
-							$scope.trainees = $scope.activetrainees;
+							$scope.trainees = $scope.activeTrainees;
 							$scope.showdropped = false;
-						}else{
+						} else {
 							$scope.trainees = $scope.droppedTrainees;
 							$scope.showdropped = true;
 						}
@@ -421,24 +421,50 @@ angular
 									.updateTrainee($scope.currentTrainee)
 									.then(
 											function() {
-												$scope.trainees[$scope.traineeRow] = $scope.currentTrainee;
 												$scope.Updating = false;
+												$scope.trainees[$scope.traineeRow] = $scope.currentTrainee;
 												$scope.resetTraineeForm();
 												// if trainee is dropped, splice
 												// from allbatches list
 												if ($scope.trainees[$scope.traineeRow].trainingStatus === "Dropped") {
-													$log.debug("droped");
+													for (i = 0; i < $scope.activeTrainees.length; i++) {
+														if ($scope.activeTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
+															$scope.droppedTrainees
+															.push($scope.trainees[$scope.traineeRow]);
+															$scope.activeTrainees
+																	.splice(i,
+																			1);
+															
+														}
+													}
+												} else {
+													for (i = 0; i < $scope.droppedTrainees.length; i++) {
+														if ($scope.droppedTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
+															$scope.activeTrainees
+															.push($scope.trainees[$scope.traineeRow]);
+															$scope.droppedTrainees
+																	.splice(i,
+																			1);
+														}
+													}
 												}
 											});
 						} else {
 							var newTrainee = {};
 							createTraineeObject(newTrainee);
-							caliberDelegate.all.createTrainee(newTrainee).then(
-									function(response) {
-										$scope.currentBatch.trainees
-												.push(response);
-										$scope.resetTraineeForm();
-									});
+							caliberDelegate.all
+									.createTrainee(newTrainee)
+									.then(
+											function(traineeData) {
+												if (traineeData.trainingStatus === "Dropped") {
+													$scope.droppedTrainees
+															.push(traineeData);
+												} else {
+													$scope.activeTrainees
+															.push(traineeData);
+												}
+												$scope.resetTraineeForm();
+											});
 						}
 					};
 
