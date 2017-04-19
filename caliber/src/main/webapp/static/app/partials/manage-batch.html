@@ -79,7 +79,7 @@
 	</div>
 
 	<!--********************************************* Create Batch Modal ************************************-->
-	<form ng-submit="addNewBatch()">
+	<form ng-submit="checkDates()">
 		<div class="modal fade" id="createBatchModal" tabindex="-1"
 			role="dialog" aria-labelledby="batchModalLabel">
 			<div class="modal-dialog" role="document">
@@ -152,6 +152,7 @@
 								<label for="start-date">Start Date:</label>
 								<div class="input-group" id="start-date" data-datepicker="true">
 									<input ng-model="startDate.model" ng-change="setEndDate()"
+										ng-value="startDate"
 										class="date-input form-control date-selector" name="date"
 										min="0" type="date" ng-required="true"> <span
 										class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -198,7 +199,8 @@
 									data-datepicker="true">
 									<input ng-model="benchmarkStartDate.model"
 										class="date-input form-control date-selector" name="date"
-										min="0" type="date" ng-change="benchmarkDateIsValid()" ng-required="true"> <span
+										ng-value="benchmarkStartDate"
+										min="0" type="date" ng-required="true"> <span
 										class="input-group-addon glyphicon glyphicon-calendar"></span>
 								</div>
 							</div>
@@ -206,7 +208,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<input type="submit" ng-value="Save" class="btn btn-primary">
+						<input type="submit" ng-value="Save" class="btn btn-primary" ng-click="">
 					</div>
 				</div>
 			</div>
