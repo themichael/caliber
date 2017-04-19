@@ -80,6 +80,10 @@ angular
 					delegate.all.getAssessmentsAverageForWeek = function(batchId, weekId){
 						return allFactory.getAssessmentsAverageForWeek(batchId,weekId);
 					}
+					
+					delegate.all.getAllTraineeNotes = function(traineeId){
+						return allFactory.getAllTraineeNotes(traineeId);
+					}
 					/**
 					 * *********************** Enum constants
 					 * ***************************
