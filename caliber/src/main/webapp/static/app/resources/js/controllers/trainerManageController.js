@@ -18,6 +18,7 @@ angular
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
 									$scope.role = $cookies.get("role");
+
 									$log.debug($scope.role);
 								});
 						$log.debug(allBatches);
@@ -165,7 +166,6 @@ angular
 						$log.debug($scope.currentBatch);
 					};
 
-
 					/** switch to dropped trainees* */
 					$scope.switchTraineeView = function() {
 						if ($scope.showdropped) {
@@ -209,6 +209,7 @@ angular
 						$scope.Save = "Update";
 						$scope.Updating = true;
 
+0
 					}
 
 					/** Resets batch form for creating new batch* */

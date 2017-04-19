@@ -1,4 +1,3 @@
-
 package com.revature.caliber.data;
 
 import java.util.List;
