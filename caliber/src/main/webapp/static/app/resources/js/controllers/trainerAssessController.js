@@ -242,6 +242,9 @@ angular
 						batchYears();
 						$scope.currentBatch = $scope.batchesByYear[0];
 						
+						$scope.trainees={};						
+						for(trainee of $scope.currentBatch.trainees){
+							$scope.assignTraineeScope(trainee.traineeId);}
 						if ($scope.currentBatch.weeks > 0) {
 							$scope.currentWeek = $scope.currentBatch.weeks;
 							getAllAssessmentsForWeek(
