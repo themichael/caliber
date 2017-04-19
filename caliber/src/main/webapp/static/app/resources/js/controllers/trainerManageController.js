@@ -203,7 +203,6 @@ angular
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
 								batch.benchmarkStartDate);
-
 						$scope.Save = "Update";
 						$scope.Updating = true;
 
