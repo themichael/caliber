@@ -201,10 +201,7 @@ angular
 
 							} else
 								$scope.currentWeek = null;
-						} else {
-							/*$scope.currentBatch = null;
-							$scope.currentWeek = null;*/
-						}
+						} 
 						$log.debug("Starting Values: currentBatch and currentWeek");
 						$log.debug($scope.currentBatch);
 						$log.debug($scope.currentWeek);
@@ -655,29 +652,30 @@ angular
 								});
 							});
 					}
+					
 					$scope.stopBurrito = function(traineeId){
 						$scope.trainees[traineeId].burrito=false;
 					}
+					
 					$scope.reloadController = function() {
 			            $state.reload();
 			        };
-//					$rootScope.reloadController();
-					$rootScope.$on('trainerasses',function(){
+
+			        $rootScope.$on('trainerasses',function(){
 						$scope.trainees={};						
 						
 						for(trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);
 						}
 						
-						//start(allBatches);
 						getAllAssessmentsForWeek(
 								$scope.currentBatch.batchId,
 								$scope.currentWeek);
 					});
-					$rootScope.$on('GET_TRAINEE_OVERALL_CTRL',function(event,traineeId){
+					
+			        $rootScope.$on('GET_TRAINEE_OVERALL_CTRL',function(event,traineeId){
 						console.log(traineeId);
 					});
-					/* RUN START FUNCTION */
-					//start(allBatches);
+
 				$scope.test = function(){$log.debug("yer");}
 				});
