@@ -436,7 +436,7 @@ angular
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(
 															data,
-															"Temp Batch Overall");
+															$scope.currentBatch.trainingName);
 											$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
 											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
 											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
