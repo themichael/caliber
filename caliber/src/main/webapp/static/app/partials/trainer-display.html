@@ -30,7 +30,7 @@
 					</tr>
 				</tbody>
 				<tfoot>
-					<td>Average</td>
+					<td><strong>Average</strong></td>
 					<td
 						ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{getTotalAssessmentAvgForWeek(assessment,trainees)
 						? (getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
@@ -44,7 +44,7 @@
 				<tr>
 					<td
 						class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-						Batch Notes : {{trainerBatchNote.content}}</td>
+						<strong>Notes :</strong> {{trainerBatchNote.content}}</td>
 				</tr>
 			</table>
 					</div>
