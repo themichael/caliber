@@ -21,7 +21,6 @@ angular
 						"weeks" : []
 					};
 					$scope.currentTraineeId = ALL;
-
 					$scope.noBatch = true;
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
@@ -62,7 +61,8 @@ angular
 
 							} else {
 								// Specific Trainee
-								$rootScope.$emit("GET_TRAINEE_OVERALL",$scope.currentTraineeId);
+								//$rootScope.$emit("GET_TRAINEE_OVERALL",$scope.currentTraineeId);
+								displayTraineeOverallTable($scope.currentTraineeId);
 								$scope.batchWeek = false;
 								$scope.batchWeekTrainee = false;
 								$scope.batchOverall = false;
@@ -91,6 +91,14 @@ angular
 						}
 
 					}
+					
+					 function displayTraineeOverallTable(traineeId){
+						 $scope.traineeOverallNotes=[];
+						 caliberDelegate.all.getAllTraineeNotes(traineeId)
+							 .then(function(response){
+								 $scope.traineeOverallNotes=response;
+							 });				 						 
+					};					
 
 					function getCurrentBatchWeeks(weeks) {
 						$scope.batchWeeks.weeks = [];
@@ -101,11 +109,9 @@ angular
 					// Filter batches by year
 					$scope.years = addYears();
 					$scope.batches = allBatches;
-
 					$scope.currentTrainee = {
-						name : "Trainee"
-					}
-
+							name : "Trainee",
+						}
 					// hide filter tabs
 					$scope.hideOtherTabs = function() {
 						return $scope.currentBatch.trainingName !== "Batch";
@@ -192,9 +198,6 @@ angular
 							$scope.currentTraineeId = $scope.currentBatch.trainees[index].traineeId;
 							$scope.currentTrainee = $scope.currentBatch.trainees[index];
 							$log.debug($scope.currentTrainee);
-							$scope.currentTrainee = {
-								name : $scope.currentBatch.trainees[index].name
-							};
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
