@@ -111,9 +111,11 @@ public class BatchDAO extends BaseDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches");
+		Calendar endDateLimit = Calendar.getInstance();
+		endDateLimit.add(Calendar.MONTH, 3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime())).addOrder(Order.desc("trainingName"))
+				.add(Restrictions.ge("endDate", endDateLimit.getTime())).addOrder(Order.desc("trainingName"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for (Batch batch : batches) {
 			initializeActiveTrainees(batch);
