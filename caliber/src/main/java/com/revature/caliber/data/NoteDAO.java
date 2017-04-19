@@ -62,8 +62,9 @@ public class NoteDAO extends BaseDAO{
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Note> findBatchNotes(Integer batchId, Integer week) {
 		log.info("Finding batch notes for week " + week + " for batch: " + batchId);
-		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b").createAlias("b.trainees", "t")
+		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
 				.add(Restrictions.eq("b.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq("type", NoteType.BATCH))
 				.add(Restrictions.ge("maxVisibility", TrainerRole.TRAINER))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for(Note note : notes){
