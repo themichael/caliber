@@ -223,6 +223,16 @@ public class TrainingService {
 	}
 	
 	/**
+	 * FIND ALL DROPPED TRAINEES BY BATCH ID
+	 * @param batchId
+	 * @return
+	 */
+	public List<Trainee> findAllDroppedTraineesByBatch(Integer batchId) {
+		log.debug("Find dropped trainees by batch");
+		return traineeDAO.findAllDroppedByBatch(batchId);
+	}
+	
+	/**
 	 * FIND ALL TRAINEES BY TRAINER ID
 	 * @param trainerId
 	 * @return
@@ -271,6 +281,7 @@ public class TrainingService {
 		log.debug("Update trainee " + trainee);
 		traineeDAO.update(trainee);
 	}
+	
 	
 	
 }
