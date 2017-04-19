@@ -189,13 +189,15 @@ angular
 
 					}
 
-					/** switch to dropped trainees* */
+					/** switch to and from dropped trainees* */
 					$scope.switchTraineeView = function() {
 						if ($scope.showdropped) {
 							$scope.trainees = $scope.activeTrainees;
+							$scope.resetTraineeForm();
 							$scope.showdropped = false;
 						} else {
 							$scope.trainees = $scope.droppedTrainees;
+							$scope.resetTraineeForm();
 							$scope.showdropped = true;
 						}
 
@@ -228,7 +230,6 @@ angular
 								batch.benchmarkStartDate);
 						$scope.Save = "Update";
 						$scope.Updating = true;
-
 
 
 					}
@@ -468,18 +469,18 @@ angular
 													for (i = 0; i < $scope.activeTrainees.length; i++) {
 														if ($scope.activeTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.droppedTrainees
-															.push($scope.trainees[$scope.traineeRow]);
+																	.push($scope.trainees[$scope.traineeRow]);
 															$scope.activeTrainees
 																	.splice(i,
 																			1);
-															
+
 														}
 													}
 												} else {
 													for (i = 0; i < $scope.droppedTrainees.length; i++) {
 														if ($scope.droppedTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.activeTrainees
-															.push($scope.trainees[$scope.traineeRow]);
+																	.push($scope.trainees[$scope.traineeRow]);
 															$scope.droppedTrainees
 																	.splice(i,
 																			1);
@@ -536,8 +537,22 @@ angular
 
 						caliberDelegate.all
 								.deleteTrainee($scope.traineeToBeDeleted.traineeId);
-						$scope.currentBatch.trainees.splice($scope.traineeRow,
-								1);
+
+						if ($scope.traineeToBeDeleted.trainingStatus === "Dropped") {
+							for (i = 0; i < $scope.droppedTrainees.length; i++) {
+								if ($scope.droppedTrainees[i].traineeId === $scope.traineeToBeDeleted.traineeId) {
+									$scope.droppedTrainees.splice(i, 1);
+								}
+							}
+						} else {
+							for (i = 0; i < $scope.activeTrainees.length; i++) {
+								if ($scope.activeTrainees[i].traineeId === $scope.traineeToBeDeleted.traineeId) {
+									$scope.activeTrainees.splice(i, 1);
+
+								}
+							}
+						}
+
 						angular.element("#deleteTraineeModal").modal("hide");
 
 					};
