@@ -198,7 +198,7 @@
 									data-datepicker="true">
 									<input ng-model="benchmarkStartDate.model"
 										class="date-input form-control date-selector" name="date"
-										min="0" type="date" ng-required="true"> <span
+										min="0" type="date" ng-change="benchmarkDateIsValid()" ng-required="true"> <span
 										class="input-group-addon glyphicon glyphicon-calendar"></span>
 								</div>
 							</div>

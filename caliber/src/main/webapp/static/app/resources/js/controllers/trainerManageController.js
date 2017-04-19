@@ -205,6 +205,16 @@ angular
 							$scope.currentBatch = null;
 						}
 					}
+					
+					
+					/** checking benchmark date **/
+					function benchmarkDateIsValid(){
+						
+						if( $scope.benchmarkStartDate.model < new Date()) {
+								$scope.startDate();
+							}
+					}
+					
 
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
