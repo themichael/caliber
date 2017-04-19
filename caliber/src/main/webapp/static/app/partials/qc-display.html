@@ -16,7 +16,7 @@
 						<tr ng-repeat="trainee in currentBatch.trainees track by $index">
 							<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
 							<td>
-								<div ng-if="faces[$index].qcStatus === qcStatusTypes[0]"
+								<!-- For qcStatus face images --> <!-- <div ng-if="faces[$index].qcStatus === qcStatusTypes[0]"
 									title="Excellent"
 									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
 									<i class="fa fa-star fa-2x pick"></i>
@@ -32,9 +32,9 @@
 								<div ng-if="faces[$index].qcStatus === qcStatusTypes[3]"
 									title="Poor" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
 									<i class="fa fa-frown-o fa-2x pick"></i>
-								</div>
+								</div> --> {{faces[$index].qcStatus}}
 							</td>
-							<td class="col-sm-9 col-md-9 col-lg-9">{{noteOnTrainee($index).content}}</td>
+							<td class="col-sm-9 col-md-9 col-lg-9">{{faces[$index].content}}</td>
 							<td><ul class="nav nav-tabs">
 						</tr>
 					</tbody>
@@ -42,24 +42,15 @@
 				<!-- QC batch note -- overall qualitative feedback -->
 				<table class='table'>
 					<tr>
-						<td ng-if="bnote.qcStatus === qcStatusTypes[0]" title="Excellent"
-							class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch
-							Note: <i class="fa fa-star fa-2x pick"></i>
-						</td>
-						<td ng-if="bnote.qcStatus === qcStatusTypes[1]" title="Good"
-							class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch
-							Note: <i class="fa fa-smile-o fa-2x pick"></i>
-						</td>
-						<td ng-if="bnote.qcStatus === qcStatusTypes[2]" title="Fair"
-							class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch
-							Note: <i class="fa fa-meh-o fa-2x pick"></i>
-						</td>
-						<td ng-if="bnote.qcStatus === qcStatusTypes[3]" title="Poor"
-							class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">Batch
-							Note: <i class="fa fa-frown-o fa-2x pick"></i>
-						</td>
-						<td
-							class="form-group col-lg-10 col-md-10 col-sm-11 overall-feedback">
+						<td class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2">Batch
+							QC Status:</td>
+						<td class="col-lg-10 col-md-10 col-sm-10 col-sm-offset-10">
+							{{bnote.qcStatus}}</td>
+					</tr>
+					<tr>
+						<td class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2">Batch
+							Note:</td>
+						<td class="col-lg-10 col-md-10 col-sm-10 col-sm-offset-10">
 							{{bnote.content}}</td>
 					</tr>
 				</table>
