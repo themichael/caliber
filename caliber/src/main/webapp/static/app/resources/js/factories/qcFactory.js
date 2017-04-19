@@ -50,6 +50,19 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 		});
 	};
 	
+	
+	qc.getTraineeWeek = function(traineeId, week) {
+		return $http({
+			url : "/vp/note/trainee/" + traineeId + "/" + week,
+			method : "GET"
+		}).then(function(response) {
+			$log.log("QC Trainee Note retrieved successfully");
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
 	// Call EvaluationController's getAllQCTraineeNotes method
 	qc.getAllQCTraineeNote = function(batchId, week) {
 		return $http({
@@ -57,6 +70,19 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Note retrieved successfully");
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
+	// Call EvaluationController's getTraineeOverallNotes method
+	qc.getTraineeOverallNote = function(traineeId) {
+		return $http({
+			url : "/qc/note/trainee/" + traineeId,
+			method : "GET"
+		}).then(function(response) {
+			$log.log("QC Trainee Overall Note retrieved successfully");
 			return response.data;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);

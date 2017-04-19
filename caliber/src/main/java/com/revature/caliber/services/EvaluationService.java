@@ -270,7 +270,6 @@ public class EvaluationService {
 		return noteDAO.findAllIndividualNotes(traineeId, week);
 	}
 
-	
 	/**
 	 * Find all qc trainee notes
 	 * @return
@@ -278,5 +277,14 @@ public class EvaluationService {
 	public List<Note> findAllQCTraineeNotes(Integer batchId, Integer week) {
 		log.debug("Find All QC Trainee Notes");
 		return noteDAO.findAllQCTraineeNotes(batchId, week);
+	}
+	
+	/**
+	 * Find all qc trainee notes
+	 * @return
+	 */
+	public List<Note> findAllQCTraineeOverallNotes(Integer traineeId) {
+		log.debug("Find All QC Trainee Notes for that trainee");
+		return noteDAO.findAllQCTraineeOverallNotes(traineeId);
 	}
 }

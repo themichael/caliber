@@ -1,0 +1,32 @@
+<!-- display table for the batch and week selected -->
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12 top5">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Trainer Feedback for the Week</div>
+				<div class="panel-body">
+					<div class="chart-container top5">
+				<table class="table table-responsive col-sm-12 col-md-12 col-lg-12"
+				style="border-collapse: collapse;">
+				<thead>
+					<tr>
+						<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
+						<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr>
+						<td class="col-sm-2 col-md-2 col-lg-2">{{currentTrainee.name}}</td>
+						<td class="col-sm-9 col-md-9 col-lg-9">
+							<!-- {{getTraineeBatchNotesForWeek(currentBatch.batchId,currentWeek)}} --></td>
+					</tr>
+				</tbody>
+			</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
