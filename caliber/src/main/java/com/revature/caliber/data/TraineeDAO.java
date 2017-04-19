@@ -66,7 +66,21 @@ public class TraineeDAO extends BaseDAO{
 		return initializeActiveTrainees(trainees);
 	}
 	
-	
+	/**
+	 * Find all dropped trainees in a given batch
+	 * @param batchId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
+	public List<Trainee> findAllDroppedByBatch(Integer batchId) {
+		log.info("Fetching all trainees by batch: " + batchId);
+		List<Trainee> trainees = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.eq("batch.batchId", batchId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
+		return initializeDroppedTrainees(trainees);
+	}
 
 	/**
 	 * Find all trainees by the trainer's identifier

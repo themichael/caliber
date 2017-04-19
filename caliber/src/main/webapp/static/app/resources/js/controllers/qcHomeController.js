@@ -88,8 +88,10 @@ angular
 								.getAggTechBatch($scope.currentBatch.batchId)
 								.then(
 										function(data) {
+//											var radarChartObject2 = chartsDelegate.radar
+//													.getBatchRankComparisonChart(data);
 											var radarChartObject2 = chartsDelegate.radar
-													.getBatchRankComparisonChart(data);
+											.data.getTechnicalSkillsBatchOverallData(data);
 											$scope.batchTechData = radarChartObject2.data;
 											$scope.batchTechLabels = radarChartObject2.labels;
 											$scope.batchTechSeries = radarChartObject2.series;

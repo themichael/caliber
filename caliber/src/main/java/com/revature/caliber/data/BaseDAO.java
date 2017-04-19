@@ -79,5 +79,20 @@ public class BaseDAO {
 		}
 		return note;
 	}
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> initializeDroppedTrainees(List<Trainee> trainees) {
+		List<Trainee> dropped = new ArrayList<>();
+		if (trainees != null) {
+			for (Trainee trainee : trainees) {
+				if (trainee.getTrainingStatus() != null
+						&& trainee.getTrainingStatus().equals(TrainingStatus.Dropped)) {
+					Hibernate.initialize(trainee.getGrades());
+					dropped.add(trainee);
+				}
+			}
+		}
+		return dropped;
+	}
 
 }
