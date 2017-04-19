@@ -59,7 +59,7 @@ angular
 
 							} else {
 								// Specific Trainee
-								//$rootScope.$emit("GET_TRAINEE_OVERALL",$scope.currentTraineeId);
+								$rootScope.$emit("GET_TRAINEE_OVERALL",$scope.currentTraineeId);
 								displayTraineeOverallTable($scope.currentTraineeId);
 								$scope.batchWeek = false;
 								$scope.batchWeekTrainee = false;
