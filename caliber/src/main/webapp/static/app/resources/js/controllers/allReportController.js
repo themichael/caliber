@@ -15,7 +15,7 @@ angular
 					ALL = -1;
 
 					// What you see when you open Reports
-					$scope.currentBatch = allBatches[allBatches.length - 1];
+					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
 					$scope.currentTraineeId = ALL;
@@ -60,6 +60,7 @@ angular
 
 							} else {
 								// Specific Trainee
+								$rootScope.$emit('GET_TRAINEE_OVERALL_CTRL');
 								$scope.batchWeek = false;
 								$scope.batchWeekTrainee = false;
 								$scope.batchOverall = false;
@@ -71,6 +72,7 @@ angular
 							// Specific Week
 							if (trainee === ALL) {
 								// All Trainees
+								$rootScope.$emit('test');
 								$scope.batchWeek = true;
 								$scope.batchWeekTrainee = false;
 								$scope.batchOverall = false;
