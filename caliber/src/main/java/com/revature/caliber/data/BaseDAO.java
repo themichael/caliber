@@ -19,7 +19,7 @@ import com.revature.caliber.beans.TrainingStatus;
 
 @Component
 public class BaseDAO {
-	
+
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> initializeActiveTrainees(List<Trainee> trainees) {
 		List<Trainee> active = new ArrayList<>();
@@ -64,7 +64,7 @@ public class BaseDAO {
 		}
 		return assessment;
 	}
-	
+
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Note initializeActiveTrainees(Note note) {
 		Set<Trainee> trainees = new HashSet<>();
@@ -78,6 +78,20 @@ public class BaseDAO {
 			note.getBatch().setTrainees(trainees);
 		}
 		return note;
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> initializeDroppedTrainees(List<Trainee> trainees) {
+		List<Trainee> dropped = new ArrayList<>();
+		if (trainees != null) {
+			for (Trainee trainee : trainees) {
+				if (trainee.getTrainingStatus() != null && trainee.getTrainingStatus().equals(TrainingStatus.Dropped)) {
+					Hibernate.initialize(trainee.getGrades());
+					dropped.add(trainee);
+				}
+			}
+		}
+		return dropped;
 	}
 
 }
