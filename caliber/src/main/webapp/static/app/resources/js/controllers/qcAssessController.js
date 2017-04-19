@@ -146,6 +146,7 @@ angular
 
 					// Start function for reports to use
 					function start() {
+						$scope.trainingNameDate = $scope.batches[0].trainingName + " " + $scope.batches[0].startDate;
 						$log.debug(allBatches);
 						var curYear = new Date();
 						$log.debug("Year test: ");
@@ -415,7 +416,13 @@ angular
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
 						batchYears();
-						$log.debug($scope.batchesByYear);
+						
+						if ($scope.selectedYear == parseInt($scope.batches[0].startDate) 
+								|| ($scope.selectedYear + 1) == parseInt($scope.batches[0].startDate)) {
+							$scope.trainingNameDate = $scope.batches[0].trainingName + " " + $scope.batches[0].startDate;
+						}
+						else
+							$scope.trainingNameDate = "";
 					};
 
 					function sortByDate(currentYear) {

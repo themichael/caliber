@@ -153,7 +153,8 @@ public class TrainingController {
 	// @PreAuthorize("hasAnyRole('QC, VP')")
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
 		log.info("Fetching all current batches");
-		List<Batch> batches = trainingService.findAllCurrentBatches();
+		 List<Batch> batches = trainingService.findAllCurrentBatches();
+		// List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 
 	}
