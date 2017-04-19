@@ -17,7 +17,7 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
-									$scope.role = $cookies.get("role");
+								//	$scope.role = $cookies.get("role");
 
 									$log.debug($scope.role);
 								});
@@ -197,19 +197,17 @@ angular
 							$scope.coTrainer.model = ""
 						}
 
-						$scope.startDate.model = new Date(batch.startDate
-								.replace(/-/g, '/'));
-						$scope.endDate.model = new Date(batch.endDate.replace(
-								/-/g, '/'));
+						$scope.startDate.model = new Date(batch.startDate);
+						$scope.endDate.model = new Date(batch.endDate);
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
-								batch.benchmarkStartDate.replace(/-/g, '/'));
+								batch.benchmarkStartDate);
 
 						$scope.Save = "Update";
 						$scope.Updating = true;
 
-0
+
 					}
 
 					/** Resets batch form for creating new batch* */
