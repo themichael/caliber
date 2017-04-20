@@ -21,7 +21,8 @@ angular
 							pointHoverBackgroundColor : 'rgba(114, 164, 194, .3)',
 							pointHoverBorderColor : 'rgba(114, 164, 194, .3)',
 							pointBorderColor : '#fff'
-						} 
+					} 
+					
 					var secondaryColor = {
 							backgroundColor : 'rgba(252, 180, 20, .6)',
 							pointBackgroundColor : 'rgba(252, 180, 20, .6)',
@@ -29,7 +30,8 @@ angular
 							pointHoverBackgroundColor : 'rgba(252, 180, 20, .3)',
 							pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
 							pointBorderColor : '#fff'
-						};
+					}
+					
 					// yanilda
 					barChart.getBatchWeekAvgBarChart = function(dataArray) {
 						var chartData = {};
@@ -54,7 +56,8 @@ angular
 									}
 								} ]
 							}
-						};
+						}
+						
 						$log.debug("Yanilda");
 						// traverse through array of objects and grab labels and
 						// data
@@ -66,7 +69,7 @@ angular
 							}
 						});
 						return chartData;
-					};
+					}
 
 					barChart.getTraineeWeeklyAssessAvgs = function(dataArray) {
 						var chartData = {};
@@ -106,7 +109,7 @@ angular
 						chartData.data.push(batch);
 
 						return chartData;
-					};
+					}
 
 					barChart.getTraineeOverallAssessAvgs = function(dataArray) {
 						var chartData = {};
@@ -132,7 +135,8 @@ angular
 									}
 								} ]
 							}
-						};
+						}
+						
 						var trainee = [];
 						var batch = [];
 						// loop through object array
@@ -146,7 +150,7 @@ angular
 						chartData.data.push(batch);
 
 						return chartData;
-					};
+					}
 
 					barChart.getBatchOverallBarChart = function(dataArray) {
 						var chartData = {};
@@ -187,7 +191,7 @@ angular
 									}
 								} ]
 							}
-						};
+						}
 
 						// loop through object array
 						angular.forEach(sorted, function(obj) {
@@ -195,8 +199,8 @@ angular
 							chartData.data[0].push(obj.value.toFixed(2));
 						});
 						return chartData;
-					};
-
+					}
+					
 					barChart.getBatchWeekSortedBarChart = function(dataArray) {
 						var chartData = {};
 						// making a sorted array
@@ -232,14 +236,69 @@ angular
 									}
 								} ]
 							}
-						};
+						}
 
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
 						});
 						return chartData;
-					};
+					}
+					
+					barChart.getAllBatchesCurrentWeekQCStats = function(data){
+						var chartData = {};
+						chartData.series = [];
+						chartData.data = [];
+						chartData.labels = [];
+						chartData.colors = [];
+						
+						var len = chartData.data.length;
+						angular.forEach(data, function(value, key) {
+							chartData.labels.push(key);
+							var i = 0;
+							angular.forEach(value, function(value2, key2) {
+								if(chartData.data[i] === undefined){
+									chartData.data.push([]);
+									chartData.series.push(key2);
+									if(key2 === "Superstar") chartData.colors.push("#7972ff");
+									else if( key2 === "Good") chartData.colors.push("#81f575");
+									else if( key2 === "Average") chartData.colors.push("#e8b00b");
+									else if( key2 === "Poor") chartData.colors.push("#ff7575");
+								}
+								chartData.data[i].push(value2);
+								i++;
+							});
+							
+						});
+						
+						chartData.options = {
+							legend : {
+								display : true,
+								labels : {
+									boxWidth : 10
+								}
+							},
+							scales : {
+								yAxes : [ {
+									stacked: true,
+									ticks: {
+										mirror: true
+									}
+								} ],
+								xAxes: [{ 
+						          	stacked: true,
+						          	ticks: {
+						          		mirror: true
+						          	}
+								}]
+							}
+						}
+						
+						$log.debug("TESTING STACKED INFORMATION!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+						$log.debug(chartData);
+						
+						return chartData;
+					}
 
 					return barChart;
 				});
