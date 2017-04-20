@@ -239,14 +239,18 @@ public class ReportingService {
 		Map<String, Double> results = new HashMap<>();
 		int weeks = batch.getWeeks();
 		log.debug("weeks are: " + weeks);
-		Double avg = 0.d;
+		
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		for (Trainee trainee : trainees) {
+			Double avg = 0.d;
+			int weeksWithGrades=0;
 			for (Integer i = 0; i < weeks; i++) {
-				avg += utilAvgTraineeWeek(trainee.getTraineeId(), i);
+				Double tempAvg = utilAvgTraineeWeek(trainee.getTraineeId(), i);
+				if (tempAvg > 0) weeksWithGrades++;
+				avg += tempAvg;
 				log.debug("avg for the week" + avg);
 			}
-			avg = avg / weeks;
+			avg = avg / weeksWithGrades;
 			log.debug("avg after computation" + avg);
 			results.put(trainee.getName(), avg);
 		}
@@ -462,9 +466,9 @@ public class ReportingService {
 		int weeks = trainee.getBatch().getWeeks();
 		for (Integer i = 1; i <= weeks; i++) {
 			Double[] avg = utilAvgTraineeWeek(i, assessmentType, grades);
-			if (avg[0]!=0){
+			//if (avg[0]!=0){
 				results.put(i, avg);
-			}
+			//}
 		}
 		return results;
 	}
