@@ -151,8 +151,7 @@
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="start-date">Start Date:</label>
 								<div class="input-group" id="start-date" data-datepicker="true">
-									<input ng-model="startDate.model" ng-change="setEndDate()"
-										ng-value="startDate"
+									<input ng-model="startDate.model" ng-value="startDate"
 										class="date-input form-control date-selector" name="s" min="0"
 										type="date" ng-required="true"> <span
 										class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -161,7 +160,7 @@
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="end-date">End Date:</label>
 								<div class="input-group" id="end-date" data-datepicker="true">
-									<input ng-model="endDate.model" ng-change="preventEndDate()"
+									<input ng-model="endDate.model"
 										class="date-input form-control date-selector" name="date"
 										type="date" required> <span
 										class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -262,7 +261,8 @@
 
 					</div>
 					<div class="modal-body">
-						<h3>The BenchmarkDate date needs to be before the start date</h3>
+						<h3>The Start Date should be before the End Date. The
+							BenchmarkDate date needs to be before the start date</h3>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
@@ -367,12 +367,9 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="traineeModalLabel">View/Add
-						Trainees</h4>
+					<h4 class="modal-title" id="traineeModalLabel">Add Trainees</h4>
 				</div>
 				<div class="modal-body">
-					<!-- View Trainees in Batch -->
-					<h3>Trainees in Batch</h3>
 					<div class="pull-right">
 						<span style="text-align: center">Active&nbsp</span> <a
 							role="button" ng-click="switchTraineeView()"
@@ -429,12 +426,14 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default"
-							ng-click="resetTraineeForm()" data-dismiss="modal"
-							ng-show="Updating">Cancel</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal"
-							ng-show="!Updating">Close</button>
-						<input type="submit" ng-value="Save" class="btn btn-primary">
+							data-dismiss="modal" ng-show="!Updating">Close</button>
+						<input type="submit" value="Save" class="btn btn-primary"
+							ng-show="!Updating">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							ng-show="Updating">Cancel</button>
+						<input type="submit" value="Update" class="btn btn-primary"
+							ng-show="Updating")>
 					</div>
 				</div>
 			</div>
