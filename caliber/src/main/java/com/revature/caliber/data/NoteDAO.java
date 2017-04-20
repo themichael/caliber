@@ -1,9 +1,11 @@
 package com.revature.caliber.data;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.TrainerRole;
 
 @Repository
@@ -59,8 +62,9 @@ public class NoteDAO extends BaseDAO{
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Note> findBatchNotes(Integer batchId, Integer week) {
 		log.info("Finding batch notes for week " + week + " for batch: " + batchId);
-		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b").createAlias("b.trainees", "t")
+		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
 				.add(Restrictions.eq("b.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq("type", NoteType.BATCH))
 				.add(Restrictions.ge("maxVisibility", TrainerRole.TRAINER))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for(Note note : notes){
@@ -91,7 +95,25 @@ public class NoteDAO extends BaseDAO{
 		}
 		return notes;
 	}
+	
+	/**
+	 * Returns Trainee note for the week
+	 * 
+	 * @param traineeId
+	 * @param week
+	 * @return
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Note findTraineeNote(Integer traineeId, Integer week) {
+		Note note = (Note)sessionFactory.getCurrentSession().createCriteria(Note.class).setFetchMode("batch", FetchMode.JOIN)
+				.createAlias("trainee", "t").add(Restrictions.eq("t.traineeId", traineeId))
+				.add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq("type", NoteType.TRAINEE))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).uniqueResult();
 
+		return note;
+	}
+	
 	/**
 	 * Returns all trainee QC notes for the batch for the week
 	 * @param batchId
