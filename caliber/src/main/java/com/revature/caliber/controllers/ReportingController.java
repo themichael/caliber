@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.services.ReportingService;
 
