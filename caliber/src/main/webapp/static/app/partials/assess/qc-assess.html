@@ -27,7 +27,7 @@
 						<ul class="dropdown-menu">
 							<li ng-repeat="batch in batchesByYear track by $index"><a
 								role="button" ng-click="selectCurrentBatch($index)"> {{
-									batch }} </a>
+									batch.trainingName }} - {{ batch.startDate }} </a>
 						</ul></li>
 				</ul>
 
