@@ -3,6 +3,7 @@ package com.revature.caliber.beans;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -36,6 +39,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "CALIBER_TRAINEE")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Trainee implements Serializable{
 
 	private static final long serialVersionUID = -9090223980655307018L;
@@ -64,6 +69,7 @@ public class Trainee implements Serializable{
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
 	@JsonBackReference(value = "traineeAndBatch")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
     private Batch batch;
 	
 	@Column(name="PHONE_NUMBER")
@@ -77,10 +83,12 @@ public class Trainee implements Serializable{
 
 	@JsonIgnore
 	@OneToMany(mappedBy="trainee", cascade = CascadeType.ALL)
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
     private Set<Grade> grades;
 
 	@JsonIgnore
 	@OneToMany(mappedBy="trainee", cascade = CascadeType.ALL)
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
 	
 	public Trainee() {

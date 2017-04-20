@@ -2,6 +2,7 @@ package com.revature.caliber.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,12 +19,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "CALIBER_NOTE")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Note implements Serializable{
 
 	private static final long serialVersionUID = -4960654794116385953L;
@@ -48,6 +53,7 @@ public class Note implements Serializable{
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID", nullable = true)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Batch batch;
 
 	/**
@@ -55,6 +61,7 @@ public class Note implements Serializable{
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "TRAINEE_ID", nullable = true)
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Trainee trainee;
 
 	@Enumerated(EnumType.ORDINAL)
