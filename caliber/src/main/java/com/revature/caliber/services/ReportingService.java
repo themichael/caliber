@@ -1,9 +1,6 @@
 package com.revature.caliber.services;
 
-import static org.hamcrest.CoreMatchers.containsString;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,11 +8,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
-import org.hibernate.cfg.Ejb3Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +25,6 @@ import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
-
-import oracle.net.aso.e;
 
 /**
  * Exclusively used to generate data for charts
@@ -112,39 +105,49 @@ public class ReportingService {
 	 * Stacked Bar Chart
 	 *******************************************************
 	 */
-	public Map<Batch, Map<QCStatus, Integer>> getAllBatchWeekQCStackedBarChart() {
-		Map<Batch, Map<QCStatus, Integer>> results = new HashMap<>(); 
-		Map<QCStatus, Integer> qcStatsBatchResultTemplate = new HashMap<>();
-		for (QCStatus s : QCStatus.values()) {
-			qcStatsBatchResultTemplate.put(s, 0);
-		}
+	public Map<String, Map<QCStatus, Integer>> getBatchCurrentWeekQCStackedBarChart() {
+		Map<String, Map<QCStatus, Integer>> results = new HashMap<>(); 
 		List<Batch> currentBatches = batchDAO.findAllCurrent();
-		Short[] highestWeekNumberForEachBatch = new Short[currentBatches.size()];
-		for(int i = 0; i < currentBatches.size(); i++){
-			highestWeekNumberForEachBatch[i] = getCurrentQCWeekForBatch(currentBatches.get(i));
+		for(Batch b : currentBatches){
+			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateBatchNotesByWeek(b);
+			for(Integer i = batchWeekQCStats.size(); i > 0; i--){
+				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
+				if(temp.values().stream().mapToInt(Number::intValue).sum() != 0){
+					results.put(b.getTrainingName(), temp);
+					break;
+				}
+
+			}
 		}
 		
-		for(Batch b: currentBatches){
-		
-		}
 		return results;
 	}
+
+	public Map<Integer, Map<QCStatus, Integer>> utilSeparateBatchNotesByWeek(Batch batch){
+		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
 		
-	public Short getCurrentQCWeekForBatch(Batch b){
-		if(b.getTrainees().size() > 0){
-			Trainee t = b.getTrainees().iterator().next();
-			List<Note> notes = new ArrayList<>(t.getNotes());
-			notes.sort((e1, e2) -> e1.getWeek() - e2.getWeek());
-			for(Note n: notes){
+		Map<QCStatus, Integer> qcStatsMapTemplate = new HashMap<>();
+		for(QCStatus q: QCStatus.values()){
+			qcStatsMapTemplate.put(q, 0);
+		}
+		
+		for(Integer i = 1; i <= batch.getWeeks(); i++){
+			results.put(i, new HashMap<>(qcStatsMapTemplate));	
+		}
+		
+		for(Trainee t: batch.getTrainees()){
+			for(Note n: t.getNotes()){
 				if(n.getQcStatus() != null){
-					return n.getWeek();
-					
+					Map<QCStatus, Integer> temp = results.get((int) n.getWeek());
+					Integer count = temp.get(n.getQcStatus()) + 1;
+					temp.put(n.getQcStatus(), count);
+					results.put((int) n.getWeek(), temp);
 				}
 			}
 		}
-		return 0;
+		
+		return results;
 	}
-	
 	/*
 	 *******************************************************
 	 * Bar Charts
