@@ -254,7 +254,7 @@ angular
 							$scope.selectedYear = $scope.years[index];
 							sortByDate($scope.selectedYear);
 						
-
+							
 						
 						$scope.trainees={};						
 						for(trainee of $scope.currentBatch.trainees){
