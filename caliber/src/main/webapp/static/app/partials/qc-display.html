@@ -32,9 +32,9 @@
 								<div ng-if="faces[$index].qcStatus === qcStatusTypes[3]"
 									title="Poor" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1">
 									<i class="fa fa-frown-o fa-2x pick"></i>
-								</div> --> {{faces[$index].qcStatus}}
+								</div> --> {{faces[$index].qcStatus ? faces[$index].qcStatus : "-"}}
 							</td>
-							<td class="col-sm-9 col-md-9 col-lg-9">{{faces[$index].content}}</td>
+							<td class="col-sm-9 col-md-9 col-lg-9">{{faces[$index].content ? faces[$index].content : "-"}}</td>
 							<td><ul class="nav nav-tabs">
 						</tr>
 					</tbody>
@@ -46,13 +46,13 @@
 							class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 text-weight-bold"><strong>Overall
 								Feedback:</strong></td>
 						<td class="col-lg-10 col-md-10 col-sm-10 col-sm-offset-10">
-							{{bnote.qcStatus}}</td>
+							{{bnote.qcStatus ? bnote.qcStatus : "-"}}</td>
 					</tr>
 					<tr>
 						<td
 							class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 text-weight-bold"><strong>Notes:</strong></td>
 						<td class="col-lg-10 col-md-10 col-sm-10 col-sm-offset-10">
-							{{bnote.content}}</td>
+							{{bnote.content ? bnote.content : "-"}}</td>
 					</tr>
 				</table>
 			</div>
