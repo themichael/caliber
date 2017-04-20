@@ -209,16 +209,16 @@ public class ReportingService {
 			Map<Integer, Double[]> avgTraineeWeek = utilAvgTraineeOverall(traineeId, a);
 			Map<Integer, Double[]> avgBatchWeek = utilAvgBatchOverall(batchId, a);
 			Double batchAvg = 0d;
-			for (Map.Entry<Integer, Double[]> e : avgBatchWeek.entrySet()) {
+			for (Entry<Integer, Double[]> e : avgBatchWeek.entrySet()) {
 				counts[1] += e.getValue()[2];
 				batchAvg += e.getValue()[0] * e.getValue()[2];
 			}
 			if (counts[1] > 0) {
 				batchAvg = batchAvg / counts[1];
 				Double traineeAvg = 0d;
-				for (Map.Entry<Integer, Double[]> e : avgTraineeWeek.entrySet()) {
+				for (Entry<Integer, Double[]> e : avgTraineeWeek.entrySet()) {
 					counts[0] += e.getValue()[2];
-					traineeAvg += e.getValue()[0];
+					traineeAvg += e.getValue()[0] * e.getValue()[2];
 				}
 				traineeAvg = traineeAvg / counts[0];
 				results.put(a.name(), new Double[] { traineeAvg, batchAvg });
@@ -466,9 +466,9 @@ public class ReportingService {
 		int weeks = trainee.getBatch().getWeeks();
 		for (Integer i = 1; i <= weeks; i++) {
 			Double[] avg = utilAvgTraineeWeek(i, assessmentType, grades);
-			//if (avg[0]!=0){
+			if (avg[0] > 0.0){
 				results.put(i, avg);
-			//}
+			}
 		}
 		return results;
 	}
