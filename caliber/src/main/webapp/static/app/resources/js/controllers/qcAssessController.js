@@ -388,8 +388,8 @@ angular
 						$scope.selectedYear = currentYear;
 
 						var data = [];
-						// List all years from 2014 --> current year+1
-						for (var y = currentYear + 1; y >= currentYear - 2; y--) {
+						// List all years from (current year - 1) --> (current year + 1)
+						for (var y = currentYear + 1; y >= currentYear - 1; y--) {
 							data.push(y)
 						}
 						return data;
@@ -400,12 +400,12 @@ angular
 						sortByDate($scope.selectedYear);
 						batchYears();
 						
-						if ($scope.selectedYear == parseInt($scope.batches[0].startDate) 
-								|| ($scope.selectedYear + 1) == parseInt($scope.batches[0].startDate)) {
+						// Possible bug(s): Batch that starts in 2017 and ends in 2018
+						if ($scope.selectedYear == parseInt($scope.batches[0].startDate)) {
 							$scope.trainingNameDate = $scope.batches[0].trainingName + " " + $scope.batches[0].startDate;
 						}
 						else
-							$scope.trainingNameDate = "";
+							$scope.trainingNameDate = "No Batch Found";
 					};
 
 					function sortByDate(currentYear) {

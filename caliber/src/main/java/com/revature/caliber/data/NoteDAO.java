@@ -115,7 +115,7 @@ public class NoteDAO extends BaseDAO{
 	}
 	
 	/**
-	 * Returns all trainee QC notes for the batch for the week
+	 * Returns batch note for the batch for the week
 	 * @param batchId
 	 * @param week
 	 * @return
