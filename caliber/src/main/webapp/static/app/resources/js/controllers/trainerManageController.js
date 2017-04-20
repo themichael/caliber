@@ -241,7 +241,7 @@ angular
 						$scope.endDate.model = "";
 						$scope.goodGradeThreshold.model = "";
 						$scope.borderlineGradeThreshold.model = "";
-						$scope.benchmarkStartDate.model = "";
+						$scope.benchmarkStartDate.model = new Date("2003/01/01");
 						$scope.Save = "Save";
 						$scope.Updating = false;
 						if ($scope.currentBatch) {
