@@ -235,6 +235,9 @@ footer a, footer a:hover{
     margin: 0 auto;
     padding:0;
 }
+.table-view{
+	max-width:400px;
+}
 /**********************
 	save button
 **********************/
