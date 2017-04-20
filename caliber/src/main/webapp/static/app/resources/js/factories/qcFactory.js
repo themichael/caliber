@@ -183,5 +183,23 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	//gets QCtrainee note
+	qc.getTraineeNote = function(traineeId,week){
+		return $http({
+			url: "/qc/note/trainee/" + traineeId + "/for/"+ week,
+			method:"GET"
+		}).then(function(response){
+			$log.debug("Notes successfully fetched");
+			$log.debug(response);
+			if(response.data){
+				return response.data;
+			}else{
+				return response;
+			}				
+		},function(response){
+			$log.error("Error retrieving " + response.status);
+		})
+	};
+	
 	return qc;
 });
