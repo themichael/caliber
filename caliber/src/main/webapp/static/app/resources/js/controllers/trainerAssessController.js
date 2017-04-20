@@ -247,14 +247,13 @@ angular
 						$scope.currentBatch = $scope.batchesByYear[0];
 						if ($scope.batchesByYear.length === 0) {
 							$scope.noBatches = true;
-							$scope.noBatchesMessage = "No Batches belonging to you were found.";
+							$scope.noBatchesMessage = "No Batches were found for this year.";
 						} else {
 							$scope.noBatches = false;
 							//createDefaultCharts();
 							$scope.selectedYear = $scope.years[index];
 							sortByDate($scope.selectedYear);
 						
-							
 						
 						$scope.trainees={};						
 						for(trainee of $scope.currentBatch.trainees){
