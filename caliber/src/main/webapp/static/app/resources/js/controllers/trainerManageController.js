@@ -210,8 +210,6 @@ angular
 						} else {
 							$scope.coTrainer.model = ""
 						}
-						$log.debug("hello");
-						$log.log(new Date(batch.startDate).toISOString());
 						$scope.startDate.model = new Date(moment(
 								batch.startDate, "YYYY-MM-DD").format(
 								"YYYY/MM/DD"));
@@ -334,6 +332,8 @@ angular
 												// coTrainer may be undefined
 												newBatch.batchId = response.data.batchId;
 												newBatch['trainees'] = [];
+												newBatch['arrayWeeks']=[];
+												newBatch['weeks']=response.data.weeks;
 												if ($scope.coTrainer) {
 													$scope.batches
 															.push(newBatch);
@@ -418,7 +418,6 @@ angular
 						$scope.traineePhoneNumber = trainee.phoneNumber;
 						$scope.traineeProfileUrl = trainee.profileUrl;
 						$scope.traineeTrainingStatus = trainee.trainingStatus;
-						$scope.Save = "Update";
 						$scope.Updating = true;
 						$scope.traineeFormName = "Update Trainee";
 					}
@@ -432,7 +431,6 @@ angular
 						$scope.traineePhoneNumber = "";
 						$scope.traineeProfileUrl = "";
 						$scope.traineeTrainingStatus = "";
-						$scope.Save = "Save";
 						$scope.Updating = false;
 						if ($scope.currentTrainee) {
 							$scope.currentTrainee = null;
@@ -507,6 +505,7 @@ angular
 												$scope.resetTraineeForm();
 											});
 						}
+						angular.element("#addTraineeModal").modal("hide");
 					};
 
 					$scope.deleteTrainee = function(receiver) {

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -34,6 +35,7 @@ public class Grade implements Serializable {
 	/**
 	 * Assessment - The specified assessment taken by the Trainee
 	 */
+	@NotNull
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ASSESSMENT_ID", nullable = false)
 	private Assessment assessment;
@@ -41,6 +43,7 @@ public class Grade implements Serializable {
 	/**
 	 * Trainee- the trainee that receives this Grade
 	 */
+	@NotNull
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRAINEE_ID", nullable = false)
 	private Trainee trainee;
@@ -48,8 +51,8 @@ public class Grade implements Serializable {
 	/**
 	 * dateReceived- date this Grade was earned
 	 */
-	@Column(name = "DATE_RECEIVED")
 	@NotNull
+	@Column(name = "DATE_RECEIVED")
 	private Date dateReceived;
 
 	/**
@@ -57,8 +60,8 @@ public class Grade implements Serializable {
 	 * Example: Assessment is worth 200 points, and Trainee made a 75% thus
 	 * score is 150
 	 */
+	@Min(value=0)
 	@Column(name = "SCORE")
-	@NotNull
 	private double score;
 
 	public Grade() {
@@ -111,6 +114,48 @@ public class Grade implements Serializable {
 
 	public void setScore(double score) {
 		this.score = score;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((assessment == null) ? 0 : assessment.hashCode());
+		result = prime * result + ((dateReceived == null) ? 0 : dateReceived.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(score);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((trainee == null) ? 0 : trainee.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Grade other = (Grade) obj;
+		if (assessment == null) {
+			if (other.assessment != null)
+				return false;
+		} else if (!assessment.equals(other.assessment))
+			return false;
+		if (dateReceived == null) {
+			if (other.dateReceived != null)
+				return false;
+		} else if (!dateReceived.equals(other.dateReceived))
+			return false;
+		if (Double.doubleToLongBits(score) != Double.doubleToLongBits(other.score))
+			return false;
+		if (trainee == null) {
+			if (other.trainee != null)
+				return false;
+		} else if (!trainee.equals(other.trainee))
+			return false;
+		return true;
 	}
 
 	@Override
