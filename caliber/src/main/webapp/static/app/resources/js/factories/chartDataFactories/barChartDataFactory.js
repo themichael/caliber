@@ -58,7 +58,7 @@ angular
 							traineeId) {
 						return $http(
 								{
-									url : "/	all/reports/batch/" + batchId
+									url : "/all/reports/batch/" + batchId
 											+ "/overall/trainee/" + traineeId
 											+ "/bar-batch-overall-trainee",
 									method : "GET"
