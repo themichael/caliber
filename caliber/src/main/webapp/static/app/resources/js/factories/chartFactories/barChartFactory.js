@@ -389,6 +389,7 @@ angular
 									}
 								// options
 								});
+						$log.debug("Hello from the other side");
 						return bar_chart;
 					}
 

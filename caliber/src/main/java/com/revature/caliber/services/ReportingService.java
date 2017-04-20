@@ -106,38 +106,37 @@ public class ReportingService {
 	 *******************************************************
 	 */
 	public Map<String, Map<QCStatus, Integer>> getBatchCurrentWeekQCStackedBarChart() {
-		Map<String, Map<QCStatus, Integer>> results = new HashMap<>(); 
+		Map<String, Map<QCStatus, Integer>> results = new HashMap<>();
 		List<Batch> currentBatches = batchDAO.findAllCurrent();
-		for(Batch b : currentBatches){
+		for (Batch b : currentBatches) {
 			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateBatchNotesByWeek(b);
-			for(Integer i = batchWeekQCStats.size(); i > 0; i--){
+			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
-				if(temp.values().stream().mapToInt(Number::intValue).sum() != 0){
+				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
 					results.put(b.getTrainingName(), temp);
 					break;
 				}
-
 			}
 		}
-		
+
 		return results;
 	}
 
-	public Map<Integer, Map<QCStatus, Integer>> utilSeparateBatchNotesByWeek(Batch batch){
+	public Map<Integer, Map<QCStatus, Integer>> utilSeparateBatchNotesByWeek(Batch batch) {
 		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
-		
+
 		Map<QCStatus, Integer> qcStatsMapTemplate = new HashMap<>();
-		for(QCStatus q: QCStatus.values()){
+		for (QCStatus q : QCStatus.values()) {
 			qcStatsMapTemplate.put(q, 0);
 		}
-		
-		for(Integer i = 1; i <= batch.getWeeks(); i++){
-			results.put(i, new HashMap<>(qcStatsMapTemplate));	
+
+		for (Integer i = 1; i <= batch.getWeeks(); i++) {
+			results.put(i, new HashMap<>(qcStatsMapTemplate));
 		}
-		
-		for(Trainee t: batch.getTrainees()){
-			for(Note n: t.getNotes()){
-				if(n.getQcStatus() != null){
+
+		for (Trainee t : batch.getTrainees()) {
+			for (Note n : t.getNotes()) {
+				if (n.getQcStatus() != null) {
 					Map<QCStatus, Integer> temp = results.get((int) n.getWeek());
 					Integer count = temp.get(n.getQcStatus()) + 1;
 					temp.put(n.getQcStatus(), count);
@@ -145,7 +144,7 @@ public class ReportingService {
 				}
 			}
 		}
-		
+
 		return results;
 	}
 	/*
@@ -239,14 +238,15 @@ public class ReportingService {
 		Map<String, Double> results = new HashMap<>();
 		int weeks = batch.getWeeks();
 		log.debug("weeks are: " + weeks);
-		
+
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		for (Trainee trainee : trainees) {
 			Double avg = 0.d;
-			int weeksWithGrades=0;
+			int weeksWithGrades = 0;
 			for (Integer i = 0; i < weeks; i++) {
 				Double tempAvg = utilAvgTraineeWeek(trainee.getTraineeId(), i);
-				if (tempAvg > 0) weeksWithGrades++;
+				if (tempAvg > 0)
+					weeksWithGrades++;
 				avg += tempAvg;
 				log.debug("avg for the week" + avg);
 			}
@@ -466,7 +466,7 @@ public class ReportingService {
 		int weeks = trainee.getBatch().getWeeks();
 		for (Integer i = 1; i <= weeks; i++) {
 			Double[] avg = utilAvgTraineeWeek(i, assessmentType, grades);
-			if (avg[0] > 0.0){
+			if (avg[0] > 0.0) {
 				results.put(i, avg);
 			}
 		}

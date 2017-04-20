@@ -8,14 +8,21 @@ angular.module("vp").controller(
 				NProgress.done();
 				createDummyBarChart();
 			})();
-			
+
 			// Yanilda dummy barchart
 			function createDummyBarChart() {
-				chartsDelegate.bar.data.getDummyBarData(function(data) {
+				$log.debug("Started creating dummy data three");
+				chartsDelegate.bar.data.getDummyBarData(
+
+				function(data) {
+
+					$log.debug("Hello");
 					NProgress.done();
 					var barChartObject = chartsDelegate.bar
-							.getDummyBarChart(data);
+							.getDummyBarChartDelegate(data);
 					$scope.barchartDLabels = barChartObject.data.labels;
+					$log.debug($scope.barchartDLabels);
+					$log.debug("Hey");
 					$scope.barchartDData = barChartObject.data.datasets;
 					$scope.barchartDOptions = barChartObject.options;
 					$scope.barchartDType = barChartObject.type;
