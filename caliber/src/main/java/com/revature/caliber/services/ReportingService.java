@@ -223,8 +223,6 @@ public class ReportingService {
 				results.put(a.name(), new Double[] { traineeAvg, batchAvg });
 			}
 		}
-		log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!! getBatchOverallTraineeBarChart DATA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		log.info(results);
 		return results;
 	}
 
