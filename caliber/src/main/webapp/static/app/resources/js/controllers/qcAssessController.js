@@ -405,7 +405,7 @@ angular
 							$scope.trainingNameDate = $scope.batches[0].trainingName + " " + $scope.batches[0].startDate;
 						}
 						else
-							$scope.trainingNameDate = "Empty";
+							$scope.trainingNameDate = "No Batch Found";
 					};
 
 					function sortByDate(currentYear) {
