@@ -48,6 +48,10 @@ angular
 					delegate.all.deleteBatch = function(batchId) {
 						return allFactory.deleteBatch(batchId);
 					};
+					
+					delegate.all.getDroppedTrainees = function(batchId){
+						return allFactory.getDroppedTrainees(batchId);
+					};
 
 					delegate.all.createTrainee = function(traineeObj) {
 						return allFactory.createTrainee(traineeObj);
