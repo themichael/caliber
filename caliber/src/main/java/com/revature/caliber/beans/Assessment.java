@@ -72,9 +72,6 @@ public class Assessment implements Serializable {
 	@Column(name = "WEEK_NUMBER", nullable = false)
 	private short week;
 
-	/**
-	 * TODO make Lazy fetching and update queries in DAOss
-	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
@@ -84,6 +81,21 @@ public class Assessment implements Serializable {
 	@JsonIgnore
 	private Set<Grade> grades = new HashSet<>();
 
+	public Assessment() {
+		super();
+	}
+
+	public Assessment(String title, Batch batch, Integer rawScore, AssessmentType type, Integer week,
+			Category category) {
+		super();
+		this.title = title;
+		this.batch = batch;
+		this.rawScore = rawScore;
+		this.type = type;
+		this.week = week.shortValue();
+		this.category = category;
+	}
+	
 	public long getAssessmentId() {
 		return assessmentId;
 	}
@@ -147,20 +159,51 @@ public class Assessment implements Serializable {
 	public void setGrades(Set<Grade> grades) {
 		this.grades = grades;
 	}
-
-	public Assessment() {
-		super();
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((batch == null) ? 0 : batch.hashCode());
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + rawScore;
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + week;
+		return result;
 	}
 
-	public Assessment(String title, Batch batch, Integer rawScore, AssessmentType type, Integer week,
-			Category category) {
-		super();
-		this.title = title;
-		this.batch = batch;
-		this.rawScore = rawScore;
-		this.type = type;
-		this.week = week.shortValue();
-		this.category = category;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Assessment other = (Assessment) obj;
+		if (batch == null) {
+			if (other.batch != null)
+				return false;
+		} else if (!batch.equals(other.batch))
+			return false;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
+		if (rawScore != other.rawScore)
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (type != other.type)
+			return false;
+		if (week != other.week)
+			return false;
+		return true;
 	}
 
 	@Override

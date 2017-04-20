@@ -115,6 +115,48 @@ public class Grade implements Serializable {
 	public void setScore(double score) {
 		this.score = score;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((assessment == null) ? 0 : assessment.hashCode());
+		result = prime * result + ((dateReceived == null) ? 0 : dateReceived.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(score);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((trainee == null) ? 0 : trainee.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Grade other = (Grade) obj;
+		if (assessment == null) {
+			if (other.assessment != null)
+				return false;
+		} else if (!assessment.equals(other.assessment))
+			return false;
+		if (dateReceived == null) {
+			if (other.dateReceived != null)
+				return false;
+		} else if (!dateReceived.equals(other.dateReceived))
+			return false;
+		if (Double.doubleToLongBits(score) != Double.doubleToLongBits(other.score))
+			return false;
+		if (trainee == null) {
+			if (other.trainee != null)
+				return false;
+		} else if (!trainee.equals(other.trainee))
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
