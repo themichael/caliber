@@ -138,5 +138,25 @@ angular
 															+ response.status);
 										});
 					};
+					report.getDummyBarChartData = function() {
+						// Return with commas in between
+						return {
+							"dataPack1" : [ 21000, 22000, 26000, 35000, 55000,
+									55000, 56000, 59000, 60000, 61000, 60100,
+									62000 ],
+							"dataPack2" : [ 1000, 1200, 1300, 1400, 1060, 2030,
+									2070, 4000, 4100, 4020, 4030, 4050 ],
+							"dataPack3" : [ 21000, 22000, 26000, 35000, 55000,
+									55000, 56000, 59000, 60000, 61000, 60100,
+									62000 ],
+							"dataPack4" : [ 1000, 1200, 1300, 1400, 1060, 2030,
+									2070, 4000, 4100, 4020, 4030, 4050 ],
+							"batches" : [ "Batch 1", "Batch 2", "Batch 3",
+									"Batch 4", "Batch 5", "Batch 6", "Batch 7",
+									"Batch 8", "Batch 9", "Batch 10",
+									"Batch 11", "Batch 12" ]
+						};
+
+					}
 					return report;
 				})

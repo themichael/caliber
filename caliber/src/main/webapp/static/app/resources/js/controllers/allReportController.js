@@ -327,6 +327,7 @@ angular
 										});
 
 					}
+		
 
 					function createAssessmentAveragesTraineeWeekly() {
 						chartsDelegate.bar.data

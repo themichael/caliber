@@ -58,6 +58,16 @@ angular
 								batchId, week);
 					};
 
+					// yani barchart dummy 
+					delegate.bar.getDummyBarChart = function(
+							dataArray) {
+						return barChartFactory
+								.getDummyBarChart(dataArray);
+					};
+					// yani barchart dummy
+					delegate.bar.data.getDummyBarData = function() {
+						return barChartDataFactory.getDummyBarChartData();
+					};
 					delegate.bar.getAverageTraineeScoresWeekly = function(
 							dataArray) {
 						return barChartFactory
