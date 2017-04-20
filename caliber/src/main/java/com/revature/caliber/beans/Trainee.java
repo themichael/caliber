@@ -17,6 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,16 +46,21 @@ public class Trainee implements Serializable{
 	@SequenceGenerator(name = "TRAINEE_ID_SEQUENCE", sequenceName = "TRAINEE_ID_SEQUENCE")
     private int traineeId;
 	
+	@NotEmpty
 	@Column(name = "TRAINEE_NAME")
     private String name;
 	
+	@NotEmpty
+	@Email
 	@Column(name="TRAINEE_EMAIL", nullable=false, unique=true)
     private String email;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TRAINING_STATUS")
     private TrainingStatus trainingStatus;
 	
+	@NotNull
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
 	@JsonBackReference(value = "traineeAndBatch")

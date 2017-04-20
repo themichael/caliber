@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,6 +47,7 @@ public class Assessment implements Serializable {
 	/**
 	 * Batch ID reference
 	 */
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
 	private Batch batch;
@@ -53,22 +56,26 @@ public class Assessment implements Serializable {
 	 * Raw numerical score before calculations This value is the maximum number
 	 * of points that can be earned on this assignment.
 	 */
+	@Min(value=1)
 	@Column(name = "RAW_SCORE", nullable = false)
 	private int rawScore;
 
 	/**
 	 * Assessment type, e.g. LMS, Verbal
 	 */
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "ASSESSMENT_TYPE", nullable = false)
 	private AssessmentType type;
 
+	@Min(value=1)
 	@Column(name = "WEEK_NUMBER", nullable = false)
 	private short week;
 
 	/**
 	 * TODO make Lazy fetching and update queries in DAOss
 	 */
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
 	private Category category;

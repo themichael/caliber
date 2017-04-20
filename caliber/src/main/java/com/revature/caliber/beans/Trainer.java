@@ -14,8 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -36,19 +38,23 @@ public class Trainer implements Serializable{
     @JsonProperty
     private int trainerId;
 	
+	@NotEmpty
 	@Column(name="NAME", nullable=false)
     @JsonProperty
     private String name;
 	
+	@NotEmpty
 	@Column(name="TITLE", nullable=false)
     @JsonProperty
     private String title;
 	
-	@Column(name="EMAIL", nullable=false, unique=true, updatable=false)
+	@NotEmpty
 	@Email
+	@Column(name="EMAIL", nullable=false, unique=true, updatable=false)
     @JsonProperty
     private String email;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name="TIER")
 	private TrainerRole tier;

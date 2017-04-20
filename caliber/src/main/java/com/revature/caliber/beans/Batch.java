@@ -20,12 +20,15 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.revature.caliber.validator.BatchValObject;
 
 /**
@@ -47,9 +50,11 @@ public class Batch implements Serializable {
 	/**
 	 * Example: 1702 Java CUNY
 	 */
+	@NotNull
 	@Column(name = "TRAINING_NAME")
 	private String trainingName;
 
+	@NotNull
 	@JsonProperty
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
@@ -59,18 +64,22 @@ public class Batch implements Serializable {
 	@JoinColumn(name = "CO_TRAINER_ID")
 	private Trainer coTrainer;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "SKILL_TYPE")
 	private SkillType skillType;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TRAINING_TYPE")
 	private TrainingType trainingType;
 
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "START_DATE", nullable = false)
 	private Date startDate;
 
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "END_DATE", nullable = false)
 	private Date endDate;
@@ -80,12 +89,14 @@ public class Batch implements Serializable {
 	@Column(name = "BENCHMARK_START_DATE", nullable = false)
 	private Date benchmarkStartDate;
 
+	@NotEmpty
 	@Column(name = "LOCATION", nullable = false)
 	private String location;
 
 	/**
 	 * Anything above this grade is GREEN
 	 */
+	@Min(value=1)
 	@Column(name = "GOOD_GRADE_THRESHOLD")
 	private short goodGradeThreshold;
 
@@ -93,6 +104,7 @@ public class Batch implements Serializable {
 	 * Anything above this grade but below goodGradeThreshold is YELLOW Anything
 	 * below this grade is RED
 	 */
+	@Min(value=1)
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 

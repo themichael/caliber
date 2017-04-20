@@ -15,6 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,9 +34,11 @@ public class Note implements Serializable{
 	@SequenceGenerator(name = "NOTE_ID_SEQUENCE", sequenceName = "NOTE_ID_SEQUENCE")
 	private int noteId;
 
+	@Length(min=0, max=1000)
 	@Column(name = "NOTE_CONTENT")
 	private String content;
 
+	@Min(value=1)
 	@Column(name = "WEEK_NUMBER")
 	private short week;
 
@@ -55,6 +61,7 @@ public class Note implements Serializable{
 	@Column(name = "MAX_VISIBILITY")
 	private TrainerRole maxVisibility;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "NOTE_TYPE")
 	private NoteType type;
