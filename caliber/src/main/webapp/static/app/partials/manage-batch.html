@@ -304,11 +304,10 @@
 					<!--                   <div class="row scrollable-div"> -->
 					<div class="col-md-12 col-lg-12">
 						<!--add trainee button -->
-						</br>
-						<a role="button" class="pull-right" ng-click="resetTraineeForm();"
-							data-toggle="modal" data-target="#addTraineeModal" type="button">Add
-							Trainee<span class="glyphicon glyphicon-plus" aria-hidden="true">
-						</span>
+						</br> <a role="button" class="pull-right"
+							ng-click="resetTraineeForm();" data-toggle="modal"
+							data-target="#addTraineeModal" type="button">Add Trainee<span
+							class="glyphicon glyphicon-plus" aria-hidden="true"> </span>
 						</a>
 						<table class="table table-responsive">
 							<thead>
@@ -431,7 +430,8 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default"
-							ng-click="resetTraineeForm()" ng-show="Updating">Cancel</button>
+							ng-click="resetTraineeForm()" data-dismiss="modal"
+							ng-show="Updating">Cancel</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							ng-show="!Updating">Close</button>
 						<input type="submit" ng-value="Save" class="btn btn-primary">
