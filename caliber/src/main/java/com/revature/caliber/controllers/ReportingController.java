@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.services.ReportingService;
 
@@ -43,6 +44,17 @@ public class ReportingController {
 		return new ResponseEntity<Map<QCStatus, Integer>>(reportingService.getBatchWeekPieChart(batchId, weekId), HttpStatus.OK);
 	}
 
+	/*
+	 *******************************************************
+	 * Stacked Bar Charts
+	 *******************************************************
+	 */
+	@RequestMapping(value = "/all/reports/batch/week/stacked-bar-current-week", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Map<QCStatus, Integer>>> getAllBatchesCurrentWeekQCStats() {
+		log.info("getAllBatchesCurrentWeekQCStats   ===>   /all/reports/batch/week/stacked-bar-current-week");
+		return new ResponseEntity<Map<String, Map<QCStatus, Integer>>>(reportingService.getBatchCurrentWeekQCStackedBarChart(), HttpStatus.OK);
+	}
+	
 	/*
 	 *******************************************************
 	 * Bar Charts

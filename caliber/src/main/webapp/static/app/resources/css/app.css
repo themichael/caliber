@@ -84,7 +84,7 @@ a { color: #F26925;}
 @media (min-width: 601px){
 	  .chart-container {
         min-height: 25.8em;
-    }
+	  }
 }
 
 .panel > .panel-heading {

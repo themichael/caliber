@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.TrainerRole;
 
 @Repository
 public class BatchDAO extends BaseDAO {
@@ -51,7 +53,7 @@ public class BatchDAO extends BaseDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAll() {
 		log.info("Fetching all batches");
-		return sessionFactory.getCurrentSession().createCriteria(Batch.class).addOrder(Order.asc("startDate"))
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -68,7 +70,7 @@ public class BatchDAO extends BaseDAO {
 
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
-						Restrictions.eq("coTrainer.trainerId", trainerId))).addOrder(Order.asc("startDate"))
+						Restrictions.eq("coTrainer.trainerId", trainerId))).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for (Batch batch : batches) {
 			initializeActiveTrainees(batch);
@@ -92,7 +94,7 @@ public class BatchDAO extends BaseDAO {
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
 						Restrictions.eq("coTrainer.trainerId", trainerId)))
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime())).addOrder(Order.asc("startDate"))
+				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime())).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for (Batch batch : batches) {
 			initializeActiveTrainees(batch);
@@ -111,12 +113,20 @@ public class BatchDAO extends BaseDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches");
+		Calendar endDateLimit = Calendar.getInstance();
+		endDateLimit.add(Calendar.MONTH, -3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias("trainees", "t").createAlias("t.notes", "n")
+				.setFetchMode("t.notes", FetchMode.JOIN)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime())).addOrder(Order.desc("trainingName"))
+				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
+				.add(Restrictions.ge("n.maxVisibility", TrainerRole.QC))
+				.add(Restrictions.eq("n.qcFeedback", true))
+				.addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for (Batch batch : batches) {
 			initializeActiveTrainees(batch);
+			initializeNotes(batch);
 		}
 		return batches;
 	}

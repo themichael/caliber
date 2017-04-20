@@ -11,7 +11,22 @@ angular
 					$log.debug("Booted radarChartFactory");
 
 					var radar = {};
-
+					var mainColor = {
+							backgroundColor : 'rgba(114, 164, 194, .5)',
+							pointBackgroundColor : 'rgba(114, 164, 194, .5)',
+							borderColor : 'rgba(114, 164, 194, 1)',
+							pointHoverBackgroundColor : 'rgba(114, 164, 194, .3)',
+							pointHoverBorderColor : 'rgba(114, 164, 194, .3)',
+							pointBorderColor : '#fff'
+						} 
+					var secondaryColor = {
+							backgroundColor : 'rgba(252, 180, 20, .6)',
+							pointBackgroundColor : 'rgba(252, 180, 20, .6)',
+							borderColor : 'rgba(252, 180, 20, 1)',
+							pointHoverBackgroundColor : 'rgba(252, 180, 20, .3)',
+							pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
+							pointBorderColor : '#fff'
+						};
 					radar.getTraineeUpToWeekRadarChart = function(dataArray,
 							seriesName) {
 						return createGenericRadarChartObject(dataArray,
@@ -33,7 +48,7 @@ angular
 					var createGenericRadarChartObject = function(dataArray,
 							seriesName) {
 						var chartData = {};
-
+						chartData.colors = [mainColor];
 						chartData.series = [];
 						chartData.series.push(seriesName);
 
@@ -73,7 +88,6 @@ angular
 					radar.createFromTwoDataSets = function(batchDataSet, traineeDataSet, batchSeriesName, trainingSeriesName) {
 						$log.debug("radarChartFactory: createFromTwoDataSets");
 						var chartData = {};
-						
 						var batchSeries = [];
 						var traineeSeries = [];
 						var labels = [];
@@ -97,6 +111,8 @@ angular
 						chartData.data.push(traineeSeries);
 						chartData.data.push(batchSeries);
 						
+						chartData.colors = [ mainColor, secondaryColor ];
+
 						chartData.options = radarOptions;
 						$log.debug(chartData);
 						return chartData;
