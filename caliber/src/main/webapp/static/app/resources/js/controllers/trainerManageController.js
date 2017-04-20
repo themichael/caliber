@@ -55,18 +55,6 @@ angular
 						}
 					}
 
-					/** Set end date in form* */
-					$scope.setEndDate = function() {
-						$scope.endDate.model = $scope.startDate.model;
-					};
-
-					/** prevent end date being before startdate* */
-					$scope.preventEndDate = function() {
-						if ($scope.endDate.model < $scope.startDate.model) {
-							$scope.setEndDate();
-						}
-					};
-
 					/** Set minimum grade* */
 					$scope.setMinGrade = function() {
 						$scope.borderlineGradeThreshold.model = $scope.goodGradeThreshold.model;
@@ -167,23 +155,24 @@ angular
 					/** Validation for the dates * */
 					$scope.checkDates = function() {
 
-						$log.info($scope.startDate);
-						$log.info($scope.benchmarkStartDate);
+						$log.debug($scope.startDate);
+						$log.debug($scope.endDate)
+						$log.debug($scope.benchmarkStartDate);
 
-						if ($scope.startDate.model > $scope.benchmarkStartDate.model) {
+						if ($scope.startDate.model > $scope.benchmarkStartDate.model && $scope.endDate.model > $scope.startDate.model) {
 							/* $scope.validDate = false; */
-							$log.info("True");
+							$log.debug("True");
 							$scope.addNewBatch();
 						} else {
 							/* $scope.validDate = true; */
-							$log.info("False");
+							$log.debug("False");
 							// window.alert("hi!....u buggin!!!");
 							angular.element("#benchmarkdateModal")
 									.modal("show");
 							return false;
 						}
 
-						$log.info($scope.validDate);
+						$log.debug($scope.validDate);
 
 					}
 
