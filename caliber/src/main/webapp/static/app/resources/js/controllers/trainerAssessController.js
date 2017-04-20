@@ -107,6 +107,7 @@ angular
 								}
 							});
 						}
+						
 					// ////////////////////////////////////////////////////////////////////////
 					// load note types
 					caliberDelegate.all.enumNoteType().then(
@@ -139,6 +140,9 @@ angular
 							if(!$scope.currentBatch){ // if currentBatch is not yet in the scope, run for assess batch
 								$scope.currentBatch = allBatches[0];
 							}
+							
+							$scope.currentBatch.trainees.sort(compare);
+							
 							$log.debug("This is the current batch "
 									+ $scope.currentBatch);
 							
@@ -201,10 +205,7 @@ angular
 
 							} else
 								$scope.currentWeek = null;
-						} else {
-							/*$scope.currentBatch = null;
-							$scope.currentWeek = null;*/
-						}
+						} 
 						$log.debug("Starting Values: currentBatch and currentWeek");
 						$log.debug($scope.currentBatch);
 						$log.debug($scope.currentWeek);
@@ -243,6 +244,22 @@ angular
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
 						batchYears();
+						$scope.currentBatch = $scope.batchesByYear[0];
+						
+						$scope.trainees={};						
+						for(trainee of $scope.currentBatch.trainees){
+							$scope.assignTraineeScope(trainee.traineeId);}
+						if ($scope.currentBatch.weeks > 0) {
+							$scope.currentWeek = $scope.currentBatch.weeks;
+							getAllAssessmentsForWeek(
+									$scope.currentBatch.batchId,
+									$scope.currentWeek);
+						} else
+							$scope.currentWeek = null;
+
+						getAllAssessmentsForWeek($scope.currentBatch.batchId,
+								$scope.currentWeek);
+						
 					};
 
 					function sortByDate(currentYear) {
@@ -286,6 +303,8 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batchesByYear[index];
 						$log.debug("Selected batch " + index);
+						$scope.currentBatch.trainees.sort(compare);
+
 					// create new scope of trainees
 						$scope.trainees={};						
 						for(trainee of $scope.currentBatch.trainees){
@@ -298,7 +317,7 @@ angular
 									$scope.currentWeek);
 						} else
 							$scope.currentWeek = null;
-
+						
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
 					};
@@ -655,29 +674,39 @@ angular
 								});
 							});
 					}
+					
 					$scope.stopBurrito = function(traineeId){
 						$scope.trainees[traineeId].burrito=false;
 					}
+					
 					$scope.reloadController = function() {
 			            $state.reload();
 			        };
-//					$rootScope.reloadController();
-					$rootScope.$on('trainerasses',function(){
+
+			        $rootScope.$on('trainerasses',function(){
 						$scope.trainees={};						
 						
 						for(trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);
 						}
 						
-						//start(allBatches);
 						getAllAssessmentsForWeek(
 								$scope.currentBatch.batchId,
 								$scope.currentWeek);
 					});
-					$rootScope.$on('GET_TRAINEE_OVERALL_CTRL',function(event,traineeId){
+					
+			        $rootScope.$on('GET_TRAINEE_OVERALL_CTRL',function(event,traineeId){
 						console.log(traineeId);
 					});
-					/* RUN START FUNCTION */
-					//start(allBatches);
+			        
+					// Used to sort trainees in batch
+					function compare(a, b) {
+						if (a.name < b.name)
+							return -1;
+						if (a.name > b.name)
+							return 1;
+						return 0;
+					}
+					
 				$scope.test = function(){$log.debug("yer");}
 				});

@@ -199,6 +199,23 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		});
 	};
 	
+	trainer.getTraineeNote = function(traineeId,week){
+		return $http({
+			url: "/trainer/note/trainee/" + traineeId + "/for/"+ week,
+			method:"GET"
+		}).then(function(response){
+			$log.debug("Notes successfully fetched");
+			$log.debug(response);
+			if(response.data){
+				return response.data;
+			}else{
+				return response;
+			}				
+		},function(response){
+			$log.error("Error retrieving " + response.status);
+		})
+	};
+	
 	
 	trainer.createNote = function(noteObj) {
 		return $http({

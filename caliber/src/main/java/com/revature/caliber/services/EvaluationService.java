@@ -217,9 +217,23 @@ public class EvaluationService {
 				n.setBatch(null);
 				notes.add(n);
 			}
-			return notes;
 		}
 		return notes;
+	}
+	
+	/**
+	 * FIND TRAINEE NOTE FOR THE WEEK 
+	 * 
+	 * @param trainee
+	 * @param week
+	 * @return 
+	 */
+	public Note findTraineeNote(Integer traineeId, Integer week) {
+		Note note = noteDAO.findTraineeNote(traineeId,week);
+		
+		note.setBatch(null);
+		
+		return note;
 	}
 
 	/**
@@ -278,7 +292,10 @@ public class EvaluationService {
 		log.debug("Find All QC Trainee Notes");
 		return noteDAO.findAllQCTraineeNotes(batchId, week);
 	}
-	
+	public List<Note> findAllIndividualNotesOverall(Integer traineeId){
+		log.debug("Find Overall notes for trainee " + traineeId);
+		return noteDAO.findAllPublicIndividualNotes(traineeId);
+	}
 	/**
 	 * Find all qc trainee notes
 	 * @return

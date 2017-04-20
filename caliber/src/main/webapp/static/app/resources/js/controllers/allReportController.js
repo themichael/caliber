@@ -2,8 +2,8 @@ angular
 		.module("charts")
 		.controller(
 				"allReportController",
-				function($rootScope, $scope, $state, $log, caliberDelegate, chartsDelegate,
-						allBatches) {
+				function($rootScope, $scope, $state, $log, caliberDelegate,
+						chartsDelegate, allBatches) {
 
 					// *******************************************************************************
 					// *** UI
@@ -17,19 +17,18 @@ angular
 					// What you see when you open Reports
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
-					$scope.batchWeeks = {
-						"weeks" : []
-					};
+					$scope.currentBatchWeeks = [];
 					$scope.currentTraineeId = ALL;
-
 					$scope.noBatch = true;
 					$scope.batchWeek = false;
 					$scope.batchWeekTrainee = false;
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
 
-					//$scope.currentBatch = allBatches[0];$scope.currentWeek =1; // denise debug line please ignore ... ill delete when im done TODO
-					(function () {
+					// $scope.currentBatch = allBatches[0];$scope.currentWeek
+					// =1; // denise debug line please ignore ... ill delete
+					// when im done TODO
+					(function() {
 						// Finishes any left over ajax animation
 						NProgress.done();
 						// batch null check
@@ -38,7 +37,8 @@ angular
 							$scope.noBatch = true;
 						} else {
 							$scope.noBatch = false;
-							$scope.selectedYear = Number($scope.currentBatch.startDate.substr(0,4));
+							$scope.selectedYear = Number($scope.currentBatch.startDate
+									.substr(0, 4));
 							batchYears();
 							getCurrentBatchWeeks($scope.currentBatch.weeks);
 							selectView($scope.currentBatch.batchId,
@@ -62,13 +62,14 @@ angular
 
 							} else {
 								// Specific Trainee
-								$rootScope.$emit('GET_TRAINEE_OVERALL_CTRL');
+								$rootScope.$emit("GET_TRAINEE_OVERALL",
+										$scope.currentTraineeId);
+								displayTraineeOverallTable($scope.currentTraineeId);
 								$scope.batchWeek = false;
 								$scope.batchWeekTrainee = false;
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = true;
 								createBatchOverallTrainee();
-								$rootScope.$emit("GET_TRAINEE_OVERALL",$scope.currentTraineeId);
 							}
 						} else {
 							// Specific Week
@@ -80,7 +81,6 @@ angular
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = false;
 								createBatchWeek();
-								$rootScope.$emit('test');
 							} else {
 								// Specific trainee
 								$scope.batchWeek = false;
@@ -88,26 +88,53 @@ angular
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = false;
 								createBatchWeekTrainee();
+								$scope.getTraineeNote($scope.currentTraineeId,$scope.currentWeek);
 							}
 
 						}
 
 					}
 
+					function displayTraineeOverallTable(traineeId) {
+						$scope.traineeOverall=[];	
+						for(weekNum in $scope.currentBatchWeeks){
+							var week = parseInt(weekNum) + 1
+							$scope.traineeOverall.push({week});
+						}
+						caliberDelegate.all
+								.getAllTraineeNotes(traineeId)
+								.then(
+										function(response) {
+											for(note of response){
+												if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
+													$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
+												}
+											}											
+										});
+						caliberDelegate.qc.
+								traineeOverallNote(traineeId)
+								.then(
+										function(response) {
+											for(qcNote of response){
+												if($scope.traineeOverall[parseInt(qcNote.week)-1] !== undefined){
+													$scope.traineeOverall[parseInt(qcNote.week)-1].qcNote = qcNote;
+												}
+											}
+										});
+					}
+
 					function getCurrentBatchWeeks(weeks) {
-						$scope.batchWeeks.weeks = [];
+						$scope.currentBatchWeeks = [];
 						for (var i = 1; i <= weeks; i++)
-							$scope.batchWeeks.weeks.push(i);
+							$scope.currentBatchWeeks.push(i);
 					}
 
 					// Filter batches by year
 					$scope.years = addYears();
 					$scope.batches = allBatches;
-
 					$scope.currentTrainee = {
-						name : "Trainee"
+						name : "Trainee",
 					}
-
 					// hide filter tabs
 					$scope.hideOtherTabs = function() {
 						return $scope.currentBatch.trainingName !== "Batch";
@@ -127,12 +154,13 @@ angular
 					function batchYears() {
 						$scope.batchesByYear = [];
 						for (var i = 0; i < allBatches.length; i++) {
-							if ($scope.selectedYear === Number (allBatches[i].startDate.substr(0,4))) {
+							if ($scope.selectedYear === Number(allBatches[i].startDate
+									.substr(0, 4))) {
 								$scope.batchesByYear.push(allBatches[i]);
 							}
 						}
 					}
-					
+
 					$scope.selectYear = function(index) {
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
@@ -166,19 +194,39 @@ angular
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
 					}
-					/*scope function to display the table if a batch and week has been selected*/
-					$scope.displayTable = function(){
-				//		$log.debug("[		THIS IS THE CURRENT BATCHID 		]" +$scope.currentBatch.batchId + " [		THIS IS THE CURRENTWEEK		]" + $scope.reportCurrentWeek);
-						if($scope.currentBatch === null  || $scope.currentWeek === null){ // checking to see if the scope variables are null
+					/*
+					 * scope function to display the table if a batch and week
+					 * has been selected
+					 */
+					$scope.displayTable = function() {
+						// $log.debug("[ THIS IS THE CURRENT BATCHID ]"
+						// +$scope.currentBatch.batchId + " [ THIS IS THE
+						// CURRENTWEEK ]" + $scope.reportCurrentWeek);
+						if ($scope.currentBatch === null
+								|| $scope.currentWeek === null) { // checking
+							// to see if
+							// the scope
+							// variables
+							// are null
 							return false;
 						}
 						return true;
 					}
-					$scope.displayTraineeOverallTable=function(){
-						if($scope.currentBatch === null  || $scope.currentWeek === null || $scope.batchOverallTrainee === null ){ // checking to see if the scope variables are null
+					$scope.displayTraineeOverallTable = function() {
+						if ($scope.currentBatch === null
+								|| $scope.currentWeek === null
+								|| $scope.batchOverallTrainee === null) { // checking
+							// to
+							// see
+							// if
+							// the
+							// scope
+							// variables
+							// are
+							// null
 							return false;
-						}else{
-							return true;							
+						} else {
+							return true;
 						}
 					}
 					$scope.selectCurrentTrainee = function(index) {
@@ -194,9 +242,6 @@ angular
 							$scope.currentTraineeId = $scope.currentBatch.trainees[index].traineeId;
 							$scope.currentTrainee = $scope.currentBatch.trainees[index];
 							$log.debug($scope.currentTrainee);
-							$scope.currentTrainee = {
-								name : $scope.currentBatch.trainees[index].name
-							};
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
@@ -303,8 +348,6 @@ angular
 													.getAverageTraineeScoresOverall(data);
 											$scope.batchOverAllLabels = barChartObject.labels;
 											$scope.batchOverAllData = barChartObject.data;
-											$log.debug("SKALAGA!!!!");
-											$log.debug($scope.batchOverAllData);
 											$scope.batchOverAllOptions = barChartObject.options;
 										}, function() {
 											NProgress.done();
@@ -323,11 +366,6 @@ angular
 											NProgress.done();
 											var barChartObject = chartsDelegate.bar
 													.getAssessmentAveragesBatchWeekly(data);
-											$log.debug("here we are, in the yani barchart method");
-											$log.debug(barChartObject.options);
-											$log.debug(barChartObject);
-											$log.debug(barChartObject.series);
-
 											$scope.barchartAWLabels = barChartObject.labels;
 											$scope.barchartAWData = barChartObject.data;
 											$scope.barchartAWOptions = barChartObject.options;
@@ -418,7 +456,6 @@ angular
 										$scope.currentTraineeId)
 								.then(
 										function(data) {
-											$log.debug(data);
 											NProgress.done();
 											var radarChartObject = chartsDelegate.radar
 													.createFromTwoDataSets(
@@ -449,7 +486,7 @@ angular
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(
 															data,
-															"Temp Batch Overall");
+															$scope.currentBatch.trainingName);
 											$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
 											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
 											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
@@ -510,17 +547,13 @@ angular
 										$scope.currentTraineeId)
 								.then(
 										function(data) {
-											$log.debug(data);
 											NProgress.done();
 											var lineChartObject = chartsDelegate.line
 													.getWeeklyProgressTraineeOverall(data);
-											$log.debug("chart completed!");
 											$scope.batchOverallWeeklyLabels = lineChartObject.labels;
 											$scope.batchOverallWeeklyData = lineChartObject.data;
 											$scope.batchOverallWeeklySeries = lineChartObject.series;
 											$scope.batchOverallWeeklyOptions = lineChartObject.options;
-											$log.debug(lineChartObject);
-
 										}, function() {
 											NProgress.done();
 										});
@@ -543,13 +576,14 @@ angular
 								.getElementById("caliber-container");
 						// create deep copy to manipulate for POST request body
 						var clone = document
-							.getElementById("caliber-container").cloneNode(true);
+								.getElementById("caliber-container").cloneNode(
+										true);
 						$log.debug(caliber);
 
 						// iterate over all childrens to convert <canvas> to
 						// <img src=base64>
 						var html = $scope.generateImgFromCanvas(caliber, clone).innerHTML;
-						
+
 						var title = "";
 						// generate the title
 						if ($scope.reportCurrentWeek !== OVERALL)
@@ -587,7 +621,7 @@ angular
 					}
 
 					/**
-					 * Replace canvas (in DOM) with img (in deep copy) 
+					 * Replace canvas (in DOM) with img (in deep copy)
 					 */
 					$scope.generateImgFromCanvas = function(dom, clone) {
 						for (var i = 0; i < dom.childNodes.length; i++) {
@@ -603,4 +637,16 @@ angular
 						}
 						return clone;
 					};
+					
+					// gets the note for that trainne and that week
+					$scope.getTraineeNote=function(traineeId,weekId){
+						$log.debug("YOU ARE IN YOUR FUNCTION");
+						caliberDelegate.trainer.getTraineeNote(traineeId,weekId).then(function(data){
+							$log.debug("YOU ARE IN get trainer caliber in controller");
+								$scope.note = {};
+							if(data){
+								$scope.note = data;
+							}
+						});
+					}
 				});
