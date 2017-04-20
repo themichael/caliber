@@ -102,6 +102,6 @@ public class AssessmentController {
 		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, week);
 		return new ResponseEntity<List<Assessment>>(assessments, HttpStatus.OK);
 	}
-		
+	
 }
 

@@ -48,6 +48,10 @@ angular
 					delegate.all.deleteBatch = function(batchId) {
 						return allFactory.deleteBatch(batchId);
 					};
+					
+					delegate.all.getDroppedTrainees = function(batchId){
+						return allFactory.getDroppedTrainees(batchId);
+					};
 
 					delegate.all.createTrainee = function(traineeObj) {
 						return allFactory.createTrainee(traineeObj);
@@ -75,6 +79,10 @@ angular
 					
 					delegate.all.getAssessmentsAverageForWeek = function(batchId, weekId){
 						return allFactory.getAssessmentsAverageForWeek(batchId,weekId);
+					}
+					
+					delegate.all.getAllTraineeNotes = function(traineeId){
+						return allFactory.getAllTraineeNotes(traineeId);
 					}
 					/**
 					 * *********************** Enum constants
@@ -134,6 +142,11 @@ angular
 					delegate.trainer.getTraineeBatchNotesForWeek = function(batchId,week){
 						return trainerFactory.getTraineeBatchNotesForWeek(batchId,week);
 					}
+					
+					delegate.trainer.getTraineeNote = function(traineeId,week){
+						return trainerFactory.getTraineeNote(traineeId,week);
+					}
+					
 					delegate.trainer.getAllAssessmentsForWeek = function(
 							batchId, week) {
 						return trainerFactory.getAllAssessmentsForWeek(batchId,

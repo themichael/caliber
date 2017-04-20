@@ -84,7 +84,7 @@ a { color: #F26925;}
 @media (min-width: 601px){
 	  .chart-container {
         min-height: 25.8em;
-    }
+	  }
 }
 
 .panel > .panel-heading {
@@ -234,6 +234,9 @@ footer a, footer a:hover{
     display: inline-block;
     margin: 0 auto;
     padding:0;
+}
+.table-view{
+	max-width:400px;
 }
 /**********************
 	save button

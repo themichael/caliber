@@ -244,6 +244,19 @@ public class EvaluationController {
 		return new ResponseEntity<List<Note>>(evaluationService.findIndividualNotes(batchId, week), HttpStatus.OK);
 	}
 
+	
+	/**
+	 * FIND TRAINEE NOTE FOR THE WEEK 
+	 * 
+	 * @param trainee
+	 * @param week
+	 * @return 
+	 */
+	@RequestMapping(value = "/trainer/note/trainee/{traineeId}/for/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Note> findTraineeNote(@PathVariable Integer traineeId, @PathVariable Integer week) {
+		return new ResponseEntity<Note>(evaluationService.findTraineeNote(traineeId, week), HttpStatus.OK);
+	}
+	
 	/*
 	 *******************************************************
 	 * TODO QC NOTE SERVICES
@@ -338,5 +351,10 @@ public class EvaluationController {
 			@PathVariable Integer week) {
 		log.info("Finding all week " + week + " individual notes for trainee: " + traineeId);
 		return new ResponseEntity<List<Note>>(evaluationService.findAllIndividualNotes(traineeId, week), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/all/notes/trainee/{traineeId}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Note>> findAllTraineeNotes(@PathVariable Integer traineeId){
+		return new ResponseEntity<List<Note>>(evaluationService.findAllIndividualNotesOverall(traineeId),HttpStatus.OK);
 	}
 }

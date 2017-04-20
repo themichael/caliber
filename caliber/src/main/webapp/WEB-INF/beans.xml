@@ -24,13 +24,11 @@
 
 	<context:annotation-config />
 
-	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
 		<property name="url" value="#{systemEnvironment['CALIBER_DB_URL']}" />
 		<property name="username" value="#{systemEnvironment['CALIBER_DB_USER']}" />
 		<property name="password" value="#{systemEnvironment['CALIBER_DB_PASS']}" />
-		<property name="removeAbandoned" value="true" />
-		<property name="removeAbandonedTimeout" value="15" />
 	</bean>
 	<bean name="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

@@ -2,13 +2,31 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 	$log.debug("Booted Line Chart Factory");
 
 	var lineChart = {};
-
+	var hoverOpacity = 0.4;
+	var opacity = 0.4;
+	var mainColor = {
+			backgroundColor : 'rgba(114, 164, 194, .5)',
+			pointBackgroundColor : 'rgba(114, 164, 194, .5)',
+			borderColor : 'rgba(114, 164, 194, 1)',
+			pointHoverBackgroundColor : 'rgba(114, 164, 194, .3)',
+			pointHoverBorderColor : 'rgba(114, 164, 194, .3)',
+			pointBorderColor : '#fff'
+		} 
+	var secondaryColor = {
+			backgroundColor : 'rgba(252, 180, 20, .6)',
+			pointBackgroundColor : 'rgba(252, 180, 20, .6)',
+			borderColor : 'rgba(252, 180, 20, 1)',
+			pointHoverBackgroundColor : 'rgba(252, 180, 20, .3)',
+			pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
+			pointBorderColor : '#fff'
+		};
 	lineChart.getBatchOverallLineChart = function(dataArray) {
 		var chartData = {};
 		// data and labels
 		chartData.data = [];
 		chartData.data.push([]);
 		chartData.labels = [];
+		chartData.colors = [mainColor];
 		chartData.options = {
 			scales : {
 				yAxes : [ {
@@ -45,6 +63,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		chartData.data = [];
 		chartData.labels = [];
 		chartData.series = [ "Trainee", "Batch" ];
+		chartData.colors = [mainColor, secondaryColor];
 		chartData.options = {
 			scales : {
 				xAxes : [ {
@@ -95,10 +114,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		var chartData = {};
 		chartData.series = [ "Trainee", "Batch" ]
 		chartData.data = [];
-		// chartData.labels = [];
-
-		$log.debug("THIS IS THE DOUBLE[] DATA SET");
-		$log.debug(dataArray);
+		chartData.colors = [mainColor, secondaryColor];
 		chartData.options = {
 			scales : {
 				xAxes : [ {

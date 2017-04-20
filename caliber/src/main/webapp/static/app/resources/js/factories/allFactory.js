@@ -162,6 +162,26 @@ angular.module("api").factory("allFactory", function($log, $http) {
 
 	/**
 	 * 
+	 * @param batchId
+	 * @returns {*}
+	 */
+	all.getDroppedTrainees = function(batchId) {
+		return $http({
+			url : "/all/trainee/dropped?batch="+batchId ,
+			method : "GET",
+		}).then(function(response) {
+			$log.debug("Dropped trainees successfully fetched.")
+			$log.debug(response.data);
+			// return id
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return response.data;
+		});
+	};
+	
+	/**
+	 * 
 	 * @param traineeObj
 	 * @returns {*}
 	 */
@@ -211,6 +231,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		}).then(function(response) {
 			$log.debug("Trainee successfully deleted.");
 			$log.debug(response);
+			return response;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 		});
@@ -248,6 +269,17 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	
+	all.getAllTraineeNotes = function(traineeId){
+		return $http({
+			url:"/all/notes/trainee/" + traineeId,
+			method: "GET"
+		}).then(function(response){
+			return response.data
+		},function(response){
+			$log.error("There was an error: "+response.status);
+		})
+	}
 
 	all.getAssessmentsAverageForWeek = function(batchId, weekId) {
 		return $http({

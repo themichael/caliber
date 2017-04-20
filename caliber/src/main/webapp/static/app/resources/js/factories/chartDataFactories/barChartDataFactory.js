@@ -7,7 +7,7 @@ angular
 
 					var report = {};
 
-					/**
+					/*
 					 * Yanilda
 					 */
 					report.getBatchWeekAvgBarChart = function(batchId, week) {
@@ -29,7 +29,7 @@ angular
 											$log.error("There was an error: "
 													+ response.status);
 										});
-					};
+					}
 
 					report.batchWeekTraineeAssessBar = function(batchId,
 							weekNum, traineeId) {
@@ -52,7 +52,7 @@ angular
 											$log.error("There was an error: "
 													+ response.status);
 										});
-					};
+					}
 
 					report.batchOverallTraineeAssessBar = function(batchId,
 							traineeId) {
@@ -74,7 +74,7 @@ angular
 											$log.error("There was an error: "
 													+ response.status);
 										});
-					};
+					}
 
 					report.getBarChartBatchWeekAvg = function(batchId, week) {
 						return $http(
@@ -94,7 +94,7 @@ angular
 											$log.error("There was an error: "
 													+ response.status);
 										}); // end then
-					};
+					}
 
 					report.getBatchWeekSortedBarChartData = function(batchId,
 							week) {
@@ -117,7 +117,8 @@ angular
 													.error("There was an error in barChartDataFactory -> getBatchWeekSortedBarChartData "
 															+ response.status);
 										});
-					};
+					}
+
 					report.getBatchOverallBarChart = function(batchId) {
 						return $http(
 								{
@@ -137,7 +138,8 @@ angular
 													.error("There was an error in barChartDataFactory -> getBatchOverallBarChart "
 															+ response.status);
 										});
-					};
+					}
+					
 					report.getDummyBarChartData = function() {
 						// Return with commas in between
 						return {
@@ -158,5 +160,26 @@ angular
 						};
 
 					}
+
+					report.getAllBatchesCurrentWeekQCStats = function() {
+						return $http(
+								{
+									url : "/all/reports/batch/week/stacked-bar-current-week",
+									method : "GET"
+								})
+								.then(
+										function(response) {
+											$log
+													.debug("getAllBatchesCurrentWeekQCStats")
+											$log.debug(response);
+											return response.data;
+										},
+										function(response) {
+											$log
+													.error("There was an error in barChartDataFactory -> getAllBatchesCurrentWeekQCStats:"
+															+ response.status);
+										});
+					}
+
 					return report;
 				})
