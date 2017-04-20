@@ -88,6 +88,7 @@ angular
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = false;
 								createBatchWeekTrainee();
+								$scope.getTraineeNote($scope.currentTraineeId,$scope.currentWeek);
 							}
 
 						}
@@ -636,4 +637,16 @@ angular
 						}
 						return clone;
 					};
+					
+					// gets the note for that trainne and that week
+					$scope.getTraineeNote=function(traineeId,weekId){
+						$log.debug("YOU ARE IN YOUR FUNCTION");
+						caliberDelegate.trainer.getTraineeNote(traineeId,weekId).then(function(data){
+							$log.debug("YOU ARE IN get trainer caliber in controller");
+								$scope.note = {};
+							if(data){
+								$scope.note = data;
+							}
+						});
+					}
 				});
