@@ -12,23 +12,20 @@ angular.module("vp").controller(
 			// Yanilda dummy barchart
 			function createDummyBarChart() {
 				$log.debug("Started creating dummy data three");
-				chartsDelegate.bar.data.getDummyBarData(
-
-				function(data) {
-
-					$log.debug("Hello");
+				data=chartsDelegate.bar.data.getDummyBarData();
+					$log.debug(data);
 					NProgress.done();
 					var barChartObject = chartsDelegate.bar
 							.getDummyBarChartDelegate(data);
 					$scope.barchartDLabels = barChartObject.data.labels;
+					$log.debug("Hey 1");
 					$log.debug($scope.barchartDLabels);
 					$log.debug("Hey");
 					$scope.barchartDData = barChartObject.data.datasets;
-					$scope.barchartDOptions = barChartObject.options;
-					$scope.barchartDType = barChartObject.type;
-				}, function() {
-					NProgress.done();
-				});
+					$log.debug("Hey 2");
+					$log.debug($scope.barchartDData);
+					
+				
 
 			}
 

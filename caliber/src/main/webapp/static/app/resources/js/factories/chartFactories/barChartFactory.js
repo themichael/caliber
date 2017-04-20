@@ -307,91 +307,27 @@ angular
 
 					barChart.getDummyBarChart = function(dataArray) {
 						// Return with commas in between
+						console.log(dataArray);
+						console.log("Dummy barchart");
+						console.log(dataArray);
 						var numberWithCommas = function(x) {
 							return x.toString().replace(
 									/\B(?=(\d{3})+(?!\d))/g, ",");
 						};
 
-						var bar_chart = new Chart(
-								bar_ctx,
-								{
-									type : 'bar',
-									data : {
-										labels : dataArray.dates,
-										datasets : [
-												{
-													label : 'Poor',
-													data : dataArray.dataPack1,
-													backgroundColor : " #ff0000",
-													hoverBackgroundColor : "rgba(55, 160, 225, 0.7)",
-													hoverBorderWidth : 2,
-													hoverBorderColor : 'lightgrey'
-												},
-												{
-													label : 'Good',
-													data : dataArray.dataPack2,
-													backgroundColor : " #e8b00b",
-													hoverBackgroundColor : "rgba(225, 58, 55, 0.7)",
-													hoverBorderWidth : 2,
-													hoverBorderColor : 'lightgrey'
-												},
-												{
-													label : 'SuperStar',
-													data : dataArray.dataPack3,
-													backgroundColor : "#7972ff",
-													hoverBackgroundColor : "rgba(55, 160, 225, 0.7)",
-													hoverBorderWidth : 2,
-													hoverBorderColor : 'lightgrey'
-												},
-												{
-													label : 'Average',
-													data : dataArray.dataPack4,
-													backgroundColor : "#24d810",
-													hoverBackgroundColor : "rgba(225, 58, 55, 0.7)",
-													hoverBorderWidth : 2,
-													hoverBorderColor : 'lightgrey'
-												}, ]
-									},
-									options : {
-										animation : {
-											duration : 10,
-										},
-										tooltips : {
-											mode : 'label',
-											callbacks : {
-												label : function(tooltipItem,
-														data) {
-													return data.datasets[tooltipItem.datasetIndex].label
-															+ ": "
-															+ numberWithCommas(tooltipItem.yLabel);
-												}
-											}
-										},
-										scales : {
-											xAxes : [ {
-												stacked : true,
-												gridLines : {
-													display : false
-												},
-											} ],
-											yAxes : [ {
-												stacked : true,
-												ticks : {
-													callback : function(value) {
-														return numberWithCommas(value);
-													},
-												},
-											} ],
-										}, // scales
-										legend : {
-											display : true
-										}
-									}
-								// options
-								});
+						var chartData = {
+							type : 'bar',
+							data : {
+								labels : dataArray.batches,
+								datasets : [
+									dataArray.poor, dataArray.good, dataArray.average, dataArray.superstar,
+								]},
+			
+						};
 						$log.debug("Hello from the other side");
-						return bar_chart;
+						return chartData;
+						
 					}
-
+					$log.debug("Hello is it me you are looking for?");
 					return barChart;
 				});

@@ -63,6 +63,7 @@ angular
 							dataArray) {
 						console.log("Testing 5");
 						$log.debug(dataArray);
+						console.log("Testing 6");
 						return barChartFactory
 								.getDummyBarChart(dataArray);
 					};
