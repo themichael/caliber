@@ -401,7 +401,6 @@ angular
 						$scope.traineePhoneNumber = trainee.phoneNumber;
 						$scope.traineeProfileUrl = trainee.profileUrl;
 						$scope.traineeTrainingStatus = trainee.trainingStatus;
-						$scope.Save = "Update";
 						$scope.Updating = true;
 						$scope.traineeFormName = "Update Trainee";
 					}
@@ -415,7 +414,6 @@ angular
 						$scope.traineePhoneNumber = "";
 						$scope.traineeProfileUrl = "";
 						$scope.traineeTrainingStatus = "";
-						$scope.Save = "Save";
 						$scope.Updating = false;
 						if ($scope.currentTrainee) {
 							$scope.currentTrainee = null;
@@ -490,6 +488,7 @@ angular
 												$scope.resetTraineeForm();
 											});
 						}
+						angular.element("#addTraineeModal").modal("hide");
 					};
 
 					$scope.deleteTrainee = function(receiver) {

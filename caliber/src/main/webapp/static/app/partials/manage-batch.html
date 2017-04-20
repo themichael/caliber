@@ -367,8 +367,7 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="traineeModalLabel">Add
-						Trainees</h4>
+					<h4 class="modal-title" id="traineeModalLabel">Add Trainees</h4>
 				</div>
 				<div class="modal-body">
 					<div class="pull-right">
@@ -427,12 +426,14 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default"
-							ng-click="resetTraineeForm()" data-dismiss="modal"
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							data-dismiss="modal" ng-show="!Updating">Close</button>
+						<input type="submit" value="Save" class="btn btn-primary"
+							ng-show="!Updating">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
 							ng-show="Updating">Cancel</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal" data-dismiss="modal"
-							ng-show="!Updating">Close</button>
-						<input type="submit" ng-value="Save" class="btn btn-primary" >
+						<input type="submit" value="Update" class="btn btn-primary"
+							ng-show="Updating")>
 					</div>
 				</div>
 			</div>
