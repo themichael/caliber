@@ -55,13 +55,12 @@
 							<td>{{batch.goodGradeThreshold}}</td>
 							<td>{{batch.borderlineGradeThreshold}}</td>
 							<td>
-								<!-- Button Trigger for Add Trainee Modal -->
-								<p align="center">
-									<a role="button" data-toggle="modal"
-										ng-click="resetTraineeForm();selectCurrentBatch($index)"
-										data-target="#addTraineeModal"><span
-										class="glyphicon glyphicon-user">{{batch.trainees.length}}</span>
-									</a>
+								<!-- Button Trigger for Add Trainee Modal --> <a role="button"
+								data-toggle="modal"
+								ng-click="resetTraineeForm();selectCurrentBatch($index)"
+								data-target="#viewTraineeModal"><span
+									class="glyphicon glyphicon-user"><p align="center">{{batch.trainees.length}}</p></span>
+							</a>
 							</td>
 							<td><a role="button" class="pull-right"
 								ng-click="populateBatch(batch);selectCurrentBatch($index)"
@@ -79,7 +78,7 @@
 	</div>
 
 	<!--********************************************* Create Batch Modal ************************************-->
-	<form ng-submit="addNewBatch()">
+	<form ng-submit="checkDates()">
 		<div class="modal fade" id="createBatchModal" tabindex="-1"
 			role="dialog" aria-labelledby="batchModalLabel">
 			<div class="modal-dialog" role="document">
@@ -98,12 +97,13 @@
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="trainingName">Training Name:</label> <input
 									ng-model="trainingName.model" type="text" class="form-control"
-									id="trainingName" placeholder="1611 Jul11 Java" required>
+									id="trainingName" placeholder="1611 Jul11 Java"
+									ng-required="true">
 							</div>
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="trainingType">Training Type:</label> <select
 									ng-model="trainingType.model" class="form-control"
-									id="trainingType" required>
+									id="trainingType" ng-required="true">
 									<option value="" disabled>Select Training Type</option>
 									<option ng-repeat="option in trainingType.options">{{option}}</option>
 								</select>
@@ -113,7 +113,7 @@
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="skillType">Skill Type:</label> <select
 									ng-model="skillType.model" class="form-control" id="skillType"
-									required>
+									ng-required="true">
 									<option value="" disabled>Select Skill Type</option>
 									<option ng-repeat="option in skillType.options">{{option}}</option>
 								</select>
@@ -122,7 +122,7 @@
 								<label for="commonLocations">Location:</label> <input
 									list="commonLocations" type="text" ng-model="location.model"
 									id="location" required placeholder="Enter location"
-									class="form-control">
+									class="form-control" ng-required="true">
 								<datalist id="commonLocations">
 									<option ng-repeat="option in location.options"
 										value="{{option}}" />
@@ -130,6 +130,7 @@
 							</div>
 						</div>
 						<div class="row">
+
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="trainer">Trainer:</label> <select
 									ng-model="trainer.model" class="form-control" id="trainer"
@@ -151,8 +152,9 @@
 								<label for="start-date">Start Date:</label>
 								<div class="input-group" id="start-date" data-datepicker="true">
 									<input ng-model="startDate.model" ng-change="setEndDate()"
-										class="date-input form-control date-selector" name="date"
-										min="0" type="date" required> <span
+										ng-value="startDate"
+										class="date-input form-control date-selector" name="s" min="0"
+										type="date" ng-required="true"> <span
 										class="input-group-addon glyphicon glyphicon-calendar"></span>
 								</div>
 							</div>
@@ -174,7 +176,7 @@
 									class="glyphicon glyphicon-question-sign"></span></label> <input
 									ng-model="goodGradeThreshold.model" ng-change="setMinGrade()"
 									type="number" min="0" step="1" class="form-control"
-									id="goodGrade" placeholder="80" required>
+									id="goodGrade" placeholder="80" ng-required="true">
 							</div>
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="borderlineGrade">Passing Grade: <span
@@ -184,7 +186,7 @@
 									ng-model="borderlineGradeThreshold.model"
 									ng-change="lowerMinGrade()" type="number" min="0" step="1"
 									class="form-control" id="borderlineGrade" placeholder="50"
-									required>
+									ng-required="true">
 							</div>
 						</div>
 						<div class="row">
@@ -197,7 +199,8 @@
 									data-datepicker="true">
 									<input ng-model="benchmarkStartDate.model"
 										class="date-input form-control date-selector" name="date"
-										min="0" type="date" required> <span
+										ng-value="benchmarkStartDate" min="0" type="date"
+										ng-required="true"> <span
 										class="input-group-addon glyphicon glyphicon-calendar"></span>
 								</div>
 							</div>
@@ -245,127 +248,10 @@
 		</div>
 	</form>
 
-
-	<!--********************************************* Add Trainee Modal ************************************-->
-	<form ng-submit="addNewTrainee()">
-		<div class="modal fade" id="addTraineeModal" tabindex="-1"
-			role="dialog" aria-labelledby="traineeModalLabel">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="traineeModalLabel">View/Add
-							Trainees</h4>
-					</div>
-					<div class="modal-body">
-						<!-- View Trainees in Batch -->
-						<h3>Trainees in Batch</h3>
-						<!--                   <div class="row scrollable-div"> -->
-						<div class="col-md-12 col-lg-12">
-							<table class="table table-responsive">
-								<thead>
-									<tr>
-										<th>Trainee Name</th>
-										<th>Trainee Email</th>
-										<th>Training Status</th>
-										<th>Phone Number</th>
-										<th>Skype Id</th>
-										<th>Profile URL</th>
-										<th></th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="trainee in trainees">
-										<td>{{trainee.name}}</td>
-										<td>{{trainee.email}}</td>
-										<td>{{trainee.trainingStatus}}</td>
-										<td>{{trainee.phoneNumber}}</td>
-										<td>{{trainee.skypeId}}</td>
-
-										<td><span ng-if="trainee.profileUrl"> <a
-												href="{{trainee.profileUrl}}" target="_blank"><i
-													class="fa fa-file-code-o" aria-hidden="true"></i></a>
-										</span></td>
-										<td><a role="button"
-											ng-click="populateTrainee(trainee);getTrainee($index)"
-											type="button"> <span class="glyphicon glyphicon-pencil"></span>
-										</a></td>
-										<td><a role="button" class="pull-right"
-											ng-click="getTraineeToDelete($index)" data-toggle="modal"
-											data-target="#deleteTraineeModal"><span
-												class="glyphicon glyphicon-remove" aria-hidden="true">
-											</span></a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<!-- Add New Trainee -->
-						<h3 ng-bind="traineeFormName">Add Trainee</h3>
-						<div>
-							<div class="row">
-								<div class="form-group col-lg-6 col-md-6 col-sm-12">
-									<label for="traineeName">Full Name:</label> <input
-										ng-model="traineeName" type="text" class="form-control"
-										id="traineeName" placeholder="Name" required>
-								</div>
-								<div class="form-group col-lg-6 col-md-6 col-sm-12">
-									<label for="traineeEmail">Email:</label> <input
-										ng-model="traineeEmail" type="email" class="form-control"
-										id="traineeEmail" placeholder="Email" required>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group col-lg-6 col-md-6 col-sm-12">
-									<label for="traineeSkype">Skype Id:</label> <input
-										ng-model="traineeSkypeId" type="text" class="form-control"
-										id="traineeSkype" placeholder="Skype Id">
-								</div>
-								<div class="form-group col-lg-6 col-md-6 col-sm-12">
-									<label for="traineePhone">Phone:</label> <input
-										ng-model="traineePhoneNumber" type="text" class="form-control"
-										id="traineePhone" placeholder="(xxx)-xxx-xxxx">
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group col-lg-12 col-md-12 col-sm-12">
-									<label for="traineeProfile">Profile URL:</label> <input
-										ng-model="traineeProfileUrl" type="text" class="form-control"
-										id="traineeName" placeholder="http://www.example.com/revature">
-								</div>
-							</div>
-							<div class="row">
-
-								<div class="form-group col-lg-12 col-md-12 col-sm-12">
-									<label for="traineeStatus">Training Status</label> <select
-										ng-model="traineeTrainingStatus" class="form-control"
-										id="traineeStatus" required>
-										<option value="" disabled>Select Status</option>
-										<option ng-repeat="option in trainingStatuses.options">{{option}}</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default"
-							ng-click="resetTraineeForm()" ng-show="Updating">Cancel</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							ng-show="!Updating">Close</button>
-						<input type="submit" ng-value="Save" class="btn btn-primary">
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
-
-	<!--********************************************* Confirm Trainee Delete Modal ************************************-->
-	<form ng-submit="removeTrainee()">
-		<div class="modal fade" id="deleteTraineeModal" tabindex="0"
-			role="dialog" aria-labelledby="traineeModalLabel">
+	<!--********************************************* Benchmark Date Modal   ************************************-->
+	<form>
+		<div class="modal fade" id="benchmarkdateModal" tabindex="-1"
+			role="dialog" aria-labelledby="batchModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -373,19 +259,212 @@
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" id="traineeModalLabel">Delete Trainee</h4>
+
 					</div>
 					<div class="modal-body">
-						<h3>Are you sure you want to delete
-							{{traineeToBeDeleted.name}}?</h3>
-						<br />
+						<h3>The BenchmarkDate date needs to be before the start date</h3>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" value="Delete" class="btn btn-lg btn-danger">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
+
+
+
+	<!--********************************************* View Trainee Modal ************************************-->
+
+	<div class="modal fade" id="viewTraineeModal" tabindex="-1"
+		role="dialog" aria-labelledby="traineeModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="traineeModalLabel">View/Add
+						Trainees</h4>
+				</div>
+				<div class="modal-body">
+					<!-- switch trainees type -->
+					<div class="pull-right">
+						<span>Active&nbsp</span> <a role="button"
+							ng-click="switchTraineeView()" ng-show="!showdropped"><span
+							class="fa fa-toggle-on fa-2x" aria-hidden="true"> </span></a> <a
+							role="button" ng-click="switchTraineeView()"
+							ng-show="showdropped"><span class="fa fa-toggle-off fa-2x"
+							aria-hidden="true"> </span></a>
+					</div>
+					<!-- View Trainees in Batch -->
+					<h3>Trainees in Batch</h3>
+
+					<!--                   <div class="row scrollable-div"> -->
+					<div class="col-md-12 col-lg-12">
+						<!--add trainee button -->
+						</br> <a role="button" class="pull-right"
+							ng-click="resetTraineeForm();" data-toggle="modal"
+							data-target="#addTraineeModal" type="button">Add Trainee<span
+							class="glyphicon glyphicon-plus" aria-hidden="true"> </span>
+						</a>
+						<table class="table table-responsive">
+							<thead>
+								<tr>
+									<th>Trainee Name</th>
+									<th>Trainee Email</th>
+									<th>Training Status</th>
+									<th>Phone Number</th>
+									<th>Skype Id</th>
+									<th>Profile URL</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="trainee in trainees">
+									<td>{{trainee.name}}</td>
+									<td>{{trainee.email}}</td>
+									<td>{{trainee.trainingStatus}}</td>
+									<td>{{trainee.phoneNumber}}</td>
+									<td>{{trainee.skypeId}}</td>
+
+									<td><span ng-if="trainee.profileUrl"> <a
+											href="{{trainee.profileUrl}}" target="_blank"><i
+												class="fa fa-file-code-o" aria-hidden="true"></i></a>
+									</span></td>
+									<td><a role="button"
+										ng-click="populateTrainee(trainee);getTrainee($index)"
+										data-toggle="modal" data-target="#addTraineeModal"
+										type="button"> <span class="glyphicon glyphicon-pencil"></span>
+									</a></td>
+									<td><a role="button" class="pull-right"
+										ng-click="getTraineeToDelete($index)" data-toggle="modal"
+										data-target="#deleteTraineeModal"><span
+											class="glyphicon glyphicon-remove" aria-hidden="true">
+										</span></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="modal-footer"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--********************************************* Add Trainee Modal ************************************-->
+<form ng-submit="addNewTrainee()">
+	<div class="modal fade" id="addTraineeModal" tabindex="-1"
+		role="dialog" aria-labelledby="traineeModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="traineeModalLabel">View/Add
+						Trainees</h4>
+				</div>
+				<div class="modal-body">
+					<!-- View Trainees in Batch -->
+					<h3>Trainees in Batch</h3>
+					<div class="pull-right">
+						<span style="text-align: center">Active&nbsp</span> <a
+							role="button" ng-click="switchTraineeView()"
+							ng-show="!showdropped"><span class="fa fa-toggle-on fa-2x"
+							aria-hidden="true"> </span></a> <a role="button"
+							ng-click="switchTraineeView()" ng-show="showdropped"><span
+							class="fa fa-toggle-off fa-2x" aria-hidden="true"> </span></a>
+					</div>
+
+					<!-- Add New Trainee -->
+					<h3 ng-bind="traineeFormName">Add Trainee</h3>
+					<div>
+						<div class="row">
+							<div class="form-group col-lg-6 col-md-6 col-sm-12">
+								<label for="traineeName">Full Name:</label> <input
+									ng-model="traineeName" type="text" class="form-control"
+									id="traineeName" placeholder="Name" required>
+							</div>
+							<div class="form-group col-lg-6 col-md-6 col-sm-12">
+								<label for="traineeEmail">Email:</label> <input
+									ng-model="traineeEmail" type="email" class="form-control"
+									id="traineeEmail" placeholder="Email" required>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-lg-6 col-md-6 col-sm-12">
+								<label for="traineeSkype">Skype Id:</label> <input
+									ng-model="traineeSkypeId" type="text" class="form-control"
+									id="traineeSkype" placeholder="Skype Id">
+							</div>
+							<div class="form-group col-lg-6 col-md-6 col-sm-12">
+								<label for="traineePhone">Phone:</label> <input
+									ng-model="traineePhoneNumber" type="text" class="form-control"
+									id="traineePhone" placeholder="(xxx)-xxx-xxxx">
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-lg-12 col-md-12 col-sm-12">
+								<label for="traineeProfile">Profile URL:</label> <input
+									ng-model="traineeProfileUrl" type="text" class="form-control"
+									id="traineeName" placeholder="http://www.example.com/revature">
+							</div>
+						</div>
+						<div class="row">
+
+							<div class="form-group col-lg-12 col-md-12 col-sm-12">
+								<label for="traineeStatus">Training Status</label> <select
+									ng-model="traineeTrainingStatus" class="form-control"
+									id="traineeStatus" required>
+									<option value="" disabled>Select Status</option>
+									<option ng-repeat="option in trainingStatuses.options">{{option}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default"
+							ng-click="resetTraineeForm()" data-dismiss="modal"
+							ng-show="Updating">Cancel</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							ng-show="!Updating">Close</button>
+						<input type="submit" ng-value="Save" class="btn btn-primary">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!--********************************************* Confirm Trainee Delete Modal ************************************-->
+<form ng-submit="removeTrainee()">
+	<div class="modal fade" id="deleteTraineeModal" tabindex="0"
+		role="dialog" aria-labelledby="traineeModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="traineeModalLabel">Delete Trainee</h4>
+				</div>
+				<div class="modal-body">
+					<h3>Are you sure you want to delete
+						{{traineeToBeDeleted.name}}?</h3>
+					<br />
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="Delete" class="btn btn-lg btn-danger">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
 </div>
