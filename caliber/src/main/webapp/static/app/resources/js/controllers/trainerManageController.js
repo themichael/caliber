@@ -371,6 +371,10 @@ angular
 														break;
 													}
 												}
+											} 
+											else if (response.status === 500){
+												//$log($scope.currentBatch.batchId);
+											angular.element("#deleteBatchErrorModal").modal("show");	
 											}
 										});
 						angular.element("#deleteBatchModal").modal("hide");
