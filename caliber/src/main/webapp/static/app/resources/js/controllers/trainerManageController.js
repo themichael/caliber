@@ -394,7 +394,7 @@ angular
 								$scope.trainingStatuses.options = statuses;
 							});
 
-					/** Fill update form with trainee previous data* */
+					/** Fill update form with trainee's previous data* */
 					$scope.populateTrainee = function(trainee) {
 						$log.debug(trainee);
 						$scope.traineeName = trainee.name;
