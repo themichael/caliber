@@ -208,8 +208,6 @@ angular
 						} else {
 							$scope.coTrainer.model = ""
 						}
-						$log.debug("hello");
-						$log.log(new Date(batch.startDate).toISOString());
 						$scope.startDate.model = new Date(moment(
 								batch.startDate, "YYYY-MM-DD").format(
 								"YYYY/MM/DD"));
