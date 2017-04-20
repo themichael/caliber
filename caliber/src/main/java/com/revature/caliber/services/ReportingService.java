@@ -414,7 +414,9 @@ public class ReportingService {
 		int weeks = trainee.getBatch().getWeeks();
 		for (Integer i = 1; i <= weeks; i++) {
 			Double[] avg = utilAvgTraineeWeek(i, assessmentType, grades);
-			results.put(i, avg);
+			if (avg[0]!=0){
+				results.put(i, avg);
+			}
 		}
 		return results;
 	}
