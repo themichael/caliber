@@ -19,7 +19,7 @@
 							role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
 					</ul></li>
 
-				<li role="button" class="dropdown"><a class="dropdown-toggle"
+				<li role="button" class="dropdown" ng-show="!noBatches"><a class="dropdown-toggle"
 					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
 						currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
 				</a>
@@ -30,7 +30,7 @@
 						</a></li>
 					</ul></li>
 				<!-- Button Trigger for Create Assessment Modal -->
-				<li role="button" class="pull-right" ng-show="currentView"
+				<li role="button" class="pull-right" ng-show="!noBatches"
 					data-toggle="modal" data-target="#createAssessmentModal"><a>Create
 						Assessment<span class="glyphicon glyphicon-plus"
 						aria-hidden="true"> </span>
@@ -55,14 +55,14 @@
 				</a></li>
 			</ul>
 		</div>
-		<div class="col-sm-12 col-md-12 col-lg-12 top5">
+		<div class="col-sm-12 col-md-12 col-lg-12 top5" ng-show="!noBatches">
 			<ul class="nav nav-tabs">
 				<li role="button" class="{{showActiveWeek($index)}}"
 					ng-click="selectWeek($index)"
 					ng-repeat="week in currentBatch.arrayWeeks track by $index"><a>Week
 						{{week}}</a></li>
 				<!-- Button Trigger for Create Week Modal -->
-				<li role="button" ng-show="currentView" ng-click="createWeek()">
+				<li role="button" ng-show="!noBatches" ng-click="createWeek()">
 					<a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 				</li>
 			</ul>
