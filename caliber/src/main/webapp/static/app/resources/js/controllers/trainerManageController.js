@@ -317,6 +317,8 @@ angular
 												// coTrainer may be undefined
 												newBatch.batchId = response.data.batchId;
 												newBatch['trainees'] = [];
+												newBatch['arrayWeeks']=[];
+												newBatch['weeks']=response.data.weeks;
 												if ($scope.coTrainer) {
 													$scope.batches
 															.push(newBatch);
