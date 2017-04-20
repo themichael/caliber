@@ -327,7 +327,7 @@ angular
 											$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
 											$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
 											$scope.averageTraineeScoresWeeklyOptions = barChartObj.options;
-
+											$scope.averageTraineeScoresWeeklyColors = barChartObj.colors;
 											$scope.averageTraineeScoresWeeklyTable = chartsDelegate.utility
 													.dataToTable(barChartObj);
 										}, function() {
@@ -349,6 +349,7 @@ angular
 											$scope.batchOverAllLabels = barChartObject.labels;
 											$scope.batchOverAllData = barChartObject.data;
 											$scope.batchOverAllOptions = barChartObject.options;
+											$scope.batchOverAllColors = barChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
@@ -369,7 +370,8 @@ angular
 											$scope.barchartAWLabels = barChartObject.labels;
 											$scope.barchartAWData = barChartObject.data;
 											$scope.barchartAWOptions = barChartObject.options;
-											$scope.barchartAWseries = barChartObject.series;
+											$scope.barchartAWSeries = barChartObject.series;
+											$scope.barchartAWColors = barChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
@@ -391,6 +393,7 @@ angular
 											$scope.AssessmentAveragesTraineeWeeklyData = barChartObject.data;
 											$scope.AssessmentAveragesTraineeWeeklyOptions = barChartObject.options;
 											$scope.AssessmentAveragesTraineeWeeklySeries = barChartObject.series;
+											$scope.AssessmentAveragesTraineeWeeklyColors = barChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
@@ -411,6 +414,7 @@ angular
 											$scope.AssessmentAveragesTraineeOverallData = barChartObject.data;
 											$scope.AssessmentAveragesTraineeOverallOptions = barChartObject.options;
 											$scope.AssessmentAveragesTraineeOverallSeries = barChartObject.series;
+											$scope.AssessmentAveragesTraineeOverallColors = barChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});
@@ -441,6 +445,7 @@ angular
 											$scope.radarTraineeWeeklyOptions = radarChartObject.options;
 											$scope.radarTraineeWeeklyLabels = radarChartObject.labels;
 											$scope.radarTraineeWeeklySeries = radarChartObject.series;
+											$scope.radarTraineeWeeklyColors = radarChartObject.colors;
 
 											$scope.radarTraineeWeeklyTable = chartsDelegate.utility
 													.dataToTable(radarChartObject);
@@ -468,6 +473,7 @@ angular
 											$scope.radarTraineeOverallOptions = radarChartObject.options;
 											$scope.radarTraineeOverallLabels = radarChartObject.labels;
 											$scope.radarTraineeOverallSeries = radarChartObject.series;
+											$scope.radarTraineeOverallColors = radarChartObject.colors;
 
 											$scope.radarTraineeOverallTable = chartsDelegate.utility
 													.dataToTable(radarChartObject);
@@ -491,6 +497,7 @@ angular
 											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
 											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
 											$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
+											$scope.radarBatchOverallColors = radarBatchOverallChartObject.colors;
 
 											$scope.radarBatchOverallTable = chartsDelegate.utility
 													.dataToTable(radarBatchOverallChartObject);
@@ -514,6 +521,7 @@ angular
 											$scope.weeklyProgressBatchOverallLabels = lineChartObj.labels;
 											$scope.weeklyProgressBatchOverallData = lineChartObj.data;
 											$scope.weeklyProgressBatchOverallOptions = lineChartObj.options;
+											$scope.weeklyProgressBatchOverallColors = lineChartObj.colors;
 										}, function() {
 											NProgress.done();
 										})
@@ -534,6 +542,7 @@ angular
 											$scope.linechartTWData = lineChartObjectwd.data;
 											$scope.linechartTWOptions = lineChartObjectwd.options;
 											$scope.linechartTWSeries = lineChartObjectwd.series;
+											$scope.linechartTWColors = lineChartObjectwd.colors;
 										}, function() {
 											NProgress.done();
 										});
@@ -554,6 +563,7 @@ angular
 											$scope.batchOverallWeeklyData = lineChartObject.data;
 											$scope.batchOverallWeeklySeries = lineChartObject.series;
 											$scope.batchOverallWeeklyOptions = lineChartObject.options;
+											$scope.batchOverallWeeklyColors = lineChartObject.colors;
 										}, function() {
 											NProgress.done();
 										});

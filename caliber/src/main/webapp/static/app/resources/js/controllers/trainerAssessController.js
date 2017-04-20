@@ -245,6 +245,17 @@ angular
 						sortByDate($scope.selectedYear);
 						batchYears();
 						$scope.currentBatch = $scope.batchesByYear[0];
+						if ($scope.batchesByYear.length === 0) {
+							$scope.noBatches = true;
+							$scope.noBatchesMessage = "No Batches belonging to you were found.";
+						} else {
+							$scope.noBatches = false;
+							//createDefaultCharts();
+							$scope.selectedYear = $scope.years[index];
+							sortByDate($scope.selectedYear);
+						
+						batchYears();
+						$scope.currentBatch = $scope.batchesByYear[0];
 						
 						$scope.trainees={};						
 						for(trainee of $scope.currentBatch.trainees){
@@ -260,7 +271,7 @@ angular
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
 						
-					};
+					} };
 
 					function sortByDate(currentYear) {
 						$scope.selectedBatches = [];

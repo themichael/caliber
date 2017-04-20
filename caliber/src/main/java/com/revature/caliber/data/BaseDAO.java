@@ -81,6 +81,13 @@ public class BaseDAO {
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void initializeNotes(Batch batch) {
+		for (Trainee t : batch.getTrainees()) {
+			Hibernate.initialize(t.getNotes());
+		}
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> initializeDroppedTrainees(List<Trainee> trainees) {
 		List<Trainee> dropped = new ArrayList<>();
 		if (trainees != null) {
