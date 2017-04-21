@@ -86,7 +86,7 @@
 
 											<tr
 												ng-repeat="label in averageTraineeScoresWeeklyLabels track by $index"
-												class="col-md-3 col-sm-4 col-xs-12">
+												class="col-md-4 col-sm-4">
 												<th class="pull-left">{{label}}</th>
 												<td class="pull-right">{{averageTraineeScoresWeeklyData[0][$index]}}</td>
 											</tr>
@@ -113,12 +113,12 @@
 									<div>
 										<table ng-if="qcStatsLabels" class="table table-responsive"
 											style="border-collapse: collapse;">
-											<tr>
-												<th class="col-sm-2 col-md-2 col-lg-2"
+											<tr class="col-md-12 col-sm-12">
+												<th class="col-sm-3 col-md-3 col-lg-3"
 													ng-repeat="item in qcStatsLabels">{{item}}</th>
 											</tr>
 											<tr class="text-center">
-												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+												<td class="col-sm-3 col-md-3 col-lg-3 ng-binding"
 													ng-repeat="dataPoint in qcStatsData track by $index">{{dataPoint}}</td>
 											</tr>
 										</table>
@@ -209,7 +209,7 @@
 										class="table table-responsive"
 										style="border-collapse: collapse;">
 										<tr ng-repeat="label in batchOverAllLabels track by $index"
-											class="col-md-3 col-sm-6 col-xs-6 col-cus-md-3">
+											class="col-md-4 col-sm-6 col-xs-6">
 											<th class="pull-left">{{label}}</th>
 											<td class="pull-right">{{batchOverAllData[0][$index]}}</td>
 										</tr>
@@ -235,9 +235,9 @@
 										<table ng-if="radarBatchOverallTable"
 											class="table table-responsive"
 											style="border-collapse: collapse;">
-											<tr ng-repeat="item in radarBatchOverallTable">
-												<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
-												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+											<tr ng-repeat="item in radarBatchOverallTable" class="col-md-12 col-sm-12">
+												<th class="pull-left">{{item.label}}</th>
+												<td class="pull-right ng-binding"
 													ng-repeat="dataPoint in item.data track by $index">{{dataPoint}}</td>
 											</tr>
 										</table>
