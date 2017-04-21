@@ -120,7 +120,8 @@ angular
 					radarOptions = {
 						legend : {
 							display : true,
-							position : 'bottom'
+							position : 'right',
+							reverse: true
 						},
 						scale : {
 							reverse : false,
