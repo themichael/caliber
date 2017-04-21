@@ -60,10 +60,10 @@ angular.module("reportApi").factory(
 			report.getCurrentBatchesAverageScoreChartData = function() {
 				return $http(
 						{
-							url : '',
+							url : '/vp/reports/dashboard',
 							method : "GET"
 						}).then(function(response) {
-					$log.debug("All -Current- Batches - Per -Weeks-- Averages -- success");
+					$log.debug("VP -> All Current Batches -> Weekly  Averages");
 					$log.debug(response);
 					return response.data;
 				}, function(response) {
