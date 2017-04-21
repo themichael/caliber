@@ -230,7 +230,7 @@ angular
 					
 					//get QCtrainee note by week - Michael  					
 					delegate.qc.getQCTraineeNote = function(traineeId,week){
-						return qc.getQCTraineeNote(traineeId,week);
+						return qcFactory.getQCTraineeNote(traineeId,week);
 					}
 					
 					//GET TRAINEE WEEK - SADAT

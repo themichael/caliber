@@ -184,7 +184,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 		});
 	};
 	//gets QCtrainee note
-	qc.getTraineeNote = function(traineeId,week){
+	qc.getQCTraineeNote = function(traineeId,week){
 		return $http({
 			url: "/qc/note/trainee/" + traineeId + "/for/"+ week,
 			method:"GET"
