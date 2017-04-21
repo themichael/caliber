@@ -207,6 +207,18 @@ angular
 						return lineChartDataFactory
 								.getTraineeUpToWeekLineChart(week, traineeId);
 					}
+					// vpHome
+					delegate.line.getCurrentBatchesAverageScoreChart = function(
+							dataArray) {
+						return lineChartFactory
+								.getCurrentBatchesAverageScoreChart(dataArray);
+					}
+
+					// vpHome
+					delegate.line.data.getCurrentBatchesAverageScoreChartData = function () {
+						return lineChartDataFactory
+								.getCurrentBatchesAverageScoreChartData();
+					}
 					
 					delegate.line.getWeeklyProgressTraineeOverall = function(
 							dataArray) {
