@@ -248,7 +248,7 @@ angular
 											"qc-batchOverall@vp.reports" : {
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
-											}}
+											}
 										}
 									})
 				});
