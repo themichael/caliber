@@ -1,32 +1,46 @@
-angular.module("vp").controller(
-		"vpHomeController",
-		function($scope, $log, caliberDelegate, chartsDelegate, allBatches) {
-			$log.debug("Booted vp home controller.");
-			(function start() {
-				// Finishes any left over ajax animation from another
-				// page
-				NProgress.done();
-				createDummyBarChart();
-			})();
+angular
+		.module("vp")
+		.controller(
+				"vpHomeController",
+				function($scope, $log, caliberDelegate, chartsDelegate,
+						allBatches) {
+					$log.debug("Booted vp home controller.");
+					(function start() {
+						// Finishes any left over ajax animation from another
+						// page
+						NProgress.done();
+						createDummyBarChart();
+						createAllBatchesCurrentWeekQCStats();
+					})();
 
-			// Yanilda dummy barchart
-			function createDummyBarChart() {
-				$log.debug("Started creating dummy data three");
-				data=chartsDelegate.bar.data.getDummyBarData();
-					$log.debug(data);
-					NProgress.done();
-					var barChartObject = chartsDelegate.bar
-							.getDummyBarChartDelegate(data);
-					$scope.barchartDLabels = barChartObject.data.labels;
-					$log.debug("Hey 1");
-					$log.debug($scope.barchartDLabels);
-					$log.debug("Hey");
-					$scope.barchartDData = barChartObject.data.datasets;
-					$log.debug("Hey 2");
-					$log.debug($scope.barchartDData);
-					
-				
+					// Yanilda dummy barchart
+					function createDummyBarChart() {
+						data = chartsDelegate.bar.data.getDummyBarData();
+						NProgress.done();
+						var barChartObject = chartsDelegate.bar
+								.getDummyBarChartDelegate(data);
+						$scope.barchartDLabels = barChartObject.data.labels;
+						$scope.barchartDData = barChartObject.data.datasets;
 
-			}
+					}
+					function createAllBatchesCurrentWeekQCStats() {
+						chartsDelegate.bar.data
+								.getAllBatchesCurrentWeekQCStatsData()
+								.then(
+										function(data) {
+											NProgress.done();
+											var barChartObj = chartsDelegate.bar
+													.getAllBatchesCurrentWeekQCStats(data);
 
-		});
+											$scope.stackedBarData = barChartObj.data;
+											$scope.stackedBarLabels = barChartObj.labels;
+											$scope.stackedBarSeries = barChartObj.series;
+											$scope.stackedBarOptions = barChartObj.options;
+											$scope.stackedBarColors = barChartObj.colors;
+
+										}, function() {
+											NProgress.done();
+										});
+					}
+
+				});

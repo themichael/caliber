@@ -61,15 +61,11 @@ angular
 					// yani barchart dummy 
 					delegate.bar.getDummyBarChartDelegate = function(
 							dataArray) {
-						console.log("Testing 5");
-						$log.debug(dataArray);
-						console.log("Testing 6");
 						return barChartFactory
 								.getDummyBarChart(dataArray);
 					};
-					// yani barchart dummy
+					// yani barchart data dummy
 					delegate.bar.data.getDummyBarData = function() {
-						$log.debug(barChartDataFactory.getDummyBarChartData());
 						return barChartDataFactory.getDummyBarChartData();
 					};
 					delegate.bar.getAverageTraineeScoresWeekly = function(

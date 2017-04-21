@@ -142,7 +142,6 @@ angular
 					
 					report.getDummyBarChartData = function() {
 						// Return with commas in between
-						console.log("test if this called");
 						return {
 							"good" : [ 21000, 22000, 26000, 35000, 55000,
 									55000, 56000, 59000, 60000, 61000, 60100,

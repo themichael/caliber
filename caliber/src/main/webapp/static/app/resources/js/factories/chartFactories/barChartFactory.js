@@ -307,9 +307,6 @@ angular
 
 					barChart.getDummyBarChart = function(dataArray) {
 						// Return with commas in between
-						console.log(dataArray);
-						console.log("Dummy barchart");
-						console.log(dataArray);
 						var numberWithCommas = function(x) {
 							return x.toString().replace(
 									/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -326,8 +323,7 @@ angular
 						};
 						$log.debug("Hello from the other side");
 						return chartData;
-						
 					}
-					$log.debug("Hello is it me you are looking for?");
+					$log.debug("Hello, is it me you are looking for?");
 					return barChart;
 				});
