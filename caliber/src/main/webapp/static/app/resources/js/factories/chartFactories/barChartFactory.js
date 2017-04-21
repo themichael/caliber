@@ -58,6 +58,8 @@ angular
 						$log.debug("Yanilda");
 						// traverse through array of objects and grab labels and
 						// data
+					
+						
 						angular.forEach(dataArray, function(value, key) {
 							if (value[0] > 0) {
 								chartData.labels.push(key);
