@@ -182,8 +182,17 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 				},
 
 			};
-		angular.forEach(dataArray, function(value, key) {
-			
+		angular.forEach(data, function(value, key) {
+			chartData.labels.push(key);
+			var i = 0;
+			angular.forEach(value, function(value2, key2) {
+			/*	if (chartData.data[i] === undefined) {
+					chartData.data.push([]);
+				}
+				chartData.data[i].push(value2);
+				i++;*/
+			});
+
 		});
 		return chartData;
 	}

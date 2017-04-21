@@ -44,7 +44,6 @@ angular
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
-
 						}
 
 					})();
@@ -165,6 +164,10 @@ angular
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
 						batchYears();
+						$scope.currentBatch = $scope.batchesByYear[0];
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId);
 					};
 
 					function sortByDate(currentYear) {

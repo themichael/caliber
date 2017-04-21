@@ -532,7 +532,7 @@ public class ReportingService {
 	 * @return Double average score over the week for all assessments
 	 */
 	public Double utilAvgTraineeWeek(Set<Grade> allGrades, int week) {
-		log.debug("all grades in util = " + allGrades);
+		log.debug("all grades in util = " + allGrades.size());
 		List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
 				.collect(Collectors.toList());
 		log.debug("filtered grades in util = " + gradesForTheWeek);
@@ -556,7 +556,8 @@ public class ReportingService {
 	public Map<Trainee, Double> utilAvgBatchWeek(List<Trainee> trainees, Integer week) {
 		Map<Trainee, Double> results = new HashMap<>();
 		for (Trainee trainee : trainees) {
-			results.put(trainee, utilAvgTraineeWeek(trainee.getGrades(), week));
+			Set<Grade> grades = new HashSet<>(gradeDAO.findByTrainee(trainee.getTraineeId()));
+			results.put(trainee, utilAvgTraineeWeek(grades, week));
 		}
 		return results;
 	}
