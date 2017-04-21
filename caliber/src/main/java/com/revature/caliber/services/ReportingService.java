@@ -26,6 +26,8 @@ import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
 
+import net.sf.ehcache.store.chm.ConcurrentHashMap;
+
 /**
  * Exclusively used to generate data for charts
  * 
@@ -105,7 +107,7 @@ public class ReportingService {
 	 * Stacked Bar Chart
 	 *******************************************************
 	 */
-	public Map<String, Map<QCStatus, Integer>> getBatchCurrentWeekQCStackedBarChart() {
+	public Map<String, Map<QCStatus, Integer>> getAllBatchesCurrentWeekQCStackedBarChart() {
 		Map<String, Map<QCStatus, Integer>> results = new HashMap<>();
 		List<Batch> currentBatches = batchDAO.findAllCurrent();
 		for (Batch b : currentBatches) {
@@ -340,6 +342,15 @@ public class ReportingService {
 	 */
 	public Map<Integer, Double> getBatchOverallLineChart(int batchId) {
 		return utilAvgBatchOverall(batchId);
+	}
+	
+	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChart(){
+		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
+		
+		
+		
+		
+		return results;
 	}
 
 	/*

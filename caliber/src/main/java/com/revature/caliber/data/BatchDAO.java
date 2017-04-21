@@ -114,12 +114,12 @@ public class BatchDAO extends BaseDAO {
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches");
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, 3);
+		endDateLimit.add(Calendar.MONTH, -3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t").createAlias("t.notes", "n")
 				.setFetchMode("t.notes", FetchMode.JOIN)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.le("endDate", endDateLimit.getTime()))
+				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
 				.add(Restrictions.ge("n.maxVisibility", TrainerRole.QC))
 				.add(Restrictions.eq("n.qcFeedback", true))
 				.addOrder(Order.desc("startDate"))
