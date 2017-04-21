@@ -49,9 +49,9 @@ public class ReportingController {
 	 *******************************************************
 	 */
 	@RequestMapping(value = "/all/reports/batch/week/stacked-bar-current-week", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, Map<QCStatus, Integer>>> getAllBatchesCurrentWeekQCStats() {
+	public ResponseEntity<Map<String, Map<QCStatus, Integer>>> getAllBatchesCurrentWeekQCStackedBarChart() {
 		log.info("getAllBatchesCurrentWeekQCStats   ===>   /all/reports/batch/week/stacked-bar-current-week");
-		return new ResponseEntity<Map<String, Map<QCStatus, Integer>>>(reportingService.getBatchCurrentWeekQCStackedBarChart(), HttpStatus.OK);
+		return new ResponseEntity<Map<String, Map<QCStatus, Integer>>>(reportingService.getAllBatchesCurrentWeekQCStackedBarChart(), HttpStatus.OK);
 	}
 	
 	/*
@@ -144,7 +144,7 @@ public class ReportingController {
 	@RequestMapping(value = "/all/assessments/average/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Double> getBatchWeekAverageValue(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("getBatchWeekAverageValue   ===>   /all/reports/batch/{batchId}/overall/line-batch-overall");
-		return new ResponseEntity<Double>(reportingService.utilAvgBatchWeekValue(batchId, week), HttpStatus.OK);
+		return new ResponseEntity<Double>(reportingService.getAvgBatchWeekValue(batchId, week), HttpStatus.OK);
 	}
 	
 }

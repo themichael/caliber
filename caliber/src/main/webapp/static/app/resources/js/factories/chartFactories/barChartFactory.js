@@ -11,9 +11,6 @@ angular
 					$log.debug("Booted Horizontal Bar Chart Factory");
 
 					var barChart = {};
-					var hoverOpacity = 0.8;
-					var opacity = 0.6;
-
 					var mainColor = {
 						backgroundColor : 'rgba(114, 164, 194, .5)',
 						pointBackgroundColor : 'rgba(114, 164, 194, .5)',
@@ -37,8 +34,8 @@ angular
 						var chartData = {};
 
 						// data and labels
-						chartData.series = [];
 						chartData.data = [];
+						chartData.data.push([]);
 						chartData.labels = [];
 						chartData.series = [];
 						chartData.colors = [ mainColor ];
@@ -65,7 +62,7 @@ angular
 							if (value[0] > 0) {
 								chartData.labels.push(key);
 								chartData.series.push(key);
-								chartData.data.push(value[0].toFixed(2));
+								chartData.data[0].push(value[0].toFixed(2));
 							}
 						});
 						return chartData;
@@ -252,7 +249,6 @@ angular
 						chartData.labels = [];
 						chartData.colors = [];
 
-						var len = chartData.data.length;
 						angular.forEach(data, function(value, key) {
 							chartData.labels.push(key);
 							var i = 0;

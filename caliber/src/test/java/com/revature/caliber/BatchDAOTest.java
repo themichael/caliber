@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
 
@@ -23,7 +23,7 @@ public class BatchDAOTest {
 	private static Logger log = Logger.getLogger(CheckDAO.class);
 
 	@Autowired
-	private BatchDAO batchdao;
+	private BatchDAO batchDAO;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -44,21 +44,24 @@ public class BatchDAOTest {
 	}
 
 	@Test
+	@Ignore
 	public void testFindAll() {
-		List<Batch> batches = batchdao.findAllCurrent();
+		List<Batch> batches = batchDAO.findAllCurrent();
 		log.info("Number of Batches: " + batches.size());
 		for(Trainee t : batches.get(0).getTrainees()){
-			for(Note n: t.getNotes()){
-				log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOTE SEPARATOR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-				log.info(n.toString());
-			}
+				log.info("Number of Notes: " + t.getNotes().size());
 		}
 		
 	}
 
 	@Test
+	@Ignore
 	public void testFindAllByTrainer() {
-
+		List<Batch> batches = batchDAO.findAllByTrainer(23);
+		for(Batch b : batches){
+			log.info("Batch Name: " + b.getTrainingName());
+			log.info("Num Trainees: " + b.getTrainees().size());
+		}
 	}
 
 	@Test
@@ -72,8 +75,12 @@ public class BatchDAOTest {
 	}
 
 	@Test
+	@Ignore
 	public void testFindOne() {
-
+		Batch b = batchDAO.findOne(1050);
+		Integer count = b.getTrainees().size();
+		log.info("Number of Trainees in Batch: ");
+		log.info(count);
 	}
 
 	@Test

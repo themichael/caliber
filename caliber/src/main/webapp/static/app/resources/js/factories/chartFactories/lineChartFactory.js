@@ -2,8 +2,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 	$log.debug("Booted Line Chart Factory");
 
 	var lineChart = {};
-	var hoverOpacity = 0.4;
-	var opacity = 0.4;
 	var mainColor = {
 			backgroundColor : 'rgba(114, 164, 194, .5)',
 			pointBackgroundColor : 'rgba(114, 164, 194, .5)',
