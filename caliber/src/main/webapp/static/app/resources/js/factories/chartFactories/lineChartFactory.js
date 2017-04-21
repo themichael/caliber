@@ -186,20 +186,11 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 			chartData.labels.push(key);
 			var i = 0;
 			angular.forEach(value, function(value2, key2) {
-				if (chartData.data[i] === undefined) {
+			/*	if (chartData.data[i] === undefined) {
 					chartData.data.push([]);
-					chartData.series.push(key2);
-					if (key2 === "Superstar")
-						chartData.colors.push("#7972ff");
-					else if (key2 === "Good")
-						chartData.colors.push("#81f575");
-					else if (key2 === "Average")
-						chartData.colors.push("#e8b00b");
-					else if (key2 === "Poor")
-						chartData.colors.push("#ff7575");
 				}
 				chartData.data[i].push(value2);
-				i++;
+				i++;*/
 			});
 
 		});

@@ -532,7 +532,7 @@ public class ReportingService {
 	 * @return Double average score over the week for all assessments
 	 */
 	public Double utilAvgTraineeWeek(Set<Grade> allGrades, int week) {
-		log.debug("all grades in util = " + allGrades);
+		log.debug("all grades in util = " + allGrades.size());
 		List<Grade> gradesForTheWeek = allGrades.stream().filter(el -> el.getAssessment().getWeek() == week)
 				.collect(Collectors.toList());
 		log.debug("filtered grades in util = " + gradesForTheWeek);
