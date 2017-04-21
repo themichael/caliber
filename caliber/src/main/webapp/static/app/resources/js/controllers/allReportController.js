@@ -369,6 +369,8 @@ angular
 													.getAssessmentAveragesBatchWeekly(data);
 											$scope.barchartAWLabels = barChartObject.labels;
 											$scope.barchartAWData = barChartObject.data;
+											$log.debug("DERP!!!!");
+											$log.debug($scope.barchartAWData[0]);
 											$scope.barchartAWOptions = barChartObject.options;
 											$scope.barchartAWSeries = barChartObject.series;
 											$scope.barchartAWColors = barChartObject.colors;
