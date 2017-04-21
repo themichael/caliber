@@ -674,10 +674,6 @@ angular
 					/****************************************************
 					 *Save Button **
 					 **************************************************/
-					$rootScope.testChild = function(){
-						alert('hti');
-					}
-					
 					$scope.showSaving = false;
 					$scope.showCheck = false;
 					$scope.showFloppy = true;
@@ -720,7 +716,7 @@ angular
 					});
 					
 			        $rootScope.$on('GET_TRAINEE_OVERALL_CTRL',function(event,traineeId){
-						console.log(traineeId);
+						$log.debug(traineeId);
 					});
 			        
 					// Used to sort trainees in batch

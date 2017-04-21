@@ -151,8 +151,10 @@ public class PDFService {
 							return Image.getInstance(src);
 						}
 					} catch (BadElementException ex) {
+						log.info("Error creating PDF file: " + ex.getClass() + " " + ex.getMessage());
 						throw new PDFGenerationException();
 					} catch (IOException ex) {
+						log.info("Error creating PDF file: " + ex.getClass() + " " + ex.getMessage());
 						throw new PDFGenerationException();
 					}
 				}
