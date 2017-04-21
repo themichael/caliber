@@ -235,6 +235,11 @@
 										<table ng-if="radarBatchOverallTable"
 											class="table table-responsive"
 											style="border-collapse: collapse;">
+											<tr >
+												<th class="col-sm-2 col-md-2 col-lg-2"></th>
+												<th class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+													ng-repeat="series in radarBatchOverallSeries">{{series}}</th>
+											</tr>
 											<tr ng-repeat="item in radarBatchOverallTable">
 												<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
 												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
@@ -338,6 +343,11 @@
 										<table ng-if="radarTraineeWeeklyTable"
 											class="table table-responsive"
 											style="border-collapse: collapse;">
+											<tr >
+												<th class="col-sm-2 col-md-2 col-lg-2"></th>
+												<th class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+													ng-repeat="series in radarTraineeWeeklySeries">{{series}}</th>
+											</tr>
 											<tr ng-repeat="item in radarTraineeWeeklyTable">
 												<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
 												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
@@ -443,7 +453,11 @@
 										<table ng-if="radarTraineeOverallTable"
 											class="table table-responsive"
 											style="border-collapse: collapse;">
-											<tr ng-repeat="item in radarTraineeOverallTable">
+											<tr >
+												<th class="col-sm-2 col-md-2 col-lg-2"></th>
+												<th class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+													ng-repeat="series in radarTraineeOverallSeries">{{series}}</th>
+											</tr>
 											<tr ng-repeat="item in radarTraineeOverallTable">
 												<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
 												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
