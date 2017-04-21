@@ -211,7 +211,10 @@ angular
 						$scope.currentView = true;
 					};
 					
-					// batch drop down select
+					/**
+					 * Batch drop down select
+					 * Select batches from current year
+					 */ 
 					$scope.selectCurrentBatch = function(index) {
 						$log.debug("SELECTED DIFFERENT BATCH");
 						if ($scope.$parent.currentBatch !== undefined) {
@@ -429,6 +432,9 @@ angular
 					 * ********************************************************************
 					 */
 
+					/**
+					 * Store batch object(s) according to selected year into an array
+					 */
 					function batchYears() {
 						$scope.batchesByYear = [];
 
