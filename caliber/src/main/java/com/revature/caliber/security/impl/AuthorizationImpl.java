@@ -64,7 +64,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * 
 	 * TODO remove @RequestMapping at go-live
 	 */
-	 @RequestMapping("/")
+	// @RequestMapping("/")
 	public ModelAndView dummyAuth() {
 		return new ModelAndView("redirect:" + redirectUrl);
 	}
