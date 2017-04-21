@@ -358,11 +358,12 @@ public class ReportingService {
 	}
 	
 	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChart(){
-		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
-		
-		
-		
-		
+		Map<String, Map<Integer, Double>> results = new HashMap<>();
+		List<Batch> batches = batchDAO.findAllCurrent();
+		for(Batch batch : batches){
+			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
+			results.put(batch.getTrainingName(), utilAvgBatchOverall(trainees, batch.getWeeks()));
+		}
 		return results;
 	}
 
