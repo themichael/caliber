@@ -3,6 +3,7 @@ package com.revature.caliber.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +18,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * The type Grade.
  */
 @Entity
 @Table(name = "CALIBER_GRADE")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Grade implements Serializable {
 
 	private static final long serialVersionUID = -2031135710502844800L;
@@ -38,6 +44,7 @@ public class Grade implements Serializable {
 	@NotNull
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ASSESSMENT_ID", nullable = false)
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Assessment assessment;
 
 	/**
@@ -46,6 +53,7 @@ public class Grade implements Serializable {
 	@NotNull
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRAINEE_ID", nullable = false)
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Trainee trainee;
 
 	/**
