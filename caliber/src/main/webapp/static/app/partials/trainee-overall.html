@@ -13,7 +13,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="report in traineeOverall" ng-if="report.qcNote.qcStatus && report.qcNote.content && report.trainerNote.content">
+						<tr ng-repeat="report in traineeOverall" ng-if="report.qcNote.qcStatus || report.qcNote.content || report.trainerNote.content">
 							<td class='col-sm-1 col-md-1 col-lg-1 center'>{{report.week}}</td>
 							<td class='col-sm-2 col-md-2 col-lg-2 center'>{{report.qcNote.qcStatus
 								? report.qcNote.qcStatus : "-"}}</td>
