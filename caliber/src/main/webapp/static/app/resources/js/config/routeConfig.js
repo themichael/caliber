@@ -237,10 +237,18 @@ angular
 												templateUrl : "/static/app/partials/trainer-display.html",
 												controller : "trainerAssessController"
 											},
+											"trainee-overall@vp.reports" : {
+												templateUrl : "/static/app/partials/trainee-overall.html",
+												controller : "allReportController"
+											},
+											"trainee-week@vp.reports" : {
+												templateUrl : "/static/app/partials/trainee-week.html",
+												controller : "trainerAssessController"
+											},
 											"qc-batchOverall@vp.reports" : {
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
-											}
+											}}
 										}
 									})
 				});
