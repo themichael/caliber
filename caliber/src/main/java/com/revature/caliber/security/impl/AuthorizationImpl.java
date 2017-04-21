@@ -75,7 +75,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * 
 	 * TODO enable at go-live
 	 */
-	//@RequestMapping("/")
+	@RequestMapping("/")
 	public ModelAndView openAuthURI() {
 		return new ModelAndView(
 				"redirect:" + authURL + "?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri);
@@ -86,7 +86,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * Salesforce authentication token.
 	 * 
 	 */
-	//@RequestMapping("/authenticated")
+	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
 			HttpServletResponse servletResponse) throws IOException {
 		HttpPost post = new HttpPost(accessTokenURL);
