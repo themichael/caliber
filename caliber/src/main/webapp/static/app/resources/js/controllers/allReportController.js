@@ -44,7 +44,6 @@ angular
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
-
 						}
 
 					})();
@@ -165,6 +164,10 @@ angular
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
 						batchYears();
+						$scope.currentBatch = $scope.batchesByYear[0];
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId);
 					};
 
 					function sortByDate(currentYear) {
@@ -369,8 +372,6 @@ angular
 													.getAssessmentAveragesBatchWeekly(data);
 											$scope.barchartAWLabels = barChartObject.labels;
 											$scope.barchartAWData = barChartObject.data;
-											$log.debug("DERP!!!!");
-											$log.debug($scope.barchartAWData[0]);
 											$scope.barchartAWOptions = barChartObject.options;
 											$scope.barchartAWSeries = barChartObject.series;
 											$scope.barchartAWColors = barChartObject.colors;
