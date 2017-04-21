@@ -26,8 +26,6 @@ import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
 
-import net.sf.ehcache.store.chm.ConcurrentHashMap;
-
 /**
  * Exclusively used to generate data for charts
  * 

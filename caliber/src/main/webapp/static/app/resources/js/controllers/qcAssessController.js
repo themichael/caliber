@@ -401,7 +401,7 @@ angular
 						batchYears();
 						
 						// Possible bug(s): Batch that starts in 2017 and ends in 2018
-						if ($scope.selectedYear == parseInt($scope.batches[0].startDate)) {
+						if ($scope.selectedYear === parseInt($scope.batches[0].startDate)) {
 							$scope.trainingNameDate = $scope.batches[0].trainingName + " " + $scope.batches[0].startDate;
 						}
 						else
