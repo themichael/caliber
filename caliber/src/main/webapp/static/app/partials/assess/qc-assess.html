@@ -106,7 +106,7 @@
 							<td class="col-sm-9 col-md-9 col-lg-9"><textarea
 									ng-model="noteOnTrainee($index).content" id="noteTextArea"
 									class="form-control" placeholder="Note on {{trainee.name}}"
-									ng-blur="saveTraineeNote($index)" rows="3" cols="75"></textarea>
+									ng-blur="saveTraineeNote($index)" rows="3" cols="75" maxlength="1000"></textarea>
 							</td>
 							<td><ul class="nav nav-tabs">
 						</tr>
@@ -140,7 +140,7 @@
 			<div
 				class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
 				<textarea ng-model="bnote.content" class="form-control"
-					id="qcBatchNotes" ng-blur="saveQCNotes()"
+					id="qcBatchNotes" ng-blur="saveQCNotes()" maxlength="1000"
 					placeholder="Enter your overall feedback on the batch" required>
 				</textarea>
 				<!-- QC Save burrito button-->
