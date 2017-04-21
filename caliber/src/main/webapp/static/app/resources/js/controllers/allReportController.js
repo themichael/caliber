@@ -65,7 +65,6 @@ angular
 								$rootScope.$emit("GET_TRAINEE_OVERALL",
 										$scope.currentTraineeId);
 								displayTraineeOverallTable($scope.currentTraineeId);
-								displayQCTraineeOverallTable($scope.currentTraineeId);
 								$scope.batchWeek = false;
 								$scope.batchWeekTrainee = false;
 								$scope.batchOverall = false;
@@ -122,37 +121,6 @@ angular
 												}
 											}
 										});
-					}
-					
-					//get QCTrainee note by week(M)
-					function displayQCTraineeOverallTable(traineeId) {
-
-						$scope.traineeOverall=[];	
-						for(weekNum in $scope.currentBatchWeeks){
-							var week = parseInt(weekNum) + 1
-							$scope.traineeOverall.push({week});
-						}
-						caliberDelegate.all
-								.getAllTraineeNotes(traineeId)
-								.then(
-										function(response) {
-											for(note of response){
-												if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
-													$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
-												}
-											}											
-										});
-						caliberDelegate.qc.
-						getQCTraineeNote(traineeId,week)
-								.then(
-										function(response) {
-											for(qcNote of response){
-												if($scope.traineeOverall[parseInt(qcNote.week)-1] !== undefined){
-													$scope.traineeOverall[parseInt(qcNote.week)-1].qcNote = qcNote;
-												}
-											}
-										});
-					
 					}
 
 					function getCurrentBatchWeeks(weeks) {
