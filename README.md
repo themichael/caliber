@@ -11,6 +11,9 @@ Caliber is a performance management suite to collect and analyze evaluations of 
 The Caliber suite also provides a variety of reports on different levels of granularity.
 
 #Environment 
+* Requires Java 8 or higher
+* Validated on Apache Tomcat 7.0
+* Requires Oracle EE 12c database
 * Requires registration as a Salesforce connected app
 * Users registered in the Salesforce with matching email in Users table
 * Necessary Environment variables:
