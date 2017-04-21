@@ -556,7 +556,8 @@ public class ReportingService {
 	public Map<Trainee, Double> utilAvgBatchWeek(List<Trainee> trainees, Integer week) {
 		Map<Trainee, Double> results = new HashMap<>();
 		for (Trainee trainee : trainees) {
-			results.put(trainee, utilAvgTraineeWeek(trainee.getGrades(), week));
+			Set<Grade> grades = new HashSet<>(gradeDAO.findByTrainee(trainee.getTraineeId()));
+			results.put(trainee, utilAvgTraineeWeek(grades, week));
 		}
 		return results;
 	}
