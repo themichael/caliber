@@ -8,7 +8,8 @@ Caliber is a performance management suite to collect and analyze evaluations of 
 * Users can generate reports and charts to visualize KPIs and print PDF reports
 * New batches can be added and they will persist year after year with batch data.
 
-The Caliber suite also provides a variety of reports on different levels of granularity.
+The Caliber suite also provides a variety of reports on different levels of granularity:
+Week-by-week, Batch overall, Trainee weekly, Trainee overall
 
 #Environment 
 * Requires Java 8 or higher
