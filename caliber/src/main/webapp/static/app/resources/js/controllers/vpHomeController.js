@@ -11,6 +11,7 @@ angular
 						NProgress.done();
 						createDummyBarChart();
 						createAllBatchesCurrentWeekQCStats();
+						createCurrentBatchesAverageScoreChart();
 					})();
 
 					// Yanilda dummy barchart
@@ -24,6 +25,25 @@ angular
 
 					}
 					function createAllBatchesCurrentWeekQCStats() {
+						chartsDelegate.bar.data
+								.getAllBatchesCurrentWeekQCStatsData()
+								.then(
+										function(data) {
+											NProgress.done();
+											var barChartObj = chartsDelegate.bar
+													.getAllBatchesCurrentWeekQCStats(data);
+
+											$scope.stackedBarData = barChartObj.data;
+											$scope.stackedBarLabels = barChartObj.labels;
+											$scope.stackedBarSeries = barChartObj.series;
+											$scope.stackedBarOptions = barChartObj.options;
+											$scope.stackedBarColors = barChartObj.colors;
+
+										}, function() {
+											NProgress.done();
+										});
+					}
+					function createCurrentBatchesAverageScoreChart() {
 						chartsDelegate.bar.data
 								.getAllBatchesCurrentWeekQCStatsData()
 								.then(

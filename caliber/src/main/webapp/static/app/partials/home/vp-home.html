@@ -17,10 +17,19 @@
 			</div>
 		</div>
 	<div class="row">
-		<canvas id="chart bar-chart" width="600" height="350"
-			chart-data="barchartDData" chart-labels="barchartDLabels">
-		</canvas>
-		<canvas id="myChart"></canvas>
+				<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">All Current Batches Average Score</div>
+					<div class="panel-body">
+						<div class="chart-container top5">
+							<canvas class="chart chart-line" chart-data="stackedBarData"
+								chart-options="stackedBarOptions" chart-labels="stackedBarLabels"
+								chart-series="stackedBarSeries" chart-colors="stackedBarColors">
+						</canvas>
+						</div>
+					</div>
+				</div>
+			</div>
 	</div>
 	</div>
 </div>
