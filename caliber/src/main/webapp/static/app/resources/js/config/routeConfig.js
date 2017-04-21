@@ -165,7 +165,7 @@ angular
 											},
 											"trainee-week@trainer.reports" : {
 												templateUrl : "/static/app/partials/trainee-week.html",
-												controller : "trainerAssessController"
+												controller : "allReportController"
 											},
 											"qc-batchOverall@trainer.reports" : {
 												templateUrl : "/static/app/partials/qc-display.html",
