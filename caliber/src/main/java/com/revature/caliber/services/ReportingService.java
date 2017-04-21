@@ -111,7 +111,7 @@ public class ReportingService {
 		Map<String, Map<QCStatus, Integer>> results = new HashMap<>();
 		List<Batch> currentBatches = batchDAO.findAllCurrent();
 		for (Batch b : currentBatches) {
-			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateBatchNotesByWeek(b);
+			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(b);
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
@@ -124,7 +124,7 @@ public class ReportingService {
 		return results;
 	}
 
-	public Map<Integer, Map<QCStatus, Integer>> utilSeparateBatchNotesByWeek(Batch batch) {
+	public Map<Integer, Map<QCStatus, Integer>> utilSeparateQCTraineeNotesByWeek(Batch batch) {
 		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
 
 		Map<QCStatus, Integer> qcStatsMapTemplate = new HashMap<>();
