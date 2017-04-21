@@ -155,5 +155,39 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		return chartData;
 
 	};
+	//vpHome Line Chart
+	lineChart.getCurrentBatchesAverageScoreChart = function(dataArray) {
+		var chartData = {};
+		chartData.data = [];
+		chartData.colors = [mainColor, secondaryColor];
+		chartData.options = {
+				scales : {
+					xAxes : [ {
+						scaleLabel : {
+							display : true,
+							labelString : 'Week'
+						}
+
+					} ],
+					yAxes : [ {
+						scaleLabel : {
+							display : true,
+							labelString : 'Score'
+						},
+
+						ticks : {
+							suggestedMin : 40,
+							max : 100,
+							stepSize : 20
+						}
+					} ]
+				},
+
+			};
+		angular.forEach(dataArray, function(value, key) {
+			
+		});
+		return chartData;
+	}
 	return lineChart;
 });
