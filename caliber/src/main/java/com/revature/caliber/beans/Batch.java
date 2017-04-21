@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +25,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,6 +40,8 @@ import com.revature.caliber.validator.BatchValObject;
 @Entity
 @Table(name = "CALIBER_BATCH")
 @BatchValObject
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Batch implements Serializable {
 
 	private static final long serialVersionUID = -5755409643112884001L;
@@ -58,10 +63,12 @@ public class Batch implements Serializable {
 	@JsonProperty
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Trainer trainer;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "CO_TRAINER_ID")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Trainer coTrainer;
 
 	@NotNull
@@ -110,6 +117,7 @@ public class Batch implements Serializable {
 
 	@OneToMany(mappedBy = "batch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference(value = "traineeAndBatch")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Trainee> trainees;
 
 	@Column(name = "NUMBER_OF_WEEKS", nullable = false)
@@ -117,6 +125,7 @@ public class Batch implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "batch")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
 
 	public Batch() {
