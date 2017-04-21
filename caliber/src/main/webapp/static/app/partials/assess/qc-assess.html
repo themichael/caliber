@@ -2,6 +2,7 @@
 <div ng-hide="showMe">
 	<div class="container">
 		<div class="row">
+			<!-- Back button, only shows when there are no batches -->
 			<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
 				<button class="btn back-btn" ng-click="back()">
 					<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
@@ -16,7 +17,7 @@
 						data-toggle="dropdown"> {{ selectedYear }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li ng-repeat="menuItem in years track by $index"><a
-								role="button" ng-click="selectYear($index);">{{menuItem}}</a></li>
+								role="button" ng-click="selectYear($index); checkBatch()">{{menuItem}}</a></li>
 						</ul></li>
 
 					<!-- top ui for viewing all assessments -->
@@ -28,6 +29,19 @@
 							<li ng-repeat="batch in batchesByYear track by $index"><a
 								role="button" ng-click="selectCurrentBatch($index)"> {{
 									batch.trainingName }} - {{ batch.startDate }} </a>
+						</ul></li>
+				</ul>
+
+				<!-- top ui for viewing trainee grades -->
+				<ul class="nav nav-tabs" ng-show="!currentView">
+					<li role="button" class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown"> {{ currentAssessment.title }} <span
+							class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li ng-repeat="assessment in currentAssessments track by $index">
+								<a role="button" ng-click="selectAssessment($index)"> {{
+									assessment.title }} </a>
+							</li>
 						</ul></li>
 				</ul>
 			</div>

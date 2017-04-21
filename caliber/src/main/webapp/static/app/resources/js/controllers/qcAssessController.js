@@ -212,8 +212,7 @@ angular
 					};
 					
 					/**
-					 * Batch drop down select
-					 * Select batches from current year
+					 * Batch drop down select Select batches from current year
 					 */ 
 					$scope.selectCurrentBatch = function(index) {
 						$log.debug("SELECTED DIFFERENT BATCH");
@@ -410,8 +409,17 @@ angular
 						if ($scope.batchesByYear.length > 0) {
 							$scope.trainingNameDate = $scope.batchesByYear[0].trainingName
 									+ " - " + $scope.batchesByYear[0].startDate;
-						} else
-							$scope.trainingNameDate = "No Batch Found";
+						} 
+						else
+						{
+							/**
+							 * If no batches are available, display that there
+							 * are no batches
+							 */
+								
+							$scope.trainingNameDate = "No Batch Found";									
+							$scope.currentView = false;
+						}
 
 						$log.debug($scope.batchesByYear);
 					};
@@ -433,7 +441,8 @@ angular
 					 */
 
 					/**
-					 * Store batch object(s) according to selected year into an array
+					 * Store batch object(s) according to selected year into an
+					 * array
 					 */
 					function batchYears() {
 						$scope.batchesByYear = [];
