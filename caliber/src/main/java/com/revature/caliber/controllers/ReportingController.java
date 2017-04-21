@@ -113,7 +113,7 @@ public class ReportingController {
 	}
 	
 	@RequestMapping(value = "/vp/reports/dashboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, Map<Integer, Double>>> getCurrentBatchesLineChart(@PathVariable int batchId){
+	public ResponseEntity<Map<String, Map<Integer, Double>>> getCurrentBatchesLineChart(){
 		log.info("getCurrentBatchesLineChart   ===>  /qc/reports/dashboard");
 		return new ResponseEntity<Map<String, Map<Integer, Double>>>(reportingService.getAllCurrentBatchesLineChart(), HttpStatus.OK);
 	}
