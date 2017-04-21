@@ -1,6 +1,5 @@
 package com.revature.caliber.services;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -418,6 +417,12 @@ public class ReportingService {
 	 *******************************************************
 	 */
 
+	public Double getAvgBatchWeekValue(Integer batchId, Integer week){
+		List<Trainee> trainees = traineeDAO.findAllDroppedByBatch(batchId);
+		return utilAvgBatchWeekValue(trainees, week);
+	}
+	
+	
 	/**
 	 * Gets the average for a given Trainee ID for the entire week for one
 	 * particular assessment. One Week -> One Trainee -> Average Score -> One

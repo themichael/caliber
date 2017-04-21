@@ -85,13 +85,12 @@ angular
 						return currentChartData;
 					}
 
-					radar.createFromTwoDataSets = function(batchDataSet, traineeDataSet, batchSeriesName, trainingSeriesName) {
+					radar.createFromTwoDataSets = function(batchDataSet, traineeDataSet, batchSeriesName, traineeSeriesName) {
 						$log.debug("radarChartFactory: createFromTwoDataSets");
 						var chartData = {};
 						var batchSeries = [];
 						var traineeSeries = [];
 						var labels = [];
-						var totalTechs = batchDataSet.length;
 						
 						angular.forEach(batchDataSet, function(value, key) {
 							if (traineeDataSet.hasOwnProperty(key)) {
@@ -104,7 +103,7 @@ angular
 						chartData.labels = labels;
 						
 						chartData.series = [];
-						chartData.series.push(trainingSeriesName);
+						chartData.series.push(traineeSeriesName);
 						chartData.series.push(batchSeriesName);
 						
 						chartData.data = [];
