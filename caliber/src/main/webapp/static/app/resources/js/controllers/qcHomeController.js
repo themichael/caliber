@@ -27,6 +27,7 @@ angular.module("qc").controller(
 			 */
 			
 			function createAllBatchesCurrentWeekQCStats() {
+				$log.debug("QC Home Controller: createAllBatchesCurrentWeekQCStats");
 				chartsDelegate.bar.data
 						.getAllBatchesCurrentWeekQCStatsData()
 						.then(
@@ -34,9 +35,6 @@ angular.module("qc").controller(
 									NProgress.done();
 									var barChartObj = chartsDelegate.bar
 											.getAllBatchesCurrentWeekQCStats(data);
-									
-									$log.debug("STACKED OBJECT++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-									$log.debug(barChartObj);
 									
 									$scope.stackedBarData = barChartObj.data;
 									$scope.stackedBarLabels = barChartObj.labels;

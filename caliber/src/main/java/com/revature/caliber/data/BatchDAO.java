@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -114,20 +115,18 @@ public class BatchDAO extends BaseDAO {
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches");
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, 3);
+		endDateLimit.add(Calendar.MONTH, -3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t").createAlias("t.notes", "n")
-				.setFetchMode("t.notes", FetchMode.JOIN)
+				.setFetchMode("trainees", FetchMode.JOIN)
+				.setFetchMode("trainees.notes", FetchMode.JOIN)
+				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.le("endDate", endDateLimit.getTime()))
+				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
 				.add(Restrictions.ge("n.maxVisibility", TrainerRole.QC))
 				.add(Restrictions.eq("n.qcFeedback", true))
 				.addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		for (Batch batch : batches) {
-			initializeActiveTrainees(batch);
-			initializeNotes(batch);
-		}
 		return batches;
 	}
 
