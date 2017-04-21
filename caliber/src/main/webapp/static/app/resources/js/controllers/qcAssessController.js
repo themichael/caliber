@@ -148,14 +148,10 @@ angular
 					function start() {
 						$scope.trainingNameDate = $scope.batches[0].trainingName
 								+ " " + $scope.batches[0].startDate;
-						$log.debug(allBatches);
+						
 						var curYear = new Date();
-						$log.debug("Year test: ");
 						$scope.selectedYear = curYear.getFullYear();
 						batchYears();
-						$log.debug($scope.batchesByYear);
-
-						// $log.debug($scope.selectedYear);
 
 						// Sort trainees alphabetically
 						$scope.currentBatch.trainees.sort(compare);
@@ -409,6 +405,7 @@ angular
 						if ($scope.batchesByYear.length > 0) {
 							$scope.trainingNameDate = $scope.batchesByYear[0].trainingName
 									+ " - " + $scope.batchesByYear[0].startDate;
+							$scope.thereAreBatches = true;
 						} 
 						else
 						{
@@ -419,6 +416,7 @@ angular
 								
 							$scope.trainingNameDate = "No Batch Found";									
 							$scope.currentView = false;
+							// $scope.thereAreBatches = false;
 						}
 
 						$log.debug($scope.batchesByYear);
