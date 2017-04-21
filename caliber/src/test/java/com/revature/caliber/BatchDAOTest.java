@@ -12,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
 
@@ -48,10 +47,7 @@ public class BatchDAOTest {
 		List<Batch> batches = batchdao.findAllCurrent();
 		log.info("Number of Batches: " + batches.size());
 		for(Trainee t : batches.get(0).getTrainees()){
-			for(Note n: t.getNotes()){
-				log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOTE SEPARATOR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-				log.info(n.toString());
-			}
+				log.info("Number of Notes: " + t.getNotes().size());
 		}
 		
 	}

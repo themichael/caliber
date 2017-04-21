@@ -11,9 +11,6 @@ angular
 					$log.debug("Booted Horizontal Bar Chart Factory");
 
 					var barChart = {};
-					var hoverOpacity = 0.8;
-					var opacity = 0.6;
-
 					var mainColor = {
 						backgroundColor : 'rgba(114, 164, 194, .5)',
 						pointBackgroundColor : 'rgba(114, 164, 194, .5)',
@@ -37,8 +34,8 @@ angular
 						var chartData = {};
 
 						// data and labels
-						chartData.series = [];
 						chartData.data = [];
+						chartData.data.push([]);
 						chartData.labels = [];
 						chartData.series = [];
 						chartData.colors = [ mainColor ];
@@ -65,7 +62,7 @@ angular
 							if (value[0] > 0) {
 								chartData.labels.push(key);
 								chartData.series.push(key);
-								chartData.data.push(value[0].toFixed(2));
+								chartData.data[0].push(value[0].toFixed(2));
 							}
 						});
 						return chartData;
@@ -252,7 +249,6 @@ angular
 						chartData.labels = [];
 						chartData.colors = [];
 
-						var len = chartData.data.length;
 						angular.forEach(data, function(value, key) {
 							chartData.labels.push(key);
 							var i = 0;
@@ -312,86 +308,18 @@ angular
 									/\B(?=(\d{3})+(?!\d))/g, ",");
 						};
 
-						var bar_chart = new Chart(
-								bar_ctx,
-								{
-									type : 'bar',
-									data : {
-										labels : dataArray.dates,
-										datasets : [
-												{
-													label : 'Poor',
-													data : dataArray.dataPack1,
-													backgroundColor : " #ff0000",
-													hoverBackgroundColor : "rgba(55, 160, 225, 0.7)",
-													hoverBorderWidth : 2,
-													hoverBorderColor : 'lightgrey'
-												},
-												{
-													label : 'Good',
-													data : dataArray.dataPack2,
-													backgroundColor : " #e8b00b",
-													hoverBackgroundColor : "rgba(225, 58, 55, 0.7)",
-													hoverBorderWidth : 2,
-													hoverBorderColor : 'lightgrey'
-												},
-												{
-													label : 'SuperStar',
-													data : dataArray.dataPack3,
-													backgroundColor : "#7972ff",
-													hoverBackgroundColor : "rgba(55, 160, 225, 0.7)",
-													hoverBorderWidth : 2,
-													hoverBorderColor : 'lightgrey'
-												},
-												{
-													label : 'Average',
-													data : dataArray.dataPack4,
-													backgroundColor : "#24d810",
-													hoverBackgroundColor : "rgba(225, 58, 55, 0.7)",
-													hoverBorderWidth : 2,
-													hoverBorderColor : 'lightgrey'
-												}, ]
-									},
-									options : {
-										animation : {
-											duration : 10,
-										},
-										tooltips : {
-											mode : 'label',
-											callbacks : {
-												label : function(tooltipItem,
-														data) {
-													return data.datasets[tooltipItem.datasetIndex].label
-															+ ": "
-															+ numberWithCommas(tooltipItem.yLabel);
-												}
-											}
-										},
-										scales : {
-											xAxes : [ {
-												stacked : true,
-												gridLines : {
-													display : false
-												},
-											} ],
-											yAxes : [ {
-												stacked : true,
-												ticks : {
-													callback : function(value) {
-														return numberWithCommas(value);
-													},
-												},
-											} ],
-										}, // scales
-										legend : {
-											display : true
-										}
-									}
-								// options
-								});
+						var chartData = {
+							type : 'bar',
+							data : {
+								labels : dataArray.batches,
+								datasets : [
+									dataArray.poor, dataArray.good, dataArray.average, dataArray.superstar,
+								]},
+			
+						};
 						$log.debug("Hello from the other side");
-						return bar_chart;
+						return chartData;
 					}
-
+					$log.debug("Hello, is it me you are looking for?");
 					return barChart;
 				});

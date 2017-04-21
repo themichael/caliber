@@ -1,12 +1,27 @@
 
 <div class="container">
-	<div class="row" ng-show="noBatches">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Current Batches QC Stats</div>
+					<div class="panel-body">
+						<div class="chart-container top5">
+							<canvas class="chart chart-bar" chart-data="stackedBarData"
+								chart-options="stackedBarOptions" chart-labels="stackedBarLabels"
+								chart-series="stackedBarSeries" chart-colors="stackedBarColors">
+						</canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="row">
 		<canvas id="chart bar-chart" width="600" height="350"
-			chart-data="barchartDData" chart-labels="barchartDLabels"
-			chart-options="barchartDOptions">
+			chart-data="barchartDData" chart-labels="barchartDLabels">
 		</canvas>
 		<canvas id="myChart"></canvas>
 	</div>
+	</div>
 </div>
-
 

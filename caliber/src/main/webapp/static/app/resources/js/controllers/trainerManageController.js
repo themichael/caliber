@@ -17,6 +17,8 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
+								//	$scope.role = $cookies.get("role");
+
 									$log.debug($scope.role);
 								});
 						$log.debug(allBatches);
@@ -218,6 +220,9 @@ angular
 						$scope.benchmarkStartDate.model = new Date(moment(
 								batch.benchmarkStartDate, "YYYY-MM-DD").format(
 								"YYYY/MM/DD"));
+						$scope.Save = "Update";
+						$scope.Updating = true;
+
 					}
 
 					/** Resets batch form for creating new batch* */
@@ -240,6 +245,16 @@ angular
 							$scope.currentBatch = null;
 						}
 					}
+					
+					
+					/** checking benchmark date **/
+					function benchmarkDateIsValid(){
+						
+						if( $scope.benchmarkStartDate.model < new Date()) {
+								$scope.startDate();
+							}
+					}
+					
 
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
@@ -356,6 +371,10 @@ angular
 														break;
 													}
 												}
+											} 
+											else if (response.status === 500){
+												//$log($scope.currentBatch.batchId);
+											angular.element("#deleteBatchErrorModal").modal("show");	
 											}
 										});
 						angular.element("#deleteBatchModal").modal("hide");
