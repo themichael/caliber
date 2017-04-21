@@ -29,7 +29,7 @@ Caliber is a performance management suite to collect and analyze evaluations of 
 <br/>CALIBER_PROJECT_URL=http://caliber.revature.tech/caliber/
 <br/>CALIBER_SERVER_URL=http://caliber.revature.tech/
 
-#ERD (3/31/2017)
+#ERD (3/31/2017) 
 <br/>
 <img src="https://github.com/pjw6193/caliber/blob/master/images/caliber-local.png?raw=true" height="200" width="300"/>
 <br/>
