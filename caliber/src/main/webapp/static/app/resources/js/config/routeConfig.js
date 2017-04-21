@@ -101,10 +101,6 @@ angular
 											"qc-batchOverall@qc.reports" : {
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
-											},
-											"qc-traineeWeek@qc.reports" : {
-												templateUrl : "/static/app/partials/qc-traineeWeek.html",
-												controller : "qcAssessController"
 											}
 										}
 									})
@@ -173,10 +169,6 @@ angular
 											},
 											"qc-batchOverall@trainer.reports" : {
 												templateUrl : "/static/app/partials/qc-display.html",
-												controller : "qcAssessController"
-											},
-											"qc-traineeWeek@trainer.reports" : {
-												templateUrl : "/static/app/partials/qc-traineeWeek.html",
 												controller : "qcAssessController"
 											}
 										}
@@ -247,10 +239,6 @@ angular
 											},
 											"qc-batchOverall@vp.reports" : {
 												templateUrl : "/static/app/partials/qc-display.html",
-												controller : "qcAssessController"
-											},
-											"qc-traineeWeek@vp.reports" : {
-												templateUrl : "/static/app/partials/qc-traineeWeek.html",
 												controller : "qcAssessController"
 											}
 										}
