@@ -2,6 +2,7 @@
 <div ng-hide="showMe">
 	<div class="container">
 		<div class="row">
+			<!-- Back button, only shows when there are no batches -->
 			<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
 				<button class="btn back-btn" ng-click="back()">
 					<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
@@ -16,9 +17,9 @@
 						data-toggle="dropdown"> {{ selectedYear }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li ng-repeat="menuItem in years track by $index"><a
-								role="button" ng-click="selectYear($index);">{{menuItem}}</a></li>
+								role="button" ng-click="selectYear($index); checkBatch()">{{menuItem}}</a></li>
 						</ul></li>
-					
+
 					<!-- top ui for viewing all assessments -->
 					<li role="button" class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown"> {{ trainingNameDate }} <span
@@ -42,13 +43,6 @@
 									assessment.title }} </a>
 							</li>
 						</ul></li>
-
-					<!-- Button Trigger for Create Assessment Modal -->
-					<li role="button" class="pull-right" ng-show="currentView"
-						data-toggle="modal" data-target="#createAssessmentModal"><a>Create
-							Assessment<span class="glyphicon glyphicon-plus"
-							aria-hidden="true"> </span>
-					</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-12 top5">

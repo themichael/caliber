@@ -210,36 +210,10 @@ angular
 					$scope.back = function() {
 						$scope.currentView = true;
 					};
-
-					// batch drop down select
-		/*			$scope.selectCurrentBatch = function(index) {
-						$log.debug("SELECTED DIFFERENT BATCH");
-						if ($scope.$parent.currentBatch !== undefined) {
-							$scope.currentBatch = $scope.$parent.currentBatch;
-						} else {
-							$scope.currentBatch = $scope.batches[index];
-						}
-						$scope.currentBatch.trainees.sort(compare);
-						// Create week array for batch selected
-						$scope.weeks = [];
-						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-							$scope.weeks.push(i);
-						}
-						// Set current week to first week
-						$scope.currentWeek = $scope.weeks[0];
-						$scope.getNotes();
-						wipeFaces();
-
-						$scope.trainingNameDate = $scope.currentBatch.trainingName
-								+ " " + $scope.currentBatch.startDate;
-					};*/
 					
 					/**
-					 * Kevin batch test code
-					 * batchesByYear
-					 */
-					
-					// batch drop down select
+					 * Batch drop down select Select batches from current year
+					 */ 
 					$scope.selectCurrentBatch = function(index) {
 						$log.debug("SELECTED DIFFERENT BATCH");
 						if ($scope.$parent.currentBatch !== undefined) {
@@ -435,8 +409,17 @@ angular
 						if ($scope.batchesByYear.length > 0) {
 							$scope.trainingNameDate = $scope.batchesByYear[0].trainingName
 									+ " - " + $scope.batchesByYear[0].startDate;
-						} else
-							$scope.trainingNameDate = "No Batch Found";
+						} 
+						else
+						{
+							/**
+							 * If no batches are available, display that there
+							 * are no batches
+							 */
+								
+							$scope.trainingNameDate = "No Batch Found";									
+							$scope.currentView = false;
+						}
 
 						$log.debug($scope.batchesByYear);
 					};
@@ -457,6 +440,10 @@ angular
 					 * ********************************************************************
 					 */
 
+					/**
+					 * Store batch object(s) according to selected year into an
+					 * array
+					 */
 					function batchYears() {
 						$scope.batchesByYear = [];
 
