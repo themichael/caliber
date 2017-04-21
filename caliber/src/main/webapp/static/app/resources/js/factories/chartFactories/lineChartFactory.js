@@ -182,18 +182,21 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 				},
 
 			};
+		var weeks = 0;
 		angular.forEach(data, function(value, key) {
-			chartData.labels.push(key);
-			var i = 0;
+			chartData.series.push(key);
+			var temp = [];
 			angular.forEach(value, function(value2, key2) {
-			/*	if (chartData.data[i] === undefined) {
-					chartData.data.push([]);
-				}
-				chartData.data[i].push(value2);
-				i++;*/
+				temp.push(value2.toFixed(2));
 			});
-
+			if (value.length > weeks){
+				weeks = value.length;
+			}
+			chartData.data.push(temp);
 		});
+		for (var i = 1; i <= weeks; i++){
+			chartData.labels.push("Week " + i);
+		}
 		return chartData;
 	}
 	return lineChart;
