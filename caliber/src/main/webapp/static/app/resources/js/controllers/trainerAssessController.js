@@ -458,21 +458,34 @@ angular
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.allAssessmentsAvgForWeek = false;
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
-											caliberDelegate.all.getAssessmentsAverageForWeek(
-													$scope.currentBatch.batchId
-													, $scope.currentWeek
-													).then(function(response){
-														$timeout(function(){
-															if(response){
-																$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
-															}else{
-																return;
-															}
-															},4000);															
-													});
+											$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);
+//											caliberDelegate.all.getAssessmentsAverageForWeek(
+//													$scope.currentBatch.batchId
+//													, $scope.currentWeek
+//													).then(function(response){
+//														$timeout(function(){
+//															if(response){
+//																$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
+//															}else{
+//																return;
+//															}
+//															},4000);															
+//													});
 										});
 										
 					};
+					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
+						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
+						.then(function(response){
+									$timeout(function(){
+										if(response){
+											$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
+										}else{
+											return;
+										}
+									},4000);															
+								});
+					}
 					
 					/** *******Save TrainerBatch Notes********** */	
 					$scope.saveTrainerNotes = function() {
@@ -553,9 +566,11 @@ angular
 									$log.debug(response);
 									return response;
 								}).then(function(response){
-									return response;
-								}).then(function(response){
 									$scope.trainees[response.data.trainee.traineeId].assessments[response.data.assessment.assessmentId].gradeId = response.data.gradeId;
+									$scope.allAssessmentsAvgForWeek = false;
+									return response;
+								}).then(function(){
+									$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);									
 								});
 					}; 
 
