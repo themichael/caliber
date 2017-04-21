@@ -17,7 +17,7 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
-								//	$scope.role = $cookies.get("role");
+									// $scope.role = $cookies.get("role");
 
 									$log.debug($scope.role);
 								});
@@ -161,7 +161,8 @@ angular
 						$log.debug($scope.endDate)
 						$log.debug($scope.benchmarkStartDate);
 
-						if ($scope.startDate.model > $scope.benchmarkStartDate.model && $scope.endDate.model > $scope.startDate.model) {
+						if ($scope.startDate.model > $scope.benchmarkStartDate.model
+								&& $scope.endDate.model > $scope.startDate.model) {
 							/* $scope.validDate = false; */
 							$log.debug("True");
 							$scope.addNewBatch();
@@ -245,16 +246,14 @@ angular
 							$scope.currentBatch = null;
 						}
 					}
-					
-					
-					/** checking benchmark date **/
-					function benchmarkDateIsValid(){
-						
-						if( $scope.benchmarkStartDate.model < new Date()) {
-								$scope.startDate();
-							}
+
+					/** checking benchmark date * */
+					function benchmarkDateIsValid() {
+
+						if ($scope.benchmarkStartDate.model < new Date()) {
+							$scope.startDate();
+						}
 					}
-					
 
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
@@ -265,15 +264,11 @@ angular
 						batch.location = $scope.location.model;
 						batch.trainer = null;
 						batch.coTrainer = null;
-						batch.startDate = moment($scope.startDate.model)
-								.format("YYYY-MM-DD");
-						batch.endDate = moment($scope.endDate.model).format(
-								"YYYY-MM-DD");
+						batch.startDate = $scope.startDate.model;
+						batch.endDate = $scope.endDate.model;
 						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
 						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
-						batch.benchmarkStartDate = moment(
-								$scope.benchmarkStartDate.model).format(
-								"YYYY-MM-DD");
+						batch.benchmarkStartDate = $scope.benchmarkStartDate.model;
 
 						/*
 						 * if ($scope.currentBatch) { newBatch.batchId =
@@ -298,17 +293,15 @@ angular
 
 						// return newBatch;
 					}
-
-					$scope.update = function() {
-
-						$scope.editTrainee.name = "";
-						$scope.editTrainee.email = "";
-						$scope.editTrainee.phoneNumber = "";
-						$scope.editTrainee.skypeId = "";
-						$scope.editTrainee.profileUrl = "";
-
-					};
-
+					/** reformat dates on batch correctly* */
+					function formatBatchDates(batch) {
+						batch.startDate = moment(batch.startDate).format(
+								"YYYY-MM-DD");
+						batch.endDate = moment(batch.endDate).format(
+								"YYYY-MM-DD");
+						batch.benchmarkStartDate = moment(
+								batch.benchmarkStartDate).format("YYYY-MM-DD");
+					}
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
@@ -319,7 +312,11 @@ angular
 							caliberDelegate.all
 									.updateBatch($scope.currentBatch)
 									.then(
-											$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch)
+											function() {
+												formatBatchDates($scope.currentBatch)
+												$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch
+											});
+
 						} else {
 							var newBatch = {};
 							createBatchObject(newBatch);
@@ -332,8 +329,9 @@ angular
 												// coTrainer may be undefined
 												newBatch.batchId = response.data.batchId;
 												newBatch['trainees'] = [];
-												newBatch['arrayWeeks']=[];
-												newBatch['weeks']=response.data.weeks;
+												newBatch['arrayWeeks'] = [];
+												newBatch['weeks'] = response.data.weeks;
+												formatBatchDates(newBatch)
 												if ($scope.coTrainer) {
 													$scope.batches
 															.push(newBatch);
@@ -371,10 +369,12 @@ angular
 														break;
 													}
 												}
-											} 
-											else if (response.status === 500){
-												//$log($scope.currentBatch.batchId);
-											angular.element("#deleteBatchErrorModal").modal("show");	
+											} else if (response.status === 500) {
+												// $log($scope.currentBatch.batchId);
+												angular
+														.element(
+																"#deleteBatchErrorModal")
+														.modal("show");
 											}
 										});
 						angular.element("#deleteBatchModal").modal("hide");
