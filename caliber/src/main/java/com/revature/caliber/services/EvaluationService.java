@@ -235,6 +235,22 @@ public class EvaluationService {
 		
 		return note;
 	}
+	
+	
+	/**
+	 * FIND QCTRAINEE NOTE FOR THE WEEK(Michael) 
+	 * 
+	 * @param trainee
+	 * @param week
+	 * @return 
+	 */
+	public Note findQCTraineeNote(Integer traineeId, Integer week) {
+		Note note = noteDAO.findQCTraineeNote(traineeId,week);
+		
+		note.setBatch(null);
+		
+		return note;
+	}
 
 	/**
 	 * FIND WEEKLY QC BATCH NOTES (NOT FOR TRAINERS)

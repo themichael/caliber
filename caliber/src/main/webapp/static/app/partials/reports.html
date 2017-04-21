@@ -76,8 +76,7 @@
 										chart-data="averageTraineeScoresWeeklyData"
 										chart-options="averageTraineeScoresWeeklyOptions"
 										chart-labels="averageTraineeScoresWeeklyLabels"
-										chart-series="averageTraineeScoresWeeklySeries"
-										chart-colors="averageTraineeScoresWeeklyColors">
+										chart-series="averageTraineeScoresWeeklySeries">
                                     </canvas>
 									<div>
 										<table ng-if="averageTraineeScoresWeeklyLabels"
@@ -135,11 +134,10 @@
 									<canvas id="barchart" class="chart chart-bar"
 										chart-data="barchartAWData" chart-series="barchartAWSeries"
 										chart-labels="barchartAWLabels"
-										chart-options="barchartAWOptions"
-										chart-colors="barchartAWColors">
+										chart-options="barchartAWOptions">
                                     </canvas>
 									<div class="wrap">
-										<div class='outer-bar-data'
+										<div class=''
 											ng-if='barchartAWLabels.length <= 2'>
 											<table ng-if="barchartAWLabels"
 												class="table table-responsive"
@@ -199,9 +197,9 @@
 										chart-data="batchOverAllData"
 										chart-options="batchOverAllOptions"
 										chart-labels="batchOverAllLabels"
-										chart-series="batchOverAllSeries"
-										chart-colors="batchOverAllColors">
+										chart-series="batchOverAllSeries">
                                     	</canvas>
+<<<<<<< HEAD
 									<table ng-if="batchOverAllLabels"
 										class="table table-responsive"
 										style="border-collapse: collapse;">
@@ -211,6 +209,19 @@
 											<td class="pull-right">{{batchOverAllData[0][$index]}}</td>
 										</tr>
 									</table>
+=======
+									<div class="col-sm-12 col-md-12 col-lg-12">
+										<table ng-if="batchOverAllLabels"
+											class="table table-responsive"
+											style="border-collapse: collapse;">
+											<tr ng-repeat="label in batchOverAllLabels track by $index"
+												class="col-md-3 col-lg-3 col-sm-3">
+												<th class="pull-left">{{label}}</th>
+												<td class="pull-right">{{batchOverAllData[0][$index]}}</td>
+											</tr>
+										</table>
+									</div>
+>>>>>>> 65cd3f489cb95ef863a78dae656938331ac3003e
 								</div>
 							</div>
 						</div>
@@ -232,8 +243,7 @@
 										chart-data="radarBatchOverallData"
 										chart-options="radarBatchOverallOptions"
 										chart-labels="radarBatchOverallLabels"
-										chart-series="radarBatchOverallSeries"
-										chart-colors="radarBatchOverallColors">
+										chart-series="radarBatchOverallSeries">
                                     </canvas>
 									<div>
 										<table ng-if="radarBatchOverallTable"
@@ -264,22 +274,23 @@
 									<canvas id="line1" class="chart chart-line"
 										chart-data="weeklyProgressBatchOverallData"
 										chart-labels="weeklyProgressBatchOverallLabels"
-										chart-options="weeklyProgressBatchOverallOptions"
-										chart-colors="weeklyProgressBatchOverallColors">
+										chart-options="weeklyProgressBatchOverallOptions">
                                     </canvas>
-									<table ng-if="weeklyProgressBatchOverallLabels"
-										class="table table-responsive"
-										style="border-collapse: collapse;">
-										<tr class="col-sm-6 col-md-6 col-lg-6"
-											ng-repeat="label in weeklyProgressBatchOverallLabels track by $index">
-											<th class="pull-left">Week {{label}}</th>
-											<td class="pull-right">{{weeklyProgressBatchOverallData[0][$index]}}</td>
-										</tr>
-										<!-- 	<tr>
+									<div class="col-sm-12 col-md-12 col-lg-12">
+										<table ng-if="weeklyProgressBatchOverallLabels"
+											class="table table-responsive"
+											style="border-collapse: collapse;">
+											<tr class="col-sm-6 col-md-6 col-lg-6"
+												ng-repeat="label in weeklyProgressBatchOverallLabels track by $index">
+												<th class="pull-left">Week {{label}}</th>
+												<td class="pull-right">{{weeklyProgressBatchOverallData[0][$index]}}</td>
+											</tr>
+											<!-- 	<tr>
 												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
 													ng-repeat="dataPoint in weeklyProgressBatchOverallData[0] track by $index">{{dataPoint}}</td>
 											</tr> -->
-									</table>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -303,8 +314,7 @@
 										chart-data="AssessmentAveragesTraineeWeeklyData"
 										chart-options="AssessmentAveragesTraineeWeeklyOptions"
 										chart-labels="AssessmentAveragesTraineeWeeklyLabels"
-										chart-series="AssessmentAveragesTraineeWeeklySeries"
-										chart-colors="AssessmentAveragesTraineeWeeklyColors">
+										chart-series="AssessmentAveragesTraineeWeeklySeries">
                                     	</canvas>
 									<div>
 										<table ng-if="AssessmentAveragesTraineeWeeklyLabels"
@@ -340,8 +350,7 @@
 										chart-data="radarTraineeWeeklyData"
 										chart-labels="radarTraineeWeeklyLabels"
 										chart-options="radarTraineeWeeklyOptions"
-										chart-series="radarTraineeWeeklySeries"
-										chart-colors="radarTraineeWeeklyColors">
+										chart-series="radarTraineeWeeklySeries">
                                     </canvas>
 									<div>
 										<table ng-if="radarTraineeWeeklyTable"
@@ -373,8 +382,7 @@
 									<canvas id="linechart" class="chart chart-line"
 										chart-data="linechartTWData" chart-labels="linechartTWLabels"
 										chart-options="linechartTWOptions"
-										chart-series="linechartTWSeries"
-										chart-colors="linechartTWColors">
+										chart-series="linechartTWSeries">
                                     </canvas>
 									<div>
 										<table class="table table-responsive"
@@ -417,8 +425,7 @@
 										chart-data="AssessmentAveragesTraineeOverallData"
 										chart-options="AssessmentAveragesTraineeOverallOptions"
 										chart-labels="AssessmentAveragesTraineeOverallLabels"
-										chart-series="AssessmentAveragesTraineeOverallSeries"
-										chart-colors="AssessmentAveragesTraineeOverallColors">
+										chart-series="AssessmentAveragesTraineeOverallSeries">
                                     </canvas>
 									<div>
 										<table ng-if="AssessmentAveragesTraineeOverallLabels"
@@ -451,8 +458,7 @@
 										chart-data="radarTraineeOverallData"
 										chart-labels="radarTraineeOverallLabels"
 										chart-options="radarTraineeOverallOptions"
-										chart-series="radarTraineeOverallSeries"
-										chart-colors="radarTraineeOverallColors">
+										chart-series="radarTraineeOverallSeries">
                                     </canvas>
 									<div>
 										<table ng-if="radarTraineeOverallTable"
@@ -484,8 +490,7 @@
 										chart-data="batchOverallWeeklyData"
 										chart-options="batchOverallWeeklyOptions"
 										chart-labels="batchOverallWeeklyLabels"
-										chart-series="batchOverallWeeklySeries"
-										chart-colors="batchOverallWeeklyColors">
+										chart-series="batchOverallWeeklySeries">
                                     </canvas>
 									<div>
 										<table ng-if="batchOverallWeeklyLabels"
@@ -515,7 +520,7 @@
 			<div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div>
 		</div>
 		<!-- Row with all 3 Chart-->
-
+		
 	</div>
 	<!-- top10 data-container -->
 </div>

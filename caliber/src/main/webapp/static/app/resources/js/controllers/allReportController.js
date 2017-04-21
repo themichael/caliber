@@ -660,5 +660,14 @@ angular
 								$scope.note = data;
 							}
 						});
+						//Michael get QCnote and QCstatus
+						caliberDelegate.qc.getQCTraineeNote(traineeId,weekId).then(function(data){
+							$log.debug("YOU ARE IN get qc caliber in controller");
+								$scope.qcNote = {};
+							if(data){
+								$scope.qcNote = data;
+							}
+						});
 					}
+					
 				});
