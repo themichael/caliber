@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
@@ -53,13 +52,13 @@ public class AssessmentDAO extends BaseDAO {
 	public List<Assessment> findByWeek(Integer batchId, Integer week) {
 		log.info("Find assessment by week number " + week + " for batch " + batchId + " ");
 		List<Assessment> assessments = sessionFactory.getCurrentSession().createCriteria(Assessment.class)
-				.createAlias("batch", "batch").createAlias("batch.trainees", "t")
+				.createAlias("batch", "batch")
+				.createAlias("batch.trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.and(Restrictions.eq("batch.batchId", batchId),
 						Restrictions.eq("week", week.shortValue())))
-				.setFetchMode("grades", FetchMode.JOIN).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		for (Assessment assessment : assessments) {
-			initializeActiveTrainees(assessment);
-		}
+				.createAlias("grades", "grades", JoinType.LEFT_OUTER_JOIN)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
 		return assessments;
 	}
 
@@ -68,7 +67,7 @@ public class AssessmentDAO extends BaseDAO {
 	public List<Assessment> findByBatchId(Integer batchId) {
 		log.info("Find assessment by batchId" + batchId + " ");
 		List<Assessment> assessments = sessionFactory.getCurrentSession().createCriteria(Assessment.class)
-				.createAlias("batch", "b")
+				.createAlias("batch", "b", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("b.trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.and(Restrictions.eq("b.batchId", batchId)))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
