@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -362,6 +363,16 @@ public class ReportingService {
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 			results.put(batch.getTrainingName(), utilAvgBatchOverall(trainees, batch.getWeeks()));
 		}
+		return results;
+	}
+	
+	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChartConcurrent(){
+		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
+		List<Batch> batches = batchDAO.findAllCurrent();
+		batches.parallelStream().forEach(b -> {
+			List<Trainee> trainees = new ArrayList<>(b.getTrainees());
+			results.put(b.getTrainingName(), utilAvgBatchOverall(trainees, b.getWeeks()));
+		});
 		return results;
 	}
 
