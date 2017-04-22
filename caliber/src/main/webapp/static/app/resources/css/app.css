@@ -238,13 +238,15 @@ footer a, footer a:hover{
 .table-view{
 	max-width:400px;
 }
-
+.table, .table-responsive, thead{
+	position:relative !important;
+}
 .fixed-style-table-header{
-	position:fixed;
+	position:fixed !important;
 	background:#fff;
-	width:100%;
 	z-index:100;
 	top:0;
+	width:90%;
 }
 /**********************
 	save button
