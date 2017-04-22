@@ -55,16 +55,11 @@ angular
 									.getGradesForWeek(batchId,
 											weekId).then(
 											function(data) {
-												$scope.grades = data;
-												// $log.debug("These are the
-												// grades");
-												// $log.debug(data);
-												// for ( var i in data) {
-												// $log.debug("Fetching ");
-												// $log.debug(data[i]);
-												// pushUnique($scope.grades,
-												// data[i]);
-												// }
+												if(Object.keys(data).length === 0){
+													$scope.grades = false;
+												}else{
+													$scope.grades = data;
+												}
 											});
 					 }
 						$scope.assignTraineeScope = function(traineeId){
