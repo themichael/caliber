@@ -470,16 +470,18 @@ angular
 										
 					};
 					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
-						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
-						.then(function(response){
-									$timeout(function(){
-										if(response){
-											$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
-										}else{
-											return;
-										}
-									},4000);															
-								});
+						if($scope.grades){
+							caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
+							.then(function(response){
+										$timeout(function(){
+											if(response){
+												$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
+											}else{
+												return;
+											}
+										},4000);															
+									});
+							}
 					}
 					
 					/** *******Save TrainerBatch Notes********** */	
