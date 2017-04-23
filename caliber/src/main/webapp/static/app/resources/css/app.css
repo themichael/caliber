@@ -248,6 +248,9 @@ footer a, footer a:hover{
 	top:0;
 	width:90%;
 }
+.note-mw{
+	min-width:300px;
+}
 /**********************
 	save button
 **********************/
