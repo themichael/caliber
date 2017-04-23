@@ -375,7 +375,6 @@ public class ReportingService {
 		});
 		return results;
 	}
-
 	/*
 	 *******************************************************
 	 * Radar Charts
@@ -565,7 +564,7 @@ public class ReportingService {
 	public Map<Trainee, Double> utilAvgBatchWeek(List<Trainee> trainees, Integer week) {
 		Map<Trainee, Double> results = new HashMap<>();
 		for (Trainee trainee : trainees) {
-			Set<Grade> grades = new HashSet<>(gradeDAO.findByTrainee(trainee.getTraineeId()));
+			Set<Grade> grades = new HashSet<>(trainee.getGrades());
 			results.put(trainee, utilAvgTraineeWeek(grades, week));
 		}
 		return results;
