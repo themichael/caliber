@@ -202,15 +202,8 @@ angular
 					 * has been selected
 					 */
 					$scope.displayTable = function() {
-						// $log.debug("[ THIS IS THE CURRENT BATCHID ]"
-						// +$scope.currentBatch.batchId + " [ THIS IS THE
-						// CURRENTWEEK ]" + $scope.reportCurrentWeek);
 						if ($scope.currentBatch === null
-								|| $scope.currentWeek === null) { // checking
-							// to see if
-							// the scope
-							// variables
-							// are null
+								|| $scope.currentWeek === null) { 
 							return false;
 						}
 						return true;
@@ -218,15 +211,7 @@ angular
 					$scope.displayTraineeOverallTable = function() {
 						if ($scope.currentBatch === null
 								|| $scope.currentWeek === null
-								|| $scope.batchOverallTrainee === null) { // checking
-							// to
-							// see
-							// if
-							// the
-							// scope
-							// variables
-							// are
-							// null
+								|| $scope.batchOverallTrainee === null) {
 							return false;
 						} else {
 							return true;
