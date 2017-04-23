@@ -45,10 +45,8 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		}
 		// traverse through array of objects and grab labels and data
 		angular.forEach(dataArray, function(value, key) {
-			if (Number.isFinite(value) && value > 0){
-				chartData.labels.push(key);
-				chartData.data[0].push(value.toFixed(2));
-			}
+			chartData.labels.push(key);
+			chartData.data[0].push(value.toFixed(2));
 		});
 		return chartData;
 	};
@@ -143,8 +141,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		var batch = [];
 		var week = [];
 		angular.forEach(dataArray, function(value, key) {
-			$log.debug("THE VALUE CAUSING ERRORS ARE: ");
-			$log.debug(value);
 			trainee.push(value[0].toFixed(2));
 			batch.push(value[1].toFixed(2));
 			week.push(key);

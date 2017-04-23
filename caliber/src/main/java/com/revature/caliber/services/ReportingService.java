@@ -301,7 +301,9 @@ public class ReportingService {
 		Set<Grade> grades = trainees.stream().filter(e -> e.getTraineeId() == traineeId).findFirst().get().getGrades();
 		for (int w = 1; w <= week; w++) {
 			Double temp[] = { utilAvgTraineeWeek(grades, w), utilAvgBatchWeekValue(trainees, w) };
-			results.put(w, temp);
+			if(temp[1] > 0.0){
+				results.put(w, temp);
+			}
 		}
 		return results;
 	}
@@ -321,13 +323,13 @@ public class ReportingService {
 		Map<Integer, Double> traineeAvgOverall = utilAvgTraineeOverall(grades, batch.getWeeks());
 		Map<Integer, Double> batchAvgOverall = utilAvgBatchOverall(trainees, batch.getWeeks());
 		Map<Integer, Double[]> results = new HashMap<>();
-		int totalWeeks = traineeAvgOverall.size();
+		int totalWeeks = batch.getWeeks();
 		for (int i = 1; i <= totalWeeks; i++) {
-			Double[] temp = { traineeAvgOverall.get(i), batchAvgOverall.get(i) };
-			if (temp[1] == 0) {
-				continue;
+			Double batchWeekScore = batchAvgOverall.get(i);
+			Double traineeWeekScore = traineeAvgOverall.get(i);
+			if (traineeWeekScore > 0) {
+				results.put(i, new Double[]{traineeWeekScore, batchWeekScore});
 			}
-			results.put(i, temp);
 		}
 		return results;
 	}
@@ -592,10 +594,10 @@ public class ReportingService {
 			for (Map.Entry<Trainee, Double> t : temp.entrySet()) {
 				avg += t.getValue();
 			}
-			if(temp.size() > 0){
+			if(avg > 0.0 && temp.size() > 0){
 				avg = avg / temp.size();
-			}
-			results.put(i, avg);
+				results.put(i, avg);
+			}	
 		}
 		return results;
 	}
