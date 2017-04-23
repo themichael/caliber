@@ -156,6 +156,9 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		var chartData = {};
 		chartData.data = [];
 		chartData.colors = [ mainColor, secondaryColor ];
+		chartData.series = [];
+		chartData.labels = [];
+		
 		chartData.options = {
 			scales : {
 				xAxes : [ {
@@ -179,16 +182,17 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 				} ]
 			}
 		};
+		
 		var weeks = 0;
-		angular.forEach(data, function(value, key) {
+		angular.forEach(dataArray, function(value, key) {
 			chartData.series.push(key);
 			var temp = [];
 			angular.forEach(value, function(value2, key2) {
 				temp.push(value2.toFixed(2));
+				if (key2 > weeks) {
+					weeks = key2;
+				}
 			});
-			if (value.length > weeks) {
-				weeks = value.length;
-			}
 			chartData.data.push(temp);
 		});
 		for (var i = 1; i <= weeks; i++) {
