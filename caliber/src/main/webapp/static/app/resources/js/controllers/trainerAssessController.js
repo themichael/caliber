@@ -59,6 +59,7 @@ angular
 													$scope.grades = false;
 												}else{
 													$scope.grades = data;
+													$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);
 												}
 											});
 					 }
@@ -453,7 +454,6 @@ angular
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.allAssessmentsAvgForWeek = false;
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
-											$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);
 //											caliberDelegate.all.getAssessmentsAverageForWeek(
 //													$scope.currentBatch.batchId
 //													, $scope.currentWeek
@@ -470,8 +470,7 @@ angular
 										
 					};
 					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
-						if($scope.grades){
-							caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
+						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
 							.then(function(response){
 										$timeout(function(){
 											if(response){
@@ -480,8 +479,7 @@ angular
 												return;
 											}
 										},4000);															
-									});
-							}
+							});
 					}
 					
 					/** *******Save TrainerBatch Notes********** */	
@@ -572,23 +570,24 @@ angular
 					}; 
 
 					$scope.findGrade = function(traineeId, assessmentId) {
-							if($scope && $scope.grades && ($scope.grades[traineeId] === undefined)){ 
+							if(!$scope || !$scope.grades || !traineeId || ($scope.grades[traineeId] === undefined)){ 
 								return;
-							}
-							for(var grade of $scope.grades[traineeId]){
-								/*
-								 * create a assessment object that contains
-								 * gradeId for each $scope.trainees[trainee]
-								 */
-								if(grade.assessment.assessmentId === assessmentId){
-									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
-										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
+							}else{
+								for(var grade of $scope.grades[traineeId]){
+									/*
+									 * create a assessment object that contains
+									 * gradeId for each $scope.trainees[trainee]
+									 */
+									if(grade.assessment.assessmentId === assessmentId){
+										if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
+											$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
+										}
+										if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId === undefined){
+											$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId = grade.gradeId;
+											$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].score = grade.score;										
+										}
+										return grade.score;
 									}
-									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId === undefined){
-										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId = grade.gradeId;
-										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].score = grade.score;										
-									}
-									return grade.score;
 								}
 							}
 					};
