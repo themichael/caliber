@@ -3,6 +3,7 @@ package com.revature.caliber.services;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -82,7 +83,7 @@ public class ReportingService {
 	 * @return Map <The QC Status, Number of Trainees>
 	 */
 	public Map<QCStatus, Integer> getBatchWeekPieChart(Integer batchId, Integer weekNumber) {
-		Map<QCStatus, Integer> results = new HashMap<>();
+		Map<QCStatus, Integer> results = new LinkedHashMap<>();
 		for (QCStatus s : QCStatus.values()) {
 			results.put(s, 0);
 		}
@@ -112,14 +113,13 @@ public class ReportingService {
 					break;
 				}
 			}
-		}
-
+		}		
 		return results;
 	}
 
 	public Map<Integer, Map<QCStatus, Integer>> utilSeparateQCTraineeNotesByWeek(Batch batch) {
 		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
-		Map<QCStatus, Integer> qcStatsMapTemplate = new HashMap<>();
+		Map<QCStatus, Integer> qcStatsMapTemplate = new LinkedHashMap<>();
 		for (QCStatus q : QCStatus.values()) {
 			qcStatsMapTemplate.put(q, 0);
 		}
