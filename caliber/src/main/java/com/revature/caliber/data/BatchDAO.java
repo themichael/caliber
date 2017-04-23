@@ -140,6 +140,24 @@ public class BatchDAO extends BaseDAO {
 	}
 
 	/**
+	 * Find a batch by its given identifier, all trainees, and all their grades
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Batch findOneWithTraineesAndGrades(Integer batchId) {
+		log.info("Fetching batch: " + batchId);
+		Batch batch = (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("t.grades", "g", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.eq("batchId", batchId))
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
+				.uniqueResult();
+		return batch;
+	}
+	
+	/**
 	 * Update details for a batch
 	 * 
 	 * @param batch

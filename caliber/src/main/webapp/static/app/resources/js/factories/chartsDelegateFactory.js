@@ -210,10 +210,10 @@ angular
 					}
 
 					// yani linechartdata
-					delegate.line.data.getWeeklyProgressTraineeWeeklyData = function(
+					delegate.line.data.getWeeklyProgressTraineeWeeklyData = function(batchId, 
 							week, traineeId) {
 						return lineChartDataFactory
-								.getTraineeUpToWeekLineChart(week, traineeId);
+								.getTraineeUpToWeekLineChart(batchId, week, traineeId);
 					}
 					// vpHome
 					delegate.line.getCurrentBatchesAverageScoreChart = function(

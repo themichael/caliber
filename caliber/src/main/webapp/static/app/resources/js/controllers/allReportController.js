@@ -532,7 +532,7 @@ angular
 					// Yanilda
 					function createWeeklyProgressTraineeWeekly() {
 						chartsDelegate.line.data
-								.getWeeklyProgressTraineeWeeklyData(
+								.getWeeklyProgressTraineeWeeklyData($scope.currentBatch.batchId,
 										$scope.reportCurrentWeek,
 										$scope.currentTraineeId)
 								.then(

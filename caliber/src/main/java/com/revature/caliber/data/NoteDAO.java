@@ -259,7 +259,9 @@ public class NoteDAO extends BaseDAO{
         		.createAlias("t.batch", "b").add(Restrictions.eq("b.batchId", batchId))
         		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
         		.add(Restrictions.eq("week", week.shortValue()))
-				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.eq("qcFeedback", true))
+				.add(Restrictions.eq("type", NoteType.QC_TRAINEE))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.addOrder(Order.asc("week")).list();
 		return notes;
     }

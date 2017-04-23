@@ -184,35 +184,22 @@
 			<!-- qc -->
 			<div ui-view="qc-batchOverall"></div>
 		</div>
+		
 		<!-- Batch -> Overall -->
 		<div class="row" ng-if="batchOverall">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
-					<div class="col-sm-12 col-md-12">
+					<div class="col-sm-12 col-md-12 col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">Average Trainee Scores</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="bar6" class="chart chart-bar"
-										chart-data="batchOverAllData"
-										chart-options="batchOverAllOptions"
-										chart-labels="batchOverAllLabels"
+									<canvas id="bar6" class="chart chart-bar" chart-data="batchOverAllData"
+										chart-options="batchOverAllOptions" chart-labels="batchOverAllLabels"
 										chart-series="batchOverAllSeries">
                                     	</canvas>
-<<<<<<< HEAD
-									<table ng-if="batchOverAllLabels"
-										class="table table-responsive"
-										style="border-collapse: collapse;">
-										<tr ng-repeat="label in batchOverAllLabels track by $index"
-											class="col-md-4 col-sm-6 col-xs-6">
-											<th class="pull-left">{{label}}</th>
-											<td class="pull-right">{{batchOverAllData[0][$index]}}</td>
-										</tr>
-									</table>
-=======
 									<div class="col-sm-12 col-md-12 col-lg-12">
-										<table ng-if="batchOverAllLabels"
-											class="table table-responsive"
+										<table ng-if="batchOverAllLabels" class="table table-responsive"
 											style="border-collapse: collapse;">
 											<tr ng-repeat="label in batchOverAllLabels track by $index"
 												class="col-md-3 col-lg-3 col-sm-3">
@@ -221,17 +208,18 @@
 											</tr>
 										</table>
 									</div>
->>>>>>> 65cd3f489cb95ef863a78dae656938331ac3003e
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-5 col-md-5">
+				</div>	
+					
+				<div class="row">
+					<div class="col-sm-5 col-md-5 col-lg-5">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								Batch Technical Skills
-								<div role="button" class="pull-right" data-toggle="modal"
-									data-target="#pierpoop">
+								<div role="button" class="pull-right" data-toggle="modal" data-target="#pierpoop">
 									<a>Create Assessment <span class="glyphicon glyphicon-plus"
 										aria-hidden="true"></span>
 									</a>
@@ -240,23 +228,20 @@
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="radarBatchOverall" class="chart chart-radar"
-										chart-data="radarBatchOverallData"
-										chart-options="radarBatchOverallOptions"
-										chart-labels="radarBatchOverallLabels"
-										chart-series="radarBatchOverallSeries">
+										chart-data="radarBatchOverallData" chart-options="radarBatchOverallOptions"
+										chart-labels="radarBatchOverallLabels" chart-series="radarBatchOverallSeries">
                                     </canvas>
-									<div>
-										<table ng-if="radarBatchOverallTable"
-											class="table table-responsive"
+									<div class="col-sm-12 col-md-12 col-lg-12">
+										<table ng-if="radarBatchOverallTable" class="table table-responsive"
 											style="border-collapse: collapse;">
 											<tr>
-												<th class="col-sm-2 col-md-2 col-lg-2"></th>
-												<th class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+												<th  class="col-sm-2 col-md-2 col-lg-2"></th>
+												<th class="col-sm-2 col-md-2 col-lg-2"
 													ng-repeat="series in radarBatchOverallSeries">{{series}}</th>
 											</tr>
 											<tr ng-repeat="item in radarBatchOverallTable">
 												<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
-												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
+												<td class="col-sm-2 col-md-2 col-lg-2"
 													ng-repeat="dataPoint in item.data track by $index">{{dataPoint}}</td>
 											</tr>
 										</table>
@@ -266,7 +251,7 @@
 						</div>
 					</div>
 
-					<div class="col-sm-7 col-md-7">
+					<div class="col-sm-7 col-md-7 col-lg-7">
 						<div class="panel panel-default">
 							<div class="panel-heading">Weekly Averages Progress</div>
 							<div class="panel-body">
@@ -277,18 +262,13 @@
 										chart-options="weeklyProgressBatchOverallOptions">
                                     </canvas>
 									<div class="col-sm-12 col-md-12 col-lg-12">
-										<table ng-if="weeklyProgressBatchOverallLabels"
-											class="table table-responsive"
+										<table ng-if="weeklyProgressBatchOverallLabels" class="table table-responsive"
 											style="border-collapse: collapse;">
 											<tr class="col-sm-6 col-md-6 col-lg-6"
 												ng-repeat="label in weeklyProgressBatchOverallLabels track by $index">
 												<th class="pull-left">Week {{label}}</th>
 												<td class="pull-right">{{weeklyProgressBatchOverallData[0][$index]}}</td>
 											</tr>
-											<!-- 	<tr>
-												<td class="col-sm-2 col-md-2 col-lg-2 ng-binding"
-													ng-repeat="dataPoint in weeklyProgressBatchOverallData[0] track by $index">{{dataPoint}}</td>
-											</tr> -->
 										</table>
 									</div>
 								</div>
@@ -305,7 +285,7 @@
 		<div class="row" ng-if="batchWeekTrainee">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
-					<div class="col-sm-12 col-md-12">
+					<div class="col-sm-12 col-md-12  col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">Assessment Averages</div>
 							<div class="panel-body">
@@ -341,7 +321,7 @@
 						</div>
 					</div>
 
-					<div class="col-sm-4 col-md-4">
+					<div class="col-sm-4 col-md-4  col-lg-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">Trainee Weekly Technical Skills</div>
 							<div class="panel-body">
@@ -374,7 +354,7 @@
 					</div>
 
 					<!-- Yanilda -->
-					<div class="col-sm-8 col-md-8">
+					<div class="col-sm-8 col-md-8 col-lg-8">
 						<div class="panel panel-default">
 							<div class="panel-heading">Weekly Averages Progress</div>
 							<div class="panel-body">
@@ -416,7 +396,7 @@
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
 
-					<div class="col-sm-12 col-md-12">
+					<div class="col-sm-12 col-md-12 col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">Assessment Averages</div>
 							<div class="panel-body">
@@ -449,7 +429,7 @@
 						</div>
 					</div>
 
-					<div class="col-sm-4 col-md-4">
+					<div class="col-sm-4 col-md-4 col-lg-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">Trainee Overall Technical Skills</div>
 							<div class="panel-body">
@@ -481,7 +461,7 @@
 						</div>
 					</div>
 
-					<div class="col-sm-8 col-md-8">
+					<div class="col-sm-8 col-md-8 col-lg-8">
 						<div class="panel panel-default">
 							<div class="panel-heading">Weekly Averages Progress</div>
 							<div class="panel-body">
