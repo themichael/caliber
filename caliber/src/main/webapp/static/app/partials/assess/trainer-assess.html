@@ -80,11 +80,12 @@
 				<table class="table table-responsive"
 					style="border-collapse: collapse;" ng-show="currentView">
 					<thead>
-						<tr class='sticky-header' sticky>
+						<tr sticky class='sticky-header'>
 							<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
 							<th class="col-sm-1 col-md-1 col-lg-1" role="button"
 								ng-repeat="assessment in currentAssessments track by $index">
-								{{assessment.title}}({{assessmentsById[assessment.assessmentId].weightedScore}})</th>
+								{{assessment.title}}
+								({{assessmentsById[assessment.assessmentId].weightedScore}})</th>
 							<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
 						</tr>
 					</thead>
@@ -101,7 +102,7 @@
 								ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
 							</td>
 							<td class="col-sm-9 col-md-9 col-lg-9"><textarea
-									class="form-control" name="note" cols="20" rows="2"
+									class="form-control note-mw" name="note" cols="20" rows="2"
 									ng-model="trainees[trainee.traineeId].note.content"
 									ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
 							</textarea></td>
@@ -114,10 +115,12 @@
 							{{getTotalAssessmentAvgForWeek(assessment,trainees) ?
 							(getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
 							"%" : "-"}}</td>
-						<td>{{ (allAssessmentsAvgForWeek === false ? "Calculating
+						<td ng-if="grades">{{ (allAssessmentsAvgForWeek === false ? "Calculating
 							Weekly Batch Avg " : "Weekly Batch Avg= " +
 							allAssessmentsAvgForWeek) }}<i
 							ng-show="!allAssessmentsAvgForWeek" class='fa fa-cog fa-spin'></i>
+						</td>
+						<td ng-if="!grades">
 						</td>
 					</tfoot>
 				</table>
