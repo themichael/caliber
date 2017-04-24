@@ -82,7 +82,7 @@ public class Note implements Serializable{
 
 	public Note() {
 		super();
-		this.maxVisibility = TrainerRole.TRAINER;
+		this.maxVisibility = TrainerRole.ROLE_TRAINER;
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class Note implements Serializable{
 		if (type == NoteType.QC_BATCH)
 			this.maxVisibility = TrainerRole.QC;
 		else if (type == NoteType.PUBLIC_BATCH)
-			this.maxVisibility = TrainerRole.TRAINER;
+			this.maxVisibility = TrainerRole.ROLE_TRAINER;
 		else
 			throw new IllegalArgumentException("Select proper NoteType");
 		this.type = type;
@@ -135,7 +135,7 @@ public class Note implements Serializable{
 		if (type == NoteType.QC_TRAINEE)
 			this.maxVisibility = TrainerRole.QC;
 		else if (type == NoteType.PUBLIC_TRAINEE)
-			this.maxVisibility = TrainerRole.TRAINER;
+			this.maxVisibility = TrainerRole.ROLE_TRAINER;
 		else
 			throw new IllegalArgumentException("Select proper NoteType");
 		this.type = type;
@@ -157,7 +157,7 @@ public class Note implements Serializable{
 		this.content = content;
 		this.week = week;
 		this.trainee = trainee;
-		this.maxVisibility = TrainerRole.TRAINER;
+		this.maxVisibility = TrainerRole.ROLE_TRAINER;
 		this.type = NoteType.TRAINEE;
 		this.qcFeedback = false;
 	}
@@ -176,7 +176,7 @@ public class Note implements Serializable{
 		this.content = content;
 		this.week = week;
 		this.batch = batch;
-		this.maxVisibility = TrainerRole.TRAINER;
+		this.maxVisibility = TrainerRole.ROLE_TRAINER;
 		this.type = NoteType.BATCH;
 		this.qcFeedback = false;
 	}
