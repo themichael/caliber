@@ -12,16 +12,17 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<security:form-login login-page="/" />
 	
 		<!-- enable SSL -->
-		<!-- <intercept-url pattern="/**" requires-channel="https" /> -->
+		<!-- <security:intercept-url pattern="/**" requires-channel="https" /> -->
 		
 		<!-- change to hasRole('ROLE_VP') after development is complete -->
-		<!-- <security:intercept-url pattern="/vp/**" access="hasRole('VP')" /> -->
+		<!-- <security:intercept-url pattern="/vp/**" access="hasRole('ROLE_VP')" /> -->
 
 		<!-- change to hasRole('ROLE_QC') after development is complete -->
-		<!-- <security:intercept-url pattern="/qc/**" access="hasRole('QC')" /> -->
+		<!-- <security:intercept-url pattern="/qc/**" access="hasRole('ROLE_QC')" /> -->
+		
 		<!-- change to hasRole('ROLE_TRAINER') after development is complete -->
-		<!-- <security:intercept-url pattern="/trainer/**" access="hasRole('TRAINER')" 
-			/> -->
+		<!-- <security:intercept-url pattern="/trainer/**" access="hasRole('ROLE_TRAINER')" /> -->
+			
 		<!-- <security:intercept-url pattern="/all/**" access="permitAll" /> -->
 		<security:csrf disabled="true" />
 		<security:logout invalidate-session="true"
@@ -31,9 +32,9 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
-				<security:user authorities="VP" name="vp" />
-				<security:user authorities="QC" name="qc" />
-				<security:user authorities="TRAINER" name="trainer" />
+				<security:user authorities="ROLE_VP" name="ROLE_VP" />
+				<security:user authorities="ROLE_QC" name="ROLE_QC" />
+				<security:user authorities="ROLE_TRAINER" name="ROLE_TRAINER" />
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
