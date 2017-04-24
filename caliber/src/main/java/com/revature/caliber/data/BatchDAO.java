@@ -120,7 +120,7 @@ public class BatchDAO extends BaseDAO {
 				.setFetchMode("t.notes", FetchMode.JOIN)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
-				.add(Restrictions.ge("n.maxVisibility", TrainerRole.QC))
+				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC))
 				.add(Restrictions.eq("n.qcFeedback", true))
 				.addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
