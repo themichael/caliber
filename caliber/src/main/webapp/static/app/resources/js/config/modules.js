@@ -31,7 +31,7 @@ angular.module("app").directive("sticky",function($window){
 			//console.log('my element  ' + elYPos);
 			if(this.pageYOffset > elYPos){
 				element.addClass("fixed-style-table-header");
-				element.css("left",elXPos);
+//				element.css("left",elXPos);
 			}else if(this.pageYOffset <= elOriginalPos){
 				element.removeClass("fixed-style-table-header");
 			}
