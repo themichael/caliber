@@ -1,6 +1,9 @@
 package com.revature.caliber;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
@@ -40,13 +44,18 @@ public class CheckDAO {
 	@Autowired
 	private TrainingService trainingService;
 
-	@Test
+	@Ignore
 	public void testmethod() {
-/*		log.info("Testing my code");
+		log.info("Testing my code");
 		List<Trainee> results = traineeDAO.findAllByBatch(1051);
 		for(Trainee t : results){
 			log.info(t.getGrades());
-		}*/
+		}
+	}
+	
+	@Ignore
+	public void testDeleteAssess() {
+
 		Assessment assess = assessmentDAO.findOne(5100);
 		log.info(assess);
 		
@@ -56,6 +65,18 @@ public class CheckDAO {
 		log.info(assess2);
 
 		
+	}
+	
+	@Test
+	public void testUpdateAssess() {	
+		Assessment assess = assessmentDAO.findOne(1050);
+		log.info("this is before update " + assess);
+		
+		assess.setRawScore(50);
+		
+		assessmentDAO.update(assess);
+		
+		log.info("this is after update " + assess);		
 	}
 
 }

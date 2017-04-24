@@ -35,11 +35,6 @@
 							</select>
 						</div>						
 					</div>
-					<div class="row">
-					
-						{{assessment.assessmentId}}
-						<input type='text'/>
-					</div>
 
 					<div class="row">
 <!-- 						<div class="form-group col-md-6 col-sm-6">
@@ -52,7 +47,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<input type="button" value="Save" class="btn btn-primary" ng-click="updateAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId)">
+					<input type="button" value="Save" class="btn btn-primary" ng-click="updateAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)">
 					<button ng-click="closeModal('EditAssessmentModal_'+assessment.assessmentId)" type="button" class="btn"
 					aria-label="Close">Close</button>
 				</div>
