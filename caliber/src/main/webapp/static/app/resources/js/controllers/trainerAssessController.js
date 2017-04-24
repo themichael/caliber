@@ -126,6 +126,15 @@ angular
 					$log.debug(allBatches);
 					
 					(function start(allBatches) {
+						/*set children of modal to false on click to prevent modal from fading out when clicking
+						 * on child elements*/
+						$(".editAssessModal .modal-body, .editAssModal .modal-footer").on("click", false);
+						/*Implemented due to modal-backdrop class duplicating itself and not going away
+						 * when clicking area outside of modal document*/
+						$('.editAssessModal').on("click",function(e) {
+							e.stopPropagation();
+						    $(".modal").modal("hide");
+						});
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) { 								// shows
@@ -469,7 +478,9 @@ angular
 										});
 										
 					};
+					
 					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
+
 						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
 							.then(function(response){
 										$timeout(function(){
@@ -479,6 +490,7 @@ angular
 												return;
 											}
 										},4000);															
+
 							});
 					}
 					
@@ -670,6 +682,7 @@ angular
 					/****************************************************
 					 *Save Button **
 					 **************************************************/
+
 					$scope.showSaving = false;
 					$scope.showCheck = false;
 					$scope.showFloppy = true;
@@ -723,6 +736,30 @@ angular
 							return 1;
 						return 0;
 					}
-					
-				$scope.test = function(){$log.debug("yer");}
+				/******************
+				 * UPDATE ASSESSMENT 
+				 *****************/
+				$scope.updateAssessment = function(assessment,event,modalId){
+					event.stopPropagation();
+					if($scope.updateAssessmentModel !==undefined){
+						//populate assessmentObj
+						var assessObj = $scope.updateAssessmentModel;
+						if(assessObj.category === undefined){
+							assessObj.category=assessment.category;
+						}
+						if(assessObj.type === undefined){
+							assessObj.type=assessment.type;
+						}
+						if(assessObj.rawScore === undefined){
+							assessObj.rawScore=assessment.rawScore;
+						}
+					}
+					$('.modal').modal('hide');
+				}
+				
+				$scope.closeModal = function(str){
+				    $('#'+str).modal('toggle');
+				}
+
+//				$scope.updateAssessment={};
 				});

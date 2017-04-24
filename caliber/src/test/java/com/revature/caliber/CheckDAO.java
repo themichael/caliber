@@ -1,7 +1,5 @@
 package com.revature.caliber;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
@@ -44,11 +42,20 @@ public class CheckDAO {
 
 	@Test
 	public void testmethod() {
-		log.info("Testing my code");
+/*		log.info("Testing my code");
 		List<Trainee> results = traineeDAO.findAllByBatch(1051);
 		for(Trainee t : results){
 			log.info(t.getGrades());
-		}
+		}*/
+		Assessment assess = assessmentDAO.findOne(5100);
+		log.info(assess);
+		
+		assessmentDAO.delete(assess);
+		
+		Assessment assess2 = assessmentDAO.findOne(5100);
+		log.info(assess2);
+
+		
 	}
 
 }
