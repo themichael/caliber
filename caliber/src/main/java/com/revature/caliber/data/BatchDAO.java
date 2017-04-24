@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
 public class BatchDAO extends BaseDAO {
@@ -45,7 +44,8 @@ public class BatchDAO extends BaseDAO {
 	}
 
 	/**
-	 * Looks for all batches without any restriction. Likely to only be useful for calculating reports.
+	 * Looks for all batches without any restriction. Likely to only be useful
+	 * for calculating reports.
 	 * 
 	 * @return
 	 */
@@ -69,17 +69,18 @@ public class BatchDAO extends BaseDAO {
 		log.info("Fetching all batches for trainer: " + trainerId);
 
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
-						Restrictions.eq("coTrainer.trainerId", trainerId)))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).addOrder(Order.desc("startDate"))
+						Restrictions.eq("coTrainer.trainerId", trainerId))).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		for (Batch batch : batches) {
+			initializeActiveTrainees(batch);
+		}
 		return batches;
 	}
 
 	/**
-	 * Looks for all batches where the user was the trainer or co-trainer. Batches returned are currently actively in
-	 * training.
+	 * Looks for all batches where the user was the trainer or cotrainer.
+	 * Batches returned are currently actively in training.
 	 * 
 	 * @param auth
 	 * @return
@@ -88,20 +89,22 @@ public class BatchDAO extends BaseDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAllCurrent(Integer trainerId) {
 		log.info("Fetching all current batches for trainer: " + trainerId);
+		
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
 						Restrictions.eq("coTrainer.trainerId", trainerId)))
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).addOrder(Order.desc("startDate"))
+				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime())).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		for (Batch batch : batches) {
+			initializeActiveTrainees(batch);
+		}
 		return batches;
 	}
 
 	/**
-	 * Looks for all batches that are currently actively in training. Useful for VP and QC to get snapshots of currently
-	 * operating batches.
+	 * Looks for all batches that are currently actively in training. Useful for
+	 * VP and QC to get snapshots of currently operating batches.
 	 * 
 	 * @param auth
 	 * @return
@@ -113,15 +116,18 @@ public class BatchDAO extends BaseDAO {
 		Calendar endDateLimit = Calendar.getInstance();
 		endDateLimit.add(Calendar.MONTH, -3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.gt("g.score", 0.0))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
+				.createAlias("trainees", "t").createAlias("t.notes", "n")
+				.setFetchMode("t.notes", FetchMode.JOIN)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
-				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC)).add(Restrictions.eq("n.qcFeedback", true))
-				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC))
+				.add(Restrictions.eq("n.qcFeedback", true))
+				.addOrder(Order.desc("startDate"))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		for (Batch batch : batches) {
+			initializeActiveTrainees(batch);
+			initializeNotes(batch);
+		}
 		return batches;
 	}
 
@@ -135,30 +141,10 @@ public class BatchDAO extends BaseDAO {
 	public Batch findOne(Integer batchId) {
 		log.info("Fetching batch: " + batchId);
 		Batch batch = (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batchId", batchId))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).uniqueResult();
-		return batch;
+				.createAlias("trainees", "t").add(Restrictions.eq("batchId", batchId)).uniqueResult();
+		return initializeActiveTrainees(batch);
 	}
 
-	/**
-	 * Find a batch by its given identifier, all trainees, and all their grades
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public Batch findOneWithTraineesAndGrades(Integer batchId) {
-		log.info("Fetching batch: " + batchId);
-		Batch batch = (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("t.grades", "g", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.gt("g.score", 0.0))
-				.add(Restrictions.eq("batchId", batchId))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.uniqueResult();
-		return batch;
-	}
-	
 	/**
 	 * Update details for a batch
 	 * 
@@ -182,13 +168,14 @@ public class BatchDAO extends BaseDAO {
 	}
 
 	/**
-	 * Return commonly-used locations for combo box convenience
+	 * Return commonly-used locations for combobox convenience
 	 * 
 	 * @return
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<String> findCommonLocations() {
 		log.info("Getting common locations");
+
 		@SuppressWarnings("unchecked")
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.setProjection(Projections
