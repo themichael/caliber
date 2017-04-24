@@ -142,6 +142,12 @@ public class ReportingController {
 		return new ResponseEntity<Map<String, Double>>(reportingService.getBatchOverallRadarChart(batchId), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/vp/reports/batch/{batchId}/radar-batch-all-trainees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Map<String, Double>>> getBatchAllTraineesRadarChart(@PathVariable Integer batchId) {
+		log.info("getBatchOverallRadarChart   ===>   /all/reports/batch/{batchId}/overall/radar-batch-overall");
+		return new ResponseEntity<Map<String, Map<String, Double>>>(reportingService.getBatchAllTraineesOverallRadarChart(batchId), HttpStatus.OK);
+	}
+	
 	/*
 	 *******************************************************
 	 * Misc.
