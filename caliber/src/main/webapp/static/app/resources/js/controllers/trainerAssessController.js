@@ -741,19 +741,30 @@ angular
 				/******************
 				 * UPDATE ASSESSMENT 
 				 *****************/
-				$scope.updateAssessment = function(assessment,event,modalId){
+				$scope.updateAssessment = function(assessment,event,modalId,index){
 					event.stopPropagation();
 					if($scope.updateAssessmentModel !==undefined){
-						//populate assessmentObj
-						var assessObj = $scope.updateAssessmentModel;
-						if(assessObj.category === undefined){
-							assessObj.category=assessment.category;
+						$log.debug(index);
+						//$log.debug($scope.currentAssessments[$index] + "  ------ " + $index);
+						if($scope.updateAssessmentModel.category){
+							assessment.category=$scope.updateAssessmentModel.category;
 						}
-						if(assessObj.type === undefined){
-							assessObj.type=assessment.type;
+						if($scope.updateAssessmentModel.type){
+							assessment.type=$scope.updateAssessmentModel.type;
 						}
-						if(assessObj.rawScore === undefined){
-							assessObj.rawScore=assessment.rawScore;
+						if($scope.updateAssessmentModel.rawScore){
+							assessment.rawScore=$scope.updateAssessmentModel.rawScore;
+						}
+						//call delegate if at least one field was changed
+						if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
+							caliberDelegate.trainer.updateAssessment(assessment)
+							.then(function(response){
+								$log.debug("the assessment has been updated")
+								$scope.currentAssesments[index] = assessment; // change the scope to the updated assessment and call the method to update all
+								//$state.reload();
+								return response;
+							});
+							
 						}
 					}
 					$('.modal').modal('hide');
