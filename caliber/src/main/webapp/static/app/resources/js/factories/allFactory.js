@@ -192,9 +192,9 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			data : traineeObj
 		}).then(function(response) {
 			$log.debug("Trainee successfully created.")
-			$log.debug(response.data);
+			$log.debug(response);
 			// return id
-			return response.data;
+			return response;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 			return response.data;
