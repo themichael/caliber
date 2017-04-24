@@ -402,7 +402,6 @@ angular
 						sortByDate($scope.selectedYear);
 						batchYears();
 						$scope.currentBatch = $scope.batchesByYear[0];
-<<<<<<< HEAD
 
 						// Create week array for batch selected
 						$scope.weeks = [];
@@ -410,9 +409,6 @@ angular
 							$scope.weeks.push(i);
 						}
 
-=======
-						
->>>>>>> 71a013758087c5f7d577bfdc0694c3623790a4a6
 						if ($scope.batchesByYear.length === 0) {
 							$scope.noBatches = true;
 							$scope.noBatchesMessage = "No Batches were found for this year.";
