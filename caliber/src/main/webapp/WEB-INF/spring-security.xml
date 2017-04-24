@@ -30,7 +30,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider>
+		<security:authentication-provider> 
 			<security:user-service>
 				<security:user authorities="ROLE_VP" name="ROLE_VP" />
 				<security:user authorities="ROLE_QC" name="ROLE_QC" />
