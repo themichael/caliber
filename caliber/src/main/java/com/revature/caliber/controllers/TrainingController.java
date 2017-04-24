@@ -2,19 +2,21 @@ package com.revature.caliber.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
@@ -105,7 +107,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Batch> createBatch(@RequestBody Batch batch, Authentication auth) {
+	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch, Authentication auth) {
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
 		return new ResponseEntity<Batch>(batch, HttpStatus.CREATED);
@@ -120,7 +122,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> updateBatch(@RequestBody Batch batch, Authentication auth) {
+	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch, Authentication auth) {
 		// batch.setTrainer(getPrincipal(auth));
 		log.info("Updating batch: " + batch);
 		trainingService.update(batch);
@@ -218,7 +220,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Trainee> createTrainee(@RequestBody Trainee trainee) {
+	public ResponseEntity<Trainee> createTrainee(@Valid @RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
 		trainingService.save(trainee);
 		return new ResponseEntity<Trainee>(trainee, HttpStatus.CREATED);
@@ -259,7 +261,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> updateTrainee(@RequestBody Trainee trainee) {
+	public ResponseEntity<Void> updateTrainee(@Valid @RequestBody Trainee trainee) {
 		log.info("Updating trainee: " + trainee);
 		trainingService.update(trainee);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

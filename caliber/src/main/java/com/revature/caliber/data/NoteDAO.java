@@ -114,6 +114,24 @@ public class NoteDAO extends BaseDAO{
 	}
 	
 	/**
+	 * Returns QCTrainee note for the week(Michael)
+	 * 
+	 * @param traineeId
+	 * @param week
+	 * @return
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Note findQCTraineeNote(Integer traineeId, Integer week) {
+		Note note = (Note)sessionFactory.getCurrentSession().createCriteria(Note.class).setFetchMode("batch", FetchMode.JOIN)
+				.createAlias("trainee", "t").add(Restrictions.eq("t.traineeId", traineeId))
+				.add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq("type", NoteType.QC_TRAINEE))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).uniqueResult();
+
+		return note;
+	}
+	
+	/**
 	 * Returns batch note for the batch for the week
 	 * @param batchId
 	 * @param week
