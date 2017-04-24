@@ -418,10 +418,12 @@ angular
 
 						// Create week array for batch selected
 						$scope.weeks = [];
-						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-							$scope.weeks.push(i);
+						if($scope.currentBatch !== null && $scope.currentBatch !== undefined && $scope.currentBatch.weeks !== null && $scope.currentBatch.weeks !== undefined){
+							for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+								$scope.weeks.push(i);
+							}
 						}
-
+						
 						if ($scope.batchesByYear.length === 0) {
 							$scope.noBatches = true;
 							$scope.noBatchesMessage = "No Batches were found for this year.";
