@@ -59,7 +59,7 @@ angular
 															null,
 															$scope.currentWeek,
 															$scope.currentBatch,
-															null, "QC",
+															null, "ROLE_QC",
 															"QC_BATCH", true);
 												}
 												// If note found set to note and
@@ -102,7 +102,7 @@ angular
 																	$scope.currentWeek,
 																	null,
 																	$scope.currentBatch.trainees[i],
-																	"QC",
+																	"ROLE_QC",
 																	"QC_TRAINEE",
 																	true));
 												}
@@ -114,7 +114,7 @@ angular
 								$scope.faces.push(new Note(null, null, null,
 										$scope.currentWeek,
 										$scope.currentBatch,
-										$scope.currentBatch.trainees[i], "QC",
+										$scope.currentBatch.trainees[i], "ROLE_QC",
 										"QC_TRAINEE", true));
 							}
 						}
@@ -304,7 +304,7 @@ angular
 					$scope.saveTraineeNote = function(index) {
 						$log.debug($scope.faces[index]);
 						// Create if noteId is null so nothing in database
-						if ($scope.faces[index].noteId === null) {
+						if ($scope.faces[index].noteId === null || $scope.faces[index].noteId === undefined) {
 							$log.debug("create");
 							caliberDelegate.qc.createNote($scope.faces[index])
 									.then(function(id) {
@@ -321,7 +321,7 @@ angular
 					// Save batch note for ng-blur
 					$scope.saveQCNotes = function() {
 						// Create note
-						if ($scope.bnote.noteId === null) {
+						if ($scope.bnote.noteId === null || $scope.bnote.noteId === undefined) {
 							caliberDelegate.qc.createNote($scope.bnote).then(
 							// Set id to created notes id
 							function(id) {
@@ -399,11 +399,10 @@ angular
 
 					$scope.selectYear = function(index) {
 						$scope.selectedYear = $scope.years[index];
-						$log.debug("Adding week");
-						$log.debug($scope.weeks);
 						sortByDate($scope.selectedYear);
 						batchYears();
 						$scope.currentBatch = $scope.batchesByYear[0];
+<<<<<<< HEAD
 
 						// Create week array for batch selected
 						$scope.weeks = [];
@@ -411,6 +410,9 @@ angular
 							$scope.weeks.push(i);
 						}
 
+=======
+						
+>>>>>>> 71a013758087c5f7d577bfdc0694c3623790a4a6
 						if ($scope.batchesByYear.length === 0) {
 							$scope.noBatches = true;
 							$scope.noBatchesMessage = "No Batches were found for this year.";
