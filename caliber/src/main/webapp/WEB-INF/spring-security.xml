@@ -9,19 +9,20 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	<security:http auto-config="true" use-expressions="true">
 		<security:access-denied-handler
 			error-page="/caliber" />
-		<security:form-login login-page="/" />
+		<!-- <security:form-login login-page="/" /> -->
 	
 		<!-- enable SSL -->
-		<!-- <intercept-url pattern="/**" requires-channel="https" /> -->
+		<!-- <security:intercept-url pattern="/**" requires-channel="https" /> -->
 		
 		<!-- change to hasRole('ROLE_VP') after development is complete -->
 		<!-- <security:intercept-url pattern="/vp/**" access="hasRole('VP')" /> -->
 
 		<!-- change to hasRole('ROLE_QC') after development is complete -->
 		<!-- <security:intercept-url pattern="/qc/**" access="hasRole('QC')" /> -->
+		
 		<!-- change to hasRole('ROLE_TRAINER') after development is complete -->
-		<!-- <security:intercept-url pattern="/trainer/**" access="hasRole('TRAINER')" 
-			/> -->
+		<!-- <security:intercept-url pattern="/trainer/**" access="hasRole('TRAINER')" /> -->
+			
 		<!-- <security:intercept-url pattern="/all/**" access="permitAll" /> -->
 		<security:csrf disabled="true" />
 		<security:logout invalidate-session="true"
