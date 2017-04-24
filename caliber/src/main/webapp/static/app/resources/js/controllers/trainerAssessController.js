@@ -757,13 +757,16 @@ angular
 						if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
 							caliberDelegate.trainer.updateAssessment(assessment)
 							.then(function(response){
-								$log.debug("the assessment has been updated")
-								$scope.currentAssesments[index] = assessment; // change the scope to the updated assessment and call the method to update all
+								$log.debug("the assessment has been updated this -> blah" /*+ $scope.currentAssesments[index]*/ + " to -> " + assessment)
+								
+						//		$scope.currentAssesments[index] = assessment; // change the scope to the updated assessment and call the method to update all
 								//$state.reload();
 								return response;
 							});
 							
 						}
+						
+						$log.debug("the assessment has been updated this " + $scope.currentAssesments[index] + " to -> " + assessment)
 					}
 					$('.modal').modal('hide');
 				}
