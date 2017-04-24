@@ -478,7 +478,9 @@ angular
 										});
 										
 					};
+					
 					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
+
 						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
 							.then(function(response){
 										$timeout(function(){
@@ -488,6 +490,7 @@ angular
 												return;
 											}
 										},4000);															
+
 							});
 					}
 					
