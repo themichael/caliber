@@ -20,7 +20,7 @@ angular
 					
 					
 					$scope.trainerBatchNote = null;
-					// Note object This is needed to create notes for batch. 
+					// Note object This is needed to create notes for batch.
 					function Note(noteId, content, status, week, batch,
 							trainee, maxVisibility, type, qcFeedback) {
 						this.noteId = noteId;
@@ -142,7 +142,9 @@ angular
 																					// latest
 																					// batches
 							
-							if(!$scope.currentBatch){ // if currentBatch is not yet in the scope, run for assess batch
+							if(!$scope.currentBatch){ // if currentBatch is
+														// not yet in the scope,
+														// run for assess batch
 								$scope.currentBatch = allBatches[0];
 							}
 							
@@ -184,7 +186,10 @@ angular
 								$log.debug("Batches " + allBatches);
 								$log.debug(allBatches);
 								
-								if(!$scope.currentWeek){ // if currentWeek is not yet in the scope, run for assess batch
+								if(!$scope.currentWeek){ // if currentWeek is
+															// not yet in the
+															// scope, run for
+															// assess batch
 								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
 								// number
 								// of
@@ -197,7 +202,8 @@ angular
 												+ allBatches[allBatches.length-1].trainingName
 												+ ": " + totalWeeks);
 
-								$scope.currentWeek = totalWeeks; // change here***********************************************************************************
+								$scope.currentWeek = totalWeeks; // change
+																	// here***********************************************************************************
 								}
 								/**
 								 * *****************************************
@@ -231,7 +237,7 @@ angular
 						$scope.currentView = true;
 					};
 					
-					/******* Filter batches by year ************/
+					/** ***** Filter batches by year *********** */
 					$scope.years = addYears();
 					function addYears() {
 						var currentYear = new Date().getFullYear();
@@ -294,13 +300,15 @@ angular
 						$scope.batchesByYear = [];
 						
 						for (var i = 0; i < $scope.batches.length; i++) {
-							//$log.debug("Current Year: " + $scope.selectedYear);
+							// $log.debug("Current Year: " +
+							// $scope.selectedYear);
 							if ($scope.selectedYear === parseInt($scope.batches[i].startDate)) {
 								$scope.batchesByYear.push($scope.batches[i]);
 								// $log.debug($scope.batches[i]);
 							}
 							
-							// $log.debug($scope.selectedYear + " === " + parseInt($scope.batches[i].startDate))
+							// $log.debug($scope.selectedYear + " === " +
+							// parseInt($scope.batches[i].startDate))
 
 						}
 						$log.debug($scope.batches);
@@ -310,7 +318,7 @@ angular
 					
 					
 					
-					/******* Filter batches by year ************/
+					/** ***** Filter batches by year *********** */
 					
 
 					// batch drop down select
@@ -496,16 +504,12 @@ angular
 					
 					/** *******Save TrainerBatch Notes********** */	
 					$scope.saveTrainerNotes = function() {
+						$log.debug("Saving note: " + $scope.trainerBatchNote);
 						// Create note
-						if ($scope.trainerBatchNote.noteId === undefined) {
-							$scope.trainerBatchNote = new Note(
-									null,
-									$scope.trainerBatchNote.content,
-									null,
-									$scope.currentWeek,
-									$scope.currentBatch,
-									null, "TRAINER",
-									"BATCH", false);	
+						if ($scope.trainerBatchNote === undefined) {
+							$scope.trainerBatchNote = new Note(0, $scope.trainerBatchNote.content,
+									null, $scope.currentWeek, $scope.currentBatch, null, "ROLE_TRAINER", "BATCH", false);
+							$log.debug($scope.trainerBatchNote);
 							caliberDelegate.trainer.createNote($scope.trainerBatchNote).then(
 							// Set id to created notes id
 							function(id) {
@@ -604,16 +608,15 @@ angular
 							}
 					};
 					
-					/* - save trainee note
-					   - send to "/note/update"
-					   By Jack	
-					  */					 
+					/*
+					 * - save trainee note - send to "/note/update" By Jack
+					 */					 
 					$scope.saveOrUpdateTraineeNote=function(traineeId){
 						var traineeNote = $scope.trainees[traineeId].note
 						var trainee = $scope.currentBatch.trainees.filter(function(trainee) {
 							  return trainee.traineeId === traineeId;
 							});
-						//create noteObj to send to controller
+						// create noteObj to send to controller
 						var noteObj={
 								content:traineeNote.content,
 								week:$scope.currentWeek,
@@ -621,7 +624,8 @@ angular
 								type:"TRAINEE",
 								batch:$scope.currentBatch
 						}
-						//if noteId exists, add it to noteObj to get noteObj in db to update
+						// if noteId exists, add it to noteObj to get noteObj in
+						// db to update
 						if($scope.trainees[traineeId].note.noteId !== undefined){
 							noteObj.noteId = traineeNote.noteId;
 						}
@@ -629,7 +633,7 @@ angular
 						.then(function(response){
 							return response;
 						}).then(function(response){
-							//set persisted note object into trainee.note
+							// set persisted note object into trainee.note
 							$log.debug("setting response note obj to trainee scope note obj")
 							$scope.trainees[response.data.trainee.traineeId].note = response.data
 						});
@@ -658,7 +662,8 @@ angular
 					 */
 					
 					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
-						//assessmentTotals will assessment objects, each with properties
+						// assessmentTotals will assessment objects, each with
+						// properties
 						// - total(for total score)
 						// - count (for total number of trainees to divide by)
 						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
@@ -667,9 +672,10 @@ angular
 						$scope.assessmentTotals[assessment.assessmentId].total = 0;
 						$scope.assessmentTotals[assessment.assessmentId].count = 0;
 							for(var traineeKey in trainees){
-						//checks if trainee has assessment
+						// checks if trainee has assessment
 								if(trainees[traineeKey].assessments[assessment.assessmentId]){
-						//Only increment count and add to total if score is not 0;
+						// Only increment count and add to total if score is not
+						// 0;
 									var score = trainees[traineeKey].assessments[assessment.assessmentId].score;
 									if(score && score !== 0){ //
 										$scope.assessmentTotals[assessment.assessmentId].total+= Number(trainees[traineeKey].assessments[assessment.assessmentId].score);								
@@ -679,10 +685,7 @@ angular
 							}
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
-					/****************************************************
-					 *Save Button **
-					 **************************************************/
-
+          
 					$scope.showSaving = false;
 					$scope.showCheck = false;
 					$scope.showFloppy = true;
