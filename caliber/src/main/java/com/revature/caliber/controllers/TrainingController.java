@@ -282,6 +282,14 @@ public class TrainingController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
+	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail){
+		Trainee trainee = new Trainee();
+		trainee = trainingService.findTraineeByEmail(traineeEmail);
+	
+		return new ResponseEntity<Trainee>(trainee, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<String>> findCommonLocations() {
 		log.info("Fetching common training locations");

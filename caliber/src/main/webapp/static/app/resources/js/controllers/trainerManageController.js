@@ -456,6 +456,26 @@ angular
 
 					}
 
+					
+					$scope.verifyTraineeEmail = function() {
+						caliberDelegate.all.getTraineeByEmail(
+								$scope.traineeEmail).then(
+								function(response) {
+									$log.log("find email response ")
+									$log.log(response.data)
+									if (response.data === "") {
+										$log.log("email does not exist")
+										$scope.addNewTrainee();
+									} else {
+										$log.log("email already exists")
+										angular.element(
+												"#emailVerificationModal")
+												.modal("show");
+										return false;
+									}
+								})
+					}
+					
 					/** Save New Trainee Input * */
 					$scope.addNewTrainee = function() {
 						if ($scope.Updating) {
@@ -498,14 +518,17 @@ angular
 							caliberDelegate.all
 									.createTrainee(newTrainee)
 									.then(
-											function(traineeData) {
-												if (traineeData.trainingStatus === "Dropped") {
-													$scope.droppedTrainees
-															.push(traineeData);
-												} else {
-													$scope.activeTrainees
-															.push(traineeData);
-												}
+											function(response) {
+
+												if (response.status === 201) {
+													if (response.data.trainingStatus === "Dropped") {
+														$scope.droppedTrainees.push(response.data);
+														
+													} else {
+														$scope.activeTrainees
+																.push(response.data);
+													}
+												} 
 												$scope.resetTraineeForm();
 											});
 						}

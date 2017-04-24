@@ -84,6 +84,11 @@ angular
 					delegate.all.getAllTraineeNotes = function(traineeId){
 						return allFactory.getAllTraineeNotes(traineeId);
 					}
+					
+					delegate.all.getTraineeByEmail = function(traineeEmail){
+						return allFactory.getTraineeEmail(traineeEmail);
+					}
+								
 					/**
 					 * *********************** Enum constants
 					 * ***************************
