@@ -517,7 +517,10 @@ angular
 							});
 						}  
 						// Update existing note
-						else {								
+						else {
+							$scope.trainerBatchNote = new Note(0, $scope.trainerBatchNote.content,
+									null, $scope.currentWeek, $scope.currentBatch, null, "ROLE_TRAINER", "BATCH", false);
+							$log.debug($scope.trainerBatchNote);
 							caliberDelegate.trainer.updateNote($scope.trainerBatchNote);
 						}
 					}
