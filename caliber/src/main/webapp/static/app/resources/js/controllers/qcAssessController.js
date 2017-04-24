@@ -169,7 +169,7 @@ angular
 						} else {
 							$log.debug("No report week");
 							// Set week to first week in batch 
-							$scope.currentWeek = $scope.weeks[0];
+							$scope.currentWeek = $scope.weeks[$scope.weeks.length - 1];
 						}
 
 						// get status types
@@ -231,7 +231,7 @@ angular
 							$scope.weeks.push(i);
 						}
 						// Set current week to first week
-						$scope.currentWeek = $scope.weeks[0];
+						$scope.currentWeek = $scope.weeks[$scope.weeks.length - 1];
 						// Retrieve notes
 						$scope.getNotes();
 						// Reset qc status
@@ -249,7 +249,7 @@ angular
 							$scope.currentWeek = $scope.$parent.reportCurrentWeek;
 						} else {
 							// Set week selected in assess page
-							$scope.currentWeek = $scope.weeks[index];
+							$scope.currentWeek = $scope.weeks[$scope.weeks.length - 1]; 
 						}
 						// Get notes
 						$scope.getNotes();
@@ -423,6 +423,8 @@ angular
 								$scope.weeks.push(i);
 							}
 						}
+						
+						$scope.currentWeek = $scope.weeks[$scope.weeks.length - 1];
 						
 						if ($scope.batchesByYear.length === 0) {
 							$scope.noBatches = true;
