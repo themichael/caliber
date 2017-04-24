@@ -1,8 +1,66 @@
-
 <div class="container">
+
+	<div class="row">
+		<div class>
+			<div class="panel panel-default">
+				<div class="panel-heading">All Current Batches Average Score</div>
+				<div class="container"></div>
+				<div class="panel-body">
+					<div class="row" style="margin-right: 2em;">
+						<ul class="nav nav-tabs" ng-show="!noBatches">
+							<!-- Select Batch Type-->
+							<li role="button" class="dropdown"><a
+								class="dropdown-toggle" data-toggle="dropdown"> All Batch
+									Types<span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu">
+									<li ng-repeat="type in batchTypes track by $index"><a
+										role="button" ng-click="selectCurrentBatchType($index)">{{batchType.typeName}}</a></li>
+								</ul></li>
+							<li ><span id="start-date"
+								data-datepicker="true"> <input ng-model="startDate.model"
+									ng-value="startDate"
+									class="date-input form-control date-selector" name="s" min="0"
+									type="date" ng-required="true">
+							</span></li>
+							<li>
+							<button type="submit" class="btn btn-sm btn-primary" style="margin-left: 0.5em">Change Start Date</button> 
+							</li>
+						</ul>
+					</div>
+					<div class="chart-container top5">
+						<canvas class="chart chart-line"
+							chart-data="currentBatchesLineData"
+							chart-options="currentBatchesLineOptions"
+							chart-labels="currentBatchesLineLabels"
+							chart-series="currentBatchesLineSeries"
+							chart-colors="currentBatchesLineColors">
+							</canvas>
+					</div>
+					<div>
+						<table ng-if="currentBatchesLineLabels"
+							class="table table-responsive" style="border-collapse: collapse;">
+							<tbody>
+								<tr>
+									<th class="col-sm-1 col-md-1 col-lg-1"></th>
+									<th class="col-sm-1 col-md-1 col-lg-1"
+										ng-repeat="label in currentBatchesLineLabels">{{label}}</th>
+								</tr>
+								<tr
+									ng-repeat="series in currentBatchesLineSeries track by $index">
+									<th class="col-sm-1 col-md-1 col-lg-1">{{series}}</th>
+									<td class="col-sm-1 col-md-1 col-lg-1"
+										ng-repeat="dataPoint in currentBatchesLineData[$index] track by $index">{{dataPoint}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="col-sm-12 col-md-12 col-lg-12">
-
-
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
@@ -10,8 +68,9 @@
 					<div class="panel-body">
 						<div class="chart-container top5">
 							<canvas class="chart chart-bar" chart-data="stackedBarData"
-								chart-options="stackedBarOptions" chart-labels="stackedBarLabels"
-								chart-series="stackedBarSeries" chart-colors="stackedBarColors">
+								chart-options="stackedBarOptions"
+								chart-labels="stackedBarLabels" chart-series="stackedBarSeries"
+								chart-colors="stackedBarColors">
 							</canvas>
 						</div>
 						<div>
@@ -20,7 +79,8 @@
 								<tbody>
 									<tr>
 										<th class="col-sm-2 col-md-2 col-lg-2"></th>
-										<th class="col-sm-2 col-md-2 col-lg-2" ng-repeat="series in stackedBarSeries">{{series}}</th>
+										<th class="col-sm-2 col-md-2 col-lg-2"
+											ng-repeat="series in stackedBarSeries">{{series}}</th>
 									</tr>
 									<tr ng-repeat="label in stackedBarLabels track by $index">
 										<th class="col-sm-2 col-md-2 col-lg-2">{{label}}</th>
@@ -34,41 +94,5 @@
 				</div>
 			</div>
 		</div>
-
-
-		<div class="row">
-			<div class="col-sm-12 col-md-12 col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">All Current Batches Average Score</div>
-					<div class="panel-body">
-						<div class="chart-container top5">
-							<canvas class="chart chart-line" chart-data="currentBatchesLineData"
-								chart-options="currentBatchesLineOptions" chart-labels="currentBatchesLineLabels"
-								chart-series="currentBatchesLineSeries" chart-colors="currentBatchesLineColors">
-							</canvas>
-						</div>
-						<div>
-							<table ng-if="currentBatchesLineLabels" class="table table-responsive"
-								style="border-collapse: collapse;">
-								<tbody>
-									<tr>
-										<th class="col-sm-1 col-md-1 col-lg-1"></th>
-										<th class="col-sm-1 col-md-1 col-lg-1"
-											ng-repeat="label in currentBatchesLineLabels">{{label}}</th>
-									</tr>
-									<tr ng-repeat="series in currentBatchesLineSeries track by $index">
-										<th class="col-sm-1 col-md-1 col-lg-1">{{series}}</th>
-										<td class="col-sm-1 col-md-1 col-lg-1"
-											ng-repeat="dataPoint in currentBatchesLineData[$index] track by $index">{{dataPoint}}</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
 	</div>
 </div>

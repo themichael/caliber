@@ -13,7 +13,7 @@ angular
 					(function start() {
 						// Finishes any left over AJAX animation
 						NProgress.done();
-
+						$log.debug(allBatches);
 						createDefaultCharts();
 
 					})();
