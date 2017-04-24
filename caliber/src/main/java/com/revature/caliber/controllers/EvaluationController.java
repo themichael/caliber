@@ -3,6 +3,8 @@ package com.revature.caliber.controllers;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,7 +52,7 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/trainer/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Grade> createGrade(@RequestBody Grade grade) {
+	public ResponseEntity<Grade> createGrade(@Valid @RequestBody Grade grade) {
 		log.info("Saving grade: " + grade);
 		evaluationService.save(grade);
 		return new ResponseEntity<>(grade,HttpStatus.CREATED);
@@ -64,7 +66,7 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/trainer/grade/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> updateGrade(@RequestBody Grade grade) {
+	public ResponseEntity<Void> updateGrade(@Valid @RequestBody Grade grade) {
 		log.info("Updating grade: " + grade);
 		evaluationService.update(grade);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -191,7 +193,7 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/note/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Integer> createNote(@RequestBody Note note) {
+	public ResponseEntity<Integer> createNote(@Valid @RequestBody Note note) {
 		log.info("Creating note: " + note);
 		return new ResponseEntity<Integer>(evaluationService.save(note), HttpStatus.CREATED);
 	}
@@ -204,7 +206,7 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/note/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Note> updateNote(@RequestBody Note note) {
+	public ResponseEntity<Note> updateNote(@Valid @RequestBody Note note) {
 		log.info("Updating note: " + note);
 		evaluationService.update(note);
 		return new ResponseEntity<>(note,HttpStatus.CREATED);
