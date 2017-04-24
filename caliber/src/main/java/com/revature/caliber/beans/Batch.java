@@ -147,6 +147,7 @@ public class Batch implements Serializable {
 		this.location = location;
 		this.goodGradeThreshold = goodGradeThreshold.shortValue();
 		this.borderlineGradeThreshold = borderlineGradeThreshold.shortValue();
+		this.weeks = weeks;
 	}
 
 	public int getBatchId() {

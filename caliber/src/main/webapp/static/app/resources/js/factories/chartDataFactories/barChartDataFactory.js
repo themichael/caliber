@@ -58,7 +58,7 @@ angular
 							traineeId) {
 						return $http(
 								{
-									url : "/	all/reports/batch/" + batchId
+									url : "/all/reports/batch/" + batchId
 											+ "/overall/trainee/" + traineeId
 											+ "/bar-batch-overall-trainee",
 									method : "GET"
@@ -138,6 +138,27 @@ angular
 													.error("There was an error in barChartDataFactory -> getBatchOverallBarChart "
 															+ response.status);
 										});
+					}
+					
+					report.getDummyBarChartData = function() {
+						// Return with commas in between
+						return {
+							"good" : [ 21000, 22000, 26000, 35000, 55000,
+									55000, 56000, 59000, 60000, 61000, 60100,
+									62000 ],
+							"poor" : [ 1000, 1200, 1300, 1400, 1060, 2030,
+									2070, 4000, 4100, 4020, 4030, 4050 ],
+							"average" : [ 21000, 22000, 26000, 35000, 55000,
+									55000, 56000, 59000, 60000, 61000, 60100,
+									62000 ],
+							"superstar" : [ 1000, 1200, 1300, 1400, 1060, 2030,
+									2070, 4000, 4100, 4020, 4030, 4050 ],
+							"batches" : [ "Batch 1", "Batch 2", "Batch 3",
+									"Batch 4", "Batch 5", "Batch 6", "Batch 7",
+									"Batch 8", "Batch 9", "Batch 10",
+									"Batch 11", "Batch 12" ]
+						};
+
 					}
 
 					report.getAllBatchesCurrentWeekQCStats = function() {
