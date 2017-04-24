@@ -1,6 +1,5 @@
 package com.revature.caliber.data;
 
-import java.util.HashSet;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -65,7 +64,7 @@ public class NoteDAO extends BaseDAO{
 		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
 				.add(Restrictions.eq("b.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq("type", NoteType.BATCH))
-				.add(Restrictions.ge("maxVisibility", TrainerRole.TRAINER))
+				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_TRAINER))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for(Note note : notes){
 			initializeActiveTrainees(note);
@@ -88,7 +87,7 @@ public class NoteDAO extends BaseDAO{
 		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class)
 				.createAlias("trainee", "t").createAlias("t.batch", "b")
 				.add(Restrictions.eq("b.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
-				.add(Restrictions.eq("maxVisibility", TrainerRole.TRAINER))
+				.add(Restrictions.eq("maxVisibility", TrainerRole.ROLE_TRAINER))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		for(Note note : notes){
 			initializeActiveTrainees(note);
@@ -203,7 +202,7 @@ public class NoteDAO extends BaseDAO{
 		log.info("Finding All individual notes for trainee: " + traineeId);
 		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("trainee", "t")
 				.add(Restrictions.eq("t.traineeId", traineeId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ge("maxVisibility", TrainerRole.TRAINER))
+				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_TRAINER))
 				.list();
 		for(Note note : notes){
 			initializeActiveTrainees(note);
