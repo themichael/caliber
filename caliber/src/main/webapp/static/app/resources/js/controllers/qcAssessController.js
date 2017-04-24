@@ -399,9 +399,17 @@ angular
 
 					$scope.selectYear = function(index) {
 						$scope.selectedYear = $scope.years[index];
+						$log.debug("Adding week");
+						$log.debug($scope.weeks);
 						sortByDate($scope.selectedYear);
 						batchYears();
 						$scope.currentBatch = $scope.batchesByYear[0];
+						
+						// Create week array for batch selected
+						$scope.weeks = [];
+						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+						$scope.weeks.push(i);
+						}
 						
 						if ($scope.batchesByYear.length === 0) {
 							$scope.noBatches = true;
