@@ -383,11 +383,6 @@ angular
 						$log.debug("QCBATCHOVERALL");
 						start();
 					});
-					// Execute when on reports page and trainee and week
-					// selected
-					$rootScope.$on('qcTraineeWeek', function() {
-						traineeWeek();
-					});
 
 					/**
 					 * **************************************************
