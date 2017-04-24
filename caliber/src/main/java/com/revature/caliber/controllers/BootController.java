@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.security.impl.Helper;
+import com.revature.caliber.exceptions.NotAuthorizedException;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
@@ -92,7 +93,7 @@ public class BootController extends Helper {
 		// check if we actually got back JSON object from the Salesforce
 		if (!jsonString.contains(email)) {
 			log.fatal("Training API returned: " + jsonString);
-			throw new ServiceNotAvailableException();
+			throw new NotAuthorizedException();
 		}
 		log.info(jsonString);
 		JSONObject jsonObject = new JSONObject(jsonString);
@@ -102,7 +103,7 @@ public class BootController extends Helper {
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
 		} else {
-			throw new ServiceNotAvailableException();
+			throw new NotAuthorizedException();
 		}
 		// store custom user Authentication obj in SecurityContext
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
@@ -173,7 +174,7 @@ public class BootController extends Helper {
 		// check if we actually got back JSON object from the Salesforce
 		if (!jsonString.contains(email)) {
 			log.fatal("Training API returned: " + jsonString);
-			throw new ServiceNotAvailableException();
+			throw new NotAuthorizedException();
 		}
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
@@ -182,7 +183,7 @@ public class BootController extends Helper {
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
 		} else {
-			throw new ServiceNotAvailableException();
+			throw new NotAuthorizedException();
 		}
 		// store custom user Authentication obj in SecurityContext
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
