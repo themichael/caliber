@@ -45,7 +45,7 @@ angular
 						sortByDate($scope.selectedYear);
 					};
 
-					/*function sortByDate(currentYear) {
+					function sortByDate(currentYear) {
 						$scope.selectedBatches = [];
 						for (var i = 0; i < $scope.batches.length; i++) {
 							var date = new Date($scope.batches[i].startDate);
@@ -53,7 +53,7 @@ angular
 								$scope.selectedBatches.push($scope.batches[i]);
 							}
 						}
-					}*/
+					}
 
 					/** Set end date in form* */
 					$scope.setEndDate = function() {
