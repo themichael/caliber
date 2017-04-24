@@ -32,9 +32,9 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
-				<security:user authorities="VP" name="VP" />
-				<security:user authorities="QC" name="QC" />
-				<security:user authorities="TRAINER" name="TRAINER" />
+				<security:user authorities="ROLE_VP" name="VP" />
+				<security:user authorities="ROLE_QC" name="QC" />
+				<security:user authorities="ROLE_TRAINER" name="TRAINER" />
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
