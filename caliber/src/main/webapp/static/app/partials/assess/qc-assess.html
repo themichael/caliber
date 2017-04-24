@@ -21,9 +21,9 @@
 						</ul></li>
 
 					<!-- top ui for viewing all assessments -->
-					<li role="button" class="dropdown" ng-show="!noBatches"><a class="dropdown-toggle"
-						data-toggle="dropdown"> {{ trainingNameDate }} <span
-							class="caret"></span>
+					<li role="button" class="dropdown" ng-show="!noBatches"><a
+						class="dropdown-toggle" data-toggle="dropdown"> {{
+							trainingNameDate }} <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">
 							<li ng-repeat="batch in batchesByYear track by $index"><a
@@ -45,7 +45,7 @@
 						</ul></li>
 				</ul>
 			</div>
-			<div class="col-sm-12 col-md-12 col-lg-12 top5" ng-show="!noBatches"> 
+			<div class="col-sm-12 col-md-12 col-lg-12 top5" ng-show="!noBatches">
 				<ul class="nav nav-tabs">
 					<li role="button" class="{{showActiveWeek($index)}}"
 						ng-click="selectWeek($index)"
@@ -168,5 +168,5 @@
 	</div>
 	<!-- overall -->
 </div>
-<div ui-view="confirm-add-weeks-modal">
-</div>
+<!-- <div ui-view="confirm-add-weeks-modal">
+</div> -->

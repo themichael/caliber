@@ -148,7 +148,7 @@ angular
 					function start() {
 						$scope.trainingNameDate = $scope.batches[0].trainingName
 								+ " " + $scope.batches[0].startDate;
-						
+
 						var curYear = new Date();
 						$scope.selectedYear = curYear.getFullYear();
 						batchYears();
@@ -206,10 +206,10 @@ angular
 					$scope.back = function() {
 						$scope.currentView = true;
 					};
-					
+
 					/**
 					 * Batch drop down select Select batches from current year
-					 */ 
+					 */
 					$scope.selectCurrentBatch = function(index) {
 						$log.debug("SELECTED DIFFERENT BATCH");
 						if ($scope.$parent.currentBatch !== undefined) {
@@ -404,41 +404,41 @@ angular
 						sortByDate($scope.selectedYear);
 						batchYears();
 						$scope.currentBatch = $scope.batchesByYear[0];
-						
+
 						// Create week array for batch selected
 						$scope.weeks = [];
 						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-						$scope.weeks.push(i);
+							$scope.weeks.push(i);
 						}
-						
+
 						if ($scope.batchesByYear.length === 0) {
 							$scope.noBatches = true;
 							$scope.noBatchesMessage = "No Batches were found for this year.";
 						} else {
 							$scope.noBatches = false;
-							//createDefaultCharts();
+							// createDefaultCharts();
 							$scope.selectedYear = $scope.years[index];
 							sortByDate($scope.selectedYear);
-						
-						if ($scope.batchesByYear.length > 0) {
-							$scope.trainingNameDate = $scope.batchesByYear[0].trainingName
-									+ " - " + $scope.batchesByYear[0].startDate;
-							$scope.thereAreBatches = true;
-						} 
-						else
-						{
-							/**
-							 * If no batches are available, display that there
-							 * are no batches
-							 */
-								
-							$scope.trainingNameDate = "No Batch Found";									
-							$scope.currentView = false;
-							// $scope.thereAreBatches = false;
-						}
 
-						$log.debug($scope.batchesByYear);
-						}};
+							if ($scope.batchesByYear.length > 0) {
+								$scope.trainingNameDate = $scope.batchesByYear[0].trainingName
+										+ " - "
+										+ $scope.batchesByYear[0].startDate;
+								$scope.thereAreBatches = true;
+							} else {
+								/**
+								 * If no batches are available, display that
+								 * there are no batches
+								 */
+
+								$scope.trainingNameDate = "No Batch Found";
+								$scope.currentView = false;
+								// $scope.thereAreBatches = false;
+							}
+
+							$log.debug($scope.batchesByYear);
+						}
+					};
 
 					function sortByDate(currentYear) {
 						$scope.selectedBatches = [];
