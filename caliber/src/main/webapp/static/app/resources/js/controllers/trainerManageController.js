@@ -458,6 +458,7 @@ angular
 
 					
 					$scope.verifyTraineeEmail = function() {
+						if(!$scope.Updating){
 						caliberDelegate.all.getTraineeByEmail(
 								$scope.traineeEmail).then(
 								function(response) {
@@ -474,6 +475,9 @@ angular
 										return false;
 									}
 								})
+					}else{
+						$scope.addNewTrainee();
+					}
 					}
 					
 					/** Save New Trainee Input * */

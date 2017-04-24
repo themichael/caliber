@@ -268,8 +268,6 @@ public class TrainingService {
 	 */
 	public void delete(Trainee trainee){
 		log.debug("Delete trainee " + trainee);
-		// load trainee into persistent state
-		trainee = traineeDAO.findOne(trainee.getTraineeId());
 		traineeDAO.delete(trainee);
 	}
 	
