@@ -82,10 +82,12 @@
 					<thead>
 						<tr sticky class='sticky-header'>
 							<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
-							<th class="col-sm-1 col-md-1 col-lg-1" role="button"
+							<th class="col-sm-1 col-md-1 col-lg-1" role="button" data-toggle="modal" data-target="#editAssessmentModal_{{assessment.assessmentId}}"
 								ng-repeat="assessment in currentAssessments track by $index">
 								{{assessment.title}}
-								({{assessmentsById[assessment.assessmentId].weightedScore}})</th>
+								({{assessmentsById[assessment.assessmentId].weightedScore}})
+								<div ui-view ="trainer-edit-assess"></div>
+								</th>
 							<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
 						</tr>
 					</thead>
