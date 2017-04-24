@@ -401,7 +401,17 @@ angular
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
 						batchYears();
-
+						$scope.currentBatch = $scope.batchesByYear[0];
+						
+						if ($scope.batchesByYear.length === 0) {
+							$scope.noBatches = true;
+							$scope.noBatchesMessage = "No Batches were found for this year.";
+						} else {
+							$scope.noBatches = false;
+							//createDefaultCharts();
+							$scope.selectedYear = $scope.years[index];
+							sortByDate($scope.selectedYear);
+						
 						if ($scope.batchesByYear.length > 0) {
 							$scope.trainingNameDate = $scope.batchesByYear[0].trainingName
 									+ " - " + $scope.batchesByYear[0].startDate;
@@ -420,7 +430,7 @@ angular
 						}
 
 						$log.debug($scope.batchesByYear);
-					};
+						}};
 
 					function sortByDate(currentYear) {
 						$scope.selectedBatches = [];

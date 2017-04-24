@@ -21,7 +21,7 @@
 						</ul></li>
 
 					<!-- top ui for viewing all assessments -->
-					<li role="button" class="dropdown"><a class="dropdown-toggle"
+					<li role="button" class="dropdown" ng-show="!noBatches"><a class="dropdown-toggle"
 						data-toggle="dropdown"> {{ trainingNameDate }} <span
 							class="caret"></span>
 					</a>
@@ -45,13 +45,13 @@
 						</ul></li>
 				</ul>
 			</div>
-			<div class="col-sm-12 col-md-12 col-lg-12 top5">
+			<div class="col-sm-12 col-md-12 col-lg-12 top5" ng-show="!noBatches"> 
 				<ul class="nav nav-tabs">
 					<li role="button" class="{{showActiveWeek($index)}}"
 						ng-click="selectWeek($index)"
 						ng-repeat="week in weeks track by $index"><a>Week
 							{{week}}</a></li>
-					<li role="button" ng-show="currentView" ng-click="createWeek()">
+					<li role="button" ng-show="!noBatches" ng-click="createWeek()">
 						<a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 					</li>
 				</ul>
@@ -62,60 +62,65 @@
 	<div class="container">
 		<div class="row" id="qcTrainees">
 			<div class="col-md-12 col-lg-12 top5">
-				<!-- Accordian table -->
-				<table class="table table-condensed"
-					style="border-collapse: collapse;" ng-show="currentView">
-					<thead>
-						<tr sticky>
-							<th>Trainee</th>
-							<th>Individual Feedback</th>
-							<th>Notes</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-							<td>{{ trainee.name }}</td>
-							<td><span ng-hide="faces[$index].qcStatus"
-								class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-								title="Click to update your feedback."
-								alt="Click to update your feedback."
-								ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
-									<i class="fa fa-question-circle fa-2x"></i>
-							</span>
-								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
-									title="Excellent"
+				<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
+				<ul class="nav nav-tabs" ng-show="!noBatches">
+					<!-- Accordian table -->
+					<table class="table table-condensed"
+						style="border-collapse: collapse;" ng-show="currentView">
+						<thead>
+							<tr sticky>
+								<th>Trainee</th>
+								<th>Individual Feedback</th>
+								<th>Notes</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="trainee in currentBatch.trainees track by $index">
+								<td>{{ trainee.name }}</td>
+								<td><span ng-hide="faces[$index].qcStatus"
 									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);">
-									<i class="fa fa-star fa-2x pick"></i>
-								</div>
-								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
-									title="Good" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);">
-									<i class="fa fa-smile-o fa-2x pick"></i>
-								</div>
-								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
-									title="Fair" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);">
-									<i class="fa fa-meh-o fa-2x pick"></i>
-								</div>
-								<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
-									title="Poor" class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+									title="Click to update your feedback."
+									alt="Click to update your feedback."
 									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
-									<i class="fa fa-frown-o fa-2x pick"></i>
-								</div></td>
-							<td class="col-sm-9 col-md-9 col-lg-9"><textarea
-									ng-model="noteOnTrainee($index).content" id="noteTextArea"
-									class="form-control" placeholder="Note on {{trainee.name}}"
-									ng-blur="saveTraineeNote($index)" rows="3" cols="75" maxlength="1000"></textarea>
-							</td>
-							<td><ul class="nav nav-tabs">
-						</tr>
-					</tbody>
-				</table>
+										<i class="fa fa-question-circle fa-2x"></i>
+								</span>
+									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
+										title="Excellent"
+										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);">
+										<i class="fa fa-star fa-2x pick"></i>
+									</div>
+									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
+										title="Good"
+										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);">
+										<i class="fa fa-smile-o fa-2x pick"></i>
+									</div>
+									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
+										title="Fair"
+										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);">
+										<i class="fa fa-meh-o fa-2x pick"></i>
+									</div>
+									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
+										title="Poor"
+										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
+										<i class="fa fa-frown-o fa-2x pick"></i>
+									</div></td>
+								<td class="col-sm-9 col-md-9 col-lg-9"><textarea
+										ng-model="noteOnTrainee($index).content" id="noteTextArea"
+										class="form-control" placeholder="Note on {{trainee.name}}"
+										ng-blur="saveTraineeNote($index)" rows="3" cols="75"
+										maxlength="1000"></textarea></td>
+								<td><ul class="nav nav-tabs">
+							</tr>
+						</tbody>
+					</table>
 			</div>
 		</div>
 		<!-- QC batch note -- overall qualitative feedback -->
-		<div class="row">
+		<div class="row" ng-show="!noBatches">
 			<h4 class="text-center">Overall Feedback</h4>
 			<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[0])">
