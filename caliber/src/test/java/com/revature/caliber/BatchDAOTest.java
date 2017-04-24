@@ -47,13 +47,14 @@ public class BatchDAOTest {
 	public void testFindAll() {
 		List<Batch> batches = batchdao.findAllCurrent();
 		log.info("Number of Batches: " + batches.size());
-		for(Trainee t : batches.get(0).getTrainees()){
-			for(Note n: t.getNotes()){
-				log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOTE SEPARATOR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-				log.info(n.toString());
+		if(batches.size() > 0){
+			for(Trainee t : batches.get(0).getTrainees()){
+				for(Note n: t.getNotes()){
+					log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOTE SEPARATOR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+					log.info(n.toString());
+				}
 			}
 		}
-		
 	}
 
 	@Test
