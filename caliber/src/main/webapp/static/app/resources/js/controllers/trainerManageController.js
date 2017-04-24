@@ -388,7 +388,7 @@ angular
 					$scope.name = {
 						model : null
 					};
-					$scope.email = {
+					$scope.email = { 
 						model : null
 					};
 					/* Set default training status for new trainee */
