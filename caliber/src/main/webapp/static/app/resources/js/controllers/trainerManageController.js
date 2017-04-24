@@ -17,6 +17,8 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
+									// $scope.role = $cookies.get("role");
+
 									$log.debug($scope.role);
 								});
 						$log.debug(allBatches);
@@ -171,9 +173,10 @@ angular
 						$log.info($scope.startDate);
 						$log.info($scope.benchmarkStartDate);
 
-						if ($scope.startDate.model > $scope.benchmarkStartDate.model) {
-							/*$scope.validDate = false;*/
-							$log.info("True");
+						if ($scope.startDate.model > $scope.benchmarkStartDate.model
+								&& $scope.endDate.model > $scope.startDate.model) {
+							/* $scope.validDate = false; */
+							$log.debug("True");
 							$scope.addNewBatch();
 						} else {
 							/*$scope.validDate = true;*/
@@ -248,6 +251,14 @@ angular
 						}
 					}
 
+					/** checking benchmark date * */
+					function benchmarkDateIsValid() {
+
+						if ($scope.benchmarkStartDate.model < new Date()) {
+							$scope.startDate();
+						}
+					}
+					
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
 
@@ -286,17 +297,15 @@ angular
 
 						// return newBatch;
 					}
-
-					$scope.update = function() {
-
-						$scope.editTrainee.name = "";
-						$scope.editTrainee.email = "";
-						$scope.editTrainee.phoneNumber = "";
-						$scope.editTrainee.skypeId = "";
-						$scope.editTrainee.profileUrl = "";
-
-					};
-
+					/** reformat dates on batch correctly* */
+					function formatBatchDates(batch) {
+						batch.startDate = moment(batch.startDate).format(
+								"YYYY-MM-DD");
+						batch.endDate = moment(batch.endDate).format(
+								"YYYY-MM-DD");
+						batch.benchmarkStartDate = moment(
+								batch.benchmarkStartDate).format("YYYY-MM-DD");
+					}
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
@@ -307,25 +316,37 @@ angular
 							caliberDelegate.all
 									.updateBatch($scope.currentBatch)
 									.then(
-											$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch)
+											function() {
+												formatBatchDates($scope.currentBatch)
+												$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch
+											});
+
 						} else {
 							var newBatch = {};
 							createBatchObject(newBatch);
-							$log.debug('this is' + newBatch);
-							caliberDelegate.all.createBatch(newBatch).then(
-									function(response) {
-										// coTrainer may be undefined
-										var insertBatch = response.data;
-										insertBatch['trainees'] = [];
-										if ($scope.coTrainer) {
-											$scope.batches.push(insertBatch);
-										} else {
-											$scope.batches.push(insertBatch);
-											$log.debug($scope.batches)
-										}
+							$log.debug('this is');
+							$log.debug(newBatch);
+							caliberDelegate.all
+									.createBatch(newBatch)
+									.then(
+											function(response) {
+												// coTrainer may be undefined
+												newBatch.batchId = response.data.batchId;
+												newBatch['trainees'] = [];
+												newBatch['arrayWeeks'] = [];
+												newBatch['weeks'] = response.data.weeks;
+												formatBatchDates(newBatch)
+												if ($scope.coTrainer) {
+													$scope.batches
+															.push(newBatch);
+												} else {
+													$scope.batches
+															.push(newBatch);
+													$log.debug($scope.batches)
+												}
 
-										sortByDate($scope.selectedYear);
-									});
+												sortByDate($scope.selectedYear);
+											});
 						}
 						angular.element("#createBatchModal").modal("hide");
 
@@ -352,6 +373,12 @@ angular
 														break;
 													}
 												}
+											} else if (response.status === 500) {
+												// $log($scope.currentBatch.batchId);
+												angular
+														.element(
+																"#deleteBatchErrorModal")
+														.modal("show");
 											}
 										});
 						angular.element("#deleteBatchModal").modal("hide");
@@ -390,7 +417,7 @@ angular
 								$scope.trainingStatuses.options = statuses;
 							});
 
-					/** Fill update form with trainee previous data* */
+					/** Fill update form with trainee's previous data* */
 					$scope.populateTrainee = function(trainee) {
 						$log.debug(trainee);
 						$scope.traineeName = trainee.name;
