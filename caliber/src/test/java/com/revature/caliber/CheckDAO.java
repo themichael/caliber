@@ -68,6 +68,7 @@ public class CheckDAO {
 	}
 	
 	@Test
+	@Ignore
 	public void testUpdateAssess() {	
 		Assessment assess = assessmentDAO.findOne(1050);
 		log.info("this is before update " + assess);
