@@ -13,7 +13,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	/** ************************* Batch *********************** */
 	qc.getAllBatches = function() {
 		return $http({
-			url : "/qc/batch/all",
+			url : "/qc/batch/all/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("Batches retrieved successfully");
@@ -27,7 +27,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// Call EvaluationController's findQCBatchNotes method
 	qc.getQCBatchNote = function(batchId, week) {
 		return $http({
-			url : "/qc/note/batch/" + batchId + "/" + week,
+			url : "/qc/note/batch/" + batchId + "/" + week + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Batch Note retrieved successfully");
@@ -40,7 +40,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// Call EvaluationController's getAllQCTraineeNotes method
 	qc.getAQCTraineeNote = function(traineeId, week) {
 		return $http({
-			url : "/qc/note/atrainee/" + traineeId + "/" + week,
+			url : "/qc/note/atrainee/" + traineeId + "/" + week + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Note retrieved successfully");
@@ -53,7 +53,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	
 	qc.getTraineeWeek = function(traineeId, week) {
 		return $http({
-			url : "/vp/note/trainee/" + traineeId + "/" + week,
+			url : "/vp/note/trainee/" + traineeId + "/" + week + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Note retrieved successfully");
@@ -66,7 +66,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// Call EvaluationController's getAllQCTraineeNotes method
 	qc.getAllQCTraineeNote = function(batchId, week) {
 		return $http({
-			url : "/qc/note/trainee/" + batchId + "/" + week,
+			url : "/qc/note/trainee/" + batchId + "/" + week + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Note retrieved successfully");
@@ -79,7 +79,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// Call EvaluationController's getTraineeOverallNotes method
 	qc.getTraineeOverallNote = function(traineeId) {
 		return $http({
-			url : "/qc/note/trainee/" + traineeId,
+			url : "/qc/note/trainee/" + traineeId + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Overall Note retrieved successfully");
@@ -93,7 +93,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// add a new grade
 	qc.addGrade = function(gradeObj) {
 		return $http({
-			url : "/qc/grade/create",
+			url : "/qc/grade/create/",
 			method : "POST",
 			data : gradeObj
 		}).then(function(response) {
@@ -107,7 +107,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// update grade
 	qc.updateGrade = function(gradeObj) {
 		return $http({
-			url : "/qc/grade/update",
+			url : "/qc/grade/update/",
 			method : "PUT",
 			data : gradeObj
 		}).then(function(response) {
@@ -123,7 +123,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	qc.getAssessmentsByBatchId = function(batchId) {
 		$log.debug("In assessment");
 		return $http({
-			url : "/qc/assessment/byBatchId/" + batchId,
+			url : "/qc/assessment/byBatchId/" + batchId + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.debug("Assessments retrieved successfully");
@@ -137,7 +137,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// get all assessments
 	qc.getAllAssessments = function(weekId) {
 		return $http({
-			url : "/qc/assessment/byWeek/" + weekId,
+			url : "/qc/assessment/byWeek/" + weekId + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.debug("Assessments retrieved successfully");
@@ -152,7 +152,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// create note
 	qc.createNote = function(noteObj) {
 		return $http({
-			url : "/note/create",
+			url : "/note/create/",
 			method : "POST",
 			data : noteObj
 		}).then(function(response) {
@@ -173,7 +173,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	 */
 	qc.updateNote = function(noteObj) {
 		return $http({
-			url : "/note/update",
+			url : "/note/update/",
 			method : "POST",
 			data : noteObj
 		}).then(function(response) {
