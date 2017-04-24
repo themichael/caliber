@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  */
 public enum TrainerRole implements Serializable{
-	VP,
-	QC,
+	ROLE_VP,
+	ROLE_QC,
 	ROLE_TRAINER
 }

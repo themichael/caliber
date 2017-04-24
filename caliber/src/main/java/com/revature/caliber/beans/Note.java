@@ -104,7 +104,7 @@ public class Note implements Serializable{
 		this.week = week;
 		this.batch = batch;
 		if (type == NoteType.QC_BATCH)
-			this.maxVisibility = TrainerRole.QC;
+			this.maxVisibility = TrainerRole.ROLE_QC;
 		else if (type == NoteType.PUBLIC_BATCH)
 			this.maxVisibility = TrainerRole.ROLE_TRAINER;
 		else
@@ -133,7 +133,7 @@ public class Note implements Serializable{
 		this.week = week;
 		this.trainee = trainee;
 		if (type == NoteType.QC_TRAINEE)
-			this.maxVisibility = TrainerRole.QC;
+			this.maxVisibility = TrainerRole.ROLE_QC;
 		else if (type == NoteType.PUBLIC_TRAINEE)
 			this.maxVisibility = TrainerRole.ROLE_TRAINER;
 		else
