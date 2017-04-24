@@ -2,8 +2,6 @@ package com.revature.caliber.beans;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * System access roles. 
  * 
@@ -13,10 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 public enum TrainerRole implements Serializable{
-	@JsonProperty("VP")
 	VP,
-	@JsonProperty("QC")
 	QC,
-	@JsonProperty("TRAINER")
-	TRAINER
+	ROLE_TRAINER
 }
