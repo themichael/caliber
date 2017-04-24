@@ -79,8 +79,8 @@
 				<!-- Accordian table -->
 				<table class="table table-responsive"
 					style="border-collapse: collapse;" ng-show="currentView">
-					<thead>
-						<tr sticky class='sticky-header'>
+					<thead>				
+						<tr fsm-sticky-header class='sticky-header'>
 							<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
 							<th class="col-sm-1 col-md-1 col-lg-1" role="button" data-toggle="modal" data-target="#editAssessmentModal_{{assessment.assessmentId}}"
 								ng-repeat="assessment in currentAssessments track by $index">
