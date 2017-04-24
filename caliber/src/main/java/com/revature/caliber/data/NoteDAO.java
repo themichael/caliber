@@ -70,7 +70,7 @@ public class NoteDAO extends BaseDAO{
 				.add(Restrictions.eq("b.batchId", batchId))
 				.add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq("type", NoteType.BATCH))
-				.add(Restrictions.ge("maxVisibility", TrainerRole.TRAINER))
+				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_TRAINER))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return notes;
 	}
@@ -92,7 +92,7 @@ public class NoteDAO extends BaseDAO{
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.createAlias("t.batch", "b")
 				.add(Restrictions.eq("b.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
-				.add(Restrictions.eq("maxVisibility", TrainerRole.TRAINER))
+				.add(Restrictions.eq("maxVisibility", TrainerRole.ROLE_TRAINER))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return notes;
 	}
@@ -145,7 +145,7 @@ public class NoteDAO extends BaseDAO{
 				.createAlias("b.trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.eq("batch.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
-				.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
+				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_QC))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).uniqueResult();
 		return note;
 	}
@@ -164,7 +164,7 @@ public class NoteDAO extends BaseDAO{
 				.createAlias("trainee", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.eq("t.traineeId", traineeId)).add(Restrictions.eq("week", week.shortValue()))
-				.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
+				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_QC))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 		return notes;
@@ -222,7 +222,7 @@ public class NoteDAO extends BaseDAO{
 				.createAlias("trainee", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.eq("t.traineeId", traineeId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ge("maxVisibility", TrainerRole.TRAINER))
+				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_TRAINER))
 				.list();
 		return notes;
 	}
@@ -239,7 +239,7 @@ public class NoteDAO extends BaseDAO{
 				.createAlias("b.trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
         		.add(Restrictions.eq("b.batchId", batchId))
-        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
+        		.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_QC))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.addOrder(Order.asc("week")).list();
 		return notes;
@@ -257,7 +257,7 @@ public class NoteDAO extends BaseDAO{
 				.createAlias("trainee", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
         		.createAlias("t.batch", "b").add(Restrictions.eq("b.batchId", batchId))
-        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
+        		.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_QC))
         		.add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq("qcFeedback", true))
 				.add(Restrictions.eq("type", NoteType.QC_TRAINEE))
@@ -278,7 +278,7 @@ public class NoteDAO extends BaseDAO{
 				.createAlias("trainee", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
         		.add(Restrictions.eq("t.traineeId", traineeId))
-        		.add(Restrictions.ge("maxVisibility", TrainerRole.QC))
+        		.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_QC))
 				.add(Restrictions.eq("qcFeedback", true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.addOrder(Order.asc("week")).list();
 		return notes;

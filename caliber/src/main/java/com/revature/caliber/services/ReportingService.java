@@ -427,6 +427,20 @@ public class ReportingService {
 		return utilReplaceCategoryWithSkillName(skills);
 	}
 
+	/**
+	 * Return the Category Scores for each trainee in a batch
+	 * @param batchId
+	 * @return Map<Trainee Name, Map<Category Name, Category Score>>
+	 */
+	public Map<String, Map<String, Double>> getBatchAllTraineesOverallRadarChart(Integer batchId) {
+		Map<String, Map<String, Double>> results = new HashMap<>();
+		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
+		for (Trainee t : batch.getTrainees()) {
+			Map<Category, Double[]> skills = utilAvgSkills(new ArrayList<>(t.getGrades()));
+			results.put(t.getName(), utilReplaceCategoryWithSkillName(skills));
+		}
+		return results;
+	}
 	/*
 	 *******************************************************
 	 * UI Scalar Value Function
