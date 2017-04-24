@@ -308,3 +308,10 @@ a.save-button .fa-floppy-o{
 /* .fade-in.ng-hide-remove {
   transition: all ease-out 3000ms;
 } */
+
+/************************
+***Assessment Modal****
+*************************/
+.editAssessModal{
+	font-family:'Futura-Std-Book';
+}
