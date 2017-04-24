@@ -85,7 +85,7 @@ public class AssessmentController {
 	public ResponseEntity<Void> updateAssessment(@RequestBody Assessment assessment) {
 		log.info("Updating assessment: " + assessment);
 		assessmentService.update(assessment);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	/**
