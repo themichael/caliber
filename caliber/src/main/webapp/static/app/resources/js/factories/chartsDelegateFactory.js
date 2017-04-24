@@ -40,7 +40,14 @@ angular
 						return doughnutChartDataFactory.batchWeekQCPie(batchId,
 								weekId);
 					}
-
+					
+					delegate.doughnut.getCurrentQCStats = function(dataArray) {
+						return doughnutChartDataFactory.batchCurrentWeekQCPie(dataArray);
+					}
+					
+					delegate.doughnut.data.getCurrentQCStatsData = function(batchId){
+						return doughnutChartDataFactory.batchCurrentWeekQCPie(batchId);
+					}
 					/**
 					 * ************************* Bar *************************
 					 */
