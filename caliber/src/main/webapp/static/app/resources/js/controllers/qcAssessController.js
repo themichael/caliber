@@ -59,7 +59,7 @@ angular
 															null,
 															$scope.currentWeek,
 															$scope.currentBatch,
-															null, "QC",
+															null, "ROLE_QC",
 															"QC_BATCH", true);
 												}
 												// If note found set to note and
@@ -102,7 +102,7 @@ angular
 																	$scope.currentWeek,
 																	null,
 																	$scope.currentBatch.trainees[i],
-																	"QC",
+																	"ROLE_QC",
 																	"QC_TRAINEE",
 																	true));
 												}
@@ -114,7 +114,7 @@ angular
 								$scope.faces.push(new Note(null, null, null,
 										$scope.currentWeek,
 										$scope.currentBatch,
-										$scope.currentBatch.trainees[i], "QC",
+										$scope.currentBatch.trainees[i], "ROLE_QC",
 										"QC_TRAINEE", true));
 							}
 						}
@@ -148,7 +148,7 @@ angular
 					function start() {
 						$scope.trainingNameDate = $scope.batches[0].trainingName
 								+ " " + $scope.batches[0].startDate;
-						
+
 						var curYear = new Date();
 						$scope.selectedYear = curYear.getFullYear();
 						batchYears();
@@ -206,10 +206,10 @@ angular
 					$scope.back = function() {
 						$scope.currentView = true;
 					};
-					
+
 					/**
 					 * Batch drop down select Select batches from current year
-					 */ 
+					 */
 					$scope.selectCurrentBatch = function(index) {
 						$log.debug("SELECTED DIFFERENT BATCH");
 						if ($scope.$parent.currentBatch !== undefined) {
@@ -304,7 +304,7 @@ angular
 					$scope.saveTraineeNote = function(index) {
 						$log.debug($scope.faces[index]);
 						// Create if noteId is null so nothing in database
-						if ($scope.faces[index].noteId === null) {
+						if ($scope.faces[index].noteId === null || $scope.faces[index].noteId === undefined) {
 							$log.debug("create");
 							caliberDelegate.qc.createNote($scope.faces[index])
 									.then(function(id) {
@@ -321,7 +321,7 @@ angular
 					// Save batch note for ng-blur
 					$scope.saveQCNotes = function() {
 						// Create note
-						if ($scope.bnote.noteId === null) {
+						if ($scope.bnote.noteId === null || $scope.bnote.noteId === undefined) {
 							caliberDelegate.qc.createNote($scope.bnote).then(
 							// Set id to created notes id
 							function(id) {
@@ -401,24 +401,42 @@ angular
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
 						batchYears();
-						if ($scope.batchesByYear.length > 0) {
-							$scope.trainingNameDate = $scope.batchesByYear[0].trainingName
-									+ " - " + $scope.batchesByYear[0].startDate;
-							$scope.thereAreBatches = true;
-						} 
-						else
-						{
-							/**
-							 * If no batches are available, display that there
-							 * are no batches
-							 */
-								
-							$scope.trainingNameDate = "No Batch Found";									
-							$scope.currentView = false;
-							// $scope.thereAreBatches = false;
+						$scope.currentBatch = $scope.batchesByYear[0];
+
+						// Create week array for batch selected
+						$scope.weeks = [];
+						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+							$scope.weeks.push(i);
+
 						}
 
-						$log.debug($scope.batchesByYear);
+						if ($scope.batchesByYear.length === 0) {
+							$scope.noBatches = true;
+							$scope.noBatchesMessage = "No Batches were found for this year.";
+						} else {
+							$scope.noBatches = false;
+							// createDefaultCharts();
+							$scope.selectedYear = $scope.years[index];
+							sortByDate($scope.selectedYear);
+
+							if ($scope.batchesByYear.length > 0) {
+								$scope.trainingNameDate = $scope.batchesByYear[0].trainingName
+										+ " - "
+										+ $scope.batchesByYear[0].startDate;
+								$scope.thereAreBatches = true;
+							} else {
+								/**
+								 * If no batches are available, display that
+								 * there are no batches
+								 */
+
+								$scope.trainingNameDate = "No Batch Found";
+								$scope.currentView = false;
+								// $scope.thereAreBatches = false;
+							}
+
+							$log.debug($scope.batchesByYear);
+						}
 					};
 
 					function sortByDate(currentYear) {
