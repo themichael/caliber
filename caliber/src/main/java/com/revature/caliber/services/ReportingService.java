@@ -31,8 +31,9 @@ import com.revature.caliber.data.TraineeDAO;
 /**
  * Exclusively used to generate data for charts
  * 
- * Provides logic concerning grade and aggregated data sets. Application logic has no business being in a DAO nor in a
- * Controller. This is the ideal place for calculations
+ * Provides logic concerning grade and aggregated data sets. Application logic
+ * has no business being in a DAO nor in a Controller. This is the ideal place
+ * for calculations
  * 
  * @author Patrick Walsh
  *
@@ -75,8 +76,8 @@ public class ReportingService {
 	 */
 
 	/**
-	 * Pie chart displaying number of trainees that received red, yellow, green, x-Axis: QC Statuses y-Axis: Number of
-	 * Trainees with
+	 * Pie chart displaying number of trainees that received red, yellow, green,
+	 * x-Axis: QC Statuses y-Axis: Number of Trainees with
 	 * 
 	 * @param batchId
 	 * @param weekNumber
@@ -96,6 +97,19 @@ public class ReportingService {
 		return results;
 	}
 
+	public Map<QCStatus, Integer> pieChartCurrentWeekQCStatus(Integer batchId) {
+		List<Batch> batch = batchDAO.findAllCurrent();
+		Batch currentOne = batch.stream().filter(e -> e.getBatchId() == batchId).findFirst().get();
+		Map<Integer, Map<QCStatus, Integer>>  batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(currentOne);
+		for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
+			Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
+			if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
+				return temp;
+			}
+		}
+		return new HashMap<QCStatus, Integer>();
+	}
+
 	/*
 	 *******************************************************
 	 * Stacked Bar Chart
@@ -113,7 +127,7 @@ public class ReportingService {
 					break;
 				}
 			}
-		}		
+		}
 		return results;
 	}
 
@@ -156,7 +170,7 @@ public class ReportingService {
 		Map<String, Double[]> data = new HashMap<>();
 		for (AssessmentType a : AssessmentType.values()) {
 			Map<Trainee, Double[]> temp = utilAvgBatchWeek(trainees, week, a);
-			if(temp.size() > 0){
+			if (temp.size() > 0) {
 				Double batchAvg = 0d;
 				double batchRaw = temp.entrySet().iterator().next().getValue()[1];
 				for (Entry<Trainee, Double[]> e : temp.entrySet()) {
@@ -193,7 +207,8 @@ public class ReportingService {
 	 * 
 	 * @param traineeId
 	 * @param week
-	 * @return Map<AssessmentType Name, [0: Trainee Overall Average, 1: Batch Overall Average, 2: Score Weight]>
+	 * @return Map<AssessmentType Name, [0: Trainee Overall Average, 1: Batch
+	 *         Overall Average, 2: Score Weight]>
 	 */
 	public Map<String, Double[]> getBatchOverallTraineeBarChart(Integer batchId, Integer traineeId) {
 		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
@@ -239,12 +254,12 @@ public class ReportingService {
 			int weeksWithGrades = 0;
 			for (Integer i = 0; i < weeks; i++) {
 				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
-				if (tempAvg > 0){
+				if (tempAvg > 0) {
 					weeksWithGrades++;
 					avg += tempAvg;
 				}
 			}
-			if(avg > 0.0 && weeksWithGrades > 0){
+			if (avg > 0.0 && weeksWithGrades > 0) {
 				avg = avg / weeksWithGrades;
 				results.put(trainee.getName(), avg);
 			}
@@ -266,7 +281,7 @@ public class ReportingService {
 		Set<Grade> grades = trainees.stream().filter(e -> e.getTraineeId() == traineeId).findFirst().get().getGrades();
 		for (AssessmentType a : AssessmentType.values()) {
 			Double[] avgTraineeWeek = utilAvgTraineeWeek(week, a, grades);
-			if(avgTraineeWeek[0] > 0.0){
+			if (avgTraineeWeek[0] > 0.0) {
 				Map<Trainee, Double[]> avgBatchWeek = utilAvgBatchWeek(trainees, week, a);
 				Double batchAvg = 0d;
 				for (Map.Entry<Trainee, Double[]> e : avgBatchWeek.entrySet()) {
@@ -301,7 +316,7 @@ public class ReportingService {
 		Set<Grade> grades = trainees.stream().filter(e -> e.getTraineeId() == traineeId).findFirst().get().getGrades();
 		for (int w = 1; w <= week; w++) {
 			Double temp[] = { utilAvgTraineeWeek(grades, w), utilAvgBatchWeekValue(trainees, w) };
-			if(temp[1] > 0.0){
+			if (temp[1] > 0.0) {
 				results.put(w, temp);
 			}
 		}
@@ -313,7 +328,8 @@ public class ReportingService {
 	 * 
 	 * @param batchId,
 	 * @param traineeId
-	 * @return Map<Total Weeks, Double[0:Trainee Overall Average 1: Batch Overall Average]>
+	 * @return Map<Total Weeks, Double[0:Trainee Overall Average 1: Batch
+	 *         Overall Average]>
 	 * 
 	 */
 	public Map<Integer, Double[]> getTraineeOverallLineChart(Integer batchId, Integer traineeId) {
@@ -328,14 +344,15 @@ public class ReportingService {
 			Double batchWeekScore = batchAvgOverall.get(i);
 			Double traineeWeekScore = traineeAvgOverall.get(i);
 			if (traineeWeekScore > 0) {
-				results.put(i, new Double[]{traineeWeekScore, batchWeekScore});
+				results.put(i, new Double[] { traineeWeekScore, batchWeekScore });
 			}
 		}
 		return results;
 	}
 
 	/**
-	 * x-Axis: y-Axis: Method for Controller to fetch Week number Batch Average Score
+	 * x-Axis: y-Axis: Method for Controller to fetch Week number Batch Average
+	 * Score
 	 * 
 	 * @param batchId
 	 * @return Map<Week #, Double Average Score>
@@ -429,7 +446,7 @@ public class ReportingService {
 	 * UI Scalar Value Function
 	 *******************************************************
 	 */
-	
+
 	public Double getAvgBatchWeekValue(Integer batchId, Integer week) {
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		return utilAvgBatchWeekValue(trainees, week);
@@ -442,14 +459,16 @@ public class ReportingService {
 	 */
 
 	/**
-	 * Gets the average for a given Trainee ID for the entire week for one particular assessment. One Week -> One
-	 * Trainee -> Average Score -> One Assessment Type
+	 * Gets the average for a given Trainee ID for the entire week for one
+	 * particular assessment. One Week -> One Trainee -> Average Score -> One
+	 * Assessment Type
 	 * 
 	 * @param traineeId
 	 * @param week
 	 * @param assessmentType
-	 * @return Double [0: Average Trainee score for the week for AssessmentType, 1: Weight of that assessment type, 2:
-	 *         Number of Assessments of Each Type}
+	 * @return Double [0: Average Trainee score for the week for AssessmentType,
+	 *         1: Weight of that assessment type, 2: Number of Assessments of
+	 *         Each Type}
 	 */
 	public Double[] utilAvgTraineeWeek(Integer week, AssessmentType assessmentType, Set<Grade> allGrade) {
 		List<Grade> gradesForTheWeek = allGrade.stream().filter(el -> el.getAssessment().getWeek() == week)
@@ -474,14 +493,15 @@ public class ReportingService {
 	}
 
 	/**
-	 * Gets the average for a given Batch ID for the entire week for one particular assessment. One Week -> All Trainees
-	 * in Batch -> Average Score -> One Assessment Type
+	 * Gets the average for a given Batch ID for the entire week for one
+	 * particular assessment. One Week -> All Trainees in Batch -> Average Score
+	 * -> One Assessment Type
 	 * 
 	 * @param batchId
 	 * @param week
 	 * @param assessmentType
-	 * @return Map<'Trainee in Batch, Double[0: Average score for all trainees for the week for assessmentType, weight
-	 *         for assessment}
+	 * @return Map<'Trainee in Batch, Double[0: Average score for all trainees
+	 *         for the week for assessmentType, weight for assessment}
 	 */
 	public Map<Trainee, Double[]> utilAvgBatchWeek(List<Trainee> trainees, Integer week,
 			AssessmentType assessmentType) {
@@ -489,7 +509,7 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			Set<Grade> gradeList = new HashSet<Grade>(trainee.getGrades());
 			Double[] averageTraineeWeeklyScores = utilAvgTraineeWeek(week, assessmentType, gradeList);
-			if(averageTraineeWeeklyScores[0] > 0.0) {
+			if (averageTraineeWeeklyScores[0] > 0.0) {
 				results.put(trainee, averageTraineeWeeklyScores);
 			}
 		}
@@ -497,9 +517,10 @@ public class ReportingService {
 	}
 
 	/**
-	 * Get Weighted Average for a single assessment type for a given Trainee ID, returning weeks as keys in the map and
-	 * the corresponding values of weight(%) and scores. All Weeks -> One Trainee -> Average Score -> One Assessment
-	 * Type
+	 * Get Weighted Average for a single assessment type for a given Trainee ID,
+	 * returning weeks as keys in the map and the corresponding values of
+	 * weight(%) and scores. All Weeks -> One Trainee -> Average Score -> One
+	 * Assessment Type
 	 * 
 	 * @param traineeId
 	 * @param assessmentType
@@ -517,8 +538,9 @@ public class ReportingService {
 	}
 
 	/**
-	 * Get Weighted Average for a the whole batch for all the weeks per an assessment All Weeks -> All Trainees In Batch
-	 * -> Average Score -> One Assessment Type
+	 * Get Weighted Average for a the whole batch for all the weeks per an
+	 * assessment All Weeks -> All Trainees In Batch -> Average Score -> One
+	 * Assessment Type
 	 * 
 	 * @param batchId
 	 * @param assessmentType
@@ -529,7 +551,7 @@ public class ReportingService {
 		Map<Integer, Double[]> results = new HashMap<>();
 		for (Integer i = 1; i <= weeks; i++) {
 			Map<Trainee, Double[]> temp = utilAvgBatchWeek(trainees, i, assessmentType);
-			if(temp.size() > 0){
+			if (temp.size() > 0) {
 				Double[] avg = { 0d, 0d, 0d };
 				avg[1] = temp.values().iterator().next()[1];
 				avg[2] = temp.values().iterator().next()[2];
@@ -562,7 +584,8 @@ public class ReportingService {
 	}
 
 	/**
-	 * Takes a batchId and Week number, and returns the average score per trainee for that week.
+	 * Takes a batchId and Week number, and returns the average score per
+	 * trainee for that week.
 	 * 
 	 * @param batchId
 	 * @param week
@@ -573,7 +596,7 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			Set<Grade> grades = new HashSet<>(trainee.getGrades());
 			Double traineeWeeklyGradeAverage = utilAvgTraineeWeek(grades, week);
-			if(traineeWeeklyGradeAverage > 0.0){
+			if (traineeWeeklyGradeAverage > 0.0) {
 				results.put(trainee, utilAvgTraineeWeek(grades, week));
 			}
 		}
@@ -581,7 +604,8 @@ public class ReportingService {
 	}
 
 	/**
-	 * Gets the Week numbers and the average scores for all assessments for the given trainee id for all weeks.
+	 * Gets the Week numbers and the average scores for all assessments for the
+	 * given trainee id for all weeks.
 	 * 
 	 * @param traineeId
 	 * @return Map<Week Number, Average Total Assessment Score Per Week>
@@ -595,10 +619,12 @@ public class ReportingService {
 	}
 
 	/**
-	 * Takes in batch ID, and returns a Map with the Week and the average Grades for that week for the batch.
+	 * Takes in batch ID, and returns a Map with the Week and the average Grades
+	 * for that week for the batch.
 	 * 
 	 * @param batchId
-	 * @return Map<Week Number, Double Average Score for All Assessments For the Week>
+	 * @return Map<Week Number, Double Average Score for All Assessments For the
+	 *         Week>
 	 */
 	public Map<Integer, Double> utilAvgBatchOverall(List<Trainee> trainees, Integer weeks) {
 		Map<Integer, Double> results = new HashMap<>();
@@ -608,20 +634,22 @@ public class ReportingService {
 			for (Map.Entry<Trainee, Double> t : temp.entrySet()) {
 				avg += t.getValue();
 			}
-			if(avg > 0.0 && temp.size() > 0){
+			if (avg > 0.0 && temp.size() > 0) {
 				avg = avg / temp.size();
 				results.put(i, avg);
-			}	
+			}
 		}
 		return results;
 	}
 
 	/**
-	 * Takes in a List of Grades and Returns an Map with Categories and Averages for Each Categories
+	 * Takes in a List of Grades and Returns an Map with Categories and Averages
+	 * for Each Categories
 	 * 
 	 * @param traineeId
 	 * @param weekNumber
-	 * @return Map<Category, Double[0: Average, 1: Number of assessments for that skill]>
+	 * @return Map<Category, Double[0: Average, 1: Number of assessments for
+	 *         that skill]>
 	 */
 	public Map<Category, Double[]> utilAvgSkills(List<Grade> grades) {
 		Map<Category, Double[]> results = new HashMap<>();
@@ -641,7 +669,8 @@ public class ReportingService {
 	}
 
 	/**
-	 * Takes a Map of Category, Double and converts it to Category Skill Names and Double
+	 * Takes a Map of Category, Double and converts it to Category Skill Names
+	 * and Double
 	 * 
 	 * @param skills
 	 * @return Map<Category Skill Name, Double Same as Input>
@@ -655,12 +684,14 @@ public class ReportingService {
 	}
 
 	/**
-	 * Takes the weighted sum of scores by assessment type, averages that with all other assessments for the week, sums
-	 * the value for all trainees overa wekk, and finally divides by number of trainees
+	 * Takes the weighted sum of scores by assessment type, averages that with
+	 * all other assessments for the week, sums the value for all trainees overa
+	 * wekk, and finally divides by number of trainees
 	 * 
 	 * @param batchId
 	 * @param week
-	 * @return Double [Average Value of Trainee Scores Weighted by Category Types]
+	 * @return Double [Average Value of Trainee Scores Weighted by Category
+	 *         Types]
 	 */
 	public Double utilAvgBatchWeekValue(List<Trainee> trainees, Integer week) {
 		Map<Trainee, Double> traineeAverageGrades = utilAvgBatchWeek(trainees, week);
