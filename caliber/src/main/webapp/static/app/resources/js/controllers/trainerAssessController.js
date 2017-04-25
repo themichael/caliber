@@ -13,6 +13,7 @@ angular
 						this.assessments = assessments;
 					}
 					
+					$scope.noTrainees = false;
 					
 					// array of weeks to parse through and display tabs
 					
@@ -366,7 +367,6 @@ angular
 							$log.debug($scope.noTraineesMessage);
 							$log.debug($scope.noTrainees);
 						}else{
-							$scope.noTrainees = false;
 						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
 								function(response) {
 									$scope.currentBatch.weeks += 1;
@@ -792,6 +792,20 @@ angular
 //				$scope.updateAssessment={};
 				
 				$scope.deleteAssessment = function(assessment,event,modalId,index){
-					$log.debug("im deleting an assessment");
+					$log.debug("im deleting an assessment" + $scope.currentAssessments);
+					caliberDelegate.trainer.deleteAssessment($scope.currentAssessments[index].assessmentId)
+					.then(function(response){
+									$log.debug("im deleting assessment");
+									if(response){
+										$('.modal').modal('hide');
+										//$scope.currentAssessments[index] = response;
+										//$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
+										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
+									}
+									
+									return response;
+					});
+					
 				};
+				
 				});
