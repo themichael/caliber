@@ -250,13 +250,7 @@ angular
 							$scope.currentBatch = null;
 						}
 					}
-					/** checking benchmark date * */
-					function benchmarkDateIsValid() {
 
-						if ($scope.benchmarkStartDate.model < new Date()) {
-							$scope.startDate();
-						}
-					}
 					/** checking benchmark date * */
 					function benchmarkDateIsValid() {
 
@@ -340,14 +334,18 @@ angular
 												// whatever was inserted into
 												// database
 												newBatch.batchId = response.data.batchId;
-												//create empty array for trainees so trainees can be added immediately
+												// create empty array for
+												// trainees so trainees can be
+												// added immediately
 												newBatch['trainees'] = [];
 												// create empty array for weeks,
 												// so weeks can be added
 												// immediately
 												newBatch['arrayWeeks'] = [];
 												newBatch['weeks'] = response.data.weeks;
-												//format dates so qc, assess and reports can access batches immediately
+												// format dates so qc, assess
+												// and reports can access
+												// batches immediately
 												formatBatchDates(newBatch)
 
 												$scope.batches.push(newBatch);
@@ -365,7 +363,8 @@ angular
 								.deleteBatch($scope.currentBatch.batchId)
 								.then(
 										function(response) {
-											//if delete successful, remove from batch table
+											// if delete successful, remove from
+											// batch table
 											if (response.status === 204) {
 												for (var i = 0; i < $scope.batches.length; i++) {
 													if ($scope.batches[i] === $scope.currentBatch) {
@@ -514,7 +513,8 @@ angular
 												$scope.trainees[$scope.traineeRow] = $scope.currentTrainee;
 												$scope.resetTraineeForm();
 												// if trainee is dropped, splice
-												// from allbatches list
+												// from allbatches list and add
+												// to drop list
 												if ($scope.trainees[$scope.traineeRow].trainingStatus === "Dropped") {
 													for (i = 0; i < $scope.activeTrainees.length; i++) {
 														if ($scope.activeTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
@@ -545,7 +545,8 @@ angular
 									.createTrainee(newTrainee)
 									.then(
 											function(response) {
-
+												// if successfully inserted into
+												// db, trainee is added to table
 												if (response.status === 201) {
 													if (response.data.trainingStatus === "Dropped") {
 														$scope.droppedTrainees
