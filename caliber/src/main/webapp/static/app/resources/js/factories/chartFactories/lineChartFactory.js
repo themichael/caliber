@@ -2,31 +2,32 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 	$log.debug("Booted Line Chart Factory");
 
 	var lineChart = {};
-	var hoverOpacity = 0.4;
-	var opacity = 0.4;
+
 	var mainColor = {
-			backgroundColor : 'rgba(114, 164, 194, .5)',
-			pointBackgroundColor : 'rgba(114, 164, 194, .5)',
-			borderColor : 'rgba(114, 164, 194, 1)',
-			pointHoverBackgroundColor : 'rgba(114, 164, 194, .3)',
-			pointHoverBorderColor : 'rgba(114, 164, 194, .3)',
-			pointBorderColor : '#fff'
-		} 
+		backgroundColor : 'rgba(114, 164, 194, .5)',
+		pointBackgroundColor : 'rgba(114, 164, 194, .5)',
+		borderColor : 'rgba(114, 164, 194, 1)',
+		pointHoverBackgroundColor : 'rgba(114, 164, 194, .3)',
+		pointHoverBorderColor : 'rgba(114, 164, 194, .3)',
+		pointBorderColor : '#fff'
+	}
+
 	var secondaryColor = {
-			backgroundColor : 'rgba(252, 180, 20, .6)',
-			pointBackgroundColor : 'rgba(252, 180, 20, .6)',
-			borderColor : 'rgba(252, 180, 20, 1)',
-			pointHoverBackgroundColor : 'rgba(252, 180, 20, .3)',
-			pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
-			pointBorderColor : '#fff'
-		};
+		backgroundColor : 'rgba(252, 180, 20, .6)',
+		pointBackgroundColor : 'rgba(252, 180, 20, .6)',
+		borderColor : 'rgba(252, 180, 20, 1)',
+		pointHoverBackgroundColor : 'rgba(252, 180, 20, .3)',
+		pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
+		pointBorderColor : '#fff'
+	}
+
 	lineChart.getBatchOverallLineChart = function(dataArray) {
 		var chartData = {};
 		// data and labels
 		chartData.data = [];
 		chartData.data.push([]);
 		chartData.labels = [];
-		chartData.colors = [mainColor];
+		chartData.colors = [ mainColor ];
 		chartData.options = {
 			scales : {
 				yAxes : [ {
@@ -43,14 +44,9 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 			}
 		}
 		// traverse through array of objects and grab labels and data
-		var go = true;
 		angular.forEach(dataArray, function(value, key) {
-			if (value === 0)
-				go = false;
-			if (go) {
-				chartData.labels.push(key);
-				chartData.data[0].push(value.toFixed(2));
-			}
+			chartData.labels.push(key);
+			chartData.data[0].push(value.toFixed(2));
 		});
 		return chartData;
 	};
@@ -63,7 +59,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		chartData.data = [];
 		chartData.labels = [];
 		chartData.series = [ "Trainee", "Batch" ];
-		chartData.colors = [mainColor, secondaryColor];
+		chartData.colors = [ mainColor, secondaryColor ];
 		chartData.options = {
 			scales : {
 				xAxes : [ {
@@ -114,7 +110,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		var chartData = {};
 		chartData.series = [ "Trainee", "Batch" ]
 		chartData.data = [];
-		chartData.colors = [mainColor, secondaryColor];
+		chartData.colors = [ mainColor, secondaryColor ];
 		chartData.options = {
 			scales : {
 				xAxes : [ {
@@ -155,5 +151,63 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		return chartData;
 
 	};
+	// vpHome Line Chart
+	lineChart.getCurrentBatchesAverageScoreChart = function(dataArray) {
+		var chartData = {};
+		chartData.data = [];
+		chartData.colors = [ mainColor, secondaryColor ];
+		chartData.series = [];
+		chartData.labels = [];
+		
+		chartData.options = {
+			scales : {
+				xAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Week'
+					}
+
+				} ],
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Score'
+					},
+
+					ticks : {
+						suggestedMin : 40,
+						max : 100,
+						stepSize : 20
+					}
+				} ]
+			}
+		};
+
+		var highestWeek = 0;
+		angular.forEach(dataArray, function(value, key) {
+			var currentWeek = 1;
+			chartData.series.push(key);
+			var temp = [];
+			angular.forEach(value, function(value2, key2) {
+				while(currentWeek < key2){
+					temp.push(0);
+					currentWeek++;
+				}
+				temp.push(value2.toFixed(2));
+				currentWeek++;
+				if(currentWeek > highestWeek){
+					highestWeek = currentWeek;
+				}
+			});
+			chartData.data.push(temp);
+		});
+		
+		for (var i = 1; i < highestWeek; i++) {
+			chartData.labels.push("Week " + i);
+		}
+		
+		
+		return chartData;
+	}
 	return lineChart;
 });

@@ -25,9 +25,6 @@ angular
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
 
-					// $scope.currentBatch = allBatches[0];$scope.currentWeek
-					// =1; // denise debug line please ignore ... ill delete
-					// when im done TODO
 					(function() {
 						// Finishes any left over ajax animation
 						NProgress.done();
@@ -44,7 +41,6 @@ angular
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
-
 						}
 
 					})();
@@ -97,10 +93,12 @@ angular
 
 					function displayTraineeOverallTable(traineeId) {
 						$scope.traineeOverall=[];	
+						
 						for(weekNum in $scope.currentBatchWeeks){
 							var week = parseInt(weekNum) + 1
 							$scope.traineeOverall.push({week});
 						}
+						
 						caliberDelegate.all
 								.getAllTraineeNotes(traineeId)
 								.then(
@@ -111,6 +109,7 @@ angular
 												}
 											}											
 										});
+						
 						caliberDelegate.qc.
 								traineeOverallNote(traineeId)
 								.then(
@@ -165,6 +164,12 @@ angular
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
 						batchYears();
+						$scope.currentBatch = $scope.batchesByYear[0];
+						$scope.reportCurrentWeek = OVERALL;
+						$scope.currentTraineeId = ALL;
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId);
 					};
 
 					function sortByDate(currentYear) {
@@ -180,8 +185,8 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batchesByYear[index];
 						getCurrentBatchWeeks($scope.currentBatch.weeks);
-						$scope.selectCurrentWeek(OVERALL);
-						$scope.selectCurrentTrainee(ALL);
+						$scope.reportCurrentWeek = OVERALL;
+						$scope.currentTraineeId = ALL;
 						selectView($scope.currentBatch.batchId,
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
@@ -199,15 +204,8 @@ angular
 					 * has been selected
 					 */
 					$scope.displayTable = function() {
-						// $log.debug("[ THIS IS THE CURRENT BATCHID ]"
-						// +$scope.currentBatch.batchId + " [ THIS IS THE
-						// CURRENTWEEK ]" + $scope.reportCurrentWeek);
 						if ($scope.currentBatch === null
-								|| $scope.currentWeek === null) { // checking
-							// to see if
-							// the scope
-							// variables
-							// are null
+								|| $scope.currentWeek === null) { 
 							return false;
 						}
 						return true;
@@ -215,15 +213,7 @@ angular
 					$scope.displayTraineeOverallTable = function() {
 						if ($scope.currentBatch === null
 								|| $scope.currentWeek === null
-								|| $scope.batchOverallTrainee === null) { // checking
-							// to
-							// see
-							// if
-							// the
-							// scope
-							// variables
-							// are
-							// null
+								|| $scope.batchOverallTrainee === null) {
 							return false;
 						} else {
 							return true;
@@ -328,8 +318,6 @@ angular
 											$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
 											$scope.averageTraineeScoresWeeklyOptions = barChartObj.options;
 											$scope.averageTraineeScoresWeeklyColors = barChartObj.colors;
-											$scope.averageTraineeScoresWeeklyTable = chartsDelegate.utility
-													.dataToTable(barChartObj);
 										}, function() {
 											NProgress.done();
 										});
@@ -377,6 +365,7 @@ angular
 										});
 
 					}
+		
 
 					function createAssessmentAveragesTraineeWeekly() {
 						chartsDelegate.bar.data
@@ -530,7 +519,7 @@ angular
 					// Yanilda
 					function createWeeklyProgressTraineeWeekly() {
 						chartsDelegate.line.data
-								.getWeeklyProgressTraineeWeeklyData(
+								.getWeeklyProgressTraineeWeeklyData($scope.currentBatch.batchId,
 										$scope.reportCurrentWeek,
 										$scope.currentTraineeId)
 								.then(
@@ -594,7 +583,7 @@ angular
 						// <img src=base64>
 						var html = $scope.generateImgFromCanvas(caliber, clone).innerHTML;
 
-						var title = "";
+						var title;
 						// generate the title
 						if ($scope.reportCurrentWeek !== OVERALL)
 							title = "Week " + $scope.currentWeek

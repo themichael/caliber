@@ -1,52 +1,96 @@
-angular.module("qc").controller(
-		"qcHomeController",
-		function($rootScope, $scope, $state, $log, caliberDelegate,
-				chartsDelegate, allBatches) {
-			$log.debug("Booted QC home controller.");
-			/*
-			 * ******************************************* On Start
-			 * ***********************************************
-			 */
+angular
+		.module("qc")
+		.controller(
+				"qcHomeController",
+				function($rootScope, $scope, $state, $log, caliberDelegate,
+						chartsDelegate, allBatches) {
+					$log.debug("Booted QC home controller.");
+					/*
+					 * ******************************************* On Start
+					 * ***********************************************
+					 */
+					
+					const ALL = "(All)";
+					date.setFullYear( date.getFullYear() - 1 );
+					
+					$scope.selectedTraining = ALL;
+					$scope.selectedSkill = ALL;
+					$scope.selectedDate = new Date();
+					$scope.selectedDate.setFullYear($scope.selectedDate.getFullYear()-1);
+					
+					(function start() {
+						// Finishes any left over AJAX animation
+						NProgress.done();
+						$log.debug(allBatches);
+						createDefaultCharts();
 
-			(function start() {
-				// Finishes any left over AJAX animation
-				NProgress.done();
+					})();
 
-				createDefaultCharts();
+					function createDefaultCharts() {
+						NProgress.start();
+						createAllBatchesCurrentWeekQCStats();
+						createCurrentBatchesAverageScoreChart();
+					}
 
-			})();
+					/*
+					 * ********************************************* UI
+					 * **************************************************
+					 */
 
-			function createDefaultCharts() {
-				NProgress.start();
-				createAllBatchesCurrentWeekQCStats();
-			}
+					function createAllBatchesCurrentWeekQCStats() {
+						chartsDelegate.bar.data
+								.getAllBatchesCurrentWeekQCStatsData()
+								.then(
+										function(data) {
+											NProgress.done();
+											var barChartObj = chartsDelegate.bar
+													.getAllBatchesCurrentWeekQCStats(data);
 
-			/*
-			 * ********************************************* UI
-			 * **************************************************
-			 */
-			
-			function createAllBatchesCurrentWeekQCStats() {
-				chartsDelegate.bar.data
-						.getAllBatchesCurrentWeekQCStatsData()
-						.then(
-								function(data) {
-									NProgress.done();
-									var barChartObj = chartsDelegate.bar
-											.getAllBatchesCurrentWeekQCStats(data);
-									
-									$log.debug("STACKED OBJECT++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-									$log.debug(barChartObj);
-									
-									$scope.stackedBarData = barChartObj.data;
-									$scope.stackedBarLabels = barChartObj.labels;
-									$scope.stackedBarSeries = barChartObj.series;
-									$scope.stackedBarOptions = barChartObj.options;
-									$scope.stackedBarColors = barChartObj.colors;
-									
-								}, function() {
-									NProgress.done();
-								});
-			}
+											$scope.stackedBarData = barChartObj.data;
+											$scope.stackedBarLabels = barChartObj.labels;
+											$scope.stackedBarSeries = barChartObj.series;
+											$scope.stackedBarOptions = barChartObj.options;
+											$scope.stackedBarColors = barChartObj.colors;
 
-		});
+										}, function() {
+											NProgress.done();
+										});
+					}
+
+					function createCurrentBatchesAverageScoreChart() {
+						chartsDelegate.line.data
+								.getCurrentBatchesAverageScoreChartData()
+								.then(
+										function(data) {
+											NProgress.done();
+											var lineChartObj = chartsDelegate.line
+													.getCurrentBatchesAverageScoreChart(data);
+
+											$scope.currentBatchesLineData = lineChartObj.data;
+											$scope.currentBatchesLineLabels = lineChartObj.labels;
+											$scope.currentBatchesLineSeries = lineChartObj.series;
+											$scope.currentBatchesLineOptions = lineChartObj.options;
+											$scope.currentBatchesLineColors = lineChartObj.colors;
+
+										}, function() {
+											NProgress.done();
+										});
+					}
+
+				});
+
+				function selectTraining(){
+					
+					
+				};
+				
+				function selectSkill(){
+					
+					
+				};
+				
+				function changeDate(){
+					
+					
+				};
+				
