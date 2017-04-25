@@ -406,7 +406,7 @@ angular
 						// Create week array for batch selected
 						$scope.weeks = [];
 						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-							$scope.weeks.push(i); 
+							$scope.weeks.push(i);
 						}
 
 						if ($scope.batchesByYear.length === 0) {
