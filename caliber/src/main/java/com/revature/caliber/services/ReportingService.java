@@ -1,6 +1,7 @@
 package com.revature.caliber.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -22,7 +23,9 @@ import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.TrainingType;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
@@ -451,13 +454,45 @@ public class ReportingService {
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		return utilAvgBatchWeekValue(trainees, week);
 	}
+	
+	/**********************************************************************
+	 *  Batch Comparison Data
+	 * ********************************************************************
+	 */
+	public Double getBatchComparisonAvg(SkillType skill, TrainingType training, Date startDate){
+		
+		List<Batch> allBatches = batchDAO.findAllAfterDate(startDate.getMonth(), startDate.getDay(), startDate.getYear());
+		
+	}
 
 	/*
 	 *******************************************************
 	 * Utility Methods
 	 *******************************************************
-	 */
-
+	 */	
+	
+	public Double utilAvgBatch(List<Trainee> trainees, int weeks){
+		Double result = 0.0;
+		Map<String, Double> averages = new HashMap<>();
+		for (Trainee trainee : trainees) {
+			Double avg = 0.d;
+			int weeksWithGrades = 0;
+			for (Integer i = 0; i < weeks; i++) {
+				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
+				if (tempAvg > 0) {
+					weeksWithGrades++;
+					avg += tempAvg;
+				}
+			}
+			if (avg > 0.0 && weeksWithGrades > 0) {
+				avg = avg / weeksWithGrades;
+				averages.put(trainee.getName(), avg);
+			}
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * Gets the average for a given Trainee ID for the entire week for one
 	 * particular assessment. One Week -> One Trainee -> Average Score -> One

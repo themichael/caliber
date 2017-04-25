@@ -15,8 +15,13 @@ angular
 					ALL = -1;
 					var radarComparData = null;
 					var radarComparObj = {};
-
+					const
+					NONE = "NONE";
 					// What you see when you open Reports
+					$scope.selectedTraining = NONE;
+					$scope.selectedSkill = NONE;
+					$scope.selectedDate = new Date();
+					$scope.selectedDate.setFullYear($scope.selectedDate.getFullYear()-1);
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
@@ -26,6 +31,13 @@ angular
 					$scope.batchWeekTrainee = false;
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
+
+					var derp = caliberDelegate.all.enumTrainingType().then(function (skills) {
+						$log.debug(skills);
+						$scope.derp = skills;
+					}());
+					$log.debug("Yaaahhhhh!");
+					$log.debug($scope.derp);
 
 					(function() {
 						// Finishes any left over ajax animation
@@ -674,6 +686,27 @@ angular
 						return clone;
 					};
 					
+					
+					
+					
+					$scope.selectTraining = function(index){
+						
+						
+					};
+					
+					$scope.selectSkill = function(index){
+						
+						
+					};
+					
+					function changeDate(){
+						
+						
+					};
+					
+					
+					
+					
 					// gets the note for that trainne and that week
 					$scope.getTraineeNote=function(traineeId,weekId){
 						$log.debug("YOU ARE IN YOUR FUNCTION");
@@ -695,3 +728,5 @@ angular
 					}
 					
 				});
+
+			
