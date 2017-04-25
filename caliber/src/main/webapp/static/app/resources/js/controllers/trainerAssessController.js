@@ -745,37 +745,6 @@ angular
 				/******************
 				 * UPDATE ASSESSMENT 
 				 *****************/
-/*				$scope.updateAssessment = function(assessment,event,modalId,index){
-					event.stopPropagation();
-					if($scope.updateAssessmentModel !==undefined){
-						$log.debug(index);
-						//$log.debug($scope.currentAssessments[$index] + "  ------ " + $index);
-						if($scope.updateAssessmentModel.category){
-							assessment.category=$scope.updateAssessmentModel.category;
-						}
-						if($scope.updateAssessmentModel.type){
-							assessment.type=$scope.updateAssessmentModel.type;
-						}
-						if($scope.updateAssessmentModel.rawScore){
-							assessment.rawScore=$scope.updateAssessmentModel.rawScore;
-						}
-						$scope.currentAssesments[index] = assessment;
-						//call delegate if at least one field was changed
-						if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
-							caliberDelegate.trainer.updateAssessment(assessment)
-							.then(function(response){								
-								//$scope.currentAssesments[index] = assessment;
-								getAllAssessmentsForWeek($scope.currentBatch, $scope.currentWeek);
-								$scope.currentView = false;
-								return response;
-							});
-						}
-						
-						$log.debug("the assessment has been updated this " + $scope.currentAssesments[index] + " to -> " + assessment);
-					}
-					$('.modal').modal('hide');
-				}*/
-					
 					$scope.updateAssessment = function(assessment,event,modalId,index){
 						event.stopPropagation();
 						if($scope.updateAssessmentModel !==undefined){
@@ -795,12 +764,12 @@ angular
 								caliberDelegate.trainer.updateAssessment(assessment)
 								.then(function(response){
 									$log.debug("the assessment has been updated")
-								//	$scope.currentAssesments[index] = assessment; // change the scope to the updated assessment and call the method to update all
-									//$state.reload();
 									return response;
 								}).then(function(response){
 									if(response){
-//										$scope.currentAssessments[index] = response;
+										$('.modal').modal('hide');
+										$scope.currentAssessments[index] = response;
+										$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
 										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
 									}
 								});
