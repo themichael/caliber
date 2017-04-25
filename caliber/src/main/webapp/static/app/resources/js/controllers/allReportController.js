@@ -23,6 +23,10 @@ angular
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
+					$scope.skillstack = [];
+						
+				
+					
 					$scope.currentTraineeId = ALL;
 					$scope.noBatch = true;
 					$scope.batchWeek = false;
@@ -34,6 +38,7 @@ angular
 						// Finishes any left over ajax animation
 						NProgress.done();
 						// batch null check
+						 getAllSkillTypes();
 
 						if ($scope.currentBatch === null) {
 							$scope.noBatch = true;
@@ -95,7 +100,14 @@ angular
 						}
 
 					}
-
+					function getAllSkillTypes(){
+						caliberDelegate.all.enumSkillType().then(function(skills){
+							$scope.skillstack= skills;
+							$log.debug($scope.skillstack);
+							$log.debug("Hello there" );
+							});
+						
+					}
 					function displayTraineeOverallTable(traineeId) {
 						$scope.traineeOverall=[];	
 						

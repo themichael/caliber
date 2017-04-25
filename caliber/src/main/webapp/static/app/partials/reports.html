@@ -66,8 +66,8 @@
 									class="caret"></span>
 							</a>
 								<ul class="dropdown-menu">
-									<li ng-repeat="type in batchTypes track by $index"><a
-										role="button" ng-click="selectCurrentBatchType($index)">{{batchType.typeName}}</a></li>
+									<li ng-repeat="skill in skillstack track by $index"><a
+										role="button" ng-click="selectCurrentBatchType($index)">{{skill}}</a></li>
 								</ul></li>
 							<li><span id="start-date" data-datepicker="true"> <input
 									ng-model="startDate.model" ng-value="startDate"
