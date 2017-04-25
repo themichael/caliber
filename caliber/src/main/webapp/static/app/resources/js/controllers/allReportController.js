@@ -236,6 +236,37 @@ angular
 						}
 					}
 
+					var myData = null;
+					$scope.getAllTraineesAndBatchRadarData = function(){
+						chartsDelegate.radar.data
+						.getAllTraineesAndBatchRadarChart($scope.currentBatch.batchId)
+						.then(function(data) {
+							myData = data;
+						})
+					}
+					var obj = {};
+					$scope.toggleComparisonRadarChart = function(isChecked, val) {
+						obj[$scope.currentBatch.trainingName] = mainData;
+						if(isChecked) {
+							obj[$scope.currentBatch.trainees[val].name] = myData[$scope.currentBatch.trainees[val].name] ;
+						} else {
+							delete obj[$scope.currentBatch.trainees[val].name];
+						}
+
+						var radarBatchOverallChartObject = chartsDelegate.radar
+								.getCombineBatchAndAllTraineeAssess(
+								obj);
+						$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
+						$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
+						$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
+						$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
+						$scope.radarBatchOverallColors = radarBatchOverallChartObject.colors;
+						
+						$scope.radarBatchOverallTable = chartsDelegate.utility
+						.dataToTable(radarBatchOverallChartObject);
+						$log.debug(radarBatchOverallChartObject);
+					}
+					
 					// *******************************************************************************
 					// *** Chart Generation
 					// *******************************************************************************
@@ -466,7 +497,7 @@ angular
 													.dataToTable(radarChartObject);
 										});
 					}
-
+					var mainData = null;
 					function createTechnicalSkillsBatchOverall() {
 						$log.debug("createTechnicalSkillsBatchOverall");
 						chartsDelegate.radar.data
@@ -476,6 +507,7 @@ angular
 								.then(
 										function(data) {
 											NProgress.done();
+											mainData = data;
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(
 															data,
@@ -491,7 +523,7 @@ angular
 										});
 
 					}
-
+					
 					// *******************************************************************************
 					// *** Line Charts
 					// *******************************************************************************
@@ -645,7 +677,7 @@ angular
 								$scope.note = data;
 							}
 						});
-						//Michael get QCnote and QCstatus
+						// Michael get QCnote and QCstatus
 						caliberDelegate.qc.getQCTraineeNote(traineeId,weekId).then(function(data){
 							$log.debug("YOU ARE IN get qc caliber in controller");
 								$scope.qcNote = {};

@@ -198,11 +198,9 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								Batch Technical Skills
-								<div role="button" class="pull-right" data-toggle="modal"
-									data-target="#insert-trainee">
-									<a>Insert<span class="glyphicon glyphicon-plus"
-										aria-hidden="true"></span>
-									</a>
+								<div id="toggleMe" role="button" class="pull-right" data-toggle="modal" data-target="#insert-trainee">
+									<i class="fa fa-user-circle-o fa-lg" ng-click="getAllTraineesAndBatchRadarData()"
+										aria-hidden="true"></i>
 								</div>
 							</div>
 							<div class="panel-body">
@@ -496,20 +494,22 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">Insert Trainees</h4>
+				<h4 class="modal-title">Trainees Comparision</h4>
 			</div>
-			<!-- Add Batch Info -->
 			<div class="modal-body">
 				<div class="table-responsive">
 					<table class="table">
 						<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-							<th class="col-sm-2 col-md-2 col-lg-2">{{trainee.name}}</th>
-							<button ></button>
+							<th class="col-sm-2 col-md-2 col-lg-2">{{trainee.name}}
+								<input type="checkbox" ng-model="bool" ng-change="toggleComparisonRadarChart(bool, $index)" />
+							</th>
 						</tr>
 					</table>
 				</div>
-
 			</div>
 		</div>
 	</div>
 </div>
+<!--'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>' -->
+<script type="text/javascript">
+</script>
