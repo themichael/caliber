@@ -91,10 +91,12 @@ angular
 					// *******************************************************************************
 
 					function createCurrentQCStatus() {
+						$log.debug($scope.currentBatch.batchId);
 						chartsDelegate.doughnut.data
 								.getCurrentQCStatsData($scope.currentBatch.batchId)
 								.then(
 										function(data) {
+											$log.debug(data);
 											NProgress.done();
 											var doughnutChartObject = chartsDelegate.doughnut
 													.getCurrentQCStats(data);
