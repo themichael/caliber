@@ -13,6 +13,7 @@ angular
 						this.assessments = assessments;
 					}
 					
+					$scope.noTrainees = false;
 					
 					// array of weeks to parse through and display tabs
 					
@@ -366,7 +367,6 @@ angular
 							$log.debug($scope.noTraineesMessage);
 							$log.debug($scope.noTrainees);
 						}else{
-							$scope.noTrainees = false;
 						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
 								function(response) {
 									$scope.currentBatch.weeks += 1;
