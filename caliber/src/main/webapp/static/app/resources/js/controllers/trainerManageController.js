@@ -157,9 +157,8 @@ angular
 						$scope.showdropped = false;
 						$log.debug($scope.currentBatch);
 					};
-					
-					
-					/** Validation for the dates **/
+
+					/** Validation for the dates * */
 					$scope.checkDates = function() {
 
 						$log.info($scope.startDate);
@@ -172,13 +171,14 @@ angular
 							$log.debug("True");
 							$scope.addNewBatch();
 						} else {
-							/*$scope.validDate = true;*/
+							/* $scope.validDate = true; */
 							$log.info("False");
-							//window.alert("hi!....u buggin!!!");
-							angular.element("#benchmarkdateModal").modal("show");
+							// window.alert("hi!....u buggin!!!");
+							angular.element("#benchmarkdateModal")
+									.modal("show");
 							return false;
 						}
-						
+
 						$log.info($scope.validDate);
 
 					}
@@ -218,8 +218,11 @@ angular
 							$scope.coTrainer.model = ""
 						}
 
-						$scope.startDate.model = new Date(batch.startDate);
-						$scope.endDate.model = new Date(batch.endDate);
+						$scope.startDate.model = new Date(moment(
+								batch.startDate, "YYYY-MM-DD").format(
+								"YYYY/MM/DD"));
+						$scope.endDate.model = new Date(moment(batch.endDate,
+								"YYYY-MM-DD").format("YYYY/MM/DD"));
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
@@ -240,7 +243,7 @@ angular
 						$scope.endDate.model = "";
 						$scope.goodGradeThreshold.model = "";
 						$scope.borderlineGradeThreshold.model = "";
-						$scope.benchmarkStartDate.model = "";
+						$scope.benchmarkStartDate.model = new Date("2003/01/01");
 						$scope.Save = "Save";
 						$scope.Updating = false;
 						if ($scope.currentBatch) {
@@ -506,18 +509,18 @@ angular
 													for (i = 0; i < $scope.activeTrainees.length; i++) {
 														if ($scope.activeTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.droppedTrainees
-															.push($scope.trainees[$scope.traineeRow]);
+																	.push($scope.trainees[$scope.traineeRow]);
 															$scope.activeTrainees
 																	.splice(i,
 																			1);
-															
+
 														}
 													}
 												} else {
 													for (i = 0; i < $scope.droppedTrainees.length; i++) {
 														if ($scope.droppedTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.activeTrainees
-															.push($scope.trainees[$scope.traineeRow]);
+																	.push($scope.trainees[$scope.traineeRow]);
 															$scope.droppedTrainees
 																	.splice(i,
 																			1);
@@ -546,6 +549,7 @@ angular
 												$scope.resetTraineeForm();
 											});
 						}
+						angular.element("#addTraineeModal").modal("hide");
 					};
 
 					/** Get Trainee to delete* */
