@@ -21,6 +21,10 @@ public class BatchValidator implements ConstraintValidator<BatchValObject, Batch
 			return false;
 		} else if (batch.getBorderlineGradeThreshold() > batch.getGoodGradeThreshold()) {
 			return false;
+		} else if (batch.getStartDate().before(batch.getBenchmarkStartDate())) {
+			return false;
+		} else if (batch.getTrainer().equals(batch.getCoTrainer())) {
+			return false;
 		} else {
 			return true;
 		}
