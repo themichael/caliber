@@ -17,7 +17,7 @@
 						data-toggle="dropdown"> {{ selectedYear }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li ng-repeat="menuItem in years track by $index"><a
-								role="button" ng-click="selectYear($index); checkBatch()">{{menuItem}}</a></li>
+								role="button" ng-click="selectYear($index); checkBatch();">{{menuItem}}</a></li>
 						</ul></li>
 
 					<!-- top ui for viewing all assessments -->
@@ -168,5 +168,4 @@
 	</div>
 	<!-- overall -->
 </div>
-<!-- <div ui-view="confirm-add-weeks-modal">
-</div> -->
+<div ui-view="confirm-add-weeks-modal"></div>
