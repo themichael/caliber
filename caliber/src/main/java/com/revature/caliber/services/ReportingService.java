@@ -1,6 +1,7 @@
 package com.revature.caliber.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -459,10 +460,41 @@ public class ReportingService {
 	 *  Batch Comparison Data
 	 * ********************************************************************
 	 */
-	public Double getBatchComparisonAvg(SkillType skill, TrainingType training, Date startDate){
+	public Double getBatchComparisonAvg(String skill, String training, Date startDate){
+		Double result = 0.0;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(startDate);
+		List<Batch> allBatches = batchDAO.findAllAfterDate(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.YEAR));
+		List<Batch> filteredBatches;
 		
-		List<Batch> allBatches = batchDAO.findAllAfterDate(startDate.getMonth(), startDate.getDay(), startDate.getYear());
+		if (skill.equals("All")){
+			if (training.equals("All")){
+				filteredBatches = allBatches;
+			} else {
+				filteredBatches = allBatches.stream()
+						.filter(b -> b.getTrainingType().name().equals(training))
+						.collect(Collectors.toList());
+			}
+			
+		} else {
+			if (training.equals("All")){
+				filteredBatches = allBatches.stream()
+						.filter(b -> b.getTrainingType().name().equals(skill))
+						.collect(Collectors.toList());
+			} else {
+				filteredBatches = allBatches.stream()
+						.filter(b -> b.getTrainingType().name().equals(skill))
+						.filter(b -> b.getTrainingType().name().equals(training))
+						.collect(Collectors.toList());			
+			}
+		}
 		
+		for (Batch batch : filteredBatches){
+			result += utilAvgBatch(new ArrayList<Trainee>(batch.getTrainees()), batch.getWeeks());
+		}
+		
+		result = result / filteredBatches.size();
+		return result;
 	}
 
 	/*
@@ -486,10 +518,10 @@ public class ReportingService {
 			}
 			if (avg > 0.0 && weeksWithGrades > 0) {
 				avg = avg / weeksWithGrades;
-				averages.put(trainee.getName(), avg);
+				result += avg;
 			}
 		}
-		
+		result = result / trainees.size();
 		return result;
 	}
 	

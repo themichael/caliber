@@ -35,9 +35,8 @@ angular
 					(function() {
 						// Finishes any left over ajax animation
 						NProgress.done();
-						// batch null check
+						// get all training types for dropdown
 						getAllTrainingTypes();
-						
 						if ($scope.currentBatch === null) {
 							$scope.noBatch = true;
 						} else {
