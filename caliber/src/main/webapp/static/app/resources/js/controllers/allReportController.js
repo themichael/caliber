@@ -25,6 +25,10 @@ angular
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
+					$scope.skillstack = [];
+						
+				
+					
 					$scope.currentTraineeId = ALL;
 					$scope.noBatch = true;
 					$scope.batchWeek = false;
@@ -32,18 +36,16 @@ angular
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
 
-					var derp = caliberDelegate.all.enumTrainingType().then(function (skills) {
-						$log.debug(skills);
-						$scope.derp = skills;
-					}());
-					$log.debug("Yaaahhhhh!");
-					$log.debug($scope.derp);
-
 					(function() {
 						// Finishes any left over ajax animation
 						NProgress.done();
-						// batch null check
-	
+						
+						//get stack of batch skill
+						 getAllSkillTypes();
+
+						// get all training types for dropdown
+						getAllTrainingTypes();
+
 						if ($scope.currentBatch === null) {
 							$scope.noBatch = true;
 						} else {
@@ -58,7 +60,7 @@ angular
 						}
 
 					})();
-
+					
 					function selectView(batch, week, trainee) {
 						if (week === OVERALL) {
 							// All Weeks
@@ -104,7 +106,14 @@ angular
 						}
 
 					}
-
+					function getAllSkillTypes(){
+						caliberDelegate.all.enumSkillType().then(function(skills){
+							$scope.skillstack= skills;
+							$log.debug($scope.skillstack);
+							$log.debug("Hello there" );
+							});
+						
+					}
 					function displayTraineeOverallTable(traineeId) {
 						$scope.traineeOverall=[];	
 						
@@ -282,6 +291,14 @@ angular
 						$scope.radarBatchOverallTable = chartsDelegate.utility
 						.dataToTable(radarBatchOverallChartObject);
 						$log.debug(radarBatchOverallChartObject);
+					}
+					
+					function getAllTrainingTypes() {
+						caliberDelegate.all.enumTrainingType().then(
+								function(trainingType) {
+									$log.debug(trainingType);
+									$scope.trainingTypes = trainingType;
+								});
 					}
 					
 					// *******************************************************************************
@@ -729,4 +746,4 @@ angular
 					
 				});
 
-			
+

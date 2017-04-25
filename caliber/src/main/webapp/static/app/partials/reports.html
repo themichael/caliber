@@ -50,7 +50,7 @@
 						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
 							role="button" ng-click="selectCurrentTrainee($index)">{{trainee.name}}</a></li>
 					</ul></li>
-					
+
 				<!-- Select Training Type-->
 							<li role="button" class="dropdown"><a
 								class="dropdown-toggle" data-toggle="dropdown"> Training
@@ -66,8 +66,8 @@
 									class="caret"></span>
 							</a>
 								<ul class="dropdown-menu">
-									<li ng-repeat="type in batchTypes track by $index"><a
-										role="button" ng-click="selectCurrentBatchType($index)">{{batchType.typeName}}</a></li>
+									<li ng-repeat="skill in skillstack track by $index"><a
+										role="button" ng-click="selectCurrentBatchType($index)">{{skill}}</a></li>
 								</ul></li>
 							<li><span id="start-date" data-datepicker="true"> <input
 									ng-model="startDate.model" ng-value="startDate"
@@ -78,6 +78,30 @@
 								<button type="submit" class="btn btn-primary"
 									style="margin-left: 0.5em">Change Reference Date</button>
 							</li>	
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown"> Training Types<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="type in trainingTypes track by $index"><a
+							role="button" ng-click="selectTrainingType($index)">{{type}}</a></li>
+					</ul></li>
+				<!-- Select Skill Stack-->
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">Skill Stack<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="type in batchTypes track by $index"><a
+							role="button" ng-click="selectCurrentBatchType($index)">{{batchType.typeName}}</a></li>
+					</ul></li>
+				<li><span id="start-date" data-datepicker="true"> <input
+						ng-model="startDate.model" ng-value="startDate"
+						class="date-input form-control date-selector" name="s" min="0"
+						type="date" ng-required="true">
+				</span></li>
+				<li>
+					<button type="submit" class="btn btn-primary"
+						style="margin-left: 0.5em">Change Reference Date</button>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -226,7 +250,8 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								Batch Technical Skills
-								<div role="button" class="pull-right" data-toggle="modal" data-target="#insert-trainee">
+								<div role="button" class="pull-right" data-toggle="modal"
+									data-target="#insert-trainee">
 									<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
 								</div>
 							</div>
@@ -527,9 +552,11 @@
 			<div class="modal-body">
 				<div class="table-responsive">
 					<table class="table">
-						<tr class="col-xs-6 col-sm-6 col-md-4" ng-repeat="trainee in currentBatch.trainees track by $index">
-							<th class="col-sm-2 col-md-2 col-lg-2">{{trainee.name}}
-								<input type="checkbox" class="pull-right" ng-model="isChecked" ng-change="toggleComparisonRadarChart(isChecked, $index)" />
+						<tr class="col-xs-6 col-sm-6 col-md-4"
+							ng-repeat="trainee in currentBatch.trainees track by $index">
+							<th class="col-sm-2 col-md-2 col-lg-2">{{trainee.name}} <input
+								type="checkbox" class="pull-right" ng-model="isChecked"
+								ng-change="toggleComparisonRadarChart(isChecked, $index)" />
 							</th>
 						</tr>
 					</table>
