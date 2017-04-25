@@ -118,6 +118,8 @@ angular
 										"QC_TRAINEE", true));
 							}
 						}
+						$log.debug("Notes");
+						$log.debug($scope.bnote);
 					}
 
 					// Used to pick face for batch
@@ -270,6 +272,8 @@ angular
 								.createWeek($scope.currentBatch.batchId)
 								.then(
 										function(response) {
+											$log.debug("create week");
+											$log.debug($scope.currentBatch); 	
 											$scope.currentBatch.weeks += 1;
 											$scope.weeks
 													.push($scope.currentBatch.weeks);
@@ -444,6 +448,9 @@ angular
 
 							$log.debug($scope.batchesByYear);
 						}
+
+						$scope.getNotes();
+						wipeFaces(); 
 					};
 
 					function sortByDate(currentYear) {
