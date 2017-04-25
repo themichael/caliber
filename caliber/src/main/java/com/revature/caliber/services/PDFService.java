@@ -70,7 +70,7 @@ public class PDFService {
 
 		private Document document;
 		private PdfWriter writer;
-		private float marginLeft = 30, marginRight = 30, marginTop = 100, marginBottom = 50;
+		private float marginLeft = 30, marginRight = 30, marginTop = 100, marginBottom = 100;
 		private ByteArrayOutputStream byteArrayOutputStream;
 
 		// Encloses whatever HTML provided to the method
