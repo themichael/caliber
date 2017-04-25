@@ -15,18 +15,20 @@
 						<th class="col-sm-1 col-md-1 col-lg-1"
 							ng-repeat="assessment in currentAssessments track by $index">
 							{{assessment.title}}({{assessmentsById[assessment.assessmentId].weightedScore}})</th>
-						<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
+						<th class="col-sm-9 col-md-9 col-lg-9"></th>
 					</tr>
 				</thead>
-				<tbody>
-
-					<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-						<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
+				<tbody ng-repeat="trainee in currentBatch.trainees track by $index">
+					<tr>
+						<th class="col-sm-2 col-md-2 col-lg-2" rowspan="2">{{ trainee.name }}</td>
 						<td class="col-sm-1 col-md-1 col-lg-1"
 							ng-repeat="assessment in currentAssessments track by assessment.assessmentId">{{findGrade(trainee.traineeId,assessment.assessmentId)}}
 						</td>
-						<td class="col-sm-9 col-md-9 col-lg-9">
-							{{trainees[trainee.traineeId].note.content}}</td>
+						<td class="col-sm-9 col-md-9 col-lg-9"></td>
+					</tr>
+					<tr>
+						<td colspan="100">
+							<strong>Notes: </strong> {{trainees[trainee.traineeId].note.content}}</td>
 					</tr>
 				</tbody>
 				<tfoot>

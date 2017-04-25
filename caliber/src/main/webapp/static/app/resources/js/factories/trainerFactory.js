@@ -113,6 +113,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		}).then(function(response) {
 			$log.debug("Assessments successfully updated");
 			$log.debug(response);
+			return response.data;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 		});

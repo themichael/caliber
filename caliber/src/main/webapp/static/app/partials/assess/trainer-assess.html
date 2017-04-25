@@ -19,9 +19,10 @@
 							role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
 					</ul></li>
 
-				<li role="button" class="dropdown" ng-show="!noBatches"><a class="dropdown-toggle"
-					data-toggle="dropdown"> {{ currentBatch.trainingName }} - {{
-						currentBatch.startDate | date:'shortDate' }} <span class="caret"></span>
+				<li role="button" class="dropdown" ng-show="!noBatches"><a
+					class="dropdown-toggle" data-toggle="dropdown"> {{
+						currentBatch.trainingName }} - {{ currentBatch.startDate |
+						date:'shortDate' }} <span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="batch in batchesByYear track by $index"><a
@@ -62,9 +63,9 @@
 					ng-repeat="week in currentBatch.arrayWeeks track by $index"><a>Week
 						{{week}}</a></li>
 				<!-- Button Trigger for Create Week Modal -->
-				<li role="button" ng-show="!noBatches" ng-click="createWeek()">
-					<a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-				</li>
+				<li role="button" ng-show="!noBatches" 
+					data-toggle="modal" data-target="#confirmingweeks"><a><span
+						class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
 			</ul>
 		</div>
 	</div>
@@ -82,12 +83,14 @@
 					<thead>
 						<tr sticky class='sticky-header'>
 							<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
-							<th class="col-sm-1 col-md-1 col-lg-1" role="button" data-toggle="modal" data-target="#editAssessmentModal_{{assessment.assessmentId}}"
+							<th class="col-sm-1 col-md-1 col-lg-1" role="button"
+								data-toggle="modal"
+								data-target="#editAssessmentModal_{{assessment.assessmentId}}"
 								ng-repeat="assessment in currentAssessments track by $index">
 								{{assessment.title}}
 								({{assessmentsById[assessment.assessmentId].weightedScore}})
-								<div ui-view ="trainer-edit-assess"></div>
-								</th>
+								<div ui-view="trainer-edit-assess"></div>
+							</th>
 							<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
 						</tr>
 					</thead>
@@ -117,19 +120,19 @@
 							{{getTotalAssessmentAvgForWeek(assessment,trainees) ?
 							(getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
 							"%" : "-"}}</td>
-						<td ng-if="grades">{{ (allAssessmentsAvgForWeek === false ? "Calculating
-							Weekly Batch Avg " : "Weekly Batch Avg= " +
+						<td ng-if="grades">{{ (allAssessmentsAvgForWeek === false ?
+							"Calculating Weekly Batch Avg " : "Weekly Batch Avg= " +
 							allAssessmentsAvgForWeek) }}<i
 							ng-show="!allAssessmentsAvgForWeek" class='fa fa-cog fa-spin'></i>
 						</td>
-						<td ng-if="!grades">
-						</td>
+						<td ng-if="!grades"></td>
 					</tfoot>
 				</table>
 				<div
 					class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
 					<textarea ng-model="trainerBatchNote.content" class="form-control"
-						id="tBatchNotes" ng-blur="saveTrainerNotes()"
+						id="tBatchNotes"
+						ng-blur="saveTrainerNotes(trainerBatchNote.noteId)"
 						placeholder="Enter your overall feedback on the batch" required>
 				</textarea>
 					<div class='save-button-wrapper'>
@@ -208,3 +211,5 @@
 		</div>
 	</div>
 </div>
+<div ui-view="confirm-add-weeks-modal"></div>
+
