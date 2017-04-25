@@ -784,4 +784,8 @@ angular
 				}
 
 //				$scope.updateAssessment={};
+				
+				$scope.deleteAssessment = function(assessment,event,modalId,index){
+					$log.debug("im deleting an assessment");
+				};
 				});
