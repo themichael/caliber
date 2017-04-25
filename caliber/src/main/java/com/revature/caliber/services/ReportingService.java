@@ -1,6 +1,7 @@
 package com.revature.caliber.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -22,7 +23,9 @@ import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.TrainingType;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
@@ -450,6 +453,15 @@ public class ReportingService {
 	public Double getAvgBatchWeekValue(Integer batchId, Integer week) {
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		return utilAvgBatchWeekValue(trainees, week);
+	}
+	
+	/**********************************************************************
+	 *  Batch Comparison Data
+	 * ********************************************************************
+	 */
+	public Double getBatchComparisonAvg(SkillType skill, TrainingType training, Date startDate){
+		
+		
 	}
 
 	/*
