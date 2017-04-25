@@ -1,5 +1,6 @@
 package com.revature.caliber.controllers;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -32,6 +33,19 @@ public class ReportingController {
 		this.reportingService = reportingService;
 	}
 
+	/**************************************************************************
+	 *  Batch Average Comparison
+	 *************************************************************************
+	 */
+	
+	@RequestMapping(value = "/all/reports/compare/skill/{skill}/training/{training}/date/{startDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Double> getBatchComparisonAvg(@PathVariable String skill,
+			@PathVariable String training, @PathVariable Date startDate) {
+		log.info(" getBatchComparisonAvg ===> /all/reports/compare/skill/{skill}/training/{training}/date/{startDate} ");
+		return new ResponseEntity<Double>(reportingService.getBatchComparisonAvg(skill, training, startDate),
+				HttpStatus.OK);
+	}
+	
 	/*
 	 *******************************************************
 	 * Doughnut / Pie Charts
