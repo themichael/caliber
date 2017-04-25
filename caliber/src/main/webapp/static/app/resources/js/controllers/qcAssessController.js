@@ -267,7 +267,6 @@ angular
 
 					// Function to add week
 					$scope.createWeek = function() {
-						
 						caliberDelegate.trainer
 								.createWeek($scope.currentBatch.batchId)
 								.then(
@@ -484,3 +483,4 @@ angular
 						}
 					}
 				});
+				
