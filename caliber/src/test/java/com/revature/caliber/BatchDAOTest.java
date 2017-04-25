@@ -96,11 +96,8 @@ public class BatchDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testFindAllAfterDate(){
-		/*	03-APR-17
-			27-MAR-17
-			27-MAR-17
-		*/
 		Integer month = 3;
 		Integer day = 28;
 		Integer year = 2017;
