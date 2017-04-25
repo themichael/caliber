@@ -305,13 +305,6 @@ angular
 					 * ******************************************* QCFeedBack
 					 * **********************************************************
 					 */
-					var readMe = false;
-					$scope.readOnlyPage = function() {
-						readMe = !readMe;
-						$log.debug(readMe);
-						return readMe;
-					}
-
 					// Save trainee note for ng-blur
 					$scope.saveTraineeNote = function(index) {
 						$log.debug($scope.faces[index]);
