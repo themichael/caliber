@@ -150,9 +150,21 @@ angular
 							.state(
 									"trainer.assess",
 									{
-										templateUrl : "/static/app/partials/assess/trainer-assess.html",
 										url : "/assess",
-										controller : "trainerAssessController"
+										views:{
+											""	:{
+												templateUrl : "/static/app/partials/assess/trainer-assess.html",											
+												controller : "trainerAssessController"
+											},
+											"trainer-edit-assess@trainer.assess":{
+												templateUrl :"/static/app/partials/assess/trainer-edit-assess.html",
+												controller  :"trainerAssessController"
+											},
+											"confirm-add-weeks-modal@trainer.assess":{
+												templateUrl :"/static/app/partials/assess/confirm-add-weeks-modal.html",
+												controller  :"trainerAssessController"
+											}
+										}
 									})
 							.state(
 									"trainer.reports",

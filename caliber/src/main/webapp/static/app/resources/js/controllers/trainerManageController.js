@@ -364,17 +364,17 @@ angular
 														break;
 													}
 												}
-												for (var i = 0; i < $scope.selectedBatches.length; i++) {
-													if ($scope.selectedBatches[i] === $scope.currentBatch) {
+												
+												for (var j = 0; j < $scope.selectedBatches.length; j++) {
+													if ($scope.selectedBatches[j] === $scope.currentBatch) {
 														$scope.selectedBatches
-																.splice(i, 1);
+																.splice(j, 1);
 														break;
 													}
 												}
 											} 
 											else if (response.status === 500){
-												//$log($scope.currentBatch.batchId);
-											angular.element("#deleteBatchErrorModal").modal("show");	
+												angular.element("#deleteBatchErrorModal").modal("show");	
 											}
 										});
 						angular.element("#deleteBatchModal").modal("hide");

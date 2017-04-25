@@ -1,16 +1,16 @@
 package com.revature.caliber;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
@@ -44,13 +44,39 @@ public class CheckDAO {
 	@Autowired
 	private TrainingService trainingService;
 
-	@Test
+	@Ignore
 	public void testmethod() {
 		log.info("Testing my code");
 		List<Trainee> results = traineeDAO.findAllByBatch(1051);
 		for(Trainee t : results){
 			log.info(t.getGrades());
 		}
+	}
+	
+	@Test
+	public void testDeleteAssess() {
+
+		Assessment assess = assessmentDAO.findOne(5201);
+		log.info(assess);
+		
+		assessmentDAO.delete(assess);
+		
+		//Assessment assess2 = assessmentDAO.findOne(5100);
+		//log.info(assess2);
+
+		
+	}
+	
+	@Ignore
+	public void testUpdateAssess() {	
+		Assessment assess = assessmentDAO.findOne(1050);
+		log.info("this is before update " + assess);
+		
+		assess.setRawScore(50);
+		
+		assessmentDAO.update(assess);
+		
+		log.info("this is after update " + assess);		
 	}
 
 }
