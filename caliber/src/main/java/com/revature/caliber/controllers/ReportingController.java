@@ -45,7 +45,7 @@ public class ReportingController {
 				HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/all/reports/batch/{batchId}/week/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/reports/batch/{batchId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<QCStatus, Integer>> getPieChartCurrentWeekQCStatus(
 			@PathVariable Integer batchId) {
 		log.info("getPieChartCurrentWeekQCStatus ===> /all/reports/batch/{batchId}/week/pie");

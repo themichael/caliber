@@ -12,7 +12,7 @@ angular
 					 */
 					const OVERALL = "(All)";
 					$scope.currentBatch = allBatches[0];
-					$scope.reportCurrentWeek = OVERALL;
+					
 
 					(function(start) {
 						// Finishes any left over AJAX animation
@@ -23,10 +23,10 @@ angular
 					})();
 
 					function createDefaultCharts() {
-						// NProgress.start();
+					    NProgress.start();
 						createAverageTraineeScoresOverall();
 						createTechnicalSkillsBatchOverall();
-						createQCStatus();
+						createCurrentQCStatus();
 					}
 
 					/**
@@ -90,19 +90,18 @@ angular
 					// *** Doughnut Charts
 					// *******************************************************************************
 
-					function createQCStatus() {
+					function createCurrentQCStatus() {
 						chartsDelegate.doughnut.data
-								.getQCStatsData($scope.currentBatch.batchId,
-										$scope.reportCurrentWeek)
+								.getCurrentQCStatsData($scope.currentBatch.batchId)
 								.then(
 										function(data) {
 											NProgress.done();
 											var doughnutChartObject = chartsDelegate.doughnut
-													.getQCStats(data);
-											$scope.qcStatsLabels = doughnutChartObject.labels;
-											$scope.qcStatsData = doughnutChartObject.data;
-											$scope.qcStatsOptions = doughnutChartObject.options;
-											$scope.qcStatsColors = doughnutChartObject.colors;
+													.getCurrentQCStats(data);
+											$scope.currentQCStatsLabels = doughnutChartObject.labels;
+											$scope.currentQCStatsData = doughnutChartObject.data;
+											$scope.currentQCStatsOptions = doughnutChartObject.options;
+											$scope.currentQCStatsColors = doughnutChartObject.colors;
 										});
 
 					}

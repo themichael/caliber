@@ -29,12 +29,12 @@ angular
 					};
 
 					report.batchCurrentWeekQCPie = function(batchId) {
-						return $http(
-								{
-									url : "/all/reports/batch/" + batchId
-											+ "/week/pie",
-									method : "GET"
-								})
+						//$log.debug(batchId);
+						return $http({
+							url : "/all/reports/batch/" + batchId + "/pie/",
+
+							method : "GET"
+						})
 								.then(
 										function(response) {
 											$log
