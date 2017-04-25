@@ -250,6 +250,8 @@ angular
 						sortByDate($scope.selectedYear);
 						batchYears();
 						$scope.currentBatch = $scope.batchesByYear[0];
+						$log.debug(batchYears());
+						$log.debug($scope.currentBatch);
 						if ($scope.batchesByYear.length === 0) {
 							$scope.noBatches = true;
 							$scope.noBatchesMessage = "No Batches were found for this year.";
