@@ -238,6 +238,14 @@ footer a, footer a:hover{
 .table-view{
 	max-width:400px;
 }
+
+.fixed-style-table-header{
+	position:fixed;
+	background:#fff;
+	width:100%;
+	z-index:100;
+	top:0;
+}
 /**********************
 	save button
 **********************/
