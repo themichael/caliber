@@ -50,8 +50,9 @@
 						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
 							role="button" ng-click="selectCurrentTrainee($index)">{{trainee.name}}</a></li>
 					</ul></li>
-					
+
 				<!-- Select Training Type-->
+<<<<<<< HEAD
 							<li role="button" class="dropdown"><a
 								class="dropdown-toggle" data-toggle="dropdown"> Training
 									Types<span class="caret"></span>
@@ -78,6 +79,32 @@
 								<button type="submit" class="btn btn-primary"
 									style="margin-left: 0.5em">Change Reference Date</button>
 							</li>	
+=======
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown"> Training Types<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="type in trainingTypes track by $index"><a
+							role="button" ng-click="selectTrainingType($index)">{{type}}</a></li>
+					</ul></li>
+				<!-- Select Skill Stack-->
+				<li role="button" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown">Skill Stack<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="type in batchTypes track by $index"><a
+							role="button" ng-click="selectCurrentBatchType($index)">{{batchType.typeName}}</a></li>
+					</ul></li>
+				<li><span id="start-date" data-datepicker="true"> <input
+						ng-model="startDate.model" ng-value="startDate"
+						class="date-input form-control date-selector" name="s" min="0"
+						type="date" ng-required="true">
+				</span></li>
+				<li>
+					<button type="submit" class="btn btn-primary"
+						style="margin-left: 0.5em">Change Reference Date</button>
+				</li>
+>>>>>>> 39c3a4f32b34dcdb4e135f7134d1eaade67b1f7a
 			</ul>
 		</div>
 	</div>
@@ -228,9 +255,7 @@
 								Batch Technical Skills
 								<div role="button" class="pull-right" data-toggle="modal"
 									data-target="#insert-trainee">
-									<a>Insert<span class="glyphicon glyphicon-plus"
-										aria-hidden="true"></span>
-									</a>
+									<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
 								</div>
 							</div>
 							<div class="panel-body">
@@ -515,6 +540,7 @@
 </div>
 <!-- caliber-container -->
 
+<!-- Modal for Radar Comparison Chart -->
 <div class="modal fade" id="insert-trainee" tabindex="-1" role="dialog"
 	aria-labelledby="batchModalLabel">
 	<div class="modal-dialog" role="document">
@@ -524,19 +550,20 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">Insert Trainees</h4>
+				<h4 class="modal-title">Trainees Comparision</h4>
 			</div>
-			<!-- Add Batch Info -->
 			<div class="modal-body">
 				<div class="table-responsive">
 					<table class="table">
-						<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-							<th class="col-sm-2 col-md-2 col-lg-2">{{trainee.name}}</th>
-							<button ></button>
+						<tr class="col-xs-6 col-sm-6 col-md-4"
+							ng-repeat="trainee in currentBatch.trainees track by $index">
+							<th class="col-sm-2 col-md-2 col-lg-2">{{trainee.name}} <input
+								type="checkbox" class="pull-right" ng-model="isChecked"
+								ng-change="toggleComparisonRadarChart(isChecked, $index)" />
+							</th>
 						</tr>
 					</table>
 				</div>
-
 			</div>
 		</div>
 	</div>
