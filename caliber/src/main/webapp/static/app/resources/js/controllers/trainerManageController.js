@@ -471,27 +471,35 @@ angular
 					/** checks if email already exists in database* */
 					$scope.verifyTraineeEmail = function() {
 						if (!$scope.Updating) {
-							caliberDelegate.all.getTraineeByEmail(
-									$scope.traineeEmail).then(
-									function(response) {
-										$log.log("find email response ")
-										$log.log(response.data)
-										if (response.data === "") {
-											$log.log("email does not exist")
-											$scope.addNewTrainee();
-										} else {
-											$log.log("email already exists")
-											angular.element(
-													"#emailVerificationModal")
-													.modal("show");
-											return false;
-										}
-									})
+							checkemail();
 						} else {
-							$scope.addNewTrainee();
+							if($scope.currentTrainee.email !== $scope.traineeEmail ){
+								$scope.checkEmail();
+							}else{
+								$scope.addNewTrainee();
+							}
 						}
 					}
-
+					
+					/**show email verification modal**/
+					$scope.checkEmail = function(){
+						caliberDelegate.all.getTraineeByEmail(
+								$scope.traineeEmail).then(
+								function(response) {
+									$log.log("find email response ")
+									$log.log(response.data)
+									if (response.data === "") {
+										$log.log("email does not exist")
+										$scope.addNewTrainee();
+									} else {
+										$log.log("email already exists")
+										angular.element(
+												"#emailVerificationModal")
+												.modal("show");
+										return false;
+									}
+								})
+					}
 					/** Save New Trainee Input * */
 					$scope.addNewTrainee = function() {
 						if ($scope.Updating) {
