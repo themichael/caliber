@@ -34,7 +34,7 @@ angular
 						// Finishes any left over ajax animation
 						NProgress.done();
 						// batch null check
-
+	
 						if ($scope.currentBatch === null) {
 							$scope.noBatch = true;
 						} else {
