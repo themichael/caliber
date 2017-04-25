@@ -265,7 +265,6 @@ angular
 
 					// Function to add week
 					$scope.createWeek = function() {
-						
 						caliberDelegate.trainer
 								.createWeek($scope.currentBatch.batchId)
 								.then(
@@ -473,6 +472,7 @@ angular
 							if ($scope.selectedYear === parseInt($scope.batches[i].startDate
 									.substring(0, 4))) {
 								$scope.batchesByYear.push($scope.batches[i]);
+								$scope.currentBatch = $scope.batchesByYear[0];
 							}
 						}
 					}
