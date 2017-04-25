@@ -119,6 +119,7 @@ public class BatchDAO extends BaseDAO {
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.gt("g", 0.0))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
@@ -154,6 +155,7 @@ public class BatchDAO extends BaseDAO {
 		Batch batch = (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("t.grades", "g", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.gt("g", 0.0))
 				.add(Restrictions.eq("batchId", batchId))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.uniqueResult();
