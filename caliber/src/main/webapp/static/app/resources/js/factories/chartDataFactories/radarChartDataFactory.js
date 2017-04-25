@@ -84,6 +84,16 @@ angular.module("reportApi").factory(
 						});
 
 			}
-
+			report.getAllTraineesAndBatchRadarChart = function(batchId) {
+				return $http({
+					url : "/vp/reports/batch/" + batchId + "/radar-batch-all-trainees",
+					method : "GET"
+				}).then(function(response) {
+					$log.debug("Completed getAllTraineeInBatchRadarChart");
+					return response.data;
+				}, function(response) {
+					$log.error("There was an error: " + response.status);
+				});
+			}
 			return report;
 		});
