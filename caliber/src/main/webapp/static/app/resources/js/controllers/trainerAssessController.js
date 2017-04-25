@@ -786,6 +786,20 @@ angular
 //				$scope.updateAssessment={};
 				
 				$scope.deleteAssessment = function(assessment,event,modalId,index){
-					$log.debug("im deleting an assessment");
+					$log.debug("im deleting an assessment" + $scope.currentAssessments);
+					caliberDelegate.trainer.deleteAssessment($scope.currentAssessments[index].assessmentId)
+					.then(function(response){
+									$log.debug("im deleting assessment");
+									if(response){
+										$('.modal').modal('hide');
+										//$scope.currentAssessments[index] = response;
+										//$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
+										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
+									}
+									
+									return response;
+					});
+					
 				};
+				
 				});
