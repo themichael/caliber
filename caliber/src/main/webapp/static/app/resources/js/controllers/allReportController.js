@@ -665,6 +665,7 @@ angular
 				});
 
 				$scope.selectTraining = function(index){
+					$scope.trainingType = $scope.type[index];
 					
 					
 				};
