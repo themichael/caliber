@@ -51,7 +51,7 @@
 						ng-click="selectWeek($index)"
 						ng-repeat="week in weeks track by $index"><a>Week
 							{{week}}</a></li>
-					<li role="button" ng-show="!noBatches" ng-click="createWeek()">
+					<li role="button" ng-show="!noBatches" data-toggle="modal" data-target="#confirmingweeks"">
 						<a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 					</li>
 				</ul>

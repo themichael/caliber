@@ -249,7 +249,7 @@ angular
 							$scope.currentWeek = $scope.$parent.reportCurrentWeek;
 						} else {
 							// Set week selected in assess page
-							$scope.currentWeek = $scope.weeks[$scope.weeks.length - 1]; 
+							$scope.currentWeek = $scope.weeks[index]; 
 						}
 						// Get notes
 						$scope.getNotes();
@@ -265,6 +265,7 @@ angular
 
 					// Function to add week
 					$scope.createWeek = function() {
+						
 						caliberDelegate.trainer
 								.createWeek($scope.currentBatch.batchId)
 								.then(
@@ -274,14 +275,9 @@ angular
 													.push($scope.currentBatch.weeks);
 											$scope
 													.showActiveWeek($scope.currentBatch.weeks);
+											// Select the index of the week
 											$scope
-													.selectWeek($scope.currentBatch.weeks - 1); // the
-											// new
-											// index
-											// of
-											// the
-											// week
-											// selected
+													.selectWeek($scope.currentBatch.weeks - 1);
 										});
 					};
 
