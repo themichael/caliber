@@ -486,13 +486,13 @@ angular
 						caliberDelegate.all.getTraineeByEmail(
 								$scope.traineeEmail).then(
 								function(response) {
-									$log.log("find email response ")
-									$log.log(response.data)
+									$log.debug("find email response ")
+									$log.debug(response.data)
 									if (response.data === "") {
-										$log.log("email does not exist")
+										$log.debug("email does not exist")
 										$scope.addNewTrainee();
 									} else {
-										$log.log("email already exists")
+										$log.debug("email already exists")
 										angular.element(
 												"#emailVerificationModal")
 												.modal("show");
