@@ -684,10 +684,11 @@ angular
 							}
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
+
 					/****************************************************
 					 *Save Button **
 					 **************************************************/
-
+          
 					$scope.showSaving = false;
 					$scope.showCheck = false;
 					$scope.showFloppy = true;

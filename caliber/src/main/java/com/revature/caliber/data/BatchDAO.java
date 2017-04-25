@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
 public class BatchDAO extends BaseDAO {
@@ -53,7 +55,10 @@ public class BatchDAO extends BaseDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAll() {
 		log.info("Fetching all batches");
-		return sessionFactory.getCurrentSession().createCriteria(Batch.class).addOrder(Order.desc("startDate"))
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
+				.addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 

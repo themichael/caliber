@@ -17,7 +17,7 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
-								//	$scope.role = $cookies.get("role");
+									// $scope.role = $cookies.get("role");
 
 									$log.debug($scope.role);
 								});
@@ -107,14 +107,6 @@ angular
 								$scope.location.options = locations;
 							});
 
-					$scope.receivers = [ {
-						value : ""
-					} ];
-					$scope.addRecipient = function() {
-						$scope.receivers.push({
-							value : ""
-						});
-					};
 					$scope.trainer = {
 						model : null
 					};
@@ -161,7 +153,9 @@ angular
 						$log.debug($scope.endDate)
 						$log.debug($scope.benchmarkStartDate);
 
-						if ($scope.startDate.model > $scope.benchmarkStartDate.model && $scope.endDate.model > $scope.startDate.model) {
+						if ($scope.startDate.model > $scope.benchmarkStartDate.model
+								&& $scope.endDate.model > $scope.startDate.model
+								&& $scope.trainer.model !== $scope.coTrainer.model) {
 							/* $scope.validDate = false; */
 							$log.debug("True");
 							$scope.addNewBatch();
@@ -192,6 +186,10 @@ angular
 
 					};
 
+					/**
+					 * variable to determine if trainee or batch is being
+					 * updated or created*
+					 */
 					$scope.Updating = false;
 
 					/** Fill update form with batch previous data* */
@@ -245,16 +243,14 @@ angular
 							$scope.currentBatch = null;
 						}
 					}
-					
-					
-					/** checking benchmark date **/
-					function benchmarkDateIsValid(){
-						
-						if( $scope.benchmarkStartDate.model < new Date()) {
-								$scope.startDate();
-							}
+
+					/** checking benchmark date * */
+					function benchmarkDateIsValid() {
+
+						if ($scope.benchmarkStartDate.model < new Date()) {
+							$scope.startDate();
+						}
 					}
-					
 
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
@@ -265,15 +261,11 @@ angular
 						batch.location = $scope.location.model;
 						batch.trainer = null;
 						batch.coTrainer = null;
-						batch.startDate = moment($scope.startDate.model)
-								.format("YYYY-MM-DD");
-						batch.endDate = moment($scope.endDate.model).format(
-								"YYYY-MM-DD");
+						batch.startDate = $scope.startDate.model;
+						batch.endDate = $scope.endDate.model;
 						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
 						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
-						batch.benchmarkStartDate = moment(
-								$scope.benchmarkStartDate.model).format(
-								"YYYY-MM-DD");
+						batch.benchmarkStartDate = $scope.benchmarkStartDate.model;
 
 						/*
 						 * if ($scope.currentBatch) { newBatch.batchId =
@@ -291,24 +283,23 @@ angular
 							if ($scope.trainers[i].name === trainer_name) {
 								batch.trainer = $scope.trainers[i];
 							}
-							if ($scope.trainers[i].name === cotrainer_name) {
+							if ($scope.trainers[i].name === cotrainer_name
+									&& cotrainer_name !== trainer_name) {
 								batch.coTrainer = $scope.trainers[i];
 							}
 						}
 
 						// return newBatch;
 					}
-
-					$scope.update = function() {
-
-						$scope.editTrainee.name = "";
-						$scope.editTrainee.email = "";
-						$scope.editTrainee.phoneNumber = "";
-						$scope.editTrainee.skypeId = "";
-						$scope.editTrainee.profileUrl = "";
-
-					};
-
+					/** reformat dates on batch correctly* */
+					function formatBatchDates(batch) {
+						batch.startDate = moment(batch.startDate).format(
+								"YYYY-MM-DD");
+						batch.endDate = moment(batch.endDate).format(
+								"YYYY-MM-DD");
+						batch.benchmarkStartDate = moment(
+								batch.benchmarkStartDate).format("YYYY-MM-DD");
+					}
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
@@ -319,7 +310,11 @@ angular
 							caliberDelegate.all
 									.updateBatch($scope.currentBatch)
 									.then(
-											$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch)
+											function() {
+												formatBatchDates($scope.currentBatch)
+												$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch
+											});
+
 						} else {
 							var newBatch = {};
 							createBatchObject(newBatch);
@@ -332,8 +327,9 @@ angular
 												// coTrainer may be undefined
 												newBatch.batchId = response.data.batchId;
 												newBatch['trainees'] = [];
-												newBatch['arrayWeeks']=[];
-												newBatch['weeks']=response.data.weeks;
+												newBatch['arrayWeeks'] = [];
+												newBatch['weeks'] = response.data.weeks;
+												formatBatchDates(newBatch)
 												if ($scope.coTrainer) {
 													$scope.batches
 															.push(newBatch);
@@ -364,17 +360,19 @@ angular
 														break;
 													}
 												}
-												
-												for (var j = 0; j < $scope.selectedBatches.length; j++) {
-													if ($scope.selectedBatches[j] === $scope.currentBatch) {
+												for (var i = 0; i < $scope.selectedBatches.length; i++) {
+													if ($scope.selectedBatches[i] === $scope.currentBatch) {
 														$scope.selectedBatches
-																.splice(j, 1);
+																.splice(i, 1);
 														break;
 													}
 												}
-											} 
-											else if (response.status === 500){
-												angular.element("#deleteBatchErrorModal").modal("show");	
+											} else if (response.status === 500) {
+												// $log($scope.currentBatch.batchId);
+												angular
+														.element(
+																"#deleteBatchErrorModal")
+														.modal("show");
 											}
 										});
 						angular.element("#deleteBatchModal").modal("hide");
@@ -413,7 +411,7 @@ angular
 								$scope.trainingStatuses.options = statuses;
 							});
 
-					/** Fill update form with trainee previous data* */
+					/** Fill update form with trainee's previous data* */
 					$scope.populateTrainee = function(trainee) {
 						$log.debug(trainee);
 						$scope.traineeName = trainee.name;
@@ -454,6 +452,30 @@ angular
 							batchId : $scope.currentBatch.batchId
 						};
 
+					}
+
+					/** checks if email already exists in database* */
+					$scope.verifyTraineeEmail = function() {
+						if (!$scope.Updating) {
+							caliberDelegate.all.getTraineeByEmail(
+									$scope.traineeEmail).then(
+									function(response) {
+										$log.log("find email response ")
+										$log.log(response.data)
+										if (response.data === "") {
+											$log.log("email does not exist")
+											$scope.addNewTrainee();
+										} else {
+											$log.log("email already exists")
+											angular.element(
+													"#emailVerificationModal")
+													.modal("show");
+											return false;
+										}
+									})
+						} else {
+							$scope.addNewTrainee();
+						}
 					}
 
 					/** Save New Trainee Input * */
@@ -498,27 +520,22 @@ angular
 							caliberDelegate.all
 									.createTrainee(newTrainee)
 									.then(
-											function(traineeData) {
-												if (traineeData.trainingStatus === "Dropped") {
-													$scope.droppedTrainees
-															.push(traineeData);
-												} else {
-													$scope.activeTrainees
-															.push(traineeData);
+											function(response) {
+
+												if (response.status === 201) {
+													if (response.data.trainingStatus === "Dropped") {
+														$scope.droppedTrainees
+																.push(response.data);
+
+													} else {
+														$scope.activeTrainees
+																.push(response.data);
+													}
 												}
 												$scope.resetTraineeForm();
 											});
 						}
 						angular.element("#addTraineeModal").modal("hide");
-					};
-
-					$scope.deleteTrainee = function(receiver) {
-						for (var i = 0; i < $scope.receivers.length; i++) {
-							if ($scope.receivers[i] === receiver) {
-								$scope.receivers.splice(i, 1);
-								break;
-							}
-						}
 					};
 
 					/** Get Trainee to delete* */
@@ -534,11 +551,8 @@ angular
 					$scope.removeTrainee = function(traineeId) {
 						// search through allbatches trainees and splice from
 						// there
-						$log.debug($scope.traineeToBeDeleted.traineeId);
-						$log
-								.debug($scope.currentBatch.trainees[$scope.traineeRow]);
-						$log
-								.debug($scope.trainees[$scope.traineeRow].traineeId);
+						$log.debug("Deleting trainee with id of:  "
+								+ $scope.traineeToBeDeleted.traineeId);
 
 						caliberDelegate.all
 								.deleteTrainee($scope.traineeToBeDeleted.traineeId);
