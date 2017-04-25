@@ -795,9 +795,12 @@ angular
 								//	$scope.currentAssesments[index] = assessment; // change the scope to the updated assessment and call the method to update all
 									//$state.reload();
 									return response;
+								}).then(function(response){
+									if(response){
+//										$scope.currentAssessments[index] = response;
+										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
+									}
 								});
-								$scope.currentAssesments[index] = assessment;
-								getAllAssessmentsForWeek($scope.currentBatch, $scope.currentWeek);
 							}
 						}
 						$('.modal').modal('hide');
