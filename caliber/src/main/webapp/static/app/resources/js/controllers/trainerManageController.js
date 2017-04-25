@@ -336,20 +336,21 @@ angular
 									.createBatch(newBatch)
 									.then(
 											function(response) {
-												// coTrainer may be undefined
+												// set new batch id with
+												// whatever was inserted into
+												// database
 												newBatch.batchId = response.data.batchId;
+												//create empty array for trainees so trainees can be added immediately
 												newBatch['trainees'] = [];
+												// create empty array for weeks,
+												// so weeks can be added
+												// immediately
 												newBatch['arrayWeeks'] = [];
 												newBatch['weeks'] = response.data.weeks;
+												//format dates so qc, assess and reports can access batches immediately
 												formatBatchDates(newBatch)
-												if ($scope.coTrainer) {
-													$scope.batches
-															.push(newBatch);
-												} else {
-													$scope.batches
-															.push(newBatch);
-													$log.debug($scope.batches)
-												}
+
+												$scope.batches.push(newBatch);
 
 												sortByDate($scope.selectedYear);
 											});
@@ -364,6 +365,7 @@ angular
 								.deleteBatch($scope.currentBatch.batchId)
 								.then(
 										function(response) {
+											//if delete successful, remove from batch table
 											if (response.status === 204) {
 												for (var i = 0; i < $scope.batches.length; i++) {
 													if ($scope.batches[i] === $scope.currentBatch) {
@@ -473,16 +475,16 @@ angular
 						if (!$scope.Updating) {
 							checkemail();
 						} else {
-							if($scope.currentTrainee.email !== $scope.traineeEmail ){
+							if ($scope.currentTrainee.email !== $scope.traineeEmail) {
 								$scope.checkEmail();
-							}else{
+							} else {
 								$scope.addNewTrainee();
 							}
 						}
 					}
-					
-					/**show email verification modal**/
-					$scope.checkEmail = function(){
+
+					/** show email verification modal* */
+					$scope.checkEmail = function() {
 						caliberDelegate.all.getTraineeByEmail(
 								$scope.traineeEmail).then(
 								function(response) {
