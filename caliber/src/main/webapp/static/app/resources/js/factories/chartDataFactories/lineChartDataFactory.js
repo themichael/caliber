@@ -8,10 +8,10 @@ angular.module("reportApi").factory(
 			/**
 			 * Yanilda
 			 */
-			report.getTraineeUpToWeekLineChart = function(week, traineeId) {
+			report.getTraineeUpToWeekLineChart = function(batchId, week, traineeId) {
 				return $http(
 						{
-							url : "/all/reports/week/" + week
+							url : "/all/reports/batch/" + batchId + "/week/" + week
 									+ "/trainee/" + traineeId
 									+ "/line-trainee-up-to-week",
 							method : "GET"

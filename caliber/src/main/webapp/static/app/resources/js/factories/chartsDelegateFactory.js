@@ -40,7 +40,14 @@ angular
 						return doughnutChartDataFactory.batchWeekQCPie(batchId,
 								weekId);
 					}
-
+					
+					delegate.doughnut.getCurrentQCStats = function(dataArray) {
+						return doughnutChartDataFactory.batchCurrentWeekQCPie(dataArray);
+					}
+					
+					delegate.doughnut.data.getCurrentQCStatsData = function(batchId){
+						return doughnutChartDataFactory.batchCurrentWeekQCPie(batchId);
+					}
 					/**
 					 * ************************* Bar *************************
 					 */
@@ -210,10 +217,10 @@ angular
 					}
 
 					// yani linechartdata
-					delegate.line.data.getWeeklyProgressTraineeWeeklyData = function(
+					delegate.line.data.getWeeklyProgressTraineeWeeklyData = function(batchId, 
 							week, traineeId) {
 						return lineChartDataFactory
-								.getTraineeUpToWeekLineChart(week, traineeId);
+								.getTraineeUpToWeekLineChart(batchId, week, traineeId);
 					}
 					// vpHome
 					delegate.line.getCurrentBatchesAverageScoreChart = function(

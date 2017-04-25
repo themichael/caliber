@@ -53,7 +53,10 @@ public class BatchDAO extends BaseDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAll() {
 		log.info("Fetching all batches");
-		return sessionFactory.getCurrentSession().createCriteria(Batch.class).addOrder(Order.desc("startDate"))
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
+				.addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -115,10 +118,12 @@ public class BatchDAO extends BaseDAO {
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.gt("g.score", 0.0))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
-				.add(Restrictions.ge("n.maxVisibility", TrainerRole.QC)).add(Restrictions.eq("n.qcFeedback", true))
+				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC)).add(Restrictions.eq("n.qcFeedback", true))
 				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
 	}
@@ -138,6 +143,25 @@ public class BatchDAO extends BaseDAO {
 		return batch;
 	}
 
+	/**
+	 * Find a batch by its given identifier, all trainees, and all their grades
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Batch findOneWithTraineesAndGrades(Integer batchId) {
+		log.info("Fetching batch: " + batchId);
+		Batch batch = (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("t.grades", "g", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.gt("g.score", 0.0))
+				.add(Restrictions.eq("batchId", batchId))
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
+				.uniqueResult();
+		return batch;
+	}
+	
 	/**
 	 * Update details for a batch
 	 * 

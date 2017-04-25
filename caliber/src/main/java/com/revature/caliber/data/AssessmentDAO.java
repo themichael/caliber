@@ -77,7 +77,7 @@ public class AssessmentDAO extends BaseDAO {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void update(Assessment assessment) {
-		log.info("Updating assessment " + assessment);
+		log.info("Updating assessment " + assessment  + "  IN THE DAO" );
 		sessionFactory.getCurrentSession().update(assessment);
 	}
 

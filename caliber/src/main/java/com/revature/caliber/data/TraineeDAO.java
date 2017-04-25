@@ -64,6 +64,7 @@ public class TraineeDAO extends BaseDAO {
 		log.info("Fetching all Active trainees by batch: " + batchId);
 		List<Trainee> trainees = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.gt("g.score", 0.0))
 				.add(Restrictions.eq("batch.batchId", batchId))
 				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)

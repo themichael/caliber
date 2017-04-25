@@ -74,9 +74,17 @@ angular
 									"qc.audit",
 									{
 										url : "/audit",
-										templateUrl : "/static/app/partials/assess/qc-assess.html",
-										controller : "qcAssessController"
-									})
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/assess/qc-assess.html",
+												controller : "qcAssessController"
+											},
+											"confirm-add-weeks-modal@qc.audit" : {
+												templateUrl: "/static/app/partials/assess/confirm-add-weeks-modal.html",
+												controller : "qcAssessController"
+										}
+									}
+							})
 							.state(
 									"qc.reports",
 									{
@@ -142,9 +150,17 @@ angular
 							.state(
 									"trainer.assess",
 									{
-										templateUrl : "/static/app/partials/assess/trainer-assess.html",
 										url : "/assess",
-										controller : "trainerAssessController"
+										views:{
+											""	:{
+												templateUrl : "/static/app/partials/assess/trainer-assess.html",											
+												controller : "trainerAssessController"
+											},
+											"trainer-edit-assess@trainer.assess":{
+												templateUrl :"/static/app/partials/assess/trainer-edit-assess.html",
+												controller  :"trainerAssessController"
+											}
+										}
 									})
 							.state(
 									"trainer.reports",

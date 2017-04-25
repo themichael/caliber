@@ -44,14 +44,9 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 			}
 		}
 		// traverse through array of objects and grab labels and data
-		var go = true;
 		angular.forEach(dataArray, function(value, key) {
-			if (value === 0)
-				go = false;
-			if (go) {
-				chartData.labels.push(key);
-				chartData.data[0].push(value.toFixed(2));
-			}
+			chartData.labels.push(key);
+			chartData.data[0].push(value.toFixed(2));
 		});
 		return chartData;
 	};
@@ -161,6 +156,9 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		var chartData = {};
 		chartData.data = [];
 		chartData.colors = [ mainColor, secondaryColor ];
+		chartData.series = [];
+		chartData.labels = [];
+		
 		chartData.options = {
 			scales : {
 				xAxes : [ {
@@ -184,21 +182,31 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 				} ]
 			}
 		};
-		var weeks = 0;
-		angular.forEach(data, function(value, key) {
+
+		var highestWeek = 0;
+		angular.forEach(dataArray, function(value, key) {
+			var currentWeek = 1;
 			chartData.series.push(key);
 			var temp = [];
 			angular.forEach(value, function(value2, key2) {
+				while(currentWeek < key2){
+					temp.push(0);
+					currentWeek++;
+				}
 				temp.push(value2.toFixed(2));
+				currentWeek++;
+				if(currentWeek > highestWeek){
+					highestWeek = currentWeek;
+				}
 			});
-			if (value.length > weeks) {
-				weeks = value.length;
-			}
 			chartData.data.push(temp);
 		});
-		for (var i = 1; i <= weeks; i++) {
+		
+		for (var i = 1; i < highestWeek; i++) {
 			chartData.labels.push("Week " + i);
 		}
+		
+		
 		return chartData;
 	}
 	return lineChart;
