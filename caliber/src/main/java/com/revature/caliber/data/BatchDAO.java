@@ -207,4 +207,28 @@ public class BatchDAO extends BaseDAO {
 		return locations;
 	}
 
+	/**
+	 * Looks for all batches that whose starting date is after the given year, month, and day.
+	 * Return all batches, trainees for that batch, and the grades for each trainee
+	 * @param auth
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Batch> findAllAfterDate(Integer month, Integer day, Integer year) {
+		Calendar startDate = Calendar.getInstance();
+		startDate.set(year, month - 1, day);
+		log.info("Fetching all current batches since: " + startDate.getTime().toString());
+		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.gt("g.score", 0.0))
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ge("startDate", startDate.getTime()))
+				.addOrder(Order.desc("startDate"))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
+		return batches;
+	}
+	
 }

@@ -24,11 +24,13 @@ public class BatchDAOTest {
 	private BatchDAO batchDAO;
 	
 	@Test
+	@Ignore
 	public void testSetSessionFactory() {
 
 	}
 
 	@Test
+	@Ignore
 	public void testSave() {
 
 	}
@@ -55,11 +57,13 @@ public class BatchDAOTest {
 	}
 
 	@Test
+	@Ignore
 	public void testFindAllCurrentInteger() {
 
 	}
 
 	@Test
+	@Ignore
 	public void testFindAllCurrent() {
 
 	}
@@ -74,18 +78,38 @@ public class BatchDAOTest {
 	}
 
 	@Test
+	@Ignore
 	public void testUpdate() {
 
 	}
 
 	@Test
+	@Ignore
 	public void testDelete() {
 
 	}
 
 	@Test
+	@Ignore
 	public void testFindCommonLocations() {
 
+	}
+	
+	@Test
+	public void testFindAllAfterDate(){
+		/*	03-APR-17
+			27-MAR-17
+			27-MAR-17
+		*/
+		Integer month = 3;
+		Integer day = 28;
+		Integer year = 2017;
+		List<Batch> batches = batchDAO.findAllAfterDate(month, day, year);
+		log.info("TESTING => findAllAfterDate");
+		log.info(batches.size());
+		for(Batch b: batches){
+			log.info("Grades Size: " + b.getTrainees().iterator().next().getGrades().size());
+		}
 	}
 
 }
