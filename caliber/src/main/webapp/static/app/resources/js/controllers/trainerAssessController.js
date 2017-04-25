@@ -359,6 +359,14 @@ angular
 
 					// create week
 					$scope.createWeek = function() {
+						if($scope.currentBatch.trainees.length === 0){
+							$scope.noTrainees = true;
+							$scope.noTraineesMessage ="No Trainnees were found, weeks cannot be created.";
+							$log.debug("NO Trainees");
+							$log.debug($scope.noTraineesMessage);
+							$log.debug($scope.noTrainees);
+						}else{
+							$scope.noTrainees = false;
 						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
 								function(response) {
 									$scope.currentBatch.weeks += 1;
@@ -372,7 +380,7 @@ angular
 																					// week
 																					// selected
 								});
-					};
+					} };
 					// select assessment from list
 					$scope.selectAssessment = function(index) {
 						$scope.currentAssessment = $scope.currentAssessment[index];
