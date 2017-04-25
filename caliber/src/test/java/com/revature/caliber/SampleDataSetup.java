@@ -148,17 +148,17 @@ public class SampleDataSetup {
 		noteDAO.save(Note.trainerIndividualNote("Very shy. Technically good",  1, erika));
 		noteDAO.save(Note.trainerBatchNote("Week 1 was great",  1, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Didn't know things",  1, denis, QCStatus.Poor, false));
-		noteDAO.save(Note.qcIndividualNote("Cool guy",  1, wyatt, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Shy",  1, martin, QCStatus.Average, false));
-		noteDAO.save(Note.qcIndividualNote("Talkative",  1, jon, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Okay",  1, manya, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Quiet",  1, jimmy, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Excellent stuff",  1, kevin, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Quiet guy",  1, russ, QCStatus.Average, false));
-		noteDAO.save(Note.qcIndividualNote("Great personality",  1, issac, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Quiet",  1, erika, QCStatus.Average, false));
-		noteDAO.save(Note.qcBatchNote("Great start",  1, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Didn't know things",  1, denis, QCStatus.Poor));
+		noteDAO.save(Note.qcIndividualNote("Cool guy",  1, wyatt, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Shy",  1, martin, QCStatus.Average));
+		noteDAO.save(Note.qcIndividualNote("Talkative",  1, jon, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Okay",  1, manya, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Quiet",  1, jimmy, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Excellent stuff",  1, kevin, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Quiet guy",  1, russ, QCStatus.Average));
+		noteDAO.save(Note.qcIndividualNote("Great personality",  1, issac, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Quiet",  1, erika, QCStatus.Average));
+		noteDAO.save(Note.qcBatchNote("Great start",  1, batch, QCStatus.Good));
 
 		// SQL
 		log.info("Creating/'autograding' assessments: week 2");
@@ -199,16 +199,16 @@ public class SampleDataSetup {
 		noteDAO.save(Note.trainerIndividualNote("Very good work on the project! Great understanding in SQL.",  2,erika));
 		noteDAO.save(Note.trainerBatchNote("Week 2 was great",  2, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Great guy",  2, wyatt, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Decent knowledge",  2, martin, QCStatus.Poor, false));
-		noteDAO.save(Note.qcIndividualNote("Outgoing",  2, jon, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("A little shy",  2, manya, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Still quiet",  2, jimmy, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Superb work",  2, kevin, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Kind of shy",  2, russ, QCStatus.Average, false));
-		noteDAO.save(Note.qcIndividualNote("Great work!",  2, issac, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Great stuff",  2, erika, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("Keep it up!",  2, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Great guy",  2, wyatt, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Decent knowledge",  2, martin, QCStatus.Poor));
+		noteDAO.save(Note.qcIndividualNote("Outgoing",  2, jon, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("A little shy",  2, manya, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Still quiet",  2, jimmy, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Superb work",  2, kevin, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Kind of shy",  2, russ, QCStatus.Average));
+		noteDAO.save(Note.qcIndividualNote("Great work!",  2, issac, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Great stuff",  2, erika, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("Keep it up!",  2, batch, QCStatus.Good));
 
 		// JSP
 		log.info("Creating/'autograding' assessments: week 3");
@@ -259,14 +259,14 @@ public class SampleDataSetup {
 		noteDAO.save(Note.trainerIndividualNote("Great progress on her project. Very good technically and seems to be becoming more comfortable in her confidence and presentation skills. ", 3, erika));
 		noteDAO.save(Note.trainerBatchNote("Week 3 was great",  3, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Good",  3, wyatt, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Well understanding",  3, jon, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Quiet week",  3, manya, QCStatus.Average, false));
-		noteDAO.save(Note.qcIndividualNote("Great guy",  3, jimmy, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Fantastic ",  3, kevin, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Wow",  3, issac, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Good stuff",  3, erika, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("Great week guys",  3, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Good",  3, wyatt, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Well understanding",  3, jon, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Quiet week",  3, manya, QCStatus.Average));
+		noteDAO.save(Note.qcIndividualNote("Great guy",  3, jimmy, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Fantastic ",  3, kevin, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Wow",  3, issac, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Good stuff",  3, erika, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("Great week guys",  3, batch, QCStatus.Good));
 
 		// Hibernate
 		log.info("Creating/'autograding' assessments: week 4");
@@ -310,14 +310,14 @@ public class SampleDataSetup {
 		noteDAO.save(Note.trainerIndividualNote("Very confident in interview and did very well on the project.", 4, erika));
 		noteDAO.save(Note.trainerBatchNote("Week 4 was great",  4, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Great",  4, wyatt, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Wow",  4, jon, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Good",  4, manya, QCStatus.Average, false));
-		noteDAO.save(Note.qcIndividualNote("Stellar",  4, jimmy, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Outstanding",  4, kevin, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Jeez.. wow",  4, issac, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Great",  4, erika, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("That batch tho",  4, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Great",  4, wyatt, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Wow",  4, jon, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Good",  4, manya, QCStatus.Average));
+		noteDAO.save(Note.qcIndividualNote("Stellar",  4, jimmy, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Outstanding",  4, kevin, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Jeez.. wow",  4, issac, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Great",  4, erika, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("That batch tho",  4, batch, QCStatus.Good));
 		// Spring
 		log.info("Creating/'autograding' assessments: week 5");
 		Assessment assessment5 = new Assessment("LMS", batch, 100, AssessmentType.Exam,  5, categories.get(18));
@@ -360,14 +360,14 @@ public class SampleDataSetup {
 		noteDAO.save(Note.trainerIndividualNote("Seem lot of improvements in interpersonal skill",  5, erika));
 		noteDAO.save(Note.trainerBatchNote("Week 5 was great",  5, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Wow",  5, wyatt, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Holy cow",  5, jon, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Good",  5, manya, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Great!",  5, jimmy, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Insane",  5, kevin, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Tremendous",  5, issac, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Stellar",  5, erika, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("This batch is glorious",  5, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Wow",  5, wyatt, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Holy cow",  5, jon, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Good",  5, manya, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Great!",  5, jimmy, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Insane",  5, kevin, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Tremendous",  5, issac, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Stellar",  5, erika, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("This batch is glorious",  5, batch, QCStatus.Good));
 
 		// REST
 		log.info("Creating/'autograding' assessments: week 6");
@@ -410,13 +410,13 @@ public class SampleDataSetup {
 		noteDAO.save(Note.trainerIndividualNote("Great progress! Good understanding on Web Services and nearly finished on second project.",  6,erika));
 		noteDAO.save(Note.trainerBatchNote("Week 6 was great",  6, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Wow",  6, wyatt, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Fabulous",  6, jon, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Tremendous",  6, jimmy, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Splendid",  6, kevin, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Glorious",  6, issac, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Fantastic",  6, erika, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("Fantastical batch",  6, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Wow",  6, wyatt, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Fabulous",  6, jon, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Tremendous",  6, jimmy, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Splendid",  6, kevin, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Glorious",  6, issac, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Fantastic",  6, erika, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("Fantastical batch",  6, batch, QCStatus.Good));
 
 		// AngularJS
 		log.info("Creating/'autograding' assessments: week 7");
@@ -457,13 +457,13 @@ public class SampleDataSetup {
 		noteDAO.save(Note.trainerIndividualNote("Excellent work on the project and evaluations",  7, erika));
 		noteDAO.save(Note.trainerBatchNote("Week 7 was great",  7, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Great",  7, wyatt, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Wow",  7, jon, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Fun",  7, jimmy, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Fantastic",  7, kevin, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Excellent",  7, issac, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Flawless victory",  7, erika, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("Not bad at all",  7, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Great",  7, wyatt, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Wow",  7, jon, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Fun",  7, jimmy, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Fantastic",  7, kevin, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Excellent",  7, issac, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Flawless victory",  7, erika, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("Not bad at all",  7, batch, QCStatus.Good));
 	}
 
 	private void batchTwo() {
@@ -554,13 +554,13 @@ public class SampleDataSetup {
 		noteDAO.save(Note.trainerIndividualNote("Dropped", 1, fagbemi));
 		noteDAO.save(Note.trainerBatchNote("The thread questions were usually the ones missed.",  1, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Great stuff!",  1, yan, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Great work",  1, denny, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Great job",  1, josh, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Great efforts",  1, justin, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Tremendous",  1, tad, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Fabulous",  1, jeff, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("Great start to this batch",  1, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Great stuff!",  1, yan, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Great work",  1, denny, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Great job",  1, josh, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Great efforts",  1, justin, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Tremendous",  1, tad, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Fabulous",  1, jeff, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("Great start to this batch",  1, batch, QCStatus.Good));
 
 		// SQL
 		log.info("Creating/'autograding' assessments: week 2");
@@ -596,13 +596,13 @@ public class SampleDataSetup {
 		noteDAO.save(Note.trainerIndividualNote("Struggled on test", 2, justin));
 		noteDAO.save(Note.trainerBatchNote("SQL went well. Thanks again Brian for stepping in.",  2, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Wow! Great stuff!",  2, yan, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Superb! Great work",  2, denny, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Boom! Great job",  2, josh, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Nice! Great efforts",  2, justin, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Very tremendous",  2, tad, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Most Fabulous",  2, jeff, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("Great progress in this batch",  2, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Wow! Great stuff!",  2, yan, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Superb! Great work",  2, denny, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Boom! Great job",  2, josh, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Nice! Great efforts",  2, justin, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Very tremendous",  2, tad, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Most Fabulous",  2, jeff, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("Great progress in this batch",  2, batch, QCStatus.Good));
 
 		// JSP
 		log.info("Creating/'autograding' assessments: week 3");
@@ -637,13 +637,13 @@ public class SampleDataSetup {
 		log.info("Creating notes: week 3");
 		noteDAO.save(Note.trainerBatchNote("Good week in the JSP",  3, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Nice.",  3, yan, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Excellent",  3, denny, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Cool",  3, josh, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Indeed",  3, justin, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Baboom",  3, tad, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Fantastic",  3, jeff, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcBatchNote("Great work in this week of batch",  3, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Nice.",  3, yan, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Excellent",  3, denny, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Cool",  3, josh, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Indeed",  3, justin, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Baboom",  3, tad, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Fantastic",  3, jeff, QCStatus.Superstar));
+		noteDAO.save(Note.qcBatchNote("Great work in this week of batch",  3, batch, QCStatus.Good));
 
 		// Hibernate
 		log.info("Creating/'autograding' assessments: week 4");
@@ -689,13 +689,13 @@ public class SampleDataSetup {
 		log.info("Creating notes: week 4");
 		noteDAO.save(Note.trainerBatchNote("Good progress on Hibernate!",  4, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Nice stuff",  4, yan, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Excellent stuff",  4, denny, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Cool stuff",  4, josh, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Indeedily doo",  4, justin, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Baboommma",  4, tad, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Fantastical stuff",  4, jeff, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("Great stuff in this batch",  4, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Nice stuff",  4, yan, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Excellent stuff",  4, denny, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Cool stuff",  4, josh, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Indeedily doo",  4, justin, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Baboommma",  4, tad, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Fantastical stuff",  4, jeff, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("Great stuff in this batch",  4, batch, QCStatus.Good));
 		// Spring
 		log.info("Creating/'autograding' assessments: week 5");
 		Assessment assessment5 = new Assessment("LMS", batch, 100, AssessmentType.Exam,  5, categories.get(18));
@@ -721,13 +721,13 @@ public class SampleDataSetup {
 		log.info("Creating notes: week 5");
 		noteDAO.save(Note.trainerBatchNote("Good week. Some preinterviews setting a few people back, but altogether they did well.",  5, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Nice stuff",  5, yan, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Excellent stuff",  5, denny, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Cool stuff",  5, josh, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Indeedily doo",  5, justin, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Baboommma",  5, tad, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Fantastical stuff",  5, jeff, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("Great stuff in this batch",  5, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Nice stuff",  5, yan, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Excellent stuff",  5, denny, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Cool stuff",  5, josh, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Indeedily doo",  5, justin, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Baboommma",  5, tad, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Fantastical stuff",  5, jeff, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("Great stuff in this batch",  5, batch, QCStatus.Good));
 
 		// REST
 		log.info("Creating/'autograding' assessments: week 6");
@@ -764,13 +764,13 @@ public class SampleDataSetup {
 		log.info("Creating notes: week 6");
 		noteDAO.save(Note.trainerBatchNote("Many topics this week. The batch handled this week very well!",  5, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Great",  6, yan, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Wow",  6, denny, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Nice",  6, josh, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Super",  6, justin, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Fun",  6, tad, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Wowwwie!",  6, jeff, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("I sense great knowledge in this batch",  6, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Great",  6, yan, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Wow",  6, denny, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Nice",  6, josh, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Super",  6, justin, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Fun",  6, tad, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Wowwwie!",  6, jeff, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("I sense great knowledge in this batch",  6, batch, QCStatus.Good));
 
 		// AngularJS
 		log.info("Creating/'autograding' assessments: week 7");
@@ -797,13 +797,13 @@ public class SampleDataSetup {
 		log.info("Creating notes: week 7");
 		noteDAO.save(Note.trainerBatchNote("Good week.",  7, batch));
 
-		noteDAO.save(Note.qcIndividualNote("Graet",  7, yan, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Great",  7, denny, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Grate",  7, josh, QCStatus.Superstar, false));
-		noteDAO.save(Note.qcIndividualNote("Grite",  7, justin, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Grain",  7, tad, QCStatus.Good, false));
-		noteDAO.save(Note.qcIndividualNote("Grown",  7, jeff, QCStatus.Good, false));
-		noteDAO.save(Note.qcBatchNote("I sense grep knowledge in this batch",  7, batch, QCStatus.Good, false));
+		noteDAO.save(Note.qcIndividualNote("Graet",  7, yan, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Great",  7, denny, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Grate",  7, josh, QCStatus.Superstar));
+		noteDAO.save(Note.qcIndividualNote("Grite",  7, justin, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Grain",  7, tad, QCStatus.Good));
+		noteDAO.save(Note.qcIndividualNote("Grown",  7, jeff, QCStatus.Good));
+		noteDAO.save(Note.qcBatchNote("I sense grep knowledge in this batch",  7, batch, QCStatus.Good));
 	}
 
 	private void batchThree() {
