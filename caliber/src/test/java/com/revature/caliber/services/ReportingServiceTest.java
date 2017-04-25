@@ -1,4 +1,4 @@
-package com.revature.caliber.services;
+/*package com.revature.caliber.services;
 
 import java.util.List;
 import java.util.Map;
@@ -26,9 +26,9 @@ import com.revature.caliber.data.TrainerDAO;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
 public class ReportingServiceTest {
-	
+
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
-	
+
 	@Autowired
 	private TrainerDAO trainerDAO;
 	@Autowired
@@ -45,18 +45,17 @@ public class ReportingServiceTest {
 	private NoteDAO noteDAO;
 	@Autowired
 	private ReportingService reportingService;
-	
-	
+
 	@Test
 	@Ignore
-	public void getAvgBatchWeekTest(){
+	public void getAvgBatchWeekTest() {
 		Integer batchId = 1050;
 		Integer week = 3;
-		AssessmentType assessmentType =  AssessmentType.Project;
+		AssessmentType assessmentType = AssessmentType.Project;
 		Map<Trainee, Double[]> results = reportingService.utilAvgBatchWeek(batchId, week, assessmentType);
-		
-		for(Entry<Trainee, Double[]> entry: results.entrySet()){
-			if(entry.getKey().getTraineeId() == 1059){
+
+		for (Entry<Trainee, Double[]> entry : results.entrySet()) {
+			if (entry.getKey().getTraineeId() == 1059) {
 				log.info("---------------------------------------------------");
 				log.info("Trainee Name: " + entry.getKey().getName());
 				log.info("Assessment Type: " + assessmentType);
@@ -66,8 +65,8 @@ public class ReportingServiceTest {
 		}
 
 		List<Grade> testGrades = gradeDAO.findByWeek(batchId, week);
-		for(Grade grade: testGrades){
-			if(grade.getTrainee().getTraineeId() == 1059){
+		for (Grade grade : testGrades) {
+			if (grade.getTrainee().getTraineeId() == 1059) {
 				log.info("---------------------------------------------------");
 				log.info("Trainee Name: " + grade.getTrainee().getName());
 				log.info("Assessment: " + grade.getAssessment().getType().name());
@@ -76,11 +75,12 @@ public class ReportingServiceTest {
 			}
 		}
 	}
-	
+
 	@Test
 	@Ignore
-	public void getAvgBatchOverallTest(){
+	public void getAvgBatchOverallTest() {
 		log.info(reportingService.utilAvgBatchOverall(1050, AssessmentType.Exam));
 	}
-	
+
 }
+*/
