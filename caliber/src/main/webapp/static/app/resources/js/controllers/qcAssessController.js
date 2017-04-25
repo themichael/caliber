@@ -472,7 +472,6 @@ angular
 							if ($scope.selectedYear === parseInt($scope.batches[i].startDate
 									.substring(0, 4))) {
 								$scope.batchesByYear.push($scope.batches[i]);
-								$scope.currentBatch = $scope.batchesByYear[0];
 							}
 						}
 					}
