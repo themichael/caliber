@@ -42,7 +42,7 @@ angular
 					}
 					
 					delegate.doughnut.getCurrentQCStats = function(dataArray) {
-						return doughnutChartDataFactory.batchCurrentWeekQCPie(dataArray);
+						return doughnutChartFactory.batchWeekQCPie(dataArray);
 					}
 					
 					delegate.doughnut.data.getCurrentQCStatsData = function(batchId){
