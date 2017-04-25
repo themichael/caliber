@@ -32,18 +32,12 @@ angular
 					$scope.batchOverall = false;
 					$scope.batchOverallTrainee = false;
 
-					var derp = caliberDelegate.all.enumTrainingType().then(function (skills) {
-						$log.debug(skills);
-						$scope.derp = skills;
-					}());
-					$log.debug("Yaaahhhhh!");
-					$log.debug($scope.derp);
-
 					(function() {
 						// Finishes any left over ajax animation
 						NProgress.done();
 						// batch null check
-
+						getAllTrainingTypes();
+						
 						if ($scope.currentBatch === null) {
 							$scope.noBatch = true;
 						} else {
@@ -58,7 +52,7 @@ angular
 						}
 
 					})();
-
+					
 					function selectView(batch, week, trainee) {
 						if (week === OVERALL) {
 							// All Weeks
@@ -282,6 +276,14 @@ angular
 						$scope.radarBatchOverallTable = chartsDelegate.utility
 						.dataToTable(radarBatchOverallChartObject);
 						$log.debug(radarBatchOverallChartObject);
+					}
+					
+					function getAllTrainingTypes() {
+						caliberDelegate.all.enumTrainingType().then(
+								function(trainingType) {
+									$log.debug(trainingType);
+									$scope.trainingTypes = trainingType;
+								});
 					}
 					
 					// *******************************************************************************
