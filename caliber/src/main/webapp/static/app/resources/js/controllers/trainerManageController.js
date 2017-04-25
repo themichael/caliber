@@ -258,7 +258,7 @@ angular
 							$scope.startDate();
 						}
 					}
-					
+6
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
 
