@@ -13,6 +13,8 @@ angular
 					OVERALL = "(All)";
 					const
 					ALL = -1;
+					var radarComparData = null;
+					var radarComparObj = {};
 
 					// What you see when you open Reports
 					$scope.currentBatch = allBatches[0];
@@ -237,27 +239,28 @@ angular
 									$scope.currentTraineeId);
 						}
 					}
-
-					var myData = null;
-					$scope.getAllTraineesAndBatchRadarData = function(){
+					
+					// Get Data for Trainees and Batch comparison
+					function createAllTraineesAndBatchRadarData(){
 						chartsDelegate.radar.data
 						.getAllTraineesAndBatchRadarChart($scope.currentBatch.batchId)
 						.then(function(data) {
-							myData = data;
+							radarComparData = data;
 						})
 					}
-					var obj = {};
+					
+					// toggle Checked and Unchecked for Trainees
 					$scope.toggleComparisonRadarChart = function(isChecked, val) {
-						obj[$scope.currentBatch.trainingName] = mainData;
+						radarComparObj[$scope.currentBatch.trainingName] = mainData;
 						if(isChecked) {
-							obj[$scope.currentBatch.trainees[val].name] = myData[$scope.currentBatch.trainees[val].name] ;
+							radarComparObj[$scope.currentBatch.trainees[val].name] = radarComparData[$scope.currentBatch.trainees[val].name] ;
 						} else {
-							delete obj[$scope.currentBatch.trainees[val].name];
+							delete radarComparObj[$scope.currentBatch.trainees[val].name];
 						}
 
 						var radarBatchOverallChartObject = chartsDelegate.radar
 								.getCombineBatchAndAllTraineeAssess(
-								obj);
+										radarComparObj);
 						$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
 						$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
 						$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
@@ -297,6 +300,8 @@ angular
 
 						createAverageTraineeScoresOverall();
 						createTechnicalSkillsBatchOverall();
+						// TODO
+						createAllTraineesAndBatchRadarData();
 						createWeeklyProgressBatchOverall();
 					}
 
