@@ -99,7 +99,9 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByTrainee(Integer traineeId) {
 		log.info("Finding all grades for trainee: " + traineeId);
-		List <Grade> grades = sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee", "trainee")
+		List <Grade> grades = sessionFactory.getCurrentSession().createCriteria(Grade.class)
+				.createAlias("trainee", "trainee")
+				.add(Restrictions.gt("score", 0.0))
 				.add(Restrictions.eq("trainee.traineeId", traineeId))
 				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -118,9 +120,14 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByBatch(Integer batchId) {
 		log.info("Finding all grades for batch: " + batchId);
-		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee", "trainee").createAlias("trainee.batch", "b")
-				.add(Restrictions.eq("b.batchId", batchId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped)).list();
+		return sessionFactory.getCurrentSession().createCriteria(Grade.class)
+				.createAlias("trainee", "trainee")
+				.createAlias("trainee.batch", "b")
+				.add(Restrictions.gt("score", 0.0))
+				.add(Restrictions.eq("b.batchId", batchId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped))
+				.list();
 	}
 
 

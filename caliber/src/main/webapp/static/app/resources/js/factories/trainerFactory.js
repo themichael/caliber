@@ -107,8 +107,8 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	// update assessment
 	trainer.updateAssessment = function(assessmentObj) {
 		return $http({
-			url : "/trainer/assessment/update/",
-			method : "PUT",
+			url : "/trainer/assessment/update",
+			method : "POST",
 			data : assessmentObj
 		}).then(function(response) {
 			$log.debug("Assessments successfully updated");

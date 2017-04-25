@@ -8,10 +8,10 @@ angular.module("reportApi").factory(
 			/**
 			 * Yanilda
 			 */
-			report.getTraineeUpToWeekLineChart = function(week, traineeId) {
+			report.getTraineeUpToWeekLineChart = function(batchId, week, traineeId) {
 				return $http(
 						{
-							url : "/all/reports/week/" + week
+							url : "/all/reports/batch/" + batchId + "/week/" + week
 									+ "/trainee/" + traineeId
 									+ "/line-trainee-up-to-week",
 							method : "GET"
@@ -53,6 +53,22 @@ angular.module("reportApi").factory(
 				function(response) {
 					$log.error("There was an error in lineChartDataFactory -> getBatchOverallLineChart. " + response.status);
 				});	
+			};
+			/**
+			 * This is for the vpHome LineChart
+			 */
+			report.getCurrentBatchesAverageScoreChartData = function() {
+				return $http(
+						{
+							url : '/vp/reports/dashboard',
+							method : "GET"
+						}).then(function(response) {
+					$log.debug("VP -> All Current Batches -> Weekly  Averages");
+					$log.debug(response);
+					return response.data;
+				}, function(response) {
+					$log.error("There was an error: " + response.status);
+				});
 			};
 		return report;
 	}

@@ -55,16 +55,12 @@ angular
 									.getGradesForWeek(batchId,
 											weekId).then(
 											function(data) {
-												$scope.grades = data;
-												// $log.debug("These are the
-												// grades");
-												// $log.debug(data);
-												// for ( var i in data) {
-												// $log.debug("Fetching ");
-												// $log.debug(data[i]);
-												// pushUnique($scope.grades,
-												// data[i]);
-												// }
+												if(Object.keys(data).length === 0){
+													$scope.grades = false;
+												}else{
+													$scope.grades = data;
+													$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);
+												}
 											});
 					 }
 						$scope.assignTraineeScope = function(traineeId){
@@ -130,6 +126,15 @@ angular
 					$log.debug(allBatches);
 					
 					(function start(allBatches) {
+						/*set children of modal to false on click to prevent modal from fading out when clicking
+						 * on child elements*/
+						$(".editAssessModal .modal-body, .editAssModal .modal-footer").on("click", false);
+						/*Implemented due to modal-backdrop class duplicating itself and not going away
+						 * when clicking area outside of modal document*/
+						$('.editAssessModal').on("click",function(e) {
+							e.stopPropagation();
+						    $(".modal").modal("hide");
+						});
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) { 								// shows
@@ -466,7 +471,6 @@ angular
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.allAssessmentsAvgForWeek = false;
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
-											$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);
 //											caliberDelegate.all.getAssessmentsAverageForWeek(
 //													$scope.currentBatch.batchId
 //													, $scope.currentWeek
@@ -482,17 +486,20 @@ angular
 										});
 										
 					};
+					
 					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
+
 						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
-						.then(function(response){
-									$timeout(function(){
-										if(response){
-											$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
-										}else{
-											return;
-										}
-									},4000);															
-								});
+							.then(function(response){
+										$timeout(function(){
+											if(response){
+												$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
+											}else{
+												return;
+											}
+										},4000);															
+
+							});
 					}
 					
 					/** *******Save TrainerBatch Notes********** */	
@@ -579,23 +586,24 @@ angular
 					}; 
 
 					$scope.findGrade = function(traineeId, assessmentId) {
-							if($scope && $scope.grades && ($scope.grades[traineeId] === undefined)){ 
+							if(!$scope || !$scope.grades || !traineeId || ($scope.grades[traineeId] === undefined)){ 
 								return;
-							}
-							for(var grade of $scope.grades[traineeId]){
-								/*
-								 * create a assessment object that contains
-								 * gradeId for each $scope.trainees[trainee]
-								 */
-								if(grade.assessment.assessmentId === assessmentId){
-									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
-										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
+							}else{
+								for(var grade of $scope.grades[traineeId]){
+									/*
+									 * create a assessment object that contains
+									 * gradeId for each $scope.trainees[trainee]
+									 */
+									if(grade.assessment.assessmentId === assessmentId){
+										if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
+											$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
+										}
+										if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId === undefined){
+											$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId = grade.gradeId;
+											$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].score = grade.score;										
+										}
+										return grade.score;
 									}
-									if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId === undefined){
-										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId = grade.gradeId;
-										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].score = grade.score;										
-									}
-									return grade.score;
 								}
 							}
 					};
@@ -677,13 +685,7 @@ angular
 							}
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
-					/***********************************************************
-					 * Save Button **
-					 **********************************************************/
-					$rootScope.testChild = function(){
-						alert('hti');
-					}
-					
+          
 					$scope.showSaving = false;
 					$scope.showCheck = false;
 					$scope.showFloppy = true;
@@ -726,7 +728,7 @@ angular
 					});
 					
 			        $rootScope.$on('GET_TRAINEE_OVERALL_CTRL',function(event,traineeId){
-						console.log(traineeId);
+						$log.debug(traineeId);
 					});
 			        
 					// Used to sort trainees in batch
@@ -737,6 +739,41 @@ angular
 							return 1;
 						return 0;
 					}
-					
-				$scope.test = function(){$log.debug("yer");}
+				/******************
+				 * UPDATE ASSESSMENT 
+				 *****************/
+				$scope.updateAssessment = function(assessment,event,modalId,index){
+					event.stopPropagation();
+					if($scope.updateAssessmentModel !==undefined){
+						$log.debug(index);
+						//$log.debug($scope.currentAssessments[$index] + "  ------ " + $index);
+						if($scope.updateAssessmentModel.category){
+							assessment.category=$scope.updateAssessmentModel.category;
+						}
+						if($scope.updateAssessmentModel.type){
+							assessment.type=$scope.updateAssessmentModel.type;
+						}
+						if($scope.updateAssessmentModel.rawScore){
+							assessment.rawScore=$scope.updateAssessmentModel.rawScore;
+						}
+						//call delegate if at least one field was changed
+						if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
+							caliberDelegate.trainer.updateAssessment(assessment)
+							.then(function(response){
+								$log.debug("the assessment has been updated")
+								$scope.currentAssesments[index] = assessment; // change the scope to the updated assessment and call the method to update all
+								//$state.reload();
+								return response;
+							});
+							
+						}
+					}
+					$('.modal').modal('hide');
+				}
+				
+				$scope.closeModal = function(str){
+				    $('#'+str).modal('toggle');
+				}
+
+//				$scope.updateAssessment={};
 				});
