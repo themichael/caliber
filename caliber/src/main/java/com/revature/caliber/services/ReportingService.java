@@ -461,6 +461,7 @@ public class ReportingService {
 	 */
 	public Double getBatchComparisonAvg(SkillType skill, TrainingType training, Date startDate){
 		
+		List<Batch> allBatches = batchDAO.findAllAfterDate(startDate.getMonth(), startDate.getDay(), startDate.getYear());
 		
 	}
 
@@ -468,8 +469,30 @@ public class ReportingService {
 	 *******************************************************
 	 * Utility Methods
 	 *******************************************************
-	 */
-
+	 */	
+	
+	public Double utilAvgBatch(List<Trainee> trainees, int weeks){
+		Double result = 0.0;
+		Map<String, Double> averages = new HashMap<>();
+		for (Trainee trainee : trainees) {
+			Double avg = 0.d;
+			int weeksWithGrades = 0;
+			for (Integer i = 0; i < weeks; i++) {
+				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
+				if (tempAvg > 0) {
+					weeksWithGrades++;
+					avg += tempAvg;
+				}
+			}
+			if (avg > 0.0 && weeksWithGrades > 0) {
+				avg = avg / weeksWithGrades;
+				averages.put(trainee.getName(), avg);
+			}
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * Gets the average for a given Trainee ID for the entire week for one
 	 * particular assessment. One Week -> One Trainee -> Average Score -> One

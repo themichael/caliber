@@ -13,8 +13,13 @@ angular
 					OVERALL = "(All)";
 					const
 					ALL = -1;
-
+					const
+					NONE = "NONE";
 					// What you see when you open Reports
+					$scope.selectedTraining = NONE;
+					$scope.selectedSkill = NONE;
+					$scope.selectedDate = new Date();
+					$scope.selectedDate.setFullYear($scope.selectedDate.getFullYear()-1);
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
@@ -658,3 +663,18 @@ angular
 					}
 					
 				});
+
+				$scope.selectTraining = function(index){
+					
+					
+				};
+				
+				$scope.selectSkill = function(index){
+					
+					
+				};
+				
+				function changeDate(){
+					
+					
+				};
