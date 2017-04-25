@@ -13,6 +13,8 @@ angular
 					OVERALL = "(All)";
 					const
 					ALL = -1;
+					var radarComparData = null;
+					var radarComparObj = {};
 					const
 					NONE = "NONE";
 					// What you see when you open Reports
@@ -33,8 +35,8 @@ angular
 					(function() {
 						// Finishes any left over ajax animation
 						NProgress.done();
-						// batch null check
-
+						// get all training types for dropdown
+						getAllTrainingTypes();
 						if ($scope.currentBatch === null) {
 							$scope.noBatch = true;
 						} else {
@@ -49,7 +51,7 @@ angular
 						}
 
 					})();
-
+					
 					function selectView(batch, week, trainee) {
 						if (week === OVERALL) {
 							// All Weeks
@@ -242,7 +244,47 @@ angular
 									$scope.currentTraineeId);
 						}
 					}
+					
+					// Get Data for Trainees and Batch comparison
+					function createAllTraineesAndBatchRadarData(){
+						chartsDelegate.radar.data
+						.getAllTraineesAndBatchRadarChart($scope.currentBatch.batchId)
+						.then(function(data) {
+							radarComparData = data;
+						})
+					}
+					
+					// toggle Checked and Unchecked for Trainees
+					$scope.toggleComparisonRadarChart = function(isChecked, val) {
+						radarComparObj[$scope.currentBatch.trainingName] = mainData;
+						if(isChecked) {
+							radarComparObj[$scope.currentBatch.trainees[val].name] = radarComparData[$scope.currentBatch.trainees[val].name] ;
+						} else {
+							delete radarComparObj[$scope.currentBatch.trainees[val].name];
+						}
 
+						var radarBatchOverallChartObject = chartsDelegate.radar
+								.getCombineBatchAndAllTraineeAssess(
+										radarComparObj);
+						$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
+						$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
+						$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
+						$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
+						$scope.radarBatchOverallColors = radarBatchOverallChartObject.colors;
+						
+						$scope.radarBatchOverallTable = chartsDelegate.utility
+						.dataToTable(radarBatchOverallChartObject);
+						$log.debug(radarBatchOverallChartObject);
+					}
+					
+					function getAllTrainingTypes() {
+						caliberDelegate.all.enumTrainingType().then(
+								function(trainingType) {
+									$log.debug(trainingType);
+									$scope.trainingTypes = trainingType;
+								});
+					}
+					
 					// *******************************************************************************
 					// *** Chart Generation
 					// *******************************************************************************
@@ -271,6 +313,8 @@ angular
 
 						createAverageTraineeScoresOverall();
 						createTechnicalSkillsBatchOverall();
+						// TODO
+						createAllTraineesAndBatchRadarData();
 						createWeeklyProgressBatchOverall();
 					}
 
@@ -473,7 +517,7 @@ angular
 													.dataToTable(radarChartObject);
 										});
 					}
-
+					var mainData = null;
 					function createTechnicalSkillsBatchOverall() {
 						$log.debug("createTechnicalSkillsBatchOverall");
 						chartsDelegate.radar.data
@@ -483,6 +527,7 @@ angular
 								.then(
 										function(data) {
 											NProgress.done();
+											mainData = data;
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(
 															data,
@@ -498,7 +543,7 @@ angular
 										});
 
 					}
-
+					
 					// *******************************************************************************
 					// *** Line Charts
 					// *******************************************************************************
@@ -642,6 +687,27 @@ angular
 						return clone;
 					};
 					
+					
+					
+					
+					$scope.selectTraining = function(index){
+						
+						
+					};
+					
+					$scope.selectSkill = function(index){
+						
+						
+					};
+					
+					function changeDate(){
+						
+						
+					};
+					
+					
+					
+					
 					// gets the note for that trainne and that week
 					$scope.getTraineeNote=function(traineeId,weekId){
 						$log.debug("YOU ARE IN YOUR FUNCTION");
@@ -652,7 +718,7 @@ angular
 								$scope.note = data;
 							}
 						});
-						//Michael get QCnote and QCstatus
+						// Michael get QCnote and QCstatus
 						caliberDelegate.qc.getQCTraineeNote(traineeId,weekId).then(function(data){
 							$log.debug("YOU ARE IN get qc caliber in controller");
 								$scope.qcNote = {};
@@ -664,18 +730,4 @@ angular
 					
 				});
 
-				$scope.selectTraining = function(index){
-					$scope.trainingType = $scope.type[index];
-					
-					
-				};
-				
-				$scope.selectSkill = function(index){
-					
-					
-				};
-				
-				function changeDate(){
-					
-					
-				};
+
