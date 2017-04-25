@@ -83,7 +83,6 @@ public class BootController extends Helper {
 		// Http request to the training module to get the caliber user
 		String email = salesforceUser.getEmail();
 		URIBuilder uriBuilder = new URIBuilder();
-		uriBuilder = new URIBuilder();
 		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())
 				.setPort(servletRequest.getServerPort()).setPath("/training/trainer/byemail/" + email + "/");
 		URI uri = uriBuilder.build();
@@ -141,7 +140,7 @@ public class BootController extends Helper {
 		Cookie[] cookies = servletRequest.getCookies();
 		SalesforceToken salesforceToken = null;
 		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("token")) {
+			if (("token").equals(cookie.getName())) {
 				log.debug("Parse salesforce token: " + cookie.getValue());
 				salesforceToken = new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
 						SalesforceToken.class);

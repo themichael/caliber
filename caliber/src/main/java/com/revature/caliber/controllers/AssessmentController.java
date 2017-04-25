@@ -84,10 +84,10 @@ public class AssessmentController {
 	 */
 	@RequestMapping(value = "/trainer/assessment/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> updateAssessment(@Valid @RequestBody Assessment assessment) {
+	public ResponseEntity<Assessment> updateAssessment(@Valid @RequestBody Assessment assessment) {
 		log.info("Updating assessment: " + assessment);
 		assessmentService.update(assessment);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(assessment,HttpStatus.OK);
 	}
 
 	/**

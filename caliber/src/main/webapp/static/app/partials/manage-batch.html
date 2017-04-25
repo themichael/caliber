@@ -198,6 +198,7 @@
 									data-datepicker="true">
 									<input ng-model="benchmarkStartDate.model"
 										class="date-input form-control date-selector" name="date"
+
 										ng-value="benchmarkStartDate" min="0" type="date"
 										ng-required="true"> <span
 										class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -243,11 +244,41 @@
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					</div>
 				</div>
+				
 			</div>
+			
 		</div>
 	</form>
-
-	<!--********************************************* Benchmark Date Modal   ************************************-->
+<!--*********************************************  Batch Delete ERROR Modal ************************************-->
+	
+		<div class="modal fade" id="deleteBatchErrorModal" tabindex="-1"
+			role="dialog" aria-labelledby="batchModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="batchModalLabel">Error &nbsp;<i class="fa fa-frown-o fa-2x pick"  aria-hidden="true"></i></h4>
+					</div>
+					<div class="modal-body">
+						<!-- Add Batch Info --> 
+						Cannot delete a Batch in progress.
+						<br> Please look forward to it!
+						<br /> 
+							
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+	
+	<!--********************************************* Benchmark Date Modal Error  ************************************-->
 	<form>
 		<div class="modal fade" id="benchmarkdateModal" tabindex="-1"
 			role="dialog" aria-labelledby="batchModalLabel">
@@ -261,8 +292,8 @@
 
 					</div>
 					<div class="modal-body">
-						<h3>The Start Date should be before the End Date. The
-							BenchmarkDate date needs to be before the start date</h3>
+						<p>The Start Date should be before the End Date. The
+							BenchmarkDate date needs to be before the start date</p> 
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
@@ -466,4 +497,3 @@
 		</div>
 	</div>
 </form>
-</div>

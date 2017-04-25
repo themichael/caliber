@@ -238,6 +238,19 @@ footer a, footer a:hover{
 .table-view{
 	max-width:400px;
 }
+.table, .table-responsive, thead{
+	position:relative !important;
+}
+.fixed-style-table-header{
+	position:fixed !important;
+	background:#fff;
+	z-index:100;
+	top:0;
+	width:90%;
+}
+.note-mw{
+	min-width:300px;
+}
 /**********************
 	save button
 **********************/
@@ -295,3 +308,10 @@ a.save-button .fa-floppy-o{
 /* .fade-in.ng-hide-remove {
   transition: all ease-out 3000ms;
 } */
+
+/************************
+***Assessment Modal****
+*************************/
+.editAssessModal{
+	font-family:'Futura-Std-Book';
+}

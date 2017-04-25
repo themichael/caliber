@@ -259,12 +259,19 @@ public class EvaluationController {
 		return new ResponseEntity<Note>(evaluationService.findTraineeNote(traineeId, week), HttpStatus.OK);
 	}
 	
-	/*
-	 *******************************************************
-	 * TODO QC NOTE SERVICES
-	 *
-	 *******************************************************
+	/**
+	 * FIND TRAINEE NOTE FOR THE WEEK(Michael) 
+	 * 
+	 * @param QCtrainee
+	 * @param week
+	 * @return 
 	 */
+	@RequestMapping(value = "/qc/note/trainee/{traineeId}/for/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Note> findQCTraineeNote(@PathVariable Integer traineeId, @PathVariable Integer week) {
+		return new ResponseEntity<Note>(evaluationService.findQCTraineeNote(traineeId, week), HttpStatus.OK);
+	}
+	
+	
 	/**
 	 * FIND THE WEEKLY QC BATCH NOTE FOR THE WEEK(NOT FOR TRAINERS)
 	 * 

@@ -84,6 +84,11 @@ angular
 					delegate.all.getAllTraineeNotes = function(traineeId){
 						return allFactory.getAllTraineeNotes(traineeId);
 					}
+					
+					delegate.all.getTraineeByEmail = function(traineeEmail){
+						return allFactory.getTraineeEmail(traineeEmail);
+					}
+								
 					/**
 					 * *********************** Enum constants
 					 * ***************************
@@ -226,6 +231,11 @@ angular
 
 					delegate.qc.aTraineeNote = function(traineeId, week) {
 						return qcFactory.getAQCTraineeNote(traineeId, week);
+					}
+					
+					//get QCtrainee note by week - Michael  					
+					delegate.qc.getQCTraineeNote = function(traineeId,week){
+						return qcFactory.getQCTraineeNote(traineeId,week);
 					}
 					
 					//GET TRAINEE WEEK - SADAT

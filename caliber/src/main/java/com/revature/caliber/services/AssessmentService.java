@@ -88,10 +88,11 @@ public class AssessmentService {
 	 * UPDATE ASSESSMENT
 	 * @param assessment
 	 */
-	public void update(Assessment assessment) {
-		log.debug("Updating assessment " + assessment);
+	public Assessment update(Assessment assessment) {
+		log.info("Updating assessment " + assessment);
 		
 		assessmentDAO.update(assessment);
+		return assessment;
 	}
 
 	/**
