@@ -495,7 +495,8 @@ angular
 					}
 					
 					/** *******Save TrainerBatch Notes********** */	
-					$scope.saveTrainerNotes = function() {
+					$scope.saveTrainerNotes = function(batchNoteId) {
+						$log.debug("Saving note: " + $scope.trainerBatchNote);
 						// Create note
 						if ($scope.trainerBatchNote.noteId === undefined) {
 							$scope.trainerBatchNote = new Note(
@@ -513,7 +514,9 @@ angular
 							});
 						}  
 						// Update existing note
-						else {								
+						else {
+							$scope.trainerBatchNote = new Note(batchNoteId, $scope.trainerBatchNote.content,
+									null, $scope.currentWeek, $scope.currentBatch, null, "ROLE_TRAINER", "BATCH", false);
 							caliberDelegate.trainer.updateNote($scope.trainerBatchNote);
 						}
 					}
