@@ -220,6 +220,7 @@ public class BatchDAO extends BaseDAO {
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.gt("g", 0.0))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.ge("startDate", startDate.getTime()))
 				.addOrder(Order.desc("startDate"))
