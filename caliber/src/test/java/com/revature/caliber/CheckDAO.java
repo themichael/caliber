@@ -54,6 +54,7 @@ public class CheckDAO {
 	}
 	
 	@Test
+	@Ignore
 	public void testDeleteAssess() {
 
 		Assessment assess = assessmentDAO.findOne(5201);
@@ -67,6 +68,7 @@ public class CheckDAO {
 		
 	}
 	
+	@Test
 	@Ignore
 	public void testUpdateAssess() {	
 		Assessment assess = assessmentDAO.findOne(1050);

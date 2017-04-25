@@ -165,6 +165,8 @@ angular
 						sortByDate($scope.selectedYear);
 						batchYears();
 						$scope.currentBatch = $scope.batchesByYear[0];
+						$scope.reportCurrentWeek = OVERALL;
+						$scope.currentTraineeId = ALL;
 						selectView($scope.currentBatch.batchId,
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
@@ -183,8 +185,8 @@ angular
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batchesByYear[index];
 						getCurrentBatchWeeks($scope.currentBatch.weeks);
-						$scope.selectCurrentWeek(OVERALL);
-						$scope.selectCurrentTrainee(ALL);
+						$scope.reportCurrentWeek = OVERALL;
+						$scope.currentTraineeId = ALL;
 						selectView($scope.currentBatch.batchId,
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
