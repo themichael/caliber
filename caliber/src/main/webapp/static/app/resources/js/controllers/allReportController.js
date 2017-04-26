@@ -329,7 +329,6 @@ angular
 
 						createAverageTraineeScoresOverall();
 						createTechnicalSkillsBatchOverall();
-						// TODO
 						createAllTraineesAndBatchRadarData();
 						createWeeklyProgressBatchOverall();
 					}
@@ -376,6 +375,7 @@ angular
 								.then(
 										function(data) {
 											NProgress.done();
+											// TODO Change parameters
 											var barChartObj = chartsDelegate.bar
 													.getAverageTraineeScoresWeekly(data);
 											$scope.averageTraineeScoresWeeklyData = barChartObj.data;
@@ -383,6 +383,7 @@ angular
 											$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
 											$scope.averageTraineeScoresWeeklyOptions = barChartObj.options;
 											$scope.averageTraineeScoresWeeklyColors = barChartObj.colors;
+											$scope.averageTraineeScoresWeeklyDsOverride = barChartObj.datasetOverride;
 										}, function() {
 											NProgress.done();
 										});
@@ -397,12 +398,14 @@ angular
 								.then(
 										function(data) {
 											NProgress.done();
+											// TODO Change parameters
 											var barChartObject = chartsDelegate.bar
 													.getAverageTraineeScoresOverall(data);
 											$scope.batchOverAllLabels = barChartObject.labels;
 											$scope.batchOverAllData = barChartObject.data;
 											$scope.batchOverAllOptions = barChartObject.options;
 											$scope.batchOverAllColors = barChartObject.colors;
+											$scope.batchOverAllDsOverride = barChartObject.datasetOverride;
 										}, function() {
 											NProgress.done();
 										});

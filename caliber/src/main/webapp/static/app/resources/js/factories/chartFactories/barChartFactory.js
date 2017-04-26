@@ -280,15 +280,7 @@ angular
 								} ]
 							}
 						}
-						chartData.datasetOverride = [ {
-							label : "Average",
-							type : 'bar'
-						}, {
-							label : "Threshold",
-							hoverBackgroundColor : "rgba(255,99,132,0.4)",
-							hoverBorderColor : "rgba(255,99,132,1)",
-							type : 'line'
-						} ];
+
 
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
@@ -300,7 +292,6 @@ angular
 
 						chartData.datasetOverride = [ {
 							label : "Batch Scores",
-							borderWidth : 1,
 							type : 'bar'
 						}, {
 							label : "Benchmark",
