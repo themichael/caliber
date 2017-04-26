@@ -203,7 +203,8 @@ angular
 //							chartData.data[2].push(good);
 //							chartData.data[3].push(bad);
 						});
-
+						
+						// uncomment to show horizontal lines for benchmarks
 						chartData.datasetOverride = [ {
 							label : "Batch Scores",
 							type : 'bar'

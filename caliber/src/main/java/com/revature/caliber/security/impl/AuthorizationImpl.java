@@ -59,23 +59,25 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	}
 
 	/**
-	 * ------------------------DEVELOPMENT ONLY------------------------ Pretends
+	 * ------------------------DEVELOPMENT ONLY------------------------ 
+	 * Pretends
 	 * to redirect to Salesforce for authentication.
 	 * 
 	 * TODO remove @RequestMapping at go-live
 	 */
-	@RequestMapping("/")
+	//@RequestMapping("/")
 	public ModelAndView dummyAuth() {
 		return new ModelAndView("redirect:" + redirectUrl);
 	}
 
 	/**
-	 * ------------------------PRODUCTION ONLY------------------------ Redirects
+	 * ------------------------PRODUCTION ONLY------------------------ 
+	 * Redirects
 	 * to Salesforce for authentication.
 	 * 
 	 * TODO enable at go-live
 	 */
-	//@RequestMapping("/")
+	@RequestMapping("/")
 	public ModelAndView openAuthURI() {
 		return new ModelAndView(
 				"redirect:" + authURL + "?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri);

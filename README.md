@@ -34,6 +34,12 @@ Caliber is a performance management suite to collect and analyze evaluations of 
 <img src="https://github.com/pjw6193/caliber/blob/master/images/caliber-local.png?raw=true" height="200" width="300"/>
 <br/>
 
+#Local deployment
+* To deploy locally, you must disable Salesfore authentication since you need a valid callback URL.
+* Simply switch to the dummy request mapping methods in the following classes:
+	com.revature.caliber.controllers.BootController 
+	com.revature.caliber.security.impl.AuthorizationImpl
+
 #Screenshots
 All Batch Performance (vp)
 <br/>
