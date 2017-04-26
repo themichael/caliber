@@ -209,51 +209,51 @@ angular
 						}, {
 							fill : false,
 							label : "Benchmark",
-							pointRadius: 0,
-							pointHoverRadius: 0,
+							pointRadius : 0,
+							pointHoverRadius : 0,
 							borderWidth : 5,
 							borderColor : "rgba(252,180,20,1)",
 							pointBackgroundColor : "rgba(252,180,20,1)",
 							pointHoverBackgroundColor : "rgba(252,180,20,1)",
 							pointHoverBorderColor : "rgba(252,180,200, 0.5)",
 							type : 'line',
-							xAxes: [{
-							      ticks: {
-							        beginAtZero: true
-							      }
-							    }]
+							xAxes : [ {
+								ticks : {
+									beginAtZero : true
+								}
+							} ]
 						}, {
 							fill : false,
 							label : "Good Grade",
-							pointRadius: 0,
-							pointHoverRadius: 0,
+							pointRadius : 0,
+							pointHoverRadius : 0,
 							borderWidth : 5,
 							borderColor : "rgba(129,245,117, 1)",
 							pointBackgroundColor : "rgba(129,245,117, 1)",
 							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
 							pointHoverBorderColor : "rgba(129,245,117,0.5)",
 							type : 'line',
-							xAxes: [{
-							      ticks: {
-							        beginAtZero: true
-							      }
-							    }]
+							xAxes : [ {
+								ticks : {
+									beginAtZero : true
+								}
+							} ]
 						}, {
 							fill : false,
 							label : "Borderline Grade",
-							pointRadius: 0,
-							pointHoverRadius: 0,
+							pointRadius : 0,
+							pointHoverRadius : 0,
 							borderWidth : 5,
 							borderColor : "rgba(255,117,117,1)",
 							pointBackgroundColor : "rgba(255,117,117,1)",
 							pointHoverBackgroundColor : "rgba(255,117,117,1)",
 							pointHoverBorderColor : "rgba(255,117,117,0.5)",
 							type : 'line',
-							xAxes: [{
-							      ticks: {
-							        beginAtZero: true
-							      }
-							    }]
+							xAxes : [ {
+								ticks : {
+									beginAtZero : true
+								}
+							} ]
 						}
 
 						]
@@ -315,51 +315,51 @@ angular
 						}, {
 							fill : false,
 							label : "Benchmark",
-							pointRadius: 0,
-							pointHoverRadius: 0,
+							pointRadius : 0,
+							pointHoverRadius : 0,
 							borderWidth : 5,
 							borderColor : "rgba(252,180,20,1)",
 							pointBackgroundColor : "rgba(252,180,20,1)",
 							pointHoverBackgroundColor : "rgba(252,180,20,1)",
 							pointHoverBorderColor : "rgba(252,180,20,0.5)",
 							type : 'line',
-							yAxes: [{
-							      ticks: {
-							        beginAtZero: true
-							      }
-							    }]
+							yAxes : [ {
+								ticks : {
+									beginAtZero : true
+								}
+							} ]
 						}, {
 							fill : false,
 							label : "Good Grade",
-							pointRadius: 0,
-							pointHoverRadius: 0,
+							pointRadius : 0,
+							pointHoverRadius : 0,
 							borderWidth : 5,
 							borderColor : "rgba(129,245,117, 1)",
 							pointBackgroundColor : "rgba(129,245,117, 1)",
 							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
 							pointHoverBorderColor : "rgba(129,245,117,0.5)",
 							type : 'line',
-							yAxes: [{
-							      ticks: {
-							        beginAtZero: true
-							      }
-							    }]
+							yAxes : [ {
+								ticks : {
+									beginAtZero : true
+								}
+							} ]
 						}, {
 							fill : false,
 							label : "Borderline Grade",
-							pointRadius: 0,
-							pointHoverRadius: 0,
+							pointRadius : 0,
+							pointHoverRadius : 0,
 							borderWidth : 5,
 							borderColor : "rgba(255,117,117,1)",
 							pointBackgroundColor : "rgba(255,117,117,1)",
 							pointHoverBackgroundColor : "rgba(255,117,117,1)",
 							pointHoverBorderColor : "rgba(255,117,117,0.5)",
 							type : 'line',
-							xyAxes: [{
-							      ticks: {
-							        beginAtZero: true
-							      }
-							    }]
+							xyAxes : [ {
+								ticks : {
+									beginAtZero : true
+								}
+							} ]
 						}
 
 						]
