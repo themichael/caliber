@@ -56,7 +56,7 @@ angular
 									.getGradesForWeek(batchId,
 											weekId).then(
 											function(data) {
-												if(Object.keys(data).length === 0){
+												if(data === undefined || Object.keys(data).length === 0){
 													$scope.grades = false;
 												}else{
 													$scope.grades = data;
@@ -541,18 +541,20 @@ angular
 								
 					$scope.generateArrAssessmentById = function(assessments){
 						var totalRawScore = 0;
-						for(a of assessments){
-							$scope.assessmentsById[a.assessmentId] = {};
-							$scope.assessmentsById[a.assessmentId].total = 0;
-							$scope.assessmentsById[a.assessmentId].rawScore = a.rawScore; 
-							totalRawScore += a.rawScore;
-						}						
-						for(a of assessments){
-							$scope.assessmentsById[a.assessmentId]
-							.weightedScore = $scope.getWeightedScore(
-									$scope.assessmentsById[a.assessmentId].rawScore
-									,totalRawScore
-									).toFixed(0).toString() + '%';;
+						if(assessments !== undefined){
+							for(a of assessments){
+								$scope.assessmentsById[a.assessmentId] = {};
+								$scope.assessmentsById[a.assessmentId].total = 0;
+								$scope.assessmentsById[a.assessmentId].rawScore = a.rawScore; 
+								totalRawScore += a.rawScore;
+							}						
+							for(a of assessments){
+								$scope.assessmentsById[a.assessmentId]
+								.weightedScore = $scope.getWeightedScore(
+										$scope.assessmentsById[a.assessmentId].rawScore
+										,totalRawScore
+										).toFixed(0).toString() + '%';;
+							}
 						}
 					}
 					$scope.getWeightedScore = function(rawScore,totalRawScore){
