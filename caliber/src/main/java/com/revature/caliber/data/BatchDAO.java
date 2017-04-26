@@ -101,16 +101,15 @@ public class BatchDAO {
 	}
 
 	/**
-	 * Looks for all batches that are currently actively in training. Useful for VP and QC to get snapshots of currently
-	 * operating batches.
+	 * Looks for all batches that are currently actively in training including trainees, notes and grades
 	 * 
 	 * @param auth
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Batch> findAllCurrent() {
-		log.info("Fetching all current batches");
+	public List<Batch> findAllCurrentWithNotesAndTrainees() {
+		log.info("Fetching all current batches with grades and notes");
 		Calendar endDateLimit = Calendar.getInstance();
 		endDateLimit.add(Calendar.MONTH, -3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
@@ -125,7 +124,29 @@ public class BatchDAO {
 				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
 	}
-
+	
+	/**
+	 * Looks for all batches that are currently actively in training. Useful for VP and QC to get snapshots of currently
+	 * operating batches.
+	 * 
+	 * @param auth
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Batch> findAllCurrent() {
+		log.info("Fetching all current batches with grades and notes");
+		Calendar endDateLimit = Calendar.getInstance();
+		endDateLimit.add(Calendar.MONTH, -3);
+		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
+				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
+				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		batches.parallelStream().forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
+		return batches;
+	}
+	
 	/**
 	 * Find a batch by its given identifier
 	 * 

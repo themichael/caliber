@@ -48,7 +48,7 @@ angular
 									},
 									ticks : {
 										suggestedMin : 40,
-										max : 100,
+										suggestedmax : 100,
 										stepSize : 20
 									}
 								} ]
@@ -90,7 +90,7 @@ angular
 									},
 									ticks : {
 										suggestedMin : 40,
-										max : 100,
+										suggestedmax : 100,
 										stepSize : 20
 									}
 								} ]
@@ -128,7 +128,7 @@ angular
 									},
 									ticks : {
 										suggestedMin : 40,
-										max : 100,
+										suggestedmax : 100,
 										stepSize : 20
 									}
 								} ]
@@ -189,7 +189,7 @@ angular
 									},
 									ticks : {
 										suggestedMin : 40,
-										max : 100,
+										suggestedmax : 100,
 										stepSize : 20
 									}
 								} ]
@@ -285,7 +285,7 @@ angular
 									},
 									ticks : {
 										suggestedMin : 40,
-										max : 100,
+										suggestedmax : 100,
 										stepSize : 20
 									}
 								} ]
