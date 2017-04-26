@@ -17,11 +17,11 @@ angular
 					var radarComparObj = {};
 					
 					// What you see when you open Reports
-
+					var startingDate = new Date();
+					startingDate.setFullYear(startingDate.getFullYear() - 1);
+					$scope.startDate = startingDate;
 					$scope.selectedTrainingType = OVERALL;
 					$scope.selectedSkill = OVERALL;
-					$scope.selectedDate = new Date();
-					$scope.selectedDate.setFullYear($scope.selectedDate.getFullYear()-1);
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
@@ -731,13 +731,6 @@ angular
 						}
 						
 					};
-					
-					function changeDate(){
-						
-						
-					};
-					
-					
 					
 					
 					// gets the note for that trainne and that week
