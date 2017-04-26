@@ -462,7 +462,7 @@ public class ReportingService {
 	public Double getBatchComparisonAvg(SkillType skill, TrainingType training, Date startDate){
 		
 		List<Batch> allBatches = batchDAO.findAllAfterDate(startDate.getMonth(), startDate.getDay(), startDate.getYear());
-		
+		return null;
 	}
 
 	/*
