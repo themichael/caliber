@@ -46,11 +46,12 @@ angular
 										function(data) {
 											NProgress.done();
 											var barChartObject = chartsDelegate.bar
-													.getAverageTraineeScoresOverall(data);
+													.getAverageTraineeScoresOverall(data, 80, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
 											$scope.batchOverAllLabels = barChartObject.labels;
 											$scope.batchOverAllData = barChartObject.data;
 											$scope.batchOverAllOptions = barChartObject.options;
 											$scope.batchOverAllColors = barChartObject.colors;
+											$scope.batchOverAllDsOverride = barChartObject.datasetOverride;
 										}, function() {
 											NProgress.done();
 										});
