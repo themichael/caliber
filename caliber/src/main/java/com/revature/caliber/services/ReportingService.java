@@ -463,8 +463,8 @@ public class ReportingService {
 		List<Batch> allBatches = batchDAO.findAllAfterDate(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
 				cal.get(Calendar.YEAR));
 		List<Batch> filteredBatches;
-		if (skill.equals("All")) {
-			if (training.equals("All")) {
+		if (skill.equalsIgnoreCase("All")) {
+			if (training.equalsIgnoreCase("All")) {
 				filteredBatches = allBatches;
 			} else {
 				filteredBatches = allBatches.parallelStream().filter(b -> b.getTrainingType().name().equals(training))
@@ -472,7 +472,7 @@ public class ReportingService {
 			}
 
 		} else {
-			if (training.equals("All")) {
+			if (training.equalsIgnoreCase("All")) {
 				filteredBatches = allBatches.parallelStream().filter(b -> b.getTrainingType().name().equals(skill))
 						.collect(Collectors.toList());
 			} else {

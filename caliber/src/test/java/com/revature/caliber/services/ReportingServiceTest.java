@@ -18,7 +18,7 @@ public class ReportingServiceTest {
 	@Autowired
 	private ReportingService reportingService;
 
-	private static int runs = 100;
+	private static int runs = 10;
 	private static long nano = 1000000000l;
 	Calendar startDate = Calendar.getInstance();
 
@@ -50,7 +50,9 @@ public class ReportingServiceTest {
 	public long concurrentMethod() {
 		long startTimeNano = System.nanoTime();
 		for (int i = 0; i < runs; i++) {
-			//reportingService.getBatchComparisonAvgConcurrent("All", "All", startDate.getTime());
+			Double temp = reportingService.getBatchComparisonAvg("All", "All", startDate.getTime());
+			log.info("SOMETHING VALUE HSHOJDL DAKJGBAKLJGBKAJGBLKAJBGLKJBGLKHGLKSJGLKSJHGLKSGLKSJBGLKJSBGLKJSBGLKJ");
+			log.info(temp);
 		}
 		long concurrentRunTimeSystem = System.nanoTime() - startTimeNano;
 		concurrentRunTimeSystem /= runs;
