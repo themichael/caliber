@@ -15,20 +15,18 @@ angular
 					ALL = -1;
 					var radarComparData = null;
 					var radarComparObj = {};
-					const
-					NONE = "NONE";
+					
 					// What you see when you open Reports
-					$scope.selectedTraining = NONE;
-					$scope.selectedSkill = NONE;
+
+					$scope.selectedTrainingType = OVERALL;
+					$scope.selectedSkill = OVERALL;
 					$scope.selectedDate = new Date();
 					$scope.selectedDate.setFullYear($scope.selectedDate.getFullYear()-1);
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
 					$scope.skillstack = [];
-					$scope.trainingTypes = []
-				
-					
+					$scope.trainingTypes = [];
 					$scope.currentTraineeId = ALL;
 					$scope.noBatch = true;
 					$scope.batchWeek = false;
@@ -39,10 +37,8 @@ angular
 					(function() {
 						// Finishes any left over ajax animation
 						NProgress.done();
-						
 						//get stack of batch skill
 						 getAllSkillTypes();
-
 						// get all training types for dropdown
 						getAllTrainingTypes();
 
@@ -154,6 +150,7 @@ angular
 					// Filter batches by year
 					$scope.years = addYears();
 					$scope.batches = allBatches;
+					
 					$scope.currentTrainee = {
 						name : "Trainee",
 					}
@@ -709,13 +706,27 @@ angular
 					
 					
 					
-					$scope.selectTraining = function(index){
-						
+					$scope.selectTrainingType = function(index){
+						$scope.selectedTrainingType = $scope.trainingTypes[index];
+						$log.debug("Inside Selected Training Type")
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId,$scope.selectedTrainingType);
 						
 					};
 					
 					$scope.selectSkill = function(index){
-						
+						$log.debug("Hello there Y1");
+						$log.debug(index);
+						$log.debug("Hello there Y2");
+						if (index===ALL) {
+							$scope.selectedSkill = "Skill";
+			
+						} else {
+							$scope.selectedSkill = $scope.skillstack[index];
+							$log.debug($scope.selectedSkill);
+							selectView($scope.selectedSkill);
+						}
 						
 					};
 					
