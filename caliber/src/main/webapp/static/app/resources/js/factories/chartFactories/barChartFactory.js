@@ -178,7 +178,8 @@ angular
 						chartData.labels = [];
 						chartData.colors = [ mainColor ];
 						// make all bar same color
-						chartData.data.push([], [], [], []);
+//						chartData.data.push([], [], [], []);
+						chartData.data.push([]);
 						chartData.options = {
 							scales : {
 								yAxes : [ {
@@ -198,63 +199,52 @@ angular
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
-							chartData.data[1].push(comparison.toFixed(2));
-							chartData.data[2].push(good);
-							chartData.data[3].push(bad);
+//							chartData.data[1].push(comparison.toFixed(2));
+//							chartData.data[2].push(good);
+//							chartData.data[3].push(bad);
 						});
 
 						chartData.datasetOverride = [ {
 							label : "Batch Scores",
 							type : 'bar'
-						}, {
-							fill : false,
-							label : "Benchmark",
-							pointRadius : 0,
-							pointHoverRadius : 0,
-							borderWidth : 5,
-							borderColor : "rgba(252,180,20,1)",
-							pointBackgroundColor : "rgba(252,180,20,1)",
-							pointHoverBackgroundColor : "rgba(252,180,20,1)",
-							pointHoverBorderColor : "rgba(252,180,200, 0.5)",
-							type : 'line',
-							xAxes : [ {
-								ticks : {
-									beginAtZero : true
-								}
-							} ]
-						}, {
-							fill : false,
-							label : "Good Grade",
-							pointRadius : 0,
-							pointHoverRadius : 0,
-							borderWidth : 5,
-							borderColor : "rgba(129,245,117, 1)",
-							pointBackgroundColor : "rgba(129,245,117, 1)",
-							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
-							pointHoverBorderColor : "rgba(129,245,117,0.5)",
-							type : 'line',
-							xAxes : [ {
-								ticks : {
-									beginAtZero : true
-								}
-							} ]
-						}, {
-							fill : false,
-							label : "Borderline Grade",
-							pointRadius : 0,
-							pointHoverRadius : 0,
-							borderWidth : 5,
-							borderColor : "rgba(255,117,117,1)",
-							pointBackgroundColor : "rgba(255,117,117,1)",
-							pointHoverBackgroundColor : "rgba(255,117,117,1)",
-							pointHoverBorderColor : "rgba(255,117,117,0.5)",
-							type : 'line',
-							xAxes : [ {
-								ticks : {
-									beginAtZero : true
-								}
-							} ]
 						}
+//						}, {
+//							fill : false,
+//							label : "Benchmark",
+//							width : 0,
+//							pointRadius : 0,
+//							pointHoverRadius : 0,
+//							borderWidth : 0,
+//							borderColor : "rgba(252,180,20,1)",
+//							pointBackgroundColor : "rgba(252,180,20,1)",
+//							pointHoverBackgroundColor : "rgba(252,180,20,1)",
+//							pointHoverBorderColor : "rgba(252,180,200, 0.5)",
+//							type : 'line'
+//						}, {
+//							fill : false,
+//							label : "Good Grade",
+//							width : 0,
+//							pointRadius : 0,
+//							pointHoverRadius : 0,
+//							borderWidth : 0,
+//							borderColor : "rgba(129,245,117, 1)",
+//							pointBackgroundColor : "rgba(129,245,117, 1)",
+//							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
+//							pointHoverBorderColor : "rgba(129,245,117,0.5)",
+//							type : 'line'
+//						}
+//						}, {
+//							fill : false,
+//							label : "Borderline Grade",
+//							pointRadius : 0,
+//							pointHoverRadius : 0,
+//							borderWidth : 0,
+//							borderColor : "rgba(255,117,117,1)",
+//							pointBackgroundColor : "rgba(255,117,117,1)",
+//							pointHoverBackgroundColor : "rgba(255,117,117,1)",
+//							pointHoverBorderColor : "rgba(255,117,117,0.5)",
+//							type : 'line'
+//						}
 
 						]
 						return chartData;
@@ -282,7 +272,8 @@ angular
 
 						chartData.series = [ 'Average Score' ];
 						chartData.data = [];
-						chartData.data.push([], [], [], []);
+						//chartData.data.push([], [], [], []);
+						chartData.data.push([]);
 						chartData.colors = [ mainColor ];
 						chartData.labels = [];
 						chartData.options = {
@@ -304,63 +295,51 @@ angular
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
-							chartData.data[1].push(comparison.toFixed(2));
-							chartData.data[2].push(good);
-							chartData.data[3].push(bad);
+//							chartData.data[1].push(comparison.toFixed(2));
+//							chartData.data[2].push(good);
+//							chartData.data[3].push(bad);
 						});
 
 						chartData.datasetOverride = [ {
 							label : "Batch Scores",
 							type : 'bar'
-						}, {
-							fill : false,
-							label : "Benchmark",
-							pointRadius : 0,
-							pointHoverRadius : 0,
-							borderWidth : 5,
-							borderColor : "rgba(252,180,20,1)",
-							pointBackgroundColor : "rgba(252,180,20,1)",
-							pointHoverBackgroundColor : "rgba(252,180,20,1)",
-							pointHoverBorderColor : "rgba(252,180,20,0.5)",
-							type : 'line',
-							yAxes : [ {
-								ticks : {
-									beginAtZero : true
-								}
-							} ]
-						}, {
-							fill : false,
-							label : "Good Grade",
-							pointRadius : 0,
-							pointHoverRadius : 0,
-							borderWidth : 5,
-							borderColor : "rgba(129,245,117, 1)",
-							pointBackgroundColor : "rgba(129,245,117, 1)",
-							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
-							pointHoverBorderColor : "rgba(129,245,117,0.5)",
-							type : 'line',
-							yAxes : [ {
-								ticks : {
-									beginAtZero : true
-								}
-							} ]
-						}, {
-							fill : false,
-							label : "Borderline Grade",
-							pointRadius : 0,
-							pointHoverRadius : 0,
-							borderWidth : 5,
-							borderColor : "rgba(255,117,117,1)",
-							pointBackgroundColor : "rgba(255,117,117,1)",
-							pointHoverBackgroundColor : "rgba(255,117,117,1)",
-							pointHoverBorderColor : "rgba(255,117,117,0.5)",
-							type : 'line',
-							xyAxes : [ {
-								ticks : {
-									beginAtZero : true
-								}
-							} ]
 						}
+//						}, {
+//							fill : false,
+//							label : "Benchmark",
+//							width : 0,
+//							pointRadius : 0,
+//							pointHoverRadius : 0,
+//							borderWidth : 0,
+//							borderColor : "rgba(252,180,20,1)",
+//							pointBackgroundColor : "rgba(252,180,20,1)",
+//							pointHoverBackgroundColor : "rgba(252,180,20,1)",
+//							pointHoverBorderColor : "rgba(252,180,20,0.5)",
+//							type : 'line'
+//						}, {
+//							fill : false,
+//							label : "Good Grade",
+//							width : 0,
+//							pointRadius : 0,
+//							pointHoverRadius : 0,
+//							borderWidth : 0,
+//							borderColor : "rgba(129,245,117, 1)",
+//							pointBackgroundColor : "rgba(129,245,117, 1)",
+//							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
+//							pointHoverBorderColor : "rgba(129,245,117,0.5)",
+//							type : 'line'
+//						}, {
+//							fill : false,
+//							label : "Borderline Grade",
+//							pointRadius : 0,
+//							pointHoverRadius : 0,
+//							borderWidth : 0,
+//							borderColor : "rgba(255,117,117,1)",
+//							pointBackgroundColor : "rgba(255,117,117,1)",
+//							pointHoverBackgroundColor : "rgba(255,117,117,1)",
+//							pointHoverBorderColor : "rgba(255,117,117,0.5)",
+//							type : 'line'
+//						}
 
 						]
 						return chartData;
