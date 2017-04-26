@@ -216,7 +216,12 @@ angular
 							pointBackgroundColor : "rgba(252,180,20,1)",
 							pointHoverBackgroundColor : "rgba(252,180,20,1)",
 							pointHoverBorderColor : "rgba(252,180,200, 0.5)",
-							type : 'line'
+							type : 'line',
+							xAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
 						}, {
 							fill : false,
 							label : "Good Grade",
@@ -227,7 +232,12 @@ angular
 							pointBackgroundColor : "rgba(129,245,117, 1)",
 							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
 							pointHoverBorderColor : "rgba(129,245,117,0.5)",
-							type : 'line'
+							type : 'line',
+							xAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
 						}, {
 							fill : false,
 							label : "Borderline Grade",
@@ -238,7 +248,12 @@ angular
 							pointBackgroundColor : "rgba(255,117,117,1)",
 							pointHoverBackgroundColor : "rgba(255,117,117,1)",
 							pointHoverBorderColor : "rgba(255,117,117,0.5)",
-							type : 'line'
+							type : 'line',
+							xAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
 						}
 
 						]
@@ -307,7 +322,12 @@ angular
 							pointBackgroundColor : "rgba(252,180,20,1)",
 							pointHoverBackgroundColor : "rgba(252,180,20,1)",
 							pointHoverBorderColor : "rgba(252,180,20,0.5)",
-							type : 'line'
+							type : 'line',
+							yAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
 						}, {
 							fill : false,
 							label : "Good Grade",
@@ -318,7 +338,12 @@ angular
 							pointBackgroundColor : "rgba(129,245,117, 1)",
 							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
 							pointHoverBorderColor : "rgba(129,245,117,0.5)",
-							type : 'line'
+							type : 'line',
+							yAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
 						}, {
 							fill : false,
 							label : "Borderline Grade",
@@ -329,7 +354,12 @@ angular
 							pointBackgroundColor : "rgba(255,117,117,1)",
 							pointHoverBackgroundColor : "rgba(255,117,117,1)",
 							pointHoverBorderColor : "rgba(255,117,117,0.5)",
-							type : 'line'
+							type : 'line',
+							xyAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
 						}
 
 						]

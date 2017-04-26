@@ -365,6 +365,8 @@ angular
 					// *******************************************************************************
 
 					function createAverageTraineeScoresWeekly() {
+						var comparison = chartsDelegate.bar.getBatchComparisonLineData($scope.selectedSkill, $scope.selectedTrainingType, $scope.selectedDate);
+						$log.debug(comparison);
 						chartsDelegate.bar.data
 								.getAverageTraineeScoresWeeklyData(
 										$scope.currentBatch.batchId,
