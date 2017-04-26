@@ -1,5 +1,7 @@
 package com.revature.caliber.services;
 
+import java.util.Calendar;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,11 +14,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ReportingServiceTest {
 
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
+	@SuppressWarnings("unused")
 	@Autowired
 	private ReportingService reportingService;
 
 	private static int runs = 100;
 	private static long nano = 1000000000l;
+	Calendar startDate = Calendar.getInstance();
 
 	@Test
 	// @Ignore
@@ -26,16 +30,17 @@ public class ReportingServiceTest {
 
 		log.info("Serial System Time         : " + ((double) serialRunTimeSystem / nano) + " seconds.");
 		log.info("Concurrent System Time     : " + ((double) concurrentRunTimeSystem / nano) + " seconds.");
-		Double percentageImprovement = (double) (serialRunTimeSystem - concurrentRunTimeSystem) / serialRunTimeSystem
+		double percentageImprovement = (double) (serialRunTimeSystem - concurrentRunTimeSystem) / serialRunTimeSystem
 				* 100;
 		log.info("Concurrent Speed Improvement: " + percentageImprovement + "%");
 	}
 
 	public long serialMethodTest() {
-		log.info("testGetAllCurrentBatchesLineChart");
-		Long startTimeNano = System.nanoTime();
+		startDate.set(2017, Calendar.MARCH, 01);
+		long startTimeNano = System.nanoTime();
 		for (int i = 0; i < runs; i++) {
-			reportingService.getAllCurrentBatchesLineChart();
+			//reportingService.getBatchComparisonAvg("All", "All", startDate.getTime());
+			
 		}
 		long serialRunTimeSystem = System.nanoTime() - startTimeNano;
 		serialRunTimeSystem /= runs;
@@ -43,10 +48,9 @@ public class ReportingServiceTest {
 	}
 
 	public long concurrentMethod() {
-		log.info("testGetAllCurrentBatchesLineChartConcurrent");
-		Long startTimeNano = System.nanoTime();
+		long startTimeNano = System.nanoTime();
 		for (int i = 0; i < runs; i++) {
-			reportingService.getAllCurrentBatchesLineChartConcurrent();
+			//reportingService.getBatchComparisonAvgConcurrent("All", "All", startDate.getTime());
 		}
 		long concurrentRunTimeSystem = System.nanoTime() - startTimeNano;
 		concurrentRunTimeSystem /= runs;
