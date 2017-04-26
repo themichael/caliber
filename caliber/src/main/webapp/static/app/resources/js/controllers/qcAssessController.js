@@ -42,7 +42,7 @@ angular
 					// function to get notes
 					$scope.getNotes = function() {
 						// Check if there are no weeks
-						if ($scope.currentWeek !== undefined) {
+						if ($scope.currentWeek !== undefined && $scope.currentBatch !== undefined && $scope.currentBatch !== null) {
 							// Get qc batch notes for selected batch
 							caliberDelegate.qc
 									.batchNote($scope.currentBatch.batchId,
@@ -112,7 +112,7 @@ angular
 												}
 											});
 							// If there are no weeks
-						} else {
+						} else if($scope.currentBatch !== undefined && $scope.currentBatch !== null){
 							$scope.bnote = null;
 							for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 								$scope.faces.push(new Note(null, null, null,
