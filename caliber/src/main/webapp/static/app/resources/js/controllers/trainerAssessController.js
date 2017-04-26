@@ -358,12 +358,12 @@ angular
 							return "active";
 
 					};
-
+					
 					// create week
 					$scope.createWeek = function() {
 						if($scope.currentBatch.trainees.length === 0){
 							$scope.noTrainees = true;
-							$scope.noTraineesMessage ="No Trainnees were found, weeks cannot be created.";
+							$scope.noTraineesMessage ="No trainnees were found, weeks cannot be created.";
 							$log.debug("NO Trainees");
 							$log.debug($scope.noTraineesMessage);
 							$log.debug($scope.noTrainees);
