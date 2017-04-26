@@ -220,8 +220,9 @@ public class NoteDAO {
 		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class)
 				.createAlias("trainee", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.add(Restrictions.eq("t.traineeId", traineeId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_TRAINER)).list();
+				.add(Restrictions.eq("t.traineeId", traineeId))
+				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_VP))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("week")).list();
 		return notes;
 	}
 
