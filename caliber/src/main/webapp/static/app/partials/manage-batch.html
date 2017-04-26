@@ -188,23 +188,6 @@
 									ng-required="true">
 							</div>
 						</div>
-						<div class="row">
-							<div class="form-group col-lg-12 col-md-12 col-sm-12">
-								<label for="benchmark-date">Benchmark Date: <span
-									title="How far back in time the reports should go when comparing your batch against others."
-									alt="How far back in time the reports should go when comparing your batch against others."
-									class="glyphicon glyphicon-question-sign"></span></label>
-								<div class="input-group" id="benchmark-date"
-									data-datepicker="true">
-									<input ng-model="benchmarkStartDate.model"
-										class="date-input form-control date-selector" name="date"
-
-										ng-value="benchmarkStartDate" min="0" type="date"
-										ng-required="true"> <span
-										class="input-group-addon glyphicon glyphicon-calendar"></span>
-								</div>
-							</div>
-						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -285,6 +268,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
+					<h4 class="modal-title" id="batchModalLabel">Invalid Batch Info&nbsp;<i class="fa fa-frown-o fa-2x pick"  aria-hidden="true"></i></h4>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -292,8 +276,8 @@
 
 					</div>
 					<div class="modal-body">
-						<p>The Start Date should be before the End Date. The
-							BenchmarkDate date needs to be before the start date</p> 
+						<p>The Start Date should be before the End Date. <br/>
+							Trainer and Co-trainer cannot be the same</p> 
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
@@ -388,7 +372,7 @@
 </div>
 
 <!--********************************************* Add Trainee Modal ************************************-->
-<form ng-submit="addNewTrainee()">
+<form ng-submit="verifyTraineeEmail()">
 	<div class="modal fade" id="addTraineeModal" tabindex="-1"
 		role="dialog" aria-labelledby="traineeModalLabel">
 		<div class="modal-dialog modal-lg" role="document">
@@ -401,15 +385,6 @@
 					<h4 class="modal-title" id="traineeModalLabel">Add Trainees</h4>
 				</div>
 				<div class="modal-body">
-					<div class="pull-right">
-						<span style="text-align: center">Active&nbsp</span> <a
-							role="button" ng-click="switchTraineeView()"
-							ng-show="!showdropped"><span class="fa fa-toggle-on fa-2x"
-							aria-hidden="true"> </span></a> <a role="button"
-							ng-click="switchTraineeView()" ng-show="showdropped"><span
-							class="fa fa-toggle-off fa-2x" aria-hidden="true"> </span></a>
-					</div>
-
 					<!-- Add New Trainee -->
 					<h3 ng-bind="traineeFormName">Add Trainee</h3>
 					<div>
@@ -471,6 +446,30 @@
 		</div>
 	</div>
 </form>
+<!--********************************************* Duplicate Email Modal   ************************************-->
+<form>
+	<div class="modal fade" id="emailVerificationModal" tabindex="-1"
+		role="dialog" aria-labelledby="traineeEmailModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="modal-body">
+					<p>The email specified already exists.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
 <!--********************************************* Confirm Trainee Delete Modal ************************************-->
 <form ng-submit="removeTrainee()">
 	<div class="modal fade" id="deleteTraineeModal" tabindex="0"
