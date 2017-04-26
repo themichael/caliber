@@ -1,4 +1,4 @@
-<div class="modal fade editAssessModal" id="editAssessmentModal_{{assessment.assessmentId}}" tabindex="-1"
+<div class="modal editAssessModal" id="editAssessmentModal_{{assessment.assessmentId}}" tabindex="-1"
 	role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -47,7 +47,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<button style="float: left", ng-click="deleteAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)" type="button" class="btn btn-danger""
+					<button style="float: left", ng-click="deleteAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)" type="button" class="btn btn-danger"
 					aria-label="Delete" data-dismiss="modal">Delete</button>
 					<input type="button" value="Update" class="btn btn-primary" ng-click="updateAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)">
 					<button ng-click="closeModal('EditAssessmentModal_'+assessment.assessmentId)" type="button" class="btn"
