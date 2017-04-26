@@ -514,7 +514,7 @@ angular
 									null,
 									$scope.currentWeek,
 									$scope.currentBatch,
-									null, "TRAINER",
+									null, "ROLE_TRAINER",
 									"BATCH", false);	
 							caliberDelegate.trainer.createNote($scope.trainerBatchNote).then(
 							// Set id to created notes id
@@ -772,13 +772,11 @@ angular
 								.then(function(response){
 									$log.debug("the assessment has been updated")
 									return response;
-								}).then(function(response){
-									if(response){
+								}).then(function(){
 										$('.modal').modal('hide');
 										$scope.currentAssessments[index] = response;
 										$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
 										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
-									}
 								});
 							}
 						}
@@ -794,6 +792,20 @@ angular
 //				$scope.updateAssessment={};
 				
 				$scope.deleteAssessment = function(assessment,event,modalId,index){
-					$log.debug("im deleting an assessment");
+					$log.debug("im deleting an assessment" + $scope.currentAssessments);
+					caliberDelegate.trainer.deleteAssessment($scope.currentAssessments[index].assessmentId)
+					.then(function(response){
+									$log.debug("im deleting assessment");
+									if(response){
+										$('.modal').modal('hide');
+										//$scope.currentAssessments[index] = response;
+										//$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
+										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
+									}
+									
+									return response;
+					});
+					
 				};
+				
 				});
