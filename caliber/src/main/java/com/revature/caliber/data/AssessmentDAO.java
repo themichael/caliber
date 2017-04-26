@@ -17,7 +17,7 @@ import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
-public class AssessmentDAO extends BaseDAO {
+public class AssessmentDAO {
 
 	private final static Logger log = Logger.getLogger(AssessmentDAO.class);
 	private SessionFactory sessionFactory;
@@ -52,13 +52,11 @@ public class AssessmentDAO extends BaseDAO {
 	public List<Assessment> findByWeek(Integer batchId, Integer week) {
 		log.info("Find assessment by week number " + week + " for batch " + batchId + " ");
 		List<Assessment> assessments = sessionFactory.getCurrentSession().createCriteria(Assessment.class)
-				.createAlias("batch", "batch")
-				.createAlias("batch.trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("batch", "batch").createAlias("batch.trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.and(Restrictions.eq("batch.batchId", batchId),
 						Restrictions.eq("week", week.shortValue())))
 				.createAlias("grades", "grades", JoinType.LEFT_OUTER_JOIN)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.list();
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return assessments;
 	}
 
@@ -77,7 +75,7 @@ public class AssessmentDAO extends BaseDAO {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void update(Assessment assessment) {
-		log.info("Updating assessment " + assessment  + "  IN THE DAO" );
+		log.info("Updating assessment " + assessment + "  IN THE DAO");
 		sessionFactory.getCurrentSession().update(assessment);
 	}
 

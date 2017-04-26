@@ -50,7 +50,7 @@
 						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
 							role="button" ng-click="selectCurrentTrainee($index)">{{trainee.name}}</a></li>
 					</ul></li>
-					
+
 				<!-- Select Training Type-->
 						<!-- 	<li role="button" class="dropdown"><a
 								class="dropdown-toggle" data-toggle="dropdown"> Training
@@ -84,7 +84,7 @@
 </div>
 <!-- No Selected Batches -->
 <div ng-show="noBatches">
-	<h1>Please select a batch</h1>
+	<h1>Please select a batch:</h1>
 </div>
 
 <!-- Charts -->
@@ -105,7 +105,8 @@
 										chart-options="averageTraineeScoresWeeklyOptions"
 										chart-labels="averageTraineeScoresWeeklyLabels"
 										chart-series="averageTraineeScoresWeeklySeries"
-										chart-colors="averageTraineeScoresWeeklyColors">
+										chart-colors="averageTraineeScoresWeeklyColors"
+										chart-dataset-override="averageTraineeScoresWeeklyDsOverride">
                                     </canvas>
 									<div class="table-responsive">
 										<table ng-if="averageTraineeScoresWeeklyLabels" class="table"
@@ -203,7 +204,8 @@
 										chart-options="batchOverAllOptions"
 										chart-labels="batchOverAllLabels"
 										chart-series="batchOverAllSeries"
-										chart-colors="batchOverAllColors">
+										chart-colors="batchOverAllColors"
+										chart-dataset-override="batchOverAllDsOverride">
                                     	</canvas>
 									<div class="table-responsive">
 										<table ng-if="batchOverAllLabels" class="table"
@@ -228,9 +230,7 @@
 								Batch Technical Skills
 								<div role="button" class="pull-right" data-toggle="modal"
 									data-target="#insert-trainee">
-									<a>Insert<span class="glyphicon glyphicon-plus"
-										aria-hidden="true"></span>
-									</a>
+									<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
 								</div>
 							</div>
 							<div class="panel-body">
@@ -515,6 +515,7 @@
 </div>
 <!-- caliber-container -->
 
+<!-- Modal for Radar Comparison Chart -->
 <div class="modal fade" id="insert-trainee" tabindex="-1" role="dialog"
 	aria-labelledby="batchModalLabel">
 	<div class="modal-dialog" role="document">
@@ -524,19 +525,20 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">Insert Trainees</h4>
+				<h4 class="modal-title">Trainees Comparision</h4>
 			</div>
-			<!-- Add Batch Info -->
 			<div class="modal-body">
 				<div class="table-responsive">
 					<table class="table">
-						<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-							<th class="col-sm-2 col-md-2 col-lg-2">{{trainee.name}}</th>
-							<button ></button>
+						<tr class="col-xs-6 col-sm-6 col-md-4"
+							ng-repeat="trainee in currentBatch.trainees track by $index">
+							<th class="col-sm-2 col-md-2 col-lg-2">{{trainee.name}} <input
+								type="checkbox" class="pull-right" ng-model="isChecked"
+								ng-change="toggleComparisonRadarChart(isChecked, $index)" />
+							</th>
 						</tr>
 					</table>
 				</div>
-
 			</div>
 		</div>
 	</div>
