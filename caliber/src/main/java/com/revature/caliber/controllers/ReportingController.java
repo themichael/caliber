@@ -41,7 +41,8 @@ public class ReportingController {
 	@RequestMapping(value = "/all/reports/compare/skill/{skill}/training/{training}/date/{startDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Double> getBatchComparisonAvg(@PathVariable String skill,
 			@PathVariable String training, @PathVariable Date startDate) {
-		log.info(" getBatchComparisonAvg ===> /all/reports/compare/skill/{skill}/training/{training}/date/{startDate} ");
+		System.out.println("YAYAYAYAYAYAYYAYAYAYAYAYAYAYAYAYATEZXRDCYTFUVGBJHLNKJSFSD " +startDate + skill + training);
+		System.out.println(" getBatchComparisonAvg ===> " +  reportingService.getBatchComparisonAvg(skill, training, startDate));
 		return new ResponseEntity<Double>(reportingService.getBatchComparisonAvg(skill, training, startDate),
 				HttpStatus.OK);
 	}
