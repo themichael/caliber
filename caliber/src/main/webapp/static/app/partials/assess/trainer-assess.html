@@ -70,12 +70,14 @@
 		</div>
 	</div>
 </div>
-<div ng-show="noTrainees">{{noTraineesMessage}}</div>
-<div ng-show="noTrainees" class="ng-hide"/>
+
 <!-- Assessments table -->
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 col-lg-12 top5">
+			<p class="bg-primary align center" ng-show="noTrainees">{{noTraineesMessage}}</p>
+			<ul class="nav nav-tabs" ng-show="!noTrainees">
+			
 			<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
 			<ul class="nav nav-tabs" ng-show="!noBatches">
 					<!-- Accordian table -->
