@@ -380,7 +380,8 @@ angular
 																					// week
 																					// selected
 								});
-					} };
+						} 
+					};
 					// select assessment from list
 					$scope.selectAssessment = function(index) {
 						$scope.currentAssessment = $scope.currentAssessment[index];
@@ -467,6 +468,9 @@ angular
 											for(i = 1; i <= $scope.currentBatch.weeks; i++){
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
+											
+										//	$scope.currentWeek = $scope.currentBatch.weeks;
+											//$log.debug($scope.currentBatch);
 											$scope.selectedYear = parseInt($scope.currentBatch.startDate.substring(0,4));
 											batchYears();
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
@@ -792,20 +796,19 @@ angular
 //				$scope.updateAssessment={};
 				
 				$scope.deleteAssessment = function(assessment,event,modalId,index){
+					event.stopPropagation();
 					$log.debug("im deleting an assessment" + $scope.currentAssessments);
 					caliberDelegate.trainer.deleteAssessment($scope.currentAssessments[index].assessmentId)
 					.then(function(response){
-									$log.debug("im deleting assessment");
-									if(response){
-										$('.modal').modal('hide');
-										//$scope.currentAssessments[index] = response;
-										//$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
-										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
-									}
-									
+																											
 									return response;
+					}).then(function(){
+						$log.debug("im deleting assessment");
+					//	$('.modal.in').modal('hide');
+						getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+					//	$('.modal.in').modal('hide');
 					});
-					
+					//$('.modal.in').modal('hide');
 				};
 				
 				});

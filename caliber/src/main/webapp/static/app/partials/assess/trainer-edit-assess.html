@@ -48,7 +48,7 @@
 				</div>
 				<div class="modal-footer">
 					<button style="float: left", ng-click="deleteAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)" type="button" class="btn btn-danger""
-					aria-label="Delete">Delete</button>
+					aria-label="Delete" data-dismiss="modal">Delete</button>
 					<input type="button" value="Update" class="btn btn-primary" ng-click="updateAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)">
 					<button ng-click="closeModal('EditAssessmentModal_'+assessment.assessmentId)" type="button" class="btn"
 					aria-label="Close">Close</button>
