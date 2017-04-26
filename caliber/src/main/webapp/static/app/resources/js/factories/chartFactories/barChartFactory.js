@@ -8,7 +8,7 @@ angular
 		.factory(
 				"barChartFactory",
 				function($log) {
-					$log.debug("Booted Horizontal Bar Chart Factory");
+					$log.debug("Booted Bar Chart Factory");
 
 					var barChart = {};
 					var mainColor = {
@@ -58,8 +58,7 @@ angular
 						$log.debug("Yanilda");
 						// traverse through array of objects and grab labels and
 						// data
-					
-						
+
 						angular.forEach(dataArray, function(value, key) {
 							if (value[0] > 0) {
 								chartData.labels.push(key);
@@ -151,7 +150,11 @@ angular
 						return chartData;
 					}
 
-					barChart.getBatchOverallBarChart = function(dataArray) {
+					/***********************************************************
+					 * Batch Overall *
+					 **********************************************************/
+					barChart.getBatchOverallBarChart = function(dataArray,
+							comparison, bad, good) {
 						var chartData = {};
 
 						var sorted = [];
@@ -175,7 +178,7 @@ angular
 						chartData.labels = [];
 						chartData.colors = [ mainColor ];
 						// make all bar same color
-						chartData.data.push([]);
+						chartData.data.push([], [], [], []);
 						chartData.options = {
 							scales : {
 								yAxes : [ {
@@ -191,16 +194,77 @@ angular
 								} ]
 							}
 						}
-
 						// loop through object array
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
+							chartData.data[1].push(comparison);
+							chartData.data[2].push(good);
+							chartData.data[3].push(bad);
 						});
+
+						chartData.datasetOverride = [ {
+							label : "Batch Scores",
+							type : 'bar'
+						}, {
+							fill : false,
+							label : "Benchmark",
+							pointRadius: 0,
+							pointHoverRadius: 0,
+							borderWidth : 5,
+							borderColor : "rgba(252,180,20,1)",
+							pointBackgroundColor : "rgba(252,180,20,1)",
+							pointHoverBackgroundColor : "rgba(252,180,20,1)",
+							pointHoverBorderColor : "rgba(252,180,200, 0.5)",
+							type : 'line',
+							xAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
+						}, {
+							fill : false,
+							label : "Good Grade",
+							pointRadius: 0,
+							pointHoverRadius: 0,
+							borderWidth : 5,
+							borderColor : "rgba(129,245,117, 1)",
+							pointBackgroundColor : "rgba(129,245,117, 1)",
+							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
+							pointHoverBorderColor : "rgba(129,245,117,0.5)",
+							type : 'line',
+							xAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
+						}, {
+							fill : false,
+							label : "Borderline Grade",
+							pointRadius: 0,
+							pointHoverRadius: 0,
+							borderWidth : 5,
+							borderColor : "rgba(255,117,117,1)",
+							pointBackgroundColor : "rgba(255,117,117,1)",
+							pointHoverBackgroundColor : "rgba(255,117,117,1)",
+							pointHoverBorderColor : "rgba(255,117,117,0.5)",
+							type : 'line',
+							xAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
+						}
+
+						]
 						return chartData;
 					}
+					/***********************************************************
+					 * * Batch Week **
+					 **********************************************************/
 
-					barChart.getBatchWeekSortedBarChart = function(dataArray) {
+					barChart.getBatchWeekSortedBarChart = function(dataArray,
+							comparison, bad, good) {
 						var chartData = {};
 						// making a sorted array
 						var sorted = [];
@@ -218,7 +282,7 @@ angular
 
 						chartData.series = [ 'Average Score' ];
 						chartData.data = [];
-						chartData.data.push([]);
+						chartData.data.push([], [], [], []);
 						chartData.colors = [ mainColor ];
 						chartData.labels = [];
 						chartData.options = {
@@ -240,7 +304,65 @@ angular
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
+							chartData.data[1].push(comparison);
+							chartData.data[2].push(good);
+							chartData.data[3].push(bad);
 						});
+
+						chartData.datasetOverride = [ {
+							label : "Batch Scores",
+							type : 'bar'
+						}, {
+							fill : false,
+							label : "Benchmark",
+							pointRadius: 0,
+							pointHoverRadius: 0,
+							borderWidth : 5,
+							borderColor : "rgba(252,180,20,1)",
+							pointBackgroundColor : "rgba(252,180,20,1)",
+							pointHoverBackgroundColor : "rgba(252,180,20,1)",
+							pointHoverBorderColor : "rgba(252,180,20,0.5)",
+							type : 'line',
+							yAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
+						}, {
+							fill : false,
+							label : "Good Grade",
+							pointRadius: 0,
+							pointHoverRadius: 0,
+							borderWidth : 5,
+							borderColor : "rgba(129,245,117, 1)",
+							pointBackgroundColor : "rgba(129,245,117, 1)",
+							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
+							pointHoverBorderColor : "rgba(129,245,117,0.5)",
+							type : 'line',
+							yAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
+						}, {
+							fill : false,
+							label : "Borderline Grade",
+							pointRadius: 0,
+							pointHoverRadius: 0,
+							borderWidth : 5,
+							borderColor : "rgba(255,117,117,1)",
+							pointBackgroundColor : "rgba(255,117,117,1)",
+							pointHoverBackgroundColor : "rgba(255,117,117,1)",
+							pointHoverBorderColor : "rgba(255,117,117,0.5)",
+							type : 'line',
+							xyAxes: [{
+							      ticks: {
+							        beginAtZero: true
+							      }
+							    }]
+						}
+
+						]
 						return chartData;
 					}
 
@@ -314,10 +436,10 @@ angular
 							type : 'bar',
 							data : {
 								labels : dataArray.batches,
-								datasets : [
-									dataArray.poor, dataArray.good, dataArray.average, dataArray.superstar,
-								]},
-			
+								datasets : [ dataArray.poor, dataArray.good,
+										dataArray.average, dataArray.superstar, ]
+							},
+
 						};
 						$log.debug("Hello from the other side");
 						return chartData;

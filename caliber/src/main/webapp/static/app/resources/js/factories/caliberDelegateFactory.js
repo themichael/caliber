@@ -97,7 +97,6 @@ angular
 					delegate.all.enumCommonLocations = function() {
 						return allFactory.enumCommonLocations();
 					};
-
 					delegate.all.enumAssessmentType = function() {
 						return allFactory.enumAssessmentType();
 					};
@@ -116,7 +115,6 @@ angular
 					delegate.all.enumTrainingType = function() {
 						return allFactory.enumTrainingType();
 					};
-
 					delegate.all.getAllCategories = function() {
 						return allFactory.getAllCategories();
 					};
