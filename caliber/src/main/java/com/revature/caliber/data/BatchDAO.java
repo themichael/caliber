@@ -69,14 +69,12 @@ public class BatchDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAllByTrainer(Integer trainerId) {
 		log.info("Fetching all batches for trainer: " + trainerId);
-
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
 						Restrictions.eq("coTrainer.trainerId", trainerId))).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		for (Batch batch : batches) {
-			initializeActiveTrainees(batch);
-		}
 		return batches;
 	}
 
