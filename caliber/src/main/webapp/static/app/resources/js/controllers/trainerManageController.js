@@ -472,7 +472,7 @@ angular
 					/** checks if email already exists in database* */
 					$scope.verifyTraineeEmail = function() {
 						if (!$scope.Updating) {
-							checkEmail();
+							$scope.checkEmail();
 						} else {
 							if ($scope.currentTrainee.email !== $scope.traineeEmail) {
 								$scope.checkEmail();
