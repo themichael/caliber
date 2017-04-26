@@ -8,7 +8,7 @@ angular
 		.factory(
 				"barChartFactory",
 				function($log) {
-					$log.debug("Booted Horizontal Bar Chart Factory");
+					$log.debug("Booted Bar Chart Factory");
 
 					var barChart = {};
 					var mainColor = {
@@ -58,8 +58,7 @@ angular
 						$log.debug("Yanilda");
 						// traverse through array of objects and grab labels and
 						// data
-					
-						
+
 						angular.forEach(dataArray, function(value, key) {
 							if (value[0] > 0) {
 								chartData.labels.push(key);
@@ -151,7 +150,10 @@ angular
 						return chartData;
 					}
 
-					barChart.getBatchOverallBarChart = function(dataArray) {
+					/***********************************************************
+					 * Batch Overall *
+					 **********************************************************/
+					barChart.getBatchOverallBarChart = function(dataArray, comparison, bad, good) {
 						var chartData = {};
 
 						var sorted = [];
@@ -175,7 +177,7 @@ angular
 						chartData.labels = [];
 						chartData.colors = [ mainColor ];
 						// make all bar same color
-						chartData.data.push([]);
+						chartData.data.push([],[],[],[]);
 						chartData.options = {
 							scales : {
 								yAxes : [ {
@@ -196,11 +198,45 @@ angular
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
+							chartData.data[1].push(comparison);
+							chartData.data[2].push(good);
+							chartData.data[3].push(bad);
 						});
+
+						chartData.datasetOverride = [ {
+							label : "Batch Scores",
+							borderWidth : 1,
+							type : 'bar'
+						}, {
+							label : "Benchmark",
+							borderWidth : 2,
+							hoverBackgroundColor : "rgba(255,99,132,0.4)",
+							hoverBorderColor : "rgba(255,99,132,1)",
+							type : 'line'
+						}, {
+							label : "Good Grade",
+							borderWidth : 2,
+							hoverBackgroundColor : "rgba(255,99,132,0.4)",
+							hoverBorderColor : "rgba(255,99,132,1)",
+							type : 'line'
+						}, {
+							label : "Borderline Grade",
+							borderWidth : 2,
+							hoverBackgroundColor : "rgba(255,99,132,0.4)",
+							hoverBorderColor : "rgba(255,99,132,1)",
+							type : 'line'
+						}
+
+						]
 						return chartData;
 					}
 
-					barChart.getBatchWeekSortedBarChart = function(dataArray) {
+					/***********************************************************
+					 * * Batch Week **
+					 **********************************************************/
+
+					barChart.getBatchWeekSortedBarChart = function(dataArray,
+							comparison, bad, good) {
 						var chartData = {};
 						// making a sorted array
 						var sorted = [];
@@ -218,7 +254,7 @@ angular
 
 						chartData.series = [ 'Average Score' ];
 						chartData.data = [];
-						chartData.data.push([]);
+						chartData.data.push([], [], [], []);
 						chartData.colors = [ mainColor ];
 						chartData.labels = [];
 						chartData.options = {
@@ -240,7 +276,36 @@ angular
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
+							chartData.data[1].push(comparison);
+							chartData.data[2].push(good);
+							chartData.data[3].push(bad);
 						});
+
+						chartData.datasetOverride = [ {
+							label : "Batch Scores",
+							borderWidth : 1,
+							type : 'bar'
+						}, {
+							label : "Benchmark",
+							borderWidth : 2,
+							hoverBackgroundColor : "rgba(255,99,132,0.4)",
+							hoverBorderColor : "rgba(255,99,132,1)",
+							type : 'line'
+						}, {
+							label : "Good Grade",
+							borderWidth : 2,
+							hoverBackgroundColor : "rgba(255,99,132,0.4)",
+							hoverBorderColor : "rgba(255,99,132,1)",
+							type : 'line'
+						}, {
+							label : "Borderline Grade",
+							borderWidth : 2,
+							hoverBackgroundColor : "rgba(255,99,132,0.4)",
+							hoverBorderColor : "rgba(255,99,132,1)",
+							type : 'line'
+						}
+
+						]
 						return chartData;
 					}
 
@@ -314,10 +379,10 @@ angular
 							type : 'bar',
 							data : {
 								labels : dataArray.batches,
-								datasets : [
-									dataArray.poor, dataArray.good, dataArray.average, dataArray.superstar,
-								]},
-			
+								datasets : [ dataArray.poor, dataArray.good,
+										dataArray.average, dataArray.superstar, ]
+							},
+
 						};
 						$log.debug("Hello from the other side");
 						return chartData;
