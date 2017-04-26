@@ -53,7 +53,7 @@ angular
 					 */
 
 					delegate.bar.getBatchComparisonLineData = function(skill, training, startDate){
-						return barChartFactory.getBatchComparisonLine(skill, training, startDate)
+						return barChartDataFactory.getBatchComparisonLine(skill, training, startDate)
 					}
 					
 					// yani barchart
