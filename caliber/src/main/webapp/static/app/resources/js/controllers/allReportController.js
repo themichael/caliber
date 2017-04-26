@@ -26,7 +26,7 @@ angular
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
 					$scope.skillstack = [];
-						
+					$scope.trainingTypes = []
 				
 					
 					$scope.currentTraineeId = ALL;

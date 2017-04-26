@@ -58,8 +58,7 @@ angular
 						$log.debug("Yanilda");
 						// traverse through array of objects and grab labels and
 						// data
-					
-						
+
 						angular.forEach(dataArray, function(value, key) {
 							if (value[0] > 0) {
 								chartData.labels.push(key);
@@ -150,7 +149,7 @@ angular
 
 						return chartData;
 					}
-
+					// TODO
 					barChart.getBatchOverallBarChart = function(dataArray) {
 						var chartData = {};
 
@@ -191,6 +190,15 @@ angular
 								} ]
 							}
 						}
+						chartData.datasetOverride = [ {
+							label : "Average",
+							type : 'bar'
+						}, {
+							label : "Threshold",
+							hoverBackgroundColor : "rgba(255,99,132,0.4)",
+							hoverBorderColor : "rgba(255,99,132,1)",
+							type : 'line'
+						} ];
 
 						// loop through object array
 						angular.forEach(sorted, function(obj) {
@@ -199,7 +207,7 @@ angular
 						});
 						return chartData;
 					}
-
+					// TODO
 					barChart.getBatchWeekSortedBarChart = function(dataArray) {
 						var chartData = {};
 						// making a sorted array
@@ -236,6 +244,15 @@ angular
 								} ]
 							}
 						}
+						chartData.datasetOverride = [ {
+							label : "Average",
+							type : 'bar'
+						}, {
+							label : "Threshold",
+							hoverBackgroundColor : "rgba(255,99,132,0.4)",
+							hoverBorderColor : "rgba(255,99,132,1)",
+							type : 'line'
+						} ];
 
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
@@ -314,10 +331,10 @@ angular
 							type : 'bar',
 							data : {
 								labels : dataArray.batches,
-								datasets : [
-									dataArray.poor, dataArray.good, dataArray.average, dataArray.superstar,
-								]},
-			
+								datasets : [ dataArray.poor, dataArray.good,
+										dataArray.average, dataArray.superstar, ]
+							},
+
 						};
 						$log.debug("Hello from the other side");
 						return chartData;

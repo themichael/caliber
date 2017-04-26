@@ -183,7 +183,7 @@ angular
 						return radarChartFactory.addDataToExistingRadar(
 								currentChartData, otherDataArray, seriesName);
 					}
-					//TODO
+					
 					delegate.radar.getCombineBatchAndAllTraineeAssess = function (dataSet) {
 						return radarChartFactory.createCombineBatchAndAllTrainees(dataSet);
 					}
