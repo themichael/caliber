@@ -37,7 +37,7 @@ angular
 					(function() {
 						// Finishes any left over ajax animation
 						NProgress.done();
-						//get stack of batch skill
+						// get stack of batch skill
 						 getAllSkillTypes();
 						// get all training types for dropdown
 						getAllTrainingTypes();
@@ -365,13 +365,6 @@ angular
 					// *******************************************************************************
 
 					function createAverageTraineeScoresWeekly() {
-						var comparison = chartsDelegate.bar.getBatchComparisonLineData($scope.selectedSkill, $scope.selectedTrainingType, $scope.startDate);
-						$log.debug("YAGA!!!!!!");
-						$log.debug($scope.startDate);
-						$log.debug($scope.selectedSkill);
-						$log.debug($scope.selectedTrainingType);
-						$log.debug("YAGA!!!!!!");
-						$log.debug(comparison);
 						chartsDelegate.bar.data
 								.getAverageTraineeScoresWeeklyData(
 										$scope.currentBatch.batchId,
@@ -392,7 +385,7 @@ angular
 											NProgress.done();
 										});
 					}
-
+				
 					// Hossain bar chart trainee vs average all week score
 					function createAverageTraineeScoresOverall() {
 						chartsDelegate.bar.data
@@ -732,7 +725,9 @@ angular
 						} else {
 							$scope.selectedSkill = $scope.skillstack[index];
 							$log.debug($scope.selectedSkill);
-							selectView($scope.selectedSkill);
+							selectView($scope.currentBatch.batchId,
+									$scope.reportCurrentWeek,
+									$scope.currentTraineeId,$scope.selectedTrainingType);
 						}
 						
 					};

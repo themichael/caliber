@@ -198,7 +198,7 @@ angular
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
-							chartData.data[1].push(comparison);
+							chartData.data[1].push(comparison.toFixed(2));
 							chartData.data[2].push(good);
 							chartData.data[3].push(bad);
 						});
@@ -304,7 +304,7 @@ angular
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
-							chartData.data[1].push(comparison);
+							chartData.data[1].push(comparison.toFixed(2));
 							chartData.data[2].push(good);
 							chartData.data[3].push(bad);
 						});
