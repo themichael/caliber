@@ -80,8 +80,7 @@ angular
 												controller : "qcAssessController"
 											},
 											"confirm-add-weeks-modal@qc.audit" : {
-												templateUrl: "/static/app/partials/assess/confirm-add-weeks-modal.html",
-												controller : "qcAssessController"
+												templateUrl: "/static/app/partials/assess/confirm-add-weeks-modal.html"
 										}
 									}
 							})
