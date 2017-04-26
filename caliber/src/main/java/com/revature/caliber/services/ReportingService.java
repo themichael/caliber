@@ -118,9 +118,9 @@ public class ReportingService {
 	 *******************************************************
 	 */
 	public Map<String, Map<QCStatus, Integer>> getAllBatchesCurrentWeekQCStackedBarChart() {
-		Map<String, Map<QCStatus, Integer>> results = new HashMap<>();
+		Map<String, Map<QCStatus, Integer>> results = new ConcurrentHashMap<>();
 		List<Batch> currentBatches = batchDAO.findAllCurrent();
-		for (Batch b : currentBatches) {
+		currentBatches.parallelStream().forEach(b -> {
 			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(b);
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
@@ -129,7 +129,7 @@ public class ReportingService {
 					break;
 				}
 			}
-		}
+		});
 		return results;
 	}
 
@@ -363,12 +363,12 @@ public class ReportingService {
 	}
 
 	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChart() {
-		Map<String, Map<Integer, Double>> results = new HashMap<>();
+		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
 		List<Batch> batches = batchDAO.findAllCurrent();
-		for (Batch batch : batches) {
+		batches.parallelStream().forEach(batch -> {
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 			results.put(batch.getTrainingName(), utilAvgBatchOverall(trainees, batch.getWeeks()));
-		}
+		});
 		return results;
 	}
 
@@ -433,12 +433,12 @@ public class ReportingService {
 	 * @return Map<Trainee Name, Map<Category Name, Category Score>>
 	 */
 	public Map<String, Map<String, Double>> getBatchAllTraineesOverallRadarChart(Integer batchId) {
-		Map<String, Map<String, Double>> results = new HashMap<>();
+		Map<String, Map<String, Double>> results = new ConcurrentHashMap<>();
 		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
-		for (Trainee t : batch.getTrainees()) {
+		batch.getTrainees().parallelStream().forEach(t -> {
 			Map<Category, Double[]> skills = utilAvgSkills(new ArrayList<>(t.getGrades()));
 			results.put(t.getName(), utilReplaceCategoryWithSkillName(skills));
-		}
+		});
 		return results;
 	}
 	/*
@@ -485,8 +485,9 @@ public class ReportingService {
 		Object lock = new Object();
 		List<Double> results = new ArrayList<>();
 		filteredBatches.parallelStream().forEach(batch -> {
+			Double temp = utilAvgBatch(new ArrayList<Trainee>(batch.getTrainees()), batch.getWeeks());
 			synchronized (lock) {
-				results.add(utilAvgBatch(new ArrayList<Trainee>(batch.getTrainees()), batch.getWeeks()));
+				results.add(temp);
 			}
 		});
 		result = results.parallelStream().mapToDouble(Double::doubleValue).sum() / filteredBatches.size();
