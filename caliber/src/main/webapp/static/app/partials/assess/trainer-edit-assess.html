@@ -1,4 +1,4 @@
-<div class="modal editAssessModal" id="editAssessmentModal_{{assessment.assessmentId}}" tabindex="-1"
+<div class="modal fade editAssessModal" id="editAssessmentModal_{{assessment.assessmentId}}" tabindex="-1"
 	role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -10,7 +10,6 @@
 				<h4 class="modal-title" id="myModalLabel">Edit Assessment- {{assessment.title}}</h4>
 			</div>
 			<!-- Add Assessment Info -->
-			<form ng-submit="">
 				<div class="modal-body">
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
@@ -48,12 +47,11 @@
 				</div>
 				<div class="modal-footer">
 					<button style="float: left", ng-click="deleteAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)" type="button" class="btn btn-danger"
-					aria-label="Delete" data-dismiss="modal">Delete</button>
+					aria-label="Delete">Delete</button>
 					<input type="button" value="Update" class="btn btn-primary" ng-click="updateAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)">
 					<button ng-click="closeModal('EditAssessmentModal_'+assessment.assessmentId)" type="button" class="btn"
 					aria-label="Close">Close</button>
 				</div>
-			</form>
 		</div>
 	</div>
 </div>
