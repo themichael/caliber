@@ -373,6 +373,7 @@ angular
 																					// selected
 								});
 					};
+
 					// select assessment from list
 					$scope.selectAssessment = function(index) {
 						$scope.currentAssessment = $scope.currentAssessment[index];
