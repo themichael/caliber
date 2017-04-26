@@ -129,13 +129,14 @@ angular
 					(function start(allBatches) {
 						/*set children of modal to false on click to prevent modal from fading out when clicking
 						 * on child elements*/
-						$(".editAssessModal .modal-body, .editAssModal .modal-footer").on("click", false);
+//						$(".modal .modal-body, .modal .modal-footer, .modal form").on("click", false);
+						//$('document').on('click','.modal .modal-body, .modal .modal-footer, .modal form',false);
 						/*Implemented due to modal-backdrop class duplicating itself and not going away
 						 * when clicking area outside of modal document*/
-						$('.editAssessModal').on("click",function(e) {
-							e.stopPropagation();
-						    $(".modal").modal("hide");
-						});
+//						$('.modal').on("click",function(e) {
+//							e.stopPropagation();
+//						    $(".modal").modal("hide");
+//						});
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) { 								// shows
@@ -784,7 +785,6 @@ angular
 									$log.debug("the assessment has been updated")
 									return response;
 								}).then(function(){
-										$('.modal').modal('hide');
 										$scope.currentAssessments[index] = response;
 										$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
 										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
@@ -813,9 +813,19 @@ angular
 						$log.debug("im deleting assessment");
 					//	$('.modal.in').modal('hide');
 						getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
-					//	$('.modal.in').modal('hide');
+						$('.modal.in').modal('hide');
+						$scope.closeModal(modalId);
 					});
-					//$('.modal.in').modal('hide');
+					$('.modal.in').modal('hide');
+					$scope.closeModal(modalId);
 				};
-				
+				$scope.preventModalClose = function(){
+				$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
+					e.stopPropagation();
 				});
+				$('.editAssessModal').on("click",function(e) {
+					e.stopPropagation();
+				    $(".modal").modal("hide");
+				});
+				}
+});
