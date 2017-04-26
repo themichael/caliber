@@ -15,10 +15,10 @@ angular
 					ALL = -1;
 					var radarComparData = null;
 					var radarComparObj = {};
-					const
-					NONE = "NONE";
+					
 					// What you see when you open Reports
-					$scope.selectedTraining = NONE;
+
+					$scope.selectedTrainingType = OVERALL;
 					$scope.selectedSkill = OVERALL;
 					$scope.selectedDate = new Date();
 					$scope.selectedDate.setFullYear($scope.selectedDate.getFullYear()-1);
@@ -26,6 +26,8 @@ angular
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
 					$scope.skillstack = [];
+					$scope.trainingTypes = [];
+					
 						
 				
 					
@@ -707,8 +709,12 @@ angular
 					
 					
 					
-					$scope.selectTraining = function(index){
-						
+					$scope.selectTrainingType = function(index){
+						$scope.selectedTrainingType = $scope.trainingTypes[index];
+						$log.debug("Inside Selected Training Type")
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId,$scope.selectedTrainingType);
 						
 					};
 					
