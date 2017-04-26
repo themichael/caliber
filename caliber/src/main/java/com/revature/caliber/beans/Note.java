@@ -105,8 +105,6 @@ public class Note implements Serializable{
 		this.batch = batch;
 		if (type == NoteType.QC_BATCH)
 			this.maxVisibility = TrainerRole.ROLE_QC;
-		else if (type == NoteType.PUBLIC_BATCH)
-			this.maxVisibility = TrainerRole.ROLE_TRAINER;
 		else
 			throw new IllegalArgumentException("Select proper NoteType");
 		this.type = type;
@@ -134,8 +132,6 @@ public class Note implements Serializable{
 		this.trainee = trainee;
 		if (type == NoteType.QC_TRAINEE)
 			this.maxVisibility = TrainerRole.ROLE_QC;
-		else if (type == NoteType.PUBLIC_TRAINEE)
-			this.maxVisibility = TrainerRole.ROLE_TRAINER;
 		else
 			throw new IllegalArgumentException("Select proper NoteType");
 		this.type = type;
@@ -191,11 +187,8 @@ public class Note implements Serializable{
 	 * @param isPublic
 	 * @return
 	 */
-	public static Note qcBatchNote(String content, Integer week, Batch batch, QCStatus qcStatus, boolean isPublic) {
-		if (isPublic)
-			return new Note(content, week.shortValue(), batch, NoteType.PUBLIC_BATCH, qcStatus);
-		else
-			return new Note(content, week.shortValue(), batch, NoteType.QC_BATCH, qcStatus);
+	public static Note qcBatchNote(String content, Integer week, Batch batch, QCStatus qcStatus) {
+		return new Note(content, week.shortValue(), batch, NoteType.QC_BATCH, qcStatus);
 	}
 
 	/**
@@ -208,12 +201,8 @@ public class Note implements Serializable{
 	 * @param isPublic
 	 * @return
 	 */
-	public static Note qcIndividualNote(String content, Integer week, Trainee trainee, QCStatus qcStatus,
-			boolean isPublic) {
-		if (isPublic)
-			return new Note(content, week.shortValue(), trainee, NoteType.PUBLIC_TRAINEE, qcStatus);
-		else
-			return new Note(content, week.shortValue(), trainee, NoteType.QC_TRAINEE, qcStatus);
+	public static Note qcIndividualNote(String content, Integer week, Trainee trainee, QCStatus qcStatus) {
+		return new Note(content, week.shortValue(), trainee, NoteType.QC_TRAINEE, qcStatus);
 	}
 
 	/**
