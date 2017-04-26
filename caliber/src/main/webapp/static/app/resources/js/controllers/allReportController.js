@@ -368,6 +368,8 @@ angular
 						var comparison = chartsDelegate.bar.getBatchComparisonLineData($scope.selectedSkill, $scope.selectedTrainingType, $scope.startDate);
 						$log.debug("YAGA!!!!!!");
 						$log.debug($scope.startDate);
+						$log.debug($scope.selectedSkill);
+						$log.debug($scope.selectedTrainingType);
 						$log.debug("YAGA!!!!!!");
 						$log.debug(comparison);
 						chartsDelegate.bar.data
