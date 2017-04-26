@@ -17,7 +17,7 @@ angular
 						NProgress.done();
 						$log.debug(allBatches);
 						createDefaultCharts();
-
+						if(!allBatches) $scope.noBatches = true;
 					})();
 
 					function createDefaultCharts() {
