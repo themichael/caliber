@@ -11,19 +11,13 @@ angular
 					 */
 					
 					const ALL = "(All)";
-					date.setFullYear( date.getFullYear() - 1 );
-					
-					$scope.selectedTraining = ALL;
-					$scope.selectedSkill = ALL;
-					$scope.selectedDate = new Date();
-					$scope.selectedDate.setFullYear($scope.selectedDate.getFullYear()-1);
-					
+
 					(function start() {
 						// Finishes any left over AJAX animation
 						NProgress.done();
 						$log.debug(allBatches);
 						createDefaultCharts();
-
+						if(!allBatches) $scope.noBatches = true;
 					})();
 
 					function createDefaultCharts() {
@@ -78,19 +72,4 @@ angular
 					}
 
 				});
-
-				function selectTraining(){
-					
-					
-				};
-				
-				function selectSkill(){
-					
-					
-				};
-				
-				function changeDate(){
-					
-					
-				};
 				

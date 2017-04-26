@@ -7,36 +7,7 @@
 				<div class="container"></div>
 				<div class="panel-body">
 					<div class="row" style="margin-left: 1em;">
-						<ul class="nav nav-tabs" ng-show="!noBatches">
-							
-							<!-- Select Training Type-->
-							<li role="button" class="dropdown"><a
-								class="dropdown-toggle" data-toggle="dropdown"> Training
-									Types<span class="caret"></span>
-							</a>
-								<ul class="dropdown-menu">
-									<li ng-repeat="type in batchTypes track by $index"><a
-										role="button" ng-click="selectCurrentBatchType($index)">{{batchType.typeName}}</a></li>
-								</ul></li>
-							<!-- Select Skill Stack-->
-							<li role="button" class="dropdown"><a
-								class="dropdown-toggle" data-toggle="dropdown">Skill Stack<span
-									class="caret"></span>
-							</a>
-								<ul class="dropdown-menu">
-									<li ng-repeat="type in batchTypes track by $index"><a
-										role="button" ng-click="selectCurrentBatchType($index)">{{batchType.typeName}}</a></li>
-								</ul></li>
-							<li style="margin-left: 37em;"><span id="start-date" data-datepicker="true"> <input
-									ng-model="startDate.model" ng-value="startDate"
-									class="date-input form-control date-selector" name="s" min="0"
-									type="date" ng-required="true">
-							</span></li>
-							<li>
-								<button type="submit" class="btn btn-primary"
-									style="margin-left: 0.5em">Change Reference Date</button>
-							</li>
-						</ul>
+						<span class="nav nav-tabs" ng-show="noBatches">There are no current batches.</span>
 					</div>
 					<div class="chart-container top5">
 						<canvas class="chart chart-line"

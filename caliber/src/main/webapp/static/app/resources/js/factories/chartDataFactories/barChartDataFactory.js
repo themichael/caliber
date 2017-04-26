@@ -139,7 +139,7 @@ angular
 															+ response.status);
 										});
 					}
-					
+
 					report.getDummyBarChartData = function() {
 						// Return with commas in between
 						return {
@@ -177,6 +177,27 @@ angular
 										function(response) {
 											$log
 													.error("There was an error in barChartDataFactory -> getAllBatchesCurrentWeekQCStats:"
+															+ response.status);
+										});
+					}
+
+					report.getBatchComparisonLine = function(skill, training,
+							startDate) {
+						return $http(
+								{
+									url : "/all/reports/compare/skill/" + skill
+											+ "/training/" + training
+											+ "/date/" + startDate,
+									method : "GET"
+								})
+								.then(
+										function(response) {
+											$log.debug("getBatchComparisonLine")
+											$log.debug(response);
+											return response.data;
+										},
+										function(response) {
+											$log.error("There was an error in barChartDataFactory -> getBatchComparisonLine:"
 															+ response.status);
 										});
 					}
