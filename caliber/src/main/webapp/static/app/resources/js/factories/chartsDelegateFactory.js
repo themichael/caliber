@@ -52,6 +52,10 @@ angular
 					 * ************************* Bar *************************
 					 */
 
+					delegate.bar.getBatchComparisonLineData = function(skill, training, startDate){
+						return barChartDataFactory.getBatchComparisonLine(skill, training, startDate)
+					}
+					
 					// yani barchart
 					delegate.bar.getAssessmentAveragesBatchWeekly = function(
 							dataArray) {
