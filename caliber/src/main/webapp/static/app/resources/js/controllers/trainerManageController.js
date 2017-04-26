@@ -271,7 +271,7 @@ angular
 						batch.endDate = $scope.endDate.model;
 						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
 						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
-						batch.benchmarkStartDate = $scope.benchmarkStartDate.model;
+						batch.benchmarkStartDate = new Date("2003/01/01");
 
 						/*
 						 * if ($scope.currentBatch) { newBatch.batchId =
