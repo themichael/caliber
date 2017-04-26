@@ -18,7 +18,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
-public class TraineeDAO extends BaseDAO {
+public class TraineeDAO {
 
 	private final static Logger log = Logger.getLogger(TraineeDAO.class);
 	private SessionFactory sessionFactory;
@@ -63,12 +63,10 @@ public class TraineeDAO extends BaseDAO {
 	public List<Trainee> findAllByBatch(Integer batchId) {
 		log.info("Fetching all Active trainees by batch: " + batchId);
 		List<Trainee> trainees = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.gt("g.score", 0.0))
+				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
 				.add(Restrictions.eq("batch.batchId", batchId))
 				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.list();
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return trainees;
 	}
 
@@ -83,11 +81,9 @@ public class TraineeDAO extends BaseDAO {
 	public List<Trainee> findAllDroppedByBatch(Integer batchId) {
 		log.info("Fetching all Dropped trainees by batch: " + batchId);
 		List<Trainee> trainees = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.eq("batch.batchId", batchId))
+				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batch.batchId", batchId))
 				.add(Restrictions.eq("trainingStatus", TrainingStatus.Dropped))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.list();
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return trainees;
 	}
 
@@ -102,11 +98,9 @@ public class TraineeDAO extends BaseDAO {
 	public List<Trainee> findAllByTrainer(Integer trainerId) {
 		log.info("Fetch all trainees by trainer: " + trainerId);
 		List<Trainee> trainees = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.createAlias("batch", "b")
-				.createAlias("b.trainer", "t")
+				.createAlias("batch", "b").createAlias("b.trainer", "t")
 				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("notes", "n", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.eq("t.trainerId", trainerId))
+				.createAlias("notes", "n", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("t.trainerId", trainerId))
 				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return trainees;
@@ -122,10 +116,8 @@ public class TraineeDAO extends BaseDAO {
 	public Trainee findOne(Integer traineeId) {
 		log.info("Fetch trainee by id: " + traineeId);
 		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.setFetchMode("batch", FetchMode.JOIN)
-				.add(Restrictions.eq("traineeId", traineeId))
-				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
-				.uniqueResult();
+				.setFetchMode("batch", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId))
+				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped)).uniqueResult();
 	}
 
 	/**

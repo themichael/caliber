@@ -80,8 +80,7 @@ angular
 												controller : "qcAssessController"
 											},
 											"confirm-add-weeks-modal@qc.audit" : {
-												templateUrl: "/static/app/partials/assess/confirm-add-weeks-modal.html",
-												controller : "qcAssessController"
+												templateUrl: "/static/app/partials/assess/confirm-add-weeks-modal.html"
 										}
 									}
 							})
@@ -158,6 +157,10 @@ angular
 											},
 											"trainer-edit-assess@trainer.assess":{
 												templateUrl :"/static/app/partials/assess/trainer-edit-assess.html",
+												controller  :"trainerAssessController"
+											},
+											"confirm-add-weeks-modal@trainer.assess":{
+												templateUrl :"/static/app/partials/assess/confirm-add-weeks-modal.html",
 												controller  :"trainerAssessController"
 											}
 										}

@@ -92,9 +92,7 @@ public class ReportingService {
 		}
 		List<Note> notes = noteDAO.findAllQCTraineeNotes(batchId, weekNumber);
 		for (Note n : notes) {
-			if (n.isQcFeedback()) {
-				results.put(n.getQcStatus(), results.get(n.getQcStatus()) + 1);
-			}
+			results.put(n.getQcStatus(), results.get(n.getQcStatus()) + 1);
 		}
 		return results;
 	}
@@ -472,7 +470,7 @@ public class ReportingService {
 			}
 
 		} else {
-			if (training.equalsIgnoreCase("All")) {
+			if (training.equalsIgnoreCase("(All)")) {
 				filteredBatches = allBatches.parallelStream().filter(b -> b.getTrainingType().name().equals(skill))
 						.collect(Collectors.toList());
 			} else {

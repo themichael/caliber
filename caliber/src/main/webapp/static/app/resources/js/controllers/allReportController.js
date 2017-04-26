@@ -219,6 +219,45 @@ angular
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
 					}
+					
+					$scope.selectTrainingType = function(index){
+						if (index==OVERALL) {
+							$scope.selectedTrainingType = OVERALL;
+							$log.debug("Inside Selected Training Type")
+			
+						} else {
+							$scope.selectedTrainingType = $scope.trainingTypes[index];
+							$log.debug($scope.TrainingType);
+						}
+						
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId);
+						
+					};
+					
+					$scope.selectSkill = function(index){
+						$log.debug("Hello there Y1");
+						$log.debug(index);
+						$log.debug("Hello there Y2");
+						if (index==OVERALL) {
+							$scope.selectedSkill = OVERALL;
+			
+						} else {
+							$scope.selectedSkill = $scope.skillstack[index];
+							$log.debug($scope.selectedSkill);
+		
+						}
+						
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId);
+						
+					};
+					
+					
+					
+					
 					/*
 					 * scope function to display the table if a batch and week
 					 * has been selected
@@ -365,46 +404,62 @@ angular
 					// *******************************************************************************
 
 					function createAverageTraineeScoresWeekly() {
-						chartsDelegate.bar.data
-								.getAverageTraineeScoresWeeklyData(
-										$scope.currentBatch.batchId,
-										$scope.reportCurrentWeek)
+						chartsDelegate.bar
+						.getBatchComparisonLineData($scope.selectedSkill, 
+								$scope.selectedTrainingType, 
+								$scope.startDate)
 								.then(
-										function(data) {
-											NProgress.done();
-											var barChartObj = chartsDelegate.bar
-													.getAverageTraineeScoresWeekly(data, 80, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
-											$scope.averageTraineeScoresWeeklyData = barChartObj.data;
-											$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
-											$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
-											$scope.averageTraineeScoresWeeklyOptions = barChartObj.options;
-											$scope.averageTraineeScoresWeeklyColors = barChartObj.colors;
-											$scope.averageTraineeScoresWeeklyDsOverride = barChartObj.datasetOverride;
-										}, function() {
-											NProgress.done();
-										});
+										function(comparison) {
+											chartsDelegate.bar.data
+											.getAverageTraineeScoresWeeklyData(
+													$scope.currentBatch.batchId,
+													$scope.reportCurrentWeek)
+											.then(
+													function(data) {
+														NProgress.done();
+														// TODO Change
+														// parameters
+														var barChartObj = chartsDelegate.bar
+																.getAverageTraineeScoresWeekly(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
+														$scope.averageTraineeScoresWeeklyData = barChartObj.data;
+														$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
+														$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
+														$scope.averageTraineeScoresWeeklyOptions = barChartObj.options;
+														$scope.averageTraineeScoresWeeklyColors = barChartObj.colors;
+														$scope.averageTraineeScoresWeeklyDsOverride = barChartObj.datasetOverride;
+													}, function() {
+														NProgress.done();
+													});
+											});
 					}
 				
 					// Hossain bar chart trainee vs average all week score
 					function createAverageTraineeScoresOverall() {
-						chartsDelegate.bar.data
-								.getAverageTraineeScoresOverallData(
-										$scope.currentBatch.batchId)
-								// confirm if batch or trainee
+						chartsDelegate.bar
+						.getBatchComparisonLineData($scope.selectedSkill, 
+								$scope.selectedTrainingType, 
+								$scope.startDate)
 								.then(
-										function(data) {
-											NProgress.done();
-											var barChartObject = chartsDelegate.bar
-													.getAverageTraineeScoresOverall(data, 80, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
-											$scope.batchOverAllLabels = barChartObject.labels;
-											$scope.batchOverAllData = barChartObject.data;
-											$scope.batchOverAllOptions = barChartObject.options;
-											$scope.batchOverAllColors = barChartObject.colors;
-											$scope.batchOverAllDsOverride = barChartObject.datasetOverride;
-										}, function() {
-											NProgress.done();
+										function(comparison) {
+											chartsDelegate.bar.data
+											.getAverageTraineeScoresOverallData(
+											$scope.currentBatch.batchId)
+											// confirm if batch or trainee
+											.then(
+													function(data) {
+														NProgress.done();
+														// TODO Change parameters
+														var barChartObject = chartsDelegate.bar
+														.getAverageTraineeScoresOverall(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
+														$scope.batchOverAllLabels = barChartObject.labels;
+														$scope.batchOverAllData = barChartObject.data;
+														$scope.batchOverAllOptions = barChartObject.options;
+														$scope.batchOverAllColors = barChartObject.colors;
+														$scope.batchOverAllDsOverride = barChartObject.datasetOverride;
+													}, function() {
+														NProgress.done();
+													});
 										});
-
 					}
 
 					// Yanilda barchart
@@ -701,37 +756,7 @@ angular
 						return clone;
 					};
 					
-					
-					
-					
-					$scope.selectTrainingType = function(index){
-						$scope.selectedTrainingType = $scope.trainingTypes[index];
-						$log.debug("Inside Selected Training Type")
-						selectView($scope.currentBatch.batchId,
-								$scope.reportCurrentWeek,
-								$scope.currentTraineeId,$scope.selectedTrainingType);
-						
-					};
-					
-					$scope.selectSkill = function(index){
-						$log.debug("Hello there Y1");
-						$log.debug(index);
-						$log.debug("Hello there Y2");
-						if (index===ALL) {
-							$scope.selectedSkill = "Skill";
-			
-						} else {
-							$scope.selectedSkill = $scope.skillstack[index];
-							$log.debug($scope.selectedSkill);
-							selectView($scope.currentBatch.batchId,
-									$scope.reportCurrentWeek,
-									$scope.currentTraineeId,$scope.selectedTrainingType);
-						}
-						
-					};
-					
-					
-					// gets the note for that trainne and that week
+			// gets the note for that trainne and that week
 					$scope.getTraineeNote=function(traineeId,weekId){
 						$log.debug("YOU ARE IN YOUR FUNCTION");
 						caliberDelegate.trainer.getTraineeNote(traineeId,weekId).then(function(data){
