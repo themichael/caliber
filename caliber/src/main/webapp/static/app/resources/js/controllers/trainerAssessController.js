@@ -132,6 +132,7 @@ angular
 
 						/*Implemented due to modal-backdrop class duplicating itself and not going away
 						 * when clicking area outside of modal document*/
+						$scope.updateAssessmentModel={};
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) { 								// shows
@@ -779,7 +780,7 @@ angular
 								.then(function(response){
 									$log.debug("the assessment has been updated")
 									return response;
-								}).then(function(){
+								}).then(function(response){
 								$('.modal').modal('hide');										
 										$scope.currentAssessments[index] = response;
 										$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
@@ -787,7 +788,7 @@ angular
 								});
 							}
 						}
-						//$('.modal').modal('hide');
+						$('.modal').modal('hide');
 					}
 					
 				
