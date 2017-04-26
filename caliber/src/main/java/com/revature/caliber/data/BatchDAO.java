@@ -23,7 +23,7 @@ import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 
 @Repository
-public class BatchDAO extends BaseDAO {
+public class BatchDAO {
 
 	private final static Logger log = Logger.getLogger(BatchDAO.class);
 	private SessionFactory sessionFactory;
@@ -55,8 +55,7 @@ public class BatchDAO extends BaseDAO {
 		log.info("Fetching all batches");
 		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.addOrder(Order.desc("startDate"))
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -72,11 +71,12 @@ public class BatchDAO extends BaseDAO {
 		log.info("Fetching all batches for trainer: " + trainerId);
 
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
-						Restrictions.eq("coTrainer.trainerId", trainerId)))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).addOrder(Order.desc("startDate"))
+						Restrictions.eq("coTrainer.trainerId", trainerId))).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		for (Batch batch : batches) {
+			initializeActiveTrainees(batch);
+		}
 		return batches;
 	}
 
@@ -118,8 +118,7 @@ public class BatchDAO extends BaseDAO {
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.gt("g.score", 0.0))
+				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
@@ -154,14 +153,12 @@ public class BatchDAO extends BaseDAO {
 		log.info("Fetching batch: " + batchId);
 		Batch batch = (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("t.grades", "g", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.gt("g.score", 0.0))
+				.createAlias("t.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
 				.add(Restrictions.eq("batchId", batchId))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.uniqueResult();
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).uniqueResult();
 		return batch;
 	}
-	
+
 	/**
 	 * Update details for a batch
 	 * 
@@ -208,9 +205,9 @@ public class BatchDAO extends BaseDAO {
 	}
 
 	/**
-	 * Looks for all batches that whose starting date is after the given year, month, and day.
-	 * Month is 0-indexed
-	 * Return all batches, trainees for that batch, and the grades for each trainee
+	 * Looks for all batches that whose starting date is after the given year, month, and day. Month is 0-indexed Return
+	 * all batches, trainees for that batch, and the grades for each trainee
+	 * 
 	 * @param auth
 	 * @return
 	 */
@@ -222,14 +219,10 @@ public class BatchDAO extends BaseDAO {
 		log.info("Fetching all current batches since: " + startDate.getTime().toString());
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.gt("g.score", 0.0))
+				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.add(Restrictions.ge("startDate", startDate.getTime()))
-				.addOrder(Order.desc("startDate"))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.list();
+				.add(Restrictions.ge("startDate", startDate.getTime())).addOrder(Order.desc("startDate"))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
 	}
-	
 }

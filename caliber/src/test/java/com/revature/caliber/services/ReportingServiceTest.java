@@ -3,11 +3,23 @@ package com.revature.caliber.services;
 import java.util.Calendar;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.revature.caliber.beans.AssessmentType;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.data.AssessmentDAO;
+import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.data.CategoryDAO;
+import com.revature.caliber.data.GradeDAO;
+import com.revature.caliber.data.NoteDAO;
+import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TrainerDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
@@ -23,7 +35,7 @@ public class ReportingServiceTest {
 	Calendar startDate = Calendar.getInstance();
 
 	@Test
-	// @Ignore
+	@Ignore
 	public void benchmarkTest() {
 		long serialRunTimeSystem = serialMethodTest();
 		long concurrentRunTimeSystem = concurrentMethod();
@@ -58,4 +70,5 @@ public class ReportingServiceTest {
 		concurrentRunTimeSystem /= runs;
 		return concurrentRunTimeSystem;
 	}
+	
 }

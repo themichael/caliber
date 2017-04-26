@@ -11,13 +11,7 @@ angular
 					 */
 					
 					const ALL = "(All)";
-					date.setFullYear( date.getFullYear() - 1 );
-					
-					$scope.selectedTraining = ALL;
-					$scope.selectedSkill = ALL;
-					$scope.selectedDate = new Date();
-					$scope.selectedDate.setFullYear($scope.selectedDate.getFullYear()-1);
-					
+
 					(function start() {
 						// Finishes any left over AJAX animation
 						NProgress.done();
@@ -78,19 +72,4 @@ angular
 					}
 
 				});
-
-				function selectTraining(){
-					
-					
-				};
-				
-				function selectSkill(){
-					
-					
-				};
-				
-				function changeDate(){
-					
-					
-				};
 				

@@ -20,9 +20,5 @@ public enum NoteType implements Serializable{
 	@JsonProperty("QC_TRAINEE")
 	QC_TRAINEE,
 	@JsonProperty("QC_BATCH")
-	QC_BATCH,
-	@JsonProperty("PUBLIC_TRAINEE")
-	PUBLIC_TRAINEE,
-	@JsonProperty("PUBLIC_BATCH")
-	PUBLIC_BATCH
+	QC_BATCH
 }
