@@ -129,14 +129,9 @@ angular
 					(function start(allBatches) {
 						/*set children of modal to false on click to prevent modal from fading out when clicking
 						 * on child elements*/
-//						$(".modal .modal-body, .modal .modal-footer, .modal form").on("click", false);
-						//$('document').on('click','.modal .modal-body, .modal .modal-footer, .modal form',false);
+
 						/*Implemented due to modal-backdrop class duplicating itself and not going away
 						 * when clicking area outside of modal document*/
-//						$('.modal').on("click",function(e) {
-//							e.stopPropagation();
-//						    $(".modal").modal("hide");
-//						});
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) { 								// shows
@@ -785,13 +780,14 @@ angular
 									$log.debug("the assessment has been updated")
 									return response;
 								}).then(function(){
+								$('.modal').modal('hide');										
 										$scope.currentAssessments[index] = response;
 										$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
 										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
 								});
 							}
 						}
-						$('.modal').modal('hide');
+						//$('.modal').modal('hide');
 					}
 					
 				
@@ -803,29 +799,25 @@ angular
 //				$scope.updateAssessment={};
 				
 				$scope.deleteAssessment = function(assessment,event,modalId,index){
+					$('.modal').modal('hide');
+					$('.modal-backdrop').remove();
 					event.stopPropagation();
 					$log.debug("im deleting an assessment" + $scope.currentAssessments);
 					caliberDelegate.trainer.deleteAssessment($scope.currentAssessments[index].assessmentId)
-					.then(function(response){
-																											
-									return response;
+					.then(function(response){																					
+						return response;
 					}).then(function(){
 						$log.debug("im deleting assessment");
-					//	$('.modal.in').modal('hide');
 						getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
-						$('.modal.in').modal('hide');
-						$scope.closeModal(modalId);
 					});
-					$('.modal.in').modal('hide');
-					$scope.closeModal(modalId);
 				};
 				$scope.preventModalClose = function(){
-				$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
-					e.stopPropagation();
-				});
-				$('.editAssessModal').on("click",function(e) {
-					e.stopPropagation();
-				    $(".modal").modal("hide");
-				});
+					$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
+						e.stopPropagation();
+					});
+					$('.editAssessModal').on("click",function(e) {
+						e.stopPropagation();
+					    $(".modal").modal("hide");
+					});
 				}
 });
