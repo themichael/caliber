@@ -74,7 +74,7 @@ public class BootController extends Helper {
 	 * @throws URISyntaxException
 	 *             the uri syntax exception
 	 */
-	@RequestMapping(value = "/caliber")
+	//@RequestMapping(value = "/caliber")
 	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
 		// fake Salesforce User
@@ -133,7 +133,7 @@ public class BootController extends Helper {
 	 * @throws URISyntaxException
 	 *             the uri syntax exception
 	 */
-	//@RequestMapping(value = "/caliber")
+	@RequestMapping(value = "/caliber")
 	public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
 		// get Salesforce token from cookie
