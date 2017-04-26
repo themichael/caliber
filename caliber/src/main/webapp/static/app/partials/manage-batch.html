@@ -261,7 +261,7 @@
 			
 		</div>
 	
-	<!--********************************************* Benchmark Date Modal Error  ************************************-->
+	<!--********************************************* Benchmark Date Modal   ************************************-->
 	<form>
 		<div class="modal fade" id="benchmarkdateModal" tabindex="-1"
 			role="dialog" aria-labelledby="batchModalLabel">
@@ -276,6 +276,7 @@
 
 					</div>
 					<div class="modal-body">
+
 						<p>The Start Date should be before the End Date. <br/>
 							Trainer and Co-trainer cannot be the same</p> 
 					</div>
@@ -432,13 +433,13 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
+						<button type="button" class="btn btn-default"
 							data-dismiss="modal" ng-show="!Updating">Close</button>
-						<input type="submit" value="Save" class="btn btn-primary"
+						<input type="submit" value="Save" class="btn btn-primary" data-dismiss="modal"
 							ng-show="!Updating">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							ng-show="Updating">Cancel</button>
-						<input type="submit" value="Update" class="btn btn-primary"
+						<input type="submit" value="Update" class="btn btn-primary" data-dismiss="modal"
 							ng-show="Updating")>
 					</div>
 				</div>
@@ -496,3 +497,4 @@
 		</div>
 	</div>
 </form>
+</div>
