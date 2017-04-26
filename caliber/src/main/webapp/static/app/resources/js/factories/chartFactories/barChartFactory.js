@@ -198,11 +198,12 @@ angular
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
-							chartData.data[1].push(comparison);
+							/*chartData.data[1].push(comparison);
 							chartData.data[2].push(good);
-							chartData.data[3].push(bad);
+							chartData.data[3].push(bad);*/
 						});
-
+						
+						// uncomment to show horizontal lines for benchmarks
 						chartData.datasetOverride = [ {
 							label : "Batch Scores",
 							type : 'bar'
@@ -304,9 +305,9 @@ angular
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
-							chartData.data[1].push(comparison);
+							/*chartData.data[1].push(comparison);
 							chartData.data[2].push(good);
-							chartData.data[3].push(bad);
+							chartData.data[3].push(bad);*/
 						});
 
 						chartData.datasetOverride = [ {

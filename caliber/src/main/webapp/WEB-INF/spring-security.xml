@@ -24,6 +24,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<!-- <security:intercept-url pattern="/trainer/**" access="hasRole('ROLE_TRAINER')" /> -->
 			
 		<!-- <security:intercept-url pattern="/all/**" access="permitAll" /> -->
+		<security:intercept-url pattern="/**" access="permitAll" />
 		<security:csrf disabled="true" />
 		<security:logout invalidate-session="true"
 			delete-cookies="token, JSESSIONID" />
