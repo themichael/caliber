@@ -19,7 +19,7 @@ angular
 					NONE = "NONE";
 					// What you see when you open Reports
 					$scope.selectedTraining = NONE;
-					$scope.selectedSkill = NONE;
+					$scope.selectedSkill = OVERALL;
 					$scope.selectedDate = new Date();
 					$scope.selectedDate.setFullYear($scope.selectedDate.getFullYear()-1);
 					$scope.currentBatch = allBatches[0];
@@ -154,6 +154,7 @@ angular
 					// Filter batches by year
 					$scope.years = addYears();
 					$scope.batches = allBatches;
+					
 					$scope.currentTrainee = {
 						name : "Trainee",
 					}
@@ -712,7 +713,17 @@ angular
 					};
 					
 					$scope.selectSkill = function(index){
-						
+						$log.debug("Hello there Y1");
+						$log.debug(index);
+						$log.debug("Hello there Y2");
+						if (index===ALL) {
+							$scope.selectedSkill = "Skill";
+			
+						} else {
+							$scope.selectedSkill = $scope.skillstack[index];
+							$log.debug($scope.selectedSkill);
+							selectView($scope.selectedSkill);
+						}
 						
 					};
 					
