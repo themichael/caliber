@@ -15,21 +15,18 @@ angular
 					ALL = -1;
 					var radarComparData = null;
 					var radarComparObj = {};
-					const
-					NONE = "NONE";
+					
 					// What you see when you open Reports
-					$scope.selectedTraining = NONE;
-					$scope.selectedSkill = NONE;
 					var startingDate = new Date();
 					startingDate.setFullYear(startingDate.getFullYear() - 1);
 					$scope.startDate = startingDate;
+					$scope.selectedTrainingType = OVERALL;
+					$scope.selectedSkill = OVERALL;
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
 					$scope.skillstack = [];
-						
-				
-					
+					$scope.trainingTypes = [];
 					$scope.currentTraineeId = ALL;
 					$scope.noBatch = true;
 					$scope.batchWeek = false;
@@ -40,10 +37,8 @@ angular
 					(function() {
 						// Finishes any left over ajax animation
 						NProgress.done();
-						
 						//get stack of batch skill
 						 getAllSkillTypes();
-
 						// get all training types for dropdown
 						getAllTrainingTypes();
 
@@ -155,6 +150,7 @@ angular
 					// Filter batches by year
 					$scope.years = addYears();
 					$scope.batches = allBatches;
+					
 					$scope.currentTrainee = {
 						name : "Trainee",
 					}
@@ -330,7 +326,6 @@ angular
 
 						createAverageTraineeScoresOverall();
 						createTechnicalSkillsBatchOverall();
-						// TODO
 						createAllTraineesAndBatchRadarData();
 						createWeeklyProgressBatchOverall();
 					}
@@ -377,13 +372,15 @@ angular
 								.then(
 										function(data) {
 											NProgress.done();
+											// TODO Change parameters
 											var barChartObj = chartsDelegate.bar
-													.getAverageTraineeScoresWeekly(data);
+													.getAverageTraineeScoresWeekly(data, 80, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
 											$scope.averageTraineeScoresWeeklyData = barChartObj.data;
 											$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
 											$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
 											$scope.averageTraineeScoresWeeklyOptions = barChartObj.options;
 											$scope.averageTraineeScoresWeeklyColors = barChartObj.colors;
+											$scope.averageTraineeScoresWeeklyDsOverride = barChartObj.datasetOverride;
 										}, function() {
 											NProgress.done();
 										});
@@ -398,12 +395,14 @@ angular
 								.then(
 										function(data) {
 											NProgress.done();
+											// TODO Change parameters
 											var barChartObject = chartsDelegate.bar
-													.getAverageTraineeScoresOverall(data);
+													.getAverageTraineeScoresOverall(data, 80, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
 											$scope.batchOverAllLabels = barChartObject.labels;
 											$scope.batchOverAllData = barChartObject.data;
 											$scope.batchOverAllOptions = barChartObject.options;
 											$scope.batchOverAllColors = barChartObject.colors;
+											$scope.batchOverAllDsOverride = barChartObject.datasetOverride;
 										}, function() {
 											NProgress.done();
 										});
@@ -707,13 +706,27 @@ angular
 					
 					
 					
-					$scope.selectTraining = function(index){
-						
+					$scope.selectTrainingType = function(index){
+						$scope.selectedTrainingType = $scope.trainingTypes[index];
+						$log.debug("Inside Selected Training Type")
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId,$scope.selectedTrainingType);
 						
 					};
 					
 					$scope.selectSkill = function(index){
-						
+						$log.debug("Hello there Y1");
+						$log.debug(index);
+						$log.debug("Hello there Y2");
+						if (index===ALL) {
+							$scope.selectedSkill = "Skill";
+			
+						} else {
+							$scope.selectedSkill = $scope.skillstack[index];
+							$log.debug($scope.selectedSkill);
+							selectView($scope.selectedSkill);
+						}
 						
 					};
 					

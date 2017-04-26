@@ -53,7 +53,7 @@
 
 				<!-- Select Training Type-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown"> Training Types<span class="caret"></span>
+					data-toggle="dropdown">Training Type: {{selectedTrainingType}}<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="type in trainingTypes track by $index"><a
@@ -61,16 +61,15 @@
 					</ul></li>
 				<!-- Select Skill Stack-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown">Skill Stack<span class="caret"></span>
-				</a>
+					data-toggle="dropdown">Skill Stack: {{selectedSkill}}<span class="caret"></span>
+				</a>	
 					<ul class="dropdown-menu">
 						<li ng-repeat="skill in skillstack track by $index"><a
-							role="button" ng-click="selectCurrentBatchType($index)">{{skill}}</a></li>
+							role="button" ng-click="selectSkill($index)">{{skill}}</a></li>
 					</ul></li>
 			
 
-				<!-- Select Skill Stack-->
-
+				<!-- Select Start Date-->
 				<li><span id="start-date" data-datepicker="true"> <input
 						ng-model="startDate" ng-value="startDate"
 						class="date-input form-control date-selector" name="s" min="0"
@@ -109,7 +108,8 @@
 										chart-options="averageTraineeScoresWeeklyOptions"
 										chart-labels="averageTraineeScoresWeeklyLabels"
 										chart-series="averageTraineeScoresWeeklySeries"
-										chart-colors="averageTraineeScoresWeeklyColors">
+										chart-colors="averageTraineeScoresWeeklyColors"
+										chart-dataset-override="averageTraineeScoresWeeklyDsOverride">
                                     </canvas>
 									<div class="table-responsive">
 										<table ng-if="averageTraineeScoresWeeklyLabels" class="table"
@@ -207,7 +207,8 @@
 										chart-options="batchOverAllOptions"
 										chart-labels="batchOverAllLabels"
 										chart-series="batchOverAllSeries"
-										chart-colors="batchOverAllColors">
+										chart-colors="batchOverAllColors"
+										chart-dataset-override="batchOverAllDsOverride">
                                     	</canvas>
 									<div class="table-responsive">
 										<table ng-if="batchOverAllLabels" class="table"

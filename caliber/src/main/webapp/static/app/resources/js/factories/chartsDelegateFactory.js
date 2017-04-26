@@ -78,9 +78,9 @@ angular
 						return barChartDataFactory.getDummyBarChartData();
 					};
 					delegate.bar.getAverageTraineeScoresWeekly = function(
-							dataArray) {
+							dataArray, comparison, bad, good ) {
 						return barChartFactory
-								.getBatchWeekSortedBarChart(dataArray);
+								.getBatchWeekSortedBarChart(dataArray, comparison, bad, good);
 					}
 
 					delegate.bar.data.getAverageTraineeScoresWeeklyData = function(
@@ -115,9 +115,9 @@ angular
 					}
 
 					delegate.bar.getAverageTraineeScoresOverall = function(
-							dataArray) {
+							dataArray, comparison, bad, good) {
 						return barChartFactory
-								.getBatchOverallBarChart(dataArray);
+								.getBatchOverallBarChart(dataArray, comparison, bad, good);
 					}
 
 					delegate.bar.data.getAverageTraineeScoresOverallData = function(
@@ -187,7 +187,7 @@ angular
 						return radarChartFactory.addDataToExistingRadar(
 								currentChartData, otherDataArray, seriesName);
 					}
-					//TODO
+					
 					delegate.radar.getCombineBatchAndAllTraineeAssess = function (dataSet) {
 						return radarChartFactory.createCombineBatchAndAllTrainees(dataSet);
 					}
