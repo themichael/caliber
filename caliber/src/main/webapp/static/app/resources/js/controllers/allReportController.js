@@ -221,8 +221,15 @@ angular
 					}
 					
 					$scope.selectTrainingType = function(index){
-						$scope.selectedTrainingType = $scope.trainingTypes[index];
-						$log.debug("Inside Selected Training Type")
+						if (index==OVERALL) {
+							$scope.selectedTrainingType = OVERALL;
+							$log.debug("Inside Selected Training Type")
+			
+						} else {
+							$scope.selectedTrainingType = $scope.trainingTypes[index];
+							$log.debug($scope.TrainingType);
+						}
+						
 						selectView($scope.currentBatch.batchId,
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
@@ -233,16 +240,18 @@ angular
 						$log.debug("Hello there Y1");
 						$log.debug(index);
 						$log.debug("Hello there Y2");
-						if (index===ALL) {
-							$scope.selectedSkill = "Skill";
+						if (index==OVERALL) {
+							$scope.selectedSkill = OVERALL;
 			
 						} else {
 							$scope.selectedSkill = $scope.skillstack[index];
 							$log.debug($scope.selectedSkill);
-							selectView($scope.currentBatch.batchId,
-									$scope.reportCurrentWeek,
-									$scope.currentTraineeId);
+		
 						}
+						
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId);
 						
 					};
 					
