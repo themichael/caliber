@@ -143,7 +143,7 @@
   CREATE TABLE "CALIBER"."CALIBER_ASSESSMENT" 
    (	"ASSESSMENT_ID" NUMBER(19,0), 
 	"RAW_SCORE" NUMBER(10,0), 
-	"ASSESSMENT_TITLE" VARCHAR2(255 CHAR) NOT NULL, 
+	"ASSESSMENT_TITLE" VARCHAR2(255 CHAR), 
 	"ASSESSMENT_TYPE" VARCHAR2(255 CHAR) NOT NULL, 
 	"WEEK_NUMBER" NUMBER(5,0) NOT NULL, 
 	"BATCH_ID" NUMBER(10,0) NOT NULL, 
@@ -173,7 +173,6 @@
   TABLESPACE "SYSTEM"  ENABLE;
   ALTER TABLE "CALIBER"."CALIBER_ASSESSMENT" MODIFY ("BATCH_ID" NOT NULL ENABLE);
   ALTER TABLE "CALIBER"."CALIBER_ASSESSMENT" MODIFY ("ASSESSMENT_TYPE" NOT NULL ENABLE);
-  ALTER TABLE "CALIBER"."CALIBER_ASSESSMENT" MODIFY ("ASSESSMENT_TITLE" NOT NULL ENABLE);
   ALTER TABLE "CALIBER"."CALIBER_ASSESSMENT" MODIFY ("ASSESSMENT_ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Ref Constraints for Table CALIBER_ASSESSMENT
@@ -556,32 +555,26 @@ Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STAT
 Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5517,'ilysiarh@gmail.com','Siarheyeu, Ilya','Employed',2200,'347-334-1704','https://app.revature.com/profile/ilysiarh/1612b1d54369bfa052cb56c24334040f','ilysiarh');
 Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5518,'wingz101@icloud.com','Fredericksen-Rasberry, Salim','Dropped',2200,'(516) 825-1848',null,null);
 Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5519,'bankole726@gmail.com','Thomas, Bankole','Dropped',2200,'3476527223',null,null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5520,'davemustaine@gmail.com','Mustaine, Dave','Dropped',2201,'(123) 456-7890',null,null);
-
-COMMIT;
-
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5521,'walter.white@gmail.com','White, Walter','Dropped',2201,'(123) 456-7890',null,null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5522,'kanynewest@yahoo.com','West, Kayne','Dropped',2201,'(123) 456-7890',null,null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5523,'donald@yahoo.com','Trump, Donald','Dropped',2201,'(123) 456-7890',null,null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5524,'bill.oreilly@fox.com','O''Reilly, Bill','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5525,'fdr@usa.gov','Roosevelt, Franklin D.','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5526,'ricardo.montobont@gmail.com','Montobont, Ricardo','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5527,'electra@gmail.com','Electra, Carmen','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5528,'randolph.scott@gmail.com','Scott, Randolph','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5529,'davisjr@outlook.com','Davis Jr., Sammy','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5530,'squarepants.bob@gmail.com','Squarepants, Spongebob','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5531,'victor.hoffman@usa.gov','Hoffman, Victor','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5532,'perryk@gmail.com','Perry, Katy','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5533,'luther@gmail.com','Vandross, Luther','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5534,'dan.pickles@gmail.com','Pickles, Dan','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5535,'vv@gmail.com','Vaughn, Veronica','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5536,'burt@gmail.com','Reynolds, Burt','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5537,'poet@gmail.com','Doyle, Arthur Conan','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5538,'neville@gmail.com','Longbottom, Neville','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5539,'howard.johnson@gmail.com','Johnson, Howard','Employed',2201,'(123) 456-7890','http://www.revature.com',null);
-
-COMMIT;
-
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5520,'davedataram@gmail.com','Dataram, Dave','Dropped',2201,'347-986-0617',null,null);
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5521,'azraelzzz@hotmail.com','In Choi, Hou','Dropped',2201,'(347) 459-2016',null,null);
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5522,'chandradatgir@yahoo.com','Gir, Chandradat','Dropped',2201,'347-447-7487',null,null);
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5523,'jcsanchez1218@yahoo.com','Carlos Sanchez, Juan','Dropped',2201,'(347) 641-8146',null,null);
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5524,'mcartagenaez8@gmail.com','Cartagena, Michael','Employed',2201,'347-782-4731','https://app.revature.com/profile/MichaelC/55b6b9a398dacdb90093a3088822d35c','mcart5566');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5525,'tanland20@gmail.com','Peralta, Yanilda','Employed',2201,'347-638-1605','https://app.revature.com/profile/Synac/254a7187dfc32f6f50710a56bd8112f6','eclipsesunsettreesynch');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5526,'son.jack0218@gmail.com','Duong, Jack','Employed',2201,'(646) 417-3976','https://app.revature.com/profile/imrjack/fab72b5d62b5965bcd22aabe0a9ee24b','imrjack');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5527,'hvalcin.grady@gmail.com','Valcin, Hendy','Employed',2201,'347-272-0040','https://app.revature.com/profile/Hendy/4991db30a308e99aff23eead11daa716','live:196c1fe19236d6c6');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5528,'hossain.yahya@outlook.com','Yahya, Hossain','Employed',2201,'347-595-0959','https://app.revature.com/profile/Hossain/56533488cfec931bbc8e43ba02f12190','live:hossain.yahya_1');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5529,'denise.j.montesdeoca@gmail.com','Montesdeoca, Denise','Employed',2201,'347-536-7727','https://app.revature.com/profile/dmontesdeoca/4ddfb0697a3c1fff8d16e6a1ce46348c','live:55f3683c5bb7165c');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5530,'fareed.ali37@qmail.cuny.edu','Ali, Fareed','Employed',2201,'347-526-5184','https://app.revature.com/profile/fareed/03198a1e81a3f4e32433a9e9c9db353e','live:bassph');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5531,'kamlam@live.com','Lam, Kam','Training',2201,'917-951-1138','https://app.revature.com/profile/Kamlam02/0b64db75d34cddd8b96f8091e44d57b7','live:89f575098655f2b');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5532,'sadat.t.ahmed@gmail.com','Ahmed, Sadat','Employed',2201,'646-407-7707','https://app.revature.com/profile/SadatAhmed/9b198abd1d0d88022d593375b61ed041','sadat.t.ahmed');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5533,'pieryospp@gmail.com','Yos, Pier','Employed',2201,'347-238-4965','https://app.revature.com/profile/Peacepapi/22e027610567ad08a4c6698a8dbfa74b','pieryospp');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5534,'ateebtahir@gmail.com','Khawaja, Ateeb','Employed',2201,'347-251-9865','https://app.revature.com/profile/KMAT/eab7a80a000dc662a9c098b80259c013','ateebtahir');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5535,'suditw@gmail.com','Itwaru, Sudish','Employed',2201,'718-415-0517','https://app.revature.com/profile/sitwaru/8995f5191fdba7a3508ed6e9825863e1','sudish.itwaru');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5536,'danliu277@gmail.com','Liu, Daniel','Employed',2201,'646-275-2027','https://app.revature.com/profile/DanielLiu/8ec745c0558385ae50ac8c25324d7bb3','danliu277');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5537,'guankev@gmail.com','Guan, Kevin','Employed',2201,'347-447-1888','https://app.revature.com/profile/KevinG92/2ba062861641fbf4e956c517983952c4','live:kevguan');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5538,'connelsp@gmail.com','Connelly, Sean','Employed',2201,'718-772-1455','https://app.revature.com/profile/Seanelly/64c09ac289741de8bf7ec0f81f2ad5ad','seanelly08');
+Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5539,'igorgluskin@yahoo.com','Gluskin, Igor','Employed',2201,'347-791-1360','https://app.revature.com/profile/IgorGluskin/ae6866d406461c1c36de8df7c0a1a7a7','igor.gluskin');
 Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5352,'jgt.tech@gmail.com','Tech, Jonathon','Employed',2050,'(918) 504-6831',null,null);
 Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5350,'kh04548@georgiasouthern.edu','Haas, Kevin','Employed',2050,'(229) 255-7639',null,null);
 Insert into CALIBER_TRAINEE (TRAINEE_ID,TRAINEE_EMAIL,TRAINEE_NAME,TRAINING_STATUS,BATCH_ID,PHONE_NUMBER,PROFILE_URL,SKYPE_ID) values (5351,'ifouche10@gmail.com','Fouche, Issac','Employed',2050,'(301) 606-8749',null,null);
