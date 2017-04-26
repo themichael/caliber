@@ -251,6 +251,7 @@ angular
 						$scope.selectedYear= parseInt($scope.currentBatch.startDate.substring(0,4));
 						sortByDate($scope.selectedYear);
 						batchYears();
+						$scope.noTrainees = false;
 						$scope.currentBatch = $scope.batchesByYear[0];
 						$log.debug(batchYears());
 						$log.debug($scope.currentBatch);
@@ -363,7 +364,10 @@ angular
 					$scope.createWeek = function() {
 						if($scope.currentBatch.trainees.length === 0){
 							$scope.noTrainees = true;
-							$scope.noTraineesMessage ="No trainnees were found, weeks cannot be created.";
+							$scope.noTraineesMessage ="No trainnes were found, weeks cannot be created.";
+							$timeout(function(){
+						          $scope.noTrainees = false;
+						       }, 8000);
 							$log.debug("NO Trainees");
 							$log.debug($scope.noTraineesMessage);
 							$log.debug($scope.noTrainees);
