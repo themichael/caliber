@@ -232,30 +232,6 @@ angular
 						$scope.currentView = true;
 					};
 					
-					// create week
-					$scope.createWeek = function() {
-						if($scope.currentBatch.trainees.length === 0){
-							$scope.noTrainees = true;
-							$scope.noTraineesMessage ="No Trainnees were found, weeks cannot be created.";
-							$log.debug("NO Trainees");
-							$log.debug($scope.noTraineesMessage);
-							$log.debug($scope.noTrainees);
-						}else{
-						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
-								function(response) {
-									$scope.currentBatch.weeks += 1;
-									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
-									$scope.showActiveWeek($scope.currentBatch.weeks);
-									$scope.selectWeek($scope.currentBatch.weeks-1); // the
-																					// new
-																					// index
-																					// of
-																					// the
-																					// week
-																					// selected
-								});
-					} };
-					
 					/******* Filter batches by year ************/
 					$scope.years = addYears();
 					function addYears() {
@@ -381,8 +357,30 @@ angular
 							return "active";
 
 					};
-
-				
+					
+					// create week
+					$scope.createWeek = function() {
+						if($scope.currentBatch.trainees.length === 0){
+							$scope.noTrainees = true;
+							$scope.noTraineesMessage ="No trainnees were found, weeks cannot be created.";
+							$log.debug("NO Trainees");
+							$log.debug($scope.noTraineesMessage);
+							$log.debug($scope.noTrainees);
+						}else{
+						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
+								function(response) {
+									$scope.currentBatch.weeks += 1;
+									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
+									$scope.showActiveWeek($scope.currentBatch.weeks);
+									$scope.selectWeek($scope.currentBatch.weeks-1); // the
+																					// new
+																					// index
+																					// of
+																					// the
+																					// week
+																					// selected
+								});
+					} };
 					// select assessment from list
 					$scope.selectAssessment = function(index) {
 						$scope.currentAssessment = $scope.currentAssessment[index];
