@@ -56,6 +56,7 @@
 					data-toggle="dropdown">Training Type: {{selectedTrainingType}}<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
+						<li><a role="button" ng-click="selectTrainingType(OVERALL)">All</a></li>
 						<li ng-repeat="type in trainingTypes track by $index"><a
 							role="button" ng-click="selectTrainingType($index)">{{type}}</a></li>
 					</ul></li>
@@ -64,6 +65,7 @@
 					data-toggle="dropdown">Skill Stack: {{selectedSkill}}<span class="caret"></span>
 				</a>	
 					<ul class="dropdown-menu">
+						<li><a role="button" ng-click="selectSkill(OVERALL)">All</a></li>
 						<li ng-repeat="skill in skillstack track by $index"><a
 							role="button" ng-click="selectSkill($index)">{{skill}}</a></li>
 					</ul></li>
@@ -79,7 +81,7 @@
 					<button type="submit" class="btn btn-primary"
 						style="margin-left: 0.5em"
 						ng-click="selectDate()" 
-						ng-disabled="startDate == null">Change Reference Date</button>
+						ng-disabled="startDate == null">Filter</button>
 				</li>
 			</ul>
 		</div>
