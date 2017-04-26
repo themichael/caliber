@@ -248,6 +248,7 @@ angular
 
 					$scope.selectYear = function(index) {
 						$scope.selectedYear = $scope.years[index];
+						$scope.selectedYear= parseInt($scope.currentBatch.startDate.substring(0,4));
 						sortByDate($scope.selectedYear);
 						batchYears();
 						$scope.currentBatch = $scope.batchesByYear[0];
@@ -467,7 +468,7 @@ angular
 											for(i = 1; i <= $scope.currentBatch.weeks; i++){
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
-											$scope.selectedYear = parseInt($scope.currentBatch.startDate.substring(0,4));
+											//$scope.selectedYear = parseInt($scope.currentBatch.startDate.substring(0,4));
 											batchYears();
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.allAssessmentsAvgForWeek = false;
