@@ -20,8 +20,9 @@ angular
 					// What you see when you open Reports
 					$scope.selectedTraining = NONE;
 					$scope.selectedSkill = NONE;
-					$scope.selectedDate = new Date();
-					$scope.selectedDate.setFullYear($scope.selectedDate.getFullYear()-1);
+					var startingDate = new Date();
+					startingDate.setFullYear(startingDate.getFullYear() - 1);
+					$scope.startDate = startingDate;
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
@@ -715,13 +716,6 @@ angular
 						
 						
 					};
-					
-					function changeDate(){
-						
-						
-					};
-					
-					
 					
 					
 					// gets the note for that trainne and that week
