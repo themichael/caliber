@@ -514,7 +514,7 @@ angular
 									null,
 									$scope.currentWeek,
 									$scope.currentBatch,
-									null, "TRAINER",
+									null, "ROLE_TRAINER",
 									"BATCH", false);	
 							caliberDelegate.trainer.createNote($scope.trainerBatchNote).then(
 							// Set id to created notes id
