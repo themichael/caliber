@@ -71,11 +71,12 @@ public class BatchDAO {
 		log.info("Fetching all batches for trainer: " + trainerId);
 
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
-						Restrictions.eq("coTrainer.trainerId", trainerId)))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).addOrder(Order.desc("startDate"))
+						Restrictions.eq("coTrainer.trainerId", trainerId))).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		for (Batch batch : batches) {
+			initializeActiveTrainees(batch);
+		}
 		return batches;
 	}
 
@@ -224,5 +225,4 @@ public class BatchDAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
 	}
-
 }

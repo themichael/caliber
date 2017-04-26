@@ -53,16 +53,17 @@ public class CheckDAO {
 		}
 	}
 	
+	@Test
 	@Ignore
 	public void testDeleteAssess() {
 
-		Assessment assess = assessmentDAO.findOne(5100);
+		Assessment assess = assessmentDAO.findOne(5201);
 		log.info(assess);
 		
 		assessmentDAO.delete(assess);
 		
-		Assessment assess2 = assessmentDAO.findOne(5100);
-		log.info(assess2);
+		//Assessment assess2 = assessmentDAO.findOne(5100);
+		//log.info(assess2);
 
 		
 	}

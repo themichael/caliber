@@ -43,7 +43,6 @@ public class BatchDAOTest {
 		for(Trainee t : batches.get(0).getTrainees()){
 				log.info("Number of Notes: " + t.getNotes().size());
 		}
-		
 	}
 
 	@Test
