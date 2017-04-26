@@ -153,7 +153,8 @@ angular
 					/***********************************************************
 					 * Batch Overall *
 					 **********************************************************/
-					barChart.getBatchOverallBarChart = function(dataArray, comparison, bad, good) {
+					barChart.getBatchOverallBarChart = function(dataArray,
+							comparison, bad, good) {
 						var chartData = {};
 
 						var sorted = [];
@@ -177,7 +178,7 @@ angular
 						chartData.labels = [];
 						chartData.colors = [ mainColor ];
 						// make all bar same color
-						chartData.data.push([],[],[],[]);
+						chartData.data.push([], [], [], []);
 						chartData.options = {
 							scales : {
 								yAxes : [ {
@@ -193,16 +194,6 @@ angular
 								} ]
 							}
 						}
-						chartData.datasetOverride = [ {
-							label : "Average",
-							type : 'bar'
-						}, {
-							label : "Threshold",
-							hoverBackgroundColor : "rgba(255,99,132,0.4)",
-							hoverBorderColor : "rgba(255,99,132,1)",
-							type : 'line'
-						} ];
-
 						// loop through object array
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
@@ -214,25 +205,33 @@ angular
 
 						chartData.datasetOverride = [ {
 							label : "Batch Scores",
-							borderWidth : 1,
 							type : 'bar'
 						}, {
+							fill : false,
 							label : "Benchmark",
 							borderWidth : 2,
-							hoverBackgroundColor : "rgba(255,99,132,0.4)",
-							hoverBorderColor : "rgba(255,99,132,1)",
+							borderColor : "rgba(252,180,20,1)",
+							pointBackgroundColor : "rgba(252,180,20,1)",
+							pointHoverBackgroundColor : "rgba(252,180,20,1)",
+							pointHoverBorderColor : "rgba(252,180,200, 0.5)",
 							type : 'line'
 						}, {
+							fill : false,
 							label : "Good Grade",
 							borderWidth : 2,
-							hoverBackgroundColor : "rgba(255,99,132,0.4)",
-							hoverBorderColor : "rgba(255,99,132,1)",
+							borderColor : "rgba(129,245,117, 1)",
+							pointBackgroundColor : "rgba(129,245,117, 1)",
+							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
+							pointHoverBorderColor : "rgba(129,245,117,0.5)",
 							type : 'line'
 						}, {
+							fill : false,
 							label : "Borderline Grade",
 							borderWidth : 2,
-							hoverBackgroundColor : "rgba(255,99,132,0.4)",
-							hoverBorderColor : "rgba(255,99,132,1)",
+							borderColor : "rgba(255,117,117,1)",
+							pointBackgroundColor : "rgba(255,117,117,1)",
+							pointHoverBackgroundColor : "rgba(255,117,117,1)",
+							pointHoverBorderColor : "rgba(255,117,117,0.5)",
 							type : 'line'
 						}
 
@@ -281,7 +280,6 @@ angular
 							}
 						}
 
-
 						angular.forEach(sorted, function(obj) {
 							chartData.labels.push(obj.name);
 							chartData.data[0].push(obj.value.toFixed(2));
@@ -294,22 +292,31 @@ angular
 							label : "Batch Scores",
 							type : 'bar'
 						}, {
+							fill : false,
 							label : "Benchmark",
 							borderWidth : 2,
-							hoverBackgroundColor : "rgba(255,99,132,0.4)",
-							hoverBorderColor : "rgba(255,99,132,1)",
+							borderColor : "rgba(252,180,20,1)",
+							pointBackgroundColor : "rgba(252,180,20,1)",
+							pointHoverBackgroundColor : "rgba(252,180,20,1)",
+							pointHoverBorderColor : "rgba(252,180,20,0.5)",
 							type : 'line'
 						}, {
+							fill : false,
 							label : "Good Grade",
 							borderWidth : 2,
-							hoverBackgroundColor : "rgba(255,99,132,0.4)",
-							hoverBorderColor : "rgba(255,99,132,1)",
+							borderColor : "rgba(129,245,117, 1)",
+							pointBackgroundColor : "rgba(129,245,117, 1)",
+							pointHoverBackgroundColor : "rgba(129,245,117, 1)",
+							pointHoverBorderColor : "rgba(129,245,117,0.5)",
 							type : 'line'
 						}, {
+							fill : false,
 							label : "Borderline Grade",
 							borderWidth : 2,
-							hoverBackgroundColor : "rgba(255,99,132,0.4)",
-							hoverBorderColor : "rgba(255,99,132,1)",
+							borderColor : "rgba(255,117,117,1)",
+							pointBackgroundColor : "rgba(255,117,117,1)",
+							pointHoverBackgroundColor : "rgba(255,117,117,1)",
+							pointHoverBorderColor : "rgba(255,117,117,0.5)",
 							type : 'line'
 						}
 
