@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,17 +21,27 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.revature.caliber.validator.BatchValObject;
 
 /**
  * The type Batch.
  */
 @Entity
 @Table(name = "CALIBER_BATCH")
+@BatchValObject
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Batch implements Serializable {
 
 	private static final long serialVersionUID = -5755409643112884001L;
@@ -44,30 +55,38 @@ public class Batch implements Serializable {
 	/**
 	 * Example: 1702 Java CUNY
 	 */
+	@NotNull
 	@Column(name = "TRAINING_NAME")
 	private String trainingName;
 
+	@NotNull
 	@JsonProperty
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Trainer trainer;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "CO_TRAINER_ID")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Trainer coTrainer;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "SKILL_TYPE")
 	private SkillType skillType;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TRAINING_TYPE")
 	private TrainingType trainingType;
 
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "START_DATE", nullable = false)
 	private Date startDate;
 
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "END_DATE", nullable = false)
 	private Date endDate;
@@ -77,23 +96,28 @@ public class Batch implements Serializable {
 	@Column(name = "BENCHMARK_START_DATE", nullable = false)
 	private Date benchmarkStartDate;
 
+	@NotEmpty
 	@Column(name = "LOCATION", nullable = false)
 	private String location;
 
 	/**
 	 * Anything above this grade is GREEN
 	 */
+	@Min(value=1)
 	@Column(name = "GOOD_GRADE_THRESHOLD")
 	private short goodGradeThreshold;
 
 	/**
-	 * Anything above this grade but below goodGradeThreshold is YELLOW Anything below this grade is RED
+	 * Anything above this grade but below goodGradeThreshold is YELLOW Anything
+	 * below this grade is RED
 	 */
+	@Min(value=1)
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 
-	@OneToMany(mappedBy = "batch", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "batch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference(value = "traineeAndBatch")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Trainee> trainees;
 
 	@Column(name = "NUMBER_OF_WEEKS", nullable = false)
@@ -101,11 +125,12 @@ public class Batch implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "batch")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
 
 	public Batch() {
 		super();
-		this.weeks = 1; 
+		this.weeks = 1;
 	}
 
 	public Batch(String trainingName, Trainer trainer, SkillType skillType, TrainingType trainingType, Date startDate,
@@ -122,6 +147,7 @@ public class Batch implements Serializable {
 		this.location = location;
 		this.goodGradeThreshold = goodGradeThreshold.shortValue();
 		this.borderlineGradeThreshold = borderlineGradeThreshold.shortValue();
+		this.weeks = weeks;
 	}
 
 	public int getBatchId() {
@@ -242,6 +268,82 @@ public class Batch implements Serializable {
 
 	public void setNotes(Set<Note> notes) {
 		this.notes = notes;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((benchmarkStartDate == null) ? 0 : benchmarkStartDate.hashCode());
+		result = prime * result + borderlineGradeThreshold;
+		result = prime * result + ((coTrainer == null) ? 0 : coTrainer.hashCode());
+		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+		result = prime * result + goodGradeThreshold;
+		result = prime * result + ((location == null) ? 0 : location.hashCode());
+		result = prime * result + ((skillType == null) ? 0 : skillType.hashCode());
+		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+		result = prime * result + ((trainer == null) ? 0 : trainer.hashCode());
+		result = prime * result + ((trainingName == null) ? 0 : trainingName.hashCode());
+		result = prime * result + ((trainingType == null) ? 0 : trainingType.hashCode());
+		result = prime * result + weeks;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Batch other = (Batch) obj;
+		if (benchmarkStartDate == null) {
+			if (other.benchmarkStartDate != null)
+				return false;
+		} else if (!benchmarkStartDate.equals(other.benchmarkStartDate))
+			return false;
+		if (borderlineGradeThreshold != other.borderlineGradeThreshold)
+			return false;
+		if (coTrainer == null) {
+			if (other.coTrainer != null)
+				return false;
+		} else if (!coTrainer.equals(other.coTrainer))
+			return false;
+		if (endDate == null) {
+			if (other.endDate != null)
+				return false;
+		} else if (!endDate.equals(other.endDate))
+			return false;
+		if (goodGradeThreshold != other.goodGradeThreshold)
+			return false;
+		if (location == null) {
+			if (other.location != null)
+				return false;
+		} else if (!location.equals(other.location))
+			return false;
+		if (skillType != other.skillType)
+			return false;
+		if (startDate == null) {
+			if (other.startDate != null)
+				return false;
+		} else if (!startDate.equals(other.startDate))
+			return false;
+		if (trainer == null) {
+			if (other.trainer != null)
+				return false;
+		} else if (!trainer.equals(other.trainer))
+			return false;
+		if (trainingName == null) {
+			if (other.trainingName != null)
+				return false;
+		} else if (!trainingName.equals(other.trainingName))
+			return false;
+		if (trainingType != other.trainingType)
+			return false;
+		if (weeks != other.weeks)
+			return false;
+		return true;
 	}
 
 	@Override

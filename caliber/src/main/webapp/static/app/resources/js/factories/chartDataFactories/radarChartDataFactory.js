@@ -1,57 +1,99 @@
 angular.module("reportApi").factory(
 		"radarChartDataFactory",
-		function($http, $log) {
+		function($http, $log, $q) {
 			$log.debug("Booted radarChartDataFactory");
 
 			var report = {};
 
-			report.getTraineeUpToWeekRadarChartData = function(week, traineeId) {
+			report.getTraineeUpToWeekRadarChart = function(week, traineeId) {
 				return $http(
 						{
 							url : "/all/reports/week/" + week + "/trainee/"
 									+ traineeId + "/radar-trainee-up-to-week",
 							method : "GET"
 						}).then(function(response) {
-					$log.debug("Week - Trainee Up To Week Radar Chart");
-					$log.debug(response);
+					$log.debug("Completed getTraineeUpToWeekRadarChart");
 					return response.data;
 				}, function(response) {
 					$log.error("There was an error: " + response.status);
 				}); // end then
-			};
+			}
 
-			report.getTraineeOverallRadarChartData = function(traineeId) {
+			report.getTraineeOverallRadarChart = function(traineeId) {
 				return $http(
 						{
 							url : "/all/reports/trainee/" + traineeId
 									+ "/radar-trainee-overall",
 							method : "GET"
 						}).then(function(response) {
-					$log.debug("Trainee Overall Radar Chart");
-					$log.debug(response);
+					$log.debug("Completed getTraineeOverallRadarChart");
 					return response.data;
 				}, function(response) {
 					$log.error("There was an error: " + response.status);
 				}); // end then
-			};
+			}
 
-			report.getBatchOverallRadarChartData = function(batchId) {
+			report.getBatchOverallRadarChart = function(batchId) {
 				return $http(
 						{
 							url : "/all/reports/batch/" + batchId
 									+ "/overall/radar-batch-overall",
 							method : "GET"
 						}).then(function(response) {
-					$log.debug("Batch Overall Radar Chart");
-					$log.debug(response);
+					$log.debug("Completed getBatchOverallRadarChart");
 					return response.data;
 				}, function(response) {
 					$log.error("There was an error: " + response.status);
-				}); // end then
-			};
-			return report;
+				});
+			}
 
-			
+			report.getTraineAndBatchSkillComparisonChart = function(batchId,
+					week, traineeId) {
+				var batchPromise = $http({
+					method : "GET",
+					url : "/all/reports/batch/" + batchId
+							+ "/overall/radar-batch-overall",
+					cache : "true"
+				});
+
+				var traineePromise =$http({
+					method : "GET",
+					url : "/all/reports/trainee/" + traineeId
+							+ "/radar-trainee-overall",
+					cache : "true"
+				});
+				 
+				if (Number.isInteger(week) || week > 0 ) {
+					traineePromise =  $http({
+						method : "GET",
+						url : "/all/reports/week/" + week + "/trainee/" + traineeId
+								+ "/radar-trainee-up-to-week",
+						cache : "true"
+					});
+				}
+
+				return $q.all([ batchPromise, traineePromise ]).then(
+						function(response) {
+							var data = {"batch": response[0].data, "trainee":response[1].data};
+							return data;
+						},
+						function(response) {
+							$log
+									.error("There was an error: "
+											+ response.status);
+						});
+
+			}
+			report.getAllTraineesAndBatchRadarChart = function(batchId) {
+				return $http({
+					url : "/vp/reports/batch/" + batchId + "/radar-batch-all-trainees",
+					method : "GET"
+				}).then(function(response) {
+					$log.debug("Completed getAllTraineeInBatchRadarChart");
+					return response.data;
+				}, function(response) {
+					$log.error("There was an error: " + response.status);
+				});
+			}
 			return report;
-			
 		});

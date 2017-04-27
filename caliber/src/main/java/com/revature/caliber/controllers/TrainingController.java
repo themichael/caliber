@@ -2,24 +2,25 @@ package com.revature.caliber.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
 
@@ -67,7 +68,7 @@ public class TrainingController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 		log.info("Fetching all trainers");
@@ -106,10 +107,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Batch> createBatch(@RequestBody Batch batch, Authentication auth) {
-		if (getPrincipal(auth).getTier().equals(TrainerRole.TRAINER)) {
-			batch.setTrainer(getPrincipal(auth));
-		}
+	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch, Authentication auth) {
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
 		return new ResponseEntity<Batch>(batch, HttpStatus.CREATED);
@@ -124,7 +122,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> updateBatch(@RequestBody Batch batch, Authentication auth) {
+	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch, Authentication auth) {
 		// batch.setTrainer(getPrincipal(auth));
 		log.info("Updating batch: " + batch);
 		trainingService.update(batch);
@@ -153,12 +151,12 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value = { "/qc/batch/all",
-			"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('QC, VP')")
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
 		log.info("Fetching all current batches");
-		List<Batch> batches = trainingService.findAllCurrentBatches();
+		 List<Batch> batches = trainingService.findAllCurrentBatches();
+		// List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 
 	}
@@ -168,7 +166,7 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value = "/vp/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value ={"/qc/batch/all", "/vp/batch/all"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<List<Batch>> getAllBatches() {
 		log.info("Fetching all batches");
@@ -198,6 +196,19 @@ public class TrainingController {
 	 *
 	 *******************************************************
 	 */
+	@RequestMapping(value = "/all/trainee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Trainee>> findAllByBatch(@RequestParam(required = true) Integer batch) {
+		log.info("Finding trainees for batch: " + batch);
+		List<Trainee> trainees = trainingService.findAllTraineesByBatch(batch);
+		return new ResponseEntity<>(trainees, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/all/trainee/dropped", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Trainee>> findAllDroppedByBatch(@RequestParam(required = true) Integer batch) {
+		log.info("Finding dropped trainees for batch: " + batch);
+		List<Trainee> trainees = trainingService.findAllDroppedTraineesByBatch(batch);
+		return new ResponseEntity<>(trainees, HttpStatus.OK);
+	}
 
 	/**
 	 * Create trainee
@@ -208,7 +219,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Trainee> createTrainee(@RequestBody Trainee trainee) {
+	public ResponseEntity<Trainee> createTrainee(@Valid @RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
 		trainingService.save(trainee);
 		return new ResponseEntity<Trainee>(trainee, HttpStatus.CREATED);
@@ -217,10 +228,8 @@ public class TrainingController {
 	/**
 	 * Create trainees
 	 *
-	 * <<<<<<< HEAD Uneeded. just do multiple calls to createTrainee =======
-	 * Uneeded. just do multiple calls to createTrainee
 	 * 
-	 * >>>>>>> 5aedf4196dfe4b91cac204fa623c7755fec4a5df
+	 * Uneeded. just do multiple calls to createTrainee
 	 * 
 	 * @param trainees
 	 *            the trainee
@@ -251,7 +260,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> updateTrainee(@RequestBody Trainee trainee) {
+	public ResponseEntity<Void> updateTrainee(@Valid @RequestBody Trainee trainee) {
 		log.info("Updating trainee: " + trainee);
 		trainingService.update(trainee);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -274,6 +283,14 @@ public class TrainingController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
+	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail){
+		Trainee trainee = new Trainee();
+		trainee = trainingService.findTraineeByEmail(traineeEmail);
+	
+		return new ResponseEntity<Trainee>(trainee, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<String>> findCommonLocations() {
 		log.info("Fetching common training locations");

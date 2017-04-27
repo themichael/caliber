@@ -74,22 +74,43 @@ angular
 									"qc.audit",
 									{
 										url : "/audit",
-										templateUrl : "/static/app/partials/assess/qc-assess.html",
-										controller : "qcAssessController"
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/assess/qc-assess.html",
+												controller : "qcAssessController"
+											},
+											"confirm-add-weeks-modal@qc.audit" : {
+												templateUrl: "/static/app/partials/assess/confirm-add-weeks-modal.html"
+										}
+									}
+							})
+							.state(
+									"qc.reports",
+									{
+										url : "/reports",
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/reports.html",
+												controller : "allReportController"
+											},
+											"trainer-display@qc.reports" : {
+												templateUrl : "/static/app/partials/trainer-display.html",
+												controller : "trainerAssessController"
+											},
+											"trainee-overall@qc.reports" : {
+												templateUrl : "/static/app/partials/trainee-overall.html",
+												controller : "allReportController"
+											},
+											"trainee-week@qc.reports" : {
+												templateUrl : "/static/app/partials/trainee-week.html",
+												controller : "trainerAssessController"
+											},
+											"qc-batchOverall@qc.reports" : {
+												templateUrl : "/static/app/partials/qc-display.html",
+												controller : "qcAssessController"
+											}
+										}
 									})
-						  .state("qc.reports",{
-	  						url : "/reports",
-						    views: {
-						      "": {
-						    	  templateUrl : "/static/app/partials/reports.html",
-									controller : "allReportController"
-						      },
-						      "trainer-display@trainer.reports": {
-						    	  templateUrl : "/static/app/partials/trainer-display.html",
-									controller : "trainerAssessController"
-						      }
-						    }
-						  })
 							/***************************************************
 							 * TRAINER
 							 **************************************************/
@@ -128,27 +149,48 @@ angular
 							.state(
 									"trainer.assess",
 									{
-										templateUrl : "/static/app/partials/assess/trainer-assess.html",
 										url : "/assess",
-										controller : "trainerAssessController"
+										views:{
+											""	:{
+												templateUrl : "/static/app/partials/assess/trainer-assess.html",											
+												controller : "trainerAssessController"
+											},
+											"trainer-edit-assess@trainer.assess":{
+												templateUrl :"/static/app/partials/assess/trainer-edit-assess.html",				
+											},
+											"confirm-add-weeks-modal@trainer.assess":{
+												templateUrl :"/static/app/partials/assess/confirm-add-weeks-modal.html",
+
+											}
+										}
 									})
-									
-														
-						  .state("trainer.reports",{
-	  						url : "/reports",
-						    views: {
-						      "": {
-						    	  templateUrl : "/static/app/partials/reports.html",
-									controller : "allReportController"
-						      },
-						      "trainer-display@trainer.reports": {
-						    	  templateUrl : "/static/app/partials/trainer-display.html",
-									controller : "trainerAssessController"
-						      }
-						    }
-						  })
-									
-							
+							.state(
+									"trainer.reports",
+									{
+										url : "/reports",
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/reports.html",
+												controller : "allReportController"
+											},
+											"trainer-display@trainer.reports" : {
+												templateUrl : "/static/app/partials/trainer-display.html",
+												controller : "trainerAssessController"
+											},
+											"trainee-overall@trainer.reports" : {
+												templateUrl : "/static/app/partials/trainee-overall.html",
+												controller : "allReportController"
+											},
+											"trainee-week@trainer.reports" : {
+												templateUrl : "/static/app/partials/trainee-week.html",
+												controller : "allReportController"
+											},
+											"qc-batchOverall@trainer.reports" : {
+												templateUrl : "/static/app/partials/qc-display.html",
+												controller : "qcAssessController"
+											}
+										}
+									})
 
 							/***************************************************
 							 * VP
@@ -200,17 +242,31 @@ angular
 										url : "/audit",
 										controller : "qcAssessController"
 									})
-						  .state("vp.reports",{
-	  						url : "/reports",
-						    views: {
-						      "": {
-						    	  templateUrl : "/static/app/partials/reports.html",
-									controller : "allReportController"
-						      },
-						      "trainer-display@trainer.reports": {
-						    	  templateUrl : "/static/app/partials/trainer-display.html",
-									controller : "trainerAssessController"
-						      }
-						    }
-						  })
+							.state(
+									"vp.reports",
+									{
+										url : "/reports",
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/reports.html",
+												controller : "allReportController"
+											},
+											"trainer-display@vp.reports" : {
+												templateUrl : "/static/app/partials/trainer-display.html",
+												controller : "trainerAssessController"
+											},
+											"trainee-overall@vp.reports" : {
+												templateUrl : "/static/app/partials/trainee-overall.html",
+												controller : "allReportController"
+											},
+											"trainee-week@vp.reports" : {
+												templateUrl : "/static/app/partials/trainee-week.html",
+												controller : "trainerAssessController"
+											},
+											"qc-batchOverall@vp.reports" : {
+												templateUrl : "/static/app/partials/qc-display.html",
+												controller : "qcAssessController"
+											}
+										}
+									})
 				});

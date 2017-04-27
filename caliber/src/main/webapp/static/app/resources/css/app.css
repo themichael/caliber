@@ -69,6 +69,22 @@ a { color: #F26925;}
 	padding: .5em;
 	background-color: #ffffff;
 	border-radius: .3em;
+
+}
+@media (max-width: 400px) {
+   .chart-container  {
+        min-height: 8.8em;
+    }
+}
+@media (min-width: 401px) and (max-width: 600px) {
+    .chart-container {
+        min-height: 11.8em;
+    }
+}
+@media (min-width: 601px){
+	  .chart-container {
+        min-height: 25.8em;
+	  }
 }
 
 .panel > .panel-heading {
@@ -129,6 +145,7 @@ a { color: #F26925;}
 .fa-star.pick { color: #7972ff !important; }
 
 .fa-file-pdf-o { color: #d00a0a; } 
+.fa-filter { color: #F26925; }
 
 #qcTrainees{
 	border-bottom-style: solid;
@@ -174,13 +191,16 @@ textarea {
 html, body {
 	height: 100%;
 }
+.img-responsive{
+	padding-bottom: 1em;
+}
 .wrapper {
 	min-height: 100%;
 	margin-bottom: -103px;
 	padding-bottom: 103px;
 }
 footer {
-	height: 103px;
+	min-height: 103px;
 	background-color: #474C55;
     font-size: .75em;
 }
@@ -197,6 +217,40 @@ footer a, footer a:hover{
 **********************/
 .vcenter{
 	vertical-align:middle !important;	
+}
+.table-responsive{
+	display:block !important;	
+}
+.table>tbody>tr {
+	border-top: 1px solid #ddd;
+}
+.table>tbody>tr>td, .table>tbody>tr>th {
+    border-top: 0;
+}
+
+.wrap {
+	text-align: center;
+}
+.outer-bar-data{
+    display: inline-block;
+    margin: 0 auto;
+    padding:0;
+}
+.table-view{
+	max-width:400px;
+}
+.table, .table-responsive, thead{
+	position:relative !important;
+}
+.fixed-style-table-header{
+	position:fixed !important;
+	background:#fff;
+	z-index:100;
+	top:0;
+	width:90%;
+}
+.note-mw{
+	min-width:300px;
 }
 /**********************
 	save button
@@ -255,3 +309,10 @@ a.save-button .fa-floppy-o{
 /* .fade-in.ng-hide-remove {
   transition: all ease-out 3000ms;
 } */
+
+/************************
+***Assessment Modal****
+*************************/
+.editAssessModal{
+	font-family:'Futura-Std-Book';
+}

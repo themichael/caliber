@@ -1,8 +1,6 @@
 package com.revature.caliber.services;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
@@ -26,61 +24,51 @@ import com.revature.caliber.data.TrainerDAO;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
 public class ReportingServiceTest {
-	
+
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
-	
-	@Autowired
-	private TrainerDAO trainerDAO;
-	@Autowired
-	private CategoryDAO categoryDAO;
-	@Autowired
-	private BatchDAO batchDAO;
-	@Autowired
-	private TraineeDAO traineeDAO;
-	@Autowired
-	private AssessmentDAO assessmentDAO;
-	@Autowired
-	private GradeDAO gradeDAO;
-	@Autowired
-	private NoteDAO noteDAO;
+	@SuppressWarnings("unused")
 	@Autowired
 	private ReportingService reportingService;
-	
-	
-	@Test
-	@Ignore
-	public void getAvgBatchWeekTest(){
-		Integer batchId = 1050;
-		Integer week = 3;
-		AssessmentType assessmentType =  AssessmentType.Project;
-		Map<Trainee, Double[]> results = reportingService.utilAvgBatchWeek(batchId, week, assessmentType);
-		
-		for(Entry<Trainee, Double[]> entry: results.entrySet()){
-			if(entry.getKey().getTraineeId() == 1059){
-				log.info("---------------------------------------------------");
-				log.info("Trainee Name: " + entry.getKey().getName());
-				log.info("Assessment Type: " + assessmentType);
-				log.info("Trainee Average Score: " + entry.getValue()[0]);
-				log.info("Total Possible Score: " + entry.getValue()[1]);
-			}
-		}
 
-		List<Grade> testGrades = gradeDAO.findByWeek(batchId, week);
-		for(Grade grade: testGrades){
-			if(grade.getTrainee().getTraineeId() == 1059){
-				log.info("---------------------------------------------------");
-				log.info("Trainee Name: " + grade.getTrainee().getName());
-				log.info("Assessment: " + grade.getAssessment().getType().name());
-				log.info("Score: " + grade.getScore());
-				log.info("Raw Score: " + grade.getAssessment().getRawScore());
-			}
-		}
-	}
-	
+	private static int runs = 10;
+	private static long nano = 1000000000l;
+	Calendar startDate = Calendar.getInstance();
+
 	@Test
 	@Ignore
-	public void getAvgBatchOverallTest(){
-		log.info(reportingService.utilAvgBatchOverall(1050, AssessmentType.Exam));
+	public void benchmarkTest() {
+		long serialRunTimeSystem = serialMethodTest();
+		long concurrentRunTimeSystem = concurrentMethod();
+
+		log.info("Serial System Time         : " + ((double) serialRunTimeSystem / nano) + " seconds.");
+		log.info("Concurrent System Time     : " + ((double) concurrentRunTimeSystem / nano) + " seconds.");
+		double percentageImprovement = (double) (serialRunTimeSystem - concurrentRunTimeSystem) / serialRunTimeSystem
+				* 100;
+		log.info("Concurrent Speed Improvement: " + percentageImprovement + "%");
+	}
+
+	public long serialMethodTest() {
+		startDate.set(2017, Calendar.MARCH, 01);
+		long startTimeNano = System.nanoTime();
+		for (int i = 0; i < runs; i++) {
+			//reportingService.getBatchComparisonAvg("All", "All", startDate.getTime());
+			
+		}
+		long serialRunTimeSystem = System.nanoTime() - startTimeNano;
+		serialRunTimeSystem /= runs;
+		return serialRunTimeSystem;
+	}
+
+	public long concurrentMethod() {
+		long startTimeNano = System.nanoTime();
+		for (int i = 0; i < runs; i++) {
+			Double temp = reportingService.getBatchComparisonAvg("All", "All", startDate.getTime());
+			log.info("SOMETHING VALUE HSHOJDL DAKJGBAKLJGBKAJGBLKAJBGLKJBGLKHGLKSJGLKSJHGLKSGLKSJBGLKJSBGLKJSBGLKJ");
+			log.info(temp);
+		}
+		long concurrentRunTimeSystem = System.nanoTime() - startTimeNano;
+		concurrentRunTimeSystem /= runs;
+		return concurrentRunTimeSystem;
 	}
 	
 }

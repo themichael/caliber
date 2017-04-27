@@ -13,16 +13,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public enum AssessmentType implements Serializable{
 	@JsonProperty("Exam")
 	Exam,
-	@JsonProperty("Written")
-	Written,
 	@JsonProperty("Verbal")
 	Verbal,
 	@JsonProperty("Project")
 	Project,
-	@JsonProperty("Demo")
-	Demo,
-	@JsonProperty("Quiz")
-	Quiz,
 	@JsonProperty("Other")
 	Other
 }

@@ -3,21 +3,23 @@ Caliber is a performance management suite to collect and analyze evaluations of 
 
 #Features <br>
 * Trainers can input grades and feedback for each of their trainees. 
-* The quality department can input their evaluations on the batch of trainees (WIP)
-* Trainers and quality personnel can comment on a trainee's profile, as well as limit the visibilty of the comments. 
-* External clients and trainees can view reports on a trainee or a batch if provided a URL and token (WIP)
-* The progress of trainees can be charted by technology or by week using bar charts, pie charts or line graphs.
+* The quality department can input their evaluations on the batch of trainees
+* Trainers and quality personnel can comment on trainee and batch performance
+* Users can generate reports and charts to visualize KPIs and print PDF reports
 * New batches can be added and they will persist year after year with batch data.
-* Single trainees can be evaluated by technology or by week.
 
-The Caliber suite also provides a variety of reports on different levels of granularity.
+* The Caliber suite also provides a variety of reports on different levels of granularity:
+    Week-by-week, Batch overall, Trainee weekly, Trainee overall
 
 #Environment 
+* Requires Java 8 or higher
+* Validated on Apache Tomcat 7.0
+* Requires Oracle EE 12c database
 * Requires registration as a Salesforce connected app
 * Users registered in the Salesforce with matching email in Users table
 * Necessary Environment variables:
 
-<br/>JAVA_HOME=/usr/java/jdk1.8.0_111/
+<br/>JAVA_HOME=/usr/java/jdk1.8.0_112/
 <br/>CALIBER_DB_URL=jdbc:oracle:thin:@something:1521:orcl
 <br/>CALIBER_DB_USER=scott
 <br/>CALIBER_DB_PASS=tiger
@@ -27,10 +29,16 @@ The Caliber suite also provides a variety of reports on different levels of gran
 <br/>CALIBER_PROJECT_URL=http://caliber.revature.tech/caliber/
 <br/>CALIBER_SERVER_URL=http://caliber.revature.tech/
 
-#ERD (3/31/2017)
+#ERD (3/31/2017)  
 <br/>
 <img src="https://github.com/pjw6193/caliber/blob/master/images/caliber-local.png?raw=true" height="200" width="300"/>
 <br/>
+
+#Local deployment
+* To deploy locally, you must disable Salesfore authentication since you need a valid callback URL.
+* Simply switch to the dummy request mapping methods in the following classes:
+	com.revature.caliber.controllers.BootController 
+	com.revature.caliber.security.impl.AuthorizationImpl
 
 #Screenshots
 All Batch Performance (vp)

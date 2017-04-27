@@ -1,9 +1,9 @@
 package com.revature.caliber;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
@@ -44,24 +44,41 @@ public class CheckDAO {
 	@Autowired
 	private TrainingService trainingService;
 
-	@Test
+	@Ignore
 	public void testmethod() {
 		log.info("Testing my code");
-		try {
-			List<Assessment> assessments = assessmentDAO.findByWeek(1050, 1);
-			for (Iterator iterator = assessments.iterator(); iterator.hasNext();) {
-				Assessment assessment = (Assessment) iterator.next();
-				log.info(assessment);
-				for(Grade g : assessment.getGrades())
-					log.info(g);
-			}
-/*			List<Grade> grades = gradeDAO.findByWeek(1050, 1);
-			for(Grade g : grades)
-				log.info(g);*/
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		List<Trainee> results = traineeDAO.findAllByBatch(1051);
+		for(Trainee t : results){
+			log.info(t.getGrades());
 		}
+	}
+	
+	@Test
+	@Ignore
+	public void testDeleteAssess() {
+
+		Assessment assess = assessmentDAO.findOne(5201);
+		log.info(assess);
+		
+		assessmentDAO.delete(assess);
+		
+		//Assessment assess2 = assessmentDAO.findOne(5100);
+		//log.info(assess2);
+
+		
+	}
+	
+	@Test
+	@Ignore
+	public void testUpdateAssess() {	
+		Assessment assess = assessmentDAO.findOne(1050);
+		log.info("this is before update " + assess);
+		
+		assess.setRawScore(50);
+		
+		assessmentDAO.update(assess);
+		
+		log.info("this is after update " + assess);		
 	}
 
 }

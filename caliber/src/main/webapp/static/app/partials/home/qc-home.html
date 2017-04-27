@@ -1,104 +1,78 @@
 <div class="container">
+
 	<div class="row">
-		<div class="col-md-12 col-lg-12">
-			<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
-			<ul class="nav nav-tabs" ng-show="!noBatches">
-				<!-- Batch Selection -->
-				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown">{{currentBatch.trainingName}}<span
-						class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li ng-repeat="menuItem in batches track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}</a>
-						</li>
-					</ul></li>
-				<!-- Trainee Selection -->
-				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					ng-show="hideOtherTabs()" data-toggle="dropdown">{{currentTrainee.name}}<span
-						class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a role="button" ng-click="selectCurrentTrainee(-1)">None</a></li>
-						<li ng-repeat="menuItem in currentBatch.trainees track by $index"><a
-							role="button" ng-click="selectCurrentTrainee($index)">{{menuItem.name}}</a>
-						</li>
-					</ul></li>
-			</ul>
+		<div class>
+			<div class="panel panel-default">
+				<div class="panel-heading">Current Batches Average Score</div>
+				<div class="container"></div>
+				<div class="panel-body">
+					<div class="row" style="margin-left: 1em;">
+						<span class="nav nav-tabs" ng-show="noBatches">There are no current batches.</span>
+					</div>
+					<div class="chart-container top5">
+						<canvas class="chart chart-line"
+							chart-data="currentBatchesLineData"
+							chart-options="currentBatchesLineOptions"
+							chart-labels="currentBatchesLineLabels"
+							chart-series="currentBatchesLineSeries"
+							chart-colors="currentBatchesLineColors">
+							</canvas>
+					</div>
+					<div>
+						<table ng-if="currentBatchesLineLabels"
+							class="table table-responsive" style="border-collapse: collapse;">
+							<tbody>
+								<tr>
+									<th class="col-sm-1 col-md-1 col-lg-1"></th>
+									<th class="col-sm-1 col-md-1 col-lg-1"
+										ng-repeat="label in currentBatchesLineLabels">{{label}}</th>
+								</tr>
+								<tr
+									ng-repeat="series in currentBatchesLineSeries track by $index">
+									<th class="col-sm-1 col-md-1 col-lg-1">{{series}}</th>
+									<td class="col-sm-1 col-md-1 col-lg-1"
+										ng-repeat="dataPoint in currentBatchesLineData[$index] track by $index">{{dataPoint}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
 
-<div class="container" ng-show="!noBatches">
-	<div class="top10 data-container">
+	<div class="col-sm-12 col-md-12 col-lg-12">
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
-				<div class="row">
-					<div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
-						<div class="panel panel-default">
-							<div class="panel-heading">Batch
-								{{currentBatch.trainingName}} Technology Progress</div>
-							<div class="panel-body">
-								<div class="chart-container top5">
-									<canvas id="radar" class="chart chart-radar"
-										chart-data="batchTechData" chart-options="batchTechOptions"
-										chart-labels="batchTechLabels" chart-series="batchTechSeries"
-										height="100" width="100">
-                                    </canvas>
-								</div>
-							</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Current Batches QC Stats</div>
+					<div class="panel-body">
+						<div class="chart-container top5">
+							<canvas class="chart chart-bar" chart-data="stackedBarData"
+								chart-options="stackedBarOptions"
+								chart-labels="stackedBarLabels" chart-series="stackedBarSeries"
+								chart-colors="stackedBarColors">
+							</canvas>
 						</div>
-					</div>
-					<div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
-						<div class="panel panel-default">
-							<div class="panel-heading">Week by Week progression of
-								{{currentBatch.trainingName}}</div>
-							<div class="panel-body">
-								<div class="chart-container top5">
-									<canvas id="batch-line" class="chart chart-line"
-										chart-data="batchProgressData"
-										chart-labels="batchProgressLabels"
-										chart-series="batchProgressSeries"
-										chart-options="batchProgressOptions"
-										chart-dataset-override="batchProgressDatasetOverride"
-										height="100" width="100">
-                                    </canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
-						<div class="panel panel-default">
-							<div class="panel-heading">Week by week progression for a
-								{{currentTrainee.name}}</div>
-							<div class="panel-body">
-								<div class="chart-container top5">
-									<canvas id="line" class="chart chart-line"
-										chart-data="traineeProgressData"
-										chart-labels="traineeProgressLabels"
-										chart-series="traineeProgressSeries"
-										chart-options="traineeProgressOptions"
-										chart-dataset-override="traineeProgressDatasetOverride"
-										height="100" width="100">
-                                    </canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
-						<div class="panel panel-default">
-							<div class="panel-heading">Averages scores per technology
-								for trainee {{currentTrainee.name}}</div>
-							<div class="panel-body">
-								<div class="chart-container top5">
-									<canvas id="radar2" class="chart chart-radar"
-										chart-data="traineeTechData" chart-labels="traineeTechLabels"
-										chart-options="traineeTechOptions" height="100" width="100">
-                                    </canvas>
-								</div>
-							</div>
+						<div>
+							<table ng-if="stackedBarLabels" class="table table-responsive"
+								style="border-collapse: collapse;">
+								<tbody>
+									<tr>
+										<th class="col-sm-2 col-md-2 col-lg-2"></th>
+										<th class="col-sm-2 col-md-2 col-lg-2"
+											ng-repeat="series in stackedBarSeries">{{series}}</th>
+									</tr>
+									<tr ng-repeat="label in stackedBarLabels track by $index">
+										<th class="col-sm-2 col-md-2 col-lg-2">{{label}}</th>
+										<td class="col-sm-2 col-md-2 col-lg-2"
+											ng-repeat="series in stackedBarSeries track by $index">{{stackedBarData[$index][$parent.$index]}}</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
-				<!-- row -->
 			</div>
 		</div>
 	</div>

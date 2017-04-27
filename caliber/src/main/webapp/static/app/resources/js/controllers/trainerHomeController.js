@@ -2,185 +2,111 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerHomeController",
-				function($scope, $http, $log, caliberDelegate, chartsDelegate,
-						allBatches) {
+				function($rootScope, $scope, $state, $log, caliberDelegate,
+						chartsDelegate, allBatches) {
 					$log.debug("Booted trainer home controller.");
-					$log.debug('test code in trainer home - jack');
+
 					/**
 					 * ********************************* On Start
 					 * ****************************
 					 */
-					(function start() {
-						// Finishes any left over ajax animation from another
-						// page
+					const OVERALL = "(All)";
+					$scope.currentBatch = allBatches[0];
+					
+
+					(function(start) {
+						// Finishes any left over AJAX animation
 						NProgress.done();
 
-						// batch null check
-						if (!allBatches || allBatches.length === 0) {
-							$scope.noBatches = true;
-							$scope.noBatchesMessage = "No Batches belonging to you were found.";
-						} else {
-							$scope.noBatches = false;
-							//createDefaultCharts();
-						}
+						createDefaultCharts();
+
 					})();
-/*
+
 					function createDefaultCharts() {
-						// Finishes any left over ajax animation from another
-						// page
-						NProgress.done();
-						NProgress.start();
-						caliberDelegate.agg
-								.getAggBatchAllTrainer(
-										allBatches[0].trainer.trainerId)
-								.then(
-										function(data) {
-											$log.debug(data);
-											NProgress.done();
-											var hbarChartObject = chartsDelegate.hbar
-													.getAllBatchesEvalChart(data);
-											$scope.allBatchesRankLabels = hbarChartObject.labels;
-											$scope.allBatchesRankData = hbarChartObject.data;
-											$scope.allBatchesRankSeries = hbarChartObject.series;
-										}, function() {
-											NProgress.done();
-										});
+					    NProgress.start();
+						createAverageTraineeScoresOverall();
+						createTechnicalSkillsBatchOverall();
+						createCurrentQCStatus();
 					}
-*/
+
 					/**
 					 * ********************************************* UI
 					 * **************************************************
 					 */
-					var viewCharts = 0;
 
-					$scope.batches = allBatches;
-					$scope.currentBatch = {
-						trainingName : "Batch"
-					};
-					$scope.currentTrainee = {
-						name : "Trainee"
-					};
-
-					// on batch selection
-					$scope.selectCurrentBatch = function(index) {
-						$scope.currentTrainee = {
-							name : "Trainee"
-						};
-						// turn of batches
-						if (index === -1) {
-							viewCharts = 0;
-							$scope.currentBatch = {
-								trainingName : "Batch"
-							};
-							//createDefaultChart();
-						} else {
-							$scope.currentBatch = $scope.batches[index];
-							viewCharts = 1;
-							//createBatchCharts();
-						}
-					};
-
-					// on trainee selection
-					$scope.selectCurrentTrainee = function(index) {
-						if (index === -1) {
-							$scope.currentTrainee = {
-								name : "Trainee"
-							};
-							viewCharts = 1;
-							//createBatchCharts();
-						} else {
-							$scope.currentTrainee = $scope.currentBatch.trainees[index];
-							viewCharts = 3;
-							//createTraineeCharts();
-						}
-					};
-
-					// hide filter tabs
-					$scope.hideOtherTabs = function() {
-						return $scope.currentBatch.trainingName !== "Batch";
-					};
-/*
-					// show charts
-					$scope.showCharts = function(charts) {
-						return charts === viewCharts;
-					};
-
-					// create charts on batch selection
-					function createBatchCharts() {
-						NProgress.start();
-						caliberDelegate.agg
-								.getAggTechBatch($scope.currentBatch.batchId)
+					// *******************************************************************************
+					// *** Bar Charts
+					// *******************************************************************************
+					function createAverageTraineeScoresOverall() {
+						chartsDelegate.bar.data
+								.getAverageTraineeScoresOverallData(
+										$scope.currentBatch.batchId)
+								// confirm if batch or trainee
 								.then(
 										function(data) {
-											var radarChartObject = chartsDelegate.radar
-													.getBatchRankComparisonChart(data);
-											$scope.batchTechData = radarChartObject.data;
-											$scope.batchTechLabels = radarChartObject.labels;
-											$scope.batchTechSeries = radarChartObject.series;
-											$scope.batchTechOptions = radarChartObject.options;
+											NProgress.done();
+											var barChartObject = chartsDelegate.bar
+													.getAverageTraineeScoresOverall(data, 80, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
+											$scope.batchOverAllLabels = barChartObject.labels;
+											$scope.batchOverAllData = barChartObject.data;
+											$scope.batchOverAllOptions = barChartObject.options;
+											$scope.batchOverAllColors = barChartObject.colors;
+											$scope.batchOverAllDsOverride = barChartObject.datasetOverride;
 										}, function() {
 											NProgress.done();
 										});
 
-						caliberDelegate.agg
-								.getAggWeekBatch($scope.currentBatch.batchId)
-								.then(
-										function(data) {
-											NProgress.done();
-											var lineChartObject = chartsDelegate.line
-													.getBatchProgressChart(data);
-											$scope.batchProgressLabels = lineChartObject.labels;
-											$scope.batchProgressData = lineChartObject.data;
-											$scope.batchProgressSeries = lineChartObject.series;
-											$scope.batchProgressOptions = lineChartObject.options;
-											$scope.batchProgressDatasetOverride = lineChartObject.datasetOverride;
-										}, function() {
-											NProgress.done();
-										});
 					}
 
-					// create charts on trainee selection
-					function createTraineeCharts() {
+					// *******************************************************************************
+					// *** Radar Charts
+					// *******************************************************************************
 
-						NProgress.start();
-						caliberDelegate.agg
-								.getAggWeekTrainee(
-										$scope.currentTrainee.traineeId)
+					function createTechnicalSkillsBatchOverall() {
+						$log.debug("createTechnicalSkillsBatchOverall");
+						chartsDelegate.radar.data
+								.getTechnicalSkillsBatchOverallData(
+										$scope.currentBatch.batchId)
+								// batchId
+								.then(
+										function(data) {
+											NProgress.done();
+											var radarBatchOverallChartObject = chartsDelegate.radar
+													.getTechnicalSkillsBatchOverall(
+															data,
+															$scope.currentBatch.trainingName);
+											$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
+											$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
+											$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
+											$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
+											$scope.radarBatchOverallColors = radarBatchOverallChartObject.colors;
+
+											$scope.radarBatchOverallTable = chartsDelegate.utility
+													.dataToTable(radarBatchOverallChartObject);
+										});
+
+					}
+
+					// *******************************************************************************
+					// *** Doughnut Charts
+					// *******************************************************************************
+
+					function createCurrentQCStatus() {
+						$log.debug($scope.currentBatch.batchId);
+						chartsDelegate.doughnut.data
+								.getCurrentQCStatsData($scope.currentBatch.batchId)
 								.then(
 										function(data) {
 											$log.debug(data);
 											NProgress.done();
-											var lineChartObject2 = chartsDelegate.line
-													.getTraineeProgressChart(data);
-											$scope.traineeProgressLabels = lineChartObject2.labels;
-											$scope.traineeProgressSeries = lineChartObject2.series;
-											$scope.traineeProgressData = lineChartObject2.data;
-											$scope.traineeProgressDatasetOverride = lineChartObject2.datasetOverride;
-											$scope.traineeProgressOptions = lineChartObject2.options;
-										}, function() {
-											NProgress.done();
+											var doughnutChartObject = chartsDelegate.doughnut
+													.getCurrentQCStats(data);
+											$scope.currentQCStatsLabels = doughnutChartObject.labels;
+											$scope.currentQCStatsData = doughnutChartObject.data;
+											$scope.currentQCStatsOptions = doughnutChartObject.options;
+											$scope.currentQCStatsColors = doughnutChartObject.colors;
 										});
 
-						caliberDelegate.agg
-								.getAggTechTrainee(
-										$scope.currentTrainee.traineeId)
-								.then(
-										function(data) {
-											$log.debug(data);
-											var radarChartObject2 = chartsDelegate.radar
-													.getTraineeTechProgressChart(data);
-											$scope.traineeTechData = radarChartObject2.data;
-											$scope.traineeTechLabels = radarChartObject2.labels;
-											$scope.traineeTechSeries = radarChartObject2.series;
-											$scope.traineeTechOptions = radarChartObject2.options;
-										}, function() {
-											NProgress.done();
-										});
 					}
 
-					$scope.test = function(t, index) {
-						$log.debug("asfd");
-					}
-					
-*/
 				});

@@ -3,6 +3,7 @@ package com.revature.caliber.beans;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,6 +39,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "CALIBER_TRAINEE")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Trainee implements Serializable{
 
 	private static final long serialVersionUID = -9090223980655307018L;
@@ -42,19 +51,25 @@ public class Trainee implements Serializable{
 	@SequenceGenerator(name = "TRAINEE_ID_SEQUENCE", sequenceName = "TRAINEE_ID_SEQUENCE")
     private int traineeId;
 	
+	@NotEmpty
 	@Column(name = "TRAINEE_NAME")
     private String name;
 	
+	@NotEmpty
+	@Email
 	@Column(name="TRAINEE_EMAIL", nullable=false, unique=true)
     private String email;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TRAINING_STATUS")
     private TrainingStatus trainingStatus;
 	
+	@NotNull
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
 	@JsonBackReference(value = "traineeAndBatch")
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
     private Batch batch;
 	
 	@Column(name="PHONE_NUMBER")
@@ -68,11 +83,29 @@ public class Trainee implements Serializable{
 
 	@JsonIgnore
 	@OneToMany(mappedBy="trainee", cascade = CascadeType.ALL)
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
     private Set<Grade> grades;
 
 	@JsonIgnore
 	@OneToMany(mappedBy="trainee", cascade = CascadeType.ALL)
+	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
+	
+	public Trainee() {
+		super();
+	}
+	
+	public Trainee(String name, String email, TrainingStatus trainingStatus, String phoneNumber,
+			String skypeId, String profileUrl, Batch batch) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.trainingStatus = trainingStatus;
+		this.batch = batch;
+		this.phoneNumber = phoneNumber;
+		this.skypeId = skypeId;
+		this.profileUrl = profileUrl;
+	}
 
 	public int getTraineeId() {
 		return traineeId;
@@ -153,25 +186,8 @@ public class Trainee implements Serializable{
 	public void setProfileUrl(String profileUrl) {
 		this.profileUrl = profileUrl;
 	}
-
-	public Trainee(String name, String email, TrainingStatus trainingStatus, String phoneNumber,
-			String skypeId, String profileUrl, Batch batch) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.trainingStatus = trainingStatus;
-		this.batch = batch;
-		this.phoneNumber = phoneNumber;
-		this.skypeId = skypeId;
-		this.profileUrl = profileUrl;
-	}
-
-	public Trainee() {
-		super();
-	}
 	
-	
-	/*@Override
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -182,7 +198,7 @@ public class Trainee implements Serializable{
 		result = prime * result + ((skypeId == null) ? 0 : skypeId.hashCode());
 		result = prime * result + ((trainingStatus == null) ? 0 : trainingStatus.hashCode());
 		return result;
-	}*/
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -197,11 +213,6 @@ public class Trainee implements Serializable{
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
-			return false;
-		if (grades == null) {
-			if (other.grades != null)
-				return false;
-		} else if (!grades.equals(other.grades))
 			return false;
 		if (name == null) {
 			if (other.name != null)

@@ -48,6 +48,10 @@ angular
 					delegate.all.deleteBatch = function(batchId) {
 						return allFactory.deleteBatch(batchId);
 					};
+					
+					delegate.all.getDroppedTrainees = function(batchId){
+						return allFactory.getDroppedTrainees(batchId);
+					};
 
 					delegate.all.createTrainee = function(traineeObj) {
 						return allFactory.createTrainee(traineeObj);
@@ -76,6 +80,15 @@ angular
 					delegate.all.getAssessmentsAverageForWeek = function(batchId, weekId){
 						return allFactory.getAssessmentsAverageForWeek(batchId,weekId);
 					}
+					
+					delegate.all.getAllTraineeNotes = function(traineeId){
+						return allFactory.getAllTraineeNotes(traineeId);
+					}
+					
+					delegate.all.getTraineeByEmail = function(traineeEmail){
+						return allFactory.getTraineeEmail(traineeEmail);
+					}
+								
 					/**
 					 * *********************** Enum constants
 					 * ***************************
@@ -84,7 +97,6 @@ angular
 					delegate.all.enumCommonLocations = function() {
 						return allFactory.enumCommonLocations();
 					};
-
 					delegate.all.enumAssessmentType = function() {
 						return allFactory.enumAssessmentType();
 					};
@@ -103,7 +115,6 @@ angular
 					delegate.all.enumTrainingType = function() {
 						return allFactory.enumTrainingType();
 					};
-
 					delegate.all.getAllCategories = function() {
 						return allFactory.getAllCategories();
 					};
@@ -134,6 +145,11 @@ angular
 					delegate.trainer.getTraineeBatchNotesForWeek = function(batchId,week){
 						return trainerFactory.getTraineeBatchNotesForWeek(batchId,week);
 					}
+					
+					delegate.trainer.getTraineeNote = function(traineeId,week){
+						return trainerFactory.getTraineeNote(traineeId,week);
+					}
+					
 					delegate.trainer.getAllAssessmentsForWeek = function(
 							batchId, week) {
 						return trainerFactory.getAllAssessmentsForWeek(batchId,
@@ -215,8 +231,23 @@ angular
 						return qcFactory.getAQCTraineeNote(traineeId, week);
 					}
 					
+					//get QCtrainee note by week - Michael  					
+					delegate.qc.getQCTraineeNote = function(traineeId,week){
+						return qcFactory.getQCTraineeNote(traineeId,week);
+					}
+					
+					//GET TRAINEE WEEK - SADAT
+
+					delegate.qc.traineeWeekNote = function(traineeId, week) {
+						return qcFactory.getTraineeWeek(traineeId, week);
+					}
+					
 					delegate.qc.traineeNote = function(batchId, week) {
 						return qcFactory.getAllQCTraineeNote(batchId, week);
+					}
+					
+					delegate.qc.traineeOverallNote = function(traineeId) {
+						return qcFactory.getTraineeOverallNote(traineeId);
 					}
 
 					/**

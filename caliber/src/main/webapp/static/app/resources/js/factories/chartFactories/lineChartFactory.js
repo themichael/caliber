@@ -1,111 +1,213 @@
-/**
- * 
- * @param $log
- * @returns {{}}
- */
 angular.module("charts").factory("lineChartFactory", function($log) {
 	$log.debug("Booted Line Chart Factory");
 
 	var lineChart = {};
 
+	var mainColor = {
+		backgroundColor : 'rgba(114, 164, 194, .5)',
+		pointBackgroundColor : 'rgba(114, 164, 194, .5)',
+		borderColor : 'rgba(114, 164, 194, 1)',
+		pointHoverBackgroundColor : 'rgba(114, 164, 194, .3)',
+		pointHoverBorderColor : 'rgba(114, 164, 194, .3)',
+		pointBorderColor : '#fff'
+	}
+
+	var secondaryColor = {
+		backgroundColor : 'rgba(252, 180, 20, .6)',
+		pointBackgroundColor : 'rgba(252, 180, 20, .6)',
+		borderColor : 'rgba(252, 180, 20, 1)',
+		pointHoverBackgroundColor : 'rgba(252, 180, 20, .3)',
+		pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
+		pointBorderColor : '#fff'
+	}
+
 	lineChart.getBatchOverallLineChart = function(dataArray) {
 		var chartData = {};
-
 		// data and labels
 		chartData.data = [];
+		chartData.data.push([]);
 		chartData.labels = [];
-
+		chartData.colors = [ mainColor ];
+		chartData.options = {
+			scales : {
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Average'
+					},
+					ticks : {
+						suggestedMin : 40,
+						suggestedmax : 100,
+						stepSize : 20
+					}
+				} ]
+			}
+		}
 		// traverse through array of objects and grab labels and data
-		dataArray.forEach(function(element) {
-			chartData.labels.push(element.trainee);
-			chartData.data.push(element.average);
+		angular.forEach(dataArray, function(value, key) {
+			chartData.labels.push(key);
+			chartData.data[0].push(value.toFixed(2));
 		});
-
-		chartData.datasetOverride = [ {
-			xAxisID : 'x-axis-1'
-		} ];
-
 		return chartData;
 	};
-	
-	//Yanilda
+
+	// Yanilda
 	lineChart.getTraineeUpToWeekLineChart = function(dataArray) {
 		var chartData = {};
 
 		// data and labels
 		chartData.data = [];
 		chartData.labels = [];
+		chartData.series = [ "Trainee", "Batch" ];
+		chartData.colors = [ mainColor, secondaryColor ];
+		chartData.options = {
+			scales : {
+				xAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Week'
+					}
 
-		// traverse through array of objects and grab labels and data
-		dataArray.forEach(function(element) {
-			chartData.labels.push(element.trainee);
-			chartData.data.push(element.average);
-		});
+				} ],
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Score'
+					},
 
-		chartData.datasetOverride = [ {
-			xAxisID : 'x-axis-1'
-		} ];
+					ticks : {
+						suggestedMin : 40,
+						suggestedmax : 100,
+						stepSize : 20
+					}
+				} ]
+			},
 
-		return chartData;
-	};
+		};
 
-	lineChart.getTrainerEvalChart = function(dataArray) {
-		var chartData = {};
+		var series1 = [];
+		var series2 = [];
 
-		// series
-		chartData.series = [ "QC Eval" ];
-
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
-
-		// loop through object array
-		dataArray.forEach(function(element) {
-			chartData.data.push(element.score);
-			chartData.labels.push(element.name);
-		});
-
-		return chartData;
-	};
-
-	lineChart.getAllBatchesEvalChart = function(data, batches) {
-		var chartData = {};
-
-		// series
-		chartData.series = [ "All Batch Eval" ];
-
-		// labels and data
-		chartData.data = [];
-		chartData.labels = [];
-
-		// loop through object array
-		angular.forEach(data, function(value, key) {
-			$log.debug(value);
-			chartData.data.push(value[0]);
-			$log.debug(key);
+		// traverse through array of objects and grab labels and
+		// data
+		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
+			series1.push(value[0].toFixed(2));
+			series2.push(value[1].toFixed(2));
 		});
+
+		/*
+		 * chartData.datasetOverride = [ { xAxisID : 'x-axis-1' } ];
+		 */
+
+		chartData.data.push(series1);
+		chartData.data.push(series2);
 
 		return chartData;
 	};
 
-	lineChart.getBatchTechEvalChart = function(dataArray) {
+	lineChart.getTraineeOverallLineChart = function(dataArray) {
 		var chartData = {};
-
-		// series
-		chartData.series = [ "Tech Batch Eval" ];
-
-		// labels and data
+		chartData.series = [ "Trainee", "Batch" ]
 		chartData.data = [];
-		chartData.labels = [];
+		chartData.colors = [ mainColor, secondaryColor ];
+		chartData.options = {
+			scales : {
+				xAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Week'
+					}
+
+				} ],
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Score'
+					},
+
+					ticks : {
+						suggestedMin : 40,
+						suggestedmax : 100,
+						stepSize : 20
+					}
+				} ]
+			},
+
+		};
 
 		// loop through object array
-		dataArray.forEach(function(key, value) {
-			chartData.data.push(value);
-			chartData.labels.push(key);
+		var trainee = [];
+		var batch = [];
+		var week = [];
+		angular.forEach(dataArray, function(value, key) {
+			trainee.push(value[0].toFixed(2));
+			batch.push(value[1].toFixed(2));
+			week.push(key);
 		});
-
+		chartData.data.push(trainee);
+		chartData.data.push(batch);
+		chartData.labels = week;
 		return chartData;
+
 	};
+	// vpHome Line Chart
+	lineChart.getCurrentBatchesAverageScoreChart = function(dataArray) {
+		var chartData = {};
+		chartData.data = [];
+		chartData.colors = [ mainColor, secondaryColor ];
+		chartData.series = [];
+		chartData.labels = [];
+		
+		chartData.options = {
+			scales : {
+				xAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Week'
+					}
+
+				} ],
+				yAxes : [ {
+					scaleLabel : {
+						display : true,
+						labelString : 'Score'
+					},
+
+					ticks : {
+						suggestedMin : 40,
+						suggestedmax : 100,
+						stepSize : 20
+					}
+				} ]
+			}
+		};
+
+		var highestWeek = 0;
+		angular.forEach(dataArray, function(value, key) {
+			var currentWeek = 1;
+			chartData.series.push(key);
+			var temp = [];
+			angular.forEach(value, function(value2, key2) {
+				while(currentWeek < key2){
+					temp.push(0);
+					currentWeek++;
+				}
+				temp.push(value2.toFixed(2));
+				currentWeek++;
+				if(currentWeek > highestWeek){
+					highestWeek = currentWeek;
+				}
+			});
+			chartData.data.push(temp);
+		});
+		
+		for (var i = 1; i < highestWeek; i++) {
+			chartData.labels.push("Week " + i);
+		}
+		
+		
+		return chartData;
+	}
 	return lineChart;
 });

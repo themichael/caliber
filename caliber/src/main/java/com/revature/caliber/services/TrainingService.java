@@ -184,7 +184,7 @@ public class TrainingService {
 	public void delete(Batch batch){
 		log.debug("Delete batch " + batch);
 		// load batch into persistent state
-		batch = batchDAO.findOne(batch.getBatchId());
+		//batch = batchDAO.findOne(batch.getBatchId());
 		batchDAO.delete(batch);
 	}
 	
@@ -223,6 +223,16 @@ public class TrainingService {
 	}
 	
 	/**
+	 * FIND ALL DROPPED TRAINEES BY BATCH ID
+	 * @param batchId
+	 * @return
+	 */
+	public List<Trainee> findAllDroppedTraineesByBatch(Integer batchId) {
+		log.debug("Find dropped trainees by batch");
+		return traineeDAO.findAllDroppedByBatch(batchId);
+	}
+	
+	/**
 	 * FIND ALL TRAINEES BY TRAINER ID
 	 * @param trainerId
 	 * @return
@@ -258,8 +268,6 @@ public class TrainingService {
 	 */
 	public void delete(Trainee trainee){
 		log.debug("Delete trainee " + trainee);
-		// load trainee into persistent state
-		trainee = traineeDAO.findOne(trainee.getTraineeId());
 		traineeDAO.delete(trainee);
 	}
 	
@@ -271,6 +279,7 @@ public class TrainingService {
 		log.debug("Update trainee " + trainee);
 		traineeDAO.update(trainee);
 	}
+	
 	
 	
 }
