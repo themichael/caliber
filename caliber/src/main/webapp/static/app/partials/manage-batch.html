@@ -442,7 +442,7 @@
 							ng-show="!Updating">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							ng-show="Updating">Cancel</button>
-						<input type="submit" value="Update" class="btn btn-primary" data-dismiss="modal"
+						<input type="submit" value="Update" ng-click="verifyTraineeEmail()" class="btn btn-primary" data-dismiss="modal"
 							ng-show="Updating")>
 					</div>
 				</div>
