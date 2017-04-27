@@ -836,4 +836,14 @@ angular
 					    $(".modal").modal("hide");
 					});
 				}
+				
+				$scope.boldBatchAverage = function(){
+					if($scope.allAssessmentsAvgForWeek){
+							$scope.isThereAvgForWeek = true;
+							return "Weekly Batch Avg: ";
+					}else{
+						$scope.isThereAvgForWeek = false;
+						return "Calculating Weekly Batch Avg ";
+					}
+				}
 });
