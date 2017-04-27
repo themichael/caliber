@@ -50,7 +50,7 @@ angular
 					 */
 					
 					
-					$scope.grades={};
+
 					 $scope.getAllGradesForWeek=function(batchId,weekId) {							
 							caliberDelegate.all
 									.getGradesForWeek(batchId,
@@ -132,7 +132,9 @@ angular
 
 						/*Implemented due to modal-backdrop class duplicating itself and not going away
 						 * when clicking area outside of modal document*/
+						$scope.grades={};
 						$scope.updateAssessmentModel={};
+						
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) { 								// shows
@@ -454,6 +456,9 @@ angular
 										function(data) {
 											$log.debug(data);
 											$scope.currentAssessments = data;
+											if(!$scope.grades || $scope.grades === null || $scope.grades === undefined ){
+												$scope.grades = [];
+											}
 											$scope.getAllGradesForWeek($scope.currentBatch.batchId,$scope.currentWeek);
 											var week = new Week(
 													$scope.currentWeek,
@@ -593,16 +598,26 @@ angular
 									$log.debug(response);
 									return response;
 								}).then(function(response){
-									$scope.trainees[response.data.trainee.traineeId].assessments[response.data.assessment.assessmentId].gradeId = response.data.gradeId;
+									if(response !== undefined){
+										$scope.trainees[response.data.trainee.traineeId].assessments[response.data.assessment.assessmentId].gradeId = response.data.gradeId;									
+										return response;
+									}else{
+										return;
+									}
+								}).then(function(response){										
+									if(response.data.gradeId && ($scope.grades === undefined || $scope.grades === false)){
+										$scope.grades = [];
+									}
+									if(response.data.gradeId){
+										$scope.grades[response.data.trainee.traineeId] = response.data;
+									}									
 									$scope.allAssessmentsAvgForWeek = false;
-									return response;
-								}).then(function(){
 									$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);									
 								});
 					}; 
 
 					$scope.findGrade = function(traineeId, assessmentId) {
-							if(!$scope || !$scope.grades || !traineeId || ($scope.grades[traineeId] === undefined)){ 
+							if(!$scope || !$scope.grades || !traineeId || $scope.grades[traineeId] === undefined){ 
 								return;
 							}else{
 								for(var grade of $scope.grades[traineeId]){
