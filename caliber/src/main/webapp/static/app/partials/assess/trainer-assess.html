@@ -123,9 +123,8 @@
 								{{getTotalAssessmentAvgForWeek(assessment,trainees) ?
 								(getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
 								"%" : "-"}}</td>
-							<td ng-if="grades">{{ (allAssessmentsAvgForWeek === false ?
-								"Calculating Weekly Batch Avg " : "Weekly Batch Avg= " +
-								allAssessmentsAvgForWeek) }}<i
+							<td ng-if="grades"><span style = "font-weight: bold">{{boldBatchAverage()}}</span>
+								<span ng-if = "isThereAvgForWeek">{{allAssessmentsAvgForWeek}}</span><i
 								ng-show="!allAssessmentsAvgForWeek" class='fa fa-cog fa-spin'></i>
 							</td>
 							<td ng-if="!grades"></td>
