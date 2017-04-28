@@ -59,7 +59,8 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	}
 
 	/**
-	 * ------------------------DEVELOPMENT ONLY------------------------ Pretends
+	 * ------------------------DEVELOPMENT ONLY------------------------ 
+	 * Pretends
 	 * to redirect to Salesforce for authentication.
 	 * 
 	 * TODO remove @RequestMapping at go-live
@@ -70,7 +71,8 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	}
 
 	/**
-	 * ------------------------PRODUCTION ONLY------------------------ Redirects
+	 * ------------------------PRODUCTION ONLY------------------------ 
+	 * Redirects
 	 * to Salesforce for authentication.
 	 * 
 	 * TODO enable at go-live
