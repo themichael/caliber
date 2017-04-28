@@ -46,7 +46,7 @@ angular
 						return createGenericRadarChartObject(dataArray,
 								seriesName);
 					};
-
+		
 					var createGenericRadarChartObject = function(dataArray,
 							seriesName) {
 						var chartData = {};
@@ -86,7 +86,29 @@ angular
 						currentChartData.data.push(newData);
 						return currentChartData;
 					}
+					radar.createCombineBatchAndAllTrainees = function(dataSet){
+						var chartData = {};
+						
+						chartData.colors= [ mainColor ];
+						
+						chartData.series = [];
+						chartData.labels = [];
+						chartData.data = [];
 
+						angular.forEach(dataSet, function(value, key) {
+							chartData.series.push(key);
+							var averageTemp = [];
+							angular.forEach(value, function(average, assess) {
+								if(!chartData.labels.includes(assess)) {
+									chartData.labels.push(assess);
+								}
+								averageTemp.push(average.toFixed(2));
+							})
+							chartData.data.push(averageTemp);
+						});
+						chartData.options = radarOptions;
+						return chartData;
+					}
 					radar.createFromTwoDataSets = function(batchDataSet,
 							traineeDataSet, batchSeriesName, traineeSeriesName) {
 						$log.debug("radarChartFactory: createFromTwoDataSets");
@@ -131,12 +153,10 @@ angular
 							ticks : {
 								beginAtZero : false,
 								fixedStepSize : 10,
-								max : 100,
+								suggestedmax : 100,
 								suggestedMin : 40
 							}
-
 						}
 					};
-
 					return radar;
 				});

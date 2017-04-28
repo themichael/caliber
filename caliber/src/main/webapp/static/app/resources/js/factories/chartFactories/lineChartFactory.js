@@ -37,7 +37,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 					},
 					ticks : {
 						suggestedMin : 40,
-						max : 100,
+						suggestedmax : 100,
 						stepSize : 20
 					}
 				} ]
@@ -77,7 +77,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 					ticks : {
 						suggestedMin : 40,
-						max : 100,
+						suggestedmax : 100,
 						stepSize : 20
 					}
 				} ]
@@ -128,7 +128,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 					ticks : {
 						suggestedMin : 40,
-						max : 100,
+						suggestedmax : 100,
 						stepSize : 20
 					}
 				} ]
@@ -176,7 +176,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 					ticks : {
 						suggestedMin : 40,
-						max : 100,
+						suggestedmax : 100,
 						stepSize : 20
 					}
 				} ]
