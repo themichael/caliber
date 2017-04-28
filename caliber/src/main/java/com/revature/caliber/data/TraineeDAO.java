@@ -17,6 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainingStatus;
 
+/**
+ * @author Patrick Walsh
+ * @author Ateeb Khawaja
+ *
+ */
 @Repository
 public class TraineeDAO {
 

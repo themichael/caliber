@@ -1,3 +1,12 @@
+/**
+ * Team !Uncharted
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
+ *
+ */
 angular
 		.module("charts")
 		.controller(

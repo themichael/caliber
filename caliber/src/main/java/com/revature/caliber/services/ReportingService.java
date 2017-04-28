@@ -40,7 +40,12 @@ import com.revature.caliber.data.TraineeDAO;
  * Provides logic concerning grade and aggregated data sets. Application logic has no business being in a DAO nor in a
  * Controller. This is the ideal place for calculations
  * 
- * @author Patrick Walsh
+ * Team !Uncharted
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
  *
  */
 @Service
@@ -763,22 +768,4 @@ public class ReportingService {
 				/ traineeAverageGrades.size();
 		return weeklyBatchAverage;
 	}
-
-	public Map<Integer, Set<Category>> utilCategorybyWeek(List<Grade> grades) {
-		Set<Category> categories = new HashSet<>();
-		Map<Integer, Set<Category>> results = new HashMap<>();
-		for (Grade grade : grades) {
-			categories.add(grade.getAssessment().getCategory());
-			results.put(Integer.valueOf(grade.getAssessment().getWeek()), categories);
-		}
-		return results;
-
-	}
-
-	public Set<Category> utilCatagoryByWeekNumber(List<Grade> grades, Integer week) {
-		Map<Integer, Set<Category>> allWeekCatagory = utilCategorybyWeek(grades);
-		Set<Category> result = allWeekCatagory.get(week);
-		return result;
-	}
-
 }

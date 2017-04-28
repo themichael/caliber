@@ -21,6 +21,14 @@ import com.revature.caliber.services.ReportingService;
  * Exclusively used to generate data for charts
  * 
  * @author Patrick Walsh
+ * 
+ * Team !Uncharted
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
+ * 
  *
  */
 @RestController
@@ -157,9 +165,9 @@ public class ReportingController {
 				HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/vp/reports/dashboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/reports/dashboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Map<Integer, Double>>> getCurrentBatchesLineChart() {
-		log.info("getCurrentBatchesLineChart   ===>  /qc/reports/dashboard");
+		log.info("getCurrentBatchesLineChart   ===>  /all/reports/dashboard");
 		return new ResponseEntity<Map<String, Map<Integer, Double>>>(reportingService.getAllCurrentBatchesLineChart(),
 				HttpStatus.OK);
 	}
@@ -194,7 +202,7 @@ public class ReportingController {
 	}
 
 	
-	@RequestMapping(value = "/vp/reports/batch/{batchId}/radar-batch-all-trainees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/reports/batch/{batchId}/radar-batch-all-trainees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Map<String, Double>>> getBatchAllTraineesRadarChart(@PathVariable Integer batchId) {
 		log.info("getBatchOverallRadarChart   ===>   /all/reports/batch/{batchId}/overall/radar-batch-overall");
 		return new ResponseEntity<Map<String, Map<String, Double>>>(reportingService.getBatchAllTraineesOverallRadarChart(batchId), HttpStatus.OK);
