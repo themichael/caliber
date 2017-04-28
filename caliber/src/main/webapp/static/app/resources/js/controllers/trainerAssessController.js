@@ -7,20 +7,18 @@ angular
 				"trainerAssessController",
 				function($rootScope, $timeout,$log, $scope, $state, chartsDelegate, caliberDelegate,
 						allBatches) {
+					
 					// Week object
 					function Week(weekNumb, assessments) {
 						this.weekNumb = weekNumb;
 						this.assessments = assessments;
 					}
 					
-					$scope.noTrainees = false;
-					
-					// array of weeks to parse through and display tabs
-					
+					$scope.noTrainees = false;					
 					$log.debug("Booted Trainer Aesess Controller");
-					
-					
+										
 					$scope.trainerBatchNote = null;
+					
 					// Note object This is needed to create notes for batch. 
 					function Note(noteId, content, status, week, batch,
 							trainee, maxVisibility, type, qcFeedback) {
@@ -40,16 +38,9 @@ angular
 						caliberDelegate.all.getAllCategories().then(
 								function(categories) {
 									$scope.categories = categories;
-									$log.debug("all Categories");
-									// $log.debug(categories);
+									$log.debug("all Categories " + categories);
 								});
 					};
-					/**
-					 * ***************************************** UI
-					 * ********************************************
-					 */
-					
-					
 
 					 $scope.getAllGradesForWeek=function(batchId,weekId) {							
 							caliberDelegate.all
@@ -84,8 +75,7 @@ angular
 							});
 						}
 					
-						// get trainee notes and put into
-						// $scope.trainees[traineeId].note
+						// get trainee notes and put into $scope.trainees[traineeId].note
 						$scope.getTraineeBatchNotesForWeek=function(batchId,weekId){
 							caliberDelegate.trainer.getTraineeBatchNotesForWeek(batchId,weekId).then(function(data){
 								angular.forEach($scope.trainees,function(key,value){
@@ -105,12 +95,10 @@ angular
 							});
 						}
 						
-					// ////////////////////////////////////////////////////////////////////////
 					// load note types
 					caliberDelegate.all.enumNoteType().then(
 							function(noteTypes) {
 								$log.debug(noteTypes);
-								// do something with note type
 							});
 					$scope.assessmentType = {
 						model : null,
@@ -137,11 +125,7 @@ angular
 						
 						$scope.batches = allBatches;
 						if (!allBatches) return;
-						if (allBatches.length > 0) { 								// shows
-																					// the
-																					// latest
-																					// batches
-							
+						if (allBatches.length > 0) { 													
 							if(!$scope.currentBatch){ // if currentBatch is not yet in the scope, run for assess batch
 								$scope.currentBatch = allBatches[0];
 							}
@@ -168,7 +152,6 @@ angular
 								caliberDelegate.all.enumNoteType().then(
 										function(noteTypes) {
 											$log.debug(noteTypes);
-											// do something with note type
 										});
 								$scope.assessmentType = {
 									model : null,
@@ -182,28 +165,18 @@ angular
 													$scope.assessmentType.options = assessmentTypes;
 												});
 								$log.debug("Batches " + allBatches);
-								$log.debug(allBatches);
 								
 								if(!$scope.currentWeek){ // if currentWeek is not yet in the scope, run for assess batch
-								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
-								// number
-								// of
-								// weeks
-								// for
-								// that
-								// batch
+								var totalWeeks = allBatches[allBatches.length-1].weeks; // the number of weeks for that batch
 								$log
 										.debug("this is the total week for this batch "
 												+ allBatches[allBatches.length-1].trainingName
 												+ ": " + totalWeeks);
 
-								$scope.currentWeek = totalWeeks; // change here***********************************************************************************
+								$scope.currentWeek = totalWeeks; 
 								}
-								/**
-								 * *****************************************
-								 * getAllAssessmentsForWeek
-								 * *********************************************************
-								 */
+								
+								//getAllAssessmentsForWeek
 								getAllAssessmentsForWeek(
 										$scope.currentBatch.batchId,
 										$scope.currentWeek);
@@ -258,7 +231,6 @@ angular
 							$scope.noBatchesMessage = "No Batches were found for this year.";
 						} else {
 							$scope.noBatches = false;
-							//createDefaultCharts();
 							$scope.selectedYear = $scope.years[index];
 							sortByDate($scope.selectedYear);
 						
@@ -292,30 +264,23 @@ angular
 					/**
 					 * Get batch according to year
 					 */
-					
 					function batchYears() {
 						$scope.batchesByYear = [];
 						
 						for (var i = 0; i < $scope.batches.length; i++) {
-							//$log.debug("Current Year: " + $scope.selectedYear);
+							$log.debug("Current Year: " + $scope.selectedYear);
 							if ($scope.selectedYear === parseInt($scope.batches[i].startDate)) {
 								$scope.batchesByYear.push($scope.batches[i]);
-								// $log.debug($scope.batches[i]);
+							    $log.debug($scope.batches[i]);
 							}
 							
-							// $log.debug($scope.selectedYear + " === " + parseInt($scope.batches[i].startDate))
+						   $log.debug($scope.selectedYear + " === " + parseInt($scope.batches[i].startDate))
 
 						}
-						$log.debug($scope.batches);
-						$log.debug($scope.batchesByYear);
+						$log.debug($scope.batches + ", " +$scope.batchesByYear);
 						
 					}
-					
-					
-					
-					/******* Filter batches by year ************/
-					
-
+										
 					// batch drop down select
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.batchesByYear[index];
@@ -349,8 +314,6 @@ angular
 								$scope.currentWeek);
 					};
 					
-					
-
 					// active week
 					$scope.showActiveWeek = function(index) {
 						if ($scope.currentWeek === $scope.currentBatch.arrayWeeks[index])
@@ -375,21 +338,15 @@ angular
 									$scope.currentBatch.weeks += 1;
 									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
 									$scope.showActiveWeek($scope.currentBatch.weeks);
-									$scope.selectWeek($scope.currentBatch.weeks-1); // the
-																					// new
-																					// index
-																					// of
-																					// the
-																					// week
-																					// selected
+									$scope.selectWeek($scope.currentBatch.weeks-1); // the new index of the week selected
 								});
 						} 
 					};
+					
 					// select assessment from list
 					$scope.selectAssessment = function(index) {
 						$scope.currentAssessment = $scope.currentAssessment[index];
 						$scope.currentView = false;
-						/** replace with ajax call to get grades by assessmentId * */
 					};
 
 					$scope.addAssessment = function() {
@@ -421,6 +378,7 @@ angular
 													.modal("hide");
 										});
 					};
+					
 					$scope.selectedCategories = [];
 
 					$scope.toggleSelection = function(category) {
@@ -431,7 +389,7 @@ angular
 							$scope.selectedCategories.push(category);
 					};
 					
-					/** *******TrainerBatch Notes********** */	
+					/*********TrainerBatch Notes********** */	
 					$scope.getTBatchNote = function (batchId, week){	
 								caliberDelegate.trainer
 										.getTrainerBatchNote(batchId, week)
@@ -445,16 +403,11 @@ angular
 												});
 						};
 
-					// get all assesments
-					// **********************************************************8888888888***********************************************************
+					// get all assessments
 					function getAllAssessmentsForWeek(batchId, weekNumb) {
 						if (!weekNumb)
 							return;
 						
-						/*$scope.currentBatch = allBatches[0];
-						var totalWeeks = allBatches[allBatches.length-1].weeks;
-						$scope.currentWeek = totalWeeks;*/
-					
 						caliberDelegate.trainer
 								.getAllAssessmentsForWeek(batchId, weekNumb)
 								.then(
@@ -493,7 +446,6 @@ angular
 					};
 					
 					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
-
 						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
 							.then(function(response){
 										$timeout(function(){
@@ -503,7 +455,6 @@ angular
 												return;
 											}
 										},4000);															
-
 							});
 					}
 					
@@ -664,27 +615,12 @@ angular
 					
 					}
 
-					/**
-					 * **********************************************TODO
-					 * REFACTOR**************************************
-					 */
-
-					/**
-					 * **********************************************TODO
-					 * POSSIBLE REFACTOR FOR WEEK
-					 * PROBLEM**************************************
-					 */
 					function pushUnique(arr, item) {
 						if (arr.indexOf(item) === -1) {
 							arr.push(item);
 						}
 					}
 
-					/**
-					 * **********************************************TODO
-					 * POSSIBLE REFACTOR**************************************
-					 */
-					
 					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
 						//assessmentTotals will assessment objects, each with properties
 						// - total(for total score)
@@ -708,10 +644,7 @@ angular
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
 
-					/****************************************************
-					 *Save Button **
-					 **************************************************/
-          
+					/***Save Button ***/
 					$scope.showSaving = false;
 					$scope.showCheck = false;
 					$scope.showFloppy = true;
@@ -765,14 +698,11 @@ angular
 							return 1;
 						return 0;
 					}
-				/******************
-				 * UPDATE ASSESSMENT 
-				 *****************/
+				/*** UPDATE ASSESSMENT***/
 					$scope.updateAssessment = function(assessment,event,modalId,index){
 						event.stopPropagation();
 						if($scope.updateAssessmentModel !==undefined){
-							$log.debug(index);
-							//$log.debug($scope.currentAssessments[$index] + "  ------ " + $index);
+							$log.debug($scope.currentAssessments[$index] + "  ------ " + index);
 							if($scope.updateAssessmentModel.category){
 								assessment.category=$scope.updateAssessmentModel.category;
 							}
@@ -798,14 +728,10 @@ angular
 						}
 						$('.modal').modal('hide');
 					}
-					
-				
-				
+						
 				$scope.closeModal = function(str){
 				    $('#'+str).modal('toggle');
 				}
-
-//				$scope.updateAssessment={};
 				
 				$scope.deleteAssessment = function(assessment,event,modalId,index){
 					$('.modal').modal('hide');
@@ -820,6 +746,7 @@ angular
 						getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
 					});
 				};
+				
 				$scope.preventModalClose = function(){
 					$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
 						e.stopPropagation();
