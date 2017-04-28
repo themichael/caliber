@@ -157,9 +157,8 @@ angular
 						$scope.showdropped = false;
 						$log.debug($scope.currentBatch);
 					};
-					
-					
-					/** Validation for the dates **/
+
+					/** Validation for the dates * */
 					$scope.checkDates = function() {
 
 						$log.info($scope.startDate);
@@ -172,13 +171,14 @@ angular
 							$log.debug("True");
 							$scope.addNewBatch();
 						} else {
-							/*$scope.validDate = true;*/
+							/* $scope.validDate = true; */
 							$log.info("False");
-							//window.alert("hi!....u buggin!!!");
-							angular.element("#benchmarkdateModal").modal("show");
+							// window.alert("hi!....u buggin!!!");
+							angular.element("#benchmarkdateModal")
+									.modal("show");
 							return false;
 						}
-						
+
 						$log.info($scope.validDate);
 
 					}
@@ -218,8 +218,11 @@ angular
 							$scope.coTrainer.model = ""
 						}
 
-						$scope.startDate.model = new Date(batch.startDate);
-						$scope.endDate.model = new Date(batch.endDate);
+						$scope.startDate.model = new Date(moment(
+								batch.startDate, "YYYY-MM-DD").format(
+								"YYYY/MM/DD"));
+						$scope.endDate.model = new Date(moment(batch.endDate,
+								"YYYY-MM-DD").format("YYYY/MM/DD"));
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 						$scope.benchmarkStartDate.model = new Date(
@@ -240,20 +243,14 @@ angular
 						$scope.endDate.model = "";
 						$scope.goodGradeThreshold.model = "";
 						$scope.borderlineGradeThreshold.model = "";
-						$scope.benchmarkStartDate.model = "";
+						$scope.benchmarkStartDate.model = new Date("2003/01/01");
 						$scope.Save = "Save";
 						$scope.Updating = false;
 						if ($scope.currentBatch) {
 							$scope.currentBatch = null;
 						}
 					}
-					/** checking benchmark date * */
-					function benchmarkDateIsValid() {
 
-						if ($scope.benchmarkStartDate.model < new Date()) {
-							$scope.startDate();
-						}
-					}
 					/** checking benchmark date * */
 					function benchmarkDateIsValid() {
 
@@ -274,7 +271,7 @@ angular
 						batch.endDate = $scope.endDate.model;
 						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
 						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
-						batch.benchmarkStartDate = $scope.benchmarkStartDate.model;
+						batch.benchmarkStartDate = new Date("2003/01/01");
 
 						/*
 						 * if ($scope.currentBatch) { newBatch.batchId =
@@ -333,20 +330,25 @@ angular
 									.createBatch(newBatch)
 									.then(
 											function(response) {
-												// coTrainer may be undefined
+												// set new batch id with
+												// whatever was inserted into
+												// database
 												newBatch.batchId = response.data.batchId;
+												// create empty array for
+												// trainees so trainees can be
+												// added immediately
 												newBatch['trainees'] = [];
+												// create empty array for weeks,
+												// so weeks can be added
+												// immediately
 												newBatch['arrayWeeks'] = [];
 												newBatch['weeks'] = response.data.weeks;
+												// format dates so qc, assess
+												// and reports can access
+												// batches immediately
 												formatBatchDates(newBatch)
-												if ($scope.coTrainer) {
-													$scope.batches
-															.push(newBatch);
-												} else {
-													$scope.batches
-															.push(newBatch);
-													$log.debug($scope.batches)
-												}
+
+												$scope.batches.push(newBatch);
 
 												sortByDate($scope.selectedYear);
 											});
@@ -361,6 +363,8 @@ angular
 								.deleteBatch($scope.currentBatch.batchId)
 								.then(
 										function(response) {
+											// if delete successful, remove from
+											// batch table
 											if (response.status === 204) {
 												for (var i = 0; i < $scope.batches.length; i++) {
 													if ($scope.batches[i] === $scope.currentBatch) {
@@ -468,27 +472,35 @@ angular
 					/** checks if email already exists in database* */
 					$scope.verifyTraineeEmail = function() {
 						if (!$scope.Updating) {
-							caliberDelegate.all.getTraineeByEmail(
-									$scope.traineeEmail).then(
-									function(response) {
-										$log.log("find email response ")
-										$log.log(response.data)
-										if (response.data === "") {
-											$log.log("email does not exist")
-											$scope.addNewTrainee();
-										} else {
-											$log.log("email already exists")
-											angular.element(
-													"#emailVerificationModal")
-													.modal("show");
-											return false;
-										}
-									})
+							$scope.checkEmail();
 						} else {
-							$scope.addNewTrainee();
+							if ($scope.currentTrainee.email !== $scope.traineeEmail) {
+								$scope.checkEmail();
+							} else {
+								$scope.addNewTrainee();
+							}
 						}
 					}
 
+					/** show email verification modal* */
+					$scope.checkEmail = function() {
+						caliberDelegate.all.getTraineeByEmail(
+								$scope.traineeEmail).then(
+								function(response) {
+									$log.debug("find email response ")
+									$log.debug(response.data)
+									if (response.data === "") {
+										$log.debug("email does not exist")
+										$scope.addNewTrainee();
+									} else {
+										$log.debug("email already exists")
+										angular.element(
+												"#emailVerificationModal")
+												.modal("show");
+										return false;
+									}
+								})
+					}
 					/** Save New Trainee Input * */
 					$scope.addNewTrainee = function() {
 						if ($scope.Updating) {
@@ -501,23 +513,24 @@ angular
 												$scope.trainees[$scope.traineeRow] = $scope.currentTrainee;
 												$scope.resetTraineeForm();
 												// if trainee is dropped, splice
-												// from allbatches list
+												// from allbatches list and add
+												// to drop list
 												if ($scope.trainees[$scope.traineeRow].trainingStatus === "Dropped") {
 													for (i = 0; i < $scope.activeTrainees.length; i++) {
 														if ($scope.activeTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.droppedTrainees
-															.push($scope.trainees[$scope.traineeRow]);
+																	.push($scope.trainees[$scope.traineeRow]);
 															$scope.activeTrainees
 																	.splice(i,
 																			1);
-															
+
 														}
 													}
 												} else {
 													for (i = 0; i < $scope.droppedTrainees.length; i++) {
 														if ($scope.droppedTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.activeTrainees
-															.push($scope.trainees[$scope.traineeRow]);
+																	.push($scope.trainees[$scope.traineeRow]);
 															$scope.droppedTrainees
 																	.splice(i,
 																			1);
@@ -532,7 +545,8 @@ angular
 									.createTrainee(newTrainee)
 									.then(
 											function(response) {
-
+												// if successfully inserted into
+												// db, trainee is added to table
 												if (response.status === 201) {
 													if (response.data.trainingStatus === "Dropped") {
 														$scope.droppedTrainees
@@ -546,6 +560,7 @@ angular
 												$scope.resetTraineeForm();
 											});
 						}
+						angular.element("#addTraineeModal").modal("hide");
 					};
 
 					/** Get Trainee to delete* */

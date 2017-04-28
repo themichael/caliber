@@ -1,3 +1,13 @@
+/**
+ * Team !Uncharted
+ * 
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
+ * 
+ */
 angular
 		.module("reportApi")
 		.factory(
@@ -7,9 +17,6 @@ angular
 
 					var report = {};
 
-					/*
-					 * Yanilda
-					 */
 					report.getBatchWeekAvgBarChart = function(batchId, week) {
 						return $http(
 								{
@@ -141,7 +148,6 @@ angular
 					}
 
 					report.getDummyBarChartData = function() {
-						// Return with commas in between
 						return {
 							"good" : [ 21000, 22000, 26000, 35000, 55000,
 									55000, 56000, 59000, 60000, 61000, 60100,
@@ -192,12 +198,14 @@ angular
 								})
 								.then(
 										function(response) {
-											$log.debug("getBatchComparisonLine")
+											$log
+													.debug("getBatchComparisonLine")
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log.error("There was an error in barChartDataFactory -> getBatchComparisonLine:"
+											$log
+													.error("There was an error in barChartDataFactory -> getBatchComparisonLine:"
 															+ response.status);
 										});
 					}

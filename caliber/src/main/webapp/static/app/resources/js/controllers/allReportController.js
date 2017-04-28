@@ -1,3 +1,12 @@
+/**
+ * Team !Uncharted
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
+ *
+ */
 angular
 		.module("charts")
 		.controller(
@@ -122,11 +131,13 @@ angular
 								.getAllTraineeNotes(traineeId)
 								.then(
 										function(response) {
-											for(note of response){
-												if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
-													$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
-												}
-											}											
+											if(response !== undefined){
+												for(note of response){
+													if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
+														$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
+													}
+												}							
+											}
 										});
 						
 						caliberDelegate.qc.

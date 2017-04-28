@@ -20,6 +20,12 @@ import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 
+/**
+ * 
+ * @author Patrick Walsh
+ * @author Ateeb Khawaja
+ *
+ */
 @Repository
 public class NoteDAO {
 
@@ -200,6 +206,7 @@ public class NoteDAO {
 		log.info("Finding All individual notes for week " + week + " for trainee: " + traineeId);
 		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class)
 				.createAlias("trainee", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("batch", "b", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.eq("t.traineeId", traineeId)).add(Restrictions.eq("week", week.shortValue()))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -219,9 +226,12 @@ public class NoteDAO {
 		log.info("Finding All individual notes for trainee: " + traineeId);
 		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class)
 				.createAlias("trainee", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("batch", "b", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("b.trainees", "batchmates", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.add(Restrictions.eq("t.traineeId", traineeId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_TRAINER)).list();
+				.add(Restrictions.eq("t.traineeId", traineeId))
+				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_TRAINER))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("week")).list();
 		return notes;
 	}
 
@@ -273,6 +283,7 @@ public class NoteDAO {
 		log.info("Find All QC Trainee notes for that trainee");
 		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class)
 				.createAlias("trainee", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("batch", "b", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.eq("t.traineeId", traineeId))
 				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_QC)).add(Restrictions.eq("qcFeedback", true))
