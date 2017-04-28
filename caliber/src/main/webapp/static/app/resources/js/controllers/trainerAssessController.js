@@ -450,6 +450,11 @@ angular
 					function getAllAssessmentsForWeek(batchId, weekNumb) {
 						if (!weekNumb)
 							return;
+						
+						/*$scope.currentBatch = allBatches[0];
+						var totalWeeks = allBatches[allBatches.length-1].weeks;
+						$scope.currentWeek = totalWeeks;*/
+					
 						caliberDelegate.trainer
 								.getAllAssessmentsForWeek(batchId, weekNumb)
 								.then(
@@ -475,26 +480,14 @@ angular
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
 											
-										//	$scope.currentWeek = $scope.currentBatch.weeks;
-											//$log.debug($scope.currentBatch);
 											$scope.selectedYear = parseInt($scope.currentBatch.startDate.substring(0,4));
 
 											batchYears();
+											$scope.currentWeek = $scope.currentBatch.weeks;
+
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.allAssessmentsAvgForWeek = false;
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
-//											caliberDelegate.all.getAssessmentsAverageForWeek(
-//													$scope.currentBatch.batchId
-//													, $scope.currentWeek
-//													).then(function(response){
-//														$timeout(function(){
-//															if(response){
-//																$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
-//															}else{
-//																return;
-//															}
-//															},4000);															
-//													});
 										});
 										
 					};
