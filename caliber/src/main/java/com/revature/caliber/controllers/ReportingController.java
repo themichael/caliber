@@ -2,6 +2,7 @@ package com.revature.caliber.controllers;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -209,5 +210,10 @@ public class ReportingController {
 		log.info("getBatchWeekAverageValue   ===>   /all/reports/batch/{batchId}/overall/line-batch-overall");
 		return new ResponseEntity<Double>(reportingService.getAvgBatchWeekValue(batchId, week), HttpStatus.OK);
 	}
-
+	
+	@RequestMapping(value = "/all/assessments/categories/batch/{batchId}/week/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Set<String>> getTechnologiesForTheWeek(@PathVariable Integer batchId, @PathVariable Integer week) {
+		log.info("getBatchWeekAverageValue   ===>   /all/reports/batch/{batchId}/overall/line-batch-overall");
+		return new ResponseEntity<Set<String>>(reportingService.getTechnologiesForTheWeek(batchId, week), HttpStatus.OK);
+	}
 }
