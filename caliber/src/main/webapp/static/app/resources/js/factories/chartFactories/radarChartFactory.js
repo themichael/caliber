@@ -153,7 +153,7 @@ angular
 							ticks : {
 								beginAtZero : false,
 								fixedStepSize : 10,
-								suggestedmax : 100,
+								max : 100,
 								suggestedMin : 40
 							}
 						}
