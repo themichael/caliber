@@ -122,11 +122,13 @@ angular
 								.getAllTraineeNotes(traineeId)
 								.then(
 										function(response) {
-											for(note of response){
-												if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
-													$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
-												}
-											}											
+											if(response !== undefined){
+												for(note of response){
+													if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
+														$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
+													}
+												}							
+											}
 										});
 						
 						caliberDelegate.qc.
@@ -431,10 +433,8 @@ angular
 														NProgress.done();
 													});
 											});
-						
-						
 					}
-
+				
 					// Hossain bar chart trainee vs average all week score
 					function createAverageTraineeScoresOverall() {
 						chartsDelegate.bar
@@ -758,8 +758,7 @@ angular
 						return clone;
 					};
 					
-					
-					// gets the note for that trainne and that week
+			// gets the note for that trainne and that week
 					$scope.getTraineeNote=function(traineeId,weekId){
 						$log.debug("YOU ARE IN YOUR FUNCTION");
 						caliberDelegate.trainer.getTraineeNote(traineeId,weekId).then(function(data){
