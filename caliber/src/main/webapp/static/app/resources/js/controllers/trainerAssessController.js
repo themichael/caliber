@@ -172,12 +172,10 @@ angular
 										.debug("this is the total week for this batch "
 												+ allBatches[allBatches.length-1].trainingName
 												+ ": " + totalWeeks);
-
-								//$scope.currentWeek = totalWeeks; 
-								batchYears();
 								$scope.currentWeek = $scope.currentBatch.weeks;
+
 								}
-								
+
 								//getAllAssessmentsForWeek
 								getAllAssessmentsForWeek(
 										$scope.currentBatch.batchId,
@@ -191,7 +189,7 @@ angular
 						$log.debug($scope.currentWeek);
 						
 						$scope.trainees={};						
-						
+
 						for(trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);
 						}
@@ -438,7 +436,6 @@ angular
 											$scope.selectedYear = parseInt($scope.currentBatch.startDate.substring(0,4));
 
 											batchYears();
-											//$scope.currentWeek = $scope.currentBatch.weeks;
 
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.allAssessmentsAvgForWeek = false;
