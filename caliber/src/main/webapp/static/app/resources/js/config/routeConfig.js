@@ -171,12 +171,11 @@ angular
 												controller : "trainerAssessController"
 											},
 											"trainer-edit-assess@trainer.assess":{
-												templateUrl :"/static/app/partials/assess/trainer-edit-assess.html",
-												controller  :"trainerAssessController"
+												templateUrl :"/static/app/partials/assess/trainer-edit-assess.html",				
 											},
 											"confirm-add-weeks-modal@trainer.assess":{
 												templateUrl :"/static/app/partials/assess/confirm-add-weeks-modal.html",
-												controller  :"trainerAssessController"
+
 											}
 										}
 									})

@@ -13,11 +13,20 @@ angular
 					OVERALL = "(All)";
 					const
 					ALL = -1;
-
+					var radarComparData = null;
+					var radarComparObj = {};
+					
 					// What you see when you open Reports
+					var startingDate = new Date();
+					startingDate.setFullYear(startingDate.getFullYear() - 1);
+					$scope.startDate = startingDate;
+					$scope.selectedTrainingType = OVERALL;
+					$scope.selectedSkill = OVERALL;
 					$scope.currentBatch = allBatches[0];
 					$scope.reportCurrentWeek = OVERALL;
 					$scope.currentBatchWeeks = [];
+					$scope.skillstack = [];
+					$scope.trainingTypes = [];
 					$scope.currentTraineeId = ALL;
 					$scope.noBatch = true;
 					$scope.batchWeek = false;
@@ -28,7 +37,10 @@ angular
 					(function() {
 						// Finishes any left over ajax animation
 						NProgress.done();
-						// batch null check
+						// get stack of batch skill
+						 getAllSkillTypes();
+						// get all training types for dropdown
+						getAllTrainingTypes();
 
 						if ($scope.currentBatch === null) {
 							$scope.noBatch = true;
@@ -44,7 +56,7 @@ angular
 						}
 
 					})();
-
+					
 					function selectView(batch, week, trainee) {
 						if (week === OVERALL) {
 							// All Weeks
@@ -90,7 +102,14 @@ angular
 						}
 
 					}
-
+					function getAllSkillTypes(){
+						caliberDelegate.all.enumSkillType().then(function(skills){
+							$scope.skillstack= skills;
+							$log.debug($scope.skillstack);
+							$log.debug("Hello there" );
+							});
+						
+					}
 					function displayTraineeOverallTable(traineeId) {
 						$scope.traineeOverall=[];	
 						
@@ -103,11 +122,13 @@ angular
 								.getAllTraineeNotes(traineeId)
 								.then(
 										function(response) {
-											for(note of response){
-												if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
-													$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
-												}
-											}											
+											if(response !== undefined){
+												for(note of response){
+													if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
+														$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
+													}
+												}							
+											}
 										});
 						
 						caliberDelegate.qc.
@@ -131,6 +152,7 @@ angular
 					// Filter batches by year
 					$scope.years = addYears();
 					$scope.batches = allBatches;
+					
 					$scope.currentTrainee = {
 						name : "Trainee",
 					}
@@ -199,6 +221,45 @@ angular
 								$scope.reportCurrentWeek,
 								$scope.currentTraineeId);
 					}
+					
+					$scope.selectTrainingType = function(index){
+						if (index==OVERALL) {
+							$scope.selectedTrainingType = OVERALL;
+							$log.debug("Inside Selected Training Type")
+			
+						} else {
+							$scope.selectedTrainingType = $scope.trainingTypes[index];
+							$log.debug($scope.TrainingType);
+						}
+						
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId);
+						
+					};
+					
+					$scope.selectSkill = function(index){
+						$log.debug("Hello there Y1");
+						$log.debug(index);
+						$log.debug("Hello there Y2");
+						if (index==OVERALL) {
+							$scope.selectedSkill = OVERALL;
+			
+						} else {
+							$scope.selectedSkill = $scope.skillstack[index];
+							$log.debug($scope.selectedSkill);
+		
+						}
+						
+						selectView($scope.currentBatch.batchId,
+								$scope.reportCurrentWeek,
+								$scope.currentTraineeId);
+						
+					};
+					
+					
+					
+					
 					/*
 					 * scope function to display the table if a batch and week
 					 * has been selected
@@ -237,7 +298,47 @@ angular
 									$scope.currentTraineeId);
 						}
 					}
+					
+					// Get Data for Trainees and Batch comparison
+					function createAllTraineesAndBatchRadarData(){
+						chartsDelegate.radar.data
+						.getAllTraineesAndBatchRadarChart($scope.currentBatch.batchId)
+						.then(function(data) {
+							radarComparData = data;
+						})
+					}
+					
+					// toggle Checked and Unchecked for Trainees
+					$scope.toggleComparisonRadarChart = function(isChecked, val) {
+						radarComparObj[$scope.currentBatch.trainingName] = mainData;
+						if(isChecked) {
+							radarComparObj[$scope.currentBatch.trainees[val].name] = radarComparData[$scope.currentBatch.trainees[val].name] ;
+						} else {
+							delete radarComparObj[$scope.currentBatch.trainees[val].name];
+						}
 
+						var radarBatchOverallChartObject = chartsDelegate.radar
+								.getCombineBatchAndAllTraineeAssess(
+										radarComparObj);
+						$scope.radarBatchOverallData = radarBatchOverallChartObject.data;
+						$scope.radarBatchOverallOptions = radarBatchOverallChartObject.options;
+						$scope.radarBatchOverallLabels = radarBatchOverallChartObject.labels;
+						$scope.radarBatchOverallSeries = radarBatchOverallChartObject.series;
+						$scope.radarBatchOverallColors = radarBatchOverallChartObject.colors;
+						
+						$scope.radarBatchOverallTable = chartsDelegate.utility
+						.dataToTable(radarBatchOverallChartObject);
+						$log.debug(radarBatchOverallChartObject);
+					}
+					
+					function getAllTrainingTypes() {
+						caliberDelegate.all.enumTrainingType().then(
+								function(trainingType) {
+									$log.debug(trainingType);
+									$scope.trainingTypes = trainingType;
+								});
+					}
+					
 					// *******************************************************************************
 					// *** Chart Generation
 					// *******************************************************************************
@@ -266,6 +367,7 @@ angular
 
 						createAverageTraineeScoresOverall();
 						createTechnicalSkillsBatchOverall();
+						createAllTraineesAndBatchRadarData();
 						createWeeklyProgressBatchOverall();
 					}
 
@@ -304,44 +406,62 @@ angular
 					// *******************************************************************************
 
 					function createAverageTraineeScoresWeekly() {
-						chartsDelegate.bar.data
-								.getAverageTraineeScoresWeeklyData(
-										$scope.currentBatch.batchId,
-										$scope.reportCurrentWeek)
+						chartsDelegate.bar
+						.getBatchComparisonLineData($scope.selectedSkill, 
+								$scope.selectedTrainingType, 
+								$scope.startDate)
 								.then(
-										function(data) {
-											NProgress.done();
-											var barChartObj = chartsDelegate.bar
-													.getAverageTraineeScoresWeekly(data);
-											$scope.averageTraineeScoresWeeklyData = barChartObj.data;
-											$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
-											$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
-											$scope.averageTraineeScoresWeeklyOptions = barChartObj.options;
-											$scope.averageTraineeScoresWeeklyColors = barChartObj.colors;
-										}, function() {
-											NProgress.done();
-										});
+										function(comparison) {
+											chartsDelegate.bar.data
+											.getAverageTraineeScoresWeeklyData(
+													$scope.currentBatch.batchId,
+													$scope.reportCurrentWeek)
+											.then(
+													function(data) {
+														NProgress.done();
+														// TODO Change
+														// parameters
+														var barChartObj = chartsDelegate.bar
+																.getAverageTraineeScoresWeekly(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
+														$scope.averageTraineeScoresWeeklyData = barChartObj.data;
+														$scope.averageTraineeScoresWeeklyLabels = barChartObj.labels;
+														$scope.averageTraineeScoresWeeklySeries = barChartObj.series;
+														$scope.averageTraineeScoresWeeklyOptions = barChartObj.options;
+														$scope.averageTraineeScoresWeeklyColors = barChartObj.colors;
+														$scope.averageTraineeScoresWeeklyDsOverride = barChartObj.datasetOverride;
+													}, function() {
+														NProgress.done();
+													});
+											});
 					}
-
+				
 					// Hossain bar chart trainee vs average all week score
 					function createAverageTraineeScoresOverall() {
-						chartsDelegate.bar.data
-								.getAverageTraineeScoresOverallData(
-										$scope.currentBatch.batchId)
-								// confirm if batch or trainee
+						chartsDelegate.bar
+						.getBatchComparisonLineData($scope.selectedSkill, 
+								$scope.selectedTrainingType, 
+								$scope.startDate)
 								.then(
-										function(data) {
-											NProgress.done();
-											var barChartObject = chartsDelegate.bar
-													.getAverageTraineeScoresOverall(data);
-											$scope.batchOverAllLabels = barChartObject.labels;
-											$scope.batchOverAllData = barChartObject.data;
-											$scope.batchOverAllOptions = barChartObject.options;
-											$scope.batchOverAllColors = barChartObject.colors;
-										}, function() {
-											NProgress.done();
+										function(comparison) {
+											chartsDelegate.bar.data
+											.getAverageTraineeScoresOverallData(
+											$scope.currentBatch.batchId)
+											// confirm if batch or trainee
+											.then(
+													function(data) {
+														NProgress.done();
+														// TODO Change parameters
+														var barChartObject = chartsDelegate.bar
+														.getAverageTraineeScoresOverall(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
+														$scope.batchOverAllLabels = barChartObject.labels;
+														$scope.batchOverAllData = barChartObject.data;
+														$scope.batchOverAllOptions = barChartObject.options;
+														$scope.batchOverAllColors = barChartObject.colors;
+														$scope.batchOverAllDsOverride = barChartObject.datasetOverride;
+													}, function() {
+														NProgress.done();
+													});
 										});
-
 					}
 
 					// Yanilda barchart
@@ -468,7 +588,7 @@ angular
 													.dataToTable(radarChartObject);
 										});
 					}
-
+					var mainData = null;
 					function createTechnicalSkillsBatchOverall() {
 						$log.debug("createTechnicalSkillsBatchOverall");
 						chartsDelegate.radar.data
@@ -478,6 +598,7 @@ angular
 								.then(
 										function(data) {
 											NProgress.done();
+											mainData = data;
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(
 															data,
@@ -493,7 +614,7 @@ angular
 										});
 
 					}
-
+					
 					// *******************************************************************************
 					// *** Line Charts
 					// *******************************************************************************
@@ -637,7 +758,7 @@ angular
 						return clone;
 					};
 					
-					// gets the note for that trainne and that week
+			// gets the note for that trainne and that week
 					$scope.getTraineeNote=function(traineeId,weekId){
 						$log.debug("YOU ARE IN YOUR FUNCTION");
 						caliberDelegate.trainer.getTraineeNote(traineeId,weekId).then(function(data){
@@ -647,7 +768,7 @@ angular
 								$scope.note = data;
 							}
 						});
-						//Michael get QCnote and QCstatus
+						// Michael get QCnote and QCstatus
 						caliberDelegate.qc.getQCTraineeNote(traineeId,weekId).then(function(data){
 							$log.debug("YOU ARE IN get qc caliber in controller");
 								$scope.qcNote = {};
@@ -658,3 +779,5 @@ angular
 					}
 					
 				});
+
+
