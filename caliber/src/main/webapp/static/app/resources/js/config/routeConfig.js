@@ -149,9 +149,11 @@ angular
 												templateUrl : "/static/app/partials/manage/manage-batch.html",
 												controller : "trainerManageController"
 											},
-											"add-new-trainee@trainer.manage":{
-												templeteUrl : "/static/app/partials/manage/add-trainee-modal.html",
-												controller : "trainerManageController"
+											"view-trainees@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
+											},
+											"trainee-form@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
 											},
 											"duplicate-email@trainer.manage":{
 												templateUrl : "/static/app/partials/manage/duplicate-email-modal.html"

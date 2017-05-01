@@ -1,3 +1,4 @@
+/**Authors: Fareed Ali, Sean Connelly, Sudish Itwaru, Hendy Guy**/
 angular
 		.module("trainer")
 		.controller(
@@ -154,9 +155,10 @@ angular
 						// caliberdlegeate get trainees by batch id and load nto
 						$scope.batchRow = index;
 						$scope.showdropped = false;
+						
 						$log.debug($scope.currentBatch);
 					};
-
+					$scope.Updating = false;
 					/** Validation for the dates * */
 					$scope.checkDates = function() {
 
@@ -452,21 +454,6 @@ angular
 						}
 					}
 
-					/** Create new Trainee Object * */
-					function createTraineeObject(trainee) {
-						trainee.name = $scope.traineeName;
-						trainee.email = $scope.traineeEmail;
-						trainee.skypeId = $scope.traineeSkypeId;
-						trainee.phoneNumber = $scope.traineePhoneNumber;
-						trainee.profileUrl = $scope.traineeProfileUrl;
-						trainee.trainingStatus = $scope.traineeTrainingStatus;
-						$log.debug(trainee);
-						trainee.batch = {
-							batchId : $scope.currentBatch.batchId
-						};
-
-					}
-
 					/** checks if email already exists in database* */
 					$scope.verifyTraineeEmail = function() {
 						if (!$scope.Updating) {
@@ -479,7 +466,7 @@ angular
 							}
 						}
 					}
-
+					
 					/** show email verification modal* */
 					$scope.checkEmail = function() {
 						caliberDelegate.all.getTraineeByEmail(
@@ -499,6 +486,22 @@ angular
 									}
 								})
 					}
+					
+					/** Create new Trainee Object * */
+					function createTraineeObject(trainee) {
+						trainee.name = $scope.traineeName;
+						trainee.email = $scope.traineeEmail;
+						trainee.skypeId = $scope.traineeSkypeId;
+						trainee.phoneNumber = $scope.traineePhoneNumber;
+						trainee.profileUrl = $scope.traineeProfileUrl;
+						trainee.trainingStatus = $scope.traineeTrainingStatus;
+						$log.debug(trainee);
+						trainee.batch = {
+							batchId : $scope.currentBatch.batchId
+						};
+
+					}
+					
 					/** Save New Trainee Input * */
 					$scope.addNewTrainee = function() {
 						if ($scope.Updating) {
@@ -560,6 +563,7 @@ angular
 						}
 						angular.element("#addTraineeModal").modal("hide");
 					};
+
 
 					/** Get Trainee to delete* */
 					$scope.getTraineeToDelete = function(index) {
