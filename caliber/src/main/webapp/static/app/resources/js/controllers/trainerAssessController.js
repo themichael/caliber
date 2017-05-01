@@ -767,72 +767,78 @@ angular
 							return 1;
 						return 0;
 					}
-				/** * UPDATE ASSESSMENT** */
-					$scope.updateAssessment = function(assessment,event,modalId,index){
-						event.stopPropagation();
-						if($scope.updateAssessmentModel !==undefined){
-							$log.debug($scope.currentAssessments[$index] + "  ------ " + index);
-							if($scope.updateAssessmentModel.category){
-								assessment.category=$scope.updateAssessmentModel.category;
+					/******************
+					 * UPDATE ASSESSMENT 
+					 *****************/
+						$scope.updateAssessment = function(assessment,event,modalId,index){
+							event.stopPropagation();
+							if($scope.updateAssessmentModel !==undefined){
+								$log.debug(index);
+								//$log.debug($scope.currentAssessments[$index] + "  ------ " + $index);
+								if($scope.updateAssessmentModel.category){
+									assessment.category=$scope.updateAssessmentModel.category;
+								}
+								if($scope.updateAssessmentModel.type){
+									assessment.type=$scope.updateAssessmentModel.type;
+								}
+								if($scope.updateAssessmentModel.rawScore){
+									assessment.rawScore=$scope.updateAssessmentModel.rawScore;
+								}
+								//call delegate if at least one field was changed
+								if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
+									caliberDelegate.trainer.updateAssessment(assessment)
+									.then(function(response){
+										$log.debug("the assessment has been updated")
+										return response;
+									}).then(function(response){
+									$('.modal').modal('hide');										
+											$scope.currentAssessments[index] = response;
+											$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
+											getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
+									});
+								}
 							}
-							if($scope.updateAssessmentModel.type){
-								assessment.type=$scope.updateAssessmentModel.type;
-							}
-							if($scope.updateAssessmentModel.rawScore){
-								assessment.rawScore=$scope.updateAssessmentModel.rawScore;
-							}
-							// call delegate if at least one field was changed
-							if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
-								caliberDelegate.trainer.updateAssessment(assessment)
-								.then(function(response){
-									$log.debug("the assessment has been updated")
-									return response;
-								}).then(function(response){
-								$('.modal').modal('hide');										
-										$scope.currentAssessments[index] = response;
-										$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
-										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
-								});
-							}
+							$('.modal').modal('hide');
 						}
-						$('.modal').modal('hide');
-					}
 						
-				$scope.closeModal = function(str){
-				    $('#'+str).modal('toggle');
-				}
-				
-				$scope.deleteAssessment = function(assessment,event,modalId,index){
-					$('.modal').modal('hide');
-					$('.modal-backdrop').remove();
-					event.stopPropagation();
-					$log.debug("im deleting an assessment" + $scope.currentAssessments);
-					caliberDelegate.trainer.deleteAssessment($scope.currentAssessments[index].assessmentId)
-					.then(function(response){																					
-						return response;
-					}).then(function(){
-						$log.debug("im deleting assessment");
-						getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
-					});
-				};
-				
-				$scope.preventModalClose = function(){
-					$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
-						e.stopPropagation();
-					});
-					$('.editAssessModal').on("click",function(e) {
-						e.stopPropagation();
-					    $(".modal").modal("hide");
-					});
-				}
-				
-				$scope.boldBatchAverage = function(){
-					if($scope.allAssessmentsAvgForWeek){
-							$scope.isThereAvgForWeek = true;
-							return "Weekly Batch Avg: ";
-					}else{
-						$scope.isThereAvgForWeek = false;
-						return "Calculating Weekly Batch Avg ";
+					
+					
+					$scope.closeModal = function(str){
+					    $('#'+str).modal('toggle');
 					}
-				}
+
+//					$scope.updateAssessment={};
+					
+					$scope.deleteAssessment = function(assessment,event,modalId,index){
+						$('.modal').modal('hide');
+						$('.modal-backdrop').remove();
+						event.stopPropagation();
+						$log.debug("im deleting an assessment" + $scope.currentAssessments);
+						caliberDelegate.trainer.deleteAssessment($scope.currentAssessments[index].assessmentId)
+						.then(function(response){																					
+							return response;
+						}).then(function(){
+							$log.debug("im deleting assessment");
+							getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+						});
+					};
+					$scope.preventModalClose = function(){
+						$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
+							e.stopPropagation();
+						});
+						$('.editAssessModal').on("click",function(e) {
+							e.stopPropagation();
+						    $(".modal").modal("hide");
+						});
+					}
+					
+					$scope.boldBatchAverage = function(){
+						if($scope.allAssessmentsAvgForWeek){
+								$scope.isThereAvgForWeek = true;
+								return "Weekly Batch Avg: ";
+						}else{
+							$scope.isThereAvgForWeek = false;
+							return "Calculating Weekly Batch Avg ";
+						}
+					}
 });
