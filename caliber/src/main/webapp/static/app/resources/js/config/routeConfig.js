@@ -142,9 +142,17 @@ angular
 							.state(
 									"trainer.manage",
 									{
-										templateUrl : "/static/app/partials/manage-batch.html",
+										
 										url : "/manage",
-										controller : "trainerManageController"
+										views:{
+											"":{
+												templateUrl : "/static/app/partials/manage/manage-batch.html",
+												controller : "trainerManageController"
+											},
+											"delete-trainee-modal@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/delete-trainee-modal.html"
+											}
+										}	
 									})
 							.state(
 									"trainer.assess",

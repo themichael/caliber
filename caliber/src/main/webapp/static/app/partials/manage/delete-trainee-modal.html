@@ -1,0 +1,26 @@
+<!--********************************************* Confirm Trainee Delete Modal ************************************-->
+<form ng-submit="removeTrainee()">
+	<div class="modal fade" id="deleteTraineeModal" tabindex="0"
+		role="dialog" aria-labelledby="traineeModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="traineeModalLabel">Delete Trainee</h4>
+				</div>
+				<div class="modal-body">
+					<h3>Are you sure you want to delete
+						{{traineeToBeDeleted.name}}?</h3>
+					<br />
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="Delete" class="btn btn-lg btn-danger">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
