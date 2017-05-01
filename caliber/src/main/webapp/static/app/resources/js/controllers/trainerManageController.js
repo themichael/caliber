@@ -25,7 +25,6 @@ angular
 						$scope.batches = allBatches;
 						$scope.selectedBatches = [];
 						sortByDate(new Date().getFullYear());
-						$scope.notUpdating = "true";
 					})();
 
 					/** Filter batches by year * */
@@ -199,7 +198,6 @@ angular
 					 * variable to determine if trainee or batch is being
 					 * updated or created*
 					 */
-					$scope.Updating = false;
 
 					/** Fill update form with batch previous data* */
 					$scope.populateBatch = function(batch) {
