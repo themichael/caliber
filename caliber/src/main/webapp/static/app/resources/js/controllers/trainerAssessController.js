@@ -13,13 +13,14 @@ angular
 						this.weekNumb = weekNumb;
 						this.assessments = assessments;
 					}
-					
+					// this is use to set false on the no trainees for the batch
+					// notification.
 					$scope.noTrainees = false;					
 					$log.debug("Booted Trainer Aesess Controller");
 										
 					$scope.trainerBatchNote = null;
 					
-					// Note object This is needed to create notes for batch. 
+					// Note object This is needed to create notes for batch.
 					function Note(noteId, content, status, week, batch,
 							trainee, maxVisibility, type, qcFeedback) {
 						this.noteId = noteId;
@@ -41,7 +42,9 @@ angular
 									$log.debug("all Categories " + categories);
 								});
 					};
-
+					
+					// Loads all grades for the week with the BatchID and weekID
+					// as a param.
 					 $scope.getAllGradesForWeek=function(batchId,weekId) {							
 							caliberDelegate.all
 									.getGradesForWeek(batchId,
@@ -75,7 +78,8 @@ angular
 							});
 						}
 					
-						// get trainee notes and put into $scope.trainees[traineeId].note
+						// get trainee notes and put into
+						// $scope.trainees[traineeId].note
 						$scope.getTraineeBatchNotesForWeek=function(batchId,weekId){
 							caliberDelegate.trainer.getTraineeBatchNotesForWeek(batchId,weekId).then(function(data){
 								angular.forEach($scope.trainees,function(key,value){
@@ -115,18 +119,25 @@ angular
 					$log.debug(allBatches);
 					
 					(function start(allBatches) {
-						/*set children of modal to false on click to prevent modal from fading out when clicking
-						 * on child elements*/
+						/*
+						 * set children of modal to false on click to prevent
+						 * modal from fading out when clicking on child elements
+						 */
 
-						/*Implemented due to modal-backdrop class duplicating itself and not going away
-						 * when clicking area outside of modal document*/
+						/*
+						 * Implemented due to modal-backdrop class duplicating
+						 * itself and not going away when clicking area outside
+						 * of modal document
+						 */
 						$scope.grades={};
 						$scope.updateAssessmentModel={};
 						
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) { 													
-							if(!$scope.currentBatch){ // if currentBatch is not yet in the scope, run for assess batch
+							if(!$scope.currentBatch){ // if currentBatch is
+														// not yet in the scope,
+														// run for assess batch
 								$scope.currentBatch = allBatches[0];
 							}
 							
@@ -153,6 +164,9 @@ angular
 										function(noteTypes) {
 											$log.debug(noteTypes);
 										});
+								
+								// loading all assement type for create assement
+								// drop down
 								$scope.assessmentType = {
 									model : null,
 									options : []
@@ -166,8 +180,17 @@ angular
 												});
 								$log.debug("Batches " + allBatches);
 								
-								if(!$scope.currentWeek){ // if currentWeek is not yet in the scope, run for assess batch
-								var totalWeeks = allBatches[allBatches.length-1].weeks; // the number of weeks for that batch
+								if(!$scope.currentWeek){ // if currentWeek is
+															// not yet in the
+															// scope, run for
+															// assess batch
+								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
+																						// number
+																						// of
+																						// weeks
+																						// for
+																						// that
+																						// batch
 								$log
 										.debug("this is the total week for this batch "
 												+ allBatches[allBatches.length-1].trainingName
@@ -176,7 +199,7 @@ angular
 								$scope.currentWeek = totalWeeks; 
 								}
 								
-								//getAllAssessmentsForWeek
+								// getAllAssessmentsForWeek
 								getAllAssessmentsForWeek(
 										$scope.currentBatch.batchId,
 										$scope.currentWeek);
@@ -204,7 +227,8 @@ angular
 						$scope.currentView = true;
 					};
 					
-					/******* Filter batches by year ************/
+					/** ***** Filter batches by year *********** */
+					// The year drop down menu is generated here.
 					$scope.years = addYears();
 					function addYears() {
 						var currentYear = new Date().getFullYear();
@@ -217,7 +241,14 @@ angular
 						}
 						return data;
 					}
-
+					
+					
+					/**
+					 * When selecting a year the batch drop down will change to
+					 * the latest batch of that year. If there aren't any batch
+					 * for the year that is selected then the No Batch will be
+					 * display check the view for ng-show author: Kam Lam
+					 */
 					$scope.selectYear = function(index) {
 						$scope.selectedYear = $scope.years[index];
 						sortByDate($scope.selectedYear);
@@ -232,8 +263,7 @@ angular
 						} else {
 							$scope.noBatches = false;
 							$scope.selectedYear = $scope.years[index];
-							sortByDate($scope.selectedYear);
-						
+							sortByDate($scope.selectedYear);					
 						
 						$scope.trainees={};						
 						for(trainee of $scope.currentBatch.trainees){
@@ -318,7 +348,6 @@ angular
 					$scope.showActiveWeek = function(index) {
 						if ($scope.currentWeek === $scope.currentBatch.arrayWeeks[index])
 							return "active";
-
 					};
 					
 					// create week
@@ -338,17 +367,29 @@ angular
 									$scope.currentBatch.weeks += 1;
 									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
 									$scope.showActiveWeek($scope.currentBatch.weeks);
-									$scope.selectWeek($scope.currentBatch.weeks-1); // the new index of the week selected
+									$scope.selectWeek($scope.currentBatch.weeks-1); // the
+																					// new
+																					// index
+																					// of
+																					// the
+																					// week
+																					// selected
 								});
 						} 
 					};
 					
-					// select assessment from list
+					/*
+					 * select assessment from list it is basically what it said,
+					 * is the select assessment from list function Takes in an
+					 * index as passed through the view. The current view is set
+					 * to false, see the view as reference author: Kam Lam
+					 */
 					$scope.selectAssessment = function(index) {
 						$scope.currentAssessment = $scope.currentAssessment[index];
 						$scope.currentView = false;
 					};
-
+					
+					
 					$scope.addAssessment = function() {
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
@@ -389,7 +430,12 @@ angular
 							$scope.selectedCategories.push(category);
 					};
 					
-					/*********TrainerBatch Notes********** */	
+					/** *******TrainerBatch Notes********** */	
+					
+					/*
+					 * This function passes the batchID and week param to get
+					 * the batch notes for that week Author: Kam Lam
+					 */
 					$scope.getTBatchNote = function (batchId, week){	
 								caliberDelegate.trainer
 										.getTrainerBatchNote(batchId, week)
@@ -433,11 +479,27 @@ angular
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
 											
+											/*
+											 * The following functions are
+											 * needed in this function to load
+											 * it on start up. If you find
+											 * another way to call these
+											 * function with out calling it
+											 * here, please feel free to change
+											 * it. Author: Kam Lam
+											 */
+											// Parse the current batch year from
+											// date to int. For the selectedYear
+											// function.
 											$scope.selectedYear = parseInt($scope.currentBatch.startDate.substring(0,4));
-
+											// initializing the batchYears
+											// function.
 											batchYears();
+											// setting the current weeks to the
+											// late weeks.
 											$scope.currentWeek = $scope.currentBatch.weeks;
-
+											// initializing the getTBatchNote
+											// function.
 											$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 											$scope.allAssessmentsAvgForWeek = false;
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
@@ -459,6 +521,13 @@ angular
 					}
 					
 					/** *******Save TrainerBatch Notes********** */	
+					/*
+					 * Updating and creating trainerbatch notes.
+					 * get the batchnoteID to to see if the note has already been created for this batch or not.
+					 * If noteID is undefined meaning there is not note for this batch, so we will create one.
+					 * If there is note ID, we will update the notes.
+					 * author: Kam Lam
+					 */
 					$scope.saveTrainerNotes = function(batchNoteId) {
 						$log.debug("Saving note: " + $scope.trainerBatchNote);
 						// Create note
@@ -583,16 +652,15 @@ angular
 							}
 					};
 					
-					/* - save trainee note
-					   - send to "/note/update"
-					   By Jack	
-					  */					 
+					/*
+					 * - save trainee note - send to "/note/update" By Jack
+					 */					 
 					$scope.saveOrUpdateTraineeNote=function(traineeId){
 						var traineeNote = $scope.trainees[traineeId].note
 						var trainee = $scope.currentBatch.trainees.filter(function(trainee) {
 							  return trainee.traineeId === traineeId;
 							});
-						//create noteObj to send to controller
+						// create noteObj to send to controller
 						var noteObj={
 								content:traineeNote.content,
 								week:$scope.currentWeek,
@@ -600,7 +668,8 @@ angular
 								type:"TRAINEE",
 								batch:$scope.currentBatch
 						}
-						//if noteId exists, add it to noteObj to get noteObj in db to update
+						// if noteId exists, add it to noteObj to get noteObj in
+						// db to update
 						if($scope.trainees[traineeId].note.noteId !== undefined){
 							noteObj.noteId = traineeNote.noteId;
 						}
@@ -608,7 +677,7 @@ angular
 						.then(function(response){
 							return response;
 						}).then(function(response){
-							//set persisted note object into trainee.note
+							// set persisted note object into trainee.note
 							$log.debug("setting response note obj to trainee scope note obj")
 							$scope.trainees[response.data.trainee.traineeId].note = response.data
 						});
@@ -622,7 +691,8 @@ angular
 					}
 
 					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
-						//assessmentTotals will assessment objects, each with properties
+						// assessmentTotals will assessment objects, each with
+						// properties
 						// - total(for total score)
 						// - count (for total number of trainees to divide by)
 						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
@@ -631,9 +701,10 @@ angular
 						$scope.assessmentTotals[assessment.assessmentId].total = 0;
 						$scope.assessmentTotals[assessment.assessmentId].count = 0;
 							for(var traineeKey in trainees){
-						//checks if trainee has assessment
+						// checks if trainee has assessment
 								if(trainees[traineeKey].assessments[assessment.assessmentId]){
-						//Only increment count and add to total if score is not 0;
+						// Only increment count and add to total if score is not
+						// 0;
 									var score = trainees[traineeKey].assessments[assessment.assessmentId].score;
 									if(score && score !== 0){ //
 										$scope.assessmentTotals[assessment.assessmentId].total+= Number(trainees[traineeKey].assessments[assessment.assessmentId].score);								
@@ -644,7 +715,7 @@ angular
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
 					}
 
-					/***Save Button ***/
+					/** *Save Button ** */
 					$scope.showSaving = false;
 					$scope.showCheck = false;
 					$scope.showFloppy = true;
@@ -698,7 +769,7 @@ angular
 							return 1;
 						return 0;
 					}
-				/*** UPDATE ASSESSMENT***/
+				/** * UPDATE ASSESSMENT** */
 					$scope.updateAssessment = function(assessment,event,modalId,index){
 						event.stopPropagation();
 						if($scope.updateAssessmentModel !==undefined){
@@ -712,7 +783,7 @@ angular
 							if($scope.updateAssessmentModel.rawScore){
 								assessment.rawScore=$scope.updateAssessmentModel.rawScore;
 							}
-							//call delegate if at least one field was changed
+							// call delegate if at least one field was changed
 							if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
 								caliberDelegate.trainer.updateAssessment(assessment)
 								.then(function(response){
