@@ -129,7 +129,7 @@ public class Batch implements Serializable {
 	}
 
 	public Batch(String trainingName, Trainer trainer, SkillType skillType, TrainingType trainingType, Date startDate,
-			Date endDate, Date benchmarkStartDate, String location, Integer goodGradeThreshold,
+			Date endDate, String location, Integer goodGradeThreshold,
 			Integer borderlineGradeThreshold, Integer weeks) {
 		this();
 		this.trainingName = trainingName;
