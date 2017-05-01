@@ -1,4 +1,8 @@
-/**Authors: Fareed Ali, Sean Connelly, Sudish Itwaru, Hendy Guy**/
+/**
+ * Team: Fareed SSH
+ * Team Lead: Sudish
+ * Authors: Fareed Ali, Sean Connelly, Sudish Itwaru, Hendy Guy
+ * **/
 angular
 		.module("trainer")
 		.controller(
@@ -155,10 +159,11 @@ angular
 						// caliberdlegeate get trainees by batch id and load nto
 						$scope.batchRow = index;
 						$scope.showdropped = false;
+						$scope.Updating = false;
 						
 						$log.debug($scope.currentBatch);
 					};
-					$scope.Updating = false;
+					
 					/** Validation for the dates * */
 					$scope.checkDates = function() {
 
@@ -469,11 +474,14 @@ angular
 					
 					/** show email verification modal* */
 					$scope.checkEmail = function() {
+						$log.log("inside check email");
+						$log.log($scope.traineeEmail);
+						$log.log("inside check email");
 						caliberDelegate.all.getTraineeByEmail(
 								$scope.traineeEmail).then(
 								function(response) {
 									$log.debug("find email response ")
-									$log.debug(response.data)
+									$log.debug(response)
 									if (response.data === "") {
 										$log.debug("email does not exist")
 										$scope.addNewTrainee();
