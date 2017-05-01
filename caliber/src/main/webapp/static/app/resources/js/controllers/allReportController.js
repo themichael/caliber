@@ -110,6 +110,7 @@ angular
 							});
 						
 					}
+					
 					function displayTraineeOverallTable(traineeId) {
 						$scope.traineeOverall=[];	
 						
@@ -130,7 +131,7 @@ angular
 												}							
 											}
 										});
-						
+						// Daniel get qc notes for the batch for the week
 						caliberDelegate.qc.
 								traineeOverallNote(traineeId)
 								.then(
@@ -141,6 +142,13 @@ angular
 												}
 											}
 										});
+						// Daniel get categories for the week
+						caliberDelegate.qc.getAllAssessmentCategories(
+								$scope.currentBatch.batchId,
+								$scope.currentWeek).then(
+								function(response) {
+									$scope.categories = response;
+								});
 					}
 
 					function getCurrentBatchWeeks(weeks) {
@@ -776,6 +784,13 @@ angular
 								$scope.qcNote = data;
 							}
 						});
+						// Daniel get categories for the week
+						caliberDelegate.qc.getAllAssessmentCategories(
+								$scope.currentBatch.batchId,
+								$scope.currentWeek).then(
+								function(response) {
+									$scope.categories = response;
+								});
 					}
 					
 				});

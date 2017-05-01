@@ -51,9 +51,9 @@
 						ng-click="selectWeek($index)"
 						ng-repeat="week in weeks track by $index"><a>Week
 							{{week}}</a></li>
-					<li role="button" ng-show="!noBatches" data-toggle="modal" data-target="#confirmingweeks">
-						<a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-					</li>
+					<li role="button" ng-show="!noBatches" data-toggle="modal"
+						data-target="#confirmingweeks"><a><span
+							class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -68,6 +68,11 @@
 					<table class="table table-condensed"
 						style="border-collapse: collapse;" ng-show="currentView">
 						<thead>
+							<tr>
+								<strong>Categories covered this week: </strong>
+								<span ng-repeat="category in categories">{{category}}{{$last
+									? '' : ', '}}</span>
+							</tr>
 							<tr sticky>
 								<th>Trainee</th>
 								<th>Individual Feedback</th>

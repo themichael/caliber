@@ -10,6 +10,11 @@
 						style="border-collapse: collapse;">
 						<thead>
 							<tr>
+								<strong>Categories covered this week: </strong>
+								<span ng-repeat="category in categories">{{category}}{{$last
+									? '' : ', '}}</span>
+							</tr>
+							<tr>
 								<!--<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>-->
 								<th class="col-sm-5 col-md-5 col-lg-5">Trainer Notes</th>
 								<th class="col-sm-2 col-md-2 col-lg-2">QC Status</th>
