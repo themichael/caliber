@@ -195,6 +195,7 @@ angular
 										.debug("this is the total week for this batch "
 												+ allBatches[allBatches.length-1].trainingName
 												+ ": " + totalWeeks);
+								batchYears();
 								$scope.currentWeek = $scope.currentBatch.weeks;
 
 								}
@@ -494,10 +495,6 @@ angular
 											// initializing the batchYears
 											// function.
 											batchYears();
-
-											// setting the current weeks to the
-											// late weeks.
-											$scope.currentWeek = $scope.currentBatch.weeks;
 											// initializing the getTBatchNote
 											// function.
 
