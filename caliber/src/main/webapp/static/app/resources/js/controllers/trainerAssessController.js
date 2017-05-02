@@ -838,4 +838,13 @@ angular
 						return "Calculating Weekly Batch Avg ";
 					}
 				}
+				
+				$scope.validateGrade=function(grade){
+					var hasError;
+					if(grade > 0 && grade <=100 ){
+						return hasError = false;
+					}else{
+						return hasError=true;
+					}
+				}
 });
