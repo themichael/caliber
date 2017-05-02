@@ -63,13 +63,13 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default"
-							data-dismiss="modal" ng-show="!Updating">Close</button>
+							data-dismiss="modal" ng-show="!Updating.status">Close</button>
 						<input type="submit" ng-disabled="addTraineeForm.temail.$error.required || addTraineeForm.temail.$error.email" value="Save" class="btn btn-primary"
-							ng-show="!Updating">
+							ng-show="!Updating.status">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
-							ng-show="Updating">Cancel</button>
+							ng-show="Updating.status">Cancel</button>
 						<input type="submit" value="Update" class="btn btn-primary" 
-							ng-show="Updating")>
+							ng-show="Updating.status")>
 					</div>
 				</div>
 			</div>

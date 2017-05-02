@@ -6,7 +6,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerManageController",
-				function($rootScope, $scope, $state, $log, caliberDelegate, allBatches) {
+				function($scope,$log, caliberDelegate, allBatches) {
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -140,7 +140,11 @@ angular
 					$scope.borderlineGradeThreshold = {
 						model : null
 					};
-
+					/** status check if updating or not for batch and trainees**/
+					$scope.Updating= {
+							status : false
+					};
+					
 					/** Get batches for user and trainees in each batch * */
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
@@ -155,7 +159,7 @@ angular
 						// caliberdlegeate get trainees by batch id and load nto
 						$scope.batchRow = index;
 						$scope.showdropped = false;
-						$scope.Updating = false;
+						
 
 						$log.debug($scope.currentBatch);
 					};
@@ -192,7 +196,7 @@ angular
 					$scope.populateBatch = function(batch) {
 						$log.debug(batch);
 						$scope.Save = "Update";
-						$scope.Updating = true;
+						$scope.Updating.status = true;
 						$scope.batchFormName = "Update Batch";
 						$scope.trainingName.model = batch.trainingName;
 						$scope.trainingType.model = batch.trainingType
@@ -229,7 +233,7 @@ angular
 						$scope.goodGradeThreshold.model = "";
 						$scope.borderlineGradeThreshold.model = "";
 						$scope.Save = "Save";
-						$scope.Updating = false;
+						$scope.Updating.status = false;
 						if ($scope.currentBatch) {
 							$scope.currentBatch = null;
 						}
@@ -285,7 +289,8 @@ angular
 						// Ajax call check for 200 --> then assemble batch
 						// if current batch is being edited, update batch
 						// otherwise create new batch
-						if ($scope.Updating) {
+						$log.debug("current satus of Updating.status scope" + $scope.Updating.status.status);
+						if ($scope.Updating.status) {
 							createBatchObject($scope.currentBatch);
 							caliberDelegate.all
 									.updateBatch($scope.currentBatch)
@@ -430,7 +435,7 @@ angular
 						$scope.traineeForm.profileUrl = trainee.profileUrl;
 						$scope.traineeForm.trainingStatus = trainee.trainingStatus;
 						$scope.Save = "Update";
-						$scope.Updating = true;
+						$scope.Updating.status = true;
 						$scope.traineeFormName = "Update Trainee";
 					}
 
@@ -444,7 +449,7 @@ angular
 						$scope.traineeForm.profileUrl = "";
 						$scope.traineeForm.trainingStatus = "";
 						$scope.Save = "Save";
-						$scope.Updating = false;
+						$scope.Updating.status = false;
 						if ($scope.currentTrainee) {
 							$scope.currentTrainee = null;
 						}
@@ -452,7 +457,7 @@ angular
 
 					/** checks if email already exists in database* */
 					$scope.verifyTraineeEmail = function() {
-						if (!$scope.Updating) {
+						if (!$scope.Updating.status) {
 							$scope.checkEmail();
 						} else {
 							if ($scope.currentTrainee.email !== $scope.traineeForm.email) {
@@ -503,13 +508,13 @@ angular
 
 					/** Save New Trainee Input * */
 					$scope.addNewTrainee = function() {
-						if ($scope.Updating) {
+						if ($scope.Updating.status) {
 							createTraineeObject($scope.currentTrainee);
 							caliberDelegate.all
 									.updateTrainee($scope.currentTrainee)
 									.then(
 											function() {
-												$scope.Updating = false;
+												$scope.Updating.status = false;
 												$scope.trainees[$scope.traineeRow] = $scope.currentTrainee;
 												$scope.resetTraineeForm();
 												// if trainee is dropped, splice

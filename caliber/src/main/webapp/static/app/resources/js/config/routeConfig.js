@@ -149,6 +149,9 @@ angular
 												templateUrl : "/static/app/partials/manage/manage-batch.html",
 												controller : "trainerManageController"
 											},
+											"batch-form@trainer.manage" : {
+												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
+											},
 											"view-trainees@trainer.manage":{
 												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
 											},
