@@ -1,12 +1,35 @@
 /*******************************************************************************
- * Team: Fareed SSH Team Lead: Sudish Authors: Fareed Ali, Sean Connelly, Sudish
- * Itwaru, Hendy Guy
+ * Team: Fareed SSH 
+ * Team Lead: Sudish Authors: Fareed Ali, 
+ * Sean Connelly, 
+ * Sudish Itwaru, 
+ * Hendy Guy
  ******************************************************************************/
+/**
+ * Things to consider for the future(or leave it for the next batch):
+ * 1)try to mimic inline edits for batch and trainee.
+ * Basically, when clicking edit on row on batch or trainee, make that 
+ * entire row into text inputs or dropdowns for each field, and edit it 
+ * there. after that, click the save button that appears to return to normal view 
+ * without edit boxes
+ * 
+ * 2)make add trainee form into slidedown on trainee view:
+ * when clicking add trainee, form slides down in trainee view instead of using a pop up.
+ * can keep ading tainees by pressing enter. after finish entering trainee for batch, close trainee form.
+ * so after pressing enter or save, trainee is added automagically to batch and trainee form is blank
+ * and ready for next trainee info to be entered
+ * 
+ * 3) nothing else, maybe change function and scope objects as you wish, maybe separate this giant 
+ * javascript file into separate js file and attach to each view for manage batch inside 
+ * routeConfig.js
+ * **/
+
+
 angular
 		.module("trainer")
 		.controller(
 				"trainerManageController",
-				function($scope,$log, caliberDelegate, allBatches) {
+				function($scope, $log, caliberDelegate, allBatches) {
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -140,11 +163,11 @@ angular
 					$scope.borderlineGradeThreshold = {
 						model : null
 					};
-					/** status check if updating or not for batch and trainees**/
-					$scope.Updating= {
-							status : false
+					/** status check if updating or not for batch and trainees* */
+					$scope.Updating = {
+						status : false
 					};
-					
+
 					/** Get batches for user and trainees in each batch * */
 					$scope.selectCurrentBatch = function(index) {
 						$scope.currentBatch = $scope.selectedBatches[index];
@@ -159,7 +182,6 @@ angular
 						// caliberdlegeate get trainees by batch id and load nto
 						$scope.batchRow = index;
 						$scope.showdropped = false;
-						
 
 						$log.debug($scope.currentBatch);
 					};
@@ -178,8 +200,7 @@ angular
 							/* $scope.validDate = true; */
 							$log.info("False");
 							// window.alert("hi!....u buggin!!!");
-							angular.element("#checkBatchModal")
-									.modal("show");
+							angular.element("#checkBatchModal").modal("show");
 							return false;
 						}
 
@@ -289,7 +310,8 @@ angular
 						// Ajax call check for 200 --> then assemble batch
 						// if current batch is being edited, update batch
 						// otherwise create new batch
-						$log.debug("current satus of Updating.status scope" + $scope.Updating.status.status);
+						$log.debug("current satus of Updating.status scope"
+								+ $scope.Updating.status.status);
 						if ($scope.Updating.status) {
 							createBatchObject($scope.currentBatch);
 							caliberDelegate.all
