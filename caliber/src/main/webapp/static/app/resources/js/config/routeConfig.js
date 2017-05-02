@@ -152,17 +152,17 @@ angular
 											"batch-form@trainer.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
 											},
+											"batch-extra-modals@trainer.manage" : {
+												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
+											},
 											"view-trainees@trainer.manage":{
 												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
 											},
 											"trainee-form@trainer.manage":{
 												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
 											},
-											"duplicate-email@trainer.manage":{
-												templateUrl : "/static/app/partials/manage/duplicate-email-modal.html"
-											},
-											"delete-trainee@trainer.manage":{
-												templateUrl : "/static/app/partials/manage/delete-trainee-modal.html"
+											"trainee-extra-modals@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
 										}	
 									})
