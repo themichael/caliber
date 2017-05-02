@@ -286,7 +286,6 @@ public class TrainingController {
 	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
 	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail){
 		Trainee trainee = new Trainee();
-		log.info("fecthing trainee by email");
 		trainee = trainingService.findTraineeByEmail(traineeEmail);
 	
 		return new ResponseEntity<Trainee>(trainee, HttpStatus.OK);
