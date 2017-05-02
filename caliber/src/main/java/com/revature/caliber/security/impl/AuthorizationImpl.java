@@ -35,9 +35,9 @@ import java.util.List;
 @Controller
 @Scope("prototype")
 public class AuthorizationImpl extends Helper implements Authorization {
-	@Value("https://login.salesforce.com/services/oauth2/authorize")
+	@Value("https://test.salesforce.com/services/oauth2/authorize")
 	private String authURL;
-	@Value("https://login.salesforce.com/services/oauth2/token")
+	@Value("https://test.salesforce.com/services/oauth2/token")
 	private String accessTokenURL;
 	@Value("#{systemEnvironment['SALESFORCE_CLIENT_ID']}")
 	private String clientId;
@@ -65,7 +65,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * 
 	 * TODO remove @RequestMapping at go-live
 	 */
-	@RequestMapping("/")
+	//@RequestMapping("/")
 	public ModelAndView dummyAuth() {
 		return new ModelAndView("redirect:" + redirectUrl);
 	}
@@ -77,7 +77,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * 
 	 * TODO enable at go-live
 	 */
-	//@RequestMapping("/")
+	@RequestMapping("/")
 	public ModelAndView openAuthURI() {
 		return new ModelAndView(
 				"redirect:" + authURL + "?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri);
