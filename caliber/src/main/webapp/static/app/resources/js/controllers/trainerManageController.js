@@ -1,9 +1,14 @@
 /*******************************************************************************
  * Team: Fareed SSH 
- * Team Lead: Sudish Authors: Fareed Ali, 
+ * Team Lead: Sudish 
+ * Authors: Fareed Ali, 
  * Sean Connelly, 
  * Sudish Itwaru, 
  * Hendy Guy
+ * 
+ * Fareed worked on delete functionality,
+ * Sean and Hendy worked on add and edit trainees
+ * Sudish worked on add and edit batch
  ******************************************************************************/
 /**
  * Things to consider for the future(or leave it for the next batch):
