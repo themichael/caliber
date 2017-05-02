@@ -6,7 +6,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerManageController",
-				function($scope, $log, caliberDelegate, allBatches) {
+				function($rootScope, $scope, $state, $log, caliberDelegate, allBatches) {
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -140,9 +140,6 @@ angular
 					$scope.borderlineGradeThreshold = {
 						model : null
 					};
-					$scope.benchmarkStartDate = {
-						model : null
-					};
 
 					/** Get batches for user and trainees in each batch * */
 					$scope.selectCurrentBatch = function(index) {
@@ -167,10 +164,8 @@ angular
 					$scope.checkDates = function() {
 
 						$log.info($scope.startDate);
-						$log.info($scope.benchmarkStartDate);
 
-						if ($scope.startDate.model > $scope.benchmarkStartDate.model
-								&& $scope.endDate.model > $scope.startDate.model
+						if ($scope.endDate.model > $scope.startDate.model
 								&& $scope.trainer.model !== $scope.coTrainer.model) {
 							/* $scope.validDate = false; */
 							$log.debug("True");
@@ -179,7 +174,7 @@ angular
 							/* $scope.validDate = true; */
 							$log.info("False");
 							// window.alert("hi!....u buggin!!!");
-							angular.element("#benchmarkdateModal")
+							angular.element("#checkBatchModal")
 									.modal("show");
 							return false;
 						}
@@ -217,8 +212,6 @@ angular
 								"YYYY-MM-DD").format("YYYY/MM/DD"));
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
-						$scope.benchmarkStartDate.model = new Date(
-								batch.benchmarkStartDate);
 
 					}
 
@@ -235,7 +228,6 @@ angular
 						$scope.endDate.model = "";
 						$scope.goodGradeThreshold.model = "";
 						$scope.borderlineGradeThreshold.model = "";
-						$scope.benchmarkStartDate.model = new Date("2003/01/01");
 						$scope.Save = "Save";
 						$scope.Updating = false;
 						if ($scope.currentBatch) {
@@ -243,13 +235,6 @@ angular
 						}
 					}
 
-					/** checking benchmark date * */
-					function benchmarkDateIsValid() {
-
-						if ($scope.benchmarkStartDate.model < new Date()) {
-							$scope.startDate();
-						}
-					}
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
 
@@ -263,7 +248,6 @@ angular
 						batch.endDate = $scope.endDate.model;
 						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
 						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
-						batch.benchmarkStartDate = new Date("2003/01/01");
 
 						/*
 						 * if ($scope.currentBatch) { newBatch.batchId =
@@ -295,8 +279,6 @@ angular
 								"YYYY-MM-DD");
 						batch.endDate = moment(batch.endDate).format(
 								"YYYY-MM-DD");
-						batch.benchmarkStartDate = moment(
-								batch.benchmarkStartDate).format("YYYY-MM-DD");
 					}
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
