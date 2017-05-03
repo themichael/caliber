@@ -1,4 +1,5 @@
-	<!--********************************************* Add Trainee Modal ************************************-->
+
+<!--********************************************* Add Trainee Modal ************************************-->
 <form ng-submit="verifyTraineeEmail()">
 	<div class="modal fade" id="addTraineeModal" tabindex="-1"
 		role="dialog" aria-labelledby="traineeModalLabel">
@@ -25,8 +26,11 @@
 								<label for="traineeEmail">Email:</label> <input
 									ng-model="traineeForm.email" type="email" class="form-control"
 									id="traineeEmail" placeholder="Email" required>
-								<div ng-show="addTraineeForm.temail.$submitted || addTraineeForm.temail.$touched">
-								<span class='warning' ng-show="addTraineeForm.temail.$error.email">Must enter a valid email</span>
+								<div
+									ng-show="addTraineeForm.temail.$submitted || addTraineeForm.temail.$touched">
+									<span class='warning'
+										ng-show="addTraineeForm.temail.$error.email">Must enter
+										a valid email</span>
 								</div>
 							</div>
 						</div>
@@ -38,15 +42,17 @@
 							</div>
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="traineePhone">Phone:</label> <input
-									ng-model="traineeForm.phoneNumber" type="text" class="form-control"
-									id="traineePhone" placeholder="(xxx)-xxx-xxxx">
+									ng-model="traineeForm.phoneNumber" type="text"
+									class="form-control" id="traineePhone"
+									placeholder="(xxx)-xxx-xxxx">
 							</div>
 						</div>
 						<div class="row">
 							<div class="form-group col-lg-12 col-md-12 col-sm-12">
 								<label for="traineeProfile">Profile URL:</label> <input
-									ng-model="traineeForm.profileUrl" type="text" class="form-control"
-									id="traineeName" placeholder="http://www.example.com/revature">
+									ng-model="traineeForm.profileUrl" type="text"
+									class="form-control" id="traineeName"
+									placeholder="http://www.example.com/revature">
 							</div>
 						</div>
 						<div class="row">
@@ -62,14 +68,16 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default"
-							data-dismiss="modal" ng-show="!Updating.status">Close</button>
-						<input type="submit" ng-disabled="addTraineeForm.temail.$error.required || addTraineeForm.temail.$error.email" value="Save" class="btn btn-primary"
-							ng-show="!Updating.status">
+						<input type="submit"
+							ng-disabled="addTraineeForm.temail.$error.required || addTraineeForm.temail.$error.email"
+							value="Save" class="btn btn-primary" ng-show="!Updating.status">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							ng-show="!Updating.status">Close</button>
+						<input type="submit" value="Update" class="btn btn-primary"
+							ng-show="Updating.status")>
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							ng-show="Updating.status">Cancel</button>
-						<input type="submit" value="Update" class="btn btn-primary" 
-							ng-show="Updating.status")>
+
 					</div>
 				</div>
 			</div>

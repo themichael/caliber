@@ -6,7 +6,7 @@
  * Sudish Itwaru, 
  * Hendy Guy
  * 
- * Fareed worked on delete functionality,
+ * Fareed worked on delete functionality for batch and trainees,
  * Sean and Hendy worked on add and edit trainees
  * Sudish worked on add and edit batch
  ******************************************************************************/
