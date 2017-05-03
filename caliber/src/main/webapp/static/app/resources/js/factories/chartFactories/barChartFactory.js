@@ -226,6 +226,7 @@ angular.module("charts").factory(
 
 				angular.forEach(sorted, function(obj) {
 					chartData.labels.push(obj.name);
+					chartData.data[0].push(obj.value.toFixed(2));
 				});
 
 				chartData.datasetOverride = [ {
