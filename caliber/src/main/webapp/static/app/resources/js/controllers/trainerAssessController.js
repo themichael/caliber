@@ -850,4 +850,7 @@ angular
 						return hasError=true;
 					}
 				}
+				$scope.returnGradeFormName = function(assessment){
+					console.log(assessment)
+				}
 });
