@@ -116,16 +116,7 @@ angular
 					$log.debug(allBatches);
 					
 					(function start(allBatches) {
-						/*
-						 * set children of modal to false on click to prevent
-						 * modal from fading out when clicking on child elements
-						 */
 
-						/*
-						 * Implemented due to modal-backdrop class duplicating
-						 * itself and not going away when clicking area outside
-						 * of modal document
-						 */
 						$scope.grades={};
 						$scope.updateAssessmentModel={};
 						
@@ -178,6 +169,7 @@ angular
 								
 								if(!$scope.currentWeek){ // if currentWeek is not yet in the scope, run for assess batch
 								var totalWeeks = allBatches[allBatches.length-1].weeks; // the number of weeks for that batch
+
 								$log
 										.debug("this is the total week for this batch "
 												+ allBatches[allBatches.length-1].trainingName
@@ -485,9 +477,9 @@ angular
 										});
 										
 					};
-					
+					/** Call an all factory method - jack**/
 					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
-						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
+						caliberDelegate.all.getAssessmenetsAverageForWeek(batchId, week)
 							.then(function(response){
 										$timeout(function(){
 											if(response){
@@ -532,7 +524,10 @@ angular
 							caliberDelegate.trainer.updateNote($scope.trainerBatchNote);
 						}
 					}
-								
+					/*
+					 * Array of assessments by assessment id
+					 * used to store raw score and to calculate weight score - jack
+					 * */			
 					$scope.generateArrAssessmentById = function(assessments){
 						var totalRawScore = 0;
 						if(assessments !== undefined){
@@ -551,6 +546,7 @@ angular
 							}
 						}
 					}
+					/*Get weighted score of assessments- jack*/
 					$scope.getWeightedScore = function(rawScore,totalRawScore){
 						return (rawScore/totalRawScore) * 100;
 					}
@@ -607,7 +603,7 @@ angular
 									$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);									
 								});
 					}; 
-
+					/*Run when populating input boxes with grades - jack*/
 					$scope.findGrade = function(traineeId, assessmentId) {
 							if(!$scope || !$scope.grades || !traineeId || $scope.grades[traineeId] === undefined){ 
 								return;
@@ -639,7 +635,7 @@ angular
 						var trainee = $scope.currentBatch.trainees.filter(function(trainee) {
 							  return trainee.traineeId === traineeId;
 							});
-						// create noteObj to send to controller
+						// create noteObj to send to controller - jack
 						var noteObj={
 								content:traineeNote.content,
 								week:$scope.currentWeek,
@@ -674,7 +670,7 @@ angular
 						// assessmentTotals will assessment objects, each with
 						// properties
 						// - total(for total score)
-						// - count (for total number of trainees to divide by)
+						// - count (for total number of trainees to divide by) - jack
 						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
 						if($scope.assessmentTotals[assessment.assessmentId] === undefined) $scope.assessmentTotals[assessment.assessmentId] = {};
 							
@@ -684,7 +680,7 @@ angular
 						// checks if trainee has assessment
 								if(trainees[traineeKey].assessments[assessment.assessmentId]){
 						// Only increment count and add to total if score is not
-						// 0;
+						// 0 -jack
 									var score = trainees[traineeKey].assessments[assessment.assessmentId].score;
 									if(score && score !== 0){ //
 										$scope.assessmentTotals[assessment.assessmentId].total+= Number(trainees[traineeKey].assessments[assessment.assessmentId].score);								
@@ -785,9 +781,6 @@ angular
 						
 					
 					
-					$scope.closeModal = function(str){
-					    $('#'+str).modal('toggle');
-					}
 
 					
 					// delete the assessment clicked 
@@ -804,6 +797,14 @@ angular
 							getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
 						});
 					};
+					/*
+					 * set children of modal to false on click to prevent
+					 * modal from fading out when clicking on child elements
+			
+					 * Implemented due to modal-backdrop class duplicating
+					 * itself and not going away when clicking area outside
+					 * of modal document - jack
+					 */
 					$scope.preventModalClose = function(){
 						$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
 							e.stopPropagation();
@@ -814,6 +815,10 @@ angular
 						});
 					}
 					
+					$scope.closeModal = function(str){
+						$('#'+str).modal('toggle');
+					}
+
 					// this method will return the proper string 
 					// depending if there is an average for the week or not
 					$scope.boldBatchAverage = function(){
@@ -825,7 +830,10 @@ angular
 							return "Calculating Weekly Batch Avg ";
 						}
 					}
-				
+				/*
+				 * if grade is 0 or greater than 100 return true;
+				 * This will set css class .has-error to grade input box - hack
+				 * */
 				$scope.validateGrade=function(grade){
 					var hasError;
 					if(grade > 0 && grade <=100 ){
