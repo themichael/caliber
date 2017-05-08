@@ -485,7 +485,7 @@ angular
 											if(response && response !== "NaN"){
 												$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
 											}else{
-												return;
+												$scope.allAssessmentsAvgForWeek = false;
 											}
 										},4000);															
 							});
@@ -562,50 +562,50 @@ angular
 
 					$scope.updateGrade = function(trainee,assessment) {
 						var score = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score;
-						if(score !== "" || score !== null || score !== undefined){
+						if(score !== null || score !== undefined || score !=""){
 						
-						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] === undefined){
-							$scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] = {};
-						}
-						// constructs Grade object from the data in table
-						var grade = {
-							trainee : trainee,
-							assessment : assessment,
-							dateReceived : new Date(),
-							score :score,
-						};
-						/*
-						 * if assessment object has gradeId, define it in grade
-						 * object
-						 */
-						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
-							grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
-						}
-						// adds new Grade if not exists, else update,
-						// response contains the ID of the created/updated Grade
-								
-						caliberDelegate.trainer.addGrade(grade).then(
-								function(response) {
-									$log.debug("Adding grade to $scope");
-									$log.debug(response);
-									return response;
-								}).then(function(response){
-									if(response !== undefined && response.data.trainee !== undefined){
-										$scope.trainees[response.data.trainee.traineeId].assessments[response.data.assessment.assessmentId].gradeId = response.data.gradeId;									
+							if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] === undefined){
+								$scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] = {};
+							}
+							// constructs Grade object from the data in table
+							var grade = {
+								trainee : trainee,
+								assessment : assessment,
+								dateReceived : new Date(),
+								score :score,
+							};
+							/*
+							 * if assessment object has gradeId, define it in grade
+							 * object
+							 */
+							if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
+								grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
+							}
+							// adds new Grade if not exists, else update,
+							// response contains the ID of the created/updated Grade
+									
+							caliberDelegate.trainer.addGrade(grade).then(
+									function(response) {
+										$log.debug("Adding grade to $scope");
+										$log.debug(response);
 										return response;
-									}else{
-										return;
-									}
-								}).then(function(response){										
-									if(response.data.gradeId && ($scope.grades === undefined || $scope.grades === false)){
-										$scope.grades = [];
-									}
-									if(response.data.gradeId){
-										$scope.grades[response.data.trainee.traineeId] = response.data;
-									}									
-									$scope.allAssessmentsAvgForWeek = false;
-									$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);									
-								});
+									}).then(function(response){
+										if(response !== undefined && response.data.trainee !== undefined){
+											$scope.trainees[response.data.trainee.traineeId].assessments[response.data.assessment.assessmentId].gradeId = response.data.gradeId;									
+											return response;
+										}else{
+											return;
+										}
+									}).then(function(response){										
+										if(response.data.gradeId && ($scope.grades === undefined || $scope.grades === false)){
+											$scope.grades = [];
+										}
+										if(response.data.gradeId){
+											$scope.grades[response.data.trainee.traineeId] = response.data;
+										}									
+										$scope.allAssessmentsAvgForWeek = false;
+										$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);									
+									});
 						}
 					}
 					/*Run when populating input boxes with grades - jack*/
@@ -841,9 +841,9 @@ angular
 				 * */
 				$scope.validateGrade=function(grade){
 					var hasError;
-					if((grade > 0 && grade <=100)  || grade == ""){
+					if(grade > 0 && grade <=100){
 						return hasError = false;
-					}else{
+					}else if(grade === 0 || grade > 100 ||grade < 0 || grade === undefined){
 						return hasError=true;
 					}
 				}
