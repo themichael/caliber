@@ -497,10 +497,10 @@ angular
 					};
 					/** Call an all factory method - jack**/
 					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
-						caliberDelegate.all.getAssessmenetsAverageForWeek(batchId, week)
+						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
 							.then(function(response){
 										$timeout(function(){
-											if(response){
+											if(response && response !== "NaN"){
 												$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
 											}else{
 												return;
@@ -579,6 +579,9 @@ angular
 					 */
 
 					$scope.updateGrade = function(trainee,assessment) {
+						var score = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score;
+						if(score !== "" || score !== null || score !== undefined){
+						
 						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] === undefined){
 							$scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] = {};
 						}
@@ -587,7 +590,7 @@ angular
 							trainee : trainee,
 							assessment : assessment,
 							dateReceived : new Date(),
-							score :$scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score,
+							score :score,
 						};
 						/*
 						 * if assessment object has gradeId, define it in grade
@@ -598,13 +601,14 @@ angular
 						}
 						// adds new Grade if not exists, else update,
 						// response contains the ID of the created/updated Grade
+								
 						caliberDelegate.trainer.addGrade(grade).then(
 								function(response) {
 									$log.debug("Adding grade to $scope");
 									$log.debug(response);
 									return response;
 								}).then(function(response){
-									if(response !== undefined){
+									if(response !== undefined && response.data.trainee !== undefined){
 										$scope.trainees[response.data.trainee.traineeId].assessments[response.data.assessment.assessmentId].gradeId = response.data.gradeId;									
 										return response;
 									}else{
@@ -620,18 +624,19 @@ angular
 									$scope.allAssessmentsAvgForWeek = false;
 									$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);									
 								});
-					}; 
+						}
+					}
 					/*Run when populating input boxes with grades - jack*/
 					$scope.findGrade = function(traineeId, assessmentId) {
 							if(!$scope || !$scope.grades || !traineeId || $scope.grades[traineeId] === undefined){ 
-								return;
-							}else{
-								for(var grade of $scope.grades[traineeId]){
+								return false;
+							}else if($scope.grades[traineeId]){
+								angular.forEach($scope.grades[traineeId],function(grade,key){
 									/*
 									 * create a assessment object that contains
 									 * gradeId for each $scope.trainees[trainee]
 									 */
-									if(grade.assessment.assessmentId === assessmentId){
+									if(grade.assessment !== undefined && (grade.assessment.assessmentId === assessmentId)){
 										if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
 											$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
 										}
@@ -641,7 +646,7 @@ angular
 										}
 										return grade.score;
 									}
-								}
+								});
 							}
 					};
 					
@@ -850,7 +855,7 @@ angular
 				 * */
 				$scope.validateGrade=function(grade){
 					var hasError;
-					if(grade > 0 && grade <=100 ){
+					if((grade > 0 && grade <=100)  || grade == ""){
 						return hasError = false;
 					}else{
 						return hasError=true;
