@@ -157,11 +157,13 @@ angular.module("charts").factory(
 				});
 
 				chartData.series = [ "Trainee", "Average" ];
-				chartData.data = [];
+				chartData.data = [ [], [] ];
 				chartData.labels = [];
-				chartData.colors = [ mainColor ];
-				chartData.data.push([]);
+				chartData.colors = [ secondaryColor, mainColor ];
 				chartData.options = {
+					legend : {
+						display : true
+					},
 					scales : {
 						yAxes : [ {
 							scaleLabel : {
@@ -179,10 +181,22 @@ angular.module("charts").factory(
 
 				angular.forEach(sorted, function(obj) {
 					chartData.labels.push(obj.name);
-					chartData.data[0].push(obj.value.toFixed(2));
+					chartData.data[0].push(comparison.toFixed(2));
+					chartData.data[1].push(obj.value.toFixed(2));
 				});
 
 				chartData.datasetOverride = [ {
+					fill : false,
+					label : "Benchmark",
+					pointRadius : 0,
+					pointHoverRadius : 0,
+					borderWidth : 3,
+					borderColor : "rgba(252,180,20,1)",
+					pointBackgroundColor : "rgba(252,180,20,1)",
+					pointHoverBackgroundColor : "rgba(252,180,20,1)",
+					pointHoverBorderColor : "rgba(252,180,200, 0.5)",
+					type : 'line'
+				}, {
 					label : "Batch Scores",
 					type : 'bar'
 				} ]

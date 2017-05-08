@@ -199,7 +199,7 @@
 							<div class="panel-heading">Average Trainee Scores</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="bar6" class="chart chart-bar"
+									<canvas id="line6" class="chart chart-bar"
 										chart-data="batchOverAllData"
 										chart-options="batchOverAllOptions"
 										chart-labels="batchOverAllLabels"
@@ -213,7 +213,7 @@
 											<tr ng-repeat="label in batchOverAllLabels track by $index"
 												class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
 												<th class="pull-left">{{label}}</th>
-												<td class="pull-right">{{batchOverAllData[0][$index]}}</td>
+												<td class="pull-right">{{batchOverAllData[1][$index]}}</td>
 											</tr>
 										</table>
 									</div>
