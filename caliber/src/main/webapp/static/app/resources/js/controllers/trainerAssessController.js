@@ -851,6 +851,6 @@ angular
 					}
 				}
 				$scope.returnGradeFormName = function(assessment){
-					console.log(assessment)
+					console.log(assessment);
 				}
 });
