@@ -1,6 +1,3 @@
-/**
- * Refactor to use week index instead of Week object
- */
 angular
 		.module("trainer")
 		.controller(
@@ -134,17 +131,16 @@ angular
 						
 						$scope.batches = allBatches;
 						if (!allBatches) return;
-						if (allBatches.length > 0) { 													
-							if(!$scope.currentBatch){ // if currentBatch is
-														// not yet in the scope,
-														// run for assess batch
+						if (allBatches.length > 0) { 
+							 // if currentBatch is not yet in the scope, run for assess batch.. 
+							 // else this controller is being used for reportsController
+							if(!$scope.currentBatch){
 								$scope.currentBatch = allBatches[0];
 							}
-							
+							// sort the trainees by name
 							$scope.currentBatch.trainees.sort(compare);
 							
-							$log.debug("This is the current batch "
-									+ $scope.currentBatch);
+							$log.debug("This is the current batch " + $scope.currentBatch);
 							
 							if (allBatches[0].weeks > 0) {
                                 $scope.category = {
@@ -180,17 +176,8 @@ angular
 												});
 								$log.debug("Batches " + allBatches);
 								
-								if(!$scope.currentWeek){ // if currentWeek is
-															// not yet in the
-															// scope, run for
-															// assess batch
-								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
-																						// number
-																						// of
-																						// weeks
-																						// for
-																						// that
-																						// batch
+								if(!$scope.currentWeek){ // if currentWeek is not yet in the scope, run for assess batch
+								var totalWeeks = allBatches[allBatches.length-1].weeks; // the number of weeks for that batch
 								$log
 										.debug("this is the total week for this batch "
 												+ allBatches[allBatches.length-1].trainingName
@@ -367,13 +354,7 @@ angular
 									$scope.currentBatch.weeks += 1;
 									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
 									$scope.showActiveWeek($scope.currentBatch.weeks);
-									$scope.selectWeek($scope.currentBatch.weeks-1); // the
-																					// new
-																					// index
-																					// of
-																					// the
-																					// week
-																					// selected
+									$scope.selectWeek($scope.currentBatch.weeks-1); // the new index of the week selected
 								});
 						} 
 					};
@@ -449,7 +430,7 @@ angular
 												});
 						};
 
-					// get all assessments
+					// get all assessments for the batch specific 
 					function getAllAssessmentsForWeek(batchId, weekNumb) {
 						if (!weekNumb)
 							return;
@@ -681,12 +662,13 @@ angular
 						});
 					
 					}
-
-					function pushUnique(arr, item) {
+					
+// ----------------> double check if this is a useless method
+/*					function pushUnique(arr, item) {
 						if (arr.indexOf(item) === -1) {
 							arr.push(item);
 						}
-					}
+					}*/
 
 					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
 						// assessmentTotals will assessment objects, each with
@@ -807,8 +789,8 @@ angular
 					    $('#'+str).modal('toggle');
 					}
 
-//					$scope.updateAssessment={};
 					
+					// delete the assessment clicked 
 					$scope.deleteAssessment = function(assessment,event,modalId,index){
 						$('.modal').modal('hide');
 						$('.modal-backdrop').remove();
@@ -832,6 +814,8 @@ angular
 						});
 					}
 					
+					// this method will return the proper string 
+					// depending if there is an average for the week or not
 					$scope.boldBatchAverage = function(){
 						if($scope.allAssessmentsAvgForWeek){
 								$scope.isThereAvgForWeek = true;
