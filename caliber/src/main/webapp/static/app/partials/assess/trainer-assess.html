@@ -97,7 +97,6 @@
 								<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
 							</tr>
 						</thead>
-								<form name="gradeForm" novalidate>
 						<tbody>
 
 							<tr role="button"
@@ -117,11 +116,9 @@
 										ng-model="trainees[trainee.traineeId].note.content"
 										ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
 							</textarea></td>
-								<span ng-show="gradeFieldForm.grade_{trainees[traineeId].assessments[assessment.assessmentId].gradeId}.$invalid">asf</span>
 									</ng-form>
 							</tr>
 						</tbody>
-							</form>
 						<tfoot>
 							<td>Average</td>
 							<td class="text-center"
