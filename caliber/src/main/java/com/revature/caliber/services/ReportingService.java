@@ -508,8 +508,7 @@ public class ReportingService {
 				results.add(temp);
 			}
 		});
-		result = results.parallelStream().mapToDouble(Double::doubleValue).sum() / filteredBatches.size();
-
+		result = results.parallelStream().mapToDouble(Double::doubleValue).sum();
 		result = result / filteredBatches.size();
 		
 		return result;
