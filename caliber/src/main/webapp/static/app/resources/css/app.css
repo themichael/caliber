@@ -329,7 +329,7 @@ a.save-button .fa-floppy-o{
 	border:solid red;
 } */
 .has-error{
-	border:solid red;
+	border:solid red 1px;
 }
 
 /************************
