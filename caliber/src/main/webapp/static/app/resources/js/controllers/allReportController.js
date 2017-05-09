@@ -128,13 +128,11 @@ angular
 						for(weekNum in $scope.currentBatchWeeks){
 							var week = parseInt(weekNum) + 1
 							$scope.traineeOverall.push({week});
-
 							// Daniel get categories for the week
 							// Push a promise to keep order of categories for each week
 							$scope.categories.push(caliberDelegate.qc.getAllAssessmentCategories(
 									$scope.currentBatch.batchId,
 									week));
-							console.log($scope.categories);
 						}
 						
 						caliberDelegate.all
