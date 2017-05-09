@@ -1,3 +1,35 @@
+/*******************************************************************************
+ * Team: Fareed SSH 
+ * Team Lead: Sudish 
+ * Authors: Fareed Ali, 
+ * Sean Connelly, 
+ * Sudish Itwaru, 
+ * Hendy Guy
+ * 
+ * Fareed worked on delete functionality for batch and trainees,
+ * Sean and Hendy worked on add and edit trainees
+ * Sudish worked on add and edit batch
+ ******************************************************************************/
+/**
+ * Things to consider for the future(or leave it for the next batch):
+ * 1)try to mimic inline edits for batch and trainee.
+ * Basically, when clicking edit on row on batch or trainee, make that 
+ * entire row into text inputs or dropdowns for each field, and edit it 
+ * there. after that, click the save button that appears to return to normal view 
+ * without edit boxes
+ * 
+ * 2)make add trainee form into slidedown on trainee view:
+ * when clicking add trainee, form slides down in trainee view instead of using a pop up.
+ * can keep ading tainees by pressing enter. after finish entering trainee for batch, close trainee form.
+ * so after pressing enter or save, trainee is added automagically to batch and trainee form is blank
+ * and ready for next trainee info to be entered
+ * 
+ * 3) nothing else, maybe change function and scope objects as you wish, maybe separate this giant 
+ * javascript file into separate js file and attach to each view for manage batch inside 
+ * routeConfig.js
+ * **/
+
+
 angular
 		.module("trainer")
 		.controller(
@@ -25,7 +57,6 @@ angular
 						$scope.batches = allBatches;
 						$scope.selectedBatches = [];
 						sortByDate(new Date().getFullYear());
-						$scope.notUpdating = "true";
 					})();
 
 					/** Filter batches by year * */
@@ -137,8 +168,9 @@ angular
 					$scope.borderlineGradeThreshold = {
 						model : null
 					};
-					$scope.benchmarkStartDate = {
-						model : null
+					/** status check if updating or not for batch and trainees* */
+					$scope.Updating = {
+						status : false
 					};
 
 					/** Get batches for user and trainees in each batch * */
@@ -155,6 +187,7 @@ angular
 						// caliberdlegeate get trainees by batch id and load nto
 						$scope.batchRow = index;
 						$scope.showdropped = false;
+
 						$log.debug($scope.currentBatch);
 					};
 
@@ -162,10 +195,8 @@ angular
 					$scope.checkDates = function() {
 
 						$log.info($scope.startDate);
-						$log.info($scope.benchmarkStartDate);
 
-						if ($scope.startDate.model > $scope.benchmarkStartDate.model
-								&& $scope.endDate.model > $scope.startDate.model
+						if ($scope.endDate.model > $scope.startDate.model
 								&& $scope.trainer.model !== $scope.coTrainer.model) {
 							/* $scope.validDate = false; */
 							$log.debug("True");
@@ -174,8 +205,7 @@ angular
 							/* $scope.validDate = true; */
 							$log.info("False");
 							// window.alert("hi!....u buggin!!!");
-							angular.element("#benchmarkdateModal")
-									.modal("show");
+							angular.element("#checkBatchModal").modal("show");
 							return false;
 						}
 
@@ -183,29 +213,16 @@ angular
 
 					}
 
-					/** switch to dropped trainees* */
-					$scope.switchTraineeView = function() {
-						if ($scope.showdropped) {
-							$scope.trainees = $scope.activeTrainees;
-							$scope.showdropped = false;
-						} else {
-							$scope.trainees = $scope.droppedTrainees;
-							$scope.showdropped = true;
-						}
-
-					};
-
 					/**
 					 * variable to determine if trainee or batch is being
 					 * updated or created*
 					 */
-					$scope.Updating = false;
 
 					/** Fill update form with batch previous data* */
 					$scope.populateBatch = function(batch) {
 						$log.debug(batch);
 						$scope.Save = "Update";
-						$scope.Updating = true;
+						$scope.Updating.status = true;
 						$scope.batchFormName = "Update Batch";
 						$scope.trainingName.model = batch.trainingName;
 						$scope.trainingType.model = batch.trainingType
@@ -225,8 +242,6 @@ angular
 								"YYYY-MM-DD").format("YYYY/MM/DD"));
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
-						$scope.benchmarkStartDate.model = new Date(
-								batch.benchmarkStartDate);
 
 					}
 
@@ -243,21 +258,13 @@ angular
 						$scope.endDate.model = "";
 						$scope.goodGradeThreshold.model = "";
 						$scope.borderlineGradeThreshold.model = "";
-						$scope.benchmarkStartDate.model = new Date("2003/01/01");
 						$scope.Save = "Save";
-						$scope.Updating = false;
+						$scope.Updating.status = false;
 						if ($scope.currentBatch) {
 							$scope.currentBatch = null;
 						}
 					}
 
-					/** checking benchmark date * */
-					function benchmarkDateIsValid() {
-
-						if ($scope.benchmarkStartDate.model < new Date()) {
-							$scope.startDate();
-						}
-					}
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
 
@@ -271,7 +278,6 @@ angular
 						batch.endDate = $scope.endDate.model;
 						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
 						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
-						batch.benchmarkStartDate = new Date("2003/01/01");
 
 						/*
 						 * if ($scope.currentBatch) { newBatch.batchId =
@@ -303,15 +309,15 @@ angular
 								"YYYY-MM-DD");
 						batch.endDate = moment(batch.endDate).format(
 								"YYYY-MM-DD");
-						batch.benchmarkStartDate = moment(
-								batch.benchmarkStartDate).format("YYYY-MM-DD");
 					}
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
 						// if current batch is being edited, update batch
 						// otherwise create new batch
-						if ($scope.Updating) {
+						$log.debug("current satus of Updating.status scope"
+								+ $scope.Updating.status.status);
+						if ($scope.Updating.status) {
 							createBatchObject($scope.currentBatch);
 							caliberDelegate.all
 									.updateBatch($scope.currentBatch)
@@ -395,6 +401,16 @@ angular
 					 * ****************************
 					 */
 
+					/** create scopes for trainee form* */
+					$scope.traineeForm = {
+						name : null,
+						email : null,
+						skypeId : null,
+						phoneNumber : null,
+						profileUrl : null,
+						trainingStatus : null
+					}
+
 					/** Load trainees for batch * */
 					$scope.name = {
 						model : null
@@ -417,6 +433,18 @@ angular
 
 					}
 
+					/** switch to dropped trainees* */
+					$scope.switchTraineeView = function() {
+						if ($scope.showdropped) {
+							$scope.trainees = $scope.activeTrainees;
+							$scope.showdropped = false;
+						} else {
+							$scope.trainees = $scope.droppedTrainees;
+							$scope.showdropped = true;
+						}
+
+					};
+
 					// load training types
 					caliberDelegate.all.enumTrainingStatus().then(
 							function(statuses) {
@@ -427,54 +455,39 @@ angular
 					/** Fill update form with trainee's previous data* */
 					$scope.populateTrainee = function(trainee) {
 						$log.debug(trainee);
-						$scope.traineeName = trainee.name;
-						$scope.traineeEmail = trainee.email;
-						$scope.traineeSkypeId = trainee.skypeId;
-						$scope.traineePhoneNumber = trainee.phoneNumber;
-						$scope.traineeProfileUrl = trainee.profileUrl;
-						$scope.traineeTrainingStatus = trainee.trainingStatus;
+						$scope.traineeForm.name = trainee.name;
+						$scope.traineeForm.email = trainee.email;
+						$scope.traineeForm.skypeId = trainee.skypeId;
+						$scope.traineeForm.phoneNumber = trainee.phoneNumber;
+						$scope.traineeForm.profileUrl = trainee.profileUrl;
+						$scope.traineeForm.trainingStatus = trainee.trainingStatus;
 						$scope.Save = "Update";
-						$scope.Updating = true;
+						$scope.Updating.status = true;
 						$scope.traineeFormName = "Update Trainee";
 					}
 
 					/** Resets trainee form for creating new trainee* */
 					$scope.resetTraineeForm = function() {
 						$scope.traineeFormName = "Add Trainee";
-						$scope.traineeName = "";
-						$scope.traineeEmail = "";
-						$scope.traineeSkypeId = "";
-						$scope.traineePhoneNumber = "";
-						$scope.traineeProfileUrl = "";
-						$scope.traineeTrainingStatus = "";
+						$scope.traineeForm.name = "";
+						$scope.traineeForm.email = "";
+						$scope.traineeForm.skypeId = "";
+						$scope.traineeForm.phoneNumber = "";
+						$scope.traineeForm.profileUrl = "";
+						$scope.traineeForm.trainingStatus = "";
 						$scope.Save = "Save";
-						$scope.Updating = false;
+						$scope.Updating.status = false;
 						if ($scope.currentTrainee) {
 							$scope.currentTrainee = null;
 						}
 					}
 
-					/** Create new Trainee Object * */
-					function createTraineeObject(trainee) {
-						trainee.name = $scope.traineeName;
-						trainee.email = $scope.traineeEmail;
-						trainee.skypeId = $scope.traineeSkypeId;
-						trainee.phoneNumber = $scope.traineePhoneNumber;
-						trainee.profileUrl = $scope.traineeProfileUrl;
-						trainee.trainingStatus = $scope.traineeTrainingStatus;
-						$log.debug(trainee);
-						trainee.batch = {
-							batchId : $scope.currentBatch.batchId
-						};
-
-					}
-
 					/** checks if email already exists in database* */
 					$scope.verifyTraineeEmail = function() {
-						if (!$scope.Updating) {
+						if (!$scope.Updating.status) {
 							$scope.checkEmail();
 						} else {
-							if ($scope.currentTrainee.email !== $scope.traineeEmail) {
+							if ($scope.currentTrainee.email !== $scope.traineeForm.email) {
 								$scope.checkEmail();
 							} else {
 								$scope.addNewTrainee();
@@ -484,11 +497,14 @@ angular
 
 					/** show email verification modal* */
 					$scope.checkEmail = function() {
+						$log.log("inside check email");
+						$log.log($scope.traineeForm.email);
+						$log.log("inside check email");
 						caliberDelegate.all.getTraineeByEmail(
-								$scope.traineeEmail).then(
+								$scope.traineeForm.email).then(
 								function(response) {
 									$log.debug("find email response ")
-									$log.debug(response.data)
+									$log.debug(response)
 									if (response.data === "") {
 										$log.debug("email does not exist")
 										$scope.addNewTrainee();
@@ -501,15 +517,31 @@ angular
 									}
 								})
 					}
+
+					/** Create new Trainee Object * */
+					function createTraineeObject(trainee) {
+						trainee.name = $scope.traineeForm.name;
+						trainee.email = $scope.traineeForm.email;
+						trainee.skypeId = $scope.traineeForm.skypeId;
+						trainee.phoneNumber = $scope.traineeForm.phoneNumber;
+						trainee.profileUrl = $scope.traineeForm.profileUrl;
+						trainee.trainingStatus = $scope.traineeForm.trainingStatus;
+						$log.debug(trainee);
+						trainee.batch = {
+							batchId : $scope.currentBatch.batchId
+						};
+
+					}
+
 					/** Save New Trainee Input * */
 					$scope.addNewTrainee = function() {
-						if ($scope.Updating) {
+						if ($scope.Updating.status) {
 							createTraineeObject($scope.currentTrainee);
 							caliberDelegate.all
 									.updateTrainee($scope.currentTrainee)
 									.then(
 											function() {
-												$scope.Updating = false;
+												$scope.Updating.status = false;
 												$scope.trainees[$scope.traineeRow] = $scope.currentTrainee;
 												$scope.resetTraineeForm();
 												// if trainee is dropped, splice

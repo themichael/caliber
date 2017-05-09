@@ -1,0 +1,119 @@
+<!--********************************************* Create Batch Modal ************************************-->
+	<form ng-submit="checkDates()">
+		<div class="modal fade" id="createBatchModal" tabindex="-1"
+			role="dialog" aria-labelledby="batchModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" ng-bind="batchFormName"
+							id="batchModalLabel">Create New Batch</h4>
+					</div>
+					<!-- Add Batch Info -->
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="trainingName">Training Name:</label> <input
+									ng-model="trainingName.model" type="text" class="form-control"
+									id="trainingName" placeholder="1611 Jul11 Java"
+									ng-required="true">
+							</div>
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="trainingType">Training Type:</label> <select
+									ng-model="trainingType.model" class="form-control"
+									id="trainingType" ng-required="true">
+									<option value="" disabled>Select Training Type</option>
+									<option ng-repeat="option in trainingType.options">{{option}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="skillType">Skill Type:</label> <select
+									ng-model="skillType.model" class="form-control" id="skillType"
+									ng-required="true">
+									<option value="" disabled>Select Skill Type</option>
+									<option ng-repeat="option in skillType.options">{{option}}</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="commonLocations">Location:</label> <input
+									list="commonLocations" type="text" ng-model="location.model"
+									id="location" required placeholder="Enter location"
+									class="form-control" ng-required="true">
+								<datalist id="commonLocations">
+									<option ng-repeat="option in location.options"
+										value="{{option}}" />
+								</datalist>
+							</div>
+						</div>
+						<div class="row">
+
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="trainer">Trainer:</label> <select
+									ng-model="trainer.model" class="form-control" id="trainer"
+									required>
+									<option value="" disabled>Select Trainer</option>
+									<option ng-repeat="option in trainers">{{option.name}}</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="co-trainer">Co-Trainer:</label> <select
+									ng-model="coTrainer.model" class="form-control" id="co-trainer">
+									<option value="" disabled>Select Co-Trainer</option>
+									<option ng-repeat="option in trainers">{{option.name}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="start-date">Start Date:</label>
+								<div class="input-group" id="start-date" data-datepicker="true">
+									<input ng-model="startDate.model" ng-value="startDate"
+										class="date-input form-control date-selector" name="s" min="0"
+										type="date" ng-required="true"> <span
+										class="input-group-addon glyphicon glyphicon-calendar"></span>
+								</div>
+							</div>
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="end-date">End Date:</label>
+								<div class="input-group" id="end-date" data-datepicker="true">
+									<input ng-model="endDate.model"
+										class="date-input form-control date-selector" name="date"
+										type="date" required> <span
+										class="input-group-addon glyphicon glyphicon-calendar"></span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="goodGrade">Good Grade: <span
+									title="The minimum acceptable grade."
+									alt="The minimum acceptable grade."
+									class="glyphicon glyphicon-question-sign"></span></label> <input
+									ng-model="goodGradeThreshold.model" ng-change="setMinGrade()"
+									type="number" min="0" step="1" class="form-control"
+									id="goodGrade" placeholder="80" ng-required="true">
+							</div>
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="borderlineGrade">Passing Grade: <span
+									title="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action."
+									alt="The minimum grade required to pass. Falling below this grade will likely result in disciplinary action."
+									class="glyphicon glyphicon-question-sign"></span></label> <input
+									ng-model="borderlineGradeThreshold.model"
+									ng-change="lowerMinGrade()" type="number" min="0" step="1"
+									class="form-control" id="borderlineGrade" placeholder="50"
+									ng-required="true">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+					<input type="submit" ng-value="Save" class="btn btn-primary">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
