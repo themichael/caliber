@@ -147,6 +147,20 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	
+	// get all assessment categories for the week
+	qc.getAllAssessmentCategories = function(batchId, weekId) {
+		return $http({
+			url : "/all/assessments/categories/batch/" + batchId + "/week/" + weekId + "/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Assessments categories retrieved successfully");
+			$log.debug("response");
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
 
 	/** ************************ Notes ************************ */
 	// create note

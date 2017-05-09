@@ -19,6 +19,7 @@ import com.revature.caliber.beans.TrainingStatus;
  * Accesses grades from the database
  * 
  * @author Patrick Walsh
+ * @author Ateeb Khawaja
  *
  */
 @Repository

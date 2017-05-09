@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Ateeb Khawaja
+ * @author Pier Yos
+ * 
+ */
 angular.module("reportApi").factory(
 		"radarChartDataFactory",
 		function($http, $log, $q) {
@@ -56,25 +62,28 @@ angular.module("reportApi").factory(
 					cache : "true"
 				});
 
-				var traineePromise =$http({
+				var traineePromise = $http({
 					method : "GET",
 					url : "/all/reports/trainee/" + traineeId
 							+ "/radar-trainee-overall",
 					cache : "true"
 				});
-				 
-				if (Number.isInteger(week) || week > 0 ) {
-					traineePromise =  $http({
+
+				if (Number.isInteger(week) || week > 0) {
+					traineePromise = $http({
 						method : "GET",
-						url : "/all/reports/week/" + week + "/trainee/" + traineeId
-								+ "/radar-trainee-up-to-week",
+						url : "/all/reports/week/" + week + "/trainee/"
+								+ traineeId + "/radar-trainee-up-to-week",
 						cache : "true"
 					});
 				}
 
 				return $q.all([ batchPromise, traineePromise ]).then(
 						function(response) {
-							var data = {"batch": response[0].data, "trainee":response[1].data};
+							var data = {
+								"batch" : response[0].data,
+								"trainee" : response[1].data
+							};
 							return data;
 						},
 						function(response) {
@@ -84,11 +93,14 @@ angular.module("reportApi").factory(
 						});
 
 			}
+
 			report.getAllTraineesAndBatchRadarChart = function(batchId) {
-				return $http({
-					url : "/vp/reports/batch/" + batchId + "/radar-batch-all-trainees",
-					method : "GET"
-				}).then(function(response) {
+				return $http(
+						{
+							url : "/all/reports/batch/" + batchId
+									+ "/radar-batch-all-trainees",
+							method : "GET"
+						}).then(function(response) {
 					$log.debug("Completed getAllTraineeInBatchRadarChart");
 					return response.data;
 				}, function(response) {
