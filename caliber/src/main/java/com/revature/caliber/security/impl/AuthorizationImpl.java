@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -88,7 +89,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * Salesforce authentication token.
 	 * 
 	 */
-	@RequestMapping("/authenticated")
+	//@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
 			HttpServletResponse servletResponse) throws IOException {
 		HttpPost post = new HttpPost(accessTokenURL);
@@ -115,7 +116,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * @return
 	 * @throws IOException
 	 */
-	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView revoke(Authentication auth, HttpSession session) throws IOException {
 		if (auth != null) {
 			String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();

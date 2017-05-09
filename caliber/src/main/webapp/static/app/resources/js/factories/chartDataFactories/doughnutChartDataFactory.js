@@ -1,3 +1,13 @@
+/**
+ * Team !Uncharted
+ * 
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
+ * 
+ */
 angular
 		.module("reportApi")
 		.factory(
@@ -29,7 +39,6 @@ angular
 					};
 
 					report.batchCurrentWeekQCPie = function(batchId) {
-						//$log.debug(batchId);
 						return $http({
 							url : "/all/reports/batch/" + batchId + "/pie/",
 

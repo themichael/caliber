@@ -67,8 +67,27 @@ angular
 									"qc.manage",
 									{
 										url : "/manage",
-										templateUrl : "/static/app/partials/manage-batch.html",
-										controller : "trainerManageController"
+										views:{
+											"":{
+												templateUrl : "/static/app/partials/manage/manage-batch.html",
+												controller : "trainerManageController"
+											},
+											"batch-form@trainer.manage" : {
+												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
+											},
+											"batch-extra-modals@trainer.manage" : {
+												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
+											},
+											"view-trainees@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
+											},
+											"trainee-form@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
+											},
+											"trainee-extra-modals@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
+											}
+										}	
 									})
 							.state(
 									"qc.audit",
@@ -142,9 +161,29 @@ angular
 							.state(
 									"trainer.manage",
 									{
-										templateUrl : "/static/app/partials/manage-batch.html",
+										
 										url : "/manage",
-										controller : "trainerManageController"
+										views:{
+											"":{
+												templateUrl : "/static/app/partials/manage/manage-batch.html",
+												controller : "trainerManageController"
+											},
+											"batch-form@trainer.manage" : {
+												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
+											},
+											"batch-extra-modals@trainer.manage" : {
+												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
+											},
+											"view-trainees@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
+											},
+											"trainee-form@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
+											},
+											"trainee-extra-modals@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
+											}
+										}	
 									})
 							.state(
 									"trainer.assess",
@@ -224,9 +263,28 @@ angular
 							.state(
 									"vp.manage",
 									{
-										templateUrl : "/static/app/partials/manage-batch.html",
 										url : "/manage",
-										controller : "trainerManageController"
+										views:{
+											"":{
+												templateUrl : "/static/app/partials/manage/manage-batch.html",
+												controller : "trainerManageController"
+											},
+											"batch-form@trainer.manage" : {
+												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
+											},
+											"batch-extra-modals@trainer.manage" : {
+												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
+											},
+											"view-trainees@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
+											},
+											"trainee-form@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
+											},
+											"trainee-extra-modals@trainer.manage":{
+												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
+											}
+										}	
 									})
 							.state(
 									"vp.assess",

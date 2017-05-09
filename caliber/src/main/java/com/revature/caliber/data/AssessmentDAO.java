@@ -16,6 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.TrainingStatus;
 
+/**
+ * 
+ * @author Patrick Walsh
+ * @author Ateeb Khawaja
+ *
+ */
 @Repository
 public class AssessmentDAO {
 
@@ -53,6 +59,7 @@ public class AssessmentDAO {
 		log.info("Find assessment by week number " + week + " for batch " + batchId + " ");
 		List<Assessment> assessments = sessionFactory.getCurrentSession().createCriteria(Assessment.class)
 				.createAlias("batch", "batch").createAlias("batch.trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.and(Restrictions.eq("batch.batchId", batchId),
 						Restrictions.eq("week", week.shortValue())))
 				.createAlias("grades", "grades", JoinType.LEFT_OUTER_JOIN)

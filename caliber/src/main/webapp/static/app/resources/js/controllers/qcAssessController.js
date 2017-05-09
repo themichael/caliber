@@ -11,6 +11,7 @@ angular
 					$scope.faces = [];
 					$scope.weeks = [];
 					$scope.batchesByYear = [];
+					$scope.categories = [];
 
 					// Note object
 					function Note(noteId, content, status, week, batch,
@@ -42,7 +43,9 @@ angular
 					// function to get notes
 					$scope.getNotes = function() {
 						// Check if there are no weeks
-						if ($scope.currentWeek !== undefined && $scope.currentBatch !== undefined && $scope.currentBatch !== null) {
+						if ($scope.currentWeek !== undefined
+								&& $scope.currentBatch !== undefined
+								&& $scope.currentBatch !== null) {
 							// Get qc batch notes for selected batch
 							caliberDelegate.qc
 									.batchNote($scope.currentBatch.batchId,
@@ -112,7 +115,8 @@ angular
 												}
 											});
 							// If there are no weeks
-						} else if($scope.currentBatch !== undefined && $scope.currentBatch !== null){
+						} else if ($scope.currentBatch !== undefined
+								&& $scope.currentBatch !== null) {
 							$scope.bnote = null;
 							for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 								$scope.faces.push(new Note(null, null, null,
@@ -241,6 +245,7 @@ angular
 						$scope.getNotes();
 						// Reset qc status
 						wipeFaces();
+						categories();
 						$scope.trainingNameDate = $scope.currentBatch.trainingName
 								+ " " + $scope.currentBatch.startDate;
 					};
@@ -260,6 +265,7 @@ angular
 						$scope.getNotes();
 						// Reset qc status
 						wipeFaces();
+						categories();
 					};
 
 					// Show week
@@ -291,6 +297,17 @@ angular
 						$scope.faces = [];
 						$scope.qcBatchAssess = null;
 						$scope.finalQCBatchNote = null;
+					}
+
+					// Get categories for the week
+					function categories() {
+						caliberDelegate.qc
+								.getAllAssessmentCategories(
+										$scope.currentBatch.batchId,
+										$scope.currentWeek).then(
+										function(response) {
+											$scope.categories = response;
+										});
 					}
 
 					/**
@@ -448,6 +465,7 @@ angular
 							$log.debug($scope.batchesByYear);
 						}
 						$scope.getNotes();
+						categories();
 						wipeFaces();
 					};
 

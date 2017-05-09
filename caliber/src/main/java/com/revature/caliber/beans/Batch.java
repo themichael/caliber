@@ -91,11 +91,6 @@ public class Batch implements Serializable {
 	@Column(name = "END_DATE", nullable = false)
 	private Date endDate;
 
-	@Past
-	@Temporal(TemporalType.DATE)
-	@Column(name = "BENCHMARK_START_DATE", nullable = false)
-	private Date benchmarkStartDate;
-
 	@NotEmpty
 	@Column(name = "LOCATION", nullable = false)
 	private String location;
@@ -134,7 +129,7 @@ public class Batch implements Serializable {
 	}
 
 	public Batch(String trainingName, Trainer trainer, SkillType skillType, TrainingType trainingType, Date startDate,
-			Date endDate, Date benchmarkStartDate, String location, Integer goodGradeThreshold,
+			Date endDate, String location, Integer goodGradeThreshold,
 			Integer borderlineGradeThreshold, Integer weeks) {
 		this();
 		this.trainingName = trainingName;
@@ -143,7 +138,6 @@ public class Batch implements Serializable {
 		this.trainingType = trainingType;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.benchmarkStartDate = benchmarkStartDate;
 		this.location = location;
 		this.goodGradeThreshold = goodGradeThreshold.shortValue();
 		this.borderlineGradeThreshold = borderlineGradeThreshold.shortValue();
@@ -214,14 +208,6 @@ public class Batch implements Serializable {
 		this.endDate = endDate;
 	}
 
-	public Date getBenchmarkStartDate() {
-		return benchmarkStartDate;
-	}
-
-	public void setBenchmarkStartDate(Date benchmarkStartDate) {
-		this.benchmarkStartDate = benchmarkStartDate;
-	}
-
 	public String getLocation() {
 		return location;
 	}
@@ -274,7 +260,6 @@ public class Batch implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((benchmarkStartDate == null) ? 0 : benchmarkStartDate.hashCode());
 		result = prime * result + borderlineGradeThreshold;
 		result = prime * result + ((coTrainer == null) ? 0 : coTrainer.hashCode());
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
@@ -298,11 +283,6 @@ public class Batch implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Batch other = (Batch) obj;
-		if (benchmarkStartDate == null) {
-			if (other.benchmarkStartDate != null)
-				return false;
-		} else if (!benchmarkStartDate.equals(other.benchmarkStartDate))
-			return false;
 		if (borderlineGradeThreshold != other.borderlineGradeThreshold)
 			return false;
 		if (coTrainer == null) {

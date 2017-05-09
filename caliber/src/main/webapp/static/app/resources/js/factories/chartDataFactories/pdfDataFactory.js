@@ -1,13 +1,10 @@
-angular
-		.module("reportApi")
-		.factory(
-				"pdfDataFactory",
-				function($http, $log) {
-					$log.debug("Booted Report Factory");
+/**
+ * @author Patrick Walsh
+ */
+angular.module("reportApi").factory("pdfDataFactory", function($http, $log) {
+	$log.debug("Booted Report Factory");
 
-					var report = {};
-					
-					
+	var report = {};
 
-					return report;
-				})
+	return report;
+})

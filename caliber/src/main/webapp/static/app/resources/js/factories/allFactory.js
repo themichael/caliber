@@ -225,10 +225,13 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			url : "/all/trainee/getByEmail/" + traineeEmail,
 			method : "GET",
 		}).then(function(response){
+			$log.log(traineeEmail);
 			$log.log(response);
 			return response;
 		}, function(response){
+			$log.log(traineeEmail);
 			$log.error("There was an error: " + response.status);
+			return response;
 		});
 	};
 
