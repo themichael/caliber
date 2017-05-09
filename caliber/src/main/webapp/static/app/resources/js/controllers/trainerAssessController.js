@@ -562,7 +562,7 @@ angular
 
 					$scope.updateGrade = function(trainee,assessment) {
 						var score = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score;
-						if(score !== null || score !== undefined || score !=""){
+						if(score !== null && score !== undefined && score !="" && score >0){
 						
 							if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] === undefined){
 								$scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] = {};
