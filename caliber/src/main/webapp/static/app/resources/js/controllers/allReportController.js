@@ -778,16 +778,20 @@ angular
 						return clone;
 					};
 					
-			// gets the note for that trainne and that week
+					// Gets notes (trainer and QC) for a specific trainee and the week
 					$scope.getTraineeNote=function(traineeId,weekId){
-						$log.debug("YOU ARE IN YOUR FUNCTION");
+						$log.debug("YOU ARE IN $scope.getTraineeNote("+ traineeId + "," + weekId + ")");
+						
+						// Denise
+						// gets trainer notes for the trainee and for that week and inserts it to the scope
 						caliberDelegate.trainer.getTraineeNote(traineeId,weekId).then(function(data){
 							$log.debug("YOU ARE IN get trainer caliber in controller");
-								$scope.note = {};
+							$scope.note = {};
 							if(data){
 								$scope.note = data;
 							}
 						});
+						
 						// Michael get QCnote and QCstatus
 						caliberDelegate.qc.getQCTraineeNote(traineeId,weekId).then(function(data){
 							$log.debug("YOU ARE IN get qc caliber in controller");
