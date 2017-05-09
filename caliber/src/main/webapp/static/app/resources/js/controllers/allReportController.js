@@ -1,3 +1,12 @@
+/**
+ * Team !Uncharted
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
+ *
+ */
 angular
 		.module("charts")
 		.controller(
@@ -640,6 +649,7 @@ angular
 											$scope.weeklyProgressBatchOverallData = lineChartObj.data;
 											$scope.weeklyProgressBatchOverallOptions = lineChartObj.options;
 											$scope.weeklyProgressBatchOverallColors = lineChartObj.colors;
+											$scope.weeklyProgressBatchOverallDsOverride = lineChartObj.datasetOverride;
 										}, function() {
 											NProgress.done();
 										})
@@ -661,6 +671,7 @@ angular
 											$scope.linechartTWOptions = lineChartObjectwd.options;
 											$scope.linechartTWSeries = lineChartObjectwd.series;
 											$scope.linechartTWColors = lineChartObjectwd.colors;
+											$scope.linechartTWDsOverride = lineChartObjectwd.datasetOverride;
 										}, function() {
 											NProgress.done();
 										});
@@ -682,6 +693,7 @@ angular
 											$scope.batchOverallWeeklySeries = lineChartObject.series;
 											$scope.batchOverallWeeklyOptions = lineChartObject.options;
 											$scope.batchOverallWeeklyColors = lineChartObject.colors;
+											$scope.batchOverallWeeklyDsOverride = lineChartObject.datasetOverride;
 										}, function() {
 											NProgress.done();
 										});
