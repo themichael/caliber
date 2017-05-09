@@ -72,19 +72,19 @@ angular
 												templateUrl : "/static/app/partials/manage/manage-batch.html",
 												controller : "trainerManageController"
 											},
-											"batch-form@trainer.manage" : {
+											"batch-form@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
 											},
-											"batch-extra-modals@trainer.manage" : {
+											"batch-extra-modals@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
 											},
-											"view-trainees@trainer.manage":{
+											"view-trainees@qc.manage":{
 												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
 											},
-											"trainee-form@trainer.manage":{
+											"trainee-form@qc.manage":{
 												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
 											},
-											"trainee-extra-modals@trainer.manage":{
+											"trainee-extra-modals@qc.manage":{
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
 										}	
@@ -269,19 +269,19 @@ angular
 												templateUrl : "/static/app/partials/manage/manage-batch.html",
 												controller : "trainerManageController"
 											},
-											"batch-form@trainer.manage" : {
+											"batch-form@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
 											},
-											"batch-extra-modals@trainer.manage" : {
+											"batch-extra-modals@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
 											},
-											"view-trainees@trainer.manage":{
+											"view-trainees@vp.manage":{
 												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
 											},
-											"trainee-form@trainer.manage":{
+											"trainee-form@vp.manage":{
 												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
 											},
-											"trainee-extra-modals@trainer.manage":{
+											"trainee-extra-modals@vp.manage":{
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
 										}	
