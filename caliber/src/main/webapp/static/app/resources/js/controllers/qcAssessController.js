@@ -200,6 +200,7 @@ angular
 						$scope.faces = [];
 						// Get notes
 						$scope.getNotes();
+						categories();
 					}
 
 					// Function for individual qc feedback for trainee note

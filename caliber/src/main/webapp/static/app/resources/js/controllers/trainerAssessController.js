@@ -195,7 +195,7 @@ angular
 						for(trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);
 						}
-						
+						categories();
 					})(allBatches);
 
 					// default -- view assessments table
@@ -849,5 +849,16 @@ angular
 				}
 				$scope.returnGradeFormName = function(assessment){
 					console.log(assessment);
+				}
+				
+				// Get categories for the week
+				function categories() {
+					caliberDelegate.qc
+							.getAllAssessmentCategories(
+									$scope.currentBatch.batchId,
+									$scope.currentWeek).then(
+									function(response) {
+										$scope.categories = response;
+									});
 				}
 });

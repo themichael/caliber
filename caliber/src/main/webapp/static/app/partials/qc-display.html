@@ -7,6 +7,11 @@
 					style="border-collapse: collapse;" ng-show="currentView">
 					<thead>
 						<tr>
+							<strong>Categories covered this week: </strong>
+							<span ng-repeat="category in categories">{{category}}{{$last
+								? '' : ', '}}</span>
+						</tr>
+						<tr>
 							<th>Trainee</th>
 							<th>Individual Feedback</th>
 							<th>Notes</th>
