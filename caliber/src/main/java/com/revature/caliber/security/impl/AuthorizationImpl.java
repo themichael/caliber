@@ -89,7 +89,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * Salesforce authentication token.
 	 * 
 	 */
-	//@RequestMapping("/authenticated")
+	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
 			HttpServletResponse servletResponse) throws IOException {
 		HttpPost post = new HttpPost(accessTokenURL);
