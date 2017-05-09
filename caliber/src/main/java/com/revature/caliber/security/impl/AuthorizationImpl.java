@@ -36,9 +36,9 @@ import java.util.List;
 @Controller
 @Scope("prototype")
 public class AuthorizationImpl extends Helper implements Authorization {
-	@Value("https://login.salesforce.com/services/oauth2/authorize")
+	@Value("https://test.salesforce.com/services/oauth2/authorize")
 	private String authURL;
-	@Value("https://login.salesforce.com/services/oauth2/token")
+	@Value("https://test.salesforce.com/services/oauth2/token")
 	private String accessTokenURL;
 	@Value("#{systemEnvironment['SALESFORCE_CLIENT_ID']}")
 	private String clientId;

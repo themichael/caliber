@@ -16,6 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.TrainingStatus;
 
+/**
+ * 
+ * @author Patrick Walsh
+ * @author Ateeb Khawaja
+ *
+ */
 @Repository
 public class AssessmentDAO {
 

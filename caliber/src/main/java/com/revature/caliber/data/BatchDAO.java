@@ -22,6 +22,11 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 
+/**
+ * @author Patrick Walsh
+ * @author Ateeb Khawaja
+ *
+ */
 @Repository
 public class BatchDAO{
 

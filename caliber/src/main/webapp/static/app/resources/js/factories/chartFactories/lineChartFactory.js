@@ -1,3 +1,13 @@
+/**
+ * Team !Uncharted
+ * 
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
+ * 
+ */
 angular.module("charts").factory("lineChartFactory", function($log) {
 	$log.debug("Booted Line Chart Factory");
 
@@ -23,7 +33,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 	lineChart.getBatchOverallLineChart = function(dataArray) {
 		var chartData = {};
-		// data and labels
 		chartData.data = [];
 		chartData.data.push([]);
 		chartData.labels = [];
@@ -42,8 +51,12 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 					}
 				} ]
 			}
-		}
+		};
+		chartData.datasetOverride = [ {
+			fill : false
+		} ];
 		// traverse through array of objects and grab labels and data
+
 		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
 			chartData.data[0].push(value.toFixed(2));
@@ -51,11 +64,9 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		return chartData;
 	};
 
-	// Yanilda
 	lineChart.getTraineeUpToWeekLineChart = function(dataArray) {
 		var chartData = {};
 
-		// data and labels
 		chartData.data = [];
 		chartData.labels = [];
 		chartData.series = [ "Trainee", "Batch" ];
@@ -82,35 +93,32 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 					}
 				} ]
 			},
-
 		};
-
+		
 		var series1 = [];
 		var series2 = [];
 
-		// traverse through array of objects and grab labels and
-		// data
 		angular.forEach(dataArray, function(value, key) {
 			chartData.labels.push(key);
 			series1.push(value[0].toFixed(2));
 			series2.push(value[1].toFixed(2));
 		});
 
-		/*
-		 * chartData.datasetOverride = [ { xAxisID : 'x-axis-1' } ];
-		 */
-
 		chartData.data.push(series1);
 		chartData.data.push(series2);
-
+		chartData.datasetOverride = [ {
+			fill : false
+		}, {
+			fill : false
+		} ];
 		return chartData;
 	};
 
 	lineChart.getTraineeOverallLineChart = function(dataArray) {
 		var chartData = {};
-		chartData.series = [ "Trainee", "Batch" ]
-		chartData.data = [];
+		chartData.series = [ "Trainee", "Batch" ];
 		chartData.colors = [ mainColor, secondaryColor ];
+		chartData.data = [];
 		chartData.options = {
 			scales : {
 				xAxes : [ {
@@ -133,9 +141,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 					}
 				} ]
 			},
-
 		};
-
 		// loop through object array
 		var trainee = [];
 		var batch = [];
@@ -148,17 +154,24 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		chartData.data.push(trainee);
 		chartData.data.push(batch);
 		chartData.labels = week;
+		
+		chartData.datasetOverride = [ {
+			fill : false
+		}, {
+			fill : false
+		} ];
+		
 		return chartData;
 
 	};
-	// vpHome Line Chart
+
 	lineChart.getCurrentBatchesAverageScoreChart = function(dataArray) {
 		var chartData = {};
 		chartData.data = [];
 		chartData.colors = [ mainColor, secondaryColor ];
 		chartData.series = [];
 		chartData.labels = [];
-		
+
 		chartData.options = {
 			scales : {
 				xAxes : [ {
@@ -182,31 +195,34 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 				} ]
 			}
 		};
-
+	
 		var highestWeek = 0;
 		angular.forEach(dataArray, function(value, key) {
 			var currentWeek = 1;
 			chartData.series.push(key);
 			var temp = [];
 			angular.forEach(value, function(value2, key2) {
-				while(currentWeek < key2){
+				while (currentWeek < key2) {
 					temp.push(0);
 					currentWeek++;
 				}
 				temp.push(value2.toFixed(2));
 				currentWeek++;
-				if(currentWeek > highestWeek){
+				if (currentWeek > highestWeek) {
 					highestWeek = currentWeek;
 				}
 			});
 			chartData.data.push(temp);
 		});
-		
+
 		for (var i = 1; i < highestWeek; i++) {
 			chartData.labels.push("Week " + i);
 		}
-		
-		
+		chartData.datasetOverride = [ {
+			fill : false
+		}, {
+			fill : false
+		} ];
 		return chartData;
 	}
 	return lineChart;

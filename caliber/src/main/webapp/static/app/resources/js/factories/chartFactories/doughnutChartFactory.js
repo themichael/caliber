@@ -1,7 +1,12 @@
 /**
+ * Team !Uncharted
  * 
- * @param $log
- * @returns {{}}
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
+ * 
  */
 angular.module("charts").factory("doughnutChartFactory", function($log) {
 	$log.debug("Booted Doughtnut Chart Factory");
@@ -10,7 +15,6 @@ angular.module("charts").factory("doughnutChartFactory", function($log) {
 
 	doughnutChart.batchWeekQCPie = function(dataArray) {
 		var chartData = {};
-		// data and labels
 		chartData.data = [];
 		chartData.labels = [];
 		chartData.colors = [];
@@ -23,11 +27,7 @@ angular.module("charts").factory("doughnutChartFactory", function($log) {
 			}
 		};
 
-		// traverse through array of objects and grab labels and data
 		angular.forEach(dataArray, function(value, key) {
-			// blue(Superstar) = #7972ff, green(Good) = #81f575, yellow(Average)
-			// = #e8b00b, red(Poor) = #ff7575
-			// hardcoding to get order right
 			if (key === "Superstar")
 				chartData.colors.push("#7972ff");
 			else if (key === "Good")
