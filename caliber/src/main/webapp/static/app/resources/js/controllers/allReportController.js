@@ -121,11 +121,20 @@ angular
 					}
 					
 					function displayTraineeOverallTable(traineeId) {
-						$scope.traineeOverall=[];	
+						$scope.traineeOverall=[];
+						$scope.categories=[];
 						
 						for(weekNum in $scope.currentBatchWeeks){
 							var week = parseInt(weekNum) + 1
 							$scope.traineeOverall.push({week});
+
+							// Daniel get categories for the week
+							caliberDelegate.qc.getAllAssessmentCategories(
+									$scope.currentBatch.batchId,
+									week).then(
+									function(response) {
+										$scope.categories.push(response);
+									});
 						}
 						
 						caliberDelegate.all
@@ -151,13 +160,6 @@ angular
 												}
 											}
 										});
-						// Daniel get categories for the week
-						caliberDelegate.qc.getAllAssessmentCategories(
-								$scope.currentBatch.batchId,
-								$scope.currentWeek).then(
-								function(response) {
-									$scope.categories = response;
-								});
 					}
 
 					function getCurrentBatchWeeks(weeks) {
