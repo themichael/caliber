@@ -16,7 +16,7 @@
 					<tbody>
 						<tr ng-repeat="report in traineeOverall" ng-if="report.qcNote.qcStatus || report.qcNote.content || report.trainerNote.content">
 							<td class='col-sm-1 col-md-1 col-lg-1 center'>{{report.week}}</td>
-							<td class='col-sm-3 col-md-3 col-lg-3 center'><span ng-repeat="category in categories[$index] track by $index">{{category}}{{$last
+							<td class='col-sm-3 col-md-3 col-lg-3 center'><span ng-repeat="category in categories[$index].$$state.value track by $index">{{category}}{{$last
 									? '' : ', '}}</span></td>
 							<td class='col-sm-1 col-md-1 col-lg-1 center'>{{report.qcNote.qcStatus
 								? report.qcNote.qcStatus : "-"}}</td>

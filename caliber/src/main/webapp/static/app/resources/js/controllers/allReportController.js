@@ -1,11 +1,12 @@
 /**
  * Team !Uncharted
+ * 
  * @author Pier Yos
  * @author Hossain Yahya
  * @author Yanilda Peralta
  * @author Igor Gluskin
  * @author Ateeb Khawaja
- *
+ * 
  */
 angular
 		.module("charts")
@@ -129,12 +130,11 @@ angular
 							$scope.traineeOverall.push({week});
 
 							// Daniel get categories for the week
-							caliberDelegate.qc.getAllAssessmentCategories(
+							// Push a promise to keep order of categories for each week
+							$scope.categories.push(caliberDelegate.qc.getAllAssessmentCategories(
 									$scope.currentBatch.batchId,
-									week).then(
-									function(response) {
-										$scope.categories.push(response);
-									});
+									week));
+							console.log($scope.categories);
 						}
 						
 						caliberDelegate.all
@@ -469,7 +469,8 @@ angular
 											.then(
 													function(data) {
 														NProgress.done();
-														// TODO Change parameters
+														// TODO Change
+														// parameters
 														var barChartObject = chartsDelegate.bar
 														.getAverageTraineeScoresOverall(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
 														$scope.batchOverAllLabels = barChartObject.labels;
@@ -780,12 +781,14 @@ angular
 						return clone;
 					};
 					
-					// Gets notes (trainer and QC) for a specific trainee and the week
+					// Gets notes (trainer and QC) for a specific trainee and
+					// the week
 					$scope.getTraineeNote=function(traineeId,weekId){
 						$log.debug("YOU ARE IN $scope.getTraineeNote("+ traineeId + "," + weekId + ")");
 						
 						// Denise
-						// gets trainer notes for the trainee and for that week and inserts it to the scope
+						// gets trainer notes for the trainee and for that week
+						// and inserts it to the scope
 						caliberDelegate.trainer.getTraineeNote(traineeId,weekId).then(function(data){
 							$log.debug("YOU ARE IN get trainer caliber in controller");
 							$scope.note = {};
