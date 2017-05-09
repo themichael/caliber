@@ -1,6 +1,5 @@
 # These endpoints are from version 1
 # This will help know what data the Angular UI was expecting
-# TODO Update this list with v2-compliant endpoints.
  
 GET 	/all/tech/trainee/{traineeId}
 GET 	/all/agg/week/trainee/{traineeId}

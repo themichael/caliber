@@ -1,7 +1,7 @@
 /**
  * 
- * @param $log
- * @returns {{}}
+ * @author Ateeb Khawaja
+ * @author Pier Yos
  */
 angular
 		.module("charts")
@@ -46,7 +46,7 @@ angular
 						return createGenericRadarChartObject(dataArray,
 								seriesName);
 					};
-		
+
 					var createGenericRadarChartObject = function(dataArray,
 							seriesName) {
 						var chartData = {};
@@ -86,11 +86,12 @@ angular
 						currentChartData.data.push(newData);
 						return currentChartData;
 					}
-					radar.createCombineBatchAndAllTrainees = function(dataSet){
+
+					radar.createCombineBatchAndAllTrainees = function(dataSet) {
 						var chartData = {};
-						
-						chartData.colors= [ mainColor ];
-						
+
+						chartData.colors = [ mainColor ];
+
 						chartData.series = [];
 						chartData.labels = [];
 						chartData.data = [];
@@ -99,7 +100,7 @@ angular
 							chartData.series.push(key);
 							var averageTemp = [];
 							angular.forEach(value, function(average, assess) {
-								if(!chartData.labels.includes(assess)) {
+								if (!chartData.labels.includes(assess)) {
 									chartData.labels.push(assess);
 								}
 								averageTemp.push(average.toFixed(2));
@@ -109,6 +110,7 @@ angular
 						chartData.options = radarOptions;
 						return chartData;
 					}
+
 					radar.createFromTwoDataSets = function(batchDataSet,
 							traineeDataSet, batchSeriesName, traineeSeriesName) {
 						$log.debug("radarChartFactory: createFromTwoDataSets");
@@ -153,10 +155,11 @@ angular
 							ticks : {
 								beginAtZero : false,
 								fixedStepSize : 10,
-								suggestedmax : 100,
+								max : 100,
 								suggestedMin : 40
 							}
 						}
 					};
+
 					return radar;
 				});

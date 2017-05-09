@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
@@ -26,6 +28,7 @@ import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
@@ -37,7 +40,12 @@ import com.revature.caliber.data.TraineeDAO;
  * Provides logic concerning grade and aggregated data sets. Application logic has no business being in a DAO nor in a
  * Controller. This is the ideal place for calculations
  * 
- * @author Patrick Walsh
+ * Team !Uncharted
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
  *
  */
 @Service
@@ -50,6 +58,7 @@ public class ReportingService {
 	private BatchDAO batchDAO;
 	private TraineeDAO traineeDAO;
 	private NoteDAO noteDAO;
+	private AssessmentDAO assessmentDAO;
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -71,6 +80,10 @@ public class ReportingService {
 		this.noteDAO = noteDAO;
 	}
 
+	@Autowired
+	public void seAssessmentDAO(AssessmentDAO assessmentDAO) {
+		this.assessmentDAO = assessmentDAO;
+	}
 	/*
 	 *******************************************************
 	 * Doughnut / Pie Charts
@@ -441,13 +454,20 @@ public class ReportingService {
 	}
 	/*
 	 *******************************************************
-	 * UI Scalar Value Function
+	 * Misc Reports
 	 *******************************************************
 	 */
 
 	public Double getAvgBatchWeekValue(Integer batchId, Integer week) {
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
 		return utilAvgBatchWeekValue(trainees, week);
+	}
+	
+	public Set<String> getTechnologiesForTheWeek(Integer batchId, Integer week){
+		List<Assessment> assessments = assessmentDAO.findByWeek(batchId, week);
+		Set<String> results = new TreeSet<>();
+		assessments.forEach(a -> results.add(a.getCategory().getSkillCategory()));
+		return results;
 	}
 
 	/*
@@ -488,8 +508,7 @@ public class ReportingService {
 				results.add(temp);
 			}
 		});
-		result = results.parallelStream().mapToDouble(Double::doubleValue).sum() / filteredBatches.size();
-
+		result = results.parallelStream().mapToDouble(Double::doubleValue).sum();
 		result = result / filteredBatches.size();
 		
 		return result;
@@ -748,22 +767,4 @@ public class ReportingService {
 				/ traineeAverageGrades.size();
 		return weeklyBatchAverage;
 	}
-
-	public Map<Integer, Set<Category>> utilCategorybyWeek(List<Grade> grades) {
-		Set<Category> categories = new HashSet<>();
-		Map<Integer, Set<Category>> results = new HashMap<>();
-		for (Grade grade : grades) {
-			categories.add(grade.getAssessment().getCategory());
-			results.put(Integer.valueOf(grade.getAssessment().getWeek()), categories);
-		}
-		return results;
-
-	}
-
-	public Set<Category> utilCatagoryByWeekNumber(List<Grade> grades, Integer week) {
-		Map<Integer, Set<Category>> allWeekCatagory = utilCategorybyWeek(grades);
-		Set<Category> result = allWeekCatagory.get(week);
-		return result;
-	}
-
 }
