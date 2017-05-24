@@ -727,7 +727,7 @@ angular
 
 						var title;
 						// generate the title
-						if ($scope.reportCurrentWeek !== OVERALL)
+						if ($scope.currentTraineeId === ALL && $scope.reportCurrentWeek !== OVERALL)
 							title = "Week " + $scope.currentWeek
 									+ " Progress for "
 									+ $scope.currentBatch.trainingName;
