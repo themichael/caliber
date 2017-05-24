@@ -739,7 +739,7 @@ angular
 									" Progress for "
 									+ $scope.currentTrainee.name;
 						else
-							title = "Performance at a Glance for " + $scope.currentBatch;
+							title = "Performance at a Glance for " + $scope.currentBatch.trainingName;
 
 						// send to server and download generated PDF
 						caliberDelegate.all.generatePDF(title, html).then(
