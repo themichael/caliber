@@ -731,11 +731,15 @@ angular
 							title = "Week " + $scope.currentWeek
 									+ " Progress for "
 									+ $scope.currentBatch.trainingName;
-						else if ($scope.currentTraineeId !== ALL)
+						else if ($scope.currentTraineeId !== ALL && $scope.reportCurrentWeek === OVERALL)
 							title = "Progress for "
 									+ $scope.currentTrainee.name;
+						else if ($scope.currentTraineeId !== ALL && $scope.reportCurrentWeek !== OVERALL)
+							title = "Week " + $scope.currentWeek + 
+									" Progress for "
+									+ $scope.currentTrainee.name;
 						else
-							title = "Performance at a Glance";
+							title = "Performance at a Glance for " + $scope.currentBatch;
 
 						// send to server and download generated PDF
 						caliberDelegate.all.generatePDF(title, html).then(
