@@ -750,7 +750,7 @@ angular
 									var a = document.createElement("a");
 									a.href = fileURL;
 									a.target = "_blank";
-									a.download = "report.pdf";
+									a.download = title + ".pdf";
 									document.body.appendChild(a);
 									a.click();
 									$scope.reticulatingSplines = false;
