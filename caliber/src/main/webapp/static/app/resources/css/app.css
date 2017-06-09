@@ -41,7 +41,9 @@ li { font-family: 'Futura-Std-Heavy'; }
 	--yellow: #FCB414;
 	--light-grey: #B9B9BA;
 }
-
+.warning{
+	color:red;
+}
 
 /**********************
 	Header
@@ -309,6 +311,26 @@ a.save-button .fa-floppy-o{
 /* .fade-in.ng-hide-remove {
   transition: all ease-out 3000ms;
 } */
+/************************
+***Trainer Assess ***
+************************/
+#trainer-assess-table input[type=number]::-webkit-inner-spin-button, #trainer-assess-table input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+#trainer-assess-table input[type=number]{
+	min-width: 65px;
+    text-align: center;
+}
+
+/* .has-error input{
+	border:solid red;
+} */
+.has-error{
+	border:solid red 1px;
+}
 
 /************************
 ***Assessment Modal****

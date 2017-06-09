@@ -210,6 +210,10 @@ angular
 					delegate.qc.getAllAssessments = function(weekId) {
 						return qcFactory.getAllAssessments(weekId);
 					};
+					
+					delegate.qc.getAllAssessmentCategories = function(batchId, weekId) {
+						return qcFactory.getAllAssessmentCategories(batchId, weekId);
+					}
 
 					delegate.qc.deleteAssessment = function(assessmentId) {
 						return qcFactory.deleteAssessment(assessmentId);

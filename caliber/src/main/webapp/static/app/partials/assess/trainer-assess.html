@@ -72,7 +72,7 @@
 </div>
 
 <!-- Assessments table -->
-<div class="container">
+<div class="container"  id="trainer-assess-table">
 	<div class="row">
 		<div class="col-md-12 col-lg-12 top5">
 			<p class="bg-primary align center" ng-show="noTrainees">{{noTraineesMessage}}</p>
@@ -86,7 +86,7 @@
 						<thead>
 							<tr sticky class='sticky-header'>
 								<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
-								<th class="col-sm-1 col-md-1 col-lg-1" role="button"
+								<th class="col-sm-1 col-md-1 col-lg-1 text-center" role="button"
 									data-toggle="modal"
 									data-target="#editAssessmentModal_{{assessment.assessmentId}}"
 									ng-repeat="assessment in currentAssessments track by $index">
@@ -101,19 +101,23 @@
 
 							<tr role="button"
 								ng-repeat="trainee in currentBatch.trainees track by $index">
+								<ng-form name="gradeFieldForm">
 								<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
 								<td class="text-center col-sm-1 col-md-1 col-lg-1"
 									ng-repeat="assessment in currentAssessments track by $index">
-									<input class='form-control' type="number"
+									<input ng-class="{'has-error':validateGrade(trainees[trainee.traineeId].assessments[assessment.assessmentId].score)}"
+									class="form-control" type="number"  min="1" max="100"
 									ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score"
-									ng-blur="updateGrade(trainee,assessment)"
-									ng-value="findGrade(trainee.traineeId,assessment.assessmentId)">
+									ng-blur='(trainees[trainee.traineeId].assessments[assessment.assessmentId].score > 0 || trainees[trainee.traineeId].assessments[assessment.assessmentId].score <=100 )? updateGrade(trainee,assessment) : ""'
+									ng-value="findGrade(trainee.traineeId,assessment.assessmentId)"
+									ng-minlength="1"/>
 								</td>
 								<td class="col-sm-9 col-md-9 col-lg-9"><textarea
 										class="form-control note-mw" name="note" cols="20" rows="2"
 										ng-model="trainees[trainee.traineeId].note.content"
 										ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
 							</textarea></td>
+									</ng-form>
 							</tr>
 						</tbody>
 						<tfoot>
@@ -123,13 +127,16 @@
 								{{getTotalAssessmentAvgForWeek(assessment,trainees) ?
 								(getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
 								"%" : "-"}}</td>
+							
 							<td ng-if="grades"><span style = "font-weight: bold">{{boldBatchAverage()}}</span>
 								<span ng-if = "isThereAvgForWeek">{{allAssessmentsAvgForWeek}}</span><i
 								ng-show="!allAssessmentsAvgForWeek" class='fa fa-cog fa-spin'></i>
 							</td>
 							<td ng-if="!grades"></td>
 						</tfoot>
+						
 					</table>
+					<div ng-show="hasError" class='has-error'> has error</div>
 					<div
 						class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
 						<textarea ng-model="trainerBatchNote.content" class="form-control"

@@ -1,3 +1,13 @@
+/**
+ * Team !Uncharted
+ * 
+ * @author Pier Yos
+ * @author Hossain Yahya
+ * @author Yanilda Peralta
+ * @author Igor Gluskin
+ * @author Ateeb Khawaja
+ * 
+ */
 angular
 		.module("charts")
 		.controller(
@@ -110,12 +120,19 @@ angular
 							});
 						
 					}
+					
 					function displayTraineeOverallTable(traineeId) {
-						$scope.traineeOverall=[];	
+						$scope.traineeOverall=[];
+						$scope.categories=[];
 						
 						for(weekNum in $scope.currentBatchWeeks){
 							var week = parseInt(weekNum) + 1
 							$scope.traineeOverall.push({week});
+							// Daniel get categories for the week
+							// Push a promise to keep order of categories for each week
+							$scope.categories.push(caliberDelegate.qc.getAllAssessmentCategories(
+									$scope.currentBatch.batchId,
+									week));
 						}
 						
 						caliberDelegate.all
@@ -130,7 +147,7 @@ angular
 												}							
 											}
 										});
-						
+						// Daniel get qc notes for the batch for the week
 						caliberDelegate.qc.
 								traineeOverallNote(traineeId)
 								.then(
@@ -450,7 +467,8 @@ angular
 											.then(
 													function(data) {
 														NProgress.done();
-														// TODO Change parameters
+														// TODO Change
+														// parameters
 														var barChartObject = chartsDelegate.bar
 														.getAverageTraineeScoresOverall(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
 														$scope.batchOverAllLabels = barChartObject.labels;
@@ -632,6 +650,7 @@ angular
 											$scope.weeklyProgressBatchOverallData = lineChartObj.data;
 											$scope.weeklyProgressBatchOverallOptions = lineChartObj.options;
 											$scope.weeklyProgressBatchOverallColors = lineChartObj.colors;
+											$scope.weeklyProgressBatchOverallDsOverride = lineChartObj.datasetOverride;
 										}, function() {
 											NProgress.done();
 										})
@@ -653,6 +672,7 @@ angular
 											$scope.linechartTWOptions = lineChartObjectwd.options;
 											$scope.linechartTWSeries = lineChartObjectwd.series;
 											$scope.linechartTWColors = lineChartObjectwd.colors;
+											$scope.linechartTWDsOverride = lineChartObjectwd.datasetOverride;
 										}, function() {
 											NProgress.done();
 										});
@@ -674,6 +694,7 @@ angular
 											$scope.batchOverallWeeklySeries = lineChartObject.series;
 											$scope.batchOverallWeeklyOptions = lineChartObject.options;
 											$scope.batchOverallWeeklyColors = lineChartObject.colors;
+											$scope.batchOverallWeeklyDsOverride = lineChartObject.datasetOverride;
 										}, function() {
 											NProgress.done();
 										});
@@ -706,15 +727,19 @@ angular
 
 						var title;
 						// generate the title
-						if ($scope.reportCurrentWeek !== OVERALL)
+						if ($scope.currentTraineeId === ALL && $scope.reportCurrentWeek !== OVERALL)
 							title = "Week " + $scope.currentWeek
 									+ " Progress for "
 									+ $scope.currentBatch.trainingName;
-						else if ($scope.currentTraineeId !== ALL)
+						else if ($scope.currentTraineeId !== ALL && $scope.reportCurrentWeek === OVERALL)
 							title = "Progress for "
 									+ $scope.currentTrainee.name;
+						else if ($scope.currentTraineeId !== ALL && $scope.reportCurrentWeek !== OVERALL)
+							title = "Week " + $scope.currentWeek + 
+									" Progress for "
+									+ $scope.currentTrainee.name;
 						else
-							title = "Performance at a Glance";
+							title = "Performance at a Glance for " + $scope.currentBatch.trainingName;
 
 						// send to server and download generated PDF
 						caliberDelegate.all.generatePDF(title, html).then(
@@ -729,7 +754,7 @@ angular
 									var a = document.createElement("a");
 									a.href = fileURL;
 									a.target = "_blank";
-									a.download = "report.pdf";
+									a.download = title + ".pdf";
 									document.body.appendChild(a);
 									a.click();
 									$scope.reticulatingSplines = false;
@@ -758,16 +783,22 @@ angular
 						return clone;
 					};
 					
-			// gets the note for that trainne and that week
+					// Gets notes (trainer and QC) for a specific trainee and
+					// the week
 					$scope.getTraineeNote=function(traineeId,weekId){
-						$log.debug("YOU ARE IN YOUR FUNCTION");
+						$log.debug("YOU ARE IN $scope.getTraineeNote("+ traineeId + "," + weekId + ")");
+						
+						// Denise
+						// gets trainer notes for the trainee and for that week
+						// and inserts it to the scope
 						caliberDelegate.trainer.getTraineeNote(traineeId,weekId).then(function(data){
 							$log.debug("YOU ARE IN get trainer caliber in controller");
-								$scope.note = {};
+							$scope.note = {};
 							if(data){
 								$scope.note = data;
 							}
 						});
+						
 						// Michael get QCnote and QCstatus
 						caliberDelegate.qc.getQCTraineeNote(traineeId,weekId).then(function(data){
 							$log.debug("YOU ARE IN get qc caliber in controller");
@@ -776,6 +807,13 @@ angular
 								$scope.qcNote = data;
 							}
 						});
+						// Daniel get categories for the week
+						caliberDelegate.qc.getAllAssessmentCategories(
+								$scope.currentBatch.batchId,
+								$scope.currentWeek).then(
+								function(response) {
+									$scope.categories = response;
+								});
 					}
 					
 				});

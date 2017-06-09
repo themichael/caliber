@@ -1,0 +1,2 @@
+# These endpoints are from version 2
+# This will help know what data the Angular UI was expecting
