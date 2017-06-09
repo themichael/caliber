@@ -214,15 +214,11 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 			});
 			chartData.data.push(temp);
 		});
-
+		chartData.datasetOverride = [];
 		for (var i = 1; i < highestWeek; i++) {
 			chartData.labels.push("Week " + i);
+			chartData.datasetOverride.push({fill:false});
 		}
-		chartData.datasetOverride = [ {
-			fill : false
-		}, {
-			fill : false
-		} ];
 		return chartData;
 	}
 	return lineChart;

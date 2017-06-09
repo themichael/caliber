@@ -57,8 +57,8 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * ------------------------DEVELOPMENT ONLY------------------------ Pretends
-	 * to do login. Defaults to login pjw6193@hotmail.com
+	 * ------------------------DEVELOPMENT ONLY------------------------ 
+	 * Pretends to do login. Defaults to login pjw6193@hotmail.com
 	 * 
 	 * Forwards to the landing page.
 	 *

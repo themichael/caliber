@@ -9,21 +9,11 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-						createDummyBarChart();
+						//createDummyBarChart();
 						createAllBatchesCurrentWeekQCStats();
 						createCurrentBatchesAverageScoreChart();
 					})();
 
-					// Yanilda dummy barchart
-					function createDummyBarChart() {
-						data = chartsDelegate.bar.data.getDummyBarData();
-						NProgress.done();
-						var barChartObject = chartsDelegate.bar
-								.getDummyBarChartDelegate(data);
-						$scope.barchartDLabels = barChartObject.data.labels;
-						$scope.barchartDData = barChartObject.data.datasets;
-
-					}
 					function createAllBatchesCurrentWeekQCStats() {
 						chartsDelegate.bar.data
 								.getAllBatchesCurrentWeekQCStatsData()
@@ -57,6 +47,7 @@ angular
 											$scope.currentBatchesLineSeries = lineChartObj.series;
 											$scope.currentBatchesLineOptions = lineChartObj.options;
 											$scope.currentBatchesLineColors = lineChartObj.colors;
+											$scope.currentBatchesDsOverride = lineChartObj.datasetOverride;
 
 										}, function() {
 											NProgress.done();
