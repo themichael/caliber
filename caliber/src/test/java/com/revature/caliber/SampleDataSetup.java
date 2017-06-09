@@ -72,12 +72,10 @@ public class SampleDataSetup {
 		startDate.set(2017, Calendar.APRIL, 3);
 		Calendar endDate = Calendar.getInstance();
 		endDate.set(2017, Calendar.JUNE, 9);
-		Calendar benchmarkStartDate = Calendar.getInstance();
-		benchmarkStartDate.set(2003, Calendar.JANUARY, 1);
 
 		log.info("Creating batch 1602 Java for " + trainer.getName());
 		Batch batch = new Batch("1602 Apr03 Java", trainer, SkillType.J2EE, TrainingType.Revature, startDate.getTime(),
-				endDate.getTime(), benchmarkStartDate.getTime(),
+				endDate.getTime(),
 				"Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190",  70,  50, 7);
 		batchDAO.save(batch);
 
@@ -479,7 +477,7 @@ public class SampleDataSetup {
 
 		log.info("Creating batch 1604 Java for " + trainer.getName());
 		Batch batch = new Batch("1604 Mar27 Java", trainer, SkillType.J2EE, TrainingType.Revature, startDate.getTime(),
-				endDate.getTime(), benchmarkStartDate.getTime(),
+				endDate.getTime(),
 				"Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190",  70,  50, 7);
 		batchDAO.save(batch);
 
@@ -819,7 +817,7 @@ public class SampleDataSetup {
 
 		log.info("Creating batch 1605 Java for " + trainer.getName());
 		Batch batch = new Batch("1605 Mar27 Java", trainer, SkillType.J2EE, TrainingType.University, startDate.getTime(),
-				endDate.getTime(), benchmarkStartDate.getTime(),
+				endDate.getTime(),
 				"Tech Incubator at Queens College, 65-30 Kissena Blvd, CEP Hall 2, Queens, NY 11367",  70,  50, 4);
 		batchDAO.save(batch);
 

@@ -65,6 +65,7 @@ angular
 											$scope.currentBatchesLineSeries = lineChartObj.series;
 											$scope.currentBatchesLineOptions = lineChartObj.options;
 											$scope.currentBatchesLineColors = lineChartObj.colors;
+											$scope.currentBatchesDsOverride = lineChartObj.datasetOverride;
 
 										}, function() {
 											NProgress.done();

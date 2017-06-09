@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -66,7 +65,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * 
 	 * TODO remove @RequestMapping at go-live
 	 */
-	//@RequestMapping("/")
+	@RequestMapping("/")
 	public ModelAndView dummyAuth() {
 		return new ModelAndView("redirect:" + redirectUrl);
 	}
@@ -78,15 +77,15 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * 
 	 * TODO enable at go-live
 	 */
-	@RequestMapping("/")
+	//@RequestMapping("/")
 	public ModelAndView openAuthURI() {
 		return new ModelAndView(
 				"redirect:" + authURL + "?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri);
 	}
 
 	/**
-	 * ------------------------PRODUCTION ONLY------------------------ Retrieves
-	 * Salesforce authentication token.
+	 * ------------------------PRODUCTION ONLY------------------------ 
+	 * Retrieves Salesforce authentication token.
 	 * 
 	 */
 	@RequestMapping("/authenticated")
