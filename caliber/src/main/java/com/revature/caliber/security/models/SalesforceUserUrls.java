@@ -36,13 +36,34 @@ public class SalesforceUserUrls {
     private String feed_elements;
     @JsonProperty
     private String custom_domain;
+	@JsonProperty
+	private String tooling_soap;
+	@JsonProperty
+	private String tooling_rest;
 
     /**
      * Instantiates a new Salesforce user urls.
      */
     public SalesforceUserUrls() {
     }
+	
+    public String getTooling_rest() {
+        return tooling_rest;
+    }
 
+    public void setTooling_rest(String tooling_rest) {
+        this.tooling_rest = tooling_rest;
+    }
+
+    public String getTooling_soap() {
+        return tooling_soap;
+    }
+
+    public void setTooling_soap(String tooling_soap) {
+        this.tooling_soap = tooling_soap;
+    }
+
+	
     /**
      * Gets enterprise.
      *
