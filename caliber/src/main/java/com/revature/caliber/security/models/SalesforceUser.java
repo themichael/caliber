@@ -140,7 +140,7 @@ public class SalesforceUser implements UserDetails {
 	}
 	
 	//is_lightning_login_user
-    public isIs_lightning_login_user() {
+    public boolean isIs_lightning_login_user() {
         return role;
     }
 	
