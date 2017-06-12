@@ -75,6 +75,8 @@ public class SalesforceUser implements UserDetails {
     private boolean is_app_installed;
     @JsonProperty
     private String role;
+	@JsonProperty
+	private boolean is_lightning_login_user;
 
     @JsonProperty
     private SalesforceToken salesforceToken;
@@ -136,6 +138,16 @@ public class SalesforceUser implements UserDetails {
     public Trainer getCaliberUser() {
 		return caliberUser;
 	}
+	
+	//is_lightning_login_user
+    public isIs_lightning_login_user() {
+        return role;
+    }
+	
+    public void setIs_lightning_login_user(boolean is_lightning_login_user) {
+        this.is_lightning_login_user = is_lightning_login_user;
+    }
+
 	
     /**
 	 * Sets the Caliber user associated with the Salesforce account.
