@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.data.SalesforceDAO;
 import com.revature.caliber.security.impl.Helper;
 import com.revature.caliber.exceptions.NotAuthorizedException;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
@@ -41,19 +42,10 @@ public class BootController extends Helper {
 	private final static Logger log = Logger.getLogger(BootController.class);
 
 	/**
-	 * The Token.
-	 */
-	SalesforceToken token;
-	/**
-	 * The Http client.
-	 */
-	HttpClient httpClient;
-
-	/**
 	 * Instantiates a new Boot controller.
 	 */
 	public BootController() {
-		httpClient = HttpClientBuilder.create().build();
+		
 	}
 
 	/**
@@ -77,6 +69,7 @@ public class BootController extends Helper {
 	//@RequestMapping(value = "/caliber")
 	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
+		HttpClient httpClient = HttpClientBuilder.create().build();
 		// fake Salesforce User
 		SalesforceUser salesforceUser = new SalesforceUser();
 		salesforceUser.setEmail("pjw6193@hotmail.com");
@@ -136,6 +129,7 @@ public class BootController extends Helper {
 	@RequestMapping(value = "/caliber")
 	public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
+		HttpClient httpClient = HttpClientBuilder.create().build();
 		// get Salesforce token from cookie
 		Cookie[] cookies = servletRequest.getCookies();
 		SalesforceToken salesforceToken = null;
@@ -190,6 +184,8 @@ public class BootController extends Helper {
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
+		// test SF 
+		new SalesforceDAO().getAllBatches();
 		return "index";
 	}
 
