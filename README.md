@@ -35,7 +35,7 @@ Caliber is a performance management suite to collect and analyze evaluations of 
 
 ## ERD (3/31/2017)  
 <br/>
-<img src="https://github.com/pjw6193/caliber/blob/master/images/caliber-local.png?raw=true" height="200" width="300"/>
+<img src="https://github.com/pjw6193/caliber/blob/master/images/architecture/database/caliber-local.png?raw=true" height="200" width="300"/>
 <br/>
 
 ## Local deployment
