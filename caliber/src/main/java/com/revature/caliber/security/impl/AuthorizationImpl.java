@@ -35,9 +35,11 @@ import java.util.List;
 @Controller
 @Scope("prototype")
 public class AuthorizationImpl extends Helper implements Authorization {
-	@Value("https://login.salesforce.com/services/oauth2/authorize")
+	@Value("#{systemEnvironment['SALESFORCE_LOGIN_URL']}")
+	private String loginURL;
+	@Value("services/oauth2/authorize")
 	private String authURL;
-	@Value("https://login.salesforce.com/services/oauth2/token")
+	@Value("services/oauth2/token")
 	private String accessTokenURL;
 	@Value("#{systemEnvironment['SALESFORCE_CLIENT_ID']}")
 	private String clientId;
@@ -47,7 +49,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	private String redirectUri;
 	@Value("#{systemEnvironment['CALIBER_PROJECT_URL']}")
 	private String redirectUrl;
-	@Value("https://login.salesforce.com/services/oauth2/revoke")
+	@Value("services/oauth2/revoke")
 	private String revokeUrl;
 
 	private HttpClient httpClient;
@@ -80,7 +82,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	@RequestMapping("/")
 	public ModelAndView openAuthURI() {
 		return new ModelAndView(
-				"redirect:" + authURL + "?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri);
+				"redirect:" +loginURL+ authURL + "?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri);
 	}
 
 	/**
@@ -91,7 +93,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
 			HttpServletResponse servletResponse) throws IOException {
-		HttpPost post = new HttpPost(accessTokenURL);
+		HttpPost post = new HttpPost(loginURL + accessTokenURL);
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
 		parameters.add(new BasicNameValuePair("client_secret", clientSecret));
