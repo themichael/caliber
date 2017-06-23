@@ -33,6 +33,7 @@ public class SalesforceDAO {
 			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
 			HttpResponse queryResponse = httpClient.execute(getRequest);
 			JsonNode queryResults = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), JsonNode.class);
+			log.fatal("Using access_token: " + getAccessToken());
 			log.fatal(queryResults);
 		} catch (URISyntaxException | IOException e) {
 			log.warn("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
