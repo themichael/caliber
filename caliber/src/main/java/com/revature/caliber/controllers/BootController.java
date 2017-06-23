@@ -184,7 +184,7 @@ public class BootController extends Helper {
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
-		// test SF 
+		// test SF REST API
 		new SalesforceDAO().getAllBatches();
 		return "index";
 	}
