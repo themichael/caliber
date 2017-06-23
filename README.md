@@ -25,9 +25,12 @@ Caliber is a performance management suite to collect and analyze evaluations of 
 <br/>CALIBER_DB_PASS=tiger
 <br/>SALESFORCE_CLIENT_ID=omnomnom
 <br/>SALESFORCE_CLIENT_SECRET=orz
+<br/>SALESFORCE_LOGIN_URL=https://test.salesforce.com/
+<br/>SALESFORCE_INSTANCE_URL=UAT_OR_PROD.my.salesforce.com
 <br/>SALESFORCE_REDIRECT_URI=https://caliber.revature.tech:443/authenticated
 <br/>CALIBER_PROJECT_URL=http://caliber.revature.tech/caliber/
 <br/>CALIBER_SERVER_URL=http://caliber.revature.tech/
+
 
 #ERD (3/31/2017)  
 <br/>
