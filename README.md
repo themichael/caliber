@@ -1,5 +1,6 @@
 ![Revature](https://github.com/pjw6193/caliber/blob/master/images/rev-brand.png) 
 
+# Caliber Performance Management Suite
 
 ## Executive Summary
 Caliber is a performance management suite to collect and analyze evaluations of Revature trainees. 
@@ -36,8 +37,6 @@ to distribute to clients, trainees, and other stakeholders.
 
 * The Caliber suite also provides a variety of reports on different levels of granularity:
     Week-by-week, Batch overall, Trainee weekly, Trainee overall
-
-![alt tag](https://github.com/pjw6193/caliber/blob/master/images/rev-brand.png "Revature")
 
 <br/><br/><br/>
 &copy; 2017 Revature. All rights reserved.
