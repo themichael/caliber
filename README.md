@@ -2,9 +2,6 @@
 
 # Caliber Performance Management Suite
 
-## Executive Summary
-Caliber is a performance management suite to collect and analyze evaluations of Revature trainees. 
-
 ## Project Description and Objectives
 
 ### Description
