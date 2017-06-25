@@ -20,23 +20,50 @@ dashboards and tabular data. Users can generate individual and batch PDF reports
 to distribute to clients, trainees, and other stakeholders.
 
 ### Objectives
-### Current State
-### Purpose 
-### Scope
-### Objectives
-### Stakeholders/Users
-### Strategic Alignment
 
+* Deliver timely reports to various stakeholders in an elegant and professional format
+* Effectively communicate key performance indicators through meaningful data visualization
+* Centralize trainee performance data to enable company-wide data aggregations
+* Combine disparate spreadsheets into a single point of entry for trainee evaluations
+* Provide a complete and accurate view of each trainee's technical capabilities
+* Standardize evaluation processes through consistent data gathering and reporting
 
-## Features <br>
-* Trainers can input grades and feedback for each of their trainees. 
+## Current State
+
+Trainee evaluations are recorded into Excel spreadsheets. Each trainer typically 
+creates a new spreadsheet for each batch, and each week's grades are separated into tabs.
+A level of standardization exists in the form of a Weekly Report spreadsheet, which 
+requires direct oversight to enforce compliance with the standard format. Trainers upload 
+their spreadsheets to Salesforce to report performance to managers and executives. In order 
+to perform aggregations on week-by-week data or overall metrics, the trainer must either 
+write custom multi-tab Excel functions or resort to manual calculations to create custom 
+reports. Excel spreadsheets are disparate and isolate, and multi-batch reporting is 
+nearly impossible. Performance reports given to clients do not convey Revature's desired level 
+of maturity and professionalism.
+
+## Scope
+
+Caliber will provide trainers and quality auditors with consistent data entry 
+and reporting media to standardize evaluation processes at Revature. Caliber will 
+produce professional and distributable reports to provide stakeholders with relevant 
+information--increasing transparency and improving decision making.
+
+### Features 
+
+* Trainers can input grades and feedback for each of their trainees
 * The quality department can input their evaluations on the batch of trainees
 * Trainers and quality personnel can comment on trainee and batch performance
 * Users can generate reports and charts to visualize KPIs and print PDF reports
-* New batches can be added and they will persist year after year with batch data.
-
+* New batches can be added and they will persist year after year with batch data
 * The Caliber suite also provides a variety of reports on different levels of granularity:
     Week-by-week, Batch overall, Trainee weekly, Trainee overall
+
+## Stakeholders Analysis
+
+|     |      |
+|     |      |
+
+## Strategic Alignment
 
 <br/><br/><br/>
 &copy; 2017 Revature. All rights reserved.
