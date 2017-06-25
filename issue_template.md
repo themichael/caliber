@@ -1,7 +1,11 @@
 ### Issue Description
 
+### Background/Context
+
+### Value Add
+
 ### Expected behavior
 
-### Actual behavior
+### Actual behavior (bugs)
 
-### Steps for replicating the bug
+### Steps for replicating (bugs)
