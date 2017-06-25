@@ -27,6 +27,7 @@ to distribute to clients, trainees, and other stakeholders.
 * Combine disparate spreadsheets into a single point of entry for trainee evaluations
 * Provide a complete and accurate view of each trainee's technical capabilities
 * Standardize evaluation processes through consistent data gathering and reporting
+* Give actionable feedback to trainees to help increase their performance
 
 ## Current State
 
@@ -58,12 +59,26 @@ information--increasing transparency and improving decision making.
 * The Caliber suite also provides a variety of reports on different levels of granularity:
     Week-by-week, Batch overall, Trainee weekly, Trainee overall
 
-## Stakeholders Analysis
+## Stakeholders/Users
 
-|     |      |
-|     |      |
+### Primary Users
+
+VP of Technology, Trainers, QC, Staging Managers, Panel Interviewers 
+
+### Key Stakeholders
+
+External clients, Salesforce team, Dev/Content team
+
+### Additional Stakeholders
+
+Trainees, Recruiters
 
 ## Strategic Alignment
+
+* Increase customer satisfaction by mapping trainees to requirements that match their strengths
+* Progression toward more formal and comprehensive business practices
+* Reduce complexity of managing quality across multiple batches 
+* Decrease training cost by identifying weaker trainees early
 
 <br/><br/><br/>
 &copy; 2017 Revature. All rights reserved.
