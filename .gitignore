@@ -6,6 +6,7 @@
 # *~
 # .git/info/exclude
 
+**/issue_template.md
 **/target/
 **/bin/
 
