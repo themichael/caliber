@@ -13,7 +13,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	
 		<!-- enable SSL -->
 <<<<<<< HEAD
-<!-- 		<security:intercept-url pattern="/**" requires-channel="https" /> -->
+        <!-- <security:intercept-url pattern="/**" requires-channel="https" /> -->
 =======
 		<!-- <security:intercept-url pattern="/**" requires-channel="https" /> -->
 >>>>>>> b0e59778ded78cf16eea17907d15014c54a30d01
