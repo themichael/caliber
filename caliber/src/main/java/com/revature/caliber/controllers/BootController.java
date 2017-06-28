@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.data.SalesforceDAO;
 import com.revature.caliber.security.impl.Helper;
 import com.revature.caliber.exceptions.NotAuthorizedException;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
