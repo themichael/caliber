@@ -261,6 +261,17 @@ angular
 										controller : "vpHomeController"
 									})
 							.state(
+									"vp.trainers",
+									{
+										url : "/trainers",
+										views:{
+											"":{
+												templateUrl : "/static/app/partials/trainers/manage-trainers.html"
+											}
+										}
+												
+									})
+							.state(
 									"vp.manage",
 									{
 										url : "/manage",
