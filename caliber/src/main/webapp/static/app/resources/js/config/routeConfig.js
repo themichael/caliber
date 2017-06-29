@@ -75,6 +75,9 @@ angular
 											"batch-form@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
 											},
+											"import-batch@qc.manage" : {
+												templateUrl : "/static/app/partials/manage/import-batch-modal.html"
+											},
 											"batch-extra-modals@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
 											},
@@ -170,6 +173,9 @@ angular
 											},
 											"batch-form@trainer.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
+											},
+											"import-batch@trainer.manage" : {
+												templateUrl : "/static/app/partials/manage/import-batch-modal.html"
 											},
 											"batch-extra-modals@trainer.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
@@ -271,6 +277,9 @@ angular
 											},
 											"batch-form@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
+											},
+											"import-batch@vp.manage" : {
+												templateUrl : "/static/app/partials/manage/import-batch-modal.html"
 											},
 											"batch-extra-modals@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
