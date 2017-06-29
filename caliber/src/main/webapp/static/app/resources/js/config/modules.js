@@ -21,12 +21,14 @@ angular.module("charts", []);
 angular.module("auth", []);
 angular.module("reportApi", []);
 
+
+
 angular.module("app").directive("sticky",function($window){
 	return function(scope,element,attrs){
 		var elOriginalPos = element[0].getClientRects()[0].top;
-		var elXPos= element[0].getClientRects()[0].left;
+		var elXPos= element[0].getClientRects()[0].right;
 		angular.element($window).bind("scroll", function(){
-			//console.log('window  ' + this.pageYOffset);
+			/*alert('window  ' + this.pageYOffset);*/
 			var elYPos = element[0].getClientRects()[0].top + 100;
 			//console.log('my element  ' + elYPos);
 			if(this.pageYOffset > elYPos){

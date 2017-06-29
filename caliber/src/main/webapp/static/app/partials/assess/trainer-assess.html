@@ -2,16 +2,15 @@
 
 <style>
 
-#trainee-header {
+.sticky-header {
     padding: 10px;
-   /*  background: #666666; */
-    /* color: #FFFFFF; */
+    padding-left: 5px;
     font-size: 15px;
-    width: 580px;
+	 width: 1000px;
     text-transform: uppercase;
 } 
-#notes {
-	padding-right:100px;
+
+.sticky-header 
 }
 </style>
 <div class="container">
@@ -106,7 +105,7 @@
 									data-toggle="modal"
 									data-target="#editAssessmentModal_{{assessment.assessmentId}}"
 									ng-repeat="assessment in currentAssessments track by $index">
-									{{assessment.title}}
+									<h6>{{assessment.title}}<h6>
 									({{assessmentsById[assessment.assessmentId].weightedScore}})
 									<div ui-view="trainer-edit-assess"></div>
 								</th>
