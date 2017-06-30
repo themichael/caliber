@@ -267,6 +267,9 @@ angular
 										views:{
 											"":{
 												templateUrl : "/static/app/partials/trainers/manage-trainers.html"
+											},
+											"trainer-form@vp.trainers" : {
+												templateUrl : "/static/app/partials/trainers/create-trainer-modal.html"
 											}
 										}
 												
