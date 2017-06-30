@@ -618,5 +618,15 @@ angular
 						angular.element("#deleteTraineeModal").modal("hide");
 
 					};
+					
+					/** When multiple modals are opened upon removing one the modal-open is removed.
+					 *  The following code adds the modal-open back into the HTML */
+					
+					$(document).on('hidden.bs.modal','#addTraineeModal', function () {
+						$("body").addClass("modal-open");
+					});
+					$(document).on('hidden.bs.modal','#deleteTraineeModal', function () {
+						$("body").addClass("modal-open");
+					});
 
 				});
