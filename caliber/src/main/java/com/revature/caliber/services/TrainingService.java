@@ -10,6 +10,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.data.SalesforceDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
@@ -28,6 +29,8 @@ public class TrainingService {
 	private TrainerDAO trainerDAO;
 	private TraineeDAO traineeDAO;
 	private BatchDAO batchDAO;
+	//TODO JESSICA
+	private SalesforceDAO salesforceDAO;
 	
 	@Autowired
 	public void setTrainerDAO(TrainerDAO trainerDAO) {this.trainerDAO = trainerDAO;}
@@ -35,6 +38,9 @@ public class TrainingService {
 	public void setTraineeDAO(TraineeDAO traineeDAO) {this.traineeDAO = traineeDAO;}
 	@Autowired
 	public void setBatchDAO(BatchDAO batchDAO) {this.batchDAO = batchDAO;}
+	//TODO JESSICA
+	@Autowired
+	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {this.salesforceDAO = salesforceDAO;}
 
 	/*
 	 *******************************************************
@@ -137,6 +143,26 @@ public class TrainingService {
 		log.debug("Find all current batches");
 		return batchDAO.findAllCurrent();
 	}
+	/**
+	 * FIND ALL CURRENT SALESFORCE BATCHES
+	 * @return
+	 */
+	
+	// TODO  JESSICA
+	public List<Batch> getAllSalesforceBatches(){
+		log.debug("Find all current salesforce batches");
+		return salesforceDAO.getAllBatches();
+	}
+	
+	public List<Batch> getAllSalesforceBatchesByYear(int year){
+		log.debug("Find all current batches by year");
+		return salesforceDAO.getAllBatchesByYear(year);
+	}
+	
+	public Batch getSalesforceBatchByResourceId(String resourceId){
+		log.debug("Find all current batches by resource id");
+		return salesforceDAO.getBatchByResourceId(resourceId);
+	}
 	
 	/**
 	 * FIND ALL BATCHES BY TRAINER
@@ -163,6 +189,7 @@ public class TrainingService {
 	 * @param batchId
 	 * @return
 	 */
+	
 	public Batch findBatch(Integer batchId){
 		log.debug("Finding batch with id: " + batchId);
 		return batchDAO.findOne(batchId);

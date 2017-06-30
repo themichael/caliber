@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.salesforce.beans.SalesforceBatch;
 import com.revature.caliber.security.models.SalesforceUser;
 
 @Repository
@@ -38,7 +39,7 @@ public class SalesforceDAO {
 	private String allBatches;
 	
 	// TODO test sample Batch query
-	public void getAllBatches() {
+	public List<Batch> getAllBatches() {
 		try {
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			String url = new URIBuilder(salesforceInstanceUrl).setScheme("https").setHost(salesforceInstanceUrl)
@@ -51,6 +52,7 @@ public class SalesforceDAO {
 		} catch (URISyntaxException | IOException e) {
 			log.warn("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
 		}
+		return null;
 
 	}
 	
