@@ -43,6 +43,18 @@ public class TrainingService {
 	 *******************************************************
 	 */
 
+	
+	/**
+	 * Add New Trainer
+	 * @param trainer
+	 */
+	public void createTrainer(Trainer trainer){
+		log.debug("Creating Trainer " + trainer);
+		trainerDAO.save(trainer);;
+	}
+	
+	
+	
 	/**
 	 * FIND TRAINER BY EMAIL
 	 * @param email
