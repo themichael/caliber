@@ -33,6 +33,7 @@ public class SalesforceDAO {
 	
 	/**
 	 * Will change as of version 2.0 Salesforce API in August/September 2017 timeframe
+	 * Used to populate the dropdown list of importable batches.
 		select id, name, batch_start_date__c, batch_end_date__c,
 			batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c,
 			Type__c from training__c where batch_start_date__c >= THIS_YEAR
@@ -42,6 +43,7 @@ public class SalesforceDAO {
 	
 	/**
 	 * Will change as of version 2.0 Salesforce API in August/September 2017 timeframe
+	 * Once user selects a batch to import, use this to load all the Trainee details.
 	 	select id, name, training_status__c, phone, email, MobilePhone,
 			Training_Batch__c , Training_Batch__r.name, 
 			Training_Batch__r.batch_start_date__c, 
@@ -71,8 +73,12 @@ public class SalesforceDAO {
 			HttpGet getRequest = new HttpGet(url);
 			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
 			HttpResponse queryResponse = httpClient.execute(getRequest);
+			
+			// convert to your salesforce beans
 			JsonNode queryResults = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), JsonNode.class);
 			log.info(queryResults);
+			//transform to Caliber bean
+			//return the bean
 		} catch (URISyntaxException | IOException e) {
 			log.warn("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
 		}
