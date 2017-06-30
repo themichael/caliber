@@ -75,6 +75,7 @@ public class TrainingController {
 		List<Trainer> trainers = trainingService.findAllTrainers();
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
 	}
+	
 
 	/*
 	 *******************************************************
