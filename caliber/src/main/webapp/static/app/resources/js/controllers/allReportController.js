@@ -106,7 +106,6 @@ angular
 								$scope.batchOverall = false;
 								$scope.batchOverallTrainee = false;
 								createBatchWeekTrainee();
-								
 								$scope.getTraineeNote($scope.currentTraineeId,$scope.currentWeek);
 							}
 
