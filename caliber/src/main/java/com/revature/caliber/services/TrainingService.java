@@ -270,7 +270,7 @@ public class TrainingService {
 	}
 	
 	/**
-	 * UPDATE TRAINEE
+	 * DELETE TRAINEE
 	 * @param trainee
 	 */
 	public void delete(Trainee trainee){
@@ -279,7 +279,7 @@ public class TrainingService {
 	}
 	
 	/**
-	 * DELETE TRAINEE
+	 * UPDATE TRAINEE
 	 * @param trainee
 	 */
 	public void update(Trainee trainee){
