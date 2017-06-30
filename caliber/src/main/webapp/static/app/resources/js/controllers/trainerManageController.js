@@ -248,22 +248,16 @@ angular
 					/** Import batch form for creating new batch**/
 					$scope.importBatchForm = function() {
 						$scope.batchFormName = "Import New Batch"
-						$scope.trainingName.model = "";
-						$scope.trainingType.model = "";
-						$scope.skillType.model = "";
-						$scope.location.model = "";
-						$scope.trainer.model = "";
-						$scope.coTrainer.model = "";
-						$scope.startDate.model = "";
-						$scope.endDate.model = "";
-						$scope.goodGradeThreshold.model = "";
-						$scope.borderlineGradeThreshold.model = "";
-						$scope.Save = "Save";
-						$scope.Updating.status = false;
+						$scope.batchSalesForce = "wor wor wor";
 						if ($scope.currentBatch) {
 							$scope.currentBatch = null;
 						}
 					}	
+					/** Select batch by year **/
+					$scope.selectBatchYear = function(index) {
+						$scope.selectedBatchYear = $scope.years[index];
+						sortByDate($scope.selectedBatchYear);
+					};
 					
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {

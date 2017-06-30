@@ -10,17 +10,16 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 						<h4 class="modal-title" ng-bind="batchFormName"
-							id="batchModalLabel">Import New Batch</h4>
+							id="batchModalLabel">dddd New Batch</h4>
 					</div>
-					<!-- Add Batch Info -->
+					<!-- Import Batch Info -->
 					<div class="modal-body">
-						<h1>Wor wor wor wor</h1>
-						
+						<h1></h1>		
 					<ul role="button" class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li ng-repeat="menuItem in years track by $index"><a
-								role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
+							<li ng-repeat="batchItem in batchSalesForce track by $index"><a
+								role="button" ng-click="selectBatchYear($index)">{{batchItem}}</a></li>
 						</ul></ul>		
 					</div>
 					<div class="modal-footer">
