@@ -82,6 +82,37 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		});
 	};
 
+	
+	all.enumTrainerTier = function() {
+		return $http({
+			url : "/trainer/role/all",
+			method : "GET"
+		}).then(function(response) {
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
+	
+	all.enumTrainingTitle = function() {
+		return $http({
+			url : "/trainer/title/all",
+			method : "GET"
+		}).then(function(response) {
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * @param allcategories
 	 * @returns {*}

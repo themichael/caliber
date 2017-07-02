@@ -16,6 +16,8 @@ import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.SkillType;
+import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.TrainerTitle;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.beans.TrainingType;
 
@@ -23,6 +25,7 @@ import com.revature.caliber.beans.TrainingType;
  * Provides enumerated types to the UI
  * 
  * @author Patrick Walsh
+ * @author Stanley Chouloute
  *
  */
 @RestController
@@ -115,6 +118,38 @@ public class TypeController {
 	public ResponseEntity<List<String>> allAssessmentTypes() {
 		log.info("Fetching assessment types");
 		List<String> types = Stream.of(AssessmentType.values()).map(Enum::name).collect(Collectors.toList());
+		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * Get Trainer Tier for dropdown selection on the UI
+	 *
+	 * @param Role
+	 *            the Tier
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/trainer/role/all", method = RequestMethod.GET)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<List<String>> allTrainerRoles() {
+		log.info("Fetching Trainer Roles");
+		List<String> types = Stream.of(TrainerRole.values()).map(Enum::toString).collect(Collectors.toList());     //Used toString to Display the roles without the underscore
+		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * Get Trainer Title for dropdown selection on the UI
+	 *
+	 * @param Title
+	 *            the Title
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/trainer/title/all", method = RequestMethod.GET)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<List<String>> allTrainerTitle() {
+		log.info("Fetching Trainer Titles");
+		List<String> types = Stream.of(TrainerTitle.values()).map(Enum::toString).collect(Collectors.toList());     //Used toString to Display the roles without the underscore
 		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
 	}
 
