@@ -13,52 +13,54 @@
 				</div>
 				<div class="modal-body">
 					<!-- Add New Trainer -->
-					<h3 ng-bind="trainerFormName">Add Trainer</h3>
+					<h3 ng-bind="trainerFormName">Add Trainer  ok</h3>
 					<div>
 						<div class="row">
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
-								<label for="traineeName">Full Name:</label> <input
+								<label for="trainerName">Trainer Name:</label> 
+								<input
 									ng-model="trainerForm.name" type="text" class="form-control"
-									id="traineeName" placeholder="Name" required>
+									id="trainerName" placeholder="Name" required>
 							</div>
-							<div class="row">
-								<div class="form-group col-lg-12 col-md-12 col-sm-12">
-									<label for="traineeStatus">Title</label> <select
-										ng-model="traineeForm.trainingStatus" class="form-control"
-										id="traineeStatus" required>
-										<option value="" disabled>Select Status</option>
-										<option ng-repeat="option in trainingStatuses.options">{{option}}</option>
-									</select>
-								</div>
-							</div>
-
+							
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
-								<label for="traineeEmail">Email:</label> <input
-									ng-model="traineeForm.email" type="email" class="form-control"
+								<label for="trainerEmail">Email:</label> 
+								<input
+									ng-model="trainerForm.email" type="email" class="form-control"
 									id="traineeEmail" placeholder="Email" required>
 								<div
 									ng-show="addTraineeForm.temail.$submitted || addTraineeForm.temail.$touched">
 									<span class='warning'
 										ng-show="addTraineeForm.temail.$error.email">Must enter
-										a valid email</span>
+										a valid email
+									</span>
 								</div>
 							</div>
 						</div>
 						<div class="row">
-
-							<div class="form-group col-lg-12 col-md-12 col-sm-12">
-								<label for="traineeStatus">Tier</label> <select
-									ng-model="traineeForm.trainingStatus" class="form-control"
-									id="traineeStatus" required>
-									<option value="" disabled>Select Status</option>
-									<option ng-repeat="option in trainingStatuses.options">{{option}}</option>
+							<div class="form-group col-lg-6 col-md-6 col-sm-12">
+									<label for="trainerTitle">Title</label> 
+									<select
+										ng-model="trainerForm.trainerTitle" class="form-control"
+										id="trainerTitle" required>
+										<option value="" disabled>Select Title</option>
+										<option ng-repeat="option in trainerTitle.options">{{option}}</option>
+									</select>
+							</div>
+							<div class="form-group col-lg-6 col-md-6 col-sm-12">
+								<label for="trainerTier">Tier</label>
+								<select
+									ng-model="trainerForm.trainerTier" class="form-control"
+									id="trainerTier" required>
+									<option value="" disabled>Select Tier</option>
+									<option ng-repeat="option in trainerTier.options">{{option}}</option>
 								</select>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="submit"
-							ng-disabled="addTraineeForm.temail.$error.required || addTraineeForm.temail.$error.email"
+							ng-disabled="addTrainerForm.temail.$error.required || addTrainerForm.temail.$error.email"
 							value="Save" class="btn btn-primary" ng-show="!Updating.status">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							ng-show="!Updating.status">Close</button>
