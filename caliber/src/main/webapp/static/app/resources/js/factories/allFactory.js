@@ -361,9 +361,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			return response.data;
 		});
 	};
-	
-	
-	
+
 	/***************************************************************************
 	 * Server generates PDF from HTML Download via response data
 	 * 
