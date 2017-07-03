@@ -46,7 +46,7 @@ angular
 					
 					
 					
-/*************************************************	Code to create Trainer**************************/				
+/*************************************************	Code to create and update Trainer*************/				
 					
 					// load training tiers
 					caliberDelegate.all.enumTrainerTier().then(
@@ -61,35 +61,32 @@ angular
 										"Senior Java Developer",
 										"Senior Technology Manager "];
 						
-//					
-//					
-//					/** Create new Trainee Object * */
-//					function createTrainerObject(trainer) {
-//						trainer.name = $scope.trainerForm.name;
-//						trainer.email = $scope.trainerForm.email;
-//						trainer.title = $scope.trainerForm.title;
-//						trainer.tier = $scope.trainerForm.tier;
-//						$log.debug(trainee);
-//					}
-//					
-//					
-//					
-//					
-//					/** Save New Trainee Input * */
-//					$scope.saveTrainer = function() {
-//					var newTrainer = {};
-//					createTrainerObject(newTrainer);
-//					caliberDelegate.all
-//							.createTrainer(newTrainer)
-//							.then(
-//									function(response) {
-//										$log.debug("trainer added: " + response);
-//									}
-//							)
-//					};
-//					
 					
 					
+				
+					
+					
+					
+					
+					/** Save New Trainee Input * */
+					$scope.saveTrainer = function(trainerForm) {
+					var newTrainer = trainerForm;
+					createTrainerObject(newTrainer);
+					caliberDelegate.all
+							.createTrainer(newTrainer)
+							.then(
+									function(response) {
+										$log.debug("trainer added: " + response);
+									});
+							
+					}
+					
+					
+					/** Create new Trainee Object * */
+					function createTrainerObject(trainer) {
+						trainer = $scope.trainerForm;
+						$log.debug(trainer);
+					};
 					
 					
 				});

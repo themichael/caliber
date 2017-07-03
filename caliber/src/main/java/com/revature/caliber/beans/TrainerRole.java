@@ -21,9 +21,6 @@ public enum TrainerRole implements Serializable{
 	@JsonProperty("ROLE_TRAINER")
 	ROLE_TRAINER("Trainer");
 	
-	
-	
-	
 	private String role;
 
 	private TrainerRole(String role) {
