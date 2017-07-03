@@ -155,7 +155,7 @@ angular
 										}
 									})
 							.state(
-									"trainer",
+									"trainer.import",
 									{
 										abstract : true,
 										url : " /trainer/batch/all/importget",
