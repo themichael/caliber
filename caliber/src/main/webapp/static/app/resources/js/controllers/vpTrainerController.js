@@ -80,4 +80,6 @@ angular
 					
 				});
 
-				$scope.trainerDeactivation = function()
+//				$scope.trainerDeactivation = function(){
+//					$scope.
+//				}
