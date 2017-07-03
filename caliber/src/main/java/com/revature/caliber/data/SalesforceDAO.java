@@ -31,10 +31,37 @@ public class SalesforceDAO {
 	private String salesforceApiUrl;
 	
 	//////////// SOQL - Salesforce Object Query Language //////////////
-	@Value("")
-	private String allBatchesByYear;
-	@Value("")
-	private String batchById;
+	
+	/**
+	 * Will change as of version 2.0 Salesforce API in August/September 2017 timeframe
+	 * Used to populate the dropdown list of importable batches.
+		select id, name, batch_start_date__c, batch_end_date__c,
+			batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c,
+			Type__c from training__c where batch_start_date__c >= THIS_YEAR
+	 */
+	@Value("select id, name, batch_start_date__c, batch_end_date__c, batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c, Type__c from training__c where batch_start_date__c >= THIS_YEAR")
+	private String relevantBatches;
+	
+	/**
+	 * Will change as of version 2.0 Salesforce API in August/September 2017 timeframe
+	 * Once user selects a batch to import, use this to load all the Trainee details.
+	 	select id, name, training_status__c, phone, email, MobilePhone,
+			Training_Batch__c , Training_Batch__r.name, 
+			Training_Batch__r.batch_start_date__c, 
+			Training_Batch__r.batch_end_date__c, 
+			Training_Batch__r.batch_trainer__r.name, 
+			rnm__Recruiter__r.name, account.name, 
+			Training_Batch__r.Co_Trainer__r.name, 
+			eintern_current_project_completion_pct__c ,
+			Training_Batch__r.Skill_Type__c, 
+			Training_Batch__r.Type__c from Contact 
+			where training_batch__c = 'a0Yi000000F0b7I'
+			
+			// 'a0Yi000000F0b7I' is the resourceId
+	 */
+	@Value("select id, name, training_status__c, phone, email, MobilePhone, Training_Batch__c , Training_Batch__r.name, Training_Batch__r.batch_start_date__c, Training_Batch__r.batch_end_date__c, Training_Batch__r.batch_trainer__r.name, rnm__Recruiter__r.name, account.name, Training_Batch__r.Co_Trainer__r.name, eintern_current_project_completion_pct__c , Training_Batch__r.Skill_Type__c, Training_Batch__r.Type__c from Contact where training_batch__c = ")
+	private String batchDetails;
+	
 	@Value("select id, name from Training__c")
 	private String allBatches;
 	
@@ -47,20 +74,35 @@ public class SalesforceDAO {
 			HttpGet getRequest = new HttpGet(url);
 			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
 			HttpResponse queryResponse = httpClient.execute(getRequest);
+			
+			// convert to your salesforce beans
 			JsonNode queryResults = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), JsonNode.class);
 			log.info(queryResults);
+			//transform to Caliber bean
+			//return the bean
 		} catch (URISyntaxException | IOException e) {
 			log.warn("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
 		}
 		return null;
-
 	}
 	
-	public List<Batch> getAllBatchesByYear(int year){
+	/**
+	 * TODO implement
+	 * Get the batches in the current year and future years.
+	 * Access data using the Salesforce REST API
+	 * @return
+	 */
+	public List<Batch> getAllRelevantBatches(){
 		throw new UnsupportedOperationException();
 	}
 	
-	public Batch getBatchByResourceId(String resourceId){
+	/**
+	 * TODO implement
+	 * Get the trainees and contact details for a single batch.
+	 * Access data using the Salesforce REST API
+	 * @return
+	 */
+	public Batch getBatchDetails(String resourceId){
 		throw new UnsupportedOperationException();
 	}
 
