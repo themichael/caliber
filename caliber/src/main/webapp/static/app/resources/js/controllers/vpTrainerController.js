@@ -58,7 +58,6 @@ angular
 					
 					/** Save New Trainee Input * */
 					$scope.saveTrainer = function(trainerForm) {
-					console.log(trainerForm);
 					var newTrainer = trainerForm;
 					createTrainerObject(newTrainer);
 					caliberDelegate.all
