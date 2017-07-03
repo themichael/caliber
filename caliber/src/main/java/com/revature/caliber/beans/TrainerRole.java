@@ -36,6 +36,4 @@ public enum TrainerRole implements Serializable{
 	public String toString(){
 		return role;
 	}
-	
-	
 }
