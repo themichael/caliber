@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.salesforce.beans.SalesforceBatch;
 
 @Repository
 public class SalesforceDAO {
@@ -69,13 +70,13 @@ public class SalesforceDAO {
 		try {
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			String url = new URIBuilder(salesforceInstanceUrl).setScheme("https").setHost(salesforceInstanceUrl)
-					.setPath(salesforceApiUrl).setParameter("q", allBatches).build().toString();
+					.setPath(salesforceApiUrl).setParameter("q", relevantBatches).build().toString();
 			HttpGet getRequest = new HttpGet(url);
 			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
 			HttpResponse queryResponse = httpClient.execute(getRequest);
 			
 			// convert to your salesforce beans
-			JsonNode queryResults = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), JsonNode.class);
+			SalesforceBatch[] queryResults = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), SalesforceBatch[].class);
 			log.info(queryResults);
 			//transform to Caliber bean
 			//return the bean
