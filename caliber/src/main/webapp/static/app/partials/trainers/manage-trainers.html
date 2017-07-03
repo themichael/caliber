@@ -48,7 +48,7 @@
 	
 	
 	<!-- form for updating or creating batch -->
-	<div ui-view="trainer-form"></div>
+	<!-- <div ui-view="trainer-form"></div> -->
 	
 	
 	
@@ -57,11 +57,19 @@
 <p>Hello World</p>
 <br>
 <!-- Rod -->
-<button>Edit</button>
+<button ng-click=""
+		data-toggle="modal"
+		data-target="#editTrainerModal">
+		Edit</button>
 <br>
 <!-- Adam -->
-<button>Delete</button>
+<button ng-click=""
+		data-toggle="modal"
+		data-target="#deleteTrainerModal">
+		Delete</button>
 
 	<!-- form for creating a trainer -->
 	<div ui-view="create-trainer-form"></div>
+	<div ui-view="edit-trainer-form"></div>
+	<div ui-view="delete-trainer-form"></div>
 </div>

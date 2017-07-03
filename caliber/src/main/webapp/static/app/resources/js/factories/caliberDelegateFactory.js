@@ -88,7 +88,14 @@ angular
 					delegate.all.getTraineeByEmail = function(traineeEmail){
 						return allFactory.getTraineeEmail(traineeEmail);
 					}
-								
+						
+					
+					delegate.all.createTrainer = function(trainerObj) {
+						return allFactory.createTrainer(trainerObj);
+					};
+
+					
+					
 					/**
 					 * *********************** Enum constants
 					 * ***************************
@@ -118,7 +125,19 @@ angular
 					delegate.all.getAllCategories = function() {
 						return allFactory.getAllCategories();
 					};
-
+					
+					delegate.all.enumTrainerTier = function() {
+						return allFactory.enumTrainerTier();
+					}
+					delegate.all.enumTrainerTitle = function() {
+						return allFactory.enumTrainerTitle();
+					}
+					
+					
+					
+					
+					
+					
 					/**
 					 * *********************** Trainer
 					 * ***************************

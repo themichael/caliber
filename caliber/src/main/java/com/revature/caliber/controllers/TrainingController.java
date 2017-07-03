@@ -49,35 +49,42 @@ public class TrainingController {
 	 *******************************************************
 	 */
 
+	
+	
+	
 	/**
-	 * Finds a trainer by email. Used for logging in a user with the Salesforce
-	 * controller `
-	 * 
-	 * @param email
-	 * @return
+	 * Create trainer
+	 *
+	 * @param trainer
+	 *            
+	 * @return the response entity
 	 */
-	@RequestMapping(value = "/training/trainer/byemail/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Trainer> findTrainer(@PathVariable String email) {
-		log.info("Find trainer by email " + email);
-		Trainer trainer = trainingService.findTrainer(email);
-		return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
-	}
-
-	/**
-	 * Returns all trainers from the database `
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<List<Trainer>> getAllTrainers() {
-		log.info("Fetching all trainers");
-		List<Trainer> trainers = trainingService.findAllTrainers();
-		return new ResponseEntity<>(trainers, HttpStatus.OK);
+	public ResponseEntity<Trainer> createTrainer(@Valid @RequestBody Trainer trainer) {
+		log.info("Saving trainer: " + trainer);
+		trainingService.createTrainer(trainer);
+		return new ResponseEntity<Trainer>(trainer, HttpStatus.CREATED);
 	}
 	
 	/**
-	 * Updates the trainer
+	 * Update trainer
+	 *
+	 * @param trainer
+	 *            
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/all/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<Void> updateTrainer(@Valid @RequestBody Trainer trainer) {
+		log.info("Updating trainer: " + trainer);
+		trainingService.update(trainer);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	
+	/**
+	 * Deletes the trainer
 	 * */
 	@RequestMapping(value = "/all/trainer/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainer>  makeInactive(@Valid @RequestBody  Trainer trainer){

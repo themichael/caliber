@@ -271,6 +271,12 @@ angular
 											},
 											"create-trainer-form@vp.trainers" : {
 												templateUrl : "/static/app/partials/trainers/create-trainer-modal.html"
+											},
+											"edit-trainer-form@vp.trainers" : {
+												templateUrl : "/static/app/partials/trainers/edit-trainer-modal.html"
+											},
+											"delete-trainer-form@vp.trainers" : {
+												templateUrl : "/static/app/partials/trainers/delete-trainer-modal.html"
 											}
 										}
 												

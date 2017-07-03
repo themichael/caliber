@@ -2,7 +2,7 @@
  * Team: SDAR 
  * Team Lead: Roderick Dye
  * Authors: Roderick Dye, 
- * Stanley , 
+ * Stanley Chouloute, 
  * Daniel Zorilla, 
  * Adam Baker
  * 
@@ -17,7 +17,7 @@ angular
 		.module("vp")
 		.controller(
 				"vpTrainerController",
-				function($scope, $log) {
+				function($scope, $log, caliberDelegate) {
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -26,5 +26,58 @@ angular
 					 */
 
 					/** On page start --> load all trainers * */
+					
+					
+					
+					
+					
+					
+					
+					
+/*************************************************	Code to create Trainer**************************/				
+					
+					// load training tiers
+					caliberDelegate.all.enumTrainerTier().then(
+							function(tiers) {
+								$log.debug(tiers);
+								$scope.trainerTiers = tiers;
+							});
+					
+					
+					$scope.trainerTitle = ["Lead Trainer",
+										"Senior Trainer",
+										"Senior Java Developer",
+										"Senior Technology Manager "];
+						
+//					
+//					
+//					/** Create new Trainee Object * */
+//					function createTrainerObject(trainer) {
+//						trainer.name = $scope.trainerForm.name;
+//						trainer.email = $scope.trainerForm.email;
+//						trainer.title = $scope.trainerForm.title;
+//						trainer.tier = $scope.trainerForm.tier;
+//						$log.debug(trainee);
+//					}
+//					
+//					
+//					
+//					
+//					/** Save New Trainee Input * */
+//					$scope.saveTrainer = function() {
+//					var newTrainer = {};
+//					createTrainerObject(newTrainer);
+//					caliberDelegate.all
+//							.createTrainer(newTrainer)
+//							.then(
+//									function(response) {
+//										$log.debug("trainer added: " + response);
+//									}
+//							)
+//					};
+//					
+					
+					
+					
 					
 				});
