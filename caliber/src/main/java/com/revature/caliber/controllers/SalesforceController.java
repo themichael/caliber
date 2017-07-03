@@ -29,8 +29,8 @@ public class SalesforceController {
 	
 	@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
 	public String getSalesforceToken(){
-		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-				.getSalesforceToken().getAccessToken();
+		return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				//.getSalesforceToken().getAccessToken();
 	}
 	
 }
