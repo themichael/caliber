@@ -137,20 +137,6 @@ public class TypeController {
 		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
 	}
 	
-	
-	/**
-	 * Get Trainer Title for dropdown selection on the UI
-	 *
-	 * @param Title
-	 *            the Title
-	 * @return the response entity
-	 */
-	@RequestMapping(value = "/trainer/title/all", method = RequestMethod.GET)
-	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<List<String>> allTrainerTitle() {
-		log.info("Fetching Trainer Titles");
-		List<String> types = Stream.of(TrainerTitle.values()).map(Enum::toString).collect(Collectors.toList());     //Used toString to Display the roles without the underscore
-		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
-	}
+
 
 }

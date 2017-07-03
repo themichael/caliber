@@ -67,6 +67,21 @@ public class TrainingController {
 	}
 	
 	/**
+	 * Update trainer
+	 *
+	 * @param trainer
+	 *            
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/all/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<Void> updateTrainer(@Valid @RequestBody Trainer trainer) {
+		log.info("Updating trainer: " + trainer);
+		trainingService.update(trainer);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	/**
 	 * Finds a trainer by email. Used for logging in a user with the Salesforce
 	 * controller `
 	 * 

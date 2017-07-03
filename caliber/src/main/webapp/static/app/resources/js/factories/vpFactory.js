@@ -38,26 +38,3 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 
 	return vp;
 });
-
-
-
-
-/**
- * 
- * @param traineeObj
- * @returns {*}
- */
-all.createTrainee = function(trainerObj) {
-	return $http({
-		url : "/all/trainer/create",
-		method : "POST",
-		data : trainerObj
-	}).then(function(response) {
-		$log.debug("Trainer successfully created.")
-		$log.debug(response);
-		return response;
-	}, function(response) {
-		$log.error("There was an error: " + response.status);
-		return response.data;
-	});
-};
