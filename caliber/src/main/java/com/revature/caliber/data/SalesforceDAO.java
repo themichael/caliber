@@ -70,19 +70,20 @@ public class SalesforceDAO {
 		try {
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			String url = new URIBuilder(salesforceInstanceUrl).setScheme("https").setHost(salesforceInstanceUrl)
-					.setPath(salesforceApiUrl).setParameter("q", relevantBatches).build().toString();
+					.setPath(salesforceApiUrl).setParameter("q", batchDetails + "'a0Yi000000F0b7I'").build().toString();
 			HttpGet getRequest = new HttpGet(url);
 			
 			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
 			HttpResponse queryResponse = httpClient.execute(getRequest);
 			
 			// convert to your salesforce beans
-			JsonNode queryResults = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), JsonNode.class);
-			log.info(queryResults);
+			ObjectMapper mapper = new ObjectMapper();
+			Object queryResults = mapper.readValue(queryResponse.getEntity().getContent(), Object.class);
+			log.info(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(queryResults));
 			//transform to Caliber bean
 			//return the bean
 
-			return queryResults.asText();
+			return (String) queryResults;
 
 		} catch (URISyntaxException | IOException e) {
 			log.warn("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
@@ -110,8 +111,12 @@ public class SalesforceDAO {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Gets access_token. Enable programmatic token access at go-live
+	 * @return
+	 */
 	private String getAccessToken() {
-		return "00D0n0000000Q1l!AQQAQPP_0qqf.1TJ_IhXyrH7s2qS9NE3e1GN7OozThdviGafVO6e_PjRemFpFKw1x6kb4fj1dDdgnAvTbKTuy8cexPkeSrkt";
+		return "00D0n0000000Q1l!AQQAQBFSQZvXhOTjRzlkF2hZKl16AG8y1D352ZO1.BsEg42jCJCWd.P_cVp40T36wxwzFfuEh4iIrwbgzfrBveR6Q0GjWObx";
 		//return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}
 
