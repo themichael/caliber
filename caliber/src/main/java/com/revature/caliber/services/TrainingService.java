@@ -93,6 +93,13 @@ public class TrainingService {
 		log.debug("Find trainer by id: " + trainerId);
 		return trainerDAO.findOne(trainerId);
 	}
+	/**
+	 * MAKE INACTIVE
+	 * */
+	public void makeInactive (Trainer trainer){
+		log.debug(trainer + " is inactive");
+		trainerDAO.update(trainer);
+	}
 	
 	
 	/*
