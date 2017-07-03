@@ -48,14 +48,12 @@ public class TrainingController {
 	 *
 	 *******************************************************
 	 */
-	
-	
-	
+
 	/**
 	 * Create trainer
 	 *
 	 * @param trainer
-	 *            
+	 * 
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -65,12 +63,12 @@ public class TrainingController {
 		trainingService.createTrainer(trainer);
 		return new ResponseEntity<Trainer>(trainer, HttpStatus.CREATED);
 	}
-	
+
 	/**
 	 * Update trainer
 	 *
 	 * @param trainer
-	 *            
+	 * 
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -80,7 +78,7 @@ public class TrainingController {
 		trainingService.update(trainer);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	/**
 	 * Finds a trainer by email. Used for logging in a user with the Salesforce
 	 * controller `
@@ -152,8 +150,7 @@ public class TrainingController {
 	 *            the batch
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, 
-	produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch, Authentication auth) {
 		// batch.setTrainer(getPrincipal(auth));
@@ -184,11 +181,12 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value = {"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {
+			"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('QC, VP')")
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
 		log.info("Fetching all current batches");
-		 List<Batch> batches = trainingService.findAllCurrentBatches();
+		List<Batch> batches = trainingService.findAllCurrentBatches();
 		// List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 
@@ -199,7 +197,8 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value ={"/qc/batch/all", "/vp/batch/all"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = { "/qc/batch/all",
+			"/vp/batch/all" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<List<Batch>> getAllBatches() {
 		log.info("Fetching all batches");
@@ -317,13 +316,13 @@ public class TrainingController {
 	}
 
 	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
-	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail){
+	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail) {
 		Trainee trainee = new Trainee();
 		trainee = trainingService.findTraineeByEmail(traineeEmail);
-	
+
 		return new ResponseEntity<Trainee>(trainee, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<String>> findCommonLocations() {
 		log.info("Fetching common training locations");
