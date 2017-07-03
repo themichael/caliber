@@ -32,7 +32,7 @@ angular
 								function(trainers){
 									$log.debug(trainers)
 									$scope.allTrainers = trainers;
-								});
+								})
 						
 /*									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
