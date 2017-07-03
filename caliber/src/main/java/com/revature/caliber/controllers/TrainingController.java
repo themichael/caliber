@@ -48,31 +48,7 @@ public class TrainingController {
 	 *
 	 *******************************************************
 	 */
-	
-	
-	
-	/**
-	 * Create trainer
-	 *
-	 * @param trainer
-	 *            
-	 * @return the response entity
-	 */
-	@RequestMapping(value = "/all/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Trainer> createTrainer(@Valid @RequestBody Trainer trainer) {
-		log.info("Saving trainer: " + trainer);
-		trainingService.createTrainer(trainer);
-		return new ResponseEntity<Trainer>(trainer, HttpStatus.CREATED);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Finds a trainer by email. Used for logging in a user with the Salesforce
 	 * controller `
@@ -100,6 +76,16 @@ public class TrainingController {
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
 	}
 	
+	/**
+	 * Updates the trainer
+	 * */
+	@RequestMapping(value = "/all/trainer/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Trainer>  makeInactive(@Valid @RequestBody  Trainer trainer){
+		log.info("Updating trainer: " + trainer);
+		 trainingService.update(trainer);
+		return new ResponseEntity<Trainer>(trainer, HttpStatus.NO_CONTENT);
+		
+	}
 
 	/*
 	 *******************************************************

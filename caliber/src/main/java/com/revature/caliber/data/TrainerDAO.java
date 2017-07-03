@@ -59,6 +59,7 @@ public class TrainerDAO{
 	}
 	
 	/**
+	 * 
 	 * Convenience method only. Not practical in production since trainers must be registered
 	 * in the Salesforce with a matching email address.
 	 * @param trainer
