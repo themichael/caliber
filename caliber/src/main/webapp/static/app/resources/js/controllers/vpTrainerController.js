@@ -79,3 +79,5 @@ angular
 					
 					
 				});
+
+				$scope.trainerDeactivation = function()
