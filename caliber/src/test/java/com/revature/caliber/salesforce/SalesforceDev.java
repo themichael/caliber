@@ -16,7 +16,7 @@ import com.revature.caliber.data.SalesforceDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
-public class SalesforceDAOTest  {
+public class SalesforceDev  {
 
 	@Autowired
 	private SalesforceDAO salesforceDAO;

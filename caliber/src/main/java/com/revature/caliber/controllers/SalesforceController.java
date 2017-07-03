@@ -22,7 +22,10 @@ public class SalesforceController {
 		this.salesforceService = salesforceService;
 	}
 	
-	
+	@RequestMapping(value="/salesforce/test", method=RequestMethod.GET)
+	public String salesforceJson(){
+		return salesforceService.getAllSalesforceBatches();
+	}
 	
 	@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
 	public String getSalesforceToken(){

@@ -66,11 +66,11 @@ public class SalesforceDAO {
 	private String allBatches;
 	
 	// TODO test sample Batch query
-	public List<Batch> getAllBatches() {
+	public String getAllBatches() {
 		try {
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			String url = new URIBuilder(salesforceInstanceUrl).setScheme("https").setHost(salesforceInstanceUrl)
-					.setPath(salesforceApiUrl).setParameter("q", allBatches).build().toString();
+					.setPath(salesforceApiUrl).setParameter("q", relevantBatches).build().toString();
 			HttpGet getRequest = new HttpGet(url);
 			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
 			HttpResponse queryResponse = httpClient.execute(getRequest);
@@ -80,10 +80,11 @@ public class SalesforceDAO {
 			log.info(queryResults);
 			//transform to Caliber bean
 			//return the bean
+			return queryResults.asText();
 		} catch (URISyntaxException | IOException e) {
 			log.warn("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
+			return null;
 		}
-		return null;
 	}
 	
 	/**
@@ -111,4 +112,5 @@ public class SalesforceDAO {
 		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
 				.getSalesforceToken().getAccessToken();
 	}
+
 }
