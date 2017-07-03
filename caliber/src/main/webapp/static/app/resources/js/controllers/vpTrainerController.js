@@ -17,7 +17,7 @@ angular
 		.module("vp")
 		.controller(
 				"vpTrainerController",
-				function($scope, $log, caliberDelegate, allTrainers) {
+				function($scope, $log, caliberDelegate) {
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -26,18 +26,23 @@ angular
 					 */
 
 					/** On page start --> load all trainers * */
-					(function start(){
+					
 						caliberDelegate.all.getAllTrainers().then(
+								
 								function(trainers){
-									$scope.trainers = trainers;
-									$log.debug("=========TRAINERS=========");
-									$log.debug(trainers);
-									
+									$log.debug(trainers)
+									$scope.allTrainers = trainers;
 								});
-						$log.debug(allTrainers);
+						
+/*									$scope.trainers = trainers;
+									$log.debug("=========TRAINERS=========");
+									$log.debug(trainers);*/
+									
+								
+/*						$log.debug(allTrainers);
 						$scope.trainers = allTrainers;
-						$scope.selectedTrainers = [];
-					})();
+						$scope.selectedTrainers = [];*/
+					
 					
 					
 					
