@@ -48,9 +48,6 @@ angular
 					
 					
 					
-					
-					
-					
 /*************************************************	Code to create and update Trainer*************/				
 					
 					// load training tiers
@@ -93,5 +90,10 @@ angular
 						$log.debug(trainer);
 					};
 					
-					
+					/** Fill update form with trainer's previous data */
+					$scope.populateTrainer = function(trainer) {
+						$log.debug(trainer);
+						$scope.trainerForm.name = trainer.name;
+						
+					};
 				});
