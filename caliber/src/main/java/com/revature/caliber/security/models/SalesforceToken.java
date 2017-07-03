@@ -39,7 +39,6 @@ public class SalesforceToken {
      */
     public SalesforceToken() {
     }
-
     /**
      * Instantiates a new Salesforce token.
      *

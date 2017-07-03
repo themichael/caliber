@@ -155,6 +155,24 @@ angular
 										}
 									})
 							.state(
+									"trainer.import",
+									{
+										abstract : true,
+										url : " /trainer/batch/all/importget",
+										templateUrl : "/static/app/partials/abstracts/trainer.html",
+										resolve : {
+											allBatches : function(
+													caliberDelegate) {
+												return caliberDelegate.trainer
+														.importAllBatches();
+											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authTrainer();
+										}
+									})
+							.state(
 									"trainer.home",
 									{
 										templateUrl : "/static/app/partials/home/trainer-home.html",
