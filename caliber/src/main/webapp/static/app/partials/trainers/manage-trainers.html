@@ -1,10 +1,11 @@
+
 <div>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-lg-12">
 			<ul class="nav nav-tabs">
-				<li role="button" class="pull-right" data-toggle="modal"
-				data-target="#createTrainerModal" ng-click=""><a>Create Trainer
+				<li role="button" class="pull-right" data-toggle="model"
+				data-target="#createTrainerModel" ng-click=""><a>Create Trainer
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				</a>
 				
@@ -31,11 +32,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+					<tr ng-repeat="trainer in allTrainers">
+						<td>{{trainer.name}}</td>
+						<td>{{trainer.title}}</td>
+						<td>{{trainer.email}}</td>
+						<td>{{trainer.tier}}</td>
 					</tr>
 				</tbody>
 			
@@ -48,13 +49,16 @@
 	
 	
 	<!-- form for updating or creating batch -->
-	<!-- <div ui-view="trainer-form"></div> -->
+	<div ui-view="trainer-form"></div>
 	
 	
 	
 	
 <!-- Dan -->
 <p>Hello World</p>
+<br>
+<!-- Stan -->
+<button>Create</button>
 <br>
 <!-- Rod -->
 <button ng-click=""
