@@ -27,11 +27,11 @@
 								<label for="trainerEmail">Email:</label> 
 								<input
 									ng-model="trainerForm.email" type="email" class="form-control"
-									id="traineeEmail" placeholder="Email" required>
+									id="trainerEmail" placeholder="Email" required>
 								<div
-									ng-show="addTraineeForm.temail.$submitted || addTraineeForm.temail.$touched">
+									ng-show="addTrainerForm.temail.$submitted || addTrainerForm.temail.$touched">
 									<span class='warning'
-										ng-show="addTraineeForm.temail.$error.email">Must enter
+										ng-show="addTrainerForm.temail.$error.email">Must enter
 										a valid email
 									</span>
 								</div>
@@ -41,19 +41,19 @@
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 									<label for="trainerTitle">Title</label> 
 									<select
-										ng-model="trainerForm.trainerTitle" class="form-control"
+										ng-model="trainerForm.title" class="form-control"
 										id="trainerTitle" required>
 										<option value="" disabled>Select Title</option>
-										<option ng-repeat="option in trainerTitle.options">{{option}}</option>
+										<option ng-repeat="option in trainerTitle">{{option}}</option>
 									</select>
 							</div>
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="trainerTier">Tier</label>
 								<select
-									ng-model="trainerForm.trainerTier" class="form-control"
+									ng-model="trainerForm.tier" class="form-control"
 									id="trainerTier" required>
 									<option value="" disabled>Select Tier</option>
-									<option ng-repeat="option in trainerTier.options">{{option}}</option>
+									<option ng-repeat="option in trainerTiers">{{option}}</option>
 								</select>
 							</div>
 						</div>
