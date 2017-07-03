@@ -146,7 +146,19 @@ public class TrainingController {
 		trainingService.delete(batch);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-
+	/**
+	 * Gets all current batches from salesforce
+	 * 
+	 * @return the all batches
+	 */
+	@RequestMapping(value ="/all/batch/import", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<Batch>> getAllSalesforceBatches() {
+		log.info("Fetching all salesforce batches");
+		List<Batch> batches = trainingService.findAllBatches();
+		return new ResponseEntity<>(batches, HttpStatus.OK);
+	}
+	
 	/**
 	 * Gets all current batches
 	 *
@@ -159,7 +171,6 @@ public class TrainingController {
 		 List<Batch> batches = trainingService.findAllCurrentBatches();
 		// List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
-
 	}
 
 	/**
