@@ -32,11 +32,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="trainers in selectedBatches">
-						<td>{{trainers.trainer.name}}</td>
-						<td>{{trainers.trainer.title}}</td>
-						<td>{{trainers.trainer.email}}</td>
-						<td>{{trainers.trainer.tier}}</td>
+					<tr ng-repeat="trainer in selectedTrainers track by $index">
+						<td>{{trainer.name}}</td>
+<!-- 						<td>{{trainer.title}}</td>
+						<td>{{trainer.email}}</td>
+						<td>{{trainer.tier}}</td> -->
 					</tr>
 				</tbody>
 			

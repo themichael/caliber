@@ -2,13 +2,8 @@
  * Team: SDAR 
  * Team Lead: Roderick Dye
  * Authors: Roderick Dye, 
-<<<<<<< HEAD
- * Stanley , 
- * Daniel Zorrilla, 
-=======
  * Stanley Chouloute, 
- * Daniel Zorilla, 
->>>>>>> ae44d30a91d900955f847b7b154ae64467059a92
+ * Daniel Zorrilla, 
  * Adam Baker
  * 
  * Daniel worked on viewing all trainers,
@@ -22,11 +17,7 @@ angular
 		.module("vp")
 		.controller(
 				"vpTrainerController",
-<<<<<<< HEAD
 				function($scope, $log, caliberDelegate, allTrainers) {
-=======
-				function($scope, $log, caliberDelegate) {
->>>>>>> ae44d30a91d900955f847b7b154ae64467059a92
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
