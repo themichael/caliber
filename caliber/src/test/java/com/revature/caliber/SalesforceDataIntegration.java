@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.revature.caliber.data.SalesforceDAO;
+import com.revature.caliber.data.SalesforceDAOold;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
@@ -16,9 +16,9 @@ public class SalesforceDataIntegration {
 	private static final Logger log = Logger.getLogger(SalesforceDataIntegration.class);
 	
 	@Autowired
-	private SalesforceDAO salesforceDAO;
+	private SalesforceDAOold salesforceDAO;
 
-	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
+	public void setSalesforceDAO(SalesforceDAOold salesforceDAO) {
 		this.salesforceDAO = salesforceDAO;
 	}
 	

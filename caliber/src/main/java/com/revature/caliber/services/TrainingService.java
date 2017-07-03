@@ -10,7 +10,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.SalesforceDAO;
+import com.revature.caliber.data.SalesforceDAOold;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
@@ -30,7 +30,7 @@ public class TrainingService {
 	private TraineeDAO traineeDAO;
 	private BatchDAO batchDAO;
 	//TODO JESSICA
-	private SalesforceDAO salesforceDAO;
+	private SalesforceDAOold salesforceDAO;
 	
 	@Autowired
 	public void setTrainerDAO(TrainerDAO trainerDAO) {this.trainerDAO = trainerDAO;}
@@ -40,7 +40,7 @@ public class TrainingService {
 	public void setBatchDAO(BatchDAO batchDAO) {this.batchDAO = batchDAO;}
 	//TODO JESSICA
 	@Autowired
-	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {this.salesforceDAO = salesforceDAO;}
+	public void setSalesforceDAO(SalesforceDAOold salesforceDAO) {this.salesforceDAO = salesforceDAO;}
 
 	/*
 	 *******************************************************
