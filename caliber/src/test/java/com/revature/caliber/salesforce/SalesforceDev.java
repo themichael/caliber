@@ -3,6 +3,8 @@ package com.revature.caliber.salesforce;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,6 +20,8 @@ import com.revature.caliber.data.SalesforceDAO;
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
 public class SalesforceDev  {
 
+	private static Logger log = Logger.getLogger(SalesforceDev.class);
+	
 	@Autowired
 	private SalesforceDAO salesforceDAO;
 	
@@ -25,9 +29,9 @@ public class SalesforceDev  {
 		this.salesforceDAO = salesforceDAO;
 	}
 
-	public List<Batch> getAllBatchesByYear(int year){
-		List<Batch> batches = new ArrayList<Batch>();
-		return null;
+	@Test
+	public void getAllBatches(){
+		log.warn(salesforceDAO.getAllBatches());
 	}
 
 	public Batch getBatchByResourceId(String resourceId){
