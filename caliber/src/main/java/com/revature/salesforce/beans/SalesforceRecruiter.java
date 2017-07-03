@@ -1,6 +1,7 @@
 package com.revature.salesforce.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * Salesforce Data Transfer Object
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SalesforceRecruiter {
 
 	@JsonProperty("attributes")
+	@JsonSerialize(as=Attributes.class)
 	private Attributes attributes;
 	
 	@JsonProperty("Name")

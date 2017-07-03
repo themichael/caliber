@@ -3,6 +3,7 @@ package com.revature.salesforce.beans;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * Salesforce Data Transfer Object
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SalesforceBatch {
 
 	@JsonProperty("attributes")
+	@JsonSerialize(as=Attributes.class)
 	private Attributes attributes;
 	
 	@JsonProperty("Id")
@@ -28,9 +30,11 @@ public class SalesforceBatch {
 	private Date batchEndDate;
 	
 	@JsonProperty("Batch_Trainer__r")
+	@JsonSerialize(as=BatchTrainer.class)
 	private BatchTrainer trainer;
 	
 	@JsonProperty("Co_Trainer__r")
+	@JsonSerialize(as=BatchTrainer.class)
 	private BatchTrainer cotrainer;
 	
 	@JsonProperty("Skill_Type__c")

@@ -11,14 +11,11 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.security.models.SalesforceUser;
-import com.revature.salesforce.beans.SalesforceBatch;
+import com.revature.salesforce.beans.SalesforceBatchResponse;
 
 @Repository
 public class SalesforceDAO {
@@ -76,12 +73,13 @@ public class SalesforceDAO {
 			HttpResponse queryResponse = httpClient.execute(getRequest);
 			
 			// convert to your salesforce beans
-			SalesforceBatch[] queryResults = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), SalesforceBatch[].class);
+			SalesforceBatchResponse queryResults = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), SalesforceBatchResponse.class);
 			log.info(queryResults);
+			log.info(queryResults.getRecords()[0].getBatchStartDate());
 			//transform to Caliber bean
 			//return the bean
 		} catch (URISyntaxException | IOException e) {
-			log.warn("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
+			log.error("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
 		}
 	}
 	
@@ -102,12 +100,12 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	public Batch getBatchDetails(String resourceId){
+		String query = batchDetails + "' " + resourceId + " + '";
 		throw new UnsupportedOperationException();
 	}
 
 	private String getAccessToken() {
-		//return "00D5C0000008jkd!AQYAQMZ6GkPlJIkw2SvF4ip1HGTgx3F_EZa5MBsXwKOEugD0u0_2AelDbDKbPjtn.Ae5vbDRSzpuHuOgIWhlwIwSon1QM16Y";
-		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-				.getSalesforceToken().getAccessToken();
+		return "00D0n0000000Q1l!AQQAQLqJ7zC.86A8LGRpxbHQEKk6lF9ThL46RVnryThyYTw7P2nOixejGLzkYfzT0wv9L1o.elvuWK6LYf31tn1wvwyfzVCB";
+		//return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}
 }

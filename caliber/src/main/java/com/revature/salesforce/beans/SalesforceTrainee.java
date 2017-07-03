@@ -1,6 +1,7 @@
 package com.revature.salesforce.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * Salesforce Data Transfer Object
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SalesforceTrainee {
 
 	@JsonProperty("attributes")
+	@JsonSerialize(as=Attributes.class)
 	private Attributes attributes;
 	
 	@JsonProperty("Id")
@@ -35,12 +37,15 @@ public class SalesforceTrainee {
 	private String batchId;
 	
 	@JsonProperty("Training_Batch__r")
+	@JsonSerialize(as=SalesforceBatch.class)
 	private SalesforceBatch batch;
 	
 	@JsonProperty("rnm__Recruiter__r")
+	@JsonSerialize(as=SalesforceRecruiter.class)
 	private SalesforceRecruiter recruiter;
 	
 	@JsonProperty("Account")
+	@JsonSerialize(as=SalesforceCollege.class)
 	private SalesforceCollege college;
 	
 	@JsonProperty("eintern_current_project_completion_pct__c")
