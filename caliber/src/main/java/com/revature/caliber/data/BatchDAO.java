@@ -67,7 +67,7 @@ public class BatchDAO{
 	}
 
 	/**
-	 * Looks for all batches where the user was the trainer or cotrainer.
+	 * Looks for all batches where the user was the trainer or co-trainer.
 	 * 
 	 * @param auth
 	 * @return
