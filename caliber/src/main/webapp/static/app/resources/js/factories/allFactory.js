@@ -347,9 +347,10 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	 * @returns {*}
 	 */
 	all.createTrainer = function(trainerObj) {
+		console.log(trainerObj);
 		return $http({
 			url : "/all/trainer/create",
-			method : "POST",
+			method :"POST",
 			data : trainerObj
 		}).then(function(response) {
 			$log.debug("Trainer successfully created.")

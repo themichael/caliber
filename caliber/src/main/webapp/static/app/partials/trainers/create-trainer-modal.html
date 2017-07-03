@@ -1,18 +1,18 @@
 <!--********************************************* Create Trainer Modal ************************************-->
-<form ng-submit="saveTrainer()">
+<form ng-submit="saveTrainer(trainerForm)">
 	<div class="modal fade" id="createTrainerModal" tabindex="-1"
 		role="dialog" aria-labelledby="trainerModalLabel">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
+
 					<h4 class="modal-title" id="trainerModalLabel">Add Trainer</h4>
 				</div>
 				<div class="modal-body">
-					<!-- Add New Trainer -->
 					<h3 ng-bind="trainerFormName">Add Trainer</h3>
 					<div>
 						<div class="row">
@@ -27,9 +27,9 @@
 								<label for="trainerEmail">Email:</label> 
 								<input
 									ng-model="trainerForm.email" type="email" class="form-control"
-									id="trainerEmail" placeholder="Email" required>
+									id="traineeEmail" placeholder="Email" required>
 								<div
-									ng-show="addTrainerForm.temail.$submitted || addTrainerForm.temail.$touched">
+									ng-show="addTrainerForm.temail.$submitted || addTraineeForm.temail.$touched">
 									<span class='warning'
 										ng-show="addTrainerForm.temail.$error.email">Must enter
 										a valid email
@@ -59,11 +59,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit"
-							ng-disabled="addTrainerForm.temail.$error.required || addTrainerForm.temail.$error.email"
-							value="Save" class="btn btn-primary" ng-show="!Updating.status">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							ng-show="!Updating.status">Close</button>
+					<input type="submit" ng-value="Save" class="btn btn-primary">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
