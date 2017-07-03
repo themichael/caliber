@@ -123,8 +123,10 @@ angular
 						$scope.batches = allBatches;
 						if (!allBatches) return;
 						if (allBatches.length > 0) { 
-							 // if currentBatch is not yet in the scope, run for assess batch.. 
-							 // else this controller is being used for reportsController
+							 // if currentBatch is not yet in the scope, run
+								// for assess batch..
+							 // else this controller is being used for
+								// reportsController
 							if(!$scope.currentBatch){
 								$scope.currentBatch = allBatches[0];
 							}
@@ -167,8 +169,17 @@ angular
 												});
 								$log.debug("Batches " + allBatches);
 								
-								if(!$scope.currentWeek){ // if currentWeek is not yet in the scope, run for assess batch
-								var totalWeeks = allBatches[allBatches.length-1].weeks; // the number of weeks for that batch
+								if(!$scope.currentWeek){ // if currentWeek is
+															// not yet in the
+															// scope, run for
+															// assess batch
+								var totalWeeks = allBatches[allBatches.length-1].weeks; // the
+																						// number
+																						// of
+																						// weeks
+																						// for
+																						// that
+																						// batch
 
 								$log
 										.debug("this is the total week for this batch "
@@ -346,7 +357,13 @@ angular
 									$scope.currentBatch.weeks += 1;
 									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
 									$scope.showActiveWeek($scope.currentBatch.weeks);
-									$scope.selectWeek($scope.currentBatch.weeks-1); // the new index of the week selected
+									$scope.selectWeek($scope.currentBatch.weeks-1); // the
+																					// new
+																					// index
+																					// of
+																					// the
+																					// week
+																					// selected
 								});
 						} 
 					};
@@ -422,11 +439,16 @@ angular
 												});
 						};
 
-					// get all assessments for the batch specific 
+					// get all assessments for the batch specific
 					function getAllAssessmentsForWeek(batchId, weekNumb) {
 						if (!weekNumb)
 							return;
-						
+						caliberDelegate.qc.getAllAssessmentCategories(
+								batchId,
+								weekNumb).then(
+								function(response) {
+									$scope.categories = response;
+								});
 						caliberDelegate.trainer
 								.getAllAssessmentsForWeek(batchId, weekNumb)
 								.then(
@@ -477,7 +499,7 @@ angular
 										});
 										
 					};
-					/** Call an all factory method - jack**/
+					/** Call an all factory method - jack* */
 					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
 						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
 							.then(function(response){
@@ -493,11 +515,12 @@ angular
 					
 					/** *******Save TrainerBatch Notes********** */	
 					/*
-					 * Updating and creating trainerbatch notes.
-					 * get the batchnoteID to to see if the note has already been created for this batch or not.
-					 * If noteID is undefined meaning there is not note for this batch, so we will create one.
-					 * If there is note ID, we will update the notes.
-					 * author: Kam Lam
+					 * Updating and creating trainerbatch notes. get the
+					 * batchnoteID to to see if the note has already been
+					 * created for this batch or not. If noteID is undefined
+					 * meaning there is not note for this batch, so we will
+					 * create one. If there is note ID, we will update the
+					 * notes. author: Kam Lam
 					 */
 					$scope.saveTrainerNotes = function(batchNoteId) {
 						$log.debug("Saving note: " + $scope.trainerBatchNote);
@@ -525,9 +548,9 @@ angular
 						}
 					}
 					/*
-					 * Array of assessments by assessment id
-					 * used to store raw score and to calculate weight score - jack
-					 * */			
+					 * Array of assessments by assessment id used to store raw
+					 * score and to calculate weight score - jack
+					 */			
 					$scope.generateArrAssessmentById = function(assessments){
 						var totalRawScore = 0;
 						if(assessments !== undefined){
@@ -546,7 +569,7 @@ angular
 							}
 						}
 					}
-					/*Get weighted score of assessments- jack*/
+					/* Get weighted score of assessments- jack */
 					$scope.getWeightedScore = function(rawScore,totalRawScore){
 						return (rawScore/totalRawScore) * 100;
 					}
@@ -575,14 +598,15 @@ angular
 								score :score,
 							};
 							/*
-							 * if assessment object has gradeId, define it in grade
-							 * object
+							 * if assessment object has gradeId, define it in
+							 * grade object
 							 */
 							if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
 								grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
 							}
 							// adds new Grade if not exists, else update,
-							// response contains the ID of the created/updated Grade
+							// response contains the ID of the created/updated
+							// Grade
 									
 							caliberDelegate.trainer.addGrade(grade).then(
 									function(response) {
@@ -608,7 +632,7 @@ angular
 									});
 						}
 					}
-					/*Run when populating input boxes with grades - jack*/
+					/* Run when populating input boxes with grades - jack */
 					$scope.findGrade = function(traineeId, assessmentId) {
 							if(!$scope || !$scope.grades || !traineeId || $scope.grades[traineeId] === undefined){ 
 								return false;
@@ -665,17 +689,17 @@ angular
 					}
 					
 // ----------------> double check if this is a useless method
-/*					function pushUnique(arr, item) {
-						if (arr.indexOf(item) === -1) {
-							arr.push(item);
-						}
-					}*/
+/*
+ * function pushUnique(arr, item) { if (arr.indexOf(item) === -1) {
+ * arr.push(item); } }
+ */
 
 					$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
 						// assessmentTotals will assessment objects, each with
 						// properties
 						// - total(for total score)
-						// - count (for total number of trainees to divide by) - jack
+						// - count (for total number of trainees to divide by) -
+						// jack
 						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
 						if($scope.assessmentTotals[assessment.assessmentId] === undefined) $scope.assessmentTotals[assessment.assessmentId] = {};
 							
@@ -750,14 +774,15 @@ angular
 							return 1;
 						return 0;
 					}
-					/******************
-					 * UPDATE ASSESSMENT 
-					 *****************/
+					/***********************************************************
+					 * UPDATE ASSESSMENT
+					 **********************************************************/
 						$scope.updateAssessment = function(assessment,event,modalId,index){
 							event.stopPropagation();
 							if($scope.updateAssessmentModel !==undefined){
 								$log.debug(index);
-								//$log.debug($scope.currentAssessments[$index] + "  ------ " + $index);
+								// $log.debug($scope.currentAssessments[$index]
+								// + " ------ " + $index);
 								if($scope.updateAssessmentModel.category){
 									assessment.category=$scope.updateAssessmentModel.category;
 								}
@@ -767,7 +792,8 @@ angular
 								if($scope.updateAssessmentModel.rawScore){
 									assessment.rawScore=$scope.updateAssessmentModel.rawScore;
 								}
-								//call delegate if at least one field was changed
+								// call delegate if at least one field was
+								// changed
 								if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
 									caliberDelegate.trainer.updateAssessment(assessment)
 									.then(function(response){
@@ -788,7 +814,7 @@ angular
 					
 
 					
-					// delete the assessment clicked 
+					// delete the assessment clicked
 					$scope.deleteAssessment = function(assessment,event,modalId,index){
 						$('.modal').modal('hide');
 						$('.modal-backdrop').remove();
@@ -803,12 +829,12 @@ angular
 						});
 					};
 					/*
-					 * set children of modal to false on click to prevent
-					 * modal from fading out when clicking on child elements
-			
+					 * set children of modal to false on click to prevent modal
+					 * from fading out when clicking on child elements
+					 * 
 					 * Implemented due to modal-backdrop class duplicating
-					 * itself and not going away when clicking area outside
-					 * of modal document - jack
+					 * itself and not going away when clicking area outside of
+					 * modal document - jack
 					 */
 					$scope.preventModalClose = function(){
 						$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
@@ -824,7 +850,7 @@ angular
 						$('#'+str).modal('toggle');
 					}
 
-					// this method will return the proper string 
+					// this method will return the proper string
 					// depending if there is an average for the week or not
 					$scope.boldBatchAverage = function(){
 						if($scope.allAssessmentsAvgForWeek){
@@ -836,9 +862,9 @@ angular
 						}
 					}
 				/*
-				 * if grade is 0 or greater than 100 return true;
-				 * This will set css class .has-error to grade input box - hack
-				 * */
+				 * if grade is 0 or greater than 100 return true; This will set
+				 * css class .has-error to grade input box - hack
+				 */
 				$scope.validateGrade=function(grade){
 					var hasError;
 					if(grade > 0 && grade <=100){

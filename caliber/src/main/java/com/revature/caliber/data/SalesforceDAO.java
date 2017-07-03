@@ -65,12 +65,14 @@ public class SalesforceDAO {
 	private String allBatches;
 	
 	// TODO test sample Batch query
-	public void getAllBatches() {
+
+	public String getAllBatches() {
 		try {
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			String url = new URIBuilder(salesforceInstanceUrl).setScheme("https").setHost(salesforceInstanceUrl)
-					.setPath(salesforceApiUrl).setParameter("q", allBatches).build().toString();
+					.setPath(salesforceApiUrl).setParameter("q", relevantBatches).build().toString();
 			HttpGet getRequest = new HttpGet(url);
+			
 			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
 			HttpResponse queryResponse = httpClient.execute(getRequest);
 			
@@ -79,8 +81,12 @@ public class SalesforceDAO {
 			log.info(queryResults);
 			//transform to Caliber bean
 			//return the bean
+
+			return queryResults.asText();
+
 		} catch (URISyntaxException | IOException e) {
 			log.warn("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
+			return "Exception occurred. No data";
 		}
 	}
 	
@@ -105,8 +111,10 @@ public class SalesforceDAO {
 	}
 
 	private String getAccessToken() {
-		//return "00D5C0000008jkd!AQYAQMZ6GkPlJIkw2SvF4ip1HGTgx3F_EZa5MBsXwKOEugD0u0_2AelDbDKbPjtn.Ae5vbDRSzpuHuOgIWhlwIwSon1QM16Y";
-		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-				.getSalesforceToken().getAccessToken();
+		return "00D0n0000000Q1l!AQQAQPP_0qqf.1TJ_IhXyrH7s2qS9NE3e1GN7OozThdviGafVO6e_PjRemFpFKw1x6kb4fj1dDdgnAvTbKTuy8cexPkeSrkt";
+		//return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}
+
+
 }
+
