@@ -21,6 +21,7 @@
 	</bean>
 
 	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources mapping="/favicon.ico" location="/static/app/resources/images/favicon.ico" />
 
 	<context:annotation-config />
 

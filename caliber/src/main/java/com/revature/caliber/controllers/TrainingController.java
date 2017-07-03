@@ -49,8 +49,6 @@ public class TrainingController {
 	 *******************************************************
 	 */
 	
-	
-	
 	/**
 	 * Create trainer
 	 *
@@ -88,7 +86,7 @@ public class TrainingController {
 	 * @param email
 	 * @return
 	 */
-	@RequestMapping(value = "/training/trainer/byemail/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/training/trainer/byemail/{email}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Trainer> findTrainer(@PathVariable String email) {
 		log.info("Find trainer by email " + email);
 		Trainer trainer = trainingService.findTrainer(email);
