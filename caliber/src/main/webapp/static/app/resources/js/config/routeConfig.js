@@ -75,6 +75,9 @@ angular
 											"batch-form@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
 											},
+											"import-batch@qc.manage" : {
+												templateUrl : "/static/app/partials/manage/import-batch-modal.html"
+											},
 											"batch-extra-modals@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
 											},
@@ -152,6 +155,24 @@ angular
 										}
 									})
 							.state(
+									"trainer.import",
+									{
+										abstract : true,
+										url : " /trainer/batch/all/importget",
+										templateUrl : "/static/app/partials/abstracts/trainer.html",
+										resolve : {
+											allBatches : function(
+													caliberDelegate) {
+												return caliberDelegate.trainer
+														.importAllBatches();
+											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authTrainer();
+										}
+									})
+							.state(
 									"trainer.home",
 									{
 										templateUrl : "/static/app/partials/home/trainer-home.html",
@@ -170,6 +191,9 @@ angular
 											},
 											"batch-form@trainer.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
+											},
+											"import-batch@trainer.manage" : {
+												templateUrl : "/static/app/partials/manage/import-batch-modal.html"
 											},
 											"batch-extra-modals@trainer.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
@@ -271,6 +295,9 @@ angular
 											},
 											"batch-form@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
+											},
+											"import-batch@vp.manage" : {
+												templateUrl : "/static/app/partials/manage/import-batch-modal.html"
 											},
 											"batch-extra-modals@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"

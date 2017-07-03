@@ -24,6 +24,7 @@ public class SalesforceDataIntegration {
 	
 	@Test
 	public void getAllBatches() {
-		salesforceDAO.getAllBatches();
+		salesforceDAO.getAllRelevantBatches();
+		log.info("Success!");
 	}
 }

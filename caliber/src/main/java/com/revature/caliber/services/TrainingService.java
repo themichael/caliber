@@ -163,6 +163,7 @@ public class TrainingService {
 	 * @param batchId
 	 * @return
 	 */
+	
 	public Batch findBatch(Integer batchId){
 		log.debug("Finding batch with id: " + batchId);
 		return batchDAO.findOne(batchId);
