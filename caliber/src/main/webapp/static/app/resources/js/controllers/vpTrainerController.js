@@ -26,9 +26,7 @@ angular
 					 */
 
 					/** On page start --> load all trainers * */
-					
-					
-					
+
 					
 					
 					
@@ -76,5 +74,10 @@ angular
 						$log.debug(trainer);
 					};
 					
-					
+					/** Fill update form with trainer's previous data */
+					$scope.populateTrainer = function(trainer) {
+						$log.debug(trainer);
+						$scope.trainerForm.name = trainer.name;
+						
+					};
 				});
