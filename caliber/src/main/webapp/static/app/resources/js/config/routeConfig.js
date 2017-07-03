@@ -277,6 +277,9 @@ angular
 											},
 											"edit-trainer-form@vp.trainers" : {
 												templateUrl : "/static/app/partials/trainers/edit-trainer-modal.html"
+											},
+											"delete-trainer-form@vp.trainers" : {
+												templateUrl : "/static/app/partials/trainers/delete-trainer-modal.html"
 											}
 										}
 												

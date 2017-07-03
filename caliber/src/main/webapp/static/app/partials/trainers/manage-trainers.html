@@ -67,10 +67,14 @@
 		Edit</button>
 <br>
 <!-- Adam -->
-<button>Delete</button>
+<button ng-click=""
+		data-toggle="modal"
+		data-target="#deleteTrainerModal">
+		Delete</button>
 
 	<!-- form for creating a trainer -->
 	<div ui-view="create-trainer-form"></div>
+<<<<<<< HEAD
 	<div ui-view="edit-trainer-form"></div>
 		
 			
@@ -78,4 +82,8 @@
 	<!-- <div ui-view="trainer-form"></div> -->
 	
 
+=======
+	<div ui-view="edit-trainer-form"></div>
+	<div ui-view="delete-trainer-form"></div>
+>>>>>>> eff7a4a499345083d729c7b9fea3567ec7e4fc25
 </div>
