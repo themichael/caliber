@@ -66,13 +66,6 @@ public class TrainingController {
 		return new ResponseEntity<Trainer>(trainer, HttpStatus.CREATED);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * Finds a trainer by email. Used for logging in a user with the Salesforce
 	 * controller `

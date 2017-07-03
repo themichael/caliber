@@ -266,10 +266,14 @@ angular
 										url : "/trainers",
 										views:{
 											"":{
-												templateUrl : "/static/app/partials/trainers/manage-trainers.html"
+												templateUrl : "/static/app/partials/trainers/manage-trainers.html",
+												controller : "vpTrainerController"
 											},
-											"trainer-form@vp.trainers" : {
+											"create-trainer-form@vp.trainers" : {
 												templateUrl : "/static/app/partials/trainers/create-trainer-modal.html"
+											},
+											"edit-trainer-form@vp.trainers" : {
+												templateUrl : "/static/app/partials/trainers/edit-trainer-modal.html"
 											}
 										}
 												
