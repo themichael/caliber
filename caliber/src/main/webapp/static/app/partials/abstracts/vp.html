@@ -8,11 +8,16 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a ui-sref="vp.home">Home</a></li>
-			<li><a ui-sref="vp.trainers">Trainers</a></li>
 			<li><a ui-sref="vp.manage">Manage Batch</a></li>
 			<li><a ui-sref="vp.assess">Assess Batch</a></li>
 			<li><a ui-sref="vp.audit">Quality Audit</a></li>
 			<li><a ui-sref="vp.reports">Reports</a></li>
+			<li role="presentation" class="dropdown">
+    			<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings<span class="caret"></span></a>
+    			<ul class="dropdown-menu">
+    				<li><a ui-sref="vp.trainers">Trainers</a></li>
+    			</ul>
+  			</li>
 		</ul>
 	</div>
 </nav>
