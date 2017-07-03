@@ -2,15 +2,20 @@ package com.revature.caliber.data;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.revature.caliber.beans.Trainer;
 
@@ -54,6 +59,7 @@ public class TrainerDAO{
 	}
 	
 	/**
+	 * 
 	 * Convenience method only. Not practical in production since trainers must be registered
 	 * in the Salesforce with a matching email address.
 	 * @param trainer
@@ -97,5 +103,7 @@ public class TrainerDAO{
 		log.info("Delete trainer " + trainer);
 		sessionFactory.getCurrentSession().delete(trainer);
 	}
+	
+
 	
 }

@@ -48,6 +48,7 @@ public class TrainingController {
 	 *
 	 *******************************************************
 	 */
+
 	
 	
 	
@@ -81,31 +82,16 @@ public class TrainingController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
+	
 	/**
-	 * Finds a trainer by email. Used for logging in a user with the Salesforce
-	 * controller `
-	 * 
-	 * @param email
-	 * @return
-	 */
-	@RequestMapping(value = "/training/trainer/byemail/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Trainer> findTrainer(@PathVariable String email) {
-		log.info("Find trainer by email " + email);
-		Trainer trainer = trainingService.findTrainer(email);
-		return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
-	}
-
-	/**
-	 * Returns all trainers from the database `
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<List<Trainer>> getAllTrainers() {
-		log.info("Fetching all trainers");
-		List<Trainer> trainers = trainingService.findAllTrainers();
-		return new ResponseEntity<>(trainers, HttpStatus.OK);
+	 * Deletes the trainer
+	 * */
+	@RequestMapping(value = "/all/trainer/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Trainer>  makeInactive(@Valid @RequestBody  Trainer trainer){
+		log.info("Updating trainer: " + trainer);
+		 trainingService.update(trainer);
+		return new ResponseEntity<Trainer>(trainer, HttpStatus.NO_CONTENT);
+		
 	}
 
 	/*
