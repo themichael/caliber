@@ -15,7 +15,10 @@ import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.exceptions.ServiceNotAvailableException;
 import com.revature.salesforce.beans.SalesforceBatchResponse;
+import com.revature.salesforce.beans.SalesforceTraineeResponse;
 
 @Repository
 public class SalesforceDAO {
@@ -55,6 +58,7 @@ public class SalesforceDAO {
 			where training_batch__c = 'a0Yi000000F0b7I'
 			
 			// 'a0Yi000000F0b7I' is the resourceId
+		ResourceId *MUST* be surrounded in single quotes to function properly
 	 */
 	@Value("select id, name, training_status__c, phone, email, MobilePhone, Training_Batch__c , Training_Batch__r.name, Training_Batch__r.batch_start_date__c, Training_Batch__r.batch_end_date__c, Training_Batch__r.batch_trainer__r.name, rnm__Recruiter__r.name, account.name, Training_Batch__r.Co_Trainer__r.name, eintern_current_project_completion_pct__c , Training_Batch__r.Skill_Type__c, Training_Batch__r.Type__c from Contact where training_batch__c = ")
 	private String batchDetails;
@@ -65,20 +69,17 @@ public class SalesforceDAO {
 	// TODO test sample Batch query
 	public void getAllBatches() {
 		try {
-			HttpClient httpClient = HttpClientBuilder.create().build();
-			String url = new URIBuilder(salesforceInstanceUrl).setScheme("https").setHost(salesforceInstanceUrl)
-					.setPath(salesforceApiUrl).setParameter("q", relevantBatches).build().toString();
-			HttpGet getRequest = new HttpGet(url);
-			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
-			HttpResponse queryResponse = httpClient.execute(getRequest);
-			
+			HttpResponse queryResponse = getFromSalesforce(batchDetails + "'a0Yi000000F0b7I'");
 			// convert to your salesforce beans
-			SalesforceBatchResponse queryResults = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), SalesforceBatchResponse.class);
+			SalesforceTraineeResponse queryResults = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), SalesforceTraineeResponse.class);
 			log.info(queryResults);
-			log.info(queryResults.getRecords()[0].getBatchStartDate());
-			//transform to Caliber bean
-			//return the bean
-		} catch (URISyntaxException | IOException e) {
+			log.info(queryResults.getRecords()[0].getEmail());
+			
+			// example 2 using q=relevantBatches 
+/*			SalesforceBatchResponse queryResults2 = new ObjectMapper().readValue(queryResponse.getEntity().getContent(), SalesforceBatchResponse.class);
+			log.info(queryResults2);
+			log.info(queryResults2.getRecords()[0].getTrainer().getName());*/	
+		} catch (IOException e) {
 			log.error("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
 		}
 	}
@@ -90,22 +91,51 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	public List<Batch> getAllRelevantBatches(){
-		throw new UnsupportedOperationException();
+		try {
+			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
+			// convert to Caliber beans
+			return null; // TODO return something of value
+		} catch (IOException e) {
+			log.error("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
+			throw new ServiceNotAvailableException();
+		}
 	}
 	
 	/**
 	 * TODO implement
-	 * Get the trainees and contact details for a single batch.
+	 * Get all the trainees for a single batch.
 	 * Access data using the Salesforce REST API
 	 * @return
 	 */
-	public Batch getBatchDetails(String resourceId){
+	public List<Trainee> getBatchDetails(String resourceId){
 		String query = batchDetails + "' " + resourceId + " + '";
-		throw new UnsupportedOperationException();
+		try {
+			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
+			// convert to Caliber bean
+			return null; // TODO return something of value
+		} catch (IOException e) {
+			log.error("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
+			throw new ServiceNotAvailableException();
+		}
+	}
+	
+	private HttpResponse getFromSalesforce(String soql){
+		try {
+			HttpClient httpClient = HttpClientBuilder.create().build();
+			String url = new URIBuilder(salesforceInstanceUrl).setScheme("https").setHost(salesforceInstanceUrl)
+					.setPath(salesforceApiUrl).setParameter("q", soql).build().toString();
+			HttpGet getRequest = new HttpGet(url);
+			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
+			HttpResponse queryResponse = httpClient.execute(getRequest);
+			return queryResponse;
+		} catch (IOException | URISyntaxException e) {
+			log.error("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
+			throw new ServiceNotAvailableException();
+		}
 	}
 
 	private String getAccessToken() {
-		return "00D0n0000000Q1l!AQQAQLqJ7zC.86A8LGRpxbHQEKk6lF9ThL46RVnryThyYTw7P2nOixejGLzkYfzT0wv9L1o.elvuWK6LYf31tn1wvwyfzVCB";
+		return "00D0n0000000Q1l!AQQAQF8kUz6QVhBC8_zSVi4k8mjZeKbwe3fUJzgAKcFWLyGBMEWdsaeRJOcS90VaNTwYHdyhJ27F4kJlSZhL4pYlqk6XNk4J";
 		//return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}
 }
