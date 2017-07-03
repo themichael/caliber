@@ -426,7 +426,12 @@ angular
 					function getAllAssessmentsForWeek(batchId, weekNumb) {
 						if (!weekNumb)
 							return;
-						
+						caliberDelegate.qc.getAllAssessmentCategories(
+								batchId,
+								weekNumb).then(
+								function(response) {
+									$scope.categories = response;
+								});
 						caliberDelegate.trainer
 								.getAllAssessmentsForWeek(batchId, weekNumb)
 								.then(
