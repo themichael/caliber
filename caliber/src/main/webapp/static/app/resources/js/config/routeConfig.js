@@ -245,7 +245,10 @@ angular
 													caliberDelegate) {
 												return caliberDelegate.vp
 														.getAllBatches();
-											}
+											},
+									allTrainers : function(caliberDelegate){
+										return caliberDelegate.all.getAllTrainers();
+									}
 										},
 										// authorize the user
 										onEnter : function(authFactory) {

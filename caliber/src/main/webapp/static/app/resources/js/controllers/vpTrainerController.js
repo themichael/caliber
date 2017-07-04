@@ -3,7 +3,7 @@
  * Team Lead: Roderick Dye
  * Authors: Roderick Dye, 
  * Stanley Chouloute, 
- * Daniel Zorilla, 
+ * Daniel Zorrilla, 
  * Adam Baker
  * 
  * Daniel worked on viewing all trainers,
@@ -27,7 +27,21 @@ angular
 
 					/** On page start --> load all trainers * */
 					
-					
+						caliberDelegate.all.getAllTrainers().then(
+								
+								function(trainers){
+									$log.debug(trainers)
+									$scope.allTrainers = trainers;
+								})
+						
+/*									$scope.trainers = trainers;
+									$log.debug("=========TRAINERS=========");
+									$log.debug(trainers);*/
+									
+								
+/*						$log.debug(allTrainers);
+						$scope.trainers = allTrainers;
+						$scope.selectedTrainers = [];*/
 					
 					
 					
@@ -76,5 +90,10 @@ angular
 						$log.debug(trainer);
 					};
 					
-					
+					/** Fill update form with trainer's previous data */
+					$scope.populateTrainer = function(trainer) {
+						$log.debug(trainer);
+						$scope.trainerForm.name = trainer.name;
+						
+					};
 				});

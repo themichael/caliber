@@ -17,7 +17,6 @@ import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.beans.TrainerTitle;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.beans.TrainingType;
 
@@ -135,7 +134,4 @@ public class TypeController {
 		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());     //Used toString to Display the roles without the underscore
 		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
 	}
-	
-
-
 }

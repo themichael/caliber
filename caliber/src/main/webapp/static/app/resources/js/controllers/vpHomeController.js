@@ -9,7 +9,7 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-						//createDummyBarChart();
+						// createDummyBarChart();
 						createAllBatchesCurrentWeekQCStats();
 						createCurrentBatchesAverageScoreChart();
 					})();
