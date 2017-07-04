@@ -41,5 +41,10 @@ public class SalesforceService {
 		log.debug("Find all current batches by resource id");
 		return salesforceDAO.getBatchDetails(resourceId);
 	}
+
+	public List<Batch> findAllBatches() {
+		log.debug("Find all current batches");
+		return null;
+	}
 	
 }
