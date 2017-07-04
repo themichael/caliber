@@ -38,7 +38,7 @@ public class TraineeDAO {
 	 * 
 	 * @param trainee
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void save(Trainee trainee) {
 		log.info("Saving trainee " + trainee);
 		sessionFactory.getCurrentSession().save(trainee);

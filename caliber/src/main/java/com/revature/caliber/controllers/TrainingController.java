@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,6 +60,7 @@ public class TrainingController {
 	 * @return
 	 */
 	@RequestMapping(value = "/training/trainer/byemail/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Trainer> findTrainer(@PathVariable String email) {
 		log.info("Find trainer by email " + email);
 		Trainer trainer = trainingService.findTrainer(email);
@@ -107,7 +111,8 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch, Authentication auth) {
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch) {
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
 		return new ResponseEntity<Batch>(batch, HttpStatus.CREATED);
