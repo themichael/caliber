@@ -20,7 +20,7 @@ public class ReportingServiceTest {
 	private ReportingService reportingService;
 
 	private static int runs = 10;
-	private static long nano = 1000000000l;
+	private static long nano = 1000000000L;
 	Calendar startDate = Calendar.getInstance();
 
 	@Test
@@ -39,9 +39,7 @@ public class ReportingServiceTest {
 	public long serialMethodTest() {
 		startDate.set(2017, Calendar.MARCH, 01);
 		long startTimeNano = System.nanoTime();
-		for (int i = 0; i < runs; i++) {
-			
-		}
+		
 		long serialRunTimeSystem = System.nanoTime() - startTimeNano;
 		serialRunTimeSystem /= runs;
 		return serialRunTimeSystem;
@@ -49,9 +47,7 @@ public class ReportingServiceTest {
 
 	public long concurrentMethod() {
 		long startTimeNano = System.nanoTime();
-		for (int i = 0; i < runs; i++) {
-			
-		}
+		
 		long concurrentRunTimeSystem = System.nanoTime() - startTimeNano;
 		concurrentRunTimeSystem /= runs;
 		return concurrentRunTimeSystem;

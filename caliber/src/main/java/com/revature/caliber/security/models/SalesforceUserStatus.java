@@ -15,6 +15,7 @@ public class SalesforceUserStatus {
      * Instantiates a new Salesforce user status.
      */
     public SalesforceUserStatus() {
+    	super();
     }
 
     /**

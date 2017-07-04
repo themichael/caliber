@@ -27,7 +27,7 @@ import com.revature.caliber.services.AssessmentService;
 @RestController
 public class AssessmentController {
 
-	private final static Logger log = Logger.getLogger(AssessmentController.class);
+	private static final Logger log = Logger.getLogger(AssessmentController.class);
 	private AssessmentService assessmentService;
 
 	@Autowired
@@ -102,7 +102,7 @@ public class AssessmentController {
 			@PathVariable Integer week) {
 		log.debug("Find assessment by week number " + week + " for batch " + batchId + " ");
 		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, week);
-		return new ResponseEntity<List<Assessment>>(assessments, HttpStatus.OK);
+		return new ResponseEntity<>(assessments, HttpStatus.OK);
 	}
 	
 }

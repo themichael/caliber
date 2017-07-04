@@ -45,6 +45,7 @@ public class SalesforceUserUrls {
      * Instantiates a new Salesforce user urls.
      */
     public SalesforceUserUrls() {
+    	super();
     }
 	
     public String getTooling_rest() {
