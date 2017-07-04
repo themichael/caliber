@@ -25,7 +25,7 @@ import com.revature.caliber.beans.TrainingStatus;
 @Repository
 public class GradeDAO {
 
-	private final static Logger log = Logger.getLogger(GradeDAO.class);
+	private static final Logger log = Logger.getLogger(GradeDAO.class);
 	private SessionFactory sessionFactory;
 
 	@Autowired

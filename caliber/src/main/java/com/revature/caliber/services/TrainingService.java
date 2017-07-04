@@ -138,7 +138,7 @@ public class TrainingService {
 	public void addWeek(Integer batchId) {
 		log.debug("Adding week to batch: " + batchId);
 		Batch batch = batchDAO.findOne(batchId);
-		if (batch == null)
+		if(batch==null) 
 			throw new IllegalArgumentException("Invalid batch");
 		int weeks = batch.getWeeks();
 		batch.setWeeks(++weeks);
@@ -203,7 +203,7 @@ public class TrainingService {
 	 * @param batchId
 	 * @return
 	 */
-	public Batch findBatch(Integer batchId) {
+	public Batch findBatch(Integer batchId){
 		log.debug("Finding batch with id: " + batchId);
 		return batchDAO.findOne(batchId);
 	}
@@ -225,8 +225,6 @@ public class TrainingService {
 	 */
 	public void delete(Batch batch) {
 		log.debug("Delete batch " + batch);
-		// load batch into persistent state
-		// batch = batchDAO.findOne(batch.getBatchId());
 		batchDAO.delete(batch);
 	}
 

@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +37,7 @@ import com.revature.caliber.services.TrainingService;
 @CrossOrigin(origins = "*")
 public class TrainingController {
 
-	private final static Logger log = Logger.getLogger(TrainingController.class);
+	private static final Logger log = Logger.getLogger(TrainingController.class);
 	private TrainingService trainingService;
 
 	@Autowired
@@ -86,11 +89,12 @@ public class TrainingController {
 	 * @param email
 	 * @return
 	 */
-	@RequestMapping(value = "/training/trainer/byemail/{email}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/training/trainer/byemail/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Trainer> findTrainer(@PathVariable String email) {
 		log.info("Find trainer by email " + email);
 		Trainer trainer = trainingService.findTrainer(email);
-		return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
+		return new ResponseEntity<>(trainer, HttpStatus.OK);
 	}
 
 	/**
@@ -125,7 +129,7 @@ public class TrainingController {
 		Trainer userPrincipal = getPrincipal(auth);
 		log.info("Getting all batches for trainer: " + userPrincipal);
 		List<Batch> batches = trainingService.findAllBatches(userPrincipal.getTrainerId());
-		return new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+		return new ResponseEntity<>(batches, HttpStatus.OK);
 	}
 
 	/**
@@ -137,10 +141,11 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch, Authentication auth) {
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch) {
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
-		return new ResponseEntity<Batch>(batch, HttpStatus.CREATED);
+		return new ResponseEntity<>(batch, HttpStatus.CREATED);
 	}
 
 	/**
@@ -152,8 +157,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch, Authentication auth) {
-		// batch.setTrainer(getPrincipal(auth));
+	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
 		log.info("Updating batch: " + batch);
 		trainingService.update(batch);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -177,6 +181,19 @@ public class TrainingController {
 	}
 
 	/**
+	 * Gets all current batches from salesforce
+	 * 
+	 * @return the all batches
+	 */
+	@RequestMapping(value = "/all/batch/import", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<Batch>> getAllSalesforceBatches() {
+		log.info("Fetching all salesforce batches");
+		List<Batch> batches = trainingService.findAllBatches();
+		return new ResponseEntity<>(batches, HttpStatus.OK);
+	}
+
+	/**
 	 * Gets all current batches
 	 *
 	 * @return the all batches
@@ -187,9 +204,7 @@ public class TrainingController {
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
 		log.info("Fetching all current batches");
 		List<Batch> batches = trainingService.findAllCurrentBatches();
-		// List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
-
 	}
 
 	/**
@@ -254,33 +269,7 @@ public class TrainingController {
 	public ResponseEntity<Trainee> createTrainee(@Valid @RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
 		trainingService.save(trainee);
-		return new ResponseEntity<Trainee>(trainee, HttpStatus.CREATED);
-	}
-
-	/**
-	 * Create trainees
-	 *
-	 * 
-	 * Uneeded. just do multiple calls to createTrainee
-	 * 
-	 * @param trainees
-	 *            the trainee
-	 * @return the response entity
-	 * 
-	 */
-	@Deprecated
-	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> createTrainees(@RequestBody Trainee[] trainees) {
-		// TODO quick and dirty. We should have @Transactional services to
-		// create rollback for failed batchUpdates
-		log.info("Saving trainees: " + trainees);
-		if (trainees != null)
-			for (Trainee trainee : trainees)
-				trainingService.save(trainee);
-		else
-			throw new IllegalArgumentException("Trainees required.");
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<>(trainee, HttpStatus.CREATED);
 	}
 
 	/**
@@ -317,10 +306,8 @@ public class TrainingController {
 
 	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
 	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail) {
-		Trainee trainee = new Trainee();
-		trainee = trainingService.findTraineeByEmail(traineeEmail);
-
-		return new ResponseEntity<Trainee>(trainee, HttpStatus.OK);
+		Trainee trainee = trainingService.findTraineeByEmail(traineeEmail);
+		return new ResponseEntity<>(trainee, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -332,7 +319,7 @@ public class TrainingController {
 	/**
 	 * Convenience method for accessing the Trainer information from the User
 	 * Principal.
-	 *  
+	 * 
 	 * @param auth
 	 * @return
 	 */
