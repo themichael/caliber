@@ -11,6 +11,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<import resource="classpath:beans.xml"/>
-	
+	<import resource="classpath:beans.xml" />
+
 </beans>

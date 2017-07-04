@@ -48,8 +48,8 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * ------------------------DEVELOPMENT ONLY------------------------ 
-	 * Pretends to do login. Defaults to login pjw6193@hotmail.com
+	 * ------------------------DEVELOPMENT ONLY------------------------ Pretends
+	 * to do login. Defaults to login pjw6193@hotmail.com
 	 * 
 	 * Forwards to the landing page.
 	 *
@@ -125,7 +125,7 @@ public class BootController extends Helper {
 	 * @throws URISyntaxException
 	 *             the uri syntax exception
 	 */
-	//@RequestMapping(value = "/caliber")
+	// @RequestMapping(value = "/caliber")
 	public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
