@@ -38,13 +38,13 @@ import com.revature.caliber.security.models.SalesforceUser;
 @SessionAttributes("token")
 public class BootController extends Helper {
 
-	private final static Logger log = Logger.getLogger(BootController.class);
+	private static final Logger log = Logger.getLogger(BootController.class);
 
 	/**
 	 * Instantiates a new Boot controller.
 	 */
 	public BootController() {
-		
+		super();
 	}
 
 	/**
@@ -140,7 +140,8 @@ public class BootController extends Helper {
 				break;
 			}
 		}
-		if(salesforceToken == null) throw new ServiceNotAvailableException();
+		if(salesforceToken == null) 
+			throw new ServiceNotAvailableException();
 		// Http request to the salesforce module to get the salesforce user
 		URIBuilder uriBuilder = new URIBuilder();
 		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())

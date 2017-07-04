@@ -22,13 +22,14 @@ public class SalesforceController {
 		this.salesforceService = salesforceService;
 	}
 	
-	@RequestMapping(value="/salesforce/test", method=RequestMethod.GET)
-	public String salesforceJson(){
-		return salesforceService.getAllSalesforceBatches();
-	}
-	
+	/**
+	 * TODO delete me.
+	 * Used to grab access_token for running local tests of Salesforce API
+	 * @return
+	 */
 	@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
 	public String getSalesforceToken(){
+		log.info("Getting access_token for testing purposes only");
 		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
 				.getSalesforceToken().getAccessToken();
 	}
