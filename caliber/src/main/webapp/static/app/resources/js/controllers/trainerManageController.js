@@ -247,8 +247,16 @@ angular
 
 					/** Import batch form for creating new batch**/
 					$scope.importBatchForm = function() {
+						
+						$scope.dummyInfo = function(){
+							
+							var dumArray = ["1705 Java","Patrick Walsh"];
+							
+							
+						}
+						
 						$scope.batchFormName = "Import New Batch"
-						$scope.batchSalesForce = "wor wor wor";
+						$scope.batchSalesForce = "wor wor wor wor";//$scope.dummyInfo;
 						$scope.Save = "Save";
 						if ($scope.currentBatch) {
 							$scope.currentBatch = null;
