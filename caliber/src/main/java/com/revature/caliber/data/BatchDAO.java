@@ -30,7 +30,7 @@ import com.revature.caliber.beans.TrainingStatus;
 @Repository
 public class BatchDAO{
 
-	private final static Logger log = Logger.getLogger(BatchDAO.class);
+	private static final Logger log = Logger.getLogger(BatchDAO.class);
 	private SessionFactory sessionFactory;
 
 	@Autowired
@@ -58,12 +58,11 @@ public class BatchDAO{
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAll() {
 		log.info("Fetching all batches");
-		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return batches;
 	}
 
 	/**

@@ -29,7 +29,7 @@ import com.revature.caliber.services.EvaluationService;
 @RestController
 public class EvaluationController {
 
-	private final static Logger log = Logger.getLogger(EvaluationController.class);
+	private static final Logger log = Logger.getLogger(EvaluationController.class);
 	private EvaluationService evaluationService;
 
 	@Autowired
@@ -159,7 +159,7 @@ public class EvaluationController {
 			@PathVariable Integer week) {
 		log.info("Finding week " + week + " grades for batch: " + batchId);
 		Map<Integer, List<Grade>> table = evaluationService.findGradesByWeek(batchId, week);
-		return new ResponseEntity<Map<Integer, List<Grade>>>(table, HttpStatus.OK);
+		return new ResponseEntity<>(table, HttpStatus.OK);
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class EvaluationController {
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Integer> createNote(@Valid @RequestBody Note note) {
 		log.info("Creating note: " + note);
-		return new ResponseEntity<Integer>(evaluationService.save(note), HttpStatus.CREATED);
+		return new ResponseEntity<>(evaluationService.save(note), HttpStatus.CREATED);
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class EvaluationController {
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<Note>> findBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("Finding week " + week + " batch notes for batch: " + batchId);
-		return new ResponseEntity<List<Note>>(evaluationService.findBatchNotes(batchId, week), HttpStatus.OK);
+		return new ResponseEntity<>(evaluationService.findBatchNotes(batchId, week), HttpStatus.OK);
 	}
 
 	/**
@@ -243,7 +243,7 @@ public class EvaluationController {
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<Note>> findIndividualNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("Finding week " + week + " individual notes for trainee: " + batchId); 
-		return new ResponseEntity<List<Note>>(evaluationService.findIndividualNotes(batchId, week), HttpStatus.OK);
+		return new ResponseEntity<>(evaluationService.findIndividualNotes(batchId, week), HttpStatus.OK);
 	}
 
 	
@@ -256,7 +256,7 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/trainer/note/trainee/{traineeId}/for/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Note> findTraineeNote(@PathVariable Integer traineeId, @PathVariable Integer week) {
-		return new ResponseEntity<Note>(evaluationService.findTraineeNote(traineeId, week), HttpStatus.OK);
+		return new ResponseEntity<>(evaluationService.findTraineeNote(traineeId, week), HttpStatus.OK);
 	}
 	
 	/**
@@ -268,7 +268,7 @@ public class EvaluationController {
 	 */
 	@RequestMapping(value = "/qc/note/trainee/{traineeId}/for/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Note> findQCTraineeNote(@PathVariable Integer traineeId, @PathVariable Integer week) {
-		return new ResponseEntity<Note>(evaluationService.findQCTraineeNote(traineeId, week), HttpStatus.OK);
+		return new ResponseEntity<>(evaluationService.findQCTraineeNote(traineeId, week), HttpStatus.OK);
 	}
 	
 	
@@ -283,7 +283,7 @@ public class EvaluationController {
 	// @PreAuthorize("hasAnyRole('QC, VP')")
 	public ResponseEntity<Note> findQCBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("Finding week " + week + " QC batch notes for batch: " + batchId);
-		return new ResponseEntity<Note>(evaluationService.findQCBatchNotes(batchId, week), HttpStatus.OK);
+		return new ResponseEntity<>(evaluationService.findQCBatchNotes(batchId, week), HttpStatus.OK);
 	}
 
 	/*
@@ -301,7 +301,7 @@ public class EvaluationController {
 	public ResponseEntity<List<Note>> findQCIndividualNotes(@PathVariable Integer traineeId,
 			@PathVariable Integer week) {
 		log.info("Finding week " + week + " QC individual notes for trainee: " + traineeId);
-		return new ResponseEntity<List<Note>>(evaluationService.findQCIndividualNotes(traineeId, week), HttpStatus.OK);
+		return new ResponseEntity<>(evaluationService.findQCIndividualNotes(traineeId, week), HttpStatus.OK);
 	}
 
 	/**
@@ -312,7 +312,7 @@ public class EvaluationController {
 	@RequestMapping(value = "/qc/note/trainee/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Note>> getAllQCTraineeNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
         log.info("Getting all trainee notes by QC");
-        return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeNotes(batchId, week), HttpStatus.OK);
+        return new ResponseEntity<>(evaluationService.findAllQCTraineeNotes(batchId, week), HttpStatus.OK);
     }
 	
 	/**
@@ -323,7 +323,7 @@ public class EvaluationController {
 	@RequestMapping(value = "/qc/note/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Note>> getAllQCTraineeOverallNotes(@PathVariable Integer traineeId) {
         log.info("Getting all trainee notes by QC for that trainee");
-        return new ResponseEntity<List<Note>>(evaluationService.findAllQCTraineeOverallNotes(traineeId), HttpStatus.OK);
+        return new ResponseEntity<>(evaluationService.findAllQCTraineeOverallNotes(traineeId), HttpStatus.OK);
     }
 	
 	/*
@@ -344,7 +344,7 @@ public class EvaluationController {
 	// @PreAuthorize("hasRole('VP')")
 	public ResponseEntity<List<Note>> findAllBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info("Finding week " + week + " batch notes for batch: " + batchId);
-		return new ResponseEntity<List<Note>>(evaluationService.findAllBatchNotes(batchId, week), HttpStatus.OK);
+		return new ResponseEntity<>(evaluationService.findAllBatchNotes(batchId, week), HttpStatus.OK);
 	}
 
 	/**
@@ -359,11 +359,11 @@ public class EvaluationController {
 	public ResponseEntity<List<Note>> findAllIndividualNotes(@PathVariable Integer traineeId,
 			@PathVariable Integer week) {
 		log.info("Finding all week " + week + " individual notes for trainee: " + traineeId);
-		return new ResponseEntity<List<Note>>(evaluationService.findAllIndividualNotes(traineeId, week), HttpStatus.OK);
+		return new ResponseEntity<>(evaluationService.findAllIndividualNotes(traineeId, week), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/all/notes/trainee/{traineeId}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Note>> findAllTraineeNotes(@PathVariable Integer traineeId){
-		return new ResponseEntity<List<Note>>(evaluationService.findAllIndividualNotesOverall(traineeId),HttpStatus.OK);
+		return new ResponseEntity<>(evaluationService.findAllIndividualNotesOverall(traineeId),HttpStatus.OK);
 	}
 }

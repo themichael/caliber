@@ -86,7 +86,7 @@ public class SalesforceDAO {
 			
 			return null; // TODO return something of value
 		} catch (IOException e) {
-			log.error("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
+			log.error("Cannot get Salesforce batches: cause " + e +" "+ e.getClass() + " " + e.getMessage());
 			throw new ServiceNotAvailableException();
 		}
 	}
@@ -105,7 +105,7 @@ public class SalesforceDAO {
 			
 			return null; // TODO return something of value
 		} catch (IOException e) {
-			log.error("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
+			log.error("Cannot get batch details from Salesforce: cause " + e + " " + e.getClass() + " " + e.getMessage());
 			throw new ServiceNotAvailableException();
 		}
 	}
@@ -127,7 +127,7 @@ public class SalesforceDAO {
 			HttpResponse queryResponse = httpClient.execute(getRequest);
 			return queryResponse;
 		} catch (IOException | URISyntaxException e) {
-			log.error("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
+			log.error("Unable to fetch Salesforce data: cause " + e +" " + e.getClass() + " " + e.getMessage());
 			throw new ServiceNotAvailableException();
 		}
 	}

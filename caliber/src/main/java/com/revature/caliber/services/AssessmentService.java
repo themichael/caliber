@@ -20,7 +20,7 @@ import com.revature.caliber.data.AssessmentDAO;
 @Service
 public class AssessmentService {
 
-	private final static Logger log = Logger.getLogger(AssessmentService.class);
+	private static final Logger log = Logger.getLogger(AssessmentService.class);
 	private AssessmentDAO assessmentDAO;
 
 	@Autowired
