@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.salesforce.beans.SalesforceBatch;
 import com.revature.caliber.security.models.SalesforceUser;
 
 @Repository
@@ -66,6 +65,7 @@ public class SalesforceDAO {
 	private String allBatches;
 	
 	// TODO test sample Batch query
+
 	public String getAllBatches() {
 		try {
 			HttpClient httpClient = HttpClientBuilder.create().build();
@@ -81,7 +81,9 @@ public class SalesforceDAO {
 			log.info(queryResults);
 			//transform to Caliber bean
 			//return the bean
+
 			return queryResults.asText();
+
 		} catch (URISyntaxException | IOException e) {
 			log.warn("Unable to fetch Salesforce data: cause " + e.getClass() + " " + e.getMessage());
 			return "Exception occurred. No data";
@@ -113,4 +115,6 @@ public class SalesforceDAO {
 		//return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}
 
+
 }
+

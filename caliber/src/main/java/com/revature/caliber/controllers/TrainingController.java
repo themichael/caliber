@@ -147,7 +147,6 @@ public class TrainingController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-
 	/**
 	 * Gets all current batches
 	 *
@@ -160,7 +159,6 @@ public class TrainingController {
 		 List<Batch> batches = trainingService.findAllCurrentBatches();
 		// List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
-
 	}
 
 	/**
