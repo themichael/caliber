@@ -125,7 +125,7 @@ angular
 						$scope.traineeOverall=[];
 						$scope.categories=[];
 						
-						for(weekNum in $scope.currentBatchWeeks){
+						for(let weekNum in $scope.currentBatchWeeks){
 							var week = parseInt(weekNum) + 1
 							$scope.traineeOverall.push({week});
 							// Daniel get categories for the week
@@ -240,7 +240,7 @@ angular
 					}
 					
 					$scope.selectTrainingType = function(index){
-						if (index==OVERALL) {
+						if (index===OVERALL) {
 							$scope.selectedTrainingType = OVERALL;
 							$log.debug("Inside Selected Training Type")
 			
@@ -259,7 +259,7 @@ angular
 						$log.debug("Hello there Y1");
 						$log.debug(index);
 						$log.debug("Hello there Y2");
-						if (index==OVERALL) {
+						if (index===OVERALL) {
 							$scope.selectedSkill = OVERALL;
 			
 						} else {

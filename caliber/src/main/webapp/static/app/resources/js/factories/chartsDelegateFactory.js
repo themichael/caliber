@@ -260,16 +260,17 @@ angular
 					/**
 					 * ************************ Utility ************************
 					 */
+					delegate.utility.pushRow = function(value,key) {
+						row.data.push(value[i]);
+					};
+					
 					delegate.utility.dataToTable = function(chartObject) {
 						var tableDataSet = [];
 						for (var i = 0; i < chartObject.labels.length; i++) {
 							var row = {};
 							row.label = chartObject.labels[i];
 							row.data = [];
-							angular.forEach(chartObject.data, function(value,
-									key) {
-								row.data.push(value[i]);
-							});
+							angular.forEach(chartObject.data, pushRow);
 
 							tableDataSet.push(row);
 						}

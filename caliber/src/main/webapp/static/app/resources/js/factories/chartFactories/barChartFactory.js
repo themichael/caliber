@@ -305,9 +305,11 @@ angular.module("charts").factory(
 			}
 
 			barChart.getDummyBarChart = function(dataArray) {
-				var numberWithCommas = function(x) {
+				/*
+				 * unused function declaration.. need clarification here (PW) 
+			 	var numberWithCommas = function(x) {
 					return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				};
+				};*/
 
 				var chartData = {
 					type : 'bar',

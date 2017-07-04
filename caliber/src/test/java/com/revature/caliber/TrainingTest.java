@@ -36,6 +36,11 @@ public class TrainingTest {
 	@Autowired
 	private TrainingController trainingController;
 
+	/**
+	 * Tests methods:
+	 * 		com.revature.caliber.controllers.TrainingController.findTrainer(String email)
+	 * 		com.revature.caliber.controllers.TrainingController.createBatch(Batch batch)
+	 */
 	@Test
 	@Sql(scripts = "/setup.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 	@Sql(scripts = "/teardown.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.AFTER_TEST_METHOD)

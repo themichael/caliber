@@ -9,8 +9,6 @@ angular
 					 * ******************************************* On Start
 					 * ***********************************************
 					 */
-					
-					const ALL = "(All)";
 
 					(function start() {
 						// Finishes any left over AJAX animation

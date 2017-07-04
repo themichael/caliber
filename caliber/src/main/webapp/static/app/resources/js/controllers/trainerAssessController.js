@@ -585,7 +585,7 @@ angular
 
 					$scope.updateGrade = function(trainee,assessment) {
 						var score = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score;
-						if(score !== null && score !== undefined && score !="" && score >0){
+						if(score !== null && score !== undefined && score !=="" && score >0){
 						
 							if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] === undefined){
 								$scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] = {};
@@ -862,15 +862,14 @@ angular
 						}
 					}
 				/*
-				 * if grade is 0 or greater than 100 return true; This will set
+				 * if grade is less than 0 or greater than 100 return true; This will set
 				 * css class .has-error to grade input box - hack
 				 */
 				$scope.validateGrade=function(grade){
-					var hasError;
 					if(grade > 0 && grade <=100){
-						return hasError = false;
-					}else if(grade === 0 || grade > 100 ||grade < 0 || grade === undefined){
-						return hasError=true;
+						return false;
+					}else if(grade === undefined || grade > 100 ||grade < 0 ){
+						return true;
 					}
 				}
 				$scope.returnGradeFormName = function(assessment){
