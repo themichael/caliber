@@ -606,7 +606,7 @@ angular
 													.dataToTable(radarChartObject);
 										});
 					}
-					var mainData = null;
+
 					function createTechnicalSkillsBatchOverall() {
 						$log.debug("createTechnicalSkillsBatchOverall");
 						chartsDelegate.radar.data
@@ -616,7 +616,7 @@ angular
 								.then(
 										function(data) {
 											NProgress.done();
-											mainData = data;
+
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(
 															data,

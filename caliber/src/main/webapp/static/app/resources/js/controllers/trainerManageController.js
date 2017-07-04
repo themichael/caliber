@@ -569,12 +569,12 @@ angular
 														}
 													}
 												} else {
-													for (var i = 0; i < $scope.droppedTrainees.length; i++) {
-														if ($scope.droppedTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
+													for (var j = 0; j < $scope.droppedTrainees.length; j++) {
+														if ($scope.droppedTrainees[j].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.activeTrainees
 																	.push($scope.trainees[$scope.traineeRow]);
 															$scope.droppedTrainees
-																	.splice(i,
+																	.splice(j,
 																			1);
 														}
 													}
