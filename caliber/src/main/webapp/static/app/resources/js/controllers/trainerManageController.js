@@ -249,6 +249,7 @@ angular
 					$scope.importBatchForm = function() {
 						$scope.batchFormName = "Import New Batch"
 						$scope.batchSalesForce = "wor wor wor";
+						$scope.Save = "Save";
 						if ($scope.currentBatch) {
 							$scope.currentBatch = null;
 						}
