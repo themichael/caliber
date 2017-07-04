@@ -873,7 +873,7 @@ angular
 					}
 				}
 				$scope.returnGradeFormName = function(assessment){
-					console.log(assessment);
+					$log.debug(assessment);
 				}
 				
 				// Get categories for the week
