@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 import com.revature.caliber.beans.Batch;
 
 @Component
-public class BatchValidator implements ConstraintValidator<BatchValObject, Batch> {
+public class BatchValidator implements ConstraintValidator<ValidBatch, Batch> {
 
 	@Override
-	public void initialize(BatchValObject constraint) {
+	public void initialize(ValidBatch constraint) {
 
 	}
 
