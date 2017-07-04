@@ -70,14 +70,13 @@ public class NoteDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Note> findBatchNotes(Integer batchId, Integer week) {
 		log.info("Finding batch notes for week " + week + " for batch: " + batchId);
-		List<Note> notes = sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
+		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias("batch", "b")
 				.createAlias("b.trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.eq("b.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq("type", NoteType.BATCH))
 				.add(Restrictions.ge("maxVisibility", TrainerRole.ROLE_TRAINER))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return notes;
 	}
 
 	/**
