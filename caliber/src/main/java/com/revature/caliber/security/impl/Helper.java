@@ -29,7 +29,7 @@ public abstract class Helper {
             while ((inputString = bufferedReader.readLine()) != null)
                 stringBuilder.append(inputString);
         } catch (IOException e) {
-        	log.error("Unable to read input String: " + e.getClass() + " " + e.getMessage());	
+        	log.error("Unable to read input String: " + e + " " + e.getClass() + " " + e.getMessage());	
             return null;
         }
         closeStream();
@@ -40,7 +40,7 @@ public abstract class Helper {
         try {
             bufferedReader.close();
         } catch (IOException e) {
-        	log.error("Unable to close reader: " + e.getClass() + " " + e.getMessage());
+        	log.error("Unable to close reader: " + e + " " + e.getClass() + " " + e.getMessage());
         }
     }
 }
