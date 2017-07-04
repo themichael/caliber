@@ -14,20 +14,17 @@
 					</div>
 					<!-- Import Batch Info -->
 					<div class="modal-body">
-						<h1></h1>		
-					<ul role="button" class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li ng-repeat="batchItem in batchSalesForce track by $index"><a
-								role="button" ng-click="selectBatchYear($index)">{{batchItem}}</a></li>
-						</ul></ul>		
-					
+						<h1></h1>								
 					<div class="form-group col-lg-12 col-md-12 col-sm-12">
 								<label for="batchItem">Batch Name:</label> 
 								<select
 									ng-model="batchItem" class="form-control"
 									id="traineeStatus" required>	
-									<option ng-repeat="batchItem in batchSalesForce track by $index">{{batchItem}}</option>
+									<option ng-value="batchItem in batchSalesForce">Java  Yuvi Patrick 1705</option>
+									<option ng-value="batchItem in batchSalesForce">SalesForce  Genesis Nick 1706</option>
+									<option ng-value="batchItem in batchSalesForce">.Net Fred 1706</option>
+									<option ng-value="batchItem in batchSalesForce"> SDET Joe Ankit 1709</option>
+								
 								</select>
 						</div>
 					</div>
