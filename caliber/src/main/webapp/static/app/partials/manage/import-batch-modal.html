@@ -1,5 +1,5 @@
 	<!--********************************************* Import Batch Modal ************************************-->
-	<form ng-submit="checkDates()">
+	<form>
 		<div class="modal fade" id="importBatchModal" tabindex="-1"
 			role="dialog" aria-labelledby="batchModalLabel">
 			<div class="modal-dialog" role="document">
@@ -21,9 +21,18 @@
 							<li ng-repeat="batchItem in batchSalesForce track by $index"><a
 								role="button" ng-click="selectBatchYear($index)">{{batchItem}}</a></li>
 						</ul></ul>		
+					
+					<div class="form-group col-lg-12 col-md-12 col-sm-12">
+								<label for="batchItem">Batch Name:</label> 
+								<select
+									ng-model="batchItem" class="form-control"
+									id="traineeStatus" required>	
+									<option ng-repeat="batchItem in batchSalesForce track by $index">{{batchItem}}</option>
+								</select>
+						</div>
 					</div>
 					<div class="modal-footer">
-					<input type="submit" ng-value="Save" class="btn btn-primary">
+					<input type="submit" ng-value="Save" value="Save" class="btn btn-primary">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
