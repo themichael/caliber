@@ -140,8 +140,7 @@ angular.module("charts").factory(
 				return chartData;
 			}
 
-			barChart.getBatchOverallBarChart = function(dataArray, comparison,
-					bad, good) {
+			barChart.getBatchOverallBarChart = function(dataArray, comparison) {
 				var chartData = {};
 
 				var sorted = [];
@@ -203,8 +202,7 @@ angular.module("charts").factory(
 				return chartData;
 			}
 
-			barChart.getBatchWeekSortedBarChart = function(dataArray,
-					comparison, bad, good) {
+			barChart.getBatchWeekSortedBarChart = function(dataArray) {
 				var chartData = {};
 				var sorted = [];
 				angular.forEach(dataArray, function(value, key) {

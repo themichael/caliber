@@ -286,24 +286,6 @@ public class EvaluationController {
 		return new ResponseEntity<>(evaluationService.findQCBatchNotes(batchId, week), HttpStatus.OK);
 	}
 
-	/*
-	 * FIND WEEKLY QC INDIVIDUAL NOTES (NOT FOR TRAINERS)
-	 * 
-	 * @param trainee
-	 * 
-	 * @param week
-	 * 
-	 * @return
-	 */
-	//@RequestMapping(value = "/qc/note/trainee/{traineeId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	// @PreAuthorize("hasAnyRole('QC, VP')")
-	@Deprecated
-	public ResponseEntity<List<Note>> findQCIndividualNotes(@PathVariable Integer traineeId,
-			@PathVariable Integer week) {
-		log.info("Finding week " + week + " QC individual notes for trainee: " + traineeId);
-		return new ResponseEntity<>(evaluationService.findQCIndividualNotes(traineeId, week), HttpStatus.OK);
-	}
-
 	/**
 	 * Find all QC trainee notes in a batch for the week
 	 * 

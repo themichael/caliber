@@ -34,7 +34,7 @@ import com.revature.caliber.services.ReportingService;
 @RestController
 public class ReportingController {
 
-	private final static Logger log = Logger.getLogger(ReportingController.class);
+	private static final Logger log = Logger.getLogger(ReportingController.class);
 	private ReportingService reportingService;
 
 	@Autowired

@@ -32,6 +32,7 @@ public class BatchDAO{
 
 	private static final Logger log = Logger.getLogger(BatchDAO.class);
 	private SessionFactory sessionFactory;
+	private static final int MONTHS_BACK = -1;
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -96,7 +97,7 @@ public class BatchDAO{
 	public List<Batch> findAllCurrent(Integer trainerId) {
 		log.info("Fetching all current batches for trainer: " + trainerId);
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, -3);
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
@@ -120,8 +121,8 @@ public class BatchDAO{
 	public List<Batch> findAllCurrentWithNotesAndTrainees() {
 		log.info("Fetching all current batches with trainees, grades and notes");
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, -3);
-		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
@@ -131,7 +132,6 @@ public class BatchDAO{
 				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC))
 				.add(Restrictions.eq("n.qcFeedback", true))
 				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return batches;
 	}
 	
 	/**
@@ -146,7 +146,7 @@ public class BatchDAO{
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches with active trainees");
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, -3);
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
@@ -165,10 +165,9 @@ public class BatchDAO{
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch findOne(Integer batchId) {
 		log.info("Fetching batch: " + batchId);
-		Batch batch = (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
+		return (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batchId", batchId))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).uniqueResult();
-		return batch;
 	}
 
 	/**
@@ -180,12 +179,11 @@ public class BatchDAO{
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch findOneWithTraineesAndGrades(Integer batchId) {
 		log.info("Fetching batch: " + batchId);
-		Batch batch = (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
+		return (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("t.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
 				.add(Restrictions.eq("batchId", batchId))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).uniqueResult();
-		return batch;
 	}
 
 	/**
@@ -223,7 +221,7 @@ public class BatchDAO{
 				.setProjection(Projections
 						.distinct(Projections.projectionList().add(Projections.property("location"), "location")))
 				.setResultTransformer(Transformers.aliasToBean(Batch.class)).list();
-		List<String> locations = new ArrayList<String>();
+		List<String> locations = new ArrayList<>();
 
 		if (batches != null) {
 			for (Batch batch : batches) {
@@ -246,12 +244,11 @@ public class BatchDAO{
 		Calendar startDate = Calendar.getInstance();
 		startDate.set(year, month, day);
 		log.info("Fetching all current batches since: " + startDate.getTime().toString());
-		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.ge("startDate", startDate.getTime())).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return batches;
 	}
 }

@@ -102,8 +102,8 @@ public class AssessmentService {
 	public void delete(Assessment assessment) {
 		log.debug("Deleting assessment " + assessment);
 		//load assessment into persistent state
-		assessment = assessmentDAO.findOne(assessment.getAssessmentId());
-		assessmentDAO.delete(assessment);
+		Assessment record = assessmentDAO.findOne(assessment.getAssessmentId());
+		assessmentDAO.delete(record);
 	}
 
 }

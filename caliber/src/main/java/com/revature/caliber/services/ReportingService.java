@@ -55,7 +55,7 @@ public class ReportingService {
 
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(ReportingService.class);
-	private final String ALL = "(All)";
+	private static final String ALL = "(All)";
 
 	private GradeDAO gradeDAO;
 	private BatchDAO batchDAO;
@@ -565,7 +565,7 @@ public class ReportingService {
 				.filter(e -> e.getAssessment().getType().name().equalsIgnoreCase(assessmentType.name()))
 				.collect(Collectors.toList());
 		Double[] result = { 0d, 0d, 0d };
-		if (gradesForAssessment == null || gradesForAssessment.isEmpty() || gradesForAssessment.size() == 0) {
+		if (gradesForAssessment == null || gradesForAssessment.isEmpty()) {
 			return result;
 		} else {
 			result[2] = (double) gradesForAssessment.size();

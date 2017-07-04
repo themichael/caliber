@@ -66,7 +66,7 @@ angular
 						}
 						$scope.updateTraineeScopeWithCurrentAssessment = function(assessments){
 							angular.forEach($scope.trainees,function(key,value){
-								for(a in assessments){
+								for(const a in assessments){
 									if($scope.trainees[value].assessments[assessments[a].assessmentId] === undefined){
 										$scope.trainees[value].assessments[assessments[a].assessmentId] = {};
 										$scope.trainees[value].assessments[assessments[a].assessmentId].score='';
@@ -84,7 +84,7 @@ angular
 								});
 								if(data && data.length > 0){
 									$scope.notes = data;
-									for(note of $scope.notes){
+									for(const note of $scope.notes){
 										if($scope.trainees[note.trainee.traineeId] !== undefined && $scope.trainees[note.trainee.traineeId].note.hasOwnProperty('noteId')){
 											$scope.trainees[note.trainee.traineeId].note = {};
 										}
@@ -115,13 +115,14 @@ angular
 					$log.debug("Batches " + allBatches);
 					$log.debug(allBatches);
 					
-					(function start(allBatches) {
+					(function (allBatches) {
 
 						$scope.grades={};
 						$scope.updateAssessmentModel={};
 						
 						$scope.batches = allBatches;
-						if (!allBatches) return;
+						if (!allBatches) 
+							return;
 						if (allBatches.length > 0) { 
 							 // if currentBatch is not yet in the scope, run
 								// for assess batch..
@@ -203,7 +204,7 @@ angular
 						
 						$scope.trainees={};						
 
-						for(trainee of $scope.currentBatch.trainees){
+						for(const trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);
 						}
 						categories();
@@ -353,7 +354,7 @@ angular
 							$log.debug($scope.noTrainees);
 						}else{
 						caliberDelegate.trainer.createWeek($scope.currentBatch.batchId).then(
-								function(response) {
+								function() {
 									$scope.currentBatch.weeks += 1;
 									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
 									$scope.showActiveWeek($scope.currentBatch.weeks);
@@ -470,7 +471,7 @@ angular
 											
 											$scope.generateArrAssessmentById(data);
 											$scope.updateTraineeScopeWithCurrentAssessment($scope.currentAssessments);
-											for(i = 1; i <= $scope.currentBatch.weeks; i++){
+											for(var i = 1; i <= $scope.currentBatch.weeks; i++){
 												$scope.currentBatch.arrayWeeks.push(i);
 											}
 											
@@ -637,7 +638,7 @@ angular
 							if(!$scope || !$scope.grades || !traineeId || $scope.grades[traineeId] === undefined){ 
 								return false;
 							}else if($scope.grades[traineeId]){
-								angular.forEach($scope.grades[traineeId],function(grade,key){
+								angular.forEach($scope.grades[traineeId],function(grade){
 									/*
 									 * create a assessment object that contains
 									 * gradeId for each $scope.trainees[trainee]
@@ -700,8 +701,10 @@ angular
 						// - total(for total score)
 						// - count (for total number of trainees to divide by) -
 						// jack
-						if($scope.assessmentTotals === undefined) $scope.assessmentTotals=[];
-						if($scope.assessmentTotals[assessment.assessmentId] === undefined) $scope.assessmentTotals[assessment.assessmentId] = {};
+						if($scope.assessmentTotals === undefined) 
+							$scope.assessmentTotals=[];
+						if($scope.assessmentTotals[assessment.assessmentId] === undefined) 
+							$scope.assessmentTotals[assessment.assessmentId] = {};
 							
 						$scope.assessmentTotals[assessment.assessmentId].total = 0;
 						$scope.assessmentTotals[assessment.assessmentId].count = 0;

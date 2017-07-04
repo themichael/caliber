@@ -130,37 +130,28 @@ public class Batch implements Serializable {
 		this.weeks = 1;
 	}
 
-	public Batch(String trainingName, Trainer trainer, SkillType skillType, TrainingType trainingType, Date startDate,
-			Date endDate, String location, Integer goodGradeThreshold, Integer borderlineGradeThreshold,
-			Integer weeks) {
+	/**
+	 * Constructor mostly used for testing. Defaults TrainingType - Revature,
+	 * SkillType - J2EE, Good grade - 80, and Borderline grade - 70
+	 * @param trainingName
+	 * @param trainer
+	 * @param startDate
+	 * @param endDate
+	 * @param location
+	 */
+	public Batch(String trainingName, Trainer trainer, Date startDate, Date endDate, String location) {
 		this();
 		this.trainingName = trainingName;
 		this.trainer = trainer;
-		this.skillType = skillType;
-		this.trainingType = trainingType;
+		this.skillType = SkillType.J2EE;
+		this.trainingType = TrainingType.Revature;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.location = location;
-		this.goodGradeThreshold = goodGradeThreshold.shortValue();
-		this.borderlineGradeThreshold = borderlineGradeThreshold.shortValue();
-		this.weeks = weeks;
-	}
-
-	public Batch(String trainingName, String resourceId, Trainer trainer, SkillType skillType,
-			TrainingType trainingType, Date startDate, Date endDate, String location, Integer goodGradeThreshold,
-			Integer borderlineGradeThreshold, Integer weeks) {
-		this();
-		this.trainingName = trainingName;
-		this.resourceId = resourceId;
-		this.trainer = trainer;
-		this.skillType = skillType;
-		this.trainingType = trainingType;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.location = location;
-		this.goodGradeThreshold = goodGradeThreshold.shortValue();
-		this.borderlineGradeThreshold = borderlineGradeThreshold.shortValue();
-		this.weeks = weeks;
+		// setup default value
+		this.goodGradeThreshold = 80;
+		// setup default value
+		this.borderlineGradeThreshold = 70;
 	}
 
 	public int getBatchId() {

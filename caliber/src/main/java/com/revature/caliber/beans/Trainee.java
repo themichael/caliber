@@ -97,29 +97,20 @@ public class Trainee implements Serializable {
 		super();
 	}
 
-	public Trainee(String name, String resourceId, String email, TrainingStatus trainingStatus, String phoneNumber,
-			String skypeId, String profileUrl, Batch batch) {
+	/**
+	 * Constructor used mostly for testing. Default TrainingStatus as Training
+	 * @param name
+	 * @param resourceId
+	 * @param email
+	 * @param batch
+	 */
+	public Trainee(String name, String resourceId, String email, Batch batch) {
 		super();
 		this.name = name;
 		this.resourceId = resourceId;
 		this.email = email;
-		this.trainingStatus = trainingStatus;
+		this.trainingStatus = TrainingStatus.Training;
 		this.batch = batch;
-		this.phoneNumber = phoneNumber;
-		this.skypeId = skypeId;
-		this.profileUrl = profileUrl;
-	}
-
-	public Trainee(String name, String email, TrainingStatus trainingStatus, String phoneNumber, String skypeId,
-			String profileUrl, Batch batch) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.trainingStatus = trainingStatus;
-		this.batch = batch;
-		this.phoneNumber = phoneNumber;
-		this.skypeId = skypeId;
-		this.profileUrl = profileUrl;
 	}
 
 	public int getTraineeId() {

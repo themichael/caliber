@@ -125,8 +125,8 @@ angular
 						$scope.traineeOverall=[];
 						$scope.categories=[];
 						
-						for(let weekNum in $scope.currentBatchWeeks){
-							var week = parseInt(weekNum) + 1
+						for(const weekNum in $scope.currentBatchWeeks){
+							var week = parseInt(weekNum) + 1;
 							$scope.traineeOverall.push({week});
 							// Daniel get categories for the week
 							// Push a promise to keep order of categories for each week
@@ -140,9 +140,9 @@ angular
 								.then(
 										function(response) {
 											if(response !== undefined){
-												for(note of response){
+												for(const note of response){
 													if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
-														$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
+														$scope.traineeOverall[parseInt(note.week)-1].trainerNote = note;
 													}
 												}							
 											}
@@ -152,7 +152,7 @@ angular
 								traineeOverallNote(traineeId)
 								.then(
 										function(response) {
-											for(qcNote of response){
+											for(const qcNote of response){
 												if($scope.traineeOverall[parseInt(qcNote.week)-1] !== undefined){
 													$scope.traineeOverall[parseInt(qcNote.week)-1].qcNote = qcNote;
 												}
@@ -293,9 +293,8 @@ angular
 								|| $scope.currentWeek === null
 								|| $scope.batchOverallTrainee === null) {
 							return false;
-						} else {
-							return true;
-						}
+						} 
+						return true;
 					}
 					$scope.selectCurrentTrainee = function(index) {
 						if (index === ALL) {
@@ -327,6 +326,7 @@ angular
 					
 					// toggle Checked and Unchecked for Trainees
 					$scope.toggleComparisonRadarChart = function(isChecked, val) {
+						var mainData;
 						radarComparObj[$scope.currentBatch.trainingName] = mainData;
 						if(isChecked) {
 							radarComparObj[$scope.currentBatch.trainees[val].name] = radarComparData[$scope.currentBatch.trainees[val].name] ;

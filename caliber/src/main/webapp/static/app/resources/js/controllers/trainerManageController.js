@@ -43,15 +43,12 @@ angular
 					 */
 
 					/** On page start --> load all trainers * */
-					(function start() {
+					(function(start) {
 						caliberDelegate.all.getAllTrainers().then(
 								function(trainers) {
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
-									// $scope.role = $cookies.get("role");
-
-									$log.debug($scope.role);
 								});
 						$log.debug(allBatches);
 						$scope.batches = allBatches;
@@ -198,13 +195,10 @@ angular
 
 						if ($scope.endDate.model > $scope.startDate.model
 								&& $scope.trainer.model !== $scope.coTrainer.model) {
-							/* $scope.validDate = false; */
 							$log.debug("True");
 							$scope.addNewBatch();
 						} else {
-							/* $scope.validDate = true; */
 							$log.info("False");
-							// window.alert("hi!....u buggin!!!");
 							angular.element("#checkBatchModal").modal("show");
 							return false;
 						}
@@ -404,7 +398,6 @@ angular
 													}
 												}
 											} else if (response.status === 500) {
-												// $log($scope.currentBatch.batchId);
 												angular
 														.element(
 																"#deleteBatchErrorModal")
@@ -565,7 +558,7 @@ angular
 												// from allbatches list and add
 												// to drop list
 												if ($scope.trainees[$scope.traineeRow].trainingStatus === "Dropped") {
-													for (i = 0; i < $scope.activeTrainees.length; i++) {
+													for (var i = 0; i < $scope.activeTrainees.length; i++) {
 														if ($scope.activeTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.droppedTrainees
 																	.push($scope.trainees[$scope.traineeRow]);
@@ -576,7 +569,7 @@ angular
 														}
 													}
 												} else {
-													for (i = 0; i < $scope.droppedTrainees.length; i++) {
+													for (var i = 0; i < $scope.droppedTrainees.length; i++) {
 														if ($scope.droppedTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.activeTrainees
 																	.push($scope.trainees[$scope.traineeRow]);
@@ -614,15 +607,13 @@ angular
 
 					/** Get Trainee to delete* */
 					$scope.getTraineeToDelete = function(index) {
-						var traineeToBeDeleted;
 						$scope.traineeToBeDeleted = $scope.trainees[index];
-						// $scope.editTrainee = $scope.trainees[index];
 						$scope.traineeRow = index;
 					}
 
 					/** Delete Trainee* */
 
-					$scope.removeTrainee = function(traineeId) {
+					$scope.removeTrainee = function() {
 						// search through allbatches trainees and splice from
 						// there
 						$log.debug("Deleting trainee with id of:  "

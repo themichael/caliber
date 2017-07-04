@@ -124,8 +124,7 @@ public class SalesforceDAO {
 					.setPath(salesforceApiUrl).setParameter("q", soql).build().toString();
 			HttpGet getRequest = new HttpGet(url);
 			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
-			HttpResponse queryResponse = httpClient.execute(getRequest);
-			return queryResponse;
+			return httpClient.execute(getRequest);
 		} catch (IOException | URISyntaxException e) {
 			log.error("Unable to fetch Salesforce data: cause " + e +" " + e.getClass() + " " + e.getMessage());
 			throw new ServiceNotAvailableException();
