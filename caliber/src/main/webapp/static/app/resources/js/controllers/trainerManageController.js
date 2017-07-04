@@ -246,7 +246,21 @@ angular
 					}
 
 					/** Import batch form for creating new batch**/
-					$scope.importBatchForm = function() {
+					$scope.importBatchForm = function(sfBatch) {
+						
+						
+						
+						sfBatch.trainingName = $scope.trainingName.model;
+						sfBatch.skillType = $scope.skillType.model;
+						sfBatch.trainer = null;
+						sfBatch.coTrainer = null;
+						sfBatch.startDate = $scope.startDate.model;
+
+						
+						
+						
+						
+						
 						$scope.batchFormName = "Import New Batch"
 						$scope.batchSalesForce = "wor wor wor";
 						if ($scope.currentBatch) {
