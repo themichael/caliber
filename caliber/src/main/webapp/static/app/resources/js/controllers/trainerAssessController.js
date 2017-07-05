@@ -757,7 +757,7 @@ angular
 			        $rootScope.$on('trainerasses',function(){
 						$scope.trainees={};						
 						
-						for(trainee of $scope.currentBatch.trainees){
+						for(const trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);
 						}
 						
