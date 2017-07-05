@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.revature.caliber.beans.Trainer;
 
 @Repository
-public class TrainerDAO {
-
-	private final static Logger log = Logger.getLogger(TrainerDAO.class);
+public class TrainerDAO{
+	
+	private static final Logger log = Logger.getLogger(TrainerDAO.class);
 	private SessionFactory sessionFactory;
 
 	@Autowired

@@ -88,6 +88,7 @@ public class SalesforceUser implements UserDetails {
      * Instantiates a new Salesforce user.
      */
     public SalesforceUser() {
+    	super();
     }
 
     /**
