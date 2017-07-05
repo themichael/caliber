@@ -23,6 +23,20 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	/** ******************** Import Batch ******************** */
+	// import all batches
+	trainer.importAllBatches = function() {
+		return $http({
+			url : "/trainer/batch/all/importget",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Imported Batches successfully retrieved");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
 
 	/** ************************* Week *********************** */
 	// create a new week

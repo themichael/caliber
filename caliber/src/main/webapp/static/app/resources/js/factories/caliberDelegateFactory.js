@@ -94,6 +94,10 @@ angular
 						return allFactory.createTrainer(trainerObj);
 					};
 
+					delegate.all.TrainersTitles = function() {
+						return allFactory.getAllTrainersTitle();
+					};
+
 					/**
 					 * *********************** Enum constants
 					 * ***************************

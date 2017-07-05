@@ -50,7 +50,7 @@ public class TypeController {
 	public ResponseEntity<List<String>> allSkillTypes() {
 		log.info("Fetching skill types");
 		List<String> types = Stream.of(SkillType.values()).map(Enum::toString).collect(Collectors.toList());
-		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
+		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class TypeController {
 	public ResponseEntity<List<String>> allTrainingTypes() {
 		log.info("Fetching training types");
 		List<String> types = Stream.of(TrainingType.values()).map(Enum::name).collect(Collectors.toList());
-		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
+		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class TypeController {
 	public ResponseEntity<List<String>> allTrainingStatusTypes() {
 		log.info("Fetching training status types");
 		List<String> types = Stream.of(TrainingStatus.values()).map(Enum::name).collect(Collectors.toList());
-		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
+		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class TypeController {
 	public ResponseEntity<List<String>> allNoteTypes() {
 		log.info("Fetching note types");
 		List<String> types = Stream.of(NoteType.values()).map(Enum::name).collect(Collectors.toList());
-		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
+		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class TypeController {
 	public ResponseEntity<List<String>> allQCStatusTypes() {
 		log.info("Fetching QC status types");
 		List<String> types = Stream.of(QCStatus.values()).map(Enum::name).collect(Collectors.toList());
-		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
+		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class TypeController {
 	public ResponseEntity<List<String>> allAssessmentTypes() {
 		log.info("Fetching assessment types");
 		List<String> types = Stream.of(AssessmentType.values()).map(Enum::name).collect(Collectors.toList());
-		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
+		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 	
 	/**
@@ -131,7 +131,7 @@ public class TypeController {
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<String>> allTrainerRoles() {
 		log.info("Fetching Trainer Roles");
-		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());     //Used toString to Display the roles without the underscore
+		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());     
 		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
 	}
 }

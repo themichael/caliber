@@ -124,7 +124,7 @@ public class PDFService {
 			// find the body of document & add generated contents
 			String marker = "<!-- CALIBER-REPORT -->";
 			int bodyLocation = page.indexOf(marker);
-			page.replace(bodyLocation, (bodyLocation + marker.length()), html);
+			page.replace(bodyLocation, bodyLocation + marker.length(), html);
 			page.append(closeHtml);
 
 			// set title

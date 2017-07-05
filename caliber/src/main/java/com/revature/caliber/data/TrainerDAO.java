@@ -20,14 +20,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.revature.caliber.beans.Trainer;
 
 @Repository
-public class TrainerDAO {
-
-	private final static Logger log = Logger.getLogger(TrainerDAO.class);
+public class TrainerDAO{
+	
+	private static final Logger log = Logger.getLogger(TrainerDAO.class);
 	private SessionFactory sessionFactory;
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	/**
+	 * Find all trainers titles to be displayed on front end
+	 * 
+	 * 
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<String> findAllTrainerTitles() {
+		String hql = "select distinct title FROM Trainer";
+		return sessionFactory.getCurrentSession().createQuery(hql).list();
 	}
 
 	/**
