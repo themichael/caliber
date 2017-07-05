@@ -77,6 +77,10 @@ angular
 						return allFactory.getAllTrainers();
 					};
 					
+					delegate.all.importAvailableBatches = function() {
+						return allFactory.importAvailableBatches();
+					};
+					
 					delegate.all.getAssessmentsAverageForWeek = function(batchId, weekId){
 						return allFactory.getAssessmentsAverageForWeek(batchId,weekId);
 					}

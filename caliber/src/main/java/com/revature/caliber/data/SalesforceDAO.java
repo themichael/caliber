@@ -108,6 +108,7 @@ public class SalesforceDAO {
 		Trainer t = new Trainer("Yuvaraj Damodaran", "Lead Trainer", "yuvarajd@revature.com", TrainerRole.ROLE_TRAINER);
 		
 		batch.add(new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190"));
+		batch.get(0).setResourceId("Id1");
 		batch.add(new Batch("1707 July 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190"));
 
 
