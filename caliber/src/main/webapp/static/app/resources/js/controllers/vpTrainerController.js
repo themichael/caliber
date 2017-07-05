@@ -65,6 +65,7 @@ angular.module("vp").controller(
 						function(response) {
 							$log.debug("trainer added: " + response);
 						});
+				angular.element("#createTrainerModal").modal("hide");
 			}
 
 			/** Create new Trainee Object * */
