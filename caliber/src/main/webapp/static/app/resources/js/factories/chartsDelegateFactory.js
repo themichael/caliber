@@ -266,11 +266,12 @@ angular
 							var row = {};
 							row.label = chartObject.labels[i];
 							row.data = [];
-							angular.forEach(chartObject.data, function(value,
+							var pushToTable = function(value,
 									key) {
 								$log.debug(key);
 								row.data.push(value[i]);
-							});
+							};
+							angular.forEach(chartObject.data, pushToTable);
 
 							tableDataSet.push(row);
 						}
