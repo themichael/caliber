@@ -268,6 +268,7 @@ angular
 							row.data = [];
 							angular.forEach(chartObject.data, function(value,
 									key) {
+								$log.debug(key);
 								row.data.push(value[i]);
 							});
 

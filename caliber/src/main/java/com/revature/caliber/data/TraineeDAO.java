@@ -27,6 +27,8 @@ public class TraineeDAO {
 
 	private static final Logger log = Logger.getLogger(TraineeDAO.class);
 	private SessionFactory sessionFactory;
+	private static final String GRADES = "grades";
+	private static final String TRAINING_STATUS = "trainingStatus";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -68,9 +70,9 @@ public class TraineeDAO {
 	public List<Trainee> findAllByBatch(Integer batchId) {
 		log.info("Fetching all Active trainees by batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
+				.createAlias(GRADES, "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
 				.add(Restrictions.eq("batch.batchId", batchId))
-				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -85,8 +87,8 @@ public class TraineeDAO {
 	public List<Trainee> findAllDroppedByBatch(Integer batchId) {
 		log.info("Fetching all Dropped trainees by batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batch.batchId", batchId))
-				.add(Restrictions.eq("trainingStatus", TrainingStatus.Dropped))
+				.createAlias(GRADES, "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batch.batchId", batchId))
+				.add(Restrictions.eq(TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -102,9 +104,9 @@ public class TraineeDAO {
 		log.info("Fetch all trainees by trainer: " + trainerId);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.createAlias("batch", "b").createAlias("b.trainer", "t")
-				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(GRADES, "g", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("notes", "n", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("t.trainerId", trainerId))
-				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -119,7 +121,7 @@ public class TraineeDAO {
 		log.info("Fetch trainee by id: " + traineeId);
 		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.setFetchMode("batch", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId))
-				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped)).uniqueResult();
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
 
 	/**
