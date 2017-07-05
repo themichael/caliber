@@ -258,7 +258,7 @@ angular
 							sortByDate($scope.selectedYear);					
 						
 						$scope.trainees={};						
-						for(trainee of $scope.currentBatch.trainees){
+						for(const trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);}
 						if ($scope.currentBatch.weeks > 0) {
 							$scope.currentWeek = $scope.currentBatch.weeks;
@@ -556,13 +556,13 @@ angular
 					$scope.generateArrAssessmentById = function(assessments){
 						var totalRawScore = 0;
 						if(assessments !== undefined){
-							for(a of assessments){
+							for(const a of assessments){
 								$scope.assessmentsById[a.assessmentId] = {};
 								$scope.assessmentsById[a.assessmentId].total = 0;
 								$scope.assessmentsById[a.assessmentId].rawScore = a.rawScore; 
 								totalRawScore += a.rawScore;
 							}						
-							for(a of assessments){
+							for(const a of assessments){
 								$scope.assessmentsById[a.assessmentId]
 								.weightedScore = $scope.getWeightedScore(
 										$scope.assessmentsById[a.assessmentId].rawScore

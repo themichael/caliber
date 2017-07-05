@@ -10,7 +10,7 @@ angular
 					 * ***********************************************
 					 */
 
-					(function(start) {
+					(function() {
 						// Finishes any left over AJAX animation
 						NProgress.done();
 						$log.debug(allBatches);

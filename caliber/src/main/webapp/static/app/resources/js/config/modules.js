@@ -24,7 +24,7 @@ angular.module("reportApi", []);
 
 
 angular.module("app").directive("sticky",function($window){
-	return function(scope,element,attrs){
+	return function(scope,element){
 		var elOriginalPos = element[0].getClientRects()[0].top;
 		angular.element($window).bind("scroll", function(){
 			var elYPos = element[0].getClientRects()[0].top + 100;

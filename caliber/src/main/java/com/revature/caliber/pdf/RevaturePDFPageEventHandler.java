@@ -7,7 +7,6 @@ import java.io.StringReader;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
@@ -55,10 +54,7 @@ public class RevaturePDFPageEventHandler extends PdfPageEventHelper {
 					+ title + "</h1></div><br/></body></html>";
 			XMLWorkerHelper.getInstance().parseXHtml(writer, document, new StringReader(reportTitle));
 
-		} catch (BadElementException | IOException e) {
-			log.error(ERROR + e);
-			throw new PDFGenerationException();
-		} catch (DocumentException e) {
+		} catch (DocumentException | IOException e) {
 			log.error(ERROR + e);
 			throw new PDFGenerationException();
 		}
@@ -70,13 +66,9 @@ public class RevaturePDFPageEventHandler extends PdfPageEventHelper {
 			footer.setAbsolutePosition(0, 0);
 			footer.setSpacingBefore(20);
 			writer.getDirectContent().addImage(footer);
-		} catch (BadElementException | IOException e) {
-			log.error(ERROR + e);
-			throw new PDFGenerationException();
-		} catch (DocumentException e) {
+		} catch (DocumentException | IOException e) {
 			log.error(ERROR + e);
 			throw new PDFGenerationException();
 		}
-
 	}
 }

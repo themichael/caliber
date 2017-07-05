@@ -331,7 +331,7 @@ public class ReportingService {
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 		Set<Grade> grades = trainees.stream().filter(e -> e.getTraineeId() == traineeId).findFirst().get().getGrades();
 		for (int w = 1; w <= week; w++) {
-			Double temp[] = { utilAvgTraineeWeek(grades, w), utilAvgBatchWeekValue(trainees, w) };
+			Double[] temp = { utilAvgTraineeWeek(grades, w), utilAvgBatchWeekValue(trainees, w) };
 			if (temp[1] > 0.0) {
 				results.put(w, temp);
 			}
@@ -743,7 +743,7 @@ public class ReportingService {
 		for (Grade g : grades) {
 			Category skill = g.getAssessment().getCategory();
 			if (results.get(skill) == null) {
-				Double temp[] = { g.getScore(), 1.0 };
+				Double[] temp = { g.getScore(), 1.0 };
 				results.put(skill, temp);
 			} else {
 				Double[] temp = results.get(skill);
