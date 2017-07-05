@@ -311,7 +311,7 @@ angular
 
 					// create new scope of trainees
 						$scope.trainees={};						
-						for(trainee of $scope.currentBatch.trainees){
+						for(const trainee of $scope.currentBatch.trainees){
 							$scope.assignTraineeScope(trainee.traineeId);
 						}
 						if ($scope.currentBatch.weeks > 0) {
