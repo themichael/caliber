@@ -26,8 +26,9 @@ angular.module("reportApi", []);
 angular.module("app").directive("sticky",function($window){
 	return function(scope,element,attrs){
 		var elOriginalPos = element[0].getClientRects()[0].top;
+		var elYPos = element[0].getClientRects()[0].top + 100;
 		angular.element($window).bind("scroll", function(){
-			var elYPos = element[0].getClientRects()[0].top + 100;
+			elYPos;
 			if(this.pageYOffset > elYPos){
 				element.addClass("fixed-style-table-header");
 			}else if(this.pageYOffset <= elOriginalPos){
