@@ -22,6 +22,7 @@ angular.module("vp").controller(
 			caliberDelegate.all.getAllTrainers().then(function(trainers) {
 				$log.debug(trainers)
 				$scope.allTrainers = trainers;
+				$scope.selectedTrainers = [];
 			})
 
 			/*
@@ -50,7 +51,7 @@ angular.module("vp").controller(
 				$scope.trainersTitles = titles;
 			});
 
-			/** Save New Trainee Input * */
+			/** Save New Trainer Input * */
 			$scope.saveTrainer = function(trainerForm) {
 				var newTrainer = trainerForm;
 				createTrainerObject(newTrainer);
