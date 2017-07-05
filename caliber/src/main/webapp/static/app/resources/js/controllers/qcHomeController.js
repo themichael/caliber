@@ -10,15 +10,14 @@ angular
 					 * ******************************************* On Start
 					 * ***********************************************
 					 */
-					
-					const ALL = "(All)";
 
-					(function start() {
+					(function(start) {
 						// Finishes any left over AJAX animation
 						NProgress.done();
 						$log.debug(allBatches);
 						createDefaultCharts();
-						if(!allBatches) $scope.noBatches = true;
+						if(!allBatches) 
+							$scope.noBatches = true;
 					})();
 
 					function createDefaultCharts() {
