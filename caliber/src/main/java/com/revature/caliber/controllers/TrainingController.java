@@ -59,12 +59,12 @@ public class TrainingController {
 	 * 
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/vp/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Trainer> createTrainer(@Valid @RequestBody Trainer trainer) {
 		log.info("Saving trainer: " + trainer);
 		trainingService.createTrainer(trainer);
-		return new ResponseEntity<Trainer>(trainer, HttpStatus.CREATED);
+		return new ResponseEntity<>(trainer, HttpStatus.CREATED);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class TrainingController {
 	 * 
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/vp/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateTrainer(@Valid @RequestBody Trainer trainer) {
 		log.info("Updating trainer: " + trainer);
