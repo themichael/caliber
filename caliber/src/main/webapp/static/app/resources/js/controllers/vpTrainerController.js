@@ -65,47 +65,26 @@ angular.module("vp").controller(
 						function(response) {
 							$log.debug("trainer added: " + response);
 						});
-				angular.element("#createTrainerModal").modal("hide");
 			}
 
-			/** Create new Trainer Object * */
+			/** Create new Trainee Object * */
 			function createTrainerObject(trainer) {
 				trainer = $scope.trainerForm;
 				$log.debug(trainer);
 			}
 			;
-			
-			/** Create scopes for trainer form* */
-			$scope.trainerForm = {
-				name : null,
-				email : null,
-				trainerTitle : null,
-				trainerTier : null
-			};
-			
-			/** Resets trainer form* */
-			$scope.resetTrainerForm = function() {
-				$scope.trainerForm.name = "";
-				$scope.trainerForm.email = "";
-				$scope.trainerForm.trainerTitle = "";
-				$scope.trainerForm.trainerTier = "";
-				$scope.Save = "Save";
-			}
+
 			/** Fill update form with trainer's previous data */
 			$scope.populateTrainer = function(trainer) {
 				$log.debug(trainer);
 				$scope.trainerForm.name = trainer.name;
-				$scope.trainerForm.email = trainer.email;
-				$scope.trainerForm.trainerTitle = trainer.title;
-				$scope.trainerForm.trainerTier = trainer.tier;
-				$scope.Save = "Update";
 			};
 			/**
 			 * Adam Baker
 			 * deactivation method */
 			$scope.makeInactive = function(){
 				$scope.trainerForm.trainerTier = "ROLE_INACTIVE";
-				$log.debug("deactivation complete");
+				$log.debug("trainer deactivated");
 				
 			}
 
