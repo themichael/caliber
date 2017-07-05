@@ -28,7 +28,7 @@ import com.revature.caliber.beans.TrainingStatus;
  *
  */
 @Repository
-public class BatchDAO{
+public class BatchDAO {
 
 	private final static Logger log = Logger.getLogger(BatchDAO.class);
 	private SessionFactory sessionFactory;
@@ -50,7 +50,8 @@ public class BatchDAO{
 	}
 
 	/**
-	 * Looks for all batches without any restriction. Likely to only be useful for calculating reports.
+	 * Looks for all batches without any restriction. Likely to only be useful
+	 * for calculating reports.
 	 * 
 	 * @return
 	 */
@@ -60,8 +61,7 @@ public class BatchDAO{
 		log.info("Fetching all batches");
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.addOrder(Order.desc("startDate"))
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
 	}
@@ -79,15 +79,16 @@ public class BatchDAO{
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
-						Restrictions.eq("coTrainer.trainerId", trainerId))).addOrder(Order.desc("startDate"))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		batches.parallelStream().forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
+						Restrictions.eq("coTrainer.trainerId", trainerId)))
+				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		batches.parallelStream()
+				.forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
 		return batches;
 	}
 
 	/**
-	 * Looks for all batches where the user was the trainer or co-trainer. Batches returned are currently actively in
-	 * training.
+	 * Looks for all batches where the user was the trainer or co-trainer.
+	 * Batches returned are currently actively in training.
 	 * 
 	 * @param auth
 	 * @return
@@ -103,15 +104,16 @@ public class BatchDAO{
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
 						Restrictions.eq("coTrainer.trainerId", trainerId)))
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
-				.addOrder(Order.desc("startDate"))
+				.add(Restrictions.ge("endDate", endDateLimit.getTime())).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		batches.parallelStream().forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
+		batches.parallelStream()
+				.forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
 		return batches;
 	}
 
 	/**
-	 * Looks for all batches that are currently actively in training including trainees, notes and grades
+	 * Looks for all batches that are currently actively in training including
+	 * trainees, notes and grades
 	 * 
 	 * @param auth
 	 * @return
@@ -129,15 +131,14 @@ public class BatchDAO{
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
-				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC))
-				.add(Restrictions.eq("n.qcFeedback", true))
+				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC)).add(Restrictions.eq("n.qcFeedback", true))
 				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
 	}
-	
+
 	/**
-	 * Looks for all batches that are currently actively in training. Useful for VP and QC to get snapshots of currently
-	 * operating batches.
+	 * Looks for all batches that are currently actively in training. Useful for
+	 * VP and QC to get snapshots of currently operating batches.
 	 * 
 	 * @param auth
 	 * @return
@@ -151,12 +152,13 @@ public class BatchDAO{
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
-				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		batches.parallelStream().forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
+				.add(Restrictions.ge("endDate", endDateLimit.getTime())).addOrder(Order.desc("startDate"))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		batches.parallelStream()
+				.forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
 		return batches;
 	}
-	
+
 	/**
 	 * Find a batch by its given identifier
 	 * 
@@ -235,8 +237,9 @@ public class BatchDAO{
 	}
 
 	/**
-	 * Looks for all batches that whose starting date is after the given year, month, and day. Month is 0-indexed Return
-	 * all batches, trainees for that batch, and the grades for each trainee
+	 * Looks for all batches that whose starting date is after the given year,
+	 * month, and day. Month is 0-indexed Return all batches, trainees for that
+	 * batch, and the grades for each trainee
 	 * 
 	 * @param auth
 	 * @return
