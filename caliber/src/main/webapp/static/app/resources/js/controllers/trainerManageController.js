@@ -248,6 +248,7 @@ angular
 					}
 
 					/** Import batch form for creating new batch**/
+
 					$scope.importBatchForm = function() {
 						
 						$scope.batchFormName = "Import New Batch"
@@ -255,6 +256,7 @@ angular
 						$scope.Save = "Save";
 						
 					}	
+					
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];
