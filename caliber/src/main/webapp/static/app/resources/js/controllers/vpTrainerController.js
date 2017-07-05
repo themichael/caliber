@@ -58,7 +58,7 @@ angular
 					
 					/** Save New Trainee Input * */
 					$scope.saveTrainer = function(trainerForm) {
-					console.log(trainerForm);
+					$log.debug(trainerForm);
 					var newTrainer = trainerForm;
 					createTrainerObject(newTrainer);
 					caliberDelegate.all
@@ -80,6 +80,6 @@ angular
 					
 				});
 
-//				$scope.trainerDeactivation = function(){
-//					$scope.
-//				}
+				$scope.trainerDeactivation = function(){
+					$scope.trainerTier = "ROLE_INACTIVE";
+				}
