@@ -4,13 +4,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-=======
 import org.springframework.http.MediaType;
->>>>>>> b84d4158ebb78203a329207e60fd1967d088bda9
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,7 +43,6 @@ public class SalesforceController {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Gets all current batches from salesforce
 	 * 
 	 * @return the all batches
@@ -58,8 +54,7 @@ public class SalesforceController {
 		List<Batch> batches = salesforceService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 	}
-	
-=======
+/*
 	 * Gets all the relevent batches
 	 * @return Batches in JSON
 	 */
@@ -68,5 +63,4 @@ public class SalesforceController {
 	public Iterable<Batch> getAllReleventBatches(){
 		return salesforceService.getAllRelevantBatches();
 	}
->>>>>>> b84d4158ebb78203a329207e60fd1967d088bda9
 }
