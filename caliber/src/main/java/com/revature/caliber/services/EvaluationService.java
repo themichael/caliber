@@ -28,6 +28,7 @@ public class EvaluationService {
 	private static final Logger log = Logger.getLogger(EvaluationService.class);
 	private GradeDAO gradeDAO;
 	private NoteDAO noteDAO;
+	private static final String FINDING_WEEK = "Finding week ";
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -129,7 +130,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<Integer, List<Grade>> findGradesByWeek(Integer batchId, Integer week) {
-		log.debug("Finding week " + week + " grades for batch: " + batchId);
+		log.debug(FINDING_WEEK + week + " grades for batch: " + batchId);
 		List<Grade> grades = gradeDAO.findByWeek(batchId, week);
 		Map<Integer, List<Grade>> table = new HashMap<>();
 		for(Grade grade : grades){
@@ -197,7 +198,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Note> findBatchNotes(Integer batchId, Integer week) {
-		log.debug("Finding week " + week + " batch notes for batch: " + batchId);
+		log.debug(FINDING_WEEK + week + " batch notes for batch: " + batchId);
 		return noteDAO.findBatchNotes(batchId, week);
 	}
 
@@ -209,11 +210,11 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Note> findIndividualNotes(Integer batchId, Integer week) {
-		log.debug("Finding week " + week + " individual notes for batch: " + batchId);
-		List <Note>notes_temp = noteDAO.findIndividualNotes(batchId,week);
+		log.debug(FINDING_WEEK + week + " individual notes for batch: " + batchId);
+		List <Note> notesTemp = noteDAO.findIndividualNotes(batchId,week);
 		List <Note> notes = new ArrayList<>();
-		if(notes_temp !=null){
-			for(Note n : notes_temp){
+		if(notesTemp !=null){
+			for(Note n : notesTemp){
 				n.setBatch(null);
 				notes.add(n);
 			}
@@ -260,7 +261,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Note findQCBatchNotes(Integer batchId, Integer week) {
-		log.debug("Finding week " + week + " QC batch notes for batch: " + batchId);
+		log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
 		return noteDAO.findQCBatchNotes(batchId, week);
 	}
 
@@ -272,7 +273,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Note> findQCIndividualNotes(Integer traineeId, Integer week) {
-		log.debug("Finding week " + week + " QC individual notes for trainee: " + traineeId);
+		log.debug(FINDING_WEEK + week + " QC individual notes for trainee: " + traineeId);
 		return noteDAO.findQCIndividualNotes(traineeId, week);
 	}
 
@@ -284,7 +285,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Note> findAllBatchNotes(Integer batchId, Integer week) {
-		log.debug("Finding week " + week + " batch notes for batch: " + batchId);
+		log.debug(FINDING_WEEK + week + " batch notes for batch: " + batchId);
 		return noteDAO.findAllBatchNotes(batchId, week);
 	}
 

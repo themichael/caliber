@@ -29,45 +29,45 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * The type Trainer.
  */
 @Entity
-@Table(name="CALIBER_TRAINER")
+@Table(name = "CALIBER_TRAINER")
 @Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class Trainer implements Serializable{
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class Trainer implements Serializable {
 
 	private static final long serialVersionUID = -2546407792912483570L;
 
 	@Id
-	@Column(name="TRAINER_ID", nullable=false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="TRAINER_ID_SEQUENCE")
-	@SequenceGenerator(name = "TRAINER_ID_SEQUENCE", sequenceName= "TRAINER_ID_SEQUENCE")
-    @JsonProperty
-    private int trainerId;
-	
+	@Column(name = "TRAINER_ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRAINER_ID_SEQUENCE")
+	@SequenceGenerator(name = "TRAINER_ID_SEQUENCE", sequenceName = "TRAINER_ID_SEQUENCE")
+	@JsonProperty
+	private int trainerId;
+
 	@NotEmpty
-	@Column(name="NAME", nullable=false)
-    @JsonProperty
-    private String name;
-	
+	@Column(name = "NAME", nullable = false)
+	@JsonProperty
+	private String name;
+
 	@NotEmpty
-	@Column(name="TITLE", nullable=false)
-    @JsonProperty
-    private String title;
-	
+	@Column(name = "TITLE", nullable = false)
+	@JsonProperty
+	private String title;
+
 	@NotEmpty
 	@Email
-	@Column(name="EMAIL", nullable=false, unique=true, updatable=false)
-    @JsonProperty
-    private String email;
+	@Column(name = "EMAIL", nullable = false, unique = true, updatable = false)
+	@JsonProperty
+	private String email;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name="TIER")
+	@Column(name = "TIER")
 	private TrainerRole tier;
 
-	@OneToMany(mappedBy="trainer", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
 	@JsonIgnore
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Batch> batches;
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	private Set<Batch> batches;
 
 	public Trainer() {
 		super();
@@ -80,7 +80,7 @@ public class Trainer implements Serializable{
 		this.email = email;
 		this.tier = tier;
 	}
-	
+
 	public int getTrainerId() {
 		return trainerId;
 	}
@@ -174,5 +174,5 @@ public class Trainer implements Serializable{
 		return "Trainer [trainerId=" + trainerId + ", name=" + name + ", title=" + title + ", email=" + email
 				+ ", tier=" + tier + "]";
 	}
-  
+
 }

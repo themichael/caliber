@@ -53,6 +53,36 @@ public class TrainingController {
 	 */
 
 	/**
+	 * Create trainer
+	 *
+	 * @param trainer
+	 * 
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/all/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<Trainer> createTrainer(@Valid @RequestBody Trainer trainer) {
+		log.info("Saving trainer: " + trainer);
+		trainingService.createTrainer(trainer);
+		return new ResponseEntity<>(trainer, HttpStatus.CREATED);
+	}
+
+	/**
+	 * Update trainer
+	 *
+	 * @param trainer
+	 * 
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/all/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<Void> updateTrainer(@Valid @RequestBody Trainer trainer) {
+		log.info("Updating trainer: " + trainer);
+		trainingService.update(trainer);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	/**
 	 * Finds a trainer by email. Used for logging in a user with the Salesforce
 	 * controller `
 	 * 
@@ -66,7 +96,6 @@ public class TrainingController {
 		Trainer trainer = trainingService.findTrainer(email);
 		return new ResponseEntity<>(trainer, HttpStatus.OK);
 	}
-
 	/**
 	 * Returns all trainers from the database `
 	 * 
@@ -125,8 +154,7 @@ public class TrainingController {
 	 *            the batch
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, 
-	produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
 		log.info("Updating batch: " + batch);
@@ -150,25 +178,27 @@ public class TrainingController {
 		trainingService.delete(batch);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+
 	/**
 	 * Gets all current batches from salesforce
 	 * 
 	 * @return the all batches
 	 */
-	@RequestMapping(value ="/all/batch/import", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/batch/import", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<List<Batch>> getAllSalesforceBatches() {
 		log.info("Fetching all salesforce batches");
 		List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Gets all current batches
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value = {"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {
+			"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('QC, VP')")
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
 		log.info("Fetching all current batches");
@@ -181,7 +211,8 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value ={"/qc/batch/all", "/vp/batch/all"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = { "/qc/batch/all",
+			"/vp/batch/all" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<List<Batch>> getAllBatches() {
 		log.info("Fetching all batches");
@@ -273,11 +304,11 @@ public class TrainingController {
 	}
 
 	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
-	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail){
+	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail) {
 		Trainee trainee = trainingService.findTraineeByEmail(traineeEmail);
 		return new ResponseEntity<>(trainee, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<String>> findCommonLocations() {
 		log.info("Fetching common training locations");
@@ -287,15 +318,6 @@ public class TrainingController {
 	/**
 	 * Convenience method for accessing the Trainer information from the User
 	 * Principal.
-	 * 
-	 * TODO :: read me:: Access user details through SecurityContext by
-	 * injecting Authentication into Controller method. Use @PreAuthorize with
-	 * Spring Expression Language (SpEL) to send 403 forbidden if not authorized
-	 * <<<<<<< HEAD
-	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el
-	 * -access.html =======
-	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el
-	 * -access.html >>>>>>> 5aedf4196dfe4b91cac204fa623c7755fec4a5df
 	 * 
 	 * @param auth
 	 * @return
