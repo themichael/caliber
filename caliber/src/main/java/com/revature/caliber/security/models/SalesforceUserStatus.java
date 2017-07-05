@@ -6,9 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * The type Salesforce user status.
  */
 public class SalesforceUserStatus {
-    @JsonProperty
-    private String created_date;
-    @JsonProperty
+    @JsonProperty(value="created_date")
+    private String createdDate;
+    @JsonProperty(value="body")
     private String body;
 
     /**
@@ -24,8 +24,8 @@ public class SalesforceUserStatus {
      * @param created_date the created date
      * @param body         the body
      */
-    public SalesforceUserStatus(String created_date, String body) {
-        this.created_date = created_date;
+    public SalesforceUserStatus(String createdDate, String body) {
+        this.createdDate = createdDate;
         this.body = body;
     }
 
@@ -34,8 +34,8 @@ public class SalesforceUserStatus {
      *
      * @return the created date
      */
-    public String getCreated_date() {
-        return created_date;
+    public String getCreatedDate() {
+        return createdDate;
     }
 
     /**
@@ -43,8 +43,8 @@ public class SalesforceUserStatus {
      *
      * @param created_date the created date
      */
-    public void setCreated_date(String created_date) {
-        this.created_date = created_date;
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 
     /**
@@ -68,7 +68,7 @@ public class SalesforceUserStatus {
     @Override
     public String toString() {
         return "SalesforceUserStatus{" +
-                "created_date='" + created_date + '\'' +
+                "created_date='" + createdDate + '\'' +
                 ", body='" + body + '\'' +
                 '}';
     }

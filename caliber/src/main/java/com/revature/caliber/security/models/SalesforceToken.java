@@ -51,11 +51,11 @@ public class SalesforceToken {
      * @param tokenType    the token type
      * @param issuedAt     the issued at
      */
-    public SalesforceToken(String accessToken, String signature, String scope, String instance_url, String id, String tokenType, String issuedAt) {
+    public SalesforceToken(String accessToken, String signature, String scope, String instanceUrl, String id, String tokenType, String issuedAt) {
         this.accessToken = accessToken;
         this.signature = signature;
         this.scope = scope;
-        this.instanceUrl = instance_url;
+        this.instanceUrl = instanceUrl;
         this.id = id;
         this.tokenType = tokenType;
         this.issuedAt = issuedAt;

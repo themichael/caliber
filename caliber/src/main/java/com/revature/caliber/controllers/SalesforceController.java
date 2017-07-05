@@ -26,7 +26,7 @@ public class SalesforceController {
 	}
 	
 	/**
-	 * TODO delete me.
+	 * Delete when we're done with development
 	 * Used to grab access_token for running local tests of Salesforce API
 	 * @return
 	 */

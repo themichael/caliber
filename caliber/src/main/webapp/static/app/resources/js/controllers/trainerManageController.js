@@ -10,25 +10,24 @@
  * Sean and Hendy worked on add and edit trainees
  * Sudish worked on add and edit batch
  ******************************************************************************/
-/**
- * Things to consider for the future(or leave it for the next batch):
- * 1)try to mimic inline edits for batch and trainee.
- * Basically, when clicking edit on row on batch or trainee, make that 
- * entire row into text inputs or dropdowns for each field, and edit it 
- * there. after that, click the save button that appears to return to normal view 
- * without edit boxes
+/*******************************************************************************
+ * Things to consider for the future(or leave it for the next batch): 1)try to
+ * mimic inline edits for batch and trainee. Basically, when clicking edit on
+ * row on batch or trainee, make that entire row into text inputs or dropdowns
+ * for each field, and edit it there. after that, click the save button that
+ * appears to return to normal view without edit boxes
  * 
- * 2)make add trainee form into slidedown on trainee view:
- * when clicking add trainee, form slides down in trainee view instead of using a pop up.
- * can keep ading tainees by pressing enter. after finish entering trainee for batch, close trainee form.
- * so after pressing enter or save, trainee is added automagically to batch and trainee form is blank
- * and ready for next trainee info to be entered
+ * 2)make add trainee form into slidedown on trainee view: when clicking add
+ * trainee, form slides down in trainee view instead of using a pop up. can keep
+ * ading tainees by pressing enter. after finish entering trainee for batch,
+ * close trainee form. so after pressing enter or save, trainee is added
+ * automagically to batch and trainee form is blank and ready for next trainee
+ * info to be entered
  * 
- * 3) nothing else, maybe change function and scope objects as you wish, maybe separate this giant 
- * javascript file into separate js file and attach to each view for manage batch inside 
- * routeConfig.js
- * **/
-
+ * 3) nothing else, maybe change function and scope objects as you wish, maybe
+ * separate this giant javascript file into separate js file and attach to each
+ * view for manage batch inside routeConfig.js
+ ******************************************************************************/
 
 angular
 		.module("trainer")
@@ -44,7 +43,7 @@ angular
 					 */
 
 					/** On page start --> load all trainers * */
-					(function(start) {
+					(function() {
 						caliberDelegate.all.getAllTrainers().then(
 								function(trainers) {
 									$scope.trainers = trainers;
@@ -251,19 +250,10 @@ angular
 					/** Import batch form for creating new batch**/
 					$scope.importBatchForm = function() {
 						
-						$scope.dummyInfo = function(){
-							
-							var dumArray = ["1705 Java","Patrick Walsh"];
-							
-							
-						}
-						
 						$scope.batchFormName = "Import New Batch"
 						
 						$scope.Save = "Save";
-						if ($scope.currentBatch) {
-							$scope.currentBatch = null;
-						}
+						
 					}	
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
