@@ -311,12 +311,6 @@ angular
 						// return newBatch;
 					}
 					/** reformat dates on batch correctly* */
-					function formatBatchDates(batch) {
-						batch.startDate = moment(batch.startDate).format(
-								"YYYY-MM-DD");
-						batch.endDate = moment(batch.endDate).format(
-								"YYYY-MM-DD");
-					}
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
@@ -330,7 +324,7 @@ angular
 									.updateBatch($scope.currentBatch)
 									.then(
 											function() {
-												formatBatchDates($scope.currentBatch)
+											
 												$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch
 											});
 
@@ -359,7 +353,7 @@ angular
 												// format dates so qc, assess
 												// and reports can access
 												// batches immediately
-												formatBatchDates(newBatch)
+											
 
 												$scope.batches.push(newBatch);
 
