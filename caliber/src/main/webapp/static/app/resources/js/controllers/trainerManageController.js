@@ -228,8 +228,8 @@ angular
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
 						$scope.location.model = batch.location;
-						console.log("=====ddd=============")
-						console.log(batch.trainer);
+						console.log("=====testbah=============")
+						console.log(batch);
 						$scope.trainer.model = batch.trainer.name;
 						if (batch.coTrainer) {
 							$scope.coTrainer.model = batch.coTrainer.name;
@@ -257,6 +257,7 @@ angular
 						
 					}	
 					
+
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];

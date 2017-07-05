@@ -53,6 +53,18 @@ public class SalesforceService {
 		return allSalesForceBatches;
 	}
 
+	
+	/**
+	 * FIND ALL TRAINEES
+	 * @return List of Trainees
+	 */
+	
+	public List<Trainee> getAllTraineesFromBatch(String resourceId){
+		log.debug("Find all trainees");
+		return salesforceDAO.getFakeBatchDetails(resourceId);
+	}
+	
+
 	/**
 	 * FIND ALL TRAINEES FROM A SALESFORCE BATCHE
 	 * 

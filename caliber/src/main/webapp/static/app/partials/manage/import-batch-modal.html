@@ -1,4 +1,3 @@
-
 <!--********************************************* Import Batch Modal ************************************-->
 <form>
 	<div class="modal fade" id="importBatchModal" tabindex="-1"
@@ -17,8 +16,8 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
-							<label for="batchItem">Batch Name:</label> 
-							<select ng-model="batchToImport" class="form-control" required>
+							<label for="batchItem">Batch Name:</label> <select
+								ng-model="batchToImport" class="form-control" required>
 								<!--add {{availableBatch.coTrainer.name}}-->
 								<!-- TODO - Fix the date format -->
 								<option ng-repeat="availableBatch in allAvailableBatches" value={{availableBatch}}>{{availableBatch.trainingName}} {{availableBatch.trainer.name}}  {{availableBatch.startDate}}</option>
