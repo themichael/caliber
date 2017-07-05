@@ -87,21 +87,7 @@ public class BootController extends Helper {
 			throw new NotAuthorizedException();
 		}
 		log.info(jsonString);
-		JSONObject jsonObject = new JSONObject(jsonString);
-		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
-			log.info("Logged in user " + jsonObject.getString("email") + " now hasRole: "
-					+ jsonObject.getString("tier"));
-			salesforceUser.setRole(jsonObject.getString("tier"));
-			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
-		} else {
-			throw new NotAuthorizedException();
-		}
-		// store custom user Authentication obj in SecurityContext
-		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
-				salesforceUser.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(auth);
-
-		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
+		authorize(jsonString, salesforceUser, servletResponse);
 		return "index";
 	}
 
@@ -169,6 +155,11 @@ public class BootController extends Helper {
 			log.fatal("Training API returned: " + jsonString);
 			throw new NotAuthorizedException();
 		}
+		authorize(jsonString, salesforceUser, servletResponse);
+		return "index";
+	}
+	
+	private void authorize(String jsonString, SalesforceUser salesforceUser, HttpServletResponse servletResponse) throws IOException{
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
 			log.info("Logged in user " + jsonObject.getString("email") + " now hasRole: "
@@ -179,12 +170,11 @@ public class BootController extends Helper {
 			throw new NotAuthorizedException();
 		}
 		// store custom user Authentication obj in SecurityContext
-		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
+		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
-		return "index";
 	}
 
 }

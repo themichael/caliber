@@ -13,6 +13,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +24,7 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingType;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
+import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.salesforce.beans.SalesforceBatchResponse;
 import com.revature.salesforce.beans.SalesforceTraineeResponse;
 
@@ -38,6 +40,7 @@ import com.revature.salesforce.beans.SalesforceTraineeResponse;
 public class SalesforceDAO {
 
 	private static final Logger log = Logger.getLogger(SalesforceDAO.class);
+	private static final boolean DEBUG_MODE = true;
 	
 	@Value("#{systemEnvironment['SALESFORCE_INSTANCE_URL']}")
 	private String salesforceInstanceUrl;
@@ -87,12 +90,11 @@ public class SalesforceDAO {
 	public List<Batch> getAllRelevantBatches(){
 		try {
 			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
-
-			// TODO convert to Caliber beans
+			log.debug(response);
 			
-			return null; // TODO return something of value
+			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
-			log.error("Cannot get Salesforce batches: cause " + e +" "+ e.getClass() + " " + e.getMessage());
+			log.error("Cannot get Salesforce batches:  " + e);
 			throw new ServiceNotAvailableException();
 		}
 	}
@@ -143,12 +145,11 @@ public class SalesforceDAO {
 		String query = batchDetails + "' " + resourceId + " + '";
 		try {
 			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
+			log.debug(response);
 			
-			// TODO convert to Caliber bean
-			
-			return null; // TODO return something of value
+			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
-			log.error("Cannot get batch details from Salesforce: cause " + e + " " + e.getClass() + " " + e.getMessage());
+			log.error("Cannot get batch details from Salesforce: cause " + e);
 			throw new ServiceNotAvailableException();
 		}
 	}
@@ -169,17 +170,19 @@ public class SalesforceDAO {
 			getRequest.setHeader("Authorization", "Bearer " + getAccessToken());
 			return httpClient.execute(getRequest);
 		} catch (IOException | URISyntaxException e) {
-			log.error("Unable to fetch Salesforce data: cause " + e +" " + e.getClass() + " " + e.getMessage());
+			log.error("Unable to fetch Salesforce data: cause " + e);
 			throw new ServiceNotAvailableException();
 		}
 	}
-
+	
 	/**
 	 * Helper method to return the Salesforce access_token being managed by Spring Security
 	 * @return
 	 */
 	private String getAccessToken() {
-		return "00D0n0000000Q1l!AQQAQF8kUz6QVhBC8_zSVi4k8mjZeKbwe3fUJzgAKcFWLyGBMEWdsaeRJOcS90VaNTwYHdyhJ27F4kJlSZhL4pYlqk6XNk4J";
-		//return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
+		if(DEBUG_MODE)
+			return "00D0n0000000Q1l!AQQAQF8kUz6QVhBC8_zSVi4k8mjZeKbwe3fUJzgAKcFWLyGBMEWdsaeRJOcS90VaNTwYHdyhJ27F4kJlSZhL4pYlqk6XNk4J";
+		else
+			return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}
 }

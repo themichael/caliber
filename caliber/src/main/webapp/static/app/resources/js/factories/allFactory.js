@@ -82,6 +82,19 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		});
 	};
 
+	
+	all.enumTrainerTier = function() {
+		return $http({
+			url : "/types/trainer/role/all",
+			method : "GET"
+		}).then(function(response) {
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
+	
 	/**
 	 * @param allcategories
 	 * @returns {*}
@@ -356,8 +369,11 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
-	
+
+	/**
+	 * 
+	 * @returns {*}
+	 */
     all.importAvailableBatches = function() {
         return $http({
             url : "/all/batch/importget/",
@@ -370,6 +386,30 @@ angular.module("api").factory("allFactory", function($log, $http) {
             $log.error("There was an error: " + response.status);
         });
     };
+	
+	
+	/**
+	 * 
+	 * @param trainerObj
+	 * @returns {*}
+	 */
+	all.createTrainer = function(trainerObj) {
+		$log.debug(trainerObj);
+		return $http({
+			url : "/all/trainer/create",
+			method :"POST",
+			data : trainerObj
+		}).then(function(response) {
+			$log.debug("Trainer successfully created.")
+			$log.debug(response);
+			return response;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return response.data;
+		});
+	};
+
+
 	/***************************************************************************
 	 * Server generates PDF from HTML Download via response data
 	 * 

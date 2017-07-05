@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "CALIBER_ASSESSMENT")
 @Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Assessment implements Serializable {
 
 	private static final long serialVersionUID = 5030264218154828822L;
@@ -56,14 +56,14 @@ public class Assessment implements Serializable {
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Batch batch;
 
 	/**
 	 * Raw numerical score before calculations This value is the maximum number
 	 * of points that can be earned on this assignment.
 	 */
-	@Min(value=1)
+	@Min(value = 1)
 	@Column(name = "RAW_SCORE", nullable = false)
 	private int rawScore;
 
@@ -75,19 +75,19 @@ public class Assessment implements Serializable {
 	@Column(name = "ASSESSMENT_TYPE", nullable = false)
 	private AssessmentType type;
 
-	@Min(value=1)
+	@Min(value = 1)
 	@Column(name = "WEEK_NUMBER", nullable = false)
 	private short week;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Category category;
 
 	@OneToMany(mappedBy = "assessment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Grade> grades = new HashSet<>();
 
 	public Assessment() {
@@ -104,7 +104,7 @@ public class Assessment implements Serializable {
 		this.week = week.shortValue();
 		this.category = category;
 	}
-	
+
 	public long getAssessmentId() {
 		return assessmentId;
 	}
@@ -168,7 +168,7 @@ public class Assessment implements Serializable {
 	public void setGrades(Set<Grade> grades) {
 		this.grades = grades;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
