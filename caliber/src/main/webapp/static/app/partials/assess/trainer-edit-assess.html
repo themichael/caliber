@@ -6,7 +6,6 @@
 				<button type="button" class="close" ng-click="closeModal('EditAssessmentModal_'+assessment.assessmentId)" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-
 				<h4 class="modal-title" id="myModalLabel">Edit Assessment- {{assessment.title}}</h4>
 			</div>
 			<!-- Add Assessment Info -->
@@ -46,7 +45,7 @@
 
 				</div>
 				<!-- Edit/Delete Modal -->
-				<div class="modal-footer">
+				<div class="modal-header">
 					<button style="float: left", ng-click="deleteAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)" type="button" class="btn btn-danger"
 					aria-label="Delete">Delete</button>
 					<input type="button" value="Update" class="btn btn-primary" ng-click="updateAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)">
