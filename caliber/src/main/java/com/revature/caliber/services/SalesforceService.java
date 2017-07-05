@@ -32,6 +32,16 @@ public class SalesforceService {
 		return salesforceDAO.getFakeReleventBatches();
 	}
 	
+	/**
+	 * FIND ALL TRAINEES
+	 * @return List of Trainees
+	 */
+	
+	public List<Trainee> getAllTraineesFromBatch(String resourceId){
+		log.debug("Find all trainees");
+		return salesforceDAO.getFakeBatchDetails(resourceId);
+	}
+	
 	
 	/**
 	 * FIND ALL TRAINEES FROM A SALESFORCE BATCHE
@@ -41,11 +51,6 @@ public class SalesforceService {
 	public List<Trainee> getBatchDetails(String resourceId){
 		log.debug("Find all current batches by resource id");
 		return salesforceDAO.getBatchDetails(resourceId);
-	}
-
-	public List<Batch> findAllBatches() {
-		log.debug("Find all current batches");
-		return null;
 	}
 	
 }

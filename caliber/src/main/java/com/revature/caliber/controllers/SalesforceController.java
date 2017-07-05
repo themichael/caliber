@@ -11,10 +11,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.SalesforceService;
 
@@ -47,13 +49,7 @@ public class SalesforceController {
 	 * 
 	 * @return the all batches
 	 */
-	@RequestMapping(value ="/all/batch/importget2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	// @PreAuthorize("hasAnyRole('VP')")
-	public ResponseEntity<List<Batch>> getAllSalesforceBatches() {
-		log.info("Fetching all salesforce batches");
-		List<Batch> batches = salesforceService.findAllBatches();
-		return new ResponseEntity<>(batches, HttpStatus.OK);
-	}
+
 /*
 	 * Gets all the relevent batches
 	 * @return Batches in JSON
@@ -63,4 +59,12 @@ public class SalesforceController {
 	public Iterable<Batch> getAllReleventBatches(){
 		return salesforceService.getAllRelevantBatches();
 	}
+	
+	@RequestMapping(value="/all/batch/importtrainee", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Iterable<Trainee> getAllTraineesFromBatch(@RequestParam String resourceId){
+		return salesforceService.getAllTraineesFromBatch(resourceId);
+	}
+	
+	
 }

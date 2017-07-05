@@ -229,8 +229,8 @@ angular
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
 						$scope.location.model = batch.location;
-						console.log("=====ddd=============")
-						console.log(batch.trainer);
+						console.log("=====testbah=============")
+						console.log(batch);
 						$scope.trainer.model = batch.trainer.name;
 						if (batch.coTrainer) {
 							$scope.coTrainer.model = batch.coTrainer.name;
@@ -248,21 +248,7 @@ angular
 
 					}
 
-					/** Import batch form for creating new batch**/
-					(function() {
-						caliberDelegate.all.importAllAvailableBatches().then(
-								function(batches){
-										$scope.batches = batches;
-										$log.debug("========BATCHES========");
-										$log.debug(batches);
-					});
-						$scope.importedBatches
-						$scope.batchFormName = "Import New Batch"
-						$scope.Save = "Save";
-						if ($scope.currentBatch) {
-							$scope.currentBatch = null;
-						}
-					})();	
+				
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];

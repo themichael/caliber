@@ -177,6 +177,20 @@ angular.module("api").factory("allFactory", function($log, $http) {
 
 	/** ************************* Trainee *********************** */
 
+	all.getAllTraineesFromBatch = function(resourceId){
+		return $http({
+			url : "/all/batch/importtrainee" +resourceId ,
+			method : "GET"
+		}).then(function(response){
+			$log.debug("Trainees successfully imported")
+			$log.debug(response.data);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return response.data;
+		});
+		};
+	
 	/**
 	 * 
 	 * @param batchId
