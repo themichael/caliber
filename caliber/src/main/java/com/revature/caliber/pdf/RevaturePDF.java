@@ -5,20 +5,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
 
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.codec.Base64;
 import com.itextpdf.tool.xml.XMLWorker;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.itextpdf.tool.xml.css.CssFile;
@@ -28,10 +22,8 @@ import com.itextpdf.tool.xml.parser.XMLParser;
 import com.itextpdf.tool.xml.pipeline.css.CSSResolver;
 import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
 import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
-import com.itextpdf.tool.xml.pipeline.html.AbstractImageProvider;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
-import com.revature.caliber.exceptions.PDFGenerationException;
 
 /**
  * Encapsulate the data pertaining to the PDF file. Initialize the PDF
@@ -73,7 +65,8 @@ public class RevaturePDF {
 	public RevaturePDF(String title, String html) throws DocumentException, IOException {
 		// PDF generator needs 'properly' closed <img> tags
 		String formattedHtml = html.replaceAll("(<img[^>]*[^/]>)(?!\\s*</img>)", "$1</img>");
-
+		log.trace(formattedHtml);
+		
 		// initialize document state
 		this.document = new Document(PageSize.A4, marginLeft, marginRight, marginTop, marginBottom);
 		this.title = title;
@@ -91,7 +84,7 @@ public class RevaturePDF {
 		this.writer = PdfWriter.getInstance(document, byteArrayOutputStream);
 
 		// configure header/footer
-		this.writer.setPageEvent(new RevaturePDFPageEventHandler());
+		this.writer.setPageEvent(new RevaturePDFPageEventHandler(header, footer, this.title));
 
 		// begin content
 		this.document.open();
@@ -122,29 +115,7 @@ public class RevaturePDF {
 		// HTML
 		HtmlPipelineContext htmlPipelineContext = new HtmlPipelineContext(null);
 		htmlPipelineContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
-		htmlPipelineContext.setImageProvider(new AbstractImageProvider() {
-			// capability to parse Base64 from <img src=..> to create Image
-			@Override
-			public Image retrieve(String src) {
-				int pos = src.indexOf("base64,");
-				try {
-					if (src.startsWith("data") && pos > 0) {
-						byte[] img = Base64.decode(src.substring(pos + 7));
-						return Image.getInstance(img);
-					} else {
-						return Image.getInstance(src);
-					}
-				} catch (BadElementException | IOException ex) {
-					log.info("Error creating PDF file: " + ex + ex.getClass() + " " + ex.getMessage());
-					throw new PDFGenerationException();
-				}
-			}
-
-			@Override
-			public String getImageRootPath() {
-				throw new PDFGenerationException();
-			}
-		});
+		htmlPipelineContext.setImageProvider(new ChartjsImageProvider());
 		// XML Worker with Pipelines
 		new XMLParser(new XMLWorker(new CssResolverPipeline(cssResolver,
 				new HtmlPipeline(htmlPipelineContext, new PdfWriterPipeline(document, writer))), true))
@@ -164,64 +135,4 @@ public class RevaturePDF {
 		return byteArrayOutputStream.toByteArray();
 	}
 
-	/**
-	 * Event Handler that applies header and footer images at the start of every
-	 * page.
-	 * 
-	 * @author Patrick Walsh
-	 *
-	 */
-	class RevaturePDFPageEventHandler extends PdfPageEventHelper {
-
-		byte[] foot;
-		byte[] head;
-
-		public RevaturePDFPageEventHandler() {
-			try {
-				this.head = IOUtils.toByteArray(header);
-				this.foot = IOUtils.toByteArray(footer);
-			} catch (IOException e) {
-				log.error("Error reading header/footer image: " + e.getClass() + " " + e.getMessage());
-				throw new PDFGenerationException();
-			}
-		}
-
-		@Override
-		public void onStartPage(PdfWriter writer, Document document) {
-			// set header
-			Image header;
-			try {
-				header = Image.getInstance(head);
-				header.setAbsolutePosition(0, document.getPageSize().getHeight() - header.getScaledHeight());
-				header.setSpacingAfter(20);
-				writer.getDirectContent().addImage(header);
-				String reportTitle = "<html><head><style> #report-title { color: #FFFFFF; font-size: 14pt; font-family: Arial; margin-bottom: 50px; }</style></head><body><div><h1 id='report-title'>"
-						+ title + "</h1></div><br/></body></html>";
-				XMLWorkerHelper.getInstance().parseXHtml(writer, document, new StringReader(reportTitle));
-
-			} catch (BadElementException | IOException e) {
-				log.error("Error creating PDF file: " + e.getClass() + " " + e.getMessage());
-				throw new PDFGenerationException();
-			} catch (DocumentException e) {
-				log.error("Error creating PDF file: " + e.getClass() + " " + e.getMessage());
-				throw new PDFGenerationException();
-			}
-
-			// set footer
-			Image footer;
-			try {
-				footer = Image.getInstance(foot);
-				footer.setAbsolutePosition(0, 0);
-				footer.setSpacingBefore(20);
-				writer.getDirectContent().addImage(footer);
-			} catch (BadElementException | IOException e) {
-				log.error("Error creating PDF file: " + e.getClass() + " " + e.getMessage());
-				throw new PDFGenerationException();
-			} catch (DocumentException e) {
-				log.error("Error creating PDF file: " + e.getClass() + " " + e.getMessage());
-				throw new PDFGenerationException();
-			}
-
-		}
-	}
 }
