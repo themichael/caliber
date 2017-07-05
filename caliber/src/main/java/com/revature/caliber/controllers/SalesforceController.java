@@ -1,15 +1,22 @@
 package com.revature.caliber.controllers;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.SalesforceService;
 
@@ -38,6 +45,12 @@ public class SalesforceController {
 	}
 	
 	/**
+	 * Gets all current batches from salesforce
+	 * 
+	 * @return the all batches
+	 */
+
+/*
 	 * Gets all the relevent batches
 	 * @return Batches in JSON
 	 */
@@ -46,4 +59,12 @@ public class SalesforceController {
 	public Iterable<Batch> getAllReleventBatches(){
 		return salesforceService.getAllRelevantBatches();
 	}
+	
+	@RequestMapping(value="/all/batch/importtrainee", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Iterable<Trainee> getAllTraineesFromBatch(@RequestParam String resourceId){
+		return salesforceService.getAllTraineesFromBatch(resourceId);
+	}
+	
+	
 }

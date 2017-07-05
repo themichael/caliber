@@ -117,7 +117,24 @@ public class SalesforceDAO {
 		return batch;
 	}
 	
-	
+	/**
+	 * Get all the trainees for a single batch.
+	 * Access data using the Salesforce REST API
+	 * @return
+	 */
+	public List<Trainee> getFakeBatchDetails(String resourceId){
+		List<Trainee> trainees = new ArrayList<Trainee>();
+		
+		Trainer t = new Trainer("Yuvaraj Damodaran", "Lead Trainer", "yuvarajd@revature.com", TrainerRole.ROLE_TRAINER);
+		Batch batch = new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190");
+
+		trainees.add(new Trainee("Danny Howl", "I2", "DHowl@gmail.com", batch));
+		trainees.add(new Trainee("John Doe", "I3", "JohnDoe@gmail.com", batch));
+		trainees.add(new Trainee("Jane Doe", "I4", "JaneDoe@gmail.com", batch));
+		trainees.add(new Trainee("Julie Michaels", "I5", "JulieMichaels@gmail.com", batch));
+		
+		return trainees;
+	}
 	
 	/**
 	 * Get all the trainees for a single batch.

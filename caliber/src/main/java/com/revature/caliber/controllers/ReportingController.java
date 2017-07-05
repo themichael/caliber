@@ -1,6 +1,7 @@
 package com.revature.caliber.controllers;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -73,8 +74,14 @@ public class ReportingController {
 	public ResponseEntity<Map<QCStatus, Integer>> getPieChartCurrentWeekQCStatus(
 			@PathVariable Integer batchId) {
 		log.info("getPieChartCurrentWeekQCStatus ===> /all/reports/batch/{batchId}/week/pie");
-		return new ResponseEntity<>(
-				reportingService.pieChartCurrentWeekQCStatus(batchId), HttpStatus.OK);
+		try{
+			Map<QCStatus, Integer> results = reportingService.pieChartCurrentWeekQCStatus(batchId);
+			return new ResponseEntity<>(results, HttpStatus.OK);
+		}catch(Exception e){
+			log.debug(e);
+			return new ResponseEntity<>(new HashMap<>(), HttpStatus.NO_CONTENT);
+		}
+		
 	}
 
 	/*

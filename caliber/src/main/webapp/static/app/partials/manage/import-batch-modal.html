@@ -1,4 +1,3 @@
-
 <!--********************************************* Import Batch Modal ************************************-->
 <form>
 	<div class="modal fade" id="importBatchModal" tabindex="-1"
@@ -21,8 +20,32 @@
 								ng-model="batchToImport" class="form-control" required>
 								<!--add {{availableBatch.coTrainer.name}}-->
 								<!-- TODO - Fix the date format -->
-								<option ng-repeat="availableBatch in allAvailableBatches">{{availableBatch.trainingName}} {{availableBatch.trainer.name}}  {{availableBatch.startDate}}</option>
+								<option ng-repeat="availableBatch in allAvailableBatches" value={{availableBatch}}>{{availableBatch.trainingName}} {{availableBatch.trainer.name}}  {{availableBatch.startDate}}</option>
 							</select>	
+						</div>
+					</div>
+					<div class="row">
+						<div>
+							<table>
+								<tr>
+									<th>Batch Details:</th>
+								</tr>
+								<tr >
+									<td>{{batchToImport}}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div>
+							<table>
+								<tr>
+									<th>Trainees:</th>
+								</tr>
+								<tr >
+									<td>Temp Row</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>
