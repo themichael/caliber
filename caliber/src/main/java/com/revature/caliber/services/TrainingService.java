@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
@@ -105,6 +106,7 @@ public class TrainingService {
 	}
 
 	/**
+
 	 * MAKE TRAINER INACTIVE
 	 **/
 	public void makeInactive(Trainer trainer) {
