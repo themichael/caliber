@@ -105,7 +105,8 @@ public class TrainingService {
 	public void addWeek(Integer batchId){
 		log.debug("Adding week to batch: " + batchId);
 		Batch batch = batchDAO.findOne(batchId);
-		if(batch==null) throw new IllegalArgumentException("Invalid batch");
+		if(batch==null) 
+			throw new IllegalArgumentException("Invalid batch");
 		int weeks = batch.getWeeks();
 		batch.setWeeks(++weeks);
 		batchDAO.update(batch);
@@ -184,8 +185,6 @@ public class TrainingService {
 	 */
 	public void delete(Batch batch){
 		log.debug("Delete batch " + batch);
-		// load batch into persistent state
-		//batch = batchDAO.findOne(batch.getBatchId());
 		batchDAO.delete(batch);
 	}
 	

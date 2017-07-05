@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.SalesforceDAO;
 
 @Service
@@ -23,21 +24,21 @@ public class SalesforceService {
 	
 	/**
 	 * FIND ALL CURRENT SALESFORCE BATCHES
-	 * @return
+	 * @return List of Batches
+	 */
+	public List<Batch> getAllRelevantBatches(){
+		log.debug("Find all current batches by year");
+		//TODO - Change Fake data to All data
+		return salesforceDAO.getFakeReleventBatches();
+	}
+	
+	
+	/**
+	 * FIND ALL TRAINEES FROM A SALESFORCE BATCHE
+	 * @return List of Trainee's from a batch
 	 */
 	
-	// TODO  JESSICA
-	public String getAllSalesforceBatches(){
-		log.debug("Find all current salesforce batches");
-		return salesforceDAO.getAllBatches();
-	}
-	
-	public List<Batch> getAllRelevantSalesforceBatches(){
-		log.debug("Find all current batches by year");
-		return salesforceDAO.getAllRelevantBatches();
-	}
-	
-	public Batch getSalesforceBatchByResourceId(String resourceId){
+	public List<Trainee> getBatchDetails(String resourceId){
 		log.debug("Find all current batches by resource id");
 		return salesforceDAO.getBatchDetails(resourceId);
 	}

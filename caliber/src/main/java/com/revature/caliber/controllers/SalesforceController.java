@@ -4,12 +4,17 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+=======
+import org.springframework.http.MediaType;
+>>>>>>> b84d4158ebb78203a329207e60fd1967d088bda9
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Batch;
@@ -28,18 +33,20 @@ public class SalesforceController {
 		this.salesforceService = salesforceService;
 	}
 	
-	@RequestMapping(value="/salesforce/test", method=RequestMethod.GET)
-	public String salesforceJson(){
-		return salesforceService.getAllSalesforceBatches();
-	}
-	
+	/**
+	 * TODO delete me.
+	 * Used to grab access_token for running local tests of Salesforce API
+	 * @return
+	 */
 	@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
 	public String getSalesforceToken(){
+		log.info("Getting access_token for testing purposes only");
 		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
 				.getSalesforceToken().getAccessToken();
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Gets all current batches from salesforce
 	 * 
 	 * @return the all batches
@@ -52,4 +59,14 @@ public class SalesforceController {
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 	}
 	
+=======
+	 * Gets all the relevent batches
+	 * @return Batches in JSON
+	 */
+	@RequestMapping(value="/all/batch/importget", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Iterable<Batch> getAllReleventBatches(){
+		return salesforceService.getAllRelevantBatches();
+	}
+>>>>>>> b84d4158ebb78203a329207e60fd1967d088bda9
 }

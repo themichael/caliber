@@ -19,6 +19,7 @@
 **/.classpath
 **/.recommenders/**
 **/Servers
+**/.springBeans
 
 #IDEA
 **/.idea/
