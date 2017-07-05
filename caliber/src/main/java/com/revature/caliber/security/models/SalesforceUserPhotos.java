@@ -15,6 +15,7 @@ public class SalesforceUserPhotos {
      * Instantiates a new Salesforce user photos.
      */
     public SalesforceUserPhotos() {
+    	super();
     }
 
     /**

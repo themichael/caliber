@@ -18,7 +18,7 @@ import com.revature.caliber.services.CategoryService;
 @RestController
 public class CategoryController {
 
-	private final static Logger log = Logger.getLogger(CategoryController.class);
+	private static final Logger log = Logger.getLogger(CategoryController.class);
 	private CategoryService categoryService;
 
 	@Autowired
@@ -31,7 +31,7 @@ public class CategoryController {
 	public ResponseEntity<List<Category>> findAllCategories(){
 		log.debug("Getting categories");
 		List<Category> categories = categoryService.findAllCategories();
-		return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
+		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/category/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -39,7 +39,7 @@ public class CategoryController {
 	public ResponseEntity<Category> findCategoryById(@PathVariable int id){
 		log.debug("Getting category: " + id);
 		Category category = categoryService.findCategory(id);
-		return new ResponseEntity<Category>(category, HttpStatus.OK);
+		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
 	
 }

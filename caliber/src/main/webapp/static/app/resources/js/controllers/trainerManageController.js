@@ -10,25 +10,24 @@
  * Sean and Hendy worked on add and edit trainees
  * Sudish worked on add and edit batch
  ******************************************************************************/
-/**
- * Things to consider for the future(or leave it for the next batch):
- * 1)try to mimic inline edits for batch and trainee.
- * Basically, when clicking edit on row on batch or trainee, make that 
- * entire row into text inputs or dropdowns for each field, and edit it 
- * there. after that, click the save button that appears to return to normal view 
- * without edit boxes
+/*******************************************************************************
+ * Things to consider for the future(or leave it for the next batch): 1)try to
+ * mimic inline edits for batch and trainee. Basically, when clicking edit on
+ * row on batch or trainee, make that entire row into text inputs or dropdowns
+ * for each field, and edit it there. after that, click the save button that
+ * appears to return to normal view without edit boxes
  * 
- * 2)make add trainee form into slidedown on trainee view:
- * when clicking add trainee, form slides down in trainee view instead of using a pop up.
- * can keep ading tainees by pressing enter. after finish entering trainee for batch, close trainee form.
- * so after pressing enter or save, trainee is added automagically to batch and trainee form is blank
- * and ready for next trainee info to be entered
+ * 2)make add trainee form into slidedown on trainee view: when clicking add
+ * trainee, form slides down in trainee view instead of using a pop up. can keep
+ * ading tainees by pressing enter. after finish entering trainee for batch,
+ * close trainee form. so after pressing enter or save, trainee is added
+ * automagically to batch and trainee form is blank and ready for next trainee
+ * info to be entered
  * 
- * 3) nothing else, maybe change function and scope objects as you wish, maybe separate this giant 
- * javascript file into separate js file and attach to each view for manage batch inside 
- * routeConfig.js
- * **/
-
+ * 3) nothing else, maybe change function and scope objects as you wish, maybe
+ * separate this giant javascript file into separate js file and attach to each
+ * view for manage batch inside routeConfig.js
+ ******************************************************************************/
 
 angular
 		.module("trainer")
@@ -43,15 +42,12 @@ angular
 					 */
 
 					/** On page start --> load all trainers * */
-					(function start() {
+					(function(start) {
 						caliberDelegate.all.getAllTrainers().then(
 								function(trainers) {
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
-									// $scope.role = $cookies.get("role");
-
-									$log.debug($scope.role);
 								});
 						$log.debug(allBatches);
 						$scope.batches = allBatches;
@@ -198,13 +194,10 @@ angular
 
 						if ($scope.endDate.model > $scope.startDate.model
 								&& $scope.trainer.model !== $scope.coTrainer.model) {
-							/* $scope.validDate = false; */
 							$log.debug("True");
 							$scope.addNewBatch();
 						} else {
-							/* $scope.validDate = true; */
 							$log.info("False");
-							// window.alert("hi!....u buggin!!!");
 							angular.element("#checkBatchModal").modal("show");
 							return false;
 						}
@@ -245,6 +238,29 @@ angular
 
 					}
 
+					/** Import batch form for creating new batch**/
+					$scope.importBatchForm = function() {
+						
+						$scope.dummyInfo = function(){
+							
+							var dumArray = ["1705 Java","Patrick Walsh"];
+							
+							
+						}
+						
+						$scope.batchFormName = "Import New Batch"
+						$scope.batchSalesForce = "wor wor wor wor";//$scope.dummyInfo;
+						$scope.Save = "Save";
+						if ($scope.currentBatch) {
+							$scope.currentBatch = null;
+						}
+					}	
+					/** Select batch by year **/
+					$scope.selectBatchYear = function(index) {
+						$scope.selectedBatchYear = $scope.years[index];
+						sortByDate($scope.selectedBatchYear);
+					};
+					
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
 						$scope.batchFormName = "Create New Batch"
@@ -360,9 +376,12 @@ angular
 											});
 						}
 						angular.element("#createBatchModal").modal("hide");
-
 					};
 
+					
+					
+					
+					
 					/** Delete batch* */
 					$scope.deleteBatch = function() {
 						caliberDelegate.all
@@ -379,15 +398,14 @@ angular
 														break;
 													}
 												}
-												for (var i = 0; i < $scope.selectedBatches.length; i++) {
-													if ($scope.selectedBatches[i] === $scope.currentBatch) {
+												for (var j = 0; j < $scope.selectedBatches.length; j++) {
+													if ($scope.selectedBatches[j] === $scope.currentBatch) {
 														$scope.selectedBatches
-																.splice(i, 1);
+																.splice(j, 1);
 														break;
 													}
 												}
 											} else if (response.status === 500) {
-												// $log($scope.currentBatch.batchId);
 												angular
 														.element(
 																"#deleteBatchErrorModal")
@@ -548,7 +566,7 @@ angular
 												// from allbatches list and add
 												// to drop list
 												if ($scope.trainees[$scope.traineeRow].trainingStatus === "Dropped") {
-													for (i = 0; i < $scope.activeTrainees.length; i++) {
+													for (var i = 0; i < $scope.activeTrainees.length; i++) {
 														if ($scope.activeTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.droppedTrainees
 																	.push($scope.trainees[$scope.traineeRow]);
@@ -559,12 +577,12 @@ angular
 														}
 													}
 												} else {
-													for (i = 0; i < $scope.droppedTrainees.length; i++) {
-														if ($scope.droppedTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
+													for (var j = 0; j < $scope.droppedTrainees.length; j++) {
+														if ($scope.droppedTrainees[j].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.activeTrainees
 																	.push($scope.trainees[$scope.traineeRow]);
 															$scope.droppedTrainees
-																	.splice(i,
+																	.splice(j,
 																			1);
 														}
 													}
@@ -597,15 +615,13 @@ angular
 
 					/** Get Trainee to delete* */
 					$scope.getTraineeToDelete = function(index) {
-						var traineeToBeDeleted;
 						$scope.traineeToBeDeleted = $scope.trainees[index];
-						// $scope.editTrainee = $scope.trainees[index];
 						$scope.traineeRow = index;
 					}
 
 					/** Delete Trainee* */
 
-					$scope.removeTrainee = function(traineeId) {
+					$scope.removeTrainee = function() {
 						// search through allbatches trainees and splice from
 						// there
 						$log.debug("Deleting trainee with id of:  "
@@ -618,5 +634,15 @@ angular
 						angular.element("#deleteTraineeModal").modal("hide");
 
 					};
+					
+					/** When multiple modals are opened upon removing one the modal-open is removed.
+					 *  The following code adds the modal-open back into the HTML */
+					
+					$(document).on('hidden.bs.modal','#addTraineeModal', function () {
+						$("body").addClass("modal-open");
+					});
+					$(document).on('hidden.bs.modal','#deleteTraineeModal', function () {
+						$("body").addClass("modal-open");
+					});
 
 				});
