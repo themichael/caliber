@@ -96,6 +96,7 @@ public class TrainingController {
 		Trainer trainer = trainingService.findTrainer(email);
 		return new ResponseEntity<>(trainer, HttpStatus.OK);
 	}
+
 	/**
 	 * Returns all trainers from the database `
 	 * 
@@ -179,8 +180,6 @@ public class TrainingController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-<<<<<<< HEAD
-=======
 	/**
 	 * Gets all current batches from salesforce
 	 * 
@@ -194,7 +193,6 @@ public class TrainingController {
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 	}
 
->>>>>>> 5539469ce835523adf7ce776471877ae18e500be
 	/**
 	 * Gets all current batches
 	 *
