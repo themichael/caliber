@@ -11,7 +11,8 @@ angular
 					 * ****************************
 					 */
 					$scope.currentBatch = allBatches[0];
-					
+					if($scope.currentBatch === undefined || $scope.currentBatch === null) 
+						return;
 
 					(function() {
 						// Finishes any left over AJAX animation
