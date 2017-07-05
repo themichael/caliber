@@ -2,6 +2,8 @@ package com.revature.caliber.data;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -15,7 +17,11 @@ import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.TrainingType;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
 import com.revature.salesforce.beans.SalesforceBatchResponse;
 import com.revature.salesforce.beans.SalesforceTraineeResponse;
@@ -90,6 +96,25 @@ public class SalesforceDAO {
 			throw new ServiceNotAvailableException();
 		}
 	}
+	
+	/**
+	 * TODO - Delete this method
+	 * This method creates fake data and sends back a list of batches
+	 * @returns list of hard coded batches
+	 */
+	public List<Batch> getFakeReleventBatches(){
+		List<Batch> batch = new ArrayList<Batch>();
+		
+		Trainer t = new Trainer("Yuvaraj Damodaran", "Lead Trainer", "yuvarajd@revature.com", TrainerRole.ROLE_TRAINER);
+		
+		batch.add(new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190"));
+		batch.add(new Batch("1707 July 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190"));
+
+
+		return batch;
+	}
+	
+	
 	
 	/**
 	 * Get all the trainees for a single batch.

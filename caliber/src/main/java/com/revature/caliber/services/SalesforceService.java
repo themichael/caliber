@@ -24,13 +24,19 @@ public class SalesforceService {
 	
 	/**
 	 * FIND ALL CURRENT SALESFORCE BATCHES
-	 * @return
+	 * @return List of Batches
 	 */
-	
 	public List<Batch> getAllRelevantBatches(){
 		log.debug("Find all current batches by year");
-		return salesforceDAO.getAllRelevantBatches();
+		//TODO - Change Fake data to All data
+		return salesforceDAO.getFakeReleventBatches();
 	}
+	
+	
+	/**
+	 * FIND ALL TRAINEES FROM A SALESFORCE BATCHE
+	 * @return List of Trainee's from a batch
+	 */
 	
 	public List<Trainee> getBatchDetails(String resourceId){
 		log.debug("Find all current batches by resource id");
