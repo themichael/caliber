@@ -104,6 +104,23 @@ angular.module("api").factory("allFactory", function($log, $http) {
 
 	/**
 	 * 
+	 * 
+	 */
+	all.importAvailableBatches = function() {
+		return $http({
+			url : "/all/batch/importget",
+			method : "GET",
+		}).then(function(response) {
+			$log.debug("Object successfully imported");
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
+	
+	/**
+	 * 
 	 * @param batchObj
 	 */
 	all.createBatch = function(batchObj) {

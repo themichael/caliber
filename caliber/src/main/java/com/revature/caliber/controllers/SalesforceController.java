@@ -47,7 +47,7 @@ public class SalesforceController {
 	 * 
 	 * @return the all batches
 	 */
-	@RequestMapping(value ="/all/batch/importget", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value ="/all/batch/importget2", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<List<Batch>> getAllSalesforceBatches() {
 		log.info("Fetching all salesforce batches");
