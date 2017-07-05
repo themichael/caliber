@@ -41,7 +41,8 @@
 								{{batch.trainingName}} - {{batch.startDate | date:'shortDate'}}
 						</a></li>
 					</ul></li>
-				<!-- Button Trigger for Create Assessment Modal -->
+				<!-- Button Trigger for Create 
+ment Modal -->
 				<li role="button" class="pull-right" ng-show="!noBatches"
 					data-toggle="modal" data-target="#createAssessmentModal"><a>Create
 						Assessment<span class="glyphicon glyphicon-plus"
@@ -78,6 +79,26 @@
 					data-target="#confirmingweeks"><a><span
 						class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
 			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- loading the conferming week model for vp -->
+<div id="confirmingweeks" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div class="text-center">
+				<h4>Add a new week?</h4>
+				<h4>This process cannot be undone.</h4>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="yesBtn" type="button" class="btn btn-primary"
+					ng-click="createWeek()" data-dismiss="modal">Yes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+			</div>
 		</div>
 	</div>
 </div>

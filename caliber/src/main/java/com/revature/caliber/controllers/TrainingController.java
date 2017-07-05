@@ -62,7 +62,6 @@ public class TrainingController {
 		Trainer trainer = trainingService.findTrainer(email);
 		return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
 	}
-
 	/**
 	 * Returns all trainers from the database `
 	 * 

@@ -1,3 +1,4 @@
+
 angular
 		.module("qc")
 		.controller(
