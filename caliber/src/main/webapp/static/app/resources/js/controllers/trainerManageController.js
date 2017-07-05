@@ -194,6 +194,14 @@ angular
 					/** Validation for the dates * */
 					$scope.checkDates = function() {
 
+						$scope.startDate.model = new Date(moment(
+								$scope.startDate.model, "YYYY-MM-DD").format(
+								"YYYY/MM/DD"));
+						
+						$scope.endDate.model = new Date(moment(
+								$scope.endDate.model, "YYYY-MM-DD").format(
+								"YYYY/MM/DD"));
+						
 						$log.info($scope.startDate);
 
 						if ($scope.endDate.model > $scope.startDate.model
