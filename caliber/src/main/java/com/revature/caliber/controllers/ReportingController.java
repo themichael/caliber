@@ -78,6 +78,7 @@ public class ReportingController {
 			Map<QCStatus, Integer> results = reportingService.pieChartCurrentWeekQCStatus(batchId);
 			return new ResponseEntity<>(results, HttpStatus.OK);
 		}catch(Exception e){
+			log.debug(e);
 			return new ResponseEntity<>(new HashMap<>(), HttpStatus.NO_CONTENT);
 		}
 		
