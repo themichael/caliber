@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 
 @Repository
-public class TrainerDAO{
-	
+public class TrainerDAO {
+
 	private static final Logger log = Logger.getLogger(TrainerDAO.class);
 	private SessionFactory sessionFactory;
 
@@ -70,6 +71,7 @@ public class TrainerDAO{
 	public List<Trainer> findAll() {
 		log.info("Finding all trainers");
 		return sessionFactory.getCurrentSession().createCriteria(Trainer.class)
+				.add(Restrictions.ne("tier", TrainerRole.ROLE_INACTIVE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
