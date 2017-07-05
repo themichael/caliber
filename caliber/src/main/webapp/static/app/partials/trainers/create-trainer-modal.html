@@ -38,19 +38,21 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
-								<label for="trainerTitle">Title</label> <select
-									ng-model="trainerForm.title" class="form-control"
-									id="trainerTitle" required>
-									<option value="" disabled>Select Title</option>
-									<option ng-repeat="option in trainerTitle">{{option}}</option>
-								</select>
+								<label for="trainerTitle">Title:</label> <input
+									list="trainerTitle" type="text" ng-model="trainerForm.title"
+									id="Title" required placeholder="Enter Title"
+									class="form-control" ng-required="true">
+								<datalist id="trainerTitle">
+									<option ng-repeat="option in trainersTitles">{{option}}</option>
+								</datalist>
 							</div>
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="trainerTier">Tier</label> <select
 									ng-model="trainerForm.tier" class="form-control"
 									id="trainerTier" required>
-									<option value="" disabled>Select Tier</option>
-									<option ng-repeat="option in trainerTiers">{{option}}</option>
+									<option value="" disabled>Select Tier:</option>
+									<option ng-repeat="option in trainerTiers">{{option.substr(5)}}
+									</option>
 								</select>
 							</div>
 						</div>

@@ -112,6 +112,14 @@ public class TrainingService {
 		trainerDAO.update(trainer);
 	}
 
+	/**
+	 * Find all distinct titles that have been given to trainers
+	 **/
+	public List<String> findAllTrainerTitles() {
+		log.debug("Found all trainer titles");
+		return trainerDAO.findAllTrainerTitles();
+	}
+
 	/*
 	 *******************************************************
 	 * BATCH SERVICES

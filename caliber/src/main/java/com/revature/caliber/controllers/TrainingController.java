@@ -106,6 +106,19 @@ public class TrainingController {
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
 	}
 
+	/**
+	 * Returns all trainers titles from the database `
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/all/trainer/titles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<List<String>> getAllTrainersTitles() {
+		log.info("Fetching all trainers titles");
+		List<String> trainers = trainingService.findAllTrainerTitles();
+		return new ResponseEntity<>(trainers, HttpStatus.OK);
+	}
+
 	/*
 	 *******************************************************
 	 * TODO BATCH SERVICES

@@ -31,6 +31,20 @@ public class TrainerDAO {
 	}
 
 	/**
+	 * Find all trainers titles to be displayed on front end
+	 * 
+	 * 
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<String> findAllTrainerTitles() {
+		String hql = "select distinct title FROM Trainer";
+		return sessionFactory.getCurrentSession().createQuery(hql).list();
+	}
+
+	/**
 	 * Find a trainer by their email address. Practical for authenticating users
 	 * through SSO
 	 * 

@@ -131,7 +131,7 @@ public class TypeController {
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<List<String>> allTrainerRoles() {
 		log.info("Fetching Trainer Roles");
-		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());     //Used toString to Display the roles without the underscore
+		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());     
 		return new ResponseEntity<List<String>>(types, HttpStatus.OK);
 	}
 }
