@@ -204,9 +204,10 @@ angular
 						
 						$scope.trainees={};						
 
-						for(const trainee of $scope.currentBatch.trainees){
-							$scope.assignTraineeScope(trainee.traineeId);
-						}
+						if($scope.currentBatch !== undefined || $scope.currentBatch !== null)
+							for(const trainee of $scope.currentBatch.trainees){
+								$scope.assignTraineeScope(trainee.traineeId);
+							}
 						categories();
 					})(allBatches);
 
