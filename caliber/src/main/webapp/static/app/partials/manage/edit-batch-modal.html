@@ -79,16 +79,16 @@
 						<!-- 							</div> -->
 						<!-- 						</div> -->
 						<div class="form-group col-md-6 col-sm-6"
-							moment-picker="ctrl.datepicker" format="YYYY-MM-DD">
+							moment-picker="ctrl.start_date" format="YYYY-MM-DD">
 							<label for="start-date">Start Date:</label>
 							<div class="input-group" id="start-date" data-datepicker="true">
 								<input class="date-input form-control date-selector" name="s"
-									placeholder="Start Date" ng-model="ctrl.datepicker"
+									placeholder="Start Date" ng-model="ctrl.start_date"
 									ng-model-options="{ updateOn: 'blur' }" ng-required="true"><span
 									class="input-group-addon glyphicon glyphicon-calendar">
 								</span>
 							</div>
-							<input id="start-date" type="hidden" value={{ctrl.datepicker}}>
+							<input ng-model="startDate.model" type="hidden" value={{ctrl.start_date}}>
 						</div>
 <!-- 						<div class="form-group col-md-6 col-sm-6"> -->
 <!-- 							<label for="end-date">End Date:</label> -->
@@ -101,16 +101,16 @@
 <!-- 						</div> -->
 
 						<div class="form-group col-md-6 col-sm-6"
-							moment-picker="ctrl.datepicker" format="YYYY-MM-DD">
-							<label for="end-date">End Date:</label>
+							moment-picker="ctrl.end_date" format="YYYY-MM-DD">
+							<label for="end_date">End Date:</label>
 							<div class="input-group" id="end-date" data-datepicker="true">
 								<input class="date-input form-control date-selector" name="date"
-									placeholder="End Date" ng-model="ctrl.datepicker"
+									placeholder="End Date" ng-model="ctrl.end_date"
 									ng-model-options="{ updateOn: 'blur' }" ng-required="true"><span
 									class="input-group-addon glyphicon glyphicon-calendar">
 								</span>
 							</div>
-<!-- 							<input id="end-date" type="hidden" value={{ctrl.datepicker}}> -->
+							<input ng-model="endDate.model" type="hidden" value={{ctrl.end_date}}>
 						</div>
 
 
