@@ -35,6 +35,7 @@ angular
 		.controller(
 				"trainerManageController",
 				function($scope, $log, caliberDelegate, allBatches) {
+					
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -49,6 +50,12 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
+								});
+						caliberDelegate.all.importAvailableBatches().then(
+								function(availableBatches){
+									$scope.allAvailableBatches = availableBatches;
+									$log.debug("=============IMPORT BATCHES==========")
+									$log.debug(availableBatches);
 								});
 						$log.debug(allBatches);
 						$scope.batches = allBatches;
@@ -222,6 +229,8 @@ angular
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
 						$scope.location.model = batch.location;
+						console.log("=====ddd=============")
+						console.log(batch.trainer);
 						$scope.trainer.model = batch.trainer.name;
 						if (batch.coTrainer) {
 							$scope.coTrainer.model = batch.coTrainer.name;
@@ -240,9 +249,18 @@ angular
 					}
 
 					/** Import batch form for creating new batch**/
-					$scope.importBatchForm = function() {		
-						$scope.batchFormName = "Import New Batch";
-						$scope.batchSalesForce = "";
+
+					$scope.importBatchForm = function() {
+						
+						$scope.dummyInfo = function(){
+							
+							var dumArray = ["1705 Java","Patrick Walsh"];
+							
+							
+						}
+						
+						$scope.batchFormName = "Import New Batch"
+						
 						$scope.Save = "Save";
 					}	
 					
