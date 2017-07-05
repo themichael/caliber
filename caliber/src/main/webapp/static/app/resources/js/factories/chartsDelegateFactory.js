@@ -262,15 +262,13 @@ angular
 					 */
 					delegate.utility.dataToTable = function(chartObject) {
 						var tableDataSet = [];
-						var pushToTable = function(value, key) {
-							$log.debug(key);
-							row.data.push(value[i]);
-						};
 						for (var i = 0; i < chartObject.labels.length; i++) {
 							var row = {};
 							row.label = chartObject.labels[i];
 							row.data = [];
-							angular.forEach(chartObject.data, pushToTable);
+							for (var j = 0; j < chartObject.labels.length; j++) {
+								row.data.push(value[i]);
+							}
 							tableDataSet.push(row);
 						}
 						return tableDataSet;
