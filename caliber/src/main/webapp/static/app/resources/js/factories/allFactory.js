@@ -342,7 +342,20 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-
+	
+	
+    all.importAvailableBatches = function() {
+        return $http({
+            url : "/all/batch/importget/",
+            method : "GET"
+        }).then(function(response) {
+            $log.debug("Object successfully imported");
+            $log.debug(response);
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
 	/***************************************************************************
 	 * Server generates PDF from HTML Download via response data
 	 * 

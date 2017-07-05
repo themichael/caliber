@@ -18,12 +18,11 @@
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
 							<label for="batchItem">Batch Name:</label> <select
 								ng-model="batchToImport" class="form-control" required>
-<!-- 								<option>Java Yuvi Patrick 1705</option> -->
-<!-- 								<option>Salesforce Genesis Nick 1706</option> -->
-<!-- 								<option>.Net Fred 1706</option> -->
-								<option>SDET Joe Ankit 1709</option>
-<!-- 							<option ng-repeat="availableBatch in importedBatches">{{availableBatch}}</option> -->
-							</select>
+
+								<!--add {{availableBatch.coTrainer.name}}-->
+								<!-- TODO - Fix the date format -->
+								<option ng-repeat="availableBatch in allAvailableBatches">{{availableBatch.trainingName}} {{availableBatch.trainer.name}}  {{availableBatch.startDate}}</option>
+							</select>	
 						</div>
 					</div>
 				</div>
