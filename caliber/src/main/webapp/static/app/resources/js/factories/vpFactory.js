@@ -35,6 +35,7 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+
 	//deactivate trainer
 	vp.deactivateTrainer = function (){
 		return $http({
@@ -48,5 +49,61 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 		});
 	};
 
+
+	
+	//Update selected trainer
+	vp.updateTrainer = function(trainerObj) {
+		return $http({
+			url : "/vp/trainer/update",
+			method : "PUT",
+			data : trainerObj
+		}).then(function(response) {
+			$log.debug("Trainer successfully updated.");
+			$log.debug(response);
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return false;
+		});
+	};
+	
+	/**
+	 * returns all titles
+	 * 
+	 * @returns {*}
+	 */
+	vp.getAllTrainersTitle = function() {
+		return $http({
+			url : "/vp/trainer/titles/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Trainers Titles successfully retrieved");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
+	/**
+	 * 
+	 * @param trainerObj
+	 * @returns {*}
+	 */
+	vp.createTrainer = function(trainerObj) {
+		$log.debug(trainerObj);
+		return $http({
+			url : "/vp/trainer/create",
+			method : "POST",
+			data : trainerObj
+		}).then(function(response) {
+			$log.debug("Trainer successfully created.")
+			$log.debug(response);
+			return response;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return response.data;
+		});
+	};
+	
 	return vp;
 });
