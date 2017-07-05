@@ -1,35 +1,37 @@
-	<!--********************************************* Import Batch Modal ************************************-->
-	<form>
-		<div class="modal fade" id="importBatchModal" tabindex="-1"
-			role="dialog" aria-labelledby="batchModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" ng-bind="batchFormName"
-							id="batchModalLabel">Import New Batch</h4>
-					</div>
-					<!-- Import Batch Info -->
-					<div class="modal-body">
-						<h1></h1>								
-					<div class="form-group col-lg-12 col-md-12 col-sm-12">
-								<label for="batchItem">Batch Name:</label> 
-								<select ng-model="batchItem" class="form-control" 
-										id="traineeStatus" required>	
-									<option ng-value="batchItem in batchSalesForce">Java  Yuvi Patrick 1705</option>
-									<option ng-value="batchItem in batchSalesForce">Salesforce  Genesis Nick 1706</option>
-									<option ng-value="batchItem in batchSalesForce">.Net Fred 1706</option>
-									<option ng-value="batchItem in batchSalesForce"> SDET Joe Ankit 1709</option>								
-								</select>
+
+<!--********************************************* Import Batch Modal ************************************-->
+<form>
+	<div class="modal fade" id="importBatchModal" tabindex="-1"
+		role="dialog" aria-labelledby="batchModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" ng-bind="batchFormName"
+						id="batchModalLabel">Import New Batch</h4>
+				</div>
+				<!-- Import Batch Info -->
+				<div class="modal-body">
+					<div class="row">
+						<div class="form-group col-lg-12 col-md-12 col-sm-12">
+							<label for="batchItem">Batch Name:</label> <select
+								ng-model="batchToImport" class="form-control" required>
+								<option>Java Yuvi Patrick 1705</option>
+								<option>Salesforce Genesis Nick 1706</option>
+								<option>.Net Fred 1706</option>
+								<option>SDET Joe Ankit 1709</option>
+							</select>
 						</div>
 					</div>
-					<div class="modal-footer">
-					<input type="submit" ng-value="Save" value="Save" class="btn btn-primary">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="Import" class="btn btn-primary" />
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
+	</div>
+</form>
