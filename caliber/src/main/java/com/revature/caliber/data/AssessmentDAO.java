@@ -27,6 +27,7 @@ public class AssessmentDAO {
 
 	private static final Logger log = Logger.getLogger(AssessmentDAO.class);
 	private SessionFactory sessionFactory;
+	private static final String BATCH = "batch";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -58,7 +59,7 @@ public class AssessmentDAO {
 	public List<Assessment> findByWeek(Integer batchId, Integer week) {
 		log.info("Find assessment by week number " + week + " for batch " + batchId + " ");
 		return sessionFactory.getCurrentSession().createCriteria(Assessment.class)
-				.createAlias("batch", "batch").createAlias("batch.trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(BATCH, BATCH).createAlias("batch.trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
 				.add(Restrictions.and(Restrictions.eq("batch.batchId", batchId),
 						Restrictions.eq("week", week.shortValue())))
@@ -71,7 +72,7 @@ public class AssessmentDAO {
 	public List<Assessment> findByBatchId(Integer batchId) {
 		log.info("Find assessment by batchId" + batchId + " ");
 		return sessionFactory.getCurrentSession().createCriteria(Assessment.class)
-				.createAlias("batch", "b", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(BATCH, "b", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("b.trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.and(Restrictions.eq("b.batchId", batchId)))
 				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))

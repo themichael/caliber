@@ -64,7 +64,7 @@ public class TrainingController {
 	public ResponseEntity<Trainer> createTrainer(@Valid @RequestBody Trainer trainer) {
 		log.info("Saving trainer: " + trainer);
 		trainingService.createTrainer(trainer);
-		return new ResponseEntity<Trainer>(trainer, HttpStatus.CREATED);
+		return new ResponseEntity<>(trainer, HttpStatus.CREATED);
 	}
 
 	/**
