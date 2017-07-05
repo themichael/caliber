@@ -79,5 +79,14 @@ angular.module("vp").controller(
 				$log.debug(trainer);
 				$scope.trainerForm.name = trainer.name;
 			};
+			/**
+			 * Adam Baker
+			 * deactivation method */
+			$scope.makeInactive = function(){
+				$scope.trainerForm.trainerTier = "ROLE_INACTIVE";
+				$log.debug("deactivation complete");
+				
+			}
 
 		});
+
