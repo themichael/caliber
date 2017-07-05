@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  * @author Patrick Walsh
  * @author Stanley Chouloute
+ * @author Adam Baker
  *
  */
 public enum TrainerRole implements Serializable{
@@ -22,4 +23,5 @@ public enum TrainerRole implements Serializable{
 	ROLE_TRAINER,
 	@JsonProperty("ROLE_INACTIVE")
 	ROLE_INACTIVE;
+
 }

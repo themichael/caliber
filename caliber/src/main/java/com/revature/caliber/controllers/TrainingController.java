@@ -52,6 +52,7 @@ public class TrainingController {
 	 *******************************************************
 	 */
 
+
 	/**
 	 * Create trainer
 	 *
@@ -98,16 +99,14 @@ public class TrainingController {
 	}
 
 	/**
-	 * Returns all trainers from the database `
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<List<Trainer>> getAllTrainers() {
-		log.info("Fetching all trainers");
-		List<Trainer> trainers = trainingService.findAllTrainers();
-		return new ResponseEntity<>(trainers, HttpStatus.OK);
+	 * Deactivates the trainer
+	 * */
+	@RequestMapping(value = "/vp/trainer/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Trainer>  makeInactive(@Valid @RequestBody  Trainer trainer){
+		log.info("Updating trainer: " + trainer);
+		 trainingService.update(trainer);
+		return new ResponseEntity<>(trainer, HttpStatus.NO_CONTENT);
+		
 	}
 
 	/**
@@ -122,6 +121,18 @@ public class TrainingController {
 		List<String> trainers = trainingService.findAllTrainerTitles();
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
 	}
+	/**
+     * Returns all trainers from the database `
+     * 
+     * @return
+     */
+    @RequestMapping(value = "/all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    // @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+    public ResponseEntity<List<Trainer>> getAllTrainers() {
+        log.info("Fetching all trainers");
+        List<Trainer> trainers = trainingService.findAllTrainers();
+        return new ResponseEntity<>(trainers, HttpStatus.OK);
+    }
 
 	/*
 	 *******************************************************
