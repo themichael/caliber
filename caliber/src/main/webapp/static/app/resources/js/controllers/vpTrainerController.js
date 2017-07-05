@@ -108,6 +108,10 @@ angular.module("vp").controller(
 			 * Adam Baker
 			 * deactivation method */
 			$scope.makeInactive = function(){
+				caliberDelegate.vp.deactivateTrainer();
+				$scope.trainerForm.name = trainer.name;
+	            $scope.trainerForm.email = trainer.email;
+	            $scope.trainerForm.trainerTitle = trainer.title;
 				$scope.trainerForm.trainerTier = "ROLE_INACTIVE";
 				$log.debug("trainer deactivated");
 				

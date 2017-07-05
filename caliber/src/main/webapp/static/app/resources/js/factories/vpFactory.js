@@ -35,6 +35,18 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	//deactivate trainer
+	vp.deactivateTrainer = function (){
+		return $http({
+			url: "/vp/trainer/delete",
+			method: "DELETE"
+		}).then(function(response){
+			$log.debug("Trainer deleted");
+			$lpg.debug(response);
+		}, function(response){
+			$log.error("There was an error: " + response.status);
+		});
+	};
 
 	return vp;
 });
