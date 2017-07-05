@@ -281,7 +281,7 @@ angular
 						caliberDelegate.trainer
 								.createWeek($scope.currentBatch.batchId)
 								.then(
-										function(response) {
+										function() {
 											$scope.currentBatch.weeks += 1;
 											$scope.weeks
 													.push($scope.currentBatch.weeks);
@@ -443,7 +443,6 @@ angular
 							$scope.noBatchesMessage = "No Batches were found for this year.";
 						} else {
 							$scope.noBatches = false;
-							// createDefaultCharts();
 							$scope.selectedYear = $scope.years[index];
 							sortByDate($scope.selectedYear);
 
@@ -460,7 +459,6 @@ angular
 
 								$scope.trainingNameDate = "No Batch Found";
 								$scope.currentView = false;
-								// $scope.thereAreBatches = false;
 							}
 
 							$log.debug($scope.batchesByYear);

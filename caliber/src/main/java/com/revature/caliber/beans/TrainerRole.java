@@ -16,29 +16,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public enum TrainerRole implements Serializable{
 	@JsonProperty("ROLE_VP")
-	ROLE_VP("VP"),
+	ROLE_VP,
 	@JsonProperty("ROLE_QC")
-	ROLE_QC("QC"),
+	ROLE_QC,
 	@JsonProperty("ROLE_TRAINER")
-	ROLE_TRAINER("Trainer"),
+	ROLE_TRAINER,
 	@JsonProperty("ROLE_INACTIVE")
-	ROLE_INACTIVE("Inactive");
-	
-	private String role;
-
-	private TrainerRole(String role) {
-		this.role = role;
-	}
-
-	public String getRole() {
-		return role;
-	}
-	
-	//This is needed to display the roles without the underscore
-	@Override
-	public String toString(){
-		return role;
-	}
-	
+	ROLE_INACTIVE;
 	
 }
