@@ -50,6 +50,7 @@ angular
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
 								});
+					
 						caliberDelegate.all.importAvailableBatches().then(
 								function(availableBatches){
 									$scope.allAvailableBatches = availableBatches;
@@ -264,7 +265,16 @@ angular
 						
 					}	
 					
-
+					/** Import trainees from selected batch **/	
+					$scope.importTrainees = function(){
+					all.getAllTraineesFromBatch().then(
+							function(trainees) {
+								$scope.getTrainees = trainees;
+								$log.debug("========TRAINEES===========");
+								$log.debug(trainees);					
+							});
+					};
+				
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];
@@ -545,7 +555,6 @@ angular
 									}
 								})
 					}
-
 					/** Create new Trainee Object * */
 					function createTraineeObject(trainee) {
 						trainee.name = $scope.traineeForm.name;

@@ -102,6 +102,7 @@ angular
 						return allFactory.getAllTraineesFromBatch(resourceId);
 					}
 
+
 					/**
 					 * *********************** Enum constants
 					 * ***************************
