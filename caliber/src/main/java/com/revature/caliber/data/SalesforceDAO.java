@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -18,12 +19,11 @@ import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.beans.TrainingType;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
+import com.revature.caliber.salesforce.SalesforceTransformerToCaliber;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceBatchResponse;
@@ -89,19 +89,23 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	public List<Batch> getAllRelevantBatches(){
+		List<Batch> relevantBatchesList = new LinkedList<Batch>(); 
+		
 		try {
 			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
 			log.info(response);
 			
+			SalesforceTransformerToCaliber transformmer = new SalesforceTransformerToCaliber();
 			
-			for(SalesforceBatch batch : response.getRecords()){
-				
+			for(SalesforceBatch salesForceBatch : response.getRecords()){
+				relevantBatchesList.add(transformmer.transformBatch(salesForceBatch));
 			}
 			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
 			log.error("Cannot get Salesforce batches:  " + e);
-			throw new ServiceNotAvailableException();
 		}
+		
+		return relevantBatchesList;
 	}
 	
 	/**
