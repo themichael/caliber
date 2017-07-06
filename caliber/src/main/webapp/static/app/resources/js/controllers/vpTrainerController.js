@@ -43,7 +43,7 @@ angular.module("vp").controller(
 			// load training tiers
 			caliberDelegate.all.enumTrainerTier().then(function(tiers) {
 				$log.debug(tiers);
-				$scope.trainerTiers = tiers;
+				$scope.trainerTiers = tiers.filter(function(ary) { return ary !== 'ROLE_INACTIVE' })
 			});
 
 			caliberDelegate.vp.TrainersTitles().then(function(titles) {
@@ -79,6 +79,7 @@ angular.module("vp").controller(
 
             /** Create scopes for trainer form* */
             $scope.trainerForm = {
+            	trainerId : null,
                 name : null,
                 email : null,
                 title : null,
@@ -87,15 +88,18 @@ angular.module("vp").controller(
             
             /** Resets trainer form* */
             $scope.resetTrainerForm = function() {
+            	$scope.trainerForm.trainerId = "";
                 $scope.trainerForm.name = "";
                 $scope.trainerForm.email = "";
                 $scope.trainerForm.title = "";
                 $scope.trainerForm.tier = "";
                 $scope.Save = "Save";
-            }
+            };
+            
             /** Fill update form with trainer's previous data */
             $scope.populateTrainer = function(trainer) {
                 $log.debug(trainer);
+                $scope.trainerForm.trainerId = trainer.trainerId;
                 $scope.trainerForm.name = trainer.name;
                 $scope.trainerForm.email = trainer.email;
                 $scope.trainerForm.title = trainer.title;
@@ -105,12 +109,11 @@ angular.module("vp").controller(
             
 			/** Update Trainer Input * */
 			$scope.updateTrainer = function() {
-				console.log($scope.trainerForm);
 				caliberDelegate.vp.updateTrainer($scope.trainerForm).then(
 						function(response) {
 							$log.debug("trainer updated: " + response);
 						});
-				angular.element("#updateTrainerModal").modal("hide");
+				angular.element("#editTrainerModal").modal("hide");
 			};
 			
 			/**
