@@ -25,10 +25,10 @@ public enum SkillType implements Serializable{
 	public String getType() {
 		return type;
 	}
-	
+
 	@Override
 	public String toString() {
 		return type;
 	}
-	
+
 }

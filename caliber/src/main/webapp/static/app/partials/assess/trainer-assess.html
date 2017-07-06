@@ -1,4 +1,14 @@
 <!-- Year selector and Add Assessment button -->
+
+<style>
+
+.sticky-header {
+    padding: 10px;
+    padding-right: 55px;
+    font-size: 15px;
+	width: 1000px;
+} 
+</style>
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
@@ -70,7 +80,6 @@
 		</div>
 	</div>
 </div>
-
 <!-- Assessments table -->
 <div class="container"  id="trainer-assess-table">
 	<div class="row">
@@ -86,6 +95,7 @@
 						<thead>
 							<tr sticky class='sticky-header'>
 								<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
+							<div>
 								<th class="col-sm-1 col-md-1 col-lg-1 text-center" role="button"
 									data-toggle="modal"
 									data-target="#editAssessmentModal_{{assessment.assessmentId}}"
@@ -95,10 +105,10 @@
 									<div ui-view="trainer-edit-assess"></div>
 								</th>
 								<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
-							</tr>
+								</div>
+							</tr> 
 						</thead>
 						<tbody>
-
 							<tr role="button"
 								ng-repeat="trainee in currentBatch.trainees track by $index">
 								<ng-form name="gradeFieldForm">

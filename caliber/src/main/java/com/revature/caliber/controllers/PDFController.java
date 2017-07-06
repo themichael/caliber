@@ -43,7 +43,7 @@ public class PDFController {
 			log.info("PDF Generated");
 			return new HttpEntity<>(pdf, headers);
 		} catch (Exception e) {
-			log.error("Error creating PDF file: " + e.getClass() + " --> " + e.getMessage());
+			log.error("Error creating PDF file: " + e + " " + e.getClass() + " " + e.getMessage());
 			throw new PDFGenerationException();
 		}
 	}

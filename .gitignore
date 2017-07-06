@@ -10,6 +10,7 @@
 **/issue_template.md
 **/target/
 **/bin/
+**/META-INF/**
 
 #Eclipse
 **/.metadata
@@ -17,7 +18,8 @@
 **/.settings/
 **/.classpath
 **/.recommenders/**
-/Servers
+**/Servers
+**/.springBeans
 
 #IDEA
 **/.idea/

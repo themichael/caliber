@@ -6,63 +6,47 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * The type Salesforce user urls.
  */
 public class SalesforceUserUrls {
-    @JsonProperty
+    @JsonProperty(value="enterprise")
     private String enterprise;
-    @JsonProperty
+    @JsonProperty(value="metadata")
     private String metadata;
-    @JsonProperty
+    @JsonProperty(value="partner")
     private String partner;
-    @JsonProperty
+    @JsonProperty(value="rest")
     private String rest;
-    @JsonProperty
+    @JsonProperty(value="sobjects")
     private String sobjects;
-    @JsonProperty
+    @JsonProperty(value="search")
     private String search;
-    @JsonProperty
+    @JsonProperty(value="query")
     private String query;
-    @JsonProperty
+    @JsonProperty(value="recent")
     private String recent;
-    @JsonProperty
+    @JsonProperty(value="profile")
     private String profile;
-    @JsonProperty
+    @JsonProperty(value="feeds")
     private String feeds;
-    @JsonProperty
+    @JsonProperty(value="groups")
     private String groups;
-    @JsonProperty
+    @JsonProperty(value="users")
     private String users;
-    @JsonProperty
-    private String feed_items;
-    @JsonProperty
-    private String feed_elements;
-    @JsonProperty
-    private String custom_domain;
-	@JsonProperty
-	private String tooling_soap;
-	@JsonProperty
-	private String tooling_rest;
+    @JsonProperty(value="feed_items")
+    private String feedItems;
+    @JsonProperty(value="feed_elements")
+    private String feedElements;
+    @JsonProperty(value="custom_domain")
+    private String customDomain;
+	@JsonProperty(value="tooling_soap")
+	private String toolingSoap;
+	@JsonProperty(value="tooling_rest")
+	private String toolingRest;
 
     /**
      * Instantiates a new Salesforce user urls.
      */
     public SalesforceUserUrls() {
+    	super();
     }
-	
-    public String getTooling_rest() {
-        return tooling_rest;
-    }
-
-    public void setTooling_rest(String tooling_rest) {
-        this.tooling_rest = tooling_rest;
-    }
-
-    public String getTooling_soap() {
-        return tooling_soap;
-    }
-
-    public void setTooling_soap(String tooling_soap) {
-        this.tooling_soap = tooling_soap;
-    }
-
 	
     /**
      * Gets enterprise.
@@ -280,61 +264,47 @@ public class SalesforceUserUrls {
         this.users = users;
     }
 
-    /**
-     * Gets feed items.
-     *
-     * @return the feed items
-     */
-    public String getFeed_items() {
-        return feed_items;
-    }
+    public String getFeedItems() {
+		return feedItems;
+	}
 
-    /**
-     * Sets feed items.
-     *
-     * @param feed_items the feed items
-     */
-    public void setFeed_items(String feed_items) {
-        this.feed_items = feed_items;
-    }
+	public void setFeedItems(String feedItems) {
+		this.feedItems = feedItems;
+	}
 
-    /**
-     * Gets feed elements.
-     *
-     * @return the feed elements
-     */
-    public String getFeed_elements() {
-        return feed_elements;
-    }
+	public String getFeedElements() {
+		return feedElements;
+	}
 
-    /**
-     * Sets feed elements.
-     *
-     * @param feed_elements the feed elements
-     */
-    public void setFeed_elements(String feed_elements) {
-        this.feed_elements = feed_elements;
-    }
+	public void setFeedElements(String feedElements) {
+		this.feedElements = feedElements;
+	}
 
-    /**
-     * Gets custom domain.
-     *
-     * @return the custom domain
-     */
-    public String getCustom_domain() {
-        return custom_domain;
-    }
+	public String getCustomDomain() {
+		return customDomain;
+	}
 
-    /**
-     * Sets custom domain.
-     *
-     * @param custom_domain the custom domain
-     */
-    public void setCustom_domain(String custom_domain) {
-        this.custom_domain = custom_domain;
-    }
+	public void setCustomDomain(String customDomain) {
+		this.customDomain = customDomain;
+	}
 
-    @Override
+	public String getToolingSoap() {
+		return toolingSoap;
+	}
+
+	public void setToolingSoap(String toolingSoap) {
+		this.toolingSoap = toolingSoap;
+	}
+
+	public String getToolingRest() {
+		return toolingRest;
+	}
+
+	public void setToolingRest(String toolingRest) {
+		this.toolingRest = toolingRest;
+	}
+
+	@Override
     public String toString() {
         return "SalesforceUserUrls{" +
                 "enterprise='" + enterprise + '\'' +
@@ -349,9 +319,9 @@ public class SalesforceUserUrls {
                 ", feeds='" + feeds + '\'' +
                 ", groups='" + groups + '\'' +
                 ", users='" + users + '\'' +
-                ", feed_items='" + feed_items + '\'' +
-                ", feed_elements='" + feed_elements + '\'' +
-                ", custom_domain='" + custom_domain + '\'' +
+                ", feed_items='" + feedItems + '\'' +
+                ", feed_elements='" + feedElements + '\'' +
+                ", custom_domain='" + customDomain + '\'' +
                 '}';
     }
 }

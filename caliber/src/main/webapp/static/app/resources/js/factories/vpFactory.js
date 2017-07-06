@@ -22,7 +22,6 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-
 	// Get all current batches
 	vp.getAllCurrentBatches = function() {
 		return $http({
@@ -35,6 +34,5 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-
 	return vp;
 });
