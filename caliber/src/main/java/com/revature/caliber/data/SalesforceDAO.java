@@ -47,10 +47,10 @@ public class SalesforceDAO {
 	 * Will change as of version 2.0 Salesforce API in August/September 2017 timeframe
 	 * Used to populate the dropdown list of importable batches.
 		select id, name, batch_start_date__c, batch_end_date__c,
-			batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c,
+			batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c, Location__c,
 			Type__c from training__c where batch_start_date__c >= THIS_YEAR
 	 */
-	@Value("select id, name, batch_start_date__c, batch_end_date__c, batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c, Type__c from training__c where batch_start_date__c >= THIS_YEAR")
+	@Value("select id, name, batch_start_date__c, batch_end_date__c, batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c, Location__c, Type__c from training__c where batch_start_date__c >= THIS_YEAR")
 	private String relevantBatches;
 	
 	/**
