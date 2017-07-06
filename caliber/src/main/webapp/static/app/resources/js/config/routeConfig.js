@@ -309,6 +309,17 @@ angular
 												
 									})
 							.state(
+									"vp.category",
+									{
+										url : "/category",
+										views:{
+											"":{
+												templateUrl : "/static/app/partials/category/manage-categories.html"
+											}
+										}
+												
+									})
+							.state(
 									"vp.manage",
 									{
 										url : "/manage",
