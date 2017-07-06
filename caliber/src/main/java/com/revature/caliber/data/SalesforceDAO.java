@@ -25,6 +25,7 @@ import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingType;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
 import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceBatchResponse;
 import com.revature.salesforce.beans.SalesforceTraineeResponse;
 
@@ -40,7 +41,7 @@ import com.revature.salesforce.beans.SalesforceTraineeResponse;
 public class SalesforceDAO {
 
 	private static final Logger log = Logger.getLogger(SalesforceDAO.class);
-	private static final boolean DEBUG_MODE = true;
+	private static final boolean DEBUG_MODE = false;
 	
 	@Value("#{systemEnvironment['SALESFORCE_INSTANCE_URL']}")
 	private String salesforceInstanceUrl;
@@ -92,6 +93,10 @@ public class SalesforceDAO {
 			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
 			log.info(response);
 			
+			
+			for(SalesforceBatch batch : response.getRecords()){
+				
+			}
 			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
 			log.error("Cannot get Salesforce batches:  " + e);
