@@ -69,22 +69,25 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="form-group col-md-6 col-sm-6">
+						<div class="form-group col-md-6 col-sm-6"
+							moment-picker="startDate.model" format="YYYY-MM-DD">
 							<label for="start-date">Start Date:</label>
 							<div class="input-group" id="start-date" data-datepicker="true">
-								<input ng-model="startDate.model" ng-value="startDate"
-									class="date-input form-control date-selector" name="s" min="0"
-									type="date" ng-required="true"> <span
+								<input class="date-input form-control date-selector" name="s"
+									min="0" placeholder="Start Date" ng-model="startDate.model"
+									ng-model-options="{ updateOn: 'blur' }" ng-required="true"><span
 									class="input-group-addon glyphicon glyphicon-calendar"></span>
 							</div>
 						</div>
-						<div class="form-group col-md-6 col-sm-6">
-							<label for="end-date">End Date:</label>
+						<div class="form-group col-md-6 col-sm-6"
+							moment-picker="endDate.model" format="YYYY-MM-DD">
+							<label for="end_date">End Date:</label>
 							<div class="input-group" id="end-date" data-datepicker="true">
-								<input ng-model="endDate.model"
-									class="date-input form-control date-selector" name="date"
-									type="date" required> <span
-									class="input-group-addon glyphicon glyphicon-calendar"></span>
+								<input class="date-input form-control date-selector" name="date"
+									placeholder="End Date" ng-model="endDate.model"
+									ng-model-options="{ updateOn: 'blur' }" ng-required="true"><span
+									class="input-group-addon glyphicon glyphicon-calendar">
+								</span>
 							</div>
 						</div>
 					</div>
