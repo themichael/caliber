@@ -11,90 +11,54 @@ import com.revature.salesforce.beans.SalesforceTrainee;
 
 public class SalesforceTransformerToCaliber {
 
-	public void transformId(SalesforceBatch salesforceBatch) {
+	public Batch transformBatch(SalesforceBatch salesforceBatch){
 		Batch batch = new Batch();
 		batch.setResourceId(salesforceBatch.getId());
-	}
-
-	public void transformName(SalesforceBatch salesforceBatch) {
-		Batch batch = new Batch();
 		batch.setTrainingName(salesforceBatch.getName());
-	}
-
-	public void transformBatchStartDate(SalesforceBatch salesforceBatch) {
-		Batch batch = new Batch();
 		batch.setStartDate(salesforceBatch.getBatchStartDate());
-	}
-
-	public void transformBatchEndDate(SalesforceBatch salesforceBatch) {
-		Batch batch = new Batch();
+		batch.setTrainer(transformTrainer(salesforceBatch.getTrainer()));
+		batch.setCoTrainer(transformTrainer(salesforceBatch.getTrainer()));
 		batch.setEndDate(salesforceBatch.getBatchEndDate());
+		batch.setResourceId(salesforceBatch.getId());
+		batch.setSkillType(transformSkillType(salesforceBatch));
+		batch.setBorderlineGradeThreshold((short) 70);
+		batch.setGoodGradeThreshold((short) 100);
+		//TODO -Change Location
+		batch.setLocation("Reston VA");
+		
+		return batch;
 	}
-
-	public void transformTrainer(SalesforceBatch salesforceBatch) {
+	
+	//TODO - Tranform batchtrainer into trainer
+	public Trainer transformTrainer(BatchTrainer batchTrainer){
 		Trainer trainer = new Trainer();
-		Batch batch = new Batch();
-		trainer.setName(salesforceBatch.getTrainer().toString());
-		batch.setTrainer(trainer);
+		return trainer;
 	}
-
-	public void transformCotrainer(SalesforceBatch salesforceBatch) {
-		Trainer trainer = new Trainer();
-		Batch batch = new Batch();
-		trainer.setName(salesforceBatch.getCotrainer().toString());
-		batch.setCoTrainer(trainer);
-	}
-
-	public void transformSkillType(SalesforceBatch salesforceBatch) {
-		Batch batch = new Batch();
+	
+	public SkillType transformSkillType(SalesforceBatch salesforceBatch) {
 		String stringSkillType = salesforceBatch.getSkillType();
-		SkillType skill = null;
+		System.out.println(stringSkillType);
+		if(stringSkillType == null){
+			stringSkillType = "";
+		}
 		switch (stringSkillType) {
 		case "J2EE":
-			batch.setSkillType(skill.J2EE);
-			break;
+			return SkillType.J2EE;
+			
 		case ".NET":
-			batch.setSkillType(skill.NET);
-			break;
+			return SkillType.NET;
+		
 		case "SDET":
-			batch.setSkillType(skill.SDET);
-			break;
+			return SkillType.SDET;
+		
 		case "BPM":
-			batch.setSkillType(skill.BPM);
-			break;
+			return SkillType.BPM;
+			
 		default:
-			batch.setSkillType(skill.OTHER);
-			break;
+			return SkillType.OTHER;
 
 		}
 
-	}
-
-	public void transformTraineeId(SalesforceTrainee salesforceTrainee){
-		Trainer trainer = new Trainer();
-		trainer.setTrainerId(Integer.parseInt(salesforceTrainee.getId()));
-
-	}
-	public void transformTraineeName(SalesforceTrainee salesforceTrainee){
-		Trainer trainer = new Trainer();
-		trainer.setName(salesforceTrainee.getName());
-	}
-	public void transformTraineeTrainingStatus(){
-		
-	}
-	public void transformTraineePhone(){
-		
-	}
-	public void transformTraineeEmail(){
-		
-	}
-	public void transformTraineeMobilePhone(){
-		
-	}
-	public void transformTraineeBatchId(SalesforceTrainee salesforceTrainee){
-		Trainee trainee = new Trainee();
-		Batch batch = new Batch();
-		salesforceTrainee.getBatchId();
 	}
 
 }
