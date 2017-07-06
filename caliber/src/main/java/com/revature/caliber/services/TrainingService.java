@@ -106,8 +106,9 @@ public class TrainingService {
 	}
 
 	/**
-
 	 * MAKE TRAINER INACTIVE
+	 * 
+	 * @param trainer
 	 **/
 	public void makeInactive(Trainer trainer) {
 		log.debug(trainer + " is now inactive");

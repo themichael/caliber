@@ -75,12 +75,37 @@ angular.module("vp").controller(
 				$log.debug(trainer);
 			}
 			;
+		    /** Create scopes for trainer form* */
+            $scope.trainerForm = {
+                name : null,
+                email : null,
+                trainerTitle : null,
+                trainerTier : null
+            };
+            
+            /** Resets trainer form* */
+            $scope.resetTrainerForm = function() {
+                $scope.trainerForm.name = "";
+                $scope.trainerForm.email = "";
+                $scope.trainerForm.trainerTitle = "";
+                $scope.trainerForm.trainerTier = "";
+                $scope.Save = "Save";
+            }
+            /** Fill update form with trainer's previous data */
+            $scope.populateTrainer = function(trainer) {
+                $log.debug(trainer);
+                $scope.trainerForm.name = trainer.name;
+                $scope.trainerForm.email = trainer.email;
+                $scope.trainerForm.trainerTitle = trainer.title;
+                $scope.trainerForm.trainerTier = trainer.tier;
+                $scope.Save = "Update";
+            };
 
 
             /** Create scopes for trainer form* */
             $scope.trainerForm = {
-            	trainerId : null,
-                name : null,
+                trainerId : null,
+            	name : null,
                 email : null,
                 title : null,
                 tier : null
@@ -105,6 +130,7 @@ angular.module("vp").controller(
                 $scope.trainerForm.title = trainer.title;
                 $scope.trainerForm.tier = trainer.tier;
                 $scope.Save = "Update";
+               console.log($scope.trainerForm);
             };
             
 			/** Update Trainer Input * */
@@ -118,11 +144,16 @@ angular.module("vp").controller(
 			
 			/**
 			 * Adam Baker
-			 * deactivation method */
+			 * deactivation function */
 			$scope.makeInactive = function(){
-				$scope.trainerForm.trainerTier = "ROLE_INACTIVE";
-				$log.debug("trainer deactivated");
-				
+				$log.debug($scope.trainerForm);
+				$scope.trainerForm.tier = "ROLE_INACTIVE";
+				console.log($scope.trainerForm);
+				caliberDelegate.vp.deactivateTrainer($scope.trainerForm)
+				.then(function(response){
+					$log.debug("trainer deactivated");
+				});
+				angular.element("#deleteTrainerModal").modal("hide");
 			}
 
 		});
