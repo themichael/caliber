@@ -62,8 +62,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	}
 
 	/**
-	 * ------------------------DEVELOPMENT ONLY------------------------ 
-	 * Pretends
+	 * ------------------------DEVELOPMENT ONLY------------------------ Pretends
 	 * to redirect to Salesforce for authentication.
 	 * 
 	 * TODO remove @RequestMapping at go-live
@@ -74,21 +73,20 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	}
 
 	/**
-	 * ------------------------PRODUCTION ONLY------------------------ 
-	 * Redirects
+	 * ------------------------PRODUCTION ONLY------------------------ Redirects
 	 * to Salesforce for authentication.
 	 * 
 	 * TODO enable at go-live
 	 */
 	@RequestMapping("/")
 	public ModelAndView openAuthURI() {
-		return new ModelAndView(
-				REDIRECT +loginURL+ authURL + "?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri);
+		return new ModelAndView(REDIRECT + loginURL + authURL + "?response_type=code&client_id=" + clientId
+				+ "&redirect_uri=" + redirectUri);
 	}
 
 	/**
-	 * ------------------------PRODUCTION ONLY------------------------ 
-	 * Retrieves Salesforce authentication token.
+	 * ------------------------PRODUCTION ONLY------------------------ Retrieves
+	 * Salesforce authentication token.
 	 * 
 	 */
 	@RequestMapping("/authenticated")
@@ -118,7 +116,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * @return
 	 * @throws IOException
 	 */
-	//@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView revoke(Authentication auth, HttpSession session) throws IOException {
 		if (auth != null) {
 			String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
