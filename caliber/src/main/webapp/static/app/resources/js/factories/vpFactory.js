@@ -36,7 +36,7 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 		});
 	};
 
-	//deactivate trainer
+	//deactivate trainer needed to force content type to be JSON else 415
 	vp.deactivateTrainer = function (trainerObj){
 		return $http({
 			url: "/vp/trainer/delete",

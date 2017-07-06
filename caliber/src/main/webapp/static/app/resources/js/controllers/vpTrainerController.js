@@ -143,7 +143,7 @@ angular.module("vp").controller(
 			
 			/**
 			 * Adam Baker
-			 * deactivation method */
+			 * deactivation function */
 			$scope.makeInactive = function(){
 				$log.debug($scope.trainerForm);
 				$scope.trainerForm.tier = "ROLE_INACTIVE";

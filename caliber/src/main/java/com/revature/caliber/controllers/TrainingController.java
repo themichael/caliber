@@ -100,6 +100,8 @@ public class TrainingController {
 
 	/**
 	 * Deactivates the trainer
+	 * @param trainer
+	 * @return response entity
 	 * */
 	@RequestMapping(value = "/vp/trainer/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> makeInactive(@Valid @RequestBody Trainer trainer){
