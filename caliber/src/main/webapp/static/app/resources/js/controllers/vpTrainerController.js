@@ -25,16 +25,6 @@ angular.module("vp").controller(
 				$scope.selectedTrainers = [];
 			})
 
-			/*
-			 * $scope.trainers = trainers;
-			 * $log.debug("=========TRAINERS========="); $log.debug(trainers);
-			 */
-
-			/*
-			 * $log.debug(allTrainers); $scope.trainers = allTrainers;
-			 * $scope.selectedTrainers = [];
-			 */
-
 			/**
 			 * *********************************************** Code to create
 			 * and update Trainer************
@@ -55,13 +45,7 @@ angular.module("vp").controller(
 			$scope.saveTrainer = function(trainerForm) {
 				var newTrainer = trainerForm;
 				createTrainerObject(newTrainer);
-				if (newTrainer.tier == "VP") {
-					newTrainer.tier = "ROLE_VP";
-				} else if (newTrainer.tier == "QC") {
-					newTrainer.tier = "ROLE_QC";
-				} else {
-					newTrainer.tier = "ROLE_TRAINER";
-				}
+				newTrainer.tier = submitTier(newTrainer.tier);
 				caliberDelegate.vp.createTrainer(newTrainer).then(
 						function(response) {
 							$log.debug("trainer added: " + response);
@@ -96,8 +80,8 @@ angular.module("vp").controller(
                 $log.debug(trainer);
                 $scope.trainerForm.name = trainer.name;
                 $scope.trainerForm.email = trainer.email;
-                $scope.trainerForm.trainerTitle = trainer.title;
-                $scope.trainerForm.trainerTier = trainer.tier;
+                $scope.trainerForm.title = trainer.title;
+                $scope.trainerForm.tier = trainer.tier;
                 $scope.Save = "Update";
             };
 
@@ -130,11 +114,11 @@ angular.module("vp").controller(
                 $scope.trainerForm.title = trainer.title;
                 $scope.trainerForm.tier = trainer.tier;
                 $scope.Save = "Update";
-               console.log($scope.trainerForm);
             };
             
 			/** Update Trainer Input * */
 			$scope.updateTrainer = function() {
+				$scope.trainerForm.tier = submitTier($scope.trainerForm.tier);
 				caliberDelegate.vp.updateTrainer($scope.trainerForm).then(
 						function(response) {
 							$log.debug("trainer updated: " + response);
@@ -148,12 +132,16 @@ angular.module("vp").controller(
 			$scope.makeInactive = function(){
 				$log.debug($scope.trainerForm);
 				$scope.trainerForm.tier = "ROLE_INACTIVE";
-				console.log($scope.trainerForm);
 				caliberDelegate.vp.deactivateTrainer($scope.trainerForm)
 				.then(function(response){
 					$log.debug("trainer deactivated");
 				});
 				angular.element("#deleteTrainerModal").modal("hide");
+			}
+			
+			submitTier = function(tier){
+				var pre = "ROLE_"
+				return pre.concat(tier);
 			}
 
 		});
