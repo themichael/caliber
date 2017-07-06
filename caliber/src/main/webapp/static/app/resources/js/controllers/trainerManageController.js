@@ -2,7 +2,7 @@
  * Team: Fareed SSH 
  * Team Lead: Sudish 
  * Authors: Fareed Ali, 
- * Sean Connelly, 
+ * Sean Connelly, chili
  * Sudish Itwaru, 
  * Hendy Guy
  * 
@@ -50,6 +50,7 @@ angular
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
 								});
+					
 						caliberDelegate.all.importAvailableBatches().then(
 								function(availableBatches){
 									$scope.allAvailableBatches = availableBatches;
@@ -247,17 +248,25 @@ angular
 
 					}
 
+					
+					/** Selected import batch**/
+					 $scope.selectedBatchToImport = function(){
+						$scope.batchToImport = this.selectedBatch;
+						caliberDelegate.all.getAllTraineesFromBatch(this.selectedBatch.resourceId).then(
+								function(trainees){
+									$scope.traineeToImport = trainees;
+									$log.debug("============TRAINEES============");
+									$log.debug(trainees)
+					 	});
+					 };
+					 
 					/** Import batch form for creating new batch**/
-
 					$scope.importBatchForm = function() {
-						
 						$scope.batchFormName = "Import New Batch"
-						
 						$scope.Save = "Save";
 						
 					}	
-					
-
+				
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];
@@ -538,7 +547,6 @@ angular
 									}
 								})
 					}
-
 					/** Create new Trainee Object * */
 					function createTraineeObject(trainee) {
 						trainee.name = $scope.traineeForm.name;
