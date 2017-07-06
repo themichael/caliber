@@ -16,12 +16,13 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
-							<label for="batchItem">Batch Name:</label> <select
-								ng-model="batchToImport" class="form-control" ng-change="importTrainees()" required>
-								<!--add {{availableBatch.coTrainer.name}}-->
-								<!-- TODO - Fix the date format -->
-								<option ng-repeat="availableBatch in allAvailableBatches" value={{availableBatch}}>{{availableBatch.trainingName}} {{availableBatch.trainer.name}}  {{availableBatch.startDate}}</option>
-							</select>	
+							<label for="batchItem">Batch Name:</label> 
+							<select 
+								class="form-control"
+								ng-model="selectedBatch"
+								ng-options="availableBatch as availableBatch.trainingName for availableBatch in allAvailableBatches"
+								ng-change="selectedBatchToImport()" >
+							</select>
 						</div>
 					</div>
 					<div class="row">
@@ -33,9 +34,6 @@
 								<tr >
 									<td>{{batchToImport}}</td>
 								</tr>
-								<tr>
-									<td>{{batchToImport.trainingName}} {{batchToImport.trainer.name}}</td>
-								</tr>
 							</table>
 						</div>
 					</div>
@@ -45,12 +43,9 @@
 								<tr>
 									<th>Trainees:</th>
 								</tr>
-								<tr ng-repeat="availableTrainees in batchToImport">
-									<td>{{availableTrainees}}</td>
-								</tr>
-								<tr>
-									<td>{{traineeToImport.traineeName}}</td>
-								</tr>
+								<tr ng-repeat="trainee in traineeToImport">
+									<td>{{trainee}}</td>
+								</tr>						
 							</table>
 						</div>
 					</div>
