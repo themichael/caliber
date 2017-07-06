@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
@@ -84,8 +83,7 @@ public class SalesforceDAO {
 	 */
 	public List<Batch> getAllRelevantBatches(){
 		try {
-			//SalesforceBatchResponse response = 
-					JsonNode response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), JsonNode.class);
+			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
 			log.info(response);
 			
 			throw new UnsupportedOperationException("not yet fully implemented method");
