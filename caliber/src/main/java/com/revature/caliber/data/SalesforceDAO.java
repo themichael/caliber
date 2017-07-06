@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
@@ -47,10 +48,10 @@ public class SalesforceDAO {
 	 * Will change as of version 2.0 Salesforce API in August/September 2017 timeframe
 	 * Used to populate the dropdown list of importable batches.
 		select id, name, batch_start_date__c, batch_end_date__c,
-			batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c, Location__c,
+			batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, Skill_Type__c, Location__c,
 			Type__c from training__c where batch_start_date__c >= THIS_YEAR
 	 */
-	@Value("select id, name, batch_start_date__c, batch_end_date__c, batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c, Location__c, Type__c from training__c where batch_start_date__c >= THIS_YEAR")
+	@Value("select id, name, batch_start_date__c, batch_end_date__c, batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, Skill_Type__c, Location__c, Type__c from training__c where batch_start_date__c >= THIS_YEAR")
 	private String relevantBatches;
 	
 	/**
@@ -83,7 +84,8 @@ public class SalesforceDAO {
 	 */
 	public List<Batch> getAllRelevantBatches(){
 		try {
-			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
+			//SalesforceBatchResponse response = 
+					JsonNode response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), JsonNode.class);
 			log.info(response);
 			
 			throw new UnsupportedOperationException("not yet fully implemented method");
