@@ -237,7 +237,7 @@ angular
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
 						$scope.location.model = batch.location;
-						console.log("=====testbah=============")
+						$log.debug("=====testbah=============")
 						console.log(batch);
 						$scope.trainer.model = batch.trainer.name;
 						if (batch.coTrainer) {
