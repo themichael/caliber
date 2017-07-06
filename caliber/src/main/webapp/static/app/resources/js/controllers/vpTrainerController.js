@@ -87,7 +87,6 @@ angular.module("vp").controller(
                 $scope.trainerForm.email = trainer.email;
                 $scope.trainerForm.title = trainer.title;
                 $scope.trainerForm.tier = trainer.tier.substr(5);
-                console.log($scope.trainerForm);
                 $scope.Save = "Update";
             };
             
