@@ -6,7 +6,7 @@
 				<button type="button" class="close" ng-click="closeModal('EditAssessmentModal_'+assessment.assessmentId)" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel">Edit Assessment- {{assessment.title}}</h4>
+				<h4 class="modal-title" id="myModalLabel">Edit Assessment {{assessment.title}}</h4>
 			</div>
 			<!-- Add Assessment Info -->
 				<div class="modal-body">
@@ -22,7 +22,7 @@
 						</div>
 						<div class='form-group col-xs-6'>
 							<label>Max Points</label>
-							<input type="number" class="form-control" ng-value="assessment.rawScore" ng-model="updateAssessmentModel.rawScore"/>
+							<input style="text-align: left"type="number" class="form-control" ng-value="assessment.rawScore" ng-model="updateAssessmentModel.rawScore"/>
 						</div>
 							<div class="form-group col-xs-6">
 							<label for="assessmentType">Assessment Type:</label> <select
@@ -46,11 +46,15 @@
 				</div>
 				<!-- Edit/Delete Modal -->
 				<div class="modal-header">
-					<button style="float: left", ng-click="deleteAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)" type="button" class="btn btn-danger"
-					aria-label="Delete">Delete</button>
-					<input type="button" value="Update" class="btn btn-primary" ng-click="updateAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)">
-					<button ng-click="closeModal('EditAssessmentModal_'+assessment.assessmentId)" type="button" class="btn"
-					aria-label="Close">Close</button>
+					<div style="float: left">
+						<button ng-click="deleteAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)" type="button" class="btn btn-danger"
+						aria-label="Delete">Delete</button>
+					</div>
+					<div style="text-align: right">
+						<input type="button" value="Update" class="btn btn-primary" ng-click="updateAssessment(assessment,$event,'EditAssessmentModal_'+assessment.assessmentId, $index)">
+						<button ng-click="closeModal('EditAssessmentModal_'+assessment.assessmentId)" type="button" class="btn"
+						aria-label="Close">Close</button>
+					</div>
 				</div>
 		</div>
 	</div>
