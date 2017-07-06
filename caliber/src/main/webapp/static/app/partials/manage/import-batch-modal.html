@@ -17,7 +17,7 @@
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
 							<label for="batchItem">Batch Name:</label> <select
-								ng-model="batchToImport" class="form-control" ng-change="" required>
+								ng-model="batchToImport" class="form-control" ng-change="importTrainees()" required>
 								<!--add {{availableBatch.coTrainer.name}}-->
 								<!-- TODO - Fix the date format -->
 								<option ng-repeat="availableBatch in allAvailableBatches" value={{availableBatch}}>{{availableBatch.trainingName}} {{availableBatch.trainer.name}}  {{availableBatch.startDate}}</option>
@@ -33,7 +33,7 @@
 								<tr >
 									<td>{{batchToImport}}</td>
 								</tr>
-								<tr >
+								<tr>
 									<td>{{batchToImport.trainingName}} {{batchToImport.trainer.name}}</td>
 								</tr>
 							</table>
@@ -45,8 +45,8 @@
 								<tr>
 									<th>Trainees:</th>
 								</tr>
-								<tr >
-									<td>{{traineesToImport}}</td>
+								<tr ng-repeat="availableTrainees in batchToImport">
+									<td>{{availableTrainees}}</td>
 								</tr>
 								<tr>
 									<td>{{traineeToImport.traineeName}}</td>

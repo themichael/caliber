@@ -260,9 +260,9 @@ angular
 					
 					/** Import trainees from selected batch **/	
 					$scope.importTrainees = function(){
-					all.getAllTraineesFromBatch().then(
+					all.getAllTraineesFromBatch(resourceId).then(
 							function(trainees) {
-								$scope.getTrainees = trainees;
+								$scope.traineeToImport = trainees;
 								$log.debug("========TRAINEES===========");
 								$log.debug(trainees);					
 							});
