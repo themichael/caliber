@@ -97,6 +97,10 @@ angular
 					delegate.all.createTrainer = function(trainerObj) {
 						return allFactory.createTrainer(trainerObj);
 					};
+					
+					delegate.all.getAllTraineesFromBatch = function(resourceId){
+						return allFactory.getAllTraineesFromBatch(resourceId);
+					}
 
 					/**
 					 * *********************** Enum constants
