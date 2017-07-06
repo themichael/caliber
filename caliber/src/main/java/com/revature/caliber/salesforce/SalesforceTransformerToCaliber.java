@@ -3,9 +3,11 @@ package com.revature.caliber.salesforce;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.SkillType;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.salesforce.beans.BatchTrainer;
 import com.revature.salesforce.beans.SalesforceBatch;
+import com.revature.salesforce.beans.SalesforceTrainee;
 
 public class SalesforceTransformerToCaliber {
 
@@ -66,6 +68,33 @@ public class SalesforceTransformerToCaliber {
 
 		}
 
+	}
+
+	public void transformTraineeId(SalesforceTrainee salesforceTrainee){
+		Trainer trainer = new Trainer();
+		trainer.setTrainerId(Integer.parseInt(salesforceTrainee.getId()));
+
+	}
+	public void transformTraineeName(SalesforceTrainee salesforceTrainee){
+		Trainer trainer = new Trainer();
+		trainer.setName(salesforceTrainee.getName());
+	}
+	public void transformTraineeTrainingStatus(){
+		
+	}
+	public void transformTraineePhone(){
+		
+	}
+	public void transformTraineeEmail(){
+		
+	}
+	public void transformTraineeMobilePhone(){
+		
+	}
+	public void transformTraineeBatchId(SalesforceTrainee salesforceTrainee){
+		Trainee trainee = new Trainee();
+		Batch batch = new Batch();
+		salesforceTrainee.getBatchId();
 	}
 
 }
