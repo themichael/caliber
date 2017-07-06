@@ -314,7 +314,8 @@ angular
 										url : "/category",
 										views:{
 											"":{
-												templateUrl : "/static/app/partials/category/manage-categories.html"
+												templateUrl : "/static/app/partials/category/manage-categories.html",
+												controller : "vpCategoryController"
 											}
 										}
 												
