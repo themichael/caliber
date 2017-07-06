@@ -36,6 +36,7 @@ public class SalesforceService {
 		List<Batch> allSalesForceBatches = salesforceDAO.getFakeReleventBatches();
 		List<Batch> allCaliberBatches = batchDAO.findAll();
 
+		//Removing batches already in Caliber database
 		for (int sfIndex = 0; sfIndex < allSalesForceBatches.size(); sfIndex++) {
 			String sfResourceId = allSalesForceBatches.get(sfIndex).getResourceId();
 			for (int cIndex = 0; cIndex < allCaliberBatches.size(); cIndex++) {
