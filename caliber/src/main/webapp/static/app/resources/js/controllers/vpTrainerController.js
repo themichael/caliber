@@ -33,7 +33,8 @@ angular.module("vp").controller(
 			// load training tiers
 			caliberDelegate.all.enumTrainerTier().then(function(tiers) {
 				$log.debug(tiers);
-				$scope.trainerTiers = tiers.filter(function(ary) { return ary !== 'ROLE_INACTIVE' })
+				var filteredTiers = tiers.filter(function(ary) { return ary !== 'ROLE_INACTIVE' });
+				$scope.trainerTiers = filteredTiers;
 			});
 
 			caliberDelegate.vp.TrainersTitles().then(function(titles) {
@@ -57,34 +58,7 @@ angular.module("vp").controller(
 			function createTrainerObject(trainer) {
 				trainer = $scope.trainerForm;
 				$log.debug(trainer);
-			}
-			;
-		    /** Create scopes for trainer form* */
-            $scope.trainerForm = {
-                name : null,
-                email : null,
-                trainerTitle : null,
-                trainerTier : null
-            };
-            
-            /** Resets trainer form* */
-            $scope.resetTrainerForm = function() {
-                $scope.trainerForm.name = "";
-                $scope.trainerForm.email = "";
-                $scope.trainerForm.trainerTitle = "";
-                $scope.trainerForm.trainerTier = "";
-                $scope.Save = "Save";
-            }
-            /** Fill update form with trainer's previous data */
-            $scope.populateTrainer = function(trainer) {
-                $log.debug(trainer);
-                $scope.trainerForm.name = trainer.name;
-                $scope.trainerForm.email = trainer.email;
-                $scope.trainerForm.title = trainer.title;
-                $scope.trainerForm.tier = trainer.tier;
-                $scope.Save = "Update";
-            };
-
+			};
 
             /** Create scopes for trainer form* */
             $scope.trainerForm = {
@@ -112,7 +86,8 @@ angular.module("vp").controller(
                 $scope.trainerForm.name = trainer.name;
                 $scope.trainerForm.email = trainer.email;
                 $scope.trainerForm.title = trainer.title;
-                $scope.trainerForm.tier = trainer.tier;
+                $scope.trainerForm.tier = trainer.tier.substr(5);
+                console.log($scope.trainerForm);
                 $scope.Save = "Update";
             };
             
