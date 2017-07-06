@@ -84,7 +84,7 @@ public class SalesforceDAO {
 	public List<Batch> getAllRelevantBatches(){
 		try {
 			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
-			log.debug(response);
+			log.info(response);
 			
 			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
@@ -99,10 +99,10 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	public List<Trainee> getBatchDetails(String resourceId){
-		String query = batchDetails + "' " + resourceId + " + '";
+		String query = batchDetails + "'" + resourceId + "'";
 		try {
 			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
-			log.debug(response);
+			log.info(response);
 			
 			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
@@ -138,7 +138,7 @@ public class SalesforceDAO {
 	 */
 	private String getAccessToken() {
 		if(DEBUG_MODE)
-			return "00D0n0000000Q1l!AQQAQF8kUz6QVhBC8_zSVi4k8mjZeKbwe3fUJzgAKcFWLyGBMEWdsaeRJOcS90VaNTwYHdyhJ27F4kJlSZhL4pYlqk6XNk4J";
+			return "00D0n0000000Q1l!AQQAQF_kubnCvgu2H.S9V52ySqMgRKKm2Yesr4XlCqM7wZHc_es3Yfk6anLFPf23SvK3G_ZyHUHHwIZkI4IIQ8u3xyypLTpn";
 		else
 			return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}
