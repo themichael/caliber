@@ -104,7 +104,8 @@ angular.module("vp").controller(
 
             /** Create scopes for trainer form* */
             $scope.trainerForm = {
-                name : null,
+                trainerId : null,
+            	name : null,
                 email : null,
                 title : null,
                 tier : null
@@ -121,17 +122,19 @@ angular.module("vp").controller(
             /** Fill update form with trainer's previous data */
             $scope.populateTrainer = function(trainer) {
                 $log.debug(trainer);
+                $scope.trainerForm.trainerId = trainer.trainerId;
                 $scope.trainerForm.name = trainer.name;
                 $scope.trainerForm.email = trainer.email;
                 $scope.trainerForm.title = trainer.title;
                 $scope.trainerForm.tier = trainer.tier;
                 $scope.Save = "Update";
+               console.log($scope.trainerForm);
             };
             
 			/** Update Trainer Input * */
 			$scope.updateTrainer = function() {
 				console.log($scope.trainerForm);
-				caliberDelegate.vp.updateTrainer($scope.trainerForm).then(
+				caliberDelegate.vp.deactivateTrainer($scope.trainerForm).then(
 						function(response) {
 							$log.debug("trainer updated: " + response);
 						});
@@ -142,13 +145,14 @@ angular.module("vp").controller(
 			 * Adam Baker
 			 * deactivation method */
 			$scope.makeInactive = function(){
-				caliberDelegate.vp.deactivateTrainer();
-				$scope.trainerForm.name = trainer.name;
-	            $scope.trainerForm.email = trainer.email;
-	            $scope.trainerForm.trainerTitle = trainer.title;
-				$scope.trainerForm.trainerTier = "ROLE_INACTIVE";
-				$log.debug("trainer deactivated");
-				
+				$log.debug($scope.trainerForm);
+				$scope.trainerForm.tier = "ROLE_INACTIVE";
+				console.log($scope.trainerForm);
+				caliberDelegate.vp.deactivateTrainer($scope.trainerForm)
+				.then(function(response){
+					$log.debug("trainer deactivated");
+				});
+				angular.element("#deleteTrainerModal").modal("hide");
 			}
 
 		});

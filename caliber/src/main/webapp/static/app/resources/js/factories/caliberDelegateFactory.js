@@ -201,8 +201,8 @@ angular
 						return vpFactory.getAllCurrentBatches();
 					};
 
-					delegate.vp.deactivateTrainer = function(){
-						return vpFactory.deactivateTrainer();
+					delegate.vp.deactivateTrainer = function(trainerObj){
+						return vpFactory.deactivateTrainer(trainerObj);
 					}
 
 					

@@ -37,13 +37,17 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 	};
 
 	//deactivate trainer
-	vp.deactivateTrainer = function (){
+	vp.deactivateTrainer = function (trainerObj){
 		return $http({
 			url: "/vp/trainer/delete",
-			method: "DELETE"
+			method: "DELETE",
+			data:trainerObj,
+			headers: {
+				"Content-Type" : "application/json" 
+			}
 		}).then(function(response){
 			$log.debug("Trainer deleted");
-			$lpg.debug(response);
+			$log.debug(response);
 		}, function(response){
 			$log.error("There was an error: " + response.status);
 		});
