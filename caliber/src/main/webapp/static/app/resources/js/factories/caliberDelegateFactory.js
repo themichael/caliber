@@ -204,6 +204,11 @@ angular
 					delegate.vp.getAllCurrentBatches = function() {
 						return vpFactory.getAllCurrentBatches();
 					};
+
+					delegate.vp.deactivateTrainer = function(trainerObj){
+						return vpFactory.deactivateTrainer(trainerObj);
+					}
+
 					
 					delegate.vp.updateTrainer = function(trainerObj) {
 						return vpFactory.updateTrainer(trainerObj);

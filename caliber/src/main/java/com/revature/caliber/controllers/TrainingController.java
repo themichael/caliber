@@ -99,13 +99,15 @@ public class TrainingController {
 
 	/**
 	 * Deactivates the trainer
+	 * 
+	 * @param trainer
+	 * @return response entity
 	 */
 	@RequestMapping(value = "/vp/trainer/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Trainer> makeInactive(@Valid @RequestBody Trainer trainer) {
+	public ResponseEntity<Void> makeInactive(@Valid @RequestBody Trainer trainer) {
 		log.info("Updating trainer: " + trainer);
 		trainingService.update(trainer);
-		return new ResponseEntity<>(trainer, HttpStatus.NO_CONTENT);
-
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	/**

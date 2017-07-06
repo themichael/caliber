@@ -25,16 +25,6 @@ angular.module("vp").controller(
 				$scope.selectedTrainers = [];
 			})
 
-			/*
-			 * $scope.trainers = trainers;
-			 * $log.debug("=========TRAINERS========="); $log.debug(trainers);
-			 */
-
-			/*
-			 * $log.debug(allTrainers); $scope.trainers = allTrainers;
-			 * $scope.selectedTrainers = [];
-			 */
-
 			/**
 			 * *********************************************** Code to create
 			 * and update Trainer************
@@ -43,7 +33,8 @@ angular.module("vp").controller(
 			// load training tiers
 			caliberDelegate.all.enumTrainerTier().then(function(tiers) {
 				$log.debug(tiers);
-				$scope.trainerTiers = tiers;
+				var filteredTiers = tiers.filter(function(ary) { return ary !== 'ROLE_INACTIVE' });
+				$scope.trainerTiers = filteredTiers;
 			});
 
 			// load tainers titles
@@ -79,13 +70,7 @@ angular.module("vp").controller(
 			$scope.saveTrainer = function(trainerForm) {
 				var newTrainer = trainerForm;
 				createTrainerObject(newTrainer);
-				if (newTrainer.tier == "VP") {
-					newTrainer.tier = "ROLE_VP";
-				} else if (newTrainer.tier == "QC") {
-					newTrainer.tier = "ROLE_QC";
-				} else {
-					newTrainer.tier = "ROLE_TRAINER";
-				}
+				newTrainer.tier = submitTier(newTrainer.tier);
 				caliberDelegate.vp.createTrainer(newTrainer).then(
 						function(response) {
 							$log.debug("trainer added: " + response);
@@ -97,52 +82,64 @@ angular.module("vp").controller(
 			function createTrainerObject(trainer) {
 				trainer = $scope.trainerForm;
 				$log.debug(trainer);
-			}
-			;
-
-			/** Create scopes for trainer form* */
-			$scope.trainerForm = {
-				name : null,
-				email : null,
-				title : null,
-				tier : null
 			};
 
-			/** Resets trainer form* */
-			$scope.resetTrainerForm = function() {
-				$scope.trainerForm.name = "";
-				$scope.trainerForm.email = "";
-				$scope.trainerForm.title = "";
-				$scope.trainerForm.tier = "";
-				$scope.Save = "Save";
-			}
-			/** Fill update form with trainer's previous data */
-			$scope.populateTrainer = function(trainer) {
-				$log.debug(trainer);
-				$scope.trainerForm.name = trainer.name;
-				$scope.trainerForm.email = trainer.email;
-				$scope.trainerForm.title = trainer.title;
-				$scope.trainerForm.tier = trainer.tier;
-				$scope.Save = "Update";
-			};
+            /** Create scopes for trainer form* */
+            $scope.trainerForm = {
+                trainerId : null,
+            	name : null,
+                email : null,
+                title : null,
+                tier : null
+            };
+            
+            /** Resets trainer form* */
+            $scope.resetTrainerForm = function() {
+            	$scope.trainerForm.trainerId = "";
+                $scope.trainerForm.name = "";
+                $scope.trainerForm.email = "";
+                $scope.trainerForm.title = "";
+                $scope.trainerForm.tier = "";
+                $scope.Save = "Save";
+            };
+            
+            /** Fill update form with trainer's previous data */
+            $scope.populateTrainer = function(trainer) {
+                $log.debug(trainer);
+                $scope.trainerForm.trainerId = trainer.trainerId;
+                $scope.trainerForm.name = trainer.name;
+                $scope.trainerForm.email = trainer.email;
+                $scope.trainerForm.title = trainer.title;
+                $scope.trainerForm.tier = trainer.tier.substr(5);
+                $scope.Save = "Update";
+            };
 
 			/** Update Trainer Input * */
 			$scope.updateTrainer = function() {
-				console.log($scope.trainerForm);
+				$scope.trainerForm.tier = submitTier($scope.trainerForm.tier);
 				caliberDelegate.vp.updateTrainer($scope.trainerForm).then(
 						function(response) {
 							$log.debug("trainer updated: " + response);
 						});
-				angular.element("#updateTrainerModal").modal("hide");
+				angular.element("#editTrainerModal").modal("hide");
 			};
 
 			/**
-			 * Adam Baker deactivation method
-			 */
-			$scope.makeInactive = function() {
-				$scope.trainerForm.trainerTier = "ROLE_INACTIVE";
-				$log.debug("trainer deactivated");
-
+			 * Adam Baker
+			 * deactivation function */
+			$scope.makeInactive = function(){
+				$log.debug($scope.trainerForm);
+				$scope.trainerForm.tier = "ROLE_INACTIVE";
+				caliberDelegate.vp.deactivateTrainer($scope.trainerForm)
+				.then(function(response){
+					$log.debug("trainer deactivated");
+				});
+				angular.element("#deleteTrainerModal").modal("hide");
+			}
+			
+			submitTier = function(tier){
+				var pre = "ROLE_"
+				return pre.concat(tier);
 			}
 
 		});
