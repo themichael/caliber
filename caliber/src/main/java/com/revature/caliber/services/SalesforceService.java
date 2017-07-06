@@ -65,15 +65,4 @@ public class SalesforceService {
 	}
 	
 
-	/**
-	 * FIND ALL TRAINEES FROM A SALESFORCE BATCHE
-	 * 
-	 * @return List of Trainee's from a batch
-	 */
-
-	public List<Trainee> getBatchDetails(String resourceId) {
-		log.debug("Find all current batches by resource id");
-		return salesforceDAO.getBatchDetails(resourceId);
-	}
-
 }
