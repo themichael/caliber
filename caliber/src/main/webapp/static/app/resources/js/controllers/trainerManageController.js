@@ -42,15 +42,12 @@ angular
 					 */
 
 					/** On page start --> load all trainers * */
-					(function start() {
+					(function() {
 						caliberDelegate.all.getAllTrainers().then(
 								function(trainers) {
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
-									// $scope.role = $cookies.get("role");
-
-									$log.debug($scope.role);
 								});
 						$log.debug(allBatches);
 						$scope.batches = allBatches;
@@ -205,13 +202,10 @@ angular
 
 						if ($scope.endDate.model > $scope.startDate.model
 								&& $scope.trainer.model !== $scope.coTrainer.model) {
-							/* $scope.validDate = false; */
 							$log.debug("True");
 							$scope.addNewBatch();
 						} else {
-							/* $scope.validDate = true; */
 							$log.info("False");
-							// window.alert("hi!....u buggin!!!");
 							angular.element("#checkBatchModal").modal("show");
 							return false;
 						}
@@ -252,6 +246,19 @@ angular
 
 					}
 
+					/** Import batch form for creating new batch**/
+					$scope.importBatchForm = function() {
+						
+						$scope.batchFormName = "Import New Batch"
+						$scope.Save = "Save";
+						
+					}	
+					/** Select batch by year **/
+					$scope.selectBatchYear = function(index) {
+						$scope.selectedBatchYear = $scope.years[index];
+						sortByDate($scope.selectedBatchYear);
+					};
+					
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
 						$scope.batchFormName = "Create New Batch"
@@ -361,9 +368,12 @@ angular
 											});
 						}
 						angular.element("#createBatchModal").modal("hide");
-
 					};
 
+					
+					
+					
+					
 					/** Delete batch* */
 					$scope.deleteBatch = function() {
 						caliberDelegate.all
@@ -380,15 +390,14 @@ angular
 														break;
 													}
 												}
-												for (var i = 0; i < $scope.selectedBatches.length; i++) {
-													if ($scope.selectedBatches[i] === $scope.currentBatch) {
+												for (var j = 0; j < $scope.selectedBatches.length; j++) {
+													if ($scope.selectedBatches[j] === $scope.currentBatch) {
 														$scope.selectedBatches
-																.splice(i, 1);
+																.splice(j, 1);
 														break;
 													}
 												}
 											} else if (response.status === 500) {
-												// $log($scope.currentBatch.batchId);
 												angular
 														.element(
 																"#deleteBatchErrorModal")
@@ -549,7 +558,7 @@ angular
 												// from allbatches list and add
 												// to drop list
 												if ($scope.trainees[$scope.traineeRow].trainingStatus === "Dropped") {
-													for (i = 0; i < $scope.activeTrainees.length; i++) {
+													for (var i = 0; i < $scope.activeTrainees.length; i++) {
 														if ($scope.activeTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.droppedTrainees
 																	.push($scope.trainees[$scope.traineeRow]);
@@ -560,12 +569,12 @@ angular
 														}
 													}
 												} else {
-													for (i = 0; i < $scope.droppedTrainees.length; i++) {
-														if ($scope.droppedTrainees[i].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
+													for (var j = 0; j < $scope.droppedTrainees.length; j++) {
+														if ($scope.droppedTrainees[j].traineeId === $scope.trainees[$scope.traineeRow].traineeId) {
 															$scope.activeTrainees
 																	.push($scope.trainees[$scope.traineeRow]);
 															$scope.droppedTrainees
-																	.splice(i,
+																	.splice(j,
 																			1);
 														}
 													}
@@ -598,15 +607,13 @@ angular
 
 					/** Get Trainee to delete* */
 					$scope.getTraineeToDelete = function(index) {
-						var traineeToBeDeleted;
 						$scope.traineeToBeDeleted = $scope.trainees[index];
-						// $scope.editTrainee = $scope.trainees[index];
 						$scope.traineeRow = index;
 					}
 
 					/** Delete Trainee* */
 
-					$scope.removeTrainee = function(traineeId) {
+					$scope.removeTrainee = function() {
 						// search through allbatches trainees and splice from
 						// there
 						$log.debug("Deleting trainee with id of:  "
@@ -619,5 +626,15 @@ angular
 						angular.element("#deleteTraineeModal").modal("hide");
 
 					};
+					
+					/** When multiple modals are opened upon removing one the modal-open is removed.
+					 *  The following code adds the modal-open back into the HTML */
+					
+					$(document).on('hidden.bs.modal','#addTraineeModal', function () {
+						$("body").addClass("modal-open");
+					});
+					$(document).on('hidden.bs.modal','#deleteTraineeModal', function () {
+						$("body").addClass("modal-open");
+					});
 
 				});

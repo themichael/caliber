@@ -29,9 +29,9 @@ public class UserDetailsImpl extends Helper implements UserDetails {
 
     @RequestMapping(value = "/getSalesforceUser/", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getSalesforceUser(@RequestParam String accessToken,
-                                    @RequestParam String endpoint) throws NullPointerException, IOException {
+                                    @RequestParam String endpoint) throws IOException {
         HttpGet get = new HttpGet(endpoint + "?access_token=" + accessToken);
         response = httpClient.execute(get);
-        return toJsonString(response.getEntity().getContent()) ;
+        return toJsonString(response.getEntity().getContent());
     }
 }

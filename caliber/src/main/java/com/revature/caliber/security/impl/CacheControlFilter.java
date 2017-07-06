@@ -35,9 +35,11 @@ public class CacheControlFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		// unused lifecycle method
 	}
 
 	@Override
 	public void destroy() {
+		// unused lifecycle method		
 	}
 }

@@ -5,6 +5,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.data.CategoryDAO;
@@ -32,6 +35,7 @@ public class CategoryService {
 	 * 
 	 * @return
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Category> findAllCategories() {
 		log.debug("Requesting categories");
 		return categoryDAO.findAll();
@@ -42,6 +46,7 @@ public class CategoryService {
 	 * @param id
 	 * @return
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Category findCategory(int categoryId) {
 		log.debug("Find category: " + categoryId);
 		return categoryDAO.findOne(categoryId);

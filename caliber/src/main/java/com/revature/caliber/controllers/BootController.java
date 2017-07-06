@@ -38,13 +38,13 @@ import com.revature.caliber.security.models.SalesforceUser;
 @SessionAttributes("token")
 public class BootController extends Helper {
 
-	private final static Logger log = Logger.getLogger(BootController.class);
+	private static final Logger log = Logger.getLogger(BootController.class);
 
 	/**
 	 * Instantiates a new Boot controller.
 	 */
 	public BootController() {
-		
+		super();
 	}
 
 	/**
@@ -87,21 +87,7 @@ public class BootController extends Helper {
 			throw new NotAuthorizedException();
 		}
 		log.info(jsonString);
-		JSONObject jsonObject = new JSONObject(jsonString);
-		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
-			log.info("Logged in user " + jsonObject.getString("email") + " now hasRole: "
-					+ jsonObject.getString("tier"));
-			salesforceUser.setRole(jsonObject.getString("tier"));
-			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
-		} else {
-			throw new NotAuthorizedException();
-		}
-		// store custom user Authentication obj in SecurityContext
-		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
-				salesforceUser.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(auth);
-
-		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
+		authorize(jsonString, salesforceUser, servletResponse);
 		return "index";
 	}
 
@@ -140,7 +126,8 @@ public class BootController extends Helper {
 				break;
 			}
 		}
-		if(salesforceToken == null) throw new ServiceNotAvailableException();
+		if(salesforceToken == null) 
+			throw new ServiceNotAvailableException();
 		// Http request to the salesforce module to get the salesforce user
 		URIBuilder uriBuilder = new URIBuilder();
 		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())
@@ -168,6 +155,11 @@ public class BootController extends Helper {
 			log.fatal("Training API returned: " + jsonString);
 			throw new NotAuthorizedException();
 		}
+		authorize(jsonString, salesforceUser, servletResponse);
+		return "index";
+	}
+	
+	private void authorize(String jsonString, SalesforceUser salesforceUser, HttpServletResponse servletResponse) throws IOException{
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
 			log.info("Logged in user " + jsonObject.getString("email") + " now hasRole: "
@@ -178,12 +170,11 @@ public class BootController extends Helper {
 			throw new NotAuthorizedException();
 		}
 		// store custom user Authentication obj in SecurityContext
-		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUser_id(),
+		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
-		return "index";
 	}
 
 }
