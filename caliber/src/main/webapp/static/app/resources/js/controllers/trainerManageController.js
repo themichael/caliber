@@ -516,7 +516,7 @@ angular
 						caliberDelegate.all.getTraineeByEmail(
 								$scope.traineeForm.email).then(
 								function(response) {
-									$log.debug("find email response ")
+									$log.debug("find email" + response)
 									$log.debug(response)
 									if (response.data === "") {
 										$log.debug("email does not exist")

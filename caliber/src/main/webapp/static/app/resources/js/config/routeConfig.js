@@ -301,6 +301,9 @@ angular
 											},
 											"delete-trainer-form@vp.trainers" : {
 												templateUrl : "/static/app/partials/trainers/delete-trainer-modal.html"
+											},
+											"trainer-extra-modals@vp.trainers":{
+												templateUrl : "/static/app/partials/trainers/trainer-axillary-modals.html"
 											}
 										}
 												

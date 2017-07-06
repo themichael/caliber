@@ -106,7 +106,7 @@ public class TrainingService {
 	}
 
 	/**
-
+	 * 
 	 * MAKE TRAINER INACTIVE
 	 **/
 	public void makeInactive(Trainer trainer) {
@@ -148,7 +148,7 @@ public class TrainingService {
 	public void addWeek(Integer batchId) {
 		log.debug("Adding week to batch: " + batchId);
 		Batch batch = batchDAO.findOne(batchId);
-		if(batch==null) 
+		if (batch == null)
 			throw new IllegalArgumentException("Invalid batch");
 		int weeks = batch.getWeeks();
 		batch.setWeeks(++weeks);
@@ -213,7 +213,7 @@ public class TrainingService {
 	 * @param batchId
 	 * @return
 	 */
-	public Batch findBatch(Integer batchId){
+	public Batch findBatch(Integer batchId) {
 		log.debug("Finding batch with id: " + batchId);
 		return batchDAO.findOne(batchId);
 	}

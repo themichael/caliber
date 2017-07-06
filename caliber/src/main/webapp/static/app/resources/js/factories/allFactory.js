@@ -233,7 +233,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 
 	all.getTraineeEmail = function(traineeEmail) {
 		return $http({
-			url : "/all/trainee/getByEmail/" + traineeEmail,
+			url : "/all/trainee/getByEmail/" + traineeEmail + "/",
 			method : "GET",
 		}).then(function(response) {
 			$log.log(traineeEmail);

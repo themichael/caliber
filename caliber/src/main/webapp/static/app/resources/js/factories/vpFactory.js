@@ -90,5 +90,33 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 		});
 	};
 	
+	
+	vp.getTrainerEmail = function(trainerEmail) {
+		return $http({
+			url : "/training/trainer/byemail/" + trainerEmail + "/",
+			method : "GET",
+		}).then(function(response) {
+			$log.log(trainerEmail);
+			$log.log(response);
+			return response;
+		}, function(response) {
+			$log.log(trainerEmail);
+			$log.error("There was an error: " + response.status);
+			return response;
+		});
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	return vp;
 });

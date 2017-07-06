@@ -46,10 +46,34 @@ angular.module("vp").controller(
 				$scope.trainerTiers = tiers;
 			});
 
+			// load tainers titles
 			caliberDelegate.vp.TrainersTitles().then(function(titles) {
 				$log.debug(titles);
 				$scope.trainersTitles = titles;
 			});
+
+			/** show email verification modal* */
+			$scope.checkTrainerEmail = function(trainerForm) {
+				$log.log("inside check email");
+				$log.log(trainerForm.email);
+				$log.log("inside check email");
+				caliberDelegate.all.getTrainerByEmail(trainerForm.email).then(
+						function(response) {
+							$log.log("find email " + response)
+							$log.debug(response)
+							if (response.data === "") {
+								$log.log("email does not exist")
+								$scope.saveTrainer(trainerForm);
+							} else {
+								$log.debug(response)
+								$log.log("email already exists")
+								angular.element(
+										"#trainerEmailVerificationModal")
+										.modal("show");
+								return false;
+							}
+						})
+			}
 
 			/** Save New Trainer Input * */
 			$scope.saveTrainer = function(trainerForm) {
@@ -76,33 +100,32 @@ angular.module("vp").controller(
 			}
 			;
 
+			/** Create scopes for trainer form* */
+			$scope.trainerForm = {
+				name : null,
+				email : null,
+				title : null,
+				tier : null
+			};
 
-            /** Create scopes for trainer form* */
-            $scope.trainerForm = {
-                name : null,
-                email : null,
-                title : null,
-                tier : null
-            };
-            
-            /** Resets trainer form* */
-            $scope.resetTrainerForm = function() {
-                $scope.trainerForm.name = "";
-                $scope.trainerForm.email = "";
-                $scope.trainerForm.title = "";
-                $scope.trainerForm.tier = "";
-                $scope.Save = "Save";
-            }
-            /** Fill update form with trainer's previous data */
-            $scope.populateTrainer = function(trainer) {
-                $log.debug(trainer);
-                $scope.trainerForm.name = trainer.name;
-                $scope.trainerForm.email = trainer.email;
-                $scope.trainerForm.title = trainer.title;
-                $scope.trainerForm.tier = trainer.tier;
-                $scope.Save = "Update";
-            };
-            
+			/** Resets trainer form* */
+			$scope.resetTrainerForm = function() {
+				$scope.trainerForm.name = "";
+				$scope.trainerForm.email = "";
+				$scope.trainerForm.title = "";
+				$scope.trainerForm.tier = "";
+				$scope.Save = "Save";
+			}
+			/** Fill update form with trainer's previous data */
+			$scope.populateTrainer = function(trainer) {
+				$log.debug(trainer);
+				$scope.trainerForm.name = trainer.name;
+				$scope.trainerForm.email = trainer.email;
+				$scope.trainerForm.title = trainer.title;
+				$scope.trainerForm.tier = trainer.tier;
+				$scope.Save = "Update";
+			};
+
 			/** Update Trainer Input * */
 			$scope.updateTrainer = function() {
 				console.log($scope.trainerForm);
@@ -112,15 +135,14 @@ angular.module("vp").controller(
 						});
 				angular.element("#updateTrainerModal").modal("hide");
 			};
-			
+
 			/**
-			 * Adam Baker
-			 * deactivation method */
-			$scope.makeInactive = function(){
+			 * Adam Baker deactivation method
+			 */
+			$scope.makeInactive = function() {
 				$scope.trainerForm.trainerTier = "ROLE_INACTIVE";
 				$log.debug("trainer deactivated");
-				
+
 			}
 
 		});
-
