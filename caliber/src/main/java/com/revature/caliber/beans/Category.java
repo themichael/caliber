@@ -40,6 +40,10 @@ public class Category implements Serializable {
 	@JsonProperty(value = "skillCategory")
 	@Column(name = "SKILL_CATEGORY")
 	private String skillCategory;
+	
+	@JsonProperty(value = "active")
+	@Column(name = "IS_ACTIVE", nullable=false)
+	private boolean active;
 
 	@OneToMany(mappedBy = "category")
 	@JsonIgnore
@@ -54,47 +58,14 @@ public class Category implements Serializable {
 	}
 
 	/**
-	 * Instantiates a new Category.
-	 *
+	 * Create new category
 	 * @param skillCategory
-	 *            the skill category
+	 * @param active
 	 */
-	public Category(String skillCategory) {
+	public Category(String skillCategory, boolean active) {
 		super();
 		this.skillCategory = skillCategory;
-	}
-
-	/**
-	 * Instantiates a new Category.
-	 *
-	 * @param categoryId
-	 *            the category id
-	 * @param skillCategory
-	 *            the skill category
-	 */
-	public Category(int categoryId, String skillCategory) {
-		super();
-		this.categoryId = categoryId;
-		this.skillCategory = skillCategory;
-	}
-
-	/**
-	 * Instantiates a new Category.
-	 *
-	 * @param categoryId
-	 *            the category id
-	 * @param skillCategory
-	 *            the skill category
-	 * @param assessments
-	 *            the assessments
-	 * @param weeks
-	 *            the weeks
-	 */
-	public Category(int categoryId, String skillCategory, Set<Assessment> assessments) {
-		super();
-		this.categoryId = categoryId;
-		this.skillCategory = skillCategory;
-		this.assessments = assessments;
+		this.active = active;
 	}
 
 	/**
@@ -135,6 +106,14 @@ public class Category implements Serializable {
 		this.skillCategory = skillCategory;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	/**
 	 * Gets assessments.
 	 *
@@ -153,11 +132,12 @@ public class Category implements Serializable {
 	public void setAssessments(Set<Assessment> assessments) {
 		this.assessments = assessments;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + ((skillCategory == null) ? 0 : skillCategory.hashCode());
 		return result;
 	}
@@ -171,6 +151,8 @@ public class Category implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Category other = (Category) obj;
+		if (active != other.active)
+			return false;
 		if (skillCategory == null) {
 			if (other.skillCategory != null)
 				return false;
