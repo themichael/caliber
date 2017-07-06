@@ -259,13 +259,14 @@ angular
 					}	
 					
 					/** Import trainees from selected batch **/	
-					caliberDelagate.all.getAllTraineesFromBatch().then(
+					$scope.importTrainees = function(){
+					all.getAllTraineesFromBatch().then(
 							function(trainees) {
 								$scope.getTrainees = trainees;
 								$log.debug("========TRAINEES===========");
-								$log.debug(trainees);
-								
+								$log.debug(trainees);					
 							});
+					};
 				
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
