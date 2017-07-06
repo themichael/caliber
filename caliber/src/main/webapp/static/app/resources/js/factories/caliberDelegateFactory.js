@@ -99,8 +99,9 @@ angular
 					};
 					
 					delegate.all.getAllTraineesFromBatch = function(resourceId){
-                        return allFactory.getAllTraineesFromBatch(resourceId);
-                    }
+						return allFactory.getAllTraineesFromBatch(resourceId);
+					}
+
 
 					/**
 					 * *********************** Enum constants

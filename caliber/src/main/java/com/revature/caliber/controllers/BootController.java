@@ -71,7 +71,7 @@ public class BootController extends Helper {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		// fake Salesforce User
 		SalesforceUser salesforceUser = new SalesforceUser();
-		salesforceUser.setEmail("pjw6193@hotmail.com");
+		salesforceUser.setEmail("patrick.walsh@revature.com");
 		// Http request to the training module to get the caliber user
 		String email = salesforceUser.getEmail();
 		URIBuilder uriBuilder = new URIBuilder();

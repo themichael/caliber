@@ -4,7 +4,6 @@ angular
 				"trainerAssessController",
 				function($rootScope, $timeout,$log, $scope, $state, chartsDelegate, caliberDelegate,
 						allBatches) {
-					
 					// Week object
 					function Week(weekNumb, assessments) {
 						this.weekNumb = weekNumb;
@@ -204,7 +203,7 @@ angular
 						
 						$scope.trainees={};						
 
-						if($scope.currentBatch !== undefined || $scope.currentBatch !== null)
+						if($scope.currentBatch !== undefined)
 							for(const trainee of $scope.currentBatch.trainees){
 								$scope.assignTraineeScope(trainee.traineeId);
 							}

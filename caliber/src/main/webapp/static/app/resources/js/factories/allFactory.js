@@ -192,7 +192,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 
 	all.getAllTraineesFromBatch = function(resourceId){
 		return $http({
-			url : "/all/batch/importtrainee" +resourceId ,
+			url : "/all/batch/importtrainee?resourceId=" +resourceId ,
 			method : "GET"
 		}).then(function(response){
 			$log.debug("Trainees successfully imported")
