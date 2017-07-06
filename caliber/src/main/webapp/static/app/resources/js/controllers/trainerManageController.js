@@ -247,12 +247,19 @@ angular
 
 					}
 
+					
+					/** Selected import batch**/
+					 $scope.selectedBatchToImport = function(){
+//						 $scope.currentImportedBatch.name = $scope.batchToImport.name;
+						 
+						 console.log($scope.batchToImport);
+						 console.log($scope.currentImportedBatch.name);
+					 }
+					 
+					
 					/** Import batch form for creating new batch**/
-
 					$scope.importBatchForm = function() {
-						
 						$scope.batchFormName = "Import New Batch"
-						
 						$scope.Save = "Save";
 						
 					}	
