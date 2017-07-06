@@ -20,7 +20,6 @@ angular.module("api", []);
 angular.module("charts", []);
 angular.module("auth", []);
 angular.module("reportApi", []);
-//angular.module("date", ["moment-picker"]);
 
 
 
