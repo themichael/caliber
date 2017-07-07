@@ -36,18 +36,19 @@ public class SalesforceService {
 		List<Batch> allCaliberBatches = batchDAO.findAll();
 		
 		//Removing batches already in Caliber database
-		for (int sfIndex = 0; sfIndex < allSalesForceBatches.size(); sfIndex++) {
-			String sfResourceId = allSalesForceBatches.get(sfIndex).getResourceId();
-			for (int cIndex = 0; cIndex < allCaliberBatches.size(); cIndex++) {
-				String cResourceId = allCaliberBatches.get(cIndex).getResourceId();
-				if (cResourceId == null) {
-					continue;
-				}
-				if (cResourceId.equals(sfResourceId)) {
-					allSalesForceBatches.remove(sfIndex--);
+		for (int cIndex = 0; cIndex < allCaliberBatches.size(); cIndex++) {
+			String cResourceId = allCaliberBatches.get(cIndex).getResourceId();
+			if (cResourceId == null) {
+				continue;
+			}
+			for (int sfIndex = 0; sfIndex < allSalesForceBatches.size(); sfIndex++) {
+				String sfResourceId = allSalesForceBatches.get(sfIndex).getResourceId();
+				if(cResourceId.equals(sfResourceId)) {
+					allSalesForceBatches.remove(sfIndex);
 					break;
 				}
 			}
+			
 		}
 
 		return allSalesForceBatches;
