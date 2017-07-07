@@ -138,7 +138,7 @@ public class BatchDAO {
 	}
 
 	
-	/*@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAllCurrentWithNotes() {
 		log.info("Fetching all current batches with trainees, and notes");
@@ -176,7 +176,7 @@ public class BatchDAO {
 				//.add(Restrictions.eq("n.qcFeedback", true))   					// bar chart
 				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
-	}*/
+	}
 	
 	/**
 	 * Looks for all batches that are currently actively in training. Useful for
