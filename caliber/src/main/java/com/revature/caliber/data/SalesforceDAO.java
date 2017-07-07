@@ -151,18 +151,18 @@ public class SalesforceDAO {
 	 * Access data using the Salesforce REST API
 	 * @return
 	 */
-	public List<Trainee> getBatchDetails(String resourceId){
-		String query = batchDetails + "'" + resourceId + "'";
-		try {
-			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
-			log.info(response);
-			
-			throw new UnsupportedOperationException("not yet fully implemented method");
-		} catch (IOException e) {
-			log.error("Cannot get batch details from Salesforce: cause " + e);
-			throw new ServiceNotAvailableException();
-		}
-	}
+//	public List<Trainee> getBatchDetails(String resourceId){
+//		String query = batchDetails + "'" + resourceId + "'";
+//		try {
+//			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
+//			log.info(response);
+//			
+//			throw new UnsupportedOperationException("not yet fully implemented method");
+//		} catch (IOException e) {
+//			log.error("Cannot get batch details from Salesforce: cause " + e);
+//			throw new ServiceNotAvailableException();
+//		}
+//	}
 
 	//////////// API Helper Methods  //////////////
 	
