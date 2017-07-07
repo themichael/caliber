@@ -130,9 +130,9 @@ public class AuthorizationImpl extends Helper implements Authorization {
 			log.info("Revoking access_token: " + accessToken);
 			revokeToken(accessToken);
 
-			String refreshToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
-			log.info("Revoking refresh_token: " + refreshToken);
-			revokeToken(refreshToken);
+			String idToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getIdToken();
+			log.info("Revoking id_token: " + idToken);
+			revokeToken(idToken);
 		}
 
 		// logout and clear Spring Security Context
