@@ -60,5 +60,18 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 			$log.error("There was an error in vpFactory -> updateCategory " + response,status);
 		});
 	}
+	// Save new category
+	vp.saveCategory = function(category){
+		return $http({
+			url : "/vp/category",
+			method : "POST",
+			data : category
+		}).then(function(response){
+			$log.debug(category + " Has been Created");
+			$log.debug(response);
+		},function(response){
+			$log.error("There was an error in vpFactory -> saveCategory " + response,status);
+		});
+	}
 	return vp;
 });
