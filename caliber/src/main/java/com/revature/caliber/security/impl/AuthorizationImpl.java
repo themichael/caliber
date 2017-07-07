@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -60,6 +61,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
 	private static final String REDIRECT = "redirect:";
+	private static final String REVATURE = "http://www.revature.com/";
 
 	public AuthorizationImpl() {
 		super();
@@ -119,17 +121,16 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
 	public ModelAndView revoke(Authentication auth, HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws IOException, ServletException {
 		if(auth == null)
-			return new ModelAndView("/");
+			return new ModelAndView(REDIRECT + REVATURE);
 		if (!debug) {
 			// revoke all tokens from the Salesforce
-			HttpClient httpClient = HttpClientBuilder.create().build();
-			String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
-			log.info("Revoking token: " + token);
-			HttpPost post = new HttpPost(loginURL + revokeUrl);
-			List<NameValuePair> parameters = new ArrayList<>();
-			parameters.add(new BasicNameValuePair("token", token));
-			post.setEntity(new UrlEncodedFormEntity(parameters));
-			httpClient.execute(post);
+			String access_token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
+			log.info("Revoking token: " + access_token);
+			revokeToken(access_token);
+			
+			String refresh_token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
+			log.info("Revoking token: " + refresh_token);
+			revokeToken(refresh_token);
 		}
 		
 		// logout and clear Spring Security Context
@@ -137,7 +138,16 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		SecurityContextHolder.clearContext();
 
 		log.info("User has logged out");
-		return new ModelAndView("/");
+		return new ModelAndView(REDIRECT + REVATURE);
+	}
+
+	private void revokeToken(String token) throws ClientProtocolException, IOException {
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost(loginURL + revokeUrl);
+		List<NameValuePair> parameters = new ArrayList<>();
+		parameters.add(new BasicNameValuePair("token", token));
+		post.setEntity(new UrlEncodedFormEntity(parameters));
+		httpClient.execute(post);
 	}
 
 	public void setAuthURL(String authURL) {
