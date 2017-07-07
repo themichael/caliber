@@ -47,10 +47,10 @@ public class SalesforceDAO {
 	 * Will change as of version 2.0 Salesforce API in August/September 2017 timeframe
 	 * Used to populate the dropdown list of importable batches.
 		select id, name, batch_start_date__c, batch_end_date__c,
-			batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c,
+			batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, Skill_Type__c, Location__c,
 			Type__c from training__c where batch_start_date__c >= THIS_YEAR
 	 */
-	@Value("select id, name, batch_start_date__c, batch_end_date__c, batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c, Type__c from training__c where batch_start_date__c >= THIS_YEAR")
+	@Value("select id, name, batch_start_date__c, batch_end_date__c, batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, Skill_Type__c, Location__c, Type__c from training__c where batch_start_date__c >= THIS_YEAR")
 	private String relevantBatches;
 	
 	/**
@@ -84,7 +84,7 @@ public class SalesforceDAO {
 	public List<Batch> getAllRelevantBatches(){
 		try {
 			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
-			log.debug(response);
+			log.info(response);
 			
 			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
@@ -99,10 +99,10 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	public List<Trainee> getBatchDetails(String resourceId){
-		String query = batchDetails + "' " + resourceId + " + '";
+		String query = batchDetails + "'" + resourceId + "'";
 		try {
 			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
-			log.debug(response);
+			log.info(response);
 			
 			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
@@ -138,7 +138,7 @@ public class SalesforceDAO {
 	 */
 	private String getAccessToken() {
 		if(DEBUG_MODE)
-			return "00D0n0000000Q1l!AQQAQF8kUz6QVhBC8_zSVi4k8mjZeKbwe3fUJzgAKcFWLyGBMEWdsaeRJOcS90VaNTwYHdyhJ27F4kJlSZhL4pYlqk6XNk4J";
+			return "00D0n0000000Q1l!AQQAQF_kubnCvgu2H.S9V52ySqMgRKKm2Yesr4XlCqM7wZHc_es3Yfk6anLFPf23SvK3G_ZyHUHHwIZkI4IIQ8u3xyypLTpn";
 		else
 			return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}

@@ -16,6 +16,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -39,6 +40,10 @@ import com.revature.caliber.security.models.SalesforceUser;
 public class BootController extends Helper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
+	
+	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
+	private boolean debug;
+	private static final String DEBUG_USER_LOGIN = "patrick.walsh@revature.com";
 
 	/**
 	 * Instantiates a new Boot controller.
@@ -48,12 +53,8 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * ------------------------DEVELOPMENT ONLY------------------------ 
-	 * Pretends to do login. Defaults to login pjw6193@hotmail.com
-	 * 
-	 * Forwards to the landing page.
-	 *
-	 * TODO remove @RequestMapping at go-live
+	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards
+	 * to the landing page according to the user's role.
 	 *
 	 * @param servletRequest
 	 *            the servlet request
@@ -68,12 +69,109 @@ public class BootController extends Helper {
 	@RequestMapping(value = "/caliber")
 	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
-		HttpClient httpClient = HttpClientBuilder.create().build();
-		// fake Salesforce User
-		SalesforceUser salesforceUser = new SalesforceUser();
-		salesforceUser.setEmail("patrick.walsh@revature.com");
-		// Http request to the training module to get the caliber user
+		if (debug) {
+			// fake Salesforce User
+			SalesforceUser salesforceUser = new SalesforceUser();
+			salesforceUser.setEmail(DEBUG_USER_LOGIN);
+			String email = salesforceUser.getEmail();
+
+			// Http request to the training module to get the caliber user
+			String jsonString = getCaliberTrainer(servletRequest, email);
+
+			// authorize user
+			authorize(jsonString, salesforceUser, servletResponse);
+			return "index";
+		}
+		
+		// get Salesforce token from cookie
+		SalesforceToken salesforceToken = getSalesforceToken(servletRequest);
+		if (salesforceToken == null)
+			throw new ServiceNotAvailableException();
+
+		// Http request to the salesforce module to get the Salesforce user
+		SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 		String email = salesforceUser.getEmail();
+
+		// Http request to the training module to get the caliber user
+		String jsonString = getCaliberTrainer(servletRequest, email);
+
+		// authorize user
+		authorize(jsonString, salesforceUser, servletResponse);
+		return "index";
+	}
+
+	/**
+	 * Retrieve the salesforce access_token from the provided cookie
+	 * 
+	 * @param servletRequest
+	 * @return
+	 * @throws IOException
+	 */
+<<<<<<< HEAD
+	//@RequestMapping(value = "/caliber")
+	public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
+			throws IOException, URISyntaxException {
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		// get Salesforce token from cookie
+=======
+	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
+>>>>>>> 0d57ebee9bb828cc918114a5eb325bfd743d4a72
+		Cookie[] cookies = servletRequest.getCookies();
+		SalesforceToken salesforceToken = null;
+		for (Cookie cookie : cookies) {
+			if (("token").equals(cookie.getName())) {
+				log.debug("Parse salesforce token: " + cookie.getValue());
+				salesforceToken = new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
+						SalesforceToken.class);
+				break;
+			}
+		}
+		log.info(salesforceToken);
+		return salesforceToken;
+	}
+
+	/**
+	 * Makes a request to Salesforce REST API to retrieve the authenticated
+	 * user's details
+	 * 
+	 * @param servletRequest
+	 * @param salesforceToken
+	 * @return
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 */
+	private SalesforceUser getSalesforceUserDetails(HttpServletRequest servletRequest, SalesforceToken salesforceToken)
+			throws IOException, URISyntaxException {
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		URIBuilder uriBuilder = new URIBuilder();
+		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())
+				.setPort(servletRequest.getServerPort()).setPath("/getSalesforceUser/")
+				.setParameter("endpoint", salesforceToken.getId())
+				.setParameter("accessToken", salesforceToken.getAccessToken());
+		URI uri = uriBuilder.build();
+		HttpGet httpGet = new HttpGet(uri);
+		HttpResponse response = httpClient.execute(httpGet);
+		String user = toJsonString(response.getEntity().getContent());
+		SalesforceUser salesforceUser = new ObjectMapper().readValue(user, SalesforceUser.class);
+		salesforceUser.setSalesforceToken(salesforceToken);
+		return salesforceUser;
+	}
+
+	/**
+	 * Gets Caliber user from database (TRAINER table) and validates if provided
+	 * email is authorized to user Caliber. All authorized Caliber users must
+	 * exist as a TRAINER record with email matching that of Salesforce user
+	 * email.
+	 * 
+	 * @param servletRequest
+	 * @param email
+	 * @return
+	 * @throws URISyntaxException
+	 * @throws IOException
+	 */
+	private String getCaliberTrainer(HttpServletRequest servletRequest, String email)
+			throws URISyntaxException, IOException {
+		HttpClient httpClient = HttpClientBuilder.create().build();
 		URIBuilder uriBuilder = new URIBuilder();
 		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())
 				.setPort(servletRequest.getServerPort()).setPath("/training/trainer/byemail/" + email + "/");
@@ -87,79 +185,21 @@ public class BootController extends Helper {
 			throw new NotAuthorizedException();
 		}
 		log.info(jsonString);
-		authorize(jsonString, salesforceUser, servletResponse);
-		return "index";
+		return jsonString;
 	}
 
 	/**
-	 * ------------------------PRODUCTION ONLY------------------------
-	 * Salesforce authentication controller (AuthenticationImpl) forwards the
-	 * OAuth token to this controller method to login into the Caliber
-	 * applications. Adds the SalesforceUser to the Security Context.
-	 *
-	 * Forwards to the landing page.
-	 *
-	 * TODO enable at go-live
-	 *
-	 * @param servletRequest
-	 *            the servlet request
+	 * Parses a Json String containing TRAINER bean. Authorize the user with
+	 * Caliber and store their PreAuthenticatedAuthenticationToken in session.
+	 * Adds convenience 'role' cookie for AngularJS consumption.
+	 * 
+	 * @param jsonString
+	 * @param salesforceUser
 	 * @param servletResponse
-	 *            the servlet response
-	 * @return the home page
 	 * @throws IOException
-	 *             the io exception
-	 * @throws URISyntaxException
-	 *             the uri syntax exception
 	 */
-	//@RequestMapping(value = "/caliber")
-	public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
-			throws IOException, URISyntaxException {
-		HttpClient httpClient = HttpClientBuilder.create().build();
-		// get Salesforce token from cookie
-		Cookie[] cookies = servletRequest.getCookies();
-		SalesforceToken salesforceToken = null;
-		for (Cookie cookie : cookies) {
-			if (("token").equals(cookie.getName())) {
-				log.debug("Parse salesforce token: " + cookie.getValue());
-				salesforceToken = new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
-						SalesforceToken.class);
-				break;
-			}
-		}
-		if(salesforceToken == null) 
-			throw new ServiceNotAvailableException();
-		// Http request to the salesforce module to get the salesforce user
-		URIBuilder uriBuilder = new URIBuilder();
-		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())
-				.setPort(servletRequest.getServerPort()).setPath("/getSalesforceUser/")
-				.setParameter("endpoint", salesforceToken.getId())
-				.setParameter("accessToken", salesforceToken.getAccessToken());
-		URI uri = uriBuilder.build();
-		HttpGet httpGet = new HttpGet(uri);
-		HttpResponse response = httpClient.execute(httpGet);
-		String user = toJsonString(response.getEntity().getContent());
-		SalesforceUser salesforceUser = new ObjectMapper().readValue(user, SalesforceUser.class);
-		salesforceUser.setSalesforceToken(salesforceToken);
-
-		// Http request to the training module to get the caliber user
-		String email = salesforceUser.getEmail();
-		uriBuilder = new URIBuilder();
-		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())
-				.setPort(servletRequest.getServerPort()).setPath("/training/trainer/byemail/" + email + "/");
-		uri = uriBuilder.build();
-		httpGet = new HttpGet(uri);
-		response = httpClient.execute(httpGet);
-		String jsonString = toJsonString(response.getEntity().getContent());
-		// check if we actually got back JSON object from the Salesforce
-		if (!jsonString.contains(email)) {
-			log.fatal("Training API returned: " + jsonString);
-			throw new NotAuthorizedException();
-		}
-		authorize(jsonString, salesforceUser, servletResponse);
-		return "index";
-	}
-	
-	private void authorize(String jsonString, SalesforceUser salesforceUser, HttpServletResponse servletResponse) throws IOException{
+	private void authorize(String jsonString, SalesforceUser salesforceUser, HttpServletResponse servletResponse)
+			throws IOException {
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
 			log.info("Logged in user " + jsonObject.getString("email") + " now hasRole: "
