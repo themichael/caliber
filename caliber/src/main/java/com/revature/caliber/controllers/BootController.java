@@ -118,6 +118,7 @@ public class BootController extends Helper {
 				break;
 			}
 		}
+		log.info(salesforceToken);
 		return salesforceToken;
 	}
 

@@ -19,7 +19,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
@@ -30,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.revature.caliber.security.Authorization;
 import com.revature.caliber.security.models.SalesforceUser;
 
@@ -55,7 +53,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	private String redirectUri;
 	@Value("#{systemEnvironment['CALIBER_PROJECT_URL']}")
 	private String redirectUrl;
-	@Value("services/oauth2/revoke/")
+	@Value("services/oauth2/revoke")
 	private String revokeUrl;
 
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
@@ -128,11 +126,11 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		if (!debug) {
 			// revoke all tokens from the Salesforce
 			String accessToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
-			log.info("Revoking token: " + accessToken);
+			log.info("Revoking access_token: " + accessToken);
 			revokeToken(accessToken);
 
 			String refreshToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
-			log.info("Revoking token: " + refreshToken);
+			log.info("Revoking refresh_token: " + refreshToken);
 			revokeToken(refreshToken);
 		}
 
@@ -147,6 +145,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	private void revokeToken(String token) throws ClientProtocolException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + revokeUrl);
+		log.info("POST " + loginURL + revokeUrl);
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("token", token));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
