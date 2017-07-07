@@ -131,7 +131,7 @@ public class BootController extends Helper {
 		// Http request to the salesforce module to get the Salesforce user
 		URIBuilder uriBuilder = new URIBuilder();
 		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())
-				.setPort(servletRequest.getServerPort()).setPath("/services/oauth2/userinfo") ///getSalesforceUser/
+				.setPort(servletRequest.getServerPort()).setPath("/getSalesforceUser/")
 				.setParameter("endpoint", salesforceToken.getId())
 				.setParameter("accessToken", salesforceToken.getAccessToken());
 		log.info(salesforceToken.getId());
