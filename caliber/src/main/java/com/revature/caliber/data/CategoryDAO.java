@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
@@ -31,6 +32,7 @@ public class CategoryDAO {
 		log.debug("Fetching categories");		
 		return sessionFactory.getCurrentSession().createCriteria(Category.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.eq("active", true))
 				.addOrder(Order.asc("categoryId")).list();
 	}
 	
@@ -38,5 +40,11 @@ public class CategoryDAO {
     public Category findOne(Integer id) {
         return (Category) sessionFactory.getCurrentSession().get(Category.class, id);
     }
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
+	public void Update(Category category)
+	{
+		sessionFactory.getCurrentSession().update(category);
+	}
+	
 	
 }
