@@ -127,12 +127,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		if (!debug) {
 			// revoke all tokens from the Salesforce
 			String accessToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
-			log.info("Revoking access_token: " + accessToken);
 			revokeToken(accessToken);
-
-			String idToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getIdToken();
-			log.info("Revoking id_token: " + idToken);
-			revokeToken(idToken);
 		}
 
 		// logout and clear Spring Security Context
@@ -144,9 +139,10 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	}
 
 	private void revokeToken(String token) throws ClientProtocolException, IOException {
+		log.info("POST " + loginURL + revokeUrl);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + revokeUrl);
-		log.info("POST " + loginURL + revokeUrl);
+		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("token", token));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
