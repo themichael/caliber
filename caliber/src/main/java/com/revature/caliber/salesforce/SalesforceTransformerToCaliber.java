@@ -3,10 +3,12 @@ package com.revature.caliber.salesforce;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.SkillType;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.salesforce.beans.BatchTrainer;
 import com.revature.salesforce.beans.SalesforceBatch;
+import com.revature.salesforce.beans.SalesforceTrainee;
 
 public class SalesforceTransformerToCaliber {
 
@@ -86,6 +88,11 @@ public class SalesforceTransformerToCaliber {
 		if(stringTrainingStatus == null){
 			stringTrainingStatus = "";
 		}
+		return transformStatusHelper(stringTrainingStatus);
+
+	}
+
+	private TrainingStatus transformStatusHelper(String stringTrainingStatus){
 		switch (stringTrainingStatus) {
 		case "Confirmed":
 			return TrainingStatus.Confirmed;
@@ -108,7 +115,5 @@ public class SalesforceTransformerToCaliber {
 		default:
 			return TrainingStatus.Training;
 		}
-
 	}
-
 }
