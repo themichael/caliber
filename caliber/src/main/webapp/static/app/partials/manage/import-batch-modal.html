@@ -29,13 +29,22 @@
 						<div>
 							<table class="batchModal">
 								<tr>
-									<th>Batch Details:</th>
+									<th>Batch Details</th>
+									<th>Training Name</th>
+									<th>Trainer</th>
+									<th>Trainer Email</th>
+									<th>Co-Trainer</th>
+									<th>Co-Trainer Email</th>
+									<th>Training Type</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+									<th>Location</th>
 								</tr>
-								<tr >
+								<tr>
 									<td>{{batchToImport.trainingName}}</td>
 								</tr>
 								<tr>
-									<td>{{batchToImport.trainer.name}}{{batchToImport.trainer.email}}{{batchToImport.trainingType}}</td>
+									<td>{{batchToImport.trainer.name}}{{batchToImport.trainer.email}}{{batchToImport.cotrainer.name}}{{batchToImport.cotrainer.email}}{{batchToImport.trainingType}}</td>
 								</tr>
 								<tr>
 									<td>{{batchToImport.startDate}}{{batchToImport.endDate}}</td>
