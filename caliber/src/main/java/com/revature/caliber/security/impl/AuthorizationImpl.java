@@ -55,7 +55,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	private String redirectUri;
 	@Value("#{systemEnvironment['CALIBER_PROJECT_URL']}")
 	private String redirectUrl;
-	@Value("services/oauth2/revoke")
+	@Value("services/oauth2/revoke/")
 	private String revokeUrl;
 
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
@@ -153,7 +153,6 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		HttpResponse response = httpClient.execute(post);
 		log.info("Revoke token : " + response.getStatusLine().getStatusCode() + " "
 				+ response.getStatusLine().getReasonPhrase());
-		log.info("Revoke token result : " + new ObjectMapper().readValue(response.getEntity().getContent(), JsonNode.class));
 	}
 
 	public void setAuthURL(String authURL) {
