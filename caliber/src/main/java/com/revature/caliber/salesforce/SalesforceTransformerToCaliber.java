@@ -14,6 +14,8 @@ import com.revature.salesforce.beans.SalesforceTrainee;
 
 public class SalesforceTransformerToCaliber {
 
+	private static final Logger logger = Logger.getLogger(SalesforceTransformerToCaliber.class);
+	
 	public Batch transformBatch(SalesforceBatch salesforceBatch) {
 		Batch batch = new Batch();
 		if(salesforceBatch == null){
@@ -137,7 +139,6 @@ public class SalesforceTransformerToCaliber {
 		try {
 			return TrainingStatus.valueOf(stringTrainingStatus);
 		} catch (IllegalArgumentException exp) {
-			Logger logger = Logger.getLogger("com.revature");
 			logger.debug("Exp caught in SalesforceTransformer.transformStatusHelper");
 	        logger.debug(exp);
 			return TrainingStatus.Training;
