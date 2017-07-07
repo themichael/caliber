@@ -167,9 +167,9 @@ public class ReportingController {
 
 	@RequestMapping(value = "/all/reports/dashboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Map<Integer, Double>>> getCurrentBatchesLineChart() {
-		log.info("getCurrentBatchesLineChart   ===>  /all/reports/dashboard" + reportingService.getAllCurrentBatchesLineChartConcurrent());
-		System.out.println(reportingService.getAllCurrentBatchesLineChartConcurrent());
-		return new ResponseEntity<Map<String, Map<Integer, Double>>>(reportingService.getAllCurrentBatchesLineChartConcurrent(),
+		log.info("getCurrentBatchesLineChart   ===>  /all/reports/dashboard" + reportingService.getAllCurrentBatchesLineChart());
+		System.out.println(reportingService.getAllCurrentBatchesLineChart());
+		return new ResponseEntity<Map<String, Map<Integer, Double>>>(reportingService.getAllCurrentBatchesLineChart(),
 				HttpStatus.OK);
 	}
 
