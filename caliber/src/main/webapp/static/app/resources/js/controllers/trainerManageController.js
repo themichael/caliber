@@ -2,7 +2,7 @@
  * Team: Fareed SSH 
  * Team Lead: Sudish 
  * Authors: Fareed Ali, 
- * Sean Connelly, chili
+ * Sean Connelly,
  * Sudish Itwaru, 
  * Hendy Guy
  * 
