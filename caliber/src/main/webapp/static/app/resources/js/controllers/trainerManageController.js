@@ -246,19 +246,18 @@ angular
 
 					}
 
-					/** Import batch form for creating new batch**/
+					/** Import batch form for creating new batch* */
 					$scope.importBatchForm = function() {
-						
 						$scope.batchFormName = "Import New Batch"
 						$scope.Save = "Save";
-						
-					}	
-					/** Select batch by year **/
+
+					}
+					/** Select batch by year * */
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];
 						sortByDate($scope.selectedBatchYear);
 					};
-					
+
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
 						$scope.batchFormName = "Create New Batch"
@@ -331,7 +330,7 @@ angular
 									.updateBatch($scope.currentBatch)
 									.then(
 											function() {
-											
+
 												$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch
 											});
 
@@ -360,7 +359,6 @@ angular
 												// format dates so qc, assess
 												// and reports can access
 												// batches immediately
-											
 
 												$scope.batches.push(newBatch);
 
@@ -370,10 +368,6 @@ angular
 						angular.element("#createBatchModal").modal("hide");
 					};
 
-					
-					
-					
-					
 					/** Delete batch* */
 					$scope.deleteBatch = function() {
 						caliberDelegate.all
@@ -513,7 +507,7 @@ angular
 						caliberDelegate.all.getTraineeByEmail(
 								$scope.traineeForm.email).then(
 								function(response) {
-									$log.debug("find email response ")
+									$log.debug("find email" + response)
 									$log.debug(response)
 									if (response.data === "") {
 										$log.debug("email does not exist")
@@ -626,15 +620,20 @@ angular
 						angular.element("#deleteTraineeModal").modal("hide");
 
 					};
-					
-					/** When multiple modals are opened upon removing one the modal-open is removed.
-					 *  The following code adds the modal-open back into the HTML */
-					
-					$(document).on('hidden.bs.modal','#addTraineeModal', function () {
-						$("body").addClass("modal-open");
-					});
-					$(document).on('hidden.bs.modal','#deleteTraineeModal', function () {
-						$("body").addClass("modal-open");
-					});
+
+					/**
+					 * When multiple modals are opened upon removing one the
+					 * modal-open is removed. The following code adds the
+					 * modal-open back into the HTML
+					 */
+
+					$(document).on('hidden.bs.modal', '#addTraineeModal',
+							function() {
+								$("body").addClass("modal-open");
+							});
+					$(document).on('hidden.bs.modal', '#deleteTraineeModal',
+							function() {
+								$("body").addClass("modal-open");
+							});
 
 				});

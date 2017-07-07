@@ -10,10 +10,10 @@
 							<li ng-repeat="menuItem in years track by $index"><a
 								role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
 						</ul></li>
-						<!-- Button Trigger for Import Batch Modal -->
+					<!-- Button Trigger for Import Batch Modal -->
 					<li role="button" class="pull-right" data-toggle="modal"
-						data-target="#importBatchModal" ng-click="importBatchForm()"><a>Import 
-							Batch<span class="glyphicon glyphicon-plus" aria-hidden="true">	
+						data-target="#importBatchModal" ng-click="importBatchForm()"><a>Import
+							Batch<span class="glyphicon glyphicon-plus" aria-hidden="true">
 						</span>
 					</a></li>
 					<!-- Button Trigger for Create Batch Modal -->
@@ -21,7 +21,7 @@
 						data-target="#createBatchModal" ng-click="resetBatchForm()"><a>Create
 							Batch<span class="glyphicon glyphicon-plus" aria-hidden="true">
 						</span>
-					</a></li>	
+					</a></li>
 				</ul>
 			</div>
 		</div>
@@ -86,10 +86,10 @@
 
 	<!-- form for updating or creating batch -->
 	<div ui-view="batch-form">batch-form</div>
-	
+
 	<!-- for for importing batch -->
 	<div ui-view="import-batch">import-batch</div>
-	
+
 	<!-- confirm and invalid input modals for batch -->
 	<div ui-view="batch-extra-modals"></div>
 
