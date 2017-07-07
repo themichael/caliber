@@ -69,7 +69,6 @@ public class BootController extends Helper {
 	@RequestMapping(value = "/caliber")
 	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
-		log.info(debug);
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();

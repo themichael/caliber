@@ -1,7 +1,14 @@
 package com.revature.caliber.security.impl;
 
-import com.revature.caliber.security.Authorization;
-import com.revature.caliber.security.models.SalesforceUser;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -14,19 +21,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
+import com.revature.caliber.security.Authorization;
+import com.revature.caliber.security.models.SalesforceUser;
 
 /**
  * Created by louislopez on 1/18/17.
@@ -102,7 +105,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		return new ModelAndView(REDIRECT + redirectUrl);
 
 	}
-
+	
 	/**
 	 * Needs further testing and experimentation to revoke all tokens and logout
 	 * of connected app
@@ -111,10 +114,12 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * @param session
 	 * @return
 	 * @throws IOException
+	 * @throws ServletException 
 	 */
-	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView revoke(Authentication auth, HttpSession session) throws IOException {
-		if (auth != null) {
+	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
+	public ModelAndView revoke(Authentication auth, HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws IOException, ServletException {
+		if (!debug) {
+			// revoke all tokens from the Salesforce
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
 			log.info("Revoking token: " + token);
@@ -124,8 +129,13 @@ public class AuthorizationImpl extends Helper implements Authorization {
 			post.setEntity(new UrlEncodedFormEntity(parameters));
 			httpClient.execute(post);
 		}
-		session.invalidate();
-		return new ModelAndView("redirect:revoke");
+		
+		// logout and clear Spring Security Context
+		servletRequest.logout();
+		SecurityContextHolder.clearContext();
+
+		log.info("User has logged out");
+		return new ModelAndView("index");
 	}
 
 	public void setAuthURL(String authURL) {
