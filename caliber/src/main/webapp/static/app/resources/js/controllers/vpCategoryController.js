@@ -18,7 +18,7 @@ angular
 		.module("vp")
 		.controller(
 				"vpCategoryController",
-				function($scope, $log, caiberDelegate) {
+				function($scope, $log) {
 					
 				});
 
