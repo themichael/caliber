@@ -99,7 +99,6 @@ public class SalesforceDAO {
 			for(SalesforceBatch salesForceBatch : response.getRecords()){
 				relevantBatchesList.add(transformmer.transformBatch(salesForceBatch));
 			}
-			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
 			log.error("Cannot get Salesforce batches:  " + e);
 		}
