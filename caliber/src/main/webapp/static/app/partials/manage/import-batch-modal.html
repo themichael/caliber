@@ -1,4 +1,3 @@
-
 <!--********************************************* Import Batch Modal ************************************-->
 <form>
 	<div class="modal fade" id="importBatchModal" tabindex="-1"
@@ -17,13 +16,46 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
-							<label for="batchItem">Batch Name:</label> <select
-								ng-model="batchToImport" class="form-control" required>
-								<option>Java Yuvi Patrick 1705</option>
-								<option>Salesforce Genesis Nick 1706</option>
-								<option>.Net Fred 1706</option>
-								<option>SDET Joe Ankit 1709</option>
+							<label for="batchItem">Batch Name:</label> 
+							<select 
+								class="form-control"
+								ng-model="selectedBatch"
+								ng-options="availableBatch as availableBatch.trainingName for availableBatch in allAvailableBatches"
+								ng-change="selectedBatchToImport()" >
 							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div>
+							<table class="batchModal">
+								<tr>
+									<th>Batch Details:</th>
+								</tr>
+								<tr >
+									<td>{{batchToImport.trainingName}}</td>
+								</tr>
+								<tr>
+									<td>{{batchToImport.trainer.name}}{{batchToImport.trainer.email}}{{batchToImport.trainingType}}</td>
+								</tr>
+								<tr>
+									<td>{{batchToImport.startDate}}{{batchToImport.endDate}}</td>
+								</tr>
+								<tr>
+									<td>{{batchToImport.location}}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div>
+							<table class="batchModal">
+								<tr>
+									<th>Trainees:</th>
+								</tr>
+								<tr ng-repeat="trainee in traineeToImport">
+									<td>{{trainee.name}}{{trainee.phoneNumber}}{{trainee.email}}{{trainee.trainingStatus}}</td>
+								</tr>						
+							</table>
 						</div>
 					</div>
 				</div>
