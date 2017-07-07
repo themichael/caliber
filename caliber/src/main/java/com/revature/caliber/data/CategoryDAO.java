@@ -20,36 +20,43 @@ public class CategoryDAO {
 
 	private static final Logger log = Logger.getLogger(CategoryDAO.class);
 	private SessionFactory sessionFactory;
-	
+
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
-	public List<Category> findAll(){
-		log.debug("Fetching categories");		
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Category> findAll() {
+		log.debug("Fetching categories");
 		return sessionFactory.getCurrentSession().createCriteria(Category.class)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.eq("active", true))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).add(Restrictions.eq("active", true))
 				.addOrder(Order.asc("categoryId")).list();
 	}
-	
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
-    public Category findOne(Integer id) {
-        return (Category) sessionFactory.getCurrentSession().get(Category.class, id);
-    }
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
-	public void Update(Category category)
-	{
+
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Category> findAllCategories() {
+		log.debug("Fetching categories");
+		return sessionFactory.getCurrentSession().createCriteria(Category.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("categoryId")).list();
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Category findOne(Integer id) {
+		return (Category) sessionFactory.getCurrentSession().get(Category.class, id);
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void Update(Category category) {
 		log.debug("updating category");
 		sessionFactory.getCurrentSession().update(category);
 	}
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
-	public void Save(Category category) 
-	{
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void Save(Category category) {
 		sessionFactory.getCurrentSession().save(category);
 	}
-	
+
 }

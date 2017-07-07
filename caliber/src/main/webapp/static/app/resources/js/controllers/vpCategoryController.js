@@ -13,3 +13,9 @@
  * 			functionality to be able to toggle an assessment from active to inactive.
  * ******************************************************************************
  */
+
+angular.module("vp").controller("vpCategoryController",function($scope, $log, caliberDelegate) {
+	
+	$scope.GetAllCategories = function(){};
+	
+});
