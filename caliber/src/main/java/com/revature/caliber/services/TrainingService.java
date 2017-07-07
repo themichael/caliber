@@ -113,6 +113,7 @@ public class TrainingService {
 	 **/
 	public void makeInactive(Trainer trainer) {
 		log.debug(trainer + " is now inactive");
+		trainer.setTier(TrainerRole.ROLE_INACTIVE);
 		trainerDAO.update(trainer);
 	}
 
