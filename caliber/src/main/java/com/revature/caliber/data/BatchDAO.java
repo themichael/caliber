@@ -123,15 +123,15 @@ public class BatchDAO {
 	public List<Batch> findAllCurrentWithNotesAndTrainees() {
 		log.info("Fetching all current batches with trainees, grades and notes");
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, -3);
+		//endDateLimit.add(Calendar.MONTH, -3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
-				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC)).add(Restrictions.eq("n.qcFeedback", true))
+				//.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
+				//.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
+				//.add(Restrictions.ge("endDate", endDateLimit.getTime()))
+				//.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC)).add(Restrictions.eq("n.qcFeedback", true))
 				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
 	}

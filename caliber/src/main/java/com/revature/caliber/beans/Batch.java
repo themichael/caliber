@@ -38,7 +38,7 @@ import com.revature.caliber.validator.BatchValObject;
  */
 @Entity
 @Table(name = "CALIBER_BATCH")
-@BatchValObject
+//@BatchValObject
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Batch implements Serializable {
