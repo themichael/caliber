@@ -2,8 +2,8 @@ package com.revature.caliber.data;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -18,13 +18,13 @@ import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.beans.TrainingType;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
+import com.revature.caliber.salesforce.SalesforceTransformerToCaliber;
 import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceBatchResponse;
 import com.revature.salesforce.beans.SalesforceTraineeResponse;
 
@@ -40,7 +40,7 @@ import com.revature.salesforce.beans.SalesforceTraineeResponse;
 public class SalesforceDAO {
 
 	private static final Logger log = Logger.getLogger(SalesforceDAO.class);
-	private static final boolean DEBUG_MODE = true;
+	private static final boolean DEBUG_MODE = false;
 	
 	@Value("#{systemEnvironment['SALESFORCE_INSTANCE_URL']}")
 	private String salesforceInstanceUrl;
@@ -53,10 +53,10 @@ public class SalesforceDAO {
 	 * Will change as of version 2.0 Salesforce API in August/September 2017 timeframe
 	 * Used to populate the dropdown list of importable batches.
 		select id, name, batch_start_date__c, batch_end_date__c,
-			batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c,
+			batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, Skill_Type__c, Location__c,
 			Type__c from training__c where batch_start_date__c >= THIS_YEAR
 	 */
-	@Value("select id, name, batch_start_date__c, batch_end_date__c, batch_trainer__r.name, Co_Trainer__r.name, Skill_Type__c, Type__c from training__c where batch_start_date__c >= THIS_YEAR")
+	@Value("select id, name, batch_start_date__c, batch_end_date__c, batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, Skill_Type__c, Location__c, Type__c from training__c where batch_start_date__c >= THIS_YEAR")
 	private String relevantBatches;
 	
 	/**
@@ -88,30 +88,38 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	public List<Batch> getAllRelevantBatches(){
+		List<Batch> relevantBatchesList = new LinkedList<Batch>(); 
+		
 		try {
 			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
-			log.debug(response);
+			log.info(response);
 			
-			throw new UnsupportedOperationException("not yet fully implemented method");
+			SalesforceTransformerToCaliber transformmer = new SalesforceTransformerToCaliber();
+			
+			for(SalesforceBatch salesForceBatch : response.getRecords()){
+				relevantBatchesList.add(transformmer.transformBatch(salesForceBatch));
+			}
 		} catch (IOException e) {
 			log.error("Cannot get Salesforce batches:  " + e);
-			throw new ServiceNotAvailableException();
 		}
+		
+		return relevantBatchesList;
 	}
 	
 	/**
-	 * TODO - Delete this method
+	 * TO DO - Delete this method
 	 * This method creates fake data and sends back a list of batches
 	 * @returns list of hard coded batches
 	 */
 	public List<Batch> getFakeReleventBatches(){
-		List<Batch> batch = new ArrayList<Batch>();
+		List<Batch> batch = new LinkedList<>();
 		
 		Trainer t = new Trainer("Yuvaraj Damodaran", "Lead Trainer", "yuvarajd@revature.com", TrainerRole.ROLE_TRAINER);
 		
-		batch.add(new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190"));
+		batch.add(new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20191"));
 		batch.get(0).setResourceId("Id1");
-		batch.add(new Batch("1707 July 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190"));
+		batch.add(new Batch("1707 July 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20192"));
+		batch.add(new Batch("1708 Augest 10 JAVA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190"));
 
 
 		return batch;
@@ -123,10 +131,11 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	public List<Trainee> getFakeBatchDetails(String resourceId){
-		List<Trainee> trainees = new ArrayList<Trainee>();
+		List<Trainee> trainees = new LinkedList<>();
 		
+		resourceId = "Doesn't matter";
 		Trainer t = new Trainer("Yuvaraj Damodaran", "Lead Trainer", "yuvarajd@revature.com", TrainerRole.ROLE_TRAINER);
-		Batch batch = new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190");
+		Batch batch = new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20194");
 
 		trainees.add(new Trainee("Danny Howl", "I2", "DHowl@gmail.com", batch));
 		trainees.add(new Trainee("John Doe", "I3", "JohnDoe@gmail.com", batch));
@@ -142,10 +151,10 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	public List<Trainee> getBatchDetails(String resourceId){
-		String query = batchDetails + "' " + resourceId + " + '";
+		String query = batchDetails + "'" + resourceId + "'";
 		try {
 			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
-			log.debug(response);
+			log.info(response);
 			
 			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
@@ -181,7 +190,7 @@ public class SalesforceDAO {
 	 */
 	private String getAccessToken() {
 		if(DEBUG_MODE)
-			return "00D0n0000000Q1l!AQQAQF8kUz6QVhBC8_zSVi4k8mjZeKbwe3fUJzgAKcFWLyGBMEWdsaeRJOcS90VaNTwYHdyhJ27F4kJlSZhL4pYlqk6XNk4J";
+			return "00D0n0000000Q1l!AQQAQF_kubnCvgu2H.S9V52ySqMgRKKm2Yesr4XlCqM7wZHc_es3Yfk6anLFPf23SvK3G_ZyHUHHwIZkI4IIQ8u3xyypLTpn";
 		else
 			return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}

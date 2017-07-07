@@ -33,9 +33,10 @@ public class SalesforceService {
 	public List<Batch> getAllRelevantBatches() {
 		log.debug("Find all current batches by year");
 		// TODO - Change Fake data to All data
-		List<Batch> allSalesForceBatches = salesforceDAO.getFakeReleventBatches();
+		List<Batch> allSalesForceBatches = salesforceDAO.getAllRelevantBatches();
 		List<Batch> allCaliberBatches = batchDAO.findAll();
 
+		//Removing batches already in Caliber database
 		for (int sfIndex = 0; sfIndex < allSalesForceBatches.size(); sfIndex++) {
 			String sfResourceId = allSalesForceBatches.get(sfIndex).getResourceId();
 			for (int cIndex = 0; cIndex < allCaliberBatches.size(); cIndex++) {
@@ -64,16 +65,5 @@ public class SalesforceService {
 		return salesforceDAO.getFakeBatchDetails(resourceId);
 	}
 	
-
-	/**
-	 * FIND ALL TRAINEES FROM A SALESFORCE BATCHE
-	 * 
-	 * @return List of Trainee's from a batch
-	 */
-
-	public List<Trainee> getBatchDetails(String resourceId) {
-		log.debug("Find all current batches by resource id");
-		return salesforceDAO.getBatchDetails(resourceId);
-	}
 
 }

@@ -40,6 +40,9 @@ public class SalesforceBatch {
 	@JsonProperty("Skill_Type__c")
 	private String skillType;
 	
+	@JsonProperty("Location__c")
+	private String location;
+	
 	@JsonProperty("Type__c")
 	private String type;
 	
@@ -119,6 +122,14 @@ public class SalesforceBatch {
 		this.type = type;
 	}
 
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -128,6 +139,7 @@ public class SalesforceBatch {
 		result = prime * result + ((batchStartDate == null) ? 0 : batchStartDate.hashCode());
 		result = prime * result + ((cotrainer == null) ? 0 : cotrainer.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((skillType == null) ? 0 : skillType.hashCode());
 		result = prime * result + ((trainer == null) ? 0 : trainer.hashCode());
@@ -169,6 +181,11 @@ public class SalesforceBatch {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (location == null) {
+			if (other.location != null)
+				return false;
+		} else if (!location.equals(other.location))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -196,7 +213,7 @@ public class SalesforceBatch {
 	public String toString() {
 		return "SalesforceBatch [attributes=" + attributes + ", id=" + id + ", name=" + name + ", batchStartDate="
 				+ batchStartDate + ", batchEndDate=" + batchEndDate + ", trainer=" + trainer + ", cotrainer="
-				+ cotrainer + ", skillType=" + skillType + ", type=" + type + "]";
+				+ cotrainer + ", skillType=" + skillType + ", location=" + location + ", type=" + type + "]";
 	}
 	
 }

@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.security.impl.Helper;
 import com.revature.caliber.exceptions.NotAuthorizedException;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
+import com.revature.caliber.security.impl.Helper;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
 
@@ -65,7 +65,7 @@ public class BootController extends Helper {
 	 * @throws URISyntaxException
 	 *             the uri syntax exception
 	 */
-	@RequestMapping(value = "/caliber")
+	//@RequestMapping(value = "/caliber")
 	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
@@ -111,7 +111,7 @@ public class BootController extends Helper {
 	 * @throws URISyntaxException
 	 *             the uri syntax exception
 	 */
-	//@RequestMapping(value = "/caliber")
+	@RequestMapping(value = "/caliber")
 	public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
