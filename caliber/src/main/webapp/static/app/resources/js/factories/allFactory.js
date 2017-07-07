@@ -119,7 +119,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	 */
 	all.importAvailableBatches = function() {
 		return $http({
-			url : "/all/batch/import",
+			url : "/all/batch/salesforce/import",
 			method : "GET",
 		}).then(function(response) {
 			$log.debug("Object successfully imported");
