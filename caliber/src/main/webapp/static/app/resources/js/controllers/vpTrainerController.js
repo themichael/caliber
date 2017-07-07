@@ -52,10 +52,10 @@ angular
 						$scope.trainersTitles = titles;
 					});
 
-					/** show email verification modal* */
+					/** Save email verification modal* */
 					$scope.checkTrainerEmail = function(trainerForm) {
-						caliberDelegate.all
-								.getTrainerByEmail(trainerForm.email)
+						caliberDelegate.vp
+								.getTrainerEmail(trainerForm.email)
 								.then(
 										function(response) {
 											$log.debug(response)

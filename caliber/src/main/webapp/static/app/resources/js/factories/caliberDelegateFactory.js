@@ -89,10 +89,6 @@ angular
 					delegate.all.getTraineeByEmail = function(traineeEmail) {
 						return allFactory.getTraineeEmail(traineeEmail);
 					}
-					
-					delegate.all.getTrainerByEmail = function(trainerEmail) {
-						return vpFactory.getTrainerEmail(trainerEmail);
-					}
 
 					/**
 					 * *********************** Enum constants
@@ -205,15 +201,14 @@ angular
 						return vpFactory.getAllCurrentBatches();
 					};
 
-					delegate.vp.deactivateTrainer = function(trainerObj){
+					delegate.vp.deactivateTrainer = function(trainerObj) {
 						return vpFactory.deactivateTrainer(trainerObj);
 					}
 
-					
 					delegate.vp.updateTrainer = function(trainerObj) {
 						return vpFactory.updateTrainer(trainerObj);
 					};
-					
+
 					delegate.vp.createTrainer = function(trainerObj) {
 						return vpFactory.createTrainer(trainerObj);
 					};
@@ -221,6 +216,10 @@ angular
 					delegate.vp.TrainersTitles = function() {
 						return vpFactory.getAllTrainersTitle();
 					};
+
+					delegate.vp.getTrainerEmail = function(trainerEmail) {
+						return vpFactory.getTrainerEmail(trainerEmail);
+					}
 
 					/** ************************ QC **************************** */
 					delegate.qc.getAllBatches = function() {
