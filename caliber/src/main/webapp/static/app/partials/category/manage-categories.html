@@ -1,3 +1,4 @@
+<!-- Create Assessment Categories and Edit assessment Categories including making it active or inactive -->
 <div>
 	<div class="container">
 		<div class="row">
@@ -11,11 +12,33 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
 </div>
+
+<!-- Display all assessment categories -->
+<div class="container"  id="trainer-assess-table">
+	<div class="row">
+		<div class="col-md-12 col-lg-12 top5">
+					<!-- Accordian table -->
+					<table class="table table-responsive"
+						style="border-collapse: collapse;" ng-show="currentView">
+						<thead>
+							<tr sticky class='sticky-header'>
+								<th class="col-sm-2 col-md-2 col-lg-2">Categories</th>
+								<div>
+									<th class="col-sm-9 col-md-9 col-lg-9">State</th>
+								</div>
+							</tr> 
+						</thead>
+						<tbody>
+								
+						</tbody>
+						<tfoot>
+							
+						</tfoot>
+							
+					</table>
+		</div>
+	</div>
+</div>
+
+<!-- Create modals here (look at trainer-assess.html for examples) -->
