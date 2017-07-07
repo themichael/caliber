@@ -11,9 +11,13 @@ import com.revature.caliber.salesforce.SalesforceTransformerToCaliber;
 import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceTrainee;
 
+<<<<<<< HEAD:caliber/src/test/java/com/revature/caliber/transform/TransformTest.java
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
 public class TransformTest {
+=======
+public class TransformDev {
+>>>>>>> 3179b01580cd769d64ff215d783c49ddf5be1016:caliber/src/test/java/com/revature/caliber/transform/TransformDev.java
 	
 	@Autowired
 	private SalesforceBatch salesforceBatch = new SalesforceBatch(); 
