@@ -124,13 +124,13 @@ public class AuthorizationImpl extends Helper implements Authorization {
 			return new ModelAndView(REDIRECT + REVATURE);
 		if (!debug) {
 			// revoke all tokens from the Salesforce
-			String access_token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
-			log.info("Revoking token: " + access_token);
-			revokeToken(access_token);
+			String accessToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
+			log.info("Revoking token: " + accessToken);
+			revokeToken(accessToken);
 			
-			String refresh_token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
-			log.info("Revoking token: " + refresh_token);
-			revokeToken(refresh_token);
+			String refreshToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
+			log.info("Revoking token: " + refreshToken);
+			revokeToken(refreshToken);
 		}
 		
 		// logout and clear Spring Security Context
@@ -147,7 +147,8 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("token", token));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
-		httpClient.execute(post);
+		HttpResponse response = httpClient.execute(post);
+		log.info("Revoke token : " + response.getStatusLine().getStatusCode());
 	}
 
 	public void setAuthURL(String authURL) {
