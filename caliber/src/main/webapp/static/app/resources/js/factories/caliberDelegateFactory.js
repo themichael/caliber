@@ -204,6 +204,14 @@ angular
 					delegate.vp.getAllCurrentBatches = function() {
 						return vpFactory.getAllCurrentBatches();
 					};
+					
+					delegate.vp.getAllCategories = function(){
+						return vpFactory.getAllCategories();
+					};
+					
+					delegate.vp.updateCategory = function(category){
+						return vpFactory.updateCategory(category);
+					};
 
 					/** ************************ QC **************************** */
 					delegate.qc.getAllBatches = function() {
