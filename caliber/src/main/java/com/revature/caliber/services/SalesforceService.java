@@ -35,20 +35,21 @@ public class SalesforceService {
 		log.debug("Find all current batches by year");
 		List<Batch> allSalesForceBatches = salesforceDAO.getAllRelevantBatches();
 		List<Batch> allCaliberBatches = batchDAO.findAll();
-		List<Batch> retBatches = new LinkedList<>();
 		
 		//Removing batches already in Caliber database
 		for (int cIndex = 0; cIndex < allCaliberBatches.size(); cIndex++) {
 			String cResourceId = allCaliberBatches.get(cIndex).getResourceId();
-			if (cResourceId != null) {
-				for (int sfIndex = 0; sfIndex < allSalesForceBatches.size(); sfIndex++) {
-					String sfResourceId = allSalesForceBatches.get(sfIndex).getResourceId();
-					if(cResourceId.equals(sfResourceId)) {
-						allSalesForceBatches.remove(sfIndex);
-						break;
-					}
+			if (cResourceId == null) {
+				continue;
+			}
+			for (int sfIndex = 0; sfIndex < allSalesForceBatches.size(); sfIndex++) {
+				String sfResourceId = allSalesForceBatches.get(sfIndex).getResourceId();
+				if(cResourceId.equals(sfResourceId)) {
+					allSalesForceBatches.remove(sfIndex);
+					break;
 				}
 			}
+			
 		}
 
 		return allSalesForceBatches;
