@@ -34,5 +34,31 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	//Get all Categories
+	vp.getAllCategories = function(){
+		return $http({
+			url : "/vp/category",
+			method : "GET"
+		}).then(function(response){
+			$log.debug("Categories successfully retrived");
+			$log.debug(response);
+			return response.data;
+		},function(response){
+			$log.error("There was an error in vpFactory -> getAllCategories" + response.status);
+		});
+	}
+	//Update a category
+	vp.updateCategory = function(category){
+		return $http({
+			url : "/vp/category/update",
+			method : "PUT",
+			data : category
+		}).then(function(response){
+			$log.debug(category + " Has been Updated");
+			$log.debug(response);
+		},function(response){
+			$log.error("There was an error in vpFactory -> updateCategory " + response,status);
+		});
+	}
 	return vp;
 });

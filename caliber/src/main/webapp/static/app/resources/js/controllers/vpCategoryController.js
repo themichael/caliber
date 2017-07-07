@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Team: HKM 
  * Team Lead: Humberto Corea 
- * Authors: Humberto Corea, 
+ * Authors: Humberto Corea, s
  * Rex Toothman,
  * Carlos Vallejo
  * 
@@ -13,3 +13,19 @@
  * 			functionality to be able to toggle an assessment from active to inactive.
  * ******************************************************************************
  */
+
+angular
+		.module("vp")
+		.controller(
+				"vpCategoryController",
+				function($scope, $log, caiberDelegate) {
+					
+				});
+
+
+
+//angular.module("vp").controller("vpCategoryController",function($scope, $log, caliberDelegate) {
+//	
+//	$scope.GetAllCategories = function(){};
+//	
+//});
