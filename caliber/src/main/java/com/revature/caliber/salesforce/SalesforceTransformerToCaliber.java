@@ -33,7 +33,6 @@ public class SalesforceTransformerToCaliber {
 		Trainer trainer = new Trainer();
 		if(batchTrainer==null)
 			return trainer;
-		batchTrainer.setName("Yuvi");
 		trainer.setName(batchTrainer.getName());
 		return trainer;
 	}
