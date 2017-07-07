@@ -2,7 +2,6 @@ package com.revature.caliber.data;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -109,18 +108,18 @@ public class SalesforceDAO {
 	}
 	
 	/**
-	 * TODO - Delete this method
+	 * TO DO - Delete this method
 	 * This method creates fake data and sends back a list of batches
 	 * @returns list of hard coded batches
 	 */
 	public List<Batch> getFakeReleventBatches(){
-		List<Batch> batch = new ArrayList<Batch>();
+		List<Batch> batch = new LinkedList<>();
 		
 		Trainer t = new Trainer("Yuvaraj Damodaran", "Lead Trainer", "yuvarajd@revature.com", TrainerRole.ROLE_TRAINER);
 		
-		batch.add(new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190"));
+		batch.add(new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20191"));
 		batch.get(0).setResourceId("Id1");
-		batch.add(new Batch("1707 July 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190"));
+		batch.add(new Batch("1707 July 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20192"));
 		batch.add(new Batch("1708 Augest 10 JAVA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190"));
 
 
@@ -133,10 +132,11 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	public List<Trainee> getFakeBatchDetails(String resourceId){
-		List<Trainee> trainees = new ArrayList<Trainee>();
+		List<Trainee> trainees = new LinkedList<>();
 		
+		resourceId = "Doesn't matter";
 		Trainer t = new Trainer("Yuvaraj Damodaran", "Lead Trainer", "yuvarajd@revature.com", TrainerRole.ROLE_TRAINER);
-		Batch batch = new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20190");
+		Batch batch = new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20194");
 
 		trainees.add(new Trainee("Danny Howl", "I2", "DHowl@gmail.com", batch));
 		trainees.add(new Trainee("John Doe", "I3", "JohnDoe@gmail.com", batch));
@@ -151,18 +151,18 @@ public class SalesforceDAO {
 	 * Access data using the Salesforce REST API
 	 * @return
 	 */
-//	public List<Trainee> getBatchDetails(String resourceId){
-//		String query = batchDetails + "'" + resourceId + "'";
-//		try {
-//			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
-//			log.info(response);
-//			
-//			throw new UnsupportedOperationException("not yet fully implemented method");
-//		} catch (IOException e) {
-//			log.error("Cannot get batch details from Salesforce: cause " + e);
-//			throw new ServiceNotAvailableException();
-//		}
-//	}
+	public List<Trainee> getBatchDetails(String resourceId){
+		String query = batchDetails + "'" + resourceId + "'";
+		try {
+			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
+			log.info(response);
+			
+			throw new UnsupportedOperationException("not yet fully implemented method");
+		} catch (IOException e) {
+			log.error("Cannot get batch details from Salesforce: cause " + e);
+			throw new ServiceNotAvailableException();
+		}
+	}
 
 	//////////// API Helper Methods  //////////////
 	
