@@ -109,8 +109,9 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	}
 
 	/**
-	 * Needs further testing and experimentation to revoke all tokens and logout
-	 * of connected app
+	 * Clears session information and logout the user.
+	 * 
+	 * 	Note: Still retrieving 302 on access-token and null refresh-token
 	 * 
 	 * @param auth
 	 * @param session
