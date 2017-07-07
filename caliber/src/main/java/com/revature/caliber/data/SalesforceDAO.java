@@ -41,7 +41,9 @@ import com.revature.salesforce.beans.SalesforceTraineeResponse;
 public class SalesforceDAO {
 
 	private static final Logger log = Logger.getLogger(SalesforceDAO.class);
-	private static final boolean DEBUG_MODE = false;
+	
+	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
+	private boolean debug;
 	
 	@Value("#{systemEnvironment['SALESFORCE_INSTANCE_URL']}")
 	private String salesforceInstanceUrl;
@@ -196,7 +198,7 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	private String getAccessToken() {
-		if(DEBUG_MODE)
+		if(debug)
 			return "00D0n0000000Q1l!AQQAQF_kubnCvgu2H.S9V52ySqMgRKKm2Yesr4XlCqM7wZHc_es3Yfk6anLFPf23SvK3G_ZyHUHHwIZkI4IIQ8u3xyypLTpn";
 		else
 			return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
