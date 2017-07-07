@@ -13,16 +13,31 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 
 @Repository
-public class TrainerDAO{
-	
+public class TrainerDAO {
+
 	private static final Logger log = Logger.getLogger(TrainerDAO.class);
 	private SessionFactory sessionFactory;
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	/**
+	 * Find all trainers titles to be displayed on front end
+	 * 
+	 * 
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<String> findAllTrainerTitles() {
+		String hql = "select distinct title FROM Trainer";
+		return sessionFactory.getCurrentSession().createQuery(hql).list();
 	}
 
 	/**
@@ -51,6 +66,7 @@ public class TrainerDAO{
 	public List<Trainer> findAll() {
 		log.info("Finding all trainers");
 		return sessionFactory.getCurrentSession().createCriteria(Trainer.class)
+				.add(Restrictions.ne("tier", TrainerRole.ROLE_INACTIVE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 

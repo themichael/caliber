@@ -26,6 +26,7 @@ import com.revature.caliber.salesforce.SalesforceTransformerToCaliber;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceBatchResponse;
+import com.revature.salesforce.beans.SalesforceTrainee;
 import com.revature.salesforce.beans.SalesforceTraineeResponse;
 
 /**
@@ -40,7 +41,9 @@ import com.revature.salesforce.beans.SalesforceTraineeResponse;
 public class SalesforceDAO {
 
 	private static final Logger log = Logger.getLogger(SalesforceDAO.class);
-	private static final boolean DEBUG_MODE = false;
+	
+	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
+	private boolean debug;
 	
 	@Value("#{systemEnvironment['SALESFORCE_INSTANCE_URL']}")
 	private String salesforceInstanceUrl;
@@ -151,15 +154,22 @@ public class SalesforceDAO {
 	 */
 	public List<Trainee> getBatchDetails(String resourceId){
 		String query = batchDetails + "'" + resourceId + "'";
+		List<Trainee> trainees = new LinkedList<>();
+		
 		try {
 			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
 			log.info(response);
+
+			SalesforceTransformerToCaliber transformmer = new SalesforceTransformerToCaliber();
+			for(SalesforceTrainee trainee : response.getRecords()){
+				trainees.add(transformmer.transformTrainee(trainee));
+			}
 			
-			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
 			log.error("Cannot get batch details from Salesforce: cause " + e);
 			throw new ServiceNotAvailableException();
 		}
+		return trainees;
 	}
 
 	//////////// API Helper Methods  //////////////
@@ -188,7 +198,7 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	private String getAccessToken() {
-		if(DEBUG_MODE)
+		if(debug)
 			return "00D0n0000000Q1l!AQQAQF_kubnCvgu2H.S9V52ySqMgRKKm2Yesr4XlCqM7wZHc_es3Yfk6anLFPf23SvK3G_ZyHUHHwIZkI4IIQ8u3xyypLTpn";
 		else
 			return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
