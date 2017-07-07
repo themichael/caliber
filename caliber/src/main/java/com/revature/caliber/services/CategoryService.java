@@ -51,5 +51,15 @@ public class CategoryService {
 		log.debug("Find category: " + categoryId);
 		return categoryDAO.findOne(categoryId);
 	}
+	/**
+	 * Update CATEGORY
+	 * @param category
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void UpdateCategory(Category category)
+	{
+		log.debug("Update category: " + category);
+		categoryDAO.Update(category);
+	}
 
 }

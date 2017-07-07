@@ -40,5 +40,11 @@ public class CategoryDAO {
     public Category findOne(Integer id) {
         return (Category) sessionFactory.getCurrentSession().get(Category.class, id);
     }
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
+	public void Update(Category category)
+	{
+		sessionFactory.getCurrentSession().update(category);
+	}
+	
 	
 }
