@@ -128,7 +128,7 @@ public class BootController extends Helper {
 		}
 		if(salesforceToken == null) 
 			throw new ServiceNotAvailableException();
-		// Http request to the salesforce module to get the salesforce user
+		// Http request to the salesforce module to get the Salesforce user
 		URIBuilder uriBuilder = new URIBuilder();
 		uriBuilder.setScheme(servletRequest.getScheme()).setHost(servletRequest.getServerName())
 				.setPort(servletRequest.getServerPort()).setPath("/getSalesforceUser/")
