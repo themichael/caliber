@@ -103,9 +103,10 @@ public class TrainingController {
 	 * @return response entity
 	 */
 	@RequestMapping(value = "/vp/trainer/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Void> makeInactive(@Valid @RequestBody Trainer trainer) {
 		log.info("Updating trainer: " + trainer);
-		trainingService.update(trainer);
+		trainingService.makeInactive(trainer);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 

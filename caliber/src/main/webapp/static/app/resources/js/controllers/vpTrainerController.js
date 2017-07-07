@@ -12,7 +12,7 @@ angular
 		.module("vp")
 		.controller(
 				"vpTrainerController",
-				function($scope, $log, caliberDelegate, $state) {
+				function($scope, $log, caliberDelegate) {
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -29,6 +29,12 @@ angular
 									$scope.allTrainers = trainers;
 								});
 					};
+					
+					var submitTier = function(tier) {
+						var pre = "ROLE_"
+						return pre.concat(tier);
+					};
+					
 					/**
 					 * *********************************************** Code to
 					 * create and update Trainer************
@@ -52,10 +58,10 @@ angular
 						$scope.trainersTitles = titles;
 					});
 
-					/** show email verification modal* */
+					/** Save email verification modal* */
 					$scope.checkTrainerEmail = function(trainerForm) {
-						caliberDelegate.all
-								.getTrainerByEmail(trainerForm.email)
+						caliberDelegate.vp
+								.getTrainerEmail(trainerForm.email)
 								.then(
 										function(response) {
 											$log.debug(response)
@@ -142,16 +148,11 @@ angular
 						$scope.trainerForm.tier = "ROLE_INACTIVE";
 						caliberDelegate.vp
 								.deactivateTrainer($scope.trainerForm).then(
-										function(response) {
+										function() {
 											$log.debug("trainer deactivated");
 											$scope.loadAllTrainers();
 										});
 						angular.element("#deleteTrainerModal").modal("hide");
-					};
-
-					submitTier = function(tier) {
-						var pre = "ROLE_"
-						return pre.concat(tier);
 					};
 
 				});
