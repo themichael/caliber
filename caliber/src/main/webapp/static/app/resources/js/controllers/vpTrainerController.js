@@ -27,7 +27,6 @@ angular
 								function(trainers) {
 									$log.debug(trainers);
 									$scope.allTrainers = trainers;
-									console.log($scope.allTrainers);
 								});
 					};
 					/**
