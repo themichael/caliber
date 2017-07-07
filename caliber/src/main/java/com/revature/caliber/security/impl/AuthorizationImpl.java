@@ -55,39 +55,38 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	private HttpClient httpClient;
 	private HttpResponse response;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
+	private static final String REDIRECT = "redirect:";
 
 	public AuthorizationImpl() {
 		httpClient = HttpClientBuilder.create().build();
 	}
 
 	/**
-	 * ------------------------DEVELOPMENT ONLY------------------------ 
-	 * Pretends
+	 * ------------------------DEVELOPMENT ONLY------------------------ Pretends
 	 * to redirect to Salesforce for authentication.
 	 * 
 	 * TODO remove @RequestMapping at go-live
 	 */
-	@RequestMapping("/")
+	//@RequestMapping("/")
 	public ModelAndView dummyAuth() {
-		return new ModelAndView("redirect:" + redirectUrl);
+		return new ModelAndView(REDIRECT + redirectUrl);
 	}
 
 	/**
-	 * ------------------------PRODUCTION ONLY------------------------ 
-	 * Redirects
+	 * ------------------------PRODUCTION ONLY------------------------ Redirects
 	 * to Salesforce for authentication.
 	 * 
 	 * TODO enable at go-live
 	 */
-	//@RequestMapping("/")
+	 @RequestMapping("/")
 	public ModelAndView openAuthURI() {
-		return new ModelAndView(
-				"redirect:" +loginURL+ authURL + "?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri);
+		return new ModelAndView(REDIRECT + loginURL + authURL + "?response_type=code&client_id=" + clientId
+				+ "&redirect_uri=" + redirectUri);
 	}
 
 	/**
-	 * ------------------------PRODUCTION ONLY------------------------ 
-	 * Retrieves Salesforce authentication token.
+	 * ------------------------PRODUCTION ONLY------------------------ Retrieves
+	 * Salesforce authentication token.
 	 * 
 	 */
 	@RequestMapping("/authenticated")
@@ -105,7 +104,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		response = httpClient.execute(post);
 		String token = URLEncoder.encode(toJsonString(response.getEntity().getContent()), "UTF-8");
 		servletResponse.addCookie(new Cookie("token", token));
-		return new ModelAndView("redirect:" + redirectUrl);
+		return new ModelAndView(REDIRECT + redirectUrl);
 	}
 
 	/**
@@ -117,7 +116,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * @return
 	 * @throws IOException
 	 */
-	//@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView revoke(Authentication auth, HttpSession session) throws IOException {
 		if (auth != null) {
 			String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();

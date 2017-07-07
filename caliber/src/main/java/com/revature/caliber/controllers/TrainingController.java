@@ -96,7 +96,6 @@ public class TrainingController {
 		Trainer trainer = trainingService.findTrainer(email);
 		return new ResponseEntity<>(trainer, HttpStatus.OK);
 	}
-
 	/**
 	 * Deactivates the trainer
 	 * 

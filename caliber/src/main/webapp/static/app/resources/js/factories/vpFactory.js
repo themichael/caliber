@@ -22,7 +22,6 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-
 	// Get all current batches
 	vp.getAllCurrentBatches = function() {
 		return $http({
@@ -35,6 +34,7 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+<<<<<<< HEAD
 
 	//deactivate trainer needed to force content type to be JSON else 415
 	vp.deactivateTrainer = function (trainerObj){
@@ -137,5 +137,7 @@ angular.module("api").factory("vpFactory", function($log, $http) {
 	
 	
 	
+=======
+>>>>>>> ebc64b20e47976667ab4d1b3cf317f882e7f5e5e
 	return vp;
 });

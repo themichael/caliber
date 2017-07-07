@@ -436,8 +436,6 @@ angular
 											.then(
 													function(data) {
 														NProgress.done();
-														// TODO Change
-														// parameters
 														var barChartObj = chartsDelegate.bar
 																.getAverageTraineeScoresWeekly(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
 														$scope.averageTraineeScoresWeeklyData = barChartObj.data;
@@ -467,8 +465,6 @@ angular
 											.then(
 													function(data) {
 														NProgress.done();
-														// TODO Change
-														// parameters
 														var barChartObject = chartsDelegate.bar
 														.getAverageTraineeScoresOverall(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
 														$scope.batchOverAllLabels = barChartObject.labels;

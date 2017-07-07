@@ -4,7 +4,7 @@ angular
 				"vpHomeController",
 				function($scope, $log, caliberDelegate, chartsDelegate) {
 					$log.debug("Booted vp home controller.");
-					(function(start) {
+					(function() {
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
