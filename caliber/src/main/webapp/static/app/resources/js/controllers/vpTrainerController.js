@@ -12,7 +12,7 @@ angular
 		.module("vp")
 		.controller(
 				"vpTrainerController",
-				function($scope, $log, caliberDelegate, $state) {
+				function($scope, $log, caliberDelegate) {
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -142,14 +142,14 @@ angular
 						$scope.trainerForm.tier = "ROLE_INACTIVE";
 						caliberDelegate.vp
 								.deactivateTrainer($scope.trainerForm).then(
-										function(response) {
+										function() {
 											$log.debug("trainer deactivated");
 											$scope.loadAllTrainers();
 										});
 						angular.element("#deleteTrainerModal").modal("hide");
 					};
 
-					submitTier = function(tier) {
+					var submitTier = function(tier) {
 						var pre = "ROLE_"
 						return pre.concat(tier);
 					};
