@@ -1,5 +1,7 @@
 package com.revature.caliber.salesforce;
 
+import org.apache.log4j.Logger;
+
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
@@ -95,7 +97,9 @@ public class SalesforceTransformerToCaliber {
 		try {
 			return TrainingStatus.valueOf(stringTrainingStatus);
 		} catch (IllegalArgumentException exp) {
-			
+			Logger logger = Logger.getLogger("com.revature");
+			logger.debug("Exp caught in SalesforceTransformer.transformStatusHelper");
+	        logger.debug(exp);
 			return TrainingStatus.Training;
 		}
 	}
