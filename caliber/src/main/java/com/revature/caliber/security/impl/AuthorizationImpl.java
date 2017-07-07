@@ -83,6 +83,8 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * TODO enable at go-live
 	 */
 	// @RequestMapping("/")
+
+
 	public ModelAndView openAuthURI() {
 		if (debug) {
 			return new ModelAndView(REDIRECT + redirectUrl);
