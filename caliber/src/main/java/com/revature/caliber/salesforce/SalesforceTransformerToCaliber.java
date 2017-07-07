@@ -31,6 +31,8 @@ public class SalesforceTransformerToCaliber {
 	// TO DO - Tranform batchtrainers into trainers
 	public Trainer transformTrainer(BatchTrainer batchTrainer) {
 		Trainer trainer = new Trainer();
+		if(batchTrainer==null)
+			return trainer;
 		batchTrainer.setName("Yuvi");
 		trainer.setName(batchTrainer.getName());
 		return trainer;
