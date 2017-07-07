@@ -61,5 +61,11 @@ public class CategoryService {
 		log.debug("Update category: " + category);
 		categoryDAO.Update(category);
 	}
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void SaveCategory(Category category)
+	{
+		log.debug("Save category: " + category);
+		categoryDAO.Save(category);
+	}
 
 }

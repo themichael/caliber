@@ -43,8 +43,13 @@ public class CategoryDAO {
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
 	public void Update(Category category)
 	{
+		log.debug("updating category");
 		sessionFactory.getCurrentSession().update(category);
 	}
-	
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED)
+	public void Save(Category category) 
+	{
+		sessionFactory.getCurrentSession().save(category);
+	}
 	
 }

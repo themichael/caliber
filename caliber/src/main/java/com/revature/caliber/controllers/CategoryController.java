@@ -44,12 +44,18 @@ public class CategoryController {
 		Category category = categoryService.findCategory(id);
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
-	@RequestMapping(value="/category/update/", method=RequestMethod.PUT,
+	@RequestMapping(value="/vp/category/update", method=RequestMethod.PUT,
 			consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Category> UpdateCategory(@Valid @RequestBody Category category)
 	{
 		categoryService.UpdateCategory(category);
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
-	
+	@RequestMapping(value="/vp/category", method=RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Category> SaveCategory(@Valid @RequestBody Category category) 
+	{
+		categoryService.SaveCategory(category);
+		return new ResponseEntity<>(category, HttpStatus.CREATED);
+	}
 }
