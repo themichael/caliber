@@ -123,7 +123,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
 			log.info("Revoking token: " + token);
-			HttpPost post = new HttpPost(revokeUrl);
+			HttpPost post = new HttpPost(loginURL + revokeUrl);
 			List<NameValuePair> parameters = new ArrayList<>();
 			parameters.add(new BasicNameValuePair("token", token));
 			post.setEntity(new UrlEncodedFormEntity(parameters));
