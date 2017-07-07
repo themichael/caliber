@@ -88,7 +88,7 @@ public class SalesforceDAO {
 	 * @return
 	 */
 	public List<Batch> getAllRelevantBatches(){
-		List<Batch> relevantBatchesList = new LinkedList<Batch>(); 
+		List<Batch> relevantBatchesList = new LinkedList<>(); 
 		
 		try {
 			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
@@ -133,10 +133,9 @@ public class SalesforceDAO {
 	public List<Trainee> getFakeBatchDetails(String resourceId){
 		List<Trainee> trainees = new LinkedList<>();
 		
-		resourceId = "Doesn't matter";
 		Trainer t = new Trainer("Yuvaraj Damodaran", "Lead Trainer", "yuvarajd@revature.com", TrainerRole.ROLE_TRAINER);
 		Batch batch = new Batch("1705 May 8 JTA", t, new Date(), new Date(), "Revature LLC, 11730 Plaza America Drive, 2nd Floor | Reston, VA 20194");
-
+		batch.setResourceId(resourceId);
 		trainees.add(new Trainee("Danny Howl", "I2", "DHowl@gmail.com", batch));
 		trainees.add(new Trainee("John Doe", "I3", "JohnDoe@gmail.com", batch));
 		trainees.add(new Trainee("Jane Doe", "I4", "JaneDoe@gmail.com", batch));

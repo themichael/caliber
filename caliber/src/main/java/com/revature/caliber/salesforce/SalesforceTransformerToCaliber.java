@@ -35,25 +35,19 @@ public class SalesforceTransformerToCaliber {
 	public SkillType transformSkillType(SalesforceBatch salesforceBatch) {
 		String stringSkillType = salesforceBatch.getSkillType();
 		if(stringSkillType == null){
-			stringSkillType = "";
+			return SkillType.OTHER;
 		}
 		switch (stringSkillType) {
 		case "J2EE":
 			return SkillType.J2EE;
-			
 		case ".NET":
 			return SkillType.NET;
-		
 		case "SDET":
 			return SkillType.SDET;
-		
 		case "BPM":
 			return SkillType.BPM;
-			
-		default:
-			return SkillType.OTHER;
 		}
-
+		return SkillType.OTHER;
 	}
 
 }
