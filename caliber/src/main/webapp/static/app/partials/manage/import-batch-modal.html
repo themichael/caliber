@@ -27,24 +27,33 @@
 					</div>
 					<div class="row">
 						<div>
-							<table>
+							<table class="batchModal">
 								<tr>
 									<th>Batch Details:</th>
 								</tr>
 								<tr >
-									<td>{{batchToImport}}</td>
+									<td>{{batchToImport.trainingName}}</td>
+								</tr>
+								<tr>
+									<td>{{batchToImport.trainer.name}}{{batchToImport.trainer.email}}{{batchToImport.trainingType}}</td>
+								</tr>
+								<tr>
+									<td>{{batchToImport.startDate}}{{batchToImport.endDate}}</td>
+								</tr>
+								<tr>
+									<td>{{batchToImport.location}}</td>
 								</tr>
 							</table>
 						</div>
 					</div>
 					<div class="row">
 						<div>
-							<table>
+							<table class="batchModal">
 								<tr>
 									<th>Trainees:</th>
 								</tr>
 								<tr ng-repeat="trainee in traineeToImport">
-									<td>{{trainee}}</td>
+									<td>{{trainee.name}}{{trainee.phoneNumber}}{{trainee.email}}{{trainee.trainingStatus}}</td>
 								</tr>						
 							</table>
 						</div>
