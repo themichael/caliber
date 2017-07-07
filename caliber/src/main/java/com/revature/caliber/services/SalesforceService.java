@@ -32,7 +32,8 @@ public class SalesforceService {
 	 */
 	public List<Batch> getAllRelevantBatches() {
 		log.debug("Find all current batches by year");
-		List<Batch> allSalesForceBatches = salesforceDAO.getAllRelevantBatches();
+	//	List<Batch> allSalesForceBatches = salesforceDAO.getAllRelevantBatches();
+		List<Batch> allSalesForceBatches = salesforceDAO.getFakeReleventBatches();
 		List<Batch> allCaliberBatches = batchDAO.findAll();
 		
 		//Removing batches already in Caliber database

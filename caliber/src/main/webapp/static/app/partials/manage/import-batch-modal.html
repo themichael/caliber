@@ -29,27 +29,30 @@
 						<div>
 							<table class="batchModal">
 								<tr>
-									<th>Batch Details</th>
 									<th>Training Name</th>
-									<th>Trainer</th>
-									<th>Trainer Email</th>
-									<th>Co-Trainer</th>
-									<th>Co-Trainer Email</th>
-									<th>Training Type</th>
-									<th>Start Date</th>
-									<th>End Date</th>
-									<th>Location</th>
-								</tr>
-								<tr>
 									<td>{{batchToImport.trainingName}}</td>
+									<th>Training Type</th>
+									<td>{{batchToImport.trainingType}}</td>
+								</tr>
+									<th>Trainer</th>
+									<td>{{batchToImport.trainer.name}}</td>
+									<th>Trainer Email</th>
+									<td>{{batchToImport.trainer.email}}</td>
 								</tr>
 								<tr>
-									<td>{{batchToImport.trainer.name}}{{batchToImport.trainer.email}}{{batchToImport.cotrainer.name}}{{batchToImport.cotrainer.email}}{{batchToImport.trainingType}}</td>
+									<th>Co-Trainer</th>
+									<td>{{batchToImport.cotrainer.name}}</td>
+									<th>Co-Trainer Email</th>
+									<td>{{batchToImport.cotrainer.email}}</td>
 								</tr>
 								<tr>
-									<td>{{batchToImport.startDate}}{{batchToImport.endDate}}</td>
+									<th>Start Date</th>
+									<td>{{batchToImport.startDate}}</td>
+									<th>End Date</th>
+									<td>{{batchToImport.endDate}}</td>
 								</tr>
 								<tr>
+									<th>Location</th>
 									<td>{{batchToImport.location}}</td>
 								</tr>
 							</table>
@@ -57,13 +60,19 @@
 					</div>
 					<div class="row">
 						<div>
-							<table class="batchModal">
-								<tr>
-									<th>Trainees:</th>
-								</tr>
-								<tr ng-repeat="trainee in traineeToImport">
-									<td>{{trainee.name}}{{trainee.phoneNumber}}{{trainee.email}}{{trainee.trainingStatus}}</td>
-								</tr>						
+							<table ng=hide class="batchModal">
+							<tr>
+								<th>Trainee</th>
+								<th>Email</th>
+								<th>Phone</th>
+								<th>Status</th>
+							</tr>
+							<tr ng-repeat="trainee in traineeToImport">
+								<td>{{trainee.name}}</td>
+								<td>{{trainee.email}}</td>
+								<td>{{trainee.phoneNumber}}</td>
+								<td>{{trainee.trainingStatus}}</td>	
+							</tr>				
 							</table>
 						</div>
 					</div>

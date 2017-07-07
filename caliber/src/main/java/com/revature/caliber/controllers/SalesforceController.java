@@ -50,13 +50,13 @@ public class SalesforceController {
 	 * Gets all the relevent batches
 	 * @return Batches in JSON
 	 */
-	@RequestMapping(value="/all/batch/importget", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/all/batch/import", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Iterable<Batch> getAllReleventBatches(){
 		return salesforceService.getAllRelevantBatches();
 	}
 	
-	@RequestMapping(value="/all/batch/importtrainee", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/all/trainee/import", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Iterable<Trainee> getAllTraineesFromBatch(@RequestParam String resourceId){
 		return salesforceService.getAllTraineesFromBatch(resourceId);
