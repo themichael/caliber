@@ -134,6 +134,8 @@ public class BootController extends Helper {
 				.setPort(servletRequest.getServerPort()).setPath("/getSalesforceUser/")
 				.setParameter("endpoint", salesforceToken.getId())
 				.setParameter("accessToken", salesforceToken.getAccessToken());
+		log.info(salesforceToken.getId());
+		log.info(salesforceToken.getAccessToken());
 		URI uri = uriBuilder.build();
 		HttpGet httpGet = new HttpGet(uri);
 		HttpResponse response = httpClient.execute(httpGet);
