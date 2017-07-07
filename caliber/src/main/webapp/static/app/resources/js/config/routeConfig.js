@@ -318,6 +318,9 @@ angular
 											"":{
 												templateUrl : "/static/app/partials/category/manage-categories.html",
 												controller : "vpCategoryController"
+											},
+											"create-category-form@vp.category" : {
+												templateUrl: "/static/app/partials/category/add-category-modals.html"
 											}
 										}
 												
