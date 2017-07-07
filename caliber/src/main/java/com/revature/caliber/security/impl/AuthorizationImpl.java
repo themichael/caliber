@@ -52,46 +52,40 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	@Value("services/oauth2/revoke")
 	private String revokeUrl;
 
-	private HttpClient httpClient;
-	private HttpResponse response;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
+	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
+	private boolean debug;
 	private static final String REDIRECT = "redirect:";
 
 	public AuthorizationImpl() {
-		httpClient = HttpClientBuilder.create().build();
+		super();
 	}
 
 	/**
-	 * ------------------------DEVELOPMENT ONLY------------------------ Pretends
-	 * to redirect to Salesforce for authentication.
+	 * Redirects the request to perform authentication.
 	 * 
-	 * TODO remove @RequestMapping at go-live
 	 */
-	//@RequestMapping("/")
-	public ModelAndView dummyAuth() {
-		return new ModelAndView(REDIRECT + redirectUrl);
-	}
-
-	/**
-	 * ------------------------PRODUCTION ONLY------------------------ Redirects
-	 * to Salesforce for authentication.
-	 * 
-	 * TODO enable at go-live
-	 */
-	 @RequestMapping("/")
+	@RequestMapping("/")
 	public ModelAndView openAuthURI() {
+		if (debug) {
+			return new ModelAndView(REDIRECT + redirectUrl);
+		}
+		
 		return new ModelAndView(REDIRECT + loginURL + authURL + "?response_type=code&client_id=" + clientId
 				+ "&redirect_uri=" + redirectUri);
 	}
 
 	/**
-	 * ------------------------PRODUCTION ONLY------------------------ Retrieves
-	 * Salesforce authentication token.
+	 * Retrieves Salesforce authentication token from Salesforce REST API
 	 * 
+	 * @param code
+	 * @param servletResponse
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
 			HttpServletResponse servletResponse) throws IOException {
+
+		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
@@ -101,10 +95,11 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		parameters.add(new BasicNameValuePair("code", code));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.info("Generating Salesforce token");
-		response = httpClient.execute(post);
+		HttpResponse response = httpClient.execute(post);
 		String token = URLEncoder.encode(toJsonString(response.getEntity().getContent()), "UTF-8");
 		servletResponse.addCookie(new Cookie("token", token));
 		return new ModelAndView(REDIRECT + redirectUrl);
+
 	}
 
 	/**
@@ -119,6 +114,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView revoke(Authentication auth, HttpSession session) throws IOException {
 		if (auth != null) {
+			HttpClient httpClient = HttpClientBuilder.create().build();
 			String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
 			log.info("Revoking token: " + token);
 			HttpPost post = new HttpPost(revokeUrl);
