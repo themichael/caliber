@@ -1,3 +1,4 @@
+
 package com.revature.caliber.controllers;
 
 import java.io.IOException;
@@ -107,15 +108,7 @@ public class BootController extends Helper {
 	 * @return
 	 * @throws IOException
 	 */
-<<<<<<< HEAD
-	//@RequestMapping(value = "/caliber")
-	public String getHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
-			throws IOException, URISyntaxException {
-		HttpClient httpClient = HttpClientBuilder.create().build();
-		// get Salesforce token from cookie
-=======
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
->>>>>>> 0d57ebee9bb828cc918114a5eb325bfd743d4a72
 		Cookie[] cookies = servletRequest.getCookies();
 		SalesforceToken salesforceToken = null;
 		for (Cookie cookie : cookies) {
