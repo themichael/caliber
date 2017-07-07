@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.revature.caliber.salesforce.SalesforceTransformerToCaliber;
 import com.revature.salesforce.beans.SalesforceBatch;
 
-public class TransformTest {
+public class TransformDev {
 	
 	SalesforceBatch salesforceBatch = new SalesforceBatch(); 
 	SalesforceTransformerToCaliber sttc = new SalesforceTransformerToCaliber();
