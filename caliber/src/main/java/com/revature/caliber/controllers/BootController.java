@@ -40,6 +40,7 @@ import com.revature.caliber.security.models.SalesforceUser;
 public class BootController extends Helper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
+	
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
 	private static final String DEBUG_USER_LOGIN = "patrick.walsh@revature.com";

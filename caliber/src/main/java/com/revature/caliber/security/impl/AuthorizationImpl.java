@@ -53,6 +53,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	private String revokeUrl;
 
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
+	
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
 	private static final String REDIRECT = "redirect:";
