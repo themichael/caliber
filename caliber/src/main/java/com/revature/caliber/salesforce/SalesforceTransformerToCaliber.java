@@ -3,15 +3,21 @@ package com.revature.caliber.salesforce;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.SkillType;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.salesforce.beans.BatchTrainer;
 import com.revature.salesforce.beans.SalesforceBatch;
+import com.revature.salesforce.beans.SalesforceTrainee;
 
 public class SalesforceTransformerToCaliber {
 
 	public Batch transformBatch(SalesforceBatch salesforceBatch){
 		Batch batch = new Batch();
+		if(salesforceBatch == null){
+			return batch;
+		}
 		batch.setResourceId(salesforceBatch.getId());
 		batch.setTrainingName(salesforceBatch.getName());
 		batch.setStartDate(salesforceBatch.getBatchStartDate());
@@ -27,12 +33,35 @@ public class SalesforceTransformerToCaliber {
 		return batch;
 	}
 	
-	//TO DO - Tranform batchtrainers into trainers
+	//TODO - Tranform batchtrainers into trainers
 	public Trainer transformTrainer(BatchTrainer batchTrainer){
 		Trainer trainer = new Trainer();
-		trainer.setName("Yuvi");
+		if(batchTrainer == null){
+			return trainer;
+		}
 		trainer.setName(batchTrainer.getName());
+		trainer.setEmail(batchTrainer.getEmail());
+		trainer.setTier(transformTier("ROLE_QC"));
+		trainer.setTitle("J2EE");
 		return trainer;
+	}	
+	public TrainerRole transformTier(String batchTrainer) {
+		String stringTier = batchTrainer;
+		if(stringTier == null){
+			return TrainerRole.ROLE_TRAINER;
+		}
+		return transformTierHelper(stringTier);
+	}
+	
+	private TrainerRole transformTierHelper(String tier){
+		switch (tier) {
+		case "ROLE_QC":
+			return TrainerRole.ROLE_QC;
+		case "ROLE_VP":
+			return TrainerRole.ROLE_VP;
+		default:
+			return TrainerRole.ROLE_TRAINER;
+		}
 	}
 	
 	public SkillType transformSkillType(SalesforceBatch salesforceBatch) {
@@ -41,8 +70,6 @@ public class SalesforceTransformerToCaliber {
 			return SkillType.OTHER;
 		}
 		return transformSkillTypeHelper(stringSkillType);
-
-		
 	}
 	
 	private SkillType transformSkillTypeHelper(String skillType){
@@ -62,6 +89,9 @@ public class SalesforceTransformerToCaliber {
 	
 	public Trainer transformBatch(BatchTrainer batchTrainer){
 		Trainer trainer = new Trainer();
+		if(batchTrainer == null){
+			return trainer;
+		}
 		trainer.setName(batchTrainer.getName());	
 		return trainer;
 	}
@@ -69,13 +99,18 @@ public class SalesforceTransformerToCaliber {
 	public Trainee transformTrainee(SalesforceTrainee salesforceTrainee){
 		
 		Trainee trainee = new Trainee();
-	
+		if(salesforceTrainee == null){
+			return trainee;
+		}
 		trainee.setName(salesforceTrainee.getName());
 		trainee.setEmail(salesforceTrainee.getEmail());
 		trainee.setBatch(transformBatch(salesforceTrainee.getBatch()));
 		trainee.setTrainingStatus(transformStatus(salesforceTrainee));
 		trainee.setPhoneNumber(salesforceTrainee.getPhone());
 		trainee.setResourceId(salesforceTrainee.getId());
+		trainee.setSkypeId("Yuvimon333");
+		trainee.setResourceId("3234");
+		trainee.setProfileUrl("http://www.google.com");
 		return trainee;
 	}
 	
