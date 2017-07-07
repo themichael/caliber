@@ -198,6 +198,14 @@ angular
 					/** Validation for the dates * */
 					$scope.checkDates = function() {
 
+						$scope.startDate.model = new Date(moment(
+								$scope.startDate.model, "YYYY-MM-DD").format(
+								"YYYY/MM/DD"));
+
+						$scope.endDate.model = new Date(moment(
+								$scope.endDate.model, "YYYY-MM-DD").format(
+								"YYYY/MM/DD"));
+
 						$log.info($scope.startDate);
 
 						if ($scope.endDate.model > $scope.startDate.model
@@ -229,8 +237,8 @@ angular
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
 						$scope.location.model = batch.location;
-						console.log("=====testbah=============")
-						console.log(batch);
+						$log.debug("=====testbah=============")
+						$log.debug(batch);
 						$scope.trainer.model = batch.trainer.name;
 						if (batch.coTrainer) {
 							$scope.coTrainer.model = batch.coTrainer.name;
@@ -265,8 +273,7 @@ angular
 						$scope.batchFormName = "Import New Batch"
 						$scope.Save = "Save";
 						
-					}	
-				
+					}			
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];
@@ -332,12 +339,6 @@ angular
 						// return newBatch;
 					}
 					/** reformat dates on batch correctly* */
-					function formatBatchDates(batch) {
-						batch.startDate = moment(batch.startDate).format(
-								"YYYY-MM-DD");
-						batch.endDate = moment(batch.endDate).format(
-								"YYYY-MM-DD");
-					}
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
 						// Ajax call check for 200 --> then assemble batch
@@ -351,7 +352,7 @@ angular
 									.updateBatch($scope.currentBatch)
 									.then(
 											function() {
-												formatBatchDates($scope.currentBatch)
+											
 												$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch
 											});
 
@@ -380,7 +381,7 @@ angular
 												// format dates so qc, assess
 												// and reports can access
 												// batches immediately
-												formatBatchDates(newBatch)
+											
 
 												$scope.batches.push(newBatch);
 

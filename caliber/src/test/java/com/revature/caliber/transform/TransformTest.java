@@ -1,8 +1,6 @@
 package com.revature.caliber.transform;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.BasicConfigurator;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.caliber.salesforce.SalesforceTransformerToCaliber;
-import com.revature.salesforce.beans.BatchTrainer;
 import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceTrainee;
 
@@ -31,14 +28,14 @@ public class TransformTest {
 	@Test
 	//@Ignore
 	public void transformBatch(){
-		salesforceBatch.setTrainer(batchTrainer);
+		//salesforceBatch.setTrainer(batchTrainer);
 		sttc.transformBatch(salesforceBatch);
 		Logger logger = Logger.getLogger("com.revature");
 		logger.debug(sttc.getClass());	
 	}
 	@Test
 	public void transformTrainee(){
-		salesforceTrainee.setBatch(salesforceBatch);
+		//salesforceTrainee.setBatch(salesforceBatch);
 		sttc.transformTrainee(salesforceTrainee);
 		Logger logger = Logger.getLogger("com.revature");
 		logger.debug(sttc.getClass());

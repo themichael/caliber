@@ -1,16 +1,12 @@
 package com.revature.caliber.salesforce;
 
-import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.SkillType;
-import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.salesforce.beans.BatchTrainer;
 import com.revature.salesforce.beans.SalesforceBatch;
-import com.revature.salesforce.beans.SalesforceTrainee;
 
 public class SalesforceTransformerToCaliber {
 
@@ -25,16 +21,16 @@ public class SalesforceTransformerToCaliber {
 		batch.setResourceId(salesforceBatch.getId());
 		batch.setSkillType(transformSkillType(salesforceBatch));
 		batch.setBorderlineGradeThreshold((short) 70);
-		batch.setGoodGradeThreshold((short) 80);
-		//TODO -Change Location
-		batch.setLocation("Reston VA");
+		batch.setGoodGradeThreshold((short) 100);
+		batch.setLocation(salesforceBatch.getLocation());
 		
 		return batch;
-	}	
-	//TODO - Tranform batchtrainer into trainer
-	//@Component()
+	}
+	
+	//TO DO - Tranform batchtrainers into trainers
 	public Trainer transformTrainer(BatchTrainer batchTrainer){
 		Trainer trainer = new Trainer();
+		trainer.setName("Yuvi");
 		trainer.setName(batchTrainer.getName());
 		return trainer;
 	}
@@ -42,26 +38,26 @@ public class SalesforceTransformerToCaliber {
 	public SkillType transformSkillType(SalesforceBatch salesforceBatch) {
 		String stringSkillType = salesforceBatch.getSkillType();
 		if(stringSkillType == null){
-			stringSkillType = "";
+			return SkillType.OTHER;
 		}
-		switch (stringSkillType) {
+		return transformSkillTypeHelper(stringSkillType);
+
+		
+	}
+	
+	private SkillType transformSkillTypeHelper(String skillType){
+		switch (skillType) {
 		case "J2EE":
 			return SkillType.J2EE;
-			
 		case ".NET":
 			return SkillType.NET;
-		
 		case "SDET":
 			return SkillType.SDET;
-		
 		case "BPM":
 			return SkillType.BPM;
-			
 		default:
 			return SkillType.OTHER;
-
 		}
-
 	}
 	
 	public Trainer transformBatch(BatchTrainer batchTrainer){

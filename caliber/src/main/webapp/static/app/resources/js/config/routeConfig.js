@@ -67,8 +67,8 @@ angular
 									"qc.manage",
 									{
 										url : "/manage",
-										views:{
-											"":{
+										views : {
+											"" : {
 												templateUrl : "/static/app/partials/manage/manage-batch.html",
 												controller : "trainerManageController"
 											},
@@ -81,16 +81,16 @@ angular
 											"batch-extra-modals@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
 											},
-											"view-trainees@qc.manage":{
+											"view-trainees@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
 											},
-											"trainee-form@qc.manage":{
+											"trainee-form@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
 											},
-											"trainee-extra-modals@qc.manage":{
+											"trainee-extra-modals@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
-										}	
+										}
 									})
 							.state(
 									"qc.audit",
@@ -102,10 +102,10 @@ angular
 												controller : "qcAssessController"
 											},
 											"confirm-add-weeks-modal@qc.audit" : {
-												templateUrl: "/static/app/partials/assess/confirm-add-weeks-modal.html"
+												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
+											}
 										}
-									}
-							})
+									})
 							.state(
 									"qc.reports",
 									{
@@ -182,10 +182,10 @@ angular
 							.state(
 									"trainer.manage",
 									{
-										
+
 										url : "/manage",
-										views:{
-											"":{
+										views : {
+											"" : {
 												templateUrl : "/static/app/partials/manage/manage-batch.html",
 												controller : "trainerManageController"
 											},
@@ -198,31 +198,31 @@ angular
 											"batch-extra-modals@trainer.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
 											},
-											"view-trainees@trainer.manage":{
+											"view-trainees@trainer.manage" : {
 												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
 											},
-											"trainee-form@trainer.manage":{
+											"trainee-form@trainer.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
 											},
-											"trainee-extra-modals@trainer.manage":{
+											"trainee-extra-modals@trainer.manage" : {
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
-										}	
+										}
 									})
 							.state(
 									"trainer.assess",
 									{
 										url : "/assess",
-										views:{
-											""	:{
-												templateUrl : "/static/app/partials/assess/trainer-assess.html",											
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/assess/trainer-assess.html",
 												controller : "trainerAssessController"
 											},
-											"trainer-edit-assess@trainer.assess":{
-												templateUrl :"/static/app/partials/assess/trainer-edit-assess.html",				
+											"trainer-edit-assess@trainer.assess" : {
+												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html",
 											},
-											"confirm-add-weeks-modal@trainer.assess":{
-												templateUrl :"/static/app/partials/assess/confirm-add-weeks-modal.html",
+											"confirm-add-weeks-modal@trainer.assess" : {
+												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html",
 
 											}
 										}
@@ -270,9 +270,11 @@ angular
 												return caliberDelegate.vp
 														.getAllBatches();
 											},
-									allTrainers : function(caliberDelegate){
-										return caliberDelegate.all.getAllTrainers();
-									}
+											allTrainers : function(
+													caliberDelegate) {
+												return caliberDelegate.all
+														.getAllTrainers();
+											}
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
@@ -291,8 +293,8 @@ angular
 									"vp.trainers",
 									{
 										url : "/trainers",
-										views:{
-											"":{
+										views : {
+											"" : {
 												templateUrl : "/static/app/partials/trainers/manage-trainers.html",
 												controller : "vpTrainerController"
 											},
@@ -306,14 +308,14 @@ angular
 												templateUrl : "/static/app/partials/trainers/delete-trainer-modal.html"
 											}
 										}
-												
+
 									})
 							.state(
 									"vp.manage",
 									{
 										url : "/manage",
-										views:{
-											"":{
+										views : {
+											"" : {
 												templateUrl : "/static/app/partials/manage/manage-batch.html",
 												controller : "trainerManageController"
 											},
@@ -326,16 +328,16 @@ angular
 											"batch-extra-modals@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
 											},
-											"view-trainees@vp.manage":{
+											"view-trainees@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
 											},
-											"trainee-form@vp.manage":{
+											"trainee-form@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
 											},
-											"trainee-extra-modals@vp.manage":{
+											"trainee-extra-modals@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
-										}	
+										}
 									})
 							.state(
 									"vp.assess",
@@ -343,16 +345,16 @@ angular
 										templateUrl : "/static/app/partials/assess/trainer-assess.html",
 										url : "/assess",
 										controller : "trainerAssessController",
-									views:{
-											""	:{
-												templateUrl : "/static/app/partials/assess/trainer-assess.html",											
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/assess/trainer-assess.html",
 												controller : "trainerAssessController"
 											},
-											"trainer-edit-assess@vp.assess":{
-												templateUrl :"/static/app/partials/assess/trainer-edit-assess.html",				
+											"trainer-edit-assess@vp.assess" : {
+												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html",
 											},
-											"confirm-add-weeks-modal@vp.assess":{
-												templateUrl :"/static/app/partials/assess/confirm-add-weeks-modal.html",
+											"confirm-add-weeks-modal@vp.assess" : {
+												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html",
 
 											}
 										}
@@ -363,16 +365,16 @@ angular
 										templateUrl : "/static/app/partials/assess/qc-assess.html",
 										url : "/audit",
 										controller : "qcAssessController",
-									views:{
-											""	:{
-												templateUrl : "/static/app/partials/assess/trainer-assess.html",											
-												controller : "trainerAssessController"
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/assess/qc-assess.html",
+												controller : "qcAssessController"
 											},
-											"trainer-edit-assess@vp.audit":{
-												templateUrl :"/static/app/partials/assess/trainer-edit-assess.html",				
+											"trainer-edit-assess@vp.audit" : {
+												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html",
 											},
-											"confirm-add-weeks-modal@vp.audit":{
-												templateUrl :"/static/app/partials/assess/confirm-add-weeks-modal.html",
+											"confirm-add-weeks-modal@vp.audit" : {
+												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html",
 
 											}
 										}
