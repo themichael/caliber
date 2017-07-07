@@ -31,7 +31,7 @@ public class SalesforceTransformerToCaliber {
 	// TO DO - Tranform batchtrainers into trainers
 	public Trainer transformTrainer(BatchTrainer batchTrainer) {
 		Trainer trainer = new Trainer();
-		trainer.setName("Yuvi");
+		batchTrainer.setName("Yuvi");
 		trainer.setName(batchTrainer.getName());
 		return trainer;
 	}
@@ -94,6 +94,7 @@ public class SalesforceTransformerToCaliber {
 		try {
 			return TrainingStatus.valueOf(stringTrainingStatus);
 		} catch (IllegalArgumentException exp) {
+			
 			return TrainingStatus.Training;
 		}
 	}
