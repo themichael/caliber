@@ -18,6 +18,9 @@ public class BatchTrainer {
 	@JsonProperty("Name")
 	private String name;
 	
+	@JsonProperty("Email")
+	private String email;
+	
 	public BatchTrainer() {
 		super();
 	}
@@ -38,11 +41,20 @@ public class BatchTrainer {
 		this.name = name;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -61,6 +73,11 @@ public class BatchTrainer {
 				return false;
 		} else if (!attributes.equals(other.attributes))
 			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -71,7 +88,7 @@ public class BatchTrainer {
 
 	@Override
 	public String toString() {
-		return "BatchTrainer [attributes=" + attributes + ", name=" + name + "]";
+		return "BatchTrainer [attributes=" + attributes + ", name=" + name + ", email=" + email + "]";
 	}
-	
+
 }
