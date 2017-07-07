@@ -43,7 +43,7 @@ angular.module("vp").controller(
 				$scope.trainersTitles = titles;
 			});
 
-			/** show email verification modal* */
+			/** show email verification modal if email is already taken* */
 			$scope.checkTrainerEmail = function(trainerForm) {
 				$log.log("inside check email");
 				$log.log(trainerForm.email);
@@ -137,6 +137,11 @@ angular.module("vp").controller(
 				angular.element("#deleteTrainerModal").modal("hide");
 			}
 			
+			/**
+			 * 
+			 * Used to concatenate ROLE_ back on the Tier
+			 * to be inserted properly into the database
+			 */
 			submitTier = function(tier){
 				var pre = "ROLE_"
 				return pre.concat(tier);
