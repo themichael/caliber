@@ -1,10 +1,13 @@
 package com.revature.caliber.salesforce;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainingStatus;
 import com.revature.salesforce.beans.BatchTrainer;
 import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceTrainee;
@@ -22,22 +25,22 @@ public class SalesforceTransformerToCaliber {
 		batch.setResourceId(salesforceBatch.getId());
 		batch.setSkillType(transformSkillType(salesforceBatch));
 		batch.setBorderlineGradeThreshold((short) 70);
-		batch.setGoodGradeThreshold((short) 100);
+		batch.setGoodGradeThreshold((short) 80);
 		//TODO -Change Location
 		batch.setLocation("Reston VA");
 		
 		return batch;
-	}
-	
+	}	
 	//TODO - Tranform batchtrainer into trainer
+	//@Component()
 	public Trainer transformTrainer(BatchTrainer batchTrainer){
 		Trainer trainer = new Trainer();
+		trainer.setName(batchTrainer.getName());
 		return trainer;
 	}
 	
 	public SkillType transformSkillType(SalesforceBatch salesforceBatch) {
 		String stringSkillType = salesforceBatch.getSkillType();
-		System.out.println(stringSkillType);
 		if(stringSkillType == null){
 			stringSkillType = "";
 		}
@@ -57,6 +60,57 @@ public class SalesforceTransformerToCaliber {
 		default:
 			return SkillType.OTHER;
 
+		}
+
+	}
+	
+	public Trainer transformBatch(BatchTrainer batchTrainer){
+		Trainer trainer = new Trainer();
+		trainer.setName(batchTrainer.getName());	
+		return trainer;
+	}
+	
+	public Trainee transformTrainee(SalesforceTrainee salesforceTrainee){
+		
+		Trainee trainee = new Trainee();
+	
+		trainee.setName(salesforceTrainee.getName());
+		trainee.setEmail(salesforceTrainee.getEmail());
+		trainee.setBatch(transformBatch(salesforceTrainee.getBatch()));
+		trainee.setTrainingStatus(transformStatus(salesforceTrainee));
+		trainee.setPhoneNumber(salesforceTrainee.getPhone());
+		trainee.setResourceId(salesforceTrainee.getId());
+		return trainee;
+	}
+	
+	public TrainingStatus transformStatus(SalesforceTrainee salesforceTrainee) {
+		
+		String stringTrainingStatus = salesforceTrainee.getTrainingStatus();
+		
+		if(stringTrainingStatus == null){
+			stringTrainingStatus = "";
+		}
+		switch (stringTrainingStatus) {
+		case "Confirmed":
+			return TrainingStatus.Confirmed;
+			
+		case "Dropped":
+			return TrainingStatus.Dropped;
+		
+		case "Employed":
+			return TrainingStatus.Employed;
+		
+		case "Marketing":
+			return TrainingStatus.Marketing;
+			
+		case "Selected":
+			return TrainingStatus.Selected;
+			
+		case "Signed":
+			return TrainingStatus.Signed;
+			
+		default:
+			return TrainingStatus.Training;
 		}
 
 	}
