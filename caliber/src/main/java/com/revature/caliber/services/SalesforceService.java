@@ -1,5 +1,6 @@
 package com.revature.caliber.services;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
 
@@ -20,11 +22,18 @@ public class SalesforceService {
 	private SalesforceDAO salesforceDAO;
 	@Autowired
 	private BatchDAO batchDAO;
-
+	@Autowired
+	private HashMap<Integer, Trainer> trainers;
+	
 	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
 		this.salesforceDAO = salesforceDAO;
 	}
 
+	/**
+	 * F
+	 */
+	
+	
 	/**
 	 * FIND ALL CURRENT SALESFORCE BATCHES
 	 * 

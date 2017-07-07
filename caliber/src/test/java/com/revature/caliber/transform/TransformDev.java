@@ -1,5 +1,6 @@
 package com.revature.caliber.transform;
-
+//@Runwith(Spring)
+//@ContextConfiguration(locations = { "classpath:integration-test.xml"})
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
