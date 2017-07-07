@@ -20,8 +20,7 @@ public class SalesforceTransformerToCaliber {
 		batch.setSkillType(transformSkillType(salesforceBatch));
 		batch.setBorderlineGradeThreshold((short) 70);
 		batch.setGoodGradeThreshold((short) 100);
-		//TO DO -Change Locations
-		batch.setLocation("Reston VA");
+		batch.setLocation(salesforceBatch.getLocation());
 		
 		return batch;
 	}
