@@ -44,7 +44,7 @@ public class TrainingController {
 	public void setTrainingService(TrainingService trainingService) {
 		this.trainingService = trainingService;
 	}
-
+	
 	/*
 	 *******************************************************
 	 * TODO TRAINER SERVICES
