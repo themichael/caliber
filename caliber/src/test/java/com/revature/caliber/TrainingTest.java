@@ -1,6 +1,6 @@
 package com.revature.caliber;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.controllers.TrainingController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -44,7 +45,7 @@ public class TrainingTest {
 	@Test
 	@Sql(scripts = "/setup.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 	@Sql(scripts = "/teardown.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
-	public void testSave() {
+	public void testBatchSave() {
 		// find initial row count
 		Long rowCount = jdbcTemplate.queryForObject("select count(batch_id) from caliber_batch", Long.class);
 		log.info("Current batch count: " + rowCount);
@@ -60,7 +61,7 @@ public class TrainingTest {
 			batch.setGoodGradeThreshold((short) 70);
 			batch.setBorderlineGradeThreshold((short) 90);
 			trainingController.createBatch(batch);
-
+			fail();
 		} catch (ConstraintViolationException e) {
 			log.info("Test passed: Good grade > borderline grade " + e);
 		}
@@ -74,6 +75,7 @@ public class TrainingTest {
 
 			trainingController
 					.createBatch(new Batch("1703 Java", trainer, start.getTime(), end.getTime(), "Queens, NY"));
+			fail();
 		} catch (ConstraintViolationException e) {
 			log.info("Test passed: End date > start date"  + e);
 		}
@@ -83,6 +85,7 @@ public class TrainingTest {
 			Batch batch = new Batch("1704 Java", trainer, new Date(), new Date(), "Manhattan, NY");
 			batch.setCoTrainer(trainer);
 			trainingController.createBatch(batch);
+			fail();
 		} catch (ConstraintViolationException e) {
 			log.info("Test passed: Trainer != co-trainer"  + e);
 		}
@@ -93,4 +96,18 @@ public class TrainingTest {
 		assertEquals(++rowCount, newRowCount);
 	}
 
+	@Test
+	@Sql(scripts = "/setup.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+	@Sql(scripts = "/teardown.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+	public void testDeactiveTrainer(){
+		// testing findTrainer by email
+		Trainer trainer = trainingController.findTrainer("karan.dhirar@revature.com").getBody();
+		// make sure user isn't already inactive
+		assertNotEquals(TrainerRole.ROLE_INACTIVE, trainer.getTier());
+		// testing this method
+		trainingController.makeInactive(trainer);
+		Trainer result = trainingController.findTrainer("karan.dhirar@revature.com").getBody();
+		// user is now inactive
+		assertEquals(TrainerRole.ROLE_INACTIVE, result.getTier());
+	}
 }

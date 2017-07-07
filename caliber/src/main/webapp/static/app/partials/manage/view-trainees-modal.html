@@ -1,81 +1,80 @@
-	<!--********************************************* View Trainee Modal ************************************-->
 
-	<div class="modal fade" id="viewTraineeModal" tabindex="-1"
-		role="dialog" aria-labelledby="traineeModalLabel">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="traineeModalLabel">View/Add
-						Trainees</h4>
+<!--********************************************* View Trainee Modal ************************************-->
+
+<div class="modal fade" id="viewTraineeModal" tabindex="-1"
+	role="dialog" aria-labelledby="traineeModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="traineeModalLabel">View/Add
+					Trainees</h4>
+			</div>
+			<div class="modal-body">
+				<!-- switch trainees type -->
+				<div class="pull-right">
+					<span>Active&nbsp</span> <a role="button"
+						ng-click="switchTraineeView()" ng-show="!showdropped"><span
+						class="fa fa-toggle-on fa-2x" aria-hidden="true"> </span></a> <a
+						role="button" ng-click="switchTraineeView()" ng-show="showdropped"><span
+						class="fa fa-toggle-off fa-2x" aria-hidden="true"> </span></a>
 				</div>
-				<div class="modal-body">
-					<!-- switch trainees type -->
-					<div class="pull-right">
-						<span>Active&nbsp</span> <a role="button"
-							ng-click="switchTraineeView()" ng-show="!showdropped"><span
-							class="fa fa-toggle-on fa-2x" aria-hidden="true"> </span></a> <a
-							role="button" ng-click="switchTraineeView()"
-							ng-show="showdropped"><span class="fa fa-toggle-off fa-2x"
-							aria-hidden="true"> </span></a>
-					</div>
-					<!-- View Trainees in Batch -->
-					<h3>Trainees in Batch</h3>
+				<!-- View Trainees in Batch -->
+				<h3>Trainees in Batch</h3>
 
-					<!--                   <div class="row scrollable-div"> -->
-					<div class="col-md-12 col-lg-12">
-						<!--add trainee button -->
-						</br> <a role="button" class="pull-right"
-							ng-click="resetTraineeForm();" data-toggle="modal"
-							data-target="#addTraineeModal" type="button">Add Trainee<span
-							class="glyphicon glyphicon-plus" aria-hidden="true"> </span>
-						</a>
-						<table class="table table-responsive">
-							<thead>
-								<tr>
-									<th>Trainee Name</th>
-									<th>Trainee Email</th>
-									<th>Training Status</th>
-									<th>Phone Number</th>
-									<th>Skype Id</th>
-									<th>Profile URL</th>
-									<th></th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="trainee in trainees">
-									<td>{{trainee.name}}</td>
-									<td>{{trainee.email}}</td>
-									<td>{{trainee.trainingStatus}}</td>
-									<td>{{trainee.phoneNumber}}</td>
-									<td>{{trainee.skypeId}}</td>
+				<!--                   <div class="row scrollable-div"> -->
+				<div class="col-md-12 col-lg-12">
+					<!--add trainee button -->
+					</br> <a role="button" class="pull-right" ng-click="resetTraineeForm();"
+						data-toggle="modal" data-target="#addTraineeModal" type="button">Add
+						Trainee<span class="glyphicon glyphicon-plus" aria-hidden="true">
+					</span>
+					</a>
+					<table class="table table-responsive">
+						<thead>
+							<tr>
+								<th>Trainee Name</th>
+								<th>Trainee Email</th>
+								<th>Training Status</th>
+								<th>Phone Number</th>
+								<th>Skype Id</th>
+								<th>Profile URL</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="trainee in trainees">
+								<td>{{trainee.name}}</td>
+								<td>{{trainee.email}}</td>
+								<td>{{trainee.trainingStatus}}</td>
+								<td>{{trainee.phoneNumber}}</td>
+								<td>{{trainee.skypeId}}</td>
 
-									<td><span ng-if="trainee.profileUrl"> <a
-											href="{{trainee.profileUrl}}" target="_blank"><i
-												class="fa fa-file-code-o" aria-hidden="true"></i></a>
-									</span></td>
-									<td><a role="button"
-										ng-click="populateTrainee(trainee);getTrainee($index)"
-										data-toggle="modal" data-target="#addTraineeModal"
-										type="button"> <span class="glyphicon glyphicon-pencil"></span>
-									</a></td>
-									<td><a role="button" class="pull-right"
-										ng-click="getTraineeToDelete($index)" data-toggle="modal"
-										data-target="#deleteTraineeModal"><span
-											class="glyphicon glyphicon-remove" aria-hidden="true">
-										</span></a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
-					<div class="modal-footer"></div>
+								<td><span ng-if="trainee.profileUrl"> <a
+										href="{{trainee.profileUrl}}" target="_blank"><i
+											class="fa fa-file-code-o" aria-hidden="true"></i></a>
+								</span></td>
+								<td><a role="button"
+									ng-click="populateTrainee(trainee);getTrainee($index)"
+									data-toggle="modal" data-target="#addTraineeModal"
+									type="button"> <span class="glyphicon glyphicon-pencil"></span>
+								</a></td>
+								<td><a role="button" class="pull-right"
+									ng-click="getTraineeToDelete($index)" data-toggle="modal"
+									data-target="#deleteTraineeModal"><span
+										class="glyphicon glyphicon-remove" aria-hidden="true">
+									</span></a></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
+
+				<div class="modal-footer"></div>
 			</div>
 		</div>
 	</div>
-	
+</div>

@@ -59,7 +59,7 @@ public class TrainingController {
 	 * 
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/vp/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Trainer> createTrainer(@Valid @RequestBody Trainer trainer) {
 		log.info("Saving trainer: " + trainer);
@@ -74,7 +74,7 @@ public class TrainingController {
 	 * 
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/vp/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Void> updateTrainer(@Valid @RequestBody Trainer trainer) {
 		log.info("Updating trainer: " + trainer);
@@ -95,6 +95,33 @@ public class TrainingController {
 		log.info("Find trainer by email " + email);
 		Trainer trainer = trainingService.findTrainer(email);
 		return new ResponseEntity<>(trainer, HttpStatus.OK);
+	}
+
+	/**
+	 * Deactivates the trainer
+	 * 
+	 * @param trainer
+	 * @return response entity
+	 */
+	@RequestMapping(value = "/vp/trainer/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Void> makeInactive(@Valid @RequestBody Trainer trainer) {
+		log.info("Updating trainer: " + trainer);
+		trainingService.makeInactive(trainer);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	/**
+	 * Returns all trainers titles from the database `
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/vp/trainer/titles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<List<String>> getAllTrainersTitles() {
+		log.info("Fetching all trainers titles");
+		List<String> trainers = trainingService.findAllTrainerTitles();
+		return new ResponseEntity<>(trainers, HttpStatus.OK);
 	}
 
 	/**
