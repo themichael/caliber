@@ -118,6 +118,8 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 */
 	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
 	public ModelAndView revoke(Authentication auth, HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws IOException, ServletException {
+		if(auth == null)
+			return new ModelAndView("/");
 		if (!debug) {
 			// revoke all tokens from the Salesforce
 			HttpClient httpClient = HttpClientBuilder.create().build();
@@ -135,7 +137,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		SecurityContextHolder.clearContext();
 
 		log.info("User has logged out");
-		return new ModelAndView("index");
+		return new ModelAndView("/");
 	}
 
 	public void setAuthURL(String authURL) {
