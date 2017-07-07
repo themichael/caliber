@@ -32,7 +32,6 @@ public class SalesforceService {
 	 */
 	public List<Batch> getAllRelevantBatches() {
 		log.debug("Find all current batches by year");
-		// TODO - Change Fake data to All data
 		List<Batch> allSalesForceBatches = salesforceDAO.getAllRelevantBatches();
 		List<Batch> allCaliberBatches = batchDAO.findAll();
 

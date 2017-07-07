@@ -20,8 +20,7 @@ public class SalesforceTransformerToCaliber {
 		batch.setSkillType(transformSkillType(salesforceBatch));
 		batch.setBorderlineGradeThreshold((short) 70);
 		batch.setGoodGradeThreshold((short) 100);
-		//TO DO -Change Locations
-		batch.setLocation("Reston VA");
+		batch.setLocation(salesforceBatch.getLocation());
 		
 		return batch;
 	}
@@ -29,32 +28,34 @@ public class SalesforceTransformerToCaliber {
 	//TO DO - Tranform batchtrainers into trainers
 	public Trainer transformTrainer(BatchTrainer batchTrainer){
 		Trainer trainer = new Trainer();
-		batchTrainer=null;
+		trainer.setName("Yuvi");
+		trainer.setName(batchTrainer.getName());
 		return trainer;
 	}
 	
 	public SkillType transformSkillType(SalesforceBatch salesforceBatch) {
 		String stringSkillType = salesforceBatch.getSkillType();
 		if(stringSkillType == null){
-			stringSkillType = "";
+			return SkillType.OTHER;
 		}
-		switch (stringSkillType) {
+		return transformSkillTypeHelper(stringSkillType);
+
+		
+	}
+	
+	private SkillType transformSkillTypeHelper(String skillType){
+		switch (skillType) {
 		case "J2EE":
 			return SkillType.J2EE;
-			
 		case ".NET":
 			return SkillType.NET;
-		
 		case "SDET":
 			return SkillType.SDET;
-		
 		case "BPM":
 			return SkillType.BPM;
-			
 		default:
 			return SkillType.OTHER;
 		}
-
 	}
 
 }
