@@ -72,7 +72,6 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * 
 	 */
 	@RequestMapping("/")
-<<<<<<< HEAD
 	public ModelAndView dummyAuth() {
 		return new ModelAndView(REDIRECT + redirectUrl);
 	}
@@ -85,8 +84,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 */
 	// @RequestMapping("/")
 
-=======
->>>>>>> bdd51a9dbc50fd08cddd1ec979aa6f6c6e407712
+
 	public ModelAndView openAuthURI() {
 		if (debug) {
 			return new ModelAndView(REDIRECT + redirectUrl);
