@@ -1,10 +1,18 @@
 package com.revature.caliber.security.impl;
 
-import com.revature.caliber.security.Authorization;
-import com.revature.caliber.security.models.SalesforceUser;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -14,19 +22,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
+import com.revature.caliber.security.Authorization;
+import com.revature.caliber.security.models.SalesforceUser;
 
 /**
  * Created by louislopez on 1/18/17.
@@ -52,46 +56,42 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	@Value("services/oauth2/revoke")
 	private String revokeUrl;
 
-	private HttpClient httpClient;
-	private HttpResponse response;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
+
+	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
+	private boolean debug;
 	private static final String REDIRECT = "redirect:";
+	private static final String REVATURE = "http://www.revature.com/";
 
 	public AuthorizationImpl() {
-		httpClient = HttpClientBuilder.create().build();
+		super();
 	}
 
 	/**
-	 * ------------------------DEVELOPMENT ONLY------------------------ Pretends
-	 * to redirect to Salesforce for authentication.
+	 * Redirects the request to perform authentication.
 	 * 
-	 * TODO remove @RequestMapping at go-live
 	 */
-	//@RequestMapping("/")
-	public ModelAndView dummyAuth() {
-		return new ModelAndView(REDIRECT + redirectUrl);
-	}
-
-	/**
-	 * ------------------------PRODUCTION ONLY------------------------ Redirects
-	 * to Salesforce for authentication.
-	 * 
-	 * TODO enable at go-live
-	 */
-	 @RequestMapping("/")
+	@RequestMapping("/")
 	public ModelAndView openAuthURI() {
+		if (debug) {
+			return new ModelAndView(REDIRECT + redirectUrl);
+		}
+
 		return new ModelAndView(REDIRECT + loginURL + authURL + "?response_type=code&client_id=" + clientId
 				+ "&redirect_uri=" + redirectUri);
 	}
 
 	/**
-	 * ------------------------PRODUCTION ONLY------------------------ Retrieves
-	 * Salesforce authentication token.
+	 * Retrieves Salesforce authentication token from Salesforce REST API
 	 * 
+	 * @param code
+	 * @param servletResponse
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
 			HttpServletResponse servletResponse) throws IOException {
+
+		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
@@ -101,34 +101,54 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		parameters.add(new BasicNameValuePair("code", code));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.info("Generating Salesforce token");
-		response = httpClient.execute(post);
+		HttpResponse response = httpClient.execute(post);
 		String token = URLEncoder.encode(toJsonString(response.getEntity().getContent()), "UTF-8");
 		servletResponse.addCookie(new Cookie("token", token));
 		return new ModelAndView(REDIRECT + redirectUrl);
+
 	}
 
 	/**
-	 * Needs further testing and experimentation to revoke all tokens and logout
-	 * of connected app
+	 * Clears session information and logout the user.
+	 * 
+	 * 	Note: Still retrieving 302 on access-token and null refresh-token
 	 * 
 	 * @param auth
 	 * @param session
 	 * @return
 	 * @throws IOException
+	 * @throws ServletException
 	 */
-	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView revoke(Authentication auth, HttpSession session) throws IOException {
-		if (auth != null) {
-			String token = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
-			log.info("Revoking token: " + token);
-			HttpPost post = new HttpPost(revokeUrl);
-			List<NameValuePair> parameters = new ArrayList<>();
-			parameters.add(new BasicNameValuePair("token", token));
-			post.setEntity(new UrlEncodedFormEntity(parameters));
-			httpClient.execute(post);
+	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
+	public ModelAndView revoke(Authentication auth, HttpServletRequest servletRequest,
+			HttpServletResponse servletResponse) throws IOException, ServletException {
+		if (auth == null)
+			return new ModelAndView(REDIRECT + REVATURE);
+		if (!debug) {
+			// revoke all tokens from the Salesforce
+			String accessToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
+			revokeToken(accessToken);
 		}
-		session.invalidate();
-		return new ModelAndView("redirect:revoke");
+
+		// logout and clear Spring Security Context
+		servletRequest.logout();
+		SecurityContextHolder.clearContext();
+
+		log.info("User has logged out");
+		return new ModelAndView(REDIRECT + REVATURE);
+	}
+
+	private void revokeToken(String token) throws ClientProtocolException, IOException {
+		log.info("POST " + loginURL + revokeUrl);
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost(loginURL + revokeUrl);
+		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		List<NameValuePair> parameters = new ArrayList<>();
+		parameters.add(new BasicNameValuePair("token", token));
+		post.setEntity(new UrlEncodedFormEntity(parameters));
+		HttpResponse response = httpClient.execute(post);
+		log.info("Revoke token : " + response.getStatusLine().getStatusCode() + " "
+				+ response.getStatusLine().getReasonPhrase());
 	}
 
 	public void setAuthURL(String authURL) {
