@@ -21,20 +21,18 @@ angular.module("charts", []);
 angular.module("auth", []);
 angular.module("reportApi", []);
 
-
-
-angular.module("app").directive("sticky",function($window){
-	return function(scope,element,attrs){
+angular.module("app").directive("sticky", function($window) {
+	return function(scope, element, attrs) {
 		var elOriginalPos = element[0].getClientRects()[0].top;
 		var elYPos = element[0].getClientRects()[0].top + 100;
-		angular.element($window).bind("scroll", function(){
+		angular.element($window).bind("scroll", function() {
 			elYPos;
-			if(this.pageYOffset > elYPos){
+			if (this.pageYOffset > elYPos) {
 				element.addClass("fixed-style-table-header");
-			}else if(this.pageYOffset <= elOriginalPos){
+			} else if (this.pageYOffset <= elOriginalPos) {
 				element.removeClass("fixed-style-table-header");
 			}
 			scope.$apply();
 		});
 	}
-}); 
+});
