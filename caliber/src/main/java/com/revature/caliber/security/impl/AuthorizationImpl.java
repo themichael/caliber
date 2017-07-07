@@ -72,20 +72,6 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * 
 	 */
 	@RequestMapping("/")
-<<<<<<< HEAD
-	public ModelAndView dummyAuth() {
-		return new ModelAndView(REDIRECT + redirectUrl);
-	}
-
-	/**
-	 * ------------------------PRODUCTION ONLY------------------------ Redirects
-	 * to Salesforce for authentication.
-	 * 
-	 * TODO enable at go-live
-	 */
-	// @RequestMapping("/")
-=======
->>>>>>> 0d57ebee9bb828cc918114a5eb325bfd743d4a72
 	public ModelAndView openAuthURI() {
 		if (debug) {
 			return new ModelAndView(REDIRECT + redirectUrl);
