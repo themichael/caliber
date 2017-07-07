@@ -269,14 +269,11 @@ angular
 													caliberDelegate) {
 												return caliberDelegate.vp
 														.getAllBatches();
-<<<<<<< HEAD
-=======
 											},
 											allTrainers : function(
 													caliberDelegate) {
 												return caliberDelegate.all
 														.getAllTrainers();
->>>>>>> ebc64b20e47976667ab4d1b3cf317f882e7f5e5e
 											}
 										},
 										// authorize the user
@@ -373,8 +370,8 @@ angular
 										controller : "qcAssessController",
 										views : {
 											"" : {
-												templateUrl : "/static/app/partials/assess/trainer-assess.html",
-												controller : "trainerAssessController"
+												templateUrl : "/static/app/partials/assess/qc-assess.html",
+												controller : "qcAssessController"
 											},
 											"trainer-edit-assess@vp.audit" : {
 												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html",
