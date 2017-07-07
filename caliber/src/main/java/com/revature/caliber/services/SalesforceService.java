@@ -62,7 +62,7 @@ public class SalesforceService {
 	
 	public List<Trainee> getAllTraineesFromBatch(String resourceId){
 		log.debug("Find all trainees");
-		return salesforceDAO.getFakeBatchDetails(resourceId);
+		return salesforceDAO.getBatchDetails(resourceId);
 	}
 	
 

@@ -26,6 +26,7 @@ import com.revature.caliber.salesforce.SalesforceTransformerToCaliber;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceBatchResponse;
+import com.revature.salesforce.beans.SalesforceTrainee;
 import com.revature.salesforce.beans.SalesforceTraineeResponse;
 
 /**
@@ -151,15 +152,22 @@ public class SalesforceDAO {
 	 */
 	public List<Trainee> getBatchDetails(String resourceId){
 		String query = batchDetails + "'" + resourceId + "'";
+		List<Trainee> trainees = new LinkedList<>();
+		
 		try {
 			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
 			log.info(response);
+
+			SalesforceTransformerToCaliber transformmer = new SalesforceTransformerToCaliber();
+			for(SalesforceTrainee trainee : response.getRecords()){
+				trainees.add(transformmer.transformTrainee(trainee));
+			}
 			
-			throw new UnsupportedOperationException("not yet fully implemented method");
 		} catch (IOException e) {
 			log.error("Cannot get batch details from Salesforce: cause " + e);
 			throw new ServiceNotAvailableException();
 		}
+		return trainees;
 	}
 
 	//////////// API Helper Methods  //////////////
