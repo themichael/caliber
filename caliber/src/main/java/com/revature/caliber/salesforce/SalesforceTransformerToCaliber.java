@@ -34,7 +34,7 @@ public class SalesforceTransformerToCaliber {
 		return batch;
 	}
 	
-	//TODO - Tranform batchtrainers into trainers
+	//TO DO - Tranform batchtrainers into trainers
 	public Trainer transformTrainer(BatchTrainer batchTrainer){
 		Trainer trainer = new Trainer();
 		if(batchTrainer == null){
