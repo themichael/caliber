@@ -17,9 +17,21 @@ angular.module("vp").controller("vpCategoryController",
 				$log.debug(categories);
 				$scope.categories = categories;
 			});
-			$scope.UpdateCategory = function(category){
-				caliberDelegate.vp.updateCategory(category).then(function(category){
+			$scope.UpdateCategory = function(){
+				caliberDelegate.vp.updateCategory($scope.category).then(function(category){
 					$log.debug("Category Updated: " + response);
 				});
 			};
+			$scope.SaveCategory = function(categoryForm){
+				var newCategory = categoryForm;
+				createCategoryObject(newCategory);
+				caliberDelegate.vp.saveCategory(newCategory).then(function(response){
+					$log.debug("Category created: " + response);
+				});
+			};
+			function createCategoryObject(category) {
+				category = $scope.categoryForm;
+				$log.debug(category);
+			};
+			
 		});
