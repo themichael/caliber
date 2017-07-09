@@ -212,6 +212,10 @@ angular
 					delegate.vp.updateCategory = function(category){
 						return vpFactory.updateCategory(category);
 					};
+					
+					delegate.vp.saveCategory = function(category){
+						return vpFactory.saveCategory(category);
+					};
 
 					/** ************************ QC **************************** */
 					delegate.qc.getAllBatches = function() {
