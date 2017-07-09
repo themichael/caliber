@@ -1,6 +1,8 @@
-package com.revature.caliber;
+package com.revature.caliber.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -9,29 +11,18 @@ import javax.validation.ConstraintViolationException;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.jdbc.SqlConfig.TransactionMode;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.controllers.TrainingController;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:integration-test.xml" })
-public class TrainingTest {
+public class TrainingTest extends CaliberTest{
 
 	private static Logger log = Logger.getLogger(TrainingTest.class);
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private TrainingController trainingController;
 
@@ -43,8 +34,6 @@ public class TrainingTest {
 	 * batch)
 	 */
 	@Test
-	@Sql(scripts = "/setup.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-	@Sql(scripts = "/teardown.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 	public void testBatchSave() {
 		// find initial row count
 		Long rowCount = jdbcTemplate.queryForObject("select count(batch_id) from caliber_batch", Long.class);
@@ -96,9 +85,13 @@ public class TrainingTest {
 		assertEquals(++rowCount, newRowCount);
 	}
 
+	/**
+	 * Tests methods:
+	 * com.revature.caliber.controllers.TrainingController.findTrainer(String
+	 * email)
+	 * com.revature.caliber.controllers.TrainingController.makeInactive(Trainer trainer)
+	 */
 	@Test
-	@Sql(scripts = "/setup.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-	@Sql(scripts = "/teardown.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 	public void testDeactiveTrainer(){
 		// testing findTrainer by email
 		Trainer trainer = trainingController.findTrainer("karan.dhirar@revature.com").getBody();
