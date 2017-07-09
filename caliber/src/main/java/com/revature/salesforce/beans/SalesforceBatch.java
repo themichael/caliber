@@ -50,14 +50,6 @@ public class SalesforceBatch {
 		super();
 	}
 
-	public Attributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Attributes attributes) {
-		this.attributes = attributes;
-	}
-
 	public String getId() {
 		return id;
 	}
@@ -66,6 +58,14 @@ public class SalesforceBatch {
 		this.id = id;
 	}
 
+	public Attributes getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(Attributes attributes) {
+		this.attributes = attributes;
+	}
+	
 	public String getName() {
 		return name;
 	}
