@@ -113,6 +113,7 @@ a { color: #F26925;}
 .glyphicon { top: 0px; }
 .glyphicon-plus { padding-left: .5em; }
 .glyphicon-user { padding-left: .5em; }
+.glyphicon-download { padding-left: .2em; }
 .glyphicon-question-sign, .fa-question-circle { 
 	padding-left: .25em; 
 	color: #F26925 !important;
@@ -128,7 +129,12 @@ a { color: #F26925;}
 	background-image: none;
 }
 
-
+/************************
+***Manage Batch Modal****
+*************************/
+.batchModal {
+	margin: 1.3em;
+}
 /************************
 	QC Assess
 ************************/

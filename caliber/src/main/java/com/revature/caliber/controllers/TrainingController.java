@@ -96,6 +96,7 @@ public class TrainingController {
 		Trainer trainer = trainingService.findTrainer(email);
 		return new ResponseEntity<>(trainer, HttpStatus.OK);
 	}
+
 	/**
 	 * Deactivates the trainer
 	 * 
@@ -218,7 +219,6 @@ public class TrainingController {
 		List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 	}
-
 	/**
 	 * Gets all current batches
 	 *

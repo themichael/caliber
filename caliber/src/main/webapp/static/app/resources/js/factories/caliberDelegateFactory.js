@@ -75,6 +75,10 @@ angular
 					delegate.all.getAllTrainers = function() {
 						return allFactory.getAllTrainers();
 					};
+					
+					delegate.all.importAvailableBatches = function() {
+						return allFactory.importAvailableBatches();
+					};
 
 					delegate.all.getAssessmentsAverageForWeek = function(
 							batchId, weekId) {
@@ -89,6 +93,15 @@ angular
 					delegate.all.getTraineeByEmail = function(traineeEmail) {
 						return allFactory.getTraineeEmail(traineeEmail);
 					}
+
+					delegate.all.createTrainer = function(trainerObj) {
+						return allFactory.createTrainer(trainerObj);
+					};
+					
+					delegate.all.getAllTraineesFromBatch = function(resourceId){
+						return allFactory.getAllTraineesFromBatch(resourceId);
+					}
+
 
 					/**
 					 * *********************** Enum constants
