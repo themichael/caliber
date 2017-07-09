@@ -35,6 +35,8 @@ public class BatchTrainer extends SalesforceRecord{
 
 	@Override
 	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
