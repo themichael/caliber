@@ -119,7 +119,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	 */
 	all.importAvailableBatches = function() {
 		return $http({
-			url : "/all/batch/salesforce/import",
+			url : "/all/batch/import",
 			method : "GET",
 		}).then(function(response) {
 			$log.debug("Object successfully imported");
@@ -190,7 +190,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 
 	all.getAllTraineesFromBatch = function(resourceId){
 		return $http({
-			url : "/all/batch/importtrainee?resourceId=" +resourceId ,
+			url : "/all/trainee/import?resourceId=" +resourceId ,
 			method : "GET"
 		}).then(function(response){
 			$log.debug("Trainees successfully imported")
@@ -374,7 +374,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	 */
     all.importAvailableBatches = function() {
         return $http({
-            url : "/all/batch/importget/",
+            url : "/all/batch/import/",
             method : "GET"
         }).then(function(response) {
             $log.debug("Object successfully imported");

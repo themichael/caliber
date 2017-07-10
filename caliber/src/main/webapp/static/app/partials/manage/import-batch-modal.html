@@ -16,63 +16,64 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
-							<label for="batchItem">Batch Name:</label> 
-							<select 
-								class="form-control"
-								ng-model="selectedBatch"
+							<label for="batchItem">Batch Name:</label> <select
+								class="form-control" ng-model="selectedBatch"
 								ng-options="availableBatch as availableBatch.trainingName for availableBatch in allAvailableBatches"
-								ng-change="selectedBatchToImport()" >
+								ng-change="selectedBatchToImport()">
 							</select>
 						</div>
 					</div>
-					<div class="row">
-						<div>
-							<table class="batchModal">
-								<tr>
-									<th>Training Name</th>
-									<td>{{batchToImport.trainingName}}</td>
-									<th>Training Type</th>
-									<td>{{batchToImport.trainingType}}</td>
-								</tr>
-									<th>Trainer</th>
-									<td>{{batchToImport.trainer.name}}</td>
-									<th>Trainer Email</th>
-									<td>{{batchToImport.trainer.email}}</td>
-								</tr>
-								<tr>
-									<th>Co-Trainer</th>
-									<td>{{batchToImport.cotrainer.name}}</td>
-									<th>Co-Trainer Email</th>
-									<td>{{batchToImport.cotrainer.email}}</td>
-								</tr>
-								<tr>
-									<th>Start Date</th>
-									<td>{{batchToImport.startDate}}</td>
-									<th>End Date</th>
-									<td>{{batchToImport.endDate}}</td>
-								</tr>
-								<tr>
-									<th>Location</th>
-									<td>{{batchToImport.location}}</td>
-								</tr>
-							</table>
+					<div ng-if="batchToImport">
+						<div class="row">
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="name">Training Name:</label> <span id="name">{{batchToImport.trainingName}}</span>
+							</div>
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="type">Training Type:</label> <span id="type">{{batchToImport.trainingType}}</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="skill">Skill Type:</label> <span id="skill">{{batchToImport.skillType}}</span>
+							</div>
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="location">Location:</label> <span id="location">{{batchToImport.location}}</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="trainer">Trainer:</label> <span id="trainer">{{batchToImport.trainer.name}}</span>
+							</div>
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="cotrainer">Co-Trainer:</label> <span id="cotrainer">{{batchToImport.coTrainer.name}}</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="start">Start Date:</label> <span id="start">{{batchToImport.startDate
+									| date:'yyyy-MM-dd'}}</span>
+							</div>
+							<div class="form-group col-md-6 col-sm-6">
+								<label for="end">End Date:</label> <span id="end">{{batchToImport.endDate
+									| date:'yyyy-MM-dd'}}</span>
+							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div>
-							<table ng=hide class="batchModal">
-							<tr>
-								<th>Trainee</th>
-								<th>Email</th>
-								<th>Phone</th>
-								<th>Status</th>
-							</tr>
-							<tr ng-repeat="trainee in traineeToImport">
-								<td>{{trainee.name}}</td>
-								<td>{{trainee.email}}</td>
-								<td>{{trainee.phoneNumber}}</td>
-								<td>{{trainee.trainingStatus}}</td>	
-							</tr>				
+						<div ng-if="batchToImport" class="col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-responsive">
+								<tr>
+									<th>Trainee Name</th>
+									<th>Trainee Email</th>
+									<th>Training Status</th>
+									<th>Phone Number</th>
+								</tr>
+								<tr ng-repeat="trainee in traineeToImport">
+									<td>{{trainee.name}}</td>
+									<td>{{trainee.email}}</td>
+									<td>{{trainee.trainingStatus}}</td>
+									<td>{{trainee.phoneNumber}}</td>
+								</tr>
 							</table>
 						</div>
 					</div>
