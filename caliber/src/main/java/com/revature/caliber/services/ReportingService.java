@@ -379,7 +379,7 @@ public class ReportingService {
 		return utilAvgBatchOverall(trainees, batch.getWeeks());
 	}
 
-	// TODO not dependent on notes
+
 	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChart() {
 		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();  // changed to Trainees
