@@ -267,6 +267,18 @@ angular
 					 	});
 					 };
 					 
+					 /**  Submits the batch to the database **/
+					 $scope.submitImportBatch = function(){
+						 if(batch==null)
+							 return;
+						 caliberDelegate.all.createBatch($scope.batchToImport).then(
+								 function(){
+									 $log.debug("============Imported Batch============");
+									 $log.debug($scope.batchToImport);
+								 });
+						 
+					 };
+					 
 					/** Import batch form for creating new batch**/
 					$scope.importBatchForm = function() {
 						$scope.batchFormName = "Import New Batch"
