@@ -261,9 +261,9 @@ angular
 						$scope.batchToImport = this.selectedBatch;
 						caliberDelegate.all.getAllTraineesFromBatch(this.selectedBatch.resourceId).then(
 								function(trainees){
-									$scope.traineeToImport = trainees;
+									$scope.batchToImport.trainees = trainees;
 									$log.debug("============TRAINEES============");
-									$log.debug(trainees)
+									$log.debug($scope.batchToImport);
 					 	});
 					 };
 					 
