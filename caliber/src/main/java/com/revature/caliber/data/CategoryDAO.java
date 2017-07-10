@@ -40,7 +40,8 @@ public class CategoryDAO {
 	public List<Category> findAllCategories() {
 		log.debug("Fetching categories");
 		return sessionFactory.getCurrentSession().createCriteria(Category.class)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("categoryId")).list();
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.addOrder(Order.asc("skillCategory")).list();
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
