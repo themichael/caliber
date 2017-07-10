@@ -1,6 +1,8 @@
 package com.revature.caliber.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
+import com.revature.caliber.data.TrainerDAO;
 
 @Service
 public class SalesforceService {
@@ -20,6 +24,16 @@ public class SalesforceService {
 	private SalesforceDAO salesforceDAO;
 	@Autowired
 	private BatchDAO batchDAO;
+	@Autowired
+	private TrainerDAO trainerDAO;
+	
+	public void setBatchDAO(BatchDAO batchDAO) {
+		this.batchDAO = batchDAO;
+	}
+
+	public void setTrainerDAO(TrainerDAO trainerDAO) {
+		this.trainerDAO = trainerDAO;
+	}
 
 	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
 		this.salesforceDAO = salesforceDAO;
@@ -35,6 +49,18 @@ public class SalesforceService {
 	//	List<Batch> allSalesForceBatches = salesforceDAO.getAllRelevantBatches();
 		List<Batch> allSalesForceBatches = salesforceDAO.getFakeReleventBatches();
 		List<Batch> allCaliberBatches = batchDAO.findAll();
+		
+		// load trainer and co-trainer from Caliber DB
+		Map<String, Trainer> trainerMap = loadTrainers();
+		for(Batch batch : allSalesForceBatches){
+			batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
+			batch.setCoTrainer(trainerMap.get(batch.getCoTrainer().getEmail()));
+		}
+		
+		for(Batch batch : allSalesForceBatches){
+			log.info(batch.getTrainer());
+			log.info(batch.getCoTrainer());
+		}
 		
 		//Removing batches already in Caliber database
 		for (int cIndex = 0; cIndex < allCaliberBatches.size(); cIndex++) {
@@ -56,6 +82,15 @@ public class SalesforceService {
 	}
 
 	
+	private Map<String, Trainer> loadTrainers() {
+		List<Trainer> trainers = trainerDAO.findAll();
+		Map<String, Trainer> trainerMap = new HashMap<>();
+		for(Trainer t : trainers){
+			trainerMap.putIfAbsent(t.getEmail(), t);
+		}
+		return trainerMap;
+	}
+
 	/**
 	 * FIND ALL TRAINEES
 	 * @return List of Trainees

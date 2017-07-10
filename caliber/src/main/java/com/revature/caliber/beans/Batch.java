@@ -129,6 +129,9 @@ public class Batch implements Serializable {
 	public Batch() {
 		super();
 		this.weeks = 1;
+		this.goodGradeThreshold = 80;
+		this.borderlineGradeThreshold = 70;
+		this.trainingType = TrainingType.Revature;
 	}
 
 	/**
