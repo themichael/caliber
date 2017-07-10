@@ -1,25 +1,28 @@
-<form>
-	<div class="modal fade editCategoryModal"  id="editCategoryModal_{{category.categoryId}}" tabindex="-1"
+<form ng-init="preventModalClose()">
+	<div class="modal fade"
+		id="editCategoryModal_{{category.categoryId}}" tabindex="-1"
 		role="dialog">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" ng-click="closeModal('EditCategoryModal_'+category.categoryId)"
+					<button type="button" class="close"
+						ng-click="closeModal('EditCategoryModal_'+category.categoryId)"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title" id="CategoryModalLabel2">Edit Category</h4>
 				</div>
-				
+
 				<div class="modal-body">
-					<input type="text" ng-value="category.skillCategory" />
+					<input type="text" ng-model="category.skillCategory" />
 				</div>
 
 				<div class="modal-footer">
 					<input type="submit" ng-value="Save" class="btn btn-primary">
-					<button ng-click="closeModal('EditCategoryModal_'+category.categoryId)" type="button" class="btn"
-						aria-label="Close">Close</button>
-					
+					<button
+						ng-click="closeModal('EditCategoryModal_'+category.categoryId)"
+						type="button" class="btn" aria-label="Close">Close</button>
+
 				</div>
 			</div>
 		</div>
