@@ -331,6 +331,8 @@ angular
 						// Create note if noteId is null
 						if ($scope.faces[index].noteId === null
 								|| $scope.faces[index].noteId === undefined) {
+							// immediately set a temp noteId to prevent duplicates
+							$scope.faces[index].noteId = -1;
 							$log.debug("create");
 							caliberDelegate.qc.createNote($scope.faces[index])
 									.then(function(id) {
@@ -349,6 +351,8 @@ angular
 						// Create note if noteId is null
 						if ($scope.bnote.noteId === null
 								|| $scope.bnote.noteId === undefined) {
+							// immediately set a temp noteId to prevent duplicates
+							$scope.faces[index].noteId = -1;
 							caliberDelegate.qc.createNote($scope.bnote).then(
 							// Set id to created notes id
 							function(id) {
