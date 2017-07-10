@@ -18,7 +18,7 @@ angular.module("vp").controller(
 				$log.debug(categories);
 				$scope.categories = categories;
 			});
-			$scope.UpdateCategory = function() {
+			$scope.UpdateCategory = function(category) {
 				caliberDelegate.vp.updateCategory($scope.category).then(
 						function(category) {
 							$log.debug("Category Updated: " + response);
@@ -35,7 +35,6 @@ angular.module("vp").controller(
 			function createCategoryObject(category) {
 				category = $scope.categoryForm;
 				$log.debug(category);
-			}
-			;
+			};
 
 		});
