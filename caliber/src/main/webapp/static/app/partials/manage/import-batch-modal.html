@@ -59,21 +59,23 @@
 							</div>
 						</div>
 					</div>
-					<div ng-if="batchToImport" class="col-sm-12 col-md-12 col-lg-12">
-						<table class="table table-responsive">
-							<tr>
-								<th>Trainee Name</th>
-								<th>Trainee Email</th>
-								<th>Training Status</th>
-								<th>Phone Number</th>
-							</tr>
-							<tr ng-repeat="trainee in traineeToImport">
-								<td>{{trainee.name}}</td>
-								<td>{{trainee.email}}</td>
-								<td>{{trainee.trainingStatus}}</td>
-								<td>{{trainee.phoneNumber}}</td>
-							</tr>
-						</table>
+					<div class="row">
+						<div ng-if="batchToImport" class="col-sm-12 col-md-12 col-lg-12">
+							<table class="table table-responsive">
+								<tr>
+									<th>Trainee Name</th>
+									<th>Trainee Email</th>
+									<th>Training Status</th>
+									<th>Phone Number</th>
+								</tr>
+								<tr ng-repeat="trainee in traineeToImport">
+									<td>{{trainee.name}}</td>
+									<td>{{trainee.email}}</td>
+									<td>{{trainee.trainingStatus}}</td>
+									<td>{{trainee.phoneNumber}}</td>
+								</tr>
+							</table>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
