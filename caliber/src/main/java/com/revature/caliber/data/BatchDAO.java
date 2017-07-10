@@ -101,7 +101,8 @@ public class BatchDAO {
 		endDateLimit.add(Calendar.MONTH, -3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId), Restrictions.eq("coTrainer.trainerId", trainerId)))
+				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId), 
+						Restrictions.eq("coTrainer.trainerId", trainerId)))
 				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
 				.add(Restrictions.ge("endDate", endDateLimit.getTime())).addOrder(Order.desc("startDate"))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -125,14 +126,14 @@ public class BatchDAO {
 		endDateLimit.add(Calendar.MONTH, -3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)  			// both
-				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)  //bar chart
-				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN) // line chart
-				.add(Restrictions.gt("g.score", 0.0))  							// line chart
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))  // both
-				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))  // both
+				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)  		// bar chart
+				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN) 		// line chart
+				.add(Restrictions.gt("g.score", 0.0))  								// line chart
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))   // both
+				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))// both
 				.add(Restrictions.ge("endDate", endDateLimit.getTime()))   			// both
-				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC))  // bar chart
-				.add(Restrictions.eq("n.qcFeedback", true))   					// bar chart
+				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC))  		// bar chart
+				.add(Restrictions.eq("n.qcFeedback", true))   						// bar chart
 				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
 	}
@@ -146,14 +147,14 @@ public class BatchDAO {
 		endDateLimit.add(Calendar.MONTH, -3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)  			// both
-				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)  //bar chart
-				//.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN) // line chart
+				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)  		// bar chart
+				//.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN)  	// line chart
 				//.add(Restrictions.gt("g.score", 0.0))  							// line chart
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))  // both
-				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))  // both
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))   // both
+				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))// both
 				.add(Restrictions.ge("endDate", endDateLimit.getTime()))   			// both
-				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC))  // bar chart
-				.add(Restrictions.eq("n.qcFeedback", true))   					// bar chart
+				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC))  		// bar chart
+				.add(Restrictions.eq("n.qcFeedback", true))   						// bar chart
 				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
 	}
@@ -165,15 +166,15 @@ public class BatchDAO {
 		Calendar endDateLimit = Calendar.getInstance();
 		endDateLimit.add(Calendar.MONTH, -3);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)  			// both
-				//.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)  //bar chart
-				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN) // line chart
-				.add(Restrictions.gt("g.score", 0.0))  							// line chart
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))  // both
-				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))  // both
-				.add(Restrictions.ge("endDate", endDateLimit.getTime()))   			// both
-				//.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC))  // bar chart
-				//.add(Restrictions.eq("n.qcFeedback", true))   					// bar chart
+				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)  			 // both
+				//.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN) 	 // bar chart
+				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN) 		 // line chart
+				.add(Restrictions.gt("g.score", 0.0))  								 // line chart
+				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))    // both
+				.add(Restrictions.le("startDate", Calendar.getInstance().getTime())) // both
+				.add(Restrictions.ge("endDate", endDateLimit.getTime()))   			 // both
+				//.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC)) 	 // bar chart
+				//.add(Restrictions.eq("n.qcFeedback", true))   					 // bar chart
 				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		return batches;
 	}

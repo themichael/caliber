@@ -31,7 +31,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.revature.caliber.validator.BatchValObject;
+//import com.revature.caliber.validator.BatchValObject;
 
 /**
  * The type Batch.

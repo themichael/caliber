@@ -130,7 +130,7 @@ public class ReportingService {
 	 */
 	public Map<String, Map<QCStatus, Integer>> getAllBatchesCurrentWeekQCStackedBarChart() {
 		Map<String, Map<QCStatus, Integer>> results = new ConcurrentHashMap<>();
-		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  //changed to Notes
+		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
 		currentBatches.parallelStream().forEach(b -> {
 			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(b);
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
@@ -376,7 +376,7 @@ public class ReportingService {
 	// TODO not dependent on notes
 	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChart() {
 		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
-		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();  //changed to Trainees
+		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();  // changed to Trainees
 		batches.parallelStream().forEach(batch -> {
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 			results.put(batch.getTrainingName(), utilAvgBatchOverall(trainees, batch.getWeeks()));
