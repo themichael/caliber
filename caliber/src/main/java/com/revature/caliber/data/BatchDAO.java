@@ -128,7 +128,7 @@ public class BatchDAO {
 	public List<Batch> findAllCurrentWithNotesAndTrainees() {
 		log.info("Fetching all current batches with trainees, grades and notes");
 		Calendar endDateLimit = Calendar.getInstance();	
-		endDateLimit.add(Calendar.MONTH, -3);
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)  			// both
 				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)  		// bar chart
@@ -148,7 +148,7 @@ public class BatchDAO {
 	public List<Batch> findAllCurrentWithNotes() {
 		log.info("Fetching all current batches with trainees, and notes");
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, -3);
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN) // both
 				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN) // bar
@@ -171,7 +171,7 @@ public class BatchDAO {
 	public List<Batch> findAllCurrentWithTrainees() {
 		log.info("Fetching all current batches with trainees, grades");
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, -3);
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)  			 // both
 				//.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN) 	 // bar chart
