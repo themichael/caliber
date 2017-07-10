@@ -55,32 +55,29 @@ public class SalesforceDAO {
 	/**
 	 * Will change as of version 2.0 Salesforce API in August/September 2017 timeframe
 	 * Used to populate the dropdown list of importable batches.
-		select id, name, batch_start_date__c, batch_end_date__c,
-			batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, Skill_Type__c, Location__c,
-			Type__c from training__c where batch_start_date__c >= THIS_YEAR
 	 */
-	@Value("select id, name, batch_start_date__c, batch_end_date__c, batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, Skill_Type__c, Location__c, Type__c from training__c where batch_start_date__c >= THIS_YEAR")
+	@Value("select id, name, batch_start_date__c, batch_end_date__c, " +
+			"batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, " +
+			"Skill_Type__c, Location__c, Type__c from training__c " +
+			"where batch_trainer__r.name != null and batch_start_date__c >= THIS_YEAR")
 	private String relevantBatches;
 	
 	/**
 	 * Will change as of version 2.0 Salesforce API in August/September 2017 timeframe
 	 * Once user selects a batch to import, use this to load all the Trainee details.
-	 	select id, name, training_status__c, phone, email, MobilePhone,
-			Training_Batch__c , Training_Batch__r.name, 
-			Training_Batch__r.batch_start_date__c, 
-			Training_Batch__r.batch_end_date__c, 
-			Training_Batch__r.batch_trainer__r.name, 
-			rnm__Recruiter__r.name, account.name, 
-			Training_Batch__r.Co_Trainer__r.name, 
-			eintern_current_project_completion_pct__c ,
-			Training_Batch__r.Skill_Type__c, 
-			Training_Batch__r.Type__c from Contact 
-			where training_batch__c = 'a0Yi000000F0b7I'
-			
-			// 'a0Yi000000F0b7I' is the resourceId
-		ResourceId *MUST* be surrounded in single quotes to function properly
+	 *	ResourceId *MUST* be surrounded in single quotes to function properly
 	 */
-	@Value("select id, name, training_status__c, phone, email, MobilePhone, Training_Batch__c , Training_Batch__r.name, Training_Batch__r.batch_start_date__c, Training_Batch__r.batch_end_date__c, Training_Batch__r.batch_trainer__r.name, rnm__Recruiter__r.name, account.name, Training_Batch__r.Co_Trainer__r.name, eintern_current_project_completion_pct__c , Training_Batch__r.Skill_Type__c, Training_Batch__r.Type__c from Contact where training_batch__c = ")
+	@Value("select id, name, training_status__c, phone, email, MobilePhone, " +
+			"Training_Batch__c , Training_Batch__r.name, " +
+			"Training_Batch__r.batch_start_date__c, " +
+			"Training_Batch__r.batch_end_date__c, " + 
+			"Training_Batch__r.batch_trainer__r.name, " + 
+			"rnm__Recruiter__r.name, account.name, " + 
+			"Training_Batch__r.Co_Trainer__r.name, " + 
+			"eintern_current_project_completion_pct__c , " +
+			"Training_Batch__r.Skill_Type__c, " + 
+			"Training_Batch__r.Type__c from Contact " + 
+			"where training_batch__c = ")
 	private String batchDetails;
 
 	//////////// REST Consumer Methods -- Salesforce REST API //////////////
@@ -95,12 +92,11 @@ public class SalesforceDAO {
 		
 		try {
 			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
-			log.info(response);
-			
-			SalesforceTransformerToCaliber transformmer = new SalesforceTransformerToCaliber();
+			log.info("Found " + response.getTotalSize() + " batches: " + response);
+			SalesforceTransformerToCaliber transformer = new SalesforceTransformerToCaliber();
 			
 			for(SalesforceBatch salesForceBatch : response.getRecords()){
-				relevantBatchesList.add(transformmer.transformBatch(salesForceBatch));
+				relevantBatchesList.add(transformer.transformBatch(salesForceBatch));
 			}
 		} catch (IOException e) {
 			log.error("Cannot get Salesforce batches:  " + e);
@@ -160,9 +156,9 @@ public class SalesforceDAO {
 			SalesforceTraineeResponse response = new ObjectMapper().readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
 			log.info(response);
 
-			SalesforceTransformerToCaliber transformmer = new SalesforceTransformerToCaliber();
+			SalesforceTransformerToCaliber transformer = new SalesforceTransformerToCaliber();
 			for(SalesforceTrainee trainee : response.getRecords()){
-				trainees.add(transformmer.transformTrainee(trainee));
+				trainees.add(transformer.transformTrainee(trainee));
 			}
 			
 		} catch (IOException e) {
@@ -199,7 +195,7 @@ public class SalesforceDAO {
 	 */
 	private String getAccessToken() {
 		if(debug)
-			return "00D0n0000000Q1l!AQQAQJj_Zm4R9Duw3lVd8ozClKEfoJ6gPyeKmrtD4Vnj5A77115F4KQL7oRaml3YtpjjtjQtK4tdQsAUvZKaFg.F3nsG44v6";
+			return "00D0n0000000Q1l!AQQAQMnQkO_smP5y2Vjroh2_8iiA3wYszxj.5706S_5eJTS4QzqeBJxzt9K0itoHQttQ4cVEVDVIU4YzCgNTyHAcqXGBU.k3";
 		else
 			return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}
