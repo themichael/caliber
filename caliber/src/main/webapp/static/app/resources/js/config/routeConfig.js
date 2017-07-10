@@ -158,7 +158,7 @@ angular
 									"trainer.import",
 									{
 										abstract : true,
-										url : " /trainer/batch/all/importget",
+										url : " /trainer/batch/all/import",
 										templateUrl : "/static/app/partials/abstracts/trainer.html",
 										resolve : {
 											allBatches : function(
