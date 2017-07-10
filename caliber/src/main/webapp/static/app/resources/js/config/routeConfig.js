@@ -320,7 +320,10 @@ angular
 												controller : "vpCategoryController"
 											},
 											"create-category-form@vp.category" : {
-												templateUrl: "/static/app/partials/category/add-category-modals.html"
+												templateUrl : "/static/app/partials/category/add-category-modals.html"
+											},
+											"edit-category-form@vp.category" : {
+												templateUrl : "/static/app/partials/category/edit-category-modals.html"
 											}
 										}
 												
