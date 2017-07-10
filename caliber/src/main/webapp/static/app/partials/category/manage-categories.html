@@ -31,7 +31,10 @@
 				<tbody>
 					<tr ng-repeat="category in categories track by $index">
 						<td role="button" class="pull-right" data-toggle="modal"
-							data-target="#editCategoryModal" ng-click="">{{category.skillCategory}}</td>
+							ng-click=""
+							data-target="#editCategoryModal_{{category.categoryId}}">{{category.skillCategory}}
+							<div ui-view="edit-category-form"></div>
+						</td>
 						<td>{{category.active}}</td>
 					</tr>
 				</tbody>
@@ -45,4 +48,3 @@
 </div>
 
 <div ui-view="create-category-form"></div>
-<div ui-view="edit-category-form"></div>

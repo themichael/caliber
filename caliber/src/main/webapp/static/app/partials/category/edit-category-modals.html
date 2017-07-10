@@ -1,6 +1,6 @@
 <form>
-	<div class="modal fade" id="editCategoryModal" tabindex="-1"
-		role="dialog" aria-labelledby="CategoryModalLabel2">
+	<div class="modal fade editCategoryModal"  id="editCategoryModal_{{category.categoryId}}" tabindex="-1"
+		role="dialog">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -12,7 +12,7 @@
 				</div>
 				
 				<div class="modal-body">
-				
+					<input type="text" ng-value="category.skillCategory" />
 				</div>
 
 				<div class="modal-footer">
