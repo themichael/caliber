@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 
 /**
@@ -30,8 +29,14 @@ import com.revature.caliber.beans.TrainingStatus;
 @Repository
 public class BatchDAO{
 
-	private final static Logger log = Logger.getLogger(BatchDAO.class);
+	private static final Logger log = Logger.getLogger(BatchDAO.class);
 	private SessionFactory sessionFactory;
+	private static final int MONTHS_BACK = -1;
+	private static final String TRAINEES = "trainees";
+	private static final String T_TRAINING_STATUS = "t.trainingStatus";
+	private static final String START_DATE = "startDate";
+	private static final String END_DATE = "endDate";
+	private static final String G_SCORE = "g.score";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -58,16 +63,15 @@ public class BatchDAO{
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAll() {
 		log.info("Fetching all batches");
-		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.addOrder(Order.desc("startDate"))
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
+				.addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return batches;
 	}
 
 	/**
-	 * Looks for all batches where the user was the trainer or cotrainer.
+	 * Looks for all batches where the user was the trainer or co-trainer.
 	 * 
 	 * @param auth
 	 * @return
@@ -77,9 +81,9 @@ public class BatchDAO{
 	public List<Batch> findAllByTrainer(Integer trainerId) {
 		log.info("Fetching all batches for trainer: " + trainerId);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
-						Restrictions.eq("coTrainer.trainerId", trainerId))).addOrder(Order.desc("startDate"))
+						Restrictions.eq("coTrainer.trainerId", trainerId))).addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		batches.parallelStream().forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
 		return batches;
@@ -97,14 +101,14 @@ public class BatchDAO{
 	public List<Batch> findAllCurrent(Integer trainerId) {
 		log.info("Fetching all current batches for trainer: " + trainerId);
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, -3);
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
 						Restrictions.eq("coTrainer.trainerId", trainerId)))
-				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
-				.addOrder(Order.desc("startDate"))
+				.add(Restrictions.le(START_DATE, Calendar.getInstance().getTime()))
+				.add(Restrictions.ge(END_DATE, endDateLimit.getTime()))
+				.addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		batches.parallelStream().forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
 		return batches;
@@ -121,18 +125,16 @@ public class BatchDAO{
 	public List<Batch> findAllCurrentWithNotesAndTrainees() {
 		log.info("Fetching all current batches with trainees, grades and notes");
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, -3);
-		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
-				.add(Restrictions.ge("n.maxVisibility", TrainerRole.ROLE_QC))
+				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt(G_SCORE, 0.0))
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
+				.add(Restrictions.le(START_DATE, Calendar.getInstance().getTime()))
+				.add(Restrictions.ge(END_DATE, endDateLimit.getTime()))
 				.add(Restrictions.eq("n.qcFeedback", true))
-				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return batches;
+				.addOrder(Order.desc(START_DATE)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 	
 	/**
@@ -147,12 +149,12 @@ public class BatchDAO{
 	public List<Batch> findAllCurrent() {
 		log.info("Fetching all current batches with active trainees");
 		Calendar endDateLimit = Calendar.getInstance();
-		endDateLimit.add(Calendar.MONTH, -3);
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
 		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", endDateLimit.getTime()))
-				.addOrder(Order.desc("startDate")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.le(START_DATE, Calendar.getInstance().getTime()))
+				.add(Restrictions.ge(END_DATE, endDateLimit.getTime()))
+				.addOrder(Order.desc(START_DATE)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		batches.parallelStream().forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
 		return batches;
 	}
@@ -166,10 +168,9 @@ public class BatchDAO{
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch findOne(Integer batchId) {
 		log.info("Fetching batch: " + batchId);
-		Batch batch = (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batchId", batchId))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).uniqueResult();
-		return batch;
+		return (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batchId", batchId))
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
 
 	/**
@@ -181,12 +182,11 @@ public class BatchDAO{
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch findOneWithTraineesAndGrades(Integer batchId) {
 		log.info("Fetching batch: " + batchId);
-		Batch batch = (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("t.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
+		return (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("t.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt(G_SCORE, 0.0))
 				.add(Restrictions.eq("batchId", batchId))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped)).uniqueResult();
-		return batch;
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
 
 	/**
@@ -224,7 +224,7 @@ public class BatchDAO{
 				.setProjection(Projections
 						.distinct(Projections.projectionList().add(Projections.property("location"), "location")))
 				.setResultTransformer(Transformers.aliasToBean(Batch.class)).list();
-		List<String> locations = new ArrayList<String>();
+		List<String> locations = new ArrayList<>();
 
 		if (batches != null) {
 			for (Batch batch : batches) {
@@ -247,12 +247,11 @@ public class BatchDAO{
 		Calendar startDate = Calendar.getInstance();
 		startDate.set(year, month, day);
 		log.info("Fetching all current batches since: " + startDate.getTime().toString());
-		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
-				.add(Restrictions.ne("t.trainingStatus", TrainingStatus.Dropped))
-				.add(Restrictions.ge("startDate", startDate.getTime())).addOrder(Order.desc("startDate"))
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt(G_SCORE, 0.0))
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
+				.add(Restrictions.ge(START_DATE, startDate.getTime())).addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return batches;
 	}
 }

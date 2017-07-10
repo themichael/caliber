@@ -19,6 +19,10 @@
 **/.classpath
 **/.recommenders/**
 **/Servers
+<<<<<<< HEAD
+=======
+**/.springBeans
+>>>>>>> b907fad0157168ff03e7f618f87c92b9c0c424d6
 
 #IDEA
 **/.idea/

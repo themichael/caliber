@@ -17,7 +17,7 @@ import com.revature.caliber.beans.Category;
 @Repository
 public class CategoryDAO {
 
-	private final static Logger log = Logger.getLogger(CategoryDAO.class);
+	private static final Logger log = Logger.getLogger(CategoryDAO.class);
 	private SessionFactory sessionFactory;
 	
 	@Autowired

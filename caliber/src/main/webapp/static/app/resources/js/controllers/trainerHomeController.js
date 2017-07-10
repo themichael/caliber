@@ -10,11 +10,11 @@ angular
 					 * ********************************* On Start
 					 * ****************************
 					 */
-					const OVERALL = "(All)";
 					$scope.currentBatch = allBatches[0];
-					
+					if($scope.currentBatch === undefined || $scope.currentBatch === null) 
+						return;
 
-					(function(start) {
+					(function() {
 						// Finishes any left over AJAX animation
 						NProgress.done();
 
