@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,20 +37,50 @@ import com.revature.caliber.services.TrainingService;
 @CrossOrigin(origins = "*")
 public class TrainingController {
 
-	private final static Logger log = Logger.getLogger(TrainingController.class);
+	private static final Logger log = Logger.getLogger(TrainingController.class);
 	private TrainingService trainingService;
 
 	@Autowired
 	public void setTrainingService(TrainingService trainingService) {
 		this.trainingService = trainingService;
 	}
-
+	
 	/*
 	 *******************************************************
 	 * TODO TRAINER SERVICES
 	 *
 	 *******************************************************
 	 */
+
+	/**
+	 * Create trainer
+	 *
+	 * @param trainer
+	 * 
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/vp/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<Trainer> createTrainer(@Valid @RequestBody Trainer trainer) {
+		log.info("Saving trainer: " + trainer);
+		trainingService.createTrainer(trainer);
+		return new ResponseEntity<>(trainer, HttpStatus.CREATED);
+	}
+
+	/**
+	 * Update trainer
+	 *
+	 * @param trainer
+	 * 
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/vp/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<Void> updateTrainer(@Valid @RequestBody Trainer trainer) {
+		log.info("Updating trainer: " + trainer);
+		trainingService.update(trainer);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 
 	/**
 	 * Finds a trainer by email. Used for logging in a user with the Salesforce
@@ -57,10 +90,38 @@ public class TrainingController {
 	 * @return
 	 */
 	@RequestMapping(value = "/training/trainer/byemail/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Trainer> findTrainer(@PathVariable String email) {
 		log.info("Find trainer by email " + email);
 		Trainer trainer = trainingService.findTrainer(email);
-		return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
+		return new ResponseEntity<>(trainer, HttpStatus.OK);
+	}
+
+	/**
+	 * Deactivates the trainer
+	 * 
+	 * @param trainer
+	 * @return response entity
+	 */
+	@RequestMapping(value = "/vp/trainer/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Void> makeInactive(@Valid @RequestBody Trainer trainer) {
+		log.info("Updating trainer: " + trainer);
+		trainingService.makeInactive(trainer);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	/**
+	 * Returns all trainers titles from the database `
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/vp/trainer/titles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<List<String>> getAllTrainersTitles() {
+		log.info("Fetching all trainers titles");
+		List<String> trainers = trainingService.findAllTrainerTitles();
+		return new ResponseEntity<>(trainers, HttpStatus.OK);
 	}
 
 	/**
@@ -95,7 +156,7 @@ public class TrainingController {
 		Trainer userPrincipal = getPrincipal(auth);
 		log.info("Getting all batches for trainer: " + userPrincipal);
 		List<Batch> batches = trainingService.findAllBatches(userPrincipal.getTrainerId());
-		return new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+		return new ResponseEntity<>(batches, HttpStatus.OK);
 	}
 
 	/**
@@ -107,10 +168,11 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch, Authentication auth) {
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch) {
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
-		return new ResponseEntity<Batch>(batch, HttpStatus.CREATED);
+		return new ResponseEntity<>(batch, HttpStatus.CREATED);
 	}
 
 	/**
@@ -120,11 +182,9 @@ public class TrainingController {
 	 *            the batch
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, 
-	produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch, Authentication auth) {
-		// batch.setTrainer(getPrincipal(auth));
+	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
 		log.info("Updating batch: " + batch);
 		trainingService.update(batch);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -152,14 +212,13 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value = {"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {
+			"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('QC, VP')")
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
 		log.info("Fetching all current batches");
-		 List<Batch> batches = trainingService.findAllCurrentBatches();
-		// List<Batch> batches = trainingService.findAllBatches();
+		List<Batch> batches = trainingService.findAllCurrentBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
-
 	}
 
 	/**
@@ -167,7 +226,8 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value ={"/qc/batch/all", "/vp/batch/all"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = { "/qc/batch/all",
+			"/vp/batch/all" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	// @PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<List<Batch>> getAllBatches() {
 		log.info("Fetching all batches");
@@ -223,33 +283,7 @@ public class TrainingController {
 	public ResponseEntity<Trainee> createTrainee(@Valid @RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
 		trainingService.save(trainee);
-		return new ResponseEntity<Trainee>(trainee, HttpStatus.CREATED);
-	}
-
-	/**
-	 * Create trainees
-	 *
-	 * 
-	 * Uneeded. just do multiple calls to createTrainee
-	 * 
-	 * @param trainees
-	 *            the trainee
-	 * @return the response entity
-	 * 
-	 */
-	@Deprecated
-	@RequestMapping(value = "/all/trainees/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Void> createTrainees(@RequestBody Trainee[] trainees) {
-		// TODO quick and dirty. We should have @Transactional services to
-		// create rollback for failed batchUpdates
-		log.info("Saving trainees: " + trainees);
-		if (trainees != null)
-			for (Trainee trainee : trainees)
-				trainingService.save(trainee);
-		else
-			throw new IllegalArgumentException("Trainees required.");
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<>(trainee, HttpStatus.CREATED);
 	}
 
 	/**
@@ -285,13 +319,11 @@ public class TrainingController {
 	}
 
 	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
-	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail){
-		Trainee trainee = new Trainee();
-		trainee = trainingService.findTraineeByEmail(traineeEmail);
-	
-		return new ResponseEntity<Trainee>(trainee, HttpStatus.OK);
+	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail) {
+		Trainee trainee = trainingService.findTraineeByEmail(traineeEmail);
+		return new ResponseEntity<>(trainee, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<String>> findCommonLocations() {
 		log.info("Fetching common training locations");
@@ -301,15 +333,6 @@ public class TrainingController {
 	/**
 	 * Convenience method for accessing the Trainer information from the User
 	 * Principal.
-	 * 
-	 * TODO :: read me:: Access user details through SecurityContext by
-	 * injecting Authentication into Controller method. Use @PreAuthorize with
-	 * Spring Expression Language (SpEL) to send 403 forbidden if not authorized
-	 * <<<<<<< HEAD
-	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el
-	 * -access.html =======
-	 * http://docs.spring.io/spring-security/site/docs/current/reference/html/el
-	 * -access.html >>>>>>> 5aedf4196dfe4b91cac204fa623c7755fec4a5df
 	 * 
 	 * @param auth
 	 * @return

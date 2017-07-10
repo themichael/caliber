@@ -25,8 +25,10 @@ import com.revature.caliber.beans.TrainingStatus;
 @Repository
 public class TraineeDAO {
 
-	private final static Logger log = Logger.getLogger(TraineeDAO.class);
+	private static final Logger log = Logger.getLogger(TraineeDAO.class);
 	private SessionFactory sessionFactory;
+	private static final String GRADES = "grades";
+	private static final String TRAINING_STATUS = "trainingStatus";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -38,7 +40,7 @@ public class TraineeDAO {
 	 * 
 	 * @param trainee
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void save(Trainee trainee) {
 		log.info("Saving trainee " + trainee);
 		sessionFactory.getCurrentSession().save(trainee);
@@ -67,12 +69,11 @@ public class TraineeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findAllByBatch(Integer batchId) {
 		log.info("Fetching all Active trainees by batch: " + batchId);
-		List<Trainee> trainees = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.createAlias(GRADES, "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt("g.score", 0.0))
 				.add(Restrictions.eq("batch.batchId", batchId))
-				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return trainees;
 	}
 
 	/**
@@ -85,11 +86,10 @@ public class TraineeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findAllDroppedByBatch(Integer batchId) {
 		log.info("Fetching all Dropped trainees by batch: " + batchId);
-		List<Trainee> trainees = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batch.batchId", batchId))
-				.add(Restrictions.eq("trainingStatus", TrainingStatus.Dropped))
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.createAlias(GRADES, "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batch.batchId", batchId))
+				.add(Restrictions.eq(TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return trainees;
 	}
 
 	/**
@@ -102,13 +102,12 @@ public class TraineeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findAllByTrainer(Integer trainerId) {
 		log.info("Fetch all trainees by trainer: " + trainerId);
-		List<Trainee> trainees = sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.createAlias("batch", "b").createAlias("b.trainer", "t")
-				.createAlias("grades", "g", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(GRADES, "g", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("notes", "n", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("t.trainerId", trainerId))
-				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return trainees;
 	}
 
 	/**
@@ -122,7 +121,7 @@ public class TraineeDAO {
 		log.info("Fetch trainee by id: " + traineeId);
 		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.setFetchMode("batch", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId))
-				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped)).uniqueResult();
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
 
 	/**

@@ -1,18 +1,16 @@
-package com.revature.caliber.services;
+package com.revature.caliber.test;
 
 import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
-public class ReportingServiceTest {
+import com.revature.caliber.CaliberTest;
+import com.revature.caliber.services.ReportingService;
+
+public class ReportingServiceTest extends CaliberTest{
 
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
 	@SuppressWarnings("unused")
@@ -20,7 +18,7 @@ public class ReportingServiceTest {
 	private ReportingService reportingService;
 
 	private static int runs = 10;
-	private static long nano = 1000000000l;
+	private static long nano = 1000000000L;
 	Calendar startDate = Calendar.getInstance();
 
 	@Test
@@ -39,9 +37,7 @@ public class ReportingServiceTest {
 	public long serialMethodTest() {
 		startDate.set(2017, Calendar.MARCH, 01);
 		long startTimeNano = System.nanoTime();
-		for (int i = 0; i < runs; i++) {
-			
-		}
+		
 		long serialRunTimeSystem = System.nanoTime() - startTimeNano;
 		serialRunTimeSystem /= runs;
 		return serialRunTimeSystem;
@@ -49,9 +45,7 @@ public class ReportingServiceTest {
 
 	public long concurrentMethod() {
 		long startTimeNano = System.nanoTime();
-		for (int i = 0; i < runs; i++) {
-			
-		}
+		
 		long concurrentRunTimeSystem = System.nanoTime() - startTimeNano;
 		concurrentRunTimeSystem /= runs;
 		return concurrentRunTimeSystem;

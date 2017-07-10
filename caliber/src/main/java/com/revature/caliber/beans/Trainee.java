@@ -31,17 +31,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * The type Trainee.
  * 
- * (NOTE) 
- * Further iterations should include the following from the Salesforce: 
- * 		 recruiter_name, account_name, project_completion
- * This way we can analyze performance based on 
- * where they went to college, who recruited them, and if they finished RevaturePro.
+ * (NOTE) Further iterations should include the following from the Salesforce:
+ * recruiter_name, account_name, project_completion This way we can analyze
+ * performance based on where they went to college, who recruited them, and if
+ * they finished RevaturePro.
  */
 @Entity
 @Table(name = "CALIBER_TRAINEE")
 @Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class Trainee implements Serializable{
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class Trainee implements Serializable {
 
 	private static final long serialVersionUID = -9090223980655307018L;
 
@@ -49,62 +48,69 @@ public class Trainee implements Serializable{
 	@Column(name = "TRAINEE_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRAINEE_ID_SEQUENCE")
 	@SequenceGenerator(name = "TRAINEE_ID_SEQUENCE", sequenceName = "TRAINEE_ID_SEQUENCE")
-    private int traineeId;
-	
+	private int traineeId;
+
+	@Column(name = "RESOURCE_ID")
+	private String resourceId;
+
 	@NotEmpty
 	@Column(name = "TRAINEE_NAME")
-    private String name;
-	
+	private String name;
+
 	@NotEmpty
 	@Email
-	@Column(name="TRAINEE_EMAIL", nullable=false, unique=true)
-    private String email;
-	
+	@Column(name = "TRAINEE_EMAIL", nullable = false, unique = true)
+	private String email;
+
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TRAINING_STATUS")
-    private TrainingStatus trainingStatus;
-	
+	private TrainingStatus trainingStatus;
+
 	@NotNull
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
 	@JsonBackReference(value = "traineeAndBatch")
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-    private Batch batch;
-	
-	@Column(name="PHONE_NUMBER")
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	private Batch batch;
+
+	@Column(name = "PHONE_NUMBER")
 	private String phoneNumber;
-	
-	@Column(name="SKYPE_ID")
+
+	@Column(name = "SKYPE_ID")
 	private String skypeId;
-	
-	@Column(name="PROFILE_URL")
+
+	@Column(name = "PROFILE_URL")
 	private String profileUrl;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="trainee", cascade = CascadeType.ALL)
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Grade> grades;
+	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	private Set<Grade> grades;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="trainee", cascade = CascadeType.ALL)
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
-	
+
 	public Trainee() {
 		super();
 	}
-	
-	public Trainee(String name, String email, TrainingStatus trainingStatus, String phoneNumber,
-			String skypeId, String profileUrl, Batch batch) {
+
+	/**
+	 * Constructor used mostly for testing. Default TrainingStatus as Training
+	 * @param name
+	 * @param resourceId
+	 * @param email
+	 * @param batch
+	 */
+	public Trainee(String name, String resourceId, String email, Batch batch) {
 		super();
 		this.name = name;
+		this.resourceId = resourceId;
 		this.email = email;
-		this.trainingStatus = trainingStatus;
+		this.trainingStatus = TrainingStatus.Training;
 		this.batch = batch;
-		this.phoneNumber = phoneNumber;
-		this.skypeId = skypeId;
-		this.profileUrl = profileUrl;
 	}
 
 	public int getTraineeId() {
@@ -186,7 +192,15 @@ public class Trainee implements Serializable{
 	public void setProfileUrl(String profileUrl) {
 		this.profileUrl = profileUrl;
 	}
-	
+
+	public String getResourceId() {
+		return resourceId;
+	}
+
+	public void setResourceId(String resourceId) {
+		this.resourceId = resourceId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -197,6 +211,7 @@ public class Trainee implements Serializable{
 		result = prime * result + ((profileUrl == null) ? 0 : profileUrl.hashCode());
 		result = prime * result + ((skypeId == null) ? 0 : skypeId.hashCode());
 		result = prime * result + ((trainingStatus == null) ? 0 : trainingStatus.hashCode());
+		result = prime * result + ((resourceId == null) ? 0 : resourceId.hashCode());
 		return result;
 	}
 
@@ -235,6 +250,11 @@ public class Trainee implements Serializable{
 		} else if (!skypeId.equals(other.skypeId))
 			return false;
 		if (trainingStatus != other.trainingStatus)
+			return false;
+		if (resourceId == null) {
+			if (other.resourceId != null)
+				return false;
+		} else if (!resourceId.equals(other.resourceId))
 			return false;
 		return true;
 	}
