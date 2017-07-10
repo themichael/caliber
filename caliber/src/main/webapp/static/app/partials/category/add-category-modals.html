@@ -1,18 +1,17 @@
 
 <form ng-submit="saveCategory(categoryForm)">
 	<div class="modal fade" id="addCategoryModal" tabindex="-1"
-			role="dialog" aria-labelledby="CategoryModalLabel">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="CategoryModalLabel">Add
-							Category</h4>
-					</div>
-					
+		role="dialog" aria-labelledby="CategoryModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="CategoryModalLabel">Add Category</h4>
+				</div>
+
 				<div class="modal-body">
 					<!-- Add New Category -->
 
@@ -21,16 +20,17 @@
 						<div class="row">
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="categoryName">Category :</label> <input
-									ng-model="categoryForm.SKILL_CATEGORY" type="text" class="form-control"
-									id="categoryName" placeholder="Title" required>
+									ng-model="categoryForm.SKILL_CATEGORY" type="text"
+									class="form-control" id="categoryName" placeholder="Title"
+									required>
 							</div>
 						</div>
-								
-							<div class="modal-footer">
-								</br>
-								<input type="submit" ng-value="Save" class="btn btn-primary">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							</div>
+
+						<div class="modal-footer">
+							<input type="submit" ng-value="Save" class="btn btn-primary">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
 					</div>
 				</div>
 			</div>

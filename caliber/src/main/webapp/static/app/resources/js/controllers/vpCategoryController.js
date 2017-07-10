@@ -11,27 +11,31 @@
  * ******************************************************************************
  */
 
-angular.module("vp").controller("vpCategoryController",
+angular.module("vp").controller(
+		"vpCategoryController",
 		function($scope, $log, caliberDelegate) {
 			caliberDelegate.vp.getAllCategories().then(function(categories) {
 				$log.debug(categories);
 				$scope.categories = categories;
 			});
-			$scope.UpdateCategory = function(){
-				caliberDelegate.vp.updateCategory($scope.category).then(function(category){
-					$log.debug("Category Updated: " + response);
-				});
+			$scope.UpdateCategory = function() {
+				caliberDelegate.vp.updateCategory($scope.category).then(
+						function(category) {
+							$log.debug("Category Updated: " + response);
+						});
 			};
-			$scope.SaveCategory = function(categoryForm){
+			$scope.SaveCategory = function(categoryForm) {
 				var newCategory = categoryForm;
 				createCategoryObject(newCategory);
-				caliberDelegate.vp.saveCategory(newCategory).then(function(response){
-					$log.debug("Category created: " + response);
-				});
+				caliberDelegate.vp.saveCategory(newCategory).then(
+						function(response) {
+							$log.debug("Category created: " + response);
+						});
 			};
 			function createCategoryObject(category) {
 				category = $scope.categoryForm;
 				$log.debug(category);
-			};
-			
+			}
+			;
+
 		});

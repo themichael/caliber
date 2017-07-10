@@ -28,8 +28,9 @@
 							</tr> 
 						</thead>
 						<tbody>
-								<tr>
-									<td>{{categories}}</td>
+								<tr ng-repeat="category in categories track by $index">
+									<td>{{category.skillCategory}}</td>
+									<td>{{category.active}}</td>
 								</tr>
 						</tbody>
 						<tfoot>
