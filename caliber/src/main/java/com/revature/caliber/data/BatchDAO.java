@@ -37,6 +37,7 @@ public class BatchDAO {
 	private static final String START_DATE = "startDate";
 	private static final String END_DATE = "endDate";
 	private static final String G_SCORE = "g.score";
+	private static final String T_GRADES = "trainees.grades";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -131,7 +132,7 @@ public class BatchDAO {
 		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)  			
 				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN)  		
-				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN) 		
+				.createAlias(T_GRADES, "g", JoinType.LEFT_OUTER_JOIN) 		
 				.add(Restrictions.gt(G_SCORE, 0.0))  								
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))   
 				.add(Restrictions.le(START_DATE, Calendar.getInstance().getTime()))
@@ -164,7 +165,7 @@ public class BatchDAO {
 		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
 		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)  			
-				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN) 		 
+				.createAlias(T_GRADES, "g", JoinType.LEFT_OUTER_JOIN) 		 
 				.add(Restrictions.gt(G_SCORE, 0.0))  								 
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))   
 				.add(Restrictions.le(START_DATE, Calendar.getInstance().getTime())) 
@@ -285,7 +286,7 @@ public class BatchDAO {
 		log.info("Fetching all current batches since: " + startDate.getTime().toString());
 		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
-				.createAlias("trainees.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt(G_SCORE, 0.0))
+				.createAlias(T_GRADES, "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt(G_SCORE, 0.0))
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.ge(START_DATE, startDate.getTime())).addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
