@@ -32,9 +32,14 @@ angular.module("vp").controller(
 							$log.debug("Category created: " + response);
 						});
 			};
+			$scope.populateCategory = function(index){
+				$log.debug($scope.categories[index]);
+				$scope.thisCategoryForm = $scope.categories[index];
+			}
+			
+			
 			function createCategoryObject(category) {
 				category = $scope.categoryForm;
 				$log.debug(category);
 			};
-
 		});

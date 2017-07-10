@@ -1,13 +1,11 @@
 <form ng-init="preventModalClose()">
-	<div class="modal fade"
-		id="editCategoryModal_{{category.categoryId}}" tabindex="-1"
+	<div class="modal fade" id="editCategoryModal" tabindex="-1"
 		role="dialog">
 
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close"
-						ng-click="closeModal('EditCategoryModal_'+category.categoryId)"
+					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -15,15 +13,13 @@
 				</div>
 
 				<div class="modal-body">
-					<input type="text" ng-model="category.skillCategory" />
+					<input type="text" ng-model="thisCategoryForm.skillCategory" />
 
 				</div>
 
 				<div class="modal-footer">
 					<input type="submit" ng-value="Save" class="btn btn-primary">
-					<button
-						ng-click="closeModal('EditCategoryModal_'+category.categoryId)"
-						type="button" class="btn" aria-label="Close">Close</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
 				</div>
 			</div>
