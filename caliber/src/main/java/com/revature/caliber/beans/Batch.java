@@ -33,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.revature.caliber.validator.ValidBatch;
 
+
 /**
  * The type Batch.
  */
