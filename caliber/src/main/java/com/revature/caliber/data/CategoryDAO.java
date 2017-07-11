@@ -50,7 +50,7 @@ public class CategoryDAO {
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public void Update(Category category) {
+	public void update(Category category) {
 		log.debug("updating category");
 		sessionFactory.getCurrentSession().update(category);
 	}

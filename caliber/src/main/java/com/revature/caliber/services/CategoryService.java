@@ -71,7 +71,7 @@ public class CategoryService {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void UpdateCategory(Category category) {
 		log.debug("Update category: " + category);
-		categoryDAO.Update(category);
+		categoryDAO.update(category);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
