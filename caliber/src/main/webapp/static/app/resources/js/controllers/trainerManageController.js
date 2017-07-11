@@ -290,11 +290,6 @@ angular
 									 });
 								 });
 						 });
-						 
-						 
-						 
-						 
-
 					 };
 					 
 					/** Import batch form for creating new batch**/
@@ -309,6 +304,12 @@ angular
 						sortByDate($scope.selectedBatchYear);
 					};
 
+					/** Resets import modal for importing new batch* */
+					$scope.resetImportModal = function() {
+						document.getElementById("importId").value = "";
+						$scope.batchToImport = "";
+					}
+					
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
 						$scope.batchFormName = "Create New Batch"
@@ -520,7 +521,7 @@ angular
 						$scope.Updating.status = true;
 						$scope.traineeFormName = "Update Trainee";
 					}
-
+					
 					/** Resets trainee form for creating new trainee* */
 					$scope.resetTraineeForm = function() {
 						$scope.traineeFormName = "Add Trainee";

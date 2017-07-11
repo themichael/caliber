@@ -25,12 +25,7 @@ public class SalesforceService {
 	@Autowired
 	private BatchDAO batchDAO;
 	@Autowired
-<<<<<<< HEAD
-	private HashMap<Integer, Trainer> trainers;
-	@Autowired 
-	private TrainerDAO trainerDAO;
-	
-=======
+
 	private TrainerDAO trainerDAO;
 	
 	public void setBatchDAO(BatchDAO batchDAO) {
@@ -40,8 +35,7 @@ public class SalesforceService {
 	public void setTrainerDAO(TrainerDAO trainerDAO) {
 		this.trainerDAO = trainerDAO;
 	}
-
->>>>>>> f2fbb05e07c5d77d98e3449b65cda6ba66fa2206
+	
 	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
 		this.salesforceDAO = salesforceDAO;
 	}
@@ -76,7 +70,7 @@ public class SalesforceService {
 	public List<Batch> getAllRelevantBatches() {
 		log.debug("Find all current batches by year");
 		List<Batch> allSalesForceBatches = salesforceDAO.getAllRelevantBatches();
-	//	List<Batch> allSalesForceBatches = salesforceDAO.getFakeReleventBatches();
+		// List<Batch> allSalesForceBatches = salesforceDAO.getFakeReleventBatches();
 		List<Batch> allCaliberBatches = batchDAO.findAll();
 		
 		// load trainer and co-trainer from Caliber DB
@@ -104,7 +98,6 @@ public class SalesforceService {
 					break;
 				}
 			}
-			
 		}
 
 		return allSalesForceBatches;
