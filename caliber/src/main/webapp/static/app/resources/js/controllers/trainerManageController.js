@@ -267,16 +267,34 @@ angular
 					 	});
 					 };
 					 
+					 
 					 /**  Submits the batch to the database **/
 					 $scope.submitImportBatch = function(){
-						 if(batch==null)
-							 return;
-						 caliberDelegate.all.createBatch($scope.batchToImport).then(
-								 function(){
-									 $log.debug("============Imported Batch============");
-									 $log.debug($scope.batchToImport);
-								 });
 						 
+						 caliberDelegate.all.createBatch($scope.batchToImport).then(
+							 function(response){
+								 $log.debug("============Imported Batch============");
+								 $log.debug($scope.batchToImport);
+								 $log.debug(response.data);
+								 
+								 var batch = response.data;
+								 $log.debug("=====Saving Trainees========");
+								 $scope.batchToImport.trainees.forEach(function(trainee){
+									 var newTrainee = {};
+									 trainee.batch = batch;
+									 trainee.skypeId = "";
+									 trainee.profileUrl = "";
+									 caliberDelegate.all.createTrainee(trainee).then(
+										 function(){
+											 $log.debug(trainee);
+									 });
+								 });
+						 });
+						 
+						 
+						 
+						 
+
 					 };
 					 
 					/** Import batch form for creating new batch**/
