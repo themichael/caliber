@@ -2,7 +2,7 @@
  * Team: Fareed SSH 
  * Team Lead: Sudish 
  * Authors: Fareed Ali, 
- * Sean Connelly, 
+ * Sean Connelly,
  * Sudish Itwaru, 
  * Hendy Guy
  * 
@@ -34,6 +34,7 @@ angular
 		.controller(
 				"trainerManageController",
 				function($scope, $log, caliberDelegate, allBatches) {
+					
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -48,6 +49,13 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
+								});
+					
+						caliberDelegate.all.importAvailableBatches().then(
+								function(availableBatches){
+									$scope.allAvailableBatches = availableBatches;
+									$log.debug("=============IMPORT BATCHES==========")
+									$log.debug(availableBatches);
 								});
 						$log.debug(allBatches);
 						$scope.batches = allBatches;
@@ -229,6 +237,8 @@ angular
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
 						$scope.location.model = batch.location;
+						$log.debug("=====testbah=============")
+						$log.debug(batch);
 						$scope.trainer.model = batch.trainer.name;
 						if (batch.coTrainer) {
 							$scope.coTrainer.model = batch.coTrainer.name;
@@ -246,19 +256,29 @@ angular
 
 					}
 
+					/** Selected import batch**/
+					 $scope.selectedBatchToImport = function(){
+						$scope.batchToImport = this.selectedBatch;
+						caliberDelegate.all.getAllTraineesFromBatch(this.selectedBatch.resourceId).then(
+								function(trainees){
+									$scope.traineeToImport = trainees;
+									$log.debug("============TRAINEES============");
+									$log.debug(trainees)
+					 	});
+					 };
+					 
 					/** Import batch form for creating new batch**/
 					$scope.importBatchForm = function() {
-						
 						$scope.batchFormName = "Import New Batch"
 						$scope.Save = "Save";
 						
-					}	
+					}			
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];
 						sortByDate($scope.selectedBatchYear);
 					};
-					
+
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
 						$scope.batchFormName = "Create New Batch"
@@ -331,7 +351,7 @@ angular
 									.updateBatch($scope.currentBatch)
 									.then(
 											function() {
-											
+
 												$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch
 											});
 
@@ -360,7 +380,6 @@ angular
 												// format dates so qc, assess
 												// and reports can access
 												// batches immediately
-											
 
 												$scope.batches.push(newBatch);
 
@@ -370,10 +389,6 @@ angular
 						angular.element("#createBatchModal").modal("hide");
 					};
 
-					
-					
-					
-					
 					/** Delete batch* */
 					$scope.deleteBatch = function() {
 						caliberDelegate.all
@@ -513,7 +528,7 @@ angular
 						caliberDelegate.all.getTraineeByEmail(
 								$scope.traineeForm.email).then(
 								function(response) {
-									$log.debug("find email response ")
+									$log.debug("find email" + response)
 									$log.debug(response)
 									if (response.data === "") {
 										$log.debug("email does not exist")
@@ -527,7 +542,6 @@ angular
 									}
 								})
 					}
-
 					/** Create new Trainee Object * */
 					function createTraineeObject(trainee) {
 						trainee.name = $scope.traineeForm.name;
@@ -626,15 +640,20 @@ angular
 						angular.element("#deleteTraineeModal").modal("hide");
 
 					};
-					
-					/** When multiple modals are opened upon removing one the modal-open is removed.
-					 *  The following code adds the modal-open back into the HTML */
-					
-					$(document).on('hidden.bs.modal','#addTraineeModal', function () {
-						$("body").addClass("modal-open");
-					});
-					$(document).on('hidden.bs.modal','#deleteTraineeModal', function () {
-						$("body").addClass("modal-open");
-					});
+
+					/**
+					 * When multiple modals are opened upon removing one the
+					 * modal-open is removed. The following code adds the
+					 * modal-open back into the HTML
+					 */
+
+					$(document).on('hidden.bs.modal', '#addTraineeModal',
+							function() {
+								$("body").addClass("modal-open");
+							});
+					$(document).on('hidden.bs.modal', '#deleteTraineeModal',
+							function() {
+								$("body").addClass("modal-open");
+							});
 
 				});

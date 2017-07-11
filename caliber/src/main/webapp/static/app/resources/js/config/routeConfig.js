@@ -158,7 +158,7 @@ angular
 									"trainer.import",
 									{
 										abstract : true,
-										url : " /trainer/batch/all/importget",
+										url : " /trainer/batch/all/import",
 										templateUrl : "/static/app/partials/abstracts/trainer.html",
 										resolve : {
 											allBatches : function(
@@ -306,6 +306,9 @@ angular
 											},
 											"delete-trainer-form@vp.trainers" : {
 												templateUrl : "/static/app/partials/trainers/delete-trainer-modal.html"
+											},
+											"trainer-extra-modals@vp.trainers":{
+												templateUrl : "/static/app/partials/trainers/trainer-axillary-modals.html"
 											}
 										}
 
