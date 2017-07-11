@@ -2,6 +2,7 @@ package com.revature.caliber.services;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,23 @@ public class SalesforceService {
 	@Autowired
 	private BatchDAO batchDAO;
 	@Autowired
+<<<<<<< HEAD
 	private HashMap<Integer, Trainer> trainers;
 	@Autowired 
 	private TrainerDAO trainerDAO;
 	
+=======
+	private TrainerDAO trainerDAO;
+	
+	public void setBatchDAO(BatchDAO batchDAO) {
+		this.batchDAO = batchDAO;
+	}
+
+	public void setTrainerDAO(TrainerDAO trainerDAO) {
+		this.trainerDAO = trainerDAO;
+	}
+
+>>>>>>> f2fbb05e07c5d77d98e3449b65cda6ba66fa2206
 	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
 		this.salesforceDAO = salesforceDAO;
 	}
@@ -62,7 +76,20 @@ public class SalesforceService {
 	public List<Batch> getAllRelevantBatches() {
 		log.debug("Find all current batches by year");
 		List<Batch> allSalesForceBatches = salesforceDAO.getAllRelevantBatches();
+	//	List<Batch> allSalesForceBatches = salesforceDAO.getFakeReleventBatches();
 		List<Batch> allCaliberBatches = batchDAO.findAll();
+		
+		// load trainer and co-trainer from Caliber DB
+		Map<String, Trainer> trainerMap = loadTrainers();
+		for(Batch batch : allSalesForceBatches){
+			batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
+			batch.setCoTrainer(trainerMap.get(batch.getCoTrainer().getEmail()));
+		}
+		
+		for(Batch batch : allSalesForceBatches){
+			log.info(batch.getTrainer());
+			log.info(batch.getCoTrainer());
+		}
 		
 		//Removing batches already in Caliber database
 		for (int cIndex = 0; cIndex < allCaliberBatches.size(); cIndex++) {
@@ -84,6 +111,15 @@ public class SalesforceService {
 	}
 
 	
+	private Map<String, Trainer> loadTrainers() {
+		List<Trainer> trainers = trainerDAO.findAll();
+		Map<String, Trainer> trainerMap = new HashMap<>();
+		for(Trainer t : trainers){
+			trainerMap.putIfAbsent(t.getEmail(), t);
+		}
+		return trainerMap;
+	}
+
 	/**
 	 * FIND ALL TRAINEES
 	 * @return List of Trainees

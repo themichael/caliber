@@ -11,17 +11,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  * @author Patrick Walsh
  *
  */
-public class SalesforceBatch {
+public class SalesforceBatch extends SalesforceRecord{
 
-	@JsonProperty("attributes")
-	@JsonSerialize(as=Attributes.class)
-	private Attributes attributes;
-	
 	@JsonProperty("Id")
 	private String id;
-	
-	@JsonProperty("Name")
-	private String name;
 	
 	@JsonProperty("Batch_Start_Date__c")
 	private Date batchStartDate;
@@ -50,28 +43,12 @@ public class SalesforceBatch {
 		super();
 	}
 
-	public Attributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Attributes attributes) {
-		this.attributes = attributes;
-	}
-
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Date getBatchStartDate() {
@@ -133,14 +110,12 @@ public class SalesforceBatch {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
+		int result = super.hashCode();
 		result = prime * result + ((batchEndDate == null) ? 0 : batchEndDate.hashCode());
 		result = prime * result + ((batchStartDate == null) ? 0 : batchStartDate.hashCode());
 		result = prime * result + ((cotrainer == null) ? 0 : cotrainer.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((skillType == null) ? 0 : skillType.hashCode());
 		result = prime * result + ((trainer == null) ? 0 : trainer.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
@@ -149,18 +124,15 @@ public class SalesforceBatch {
 
 	@Override
 	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		SalesforceBatch other = (SalesforceBatch) obj;
-		if (attributes == null) {
-			if (other.attributes != null)
-				return false;
-		} else if (!attributes.equals(other.attributes))
-			return false;
 		if (batchEndDate == null) {
 			if (other.batchEndDate != null)
 				return false;
@@ -185,11 +157,6 @@ public class SalesforceBatch {
 			if (other.location != null)
 				return false;
 		} else if (!location.equals(other.location))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
 			return false;
 		if (skillType == null) {
 			if (other.skillType != null)
