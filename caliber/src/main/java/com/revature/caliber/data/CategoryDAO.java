@@ -56,7 +56,7 @@ public class CategoryDAO {
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public void Save(Category category) {
+	public void save(Category category) {
 		sessionFactory.getCurrentSession().save(category);
 	}
 
