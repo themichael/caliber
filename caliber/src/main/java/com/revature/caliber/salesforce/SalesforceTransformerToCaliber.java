@@ -14,6 +14,8 @@ import com.revature.salesforce.beans.SalesforceTrainee;
 
 public class SalesforceTransformerToCaliber {
 
+	private static final Logger logger = Logger.getLogger(SalesforceTransformerToCaliber.class);
+	
 	public Batch transformBatch(SalesforceBatch salesforceBatch) {
 		Batch batch = new Batch();
 		if(salesforceBatch == null){
@@ -23,7 +25,7 @@ public class SalesforceTransformerToCaliber {
 		batch.setTrainingName(salesforceBatch.getName());
 		batch.setStartDate(salesforceBatch.getBatchStartDate());
 		batch.setTrainer(transformTrainer(salesforceBatch.getTrainer()));
-		batch.setCoTrainer(transformTrainer(salesforceBatch.getTrainer()));
+		batch.setCoTrainer(transformTrainer(salesforceBatch.getCotrainer()));
 		batch.setEndDate(salesforceBatch.getBatchEndDate());
 		batch.setResourceId(salesforceBatch.getId());
 		batch.setSkillType(transformSkillType(salesforceBatch));
@@ -34,14 +36,14 @@ public class SalesforceTransformerToCaliber {
 		return batch;
 	}
 	
-	//TODO - Tranform batchtrainers into trainers
+	//TO DO - Tranform batchtrainers into trainers
 	public Trainer transformTrainer(BatchTrainer batchTrainer){
 		Trainer trainer = new Trainer();
 		if(batchTrainer == null){
 			return trainer;
 		}
 		trainer.setName(batchTrainer.getName());
-		trainer.setEmail(batchTrainer.getEmail());
+		trainer.setEmail(batchTrainer.getEmail());	
 		trainer.setTier(transformTier("ROLE_QC"));
 		trainer.setTitle("J2EE");
 		return trainer;
@@ -115,6 +117,7 @@ public class SalesforceTransformerToCaliber {
 		trainee.setBatch(transformBatch(salesforceTrainee.getBatch()));
 		trainee.setTrainingStatus(transformStatus(salesforceTrainee));
 		trainee.setPhoneNumber(salesforceTrainee.getPhone());
+		trainee.setPhoneNumber(salesforceTrainee.getMobilePhone());
 		trainee.setResourceId(salesforceTrainee.getId());
 		trainee.setSkypeId("Yuvimon333");
 		trainee.setResourceId("3234");
@@ -137,7 +140,6 @@ public class SalesforceTransformerToCaliber {
 		try {
 			return TrainingStatus.valueOf(stringTrainingStatus);
 		} catch (IllegalArgumentException exp) {
-			Logger logger = Logger.getLogger("com.revature");
 			logger.debug("Exp caught in SalesforceTransformer.transformStatusHelper");
 	        logger.debug(exp);
 			return TrainingStatus.Training;

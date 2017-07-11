@@ -40,13 +40,7 @@ public class SalesforceController {
 				.getSalesforceToken().getAccessToken();
 	}
 	
-	/**
-	 * Gets all current batches from salesforce
-	 * 
-	 * @return the all batches
-	 */
-
-/*
+	/*
 	 * Gets all the relevent batches
 	 * @return Batches in JSON
 	 */
@@ -56,6 +50,10 @@ public class SalesforceController {
 		return salesforceService.getAllRelevantBatches();
 	}
 	
+	/*
+	 * Gets all trainees for a given batch
+	 * @return Batches in JSON
+	 */
 	@RequestMapping(value="/all/batch/importtrainee", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Iterable<Trainee> getAllTraineesFromBatch(@RequestParam String resourceId){

@@ -8,56 +8,151 @@
  * ******************************************************************************
  */
 
-angular.module("vp").controller(
-		"vpTrainerController",
-		function($scope, $log, caliberDelegate) {
-			$log.debug("Booted trainer manage controller.");
-			$log.debug('test trainermanager cntroller -j');
-			/**
-			 * ************************** Batch ****************************
-			 */
+angular
+		.module("vp")
+		.controller(
+				"vpTrainerController",
+				function($scope, $log, caliberDelegate) {
+					$log.debug("Booted trainer manage controller.");
+					$log.debug('test trainermanager cntroller -j');
+					/**
+					 * ************************** Batch
+					 * ****************************
+					 */
 
-			/** On page start --> load all trainers * */
+					/** On page start --> load all trainers * */
 
-			caliberDelegate.all.getAllTrainers().then(
+					$scope.loadAllTrainers = function() {
+						caliberDelegate.all.getAllTrainers().then(
+								function(trainers) {
+									$log.debug(trainers);
+									$scope.allTrainers = trainers;
+								});
+					};
+					
+					var submitTier = function(tier) {
+						var pre = "ROLE_"
+						return pre.concat(tier);
+					};
+					
+					/**
+					 * *********************************************** Code to
+					 * create and update Trainer************
+					 */
 
-			function(trainers) {
-				$log.debug(trainers)
-				$scope.allTrainers = trainers;
-			});
-			/*************** Create and update trainer ***************/
-
-			// load training tiers
-			caliberDelegate.all.enumTrainerTier().then(function(tiers) {
-				$log.debug(tiers);
-				$scope.trainerTiers = tiers;
-			});
-
-			$scope.trainerTitle = [ "Lead Trainer", "Senior Trainer",
-					"Senior Java Developer", "Senior Technology Manager " ];
-
-			/** Save New Trainee Input * */
-			$scope.saveTrainer = function(trainerForm) {
-				var newTrainer = trainerForm;
-				createTrainerObject(newTrainer);
-				caliberDelegate.all.createTrainer(newTrainer).then(
-						function(response) {
-							$log.debug("trainer added: " + response);
+					// load training tiers
+					caliberDelegate.all.enumTrainerTier().then(function(tiers) {
+						$log.debug(tiers);
+						var filteredTiers = tiers.filter(function(ary) {
+							return ary !== 'ROLE_INACTIVE'
 						});
+						for (var i = 0; i < filteredTiers.length; i++) {
+							filteredTiers[i] = filteredTiers[i].substr(5);
+						}
+						$scope.trainerTiers = filteredTiers;
+					});
 
-			}
+					// load tainers titles
+					caliberDelegate.vp.TrainersTitles().then(function(titles) {
+						$log.debug(titles);
+						$scope.trainersTitles = titles;
+					});
 
-			/** Create new Trainee Object * */
-			function createTrainerObject(trainer) {
-				trainer = $scope.trainerForm;
-				$log.debug(trainer);
-			}
-			;
+					/** Save email verification modal* */
+					$scope.checkTrainerEmail = function(trainerForm) {
+						caliberDelegate.vp
+								.getTrainerEmail(trainerForm.email)
+								.then(
+										function(response) {
+											$log.debug(response)
+											if (response.data === "") {
+												$scope.saveTrainer(trainerForm);
+											} else {
+												$log.debug(response)
+												angular
+														.element(
+																"#trainerEmailVerificationModal")
+														.modal("show");
+												return false;
+											}
+										})
+					};
 
-			/** Fill update form with trainer's previous data */
-			$scope.populateTrainer = function(trainer) {
-				$log.debug(trainer);
-				$scope.trainerForm.name = trainer.name;
+					/** Save New Trainer Input * */
+					$scope.saveTrainer = function(trainerForm) {
+						var newTrainer = trainerForm;
+						createTrainerObject(newTrainer);
+						newTrainer.tier = submitTier(newTrainer.tier);
+						caliberDelegate.vp.createTrainer(newTrainer).then(
+								function(response) {
+									$log.debug("trainer added: " + response);
+									$scope.loadAllTrainers();
+								});
+						angular.element("#createTrainerModal").modal("hide");
+					};
 
-			};
-		});
+					/** Create new Trainer Object * */
+					function createTrainerObject(trainer) {
+						trainer = $scope.trainerForm;
+						$log.debug(trainer);
+					}
+					;
+
+					/** Create scopes for trainer form* */
+					$scope.trainerForm = {
+						trainerId : null,
+						name : null,
+						email : null,
+						title : null,
+						tier : null
+					};
+
+					/** Resets trainer form* */
+					$scope.resetTrainerForm = function() {
+						$scope.trainerForm.trainerId = "";
+						$scope.trainerForm.name = "";
+						$scope.trainerForm.email = "";
+						$scope.trainerForm.title = "";
+						$scope.trainerForm.tier = "";
+						$scope.Save = "Save";
+					};
+
+					/** Fill update form with trainer's previous data */
+					$scope.populateTrainer = function(index) {
+						$log.debug($scope.allTrainers[index]);
+						$scope.trainerForm.trainerId = $scope.allTrainers[index].trainerId;
+						$scope.trainerForm.name = $scope.allTrainers[index].name;
+						$scope.trainerForm.email = $scope.allTrainers[index].email;
+						$scope.trainerForm.title = $scope.allTrainers[index].title;
+						$scope.trainerForm.tier = $scope.allTrainers[index].tier
+								.substr(5);
+						$scope.Save = "Update";
+					};
+
+					/** Update Trainer Input * */
+					$scope.updateTrainer = function() {
+						$scope.trainerForm.tier = submitTier($scope.trainerForm.tier);
+						caliberDelegate.vp.updateTrainer($scope.trainerForm)
+								.then(function(response) {
+									$log.debug("trainer updated: " + response);
+									$scope.loadAllTrainers();
+								});
+						angular.element("#editTrainerModal").modal("hide");
+					};
+
+					/**
+					 * Adam Baker deactivation function
+					 */
+					$scope.makeInactive = function() {
+						$log.debug($scope.trainerForm);
+						$scope.trainerForm.tier = "ROLE_INACTIVE";
+						caliberDelegate.vp
+								.deactivateTrainer($scope.trainerForm).then(
+										function() {
+											$log.debug("trainer deactivated");
+											$scope.loadAllTrainers();
+										});
+						angular.element("#deleteTrainerModal").modal("hide");
+					};
+
+				});
