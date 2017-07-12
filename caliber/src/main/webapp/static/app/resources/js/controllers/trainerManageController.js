@@ -259,6 +259,9 @@ angular
 					/** Selected import batch**/
 					 $scope.selectedBatchToImport = function(){
 						$scope.batchToImport = this.selectedBatch;
+						 if($scope.batchToImport == null){
+							 return; 
+						 }
 						caliberDelegate.all.getAllTraineesFromBatch(this.selectedBatch.resourceId).then(
 								function(trainees){
 									$scope.batchToImport.trainees = trainees;
@@ -270,7 +273,9 @@ angular
 					 
 					 /**  Submits the batch to the database **/
 					 $scope.submitImportBatch = function(){
-						 
+						 if($scope.batchToImport == null){
+							 return; 
+						 }
 						 caliberDelegate.all.createBatch($scope.batchToImport).then(
 							 function(response){
 								 $log.debug("============Imported Batch============");
@@ -293,16 +298,11 @@ angular
 								 $scope.allAvailableBatches = $scope.allAvailableBatches.splice($scope.allAvailableBatches.indexOf($scope.batchesToImport),1);
 								// $scope.batches = $scope.batches.push($batch);							
 						 });
-						 
-						 
-						 
-						 
-
 					 };
 					 
 					/** Import batch form for creating new batch**/
 					$scope.importBatchForm = function() {
-						$scope.batchFormName = "Import New Batch"
+						$scope.batchFormName = "Import New Batch"	
 						$scope.Save = "Save";
 						
 					}			
@@ -312,6 +312,12 @@ angular
 						sortByDate($scope.selectedBatchYear);
 					};
 
+					/** Resets import modal for importing new batch* */
+					$scope.resetImportModal = function() {
+						document.getElementById("importId").value = "";
+						$scope.batchToImport = "";
+					}
+					
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
 						$scope.batchFormName = "Create New Batch"
@@ -523,7 +529,7 @@ angular
 						$scope.Updating.status = true;
 						$scope.traineeFormName = "Update Trainee";
 					}
-
+					
 					/** Resets trainee form for creating new trainee* */
 					$scope.resetTraineeForm = function() {
 						$scope.traineeFormName = "Add Trainee";
