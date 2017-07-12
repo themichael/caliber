@@ -92,8 +92,16 @@ public class SalesforceTransformerToCaliber {
 		if (stringTrainingStatus == null) {
 			stringTrainingStatus = "";
 		}
-		return transformStatusHelper(stringTrainingStatus);
-
+		switch(stringTrainingStatus){
+		case "Declined Offer": 
+			stringTrainingStatus = "Dropped";
+			return transformStatusHelper(stringTrainingStatus);
+		case "Did Not Show":
+			stringTrainingStatus = "Dropped";
+			return transformStatusHelper(stringTrainingStatus);
+		default:
+			return transformStatusHelper(stringTrainingStatus);
+		}
 	}
 
 	private TrainingStatus transformStatusHelper(String stringTrainingStatus) {
