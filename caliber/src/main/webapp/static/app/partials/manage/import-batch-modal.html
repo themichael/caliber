@@ -1,5 +1,5 @@
 <!--********************************************* Import Batch Modal ************************************-->
-<form>
+<form ng-submit="submitImportBatch()">
 	<div class="modal fade" id="importBatchModal" tabindex="-1"
 		role="dialog" aria-labelledby="batchModalLabel">
 		<div class="modal-dialog" role="document">
@@ -17,13 +17,13 @@
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
 							<label for="batchItem">Batch Name:</label> <select
-								class="form-control" ng-model="selectedBatch"
-								ng-options="availableBatch as availableBatch.trainingName for availableBatch in allAvailableBatches"
+								id="importId" class="form-control" ng-model="selectedBatch"
+								ng-options="availableBatch as availableBatch.trainingName for availableBatch in allAvailableBatches  | orderBy:'trainingName'"
 								ng-change="selectedBatchToImport()">
 							</select>
 						</div>
 					</div>
-					<div ng-if="batchToImport">
+					<div ng-if="batchToImport ">
 						<div class="row">
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="name">Training Name:</label> <span id="name">{{batchToImport.trainingName}}</span>
@@ -79,7 +79,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="Import" ng-class="submitImportBatch()" class="btn btn-primary" />
+					<input type="submit" value="Import" class="btn btn-primary" />
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>

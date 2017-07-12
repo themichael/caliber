@@ -79,6 +79,7 @@ public class SalesforceTransformerToCaliber {
 		trainee.setName(salesforceTrainee.getName());
 		trainee.setEmail(salesforceTrainee.getEmail());
 		trainee.setTrainingStatus(transformStatus(salesforceTrainee));
+		trainee.setPhoneNumber(salesforceTrainee.getPhone());
 		trainee.setPhoneNumber(salesforceTrainee.getMobilePhone());
 		trainee.setResourceId(salesforceTrainee.getId());
 		return trainee;
