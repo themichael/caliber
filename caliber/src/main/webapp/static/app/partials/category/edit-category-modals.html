@@ -13,9 +13,19 @@
 				</div>
 
 				<div class="modal-body">
-					<input type="text" ng-model="thisCategoryForm.skillCategory" /> <input
-						type="checkbox" ng-checked="thisCategoryForm.active"
-						ng-model="thisCategoryForm.active" />
+					<div class="row">
+						<div class="form-group col-md-6 col-sm-6">
+							<label for="categoryName">Category:</label> <input
+								ng-model="thisCategoryForm.skillCategory" ype="text"
+								class="form-control" />
+						</div>
+						<div class="form-group col-sm-1 col-md-1">
+							<label for="categoryName">Active:</label> <br /> <input
+								type="checkbox" ng-checked="thisCategoryForm.active"
+								style="text-align: left" ng-model="thisCategoryForm.active"
+								class="form-check-input form-control" />
+						</div>
+					</div>
 				</div>
 
 				<div class="modal-footer">

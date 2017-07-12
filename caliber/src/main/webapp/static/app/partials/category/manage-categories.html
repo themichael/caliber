@@ -24,13 +24,13 @@
 				style="border-collapse: collapse;">
 				<thead>
 					<tr sticky class='sticky-header'>
-						<th class="col-sm-2 col-md-2 col-lg-2">Category</th>
-						<th class="col-sm-9 col-md-9 col-lg-9">Active</th>
+						<th>Category</th>
+						<th>Active</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="category in categories track by $index">
-						<td role="button" class="pull-right" data-toggle="modal"
+						<td role="button" data-toggle="modal"
 							ng-click="populateCategory($index)"
 							data-target="#editCategoryModal">{{category.skillCategory}}
 						</td>
