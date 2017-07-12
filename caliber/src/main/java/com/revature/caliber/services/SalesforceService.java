@@ -53,7 +53,7 @@ public class SalesforceService {
 				continue;
 			}
 			for (int sfIndex = 0; sfIndex < allCaliberTrainers.size(); sfIndex++) {
-				if(cEmails.equals(trainers.get(sfIndex))) {
+				if(cEmails.equals(allCaliberTrainers.get(sfIndex))) {
 					break;
 				}
 			}

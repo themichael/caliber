@@ -98,11 +98,8 @@ public class TrainingTest extends CaliberTest {
 	@Test
 	public void deleteTrainee() {
 		log.info("DELETE TRAINEE");
-		Batch batch = trainingController.getAllBatches().getBody().get(0);
-		Trainee trainee = trainingController.createTrainee(new Trainee("Delete me", "", "www@deleteme.com", batch))
-				.getBody();
 		Long rowCount = jdbcTemplate.queryForObject("select count(trainee_id) from caliber_trainee", Long.class);
-		trainingController.deleteTrainee(trainee.getTraineeId());
+		trainingController.deleteTrainee(1);
 		Long newRowCount = jdbcTemplate.queryForObject("select count(trainee_id) from caliber_trainee", Long.class);
 		assertEquals(--rowCount, newRowCount);
 	}
