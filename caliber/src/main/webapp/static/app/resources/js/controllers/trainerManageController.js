@@ -272,7 +272,7 @@ angular
 					 
 					 
 					 /**  Submits the batch to the database **/
-					 $scope.submitImportBatch = function(){
+					 $scope.submitImportBatch = function(index){
 						 if($scope.batchToImport == null){
 							 return; 
 						 }
@@ -283,20 +283,26 @@ angular
 								 $log.debug(response.data);
 								 
 								 var batch = response.data;
-								 $log.debug("=====Saving Trainees========");
+								 $log.debug("============Saving Trainees============");
 								 $scope.batchToImport.trainees.forEach(function(trainee){
-									 var newTrainee = {};
 									 trainee.batch = batch;
-									 trainee.skypeId = "";
-									 trainee.profileUrl = "";
 									 caliberDelegate.all.createTrainee(trainee).then(
 										 function(){
-											 
-											 $log.debug(trainee);
+											 //$log.debug(trainee);
 									 });
 								 });
-								 $scope.allAvailableBatches = $scope.allAvailableBatches.splice($scope.allAvailableBatches.indexOf($scope.batchesToImport),1);
-								 $scope.batches.push(batch);							
+								 $log.debug("============Saving 22Trainees============");
+								 $log.debug(this.selectedBatch);
+								 $log.debug($scope.allAvailableBatches.indexOf(this.selectedBatch));
+								 $log.debug("============Saving 33Trainees============");
+								 $scope.batches.push(batch);
+								 sortByDate(new Date().getFullYear());
+									caliberDelegate.all.importAvailableBatches().then(
+											function(availableBatches){
+												$scope.allAvailableBatches = availableBatches;
+												$log.debug("=============IMPORT BATCHES==========")
+												$log.debug(availableBatches);
+											});
 								 angular.element("#importBatchModal").modal("hide");
 						 });
 						
