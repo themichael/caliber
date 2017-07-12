@@ -286,9 +286,12 @@ angular
 									 trainee.profileUrl = "";
 									 caliberDelegate.all.createTrainee(trainee).then(
 										 function(){
+											 
 											 $log.debug(trainee);
 									 });
 								 });
+								 $scope.allAvailableBatches = $scope.allAvailableBatches.splice($scope.allAvailableBatches.indexOf($scope.batchesToImport),1);
+								// $scope.batches = $scope.batches.push($batch);							
 						 });
 						 
 						 
