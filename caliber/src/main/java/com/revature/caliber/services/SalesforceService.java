@@ -39,28 +39,6 @@ public class SalesforceService {
 	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
 		this.salesforceDAO = salesforceDAO;
 	}
-
-	/**
-	 * FIND ALL TRAINERS AND MATCH WITH EMAILS
-	 * 
-	 * Return List of Trainers
-	 */
-	public List<Trainer> getAllTrainers(){
-		List<Trainer> allCaliberTrainers = trainerDAO.findAll();
-		for (int cIndex = 0; cIndex < allCaliberTrainers.size(); cIndex++) {
-			String cEmails = allCaliberTrainers.get(cIndex).getEmail();
-			if (cEmails == null) {
-				continue;
-			}
-			for (int sfIndex = 0; sfIndex < allCaliberTrainers.size(); sfIndex++) {
-				if(cEmails.equals(trainers.get(sfIndex))) {
-					break;
-				}
-			}
-			
-		}
-		return allCaliberTrainers;
-	}
 	
 	/**
 	 * FIND ALL CURRENT SALESFORCE BATCHES

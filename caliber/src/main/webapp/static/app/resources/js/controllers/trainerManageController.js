@@ -288,7 +288,8 @@ angular
 										 function(){
 											 $log.debug(trainee);
 									 });
-								 });
+								 }); 
+								$scope.allAvailableBatches = $scope.allAvailableBatches.splice($scope.allAvailableBatches.indexOf($scope.batchesToImport),1);
 						 });
 					 };
 					 
