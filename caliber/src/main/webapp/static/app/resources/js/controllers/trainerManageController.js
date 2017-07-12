@@ -296,9 +296,12 @@ angular
 									 });
 								 });
 								 $scope.allAvailableBatches = $scope.allAvailableBatches.splice($scope.allAvailableBatches.indexOf($scope.batchesToImport),1);
-								// $scope.batches = $scope.batches.push($batch);							
-
+								 $scope.batches.push(batch);							
+								 angular.element("#importBatchModal").modal("hide");
 						 });
+						
+							
+						 
 					 };
 					 
 					/** Import batch form for creating new batch**/
@@ -306,7 +309,9 @@ angular
 						$scope.batchFormName = "Import New Batch"	
 						$scope.Save = "Save";
 						
-					}			
+					}	
+					
+					
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];
