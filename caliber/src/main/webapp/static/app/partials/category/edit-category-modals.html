@@ -13,12 +13,14 @@
 				</div>
 
 				<div class="modal-body">
-					<input type="text" ng-model="thisCategoryForm.skillCategory" />
-
+					<input type="text" ng-model="thisCategoryForm.skillCategory" /> <input
+						type="checkbox" ng-checked="thisCategoryForm.active"
+						ng-model="thisCategoryForm.active" />
 				</div>
 
 				<div class="modal-footer">
-					<input type="submit" ng-value="Save" class="btn btn-primary">
+					<input type="submit" ng-value="Save" class="btn btn-primary"
+						data-dismiss="modal" ng-click="updateCategory()">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
 				</div>

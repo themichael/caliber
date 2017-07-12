@@ -204,16 +204,16 @@ angular
 					delegate.vp.getAllCurrentBatches = function() {
 						return vpFactory.getAllCurrentBatches();
 					};
-					
-					delegate.vp.getAllCategories = function(){
+
+					delegate.vp.getAllCategories = function() {
 						return vpFactory.getAllCategories();
 					};
-					
-					delegate.vp.updateCategory = function(category){
+
+					delegate.vp.updateCategory = function(category) {
 						return vpFactory.updateCategory(category);
 					};
-					
-					delegate.vp.saveCategory = function(category){
+
+					delegate.vp.saveCategory = function(category) {
 						return vpFactory.saveCategory(category);
 					};
 
@@ -312,4 +312,5 @@ angular
 					};
 
 					return delegate;
+
 				});
