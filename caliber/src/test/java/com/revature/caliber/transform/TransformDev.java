@@ -30,6 +30,7 @@ public class TransformDev {
 		Logger logger = Logger.getLogger("com.revature");
 		logger.debug(sttc.getClass());	
 	}
+	
 	@Test
 	public void transformTrainee(){
 		sttc.transformTrainee(salesforceTrainee);

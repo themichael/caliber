@@ -259,6 +259,9 @@ angular
 					/** Selected import batch**/
 					 $scope.selectedBatchToImport = function(){
 						$scope.batchToImport = this.selectedBatch;
+						 if($scope.batchToImport == null){
+							 return; 
+						 }
 						caliberDelegate.all.getAllTraineesFromBatch(this.selectedBatch.resourceId).then(
 								function(trainees){
 									$scope.batchToImport.trainees = trainees;
@@ -270,7 +273,9 @@ angular
 					 
 					 /**  Submits the batch to the database **/
 					 $scope.submitImportBatch = function(){
-						 
+						 if($scope.batchToImport == null){
+							 return; 
+						 }
 						 caliberDelegate.all.createBatch($scope.batchToImport).then(
 							 function(response){
 								 $log.debug("============Imported Batch============");
