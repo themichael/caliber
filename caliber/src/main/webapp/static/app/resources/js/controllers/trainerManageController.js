@@ -299,7 +299,7 @@ angular
 					 
 					/** Import batch form for creating new batch**/
 					$scope.importBatchForm = function() {
-						$scope.batchFormName = "Import New Batch"
+						$scope.batchFormName = "Import New Batch"	
 						$scope.Save = "Save";
 						
 					}			
