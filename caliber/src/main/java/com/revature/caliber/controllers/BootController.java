@@ -98,7 +98,7 @@ public class BootController extends Helper {
 			return "index";
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.debug(e);
-			return "/";
+			return "redirect:/";
 		}
 	}
 
