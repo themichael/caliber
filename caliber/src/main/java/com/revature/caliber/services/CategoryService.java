@@ -69,15 +69,15 @@ public class CategoryService {
 	 * @param category
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public void UpdateCategory(Category category) {
+	public void updateCategory(Category category) {
 		log.debug("Update category: " + category);
-		categoryDAO.Update(category);
+		categoryDAO.update(category);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public void SaveCategory(Category category) {
+	public void saveCategory(Category category) {
 		log.debug("Save category: " + category);
-		categoryDAO.Save(category);
+		categoryDAO.save(category);
 	}
 
 }
