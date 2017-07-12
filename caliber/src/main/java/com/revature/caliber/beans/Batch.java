@@ -2,6 +2,7 @@ package com.revature.caliber.beans;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -132,6 +133,8 @@ public class Batch implements Serializable {
 		this.goodGradeThreshold = 80;
 		this.borderlineGradeThreshold = 70;
 		this.trainingType = TrainingType.Revature;
+		this.trainees = new HashSet<>();
+		this.notes = new HashSet<>();
 	}
 
 	/**
