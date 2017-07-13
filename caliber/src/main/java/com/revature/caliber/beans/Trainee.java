@@ -261,7 +261,7 @@ public class Trainee implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Trainee [traineeId=" + traineeId +", batch=" + this.batch.getBatchId() +", name=" + name + ", email=" + email + ", trainingStatus="
+		return "Trainee [traineeId=" + traineeId +", name=" + name + ", email=" + email + ", trainingStatus="
 				+ trainingStatus + "]";
 	}
 }
