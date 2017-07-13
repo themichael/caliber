@@ -22,25 +22,26 @@ public class TransformDev {
 	@Autowired
 	SalesforceTransformerToCaliber sttc = new SalesforceTransformerToCaliber();
 	
+	private String comrevaturestring = "com.revature";
 
 	
 	@Test
 	public void transformBatch(){
 		sttc.transformBatch(salesforceBatch);
-		Logger logger = Logger.getLogger("com.revature");
+		Logger logger = Logger.getLogger(comrevaturestring);
 		logger.debug(sttc.getClass());	
 	}
 	
 	@Test
 	public void transformTrainee(){
 		sttc.transformTrainee(salesforceTrainee);
-		Logger logger = Logger.getLogger("com.revature");
+		Logger logger = Logger.getLogger(comrevaturestring);
 		logger.debug(sttc.getClass());
 	}
 	@Test
 	public void transformTrainer(){
 		sttc.transformTrainer(batchTrainer);
-		Logger logger = Logger.getLogger("com.revature");
+		Logger logger = Logger.getLogger(comrevaturestring);
 		logger.debug(sttc.getClass());
 	}
 }
