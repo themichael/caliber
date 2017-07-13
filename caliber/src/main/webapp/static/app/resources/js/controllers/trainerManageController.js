@@ -303,6 +303,17 @@ angular
 												$log.debug("=============IMPORT BATCHES==========")
 												$log.debug(availableBatches);
 											});
+									
+									for(var i=0;i < batch.trainees.length; i++){
+										
+										$log.debug(batch.trainees[i].trainingStatus);
+                                        if(batch.trainees[i].trainingStatus == "Dropped"){
+                                            $log.debug(batch.trainees[i])
+                                            batch.trainees.splice(i--,1);
+                                            $log.debug("=====DROPPED TRAINEES=========");
+                                            
+                                        }
+									}
 								 angular.element("#importBatchModal").modal("hide");
 						 });
 						
