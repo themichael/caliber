@@ -68,7 +68,7 @@ External clients, Salesforce team, Dev/Content team
 
 ### Additional Stakeholders
 
-Trainees, Recruiters
+Trainees, Recruiters, Sales
 
 ## Strategic Alignment
 
