@@ -27,7 +27,7 @@ angular
 							});
 					// Helper function used to load newly created category to
 					// categories array
-					loadAllCategories = function() {
+					var loadAllCategories = function() {
 						caliberDelegate.vp.getAllCategories().then(
 								function(categories) {
 
@@ -52,6 +52,8 @@ angular
 						caliberDelegate.vp.saveCategory(newCategory).then(
 								function(response) {
 									loadAllCategories();
+									$log.debug("Category Created: "
+											+ response);
 								});
 					};
 					// Set variable thisCategoryForm used in
