@@ -14,6 +14,8 @@
 angular.module("vp").controller(
 		"vpCategoryController",
 		function($scope, $log, caliberDelegate) {
+			//Needed to keep track of what index in categories is used durning Edit
+			var editIndex;
 			caliberDelegate.vp.getAllCategories().then(function(categories) {
 				$log.debug(categories);
 				$scope.categories = categories;
