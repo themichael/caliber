@@ -26,10 +26,12 @@ angular.module("vp").controller(
 			};
 			$scope.SaveCategory = function(categoryForm) {
 				var newCategory = categoryForm;
+				categoryForm.active = true;
 				createCategoryObject(newCategory);
 				caliberDelegate.vp.saveCategory(newCategory).then(
 						function(response) {
 							$log.debug("Category created: " + response);
+							caliberDelegate.vp.getAllCategories();
 						});
 			};
 			$scope.populateCategory = function(index){
