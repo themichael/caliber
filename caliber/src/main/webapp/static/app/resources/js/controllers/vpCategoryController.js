@@ -22,6 +22,7 @@ angular.module("vp").controller(
 				caliberDelegate.vp.updateCategory($scope.thisCategoryForm).then(
 						function(response) {
 							$log.debug("Category Updated: " + response);
+							$scope.categories[editIndex]=$scope.thisCategoryForm;
 						});
 			};
 			$scope.SaveCategory = function(categoryForm) {
@@ -36,14 +37,8 @@ angular.module("vp").controller(
 			};
 			$scope.populateCategory = function(index){
 				$log.debug($scope.categories[index]);
-				$scope.thisCategoryForm =$scope.categories[index];
-				closeSkill = $scope.categories[index].skillCategory;
-				closeActive=$scope.categories[index].active;
-			}
-			
-			$scope.closeEdit=function(){
-				$scope.thisCategoryForm.skillCategory = closeSkill;
-				$scope.thisCategoryForm.active=closeActive;
+				$scope.thisCategoryForm =angular.copy($scope.categories[index]);
+				editIndex=index;
 			}
 			function createCategoryObject(category) {
 				category = $scope.categoryForm;
