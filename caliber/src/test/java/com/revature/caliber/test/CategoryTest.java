@@ -10,7 +10,7 @@ import com.revature.caliber.controllers.CategoryController;
 
 public class CategoryTest extends CaliberTest {
 
-	private static final Logger log = Logger.getLogger(AssessmentTest.class);
+	private static final Logger log = Logger.getLogger(CategoryTest.class);
 
 	@Autowired
 	private CategoryController categoryController;
