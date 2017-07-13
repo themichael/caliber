@@ -309,7 +309,8 @@ angular
 										$log.debug(batch.trainees[i].trainingStatus);
                                         if(batch.trainees[i].trainingStatus == "Dropped"){
                                             $log.debug(batch.trainees[i])
-                                            batch.trainees.splice(i--,1);
+                                            batch.trainees.
+                                           // splice(i--,1);
                                             $log.debug("=====DROPPED TRAINEES=========");
                                             
                                         }
