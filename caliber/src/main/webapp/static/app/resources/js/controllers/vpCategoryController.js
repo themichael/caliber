@@ -49,12 +49,13 @@ angular
 					$scope.SaveCategory = function(categoryForm) {
 						var newCategory = categoryForm;
 						createCategoryObject(newCategory);
-						caliberDelegate.vp.saveCategory(newCategory).then(
-								function(response) {
-									loadAllCategories();
-									$log.debug("Category Created: "
-											+ response);
-								});
+						caliberDelegate.vp.saveCategory(newCategory)
+								.then(
+										function(response) {
+											loadAllCategories();
+											$log.debug("Category Created: "
+													+ response);
+										});
 					};
 					// Set variable thisCategoryForm used in
 					// edit-category-modals
