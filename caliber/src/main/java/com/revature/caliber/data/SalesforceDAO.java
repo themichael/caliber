@@ -195,7 +195,7 @@ public class SalesforceDAO {
 	 */
 	private String getAccessToken() {
 		if(debug)
-			return "00D0n0000000Q1l!AQQAQADplqYdpFMkYB7FaPUb4FRQdL6G5.1F7LOrlKC4T.im6H0MFNuMCkDbejmooRo3BhO39hpG6KoKpHxNZZFoiPq3AOeX";
+			return "00D0n0000000Q1l!AQQAQOOumGTa_MdL7zirMC5G3bGjn_pbxFyMeKF3RzcOmQSW77Hyck4ebWGTaS94zFt0ck_Lngf0BRWdZJimO3r6Bz4EwI0h";
 		else
 			return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 	}
