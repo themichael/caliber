@@ -29,6 +29,12 @@ public class TrainingTest extends CaliberTest {
 
 	@Autowired
 	private TrainingController trainingController;
+	
+	private static final String TRAINEE_COUNT = "select count(trainee_id) from caliber_trainee";
+	private static final String BATCH_COUNT = "select count(batch_id) from caliber_batch";
+	private static final String TRAINER_EMAIL = "pjw6193@hotmail.com";
+	private static final String JOB_TITLE = "Trainer";
+	private static final String TRAINEE_EMAIL = "abc@revature.com";
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// TRAINEE API
@@ -69,9 +75,9 @@ public class TrainingTest extends CaliberTest {
 		log.info("CREATE TRAINEE");
 		Batch batch = trainingController.getAllBatches().getBody().get(0);
 		Trainee trainee = new Trainee("Randolph Scott", "", "randolph@scott.edu", batch);
-		Long rowCount = jdbcTemplate.queryForObject("select count(trainee_id) from caliber_trainee", Long.class);
+		Long rowCount = jdbcTemplate.queryForObject(TRAINEE_COUNT, Long.class);
 		trainingController.createTrainee(trainee);
-		Long newRowCount = jdbcTemplate.queryForObject("select count(trainee_id) from caliber_trainee", Long.class);
+		Long newRowCount = jdbcTemplate.queryForObject(TRAINEE_COUNT, Long.class);
 		assertEquals(++rowCount, newRowCount);
 	}
 
@@ -98,9 +104,9 @@ public class TrainingTest extends CaliberTest {
 	@Test
 	public void deleteTrainee() {
 		log.info("DELETE TRAINEE");
-		Long rowCount = jdbcTemplate.queryForObject("select count(trainee_id) from caliber_trainee", Long.class);
+		Long rowCount = jdbcTemplate.queryForObject(TRAINEE_COUNT, Long.class);
 		trainingController.deleteTrainee(1);
-		Long newRowCount = jdbcTemplate.queryForObject("select count(trainee_id) from caliber_trainee", Long.class);
+		Long newRowCount = jdbcTemplate.queryForObject(TRAINEE_COUNT, Long.class);
 		assertEquals(--rowCount, newRowCount);
 	}
 
@@ -148,14 +154,14 @@ public class TrainingTest extends CaliberTest {
 	public void testDeleteBatch() {
 		log.info("DELETE BATCH");
 		// create an empty batch
-		Trainer trainer = trainingController.findTrainer("pjw6193@hotmail.com").getBody();
+		Trainer trainer = trainingController.findTrainer(TRAINER_EMAIL).getBody();
 		Batch newBatch = new Batch("1707 Delete Me", trainer, new Date(), new Date(), "Reston, VA");
 		// save batch
 		Batch batch = trainingController.createBatch(newBatch).getBody();
-		Long rowCount = jdbcTemplate.queryForObject("select count(batch_id) from caliber_batch", Long.class);
+		Long rowCount = jdbcTemplate.queryForObject(BATCH_COUNT, Long.class);
 		// delete batch
 		trainingController.deleteBatch(batch.getBatchId());
-		Long newRowCount = jdbcTemplate.queryForObject("select count(batch_id) from caliber_batch", Long.class);
+		Long newRowCount = jdbcTemplate.queryForObject(BATCH_COUNT, Long.class);
 		assertEquals(--rowCount, newRowCount);
 	}
 
@@ -184,7 +190,7 @@ public class TrainingTest extends CaliberTest {
 	@Test
 	public void testGetAllBatch() {
 		log.info("FIND ALL BATCHES");
-		Long expected = jdbcTemplate.queryForObject("select count(batch_id) from caliber_batch", Long.class);
+		Long expected = jdbcTemplate.queryForObject(BATCH_COUNT, Long.class);
 		int actual = trainingController.getAllBatches().getBody().size();
 		assertEquals(expected.intValue(), actual);
 	}
@@ -243,11 +249,11 @@ public class TrainingTest extends CaliberTest {
 	public void testBatchSave() {
 		log.info("CREATE BATCH");
 		// find initial row count
-		Long rowCount = jdbcTemplate.queryForObject("select count(batch_id) from caliber_batch", Long.class);
+		Long rowCount = jdbcTemplate.queryForObject(BATCH_COUNT, Long.class);
 		log.info("Current batch count: " + rowCount);
 
 		// run the test
-		Trainer trainer = trainingController.findTrainer("pjw6193@hotmail.com").getBody();
+		Trainer trainer = trainingController.findTrainer(TRAINER_EMAIL).getBody();
 		trainingController.createBatch(new Batch("1701 Java", trainer, new Date(), new Date(), "Reston, VA"));
 
 		/****** test batch validation *****/
@@ -287,7 +293,7 @@ public class TrainingTest extends CaliberTest {
 		}
 
 		// find new count. should be +1
-		Long newRowCount = jdbcTemplate.queryForObject("select count(batch_id) from caliber_batch", Long.class);
+		Long newRowCount = jdbcTemplate.queryForObject(BATCH_COUNT, Long.class);
 		log.info("New batch count: " + newRowCount);
 		assertEquals(++rowCount, newRowCount);
 	}
@@ -305,13 +311,13 @@ public class TrainingTest extends CaliberTest {
 	@Test
 	public void createTrainer() {
 		log.info("CREATE TRAINER");
-		Trainer good = new Trainer("Randolph Scott", "Trainer", "randolph.scott@revature.com",
+		Trainer good = new Trainer("Randolph Scott", JOB_TITLE, "randolph.scott@revature.com",
 				TrainerRole.ROLE_TRAINER);
-		Trainer nullName = new Trainer("", "Trainer", "abc@revature.com", TrainerRole.ROLE_TRAINER);
-		Trainer nullTitle = new Trainer("ABC", "", "abc@revature.com", TrainerRole.ROLE_TRAINER);
-		Trainer nullEmail = new Trainer("ABC", "Trainer", "", TrainerRole.ROLE_TRAINER);
-		Trainer nullTier = new Trainer("ABC", "Trainer", "abc@revature.com", null);
-		Trainer invalidEmail = new Trainer("ABC", "Trainer", "abcabcabc", null);
+		Trainer nullName = new Trainer("", JOB_TITLE, TRAINEE_EMAIL, TrainerRole.ROLE_TRAINER);
+		Trainer nullTitle = new Trainer("ABC", "", TRAINEE_EMAIL, TrainerRole.ROLE_TRAINER);
+		Trainer nullEmail = new Trainer("ABC", JOB_TITLE, "", TrainerRole.ROLE_TRAINER);
+		Trainer nullTier = new Trainer("ABC", JOB_TITLE, TRAINEE_EMAIL, null);
+		Trainer invalidEmail = new Trainer("ABC", JOB_TITLE, "abcabcabc", null);
 		Trainer notUniqueEmail = new Trainer("Randolph Scott Clone", "Clone Trooper", "randolph.scott@revature.com",
 				TrainerRole.ROLE_TRAINER); // uses same email as Trainer `good`
 
@@ -385,11 +391,11 @@ public class TrainingTest extends CaliberTest {
 	public void updateTrainer() {
 		log.info("UPDATE TRAINER");
 		String jobTitle = "Chief Information Officer";
-		Trainer trainer = trainingController.findTrainer("pjw6193@hotmail.com").getBody();
+		Trainer trainer = trainingController.findTrainer(TRAINER_EMAIL).getBody();
 		assertNotEquals(jobTitle, trainer.getTier());
 		trainer.setTitle(jobTitle);
 		trainingController.updateTrainer(trainer);
-		Trainer result = trainingController.findTrainer("pjw6193@hotmail.com").getBody();
+		Trainer result = trainingController.findTrainer(TRAINER_EMAIL).getBody();
 		assertEquals(jobTitle, result.getTitle());
 	}
 
@@ -402,8 +408,8 @@ public class TrainingTest extends CaliberTest {
 	@Test
 	public void getTrainerByEmail() {
 		log.info("GET TRAINER BY EMAIL");
-		Trainer expected = new Trainer("Dan Pickles", "Lead Trainer", "pjw6193@hotmail.com", TrainerRole.ROLE_VP);
-		Trainer actual = trainingController.findTrainer("pjw6193@hotmail.com").getBody();
+		Trainer expected = new Trainer("Dan Pickles", "Lead Trainer", TRAINER_EMAIL, TrainerRole.ROLE_VP);
+		Trainer actual = trainingController.findTrainer(TRAINER_EMAIL).getBody();
 		assertEquals(expected, actual);
 	}
 

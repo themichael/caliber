@@ -126,7 +126,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 			return new ModelAndView(REDIRECT + REVATURE);
 		if (!debug) {
 			// revoke all tokens from the Salesforce
-			String accessToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getRefreshToken();
+			String accessToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
 			revokeToken(accessToken);
 		}
 

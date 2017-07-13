@@ -111,13 +111,11 @@ public class BootController extends Helper {
 	 */
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
 		Cookie[] cookies = servletRequest.getCookies();
-		SalesforceToken salesforceToken = null;
 		for (Cookie cookie : cookies) {
 			if (("token").equals(cookie.getName())) {
 				log.debug("Parse salesforce token: " + cookie.getValue());
-				salesforceToken = new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
+				return new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
 						SalesforceToken.class);
-				return salesforceToken;
 			}
 		}
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");

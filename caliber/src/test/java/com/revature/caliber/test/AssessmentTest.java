@@ -28,6 +28,8 @@ public class AssessmentTest extends CaliberTest {
 	@Autowired
 	private CategoryController categoryController;
 
+	private static final String ASSESSMENT_COUNT = "select count(assessment_id) from caliber_assessment";
+	
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// ASSESSMENT API
 	//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,9 +45,9 @@ public class AssessmentTest extends CaliberTest {
 		Batch batch = trainingController.getAllBatches().getBody().get(0);
 		Category category = categoryController.findCategoryById(1).getBody();
 		Assessment assessment = new Assessment("", batch, 9999, AssessmentType.Project, 3, category);
-		Long before = jdbcTemplate.queryForObject("select count(assessment_id) from caliber_assessment", Long.class);
+		Long before = jdbcTemplate.queryForObject(ASSESSMENT_COUNT, Long.class);
 		assessmentController.createAssessment(assessment);
-		Long after = jdbcTemplate.queryForObject("select count(assessment_id) from caliber_assessment", Long.class);
+		Long after = jdbcTemplate.queryForObject(ASSESSMENT_COUNT, Long.class);
 		assertEquals(++before, after);
 	}
 
@@ -57,9 +59,9 @@ public class AssessmentTest extends CaliberTest {
 	@Test
 	public void deleteAssessment() {
 		log.info("DELETE ASSESSMENT");
-		Long before = jdbcTemplate.queryForObject("select count(assessment_id) from caliber_assessment", Long.class);
+		Long before = jdbcTemplate.queryForObject(ASSESSMENT_COUNT, Long.class);
 		assessmentController.deleteAssessment(2056L);
-		Long after = jdbcTemplate.queryForObject("select count(assessment_id) from caliber_assessment", Long.class);
+		Long after = jdbcTemplate.queryForObject(ASSESSMENT_COUNT, Long.class);
 		assertEquals(--before, after);
 	}
 
