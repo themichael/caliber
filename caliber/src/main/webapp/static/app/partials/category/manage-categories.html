@@ -34,7 +34,10 @@
 							ng-click="populateCategory($index)"
 							data-target="#editCategoryModal">{{category.skillCategory}}
 						</td>
-						<td>{{category.active}}</td>
+						<td ng-if="category.active == false"><span
+									style="color: #ff7575" class="glyphicon glyphicon-remove fa-2x" aria-hidden="true"> </span></td>
+						<td ng-if="category.active == true"><span
+									style="color: #81f575" class="fa fa-check fa-2x" aria-hidden="true"> </span></td>
 					</tr>
 				</tbody>
 				<tfoot>
