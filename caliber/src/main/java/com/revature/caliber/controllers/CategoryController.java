@@ -1,4 +1,5 @@
 package com.revature.caliber.controllers;
+
 /**
  * @author Patrick Walsh
  * @author Humberto Corea
@@ -34,41 +35,68 @@ public class CategoryController {
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
-	
-	@RequestMapping(value="/category/all", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<List<Category>> findAllCategories(){
+
+	/**
+	 * Get all active categories
+	 * 
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/category/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Category>> findAllCategories() {
 		log.debug("Getting categories");
 		List<Category> categories = categoryService.findAllCategories();
 		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/vp/category", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Category>> findAll(){
+
+	/**
+	 * Get all categories
+	 * 
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/vp/category", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Category>> findAll() {
 		log.debug("Getting categories");
 		List<Category> categories = categoryService.findAll();
-		return new ResponseEntity<>(categories,HttpStatus.OK);
+		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
-	
-	
-	@RequestMapping(value="/category/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
-	public ResponseEntity<Category> findCategoryById(@PathVariable int id){
+
+	/**
+	 * Get a category by id
+	 * 
+	 * @param id
+	 * 
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
+	public ResponseEntity<Category> findCategoryById(@PathVariable int id) {
 		log.debug("Getting category: " + id);
 		Category category = categoryService.findCategory(id);
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
-	@RequestMapping(value="/vp/category/update", method=RequestMethod.PUT,
-			consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category)
-	{
+
+	/**
+	 * Update Category
+	 * 
+	 * @param category
+	 * 
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/vp/category/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category) {
 		categoryService.updateCategory(category);
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
-	@RequestMapping(value="/vp/category", method=RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Category> saveCategory(@Valid @RequestBody Category category) 
-	{
+
+	/**
+	 * Save Category
+	 * 
+	 * @param category
+	 * 
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/vp/category", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Category> saveCategory(@Valid @RequestBody Category category) {
 		categoryService.saveCategory(category);
 		return new ResponseEntity<>(category, HttpStatus.CREATED);
 	}
