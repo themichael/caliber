@@ -2,12 +2,15 @@ package com.revature.caliber.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +37,14 @@ public class CategoryController {
 		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/vp/category", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Category>> findAll(){
+		log.debug("Getting categories");
+		List<Category> categories = categoryService.findAll();
+		return new ResponseEntity<>(categories,HttpStatus.OK);
+	}
+	
+	
 	@RequestMapping(value="/category/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasAnyRole('TRAINER, QC, VP')")
 	public ResponseEntity<Category> findCategoryById(@PathVariable int id){
@@ -41,5 +52,18 @@ public class CategoryController {
 		Category category = categoryService.findCategory(id);
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
-	
+	@RequestMapping(value="/vp/category/update", method=RequestMethod.PUT,
+			consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category)
+	{
+		categoryService.updateCategory(category);
+		return new ResponseEntity<>(category, HttpStatus.OK);
+	}
+	@RequestMapping(value="/vp/category", method=RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Category> saveCategory(@Valid @RequestBody Category category) 
+	{
+		categoryService.saveCategory(category);
+		return new ResponseEntity<>(category, HttpStatus.CREATED);
+	}
 }

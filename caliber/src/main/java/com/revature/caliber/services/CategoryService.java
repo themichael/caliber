@@ -42,7 +42,18 @@ public class CategoryService {
 	}
 
 	/**
+	 * FIND ALL CATEGORIES- INCLUDING NOT ACTIVE
+	 * 
+	 * @return
+	 */
+	public List<Category> findAll() {
+		log.debug("Requesting categories");
+		return categoryDAO.findAllCategories();
+	}
+
+	/**
 	 * FIND CATEGORY BY ID
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -50,6 +61,23 @@ public class CategoryService {
 	public Category findCategory(int categoryId) {
 		log.debug("Find category: " + categoryId);
 		return categoryDAO.findOne(categoryId);
+	}
+
+	/**
+	 * Update CATEGORY
+	 * 
+	 * @param category
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void updateCategory(Category category) {
+		log.debug("Update category: " + category);
+		categoryDAO.update(category);
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void saveCategory(Category category) {
+		log.debug("Save category: " + category);
+		categoryDAO.save(category);
 	}
 
 }
