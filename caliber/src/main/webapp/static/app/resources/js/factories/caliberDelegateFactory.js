@@ -97,7 +97,10 @@ angular
 					delegate.all.importAvailableBatches = function() {
 						return allFactory.importAvailableBatches();
 					};
-
+					
+					delegate.all.getAllTraineesFromBatch = function(resourceId){
+ 						return allFactory.getAllTraineesFromBatch(resourceId);
+ 					};
 					/**
 					 * *********************** Enum constants
 					 * ***************************
