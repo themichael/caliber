@@ -47,7 +47,7 @@ public class SalesforceController {
 	public Iterable<Batch> getAllReleventBatches(){
 		return salesforceService.getAllRelevantBatches();
 	}
-	
+
 	/*
 	 * Gets all trainees for a given batch
 	 * @return Batches in JSON

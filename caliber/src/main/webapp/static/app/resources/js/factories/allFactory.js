@@ -185,7 +185,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			return response;
 		});
 	};
-
+	
 	/** ************************* Trainee *********************** */
 
 	all.getAllTraineesFromBatch = function(resourceId){
