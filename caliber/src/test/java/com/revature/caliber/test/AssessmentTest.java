@@ -3,6 +3,9 @@ package com.revature.caliber.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+import javax.validation.ConstraintViolationException;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -29,32 +32,69 @@ public class AssessmentTest extends CaliberTest {
 	private CategoryController categoryController;
 
 	private static final String ASSESSMENT_COUNT = "select count(assessment_id) from caliber_assessment";
-	
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// ASSESSMENT API
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.AssessmentController.createAssessment(Assessment
-	 * assessment)
+	 * @see com.revature.caliber.controllers.AssessmentController#createAssessment(Assessment)
 	 */
 	@Test
 	public void createAssessment() {
+		// positive testing
 		log.info("CREATE ASSESSMENT");
 		Batch batch = trainingController.getAllBatches().getBody().get(0);
 		Category category = categoryController.findCategoryById(1).getBody();
 		Assessment assessment = new Assessment("", batch, 9999, AssessmentType.Project, 3, category);
 		Long before = jdbcTemplate.queryForObject(ASSESSMENT_COUNT, Long.class);
 		assessmentController.createAssessment(assessment);
+
+		// fail validations
+		try {
+			Assessment nullBatch = new Assessment("", null, 9999, AssessmentType.Project, 3, category);
+			assessmentController.createAssessment(nullBatch);
+			fail();
+		} catch (ConstraintViolationException e) {
+			log.debug(e);
+		}
+		try {
+			Assessment negativeRawScore = new Assessment("", batch, -1, AssessmentType.Project, 3, category);
+			assessmentController.createAssessment(negativeRawScore);
+			fail();
+		} catch (ConstraintViolationException e) {
+			log.debug(e);
+		}
+		try {
+			Assessment nullType = new Assessment("", batch, 9999, null, 3, category);
+			assessmentController.createAssessment(nullType);
+			fail();
+		} catch (ConstraintViolationException e) {
+			log.debug(e);
+		}
+		try {
+			Assessment invalidWeek = new Assessment("", batch, 9999, AssessmentType.Project, -5, category);
+			assessmentController.createAssessment(invalidWeek);
+			fail();
+		} catch (ConstraintViolationException e) {
+			log.debug(e);
+		}
+		try {
+			Assessment nullCategory = new Assessment("", batch, 9999, AssessmentType.Project, 3, null);
+			assessmentController.createAssessment(nullCategory);
+			fail();
+		} catch (ConstraintViolationException e) {
+			log.debug(e);
+		}
+
 		Long after = jdbcTemplate.queryForObject(ASSESSMENT_COUNT, Long.class);
 		assertEquals(++before, after);
 	}
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.AssessmentController.deleteAssessment(Long
-	 * id)
+	 * @see com.revature.caliber.controllers.AssessmentController#deleteAssessment(Long)
 	 */
 	@Test
 	public void deleteAssessment() {
@@ -67,8 +107,7 @@ public class AssessmentTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.AssessmentController.updateAssessment(Assessment
-	 * assessment)
+	 * @see com.revature.caliber.controllers.AssessmentController#updateAssessment(Assessment)
 	 */
 	@Test
 	public void updateAssessment() {
@@ -83,8 +122,7 @@ public class AssessmentTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.AssessmentController.findAssessmentByWeek(Integer
-	 * batchId, Integer week)
+	 * @see com.revature.caliber.controllers.AssessmentController#findAssessmentByWeek(Integer, Integer)
 	 */
 	@Test
 	public void findAssessmentByWeek() {

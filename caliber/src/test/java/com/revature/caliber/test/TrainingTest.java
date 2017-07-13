@@ -41,8 +41,7 @@ public class TrainingTest extends CaliberTest {
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.findAllByBatch(Integer
-	 * batch)
+	 * @see com.revature.caliber.controllers.TrainingController#findAllByBatch(Integer)
 	 */
 	@Test
 	public void findAllByBatch() {
@@ -54,8 +53,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.findAllDroppedByBatch(Integer
-	 * batch)
+	 * @see com.revature.caliber.controllers.TrainingController#findAllDroppedByBatch(Integer)
 	 */
 	@Test
 	public void findAllDroppedByBatch() {
@@ -67,8 +65,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.createTrainee(Trainee
-	 * trainee)
+	 * @see com.revature.caliber.controllers.TrainingController#createTrainee(Trainee)
 	 */
 	@Test
 	public void createTrainee() {
@@ -83,8 +80,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.updateTrainee(Trainee
-	 * trainee)
+	 * @see com.revature.caliber.controllers.TrainingController#updateTrainee(Trainee)
 	 */
 	@Test
 	public void updateTrainee() {
@@ -99,7 +95,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.deleteTrainee(int id)
+	 * @see com.revature.caliber.controllers.TrainingController#deleteTrainee(int)
 	 */
 	@Test
 	public void deleteTrainee() {
@@ -112,8 +108,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.retreiveTraineeByEmail(String
-	 * traineeEmail)
+	 * @see com.revature.caliber.controllers.TrainingController#retreiveTraineeByEmail(String)
 	 */
 	@Test
 	public void retreiveTraineeByEmail() {
@@ -130,8 +125,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.updateBatch(Batch
-	 * batch)
+	 * @see com.revature.caliber.controllers.TrainingController#updateBatch(Batch)
 	 */
 	@Test
 	public void testUpdateBatch() {
@@ -148,7 +142,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.deleteBatch(int id)
+	 * @see com.revature.caliber.controllers.TrainingController#deleteBatch(int)
 	 */
 	@Test
 	public void testDeleteBatch() {
@@ -168,7 +162,7 @@ public class TrainingTest extends CaliberTest {
 	/**
 	 * Expects that all batches are not current (ended over 1 month ago)
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.getAllCurrentBatches()
+	 * @see com.revature.caliber.controllers.TrainingController#getAllCurrentBatches()
 	 */
 	@Test
 	public void testGetAllCurrentBatch() {
@@ -185,7 +179,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.getAllBatches()
+	 * @see com.revature.caliber.controllers.TrainingController#getAllBatches()
 	 */
 	@Test
 	public void testGetAllBatch() {
@@ -197,8 +191,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.createWeek(int
-	 * batchId)
+	 * @see com.revature.caliber.controllers.TrainingController#createWeek(int)
 	 */
 	@Test
 	public void testCreateWeek() {
@@ -214,7 +207,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.findCommonLocations()
+	 * @see com.revature.caliber.controllers.TrainingController#findCommonLocations()
 	 */
 	@Test
 	public void testCommonLocations() {
@@ -227,8 +220,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.findAllBatchesByTrainer(Authentication
-	 * auth)
+	 * @see com.revature.caliber.controllers.TrainingController#findAllBatchesByTrainer(Authentication)
 	 */
 	public void findBatchesByTrainer() {
 		log.info("FIND BATCHES BY TRAINER");
@@ -240,10 +232,8 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.findTrainer(String
-	 * email)
-	 * com.revature.caliber.controllers.TrainingController.createBatch(Batch
-	 * batch)
+	 * @see com.revature.caliber.controllers.TrainingController#findTrainer(String)
+	 * @see com.revature.caliber.controllers.TrainingController#createBatch(Batch)
 	 */
 	@Test
 	public void testBatchSave() {
@@ -304,9 +294,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests method:
-	 * com.revature.caliber.controllers.TrainingController.createTrainer(Trainer
-	 * trainer)
-	 * 
+	 * @see com.revature.caliber.controllers.TrainingController#createTrainer(Trainer)
 	 */
 	@Test
 	public void createTrainer() {
@@ -369,8 +357,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests method:
-	 * com.revature.caliber.controllers.TrainingController.getAllTrainers()
-	 * 
+	 * @see com.revature.caliber.controllers.TrainingController#getAllTrainers()
 	 */
 	@Test
 	public void getAllTrainers() {
@@ -383,8 +370,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests method:
-	 * com.revature.caliber.controllers.TrainingController.updateTrainer(Trainer
-	 * trainer)
+	 * @see com.revature.caliber.controllers.TrainingController#updateTrainer(Trainer)
 	 * 
 	 */
 	@Test
@@ -401,8 +387,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests method:
-	 * com.revature.caliber.controllers.TrainingController.findTrainer(String
-	 * email)
+	 * @see com.revature.caliber.controllers.TrainingController#findTrainer(String)
 	 * 
 	 */
 	@Test
@@ -415,7 +400,7 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests method:
-	 * com.revature.caliber.controllers.TrainingController.getAllTrainersTitles()
+	 * @see com.revature.caliber.controllers.TrainingController#getAllTrainersTitles()
 	 * 
 	 */
 	@Test
@@ -429,10 +414,8 @@ public class TrainingTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.controllers.TrainingController.findTrainer(String
-	 * email)
-	 * com.revature.caliber.controllers.TrainingController.makeInactive(Trainer
-	 * trainer)
+	 * @see com.revature.caliber.controllers.TrainingController#findTrainer(String)
+	 * @see com.revature.caliber.controllers.TrainingController#makeInactive(Trainer)
 	 */
 	@Test
 	public void testDeactiveTrainer() {
