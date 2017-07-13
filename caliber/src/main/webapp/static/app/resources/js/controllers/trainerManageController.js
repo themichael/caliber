@@ -272,7 +272,7 @@ angular
 					 
 					 
 					 /**  Submits the batch to the database **/
-					 $scope.submitImportBatch = function(index){
+					 $scope.submitImportBatch = function(){
 						 if($scope.batchToImport == null){
 							 return; 
 						 }
