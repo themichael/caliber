@@ -291,10 +291,6 @@ angular
 											 $log.debug(trainee);
 									 });
 								 });
-								 $log.debug("============Saving 22Trainees============");
-								 $log.debug(this.selectedBatch);
-								 $log.debug($scope.allAvailableBatches.indexOf(this.selectedBatch));
-								 $log.debug("============Saving 33Trainees============");
 								 $scope.batches.push(batch);
 								 sortByDate(new Date().getFullYear());
 								caliberDelegate.all.importAvailableBatches().then(
@@ -305,13 +301,10 @@ angular
 										});
 								
 								for(var i=batch.trainees.length-1;i >= 0; i--){
-									
-									$log.debug(batch.trainees[i].trainingStatus);
+									$log.debug("=====DROPPED TRAINEES=========");
                                     if(batch.trainees[i].trainingStatus === "Dropped"){
                                         $log.debug(batch.trainees[i])
                                         batch.trainees.splice(i,1);
-                                        $log.debug("=====DROPPED TRAINEES=========");
-                                        
                                     }
 								}
 								 angular.element("#importBatchModal").modal("hide");
