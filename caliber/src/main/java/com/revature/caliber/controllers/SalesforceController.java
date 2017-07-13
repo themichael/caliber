@@ -36,7 +36,7 @@ public class SalesforceController {
 	public String getSalesforceToken(){
 		log.info("Getting access_token for testing purposes only!");
 		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-				.getSalesforceToken().getRefreshToken();
+				.getSalesforceToken().getAccessToken();
 	}
 	
 	/*
