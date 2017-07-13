@@ -288,7 +288,7 @@ angular
 									 trainee.batch = batch;
 									 caliberDelegate.all.createTrainee(trainee).then(
 										 function(){
-											 //$log.debug(trainee);
+											 $log.debug(trainee);
 									 });
 								 });
 								 $log.debug("============Saving 22Trainees============");
@@ -307,7 +307,7 @@ angular
 								for(var i=batch.trainees.length-1;i >= 0; i--){
 									
 									$log.debug(batch.trainees[i].trainingStatus);
-                                    if(batch.trainees[i].trainingStatus == "Dropped"){
+                                    if(batch.trainees[i].trainingStatus === "Dropped"){
                                         $log.debug(batch.trainees[i])
                                         batch.trainees.splice(i,1);
                                         $log.debug("=====DROPPED TRAINEES=========");
