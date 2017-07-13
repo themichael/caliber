@@ -14,6 +14,8 @@
 angular.module("vp").controller(
 		"vpCategoryController",
 		function($scope, $log, caliberDelegate) {
+			//Needed to keep track of what index in categories is used during Edit
+			var editIndex;
 			caliberDelegate.vp.getAllCategories().then(function(categories) {
 				$log.debug(categories);
 				$scope.categories = categories;
@@ -29,6 +31,7 @@ angular.module("vp").controller(
 				caliberDelegate.vp.updateCategory($scope.thisCategoryForm)
 						.then(function(response) {
 							$log.debug("Category Updated: " + response);
+							$scope.categories[editIndex]=$scope.thisCategoryForm;
 						});
 			};
 			$scope.SaveCategory = function(categoryForm) {
@@ -41,14 +44,9 @@ angular.module("vp").controller(
 			};
 			$scope.populateCategory = function(index) {
 				$log.debug($scope.categories[index]);
-				$scope.thisCategoryForm = $scope.categories[index];
-				closeSkill = $scope.categories[index].skillCategory;
-				closeActive = $scope.categories[index].active;
-			}
+				$scope.thisCategoryForm =angular.copy($scope.categories[index]);
+				editIndex=index;
 
-			$scope.closeEdit = function() {
-				$scope.thisCategoryForm.skillCategory = closeSkill;
-				$scope.thisCategoryForm.active = closeActive;
 			}
 			function createCategoryObject(category) {
 				category = $scope.categoryForm;
