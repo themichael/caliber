@@ -18,35 +18,44 @@ angular.module("vp").controller(
 				$log.debug(categories);
 				$scope.categories = categories;
 			});
+			loadAllCategories = function() {
+				caliberDelegate.vp.getAllCategories().then(
+						function(categories) {
+							
+							$scope.categories = categories;
+						});
+			};
 			$scope.updateCategory = function() {
-				caliberDelegate.vp.updateCategory($scope.thisCategoryForm).then(
-						function(response) {
+				caliberDelegate.vp.updateCategory($scope.thisCategoryForm)
+						.then(function(response) {
 							$log.debug("Category Updated: " + response);
 						});
 			};
 			$scope.SaveCategory = function(categoryForm) {
 				var newCategory = categoryForm;
-				categoryForm.active = true;
 				createCategoryObject(newCategory);
 				caliberDelegate.vp.saveCategory(newCategory).then(
 						function(response) {
-							$log.debug("Category created: " + response);
-							caliberDelegate.vp.getAllCategories();
+							loadAllCategories();
 						});
 			};
-			$scope.populateCategory = function(index){
+			$scope.populateCategory = function(index) {
 				$log.debug($scope.categories[index]);
-				$scope.thisCategoryForm =$scope.categories[index];
+				$scope.thisCategoryForm = $scope.categories[index];
 				closeSkill = $scope.categories[index].skillCategory;
-				closeActive=$scope.categories[index].active;
+				closeActive = $scope.categories[index].active;
 			}
-			
-			$scope.closeEdit=function(){
+
+			$scope.closeEdit = function() {
 				$scope.thisCategoryForm.skillCategory = closeSkill;
-				$scope.thisCategoryForm.active=closeActive;
+				$scope.thisCategoryForm.active = closeActive;
 			}
 			function createCategoryObject(category) {
 				category = $scope.categoryForm;
 				$log.debug(category);
+			};
+			$scope.categoryForm = {
+					skillCategory : null,
+					active : true
 			};
 		});
