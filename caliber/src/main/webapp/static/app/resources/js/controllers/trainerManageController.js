@@ -283,31 +283,30 @@ angular
 								 $log.debug(response.data);
 								 
 								 var batch = response.data;
-								 var activeBatch = batch;
-								 delete activeBatch.trainees;
-								 $log.debug("=============Active Batch===============");
-								 activeBatch.trainees = [];
-								 $log.debug(activeBatch);
 								 $log.debug("============Saving Trainees============");
 								 $scope.batchToImport.trainees.forEach(function(trainee){
 									 trainee.batch = batch;
 									 caliberDelegate.all.createTrainee(trainee).then(
 										 function(response){
 											 $log.debug(response);
-											 if (response.data.traineeStatus != "Dropped"){
-												 
-											 }
 									 });
 								 });
-
 								 
-									caliberDelegate.all.importAvailableBatches().then(
-											function(availableBatches){
-												$scope.allAvailableBatches = availableBatches;
-												$log.debug("=============IMPORT BATCHES==========")
-												$log.debug(availableBatches);
-											});
-								$scope.batches.push(batch);
+								caliberDelegate.all.importAvailableBatches().then(
+										function(availableBatches){
+											$scope.allAvailableBatches = availableBatches;
+											$log.debug("=============IMPORT BATCHES==========")
+											$log.debug(availableBatches);
+									});
+								for(var i=0;i < batch.trainees.length; i++){
+									$log.debug(batch.trainees[i].trainingStatus);
+                                    if(batch.trainees[i].trainingStatus == "Dropped"){
+                                        $log.debug(batch.trainees[i])
+                                        batch.trainees.splice(i--,1);
+                                        $log.debug("=====DROPPED TRAINEES=========");
+                                        
+                                    }
+								}
 								angular.element("#importBatchModal").modal("hide");
 						 });
 						
