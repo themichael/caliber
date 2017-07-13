@@ -31,7 +31,7 @@ angular.module("vp").controller(
 				caliberDelegate.vp.saveCategory(newCategory).then(
 						function(response) {
 							$log.debug("Category created: " + response);
-							caliberDelegate.vp.getAllCategories();
+							 caliberDelegate.vp.getAllCategories();
 						});
 			};
 			$scope.populateCategory = function(index){
