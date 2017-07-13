@@ -11,49 +11,67 @@
  * ******************************************************************************
  */
 
-angular.module("vp").controller(
-		"vpCategoryController",
-		function($scope, $log, caliberDelegate) {
-			//Needed to keep track of what index in categories is used during Edit
-			var editIndex;
-			caliberDelegate.vp.getAllCategories().then(function(categories) {
-				$log.debug(categories);
-				$scope.categories = categories;
-			});
-			loadAllCategories = function() {
-				caliberDelegate.vp.getAllCategories().then(
-						function(categories) {
-							
-							$scope.categories = categories;
-						});
-			};
-			$scope.updateCategory = function() {
-				caliberDelegate.vp.updateCategory($scope.thisCategoryForm)
-						.then(function(response) {
-							$log.debug("Category Updated: " + response);
-							$scope.categories[editIndex]=$scope.thisCategoryForm;
-						});
-			};
-			$scope.SaveCategory = function(categoryForm) {
-				var newCategory = categoryForm;
-				createCategoryObject(newCategory);
-				caliberDelegate.vp.saveCategory(newCategory).then(
-						function(response) {
-							loadAllCategories();
-						});
-			};
-			$scope.populateCategory = function(index) {
-				$log.debug($scope.categories[index]);
-				$scope.thisCategoryForm =angular.copy($scope.categories[index]);
-				editIndex=index;
+angular
+		.module("vp")
+		.controller(
+				"vpCategoryController",
+				function($scope, $log, caliberDelegate) {
+					// Needed to keep track of what index in categories is used
+					// during Edit
+					var editIndex;
+					// Get all categories on load up
+					caliberDelegate.vp.getAllCategories().then(
+							function(categories) {
+								$log.debug(categories);
+								$scope.categories = categories;
+							});
+					// Helper function used to load newly created category to
+					// categories array
+					loadAllCategories = function() {
+						caliberDelegate.vp.getAllCategories().then(
+								function(categories) {
 
-			}
-			function createCategoryObject(category) {
-				category = $scope.categoryForm;
-				$log.debug(category);
-			};
-			$scope.categoryForm = {
-					skillCategory : null,
-					active : true
-			};
-		});
+									$scope.categories = categories;
+								});
+					};
+					// Update Category
+					$scope.updateCategory = function() {
+						caliberDelegate.vp
+								.updateCategory($scope.thisCategoryForm)
+								.then(
+										function(response) {
+											$log.debug("Category Updated: "
+													+ response);
+											$scope.categories[editIndex] = $scope.thisCategoryForm;
+										});
+					};
+					// Save Category
+					$scope.SaveCategory = function(categoryForm) {
+						var newCategory = categoryForm;
+						createCategoryObject(newCategory);
+						caliberDelegate.vp.saveCategory(newCategory).then(
+								function(response) {
+									loadAllCategories();
+								});
+					};
+					// Set variable thisCategoryForm used in
+					// edit-category-modals
+					$scope.populateCategory = function(index) {
+						$log.debug($scope.categories[index]);
+						$scope.thisCategoryForm = angular
+								.copy($scope.categories[index]);
+						editIndex = index;
+
+					}
+					// Create category variable used in create category
+					function createCategoryObject(category) {
+						category = $scope.categoryForm;
+						$log.debug(category);
+					}
+					;
+					// Constructor used for saving category
+					$scope.categoryForm = {
+						skillCategory : null,
+						active : true
+					};
+				});
