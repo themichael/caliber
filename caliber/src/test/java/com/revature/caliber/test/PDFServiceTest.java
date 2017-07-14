@@ -1,4 +1,4 @@
-package com.revature.caliber.services;
+package com.revature.caliber.test;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -8,14 +8,12 @@ import java.io.FileOutputStream;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/beans.xml" })
-public class PDFServiceTest {
+import com.revature.caliber.CaliberTest;
+import com.revature.caliber.services.PDFService;
+
+public class PDFServiceTest extends CaliberTest{
 
 	@Autowired
 	private PDFService pdfService;

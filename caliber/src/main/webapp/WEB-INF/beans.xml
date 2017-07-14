@@ -12,5 +12,6 @@
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<import resource="classpath:beans.xml" />
+	<import resource="classpath:spring-security.xml" />
 
 </beans>

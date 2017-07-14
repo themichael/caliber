@@ -96,6 +96,7 @@ public class TrainingController {
 		Trainer trainer = trainingService.findTrainer(email);
 		return new ResponseEntity<>(trainer, HttpStatus.OK);
 	}
+
 	/**
 	 * Deactivates the trainer
 	 * 
@@ -204,19 +205,6 @@ public class TrainingController {
 		log.info("Deleting batch: " + id);
 		trainingService.delete(batch);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
-
-	/**
-	 * Gets all current batches from salesforce
-	 * 
-	 * @return the all batches
-	 */
-	@RequestMapping(value = "/all/batch/import", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	// @PreAuthorize("hasAnyRole('VP')")
-	public ResponseEntity<List<Batch>> getAllSalesforceBatches() {
-		log.info("Fetching all salesforce batches");
-		List<Batch> batches = trainingService.findAllBatches();
-		return new ResponseEntity<>(batches, HttpStatus.OK);
 	}
 
 	/**
