@@ -238,9 +238,9 @@ public class TrainingService {
 	 * @param batch
 	 */
 	public void delete(Batch batch) {
-		batch = batchDAO.findOneWithDroppedTrainees(batch.getBatchId());
-		log.debug("Delete batch " + batch);
-		batchDAO.delete(batch);
+		Batch fullBatch = batchDAO.findOneWithDroppedTrainees(batch.getBatchId());
+		log.debug("Delete batch " + fullBatch);
+		batchDAO.delete(fullBatch);
 	}
 
 	/*
