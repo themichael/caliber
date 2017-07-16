@@ -208,6 +208,20 @@ public class BatchDAO {
 				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batchId", batchId))
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
+	
+	/**
+	 * Find a batch by its given identifier
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Batch findOneWithDroppedTrainees(Integer batchId) {
+		log.info("Fetching batch: " + batchId);
+		return (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batchId", batchId))
+				.uniqueResult();
+	}
 
 	/**
 	 * Find a batch by its given identifier, all trainees, and all their grades

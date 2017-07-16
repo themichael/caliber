@@ -231,12 +231,14 @@ public class TrainingService {
 		batchDAO.update(batch);
 	}
 
+
 	/**
 	 * DELETE BATCH
 	 * 
 	 * @param batch
 	 */
 	public void delete(Batch batch) {
+		batch = batchDAO.findOneWithDroppedTrainees(batch.getBatchId());
 		log.debug("Delete batch " + batch);
 		batchDAO.delete(batch);
 	}
