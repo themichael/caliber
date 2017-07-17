@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.exceptions.NotAuthorizedException;
 import com.revature.caliber.security.impl.Helper;
 import com.revature.caliber.security.models.SalesforceToken;
@@ -198,6 +199,10 @@ public class BootController extends Helper {
 					+ jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
+			
+			// check if user is active
+			if(salesforceUser.getCaliberUser().getTier().equals(TrainerRole.ROLE_INACTIVE))
+				throw new NotAuthorizedException();
 		} else {
 			throw new NotAuthorizedException();
 		}
