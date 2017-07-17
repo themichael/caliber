@@ -30,7 +30,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#createGrade(Grade)
 	 */
-	public Grade createGrade(Grade grade) {
+	public Grade createGrade() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -39,7 +39,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#updateGrade(Grade)
 	 */
-	public void updateGrade(Grade grade) {
+	public void updateGrade() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -57,7 +57,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findByAssessment(Long)
 	 */
-	public List<Grade> findByAssessment(Long assessmentId) {
+	public List<Grade> findByAssessment() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -66,7 +66,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findByTrainee(Integer)
 	 */
-	public List<Grade> findByTrainee(Integer traineeId) {
+	public List<Grade> findByTrainee() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -75,7 +75,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findByBatch(Integer)
 	 */
-	public List<Grade> findByBatch(Integer batchId) {
+	public List<Grade> findByBatch() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -84,7 +84,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findByCategory(Integer)
 	 */
-	public List<Grade> findByCategory(Integer categoryId) {
+	public List<Grade> findByCategory() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -93,7 +93,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findByWeek(Integer, Integer)
 	 */
-	public Map<Integer, List<Grade>> findByWeek(Integer batchId, Integer week) {
+	public Map<Integer, List<Grade>> findByWeek() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -102,7 +102,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findByTrainer(Integer)
 	 */
-	public List<Grade> findByTrainer(Integer trainerId) {
+	public List<Grade> findByTrainer() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -111,7 +111,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#createNote(Note)
 	 */
-	public Integer createNote(Note note) {
+	public Integer createNote() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -120,7 +120,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#updateNote(Note)
 	 */
-	public Note updateNote(Note note) {
+	public Note updateNote() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -129,7 +129,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findBatchNotes(Integer, Integer)
 	 */
-	public List<Note> findBatchNotes(Integer batchId, Integer week) {
+	public List<Note> findBatchNotes() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -138,7 +138,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findIndividualNotes(Integer, Integer)
 	 */
-	public List<Note> findIndividualNotes(Integer batchId, Integer week) {
+	public List<Note> findIndividualNotes() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -147,7 +147,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findTraineeNote(Integer, Integer)
 	 */
-	public Note findTraineeNote(Integer traineeId, Integer week) {
+	public Note findTraineeNote() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -156,7 +156,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findQCTraineeNote(Integer, Integer)
 	 */
-	public Note findQCTraineeNote(Integer traineeId, Integer week) {
+	public Note findQCTraineeNote() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -165,7 +165,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findQCBatchNotes(Integer, Integer)
 	 */
-	public Note findQCBatchNotes(Integer batchId, Integer week) {
+	public Note findQCBatchNotes() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -174,7 +174,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#getAllQCTraineeNotes(Integer, Integer)
 	 */
-	public List<Note> getAllQCTraineeNotes(Integer batchId, Integer week) {
+	public List<Note> getAllQCTraineeNotes() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -183,7 +183,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#getAllQCTraineeOverallNotes(Integer)
 	 */
-	public List<Note> getAllQCTraineeOverallNotes(Integer traineeId) {
+	public List<Note> getAllQCTraineeOverallNotes() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -192,7 +192,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findAllBatchNotes(Integer, Integer)
 	 */
-	public List<Note> findAllBatchNotes(Integer batchId, Integer week) {
+	public List<Note> findAllBatchNotes() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -201,7 +201,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findAllIndividualNotes(Integer, Integer)
 	 */
-	public List<Note> findAllIndividualNotes(Integer traineeId, Integer week) {
+	public List<Note> findAllIndividualNotes() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
@@ -210,7 +210,7 @@ public class EvaluationTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findAllTraineeNotes(Integer)
 	 */
-	public List<Note> findAllTraineeNotes(Integer traineeId) {
+	public List<Note> findAllTraineeNotes() {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 

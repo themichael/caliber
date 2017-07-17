@@ -320,6 +320,7 @@ angular
 						chartsDelegate.radar.data
 						.getAllTraineesAndBatchRadarChart($scope.currentBatch.batchId)
 						.then(function(data) {
+							$log.debug(data);
 							radarComparData = data;
 						})
 					}
