@@ -2,7 +2,7 @@
  * Team: Fareed SSH 
  * Team Lead: Sudish 
  * Authors: Fareed Ali, 
- * Sean Connelly, 
+ * Sean Connelly,
  * Sudish Itwaru, 
  * Hendy Guy
  * 
@@ -34,6 +34,7 @@ angular
 		.controller(
 				"trainerManageController",
 				function($scope, $log, caliberDelegate, allBatches) {
+					
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -48,6 +49,13 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
+								});
+					
+						caliberDelegate.all.importAvailableBatches().then(
+								function(availableBatches){
+									$scope.allAvailableBatches = availableBatches;
+									$log.debug("=============IMPORT BATCHES==========")
+									$log.debug(availableBatches);
 								});
 						$log.debug(allBatches);
 						$scope.batches = allBatches;
@@ -229,6 +237,8 @@ angular
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
 						$scope.location.model = batch.location;
+						$log.debug("=====testbah=============")
+						$log.debug(batch);
 						$scope.trainer.model = batch.trainer.name;
 						if (batch.coTrainer) {
 							$scope.coTrainer.model = batch.coTrainer.name;
@@ -246,18 +256,84 @@ angular
 
 					}
 
-					/** Import batch form for creating new batch* */
+					/** Selected import batch**/
+					 $scope.selectedBatchToImport = function(){
+						$scope.batchToImport = this.selectedBatch;
+						 if($scope.batchToImport == null){
+							 return; 
+						 }
+						caliberDelegate.all.getAllTraineesFromBatch(this.selectedBatch.resourceId).then(
+								function(trainees){
+									$scope.batchToImport.trainees = trainees;
+									$log.debug("============TRAINEES============");
+									$log.debug($scope.batchToImport);
+					 	});
+					 };
+					 
+					 
+					 /**  Submits the batch to the database **/
+					 $scope.submitImportBatch = function(){
+						 if($scope.batchToImport == null){
+							 return; 
+						 }
+						 caliberDelegate.all.createBatch($scope.batchToImport).then(
+							 function(response){
+								 $log.debug("============Imported Batch============");
+								 $log.debug($scope.batchToImport);
+								 $log.debug(response.data);
+								 
+								 var batch = response.data;
+								 $log.debug("============Saving Trainees============");
+								 $scope.batchToImport.trainees.forEach(function(trainee){
+									 trainee.batch = batch;
+									 caliberDelegate.all.createTrainee(trainee).then(
+										 function(){
+											 $log.debug(trainee);
+									 });
+								 });
+								 $scope.batches.push(batch);
+								 sortByDate(new Date().getFullYear());
+								caliberDelegate.all.importAvailableBatches().then(
+										function(availableBatches){
+											$scope.allAvailableBatches = availableBatches;
+											$log.debug("=============IMPORT BATCHES==========")
+											$log.debug(availableBatches);
+										});
+								
+								for(var i=batch.trainees.length-1;i >= 0; i--){
+									$log.debug("=====DROPPED TRAINEES=========");
+                                    if(batch.trainees[i].trainingStatus === "Dropped"){
+                                        $log.debug(batch.trainees[i])
+                                        batch.trainees.splice(i,1);
+                                    }
+								}
+								 angular.element("#importBatchModal").modal("hide");
+						 });
+						
+							
+						 
+					 };
+					 
+					/** Import batch form for creating new batch**/
 					$scope.importBatchForm = function() {
-						$scope.batchFormName = "Import New Batch"
+						$scope.batchFormName = "Import New Batch"	
 						$scope.Save = "Save";
-
-					}
-					/** Select batch by year * */
+						
+					}	
+					
+					
+					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];
 						sortByDate($scope.selectedBatchYear);
 					};
 
+					/** Resets import modal for importing new batch* */
+					$scope.resetImportModal = function() {
+						document.getElementById("importId").value = "";
+						$scope.batchToImport = "";
+					}
+					
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
 						$scope.batchFormName = "Create New Batch"
@@ -469,7 +545,7 @@ angular
 						$scope.Updating.status = true;
 						$scope.traineeFormName = "Update Trainee";
 					}
-
+					
 					/** Resets trainee form for creating new trainee* */
 					$scope.resetTraineeForm = function() {
 						$scope.traineeFormName = "Add Trainee";
@@ -521,7 +597,6 @@ angular
 									}
 								})
 					}
-
 					/** Create new Trainee Object * */
 					function createTraineeObject(trainee) {
 						trainee.name = $scope.traineeForm.name;

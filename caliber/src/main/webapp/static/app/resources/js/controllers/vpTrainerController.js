@@ -29,6 +29,12 @@ angular
 									$scope.allTrainers = trainers;
 								});
 					};
+					
+					var submitTier = function(tier) {
+						var pre = "ROLE_"
+						return pre.concat(tier);
+					};
+					
 					/**
 					 * *********************************************** Code to
 					 * create and update Trainer************
@@ -147,11 +153,6 @@ angular
 											$scope.loadAllTrainers();
 										});
 						angular.element("#deleteTrainerModal").modal("hide");
-					};
-
-					var submitTier = function(tier) {
-						var pre = "ROLE_"
-						return pre.concat(tier);
 					};
 
 				});

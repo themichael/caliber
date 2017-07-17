@@ -158,7 +158,7 @@ angular
 									"trainer.import",
 									{
 										abstract : true,
-										url : " /trainer/batch/all/importget",
+										url : " /trainer/batch/all/import",
 										templateUrl : "/static/app/partials/abstracts/trainer.html",
 										resolve : {
 											allBatches : function(
@@ -312,6 +312,24 @@ angular
 											}
 										}
 
+									})
+							.state(
+									"vp.category",
+									{
+										url : "/category",
+										views:{
+											"":{
+												templateUrl : "/static/app/partials/category/manage-categories.html",
+												controller : "vpCategoryController"
+											},
+											"create-category-form@vp.category" : {
+												templateUrl : "/static/app/partials/category/add-category-modals.html"
+											},
+											"edit-category-form@vp.category" : {
+												templateUrl : "/static/app/partials/category/edit-category-modals.html"
+											}
+										}
+												
 									})
 							.state(
 									"vp.manage",

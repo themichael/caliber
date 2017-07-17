@@ -9,17 +9,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  * @author Patrick Walsh
  *
  */
-public class SalesforceTrainee {
+public class SalesforceTrainee extends SalesforceRecord{
 
-	@JsonProperty("attributes")
-	@JsonSerialize(as=Attributes.class)
-	private Attributes attributes;
-	
 	@JsonProperty("Id")
 	private String id;
-	
-	@JsonProperty("Name")
-	private String name;
 	
 	@JsonProperty("Training_Status__c")
 	private String trainingStatus;
@@ -55,28 +48,12 @@ public class SalesforceTrainee {
 		super();
 	}
 
-	public Attributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Attributes attributes) {
-		this.attributes = attributes;
-	}
-
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getTrainingStatus() {
@@ -154,15 +131,13 @@ public class SalesforceTrainee {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
+		int result = super.hashCode();
 		result = prime * result + ((batch == null) ? 0 : batch.hashCode());
 		result = prime * result + ((batchId == null) ? 0 : batchId.hashCode());
 		result = prime * result + ((college == null) ? 0 : college.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((mobilePhone == null) ? 0 : mobilePhone.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + ((projectCompletion == null) ? 0 : projectCompletion.hashCode());
 		result = prime * result + ((recruiter == null) ? 0 : recruiter.hashCode());
@@ -174,16 +149,11 @@ public class SalesforceTrainee {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		SalesforceTrainee other = (SalesforceTrainee) obj;
-		if (attributes == null) {
-			if (other.attributes != null)
-				return false;
-		} else if (!attributes.equals(other.attributes))
-			return false;
 		if (batch == null) {
 			if (other.batch != null)
 				return false;
@@ -213,11 +183,6 @@ public class SalesforceTrainee {
 			if (other.mobilePhone != null)
 				return false;
 		} else if (!mobilePhone.equals(other.mobilePhone))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
 			return false;
 		if (phone == null) {
 			if (other.phone != null)
