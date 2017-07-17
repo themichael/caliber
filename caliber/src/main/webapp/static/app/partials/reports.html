@@ -250,10 +250,9 @@
 												<th class="col-sm-2 col-md-2 col-lg-2"
 													ng-repeat="series in radarBatchOverallSeries">{{series}}</th>
 											</tr>
-											<tr ng-repeat="item in radarBatchOverallTable">
+											<tr ng-repeat="item in radarBatchOverallTable track by $index">
 												<th class="col-sm-2 col-md-2 col-lg-2">{{item.label}}</th>
-												<td class="col-sm-2 col-md-2 col-lg-2"
-													ng-repeat="dataPoint in item.data track by $index">{{dataPoint}}</td>
+												<td class="col-sm-2 col-md-2 col-lg-2">{{item.data[$index]}}</td>
 											</tr>
 										</table>
 									</div>
