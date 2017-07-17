@@ -37,7 +37,7 @@ public class CategoryTest extends CaliberTest {
 	 * @see com.revature.caliber.controllers.CategoryController#findCategoryById(int)
 	 */
 	@Test
-	public void findCategoryById(int id) {
+	public void findCategoryById() {
 		
 	}
 
@@ -57,7 +57,7 @@ public class CategoryTest extends CaliberTest {
 	 * @see com.revature.caliber.controllers.CategoryController#updateCategory(Category)
 	 */
 	@Test
-	public void updateCategory(Category category) {
+	public void updateCategory() {
 		
 	}
 
@@ -67,7 +67,7 @@ public class CategoryTest extends CaliberTest {
 	 * @see com.revature.caliber.controllers.CategoryController#saveCategory(Category)
 	 */
 	@Test
-	public void saveCategory(Category category) {
+	public void saveCategory() {
 		
 	}
 }
