@@ -233,7 +233,7 @@ angular
 					delegate.vp.createTrainer = function(trainerObj) {
 						return vpFactory.createTrainer(trainerObj);
 					};
-					delegate.vp.TrainersTitles = function() {
+					delegate.vp.trainersTitles = function() {
 						return vpFactory.getAllTrainersTitle();
 					};
 					delegate.vp.getTrainerEmail = function(trainerEmail) {
