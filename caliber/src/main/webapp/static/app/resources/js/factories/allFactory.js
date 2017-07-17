@@ -128,8 +128,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
-	
+
 	/**
 	 * 
 	 * @param batchObj
@@ -185,14 +184,14 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			return response;
 		});
 	};
-	
+
 	/** ************************* Trainee *********************** */
 
-	all.getAllTraineesFromBatch = function(resourceId){
+	all.getAllTraineesFromBatch = function(resourceId) {
 		return $http({
-			url : "/all/trainee/import?resourceId=" +resourceId ,
+			url : "/all/trainee/import?resourceId=" + resourceId,
 			method : "GET"
-		}).then(function(response){
+		}).then(function(response) {
 			$log.debug("Trainees successfully imported")
 			$log.debug(response.data);
 			return response.data;
@@ -200,8 +199,8 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 			return response.data;
 		});
-		};
-	
+	};
+
 	/**
 	 * 
 	 * @param batchId
@@ -372,20 +371,19 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	 * 
 	 * @returns {*}
 	 */
-    all.importAvailableBatches = function() {
-        return $http({
-            url : "/all/batch/import/",
-            method : "GET"
-        }).then(function(response) {
-            $log.debug("Object successfully imported");
-            $log.debug(response);
-            return response.data;
-        }, function(response) {
-            $log.error("There was an error: " + response.status);
-        });
-    };
-	
-	
+	all.importAvailableBatches = function() {
+		return $http({
+			url : "/all/batch/import/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Object successfully imported");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
 	/**
 	 * 
 	 * @param trainerObj
@@ -395,7 +393,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		$log.debug(trainerObj);
 		return $http({
 			url : "/all/trainer/create",
-			method :"POST",
+			method : "POST",
 			data : trainerObj
 		}).then(function(response) {
 			$log.debug("Trainer successfully created.")
