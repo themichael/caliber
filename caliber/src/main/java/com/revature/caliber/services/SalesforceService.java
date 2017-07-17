@@ -54,13 +54,10 @@ public class SalesforceService {
 		for (Batch batch : allSalesForceBatches) {
 			batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
 			batch.setCoTrainer(trainerMap.get(batch.getCoTrainer().getEmail()));
+			log.debug(batch.getTrainer());
+			log.debug(batch.getCoTrainer());
 		}
-
-		for (Batch batch : allSalesForceBatches) {
-			log.info(batch.getTrainer());
-			log.info(batch.getCoTrainer());
-		}
-
+		
 		// Removing batches already in Caliber database
 		for (int cIndex = 0; cIndex < allCaliberBatches.size(); cIndex++) {
 			String cResourceId = allCaliberBatches.get(cIndex).getResourceId();
