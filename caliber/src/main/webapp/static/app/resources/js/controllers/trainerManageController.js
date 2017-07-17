@@ -474,6 +474,12 @@ angular
 														.modal("show");
 											}
 										});
+						caliberDelegate.all.importAvailableBatches().then(
+								function(availableBatches){
+									$scope.allAvailableBatches = availableBatches;
+									$log.debug("=============IMPORT BATCHES=========")
+									$log.debug(availableBatches);
+								});
 						angular.element("#deleteBatchModal").modal("hide");
 					}
 					/**
