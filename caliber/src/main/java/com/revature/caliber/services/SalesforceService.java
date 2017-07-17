@@ -38,7 +38,7 @@ public class SalesforceService {
 	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
 		this.salesforceDAO = salesforceDAO;
 	}
-
+	
 	/**
 	 * FIND ALL CURRENT SALESFORCE BATCHES
 	 * 

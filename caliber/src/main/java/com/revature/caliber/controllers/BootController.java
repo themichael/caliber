@@ -18,6 +18,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -27,8 +28,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.exceptions.NotAuthorizedException;
-import com.revature.caliber.exceptions.ServiceNotAvailableException;
 import com.revature.caliber.security.impl.Helper;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
@@ -41,7 +42,7 @@ import com.revature.caliber.security.models.SalesforceUser;
 public class BootController extends Helper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
-	
+
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
 	private static final String DEBUG_USER_LOGIN = "patrick.walsh@revature.com";
@@ -83,22 +84,24 @@ public class BootController extends Helper {
 			authorize(jsonString, salesforceUser, servletResponse);
 			return "index";
 		}
-		
+
 		// get Salesforce token from cookie
-		SalesforceToken salesforceToken = getSalesforceToken(servletRequest);
-		if (salesforceToken == null)
-			throw new ServiceNotAvailableException();
+		try {
+			SalesforceToken salesforceToken = getSalesforceToken(servletRequest);
+			// Http request to the salesforce module to get the Salesforce user
+			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
+			String email = salesforceUser.getEmail();
 
-		// Http request to the salesforce module to get the Salesforce user
-		SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
-		String email = salesforceUser.getEmail();
+			// Http request to the training module to get the caliber user
+			String jsonString = getCaliberTrainer(servletRequest, email);
 
-		// Http request to the training module to get the caliber user
-		String jsonString = getCaliberTrainer(servletRequest, email);
-
-		// authorize user
-		authorize(jsonString, salesforceUser, servletResponse);
-		return "index";
+			// authorize user
+			authorize(jsonString, salesforceUser, servletResponse);
+			return "index";
+		} catch (AuthenticationCredentialsNotFoundException e) {
+			log.debug(e);
+			return "redirect:/";
+		}
 	}
 
 	/**
@@ -110,17 +113,14 @@ public class BootController extends Helper {
 	 */
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
 		Cookie[] cookies = servletRequest.getCookies();
-		SalesforceToken salesforceToken = null;
 		for (Cookie cookie : cookies) {
 			if (("token").equals(cookie.getName())) {
 				log.debug("Parse salesforce token: " + cookie.getValue());
-				salesforceToken = new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
+				return new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
 						SalesforceToken.class);
-				break;
 			}
 		}
-		log.info(salesforceToken);
-		return salesforceToken;
+		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
 
 	/**
@@ -199,6 +199,10 @@ public class BootController extends Helper {
 					+ jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
+			
+			// check if user is active
+			if(salesforceUser.getCaliberUser().getTier().equals(TrainerRole.ROLE_INACTIVE))
+				throw new NotAuthorizedException();
 		} else {
 			throw new NotAuthorizedException();
 		}
