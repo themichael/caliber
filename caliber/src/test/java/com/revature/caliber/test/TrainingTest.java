@@ -150,6 +150,7 @@ public class TrainingTest extends CaliberTest {
 		// create an empty batch
 		Trainer trainer = trainingController.findTrainer(TRAINER_EMAIL).getBody();
 		Batch newBatch = new Batch("1707 Delete Me", trainer, new Date(), new Date(), "Reston, VA");
+		// TODO add trainees to batch to test CASCADE
 		// save batch
 		Batch batch = trainingController.createBatch(newBatch).getBody();
 		Long rowCount = jdbcTemplate.queryForObject(BATCH_COUNT, Long.class);

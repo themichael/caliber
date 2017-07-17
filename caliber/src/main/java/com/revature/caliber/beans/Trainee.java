@@ -59,7 +59,7 @@ public class Trainee implements Serializable {
 
 	@NotEmpty
 	@Email
-	@Column(name = "TRAINEE_EMAIL", nullable = false, unique = true)
+	@Column(name = "TRAINEE_EMAIL", nullable = false)
 	private String email;
 
 	@NotNull
