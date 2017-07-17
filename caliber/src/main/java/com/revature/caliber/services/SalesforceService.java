@@ -25,9 +25,8 @@ public class SalesforceService {
 	@Autowired
 	private BatchDAO batchDAO;
 	@Autowired
-
 	private TrainerDAO trainerDAO;
-	
+
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
 	}
@@ -35,11 +34,11 @@ public class SalesforceService {
 	public void setTrainerDAO(TrainerDAO trainerDAO) {
 		this.trainerDAO = trainerDAO;
 	}
-	
+
 	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
 		this.salesforceDAO = salesforceDAO;
 	}
-	
+
 	/**
 	 * FIND ALL CURRENT SALESFORCE BATCHES
 	 * 
@@ -49,20 +48,17 @@ public class SalesforceService {
 		log.debug("Find all current batches by year");
 		List<Batch> allSalesForceBatches = salesforceDAO.getAllRelevantBatches();
 		List<Batch> allCaliberBatches = batchDAO.findAll();
-		
+
 		// load trainer and co-trainer from Caliber DB
 		Map<String, Trainer> trainerMap = loadTrainers();
-		for(Batch batch : allSalesForceBatches){
+		for (Batch batch : allSalesForceBatches) {
 			batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
 			batch.setCoTrainer(trainerMap.get(batch.getCoTrainer().getEmail()));
+			log.debug(batch.getTrainer());
+			log.debug(batch.getCoTrainer());
 		}
 		
-		for(Batch batch : allSalesForceBatches){
-			log.info(batch.getTrainer());
-			log.info(batch.getCoTrainer());
-		}
-		
-		//Removing batches already in Caliber database
+		// Removing batches already in Caliber database
 		for (int cIndex = 0; cIndex < allCaliberBatches.size(); cIndex++) {
 			String cResourceId = allCaliberBatches.get(cIndex).getResourceId();
 			if (cResourceId == null) {
@@ -70,7 +66,7 @@ public class SalesforceService {
 			}
 			for (int sfIndex = 0; sfIndex < allSalesForceBatches.size(); sfIndex++) {
 				String sfResourceId = allSalesForceBatches.get(sfIndex).getResourceId();
-				if(cResourceId.equals(sfResourceId)) {
+				if (cResourceId.equals(sfResourceId)) {
 					allSalesForceBatches.remove(sfIndex);
 					break;
 				}
@@ -80,11 +76,10 @@ public class SalesforceService {
 		return allSalesForceBatches;
 	}
 
-	
 	private Map<String, Trainer> loadTrainers() {
 		List<Trainer> trainers = trainerDAO.findAll();
 		Map<String, Trainer> trainerMap = new HashMap<>();
-		for(Trainer t : trainers){
+		for (Trainer t : trainers) {
 			trainerMap.putIfAbsent(t.getEmail(), t);
 		}
 		return trainerMap;
@@ -92,13 +87,13 @@ public class SalesforceService {
 
 	/**
 	 * FIND ALL TRAINEES
+	 * 
 	 * @return List of Trainees
 	 */
-	
-	public List<Trainee> getAllTraineesFromBatch(String resourceId){
+
+	public List<Trainee> getAllTraineesFromBatch(String resourceId) {
 		log.debug("Find all trainees");
 		return salesforceDAO.getBatchDetails(resourceId);
 	}
-	
 
 }
