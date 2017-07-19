@@ -143,7 +143,7 @@ angular
 								.then(
 										function(response) {
 											if(response !== undefined){
-												for(let note of response){
+												for(const note of response){
 													if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
 														$scope.traineeOverall[parseInt(note.week)-1].trainerNote = note;
 													}
@@ -155,7 +155,7 @@ angular
 								traineeOverallNote(traineeId)
 								.then(
 										function(response) {
-											for(let qcNote of response){
+											for(const qcNote of response){
 												if($scope.traineeOverall[parseInt(qcNote.week)-1] !== undefined){
 													$scope.traineeOverall[parseInt(qcNote.week)-1].qcNote = qcNote;
 												}
