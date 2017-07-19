@@ -18,7 +18,7 @@
 <!-- Display all assessment categories -->
 <div class="container" id="trainer-assess-table" ng-if="categories[0]">
 	<div class="row">
-		<div class="col-md-12 col-lg-12 top5">
+		<div class="col-md-3 col-lg-3 top5">
 			<!-- Accordian table -->
 			<table class="table table-responsive"
 				style="border-collapse: collapse;">
@@ -29,21 +29,72 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="category in categories track by $index">
+					<tr ng-repeat="category in categories track by $index"
+						ng-if="($index < categories.length / 3)">
 						<td role="button" data-toggle="modal"
 							ng-click="populateCategory($index)"
 							data-target="#editCategoryModal">{{category.skillCategory}}
 						</td>
 						<td ng-if="category.active == false"><span
-									style="color: #ff7575" class="glyphicon glyphicon-remove fa-2x" aria-hidden="true"> </span></td>
+							style="color: #ff7575" class="glyphicon glyphicon-remove fa-2x"
+							aria-hidden="true"> </span></td>
 						<td ng-if="category.active == true"><span
-									style="color: #81f575" class="fa fa-check fa-2x" aria-hidden="true"> </span></td>
+							style="color: #81f575" class="fa fa-check fa-2x"
+							aria-hidden="true"> </span></td>
 					</tr>
 				</tbody>
-				<tfoot>
-
-				</tfoot>
-
+			</table>
+		</div>
+		<div class="col-md-3 col-lg-3 top5">
+			<table class="table table-responsive"
+				style="border-collapse: collapse;">
+				<thead>
+					<tr>
+						<th>Category</th>
+						<th>Active</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="category in categories track by $index"
+						ng-if="(($index > categories.length / 3) && ($index < ((categories.length / 3) * 2)))">
+						<td role="button" data-toggle="modal"
+							ng-click="populateCategory($index)"
+							data-target="#editCategoryModal">{{category.skillCategory}}
+						</td>
+						<td ng-if="category.active == false"><span
+							style="color: #ff7575" class="glyphicon glyphicon-remove fa-2x"
+							aria-hidden="true"> </span></td>
+						<td ng-if="category.active == true"><span
+							style="color: #81f575" class="fa fa-check fa-2x"
+							aria-hidden="true"> </span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-3 col-lg-3 top5">
+			<table class="table table-responsive"
+				style="border-collapse: collapse;">
+				<thead>
+					<tr>
+						<th>Category</th>
+						<th>Active</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="category in categories track by $index"
+						ng-if="($index > ((categories.length / 3) * 2))">
+						<td role="button" data-toggle="modal"
+							ng-click="populateCategory($index)"
+							data-target="#editCategoryModal">{{category.skillCategory}}
+						</td>
+						<td ng-if="category.active == false"><span
+							style="color: #ff7575" class="glyphicon glyphicon-remove fa-2x"
+							aria-hidden="true"> </span></td>
+						<td ng-if="category.active == true"><span
+							style="color: #81f575" class="fa fa-check fa-2x"
+							aria-hidden="true"> </span></td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -51,3 +102,4 @@
 
 <div ui-view="edit-category-form"></div>
 <div ui-view="create-category-form"></div>
+
