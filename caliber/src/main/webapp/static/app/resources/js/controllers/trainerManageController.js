@@ -2,7 +2,7 @@
  * Team: Fareed SSH 
  * Team Lead: Sudish 
  * Authors: Fareed Ali, 
- * Sean Connelly, 
+ * Sean Connelly,
  * Sudish Itwaru, 
  * Hendy Guy
  * 
@@ -34,6 +34,7 @@ angular
 		.controller(
 				"trainerManageController",
 				function($scope, $log, caliberDelegate, allBatches) {
+					
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
 					/**
@@ -48,6 +49,13 @@ angular
 									$scope.trainers = trainers;
 									$log.debug("=========TRAINERS=========");
 									$log.debug(trainers);
+								});
+					
+						caliberDelegate.all.importAvailableBatches().then(
+								function(availableBatches){
+									$scope.allAvailableBatches = availableBatches;
+									$log.debug("=============IMPORT BATCHES==========")
+									$log.debug(availableBatches);
 								});
 						$log.debug(allBatches);
 						$scope.batches = allBatches;
@@ -229,6 +237,8 @@ angular
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
 						$scope.location.model = batch.location;
+						$log.debug("=====testbah=============")
+						$log.debug(batch);
 						$scope.trainer.model = batch.trainer.name;
 						if (batch.coTrainer) {
 							$scope.coTrainer.model = batch.coTrainer.name;
@@ -246,18 +256,83 @@ angular
 
 					}
 
+					/** Selected import batch**/
+					 $scope.selectedBatchToImport = function(){
+						$scope.batchToImport = this.selectedBatch;
+						 if($scope.batchToImport == null){
+							 return; 
+						 }
+						caliberDelegate.all.getAllTraineesFromBatch(this.selectedBatch.resourceId).then(
+								function(trainees){
+									$scope.batchToImport.trainees = trainees;
+									$log.debug("============TRAINEES============");
+									$log.debug($scope.batchToImport);
+					 	});
+					 };
+					 
+					 
+					 /**  Submits the batch to the database **/
+					 $scope.submitImportBatch = function(){
+						 if($scope.batchToImport == null){
+							 return; 
+						 }
+						 caliberDelegate.all.createBatch($scope.batchToImport).then(
+							 function(response){
+								 $log.debug("============Imported Batch============");
+								 $log.debug($scope.batchToImport);
+								 $log.debug(response.data);
+								 
+								 var batch = response.data;
+								 $log.debug("============Saving Trainees============");
+								 $scope.batchToImport.trainees.forEach(function(trainee){
+									 trainee.batch = batch;
+									 caliberDelegate.all.createTrainee(trainee).then(
+										 function(){
+											 $log.debug(trainee);
+									 });
+								 });
+								 $scope.batches.push(batch);
+								 sortByDate(new Date().getFullYear());
+								caliberDelegate.all.importAvailableBatches().then(
+										function(availableBatches){
+											$scope.allAvailableBatches = availableBatches;
+											$log.debug("=============IMPORT BATCHES==========")
+											$log.debug(availableBatches);
+										});
+								
+								for(var i=batch.trainees.length-1;i >= 0; i--){
+									$log.debug("=====DROPPED TRAINEES=========");
+                                    if(batch.trainees[i].trainingStatus === "Dropped"){
+                                        $log.debug(batch.trainees[i])
+                                        batch.trainees.splice(i,1);
+                                    }
+								}
+								 angular.element("#importBatchModal").modal("hide");
+						 });
+						
+							
+						 
+					 };
+					 
 					/** Import batch form for creating new batch**/
 					$scope.importBatchForm = function() {
-						
-						$scope.batchFormName = "Import New Batch"
+						$scope.batchFormName = "Import New Batch"	
 						$scope.Save = "Save";
 						
 					}	
+					
+					
 					/** Select batch by year **/
 					$scope.selectBatchYear = function(index) {
 						$scope.selectedBatchYear = $scope.years[index];
 						sortByDate($scope.selectedBatchYear);
 					};
+
+					/** Resets import modal for importing new batch* */
+					$scope.resetImportModal = function() {
+						document.getElementById("importId").value = "";
+						$scope.batchToImport = "";
+					}
 					
 					/** Resets batch form for creating new batch* */
 					$scope.resetBatchForm = function() {
@@ -331,7 +406,7 @@ angular
 									.updateBatch($scope.currentBatch)
 									.then(
 											function() {
-											
+
 												$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch
 											});
 
@@ -360,7 +435,6 @@ angular
 												// format dates so qc, assess
 												// and reports can access
 												// batches immediately
-											
 
 												$scope.batches.push(newBatch);
 
@@ -370,10 +444,6 @@ angular
 						angular.element("#createBatchModal").modal("hide");
 					};
 
-					
-					
-					
-					
 					/** Delete batch* */
 					$scope.deleteBatch = function() {
 						caliberDelegate.all
@@ -404,6 +474,12 @@ angular
 														.modal("show");
 											}
 										});
+						caliberDelegate.all.importAvailableBatches().then(
+								function(availableBatches){
+									$scope.allAvailableBatches = availableBatches;
+									$log.debug("=============IMPORT BATCHES=========")
+									$log.debug(availableBatches);
+								});
 						angular.element("#deleteBatchModal").modal("hide");
 					}
 					/**
@@ -475,7 +551,7 @@ angular
 						$scope.Updating.status = true;
 						$scope.traineeFormName = "Update Trainee";
 					}
-
+					
 					/** Resets trainee form for creating new trainee* */
 					$scope.resetTraineeForm = function() {
 						$scope.traineeFormName = "Add Trainee";
@@ -513,7 +589,7 @@ angular
 						caliberDelegate.all.getTraineeByEmail(
 								$scope.traineeForm.email).then(
 								function(response) {
-									$log.debug("find email response ")
+									$log.debug("find email" + response)
 									$log.debug(response)
 									if (response.data === "") {
 										$log.debug("email does not exist")
@@ -527,7 +603,6 @@ angular
 									}
 								})
 					}
-
 					/** Create new Trainee Object * */
 					function createTraineeObject(trainee) {
 						trainee.name = $scope.traineeForm.name;
@@ -626,15 +701,20 @@ angular
 						angular.element("#deleteTraineeModal").modal("hide");
 
 					};
-					
-					/** When multiple modals are opened upon removing one the modal-open is removed.
-					 *  The following code adds the modal-open back into the HTML */
-					
-					$(document).on('hidden.bs.modal','#addTraineeModal', function () {
-						$("body").addClass("modal-open");
-					});
-					$(document).on('hidden.bs.modal','#deleteTraineeModal', function () {
-						$("body").addClass("modal-open");
-					});
+
+					/**
+					 * When multiple modals are opened upon removing one the
+					 * modal-open is removed. The following code adds the
+					 * modal-open back into the HTML
+					 */
+
+					$(document).on('hidden.bs.modal', '#addTraineeModal',
+							function() {
+								$("body").addClass("modal-open");
+							});
+					$(document).on('hidden.bs.modal', '#deleteTraineeModal',
+							function() {
+								$("body").addClass("modal-open");
+							});
 
 				});

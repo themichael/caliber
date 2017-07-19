@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
@@ -105,11 +106,23 @@ public class TrainingService {
 	}
 
 	/**
+	 * 
 	 * MAKE TRAINER INACTIVE
+	 * 
+	 * @param trainer
 	 **/
 	public void makeInactive(Trainer trainer) {
 		log.debug(trainer + " is now inactive");
+		trainer.setTier(TrainerRole.ROLE_INACTIVE);
 		trainerDAO.update(trainer);
+	}
+
+	/**
+	 * Find all distinct titles that have been given to trainers
+	 **/
+	public List<String> findAllTrainerTitles() {
+		log.debug("Found all trainer titles");
+		return trainerDAO.findAllTrainerTitles();
 	}
 
 	/*
@@ -138,7 +151,7 @@ public class TrainingService {
 	public void addWeek(Integer batchId) {
 		log.debug("Adding week to batch: " + batchId);
 		Batch batch = batchDAO.findOne(batchId);
-		if(batch==null) 
+		if (batch == null)
 			throw new IllegalArgumentException("Invalid batch");
 		int weeks = batch.getWeeks();
 		batch.setWeeks(++weeks);
@@ -203,7 +216,7 @@ public class TrainingService {
 	 * @param batchId
 	 * @return
 	 */
-	public Batch findBatch(Integer batchId){
+	public Batch findBatch(Integer batchId) {
 		log.debug("Finding batch with id: " + batchId);
 		return batchDAO.findOne(batchId);
 	}
@@ -218,14 +231,16 @@ public class TrainingService {
 		batchDAO.update(batch);
 	}
 
+
 	/**
 	 * DELETE BATCH
 	 * 
 	 * @param batch
 	 */
 	public void delete(Batch batch) {
-		log.debug("Delete batch " + batch);
-		batchDAO.delete(batch);
+		Batch fullBatch = batchDAO.findOneWithDroppedTrainees(batch.getBatchId());
+		log.debug("Delete batch " + fullBatch);
+		batchDAO.delete(fullBatch);
 	}
 
 	/*

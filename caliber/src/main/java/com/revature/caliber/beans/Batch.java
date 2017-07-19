@@ -2,6 +2,7 @@ package com.revature.caliber.beans;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -32,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.revature.caliber.validator.ValidBatch;
+
 
 /**
  * The type Batch.
@@ -128,6 +130,11 @@ public class Batch implements Serializable {
 	public Batch() {
 		super();
 		this.weeks = 1;
+		this.goodGradeThreshold = 80;
+		this.borderlineGradeThreshold = 70;
+		this.trainingType = TrainingType.Revature;
+		this.trainees = new HashSet<>();
+		this.notes = new HashSet<>();
 	}
 
 	/**
@@ -144,14 +151,9 @@ public class Batch implements Serializable {
 		this.trainingName = trainingName;
 		this.trainer = trainer;
 		this.skillType = SkillType.J2EE;
-		this.trainingType = TrainingType.Revature;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.location = location;
-		// setup default value
-		this.goodGradeThreshold = 80;
-		// setup default value
-		this.borderlineGradeThreshold = 70;
 	}
 
 	public int getBatchId() {

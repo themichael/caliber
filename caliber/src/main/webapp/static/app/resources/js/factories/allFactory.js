@@ -82,7 +82,6 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		});
 	};
 
-	
 	all.enumTrainerTier = function() {
 		return $http({
 			url : "/types/trainer/role/all",
@@ -93,8 +92,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
-	
+
 	/**
 	 * @param allcategories
 	 * @returns {*}
@@ -114,6 +112,22 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	};
 
 	/** ************************* Batch *********************** */
+
+	/**
+	 * 
+	 * 
+	 */
+	all.importAvailableBatches = function() {
+		return $http({
+			url : "/all/batch/import",
+			method : "GET",
+		}).then(function(response) {
+			$log.debug("Object successfully imported");
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
 
 	/**
 	 * 
@@ -173,6 +187,20 @@ angular.module("api").factory("allFactory", function($log, $http) {
 
 	/** ************************* Trainee *********************** */
 
+	all.getAllTraineesFromBatch = function(resourceId) {
+		return $http({
+			url : "/all/trainee/import?resourceId=" + resourceId,
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Trainees successfully imported")
+			$log.debug(response.data);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return response.data;
+		});
+	};
+
 	/**
 	 * 
 	 * @param batchId
@@ -180,7 +208,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	 */
 	all.getDroppedTrainees = function(batchId) {
 		return $http({
-			url : "/all/trainee/dropped?batch="+batchId ,
+			url : "/all/trainee/dropped?batch=" + batchId,
 			method : "GET",
 		}).then(function(response) {
 			$log.debug("Dropped trainees successfully fetched.")
@@ -192,7 +220,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			return response.data;
 		});
 	};
-	
+
 	/**
 	 * 
 	 * @param traineeObj
@@ -233,15 +261,15 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		});
 	};
 
-	all.getTraineeEmail = function(traineeEmail){
+	all.getTraineeEmail = function(traineeEmail) {
 		return $http({
-			url : "/all/trainee/getByEmail/" + traineeEmail,
+			url : "/all/trainee/getByEmail/" + traineeEmail + "/",
 			method : "GET",
-		}).then(function(response){
+		}).then(function(response) {
 			$log.log(traineeEmail);
 			$log.log(response);
 			return response;
-		}, function(response){
+		}, function(response) {
 			$log.log(traineeEmail);
 			$log.error("There was an error: " + response.status);
 			return response;
@@ -297,15 +325,15 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
-	all.getAllTraineeNotes = function(traineeId){
+
+	all.getAllTraineeNotes = function(traineeId) {
 		return $http({
-			url:"/all/notes/trainee/" + traineeId,
-			method: "GET"
-		}).then(function(response){
+			url : "/all/notes/trainee/" + traineeId,
+			method : "GET"
+		}).then(function(response) {
 			return response.data
-		},function(response){
-			$log.error("There was an error: "+response.status);
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
 		})
 	}
 
@@ -339,8 +367,23 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		});
 	};
 
-	
-	
+	/**
+	 * 
+	 * @returns {*}
+	 */
+	all.importAvailableBatches = function() {
+		return $http({
+			url : "/all/batch/import/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Object successfully imported");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
 	/**
 	 * 
 	 * @param trainerObj
@@ -350,7 +393,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		$log.debug(trainerObj);
 		return $http({
 			url : "/all/trainer/create",
-			method :"POST",
+			method : "POST",
 			data : trainerObj
 		}).then(function(response) {
 			$log.debug("Trainer successfully created.")

@@ -94,6 +94,13 @@ angular
 						return allFactory.createTrainer(trainerObj);
 					};
 
+					delegate.all.importAvailableBatches = function() {
+						return allFactory.importAvailableBatches();
+					};
+
+					delegate.all.getAllTraineesFromBatch = function(resourceId) {
+						return allFactory.getAllTraineesFromBatch(resourceId);
+					};
 					/**
 					 * *********************** Enum constants
 					 * ***************************
@@ -205,6 +212,34 @@ angular
 						return vpFactory.getAllCurrentBatches();
 					};
 
+					delegate.vp.getAllCategories = function() {
+						return vpFactory.getAllCategories();
+					};
+
+					delegate.vp.updateCategory = function(category) {
+						return vpFactory.updateCategory(category);
+					};
+
+					delegate.vp.saveCategory = function(category) {
+						return vpFactory.saveCategory(category);
+					};
+
+					delegate.vp.deactivateTrainer = function(trainerObj) {
+						return vpFactory.deactivateTrainer(trainerObj);
+					}
+					delegate.vp.updateTrainer = function(trainerObj) {
+						return vpFactory.updateTrainer(trainerObj);
+					};
+					delegate.vp.createTrainer = function(trainerObj) {
+						return vpFactory.createTrainer(trainerObj);
+					};
+					delegate.vp.trainersTitles = function() {
+						return vpFactory.getAllTrainersTitle();
+					};
+					delegate.vp.getTrainerEmail = function(trainerEmail) {
+						return vpFactory.getTrainerEmail(trainerEmail);
+					}
+
 					/** ************************ QC **************************** */
 					delegate.qc.getAllBatches = function() {
 						return qcFactory.getAllBatches();
@@ -300,4 +335,5 @@ angular
 					};
 
 					return delegate;
+
 				});
