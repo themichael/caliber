@@ -173,6 +173,12 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		chartData.labels = [];
 
 		chartData.options = {
+				legend : {
+					display : true,
+					labels : {
+						boxWidth : 10
+					}
+				},	
 			scales : {
 				xAxes : [ {
 					scaleLabel : {
