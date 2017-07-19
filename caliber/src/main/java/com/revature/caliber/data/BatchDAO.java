@@ -152,7 +152,7 @@ public class BatchDAO {
 				.createAlias("trainees.notes", "n", JoinType.LEFT_OUTER_JOIN) 
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.le(START_DATE, Calendar.getInstance().getTime()))
-				.add(Restrictions.ge(END_DATE, endDateLimit.getTime())) 
+				//.add(Restrictions.ge(END_DATE, endDateLimit.getTime())) 
 				.add(Restrictions.eq("n.qcFeedback", true)) 
 				.addOrder(Order.desc(START_DATE)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
@@ -169,7 +169,7 @@ public class BatchDAO {
 				.add(Restrictions.gt(G_SCORE, 0.0))  								 
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))   
 				.add(Restrictions.le(START_DATE, Calendar.getInstance().getTime())) 
-				.add(Restrictions.ge(END_DATE, endDateLimit.getTime()))   			 
+				//.add(Restrictions.ge(END_DATE, endDateLimit.getTime()))   			 
 				.addOrder(Order.desc(START_DATE)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 

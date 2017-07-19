@@ -139,7 +139,8 @@ public class ReportingService {
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-					results.put(b.getTrainingName(), temp);
+					results.put(b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' '))+" - "+ // Trainer first name
+								b.getTrainingName().substring(0,b.getTrainingName().indexOf(' ')), temp);   // Batch ID
 					break;
 				}
 			}
@@ -385,7 +386,9 @@ public class ReportingService {
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();  // changed to Trainees
 		batches.parallelStream().forEach(batch -> {
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
-			results.put(batch.getTrainingName(), utilAvgBatchOverall(trainees, batch.getWeeks()));
+			results.put(batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' '))+" - "+ //Trainer First name
+					batch.getTrainingName().substring(0,batch.getTrainingName().indexOf(' ')),   // Batch ID
+					utilAvgBatchOverall(trainees, batch.getWeeks()));
 		});
 		return results;
 	}
@@ -441,6 +444,7 @@ public class ReportingService {
 	public Map<String, Double> getBatchOverallRadarChart(Integer batchId) {
 		List<Grade> grades = gradeDAO.findByBatch(batchId);
 		Map<Category, Double[]> skills = utilAvgSkills(grades);
+		System.out.println("getBatchOverallRadarChart : "+utilReplaceCategoryWithSkillName(skills));
 		return utilReplaceCategoryWithSkillName(skills);
 	}
 
