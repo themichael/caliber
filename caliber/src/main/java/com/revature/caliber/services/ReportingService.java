@@ -444,7 +444,7 @@ public class ReportingService {
 	public Map<String, Double> getBatchOverallRadarChart(Integer batchId) {
 		List<Grade> grades = gradeDAO.findByBatch(batchId);
 		Map<Category, Double[]> skills = utilAvgSkills(grades);
-		System.out.println("getBatchOverallRadarChart : "+utilReplaceCategoryWithSkillName(skills));
+		log.info("getBatchOverallRadarChart : "+utilReplaceCategoryWithSkillName(skills));
 		return utilReplaceCategoryWithSkillName(skills);
 	}
 
