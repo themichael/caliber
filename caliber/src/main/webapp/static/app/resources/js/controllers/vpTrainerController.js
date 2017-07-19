@@ -29,12 +29,12 @@ angular
 									$scope.allTrainers = trainers;
 								});
 					};
-					
+
 					var submitTier = function(tier) {
 						var pre = "ROLE_"
 						return pre.concat(tier);
 					};
-					
+
 					/**
 					 * *********************************************** Code to
 					 * create and update Trainer************
@@ -53,7 +53,7 @@ angular
 					});
 
 					// load tainers titles
-					caliberDelegate.vp.TrainersTitles().then(function(titles) {
+					caliberDelegate.vp.trainersTitles().then(function(titles) {
 						$log.debug(titles);
 						$scope.trainersTitles = titles;
 					});

@@ -308,10 +308,28 @@ angular
 												templateUrl : "/static/app/partials/trainers/delete-trainer-modal.html"
 											},
 											"trainer-extra-modals@vp.trainers":{
-												templateUrl : "/static/app/partials/trainers/trainer-axillary-modals.html"
+												templateUrl : "/static/app/partials/trainers/trainer-auxillary-modals.html"
 											}
 										}
 
+									})
+							.state(
+									"vp.category",
+									{
+										url : "/category",
+										views:{
+											"":{
+												templateUrl : "/static/app/partials/category/manage-categories.html",
+												controller : "vpCategoryController"
+											},
+											"create-category-form@vp.category" : {
+												templateUrl : "/static/app/partials/category/add-category-modals.html"
+											},
+											"edit-category-form@vp.category" : {
+												templateUrl : "/static/app/partials/category/edit-category-modals.html"
+											}
+										}
+												
 									})
 							.state(
 									"vp.manage",

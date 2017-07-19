@@ -1,5 +1,16 @@
+<!-- Welcome new trainer -->
+<div class="container">
+	<h1>Welcome to Caliber!</h1>
+	<div>
+		<p>To get started, please visit the <a
+			href="https://github.com/pjw6193/caliber/wiki#user-guide">user guide</a> for an
+		introduction and orientation.</p>
+	</div>
+	<br/>
+</div>
+
 <!-- Charts -->
-<div class="container" ng-show="!noBatches">
+<div class="container" ng-if="currentBatch">
 	<div class="top10 data-container">
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
@@ -9,9 +20,12 @@
 							<div class="panel-heading panel-rev">Cumulative Scores</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
-									<canvas id="bar6" class="chart chart-bar" chart-data="batchOverAllData"
-										chart-options="batchOverAllOptions" chart-labels="batchOverAllLabels"
-										chart-series="batchOverAllSeries" chart-colors="batchOverAllColors"
+									<canvas id="bar6" class="chart chart-bar"
+										chart-data="batchOverAllData"
+										chart-options="batchOverAllOptions"
+										chart-labels="batchOverAllLabels"
+										chart-series="batchOverAllSeries"
+										chart-colors="batchOverAllColors"
 										chart-dataset-override="batchOverAllDsOverride">
                                     	</canvas>
 								</div>
@@ -24,8 +38,11 @@
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="radarBatchOverall" class="chart chart-radar"
-										chart-data="radarBatchOverallData" chart-options="radarBatchOverallOptions"
-										chart-labels="radarBatchOverallLabels" chart-series="radarBatchOverallSeries" chart-colors="radarBatchOverallColors">
+										chart-data="radarBatchOverallData"
+										chart-options="radarBatchOverallOptions"
+										chart-labels="radarBatchOverallLabels"
+										chart-series="radarBatchOverallSeries"
+										chart-colors="radarBatchOverallColors">
                                     </canvas>
 								</div>
 							</div>
@@ -37,12 +54,18 @@
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="doughnut1" class="chart chart-doughnut chart-xs"
-										chart-labels="currentQCStatsLabels" chart-data="currentQCStatsData"
-										chart-options="currentQCStatsOptions" chart-colors="currentQCStatsColors">
+										chart-labels="currentQCStatsLabels"
+										chart-data="currentQCStatsData"
+										chart-options="currentQCStatsOptions"
+										chart-colors="currentQCStatsColors">
                                     </canvas>
-						
+
 								</div>
 							</div>
 						</div>
 					</div>
-					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -38,6 +38,7 @@ public class BatchDAO {
 	private static final String END_DATE = "endDate";
 	private static final String G_SCORE = "g.score";
 	private static final String T_GRADES = "trainees.grades";
+	private static final String BATCH_ID = "batchId";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -205,8 +206,22 @@ public class BatchDAO {
 	public Batch findOne(Integer batchId) {
 		log.info("Fetching batch: " + batchId);
 		return (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("batchId", batchId))
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq(BATCH_ID, batchId))
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
+	}
+	
+	/**
+	 * Find a batch by its given identifier
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Batch findOneWithDroppedTrainees(Integer batchId) {
+		log.info("Fetching batch: " + batchId);
+		return (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq(BATCH_ID, batchId))
+				.uniqueResult();
 	}
 
 	/**
@@ -217,11 +232,11 @@ public class BatchDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch findOneWithTraineesAndGrades(Integer batchId) {
-		log.info("Fetching batch: " + batchId);
+		log.info("Fetching batch with trainees: " + batchId);
 		return (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("t.grades", "g", JoinType.LEFT_OUTER_JOIN).add(Restrictions.gt(G_SCORE, 0.0))
-				.add(Restrictions.eq("batchId", batchId))
+				.add(Restrictions.eq(BATCH_ID, batchId))
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
 
