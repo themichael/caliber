@@ -217,7 +217,7 @@ public class NoteDAO {
 
 	/**
 	 * Returns all notes for a particular trainee. Used for cumulative reporting
-	 * on a single trainee. Only public notes are displayed.
+	 * on a single trainee. Only trainer notes are displayed.
 	 * 
 	 * @param traineeId
 	 * @return
@@ -230,6 +230,7 @@ public class NoteDAO {
 				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN).createAlias(BATCH, "b", JoinType.LEFT_OUTER_JOIN)
 				.createAlias(B_TRAINEES, "batchmates", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
+				.add(Restrictions.eq("type", NoteType.TRAINEE))
 				.add(Restrictions.eq(T_TRAINEE_ID, traineeId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.addOrder(Order.asc("week")).list();
 	}
