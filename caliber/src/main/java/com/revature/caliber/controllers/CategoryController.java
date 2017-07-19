@@ -1,5 +1,11 @@
 package com.revature.caliber.controllers;
-
+/**
+ * @author Patrick Walsh
+ * @author Humberto Corea
+ * @author Carlos Vallejo
+ * @author Rex Toothman
+ * 
+ * */
 import java.util.List;
 
 import javax.validation.Valid;
