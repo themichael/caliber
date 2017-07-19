@@ -308,7 +308,7 @@ angular
 												templateUrl : "/static/app/partials/trainers/delete-trainer-modal.html"
 											},
 											"trainer-extra-modals@vp.trainers":{
-												templateUrl : "/static/app/partials/trainers/trainer-axillary-modals.html"
+												templateUrl : "/static/app/partials/trainers/trainer-auxillary-modals.html"
 											}
 										}
 

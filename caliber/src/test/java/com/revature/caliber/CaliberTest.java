@@ -6,19 +6,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
+import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.jdbc.SqlConfig.TransactionMode;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.security.models.SalesforceUser;
+
 /**
- * To create a consistent testing approach that provides
- * 		1) transient data in an embedded H2 database,
- * 		2) a single ApplicationContext instance across tests,
- * 		3) a JdbcTemplate object to perform low-level SQL 
- * please inherit from this class in your unit/integration tests.
+ * To create a consistent testing approach that provides 1) transient data in an
+ * embedded H2 database, 2) a single ApplicationContext instance across tests,
+ * 3) a JdbcTemplate object to perform low-level SQL please inherit from this
+ * class in your unit/integration tests.
  * 
  * @author Patrick Walsh
  *
@@ -40,9 +45,19 @@ public class CaliberTest {
 		return jdbcTemplate;
 	}
 	
+	public Authentication mockAuth(){
+		SalesforceUser salesforceUser = new SalesforceUser();
+		salesforceUser.setUserId("patrick@revature.com");
+		Trainer trainer = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com", TrainerRole.ROLE_VP);
+		trainer.setTrainerId(1);
+		salesforceUser.setCaliberUser(trainer);
+		return new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
+				salesforceUser.getAuthorities());
+	}
+
 	@Test
-	public void testJdbcTemplate(){
+	public void testJdbcTemplate() {
 		assertNotNull(jdbcTemplate);
 	}
-	
+
 }

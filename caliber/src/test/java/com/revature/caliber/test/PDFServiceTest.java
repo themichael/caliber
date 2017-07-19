@@ -19,6 +19,10 @@ public class PDFServiceTest extends CaliberTest{
 	private PDFService pdfService;
 	private Logger log = Logger.getLogger(PDFServiceTest.class);
 
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.services.PDFService#generatePDF(String, String)
+	 */
 	@Test
 	public void go() {
 		try {

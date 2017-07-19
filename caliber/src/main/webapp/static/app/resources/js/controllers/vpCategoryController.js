@@ -47,3 +47,4 @@ angular.module("vp").controller(
 				$log.debug(category);
 			};
 		});
+

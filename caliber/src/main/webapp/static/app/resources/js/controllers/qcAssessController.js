@@ -152,21 +152,26 @@ angular
 
 					// create an array of numbers for number of weeks in the
 					// batch selected
-					for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-						$scope.weeks.push(i);
+					if ($scope.currentBatch) {
+						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+							$scope.weeks.push(i);
+						}
 					}
 
 					// Start function for reports to use and assess
 					function start() {
-						$scope.trainingNameDate = $scope.batches[0].trainingName
-								+ " " + $scope.batches[0].startDate;
-
+						if ($scope.batches[0]) {
+							$scope.trainingNameDate = $scope.batches[0].trainingName
+									+ " " + $scope.batches[0].startDate;
+						}
 						var curYear = new Date();
 						$scope.selectedYear = curYear.getFullYear();
 						batchYears();
 
 						// Sort trainees alphabetically
-						$scope.currentBatch.trainees.sort(compare);
+						if ($scope.currentBatch) {
+							$scope.currentBatch.trainees.sort(compare);
+						}
 
 						// Set current week to first week
 						// If reports week is selected
@@ -278,19 +283,14 @@ angular
 					// Function to add week
 					$scope.createWeek = function() {
 
-						caliberDelegate.trainer
-								.createWeek($scope.currentBatch.batchId)
-								.then(
-										function() {
-											$scope.currentBatch.weeks += 1;
-											$scope.weeks
-													.push($scope.currentBatch.weeks);
-											$scope
-													.showActiveWeek($scope.currentBatch.weeks);
-											// Select the index of the week
-											$scope
-													.selectWeek($scope.currentBatch.weeks - 1);
-										});
+						caliberDelegate.trainer.createWeek(
+								$scope.currentBatch.batchId).then(function() {
+							$scope.currentBatch.weeks += 1;
+							$scope.weeks.push($scope.currentBatch.weeks);
+							$scope.showActiveWeek($scope.currentBatch.weeks);
+							// Select the index of the week
+							$scope.selectWeek($scope.currentBatch.weeks - 1);
+						});
 					};
 
 					// ///// wipe faces ;) and selections ///////
@@ -302,13 +302,14 @@ angular
 
 					// Get categories for the week
 					function categories() {
-						caliberDelegate.qc
-								.getAllAssessmentCategories(
-										$scope.currentBatch.batchId,
-										$scope.currentWeek).then(
-										function(response) {
-											$scope.categories = response;
-										});
+						if ($scope.currentBatch) {
+							caliberDelegate.qc.getAllAssessmentCategories(
+									$scope.currentBatch.batchId,
+									$scope.currentWeek).then(
+									function(response) {
+										$scope.categories = response;
+									});
+						}
 					}
 
 					/**
