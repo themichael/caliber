@@ -1,7 +1,18 @@
+<!-- Welcome new trainer -->
+<div class="container">
+	<h1>Welcome to Caliber!</h1>
+	<div>
+		<p>To get started, please visit the <a
+			href="https://github.com/pjw6193/caliber/wiki#user-guide">user guide</a> for an
+		introduction and orientation.</p>
+	</div>
+	<br/>
+</div>
+
 <div class="container">
 	<div class="col-sm-12 col-md-12 col-lg-12">
 
-		<div class="row">
+		<div class="row" ng-if="stackedBarData">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Last Quality Audit</div>
@@ -33,7 +44,7 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row" ng-if="currentBatchesLineData">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Weekly Progress</div>
@@ -69,4 +80,3 @@
 
 	</div>
 </div>
-
