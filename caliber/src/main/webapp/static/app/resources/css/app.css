@@ -143,14 +143,14 @@ a { color: #F26925;}
 }
 
 .fa-smile-o:hover { color: #81f575; }
-.fa-meh-o:hover { color: #e8b00b; } 
+.fa-meh-o:hover { color: #fdff9e; } 
 .fa-frown-o:hover { color: #ff7575; }
 .fa-star:hover { color: #7972ff; }
 
-.fa-smile-o.pick { color: #24d810!important; }
-.fa-meh-o.pick { color: #e8b00b !important; }
-.fa-frown-o.pick { color: #ff0000!important; }
-.fa-star.pick { color: #7972ff !important; }
+.fa-smile-o.pick { color: #18ad18 !important; }
+.fa-meh-o.pick { color: #f9e900 !important; }
+.fa-frown-o.pick { color: #ea2825 !important; }
+.fa-star.pick { color: #393fef !important; }
 
 .fa-file-pdf-o { color: #d00a0a; } 
 .fa-filter { color: #F26925; }
