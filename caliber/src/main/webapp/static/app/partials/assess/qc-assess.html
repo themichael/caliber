@@ -1,16 +1,9 @@
+<div class="bg-primary align center" ng-if="!currentBatch">No data available.</div>
 <!-- Year selector and Add Assessment button -->
-<div ng-hide="showMe">
+<div ng-if="currentBatch">
 	<div class="container">
 		<div class="row">
-			<!-- Back button, only shows when there are no batches -->
-			<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
-				<button class="btn back-btn" ng-click="back()">
-					<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-					Back
-				</button>
-			</div>
 			<div class="col-md-12 col-lg-12 top10">
-
 				<!-- top ui dropdown for available years -->
 				<ul class="nav nav-tabs" ng-show="currentView">
 					<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -21,7 +14,7 @@
 						</ul></li>
 
 					<!-- top ui for viewing all assessments -->
-					<li role="button" class="dropdown" ng-show="!noBatches"><a
+					<li role="button" class="dropdown"><a
 						class="dropdown-toggle" data-toggle="dropdown"> {{
 							trainingNameDate }} <span class="caret"></span>
 					</a>
@@ -46,13 +39,13 @@
 				</ul>
 			</div>
 			<!-- Display all the weeks in the current selected batch -->
-			<div class="col-sm-12 col-md-12 col-lg-12 top5" ng-show="!noBatches">
+			<div class="col-sm-12 col-md-12 col-lg-12 top5">
 				<ul class="nav nav-tabs">
 					<li role="button" class="{{showActiveWeek($index)}}"
 						ng-click="selectWeek($index)"
 						ng-repeat="week in weeks track by $index"><a>Week
 							{{week}}</a></li>
-					<li role="button" ng-show="!noBatches" data-toggle="modal"
+					<li role="button" data-toggle="modal"
 						data-target="#confirmingweeks"><a><span
 							class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
 				</ul>
@@ -63,9 +56,7 @@
 	<div class="container">
 		<div class="row" id="qcTrainees">
 			<div class="col-md-12 col-lg-12 top5">
-				<!-- Display if no current batches are available in selected year -->
-				<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
-				<ul class="nav nav-tabs" ng-show="!noBatches">
+				<ul class="nav nav-tabs">
 					<!-- Accordian table -->
 					<table class="table table-condensed"
 						style="border-collapse: collapse;" ng-show="currentView">
@@ -76,7 +67,7 @@
 									? '' : ', '}}</span>
 							</tr>
 							<!-- Columns for selected batch -->
-							<tr sticky>
+							<tr>
 								<th>Trainee</th>
 								<th>Individual Feedback</th>
 								<th>Notes</th>
@@ -132,7 +123,7 @@
 			</div>
 		</div>
 		<!-- Bottom UI: QC batch note -- overall qualitative feedback -->
-		<div class="row" ng-show="!noBatches">
+		<div class="row">
 			<h4 class="text-center">Overall Feedback</h4>
 			<!-- Shows the status type (icons) -->
 			<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"

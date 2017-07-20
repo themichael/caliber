@@ -881,6 +881,8 @@ angular
 				
 				// Get categories for the week
 				function categories() {
+					if(!$scope.currentBatch)
+						return;
 					caliberDelegate.qc
 							.getAllAssessmentCategories(
 									$scope.currentBatch.batchId,
@@ -888,5 +890,6 @@ angular
 									function(response) {
 										$scope.categories = response;
 									});
+					
 				}
 });
