@@ -1,6 +1,6 @@
 <!-- Create Assessment Categories and Edit assessment Categories including making it active or inactive -->
 <div>
-	<div class="container" ng-if="categories[0]">
+	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-lg-12">
 				<ul class="nav nav-tabs">
@@ -16,7 +16,7 @@
 </div>
 
 <!-- Display all assessment categories -->
-<div class="container" id="trainer-assess-table">
+<div class="container" id="trainer-assess-table" ng-if="categories[0]">
 	<div class="row">
 		<div class="col-md-3 col-lg-3 top5">
 			<!-- Accordian table -->
