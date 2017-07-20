@@ -270,9 +270,9 @@ angular
 									key) {
 								row.data.push(value[i]);
 							});
-
 							tableDataSet.push(row);
 						}
+						$log.debug(tableDataSet);
 						return tableDataSet;
 					}
 					return delegate;
