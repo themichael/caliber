@@ -1,4 +1,5 @@
-<div class="container">
+<div class="bg-primary align center" ng-if="!currentBatch">No data available.</div>
+<div class="container" ng-if="currentBatch">
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<!-- Generate PDF of current page -->
@@ -11,7 +12,6 @@
 				style="color: #F26925;" class="fa fa-spinner fa-spin fa-2x"
 				aria-hidden="true"></i>
 			</a>
-			<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
 			<ul class="nav nav-tabs" ng-show="!noBatches">
 				<!-- Filter batches by year -->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"

@@ -9,7 +9,8 @@
 	width: 1000px;
 } 
 </style>
-<div class="container">
+<div class="bg-primary align center" ng-if="!currentBatch">No data available.</div>
+<div class="container" ng-if="currentBatch">
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
 			<button class="btn back-btn" ng-click="back()">
@@ -81,7 +82,7 @@
 	</div>
 </div>
 <!-- Assessments table -->
-<div class="container"  id="trainer-assess-table">
+<div class="container"  id="trainer-assess-table" ng-if="currentBatch">
 	<div class="row">
 		<div class="col-md-12 col-lg-12 top5">
 			<p class="bg-primary align center" ng-show="noTrainees">{{noTraineesMessage}}</p>

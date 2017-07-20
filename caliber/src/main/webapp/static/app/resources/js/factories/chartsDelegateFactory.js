@@ -266,11 +266,13 @@ angular
 							var row = {};
 							row.label = chartObject.labels[i];
 							row.data = [];
-							for (var j = 0; j < chartObject.labels.length; j++) {
-								row.data.push(chartObject.data[j]);
-							}
+							angular.forEach(chartObject.data, function(value,
+									key) {
+								row.data.push(value[i]);
+							});
 							tableDataSet.push(row);
 						}
+						$log.debug(tableDataSet);
 						return tableDataSet;
 					}
 					return delegate;
