@@ -246,11 +246,8 @@ angular
 							$scope.coTrainer.model = ""
 						}
 
-						$scope.startDate.model = new Date(moment(
-								batch.startDate, "YYYY-MM-DD").format(
-								"YYYY/MM/DD"));
-						$scope.endDate.model = new Date(moment(batch.endDate,
-								"YYYY-MM-DD").format("YYYY/MM/DD"));
+						$scope.startDate.model = batch.startDate;
+						$scope.endDate.model = batch.endDate;
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 
