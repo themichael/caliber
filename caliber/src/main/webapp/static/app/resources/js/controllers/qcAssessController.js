@@ -2,7 +2,7 @@ angular
 		.module("qc")
 		.controller(
 				"qcAssessController",
-				function($log, $scope, $timeout, $rootScope, chartsDelegate,
+				function($log, $scope, $timeout, $rootScope, $filter, chartsDelegate,
 						caliberDelegate, qcFactory, allBatches) {
 					$log.debug("Booted Trainer Assess Controller");
 
@@ -12,6 +12,8 @@ angular
 					$scope.weeks = [];
 					$scope.batchesByYear = [];
 					$scope.categories = [];
+					// used to block user processes to wait for server's response
+					$scope.processingNote = false; 
 
 					// Note object
 					function Note(noteId, content, status, week, batch,
@@ -152,21 +154,26 @@ angular
 
 					// create an array of numbers for number of weeks in the
 					// batch selected
-					for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-						$scope.weeks.push(i);
+					if ($scope.currentBatch) {
+						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+							$scope.weeks.push(i);
+						}
 					}
 
 					// Start function for reports to use and assess
 					function start() {
-						$scope.trainingNameDate = $scope.batches[0].trainingName
-								+ " " + $scope.batches[0].startDate;
-
+						if ($scope.batches[0]) {
+							$scope.trainingNameDate = $scope.batches[0].trainer.name
+									+ " - " + $filter('date')($scope.batches[0].startDate, 'shortDate');
+						}
 						var curYear = new Date();
 						$scope.selectedYear = curYear.getFullYear();
 						batchYears();
 
 						// Sort trainees alphabetically
-						$scope.currentBatch.trainees.sort(compare);
+						if ($scope.currentBatch) {
+							$scope.currentBatch.trainees.sort(compare);
+						}
 
 						// Set current week to first week
 						// If reports week is selected
@@ -247,8 +254,8 @@ angular
 						// Reset qc status
 						wipeFaces();
 						categories();
-						$scope.trainingNameDate = $scope.currentBatch.trainingName
-								+ " " + $scope.currentBatch.startDate;
+						$scope.trainingNameDate = $scope.currentBatch.trainer.name
+								+ " - " + $filter('date')($scope.currentBatch.startDate, 'shortDate');
 					};
 
 					// Select week
@@ -278,19 +285,14 @@ angular
 					// Function to add week
 					$scope.createWeek = function() {
 
-						caliberDelegate.trainer
-								.createWeek($scope.currentBatch.batchId)
-								.then(
-										function(response) {
-											$scope.currentBatch.weeks += 1;
-											$scope.weeks
-													.push($scope.currentBatch.weeks);
-											$scope
-													.showActiveWeek($scope.currentBatch.weeks);
-											// Select the index of the week
-											$scope
-													.selectWeek($scope.currentBatch.weeks - 1);
-										});
+						caliberDelegate.trainer.createWeek(
+								$scope.currentBatch.batchId).then(function() {
+							$scope.currentBatch.weeks += 1;
+							$scope.weeks.push($scope.currentBatch.weeks);
+							$scope.showActiveWeek($scope.currentBatch.weeks);
+							// Select the index of the week
+							$scope.selectWeek($scope.currentBatch.weeks - 1);
+						});
 					};
 
 					// ///// wipe faces ;) and selections ///////
@@ -302,13 +304,14 @@ angular
 
 					// Get categories for the week
 					function categories() {
-						caliberDelegate.qc
-								.getAllAssessmentCategories(
-										$scope.currentBatch.batchId,
-										$scope.currentWeek).then(
-										function(response) {
-											$scope.categories = response;
-										});
+						if ($scope.currentBatch) {
+							caliberDelegate.qc.getAllAssessmentCategories(
+									$scope.currentBatch.batchId,
+									$scope.currentWeek).then(
+									function(response) {
+										$scope.categories = response;
+									});
+						}
 					}
 
 					/**
@@ -327,6 +330,7 @@ angular
 					 */
 					// Save trainee note for ng-blur
 					$scope.saveTraineeNote = function(index) {
+						$scope.processingNote = true;
 						$log.debug($scope.faces[index]);
 						// Create note if noteId is null
 						if ($scope.faces[index].noteId === null
@@ -335,17 +339,20 @@ angular
 							caliberDelegate.qc.createNote($scope.faces[index])
 									.then(function(id) {
 										$scope.faces[index].noteId = id;
+										$scope.processingNote = false;
 									});
 						}
 						// Update if note has a noteId
 						else {
 							$log.debug("update");
 							caliberDelegate.qc.updateNote($scope.faces[index]);
+							$scope.processingNote = false;
 						}
 					};
 
 					// Save batch note for ng-blur
 					$scope.saveQCNotes = function() {
+						$scope.processingNote = true;
 						// Create note if noteId is null
 						if ($scope.bnote.noteId === null
 								|| $scope.bnote.noteId === undefined) {
@@ -353,6 +360,7 @@ angular
 							// Set id to created notes id
 							function(id) {
 								$scope.bnote.noteId = id;
+								$scope.processingNote = false;
 							});
 						}
 						// Update existing note
@@ -362,6 +370,7 @@ angular
 											.getElementById("qcBatchNotes").value);
 							$log.debug(caliberDelegate.qc
 									.updateNote($scope.bnote));
+							$scope.processingNote = false;
 						}
 					}
 
@@ -443,14 +452,13 @@ angular
 							$scope.noBatchesMessage = "No Batches were found for this year.";
 						} else {
 							$scope.noBatches = false;
-							// createDefaultCharts();
 							$scope.selectedYear = $scope.years[index];
 							sortByDate($scope.selectedYear);
 
 							if ($scope.batchesByYear.length > 0) {
-								$scope.trainingNameDate = $scope.batchesByYear[0].trainingName
+								$scope.trainingNameDate = $scope.batchesByYear[0].trainer.name
 										+ " - "
-										+ $scope.batchesByYear[0].startDate;
+										+ $filter('date')($scope.batchesByYear[0].startDate, 'shortDate');
 								$scope.thereAreBatches = true;
 							} else {
 								/**
@@ -460,7 +468,6 @@ angular
 
 								$scope.trainingNameDate = "No Batch Found";
 								$scope.currentView = false;
-								// $scope.thereAreBatches = false;
 							}
 
 							$log.debug($scope.batchesByYear);

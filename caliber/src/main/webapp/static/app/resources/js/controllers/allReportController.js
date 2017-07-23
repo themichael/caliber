@@ -52,9 +52,11 @@ angular
 						// get all training types for dropdown
 						getAllTrainingTypes();
 
-						if ($scope.currentBatch === null) {
+						if ($scope.currentBatch === null || $scope.currentBatch === undefined) {
 							$scope.noBatch = true;
+							$log.debug("You have no batches");
 						} else {
+							$log.debug("You have some batches");
 							$scope.noBatch = false;
 							$scope.selectedYear = Number($scope.currentBatch.startDate
 									.substr(0, 4));
@@ -125,11 +127,12 @@ angular
 						$scope.traineeOverall=[];
 						$scope.categories=[];
 						
-						for(weekNum in $scope.currentBatchWeeks){
-							var week = parseInt(weekNum) + 1
+						for(const weekNum in $scope.currentBatchWeeks){
+							var week = parseInt(weekNum) + 1;
 							$scope.traineeOverall.push({week});
 							// Daniel get categories for the week
-							// Push a promise to keep order of categories for each week
+							// Push a promise to keep order of categories for
+							// each week
 							$scope.categories.push(caliberDelegate.qc.getAllAssessmentCategories(
 									$scope.currentBatch.batchId,
 									week));
@@ -140,9 +143,9 @@ angular
 								.then(
 										function(response) {
 											if(response !== undefined){
-												for(note of response){
+												for(const note of response){
 													if($scope.traineeOverall[parseInt(note.week)-1] !==undefined){
-														$scope.traineeOverall[parseInt(note.week)-1].trainerNote= note;
+														$scope.traineeOverall[parseInt(note.week)-1].trainerNote = note;
 													}
 												}							
 											}
@@ -152,7 +155,7 @@ angular
 								traineeOverallNote(traineeId)
 								.then(
 										function(response) {
-											for(qcNote of response){
+											for(const qcNote of response){
 												if($scope.traineeOverall[parseInt(qcNote.week)-1] !== undefined){
 													$scope.traineeOverall[parseInt(qcNote.week)-1].qcNote = qcNote;
 												}
@@ -175,7 +178,8 @@ angular
 					}
 					// hide filter tabs
 					$scope.hideOtherTabs = function() {
-						return $scope.currentBatch.trainingName !== "Batch";
+						if($scope.currentBatch)
+							return $scope.currentBatch.trainingName !== "Batch";
 					}
 
 					function addYears() {
@@ -206,9 +210,10 @@ angular
 						$scope.currentBatch = $scope.batchesByYear[0];
 						$scope.reportCurrentWeek = OVERALL;
 						$scope.currentTraineeId = ALL;
-						selectView($scope.currentBatch.batchId,
-								$scope.reportCurrentWeek,
-								$scope.currentTraineeId);
+						if($scope.currentBatch)
+							selectView($scope.currentBatch.batchId,
+									$scope.reportCurrentWeek,
+									$scope.currentTraineeId);
 					};
 
 					function sortByDate(currentYear) {
@@ -240,7 +245,7 @@ angular
 					}
 					
 					$scope.selectTrainingType = function(index){
-						if (index==OVERALL) {
+						if (index===OVERALL) {
 							$scope.selectedTrainingType = OVERALL;
 							$log.debug("Inside Selected Training Type")
 			
@@ -259,7 +264,7 @@ angular
 						$log.debug("Hello there Y1");
 						$log.debug(index);
 						$log.debug("Hello there Y2");
-						if (index==OVERALL) {
+						if (index===OVERALL) {
 							$scope.selectedSkill = OVERALL;
 			
 						} else {
@@ -293,9 +298,8 @@ angular
 								|| $scope.currentWeek === null
 								|| $scope.batchOverallTrainee === null) {
 							return false;
-						} else {
-							return true;
-						}
+						} 
+						return true;
 					}
 					$scope.selectCurrentTrainee = function(index) {
 						if (index === ALL) {
@@ -321,12 +325,14 @@ angular
 						chartsDelegate.radar.data
 						.getAllTraineesAndBatchRadarChart($scope.currentBatch.batchId)
 						.then(function(data) {
+							$log.debug(data);
 							radarComparData = data;
 						})
 					}
 					
 					// toggle Checked and Unchecked for Trainees
 					$scope.toggleComparisonRadarChart = function(isChecked, val) {
+						var mainData;
 						radarComparObj[$scope.currentBatch.trainingName] = mainData;
 						if(isChecked) {
 							radarComparObj[$scope.currentBatch.trainees[val].name] = radarComparData[$scope.currentBatch.trainees[val].name] ;
@@ -436,8 +442,6 @@ angular
 											.then(
 													function(data) {
 														NProgress.done();
-														// TODO Change
-														// parameters
 														var barChartObj = chartsDelegate.bar
 																.getAverageTraineeScoresWeekly(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
 														$scope.averageTraineeScoresWeeklyData = barChartObj.data;
@@ -467,8 +471,6 @@ angular
 											.then(
 													function(data) {
 														NProgress.done();
-														// TODO Change
-														// parameters
 														var barChartObject = chartsDelegate.bar
 														.getAverageTraineeScoresOverall(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
 														$scope.batchOverAllLabels = barChartObject.labels;
@@ -606,7 +608,7 @@ angular
 													.dataToTable(radarChartObject);
 										});
 					}
-					var mainData = null;
+
 					function createTechnicalSkillsBatchOverall() {
 						$log.debug("createTechnicalSkillsBatchOverall");
 						chartsDelegate.radar.data
@@ -615,8 +617,10 @@ angular
 								// batchId
 								.then(
 										function(data) {
+											$log.debug("Batch overall radar data: ");
+											$log.debug(data);
 											NProgress.done();
-											mainData = data;
+
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(
 															data,
@@ -709,6 +713,8 @@ angular
 					 * automatically in new tab.
 					 */
 					$scope.generatePDF = function() {
+						if($scope.noBatch)
+							return;
 						// indicate to user the PDF is processing
 						$scope.reticulatingSplines = true;
 

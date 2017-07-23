@@ -4,7 +4,7 @@
 	<groupId>com.revature</groupId>
 	<artifactId>caliber</artifactId>
 	<packaging>war</packaging>
-	<version>1.1</version>
+	<version>1.2</version>
 	<name>caliber Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -32,6 +32,11 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

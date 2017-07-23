@@ -13,7 +13,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/spring-security.xml
+            /WEB-INF/beans.xml
         </param-value>
     </context-param>
     <filter>
@@ -52,10 +52,10 @@
     </filter-mapping>
     
     <session-config>
-    	<session-timeout>5</session-timeout>
+    	<session-timeout>180</session-timeout>
     </session-config>
-<!--     
+    
     <error-page>
     	<location>/</location>
-    </error-page> -->
+    </error-page>
 </web-app>

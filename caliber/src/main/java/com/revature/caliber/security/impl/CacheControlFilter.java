@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Prevents data from being cached in the browser. Now user cannot click back
  * button and see data after the session is expired or invalidated.
+ * Still not fully tested after session is expired.
  * 
  * @author Patrick Walsh
  *
@@ -35,9 +36,11 @@ public class CacheControlFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		// unused lifecycle method
 	}
 
 	@Override
 	public void destroy() {
+		// unused lifecycle method		
 	}
 }

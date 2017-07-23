@@ -140,8 +140,7 @@ angular.module("charts").factory(
 				return chartData;
 			}
 
-			barChart.getBatchOverallBarChart = function(dataArray, comparison,
-					bad, good) {
+			barChart.getBatchOverallBarChart = function(dataArray, comparison) {
 				var chartData = {};
 
 				var sorted = [];
@@ -203,8 +202,7 @@ angular.module("charts").factory(
 				return chartData;
 			}
 
-			barChart.getBatchWeekSortedBarChart = function(dataArray,
-					comparison, bad, good) {
+			barChart.getBatchWeekSortedBarChart = function(dataArray) {
 				var chartData = {};
 				var sorted = [];
 				angular.forEach(dataArray, function(value, key) {
@@ -265,13 +263,13 @@ angular.module("charts").factory(
 							chartData.data.push([]);
 							chartData.series.push(key2);
 							if (key2 === "Superstar")
-								chartData.colors.push("#7972ff");
+								chartData.colors.push("#393fef");
 							else if (key2 === "Good")
-								chartData.colors.push("#81f575");
+								chartData.colors.push("#18ad18");
 							else if (key2 === "Average")
-								chartData.colors.push("#e8b00b");
+								chartData.colors.push("#f9e900");
 							else if (key2 === "Poor")
-								chartData.colors.push("#ff7575");
+								chartData.colors.push("#ea2825");
 						}
 						chartData.data[i].push(value2);
 						i++;
@@ -305,9 +303,11 @@ angular.module("charts").factory(
 			}
 
 			barChart.getDummyBarChart = function(dataArray) {
-				var numberWithCommas = function(x) {
+				/*
+				 * unused function declaration.. need clarification here (PW) 
+			 	var numberWithCommas = function(x) {
 					return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				};
+				};*/
 
 				var chartData = {
 					type : 'bar',

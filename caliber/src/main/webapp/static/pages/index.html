@@ -38,12 +38,20 @@
 <!-- Angular -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.js"></script>
 
 <!-- Angular UI Router -->
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"
 	crossorigin="anonymous"></script>
+
+<!-- Angular Date Picker -->
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
+<script type="text/javascript"
+	src="/static/app/lib/js/angular-moment-picker.js"></script>
+
 
 <!-- Cookies  -->
 <script src="https://code.angularjs.org/1.5.7/angular-cookies.js"></script>
@@ -82,14 +90,14 @@
 
 <!-- Insert css local files here -->
 <link rel="stylesheet" href="/static/app/resources/css/app.css">
+<link rel="stylesheet"
+	href="/static/app/lib/css/angular-moment-picker.css">
 <link rel="shortcut icon"
 	href="/static/app/resources/images/favicon.ico">
-
 <title>Caliber | Performance Management</title>
 </head>
 <body ng-app="app">
 	<!-- Header -->
-
 	<div class="wrapper">
 		<!-- states inserts here -->
 		<ui-view></ui-view>
@@ -129,8 +137,7 @@
 		src="/static/app/resources/js/config/modules.js"></script>
 	<script type="text/javascript"
 		src="/static/app/resources/js/config/routeConfig.js"></script>
-	<script type="text/javascript"
-		src="/static/app/lib/js/moment.min.js"></script>
+	<script type="text/javascript" src="/static/app/lib/js/moment.min.js"></script>
 
 	<!-- Services -->
 	<script type="text/javascript"
@@ -149,7 +156,7 @@
 	<script type="text/javascript"
 		src="/static/app/resources/js/factories/allFactory.js"></script>
 	<script type="text/javascript"
-		src="/static/app/resources/js/factories/chartsDelegateFactory.js"></script>		
+		src="/static/app/resources/js/factories/chartsDelegateFactory.js"></script>
 	<script type="text/javascript"
 		src="/static/app/resources/js/factories/chartFactories/doughnutChartFactory.js"></script>
 	<script type="text/javascript"
@@ -165,13 +172,9 @@
 	<script type="text/javascript"
 		src="/static/app/resources/js/factories/chartFactories/lineChartFactory.js"></script>
 	<script type="text/javascript"
-		src="/static/app/resources/js/factories/chartDataFactories/lineChartDataFactory.js"></script>	
+		src="/static/app/resources/js/factories/chartDataFactories/lineChartDataFactory.js"></script>
 	<script type="text/javascript"
-		src="/static/app/resources/js/factories/chartFactories/pdfReportFactory.js"></script>
-	<script type="text/javascript"
-		src="/static/app/resources/js/factories/chartDataFactories/pdfDataFactory.js"></script>	
-		
-				
+		src="/static/app/resources/js/factories/chartDataFactories/pdfDataFactory.js"></script>
 	<!-- Controllers -->
 	<script type="text/javascript"
 		src="/static/app/resources/js/controllers/vpHomeController.js"></script>
@@ -189,6 +192,9 @@
 		src="/static/app/resources/js/controllers/trainerAssessController.js"></script>
 	<script type="text/javascript"
 		src="/static/app/resources/js/controllers/allReportController.js"></script>
-
+	<script type="text/javascript"
+		src="/static/app/resources/js/controllers/vpTrainerController.js"></script>
+	<script type="text/javascript"
+		src="/static/app/resources/js/controllers/vpCategoryController.js"></script>
 </body>
 </html>

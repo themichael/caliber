@@ -1,16 +1,9 @@
+<div class="bg-primary align center" ng-if="!currentBatch">No data available.</div>
 <!-- Year selector and Add Assessment button -->
-<div ng-hide="showMe">
+<div ng-if="currentBatch">
 	<div class="container">
 		<div class="row">
-			<!-- Back button, only shows when there are no batches -->
-			<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
-				<button class="btn back-btn" ng-click="back()">
-					<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-					Back
-				</button>
-			</div>
 			<div class="col-md-12 col-lg-12 top10">
-
 				<!-- top ui dropdown for available years -->
 				<ul class="nav nav-tabs" ng-show="currentView">
 					<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -21,14 +14,14 @@
 						</ul></li>
 
 					<!-- top ui for viewing all assessments -->
-					<li role="button" class="dropdown" ng-show="!noBatches"><a
+					<li role="button" class="dropdown"><a
 						class="dropdown-toggle" data-toggle="dropdown"> {{
 							trainingNameDate }} <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">
 							<li ng-repeat="batch in batchesByYear track by $index"><a
 								role="button" ng-click="selectCurrentBatch($index)"> {{
-									batch.trainingName }} - {{ batch.startDate }} </a>
+									batch.trainer.name }} - {{ batch.startDate | date:'shortDate' }} </a>
 						</ul></li>
 				</ul>
 
@@ -46,13 +39,13 @@
 				</ul>
 			</div>
 			<!-- Display all the weeks in the current selected batch -->
-			<div class="col-sm-12 col-md-12 col-lg-12 top5" ng-show="!noBatches">
+			<div class="col-sm-12 col-md-12 col-lg-12 top5">
 				<ul class="nav nav-tabs">
 					<li role="button" class="{{showActiveWeek($index)}}"
 						ng-click="selectWeek($index)"
 						ng-repeat="week in weeks track by $index"><a>Week
 							{{week}}</a></li>
-					<li role="button" ng-show="!noBatches" data-toggle="modal"
+					<li role="button" data-toggle="modal"
 						data-target="#confirmingweeks"><a><span
 							class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
 				</ul>
@@ -63,9 +56,7 @@
 	<div class="container">
 		<div class="row" id="qcTrainees">
 			<div class="col-md-12 col-lg-12 top5">
-				<!-- Display if no current batches are available in selected year -->
-				<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
-				<ul class="nav nav-tabs" ng-show="!noBatches">
+				<ul class="nav nav-tabs">
 					<!-- Accordian table -->
 					<table class="table table-condensed"
 						style="border-collapse: collapse;" ng-show="currentView">
@@ -76,7 +67,7 @@
 									? '' : ', '}}</span>
 							</tr>
 							<!-- Columns for selected batch -->
-							<tr sticky>
+							<tr>
 								<th>Trainee</th>
 								<th>Individual Feedback</th>
 								<th>Notes</th>
@@ -88,80 +79,83 @@
 								<td>{{ trainee.name }}</td>
 								<!-- Icons: question mark in circle by default. 
 								  		Otherwise shows the status type (icons) -->
-								<td><span ng-hide="faces[$index].qcStatus"
-									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+								<td><button ng-hide="faces[$index].qcStatus"
+									class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 									title="Click to update your feedback."
 									alt="Click to update your feedback."
-									ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
+									ng-click="processingNote? null : pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);"
+									ng-disabled="processingNote">
 										<i class="fa fa-question-circle fa-2x"></i>
-								</span>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
+								</button>
+									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
 										title="Excellent"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);">
+										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);"
+										ng-disabled="processingNote">
 										<i class="fa fa-star fa-2x pick"></i>
-									</div>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
+									</button>
+									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
 										title="Good"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);">
+										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);"
+										ng-disabled="processingNote">
 										<i class="fa fa-smile-o fa-2x pick"></i>
-									</div>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
+									</button>
+									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
 										title="Fair"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);">
+										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);"
+										ng-disabled="processingNote">
 										<i class="fa fa-meh-o fa-2x pick"></i>
-									</div>
-									<div ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
+									</button>
+									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
 										title="Poor"
-										class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);">
+										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);"
+										ng-disabled="processingNote">
 										<i class="fa fa-frown-o fa-2x pick"></i>
-									</div></td>
+									</button></td>
 								<!-- Notes on each trainee. Each time you edit it, it will save it when you leave textfield -->
 								<td class="col-sm-9 col-md-9 col-lg-9"><textarea
 										ng-model="noteOnTrainee($index).content" id="noteTextArea"
 										class="form-control" placeholder="Note on {{trainee.name}}"
 										ng-blur="saveTraineeNote($index)" rows="3" cols="75"
-										maxlength="1000"></textarea></td>
-								<td><ul class="nav nav-tabs">
+										maxlength="4000" ng-disabled="processingNote"></textarea></td>
 							</tr>
 						</tbody>
 					</table>
 			</div>
 		</div>
 		<!-- Bottom UI: QC batch note -- overall qualitative feedback -->
-		<div class="row" ng-show="!noBatches">
+		<div class="row centered">
 			<h4 class="text-center">Overall Feedback</h4>
 			<!-- Shows the status type (icons) -->
-			<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[0])">
-				<i class="fa fa-star fa-2x"
-					ng-class="{pick : qcBatchAssess === qcStatusTypes[0]}"></i>
-			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[1])">
+			<button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
+				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[1])"
+				ng-disabled="processingNote">
 				<i class="fa fa-smile-o fa-2x"
 					ng-class="{pick : qcBatchAssess === qcStatusTypes[1]}"></i>
-			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[2])">
+			</button>
+			<button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
+				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[2])"
+				ng-disabled="processingNote">
 				<i class="fa fa-meh-o fa-2x"
 					ng-class="{pick : qcBatchAssess === qcStatusTypes[2]}"></i>
-			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[3])">
+			</button>
+			<button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
+				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[3])"
+				ng-disabled="processingNote">
 				<i class="fa fa-frown-o fa-2x"
 					ng-class="{pick : qcBatchAssess === qcStatusTypes[3]}"></i>
-			</div>
+			</button>
 			<!-- Show the QC feedback notes. Clicking textfield, editing and overwriting it will 
 				trigger the ng-blur to save the data  -->
 			<div
 				class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
 				<textarea ng-model="bnote.content" class="form-control"
-					id="qcBatchNotes" ng-blur="saveQCNotes()" maxlength="1000"
-					placeholder="Enter your overall feedback on the batch" required>
+					id="qcBatchNotes" ng-blur="saveQCNotes()" maxlength="4000"
+					placeholder="Enter your overall feedback on the batch" required
+					ng-disabled="processingNote">
 				</textarea>
 				<!-- QC Save burrito button (Burrito: wrap up edited objects, pack it tightly in the skin, and
 					save it all in your stomach/database -->

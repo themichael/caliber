@@ -25,8 +25,11 @@ import com.revature.caliber.beans.TrainingStatus;
 @Repository
 public class GradeDAO {
 
-	private final static Logger log = Logger.getLogger(GradeDAO.class);
+	private static final Logger log = Logger.getLogger(GradeDAO.class);
 	private SessionFactory sessionFactory;
+	private static final String TRAINEE = "trainee";
+	private static final String TRAINEE_TRAINING_STATUS = "trainee.trainingStatus";
+	private static final String TRAINEE_BATCH = "trainee.batch";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -83,9 +86,9 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByAssessment(Long assessmentId) {
 		log.info("Finding grades for assessment: " + assessmentId);
-		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee", "trainee")
+		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias(TRAINEE, TRAINEE)
 				.add(Restrictions.eq("a.assessmentId", assessmentId))
-				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne(TRAINEE_TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -101,10 +104,10 @@ public class GradeDAO {
 	public List<Grade> findByTrainee(Integer traineeId) {
 		log.info("Finding all grades for trainee: " + traineeId);
 		List <Grade> grades = sessionFactory.getCurrentSession().createCriteria(Grade.class)
-				.createAlias("trainee", "trainee")
+				.createAlias(TRAINEE, TRAINEE)
 				.add(Restrictions.gt("score", 0.0))
 				.add(Restrictions.eq("trainee.traineeId", traineeId))
-				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne(TRAINEE_TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		log.info(grades);
 		return grades;
@@ -122,12 +125,12 @@ public class GradeDAO {
 	public List<Grade> findByBatch(Integer batchId) {
 		log.info("Finding all grades for batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class)
-				.createAlias("trainee", "trainee")
-				.createAlias("trainee.batch", "b")
+				.createAlias(TRAINEE, TRAINEE)
+				.createAlias(TRAINEE_BATCH, "b")
 				.add(Restrictions.gt("score", 0.0))
 				.add(Restrictions.eq("b.batchId", batchId))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne(TRAINEE_TRAINING_STATUS, TrainingStatus.Dropped))
 				.list();
 	}
 
@@ -161,10 +164,10 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByWeek(Integer batchId, Integer week) {
 		log.info("Finding week " + week + " grades for batch: " + batchId);
-		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee", "trainee").createAlias("trainee.batch", "b")
+		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias(TRAINEE, TRAINEE).createAlias(TRAINEE_BATCH, "b")
 				.add(Restrictions.eq("b.batchId", batchId)).createAlias("assessment", "a")
 				.add(Restrictions.eq("a.week", week.shortValue()))
-				.add(Restrictions.ne("trainee.trainingStatus", TrainingStatus.Dropped))
+				.add(Restrictions.ne(TRAINEE_TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
@@ -182,12 +185,12 @@ public class GradeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByTrainer(Integer trainerId) {
 		log.info("Finding all grades for trainer: " + trainerId);
-		List<Grade> astrainer = sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("trainee", "trainee")
-				.createAlias("trainee.batch", "b").createAlias("b.trainer", "t")
+		List<Grade> astrainer = sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias(TRAINEE, TRAINEE)
+				.createAlias(TRAINEE_BATCH, "b").createAlias("b.trainer", "t")
 				.add(Restrictions.eq("t.trainerId", trainerId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 		List<Grade> ascotrainer = sessionFactory.getCurrentSession().createCriteria(Grade.class)
-				.createAlias("trainee.batch", "b").createAlias("b.coTrainer", "t")
+				.createAlias(TRAINEE_BATCH, "b").createAlias("b.coTrainer", "t")
 				.add(Restrictions.eq("t.trainerId", trainerId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 		astrainer.addAll(ascotrainer);

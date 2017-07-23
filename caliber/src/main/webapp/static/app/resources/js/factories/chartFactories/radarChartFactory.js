@@ -28,25 +28,22 @@ angular
 						pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
 						pointBorderColor : '#fff'
 					}
-
-					radar.getTraineeUpToWeekRadarChart = function(dataArray,
-							seriesName) {
-						return createGenericRadarChartObject(dataArray,
-								seriesName);
-					};
-
-					radar.getTraineeOverallRadarChart = function(dataArray,
-							seriesName) {
-						return createGenericRadarChartObject(dataArray,
-								seriesName);
-					};
-
-					radar.getBatchOverallRadarChart = function(dataArray,
-							seriesName) {
-						return createGenericRadarChartObject(dataArray,
-								seriesName);
-					};
-
+					
+					var radarOptions = {
+							legend : {
+								display : true
+							},
+							scale : {
+								reverse : false,
+								ticks : {
+									beginAtZero : false,
+									fixedStepSize : 10,
+									max : 100,
+									suggestedMin : 40
+								}
+							}
+						};
+					
 					var createGenericRadarChartObject = function(dataArray,
 							seriesName) {
 						var chartData = {};
@@ -67,6 +64,24 @@ angular
 						chartData.options = radarOptions;
 						return chartData;
 					}
+
+					radar.getTraineeUpToWeekRadarChart = function(dataArray,
+							seriesName) {
+						return createGenericRadarChartObject(dataArray,
+								seriesName);
+					};
+
+					radar.getTraineeOverallRadarChart = function(dataArray,
+							seriesName) {
+						return createGenericRadarChartObject(dataArray,
+								seriesName);
+					};
+
+					radar.getBatchOverallRadarChart = function(dataArray,
+							seriesName) {
+						return createGenericRadarChartObject(dataArray,
+								seriesName);
+					};
 
 					radar.addDataToExistingRadar = function(currentChartData,
 							otherDataArray, seriesName) {
@@ -145,21 +160,6 @@ angular
 						$log.debug(chartData);
 						return chartData;
 					}
-
-					radarOptions = {
-						legend : {
-							display : true
-						},
-						scale : {
-							reverse : false,
-							ticks : {
-								beginAtZero : false,
-								fixedStepSize : 10,
-								max : 100,
-								suggestedMin : 40
-							}
-						}
-					};
 
 					return radar;
 				});

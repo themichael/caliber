@@ -29,13 +29,13 @@ angular.module("charts").factory("doughnutChartFactory", function($log) {
 
 		angular.forEach(dataArray, function(value, key) {
 			if (key === "Superstar")
-				chartData.colors.push("#7972ff");
+				chartData.colors.push("#393fef");
 			else if (key === "Good")
-				chartData.colors.push("#81f575");
+				chartData.colors.push("#18ad18");
 			else if (key === "Average")
-				chartData.colors.push("#e8b00b");
+				chartData.colors.push("#f9e900");
 			else if (key === "Poor")
-				chartData.colors.push("#ff7575");
+				chartData.colors.push("#ea2825");
 			chartData.labels.push(key);
 			chartData.data.push(value);
 		});
