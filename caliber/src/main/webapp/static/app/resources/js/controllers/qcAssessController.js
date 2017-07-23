@@ -2,7 +2,7 @@ angular
 		.module("qc")
 		.controller(
 				"qcAssessController",
-				function($log, $scope, $timeout, $rootScope, chartsDelegate,
+				function($log, $scope, $timeout, $rootScope, $filter, chartsDelegate,
 						caliberDelegate, qcFactory, allBatches) {
 					$log.debug("Booted Trainer Assess Controller");
 
@@ -163,8 +163,8 @@ angular
 					// Start function for reports to use and assess
 					function start() {
 						if ($scope.batches[0]) {
-							$scope.trainingNameDate = $scope.batches[0].trainingName
-									+ " " + $scope.batches[0].startDate;
+							$scope.trainingNameDate = $scope.batches[0].trainer.name
+									+ " - " + $filter('date')($scope.batches[0].startDate, 'shortDate');
 						}
 						var curYear = new Date();
 						$scope.selectedYear = curYear.getFullYear();
@@ -254,8 +254,8 @@ angular
 						// Reset qc status
 						wipeFaces();
 						categories();
-						$scope.trainingNameDate = $scope.currentBatch.trainingName
-								+ " " + $scope.currentBatch.startDate;
+						$scope.trainingNameDate = $scope.currentBatch.trainer.name
+								+ " - " + $filter('date')($scope.currentBatch.startDate, 'shortDate');
 					};
 
 					// Select week
@@ -456,9 +456,9 @@ angular
 							sortByDate($scope.selectedYear);
 
 							if ($scope.batchesByYear.length > 0) {
-								$scope.trainingNameDate = $scope.batchesByYear[0].trainingName
+								$scope.trainingNameDate = $scope.batchesByYear[0].trainer.name
 										+ " - "
-										+ $scope.batchesByYear[0].startDate;
+										+ $filter('date')($scope.batchesByYear[0].startDate, 'shortDate');
 								$scope.thereAreBatches = true;
 							} else {
 								/**

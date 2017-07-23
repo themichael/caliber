@@ -1,14 +1,4 @@
 <!-- Year selector and Add Assessment button -->
-
-<style>
-
-.sticky-header {
-    padding: 10px;
-    padding-right: 55px;
-    font-size: 15px;
-	width: 1000px;
-} 
-</style>
 <div class="bg-primary align center" ng-if="!currentBatch">No data available.</div>
 <div class="container" ng-if="currentBatch">
 	<div class="row">
@@ -32,13 +22,13 @@
 
 				<li role="button" class="dropdown" ng-show="!noBatches"><a
 					class="dropdown-toggle" data-toggle="dropdown"> {{
-						currentBatch.trainingName }} - {{ currentBatch.startDate |
+						currentBatch.trainer.name }} - {{ currentBatch.startDate |
 						date:'shortDate' }} <span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="batch in batchesByYear track by $index"><a
 							role="button" ng-click="selectCurrentBatch($index)">
-								{{batch.trainingName}} - {{batch.startDate | date:'shortDate'}}
+								{{batch.trainer.name}} - {{batch.startDate | date:'shortDate'}}
 						</a></li>
 					</ul></li>
 				<!-- Button Trigger for Create Assessment Modal -->

@@ -67,6 +67,13 @@ a {
 	color: #F26925;
 }
 
+.sticky-header {
+    padding: 10px;
+    padding-right: 55px;
+    font-size: 15px;
+	width: 1000px;
+} 
+
 /**********************
 	Chart Containers
 **********************/
