@@ -121,7 +121,6 @@
 										class="form-control" placeholder="Note on {{trainee.name}}"
 										ng-blur="saveTraineeNote($index)" rows="3" cols="75"
 										maxlength="4000" ng-disabled="processingNote"></textarea></td>
-								<td><ul class="nav nav-tabs"></ul></td>
 							</tr>
 						</tbody>
 					</table>
@@ -131,12 +130,6 @@
 		<div class="row centered">
 			<h4 class="text-center">Overall Feedback</h4>
 			<!-- Shows the status type (icons) -->
-			<!-- <button class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[0])"
-				ng-disabled="processingNote">
-				<i class="fa fa-star fa-2x"
-					ng-class="{pick : qcBatchAssess === qcStatusTypes[0]}"></i>
-			</button> -->
 			<button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
 				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[1])"
 				ng-disabled="processingNote">
