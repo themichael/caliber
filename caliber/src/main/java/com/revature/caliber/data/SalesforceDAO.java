@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
@@ -25,6 +24,8 @@ import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
 import com.revature.caliber.salesforce.SalesforceTransformerToCaliber;
 import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.salesforce.beans.SalesforceBatch;
+import com.revature.salesforce.beans.SalesforceBatchResponse;
 import com.revature.salesforce.beans.SalesforceTrainee;
 import com.revature.salesforce.beans.SalesforceTraineeResponse;
 
@@ -90,15 +91,13 @@ public class SalesforceDAO {
 		List<Batch> relevantBatchesList = new LinkedList<>(); 
 		
 		try {
-			JsonNode node = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), JsonNode.class);
-			log.error(node);
-			/*SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
+			SalesforceBatchResponse response = new ObjectMapper().readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
 			log.info("Found " + response.getTotalSize() + " batches: " + response);
 			SalesforceTransformerToCaliber transformer = new SalesforceTransformerToCaliber();
 			
 			for(SalesforceBatch salesForceBatch : response.getRecords()){
 				relevantBatchesList.add(transformer.transformBatch(salesForceBatch));
-			}*/
+			}
 		} catch (IOException e) {
 			log.error("Cannot get Salesforce batches:  " + e);
 		}
