@@ -39,7 +39,7 @@ public class Note implements Serializable{
 	@SequenceGenerator(name = "NOTE_ID_SEQUENCE", sequenceName = "NOTE_ID_SEQUENCE")
 	private int noteId;
 
-	@Length(min=0, max=1000)
+	@Length(min=0, max=4000)
 	@Column(name = "NOTE_CONTENT")
 	private String content;
 

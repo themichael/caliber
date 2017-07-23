@@ -12,6 +12,8 @@ angular
 					$scope.weeks = [];
 					$scope.batchesByYear = [];
 					$scope.categories = [];
+					// used to block user processes to wait for server's response
+					$scope.processingNote = false; 
 
 					// Note object
 					function Note(noteId, content, status, week, batch,
@@ -328,6 +330,7 @@ angular
 					 */
 					// Save trainee note for ng-blur
 					$scope.saveTraineeNote = function(index) {
+						$scope.processingNote = true;
 						$log.debug($scope.faces[index]);
 						// Create note if noteId is null
 						if ($scope.faces[index].noteId === null
@@ -336,17 +339,20 @@ angular
 							caliberDelegate.qc.createNote($scope.faces[index])
 									.then(function(id) {
 										$scope.faces[index].noteId = id;
+										$scope.processingNote = false;
 									});
 						}
 						// Update if note has a noteId
 						else {
 							$log.debug("update");
 							caliberDelegate.qc.updateNote($scope.faces[index]);
+							$scope.processingNote = false;
 						}
 					};
 
 					// Save batch note for ng-blur
 					$scope.saveQCNotes = function() {
+						$scope.processingNote = true;
 						// Create note if noteId is null
 						if ($scope.bnote.noteId === null
 								|| $scope.bnote.noteId === undefined) {
@@ -354,6 +360,7 @@ angular
 							// Set id to created notes id
 							function(id) {
 								$scope.bnote.noteId = id;
+								$scope.processingNote = false;
 							});
 						}
 						// Update existing note
@@ -363,6 +370,7 @@ angular
 											.getElementById("qcBatchNotes").value);
 							$log.debug(caliberDelegate.qc
 									.updateNote($scope.bnote));
+							$scope.processingNote = false;
 						}
 					}
 
