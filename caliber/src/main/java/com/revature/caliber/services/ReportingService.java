@@ -107,7 +107,8 @@ public class ReportingService {
 		}
 		List<Note> notes = noteDAO.findAllQCTraineeNotes(batchId, weekNumber);
 		for (Note n : notes) {
-			results.put(n.getQcStatus(), results.get(n.getQcStatus()) + 1);
+			if(n != null)
+				results.put(n.getQcStatus(), results.get(n.getQcStatus()) + 1);
 		}
 		return results;
 	}
