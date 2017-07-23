@@ -53,7 +53,6 @@ import com.revature.caliber.data.TraineeDAO;
 @Service
 public class ReportingService {
 
-	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(ReportingService.class);
 	private static final String ALL = "(All)";
 
