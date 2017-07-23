@@ -22,12 +22,12 @@
 					</ul></li>
 				<!-- Select Batch-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown">{{currentBatch.trainingName}} - {{
+					data-toggle="dropdown">{{currentBatch.trainer.name}} - {{
 						currentBatch.startDate | date:'shortDate' }}<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="batch in batchesByYear track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)">{{batch.trainingName}}
+							role="button" ng-click="selectCurrentBatch($index)">{{batch.trainer.name}}
 								- {{batch.startDate | date:'shortDate'}}</a></li>
 					</ul></li>
 				<!-- Select Week-->

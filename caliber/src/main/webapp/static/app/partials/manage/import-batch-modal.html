@@ -16,7 +16,7 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
-							<label for="batchItem">The Batch Name:</label> <select
+							<label for="batchItem">Batch:</label> <select
 								id="importId" ng-value="selectedBatchValue" class="form-control" ng-model="selectedBatch"
 								ng-options="availableBatch as availableBatch.trainingName for availableBatch in allAvailableBatches | orderBy:'trainingName'"
 								ng-change="selectedBatchToImport()">
