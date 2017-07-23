@@ -12,19 +12,24 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<security:form-login login-page="/" />
 
 		<!-- enable SSL -->
-		<!-- <security:intercept-url pattern="/**" requires-channel="https" /> -->
-		
+		<security:intercept-url pattern="/**"
+			requires-channel="https" />
+
 		<!-- change to hasRole('ROLE_VP') after development is complete -->
-		<!--<security:intercept-url pattern="/vp/**" access="hasRole('ROLE_VP')" /> -->
+		<!--<security:intercept-url pattern="/vp/**" access="hasRole('ROLE_VP')" 
+			/> -->
 
 		<!-- change to hasRole('ROLE_QC') after development is complete -->
-		<!--<security:intercept-url pattern="/qc/**" access="hasRole('ROLE_QC')" /> -->
-		
+		<!--<security:intercept-url pattern="/qc/**" access="hasRole('ROLE_QC')" 
+			/> -->
+
 		<!-- change to hasRole('ROLE_TRAINER') after development is complete -->
-		<!--<security:intercept-url pattern="/trainer/**" access="hasRole('ROLE_TRAINER')" /> -->
-			
-		<security:intercept-url pattern="/all/**" access="permitAll" />
-	<!-- <security:intercept-url pattern="/**" access="permitAll" /> -->
+		<!--<security:intercept-url pattern="/trainer/**" access="hasRole('ROLE_TRAINER')" 
+			/> -->
+
+		<security:intercept-url pattern="/all/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/**" access="permitAll" />
 		<security:csrf disabled="true" />
 		<security:logout invalidate-session="true"
 			delete-cookies="token, JSESSIONID" />

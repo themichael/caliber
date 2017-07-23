@@ -32,7 +32,7 @@ public class SalesforceController {
 	 * Used to grab access_token for running local tests of Salesforce API
 	 * @return
 	 */
-	@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
+	//@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
 	public String getSalesforceToken(){
 		log.info("Getting access_token for testing purposes only!");
 		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
