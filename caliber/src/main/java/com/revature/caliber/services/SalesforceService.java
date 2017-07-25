@@ -95,5 +95,11 @@ public class SalesforceService {
 		log.debug("Find all trainees");
 		return salesforceDAO.getBatchDetails(resourceId);
 	}
+	
+	public String logBatches(){
+		String message = salesforceDAO.getSalesforceResponseString();
+		log.warn(message);
+		return message;
+	}
 
 }
