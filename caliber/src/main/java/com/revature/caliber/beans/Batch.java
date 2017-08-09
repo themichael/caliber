@@ -34,7 +34,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.revature.caliber.validator.ValidBatch;
 
-
 /**
  * The type Batch.
  */
@@ -99,6 +98,10 @@ public class Batch implements Serializable {
 	@Column(name = "LOCATION", nullable = false)
 	private String location;
 
+	@ManyToOne
+	@JoinColumn(name = "ADDRESS_ID")
+	private Address address;
+
 	/**
 	 * Anything above this grade is GREEN
 	 */
@@ -140,6 +143,7 @@ public class Batch implements Serializable {
 	/**
 	 * Constructor mostly used for testing. Defaults TrainingType - Revature,
 	 * SkillType - J2EE, Good grade - 80, and Borderline grade - 70
+	 * 
 	 * @param trainingName
 	 * @param trainer
 	 * @param startDate
