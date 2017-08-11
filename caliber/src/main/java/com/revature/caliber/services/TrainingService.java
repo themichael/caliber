@@ -10,6 +10,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.data.AddressDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
@@ -29,6 +30,7 @@ public class TrainingService {
 	private TrainerDAO trainerDAO;
 	private TraineeDAO traineeDAO;
 	private BatchDAO batchDAO;
+	private AddressDAO addressDAO;
 
 	@Autowired
 	public void setTrainerDAO(TrainerDAO trainerDAO) {
@@ -43,6 +45,11 @@ public class TrainingService {
 	@Autowired
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
+	}
+
+	@Autowired
+	public void setAddressDAO(AddressDAO addressDAO) {
+		this.addressDAO = addressDAO;
 	}
 
 	/*
@@ -134,13 +141,13 @@ public class TrainingService {
 
 	/**
 	 * Returns a list of commonly used locations. Allows user to select from
-	 * locations, but also add new locations manually. Suggested UI component is
-	 * the HTML5 <datalist>
+	 * locations, but also add new locations manually. Suggested UI component is the
+	 * HTML5 <datalist>
 	 * 
 	 * @return
 	 */
 	public List<String> findCommonLocations() {
-		return batchDAO.findCommonLocations();
+		return addressDAO.getAll();
 	}
 
 	/**
@@ -230,7 +237,6 @@ public class TrainingService {
 		log.debug("Update batch " + batch);
 		batchDAO.update(batch);
 	}
-
 
 	/**
 	 * DELETE BATCH

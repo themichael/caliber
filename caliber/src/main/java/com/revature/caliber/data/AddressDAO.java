@@ -1,5 +1,6 @@
 package com.revature.caliber.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -37,7 +38,6 @@ public class AddressDAO {
 	public void saveAddress(Address address) {
 		log.info("Saving Address " + address);
 		sessionFactory.getCurrentSession().save(address);
-
 	}
 
 	/**
@@ -46,14 +46,14 @@ public class AddressDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public List<Address> getAll() {
+	public List<String> getAll() {
 		log.info("Fetching all Addresses");
-		try {
-			return sessionFactory.getCurrentSession().createQuery("FROM Address").list();
-		} catch (NullPointerException e) {
-			log.debug(e.getMessage());
-			return null;
+		List<String> addresses = new ArrayList<>();
+		List<Address> addList = sessionFactory.getCurrentSession().createQuery("FROM Address ORDER BY state").list();
+		for (Address address : addList) {
+			addresses.add(address.toString());
 		}
+		return addresses;
 	}
 
 	/**

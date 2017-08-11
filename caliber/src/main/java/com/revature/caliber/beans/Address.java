@@ -2,7 +2,6 @@ package com.revature.caliber.beans;
 
 import java.io.Serializable;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,12 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 @Entity
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "CALIBER_ADDRESS")
 public class Address implements Serializable {
 
@@ -152,12 +146,6 @@ public class Address implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Address [addressId=" + addressId + ", street=" + street + ", city=" + city + ", state=" + state
-				+ ", zipcode=" + zipcode + ", company=" + company + "]";
+		return company + ", " + street + " " + city + " " + state + " " + zipcode;
 	}
-
-	public String toAddressString() {
-		return company + ", " + street + city + state + zipcode;
-	}
-
 }

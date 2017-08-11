@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import com.revature.caliber.beans.Address;
 import com.revature.caliber.data.AddressDAO;
+import com.revature.caliber.data.BatchDAO;
 
 public class AddressTest {
 
@@ -12,13 +13,12 @@ public class AddressTest {
 
 	@Test
 	public void testAddressDAO() {
-		AddressDAO dao = new AddressDAO();
+		BatchDAO bdao = new BatchDAO();
+		System.out.println(bdao.findAll());
+		AddressDAO adao = new AddressDAO();
 		Address address = new Address("1", "2", "3", "4", "5");
-		dao.saveAddress(address);
-		Address address2;
-		address2 = dao.getAddressById(1);
-		log.info(address2);
-		dao.deleteAddress(address);
+		adao.saveAddress(address);
+		
 
 	}
 }

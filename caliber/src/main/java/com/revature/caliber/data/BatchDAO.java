@@ -1,6 +1,5 @@
 package com.revature.caliber.data;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.TrainingStatus;
 
@@ -174,7 +172,7 @@ public class BatchDAO {
 	 * and QC to get snapshots of currently operating batches.
 	 * 
 	 * @param auth
-	 * @return
+	 * @returnF
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -256,22 +254,6 @@ public class BatchDAO {
 	public void delete(Batch batch) {
 		log.info("Deleting batch: " + batch);
 		sessionFactory.getCurrentSession().delete(batch);
-	}
-
-	/**
-	 * Return all locations
-	 * 
-	 * @return
-	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<String> findCommonLocations() {
-		log.info("Getting common locations");
-		List<String> locations = new ArrayList<>();
-		AddressDAO aDAO = new AddressDAO();
-		for (Address address : aDAO.getAll()) {
-			locations.add(address.toAddressString());
-		}
-		return locations;
 	}
 
 	/**
