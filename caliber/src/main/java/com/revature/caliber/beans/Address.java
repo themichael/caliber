@@ -2,6 +2,7 @@ package com.revature.caliber.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "CALIBER_ADDRESS")
 public class Address implements Serializable {
 
@@ -47,7 +53,7 @@ public class Address implements Serializable {
 	@Column(name = "ADDRESS_ZIPCODE")
 	private String zipcode;
 
-	@Column(name = "ADDRESS_COMPANY")
+  @Column(name = "ADDRESS_COMPANY")
 	private String company;
 
 	public long getAddressId() {
@@ -90,7 +96,7 @@ public class Address implements Serializable {
 		this.zipcode = zipcode;
 	}
 
-	public String getCompany() {
+  public String getCompany() {
 		return company;
 	}
 
@@ -107,6 +113,7 @@ public class Address implements Serializable {
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((street == null) ? 0 : street.hashCode());
 		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		return result;
 	}
 
@@ -140,6 +147,11 @@ public class Address implements Serializable {
 			if (other.zipcode != null)
 				return false;
 		} else if (!zipcode.equals(other.zipcode))
+			return false;
+		if (company == null) {
+			if (other.company != null)
+				return false;
+		} else if (!company.equals(other.company))
 			return false;
 		return true;
 	}

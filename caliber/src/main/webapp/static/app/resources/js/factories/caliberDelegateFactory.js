@@ -233,6 +233,23 @@ angular
 					delegate.vp.createTrainer = function(trainerObj) {
 						return vpFactory.createTrainer(trainerObj);
 					};
+					
+					/**Location**/
+					delegate.vp.getAllLocations = function() {
+						return vpFactory.getAllLocations();
+					};
+					
+					delegate.vp.deactivateLocation = function(locationObj) {
+						return vpFactory.deactivateLocation(locationObj);
+					}
+					delegate.vp.updateLocation = function(locationObj) {
+						return vpFactory.updateLocation(locationObj);
+					};
+					delegate.vp.createLocation = function(locationObj) {
+						return vpFactory.createLocation(locationObj);
+					};
+					/****/
+					
 					delegate.vp.trainersTitles = function() {
 						return vpFactory.getAllTrainersTitle();
 					};
