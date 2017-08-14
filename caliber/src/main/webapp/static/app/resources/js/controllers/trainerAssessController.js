@@ -870,8 +870,8 @@ angular
 						}
 					}
 				/*
-				 * if grade is less than 0 or greater than 100 return true; This will set
-				 * css class .has-error to grade input box - hack
+				 * if grade is less than 0 or greater than 100 return true; This
+				 * will set css class .has-error to grade input box - hack
 				 */
 				$scope.validateGrade=function(grade){
 					if(grade > 0 && grade <=100){

@@ -70,7 +70,7 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		});
 	};
 
-	// update trainer grade	
+	// update trainer grade
 	trainer.updateGrade = function(gradeObj) {
 		return $http({
 			url : "/trainer/grade/update/",
@@ -150,50 +150,49 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 	// Call EvaluationController's findTrainerBatchNotes method
 	trainer.getTrainerBatchNote = function(batchId, week) {
 		return $http({
-			url : "/trainer/note/batch/"+ batchId + "/" + week + "/",
+			url : "/trainer/note/batch/" + batchId + "/" + week + "/",
 			method : "GET"
 		}).then(function(response) {
-            $log.debug(response.data, " trainer batch note data");
-            $log.log("Trainer Batch Note retrieved successfully");
+			$log.debug(response.data, " trainer batch note data");
+			$log.log("Trainer Batch Note retrieved successfully");
 			return response.data;
 		}, function(response) {
-            $log.error("There was an error: " + response.status);
+			$log.error("There was an error: " + response.status);
 		});
 	};
-	
-	trainer.getTraineeBatchNotesForWeek = function(batchId,week){
+
+	trainer.getTraineeBatchNotesForWeek = function(batchId, week) {
 		return $http({
-			url: "/trainer/note/trainee/" + batchId + "/" + week + "/",
-			method:"GET"
-		}).then(function(response){
-			if(response.data){
+			url : "/trainer/note/trainee/" + batchId + "/" + week + "/",
+			method : "GET"
+		}).then(function(response) {
+			if (response.data) {
 				return response.data;
-			}else{
+			} else {
 				return response;
-			}				
-		},function(response){
+			}
+		}, function(response) {
 			$log.error("Error retrieving " + response.status);
 		});
 	};
-	
-	trainer.getTraineeNote = function(traineeId,week){
+
+	trainer.getTraineeNote = function(traineeId, week) {
 		return $http({
-			url: "/trainer/note/trainee/" + traineeId + "/for/"+ week + "/",
-			method:"GET"
-		}).then(function(response){
+			url : "/trainer/note/trainee/" + traineeId + "/for/" + week + "/",
+			method : "GET"
+		}).then(function(response) {
 			$log.debug("Notes successfully fetched");
 			$log.debug(response);
-			if(response.data){
+			if (response.data) {
 				return response.data;
-			}else{
+			} else {
 				return response;
-			}				
-		},function(response){
+			}
+		}, function(response) {
 			$log.error("Error retrieving " + response.status);
 		})
 	};
-	
-	
+
 	trainer.createNote = function(noteObj) {
 		return $http({
 			url : "/note/create/",
@@ -221,17 +220,17 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
-	trainer.saveOrUpdateNote = function(noteObj){
+
+	trainer.saveOrUpdateNote = function(noteObj) {
 		return $http({
-			url:"/note/update/",
-			method:"POST",
-			data:noteObj
-		}).then(function(response){
+			url : "/note/update/",
+			method : "POST",
+			data : noteObj
+		}).then(function(response) {
 			$log.debug("note saved");
 			$log.debug(response)
 			return response;
-		}, function(response){
+		}, function(response) {
 			$log.error("there was an error " + response.status);
 		});
 	}
