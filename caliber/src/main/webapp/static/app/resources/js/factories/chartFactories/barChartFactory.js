@@ -288,6 +288,7 @@ angular.module("charts").factory(
 						var e = array[0];
 						var barIndex = e._index;
 						console.log(barIndex);
+						console.log(e._model.label);
 					},
 					scales : {
 						yAxes : [ {

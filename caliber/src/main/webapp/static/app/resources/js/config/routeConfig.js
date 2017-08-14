@@ -293,8 +293,7 @@ angular
 												controller : "vpHomeController"
 											},
 											"qc-quality-audit@vp.home" : {
-												templateUrl : "/static/app/partials/home/view-audit-modal.html",
-												controller : "qcAssessController"
+												templateUrl : "/static/app/partials/home/view-audit-modal.html"
 											},
 										}
 										
