@@ -15,7 +15,7 @@ angular
 					$log.debug("Booted Trainer Aesess Controller");
 										
 					$scope.trainerBatchNote = null;
-					
+
 					// Note object This is needed to create notes for batch.
 					function Note(noteId, content, status, week, batch,
 							trainee, maxVisibility, type, qcFeedback) {
@@ -427,16 +427,19 @@ angular
 					 * This function passes the batchID and week param to get
 					 * the batch notes for that week Author: Kam Lam
 					 */
-					$scope.getTBatchNote = function (batchId, week){	
+					$scope.getTBatchNote = function (batchId, week){
+							$log.log(batchId,week);
 								caliberDelegate.trainer
 										.getTrainerBatchNote(batchId, week)
 										.then(
 												function(trainerBatchNotes) {
-													if (trainerBatchNotes === undefined) {
-														$log.debug("EMPTY!");												
+                                                    if (trainerBatchNotes === undefined || trainerBatchNotes.length === 0) {
+                                                    	$log.debug("EMPTY!");
+                                                        $scope.trainerBatchNote = null;
 													}else{																								
-													$scope.trainerBatchNote = trainerBatchNotes[0];
-													$log.debug(trainerBatchNotes);}
+														$scope.trainerBatchNote = trainerBatchNotes[0];
+														$log.debug(trainerBatchNotes);
+                                                    }
 												});
 						};
 
@@ -526,7 +529,9 @@ angular
 					$scope.saveTrainerNotes = function(batchNoteId) {
 						$log.debug("Saving note: " + $scope.trainerBatchNote);
 						// Create note
-						if ($scope.trainerBatchNote.noteId === undefined) {
+						$log.log(batchNoteId, " batchNoteId");
+						$log.log($scope.trainerBatchNote, " trainerBatchNotes");
+						if ($scope.trainerBatchNote === null) {
 							$scope.trainerBatchNote = new Note(
 									null,
 									$scope.trainerBatchNote.content,
@@ -534,13 +539,13 @@ angular
 									$scope.currentWeek,
 									$scope.currentBatch,
 									null, "ROLE_TRAINER",
-									"BATCH", false);	
+									"BATCH", false);
 							caliberDelegate.trainer.createNote($scope.trainerBatchNote).then(
 							// Set id to created notes id
 							function(id) {
 								$scope.trainerBatchNote.noteId = id;
 							});
-						}  
+						}
 						// Update existing note
 						else {
 							$scope.trainerBatchNote = new Note(batchNoteId, $scope.trainerBatchNote.content,
@@ -740,7 +745,7 @@ angular
 										$scope.showCheck = false;
 									},2000).then(function(){
 										$scope.showFloppy = true;
-									});								
+									});
 								});
 							});
 					}

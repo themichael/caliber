@@ -77,90 +77,92 @@
 		<div class="col-md-12 col-lg-12 top5">
 			<p class="bg-primary align center" ng-show="noTrainees">{{noTraineesMessage}}</p>
 			<ul class="nav nav-tabs" ng-show="!noTrainees">
-			
-			<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
-			<ul class="nav nav-tabs" ng-show="!noBatches">
-					<!-- Accordian table -->
-					<table class="table table-responsive"
-						style="border-collapse: collapse;" ng-show="currentView">
-						<thead>
-							<tr sticky class='sticky-header'>
-								<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
-							<div>
-								<th class="col-sm-1 col-md-1 col-lg-1 text-center" role="button"
-									data-toggle="modal"
-									data-target="#editAssessmentModal_{{assessment.assessmentId}}"
-									ng-repeat="assessment in currentAssessments track by $index">
-									{{assessment.title}}
-									({{assessmentsById[assessment.assessmentId].weightedScore}})
-									<div ui-view="trainer-edit-assess"></div>
-								</th>
-								<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
-								</div>
-							</tr> 
-						</thead>
-						<tbody>
-							<tr role="button"
-								ng-repeat="trainee in currentBatch.trainees track by $index">
-								<ng-form name="gradeFieldForm">
-								<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
-								<td class="text-center col-sm-1 col-md-1 col-lg-1"
-									ng-repeat="assessment in currentAssessments track by $index">
-									<input ng-class="{'has-error':validateGrade(trainees[trainee.traineeId].assessments[assessment.assessmentId].score)}"
-									class="form-control" type="number"  min="1" max="100"
-									ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score"
-									ng-blur='(trainees[trainee.traineeId].assessments[assessment.assessmentId].score > 0 || trainees[trainee.traineeId].assessments[assessment.assessmentId].score <=100 )? updateGrade(trainee,assessment) : ""'
-									ng-value="findGrade(trainee.traineeId,assessment.assessmentId)"
-									ng-minlength="1"/>
-								</td>
-								<td class="col-sm-9 col-md-9 col-lg-9"><textarea
-										class="form-control note-mw" name="note" cols="20" rows="2"
-										ng-model="trainees[trainee.traineeId].note.content"
-										ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
-							</textarea></td>
-									</ng-form>
-							</tr>
-						</tbody>
-						<tfoot>
-							<td>Average</td>
-							<td class="text-center"
-								ng-repeat="assessment in currentAssessments track by $index">
-								{{getTotalAssessmentAvgForWeek(assessment,trainees) ?
-								(getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
-								"%" : "-"}}</td>
-							
-							<td ng-if="grades"><span style = "font-weight: bold">{{boldBatchAverage()}}</span>
-								<span ng-if = "isThereAvgForWeek">{{allAssessmentsAvgForWeek}}</span><i
-								ng-show="!allAssessmentsAvgForWeek" class='fa fa-cog fa-spin'></i>
-							</td>
-							<td ng-if="!grades"></td>
-						</tfoot>
-						
-					</table>
-					<div ng-show="hasError" class='has-error'> has error</div>
-					<div
-						class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
-						<textarea ng-model="trainerBatchNote.content" class="form-control"
-							id="tBatchNotes"
-							ng-blur="saveTrainerNotes(trainerBatchNote.noteId)"
-							placeholder="Enter your overall feedback on the batch" required>
-				</textarea>
-						<div class='save-button-wrapper'>
-							<a ng-click="doBurrito()" ng-show="showFloppy"
-								class='save-button fade-in'> <span
-								class="fa fa-floppy-o fa-2x" aria-hidden="true"></span>Save
-							</a>
-								<div class='spinner fa-style' ng-show="showSaving" >
-									<i style="color: #F26925;" role="button"
-										class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
-								</div>
-								<div id="checkMark" class='spinner fade fa-style'
-									ng-show="showCheck">
-									<i role="button" class="fa fa-check fa-2x" aria-hidden="true"></i>
-								</div>
-						</div>
 
-					</div>
+				<p class="bg-primary align center" ng-show="noBatches">{{noBatchesMessage}}</p>
+				<ul class="nav nav-tabs" ng-show="!noBatches">
+						<!-- Accordian table -->
+						<table class="table table-responsive"
+							style="border-collapse: collapse;" ng-show="currentView">
+							<thead>
+								<tr sticky class='sticky-header'>
+									<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
+								<div>
+									<th class="col-sm-1 col-md-1 col-lg-1 text-center" role="button"
+										data-toggle="modal"
+										data-target="#editAssessmentModal_{{assessment.assessmentId}}"
+										ng-repeat="assessment in currentAssessments track by $index">
+										{{assessment.title}}
+										({{assessmentsById[assessment.assessmentId].weightedScore}})
+										<div ui-view="trainer-edit-assess"></div>
+									</th>
+									<th class="col-sm-9 col-md-9 col-lg-9">Notes</th>
+									</div>
+								</tr>
+							</thead>
+							<tbody>
+								<tr role="button"
+									ng-repeat="trainee in currentBatch.trainees track by $index">
+									<ng-form name="gradeFieldForm">
+									<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
+									<td class="text-center col-sm-1 col-md-1 col-lg-1"
+										ng-repeat="assessment in currentAssessments track by $index">
+										<input ng-class="{'has-error':validateGrade(trainees[trainee.traineeId].assessments[assessment.assessmentId].score)}"
+										class="form-control" type="number"  min="1" max="100"
+										ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score"
+										ng-blur='(trainees[trainee.traineeId].assessments[assessment.assessmentId].score > 0 || trainees[trainee.traineeId].assessments[assessment.assessmentId].score <=100 )? updateGrade(trainee,assessment) : ""'
+										ng-value="findGrade(trainee.traineeId,assessment.assessmentId)"
+										ng-minlength="1"/>
+									</td>
+									<td class="col-sm-9 col-md-9 col-lg-9"><textarea
+											class="form-control note-mw" name="note" cols="20" rows="2"
+											ng-model="trainees[trainee.traineeId].note.content"
+											ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
+								</textarea></td>
+										</ng-form>
+								</tr>
+							</tbody>
+							<tfoot>
+								<td>Average</td>
+								<td class="text-center"
+									ng-repeat="assessment in currentAssessments track by $index">
+									{{getTotalAssessmentAvgForWeek(assessment,trainees) ?
+									(getTotalAssessmentAvgForWeek(assessment,trainees) | number:2) +
+									"%" : "-"}}</td>
+
+								<td ng-if="grades"><span style = "font-weight: bold">{{boldBatchAverage()}}</span>
+									<span ng-if = "isThereAvgForWeek">{{allAssessmentsAvgForWeek}}</span><i
+									ng-show="!allAssessmentsAvgForWeek" class='fa fa-cog fa-spin'></i>
+								</td>
+								<td ng-if="!grades"></td>
+							</tfoot>
+
+						</table>
+						<div ng-show="hasError" class='has-error'> has error</div>
+						<div
+							class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
+							<textarea ng-model="$parent.trainerBatchNote.content" class="form-control"
+								id="tBatchNotes"
+								ng-blur="saveTrainerNotes(trainerBatchNote.noteId)"
+								placeholder="Enter your overall feedback on the batch" required>
+					</textarea>
+							<div class='save-button-wrapper'>
+								<a ng-click="doBurrito()" ng-show="showFloppy"
+									class='save-button fade-in'> <span
+									class="fa fa-floppy-o fa-2x" aria-hidden="true"></span>Save
+								</a>
+									<div class='spinner fa-style' ng-show="showSaving" >
+										<i style="color: #F26925;" role="button"
+											class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
+									</div>
+									<div id="checkMark" class='spinner fade fa-style'
+										ng-show="showCheck">
+										<i role="button" class="fa fa-check fa-2x" aria-hidden="true"></i>
+									</div>
+							</div>
+
+						</div>
+				</ul>
+			</ul>
 		</div>
 	</div>
 </div>
