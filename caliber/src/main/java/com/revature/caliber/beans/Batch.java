@@ -98,7 +98,7 @@ public class Batch implements Serializable {
 	@Column(name = "LOCATION", nullable = false)
 	private String location;
 
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn(name = "ADDRESS_ID")
 	private Address address;
 

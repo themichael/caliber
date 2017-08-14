@@ -6,10 +6,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.data.AddressDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
@@ -29,6 +31,7 @@ public class TrainingService {
 	private TrainerDAO trainerDAO;
 	private TraineeDAO traineeDAO;
 	private BatchDAO batchDAO;
+	private AddressDAO addressDAO;
 
 	@Autowired
 	public void setTrainerDAO(TrainerDAO trainerDAO) {
@@ -43,6 +46,41 @@ public class TrainingService {
 	@Autowired
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
+	}
+	
+	@Autowired
+	public void setAddressDAO(AddressDAO addressDAO) {
+		this.addressDAO = addressDAO;
+	}
+	
+	/*
+	 *******************************************************
+	 * LOCATION SERVICES
+	 *
+	 *******************************************************
+	 */
+	
+	/**
+	 * Add New Address
+	 * 
+	 * @param location
+	 */
+	public void createLocation(Address location) {
+		log.debug("Creating Location " + location);
+		addressDAO.save(location);
+		;
+	}
+	public void update(Address location) {
+		log.debug("Update location: " + location);
+		addressDAO.update(location);
+	}
+	public List<Address> findAllLocations() {
+		log.debug("Finding all locations");
+		return addressDAO.findAll();
+	}
+	public void removeLocation(Address location) {
+		log.debug("Remove location " + location);
+		addressDAO.delete(location);
 	}
 
 	/*
@@ -343,5 +381,11 @@ public class TrainingService {
 		log.debug("Update trainee " + trainee);
 		traineeDAO.update(trainee);
 	}
+
+
+
+	
+
+	
 
 }
