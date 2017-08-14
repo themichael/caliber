@@ -53,7 +53,7 @@ public class Address implements Serializable {
 	@Column(name = "ADDRESS_ZIPCODE")
 	private String zipcode;
 
-	@Column(name = "ADDRESS_COMPANY")
+  @Column(name = "ADDRESS_COMPANY")
 	private String company;
 
 	public long getAddressId() {
@@ -96,7 +96,7 @@ public class Address implements Serializable {
 		this.zipcode = zipcode;
 	}
 
-	public String getCompany() {
+  public String getCompany() {
 		return company;
 	}
 
@@ -113,6 +113,7 @@ public class Address implements Serializable {
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((street == null) ? 0 : street.hashCode());
 		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		return result;
 	}
 
@@ -147,17 +148,16 @@ public class Address implements Serializable {
 				return false;
 		} else if (!zipcode.equals(other.zipcode))
 			return false;
+		if (company == null) {
+			if (other.company != null)
+				return false;
+		} else if (!company.equals(other.company))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Address [addressId=" + addressId + ", street=" + street + ", city=" + city + ", state=" + state
-				+ ", zipcode=" + zipcode + ", company=" + company + "]";
+		return company + ", " + street + " " + city + " " + state + " " + zipcode;
 	}
-
-	public String toAddressString() {
-		return company + ", " + street + city + state + zipcode;
-	}
-
 }

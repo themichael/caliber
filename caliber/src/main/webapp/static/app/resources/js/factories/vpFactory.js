@@ -123,6 +123,91 @@ angular
 								});
 					};
 
+					/** ********************LOCATIONS************************ */
+
+					// Deactivate location
+					vp.deactivateLocation = function(locationObj) {
+						return $http({
+							url : "/vp/location/delete",
+							method : "DELETE",
+							data : locationObj,
+							headers : {
+								"Content-Type" : "application/json"
+							}
+						}).then(
+								function(response) {
+									$log.debug("Location deleted");
+									$log.debug(response);
+								},
+								function(response) {
+									$log.error("There was an error: "
+											+ response.status);
+								});
+					};
+
+					// Update selected location
+					vp.updateLocation = function(locationObj) {
+						return $http({
+							url : "/vp/location/update",
+							method : "PUT",
+							data : locationObj
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("Location successfully updated.");
+											$log.debug(response);
+										},
+										function(response) {
+											$log.error("There was an error: "
+													+ response.status);
+											return false;
+										});
+					};
+
+					// Create location
+					vp.createLocation = function(locationObj) {
+						$log.debug(locationObj);
+						return $http({
+							url : "/vp/location/create",
+							method : "POST",
+							data : locationObj
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("Location successfully created.")
+											$log.debug(response);
+											return response;
+										},
+										function(response) {
+											$log.error("There was an error: "
+													+ response.status);
+											return response.data;
+										});
+					};
+
+					// Get all locations
+					vp.getAllLocations = function() {
+						return $http({
+							url : "/all/location/all/",
+							method : "GET"
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("Locations successfully retrieved");
+											$log.debug(response);
+											return response.data;
+										},
+										function(response) {
+											$log.error("There was an error: "
+													+ response.status);
+										});
+					};
+					
+					/*******TRAINERS************/
+
 					// Update selected trainer
 					vp.updateTrainer = function(trainerObj) {
 						return $http({
