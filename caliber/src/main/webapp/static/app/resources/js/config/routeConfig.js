@@ -284,10 +284,20 @@ angular
 									})
 							.state(
 									"vp.home",
-									{
-										templateUrl : "/static/app/partials/home/vp-home.html",
+									{ 
 										url : "/home",
-										controller : "vpHomeController"
+										/* add modal view to vpHome page */
+										views: {
+											"" : {
+												templateUrl : "/static/app/partials/home/vp-home.html",
+												controller : "vpHomeController"
+											},
+											"qc-quality-audit@vp.home" : {
+												templateUrl : "/static/app/partials/home/view-audit-modal.html",
+												controller : "qcAssessController"
+											},
+										}
+										
 									})
 							.state(
 									"vp.trainers",

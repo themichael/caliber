@@ -284,6 +284,11 @@ angular.module("charts").factory(
 							boxWidth : 10
 						}
 					},
+					onClick: function(evnt,array){
+						var e = array[0];
+						var barIndex = e._index;
+						console.log(barIndex);
+					},
 					scales : {
 						yAxes : [ {
 							stacked : true,
