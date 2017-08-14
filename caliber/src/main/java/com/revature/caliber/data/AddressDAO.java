@@ -84,8 +84,8 @@ public class AddressDAO {
 		sessionFactory.getCurrentSession().update(toUpdate);
 	}
 
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void delete(Address toDelete) {
-		sessionFactory.getCurrentSession().delete(toDelete);
-	}
+//	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+//	public void delete(Address toDelete) {
+//		sessionFactory.getCurrentSession().delete(toDelete);
+//	}
 }

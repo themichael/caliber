@@ -14,6 +14,8 @@ angular
 				function($scope, $log, caliberDelegate) {
 					$log.debug("Booted location manage controller.");
 					$log.debug('test locationmanager cntroller -j');
+					$scope.allLocations=[];
+					$scope.selectedLocation = {};
 					/**
 					 * ************************** Batch
 					 * ****************************
@@ -21,137 +23,45 @@ angular
 
 					/** On page start --> load all trainers * */
 
-					$scope.loadAllLocations = function() {
+					(function(){
 						caliberDelegate.vp.getAllLocations().then(
 								function(locations) {
 									$log.debug(locations);
+									console.log(locations);
 									$scope.allLocations = locations;
 								});
-					};
-
-					var submitTier = function(tier) {
-						var pre = "ROLE_"
-						return pre.concat(tier);
-					};
-
-					/**
-					 * *********************************************** Code to
-					 * create and update Trainer************
-					 */
-
-					// load training tiers
-					caliberDelegate.all.enumTrainerTier().then(function(tiers) {
-						$log.debug(tiers);
-						var filteredTiers = tiers.filter(function(ary) {
-							return ary !== 'ROLE_INACTIVE'
-						});
-						for (var i = 0; i < filteredTiers.length; i++) {
-							filteredTiers[i] = filteredTiers[i].substr(5);
-						}
-						$scope.trainerTiers = filteredTiers;
-					});
-
-					// load tainers titles
-					caliberDelegate.vp.trainersTitles().then(function(titles) {
-						$log.debug(titles);
-						$scope.trainersTitles = titles;
-					});
-
-					/** Save email verification modal* */
-					$scope.checkTrainerEmail = function(trainerForm) {
-						caliberDelegate.vp
-								.getTrainerEmail(trainerForm.email)
-								.then(
-										function(response) {
-											$log.debug(response)
-											if (response.data === "") {
-												$scope.saveTrainer(trainerForm);
-											} else {
-												$log.debug(response)
-												angular
-														.element(
-																"#trainerEmailVerificationModal")
-														.modal("show");
-												return false;
-											}
-										})
-					};
-
-					/** Save New Trainer Input * */
-					$scope.saveTrainer = function(trainerForm) {
-						var newTrainer = trainerForm;
-						createTrainerObject(newTrainer);
-						newTrainer.tier = submitTier(newTrainer.tier);
-						caliberDelegate.vp.createTrainer(newTrainer).then(
-								function(response) {
-									$log.debug("trainer added: " + response);
-									$scope.loadAllTrainers();
+					})();
+					
+					var loadAllLocations = function(){
+						caliberDelegate.vp.getAllLocations().then(
+								function(locations) {
+									$log.debug(locations);
+									console.log(locations);
+									$scope.allLocations = locations;
 								});
-						angular.element("#createTrainerModal").modal("hide");
-					};
-
-					/** Create new Trainer Object * */
-					function createTrainerObject(trainer) {
-						trainer = $scope.trainerForm;
-						$log.debug(trainer);
 					}
-					;
+					
 
-					/** Create scopes for trainer form* */
-					$scope.trainerForm = {
-						trainerId : null,
-						name : null,
-						email : null,
-						title : null,
-						tier : null
-					};
-
-					/** Resets trainer form* */
-					$scope.resetTrainerForm = function() {
-						$scope.trainerForm.trainerId = "";
-						$scope.trainerForm.name = "";
-						$scope.trainerForm.email = "";
-						$scope.trainerForm.title = "";
-						$scope.trainerForm.tier = "";
-						$scope.Save = "Save";
-					};
-
-					/** Fill update form with trainer's previous data */
-					$scope.populateTrainer = function(index) {
-						$log.debug($scope.allTrainers[index]);
-						$scope.trainerForm.trainerId = $scope.allTrainers[index].trainerId;
-						$scope.trainerForm.name = $scope.allTrainers[index].name;
-						$scope.trainerForm.email = $scope.allTrainers[index].email;
-						$scope.trainerForm.title = $scope.allTrainers[index].title;
-						$scope.trainerForm.tier = $scope.allTrainers[index].tier
-								.substr(5);
-						$scope.Save = "Update";
-					};
-
-					/** Update Trainer Input * */
-					$scope.updateTrainer = function() {
-						$scope.trainerForm.tier = submitTier($scope.trainerForm.tier);
-						caliberDelegate.vp.updateTrainer($scope.trainerForm)
-								.then(function(response) {
-									$log.debug("trainer updated: " + response);
-									$scope.loadAllTrainers();
-								});
-						angular.element("#editTrainerModal").modal("hide");
-					};
-
+					
+					
 					/**
-					 * Adam Baker deactivation function
+					 * Code to create and delete Location
+					 * 
 					 */
-					$scope.makeInactive = function() {
-						$log.debug($scope.trainerForm);
-						$scope.trainerForm.tier = "ROLE_INACTIVE";
-						caliberDelegate.vp
-								.deactivateTrainer($scope.trainerForm).then(
-										function() {
-											$log.debug("trainer deactivated");
-											$scope.loadAllTrainers();
-										});
-						angular.element("#deleteTrainerModal").modal("hide");
-					};
-
+					$scope.populateLocation = function(index){
+						$scope.selectedLocation = $scope.allLocations[index];
+					}
+					
+					$scope.removeLocation = function(){
+						$scope.selectedLocation.active=0;
+						caliberDelegate.vp.deactivateLocation($scope.selectedLocation).then(
+								function(response) {
+									loadAllLocations();
+									$log.debug("Location removed: "
+											+ response);
+								}
+						)
+						angular.element("#deleteLocationModal").modal("hide");
+					}
+					
 				});
