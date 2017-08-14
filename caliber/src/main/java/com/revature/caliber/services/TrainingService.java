@@ -172,13 +172,13 @@ public class TrainingService {
 
 	/**
 	 * Returns a list of commonly used locations. Allows user to select from
-	 * locations, but also add new locations manually. Suggested UI component is
-	 * the HTML5 <datalist>
+	 * locations, but also add new locations manually. Suggested UI component is the
+	 * HTML5 <datalist>
 	 * 
 	 * @return
 	 */
 	public List<String> findCommonLocations() {
-		return batchDAO.findCommonLocations();
+		return addressDAO.getAll();
 	}
 
 	/**
@@ -268,7 +268,6 @@ public class TrainingService {
 		log.debug("Update batch " + batch);
 		batchDAO.update(batch);
 	}
-
 
 	/**
 	 * DELETE BATCH

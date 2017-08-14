@@ -39,30 +39,22 @@
 								<option ng-repeat="option in skillType.options">{{option}}</option>
 							</select>
 						</div>
-						<!-- <div class="form-group col-md-6 col-sm-6">
-							<label for="commonLocations">Location:</label> <input
-								list="commonLocations" type="text" ng-model="location.model"
-								id="location" required placeholder="Enter location"
-								class="form-control" ng-required="true">
-							<datalist id="commonLocations">
-								<option ng-repeat="option in location.options"
-									value="{{option}}" />
-							</datalist>
-						</div> -->
+						<!-- Dropdown for location -->
 						<div class="form-group col-md-6 col-sm-6">
 							<label for="commonLocations">Location :</label> <select
 								ng-model="location.model" id="location" required
- 								class="form-control" ng-required="true">
+								class="form-control" ng-required="true">
+
 								<!-- Options exists in trainer manage controller -->
 								<!-- /src/main/webapp/static/app/resources/js/controllers/trainerManageController.js -->
 								<option value="" value="">Select Location</option>
 								<option ng-repeat="option in location.options">{{option}}</option>
 							</select>
- 						</div>
-					
+						</div>
+						<!-- Dropdown ends -->
+
 					</div>
 					<div class="row">
-
 						<div class="form-group col-md-6 col-sm-6">
 							<label for="trainer">Trainer:</label> <select
 								ng-model="trainer.model" class="form-control" id="trainer"
