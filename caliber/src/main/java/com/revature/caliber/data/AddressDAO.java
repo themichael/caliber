@@ -3,6 +3,7 @@ package com.revature.caliber.data;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,14 +35,14 @@ public class AddressDAO {
 	 * @param address
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void saveAddress(Address address) {
+	public void save(Address address) {
 		log.info("Saving Address " + address);
 		sessionFactory.getCurrentSession().save(address);
 	}
 
 	/**
 	 * 
-	 * @return a list of all addresses in the database
+	 * @return a list of all addresses as Stringin the database
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -56,6 +57,17 @@ public class AddressDAO {
 	}
 
 	/**
+	 * Find all locations.
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Address> findAll() {
+		log.info("Finding all locations");
+		return sessionFactory.getCurrentSession().createCriteria(Address.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+
+	/**
 	 * 
 	 * @param id
 	 * @return the address with the specified id
@@ -67,13 +79,13 @@ public class AddressDAO {
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void updateAddress(Address toUpdate) {
+	public void update(Address toUpdate) {
 		log.info("Updating " + toUpdate);
 		sessionFactory.getCurrentSession().update(toUpdate);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void deleteAddress(Address toDelete) {
+	public void delete(Address toDelete) {
 		sessionFactory.getCurrentSession().delete(toDelete);
 	}
 }

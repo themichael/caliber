@@ -83,11 +83,6 @@ public class TrainingService {
 		addressDAO.delete(location);
 	}
 
-	@Autowired
-	public void setAddressDAO(AddressDAO addressDAO) {
-		this.addressDAO = addressDAO;
-	}
-
 	/*
 	 *******************************************************
 	 * TRAINER SERVICES
