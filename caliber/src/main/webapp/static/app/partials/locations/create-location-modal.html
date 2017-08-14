@@ -18,13 +18,15 @@
 					<h3 ng-bind="locationFormName">Add Location</h3>
 					<div>
 						<div class="row">
+							<!-- COMPANY NAME  -->
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="locationCompany">Company Name:</label> <input
 									ng-model="locationForm.company" type="text"
 									class="form-control" id="locationCompany"
 									placeholder="Enter Company Name" required>
 							</div>
-
+							
+							<!-- STREET ADDRESS -->
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="locationStreet">Street Address:</label> <input
 									ng-model="locationForm.street" type="text" class="form-control"
@@ -33,11 +35,13 @@
 						</div>
 
 						<div class="row">
+							<!-- CITY -->
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="locationCity">City:</label> <input
 									ng-model="locationForm.city" type="text" class="form-control"
 									id="locationStreet" placeholder="Enter City" required>
 							</div>
+							<!-- STATE -->
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="locationState">State:</label> <select
 									ng-model="locationForm.state" class="form-control"
@@ -95,6 +99,15 @@
 									<option value="WI">Wisconsin</option>
 									<option value="WY">Wyoming</option>
 								</select>
+							</div>
+						</div>
+						
+						<div class="row">
+							<!-- ZIP CODE -->
+							<div class="form-group col-lg-6 col-md-6 col-sm-12">
+								<label for="locationZIP">Zip Code:</label> <input
+									ng-model="locationForm.zip" type="text" class="form-control"
+									id="locationZIP" placeholder="Enter Zip Code" required>
 							</div>
 						</div>
 					</div>
