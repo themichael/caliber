@@ -14,7 +14,7 @@
 						<!-- creating branch -->
 				</div>
 				<!-- Import Batch Info -->
-				<div class="modal-body">
+				 <div class="modal-body">
 					<div class="row">
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
 							<label for="batchItem">Batch:</label> 
@@ -25,7 +25,8 @@
 							</select>
 						</div>
 					</div>
-					<div ng-if="batchToImport ">
+					<!-- <div ng-if="batchToImport "> -->
+					<div>
 						<div class="row">
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="name">Training Name:</label> <span id="name">{{batchToImport.trainingName}}</span>
@@ -38,9 +39,23 @@
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="skill">Skill Type:</label> <span id="skill">{{batchToImport.skillType}}</span>
 							</div>
-							<div class="form-group col-md-6 col-sm-6">
+							<!-- <div class="form-group col-md-6 col-sm-6">
 								<label for="location">Location:</label> <span id="location">{{batchToImport.location}}</span>
-							</div>
+							</div> -->
+						<!-- Dropdown for location -->
+						<div class="form-group col-md-6 col-sm-6">
+							<label for="commonLocations">Location :</label> <select
+								ng-model="location.model" id="location" required
+								class="form-control" ng-required="true">
+
+								<!-- Options exists in trainer manage controller -->
+								<!-- /src/main/webapp/static/app/resources/js/controllers/trainerManageController.js -->
+								<option value="" value="">Select Location</option>
+								<!-- To fix -->
+								<option ng-repeat="option in location.options" value={{option.addressId}}>{{option.company}}, {{option.street}} {{option.city}} {{option.state}} {{option.zipcode}}</option>
+							</select>
+						</div>
+						<!-- Dropdown ends -->
 						</div>
 						<div class="row">
 							<div class="form-group col-md-6 col-sm-6">
