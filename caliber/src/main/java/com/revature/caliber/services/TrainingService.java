@@ -82,6 +82,11 @@ public class TrainingService {
 		log.debug("Remove location " + location);
 		addressDAO.delete(location);
 	}
+	
+	public Address getOne(long l) {
+		Address address = addressDAO.getOne(l);
+		return address;
+	}
 
 	/*
 	 *******************************************************
@@ -177,8 +182,8 @@ public class TrainingService {
 	 * 
 	 * @return
 	 */
-	public List<String> findCommonLocations() {
-		return addressDAO.getAll();
+	public List<Address> findCommonLocations() {
+		return addressDAO.findAll();
 	}
 
 	/**
