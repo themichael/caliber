@@ -12,10 +12,28 @@
 <div class="container">
 	<div class="col-sm-12 col-md-12 col-lg-12">
 
+		<!-- Overall batch health bar chart	 -->	
+			
 		<div class="row" ng-if="stackedBarData">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Last Quality Audit</div>
+					<div class="panel-heading">Most Recent Overall Batch Quality Audit</div>
+					<div class="panel-body">
+						<div class="chart-container top5">
+							<canvas class="chart chart-bar" chart-data="overallBarData"
+								chart-options="overallBarOptions" chart-labels="overallBarLabels"
+								chart-series="overallBarSeries" chart-colors="overallBarColors">
+							</canvas>
+						</div>						
+					</div>
+				</div>
+		
+		<!-- Batch health stacked bar chart	 -->
+		
+		<div class="row" ng-if="stackedBarData">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Most Recent Batch Quality Audit Breakdown</div>
 					<div class="panel-body">
 						<div class="chart-container top5">
 							<canvas class="chart chart-bar" chart-data="stackedBarData"

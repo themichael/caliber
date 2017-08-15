@@ -8,10 +8,31 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
+						//createBatchWeekQcOverallBarChart
 						createAllBatchesCurrentWeekQCStats();
 						createCurrentBatchesAverageScoreChart();
 					})();
 
+					function createBatchWeekQcOverallBarChart() {
+						chartsDelegate.bar.data
+								.getBatchWeekQcOverallBarChart()
+								.then(
+										function(data) {
+											NProgress.done();
+											var barChartObj = chartsDelegate.bar
+													.getBatchWeekAvgBarChart(data);
+
+											$scope.overallBarData = barChartObj.data;
+											$scope.overallBarLabels = barChartObj.labels;
+											$scope.overallBarSeries = barChartObj.series;
+											$scope.overallBarOptions = barChartObj.options;
+											$scope.overallBarColors = barChartObj.colors;
+
+										}, function() {
+											NProgress.done();
+										});
+					}
+					
 					function createAllBatchesCurrentWeekQCStats() {
 						chartsDelegate.bar.data
 								.getAllBatchesCurrentWeekQCStatsData()

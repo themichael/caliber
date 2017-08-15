@@ -97,6 +97,17 @@ public class ReportingController {
 	 * Bar Charts
 	 *******************************************************
 	 */
+	
+	//Mapping QC Overall status to getBatchWeekQcOverallBarChart function
+	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/trainee/{traineeId}/bar-batch-week-trainee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> getBatchWeekQcOverallBarChart(@PathVariable Integer batchId,
+			@PathVariable Integer weekId, @PathVariable String noteType) {
+		log.info(
+				"getBatchWeekAvgBarChart   ===>   /all/reports/batch/{batchId}/week/{weekId}/trainee/{traineeId}/bar-batch-week-qc");
+		return new ResponseEntity<>(reportingService.getBatchWeekQcOverallBarChart(batchId, weekId, noteType),
+				HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/bar-batch-week-avg", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Double[]>> getBatchWeekAvgBarChart(@PathVariable int batchId,
 			@PathVariable int week) {

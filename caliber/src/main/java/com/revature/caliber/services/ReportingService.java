@@ -176,6 +176,19 @@ public class ReportingService {
 	 */
 
 	/**
+	 * x-Axis: Batch Names y-Axis: Overall BatchQC Status
+	 * 
+	 * @param batchId
+	 * @param weekId
+	 * @param noteTyoe
+	 * @return
+	 */
+	public Object getBatchWeekQcOverallBarChart(Integer batchId, Integer weekId, String noteType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
 	 * x-Axis: Assessment Names y-Axis: Average Batch Scores
 	 * 
 	 * @param batchId
@@ -791,4 +804,5 @@ public class ReportingService {
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
 	}
+
 }
