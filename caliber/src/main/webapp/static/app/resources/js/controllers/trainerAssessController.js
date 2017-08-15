@@ -333,6 +333,7 @@ angular
 	
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
+						$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 					};
 					
 					// active week
@@ -529,8 +530,6 @@ angular
 					$scope.saveTrainerNotes = function(batchNoteId) {
 						$log.debug("Saving note: " + $scope.trainerBatchNote);
 						// Create note
-						$log.log(batchNoteId, " batchNoteId");
-						$log.log($scope.trainerBatchNote, " trainerBatchNotes");
 						if ($scope.trainerBatchNote === null) {
 							$scope.trainerBatchNote = new Note(
 									null,

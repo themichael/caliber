@@ -153,7 +153,6 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 			url : "/trainer/note/batch/" + batchId + "/" + week + "/",
 			method : "GET"
 		}).then(function(response) {
-			$log.debug(response.data, " trainer batch note data");
 			$log.log("Trainer Batch Note retrieved successfully");
 			return response.data;
 		}, function(response) {
