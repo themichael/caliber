@@ -530,7 +530,7 @@ angular
 					$scope.saveTrainerNotes = function(batchNoteId) {
 						$log.debug("Saving note: " + $scope.trainerBatchNote);
 						// Create note
-						if ($scope.trainerBatchNote === null) {
+						if ($scope.trainerBatchNote) {
 							$scope.trainerBatchNote = new Note(
 									null,
 									$scope.trainerBatchNote.content,
