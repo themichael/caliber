@@ -356,10 +356,21 @@ public class Batch implements Serializable {
 		return true;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
-		return "Batch [batchId=" + batchId + ", trainingName=" + trainingName + ", skillType=" + skillType
-				+ ", trainingType=" + trainingType + "]";
+		return "Batch [batchId=" + batchId + ", resourceId=" + resourceId + ", trainingName=" + trainingName
+				+ ", trainer=" + trainer + ", coTrainer=" + coTrainer + ", skillType=" + skillType + ", trainingType="
+				+ trainingType + ", startDate=" + startDate + ", endDate=" + endDate + ", location=" + location
+				+ ", address=" + address + ", goodGradeThreshold=" + goodGradeThreshold + ", borderlineGradeThreshold="
+				+ borderlineGradeThreshold + ", trainees=" + trainees + ", weeks=" + weeks + ", notes=" + notes + "]";
 	}
 
 }

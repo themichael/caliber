@@ -45,7 +45,7 @@ public class TrainingController {
 	public void setTrainingService(TrainingService trainingService) {
 		this.trainingService = trainingService;
 	}
-	
+
 	/*
 	 *******************************************************
 	 * TODO LOCATION SERVICES
@@ -66,6 +66,7 @@ public class TrainingController {
 		trainingService.createLocation(location);
 		return new ResponseEntity<>(location, HttpStatus.CREATED);
 	}
+
 	/**
 	 * Update location
 	 *
@@ -80,6 +81,7 @@ public class TrainingController {
 		trainingService.update(location);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+
 	/**
 	 * Returns all locations from the database `
 	 * 
@@ -92,6 +94,7 @@ public class TrainingController {
 		List<Address> locations = trainingService.findAllLocations();
 		return new ResponseEntity<>(locations, HttpStatus.OK);
 	}
+
 	/**
 	 * Removes the location
 	 * 
@@ -106,11 +109,6 @@ public class TrainingController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	
-	
-	
-	
-	
 	/*
 	 *******************************************************
 	 * TODO TRAINER SERVICES
@@ -236,6 +234,10 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch) {
 		log.info("Saving batch: " + batch);
+		Address address = trainingService.getOne(Long.parseLong(batch.getLocation()));
+		batch.setAddress(address);
+		batch.setLocation(address.getCompany() + ", " + address.getStreet() + " " + address.getCity() + " "
+				+ address.getState() + " " + address.getZipcode());
 		trainingService.save(batch);
 		return new ResponseEntity<>(batch, HttpStatus.CREATED);
 	}
@@ -251,6 +253,10 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
 		log.info("Updating batch: " + batch);
+		Address address = trainingService.getOne(Long.parseLong(batch.getLocation()));
+		batch.setAddress(address);
+		batch.setLocation(address.getCompany() + ", " + address.getStreet() + " " + address.getCity() + " "
+				+ address.getState() + " " + address.getZipcode());
 		trainingService.update(batch);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -302,8 +308,7 @@ public class TrainingController {
 	}
 
 	/**
-	 * Adds a new week to the batch. Increments counter of total_weeks in
-	 * database
+	 * Adds a new week to the batch. Increments counter of total_weeks in database
 	 * 
 	 * @param batchId
 	 * @return
@@ -315,10 +320,10 @@ public class TrainingController {
 		trainingService.addWeek(batchId);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-	
+
 	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public ResponseEntity<List<String>> findCommonLocations() {
+	public ResponseEntity<List<Address>> findCommonLocations() {
 		log.info("Fetching common training locations");
 		return new ResponseEntity<>(trainingService.findCommonLocations(), HttpStatus.OK);
 	}
