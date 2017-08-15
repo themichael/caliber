@@ -24,7 +24,6 @@ public class AddressDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	
 	/**
 	 * Find all locations.
 	 */
@@ -38,6 +37,7 @@ public class AddressDAO {
 
 	/**
 	 * Save location
+	 * 
 	 * @param location
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -48,6 +48,7 @@ public class AddressDAO {
 
 	/**
 	 * Updates a location in the database.
+	 * 
 	 * @param location
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -57,13 +58,18 @@ public class AddressDAO {
 	}
 
 	/**
-	 * Deletes a location from the database. 
+	 * Deletes a location from the database.
+	 * 
 	 * @param location
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(Address location) {
 		log.info("Delete location " + location);
 		sessionFactory.getCurrentSession().delete(location);
+	}
+
+	public Address getOne(long l) {
+		return (Address) sessionFactory.getCurrentSession().get(Address.class, l);
 	}
 
 }

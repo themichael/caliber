@@ -56,7 +56,8 @@
 								<!-- Options exists in trainer manage controller -->
 								<!-- /src/main/webapp/static/app/resources/js/controllers/trainerManageController.js -->
 								<option value="" value="">Select Location</option>
-								<option ng-repeat="option in location.options">{{option}}</option>
+								<!-- To fix -->
+								<option ng-repeat="option in location.options" value={{option.addressId}}>{{option.company}}, {{option.street}} {{option.city}} {{option.state}} {{option.zipcode}}</option>
 							</select>
  						</div>
 					
