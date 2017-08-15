@@ -89,6 +89,5 @@ public class AssessmentDAO {
 	public void delete(Assessment assessment) {
 		log.info("Deleting assessment " + assessment);
 		sessionFactory.getCurrentSession().delete(assessment);
-	}
-
+	}	
 }

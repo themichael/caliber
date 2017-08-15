@@ -26,12 +26,13 @@ public class Address implements Serializable {
 		super();
 	}
 
-	public Address(String street, String city, String state, String zipcode) {
+	public Address(String street, String city, String state, String zipcode, String company) {
 		super();
 		this.street = street;
 		this.city = city;
 		this.state = state;
 		this.zipcode = zipcode;
+		this.company = company;
 	}
 
 	@Id
@@ -51,8 +52,8 @@ public class Address implements Serializable {
 
 	@Column(name = "ADDRESS_ZIPCODE")
 	private String zipcode;
-	
-	@Column(name = "ADDRESS_COMPANY")
+
+  @Column(name = "ADDRESS_COMPANY")
 	private String company;
 
 	public long getAddressId() {
@@ -94,15 +95,14 @@ public class Address implements Serializable {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
-	
-	public String getCompany() {
+
+  public String getCompany() {
 		return company;
 	}
 
 	public void setCompany(String company) {
 		this.company = company;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -158,8 +158,6 @@ public class Address implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Address [addressId=" + addressId + ", street=" + street + ", city=" + city + ", state=" + state
-				+ ", zipcode=" + zipcode + ", company=" + company + "]";
+		return company + ", " + street + " " + city + " " + state + " " + zipcode;
 	}
-
 }
