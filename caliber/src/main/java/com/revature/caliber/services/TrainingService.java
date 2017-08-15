@@ -78,10 +78,10 @@ public class TrainingService {
 		log.debug("Finding all locations");
 		return addressDAO.findAll();
 	}
-	public void removeLocation(Address location) {
-		log.debug("Remove location " + location);
-		addressDAO.delete(location);
-	}
+//	public void removeLocation(Address location) {
+//		log.debug("Remove location " + location);
+//		addressDAO.delete(location);
+//	}
 
 	/*
 	 *******************************************************
