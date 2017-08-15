@@ -26,13 +26,22 @@ public class Address implements Serializable {
 		super();
 	}
 
-	public Address(String street, String city, String state, String zipcode, String company) {
+	public Address(String street, String city, String state, String zipcode, String company, int active) {
 		super();
 		this.street = street;
 		this.city = city;
 		this.state = state;
 		this.zipcode = zipcode;
 		this.company = company;
+		this.active = active;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
 	}
 
 	@Id
@@ -55,7 +64,10 @@ public class Address implements Serializable {
 
   @Column(name = "ADDRESS_COMPANY")
 	private String company;
-
+  
+  @Column(name="ACTIVE")
+  private int active;
+  
 	public long getAddressId() {
 		return addressId;
 	}
@@ -108,12 +120,13 @@ public class Address implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + active;
 		result = prime * result + (int) (addressId ^ (addressId >>> 32));
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((street == null) ? 0 : street.hashCode());
 		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
-		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		return result;
 	}
 
@@ -126,12 +139,19 @@ public class Address implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Address other = (Address) obj;
+		if (active != other.active)
+			return false;
 		if (addressId != other.addressId)
 			return false;
 		if (city == null) {
 			if (other.city != null)
 				return false;
 		} else if (!city.equals(other.city))
+			return false;
+		if (company == null) {
+			if (other.company != null)
+				return false;
+		} else if (!company.equals(other.company))
 			return false;
 		if (state == null) {
 			if (other.state != null)
@@ -148,16 +168,12 @@ public class Address implements Serializable {
 				return false;
 		} else if (!zipcode.equals(other.zipcode))
 			return false;
-		if (company == null) {
-			if (other.company != null)
-				return false;
-		} else if (!company.equals(other.company))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return company + ", " + street + " " + city + " " + state + " " + zipcode;
+		return "Address [addressId=" + addressId + ", street=" + street + ", city=" + city + ", state=" + state
+				+ ", zipcode=" + zipcode + ", company=" + company + ", active=" + active + "]";
 	}
 }

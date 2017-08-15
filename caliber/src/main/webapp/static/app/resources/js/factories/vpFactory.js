@@ -48,6 +48,7 @@ angular
 													+ response.status);
 										});
 					};
+				
 					// Get all Categories
 					vp.getAllCategories = function() {
 						return $http({
@@ -101,6 +102,24 @@ angular
 													+ response, status);
 								});
 					}
+					// Save new location
+					vp.saveLocation = function(location) {
+						return $http({
+							url : "/vp/location/create",
+							method : "POST",
+							data : location
+						}).then(
+								function(response) {
+									$log.debug(location + " Has been Created");
+									$log.debug(response);
+								},
+								function(response) {
+									$log.error(
+											"There was an error in vpFactory -> saveLocation "
+													+ response, status);
+								});
+					}
+
 
 					// deactivate trainer needed to force content type to be
 					// JSON else 415

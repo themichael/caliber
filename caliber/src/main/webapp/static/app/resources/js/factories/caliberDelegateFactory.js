@@ -248,6 +248,9 @@ angular
 					delegate.vp.createLocation = function(locationObj) {
 						return vpFactory.createLocation(locationObj);
 					};
+					delegate.vp.saveLocation = function(location) {
+						return vpFactory.saveLocation(location);
+					};
 					/****/
 					
 					delegate.vp.trainersTitles = function() {

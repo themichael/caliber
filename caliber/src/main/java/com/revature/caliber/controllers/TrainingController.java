@@ -102,7 +102,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Void> removeLocation(@Valid @RequestBody Address location) {
 		log.info("Updating location: " + location);
-		trainingService.removeLocation(location);
+		trainingService.update(location);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 

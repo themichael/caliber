@@ -1,43 +1,106 @@
-/*******************************************************************************
- * Team: Quantum Team Lead: Mridula Zaman Authors: Christian Acosta, Leibniz Berihuete, 
- * Dingchao Liao, Mridula Zaman
- *
- * Mridula worked on viewing all locations, adding locations, editing locations,
- * and deleting functionality for locations for the VP role. 
- * ******************************************************************************
- */
 
 angular
 		.module("vp")
 		.controller(
 				"vpLocationController",
 				function($scope, $log, caliberDelegate) {
+					// Needed to keep track of what index in categories is used
+					// during Edit
+					var editIndex;
+					
 					$log.debug("Booted location manage controller.");
 					$log.debug('test locationmanager cntroller -j');
-					/**
-					 * ************************** Batch
-					 * ****************************
-					 */
+					$scope.allLocations = [];
+					$scope.selectedLocation = {};
+					
 
-					/** On page start --> load all trainers * */
+					/** On page start --> load all locations * */
 
-					$scope.loadAllLocations = function() {
-						caliberDelegate.vp.getAllLocations().then(
-								function(locations) {
-									$log.debug(locations);
-									$scope.allLocations = locations;
-								});
+					(function(){
+                        caliberDelegate.vp.getAllLocations().then(
+                                function(locations) {
+                                    $log.debug(locations);
+                                    console.log(locations);
+                                    $scope.allLocations = locations;
+                                });
+                    })();
+                    
+                    var loadAllLocations = function(){
+                        caliberDelegate.vp.getAllLocations().then(
+                                function(locations) {
+                                    $log.debug(locations);
+                                    console.log(locations);
+                                    $scope.allLocations = locations;
+                                });
+                    }
+                    
+					// get location from input
+					$scope.populateLocation = function(index) {
+						$scope.selectedLocation = $scope.allLocations[index];
+					}
+
+					
+					// removing location - deactivate
+					$scope.removeLocation = function(){
+						$scope.selectedLocation.active=0; // take this out for just delete
+                        caliberDelegate.vp.deactivateLocation($scope.selectedLocation).then(
+                                function(response) {
+                                    loadAllLocations();
+                                    $log.debug("Location removed:"
+                                            + response);
+                                }
+                        )
+                        angular.element("#deleteLocationModal").modal("hide");
+                    }
+					
+					// creating scope for location form
+					$scope.locationForm = {
+							company : null,
+							street : null,
+							city : null,
+							state : null,
+							zipcode : null,
+							active: 1
+						};
+					
+					// create new Address object
+					function createAddressObject(location) {
+						location = $scope.locationForm;
+						$log.debug(location);
+					}
+					// Create Location
+					$scope.createLocation = function(locationForm) {
+						console.log(locationForm);
+						var newLocation = locationForm;
+						createAddressObject(newLocation);
+						caliberDelegate.vp.createLocation(newLocation)
+								.then(
+										function(response) {
+											loadAllLocations();
+											$log.debug("Location Created: "
+													+ response);
+										});
+					};
+					
+					/** Fill update form with locations previous data */
+					$scope.populateLocation = function(index) {
+						$log.debug($scope.allLocations[index]);
+						$scope.locationForm.company = $scope.allLocations[index].company;
+						$scope.locationForm.street = $scope.allLocations[index].street;
+						$scope.locationForm.city = $scope.allLocations[index].city;
+						$scope.locationForm.state = $scope.allLocations[index].state;
+						$scope.locationForm.zipcode = $scope.allLocations[index].zipcode;
+						$scope.locationForm.active = $scope.allLocations[index].active;
+						$scope.Save = "Update";
 					};
 
-					var submitTier = function(tier) {
-						var pre = "ROLE_"
-						return pre.concat(tier);
-					};
+					
+					
 
 					/**
 					 * *********************************************** Code to
 					 * create and update Trainer************
-					 */
+					 *//*
 
 					// load training tiers
 					caliberDelegate.all.enumTrainerTier().then(function(tiers) {
@@ -57,7 +120,7 @@ angular
 						$scope.trainersTitles = titles;
 					});
 
-					/** Save email verification modal* */
+					*//** Save email verification modal* *//*
 					$scope.checkTrainerEmail = function(trainerForm) {
 						caliberDelegate.vp
 								.getTrainerEmail(trainerForm.email)
@@ -77,71 +140,58 @@ angular
 										})
 					};
 
-					/** Save New Trainer Input * */
-					$scope.saveTrainer = function(trainerForm) {
-						var newTrainer = trainerForm;
-						createTrainerObject(newTrainer);
-						newTrainer.tier = submitTier(newTrainer.tier);
-						caliberDelegate.vp.createTrainer(newTrainer).then(
+					*//** Save New Trainer Input * *//*
+					$scope.saveLocation = function(locationForm) {
+						var newLocation = locationForm;
+						createAddressObject(newLocation);
+						// newLocation.tier = submitTier(newTrainer.tier);
+						caliberDelegate.vp.createLocation(newLocation).then(
 								function(response) {
-									$log.debug("trainer added: " + response);
-									$scope.loadAllTrainers();
+									$log.debug("location added: " + response);
+									$scope.loadAllLocations();
 								});
-						angular.element("#createTrainerModal").modal("hide");
+						angular.element("#createLocationModal").modal("hide");
 					};
 
-					/** Create new Trainer Object * */
-					function createTrainerObject(trainer) {
-						trainer = $scope.trainerForm;
-						$log.debug(trainer);
-					}
-					;
+					*//** Create new Address Object * *//*
+					
+					*//** Create scopes for location form * *//*
+				
 
-					/** Create scopes for trainer form* */
-					$scope.trainerForm = {
-						trainerId : null,
-						name : null,
-						email : null,
-						title : null,
-						tier : null
-					};
-
-					/** Resets trainer form* */
-					$scope.resetTrainerForm = function() {
-						$scope.trainerForm.trainerId = "";
-						$scope.trainerForm.name = "";
-						$scope.trainerForm.email = "";
-						$scope.trainerForm.title = "";
-						$scope.trainerForm.tier = "";
+					*//** Resets location form* *//*
+					$scope.resetLocationForm = function() {
+						$scope.locationForm.company = "";
+						$scope.locationForm.street = "";
+						$scope.locationForm.city = "";
+						$scope.locationForm.state = "";
+						$scope.locationForm.zipcode = "";
 						$scope.Save = "Save";
 					};
 
-					/** Fill update form with trainer's previous data */
-					$scope.populateTrainer = function(index) {
+					*//** Fill update form with trainer's previous data *//*
+					$scope.populateLocation = function(index) {
 						$log.debug($scope.allTrainers[index]);
-						$scope.trainerForm.trainerId = $scope.allTrainers[index].trainerId;
-						$scope.trainerForm.name = $scope.allTrainers[index].name;
-						$scope.trainerForm.email = $scope.allTrainers[index].email;
-						$scope.trainerForm.title = $scope.allTrainers[index].title;
-						$scope.trainerForm.tier = $scope.allTrainers[index].tier
-								.substr(5);
+						$scope.locationForm.company = $scope.allLocations[index].company;
+						$scope.locationForm.street = $scope.allLocations[index].street;
+						$scope.locationForm.city = $scope.allLocations[index].city;
+						$scope.locationForm.state = $scope.allLocations[index].state;
 						$scope.Save = "Update";
 					};
 
-					/** Update Trainer Input * */
+					*//** Update Trainer Input * *//*
 					$scope.updateTrainer = function() {
-						$scope.trainerForm.tier = submitTier($scope.trainerForm.tier);
+						$scope.locationForm.tier = submitTier($scope.trainerForm.tier);
 						caliberDelegate.vp.updateTrainer($scope.trainerForm)
 								.then(function(response) {
 									$log.debug("trainer updated: " + response);
-									$scope.loadAllTrainers();
+									$scope.loadAllLocations();
 								});
 						angular.element("#editTrainerModal").modal("hide");
 					};
 
-					/**
+					*//**
 					 * Adam Baker deactivation function
-					 */
+					 *//*
 					$scope.makeInactive = function() {
 						$log.debug($scope.trainerForm);
 						$scope.trainerForm.tier = "ROLE_INACTIVE";
@@ -152,6 +202,6 @@ angular
 											$scope.loadAllTrainers();
 										});
 						angular.element("#deleteTrainerModal").modal("hide");
-					};
+					};*/
 
 				});
