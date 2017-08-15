@@ -253,12 +253,12 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
 		log.info("Updating batch: " + batch);
-		Address address = trainingService.getOne(Long.parseLong(batch.getLocation()));
-		batch.setAddress(address);
-		batch.setLocation(address.getCompany() + ", " + address.getStreet() + " " + address.getCity() + " "
-				+ address.getState() + " " + address.getZipcode());
+		batch.setAddress(trainingService.getOne(Long.parseLong(batch.getLocation())));
+		batch.setLocation(batch.getAddress().getCompany() + ", " + batch.getAddress().getStreet() + " "
+				+ batch.getAddress().getCity() + " " + batch.getAddress().getState() + " "
+				+ batch.getAddress().getZipcode());
 		trainingService.update(batch);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.MOVED_PERMANENTLY);
 	}
 
 	/**

@@ -415,9 +415,10 @@ angular
 								batch.coTrainer = $scope.trainers[i];
 							}
 						}
-
+						location.reload();
 						// return newBatch;
 					}
+
 					/** reformat dates on batch correctly* */
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
@@ -432,10 +433,8 @@ angular
 									.updateBatch($scope.currentBatch)
 									.then(
 											function() {
-
 												$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch
 											});
-
 						} else {
 							var newBatch = {};
 							createBatchObject(newBatch);
