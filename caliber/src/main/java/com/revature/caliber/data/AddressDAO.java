@@ -68,6 +68,7 @@ public class AddressDAO {
 	}
 
 	/**
+	 * Save location
 	 * 
 	 * @param id
 	 * @return the address with the specified id
@@ -78,14 +79,29 @@ public class AddressDAO {
 		return (Address) sessionFactory.getCurrentSession().get(Address.class, id);
 	}
 
+	/**
+	 * Updates a location in the database.
+	 * 
+	 * @param location
+	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Address toUpdate) {
 		log.info("Updating " + toUpdate);
 		sessionFactory.getCurrentSession().update(toUpdate);
 	}
 
+	/**
+	 * Deletes a location from the database.
+	 * 
+	 * @param location
+	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(Address toDelete) {
 		sessionFactory.getCurrentSession().delete(toDelete);
 	}
+
+	public Address getOne(long l) {
+		return (Address) sessionFactory.getCurrentSession().get(Address.class, l);
+	}
+
 }
