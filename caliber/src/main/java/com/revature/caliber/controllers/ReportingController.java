@@ -163,7 +163,7 @@ public class ReportingController {
 	}
 
 	@RequestMapping(value = "/all/reports/dashboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, Map<Integer, Double>>> getCurrentBatchesLineChart() {
+	public ResponseEntity<Map<String, Object>> getCurrentBatchesLineChart() {
 		log.info("getCurrentBatchesLineChart   ===>  /all/reports/dashboard");
 		return new ResponseEntity<>(reportingService.getAllCurrentBatchesLineChart(), HttpStatus.OK);
 	}

@@ -36,6 +36,7 @@ angular
 								.getCurrentBatchesAverageScoreChartData()
 								.then(
 										function(data) {
+											console.log(data);
 											NProgress.done();
 											var lineChartObj = chartsDelegate.line
 													.getCurrentBatchesAverageScoreChart(data);

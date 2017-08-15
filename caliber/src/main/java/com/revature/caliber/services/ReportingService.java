@@ -381,14 +381,17 @@ public class ReportingService {
 	}
 
 
-	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChart() {
-		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
+	public Map<String, Object> getAllCurrentBatchesLineChart() {
+		Map<String, Object> results = new ConcurrentHashMap<>();
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();  // changed to Trainees
 		batches.parallelStream().forEach(batch -> {
+			Map<String, Object> batchObject = new ConcurrentHashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
+			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
+			batchObject.put("address", batch.getAddress());
 			results.put(batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' '))+" - "+ //Trainer First name
 					batch.getTrainingName().substring(0,batch.getTrainingName().indexOf(' ')),   // Batch ID
-					utilAvgBatchOverall(trainees, batch.getWeeks()));
+					batchObject);
 		});
 		return results;
 	}

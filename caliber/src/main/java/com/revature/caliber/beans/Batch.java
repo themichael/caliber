@@ -117,6 +117,14 @@ public class Batch implements Serializable {
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
 	@OneToMany(mappedBy = "batch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference(value = "traineeAndBatch")
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
