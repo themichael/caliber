@@ -106,7 +106,7 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * Retrieve the salesforce access_token from the provided cookie
+	 * Retrieve the salesforce access_token from the forwarded request
 	 * 
 	 * @param servletRequest
 	 * @return
@@ -114,25 +114,11 @@ public class BootController extends Helper {
 	 */
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
 
-		String token = (String) servletRequest.getAttribute("salestoken");
-		if(token != null){
+		if(servletRequest.getAttribute("salestoken") instanceof  String){
+			String token = (String) servletRequest.getAttribute("salestoken");
 			log.debug("Parse salesforce token from HttpSession: " + token);
 			return new ObjectMapper().readValue(token,SalesforceToken.class);
 		}
-//		HttpSession session = servletRequest.getSession(false);
-//		if(session!=null){
-//			String token = (String) session.getAttribute("salestoken");
-//			log.debug("Parse salesforce token from HttpSession: " + token);
-//			return new ObjectMapper().readValue(token,SalesforceToken.class);
-//		}
-//		Cookie[] cookies = servletRequest.getCookies();
-//		for (Cookie cookie : cookies) {
-//			if (("token").equals(cookie.getName())) {
-//				log.debug("Parse salesforce token: " + cookie.getValue());
-//				return new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
-//						SalesforceToken.class);
-//			}
-//		}
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
 
