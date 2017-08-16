@@ -49,6 +49,7 @@ angular
 					 * 
 					 */
 					$scope.populateLocation = function(index){
+						console.log(index);
 						$scope.selectedLocation = $scope.allLocations[index];
 					}
 					

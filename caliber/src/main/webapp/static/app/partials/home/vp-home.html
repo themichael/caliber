@@ -48,12 +48,13 @@
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Weekly Progress 
-						<select class="pull-right" ng-model="selectedCity" ng-options="batch.address.city for batch in averageScoreData |filter:selectedState.address.state">
-							<option>All Cities</option>
+						<select class="pull-right" ng-model="selectedCity" ng-if="selectedState.address.state"
+							ng-options="batch.address.city for batch in averageScoreData |filter:selectedState.address.state | unique:'address.city'">
+							<option value="">All Cities</option>
 						</select>
 						<select class="pull-right" ng-model="selectedState" 
-						ng-change="onLineCharAddressStateChange(selectedState.address.state)" 
-						ng-options="batch.address.state for batch in averageScoreData | unique:'address.state' ">
+							ng-change="onLineCharAddressStateChange(selectedState.address.state)" 
+							ng-options="batch.address.state for batch in averageScoreData | unique:'address.state' ">
 							<option value="">All States</option>
 						</select>
 						
