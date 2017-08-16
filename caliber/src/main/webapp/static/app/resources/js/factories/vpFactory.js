@@ -168,7 +168,7 @@ angular
 					vp.updateLocation = function(locationObj) {
 						return $http({
 							url : "/vp/location/update",
-							method : "PUT",
+							method : "GET",
 							data : locationObj
 						})
 								.then(

@@ -33,27 +33,10 @@ angular
                                     $scope.allLocations = locations;
                                 });
                     }
-                    
-					// get location from input
-					$scope.populateLocation = function(index) {
-						$scope.selectedLocation = $scope.allLocations[index];
-					}
+                 
 
 					
-					// removing location - deactivate
-					$scope.removeLocation = function(){
-						$scope.selectedLocation.active=0; // take this out for just delete
-                        caliberDelegate.vp.deactivateLocation($scope.selectedLocation).then(
-                                function(response) {
-                                    loadAllLocations();
-                                    $log.debug("Location removed:"
-                                            + response);
-                                }
-                        )
-                        angular.element("#deleteLocationModal").modal("hide");
-                    }
-					
-					// creating scope for location form
+                 // creating scope for location form
 					$scope.locationForm = {
 							company : null,
 							street : null,
@@ -70,7 +53,6 @@ angular
 					}
 					// Create Location
 					$scope.createLocation = function(locationForm) {
-						console.log(locationForm);
 						var newLocation = locationForm;
 						createAddressObject(newLocation);
 						caliberDelegate.vp.createLocation(newLocation)
@@ -82,7 +64,33 @@ angular
 										});
 					};
 					
-					/** Fill update form with locations previous data */
+					//** Resets location form* *//*
+					$scope.resetLocationForm = function() {
+						$scope.locationForm.company = "";
+						$scope.locationForm.street = "";
+						$scope.locationForm.city = "";
+						$scope.locationForm.state = "";
+						$scope.locationForm.zipcode = "";
+						$scope.locationForm.active = 1;
+						$scope.Save = "Save";
+					};
+					
+					// Create Location
+					$scope.createLocation = function(locationForm) {
+						console.log(locationForm);
+						var newLocation = $scope.locationForm;
+						createAddressObject(newLocation);
+						caliberDelegate.vp.createLocation(newLocation)
+								.then(
+										function(response) {
+											loadAllLocations();
+											$log.debug("Location Created: "
+													+ response);
+										});
+					};
+					
+					
+					/** Fill update form with locations data */
 					$scope.populateLocation = function(index) {
 						$log.debug($scope.allLocations[index]);
 						$scope.locationForm.company = $scope.allLocations[index].company;
@@ -93,7 +101,38 @@ angular
 						$scope.locationForm.active = $scope.allLocations[index].active;
 						$scope.Save = "Update";
 					};
-
+					
+				/*	$scope.updateLocation = function(locationForm) {
+						$log.debug(locationForm);
+						var currentLocation = locationForm;
+						createAddressObject(currentLocation);
+						caliberDelegate.vp.updateLocation(currentLocation)
+						.then(
+								function(response) {
+									loadAllLocations();
+									$log.debug("Location Updated: "
+											+ response);
+								});
+					}
+*/
+					   
+					// get location from input
+					$scope.populateDeleteLocation = function(index) {
+						$scope.selectedLocation = $scope.allLocations[index];
+					}
+					
+					// removing location - deactivate
+					$scope.removeLocation = function(){
+						$scope.selectedLocation.active=0; // take this out for just delete
+                        caliberDelegate.vp.deactivateLocation($scope.selectedLocation).then(
+                                function(response) {
+                                    loadAllLocations();
+                                    $log.debug("Location removed:"
+                                            + response);
+                                }
+                        )
+                        angular.element("#deleteLocationModal").modal("hide");
+                    }
 					
 					
 
