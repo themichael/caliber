@@ -110,7 +110,7 @@ angular
 							data : location
 						}).then(
 								function(response) {
-									$log.debug(location + " Has been Created");
+									$log.debug(location + " Has been saved");
 									$log.debug(response);
 								},
 								function(response) {
@@ -168,8 +168,11 @@ angular
 					vp.updateLocation = function(locationObj) {
 						return $http({
 							url : "/vp/location/update",
-							method : "GET",
-							data : locationObj
+							method : "PUT",
+							data : locationObj,
+							headers : {
+								"Content-Type" : "application/json"
+							}
 						})
 								.then(
 										function(response) {
@@ -178,7 +181,7 @@ angular
 											$log.debug(response);
 										},
 										function(response) {
-											$log.error("There was an error: "
+											$log.error("There was an error updating the location: "
 													+ response.status);
 											return false;
 										});

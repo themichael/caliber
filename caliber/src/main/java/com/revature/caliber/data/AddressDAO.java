@@ -87,7 +87,7 @@ public class AddressDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Address toUpdate) {
 		log.info("Updating " + toUpdate);
-		sessionFactory.getCurrentSession().update(toUpdate);
+		sessionFactory.getCurrentSession().saveOrUpdate(toUpdate);
 	}
 
 	/**
