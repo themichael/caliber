@@ -49,6 +49,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Weekly Progress 
 						<select class="pull-right" ng-model="selectedCity" ng-if="selectedState.address.state"
+						ng-change="onLineCharAddressCityChange(selectedCity.address.city)"
 							ng-options="batch.address.city for batch in averageScoreData |filter:selectedState.address.state | unique:'address.city'">
 							<option value="">All Cities</option>
 						</select>

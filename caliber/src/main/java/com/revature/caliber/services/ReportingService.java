@@ -145,6 +145,7 @@ public class ReportingService {
 				}
 			}
 		});
+		log.info(results);
 		return results;
 	}
 
@@ -167,6 +168,7 @@ public class ReportingService {
 				}
 			}
 		}
+		log.info(results);
 		return results;
 	}
 	/*
@@ -381,6 +383,12 @@ public class ReportingService {
 	}
 
 
+	/**
+	 * x-Axis: y-Axis: Method for Controller to fetch Week number Batch Average
+	 * Score
+	 * 
+	 * @return List<Map<batch attributes, values>>
+	 */
 	public List<Object> getAllCurrentBatchesLineChart() {
 		List<Object> results = new ArrayList<Object>();
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();  // changed to Trainees

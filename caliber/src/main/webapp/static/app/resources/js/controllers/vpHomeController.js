@@ -5,9 +5,7 @@ angular
 				function($scope, $log, caliberDelegate, chartsDelegate, $filter) {
 					$log.debug("Booted vp home controller.");
 					$scope.averageScoreData = {};
-					$scope.states=[];
-					$scope.cities=[];
-					$scope.onLineCharAddressStateChange = onLineCharAddressStateChange;
+					$scope.filterState="";
 					(function() {
 						// Finishes any left over ajax animation from another
 						// page
@@ -52,7 +50,6 @@ angular
 						.then(
 								function(data) {
 									$scope.averageScoreData = data;
-									$scope.states = generateStateList(data);
 									createCurrentBatchesAverageScoreChart(data);
 									NProgress.done();
 								},function() {
@@ -60,40 +57,36 @@ angular
 								});
 					}
 					
-					function generateStateList(addressList){
-						var states = [];
-						angular.forEach(addressList, function(value, key){
-							states.push(value.address.state);
-						});
-						let uniqueStates = [...new Set(states)];
-						return uniqueStates;
+					$scope.onLineCharAddressStateChange = function(state){
+						$scope.filterState = state;
+						filterLineChartByState(state);
 					}
 					
-					function generateCityListFromState(addressList, state){
-						var cities = [];
-						angular.forEach(addressList, function(value, key){
-							if(value.address.state == state){
-								cities.push(value.address.city);
-							}
-						});
-						let uniqueCities = [...new Set(cities)];
-						return uniqueCities;
+					$scope.onLineCharAddressCityChange = function(city){
+							filterLineChartByCity(city);
 					}
 					
-					function onLineCharAddressCityChange(city){
-						// TODO filter the addressList to city
+					
+					
+					var filterLineChartByState = function(state){
+						if(state){
+							var filteredData = $scope.averageScoreData.filter(function(batch){
+								return batch.address.state==state;
+							});
+							createCurrentBatchesAverageScoreChart(filteredData);
+						}else{
+							createCurrentBatchesAverageScoreChart($scope.averageScoreData);
+						}
 					}
 					
-					function filterAddressByState(){
-						
-					}
-					
-					function onLineCharAddressStateChange(state){
-						if(state!=""){
-							// TODO filter the addressList to state;
-							console.log(state);
-//							$scope.cities = generateCityListFromState($scope.averageScoreData,state);
-							
+					var filterLineChartByCity = function(city){
+						if(city){
+							var filteredData = $scope.averageScoreData.filter(function(batch){
+								return batch.address.city==city;
+							});
+							createCurrentBatchesAverageScoreChart(filteredData);	
+						}else{
+							filterLineChartByState($scope.filterState);
 						}
 					}
 
