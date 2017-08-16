@@ -47,7 +47,18 @@
 		<div class="row" ng-if="currentBatchesLineData">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Weekly Progress</div>
+					<div class="panel-heading">Weekly Progress 
+						<select class="pull-right">
+							<option>All Cities</option>
+							<option ng-repeat="city in cities" value="city" >{{city}}</option>
+						</select>
+						<select class="pull-right" ng-model="selectedState" 
+						ng-change="onLineCharAddressStateChange(selectedState)" 
+						ng-options="value.address.state for (key, value) in averageScoreData | unique:'address.state' ">
+							<option value="">All States</option>
+						</select>
+						
+					</div>
 					<div class="panel-body">
 						<div class="chart-container top5">
 							<canvas class="chart chart-line" chart-data="currentBatchesLineData"
