@@ -116,7 +116,8 @@ public class BootController extends Helper {
 
 		HttpSession session = servletRequest.getSession(false);
 		if(session!=null){
-			String token = (String) session.getAttribute("token");
+			String token = (String) session.getAttribute("salestoken");
+			log.debug("Parse salesforce token from HttpSession: " + token);
 			return new ObjectMapper().readValue(token,SalesforceToken.class);
 		}
 //		Cookie[] cookies = servletRequest.getCookies();
