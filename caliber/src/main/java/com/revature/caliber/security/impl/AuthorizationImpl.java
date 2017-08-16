@@ -91,7 +91,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-			HttpServletResponse servletResponse,HttpServletRequest request) throws IOException {
+			HttpServletResponse servletResponse, HttpServletRequest request) throws IOException {
 
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
@@ -104,11 +104,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.info("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		request.setAttribute("salestoken",toJsonString(response.getEntity().getContent()));
-//		HttpSession session = request.getSession();
-//		session.setAttribute("salestoken",toJsonString(response.getEntity().getContent()));
-//		String token = URLEncoder.encode(toJsonString(response.getEntity().getContent()), "UTF-8");
-//		servletResponse.addCookie(new Cookie("token", token));
+		request.setAttribute("salestoken", toJsonString(response.getEntity().getContent()));
 		return new ModelAndView(FORWARD + redirectUrl);
 
 	}
@@ -116,7 +112,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	/**
 	 * Clears session information and logout the user.
 	 * 
-	 * 	Note: Still retrieving 302 on access-token and null refresh-token
+	 * Note: Still retrieving 302 on access-token and null refresh-token
 	 * 
 	 * @param auth
 	 * @param session

@@ -114,10 +114,10 @@ public class BootController extends Helper {
 	 */
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
 
-		if(servletRequest.getAttribute("salestoken") instanceof  String){
+		if (servletRequest.getAttribute("salestoken") instanceof String) {
 			String token = (String) servletRequest.getAttribute("salestoken");
 			log.debug("Parse salesforce token from HttpSession: " + token);
-			return new ObjectMapper().readValue(token,SalesforceToken.class);
+			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
@@ -198,9 +198,9 @@ public class BootController extends Helper {
 					+ jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
-			
+
 			// check if user is active
-			if(salesforceUser.getCaliberUser().getTier().equals(TrainerRole.ROLE_INACTIVE))
+			if (salesforceUser.getCaliberUser().getTier().equals(TrainerRole.ROLE_INACTIVE))
 				throw new NotAuthorizedException();
 		} else {
 			throw new NotAuthorizedException();
