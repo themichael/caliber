@@ -114,7 +114,7 @@ public class BootController extends Helper {
 	 */
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
 
-		HttpSession session = servletRequest.getSession(false);
+		HttpSession session = servletRequest.getSession();
 		if(session!=null){
 			String token = (String) session.getAttribute("salestoken");
 			log.debug("Parse salesforce token from HttpSession: " + token);
