@@ -429,7 +429,6 @@ angular
 					 * the batch notes for that week Author: Kam Lam
 					 */
 					$scope.getTBatchNote = function (batchId, week){
-							$log.log(batchId,week);
 								caliberDelegate.trainer
 										.getTrainerBatchNote(batchId, week)
 										.then(
@@ -439,6 +438,8 @@ angular
                                                         $scope.trainerBatchNote = null;
 													}else{																								
 														$scope.trainerBatchNote = trainerBatchNotes[0];
+														$log.log(trainerBatchNotes);
+														$log.log($scope.trainerBatchNote);
 														$log.debug(trainerBatchNotes);
                                                     }
 												});
@@ -530,7 +531,7 @@ angular
 					$scope.saveTrainerNotes = function(batchNoteId) {
 						$log.debug("Saving note: " + $scope.trainerBatchNote);
 						// Create note
-						if ($scope.trainerBatchNote) {
+						if (!$scope.trainerBatchNote) {
 							$scope.trainerBatchNote = new Note(
 									null,
 									$scope.trainerBatchNote.content,
