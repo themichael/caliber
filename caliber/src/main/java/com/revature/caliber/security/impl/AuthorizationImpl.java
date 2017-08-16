@@ -103,10 +103,10 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.info("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		HttpSession session = request.getSession();
-		session.setAttribute("salestoken",toJsonString(response.getEntity().getContent()));
-		//String token = URLEncoder.encode(toJsonString(response.getEntity().getContent()), "UTF-8");
-		//servletResponse.addCookie(new Cookie("token", token));
+//		HttpSession session = request.getSession();
+//		session.setAttribute("salestoken",toJsonString(response.getEntity().getContent()));
+		String token = URLEncoder.encode(toJsonString(response.getEntity().getContent()), "UTF-8");
+		servletResponse.addCookie(new Cookie("token", token));
 		return new ModelAndView(REDIRECT + redirectUrl);
 
 	}
