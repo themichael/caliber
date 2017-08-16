@@ -54,7 +54,7 @@
 						</select>
 						<select class="pull-right" ng-model="selectedState" 
 						ng-change="onLineCharAddressStateChange(selectedState)" 
-						ng-options="value.address.state for (key, value) in averageScoreData | unique:'address.state' ">
+						ng-options="batch.address.state for batch in averageScoreData | unique:'address.state' ">
 							<option value="">All States</option>
 						</select>
 						
