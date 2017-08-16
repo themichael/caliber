@@ -331,8 +331,8 @@ angular
 						$scope.currentWeek = $scope.currentBatch.arrayWeeks[index];
 						$log.debug("[***********This is the week selected*************]:  "+$scope.currentWeek);
 	
-						getAllAssessmentsForWeek($scope.currentBatch.batchId,
-								$scope.currentWeek);
+						getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+                        $scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 					};
 					
 					// active week
@@ -428,7 +428,6 @@ angular
 					 * the batch notes for that week Author: Kam Lam
 					 */
 					$scope.getTBatchNote = function (batchId, week){
-							$log.log(batchId,week);
 								caliberDelegate.trainer
 										.getTrainerBatchNote(batchId, week)
 										.then(
@@ -529,9 +528,7 @@ angular
 					$scope.saveTrainerNotes = function(batchNoteId) {
 						$log.debug("Saving note: " + $scope.trainerBatchNote);
 						// Create note
-						$log.log(batchNoteId, " batchNoteId");
-						$log.log($scope.trainerBatchNote, " trainerBatchNotes");
-						if ($scope.trainerBatchNote === null) {
+						if (!$scope.trainerBatchNote) {
 							$scope.trainerBatchNote = new Note(
 									null,
 									$scope.trainerBatchNote.content,
