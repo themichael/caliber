@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -89,7 +90,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-			HttpServletResponse servletResponse) throws IOException {
+			HttpServletResponse servletResponse,HttpServletRequest request) throws IOException {
 
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
@@ -102,8 +103,10 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.info("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		String token = URLEncoder.encode(toJsonString(response.getEntity().getContent()), "UTF-8");
-		servletResponse.addCookie(new Cookie("token", token));
+		HttpSession session = request.getSession();
+		session.setAttribute("token",toJsonString(response.getEntity().getContent()));
+	//	String token = URLEncoder.encode(toJsonString(response.getEntity().getContent()), "UTF-8");
+		//servletResponse.addCookie(new Cookie("token", token));
 		return new ModelAndView(REDIRECT + redirectUrl);
 
 	}

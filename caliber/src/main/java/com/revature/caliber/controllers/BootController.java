@@ -9,6 +9,7 @@ import java.net.URLDecoder;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -112,14 +113,20 @@ public class BootController extends Helper {
 	 * @throws IOException
 	 */
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
-		Cookie[] cookies = servletRequest.getCookies();
-		for (Cookie cookie : cookies) {
-			if (("token").equals(cookie.getName())) {
-				log.debug("Parse salesforce token: " + cookie.getValue());
-				return new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
-						SalesforceToken.class);
-			}
+
+		HttpSession session = servletRequest.getSession(false);
+		if(session!=null){
+			String token = (String) session.getAttribute("token");
+			return new ObjectMapper().readValue(token,SalesforceToken.class);
 		}
+//		Cookie[] cookies = servletRequest.getCookies();
+//		for (Cookie cookie : cookies) {
+//			if (("token").equals(cookie.getName())) {
+//				log.debug("Parse salesforce token: " + cookie.getValue());
+//				return new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
+//						SalesforceToken.class);
+//			}
+//		}
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
 
