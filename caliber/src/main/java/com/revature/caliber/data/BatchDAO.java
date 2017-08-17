@@ -67,6 +67,7 @@ public class BatchDAO {
 				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+
 	}
 
 	/**
