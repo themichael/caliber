@@ -41,15 +41,17 @@
 						</div>
 						<!-- Dropdown for location -->
 						<div class="form-group col-md-6 col-sm-6">
-							<label for="commonLocations">Location :</label> 
-							<select ng-model="location.model" id="location" required
+							<label for="commonLocations">Location :</label> <select
+								ng-model="location.model" id="location" required
 								class="form-control" ng-required="true">
 
 								<!-- Options exists in trainer manage controller -->
 								<!-- /src/main/webapp/static/app/resources/js/controllers/trainerManageController.js -->
 								<option value="" value="">Select Location</option>
 								<!-- To fix -->
-								<option ng-repeat="option in location.options" value={{option.addressId}}>{{option.company}}, {{option.street}} {{option.city}} {{option.state}} {{option.zipcode}}</option>
+								<option
+									ng-repeat="option in location.options | filter : {active:1}"
+									value={{option.addressId}}>{{option.company}}, {{option.street}} {{option.city}} {{option.state}} {{option.zipcode}}</option>
 							</select>
 						</div>
 						<!-- Dropdown ends -->

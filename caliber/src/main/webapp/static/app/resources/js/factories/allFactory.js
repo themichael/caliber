@@ -184,6 +184,18 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			return response;
 		});
 	};
+	/** ************************* Address *********************** */
+	all.getAddressById = function(addressId) {
+		return $http({
+			url : "/all/location/getById/" + addressId,
+			method : "GET"
+		}).then(function successCallback(response) {
+			var address = response.data;
+			return address;
+		}, function(response) {
+			return response.data;
+		});
+	};
 
 	/** ************************* Trainee *********************** */
 
@@ -194,7 +206,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		}).then(function(response) {
 			$log.debug("Trainees successfully imported")
 			$log.debug(response.data);
-			return response.data;
+			return response;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 			return response.data;
@@ -347,7 +359,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was a error " + response.status);
 		});
 	}
-	
+
 	/** *********************** Location ********************* */
 	all.getAllLocations = function() {
 		return $http({
@@ -361,7 +373,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
+
 	all.createLocation = function(locationObj) {
 		$log.debug(locationObj);
 		return $http({
@@ -377,7 +389,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			return response.data;
 		});
 	};
-	
+
 	/** *********************** Trainer ********************* */
 
 	/**
