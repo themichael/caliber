@@ -44,6 +44,11 @@
 			</div>
 		</div>
 
+		<div class='row spinner fa-style' ng-if="!averageScoreData.length">
+			<i style="color: #F26925;" role="button"
+				class="fa fa-spinner fa-spin fa-4x" aria-hidden="true"></i>
+		</div>
+
 		<div class="row" ng-if="currentBatchesLineData">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">

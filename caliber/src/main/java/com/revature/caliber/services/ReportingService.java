@@ -140,7 +140,7 @@ public class ReportingService {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
 					results.put(b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' '))+" - "+ // Trainer first name
-								b.getTrainingName().substring(0,b.getTrainingName().indexOf(' ')), temp);   // Batch ID
+								b.getTrainingName(), temp);   // Batch ID
 					break;
 				}
 			}
