@@ -437,8 +437,6 @@ angular
                                                         $scope.trainerBatchNote = null;
 													}else{																								
 														$scope.trainerBatchNote = trainerBatchNotes[0];
-														$log.log(trainerBatchNotes);
-														$log.log($scope.trainerBatchNote);
 														$log.debug(trainerBatchNotes);
                                                     }
 												});
