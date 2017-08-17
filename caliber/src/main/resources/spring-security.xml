@@ -28,7 +28,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
 		<security:intercept-url pattern="/caliber"
 			access="permitAll" />
-		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/*" access="permitAll" />
 		<security:intercept-url pattern="/all/**"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/caliber/**"
