@@ -36,13 +36,6 @@ public class Address implements Serializable {
 		this.active = active;
 	}
 
-	public int getActive() {
-		return active;
-	}
-
-	public void setActive(int active) {
-		this.active = active;
-	}
 
 	@Id
 	@Column(name = "ADDRESS_ID")
@@ -62,12 +55,20 @@ public class Address implements Serializable {
 	@Column(name = "ADDRESS_ZIPCODE")
 	private String zipcode;
 
-  @Column(name = "ADDRESS_COMPANY")
+	@Column(name = "ADDRESS_COMPANY")
 	private String company;
-  
-  @Column(name="ACTIVE")
-  private int active;
-  
+
+	@Column(name="ACTIVE")
+  	private int active;
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
 	public long getAddressId() {
 		return addressId;
 	}
@@ -115,6 +116,7 @@ public class Address implements Serializable {
 	public void setCompany(String company) {
 		this.company = company;
 	}
+
 
 	@Override
 	public int hashCode() {

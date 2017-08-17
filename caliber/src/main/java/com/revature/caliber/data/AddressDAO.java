@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.beans.Address;
 
 /**
- * 
+ *
  * @author Christian Acosta
  *
  */
@@ -31,7 +31,7 @@ public class AddressDAO {
 
 	/**
 	 * Save an address to the database
-	 * 
+	 *
 	 * @param address
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -41,7 +41,7 @@ public class AddressDAO {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return a list of all addresses as Stringin the database
 	 */
 	@SuppressWarnings("unchecked")
@@ -69,7 +69,7 @@ public class AddressDAO {
 
 	/**
 	 * Save location
-	 * 
+	 *
 	 * @param id
 	 * @return the address with the specified id
 	 */
@@ -81,7 +81,7 @@ public class AddressDAO {
 
 	/**
 	 * Updates a location in the database.
-	 * 
+	 *
 	 * @param location
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -90,15 +90,15 @@ public class AddressDAO {
 		sessionFactory.getCurrentSession().saveOrUpdate(toUpdate);
 	}
 
-	/**
-	 * Deletes a location from the database.
-	 * 
-	 * @param location
-	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void delete(Address toDelete) {
-		sessionFactory.getCurrentSession().delete(toDelete);
-	}
+	// /**
+	//  * Deletes a location from the database.
+	//  *
+	//  * @param location
+	//  */
+	// @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	// public void delete(Address toDelete) {
+	// 	sessionFactory.getCurrentSession().delete(toDelete);
+	// }
 
 	public Address getOne(long l) {
 		return (Address) sessionFactory.getCurrentSession().get(Address.class, l);

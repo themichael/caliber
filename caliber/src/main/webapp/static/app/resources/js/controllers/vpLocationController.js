@@ -12,7 +12,7 @@ angular
 
 					/** On page start --> load all locations * */
 
-					(function() {
+					(function(){
 						caliberDelegate.vp.getAllLocations().then(
 								function(locations) {
 									$log.debug(locations);
@@ -21,7 +21,7 @@ angular
 								});
 					})();
 
-					var loadAllLocations = function() {
+					var loadAllLocations = function(){
 						caliberDelegate.vp.getAllLocations().then(
 								function(locations) {
 									$log.debug(locations);
@@ -32,7 +32,7 @@ angular
 
 					// creating scope for location form
 					$scope.locationForm = {
-						addressId : null, 
+						addressId : null,
 						company : null,
 						street : null,
 						city : null,
@@ -41,7 +41,7 @@ angular
 						active : 1
 					};
 
-					// create new Address object 
+					// create new Address object
 					function createAddressObject(location) {
 						location = $scope.locationForm;
 						$log.debug(location);
@@ -113,14 +113,10 @@ angular
 										});
 					};
 
-					// get location from input
-					$scope.populateDeleteLocation = function(index) {
-						$scope.selectedLocation = $scope.allLocations[index];
-					}
 
 					// removing location - deactivate
 					$scope.removeLocation = function() {
-						$scope.selectedLocation.active = 0; 
+						$scope.selectedLocation.active = 0;
 						caliberDelegate.vp.deactivateLocation(
 								$scope.selectedLocation).then(
 								function(response) {
@@ -129,15 +125,15 @@ angular
 								})
 						angular.element("#deleteLocationModal").modal("hide");
 					}
-					
+
 					// get location from input
-					$scope.populateTheLocation = function(index) {
+					$scope.updateSelectedLocation = function(index) {
 						$scope.selectedLocation = $scope.allLocations[index];
 					}
-					
+
 					// add location - reactivate
 					$scope.reactivateLocation = function() {
-						$scope.selectedLocation.active = 1; 
+						$scope.selectedLocation.active = 1;
 						caliberDelegate.vp.reactivateLocation(
 								$scope.selectedLocation).then(
 								function(response) {

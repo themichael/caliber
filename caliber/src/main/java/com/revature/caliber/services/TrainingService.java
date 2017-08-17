@@ -20,7 +20,7 @@ import com.revature.caliber.data.TrainerDAO;
  * Provides logic concerning trainer and trainee data. Application logic has no
  * business being in a DAO nor in a Controller. This is the ideal place for
  * calculations
- * 
+ *
  * @author Patrick Walsh
  *
  */
@@ -47,22 +47,22 @@ public class TrainingService {
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
 	}
-	
+
 	@Autowired
 	public void setAddressDAO(AddressDAO addressDAO) {
 		this.addressDAO = addressDAO;
 	}
-	
+
 	/*
 	 *******************************************************
 	 * LOCATION SERVICES
 	 *
 	 *******************************************************
 	 */
-	
+
 	/**
 	 * Add New Address
-	 * 
+	 *
 	 * @param location
 	 */
 	public void createLocation(Address location) {
@@ -78,11 +78,11 @@ public class TrainingService {
 		log.debug("Finding all locations");
 		return addressDAO.findAll();
 	}
-	public void removeLocation(Address location) {
-		log.debug("Remove location " + location);
-		addressDAO.delete(location);
-	}
-	
+	// public void removeLocation(Address location) {
+	// 	log.debug("Remove location " + location);
+	// 	addressDAO.delete(location);
+	// }
+
 	public Address getOne(long l) {
 		Address address = addressDAO.getOne(l);
 		return address;
@@ -97,7 +97,7 @@ public class TrainingService {
 
 	/**
 	 * Add New Trainer
-	 * 
+	 *
 	 * @param trainer
 	 */
 	public void createTrainer(Trainer trainer) {
@@ -108,7 +108,7 @@ public class TrainingService {
 
 	/**
 	 * FIND TRAINER BY EMAIL
-	 * 
+	 *
 	 * @param email
 	 * @return
 	 */
@@ -119,7 +119,7 @@ public class TrainingService {
 
 	/**
 	 * FIND ALL TRAINERS
-	 * 
+	 *
 	 * @return
 	 */
 	public List<Trainer> findAllTrainers() {
@@ -129,7 +129,7 @@ public class TrainingService {
 
 	/**
 	 * UPDATE TRAINER
-	 * 
+	 *
 	 * @param trainer
 	 */
 	public void update(Trainer trainer) {
@@ -139,7 +139,7 @@ public class TrainingService {
 
 	/**
 	 * FIND TRAINER BY ID
-	 * 
+	 *
 	 * @param trainerId
 	 * @return
 	 */
@@ -149,9 +149,9 @@ public class TrainingService {
 	}
 
 	/**
-	 * 
+	 *
 	 * MAKE TRAINER INACTIVE
-	 * 
+	 *
 	 * @param trainer
 	 **/
 	public void makeInactive(Trainer trainer) {
@@ -179,7 +179,7 @@ public class TrainingService {
 	 * Returns a list of commonly used locations. Allows user to select from
 	 * locations, but also add new locations manually. Suggested UI component is the
 	 * HTML5 <datalist>
-	 * 
+	 *
 	 * @return
 	 */
 	public List<Address> findCommonLocations() {
@@ -188,7 +188,7 @@ public class TrainingService {
 
 	/**
 	 * ADD ANOTHER WEEK TO BATCH
-	 * 
+	 *
 	 * @param batchId
 	 */
 	public void addWeek(Integer batchId) {
@@ -203,7 +203,7 @@ public class TrainingService {
 
 	/**
 	 * SAVE BATCH
-	 * 
+	 *
 	 * @param batch
 	 */
 	public void save(Batch batch) {
@@ -213,7 +213,7 @@ public class TrainingService {
 
 	/**
 	 * FIND ALL BATCHES
-	 * 
+	 *
 	 * @return
 	 */
 	public List<Batch> findAllBatches() {
@@ -223,7 +223,7 @@ public class TrainingService {
 
 	/**
 	 * FIND ALL CURRENT BATCHES
-	 * 
+	 *
 	 * @return
 	 */
 	public List<Batch> findAllCurrentBatches() {
@@ -233,7 +233,7 @@ public class TrainingService {
 
 	/**
 	 * FIND ALL BATCHES BY TRAINER
-	 * 
+	 *
 	 * @param trainerId
 	 * @return
 	 */
@@ -244,7 +244,7 @@ public class TrainingService {
 
 	/**
 	 * FIND ALL CURRENT BATCHES BY TRAINER
-	 * 
+	 *
 	 * @param trainerId
 	 * @return
 	 */
@@ -255,7 +255,7 @@ public class TrainingService {
 
 	/**
 	 * FIND BATCH BY ID
-	 * 
+	 *
 	 * @param batchId
 	 * @return
 	 */
@@ -266,7 +266,7 @@ public class TrainingService {
 
 	/**
 	 * UPDATE BATCH
-	 * 
+	 *
 	 * @param batch
 	 */
 	public void update(Batch batch) {
@@ -276,7 +276,7 @@ public class TrainingService {
 
 	/**
 	 * DELETE BATCH
-	 * 
+	 *
 	 * @param batch
 	 */
 	public void delete(Batch batch) {
@@ -293,7 +293,7 @@ public class TrainingService {
 	 */
 	/**
 	 * SAVE TRAINEE
-	 * 
+	 *
 	 * @param trainee
 	 */
 	public void save(Trainee trainee) {
@@ -303,7 +303,7 @@ public class TrainingService {
 
 	/**
 	 * FIND ALL TRAINEES
-	 * 
+	 *
 	 * @return
 	 */
 	public List<Trainee> findAllTrainees() {
@@ -313,7 +313,7 @@ public class TrainingService {
 
 	/**
 	 * FIND ALL TRAINEES BY BATCH ID
-	 * 
+	 *
 	 * @param batchId
 	 * @return
 	 */
@@ -324,7 +324,7 @@ public class TrainingService {
 
 	/**
 	 * FIND ALL DROPPED TRAINEES BY BATCH ID
-	 * 
+	 *
 	 * @param batchId
 	 * @return
 	 */
@@ -335,7 +335,7 @@ public class TrainingService {
 
 	/**
 	 * FIND ALL TRAINEES BY TRAINER ID
-	 * 
+	 *
 	 * @param trainerId
 	 * @return
 	 */
@@ -346,7 +346,7 @@ public class TrainingService {
 
 	/**
 	 * FIND TRAINEE BY ID
-	 * 
+	 *
 	 * @param traineeId
 	 * @return
 	 */
@@ -357,7 +357,7 @@ public class TrainingService {
 
 	/**
 	 * FIND TRAINEE BY EMAIL ADDRESS
-	 * 
+	 *
 	 * @param email
 	 * @return
 	 */
@@ -368,7 +368,7 @@ public class TrainingService {
 
 	/**
 	 * DELETE TRAINEE
-	 * 
+	 *
 	 * @param trainee
 	 */
 	public void delete(Trainee trainee) {
@@ -378,7 +378,7 @@ public class TrainingService {
 
 	/**
 	 * UPDATE TRAINEE
-	 * 
+	 *
 	 * @param trainee
 	 */
 	public void update(Trainee trainee) {
@@ -388,8 +388,8 @@ public class TrainingService {
 
 
 
-	
 
-	
+
+
 
 }
