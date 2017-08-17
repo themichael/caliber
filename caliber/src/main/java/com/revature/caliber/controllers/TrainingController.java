@@ -30,7 +30,7 @@ import com.revature.caliber.services.TrainingService;
 
 /**
  * Services requests for Trainer, Trainee, and Batch information
- * 
+ *
  * @author Patrick Walsh
  *
  */
@@ -56,7 +56,7 @@ public class TrainingController {
 	 * Create location
 	 *
 	 * @param location
-	 * 
+	 *
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/vp/location/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -71,7 +71,7 @@ public class TrainingController {
 	 * Update location
 	 *
 	 * @param location
-	 * 
+	 *
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/vp/location/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -84,7 +84,7 @@ public class TrainingController {
 
 	/**
 	 * Returns all locations from the database `
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/all/location/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -97,15 +97,28 @@ public class TrainingController {
 
 	/**
 	 * Removes the location
-	 * 
+	 *
 	 * @param location
 	 * @return response entity
 	 */
 	@RequestMapping(value = "/vp/location/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Void> removeLocation(@Valid @RequestBody Address location) {
+		log.info("Deactivating location: " + location);
+		trainingService.update(location);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	/**
+	 * Reactivates the location
+	 *
+	 * @param location
+	 * @return response entity
+	 */
+	@RequestMapping(value = "/vp/location/reactivate", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Void> reactivateLocation(@Valid @RequestBody Address location) {
 		log.info("Updating location: " + location);
-		trainingService.removeLocation(location);
+		trainingService.update(location);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
@@ -131,7 +144,7 @@ public class TrainingController {
 	 * Create trainer
 	 *
 	 * @param trainer
-	 * 
+	 *
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/vp/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -146,7 +159,7 @@ public class TrainingController {
 	 * Update trainer
 	 *
 	 * @param trainer
-	 * 
+	 *
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/vp/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -160,7 +173,7 @@ public class TrainingController {
 	/**
 	 * Finds a trainer by email. Used for logging in a user with the Salesforce
 	 * controller `
-	 * 
+	 *
 	 * @param email
 	 * @return
 	 */
@@ -174,7 +187,7 @@ public class TrainingController {
 
 	/**
 	 * Deactivates the trainer
-	 * 
+	 *
 	 * @param trainer
 	 * @return response entity
 	 */
@@ -188,7 +201,7 @@ public class TrainingController {
 
 	/**
 	 * Returns all trainers titles from the database `
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/vp/trainer/titles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -201,7 +214,7 @@ public class TrainingController {
 
 	/**
 	 * Returns all trainers from the database `
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -221,7 +234,7 @@ public class TrainingController {
 
 	/**
 	 * Find all batches for the currently logged in trainer
-	 * 
+	 *
 	 * @param auth
 	 * @return
 	 */
@@ -318,7 +331,7 @@ public class TrainingController {
 
 	/**
 	 * Adds a new week to the batch. Increments counter of total_weeks in database
-	 * 
+	 *
 	 * @param batchId
 	 * @return
 	 */
@@ -416,7 +429,7 @@ public class TrainingController {
 	/**
 	 * Convenience method for accessing the Trainer information from the User
 	 * Principal.
-	 * 
+	 *
 	 * @param auth
 	 * @return
 	 */

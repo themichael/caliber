@@ -245,13 +245,21 @@ angular
 					delegate.vp.deactivateLocation = function(locationObj) {
 						return vpFactory.deactivateLocation(locationObj);
 					}
+					delegate.vp.reactivateLocation = function(locationObj) {
+						return vpFactory.reactivateLocation(locationObj);
+					}
 					delegate.vp.updateLocation = function(locationObj) {
 						return vpFactory.updateLocation(locationObj);
 					};
 					delegate.vp.createLocation = function(locationObj) {
 						return vpFactory.createLocation(locationObj);
 					};
-					/** * */
+
+					delegate.vp.saveLocation = function(location) {
+						return vpFactory.saveLocation(location);
+					};
+					/****/
+					
 
 					delegate.vp.trainersTitles = function() {
 						return vpFactory.getAllTrainersTitle();

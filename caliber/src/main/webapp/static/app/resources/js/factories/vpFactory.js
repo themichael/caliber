@@ -48,6 +48,7 @@ angular
 													+ response.status);
 										});
 					};
+				
 					// Get all Categories
 					vp.getAllCategories = function() {
 						return $http({
@@ -101,6 +102,24 @@ angular
 													+ response, status);
 								});
 					}
+					// Save new location
+					vp.saveLocation = function(location) {
+						return $http({
+							url : "/vp/location/create",
+							method : "POST",
+							data : location
+						}).then(
+								function(response) {
+									$log.debug(location + " Has been saved");
+									$log.debug(response);
+								},
+								function(response) {
+									$log.error(
+											"There was an error in vpFactory -> saveLocation "
+													+ response, status);
+								});
+					}
+
 
 					// deactivate trainer needed to force content type to be
 					// JSON else 415
@@ -150,7 +169,10 @@ angular
 						return $http({
 							url : "/vp/location/update",
 							method : "PUT",
-							data : locationObj
+							data : locationObj,
+							headers : {
+								"Content-Type" : "application/json"
+							}
 						})
 								.then(
 										function(response) {
@@ -159,7 +181,30 @@ angular
 											$log.debug(response);
 										},
 										function(response) {
-											$log.error("There was an error: "
+											$log.error("There was an error updating the location: "
+													+ response.status);
+											return false;
+										});
+					};
+					
+					// Update selected location active status
+					vp.reactivateLocation = function(locationObj) {
+						return $http({
+							url : "/vp/location/reactivate",
+							method : "PUT",
+							data : locationObj,
+							headers : {
+								"Content-Type" : "application/json"
+							}
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("Location successfully updated.");
+											$log.debug(response);
+										},
+										function(response) {
+											$log.error("There was an error updating the location: "
 													+ response.status);
 											return false;
 										});
@@ -294,5 +339,6 @@ angular
 									return response;
 								});
 					};
+					
 					return vp;
 				});

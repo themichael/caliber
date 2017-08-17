@@ -1,5 +1,5 @@
 <!--********************************************* Create Location Modal ************************************-->
-<form id="locationForm">
+<form>
 	<div class="modal fade" id="createLocationModal" tabindex="-1"
 		role="dialog" aria-labelledby="locationModalLabel">
 		<div class="modal-dialog" role="document">
@@ -18,13 +18,15 @@
 					<h3 ng-bind="locationFormName">Add Location</h3>
 					<div>
 						<div class="row">
+							<!-- COMPANY NAME  -->
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="locationCompany">Company Name:</label> <input
 									ng-model="locationForm.company" type="text"
 									class="form-control" id="locationCompany"
 									placeholder="Enter Company Name" required>
 							</div>
-
+							
+							<!-- STREET ADDRESS -->
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="locationStreet">Street Address:</label> <input
 									ng-model="locationForm.street" type="text" class="form-control"
@@ -33,16 +35,18 @@
 						</div>
 
 						<div class="row">
+							<!-- CITY -->
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="locationCity">City:</label> <input
 									ng-model="locationForm.city" type="text" class="form-control"
 									id="locationStreet" placeholder="Enter City" required>
 							</div>
+							<!-- STATE -->
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="locationState">State:</label> <select
 									ng-model="locationForm.state" class="form-control"
-									id="trainerTier" ng-required="true">
-									<option value="" disabled>Select Tier</option>
+									id="locationState" ng-required="true">
+									<option value="" disabled>Select State</option>
 									<option value="AL">Alabama</option>
 									<option value="AK">Alaska</option>
 									<option value="AZ">Arizona</option>
@@ -97,9 +101,22 @@
 								</select>
 							</div>
 						</div>
+						
+						<div class="row">
+
+							<div class="form-group col-lg-6 col-md-6 col-sm-12">
+								<label for="locationZipCode">Zipcode:</label> <input
+									ng-model="locationForm.zipcode" type="text"
+									class="form-control" id="locationZipCode"
+									placeholder="Enter Zipcode" required>
+							</div>
+						</div>
+						
+						
 					</div>
 					<div class="modal-footer">
-						<input type="submit" ng-value="Save" class="btn btn-primary">
+						<input type="submit" ng-value="Save" class="btn btn-primary"
+						data-dismiss="modal" ng-click="createLocation(locationForm)">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>

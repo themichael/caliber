@@ -336,7 +336,7 @@ angular
 											angular
 													.element(
 															"#importBatchModal")
-													.modal("hide");
+													.modal("");
 										});
 
 					};
@@ -429,7 +429,7 @@ angular
 								batch.coTrainer = $scope.trainers[i];
 							}
 						}
-
+						location.reload();
 						// return newBatch;
 					}
 
