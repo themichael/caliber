@@ -186,6 +186,29 @@ angular
 											return false;
 										});
 					};
+					
+					// Update selected location active status
+					vp.reactivateLocation = function(locationObj) {
+						return $http({
+							url : "/vp/location/reactivate",
+							method : "PUT",
+							data : locationObj,
+							headers : {
+								"Content-Type" : "application/json"
+							}
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("Location successfully updated.");
+											$log.debug(response);
+										},
+										function(response) {
+											$log.error("There was an error updating the location: "
+													+ response.status);
+											return false;
+										});
+					};
 
 					// Create location
 					vp.createLocation = function(locationObj) {

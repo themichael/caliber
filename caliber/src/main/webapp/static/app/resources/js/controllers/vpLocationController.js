@@ -129,5 +129,23 @@ angular
 								})
 						angular.element("#deleteLocationModal").modal("hide");
 					}
+					
+					// get location from input
+					$scope.populateTheLocation = function(index) {
+						$scope.selectedLocation = $scope.allLocations[index];
+					}
+					
+					// add location - reactivate
+					$scope.reactivateLocation = function() {
+						$scope.selectedLocation.active = 1; 
+						caliberDelegate.vp.reactivateLocation(
+								$scope.selectedLocation).then(
+								function(response) {
+									loadAllLocations();
+									$log.debug("Location reactivate:" + response);
+								})
+						angular.element("#addLocationModal").modal("hide");
+					}
+
 
 				});

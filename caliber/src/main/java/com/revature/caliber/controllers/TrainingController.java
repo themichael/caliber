@@ -108,6 +108,19 @@ public class TrainingController {
 		trainingService.update(location);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	/**
+	 * Reactivates the location
+	 * 
+	 * @param location
+	 * @return response entity
+	 */
+	@RequestMapping(value = "/vp/location/reactivate", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Void> reactivateLocation(@Valid @RequestBody Address location) {
+		log.info("Updating location: " + location);
+		trainingService.update(location);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 
 	/*
 	 *******************************************************

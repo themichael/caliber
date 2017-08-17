@@ -57,6 +57,11 @@
 								data-target="#deleteLocationModal"><span
 									class="glyphicon glyphicon-remove" aria-hidden="true" ng-hide="true"></span></a></td> -->
 							
+							
+								<td ng-if="location.active == 0"><a role="button" class="pull-right"
+								ng-click="populateTheLocation($index)" data-toggle="modal"
+								data-target="#addLocationModal"><span
+									class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
 									
 					</tbody>
 
@@ -74,6 +79,8 @@
 	<div ui-view="edit-location-form"></div>
 	<!-- modal form for deactivating a location -->
 	<div ui-view="delete-location-form"></div>
+	<!-- modal form for reactivating a location -->
+	<div ui-view="add-location-form"></div>
 	<!-- confirm, and error models for locations -->
 	<div ui-view="location-extra-modals"></div>
 </div>
