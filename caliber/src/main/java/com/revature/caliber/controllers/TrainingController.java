@@ -122,6 +122,17 @@ public class TrainingController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	/**
+	 * 
+	 */
+	@RequestMapping(value = "/all/location/getById/{addressId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Address> getAddressById(@Valid @PathVariable String addressId) {
+		log.info("Getting Address with ID " + addressId);
+		Address address = trainingService.getOne(Long.parseLong(addressId));
+		return new ResponseEntity<>(address, HttpStatus.OK);
+	}
+
 	/*
 	 *******************************************************
 	 * TODO TRAINER SERVICES
@@ -247,10 +258,9 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch) {
 		log.info("Saving batch: " + batch);
-		Address address = trainingService.getOne(Long.parseLong(batch.getLocation()));
-		batch.setAddress(address);
-		batch.setLocation(address.getCompany() + ", " + address.getStreet() + " " + address.getCity() + " "
-				+ address.getState() + " " + address.getZipcode());
+		batch.setLocation(batch.getAddress().getCompany() + ", " + batch.getAddress().getStreet() + " "
+				+ batch.getAddress().getCity() + " " + batch.getAddress().getState() + " "
+				+ batch.getAddress().getZipcode());
 		trainingService.save(batch);
 		return new ResponseEntity<>(batch, HttpStatus.CREATED);
 	}
@@ -266,12 +276,11 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
 		log.info("Updating batch: " + batch);
-		batch.setAddress(trainingService.getOne(Long.parseLong(batch.getLocation())));
 		batch.setLocation(batch.getAddress().getCompany() + ", " + batch.getAddress().getStreet() + " "
 				+ batch.getAddress().getCity() + " " + batch.getAddress().getState() + " "
 				+ batch.getAddress().getZipcode());
 		trainingService.update(batch);
-		return new ResponseEntity<>(HttpStatus.MOVED_PERMANENTLY);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	/**
