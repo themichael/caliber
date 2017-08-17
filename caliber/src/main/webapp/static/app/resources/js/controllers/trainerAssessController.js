@@ -429,12 +429,11 @@ angular
 					 * the batch notes for that week Author: Kam Lam
 					 */
 					$scope.getTBatchNote = function (batchId, week){
-							$log.log(batchId,week);
 								caliberDelegate.trainer
 										.getTrainerBatchNote(batchId, week)
 										.then(
 												function(trainerBatchNotes) {
-                                                    if (trainerBatchNotes === undefined || trainerBatchNotes.length === 0) {
+                                                    if (trainerBatchNotes.length === 0) {
                                                     	$log.debug("EMPTY!");
                                                         $scope.trainerBatchNote = null;
 													}else{																								
