@@ -113,12 +113,12 @@ public class BootController extends Helper {
 	 * @throws IOException
 	 */
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
-
 		if (servletRequest.getAttribute("salestoken") instanceof String) {
 			String token = (String) servletRequest.getAttribute("salestoken");
-			log.debug("Parse salesforce token from HttpSession: " + token);
+			log.debug("Parse salesforce token from forwarded request: " + token);
 			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
+		log.debug("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
 
