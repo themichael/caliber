@@ -4,6 +4,7 @@ package com.revature.caliber.controllers;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,6 +45,7 @@ public class SalesforceController {
 	 * @return Batches in JSON
 	 */
 	@RequestMapping(value="/all/batch/import", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC')")
 	public Iterable<Batch> getAllReleventBatches(){
 		return salesforceService.getAllRelevantBatches();
 	}
@@ -53,6 +55,7 @@ public class SalesforceController {
 	 * @return Batches in JSON
 	 */
 	@RequestMapping(value="/all/trainee/import", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public Iterable<Trainee> getAllTraineesFromBatch(@RequestParam String resourceId){
 		return salesforceService.getAllTraineesFromBatch(resourceId);
 	}
@@ -63,6 +66,7 @@ public class SalesforceController {
 	 * @return Batches in JSON
 	 */
 	@RequestMapping(value="/all/batch/import/log", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC')")
 	public String logBatches(){
 		return salesforceService.logBatches();
 	}
