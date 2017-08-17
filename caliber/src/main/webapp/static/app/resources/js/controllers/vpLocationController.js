@@ -16,7 +16,6 @@ angular
 						caliberDelegate.vp.getAllLocations().then(
 								function(locations) {
 									$log.debug(locations);
-									console.log(locations);
 									$scope.allLocations = locations;
 								});
 					})();
@@ -25,7 +24,6 @@ angular
 						caliberDelegate.vp.getAllLocations().then(
 								function(locations) {
 									$log.debug(locations);
-									console.log(locations);
 									$scope.allLocations = locations;
 								});
 					}
@@ -99,10 +97,7 @@ angular
 
 					// to update location
 					$scope.updateLocation = function(locationForm) {
-				/*		console.log($scope.locationForm);
-						$log.debug(locationForm);*/
 						var currentLocation = $scope.locationForm;
-						console.log(currentLocation);
 						// createAddressObject(currentLocation);
 						caliberDelegate.vp.updateLocation(currentLocation)
 								.then(
