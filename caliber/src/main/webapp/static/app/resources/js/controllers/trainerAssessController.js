@@ -432,7 +432,7 @@ angular
 										.getTrainerBatchNote(batchId, week)
 										.then(
 												function(trainerBatchNotes) {
-                                                    if (trainerBatchNotes === undefined || trainerBatchNotes.length === 0) {
+                                                    if (trainerBatchNotes.length === 0) {
                                                     	$log.debug("EMPTY!");
                                                         $scope.trainerBatchNote = null;
 													}else{																								
