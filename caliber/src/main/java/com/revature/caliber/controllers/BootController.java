@@ -9,6 +9,7 @@ import java.net.URLDecoder;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -105,20 +106,18 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * Retrieve the salesforce access_token from the provided cookie
+	 * Retrieve the salesforce access_token from the forwarded request
 	 * 
 	 * @param servletRequest
 	 * @return
 	 * @throws IOException
 	 */
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
-		Cookie[] cookies = servletRequest.getCookies();
-		for (Cookie cookie : cookies) {
-			if (("token").equals(cookie.getName())) {
-				log.debug("Parse salesforce token: " + cookie.getValue());
-				return new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
-						SalesforceToken.class);
-			}
+
+		if (servletRequest.getAttribute("salestoken") instanceof String) {
+			String token = (String) servletRequest.getAttribute("salestoken");
+			log.debug("Parse salesforce token from HttpSession: " + token);
+			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
@@ -199,9 +198,9 @@ public class BootController extends Helper {
 					+ jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
-			
+
 			// check if user is active
-			if(salesforceUser.getCaliberUser().getTier().equals(TrainerRole.ROLE_INACTIVE))
+			if (salesforceUser.getCaliberUser().getTier().equals(TrainerRole.ROLE_INACTIVE))
 				throw new NotAuthorizedException();
 		} else {
 			throw new NotAuthorizedException();

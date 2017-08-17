@@ -2,6 +2,7 @@ package com.revature.caliber.security;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -22,5 +23,5 @@ public interface Authorization {
      * @return back to the application
      * @throws IOException
      */
-    ModelAndView generateSalesforceToken(String code, HttpServletResponse httpServletResponse) throws IOException;
+    ModelAndView generateSalesforceToken(String code, HttpServletResponse httpServletResponse,HttpServletRequest request) throws IOException;
 }
