@@ -330,10 +330,9 @@ angular
 						
 						$scope.currentWeek = $scope.currentBatch.arrayWeeks[index];
 						$log.debug("[***********This is the week selected*************]:  "+$scope.currentWeek);
-	
-						getAllAssessmentsForWeek($scope.currentBatch.batchId,
-								$scope.currentWeek);
-						$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
+
+						getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+                        $scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 					};
 					
 					// active week
