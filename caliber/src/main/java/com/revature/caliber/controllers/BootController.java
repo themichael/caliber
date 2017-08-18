@@ -84,7 +84,7 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "redirect:/static/index";
+			return "index";
 		}
 		// get Salesforce token from cookie
 		try {
@@ -99,7 +99,7 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "redirect:index";
+			return "redirect:/static/index";
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:" ,e);
 			return "redirect:/";
