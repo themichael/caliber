@@ -99,13 +99,17 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "index";
+			return "redirect:/home";
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:" ,e);
 			return "redirect:/";
 		}
 	}
 
+	@RequestMapping(value = "/home")
+	public String sendHome(){
+		return "index";
+	}
 
 	/**
 	 * Retrieve the salesforce access_token from the forwarded request
