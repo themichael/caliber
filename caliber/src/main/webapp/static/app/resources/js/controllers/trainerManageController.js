@@ -246,7 +246,7 @@ angular
 						$scope.trainingName.model = batch.trainingName;
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
-						$scope.location.model = batch.location;
+						$scope.location.model = batch.address;
 						$log.debug("=====testbah=============")
 						$log.debug(batch);
 						$scope.trainer.model = batch.trainer.name;
@@ -382,37 +382,24 @@ angular
 
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
+						var address = $scope.location.model;
 						batch.trainingName = $scope.trainingName.model;
 						batch.trainingType = $scope.trainingType.model;
 						batch.skillType = $scope.skillType.model;
-						batch.location = $scope.location.model;
 						batch.trainer = null;
 						batch.coTrainer = null;
 						batch.startDate = $scope.startDate.model;
 						batch.endDate = $scope.endDate.model;
 						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
 						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
-						caliberDelegate.all
-								.getAddressById(batch.location)
-								.then(
-										function(addressPromise) {
-											batch.address = addressPromise;
-											batch.location = addressPromise.company
-													+ ", "
-													+ addressPromise.street
-													+ " "
-													+ addressPromise.city
-													+ " "
-													+ addressPromise.state
-													+ " "
-													+ addressPromise.zipcode;
-										});
+						batch.location = address.company + ", " + address.city
+								+ " " + address.state + " " + address.zipcode;
+						batch.address = address;
 
 						/*
 						 * if ($scope.currentBatch) { newBatch.batchId =
 						 * $scope.currentBatch.batchId; }
 						 */
-
 						if ($scope.trainer) {
 							var trainer_name = $scope.trainer.model;
 						}
@@ -429,8 +416,6 @@ angular
 								batch.coTrainer = $scope.trainers[i];
 							}
 						}
-						location.reload();
-						// return newBatch;
 					}
 
 					/** reformat dates on batch correctly* */
@@ -442,7 +427,7 @@ angular
 						$log.debug("current satus of Updating.status scope"
 								+ $scope.Updating.status.status);
 						if ($scope.Updating.status) {
-							createBatchObject($scope.currentBatch);
+							createBatchObject($scope.currentBatch)
 							caliberDelegate.all
 									.updateBatch($scope.currentBatch)
 									.then(
