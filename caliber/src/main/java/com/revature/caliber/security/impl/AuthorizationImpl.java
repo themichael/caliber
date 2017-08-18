@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.revature.caliber.security.Authorization;
 import com.revature.caliber.security.models.SalesforceUser;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by louislopez on 1/18/17.
@@ -56,7 +57,8 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	private String redirectUrl;
 	@Value("services/oauth2/revoke")
 	private String revokeUrl;
-
+	@Value("/caliber")
+	private String forwardUrl;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
 
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
@@ -87,11 +89,10 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * Retrieves Salesforce authentication token from Salesforce REST API
 	 * 
 	 * @param code
-	 * @param servletResponse
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-			HttpServletResponse servletResponse, HttpServletRequest request) throws IOException {
+                                                RedirectAttributes redirectAttributes) throws IOException {
 		log.error("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
@@ -104,9 +105,9 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.info("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		request.setAttribute("salestoken", toJsonString(response.getEntity().getContent()));
-		log.error("forwarded to " + FORWARD + redirectUrl);
-		return new ModelAndView(FORWARD + "/caliber");
+	//	request.setAttribute("salestoken", toJsonString(response.getEntity().getContent()));
+		redirectAttributes.addAttribute("salestoken",toJsonString(response.getEntity().getContent()));
+		return new ModelAndView(REDIRECT + redirectUrl);
 	}
 
 	/**
