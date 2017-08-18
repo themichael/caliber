@@ -40,7 +40,7 @@ import com.revature.caliber.security.models.SalesforceUser;
  * The type Boot controller.
  */
 @Controller
-@SessionAttributes("token")
+@SessionAttributes("salestoken")
 public class BootController extends Helper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
@@ -71,7 +71,7 @@ public class BootController extends Helper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
+	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,@ModelAttribute("salestoken") String salesTokenString)
 			throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
@@ -89,7 +89,7 @@ public class BootController extends Helper {
 		// get Salesforce token from cookie
 		try {
 			log.error("About to check for salesforce token");
-			SalesforceToken salesforceToken = getSalesforceToken(servletRequest);
+			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
@@ -99,25 +99,27 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "index";
+			return "redirect:/home";
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:" ,e);
 			return "redirect:/";
 		}
 	}
+	@RequestMapping(value = "/home")
+	public String homePageRedirect(){
+		return "index";
+	}
 
 	/**
 	 * Retrieve the salesforce access_token from the forwarded request
 	 * 
-	 * @param request
+	 * @param token
 	 * @return
 	 * @throws IOException
 	 */
-	private SalesforceToken getSalesforceToken(HttpServletRequest request) throws IOException {
+	private SalesforceToken getSalesforceToken(String token) throws IOException {
 		log.error("Checking for the salesforce token");
-		HttpSession session = request.getSession(false);
-		if (session.getAttribute("salestoken") instanceof  String) {
-			String token = (String) session.getAttribute("salestoken");
+		if (token!=null) {
 			log.error("Parse salesforce token from forwarded request: " + token);
 			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
