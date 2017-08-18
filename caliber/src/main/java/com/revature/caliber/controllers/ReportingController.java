@@ -88,7 +88,7 @@ public class ReportingController {
 	 *******************************************************
 	 */
 	@RequestMapping(value = "/all/reports/batch/week/stacked-bar-current-week", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, Map<QCStatus, Integer>>> getAllBatchesCurrentWeekQCStackedBarChart() {
+	public ResponseEntity<List<Object>> getAllBatchesCurrentWeekQCStackedBarChart() {
 		log.info("getAllBatchesCurrentWeekQCStats   ===>   /all/reports/batch/week/stacked-bar-current-week");
 		return new ResponseEntity<>(reportingService.getAllBatchesCurrentWeekQCStackedBarChart(), HttpStatus.OK);
 	}

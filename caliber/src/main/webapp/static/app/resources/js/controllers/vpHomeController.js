@@ -4,7 +4,8 @@ angular
 				"vpHomeController",
 				function($scope, $log, caliberDelegate, chartsDelegate, $filter) {
 					$log.debug("Booted vp home controller.");
-					$scope.averageScoreData = {};
+					$scope.averageScoreData = [];
+					$scope.auditData = [];
 					$scope.filterState="";
 					(function() {
 						// Finishes any left over ajax animation from another
@@ -65,7 +66,6 @@ angular
 					$scope.onLineCharAddressCityChange = function(city){
 							filterLineChartByCity(city);
 					}
-					
 					
 					
 					var filterLineChartByState = function(state){

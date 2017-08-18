@@ -131,16 +131,20 @@ public class ReportingService {
 	 * Stacked Bar Chart   batchOverAllData
 	 *******************************************************
 	 */
-	public Map<String, Map<QCStatus, Integer>> getAllBatchesCurrentWeekQCStackedBarChart() {
-		Map<String, Map<QCStatus, Integer>> results = new ConcurrentHashMap<>();
+	public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() {
+		List<Object> results = new ArrayList<Object>();
 		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
 		currentBatches.parallelStream().forEach(b -> {
+			Map<String, Object> batchData = new ConcurrentHashMap<>();
 			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(b);
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-					results.put(b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' '))+" - "+ // Trainer first name
-								b.getTrainingName(), temp);   // Batch ID
+					batchData.put("label", b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' '))+" - "+ // Trainer first name
+							b.getTrainingName());
+					batchData.put("address", b.getAddress());
+					batchData.put("qcStatus", temp);   // Batch ID
+					results.add(batchData);
 					break;
 				}
 			}
