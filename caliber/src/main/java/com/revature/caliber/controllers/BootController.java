@@ -105,6 +105,7 @@ public class BootController extends Helper {
 			return "redirect:/";
 		}
 	}
+
 	@RequestMapping(value = "/home")
 	public String homePageRedirect(){
 		return "index";

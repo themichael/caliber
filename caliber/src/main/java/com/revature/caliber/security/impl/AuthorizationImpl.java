@@ -103,7 +103,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		parameters.add(new BasicNameValuePair("redirect_uri", redirectUri));
 		parameters.add(new BasicNameValuePair("code", code));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
-		log.info("Generating Salesforce token");
+		log.error("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
 	//	request.setAttribute("salestoken", toJsonString(response.getEntity().getContent()));
 		redirectAttributes.addAttribute("salestoken",toJsonString(response.getEntity().getContent()));
