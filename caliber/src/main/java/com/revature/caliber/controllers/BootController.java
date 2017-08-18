@@ -85,9 +85,9 @@ public class BootController extends Helper {
 			authorize(jsonString, salesforceUser, servletResponse);
 			return "index";
 		}
-
 		// get Salesforce token from cookie
 		try {
+			log.debug("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(servletRequest);
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
@@ -113,6 +113,7 @@ public class BootController extends Helper {
 	 * @throws IOException
 	 */
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
+		log.debug("Checking for the salesforce tkoen");
 		if (servletRequest.getAttribute("salestoken") instanceof String) {
 			String token = (String) servletRequest.getAttribute("salestoken");
 			log.debug("Parse salesforce token from forwarded request: " + token);
