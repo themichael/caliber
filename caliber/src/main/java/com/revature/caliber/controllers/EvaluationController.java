@@ -140,7 +140,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/all/grade/category/{categoryId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	 @PreAuthorize("hasAnyRole('VP', 'QC')")
+	 @PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public List<Grade> findByCategory(@PathVariable Integer categoryId) {
 		log.info("Finding all grades for category: " + categoryId);
 		return evaluationService.findGradesByCategory(categoryId);
@@ -257,7 +257,7 @@ public class EvaluationController {
 	 * @return 
 	 */
 	@RequestMapping(value = "/trainer/note/trainee/{traineeId}/for/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasRole('VP', 'QC', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Note> findTraineeNote(@PathVariable Integer traineeId, @PathVariable Integer week) {
 		return new ResponseEntity<>(evaluationService.findTraineeNote(traineeId, week), HttpStatus.OK);
 	}

@@ -50,7 +50,7 @@ public class ReportingController {
 	 */
 
 	@RequestMapping(value = "/all/reports/compare/skill/{skill}/training/{training}/date/{startDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Double> getBatchComparisonAvg(@PathVariable String skill, @PathVariable String training,
 			@PathVariable Date startDate) {
 		log.info("YAYAYAYAYAYAYYAYAYAYAYAYAYAYAYAYATEZXRDCYTFUVGBJHLNKJSFSD " + startDate + skill + training);

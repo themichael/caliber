@@ -159,7 +159,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/trainer/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
 	public ResponseEntity<List<Batch>> findAllBatchesByTrainer(Authentication auth) {
 		Trainer userPrincipal = getPrincipal(auth);
 		log.info("Getting all batches for trainer: " + userPrincipal);
@@ -176,7 +176,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasRole('VP', 'TRAINER')")
 	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch) {
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);
@@ -192,7 +192,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
 	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
 		log.info("Updating batch: " + batch);
 		trainingService.update(batch);
@@ -208,7 +208,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasRole('VP', 'TRAINER')")
 	public ResponseEntity<Void> deleteBatch(@PathVariable int id) {
 		Batch batch = new Batch();
 		batch.setBatchId(id);
@@ -225,7 +225,7 @@ public class TrainingController {
 	@RequestMapping(value = {
 			"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
 		log.info("Fetching all current batches");
 		List<Batch> batches = trainingService.findAllCurrentBatches();
@@ -305,7 +305,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasRole('VP', 'TRAINER')")
 	public ResponseEntity<Trainee> createTrainee(@Valid @RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
 		trainingService.save(trainee);
@@ -321,7 +321,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
 	public ResponseEntity<Void> updateTrainee(@Valid @RequestBody Trainee trainee) {
 		log.info("Updating trainee: " + trainee);
 		trainingService.update(trainee);

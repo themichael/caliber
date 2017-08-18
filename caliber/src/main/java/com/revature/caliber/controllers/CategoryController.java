@@ -34,7 +34,7 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "/category/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<List<Category>> findAllCategories() {
 		log.debug("Getting categories");
@@ -44,7 +44,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "/vp/category", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<List<Category>> findAll() {
 		log.debug("Getting categories");
 		List<Category> categories = categoryService.findAll();
@@ -53,7 +53,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Category> findCategoryById(@PathVariable int id) {
 		log.debug("Getting category: " + id);
 		Category category = categoryService.findCategory(id);
