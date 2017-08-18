@@ -131,7 +131,7 @@ public class ReportingService {
 	 * Stacked Bar Chart   batchOverAllData
 	 *******************************************************
 	 */
-	public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() {
+	public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() { // changed to List<Object>
 		List<Object> results = new ArrayList<Object>();
 		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
 		currentBatches.parallelStream().forEach(b -> {
