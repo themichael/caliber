@@ -24,6 +24,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -70,7 +71,7 @@ public class BootController extends Helper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
+	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse, @ModelAttribute("salestoken") String salesTokenString)
 			throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
@@ -88,7 +89,7 @@ public class BootController extends Helper {
 		// get Salesforce token from cookie
 		try {
 			log.error("About to check for salesforce token");
-			SalesforceToken salesforceToken = getSalesforceToken(servletRequest);
+			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
@@ -108,14 +109,13 @@ public class BootController extends Helper {
 	/**
 	 * Retrieve the salesforce access_token from the forwarded request
 	 * 
-	 * @param servletRequest
+	 * @param token
 	 * @return
 	 * @throws IOException
 	 */
-	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
+	private SalesforceToken getSalesforceToken(String token) throws IOException {
 		log.error("Checking for the salesforce tkoen");
-		if (servletRequest.getAttribute("salestoken") instanceof String) {
-			String token = (String) servletRequest.getAttribute("salestoken");
+		if (token!=null) {
 			log.error("Parse salesforce token from forwarded request: " + token);
 			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
