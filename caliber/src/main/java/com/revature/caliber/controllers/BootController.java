@@ -101,7 +101,7 @@ public class BootController extends Helper {
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
             model.asMap().clear();
-			return "index";
+			return "redirect:/home";
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:" ,e);
 			return "redirect:/";
