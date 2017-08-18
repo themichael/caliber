@@ -78,7 +78,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		if (debug) {
 			return new ModelAndView(REDIRECT + redirectUrl);
 		}
-
+		log.debug("redirecting to salesforce authorization");
 		return new ModelAndView(REDIRECT + loginURL + authURL + "?response_type=code&client_id=" + clientId
 				+ "&redirect_uri=" + redirectUri);
 	}
@@ -92,7 +92,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
 			HttpServletResponse servletResponse, HttpServletRequest request) throws IOException {
-
+		log.debug("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
 		List<NameValuePair> parameters = new ArrayList<>();
@@ -106,7 +106,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		HttpResponse response = httpClient.execute(post);
 		request.setAttribute("salestoken", toJsonString(response.getEntity().getContent()));
 		log.debug("forwarded to /caliber");
-		return new ModelAndView(REDIRECT + redirectUrl);
+		return new ModelAndView(FORWARD + redirectUrl);
 	}
 
 	/**
