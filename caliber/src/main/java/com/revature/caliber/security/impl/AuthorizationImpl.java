@@ -91,7 +91,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 * @param code
 	 */
 	@RequestMapping("/authenticated")
-	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
+	public String generateSalesforceToken(@RequestParam(value = "code") String code,
                                                 RedirectAttributes redirectAttributes) throws IOException {
 		log.error("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
@@ -107,7 +107,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		HttpResponse response = httpClient.execute(post);
 	//	request.setAttribute("salestoken", toJsonString(response.getEntity().getContent()));
 		redirectAttributes.addFlashAttribute("salestoken",toJsonString(response.getEntity().getContent()));
-		return new ModelAndView(REDIRECT + redirectUrl);
+		return REDIRECT + redirectUrl;
 	}
 
 	/**
