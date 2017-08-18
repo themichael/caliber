@@ -84,7 +84,7 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "redirect:index";
+			return "redirect:/static/index";
 		}
 		// get Salesforce token from cookie
 		try {
