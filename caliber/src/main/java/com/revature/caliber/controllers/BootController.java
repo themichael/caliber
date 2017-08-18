@@ -99,7 +99,7 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "index";
+			return "redirect:index";
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:" ,e);
 			return "redirect:/";
