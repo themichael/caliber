@@ -71,7 +71,7 @@ public class BootController extends Helper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,@ModelAttribute("salestoken") String salesTokenString)
+	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
@@ -89,7 +89,7 @@ public class BootController extends Helper {
 		// get Salesforce token from cookie
 		try {
 			log.error("About to check for salesforce token");
-			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
+			SalesforceToken salesforceToken = getSalesforceToken(servletRequest);
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
@@ -109,13 +109,15 @@ public class BootController extends Helper {
 	/**
 	 * Retrieve the salesforce access_token from the forwarded request
 	 * 
-	 * @param token
+	 * @param request
 	 * @return
 	 * @throws IOException
 	 */
-	private SalesforceToken getSalesforceToken(String token) throws IOException {
+	private SalesforceToken getSalesforceToken(HttpServletRequest request) throws IOException {
 		log.error("Checking for the salesforce token");
-		if (token!=null) {
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("salestoken") instanceof  String) {
+			String token = (String) session.getAttribute("salestoken");
 			log.error("Parse salesforce token from forwarded request: " + token);
 			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
