@@ -106,7 +106,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		HttpResponse response = httpClient.execute(post);
 		request.setAttribute("salestoken", toJsonString(response.getEntity().getContent()));
 		log.debug("forwarded to /caliber");
-		return new ModelAndView(FORWARD + redirectUrl);
+		return new ModelAndView(REDIRECT + redirectUrl);
 	}
 
 	/**
