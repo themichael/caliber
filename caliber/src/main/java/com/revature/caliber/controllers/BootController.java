@@ -71,7 +71,7 @@ public class BootController extends Helper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse, @ModelAttribute("salestoken") String salesTokenString)
+	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,@ModelAttribute("salestoken") String salesTokenString)
 			throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
@@ -114,7 +114,7 @@ public class BootController extends Helper {
 	 * @throws IOException
 	 */
 	private SalesforceToken getSalesforceToken(String token) throws IOException {
-		log.error("Checking for the salesforce tkoen");
+		log.error("Checking for the salesforce token");
 		if (token!=null) {
 			log.error("Parse salesforce token from forwarded request: " + token);
 			return new ObjectMapper().readValue(token, SalesforceToken.class);
