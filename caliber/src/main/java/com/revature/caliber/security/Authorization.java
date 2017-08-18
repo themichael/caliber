@@ -24,5 +24,5 @@ public interface Authorization {
      * @return back to the application
      * @throws IOException
      */
-    String generateSalesforceToken(String code, RedirectAttributes redirectAttributes) throws IOException;
+    ModelAndView generateSalesforceToken(String code, RedirectAttributes redirectAttributes) throws IOException;
 }
