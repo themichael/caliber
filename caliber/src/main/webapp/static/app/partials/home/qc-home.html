@@ -10,57 +10,29 @@
 </div>
 
 <div class="container">
-
-	<div class="row" ng-if="currentBatchesLineData">
-		<div class>
-			<div class="panel panel-default">
-				<div class="panel-heading">Weekly Progress</div>
-				<div class="container"></div>
-				<div class="panel-body">
-					<div class="chart-container top5">
-						<canvas class="chart chart-line"
-							chart-data="currentBatchesLineData"
-							chart-options="currentBatchesLineOptions"
-							chart-labels="currentBatchesLineLabels"
-							chart-series="currentBatchesLineSeries"
-							chart-colors="currentBatchesLineColors"
-							chart-dataset-override="currentBatchesDsOverride">
-							</canvas>
-					</div>
-					<div>
-						<table ng-if="currentBatchesLineLabels"
-							class="table table-responsive" style="border-collapse: collapse;">
-							<tbody>
-								<tr>
-									<th class="col-sm-1 col-md-1 col-lg-1"></th>
-									<th class="col-sm-1 col-md-1 col-lg-1"
-										ng-repeat="label in currentBatchesLineLabels">{{label}}</th>
-								</tr>
-								<tr
-									ng-repeat="series in currentBatchesLineSeries track by $index">
-									<th class="col-sm-1 col-md-1 col-lg-1">{{series}}</th>
-									<td class="col-sm-1 col-md-1 col-lg-1"
-										ng-repeat="dataPoint in currentBatchesLineData[$index] track by $index">{{dataPoint}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<div class="col-sm-12 col-md-12 col-lg-12">
+
 		<div class="row" ng-if="stackedBarData">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Last Quality Audit</div>
+					<div class="panel-heading">Last Quality Audit
+						<select class="pull-right" ng-model="auditCity" ng-if="auditState.address.state"
+						ng-change="onBarCharAddressCityChange(auditCity.address.city)"
+							ng-options="batch.address.city for batch in auditData |filter:auditState.address.state | unique:'address.city'">
+							<option value="">All Cities</option>
+						</select>
+						<select class="pull-right" ng-model="auditState" 
+							ng-change="onBarCharAddressStateChange(auditState.address.state)" 
+							ng-options="batch.address.state for batch in auditData | unique:'address.state' ">
+							<option value="">All States</option>
+						</select>
+					
+					</div>
 					<div class="panel-body">
-						<div class="chart-container top5">
+						<div class="chart-container top5"> 
 							<canvas class="chart chart-bar" chart-data="stackedBarData"
-								chart-options="stackedBarOptions"
-								chart-labels="stackedBarLabels" chart-series="stackedBarSeries"
-								chart-colors="stackedBarColors">
+								chart-options="stackedBarOptions" chart-labels="stackedBarLabels"
+								chart-series="stackedBarSeries" chart-colors="stackedBarColors">
 							</canvas>
 						</div>
 						<div>
@@ -69,8 +41,7 @@
 								<tbody>
 									<tr>
 										<th class="col-sm-2 col-md-2 col-lg-2"></th>
-										<th class="col-sm-2 col-md-2 col-lg-2"
-											ng-repeat="series in stackedBarSeries">{{series}}</th>
+										<th class="col-sm-2 col-md-2 col-lg-2" ng-repeat="series in stackedBarSeries">{{series}}</th>
 									</tr>
 									<tr ng-repeat="label in stackedBarLabels track by $index">
 										<th class="col-sm-2 col-md-2 col-lg-2">{{label}}</th>
@@ -84,5 +55,57 @@
 				</div>
 			</div>
 		</div>
+
+		<div class='row spinner fa-style' ng-if="!averageScoreData.length">
+			<i style="color: #F26925;" role="button"
+				class="fa fa-spinner fa-spin fa-4x" aria-hidden="true"></i>
+		</div>
+
+		<div class="row" ng-if="currentBatchesLineData">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Weekly Progress 
+						<select class="pull-right" ng-model="selectedCity" ng-if="selectedState.address.state"
+						ng-change="onLineCharAddressCityChange(selectedCity.address.city)"
+							ng-options="batch.address.city for batch in averageScoreData |filter:selectedState.address.state | unique:'address.city'">
+							<option value="">All Cities</option>
+						</select>
+						<select class="pull-right" ng-model="selectedState" 
+							ng-change="onLineCharAddressStateChange(selectedState.address.state)" 
+							ng-options="batch.address.state for batch in averageScoreData | unique:'address.state' ">
+							<option value="">All States</option>
+						</select>
+						
+					</div>
+					<div class="panel-body">
+						<div class="chart-container top5">
+							<canvas class="chart chart-line" chart-data="currentBatchesLineData"
+								chart-options="currentBatchesLineOptions" chart-labels="currentBatchesLineLabels"
+								chart-series="currentBatchesLineSeries" chart-colors="currentBatchesLineColors"
+								chart-dataset-override="currentBatchesDsOverride">
+							</canvas>
+						</div>
+						<div>
+							<table ng-if="currentBatchesLineLabels" class="table table-responsive"
+								style="border-collapse: collapse;">
+								<tbody>
+									<tr>
+										<th class="col-sm-1 col-md-1 col-lg-1"></th>
+										<th class="col-sm-1 col-md-1 col-lg-1"
+											ng-repeat="label in currentBatchesLineLabels">{{label}}</th>
+									</tr>
+									<tr ng-repeat="series in currentBatchesLineSeries track by $index">
+										<th class="col-sm-1 col-md-1 col-lg-1">{{series}}</th>
+										<td class="col-sm-1 col-md-1 col-lg-1"
+											ng-repeat="dataPoint in currentBatchesLineData[$index] track by $index">{{dataPoint}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 </div>

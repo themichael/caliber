@@ -12,10 +12,15 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
+						createDefaultCharts();
+					})();
+					
+					function createDefaultCharts(){
+						NProgress.start();
 						getCurrentBatchesAuditData();
 						getCurrentBatchesAvergeScoreData();
-					})();
-
+					}
+					
 					function createAllBatchesCurrentWeekQCStats(data) {
 											var barChartObj = chartsDelegate.bar
 													.getAllBatchesCurrentWeekQCStats(data);
