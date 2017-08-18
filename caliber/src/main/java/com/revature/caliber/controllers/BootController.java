@@ -87,7 +87,7 @@ public class BootController extends Helper {
 		}
 		// get Salesforce token from cookie
 		try {
-			log.debug("About to check for salesforce token");
+			log.error("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(servletRequest);
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
@@ -100,7 +100,7 @@ public class BootController extends Helper {
 			authorize(jsonString, salesforceUser, servletResponse);
 			return "index";
 		} catch (AuthenticationCredentialsNotFoundException e) {
-			log.debug(e);
+			log.error("error thrown:" ,e);
 			return "redirect:/";
 		}
 	}
@@ -113,13 +113,13 @@ public class BootController extends Helper {
 	 * @throws IOException
 	 */
 	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
-		log.debug("Checking for the salesforce tkoen");
+		log.error("Checking for the salesforce tkoen");
 		if (servletRequest.getAttribute("salestoken") instanceof String) {
 			String token = (String) servletRequest.getAttribute("salestoken");
-			log.debug("Parse salesforce token from forwarded request: " + token);
+			log.error("Parse salesforce token from forwarded request: " + token);
 			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
-		log.debug("failed to parse token from forwarded request: ");
+		log.error("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
 
