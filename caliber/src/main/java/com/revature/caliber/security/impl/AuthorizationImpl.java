@@ -105,7 +105,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		log.info("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
 		request.setAttribute("salestoken", toJsonString(response.getEntity().getContent()));
-		log.error("forwarded to /caliber");
+		log.error("forwarded to" + FORWARD + redirectUrl);
 		return new ModelAndView(FORWARD + redirectUrl);
 	}
 
