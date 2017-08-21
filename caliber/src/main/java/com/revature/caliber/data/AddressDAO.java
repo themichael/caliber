@@ -76,7 +76,9 @@ public class AddressDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Address getAddressById(int id) {
 		log.info("Fetching address with id " + id);
-		return (Address) sessionFactory.getCurrentSession().get(Address.class, id);
+		Address a = (Address) sessionFactory.getCurrentSession().get(Address.class, id);
+		log.info("Got Address " + a);
+		return a;
 	}
 
 	/**
@@ -91,13 +93,14 @@ public class AddressDAO {
 	}
 
 	// /**
-	//  * Deletes a location from the database.
-	//  *
-	//  * @param location
-	//  */
-	// @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	// * Deletes a location from the database.
+	// *
+	// * @param location
+	// */
+	// @Transactional(isolation = Isolation.READ_COMMITTED, propagation =
+	// Propagation.REQUIRED, rollbackFor = Exception.class)
 	// public void delete(Address toDelete) {
-	// 	sessionFactory.getCurrentSession().delete(toDelete);
+	// sessionFactory.getCurrentSession().delete(toDelete);
 	// }
 
 	public Address getOne(long l) {

@@ -255,10 +255,10 @@ angular.module("charts").factory(
 				chartData.labels = [];
 				chartData.colors = [];
 
-				angular.forEach(data, function(value, key) {
-					chartData.labels.push(key);
+				angular.forEach(data, function(batch) {
+					chartData.labels.push(batch.label);
 					var i = 0;
-					angular.forEach(value, function(value2, key2) {
+					angular.forEach(batch.qcStatus, function(value2, key2) {
 						if (chartData.data[i] === undefined) {
 							chartData.data.push([]);
 							chartData.series.push(key2);
