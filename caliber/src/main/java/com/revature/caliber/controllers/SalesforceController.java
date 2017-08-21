@@ -45,7 +45,7 @@ public class SalesforceController {
 	 * @return Batches in JSON
 	 */
 	@RequestMapping(value="/all/batch/import", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public Iterable<Batch> getAllReleventBatches(){
 		return salesforceService.getAllRelevantBatches();
 	}
@@ -55,7 +55,7 @@ public class SalesforceController {
 	 * @return Batches in JSON
 	 */
 	@RequestMapping(value="/all/trainee/import", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public Iterable<Trainee> getAllTraineesFromBatch(@RequestParam String resourceId){
 		return salesforceService.getAllTraineesFromBatch(resourceId);
 	}
@@ -66,7 +66,7 @@ public class SalesforceController {
 	 * @return Batches in JSON
 	 */
 	@RequestMapping(value="/all/batch/import/log", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public String logBatches(){
 		return salesforceService.logBatches();
 	}

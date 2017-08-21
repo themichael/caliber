@@ -123,7 +123,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/trainer/titles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasRole('VP', 'STAGING')")
 	public ResponseEntity<List<String>> getAllTrainersTitles() {
 		log.info("Fetching all trainers titles");
 		List<String> trainers = trainingService.findAllTrainerTitles();
@@ -137,7 +137,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasRole('VP', 'STAGING')")
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 		log.info("Fetching all trainers");
 		List<Trainer> trainers = trainingService.findAllTrainers();
@@ -159,7 +159,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/trainer/batch/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<Batch>> findAllBatchesByTrainer(Authentication auth) {
 		Trainer userPrincipal = getPrincipal(auth);
 		log.info("Getting all batches for trainer: " + userPrincipal);
@@ -225,7 +225,7 @@ public class TrainingController {
 	@RequestMapping(value = {
 			"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
 		log.info("Fetching all current batches");
 		List<Batch> batches = trainingService.findAllCurrentBatches();
@@ -240,7 +240,7 @@ public class TrainingController {
 	@RequestMapping(value = { "/qc/batch/all",
 			"/vp/batch/all" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'QC')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING')")
 	public ResponseEntity<List<Batch>> getAllBatches() {
 		log.info("Fetching all batches");
 		List<Batch> batches = trainingService.findAllBatches();
@@ -266,7 +266,7 @@ public class TrainingController {
 	
 	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasRole('VP', 'STAGING')")
 	public ResponseEntity<List<String>> findCommonLocations() {
 		log.info("Fetching common training locations");
 		return new ResponseEntity<>(trainingService.findCommonLocations(), HttpStatus.OK);
@@ -280,7 +280,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<Trainee>> findAllByBatch(@RequestParam(required = true) Integer batch) {
 		log.info("Finding trainees for batch: " + batch);
 		List<Trainee> trainees = trainingService.findAllTraineesByBatch(batch);
@@ -289,7 +289,7 @@ public class TrainingController {
 
 	@RequestMapping(value = "/all/trainee/dropped", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<Trainee>> findAllDroppedByBatch(@RequestParam(required = true) Integer batch) {
 		log.info("Finding dropped trainees for batch: " + batch);
 		List<Trainee> trainees = trainingService.findAllDroppedTraineesByBatch(batch);
