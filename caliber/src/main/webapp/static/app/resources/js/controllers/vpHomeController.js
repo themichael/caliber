@@ -19,10 +19,25 @@ angular
 						$scope.bnote = null;
 						$scope.faces = [];
 						$scope.weeks = [];
+						$scope.batchesByYear = [];
 						$scope.categories = [];
+						
+						
+						$scope.onClick = function (points,evt){
+							if(points[0]){
+							var barIndex = points[0]._index;
+							console.log(barIndex);
+							start();
+							getNotes();
+							categories();
+							wipeFaces();
+
+							$('#viewLastAudit').modal('toggle');
+							}
+						}
 
 						// function to get notes
-						$scope.getNotes = function() {
+						function getNotes() {
 							// Check if there are no weeks
 							if ($scope.currentWeek !== undefined
 									&& $scope.currentBatch !== undefined
@@ -122,15 +137,15 @@ angular
 						}
 
 						// starting scope vars
-						$log.debug($scope.$parent.currentBatch);
+						$log.log($scope.currentBatch);
 						// If in reports get reports current batch
-						if ($scope.$parent.currentBatch !== undefined) {
+						if ($scope.currentBatch !== undefined) {
 							// Set batch to batch selected in reports if
 							// available
-							$scope.currentBatch = $scope.$parent.currentBatch;
+							$scope.currentBatch = $scope.currentBatch;
 						} else {
 							// Set batch to batch selected on assess page
-							$scope.currentBatch = $scope.batches[0];
+							$scope.currentBatch = $scope.batches[1];
 						}
 
 						// create an array of numbers for number of weeks in the
@@ -144,12 +159,7 @@ angular
 						// default -- view assessments table
 						$scope.currentView = true;
 
-						// Call start function
-						start();
-
-						$scope.getNotes();
-						categories();
-						wipeFaces();
+						
 
 					})();
 					
@@ -193,11 +203,11 @@ angular
 
 						// Set current week to first week
 						// If reports week is selected
-						if ($scope.$parent.reportCurrentWeek !== undefined
-								&& $scope.$parent.reportCurrentWeek !== "(All)") {
+						if ($scope.reportCurrentWeek !== undefined
+								&& $scope.reportCurrentWeek !== "(All)") {
 							$log.debug("Got report week");
 							// Set current week to week selected in report
-							$scope.currentWeek = $scope.$parent.reportCurrentWeek;
+							$scope.currentWeek = $scope.reportCurrentWeek;
 						} else {
 							$log.debug("No report week");
 							// Set week to first week in batch

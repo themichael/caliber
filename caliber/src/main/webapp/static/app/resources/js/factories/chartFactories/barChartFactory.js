@@ -247,14 +247,6 @@ angular.module("charts").factory(
 				} ]
 				return chartData;
 			}
-
-			/* Function to click stacked bar and open modal*/
-			function graphClickEvent(event,array){
-				if(array[0]){
-				    $('#viewLastAudit').modal('toggle');
-				    console.log(array[0]);
-				}
-			}
 			
 			barChart.getAllBatchesCurrentWeekQCStats = function(data) {
 				var chartData = {};
@@ -292,7 +284,6 @@ angular.module("charts").factory(
 							boxWidth : 10
 						}
 					},
-					onClick: graphClickEvent,
 					scales : {
 						yAxes : [ {
 							stacked : true,
