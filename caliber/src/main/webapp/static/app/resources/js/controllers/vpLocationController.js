@@ -12,25 +12,27 @@ angular
 
 					/** On page start --> load all locations * */
 
-					(function(){
+					(function() {
 						caliberDelegate.vp.getAllLocations().then(
 								function(locations) {
 									$log.debug(locations);
+									console.log(locations);
 									$scope.allLocations = locations;
 								});
 					})();
 
-					var loadAllLocations = function(){
+					var loadAllLocations = function() {
 						caliberDelegate.vp.getAllLocations().then(
 								function(locations) {
 									$log.debug(locations);
+									console.log(locations);
 									$scope.allLocations = locations;
 								});
 					}
 
 					// creating scope for location form
 					$scope.locationForm = {
-						addressId : null,
+						addressId : null, 
 						company : null,
 						street : null,
 						city : null,
@@ -39,7 +41,7 @@ angular
 						active : 1
 					};
 
-					// create new Address object
+					// create new Address object 
 					function createAddressObject(location) {
 						location = $scope.locationForm;
 						$log.debug(location);
@@ -55,78 +57,6 @@ angular
 											$log.debug("Location Created: "
 													+ response);
 										});
-					};
-					
-					/** Fill update form with locations previous data */
-					$scope.populateLocation = function(index) {
-						$log.debug($scope.allLocations[index]);
-						$scope.locationForm.company = $scope.allLocations[index].company;
-						$scope.locationForm.street = $scope.allLocations[index].street;
-						$scope.locationForm.city = $scope.allLocations[index].city;
-						$scope.locationForm.state = $scope.allLocations[index].state;
-						$scope.locationForm.zipcode = $scope.allLocations[index].zipcode;
-						$scope.locationForm.active = $scope.allLocations[index].active;
-						$scope.Save = "Update";
-					};
-					
-					$scope.updateLocation1 = function(locationForm) {
-						console.log($scope.locationForm);
-						$log.debug(locationForm);
-						var currentLocation = locationForm;
-						$log.debug(currentLocation);
-						caliberDelegate.vp.updateLocation1(currentLocation)
-						.then(
-								function(response) {
-									loadAllLocations();
-									$log.debug("Location Updated: "
-											+ response);
-								});
-					}
-
-					
-					
-
-					/**
-					 * *********************************************** Code to
-					 * create and update Trainer************
-					 *//*
-
-					// load training tiers
-					caliberDelegate.all.enumTrainerTier().then(function(tiers) {
-						$log.debug(tiers);
-						var filteredTiers = tiers.filter(function(ary) {
-							return ary !== 'ROLE_INACTIVE'
-						});
-						for (var i = 0; i < filteredTiers.length; i++) {
-							filteredTiers[i] = filteredTiers[i].substr(5);
-						}
-						$scope.trainerTiers = filteredTiers;
-					});
-
-					// load tainers titles
-					caliberDelegate.vp.trainersTitles().then(function(titles) {
-						$log.debug(titles);
-						$scope.trainersTitles = titles;
-					});
-
-					*//** Save email verification modal* *//*
-					$scope.checkTrainerEmail = function(trainerForm) {
-						caliberDelegate.vp
-								.getTrainerEmail(trainerForm.email)
-								.then(
-										function(response) {
-											$log.debug(response)
-											if (response.data === "") {
-												$scope.saveTrainer(trainerForm);
-											} else {
-												$log.debug(response)
-												angular
-														.element(
-																"#trainerEmailVerificationModal")
-														.modal("show");
-												return false;
-											}
-										})
 					};
 
 					// ** Resets location form* *//*
@@ -169,7 +99,10 @@ angular
 
 					// to update location
 					$scope.updateLocation = function(locationForm) {
+				/*		console.log($scope.locationForm);
+						$log.debug(locationForm);*/
 						var currentLocation = $scope.locationForm;
+						console.log(currentLocation);
 						// createAddressObject(currentLocation);
 						caliberDelegate.vp.updateLocation(currentLocation)
 								.then(
@@ -180,10 +113,14 @@ angular
 										});
 					};
 
+					// get location from input
+					$scope.populateDeleteLocation = function(index) {
+						$scope.selectedLocation = $scope.allLocations[index];
+					}
 
 					// removing location - deactivate
 					$scope.removeLocation = function() {
-						$scope.selectedLocation.active = 0;
+						$scope.selectedLocation.active = 0; 
 						caliberDelegate.vp.deactivateLocation(
 								$scope.selectedLocation).then(
 								function(response) {
@@ -192,15 +129,15 @@ angular
 								})
 						angular.element("#deleteLocationModal").modal("hide");
 					}
-
+					
 					// get location from input
-					$scope.updateSelectedLocation = function(index) {
+					$scope.populateTheLocation = function(index) {
 						$scope.selectedLocation = $scope.allLocations[index];
 					}
-
+					
 					// add location - reactivate
 					$scope.reactivateLocation = function() {
-						$scope.selectedLocation.active = 1;
+						$scope.selectedLocation.active = 1; 
 						caliberDelegate.vp.reactivateLocation(
 								$scope.selectedLocation).then(
 								function(response) {
@@ -209,4 +146,6 @@ angular
 								})
 						angular.element("#addLocationModal").modal("hide");
 					}
+
+
 				});
