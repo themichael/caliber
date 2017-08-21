@@ -43,16 +43,13 @@
 								<label for="location">Location:</label> <span id="location">{{batchToImport.location}}</span>
 							</div> -->
 						<!-- Dropdown for location -->
-						<div class="form-group col-md-6 col-sm-6"> <!-- Testing -->
-							<label for="commonLocations">Location :</label> <select
-								ng-model="location.model" id="location" required
-								class="form-control" ng-required="true">
-
-								<!-- Options exists in trainer manage controller -->
-								<!-- /src/main/webapp/static/app/resources/js/controllers/trainerManageController.js -->
+						<div class="form-group col-md-6 col-sm-6">
+							<label for="commonLocations">Location :</label>
+							<!-- ng-options is used ass opposed to ng-repeat because an entire object needs to be passed -->
+							<select ng-model="location.model" id="location" required
+								class="form-control" ng-required="true"
+								ng-options="option as (option.company + ', ' + option.street + ' ' + option.city + ' ' + option.state + ' ' + option.zipcode) group by option.state for option in (location.options | orderBy:['state','company']  | filter : {active:1})  track by option.addressId">
 								<option value="" value="">Select Location</option>
-								<!-- To fix -->
-								<option ng-repeat="option in location.options" value={{option.addressId}}>{{option.company}}, {{option.street}} {{option.city}} {{option.state}} {{option.zipcode}}</option>
 							</select>
 						</div>
 						<!-- Dropdown ends -->
