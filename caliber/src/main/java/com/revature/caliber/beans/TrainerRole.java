@@ -21,7 +21,9 @@ public enum TrainerRole implements Serializable{
 	ROLE_QC,
 	@JsonProperty("ROLE_TRAINER")
 	ROLE_TRAINER,
+	@JsonProperty("ROLE_STAGING")
+	ROLE_STAGING,
 	@JsonProperty("ROLE_INACTIVE")
-	ROLE_INACTIVE;
+	ROLE_INACTIVE
 
 }
