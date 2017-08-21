@@ -3,15 +3,16 @@ angular
 		.module("qc")
 		.controller(
 				"qcHomeController",
-				function($rootScope, $scope, $state, $log, caliberDelegate,
-						chartsDelegate, allBatches) {
-					$log.debug("Booted QC home controller.");
-					/*
-					 * ******************************************* On Start
-					 * ***********************************************
-					 */
-
+				function($log, $scope, $filter,
+						chartsDelegate, caliberDelegate, qcFactory, allBatches) {
+					$log.debug("Booted vp home controller.");
 					(function() {
+						// Finishes any left over ajax animation from another
+						// page
+						NProgress.done();
+						createAllBatchesCurrentWeekQCStats();
+						createCurrentBatchesAverageScoreChart();
+
 						/*
 						 * *Moved over code from qcAssessController for modal use
 						 */
@@ -21,13 +22,6 @@ angular
 						$scope.weeks = [];
 						$scope.batchesByYear = [];
 						$scope.categories = [];
-						
-						// Finishes any left over AJAX animation
-						NProgress.done();
-						$log.debug(allBatches);
-						createDefaultCharts();
-						if(!allBatches) 
-							$scope.noBatches = true;
 						
 						//function to grab latest qc information from click event
 						$scope.onClick = function (points,evt){
@@ -183,19 +177,9 @@ angular
 								}
 							}
 						}
-						
+
 					})();
-
-					function createDefaultCharts() {
-						NProgress.start();
-						createAllBatchesCurrentWeekQCStats();
-						createCurrentBatchesAverageScoreChart();
-					}
-
-					/*
-					 * ********************************************* UI
-					 * **************************************************
-					 */
+					
 					// Note object
 					function Note(noteId, content, status, week, batch,
 							trainee, maxVisibility, type, qcFeedback) {
@@ -281,7 +265,7 @@ angular
 						$scope.qcBatchAssess = null;
 						$scope.finalQCBatchNote = null;
 					}
-
+					
 					function createAllBatchesCurrentWeekQCStats() {
 						chartsDelegate.bar.data
 								.getAllBatchesCurrentWeekQCStatsData()
@@ -301,7 +285,6 @@ angular
 											NProgress.done();
 										});
 					}
-
 					function createCurrentBatchesAverageScoreChart() {
 						chartsDelegate.line.data
 								.getCurrentBatchesAverageScoreChartData()
@@ -324,4 +307,3 @@ angular
 					}
 
 				});
-				
