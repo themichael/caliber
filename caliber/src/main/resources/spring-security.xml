@@ -33,7 +33,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			access="permitAll" />
 		<security:intercept-url pattern="/home"
 			access="permitAll" />
-		<security:intercept-url pattern="/" access="isAuthenticated()" />
+		<security:intercept-url pattern="/" access="permitAll" />
 		<security:intercept-url pattern="/caliber/**"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/home/**"
