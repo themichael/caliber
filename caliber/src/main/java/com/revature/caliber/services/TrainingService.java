@@ -70,21 +70,25 @@ public class TrainingService {
 		addressDAO.save(location);
 		;
 	}
+
 	public void update(Address location) {
 		log.debug("Update location: " + location);
 		addressDAO.update(location);
 	}
+
 	public List<Address> findAllLocations() {
 		log.debug("Finding all locations");
 		return addressDAO.findAll();
 	}
 	// public void removeLocation(Address location) {
-	// 	log.debug("Remove location " + location);
-	// 	addressDAO.delete(location);
+	// log.debug("Remove location " + location);
+	// addressDAO.delete(location);
 	// }
 
 	public Address getOne(long l) {
+		log.info("Getting Address with ID " + l);
 		Address address = addressDAO.getOne(l);
+		log.info("Got " + address);
 		return address;
 	}
 
@@ -385,11 +389,5 @@ public class TrainingService {
 		log.debug("Update trainee " + trainee);
 		traineeDAO.update(trainee);
 	}
-
-
-
-
-
-
 
 }
