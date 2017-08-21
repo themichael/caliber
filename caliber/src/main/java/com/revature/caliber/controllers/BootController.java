@@ -101,7 +101,7 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "redirect:/home";
+			return "redirect:/home/";
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:" ,e);
 			return "redirect:/";
@@ -216,8 +216,19 @@ public class BootController extends Helper {
 		// store custom user Authentication obj in SecurityContext
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
 				salesforceUser.getAuthorities());
+		
+		System.out.println("\n\n\n\n");
+		
+		System.out.println(auth.isAuthenticated());
+		
 		SecurityContextHolder.getContext().setAuthentication(auth);
-
+		
+		System.out.println(SecurityContextHolder.getContext().toString());
+		
+		System.out.println(auth.isAuthenticated());
+		
+		System.out.println("\n\n\n\n");
+		
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
 	}
 

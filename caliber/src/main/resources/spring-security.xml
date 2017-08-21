@@ -27,17 +27,22 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			/> -->
 
 		<security:intercept-url pattern="/all/**"
-			access="isAuthenticated()" />
+			access="permitAll" />
 
 		<security:intercept-url pattern="/caliber"
 			access="permitAll" />
 		<security:intercept-url pattern="/home"
 			access="permitAll" />
-		<security:intercept-url pattern="/*" access="isAuthenticated()" />
+		<security:intercept-url pattern="/*" access="permitAll" />
+		
+		<!--
 		<security:intercept-url pattern="/caliber/**"
 			access="isAuthenticated()" />
+		-->
+		<!--
 		<security:intercept-url pattern="/home/**"
 			access="isAuthenticated()" />
+		 -->
 		<security:csrf disabled="true" />
 		<security:logout invalidate-session="true"
 			delete-cookies="token, JSESSIONID" />
@@ -45,11 +50,12 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
-				<security:user authorities="ROLE_VP" name="ROLE_VP" />
+				<!-- <security:user authorities="ROLE_VP" name="ROLE_VP" />
 				<security:user authorities="ROLE_QC" name="ROLE_QC" />
-				<security:user authorities="ROLE_TRAINER" name="ROLE_TRAINER" />
+				<security:user authorities="ROLE_TRAINER" name="ROLE_TRAINER" /> -->
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
+	<!-- <bean id="myAuthenticationProvider" class="com.revature.caliber.security.impl.MyAuthenticationProvider"/> -->
 
 </beans>
