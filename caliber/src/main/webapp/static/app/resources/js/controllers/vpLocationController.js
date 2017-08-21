@@ -69,7 +69,7 @@ angular
 						$scope.Save = "Update";
 					};
 					
-					$scope.updateLocation1 = function(locationForm) {
+					$scope.updateLocation  = function(locationForm) {
 						console.log($scope.locationForm);
 						$log.debug(locationForm);
 						var currentLocation = locationForm;

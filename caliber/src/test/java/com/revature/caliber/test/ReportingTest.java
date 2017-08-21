@@ -1,10 +1,13 @@
 package com.revature.caliber.test;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
@@ -204,4 +207,25 @@ public class ReportingTest extends CaliberTest {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
+	/**
+	 * 
+	 * Test methods:
+	 * @see com.revature.caliber.controller.ReportingController#getCurrentBatchesLineChart()
+	 */
+	@Test
+	public void getWeeklyAverageScore(){
+		log.info("GET ACTIVE BATCHES AVERAGE SCORE BY WEEK");
+		assertNotNull(reportingController.getCurrentBatchesLineChart());
+	}
+	
+	/**
+	 * 
+	 * Test methods:
+	 * @see com.revature.caliber.controller.ReportingController#getAllBatchesCurrentWeekQCStackedBarChart()
+	 */
+	@Test
+	public void getLatestActiveQcStatus(){
+		log.info("GET ACTIVE BATCHES AVERAGE SCORE BY WEEK");
+		assertNotNull(reportingController.getAllBatchesCurrentWeekQCStackedBarChart());
+	}
 }
