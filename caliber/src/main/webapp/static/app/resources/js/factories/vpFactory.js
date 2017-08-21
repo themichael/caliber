@@ -339,6 +339,5 @@ angular
 									return response;
 								});
 					};
-					
 					return vp;
 				});

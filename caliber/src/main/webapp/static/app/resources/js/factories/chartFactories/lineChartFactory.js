@@ -203,11 +203,11 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		};
 	
 		var highestWeek = 0;
-		angular.forEach(dataArray, function(batch) {
+		angular.forEach(dataArray, function(value, key) {
 			var currentWeek = 1;
-			chartData.series.push(batch.label);
+			chartData.series.push(key);
 			var temp = [];
-			angular.forEach(batch.grades, function(value2, key2) {
+			angular.forEach(value, function(value2, key2) {
 				while (currentWeek < key2) {
 					temp.push(0);
 					currentWeek++;

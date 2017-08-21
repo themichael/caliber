@@ -20,21 +20,27 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "CALIBER_ADDRESS")
 public class Address implements Serializable {
 
-	private static final long serialVersionUID = -7886621867644813683L;
+	private static final long serialVersionUID = -2239761786442552051L;
 
 	public Address() {
 		super();
 	}
 
-	public Address(long addressId, String street, String city, String state, String zipcode, String company,
-			int active) {
+	public Address(String street, String city, String state, String zipcode, String company, int active) {
 		super();
-		this.addressId = addressId;
 		this.street = street;
 		this.city = city;
 		this.state = state;
 		this.zipcode = zipcode;
 		this.company = company;
+		this.active = active;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
 		this.active = active;
 	}
 
@@ -56,12 +62,12 @@ public class Address implements Serializable {
 	@Column(name = "ADDRESS_ZIPCODE")
 	private String zipcode;
 
-	@Column(name = "ADDRESS_COMPANY")
+  @Column(name = "ADDRESS_COMPANY")
 	private String company;
-
-	@Column(name = "ACTIVE")
-	private int active;
-
+  
+  @Column(name="ACTIVE")
+  private int active;
+  
 	public long getAddressId() {
 		return addressId;
 	}
@@ -102,20 +108,12 @@ public class Address implements Serializable {
 		this.zipcode = zipcode;
 	}
 
-	public String getCompany() {
+  public String getCompany() {
 		return company;
 	}
 
 	public void setCompany(String company) {
 		this.company = company;
-	}
-
-	public int getActive() {
-		return active;
-	}
-
-	public void setActive(int active) {
-		this.active = active;
 	}
 
 	@Override
@@ -175,6 +173,7 @@ public class Address implements Serializable {
 
 	@Override
 	public String toString() {
-		return company + ", " + street + " " + city + " " + state + " " + zipcode;
+		return "Address [addressId=" + addressId + ", street=" + street + ", city=" + city + ", state=" + state
+				+ ", zipcode=" + zipcode + ", company=" + company + ", active=" + active + "]";
 	}
 }
