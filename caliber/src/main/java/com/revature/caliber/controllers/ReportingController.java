@@ -2,7 +2,6 @@ package com.revature.caliber.controllers;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -88,7 +87,7 @@ public class ReportingController {
 	 *******************************************************
 	 */
 	@RequestMapping(value = "/all/reports/batch/week/stacked-bar-current-week", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Object>> getAllBatchesCurrentWeekQCStackedBarChart() {
+	public ResponseEntity<Map<String, Map<QCStatus, Integer>>> getAllBatchesCurrentWeekQCStackedBarChart() {
 		log.info("getAllBatchesCurrentWeekQCStats   ===>   /all/reports/batch/week/stacked-bar-current-week");
 		return new ResponseEntity<>(reportingService.getAllBatchesCurrentWeekQCStackedBarChart(), HttpStatus.OK);
 	}
@@ -164,7 +163,7 @@ public class ReportingController {
 	}
 
 	@RequestMapping(value = "/all/reports/dashboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Object>> getCurrentBatchesLineChart() {
+	public ResponseEntity<Map<String, Map<Integer, Double>>> getCurrentBatchesLineChart() {
 		log.info("getCurrentBatchesLineChart   ===>  /all/reports/dashboard");
 		return new ResponseEntity<>(reportingService.getAllCurrentBatchesLineChart(), HttpStatus.OK);
 	}

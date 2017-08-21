@@ -117,10 +117,6 @@ public class Batch implements Serializable {
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@OneToMany(mappedBy = "batch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference(value = "traineeAndBatch")
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -147,7 +143,7 @@ public class Batch implements Serializable {
 	/**
 	 * Constructor mostly used for testing. Defaults TrainingType - Revature,
 	 * SkillType - J2EE, Good grade - 80, and Borderline grade - 70
-	 *
+	 * 
 	 * @param trainingName
 	 * @param trainer
 	 * @param startDate
