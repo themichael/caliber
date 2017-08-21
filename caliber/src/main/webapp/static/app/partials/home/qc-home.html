@@ -24,7 +24,8 @@
 							chart-labels="currentBatchesLineLabels"
 							chart-series="currentBatchesLineSeries"
 							chart-colors="currentBatchesLineColors"
-							chart-dataset-override="currentBatchesDsOverride">
+							chart-dataset-override="currentBatchesDsOverride"
+							chart-click="onClick">
 							</canvas>
 					</div>
 					<div>
@@ -85,4 +86,6 @@
 			</div>
 		</div>
 	</div>
+	<!-- Quality Audit view modal -->
+	<div ui-view="qc-quality-audit"></div>
 </div>
