@@ -15,7 +15,7 @@ angular
 					$log.debug("Booted Trainer Aesess Controller");
 										
 					$scope.trainerBatchNote = null;
-					
+
 					// Note object This is needed to create notes for batch.
 					function Note(noteId, content, status, week, batch,
 							trainee, maxVisibility, type, qcFeedback) {
@@ -333,6 +333,7 @@ angular
 	
 						getAllAssessmentsForWeek($scope.currentBatch.batchId,
 								$scope.currentWeek);
+						$scope.getTBatchNote($scope.currentBatch.batchId, $scope.currentWeek);
 					};
 					
 					// active week
@@ -427,16 +428,18 @@ angular
 					 * This function passes the batchID and week param to get
 					 * the batch notes for that week Author: Kam Lam
 					 */
-					$scope.getTBatchNote = function (batchId, week){	
+					$scope.getTBatchNote = function (batchId, week){
 								caliberDelegate.trainer
 										.getTrainerBatchNote(batchId, week)
 										.then(
 												function(trainerBatchNotes) {
-													if (trainerBatchNotes === undefined) {
-														$log.debug("EMPTY!");												
+                                                    if (trainerBatchNotes.length === 0) {
+                                                    	$log.debug("EMPTY!");
+                                                        $scope.trainerBatchNote = null;
 													}else{																								
-													$scope.trainerBatchNote = trainerBatchNotes[0];
-													$log.debug(trainerBatchNotes);}
+														$scope.trainerBatchNote = trainerBatchNotes[0];
+														$log.debug(trainerBatchNotes);
+                                                    }
 												});
 						};
 
@@ -526,7 +529,7 @@ angular
 					$scope.saveTrainerNotes = function(batchNoteId) {
 						$log.debug("Saving note: " + $scope.trainerBatchNote);
 						// Create note
-						if ($scope.trainerBatchNote.noteId === undefined) {
+						if ($scope.trainerBatchNote) {
 							$scope.trainerBatchNote = new Note(
 									null,
 									$scope.trainerBatchNote.content,
@@ -534,13 +537,13 @@ angular
 									$scope.currentWeek,
 									$scope.currentBatch,
 									null, "ROLE_TRAINER",
-									"BATCH", false);	
+									"BATCH", false);
 							caliberDelegate.trainer.createNote($scope.trainerBatchNote).then(
 							// Set id to created notes id
 							function(id) {
 								$scope.trainerBatchNote.noteId = id;
 							});
-						}  
+						}
 						// Update existing note
 						else {
 							$scope.trainerBatchNote = new Note(batchNoteId, $scope.trainerBatchNote.content,
@@ -740,7 +743,7 @@ angular
 										$scope.showCheck = false;
 									},2000).then(function(){
 										$scope.showFloppy = true;
-									});								
+									});
 								});
 							});
 					}
@@ -865,8 +868,8 @@ angular
 						}
 					}
 				/*
-				 * if grade is less than 0 or greater than 100 return true; This will set
-				 * css class .has-error to grade input box - hack
+				 * if grade is less than 0 or greater than 100 return true; This
+				 * will set css class .has-error to grade input box - hack
 				 */
 				$scope.validateGrade=function(grade){
 					if(grade > 0 && grade <=100){
