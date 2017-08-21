@@ -3,6 +3,8 @@ angular.module("auth").factory("authFactory",
 			$log.debug("Booted Authentication Factory");
 
 			var auth = {};
+			var devMode = false;
+			var DEBUG_URL = "/caliber/";
 
 			// Roles
 			var vpRole = "ROLE_VP";
@@ -21,7 +23,6 @@ angular.module("auth").factory("authFactory",
 			var qcHome = "/qc/home";
 			var trainerHome = "/trainer/home";
 
-			//
 			/**
 			 * Retrieves role from cookie
 			 * 
@@ -103,10 +104,14 @@ angular.module("auth").factory("authFactory",
 			auth.authStaging = function () {
 				var role = getCookie();
 
-				if (role === stagingRole)
-					$log.debug("Authenticate staging role");
-				else
-					$log.debug("Not authenticate....");
+                $log.debug("Authorizing staging role");
+
+                if(role !== stagingRole) {
+                	if (devMode)
+                		$location.path(DEBUG_URL);
+                	else
+                		$location.path("/");
+                }
             };
 
 			return auth;
