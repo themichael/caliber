@@ -41,10 +41,11 @@
 						</div>
 						<!-- Dropdown for location -->
 						<div class="form-group col-md-6 col-sm-6">
-							<label for="commonLocations">Location :</label> <select
-								ng-model="location.model" id="location" required
+							<label for="commonLocations">Location :</label>
+							<!-- ng-options is used ass opposed to ng-repeat because an entire object needs to be passed -->
+							<select ng-model="location.model" id="location" required
 								class="form-control" ng-required="true"
-								ng-options="(option.company + ', ' + option.street + ' ' + option.city + ' ' + option.state + ' ' + option.zipcode) for option in location.options | filter : {active:1}">
+								ng-options="option as (option.company + ', ' + option.street + ' ' + option.city + ' ' + option.state + ' ' + option.zipcode) for option in (location.options  | filter : {active:1}) track by option.addressId">
 								<option value="" value="">Select Location</option>
 							</select>
 						</div>

@@ -239,7 +239,7 @@ angular
 
 					/** Fill update form with batch previous data* */
 					$scope.populateBatch = function(batch) {
-						$log.debug(batch);
+						$log.debug(batch)
 						$scope.Save = "Update";
 						$scope.Updating.status = true;
 						$scope.batchFormName = "Update Batch";
@@ -255,12 +255,10 @@ angular
 						} else {
 							$scope.coTrainer.model = ""
 						}
-
 						$scope.startDate.model = batch.startDate;
 						$scope.endDate.model = batch.endDate;
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
-
 					}
 
 					/** Selected import batch* */

@@ -262,7 +262,7 @@ public class TrainingController {
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
-		log.info("Updating batch: " + batch.getAddress());
+		log.info("Updating batch: " + batch);
 		trainingService.update(batch);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
