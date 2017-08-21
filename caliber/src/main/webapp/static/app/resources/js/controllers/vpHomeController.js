@@ -22,19 +22,60 @@ angular
 						$scope.batchesByYear = [];
 						$scope.categories = [];
 						
-						
+						//function to grab latest qc information from click event
 						$scope.onClick = function (points,evt){
 							if(points[0]){
+							
+							//grab index from individual bars in graph	
 							var barIndex = points[0]._index;
-							console.log(barIndex);
+							$scope.currentBatch = $scope.batches[0];
+							
+							//define varibale batchClass to match with label on graph
+							var trainingName = $scope.currentBatch.trainingName;
+							var Tname = trainingName.substring(0,trainingName.indexOf(" "));
+							var trainerName = $scope.currentBatch.trainer.name;
+							var TNname = trainerName.substring(0,trainerName.indexOf(" "));
+							var label = points[0]._model.label;
+							var batchClass = TNname + " - " + Tname;
+							
+							// starting scope vars
+							$log.debug($scope.currentBatch);
+							// If in reports get reports current batch
+							if ($scope.currentBatch !== undefined) {
+								// Set batch to batch selected in reports if
+								// available
+								$scope.currentBatch = $scope.currentBatch;
+							} else {
+								// Set batch to batch selected on assess page
+								$scope.currentBatch = $scope.batches[2];
+							}
+							//While loop to check if label matches defined variable
+							while (label !== batchClass){
+								$scope.currentBatch = $scope.batches[barIndex+1];
+								break;
+							}
+							
+
+							// create an array of numbers for number of weeks in the
+							// batch selected
+							if ($scope.currentBatch) {
+								for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+									$scope.weeks.push(i);
+								}
+							}
+							
 							start();
 							getNotes();
 							categories();
 							wipeFaces();
 
+							//opens modal view
 							$('#viewLastAudit').modal('toggle');
 							}
 						}
+
+						// default -- view assessments table
+						$scope.currentView = true;
 
 						// function to get notes
 						function getNotes() {
@@ -135,31 +176,6 @@ angular
 								}
 							}
 						}
-
-						// starting scope vars
-						$log.log($scope.currentBatch);
-						// If in reports get reports current batch
-						if ($scope.currentBatch !== undefined) {
-							// Set batch to batch selected in reports if
-							// available
-							$scope.currentBatch = $scope.currentBatch;
-						} else {
-							// Set batch to batch selected on assess page
-							$scope.currentBatch = $scope.batches[1];
-						}
-
-						// create an array of numbers for number of weeks in the
-						// batch selected
-						if ($scope.currentBatch) {
-							for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-								$scope.weeks.push(i);
-							}
-						}	
-
-						// default -- view assessments table
-						$scope.currentView = true;
-
-						
 
 					})();
 					
