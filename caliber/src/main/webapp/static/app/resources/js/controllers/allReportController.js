@@ -788,7 +788,19 @@ angular
 						}
 						return clone;
 					};
-					
+
+                    // angular.element('downloadChart').click(function() {
+                    //     html2canvas($("#canvas"), {
+                    //         onrendered: function(canvas) {
+                    //             var imgData = canvas.toDataURL(
+                    //                 'image/png');
+                    //             var doc = new jsPDF('p', 'mm');
+                    //             doc.addImage(imgData, 'PNG', 10, 10);
+                    //             doc.save('sample-file.pdf');
+                    //         }
+                    //     });
+                    // });
+
 					// Gets notes (trainer and QC) for a specific trainee and
 					// the week
 					$scope.getTraineeNote=function(traineeId,weekId){
