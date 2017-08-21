@@ -20,12 +20,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "CALIBER_ADDRESS")
 public class Address implements Serializable {
 
-  private static final long serialVersionUID = -2239761786442552051L;
+	private static final long serialVersionUID = -7886621867644813683L;
 
 	public Address() {
 		super();
 	}
-  
+
 	public Address(long addressId, String street, String city, String state, String zipcode, String company,
 			int active) {
 		super();
@@ -37,7 +37,6 @@ public class Address implements Serializable {
 		this.company = company;
 		this.active = active;
 	}
-
 
 	@Id
 	@Column(name = "ADDRESS_ID")
@@ -62,7 +61,6 @@ public class Address implements Serializable {
 
 	@Column(name = "ACTIVE")
 	private int active;
-
 
 	public long getAddressId() {
 		return addressId;
@@ -112,14 +110,13 @@ public class Address implements Serializable {
 		this.company = company;
 	}
 
-  public int getActive() {
+	public int getActive() {
 		return active;
 	}
 
 	public void setActive(int active) {
 		this.active = active;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -178,7 +175,6 @@ public class Address implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Address [addressId=" + addressId + ", street=" + street + ", city=" + city + ", state=" + state
-				+ ", zipcode=" + zipcode + ", company=" + company + ", active=" + active + "]";
+		return company + ", " + street + " " + city + " " + state + " " + zipcode;
 	}
 }

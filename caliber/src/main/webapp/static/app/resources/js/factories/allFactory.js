@@ -184,18 +184,6 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			return response;
 		});
 	};
-	/** ************************* Address *********************** */
-	all.getAddressById = function(addressId) {
-		return $http({
-			url : "/all/location/getById/" + addressId,
-			method : "GET"
-		}).then(function successCallback(response) {
-			var address = response.data;
-			return address;
-		}, function(response) {
-			return response.data;
-		});
-	};
 
 	/** ************************* Trainee *********************** */
 
