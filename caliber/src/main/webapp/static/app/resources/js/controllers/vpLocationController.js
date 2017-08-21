@@ -69,12 +69,12 @@ angular
 						$scope.Save = "Update";
 					};
 					
-					$scope.updateLocation1 = function(locationForm) {
+					$scope.updateLocation = function(locationForm) {
 						console.log($scope.locationForm);
 						$log.debug(locationForm);
 						var currentLocation = locationForm;
 						$log.debug(currentLocation);
-						caliberDelegate.vp.updateLocation1(currentLocation)
+						caliberDelegate.vp.updateLocation(currentLocation)
 						.then(
 								function(response) {
 									loadAllLocations();
@@ -197,7 +197,8 @@ angular
 					$scope.updateSelectedLocation = function(index) {
 						$scope.selectedLocation = $scope.allLocations[index];
 					}
-
+					
+					
 					// add location - reactivate
 					$scope.reactivateLocation = function() {
 						$scope.selectedLocation.active = 1;

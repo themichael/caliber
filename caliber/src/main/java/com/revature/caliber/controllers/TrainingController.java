@@ -76,7 +76,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public ResponseEntity<Void> updateLocation1(@Valid @RequestBody Address location) {
+	public ResponseEntity<Void> updateLocation(@Valid @RequestBody Address location) {
 		log.info("Updating location: " + location);
 		trainingService.update(location);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
