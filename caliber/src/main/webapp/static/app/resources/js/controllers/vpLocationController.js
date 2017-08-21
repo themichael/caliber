@@ -69,9 +69,9 @@ angular
 						$log.debug(location);
 					}
 					// Create Location
-					$scope.createLocation = function(locationForm) {
+					$scope.createLocation = function() {
 						console.log(locationForm);
-						var newLocation = locationForm;
+						var newLocation = $scope.locationForm;
 						createAddressObject(newLocation);
 						caliberDelegate.vp.createLocation(newLocation)
 								.then(
@@ -93,6 +93,20 @@ angular
 						$scope.locationForm.active = $scope.allLocations[index].active;
 						$scope.Save = "Update";
 					};
+					
+					$scope.updateLocation1 = function(locationForm) {
+						console.log($scope.locationForm);
+						$log.debug(locationForm);
+						var currentLocation = locationForm;
+						$log.debug(currentLocation);
+						caliberDelegate.vp.updateLocation1(currentLocation)
+						.then(
+								function(response) {
+									loadAllLocations();
+									$log.debug("Location Updated: "
+											+ response);
+								});
+					}
 
 					
 					
