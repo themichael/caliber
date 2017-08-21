@@ -1,5 +1,9 @@
 <!--********************************************* Edit Location Modal ************************************-->
+<<<<<<< HEAD
 <form>
+=======
+<form ng-init="preventModalClose()">
+>>>>>>> 4451b8a03d959d1846e46b19382153d56b5cf00c
 	<div class="modal fade" id="editLocationModal" tabindex="-1"
 		role="dialog" aria-labelledby="locationModalLabel">
 		<div class="modal-dialog" role="document">
@@ -104,21 +108,49 @@
 									class="form-control" id="locationZipCode"
 									placeholder="Enter Zipcode" required>
 							</div>
+							
+							<!-- <div class="form-group col-lg-6 col-md-6 col-sm-12">
+								<label for="locationActive">Active Status:</label> <select
+									ng-model="locationForm.active" class="form-control"
+									id="locationActive" ng-required="true">
+									<option value="" disabled>Active Status</option>
+									<option value="0">Deactivate</option>
+									<option value="1">Activate</option>
+								</select>
+							</div> -->
+						</div>
 
-							<div class="form-group col-sm-1 col-md-1">
+						<!-- 	<div class="form-group col-sm-1 col-md-1">
 								<label for="locationName">Active:</label> <br /> <input
 									type="checkbox" ng-checked="locationForm.active"
 									style="text-align: left" ng-model="locationForm.active" />
-							</div>
+							</div> -->
 						</div>
 
 
 
 					</div>
+
 					<div class="modal-footer">
 						<input type="submit" ng-click="updateLocation(locationForm)" ng-value="Save" class="btn btn-primary">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
+
+
+ 					<!-- <div class="modal-footer">
+						<input type="submit" ng-value="Save" class="btn btn-primary">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>  -->
+					 <!-- <div class="modal-footer">
+						<input type="submit" ng-click="updateLocation(locationForm)" ng-value="Save" class="btn btn-primary">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>  -->
+<!-- 					<div class="modal-footer">
+					<input type="submit" ng-value="Save" class="btn btn-primary"
+						data-dismiss="modal" ng-click="updateLocation()">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+
+				</div>
 
 				</div>
 			</div>

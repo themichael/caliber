@@ -382,7 +382,6 @@ angular
 
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
-
 						batch.trainingName = $scope.trainingName.model;
 						batch.trainingType = $scope.trainingType.model;
 						batch.skillType = $scope.skillType.model;
@@ -393,6 +392,21 @@ angular
 						batch.endDate = $scope.endDate.model;
 						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
 						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
+						caliberDelegate.all
+								.getAddressById(batch.location)
+								.then(
+										function(addressPromise) {
+											batch.address = addressPromise;
+											batch.location = addressPromise.company
+													+ ", "
+													+ addressPromise.street
+													+ " "
+													+ addressPromise.city
+													+ " "
+													+ addressPromise.state
+													+ " "
+													+ addressPromise.zipcode;
+										});
 
 						/*
 						 * if ($scope.currentBatch) { newBatch.batchId =

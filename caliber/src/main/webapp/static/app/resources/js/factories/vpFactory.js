@@ -110,7 +110,7 @@ angular
 							data : location
 						}).then(
 								function(response) {
-									$log.debug(location + " Has been Created");
+									$log.debug(location + " Has been saved");
 									$log.debug(response);
 								},
 								function(response) {
@@ -169,7 +169,10 @@ angular
 						return $http({
 							url : "/vp/location/update",
 							method : "PUT",
-							data : locationObj
+							data : locationObj,
+							headers : {
+								"Content-Type" : "application/json"
+							}
 						})
 								.then(
 										function(response) {
@@ -178,7 +181,30 @@ angular
 											$log.debug(response);
 										},
 										function(response) {
-											$log.error("There was an error: "
+											$log.error("There was an error updating the location: "
+													+ response.status);
+											return false;
+										});
+					};
+					
+					// Update selected location active status
+					vp.reactivateLocation = function(locationObj) {
+						return $http({
+							url : "/vp/location/reactivate",
+							method : "PUT",
+							data : locationObj,
+							headers : {
+								"Content-Type" : "application/json"
+							}
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("Location successfully updated.");
+											$log.debug(response);
+										},
+										function(response) {
+											$log.error("There was an error updating the location: "
 													+ response.status);
 											return false;
 										});
@@ -313,5 +339,6 @@ angular
 									return response;
 								});
 					};
+					
 					return vp;
 				});

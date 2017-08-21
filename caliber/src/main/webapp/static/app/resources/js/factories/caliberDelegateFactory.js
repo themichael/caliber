@@ -137,6 +137,9 @@ angular
 					delegate.all.enumTrainerTitle = function() {
 						return allFactory.enumTrainerTitle();
 					}
+					delegate.all.getAddressById = function(addressId) {
+						return allFactory.getAddressById(addressId);
+					}
 
 					/**
 					 * *********************** Trainer
@@ -233,14 +236,17 @@ angular
 					delegate.vp.createTrainer = function(trainerObj) {
 						return vpFactory.createTrainer(trainerObj);
 					};
-					
-					/**Location**/
+
+					/** Location* */
 					delegate.vp.getAllLocations = function() {
 						return vpFactory.getAllLocations();
 					};
-					
+
 					delegate.vp.deactivateLocation = function(locationObj) {
 						return vpFactory.deactivateLocation(locationObj);
+					}
+					delegate.vp.reactivateLocation = function(locationObj) {
+						return vpFactory.reactivateLocation(locationObj);
 					}
 					delegate.vp.updateLocation = function(locationObj) {
 						return vpFactory.updateLocation(locationObj);
@@ -248,11 +254,13 @@ angular
 					delegate.vp.createLocation = function(locationObj) {
 						return vpFactory.createLocation(locationObj);
 					};
+
 					delegate.vp.saveLocation = function(location) {
 						return vpFactory.saveLocation(location);
 					};
 					/****/
 					
+
 					delegate.vp.trainersTitles = function() {
 						return vpFactory.getAllTrainersTitle();
 					};

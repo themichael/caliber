@@ -333,7 +333,11 @@ angular
 											},
 											"location-extra-modals@vp.locations":{
 												templateUrl : "/static/app/partials/locations/location-auxillary-modals.html"
+											},
+											"add-location-form@vp.locations":{
+												templateUrl : "/static/app/partials/locations/add-location-modal.html"
 											}
+											
 										}
 
 									})

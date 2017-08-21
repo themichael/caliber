@@ -49,7 +49,9 @@
 								<!-- /src/main/webapp/static/app/resources/js/controllers/trainerManageController.js -->
 								<option value="" value="">Select Location</option>
 								<!-- To fix -->
-								<option ng-repeat="option in location.options" value={{option.addressId}}>{{option.company}}, {{option.street}} {{option.city}} {{option.state}} {{option.zipcode}}</option>
+								<option
+									ng-repeat="option in location.options | filter : {active:1}"
+									value={{option.addressId}}>{{option.company}}, {{option.street}} {{option.city}} {{option.state}} {{option.zipcode}}</option>
 							</select>
 						</div>
 						<!-- Dropdown ends -->

@@ -1,6 +1,6 @@
 <!--********************************************* Confirm Location Delete Modal ************************************-->
 <form>
-    <div class="modal fade" id="deleteLocationModal" tabindex="0"
+    <div class="modal fade" id="addLocationModal" tabindex="0"
         role="dialog" aria-labelledby="locationModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -9,15 +9,15 @@
                         aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="locationModalLabel">Remove
+                    <h4 class="modal-title" id="locationModalLabel">Reactivate
                         Location</h4>
                 </div>
                 <div class="modal-body">
-                    <h3>Are you sure you want to delete {{selectedLocation.company}}?</h3>
+                    <h3>Are you sure you want to re-activate {{selectedLocation.company}}?</h3>
                     <br />
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" ng-click="removeLocation(selectedLocation)" value="Deactivate"
+                    <input type="submit" ng-click="reactivateLocation(selectedLocation)" value="Reactivate"
                         class="btn btn-lg btn-danger" >
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
