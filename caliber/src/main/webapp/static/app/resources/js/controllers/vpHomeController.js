@@ -20,7 +20,16 @@ angular
 						$scope.faces = [];
 						$scope.weeks = [];
 						$scope.batchesByYear = [];
-						$scope.categories = [];
+						$scope.categories = []; 
+						 
+						//write a function to get qcStatus and loop to assign to batchId 
+						//$scope.qcOverallNotes = ['good', 'awesome', 'superb', 'fantastic', 'outstandiing','golden'];
+					 
+						for (var b in $scope.batches){
+							console.log($scope.batches[b].batchId);
+							//$scope.qcOverallNotes = ['1', '2', '3', '4', '5','6'];
+						}
+						
 						
 						//function to grab latest qc information from click event
 						$scope.onClick = function (points,evt){
@@ -114,6 +123,7 @@ angular
 													else {
 														$scope.bnote = notes;
 														$scope.qcBatchAssess = notes.qcStatus;
+														console.log($scope.qcBatchAssess);
 													}
 												});
 								// Get qc notes for trainees in selected batch
@@ -279,6 +289,21 @@ angular
 											$scope.stackedBarSeries = barChartObj.series;
 											$scope.stackedBarOptions = barChartObj.options;
 											$scope.stackedBarColors = barChartObj.colors;
+											
+											
+											console.log($scope.stackedBarData);
+//											
+											//$scope.stackedBarData.push([1,2,2,3,4,5]);
+											
+//											$scope.stackedBarData[0].overall = 1;
+//											$scope.stackedBarData[1].overall = 2;
+//											$scope.stackedBarData[2].overall = 3;
+//											$scope.stackedBarData[3].overall = 4;
+//											$scope.stackedBarData[4].overall = 34;
+//											$scope.stackedBarData[5].overall = 15;
+											
+											
+											
 
 										}, function() {
 											NProgress.done();
