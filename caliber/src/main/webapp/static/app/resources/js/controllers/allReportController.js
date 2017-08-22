@@ -789,13 +789,15 @@ angular
 						return clone;
 					};
 
-                    //DOWNLOAD CHART AS PDF
+                    //DOWNLOAD INDIVIDUAL CHART AS PDF
 					$scope.downloadChartButton = function ($event){
 						//GET CURRENT ELEMENT'S PARENT'S PARENT'S PARENT
-						var currentTargetElement = $event.target.parentElement.parentElement;
+						var element = $event.target.parentElement.parentElement;
 						var doc = new jsPDF('p', 'mm', 'a4');
-						doc.addHTML(currentTargetElement, function (){
-							doc.save('file.pdf');
+						doc.addHTML(element, function (){
+							// GET CHART TEXT/TITLE FROM PANEL-HEADING
+							var filename = element.childNodes[1].innerText.trim() + '.pdf';
+                            doc.save(filename);
 						});
 					};
 					
