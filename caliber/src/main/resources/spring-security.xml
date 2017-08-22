@@ -36,14 +36,6 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			access="permitAll" />
 		<security:intercept-url pattern="/*" access="permitAll" />
 		
-		<!--
-		<security:intercept-url pattern="/caliber/**"
-			access="isAuthenticated()" />
-		-->
-		<!--
-		<security:intercept-url pattern="/home/**"
-			access="isAuthenticated()" />
-		 -->
 		<security:csrf disabled="true" />
 		<security:logout invalidate-session="true"
 			delete-cookies="token, JSESSIONID" />

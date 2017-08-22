@@ -17,7 +17,6 @@ import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.SalesforceService;
 
 @RestController
-@PreAuthorize("isAuthenticated()")
 public class SalesforceController {
 
 	private static final Logger log = Logger.getLogger(SalesforceController.class);
