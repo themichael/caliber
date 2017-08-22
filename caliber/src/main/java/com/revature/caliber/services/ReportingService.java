@@ -135,7 +135,7 @@ public class ReportingService {
 		List<Object> results = new ArrayList<Object>();
 		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
 		currentBatches.parallelStream().forEach(b -> {
-			Map<String, Object> batchData = new ConcurrentHashMap<>();
+			Map<String, Object> batchData = new HashMap<>();
 			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(b);
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
@@ -397,7 +397,7 @@ public class ReportingService {
 		List<Object> results = new ArrayList<Object>();
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();  // changed to Trainees
 		batches.parallelStream().forEach(batch -> {
-			Map<String, Object> batchObject = new ConcurrentHashMap<>();
+			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 			batchObject.put("label", batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' '))+" - "+ //Trainer First name
 					batch.getTrainingName().substring(0,batch.getTrainingName().indexOf(' ')));
