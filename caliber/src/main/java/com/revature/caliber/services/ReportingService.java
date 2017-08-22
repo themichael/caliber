@@ -390,6 +390,7 @@ public class ReportingService {
 					batch.getTrainingName().substring(0,batch.getTrainingName().indexOf(' ')),   // Batch ID
 					utilAvgBatchOverall(trainees, batch.getWeeks()));
 		});
+		System.out.println();
 		return results;
 	}
 
