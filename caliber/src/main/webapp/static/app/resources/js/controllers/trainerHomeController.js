@@ -110,34 +110,44 @@ angular
 					}
 					
 					// *******************************************************************************
-					// *** ALERT!!!!!!!!!!!!!
+					// ALERT POP UP
+					//      NOTE: This is for existing batches that do not have their locations updated 
+					//       *already-ended batches( old batches) do not need to be updated     
 					//*********************************************************************************
 					$scope.alertPopup = function() {
-						console.log("WHAAAAAAT");
+						
+						
 						caliberDelegate.trainer.getAllBatches()
 						.then(
 								function(batches) {
-									console.log("Inside function(batches")
-									$scope.allBatches = batches;
-									var addressId;
+									// holds all batches that current trainer has
+									$scope.allBatches = batches; 
+									
+									// Holds the address of the a batch
+									var address;
+									
+									// Holds the end-date of a batch
 									var endDate;
+									
+									// get current Date
 									var cd = new Date();
+									
+									// Format the date (in order to do comparison
 									var currentDate =  cd.getFullYear() + "-" + cd.getMonth() + "-" +cd.getDate();
+									
+									// holds the batches that needs to be updated
 									var alertBatches = "";
-									
-									
 									
 									
 									var showAlert = false;
 									
-									console.log("currentDate = " + currentDate)
 									
+									// Iterate through each batch
 									for(var i = 0; i < batches.length; i++) {
-										console.log("current batch: " + i)
 										address = batches[i].address;
 										endDate = batches[i].endDate;
-										console.log("adress null: " + (address===null) + " endDate: " + endDate);
 										
+										// check if the batch needs to be updated
 										if(address === null && currentDate < endDate) {
 											showAlert = true;
 											alertBatches += "" + batches[i].trainingName + "\n";
@@ -145,6 +155,7 @@ angular
 									}
 									
 									if(showAlert) {
+										// TODO if we have time: new alert window style, instead of the alert()
 										alert("Please update the location on the following batches:\n" + alertBatches +"\n\nThank you!");
 									}
 								});
