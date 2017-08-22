@@ -189,6 +189,7 @@ angular.module("auth").factory("authFactory",
 		        			break;
 		        		case stagingRole:
 		        			$log.debug("Changing state to: " + stagingReports);
+		        			break;
 		        		default:
 		        			auth.auth();
 	        		}
