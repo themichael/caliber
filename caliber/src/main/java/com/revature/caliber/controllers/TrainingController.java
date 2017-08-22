@@ -35,7 +35,7 @@ import com.revature.caliber.services.TrainingService;
  *
  */
 @RestController
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 @CrossOrigin(origins = "*")
 public class TrainingController {
 

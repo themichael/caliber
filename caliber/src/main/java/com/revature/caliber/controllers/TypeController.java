@@ -29,7 +29,7 @@ import com.revature.caliber.beans.TrainingType;
  *
  */
 @RestController
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 @RequestMapping(value = "types", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TypeController {
 
