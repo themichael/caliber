@@ -73,63 +73,71 @@ angular
 					}
 					
 					$scope.onLineCharAddressStateChange = function(state){
-						$scope.selectedStateFromLineChar = state;
-						filterLineChartByState(state);
+						if(state!="undefined"){
+							$scope.selectedStateFromLineChar = state;
+							filterLineChartByState(state);
+						}
 					}
-					
+
 					$scope.onLineCharAddressCityChange = function(city){
 						filterLineChartByCity(city);
 					}
-					
+
 					$scope.onBarCharAddressStateChange = function(state){
-						$scope.selectedStateFromBarChar = state;
-						filterBarChartByState(state);
+						if(state!="undefined"){
+							$scope.selectedStateFromBarChar = state;
+							filterBarChartByState(state);
+						}
 					}
-					
+
 					$scope.onBarCharAddressCityChange = function(city){
 						filterBarChartByCity(city);
 					}
-					
-					
+
+
 					var filterLineChartByState = function(state){
 						if(state){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
-								return batch.address.state==state;
+								if(batch.address)
+									return batch.address.state==state;
 							});
 							createCurrentBatchesAverageScoreChart(filteredData);
 						}else{
 							createCurrentBatchesAverageScoreChart($scope.averageScoreData);
 						}
 					}
-					
+
 					var filterLineChartByCity = function(city){
 						if(city){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
-								return batch.address.city==city;
+								if(batch.address)
+									return batch.address.city==city;
 							});
-							createCurrentBatchesAverageScoreChart(filteredData);	
+							createCurrentBatchesAverageScoreChart(filteredData);
 						}else{
 							filterLineChartByState($scope.selectedStateFromLineChar);
 						}
 					}
-					
+
 					var filterBarChartByState = function(state){
 						if(state){
 							var filteredData = $scope.auditData.filter(function(batch){
-								return batch.address.state==state;
+								if(batch.address)
+									return batch.address.state==state;
 							});
 							createAllBatchesCurrentWeekQCStats(filteredData);
 						}else{
 							createAllBatchesCurrentWeekQCStats($scope.auditData);
 						}
 					}
-					
+
 					var filterBarChartByCity = function(city){
 						if(city){
 							var filteredData = $scope.auditData.filter(function(batch){
-								return batch.address.city==city;
+								if(batch.address)
+									return batch.address.city==city;
 							});
-							createAllBatchesCurrentWeekQCStats(filteredData);	
+							createAllBatchesCurrentWeekQCStats(filteredData);
 						}else{
 							filterBarChartByState($scope.selectedStateFromBarChar);
 						}
