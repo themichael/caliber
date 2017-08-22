@@ -247,7 +247,6 @@ angular.module("charts").factory(
 				} ]
 				return chartData;
 			}
-
 			
 			barChart.getAllBatchesCurrentWeekQCStats = function(data) {
 				var chartData = {};
