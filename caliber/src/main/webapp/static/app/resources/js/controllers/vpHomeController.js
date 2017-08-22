@@ -8,7 +8,6 @@ angular
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
-						//createBatchWeekQcOverallBarChart
 						createAllBatchesCurrentWeekQCStats();
 						createCurrentBatchesAverageScoreChart();
 						
@@ -36,9 +35,9 @@ angular
 										});
 					}
 					
-					function createAllBatchesCurrentWeekQCStats() {
+					function createAllBatchesCurrentWeekQCStats(data) {
 						chartsDelegate.bar.data
-								.getAllBatchesCurrentWeekQCStatsData()
+								.getAllBatchesCurrentWeekQCStatsData(data)
 								.then(
 										function(data) {
 											NProgress.done();

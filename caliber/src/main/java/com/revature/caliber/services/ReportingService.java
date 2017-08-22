@@ -131,6 +131,31 @@ public class ReportingService {
 	 * Stacked Bar Chart   batchOverAllData
 	 *******************************************************
 	 */
+	
+	public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() { // changed to List<Object>
+		List<Object> results = new ArrayList<Object>();
+		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
+		currentBatches.parallelStream().forEach(b -> {
+			Map<String, Object> batchData = new ConcurrentHashMap<>();
+			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(b);
+			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
+				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
+				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
+					batchData.put("label", b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' '))+" - "+ // Trainer first name
+							b.getTrainingName());
+					//batchData.put("address", b.getAddress());
+					batchData.put("qcStatus", temp);
+					batchData.put("id", b.getBatchId());// Batch ID
+					//batchData.put("note", b.getBatchNote());
+					results.add(batchData);
+					break;
+				}
+			}
+		});
+		log.info(results);
+		return results;
+	}
+	/*
 	public Map<String, Map<QCStatus, Integer>> getAllBatchesCurrentWeekQCStackedBarChart() {
 		Map<String, Map<QCStatus, Integer>> results = new ConcurrentHashMap<>();
 		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
@@ -149,6 +174,7 @@ public class ReportingService {
 		});
 		return results;
 	}
+	*/
 	
 	public Map<Integer, Map<QCStatus, Integer>> utilSeparateQCTraineeNotesByWeek(Batch batch) {
 		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
@@ -169,13 +195,10 @@ public class ReportingService {
 				}
 			}
 		}
+		log.info(results);
 		return results;
 	}
-	public Note findQCBatchNotes(Integer batchId, Integer week) {
-		//log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
-		System.out.println(noteDAO.findQCBatchNotes(batchId, week));
-		return noteDAO.findQCBatchNotes(batchId, week);
-	}
+	
 	/*
 	 *******************************************************
 	 * Bar Charts

@@ -248,6 +248,7 @@ angular.module("charts").factory(
 				return chartData;
 			}
 
+			/*
 			barChart.getAllBatchesCurrentWeekQCStats = function(data) {
 				var chartData = {};
 				chartData.series = [];
@@ -259,6 +260,35 @@ angular.module("charts").factory(
 					chartData.labels.push(key);
 					var i = 0;
 					angular.forEach(value, function(value2, key2) {
+						if (chartData.data[i] === undefined) {
+							chartData.data.push([]);
+							chartData.series.push(key2);
+							if (key2 === "Superstar")
+								chartData.colors.push("#393fef");
+							else if (key2 === "Good")
+								chartData.colors.push("#18ad18");
+							else if (key2 === "Average")
+								chartData.colors.push("#f9e900");
+							else if (key2 === "Poor")
+								chartData.colors.push("#ea2825");
+						}
+						chartData.data[i].push(value2);
+						i++;
+					});
+
+				});
+				*/
+			barChart.getAllBatchesCurrentWeekQCStats = function(data) {
+				var chartData = {};
+				chartData.series = [];
+				chartData.data = [];
+				chartData.labels = [];
+				chartData.colors = [];
+
+				angular.forEach(data, function(batch) {
+					chartData.labels.push(batch.label);
+					var i = 0;
+					angular.forEach(batch.qcStatus, function(value2, key2) {
 						if (chartData.data[i] === undefined) {
 							chartData.data.push([]);
 							chartData.series.push(key2);
