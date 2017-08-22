@@ -400,7 +400,7 @@ public class ReportingService {
 			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 			batchObject.put("label", batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' '))+" - "+ //Trainer First name
-					batch.getTrainingName().substring(0,batch.getTrainingName().indexOf(' ')));
+					batch.getTrainingName());
 			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
 			batchObject.put("address", batch.getAddress());
 			results.add(batchObject);

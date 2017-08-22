@@ -1,8 +1,8 @@
 package com.revature.caliber.security;
 
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -18,9 +18,9 @@ public interface Authorization {
     /**
      * Creates salesforce token and saves it as a session cookie
      * @param code the string returned from the authURI required for getting token from salesforce
-     * @param httpServletResponse
+     * @param
      * @return back to the application
      * @throws IOException
      */
-    ModelAndView generateSalesforceToken(String code, HttpServletResponse httpServletResponse) throws IOException;
+    ModelAndView generateSalesforceToken(String code, RedirectAttributes redirectAttributes) throws IOException;
 }
