@@ -34,6 +34,7 @@ import com.revature.caliber.services.ReportingService;
  *
  */
 @RestController
+@PreAuthorize("isAuthenticated()")
 public class ReportingController {
 
 	private static final Logger log = Logger.getLogger(ReportingController.class);

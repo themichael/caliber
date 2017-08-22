@@ -16,6 +16,7 @@ import com.revature.caliber.exceptions.PDFGenerationException;
 import com.revature.caliber.services.PDFService;
 
 @RestController
+@PreAuthorize("isAuthenticated()")
 public class PDFController {
 
 	private static final Logger log = Logger.getLogger(PDFController.class);
