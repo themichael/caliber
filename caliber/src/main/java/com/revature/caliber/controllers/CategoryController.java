@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import com.revature.caliber.beans.Category;
 import com.revature.caliber.services.CategoryService;
 
 @RestController
+@PreAuthorize("isAuthenticated()")
 public class CategoryController {
 
 	private static final Logger log = Logger.getLogger(CategoryController.class);

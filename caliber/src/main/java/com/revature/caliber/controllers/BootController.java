@@ -4,12 +4,10 @@ package com.revature.caliber.controllers;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLDecoder;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -101,7 +99,7 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "redirect:/home";
+			return "redirect:/home/";
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:" ,e);
 			return "redirect:/";
@@ -217,7 +215,6 @@ public class BootController extends Helper {
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
 	}
 
