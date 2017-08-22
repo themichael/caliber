@@ -46,7 +46,7 @@ public class TrainingController {
 	public void setTrainingService(TrainingService trainingService) {
 		this.trainingService = trainingService;
 	}
-	
+
 	/*
 	 *******************************************************
 	 * TODO TRAINER SERVICES
@@ -95,7 +95,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/training/trainer/byemail/{email}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-//	@PreAuthorize("hasRole('VP')")
+	// @PreAuthorize("hasRole('VP')")
 	@PreAuthorize("permitAll")
 	public ResponseEntity<Trainer> findTrainer(@PathVariable String email) {
 		log.info("Find trainer by email " + email);
@@ -251,8 +251,7 @@ public class TrainingController {
 	}
 
 	/**
-	 * Adds a new week to the batch. Increments counter of total_weeks in
-	 * database
+	 * Adds a new week to the batch. Increments counter of total_weeks in database
 	 * 
 	 * @param batchId
 	 * @return
@@ -265,7 +264,7 @@ public class TrainingController {
 		trainingService.addWeek(batchId);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-	
+
 	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'STAGING')")

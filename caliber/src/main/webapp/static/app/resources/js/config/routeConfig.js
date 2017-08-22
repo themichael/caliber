@@ -100,7 +100,7 @@ angular
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authManage();
 										}
@@ -119,7 +119,7 @@ angular
 												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authAudit();
 										}
@@ -152,7 +152,7 @@ angular
 												controller : "qcAssessController"
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authReports();
 										}
@@ -232,7 +232,7 @@ angular
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authManage();
 										}
@@ -255,7 +255,7 @@ angular
 
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authAssess();
 										}
@@ -287,7 +287,7 @@ angular
 												controller : "qcAssessController"
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authReports();
 										}
@@ -359,7 +359,7 @@ angular
 												templateUrl : "/static/app/partials/trainers/trainer-auxillary-modals.html"
 											}
 										},
-										//authorize the users
+										// authorize the users
 										onEnter : function(authFactory) {
 											authFactory.authTrainers();
 										},
@@ -382,7 +382,7 @@ angular
 												templateUrl : "/static/app/partials/category/edit-category-modals.html"
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authCategory();
 										}
@@ -417,7 +417,7 @@ angular
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authManage();
 										}
@@ -442,7 +442,7 @@ angular
 
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authAssess();
 										}
@@ -467,7 +467,7 @@ angular
 
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authAudit();
 										}
@@ -499,7 +499,7 @@ angular
 												controller : "qcAssessController"
 											}
 										},
-										//authorize the user
+										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authReports();
 										}
@@ -507,10 +507,11 @@ angular
 									})
 
                             /**
-                             * Staging role
-                             *
-                             * Reusing qc's controllers because staging and qc are the same except for access to some states
-                             */
+							 * Staging role
+							 * 
+							 * Reusing qc's controllers because staging and qc
+							 * are the same except for access to some states
+							 */
                         .state("staging",
                             {
                                 abstract: true,
@@ -534,7 +535,9 @@ angular
                             {
                                 templateUrl: "/static/app/partials/home/staging-home.html",
                                 url: "/home",
-                                controller: "qcHomeController" // because they are similar roles
+                                controller: "qcHomeController" // because they
+																// are similar
+																// roles
                             }
                         )
 
@@ -547,7 +550,7 @@ angular
                                         controller: "allReportController"
                                     }
                                 },
-                                //authorize the user
+                                // authorize the user
                                 onEnter : function(authFactory) {
 									authFactory.authReports();
 								}

@@ -48,8 +48,8 @@ public class AssessmentController {
 	 */
 
 	/**
-	 * QC can no longer create assessment, trainer only function
-	 * Create assessment response entity.
+	 * QC can no longer create assessment, trainer only function Create assessment
+	 * response entity.
 	 *
 	 * @param assessment
 	 *            the assessment
@@ -95,7 +95,7 @@ public class AssessmentController {
 	public ResponseEntity<Assessment> updateAssessment(@Valid @RequestBody Assessment assessment) {
 		log.info("Updating assessment: " + assessment);
 		assessmentService.update(assessment);
-		return new ResponseEntity<>(assessment,HttpStatus.OK);
+		return new ResponseEntity<>(assessment, HttpStatus.OK);
 	}
 
 	/**
@@ -114,6 +114,5 @@ public class AssessmentController {
 		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, week);
 		return new ResponseEntity<>(assessments, HttpStatus.OK);
 	}
-	
-}
 
+}
