@@ -23,7 +23,7 @@ import com.revature.caliber.beans.Category;
 import com.revature.caliber.services.CategoryService;
 
 @RestController
-//@PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 public class CategoryController {
 
 	private static final Logger log = Logger.getLogger(CategoryController.class);
