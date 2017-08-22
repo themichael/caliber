@@ -58,11 +58,20 @@ angular
 									})
 							.state(
 									"qc.home",
-									{
+									{ 
 										url : "/home",
-										templateUrl : "/static/app/partials/home/qc-home.html",
-										controller : "qcHomeController"
-									})
+										/* add modal view to vpHome page */
+										views: {
+											"" : {
+												templateUrl : "/static/app/partials/home/qc-home.html",
+												controller : "qcHomeController"
+											},
+											"qc-quality-audit@qc.home" : {
+												templateUrl : "/static/app/partials/home/view-audit-modal.html"
+											},
+										}
+										
+									})		
 							.state(
 									"qc.manage",
 									{
@@ -314,10 +323,19 @@ angular
 									})
 							.state(
 									"vp.home",
-									{
-										templateUrl : "/static/app/partials/home/vp-home.html",
+									{ 
 										url : "/home",
-										controller : "vpHomeController"
+										/* add modal view to vpHome page */
+										views: {
+											"" : {
+												templateUrl : "/static/app/partials/home/vp-home.html",
+												controller : "vpHomeController"
+											},
+											"qc-quality-audit@vp.home" : {
+												templateUrl : "/static/app/partials/home/view-audit-modal.html"
+											},
+										}
+										
 									})
 							.state(
 									"vp.trainers",

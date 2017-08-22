@@ -23,26 +23,26 @@ angular.module("auth").factory("authFactory",
 			var qcHome = "/qc/home";
 			var trainerHome = "/trainer/home";
 			
-			var vpManage = "vp.manage";
-			var qcManage = "qc.manage";
-			var trainerManage = "/trainer/home";
-			
-			var vpAudit = "vp.audit";
-			var qcAudit = "qc.audit";
-			
-			var vpReports = "vp.reports";
-			var qcReports = "qc.reports";
-			var trainerReports = "trainer.reports";
-			var stagingReports = "staging.reports";
-			
-			var trainerImport = "trainer.import";
-			
-			var vpAssess = "vp.assess";
-			var trainerAssess = "trainer.assess";
-			
-			var vpCategory = "vp.category";
-			
-			var vpTrainers = "vp.trainers";
+//			var vpManage = "vp.manage";
+//			var qcManage = "qc.manage";
+//			var trainerManage = "/trainer/home";
+//			
+//			var vpAudit = "vp.audit";
+//			var qcAudit = "qc.audit";
+//			
+//			var vpReports = "vp.reports";
+//			var qcReports = "qc.reports";
+//			var trainerReports = "trainer.reports";
+//			var stagingReports = "staging.reports";
+//			
+//			var trainerImport = "trainer.import";
+//			
+//			var vpAssess = "vp.assess";
+//			var trainerAssess = "trainer.assess";
+//			
+//			var vpCategory = "vp.category";
+//			
+//			var vpTrainers = "vp.trainers";
 
 			/**
 			 * Retrieves role from cookie

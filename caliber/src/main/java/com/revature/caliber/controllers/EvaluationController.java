@@ -28,6 +28,7 @@ import com.revature.caliber.services.EvaluationService;
  *
  */
 @RestController
+@PreAuthorize("isAuthenticated()")
 public class EvaluationController {
 
 	private static final Logger log = Logger.getLogger(EvaluationController.class);
