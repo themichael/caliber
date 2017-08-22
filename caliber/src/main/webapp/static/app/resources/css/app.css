@@ -474,3 +474,10 @@ a.save-button .fa-floppy-o {
 .editAssessModal {
 	font-family: 'Futura-Std-Book';
 }
+/*
+CHANGE CURSOR TO POINTER
+INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
+ */
+.clickableIcons {
+	cursor: pointer;
+}
