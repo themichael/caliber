@@ -108,5 +108,46 @@ angular
 										});
 
 					}
+					
+					// *******************************************************************************
+					// *** ALERT!!!!!!!!!!!!!
+					//*********************************************************************************
+					$scope.alertPopup = function() {
+						console.log("WHAAAAAAT");
+						caliberDelegate.trainer.getAllBatches()
+						.then(
+								function(batches) {
+									console.log("Inside function(batches")
+									$scope.allBatches = batches;
+									var addressId;
+									var endDate;
+									var cd = new Date();
+									var currentDate =  cd.getFullYear() + "-" + cd.getMonth() + "-" +cd.getDate();
+									var alertBatches = "";
+									
+									
+									
+									
+									var showAlert = false;
+									
+									console.log("currentDate = " + currentDate)
+									
+									for(var i = 0; i < batches.length; i++) {
+										console.log("current batch: " + i)
+										address = batches[i].address;
+										endDate = batches[i].endDate;
+										console.log("adress null: " + (address===null) + " endDate: " + endDate);
+										
+										if(address === null && currentDate < endDate) {
+											showAlert = true;
+											alertBatches += "" + batches[i].trainingName + "\n";
+										}
+									}
+									
+									if(showAlert) {
+										alert("Please update the location on the following batches:\n" + alertBatches +"\n\nThank you!");
+									}
+								});
+					}
 
 				});
