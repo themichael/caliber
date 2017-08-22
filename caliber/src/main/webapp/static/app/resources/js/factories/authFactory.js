@@ -26,6 +26,7 @@ angular.module("auth").factory("authFactory",
 			 * @returns A cookie that contains the role
 			 */
 			function getCookie() {
+				$log.log($cookies.get("role"));
 				return $cookies.get("role");
 			}
 
