@@ -44,10 +44,11 @@ http://www.springframework.org/schema/security/spring-security.xsd">
   	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
-				<security:user authorities="ROLE_VP" name="ROLE_VP" />
+ 				<security:user authorities="ROLE_VP" name="ROLE_VP" />
 				<security:user authorities="ROLE_QC" name="ROLE_QC" />
 				<security:user authorities="ROLE_TRAINER" name="ROLE_TRAINER" />
-			</security:user-service>
+ 				<security:user authorities="ROLE_STAGING" name="ROLE_STAGING" />
+ 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>
