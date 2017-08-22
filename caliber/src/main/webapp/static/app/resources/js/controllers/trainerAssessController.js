@@ -53,7 +53,7 @@ angular
 													$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);
 												}
 											});
-					 }
+					 };
 						$scope.assignTraineeScope = function(traineeId){
 							if($scope.trainees[traineeId] === undefined){
 								$scope.trainees[traineeId] = {};
@@ -62,7 +62,7 @@ angular
 								$scope.trainees[traineeId].burrito=false;
 							}								
 							return $scope.trainees[traineeId];							
-						}
+						};
 						$scope.updateTraineeScopeWithCurrentAssessment = function(assessments){
 							angular.forEach($scope.trainees,function(key,value){
 								for(const a in assessments){
@@ -470,7 +470,7 @@ angular
 											$scope.currentBatch.arrayWeeks = [];
 											// create array of assessments
 											// mapped by assessment Id;
-											$scope.assessmentsById=[]
+											$scope.assessmentsById=[];
 											
 											$scope.generateArrAssessmentById(data);
 											$scope.updateTraineeScopeWithCurrentAssessment($scope.currentAssessments);
@@ -502,7 +502,7 @@ angular
 											$scope.getTraineeBatchNotesForWeek($scope.currentBatch.batchId, $scope.currentWeek);
 										});
 										
-					};
+					}
 					/** Call an all factory method - jack* */
 					$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
 						caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
@@ -515,7 +515,7 @@ angular
 											}
 										},4000);															
 							});
-					}
+					};
 					
 					/** *******Save TrainerBatch Notes********** */	
 					/*
@@ -550,7 +550,7 @@ angular
 									null, $scope.currentWeek, $scope.currentBatch, null, "ROLE_TRAINER", "BATCH", false);
 							caliberDelegate.trainer.updateNote($scope.trainerBatchNote);
 						}
-					}
+					};
 					/*
 					 * Array of assessments by assessment id used to store raw
 					 * score and to calculate weight score - jack
@@ -569,14 +569,14 @@ angular
 								.weightedScore = $scope.getWeightedScore(
 										$scope.assessmentsById[a.assessmentId].rawScore
 										,totalRawScore
-										).toFixed(0).toString() + '%';;
+										).toFixed(0).toString() + '%';
 							}
 						}
-					}
+					};
 					/* Get weighted score of assessments- jack */
 					$scope.getWeightedScore = function(rawScore,totalRawScore){
 						return (rawScore/totalRawScore) * 100;
-					}
+					};
 
 					/**
 					 * Updates Grade if exists, else create new Grade, then
@@ -635,7 +635,7 @@ angular
 										$scope.doGetAllAssessmentsAvgForWeek($scope.currentBatch.batchId,$scope.currentWeek);									
 									});
 						}
-					}
+					};
 					/* Run when populating input boxes with grades - jack */
 					$scope.findGrade = function(traineeId, assessmentId) {
 							if(!$scope || !$scope.grades || !traineeId || $scope.grades[traineeId] === undefined){ 
@@ -664,7 +664,7 @@ angular
 					 * - save trainee note - send to "/note/update" By Jack
 					 */					 
 					$scope.saveOrUpdateTraineeNote=function(traineeId){
-						var traineeNote = $scope.trainees[traineeId].note
+						var traineeNote = $scope.trainees[traineeId].note;
 						var trainee = $scope.currentBatch.trainees.filter(function(trainee) {
 							  return trainee.traineeId === traineeId;
 							});
@@ -675,7 +675,7 @@ angular
 								trainee:trainee[0],
 								type:"TRAINEE",
 								batch:$scope.currentBatch
-						}
+						};
 						// if noteId exists, add it to noteObj to get noteObj in
 						// db to update
 						if($scope.trainees[traineeId].note.noteId !== undefined){
@@ -686,11 +686,11 @@ angular
 							return response;
 						}).then(function(response){
 							// set persisted note object into trainee.note
-							$log.debug("setting response note obj to trainee scope note obj")
+							$log.debug("setting response note obj to trainee scope note obj");
 							$scope.trainees[response.data.trainee.traineeId].note = response.data
 						});
 					
-					}
+					};
 					
 // ----------------> double check if this is a useless method
 /*
@@ -724,14 +724,14 @@ angular
 								}
 							}
 						return $scope.assessmentTotals[assessment.assessmentId].total / $scope.assessmentTotals[assessment.assessmentId].count ;
-					}
+					};
 
 					/** *Save Button ** */
 					$scope.showSaving = false;
 					$scope.showCheck = false;
 					$scope.showFloppy = true;
 					$scope.doBurrito =function(){
-							$scope.showFloppy = false
+							$scope.showFloppy = false;
 							$timeout(function(){
 								$scope.showSaving=true;								
 							},480).then(function(){
@@ -746,11 +746,11 @@ angular
 									});
 								});
 							});
-					}
+					};
 					
 					$scope.stopBurrito = function(traineeId){
 						$scope.trainees[traineeId].burrito=false;
-					}
+					};
 					
 					$scope.reloadController = function() {
 			            $state.reload();
@@ -803,7 +803,7 @@ angular
 								if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
 									caliberDelegate.trainer.updateAssessment(assessment)
 									.then(function(response){
-										$log.debug("the assessment has been updated")
+										$log.debug("the assessment has been updated");
 										return response;
 									}).then(function(response){
 									$('.modal').modal('hide');										
@@ -814,7 +814,7 @@ angular
 								}
 							}
 							$('.modal').modal('hide');
-						}
+						};
 						
 					
 					
@@ -850,11 +850,11 @@ angular
 							e.stopPropagation();
 						    $(".modal").modal("hide");
 						});
-					}
+					};
 					
 					$scope.closeModal = function(str){
 						$('#'+str).modal('toggle');
-					}
+					};
 
 					// this method will return the proper string
 					// depending if there is an average for the week or not
@@ -866,7 +866,7 @@ angular
 							$scope.isThereAvgForWeek = false;
 							return "Calculating Weekly Batch Avg ";
 						}
-					}
+					};
 				/*
 				 * if grade is less than 0 or greater than 100 return true; This
 				 * will set css class .has-error to grade input box - hack
@@ -877,10 +877,10 @@ angular
 					}else if(grade === undefined || grade > 100 ||grade < 0 ){
 						return true;
 					}
-				}
+				};
 				$scope.returnGradeFormName = function(assessment){
 					$log.debug(assessment);
-				}
+				};
 				
 				// Get categories for the week
 				function categories() {

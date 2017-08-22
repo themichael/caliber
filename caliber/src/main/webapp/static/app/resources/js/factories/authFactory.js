@@ -3,23 +3,26 @@ angular.module("auth").factory("authFactory",
 			$log.debug("Booted Authentication Factory");
 
 			var auth = {};
+			var devMode = false;
+			var DEBUG_URL = "/caliber/";
 
 			// Roles
 			var vpRole = "ROLE_VP";
 			var qcRole = "ROLE_QC";
 			var trainerRole = "ROLE_TRAINER";
+			var stagingRole = "ROLE_STAGING";
 
 			// home states
 			var vpState = "vp.home";
 			var qcState = "qc.home";
 			var trainerState = "trainer.home";
+			var stagingState = "staging.home";
 
 			// home
 			var vpHome = "/vp/home";
 			var qcHome = "/qc/home";
 			var trainerHome = "/trainer/home";
 
-			//
 			/**
 			 * Retrieves role from cookie
 			 * 
@@ -37,12 +40,25 @@ angular.module("auth").factory("authFactory",
 			 */
 			auth.auth = function() {
 				var role = getCookie();
-				if (role === trainerRole)
-					$state.go(trainerState);
-				else if (role === qcRole)
-					$state.go(qcState);
-				else
-					$state.go(vpState);
+
+                switch (role) {
+					case trainerRole:
+					    $log.debug("Changing state to: " + trainerState);
+						$state.go(trainerState);
+						break;
+					case qcRole:
+                        $log.debug("Changing state to: " + qcState);
+						$state.go(qcState);
+						break;
+					case vpRole:
+                        $log.debug("Changing state to: " + vpState);
+						$state.go(vpState);
+						break;
+					case stagingRole:
+                        $log.debug("Changing state to: " + stagingState);
+						$state.go(stagingState);
+						break;
+                }
 			};
 
 			/**
@@ -85,6 +101,19 @@ angular.module("auth").factory("authFactory",
 				else
 					$location.path(vpHome);
 			};
+
+			auth.authStaging = function () {
+				var role = getCookie();
+
+                $log.debug("Authorizing staging role");
+
+                if(role !== stagingRole) {
+                	if (devMode)
+                		$location.path(DEBUG_URL);
+                	else
+                		$location.path("/");
+                }
+            };
 
 			return auth;
 		});
