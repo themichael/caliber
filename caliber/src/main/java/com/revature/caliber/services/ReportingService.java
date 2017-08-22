@@ -134,6 +134,7 @@ public class ReportingService {
 	public Map<String, Map<QCStatus, Integer>> getAllBatchesCurrentWeekQCStackedBarChart() {
 		Map<String, Map<QCStatus, Integer>> results = new ConcurrentHashMap<>();
 		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
+		//List<Note> currentNotes = NoteDAO.findAllBatchQcNotes(1);
 		currentBatches.parallelStream().forEach(b -> {
 			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(b);
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
@@ -144,10 +145,11 @@ public class ReportingService {
 					break;
 				}
 			}
+			System.out.println();
 		});
 		return results;
 	}
-
+	
 	public Map<Integer, Map<QCStatus, Integer>> utilSeparateQCTraineeNotesByWeek(Batch batch) {
 		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
 		Map<QCStatus, Integer> qcStatsMapTemplate = new LinkedHashMap<>();
@@ -169,6 +171,11 @@ public class ReportingService {
 		}
 		return results;
 	}
+	public Note findQCBatchNotes(Integer batchId, Integer week) {
+		//log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
+		System.out.println(noteDAO.findQCBatchNotes(batchId, week));
+		return noteDAO.findQCBatchNotes(batchId, week);
+	}
 	/*
 	 *******************************************************
 	 * Bar Charts
@@ -180,12 +187,21 @@ public class ReportingService {
 	 * 
 	 * @param batchId
 	 * @param weekId
-	 * @param noteTyoe
+	 * @param noteType
 	 * @return
 	 */
+	
+	/*
 	public Object getBatchWeekQcOverallBarChart(Integer batchId, Integer weekId, String noteType) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	*/
+	
+	public Note getBatchWeekQcOverallBarChart(Integer batchId, Integer week) {
+		//log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
+		System.out.println(noteDAO.findQCBatchNotes(batchId, week));
+		return noteDAO.findQCBatchNotes(batchId, week);
 	}
 	
 	/**

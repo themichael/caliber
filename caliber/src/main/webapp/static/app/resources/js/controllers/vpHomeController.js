@@ -11,6 +11,9 @@ angular
 						//createBatchWeekQcOverallBarChart
 						createAllBatchesCurrentWeekQCStats();
 						createCurrentBatchesAverageScoreChart();
+						
+						
+						
 					})();
 
 					function createBatchWeekQcOverallBarChart() {
@@ -20,7 +23,7 @@ angular
 										function(data) {
 											NProgress.done();
 											var barChartObj = chartsDelegate.bar
-													.getBatchWeekAvgBarChart(data);
+													.getBatchWeekQcOverallBarChart(data);
 
 											$scope.overallBarData = barChartObj.data;
 											$scope.overallBarLabels = barChartObj.labels;

@@ -12,28 +12,12 @@
 <div class="container">
 	<div class="col-sm-12 col-md-12 col-lg-12">
 
-		<!-- Overall batch health bar chart	 -->	
-			
-		<div class="row" ng-if="stackedBarData">
-			<div class="col-sm-12 col-md-12 col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">Most Recent Overall Batch Quality Audit</div>
-					<div class="panel-body">
-						<div class="chart-container top5">
-							<canvas class="chart chart-bar" chart-data="overallBarData"
-								chart-options="overallBarOptions" chart-labels="overallBarLabels"
-								chart-series="overallBarSeries" chart-colors="overallBarColors">
-							</canvas>
-						</div>						
-					</div>
-				</div>
-		
 		<!-- Batch health stacked bar chart	 -->
 		
 		<div class="row" ng-if="stackedBarData">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Most Recent Batch Quality Audit Breakdown</div>
+					<div class="panel-heading">Most Recent Batch Quality Audit</div>
 					<div class="panel-body">
 						<div class="chart-container top5">
 							<canvas class="chart chart-bar" chart-data="stackedBarData"
@@ -48,11 +32,13 @@
 									<tr>
 										<th class="col-sm-2 col-md-2 col-lg-2"></th>
 										<th class="col-sm-2 col-md-2 col-lg-2" ng-repeat="series in stackedBarSeries">{{series}}</th>
+										<th class="col-sm-2 col-md-2 col-lg-2">Overall Batch Health</th>
 									</tr>
 									<tr ng-repeat="label in stackedBarLabels track by $index">
 										<th class="col-sm-2 col-md-2 col-lg-2">{{label}}</th>
 										<td class="col-sm-2 col-md-2 col-lg-2"
 											ng-repeat="series in stackedBarSeries track by $index">{{stackedBarData[$index][$parent.$index]}}</td>
+										<td class="col-sm-2 col-md-2 col-lg-2">{{'good'}}</td>
 									</tr>
 								</tbody>
 							</table>

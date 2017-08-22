@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.services.ReportingService;
 
@@ -99,14 +100,13 @@ public class ReportingController {
 	 */
 	
 	//Mapping QC Overall status to getBatchWeekQcOverallBarChart function
-	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/trainee/{traineeId}/bar-batch-week-trainee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> getBatchWeekQcOverallBarChart(@PathVariable Integer batchId,
-			@PathVariable Integer weekId, @PathVariable String noteType) {
-		log.info(
-				"getBatchWeekAvgBarChart   ===>   /all/reports/batch/{batchId}/week/{weekId}/trainee/{traineeId}/bar-batch-week-qc");
-		return new ResponseEntity<>(reportingService.getBatchWeekQcOverallBarChart(batchId, weekId, noteType),
-				HttpStatus.OK);
+	@RequestMapping(value = "/all/reports/batch/week/overallqcstatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Note> getBatchWeekQcOverallBarChart(@PathVariable int batchId,
+			@PathVariable int week) {
+		log.info("getAllBatchesCurrentWeekQCStats   ===>   /all/reports/batch/week/stacked-bar-current-week");
+		return new ResponseEntity<>(reportingService.getBatchWeekQcOverallBarChart(batchId, week), HttpStatus.OK);
 	}
+	
 	
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/bar-batch-week-avg", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, Double[]>> getBatchWeekAvgBarChart(@PathVariable int batchId,
