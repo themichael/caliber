@@ -130,7 +130,7 @@ public class Batch implements Serializable {
 	private int weeks;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "batch", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "batch", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
 

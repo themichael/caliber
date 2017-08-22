@@ -109,11 +109,21 @@ angular
 
 					}
 					
-					// *******************************************************************************
-					// ALERT POP UP
-					//      NOTE: This is for existing batches that do not have their locations updated 
-					//       *already-ended batches( old batches) do not need to be updated     
-					//*********************************************************************************
+					/* ************************************************************************************
+					 *  alertPopup() Method
+					 *  AUTHOR: Leibniz H. Berihuete
+					 *  PURPOSE: to update location of existing batches that have unspecified locations.
+					 *  NOTE: already-ended batches (old batches) do not need to be updated
+					 *  INPUT: none
+					 *  PROCESS:
+					 *  	1. Get all batches from trainer
+					 *  	2. Get current date
+					 *  	3. Iterate through all batches
+					 *  	4. In each iteration: obtain address object and obtain endDate
+					 *  	5. In each iteration: if address== null AND if currentDate < endDate, showAlert: true
+					 *  	6. If showAlert is true, showAlert to trainer, indicating which batches to update.
+					 * OUTPUT: alert message.  
+					 * ************************************************************************************/
 					$scope.alertPopup = function() {
 						
 						
