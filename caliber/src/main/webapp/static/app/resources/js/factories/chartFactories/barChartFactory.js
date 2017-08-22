@@ -248,7 +248,7 @@ angular.module("charts").factory(
 				return chartData;
 			}
 
-			/*
+			
 			barChart.getAllBatchesCurrentWeekQCStats = function(data) {
 				var chartData = {};
 				chartData.series = [];
@@ -277,7 +277,8 @@ angular.module("charts").factory(
 					});
 
 				});
-				*/
+				
+				/*
 			barChart.getAllBatchesCurrentWeekQCStats = function(data) {
 				var chartData = {};
 				chartData.series = [];
@@ -306,7 +307,8 @@ angular.module("charts").factory(
 					});
 
 				});
-
+				*/
+				
 				chartData.options = {
 					legend : {
 						display : true,
