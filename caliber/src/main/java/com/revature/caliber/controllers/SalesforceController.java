@@ -4,6 +4,7 @@ package com.revature.caliber.controllers;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.SalesforceService;
 
 @RestController
+@PreAuthorize("isAuthenticated()")
 public class SalesforceController {
 
 	private static final Logger log = Logger.getLogger(SalesforceController.class);
