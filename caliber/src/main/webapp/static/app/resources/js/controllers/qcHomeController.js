@@ -329,7 +329,6 @@ angular
 					}
 
 					$scope.onLineCharAddressCityChange = function(city){
-						console.log(city);
 						filterLineChartByCity(city);
 					}
 
