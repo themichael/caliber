@@ -8,9 +8,11 @@ angular
 					(function() {
 						// Finishes any left over ajax animation from another
 						// page
+						
 						NProgress.done();
 						createAllBatchesCurrentWeekQCStats();
 						createCurrentBatchesAverageScoreChart();
+						
 
 						/*
 						 * *Moved over code from qcAssessController for modal use
@@ -20,16 +22,37 @@ angular
 						$scope.faces = [];
 						$scope.weeks = [];
 						$scope.batchesByYear = [];
-						$scope.categories = []; 
-						 
-						//write a function to get qcStatus and loop to assign to batchId 
-						//$scope.qcOverallNotes = ['good', 'awesome', 'superb', 'fantastic', 'outstandiing','golden'];
+						$scope.categories = [];
+						
+						start();
+						//getOverallBatchFeedback(2201, 1);
+						
+						$scope.qcOverallNotes = [];
 					 
+						// get overall feedback for all batches for current week
+							
+						
 						for (var b in $scope.batches){
-							console.log($scope.batches[b].batchId);
-							//$scope.qcOverallNotes = ['1', '2', '3', '4', '5','6'];
+						//	console.log($scope.batches[b].batchId);	
+						//	console.log($scope.batches[b].weeks);	
+							
+							getOverallBatchFeedback($scope.batches[b].batchId, $scope.batches[b].weeks);
+							 
 						}
 						
+
+						function getOverallBatchFeedback(batchId, currentWeek){
+				//				console.log("dd")						
+								caliberDelegate.qc
+									.batchNote(batchId, currentWeek)
+										.then(function(notes) {
+												//console.log("Feedback notes "+$scope.qcOverallFeedback);
+											//alert("ddee");		
+											//alert( notes.qcStatus);	
+											$scope.qcOverallNotes.push(notes.qcStatus);
+										});
+							
+						}
 						
 						//function to grab latest qc information from click event
 						$scope.onClick = function (points,evt){
@@ -86,6 +109,7 @@ angular
 						// default -- view assessments table
 						$scope.currentView = true;
 
+						
 						// function to get notes
 						function getNotes() {
 							// Check if there are no weeks
@@ -189,6 +213,9 @@ angular
 
 					})();
 					
+					// function to get overall batch QC status
+					
+					
 					// Note object
 					function Note(noteId, content, status, week, batch,
 							trainee, maxVisibility, type, qcFeedback) {
@@ -215,6 +242,7 @@ angular
 					// Start function for reports to use and assess
 					function start() {
 						if ($scope.batches[0]) {
+							console.log("Report week "+$scope.batches[0])
 							$scope.trainingNameDate = $scope.batches[0].trainer.name
 									+ " - "
 									+ $filter('date')(
@@ -239,7 +267,7 @@ angular
 							// Set week to first week in batch
 							$scope.currentWeek = $scope.weeks[$scope.weeks.length - 1];
 						}
-
+						
 						// get status types
 						$scope.qcStatusTypes = [];
 						caliberDelegate.all.enumQCStatus().then(
@@ -274,6 +302,7 @@ angular
 						$scope.qcBatchAssess = null;
 						$scope.finalQCBatchNote = null;
 					}
+					 
 					
 					function createAllBatchesCurrentWeekQCStats() {
 						chartsDelegate.bar.data
@@ -288,23 +317,9 @@ angular
 											$scope.stackedBarLabels = barChartObj.labels;
 											$scope.stackedBarSeries = barChartObj.series;
 											$scope.stackedBarOptions = barChartObj.options;
-											$scope.stackedBarColors = barChartObj.colors;
-											
+											$scope.stackedBarColors = barChartObj.colors;											
 											
 											console.log($scope.stackedBarData);
-//											
-											//$scope.stackedBarData.push([1,2,2,3,4,5]);
-											
-//											$scope.stackedBarData[0].overall = 1;
-//											$scope.stackedBarData[1].overall = 2;
-//											$scope.stackedBarData[2].overall = 3;
-//											$scope.stackedBarData[3].overall = 4;
-//											$scope.stackedBarData[4].overall = 34;
-//											$scope.stackedBarData[5].overall = 15;
-											
-											
-											
-
 										}, function() {
 											NProgress.done();
 										});

@@ -45,7 +45,7 @@
 											<th class="col-sm-2 col-md-2 col-lg-2">{{label}}</th>
 											<td class="col-sm-2 col-md-2 col-lg-2"
 												ng-repeat="series in stackedBarSeries track by $index">{{stackedBarData[$index][$parent.$index]}}</td>
-											<th class="overall-batch-health">{{qcOverallNotes[$index]}}</th>	 
+											<th  class="overall-batch-health"><span style="font-weight:normal">{{qcOverallNotes[$index]}}</span></th>	 
 										</tr>
 									</tbody>
 								</table>
