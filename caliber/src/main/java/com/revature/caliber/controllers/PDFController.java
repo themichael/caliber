@@ -28,6 +28,7 @@ public class PDFController {
 	}
 
 	@RequestMapping(value = "/report/generate", method = RequestMethod.POST)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public HttpEntity<byte[]> generate(
 			@RequestParam(name = "title", value = "title", defaultValue = "Performance at a Glance") String title,
 			@RequestBody String html) {
