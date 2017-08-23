@@ -2,7 +2,8 @@ angular
 		.module("vp")
 		.controller(
 				"vpHomeController",
-				function($scope, $log, caliberDelegate, chartsDelegate, $filter) {
+				function($log, $scope, $filter,
+						chartsDelegate, caliberDelegate, qcFactory, allBatches) {
 					$log.debug("Booted vp home controller.");
 					$scope.averageScoreData = [];
 					$scope.auditData = [];
@@ -11,9 +12,197 @@ angular
 					(function() {
 						// Finishes any left over ajax animation from another
 						// page
-						NProgress.done();
 						createDefaultCharts();
+
+						/*
+						 * *Moved over code from qcAssessController for modal use
+						 */
+						$scope.batches = allBatches;
+						$scope.bnote = null;
+						$scope.faces = [];
+						$scope.weeks = [];
+						$scope.batchesByYear = [];
+						$scope.categories = [];
+						
+						//function to grab latest qc information from click event
+						$scope.onClick = function (points,evt){
+							if(points[0]){
+							
+							//grab index from individual bars in graph	
+							var barIndex = points[0]._index;
+							$scope.currentBatch = $scope.batches[0];
+							
+							//define varibale batchClass to match with label on graph
+							var trainingName = $scope.currentBatch.trainingName;
+							var Tname = trainingName.substring(0,trainingName.indexOf(" "));
+							var trainerName = $scope.currentBatch.trainer.name;
+							var TNname = trainerName.substring(0,trainerName.indexOf(" "));
+							var label = points[0]._model.label;
+							var batchClass = TNname + " - " + Tname;
+							
+							// starting scope vars
+							$log.debug($scope.currentBatch);
+							// If in reports get reports current batch
+							if ($scope.currentBatch !== undefined) {
+								// Set batch to batch selected in reports if
+								// available
+								$scope.currentBatch = $scope.currentBatch;
+							} else {
+								// Set batch to batch selected on assess page
+								$scope.currentBatch = $scope.batches[2];
+							}
+							//While loop to check if label matches defined variable
+							while (label !== batchClass){
+								$scope.currentBatch = $scope.batches[barIndex+1];
+								break;
+							}
+							
+
+							// create an array of numbers for number of weeks in the
+							// batch selected
+							if ($scope.currentBatch) {
+								for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+									$scope.weeks.push(i);
+								}
+							}
+							
+							start();
+							getNotes();
+							categories();
+							wipeFaces();
+
+							//opens modal view
+							$('#viewLastAudit').modal('toggle');
+							}
+						}
+
+						// default -- view assessments table
+						$scope.currentView = true;
+
+						// function to get notes
+						function getNotes() {
+							// Check if there are no weeks
+							if ($scope.currentWeek !== undefined
+									&& $scope.currentBatch !== undefined
+									&& $scope.currentBatch !== null) {
+								// Get qc batch notes for selected batch
+								caliberDelegate.qc
+										.batchNote($scope.currentBatch.batchId,
+												$scope.currentWeek)
+										.then(
+												function(notes) {
+													// If no batch note found
+													// create
+													// empty note object to be
+													// used
+													if (notes === "") {
+														$log.debug("EMPTY!");
+														$scope.bnote = new Note(
+																null,
+																null,
+																null,
+																$scope.currentWeek,
+																$scope.currentBatch,
+																null,
+																"ROLE_QC",
+																"QC_BATCH",
+																true);
+													}
+													// If note found set the
+													// note
+													// object to note content
+													// and
+													// face
+													else {
+														$scope.bnote = notes;
+														$scope.qcBatchAssess = notes.qcStatus;
+													}
+												});
+								// Get qc notes for trainees in selected batch
+								// for
+								// the week
+								caliberDelegate.qc
+										.traineeNote(
+												$scope.currentBatch.batchId,
+												$scope.currentWeek)
+										.then(
+												function(notes) {
+													$log.debug(notes);
+													// Iterate through trainees
+													for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
+														var content = null;
+														var status = null;
+														var id = null;
+														// Set note content,
+														// status
+														// and
+														// id to note in
+														// database if
+														// found
+														for (var j = 0; j < notes.length; j++) {
+															if ($scope.currentBatch.trainees[i].name === notes[j].trainee.name) {
+																content = notes[j].content;
+																status = notes[j].qcStatus;
+																id = notes[j].noteId;
+																break;
+															}
+														}
+														// Push note object into
+														// array, batch set to
+														// null
+														// for trainee note
+														// always
+														$scope.faces
+																.push(new Note(
+																		id,
+																		content,
+																		status,
+																		$scope.currentWeek,
+																		null,
+																		$scope.currentBatch.trainees[i],
+																		"ROLE_QC",
+																		"QC_TRAINEE",
+																		true));
+													}
+												});
+								// If there are no weeks
+							} else if ($scope.currentBatch !== undefined
+									&& $scope.currentBatch !== null) {
+								$scope.bnote = null;
+								for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
+									$scope.faces.push(new Note(null, null,
+											null, $scope.currentWeek,
+											$scope.currentBatch,
+											$scope.currentBatch.trainees[i],
+											"ROLE_QC", "QC_TRAINEE", true));
+								}
+							}
+						}
+
 					})();
+					
+					// Note object
+					function Note(noteId, content, status, week, batch,
+							trainee, maxVisibility, type, qcFeedback) {
+						this.noteId = noteId;
+						this.content = content;
+						this.week = week;
+						this.batch = batch;
+						this.trainee = trainee;
+						this.maxVisibility = maxVisibility;
+						this.type = type;
+						this.qcFeedback = qcFeedback;
+						this.qcStatus = status;
+					}
+					
+					// Used to sort trainees in batch
+					function compare(a, b) {
+						if (a.name < b.name)
+							return -1;
+						if (a.name > b.name)
+							return 1;
+						return 0;
+					}
 
 					function createDefaultCharts(){
 						NProgress.start();
@@ -21,8 +210,70 @@ angular
 						getCurrentBatchesAvergeScoreData();
 					}
 
-					//restructured graph functions
 
+					// Start function for reports to use and assess
+					function start() {
+						if ($scope.batches[0]) {
+							$scope.trainingNameDate = $scope.batches[0].trainer.name
+									+ " - "
+									+ $filter('date')(
+											$scope.batches[0].startDate,
+											'shortDate');
+						}
+
+						// Sort trainees alphabetically
+						if ($scope.currentBatch) {
+							$scope.currentBatch.trainees.sort(compare);
+						}
+
+						// Set current week to first week
+						// If reports week is selected
+						if ($scope.reportCurrentWeek !== undefined
+								&& $scope.reportCurrentWeek !== "(All)") {
+							$log.debug("Got report week");
+							// Set current week to week selected in report
+							$scope.currentWeek = $scope.reportCurrentWeek;
+						} else {
+							$log.debug("No report week");
+							// Set week to first week in batch
+							$scope.currentWeek = $scope.weeks[$scope.weeks.length - 1];
+						}
+
+						// get status types
+						$scope.qcStatusTypes = [];
+						caliberDelegate.all.enumQCStatus().then(
+								function(types) {
+									$log.debug(types);
+									$scope.qcStatusTypes = types;
+								});
+
+						// load note types
+						caliberDelegate.all.enumNoteType().then(
+								function(noteTypes) {
+									$log.debug(noteTypes);
+									// do something with note type
+								});
+					}
+					
+					// Get categories for the week
+					function categories() {
+						if ($scope.currentBatch) {
+							caliberDelegate.qc.getAllAssessmentCategories(
+									$scope.currentBatch.batchId,
+									$scope.currentWeek).then(
+									function(response) {
+										$scope.categories = response;
+									});
+						}
+					}
+					
+					// wipe faces and selections
+					function wipeFaces() {
+						$scope.faces = [];
+						$scope.qcBatchAssess = null;
+						$scope.finalQCBatchNote = null;
+					}
+					
 					function createAllBatchesCurrentWeekQCStats(data) {
 											var barChartObj = chartsDelegate.bar
 													.getAllBatchesCurrentWeekQCStats(data);
@@ -70,17 +321,22 @@ angular
 					}
 
 					$scope.onLineCharAddressStateChange = function(state){
-						$scope.selectedStateFromLineChar = state;
-						filterLineChartByState(state);
+						if(state!="undefined"){
+							$scope.selectedStateFromLineChar = state;
+							filterLineChartByState(state);
+						}
 					}
 
 					$scope.onLineCharAddressCityChange = function(city){
+						console.log(city);
 						filterLineChartByCity(city);
 					}
 
 					$scope.onBarCharAddressStateChange = function(state){
-						$scope.selectedStateFromBarChar = state;
-						filterBarChartByState(state);
+						if(state!="undefined"){
+							$scope.selectedStateFromBarChar = state;
+							filterBarChartByState(state);
+						}
 					}
 
 					$scope.onBarCharAddressCityChange = function(city){
@@ -91,7 +347,8 @@ angular
 					var filterLineChartByState = function(state){
 						if(state){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
-								return batch.address.state==state;
+								if(batch.address)
+									return batch.address.state==state;
 							});
 							createCurrentBatchesAverageScoreChart(filteredData);
 						}else{
@@ -102,7 +359,9 @@ angular
 					var filterLineChartByCity = function(city){
 						if(city){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
-								return batch.address.city==city;
+								if(batch.address){
+									return batch.address.city==city;
+								}
 							});
 							createCurrentBatchesAverageScoreChart(filteredData);
 						}else{
@@ -113,7 +372,8 @@ angular
 					var filterBarChartByState = function(state){
 						if(state){
 							var filteredData = $scope.auditData.filter(function(batch){
-								return batch.address.state==state;
+								if(batch.address)
+									return batch.address.state==state;
 							});
 							createAllBatchesCurrentWeekQCStats(filteredData);
 						}else{
@@ -124,7 +384,8 @@ angular
 					var filterBarChartByCity = function(city){
 						if(city){
 							var filteredData = $scope.auditData.filter(function(batch){
-								return batch.address.city==city;
+								if(batch.address)
+									return batch.address.city==city;
 							});
 							createAllBatchesCurrentWeekQCStats(filteredData);
 						}else{
