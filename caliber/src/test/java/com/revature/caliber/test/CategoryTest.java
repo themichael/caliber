@@ -17,7 +17,6 @@ public class CategoryTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.CategoryController#findAllCategories()
 	 */
-	@Test
 	public void findAllCategories() {
 		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
@@ -27,7 +26,6 @@ public class CategoryTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.CategoryController#findCategoryById(int)
 	 */
-	@Test
 	public void findCategoryById() {
 		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
@@ -47,7 +45,6 @@ public class CategoryTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.CategoryController#updateCategory(Category)
 	 */
-	@Test
 	public void updateCategory() {
 		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
@@ -57,7 +54,6 @@ public class CategoryTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.CategoryController#saveCategory(Category)
 	 */
-	@Test
 	public void saveCategory() {
 		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
