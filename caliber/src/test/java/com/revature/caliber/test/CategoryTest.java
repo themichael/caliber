@@ -1,7 +1,5 @@
 package com.revature.caliber.test;
 
-import org.junit.Test;
-
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Category;
 
