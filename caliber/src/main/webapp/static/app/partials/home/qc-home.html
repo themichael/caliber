@@ -19,13 +19,13 @@
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Last Quality Audit
-						<select class="pull-right" ng-model="auditCity" ng-if="auditState.address.state"
-						ng-change="onBarCharAddressCityChange(auditCity.address.city)"
-							ng-options="batch.address.city for batch in auditData |filter:auditState.address.state | unique:'address.city' ">
+						<select class="pull-right" ng-model="selectedBarCity" ng-if="selectedBarState.address.state"
+						ng-change="onBarCharAddressCityChange(selectedBarCity.address.city)"
+							ng-options="batch.address.city for batch in auditData |filter:selectedBarState.address.state | filter:{address:{$:''}} | unique:'address.city' ">
 							<option value="">All Cities</option>
 						</select>
-						<select class="pull-right" ng-model="auditState" 
-							ng-change="onBarCharAddressStateChange(auditState.address.state)" 
+						<select class="pull-right" ng-model="selectedBarState" 
+							ng-change="onBarCharAddressStateChange(selectedBarState.address.state)" 
 							ng-options="batch.address.state for batch in auditData |filter:{address:{$:''}}| unique:'address.state' ">
 							<option value="">All States</option>
 						</select>
@@ -74,13 +74,13 @@
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Weekly Progress 
-						<select class="pull-right" ng-model="selectedCity" ng-if="selectedState.address.state"
-						ng-change="onLineCharAddressCityChange(selectedCity.address.city)"
-							ng-options="batch.address.city for batch in averageScoreData |filter:selectedState.address.state | unique:'address.city' ">
+						<select class="pull-right" ng-model="selectedLineCity" ng-if="selectedLineState.address.state"
+						ng-change="onLineCharAddressCityChange(selectedLineCity.address.city)"
+							ng-options="batch.address.city for batch in averageScoreData |filter:selectedLineState.address.state | filter:{address:{$:''}} | unique:'address.city' ">
 							<option value="">All Cities</option>
 						</select>
-						<select class="pull-right" ng-model="selectedState" 
-							ng-change="onLineCharAddressStateChange(selectedState.address.state)" 
+						<select class="pull-right" ng-model="selectedLineState" 
+							ng-change="onLineCharAddressStateChange(selectedLineState.address.state)" 
 							ng-options="batch.address.state for batch in averageScoreData |filter:{address:{$:''}} | unique:'address.state' ">
 							<option value="">All States</option>
 						</select>

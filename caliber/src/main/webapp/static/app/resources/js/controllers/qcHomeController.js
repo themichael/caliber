@@ -329,6 +329,7 @@ angular
 					}
 
 					$scope.onLineCharAddressCityChange = function(city){
+						console.log(city);
 						filterLineChartByCity(city);
 					}
 
@@ -359,8 +360,9 @@ angular
 					var filterLineChartByCity = function(city){
 						if(city){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
-								if(batch.address)
+								if(batch.address){
 									return batch.address.city==city;
+								}
 							});
 							createCurrentBatchesAverageScoreChart(filteredData);
 						}else{
