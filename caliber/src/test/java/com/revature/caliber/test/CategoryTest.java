@@ -35,7 +35,6 @@ public class CategoryTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.CategoryController#findAll()
 	 */
-	@Test
 	public void findAll() {
 		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
