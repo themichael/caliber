@@ -1,6 +1,7 @@
 
 <!--********************************************* View Trainee Modal ************************************-->
 
+
 <div class="modal fade" id="viewTraineeModal" tabindex="-1"
 	role="dialog" aria-labelledby="traineeModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
@@ -13,6 +14,7 @@
 				<h4 class="modal-title" id="traineeModalLabel">View/Add
 					Trainees</h4>
 			</div>
+		
 			<div class="modal-body">
 				<!-- switch trainees type -->
 				<div class="pull-right">
@@ -33,44 +35,52 @@
 						Trainee<span class="glyphicon glyphicon-plus" aria-hidden="true">
 					</span>
 					</a>
-					<table class="table table-responsive">
-						<thead>
-							<tr>
-								<th>Trainee Name</th>
-								<th>Trainee Email</th>
-								<th>Training Status</th>
-								<th>Phone Number</th>
-								<th>Skype Id</th>
-								<th>Profile URL</th>
-								<th></th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="trainee in trainees">
-								<td>{{trainee.name}}</td>
-								<td>{{trainee.email}}</td>
-								<td>{{trainee.trainingStatus}}</td>
-								<td>{{trainee.phoneNumber}}</td>
-								<td>{{trainee.skypeId}}</td>
-
-								<td><span ng-if="trainee.profileUrl"> <a
-										href="{{trainee.profileUrl}}" target="_blank"><i
-											class="fa fa-file-code-o" aria-hidden="true"></i></a>
-								</span></td>
-								<td><a role="button"
-									ng-click="populateTrainee(trainee);getTrainee($index)"
-									data-toggle="modal" data-target="#addTraineeModal"
-									type="button"> <span class="glyphicon glyphicon-pencil"></span>
-								</a></td>
-								<td><a role="button" class="pull-right"
-									ng-click="getTraineeToDelete($index)" data-toggle="modal"
-									data-target="#deleteTraineeModal"><span
-										class="glyphicon glyphicon-remove" aria-hidden="true">
-									</span></a></td>
-							</tr>
-						</tbody>
-					</table>
+					<div class ="modal-body"> 
+							<table class="table table-responsive">
+								<thead>
+									<tr>
+										<th>Trainee Name</th>
+										<th>Trainee Email</th>
+										<th>Training Status</th>
+										<th>Phone Number</th>
+										<th>Skype Id</th>
+										<th>Profile URL</th>
+										<th>Recruiter Name</th>
+										<th>College</th>
+										<th>Degree</th>
+										<th>Major</th>
+										<th>Tech Screener</th>
+										<th>Project Completion</th>
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="trainee in trainees">
+										<td>{{trainee.name}}</td>
+										<td>{{trainee.email}}</td>
+										<td>{{trainee.trainingStatus}}</td>
+										<td>{{trainee.phoneNumber}}</td>
+										<td>{{trainee.skypeId}}</td>
+		
+										<td><span ng-if="trainee.profileUrl"> <a
+												href="{{trainee.profileUrl}}" target="_blank"><i
+													class="fa fa-file-code-o" aria-hidden="true"></i></a>
+										</span></td>
+										<td><a role="button"
+											ng-click="populateTrainee(trainee);getTrainee($index)"
+											data-toggle="modal" data-target="#addTraineeModal"
+											type="button"> <span class="glyphicon glyphicon-pencil"></span>
+										</a></td>
+										<td><a role="button" class="pull-right"
+											ng-click="getTraineeToDelete($index)" data-toggle="modal"
+											data-target="#deleteTraineeModal"><span
+												class="glyphicon glyphicon-remove" aria-hidden="true">
+											</span></a></td>
+									</tr>
+								</tbody>
+							</table> 
+					</div>
 				</div>
 
 				<div class="modal-footer"></div>

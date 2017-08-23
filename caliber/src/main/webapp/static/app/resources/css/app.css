@@ -170,6 +170,18 @@ a {
 .batchModal {
 	margin: 1.3em;
 }
+
+/************************
+	Manage Trainee Modal
+************************/
+.modal-body {
+    max-width: 100%;
+    overflow-x: auto;
+}
+/* .scoll-tree {
+    width:1000px;
+} */
+
 /************************
 	QC Assess
 ************************/

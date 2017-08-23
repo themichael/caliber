@@ -82,6 +82,27 @@ public class Trainee implements Serializable {
 
 	@Column(name = "PROFILE_URL")
 	private String profileUrl;
+	
+	// new columns
+	@Column(name = "RECRUITER_NAME")
+	private String recruiterName;
+	
+	@Column(name = "COLLEGE")
+	private String college;
+	
+	@Column(name = "DEGREE")
+	private String degree;
+	
+	@Column(name = "MAJOR")
+	private String major;
+	
+	@Column(name = "TECH_SCREENER_NAME")
+	private String techScreenerName;
+	
+	@Column(name = "REVPRO_PROJECT_COMPLETETION")
+	private String projectCompletion;
+	// end of new columns
+	
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
