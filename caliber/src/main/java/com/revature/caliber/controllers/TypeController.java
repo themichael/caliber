@@ -115,7 +115,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/assessment/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<String>> allAssessmentTypes() {
 		log.info("Fetching assessment types");
 		List<String> types = Stream.of(AssessmentType.values()).map(Enum::name).collect(Collectors.toList());
