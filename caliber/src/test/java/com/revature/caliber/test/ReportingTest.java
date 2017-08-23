@@ -1,24 +1,13 @@
 package com.revature.caliber.test;
 
-//commented out these packages because their variables are not currently in use
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
-//import org.apache.log4j.Logger;
-//import org.springframework.beans.factory.annotation.Autowired;
-
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.QCStatus;
-//import com.revature.caliber.controllers.ReportingController;
 
 public class ReportingTest extends CaliberTest {
-
-//	commented out unused variable
-//	private static final Logger log = Logger.getLogger(ReportingTest.class);
-
-//	@Autowired
-//	private ReportingController reportingController;
 
 	private static final String notYetImplmented="Not yet implemented";
 	//////////////////////////////////////////////////////////////////////////////////////////////////

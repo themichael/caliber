@@ -61,8 +61,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
 	private static final String REDIRECT = "redirect:";
-//	commented out unused variable
-//	private static final String FORWARD = "forward:";
+	
 	private static final String REVATURE = "http://www.revature.com/";
 
 	public AuthorizationImpl() {

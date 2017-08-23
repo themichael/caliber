@@ -1,27 +1,14 @@
 package com.revature.caliber.test;
 
-//commented out these packages because their variables are not currently in use
 import java.util.List;
 import java.util.Map;
-
-//import org.apache.log4j.Logger;
-//import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
-//import com.revature.caliber.controllers.EvaluationController;
 
 public class EvaluationTest extends CaliberTest {
 
-//	commented out unused variable
-//	private static final Logger log = Logger.getLogger(EvaluationTest.class);
-
-//	@Autowired
-//	private EvaluationController evaluationController;
-//
-//	private static final String GRADE_COUNT = "select count(grade_id) from caliber_grade";
-//	private static final String NOTE_COUNT = "select count(note_id) from caliber_note";
 
 	private static final String notYetImplmented="Not yet implemented";
 	//////////////////////////////////////////////////////////////////////////////////////////////////
