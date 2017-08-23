@@ -36,6 +36,8 @@ angular
 								var batchId = $scope.stackedBarIds[points[0]._index];
 								$scope.currentBatch = $scope.batches[j];
 								var currentBatchId = $scope.currentBatch.batchId;
+								console.log("Batch Id at current bar index");
+								console.log(batchId);
 								
 
 								// define varibale batchClass to match with
