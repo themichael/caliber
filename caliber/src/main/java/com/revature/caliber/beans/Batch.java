@@ -34,7 +34,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.revature.caliber.validator.ValidBatch;
 
-
 /**
  * The type Batch.
  */
@@ -99,6 +98,10 @@ public class Batch implements Serializable {
 	@Column(name = "LOCATION", nullable = false)
 	private String location;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ADDRESS_ID")
+	private Address address;
+
 	/**
 	 * Anything above this grade is GREEN
 	 */
@@ -114,6 +117,10 @@ public class Batch implements Serializable {
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@OneToMany(mappedBy = "batch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference(value = "traineeAndBatch")
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -123,7 +130,7 @@ public class Batch implements Serializable {
 	private int weeks;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "batch")
+	@OneToMany(mappedBy = "batch", fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
 
@@ -140,6 +147,7 @@ public class Batch implements Serializable {
 	/**
 	 * Constructor mostly used for testing. Defaults TrainingType - Revature,
 	 * SkillType - J2EE, Good grade - 80, and Borderline grade - 70
+	 *
 	 * @param trainingName
 	 * @param trainer
 	 * @param startDate
@@ -352,10 +360,21 @@ public class Batch implements Serializable {
 		return true;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
-		return "Batch [batchId=" + batchId + ", trainingName=" + trainingName + ", skillType=" + skillType
-				+ ", trainingType=" + trainingType + "]";
+		return "Batch [batchId=" + batchId + ", resourceId=" + resourceId + ", trainingName=" + trainingName
+				+ ", trainer=" + trainer + ", coTrainer=" + coTrainer + ", skillType=" + skillType + ", trainingType="
+				+ trainingType + ", startDate=" + startDate + ", endDate=" + endDate + ", location=" + location
+				+ ", address=" + address + ", goodGradeThreshold=" + goodGradeThreshold + ", borderlineGradeThreshold="
+				+ borderlineGradeThreshold + ", trainees=" + trainees + ", weeks=" + weeks + ", notes=" + notes + "]";
 	}
 
 }

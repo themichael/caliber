@@ -194,7 +194,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		}).then(function(response) {
 			$log.debug("Trainees successfully imported")
 			$log.debug(response.data);
-			return response.data;
+			return response;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 			return response.data;
@@ -347,6 +347,36 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was a error " + response.status);
 		});
 	}
+
+	/** *********************** Location ********************* */
+	all.getAllLocations = function() {
+		return $http({
+			url : "/all/location/all/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Locations successfully retrieved");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
+	all.createLocation = function(locationObj) {
+		$log.debug(locationObj);
+		return $http({
+			url : "/all/location/create",
+			method : "POST",
+			data : locationObj
+		}).then(function(response) {
+			$log.debug("Location successfully created.")
+			$log.debug(response);
+			return response;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return response.data;
+		});
+	};
 
 	/** *********************** Trainer ********************* */
 

@@ -474,3 +474,7 @@ a.save-button .fa-floppy-o {
 .editAssessModal {
 	font-family: 'Futura-Std-Book';
 }
+
+select{
+	color:black;
+}
