@@ -35,21 +35,8 @@ angular
 								var j = 0;
 								var batchId = $scope.stackedBarIds[points[0]._index];
 								$scope.currentBatch = $scope.batches[j];
-								var currentBatchId = $scope.currentBatch.batchId;
 								console.log("Batch Id at current bar index");
 								console.log(batchId);
-								
-
-								// define varibale batchClass to match with
-								// label on graph
-//								var trainingName = $scope.currentBatch.trainingName;
-//								var Tname = trainingName.substring(0,
-//										trainingName.indexOf(" "));
-//								var trainerName = $scope.currentBatch.trainer.name;
-//								var TNname = trainerName.substring(0,
-//										trainerName.indexOf(" "));
-//								var label = points[0]._model.label;
-//								var batchClass = TNname + " - " + Tname;
 
 								// starting scope vars
 								$log.debug($scope.currentBatch);
@@ -63,21 +50,23 @@ angular
 									// page
 									$scope.currentBatch = $scope.batches[0];
 								}
+								
 								console.log("before while loop");
-								console.log(currentBatchId);
-								console.log(batchId);
+								console.log("current batch id");
+								console.log($scope.currentBatch.batchId);
 								// While loop to check if label matches defined
 								// variable
-								while (batchId !== currentBatchId) {
-									j++;
-									if (batchId !== currentBatchId){
+								while (batchId !== $scope.currentBatch.batchId) {
+									j+=1;
+									$scope.currentBatch = $scope.batches[j];
+									if (batchId == $scope.currentBatch.batchId){
 										$scope.currentBatch = $scope.batches[j];
 										break;
 									}
 								}
 								console.log("after while loop");
-								console.log(currentBatchId);
-								console.log(batchId);
+								console.log("current batch id");
+								console.log($scope.currentBatch.batchId);
 
 								// create an array of numbers for number of
 								// weeks in the
@@ -88,10 +77,6 @@ angular
 									}
 								}
 
-								console.log($scope.currentBatch);
-//								console.log(barIndex);
-//								console.log(batchClass);
-//								console.log(label);
 								start();
 								getNotes();
 								categories();

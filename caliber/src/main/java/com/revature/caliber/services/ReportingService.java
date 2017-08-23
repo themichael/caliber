@@ -142,9 +142,9 @@ public class ReportingService {
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
 					batchData.put("label", b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' '))+" - "+ // Trainer first name
 							b.getTrainingName().substring(0,b.getTrainingName().indexOf(' ')));
-					//batchData.put("address", b.getAddress());
+					batchData.put("address", b.getAddress());
 					batchData.put("qcStatus", temp);   // Batch ID
-					batchData.put("id", b.getBatchId());
+					batchData.put("id", b.getBatchId()); //Actual batch id
 					results.add(batchData);
 					break;
 				}
