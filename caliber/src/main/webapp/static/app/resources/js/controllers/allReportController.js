@@ -794,12 +794,36 @@ angular
 						//GET CURRENT ELEMENT'S PARENT'S PARENT'S PARENT
 						var element = $event.target.parentElement.parentElement;
 						var doc = new jsPDF('p', 'mm', 'a4');
-						doc.addHTML(element, function (){
+                        doc.internal.scaleFactor = 4;
+                        doc.addHTML(element, function (){
 							// GET CHART TEXT/TITLE FROM PANEL-HEADING
 							var filename = element.childNodes[1].innerText.trim() + '.pdf';
                             doc.save(filename);
 						});
 					};
+
+                    //DOWNLOAD ALL TRAINEE CHART AS PDF
+                    $scope.downloadAllChartButton = function () {
+                        var element = angular.element(document.querySelector('#traineeCharts')).children()[0];
+                        var charts = element.children[0].children;
+                        var doc = new jsPDF('p', 'mm', 'a4');
+                        doc.text(doc.internal.pageSize.width/2 - 20, 5, $scope.currentTrainee.name);
+                        doc.internal.scaleFactor = 4;
+                        var i = 0;
+                        var recursiveAddHtml = function (height) {
+                            if (i < charts.length) {
+                                doc.addHTML(charts[i], 0, height, function () {
+                                    i++;
+                                    if (i !== charts.length)
+                                    	doc.addPage();
+                                    recursiveAddHtml(0);
+                                });
+                            } else {
+								doc.save($scope.currentTrainee.name + '.pdf');
+                            }
+                        };
+                        recursiveAddHtml(10);
+                    };
 					
 					// Gets notes (trainer and QC) for a specific trainee and
 					// the week
