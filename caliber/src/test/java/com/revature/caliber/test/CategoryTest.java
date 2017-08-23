@@ -7,7 +7,7 @@ import com.revature.caliber.beans.Category;
 
 public class CategoryTest extends CaliberTest {
 	
-	private static final String notYetImplmented="Not yet implemented";
+	private static final String NOT_YET_IMPLEMENTED="Not yet implemented";
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// CATEGORY API
 	//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,7 +19,7 @@ public class CategoryTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllCategories() {
-		throw new UnsupportedOperationException(notYetImplmented);
+		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 
 	/**
@@ -29,7 +29,7 @@ public class CategoryTest extends CaliberTest {
 	 */
 	@Test
 	public void findCategoryById() {
-		throw new UnsupportedOperationException(notYetImplmented);
+		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class CategoryTest extends CaliberTest {
 	 */
 	@Test
 	public void findAll() {
-		throw new UnsupportedOperationException(notYetImplmented);
+		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class CategoryTest extends CaliberTest {
 	 */
 	@Test
 	public void updateCategory() {
-		throw new UnsupportedOperationException(notYetImplmented);
+		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 
 	/**
@@ -59,6 +59,6 @@ public class CategoryTest extends CaliberTest {
 	 */
 	@Test
 	public void saveCategory() {
-		
+		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 }
