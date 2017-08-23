@@ -167,7 +167,10 @@ angular
 									if(showAlert) {
 										// TODO if we have time: new alert window style, instead of the alert()
 										alert("Please update the location on the following batches:\n" + alertBatches +"\n\nThank you!");
+									
+										
 									}
+									
 								});
 					}
 
