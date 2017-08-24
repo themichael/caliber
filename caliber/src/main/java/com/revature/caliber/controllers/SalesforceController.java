@@ -29,9 +29,8 @@ public class SalesforceController {
 	}
 
 	/**
-	 * Delete when we're done with development Used to grab access_token for running
-	 * local tests of Salesforce API
-	 *
+	 * Delete when we're done with development
+	  Used to grab access_token for running* local tests of Salesforce API*
 	 * @return
 	 */
 	// @RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
@@ -64,8 +63,8 @@ public class SalesforceController {
 	}
 
 	/**
-	 * Gets all the relevant batches or response String. Testing purpose only.
-	 *
+	 * Gets all the relevant batches or response String. 
+	  Testing purpose only. *
 	 * @return Batches in JSON
 	 */
 	@RequestMapping(value = "/all/batch/import/log", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -73,5 +72,5 @@ public class SalesforceController {
 	public String logBatches() {
 		return salesforceService.logBatches();
 	}
-
+	
 }
