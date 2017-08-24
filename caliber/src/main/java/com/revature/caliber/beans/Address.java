@@ -22,7 +22,6 @@ public class Address implements Serializable {
 
 	private static final long serialVersionUID = -7886621867644813683L;
 
-
 	@Id
 	@Column(name = "ADDRESS_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_ID_SEQUENCE")
@@ -62,7 +61,7 @@ public class Address implements Serializable {
 		this.company = company;
 		this.active = active;
 	}
-	
+
 	public long getAddressId() {
 		return addressId;
 	}

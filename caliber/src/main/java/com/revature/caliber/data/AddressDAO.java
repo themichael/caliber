@@ -77,7 +77,6 @@ public class AddressDAO {
 	public Address getAddressById(int id) {
 		log.info("Fetching address with id " + id);
 		Address a = (Address) sessionFactory.getCurrentSession().get(Address.class, id);
-		log.info("Got Address " + a);
 		return a;
 	}
 

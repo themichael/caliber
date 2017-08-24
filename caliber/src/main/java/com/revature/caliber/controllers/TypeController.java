@@ -48,7 +48,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/skill/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'STAGING','TRAINER','QC')")
 	public ResponseEntity<List<String>> allSkillTypes() {
 		log.info("Fetching skill types");
 		List<String> types = Stream.of(SkillType.values()).map(Enum::toString).collect(Collectors.toList());
@@ -61,7 +61,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/training/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER')")
 	public ResponseEntity<List<String>> allTrainingTypes() {
 		log.info("Fetching training types");
 		List<String> types = Stream.of(TrainingType.values()).map(Enum::name).collect(Collectors.toList());
@@ -74,7 +74,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/trainingstatus/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER')")
 	public ResponseEntity<List<String>> allTrainingStatusTypes() {
 		log.info("Fetching training status types");
 		List<String> types = Stream.of(TrainingStatus.values()).map(Enum::name).collect(Collectors.toList());
@@ -133,14 +133,14 @@ public class TypeController {
 	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
 	public ResponseEntity<List<String>> allTrainerRoles() {
 		log.info("Fetching Trainer Roles");
-		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList()); // Used
-																											// toString
-																											// to
-																											// Display
-																											// the roles
-																											// without
-																											// the
-																											// underscore
+		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());// Used
+																										// toString
+																										// to
+																										// Display
+																										// the roles
+																										// without
+																										// the
+																										// underscore
 		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 }
