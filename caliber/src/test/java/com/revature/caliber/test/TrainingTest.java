@@ -207,21 +207,7 @@ public class TrainingTest extends CaliberTest {
 		assertEquals(++before, after);
 	}
 
-	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.controllers.TrainingController#findCommonLocations()
-	 * this is commented out because there is a new database table for the location
-	 * hence the new table will return empty data.
-	 */
-//	@Test 
-//	public void testCommonLocations() {
-//		log.info("FIND COMMON LOCATIONS");
-//		List<String> expectedLocations = jdbcTemplate.queryForList("select distinct location from caliber_batch",
-//				String.class);
-//		List<Address> actualLocations = trainingController.findCommonLocations().getBody();
-//		assertEquals(expectedLocations, actualLocations);
-//	}
-
+	
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.controllers.TrainingController#findAllBatchesByTrainer(Authentication)

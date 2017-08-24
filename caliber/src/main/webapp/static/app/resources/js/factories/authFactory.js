@@ -78,6 +78,9 @@ angular.module("auth").factory("authFactory",
 					$log.debug("Changing state to: " + stagingState);
 					$state.go(stagingState);
 					break;
+				default:
+					error();
+					break;
 				}
 			};
 
