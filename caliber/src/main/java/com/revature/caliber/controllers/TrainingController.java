@@ -330,11 +330,7 @@ public class TrainingController {
 
 	/**
 	 * Adds a new week to the batch. Increments counter of total_weeks in database
-<<<<<<< HEAD
-	 *
-=======
 	 * 
->>>>>>> a42b3a9a9d37eae41cc74d6b2e51a63fab7ef61d
 	 * @param batchId
 	 * @return
 	 */
