@@ -194,7 +194,7 @@ angular
 						// caliberdlegeate get trainees by batch id and load nto
 						$scope.batchRow = index;
 						$scope.showdropped = false;
-						
+
 						$log.debug($scope.currentBatch);
 					};
 
