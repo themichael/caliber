@@ -47,10 +47,10 @@ public class TrainingController {
 	public void setTrainingService(TrainingService trainingService) {
 		this.trainingService = trainingService;
 	}
-
+	
 	/*
 	 *******************************************************
-	 * TODO LOCATION SERVICES
+	 * LOCATION SERVICES
 	 *
 	 *******************************************************
 	 */
@@ -127,7 +127,7 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
-	 * TODO TRAINER SERVICES
+	 * TRAINER SERVICES
 	 *
 	 *******************************************************
 	 */
@@ -226,7 +226,7 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
-	 * TODO BATCH SERVICES
+	 * BATCH SERVICES
 	 *
 	 *******************************************************
 	 */
@@ -330,7 +330,7 @@ public class TrainingController {
 
 	/**
 	 * Adds a new week to the batch. Increments counter of total_weeks in database
-	 * 
+	 *
 	 * @param batchId
 	 * @return
 	 */
@@ -353,7 +353,7 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
-	 * TODO TRAINEE SERVICES
+	 * TRAINEE SERVICES
 	 *
 	 *******************************************************
 	 */

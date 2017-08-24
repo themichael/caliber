@@ -14,7 +14,6 @@
 	<!-- Charts -->
 	<div class="container">
 		<div class="col-sm-12 col-md-12 col-lg-12">
-
 		<div class="row" ng-if="stackedBarData">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
@@ -33,14 +32,13 @@
 					</div>
 					<div class="panel-body">
 						<div class="chart-container top5"> 
-							<canvas class="chart chart-bar" chart-data="stackedBarData"
+							<canvas class="chart chart-bar" 
+								chart-data="stackedBarData"
 								chart-options="stackedBarOptions" 
 								chart-labels="stackedBarLabels"
 								chart-series="stackedBarSeries" 
 								chart-colors="stackedBarColors"
-								aria-hidden="true"
 								chart-click="onClick">>
-
 							</canvas>
 							</div>
 							<div>

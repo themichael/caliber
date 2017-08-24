@@ -70,7 +70,7 @@ angular
 					};
 
 					// to update location
-					$scope.updateLocation = function(locationForm) {
+					$scope.updateLocation = function() {
 						var currentLocation = $scope.locationForm;
 						caliberDelegate.vp.updateLocation(currentLocation)
 								.then(
