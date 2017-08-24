@@ -50,7 +50,7 @@ public class TrainingController {
 	
 	/*
 	 *******************************************************
-	 * TODO LOCATION SERVICES
+	 * LOCATION SERVICES
 	 *
 	 *******************************************************
 	 */
@@ -127,7 +127,7 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
-	 * TODO TRAINER SERVICES
+	 * TRAINER SERVICES
 	 *
 	 *******************************************************
 	 */
@@ -226,7 +226,7 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
-	 * TODO BATCH SERVICES
+	 * BATCH SERVICES
 	 *
 	 *******************************************************
 	 */
@@ -353,7 +353,7 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
-	 * TODO TRAINEE SERVICES
+	 * TRAINEE SERVICES
 	 *
 	 *******************************************************
 	 */

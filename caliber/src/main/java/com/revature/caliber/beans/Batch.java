@@ -55,9 +55,6 @@ public class Batch implements Serializable {
 	@Column(name = "RESOURCE_ID")
 	private String resourceId;
 
-	/**
-	 * Example: 1702 Java CUNY
-	 */
 	@NotNull
 	@Column(name = "TRAINING_NAME")
 	private String trainingName;
@@ -116,10 +113,6 @@ public class Batch implements Serializable {
 	@Min(value = 1)
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	@OneToMany(mappedBy = "batch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference(value = "traineeAndBatch")

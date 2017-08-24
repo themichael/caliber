@@ -132,7 +132,7 @@ public class ReportingService {
 	 *******************************************************
 	 */
 	public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() { // changed to List<Object>
-		List<Object> results = new ArrayList<Object>();
+		List<Object> results = new ArrayList<>();
 		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
 		currentBatches.parallelStream().forEach(b -> {
 			Map<String, Object> batchData = new HashMap<>();
@@ -395,7 +395,7 @@ public class ReportingService {
 	 * @return List<Map<batch attributes, values>>
 	 */
 	public List<Object> getAllCurrentBatchesLineChart() {
-		List<Object> results = new ArrayList<Object>();
+		List<Object> results = new ArrayList<>();
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();  // changed to Trainees
 		batches.parallelStream().forEach(batch -> {
 			Map<String, Object> batchObject = new HashMap<>();

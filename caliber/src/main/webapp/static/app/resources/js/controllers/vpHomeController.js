@@ -58,7 +58,7 @@ angular
 							while (batchId !== $scope.currentBatch.batchId) {
 								j += 1;
 								$scope.currentBatch = $scope.batches[j];
-								if (batchId == $scope.currentBatch.batchId) {
+								if (batchId === $scope.currentBatch.batchId) {
 									$scope.currentBatch = $scope.batches[j];
 									break;
 								}
@@ -331,7 +331,7 @@ angular
 					}
 
 					$scope.onLineCharAddressStateChange = function(state){
-						if(state!="undefined"){
+						if(state!=="undefined"){
 							$scope.selectedStateFromLineChar = state;
 							filterLineChartByState(state);
 						}
@@ -342,7 +342,7 @@ angular
 					}
 
 					$scope.onBarCharAddressStateChange = function(state){
-						if(state!="undefined"){
+						if(state!=="undefined"){
 							$scope.selectedStateFromBarChar = state;
 							filterBarChartByState(state);
 						}
@@ -356,7 +356,7 @@ angular
 						if(state){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
 								if(batch.address)
-									return batch.address.state==state;
+									return batch.address.state===state;
 							});
 							createCurrentBatchesAverageScoreChart(filteredData);
 						} else {
@@ -368,7 +368,7 @@ angular
 						if(city){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
 								if(batch.address){
-									return batch.address.city==city;
+									return batch.address.city===city;
 								}
 							});
 							createCurrentBatchesAverageScoreChart(filteredData);
@@ -381,7 +381,7 @@ angular
 						if(state){
 							var filteredData = $scope.auditData.filter(function(batch){
 								if(batch.address)
-									return batch.address.state==state;
+									return batch.address.state===state;
 							});
 							createAllBatchesCurrentWeekQCStats(filteredData);
 						} else {
@@ -393,7 +393,7 @@ angular
 						if(city){
 							var filteredData = $scope.auditData.filter(function(batch){
 								if(batch.address)
-									return batch.address.city==city;
+									return batch.address.city===city;
 							});
 							createAllBatchesCurrentWeekQCStats(filteredData);
 						} else {
