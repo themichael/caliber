@@ -22,22 +22,6 @@ public class Address implements Serializable {
 
 	private static final long serialVersionUID = -7886621867644813683L;
 
-	public Address() {
-		super();
-	}
-
-	public Address(long addressId, String street, String city, String state, String zipcode, String company,
-			int active) {
-		super();
-		this.addressId = addressId;
-		this.street = street;
-		this.city = city;
-		this.state = state;
-		this.zipcode = zipcode;
-		this.company = company;
-		this.active = active;
-	}
-
 	@Id
 	@Column(name = "ADDRESS_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_ID_SEQUENCE")
@@ -61,6 +45,22 @@ public class Address implements Serializable {
 
 	@Column(name = "ACTIVE")
 	private int active;
+
+	public Address() {
+		super();
+	}
+
+	public Address(long addressId, String street, String city, String state, String zipcode, String company,
+			int active) {
+		super();
+		this.addressId = addressId;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.zipcode = zipcode;
+		this.company = company;
+		this.active = active;
+	}
 
 	public long getAddressId() {
 		return addressId;

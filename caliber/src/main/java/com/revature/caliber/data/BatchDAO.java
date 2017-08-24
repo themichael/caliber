@@ -1,7 +1,9 @@
 package com.revature.caliber.data;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -242,6 +244,10 @@ public class BatchDAO {
 	 */
 	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Batch batch) {
+		// batch.setStartDate(new Date(batch.getStartDate().getTime() +
+		// TimeUnit.DAYS.toMillis(1)));
+		// batch.setEndDate(new Date(batch.getEndDate().getTime() +
+		// TimeUnit.DAYS.toMillis(1)));
 		log.info("Updating batch: " + batch);
 		sessionFactory.getCurrentSession().saveOrUpdate(batch);
 	}
