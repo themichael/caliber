@@ -31,12 +31,11 @@ angular
 						$scope.onClick = function(points, evt) {
 							if (points[0]) {
 
-								// grab index from individual bars in graph
 								var j = 0;
+								// define var that grabs batch id from scope
 								var batchId = $scope.stackedBarIds[points[0]._index];
+								// set current batch to j
 								$scope.currentBatch = $scope.batches[j];
-								console.log("Batch Id at current bar index");
-								console.log(batchId);
 
 								// starting scope vars
 								$log.debug($scope.currentBatch);
@@ -50,23 +49,18 @@ angular
 									// page
 									$scope.currentBatch = $scope.batches[0];
 								}
-								
-								console.log("before while loop");
-								console.log("current batch id");
-								console.log($scope.currentBatch.batchId);
-								// While loop to check if label matches defined
+
+								// While loop to check if current batch id
+								// matches defined
 								// variable
 								while (batchId !== $scope.currentBatch.batchId) {
-									j+=1;
+									j += 1;
 									$scope.currentBatch = $scope.batches[j];
-									if (batchId == $scope.currentBatch.batchId){
+									if (batchId == $scope.currentBatch.batchId) {
 										$scope.currentBatch = $scope.batches[j];
 										break;
 									}
 								}
-								console.log("after while loop");
-								console.log("current batch id");
-								console.log($scope.currentBatch.batchId);
 
 								// create an array of numbers for number of
 								// weeks in the
@@ -303,8 +297,8 @@ angular
 						$scope.stackedBarSeries = barChartObj.series;
 						$scope.stackedBarOptions = barChartObj.options;
 						$scope.stackedBarColors = barChartObj.colors;
-						$scope.stackedBarIds = barChartObj.id;
-						console.log($scope.stackedBarIds);
+						$scope.stackedBarIds = barChartObj.id; // define scope
+																// for batch ids
 
 					}
 					function createCurrentBatchesAverageScoreChart(data) {
