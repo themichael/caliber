@@ -817,12 +817,12 @@ angular
                         var doc = new jsPDF('p', 'mm', 'a4');
                         doc.text(doc.internal.pageSize.width/2 - 20, 5, $scope.currentTrainee.name);
                         doc.internal.scaleFactor = 4;
-                        var i = 0;
+                        var j = 0;
                         var recursiveAddHtml = function (height) {
-                            if (i < charts.length) {
-                                doc.addHTML(charts[i], 0, height, function () {
+                            if (j < charts.length) {
+                                doc.addHTML(charts[j], 0, height, function () {
                                     i++;
-                                    if (i !== charts.length)
+                                    if (j !== charts.length)
                                     	doc.addPage();
                                     recursiveAddHtml(0);
                                 });
