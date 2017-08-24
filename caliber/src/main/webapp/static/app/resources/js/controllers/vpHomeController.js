@@ -30,8 +30,7 @@ angular
 						}
 						
 						// function to get overall feedback for all batches for current week
-						function getOverallBatchFeedback(batchId, currentWeek){
-								//console.log("dd")						
+						function getOverallBatchFeedback(batchId, currentWeek){				
 								caliberDelegate.qc
 									.batchNote(batchId, currentWeek)
 										.then(function(notes) {
