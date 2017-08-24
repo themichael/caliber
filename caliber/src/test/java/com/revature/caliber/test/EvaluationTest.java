@@ -1,11 +1,11 @@
 package com.revature.caliber.test;
 
+import java.util.List;
+import java.util.Map;
+
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
-
-import java.util.List;
-import java.util.Map;
 
 public class EvaluationTest extends CaliberTest {
 

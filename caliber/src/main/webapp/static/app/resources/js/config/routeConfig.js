@@ -7,7 +7,7 @@ angular
 					// Turn on/off debug messages
 					$logProvider.debugEnabled(true);
 
-					// chart options
+                    // chart options
 					ChartJsProvider.setOptions({
 
 						chartColors : [ '#803690', '#00ADF9', '#ffff66',

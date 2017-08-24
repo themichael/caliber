@@ -1,13 +1,14 @@
 
 package com.revature.caliber.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.exceptions.NotAuthorizedException;
-import com.revature.caliber.security.impl.Helper;
-import com.revature.caliber.security.models.SalesforceToken;
-import com.revature.caliber.security.models.SalesforceUser;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -26,12 +27,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.exceptions.NotAuthorizedException;
+import com.revature.caliber.security.impl.Helper;
+import com.revature.caliber.security.models.SalesforceToken;
+import com.revature.caliber.security.models.SalesforceUser;
 
 /**
  * The type Boot controller.

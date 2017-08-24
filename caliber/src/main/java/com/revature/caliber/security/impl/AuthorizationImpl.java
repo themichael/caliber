@@ -1,7 +1,13 @@
 package com.revature.caliber.security.impl;
 
-import com.revature.caliber.security.Authorization;
-import com.revature.caliber.security.models.SalesforceUser;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -20,14 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.revature.caliber.security.Authorization;
+import com.revature.caliber.security.models.SalesforceUser;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by louislopez on 1/18/17.
@@ -59,7 +61,7 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
 	private static final String REDIRECT = "redirect:";
-	
+
 	private static final String REVATURE = "http://www.revature.com/";
 
 	public AuthorizationImpl() {
