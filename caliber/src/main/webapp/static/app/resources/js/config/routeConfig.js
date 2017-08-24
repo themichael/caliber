@@ -7,8 +7,6 @@ angular
 					// Turn on/off debug messages
 					$logProvider.debugEnabled(false);
 
-                    $locationProvider.html5Mode(true);
-
                     // chart options
 					ChartJsProvider.setOptions({
 
