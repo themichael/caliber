@@ -1,22 +1,11 @@
 package com.revature.caliber.test;
 
-import org.apache.log4j.Logger;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Category;
-import com.revature.caliber.controllers.CategoryController;
 
 public class CategoryTest extends CaliberTest {
-
-	private static final Logger log = Logger.getLogger(CategoryTest.class);
-
-	@Autowired
-	private CategoryController categoryController;
-
-	private static final String CATEGORY_COUNT = "select count(category_id) from caliber_category";
-
+	
+	private static final String NOT_YET_IMPLEMENTED="Not yet implemented";
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// CATEGORY API
 	//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,9 +15,8 @@ public class CategoryTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.CategoryController#findAllCategories()
 	 */
-	@Test
 	public void findAllCategories() {
-		
+		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 
 	/**
@@ -36,9 +24,8 @@ public class CategoryTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.CategoryController#findCategoryById(int)
 	 */
-	@Test
 	public void findCategoryById() {
-		
+		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 
 	/**
@@ -46,9 +33,8 @@ public class CategoryTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.CategoryController#findAll()
 	 */
-	@Test
 	public void findAll() {
-		
+		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 
 	/**
@@ -56,9 +42,8 @@ public class CategoryTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.CategoryController#updateCategory(Category)
 	 */
-	@Test
 	public void updateCategory() {
-		
+		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 
 	/**
@@ -66,8 +51,7 @@ public class CategoryTest extends CaliberTest {
 	 * 
 	 * @see com.revature.caliber.controllers.CategoryController#saveCategory(Category)
 	 */
-	@Test
 	public void saveCategory() {
-		
+		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 }
