@@ -266,8 +266,7 @@ angular
 							var row = {};
 							row.label = chartObject.labels[i];
 							row.data = [];
-							angular.forEach(chartObject.data, function(value,
-									key) {
+							angular.forEach(chartObject.data, function(value) {
 								row.data.push(value[i]);
 							});
 							tableDataSet.push(row);
