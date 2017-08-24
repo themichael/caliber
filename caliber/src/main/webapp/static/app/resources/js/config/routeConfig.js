@@ -58,11 +58,20 @@ angular
 									})
 							.state(
 									"qc.home",
-									{
+									{ 
 										url : "/home",
-										templateUrl : "/static/app/partials/home/qc-home.html",
-										controller : "qcHomeController"
-									})
+										/* add modal view to vpHome page */
+										views: {
+											"" : {
+												templateUrl : "/static/app/partials/home/qc-home.html",
+												controller : "qcHomeController"
+											},
+											"qc-quality-audit@qc.home" : {
+												templateUrl : "/static/app/partials/home/view-audit-modal.html"
+											},
+										}
+										
+									})		
 							.state(
 									"qc.manage",
 									{
@@ -219,10 +228,10 @@ angular
 												controller : "trainerAssessController"
 											},
 											"trainer-edit-assess@trainer.assess" : {
-												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html",
+												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html"
 											},
 											"confirm-add-weeks-modal@trainer.assess" : {
-												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html",
+												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
 
 											}
 										}
@@ -284,10 +293,19 @@ angular
 									})
 							.state(
 									"vp.home",
-									{
-										templateUrl : "/static/app/partials/home/vp-home.html",
+									{ 
 										url : "/home",
-										controller : "vpHomeController"
+										/* add modal view to vpHome page */
+										views: {
+											"" : {
+												templateUrl : "/static/app/partials/home/vp-home.html",
+												controller : "vpHomeController"
+											},
+											"qc-quality-audit@vp.home" : {
+												templateUrl : "/static/app/partials/home/view-audit-modal.html"
+											},
+										}
+										
 									})
 							.state(
 									"vp.trainers",
@@ -400,10 +418,10 @@ angular
 												controller : "trainerAssessController"
 											},
 											"trainer-edit-assess@vp.assess" : {
-												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html",
+												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html"
 											},
 											"confirm-add-weeks-modal@vp.assess" : {
-												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html",
+												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
 
 											}
 										}
@@ -420,10 +438,10 @@ angular
 												controller : "qcAssessController"
 											},
 											"trainer-edit-assess@vp.audit" : {
-												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html",
+												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html"
 											},
 											"confirm-add-weeks-modal@vp.audit" : {
-												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html",
+												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
 
 											}
 										}
@@ -455,4 +473,48 @@ angular
 											}
 										}
 									})
+
+                            /**
+                             * Staging role
+                             *
+                             * Reusing qc's controllers because staging and qc are the same except for access to some states
+                             */
+                        .state("staging",
+                            {
+                                abstract: true,
+                                url: "/staging",
+                                templateUrl: "/static/app/partials/abstracts/staging.html",
+                                resolve: {
+                                    allBatches: function (caliberDelegate) {
+                                        return caliberDelegate.qc.getAllBatches();
+                                    },
+                                    allTrainers: function (caliberDelegate) {
+                                        return caliberDelegate.all.getAllTrainers();
+                                    }
+                                },
+                                // Authorize Staging role
+                                onEnter: function (authFactory) {
+                                    authFactory.authStaging();
+                                }
+                            })
+
+                        .state("staging.home",
+                            {
+                                templateUrl: "/static/app/partials/home/staging-home.html",
+                                url: "/home",
+                                controller: "qcHomeController" // because they are similar roles
+                            }
+                        )
+
+                        .state("staging.reports",
+                            {
+                                url: "/reports",
+                                views: {
+                                    "": {
+                                        templateUrl: "/static/app/partials/reports.html",
+                                        controller: "allReportController"
+                                    }
+                                }
+                            }
+                        )
 				});
