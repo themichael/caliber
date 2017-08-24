@@ -3,21 +3,21 @@ angular
 		.module("qc")
 		.controller(
 				"qcHomeController",
-				function($log, $scope, $filter,
-						chartsDelegate, caliberDelegate, qcFactory, allBatches) {
+				function($log, $scope, $filter, chartsDelegate,
+						caliberDelegate, qcFactory, allBatches) {
 					$log.debug("Booted vp home controller.");
 					$scope.averageScoreData = [];
 					$scope.auditData = [];
-					$scope.selectedStateFromLineChar="";
-					$scope.selectedStateFromBarChar="";
+					$scope.selectedStateFromLineChar = "";
+					$scope.selectedStateFromBarChar = "";
 					(function() {
 						// Finishes any left over ajax animation from another
 						// page
 						NProgress.done();
 						createDefaultCharts();
-						
 						/*
-						 * *Moved over code from qcAssessController for modal use
+						 * *Moved over code from qcAssessController for modal
+						 * use
 						 */
 						$scope.batches = allBatches;
 						$scope.bnote = null;
@@ -25,56 +25,59 @@ angular
 						$scope.weeks = [];
 						$scope.batchesByYear = [];
 						$scope.categories = [];
-						
-						//function to grab latest qc information from click event
-						$scope.onClick = function (points,evt){
-							if(points[0]){
-							
-							//grab index from individual bars in graph	
-							var barIndex = points[0]._index;
-							$scope.currentBatch = $scope.batches[0];
-							
-							//define varibale batchClass to match with label on graph
-							var trainingName = $scope.currentBatch.trainingName;
-							var Tname = trainingName.substring(0,trainingName.indexOf(" "));
-							var trainerName = $scope.currentBatch.trainer.name;
-							var TNname = trainerName.substring(0,trainerName.indexOf(" "));
-							var label = points[0]._model.label;
-							var batchClass = TNname + " - " + Tname;
-							
-							// starting scope vars
-							$log.debug($scope.currentBatch);
-							// If in reports get reports current batch
-							if ($scope.currentBatch !== undefined) {
-								// Set batch to batch selected in reports if
-								// available
-								$scope.currentBatch = $scope.currentBatch;
-							} else {
-								// Set batch to batch selected on assess page
-								$scope.currentBatch = $scope.batches[2];
-							}
-							//While loop to check if label matches defined variable
-							while (label !== batchClass){
-								$scope.currentBatch = $scope.batches[barIndex+1];
-								break;
-							}
-							
 
-							// create an array of numbers for number of weeks in the
-							// batch selected
-							if ($scope.currentBatch) {
-								for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
-									$scope.weeks.push(i);
+						// function to grab latest qc information from click
+						// event
+						$scope.onClick = function(points, evt) {
+							if (points[0]) {
+
+								var j = 0;
+								// define var that grabs batch id from scope
+								var batchId = $scope.stackedBarIds[points[0]._index];
+								// set current batch to j
+								$scope.currentBatch = $scope.batches[j];
+
+								// starting scope vars
+								$log.debug($scope.currentBatch);
+								// If in reports get reports current batch
+								if ($scope.currentBatch !== undefined) {
+									// Set batch to batch selected in reports if
+									// available
+									$scope.currentBatch = $scope.currentBatch;
+								} else {
+									// Set batch to batch selected on assess
+									// page
+									$scope.currentBatch = $scope.batches[0];
 								}
-							}
-							
-							start();
-							getNotes();
-							categories();
-							wipeFaces();
 
-							//opens modal view
-							$('#viewLastAudit').modal('toggle');
+								// While loop to check if current batch id
+								// matches defined
+								// variable
+								while (batchId !== $scope.currentBatch.batchId) {
+									j += 1;
+									$scope.currentBatch = $scope.batches[j];
+									if (batchId == $scope.currentBatch.batchId) {
+										$scope.currentBatch = $scope.batches[j];
+										break;
+									}
+								}
+
+								// create an array of numbers for number of
+								// weeks in the
+								// batch selected
+								if ($scope.currentBatch) {
+									for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
+										$scope.weeks.push(i);
+									}
+								}
+
+								start();
+								getNotes();
+								categories();
+								wipeFaces();
+
+								// opens modal view
+								$('#viewLastAudit').modal('toggle');
 							}
 						}
 
@@ -182,7 +185,7 @@ angular
 						}
 
 					})();
-					
+
 					// Note object
 					function Note(noteId, content, status, week, batch,
 							trainee, maxVisibility, type, qcFeedback) {
@@ -196,7 +199,7 @@ angular
 						this.qcFeedback = qcFeedback;
 						this.qcStatus = status;
 					}
-					
+
 					// Used to sort trainees in batch
 					function compare(a, b) {
 						if (a.name < b.name)
@@ -249,7 +252,7 @@ angular
 									// do something with note type
 								});
 					}
-					
+
 					// Get categories for the week
 					function categories() {
 						if ($scope.currentBatch) {
@@ -261,7 +264,7 @@ angular
 									});
 						}
 					}
-					
+
 					// wipe faces and selections
 					function wipeFaces() {
 						$scope.faces = [];
@@ -275,44 +278,49 @@ angular
 					getCurrentBatchesAvergeScoreData();
 				}
 				
-				function createAllBatchesCurrentWeekQCStats(data) {
-											var barChartObj = chartsDelegate.bar
-													.getAllBatchesCurrentWeekQCStats(data);
-											$scope.stackedBarData = barChartObj.data;
-											$scope.stackedBarLabels = barChartObj.labels;
-											$scope.stackedBarSeries = barChartObj.series;
-											$scope.stackedBarOptions = barChartObj.options;
-											$scope.stackedBarColors = barChartObj.colors;
+					
+					// restructured graph functions
+
+					function createAllBatchesCurrentWeekQCStats(data) {
+						var barChartObj = chartsDelegate.bar
+								.getAllBatchesCurrentWeekQCStats(data);
+						$scope.stackedBarData = barChartObj.data;
+						$scope.stackedBarLabels = barChartObj.labels;
+						$scope.stackedBarSeries = barChartObj.series;
+						$scope.stackedBarOptions = barChartObj.options;
+						$scope.stackedBarColors = barChartObj.colors;
+						$scope.stackedBarIds = barChartObj.id; // define scope
+																// for batch ids
+
 					}
 					function createCurrentBatchesAverageScoreChart(data) {
-											var lineChartObj = chartsDelegate.line
-													.getCurrentBatchesAverageScoreChart(data);
-											$scope.currentBatchesLineData = lineChartObj.data;
-											$scope.currentBatchesLineLabels = lineChartObj.labels;
-											$scope.currentBatchesLineSeries = lineChartObj.series;
-											$scope.currentBatchesLineOptions = lineChartObj.options;
-											$scope.currentBatchesLineColors = lineChartObj.colors;
-											$scope.currentBatchesDsOverride = lineChartObj.datasetOverride;
+						var lineChartObj = chartsDelegate.line
+								.getCurrentBatchesAverageScoreChart(data);
+						$scope.currentBatchesLineData = lineChartObj.data;
+						$scope.currentBatchesLineLabels = lineChartObj.labels;
+						$scope.currentBatchesLineSeries = lineChartObj.series;
+						$scope.currentBatchesLineOptions = lineChartObj.options;
+						$scope.currentBatchesLineColors = lineChartObj.colors;
+						$scope.currentBatchesDsOverride = lineChartObj.datasetOverride;
 					}
-					
-					function getCurrentBatchesAvergeScoreData(){
+
+					function getCurrentBatchesAvergeScoreData() {
 						chartsDelegate.line.data
-						.getCurrentBatchesAverageScoreChartData()
-						.then(
-								function(data) {
-									$scope.averageScoreData = data;
-									createCurrentBatchesAverageScoreChart(data);
-									NProgress.done();
-								},function() {
-									NProgress.done();
-								});
+								.getCurrentBatchesAverageScoreChartData()
+								.then(
+										function(data) {
+											$scope.averageScoreData = data;
+											createCurrentBatchesAverageScoreChart(data);
+											NProgress.done();
+										}, function() {
+											NProgress.done();
+										});
 					}
-					
-					function getCurrentBatchesAuditData(){
+
+					function getCurrentBatchesAuditData() {
 						chartsDelegate.bar.data
-						.getAllBatchesCurrentWeekQCStatsData()
-						.then(
-								function(data) {
+								.getAllBatchesCurrentWeekQCStatsData()
+								.then(function(data) {
 									NProgress.done();
 									$scope.auditData = data;
 									createAllBatchesCurrentWeekQCStats(data);
@@ -320,7 +328,6 @@ angular
 									NProgress.done();
 								});
 					}
-					
 					$scope.onLineCharAddressStateChange = function(state){
 						if(state!="undefined"){
 							$scope.selectedStateFromLineChar = state;
@@ -328,7 +335,7 @@ angular
 						}
 					}
 
-					$scope.onLineCharAddressCityChange = function(city){
+					$scope.onLineCharAddressCityChange = function(city) {
 						filterLineChartByCity(city);
 					}
 
@@ -339,10 +346,9 @@ angular
 						}
 					}
 
-					$scope.onBarCharAddressCityChange = function(city){
+					$scope.onBarCharAddressCityChange = function(city) {
 						filterBarChartByCity(city);
 					}
-
 
 					var filterLineChartByState = function(state){
 						if(state){
@@ -351,7 +357,7 @@ angular
 									return batch.address.state==state;
 							});
 							createCurrentBatchesAverageScoreChart(filteredData);
-						}else{
+						} else {
 							createCurrentBatchesAverageScoreChart($scope.averageScoreData);
 						}
 					}
@@ -364,7 +370,7 @@ angular
 								}
 							});
 							createCurrentBatchesAverageScoreChart(filteredData);
-						}else{
+						} else {
 							filterLineChartByState($scope.selectedStateFromLineChar);
 						}
 					}
@@ -376,7 +382,7 @@ angular
 									return batch.address.state==state;
 							});
 							createAllBatchesCurrentWeekQCStats(filteredData);
-						}else{
+						} else {
 							createAllBatchesCurrentWeekQCStats($scope.auditData);
 						}
 					}
@@ -388,9 +394,8 @@ angular
 									return batch.address.city==city;
 							});
 							createAllBatchesCurrentWeekQCStats(filteredData);
-						}else{
+						} else {
 							filterBarChartByState($scope.selectedStateFromBarChar);
 						}
 					}
-
 				});

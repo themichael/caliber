@@ -47,7 +47,7 @@ public class TrainingController {
 	public void setTrainingService(TrainingService trainingService) {
 		this.trainingService = trainingService;
 	}
-
+	
 	/*
 	 *******************************************************
 	 * TODO LOCATION SERVICES
@@ -330,7 +330,7 @@ public class TrainingController {
 
 	/**
 	 * Adds a new week to the batch. Increments counter of total_weeks in database
-	 * 
+	 *
 	 * @param batchId
 	 * @return
 	 */
