@@ -92,17 +92,6 @@ public class AddressDAO {
 		sessionFactory.getCurrentSession().saveOrUpdate(toUpdate);
 	}
 
-	// /**
-	// * Deletes a location from the database.
-	// *
-	// * @param location
-	// */
-	// @Transactional(isolation = Isolation.READ_COMMITTED, propagation =
-	// Propagation.REQUIRED, rollbackFor = Exception.class)
-	// public void delete(Address toDelete) {
-	// sessionFactory.getCurrentSession().delete(toDelete);
-	// }
-
 	public Address getOne(long l) {
 		return (Address) sessionFactory.getCurrentSession().get(Address.class, l);
 	}

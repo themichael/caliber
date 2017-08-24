@@ -167,8 +167,6 @@ angular
 										}
 									}
 									
-
-									
 									if(showAlert) {
 										// SHOW POP PUP WINDOW:
 										

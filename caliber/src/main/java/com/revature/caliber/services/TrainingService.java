@@ -80,10 +80,7 @@ public class TrainingService {
 		log.debug("Finding all locations");
 		return addressDAO.findAll();
 	}
-	// public void removeLocation(Address location) {
-	// log.debug("Remove location " + location);
-	// addressDAO.delete(location);
-	// }
+	
 
 	public Address getOne(long l) {
 		log.info("Getting Address with ID " + l);

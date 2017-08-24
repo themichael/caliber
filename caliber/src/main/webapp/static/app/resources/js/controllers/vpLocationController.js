@@ -3,8 +3,7 @@ angular
 		.controller(
 				"vpLocationController",
 				function($scope, $log, caliberDelegate) {
-					var editIndex;
-
+					
 					$log.debug("Booted location manage controller.");
 					$log.debug('test locationmanager cntroller -j');
 					$scope.allLocations = [];
@@ -57,103 +56,6 @@ angular
 										});
 					};
 					
-					/** Fill update form with locations previous data */
-					$scope.populateLocation = function(index) {
-						$log.debug($scope.allLocations[index]);
-						$scope.locationForm.company = $scope.allLocations[index].company;
-						$scope.locationForm.street = $scope.allLocations[index].street;
-						$scope.locationForm.city = $scope.allLocations[index].city;
-						$scope.locationForm.state = $scope.allLocations[index].state;
-						$scope.locationForm.zipcode = $scope.allLocations[index].zipcode;
-						$scope.locationForm.active = $scope.allLocations[index].active;
-						$scope.Save = "Update";
-					};
-					
-					$scope.updateLocation  = function(locationForm) {
-						console.log($scope.locationForm);
-						$log.debug(locationForm);
-						var currentLocation = locationForm;
-						$log.debug(currentLocation);
-						caliberDelegate.vp.updateLocation1(currentLocation)
-						.then(
-								function(response) {
-									loadAllLocations();
-									$log.debug("Location Updated: "
-											+ response);
-								});
-					}
-
-					
-					
-
-					/**
-					 * *********************************************** Code to
-					 * create and update Trainer************
-					 *//*
-
-					// load training tiers
-					caliberDelegate.all.enumTrainerTier().then(function(tiers) {
-						$log.debug(tiers);
-						var filteredTiers = tiers.filter(function(ary) {
-							return ary !== 'ROLE_INACTIVE'
-						});
-						for (var i = 0; i < filteredTiers.length; i++) {
-							filteredTiers[i] = filteredTiers[i].substr(5);
-						}
-						$scope.trainerTiers = filteredTiers;
-					});
-
-					// load tainers titles
-					caliberDelegate.vp.trainersTitles().then(function(titles) {
-						$log.debug(titles);
-						$scope.trainersTitles = titles;
-					});
-
-					*//** Save email verification modal* *//*
-					$scope.checkTrainerEmail = function(trainerForm) {
-						caliberDelegate.vp
-								.getTrainerEmail(trainerForm.email)
-								.then(
-										function(response) {
-											$log.debug(response)
-											if (response.data === "") {
-												$scope.saveTrainer(trainerForm);
-											} else {
-												$log.debug(response)
-												angular
-														.element(
-																"#trainerEmailVerificationModal")
-														.modal("show");
-												return false;
-											}
-										})
-					};
-
-					// ** Resets location form* *//*
-					$scope.resetLocationForm = function() {
-						$scope.locationForm.addressId = "";
-						$scope.locationForm.company = "";
-						$scope.locationForm.street = "";
-						$scope.locationForm.city = "";
-						$scope.locationForm.state = "";
-						$scope.locationForm.zipcode = "";
-						$scope.locationForm.active = 1;
-						$scope.Save = "Save";
-					};
-
-					// Create Location
-					$scope.createLocation = function(locationForm) {
-						var newLocation = $scope.locationForm;
-						createAddressObject(newLocation);
-						caliberDelegate.vp.createLocation(newLocation)
-								.then(
-										function(response) {
-											loadAllLocations();
-											$log.debug("Location Created: "
-													+ response);
-										});
-					};
-
 					/** Fill update form with locations data */
 					$scope.populateLocation = function(index) {
 						$log.debug($scope.allLocations[index]);
@@ -168,9 +70,8 @@ angular
 					};
 
 					// to update location
-					$scope.updateLocation = function(locationForm) {
+					$scope.updateLocation = function() {
 						var currentLocation = $scope.locationForm;
-						// createAddressObject(currentLocation);
 						caliberDelegate.vp.updateLocation(currentLocation)
 								.then(
 										function(response) {
@@ -179,8 +80,20 @@ angular
 													+ response);
 										});
 					};
-
-
+					
+					// ** Resets location form* *//*
+					$scope.resetLocationForm = function() {
+						$scope.locationForm.addressId = ""; 
+						$scope.locationForm.company = "";
+						$scope.locationForm.street = "";
+						$scope.locationForm.city = "";
+						$scope.locationForm.state = "";
+						$scope.locationForm.zipcode = "";
+						$scope.locationForm.active = 1;
+						$scope.Save = "Save";
+					};
+					
+	
 					// removing location - deactivate
 					$scope.removeLocation = function() {
 						$scope.selectedLocation.active = 0;

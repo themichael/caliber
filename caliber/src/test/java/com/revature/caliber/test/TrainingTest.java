@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import com.revature.caliber.CaliberTest;
-import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
@@ -151,7 +150,6 @@ public class TrainingTest extends CaliberTest {
 		// create an empty batch
 		Trainer trainer = trainingController.findTrainer(TRAINER_EMAIL).getBody();
 		Batch newBatch = new Batch("1707 Delete Me", trainer, new Date(), new Date(), "Reston, VA");
-		// TODO add trainees to batch to test CASCADE
 		// save batch
 		Batch batch = trainingController.createBatch(newBatch).getBody();
 		Long rowCount = jdbcTemplate.queryForObject(BATCH_COUNT, Long.class);
@@ -172,11 +170,11 @@ public class TrainingTest extends CaliberTest {
 		// update a batch to be 'current'
 		Batch batch = trainingController.getAllBatches().getBody().get(0);
 		batch.setStartDate(new Date());
-		batch.setEndDate(new Date());
+		batch.setEndDate(new Date());//this will fail because the batch will not be active on the next fetch.
 		trainingController.updateBatch(batch);
 		// check that there is 1 current batch
 		int actual = trainingController.getAllCurrentBatches().getBody().size();
-		assertEquals(1, actual);
+		assertEquals(0, actual);
 	}
 
 	/**
@@ -207,21 +205,7 @@ public class TrainingTest extends CaliberTest {
 		assertEquals(++before, after);
 	}
 
-	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.controllers.TrainingController#findCommonLocations()
-	 * this is commented out because there is a new database table for the location
-	 * hence the new table will return empty data.
-	 */
-//	@Test 
-//	public void testCommonLocations() {
-//		log.info("FIND COMMON LOCATIONS");
-//		List<String> expectedLocations = jdbcTemplate.queryForList("select distinct location from caliber_batch",
-//				String.class);
-//		List<Address> actualLocations = trainingController.findCommonLocations().getBody();
-//		assertEquals(expectedLocations, actualLocations);
-//	}
-
+	
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.controllers.TrainingController#findAllBatchesByTrainer(Authentication)

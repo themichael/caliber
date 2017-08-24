@@ -132,7 +132,7 @@ public class ReportingService {
 	 *******************************************************
 	 */
 	public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() { // changed to List<Object>
-		List<Object> results = new ArrayList<Object>();
+		List<Object> results = new ArrayList<>();
 		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
 		currentBatches.parallelStream().forEach(b -> {
 			Map<String, Object> batchData = new HashMap<>();
@@ -140,10 +140,11 @@ public class ReportingService {
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-					batchData.put("label", b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' '))+" - "+ // Trainer first name
-							b.getTrainingName());
+					batchData.put("label", b.getStartDate()+"..."+ // batch start date
+							b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' ')));
 					batchData.put("address", b.getAddress());
 					batchData.put("qcStatus", temp);   // Batch ID
+					batchData.put("id", b.getBatchId()); //Actual batch id
 					results.add(batchData);
 					break;
 				}
@@ -394,13 +395,14 @@ public class ReportingService {
 	 * @return List<Map<batch attributes, values>>
 	 */
 	public List<Object> getAllCurrentBatchesLineChart() {
-		List<Object> results = new ArrayList<Object>();
+		List<Object> results = new ArrayList<>();
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();  // changed to Trainees
 		batches.parallelStream().forEach(batch -> {
 			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
-			batchObject.put("label", batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' '))+" - "+ //Trainer First name
-					batch.getTrainingName());
+
+			batchObject.put("label", batch.getStartDate()+"..."+ //batch start date
+					batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' ')));
 			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
 			batchObject.put("address", batch.getAddress());
 			results.add(batchObject);

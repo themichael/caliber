@@ -254,9 +254,11 @@ angular.module("charts").factory(
 				chartData.data = [];
 				chartData.labels = [];
 				chartData.colors = [];
+				chartData.id = [];
 
 				angular.forEach(data, function(batch) {
 					chartData.labels.push(batch.label);
+					chartData.id.push(batch.id);
 					var i = 0;
 					angular.forEach(batch.qcStatus, function(value2, key2) {
 						if (chartData.data[i] === undefined) {

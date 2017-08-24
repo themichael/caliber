@@ -55,9 +55,6 @@ public class Batch implements Serializable {
 	@Column(name = "RESOURCE_ID")
 	private String resourceId;
 
-	/**
-	 * Example: 1702 Java CUNY
-	 */
 	@NotNull
 	@Column(name = "TRAINING_NAME")
 	private String trainingName;
@@ -117,10 +114,6 @@ public class Batch implements Serializable {
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@OneToMany(mappedBy = "batch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference(value = "traineeAndBatch")
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -130,7 +123,7 @@ public class Batch implements Serializable {
 	private int weeks;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "batch", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "batch")
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
 
@@ -370,11 +363,8 @@ public class Batch implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Batch [batchId=" + batchId + ", resourceId=" + resourceId + ", trainingName=" + trainingName
-				+ ", trainer=" + trainer + ", coTrainer=" + coTrainer + ", skillType=" + skillType + ", trainingType="
-				+ trainingType + ", startDate=" + startDate + ", endDate=" + endDate + ", location=" + location
-				+ ", address=" + address + ", goodGradeThreshold=" + goodGradeThreshold + ", borderlineGradeThreshold="
-				+ borderlineGradeThreshold + ", trainees=" + trainees + ", weeks=" + weeks + ", notes=" + notes + "]";
+		return "Batch [batchId=" + batchId + ", trainingName=" + trainingName + ", skillType=" + skillType
+				+ ", trainingType=" + trainingType + "]";
 	}
 
 }
