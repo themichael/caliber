@@ -22,6 +22,21 @@ angular
 						$scope.weeks = [];
 						$scope.batchesByYear = [];
 						$scope.categories = [];
+						$scope.qcOverallNotes = [];
+						
+						// call function to get batch overall feedback
+						for (var b in $scope.batches){								
+							getOverallBatchFeedback($scope.batches[b].batchId, $scope.batches[b].weeks);
+						}
+						
+						// function to get overall feedback for all batches for current week
+						function getOverallBatchFeedback(batchId, currentWeek){				
+								caliberDelegate.qc
+									.batchNote(batchId, currentWeek)
+										.then(function(notes) {
+											$scope.qcOverallNotes.push(notes.qcStatus);
+										});							
+						}
 						
 						//function to grab latest qc information from click event
 						$scope.onClick = function (points,evt){

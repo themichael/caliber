@@ -37,11 +37,13 @@
 											<th class="col-sm-2 col-md-2 col-lg-2"></th>
 											<th class="col-sm-2 col-md-2 col-lg-2"
 												ng-repeat="series in stackedBarSeries">{{series}}</th>
+											<th class="col-sm-2 col-md-2 col-lg-2">Overall Batch Status</th>
 										</tr>
 										<tr ng-repeat="label in stackedBarLabels track by $index">
 											<th class="col-sm-2 col-md-2 col-lg-2">{{label}}</th>
 											<td class="col-sm-2 col-md-2 col-lg-2"
 												ng-repeat="series in stackedBarSeries track by $index">{{stackedBarData[$index][$parent.$index]}}</td>
+											<td class="overall-batch-health">{{qcOverallNotes[$index]}}</td>
 										</tr>
 									</tbody>
 								</table>
