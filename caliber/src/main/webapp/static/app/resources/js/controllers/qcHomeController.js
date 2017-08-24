@@ -42,17 +42,7 @@ angular
 
 							// starting scope vars
 							$log.debug($scope.currentBatch);
-							// If in reports get reports current batch
-							if ($scope.currentBatch !== undefined) {
-								// Set batch to batch selected in reports if
-								// available
-								$scope.currentBatch = $scope.currentBatch;
-							} else {
-								// Set batch to batch selected on assess
-								// page
-								$scope.currentBatch = $scope.batches[0];
-							}
-
+							
 							// While loop to check if current batch id
 							// matches defined
 							// variable
