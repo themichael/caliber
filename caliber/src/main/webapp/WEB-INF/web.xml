@@ -55,7 +55,7 @@
     	<session-timeout>180</session-timeout>
     </session-config>
     
-    <!--<error-page>
+    <error-page>
     	<location>/</location>
-    </error-page>-->
+    </error-page>
 </web-app>
