@@ -821,7 +821,7 @@ angular
                         var recursiveAddHtml = function (height) {
                             if (j < charts.length) {
                                 doc.addHTML(charts[j], 0, height, function () {
-                                    i++;
+                                    j++;
                                     if (j !== charts.length)
                                     	doc.addPage();
                                     recursiveAddHtml(0);
