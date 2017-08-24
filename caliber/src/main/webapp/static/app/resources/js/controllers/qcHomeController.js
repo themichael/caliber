@@ -321,6 +321,45 @@ angular
 								});
 					}
 
+					var filterLineChartByCity = function(city){
+						if(city){
+							var filteredData = $scope.averageScoreData.filter(function(batch){
+								if(batch.address){
+									return batch.address.city===city;
+								}
+							});
+							createCurrentBatchesAverageScoreChart(filteredData);
+						} else {
+							filterLineChartByState($scope.selectedStateFromLineChar);
+						}
+					}
+					
+					var filterLineChartByState = function(state){
+						if(state){
+							var filteredData = $scope.averageScoreData.filter(function(batch){
+								if(batch.address)
+									return batch.address.state===state;
+							});
+							createCurrentBatchesAverageScoreChart(filteredData);
+						} else {
+							createCurrentBatchesAverageScoreChart($scope.averageScoreData);
+						}
+					}
+
+
+					var filterBarChartByState = function(state){
+						if(state){
+							var filteredData = $scope.auditData.filter(function(batch){
+								if(batch.address)
+									return batch.address.state===state;
+							});
+							createAllBatchesCurrentWeekQCStats(filteredData);
+						} else {
+							createAllBatchesCurrentWeekQCStats($scope.auditData);
+						}
+					}
+
+
 					$scope.onLineCharAddressStateChange = function(state){
 						if(state!=="undefined"){
 							$scope.selectedStateFromLineChar = state;
@@ -341,54 +380,5 @@ angular
 
 					$scope.onBarCharAddressCityChange = function(city) {
 						filterBarChartByCity(city);
-					}
-
-					var filterLineChartByState = function(state){
-						if(state){
-							var filteredData = $scope.averageScoreData.filter(function(batch){
-								if(batch.address)
-									return batch.address.state===state;
-							});
-							createCurrentBatchesAverageScoreChart(filteredData);
-						} else {
-							createCurrentBatchesAverageScoreChart($scope.averageScoreData);
-						}
-					}
-
-					var filterLineChartByCity = function(city){
-						if(city){
-							var filteredData = $scope.averageScoreData.filter(function(batch){
-								if(batch.address){
-									return batch.address.city===city;
-								}
-							});
-							createCurrentBatchesAverageScoreChart(filteredData);
-						} else {
-							filterLineChartByState($scope.selectedStateFromLineChar);
-						}
-					}
-
-					var filterBarChartByState = function(state){
-						if(state){
-							var filteredData = $scope.auditData.filter(function(batch){
-								if(batch.address)
-									return batch.address.state===state;
-							});
-							createAllBatchesCurrentWeekQCStats(filteredData);
-						} else {
-							createAllBatchesCurrentWeekQCStats($scope.auditData);
-						}
-					}
-
-					var filterBarChartByCity = function(city){
-						if(city){
-							var filteredData = $scope.auditData.filter(function(batch){
-								if(batch.address)
-									return batch.address.city===city;
-							});
-							createAllBatchesCurrentWeekQCStats(filteredData);
-						} else {
-							filterBarChartByState($scope.selectedStateFromBarChar);
-						}
 					}
 				});
