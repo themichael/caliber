@@ -244,13 +244,7 @@ public class BatchDAO {
 	 */
 	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Batch batch) {
-		// batch.setStartDate(new Date(batch.getStartDate().getTime() +
-		// TimeUnit.DAYS.toMillis(1)));
-		// batch.setEndDate(new Date(batch.getEndDate().getTime() +
-		// TimeUnit.DAYS.toMillis(1)));
 		log.info("Updating batch: " + batch);
-		batch.setStartDate(new Date(batch.getStartDate().getTime() + TimeUnit.DAYS.toMillis(1)));
-		batch.setEndDate(new Date(batch.getEndDate().getTime() + TimeUnit.DAYS.toMillis(1)));
 		sessionFactory.getCurrentSession().saveOrUpdate(batch);
 	}
 
