@@ -108,5 +108,70 @@ angular
 										});
 
 					}
+					
+					/* ************************************************************************************
+					 *  alertPopup() Method
+					 *  AUTHOR: Leibniz H. Berihuete
+					 *  PURPOSE: to update location of existing batches that have unspecified locations.
+					 *  NOTE: already-ended batches (old batches) do not need to be updated
+					 *  INPUT: none
+					 *  PROCESS:
+					 *  	1. Get all batches from trainer
+					 *  	2. Get current date
+					 *  	3. Iterate through all batches
+					 *  	4. In each iteration: obtain address object and obtain endDate
+					 *  	5. In each iteration: if address== null AND if currentDate < endDate, showAlert: true
+					 *  	6. If showAlert is true, showAlert to trainer, indicating which batches to update.
+					 * OUTPUT: alert message.  
+					 * ************************************************************************************/
+					$scope.alertPopup = function() {
+						
+						
+						caliberDelegate.trainer.getAllBatches()
+						.then(
+								function(batches) {
+									// holds all batches that current trainer has
+									$scope.allBatches = batches; 
+									
+									// Holds the address of the a batch
+									var address;
+									
+									// Holds the end-date of a batch
+									var endDate;
+									
+									// get current Date
+									var cd = new Date();
+									
+									// Format the date (in order to do comparison
+									var currentDate =  cd.getFullYear() + "-" + cd.getMonth() + "-" +cd.getDate();
+									
+									// holds the batches that needs to be updated
+									var alertBatches = "";
+									
+									
+									var showAlert = false;
+									
+									
+									// Iterate through each batch
+									for(var i = 0; i < batches.length; i++) {
+										address = batches[i].address;
+										endDate = batches[i].endDate;
+										
+										// check if the batch needs to be updated
+										if(address === null && currentDate < endDate) {
+											showAlert = true;
+											alertBatches += "" + batches[i].trainingName + "\n";
+										}
+									}
+									
+									if(showAlert) {
+										// TODO if we have time: new alert window style, instead of the alert()
+										alert("Please update the location on the following batches:\n" + alertBatches +"\n\nThank you!");
+									
+										
+									}
+									
+								});
+					}
 
 				});

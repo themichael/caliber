@@ -370,11 +370,8 @@ public class Batch implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Batch [batchId=" + batchId + ", resourceId=" + resourceId + ", trainingName=" + trainingName
-				+ ", trainer=" + trainer + ", coTrainer=" + coTrainer + ", skillType=" + skillType + ", trainingType="
-				+ trainingType + ", startDate=" + startDate + ", endDate=" + endDate + ", location=" + location
-				+ ", address=" + address + ", goodGradeThreshold=" + goodGradeThreshold + ", borderlineGradeThreshold="
-				+ borderlineGradeThreshold + ", trainees=" + trainees + ", weeks=" + weeks + ", notes=" + notes + "]";
+		return "Batch [batchId=" + batchId + ", trainingName=" + trainingName + ", skillType=" + skillType
+				+ ", trainingType=" + trainingType + "]";
 	}
 
 }

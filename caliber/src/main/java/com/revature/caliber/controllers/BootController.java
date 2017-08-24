@@ -4,7 +4,6 @@ package com.revature.caliber.controllers;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLDecoder;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +22,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -55,8 +56,8 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards
-	 * to the landing page according to the user's role.
+	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards to
+	 * the landing page according to the user's role.
 	 *
 	 * @param servletRequest
 	 *            the servlet request
@@ -69,8 +70,8 @@ public class BootController extends Helper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
-			throws IOException, URISyntaxException {
+	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+			@ModelAttribute("salestoken") String salesTokenString, Model model) throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
@@ -84,10 +85,11 @@ public class BootController extends Helper {
 			authorize(jsonString, salesforceUser, servletResponse);
 			return "index";
 		}
-
 		// get Salesforce token from cookie
 		try {
-			SalesforceToken salesforceToken = getSalesforceToken(servletRequest);
+			log.error("About to check for salesforce token");
+			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
+			model.asMap().clear();
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
@@ -97,35 +99,40 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "index";
+			return "redirect:/home/";
 		} catch (AuthenticationCredentialsNotFoundException e) {
-			log.debug(e);
+			log.error("error thrown:", e);
 			return "redirect:/";
 		}
 	}
 
+	@RequestMapping(value = "/home")
+	public String sendHome(HttpServletResponse response, Authentication auth) {
+		SalesforceUser a = (SalesforceUser) auth.getPrincipal();
+		response.addCookie(new Cookie("role", a.getRole()));
+		return "index";
+	}
+
 	/**
-	 * Retrieve the salesforce access_token from the provided cookie
+	 * Retrieve the salesforce access_token from the forwarded request
 	 * 
-	 * @param servletRequest
+	 * @param token
 	 * @return
 	 * @throws IOException
 	 */
-	private SalesforceToken getSalesforceToken(HttpServletRequest servletRequest) throws IOException {
-		Cookie[] cookies = servletRequest.getCookies();
-		for (Cookie cookie : cookies) {
-			if (("token").equals(cookie.getName())) {
-				log.debug("Parse salesforce token: " + cookie.getValue());
-				return new ObjectMapper().readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),
-						SalesforceToken.class);
-			}
+	private SalesforceToken getSalesforceToken(String token) throws IOException {
+		log.error("Checking for the salesforce token");
+		if (token != null) {
+			log.error("Parse salesforce token from forwarded request: " + token);
+			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
+		log.error("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
 
 	/**
-	 * Makes a request to Salesforce REST API to retrieve the authenticated
-	 * user's details
+	 * Makes a request to Salesforce REST API to retrieve the authenticated user's
+	 * details
 	 * 
 	 * @param servletRequest
 	 * @param salesforceToken
@@ -152,9 +159,8 @@ public class BootController extends Helper {
 
 	/**
 	 * Gets Caliber user from database (TRAINER table) and validates if provided
-	 * email is authorized to user Caliber. All authorized Caliber users must
-	 * exist as a TRAINER record with email matching that of Salesforce user
-	 * email.
+	 * email is authorized to user Caliber. All authorized Caliber users must exist
+	 * as a TRAINER record with email matching that of Salesforce user email.
 	 * 
 	 * @param servletRequest
 	 * @param email
@@ -182,9 +188,9 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * Parses a Json String containing TRAINER bean. Authorize the user with
-	 * Caliber and store their PreAuthenticatedAuthenticationToken in session.
-	 * Adds convenience 'role' cookie for AngularJS consumption.
+	 * Parses a Json String containing TRAINER bean. Authorize the user with Caliber
+	 * and store their PreAuthenticatedAuthenticationToken in session. Adds
+	 * convenience 'role' cookie for AngularJS consumption.
 	 * 
 	 * @param jsonString
 	 * @param salesforceUser
@@ -199,9 +205,9 @@ public class BootController extends Helper {
 					+ jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
-			
+
 			// check if user is active
-			if(salesforceUser.getCaliberUser().getTier().equals(TrainerRole.ROLE_INACTIVE))
+			if (salesforceUser.getCaliberUser().getTier().equals(TrainerRole.ROLE_INACTIVE))
 				throw new NotAuthorizedException();
 		} else {
 			throw new NotAuthorizedException();
@@ -210,7 +216,6 @@ public class BootController extends Helper {
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
 	}
 
