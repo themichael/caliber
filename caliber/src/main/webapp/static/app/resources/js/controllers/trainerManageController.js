@@ -227,7 +227,9 @@ angular
 							$scope.endDate.model = end;
 							return false;
 						}
+
 						$log.info($scope.validDate);
+
 					}
 
 					/**
@@ -384,8 +386,8 @@ angular
 						batch.skillType = $scope.skillType.model;
 						batch.trainer = null;
 						batch.coTrainer = null;
-						batch.startDate = new Date($scope.startDate.model);
-						batch.endDate = new Date($scope.endDate.model);
+						batch.startDate = $scope.startDate.model;
+						batch.endDate = $scope.endDate.model;
 						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
 						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
 						batch.location = address.company + ", " + address.city

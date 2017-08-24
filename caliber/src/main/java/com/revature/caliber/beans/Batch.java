@@ -44,10 +44,6 @@ import com.revature.caliber.validator.ValidBatch;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Batch implements Serializable {
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	private static final long serialVersionUID = -5755409643112884001L;
 
 	@Id
@@ -120,6 +116,10 @@ public class Batch implements Serializable {
 	@Min(value = 1)
 	@Column(name = "BORDERLINE_GRADE_THRESHOLD")
 	private short borderlineGradeThreshold;
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	@OneToMany(mappedBy = "batch", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JsonManagedReference(value = "traineeAndBatch")

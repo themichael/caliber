@@ -1,5 +1,6 @@
 package com.revature.caliber.data;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -40,6 +41,22 @@ public class AddressDAO {
 	}
 
 	/**
+	 *
+	 * @return a list of all addresses as Stringin the database
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public List<String> getAll() {
+		log.info("Fetching all Addresses");
+		List<String> addresses = new ArrayList<>();
+		List<Address> addList = sessionFactory.getCurrentSession().createQuery("FROM Address ORDER BY state").list();
+		for (Address address : addList) {
+			addresses.add(address.toString());
+		}
+		return addresses;
+	}
+
+	/**
 	 * Find all locations.
 	 */
 	@SuppressWarnings("unchecked")
@@ -48,6 +65,19 @@ public class AddressDAO {
 		log.info("Finding all locations");
 		return sessionFactory.getCurrentSession().createCriteria(Address.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+
+	/**
+	 * Save location
+	 *
+	 * @param id
+	 * @return the address with the specified id
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Address getAddressById(int id) {
+		log.info("Fetching address with id " + id);
+		Address a = (Address) sessionFactory.getCurrentSession().get(Address.class, id);
+		return a;
 	}
 
 	/**
