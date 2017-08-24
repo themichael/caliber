@@ -31,20 +31,23 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
 		<security:intercept-url pattern="/caliber"
 			access="permitAll" />
-		<security:intercept-url pattern="/home"
-			access="permitAll" />
+		<security:intercept-url pattern="/home" access="permitAll" />
 		<security:intercept-url pattern="/*" access="permitAll" />
 
 		<security:csrf disabled="true" />
 		<security:logout invalidate-session="true"
 			delete-cookies="token, JSESSIONID" />
 	</security:http>
+
+	<security:global-method-security
+		pre-post-annotations="enabled" />
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
 				<security:user authorities="ROLE_VP" name="ROLE_VP" />
 				<security:user authorities="ROLE_QC" name="ROLE_QC" />
 				<security:user authorities="ROLE_TRAINER" name="ROLE_TRAINER" />
+				<security:user authorities="ROLE_STAGING" name="ROLE_STAGING" />
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>

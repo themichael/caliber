@@ -23,6 +23,27 @@ angular.module("auth").factory("authFactory",
 			var qcHome = "/qc/home";
 			var trainerHome = "/trainer/home";
 
+			var vpManage = "vp.manage";
+			var qcManage = "qc.manage";
+			var trainerManage = "/trainer/home";
+
+			var vpAudit = "vp.audit";
+			var qcAudit = "qc.audit";
+
+			var vpReports = "vp.reports";
+			var qcReports = "qc.reports";
+			var trainerReports = "trainer.reports";
+			var stagingReports = "staging.reports";
+
+			var trainerImport = "trainer.import";
+
+			var vpAssess = "vp.assess";
+			var trainerAssess = "trainer.assess";
+
+			var vpCategory = "vp.category";
+
+			var vpTrainers = "vp.trainers";
+
 			/**
 			 * Retrieves role from cookie
 			 * 
@@ -41,24 +62,24 @@ angular.module("auth").factory("authFactory",
 			auth.auth = function() {
 				var role = getCookie();
 
-                switch (role) {
-					case trainerRole:
-					    $log.debug("Changing state to: " + trainerState);
-						$state.go(trainerState);
-						break;
-					case qcRole:
-                        $log.debug("Changing state to: " + qcState);
-						$state.go(qcState);
-						break;
-					case vpRole:
-                        $log.debug("Changing state to: " + vpState);
-						$state.go(vpState);
-						break;
-					case stagingRole:
-                        $log.debug("Changing state to: " + stagingState);
-						$state.go(stagingState);
-						break;
-                }
+				switch (role) {
+				case trainerRole:
+					$log.debug("Changing state to: " + trainerState);
+					$state.go(trainerState);
+					break;
+				case qcRole:
+					$log.debug("Changing state to: " + qcState);
+					$state.go(qcState);
+					break;
+				case vpRole:
+					$log.debug("Changing state to: " + vpState);
+					$state.go(vpState);
+					break;
+				case stagingRole:
+					$log.debug("Changing state to: " + stagingState);
+					$state.go(stagingState);
+					break;
+				}
 			};
 
 			/**
@@ -70,7 +91,7 @@ angular.module("auth").factory("authFactory",
 					$log.debug("Authenticated user as QC");
 				else if (role === trainerRole)
 					$location.path(trainerHome);
-				else
+				else if (role === vpRole)
 					$location.path(vpHome);
 			};
 
@@ -85,7 +106,7 @@ angular.module("auth").factory("authFactory",
 					$log.debug("Authenticate user as VP");
 				else if (role === trainerRole)
 					$location.path(trainerHome);
-				else
+				else if (role === qcRole)
 					$location.path(qcHome);
 			};
 
@@ -98,22 +119,155 @@ angular.module("auth").factory("authFactory",
 					$log.debug("Authenticated user as Trainer");
 				else if (role === qcRole)
 					$location.path(qcHome);
-				else
+				else if (role === vpRole)
 					$location.path(vpHome);
 			};
 
-			auth.authStaging = function () {
+			auth.authStaging = function() {
 				var role = getCookie();
 
-                $log.debug("Authorizing staging role");
+				$log.debug("Authorizing staging role");
 
-                if(role !== stagingRole) {
-                	if (devMode)
-                		$location.path(DEBUG_URL);
-                	else
-                		$location.path("/");
-                }
-            };
+				if (role !== stagingRole) {
+					if (devMode)
+						$location.path(DEBUG_URL);
+					else
+						$location.path("/");
+				}
+			};
+
+			/*
+			 * if user has one of the specified roles, continue on. Otherwise,
+			 * take the user to his/her homepage.
+			 */
+			auth.authManage = function() {
+				var role = getCookie();
+
+				switch (role) {
+				case vpRole:
+					$log.debug("Changing state to: " + vpManage);
+					break;
+				case qcRole:
+					$log.debug("Changing state to: " + qcManage);
+					break;
+				case trainerRole:
+					$log.debug("Changing state to: " + trainerManage);
+					break;
+				default:
+					auth.auth();
+				}
+			};
+
+			/*
+			 * if user has one of the specified roles, continue on. Otherwise,
+			 * take the user to his/her homepage.
+			 */
+			auth.authAudit = function() {
+				var role = getCookie();
+
+				switch (role) {
+				case vpRole:
+					$log.debug("Changing state to: " + vpAudit);
+					break;
+				case qcRole:
+					$log.debug("Changing state to: " + qcAudit);
+					break;
+				default:
+					auth.auth();
+				}
+			};
+
+			/*
+			 * if user has one of the specified roles, continue on. Otherwise,
+			 * take the user to his/her homepage.
+			 */
+			auth.authReports = function() {
+				var role = getCookie();
+
+				switch (role) {
+				case vpRole:
+					$log.debug("Changing state to: " + vpReports);
+					break;
+				case qcRole:
+					$log.debug("Changing state to: " + qcReports);
+					break;
+				case trainerRole:
+					$log.debug("Changing state to: " + trainerReports);
+					break;
+				case stagingRole:
+					$log.debug("Changing state to: " + stagingReports);
+					break;
+				default:
+					auth.auth();
+				}
+			};
+
+			/*
+			 * if user has one of the specified roles, continue on. Otherwise,
+			 * take the user to his/her homepage.
+			 */
+			auth.authImport = function() {
+				var role = getCookie();
+
+				switch (role) {
+				case trainerRole:
+					$log.debug("Changing state to: " + trainerImport);
+					break;
+				default:
+					auth.auth();
+				}
+			};
+
+			/*
+			 * if user has one of the specified roles, continue on. Otherwise,
+			 * take the user to his/her homepage.
+			 */
+			auth.authAssess = function() {
+				var role = getCookie();
+
+				switch (role) {
+				case vpRole:
+					$log.debug("Changing state to: " + vpAssess);
+					break;
+				case trainerRole:
+					$log.debug("Changing state to: " + trainerAssess);
+					break;
+				default:
+					auth.auth();
+				}
+			};
+
+			/*
+			 * if user has one of the specified roles, continue on. Otherwise,
+			 * take the user to his/her homepage.
+			 */
+			auth.authCategory = function() {
+				var role = getCookie();
+
+				switch (role) {
+				case vpRole:
+					$log.debug("Changing state to: " + vpCategory);
+					break;
+				default:
+					auth.auth();
+				}
+			};
+
+			/*
+			 * if user has one of the specified roles, continue on. Otherwise,
+			 * take the user to his/her homepage.
+			 */
+			auth.authTrainers = function() {
+				var role = getCookie();
+
+				switch (role) {
+				case vpRole:
+					$log.debug("Changing state to: " + vpTrainers);
+					break;
+				default:
+					auth.auth();
+				}
+			};
 
 			return auth;
 		});
