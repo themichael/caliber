@@ -382,6 +382,25 @@ footer a, footer a:hover {
 .note-mw {
 	min-width: 300px;
 }
+
+/********************************************************
+	Overall Batch Status column in vp-home and qc-home
+*********************************************************/
+.color-green {
+	font-weight: bold;
+  	color: green;
+}
+
+.color-yellow {
+	font-weight: bold;
+  	color: orange;
+}
+
+.color-red {
+	font-weight: bold;
+  	color: red;
+}
+
 /**********************
 	save button
 **********************/
