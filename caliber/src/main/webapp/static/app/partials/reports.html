@@ -3,15 +3,23 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<!-- Generate PDF of current page -->
-			<a ng-hide="reticulatingSplines" href="" class="pull-right"
-				title="Download report" ng-click="generatePDF()"> <i
-				class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-			</a> <a href class="pull-right"
-				style="pointer-events: none; cursor: default;" title="Processing.."
-				ng-show="reticulatingSplines" ng-show="showSaving"> <i
-				style="color: #F26925;" class="fa fa-spinner fa-spin fa-2x"
-				aria-hidden="true"></i>
-			</a>
+			<div class="dropdown pull-right">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<span ng-hide="reticulatingSplines"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i> </span>
+					<a href=""
+					   style="pointer-events: none; cursor: default;" title="Processing.."
+					   ng-show="reticulatingSplines"
+					   ng-show="showSaving">
+						<i style="color: #F26925;" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+					</a>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					<li><a href="" ng-click="downloadAllChartButton()"> Charts </a></li>
+					<li><a href="" ng-click="generatePDF()"> Charts + Feedback </a></li>
+				</ul>
+			</div>
+
 			<ul class="nav nav-tabs" ng-show="!noBatches">
 				<!-- Filter batches by year -->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -196,7 +204,9 @@
 				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-12">
 						<div class="panel panel-default">
-							<div class="panel-heading">Cumulative Scores</div>
+							<div class="panel-heading">Cumulative Scores
+								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>
+							</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="line6" class="chart chart-bar"
@@ -228,6 +238,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								Technical Skills
+								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>
 								<div role="button" class="pull-right" data-toggle="modal"
 									data-target="#insert-trainee">
 									<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
@@ -264,7 +275,9 @@
 
 					<div class="col-sm-7 col-md-7 col-lg-7">
 						<div class="panel panel-default">
-							<div class="panel-heading">Weekly Progress</div>
+							<div class="panel-heading">Weekly Progress
+								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>
+							</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="line1" class="chart chart-line"
@@ -330,7 +343,8 @@
 							</div>
 						</div>
 					</div>
-
+				</div>
+				<div class="row">
 					<div class="col-sm-4 col-md-4  col-lg-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">Technical Skills</div>
@@ -406,10 +420,11 @@
 		<div class="row" ng-if="batchOverallTrainee">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
-
 					<div class="col-sm-12 col-md-12 col-lg-12">
 						<div class="panel panel-default">
-							<div class="panel-heading">Assessment Breakdown</div>
+							<div class="panel-heading">Assessment Breakdown
+								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>
+							</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="bar" class="chart chart-bar"
@@ -439,10 +454,14 @@
 							</div>
 						</div>
 					</div>
+				</div>
 
+				<div class="row">
 					<div class="col-sm-4 col-md-4 col-lg-4">
 						<div class="panel panel-default">
-							<div class="panel-heading">Technical Skills</div>
+							<div class="panel-heading">Technical Skills
+								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>
+							</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="radarTraineeOverall" class="chart chart-radar"
@@ -474,7 +493,9 @@
 
 					<div class="col-sm-8 col-md-8 col-lg-8">
 						<div class="panel panel-default">
-							<div class="panel-heading">Weekly Progress</div>
+							<div class="panel-heading">Weekly Progress
+								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>
+							</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
 									<canvas id="line9" class="chart chart-line"
