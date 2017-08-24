@@ -4,7 +4,7 @@
 		<div class="col-md-12 col-lg-12">
 			<!-- Generate PDF of current page -->
 			<div class="pull-right">
-				<i ng-show="batchOverallTrainee"
+				<i ng-hide="reticulatingSplines"
 				   ng-click="downloadAllChartButton()"
 				   class="clickableIcons fa fa-arrow-circle-o-down fa-2x"
 				   aria-hidden="true">
@@ -344,7 +344,8 @@
 							</div>
 						</div>
 					</div>
-
+				</div>
+				<div class="row">
 					<div class="col-sm-4 col-md-4  col-lg-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">Technical Skills</div>
@@ -417,7 +418,7 @@
 		<!-- Row with all 3 Chart-->
 
 		<!-- Batch -> Overall -> Trainee-->
-		<div id="traineeCharts" class="row" ng-if="batchOverallTrainee">
+		<div class="row" ng-if="batchOverallTrainee">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-12">
@@ -454,8 +455,10 @@
 							</div>
 						</div>
 					</div>
+				</div>
 
-					<div class="col-sm-12 col-md-4 col-lg-4">
+				<div class="row">
+					<div class="col-sm-4 col-md-4 col-lg-4">
 						<div class="panel panel-default">
 							<div class="panel-heading">Technical Skills
 								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>
@@ -489,7 +492,7 @@
 						</div>
 					</div>
 
-					<div class="col-sm-12 col-md-8 col-lg-8">
+					<div class="col-sm-8 col-md-8 col-lg-8">
 						<div class="panel panel-default">
 							<div class="panel-heading">Weekly Progress
 								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>

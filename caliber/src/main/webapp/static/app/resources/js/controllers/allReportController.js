@@ -804,8 +804,16 @@ angular
 
                     //DOWNLOAD ALL TRAINEE CHART AS PDF
                     $scope.downloadAllChartButton = function () {
-                        var element = angular.element(document.querySelector('#traineeCharts')).children()[0];
-                        var charts = element.children[0].children;
+                        //GET CALIBER CONTAINER ID THAT CONSIST OF ALL THE CHARTS UNDER REPORT
+                        var element = angular.element(document.querySelector('#caliber-container')).children()[0];
+                        var cumulativeScores = element.children[0].children[0].children[0];
+						var technicalSkillsAndWeeklyProgress = element.children[0].children[0].children[1];
+                        var charts = [];
+
+                        charts.push(cumulativeScores);
+                        for (var i = 0; i < technicalSkillsAndWeeklyProgress.children.length; i++)
+                        	charts.push(technicalSkillsAndWeeklyProgress.children[i]);
+
                         var doc = new jsPDF('p', 'mm', 'a4');
                         doc.text(doc.internal.pageSize.width/2 - 20, 5, $scope.currentTrainee.name);
                         doc.internal.scaleFactor = 4;
