@@ -109,6 +109,7 @@ angular
 
 					}
 					
+					
 					/* ************************************************************************************
 					 *  alertPopup() Method
 					 *  AUTHOR: Leibniz H. Berihuete
@@ -130,8 +131,7 @@ angular
 						caliberDelegate.trainer.getAllBatches()
 						.then(
 								function(batches) {
-									// holds all batches that current trainer has
-									$scope.allBatches = batches; 
+									var batchesToUpdate = [];
 									
 									// Holds the address of the a batch
 									var address;
@@ -146,10 +146,11 @@ angular
 									var currentDate =  cd.getFullYear() + "-" + cd.getMonth() + "-" +cd.getDate();
 									
 									// holds the batches that needs to be updated
-									var alertBatches = "";
+									var batchesToAlert = [];
 									
 									
 									var showAlert = false;
+									
 									
 									
 									// Iterate through each batch
@@ -159,18 +160,32 @@ angular
 										
 										// check if the batch needs to be updated
 										if(address === null && currentDate < endDate) {
+											
 											showAlert = true;
-											alertBatches += "" + batches[i].trainingName + "\n";
+											batchesToAlert.push(batches[i].trainingName);
+											batchesToUpdate.push(batches[i]);
 										}
 									}
 									
-									if(showAlert) {
-										// TODO if we have time: new alert window style, instead of the alert()
-										alert("Please update the location on the following batches:\n" + alertBatches +"\n\nThank you!");
+
 									
+									if(showAlert) {
+										// SHOW POP PUP WINDOW:
+										
+										$scope.batchesToUpdate = batchesToUpdate;
+										caliberDelegate.vp.getAllLocations()
+										.then(
+												function(locations) {
+													$scope.alertMessage = "Please update the location on the following batches:";
+												    $scope.batchesToAlert = batchesToAlert;
+												    
+													(function(){
+														angular.element('#alertModal').modal('show');
+													})();
+												}
+										);
 										
 									}
-									
 								});
 					}
 
