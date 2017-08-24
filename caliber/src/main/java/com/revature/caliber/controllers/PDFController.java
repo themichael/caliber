@@ -1,20 +1,17 @@
 package com.revature.caliber.controllers;
 
+import com.revature.caliber.exceptions.PDFGenerationException;
+import com.revature.caliber.services.PDFService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.revature.caliber.exceptions.PDFGenerationException;
-import com.revature.caliber.services.PDFService;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@PreAuthorize("isAuthenticated()")
 public class PDFController {
 
 	private static final Logger log = Logger.getLogger(PDFController.class);
@@ -26,6 +23,7 @@ public class PDFController {
 	}
 
 	@RequestMapping(value = "/report/generate", method = RequestMethod.POST)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public HttpEntity<byte[]> generate(
 			@RequestParam(name = "title", value = "title", defaultValue = "Performance at a Glance") String title,
 			@RequestBody String html) {

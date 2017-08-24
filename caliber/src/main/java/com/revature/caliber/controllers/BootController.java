@@ -1,16 +1,13 @@
 
 package com.revature.caliber.controllers;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.exceptions.NotAuthorizedException;
+import com.revature.caliber.security.impl.Helper;
+import com.revature.caliber.security.models.SalesforceToken;
+import com.revature.caliber.security.models.SalesforceUser;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -29,13 +26,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.exceptions.NotAuthorizedException;
-import com.revature.caliber.security.impl.Helper;
-import com.revature.caliber.security.models.SalesforceToken;
-import com.revature.caliber.security.models.SalesforceUser;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * The type Boot controller.
@@ -58,8 +54,8 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards
-	 * to the landing page according to the user's role.
+	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards to
+	 * the landing page according to the user's role.
 	 *
 	 * @param servletRequest
 	 *            the servlet request
@@ -72,8 +68,8 @@ public class BootController extends Helper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,@ModelAttribute("salestoken") String salesTokenString, Model model)
-			throws IOException, URISyntaxException {
+	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+			@ModelAttribute("salestoken") String salesTokenString, Model model) throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
@@ -101,15 +97,17 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "redirect:/home";
+			return "redirect:/home/";
 		} catch (AuthenticationCredentialsNotFoundException e) {
-			log.error("error thrown:" ,e);
+			log.error("error thrown:", e);
 			return "redirect:/";
 		}
 	}
 
 	@RequestMapping(value = "/home")
-	public String sendHome(){
+	public String sendHome(HttpServletResponse response, Authentication auth) {
+		SalesforceUser a = (SalesforceUser) auth.getPrincipal();
+		response.addCookie(new Cookie("role", a.getRole()));
 		return "index";
 	}
 
@@ -122,7 +120,7 @@ public class BootController extends Helper {
 	 */
 	private SalesforceToken getSalesforceToken(String token) throws IOException {
 		log.error("Checking for the salesforce token");
-		if (token!=null) {
+		if (token != null) {
 			log.error("Parse salesforce token from forwarded request: " + token);
 			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
@@ -131,8 +129,8 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * Makes a request to Salesforce REST API to retrieve the authenticated
-	 * user's details
+	 * Makes a request to Salesforce REST API to retrieve the authenticated user's
+	 * details
 	 * 
 	 * @param servletRequest
 	 * @param salesforceToken
@@ -159,9 +157,8 @@ public class BootController extends Helper {
 
 	/**
 	 * Gets Caliber user from database (TRAINER table) and validates if provided
-	 * email is authorized to user Caliber. All authorized Caliber users must
-	 * exist as a TRAINER record with email matching that of Salesforce user
-	 * email.
+	 * email is authorized to user Caliber. All authorized Caliber users must exist
+	 * as a TRAINER record with email matching that of Salesforce user email.
 	 * 
 	 * @param servletRequest
 	 * @param email
@@ -189,9 +186,9 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * Parses a Json String containing TRAINER bean. Authorize the user with
-	 * Caliber and store their PreAuthenticatedAuthenticationToken in session.
-	 * Adds convenience 'role' cookie for AngularJS consumption.
+	 * Parses a Json String containing TRAINER bean. Authorize the user with Caliber
+	 * and store their PreAuthenticatedAuthenticationToken in session. Adds
+	 * convenience 'role' cookie for AngularJS consumption.
 	 * 
 	 * @param jsonString
 	 * @param salesforceUser
@@ -217,7 +214,6 @@ public class BootController extends Helper {
 		Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
-
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
 	}
 

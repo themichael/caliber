@@ -1,25 +1,20 @@
 package com.revature.caliber.controllers;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.services.AssessmentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.services.AssessmentService;
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Used for assessment CRUD operations. Includes both Trainer and QC assessments
@@ -28,6 +23,7 @@ import com.revature.caliber.services.AssessmentService;
  *
  */
 @RestController
+@PreAuthorize("isAuthenticated()")
 public class AssessmentController {
 
 	private static final Logger log = Logger.getLogger(AssessmentController.class);
@@ -46,8 +42,8 @@ public class AssessmentController {
 	 */
 
 	/**
-	 * QC can no longer create assessment, trainer only function
-	 * Create assessment response entity.
+	 * QC can no longer create assessment, trainer only function Create assessment
+	 * response entity.
 	 *
 	 * @param assessment
 	 *            the assessment
@@ -55,6 +51,7 @@ public class AssessmentController {
 	 */
 	@RequestMapping(value = "/trainer/assessment/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
 	public ResponseEntity<Void> createAssessment(@Valid @RequestBody Assessment assessment) {
 		log.info("Creating assessment: " + assessment);
 		assessmentService.save(assessment);
@@ -70,6 +67,7 @@ public class AssessmentController {
 	 */
 	@RequestMapping(value = "/trainer/assessment/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
 	public ResponseEntity<Void> deleteAssessment(@PathVariable Long id) {
 		log.info("Deleting assessment: " + id);
 		Assessment assessment = new Assessment();
@@ -87,10 +85,11 @@ public class AssessmentController {
 	 */
 	@RequestMapping(value = "/trainer/assessment/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
 	public ResponseEntity<Assessment> updateAssessment(@Valid @RequestBody Assessment assessment) {
 		log.info("Updating assessment: " + assessment);
 		assessmentService.update(assessment);
-		return new ResponseEntity<>(assessment,HttpStatus.OK);
+		return new ResponseEntity<>(assessment, HttpStatus.OK);
 	}
 
 	/**
@@ -102,12 +101,12 @@ public class AssessmentController {
 	 */
 	@RequestMapping(value = "/trainer/assessment/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<Assessment>> findAssessmentByWeek(@PathVariable Integer batchId,
 			@PathVariable Integer week) {
 		log.debug("Find assessment by week number " + week + " for batch " + batchId + " ");
 		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, week);
 		return new ResponseEntity<>(assessments, HttpStatus.OK);
 	}
-	
-}
 
+}

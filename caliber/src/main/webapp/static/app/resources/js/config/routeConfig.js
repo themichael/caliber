@@ -99,7 +99,12 @@ angular
 											"trainee-extra-modals@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authManage();
 										}
+										
 									})
 							.state(
 									"qc.audit",
@@ -113,7 +118,13 @@ angular
 											"confirm-add-weeks-modal@qc.audit" : {
 												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authAudit();
 										}
+										
+										
 									})
 							.state(
 									"qc.reports",
@@ -140,6 +151,10 @@ angular
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authReports();
 										}
 									})
 							/***************************************************
@@ -178,7 +193,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authTrainer();
+											authFactory.authImport();
 										}
 									})
 							.state(
@@ -216,6 +231,10 @@ angular
 											"trainee-extra-modals@trainer.manage" : {
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authManage();
 										}
 									})
 							.state(
@@ -225,6 +244,7 @@ angular
 										views : {
 											"" : {
 												templateUrl : "/static/app/partials/assess/trainer-assess.html",
+												
 												controller : "trainerAssessController"
 											},
 											"trainer-edit-assess@trainer.assess" : {
@@ -234,7 +254,12 @@ angular
 												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
 
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authAssess();
 										}
+										
 									})
 							.state(
 									"trainer.reports",
@@ -261,7 +286,12 @@ angular
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authReports();
 										}
+										
 									})
 
 							/***************************************************
@@ -328,7 +358,12 @@ angular
 											"trainer-extra-modals@vp.trainers":{
 												templateUrl : "/static/app/partials/trainers/trainer-auxillary-modals.html"
 											}
-										}
+										},
+										// authorize the users
+										onEnter : function(authFactory) {
+											authFactory.authTrainers();
+										},
+										
 
 									})
 							.state(
@@ -346,7 +381,12 @@ angular
 											"edit-category-form@vp.category" : {
 												templateUrl : "/static/app/partials/category/edit-category-modals.html"
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authCategory();
 										}
+										
 												
 									})
 							.state(
@@ -376,7 +416,12 @@ angular
 											"trainee-extra-modals@vp.manage" : {
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authManage();
 										}
+										
 									})
 							.state(
 									"vp.assess",
@@ -396,7 +441,12 @@ angular
 												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
 
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authAssess();
 										}
+										
 									})
 							.state(
 									"vp.audit",
@@ -416,7 +466,12 @@ angular
 												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
 
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authAudit();
 										}
+										
 									})
 							.state(
 									"vp.reports",
@@ -443,14 +498,20 @@ angular
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
 											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authReports();
 										}
+										
 									})
 
                             /**
-                             * Staging role
-                             *
-                             * Reusing qc's controllers because staging and qc are the same except for access to some states
-                             */
+							 * Staging role
+							 * 
+							 * Reusing qc's controllers because staging and qc
+							 * are the same except for access to some states
+							 */
                         .state("staging",
                             {
                                 abstract: true,
@@ -474,7 +535,9 @@ angular
                             {
                                 templateUrl: "/static/app/partials/home/staging-home.html",
                                 url: "/home",
-                                controller: "qcHomeController" // because they are similar roles
+                                controller: "qcHomeController" // because they
+																// are similar
+																// roles
                             }
                         )
 
@@ -486,7 +549,11 @@ angular
                                         templateUrl: "/static/app/partials/reports.html",
                                         controller: "allReportController"
                                     }
-                                }
+                                },
+                                // authorize the user
+                                onEnter : function(authFactory) {
+									authFactory.authReports();
+								}
                             }
                         )
 				});
