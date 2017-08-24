@@ -788,7 +788,7 @@ angular
 						}
 						return clone;
 					};
-					
+
 					// Gets notes (trainer and QC) for a specific trainee and
 					// the week
 					$scope.getTraineeNote=function(traineeId,weekId){
