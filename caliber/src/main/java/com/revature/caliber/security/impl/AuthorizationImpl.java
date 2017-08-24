@@ -62,7 +62,6 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	private boolean debug;
 	private static final String REDIRECT = "redirect:";
 
-
 	private static final String REVATURE = "http://www.revature.com/";
 
 	public AuthorizationImpl() {
