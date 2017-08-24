@@ -290,7 +290,7 @@ angular
 						$scope.stackedBarOptions = barChartObj.options;
 						$scope.stackedBarColors = barChartObj.colors;
 						$scope.stackedBarIds = barChartObj.id; // define scope
-																// for batch ids
+						console.log($scope.stackedBarIds);							// for batch ids
 					}
 					
 					function createCurrentBatchesAverageScoreChart(data) {
