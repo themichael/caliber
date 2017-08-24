@@ -11,8 +11,7 @@ angular
 						
 						NProgress.done();
 						createAllBatchesCurrentWeekQCStats();
-						createCurrentBatchesAverageScoreChart();
-						
+						createCurrentBatchesAverageScoreChart();						
 
 						/*
 						 * *Moved over code from qcAssessController for modal use
@@ -22,36 +21,22 @@ angular
 						$scope.faces = [];
 						$scope.weeks = [];
 						$scope.batchesByYear = [];
-						$scope.categories = [];
-						
-						start();
-						//getOverallBatchFeedback(2201, 1);
-						
+						$scope.categories = [];							
 						$scope.qcOverallNotes = [];
-					 
-						// get overall feedback for all batches for current week
-							
 						
-						for (var b in $scope.batches){
-						//	console.log($scope.batches[b].batchId);	
-						//	console.log($scope.batches[b].weeks);	
-							
+						// call function to get batch overall feedback
+						for (var b in $scope.batches){								
 							getOverallBatchFeedback($scope.batches[b].batchId, $scope.batches[b].weeks);
-							 
 						}
 						
-
+						// function to get overall feedback for all batches for current week
 						function getOverallBatchFeedback(batchId, currentWeek){
-				//				console.log("dd")						
+								//console.log("dd")						
 								caliberDelegate.qc
 									.batchNote(batchId, currentWeek)
 										.then(function(notes) {
-												//console.log("Feedback notes "+$scope.qcOverallFeedback);
-											//alert("ddee");		
-											//alert( notes.qcStatus);	
 											$scope.qcOverallNotes.push(notes.qcStatus);
-										});
-							
+										});							
 						}
 						
 						//function to grab latest qc information from click event
@@ -212,8 +197,6 @@ angular
 						}
 
 					})();
-					
-					// function to get overall batch QC status
 					
 					
 					// Note object
