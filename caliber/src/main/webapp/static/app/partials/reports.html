@@ -3,22 +3,21 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
 			<!-- Generate PDF of current page -->
-			<div class="pull-right">
-				<i ng-hide="reticulatingSplines"
-				   ng-click="downloadAllChartButton()"
-				   class="clickableIcons fa fa-arrow-circle-o-down fa-2x"
-				   aria-hidden="true">
-				</i>
-				<a ng-hide="reticulatingSplines" href=""
-				   title="Download report" ng-click="generatePDF()"> <i
-						class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-				</a>
-				<a href=""
-				   style="pointer-events: none; cursor: default;" title="Processing.."
-				   ng-show="reticulatingSplines" ng-show="showSaving"> <i
-						style="color: #F26925;" class="fa fa-spinner fa-spin fa-2x"
-						aria-hidden="true"></i>
-				</a>
+			<div class="dropdown pull-right">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<span ng-hide="reticulatingSplines">Download PDF </span>
+					<a href=""
+					   style="pointer-events: none; cursor: default;" title="Processing.."
+					   ng-show="reticulatingSplines"
+					   ng-show="showSaving">
+						<i style="color: #F26925;" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+					</a>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					<li><a href="" ng-click="downloadAllChartButton()"> Charts </a></li>
+					<li><a href="" ng-click="generatePDF()"> Charts + Feedback </a></li>
+				</ul>
 			</div>
 
 			<ul class="nav nav-tabs" ng-show="!noBatches">
