@@ -1,8 +1,11 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.QCStatus;
-import com.revature.caliber.services.ReportingService;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.services.ReportingService;
 
 /**
  * Exclusively used to generate data for charts
@@ -93,7 +94,7 @@ public class ReportingController {
 	 */
 	@RequestMapping(value = "/all/reports/batch/week/stacked-bar-current-week", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING')")
-	public ResponseEntity<Map<String, Map<QCStatus, Integer>>> getAllBatchesCurrentWeekQCStackedBarChart() {
+	public ResponseEntity<List<Object>> getAllBatchesCurrentWeekQCStackedBarChart() {
 		log.info("getAllBatchesCurrentWeekQCStats   ===>   /all/reports/batch/week/stacked-bar-current-week");
 		return new ResponseEntity<>(reportingService.getAllBatchesCurrentWeekQCStackedBarChart(), HttpStatus.OK);
 	}
@@ -103,16 +104,6 @@ public class ReportingController {
 	 * Bar Charts
 	 *******************************************************
 	 */
-	
-	//Mapping QC Overall status to getBatchWeekQcOverallBarChart function
-	@RequestMapping(value = "/all/reports/batch/week/overallqcstatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Note> getBatchWeekQcOverallBarChart(@PathVariable int batchId,
-			@PathVariable int week) {
-		log.info("getAllBatchesCurrentWeekQCStats   ===>   /all/reports/batch/week/stacked-bar-current-week");
-		return new ResponseEntity<>(reportingService.getBatchWeekQcOverallBarChart(batchId, week), HttpStatus.OK);
-	}
-	
-	
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{week}/bar-batch-week-avg", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<Map<String, Double[]>> getBatchWeekAvgBarChart(@PathVariable int batchId,
@@ -188,7 +179,7 @@ public class ReportingController {
 
 	@RequestMapping(value = "/all/reports/dashboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING')")
-	public ResponseEntity<Map<String, Map<Integer, Double>>> getCurrentBatchesLineChart() {
+	public ResponseEntity<List<Object>> getCurrentBatchesLineChart() {
 		log.info("getCurrentBatchesLineChart   ===>  /all/reports/dashboard");
 		return new ResponseEntity<>(reportingService.getAllCurrentBatchesLineChart(), HttpStatus.OK);
 	}

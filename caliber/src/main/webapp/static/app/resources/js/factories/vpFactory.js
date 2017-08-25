@@ -48,6 +48,7 @@ angular
 													+ response.status);
 										});
 					};
+				
 					// Get all Categories
 					vp.getAllCategories = function() {
 						return $http({
@@ -66,7 +67,7 @@ angular
 													.error("There was an error in vpFactory -> getAllCategories"
 															+ response.status);
 										});
-					}
+					};
 					// Update a category
 					vp.updateCategory = function(category) {
 						return $http({
@@ -83,7 +84,7 @@ angular
 											"There was an error in vpFactory -> updateCategory "
 													+ response, status);
 								});
-					}
+					};
 					// Save new category
 					vp.saveCategory = function(category) {
 						return $http({
@@ -100,7 +101,25 @@ angular
 											"There was an error in vpFactory -> saveCategory "
 													+ response, status);
 								});
-					}
+					};
+					// Save new location
+					vp.saveLocation = function(location) {
+						return $http({
+							url : "/vp/location/create",
+							method : "POST",
+							data : location
+						}).then(
+								function(response) {
+									$log.debug(location + " Has been saved");
+									$log.debug(response);
+								},
+								function(response) {
+									$log.error(
+											"There was an error in vpFactory -> saveLocation "
+													+ response, status);
+								});
+					};
+
 
 					// deactivate trainer needed to force content type to be
 					// JSON else 415
@@ -122,6 +141,117 @@ angular
 											+ response.status);
 								});
 					};
+
+					/** ********************LOCATIONS************************ */
+
+					// Deactivate location
+					vp.deactivateLocation = function(locationObj) {
+						return $http({
+							url : "/vp/location/delete",
+							method : "DELETE",
+							data : locationObj,
+							headers : {
+								"Content-Type" : "application/json"
+							}
+						}).then(
+								function(response) {
+									$log.debug("Location deleted");
+									$log.debug(response);
+								},
+								function(response) {
+									$log.error("There was an error: "
+											+ response.status);
+								});
+					};
+
+					// Update selected location
+					vp.updateLocation = function(locationObj) {
+						return $http({
+							url : "/vp/location/update",
+							method : "PUT",
+							data : locationObj,
+							headers : {
+								"Content-Type" : "application/json"
+							}
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("Location successfully updated.");
+											$log.debug(response);
+										},
+										function(response) {
+											$log.error("There was an error updating the location: "
+													+ response.status);
+											return false;
+										});
+					};
+					
+					// Update selected location active status
+					vp.reactivateLocation = function(locationObj) {
+						return $http({
+							url : "/vp/location/reactivate",
+							method : "PUT",
+							data : locationObj,
+							headers : {
+								"Content-Type" : "application/json"
+							}
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("Location successfully updated.");
+											$log.debug(response);
+										},
+										function(response) {
+											$log.error("There was an error updating the location: "
+													+ response.status);
+											return false;
+										});
+					};
+
+					// Create location
+					vp.createLocation = function(locationObj) {
+						$log.debug(locationObj);
+						return $http({
+							url : "/vp/location/create",
+							method : "POST",
+							data : locationObj
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("Location successfully created.");
+											$log.debug(response);
+											return response;
+										},
+										function(response) {
+											$log.error("There was an error: "
+													+ response.status);
+											return response.data;
+										});
+					};
+
+					// Get all locations
+					vp.getAllLocations = function() {
+						return $http({
+							url : "/all/location/all/",
+							method : "GET"
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("Locations successfully retrieved");
+											$log.debug(response);
+											return response.data;
+										},
+										function(response) {
+											$log.error("There was an error: "
+													+ response.status);
+										});
+					};
+					
+					/*******TRAINERS************/
 
 					// Update selected trainer
 					vp.updateTrainer = function(trainerObj) {
@@ -179,7 +309,7 @@ angular
 							data : trainerObj
 						}).then(
 								function(response) {
-									$log.debug("Trainer successfully created.")
+									$log.debug("Trainer successfully created.");
 									$log.debug(response);
 									return response;
 								},
@@ -209,5 +339,6 @@ angular
 									return response;
 								});
 					};
+					
 					return vp;
 				});

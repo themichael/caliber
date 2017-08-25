@@ -1,10 +1,9 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.security.models.SalesforceUser;
-import com.revature.caliber.services.TrainingService;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +14,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
+import com.revature.caliber.beans.Address;
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.caliber.services.TrainingService;
 
 /**
  * Services requests for Trainer, Trainee, and Batch information
@@ -41,7 +50,84 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
-	 * TODO TRAINER SERVICES
+	 * LOCATION SERVICES
+	 *
+	 *******************************************************
+	 */
+	/**
+	 * Create location
+	 *
+	 * @param location
+	 *
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/vp/location/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Address> createLocation(@Valid @RequestBody Address location) {
+		log.info("Saving location: " + location);
+		trainingService.createLocation(location);
+		return new ResponseEntity<>(location, HttpStatus.CREATED);
+	}
+
+	/**
+	 * Update location
+	 *
+	 * @param location
+	 *
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/vp/location/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Void> updateLocation(@Valid @RequestBody Address location) {
+		log.info("Updating location: " + location);
+		trainingService.update(location);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	/**
+	 * Returns all locations from the database `
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/all/location/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<List<Address>> getAllLocations() {
+		log.info("Fetching all locations");
+		List<Address> locations = trainingService.findAllLocations();
+		return new ResponseEntity<>(locations, HttpStatus.OK);
+	}
+
+	/**
+	 * Removes the location
+	 *
+	 * @param location
+	 * @return response entity
+	 */
+	@RequestMapping(value = "/vp/location/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Void> removeLocation(@Valid @RequestBody Address location) {
+		log.info("Deactivating location: " + location);
+		trainingService.update(location);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	/**
+	 * Reactivates the location
+	 *
+	 * @param location
+	 * @return response entity
+	 */
+	@RequestMapping(value = "/vp/location/reactivate", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Void> reactivateLocation(@Valid @RequestBody Address location) {
+		log.info("Updating location: " + location);
+		trainingService.update(location);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	/*
+	 *******************************************************
+	 * TRAINER SERVICES
 	 *
 	 *******************************************************
 	 */
@@ -117,7 +203,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/trainer/titles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING', 'QC')")
 	public ResponseEntity<List<String>> getAllTrainersTitles() {
 		log.info("Fetching all trainers titles");
 		List<String> trainers = trainingService.findAllTrainerTitles();
@@ -131,7 +217,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainer/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING', 'QC')")
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 		log.info("Fetching all trainers");
 		List<Trainer> trainers = trainingService.findAllTrainers();
@@ -140,7 +226,7 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
-	 * TODO BATCH SERVICES
+	 * BATCH SERVICES
 	 *
 	 *******************************************************
 	 */
@@ -186,11 +272,11 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
 		log.info("Updating batch: " + batch);
 		trainingService.update(batch);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	/**
@@ -202,7 +288,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Void> deleteBatch(@PathVariable int id) {
 		Batch batch = new Batch();
 		batch.setBatchId(id);
@@ -259,15 +345,15 @@ public class TrainingController {
 
 	@RequestMapping(value = "/all/locations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
-	public ResponseEntity<List<String>> findCommonLocations() {
+	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER')")
+	public ResponseEntity<List<Address>> findCommonLocations() {
 		log.info("Fetching common training locations");
 		return new ResponseEntity<>(trainingService.findCommonLocations(), HttpStatus.OK);
 	}
 
 	/*
 	 *******************************************************
-	 * TODO TRAINEE SERVICES
+	 * TRAINEE SERVICES
 	 *
 	 *******************************************************
 	 */

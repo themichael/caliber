@@ -1,9 +1,9 @@
 package com.revature.caliber.test;
 
+
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
-
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.QCStatus;
 
@@ -15,7 +15,6 @@ public class ReportingTest extends CaliberTest {
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Tests methods:
 	 * 
 	 * @see com.revature.caliber.controllers.ReportingController#getBatchComparisonAvg(String,
 	 *      String, Date)
@@ -196,4 +195,5 @@ public class ReportingTest extends CaliberTest {
 		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
 	}
 
+	
 }
