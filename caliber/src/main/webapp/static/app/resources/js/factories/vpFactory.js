@@ -101,7 +101,9 @@ angular
 											"There was an error in vpFactory -> saveCategory "
 													+ response, status);
 								});
+
 					};
+
 					// Save new location
 					vp.saveLocation = function(location) {
 						return $http({
@@ -118,7 +120,9 @@ angular
 											"There was an error in vpFactory -> saveLocation "
 													+ response, status);
 								});
+
 					};
+
 
 
 					// deactivate trainer needed to force content type to be
@@ -221,7 +225,9 @@ angular
 								.then(
 										function(response) {
 											$log
+
 													.debug("Location successfully created.");
+
 											$log.debug(response);
 											return response;
 										},

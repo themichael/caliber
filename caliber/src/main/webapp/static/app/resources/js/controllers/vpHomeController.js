@@ -20,6 +20,7 @@ angular
 					$scope.batchesByYear = [];
 					$scope.categories = [];
 
+
                     $scope.qcOverallNotes = [];
 
                     // call function to get batch overall feedback
@@ -27,6 +28,7 @@ angular
                         if ($scope.batches.hasOwnProperty(b) )
                             getOverallBatchFeedback($scope.batches[b].batchId, $scope.batches[b].weeks);
                     }
+
 					(function() {
 						// Finishes any left over ajax animation from another
 						// page
@@ -36,6 +38,7 @@ angular
 						
 					})();
 
+
                     // function to get overall feedback for all batches for current week
                     function getOverallBatchFeedback(batchId, currentWeek) {
                         caliberDelegate.qc
@@ -44,6 +47,7 @@ angular
                                 $scope.qcOverallNotes.push(notes.qcStatus);
                             })
                     }
+
 
 					// function to grab latest qc information from click
 					// event
@@ -88,7 +92,9 @@ angular
 							// opens modal view
 							$('#viewLastAudit').modal('toggle');
 						}
+
 					};
+
 
 					// default -- view assessments table
 					$scope.currentView = true;
@@ -267,7 +273,7 @@ angular
 									// do something with note type
 								});
 					}
-					
+
 					// Get categories for the week
 					function categories() {
 						if ($scope.currentBatch) {
@@ -279,7 +285,7 @@ angular
 									});
 						}
 					}
-					
+
 					// wipe faces and selections
 					function wipeFaces() {
 						$scope.faces = [];
@@ -299,6 +305,7 @@ angular
 						$scope.stackedBarColors = barChartObj.colors;
 						$scope.stackedBarIds = barChartObj.id; // define scope
 															// for batch ids
+
 					}
 
 					function createCurrentBatchesAverageScoreChart(data) {
@@ -311,6 +318,7 @@ angular
 						$scope.currentBatchesLineColors = lineChartObj.colors;
 						$scope.currentBatchesDsOverride = lineChartObj.datasetOverride;
 					}
+
 
 					function getCurrentBatchesAvergeScoreData() {
 						chartsDelegate.line.data
@@ -348,7 +356,9 @@ angular
 						} else {
 							filterLineChartByState($scope.selectedStateFromLineChar);
 						}
+
 					};
+
 
 					var filterLineChartByState = function(state){
 						if(state){
@@ -363,6 +373,7 @@ angular
 					};
 
 
+
 					var filterBarChartByState = function(state){
 						if(state){
 							var filteredData = $scope.auditData.filter(function(batch){
@@ -373,6 +384,7 @@ angular
 						} else {
 							createAllBatchesCurrentWeekQCStats($scope.auditData);
 						}
+
 					};
 
                     var filterBarChartByCity = function (city) {
@@ -388,25 +400,32 @@ angular
                         }
                     };
 
+
 					$scope.onLineCharAddressStateChange = function(state){
 						if(state!=="undefined"){
 							$scope.selectedStateFromLineChar = state;
 							filterLineChartByState(state);
 						}
+
 					};
 
 					$scope.onLineCharAddressCityChange = function(city) {
 						filterLineChartByCity(city);
 					};
 
+
 					$scope.onBarCharAddressStateChange = function(state){
 						if(state!=="undefined"){
 							$scope.selectedStateFromBarChar = state;
 							filterBarChartByState(state);
 						}
+
 					};
+
 
 					$scope.onBarCharAddressCityChange = function(city) {
 						filterBarChartByCity(city);
 					}
+
 				});
+

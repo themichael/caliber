@@ -410,4 +410,6 @@ angular
                     $scope.onBarCharAddressCityChange = function(city) {
                         filterBarChartByCity(city);
                     }
+
+				
 				});
