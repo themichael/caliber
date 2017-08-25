@@ -523,7 +523,13 @@ angular
 						skypeId : null,
 						phoneNumber : null,
 						profileUrl : null,
-						trainingStatus : null
+						trainingStatus : null, 
+						college: null,
+						degree: null,
+						major: null,
+						recruiterName: null,
+						techScreenerName: null,
+						projectCompletion: null
 					}
 
 					/** Load trainees for batch * */
@@ -576,6 +582,15 @@ angular
 						$scope.traineeForm.phoneNumber = trainee.phoneNumber;
 						$scope.traineeForm.profileUrl = trainee.profileUrl;
 						$scope.traineeForm.trainingStatus = trainee.trainingStatus;
+ 
+						$scope.traineeForm.college = trainee.college; 
+						$scope.traineeForm.degree =trainee.degree; 
+						$scope.traineeForm.major = trainee.major; 
+						$scope.traineeForm.recruiterName =trainee.recruiterName; 
+						$scope.traineeForm.techScreenerName = trainee.techScreenerName;
+						$scope.traineeForm.projectCompletion = trainee.projectCompletion;
+						
+						
 						$scope.Save = "Update";
 						$scope.Updating.status = true;
 						$scope.traineeFormName = "Update Trainee";
@@ -590,6 +605,14 @@ angular
 						$scope.traineeForm.phoneNumber = "";
 						$scope.traineeForm.profileUrl = "";
 						$scope.traineeForm.trainingStatus = "";
+ 
+						$scope.traineeForm.college = ""; 
+						$scope.traineeForm.degree =""; 
+						$scope.traineeForm.major = ""; 
+						$scope.traineeForm.recruiterName =""; 
+						$scope.traineeForm.techScreenerName = "";
+						$scope.traineeForm.projectCompletion = "";
+						
 						$scope.Save = "Save";
 						$scope.Updating.status = false;
 						if ($scope.currentTrainee) {
@@ -640,6 +663,15 @@ angular
 						trainee.phoneNumber = $scope.traineeForm.phoneNumber;
 						trainee.profileUrl = $scope.traineeForm.profileUrl;
 						trainee.trainingStatus = $scope.traineeForm.trainingStatus;
+
+
+						trainee.college= $scope.traineeForm.college; 
+						trainee.degree = $scope.traineeForm.degree; 
+						trainee.major = $scope.traineeForm.major;
+						trainee.recruiterName = $scope.traineeForm.recruiterName ;
+						trainee.techScreenerName = $scope.traineeForm.techScreenerName;
+						trainee.projectCompletion= $scope.traineeForm.projectCompletion;
+						
 						$log.debug(trainee);
 						trainee.batch = {
 							batchId : $scope.currentBatch.batchId

@@ -99,7 +99,7 @@ public class Trainee implements Serializable {
 	@Column(name = "TECH_SCREENER_NAME")
 	private String techScreenerName;
 	
-	@Column(name = "REVPRO_PROJECT_COMPLETETION")
+	@Column(name = "REVPRO_PROJECT_COMPLETION")
 	private String projectCompletion;
 	// end of new columns
 	
@@ -283,6 +283,54 @@ public class Trainee implements Serializable {
 	@Override
 	public String toString() {
 		return "Trainee [traineeId=" + traineeId +", name=" + name + ", email=" + email + ", trainingStatus="
-				+ trainingStatus + "]";
+				+ trainingStatus + ", major=" + major +  "]";
+	}
+
+	public String getRecruiterName() {
+		return recruiterName;
+	}
+
+	public void setRecruiterName(String recruiterName) {
+		this.recruiterName = recruiterName;
+	}
+
+	public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+	public String getTechScreenerName() {
+		return techScreenerName;
+	}
+
+	public void setTechScreenerName(String techScreenerName) {
+		this.techScreenerName = techScreenerName;
+	}
+
+	public String getProjectCompletion() {
+		return projectCompletion;
+	}
+
+	public void setProjectCompletion(String projectCompletion) {
+		this.projectCompletion = projectCompletion;
 	}
 }

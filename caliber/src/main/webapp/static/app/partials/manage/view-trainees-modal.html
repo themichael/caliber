@@ -25,7 +25,7 @@
 						class="fa fa-toggle-off fa-2x" aria-hidden="true"> </span></a>
 				</div>
 				<!-- View Trainees in Batch -->
-				<h3>Trainees in Batch</h3>
+				<h3>Trainees in Batch (scroll to right to see all columns)</h3>
 
 				<!--                   <div class="row scrollable-div"> -->
 				<div class="col-md-12 col-lg-12">
@@ -62,11 +62,18 @@
 										<td>{{trainee.trainingStatus}}</td>
 										<td>{{trainee.phoneNumber}}</td>
 										<td>{{trainee.skypeId}}</td>
-		
-										<td><span ng-if="trainee.profileUrl"> <a
+					        			<td><span ng-if="trainee.profileUrl"> <a
 												href="{{trainee.profileUrl}}" target="_blank"><i
 													class="fa fa-file-code-o" aria-hidden="true"></i></a>
 										</span></td>
+										<td>{{trainee.recruiterName}}</td>
+										<td>{{trainee.college}}</td>
+										<td>{{trainee.degree}}</td>
+										<td>{{trainee.major}}</td>
+										<td>{{trainee.techScreenerName}}</td>
+										<td>{{trainee.projectCompletion}}</td>
+		
+				
 										<td><a role="button"
 											ng-click="populateTrainee(trainee);getTrainee($index)"
 											data-toggle="modal" data-target="#addTraineeModal"
