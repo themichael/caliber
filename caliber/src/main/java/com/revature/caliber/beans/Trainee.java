@@ -82,6 +82,27 @@ public class Trainee implements Serializable {
 
 	@Column(name = "PROFILE_URL")
 	private String profileUrl;
+	
+	// new columns
+	@Column(name = "RECRUITER_NAME")
+	private String recruiterName;
+	
+	@Column(name = "COLLEGE")
+	private String college;
+	
+	@Column(name = "DEGREE")
+	private String degree;
+	
+	@Column(name = "MAJOR")
+	private String major;
+	
+	@Column(name = "TECH_SCREENER_NAME")
+	private String techScreenerName;
+	
+	@Column(name = "REVPRO_PROJECT_COMPLETION")
+	private String projectCompletion;
+	// end of new columns
+	
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
@@ -262,6 +283,54 @@ public class Trainee implements Serializable {
 	@Override
 	public String toString() {
 		return "Trainee [traineeId=" + traineeId +", name=" + name + ", email=" + email + ", trainingStatus="
-				+ trainingStatus + "]";
+				+ trainingStatus + ", major=" + major +  "]";
+	}
+
+	public String getRecruiterName() {
+		return recruiterName;
+	}
+
+	public void setRecruiterName(String recruiterName) {
+		this.recruiterName = recruiterName;
+	}
+
+	public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+	public String getTechScreenerName() {
+		return techScreenerName;
+	}
+
+	public void setTechScreenerName(String techScreenerName) {
+		this.techScreenerName = techScreenerName;
+	}
+
+	public String getProjectCompletion() {
+		return projectCompletion;
+	}
+
+	public void setProjectCompletion(String projectCompletion) {
+		this.projectCompletion = projectCompletion;
 	}
 }
