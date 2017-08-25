@@ -131,23 +131,30 @@ public class ReportingService {
 	 * Stacked Bar Chart   batchOverAllData
 	 *******************************************************
 	 */
-	public Map<String, Map<QCStatus, Integer>> getAllBatchesCurrentWeekQCStackedBarChart() {
-		Map<String, Map<QCStatus, Integer>> results = new ConcurrentHashMap<>();
+	public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() { // changed to List<Object>
+		List<Object> results = new ArrayList<>();
 		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
 		currentBatches.parallelStream().forEach(b -> {
+			Map<String, Object> batchData = new HashMap<>();
 			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(b);
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-					results.put(b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' '))+" - "+ // Trainer first name
-								b.getTrainingName().substring(0,b.getTrainingName().indexOf(' ')), temp);   // Batch ID
+					batchData.put("label", b.getStartDate()+"..."+ // batch start date
+							b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' ')));
+					batchData.put("address", b.getAddress());
+					batchData.put("qcStatus", temp);   // Batch ID
+					batchData.put("id", b.getBatchId()); //Actual batch id
+					results.add(batchData);
 					break;
 				}
 			}
 		});
+		log.info(results);
 		return results;
 	}
-
+	
+	
 	public Map<Integer, Map<QCStatus, Integer>> utilSeparateQCTraineeNotesByWeek(Batch batch) {
 		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
 		Map<QCStatus, Integer> qcStatsMapTemplate = new LinkedHashMap<>();
@@ -167,14 +174,30 @@ public class ReportingService {
 				}
 			}
 		}
+		log.info(results);
 		return results;
 	}
+	
 	/*
 	 *******************************************************
 	 * Bar Charts
 	 *******************************************************
 	 */
 
+	/**
+	 * x-Axis: Batch Names y-Axis: Overall BatchQC Status
+	 * 
+	 * @param batchId
+	 * @param weekId
+	 * @param noteType
+	 * @return
+	 */
+	public Note getBatchWeekQcOverallBarChart(Integer batchId, Integer week) {
+		//log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
+		System.out.println(noteDAO.findQCBatchNotes(batchId, week));
+		return noteDAO.findQCBatchNotes(batchId, week);
+	}
+	
 	/**
 	 * x-Axis: Assessment Names y-Axis: Average Batch Scores
 	 * 
@@ -381,14 +404,24 @@ public class ReportingService {
 	}
 
 
-	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChart() {
-		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
+	/**
+	 * x-Axis: y-Axis: Method for Controller to fetch Week number Batch Average
+	 * Score
+	 * 
+	 * @return List<Map<batch attributes, values>>
+	 */
+	public List<Object> getAllCurrentBatchesLineChart() {
+		List<Object> results = new ArrayList<>();
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();  // changed to Trainees
 		batches.parallelStream().forEach(batch -> {
+			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
-			results.put(batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' '))+" - "+ //Trainer First name
-					batch.getTrainingName().substring(0,batch.getTrainingName().indexOf(' ')),   // Batch ID
-					utilAvgBatchOverall(trainees, batch.getWeeks()));
+
+			batchObject.put("label", batch.getStartDate()+"..."+ //batch start date
+					batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' ')));
+			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
+			batchObject.put("address", batch.getAddress());
+			results.add(batchObject);
 		});
 		return results;
 	}
@@ -791,4 +824,5 @@ public class ReportingService {
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
 	}
+
 }

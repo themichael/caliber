@@ -1,9 +1,6 @@
 package com.revature.caliber.controllers;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+import com.revature.caliber.beans.*;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,13 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.caliber.beans.AssessmentType;
-import com.revature.caliber.beans.NoteType;
-import com.revature.caliber.beans.QCStatus;
-import com.revature.caliber.beans.SkillType;
-import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.beans.TrainingStatus;
-import com.revature.caliber.beans.TrainingType;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Provides enumerated types to the UI
@@ -48,7 +41,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/skill/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'STAGING','TRAINER','QC')")
 	public ResponseEntity<List<String>> allSkillTypes() {
 		log.info("Fetching skill types");
 		List<String> types = Stream.of(SkillType.values()).map(Enum::toString).collect(Collectors.toList());
@@ -61,7 +54,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/training/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER')")
 	public ResponseEntity<List<String>> allTrainingTypes() {
 		log.info("Fetching training types");
 		List<String> types = Stream.of(TrainingType.values()).map(Enum::name).collect(Collectors.toList());
@@ -74,7 +67,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/trainingstatus/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER')")
 	public ResponseEntity<List<String>> allTrainingStatusTypes() {
 		log.info("Fetching training status types");
 		List<String> types = Stream.of(TrainingStatus.values()).map(Enum::name).collect(Collectors.toList());
@@ -115,7 +108,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/assessment/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<String>> allAssessmentTypes() {
 		log.info("Fetching assessment types");
 		List<String> types = Stream.of(AssessmentType.values()).map(Enum::name).collect(Collectors.toList());
@@ -133,14 +126,14 @@ public class TypeController {
 	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
 	public ResponseEntity<List<String>> allTrainerRoles() {
 		log.info("Fetching Trainer Roles");
-		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList()); // Used
-																											// toString
-																											// to
-																											// Display
-																											// the roles
-																											// without
-																											// the
-																											// underscore
+		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());// Used
+																										// toString
+																										// to
+																										// Display
+																										// the roles
+																										// without
+																										// the
+																										// underscore
 		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 }

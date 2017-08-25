@@ -1,5 +1,6 @@
 package com.revature.caliber.data;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -37,6 +38,10 @@ public class NoteDAO {
 	private static final String TRAINEE = "trainee";
 	private static final String T_TRAINEE_ID = "t.traineeId";
 	private static final String QC_FEEDBACK = "qcFeedback";
+	private static final String QC_STATUS = "qcStatus";
+	private static final int MONTHS_BACK = -1;
+	private static final String START_DATE = "startDate";
+	private static final String END_DATE = "endDate";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -157,7 +162,29 @@ public class NoteDAO {
 				.add(Restrictions.eq(QC_FEEDBACK, true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.uniqueResult();
 	}
-
+	
+	/**
+	 * Returns all batch-level notes for a particular batch.
+	 * 
+	 * @param batchId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Note> findAllBatchQcNotes(Integer batchId) {
+		log.info("Finding All batch notes for batch " + BATCH + batchId);
+		Calendar endDateLimit = Calendar.getInstance();	
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
+		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias(BATCH, "b")
+				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
+				.add(Restrictions.eq("type", NoteType.QC_BATCH))
+				.add(Restrictions.eq("batch.batchId", batchId))
+				.add(Restrictions.le(START_DATE, Calendar.getInstance().getTime()))
+				.add(Restrictions.ge(END_DATE, endDateLimit.getTime())).addOrder(Order.desc(START_DATE))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+	
 	/**
 	 * Returns all individual notes written by QC for a given week.
 	 * 

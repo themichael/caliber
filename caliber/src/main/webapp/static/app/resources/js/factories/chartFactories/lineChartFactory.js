@@ -20,7 +20,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		pointHoverBackgroundColor : 'rgba(114, 164, 194, .3)',
 		pointHoverBorderColor : 'rgba(114, 164, 194, .3)',
 		pointBorderColor : '#fff'
-	}
+	};
 
 	var secondaryColor = {
 		backgroundColor : 'rgba(252, 180, 20, .6)',
@@ -29,7 +29,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		pointHoverBackgroundColor : 'rgba(252, 180, 20, .3)',
 		pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
 		pointBorderColor : '#fff'
-	}
+	};
 
 	lineChart.getBatchOverallLineChart = function(dataArray) {
 		var chartData = {};
@@ -203,11 +203,11 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		};
 	
 		var highestWeek = 0;
-		angular.forEach(dataArray, function(value, key) {
+		angular.forEach(dataArray, function(batch) {
 			var currentWeek = 1;
-			chartData.series.push(key);
+			chartData.series.push(batch.label);
 			var temp = [];
-			angular.forEach(value, function(value2, key2) {
+			angular.forEach(batch.grades, function(value2, key2) {
 				while (currentWeek < key2) {
 					temp.push(0);
 					currentWeek++;
@@ -226,6 +226,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 			chartData.datasetOverride.push({fill:false});
 		}
 		return chartData;
-	}
+	};
 	return lineChart;
 });

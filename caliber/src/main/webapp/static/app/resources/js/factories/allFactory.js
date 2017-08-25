@@ -192,9 +192,9 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			url : "/all/trainee/import?resourceId=" + resourceId,
 			method : "GET"
 		}).then(function(response) {
-			$log.debug("Trainees successfully imported")
+			$log.debug("Trainees successfully imported");
 			$log.debug(response.data);
-			return response.data;
+			return response;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 			return response.data;
@@ -211,7 +211,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			url : "/all/trainee/dropped?batch=" + batchId,
 			method : "GET",
 		}).then(function(response) {
-			$log.debug("Dropped trainees successfully fetched.")
+			$log.debug("Dropped trainees successfully fetched.");
 			$log.debug(response.data);
 			// return id
 			return response.data;
@@ -232,7 +232,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			method : "POST",
 			data : traineeObj
 		}).then(function(response) {
-			$log.debug("Trainee successfully created.")
+			$log.debug("Trainee successfully created.");
 			$log.debug(response);
 			// return id
 			return response;
@@ -335,7 +335,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 		})
-	}
+	};
 
 	all.getAssessmentsAverageForWeek = function(batchId, weekId) {
 		return $http({
@@ -346,7 +346,67 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		}, function(response) {
 			$log.error("There was a error " + response.status);
 		});
-	}
+	};
+
+	/** *********************** Location ********************* */
+	all.getAllLocations = function() {
+		return $http({
+			url : "/all/location/all/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Locations successfully retrieved");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
+	all.createLocation = function(locationObj) {
+		$log.debug(locationObj);
+		return $http({
+			url : "/all/location/create",
+			method : "POST",
+			data : locationObj
+		}).then(function(response) {
+			$log.debug("Location successfully created.");
+			$log.debug(response);
+			return response;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return response.data;
+		});
+	};
+
+	/** *********************** Location ********************* */
+	all.getAllLocations = function() {
+		return $http({
+			url : "/all/location/all/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Locations successfully retrieved");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
+	all.createLocation = function(locationObj) {
+		$log.debug(locationObj);
+		return $http({
+			url : "/all/location/create",
+			method : "POST",
+			data : locationObj
+		}).then(function(response) {
+			$log.debug("Location successfully created.")
+			$log.debug(response);
+			return response;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return response.data;
+		});
+	};
 
 	/** *********************** Trainer ********************* */
 
@@ -396,7 +456,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			method : "POST",
 			data : trainerObj
 		}).then(function(response) {
-			$log.debug("Trainer successfully created.")
+			$log.debug("Trainer successfully created.");
 			$log.debug(response);
 			return response;
 		}, function(response) {

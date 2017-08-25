@@ -7,7 +7,7 @@ angular
 					// Turn on/off debug messages
 					$logProvider.debugEnabled(false);
 
-					// chart options
+                    // chart options
 					ChartJsProvider.setOptions({
 
 						chartColors : [ '#803690', '#00ADF9', '#ffff66',
@@ -364,6 +364,34 @@ angular
 											authFactory.authTrainers();
 										},
 										
+
+									})
+							.state(
+									"vp.locations",
+									{
+										url : "/locations",
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/locations/manage-locations.html",
+												controller : "vpLocationController"
+											},
+											"create-location-form@vp.locations" : {
+												templateUrl : "/static/app/partials/locations/create-location-modal.html"
+											},
+											"edit-location-form@vp.locations" : {
+												templateUrl : "/static/app/partials/locations/edit-location-modal.html"
+											},
+											"delete-location-form@vp.locations" : {
+												templateUrl : "/static/app/partials/locations/delete-location-modal.html"
+											},
+											"location-extra-modals@vp.locations":{
+												templateUrl : "/static/app/partials/locations/location-auxillary-modals.html"
+											},
+											"add-location-form@vp.locations":{
+												templateUrl : "/static/app/partials/locations/add-location-modal.html"
+											}
+											
+										}
 
 									})
 							.state(
