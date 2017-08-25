@@ -25,8 +25,9 @@ angular
 						$scope.qcOverallNotes = [];
 						
 						// call function to get batch overall feedback
-						for (var b in $scope.batches){								
-							getOverallBatchFeedback($scope.batches[b].batchId, $scope.batches[b].weeks);
+						for (var b in $scope.batches){
+							if ($scope.batches.hasOwnProperty(b) )
+								getOverallBatchFeedback($scope.batches[b].batchId, $scope.batches[b].weeks);
 						}
 						
 						// function to get overall feedback for all batches for current week
@@ -39,14 +40,14 @@ angular
 						}
 						
 						//function to grab latest qc information from click event
-						$scope.onClick = function (points,evt){
+						$scope.onClick = function (points){
 							if(points[0]){
 							
 							//grab index from individual bars in graph	
 							var barIndex = points[0]._index;
 							$scope.currentBatch = $scope.batches[0];
 							
-							//define varibale batchClass to match with label on graph
+							//define variable batchClass to match with label on graph
 							var trainingName = $scope.currentBatch.trainingName;
 							var Tname = trainingName.substring(0,trainingName.indexOf(" "));
 							var trainerName = $scope.currentBatch.trainer.name;
@@ -56,15 +57,7 @@ angular
 							
 							// starting scope vars
 							$log.debug($scope.currentBatch);
-							// If in reports get reports current batch
-							if ($scope.currentBatch !== undefined) {
-								// Set batch to batch selected in reports if
-								// available
-								$scope.currentBatch = $scope.currentBatch;
-							} else {
-								// Set batch to batch selected on assess page
-								$scope.currentBatch = $scope.batches[2];
-							}
+
 							//While loop to check if label matches defined variable
 							while (label !== batchClass){
 								$scope.currentBatch = $scope.batches[barIndex+1];
@@ -88,7 +81,7 @@ angular
 							//opens modal view
 							$('#viewLastAudit').modal('toggle');
 							}
-						}
+						};
 
 						// default -- view assessments table
 						$scope.currentView = true;
