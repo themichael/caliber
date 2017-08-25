@@ -81,15 +81,6 @@
   TABLESPACE "USERS"  ENABLE;
 
 --------------------------------------------------------
---  Add ADDRESS_ID then add as FK Constraint to CALIBER_BATCH
---------------------------------------------------------
-ALTER TABLE CALIBER_BATCH ADD ADDRESS_ID NUMBER(10) NULL; 
-ALTER TABLE CALIBER_BATCH 
-ADD CONSTRAINT FK_BATCH_ADDRESS
-  FOREIGN KEY (ADDRESS_ID)
-  REFERENCES CALIBER_ADDRESS (ADDRESS_ID);
-  
---------------------------------------------------------
 --  DDL for Table CALIBER_BATCH
 --------------------------------------------------------
 
@@ -148,6 +139,16 @@ ADD CONSTRAINT FK_BATCH_ADDRESS
 	  REFERENCES "CALIBER"."CALIBER_TRAINER" ("TRAINER_ID") ENABLE;
   ALTER TABLE "CALIBER"."CALIBER_BATCH" ADD CONSTRAINT "FK_4IDDE4FODT9VMU6CIXCQ4S2P1" FOREIGN KEY ("CO_TRAINER_ID")
 	  REFERENCES "CALIBER"."CALIBER_TRAINER" ("TRAINER_ID") ENABLE;
+
+--------------------------------------------------------
+--  Add ADDRESS_ID then add as FK Constraint to CALIBER_BATCH
+--------------------------------------------------------
+ALTER TABLE CALIBER_BATCH ADD ADDRESS_ID NUMBER(10) NULL; 
+ALTER TABLE CALIBER_BATCH 
+ADD CONSTRAINT FK_BATCH_ADDRESS
+  FOREIGN KEY (ADDRESS_ID)
+  REFERENCES CALIBER_ADDRESS (ADDRESS_ID);
+  
 --------------------------------------------------------
 --  DDL for Table CALIBER_CATEGORY
 --------------------------------------------------------
