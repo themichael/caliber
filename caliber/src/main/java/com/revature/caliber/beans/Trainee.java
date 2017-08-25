@@ -99,7 +99,7 @@ public class Trainee implements Serializable {
 	@Column(name = "TECH_SCREENER_NAME")
 	private String techScreenerName;
 	
-	@Column(name = "REVPRO_PROJECT_COMPLETETION")
+	@Column(name = "REVPRO_PROJECT_COMPLETION")
 	private String projectCompletion;
 	// end of new columns
 	
