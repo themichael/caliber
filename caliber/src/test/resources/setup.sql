@@ -12,7 +12,7 @@ CREATE SEQUENCE IF NOT EXISTS TRAINER_ID_SEQUENCE  MINVALUE 1 INCREMENT BY 1 STA
 --------------------------------------------------------
 --  DDL for Sequence ADDRESS_ID_SEQUENCE
 --------------------------------------------------------
-   CREATE SEQUENCE ADDRESS_ID_SEQUENCE  MINVALUE 3080  INCREMENT BY 1 START WITH 3080; 
+   CREATE SEQUENCE IF NOT EXISTS ADDRESS_ID_SEQUENCE  MINVALUE 3080  INCREMENT BY 1 START WITH 3080; 
    
 --------------------------------------------------------
 --  DDL for Sequence BATCH_ID_SEQUENCE
