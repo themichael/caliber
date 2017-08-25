@@ -14,6 +14,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<!-- enable SSL -->
 		<!--<security:intercept-url pattern="/**" requires-channel="https" /> -->
 
+
 		<!-- change to hasRole('ROLE_VP') after development is complete -->
 		<!--<security:intercept-url pattern="/vp/**" access="hasRole('ROLE_VP')" 
 			/> -->

@@ -34,7 +34,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.revature.caliber.validator.ValidBatch;
 
-
 /**
  * The type Batch.
  */
@@ -56,9 +55,6 @@ public class Batch implements Serializable {
 	@Column(name = "RESOURCE_ID")
 	private String resourceId;
 
-	/**
-	 * Example: 1702 Java CUNY
-	 */
 	@NotNull
 	@Column(name = "TRAINING_NAME")
 	private String trainingName;
@@ -98,6 +94,10 @@ public class Batch implements Serializable {
 	@NotEmpty
 	@Column(name = "LOCATION", nullable = false)
 	private String location;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ADDRESS_ID")
+	private Address address;
 
 	/**
 	 * Anything above this grade is GREEN
@@ -140,6 +140,7 @@ public class Batch implements Serializable {
 	/**
 	 * Constructor mostly used for testing. Defaults TrainingType - Revature,
 	 * SkillType - J2EE, Good grade - 80, and Borderline grade - 70
+	 *
 	 * @param trainingName
 	 * @param trainer
 	 * @param startDate
@@ -350,6 +351,14 @@ public class Batch implements Serializable {
 		if (weeks != other.weeks)
 			return false;
 		return true;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	@Override
