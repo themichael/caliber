@@ -131,7 +131,6 @@ angular
 													else {
 														$scope.bnote = notes;
 														$scope.qcBatchAssess = notes.qcStatus;
-														console.log($scope.qcBatchAssess);
 													}
 												});
 								// Get qc notes for trainees in selected batch
@@ -224,7 +223,6 @@ angular
 					// Start function for reports to use and assess
 					function start() {
 						if ($scope.batches[0]) {
-							console.log("Report week "+$scope.batches[0])
 							$scope.trainingNameDate = $scope.batches[0].trainer.name
 									+ " - "
 									+ $filter('date')(
@@ -299,9 +297,7 @@ angular
 											$scope.stackedBarLabels = barChartObj.labels;
 											$scope.stackedBarSeries = barChartObj.series;
 											$scope.stackedBarOptions = barChartObj.options;
-											$scope.stackedBarColors = barChartObj.colors;											
-											
-											console.log($scope.stackedBarData);
+											$scope.stackedBarColors = barChartObj.colors;
 										}, function() {
 											NProgress.done();
 										});

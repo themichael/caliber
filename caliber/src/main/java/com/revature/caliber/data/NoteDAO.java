@@ -158,7 +158,7 @@ public class NoteDAO {
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.QC_BATCH))
-				.add(Restrictions.eq("batch.batchId", batchId)).add(Restrictions.eq("week", week.shortValue())) //.add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq("batch.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq(QC_FEEDBACK, true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.uniqueResult();
 	}
