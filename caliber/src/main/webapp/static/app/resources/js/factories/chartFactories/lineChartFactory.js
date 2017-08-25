@@ -20,7 +20,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		pointHoverBackgroundColor : 'rgba(114, 164, 194, .3)',
 		pointHoverBorderColor : 'rgba(114, 164, 194, .3)',
 		pointBorderColor : '#fff'
-	}
+	};
 
 	var secondaryColor = {
 		backgroundColor : 'rgba(252, 180, 20, .6)',
@@ -29,7 +29,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		pointHoverBackgroundColor : 'rgba(252, 180, 20, .3)',
 		pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
 		pointBorderColor : '#fff'
-	}
+	};
 
 	lineChart.getBatchOverallLineChart = function(dataArray) {
 		var chartData = {};
@@ -226,6 +226,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 			chartData.datasetOverride.push({fill:false});
 		}
 		return chartData;
-	}
+	};
 	return lineChart;
 });

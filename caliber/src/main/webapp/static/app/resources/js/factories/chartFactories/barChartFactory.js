@@ -21,7 +21,7 @@ angular.module("charts").factory(
 				pointHoverBackgroundColor : 'rgba(114, 164, 194, .3)',
 				pointHoverBorderColor : 'rgba(114, 164, 194, .3)',
 				pointBorderColor : '#fff'
-			}
+			};
 
 			var secondaryColor = {
 				backgroundColor : 'rgba(252, 180, 20, .6)',
@@ -30,7 +30,7 @@ angular.module("charts").factory(
 				pointHoverBackgroundColor : 'rgba(252, 180, 20, .3)',
 				pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
 				pointBorderColor : '#fff'
-			}
+			};
 
 			barChart.getBatchWeekAvgBarChart = function(dataArray) {
 				var chartData = {};
@@ -53,7 +53,7 @@ angular.module("charts").factory(
 							}
 						} ]
 					}
-				}
+				};
 
 				angular.forEach(dataArray, function(value, key) {
 					if (value[0] > 0) {
@@ -63,7 +63,7 @@ angular.module("charts").factory(
 					}
 				});
 				return chartData;
-			}
+			};
 
 			barChart.getTraineeWeeklyAssessAvgs = function(dataArray) {
 				var chartData = {};
@@ -100,7 +100,7 @@ angular.module("charts").factory(
 				chartData.data.push(batch);
 
 				return chartData;
-			}
+			};
 
 			barChart.getTraineeOverallAssessAvgs = function(dataArray) {
 				var chartData = {};
@@ -124,7 +124,7 @@ angular.module("charts").factory(
 							}
 						} ]
 					}
-				}
+				};
 
 				var trainee = [];
 				var batch = [];
@@ -138,7 +138,7 @@ angular.module("charts").factory(
 				chartData.data.push(batch);
 
 				return chartData;
-			}
+			};
 
 			barChart.getBatchOverallBarChart = function(dataArray, comparison) {
 				var chartData = {};
@@ -176,7 +176,7 @@ angular.module("charts").factory(
 							}
 						} ]
 					}
-				}
+				};
 
 				angular.forEach(sorted, function(obj) {
 					chartData.labels.push(obj.name);
@@ -198,9 +198,9 @@ angular.module("charts").factory(
 				}, {
 					label : "Batch Scores",
 					type : 'bar'
-				} ]
+				} ];
 				return chartData;
-			}
+			};
 
 			barChart.getBatchWeekSortedBarChart = function(dataArray) {
 				var chartData = {};
@@ -234,7 +234,7 @@ angular.module("charts").factory(
 							}
 						} ]
 					}
-				}
+				};
 
 				angular.forEach(sorted, function(obj) {
 					chartData.labels.push(obj.name);
@@ -244,9 +244,9 @@ angular.module("charts").factory(
 				chartData.datasetOverride = [ {
 					label : "Batch Scores",
 					type : 'bar'
-				} ]
+				} ];
 				return chartData;
-			}
+			};
 			
 			barChart.getAllBatchesCurrentWeekQCStats = function(data) {
 				var chartData = {};
@@ -278,7 +278,7 @@ angular.module("charts").factory(
 					});
 
 				});
-
+				
 				chartData.options = {
 					legend : {
 						display : true,
@@ -300,9 +300,9 @@ angular.module("charts").factory(
 							}
 						} ]
 					}
-				}
+				};
 				return chartData;
-			}
+			};
 
 			barChart.getDummyBarChart = function(dataArray) {
 				/*
@@ -322,7 +322,7 @@ angular.module("charts").factory(
 				};
 				$log.debug("Hello from the other side");
 				return chartData;
-			}
+			};
 			$log.debug("Hello, is it me you are looking for?");
 			return barChart;
 		});

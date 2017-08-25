@@ -47,9 +47,10 @@ public class TrainingController {
 	public void setTrainingService(TrainingService trainingService) {
 		this.trainingService = trainingService;
 	}
-	
+
 	/*
 	 *******************************************************
+
 	 * LOCATION SERVICES
 	 *
 	 *******************************************************
@@ -127,6 +128,7 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
+
 	 * TRAINER SERVICES
 	 *
 	 *******************************************************

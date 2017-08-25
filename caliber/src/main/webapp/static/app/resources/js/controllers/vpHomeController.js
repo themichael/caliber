@@ -19,6 +19,16 @@ angular
 					$scope.weeks = [];
 					$scope.batchesByYear = [];
 					$scope.categories = [];
+
+
+                    $scope.qcOverallNotes = [];
+
+                    // call function to get batch overall feedback
+                    for (var b in $scope.batches){
+                        if ($scope.batches.hasOwnProperty(b) )
+                            getOverallBatchFeedback($scope.batches[b].batchId, $scope.batches[b].weeks);
+                    }
+
 					(function() {
 						// Finishes any left over ajax animation from another
 						// page
@@ -27,7 +37,18 @@ angular
 
 						
 					})();
-					
+
+
+                    // function to get overall feedback for all batches for current week
+                    function getOverallBatchFeedback(batchId, currentWeek) {
+                        caliberDelegate.qc
+                            .batchNote(batchId, currentWeek)
+                            .then(function (notes) {
+                                $scope.qcOverallNotes.push(notes.qcStatus);
+                            })
+                    }
+
+
 					// function to grab latest qc information from click
 					// event
 					$scope.onClick = function(points) {
@@ -71,7 +92,9 @@ angular
 							// opens modal view
 							$('#viewLastAudit').modal('toggle');
 						}
-					}
+
+					};
+
 
 					// default -- view assessments table
 					$scope.currentView = true;
@@ -282,8 +305,9 @@ angular
 						$scope.stackedBarColors = barChartObj.colors;
 						$scope.stackedBarIds = barChartObj.id; // define scope
 															// for batch ids
+
 					}
-					
+
 					function createCurrentBatchesAverageScoreChart(data) {
 						var lineChartObj = chartsDelegate.line
 								.getCurrentBatchesAverageScoreChart(data);
@@ -294,6 +318,7 @@ angular
 						$scope.currentBatchesLineColors = lineChartObj.colors;
 						$scope.currentBatchesDsOverride = lineChartObj.datasetOverride;
 					}
+
 
 					function getCurrentBatchesAvergeScoreData() {
 						chartsDelegate.line.data
@@ -319,7 +344,7 @@ angular
 									NProgress.done();
 								});
 					}
-					
+
 					var filterLineChartByCity = function(city){
 						if(city){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
@@ -331,8 +356,10 @@ angular
 						} else {
 							filterLineChartByState($scope.selectedStateFromLineChar);
 						}
-					}
-					
+
+					};
+
+
 					var filterLineChartByState = function(state){
 						if(state){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
@@ -343,7 +370,8 @@ angular
 						} else {
 							createCurrentBatchesAverageScoreChart($scope.averageScoreData);
 						}
-					}
+					};
+
 
 
 					var filterBarChartByState = function(state){
@@ -356,31 +384,48 @@ angular
 						} else {
 							createAllBatchesCurrentWeekQCStats($scope.auditData);
 						}
-					}
 
-					
+					};
+
+                    var filterBarChartByCity = function (city) {
+                        if (city) {
+                            var filteredData = $scope.auditData.filter(function (batch) {
+                                if (batch.address) {
+                                    return batch.address.city === city;
+                                }
+                            });
+                            createAllBatchesCurrentWeekQCStats(filteredData);
+                        } else {
+                            filterBarChartByState($scope.selectedStateFromLineChar);
+                        }
+                    };
+
 
 					$scope.onLineCharAddressStateChange = function(state){
 						if(state!=="undefined"){
 							$scope.selectedStateFromLineChar = state;
 							filterLineChartByState(state);
 						}
-					}
+
+					};
 
 					$scope.onLineCharAddressCityChange = function(city) {
 						filterLineChartByCity(city);
-					}
+					};
+
 
 					$scope.onBarCharAddressStateChange = function(state){
 						if(state!=="undefined"){
 							$scope.selectedStateFromBarChar = state;
 							filterBarChartByState(state);
 						}
-					}
+
+					};
+
 
 					$scope.onBarCharAddressCityChange = function(city) {
 						filterBarChartByCity(city);
 					}
 
-					
 				});
+

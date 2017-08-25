@@ -67,7 +67,7 @@ angular
 													.error("There was an error in vpFactory -> getAllCategories"
 															+ response.status);
 										});
-					}
+					};
 					// Update a category
 					vp.updateCategory = function(category) {
 						return $http({
@@ -84,7 +84,7 @@ angular
 											"There was an error in vpFactory -> updateCategory "
 													+ response, status);
 								});
-					}
+					};
 					// Save new category
 					vp.saveCategory = function(category) {
 						return $http({
@@ -101,7 +101,9 @@ angular
 											"There was an error in vpFactory -> saveCategory "
 													+ response, status);
 								});
-					}
+
+					};
+
 					// Save new location
 					vp.saveLocation = function(location) {
 						return $http({
@@ -118,7 +120,9 @@ angular
 											"There was an error in vpFactory -> saveLocation "
 													+ response, status);
 								});
-					}
+
+					};
+
 
 
 					// deactivate trainer needed to force content type to be
@@ -221,7 +225,9 @@ angular
 								.then(
 										function(response) {
 											$log
-													.debug("Location successfully created.")
+
+													.debug("Location successfully created.");
+
 											$log.debug(response);
 											return response;
 										},
@@ -309,7 +315,7 @@ angular
 							data : trainerObj
 						}).then(
 								function(response) {
-									$log.debug("Trainer successfully created.")
+									$log.debug("Trainer successfully created.");
 									$log.debug(response);
 									return response;
 								},

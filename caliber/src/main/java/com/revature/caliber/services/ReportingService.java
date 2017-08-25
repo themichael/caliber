@@ -153,7 +153,8 @@ public class ReportingService {
 		log.info(results);
 		return results;
 	}
-
+	
+	
 	public Map<Integer, Map<QCStatus, Integer>> utilSeparateQCTraineeNotesByWeek(Batch batch) {
 		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
 		Map<QCStatus, Integer> qcStatsMapTemplate = new LinkedHashMap<>();
@@ -176,12 +177,27 @@ public class ReportingService {
 		log.info(results);
 		return results;
 	}
+	
 	/*
 	 *******************************************************
 	 * Bar Charts
 	 *******************************************************
 	 */
 
+	/**
+	 * x-Axis: Batch Names y-Axis: Overall BatchQC Status
+	 * 
+	 * @param batchId
+	 * @param weekId
+	 * @param noteType
+	 * @return
+	 */
+	public Note getBatchWeekQcOverallBarChart(Integer batchId, Integer week) {
+		//log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
+		System.out.println(noteDAO.findQCBatchNotes(batchId, week));
+		return noteDAO.findQCBatchNotes(batchId, week);
+	}
+	
 	/**
 	 * x-Axis: Assessment Names y-Axis: Average Batch Scores
 	 * 
@@ -808,4 +824,5 @@ public class ReportingService {
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
 	}
+
 }

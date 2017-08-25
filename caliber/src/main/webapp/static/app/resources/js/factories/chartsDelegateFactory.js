@@ -25,23 +25,23 @@ angular
 					 */
 					delegate.doughnut.getQCStats = function(dataArray) {
 						return doughnutChartFactory.batchWeekQCPie(dataArray);
-					}
+					};
 
 					delegate.doughnut.data.getQCStatsData = function(batchId,
 							weekId) {
 						return doughnutChartDataFactory.batchWeekQCPie(batchId,
 								weekId);
-					}
+					};
 
 					delegate.doughnut.getCurrentQCStats = function(dataArray) {
 						return doughnutChartFactory.batchWeekQCPie(dataArray);
-					}
+					};
 
 					delegate.doughnut.data.getCurrentQCStatsData = function(
 							batchId) {
 						return doughnutChartDataFactory
 								.batchCurrentWeekQCPie(batchId);
-					}
+					};
 
 					/**
 					 * ************************* Bar *************************
@@ -50,7 +50,7 @@ angular
 							training, startDate) {
 						return barChartDataFactory.getBatchComparisonLine(
 								skill, training, startDate)
-					}
+					};
 
 					delegate.bar.getAssessmentAveragesBatchWeekly = function(
 							dataArray) {
