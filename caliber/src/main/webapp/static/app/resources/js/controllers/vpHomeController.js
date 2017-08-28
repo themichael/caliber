@@ -396,7 +396,7 @@ angular
                             });
                             createAllBatchesCurrentWeekQCStats(filteredData);
                         } else {
-                            filterBarChartByState($scope.selectedStateFromLineChar);
+                            filterBarChartByState($scope.selectedStateFromBarChar);
                         }
                     };
 
