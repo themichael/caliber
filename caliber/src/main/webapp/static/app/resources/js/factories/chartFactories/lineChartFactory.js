@@ -12,7 +12,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 	$log.debug("Booted Line Chart Factory");
 
 	Chart.defaults.global.elements.line.fill = false;
-	console.log("load");
 	
 	var lineChart = {};
 
