@@ -332,7 +332,6 @@ angular
 					
 					// toggle Checked and Unchecked for Trainees
 					$scope.toggleComparisonRadarChart = function(isChecked, val) {
-						var mainData;
 						radarComparObj[$scope.currentBatch.trainingName] = $scope.currentBatch.averageGrades;
 						if(isChecked) {
 							radarComparObj[$scope.currentBatch.trainees[val].name] = radarComparData[$scope.currentBatch.trainees[val].name];
