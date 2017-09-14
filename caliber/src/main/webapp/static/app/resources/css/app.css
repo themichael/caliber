@@ -178,6 +178,12 @@ a {
     max-width: 100%;
     overflow-x: auto;
 }
+.modal-widest{
+	width: 100%;
+}
+.no-padding{
+	padding: 0px;
+}
 /* .scoll-tree {
     width:1000px;
 } */
