@@ -184,6 +184,12 @@ a {
 .no-padding{
 	padding: 0px;
 }
+.only-top-padding{
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 20px;
+}
 /* .scoll-tree {
     width:1000px;
 } */
