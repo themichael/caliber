@@ -80,7 +80,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/note/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC', 'STAGING')")
 	public ResponseEntity<List<String>> allNoteTypes() {
 		log.info("Fetching note types");
 		List<String> types = Stream.of(NoteType.values()).map(Enum::name).collect(Collectors.toList());
@@ -93,7 +93,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/qcstatus/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC', 'STAGING')")
 	public ResponseEntity<List<String>> allQCStatusTypes() {
 		log.info("Fetching QC status types");
 		List<String> types = Stream.of(QCStatus.values()).map(Enum::name).collect(Collectors.toList());
