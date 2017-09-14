@@ -1,4 +1,4 @@
-package com.revature.caliber.test;
+package com.revature.caliber.test.integration;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Category;
