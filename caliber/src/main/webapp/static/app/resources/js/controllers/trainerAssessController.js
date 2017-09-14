@@ -344,7 +344,7 @@ angular
 					
 					// create week
 					$scope.createWeek = function() {
-						if($scope.currentBatch.trainees.length === 0){
+						if($scope.trainees.length === 0){
 							$scope.noTrainees = true;
 							$scope.noTraineesMessage ="No trainnes were found, weeks cannot be created.";
 							$timeout(function(){
