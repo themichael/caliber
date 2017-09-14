@@ -273,7 +273,7 @@ public class EvaluationController {
 	}
 
 	/**
-	 * FIND THE WEEKLY QC BATCH NOTE FOR THE WEEK(NOT FOR TRAINERS)
+	 * FIND THE WEEKLY QC BATCH NOTE FOR THE WEEK
 	 * 
 	 * @param batch
 	 * @param week
