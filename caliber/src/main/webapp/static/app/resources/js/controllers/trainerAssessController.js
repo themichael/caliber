@@ -344,7 +344,7 @@ angular
 					
 					// create week
 					$scope.createWeek = function() {
-						if($scope.currentBatch.trainees.length === 0){
+						if($scope.trainees.length === 0){
 							$scope.noTrainees = true;
 							$scope.noTraineesMessage ="No trainnes were found, weeks cannot be created.";
 							$timeout(function(){
@@ -806,7 +806,8 @@ angular
 										$log.debug("the assessment has been updated");
 										return response;
 									}).then(function(response){
-									$('.modal').modal('hide');										
+									$('.modal').modal('
+');										
 											$scope.currentAssessments[index] = response;
 											$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
 											getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
