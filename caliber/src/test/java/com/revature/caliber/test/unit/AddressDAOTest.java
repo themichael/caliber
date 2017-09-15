@@ -24,15 +24,8 @@ import com.revature.caliber.data.AddressDAO;
 import com.revature.caliber.test.integration.AssessmentTest;
 
 
-public class AddressDAOTest  extends CaliberTest{
-/*
- * save    Ruha
-getAll  Ruha
-findAll  Ruha
-getAddressByInt  Ruha
-update  Ruha
-getOne Ruha
- */
+public class AddressDAOTest extends CaliberTest{
+
 	private static final Logger log = Logger.getLogger(AddressDAOTest.class);
 	@Autowired
 	TrainingController trainingController;
@@ -57,6 +50,7 @@ getOne Ruha
 		assertEquals(address, dao.getAddressById(addressId));
 		assertEquals(++before, after);
 	}
+	
 	@Test
 	public void getAllAddressDAO(){
 		log.info("Getting all addresses using AddressDAO getAll function");
@@ -71,8 +65,9 @@ getOne Ruha
 		assertTrue(trainingController.getAllLocations().hasBody());
 		assertEquals(dao.findAll().size(),size);
 	}
+	
 	@Test
-	public void getAddressByIntAddressDAO(){
+	public void getAddressByIdDAO(){
 		log.info("Finding Location by address");
 		int search = 1;
 		Address address = dao.getAddressById(search);
@@ -86,14 +81,13 @@ getOne Ruha
 		int addressId = address.getAddressId();
 		trainingController.getAllLocations().getBody().get(addressId+1);
 	}
-
 	@Test
 	public void updateAddressDAO(){
-		
-	}
-	@Test
-	public void getOne(){
-		
+		log.info("UpdateAddessDAO Test");
+		String zipcode = "11111";
+		Address address = dao.getAddressById(1);
+		address.setZipcode(zipcode);
+		dao.update(address);
+		assertEquals(zipcode, dao.getAddressById(1).getZipcode());
 	}
 }
-

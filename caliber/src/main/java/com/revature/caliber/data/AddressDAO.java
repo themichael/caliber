@@ -42,7 +42,7 @@ public class AddressDAO {
 
 	/**
 	 *
-	 * @return a list of all addresses as Stringin the database
+	 * @return a list of all addresses as String in the database
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -76,8 +76,7 @@ public class AddressDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Address getAddressById(int id) {
 		log.info("Fetching address with id " + id);
-		Address a = (Address) sessionFactory.getCurrentSession().get(Address.class, id);
-		return a;
+		return (Address) sessionFactory.getCurrentSession().get(Address.class, id);
 	}
 
 	/**
@@ -90,9 +89,4 @@ public class AddressDAO {
 		log.info("Updating " + toUpdate);
 		sessionFactory.getCurrentSession().saveOrUpdate(toUpdate);
 	}
-
-	public Address getOne(int l) {
-		return (Address) sessionFactory.getCurrentSession().get(Address.class, l);
-	}
-
 }
