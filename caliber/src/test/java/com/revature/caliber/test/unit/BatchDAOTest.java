@@ -36,22 +36,9 @@ public class BatchDAOTest extends CaliberTest{
 	private static final Logger log = Logger.getLogger(BatchDAOTest.class);
 	
 	@Autowired
-	@InjectMocks
 	private BatchDAO batchDAO;
+
 	
-	@Mock
-	private SessionFactory mockSessionFactory;
-	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
-	private Session mockSession;
-	@Mock//(answer = Answers.RETURNS_DEEP_STUBS)
-	private Criteria mockCriteria;
-	//@Mock
-	//private List batches;
-	
-	@Before
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-    }
 
 	/**
 	 * Tests methods:
@@ -60,21 +47,8 @@ public class BatchDAOTest extends CaliberTest{
 	@Test
 	public void findAllCurrentIntTest(){
 		log.info("Testing the BatchDAO.findAllCurrent(trainerId)");
-		List<Batch> list = new ArrayList<Batch>();
-		list.add(new Batch());
-		log.info(list);
-		//Mockito.when(methodCall)
-		doReturn(mockSession).when(mockSessionFactory).getCurrentSession();
-		when(mockSession.createCriteria(Batch.class).createAlias("trainees", "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", 1),Restrictions.eq("coTrainer.trainerId", 1)))
-				.add(Restrictions.le("startDate", Calendar.getInstance().getTime()))
-				.add(Restrictions.ge("endDate", Calendar.getInstance().getTime())).addOrder(Order.desc("startDate"))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)).thenReturn(mockCriteria);
-		when(mockCriteria.list()).thenReturn(list);
-		
-		List<Batch> result = batchDAO.findAllCurrent(1);
-		log.info(result);
-		assertArrayEquals(list.toArray(),result.toArray());
+		List<Batch> batches = batchDAO.findAllCurrent(1);
+		assertEquals(4, batches.size());
 	}
 	
 	/**
@@ -83,7 +57,9 @@ public class BatchDAOTest extends CaliberTest{
 	 */
 	@Test
 	public void findAllCurrentWithNotesTest(){
-		
+		log.info("Testing the BatchDAO.findAllCurrentWithNotesTest()");
+		List<Batch> batches = batchDAO.findAllCurrentWithNotes();
+		log.info(batches.size());
 	}
 	
 	/**
