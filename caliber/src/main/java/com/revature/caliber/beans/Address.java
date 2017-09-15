@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Cacheable
@@ -29,15 +30,19 @@ public class Address implements Serializable {
 	private int addressId;
 
 	@Column(name = "ADDRESS_STREET")
+	@NotEmpty
 	private String street;
 
 	@Column(name = "ADDRESS_CITY")
+	@NotEmpty
 	private String city;
 
 	@Column(name = "ADDRESS_STATE")
+	@NotEmpty
 	private String state;
 
 	@Column(name = "ADDRESS_ZIPCODE")
+	@NotEmpty
 	private String zipcode;
 
 	@Column(name = "ADDRESS_COMPANY")
