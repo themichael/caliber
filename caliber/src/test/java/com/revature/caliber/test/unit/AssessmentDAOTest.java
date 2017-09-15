@@ -1,19 +1,19 @@
 package com.revature.caliber.test.unit;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-
+import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.data.AssessmentDAO;
-
-
 
 public class AssessmentDAOTest extends CaliberTest{
 	
@@ -25,11 +25,56 @@ public class AssessmentDAOTest extends CaliberTest{
 	private AssessmentDAO assessmentDao;
 	private static final String ASSESSMENT_COUNT = "select count(assessment_id) from caliber_assessment";
 	
+	/*
+	 * Tests methods:
+	 * com.revature.caliber.data.AssessmentDAO.save()
+	 */
+	@Test
+	public void saveAssessmentTest() {
+		assessment = assessmentDao.findAll().get(1);
+		assessmentDao.save(assessment);
+		assertEquals(assessment, assessmentDao.findAll().get(1));
+		}
+	
+	
+	/*
+	 * Tests methods:
+	 * com.revature.caliber.data.AssessmentDAO.findOne()
+	 */
+	@Test
+	public void findOneAssessmentTest() {
+		int assessmentId = 2074;
+		assessmentDao.findOne(assessmentId);
+		assertEquals(assessmentId, assessmentDao.findOne(assessmentId).getAssessmentId());
+		}
+	
+	
+	/*
+	 * Tests methods:
+	 * com.revature.caliber.data.AssessmentDAO.findAll()
+	 */
+	@Test
+	public void findAllAssessmentTest() {
+		assertNotNull(assessmentDao.findAll());
+		}
+	
+	
+	/*
+	 * Tests methods:
+	 * com.revature.caliber.data.AssessmentDAO.findByWeek(batchId, weekNumber)
+	 */
+	@Test
+	public void findAssessmentsByWeekTest() {
+		int batchId = 2150;
+		int weekNumber = 3;
+		assertNotNull(assessmentDao.findByWeek(batchId, weekNumber));
+		}
+	
 	
 	
 	/**
 	 * Tests method:
-	 * com.revature.caliber.data.AssessmentDAO.findByBatchId
+	 * com.revature.caliber.data.AssessmentDAO.findByBatchId(Integer batchId)
 	 */
 	@Test
 	public void findByBatchIdAssessmentDAOTest() {
@@ -41,7 +86,7 @@ public class AssessmentDAOTest extends CaliberTest{
 	
 	/**
 	 * Tests method:
-	 * com.revature.caliber.data.AssessmentDAO.update
+	 * com.revature.caliber.data.AssessmentDAO.update(Assessment assessment)
 	 */
 	@Test
 	public void updateAssessmentDAOTest() {
@@ -58,13 +103,14 @@ public class AssessmentDAOTest extends CaliberTest{
 		assessment =assessmentDao.findAll().get(1);
 		log.fatal(assessment.getRawScore());
 
+
 		assertEquals(rawScore, assessment.getRawScore());
 	
 	}
 	
 	/**
 	 * Tests method:
-	 * com.revature.caliber.data.AssessmentDAO.delete
+	 * com.revature.caliber.data.AssessmentDAO.delete(Assessment assessment)
 	 */
 	@Test
 	public void deleteAssessmentDAOTest() {
@@ -77,3 +123,4 @@ public class AssessmentDAOTest extends CaliberTest{
 	}
 	
 }
+
