@@ -42,7 +42,7 @@ public class AddressDAOTest extends CaliberTest{
 	public void saveAddressDAO(){
 		log.info("Saving a new Address using AddressDAO");
 		int before = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
-		Address address = new Address(1, "Sunshine st","New Hope", "MN", "55428", "moneybags inc",0);
+		Address address = new Address(1, "Sunshine st","New Hope", "MN", "55428", "moneybags inc",false);
 		dao.save(address);
 		int after = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
 		int addressId = address.getAddressId();
@@ -77,7 +77,7 @@ public class AddressDAOTest extends CaliberTest{
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void failGetAddressByInt(){
 		log.info("About to fail gettingAddressByInt");
-		Address address = new Address(1, "not on Sunshine st","No Hope", "NY", "66666", "little bums",0);
+		Address address = new Address(1, "not on Sunshine st","No Hope", "NY", "66666", "little bums",false);
 		dao.save(address);
 		int addressId = address.getAddressId();
 		trainingController.getAllLocations().getBody().get(addressId+1);
