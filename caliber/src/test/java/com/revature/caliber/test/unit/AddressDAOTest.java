@@ -69,7 +69,6 @@ public class AddressDAOTest extends CaliberTest{
 		log.info("Finding Location by address");
 		Address address = dao.getAddressById(1);
 		assertEquals(trainingController.getAllLocations().getBody().get(0),address);
-		
 	}
 	
 	@Test
