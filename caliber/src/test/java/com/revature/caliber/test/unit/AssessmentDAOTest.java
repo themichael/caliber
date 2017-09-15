@@ -19,8 +19,8 @@ public class AssessmentDAOTest extends CaliberTest{
 	
 	private static final Logger log = Logger.getLogger(AssessmentDAOTest.class);
 	
-
 	private Assessment assessment;
+	
 	@Autowired
 	private AssessmentDAO assessmentDao;
 	private static final String ASSESSMENT_COUNT = "select count(assessment_id) from caliber_assessment";
@@ -31,10 +31,18 @@ public class AssessmentDAOTest extends CaliberTest{
 	 */
 	@Test
 	public void saveAssessmentTest() {
+		
+		log.info("ATTEMPTING TO SAVE A NEW ASSESSMENT INTO THE DATABASE");
+		List<Assessment> assessments1 = assessmentDao.findAll();
+		
 		assessment = assessmentDao.findAll().get(1);
 		assessmentDao.save(assessment);
-		assertEquals(assessment, assessmentDao.findAll().get(1));
-		}
+		
+		List<Assessment> assessments2 = assessmentDao.findAll();
+		
+		assertEquals(assessments1.size() + 1, assessments2.size());
+		
+	}
 	
 	
 	/*
@@ -43,10 +51,12 @@ public class AssessmentDAOTest extends CaliberTest{
 	 */
 	@Test
 	public void findOneAssessmentTest() {
+		
+		log.info("SEARCHING FOR A SINGLE ASSESSMENT IN THE DATABASE");
 		int assessmentId = 2074;
 		assessmentDao.findOne(assessmentId);
 		assertEquals(assessmentId, assessmentDao.findOne(assessmentId).getAssessmentId());
-		}
+	}
 	
 	
 	/*
