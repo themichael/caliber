@@ -29,13 +29,16 @@ public class AssessmentDAOTest extends CaliberTest{
 	 * com.revature.caliber.data.AssessmentDAO.save()
 	 */
 	@Test
-	@Ignore
 	public void saveAssessmentTest() {
+		
+		List<Assessment> assessments1 = assessmentdao.findAll();
 		
 		assessment = assessmentdao.findAll().get(1);
 		assessmentdao.save(assessment);
 		
-		assertEquals(assessment, assessmentdao.findAll().get(1));
+		List<Assessment> assessments2 = assessmentdao.findAll();
+		
+		assertEquals(assessments1.size() + 1, assessments2.size());
 		
 	}
 	
