@@ -26,7 +26,7 @@ public class Address implements Serializable {
 	@Column(name = "ADDRESS_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_ID_SEQUENCE")
 	@SequenceGenerator(name = "ADDRESS_ID_SEQUENCE", sequenceName = "ADDRESS_ID_SEQUENCE")
-	private long addressId;
+	private int addressId;
 
 	@Column(name = "ADDRESS_STREET")
 	private String street;
@@ -50,7 +50,7 @@ public class Address implements Serializable {
 		super();
 	}
 
-	public Address(long addressId, String street, String city, String state, String zipcode, String company,
+	public Address(int addressId, String street, String city, String state, String zipcode, String company,
 			int active) {
 		super();
 		this.addressId = addressId;
@@ -66,7 +66,7 @@ public class Address implements Serializable {
 		return addressId;
 	}
 
-	public void setAddressId(long addressId) {
+	public void setAddressId(int addressId) {
 		this.addressId = addressId;
 	}
 

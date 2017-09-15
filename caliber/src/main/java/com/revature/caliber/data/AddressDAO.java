@@ -91,7 +91,7 @@ public class AddressDAO {
 		sessionFactory.getCurrentSession().saveOrUpdate(toUpdate);
 	}
 
-	public Address getOne(long l) {
+	public Address getOne(int l) {
 		return (Address) sessionFactory.getCurrentSession().get(Address.class, l);
 	}
 

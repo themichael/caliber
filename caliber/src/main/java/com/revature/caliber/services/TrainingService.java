@@ -82,7 +82,7 @@ public class TrainingService {
 	}
 	
 
-	public Address getOne(long l) {
+	public Address getOne(int l) {
 		log.info("Getting Address with ID " + l);
 		Address address = addressDAO.getOne(l);
 		log.info("Got " + address);
