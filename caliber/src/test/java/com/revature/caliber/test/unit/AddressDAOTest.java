@@ -73,6 +73,7 @@ public class AddressDAOTest extends CaliberTest{
 		Address address = dao.getAddressById(search);
 		assertEquals(trainingController.getAllLocations().getBody().get(0),address);
 	}
+
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void failGetAddressByInt(){
 		log.info("About to fail gettingAddressByInt");
@@ -81,6 +82,7 @@ public class AddressDAOTest extends CaliberTest{
 		int addressId = address.getAddressId();
 		trainingController.getAllLocations().getBody().get(addressId+1);
 	}
+
 	@Test
 	public void updateAddressDAO(){
 		log.info("UpdateAddessDAO Test");
