@@ -36,6 +36,8 @@ getOne Ruha
 	private static final Logger log = Logger.getLogger(AddressDAOTest.class);
 	@Autowired
 	TrainingController trainingController;
+	
+	private static final String ADDRESS_COUNT = "select count(address_id) from caliber_address";
 
 	private AddressDAO dao;
 	@Autowired
@@ -46,12 +48,14 @@ getOne Ruha
 	@Test
 	public void saveAddressDAO(){
 		log.info("Saving a new Address using AddressDAO");
-		//int before = trainingController.getAllLocations().getBody().size();
+		int before = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
 		Address address = new Address(1, "Sunshine st","New Hope", "MN", "55428", "moneybags inc",0);
 		dao.save(address);
+		int after = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
 		int addressId = address.getAddressId();
 		assertEquals(trainingController.getAllLocations().getBody().get(2), address);
 		assertEquals(address, dao.getAddressById(addressId));
+		assertEquals(++before, after);
 	}
 	@Test
 	public void getAllAddressDAO(){
@@ -60,22 +64,29 @@ getOne Ruha
 		assertEquals(trainingController.getAllLocations().getBody().size(),dao.getAll().size());
 		assertEquals(trainingController.getAllLocations().getBody().toString(),dao.getAll().toString());
 	}
-	
 	@Test
 	public void findAllAddressDAO(){
 		log.info("Find All Addresses");
-		int num = 2;
+		int size = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
 		assertTrue(trainingController.getAllLocations().hasBody());
-		assertEquals(dao.findAll().size(),num);
-		
+		assertEquals(dao.findAll().size(),size);
 	}
 	@Test
 	public void getAddressByIntAddressDAO(){
 		log.info("Finding Location by address");
-		Address address = dao.getAddressById(1);
+		int search = 1;
+		Address address = dao.getAddressById(search);
 		assertEquals(trainingController.getAllLocations().getBody().get(0),address);
-		
 	}
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void failGetAddressByInt(){
+		log.info("About to fail gettingAddressByInt");
+		Address address = new Address(1, "not on Sunshine st","No Hope", "NY", "66666", "little bums",0);
+		dao.save(address);
+		int addressId = address.getAddressId();
+		trainingController.getAllLocations().getBody().get(addressId+1);
+	}
+
 	@Test
 	public void updateAddressDAO(){
 		
