@@ -217,7 +217,7 @@ public class Assessment implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Assessment [title=" + title + ", batch=" + batch + ", rawScore=" + rawScore + ", type=" + type + ", week=" + week + ", category="
+		return "Assessment [assessmentId= "+assessmentId+" title=" + title + ", batch=" + batch + ", rawScore=" + rawScore + ", type=" + type + ", week=" + week + ", category="
 				+ category + "]";
 	}
 }

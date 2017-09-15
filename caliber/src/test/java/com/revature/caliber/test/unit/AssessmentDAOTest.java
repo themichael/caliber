@@ -91,7 +91,7 @@ public class AssessmentDAOTest extends CaliberTest{
 	@Test
 	public void updateAssessmentDAOTest() {
 		log.info("UPDATE ASSESSMENT DAO");
-		Assessment assessment =assessmentDao.findAll().get(1);
+		Assessment assessment =assessmentDao.findOne(2058);
 
 		assertNotEquals(2099, assessment.getRawScore());
 		
@@ -101,7 +101,7 @@ public class AssessmentDAOTest extends CaliberTest{
 		assessmentDao.update(assessment);
 		log.info("After Update "+ assessment);
 		
-		assessment =assessmentDao.findAll().get(1);
+		assessment =assessmentDao.findOne(2058);
 		log.info("After getting again "+ assessment);
 
 
