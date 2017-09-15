@@ -49,7 +49,9 @@ getOne Ruha
 		//int before = trainingController.getAllLocations().getBody().size();
 		Address address = new Address(1, "Sunshine st","New Hope", "MN", "55428", "moneybags inc",0);
 		dao.save(address);
+		int addressId = address.getAddressId();
 		assertEquals(trainingController.getAllLocations().getBody().get(2), address);
+		assertEquals(address, dao.getAddressById(addressId));
 	}
 	@Test
 	public void getAllAddressDAO(){
@@ -62,7 +64,9 @@ getOne Ruha
 	@Test
 	public void findAllAddressDAO(){
 		log.info("Find All Addresses");
+		int num = 2;
 		assertTrue(trainingController.getAllLocations().hasBody());
+		assertEquals(dao.findAll().size(),num);
 		
 	}
 	@Test

@@ -62,7 +62,7 @@ public class Address implements Serializable {
 		this.active = active;
 	}
 
-	public long getAddressId() {
+	public int getAddressId() {
 		return addressId;
 	}
 
