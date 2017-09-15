@@ -386,7 +386,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Trainee> createTrainee(@Valid @RequestBody Trainee trainee) {
 		log.info("Saving trainee: " + trainee);
 		trainingService.save(trainee);
@@ -402,7 +402,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Void> updateTrainee(@Valid @RequestBody Trainee trainee) {
 		log.info("Updating trainee: " + trainee);
 		trainingService.update(trainee);
@@ -418,7 +418,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/delete/{id}", method = RequestMethod.DELETE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Void> deleteTrainee(@PathVariable int id) {
 		Trainee trainee = new Trainee();
 		trainee.setTraineeId(id);
@@ -429,7 +429,7 @@ public class TrainingController {
 
 	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail) {
 		Trainee trainee = trainingService.findTraineeByEmail(traineeEmail);
 		return new ResponseEntity<>(trainee, HttpStatus.OK);
