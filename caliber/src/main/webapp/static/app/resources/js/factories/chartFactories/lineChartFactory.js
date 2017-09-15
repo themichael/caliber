@@ -11,8 +11,12 @@
 angular.module("charts").factory("lineChartFactory", function($log) {
 	$log.debug("Booted Line Chart Factory");
 
+	Chart.defaults.global.elements.line.fill = false;
+	
 	var lineChart = {};
 
+	
+	
 	var mainColor = {
 		backgroundColor : 'rgba(114, 164, 194, .5)',
 		pointBackgroundColor : 'rgba(114, 164, 194, .5)',
