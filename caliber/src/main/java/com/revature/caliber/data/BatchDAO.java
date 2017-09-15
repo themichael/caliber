@@ -67,9 +67,10 @@ public class BatchDAO {
 		log.info("Fetching all batches");
 		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
 				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).addOrder(Order.desc(START_DATE))
+				.add(Restrictions.or(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped),
+						Restrictions.isNull(T_TRAINING_STATUS)))
+				.addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-
 	}
 
 	/**
