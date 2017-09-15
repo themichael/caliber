@@ -76,6 +76,8 @@ public class CategoryDAOTest extends CaliberTest {
 		assertNotEquals(skillName, myCat.getSkillCategory());
 		myCat.setSkillCategory(skillName);
 		dao.update(myCat);
+		//regrab updated category
+		myCat = dao.findAll().get(0);
 		assertEquals(skillName, myCat.getSkillCategory());
 	}
 	/**
