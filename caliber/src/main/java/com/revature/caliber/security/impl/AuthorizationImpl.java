@@ -37,23 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Scope("prototype")
-public class AuthorizationImpl extends Helper implements Authorization {
-	@Value("#{systemEnvironment['SALESFORCE_LOGIN_URL']}")
-	private String loginURL;
-	@Value("services/oauth2/authorize")
-	private String authURL;
-	@Value("services/oauth2/token")
-	private String accessTokenURL;
-	@Value("#{systemEnvironment['SALESFORCE_CLIENT_ID']}")
-	private String clientId;
-	@Value("#{systemEnvironment['SALESFORCE_CLIENT_SECRET']}")
-	private String clientSecret;
-	@Value("#{systemEnvironment['SALESFORCE_REDIRECT_URI']}")
-	private String redirectUri;
-	@Value("#{systemEnvironment['CALIBER_PROJECT_URL']}")
-	private String redirectUrl;
-	@Value("services/oauth2/revoke")
-	private String revokeUrl;
+public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implements Authorization {
 	@Value("/caliber")
 	private String forwardUrl;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);

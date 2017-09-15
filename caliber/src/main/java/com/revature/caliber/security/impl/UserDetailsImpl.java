@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 @RestController
 @Scope("session")
-public class UserDetailsImpl extends Helper implements UserDetails {
+public class UserDetailsImpl extends AbstractSalesforceSecurityHelper implements UserDetails {
     private HttpClient httpClient;
     private HttpResponse response;
 
