@@ -806,7 +806,7 @@ angular
 										$log.debug("the assessment has been updated");
 										return response;
 									}).then(function(response){
-									$('.modal').modal('');										
+									$('.modal').modal('hide');										
 											$scope.currentAssessments[index] = response;
 											$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
 											getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
