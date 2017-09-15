@@ -49,14 +49,14 @@ public class Address implements Serializable {
 	private String company;
 
 	@Column(name = "ACTIVE")
-	private int active;
+	private boolean active;
 
 	public Address() {
 		super();
 	}
 
 	public Address(int addressId, String street, String city, String state, String zipcode, String company,
-			int active) {
+			boolean active) {
 		super();
 		this.addressId = addressId;
 		this.street = street;
@@ -115,11 +115,11 @@ public class Address implements Serializable {
 		this.company = company;
 	}
 
-	public int getActive() {
+	public boolean isActive() {
 		return active;
 	}
 
-	public void setActive(int active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
@@ -127,8 +127,7 @@ public class Address implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + active;
-		result = prime * result + (int) (addressId ^ (addressId >>> 32));
+		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
@@ -147,8 +146,6 @@ public class Address implements Serializable {
 			return false;
 		Address other = (Address) obj;
 		if (active != other.active)
-			return false;
-		if (addressId != other.addressId)
 			return false;
 		if (city == null) {
 			if (other.city != null)

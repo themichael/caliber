@@ -1,4 +1,4 @@
-package com.revature.caliber.cukes;
+package com.revature.caliber.test.uat;
 
 import org.junit.runner.RunWith;
 
@@ -6,5 +6,5 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources"})
-public class CukesTest {}
+@CucumberOptions(features={"src/test/resources/features"})
+public class CukesRunner {}
