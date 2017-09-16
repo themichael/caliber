@@ -332,10 +332,9 @@ angular
 					
 					// toggle Checked and Unchecked for Trainees
 					$scope.toggleComparisonRadarChart = function(isChecked, val) {
-						var mainData;
-						radarComparObj[$scope.currentBatch.trainingName] = mainData;
+						radarComparObj[$scope.currentBatch.trainingName] = $scope.currentBatch.averageGrades;
 						if(isChecked) {
-							radarComparObj[$scope.currentBatch.trainees[val].name] = radarComparData[$scope.currentBatch.trainees[val].name] ;
+							radarComparObj[$scope.currentBatch.trainees[val].name] = radarComparData[$scope.currentBatch.trainees[val].name];
 						} else {
 							delete radarComparObj[$scope.currentBatch.trainees[val].name];
 						}
@@ -620,7 +619,11 @@ angular
 											$log.debug("Batch overall radar data: ");
 											$log.debug(data);
 											NProgress.done();
-
+											
+											/*store this is $scope.currentBatch.averageGrades for accessing this information
+											so you do not have to make another HTTP request*/
+											$scope.currentBatch.averageGrades = data;
+											
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(
 															data,
