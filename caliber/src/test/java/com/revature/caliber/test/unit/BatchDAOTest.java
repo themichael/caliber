@@ -131,7 +131,9 @@ public class BatchDAOTest extends CaliberTest {
 	@Test
 	public void findAllCurrentTest() {
 		log.info("Testing the BatchDAO.findAllCurrentTest()");
-		String sql = "SELECT * FROM CALIBER_BATCH WHERE END_DATE >= TO_DATE(SYSDATE,'YYYY/MM/DD') AND START_DATE <= TO_DATE(SYSDATE,'YYYY/MM/DD');";
+		//This allows for 1 month flexibility. This was needed because in BatchDao, the query takes into account 1 month ago as 'current'
+		int endDateLimit = 30; 
+		String sql = "SELECT * FROM CALIBER_BATCH WHERE END_DATE+" + endDateLimit+" >= TO_DATE(SYSDATE,'YYYY/MM/DD') AND START_DATE <= TO_DATE(SYSDATE,'YYYY/MM/DD');";
 		int expect = jdbcTemplate.queryForList(sql).size();
 		int actual = batchDAO.findAllCurrent().size();
 		assertEquals(expect, actual);
