@@ -161,7 +161,6 @@ public class GradeDAOTest extends CaliberTest {
 	 * @see com.revature.caliber.data.GradeDAO#findByAssessment(Long)
 	 */
 	@Test
-	@Ignore
 	public void findByAssessment(){
 		log.trace("GETTING GRADES FOR ASSESSMENT");
 		
