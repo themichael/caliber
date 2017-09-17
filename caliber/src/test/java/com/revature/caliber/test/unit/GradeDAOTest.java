@@ -161,13 +161,15 @@ public class GradeDAOTest extends CaliberTest {
 	 * @see com.revature.caliber.data.GradeDAO#findByAssessment(Long)
 	 */
 	@Test
+	@Ignore
 	public void findByAssessment(){
 		log.trace("GETTING GRADES FOR ASSESSMENT");
 		
 		//get assessment
 		Assessment assessment = assessmentDAO.findOne(TEST_ASSESSMENT_ID);
 		//find all grades for assessment
-		Set<Grade> grades = assessment.getGrades();
+		List<Grade> grades = gradeDAO.findByAssessment(assessment.getAssessmentId());
+		
 		//assert each grade is of assesssment
 		for(Grade grade: grades){
 			assertEquals(assessment, grade.getAssessment());
@@ -205,17 +207,15 @@ public class GradeDAOTest extends CaliberTest {
 		//get batch
 		Batch batch = batchDAO.findOne(TEST_BATCH_ID);
 		
-		//find all trainees for batch
-		Set<Trainee> trainees = batch.getTrainees();
+		//find all grades for batch
+		List<Grade> grades = gradeDAO.findByBatch(batch.getBatchId());
 		
-		//find all grades for trainees
-		for(Trainee trainee: trainees){
-			Set<Grade> grades = trainee.getGrades();
-			//assert that each grade belongs to batch
-			for(Grade grade: grades){
-				assertEquals(batch, grade.getTrainee().getBatch());
-			}
+		//assert that each grade belongs to batch
+
+		for(Grade grade : grades){
+			assertEquals(batch, grade.getTrainee().getBatch());
 		}
+	
 	}
 	
 	/**
@@ -229,18 +229,14 @@ public class GradeDAOTest extends CaliberTest {
 		//get category
 		Category category = categoryDAO.findOne(TEST_CATEGORY_ID);
 		
-		//get all assessments of category
-		Set<Assessment> assessments = category.getAssessments();
+		//get all grades of category
+		List<Grade> grades = gradeDAO.findByCategory(category.getCategoryId());
 		
-		//get all grades for assessments
-		for(Assessment assessment: assessments){
-			Set<Grade> grades = assessment.getGrades();
-			//assert that each grade belongs to category
-			for(Grade grade: grades){
-				assertEquals(category, grade.getAssessment().getCategory());
-			}
+		//assert that each grade belongs to category
+		for(Grade grade: grades){
+			assertEquals(category, grade.getAssessment().getCategory());
 		}
-		
+
 	}
 	
 	/**
@@ -271,20 +267,14 @@ public class GradeDAOTest extends CaliberTest {
 		
 		//get trainer
 		Trainer trainer = trainerDAO.findOne(TEST_TRAINER_ID);
-		//get batches for trainer
-		Set<Batch> batches = trainer.getBatches();
-		//get trainees for batches
-		for(Batch batch: batches){
-			Set<Trainee> trainees = batch.getTrainees();
-			//get grades for trainees
-			for(Trainee trainee: trainees){
-					Set<Grade> grades = trainee.getGrades();
-					//assert grade belongs to trainer
-					for(Grade grade: grades){
-						assertEquals(trainer, grade.getTrainee().getBatch().getTrainer());
-					}
-			}
+		//get grades for trainer
+		List<Grade> grades = gradeDAO.findByTrainer(trainer.getTrainerId());
+		
+		//assert grade belongs to trainer
+		for(Grade grade: grades){
+			assertEquals(trainer, grade.getTrainee().getBatch().getTrainer());
 		}
+
 		
 	}
 	
