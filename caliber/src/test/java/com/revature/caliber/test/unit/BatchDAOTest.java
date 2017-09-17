@@ -2,39 +2,92 @@ package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
-import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.Batch;
 import com.revature.caliber.data.BatchDAO;
 
 public class BatchDAOTest extends CaliberTest {
-
+	
+	private static final Logger log = Logger.getLogger(BatchDAOTest.class);
+	
 	@Autowired
-	BatchDAO batchDAO;
-
+	private BatchDAO batchDAO;
+	
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
 	}
 
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO#findAllCurrent(trainerId)
+	 */
+	@Test
+	public void findAllCurrentIntTest(){
+		log.info("Testing the BatchDAO.findAllCurrent(trainerId)");
+		List<Batch> batches = batchDAO.findAllCurrent(1);
+		assertEquals(4, batches.size());
+	}
+	
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithNotes()
+	 */
+	@Test
+	public void findAllCurrentWithNotesTest(){
+		log.info("Testing the BatchDAO.findAllCurrentWithNotesTest()");
+		List<Batch> batches = batchDAO.findAllCurrentWithNotes();
+		assertEquals(1,batches.size());
+	}
+	
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithNotesAndTrainees()
+	 */
+	@Test
+	public void findAllCurrentWithNotesAndTraineesTest(){
+		log.info("Testing the BatchDAO.findAllCurrentWithNotesAndTrainees()");
+		List<Batch> batches = batchDAO.findAllCurrentWithNotesAndTrainees();
+		assertEquals(1,batches.size());
+	}
+	
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithTrainees()
+	 */
+	@Test
+	public void findAllCurrentWithTraineesTest(){
+		log.info("Testing the BatchDAO.findAllCurrentWithTrainees()");
+		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();
+		assertEquals(4,batches.size());
+	}
+
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO#findAll()
+	 */
 	@Test
 	public void findAllTest() {
+		log.info("Testing the BatchDAO.findAll()");
 		String sql = "SELECT * FROM CALIBER_BATCH";
 		int expect = jdbcTemplate.queryForList(sql).size();
 		int actual = batchDAO.findAll().size();
 		assertEquals(expect, actual);
 	}
 
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO#findAllAfterDate()
+	 */
 	@Test
 	public void findAllAfterDateTest() {
+		log.info("Testing the BatchDAO.findAllAfterDateTest()");
 		// positive test
 		// find how many after a specific date
 		String sql = "SELECT START_DATE FROM CALIBER_BATCH WHERE START_DATE >= '2017-01-01'";
@@ -54,9 +107,13 @@ public class BatchDAOTest extends CaliberTest {
 		}
 	}
 
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO#findAllByTrainer()
+	 */
 	@Test
 	public void findAllByTrainerTest() {
-
+		log.info("Testing the BatchDAO.findAllByTrainerTest()");
 		//positive testing
 		String sql = "SELECT TRAINER_ID FROM CALIBER_TRAINER WHERE ROWNUM = 1";
 		Integer trainerId = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -64,23 +121,18 @@ public class BatchDAOTest extends CaliberTest {
 		int expect = jdbcTemplate.queryForList(sql).size();
 		int actual = batchDAO.findAllByTrainer(trainerId).size();
 		assertEquals(expect, actual);
-		
-		//parameter testing
-		trainerId = Integer.MAX_VALUE;
-		sql = "SELECT * FROM CALIBER_BATCH WHERE TRAINER_ID = " + trainerId + " OR CO_TRAINER_ID = " + trainerId;
-		expect = jdbcTemplate.queryForList(sql).size();
-		actual = batchDAO.findAllByTrainer(trainerId).size();
-		assertEquals(expect, actual);
-		
-		trainerId = Integer.MIN_VALUE;
-		sql = "SELECT * FROM CALIBER_BATCH WHERE TRAINER_ID = " + trainerId + " OR CO_TRAINER_ID = " + trainerId;
-		expect = jdbcTemplate.queryForList(sql).size();
-		actual = batchDAO.findAllByTrainer(trainerId).size();
-		assertEquals(expect, actual);
 	}
 
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO#findAllCurrent()
+	 */
 	@Test
 	public void findAllCurrentTest() {
-
+		log.info("Testing the BatchDAO.findAllCurrentTest()");
+		String sql = "SELECT * FROM CALIBER_BATCH WHERE END_DATE >= TO_DATE(SYSDATE,'YYYY/MM/DD') AND START_DATE <= TO_DATE(SYSDATE,'YYYY/MM/DD');";
+		int expect = jdbcTemplate.queryForList(sql).size();
+		int actual = batchDAO.findAllCurrent().size();
+		assertEquals(expect, actual);
 	}
 }
