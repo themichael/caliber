@@ -2,6 +2,7 @@ package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -27,7 +28,7 @@ public class BatchDAOTest extends CaliberTest{
 	public void findAllCurrentIntTest(){
 		log.info("Testing the BatchDAO.findAllCurrent(trainerId)");
 		List<Batch> batches = batchDAO.findAllCurrent(1);
-		assertEquals(4, batches.size());
+		assertEquals(3, batches.size());
 	}
 	
 	/**
@@ -60,6 +61,6 @@ public class BatchDAOTest extends CaliberTest{
 	public void findAllCurrentWithTraineesTest(){
 		log.info("Testing the BatchDAO.findAllCurrentWithTrainees()");
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();
-		assertEquals(4,batches.size());
+		assertEquals(3,batches.size());
 	}
 }

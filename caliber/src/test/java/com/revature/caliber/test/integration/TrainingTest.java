@@ -174,7 +174,7 @@ public class TrainingTest extends CaliberTest {
 		trainingController.updateBatch(batch);
 		// check that there is 1 current batch
 		int actual = trainingController.getAllCurrentBatches().getBody().size();
-		assertEquals(4, actual);
+		assertEquals(3, actual);
 	}
 
 	/**
