@@ -29,10 +29,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.revature.caliber.security.Authorization;
 import com.revature.caliber.security.models.SalesforceUser;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * @author louislopez on 1/18/17.
- * @author Patrick Walsh
+ * Created by louislopez on 1/18/17.
  */
 
 @Controller
@@ -73,8 +73,8 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-                                                HttpServletRequest request) throws IOException {
-		log.debug("in authenticated method");
+                                                RedirectAttributes redirectAttributes) throws IOException {
+		log.error("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
 		List<NameValuePair> parameters = new ArrayList<>();
@@ -84,11 +84,11 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		parameters.add(new BasicNameValuePair("redirect_uri", redirectUri));
 		parameters.add(new BasicNameValuePair("code", code));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
-		log.debug("Generating Salesforce token");
+		log.error("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		request.setAttribute("salesforce-token", toJsonString(response.getEntity().getContent()));
-		log.debug("Redirecting to : " + REDIRECT + redirectUrl);
-		return new ModelAndView("forward:" + redirectUrl);
+		redirectAttributes.addAttribute("salestoken",toJsonString(response.getEntity().getContent()));
+		log.error("Redirecting to : " + REDIRECT + redirectUrl);
+		return new ModelAndView(REDIRECT + redirectUrl);
 	}
 
 	/**
