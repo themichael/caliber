@@ -27,10 +27,9 @@ import com.revature.caliber.test.integration.AssessmentTest;
 public class AddressDAOTest extends CaliberTest{
 
 	private static final Logger log = Logger.getLogger(AddressDAOTest.class);
+	private static final String ADDRESS_COUNT = "select count(address_id) from caliber_address";
 	@Autowired
 	TrainingController trainingController;
-	
-	private static final String ADDRESS_COUNT = "select count(address_id) from caliber_address";
 
 	private AddressDAO dao;
 	@Autowired
