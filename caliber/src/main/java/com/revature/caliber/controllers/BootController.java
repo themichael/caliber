@@ -22,8 +22,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -31,7 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.exceptions.NotAuthorizedException;
-import com.revature.caliber.security.impl.Helper;
+import com.revature.caliber.security.impl.AbstractSalesforceSecurityHelper;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
 
@@ -40,7 +38,7 @@ import com.revature.caliber.security.models.SalesforceUser;
  */
 @Controller
 @SessionAttributes("token")
-public class BootController extends Helper {
+public class BootController extends AbstractSalesforceSecurityHelper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
 
@@ -56,8 +54,8 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards to
-	 * the landing page according to the user's role.
+	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards
+	 * to the landing page according to the user's role.
 	 *
 	 * @param servletRequest
 	 *            the servlet request
@@ -70,8 +68,8 @@ public class BootController extends Helper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-			@ModelAttribute("salestoken") String salesTokenString, Model model) throws IOException, URISyntaxException {
+	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
+			throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
@@ -87,9 +85,10 @@ public class BootController extends Helper {
 		}
 		// get Salesforce token from cookie
 		try {
-			log.error("About to check for salesforce token");
-			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-			model.asMap().clear();
+			log.debug("About to check for salesforce token");
+			SalesforceToken salesforceToken = getSalesforceToken(
+					servletRequest.getAttribute("salesforce-token").toString());
+			servletRequest.setAttribute("salesforce-token", null); 
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
@@ -131,8 +130,8 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * Makes a request to Salesforce REST API to retrieve the authenticated user's
-	 * details
+	 * Makes a request to Salesforce REST API to retrieve the authenticated
+	 * user's details
 	 * 
 	 * @param servletRequest
 	 * @param salesforceToken
@@ -159,8 +158,9 @@ public class BootController extends Helper {
 
 	/**
 	 * Gets Caliber user from database (TRAINER table) and validates if provided
-	 * email is authorized to user Caliber. All authorized Caliber users must exist
-	 * as a TRAINER record with email matching that of Salesforce user email.
+	 * email is authorized to user Caliber. All authorized Caliber users must
+	 * exist as a TRAINER record with email matching that of Salesforce user
+	 * email.
 	 * 
 	 * @param servletRequest
 	 * @param email
@@ -188,9 +188,9 @@ public class BootController extends Helper {
 	}
 
 	/**
-	 * Parses a Json String containing TRAINER bean. Authorize the user with Caliber
-	 * and store their PreAuthenticatedAuthenticationToken in session. Adds
-	 * convenience 'role' cookie for AngularJS consumption.
+	 * Parses a Json String containing TRAINER bean. Authorize the user with
+	 * Caliber and store their PreAuthenticatedAuthenticationToken in session.
+	 * Adds convenience 'role' cookie for AngularJS consumption.
 	 * 
 	 * @param jsonString
 	 * @param salesforceUser

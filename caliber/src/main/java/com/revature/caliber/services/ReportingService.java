@@ -123,6 +123,8 @@ public class ReportingService {
 				return temp;
 			}
 		}
+		
+		//if there is no data, then return no data
 		return new HashMap<>();
 	}
 
@@ -567,7 +569,7 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			Double avg = 0.d;
 			int weeksWithGrades = 0;
-			for (Integer i = 0; i < weeks; i++) {
+			for (Integer i = 1; i <= weeks; i++) {
 				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
 				if (tempAvg > 0) {
 					weeksWithGrades++;
