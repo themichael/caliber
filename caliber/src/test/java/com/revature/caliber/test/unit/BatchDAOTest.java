@@ -138,4 +138,15 @@ public class BatchDAOTest extends CaliberTest {
 		int actual = batchDAO.findAllCurrent().size();
 		assertEquals(expect, actual);
 	}
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO.findOne(Integer batchId)
+	 */
+	@Test
+	public void findOneTest(){
+		log.info("Testing method BatchDAO.findOne(Integer batchId)");
+		int expected = 2050;
+		int actual = batchDAO.findOne(expected).getBatchId();
+		assertEquals(expected, actual);
+	}
 }
