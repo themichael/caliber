@@ -2,9 +2,16 @@ package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.time.Instant;
+import java.time.Period;
+import java.time.temporal.TemporalAmount;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -12,6 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.BatchDAO;
 
 public class BatchDAOTest extends CaliberTest {
@@ -148,5 +159,79 @@ public class BatchDAOTest extends CaliberTest {
 		int expected = 2050;
 		int actual = batchDAO.findOne(expected).getBatchId();
 		assertEquals(expected, actual);
+	}
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO.findOneWithDroppedTrainees(Integer batchId)
+	 * Finds from a batch with known dropped trainees, upon finding a single trainee with
+	 * the TrainingStatus of Dropped, calls it good.
+	 */
+	@Test
+	public void findOneWithDroppedTraineesTest(){
+		log.info("Testing method BatchDAO.findOneWithDroppedTrainees(Integer batchId)");
+		boolean success = false;
+		Set<Trainee> resultSet = batchDAO.findOneWithDroppedTrainees(2150).getTrainees();
+		for (Trainee resultSetTrainee : resultSet){
+			if (resultSetTrainee.getTrainingStatus() == TrainingStatus.Dropped){
+				success = true;
+				break;
+			}
+		}
+		assertTrue(success);
+	}
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO.findOneWithTraineesAndGrades(Integer batchId)
+	 */
+	@Test
+	public void findOneWithTraineesAndGradesTest(){
+		log.info("Testing method BatchDAO.findOneWithTraineesAndGrades(Integer batchId)");
+		String expected = "1602 Feb08 Java";
+		String actual = batchDAO.findOneWithTraineesAndGrades(2050).getTrainingName();
+		assertEquals(expected, actual);
+		boolean success = true;
+		Set<Trainee> resultSet = batchDAO.findOneWithTraineesAndGrades(2050).getTrainees();
+		for (Trainee resultSetTrainee : resultSet){
+			if (resultSetTrainee.getTrainingStatus() == TrainingStatus.Dropped){
+				success = false;
+				break;
+			}
+		}
+		assertTrue(success);
+	}
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO.update()
+	 */
+	@Test
+	public void updateTest(){
+		log.info("Testing method BatchDAO.update(Batch batch)");
+		Batch testBatch = batchDAO.findOne(2050);
+		testBatch.setLocation("The basement");
+		batchDAO.update(testBatch);
+		Batch updatedTestBatch = batchDAO.findOne(2050);
+		assertEquals(updatedTestBatch.getLocation(),"The basement");
+	}
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.data.BatchDAO.save(Batch batch)
+	 */
+	@Test
+	public void saveTest(){
+		log.info("Testing method BatchDAO.save(Batch batch)");
+		Trainer testTrainer = new Trainer("Sir. Test","Tester","test@test.test",TrainerRole.ROLE_TRAINER);
+		testTrainer.setTrainerId(1);
+		Batch testBatch = new Batch("Test Name",testTrainer, Date.from(Instant.now()),Date.from(Instant.now().plus(Period.ofDays(60))),"Test Location");
+		batchDAO.save(testBatch);
+		List<Batch> resultSet = batchDAO.findAll();
+		boolean success = false;
+		for(Batch found: resultSet){
+			log.fatal(found);
+			if(found.getLocation().equals("Test Location")){
+				success = true;
+				break;
+			}
+		}
+		assertTrue(success);
 	}
 }
