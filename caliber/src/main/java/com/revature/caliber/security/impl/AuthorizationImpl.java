@@ -88,7 +88,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		HttpResponse response = httpClient.execute(post);
 		request.setAttribute("salesforce-token", toJsonString(response.getEntity().getContent()));
 		log.debug("Redirecting to : " + REDIRECT + redirectUrl);
-		return new ModelAndView(redirectUrl);
+		return new ModelAndView("forward:" + redirectUrl);
 	}
 
 	/**
