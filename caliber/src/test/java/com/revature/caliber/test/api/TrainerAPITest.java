@@ -23,6 +23,11 @@ import io.restassured.http.ContentType;
 public class TrainerAPITest extends AbstractAPITest{
 
 	private static final Logger log = Logger.getLogger(TrainerAPITest.class);
+	
+	/*
+	 * Trainer API endpoints
+	 */
+	private String findByEmail = "training/trainer/byemail/patrick.walsh@revature.com/";
 
 	@Test
 	public void findByEmail() throws Exception {
@@ -31,7 +36,7 @@ public class TrainerAPITest extends AbstractAPITest{
 		expected.setTrainerId(1);
 		log.info("API Testing findTrainerByEmail at baseUrl  " + baseUrl);
 		given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
-				.get(baseUrl + "training/trainer/byemail/patrick.walsh@revature.com/").then().assertThat()
+				.get(baseUrl + findByEmail).then().assertThat()
 				.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
 

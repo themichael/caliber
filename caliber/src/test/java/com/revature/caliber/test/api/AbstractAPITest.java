@@ -21,18 +21,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.security.models.SalesforceToken;
 
-public class AbstractAPITest extends CaliberTest {
+/**
+ * Abstract class used to be extended to API testing classes.
+ * Initializes by authenticating with the Salesforce API so
+ * developers need only place accessToken variable as Authorization
+ * header in their HTTP requests.
+ * 
+ * Requires appropriate credentials to be stored as environmental
+ * variables. The credentials must also match a user in the Caliber database.
+ * 
+ * @author Patrick Walsh
+ *
+ */
+public abstract class AbstractAPITest extends CaliberTest {
 
 	protected String baseUrl = System.getenv("CALIBER_SERVER_URL");
-	protected String username = System.getenv("CALIBER_API_USERNAME");
-	protected String password = System.getenv("CALIBER_API_PASSWORD");
-	protected String clientId = System.getenv("SALESFORCE_CLIENT_ID");
-	protected String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
-	private String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
-
-	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
-
 	protected static String accessToken = "Auth ";
+	private String username = System.getenv("CALIBER_API_USERNAME");
+	private String password = System.getenv("CALIBER_API_PASSWORD");
+	private String clientId = System.getenv("SALESFORCE_CLIENT_ID");
+	private String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
+	private String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
+	
+	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
 
 	public AbstractAPITest() {
 		// only login with Salesforce once
