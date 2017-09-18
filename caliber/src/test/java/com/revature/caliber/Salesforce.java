@@ -1,9 +1,13 @@
 package com.revature.caliber;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.SalesforceDAO;
 
 public class Salesforce extends CaliberTest{
@@ -16,9 +20,11 @@ public class Salesforce extends CaliberTest{
 	@Test
 	public void go(){
 		log.info("Getting batches");
-		salesforceDAO.getAllRelevantBatches();
+		List<Batch> batches = salesforceDAO.getAllRelevantBatches();
+		log.info(batches);
 		log.info("Getting batch details");
-		salesforceDAO.getBatchDetails("a0Yi000000F0b7I");
+		List<Trainee> trainees = salesforceDAO.getBatchDetails("a0Yi000000F0b7I");
+		log.info(trainees);
 	}
 	
 }
