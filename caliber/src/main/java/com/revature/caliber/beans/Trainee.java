@@ -100,7 +100,7 @@ public class Trainee implements Serializable {
 	private String techScreenerName;
 	
 	@Column(name = "REVPRO_PROJECT_COMPLETION")
-	private double projectCompletion;
+	private String projectCompletion;
 	// end of new columns
 	
 
@@ -326,11 +326,11 @@ public class Trainee implements Serializable {
 		this.techScreenerName = techScreenerName;
 	}
 
-	public double getProjectCompletion() {
+	public String getProjectCompletion() {
 		return projectCompletion;
 	}
 
-	public void setProjectCompletion(double projectCompletion) {
+	public void setProjectCompletion(String projectCompletion) {
 		this.projectCompletion = projectCompletion;
 	}
 }
