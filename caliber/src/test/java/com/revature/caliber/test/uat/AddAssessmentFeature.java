@@ -7,7 +7,7 @@ import cucumber.api.java.en.When;
 public class AddAssessmentFeature {
 	@Given("^I am on the Assess Batch page$")
 	public void iAmOnTheAssessBatchPage() {
-		// Write code here that turns the phrase above into concrete actions
+		// Write code here that turns the phrase above into concrete actions	
 	}
 
 	@Given("^I have selected a batch$")
