@@ -14,8 +14,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 	Chart.defaults.global.elements.line.fill = false;
 	
 	var lineChart = {};
-
-	
 	
 	var mainColor = {
 		backgroundColor : 'rgba(114, 164, 194, .5)',
