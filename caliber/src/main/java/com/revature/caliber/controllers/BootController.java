@@ -22,8 +22,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -56,8 +54,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	}
 
 	/**
-	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards to
-	 * the landing page according to the user's role.
+	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards
+	 * to the landing page according to the user's role.
 	 *
 	 * @param servletRequest
 	 *            the servlet request
@@ -70,8 +68,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-			@ModelAttribute("salestoken") String salesTokenString, Model model) throws IOException, URISyntaxException {
+	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
+			throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
@@ -88,8 +86,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 		// get Salesforce token from cookie
 		try {
 			log.error("About to check for salesforce token");
-			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-			model.asMap().clear();
+			SalesforceToken salesforceToken = getSalesforceToken(servletRequest.getAttribute("salesforce-token").toString());
+			servletRequest.setAttribute("salesforce-token", null); // clear token from request
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
@@ -131,8 +129,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	}
 
 	/**
-	 * Makes a request to Salesforce REST API to retrieve the authenticated user's
-	 * details
+	 * Makes a request to Salesforce REST API to retrieve the authenticated
+	 * user's details
 	 * 
 	 * @param servletRequest
 	 * @param salesforceToken
@@ -159,8 +157,9 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 	/**
 	 * Gets Caliber user from database (TRAINER table) and validates if provided
-	 * email is authorized to user Caliber. All authorized Caliber users must exist
-	 * as a TRAINER record with email matching that of Salesforce user email.
+	 * email is authorized to user Caliber. All authorized Caliber users must
+	 * exist as a TRAINER record with email matching that of Salesforce user
+	 * email.
 	 * 
 	 * @param servletRequest
 	 * @param email
@@ -188,9 +187,9 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	}
 
 	/**
-	 * Parses a Json String containing TRAINER bean. Authorize the user with Caliber
-	 * and store their PreAuthenticatedAuthenticationToken in session. Adds
-	 * convenience 'role' cookie for AngularJS consumption.
+	 * Parses a Json String containing TRAINER bean. Authorize the user with
+	 * Caliber and store their PreAuthenticatedAuthenticationToken in session.
+	 * Adds convenience 'role' cookie for AngularJS consumption.
 	 * 
 	 * @param jsonString
 	 * @param salesforceUser
