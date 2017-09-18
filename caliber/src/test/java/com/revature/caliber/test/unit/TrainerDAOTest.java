@@ -17,9 +17,8 @@ import com.revature.caliber.data.TrainerDAO;
 
 public class TrainerDAOTest extends CaliberTest {
 
-	private static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
-
 	private static final Logger log = Logger.getLogger(TrainerDAOTest.class);
+	public static final String patMail = "patrick.walsh@revature.com";
 	private TrainerDAO trainerDAO;
 
 	@Autowired
@@ -39,9 +38,8 @@ public class TrainerDAOTest extends CaliberTest {
 	@Test
 	public void testFindByEmail() {
 		log.info("Find trainer by email");
-		String email = "patrick.walsh@revature.com";
-		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", email, TrainerRole.ROLE_VP);
-		assertEquals(expected, trainerDAO.findByEmail(email));
+		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", patMail, TrainerRole.ROLE_VP);
+		assertEquals(expected, trainerDAO.findByEmail(patMail));
 	}
 
 	@Test
@@ -62,20 +60,18 @@ public class TrainerDAOTest extends CaliberTest {
 	@Test
 	public void testFindOne() {
 		log.info("Find trainer by id");
-		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
-				TrainerRole.ROLE_VP);
+		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", patMail, TrainerRole.ROLE_VP);
 		assertEquals(expected, trainerDAO.findOne(1));
 	}
 
 	@Test
 	public void testUpdate() {
-
-		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
-	}
-
-	@Test
-	public void testDelete() {
-		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
+		log.info("Update trainer");
+		Trainer expected = trainerDAO.findByEmail(patMail);
+		expected.setName("Success Walsh");
+		trainerDAO.update(expected);
+		Trainer actual = trainerDAO.findByEmail(patMail);
+		assertEquals(expected, actual);
 	}
 
 }
