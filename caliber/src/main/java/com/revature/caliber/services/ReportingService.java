@@ -535,10 +535,10 @@ public class ReportingService {
 
 		} else {
 			if (training.equalsIgnoreCase(ALL)) {
-				filteredBatches = allBatches.parallelStream().filter(b -> b.getTrainingType().name().equals(skill))
+				filteredBatches = allBatches.parallelStream().filter(b -> b.getSkillType().name().equals(skill))
 						.collect(Collectors.toList());
 			} else {
-				filteredBatches = allBatches.parallelStream().filter(b -> b.getTrainingType().name().equals(skill))
+				filteredBatches = allBatches.parallelStream().filter(b -> b.getSkillType().name().equals(skill))
 						.filter(b -> b.getTrainingType().name().equals(training)).collect(Collectors.toList());
 			}
 		}
