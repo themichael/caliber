@@ -74,7 +74,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
                                                 HttpServletRequest request) throws IOException {
-		log.error("in authenticated method");
+		log.debug("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
 		List<NameValuePair> parameters = new ArrayList<>();
@@ -84,11 +84,11 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		parameters.add(new BasicNameValuePair("redirect_uri", redirectUri));
 		parameters.add(new BasicNameValuePair("code", code));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
-		log.error("Generating Salesforce token");
+		log.debug("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		request.getSession().setAttribute("salesforce-token", toJsonString(response.getEntity().getContent()));
-		log.error("Redirecting to : " + REDIRECT + redirectUrl);
-		return new ModelAndView(REDIRECT + redirectUrl);
+		request.setAttribute("salesforce-token", toJsonString(response.getEntity().getContent()));
+		log.debug("Redirecting to : " + REDIRECT + redirectUrl);
+		return new ModelAndView(redirectUrl);
 	}
 
 	/**
