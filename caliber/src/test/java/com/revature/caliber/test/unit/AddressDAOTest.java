@@ -87,9 +87,9 @@ public class AddressDAOTest extends CaliberTest{
 	public void updateAddressDAO(){
 		log.info("UpdateAddessDAO Test");
 		String zipcode = "11111";
-		Address address = dao.getAddressById(1);
+		Address address = dao.getAddressById(2);
 		address.setZipcode(zipcode);
 		dao.update(address);
-		assertEquals(zipcode, dao.getAddressById(1).getZipcode());
+		assertEquals(zipcode, dao.getAddressById(2).getZipcode());
 	}
 }
