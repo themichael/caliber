@@ -123,6 +123,8 @@ public class ReportingService {
 				return temp;
 			}
 		}
+		
+		//if there is no data, then return no data
 		return new HashMap<>();
 	}
 
