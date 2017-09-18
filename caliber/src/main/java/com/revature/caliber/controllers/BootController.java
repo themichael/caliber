@@ -85,10 +85,10 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 		}
 		// get Salesforce token from cookie
 		try {
-			log.error("About to check for salesforce token");
+			log.debug("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(
-					servletRequest.getSession().getAttribute("salesforce-token").toString());
-			servletRequest.getSession().setAttribute("salesforce-token", null); 
+					servletRequest.getAttribute("salesforce-token").toString());
+			servletRequest.setAttribute("salesforce-token", null); 
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
