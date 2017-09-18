@@ -29,31 +29,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.revature.caliber.security.Authorization;
 import com.revature.caliber.security.models.SalesforceUser;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * Created by louislopez on 1/18/17.
+ * @author louislopez on 1/18/17.
+ * @author Patrick Walsh
  */
 
 @Controller
 @Scope("prototype")
-public class AuthorizationImpl extends Helper implements Authorization {
-	@Value("#{systemEnvironment['SALESFORCE_LOGIN_URL']}")
-	private String loginURL;
-	@Value("services/oauth2/authorize")
-	private String authURL;
-	@Value("services/oauth2/token")
-	private String accessTokenURL;
-	@Value("#{systemEnvironment['SALESFORCE_CLIENT_ID']}")
-	private String clientId;
-	@Value("#{systemEnvironment['SALESFORCE_CLIENT_SECRET']}")
-	private String clientSecret;
-	@Value("#{systemEnvironment['SALESFORCE_REDIRECT_URI']}")
-	private String redirectUri;
-	@Value("#{systemEnvironment['CALIBER_PROJECT_URL']}")
-	private String redirectUrl;
-	@Value("services/oauth2/revoke")
-	private String revokeUrl;
+public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implements Authorization {
 	@Value("/caliber")
 	private String forwardUrl;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
@@ -89,8 +73,8 @@ public class AuthorizationImpl extends Helper implements Authorization {
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-                                                RedirectAttributes redirectAttributes) throws IOException {
-		log.error("in authenticated method");
+                                                HttpServletRequest request) throws IOException {
+		log.debug("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
 		List<NameValuePair> parameters = new ArrayList<>();
@@ -100,11 +84,11 @@ public class AuthorizationImpl extends Helper implements Authorization {
 		parameters.add(new BasicNameValuePair("redirect_uri", redirectUri));
 		parameters.add(new BasicNameValuePair("code", code));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
-		log.error("Generating Salesforce token");
+		log.debug("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		redirectAttributes.addAttribute("salestoken",toJsonString(response.getEntity().getContent()));
-		log.error("Redirecting to : " + REDIRECT + redirectUrl);
-		return new ModelAndView(REDIRECT + redirectUrl);
+		request.setAttribute("salesforce-token", toJsonString(response.getEntity().getContent()));
+		log.debug("Redirecting to : " + REDIRECT + redirectUrl);
+		return new ModelAndView(redirectUrl);
 	}
 
 	/**
