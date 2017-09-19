@@ -3,12 +3,17 @@ package com.revature.caliber.test.unit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
+import com.revature.caliber.beans.Batch;
 import com.revature.caliber.services.ReportingService;
 
 public class ReportingServiceTest extends CaliberTest{
@@ -35,6 +40,7 @@ public class ReportingServiceTest extends CaliberTest{
 	 * @see com.revature.caliber.services.ReportingService#getTraineeUpToWeekLineChart(int, int, int)
 	 */
 	@Test
+	@Ignore
 	public void getTraineeUpToWeekLinechart(){
 		
 		/*
@@ -67,6 +73,7 @@ public class ReportingServiceTest extends CaliberTest{
 	 * @see com.revature.caliber.services.ReportingService#getTraineeOverallLineChart(int, int)
 	 */
 	@Test
+	@Ignore
 	public void getTraineeOverallLineChart(){
 		/*
 		 * Method description:
@@ -88,6 +95,57 @@ public class ReportingServiceTest extends CaliberTest{
 		
 		//week 8 should not exist
 		assertNull(overallGrades.get(8));
+		
+	}
+	
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getBatchOverallLineChart(int)
+	 */
+	
+	@Test
+	@Ignore
+	public void getBatchOverallLineChart() {
+		
+		/*
+		 * Method description:
+		 * input: batchid
+		 * output: map of week and scores 
+		 */
+		
+		final double actualWeek1Score = 80.25723076923077; 
+		
+		Map<Integer,Double> map = reportingService.getBatchOverallLineChart(TEST_BATCH_ID); 
+		
+		//batch had 7 weeks total 
+		assertEquals(7,map.size()); 
+		
+		//scores of week 1 should be 80.25723076923077
+		
+		double score = map.get(1);
+		assertEquals(score, actualWeek1Score, .00000001);
+
+		//week 8 should not exist 
+		assertNull(map.get(8));
+
+	}
+	
+	@Test
+	public void getAllCurrentBatchesLineChart() {
+		/*
+		 * Method description:
+		 * output: map of week and scores 
+		 */
+		
+		List<Object> results =  reportingService.getAllCurrentBatchesLineChart(); 
+		
+		System.out.println(results);
+		
+		System.out.println(results.size());
+		
+		System.out.println("Is empty: " + results.isEmpty());
+		
 		
 	}
 }
