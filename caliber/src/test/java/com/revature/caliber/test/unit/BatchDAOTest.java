@@ -28,6 +28,7 @@ import com.revature.caliber.data.BatchDAO;
 public class BatchDAOTest extends CaliberTest {
 	
 	private static final Logger log = Logger.getLogger(BatchDAOTest.class);
+	private static final String TRAINER_EMAIL = "pjw6193@hotmail.com";
 	
 	@Autowired
 	private BatchDAO batchDAO;
@@ -220,13 +221,12 @@ public class BatchDAOTest extends CaliberTest {
 	public void saveTest(){
 		log.info("Testing method BatchDAO.save(Batch batch)");
 		Trainer testTrainer = new Trainer("Sir. Test","Tester","test@test.test",TrainerRole.ROLE_TRAINER);
-		testTrainer.setTrainerId(1);
+		testTrainer.setTrainerId(2);
 		Batch testBatch = new Batch("Test Name",testTrainer, Date.from(Instant.now()),Date.from(Instant.now().plus(Period.ofDays(60))),"Test Location");
 		batchDAO.save(testBatch);
 		List<Batch> resultSet = batchDAO.findAll();
 		boolean success = false;
 		for(Batch found: resultSet){
-			log.fatal(found);
 			if(found.getLocation().equals("Test Location")){
 				success = true;
 				break;
