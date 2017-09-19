@@ -20,7 +20,7 @@ public class ImportBatchFeature {
 	
 	@Before // each scenario
 	public void setup(){
-		driver = new HtmlUnitDriver(BrowserVersion.CHROME);
+		driver = new HtmlUnitDriver(BrowserVersion.CHROME, true);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		managePage = new ManageBatchPage(driver);
 	}
@@ -32,7 +32,7 @@ public class ImportBatchFeature {
 	@Given("^I am on the Manage Batch page$")
 	public void iAmOnTheManageBatchPage() throws Throwable {
 		managePage.gotoManagePage();
-		managePage.verifyManagePage();
+//		managePage.verifyManagePage();
 	}
 
 	@Given("^I clicked Import Batch button$")
