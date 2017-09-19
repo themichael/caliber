@@ -1,7 +1,6 @@
 package com.revature.caliber.test.unit;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,9 +24,9 @@ import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
-import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.services.ReportingService;
 
 public class ReportingServiceTest extends CaliberTest{
@@ -39,102 +38,119 @@ public class ReportingServiceTest extends CaliberTest{
 	
 	@Autowired
 	private BatchDAO batchDAO;
-	@Autowired
-	private GradeDAO gradeDAO;
 	
-	private final String getBatches = "Select * from caliber_batch where batch_id = 2200";
-	
-	private static List<Trainee> trainees;
-	private static List<Trainee> traineesGroup2;
-	
-	@BeforeClass
-    public static void beforeClass(){
-        trainees = new ArrayList<>();
-        Batch batch = new Batch();
-        batch.setWeeks(5);
-        for(int i = 1; i < 4; i++){
-            Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch);
-            trainee.setTraineeId(i);
-            Set<Grade> grades = new HashSet<Grade>();
-            for(int j = 1; j < 6; j++){
-                Assessment week = new Assessment("A title:" + j, batch, 100, AssessmentType.Exam, j, new Category());
-                grades.add(new Grade(week, trainee, new Date(), j*10 + (i-1)*10));
+	private static List<Batch> batchComparisonInit(){
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 1, 1);
+		Calendar start = Calendar.getInstance();
+		start.set(Calendar.YEAR, 3, 1);
+		Calendar end = Calendar.getInstance();
+		end.set(Calendar.YEAR, 4, 1);
+		
+		Batch b1 = new Batch("1808-Java",new Trainer(),start.getTime(), end.getTime(), "Revature");
+		Batch b2 = new Batch("1909-Java",new Trainer(), start.getTime(), end.getTime(), "Revature");
+		b1.setWeeks(4);
+		b2.setWeeks(4);
+		
+		Set<Trainee> trainees1 = new HashSet<>();
+		Set<Trainee> trainees2 = new HashSet<>();
+		
+		int score1[] = {70, 80, 80, 90};
+		int score2[] = {100, 90, 90, 80};
+		
+		for(int i = 1; i < 2; i++){
+            Trainee trainee1 = new Trainee("Trainee1_" + i, "java", "email@email.com", b1);
+            Trainee trainee2 = new Trainee("Trainee2_" + i,".net","email@email.com",b2);
+            trainee1.setTraineeId(i+100);
+            trainee2.setTraineeId(i+200);
+            
+            Set<Grade> grades1 = new HashSet<Grade>();
+            Set<Grade> grades2 = new HashSet<Grade>();
+            for(int j = 1; j < 5; j++){
+                Assessment weekB1 = new Assessment("A title:" + j, b1, 100, AssessmentType.Exam, j, new Category());
+                Assessment weekB2 = new Assessment("A title:" + j, b2, 100, AssessmentType.Exam,j, new Category());
+                grades1.add(new Grade(weekB1, trainee1, new Date(), score1[j-1]));
+                grades2.add(new Grade(weekB2, trainee2, new Date(), score2[j-1]));
             }
-            trainee.setGrades(grades);
-            trainees.add(trainee);
+            trainee1.setGrades(grades1);
+            trainee2.setGrades(grades2);
+            trainees1.add(trainee1);
+            trainees2.add(trainee2);
         }
-    }
-	
-	private static void traineesGroup2Init(){
-        traineesGroup2 = new ArrayList<>();
-        Batch batch2 = new Batch();
-        batch2.setWeeks(5);
-        for(int i = 1; i < 4; i++){
-            Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch2);
-            trainee.setTraineeId(i);
-            Set<Grade> grades = new HashSet<Grade>();
-            for(int j = 1; j < 6; j++){
-                Assessment week = new Assessment("A title:" + j, batch2, 100, AssessmentType.Exam, j, new Category());
-                grades.add(new Grade(week, trainee, new Date(), j*10 + (i-1)*10));
-            }
-            trainee.setGrades(grades);
-            trainees.add(trainee);
-        }
+		
+		b1.setTrainees(trainees1);
+		b2.setTrainees(trainees2);
+		
+		List<Batch> batches = new ArrayList<>();
+		batches.add(b1);
+		batches.add(b2);
+		return batches;
 	}
 	
 	/**
 	 * Tests methods:
-	 * @see com.revature.caliber.service.ReportingService#getBatchComparisonAvg(String skill, String training, Date startDate)
+	 * @see com.revature.caliber.service.ReportingService#getBatchComparisonAvg(List<Batch> batches)
 	 */
 	@Test
 	public void getBatchComparisonAvgTest(){
-		log.info("Testing the ReportingService.getBatchCommparisonAvg(String skill, String training, Date startDate)");
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 1, 1);
+		log.info("Testing the ReportingService.getBatchCommparisonAvg(List<Batch> batches)");
+
+		List<Batch> batches = batchComparisonInit();
 		
-		/*double batchAvg = 0;
-		double traineeAvg = 0;
-		double weekAvg = 0;
-		List<Batch> batches =  batchDAO.findAllAfterDate(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.YEAR));
-		log.info(batches.size());
-		for(Batch batch: batches){
-			traineeAvg = 0;
-			log.info("Trainees: " + batch.getTrainees().size());
-			for(Trainee t: batch.getTrainees()){
-				log.info(t.getTrainingStatus());
-				weekAvg = 0;
-				List<Grade> grades =gradeDAO.findByTrainee(t.getTraineeId());
-				for(Grade g:grades){
-					weekAvg += g.getAssessment().getRawScore();
-				}
-				weekAvg /= grades.size();
-				traineeAvg += weekAvg;
-			}
-			traineeAvg /= batch.getTrainees().size();
-			batchAvg += traineeAvg;
-		}
-		batchAvg /= batches.size();
-		log.info(batchAvg);*/
+		List<Batch> singleBatch1 = new ArrayList<>();
+		singleBatch1.add(batches.get(0));
+		
+		List<Batch> singleBatch2 = new ArrayList<>();
+		singleBatch2.add(batches.get(1));
+		
+		double avg = reportingService.getBatchComparisonAvg(singleBatch1);
+		double expected = 80;
+		assertTrue(Math.abs(avg-expected)<.0001);
+		
+		avg = reportingService.getBatchComparisonAvg(singleBatch2);
+		expected = 90;
+		assertTrue(Math.abs(avg-expected)<.0001);
+		
+		avg = reportingService.getBatchComparisonAvg(batches);
+		expected = 85;
+		assertTrue(Math.abs(avg-expected)<.0001);
+	}
 	
+	/**
+	 * Tests methods:
+	 * @see com.revature.caliber.service.ReportingService#batchComparisonFilter(List<Batch> batches, String skill, String training)
+	 */
+	@Test
+	public void batchComparisonFilterTest(){
+		log.info("Testing the ReportingService.batchComparisonFilter(List<Batch> batches, String skill, String training)");
+		
 		String skillType = "(All)";
 		String trainingType = "(All)";
-		double avg = reportingService.getBatchComparisonAvg(skillType, trainingType, cal.getTime());
-		assertTrue(83<avg && avg<84);  //avg equals about 83.9
+		List<Batch> batches = reportingService.batchComparisonFilter(batchDAO.findAll(), skillType, trainingType);
+		int expected = 5;
+		int actual = batches.size();
+		assertEquals(expected, actual);
 		
 		skillType = "J2EE";  //There is only one type of training in the setup.sql, so this is the same result "(All)"
 		trainingType = "University";												//but uses a different code path
-		avg = reportingService.getBatchComparisonAvg(skillType, trainingType, cal.getTime());
-		assertTrue(79<avg && avg<80);  //avg equals about 79.8
+		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), skillType, trainingType);
+		expected = 2;
+		actual = batches.size();
+		assertEquals(expected, actual);
 		
 		skillType = "(All)";
 		trainingType = "Revature";
-		avg = reportingService.getBatchComparisonAvg(skillType, trainingType, cal.getTime());
-		assertTrue(86<avg && avg<87);  //avg equals about 86.5
+		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), skillType, trainingType);
+		expected = 3;
+		actual = batches.size();
+		assertEquals(expected, actual);
 		
 		skillType = "(All)";
 		trainingType = "University";
-		avg = reportingService.getBatchComparisonAvg(skillType, trainingType, cal.getTime());
-		assertTrue(79<avg && avg<80);  //avg equals about 79.8
+		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), skillType, trainingType);
+		expected = 2;
+		actual = batches.size();
+		assertEquals(expected, actual);
 	}
 	
 	@Test
