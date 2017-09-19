@@ -258,7 +258,7 @@ public class ReportingServiceTest extends CaliberTest{
 		
 	}
 	
-	@Test 
+	@Test
 	public void testGetTechnologiesForTheWeek() {
 		/*
 		 * Method description:
