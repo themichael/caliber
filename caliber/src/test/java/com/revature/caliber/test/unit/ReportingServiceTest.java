@@ -1,9 +1,12 @@
 package com.revature.caliber.test.unit;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
-
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +16,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
+import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
@@ -32,6 +36,10 @@ public class ReportingServiceTest extends CaliberTest{
 	BatchDAO batchDao;
 	
 	
+	/**
+	 * Tests methods:
+	 * com.revature.caliber.services.ReportingService.getBatchWeekPieChart(Integer batchId, Integer weekNumber)
+	 */
 	@Test
 	public void getBatchWeekPieChartTest() {
 		
@@ -53,6 +61,10 @@ public class ReportingServiceTest extends CaliberTest{
 		
 	}
 	
+	/**
+	 * Tests methods:
+	 * com.revature.caliber.services.ReportingService.pieChartCurrentWeekQCStatus(Integer batchId)
+	 */
 	@Test
 	public void pieChartCurrentWeekQCStatusTest() {
 		
@@ -77,7 +89,10 @@ public class ReportingServiceTest extends CaliberTest{
 		
 	}
 	
-	
+	/**
+	 *  Tests methods:
+	 *  com.revature.caliber.services.ReportingService.getAllBatchesCurrentWeekQCStackedBarChart
+	 */
 	@Test
 	public void getAllBatchesCurrentWeekQCStackedBarChartTest() {
 		
@@ -85,16 +100,44 @@ public class ReportingServiceTest extends CaliberTest{
 		log.info("\n \n \n \n \n <getAllBatchesCurrentWeekQCStackedBarChartTest> Acquire dem batches.");
 		List<Object> object = reportingService.getAllBatchesCurrentWeekQCStackedBarChart();
 		
+		@SuppressWarnings("unchecked")
+		Map<String, Object> test = (Map<String, Object>) object.get(0);
+		
 		for (int i = 0; i < object.size(); i++) {
 			
 			log.info("Batch number " + i + ": " + object.get(i));
 			
 		}
 		
-		assertNotNull(object);
+		// find a way to acquire the map separately, then iterate through its keys
 		
+		@SuppressWarnings("unchecked")
+		Map<QCStatus, Integer> qcStatus = (Map<QCStatus, Integer>) test.get("qcStatus");
+		
+		//asserts batch ID
+		assertEquals((Integer) 2201, (Integer) test.get("id"));
+		
+		//asserts QCStatus values for Poor, Good, Superstar, and Average
+		assertEquals((Integer) 7, (Integer) qcStatus.get(QCStatus.Poor));
+		assertEquals((Integer) 9, (Integer) qcStatus.get(QCStatus.Good));
+		assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Superstar));
+		assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Average));
+		
+		//asserts the label
+		assertEquals((String)"2017-09-12...Patrick", (String) test.get("label"));
+	
+		
+		//asserts the address
+		Address address = (Address) test.get("address");
+	
+		assertEquals("65-30 Kissena Blvd, CEP Hall 2", address.getStreet());
+			
 	}
 	
+	/**
+	 *  Test methods:
+	 *  com.revature.caliber.services.ReportingService.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
+	 */
 	@Test
 	public void getBatchWeekQcOverallBarChart() {
 		
@@ -111,8 +154,17 @@ public class ReportingServiceTest extends CaliberTest{
 		assertEquals(5, note.getWeek());
 		assertEquals(6438, note.getNoteId());
 		
+		//This assertion only checks that the content of returned note contains part of the String that's actually there.
+		//Ideally, we would want to assert that the content of the note (whole string) is exactly equal.
+		assertThat(note.getContent(), containsString("Covered: Unix, AWS, DevOps, Hibernate"));
+		
+		
 	}
 	
+	/**
+	 * Tests methods:
+	 * com.revature.caliber.services.ReportingService.getBatchWeekAvgBarChart(int batchId, int week)
+	 */
 	@Test
 	public void getBatchWeekAvgBarChartTest() {
 		
@@ -136,8 +188,11 @@ public class ReportingServiceTest extends CaliberTest{
 		
 	}
 	
+	/**
+	 *  Tests methods:
+	 * 	com.revature.caliber.services.ReportingService.getBatchWeekSortedBarChart(int batchId, int week) 
+	 */
 	@Test
-	@Ignore
 	public void getBatchWeekSortedBarChartTest() {
 		
 		int batchId = 2201;
