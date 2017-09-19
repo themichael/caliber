@@ -2,6 +2,7 @@ package com.revature.caliber.test.integration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -176,6 +177,22 @@ public class ReportingServiceTest extends CaliberTest {
 		} catch (NoSuchElementException e) {
 			log.info(e);
 		}
+	}
+	/**
+	 * @see com.revature.caliber.services.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
+	 */
+	@Test
+	public void getBatchWeekQcOverallBarChartTest(){
+		log.info("Testing method: getBatchWeekQcOverallBarChart(Integer batchId, Integer week)");
+		Note testNote = reportingService.getBatchWeekQcOverallBarChart(2201, 7);
+		//Note: I was pulling the getContent from testNote, and it would return a different string sometimes.
+		assertEquals(testNote.getWeek(),(short)7);
+		//invalid batch
+		testNote = reportingService.getBatchWeekQcOverallBarChart(22, 7);
+		assertNull(testNote);
+		//invalid batch
+		testNote = reportingService.getBatchWeekQcOverallBarChart(2201, -5);
+		assertNull(testNote);
 
 	}
 
@@ -240,13 +257,14 @@ public class ReportingServiceTest extends CaliberTest {
 
 		Batch batch = createTestBatchWithQCNotes();
 
+		//positive testing
 		Map<Integer, Map<QCStatus, Integer>> results = reportingService.utilSeparateQCTraineeNotesByWeek(batch);
 		for (int i = 1; i <= batch.getWeeks(); i++) {
+			//grab the QCStatus map made by utilSeperateQCTraineeNotesByWeek for the week
 			Map<QCStatus, Integer> weekStatusCount = results.get(i);
 			for (QCStatus status : weekStatusCount.keySet()) {
 				int expectCount = weekStatusCount.get(status);
-				// Actual count is the statusCountPerWeek - 1 to account that i
-				// starts at 1;
+				// Actual count is the statusCountPerWeek - 1 to account that i starts at 1;
 				switch (status) {
 				case Poor: {
 					assertEquals(expectCount, statusPoorCountPerWeek[i - 1]);
@@ -270,6 +288,12 @@ public class ReportingServiceTest extends CaliberTest {
 				}
 			}
 		}
+		
+		//Negative Testing
+		try {
+			results = reportingService.utilSeparateQCTraineeNotesByWeek(null);
+		} catch (NullPointerException e) {
+			log.debug(e);
+		}
 	}
-
 }
