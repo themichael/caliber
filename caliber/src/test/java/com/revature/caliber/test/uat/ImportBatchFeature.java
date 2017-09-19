@@ -21,6 +21,7 @@ public class ImportBatchFeature extends DriverSetup{
 	public void setup(){
 		driver = new HtmlUnitDriver(BrowserVersion.CHROME);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.setJavascriptEnabled(true);
 		managePage = new ManageBatchPage();
 	}
 	@After // each scenario

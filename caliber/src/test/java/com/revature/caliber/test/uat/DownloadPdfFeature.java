@@ -25,7 +25,7 @@ public class DownloadPdfFeature extends DriverSetup{
 	public void setup(){
 		driver = new HtmlUnitDriver(BrowserVersion.CHROME);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.setJavascriptEnabled(true);
+		driver.setJavascriptEnabled(false);
 	}
 	@After // each scenario
 	public void teardown(){
