@@ -184,8 +184,6 @@ public class NoteDAO {
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.QC_BATCH))
 				.add(Restrictions.eq("batch.batchId", batchId))
-				.add(Restrictions.le(START_DATE, Calendar.getInstance().getTime()))
-				.add(Restrictions.ge(END_DATE, endDateLimit.getTime())).addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 	
