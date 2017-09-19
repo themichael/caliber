@@ -650,6 +650,7 @@ public class ReportingService {
 	 * 
 	 * @param traineeId
 	 * @param assessmentType
+	 * @param weeks
 	 * @return Map<'week', {'score', 'weight'}>
 	 */
 	public Map<Integer, Double[]> utilAvgTraineeOverall(Set<Grade> grades, AssessmentType assessmentType, int weeks) {

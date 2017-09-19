@@ -182,4 +182,39 @@ public class ReportingServiceTest extends CaliberTest {
 			assertEquals(new Double(overallAvg[i]), reportingService.utilAvgBatchOverall(trainees, i + 1).get(i + 1));
 		}
 	}
+	
+	@Test
+	public void testUtilAvgTraineeWeekWithThreeParam(){
+		log.info("UtilAvgTraineeWeekWithThreeParam Test");
+		double[] possAvg = {30.0, 100.0, 2.0};
+		Double[] actual = reportingService.utilAvgTraineeWeek(1, AssessmentType.Exam, trainees.get(0).getGrades());
+		for(int i = 0; i < 3; i++){
+			assertEquals(new Double(possAvg[i]), actual[i]);
+		}
+	}
+
+	@Test
+	public void testUtilAvgBatchWeekWithThreeParam(){
+		log.info("UtilAvgBatchWeekWithThreeParam Test");
+		Map<Trainee, Double[]> actual = new HashMap<>();
+		double[] possAvg = {30.0, 35.0, 40.0};
+		int pos = 0;
+		actual = reportingService.utilAvgBatchWeek(trainees, 1, AssessmentType.Exam);
+		for(Trainee trainee : trainees){
+			assertEquals(new Double(possAvg[pos]), actual.get(trainee)[0]);
+			pos++;
+		}
+	}
+	
+	@Test
+	public void testUtilAvgTraineeOverallWithThreeParam(){
+		log.info("UtilAvgTraineeOverallWithThreeParam Test");
+		int weeks = 5;
+		Map<Integer, Double[]> actual = new HashMap<>();
+		double[] possAvg = {30.0, 35.0, 40.0, 45.0, 50.0};
+		actual = reportingService.utilAvgTraineeOverall(trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
+		for(int i=0; i < weeks; i++){
+			assertEquals(new Double(possAvg[i]), actual.get(i+1)[0]);
+		}
+	}
 }
