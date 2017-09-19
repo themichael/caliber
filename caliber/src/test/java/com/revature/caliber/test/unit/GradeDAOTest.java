@@ -91,6 +91,7 @@ public class GradeDAOTest extends CaliberTest {
 	/**
 	 * Test methods:
 	 * Negative tests for creating grades
+	 * Currenlty ignored because there are no dao-level validations
 	 * @see com.revature.caliber.data.GradeDAO#save(Grade)
 	 */
 	@Test
