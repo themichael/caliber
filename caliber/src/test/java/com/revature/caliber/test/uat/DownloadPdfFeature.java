@@ -35,7 +35,7 @@ public class DownloadPdfFeature extends DriverSetup{
 	@Given("^I am on the Reports page$")
 	public void iAmOnTheReportsPage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		driver.navigate().to("http://localhost:8080/caliber/#/vp/reports");
+		driver.get("http://localhost:8080/caliber/#/vp/reports");
 		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
 	}
 

@@ -18,7 +18,7 @@ public class ManageBatchPage extends DriverSetup{
 //		URL = driver.getCurrentUrl();
 //	}
 	public void gotoManagePage(){
-		driver.navigate().to("http://localhost:8080/caliber/#/vp/manage");
+		driver.get("http://localhost:8080/caliber/#/vp/manage");
 		URL = driver.getCurrentUrl();
 	}
 	
