@@ -158,7 +158,7 @@ public class ReportingServiceTest extends CaliberTest {
 		// Calculated by hand with dummy data above
 		double[] posAvg = { 0.0, 0.0, 35, 37.5, 40, 42.5, 45 };
 		for (int i = 0; i < 7; i++) {
-			assertEquals(new Double(posAvg[i]), reportingService.utilAvgBatch(trainees, i - 1));
+			assertEquals(new Double(posAvg[i]), reportingService.utilAvgBatch(trainees, i));
 		}
 	}
 
