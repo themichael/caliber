@@ -1,4 +1,4 @@
-package com.revature.caliber.test.unit;
+package com.revature.caliber.test.integration;
 
 import java.util.List;
 
