@@ -42,9 +42,8 @@ public class TypeAPITest extends AbstractAPITest {
 		
 		
 		String expectedJSON = new ObjectMapper().writeValueAsString(expected);
-		
+
 		log.info("API Testing allSkippTypes at baseUrl  " + baseUrl);
-		
 		
 		given().header("Authorization", accessToken).contentType(ContentType.JSON)
 		.when().get(baseUrl + allSkillTypes)
