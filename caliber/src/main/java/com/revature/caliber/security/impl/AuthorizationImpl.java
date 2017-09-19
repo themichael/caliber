@@ -29,10 +29,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.revature.caliber.security.Authorization;
 import com.revature.caliber.security.models.SalesforceUser;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * @author louislopez on 1/18/17.
- * @author Patrick Walsh
+ * Created by louislopez on 1/18/17.
  */
 
 @Controller
@@ -73,7 +73,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-                                                HttpServletRequest request) throws IOException {
+                                                RedirectAttributes redirectAttributes) throws IOException {
 		log.error("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
@@ -86,7 +86,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.error("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		request.getSession().setAttribute("salesforce-token", toJsonString(response.getEntity().getContent()));
+		redirectAttributes.addAttribute("salestoken",toJsonString(response.getEntity().getContent()));
 		log.error("Redirecting to : " + REDIRECT + redirectUrl);
 		return new ModelAndView(REDIRECT + redirectUrl);
 	}
