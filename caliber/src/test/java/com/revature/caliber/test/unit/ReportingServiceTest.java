@@ -141,8 +141,8 @@ public class ReportingServiceTest extends CaliberTest {
 		log.info("TEST UTILITY AVERAGE BATCH WEEK VALUE");
 		Double actualWeekOne = reportingService.utilAvgBatchWeekValue(trainees, 1);
 		Double actualWeekTwo = reportingService.utilAvgBatchWeekValue(trainees, 2);
-		Double expectedWeekOne = (double) (22.5);
-		Double expectedWeekTwo = (double) (37.5);
+		Double expectedWeekOne = (double) (35.0);
+		Double expectedWeekTwo = (double) (40.0);
 		assertEquals(expectedWeekOne, actualWeekOne);
 		assertEquals(expectedWeekTwo, actualWeekTwo);
 	}
