@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.exceptions.NotAuthorizedException;
-import com.revature.caliber.security.impl.Helper;
+import com.revature.caliber.security.impl.AbstractSalesforceSecurityHelper;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
 
@@ -40,7 +40,7 @@ import com.revature.caliber.security.models.SalesforceUser;
  */
 @Controller
 @SessionAttributes("token")
-public class BootController extends Helper {
+public class BootController extends AbstractSalesforceSecurityHelper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
 
