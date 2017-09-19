@@ -16,6 +16,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,51 +27,59 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.AssessmentDAO;
-import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.services.ReportingService;
-import com.revature.caliber.test.integration.AssessmentTest;
 
-public class ReportingServiceTest extends CaliberTest{
-	private static final Logger log = Logger.getLogger(AssessmentTest.class);
-	@Autowired
+public class ReportingServiceTest extends CaliberTest {
+
+	public static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
+	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
+	public static List<Trainee> trainees;
 	ReportingService reportingService;
-	
+	TraineeDAO traineeDAO;
+
+	@Autowired
+	public void setReportingService(ReportingService reportingService) {
+		this.reportingService = reportingService;
+	}
+
+	@Autowired
+	public void setTraineeDAO(TraineeDAO traineeDAO) {
+		this.traineeDAO = traineeDAO;
+	}
+
 	/*
 	 * Arrange Dummy Data to look like this
 	 * 
 	 * |  Trainee  |   Week 1  |   Week 2  |   Week 3  |   Week 4  |   Week 5  |
 	 * |-----------|-----------|-----------|-----------|-----------|-----------|
-	 * | Trainee 1 |     10,20 |     20,40 |     30,60 |     40,80 |    50,100 |
-	 * | Trainee 2 |     20,45 |     30,65 |     40,85 |    50,105 |    60,125 |
-	 * | Trainee 3 |     30,70 |     40,90 |    50,110 |    60,130 |    70,150 |
+	 * | Trainee 1 |     10,50 |     20,50 |     30,50 |     40,50 |     50,50 |
+	 * | Trainee 2 |     20,50 |     30,50 |     40,50 |     50,50 |     60,50 |
+	 * | Trainee 3 |     30,50 |     40,50 |     50,50 |     60,50 |     70,50 |
 	 * 
 	 * Everything past that amount of detail doesn't really matter
 	 * 
 	 */
-	private static List<Trainee> trainees;
 	@BeforeClass
-	public static void beforeClass(){
+	public static void beforeClass() {
 		trainees = new ArrayList<>();
 		Batch batch = new Batch();
 		batch.setWeeks(5);
-		for(int i = 1; i < 4; i++){
+		for (int i = 1; i < 4; i++) {
 			Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch);
 			trainee.setTraineeId(i);
 			Set<Grade> grades = new HashSet<Grade>();
-			for(int j = 1; j < 6; j++){
-				Assessment assess1 = new Assessment("A title:" + j, batch, 200, AssessmentType.Exam, j, new Category());
-				Assessment assess2 = new Assessment("Another title:" + j, batch, 200, AssessmentType.Exam, j, new Category());
-				grades.add(new Grade(assess1, trainee, new Date(), j*10 + (i-1)*10));
-				grades.add(new Grade(assess2, trainee, new Date(), j*20 + (i-1)*5));
+			for (int j = 1; j < 6; j++) {
+				Assessment assess1 = new Assessment("A title:" + j, batch, 100, AssessmentType.Exam, j, new Category());
+				Assessment assess2 = new Assessment("Another title:" + j, batch, 100, AssessmentType.Exam, j,
+						new Category());
+				grades.add(new Grade(assess1, trainee, new Date(), j * 10 + (i - 1) * 10));
+				grades.add(new Grade(assess2, trainee, new Date(), 50));
 			}
 			trainee.setGrades(grades);
 			trainees.add(trainee);
 		}
 	}
-
 	
 	/**
 	 * Create several Dummy grades with dummy assessments and dummy categories
@@ -83,8 +92,8 @@ public class ReportingServiceTest extends CaliberTest{
 	@Test
 	public void testUtilAvgSkills() {
 		log.info("TEST UTILITY AVERAGE SKILL");
-		Assessment assessment1 = new Assessment("title", new Batch(), 200, null, 5,  new Category("CatOne",true));
-		Assessment assessment2 = new Assessment("title two", new Batch(), 200, null, 5,  new Category("CatTwo",true));		
+		Assessment assessment1 = new Assessment("title", new Batch(), 200, null, 5, new Category("CatOne", true));
+		Assessment assessment2 = new Assessment("title two", new Batch(), 200, null, 5, new Category("CatTwo", true));
 		Grade grade1 = new Grade(assessment1, null, null, 150);
 		Grade grade2 = new Grade(assessment1, null, null, 200);
 		Grade grade3 = new Grade(assessment2, null, null, 100);
@@ -94,36 +103,37 @@ public class ReportingServiceTest extends CaliberTest{
 		grades.add(grade2);
 		grades.add(grade3);
 		grades.add(grade4);
-		Map<Category,Double[]> results = reportingService.utilAvgSkills(grades);
-		
-		//Get all keys
+		Map<Category, Double[]> results = reportingService.utilAvgSkills(grades);
+
+		// Get all keys
 		List<Category> keys = new ArrayList<Category>();
-		for(Category cat : results.keySet()) {	
+		for (Category cat : results.keySet()) {
 			keys.add(cat);
 		}
 		// check that the result set is the right size
 		assertEquals(2, keys.size());
 		assertEquals(keys.get(0).getSkillCategory(), "CatOne");
 		assertNotEquals(keys.get(0).getSkillCategory(), "CatTwo");
-		assertEquals((Double)175.0,results.get(keys.get(0))[0]);
+		assertEquals((Double) 175.0, results.get(keys.get(0))[0]);
 		assertEquals(keys.get(1).getSkillCategory(), "CatTwo");
 		assertNotEquals(keys.get(1).getSkillCategory(), "CatOne");
-		assertEquals((Double)125.0,results.get(keys.get(1))[0]);	
+		assertEquals((Double) 125.0, results.get(keys.get(1))[0]);
 	}
+	
 	@Test
 	public void testUtilReplaceCategoryWithSkillName() {
 		log.info("TEST UTILITY REPLACE CATEGORY WITH SKILL NAME");
-		Map<Category,Double[]> skills = new HashMap<>();
-		Double[] values = {(double)20,(double)10};
+		Map<Category, Double[]> skills = new HashMap<>();
+		Double[] values = { (double) 20, (double) 10 };
 		skills.put(new Category("Name One", true), values);
-		skills.put(new Category("Name Two", true), values);		
+		skills.put(new Category("Name Two", true), values);
 		Map<String, Double> replaced = reportingService.utilReplaceCategoryWithSkillName(skills);
 		List<String> keys = new ArrayList<>();
-		for(Entry<String, Double> entry : replaced.entrySet()) {
+		for (Entry<String, Double> entry : replaced.entrySet()) {
 			keys.add(entry.getKey());
 		}
 		assertEquals("Name One", keys.get(0));
-		assertEquals("Name Two", keys.get(1));	
+		assertEquals("Name Two", keys.get(1));
 	}
 	
 	@Test
@@ -137,4 +147,39 @@ public class ReportingServiceTest extends CaliberTest{
 		assertEquals(expectedWeekTwo, actualWeekTwo);
 	}
 	
+	/*
+	 * Test utilAvgBatch with any number of weeks entered With the weeks for the
+	 * batch set to 5, I use a range from -1 to 6 to see if it works for the
+	 * boundaries and even past them
+	 */
+	@Test
+	public void testUtilAvgBatch() {
+		log.info("Calculate Average Batch Grade");
+		// Calculated by hand with dummy data above
+		double[] posAvg = { 0.0, 0.0, 35, 37.5, 40, 42.5, 45 };
+		for (int i = 0; i < 7; i++) {
+			assertEquals(new Double(posAvg[i]), reportingService.utilAvgBatch(trainees, i - 1));
+		}
+	}
+
+	@Test
+	public void testUtilAvgTraineeOverallWithTwoParams() {
+		log.info("Calculate Average grade per week for a trainee");
+		// Calculated by hand with dummy data above
+		double[] weekAvgs = { 30, 35, 40, 45, 50 };
+		for (int i = 0; i < 5; i++) {
+			assertEquals(new Double(weekAvgs[i]),
+					reportingService.utilAvgTraineeOverall(trainees.get(0).getGrades(), i + 1).get(i + 1));
+		}
+	}
+
+	@Test
+	// Need a specific batch to get trainees
+	public void testUtilAvgBatchOverallWithTwoParams() {
+		log.info("Calculating batch averages per week");
+		double[] overallAvg = { 35, 40, 45, 50, 55 };
+		for (int i = 0; i < 5; i++) {
+			assertEquals(new Double(overallAvg[i]), reportingService.utilAvgBatchOverall(trainees, i + 1).get(i + 1));
+		}
+	}
 }
