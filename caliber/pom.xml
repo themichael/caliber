@@ -190,6 +190,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-ehcache</artifactId>
 		</dependency>
+		<!-- Automation -->
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
@@ -215,6 +216,17 @@
 			<artifactId>selenium-chrome-driver</artifactId>
 			<version>3.5.3</version>
 		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>3.0.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>3.0.3</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>caliber</finalName>
@@ -233,9 +245,16 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<configuration>
+						<!-- latest version of webapp must be deployed before running these 
+							test. run app as mvn tomcat7:deploy then kick these tests off with the commands: -->
 						<excludes>
+							<!-- mvn -Dtest=CukesRunner test -->
 							<exclude>
 								com/revature/caliber/test/uat/CukesRunner.java
+							</exclude>
+							<!-- mvn -Dtest=**APITest test -->
+							<exclude>
+								com/revature/caliber/test/api/**
 							</exclude>
 						</excludes>
 					</configuration>
