@@ -13,16 +13,16 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class ImportBatchFeature {
+public class ImportBatchFeature extends DriverSetup{
 	
-	private HtmlUnitDriver driver;
 	private ManageBatchPage managePage;
 	
 	@Before // each scenario
 	public void setup(){
 		driver = new HtmlUnitDriver(BrowserVersion.CHROME, true);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		managePage = new ManageBatchPage(driver);
+		driver.setJavascriptEnabled(true);
+		managePage = new ManageBatchPage();
 	}
 	@After // each scenario
 	public void teardown(){
