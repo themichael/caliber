@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,13 +23,14 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class DownloadPdfFeature extends DriverSetup{
+public class DownloadPdfFeature {
 	
+	private WebDriver driver;
 	@Before // each scenario
 	public void setup(){
 		driver = new HtmlUnitDriver(BrowserVersion.CHROME);
 		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-		driver.setJavascriptEnabled(true);
+		((HtmlUnitDriver) driver).setJavascriptEnabled(true);
 	}
 	@After // each scenario
 	public void teardown(){
@@ -38,8 +40,9 @@ public class DownloadPdfFeature extends DriverSetup{
 	@Given("^I am on the Reports page$")
 	public void iAmOnTheReportsPage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		driver.get("http://localhost:8080/caliber/#/vp/reports");
-		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
+		driver.navigate().to("https://www.youtube.com/");
+		System.out.println("****url =" +driver.getCurrentUrl());
+//		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
 	}
 
 	@Given("^I have selected the year (\\d+) tab$")
@@ -52,8 +55,8 @@ public class DownloadPdfFeature extends DriverSetup{
 	@Given("^I have selected \"([^\"]*)\" as Trainer$")
 	public void iHaveSelectedAsTrainer(String trainer) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
-		driver.findElementById(("dropdownMenu1"));
+//		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
+		driver.findElement(By.id("dropdownMenu1"));
 //		Select dropdown = new Select( driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div/div/ul/li[2]/a")));
 //        dropdown.selectByVisibleText(trainer);
 	}

@@ -1,17 +1,18 @@
 package com.revature.caliber.test.uat;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class DriverSetup {
 	
-	protected static HtmlUnitDriver driver;
+	protected static WebDriver driver;
 	protected static String URL = "";
 	
-	public HtmlUnitDriver getDriver() {
+	public WebDriver getDriver() {
 		return driver;
 	}
 
-	public void setDriver(HtmlUnitDriver driver) {
+	public void setDriver(WebDriver driver) {
 		DriverSetup.driver = driver;
 	}
 	 
