@@ -228,9 +228,10 @@
 			<version>3.0.3</version>
 		</dependency>
 		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>htmlunit-driver</artifactId>
-			<version>2.23</version>
+		    <groupId>com.oakfusion</groupId>
+		    <artifactId>phantomjs-dep</artifactId>
+		    <version>1.9.7</version>
+		    <type>pom</type>
 		</dependency>
 	</dependencies>
 	<build>
