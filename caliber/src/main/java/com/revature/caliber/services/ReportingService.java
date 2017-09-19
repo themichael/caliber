@@ -426,6 +426,11 @@ public class ReportingService {
 		return results;
 	}
 
+	/**
+	 * Method to retrieve the current batches averages
+	 * 
+	 * @return Map<Batch Name, Map<week, batch week average>>
+	 */
 	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChartConcurrent() {
 		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
 		List<Batch> batches = batchDAO.findAllCurrentWithNotesAndTrainees();
