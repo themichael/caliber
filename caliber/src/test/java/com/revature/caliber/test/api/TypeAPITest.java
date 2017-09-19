@@ -42,7 +42,7 @@ public class TypeAPITest extends AbstractAPITest {
 
 		log.info("API Testing allSkillTypes at baseUrl  " + baseUrl);
 
-		given().header("Authorization", accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
 		//get request for all skills
 		.when().get(baseUrl + allSkillTypes)
 		//assertions
@@ -62,7 +62,7 @@ public class TypeAPITest extends AbstractAPITest {
 		
 		log.info("API Testing allTrainingTypes at baseUrl  " + baseUrl);
 
-		given().header("Authorization", accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
 		//get request for all training types
 		.when().get(baseUrl + allTrainingTypes)
 		//assertions
@@ -83,7 +83,7 @@ public class TypeAPITest extends AbstractAPITest {
 		
 		log.info("API Testing allTrainingStatusTypes at baseUrl  " + baseUrl);
 
-		given().header("Authorization", accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
 		//get request for all training status
 		.when().get(baseUrl + allTrainingStatus)
 		//assertions
@@ -105,7 +105,7 @@ public class TypeAPITest extends AbstractAPITest {
 		
 		log.info("API Testing allNoteTypes at baseUrl  " + baseUrl);
 
-		given().header("Authorization", accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
 		//get request for all note types
 		.when().get(baseUrl + allNoteTypes)
 		//assertions
@@ -125,7 +125,7 @@ public class TypeAPITest extends AbstractAPITest {
 		
 		log.info("API Testing allQCStatusTypes at baseUrl  " + baseUrl);
 
-		given().header("Authorization", accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
 		//get request for all QCStatusTypes
 		.when().get(baseUrl + allQCStatusTypes)
 		//assertions
@@ -146,7 +146,7 @@ public class TypeAPITest extends AbstractAPITest {
 		
 		log.info("API Testing allAssessmentTypes at baseUrl  " + baseUrl);
 
-		given().header("Authorization", accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
 		//get request for all assessment types
 		.when().get(baseUrl + allAssessmentTypes)
 		//assertions
@@ -168,7 +168,7 @@ public class TypeAPITest extends AbstractAPITest {
 		
 		log.info("API Testing allTrainingRoles at baseUrl  " + baseUrl);
 
-		given().header("Authorization", accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
 		//get request for all trainer roles
 		.when().get(baseUrl + allTrainerRoles)
 		//assertions
