@@ -1,11 +1,15 @@
 package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.junit.Ignore;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +43,7 @@ public class ReportingServiceTest extends CaliberTest{
 	 * @see com.revature.caliber.services.ReportingService#getAllCurrentBatchesLineChartConcurrent()
 	 */
 	@Test
+	@Ignore
 	public void testGetAllCurrentBatchesLineChartConcurrent() {
 		log.info("Testing getAllCurrentBatchesLineChartConcurrent");
 		
@@ -67,6 +72,7 @@ public class ReportingServiceTest extends CaliberTest{
 	 * @see com.revature.caliber.services.ReportingService#getTraineeUpToWeekRadarChart(Integer, Integer)
 	 */
 	@Test
+	@Ignore
 	public void testGetTraineeUpToWeekRadarChart() {
 		log.info("Testing getTraineeUpToWeekRadarChart");
 		
@@ -88,6 +94,7 @@ public class ReportingServiceTest extends CaliberTest{
 	 * @see com.revature.caliber.services.ReportingService#getTraineeOverallRadarChart(Integer)
 	 */
 	@Test
+	@Ignore
 	public void testGetTraineeOverallRadarChart() {
 		log.info("Testing getTraineeOverallRadarChart");
 		
@@ -110,6 +117,7 @@ public class ReportingServiceTest extends CaliberTest{
 	 * @see com.revature.caliber.services.ReportingService#getTraineeUpToWeekLineChart(int, int, int)
 	 */
 	@Test
+	@Ignore
 	public void getTraineeUpToWeekLinechart(){
 		
 		/*
@@ -142,6 +150,7 @@ public class ReportingServiceTest extends CaliberTest{
 	 * @see com.revature.caliber.services.ReportingService#getTraineeOverallLineChart(int, int)
 	 */
 	@Test
+	@Ignore
 	public void getTraineeOverallLineChart(){
 		/*
 		 * Method description:
@@ -163,6 +172,110 @@ public class ReportingServiceTest extends CaliberTest{
 		
 		//week 8 should not exist
 		assertNull(overallGrades.get(8));
+		
+	}
+	
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getBatchOverallLineChart(int)
+	 */
+	
+	@Test
+	public void testGetBatchOverallLineChart() {
+		
+		/*
+		 * Method description:
+		 * input: batchId
+		 * output: map of week and scores 
+		 */
+		
+		final double actualWeek1Score=80.26; 
+		final double actualWeek2Score=92.69;
+		final double actualWeek3Score=86.66;
+		final double actualWeek4Score=84.79;
+		final double actualWeek5Score=87.84;
+		final double actualWeek6Score=84.93;
+		final double actualWeek7Score=83.27;
+		
+		Map<Integer,Double> map = reportingService.getBatchOverallLineChart(TEST_BATCH_ID); 
+		
+		//batch had 7 weeks total 
+		assertEquals(7,map.size()); 
+		
+		//grades are equal
+		assertEquals(map.get(1), actualWeek1Score, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(2), actualWeek2Score, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(3), actualWeek3Score, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(4), actualWeek4Score, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(5), actualWeek5Score, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(6), actualWeek6Score, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(7), actualWeek7Score, FLOATING_NUMBER_VARIANCE);
+		
+		//week 8 should not exist 
+		assertNull(map.get(8));
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testGetAllCurrentBatchesLineChart() {
+		/*
+		 * Method description:
+		 * output: map of current batch and its respective data of 
+		 * (address, label of start date & trainer, and list of grades) 
+		 */
+		
+		List<Object> results =  reportingService.getAllCurrentBatchesLineChart(); 
+		
+		for(Object num : results) {
+			
+			Map<String,List<String>> data = (Map<String, List<String>>) num;   
+			
+			//current batch keys should have address, label and grades
+			assertTrue(data.containsKey("address"));
+			assertTrue(data.containsKey("label"));
+			assertTrue(data.containsKey("grades"));
+			
+		}
+		//current batch data should have 3 
+		assertTrue(results.size() == 3); 
+		
+		
+	}
+	
+	@Test
+	public void testGetAvgBatchWeekValue() {
+		/*
+		 * Method description:
+		 * input: batchId, and week
+		 * output: average batch week 6 value 
+		 */
+		
+		Double avgBatchWeek6Value = new Double(reportingService.getAvgBatchWeekValue(TEST_BATCH_ID,TEST_ASSESSMENT_WEEK));
+		
+		assertEquals(avgBatchWeek6Value, 84.93, FLOATING_NUMBER_VARIANCE);
+		
+	}
+	
+	@Test
+	public void testGetTechnologiesForTheWeek() {
+		/*
+		 * Method description:
+		 * input: batchId, and week
+		 * output: List of technologies 
+		 */
+		
+		Set<String> technologies = reportingService.getTechnologiesForTheWeek(TEST_BATCH_ID, TEST_ASSESSMENT_WEEK); 
+		
+		//One technologies in the set
+		assertTrue(technologies.size() == 1); 
+		
+		//Set of technologies should contain Spring
+		assertTrue(technologies.contains("Spring")); 
+		
+		//Set of technologies should not contain Java
+		assertFalse(technologies.contains("Java"));  
 		
 	}
 }
