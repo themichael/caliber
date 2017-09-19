@@ -109,7 +109,10 @@ public class ReportingServiceTest extends CaliberTest {
 		assertNotNull(sortedBarChart);
 
 	}
-
+	/**
+	 * Tests methods:
+	 * com.revature.caliber.services.ReportingService.getBatchOverallBarChart
+	 */
 	@Test
 	public void getBatchOverallBarChart() {
 		// Positive Testing
@@ -127,7 +130,10 @@ public class ReportingServiceTest extends CaliberTest {
 			log.debug(e);
 		}
 	}
-
+	/**
+	 * Tests methods:
+	 * com.revature.caliber.services.ReportingService.getBatchWeekTraineeBarChart
+	 */
 	@Test
 	public void getBatchWeekTraineeBarChart() {
 		// Positive testing
@@ -149,7 +155,10 @@ public class ReportingServiceTest extends CaliberTest {
 		results = reportingService.getBatchWeekTraineeBarChart(2100, 5455, -1000);
 		assertTrue("Check invalid week", results.size() == 0);
 	}
-
+	/**
+	 * Tests methods:
+	 * com.revature.caliber.services.ReportingService.getBatchOverallTraineeBarChart
+	 */
 	@Test
 	public void getBatchOverallTraineeBarChart() {
 		// Training
