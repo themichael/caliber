@@ -1,13 +1,26 @@
 package com.revature.caliber.test.unit;
 
+
+import static org.junit.Assert.*;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotEquals;
 
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
+
+import org.hibernate.SessionFactory;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.revature.caliber.CaliberTest;
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
+
 import org.junit.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +33,99 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
+
 import com.revature.caliber.beans.QCStatus;
+
 
 @Transactional
 public class NoteDAOTest extends CaliberTest {
 
 	private static final Logger log = Logger.getLogger(NoteDAOTest.class);
+
+	private static final int TEST_TRAINEE_ID = 5529;
+	private static final int TEST_BATCH_ID = 2100;
 	
 	@Autowired
 	private NoteDAO noteDao;
 	@Autowired
-	private BatchDAO batchdao;
+	private BatchDAO batchDao;
 	@Autowired
-	private TraineeDAO traineedao;
+	private TraineeDAO traineeDao;
+	
+	/**
+	 * Test methods:
+	 * Positive tests for finding individual notes for trainee
+	 * @see com.revature.caliber.data.GradeDAO#save(Grade)
+	 */
+	@Test
+	public void findQCIndividualNote(){
+		log.trace("GETTING individual notes by Trainee");
+		//get trainee 
+		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
+		
+		List<Note> notes = noteDao.findQCIndividualNotes(trainee.getTraineeId(), 2);
+		assertEquals(notes.size(),1);
+		assertEquals(notes.get(0).getContent(),"technically weak on SQL.");
+		
+		
+	}
+	
+	/**
+	 * Test methods:
+	 * Positive tests for finding individual notes for a bacth in a given week
+	 * @see com.revature.caliber.data.NoteDAO#findAllBatchNotes(batch,week)
+	 */
+	@Test
+	public void findAllBatchNotes(){
+		log.trace("GETTING individual notes by Batch");
+		//get batch 
+		Batch batch = batchDao.findOne(TEST_BATCH_ID);
+		
+		List<Note> notes = noteDao.findAllBatchNotes(batch.getBatchId(), 2);
+		assertEquals(notes.size(),1);
+		assertEquals(notes.get(0).getNoteId(),5133);
+		
+	}
+	
+	/**
+	 * Test methods:
+	 * Positive tests for finding individual notes for a trainee in a given week
+	 * @see com.revature.caliber.data.NoteDAO#findAllIndividualNotes(trainee,week)
+	 */
+	@Test
+	public void findAllIndividualNotes(){
+		log.trace("GETTING individual notes by Batch");
+		//get batch 
+		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
+		
+		List<Note> notes = noteDao.findAllIndividualNotes(trainee.getTraineeId(), 2);
+		assertEquals(notes.size(),1);
+		assertEquals(notes.get(0).getContent(),"Good communication. Not as confident and less use of technical terms");
+		
+		
+	}
+	
+	/**
+	 * Test methods:
+	 * Positive tests for finding all individual notes for a trainee
+	 * @see com.revature.caliber.data.NoteDAO#findAllPublicIndividualNotes(trainee)
+	 */
+	@Test
+	public void findAllPublicIndividualNotes(){
+		log.trace("GETTING all public individual notes by Trainee ID");
+		//get batch 
+		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
+		
+		List<Note> notes = noteDao.findAllPublicIndividualNotes(trainee.getTraineeId());
+		assertTrue(notes.size() == 7);
+		
+		for(Note note : notes){
+			assertEquals(trainee,note.getTrainee());
+		}
+		
+	}
+
+	
 	
 	@Test
 	public void testFindTraineeNote(){
@@ -92,8 +185,8 @@ public class NoteDAOTest extends CaliberTest {
 	public void testSaveNote() {
 		log.trace("Tesing Save Note");
 
-		final Batch batch = batchdao.findOne(2201);
-		final Trainee trainee = traineedao.findAll().get(0);
+		final Batch batch = batchDao.findOne(2201);
+		final Trainee trainee = traineeDao.findAll().get(0);
 		final short week = 1;
 
 		Note note = new Note();
