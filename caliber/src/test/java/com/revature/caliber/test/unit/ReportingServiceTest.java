@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Assessment;
-
+import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
@@ -41,10 +41,11 @@ public class ReportingServiceTest extends CaliberTest{
 	/*
 	 * Arrange Dummy Data to look like this
 	 * 
-	 *            | Week 1 | Week 2 | Week 3 | Week 4 | Week 5
-	 * Trainee 1  |   10   |   20   |   30   |   40   |  50
-	 * Trainee 2  |   20   |   30   |   40   |   50   |  60
-	 * Trainee 3  |   30   |   40   |   50   |   60   |  70
+	 * |  Trainee  |   Week 1  |   Week 2  |   Week 3  |   Week 4  |   Week 5  |
+	 * |-----------|-----------|-----------|-----------|-----------|-----------|
+	 * | Trainee 1 |     10,20 |     20,40 |     30,60 |     40,80 |    50,100 |
+	 * | Trainee 2 |     20,45 |     30,65 |     40,85 |    50,105 |    60,125 |
+	 * | Trainee 3 |     30,70 |     40,90 |    50,110 |    60,130 |    70,150 |
 	 * 
 	 * Everything past that amount of detail doesn't really matter
 	 * 
@@ -60,8 +61,10 @@ public class ReportingServiceTest extends CaliberTest{
 			trainee.setTraineeId(i);
 			Set<Grade> grades = new HashSet<Grade>();
 			for(int j = 1; j < 6; j++){
-				Assessment week = new Assessment("A title:" + j, batch, 100, null, j, new Category());
-				grades.add(new Grade(week, trainee, new Date(), j*10 + (i-1)*10));
+				Assessment assess1 = new Assessment("A title:" + j, batch, 200, AssessmentType.Exam, j, new Category());
+				Assessment assess2 = new Assessment("Another title:" + j, batch, 200, AssessmentType.Exam, j, new Category());
+				grades.add(new Grade(assess1, trainee, new Date(), j*10 + (i-1)*10));
+				grades.add(new Grade(assess2, trainee, new Date(), j*20 + (i-1)*5));
 			}
 			trainee.setGrades(grades);
 			trainees.add(trainee);
@@ -128,8 +131,8 @@ public class ReportingServiceTest extends CaliberTest{
 		log.info("TEST UTILITY AVERAGE BATCH WEEK VALUE");
 		Double actualWeekOne = reportingService.utilAvgBatchWeekValue(trainees, 1);
 		Double actualWeekTwo = reportingService.utilAvgBatchWeekValue(trainees, 2);
-		Double expectedWeekOne = (double) (20);
-		Double expectedWeekTwo = (double) (30);
+		Double expectedWeekOne = (double) (22.5);
+		Double expectedWeekTwo = (double) (37.5);
 		assertEquals(expectedWeekOne, actualWeekOne);
 		assertEquals(expectedWeekTwo, actualWeekTwo);
 	}
