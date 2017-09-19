@@ -7,8 +7,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
@@ -24,8 +27,8 @@ public class DownloadPdfFeature extends DriverSetup{
 	@Before // each scenario
 	public void setup(){
 		driver = new HtmlUnitDriver(BrowserVersion.CHROME);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.setJavascriptEnabled(false);
+		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		driver.setJavascriptEnabled(true);
 	}
 	@After // each scenario
 	public void teardown(){
@@ -35,7 +38,7 @@ public class DownloadPdfFeature extends DriverSetup{
 	@Given("^I am on the Reports page$")
 	public void iAmOnTheReportsPage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		driver.navigate().to("http://localhost:8080/caliber/#/vp/reports");
+		driver.get("http://localhost:8080/caliber/#/vp/reports");
 		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
 	}
 
@@ -49,7 +52,8 @@ public class DownloadPdfFeature extends DriverSetup{
 	@Given("^I have selected \"([^\"]*)\" as Trainer$")
 	public void iHaveSelectedAsTrainer(String trainer) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		driver.findElement(By.id("caliber-container"));
+		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
+		driver.findElementById(("dropdownMenu1"));
 //		Select dropdown = new Select( driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div/div/ul/li[2]/a")));
 //        dropdown.selectByVisibleText(trainer);
 	}
