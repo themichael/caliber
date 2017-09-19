@@ -1,10 +1,10 @@
 package com.revature.caliber.test.unit;
 
-import static org.junit.Assert.assertNotNull;
-
+import static org.junit.Assert.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
@@ -102,5 +102,69 @@ public class ReportingServiceTest extends CaliberTest{
 	
 	}
 		
+	@Test
+	public void  getBatchOverallBarChart(){
+		//Positive Testing
+		Map<String, Double> results = reportingService.getBatchOverallBarChart(2200);
+		assertTrue("Test size of result set", results.size()== 15);
+		assertTrue("Contains expected trainee", results.containsKey("Chen, Andrew"));
+		assertTrue("Test accurate average calculation", results.get("Chen, Andrew").doubleValue() == 84.14575d);
 		
+		//Negative Testing
+		//Grab non-existent batch
+		try{
+			results = reportingService.getBatchOverallBarChart(-1111);
+			fail();
+		}catch(NullPointerException e){
+			log.debug(e);
+		}
+	}
+	@Test
+	public void getBatchWeekTraineeBarChart(){
+		//Positive testing
+		Map<String, Double[]> results = reportingService.getBatchWeekTraineeBarChart(2100, 5455, 1);
+		assertNotNull("Results exist", results);
+		assertTrue("Test size of result set", results.size() == 1);
+		assertTrue("Result contains exam", results.containsKey("Exam"));
+		assertTrue("Exam contains expected values", results.get("Exam")[0] == 93.0 
+				& results.get("Exam")[1] == 85.625
+				& results.get("Exam")[2] == 100);
+
+		//Invalid TraineeID
+		try{
+		results = reportingService.getBatchWeekTraineeBarChart(2100, -123421, 1);
+		fail();
+		}catch(NoSuchElementException e){
+			log.info(e);
+		}
+
+		results = reportingService.getBatchWeekTraineeBarChart(2100, 5455, -1000);
+		assertTrue("Check invalid week", results.size() == 0);
+	}
+	@Test
+	public void getBatchOverallTraineeBarChart() {
+		//Training
+		Map<String, Double[]> results = reportingService.getBatchOverallTraineeBarChart(2201, 5531);
+	    assertNotNull("Results exist", results);
+		assertTrue("Test size of result set ", results.size() == 4);
+		
+		assertTrue("Test data exists", results.containsKey("Exam"));
+		Double[] myVals = results.get("Verbal");
+		assertTrue("Test values of Verbal exam", myVals[0] == 69.2 & myVals[1] == 82.0);
+		
+		//Invalid TraineeID
+		try{
+			results = reportingService.getBatchOverallTraineeBarChart(2100, -123421);
+			fail();
+		}catch(NoSuchElementException e){
+				log.info(e);
+		}
+
+		
+		
+		
+
+	}
 }
+		
+
