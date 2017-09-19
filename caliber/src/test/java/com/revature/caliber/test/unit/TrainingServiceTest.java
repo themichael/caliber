@@ -13,7 +13,7 @@ import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.services.TrainingService;
 
 public class TrainingServiceTest extends CaliberTest {
-	private static final Logger log = Logger.getLogger(AddressDAOTest.class);
+	private static final Logger log = Logger.getLogger(TrainingServiceTest.class);
 	TrainingService service;
 	TrainerDAO dao;
 	
