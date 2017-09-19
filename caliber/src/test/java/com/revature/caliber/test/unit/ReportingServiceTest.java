@@ -33,7 +33,7 @@ public class ReportingServiceTest extends CaliberTest{
 	
 	@Test
 	public void getBatchWeekPieChartTest() {
-		
+		log.info("getBatchWeekPieChartTest");
 		Integer batchId = 0;
 		Integer weekNumber = 0;
 		
@@ -44,7 +44,7 @@ public class ReportingServiceTest extends CaliberTest{
 	
 	@Test
 	public void pieChartCurrentWeekQCStatusTest() {
-		
+		log.info("pieChartCurrentWeekQCStatusTest");
 		Integer batchId = batchDao.findAll().get(1).getBatchId();
 		
 		Map<QCStatus, Integer> pieChart = reportingService.pieChartCurrentWeekQCStatus(batchId);
@@ -56,7 +56,7 @@ public class ReportingServiceTest extends CaliberTest{
 	
 	@Test
 	public void getAllBatchesCurrentWeekQCStackedBarChart() {
-		
+		log.info("getAllBatchesCurrentWeekQCStackedBarChart");
 		List<Object> object = reportingService.getAllBatchesCurrentWeekQCStackedBarChart();
 		
 		assertNotNull(object);
@@ -65,7 +65,7 @@ public class ReportingServiceTest extends CaliberTest{
 	
 	@Test
 	public void getBatchWeekQcOverallBarChart() {
-		
+		log.info("getBatchWeekQcOverallBarChart");
 		Batch batch = batchDao.findAll().get(1);
 		Integer batchId = batch.getBatchId();
 		Integer week = batch.getWeeks();
@@ -78,7 +78,7 @@ public class ReportingServiceTest extends CaliberTest{
 	
 	@Test
 	public void getBatchWeekAvgBarChart() {
-		
+		log.info("getBatchWeekAvgBarChart");
 		Batch batch = batchDao.findAll().get(1);
 		Integer batchId = batch.getBatchId();
 		Integer week = batch.getWeeks();
@@ -90,20 +90,8 @@ public class ReportingServiceTest extends CaliberTest{
 	}
 	
 	@Test
-	public void getBatchWeekSortedBarChartTest() {
-		
-		Batch batch = batchDao.findAll().get(1);
-		Integer batchId = batch.getBatchId();
-		Integer week = batch.getWeeks();
-		
-		Map<String, Double> sortedBarChart = reportingService.getBatchWeekSortedBarChart(batchId, week);
-		
-		assertNotNull(sortedBarChart);
-	
-	}
-		
-	@Test
 	public void  getBatchOverallBarChart(){
+		log.info("getBatchOverallBarChart");
 		//Positive Testing
 		Map<String, Double> results = reportingService.getBatchOverallBarChart(2200);
 		assertTrue("Test size of result set", results.size()== 15);
@@ -121,6 +109,7 @@ public class ReportingServiceTest extends CaliberTest{
 	}
 	@Test
 	public void getBatchWeekTraineeBarChart(){
+		log.info("getBatchWeekTraineeBarChart");
 		//Positive testing
 		Map<String, Double[]> results = reportingService.getBatchWeekTraineeBarChart(2100, 5455, 1);
 		assertNotNull("Results exist", results);
@@ -143,6 +132,7 @@ public class ReportingServiceTest extends CaliberTest{
 	}
 	@Test
 	public void getBatchOverallTraineeBarChart() {
+		log.info("getBatchOverallTraineeBarChart");
 		//Training
 		Map<String, Double[]> results = reportingService.getBatchOverallTraineeBarChart(2201, 5531);
 	    assertNotNull("Results exist", results);
@@ -159,11 +149,43 @@ public class ReportingServiceTest extends CaliberTest{
 		}catch(NoSuchElementException e){
 				log.info(e);
 		}
-
-		
-		
-		
-
+	}
+	
+	
+	@Test
+	public void getBatchWeekAvgBarChartTest(){
+		log.info("getBatchWeekAvgBarChartTest");
+		Map<String, Double[]> test= reportingService.getBatchWeekAvgBarChart(2050, 2);
+		assertEquals((Double)90.55166666666666, (Double)test.get("Exam")[0]);
+		assertNotEquals((Double)90.55166666666666, (Double)test.get("Exam")[1]);
+		assertEquals(2, test.get("Exam").length);
+		assertEquals(1, test.size());
+	}
+	/**
+	 * Tests method:
+	 * com.revature.caliber.services.ReportingService.getBatchWeekSortedBarChart(int batchId, int week)
+	 */
+	@Test
+	public void getBatchWeekSortedBarChartTest(){
+		log.info("getBatchWeekSortedBarChartTest");
+		Map<String, Double> test =reportingService.getBatchWeekSortedBarChart(2050, 2);
+		assertNotEquals((Double)96.29, (Double)test.get("Issac,Fouche"));
+		assertEquals((Double)96.29, (Double)test.get("Fouche, Issac"));
+		assertNotEquals((Double)96.29, (Double)test.get("Castillo, Erika"));
+		assertEquals(6, test.size());
+	}	
+	/**
+	 * Tests method:
+	 * com.revature.caliber.services.ReportingService.getBatchOverallTraineeBarChart(Integer batchId, Integer traineeId)
+	 */
+	@Test
+	public void getBatchOverallTraineeBarChartTest(){
+		log.info("getBatchOverallTraineeBarChartTest");
+		Map<String, Double[]> test =reportingService.getBatchOverallTraineeBarChart(2050, 5354);
+		assertEquals((Double)90.9825, (Double)test.get("Exam")[0]);
+		assertNotEquals((Double)90.9825, (Double)test.get("Exam")[1]);
+		assertEquals(2, test.get("Exam").length);
+		assertEquals(1, test.size());
 	}
 }
 		
