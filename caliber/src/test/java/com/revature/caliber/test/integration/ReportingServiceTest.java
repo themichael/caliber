@@ -1,4 +1,4 @@
-package com.revature.caliber.test.unit;
+package com.revature.caliber.test.integration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

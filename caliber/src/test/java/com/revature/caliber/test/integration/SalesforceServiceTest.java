@@ -1,4 +1,4 @@
-package com.revature.caliber.test.unit;
+package com.revature.caliber.test.integration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
