@@ -61,9 +61,9 @@ public class CategoryControllerAPITest extends AbstractAPITest {
 		log.info("Testing findCategoryById function from CategoryController");
 		Category expected = new Category("BUSTOP",true);
 		//expected.setCategoryId(100);
-		dao.save(expected);
-		Category test = dao.findOne(expected.getCategoryId());
-		System.out.println(test+"  FSDSDFSDFSDFSDFSDFS");
+		//dao.save(expected);
+		//Category test = dao.findOne(expected.getCategoryId());
+		//System.out.println(test+"  FSDSDFSDFSDFSDFSDFS");
 		given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
 		.get(baseUrl + "category/"+expected.getCategoryId()).then().assertThat()
 		.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
