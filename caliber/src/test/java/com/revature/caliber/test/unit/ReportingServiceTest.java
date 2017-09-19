@@ -2,6 +2,7 @@ package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -231,13 +232,14 @@ public class ReportingServiceTest extends CaliberTest {
 
 		Batch batch = createTestBatchWithQCNotes();
 
+		//positive testing
 		Map<Integer, Map<QCStatus, Integer>> results = reportingService.utilSeparateQCTraineeNotesByWeek(batch);
 		for (int i = 1; i <= batch.getWeeks(); i++) {
+			//grab the QCStatus map made by utilSeperateQCTraineeNotesByWeek for the week
 			Map<QCStatus, Integer> weekStatusCount = results.get(i);
 			for (QCStatus status : weekStatusCount.keySet()) {
 				int expectCount = weekStatusCount.get(status);
-				// Actual count is the statusCountPerWeek - 1 to account that i
-				// starts at 1;
+				// Actual count is the statusCountPerWeek - 1 to account that i starts at 1;
 				switch (status) {
 				case Poor: {
 					assertEquals(expectCount, statusPoorCountPerWeek[i - 1]);
@@ -260,6 +262,13 @@ public class ReportingServiceTest extends CaliberTest {
 				}
 				}
 			}
+		}
+		
+		//Negative Testing
+		try {
+			results = reportingService.utilSeparateQCTraineeNotesByWeek(null);
+		} catch (NullPointerException e) {
+			log.debug(e);
 		}
 	}
 
