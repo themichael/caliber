@@ -17,6 +17,17 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -215,6 +226,50 @@ public class ReportingServiceTest extends CaliberTest {
 		actual = reportingService.utilAvgTraineeOverall(trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
 		for(int i=0; i < weeks; i++){
 			assertEquals(new Double(possAvg[i]), actual.get(i+1)[0]);
+		}
+	}
+
+
+	@Test
+	public void utilAvgBatchOverallWithThreeParams() {
+		log.info("Calculate Average Batch Grade");
+		AssessmentType assessmentType = AssessmentType.Exam;
+		Map<Integer, Double[]> results = reportingService.utilAvgBatchOverall(trainees, assessmentType, 3);
+		double[] possAvg = { 35.0, 40.0, 45.0 };
+		for (int i = 1; i < 4; i++) {
+			log.info(results.get(i));
+			assertEquals(new Double(possAvg[i - 1]), results.get(i)[0]);
+		}
+	}
+
+	// returns average grade for one trainee in a given week
+	@Test
+	public void utilAvgTraineeWeekWithTwoParams() {
+		log.info("Calculate One Trainee's Average for all Exams in a Given Week");
+		Set<Grade> grades = new HashSet<Grade>();
+		Double expectedAverage = 30.0;
+		int selectedTrainee = 0; // Selects first trainee in dummy batch
+		grades = trainees.get(selectedTrainee).getGrades();
+		Double avg = 0d;
+		for (Grade g : grades)
+			avg += g.getScore();
+		Double actualAverage = reportingService.utilAvgTraineeWeek(grades, 1);
+		assertEquals(expectedAverage, actualAverage);
+	}
+
+	// returns average for each trainee in a given week
+	@Test
+	public void utilAvgBatchWeekWithTwoParams() {
+		log.info("Calculate Each Trainee's Average for a Given Week");
+		Set<Grade> grades = new HashSet<Grade>();
+		double[] averages = { 30.0, 35.0, 40.0 }; // Week 1 averages for all 3 trainees
+		for (int i = 0; i < 3; i++) {
+			grades = trainees.get(i).getGrades();
+			Double avg = 0d;
+			for (Grade g : grades)
+				avg += g.getScore();
+			avg = reportingService.utilAvgTraineeWeek(grades, 1);
+			assertEquals(new Double(averages[i]), avg);
 		}
 	}
 }
