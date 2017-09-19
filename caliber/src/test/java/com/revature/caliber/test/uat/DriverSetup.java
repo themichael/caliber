@@ -1,7 +1,6 @@
 package com.revature.caliber.test.uat;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class DriverSetup {
 	

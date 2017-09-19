@@ -8,7 +8,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
-public class ManageBatchPage extends DriverSetup{
+public class ManageBatchPage{
 
 //	protected driver
 //	protected url
@@ -17,9 +17,26 @@ public class ManageBatchPage extends DriverSetup{
 //		driver.get("http://localhost:8080/caliber/#/vp/manage");
 //		URL = driver.getCurrentUrl();
 //	}
+	private WebDriver driver;
+	
+	
+	public ManageBatchPage(WebDriver driver) {
+	super();
+	this.driver = driver;
+	}
+
+	public void checkLoggedIn(){
+		WebDriver yeah = new HtmlUnitDriver(BrowserVersion.CHROME, true);
+		yeah.get("http://localhost:8080/caliber#/vp/home");
+	}
+	
+	public void goToHome(){
+		driver.get("http://localhost:8080/caliber#/vp/home");
+	}
+	
 	public void gotoManagePage(){
 		driver.get("http://localhost:8080/caliber/#/vp/manage");
-		URL = driver.getCurrentUrl();
+//		URL = driver.getCurrentUrl();
 	}
 	
 	public void verifyManagePage(){

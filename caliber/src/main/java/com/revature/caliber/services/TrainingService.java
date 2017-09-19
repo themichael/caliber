@@ -381,9 +381,11 @@ public class TrainingService {
 	 * UPDATE TRAINEE
 	 *
 	 * @param trainee
+	 * Validation needs to be added for when a trainee is updated 
 	 */
 	public void update(Trainee trainee) {
 		log.debug("Update trainee " + trainee);
+		
 		traineeDAO.update(trainee);
 	}
 
