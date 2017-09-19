@@ -195,8 +195,7 @@ public class ReportingService {
 	 * @return
 	 */
 	public Note getBatchWeekQcOverallBarChart(Integer batchId, Integer week) {
-		//log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
-		System.out.println(noteDAO.findQCBatchNotes(batchId, week));
+		log.debug("FINDING_WEEK: " + week + " QC batch notes for batch: " + batchId);
 		return noteDAO.findQCBatchNotes(batchId, week);
 	}
 	

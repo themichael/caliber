@@ -159,11 +159,22 @@ public class ReportingServiceTest extends CaliberTest{
 		}catch(NoSuchElementException e){
 				log.info(e);
 		}
-
-		
-		
-		
-
+	}
+	/**
+	 * @see com.revature.caliber.services.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
+	 */
+	@Test
+	public void getBatchWeekQcOverallBarChartTest(){
+		log.info("Testing method: getBatchWeekQcOverallBarChart(Integer batchId, Integer week)");
+		Note testNote = reportingService.getBatchWeekQcOverallBarChart(2201, 7);
+		//Note: I was pulling the getContent from testNote, and it would return a different string sometimes.
+		assertEquals(testNote.getWeek(),(short)7);
+		//invalid batch
+		testNote = reportingService.getBatchWeekQcOverallBarChart(22, 7);
+		assertNull(testNote);
+		//invalid batch
+		testNote = reportingService.getBatchWeekQcOverallBarChart(2201, -5);
+		assertNull(testNote);
 	}
 }
 		
