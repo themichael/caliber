@@ -1,6 +1,19 @@
 <!-- Year selector and Add Assessment button -->
-<div class="bg-primary align center" ng-if="!currentBatch">No data
-	available.</div>
+<div class="container" ng-if="!currentBatch">
+	<div>
+		<!-- top ui for viewing all assessments -->
+		<ul class="nav nav-tabs" ng-show="currentView">
+		<!-- top ui for viewing all assessments -->
+		<!-- Filter batches by year -->
+			<li role="button" class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li ng-repeat="menuItem in years track by $index"><a
+						role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
+			</ul></li>
+	</div>
+	<div class="bg-primary align center">No data available.</div>
+</div>
 <div class="container" ng-if="currentBatch">
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
