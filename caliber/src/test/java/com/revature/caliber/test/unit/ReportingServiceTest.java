@@ -52,14 +52,18 @@ public class ReportingServiceTest extends CaliberTest{
 		
 		log.debug(batches);
 		
+		// check that expected batch is there
 		assertTrue(batches.containsKey(key));
-		assertTrue(batches.get(key).containsValue(68.34475));
-		assertTrue(batches.get(key).containsValue(84.9646875));
-		assertTrue(batches.get(key).containsValue(76.82675000000002));
-		assertTrue(batches.get(key).containsValue(75.09325));
-		assertTrue(batches.get(key).containsValue(77.94375000000001));
-		assertTrue(batches.get(key).containsValue(82.80416666666666));
-		assertTrue(batches.get(key).containsValue(74.265));
+		// check that batch has all expected week averages
+		assertEquals(7, batches.get(key).size());
+		// check that each week grade averages are what is expected
+		assertEquals(68.34, batches.get(key).get(1), FLOATING_NUMBER_VARIANCE);
+		assertEquals(84.96, batches.get(key).get(2), FLOATING_NUMBER_VARIANCE);
+		assertEquals(76.83, batches.get(key).get(3), FLOATING_NUMBER_VARIANCE);
+		assertEquals(75.09, batches.get(key).get(4), FLOATING_NUMBER_VARIANCE);
+		assertEquals(77.94, batches.get(key).get(5), FLOATING_NUMBER_VARIANCE);
+		assertEquals(82.80, batches.get(key).get(6), FLOATING_NUMBER_VARIANCE);
+		assertEquals(74.27, batches.get(key).get(7), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -72,7 +76,16 @@ public class ReportingServiceTest extends CaliberTest{
 	public void testGetTraineeUpToWeekRadarChart() {
 		log.info("Testing getTraineeUpToWeekRadarChart");
 		
-		throw new UnsupportedOperationException("Not yet implemented");
+		Map<String, Double> traineeSkills = reportingService.getTraineeUpToWeekRadarChart(TEST_TRAINEE_ID, TEST_ASSESSMENT_WEEK);
+		// check that trainee has all expected skills
+		assertEquals(6, traineeSkills.size());
+		// check that each expected skill is there and has expected average
+		assertEquals(82.92, traineeSkills.get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get("Spring"), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -85,7 +98,17 @@ public class ReportingServiceTest extends CaliberTest{
 	public void testGetTraineeOverallRadarChart() {
 		log.info("Testing getTraineeOverallRadarChart");
 		
-		throw new UnsupportedOperationException("Not yet implemented");
+		Map<String, Double> traineeSkills = reportingService.getTraineeOverallRadarChart(TEST_TRAINEE_ID);
+		// check that trainee has all expected skills
+		assertEquals(7, traineeSkills.size());
+		// check that each expected skill is there and has expected average
+		assertEquals(82.92, traineeSkills.get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get("Spring"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(83.60, traineeSkills.get("REST"), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**

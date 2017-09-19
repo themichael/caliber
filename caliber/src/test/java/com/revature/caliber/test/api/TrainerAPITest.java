@@ -34,6 +34,7 @@ public class TrainerAPITest extends AbstractAPITest{
 		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
+		
 		log.info("API Testing findTrainerByEmail at baseUrl  " + baseUrl);
 		given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + findByEmail).then().assertThat()
