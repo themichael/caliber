@@ -3,12 +3,15 @@ package com.revature.caliber.test.unit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.services.ReportingService;
 
 public class ReportingServiceTest extends CaliberTest{
@@ -88,6 +91,18 @@ public class ReportingServiceTest extends CaliberTest{
 		
 		//week 8 should not exist
 		assertNull(overallGrades.get(8));
+		
+	}
+	
+	
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getBatchOverallRadarChart(List<Grade> grades)
+	 */
+	@Test
+	public void getBatchOverallRadarChart(){
+		Map<String, Double> skills = reportingService.getBatchOverallRadarChart(TEST_BATCH_ID);
 		
 	}
 }
