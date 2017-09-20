@@ -1,10 +1,18 @@
 package com.revature.caliber.test.api;
 
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.data.GradeDAO;
+
+import io.restassured.http.ContentType;
 
 public class EvaluationAPITest extends AbstractAPITest{
 
@@ -71,5 +79,17 @@ public class EvaluationAPITest extends AbstractAPITest{
 	@Test
 	public void findByTrainer(){
 		
+	}
+	
+	@Test
+	public void createNote() throws Exception {
+		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
+				TrainerRole.ROLE_VP);
+		expected.setTrainerId(1);
+		
+		log.info("API Testing findTrainerByEmail at baseUrl  " + baseUrl);
+		given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
+				.get(baseUrl + findByEmail).then().assertThat()
+				.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
 }
