@@ -106,6 +106,13 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 		}
 	}
 
+	/**
+	 * Makes a cookie with the user's role and redirects them to the home page
+	 * 
+	 * @param response
+	 * @param auth
+	 * @return
+	 */
 	@RequestMapping(value = "/home")
 	public String sendHome(HttpServletResponse response, Authentication auth) {
 		SalesforceUser a = (SalesforceUser) auth.getPrincipal();
