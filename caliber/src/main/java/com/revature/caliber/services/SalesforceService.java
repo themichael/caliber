@@ -96,10 +96,24 @@ public class SalesforceService {
 		return salesforceDAO.getBatchDetails(resourceId);
 	}
 	
+	/**
+	 * Debug method to check Salesforce data
+	 * @return
+	 */
 	public String logBatches(){
 		String message = salesforceDAO.getSalesforceResponseString();
 		log.warn(message);
 		return message;
 	}
 
+	/**
+	 * Debug method to check Salesforce data
+	 * @return
+	 */
+	public String logBatches(String resourceId){
+		String message = salesforceDAO.getSalesforceTraineeResponseString(resourceId);
+		log.warn(message);
+		return message;
+	}
+	
 }

@@ -27,7 +27,6 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.services.ReportingService;
 
 public class ReportingServiceTest extends CaliberTest {
@@ -36,16 +35,10 @@ public class ReportingServiceTest extends CaliberTest {
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
 	public static List<Trainee> trainees;
 	ReportingService reportingService;
-	TraineeDAO traineeDAO;
 
 	@Autowired
 	public void setReportingService(ReportingService reportingService) {
 		this.reportingService = reportingService;
-	}
-
-	@Autowired
-	public void setTraineeDAO(TraineeDAO traineeDAO) {
-		this.traineeDAO = traineeDAO;
 	}
 
 	/*
