@@ -82,8 +82,9 @@ public abstract class AbstractAPITest extends CaliberTest {
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.info("Generating Salesforce token using clientId " + clientId);
 		HttpResponse response = httpClient.execute(post);
-		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(), JsonNode.class);
-				//.getAccessToken();
+		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(), 
+				JsonNode.class);
+				//SalesforceToken.class).getAccessToken(); 
 		log.info("Accessing Salesforce API using token:  " + accessToken);
 	}
 
