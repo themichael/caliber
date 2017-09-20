@@ -26,7 +26,7 @@ import java.util.Date;
 
 public class TraineeDAOTest extends CaliberTest {
 
-	private static final Logger log = Logger.getLogger(AssessmentTest.class);
+	private static final Logger log = Logger.getLogger(TraineeDAOTest.class);
 
 	@Autowired
 	private TrainingController trainingController;

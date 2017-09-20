@@ -34,7 +34,6 @@ public class TrainerAPITest extends AbstractAPITest {
 	public void findByEmail() throws Exception {
 		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
 				TrainerRole.ROLE_VP);
-		System.out.println(baseUrl+findByEmail);
 		expected.setTrainerId(1);
 		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
 		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON).when()
