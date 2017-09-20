@@ -10,6 +10,7 @@ import java.util.Map;
 
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +24,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
@@ -32,6 +34,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Assessment;
@@ -73,6 +76,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	private static final Logger log = Logger.getLogger(EvaluationAPITest.class);
 
 	
+    
 	private static final String findByTrainee = "all/grade/trainee/5529";
 	
 
@@ -206,22 +210,59 @@ public class EvaluationAPITest extends AbstractAPITest{
 		
 	}
 	
+	@Ignore
 	@Test
 	public void createNote() throws Exception {
 		
-		String createNote = "trainer/grade/create";
-		Batch batch = null;
+		String createNote = "note/create";
+		Batch batch = batchDAO.findOne(2200);
+		
 		
 		Note expected = new Note();
 		expected.setContent("This is a test note");
 		expected.setWeek((short) 2);
-		expected.setBatch(batch);
+		expected.setBatch(null);
 		expected.setType(NoteType.TRAINEE);
 		expected.setQcStatus(QCStatus.Poor);
+		expected.setMaxVisibility(TrainerRole.ROLE_TRAINER);
+		expected.setTrainee(null);
 		
 		log.info("API Testing createNote at " + baseUrl + createNote);
 		given().spec(requestSpec).header(authHeader, accessToken)
 				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()
 				.post(baseUrl + createNote).then().assertThat().statusCode(201);
 	}
+	
+	/**
+	 * 
+	 * @see com.revature.caliber.controllers.EvaluationController#findBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week)
+	 */
+	@Test
+	public void findBatchNotes() {
+		
+		String findBatchNotes = "trainer/note/batch/2100/2";
+		log.info("API Testing findBatchNotes at " + baseUrl + findBatchNotes);
+		given().spec(requestSpec).header(authHeader, accessToken)
+		.contentType(ContentType.JSON).when()
+				.get(baseUrl + findBatchNotes).then().assertThat().statusCode(200)
+				.body("get(0).noteId", equalTo(5133));
+	}
+	
+	/**
+	 * 
+	 * @see com.revature.caliber.controllers.EvaluationController#findIndividualNotes(@PathVariable Integer batchId, @PathVariable Integer week)
+	 */
+	@Test
+	public void findIndividualNotes(){
+		String findIndividualNotes = "trainer/note/trainee/2201/6";
+		log.info("API Testing findIndividualNotes at " + baseUrl + findIndividualNotes);
+		given().spec(requestSpec).header(authHeader, accessToken)
+		.contentType(ContentType.JSON).when()
+				.get(baseUrl + findIndividualNotes).then().assertThat().statusCode(200);
+	}
+	
+	
+	
+
+	
 }
