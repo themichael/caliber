@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
+import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
@@ -39,58 +40,8 @@ public class ReportingServiceTest extends CaliberTest {
 	@Autowired
 	public ReportingService reportingService;
 
-	// BatchDAO is only autowired here to get one batch from the database and
-	// use it's id number.
 	@Autowired
 	public BatchDAO batchDAO;
-
-	private static List<Batch> batchComparisonInit(){
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, 1, 1);
-		Calendar start = Calendar.getInstance();
-		start.set(Calendar.YEAR, 3, 1);
-		Calendar end = Calendar.getInstance();
-		end.set(Calendar.YEAR, 4, 1);
-		
-		Batch b1 = new Batch("1808-Java",new Trainer(),start.getTime(), end.getTime(), "Revature");
-		Batch b2 = new Batch("1909-Java",new Trainer(), start.getTime(), end.getTime(), "Revature");
-		b1.setWeeks(4);
-		b2.setWeeks(4);
-		
-		Set<Trainee> trainees1 = new HashSet<>();
-		Set<Trainee> trainees2 = new HashSet<>();
-		
-		int score1[] = {70, 80, 80, 90};
-		int score2[] = {100, 90, 90, 80};
-		
-		for(int i = 1; i < 2; i++){
-            Trainee trainee1 = new Trainee("Trainee1_" + i, "java", "email@email.com", b1);
-            Trainee trainee2 = new Trainee("Trainee2_" + i,".net","email@email.com",b2);
-            trainee1.setTraineeId(i+100);
-            trainee2.setTraineeId(i+200);
-            
-            Set<Grade> grades1 = new HashSet<Grade>();
-            Set<Grade> grades2 = new HashSet<Grade>();
-            for(int j = 1; j < 5; j++){
-                Assessment weekB1 = new Assessment("A title:" + j, b1, 100, AssessmentType.Exam, j, new Category());
-                Assessment weekB2 = new Assessment("A title:" + j, b2, 100, AssessmentType.Exam,j, new Category());
-                grades1.add(new Grade(weekB1, trainee1, new Date(), score1[j-1]));
-                grades2.add(new Grade(weekB2, trainee2, new Date(), score2[j-1]));
-            }
-            trainee1.setGrades(grades1);
-            trainee2.setGrades(grades2);
-            trainees1.add(trainee1);
-            trainees2.add(trainee2);
-        }
-		
-		b1.setTrainees(trainees1);
-		b2.setTrainees(trainees2);
-		
-		List<Batch> batches = new ArrayList<>();
-		batches.add(b1);
-		batches.add(b2);
-		return batches;
-	}
 	
 	/**
 	 * Tests methods:
@@ -160,10 +111,11 @@ public class ReportingServiceTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.services.ReportingService.getBatchOverallBarChart
+	 * @see com.revature.caliber.services.ReportingService.getBatchOverallBarChart
 	 */
 	@Test
-	public void getBatchOverallBarChart() {
+	public void getBatchOverallBarChartTest() {
+		log.info("Testing getBatchOverallBarChart(int batchId)");
 		// Positive Testing
 		Map<String, Double> results = reportingService.getBatchOverallBarChart(2200);
 		assertTrue("Test size of result set", results.size() == 15);
@@ -179,12 +131,14 @@ public class ReportingServiceTest extends CaliberTest {
 			log.debug(e);
 		}
 	}
+	
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.services.ReportingService.getBatchWeekTraineeBarChart
+	 * @see com.revature.caliber.services.ReportingService.getBatchWeekTraineeBarChart
 	 */
 	@Test
-	public void getBatchWeekTraineeBarChart() {
+	public void getBatchWeekTraineeBarChartTest() {
+		log.info("Testing getBatchWeekTraineeBarChart(int batchId, int TraineeId, int week)");
 		// Positive testing
 		Map<String, Double[]> results = reportingService.getBatchWeekTraineeBarChart(2100, 5455, 1);
 		assertNotNull("Results exist", results);
@@ -200,22 +154,24 @@ public class ReportingServiceTest extends CaliberTest {
 		} catch (NoSuchElementException e) {
 			log.info(e);
 		}
-
+		//Test non-existent week.
 		results = reportingService.getBatchWeekTraineeBarChart(2100, 5455, -1000);
 		assertTrue("Check invalid week", results.size() == 0);
 	}
+	
 	/**
 	 * Tests methods:
-	 * com.revature.caliber.services.ReportingService.getBatchOverallTraineeBarChart
+	 * @see com.revature.caliber.services.ReportingService.getBatchOverallTraineeBarChart
 	 */
 	@Test
-	public void getBatchOverallTraineeBarChart() {
+	public void getBatchOverallTraineeBarChartTest() {
+		log.info("Testing getBatchOverallTraineeBarChart(int batchId, int TraineeId)");
 		// Training
 		Map<String, Double[]> results = reportingService.getBatchOverallTraineeBarChart(2201, 5531);
 		assertNotNull("Results exist", results);
 		assertTrue("Test size of result set ", results.size() == 4);
-
 		assertTrue("Test data exists", results.containsKey("Exam"));
+		
 		Double[] myVals = results.get("Verbal");
 		assertTrue("Test values of Verbal exam", myVals[0] == 69.2 & myVals[1] == 82.0);
 
@@ -227,7 +183,9 @@ public class ReportingServiceTest extends CaliberTest {
 			log.info(e);
 		}
 	}
+	
 	/**
+	 * Tests methods:
 	 * @see com.revature.caliber.services.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
 	 */
 	@Test
@@ -243,50 +201,6 @@ public class ReportingServiceTest extends CaliberTest {
 		testNote = reportingService.getBatchWeekQcOverallBarChart(2201, -5);
 		assertNull(testNote);
 
-	}
-
-	/**
-	 * Utility method for testing Creates and returns a batch with 3 trainees
-	 * with QC Notes and statuses for 7 weeks
-	 * 
-	 * @return Batch
-	 */
-	private Batch createTestBatchWithQCNotes() {
-		Set<Trainee> trainees = new HashSet<>();
-		Batch batch = new Batch();
-		batch.setWeeks(7);
-		for (int i = 1; i < 4; i++) {
-			Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch);
-			trainee.setTraineeId(i);
-			Set<Note> notes = new HashSet<Note>();
-			for (int j = 1; j < 8; j++) {
-				Note note = new Note();
-				note.setWeek((short) j);
-				switch (j % 4) {
-				case 0: {
-					note.setQcStatus(QCStatus.Poor);
-					break;
-				}
-				case 1: {
-					note.setQcStatus(QCStatus.Average);
-					break;
-				}
-				case 2: {
-					note.setQcStatus(QCStatus.Good);
-					break;
-				}
-				case 3: {
-					note.setQcStatus(QCStatus.Superstar);
-					break;
-				}
-				}
-				notes.add(note);
-			}
-			trainee.setNotes(notes);
-			trainees.add(trainee);
-		}
-		batch.setTrainees(trainees);
-		return batch;
 	}
 
 	/**
@@ -346,5 +260,192 @@ public class ReportingServiceTest extends CaliberTest {
 		}
 	}
 	
+	/**
+	 * Tests methods:
+	 * com.revature.caliber.services.ReportingService.getBatchWeekAvgBarChart(int batchId, int week)
+	 */
+	@Test
+	public void getBatchWeekAvgBarChartTest() {
+		log.info("Testing getBatchWeekAvgBarChartTest");
+		Map <String, Double[]> weekAvgBarChart = reportingService.getBatchWeekAvgBarChart(2201, 5);
+		assertEquals((Double) 88.75, (Double) weekAvgBarChart.get("Project")[0]);
+		assertEquals((Double) 76.109375, (Double) weekAvgBarChart.get("Exam")[0]);
+		assertEquals((Double) 74.375, (Double) weekAvgBarChart.get("Verbal")[0]);	
+	}
+	
+	/**
+	 * Tests method:
+	 * com.revature.caliber.services.ReportingService.getBatchWeekSortedBarChart(int batchId, int week)
+	 */
+	@Test
+	public void getBatchWeekSortedBarChartTest(){
+		log.info("getBatchWeekSortedBarChartTest");
+		Map<String, Double> test =reportingService.getBatchWeekSortedBarChart(2050, 2);
+		assertEquals((Double)96.29, (Double)test.get("Fouche, Issac"));
+		assertEquals((Double) 89.63, (Double)test.get("Castillo, Erika"));
+		assertEquals(6, test.size());
+	}
+	
+	/**
+	 * Tests methods:
+	 * com.revature.caliber.services.ReportingService.getBatchWeekPieChart(Integer batchId, Integer weekNumber)
+	 */
+	@Test
+	public void getBatchWeekPieChartTest() {
+		log.info("Testing getBatchWeekPieChart");
+		Map<QCStatus, Integer> pieChart = reportingService.getBatchWeekPieChart(2201, 7);
+		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Superstar));
+		assertEquals( (Integer) 9, (Integer) pieChart.get(QCStatus.Good));
+		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Average));
+		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
+	}
+	
+	/**
+	 * Tests methods:
+	 * com.revature.caliber.services.ReportingService.pieChartCurrentWeekQCStatus(Integer batchId)
+	 */
+	@Test
+	public void pieChartCurrentWeekQCStatusTest() {
+		log.info("Testing pieChartCurrentWeekQCStatus(int batchId)");
+		Integer batchId = 2201;	
+		Map<QCStatus, Integer> pieChart = reportingService.pieChartCurrentWeekQCStatus(batchId);
+		
+		assertNotNull(pieChart);
+		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Superstar));
+		assertEquals( (Integer) 9, (Integer) pieChart.get(QCStatus.Good));
+		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Average));
+		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
+	}
+	
+	/**
+	 *  Tests methods:
+	 *  com.revature.caliber.services.ReportingService.getAllBatchesCurrentWeekQCStackedBarChart
+	 */
+	@Test
+	public void getAllBatchesCurrentWeekQCStackedBarChartTest() {
+		log.info("Testing getAllBatchesCurrentWeekQCStackedBarChart()");
+		
+		List<Object> object = reportingService.getAllBatchesCurrentWeekQCStackedBarChart();
+		@SuppressWarnings("unchecked")
+		Map<String, Object> test = (Map<String, Object>) object.get(0);
+		
+		// find a way to acquire the map separately, then iterate through its keys
+		
+		@SuppressWarnings("unchecked")
+		Map<QCStatus, Integer> qcStatus = (Map<QCStatus, Integer>) test.get("qcStatus");
+		
+		//asserts batch ID
+		assertEquals((Integer) 2201, (Integer) test.get("id"));
+		
+		//asserts QCStatus values for Poor, Good, Superstar, and Average
+		assertEquals((Integer) 7, (Integer) qcStatus.get(QCStatus.Poor));
+		assertEquals((Integer) 9, (Integer) qcStatus.get(QCStatus.Good));
+		assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Superstar));
+		assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Average));
+		
+		//asserts the label
+		assertEquals((String)"2017-09-13...Patrick", (String) test.get("label"));
+		
+		//asserts the address
+		Address address = (Address) test.get("address");
+	
+		assertEquals("65-30 Kissena Blvd, CEP Hall 2", address.getStreet());	
+	}
+	
+	/**
+	 * Method for creating two batches with grades
+	 * @return
+	 */
+	private static List<Batch> batchComparisonInit(){
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 1, 1);
+		Calendar start = Calendar.getInstance();
+		start.set(Calendar.YEAR, 3, 1);
+		Calendar end = Calendar.getInstance();
+		end.set(Calendar.YEAR, 4, 1);
+		
+		Batch b1 = new Batch("1808-Java",new Trainer(),start.getTime(), end.getTime(), "Revature");
+		Batch b2 = new Batch("1909-Java",new Trainer(), start.getTime(), end.getTime(), "Revature");
+		b1.setWeeks(4);
+		b2.setWeeks(4);
+		
+		Set<Trainee> trainees1 = new HashSet<>();
+		Set<Trainee> trainees2 = new HashSet<>();
+		
+		int score1[] = {70, 80, 80, 90};
+		int score2[] = {100, 90, 90, 80};
+		
+		for(int i = 1; i < 2; i++){
+            Trainee trainee1 = new Trainee("Trainee1_" + i, "java", "email@email.com", b1);
+            Trainee trainee2 = new Trainee("Trainee2_" + i,".net","email@email.com",b2);
+            trainee1.setTraineeId(i+100);
+            trainee2.setTraineeId(i+200);
+            
+            Set<Grade> grades1 = new HashSet<Grade>();
+            Set<Grade> grades2 = new HashSet<Grade>();
+            for(int j = 1; j < 5; j++){
+                Assessment weekB1 = new Assessment("A title:" + j, b1, 100, AssessmentType.Exam, j, new Category());
+                Assessment weekB2 = new Assessment("A title:" + j, b2, 100, AssessmentType.Exam,j, new Category());
+                grades1.add(new Grade(weekB1, trainee1, new Date(), score1[j-1]));
+                grades2.add(new Grade(weekB2, trainee2, new Date(), score2[j-1]));
+            }
+            trainee1.setGrades(grades1);
+            trainee2.setGrades(grades2);
+            trainees1.add(trainee1);
+            trainees2.add(trainee2);
+        }
+		
+		b1.setTrainees(trainees1);
+		b2.setTrainees(trainees2);
+		
+		List<Batch> batches = new ArrayList<>();
+		batches.add(b1);
+		batches.add(b2);
+		return batches;
+	}
+	
+	/**
+	 * Utility method for testing Creates and returns a batch with 3 trainees
+	 * with QC Notes and statuses for 7 weeks
+	 * 
+	 * @return Batch
+	 */
+	private Batch createTestBatchWithQCNotes() {
+		Set<Trainee> trainees = new HashSet<>();
+		Batch batch = new Batch();
+		batch.setWeeks(7);
+		for (int i = 1; i < 4; i++) {
+			Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch);
+			trainee.setTraineeId(i);
+			Set<Note> notes = new HashSet<Note>();
+			for (int j = 1; j < 8; j++) {
+				Note note = new Note();
+				note.setWeek((short) j);
+				switch (j % 4) {
+				case 0: {
+					note.setQcStatus(QCStatus.Poor);
+					break;
+				}
+				case 1: {
+					note.setQcStatus(QCStatus.Average);
+					break;
+				}
+				case 2: {
+					note.setQcStatus(QCStatus.Good);
+					break;
+				}
+				case 3: {
+					note.setQcStatus(QCStatus.Superstar);
+					break;
+				}
+				}
+				notes.add(note);
+			}
+			trainee.setNotes(notes);
+			trainees.add(trainee);
+		}
+		batch.setTrainees(trainees);
+		return batch;
+	}
 	
 }
