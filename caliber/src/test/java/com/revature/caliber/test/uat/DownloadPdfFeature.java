@@ -30,6 +30,7 @@ import cucumber.api.java.en.When;
 public class DownloadPdfFeature {
 	
 	private ReportsPage reportsPage;
+	private SettingLocationPage setLocPage;
 		
 	@Before // each scenario
 	public void setup(){
@@ -40,18 +41,21 @@ public class DownloadPdfFeature {
 		driver.manage().window().setSize(new Dimension(880, 1080));
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-		reportsPage = new ReportsPage((PhantomJSDriver)driver);
+//		reportsPage = new ReportsPage((PhantomJSDriver)driver);
+		setLocPage = new SettingLocationPage(driver);
 	}
 	@After // each scenario
 	public void teardown(){
-		reportsPage.quitDriver();
+		setLocPage.quitDriver();
 	}
 	
 	@Given("^I am on the Reports page$")
 	public void iAmOnTheReportsPage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		reportsPage.gotoReportsPage();
-		reportsPage.verifyReportsPage();
+//		reportsPage.gotoReportsPage();
+//		reportsPage.verifyReportsPage();
+		setLocPage.gotoSettingLocationPage();
+		setLocPage.verifyLocationPage();
 	}
 
 	@Given("^I have selected the year (\\d+) tab$")
@@ -82,7 +86,8 @@ public class DownloadPdfFeature {
 	public void iClickTheDownloadButton() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    // Same for Cumulative Scores, Technical Skills, and Weekly Progress
-		reportsPage.clickDownloadBtn();
+//		reportsPage.clickDownloadBtn();
+		setLocPage.clickCreateLocationBtn();
 	}
 
 	@Then("^a PDF file is downloaded$")

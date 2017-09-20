@@ -8,7 +8,6 @@
 //import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 //import org.openqa.selenium.remote.DesiredCapabilities;
 //
-//import com.gargoylesoftware.htmlunit.BrowserVersion;
 //
 //import cucumber.api.PendingException;
 //import cucumber.api.java.After;
