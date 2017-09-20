@@ -36,6 +36,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	private String findByEmail = "training/trainer/byemail/patrick.walsh@revature.com/";
 	private String findAllDroppedTrainees = "all/trainee/dropped";
+	private String createTrainer = "vp/trainer/create";
 
 	@Test
 	public void findByEmail() throws Exception {
@@ -60,6 +61,16 @@ public class TrainingAPITest extends AbstractAPITest {
 				.get(baseUrl + findAllDroppedTrainees).then().assertThat().statusCode(200).extract().jsonPath().prettyPrint();
 		System.out.println(actual);
 		assertEquals("2050", actual);
+	}
+
+	@Test
+	public void createTrainer() throws Exception {
+		Trainer expected = new Trainer("Randolph Scott", "Senior Trainer", "randolph.scott@revature.com",
+				TrainerRole.ROLE_TRAINER);
+		log.info("API Testing createTrainer at " + baseUrl + createTrainer);
+		given().spec(requestSpec).header(authHeader, accessToken)
+				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()
+				.post(baseUrl + createTrainer).then().assertThat().statusCode(201);
 	}
 
 }
