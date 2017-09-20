@@ -447,11 +447,12 @@ public class ReportingService {
 	 */
 
 	/**
+	 * Returns Trainee's skills and grade average up to a certain week
 	 * label-Axis: value-Axis:
 	 * 
 	 * @param traineeId
 	 * @param week
-	 * @return
+	 * @return Map<skill name, grade average>
 	 */
 	public Map<String, Double> getTraineeUpToWeekRadarChart(Integer traineeId, Integer week) {
 		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
@@ -462,10 +463,11 @@ public class ReportingService {
 	}
 
 	/**
+	 * Returns all skills and grade averages for a given Trainee
 	 * label-Axis: value-Axis:
 	 * 
 	 * @param traineeId
-	 * @return
+	 * @return Map<skill name, grade average>
 	 */
 	public Map<String, Double> getTraineeOverallRadarChart(Integer traineeId) {
 		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
@@ -576,7 +578,7 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			Double avg = 0.d;
 			int weeksWithGrades = 0;
-			for (Integer i = 0; i < weeks; i++) {
+			for (Integer i = 1; i <= weeks; i++) {
 				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
 				if (tempAvg > 0) {
 					weeksWithGrades++;
