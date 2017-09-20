@@ -5,38 +5,38 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
 public class ManageBatchPage{
 
-//	protected driver
-//	protected url
-//	public void setup(){
-//		driver = new HtmlUnitDriver(BrowserVersion.CHROME, true);
-//		driver.get("http://localhost:8080/caliber/#/vp/manage");
-//		URL = driver.getCurrentUrl();
-//	}
-	private WebDriver driver;
+	private PhantomJSDriver driver;
+	private String URL;
 	
-	
-	public ManageBatchPage(WebDriver driver) {
-	super();
-	this.driver = driver;
+	public String getURL() {
+		return URL;
 	}
 
-	public void checkLoggedIn(){
-		WebDriver yeah = new HtmlUnitDriver(BrowserVersion.CHROME, true);
-		yeah.get("http://localhost:8080/caliber#/vp/home");
+	public void setURL(String uRL) {
+		URL = uRL;
 	}
-	
-	public void goToHome(){
-		driver.get("http://localhost:8080/caliber#/vp/home");
+
+	public ManageBatchPage(WebDriver driver){
+		this.driver = (PhantomJSDriver)driver;
 	}
 	
 	public void gotoManagePage(){
 		driver.get("http://localhost:8080/caliber/#/vp/manage");
-//		URL = driver.getCurrentUrl();
+		URL = driver.getCurrentUrl();
+		System.out.println("CurrentURL = " + driver.getCurrentUrl());
+		System.out.println(driver.getTitle());
+	}
+	
+	public void goToHome(){
+		driver.get("http://localhost:8080/caliber#/vp/home");
 	}
 	
 	public void verifyManagePage(){
