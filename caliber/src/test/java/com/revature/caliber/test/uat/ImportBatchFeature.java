@@ -3,9 +3,9 @@
 //import java.util.concurrent.TimeUnit;
 //
 //import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+//import org.openqa.selenium.phantomjs.PhantomJSDriver;
 //
-//import com.gargoylesoftware.htmlunit.BrowserVersion;
+//
 //
 //import cucumber.api.PendingException;
 //import cucumber.api.java.After;
@@ -20,7 +20,7 @@
 //	
 //	@Before // each scenario
 //	public void setup(){
-//		WebDriver driver = new HtmlUnitDriver(BrowserVersion.CHROME, true);
+//		WebDriver driver = new PhantomJSDriver();
 //		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 //		managePage = new ManageBatchPage(driver);
 //	}
