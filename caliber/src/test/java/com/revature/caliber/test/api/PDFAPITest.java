@@ -32,7 +32,7 @@ public class PDFAPITest extends AbstractAPITest{
 				.post(baseUrl + generate).then().assertThat()
 				.statusCode(200)
 				.extract().asString().substring(0,4);
-		String expected = "%PDF";
+		String expected = "%PDF";  //First characters of a pdf
 		assertEquals(expected,actual);
 	}
 }
