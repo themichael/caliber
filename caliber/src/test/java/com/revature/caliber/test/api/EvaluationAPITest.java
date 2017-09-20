@@ -1,30 +1,18 @@
 package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-
-<<<<<<< HEAD
-import org.apache.log4j.Logger;
-import org.junit.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-=======
-import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
->>>>>>> 894eeffb7d52e7880ee4a89569da21d3d6e02ae9
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
@@ -35,8 +23,6 @@ import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
-
-import io.restassured.http.ContentType;
 
 import io.restassured.http.ContentType;
 
@@ -55,16 +41,10 @@ public class EvaluationAPITest extends AbstractAPITest{
 	@Autowired
 	AssessmentDAO assessmentDAO;
 	private static final Logger log = Logger.getLogger(EvaluationAPITest.class);
-<<<<<<< HEAD
 	
 	private static final String findByTrainee = "all/grade/trainee/5529";
 	
-=======
-	//fetch not needed?
-	//private String createGrade = "training/trainer/byemail/patrick.walsh@revature.com/";
-	//fetch not needed?
-	//private String updateGrade = "training/trainer/byemail/patrick.walsh@revature.com/";
->>>>>>> 894eeffb7d52e7880ee4a89569da21d3d6e02ae9
+
 	@Test
 	public void createGrade(){
 		log.info("API Testing createGrade at baseUrl  " + baseUrl);
