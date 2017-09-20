@@ -4,9 +4,11 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.junit.Assert.*;
 
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
@@ -38,6 +40,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	private String findAllTraineesInBatch = "all/trainee";
 	private String getAllBatches = "qc/batch/all";
 	private String getAllCurrentBatches = "vp/batch/all/current";
+	private String updateBatch = "all/batch/update";
 	private String createTrainer = "vp/trainer/create";
 
 	@Test
@@ -112,6 +115,41 @@ public class TrainingAPITest extends AbstractAPITest {
 			success = true;
 		}
 		assertTrue(success);
+	}
+	
+	/**
+	 * updateBatch(@Valid @RequestBody Batch batch)
+	 */
+	@Test
+	public void updateBatchTest(){
+		//Pull a batch from the database…
+		Response resultBatchSet = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
+				.get(baseUrl + getAllBatches).then().extract().response();
+		Batch[] resultSet = resultBatchSet.as(Batch[].class);
+		Batch holderBatch = resultSet[0];
+		//Save original location…
+		String original = holderBatch.getLocation();
+		//Change to a test location…
+		holderBatch.setLocation("In the testing zone!");
+		//Try to update the batch…
+		log.info("API Testing updateBatch at baseUrl  " + baseUrl);
+		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).body(holderBatch).when()
+				.put(baseUrl + updateBatch).then().assertThat().statusCode(200);
+		//See if it actually changed in the database…
+		resultBatchSet = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
+				.get(baseUrl + getAllBatches).then().extract().response();
+		resultSet = resultBatchSet.as(Batch[].class);
+		boolean success = false;
+		for(Batch batch : resultSet){
+			if(batch.getLocation().equals("In the testing zone!")){
+				success = true;
+			}
+		}
+		assertTrue(success);
+		//Change it back…
+		holderBatch.setLocation(original);
+		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).body(holderBatch).when()
+		.put(baseUrl + updateBatch).then().assertThat().statusCode(200);
 	}
 
 	@Test

@@ -267,8 +267,7 @@ public class TrainingController {
 	/**
 	 * Update batch
 	 *
-	 * @param batch
-	 *            the batch
+	 * @param batch the batch
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -283,8 +282,7 @@ public class TrainingController {
 	/**
 	 * Delete batch
 	 *
-	 * @param id
-	 *            the id of the batch to delete
+	 * @param id the id of the batch to delete
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/batch/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
