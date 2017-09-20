@@ -482,9 +482,12 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<String, Double> getBatchOverallRadarChart(Integer batchId) {
+		//get List of grades from individual batch
 		List<Grade> grades = gradeDAO.findByBatch(batchId);
+		//map the average for each score category
 		Map<Category, Double[]> skills = utilAvgSkills(grades);
 		log.info("getBatchOverallRadarChart : "+utilReplaceCategoryWithSkillName(skills));
+		
 		return utilReplaceCategoryWithSkillName(skills);
 	}
 
@@ -501,6 +504,7 @@ public class ReportingService {
 			Map<Category, Double[]> skills = utilAvgSkills(new ArrayList<>(t.getGrades()));
 			results.put(t.getName(), utilReplaceCategoryWithSkillName(skills));
 		});
+		log.info("getBatchAllTraineesOverallRadarChart : "+results);
 		return results;
 	}
 	/*

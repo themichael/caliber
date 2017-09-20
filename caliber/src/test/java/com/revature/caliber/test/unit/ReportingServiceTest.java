@@ -15,6 +15,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.services.ReportingService;
 
 public class ReportingServiceTest extends CaliberTest{
@@ -175,6 +177,30 @@ public class ReportingServiceTest extends CaliberTest{
 		
 	}
 	
+
+	
+	/**
+	 * Tests methods:getBatchOverallRadarChart
+	 * testing batch 2150 and 2200
+	 * spot testing average of category for batch
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getBatchOverallRadarChart(List<Grade> grades)
+	 */
+	@Test
+	public void getBatchOverallRadarChart(){
+		Integer batch1 = 2150;
+		Integer batch2 = 2200;
+		
+		Map<String, Double> skills = reportingService.getBatchOverallRadarChart(batch1);
+		assertEquals(7,skills.size());
+		assertEquals(76.70,skills.get("Java"),.01);
+		assertEquals(89.74,skills.get("Hibernate"),.01);
+		
+		skills = reportingService.getBatchOverallRadarChart(batch2);
+		assertEquals(10,skills.size());
+		assertEquals(77.88,skills.get("JDBC"),.01);
+		assertEquals(89.52,skills.get("Spring"),.01);
+	}
 	/**
 	 * Tests methods:
 	 * 
@@ -241,10 +267,34 @@ public class ReportingServiceTest extends CaliberTest{
 		//current batch data should have 3 
 		assertTrue(results.size() == 3); 
 		
+
 		
 	}
 	
 	@Test
+	/**
+	 * Tests getBatchAllTraineesOverallRadarChart
+	 * testing batch 2150 and 2200
+	 * spot testing average students' category
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getBatchAllTraineesOverallRadarChart
+	 */
+
+	public void getBatchAllTraineesOverallRadarChart(){
+		Integer batch1 = 2150;
+		Integer batch2 = 2200;
+		Map<String, Map<String, Double>> skills = reportingService.getBatchAllTraineesOverallRadarChart(batch1);
+		assertEquals(13,skills.size());
+		assertEquals(91.55,skills.get("Erwin, Eric").get("SQL"),.01);
+		assertEquals(84.16,skills.get("Michels, Alex").get("Hibernate"),.01);
+		
+		skills = reportingService.getBatchAllTraineesOverallRadarChart(batch2);
+		assertEquals(15,skills.size());
+		assertEquals(84.95,skills.get("Lau, Samuel").get("SOAP"),.01);
+		assertEquals(78.17,skills.get("Sibrian, David").get("REST"),.01);
+
+	}
+	
 	public void testGetAvgBatchWeekValue() {
 		/*
 		 * Method description:
@@ -276,6 +326,7 @@ public class ReportingServiceTest extends CaliberTest{
 		
 		//Set of technologies should not contain Java
 		assertFalse(technologies.contains("Java"));  
+
 		
 	}
 }
