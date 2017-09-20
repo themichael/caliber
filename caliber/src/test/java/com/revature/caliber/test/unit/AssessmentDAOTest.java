@@ -65,8 +65,10 @@ public class AssessmentDAOTest extends CaliberTest{
 	 */
 	@Test
 	public void findAllAssessmentTest() {
+		
 		assertNotNull(assessmentDao.findAll());
-		}
+		
+	}
 	
 	
 	/*
@@ -75,10 +77,13 @@ public class AssessmentDAOTest extends CaliberTest{
 	 */
 	@Test
 	public void findAssessmentsByWeekTest() {
+		
 		int batchId = 2150;
 		int weekNumber = 3;
+		
 		assertNotNull(assessmentDao.findByWeek(batchId, weekNumber));
-		}
+		
+	}
 	
 	
 	
@@ -88,10 +93,12 @@ public class AssessmentDAOTest extends CaliberTest{
 	 */
 	@Test
 	public void findByBatchIdAssessmentDAOTest() {
+		
 		log.info("FIND BY BATCH ID ASSESSMENT DAO");
 		Assessment assessment =assessmentDao.findAll().get(0);
 		List<Assessment> assesments = assessmentDao.findByBatchId(2050);
 		assertEquals(assessment, assesments.get(0));
+		
 	}
 	
 	/**
@@ -100,6 +107,7 @@ public class AssessmentDAOTest extends CaliberTest{
 	 */
 	@Test
 	public void updateAssessmentDAOTest() {
+		
 		log.info("UPDATE ASSESSMENT DAO");
 		Assessment assessment =assessmentDao.findOne(2058);
 
@@ -125,6 +133,7 @@ public class AssessmentDAOTest extends CaliberTest{
 	 */
 	@Test
 	public void deleteAssessmentDAOTest() {
+		
 		log.info("DELETE ASSESSMENT DAO");
 		Long beforeTest = jdbcTemplate.queryForObject(ASSESSMENT_COUNT, Long.class);
 		assessmentDao.delete(assessmentDao.findAll().get(1));
