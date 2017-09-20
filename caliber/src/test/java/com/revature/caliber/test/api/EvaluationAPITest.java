@@ -117,4 +117,49 @@ public class EvaluationAPITest extends AbstractAPITest{
 	public void findByAssessment(){
 		
 	}
+	
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.controllers.EvaluationController#findByTrainee(Integer)
+	 */
+	@Test
+	public void findByTrainee(){
+		
+	}
+	
+	/**
+	 * @see com.revature.caliber.controllers.EvaluationController#findByBatch(Integer)
+	 */
+	@Test
+	public void findByBatch(){
+		
+	}
+	
+	/**
+	 * 
+	 * @see com.revature.caliber.controllers.EvaluationController#findByCategory(Integer)
+	 */
+	@Test
+	public void findByCategory(){
+		
+	}
+	
+	/**
+	 * @see com.revature.caliber.controllers.EvaluationController#findByWeek(Integer, Integer)
+	 */
+	@Test
+	public void findByWeek(){
+		
+	}
+	
+	/**
+	 * 
+	 * @see com.revature.caliber.controllers.EvaluationController#findByTrainer(Integer)
+	 * 
+	 */
+	@Test
+	public void findByTrainer(){
+		
+	}
 }
