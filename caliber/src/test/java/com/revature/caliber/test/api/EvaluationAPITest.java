@@ -81,7 +81,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		gradeDAO.save(grade);
 		
 		
-		/*given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
+		/*given().header(authHeader, accessToken).contentType(ContentType.JSON).when()
 		.get(baseUrl + createGrade).then().assertThat()
 		.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 		*/
@@ -114,7 +114,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		//assertEquals(100, gradeDAO.findByTrainee(200).get(0));
 		
 		/*log.info("API Testing updateGrade at baseUrl  " + baseUrl);
-		given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
+		given().header(authHeader, accessToken).contentType(ContentType.JSON).when()
 		.get(baseUrl + updateGrade).then().assertThat()
 		.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 		*/
@@ -138,7 +138,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		
 		
 		
-		given().spec(requestSpec).header("Authorization", accessToken)
+		given().spec(requestSpec).header(authHeader, accessToken)
 		.contentType(ContentType.JSON)
 		.when().get(baseUrl + findByTrainee)
 		.then().assertThat()
@@ -151,7 +151,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	@Test
 	public void findByBatch(){
 		
-		given().spec(requestSpec).header("Authorization", accessToken)
+		given().spec(requestSpec).header(authHeader, accessToken)
 		.contentType(ContentType.JSON)
 		.when().get(baseUrl + findByBatch)
 		.then().assertThat()
@@ -166,7 +166,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	@Test
 	public void findByCategory(){
 		
-		given().spec(requestSpec).header("Authorization", accessToken)
+		given().spec(requestSpec).header(authHeader, accessToken)
 		.contentType(ContentType.JSON)
 		.when().get(baseUrl + findByCategory)
 		.then().assertThat()
@@ -178,7 +178,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void findByWeek(){
-		given().spec(requestSpec).header("Authorization", accessToken)
+		given().spec(requestSpec).header(authHeader, accessToken)
 		.contentType(ContentType.JSON)
 		.when().get(baseUrl + findByWeek)
 		.then().assertThat()
@@ -192,7 +192,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void findByTrainer(){
-		given().spec(requestSpec).header("Authorization", accessToken)
+		given().spec(requestSpec).header(authHeader, accessToken)
 		.contentType(ContentType.JSON)
 		.when().get(baseUrl + findByTrainer)
 		.then().assertThat()
