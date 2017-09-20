@@ -1,17 +1,14 @@
 package com.revature.caliber.test.api;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertThat;
+import static io.restassured.RestAssured.given;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
@@ -24,7 +21,7 @@ import com.revature.caliber.security.models.SalesforceToken;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import cucumber.api.java.en.Given;
+
 /**
  * Abstract class used to be extended to API testing classes.
  * Initializes by authenticating with the Salesforce API so
@@ -39,8 +36,15 @@ import cucumber.api.java.en.Given;
  */
 public abstract class AbstractAPITest extends CaliberTest {
 
-	protected String baseUrl = System.getenv("CALIBER_SERVER_URL");
+	/**
+	 * Salesforce access token to be used in Authorization HTTP header
+	 */
 	protected static String accessToken = "Auth ";
+	protected static final String authHeader = "Authorization";
+	protected static String jsessionid;
+	protected static RequestSpecification requestSpec;
+	
+	protected String baseUrl = System.getenv("CALIBER_SERVER_URL");
 	private String username = System.getenv("CALIBER_API_USERNAME");
 	private String password = System.getenv("CALIBER_API_PASSWORD");
 	private String clientId = System.getenv("SALESFORCE_CLIENT_ID");
@@ -54,17 +58,11 @@ public abstract class AbstractAPITest extends CaliberTest {
 		if (accessToken.equals("Auth ")) {
 			try {
 				login();
-				// I think this makes you "login" to Caliber
-				HttpClient httpClient = HttpClientBuilder.create().build();
-				HttpGet get = new HttpGet(System.getenv("CALIBER_SERVER_URL"));
-				HttpResponse response = httpClient.execute(get);
-				
-				/* if Salesforce authentication is successful, then you shall GET caliber homepage & 200 OK
-				 * instead of a 302 REDIRECT to Salesforce Login page 
-				 */
-				log.info("Login page returned code: " + response.getStatusLine().getStatusCode());
-				String responseBody = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
-				assertThat(responseBody, containsString("<title>Caliber | Performance Management</title>"));
+				log.info("Logging into Caliber for API testing");
+				Response response = given().redirects().allowCircular(true).get(baseUrl + "caliber/");
+                String sessionCookie = response.getCookie("JSESSIONID");
+                String roleCookie = response.getCookie("role");
+                requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
 			} catch (Exception e) {
 				log.error(e);
 			}
