@@ -1,11 +1,18 @@
 package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+
 import org.hamcrest.Matchers;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,6 +26,17 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.services.ReportingService;
 import com.revature.caliber.test.integration.ReportingServiceTest;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
+
 
 import io.restassured.http.ContentType;
 
@@ -39,14 +57,75 @@ public class ReportingAPITest extends AbstractAPITest{
 	//{int BatchId, int TraineeId, int Week}
 	private static int[] traineeValue = {2150, 5500, 1};
 	
+	
+	/**
+	 * 
+	 * (unfinished)
+	 * 
+	 * */
 	@Test
-	@Ignore
-	public void testGetBatchComparisonAvg() {
-		given().header("Authorization", accessToken).contentType(ContentType.JSON)
-			.when().get(baseUrl + "/all/reports/compare/skill/(All)"
-					+ "/training/(All)"
-					+ "/date/Mon Sep 19 13:50:43 EDT 2016")
-			.then();
+	public void testGetBatchComparisonAvg() throws Exception {
+		log.info("TESTING getBatchComparisonAvg");
+		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+				.when().get(baseUrl + "all/reports/compare/skill/Java"
+						+ "/training/University"
+						+ "/date/14-NOV-16")
+				.then().assertThat().statusCode(200)
+					.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(new HashMap<Double,Double>())));
+	}
+	
+	@Test
+	public void testGetBatchWeekPieChart() throws JsonProcessingException {
+		log.info("TESTING getBatchWeekPieChart");
+		Map<QCStatus, Integer> expected = new HashMap<>();
+		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+			.when().get(baseUrl + "all/reports/batch/2200/week/1/pie")
+			.then().assertThat().statusCode(200)
+				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
+		
+	}
+
+	@Test
+	public void testGetPieChartCurrentWeekQCStatus() {
+		log.info("TESTING getPieChartCurrentWeekQCStatus");
+		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+			.when().get(baseUrl + "all/reports/batch/654654654/pie")
+			.then().assertThat().statusCode(200);
+	}
+	@Test
+	public void testGetAllBatchesCurrentWeekQCStackedBarChart() {
+		log.info("TESTING getAllBatchesCurrentWeekQCStackedBarChart");
+		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+			.when().get(baseUrl + "all/reports/batch/week/stacked-bar-current-week")
+			.then().assertThat().statusCode(200);
+	}
+	
+	@Test
+	public void testGetBatchWeekAvgBarChart() {
+		log.info("TESTING getBatchWeekAvgBarChart");
+		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+			.when().get(baseUrl + "all/reports/batch/2200/week/1/bar-batch-week-avg")
+			.then().assertThat().statusCode(200);
+		//Bad Batch number in the uri (223300) should return empty JSON object
+		String actual = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
+			.when().get(baseUrl + "all/reports/batch/223300/week/1/bar-batch-week-avg")
+			.thenReturn().body().asString();
+		String expected = "{}";
+		assertEquals(expected, actual);
+	}
+	@Test
+	public void testGetBatchWeekSortedBarChart() {
+		log.info("TESTING getBatchWeekSortedBarChart");
+		log.info("TESTING getBatchWeekAvgBarChart");
+		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+			.when().get(baseUrl + "all/reports/batch/2200/week/1/bar-batch-weekly-sorted")
+			.then().assertThat().statusCode(200);
+		//Bad Batch number in the uri (223300) should return empty JSON object
+		String actual = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
+			.when().get(baseUrl + "all/reports/batch/223300/week/1/bar-batch-weekly-sorted")
+			.thenReturn().body().asString();
+		String expected = "{}";
+		assertEquals(expected, actual);
 	}
 	
 	//Param Integer batchId, Integer traineeId

@@ -76,15 +76,14 @@ public class ReportingController {
 	@RequestMapping(value = "/all/reports/batch/{batchId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<Map<QCStatus, Integer>> getPieChartCurrentWeekQCStatus(@PathVariable Integer batchId) {
-		log.info("getPieChartCurrentWeekQCStatus ===> /all/reports/batch/{batchId}/week/pie");
-		try {
+		log.info("getPieChartCurrentWeekQCStatus ===> /all/reports/batch/{batchId}/pie");
 			Map<QCStatus, Integer> results = reportingService.pieChartCurrentWeekQCStatus(batchId);
-			return new ResponseEntity<>(results, HttpStatus.OK);
-		} catch (Exception e) {
-			log.debug(e);
-			return new ResponseEntity<>(new HashMap<>(), HttpStatus.NO_CONTENT);
-		}
-
+			if(results.size() > 0) {
+				return new ResponseEntity<>(results, HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity<>(new HashMap<>(), HttpStatus.NOT_FOUND);
+			}
 	}
 
 	/*
