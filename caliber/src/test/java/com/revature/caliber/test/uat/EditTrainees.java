@@ -14,7 +14,6 @@ import cucumber.api.java.en.When;
 public class EditTrainees{
 	
 	private ManageBatchPage manageBatchPage;
-	private boolean loggedIn;
 
 	@Before
 	public void setup(){
