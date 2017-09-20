@@ -14,9 +14,9 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
-import com.revature.caliber.security.models.SalesforceToken;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
@@ -82,8 +82,8 @@ public abstract class AbstractAPITest extends CaliberTest {
 		log.info("Generating Salesforce token using clientId " + clientId);
 		HttpResponse response = httpClient.execute(post);
 		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(), 
-				//JsonNode.class); // test
-				SalesforceToken.class).getAccessToken(); // actual
+				JsonNode.class); // test
+				//SalesforceToken.class).getAccessToken(); // actual
 		log.info("Accessing Salesforce API using token:  " + accessToken);
 	}
 
