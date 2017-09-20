@@ -6,10 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.Instant;
 import java.time.Period;
-import java.time.temporal.TemporalAmount;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -24,14 +21,16 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.data.NoteDAO;
 
 public class BatchDAOTest extends CaliberTest {
 	
 	private static final Logger log = Logger.getLogger(BatchDAOTest.class);
-	private static final String TRAINER_EMAIL = "pjw6193@hotmail.com";
 	
 	@Autowired
 	private BatchDAO batchDAO;
+	@Autowired
+	private NoteDAO noteDAO;
 	
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
@@ -45,7 +44,9 @@ public class BatchDAOTest extends CaliberTest {
 	public void findAllCurrentIntTest(){
 		log.info("Testing the BatchDAO.findAllCurrent(trainerId)");
 		List<Batch> batches = batchDAO.findAllCurrent(1);
-		assertEquals(3, batches.size());
+		int expected = 3; //only 3 current batches with trainerId: 1
+		int actual = batches.size();
+		assertEquals(expected, actual);
 	}
 	
 	/**
@@ -56,7 +57,9 @@ public class BatchDAOTest extends CaliberTest {
 	public void findAllCurrentWithNotesTest(){
 		log.info("Testing the BatchDAO.findAllCurrentWithNotesTest()");
 		List<Batch> batches = batchDAO.findAllCurrentWithNotes();
-		assertEquals(1,batches.size());
+		int expected = 1; //only one current batch has notes
+		int actual = batches.size();
+		assertEquals(expected, actual);
 	}
 	
 	/**
@@ -67,7 +70,9 @@ public class BatchDAOTest extends CaliberTest {
 	public void findAllCurrentWithNotesAndTraineesTest(){
 		log.info("Testing the BatchDAO.findAllCurrentWithNotesAndTrainees()");
 		List<Batch> batches = batchDAO.findAllCurrentWithNotesAndTrainees();
-		assertEquals(1,batches.size());
+		int expected = 1; //Only one current batch has notes and trainees
+		int actual = batches.size();
+		assertEquals(expected, actual);
 	}
 	
 	/**
@@ -78,7 +83,9 @@ public class BatchDAOTest extends CaliberTest {
 	public void findAllCurrentWithTraineesTest(){
 		log.info("Testing the BatchDAO.findAllCurrentWithTrainees()");
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();
-		assertEquals(3,batches.size());
+		int expected = 3;  //All current batches have trainees
+		int actual = batches.size();
+		assertEquals(expected, actual);
 	}
 
 	/**

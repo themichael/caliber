@@ -20,9 +20,9 @@ import io.restassured.http.ContentType;
  * @author Patrick Walsh
  *
  */
-public class TrainerAPITest extends AbstractAPITest{
+public class TrainingAPITest extends AbstractAPITest{
 
-	private static final Logger log = Logger.getLogger(TrainerAPITest.class);
+	private static final Logger log = Logger.getLogger(TrainingAPITest.class);
 	
 	/*
 	 * Trainer API endpoints
