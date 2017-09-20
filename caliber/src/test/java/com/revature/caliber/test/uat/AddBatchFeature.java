@@ -1,12 +1,15 @@
 package com.revature.caliber.test.uat;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class AddBatchFeature {
 
+	AssessBatchPage assessBatch;
+	
 //	@Given("^I am on the Manage Batch page$")
 //	public void IAmOnTheManageBatchPage() throws Throwable {
 //		// Write code here that turns the phrase above into concrete actions
@@ -77,5 +80,8 @@ public class AddBatchFeature {
 	public void TheNewBatchAppears() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 	}
-
+//	@After
+//	public void teardown(){
+//		assessBatch.teardown();
+//	}
 }
