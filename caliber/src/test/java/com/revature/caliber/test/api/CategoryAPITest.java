@@ -23,8 +23,8 @@ import com.revature.caliber.data.CategoryDAO;
 import cucumber.api.java.en.Given;
 import io.restassured.http.ContentType;
 
-public class CategoryControllerAPITest extends AbstractAPITest {
-	private static final Logger log = Logger.getLogger(CategoryControllerAPITest.class);
+public class CategoryAPITest extends AbstractAPITest {
+	private static final Logger log = Logger.getLogger(CategoryAPITest.class);
 	String FINDALLTEST = "select count(CATEGORY_ID) from CALIBER_CATEGORY";
 	String UPDATE = "select SKILL_CATEGORY from CALIBER_CATEGORY where CATEGORY_ID = 1";
 	String ALL = "select * from CALIBER_CATEGORY";
@@ -39,6 +39,20 @@ public class CategoryControllerAPITest extends AbstractAPITest {
 	public void setController(CategoryController controller) {
 		this.controller = controller;
 	}
+	
+	@Test
+	public void findCategoryByIdTest() throws JsonProcessingException{
+		log.info("Testing findCategoryById function from CategoryController");
+		Category expected = new Category("BUSTOP",true);
+		//expected.setCategoryId(100);
+		//dao.save(expected);
+		//Category test = dao.findOne(expected.getCategoryId());
+		//System.out.println(test+"  FSDSDFSDFSDFSDFSDFS");
+		given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
+		.get(baseUrl + "category/100"+expected.getCategoryId()).then().assertThat()
+		.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
+	}
+	/*
 	@Ignore
 	@Test
 	public void findAllCategoriesTest(){
@@ -56,18 +70,7 @@ public class CategoryControllerAPITest extends AbstractAPITest {
 	//	.get(baseUrl + "vp/category").then().assertThat()
 	//	.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
-	@Test
-	public void findCategoryByIdTest() throws JsonProcessingException{
-		log.info("Testing findCategoryById function from CategoryController");
-		Category expected = new Category("BUSTOP",true);
-		//expected.setCategoryId(100);
-		//dao.save(expected);
-		//Category test = dao.findOne(expected.getCategoryId());
-		//System.out.println(test+"  FSDSDFSDFSDFSDFSDFS");
-		given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
-		.get(baseUrl + "category/"+expected.getCategoryId()).then().assertThat()
-		.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
-	}
+	
 		
 		
 	
@@ -75,7 +78,6 @@ public class CategoryControllerAPITest extends AbstractAPITest {
 	public void FailfindCategoryByIdTest(){
 		log.info("Testing findCategoryById function from CategoryController");
 		controller.findCategoryById(1);
-		
 	}
 	@Test
 	public void updateCategoryTest() throws Exception{
@@ -98,4 +100,5 @@ public class CategoryControllerAPITest extends AbstractAPITest {
 		.get(baseUrl + "vp/category/").then().assertThat()
 		.statusCode(201).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(category2)));		
 	}
+	*/
 }
