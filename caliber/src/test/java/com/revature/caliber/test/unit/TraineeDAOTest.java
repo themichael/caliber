@@ -42,7 +42,8 @@ public class TraineeDAOTest extends CaliberTest {
 	@Test
 	public void testSave() {
 		log.info("CREATE TRAINEE");
-		Batch batch = trainingController.getAllBatches().getBody().get(0);
+		Batch batch = new Batch();
+		batch.setBatchId(2200);
 		String name = "Danny McQuack";
 		String email = "test@anotherDomain.com";
 		Trainee trainee = new Trainee(name, null, email, batch);
