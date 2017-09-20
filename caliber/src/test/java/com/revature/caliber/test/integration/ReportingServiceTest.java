@@ -1,8 +1,10 @@
 package com.revature.caliber.test.integration;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,7 +20,16 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
-import com.revature.caliber.beans.*;
+import com.revature.caliber.beans.Address;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.AssessmentType;
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.services.ReportingService;
 
@@ -29,8 +40,6 @@ public class ReportingServiceTest extends CaliberTest {
 	@Autowired
 	public ReportingService reportingService;
 
-	// BatchDAO is only autowired here to get one batch from the database and
-	// use it's id number.
 	@Autowired
 	public BatchDAO batchDAO;
 	
@@ -272,7 +281,6 @@ public class ReportingServiceTest extends CaliberTest {
 	public void getBatchWeekSortedBarChartTest(){
 		log.info("getBatchWeekSortedBarChartTest");
 		Map<String, Double> test =reportingService.getBatchWeekSortedBarChart(2050, 2);
-		log.info(" Issac " + test.get("Issac,Fouche") + " /Castillo " + test.get("Castillo, Erika") );
 		assertEquals((Double)96.29, (Double)test.get("Fouche, Issac"));
 		assertEquals((Double) 89.63, (Double)test.get("Castillo, Erika"));
 		assertEquals(6, test.size());
@@ -285,13 +293,12 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void getBatchWeekPieChartTest() {
 		log.info("Testing getBatchWeekPieChart");
-		log.info("\n \n \n \n <getBatchWeekPieChartTest> Acquired batch information. BatchId: " + 2201 + " weekNumber: " + 7);
 		Map<QCStatus, Integer> pieChart = reportingService.getBatchWeekPieChart(2201, 7);
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Superstar));
 		assertEquals( (Integer) 9, (Integer) pieChart.get(QCStatus.Good));
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Average));
 		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
-		}
+	}
 	
 	/**
 	 * Tests methods:
@@ -303,12 +310,11 @@ public class ReportingServiceTest extends CaliberTest {
 		Integer batchId = 2201;	
 		Map<QCStatus, Integer> pieChart = reportingService.pieChartCurrentWeekQCStatus(batchId);
 		
+		assertNotNull(pieChart);
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Superstar));
 		assertEquals( (Integer) 9, (Integer) pieChart.get(QCStatus.Good));
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Average));
 		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
-		assertNotNull(pieChart);
-		
 	}
 	
 	/**
@@ -343,10 +349,13 @@ public class ReportingServiceTest extends CaliberTest {
 		//asserts the address
 		Address address = (Address) test.get("address");
 	
-		assertEquals("65-30 Kissena Blvd, CEP Hall 2", address.getStreet());
-			
+		assertEquals("65-30 Kissena Blvd, CEP Hall 2", address.getStreet());	
 	}
 	
+	/**
+	 * Method for creating two batches with grades
+	 * @return
+	 */
 	private static List<Batch> batchComparisonInit(){
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, 1, 1);
