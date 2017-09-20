@@ -41,10 +41,10 @@ public class TrainingAPITest extends AbstractAPITest{
 		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
-//		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
-//		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON).when()
-//				.get(baseUrl + findByEmail).then().assertThat().statusCode(200)
-//				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
+		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
+		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON).when()
+				.get(baseUrl + findByEmail).then().assertThat().statusCode(200)
+				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
 
 	@Test
@@ -52,9 +52,9 @@ public class TrainingAPITest extends AbstractAPITest{
 		Trainer expected = new Trainer("Randolph Scott", "Senior Trainer", "randolph.scott@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		log.info("API Testing createTrainer at " + baseUrl + createTrainer);
-//		given().spec(requestSpec).header(authHeader, accessToken)
-//				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()
-//				.post(baseUrl + createTrainer).then().assertThat().statusCode(201);
+		given().spec(requestSpec).header(authHeader, accessToken)
+				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()
+				.post(baseUrl + createTrainer).then().assertThat().statusCode(201);
 	}
 	@Test
 	public void createTraineeTest(){
