@@ -28,6 +28,10 @@ public class TrainerAPITest extends AbstractAPITest{
 	 * Trainer API endpoints
 	 */
 	private String findByEmail = "training/trainer/byemail/patrick.walsh@revature.com/";
+	private String createTrainee ="/all/trainee/create";
+	private String updateTrainee = "/all/trainee/update";
+	private String deleteTrainee = "/all/trainee/delete/5468";
+	private String retreiveTraineeByEmail = "/all/trainee/getByEmail/starrv2011@gmail.com";
 
 	@Test
 	public void findByEmail() throws Exception {
@@ -39,5 +43,21 @@ public class TrainerAPITest extends AbstractAPITest{
 				.get(baseUrl + findByEmail).then().assertThat()
 				.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
-
+	@Test
+	public void createTraineeTest(){
+		
+	}
+	@Test
+	public void updateTraineeTest(){
+		
+	}
+	@Test
+	public void deleteTraineeTest(){
+		
+	}
+	@Test
+	public void retreiveTraineeByEmailTest(){
+		
+	}	
+	
 }
