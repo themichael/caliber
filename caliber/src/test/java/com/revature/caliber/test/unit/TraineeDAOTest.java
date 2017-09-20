@@ -29,7 +29,6 @@ public class TraineeDAOTest extends CaliberTest {
 	private static final Logger log = Logger.getLogger(TraineeDAOTest.class);
 
 	@Autowired
-	private TrainingController trainingController;
 	private TraineeDAO traineeDAO;
 	private static final String TRAINEE_COUNT = "select count(trainee_id) from caliber_trainee";
 	private static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
@@ -42,7 +41,8 @@ public class TraineeDAOTest extends CaliberTest {
 	@Test
 	public void testSave() {
 		log.info("CREATE TRAINEE");
-		Batch batch = trainingController.getAllBatches().getBody().get(0);
+		Batch batch = new Batch();
+		batch.setBatchId(2200);
 		String name = "Danny McQuack";
 		String email = "test@anotherDomain.com";
 		Trainee trainee = new Trainee(name, null, email, batch);
@@ -84,7 +84,8 @@ public class TraineeDAOTest extends CaliberTest {
 	@Test
 	public void testFindAllByBatch() {
 		log.info("FIND ALL TRAINEES BY BATCH");
-		Batch batch = trainingController.getAllBatches().getBody().get(0);
+		Batch batch = new Batch();
+		batch.setBatchId(2200);
 		String traineeCountByBatch = TRAINEE_COUNT + " where batch_id = " + batch.getBatchId()
 				+ " and training_status != 'Dropped'";
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batch.getBatchId());
@@ -101,7 +102,8 @@ public class TraineeDAOTest extends CaliberTest {
 	public void testFindAllDroppedByBatch() {
 		log.info("FIND ALL TRAINEES DROPPED BY BATCH");
 
-		Batch batch = trainingController.getAllBatches().getBody().get(0);
+		Batch batch = new Batch();
+		batch.setBatchId(2200);
 		String traineeCountByBatch = TRAINEE_COUNT + " where batch_id = " + batch.getBatchId()
 				+ " and training_status = 'Dropped'";
 		Long actualBatchDroppedSize = jdbcTemplate.queryForObject(traineeCountByBatch, Long.class);
@@ -118,7 +120,8 @@ public class TraineeDAOTest extends CaliberTest {
 	@Test
 	public void testFindAllByTrainer() {
 		log.info("FIND ALL TRAINEES BY TRAINER");
-		Trainer trainer = trainingController.getAllTrainers().getBody().get(0);
+		Trainer trainer = new Trainer();
+			trainer.setTrainerId(1);
 		String traineeCountByTrainer = TRAINEE_COUNT + " WHERE BATCH_ID IN "
 				+ "(SELECT BATCH_ID FROM CALIBER_BATCH WHERE TRAINER_ID = " + trainer.getTrainerId() + ") "
 				+ " AND TRAINING_STATUS != 'Dropped'";
