@@ -1,6 +1,7 @@
 package com.revature.caliber.test.integration;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -344,6 +345,45 @@ public class ReportingServiceTest extends CaliberTest {
 		} catch (NullPointerException e) {
 			log.debug(e);
 		}
+	}
+	/**
+	 * Tests method:
+	 * com.revature.caliber.services.ReportingService.getBatchWeekAvgBarChart(int batchId, int week)
+	 */
+	@Test
+	public void getBatchWeekAvgBarChartTest(){
+		log.info("getBatchWeekAvgBarChartTest");
+		Map<String, Double[]> test= reportingService.getBatchWeekAvgBarChart(2050, 2);
+		assertEquals((Double)90.55166666666666, (Double)test.get("Exam")[0]);
+		assertNotEquals((Double)90.55166666666666, (Double)test.get("Exam")[1]);
+		assertEquals(2, test.get("Exam").length);
+		assertEquals(1, test.size());
+	}
+	/**
+	 * Tests method:
+	 * com.revature.caliber.services.ReportingService.getBatchWeekSortedBarChart(int batchId, int week)
+	 */
+	@Test
+	public void getBatchWeekSortedBarChartTest(){
+		log.info("getBatchWeekSortedBarChartTest");
+		Map<String, Double> test =reportingService.getBatchWeekSortedBarChart(2050, 2);
+		assertNotEquals((Double)96.29, (Double)test.get("Issac,Fouche"));
+		assertEquals((Double)96.29, (Double)test.get("Fouche, Issac"));
+		assertNotEquals((Double)96.29, (Double)test.get("Castillo, Erika"));
+		assertEquals(6, test.size());
+	}	
+	/**
+	 * Tests method:
+	 * com.revature.caliber.services.ReportingService.getBatchOverallTraineeBarChart(Integer batchId, Integer traineeId)
+	 */
+	@Test
+	public void getBatchOverallTraineeBarChartTest(){
+		log.info("getBatchOverallTraineeBarChartTest");
+		Map<String, Double[]> test =reportingService.getBatchOverallTraineeBarChart(2050, 5354);
+		assertEquals((Double)90.9825, (Double)test.get("Exam")[0]);
+		assertNotEquals((Double)90.9825, (Double)test.get("Exam")[1]);
+		assertEquals(2, test.get("Exam").length);
+		assertEquals(1, test.size());
 	}
 	
 	
