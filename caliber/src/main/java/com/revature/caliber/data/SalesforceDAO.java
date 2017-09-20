@@ -70,18 +70,6 @@ public class SalesforceDAO {
 	 * Trainee details. ResourceId *MUST* be surrounded in single quotes to
 	 * function properly
 	 */
-	/*
-	 * @Value("select id, name, training_status__c, phone, email, MobilePhone, "
-	 * + "Training_Batch__c , Training_Batch__r.name, " +
-	 * "Training_Batch__r.batch_start_date__c, " +
-	 * "Training_Batch__r.batch_end_date__c, " +
-	 * "Training_Batch__r.batch_trainer__r.name, " +
-	 * "rnm__Recruiter__r.name, account.name, " +
-	 * "Training_Batch__r.Co_Trainer__r.name, " +
-	 * "eintern_current_project_completion_pct__c , " +
-	 * "Training_Batch__r.Skill_Type__c, " +
-	 * "Training_Batch__r.Type__c from Contact " + "where training_batch__c = ")
-	 */
 	@Value("select id, name, training_status__c, phone, email, MobilePhone, Training_Batch__c ,"
 			+ " Training_Batch__r.name, Training_Batch__r.batch_start_date__c, Training_Batch__r.batch_end_date__c,"
 			+ " Training_Batch__r.batch_trainer__r.name, rnm__Recruiter__r.name, account.name, "
