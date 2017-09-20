@@ -13,7 +13,7 @@ public class CategoryTest extends CaliberTest {
 	/**
 	 * Tests methods:
 	 * 
-	 * @see com.revature.caliber.controllers.CategoryController#findAllCategories()
+	 * @see com.revature.caliber.controllers.CategoryController#findAllActive()
 	 */
 	public void findAllCategories() {
 		throw new UnsupportedOperationException(NOT_YET_IMPLEMENTED);
