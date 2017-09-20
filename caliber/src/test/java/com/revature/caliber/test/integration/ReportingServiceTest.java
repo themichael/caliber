@@ -58,7 +58,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 * | Trainee 2 |     20,50 |     30,50 |     40,50 |     50,50 |     60,50 |
 	 * | Trainee 3 |     30,50 |     40,50 |     50,50 |     60,50 |     70,50 |
 	 * 
-	 * Everything past that amount of detail doesn't really matter
+	 * Everything past that amount of detail doesn't really matter for Utility functions
 	 * 
 	 */
 	@BeforeClass
@@ -199,10 +199,9 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void testUtilAvgBatchWeekWithThreeParam() {
 		log.info("UtilAvgBatchWeekWithThreeParam Test");
-		Map<Trainee, Double[]> actual = new HashMap<>();
 		double[] possAvg = { 30.0, 35.0, 40.0 };
 		int pos = 0;
-		actual = reportingService.utilAvgBatchWeek(trainees, 1, AssessmentType.Exam);
+		Map<Trainee, Double[]> actual = reportingService.utilAvgBatchWeek(trainees, 1, AssessmentType.Exam);
 		for (Trainee trainee : trainees) {
 			assertEquals(new Double(possAvg[pos]), actual.get(trainee)[0]);
 			pos++;
@@ -213,9 +212,8 @@ public class ReportingServiceTest extends CaliberTest {
 	public void testUtilAvgTraineeOverallWithThreeParam() {
 		log.info("UtilAvgTraineeOverallWithThreeParam Test");
 		int weeks = 5;
-		Map<Integer, Double[]> actual = new HashMap<>();
 		double[] possAvg = { 30.0, 35.0, 40.0, 45.0, 50.0 };
-		actual = reportingService.utilAvgTraineeOverall(trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
+		Map<Integer, Double[]> actual = reportingService.utilAvgTraineeOverall(trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
 		for (int i = 0; i < weeks; i++) {
 			assertEquals(new Double(possAvg[i]), actual.get(i + 1)[0]);
 		}
@@ -237,10 +235,9 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void utilAvgTraineeWeekWithTwoParams() {
 		log.info("Calculate One Trainee's Average for all Exams in a Given Week");
-		Set<Grade> grades = new HashSet<Grade>();
 		Double expectedAverage = 30.0;
 		int selectedTrainee = 0; // Selects first trainee in dummy batch
-		grades = trainees.get(selectedTrainee).getGrades();
+		Set<Grade> grades = trainees.get(selectedTrainee).getGrades();
 		Double avg = 0d;
 		for (Grade g : grades)
 			avg += g.getScore();
@@ -252,10 +249,9 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void utilAvgBatchWeekWithTwoParams() {
 		log.info("Calculate Each Trainee's Average for a Given Week");
-		Set<Grade> grades = new HashSet<Grade>();
 		double[] averages = { 30.0, 35.0, 40.0 }; // Week 1 averages for all 3 trainees
 		for (int i = 0; i < 3; i++) {
-			grades = trainees.get(i).getGrades();
+			Set<Grade> grades = trainees.get(i).getGrades();
 			Double avg = 0d;
 			for (Grade g : grades)
 				avg += g.getScore();
