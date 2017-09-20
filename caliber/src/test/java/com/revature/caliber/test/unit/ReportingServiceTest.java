@@ -148,13 +148,42 @@ public class ReportingServiceTest extends CaliberTest{
 	
 	
 	/**
-	 * Tests methods:
+	 * Tests methods:getBatchOverallRadarChart
+	 * testing batch 2150 and 2200
+	 * spot testing average of category for batch
 	 * 
 	 * @see com.revature.caliber.services.ReportingService#getBatchOverallRadarChart(List<Grade> grades)
 	 */
 	@Test
 	public void getBatchOverallRadarChart(){
-		Map<String, Double> skills = reportingService.getBatchOverallRadarChart(TEST_BATCH_ID);
+		Integer batch1 = 2150;
+		Integer batch2 = 2200;
+		
+		Map<String, Double> skills = reportingService.getBatchOverallRadarChart(batch1);
+		assertEquals(7,skills.size());
+		assertEquals(76.70,skills.get("Java"),.01);
+		assertEquals(89.74,skills.get("Hibernate"),.01);
+		
+		skills = reportingService.getBatchOverallRadarChart(batch2);
+		assertEquals(10,skills.size());
+		assertEquals(77.88,skills.get("JDBC"),.01);
+		assertEquals(89.52,skills.get("Spring"),.01);
+		
+	}
+	
+	@Test
+	public void getBatchAllTraineesOverallRadarChart(){
+		Integer batch1 = 2150;
+		Integer batch2 = 2200;
+		Map<String, Map<String, Double>> skills = reportingService.getBatchAllTraineesOverallRadarChart(batch1);
+		assertEquals(13,skills.size());
+		assertEquals(91.55,skills.get("Erwin, Eric").get("SQL"),.01);
+		assertEquals(84.16,skills.get("Michels, Alex").get("Hibernate"),.01);
+		
+		skills = reportingService.getBatchAllTraineesOverallRadarChart(batch2);
+		assertEquals(15,skills.size());
+		assertEquals(84.95,skills.get("Lau, Samuel").get("SOAP"),.01);
+		assertEquals(78.17,skills.get("Sibrian, David").get("REST"),.01);
 		
 	}
 }
