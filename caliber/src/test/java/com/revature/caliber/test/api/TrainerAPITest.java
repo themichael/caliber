@@ -36,17 +36,17 @@ public class TrainerAPITest extends AbstractAPITest {
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
-		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON).when()
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + findByEmail).then().assertThat().statusCode(200)
 				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
 
 	@Test
 	public void createTrainer() throws Exception {
-		Trainer expected = new Trainer("Randolph Scott", "Senior Trainer", "randolph.scott@revature.com",
+		Trainer expected = new Trainer("Howard Johnson", "Senior Trainer", "howard.johnson@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		log.info("API Testing createTrainer at " + baseUrl + createTrainer);
-		given().spec(requestSpec).header(authHeader, accessToken)
+		given().spec(requestSpec).header(auth, accessToken)
 				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()
 				.post(baseUrl + createTrainer).then().assertThat().statusCode(201);
 	}
