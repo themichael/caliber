@@ -426,6 +426,11 @@ public class ReportingService {
 		return results;
 	}
 
+	/**
+	 * Method to retrieve the current batches averages
+	 * 
+	 * @return Map<Batch Name, Map<week, batch week average>>
+	 */
 	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChartConcurrent() {
 		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
 		List<Batch> batches = batchDAO.findAllCurrentWithNotesAndTrainees();
@@ -442,11 +447,12 @@ public class ReportingService {
 	 */
 
 	/**
+	 * Returns Trainee's skills and grade average up to a certain week
 	 * label-Axis: value-Axis:
 	 * 
 	 * @param traineeId
 	 * @param week
-	 * @return
+	 * @return Map<skill name, grade average>
 	 */
 	public Map<String, Double> getTraineeUpToWeekRadarChart(Integer traineeId, Integer week) {
 		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
@@ -457,10 +463,11 @@ public class ReportingService {
 	}
 
 	/**
+	 * Returns all skills and grade averages for a given Trainee
 	 * label-Axis: value-Axis:
 	 * 
 	 * @param traineeId
-	 * @return
+	 * @return Map<skill name, grade average>
 	 */
 	public Map<String, Double> getTraineeOverallRadarChart(Integer traineeId) {
 		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
@@ -475,9 +482,12 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<String, Double> getBatchOverallRadarChart(Integer batchId) {
+		//get List of grades from individual batch
 		List<Grade> grades = gradeDAO.findByBatch(batchId);
+		//map the average for each score category
 		Map<Category, Double[]> skills = utilAvgSkills(grades);
 		log.info("getBatchOverallRadarChart : "+utilReplaceCategoryWithSkillName(skills));
+		
 		return utilReplaceCategoryWithSkillName(skills);
 	}
 
@@ -494,6 +504,7 @@ public class ReportingService {
 			Map<Category, Double[]> skills = utilAvgSkills(new ArrayList<>(t.getGrades()));
 			results.put(t.getName(), utilReplaceCategoryWithSkillName(skills));
 		});
+		log.info("getBatchAllTraineesOverallRadarChart : "+results);
 		return results;
 	}
 	/*

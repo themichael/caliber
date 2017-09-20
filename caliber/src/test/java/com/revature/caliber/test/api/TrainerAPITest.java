@@ -25,7 +25,7 @@ public class TrainerAPITest extends AbstractAPITest {
 	private static final Logger log = Logger.getLogger(TrainerAPITest.class);
 
 	/*
-	 * Trainer API endpoints
+	 * Trainer API endpoints 
 	 */
 	private String findByEmail = "training/trainer/byemail/patrick.walsh@revature.com/";
 	private String createTrainer = "vp/trainer/create";
