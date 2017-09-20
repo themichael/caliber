@@ -194,7 +194,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		}).then(function(response) {
 			$log.debug("Trainees successfully imported");
 			$log.debug(response.data);
-			return response;
+			return response.data;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 			return response.data;
