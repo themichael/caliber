@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
@@ -73,9 +75,10 @@ public class EvaluationService {
 	 * @param traineeId
 	 * @return
 	 */
+	@Transactional
 	public List<Grade> findAllGrades() {
 		log.debug("Finding all grades");
-		return gradeDAO.findAll();
+		return initializeLazyLoaded(gradeDAO.findAll());
 	}
 
 	/**
@@ -84,9 +87,10 @@ public class EvaluationService {
 	 * @param assessmentId
 	 * @return
 	 */
+	@Transactional
 	public List<Grade> findGradesByAssessment(Long assessmentId) {
 		log.debug("Finding grades for assessment: " + assessmentId);
-		return gradeDAO.findByAssessment(assessmentId);
+		return initializeLazyLoaded(gradeDAO.findByAssessment(assessmentId));
 	}
 
 	/**
@@ -95,9 +99,10 @@ public class EvaluationService {
 	 * @param traineeId
 	 * @return
 	 */
+	@Transactional
 	public List<Grade> findGradesByTrainee(Integer traineeId) {
 		log.debug("Finding all grades for trainee: " + traineeId);
-		return gradeDAO.findByTrainee(traineeId);
+		return initializeLazyLoaded(gradeDAO.findByTrainee(traineeId));
 	}
 
 	/**
@@ -106,9 +111,10 @@ public class EvaluationService {
 	 * @param batchId
 	 * @return
 	 */
+	@Transactional
 	public List<Grade> findGradesByBatch(Integer batchId) {
 		log.debug("Finding all grades for batch: " + batchId);
-		return gradeDAO.findByBatch(batchId);
+		return initializeLazyLoaded(gradeDAO.findByBatch(batchId));
 	}
 
 	/**
@@ -117,9 +123,10 @@ public class EvaluationService {
 	 * @param batchId
 	 * @return
 	 */
+	@Transactional
 	public List<Grade> findGradesByCategory(Integer categoryId) {
 		log.debug("Finding all grades for category: " + categoryId);
-		return gradeDAO.findByCategory(categoryId);
+		return initializeLazyLoaded(gradeDAO.findByCategory(categoryId));
 	}
 
 	/**
@@ -158,9 +165,10 @@ public class EvaluationService {
 	 * @param trainerId
 	 * @return
 	 */
+	@Transactional
 	public List<Grade> findGradesByTrainer(Integer trainerId) {
 		log.debug("Finding all grades for trainer: " + trainerId);
-		return gradeDAO.findByTrainer(trainerId);
+		return initializeLazyLoaded(gradeDAO.findByTrainer(trainerId));
 	}
 
 	/*
@@ -320,5 +328,12 @@ public class EvaluationService {
 	public List<Note> findAllQCTraineeOverallNotes(Integer traineeId) {
 		log.debug("Find All QC Trainee Notes for that trainee");
 		return noteDAO.findAllQCTraineeOverallNotes(traineeId);
+	}
+	
+	private List<Grade> initializeLazyLoaded(List<Grade> grades){
+		for(Grade grade: grades){
+			Hibernate.initialize(grade.getAssessment().getBatch().getTrainees());
+		}
+		return grades;
 	}
 }
