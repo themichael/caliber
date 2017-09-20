@@ -1,14 +1,22 @@
 package com.revature.caliber.test.api;
 
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.data.GradeDAO;
+
+import io.restassured.http.ContentType;
 
 public class EvaluationAPITest extends AbstractAPITest{
 
 	private static final Logger log = Logger.getLogger(EvaluationAPITest.class);
+	
+	private static final String findByTrainee = "all/grade/trainee/5529";
 	
 	@Test
 	public void createGrade(Grade grade){
@@ -36,6 +44,13 @@ public class EvaluationAPITest extends AbstractAPITest{
 	@Test
 	public void findByTrainee(){
 		
+		
+		
+		given().spec(requestSpec).header("Authorization", accessToken)
+		.contentType(ContentType.JSON)
+		.when().get(baseUrl + findByTrainee)
+		.then().assertThat()
+		.statusCode(200);
 	}
 	
 	/**
