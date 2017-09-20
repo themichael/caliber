@@ -27,4 +27,36 @@ public class EvaluationAPITest extends AbstractAPITest{
 	public void findByAssessment(Long assessmentId){
 		
 	}
+	
+	//Alvin's 
+	
+	@Test
+	public void findQCBatchNotes() {
+		
+	}
+	
+	@Test
+	public void getAllQCTraineeNotes() {
+		
+	}
+	
+	@Test
+	public void getAllQCTraineeOverallNotes(){
+		
+	}
+	
+	@Test
+	public void findAllBatchNotes() {
+		
+	}
+	
+	@Test
+	public void findAllIndividualNotes() {
+		
+	}
+	
+	@Test 
+	public void findAllTraineeNotes() {
+		
+	}
 }
