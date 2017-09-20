@@ -64,6 +64,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasRole('VP')")
 	public ResponseEntity<Address> createLocation(@Valid @RequestBody Address location) {
 		log.info("Saving location: " + location);
 		trainingService.createLocation(location);
@@ -79,6 +80,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasRole('VP')")
 	public ResponseEntity<Void> updateLocation(@Valid @RequestBody Address location) {
 		log.info("Updating location: " + location);
 		trainingService.update(location);
@@ -92,6 +94,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/location/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<Address>> getAllLocations() {
 		log.info("Fetching all locations");
 		List<Address> locations = trainingService.findAllLocations();
@@ -106,6 +109,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasRole('VP')")
 	public ResponseEntity<Void> removeLocation(@Valid @RequestBody Address location) {
 		log.info("Deactivating location: " + location);
 		trainingService.update(location);
@@ -120,6 +124,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/reactivate", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasRole('VP')")
 	public ResponseEntity<Void> reactivateLocation(@Valid @RequestBody Address location) {
 		log.info("Updating location: " + location);
 		trainingService.update(location);
