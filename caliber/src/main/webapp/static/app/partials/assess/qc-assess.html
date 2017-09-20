@@ -1,6 +1,5 @@
-<div class="bg-primary align center" ng-if="!currentBatch">No data available.</div>
 <!-- Year selector and Add Assessment button -->
-<div ng-if="currentBatch">
+<div class="container">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-lg-12 top10">
@@ -14,7 +13,7 @@
 						</ul></li>
 
 					<!-- top ui for viewing all assessments -->
-					<li role="button" class="dropdown"><a
+					<li role="button" class="dropdown" ng-if="currentBatch"><a
 						class="dropdown-toggle" data-toggle="dropdown"> {{
 							trainingNameDate }} <span class="caret"></span>
 					</a>
@@ -24,9 +23,10 @@
 									batch.trainer.name }} - {{ batch.startDate | date:'shortDate' }} </a>
 						</ul></li>
 				</ul>
-
+				<!-- Display No data -->
+				<div class="bg-primary align center" ng-if="!currentBatch">No data available for {{ selectedYear }}.</div>
 				<!-- top ui for viewing trainee grades -->
-				<ul class="nav nav-tabs" ng-show="!currentView">
+				<ul class="nav nav-tabs" ng-show="!currentView" ng-if="currentBatch">
 					<li role="button" class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown"> {{ currentAssessment.title }} <span
 							class="caret"></span></a>
@@ -39,7 +39,7 @@
 				</ul>
 			</div>
 			<!-- Display all the weeks in the current selected batch -->
-			<div class="col-sm-12 col-md-12 col-lg-12 top5">
+			<div class="col-sm-12 col-md-12 col-lg-12 top5" ng-if="currentBatch">
 				<ul class="nav nav-tabs">
 					<li role="button" class="{{showActiveWeek($index)}}"
 						ng-click="selectWeek($index)"
@@ -53,7 +53,7 @@
 		</div>
 	</div>
 	<!-- Assessments table -->
-	<div class="container">
+	<div class="container" ng-if="currentBatch">
 		<div class="row" id="qcTrainees">
 			<div class="col-md-12 col-lg-12 top5">
 				<ul class="nav nav-tabs">

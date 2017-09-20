@@ -1,4 +1,4 @@
-package com.revature.caliber.test;
+package com.revature.caliber.test.integration;
 
 import java.util.List;
 import java.util.Map;
