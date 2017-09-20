@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
@@ -34,6 +35,9 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	private String findByEmail = "training/trainer/byemail/patrick.walsh@revature.com/";
 	private String findAllDroppedTrainees = "all/trainee/dropped";
+	private String findAllTraineesInBatch = "all/trainee";
+	private String getAllBatches = "qc/batch/all";
+	private String getAllCurrentBatches = "vp/batch/all/current";
 	private String createTrainer = "vp/trainer/create";
 
 	@Test
@@ -63,6 +67,49 @@ public class TrainingAPITest extends AbstractAPITest {
 			if(dude.getTrainingStatus() != TrainingStatus.Dropped){
 				success = false;
 			}
+		}
+		assertTrue(success);
+	}
+	
+	/**
+	 * findAllByBatch(@RequestParam(required = true) Integer batch)
+	 * @throws Exception 
+	 */
+	@Test
+	public void findAllByBatchTest(){
+		log.info("API Testing findAllByBatchTest at baseUrl  " + baseUrl);
+		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
+				.get(baseUrl + findAllTraineesInBatch).then().assertThat().statusCode(200);
+	}
+	
+	/**
+	 * getAllBatches()
+	 */
+	@Test
+	public void getAllBatchesTest(){
+		log.info("API Testing getAllBatchesTest at baseUrl  " + baseUrl);
+		Response actual = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
+				.get(baseUrl + getAllBatches).then().assertThat().statusCode(200).extract().response();
+		Batch[] resultSet = actual.as(Batch[].class);
+		boolean success = false;
+		if (resultSet.length > 0){
+			success = true;
+		}
+		assertTrue(success);
+	}
+	
+	/**
+	 * getAllCurrentBatches()
+	 */
+	@Test
+	public void getAllCurrentBatchesTest(){
+		log.info("API Testing getAllCurrentBatchesTest at baseUrl  " + baseUrl);
+		Response actual = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
+				.get(baseUrl + getAllCurrentBatches).then().assertThat().statusCode(200).extract().response();
+		Batch[] resultSet = actual.as(Batch[].class);
+		boolean success = false;
+		if (resultSet.length > 0){
+			success = true;
 		}
 		assertTrue(success);
 	}
