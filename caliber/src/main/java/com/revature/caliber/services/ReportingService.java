@@ -94,7 +94,7 @@ public class ReportingService {
 
 	/**
 	 * Pie chart displaying number of trainees that received red, yellow, green,
-	 * x-Axis: QC Statuses y-Axis: Number of Trainees with
+	 * x-Axis: QC Statuses y-Axis: Number of Trainees with QC Status
 	 * 
 	 * @param batchId
 	 * @param weekNumber
