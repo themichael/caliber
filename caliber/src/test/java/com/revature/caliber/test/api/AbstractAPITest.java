@@ -56,7 +56,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 		// only login with Salesforce once
 		if (accessToken.equals("Auth ")) {
 			try {
-				login();
+				//login();
 				log.info("Logging into Caliber for API testing");
 				Response response = given().redirects().allowCircular(true).get(baseUrl + "caliber/");
                 String sessionCookie = response.getCookie("JSESSIONID");
@@ -79,7 +79,6 @@ public abstract class AbstractAPITest extends CaliberTest {
 		parameters.add(new BasicNameValuePair("username", username));
 		parameters.add(new BasicNameValuePair("password", password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
-		log.info("Generating Salesforce token using clientId " + clientId);
 		HttpResponse response = httpClient.execute(post);
 		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(), 
 				JsonNode.class); // test
