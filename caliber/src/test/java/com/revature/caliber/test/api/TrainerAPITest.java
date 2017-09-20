@@ -43,7 +43,7 @@ public class TrainerAPITest extends AbstractAPITest {
 
 	@Test
 	public void createTrainer() throws Exception {
-		Trainer expected = new Trainer("Randolph Scott", "Senior Trainer", "randolph.scott@revature.com",
+		Trainer expected = new Trainer("Howard Johnson", "Senior Trainer", "howard.johnson@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		log.info("API Testing createTrainer at " + baseUrl + createTrainer);
 		given().spec(requestSpec).header(auth, accessToken)
