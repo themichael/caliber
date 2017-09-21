@@ -86,7 +86,7 @@
 	</div>
 </div>
 <!-- Assessments table -->
-<div class="container" id="trainer-assess-table" ng-if="currentBatch">
+<div class="container"  ng-if="currentBatch">
 	<div class="row">
 		<div class="col-md-12 col-lg-12 top5">
 			<p class="bg-primary align center" ng-show="noTrainees">{{noTraineesMessage}}</p>
@@ -156,13 +156,13 @@
 					<div
 						class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
 						<textarea ng-model="$parent.trainerBatchNote.content"
-							class="form-control" id="tBatchNotes"
+							class="form-control" name="asdfjkl;"
 							ng-blur="saveTrainerNotes(trainerBatchNote.noteId)"
 							placeholder="Enter your overall feedback on the batch" required>
 					</textarea>
-						<div class='save-button-wrapper'>
+						<div class='save-button-wrapper' >
 							<a ng-click="doBurrito()" ng-show="showFloppy"
-								class='save-button fade-in'> <span
+								class='save-button fade-in' name = "saveButton"> <span
 								class="fa fa-floppy-o fa-2x" aria-hidden="true"></span>Save
 							</a>
 							<div class='spinner fa-style' ng-show="showSaving">

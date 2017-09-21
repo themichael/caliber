@@ -244,7 +244,6 @@ angular
 										views : {
 											"" : {
 												templateUrl : "/static/app/partials/assess/trainer-assess.html",
-												
 												controller : "trainerAssessController"
 											},
 											"trainer-edit-assess@trainer.assess" : {
