@@ -21,7 +21,6 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.NoteDAO;
 
 public class BatchDAOTest extends CaliberTest {
 	
@@ -29,8 +28,6 @@ public class BatchDAOTest extends CaliberTest {
 	
 	@Autowired
 	private BatchDAO batchDAO;
-	@Autowired
-	private NoteDAO noteDAO;
 	
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
