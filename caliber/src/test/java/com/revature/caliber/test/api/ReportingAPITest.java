@@ -33,7 +33,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	@Test
 	public void testGetBatchComparisonAvg() throws Exception {
 		log.info("TESTING getBatchComparisonAvg");
-		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 				.when().get(baseUrl + "all/reports/compare/skill/Java"
 						+ "/training/University"
 						+ "/date/14-NOV-16")
@@ -45,7 +45,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	public void testGetBatchWeekPieChart() throws JsonProcessingException {
 		log.info("TESTING getBatchWeekPieChart");
 		Map<QCStatus, Integer> expected = new HashMap<>();
-		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/2200/week/1/pie")
 			.then().assertThat().statusCode(200)
 				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
@@ -55,14 +55,14 @@ public class ReportingAPITest extends AbstractAPITest{
 	@Test
 	public void testGetPieChartCurrentWeekQCStatus() {
 		log.info("TESTING getPieChartCurrentWeekQCStatus");
-		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/654654654/pie")
 			.then().assertThat().statusCode(200);
 	}
 	@Test
 	public void testGetAllBatchesCurrentWeekQCStackedBarChart() {
 		log.info("TESTING getAllBatchesCurrentWeekQCStackedBarChart");
-		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/week/stacked-bar-current-week")
 			.then().assertThat().statusCode(200);
 	}
@@ -70,7 +70,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	@Test
 	public void testGetBatchWeekAvgBarChart() {
 		log.info("TESTING getBatchWeekAvgBarChart");
-		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/2200/week/1/bar-batch-week-avg")
 			.then().assertThat().statusCode(200);
 		//Bad Batch number in the uri (223300) should return empty JSON object
@@ -84,7 +84,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	public void testGetBatchWeekSortedBarChart() {
 		log.info("TESTING getBatchWeekSortedBarChart");
 		log.info("TESTING getBatchWeekAvgBarChart");
-		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/2200/week/1/bar-batch-weekly-sorted")
 			.then().assertThat().statusCode(200);
 		//Bad Batch number in the uri (223300) should return empty JSON object
