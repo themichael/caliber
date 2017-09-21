@@ -1,6 +1,7 @@
 package com.revature.caliber.salesforce;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.SkillType;
@@ -11,6 +12,7 @@ import com.revature.salesforce.beans.BatchTrainer;
 import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceTrainee;
 
+@Component
 public class SalesforceTransformerToCaliber {
 
 	private static final Logger logger = Logger.getLogger(SalesforceTransformerToCaliber.class);
@@ -82,6 +84,25 @@ public class SalesforceTransformerToCaliber {
 		trainee.setPhoneNumber(salesforceTrainee.getPhone());
 		trainee.setPhoneNumber(salesforceTrainee.getMobilePhone());
 		trainee.setResourceId(salesforceTrainee.getId());
+		trainee.setCollege(salesforceTrainee.getCollege().getName());
+		trainee.setProjectCompletion(salesforceTrainee.getProjectCompletion());
+		trainee.setRecruiterName(salesforceTrainee.getRecruiter().getName());
+		trainee.setTechScreenerName(salesforceTrainee.getScreener());
+		// trainee.setTechScreenFeedback(salesforceTrainee.getScreenFeedback());
+		String degree = "None";
+		if (salesforceTrainee.getAssociates() != null){
+			degree = "Associates";
+			trainee.setMajor(salesforceTrainee.getAssociates());
+		}
+		if (salesforceTrainee.getBachelors() != null){
+			degree = "Bachelors";
+			trainee.setMajor(salesforceTrainee.getBachelors());
+		}
+		if (salesforceTrainee.getMasters() != null){
+			degree = "Masters";
+			trainee.setMajor(salesforceTrainee.getMasters());
+		}
+		trainee.setDegree(degree);
 		return trainee;
 	}
 
@@ -92,8 +113,8 @@ public class SalesforceTransformerToCaliber {
 		if (stringTrainingStatus == null) {
 			stringTrainingStatus = "";
 		}
-		switch(stringTrainingStatus){
-		case "Declined Offer": 
+		switch (stringTrainingStatus) {
+		case "Declined Offer":
 			stringTrainingStatus = "Dropped";
 			return transformStatusHelper(stringTrainingStatus);
 		case "Did Not Show":

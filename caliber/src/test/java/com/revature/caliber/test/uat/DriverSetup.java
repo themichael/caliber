@@ -11,6 +11,7 @@ public class DriverSetup {
 		return driver;
 	}
 	
+	
 	public void setDriver(WebDriver driver) {
 		DriverSetup.driver = driver;
 	}

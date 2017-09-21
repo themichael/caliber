@@ -5,7 +5,7 @@ angular
 						ChartJsProvider, $logProvider) {
 
 					// Turn on/off debug messages
-					$logProvider.debugEnabled(false);
+					$logProvider.debugEnabled(true);
 
                     // chart options
 					ChartJsProvider.setOptions({
@@ -244,7 +244,6 @@ angular
 										views : {
 											"" : {
 												templateUrl : "/static/app/partials/assess/trainer-assess.html",
-												
 												controller : "trainerAssessController"
 											},
 											"trainer-edit-assess@trainer.assess" : {

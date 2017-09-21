@@ -81,10 +81,9 @@ public class TrainingService {
 		return addressDAO.findAll();
 	}
 	
-
-	public Address getOne(long l) {
-		log.info("Getting Address with ID " + l);
-		Address address = addressDAO.getOne(l);
+	public Address findById(int id) {
+		log.info("Getting Address with ID " + id);
+		Address address = addressDAO.getAddressById(id);
 		log.info("Got " + address);
 		return address;
 	}
@@ -381,9 +380,11 @@ public class TrainingService {
 	 * UPDATE TRAINEE
 	 *
 	 * @param trainee
+	 * Validation needs to be added for when a trainee is updated 
 	 */
 	public void update(Trainee trainee) {
 		log.debug("Update trainee " + trainee);
+		
 		traineeDAO.update(trainee);
 	}
 
