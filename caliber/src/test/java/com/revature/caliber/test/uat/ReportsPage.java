@@ -24,12 +24,12 @@ public class ReportsPage {
 		URL = uRL;
 	}
 
-	public ReportsPage(WebDriver driver){
-		this.driver = (PhantomJSDriver)driver;
+	public ReportsPage(PhantomJSDriver driver){
+		this.driver = driver;
 	}
 	
 	public void gotoReportsPage(){
-		driver.get("http://localhost:8080/caliber/#/vp/manage");
+		driver.get("http://localhost:8080/caliber/#/vp/assess");
 		URL = driver.getCurrentUrl();
 		System.out.println("CurrentURL = " + driver.getCurrentUrl());
 		System.out.println(driver.getTitle());
@@ -40,7 +40,7 @@ public class ReportsPage {
 	}
 	
 	public void verifyReportsPage(){
-		assertEquals("http://localhost:8080/caliber/#/vp/manage", 
+		assertEquals("http://localhost:8080/caliber/#/vp/assess", 
 				driver.getCurrentUrl());
 	}
 	
