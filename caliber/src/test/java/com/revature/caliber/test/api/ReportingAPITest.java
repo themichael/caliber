@@ -37,25 +37,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	private static String batchAverage = "all/assessments/average/";
 	private static String batchAssessmentCategories = "all/assessments/categories/batch/";
 	
-//	/**
-//	 * 
-//	 * (unfinished)
-//	 * 
-//	 * */
-//	@Test
-//	public void testGetBatchComparisonAvg() throws Exception {
-//		log.info("TESTING getBatchComparisonAvg");
-//		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
-//				.when().get(baseUrl + "all/reports/compare/skill/Java"
-//						+ "/training/University"
-//						+ "/date/14-NOV-16")
-//				.then().assertThat().statusCode(200)
-//					.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(new HashMap<Double,Double>())));
-//	}
-//	
-//	
-//	
-//	
+
 	
 	/**
 	 * Tested Method:
