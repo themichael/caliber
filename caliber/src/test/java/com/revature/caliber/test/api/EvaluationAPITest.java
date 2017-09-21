@@ -48,6 +48,10 @@ public class EvaluationAPITest extends AbstractAPITest{
 	private static final Logger log = Logger.getLogger(EvaluationAPITest.class);
 	
 	private static final String findByTrainee = "all/grade/trainee/5529";
+	private static final String findByBatch = "all/grade/batch/2150";
+	private static final String findByCategory = "all/grade/category/12";
+	private static final String findByWeek = "all/grade/batch/2150/week/7";
+	private static final String findByTrainer = "all/grade/trainer/1";
 	
 	private String createGrade = "trainer/grade/create";
 	private String updateGrade = "trainer/grade/update";
@@ -190,6 +194,12 @@ public class EvaluationAPITest extends AbstractAPITest{
 	@Test
 	public void findByBatch(){
 		
+		given().spec(requestSpec).header("Authorization", accessToken)
+		.contentType(ContentType.JSON)
+		.when().get(baseUrl + findByBatch)
+		.then().assertThat()
+		.statusCode(200);
+		
 	}
 	
 	/**
@@ -199,6 +209,11 @@ public class EvaluationAPITest extends AbstractAPITest{
 	@Test
 	public void findByCategory(){
 		
+		given().spec(requestSpec).header("Authorization", accessToken)
+		.contentType(ContentType.JSON)
+		.when().get(baseUrl + findByCategory)
+		.then().assertThat()
+		.statusCode(200);
 	}
 	
 	/**
@@ -206,7 +221,11 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void findByWeek(){
-		
+		given().spec(requestSpec).header("Authorization", accessToken)
+		.contentType(ContentType.JSON)
+		.when().get(baseUrl + findByWeek)
+		.then().assertThat()
+		.statusCode(200);
 	}
 	
 	/**
@@ -216,7 +235,11 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void findByTrainer(){
-		
+		given().spec(requestSpec).header("Authorization", accessToken)
+		.contentType(ContentType.JSON)
+		.when().get(baseUrl + findByTrainer)
+		.then().assertThat()
+		.statusCode(200);
 	}
 	
 	

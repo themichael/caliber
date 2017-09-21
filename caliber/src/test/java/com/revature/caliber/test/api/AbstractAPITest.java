@@ -36,25 +36,32 @@ import io.restassured.specification.RequestSpecification;
  */
 public abstract class AbstractAPITest extends CaliberTest {
 
-	protected String baseUrl = System.getenv("CALIBER_SERVER_URL");
+	/**
+	 * Salesforce access token to be used in Authorization HTTP header
+	 */
 	protected static String accessToken = "Auth ";
+	protected static final String authHeader = "Authorization";
+	protected static String jsessionid;
+	protected static RequestSpecification requestSpec;
+	
+	protected String baseUrl = System.getenv("CALIBER_SERVER_URL");
 	private String username = System.getenv("CALIBER_API_USERNAME");
 	private String password = System.getenv("CALIBER_API_PASSWORD");
 	private String clientId = System.getenv("SALESFORCE_CLIENT_ID");
 	private String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
 	private String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
-	protected static RequestSpecification requestSpec;
 	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
 
 	public AbstractAPITest() {
 		// only login with Salesforce once
 		if (accessToken.equals("Auth ")) {
 			try {
-
+				login();
+				log.info("Logging into Caliber for API testing");
 				Response response = given().redirects().allowCircular(true).get(baseUrl + "caliber/");
-				String sessionCookie = response.getCookie("JSESSIONID");
-				String roleCookie = response.getCookie("role");
-				requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
+                String sessionCookie = response.getCookie("JSESSIONID");
+                String roleCookie = response.getCookie("role");
+                requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
 			} catch (Exception e) {
 				log.error(e);
 			}
