@@ -49,16 +49,22 @@ public class EvaluationAPITest extends AbstractAPITest{
 	
 	private static final String findByTrainee = "all/grade/trainee/5529";
 	
-	//fetch not needed?
-	//private String createGrade = "training/trainer/byemail/patrick.walsh@revature.com/";
-	//fetch not needed?
-	//private String updateGrade = "training/trainer/byemail/patrick.walsh@revature.com/";
+	private String createGrade = "trainer/grade/create";
+	private String updateGrade = "trainer/grade/update";
+	private String findAll="vp/grade/all";
+	//unknownAssessmentID from findByAssessment
+	private String findByAssessment = "/all/grades/assessment/{assessmentId}";
+	
+	/*Author DanJ
+	 * ducked an exception for writeValueAsString
+	 */
 	@Test
-	public void createGrade(){
+	public void createGrade() throws Exception{
 		log.info("API Testing createGrade at baseUrl  " + baseUrl);
 		Trainer trainer = new Trainer("Joseph, Alex", "Trainer", "testemail@mail.com", TrainerRole.ROLE_VP);
 		trainerDAO.save(trainer);
 		Date start = new Date();
+		//possibly modify 2nd date - depreciated type?
 		Date end = new Date();
 		Batch batch = new Batch("45567 Microservices", trainer, start, end, "Revature LLC, Reston VA 20190");
 		batchDAO.save(batch);
@@ -69,19 +75,25 @@ public class EvaluationAPITest extends AbstractAPITest{
 		Trainee trainee = new Trainee("Joseph, Jones", "", "testemail@mail.com", batch);
 		traineeDAO.save(trainee);
 		Date date = new Date();
+		//setting the expected value as a grade 
+		Grade expected = new Grade(assessment, trainee, date, 99.99);
 		
-		Grade grade = new Grade(assessment, trainee, date, 99.99);
-		gradeDAO.save(grade);
+		//we are posting the grade, not saving it
+		//gradeDAO.save(grade);
 		
+		//we are setting the expected here, and then comparing it
+		//not sure about spec(requestspec)
+		//not sure about calling contentType(ContentType.JSON).body jsontype before/after
 		
-		/*given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
-		.get(baseUrl + createGrade).then().assertThat()
-		.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
-		*/
+		given().header("Authorization", accessToken).spec(requestSpec)
+		.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()
+		.post(baseUrl + createGrade).then().assertThat().statusCode(201);
 	}
-	
+	/*
+	 * Author DanJ
+	 */
 	@Test
-	public void updateGrade(){
+	public void updateGrade() throws Exception{
 		Trainer trainer = new Trainer("Joseph, Alex", "Trainer", "testemail@mail.com", TrainerRole.ROLE_VP);
 		trainerDAO.save(trainer);
 		Date start = new Date();
@@ -95,30 +107,64 @@ public class EvaluationAPITest extends AbstractAPITest{
 		Trainee trainee = new Trainee("Joseph, Jones", "", "testemail@mail.com", batch);
 		traineeDAO.save(trainee);
 		Date date = new Date();
-		Grade grade = new Grade(assessment, trainee, date, 99.99);
+		//set expected value as a grade
+		Grade expected = new Grade(assessment, trainee, date, 99.99);
 		
-		gradeDAO.save(grade);
-		grade.setScore(100);
-		gradeDAO.update(grade);
-		List<Grade> grades= gradeDAO.findByTrainee(200);
+		//gradeDAO.save(grade);
+		//grade.setScore(100);
+		//gradeDAO.update(grade);
+		/*List<Grade> grades= gradeDAO.findByTrainee(200);
 		if(grades.size()>0){
 			log.info("star: " + gradeDAO.findByTrainee(200).get(0));
 		}
+		*/
 		//assertEquals(100, gradeDAO.findByTrainee(200).get(0));
 		
-		/*log.info("API Testing updateGrade at baseUrl  " + baseUrl);
-		given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
-		.get(baseUrl + updateGrade).then().assertThat()
-		.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
-		*/
-	}
-	@Test
-	public void findAll(){
+		log.info("API Testing updateGrade at baseUrl  " + baseUrl);
 		
+		given().header("Authorization",accessToken).spec(requestSpec)
+		.contentType(ContentType.JSON).body(new ObjectMapper()
+		.writeValueAsString(expected)).when().post(baseUrl+updateGrade).then()
+		.assertThat().statusCode(201);
 	}
+	/*
+	 * Author DanJ
+	 * "all grades"
+	 */
 	@Test
-	public void findByAssessment(){
+	public void findAll() throws Exception{
 		
+		/*
+		 * exists
+		 * count
+		 * sample of valid data
+		 * ??? something else
+		 */
+		
+		//mock
+		
+		log.info("API Testing findAll at baseUrl  " + baseUrl);
+		//List<Grade> grades =
+		String expected = ""; 
+		given().header("Authorization",accessToken).contentType(ContentType.JSON)
+		.when().get("baseUrl+findAll").then().assertThat().statusCode(200)
+		.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
+	}
+	/*Author DanJ
+	 * From evaluationController "returns grades for all trainees that took a particular assignment.
+	 * Great for finding average/median/highest/lowest grades for a test
+	 * ducks exception for writeValueAsString
+	 * Stub
+	 */
+	@Test
+	public void findByAssessment() throws Exception{
+		log.info("API Testing findByAssessment at baseUrl  " + baseUrl);
+		//List<Grade> grades =
+		//given statement needs to be modified for a findByAssessment
+		String expected = "";
+		given().header("Authorization",accessToken).contentType(ContentType.JSON)
+		.when().get(baseUrl+findByAssessment).then().assertThat().statusCode(200)
+		.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
 	
 	/**
@@ -172,4 +218,6 @@ public class EvaluationAPITest extends AbstractAPITest{
 	public void findByTrainer(){
 		
 	}
+	
+	
 }
