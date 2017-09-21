@@ -23,7 +23,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class DownloadPdfFeature extends DriverSetup{
-	
+/*	
 	@Before // each scenario
 	public void setup(){
 		driver = new HtmlUnitDriver(BrowserVersion.CHROME);
@@ -113,5 +113,5 @@ public class DownloadPdfFeature extends DriverSetup{
 	    }
 	    return lastModifiedFile;
 	}
-
+*/
 }
