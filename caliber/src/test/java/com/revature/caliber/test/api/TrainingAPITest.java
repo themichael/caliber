@@ -2,8 +2,11 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.*;
 
 import org.apache.log4j.Logger;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,6 +16,7 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 
 /**
  * API testing at the RESTful service message layer using REST Assured. All API
@@ -44,8 +48,6 @@ public class TrainingAPITest extends AbstractAPITest {
 	
 	private Address cherryStreetAddress = new Address(1, "299 CherryStreet", "FruityCity", "FL", "55555", "Revature", true);
 
-
-
 	@Test
 	public void findByEmail() throws Exception {
 		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
@@ -63,13 +65,13 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void createTrainer() throws Exception{
-		Trainer expected = new Trainer("RolledBack", "Senior Trainer", "don.welshy@revature.com",
+		Trainer expected = new Trainer("RolledBack", "Senior Trainer", "don.wels23hy@revature.com",
 				TrainerRole.ROLE_TRAINER);
-		log.info("API Testing createTrainer at baseUrl  " + baseUrl);
+		log.info("API Testing createTrainer at baseUrl  " + baseUrl + createTrainer);
 		given().spec(requestSpec).header(auth, accessToken)
 		.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()			
 		.post(baseUrl + createTrainer)
-		.then().assertThat().statusCode(201);
+		.then().assertThat().statusCode(201).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
 	/**
 	 * Tests methods:
@@ -81,7 +83,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Trainer expected = new Trainer("Newwer Trainer", "Senior Trainer", "don.welshy@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		expected.setTrainerId(3);
-		log.info("API Testing updateTrainer at baseUrl  " + baseUrl);
+		log.info("API Testing updateTrainer at baseUrl  " + baseUrl + updateTrainer);
 		given().spec(requestSpec).header(auth, accessToken)
 		.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()				
 		.put(baseUrl + updateTrainer)
@@ -97,7 +99,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Trainer expected = new Trainer("Dan Pickles", "Lead Trainer", "pjw6193@hotmail.com",
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(2);
-		log.info("API Testing makeInactiv at baseUrl  " + baseUrl);
+		log.info("API Testing makeInactiv at baseUrl  " + baseUrl + makeInactive);
 		given().spec(requestSpec).header(auth, accessToken)
 		.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()				
 		.delete(baseUrl + makeInactive)
@@ -110,22 +112,30 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void getAllTrainersTitles() throws Exception {
-		log.info("API Testing findTrainerByEmail at baseUrl  " + baseUrl);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
+		log.info("API Testing getAllTrainersTitles at baseUrl  " + baseUrl + getAllTrainersTitles);
+		Response titles = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainersTitles).then().assertThat()
-				.statusCode(200);
+				.statusCode(200).extract().response();
+		assertTrue("Test titles", titles.asString().contains("Senior Trainer")
+				& titles.asString().contains("Senior Technical Manager")
+				& titles.asString().contains("Lead Trainer")
+				& titles.asString().contains("Trainer")
+				& titles.asString().contains("Technology Manager"));
 	}
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.controllers.TrainingController.getAllTrainers()
 	 * @throws Exception
+	 * revist when we have transient tests to test more specific trainers.
 	 */
 	@Test
 	public void getAllTrainers() throws Exception {
-		log.info("API Testing findTrainerByEmail at baseUrl  " + baseUrl);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
+		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + getAllTrainers);
+		Trainer[] trainers = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainers).then().assertThat()
-				.statusCode(200);
+				.statusCode(200).extract().response().as(Trainer[].class);
+		assertTrue("Test that some trainers exist", trainers[0].getName().equals("Patrick Walsh"));
+		log.info(" SOME STUFF" + trainers.length + " " + trainers[1].getName());
 	}
 
 	/**

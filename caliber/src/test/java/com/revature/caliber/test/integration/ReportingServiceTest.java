@@ -43,7 +43,10 @@ public class ReportingServiceTest extends CaliberTest {
 	public static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
 	private static List<Trainee> trainees;
-	ReportingService reportingService;
+	private ReportingService reportingService;
+	
+	@Autowired
+	public BatchDAO batchDAO;
 
 	public static List<Trainee> getTrainees() {
 		return trainees;
@@ -247,9 +250,6 @@ public class ReportingServiceTest extends CaliberTest {
 		Double expectedAverage = 30.0;
 		int selectedTrainee = 0; // Selects first trainee in dummy batch
 		Set<Grade> grades = trainees.get(selectedTrainee).getGrades();
-		Double avg = 0d;
-		for (Grade g : grades)
-			avg += g.getScore();
 		Double actualAverage = reportingService.utilAvgTraineeWeek(grades, 1);
 		assertEquals(expectedAverage, actualAverage);
 	}
@@ -268,11 +268,6 @@ public class ReportingServiceTest extends CaliberTest {
 			assertEquals(new Double(averages[i]), avg);
 		}
 	}
-
-
-
-	@Autowired
-	public BatchDAO batchDAO;
 	
 	/**
 	 * Tests methods:
@@ -312,30 +307,31 @@ public class ReportingServiceTest extends CaliberTest {
 	public void batchComparisonFilterTest(){
 		log.info("Testing the ReportingService.batchComparisonFilter(List<Batch> batches, String skill, String training)");
 		
-		String skillType = "(All)";
-		String trainingType = "(All)";
-		List<Batch> batches = reportingService.batchComparisonFilter(batchDAO.findAll(), skillType, trainingType);
+		String allSkills = "(All)";
+		String allTraining = "(All)";
+		
+		String j2eeSkill = "J2EE";
+		String revatureTraining = "Revature";
+		String universityTraining = "University";
+		
+		List<Batch> batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, allTraining);
 		int expected = 5;
 		int actual = batches.size();
 		assertEquals(expected, actual);
 		
-		skillType = "J2EE";  //There is only one type of training in the setup.sql, so this is the same result "(All)"
-		trainingType = "University";												//but uses a different code path
-		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), skillType, trainingType);
+		//There is only one type of training in the setup.sql, so this is the same result "(All)"
+		//but uses a different code path
+		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), j2eeSkill, universityTraining);
 		expected = 2;
 		actual = batches.size();
 		assertEquals(expected, actual);
 		
-		skillType = "(All)";
-		trainingType = "Revature";
-		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), skillType, trainingType);
+		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, revatureTraining);
 		expected = 3;
 		actual = batches.size();
 		assertEquals(expected, actual);
 		
-		skillType = "(All)";
-		trainingType = "University";
-		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), skillType, trainingType);
+		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, universityTraining);
 		expected = 2;
 		actual = batches.size();
 		assertEquals(expected, actual);
@@ -352,12 +348,12 @@ public class ReportingServiceTest extends CaliberTest {
 		Map<String, Double> results = reportingService.getBatchOverallBarChart(2200);
 		assertTrue("Test size of result set", results.size() == 15);
 		assertTrue("Contains expected trainee", results.containsKey("Chen, Andrew"));
-		assertTrue("Test accurate average calculation", results.get("Chen, Andrew").doubleValue() == 84.14575d);
+		assertTrue("Test accurate average calculation", Math.abs(results.get("Chen, Andrew").doubleValue()-84.14575) < .001);
 
 		// Negative Testing
 		// Grab non-existent batch
 		try {
-			results = reportingService.getBatchOverallBarChart(-1111);
+			reportingService.getBatchOverallBarChart(-1111);
 			fail();
 		} catch (NullPointerException e) {
 			log.debug(e);
@@ -376,12 +372,13 @@ public class ReportingServiceTest extends CaliberTest {
 		assertNotNull("Results exist", results);
 		assertTrue("Test size of result set", results.size() == 1);
 		assertTrue("Result contains exam", results.containsKey("Exam"));
+		//Check if values are within an acceptable margin of error (floating point, can't compare directly)
 		assertTrue("Exam contains expected values",
-				results.get("Exam")[0] == 93.0 & results.get("Exam")[1] == 85.625 & results.get("Exam")[2] == 100);
+				 Math.abs(results.get("Exam")[0] - 93.0) < 0.001 &&  Math.abs(results.get("Exam")[1] - 85.625) < 0.001 &&  Math.abs(results.get("Exam")[2] - 100) < 0.001);
 
 		// Invalid TraineeID
 		try {
-			results = reportingService.getBatchWeekTraineeBarChart(2100, -123421, 1);
+			reportingService.getBatchWeekTraineeBarChart(2100, -123421, 1);
 			fail();
 		} catch (NoSuchElementException e) {
 			log.info(e);
@@ -405,11 +402,11 @@ public class ReportingServiceTest extends CaliberTest {
 		assertTrue("Test data exists", results.containsKey("Exam"));
 		
 		Double[] myVals = results.get("Verbal");
-		assertTrue("Test values of Verbal exam", myVals[0] == 69.2 & myVals[1] == 82.0);
+		assertTrue("Test values of Verbal exam",  Math.abs(myVals[0] - 69.2) < 0.001 &&  Math.abs(myVals[1] - 82.0) < 0.001);
 
 		// Invalid TraineeID
 		try {
-			results = reportingService.getBatchOverallTraineeBarChart(2100, -123421);
+			reportingService.getBatchOverallTraineeBarChart(2100, -123421);
 			fail();
 		} catch (NoSuchElementException e) {
 			log.info(e);
@@ -439,6 +436,8 @@ public class ReportingServiceTest extends CaliberTest {
 	 * Tests methods:
 	 * 
 	 * @see com.revature.caliber.services.ReportingService#utilSeparateQCTraineeNotesByWeekTest()
+	 * 
+	 * 
 	 */
 	@Test
 	public void utilSeparateQCTraineeNotesByWeekTest() {
@@ -459,34 +458,28 @@ public class ReportingServiceTest extends CaliberTest {
 			Map<QCStatus, Integer> weekStatusCount = results.get(i);
 			for (QCStatus status : weekStatusCount.keySet()) {
 				int expectCount = weekStatusCount.get(status);
-				// Actual count is the statusCountPerWeek - 1 to account that i starts at 1;
 				switch (status) {
-				case Poor: {
+				case Poor: 
 					assertEquals(expectCount, statusPoorCountPerWeek[i - 1]);
 					break;
-				}
-				case Average: {
+				case Average: 
 					assertEquals(expectCount, statusAverageCountPerWeek[i - 1]);
 					break;
-				}
-				case Good: {
+				case Good: 
 					assertEquals(expectCount, statusGoodCountPerWeek[i - 1]);
 					break;
-				}
-				case Superstar: {
+				case Superstar: 
 					assertEquals(expectCount, statusSuperstarCountPerWeek[i - 1]);
 					break;
-				}
-				default: {
+				default: 
 					assertTrue("QCStatus " + status + "  not checked during test", false);
-				}
 				}
 			}
 		}
 		
 		//Negative Testing
 		try {
-			results = reportingService.utilSeparateQCTraineeNotesByWeek(null);
+			reportingService.utilSeparateQCTraineeNotesByWeek(null);
 		} catch (NullPointerException e) {
 			log.debug(e);
 		}
@@ -500,9 +493,9 @@ public class ReportingServiceTest extends CaliberTest {
 	public void getBatchWeekAvgBarChartTest() {
 		log.info("Testing getBatchWeekAvgBarChartTest");
 		Map <String, Double[]> weekAvgBarChart = reportingService.getBatchWeekAvgBarChart(2201, 5);
-		assertEquals((Double) 88.75, (Double) weekAvgBarChart.get("Project")[0]);
-		assertEquals((Double) 76.109375, (Double) weekAvgBarChart.get("Exam")[0]);
-		assertEquals((Double) 74.375, (Double) weekAvgBarChart.get("Verbal")[0]);	
+		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Project")[0]- 88.75) < 0.001);
+		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Exam")[0]- 76.109375) < 0.001);
+		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Verbal")[0]- 74.375) < 0.001);
 	}
 	
 	/**
@@ -513,8 +506,8 @@ public class ReportingServiceTest extends CaliberTest {
 	public void getBatchWeekSortedBarChartTest(){
 		log.info("getBatchWeekSortedBarChartTest");
 		Map<String, Double> test =reportingService.getBatchWeekSortedBarChart(2050, 2);
-		assertEquals((Double)96.29, (Double)test.get("Fouche, Issac"));
-		assertEquals((Double) 89.63, (Double)test.get("Castillo, Erika"));
+		assertTrue("Check sample values", (Double) Math.abs(test.get("Fouche, Issac")- 96.29) < 0.001);
+		assertTrue("Check sample values", (Double) Math.abs(test.get("Castillo, Erika")- 89.63) < 0.001);
 		assertEquals(6, test.size());
 	}
 	
@@ -607,8 +600,8 @@ public class ReportingServiceTest extends CaliberTest {
 		Set<Trainee> trainees1 = new HashSet<>();
 		Set<Trainee> trainees2 = new HashSet<>();
 		
-		int score1[] = {70, 80, 80, 90};
-		int score2[] = {100, 90, 90, 80};
+		int[] score1 = {70, 80, 80, 90};
+		int[] score2 = {100, 90, 90, 80};
 		
 		for(int i = 1; i < 2; i++){
             Trainee trainee1 = new Trainee("Trainee1_" + i, "java", "email@email.com", b1);
@@ -616,8 +609,8 @@ public class ReportingServiceTest extends CaliberTest {
             trainee1.setTraineeId(i+100);
             trainee2.setTraineeId(i+200);
             
-            Set<Grade> grades1 = new HashSet<Grade>();
-            Set<Grade> grades2 = new HashSet<Grade>();
+            Set<Grade> grades1 = new HashSet<>();
+            Set<Grade> grades2 = new HashSet<>();
             for(int j = 1; j < 5; j++){
                 Assessment weekB1 = new Assessment("A title:" + j, b1, 100, AssessmentType.Exam, j, new Category());
                 Assessment weekB2 = new Assessment("A title:" + j, b2, 100, AssessmentType.Exam,j, new Category());
@@ -646,40 +639,37 @@ public class ReportingServiceTest extends CaliberTest {
 	 * @return Batch
 	 */
 	private Batch createTestBatchWithQCNotes() {
-		Set<Trainee> trainees = new HashSet<>();
+		Set<Trainee> traineesWithQC = new HashSet<>();
 		Batch batch = new Batch();
 		batch.setWeeks(7);
 		for (int i = 1; i < 4; i++) {
 			Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch);
 			trainee.setTraineeId(i);
-			Set<Note> notes = new HashSet<Note>();
+			Set<Note> notes = new HashSet<>();
 			for (int j = 1; j < 8; j++) {
 				Note note = new Note();
 				note.setWeek((short) j);
 				switch (j % 4) {
-				case 0: {
+				case 0: 
 					note.setQcStatus(QCStatus.Poor);
 					break;
-				}
-				case 1: {
+				case 1: 
 					note.setQcStatus(QCStatus.Average);
 					break;
-				}
-				case 2: {
+				case 2: 
 					note.setQcStatus(QCStatus.Good);
 					break;
-				}
-				case 3: {
+				case 3: 
 					note.setQcStatus(QCStatus.Superstar);
 					break;
-				}
+				default:
 				}
 				notes.add(note);
 			}
 			trainee.setNotes(notes);
-			trainees.add(trainee);
+			traineesWithQC.add(trainee);
 		}
-		batch.setTrainees(trainees);
+		batch.setTrainees(traineesWithQC);
 		return batch;
 	}
 	
