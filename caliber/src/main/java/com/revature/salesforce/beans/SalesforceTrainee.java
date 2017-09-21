@@ -4,45 +4,60 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
- * Salesforce Data Transfer Object
- * (current as of 7/3/2017) 
+ * Salesforce Data Transfer Object (current as of 7/3/2017)
+ * 
  * @author Patrick Walsh
  *
  */
-public class SalesforceTrainee extends SalesforceRecord{
+public class SalesforceTrainee extends SalesforceRecord {
 
 	@JsonProperty("Id")
 	private String id;
-	
+
 	@JsonProperty("Training_Status__c")
 	private String trainingStatus;
-	
+
 	@JsonProperty("Phone")
 	private String phone;
-	
+
 	@JsonProperty("Email")
 	private String email;
-	
+
 	@JsonProperty("MobilePhone")
 	private String mobilePhone;
 
 	@JsonProperty("Training_Batch__c")
 	private String batchId;
-	
+
 	@JsonProperty("Training_Batch__r")
-	@JsonSerialize(as=SalesforceBatch.class)
+	@JsonSerialize(as = SalesforceBatch.class)
 	private SalesforceBatch batch;
-	
+
 	@JsonProperty("rnm__Recruiter__r")
-	@JsonSerialize(as=SalesforceRecruiter.class)
+	@JsonSerialize(as = SalesforceRecruiter.class)
 	private SalesforceRecruiter recruiter;
-	
+
 	@JsonProperty("Account")
-	@JsonSerialize(as=SalesforceCollege.class)
+	@JsonSerialize(as = SalesforceCollege.class)
 	private SalesforceCollege college;
-	
+
 	@JsonProperty("eintern_current_project_completion_pct__c")
 	private String projectCompletion;
+
+	@JsonProperty("Screener__c")
+	private String screener;
+	
+	@JsonProperty("Screen_Feedback__c")
+	private String screenFeedback;
+	
+	@JsonProperty("Associates_Degree__c")
+	private String associates;
+	
+	@JsonProperty("Bachelors_Degree__c")
+	private String bachelors;
+	
+	@JsonProperty("Masters_Degree__c")
+	private String masters;
 
 	public SalesforceTrainee() {
 		super();
@@ -128,19 +143,64 @@ public class SalesforceTrainee extends SalesforceRecord{
 		this.projectCompletion = projectCompletion;
 	}
 
+	public String getScreener() {
+		return screener;
+	}
+
+	public void setScreener(String screener) {
+		this.screener = screener;
+	}
+
+	public String getScreenFeedback() {
+		return screenFeedback;
+	}
+
+	public void setScreenFeedback(String screenFeedback) {
+		this.screenFeedback = screenFeedback;
+	}
+
+	public String getAssociates() {
+		return associates;
+	}
+
+	public void setAssociates(String associates) {
+		this.associates = associates;
+	}
+
+	public String getBachelors() {
+		return bachelors;
+	}
+
+	public void setBachelors(String bachelors) {
+		this.bachelors = bachelors;
+	}
+
+	public String getMasters() {
+		return masters;
+	}
+
+	public void setMasters(String masters) {
+		this.masters = masters;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + ((associates == null) ? 0 : associates.hashCode());
+		result = prime * result + ((bachelors == null) ? 0 : bachelors.hashCode());
 		result = prime * result + ((batch == null) ? 0 : batch.hashCode());
 		result = prime * result + ((batchId == null) ? 0 : batchId.hashCode());
 		result = prime * result + ((college == null) ? 0 : college.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((masters == null) ? 0 : masters.hashCode());
 		result = prime * result + ((mobilePhone == null) ? 0 : mobilePhone.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + ((projectCompletion == null) ? 0 : projectCompletion.hashCode());
 		result = prime * result + ((recruiter == null) ? 0 : recruiter.hashCode());
+		result = prime * result + ((screenFeedback == null) ? 0 : screenFeedback.hashCode());
+		result = prime * result + ((screener == null) ? 0 : screener.hashCode());
 		result = prime * result + ((trainingStatus == null) ? 0 : trainingStatus.hashCode());
 		return result;
 	}
@@ -154,6 +214,16 @@ public class SalesforceTrainee extends SalesforceRecord{
 		if (getClass() != obj.getClass())
 			return false;
 		SalesforceTrainee other = (SalesforceTrainee) obj;
+		if (associates == null) {
+			if (other.associates != null)
+				return false;
+		} else if (!associates.equals(other.associates))
+			return false;
+		if (bachelors == null) {
+			if (other.bachelors != null)
+				return false;
+		} else if (!bachelors.equals(other.bachelors))
+			return false;
 		if (batch == null) {
 			if (other.batch != null)
 				return false;
@@ -179,6 +249,11 @@ public class SalesforceTrainee extends SalesforceRecord{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (masters == null) {
+			if (other.masters != null)
+				return false;
+		} else if (!masters.equals(other.masters))
+			return false;
 		if (mobilePhone == null) {
 			if (other.mobilePhone != null)
 				return false;
@@ -199,6 +274,16 @@ public class SalesforceTrainee extends SalesforceRecord{
 				return false;
 		} else if (!recruiter.equals(other.recruiter))
 			return false;
+		if (screenFeedback == null) {
+			if (other.screenFeedback != null)
+				return false;
+		} else if (!screenFeedback.equals(other.screenFeedback))
+			return false;
+		if (screener == null) {
+			if (other.screener != null)
+				return false;
+		} else if (!screener.equals(other.screener))
+			return false;
 		if (trainingStatus == null) {
 			if (other.trainingStatus != null)
 				return false;
@@ -209,10 +294,11 @@ public class SalesforceTrainee extends SalesforceRecord{
 
 	@Override
 	public String toString() {
-		return "SalesforceTrainee [attributes=" + attributes + ", id=" + id + ", name=" + name + ", trainingStatus="
-				+ trainingStatus + ", phone=" + phone + ", email=" + email + ", mobilePhone=" + mobilePhone
-				+ ", batchId=" + batchId + ", batch=" + batch + ", recruiter=" + recruiter + ", college=" + college
-				+ ", projectCompletion=" + projectCompletion + "]";
+		return "SalesforceTrainee [id=" + id + ", trainingStatus=" + trainingStatus + ", phone=" + phone + ", email="
+				+ email + ", mobilePhone=" + mobilePhone + ", batchId=" + batchId + ", batch=" + batch + ", recruiter="
+				+ recruiter + ", college=" + college + ", projectCompletion=" + projectCompletion + ", screener="
+				+ screener + ", screenFeedback=" + screenFeedback + ", associates=" + associates + ", bachelors="
+				+ bachelors + ", masters=" + masters + "]";
 	}
-	
+
 }
