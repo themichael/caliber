@@ -1,48 +1,25 @@
 package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
-
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-
-
-import java.util.HashMap;
-import java.util.Map;
-
-
-
-import org.apache.log4j.Logger;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.NoteType;
-import com.revature.caliber.beans.QCStatus;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
-
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-
 
 import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
-
 import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
@@ -52,8 +29,6 @@ import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
-
-
 
 import io.restassured.http.ContentType;
 
@@ -74,19 +49,24 @@ public class EvaluationAPITest extends AbstractAPITest{
 	AssessmentDAO assessmentDAO;
 	private static final Logger log = Logger.getLogger(EvaluationAPITest.class);
 
-	
+	private static final int testTraineeId = 5537;
+	private static final int testWeek = 1;
     
 	private static final String findByTrainee = "all/grade/trainee/5529";
 	private static final String findByBatch = "all/grade/batch/2150";
 	private static final String findByCategory = "all/grade/category/12";
 	private static final String findByWeek = "all/grade/batch/2150/week/7";
 	private static final String findByTrainer = "all/grade/trainer/1";
+	private static final String findTraineeNote = "trainer/note/trainee/";
+	private static final String findQCTraineeNote = "qc/note/trainee/";
+
 
 	//fetch not needed?
 	//private String createGrade = "training/trainer/byemail/patrick.walsh@revature.com/";
 	//fetch not needed?
 	//private String updateGrade = "training/trainer/byemail/patrick.walsh@revature.com/";
 
+	@Ignore
 	@Test
 	public void createGrade(){
 
@@ -151,10 +131,12 @@ public class EvaluationAPITest extends AbstractAPITest{
 		.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 		*/
 	}
+	@Ignore
 	@Test
 	public void findAll(){
 		
 	}
+	@Ignore
 	@Test
 	public void findByAssessment(){
 		
@@ -231,7 +213,6 @@ public class EvaluationAPITest extends AbstractAPITest{
 		.statusCode(200);
 	}
 	
-	@Ignore
 	@Test
 	public void createNote() throws Exception {
 		
@@ -283,7 +264,43 @@ public class EvaluationAPITest extends AbstractAPITest{
 	}
 	
 	
+	/**
+	 * Uses RESTAssured to test the findTraineeNote method in Evaluation Controller
+	 * 
+	 * @see com.revature.caliber.controllers.EvaluationController#findTraineeNote(Integer traineeId, Integer week)
+	 */
+	@Test
+	public void findTraineeNote(){
+		given().spec(requestSpec).header("Authorization", accessToken) // authorization
+			.contentType(ContentType.JSON) // data expected
+					// /trainer/note/trainee/{traineeId}/for/{week}
+			.when().get(baseUrl + findTraineeNote + testTraineeId + "/for/" + testWeek)
+			.then().assertThat()
+				.statusCode(200) // should return status of OK
+				// make sure note recieved is the one expected
+				.body("noteId", equalTo(6252))
+				.body("content", equalTo("Technically good. A little quiet and less aware of appearance. A little disheveled during interview."))
+				.body("type", equalTo("TRAINEE"));
+	}
 	
+	/**
+	 * Uses RESTAssured to test findQCTraineeNote in the Evaluation Controller
+	 * @see com.revature.caliber.controllers.EvaluationController#findQCTraineeNote(Integer traineeId, Integer week)
+	 */
+	@Test
+	public void findQCTraineeNote(){
+		given().spec(requestSpec).header("Authorization", accessToken) // authorization
+		.contentType(ContentType.JSON) // data expected
+				// /qc/note/trainee/{traineeId}/for/{week}
+		.when().get(baseUrl + findQCTraineeNote + testTraineeId + "/for/" + testWeek)
+		.then().assertThat()
+			.statusCode(200) // should return status of OK
+			// make sure note recieved is the one expected
+			.body("noteId", equalTo(6359))
+			.body("content", equalTo("Weak"))
+			.body("qcStatus", equalTo("Poor"))
+			.body("type", equalTo("QC_TRAINEE"));
+	}
 
 	
 }
