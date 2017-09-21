@@ -4,18 +4,26 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.junit.Assert.assertEquals;
 
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+
+
+
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.caliber.beans.QCStatus;
+
+
+
+
 
 import io.restassured.http.ContentType;
 
@@ -29,38 +37,58 @@ public class ReportingAPITest extends AbstractAPITest{
 	private static String batchAverage = "all/assessments/average/";
 	private static String batchAssessmentCategories = "all/assessments/categories/batch/";
 	
+//	/**
+//	 * 
+//	 * (unfinished)
+//	 * 
+//	 * */
+//	@Test
+//	public void testGetBatchComparisonAvg() throws Exception {
+//		log.info("TESTING getBatchComparisonAvg");
+//		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+//				.when().get(baseUrl + "all/reports/compare/skill/Java"
+//						+ "/training/University"
+//						+ "/date/14-NOV-16")
+//				.then().assertThat().statusCode(200)
+//					.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(new HashMap<Double,Double>())));
+//	}
+//	
+//	
+//	
+//	
+	
 	/**
-	 * 
-	 * (unfinished)
+	 * Tested Method:
+	 * 		com.revature.caliber.controllers.ReportingController.getBatchWeekPieChart(Integer batchId, Integer weekId)
+	 * Test to make sure that the method returns 200
+	 * Tested method only needs to and only can return 200 since any invalid params need 
+	 * 			to return something readable by the front end
 	 * 
 	 * */
 	@Test
-	public void testGetBatchComparisonAvg() throws Exception {
-		log.info("TESTING getBatchComparisonAvg");
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
-				.when().get(baseUrl + "all/reports/compare/skill/Java"
-						+ "/training/University"
-						+ "/date/14-NOV-16")
-				.then().assertThat().statusCode(200)
-					.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(new HashMap<Double,Double>())));
-	}
-	
-	@Test
 	public void testGetBatchWeekPieChart() throws JsonProcessingException {
-		log.info("TESTING getBatchWeekPieChart");
-		Map<QCStatus, Integer> expected = new HashMap<>();
+		log.info("TESTING getBatchWeekPieChart");		
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/2200/week/1/pie")
-			.then().assertThat().statusCode(200)
-				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
+			.then().assertThat().statusCode(200);
 		
 	}
 	
-	
+	/**
+	 * 
+	 * Tested Method:
+	 * 		com.revature.caliber.controllers.ReportingController.getPieChartCurrentWeekQCStatus(Integer batchId)
+	 * Check that a good batch returns 200
+	 * Check that a batch with no notes returns a 404
+	 * 
+	 * */
 	
 	@Test
 	public void testGetPieChartCurrentWeekQCStatus() {
 		log.info("TESTING getPieChartCurrentWeekQCStatus");
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+			.when().get(baseUrl + "all/reports/batch/2201/pie")
+			.then().assertThat().statusCode(200);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/2200/pie")
 			.then().assertThat().statusCode(404);
@@ -68,24 +96,25 @@ public class ReportingAPITest extends AbstractAPITest{
 	
 	/**
 	 *
-	 *
+	 *Tested Method:
+	 * 		com.revature.caliber.controllers.ReportingController.getAllBatchesCurrentWeekQCStackedBarChart()
+	 *Tests to make sure response returns a 200
 	 *
 	 **/
 	@Test
 	public void testGetAllBatchesCurrentWeekQCStackedBarChart() {
-		log.info("TESTING getAllBatchesCurrentWeekQCStackedBarChart");
-		System.out.println(
+		log.info("TESTING getAllBatchesCurrentWeekQCStackedBarChart");	
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/week/stacked-bar-current-week")
-			.thenReturn().body().asString()
-			);//().assertThat().statusCode(200)
+			.then().assertThat().statusCode(200);
 	}
 	
 	/**
 	 * 
-	 * Test to see a valid request returns a 200.
+	 * Tested Method:
+	 * 		com.revature.caliber.controllers.ReportingController.getBatchWeekAvgBarChart(int batchId, int week)
+	 * Test to see a valid request returns a 200
 	 * Test to see an invalid batch returns an empty json object
-	 * 
 	 * 
 	 * */
 	
@@ -105,8 +134,10 @@ public class ReportingAPITest extends AbstractAPITest{
 	
 	
 	/**
-	 * 
-	 * Test to see a valid request returns a 200.
+	 *
+	 * Tested Method:
+	 * 		com.revature.caliber.controllers.ReportingController.getBatchWeekSortedBarChart(int batchId, int week)
+	 * Test to see a valid request returns a 200
 	 * Test to see an invalid batch returns an empty json object
 	 *
 	 **/
