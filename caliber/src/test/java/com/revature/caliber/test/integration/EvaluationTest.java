@@ -17,7 +17,6 @@ import com.revature.caliber.services.EvaluationService;
 
 public class EvaluationTest extends CaliberTest {
 
-
 	private static final String NOT_YET_IMPLEMENTED="Not yet implemented";
 	private static final int TEST_BATCH_ID = 2150;
 	private static final int TEST_ASSESSMENT_WEEK = 7;
