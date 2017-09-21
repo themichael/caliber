@@ -43,8 +43,8 @@ public class TrainerAPITest extends AbstractAPITest {
 
 	@Test
 	public void createTrainer() throws Exception {
-		Trainer expected = new Trainer("Howard Johnson", "Senior Trainer", "howard.johnson@revature.com",
-				TrainerRole.ROLE_TRAINER);
+		Trainer expected = new Trainer("Daniel J. Pickles", "CIO", "daniel_j_pickles@cio.net",
+				TrainerRole.ROLE_VP);
 		log.info("API Testing createTrainer at " + baseUrl + createTrainer);
 		given().spec(requestSpec).header(auth, accessToken)
 				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()
