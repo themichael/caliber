@@ -2,11 +2,9 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.Logger;
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -147,7 +145,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	public void createLocationTest() {
 		Address location = cherryStreetAddress;
 		location.setAddressId(20);
-		log.info("API Testing createLocation at baseUrl " + baseUrl);
+		log.info("API Testing createLocation at baseUrl " + baseUrl + createLocationTest);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location)
 				.when().post(baseUrl + createLocationTest).then().assertThat().statusCode(201);
 	}
@@ -161,7 +159,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	public void updateLocationTest() throws JsonProcessingException {
 		Address location = cherryStreetAddress;
 		location.setState("PA");
-		log.info("API Testing updateLocation at baseUrl " + baseUrl);
+		log.info("API Testing updateLocation at baseUrl " + baseUrl + updateLocationTest);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location)
 				.when().put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
 	}
@@ -177,7 +175,7 @@ public class TrainingAPITest extends AbstractAPITest {
 				"Tech Incubator at Queens College", true);
 		Address expect2 = new Address(2, "11730 Plaza America Drive, 2nd Floor", "Reston", "VA", "20190",
 				"Revature LLC", true);
-		log.info("API Testing updateLocation at baseUrl " + baseUrl);
+		log.info("API Testing updateLocation at baseUrl " + baseUrl + getAllLocationTest);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllLocationTest).then().assertThat().statusCode(200)
 				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expect1)))
@@ -193,7 +191,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	public void removeLocationTest() {
 		Address location = cherryStreetAddress;
 		location.setActive(false);
-		log.info("API Testing removeLocation at baseUrl " + baseUrl);
+		log.info("API Testing removeLocation at baseUrl " + baseUrl + removeLocationTest);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location)
 				.when().delete(baseUrl + removeLocationTest).then().assertThat().statusCode(204);
 	}
@@ -205,7 +203,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void reactivateLocationTest() {
-		log.info("API Testing reactivateLocation at baseUrl " + baseUrl);
+		log.info("API Testing reactivateLocation at baseUrl " + baseUrl + reactivateLocationTest);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(cherryStreetAddress)
 				.when().put(baseUrl + reactivateLocationTest).then().assertThat().statusCode(204);
 	}	

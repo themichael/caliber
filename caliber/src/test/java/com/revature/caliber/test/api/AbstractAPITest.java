@@ -4,14 +4,11 @@ import static io.restassured.RestAssured.given;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -20,9 +17,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.EncodedResource;
@@ -68,18 +63,13 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 	private static String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
 	protected static String authHeader = "Authorization";
 	
+	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
+	
 	static{
 		SpringApplication.run(Tomcat.class);
 	}
 	
-	@Autowired
-	public SessionFactory sessionFactory;
-	
-	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
-
-	public AbstractAPITest() {
-		
-	}
+	public AbstractAPITest() {}
 	
 	public void afterPropertiesSet(){
 		// only login with Salesforce once
@@ -121,7 +111,7 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		log.info("Populating database with setup.sql");
 		Connection con = jdbcTemplate.getDataSource().getConnection();
 		EncodedResource resource = new EncodedResource(new FileSystemResource(new File("src/test/resources/setup.sql")));
-		log.info("Rescource encoded, executing sql script");
+		
 		ScriptUtils.executeSqlScript(con,resource);
 		log.info("Sql script executed");
 		con.close();
