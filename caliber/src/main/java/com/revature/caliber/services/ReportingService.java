@@ -116,13 +116,18 @@ public class ReportingService {
 
 	public Map<QCStatus, Integer> pieChartCurrentWeekQCStatus(Integer batchId) {
 		List<Batch> batch = batchDAO.findAllCurrentWithNotesAndTrainees();
-		Batch currentOne = batch.stream().filter(e -> e.getBatchId() == batchId).findFirst().get();
-		Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(currentOne);
-		for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
-			Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
-			if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-				return temp;
+		try {
+			Batch currentOne = batch.stream().filter(e -> e.getBatchId() == batchId).findFirst().get();
+			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(currentOne);
+			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
+				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
+				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
+					return temp;
+				}
 			}
+		}catch(Exception e) {
+			log.info("BATCH NOT FOUND");
+			return new HashMap<>();
 		}
 		return new HashMap<>();
 	}
@@ -194,8 +199,6 @@ public class ReportingService {
 	 * @return
 	 */
 	public Note getBatchWeekQcOverallBarChart(Integer batchId, Integer week) {
-		//log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
-		System.out.println(noteDAO.findQCBatchNotes(batchId, week));
 		return noteDAO.findQCBatchNotes(batchId, week);
 	}
 	
@@ -568,7 +571,7 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			Double avg = 0.d;
 			int weeksWithGrades = 0;
-			for (Integer i = 0; i < weeks; i++) {
+			for (Integer i = 1; i <= weeks; i++) {
 				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
 				if (tempAvg > 0) {
 					weeksWithGrades++;
