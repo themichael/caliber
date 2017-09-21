@@ -70,6 +70,7 @@ public class ReportingController {
 	public ResponseEntity<Map<QCStatus, Integer>> getBatchWeekPieChart(@PathVariable Integer batchId,
 			@PathVariable Integer weekId) {
 		log.info("getBatchWeekPieChart   ===>   /all/reports/batch/{batchId}/week/{weekId}/pie");
+		
 		return new ResponseEntity<>(reportingService.getBatchWeekPieChart(batchId, weekId), HttpStatus.OK);
 	}
 
