@@ -1,20 +1,13 @@
 package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-
-import org.apache.log4j.Logger;
-import org.junit.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.beans.Assessment;
@@ -142,7 +135,8 @@ public class EvaluationAPITest extends AbstractAPITest{
 		.contentType(ContentType.JSON)
 		.when().get(baseUrl + findByTrainee)
 		.then().assertThat()
-		.statusCode(200);
+		.statusCode(200)
+		.body("list.size()", equalTo(18));
 	}
 	
 	/**
@@ -155,7 +149,8 @@ public class EvaluationAPITest extends AbstractAPITest{
 		.contentType(ContentType.JSON)
 		.when().get(baseUrl + findByBatch)
 		.then().assertThat()
-		.statusCode(200);
+		.statusCode(200)
+		.body("list.size()", equalTo(260));
 		
 	}
 	
@@ -170,7 +165,8 @@ public class EvaluationAPITest extends AbstractAPITest{
 		.contentType(ContentType.JSON)
 		.when().get(baseUrl + findByCategory)
 		.then().assertThat()
-		.statusCode(200);
+		.statusCode(200)
+		.body("list.size()", equalTo(164));
 	}
 	
 	/**
@@ -196,6 +192,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		.contentType(ContentType.JSON)
 		.when().get(baseUrl + findByTrainer)
 		.then().assertThat()
-		.statusCode(200);
+		.statusCode(200)
+		.body("list.size()", equalTo(1171));
 	}
 }
