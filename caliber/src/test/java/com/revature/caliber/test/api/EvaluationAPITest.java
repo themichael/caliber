@@ -2,10 +2,10 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-<<<<<<< HEAD
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -29,9 +29,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 
-=======
 import static org.hamcrest.CoreMatchers.equalTo;
->>>>>>> edb4e4acf5bbb035e9cf2614b0b209437bf3ce59
+
 
 import java.util.Date;
 
@@ -39,11 +38,9 @@ import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-=======
->>>>>>> edb4e4acf5bbb035e9cf2614b0b209437bf3ce59
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Assessment;
@@ -305,15 +302,13 @@ public class EvaluationAPITest extends AbstractAPITest{
 		.body("list.size()", equalTo(1171));
 	}
 	
-<<<<<<< HEAD
+
 	/**
 	 * Create note 
 	 * @see com.revature.caliber.controllers.EvaluationController#createNote(@Valid @RequestBody Note note)
 	 * 
 	 */
-	@Ignore
-=======
->>>>>>> edb4e4acf5bbb035e9cf2614b0b209437bf3ce59
+
 	@Test
 	@Ignore
 	public void createNote() throws Exception {
