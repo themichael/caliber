@@ -42,6 +42,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 	protected static String accessToken = "Auth ";
 	protected static final String authHeader = "Authorization";
 	protected static RequestSpecification requestSpec;
+
 	
 	protected String baseUrl = System.getenv("CALIBER_SERVER_URL");
 	private String username = System.getenv("CALIBER_API_USERNAME");
@@ -55,12 +56,14 @@ public abstract class AbstractAPITest extends CaliberTest {
 		// only login with Salesforce once
 		if (accessToken.equals("Auth ")) {
 			try {
+
 				login();
 				log.info("Logging into Caliber for API testing");
 				Response response = given().redirects().allowCircular(true).get(baseUrl + "caliber/");
                 String sessionCookie = response.getCookie("JSESSIONID");
                 String roleCookie = response.getCookie("role");
                 requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
+
 			} catch (Exception e) {
 				log.error(e);
 			}

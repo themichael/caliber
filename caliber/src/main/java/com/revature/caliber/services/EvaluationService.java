@@ -330,7 +330,7 @@ public class EvaluationService {
 		return noteDAO.findAllQCTraineeOverallNotes(traineeId);
 	}
 	
-	/*
+	/**
 	 * method to help initialize dependencies of grade before session closes.
 	 */
 	private List<Grade> initializeLazyLoaded(List<Grade> grades){
