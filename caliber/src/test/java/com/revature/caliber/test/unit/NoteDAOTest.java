@@ -205,7 +205,6 @@ public class NoteDAOTest extends CaliberTest {
 	@Test	
 	public void findAllQCBatchNotes(){
 		log.trace("GETTING ALL QC BATCH NOTES");
-
 		
 		// find all QC batch notes
 		List<Note> notes = noteDao.findAllQCBatchNotes(testQCBatchId);
@@ -226,7 +225,7 @@ public class NoteDAOTest extends CaliberTest {
 	@Test	
 	public void findAllQCTraineeNotes(){
 		log.trace("GETTING ALL QC TRAINEE NOTES");
-
+		
 		// find all QC trainee notes for week 7
 		List<Note> notes = noteDao.findAllQCTraineeNotes(testQCBatchId, 7);
 		
