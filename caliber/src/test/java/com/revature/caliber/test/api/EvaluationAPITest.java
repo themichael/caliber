@@ -8,25 +8,40 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertEquals;
+
+
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.AssessmentType;
-import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
+
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
+
+
 
 import io.restassured.http.ContentType;
 
@@ -46,7 +61,9 @@ public class EvaluationAPITest extends AbstractAPITest{
 	@Autowired
 	AssessmentDAO assessmentDAO;
 	private static final Logger log = Logger.getLogger(EvaluationAPITest.class);
+
 	
+    
 	private static final String findByTrainee = "all/grade/trainee/5529";
 	private static final String findByBatch = "all/grade/batch/2150";
 	private static final String findByCategory = "all/grade/category/12";
@@ -64,6 +81,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void createGrade() throws Exception{
+		GradeDAO gradeDAO = new GradeDAO();
 		log.info("API Testing createGrade at baseUrl  " + baseUrl);
 		Trainer trainer = new Trainer("Joseph, Alex", "Trainer", "testemail@mail.com", TrainerRole.ROLE_VP);
 		trainerDAO.save(trainer);
@@ -151,7 +169,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		//List<Grade> grades =
 		String expected = ""; 
 		given().header("Authorization",accessToken).contentType(ContentType.JSON)
-		.when().get("baseUrl+findAll").then().assertThat().statusCode(200)
+		.when().get("baseUrl"+findAll).then().assertThat().statusCode(200)
 		.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
 	/*Author DanJ
@@ -242,5 +260,58 @@ public class EvaluationAPITest extends AbstractAPITest{
 		.statusCode(200);
 	}
 	
+	@Test
+	public void createNote() throws Exception {
+		
+		String createNote = "note/create";
+		Batch batch = batchDAO.findOne(2200);
+		
+		
+		Note expected = new Note();
+		expected.setContent("This is a test note");
+		expected.setWeek((short) 2);
+		expected.setBatch(null);
+		expected.setType(NoteType.TRAINEE);
+		expected.setQcStatus(QCStatus.Poor);
+		expected.setMaxVisibility(TrainerRole.ROLE_TRAINER);
+		expected.setTrainee(null);
+		
+		log.info("API Testing createNote at " + baseUrl + createNote);
+		given().spec(requestSpec).header(authHeader, accessToken)
+				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()
+				.post(baseUrl + createNote).then().assertThat().statusCode(201);
+	}
+	
+	/**
+	 * 
+	 * @see com.revature.caliber.controllers.EvaluationController#findBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week)
+	 */
+	@Test
+	public void findBatchNotes() {
+		
+		String findBatchNotes = "trainer/note/batch/2100/2";
+		log.info("API Testing findBatchNotes at " + baseUrl + findBatchNotes);
+		given().spec(requestSpec).header(authHeader, accessToken)
+		.contentType(ContentType.JSON).when()
+				.get(baseUrl + findBatchNotes).then().assertThat().statusCode(200)
+				.body("get(0).noteId", equalTo(5133));
+	}
+	
+	/**
+	 * 
+	 * @see com.revature.caliber.controllers.EvaluationController#findIndividualNotes(@PathVariable Integer batchId, @PathVariable Integer week)
+	 */
+	@Test
+	public void findIndividualNotes(){
+		String findIndividualNotes = "trainer/note/trainee/2201/6";
+		log.info("API Testing findIndividualNotes at " + baseUrl + findIndividualNotes);
+		given().spec(requestSpec).header(authHeader, accessToken)
+		.contentType(ContentType.JSON).when()
+				.get(baseUrl + findIndividualNotes).then().assertThat().statusCode(200);
+	}
+	
+	
+	
+
 	
 }
