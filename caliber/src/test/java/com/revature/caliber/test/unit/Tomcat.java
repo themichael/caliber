@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ImportResource;
 @Configuration
 @EnableAutoConfiguration
 //@ComponentScan("com.revature")
-@ImportResource(value="integration-test.xml")
+@ImportResource(value={"integration-test.xml", "spring-security.xml"})
 public class Tomcat{
 
 	private static Log log = LogFactory.getLog(Tomcat.class);
