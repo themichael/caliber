@@ -61,7 +61,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 			try {
 				login();
 				log.info("Logging into Caliber for API testing");
-				Response response = given().redirects().allowCircular(true).get(baseUrl + "caliber/");
+				Response response = given().redirects().allowCircular(true).get(baseUrl);
                 String sessionCookie = response.getCookie("JSESSIONID");
                 String roleCookie = response.getCookie("role");
                 requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
