@@ -7,8 +7,8 @@ Feature: QA Batch Performance
 
 Scenario:
 	Given I am on the Quality Audit page
-	And I have selected 2017 as the year
-	And I have selected "Patrick Walsh - 2/13/17" as Trainer
+	And I have selected the current year
+	And I have selected a Batch
 	And I am viewing the most recent week
 	And I enter "Batch Notes" in the QC Feedback text area
 	When I click the save button

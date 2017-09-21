@@ -5303,3 +5303,467 @@ Images":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Win
 [INFO  - 2017-09-20T18:07:01.852Z] Session [806de760-9e2e-11e7-bcba-25fe04a5b8a9] - page.customHeaders:  - {}
 [INFO  - 2017-09-20T18:07:01.852Z] Session [806de760-9e2e-11e7-bcba-25fe04a5b8a9] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-8.1-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
 [INFO  - 2017-09-20T18:07:01.852Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 806de760-9e2e-11e7-bcba-25fe04a5b8a9
+[INFO  - 2017-09-21T18:02:16.815Z] GhostDriver - Main - running on port 23816
+[INFO  - 2017-09-21T18:02:17.073Z] Session [0119d3b0-9ef7-11e7-9bec-758c16ae954b] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T18:02:17.073Z] Session [0119d3b0-9ef7-11e7-9bec-758c16ae954b] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T18:02:17.073Z] Session [0119d3b0-9ef7-11e7-9bec-758c16ae954b] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T18:02:17.073Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 0119d3b0-9ef7-11e7-9bec-758c16ae954b
+[INFO  - 2017-09-21T18:02:17.183Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T18:54:47.929Z] GhostDriver - Main - running on port 4927
+[INFO  - 2017-09-21T18:54:48.164Z] Session [574c7600-9efe-11e7-b91a-85c78e2d4d21] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T18:54:48.165Z] Session [574c7600-9efe-11e7-b91a-85c78e2d4d21] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T18:54:48.165Z] Session [574c7600-9efe-11e7-b91a-85c78e2d4d21] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T18:54:48.165Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 574c7600-9efe-11e7-b91a-85c78e2d4d21
+[INFO  - 2017-09-21T18:54:56.662Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T18:56:52.503Z] GhostDriver - Main - running on port 27596
+[INFO  - 2017-09-21T18:56:52.795Z] Session [a1957d60-9efe-11e7-89fd-8908d8cd4aa9] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T18:56:52.795Z] Session [a1957d60-9efe-11e7-89fd-8908d8cd4aa9] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T18:56:52.796Z] Session [a1957d60-9efe-11e7-89fd-8908d8cd4aa9] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T18:56:52.796Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: a1957d60-9efe-11e7-89fd-8908d8cd4aa9
+[INFO  - 2017-09-21T18:56:59.609Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T18:57:10.338Z] GhostDriver - Main - running on port 41942
+[INFO  - 2017-09-21T18:57:10.627Z] Session [ac366fe0-9efe-11e7-9daf-736afa076fda] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T18:57:10.627Z] Session [ac366fe0-9efe-11e7-9daf-736afa076fda] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T18:57:10.627Z] Session [ac366fe0-9efe-11e7-9daf-736afa076fda] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T18:57:10.628Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: ac366fe0-9efe-11e7-9daf-736afa076fda
+[INFO  - 2017-09-21T18:57:28.995Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T18:58:26.259Z] GhostDriver - Main - running on port 7739
+[INFO  - 2017-09-21T18:58:26.583Z] Session [d97c6720-9efe-11e7-9790-b12e9bf4757e] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T18:58:26.583Z] Session [d97c6720-9efe-11e7-9790-b12e9bf4757e] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T18:58:26.583Z] Session [d97c6720-9efe-11e7-9790-b12e9bf4757e] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T18:58:26.583Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: d97c6720-9efe-11e7-9790-b12e9bf4757e
+[INFO  - 2017-09-21T18:58:33.413Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:08:29.478Z] GhostDriver - Main - running on port 27053
+[INFO  - 2017-09-21T19:08:29.812Z] Session [410962c0-9f00-11e7-a503-add7ecc2e8dd] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:08:29.813Z] Session [410962c0-9f00-11e7-a503-add7ecc2e8dd] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:08:29.813Z] Session [410962c0-9f00-11e7-a503-add7ecc2e8dd] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:08:29.813Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 410962c0-9f00-11e7-a503-add7ecc2e8dd
+[INFO  - 2017-09-21T19:08:32.993Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:09:07.804Z] GhostDriver - Main - running on port 37479
+[INFO  - 2017-09-21T19:09:08.160Z] Session [57e548b0-9f00-11e7-a60e-b30f255bd2f5] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:09:08.160Z] Session [57e548b0-9f00-11e7-a60e-b30f255bd2f5] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:09:08.160Z] Session [57e548b0-9f00-11e7-a60e-b30f255bd2f5] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:09:08.161Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 57e548b0-9f00-11e7-a60e-b30f255bd2f5
+[INFO  - 2017-09-21T19:09:14.226Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:13:25.952Z] GhostDriver - Main - running on port 9959
+[INFO  - 2017-09-21T19:13:26.281Z] Session [f1bf6c40-9f00-11e7-889c-3d6139c491c3] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:13:26.281Z] Session [f1bf6c40-9f00-11e7-889c-3d6139c491c3] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:13:26.282Z] Session [f1bf6c40-9f00-11e7-889c-3d6139c491c3] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:13:26.282Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: f1bf6c40-9f00-11e7-889c-3d6139c491c3
+[INFO  - 2017-09-21T19:13:28.842Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:13:58.971Z] GhostDriver - Main - running on port 32729
+[INFO  - 2017-09-21T19:13:59.284Z] Session [056b47f0-9f01-11e7-bcf4-9b7f22104f77] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:13:59.284Z] Session [056b47f0-9f01-11e7-bcf4-9b7f22104f77] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:13:59.284Z] Session [056b47f0-9f01-11e7-bcf4-9b7f22104f77] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:13:59.284Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 056b47f0-9f01-11e7-bcf4-9b7f22104f77
+[INFO  - 2017-09-21T19:14:02.965Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:14:44.259Z] GhostDriver - Main - running on port 43938
+[INFO  - 2017-09-21T19:14:44.564Z] Session [20689d00-9f01-11e7-ac5b-41bb8aced96b] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:14:44.564Z] Session [20689d00-9f01-11e7-ac5b-41bb8aced96b] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:14:44.564Z] Session [20689d00-9f01-11e7-ac5b-41bb8aced96b] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:14:44.565Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 20689d00-9f01-11e7-ac5b-41bb8aced96b
+[INFO  - 2017-09-21T19:14:44.655Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:17:32.335Z] GhostDriver - Main - running on port 40480
+[INFO  - 2017-09-21T19:17:32.645Z] Session [84979600-9f01-11e7-9e66-2f21d58ebc33] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:17:32.645Z] Session [84979600-9f01-11e7-9e66-2f21d58ebc33] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:17:32.645Z] Session [84979600-9f01-11e7-9e66-2f21d58ebc33] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:17:32.645Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 84979600-9f01-11e7-9e66-2f21d58ebc33
+[INFO  - 2017-09-21T19:22:32.348Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-21T19:22:32.349Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session '84979600-9f01-11e7-9e66-2f21d58ebc33', because windowless
+Images":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:17:34.302Z] Session [85946c90-9f01-11e7-a9ad-d3dd94a43bb3] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:17:34.302Z] Session [85946c90-9f01-11e7-a9ad-d3dd94a43bb3] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:17:34.302Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 85946c90-9f01-11e7-a9ad-d3dd94a43bb3
+[INFO  - 2017-09-21T19:17:34.532Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:19:45.870Z] GhostDriver - Main - running on port 1029
+[INFO  - 2017-09-21T19:19:46.204Z] Session [d4331270-9f01-11e7-be56-3bec370f04a6] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:19:46.204Z] Session [d4331270-9f01-11e7-be56-3bec370f04a6] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:19:46.204Z] Session [d4331270-9f01-11e7-be56-3bec370f04a6] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:19:46.204Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: d4331270-9f01-11e7-be56-3bec370f04a6
+[INFO  - 2017-09-21T19:24:45.879Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-21T19:24:45.880Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session 'd4331270-9f01-11e7-be56-3bec370f04a6', because windowless
+mages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:19:47.844Z] Session [d52d50f0-9f01-11e7-a90d-2f8c2b9aeb27] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:19:47.844Z] Session [d52d50f0-9f01-11e7-a90d-2f8c2b9aeb27] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:19:47.844Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: d52d50f0-9f01-11e7-a90d-2f8c2b9aeb27
+[INFO  - 2017-09-21T19:19:47.968Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:20:21.755Z] GhostDriver - Main - running on port 34141
+[INFO  - 2017-09-21T19:20:22.068Z] Session [e9932dd0-9f01-11e7-acf7-8f9540ce021e] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:20:22.068Z] Session [e9932dd0-9f01-11e7-acf7-8f9540ce021e] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:20:22.068Z] Session [e9932dd0-9f01-11e7-acf7-8f9540ce021e] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:20:22.069Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: e9932dd0-9f01-11e7-acf7-8f9540ce021e
+[INFO  - 2017-09-21T19:21:12.078Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:22:06.815Z] GhostDriver - Main - running on port 31179
+[INFO  - 2017-09-21T19:22:07.138Z] Session [2833e4d0-9f02-11e7-999d-a1c54369a7c9] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:22:07.138Z] Session [2833e4d0-9f02-11e7-999d-a1c54369a7c9] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:22:07.139Z] Session [2833e4d0-9f02-11e7-999d-a1c54369a7c9] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:22:07.139Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 2833e4d0-9f02-11e7-999d-a1c54369a7c9
+[INFO  - 2017-09-21T19:27:06.814Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-21T19:27:06.815Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session '2833e4d0-9f02-11e7-999d-a1c54369a7c9', because windowless
+Images":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:22:08.785Z] Session [292f5bd0-9f02-11e7-b50c-1db7c82f68ba] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:22:08.785Z] Session [292f5bd0-9f02-11e7-b50c-1db7c82f68ba] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:22:08.786Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 292f5bd0-9f02-11e7-b50c-1db7c82f68ba
+[INFO  - 2017-09-21T19:22:13.607Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:23:00.070Z] GhostDriver - Main - running on port 36452
+[INFO  - 2017-09-21T19:23:00.389Z] Session [47f15a00-9f02-11e7-83ea-5b852c41d423] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:23:00.389Z] Session [47f15a00-9f02-11e7-83ea-5b852c41d423] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:23:00.389Z] Session [47f15a00-9f02-11e7-83ea-5b852c41d423] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:23:00.389Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 47f15a00-9f02-11e7-83ea-5b852c41d423
+[INFO  - 2017-09-21T19:28:00.080Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-21T19:28:00.080Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session '47f15a00-9f02-11e7-83ea-5b852c41d423', because windowless
+Images":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:23:02.036Z] Session [48ec82e0-9f02-11e7-82d2-858a3d92d199] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:23:02.036Z] Session [48ec82e0-9f02-11e7-82d2-858a3d92d199] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:23:02.036Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 48ec82e0-9f02-11e7-82d2-858a3d92d199
+[ERROR - 2017-09-21T19:23:07.331Z] Session [48ec82e0-9f02-11e7-82d2-858a3d92d199] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:23:07.331Z] Session [48ec82e0-9f02-11e7-82d2-858a3d92d199] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-21T19:23:08.276Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:24:06.008Z] GhostDriver - Main - running on port 29189
+[INFO  - 2017-09-21T19:24:06.358Z] Session [6f434500-9f02-11e7-9dd1-d79959466088] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:24:06.358Z] Session [6f434500-9f02-11e7-9dd1-d79959466088] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:24:06.358Z] Session [6f434500-9f02-11e7-9dd1-d79959466088] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:24:06.358Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 6f434500-9f02-11e7-9dd1-d79959466088
+[INFO  - 2017-09-21T19:24:17.158Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:26:32.181Z] GhostDriver - Main - running on port 26006
+[INFO  - 2017-09-21T19:26:32.450Z] Session [c6574ad0-9f02-11e7-95ce-a1be594bc902] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:26:32.450Z] Session [c6574ad0-9f02-11e7-95ce-a1be594bc902] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:26:32.450Z] Session [c6574ad0-9f02-11e7-95ce-a1be594bc902] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:26:32.451Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: c6574ad0-9f02-11e7-95ce-a1be594bc902
+[INFO  - 2017-09-21T19:31:32.190Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-21T19:31:32.191Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session 'c6574ad0-9f02-11e7-95ce-a1be594bc902', because windowless
+Images":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:26:34.097Z] Session [c7529ac0-9f02-11e7-a15e-b98daee87eb5] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:26:34.097Z] Session [c7529ac0-9f02-11e7-a15e-b98daee87eb5] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:26:34.097Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: c7529ac0-9f02-11e7-a15e-b98daee87eb5
+[ERROR - 2017-09-21T19:26:47.261Z] Session [c7529ac0-9f02-11e7-a15e-b98daee87eb5] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:26:47.261Z] Session [c7529ac0-9f02-11e7-a15e-b98daee87eb5] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:26:47.262Z] Session [c7529ac0-9f02-11e7-a15e-b98daee87eb5] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:26:47.262Z] Session [c7529ac0-9f02-11e7-a15e-b98daee87eb5] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:26:47.263Z] Session [c7529ac0-9f02-11e7-a15e-b98daee87eb5] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:26:47.263Z] Session [c7529ac0-9f02-11e7-a15e-b98daee87eb5] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:26:47.264Z] Session [c7529ac0-9f02-11e7-a15e-b98daee87eb5] - page.onError - msg: Error: undefined is not an object (evaluating 'notes.length')
+http://localhost:8080/static/app/resources/js/controllers/qcAssessController.js:95:39
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestError@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11846:24
+openUrl@[native code]
+open@phantomjs://platform/webpage.js:281:25
+phantomjs://code/session_request_handler.js:495:36
+_execFuncAndWaitForLoadDecorator@phantomjs://code/session.js:212:23
+_postUrlCommand@phantomjs://code/session_request_handler.js:494:46
+_handle@phantomjs://code/session_request_handler.js:91:32
+_reroute@phantomjs://code/request_handler.js:61:20
+_handle@phantomjs://code/router_request_handler.js:78:46
+[ERROR - 2017-09-21T19:26:47.264Z] Session [c7529ac0-9f02-11e7-a15e-b98daee87eb5] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-21T19:26:48.514Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:28:36.961Z] GhostDriver - Main - running on port 37527
+[INFO  - 2017-09-21T19:28:37.277Z] Session [10be6180-9f03-11e7-9b1c-adbc15cf1114] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:28:37.277Z] Session [10be6180-9f03-11e7-9b1c-adbc15cf1114] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:28:37.277Z] Session [10be6180-9f03-11e7-9b1c-adbc15cf1114] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:28:37.278Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 10be6180-9f03-11e7-9b1c-adbc15cf1114
+[INFO  - 2017-09-21T19:28:42.961Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:29:43.397Z] GhostDriver - Main - running on port 29182
+[INFO  - 2017-09-21T19:29:43.697Z] Session [38551db0-9f03-11e7-8372-b3edb8f459fb] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:29:43.697Z] Session [38551db0-9f03-11e7-8372-b3edb8f459fb] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:29:43.697Z] Session [38551db0-9f03-11e7-8372-b3edb8f459fb] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:29:43.698Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 38551db0-9f03-11e7-8372-b3edb8f459fb
+[INFO  - 2017-09-21T19:29:58.045Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:30:11.013Z] GhostDriver - Main - running on port 2111
+[INFO  - 2017-09-21T19:30:11.312Z] Session [48cafbb0-9f03-11e7-8116-896cf217de58] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:30:11.312Z] Session [48cafbb0-9f03-11e7-8116-896cf217de58] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:30:11.312Z] Session [48cafbb0-9f03-11e7-8116-896cf217de58] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:30:11.312Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 48cafbb0-9f03-11e7-8116-896cf217de58
+[INFO  - 2017-09-21T19:35:11.020Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-21T19:35:11.021Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session '48cafbb0-9f03-11e7-8116-896cf217de58', because windowless
+Images":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:30:12.916Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:30:12.916Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:30:12.917Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 49bfbbf0-9f03-11e7-a164-47e113a05413
+[ERROR - 2017-09-21T19:30:27.937Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:30:27.937Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:30:27.938Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.onError - msg: Error: undefined is not an object (evaluating 'notes.qcStatus')
+http://localhost:8080/static/app/resources/js/controllers/qcAssessController.js:75:42
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestError@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11846:24
+openUrl@[native code]
+open@phantomjs://platform/webpage.js:281:25
+phantomjs://code/session_request_handler.js:495:36
+_execFuncAndWaitForLoadDecorator@phantomjs://code/session.js:212:23
+_postUrlCommand@phantomjs://code/session_request_handler.js:494:46
+_handle@phantomjs://code/session_request_handler.js:91:32
+_reroute@phantomjs://code/request_handler.js:61:20
+_handle@phantomjs://code/router_request_handler.js:78:46
+[ERROR - 2017-09-21T19:30:27.938Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:30:27.941Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:30:27.941Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:30:27.942Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.onError - msg: Error: undefined is not an object (evaluating 'notes.qcStatus')
+http://localhost:8080/static/app/resources/js/controllers/qcAssessController.js:75:42
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestError@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11846:24
+openUrl@[native code]
+open@phantomjs://platform/webpage.js:281:25
+phantomjs://code/session_request_handler.js:495:36
+_execFuncAndWaitForLoadDecorator@phantomjs://code/session.js:212:23
+_postUrlCommand@phantomjs://code/session_request_handler.js:494:46
+_handle@phantomjs://code/session_request_handler.js:91:32
+_reroute@phantomjs://code/request_handler.js:61:20
+_handle@phantomjs://code/router_request_handler.js:78:46
+[ERROR - 2017-09-21T19:30:27.942Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:30:27.943Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:30:27.944Z] Session [49bfbbf0-9f03-11e7-a164-47e113a05413] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-21T19:30:30.667Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:31:52.231Z] GhostDriver - Main - running on port 7415
+[INFO  - 2017-09-21T19:31:52.541Z] Session [85212670-9f03-11e7-a906-274fcef00e7c] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:31:52.541Z] Session [85212670-9f03-11e7-a906-274fcef00e7c] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:31:52.541Z] Session [85212670-9f03-11e7-a906-274fcef00e7c] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:31:52.542Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 85212670-9f03-11e7-a906-274fcef00e7c
+[INFO  - 2017-09-21T19:36:52.235Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-21T19:36:52.236Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session '85212670-9f03-11e7-a906-274fcef00e7c', because windowless
+Images":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:31:54.181Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:31:54.181Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:31:54.181Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 861b8c00-9f03-11e7-979f-1d7fb8a31896
+[ERROR - 2017-09-21T19:32:00.321Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:32:00.321Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:32:00.321Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: Error: undefined is not an object (evaluating 'notes.qcStatus')
+http://localhost:8080/static/app/resources/js/controllers/qcAssessController.js:75:42
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestError@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11846:24
+openUrl@[native code]
+open@phantomjs://platform/webpage.js:281:25
+phantomjs://code/session_request_handler.js:495:36
+_execFuncAndWaitForLoadDecorator@phantomjs://code/session.js:212:23
+_postUrlCommand@phantomjs://code/session_request_handler.js:494:46
+_handle@phantomjs://code/session_request_handler.js:91:32
+_reroute@phantomjs://code/request_handler.js:61:20
+_handle@phantomjs://code/router_request_handler.js:78:46
+[ERROR - 2017-09-21T19:32:00.322Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:32:00.326Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:32:00.326Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:32:00.326Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: Error: undefined is not an object (evaluating 'notes.qcStatus')
+http://localhost:8080/static/app/resources/js/controllers/qcAssessController.js:75:42
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestError@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11846:24
+openUrl@[native code]
+open@phantomjs://platform/webpage.js:281:25
+phantomjs://code/session_request_handler.js:495:36
+_execFuncAndWaitForLoadDecorator@phantomjs://code/session.js:212:23
+_postUrlCommand@phantomjs://code/session_request_handler.js:494:46
+_handle@phantomjs://code/session_request_handler.js:91:32
+_reroute@phantomjs://code/request_handler.js:61:20
+_handle@phantomjs://code/router_request_handler.js:78:46
+[ERROR - 2017-09-21T19:32:00.326Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:32:00.328Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:32:00.328Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:32:00.328Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:32:00.329Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:32:00.330Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:32:00.330Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:32:00.330Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: Error: undefined is not an object (evaluating 'notes.length')
+http://localhost:8080/static/app/resources/js/controllers/qcAssessController.js:95:39
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestError@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11846:24
+openUrl@[native code]
+open@phantomjs://platform/webpage.js:281:25
+phantomjs://code/session_request_handler.js:495:36
+_execFuncAndWaitForLoadDecorator@phantomjs://code/session.js:212:23
+_postUrlCommand@phantomjs://code/session_request_handler.js:494:46
+_handle@phantomjs://code/session_request_handler.js:91:32
+_reroute@phantomjs://code/request_handler.js:61:20
+_handle@phantomjs://code/router_request_handler.js:78:46
+[ERROR - 2017-09-21T19:32:00.330Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:32:00.331Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:32:00.331Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:32:00.332Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: Error: undefined is not an object (evaluating 'notes.length')
+http://localhost:8080/static/app/resources/js/controllers/qcAssessController.js:95:39
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestError@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11846:24
+openUrl@[native code]
+open@phantomjs://platform/webpage.js:281:25
+phantomjs://code/session_request_handler.js:495:36
+_execFuncAndWaitForLoadDecorator@phantomjs://code/session.js:212:23
+_postUrlCommand@phantomjs://code/session_request_handler.js:494:46
+_handle@phantomjs://code/session_request_handler.js:91:32
+_reroute@phantomjs://code/request_handler.js:61:20
+_handle@phantomjs://code/router_request_handler.js:78:46
+[ERROR - 2017-09-21T19:32:00.332Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:32:00.333Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:32:00.333Z] Session [861b8c00-9f03-11e7-979f-1d7fb8a31896] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-21T19:32:03.065Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:33:05.396Z] GhostDriver - Main - running on port 5131
+[INFO  - 2017-09-21T19:33:05.706Z] Session [b0bd3e40-9f03-11e7-aee2-0b30dce6bfd3] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:33:05.706Z] Session [b0bd3e40-9f03-11e7-aee2-0b30dce6bfd3] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:33:05.706Z] Session [b0bd3e40-9f03-11e7-aee2-0b30dce6bfd3] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:33:05.706Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b0bd3e40-9f03-11e7-aee2-0b30dce6bfd3
+[INFO  - 2017-09-21T19:38:05.408Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-21T19:38:05.409Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session 'b0bd3e40-9f03-11e7-aee2-0b30dce6bfd3', because windowless
+Images":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:33:07.348Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:33:07.348Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:33:07.348Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b
+[ERROR - 2017-09-21T19:33:19.396Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:33:19.396Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:33:19.398Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:33:19.398Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:33:19.399Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:33:19.399Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:33:19.400Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.onError - msg: Error: undefined is not an object (evaluating 'notes.length')
+http://localhost:8080/static/app/resources/js/controllers/qcAssessController.js:95:39
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestError@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11846:24
+openUrl@[native code]
+open@phantomjs://platform/webpage.js:281:25
+phantomjs://code/session_request_handler.js:495:36
+_execFuncAndWaitForLoadDecorator@phantomjs://code/session.js:212:23
+_postUrlCommand@phantomjs://code/session_request_handler.js:494:46
+_handle@phantomjs://code/session_request_handler.js:91:32
+_reroute@phantomjs://code/request_handler.js:61:20
+_handle@phantomjs://code/router_request_handler.js:78:46
+[ERROR - 2017-09-21T19:33:19.400Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:33:19.401Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:33:19.401Z] Session [b1b7f1f0-9f03-11e7-ab03-3d10b91bef1b] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-21T19:33:22.826Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:35:17.809Z] GhostDriver - Main - running on port 30439
+[INFO  - 2017-09-21T19:35:18.120Z] Session [ffaa0420-9f03-11e7-b66c-0d8ec46e8c0a] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:35:18.120Z] Session [ffaa0420-9f03-11e7-b66c-0d8ec46e8c0a] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:35:18.120Z] Session [ffaa0420-9f03-11e7-b66c-0d8ec46e8c0a] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:35:18.120Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: ffaa0420-9f03-11e7-b66c-0d8ec46e8c0a
+[INFO  - 2017-09-21T19:40:18.127Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-21T19:40:18.128Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session 'ffaa0420-9f03-11e7-b66c-0d8ec46e8c0a', because windowless
+mages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:35:19.772Z] Session [00a63e70-9f04-11e7-b030-118cd44b1ea5] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:35:19.772Z] Session [00a63e70-9f04-11e7-b030-118cd44b1ea5] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:35:19.772Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 00a63e70-9f04-11e7-b030-118cd44b1ea5
+[ERROR - 2017-09-21T19:36:14.547Z] Session [00a63e70-9f04-11e7-b030-118cd44b1ea5] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:36:14.547Z] Session [00a63e70-9f04-11e7-b030-118cd44b1ea5] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-21T19:36:18.196Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:36:37.027Z] GhostDriver - Main - running on port 27256
+[INFO  - 2017-09-21T19:36:37.328Z] Session [2ee032a0-9f04-11e7-b22e-3755a0a19fc8] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:36:37.328Z] Session [2ee032a0-9f04-11e7-b22e-3755a0a19fc8] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:36:37.329Z] Session [2ee032a0-9f04-11e7-b22e-3755a0a19fc8] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:36:37.329Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 2ee032a0-9f04-11e7-b22e-3755a0a19fc8
+[INFO  - 2017-09-21T19:37:23.917Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:39:13.741Z] GhostDriver - Main - running on port 28920
+[INFO  - 2017-09-21T19:39:14.061Z] Session [8c4be880-9f04-11e7-baad-67548065c1a8] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:39:14.061Z] Session [8c4be880-9f04-11e7-baad-67548065c1a8] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:39:14.061Z] Session [8c4be880-9f04-11e7-baad-67548065c1a8] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:39:14.061Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 8c4be880-9f04-11e7-baad-67548065c1a8
+[INFO  - 2017-09-21T19:39:25.280Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:40:13.183Z] GhostDriver - Main - running on port 42590
+[INFO  - 2017-09-21T19:40:13.524Z] Session [afbd3df0-9f04-11e7-9aae-4550902804a3] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:40:13.524Z] Session [afbd3df0-9f04-11e7-9aae-4550902804a3] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:40:13.525Z] Session [afbd3df0-9f04-11e7-9aae-4550902804a3] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:40:13.525Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: afbd3df0-9f04-11e7-9aae-4550902804a3
+[INFO  - 2017-09-21T19:40:38.927Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:41:12.621Z] GhostDriver - Main - running on port 37885
+[INFO  - 2017-09-21T19:41:12.963Z] Session [d32a9bc0-9f04-11e7-84b8-917904213876] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:41:12.963Z] Session [d32a9bc0-9f04-11e7-84b8-917904213876] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:41:12.963Z] Session [d32a9bc0-9f04-11e7-84b8-917904213876] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:41:12.963Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: d32a9bc0-9f04-11e7-84b8-917904213876
+[INFO  - 2017-09-21T19:41:40.898Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:42:27.864Z] GhostDriver - Main - running on port 14053
+[INFO  - 2017-09-21T19:42:28.189Z] Session [00017d80-9f05-11e7-a65d-9334453e2a98] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:42:28.189Z] Session [00017d80-9f05-11e7-a65d-9334453e2a98] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:42:28.190Z] Session [00017d80-9f05-11e7-a65d-9334453e2a98] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:42:28.190Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 00017d80-9f05-11e7-a65d-9334453e2a98
+[INFO  - 2017-09-21T19:47:28.188Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-21T19:47:28.189Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session '00017d80-9f05-11e7-a65d-9334453e2a98', because windowless
+Images":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:42:29.791Z] Session [00f5efa0-9f05-11e7-8f68-136291f2fdbc] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:42:29.791Z] Session [00f5efa0-9f05-11e7-8f68-136291f2fdbc] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:42:29.792Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 00f5efa0-9f05-11e7-8f68-136291f2fdbc
+[ERROR - 2017-09-21T19:42:53.806Z] Session [00f5efa0-9f05-11e7-8f68-136291f2fdbc] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:42:53.807Z] Session [00f5efa0-9f05-11e7-8f68-136291f2fdbc] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-21T19:43:04.279Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-21T19:44:37.480Z] GhostDriver - Main - running on port 30102
+[INFO  - 2017-09-21T19:44:37.777Z] Session [4d3f0cc0-9f05-11e7-ab53-89c7aa150b3d] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:44:37.777Z] Session [4d3f0cc0-9f05-11e7-ab53-89c7aa150b3d] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:44:37.777Z] Session [4d3f0cc0-9f05-11e7-ab53-89c7aa150b3d] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:44:37.777Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 4d3f0cc0-9f05-11e7-ab53-89c7aa150b3d
+[INFO  - 2017-09-21T19:44:39.329Z] GhostDriver - Main - running on port 12872
+[INFO  - 2017-09-21T19:44:39.420Z] Session [4e39c070-9f05-11e7-bebf-29ade39c1881] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-21T19:44:39.420Z] Session [4e39c070-9f05-11e7-bebf-29ade39c1881] - page.customHeaders:  - {}
+[INFO  - 2017-09-21T19:44:39.420Z] Session [4e39c070-9f05-11e7-bebf-29ade39c1881] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-21T19:44:39.420Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 4e39c070-9f05-11e7-bebf-29ade39c1881
+[ERROR - 2017-09-21T19:47:25.629Z] Session [4e39c070-9f05-11e7-bebf-29ade39c1881] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:47:25.629Z] Session [4e39c070-9f05-11e7-bebf-29ade39c1881] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-21T19:47:25.630Z] Session [4e39c070-9f05-11e7-bebf-29ade39c1881] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-21T19:47:25.631Z] Session [4e39c070-9f05-11e7-bebf-29ade39c1881] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)

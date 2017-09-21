@@ -36,16 +36,22 @@ public class QualityAuditTest {
 		QualityAuditPage qaPage = new QualityAuditPage(driver);
 		qaPage.goToPage();
 		System.out.println(driver.getCurrentUrl());
-		qaPage.clickYearDropdown();
-		qaPage.clickBatchTrainer();
-		qaPage.clickWeeksForBatch();
-		qaPage.clickAddWeeksForBatchButton();
+		Thread.sleep(10000);
+		System.out.println(driver.findElement(By.xpath("//*[@id='qcBatchNotes']")).getAttribute("class"));
+		
+		String thing = driver.findElement(By.xpath("//*[@id='qcBatchNotes']")).getAttribute("class");
+		System.out.println(thing.contains("ng-not-empty"));
+		
+		/*qaPage.clickYearDropdown();
+		qaPage.clickBatch();*/
+		/*qaPage.verifyWeekForBatch();*/
+		/*qaPage.clickAddWeeksForBatchButton();
 		qaPage.clickIndividualFeedbackButton();
 		qaPage.setNoteOnTraineeTextArea("");
 		qaPage.clickOverallFeedbackQCButtonGood();
 		qaPage.clickOverallFeedbackQCButtonAvg();
 		qaPage.clickOverallFeedbackQCButtonPoor();
 		qaPage.setOverallFeedbackQCNotes("");
-		qaPage.clickSaveButton();
+		qaPage.clickSaveButton();*/
 	}
 }
