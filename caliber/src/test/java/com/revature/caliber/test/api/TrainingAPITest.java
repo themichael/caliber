@@ -3,12 +3,8 @@ package com.revature.caliber.test.api;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.springframework.test.annotation.Rollback;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,10 +31,6 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	private String findByEmail = "training/trainer/byemail/patrick.walsh@revature.com/";
 
-	private String createTrainee ="/all/trainee/create";
-	private String updateTrainee = "/all/trainee/update";
-	private String deleteTrainee = "/all/trainee/delete/5468";
-	private String retreiveTraineeByEmail = "/all/trainee/getByEmail/starrv2011@gmail.com";
 	private String createTrainer = "vp/trainer/create";
 	private String updateTrainer = "vp/trainer/update";
 	private String makeInactive = "vp/trainer/delete";
@@ -202,23 +194,6 @@ public class TrainingAPITest extends AbstractAPITest {
 		log.info("API Testing reactivateLocation at baseUrl " + baseUrl);
 		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).body(location)
 				.when().put(baseUrl + reactivateLocationTest).then().assertThat().statusCode(204);
-	}
-	@Test
-	public void createTraineeTest(){
-		
-	}
-	@Test
-	public void updateTraineeTest(){
-		
-	}
-	@Test
-	public void deleteTraineeTest(){
-		
-	}
-	@Test
-	public void retreiveTraineeByEmailTest(){
-		
 	}	
-	
 }
 

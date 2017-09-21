@@ -13,10 +13,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
+import org.springframework.boot.SpringApplication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.security.models.SalesforceToken;
+import com.revature.caliber.test.unit.Tomcat;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
@@ -51,6 +53,10 @@ public abstract class AbstractAPITest extends CaliberTest {
 	private String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
 	private String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
 	
+	static{
+		SpringApplication.run(Tomcat.class);
+	}
+	
 	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
 
 	public AbstractAPITest() {
@@ -63,6 +69,7 @@ public abstract class AbstractAPITest extends CaliberTest {
                 String sessionCookie = response.getCookie("JSESSIONID");
                 String roleCookie = response.getCookie("role");
                 requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
+                log.info(response.getStatusCode());
 			} catch (Exception e) {
 				log.error(e);
 			}
