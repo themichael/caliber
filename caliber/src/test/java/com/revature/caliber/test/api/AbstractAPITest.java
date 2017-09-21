@@ -17,9 +17,9 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
+import com.revature.caliber.security.models.SalesforceToken;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
@@ -74,7 +74,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 	private static void login()
 			throws JsonParseException, JsonMappingException, UnsupportedOperationException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		log.info("logging into Salesforce: accessTokenUrl: " + accessTokenUrl + "\n clientId: " + clientId
+		log.info("logging into Salesforce:\n accessTokenUrl: " + accessTokenUrl + "\n clientId: " + clientId
 				+ " \n clientSecret: " + clientSecret + "\n username: " + username + "\n password: " + password);
 		HttpPost post = new HttpPost(accessTokenUrl);
 		List<NameValuePair> parameters = new ArrayList<>();
@@ -85,8 +85,9 @@ public abstract class AbstractAPITest extends CaliberTest {
 		parameters.add(new BasicNameValuePair("password", password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(), JsonNode.class); // test
-		// SalesforceToken.class).getAccessToken(); // actual
+		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(),
+				// JsonNode.class); // test
+				SalesforceToken.class).getAccessToken(); // actual
 		log.info("Accessing Salesforce API using token:  " + accessToken);
 	}
 
