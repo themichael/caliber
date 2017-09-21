@@ -4,31 +4,20 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.QCStatus;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
-import org.json.JSONArray;
-import org.junit.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 
 public class ReportingAPITest extends AbstractAPITest{
 	
@@ -171,28 +160,26 @@ public class ReportingAPITest extends AbstractAPITest{
 		assertEquals(expected, actual, 0.01d);
 	}
 	
+
 	@Test
-	public void getTechnologiesForTheWeek(){
+	public void getTechnologiesForTheWeek() throws Exception{
 		log.info("Validate retrieval of batch's technologies learned in a week");
 		
-		Integer week = new Integer(6);
+		Integer week = new Integer(5);
 		Set<String> expected = new HashSet<String>();
-		expected.add("Spring");
+		expected.add("AWS");
+		expected.add("Hibernate");
 		
-		Response actual = 
+		Set<String> actual = new ObjectMapper().readValue(
 			given().
 				spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
 			when().
-				get(baseUrl + batchAssessmentCategories + 2150 + "/" + week).
+				get(baseUrl + batchAssessmentCategories + 2201 + "/week/" + week).
 			then().
-				assertThat().statusCode(200).
+				contentType(ContentType.JSON).assertThat().statusCode(200).
 			and().
-				extract().response();
-		
-		log.info("HEYYYY " + actual.path("category").toString());
-		String test = actual.path("category").toString();
-		log.info("HEY: " + test);
-		
+				extract().response().asString(), new TypeReference<Set<String>>() {});
+
 		assertEquals(expected, actual);
 	}
 	
