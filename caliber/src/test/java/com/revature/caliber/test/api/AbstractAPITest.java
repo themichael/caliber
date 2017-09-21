@@ -50,7 +50,6 @@ public abstract class AbstractAPITest extends CaliberTest {
 	private String clientId = System.getenv("SALESFORCE_CLIENT_ID");
 	private String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
 	private String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
-	protected static RequestSpecification requestSpec;
 	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
 
 	public AbstractAPITest() {
@@ -65,10 +64,6 @@ public abstract class AbstractAPITest extends CaliberTest {
                 String roleCookie = response.getCookie("role");
                 requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
 
-				Response response = given().redirects().allowCircular(true).get(baseUrl + "caliber/");
-				String sessionCookie = response.getCookie("JSESSIONID");
-				String roleCookie = response.getCookie("role");
-				requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
 
 			} catch (Exception e) {
 				log.error(e);
