@@ -30,6 +30,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 * Training API endpoints
 	 */
 	private String findByEmail = "training/trainer/byemail/patrick.walsh@revature.com/";
+
 	private String createTrainer = "vp/trainer/create";
 	private String updateTrainer = "vp/trainer/update";
 	private String makeInactive = "vp/trainer/delete";
@@ -40,6 +41,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	private String getAllLocationTest = "all/location/all";
 	private String removeLocationTest = "vp/location/delete";
 	private String reactivateLocationTest = "vp/location/reactivate";
+
 
 
 	@Test
@@ -193,6 +195,5 @@ public class TrainingAPITest extends AbstractAPITest {
 		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).body(location)
 				.when().put(baseUrl + reactivateLocationTest).then().assertThat().statusCode(204);
 	}
-
 }
 

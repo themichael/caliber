@@ -95,7 +95,7 @@ public class ReportingService {
 
 	/**
 	 * Pie chart displaying number of trainees that received red, yellow, green,
-	 * x-Axis: QC Statuses y-Axis: Number of Trainees with
+	 * x-Axis: QC Statuses y-Axis: Number of Trainees with QC Status
 	 * 
 	 * @param batchId
 	 * @param weekNumber
@@ -604,7 +604,7 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			Double avg = 0.d;
 			int weeksWithGrades = 0;
-			for (Integer i = 0; i < weeks; i++) {
+			for (Integer i = 1; i <= weeks; i++) {
 				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
 				if (tempAvg > 0) {
 					weeksWithGrades++;
