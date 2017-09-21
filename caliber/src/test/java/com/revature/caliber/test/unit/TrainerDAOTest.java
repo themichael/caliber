@@ -18,7 +18,10 @@ import com.revature.caliber.data.TrainerDAO;
 public class TrainerDAOTest extends CaliberTest {
 
 	private static final Logger log = Logger.getLogger(TrainerDAOTest.class);
-	public static final String patMail = "patrick.walsh@revature.com";
+	private static final String PAT_MAIL = "patrick.walsh@revature.com";
+	private static final List<String> TRAINER_TITLES = Arrays
+			.asList(new String[] { "Senior Trainer", "Senior Technical Manager", "Lead Trainer",
+					"Vice President of Technology", "Senior Java Developer", "Technology Manager", "Trainer" }); 
 	private TrainerDAO trainerDAO;
 
 	@Autowired
@@ -29,17 +32,14 @@ public class TrainerDAOTest extends CaliberTest {
 	@Test
 	public void testFindAllTrainerTitles() {
 		log.info("Find all trainer titles");
-		List<String> expected = Arrays
-				.asList(new String[] { "Senior Trainer", "Senior Technical Manager", "Lead Trainer",
-						"Vice President of Technology", "Senior Java Developer", "Technology Manager", "Trainer" });
-		assertTrue(trainerDAO.findAllTrainerTitles().containsAll(expected));
+		assertTrue(trainerDAO.findAllTrainerTitles().containsAll(TRAINER_TITLES));
 	}
 
 	@Test
 	public void testFindByEmail() {
 		log.info("Find trainer by email");
-		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", patMail, TrainerRole.ROLE_VP);
-		assertEquals(expected, trainerDAO.findByEmail(patMail));
+		Trainer expected = new Trainer("Patrick Walsh", TRAINER_TITLES.get(2), PAT_MAIL, TrainerRole.ROLE_VP);
+		assertEquals(expected, trainerDAO.findByEmail(PAT_MAIL));
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class TrainerDAOTest extends CaliberTest {
 	public void testSave() {
 		log.info("Save a new trainer");
 		int before = trainerDAO.findAll().size();
-		trainerDAO.save(new Trainer("Alex Cobian", "Genius Trainer", "cobian448@yahoo.com", TrainerRole.ROLE_VP));
+		trainerDAO.save(new Trainer("Alex Cobian", TRAINER_TITLES.get(1), "cobian448@yahoo.com", TrainerRole.ROLE_VP));
 		int after = trainerDAO.findAll().size();
 		assertEquals(before, --after);
 	}
@@ -60,17 +60,17 @@ public class TrainerDAOTest extends CaliberTest {
 	@Test
 	public void testFindOne() {
 		log.info("Find trainer by id");
-		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", patMail, TrainerRole.ROLE_VP);
+		Trainer expected = new Trainer("Patrick Walsh", TRAINER_TITLES.get(2), PAT_MAIL, TrainerRole.ROLE_VP);
 		assertEquals(expected, trainerDAO.findOne(1));
 	}
 
 	@Test
 	public void testUpdate() {
 		log.info("Update trainer");
-		Trainer expected = trainerDAO.findByEmail(patMail);
+		Trainer expected = trainerDAO.findByEmail(PAT_MAIL);
 		expected.setName("Success Walsh");
 		trainerDAO.update(expected);
-		Trainer actual = trainerDAO.findByEmail(patMail);
+		Trainer actual = trainerDAO.findByEmail(PAT_MAIL);
 		assertEquals(expected, actual);
 	}
 
