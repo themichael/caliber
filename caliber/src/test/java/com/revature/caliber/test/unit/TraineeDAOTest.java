@@ -1,28 +1,28 @@
 package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+
 
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.itextpdf.text.log.SysoCounter;
+
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.controllers.TrainingController;
-import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.test.integration.AssessmentTest;
-import static org.junit.Assert.*;
 
-import java.util.Date;
+import com.revature.caliber.data.TraineeDAO;
+
+
+
+
 
 public class TraineeDAOTest extends CaliberTest {
 
@@ -31,7 +31,6 @@ public class TraineeDAOTest extends CaliberTest {
 	@Autowired
 	private TraineeDAO traineeDAO;
 	private static final String TRAINEE_COUNT = "select count(trainee_id) from caliber_trainee";
-	private static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
 
 	@Autowired
 	public void setTraineeDAO(TraineeDAO traineeDAO) {
