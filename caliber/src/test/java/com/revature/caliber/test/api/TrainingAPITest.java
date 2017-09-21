@@ -63,9 +63,9 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void createTrainer() throws Exception{
-		Trainer expected = new Trainer("RolledBack", "Senior Trainer", "don.welshy@revature.com",
+		Trainer expected = new Trainer("RolledBack", "Senior Trainer", "don.wels23hy@revature.com",
 				TrainerRole.ROLE_TRAINER);
-		log.info("API Testing createTrainer at baseUrl  " + baseUrl);
+		log.info("API Testing createTrainer at baseUrl  " + baseUrl + createTrainer);
 		given().spec(requestSpec).header("Authorization", accessToken)
 		.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()			
 		.post(baseUrl + createTrainer)
@@ -81,7 +81,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Trainer expected = new Trainer("Newwer Trainer", "Senior Trainer", "don.welshy@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		expected.setTrainerId(3);
-		log.info("API Testing updateTrainer at baseUrl  " + baseUrl);
+		log.info("API Testing updateTrainer at baseUrl  " + baseUrl + updateTrainer);
 		given().spec(requestSpec).header("Authorization", accessToken)
 		.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()				
 		.put(baseUrl + updateTrainer)
@@ -97,7 +97,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Trainer expected = new Trainer("Dan Pickles", "Lead Trainer", "pjw6193@hotmail.com",
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(2);
-		log.info("API Testing makeInactiv at baseUrl  " + baseUrl);
+		log.info("API Testing makeInactiv at baseUrl  " + baseUrl + makeInactive);
 		given().spec(requestSpec).header("Authorization", accessToken)
 		.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()				
 		.delete(baseUrl + makeInactive)
@@ -110,7 +110,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void getAllTrainersTitles() throws Exception {
-		log.info("API Testing getAllTrainersTitles at baseUrl  " + baseUrl);
+		log.info("API Testing getAllTrainersTitles at baseUrl  " + baseUrl + getAllTrainersTitles);
 		Response titles = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainersTitles).then().assertThat()
 				.statusCode(200).extract().response();
@@ -128,7 +128,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void getAllTrainers() throws Exception {
-		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl);
+		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + getAllTrainers);
 		Trainer[] trainers = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainers).then().assertThat()
 				.statusCode(200).extract().response().as(Trainer[].class);
