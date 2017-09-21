@@ -23,7 +23,7 @@ public class AddBatchWeeklyPerformanceFeature {
 	@cucumber.api.java.Before
 	public void setup(){
 		DesiredCapabilities caps = new DesiredCapabilities();
-		caps.setCapability("phantomjs.binary.path", "C:/phantomjs-2.1.1-windows/phantomjs-2.1.1-windows/bin/phantomjs.exe");
+		caps.setCapability("phantomjs.binary.path", System.getenv("PHANTOM_BIN"));
 		caps.setJavascriptEnabled(true);
 		WebDriver driver = new PhantomJSDriver(caps);
 		driver.manage().window().setSize(new Dimension(1200, 1000));

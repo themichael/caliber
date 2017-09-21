@@ -18,7 +18,7 @@ public class EditTrainees{
 	@Before
 	public void setup(){
 		DesiredCapabilities caps = new DesiredCapabilities();
-		caps.setCapability("phantomjs.binary.path", "/usr/local/bin/phantomjs");
+		caps.setCapability("phantomjs.binary.path", System.getenv("PHANTOM_BIN"));
 		caps.setJavascriptEnabled(true);
 		WebDriver driver = new PhantomJSDriver();
 		driver.manage().window().maximize();
@@ -29,7 +29,7 @@ public class EditTrainees{
 	
 	@After
 	public void teardown(){
-		manageBatchPage.destroy();
+		manageBatchPage.closeDriver();
 	}
 	
 	@Given("^that I am logged in as a User$")
@@ -40,28 +40,28 @@ public class EditTrainees{
 	@Given("^on the Manage Batch page,$")
 	public void on_the_Manage_Batch_page() throws Throwable {
 	    manageBatchPage.gotoManagePage();
-	    manageBatchPage.verifyManagePage();
+	    manageBatchPage.verifyPage("vp/manage");
 	}
 
 	@Given("^I have clicked on the person icon corresponding to a batch,$")
 	public void i_have_clicked_on_the_person_icon_corresponding_to_a_batch() throws Throwable {
-		manageBatchPage.clickOnPersonIcon();
+		manageBatchPage.openManageBatchModal();
 	}
 
 	@Given("^I have clicked on the pencil icon corresponding to a trainee$")
 	public void i_have_clicked_on_the_pencil_icon_corresponding_to_a_trainee() throws Throwable {
-		manageBatchPage.clickOnEditIcon();
+		manageBatchPage.openUpdateTraineeModal();
 	}
 
 	@Given("^I have edited one or more of the form boxes,$")
 	public void i_have_edited_one_or_more_of_the_form_boxes() throws Throwable {
-	    manageBatchPage.editName("Korede");
+	    manageBatchPage.editName("Patrick Muldoon");
 	}
 
 	@When("^I click the update button$")
 	public void i_click_the_update_button() throws Throwable {
 		//manageBatchPage.gotoManagePage();
-		manageBatchPage.clickUpdate();
+		manageBatchPage.clickUpdateAddTraineeModal();
 	}
 
 	@Then("^the trainees information will be changed and saved into the db\\.$")
@@ -76,7 +76,7 @@ public class EditTrainees{
 
 	@When("^I click on the update button$")
 	public void i_click_on_the_update_button() throws Throwable {
-	    manageBatchPage.clickUpdate();
+	    manageBatchPage.clickUpdateAddTraineeModal();
 	}
 
 	@Then("^I should get an error stating the email address I input is invalid\\.$")
@@ -103,7 +103,7 @@ public class EditTrainees{
 
 	@When("^I press the update button$")
 	public void i_press_the_update_button() throws Throwable {
-	    manageBatchPage.clickUpdate();
+	    manageBatchPage.clickUpdateAddTraineeModal();
 	}
 
 	@Then("^I should get an error asking me to fill out this field\\.$")
@@ -119,7 +119,7 @@ public class EditTrainees{
 
 	@When("^I go and click the update button$")
 	public void i_go_and_click_the_update_button() throws Throwable {
-	    manageBatchPage.clickUpdate();
+	    manageBatchPage.clickUpdateAddTraineeModal();
 	}
 
 	@Then("^I should get an error stating the field cannot be blank\\.$")
