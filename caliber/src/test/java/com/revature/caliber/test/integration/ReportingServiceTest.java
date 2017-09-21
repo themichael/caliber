@@ -1,6 +1,11 @@
 package com.revature.caliber.test.integration;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +19,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.joda.time.LocalDate;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +42,16 @@ public class ReportingServiceTest extends CaliberTest {
 
 	public static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
-	public static List<Trainee> trainees;
+	private static List<Trainee> trainees;
 	ReportingService reportingService;
+
+	public static List<Trainee> getTrainees() {
+		return trainees;
+	}
+
+	public static void setTrainees(List<Trainee> trainees) {
+		ReportingServiceTest.trainees = trainees;
+	}
 
 	@Autowired
 	public void setReportingService(ReportingService reportingService) {
@@ -53,7 +67,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 * | Trainee 2 |     20,50 |     30,50 |     40,50 |     50,50 |     60,50 |
 	 * | Trainee 3 |     30,50 |     40,50 |     50,50 |     60,50 |     70,50 |
 	 * 
-	 * Everything past that amount of detail doesn't really matter
+	 * Everything past that amount of detail doesn't really matter for Utility functions
 	 * 
 	 */
 	@BeforeClass
@@ -64,7 +78,7 @@ public class ReportingServiceTest extends CaliberTest {
 		for (int i = 1; i < 4; i++) {
 			Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch);
 			trainee.setTraineeId(i);
-			Set<Grade> grades = new HashSet<Grade>();
+			Set<Grade> grades = new HashSet<>();
 			for (int j = 1; j < 6; j++) {
 				Assessment assess1 = new Assessment("A title:" + j, batch, 100, AssessmentType.Exam, j, new Category());
 				Assessment assess2 = new Assessment("Another title:" + j, batch, 100, AssessmentType.Exam, j,
@@ -88,13 +102,15 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void testUtilAvgSkills() {
 		log.info("TEST UTILITY AVERAGE SKILL");
-		Assessment assessment1 = new Assessment("title", new Batch(), 200, null, 5, new Category("CatOne", true));
-		Assessment assessment2 = new Assessment("title two", new Batch(), 200, null, 5, new Category("CatTwo", true));
+		String catOne = "CatOne";
+		String catTwo = "CatTwo";
+		Assessment assessment1 = new Assessment("title", new Batch(), 200, null, 5, new Category(catOne, true));
+		Assessment assessment2 = new Assessment("title two", new Batch(), 200, null, 5, new Category(catTwo, true));
 		Grade grade1 = new Grade(assessment1, null, null, 150);
 		Grade grade2 = new Grade(assessment1, null, null, 200);
 		Grade grade3 = new Grade(assessment2, null, null, 100);
 		Grade grade4 = new Grade(assessment2, null, null, 150);
-		List<Grade> grades = new ArrayList<Grade>();
+		List<Grade> grades = new ArrayList<>();
 		grades.add(grade1);
 		grades.add(grade2);
 		grades.add(grade3);
@@ -102,17 +118,17 @@ public class ReportingServiceTest extends CaliberTest {
 		Map<Category, Double[]> results = reportingService.utilAvgSkills(grades);
 
 		// Get all keys
-		List<Category> keys = new ArrayList<Category>();
+		List<Category> keys = new ArrayList<>();
 		for (Category cat : results.keySet()) {
 			keys.add(cat);
 		}
 		// check that the result set is the right size
 		assertEquals(2, keys.size());
-		assertEquals(keys.get(0).getSkillCategory(), "CatOne");
-		assertNotEquals(keys.get(0).getSkillCategory(), "CatTwo");
+		assertEquals(keys.get(0).getSkillCategory(), catOne);
+		assertNotEquals(keys.get(0).getSkillCategory(), catTwo);
 		assertEquals((Double) 175.0, results.get(keys.get(0))[0]);
-		assertEquals(keys.get(1).getSkillCategory(), "CatTwo");
-		assertNotEquals(keys.get(1).getSkillCategory(), "CatOne");
+		assertEquals(keys.get(1).getSkillCategory(), catTwo);
+		assertNotEquals(keys.get(1).getSkillCategory(), catOne);
 		assertEquals((Double) 125.0, results.get(keys.get(1))[0]);
 	}
 
@@ -137,8 +153,8 @@ public class ReportingServiceTest extends CaliberTest {
 		log.info("TEST UTILITY AVERAGE BATCH WEEK VALUE");
 		Double actualWeekOne = reportingService.utilAvgBatchWeekValue(trainees, 1);
 		Double actualWeekTwo = reportingService.utilAvgBatchWeekValue(trainees, 2);
-		Double expectedWeekOne = (double) (35.0);
-		Double expectedWeekTwo = (double) (40.0);
+		Double expectedWeekOne = 35.0;
+		Double expectedWeekTwo = 40.0;
 		assertEquals(expectedWeekOne, actualWeekOne);
 		assertEquals(expectedWeekTwo, actualWeekTwo);
 	}
@@ -192,10 +208,9 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void testUtilAvgBatchWeekWithThreeParam() {
 		log.info("UtilAvgBatchWeekWithThreeParam Test");
-		Map<Trainee, Double[]> actual = new HashMap<>();
 		double[] possAvg = { 30.0, 35.0, 40.0 };
 		int pos = 0;
-		actual = reportingService.utilAvgBatchWeek(trainees, 1, AssessmentType.Exam);
+		Map<Trainee, Double[]> actual = reportingService.utilAvgBatchWeek(trainees, 1, AssessmentType.Exam);
 		for (Trainee trainee : trainees) {
 			assertEquals(new Double(possAvg[pos]), actual.get(trainee)[0]);
 			pos++;
@@ -206,9 +221,8 @@ public class ReportingServiceTest extends CaliberTest {
 	public void testUtilAvgTraineeOverallWithThreeParam() {
 		log.info("UtilAvgTraineeOverallWithThreeParam Test");
 		int weeks = 5;
-		Map<Integer, Double[]> actual = new HashMap<>();
 		double[] possAvg = { 30.0, 35.0, 40.0, 45.0, 50.0 };
-		actual = reportingService.utilAvgTraineeOverall(trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
+		Map<Integer, Double[]> actual = reportingService.utilAvgTraineeOverall(trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
 		for (int i = 0; i < weeks; i++) {
 			assertEquals(new Double(possAvg[i]), actual.get(i + 1)[0]);
 		}
@@ -230,10 +244,9 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void utilAvgTraineeWeekWithTwoParams() {
 		log.info("Calculate One Trainee's Average for all Exams in a Given Week");
-		Set<Grade> grades = new HashSet<Grade>();
 		Double expectedAverage = 30.0;
 		int selectedTrainee = 0; // Selects first trainee in dummy batch
-		grades = trainees.get(selectedTrainee).getGrades();
+		Set<Grade> grades = trainees.get(selectedTrainee).getGrades();
 		Double avg = 0d;
 		for (Grade g : grades)
 			avg += g.getScore();
@@ -245,10 +258,9 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void utilAvgBatchWeekWithTwoParams() {
 		log.info("Calculate Each Trainee's Average for a Given Week");
-		Set<Grade> grades = new HashSet<Grade>();
 		double[] averages = { 30.0, 35.0, 40.0 }; // Week 1 averages for all 3 trainees
 		for (int i = 0; i < 3; i++) {
-			grades = trainees.get(i).getGrades();
+			Set<Grade> grades = trainees.get(i).getGrades();
 			Double avg = 0d;
 			for (Grade g : grades)
 				avg += g.getScore();
@@ -563,8 +575,11 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Superstar));
 		assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Average));
 		
+		LocalDate expect = LocalDate.now();
+		expect = expect.minusDays(7);
+		
 		//asserts the label
-		assertEquals((String)"2017-09-13...Patrick", (String) test.get("label"));
+		assertEquals(expect + "...Patrick", (String) test.get("label"));
 		
 		//asserts the address
 		Address address = (Address) test.get("address");
