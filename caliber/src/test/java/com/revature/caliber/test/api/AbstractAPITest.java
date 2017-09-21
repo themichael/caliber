@@ -44,6 +44,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 	 */
 	protected static String accessToken = "Auth ";
 	protected static final String auth = "Authorization";
+	protected static String jsessionid;
 	protected static RequestSpecification requestSpec;
 	
 	protected static String baseUrl = System.getenv("CALIBER_SERVER_URL");
@@ -66,10 +67,10 @@ public abstract class AbstractAPITest extends CaliberTest {
                 String sessionCookie = response.getCookie("JSESSIONID");
                 String roleCookie = response.getCookie("role");
                 requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
-			} catch (Exception e) {
-				log.error(e);
-			}
-		}
+            } catch (Exception e) {
+                log.error(e);
+            }
+        }
 	}
 
 	private static void login() throws JsonParseException, JsonMappingException, UnsupportedOperationException, IOException {
