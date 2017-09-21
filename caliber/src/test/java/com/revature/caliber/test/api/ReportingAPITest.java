@@ -8,37 +8,25 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema; //DONT KNOW ABOUT THIS
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.caliber.beans.QCStatus;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
 
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 
 public class ReportingAPITest extends AbstractAPITest{
 	
 	private static final Logger log = Logger.getLogger(ReportingAPITest.class);
 	//{int BatchId, int TraineeId, int Week}
 	private static int[] traineeValue = {2200, 5503, 1};
-	
-	private static String traineeReports = "all/reports/trainee/";
-	private static String radarTraineeOverall = "/radar-trainee-overall/";
-	private static String batchReports= "all/reports/batch/";
-	private static String radarBatchOverall = "/overall/radar-batch-overall";
-	private static String batchAverage = "all/assessments/average/";
-	private static String batchAssessmentCategories = "all/assessments/categories/batch/";
+	private static String traineeReports = "all/reports/trainee/{traineeId}/radar-trainee-overall";
+	private static String batchReports= "all/reports/batch/{batchId}/overall/radar-batch-overall";
+	private static String batchAverage = "all/assessments/average/{batchId}/{week}";
+	private static String batchAssessmentCategories = "all/assessments/categories/batch/{batchId}/week/{week}";
 	
 	/**
 	 * Tested Method:
@@ -135,7 +123,12 @@ public class ReportingAPITest extends AbstractAPITest{
 		String expected = "{}";
 		assertEquals(expected, actual);
 	}
-	 
+	
+	/**
+	 *  Validates the existence of the trainee's overall radar chart,
+	 *  given the trainee's ID. 
+	 * @throws Exception
+	 */
 	@Test
 	public void getTraineeOverallRadarChart() throws Exception{
 		log.info("Validate trainee's overall radar chart");
@@ -143,7 +136,7 @@ public class ReportingAPITest extends AbstractAPITest{
 		given().
 			spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
 		when().
-			get(baseUrl + traineeReports + 5465 + radarTraineeOverall).
+			get(baseUrl + traineeReports, 5465).
 		then().
 			assertThat().statusCode(200).
 		and().
@@ -183,6 +176,11 @@ public class ReportingAPITest extends AbstractAPITest{
 		.then().assertThat().statusCode(200);
 	}
 	
+	/**
+	 *  Validates the existence of the batch overall radar chart,
+	 *  given the batch ID. 
+	 * @throws Exception
+	 */
 	@Test
 	public void getBatchOverallRadarChart() throws Exception{
 		log.info("Validate batch's overall radar chart");
@@ -190,13 +188,18 @@ public class ReportingAPITest extends AbstractAPITest{
 		given().
 			spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
 		when().
-			get(baseUrl + batchReports + 2150 + radarBatchOverall).
+			get(baseUrl + batchReports, 2150).
 		then().
 			assertThat().statusCode(200).
 		and().
 			body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
 	
+	/**
+	 *  Validates the existence of the radar chart for all trainees
+	 *  in a batch, given the batch ID. 
+	 * @throws Exception
+	 */
 	@Test
 	public void getBatchAllTraineesRadarChart() throws Exception{
 		log.info("Validate batch's overall radar chart");
@@ -204,24 +207,28 @@ public class ReportingAPITest extends AbstractAPITest{
 		given().
 			spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
 		when().
-			get(baseUrl + batchReports + 2150 + radarBatchOverall).
+			get(baseUrl + batchReports, 2150).
 		then().
 			assertThat().statusCode(200).
 		and().
 			body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
 	
+	/**
+	 *  Validates the value of the batch average for the week,
+	 *  given the batch ID and the week number
+	 *  @throws Exception
+	 */
 	@Test
 	public void getBatchWeekAverageValue() throws Exception{
 		log.info("Validate retrieval of batch's overall average in a week");
 		
-		Integer week = new Integer(1);
 		Double expected = new Double(80.26d);
 		Double actual = 
 			given().
 				spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
 			when().
-				get(baseUrl + batchAverage + 2150 + "/" + week).
+				get(baseUrl + batchAverage, 2150, 1).
 			then().
 				assertThat().statusCode(200).
 			and().
@@ -230,11 +237,15 @@ public class ReportingAPITest extends AbstractAPITest{
 		assertEquals(expected, actual, 0.01d);
 	}
 	
+	/**
+	 *  Validates the value(s) of the technologies the batch learned
+	 *  for the week, given the batch ID and the week number
+	 *  @throws Exception
+	 */
 	@Test
 	public void getTechnologiesForTheWeek() throws Exception{
 		log.info("Validate retrieval of batch's technologies learned in a week");
 		
-		Integer week = new Integer(5);
 		Set<String> expected = new HashSet<String>();
 		expected.add("AWS");
 		expected.add("Hibernate");
@@ -243,11 +254,13 @@ public class ReportingAPITest extends AbstractAPITest{
 			given().
 				spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
 			when().
-				get(baseUrl + batchAssessmentCategories + 2201 + "/week/" + week).
+				get(baseUrl + batchAssessmentCategories, 2201, 5).
 			then().
 				contentType(ContentType.JSON).assertThat().statusCode(200).
 			and().
 				extract().response().asString(), new TypeReference<Set<String>>() {});
+		
+		assertEquals(expected, actual);
 	}
 	
 	/**
