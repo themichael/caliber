@@ -20,24 +20,35 @@ import io.restassured.http.ContentType;
  * @author Patrick Walsh
  *
  */
-public class TrainerAPITest extends AbstractAPITest{
+public class TrainerAPITest extends AbstractAPITest {
 
 	private static final Logger log = Logger.getLogger(TrainerAPITest.class);
-	
+
 	/*
 	 * Trainer API endpoints
 	 */
 	private String findByEmail = "training/trainer/byemail/patrick.walsh@revature.com/";
+	private String createTrainer = "vp/trainer/create";
 
 	@Test
 	public void findByEmail() throws Exception {
 		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
-		log.info("API Testing findTrainerByEmail at baseUrl  " + baseUrl);
-		given().header("Authorization", accessToken).contentType(ContentType.JSON).when()
-				.get(baseUrl + findByEmail).then().assertThat()
-				.statusCode(200).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
+		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
+				.get(baseUrl + findByEmail).then().assertThat().statusCode(200)
+				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
+	}
+
+	@Test
+	public void createTrainer() throws Exception {
+		Trainer expected = new Trainer("Howard Johnson", "Senior Trainer", "howard.johnson@revature.com",
+				TrainerRole.ROLE_TRAINER);
+		log.info("API Testing createTrainer at " + baseUrl + createTrainer);
+		given().spec(requestSpec).header(auth, accessToken)
+				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected)).when()
+				.post(baseUrl + createTrainer).then().assertThat().statusCode(201);
 	}
 
 }
