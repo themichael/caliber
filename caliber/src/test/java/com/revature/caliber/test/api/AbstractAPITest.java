@@ -17,9 +17,9 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
-import com.revature.caliber.security.models.SalesforceToken;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
@@ -84,8 +84,8 @@ public abstract class AbstractAPITest extends CaliberTest {
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
 		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(), 
-				//JsonNode.class); // test
-				SalesforceToken.class).getAccessToken(); // actual
+				JsonNode.class); // test
+				//SalesforceToken.class).getAccessToken(); // actual
 		log.info("Accessing Salesforce API using token:  " + accessToken);
 	}
 	
