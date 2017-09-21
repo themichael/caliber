@@ -10,7 +10,8 @@ public class DriverSetup {
 	public WebDriver getDriver() {
 		return driver;
 	}
-
+	
+	
 	public void setDriver(WebDriver driver) {
 		DriverSetup.driver = driver;
 	}
