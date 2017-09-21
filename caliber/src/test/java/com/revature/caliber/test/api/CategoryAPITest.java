@@ -1,39 +1,21 @@
 package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.swing.tree.RowMapper;
-
 import org.apache.log4j.Logger;
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
-import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Category;
-import com.revature.caliber.controllers.CategoryController;
 import com.revature.caliber.data.CategoryDAO;
 
-import antlr.collections.List;
-import cucumber.api.java.en.Given;
 import io.restassured.http.ContentType;
-import io.restassured.RestAssured;
-import io.restassured.parsing.Parser;
 public class CategoryAPITest extends AbstractAPITest {
 	private static final Logger log = Logger.getLogger(CategoryAPITest.class);
 	CategoryDAO dao;
@@ -42,34 +24,25 @@ public class CategoryAPITest extends AbstractAPITest {
 		this.dao = dao;
 	}
 
-	
+	//Takes the first category and checks to make sure it is Java, and that it is active.
 	@Test
 	public void findCategoryByIdTest() throws JsonProcessingException{
 		log.info("Testing findCategoryById function from CategoryController");
 		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
 		.get(baseUrl + "category/1").then().assertThat()
 		.statusCode(200).body("skillCategory", equalTo("Java"),"active", equalTo(true));
-	}/*
-	@Test
-	public void FailfindCategoryByIdTest(){
-		log.info("Testing FAIL findCategoryById function from CategoryController");
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
-		.get(baseUrl + "category/-1").then().assertThat()
-		.statusCode(200).body("results", Matchers.isEmptyOrNullString());
-		.body("", Matchers.hasSize(0))
-
-		.body("$", Matchers.hasSize(0))
-		
-		.body("isEmpty()", Matchers.is(true))
-	}*/
+	}
+	// Returns a JSON object which will only contain Categories that are active. Also checks to make sure there are no inactive categories(false) in the JSON.
 	@Test
 	public void findAllActiveTest(){
 		log.info("Testing findAllCategories function from CategoryController");
+		int size = dao.findAllActive().size();
 		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
 		.get(baseUrl + "category/all").then().assertThat()
-		.statusCode(200).body("body.size",is(46),"active",not(hasItem(false))); 
+		.statusCode(200).body("body.size",is(size),"active",not(hasItem(false))); 
 	}
 	//I create a false object otherwise there is no false object and it fails.
+	//Returns a JSON object which will return all Categories even if they are inactive. 
 	@Test
 	public void findAllTest(){
 		log.info("Testing findAll function from CategoryController");
@@ -81,6 +54,7 @@ public class CategoryAPITest extends AbstractAPITest {
 		.get(baseUrl + "vp/category/").then().assertThat()
 		.statusCode(200).body("active",hasItem(false));
 	}
+	// Takes a random String and replaces the Category name from skill number 45.
 	@Test
 	public void updateCategoryTest() throws Exception{
 		log.info("Testing updateCategory function from CategoryController");
@@ -93,6 +67,7 @@ public class CategoryAPITest extends AbstractAPITest {
 		.put(baseUrl + "vp/category/update").then().assertThat()
 		.statusCode(200).and().body("skillCategory",equalTo(category.getSkillCategory()),"active",equalTo(category.isActive()));
 	}
+	//Makes a new category and adds it to the category list.
 	@Test
 	public void saveCategoryTest() throws JsonProcessingException{
 		log.info("Testing saveCategory function from CategoryController");

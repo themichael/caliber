@@ -55,9 +55,16 @@ public class ReportingController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<Double> getBatchComparisonAvg(@PathVariable String skill, @PathVariable String training,
 			@PathVariable Date startDate) {
+		log.info("http://localhost:8080/all/reports/compare/skill/"+skill+"/training/"+training+"/date/"+startDate);
 		log.info("YAYAYAYAYAYAYYAYAYAYAYAYAYAYAYAYATEZXRDCYTFUVGBJHLNKJSFSD " + startDate + skill + training);
 		log.info(" getBatchComparisonAvg ===> " + reportingService.getBatchComparisonAvg(skill, training, startDate));
-		return new ResponseEntity<>(reportingService.getBatchComparisonAvg(skill, training, startDate), HttpStatus.OK);
+		Double result = reportingService.getBatchComparisonAvg(skill, training, startDate);
+		if(!result.isNaN()){
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
+		else{
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+		}
 	}
 
 	/*
@@ -166,8 +173,14 @@ public class ReportingController {
 			@PathVariable Integer traineeId) {
 		log.info(
 				"getTraineeOverallLineChart   ===>   /all/reports/batch/{batchId}/overall/trainee/{traineeId}/line-trainee-overall");
-		return new ResponseEntity<>(reportingService.getTraineeOverallLineChart(batchId, traineeId), HttpStatus.OK);
-	}
+		Map<Integer, Double[]> results = reportingService.getTraineeOverallLineChart(batchId, traineeId);
+		if(results.size() > 0) {
+			return new ResponseEntity<>(results, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(new HashMap<>(), HttpStatus.NOT_FOUND);
+		}
+		}
 
 	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/line-batch-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
