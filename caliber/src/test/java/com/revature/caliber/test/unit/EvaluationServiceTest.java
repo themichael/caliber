@@ -5,12 +5,14 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Note;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.services.EvaluationService;
 
@@ -19,7 +21,7 @@ public class EvaluationServiceTest extends CaliberTest{
 	private static final int TEST_BATCH_ID = 2150;
 	private static final int TEST_ASSESSMENT_WEEK = 7;
 
-	
+	private static final Logger log = Logger.getLogger(EvaluationServiceTest.class);
 	
 	@Autowired
 	EvaluationService evaluationService;
@@ -57,7 +59,20 @@ public class EvaluationServiceTest extends CaliberTest{
 		    	assertEquals(TEST_ASSESSMENT_WEEK, grade.getAssessment().getWeek());
 		    }
 		}
-		
-		
+	}
+	@Test
+	public void findIndividualNotes(){
+		int batchId = 2050;
+		//find a batch by a known id
+		Batch batch = batchDAO.findOne(batchId);
+		int week = 6;
+		//for that batch's BatchId, execute the function
+		List<Note> notes = evaluationService.findIndividualNotes(batch.getBatchId(), week);
+		//assert that for each week, the returned week is equal
+		for(int i = 0; i<notes.size();i++){
+			assertEquals(6,notes.get(i).getWeek());
+		}
+		//assert that the size of the sample set, is the size of the result set
+		assertEquals(6, notes.size());
 	}
 }

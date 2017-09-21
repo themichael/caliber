@@ -7,7 +7,6 @@ import static org.junit.Assert.fail;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.ConstraintViolationException;
 
@@ -36,16 +35,15 @@ public class GradeDAOTest extends CaliberTest {
 	
 	private static final Logger log = Logger.getLogger(GradeDAOTest.class);
 	
-	private static final int TEST_ASSESSMENT_ID = 2063;
-	private static final double TEST_NEW_SCORE = 27.66;
-	private static final double FLOATING_NUMBER_VARIANCE = .01;
-	private static final int TEST_TRAINEE_ID = 5529;
-	private static final int TEST_BATCH_ID = 2150;
-	private static final int TEST_CATEGORY_ID = 12;
-	private static final int TEST_TRAINER_ID = 1;
-	private static final int TEST_ASSESSMENT_WEEK = 7;
+	private static final int testAssessmentId = 2063;
+	private static final double testNewScore = 27.66;
+	private static final double floatingNumberVarience = .01;
+	private static final int testTraineeId = 5529;
+	private static final int testBatchId = 2150;
+	private static final int testCategoryId = 12;
+	private static final int testTrainerId = 1;
+	private static final int testAssessmentWeek = 7;
 
-	
 	@Autowired
 	private GradeDAO gradeDAO;
 	@Autowired
@@ -69,8 +67,8 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("CREATING VALID GRADES");
 		
 		//dependencies
-		Assessment assessment = assessmentDAO.findOne(TEST_ASSESSMENT_ID);
-		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
+		Assessment assessment = assessmentDAO.findOne(testAssessmentId);
+		Trainee trainee = traineeDAO.findOne(testTraineeId);
 		
 		
 		/*
@@ -100,8 +98,7 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("CREATING INVALID GRADES");
 		
 		//dependencies
-		Assessment assessment = assessmentDAO.findOne(TEST_ASSESSMENT_ID);
-		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
+		Trainee trainee = traineeDAO.findOne(testTraineeId);
 		
 		/*
 		 * Negative tests. Test anything that isn't allowed by business rules
@@ -135,14 +132,14 @@ public class GradeDAOTest extends CaliberTest {
 		Grade grade = gradeDAO.findAll().get(0);
 		
 		//make sure old and new are not the same
-		assertNotEquals(TEST_NEW_SCORE, grade.getScore());
+		assertNotEquals(testNewScore, grade.getScore());
 		
 		//update
-		grade.setScore(TEST_NEW_SCORE);
+		grade.setScore(testNewScore);
 		gradeDAO.update(grade);
 		
 		//assert change persisted
-		assertEquals(TEST_NEW_SCORE,grade.getScore(), FLOATING_NUMBER_VARIANCE);
+		assertEquals(testNewScore,grade.getScore(), floatingNumberVarience);
 		
 	}
 	
@@ -166,7 +163,7 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("GETTING GRADES FOR ASSESSMENT");
 		
 		//get assessment
-		Assessment assessment = assessmentDAO.findOne(TEST_ASSESSMENT_ID);
+		Assessment assessment = assessmentDAO.findOne(testAssessmentId);
 		//find all grades for assessment
 		List<Grade> grades = gradeDAO.findByAssessment(assessment.getAssessmentId());
 		
@@ -185,7 +182,7 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("GETTING GRADES FOR TRAINEE");
 		
 		//get trainee 
-		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
+		Trainee trainee = traineeDAO.findOne(testTraineeId);
 		
 		//find all grades for that trainee
 		List<Grade> grades = gradeDAO.findByTrainee(trainee.getTraineeId());
@@ -205,7 +202,7 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("GETTING GRADES FOR BATCH");
 		
 		//get batch
-		Batch batch = batchDAO.findOne(TEST_BATCH_ID);
+		Batch batch = batchDAO.findOne(testBatchId);
 		
 		//find all grades for batch
 		List<Grade> grades = gradeDAO.findByBatch(batch.getBatchId());
@@ -227,7 +224,7 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("GETTING GRADES FOR CATEGORY");
 		
 		//get category
-		Category category = categoryDAO.findOne(TEST_CATEGORY_ID);
+		Category category = categoryDAO.findOne(testCategoryId);
 		
 		//get all grades of category
 		List<Grade> grades = gradeDAO.findByCategory(category.getCategoryId());
@@ -248,12 +245,12 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("GETTING GRADES FOR WEEK AND BATCH");
 		
 		//get list
-		List<Grade> grades = gradeDAO.findByWeek(TEST_BATCH_ID, TEST_ASSESSMENT_WEEK);
+		List<Grade> grades = gradeDAO.findByWeek(testBatchId, testAssessmentWeek);
 		
 		//assert that grades were for an assessment created for week and for batch
 		for(Grade grade: grades){
-			assertEquals(TEST_ASSESSMENT_WEEK, grade.getAssessment().getWeek());
-			assertEquals(TEST_BATCH_ID, grade.getAssessment().getBatch().getBatchId());
+			assertEquals(testAssessmentWeek, grade.getAssessment().getWeek());
+			assertEquals(testBatchId, grade.getAssessment().getBatch().getBatchId());
 		}
 	}
 	
@@ -266,7 +263,7 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("GETTING GRADES FOR TRAINER");
 		
 		//get trainer
-		Trainer trainer = trainerDAO.findOne(TEST_TRAINER_ID);
+		Trainer trainer = trainerDAO.findOne(testTrainerId);
 		//get grades for trainer
 		List<Grade> grades = gradeDAO.findByTrainer(trainer.getTrainerId());
 		
