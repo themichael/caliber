@@ -1,6 +1,7 @@
 package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
+
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 
 
@@ -27,16 +28,15 @@ import com.revature.caliber.beans.TrainerRole;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
+
 import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
@@ -53,11 +53,10 @@ import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
-import io.restassured.http.ContentType;
+
 
 import io.restassured.http.ContentType;
 
-import io.restassured.http.ContentType;
 
 public class EvaluationAPITest extends AbstractAPITest{
 
@@ -78,7 +77,10 @@ public class EvaluationAPITest extends AbstractAPITest{
 	
     
 	private static final String findByTrainee = "all/grade/trainee/5529";
-	
+	private static final String findByBatch = "all/grade/batch/2150";
+	private static final String findByCategory = "all/grade/category/12";
+	private static final String findByWeek = "all/grade/batch/2150/week/7";
+	private static final String findByTrainer = "all/grade/trainer/1";
 
 	//fetch not needed?
 	//private String createGrade = "training/trainer/byemail/patrick.walsh@revature.com/";
@@ -181,6 +183,12 @@ public class EvaluationAPITest extends AbstractAPITest{
 	@Test
 	public void findByBatch(){
 		
+		given().spec(requestSpec).header("Authorization", accessToken)
+		.contentType(ContentType.JSON)
+		.when().get(baseUrl + findByBatch)
+		.then().assertThat()
+		.statusCode(200);
+		
 	}
 	
 	/**
@@ -190,6 +198,11 @@ public class EvaluationAPITest extends AbstractAPITest{
 	@Test
 	public void findByCategory(){
 		
+		given().spec(requestSpec).header("Authorization", accessToken)
+		.contentType(ContentType.JSON)
+		.when().get(baseUrl + findByCategory)
+		.then().assertThat()
+		.statusCode(200);
 	}
 	
 	/**
@@ -197,7 +210,11 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void findByWeek(){
-		
+		given().spec(requestSpec).header("Authorization", accessToken)
+		.contentType(ContentType.JSON)
+		.when().get(baseUrl + findByWeek)
+		.then().assertThat()
+		.statusCode(200);
 	}
 	
 	/**
@@ -207,7 +224,11 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void findByTrainer(){
-		
+		given().spec(requestSpec).header("Authorization", accessToken)
+		.contentType(ContentType.JSON)
+		.when().get(baseUrl + findByTrainer)
+		.then().assertThat()
+		.statusCode(200);
 	}
 	
 	@Ignore
