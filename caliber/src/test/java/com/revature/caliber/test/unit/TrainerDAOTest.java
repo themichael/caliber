@@ -18,8 +18,8 @@ import com.revature.caliber.data.TrainerDAO;
 public class TrainerDAOTest extends CaliberTest {
 
 	private static final Logger log = Logger.getLogger(TrainerDAOTest.class);
-	public static final String PAT_MAIL = "patrick.walsh@revature.com";
-	public static final List<String> TRAINER_TITLES = Arrays
+	private static final String PAT_MAIL = "patrick.walsh@revature.com";
+	private static final List<String> TRAINER_TITLES = Arrays
 			.asList(new String[] { "Senior Trainer", "Senior Technical Manager", "Lead Trainer",
 					"Vice President of Technology", "Senior Java Developer", "Technology Manager", "Trainer" }); 
 	private TrainerDAO trainerDAO;
