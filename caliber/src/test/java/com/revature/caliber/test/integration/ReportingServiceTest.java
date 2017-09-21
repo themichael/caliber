@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -37,6 +38,8 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.services.ReportingService;
+import static org.hamcrest.CoreMatchers.containsString;
+
 
 public class ReportingServiceTest extends CaliberTest {
 
@@ -151,6 +154,8 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals("Name Two", keys.get(1));
 	}
 
+
+
 	@Test
 	public void testUtilAvgBatchWeekValue() {
 		log.info("TEST UTILITY AVERAGE BATCH WEEK VALUE");
@@ -197,6 +202,14 @@ public class ReportingServiceTest extends CaliberTest {
 			assertEquals(new Double(overallAvg[i]), reportingService.utilAvgBatchOverall(trainees, i + 1).get(i + 1));
 		}
 	}
+
+	
+	// BatchDAO is only autowired here to get one batch from the database and
+	// use it's id number.
+	@Autowired
+	public BatchDAO batchDao;
+
+
 
 	@Test
 	public void testUtilAvgTraineeWeekWithThreeParam() {
@@ -314,11 +327,13 @@ public class ReportingServiceTest extends CaliberTest {
 		String revatureTraining = "Revature";
 		String universityTraining = "University";
 		
+		
 		List<Batch> batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, allTraining);
 		int expected = 5;
 		int actual = batches.size();
 		assertEquals(expected, actual);
 		
+
 		//There is only one type of training in the setup.sql, so this is the same result "(All)"
 		//but uses a different code path
 		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), j2eeSkill, universityTraining);
@@ -326,6 +341,7 @@ public class ReportingServiceTest extends CaliberTest {
 		actual = batches.size();
 		assertEquals(expected, actual);
 		
+
 		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, revatureTraining);
 		expected = 3;
 		actual = batches.size();
@@ -504,12 +520,15 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchWeekSortedBarChartTest(){
+		
 		log.info("getBatchWeekSortedBarChartTest");
 		Map<String, Double> test =reportingService.getBatchWeekSortedBarChart(2050, 2);
 		assertTrue("Check sample values", (Double) Math.abs(test.get("Fouche, Issac")- 96.29) < 0.001);
 		assertTrue("Check sample values", (Double) Math.abs(test.get("Castillo, Erika")- 89.63) < 0.001);
 		assertEquals(6, test.size());
+		
 	}
+	
 	
 	/**
 	 * Tests methods:
@@ -517,12 +536,23 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchWeekPieChartTest() {
-		log.info("Testing getBatchWeekPieChart");
+		
+		log.info("\n \n \n \n <getBatchWeekPieChartTest> Acquired batch information. BatchId: " + 2201 + " weekNumber: " + 7);
+		
 		Map<QCStatus, Integer> pieChart = reportingService.getBatchWeekPieChart(2201, 7);
+		
+		for (QCStatus key : pieChart.keySet()) {
+			
+			log.info("key: "+ key+ " " + pieChart.get(key));
+			
+		}
+
+		log.info("Testing getBatchWeekPieChart");
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Superstar));
 		assertEquals( (Integer) 9, (Integer) pieChart.get(QCStatus.Good));
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Average));
 		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
+		
 	}
 	
 	/**
@@ -531,15 +561,29 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void pieChartCurrentWeekQCStatusTest() {
-		log.info("Testing pieChartCurrentWeekQCStatus(int batchId)");
-		Integer batchId = 2201;	
+		
+		Integer batchId = 2201;
+		
+		log.info("\n \n \n <pieChartCurrentWeekQCStatusTest> Acquired batch information. BatchId: " + batchId);
+		
 		Map<QCStatus, Integer> pieChart = reportingService.pieChartCurrentWeekQCStatus(batchId);
+		
+		for (QCStatus key : pieChart.keySet()) {
+			
+			log.info("key: "+ key+ " " + pieChart.get(key));
+			
+		}
+		
+		log.info("Testing pieChartCurrentWeekQCStatus(int batchId)");
 		
 		assertNotNull(pieChart);
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Superstar));
 		assertEquals( (Integer) 9, (Integer) pieChart.get(QCStatus.Good));
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Average));
 		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
+		
+		
+	
 	}
 	
 	/**
@@ -548,12 +592,19 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getAllBatchesCurrentWeekQCStackedBarChartTest() {
-		log.info("Testing getAllBatchesCurrentWeekQCStackedBarChart()");
 		
+		log.info("\n \n \n \n \n <getAllBatchesCurrentWeekQCStackedBarChartTest> Acquire dem batches.");
 		List<Object> object = reportingService.getAllBatchesCurrentWeekQCStackedBarChart();
+		
 		@SuppressWarnings("unchecked")
 		Map<String, Object> test = (Map<String, Object>) object.get(0);
 		
+		for (int i = 0; i < object.size(); i++) {
+			
+			log.info("Batch number " + i + ": " + object.get(i));
+			
+		}
+
 		// find a way to acquire the map separately, then iterate through its keys
 		
 		@SuppressWarnings("unchecked")
@@ -568,18 +619,47 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Superstar));
 		assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Average));
 		
+		//asserts the label
+		
 		LocalDate expect = LocalDate.now();
 		expect = expect.minusDays(7);
 		
-		//asserts the label
 		assertEquals(expect + "...Patrick", (String) test.get("label"));
 		
 		//asserts the address
 		Address address = (Address) test.get("address");
 	
-		assertEquals("65-30 Kissena Blvd, CEP Hall 2", address.getStreet());	
+		assertEquals("65-30 Kissena Blvd, CEP Hall 2", address.getStreet());
+			
 	}
 	
+	/**
+	 *  Test methods:
+	 *  com.revature.caliber.services.ReportingService.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
+	 */
+	@Test
+	public void getBatchWeekQcOverallBarChart() {
+		
+		Batch batch = batchDao.findAll().get(1);
+		int batchId = batch.getBatchId();
+		int weekNumber = 5;
+		
+		log.info("\n \n \n \n \n <getBatchWeekQcOverallBarChart> BatchId: " + batchId + " Week: " + 5);
+		
+		Note note = reportingService.getBatchWeekQcOverallBarChart(batchId, weekNumber);
+		
+		log.info("<getBatchWeekQcOverallBarChart> Note: " + note);
+		
+		assertEquals(5, note.getWeek());
+		assertEquals(6438, note.getNoteId());
+		
+		//This assertion only checks that the content of returned note contains part of the String that's actually there.
+		//Ideally, we would want to assert that the content of the note (whole string) is exactly equal.
+		assertThat(note.getContent(), containsString("Covered: Unix, AWS, DevOps, Hibernate"));
+		
+		
+	}
+		
 	/**
 	 * Method for creating two batches with grades
 	 * @return
@@ -631,6 +711,7 @@ public class ReportingServiceTest extends CaliberTest {
 		batches.add(b2);
 		return batches;
 	}
+	
 	
 	/**
 	 * Utility method for testing Creates and returns a batch with 3 trainees

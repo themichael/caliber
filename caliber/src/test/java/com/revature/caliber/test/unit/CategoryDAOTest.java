@@ -29,11 +29,11 @@ public class CategoryDAOTest extends CaliberTest {
 	@Test
 	public void findAll() {
 		List<Category> myValues = dao.findAll();
-		assertTrue("Test categories exist", myValues.size() > 0);
+		assertTrue("Test categories exist",  !myValues.isEmpty()); //changed from myValues.size() > 0
 		//For all members of the myValues List except the last one, ensure the id is less than the id that follows it.
 		for(int i = 0 ; i < (myValues.size() - 1); i++)
 		{
-			assertTrue("Test ordering by id, on id: " + i, (myValues.get(i).getCategoryId() < myValues.get(i + 1).getCategoryId()));
+			assertTrue("Test ordering by id, on id: " + i, myValues.get(i).getCategoryId() < myValues.get(i + 1).getCategoryId()); //extra parentheses around myValues.getCategoryId
 		}
 	}
 	/**
@@ -45,13 +45,13 @@ public class CategoryDAOTest extends CaliberTest {
 	public void findAllCategories() {
 		List<Category> myValues = dao.findAllCategories();
 		assertNotNull("Test that something exists", myValues);
-		assertTrue("Test categories exist", myValues.size() > 0);
+		assertTrue("Test categories exist", !myValues.isEmpty());  // changed from myValues.size() > 0
 		//For all members of the myValues List except the last one, ensure the skill name is ordered correctly..
 				for(int i = 0 ; i < (myValues.size() - 1); i++)
 				{
 					String categoryOne = myValues.get(i).getSkillCategory();
 					String categoryTwo = myValues.get(i+1).getSkillCategory();
-					assertTrue("Test ordering by skill name, on name: " + categoryOne + " and " + categoryTwo, (categoryOne.compareTo(categoryTwo) <= 0));
+					assertTrue("Test ordering by skill name, on name: " + categoryOne + " and " + categoryTwo, categoryOne.compareTo(categoryTwo) <= 0);
 				}
 	}
 	/**
@@ -62,7 +62,7 @@ public class CategoryDAOTest extends CaliberTest {
 	public void findOne() {
 		Category myCat = dao.findOne(1);
 		assertNotNull(myCat);
-		assertTrue("Test that findOne returns a Category",  (dao.findOne(1) instanceof Category));
+		assertTrue("Test that findOne returns a Category",  dao.findOne(1) instanceof Category);
 	}
 	/**
 	 * Tests methods:
