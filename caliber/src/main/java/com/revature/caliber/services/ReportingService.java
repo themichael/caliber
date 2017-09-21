@@ -1,3 +1,4 @@
+
 package com.revature.caliber.services;
 
 import java.util.ArrayList;
@@ -603,7 +604,7 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			Double avg = 0.d;
 			int weeksWithGrades = 0;
-			for (Integer i = 1; i <= weeks; i++) {
+			for (Integer i = 0; i < weeks; i++) {
 				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
 				if (tempAvg > 0) {
 					weeksWithGrades++;
@@ -685,6 +686,7 @@ public class ReportingService {
 	 * 
 	 * @param traineeId
 	 * @param assessmentType
+	 * @param weeks
 	 * @return Map<'week', {'score', 'weight'}>
 	 */
 	public Map<Integer, Double[]> utilAvgTraineeOverall(Set<Grade> grades, AssessmentType assessmentType, int weeks) {
@@ -807,8 +809,6 @@ public class ReportingService {
 	 * Takes in a List of Grades and Returns an Map with Categories and Averages
 	 * for Each Categories
 	 * 
-	 * @param traineeId
-	 * @param weekNumber
 	 * @return Map<Category, Double[0: Average, 1: Number of assessments for
 	 *         that skill]>
 	 */
@@ -843,11 +843,11 @@ public class ReportingService {
 		}
 		return skillsWithLabels;
 	}
-
+ 
 	/**
 	 * Takes the weighted sum of scores by assessment type, averages that with
-	 * all other assessments for the week, sums the value for all trainees overa
-	 * wekk, and finally divides by number of trainees
+	 * all other assessments for the week, sums the value for all trainees over a
+	 * week, and finally divides by number of trainees
 	 * 
 	 * @param batchId
 	 * @param week
