@@ -352,7 +352,7 @@ public class ReportingServiceTest extends CaliberTest {
 		Map<String, Double> results = reportingService.getBatchOverallBarChart(2200);
 		assertTrue("Test size of result set", results.size() == 15);
 		assertTrue("Contains expected trainee", results.containsKey("Chen, Andrew"));
-		assertTrue("Test accurate average calculation", results.get("Chen, Andrew").doubleValue() == 84.14575d);
+		assertTrue("Test accurate average calculation", Math.abs(results.get("Chen, Andrew").doubleValue()-84.14575) < .001);
 
 		// Negative Testing
 		// Grab non-existent batch
@@ -376,8 +376,9 @@ public class ReportingServiceTest extends CaliberTest {
 		assertNotNull("Results exist", results);
 		assertTrue("Test size of result set", results.size() == 1);
 		assertTrue("Result contains exam", results.containsKey("Exam"));
+		//Check if values are within an acceptable margin of error (floating point, can't compare directly)
 		assertTrue("Exam contains expected values",
-				results.get("Exam")[0] == 93.0 & results.get("Exam")[1] == 85.625 & results.get("Exam")[2] == 100);
+				 Math.abs(results.get("Exam")[0] - 93.0) < 0.001 &&  Math.abs(results.get("Exam")[1] - 85.625) < 0.001 &&  Math.abs(results.get("Exam")[2] - 100) < 0.001);
 
 		// Invalid TraineeID
 		try {
@@ -405,7 +406,7 @@ public class ReportingServiceTest extends CaliberTest {
 		assertTrue("Test data exists", results.containsKey("Exam"));
 		
 		Double[] myVals = results.get("Verbal");
-		assertTrue("Test values of Verbal exam", myVals[0] == 69.2 & myVals[1] == 82.0);
+		assertTrue("Test values of Verbal exam",  Math.abs(myVals[0] - 69.2) < 0.001 &&  Math.abs(myVals[1] - 82.0) < 0.001);
 
 		// Invalid TraineeID
 		try {
@@ -500,9 +501,9 @@ public class ReportingServiceTest extends CaliberTest {
 	public void getBatchWeekAvgBarChartTest() {
 		log.info("Testing getBatchWeekAvgBarChartTest");
 		Map <String, Double[]> weekAvgBarChart = reportingService.getBatchWeekAvgBarChart(2201, 5);
-		assertEquals((Double) 88.75, (Double) weekAvgBarChart.get("Project")[0]);
-		assertEquals((Double) 76.109375, (Double) weekAvgBarChart.get("Exam")[0]);
-		assertEquals((Double) 74.375, (Double) weekAvgBarChart.get("Verbal")[0]);	
+		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Project")[0]- 88.75) < 0.001);
+		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Exam")[0]- 76.109375) < 0.001);
+		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Verbal")[0]- 74.375) < 0.001);
 	}
 	
 	/**
@@ -513,8 +514,8 @@ public class ReportingServiceTest extends CaliberTest {
 	public void getBatchWeekSortedBarChartTest(){
 		log.info("getBatchWeekSortedBarChartTest");
 		Map<String, Double> test =reportingService.getBatchWeekSortedBarChart(2050, 2);
-		assertEquals((Double)96.29, (Double)test.get("Fouche, Issac"));
-		assertEquals((Double) 89.63, (Double)test.get("Castillo, Erika"));
+		assertTrue("Check sample values", (Double) Math.abs(test.get("Fouche, Issac")- 96.29) < 0.001);
+		assertTrue("Check sample values", (Double) Math.abs(test.get("Castillo, Erika")- 89.63) < 0.001);
 		assertEquals(6, test.size());
 	}
 	
