@@ -231,7 +231,7 @@ public class BatchDAOTest extends CaliberTest {
 		List<Batch> resultSet = batchDAO.findAll();
 		boolean success = false;
 		for(Batch found: resultSet){
-			if(found.getLocation().equals("Test Location")){
+			if("Test Location".equals(found.getLocation())){
 				success = true;
 				break;
 			}
