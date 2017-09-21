@@ -5,30 +5,33 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema; //DONT KNOW ABOUT THIS
 import com.fasterxml.jackson.core.JsonProcessingException;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 
 public class ReportingAPITest extends AbstractAPITest{
 	
 	private static final Logger log = Logger.getLogger(ReportingAPITest.class);
 	//{int BatchId, int TraineeId, int Week}
-	private static int[] traineeValue = {2150, 5500, 1};
+	private static int[] traineeValue = {2200, 5503, 1};
 	
 	private static String traineeReports = "all/reports/trainee/";
 	private static String radarTraineeOverall = "/radar-trainee-overall/";
@@ -110,7 +113,6 @@ public class ReportingAPITest extends AbstractAPITest{
 		assertEquals(expected, actual);
 	}
 	
-	
 	/**
 	 *
 	 * Tested Method:
@@ -133,7 +135,7 @@ public class ReportingAPITest extends AbstractAPITest{
 		String expected = "{}";
 		assertEquals(expected, actual);
 	}
-	
+	 
 	@Test
 	public void getTraineeOverallRadarChart() throws Exception{
 		log.info("Validate trainee's overall radar chart");
@@ -146,6 +148,39 @@ public class ReportingAPITest extends AbstractAPITest{
 			assertThat().statusCode(200).
 		and().
 			body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
+	}
+
+	/**
+	  * Test method:
+	  * 	com.revature.caliber.controllers.ReportingController
+	  * 		.getBatchOverallTraineeBarChart()(Integer batchId, Integer traineeId)
+	  * 
+	  * @Result ResponseEntity is returned with a body that is not null and a status code 200
+	  */
+	@Test
+	public void testGetBatchOverallTraineeBarChart() throws Exception{
+		log.info("GetBatchOverallTraineeBarChart Test");
+		
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		.when().get(baseUrl + "all/reports/batch/{batchId}/overall/trainee/{traineeId}/bar-batch-overall-trainee", 
+				traineeValue[0], traineeValue[1])
+		.then().assertThat().statusCode(200);
+	}
+	
+	/**
+	  * Tests method:
+	  * 	com.revature.caliber.controllers.ReportingController
+	  * 		.getBatchOverallBarChart()(Integer batchId)
+	  * 
+	  * @Result ResponseEntity is returned with a body that is not null and a status code 200
+	  */ 
+	@Test
+	public void testGetBatchOverallBarChart() throws Exception{
+		log.info("GetBatchOverallBarChart Test");
+		
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		.when().get(baseUrl + "all/reports/batch/{batchId}/overall/bar-batch-overall", traineeValue[0])
+		.then().assertThat().statusCode(200);
 	}
 	
 	@Test
@@ -213,7 +248,40 @@ public class ReportingAPITest extends AbstractAPITest{
 				contentType(ContentType.JSON).assertThat().statusCode(200).
 			and().
 				extract().response().asString(), new TypeReference<Set<String>>() {});
-
-		assertEquals(expected, actual);
+	}
+	
+	/**
+	  * Tests method:
+	  * 	com.revature.caliber.controllers.ReportingController
+	  * 	.getBatchWeekTraineeBarChart()(Integer batchId,Integer weekId,  Integer traineeId)
+	  * 
+	  * @Result ResponseEntity is returned with a body that is not null and a status code 200
+	  */ 
+	@Test
+	public void testGetBatchWeekTraineeBarChart() throws Exception {
+		log.info("GetBatchWeekTraineeBarChart Test");
+		
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		.when().get(baseUrl + "all/reports/batch/{batchId}/overall/trainee/{traineeId}/bar-batch-overall-trainee", 
+				traineeValue[0], traineeValue[1])
+		.then().assertThat().statusCode(200);
+	}
+	
+	/**
+	  * Test method:
+	  * 	com.revature.caliber.controllers.ReportingController
+	  * 	.getTraineeUpToWeekLineChart()(int batchId, int Week, int traineeId)
+	  * 
+	  * @Result ResponseEntity is returned with a body that is not null and a status code 200
+	  */  
+	@Test
+	public void testGetTraineeUpToWeekLineChart() throws Exception {
+		log.info("GetTraineeUpToWeekLineChart Test");
+		
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		.when().get(baseUrl + "all/reports/batch/{batchId}/week"
+				+ "/{week}/trainee/{traineeId}/line-trainee-up-to-week", 
+				traineeValue[0], traineeValue[2], traineeValue[1])
+		.then().assertThat().statusCode(200);
 	}
 }
