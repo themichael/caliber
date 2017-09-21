@@ -8,7 +8,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import java.util.HashMap;
 import java.util.Map;
 
-
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
@@ -26,6 +26,7 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 
 
@@ -36,6 +37,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.AssessmentType;
@@ -50,6 +52,7 @@ import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
+import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
@@ -72,6 +75,8 @@ public class EvaluationAPITest extends AbstractAPITest{
 	CategoryDAO categoryDAO;
 	@Autowired
 	AssessmentDAO assessmentDAO;
+	@Autowired
+	NoteDAO noteDAO;
 	private static final Logger log = Logger.getLogger(EvaluationAPITest.class);
 
 	
@@ -231,14 +236,16 @@ public class EvaluationAPITest extends AbstractAPITest{
 		.statusCode(200);
 	}
 	
+	/**
+	 * Create note 
+	 * @see com.revature.caliber.controllers.EvaluationController#createNote(@Valid @RequestBody Note note)
+	 * 
+	 */
 	@Ignore
 	@Test
 	public void createNote() throws Exception {
 		
 		String createNote = "note/create";
-		Batch batch = batchDAO.findOne(2200);
-		
-		
 		Note expected = new Note();
 		expected.setContent("This is a test note");
 		expected.setWeek((short) 2);
@@ -255,7 +262,33 @@ public class EvaluationAPITest extends AbstractAPITest{
 	}
 	
 	/**
+	 * Test by finding note, setting note content, and then posting new note
+	 * @see com.revature.caliber.controllers.EvaluationController#updateNote(@Valid @RequestBody Note note)
 	 * 
+	 */
+	
+	@Ignore
+	@Test
+	public void updateNote() throws Exception{
+		
+		String updateNote = "note/update";
+		List<Note> notes = noteDAO.findQCIndividualNotes(5529, 2);
+		notes.get(0).setContent("This is a test note");
+		
+		
+		log.info("API Testing updateNote at " + baseUrl + updateNote);
+		given().spec(requestSpec).header(authHeader, accessToken)
+				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(notes.get(0))).when()
+				.post(baseUrl + updateNote).then().assertThat().statusCode(201);
+		
+		
+		
+		
+		
+	}
+	
+	/**
+	 * Find batch notes for trainee using batchId = 2100 and week 2
 	 * @see com.revature.caliber.controllers.EvaluationController#findBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week)
 	 */
 	@Test
@@ -275,11 +308,22 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void findIndividualNotes(){
+		
 		String findIndividualNotes = "trainer/note/trainee/2201/6";
 		log.info("API Testing findIndividualNotes at " + baseUrl + findIndividualNotes);
 		given().spec(requestSpec).header(authHeader, accessToken)
 		.contentType(ContentType.JSON).when()
-				.get(baseUrl + findIndividualNotes).then().assertThat().statusCode(200);
+				.get(baseUrl + findIndividualNotes).then().assertThat().statusCode(200)
+				.body("size()", is(16))
+				.body("get(0).noteId", equalTo(6321));
+		
+		findIndividualNotes = "trainer/note/trainee/2200/3";
+		log.info("API Testing findIndividualNotes at " + baseUrl + findIndividualNotes);
+		given().spec(requestSpec).header(authHeader, accessToken)
+		.contentType(ContentType.JSON).when()
+				.get(baseUrl + findIndividualNotes).then().assertThat().statusCode(200)
+				.body("size()", is(15))
+				.body("get(0).noteId", equalTo(6128));
 	}
 	
 	

@@ -45,9 +45,6 @@ import com.revature.caliber.beans.QCStatus;
 @Transactional
 public class NoteDAOTest extends CaliberTest {
 
-	
-	@Autowired
-	NoteDAO noteDAO;
 
 	private static final Logger log = Logger.getLogger(NoteDAOTest.class);
 
@@ -193,7 +190,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void findAllQCBatchNotes(){
 		log.trace("GETTING ALL QC BATCH NOTES");
 		int batch_id = 2201;
-		List<Note> notes = noteDAO.findAllQCBatchNotes(batch_id);
+		List<Note> notes = noteDao.findAllQCBatchNotes(batch_id);
 		
 		int[] expected = {6369,6390,6391,6420,6438,6457,6470};
 		assertTrue(notes.size()>0);
@@ -207,7 +204,7 @@ public class NoteDAOTest extends CaliberTest {
 		log.trace("GETTING ALL QC TRAINEE NOTES");
 		int batch_id = 2201;
 		int week = 7;
-		List<Note> notes = noteDAO.findAllQCTraineeNotes(batch_id, week);
+		List<Note> notes = noteDao.findAllQCTraineeNotes(batch_id, week);
 		assertTrue(notes.size()>0);
 		int[] expected = {6459,6460,6461,6462,6463,6464,6465,6466,6467,6468,6469,6471,6472,6473,6474,6475};
 		for(int j = 0; j<expected.length; j++){
@@ -220,7 +217,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void findAllQCTraineeOverallNotes(){
 		log.trace("GETTING ALL QC TRAINEE OVERALL NOTES");
 		int trainee_id=5524;
-		List<Note> notes = noteDAO.findAllQCTraineeOverallNotes(trainee_id);
+		List<Note> notes = noteDao.findAllQCTraineeOverallNotes(trainee_id);
 		assertTrue(notes.size()>0);
 		int[] expected = {6355,6381,6394,6439,6423,6453,6463};
 		for(int j = 0; j<expected.length; j++){
