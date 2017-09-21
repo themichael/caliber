@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
@@ -304,9 +305,10 @@ public class EvaluationService {
 	 * @param week
 	 * @return
 	 */
+	@Transactional
 	public List<Note> findAllIndividualNotes(Integer traineeId, Integer week) {
 		log.debug("Finding all week " + week + " individual notes for trainee: " + traineeId);
-		return noteDAO.findAllIndividualNotes(traineeId, week);
+		return initializeLazyLoadedNotes(noteDAO.findAllIndividualNotes(traineeId, week));
 	}
 
 	/**
@@ -338,5 +340,12 @@ public class EvaluationService {
 			Hibernate.initialize(grade.getAssessment().getBatch().getTrainees());
 		}
 		return grades;
+	}
+	
+	private List<Note> initializeLazyLoadedNotes(List<Note> notes) {
+		for(Note note: notes) {
+			Hibernate.initialize(note.getBatch().getTrainees());
+		}
+		return notes;
 	}
 }

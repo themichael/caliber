@@ -26,7 +26,12 @@ import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
 
 public class NoteDAOTest extends CaliberTest {
+<<<<<<< HEAD
+
+
+=======
 	
+>>>>>>> edb4e4acf5bbb035e9cf2614b0b209437bf3ce59
 	private static final Logger log = Logger.getLogger(NoteDAOTest.class);
 
 	private static final int testTraineeId = 5529;
@@ -205,6 +210,11 @@ public class NoteDAOTest extends CaliberTest {
 	@Test	
 	public void findAllQCBatchNotes(){
 		log.trace("GETTING ALL QC BATCH NOTES");
+<<<<<<< HEAD
+		int batch_id = 2201;
+		List<Note> notes = noteDao.findAllQCBatchNotes(batch_id);
+=======
+>>>>>>> edb4e4acf5bbb035e9cf2614b0b209437bf3ce59
 		
 		// find all QC batch notes
 		List<Note> notes = noteDao.findAllQCBatchNotes(testQCBatchId);
@@ -225,6 +235,15 @@ public class NoteDAOTest extends CaliberTest {
 	@Test	
 	public void findAllQCTraineeNotes(){
 		log.trace("GETTING ALL QC TRAINEE NOTES");
+<<<<<<< HEAD
+		int batch_id = 2201;
+		int week = 7;
+		List<Note> notes = noteDao.findAllQCTraineeNotes(batch_id, week);
+		assertTrue(notes.size()>0);
+		int[] expected = {6459,6460,6461,6462,6463,6464,6465,6466,6467,6468,6469,6471,6472,6473,6474,6475};
+		for(int j = 0; j<expected.length; j++){
+			assertEquals(expected[j], notes.get(j).getNoteId());
+=======
 		// find all QC trainee notes for week 7
 		List<Note> notes = noteDao.findAllQCTraineeNotes(testQCBatchId, 7);
 		
@@ -234,6 +253,7 @@ public class NoteDAOTest extends CaliberTest {
 		assertEquals(expected.size(), notes.size()); // same size
 		for(int j = 0; j < expected.size(); j++){
 			assertTrue(expected.contains(notes.get(j).getNoteId())); // same values
+>>>>>>> edb4e4acf5bbb035e9cf2614b0b209437bf3ce59
 		}
 	}
 	
@@ -245,6 +265,14 @@ public class NoteDAOTest extends CaliberTest {
 	@Test	
 	public void findAllQCTraineeOverallNotes(){
 		log.trace("GETTING ALL QC TRAINEE OVERALL NOTES");
+<<<<<<< HEAD
+		int trainee_id=5524;
+		List<Note> notes = noteDao.findAllQCTraineeOverallNotes(trainee_id);
+		assertTrue(notes.size()>0);
+		int[] expected = {6355,6381,6394,6439,6423,6453,6463};
+		for(int j = 0; j<expected.length; j++){
+			assertEquals(expected[j], notes.get(j).getNoteId());
+=======
 		// get all QC trainee overall notes
 		List<Note> notes = noteDao.findAllQCTraineeOverallNotes(testQCTraineeId);
 		
@@ -254,6 +282,7 @@ public class NoteDAOTest extends CaliberTest {
 		assertEquals(expected.size(), notes.size()); // same size
 		for(int j = 0; j < expected.size(); j++){
 			assertTrue(expected.contains(notes.get(j).getNoteId())); // same values
+>>>>>>> edb4e4acf5bbb035e9cf2614b0b209437bf3ce59
 		}
 	}
 
