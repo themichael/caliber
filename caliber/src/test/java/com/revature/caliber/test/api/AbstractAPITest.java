@@ -52,6 +52,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 	private static String clientId = System.getenv("SALESFORCE_CLIENT_ID");
 	private static String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
 	private static String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
+	protected static String authHeader = "Authorization";
 	
 	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
 
