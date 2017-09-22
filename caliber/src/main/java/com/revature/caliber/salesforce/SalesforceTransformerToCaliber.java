@@ -88,7 +88,6 @@ public class SalesforceTransformerToCaliber {
 		trainee.setProjectCompletion(salesforceTrainee.getProjectCompletion());
 		trainee.setRecruiterName(salesforceTrainee.getRecruiter().getName());
 		trainee.setTechScreenerName(salesforceTrainee.getScreener());
-		// trainee.setTechScreenFeedback(salesforceTrainee.getScreenFeedback());
 		String degree = "None";
 		if (salesforceTrainee.getAssociates() != null){
 			degree = "Associates";
