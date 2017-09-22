@@ -48,7 +48,8 @@ public class TrainingAPITest extends AbstractAPITest {
 	private String removeLocationTest = "vp/location/delete";
 	private String reactivateLocationTest = "vp/location/reactivate";
 	
-	private Address cherryStreetAddress = new Address(1, "299 CherryStreet", "FruityCity", "FL", "55555", "Revature", true);
+
+	private Address newYorkAddress = new Address(1, "65-30 Kissena Blvd, CEP Hall 2", "Queens", "NY", "11367","Tech Incubator at Queens College", true);
 	private String createBatch = "vp/batch/create";
 	private String deleteBatch = "all/batch/delete/{id}";
 	private String findAllBatchesByTrainer = "trainer/batch/all";
@@ -215,7 +216,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void createLocationTest() {
-		Address location = cherryStreetAddress;
+		Address location = new Address(1, "299 CherryStreet", "FruityCity", "FL", "55555", "Revature", true);
 		location.setAddressId(20);
 		log.info("API Testing createLocation at baseUrl " + baseUrl);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location)
@@ -229,7 +230,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void updateLocationTest() throws JsonProcessingException {
-		Address location = cherryStreetAddress;
+		Address location = newYorkAddress;
 		location.setState("PA");
 		log.info("API Testing updateLocation at baseUrl " + baseUrl);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location)
@@ -243,8 +244,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void getAllLocationsTest() throws JsonProcessingException {
-		Address expect1 = new Address(1, "65-30 Kissena Blvd, CEP Hall 2", "Queens", "NY", "11367",
-				"Tech Incubator at Queens College", true);
+		Address expect1 = newYorkAddress;
 		Address expect2 = new Address(2, "11730 Plaza America Drive, 2nd Floor", "Reston", "VA", "20190",
 				"Revature LLC", true);
 		log.info("API Testing updateLocation at baseUrl " + baseUrl);
@@ -255,29 +255,26 @@ public class TrainingAPITest extends AbstractAPITest {
 	}
 
 	/**
+	 * Testing deactivating and reactivating a location
+	 * 
 	 * Tests methods:
 	 * 
 	 * @see com.revature.controllers.TrainingController#removeLocation
+	 * @see com.revature.controllers.TrainingController#reactivateLocation
 	 */
 	@Test
-	public void removeLocationTest() {
-		Address location = cherryStreetAddress;
+	public void removeAndReactivateLocationTest() {
+		Address location = newYorkAddress;
 		location.setActive(false);
 		log.info("API Testing removeLocation at baseUrl " + baseUrl);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location)
 				.when().delete(baseUrl + removeLocationTest).then().assertThat().statusCode(204);
-	}
-
-	/**
-	 * Tests methods:
-	 * 
-	 * @see com.revature.controllers.TrainingController#reactivateLocation
-	 */
-	@Test
-	public void reactivateLocationTest() {
+		
+		location.setActive(true);
 		log.info("API Testing reactivateLocation at baseUrl " + baseUrl);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(cherryStreetAddress)
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(newYorkAddress)
 				.when().put(baseUrl + reactivateLocationTest).then().assertThat().statusCode(204);
 	}
+
 }
 
