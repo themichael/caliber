@@ -359,7 +359,6 @@ angular
 
 					};
 
-
 					var filterLineChartByState = function(state){
 						if(state){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
@@ -371,8 +370,6 @@ angular
 							createCurrentBatchesAverageScoreChart($scope.averageScoreData);
 						}
 					};
-
-
 
 					var filterBarChartByState = function(state){
 						if(state){

@@ -261,18 +261,37 @@ angular.module("charts").factory(
 					chartData.id.push(batch.id);
 					var i = 0;
 					angular.forEach(batch.qcStatus, function(value2, key2) {
-						if (chartData.data[i] === undefined) {
-							chartData.data.push([]);
-							chartData.series.push(key2);
-							if (key2 === "Superstar")
-								chartData.colors.push("#393fef");
-							else if (key2 === "Good")
-								chartData.colors.push("#18ad18");
-							else if (key2 === "Average")
-								chartData.colors.push("#f9e900");
-							else if (key2 === "Poor")
-								chartData.colors.push("#ea2825");
+						// Because the qcStatuses get randomized, this if else set orders them.
+						if(key2 === "Poor"){
+							i = 3;
 						}
+						else if(key2 === "Average"){
+							i = 2;
+						}
+						else if(key2 === "Good"){
+							i = 1;
+						}
+						else if(key2 === "Superstar"){
+							i = 0;
+						}
+						$log.debug("Ruddy order" + value2 + key2);
+						if (chartData.data[i] === undefined) {
+							chartData.data[i]=[];
+							chartData.series[i]=key2;
+							if (key2 === "Superstar"){
+								chartData.colors[i] ="#393fef";
+							}
+							else if (key2 === "Good"){
+								chartData.colors[i]="#18ad18";
+							}
+							else if (key2 === "Average"){
+								chartData.colors[i] = "#f9e900";
+							}
+							else if (key2 === "Poor"){
+								chartData.colors[i] = "#ea2825";								
+							}
+						}
+						$log.debug("i is " + i);
 						chartData.data[i].push(value2);
 						i++;
 					});
@@ -290,7 +309,8 @@ angular.module("charts").factory(
 						yAxes : [ {
 							stacked : true,
 							ticks : {
-								mirror : true
+								mirror : true,
+								reverse: true
 							}
 						} ],
 						xAxes : [ {
@@ -320,7 +340,7 @@ angular.module("charts").factory(
 					},
 
 				};
-				$log.debug("Hello from the other side");
+				$log.debug("Hello from the otter slide");
 				return chartData;
 			};
 			$log.debug("Hello, is it me you are looking for?");

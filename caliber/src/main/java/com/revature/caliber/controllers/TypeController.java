@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -103,8 +105,7 @@ public class TypeController {
 	/**
 	 * Get assessment types for dropdown selection on the UI
 	 *
-	 * @param assessment
-	 *            the assessment
+	 * @param assessment the assessment
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/assessment/all", method = RequestMethod.GET)
