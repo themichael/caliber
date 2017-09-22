@@ -326,7 +326,7 @@ public class ReportingServiceTest extends CaliberTest {
 		
 		
 		List<Batch> batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, allTraining);
-		int expected = 5;
+		int expected = 6;
 		int actual = batches.size();
 		assertEquals(expected, actual);
 		
@@ -340,7 +340,7 @@ public class ReportingServiceTest extends CaliberTest {
 		
 
 		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, revatureTraining);
-		expected = 3;
+		expected = 4;
 		actual = batches.size();
 		assertEquals(expected, actual);
 		
