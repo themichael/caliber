@@ -17,6 +17,9 @@ public class QualityAuditPage {
 		this.driver = driver;
 	}
 	
+	/**
+	 * Quits the PhantomJS Driver
+	 */
 	public void closeAndQuit(){
 		driver.quit();
 	}
