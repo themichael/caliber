@@ -17,9 +17,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.Set;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.apache.xpath.operations.Equals;
 import org.hamcrest.Matchers;
@@ -30,12 +27,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Ignore;
 
-import org.apache.log4j.Logger;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -50,24 +44,13 @@ import com.revature.caliber.test.integration.ReportingServiceTest;
 import antlr.collections.List;
 
 
-import org.junit.Ignore;
-import org.junit.Test;
-
-
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema; //DONT KNOW ABOUT THIS
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import junit.framework.Assert;
 
-
-import io.restassured.http.ContentType;
-
+@SuppressWarnings("deprecation")
 public class ReportingAPITest extends AbstractAPITest{
 	
 	private static final Logger log = Logger.getLogger(ReportingAPITest.class);
@@ -371,6 +354,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	
 	//Tests if the returned JSON matches the expected values returned from a Map
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testgetTraineeOverallLineChart(){
 		log.info("testgetTraineeOverallLineChart Test");
@@ -382,10 +366,11 @@ public class ReportingAPITest extends AbstractAPITest{
 		Map<Integer, Double[]> theMap = service.getTraineeOverallLineChart(batchId[random],traineeId[random]);
 		//Maps the double array values to an ArrayList
 		ArrayList<Double[]> targetList = new ArrayList<Double[]>(theMap.values());
-		
+		//Stores the array body as a string 
 		Response response = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
 		.when().get(baseUrl+"all/reports/batch/{batchId}/overall/trainee/{traineeId}/line-trainee-overall",batchId[random],traineeId[random]);
 		JSONObject responseJson = new JSONObject(response.getBody().asString());;
+		//For the length of the body finds the double array and compares the 1st and second values of the double array
 		for(int i =1; i <= responseJson.length(); i++){
 			JSONArray values = responseJson.getJSONArray(Integer.toString(i));
 			for(int j = 0; j < values.length(); j++) {
@@ -394,15 +379,19 @@ public class ReportingAPITest extends AbstractAPITest{
 			}
 		}
 	}
-	//This test takes a skill All, a training All, and the date. This date can be any date before this instance of time, and 1970.
-	//If the date doesn't match up i.e changing 2015 to 2016 the day and weekday would be off giving 83.70232555860807
-	//79.56691875000001 is the default number if it works correctly.
+	/**
+	* This test takes a skill All, a training All, and the date. This date can be any date before this instance of time, and 1970.
+	* If the date doesn't match up i.e changing 2015 to 2016 the day and weekday would be off giving 83 ish.But because the Web app
+	* always calls that second it is valid and returns the Avg number.
+	*/
 	@Test
 	public void testGetBatchComparisonAvg(){
 		String date = "Wed Sep 21 15:48:45 EDT 2016";
 		log.info("Here it is testGetBatchComparisonAvg Test");
 		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
-		.when().get(baseUrl+"all/reports/compare/skill/(All)/training/(All)/date/"+date)
+		.when().get(baseUrl+"all/reports/compare/skill/(All)/training/(All)/date/"+date).then()
+		.assertThat().statusCode(200);
+	}
 
 	
 	/**
