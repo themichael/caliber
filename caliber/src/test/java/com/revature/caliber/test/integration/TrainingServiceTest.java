@@ -17,6 +17,8 @@ public class TrainingServiceTest extends CaliberTest {
 	TrainingService service;
 	TrainerDAO dao;
 	
+	private String inactive = "select NUMBER_OF_WEEKS from CALIBER_BATCH where BATCH_ID = 2100";
+	
 	@Autowired
 	public void setDao(TrainerDAO dao) {
 		this.dao = dao;
@@ -27,8 +29,6 @@ public class TrainingServiceTest extends CaliberTest {
 		this.service = service;
 	}
 	
-	
-	private String inactive = "select NUMBER_OF_WEEKS from CALIBER_BATCH where BATCH_ID = 2100";
 	
 	@Test
 	public void makeInactiveWeek(){

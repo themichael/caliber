@@ -59,11 +59,13 @@ public class TrainingAPITest extends AbstractAPITest {
 	
 	private String leadTrainer = "Lead Trainer";
 	private String seniorTrainer = "Senior Trainer";
+	private String patricksEmail = "patrick.walsh@revature.com";
+	private String trainerWalsh = "Patrick Walsh";
 
 	@Test
 	public void findByEmail() throws Exception {
 
-		Trainer expected = new Trainer("Patrick Walsh", leadTrainer, "patrick.walsh@revature.com",
+		Trainer expected = new Trainer(trainerWalsh, leadTrainer,patricksEmail ,
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
@@ -149,7 +151,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void getAllTrainers() throws Exception {
-		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
+		Trainer expected = new Trainer(trainerWalsh, leadTrainer, patricksEmail,
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + getAllTrainers);
