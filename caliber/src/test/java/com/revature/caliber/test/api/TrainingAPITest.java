@@ -49,7 +49,7 @@ public class TrainingAPITest extends AbstractAPITest {
 
 	private Address cherryStreetAddress = new Address(1, "299 CherryStreet", "FruityCity", "FL", "55555", "Revature",
 			true);
-	private String createBatch = "vp/batch/create";
+	private String createBatch = "all/batch/create";
 	private String deleteBatch = "all/batch/delete/{id}";
 	private String findAllBatchesByTrainer = "trainer/batch/all";
 	private String createWeek = "trainer/week/new/{batchId}";
@@ -94,7 +94,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void updateTrainer() throws Exception {
-		Trainer expected = new Trainer("Newwer Trainer", "Senior Trainer", "don.welshy@revature.com",
+		Trainer expected = new Trainer("Newwer Trainer", "Senior Trainer", "don.welshy123@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		expected.setTrainerId(3);
 		log.info("API Testing updateTrainer at baseUrl  " + baseUrl + updateTrainer);
@@ -159,19 +159,21 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void deleteBatch() throws Exception {
 
-		given().spec(requestSpec).header(auth, accessToken).pathParam("id", 2201).contentType(ContentType.JSON).when()
-				.delete(baseUrl + deleteBatch).then().assertThat().statusCode(200);
+		given().spec(requestSpec).header(auth, accessToken).pathParam("id", 2003).contentType(ContentType.JSON).when()
+				.delete(baseUrl + deleteBatch).then().assertThat().statusCode(204);
 
 	}
 
 	@Test
 	public void createBatch() throws Exception {
 
-		Trainer expectedTrainer = new Trainer("Dan Pickles", "Senior Trainer", "dan.pickles@gmail.com",
-				TrainerRole.ROLE_TRAINER);
+		Trainer expectedTrainer = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
+				TrainerRole.ROLE_VP);
+		expectedTrainer.setTrainerId(1);
 		Batch expected = new Batch("Create Controller TrainingAPI Test", expectedTrainer,
 				java.sql.Date.valueOf(LocalDate.now().toString()), java.sql.Date.valueOf(LocalDate.now().toString()),
-				"Some Location");
+				"65-30 Kissena Blvd, CEP Hall 2 Queens, NY 11367");
+		expected.setAddress(new Address(2,"65-30 Kissena Blvd, CEP Hall 2","Queens","NY","11367","Tech Incubator at Queens College",true));
 		log.info("API Testing createBatch at " + baseUrl + createBatch);
 
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
