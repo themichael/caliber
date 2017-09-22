@@ -9,7 +9,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class ManageBatchPage{
@@ -18,7 +18,7 @@ public class ManageBatchPage{
 	
 	public ManageBatchPage(WebDriver driver) {
 	super();
-	this.driver = (PhantomJSDriver)driver;
+	this.driver = (ChromeDriver)driver;
 	}
 
 	/**
@@ -29,12 +29,16 @@ public class ManageBatchPage{
 		driver.get("http://localhost:8080/caliber#/vp/home");
 	}
 	
-	//loads home page
+	/**
+	 * Takes driver to the home page
+	 */
 	public void goToHome(){
 		driver.get("http://localhost:8080/caliber#/vp/home");
 	}
 	
-	//loads manage page 
+	/**
+	 * Takes driver to the manage page
+	 */
 	public void gotoManagePage(){
 		driver.navigate().to("http://localhost:8080/caliber/#/vp/manage");	
 	}
@@ -354,7 +358,11 @@ public class ManageBatchPage{
 		driver.switchTo().activeElement();
 	}
 	
-	//verifies that you made it to the Add/Update trainee modal
+	/**
+	 * Verifies that the driver made it successfully to the
+	 * trainee modal by locating the Modal Header and asserting
+	 * that it is the correct header
+	 */
 	public void verifyEditTraineeModal(){
 		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.container.modal-widest > h3"));
 	}
@@ -626,7 +634,9 @@ public class ManageBatchPage{
 		driver.findElement(By.cssSelector("input:invalid"));
 	}
 	
-	//closes out driver
+	/**
+	 * Closes driver completely. Calls driver.quit()
+	 */
 	public void closeDriver(){
 		driver.quit();
 	}
