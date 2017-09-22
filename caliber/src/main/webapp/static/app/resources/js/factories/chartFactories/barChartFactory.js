@@ -274,7 +274,6 @@ angular.module("charts").factory(
 						else if(key2 === "Superstar"){
 							i = 0;
 						}
-						$log.debug("Ruddy order" + value2 + key2);
 						if (chartData.data[i] === undefined) {
 							chartData.data[i]=[];
 							chartData.series[i]=key2;
@@ -291,7 +290,6 @@ angular.module("charts").factory(
 								chartData.colors[i] = "#ea2825";								
 							}
 						}
-						$log.debug("i is " + i);
 						chartData.data[i].push(value2);
 						i++;
 					});
