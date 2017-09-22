@@ -43,6 +43,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 	 */
 	protected static String accessToken = "Auth ";
 	protected static final String auth = "Authorization";
+	protected static String jsessionid;
 	protected static RequestSpecification requestSpec;
 
 	protected static String baseUrl = System.getenv("CALIBER_SERVER_URL");
@@ -60,16 +61,15 @@ public abstract class AbstractAPITest extends CaliberTest {
 			try {
 				login();
 				log.info("Logging into Caliber for API testing");
-				Response response = given().params("salestoken", accessToken).redirects().allowCircular(true).get(baseUrl);
-				String sessionCookie = response.getSessionId();
-				String roleCookie = response.getCookie("role");
-				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
-				requestSpec = new RequestSpecBuilder().addParam("salestoken", accessToken)
-						.addCookie("JSESSIONID", sessionCookie).addCookie("role", roleCookie).build();
-			} catch (Exception e) {
-				log.error(e);
-			}
-		}
+				Response response = given().body("salestoken="+accessToken).redirects().allowCircular(true).get(baseUrl + "caliber/");
+                String sessionCookie = response.getSessionId();
+                String roleCookie = response.getCookie("role");
+                log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
+                requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
+            } catch (Exception e) {
+                log.error(e);
+            }
+        }
 	}
 
 	private static void login()

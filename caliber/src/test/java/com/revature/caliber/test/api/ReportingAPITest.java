@@ -102,7 +102,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	@Test
 	public void getTraineeOverallRadarChart() throws Exception{
 		log.info("Validate trainee's overall radar chart");
-		Map<String, Double> expected = new HashMap<String, Double>();
+		Map<String, Double> expected = new HashMap<>();
 		given().
 			spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
 		when().
@@ -116,7 +116,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	@Test
 	public void getBatchOverallRadarChart() throws Exception{
 		log.info("Validate batch's overall radar chart");
-		Map<String, Double> expected = new HashMap<String, Double>();
+		Map<String, Double> expected = new HashMap<>();
 		given().
 			spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
 		when().
@@ -130,7 +130,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	@Test
 	public void getBatchAllTraineesRadarChart() throws Exception{
 		log.info("Validate batch's overall radar chart");
-		Map<String, Map<String, Double>> expected = new HashMap<String, Map<String, Double>>();
+		Map<String, Map<String, Double>> expected = new HashMap<>();
 		given().
 			spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
 		when().
@@ -166,7 +166,7 @@ public class ReportingAPITest extends AbstractAPITest{
 		log.info("Validate retrieval of batch's technologies learned in a week");
 		
 		Integer week = new Integer(5);
-		Set<String> expected = new HashSet<String>();
+		Set<String> expected = new HashSet<>();
 		expected.add("AWS");
 		expected.add("Hibernate");
 		
