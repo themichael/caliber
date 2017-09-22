@@ -5,7 +5,7 @@
 			<div class="col-md-12 col-lg-12">
 				<ul class="nav nav-tabs">
 					<li role="button" class="pull-right" data-toggle="modal"
-						data-target="#addCategoryModal" ng-click=""><a>Create
+						data-target="#addCategoryModal" ng-click=""><a id="createCategoryModal">Create
 							Category <span class="glyphicon glyphicon-plus"
 							aria-hidden="true"></span>
 					</a></li>
@@ -31,7 +31,7 @@
 				<tbody>
 					<tr ng-repeat="category in categories track by $index"
 						ng-if="($index < categories.length / 3)">
-						<td role="button" data-toggle="modal"
+						<td id="{{category.skillCategory}}" role="button" data-toggle="modal"
 							ng-click="populateCategory($index)"
 							data-target="#editCategoryModal">{{category.skillCategory}}
 						</td>
@@ -57,7 +57,7 @@
 				<tbody>
 					<tr ng-repeat="category in categories track by $index"
 						ng-if="(($index > categories.length / 3) && ($index < ((categories.length / 3) * 2)))">
-						<td role="button" data-toggle="modal"
+						<td role="button" data-toggle="modal" id="{{category.skillCategory}}"
 							ng-click="populateCategory($index)"
 							data-target="#editCategoryModal">{{category.skillCategory}}
 						</td>
@@ -83,7 +83,7 @@
 				<tbody>
 					<tr ng-repeat="category in categories track by $index"
 						ng-if="($index > ((categories.length / 3) * 2))">
-						<td role="button" data-toggle="modal"
+						<td role="button" data-toggle="modal" id="{{category.skillCategory}}"
 							ng-click="populateCategory($index)"
 							data-target="#editCategoryModal">{{category.skillCategory}}
 						</td>

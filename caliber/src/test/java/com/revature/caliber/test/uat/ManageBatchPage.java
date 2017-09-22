@@ -2,45 +2,642 @@ package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.BeforeClass;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class ManageBatchPage{
 
-//	protected driver
-//	protected url
-//	public void setup(){
-//		driver = new HtmlUnitDriver(BrowserVersion.CHROME, true);
-//		driver.get("http://localhost:8080/caliber/#/vp/manage");
-//		URL = driver.getCurrentUrl();
-//	}
 	private WebDriver driver;
-	
 	
 	public ManageBatchPage(WebDriver driver) {
 	super();
-	this.driver = driver;
+	this.driver = (ChromeDriver)driver;
 	}
 
+	/**
+	 * Functions to go to different pages as well as verify that you are on the 
+	 * correct page/the page you want to be on
+	 */
 	public void checkLoggedIn(){
-		WebDriver yeah = new HtmlUnitDriver(BrowserVersion.CHROME, true);
-		yeah.get("http://localhost:8080/caliber#/vp/home");
+		driver.get("http://localhost:8080/caliber#/vp/home");
 	}
 	
+	/**
+	 * Takes driver to the home page
+	 */
 	public void goToHome(){
 		driver.get("http://localhost:8080/caliber#/vp/home");
 	}
 	
+	/**
+	 * Takes driver to the manage page
+	 */
 	public void gotoManagePage(){
-		driver.navigate().to("http://localhost:8080/caliber/#/vp/manage");
+		driver.navigate().to("http://localhost:8080/caliber/#/vp/manage");	
+	}
+	
+	/**
+	 * Takes a string and verifies you made it to the page
+	 * you want to be on. For example for manage send "vp/manage"
+	 * @param page
+	 */
+	public void verifyPage(String page){
+		assertEquals(("http://localhost:8080/caliber/#/"+page), 
+				driver.getCurrentUrl());
+	}
+	
+	/**
+	 * Clicks on import batch icon, opens up the modal, switches
+	 * control to the modal and asserts that it made it to right the modal.
+	 * This feature currently doesn't work as of 09-20-2017, so this is a placeholder
+	 * @throws InterruptedException
+	 */
+	public void clickImportBatchIcon() throws InterruptedException{
+		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li:nth-child(2) > a")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		String id = driver.findElement(By.cssSelector("#importBatchModal > div > div > div.modal-header > h4")).getAttribute("id").toString();
+		assertEquals(id, "batchModalLabel");
+	}
+	
+	/**
+	 * Selects item from dropdown menu based on the index.
+	 * This feature currently as of 09-20-2017 does not work properly,
+	 * so this is a placeholder
+	 * @param index
+	 * @throws InterruptedException
+	 */
+	public void editBatchField(int index) throws InterruptedException{
+		Select dropdown = new Select(driver.findElement(By.cssSelector("#importBatchModal > div > div > div.modal-body > div:nth-child(1) > div > select")));
+		Thread.sleep(500);
+		dropdown.selectByIndex(index);
+	}
+	/**
+	 * These functions directly interact with the Manage Batch Modal
+	 * From here you can choose to edit a single trainee, add a trainee,
+	 * open a profileURL or make a trainee inactive
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
+	/**
+	 * Opens Manage Batch modal to do edits to an entire batch.
+	 * This modal is the same for Update/Create Batch
+	 */
+	public void openManageBatchModal() throws IOException, InterruptedException {
+		driver.findElement(By.cssSelector("#manage > div:nth-child(2) > div > div > table > tbody > tr > td:nth-child(11) > a")).click();
+		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.container.modal-widest > h3"));
+		Thread.sleep(3000);
+		driver.switchTo().activeElement();
+//		File srcFile2 = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+//		FileUtils.copyFile(srcFile2, new File("~/Desktop/personAfter.jpg"), true);
 		
 	}
 	
-	public void verifyManagePage(){
-		assertEquals("http://localhost:8080/caliber/#/vp/manage", 
-				driver.getCurrentUrl());
+	/**
+	 * Toggle between Active and Dropped Trainees within a batch . If the batch is 
+	 * currently set to show active trainees this function will switch and show 
+	 * dropped trainees. If the button is already showing dropped trainees, it will 
+	 * switch and show active trainees
+	 **/
+	public void toggleBetweenActiveAndDroppedTrainees(){
+		WebElement toggleActive = driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.container.modal-widest > div > a:nth-child(2)"));
+		WebElement toggleDropped = driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.container.modal-widest > div > a:nth-child(3)"));
+		WebElement toggle = toggleActive.isDisplayed() ? toggleActive : toggleDropped;
+		toggle.click();
+	}
+
+	/**
+	 * Opens up add trainee Modal by clicking on the + icon in the Manage
+	 * Batch Modal. It is important to note that this modal is identical to
+	 * the edit trainee modal, so when testing you must use the same methods 
+	 * as the edit trainee methods defined later on. 
+	 */
+	public void openAddTraineeModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.col-md-12.col-lg-12 > div > div > a")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-header > h4"));
+	}
+	
+	/**
+	 * Opens the edit trainee modal by clicking on the pencil icon
+	 * located in the manage batch modal by the employee name. These methods
+	 * can be used with either the edit trainee modal or the add trainee
+	 * modal, they are the same. Once the icon is clicked, the function
+	 * waits till the modal is loaded, and switches to the modal for further
+	 * editing 
+	 * @throws InterruptedException
+	 */
+	public void openUpdateTraineeModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.col-md-12.col-lg-12 > div > table > tbody > tr:nth-child(1) > td:nth-child(13) > a")).click();
+		Thread.sleep(3000);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-header > h4"));
+	}
+	
+	/**
+	 * Sends string to name field. This field is required so the modal
+	 * will throw a form required error if a blank name is given
+	 * @param name
+	 */
+	public void editName(String name){
+		WebElement fullName = driver.findElement(By.id("traineeName"));
+		fullName.clear();
+		fullName.sendKeys(name);
+	}
+	
+	/**
+	 * Sends string to email field. This field is required and requires
+	 * an invalid email input, so a form required error will occur if an
+	 * invalid email is given
+	 * @param email
+	 */
+	public void editEmailField(String email){
+		WebElement emailField = driver.findElement(By.id("traineeEmail"));
+		emailField.clear();
+		emailField.sendKeys(email);
+	}
+	
+	/**
+	 * Sends string to skypeID field. This field is not required
+	 * @param skypeID
+	 */
+	public void editSkypeIDField(String skypeID){
+		WebElement skypeIDField = driver.findElement(By.id("traineeSkype"));
+		skypeIDField.clear();
+		skypeIDField.sendKeys(skypeID);
+	}
+	
+	/**
+	 * Sends string to phone number field. This field is not required
+	 * @param phoneNumber
+	 */
+	public void editPhoneField(String phoneNumber){
+		WebElement phoneField = driver.findElement(By.id("traineePhone"));
+		phoneField.clear();
+		phoneField.sendKeys(phoneNumber);
+	}
+	
+	/**
+	 * Sends string to college field. This field is not required
+	 * @param college
+	 */
+	public void editCollegeField(String college){
+		WebElement collegeField = driver.findElement(By.id("traineeCollege"));
+		collegeField.clear();
+		collegeField.sendKeys(college);
+	}
+	
+	/**
+	 * Sends string to degree field, this field is not required
+	 * @param degree
+	 */
+	public void editDegreeField(String degree){
+		WebElement degreeField = driver.findElement(By.id("traineeDegree"));
+		degreeField.clear();
+		degreeField.sendKeys(degree);
+	}
+	
+	/**
+	 * Sends string to major field, this field is not required
+	 * @param major
+	 */
+	public void editMajorField(String major){
+		WebElement majorField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > input"));
+		majorField.clear();
+		majorField.sendKeys(major);
+	}
+	
+	/**
+	 * Sends string to recruiter name field, this field is not required
+	 * @param recruiterName
+	 */
+	public void editRecruiterNameField(String recruiterName){
+		WebElement recruiterNameField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > input"));
+		recruiterNameField.clear();
+		recruiterNameField.sendKeys(recruiterName);
+	}
+	
+	/**
+	 * Sends string to tech screener name field, this field is not required
+	 * @param techScreenerName
+	 */
+	public void editTechScreenerNameField(String techScreenerName){
+		WebElement techScreenerNameField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(5) > div:nth-child(1) > input"));
+		techScreenerNameField.clear();
+		techScreenerNameField.sendKeys(techScreenerName);
+	}
+	
+	/**
+	 * Sends string to profileURL field, this field is not required
+	 * @param profileURL
+	 */
+	public void editProfileURLField(String profileURL){
+		WebElement profileURLField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(5) > div:nth-child(2) > input"));
+		profileURLField.clear();
+		profileURLField.sendKeys(profileURL);
+	}
+	
+	/**
+	 * Still need to implement
+	 */
+	public void editTrainingStatusField(){
+		
+	}
+	
+	/**
+	 * Sends string to Project completion field, this field is not required.
+	 * If an invalid percentage is given, the form will give an invalid form
+	 * error
+	 * @param percentage
+	 */
+	public void editProjectCompletionField(String percentage){
+		WebElement percentageField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(5) > div:nth-child(2) > input"));
+		percentageField.clear();
+		percentageField.sendKeys(percentage);
+	}
+	
+	/**
+	 * clicks on trainee profile url and asserts that you made it to their
+	 * profile. The driver will create a list of window handles which is 
+	 * just a list of all tabs open in the browser which should be 2 at 
+	 * this point. The driver switches to the newly opened tab
+	 * their url
+	 */
+	public void clickAddTraineeProfileURLIcon(){
+		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.col-md-12.col-lg-12 > div > table > tbody > tr:nth-child(1) > td:nth-child(6) > span > a")).click();
+		List<String> browsertabs = new ArrayList<String>(driver.getWindowHandles());
+		driver.switchTo().window(browsertabs.get(1));
+		assertEquals("https://app.revature.com/profile/Synac/254a7187dfc32f6f50710a56bd8112f6", driver.getCurrentUrl());
+		driver.close();
+		driver.switchTo().window(browsertabs.get(0));
+	}
+	
+	/**
+	 * Press delete icon on designated employee, opens the modal and
+	 * switches to driver to look at that modal. Close that modal to return
+	 * back to the manage batch modal
+	 * @throws InterruptedException
+	 */
+	public void openDeleteTraineeModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.col-md-12.col-lg-12 > div > table > tbody > tr:nth-child(1) > td:nth-child(14) > a")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#deleteTraineeModal > div > div > div.modal-header > h4"));
+	}
+	
+	/**
+	 * clicks delete on delete trainee modal and returns to manage
+	 * batch modal
+	 * @throws InterruptedException
+	 */
+	public void clickDeleteOnDeleteTraineeModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#deleteTraineeModal > div > div > div.modal-footer > input")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+	}
+	
+	/**
+	 * clicks cancel button on delete trainee modal and brings
+	 * you back to the mangage batch modal
+	 * @throws InterruptedException
+	 */
+	public void clickCancelOnDeleteTraineeModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#deleteTraineeModal > div > div > div.modal-footer > button")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+	}
+	
+	/**
+	 * clicks the X button in the top right corner of the delete trainee
+	 * modal and then brings you back to the manage batch modal
+	 * @throws InterruptedException
+	 */
+	public void closeOutDeleteTraineeModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#deleteTraineeModal > div > div > div.modal-header > button")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+	}
+	
+	/**
+	 * Clicks update button on the Add/Update trainee Modal 
+	 * then brings you back to the manage batch modal 
+	 * @throws InterruptedException 
+	 */
+	public void clickUpdateAddTraineeModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div.modal-footer > input:nth-child(3)")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+	}
+	
+	/**
+	 * Clicks close button for both Add/Update trainee Modal then
+	 * brings you back to the manage batch modal
+	 * @throws InterruptedException 
+	 */
+	public void clickCloseAddTraineeModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div.modal-footer > button:nth-child(4)")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+	}
+	
+	/**
+	 * Clicks X button in top right corner of Add/Update trainee Modal
+	 * then brings you back to the manage batch modal
+	 * @throws InterruptedException
+	 */
+	public void closeOutAddTraineeModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-header > button")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+	}
+	
+	/**
+	 * Verifies that the driver made it successfully to the
+	 * trainee modal by locating the Modal Header and asserting
+	 * that it is the correct header
+	 */
+	public void verifyEditTraineeModal(){
+		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.container.modal-widest > h3"));
+	}
+	
+	/**
+	 * Send an index and a String year to the dropdown menu on the page that
+	 * chooses which year to view batches from. The year will be chosen
+	 * based on the index given where 1 is the most recent year, 2 is the year
+	 * prior etc. The string you send should match year returned by the index.
+	 * For example at 1 the current year is 2017, send the string "2017" to verify
+	 * the page changed
+	 * @param year
+	 * @throws InterruptedException
+	 */
+	public void changeYear(int index, String year) throws InterruptedException {
+		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li.dropdown > a")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li.dropdown.open > ul > li:nth-child(" + index + ") > a")).click();
+		String yearActual = driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li.dropdown > a > label")).getAttribute("id").toString();
+		assertEquals(yearActual, year);
+	}
+	
+	/**
+	 * Clicks on the create batch + icon. It is important to note
+	 * that this modal is the same one you use for the update Batch modal,
+	 * so every function listed in the this group can be used to test updating
+	 * the batch as well
+	 * @throws InterruptedException
+	 */
+	public void openCreateBatchModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li:nth-child(3) > a")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+	}
+	
+	/**
+	 * Sends a string to the Training Name field, this is required
+	 * @param trainingName
+	 */
+	public void editTrainingNameField(String trainingName){
+		WebElement trainingNameField = driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(1) > div:nth-child(1) > input"));
+		trainingNameField.clear();										
+		trainingNameField.sendKeys(trainingName);
+	}
+	
+	/**
+	 * Send a string to the training type field.  This is a drop
+	 * down select menu, so the string sent has to match the exact
+	 * string, otherwise it will default to other. This field is required
+	 * @param trainingType
+	 * @throws InterruptedException
+	 */
+	public void editTrainingTypeField(String trainingType) throws InterruptedException{
+		Select dropdown = new Select(driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(1) > div:nth-child(2) > select")));
+		Thread.sleep(500);
+		dropdown.deselectByVisibleText(trainingType);
+	}
+	
+	/**
+	 * Sends a string to a dropdown menu of skill types. The string
+	 * must match a skill type, otherwise it will default to other.
+	 * This field is required
+	 * @param skillType
+	 * @throws InterruptedException
+	 */
+	public void editSkillTypeField(String skillType) throws InterruptedException{
+		Select dropdown = new Select(driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > select")));
+		Thread.sleep(500);
+		dropdown.selectByVisibleText(skillType);
+	}
+	
+	/**
+	 * Sends an int index to a dropdown menu. As of right now there are only two
+	 * locations where 1 is NY and 2 is Reston, VA. This field is required
+	 * @param index
+	 * @throws InterruptedException
+	 */
+	public void editLocationField(int index) throws InterruptedException{
+		Select dropdown = new Select(driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > select")));
+		Thread.sleep(500);
+		dropdown.selectByIndex(index);
+	}
+	
+	/**
+	 * Sends a string to a dropdown menu of trainer. The string
+	 * must match a trainer otherwise it will not work. This field
+	 * is required
+	 * @param skillType
+	 * @throws InterruptedException
+	 */
+	public void editTrainerField(String trainer) throws InterruptedException{
+		Select dropdown = new Select(driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(3) > div:nth-child(1) > select")));
+		Thread.sleep(500);
+		dropdown.selectByVisibleText(trainer);
+	}
+	
+	/**
+	 * This field is not required. It sends a string to the co-trainer
+	 * dropdown menu, and must match a person from the list, otherwise
+	 * it will not work
+	 * @param coTrainer
+	 * @throws InterruptedException
+	 */
+	public void editCoTrainerField(String coTrainer) throws InterruptedException{
+		Select dropdown = new Select(driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(3) > div:nth-child(2) > select")));
+		Thread.sleep(500 );
+		dropdown.selectByVisibleText(coTrainer);
+	}
+	
+	/**
+	 * Sends a string to a dropdown menu of start date. The string
+	 * must match a date in this format YYYY-MM-DD. If not done in 
+	 * this format you will get odd results. This field is required
+	 * @param skillType
+	 * @throws InterruptedException
+	 */
+	public void editStartDateField(String startDate){
+		WebElement startDateField = driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(4) > div:nth-child(1) > div > input"));
+		startDateField.clear();
+		startDateField.sendKeys(startDate);
+	}
+	
+	/**
+	 * Same as start date ^
+	 * @param skillType
+	 * @throws InterruptedException
+	 */
+	public void editEndDateField(String endDate){
+		WebElement endDateField = driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(4) > div:nth-child(2) > div > input"));
+		endDateField.clear();
+		endDateField.sendKeys(endDate);
+	}
+	
+	/**
+	 * Sends a string to the good grade field. If the string is not
+	 * within 0-100, the form will throw a field error. This field
+	 * is required
+	 * @param goodGrade
+	 */
+	public void editGoodGradeField(String goodGrade){
+		WebElement goodGradeField = driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(5) > div:nth-child(1) > input"));
+		goodGradeField.clear();
+		goodGradeField.sendKeys(goodGrade);
+	}
+	
+	/**
+	 * same as good grade ^
+	 * @param passingGrade
+	 */
+	public void editPassingGradeField(String passingGrade){
+		WebElement passingGradeField = driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(5) > div:nth-child(2) > input"));
+		passingGradeField.clear();
+		passingGradeField.sendKeys(passingGrade);
+	}
+	
+	/**
+	 * Clicks save on the Create/Update Batch Modal and returns
+	 * the driver back to the manage Batch page
+	 * @throws InterruptedException
+	 */
+	public void clickSaveOnCreateBatchModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-footer > button"));
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+	}
+	
+	/**
+	 * Clicks the close button on the Update/Create Batch modal
+	 * and returns the test back to the manage Batch page
+	 * @throws InterruptedException
+	 */
+	public void clickCloseOnCreateBatchModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-footer > button"));
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+	}
+	
+	/**
+	 * Clicks the X in the top right corner of the Update/Create
+	 * Batch Modal and returns the test back to the Manage Batch Page
+	 * @throws InterruptedException
+	 */
+	public void closeCreateBatchModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-header > button"));
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+	}
+	
+	/**
+	 * Opens the Update Batch Modal. This is the same as the 
+	 * create modal, so you use the same functions to update that you
+	 * do to create
+	 * @throws InterruptedException
+	 */
+	public void clickUpdateBatchIcon() throws InterruptedException{
+		driver.findElement(By.cssSelector("#manage > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(12) > a"));
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-header > h4"));
+	}
+	
+	/**
+	 * Clicks on the X button for the batch in the corresponding row 
+	 * and opens up the Delete Batch modal.
+	 * @throws InterruptedException
+	 */
+	public void clickDelectBatchIcon() throws InterruptedException{
+		driver.findElement(By.cssSelector("#manage > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(13) > a"));
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#deleteBatchModal > div > div > div.modal-header > h4"));
+	}
+	
+	/**
+	 * Clicks the delete button with the delete batch modal,
+	 * then returns control to the manage batch page
+	 * @throws InterruptedException
+	 */
+	public void clickDeleteOnDeleteBatchModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#deleteBatchModal > div > div > div.modal-footer > input"));
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+	}
+	
+	/**
+	 * Clicks on the cancel button in the delete batch modal, then
+	 * returns control back to the manage Batch page
+	 * @throws InterruptedException
+	 */
+	public void clickCancelOnDeleteBatchModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#deleteBatchModal > div > div > div.modal-footer > button"));
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+	}
+	
+	/**
+	 * Clicks the X in the top Right corner of the Delete Batch modal,
+	 * then returns control to the Manage batch page
+	 * @throws InterruptedException
+	 */
+	public void closeOutDeleteBatchModal() throws InterruptedException{
+		driver.findElement(By.cssSelector("#deleteBatchModal > div > div > div.modal-header > button"));
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+	}
+	
+	/**
+	 * This functions checks if all required fields are filled
+	 * out properly. Use this with negative testing, when testing
+	 * an incorrect input
+	 */
+	public void verifyRequiredInputField(){
+		driver.findElement(By.cssSelector("input:required"));
+	}
+	
+	/**
+	 * This function checks to see if any fields have an invalid input.
+	 * Use this with negative testing (for example giving a negative number)
+	 */
+	public void verifyInvalidInputField(){
+		driver.findElement(By.cssSelector("input:invalid"));
+	}
+	
+	/**
+	 * Closes driver completely. Calls driver.quit()
+	 */
+	public void closeDriver(){
+		driver.quit();
 	}
 }
