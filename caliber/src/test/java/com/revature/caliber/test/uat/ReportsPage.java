@@ -1,6 +1,7 @@
 package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.digest;
 
 import java.io.File;
 import java.util.List;
@@ -13,85 +14,178 @@ import org.openqa.selenium.support.ui.Select;
 
 public class ReportsPage {
 
-	private PhantomJSDriver driver;
-	private String URL;
-	
-	public String getURL() {
-		return URL;
-	}
+	private WebDriver driver;
 
-	public void setURL(String uRL) {
-		URL = uRL;
-	}
-
-	public ReportsPage(PhantomJSDriver driver){
+	public ReportsPage(WebDriver driver) {
 		this.driver = driver;
 	}
-	
-	public void gotoReportsPage(){
-		driver.get("http://localhost:8080/caliber/#/vp/assess");
-		URL = driver.getCurrentUrl();
-		System.out.println("CurrentURL = " + driver.getCurrentUrl());
-		System.out.println(driver.getTitle());
+
+	public void gotoReportsPage() {
+		driver.get("http://localhost:8080/caliber/#/vp/reports");
 	}
-	
-	public void goToHome(){
+
+	public void goToHome() {
 		driver.get("http://localhost:8080/caliber#/vp/home");
 	}
-	
-	public void verifyReportsPage(){
-		assertEquals("http://localhost:8080/caliber/#/vp/assess", 
-				driver.getCurrentUrl());
-	}
-	
-	public void yearClick(){
-		WebElement element = driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div/div/ul/li[1]/a"));
-//		Select dropdown = new Select( element);
-//      dropdown.selectByVisibleText(Integer.toString(2017));
-	}
-	
-	public void clickDownloadBtn(){
-		System.out.println("CurrentURL = " + driver.getCurrentUrl());
-		System.out.println(driver.getTitle());
+
+	//Verifying if you're on the reports page
+	public void verifyReportsPage() {
 		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
-		WebElement element = driver.findElement(By.name("randomNamePlease"));
-		Select dropdown = new Select(element);
-		String text = dropdown.getFirstSelectedOption().getText();
-        System.out.println("before: " + text);
-		dropdown.selectByVisibleText("Charts");
 	}
-	
-	public void quitDriver()
-	{
+
+	// Clicking the 'year' dropdown and then the precise year.
+	public void clickReportYear(String year) {
+		// Default year is '2017'
+		driver.findElement(By.id("reportYear")).click();
+		driver.switchTo().activeElement();
+		
+		switch (year) {
+		case "2018":
+			driver.findElement(By.id(year)).click();
+			break;
+		case "2017":
+			driver.findElement(By.id(year)).click();
+			break;
+		case "2016":
+			driver.findElement(By.id(year)).click();
+			break;
+		case "2015":
+			driver.findElement(By.id(year)).click();
+			break;
+		default:
+			driver.findElement(By.id("2017")).click();
+			break;
+
+		}
+	}
+
+	// Click the batch dropdown
+	public void clickBatchDropdown() {
+		driver.findElement(By.id("currentBatchTrainer")).click();
+		driver.switchTo().activeElement();
+	}
+
+	// Click on the specific batch in the dropdown
+	public void chooseBatch() {
+		// Default is one batch 'Patrick Walsh - 2/13/17' and there's only one
+		// choice
+		driver.findElement(By.id("Patrick Walsh - 2/13/17")).click();
+	}
+
+	// Click the week dropdown
+	public void clickWeekDropdown() {
+		driver.findElement(By.id("reportWeek")).click();
+		driver.switchTo().activeElement();
+	}
+
+	// Clicking on the week to choose, 'All' is the default if week is not
+	// chosen
+	public void chooseWeekReport(String week) {
+		// id = "week #" so String week = "week #" also
+		driver.findElement(By.id(week)).click();
+	}
+
+	// Click the trainee dropdown
+	public void clickTraineeDropdown() {
+		// Default trainee is 'All' if Trainee dropdown is not clicked
+		driver.findElement(By.id("reportTrainer")).click();
+		driver.switchTo().activeElement();
+	}
+
+	// Click on a specific Trainee
+	public void chooseTraineeReport(String trainee) {
+		// id = 'lastname, firstname' so String trainee = "lastname, firstname";
+		// 'Ali, Fareed' for testing purposes
+		driver.findElement(By.id("Ali, Fareed")).click();
+	}
+
+	// Click the chart glyphicon
+	public void clickChartDropdownPdf() {
+		driver.findElement(By.id("dropdownReportsMenu")).click();
+		driver.switchTo().activeElement();
+	}
+
+	// Click the chart glyphicon dropdown and choosing 'Charts'
+	public void clickChartDownloadPdf() throws InterruptedException {
+		driver.findElement(By.id("chartsDownloadPdf")).click();
+		// Thread.sleep(1000);
+	}
+
+	// Click the chart glyphicon dropdown and choosing 'Charts + Feedback'
+	public void clickChartFeedbackDownloadPdf() throws InterruptedException {
+		driver.findElement(By.id("chartsFeedbackDownloadPdf")).click();
+		// Thread.sleep(1000);
+	}
+
+	// Click the down arrow glyphicon next to 'Cumulative Scores' to download
+	// chart
+	public void clickCumulativeScoreGlyph() {
+		driver.findElement(By.id("cumulativeScoreDownload")).click();
+	}
+
+	// Click the down arrow glyphicon next to 'Technical Skills' to download
+	// chart
+	public void clickTechnicalSkillGlyph() {
+		driver.findElement(By.id("technicalSkillDownload")).click();
+	}
+
+	// Click the right corner glychicon in the 'Technical Skills' block (person
+	// glyphicon)
+	public void clickTechnicalSkillsModal() {
+		// Opens modal for 'Trainee Comparison'
+		driver.findElement(By.id("traineeCompGlyphBtnModal")).click();
+	}
+
+	// Closes the 'Trainee Comparison' modal
+	public void closeTraineeCompModal() {
+		driver.findElement(By.id("traineeComparisonCloseX")).click();
+	}
+
+	// Select a specific Trainee by checking the box in the modal
+	public void chooseTraineeTechSkills(String trainee) {
+		// id = 'lastname, firstname' so String trainee = "lastname, firstname";
+		// 'Ali, Fareed' for testing purposes
+		driver.findElement(By.id("Ali, Fareed")).click();
+	}
+
+	// Click the down arrow glyphicon next to 'Weekly Progress' to download
+	// chart
+	public void clickWeeklyProgressGlyph() {
+		driver.findElement(By.id("weeklyProgressDownload")).click();
+	}
+
+	public void quitDriver() {
 		driver.quit();
 	}
-	
+
+	//Never used because can't validate/confirm if a file has downloaded
 	public boolean isFileDownloaded(String downloadPath, String fileName) {
 		boolean flag = false;
-	    File dir = new File(downloadPath);
-	    File[] dir_contents = dir.listFiles();
-	  	    
-	    for (int i = 0; i < dir_contents.length; i++) {
-	        if (dir_contents[i].getName().equals(fileName))
-	            return flag=true;
-	            }
+		File dir = new File(downloadPath);
+		File[] dir_contents = dir.listFiles();
 
-	    return flag;
+		for (int i = 0; i < dir_contents.length; i++) {
+			if (dir_contents[i].getName().equals(fileName))
+				return flag = true;
+		}
+
+		return flag;
 	}
-	
-	private File getLatestFilefromDir(String dirPath){
-	    File dir = new File(dirPath);
-	    File[] files = dir.listFiles();
-	    if (files == null || files.length == 0) {
-	        return null;
-	    }
-	
-	    File lastModifiedFile = files[0];
-	    for (int i = 1; i < files.length; i++) {
-	       if (lastModifiedFile.lastModified() < files[i].lastModified()) {
-	           lastModifiedFile = files[i];
-	       }
-	    }
-	    return lastModifiedFile;
+
+	//Never used, but to check file directory to get latest file downloaded
+	public File getLatestFilefromDir(String dirPath) {
+		File dir = new File(dirPath);
+		File[] files = dir.listFiles();
+		if (files == null || files.length == 0) {
+			return null;
+		}
+
+		File lastModifiedFile = files[0];
+		for (int i = 1; i < files.length; i++) {
+			if (lastModifiedFile.lastModified() < files[i].lastModified()) {
+				lastModifiedFile = files[i];
+			}
+		}
+		return lastModifiedFile;
 	}
 }

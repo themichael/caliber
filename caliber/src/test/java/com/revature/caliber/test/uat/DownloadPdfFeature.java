@@ -1,6 +1,7 @@
 package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +14,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
@@ -32,94 +35,85 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class DownloadPdfFeature {
-	
-	private PhantomJSDriver driver;
-//	private ReportsPage reportsPage;
-	private SettingLocationPage setLocPage;
-		
+
+	private WebDriver driver;
+	private ReportsPage reportsPage;
+
 	@Before // each scenario
 	public void setup(){
-		DesiredCapabilities dcaps = new DesiredCapabilities();
-		dcaps.setCapability("phantomjs.binary.path", System.getenv("PHANTOM_BIN"));
-		dcaps.setJavascriptEnabled(true);
-//		dcaps.setCapability("applicationCacheEnabled", true);
-		driver = new PhantomJSDriver(dcaps);
-		driver.manage().window().setSize(new Dimension(880, 1080));
+		System.setProperty("webdriver.chrome.driver","C:\\selenium\\chromedriver.exe");
+     	ChromeOptions options = new ChromeOptions();
+     	 options.addArguments("--headless");
+         options.addArguments("--window-size=1200x600");
+         
+     	WebDriver driver = new ChromeDriver(options);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-//		reportsPage = new ReportsPage(driver);
-		setLocPage = new SettingLocationPage(driver);
+		reportsPage = new ReportsPage(driver);
 	}
+
 	@After // each scenario
-	public void teardown(){
-		setLocPage.quitDriver();
-//		reportsPage.quitDriver();
+	public void teardown() {
+		// setLocPage.quitDriver();
+		reportsPage.quitDriver();
 	}
-	
+
 	@Given("^I am on the Reports page$")
 	public void iAmOnTheReportsPage() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-//		reportsPage.gotoReportsPage();
-//		Thread.sleep(10000);
-//		File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-//		FileUtils.copyFile(srcFile, new File("C:/Users/Evan Molinelli/Pictures/reportsPage1.jpg"), true);
-//		Thread.sleep(50000);
-//		File srcFile2 = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-//		FileUtils.copyFile(srcFile2, new File("C:/Users/Evan Molinelli/Pictures/reportsPage2.jpg"), true);
-//		reportsPage.verifyReportsPage();
-		
-		setLocPage.gotoSettingLocationPage();
-		Thread.sleep(2000);
-		setLocPage.verifyLocationPage();
-		Thread.sleep(2000);
+		// Write code here that turns the phrase above into concrete actions
+		reportsPage.gotoReportsPage();
+		Thread.sleep(10000);
+//        TakesScreenshot ts = (TakesScreenshot)driver;
+//        File source = ts.getScreenshotAs(OutputType.FILE);
+//        String dest = "C:/Users/Evan Molinelli/Pictures/reportsPage2.jpg";
+//        File destination = new File(dest);
+//        FileUtils.copyFile(source, destination);
+//        File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+//		FileUtils.copyFile(srcFile, new File("C:/Users/Evan Molinelli/Pictures/reportsPage2.jpg"), true);
+		reportsPage.verifyReportsPage();
+
 	}
 
 	@Given("^I have selected the year (\\d+) tab$")
 	public void iHaveSelectedTheYearTab(int year) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-//		reportsPage.yearClick();
-//		setLocPage.clickCreateLocationBtn();
-//		setLocPage.clickCreateCategoryBtn();
+		// Write code here that turns the phrase above into concrete actions
+		reportsPage.clickReportYear("2017");
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as Trainer$")
 	public void iHaveSelectedAsTrainer(String trainer) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-//		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
-		//driver.findElementById(("dropdownMenu1"));
-//		Select dropdown = new Select( driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div/div/ul/li[2]/a")));
-//        dropdown.selectByVisibleText(trainer);
-//		setLocPage.inputCompanyName("Nike");
-//		setLocPage.inputCategoryName("name");
+		// Write code here that turns the phrase above into concrete actions
+
 	}
 
 	@Given("^I have selected all the weeks$")
 	public void iHaveSelectedAllTheWeeks() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-//		setLocPage.inputStreetAddress("200 Guy pl.");
-//		setLocPage.clickCategorySaveBtn();
+		// Write code here that turns the phrase above into concrete actions
+		
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as Trainees$")
 	public void iHaveSelectedAsTrainees(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-//		setLocPage.inputCity("Torrance");
-//		setLocPage.inputState(4);
+		// Write code here that turns the phrase above into concrete actions
+		// setLocPage.inputCity("Torrance");
+		// setLocPage.inputState(4);
 	}
+
 	@When("^I click the download button$")
 	public void iClickTheDownloadButton() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    // Same for Cumulative Scores, Technical Skills, and Weekly Progress
-//		reportsPage.clickDownloadBtn();
-//		setLocPage.inputZipcode("90504");
-//		setLocPage.clickSaveButn();
+		// Write code here that turns the phrase above into concrete actions
+		// Same for Cumulative Scores, Technical Skills, and Weekly Progress
+		 reportsPage.clickChartDropdownPdf();
+		 reportsPage.clickChartFeedbackDownloadPdf();
+		 //or reportsPage.clickChartDownloadPdf();
+		 
 	}
 
 	@Then("^a PDF file is downloaded$")
 	public void aPDFFileIsDownloaded() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-
+		// Write code here that turns the phrase above into concrete actions
+		File f1 = reportsPage.getLatestFilefromDir("C:\\Users\\Evan Molinelli\\Downloads");
+		Thread.sleep(10000);
+		assertTrue(reportsPage.isFileDownloaded("C:\\Users\\Evan Molinelli\\Downloads", "Trainee.pdf"));
 	}
-	
 
 }
