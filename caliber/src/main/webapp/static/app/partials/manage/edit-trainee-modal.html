@@ -127,12 +127,12 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" value="Save" class="btn btn-primary" ng-show="!Updating.status"/>
+						<input id = "saveButton" type="submit" value="Save" class="btn btn-primary" ng-show="!Updating.status"/>
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							ng-show="!Updating.status">Close</button>
-						<input type="submit" value="Update" class="btn btn-primary"
+						<input id = "updateButton" type="submit" value="Update" class="btn btn-primary"
 							ng-show="Updating.status" )>
-						<button type="button" class="btn btn-default" data-dismiss="modal"
+						<button id = "cancelButton" type="button" class="btn btn-default" data-dismiss="modal"
 							ng-show="Updating.status">Cancel</button>
 					</div>
 				</div>

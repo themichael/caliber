@@ -3,7 +3,7 @@
 		<div class="col-md-12 col-lg-12">
 			<!-- Generate PDF of current page -->
 			<div class="dropdown pull-right">
-				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownReportsMenu" name="randomNamePlease" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 					<span ng-hide="reticulatingSplines"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i> </span>
 					<a href=""
 					   style="pointer-events: none; cursor: default;" title="Processing.."
@@ -14,48 +14,48 @@
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					<li><a href="" ng-click="downloadAllChartButton()"> Charts </a></li>
-					<li><a href="" ng-click="generatePDF()"> Charts + Feedback </a></li>
+					<li><a href="" ng-click="downloadAllChartButton()" id="chartsDownloadPdf"> Charts </a></li>
+					<li><a href="" ng-click="generatePDF()" id="chartsFeedbackDownloadPdf"> Charts + Feedback </a></li>
 				</ul>
 			</div>
 
 			<ul class="nav nav-tabs">
 				<!-- Filter batches by year -->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
+					data-toggle="dropdown" id="reportYear">{{selectedYear}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="year in years track by $index"><a
-							role="button" ng-click="selectYear($index)">{{year}}</a></li>
+							role="button" ng-click="selectYear($index)" id="{{year}}">{{year}}</a></li>
 					</ul></li>
 				<!-- Select Batch-->
 				<li role="button" class="dropdown" ng-show="hideOtherTabs()"><a class="dropdown-toggle"
-					data-toggle="dropdown">{{currentBatch.trainer.name}} - {{
+					data-toggle="dropdown" id="currentBatchTrainer">{{currentBatch.trainer.name}} - {{
 						currentBatch.startDate | date:'shortDate' }}<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="batch in batchesByYear track by $index"><a
-							role="button" ng-click="selectCurrentBatch($index)">{{batch.trainer.name}}
+							role="button" ng-click="selectCurrentBatch($index)" id="{{batch.trainer.name}} - {{batch.startDate | date:'shortDate'}}">{{batch.trainer.name}}
 								- {{batch.startDate | date:'shortDate'}}</a></li>
 					</ul></li>
 				<!-- Select Week-->
 				<li role="button" class="dropdown" ng-show="hideOtherTabs()"><a class="dropdown-toggle"
-					data-toggle="dropdown">Week {{reportCurrentWeek}}<span
+					data-toggle="dropdown" id="reportWeek">Week {{reportCurrentWeek}}<span
 						class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a role="button" ng-click="selectCurrentWeek('(All)')">All</a></li>
+						<li><a role="button" ng-click="selectCurrentWeek('(All)')" id="">All</a></li>
 						<li ng-repeat="week in currentBatchWeeks"><a role="button"
-							ng-click="selectCurrentWeek(week)">Week {{week}}</a></li>
+							ng-click="selectCurrentWeek(week)" id="week {{week}}">Week {{week}}</a></li>
 					</ul></li>
 
 				<!-- Select Trainee-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					ng-show="hideOtherTabs()" data-toggle="dropdown">{{currentTrainee.name}}<span
+					ng-show="hideOtherTabs()" data-toggle="dropdown" id="reportTrainer">{{currentTrainee.name}}<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a role="button" ng-click="selectCurrentTrainee(-1)">All</a></li>
+						<li><a role="button" ng-click="selectCurrentTrainee(-1)" >All</a></li>
 						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
-							role="button" ng-click="selectCurrentTrainee($index)">{{trainee.name}}</a></li>
+							role="button" ng-click="selectCurrentTrainee($index)" id="{{trainee.name}}">{{trainee.name}}</a></li>
 					</ul></li>
 
 				<!-- Select Training Type-->
@@ -205,7 +205,7 @@
 					<div class="col-sm-12 col-md-12 col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">Cumulative Scores
-								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>
+								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" id="cumulativeScoreDownload"></i>
 							</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
@@ -238,10 +238,10 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								Technical Skills
-								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>
+								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" id="technicalSkillDownload"></i>
 								<div role="button" class="pull-right" data-toggle="modal"
 									data-target="#insert-trainee">
-									<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+									<i class="fa fa-user-circle-o fa-lg" aria-hidden="true" id="traineeCompGlyphBtnModal"></i>
 								</div>
 							</div>
 							<div class="panel-body">
@@ -276,7 +276,7 @@
 					<div class="col-sm-7 col-md-7 col-lg-7">
 						<div class="panel panel-default">
 							<div class="panel-heading">Weekly Progress
-								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" ></i>
+								<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save" id="weeklyProgressDownload"></i>
 							</div>
 							<div class="panel-body">
 								<div class="chart-container top5">
@@ -546,7 +546,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
+					aria-label="Close" id="traineeComparisonCloseX">
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<h4 class="modal-title">Trainee Comparison</h4>
@@ -558,7 +558,7 @@
 							ng-repeat="trainee in currentBatch.trainees track by $index">
 							<th class="col-sm-2 col-md-2 col-lg-2">{{trainee.name}} <input
 								type="checkbox" class="pull-right" ng-model="isChecked"
-								ng-change="toggleComparisonRadarChart(isChecked, $index)" />
+								ng-change="toggleComparisonRadarChart(isChecked, $index)" id="{{trainee.name}}"/>
 							</th>
 						</tr>
 					</table>
