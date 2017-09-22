@@ -85,13 +85,14 @@ public class ReportingController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<Map<QCStatus, Integer>> getPieChartCurrentWeekQCStatus(@PathVariable Integer batchId) {
 		log.info("getPieChartCurrentWeekQCStatus ===> /all/reports/batch/{batchId}/pie");
-			Map<QCStatus, Integer> results = reportingService.pieChartCurrentWeekQCStatus(batchId);
-			if(results.size() > 0) {
-				return new ResponseEntity<>(results, HttpStatus.OK);
-			}
-			else {
-				return new ResponseEntity<>(new HashMap<>(), HttpStatus.NOT_FOUND);
-			}
+		Map<QCStatus, Integer> results = reportingService.pieChartCurrentWeekQCStatus(batchId);
+		if(results.size() > 0) {
+			log.info(results);
+			return new ResponseEntity<>(results, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(new HashMap<>(), HttpStatus.NOT_FOUND);
+		}
 	}
 
 	/*
