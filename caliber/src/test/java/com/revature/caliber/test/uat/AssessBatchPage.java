@@ -78,6 +78,6 @@ public class AssessBatchPage{
 		textarea.sendKeys(response);
 	}
 	public void teardown(){
-		driver.close();
+		driver.quit();
 	}
 }

@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -16,7 +15,7 @@ import cucumber.api.java.en.When;
 public class QualityAuditBatchPerformanceFeature {
 	
 	public static WebDriver driver;
-	
+
 	public QualityAuditPage qaPage;
 	
 	@cucumber.api.java.Before
@@ -32,7 +31,7 @@ public class QualityAuditBatchPerformanceFeature {
 	
 	@cucumber.api.java.After
 	public void teardown(){
-		driver.quit();
+		qaPage.closeAndQuit();
 	}
 	
 	@Given("^I am on the Quality Audit page$")
@@ -56,6 +55,13 @@ public class QualityAuditBatchPerformanceFeature {
 	@Given("^I am viewing the most recent week$")
 	public void i_am_viewing_the_most_recent_week() throws Throwable {
 	    qaPage.verifyWeekForBatch();
+	}
+	
+	@Given("^I click on an overall batch feedback button$")
+	public void i_click_on_an_overall_batch_feedback_buttons() throws Throwable {
+	    qaPage.clickOverallFeedbackQCButtonPoor();
+	    qaPage.clickOverallFeedbackQCButtonAvg();
+	    qaPage.clickOverallFeedbackQCButtonGood();
 	}
 
 	@Given("^I enter \"([^\"]*)\" in the QC Feedback text area$")

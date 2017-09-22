@@ -17,6 +17,10 @@ public class QualityAuditPage {
 		this.driver = driver;
 	}
 	
+	public void closeAndQuit(){
+		driver.quit();
+	}
+	
 	/**
 	 * Navigate current driver to http://localhost:8080/caliber/#/vp/audit
 	 */
