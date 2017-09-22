@@ -1,15 +1,15 @@
 package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Address;
-import com.revature.caliber.controllers.TrainingController;
 import com.revature.caliber.data.AddressDAO;
 
 
@@ -17,8 +17,6 @@ public class AddressDAOTest extends CaliberTest{
 
 	private static final Logger log = Logger.getLogger(AddressDAOTest.class);
 	private static final String ADDRESS_COUNT = "select count(address_id) from caliber_address";
-	@Autowired
-	TrainingController trainingController;
 
 	private AddressDAO dao;
 	@Autowired
@@ -34,7 +32,6 @@ public class AddressDAOTest extends CaliberTest{
 		dao.save(address);
 		int after = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
 		int addressId = address.getAddressId();
-		assertEquals(trainingController.getAllLocations().getBody().get(2), address);
 		assertEquals(address, dao.getAddressById(addressId));
 		assertEquals(++before, after);
 	}
@@ -42,33 +39,31 @@ public class AddressDAOTest extends CaliberTest{
 	@Test
 	public void getAllAddressDAO(){
 		log.info("Getting all addresses using AddressDAO getAll function");
+		int num = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
 		assertNotNull(dao.getAll());
-		assertEquals(trainingController.getAllLocations().getBody().size(),dao.getAll().size());
-		assertEquals(trainingController.getAllLocations().getBody().toString(),dao.getAll().toString());
+		assertEquals(dao.getAll().size(), num);
 	}
 	@Test
 	public void findAllAddressDAO(){
 		log.info("Find All Addresses");
 		int size = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
-		assertTrue(trainingController.getAllLocations().hasBody());
+		assertFalse(dao.findAll().isEmpty());
 		assertEquals(dao.findAll().size(),size);
 	}
-	
+	//Takes the address id and finds the address from the database
 	@Test
 	public void getAddressByIdDAO(){
 		log.info("Finding Location by address");
 		int search = 1;
 		Address address = dao.getAddressById(search);
-		assertEquals(trainingController.getAllLocations().getBody().get(0),address);
+		assertEquals(dao.getAddressById(1).toString(),address.toString());
 	}
-
-	@Test(expected=IndexOutOfBoundsException.class)
-	public void failGetAddressByInt(){
+	
+	@Test
+	public void nullGetAddressByInt(){
 		log.info("About to fail gettingAddressByInt");
-		Address address = new Address(1, "not on Sunshine st","No Hope", "NY", "66666", "little bums",false);
-		dao.save(address);
-		int addressId = address.getAddressId();
-		trainingController.getAllLocations().getBody().get(addressId+1);
+		Address address = dao.getAddressById(9999999);
+		assertNull(address);
 	}
 
 	@Test
