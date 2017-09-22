@@ -43,7 +43,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 	 */
 	protected static String accessToken = "Auth ";
 	protected static SalesforceToken accessTokenJson;
-	protected static final String auth = "Authorization";
+	protected static final String AUTH = "Authorization";
 	protected static String jsessionid;
 	protected static RequestSpecification requestSpec;
 
@@ -74,7 +74,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 	}
 
 	private static void login()
-			throws JsonParseException, JsonMappingException, UnsupportedOperationException, IOException {
+			throws JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		log.info("logging into Salesforce:\n accessTokenUrl: " + accessTokenUrl + "\n clientId: " + clientId
 				+ " \n clientSecret: " + clientSecret + "\n username: " + username + "\n password: " + password);

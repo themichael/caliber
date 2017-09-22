@@ -24,7 +24,7 @@ import io.restassured.response.Response;
  * tests must be ignored in the initial build until the app is deployed into the
  * test environment.
  * 
- * @author Patrick Walsh
+ * @Author Patrick Walsh
  *
  */
 public class TrainingAPITest extends AbstractAPITest {
@@ -62,7 +62,7 @@ public class TrainingAPITest extends AbstractAPITest {
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + findByEmail).then().assertThat().statusCode(200)
 				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 
@@ -80,7 +80,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Trainer expected = new Trainer("RolledBack", "Senior Trainer", "don.wels23hy@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		log.info("API Testing createTrainer at baseUrl  " + baseUrl + createTrainer);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				.body(new ObjectMapper().writeValueAsString(expected)).when().post(baseUrl + createTrainer).then()
 				.assertThat().statusCode(201).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 
@@ -98,7 +98,7 @@ public class TrainingAPITest extends AbstractAPITest {
 				TrainerRole.ROLE_TRAINER);
 		expected.setTrainerId(3);
 		log.info("API Testing updateTrainer at baseUrl  " + baseUrl + updateTrainer);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				.body(new ObjectMapper().writeValueAsString(expected)).when().put(baseUrl + updateTrainer).then()
 				.assertThat().statusCode(204);
 	}
@@ -114,7 +114,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Trainer expected = new Trainer("Dan Pickles", "Lead Trainer", "pjw6193@hotmail.com", TrainerRole.ROLE_VP);
 		expected.setTrainerId(2);
 		log.info("API Testing makeInactiv at baseUrl  " + baseUrl + makeInactive);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				.body(new ObjectMapper().writeValueAsString(expected)).when().delete(baseUrl + makeInactive).then()
 				.assertThat().statusCode(204);
 	}
@@ -128,7 +128,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void getAllTrainersTitles() throws Exception {
 		log.info("API Testing getAllTrainersTitles at baseUrl  " + baseUrl + getAllTrainersTitles);
-		Response titles = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
+		Response titles = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainersTitles).then().assertThat().statusCode(200).extract().response();
 		assertTrue("Test titles",
 				titles.asString().contains("Senior Trainer") & titles.asString().contains("Senior Technical Manager")
@@ -150,7 +150,7 @@ public class TrainingAPITest extends AbstractAPITest {
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + getAllTrainers);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainers).then().assertThat().statusCode(200)
 				.body(containsString(new ObjectMapper().writeValueAsString(expected)));
 		log.info("Get all trainers passed!!");
@@ -159,7 +159,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void deleteBatch() throws Exception {
 
-		given().spec(requestSpec).header(auth, accessToken).pathParam("id", 2003).contentType(ContentType.JSON).when()
+		given().spec(requestSpec).header(AUTH, accessToken).pathParam("id", 2003).contentType(ContentType.JSON).when()
 				.delete(baseUrl + deleteBatch).then().assertThat().statusCode(204);
 
 	}
@@ -176,7 +176,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		expected.setAddress(new Address(2,"65-30 Kissena Blvd, CEP Hall 2","Queens","NY","11367","Tech Incubator at Queens College",true));
 		log.info("API Testing createBatch at " + baseUrl + createBatch);
 
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				.body(new ObjectMapper().writeValueAsString(expected)).when()
 				// request to create a batch
 				.post(baseUrl + createBatch)
@@ -199,7 +199,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void createWeek() throws Exception {
 
-		given().spec(requestSpec).header(auth, accessToken).pathParam("batchId", 2201).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(AUTH, accessToken).pathParam("batchId", 2201).contentType(ContentType.JSON)
 				// request to create a week for a specific batch
 				.when().post(baseUrl + createWeek)
 				// assertions
@@ -210,7 +210,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void findCommonLocations() throws Exception {
 
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				// request to get a list of common locations
 				.when().get(baseUrl + findCommonLocations)
 				// assertions
@@ -228,7 +228,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Address location = cherryStreetAddress;
 		location.setAddressId(20);
 		log.info("API Testing createLocation at baseUrl " + baseUrl);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location).when()
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
 				.post(baseUrl + createLocationTest).then().assertThat().statusCode(201);
 	}
 
@@ -242,7 +242,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Address location = cherryStreetAddress;
 		location.setState("PA");
 		log.info("API Testing updateLocation at baseUrl " + baseUrl);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location).when()
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
 				.put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
 	}
 
@@ -258,7 +258,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Address expect2 = new Address(2, "11730 Plaza America Drive, 2nd Floor", "Reston", "VA", "20190",
 				"Revature LLC", true);
 		log.info("API Testing updateLocation at baseUrl " + baseUrl);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllLocationTest).then().assertThat().statusCode(200)
 				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expect1)))
 				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expect2)));
@@ -274,7 +274,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Address location = cherryStreetAddress;
 		location.setActive(false);
 		log.info("API Testing removeLocation at baseUrl " + baseUrl);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location).when()
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
 				.delete(baseUrl + removeLocationTest).then().assertThat().statusCode(204);
 	}
 
@@ -286,7 +286,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void reactivateLocationTest() {
 		log.info("API Testing reactivateLocation at baseUrl " + baseUrl);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(cherryStreetAddress)
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(cherryStreetAddress)
 				.when().put(baseUrl + reactivateLocationTest).then().assertThat().statusCode(204);
 	}
 }

@@ -38,10 +38,10 @@ public class NoteDAO {
 	private static final String TRAINEE = "trainee";
 	private static final String T_TRAINEE_ID = "t.traineeId";
 	private static final String QC_FEEDBACK = "qcFeedback";
-	private static final String QC_STATUS = "qcStatus";
 	private static final int MONTHS_BACK = -1;
 	private static final String START_DATE = "startDate";
 	private static final String END_DATE = "endDate";
+	private static final String BATCH_BATCH_ID = "batch.batchId";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -158,7 +158,7 @@ public class NoteDAO {
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.QC_BATCH))
-				.add(Restrictions.eq("batch.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq(BATCH_BATCH_ID, batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq(QC_FEEDBACK, true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.uniqueResult();
 	}
@@ -179,7 +179,7 @@ public class NoteDAO {
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.QC_BATCH))
-				.add(Restrictions.eq("batch.batchId", batchId))
+				.add(Restrictions.eq(BATCH_BATCH_ID, batchId))
 				.add(Restrictions.le(START_DATE, Calendar.getInstance().getTime()))
 				.add(Restrictions.ge(END_DATE, endDateLimit.getTime())).addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -219,7 +219,7 @@ public class NoteDAO {
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.BATCH))
-				.add(Restrictions.eq("batch.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq(BATCH_BATCH_ID, batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
