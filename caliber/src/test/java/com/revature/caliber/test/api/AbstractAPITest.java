@@ -83,7 +83,7 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
                 String roleCookie = response.getCookie("role");
                 log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
                 requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
-				tearDownDatabase();
+                tearDownDatabase();
             } catch (Exception e) {
                 log.error(e);
             }
