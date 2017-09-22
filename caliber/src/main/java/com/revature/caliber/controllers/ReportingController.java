@@ -139,7 +139,6 @@ public class ReportingController {
 		} else {
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
-
 	}
 
 	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/bar-batch-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
