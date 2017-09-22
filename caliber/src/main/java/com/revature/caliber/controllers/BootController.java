@@ -90,7 +90,6 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 		try {
 			log.error("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-			model.asMap().clear();
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
