@@ -13,9 +13,14 @@ import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.services.TrainingService;
 
 public class TrainingServiceTest extends CaliberTest {
+	
 	private static final Logger log = Logger.getLogger(TrainingServiceTest.class);
+	
 	TrainingService service;
 	TrainerDAO dao;
+	
+	private String inactive = "select NUMBER_OF_WEEKS from CALIBER_BATCH where BATCH_ID = 2100";
+	
 	
 	@Autowired
 	public void setDao(TrainerDAO dao) {
@@ -26,9 +31,6 @@ public class TrainingServiceTest extends CaliberTest {
 	public void setService(TrainingService service) {
 		this.service = service;
 	}
-	
-	
-	private String inactive = "select NUMBER_OF_WEEKS from CALIBER_BATCH where BATCH_ID = 2100";
 	
 	@Test
 	public void makeInactiveWeek(){
