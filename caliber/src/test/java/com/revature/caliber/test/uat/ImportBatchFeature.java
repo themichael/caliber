@@ -4,8 +4,10 @@ package com.revature.caliber.test.uat;
 //import java.util.concurrent.TimeUnit;
 //
 //import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 //import org.openqa.selenium.phantomjs.PhantomJSDriver;
-//
+//import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+//import org.openqa.selenium.remote.DesiredCapabilities;
 //
 //
 //import cucumber.api.PendingException;
@@ -15,20 +17,23 @@ package com.revature.caliber.test.uat;
 //import cucumber.api.java.en.Then;
 //import cucumber.api.java.en.When;
 //
-//public class ImportBatchFeature extends DriverSetup{
+//public class ImportBatchFeature {
 //	
 //	private ManageBatchPage managePage;
 //	
 //	@Before // each scenario
 //	public void setup(){
-//		WebDriver driver = new PhantomJSDriver();
+//		DesiredCapabilities dcaps = new DesiredCapabilities();
+//		dcaps.setJavascriptEnabled(true);
+//		dcaps.setCapability("phantomjs.binary.path", "C:/phantomjs/phantomjs-2.1.1-windows/bin/phantomjs.exe");
+//		WebDriver driver = new PhantomJSDriver(dcaps);
 //		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//		managePage = new ManageBatchPage(driver);
+//		managePage = new ManageBatchPage((PhantomJSDriver)driver);
 //	}
-//	@After // each scenario
-//	public void teardown(){
-//		driver.quit();
-//	}
+////	@After // each scenario
+////	public void teardown(){
+////		driver.quit();
+////	}
 //
 //	@Given("^I am on the Manage Batch page$")
 //	public void iAmOnTheManageBatchPage() throws Throwable {
