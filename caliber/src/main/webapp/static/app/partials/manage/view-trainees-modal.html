@@ -19,7 +19,7 @@
 				<!-- switch trainees type -->
 				<div class="container modal-widest">
 					<div class="pull-right">
-						<span>Active&nbsp</span> <a role="button"
+						<span>Active&nbsp</span> <a id = "active" role="button"
 							ng-click="switchTraineeView()" ng-show="!showdropped"><span
 							class="fa fa-toggle-on fa-2x" aria-hidden="true"> </span></a> <a
 							role="button" ng-click="switchTraineeView()"
@@ -36,7 +36,7 @@
 
 					<div class="modal-body">
 						<div class="container modal-widest" >
-							<a role="button" class="pull-right"
+							<a id ="addTrainee" role="button" class="pull-right"
 								ng-click="resetTraineeForm();" data-toggle="modal"
 								data-target="#addTraineeModal" type="button">Add Trainee<span
 								class="glyphicon glyphicon-plus" aria-hidden="true"> </span>
@@ -68,7 +68,7 @@
 									<td>{{trainee.trainingStatus}}</td>
 									<td>{{trainee.phoneNumber}}</td>
 									<td>{{trainee.skypeId}}</td>
-									<td><span ng-if="trainee.profileUrl"> <a
+									<td><span ng-if="trainee.profileUrl"> <a id="profileUrl{{$index}}"
 											href="{{trainee.profileUrl}}" target="_blank"><i
 												class="fa fa-file-code-o" aria-hidden="true"></i></a>
 									</span></td>
@@ -80,12 +80,12 @@
 									<td>{{trainee.projectCompletion}}</td>
 
 
-									<td><a role="button"
+									<td><a id = "editTrainee{{$index}}" role="button"
 										ng-click="populateTrainee(trainee);getTrainee($index)"
 										data-toggle="modal" data-target="#addTraineeModal"
 										type="button"> <span class="glyphicon glyphicon-pencil"></span>
 									</a></td>
-									<td><a role="button" class="pull-right"
+									<td><a id = "removeTrainee{{$index}}" role="button" class="pull-right"
 										ng-click="getTraineeToDelete($index)" data-toggle="modal"
 										data-target="#deleteTraineeModal"><span
 											class="glyphicon glyphicon-remove" aria-hidden="true">

@@ -239,7 +239,6 @@
 			<version>1.9.7</version>
 			<type>pom</type>
 		</dependency>
-
 	</dependencies>
 	<build>
 		<finalName>caliber</finalName>

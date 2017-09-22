@@ -15,7 +15,8 @@ import org.openqa.selenium.support.ui.Select;
 
 /**
  * 
- * @author KoredeA Page Object Model for the Settings Trainer Page In this Page
+ * @author KoredeA 
+ * 		   Page Object Model for the Settings Trainer Page In this Page
  *         the user is able to delete, update and Create a trainer Use the
  *         methods below, you are able to do every possible action allowed on
  *         the Settings Trainer page
@@ -173,4 +174,7 @@ public class SettingsTrainerPage {
 		driver.findElement(By.cssSelector("#deleteTrainerModal > div > div > div.modal-footer > input")).click();
 	}
 
+	public void teardown(){
+		driver.quit();
+	}
 }
