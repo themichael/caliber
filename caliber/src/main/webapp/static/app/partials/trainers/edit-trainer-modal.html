@@ -5,7 +5,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
+					<button id="XBtn" type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -50,14 +50,14 @@
 									ng-model="trainerForm.tier" class="form-control"
 									id="trainerTier" ng-required="true">
 									<option value="" disabled>Select Tier</option>
-									<option ng-repeat="option in trainerTiers">{{option}}</option>
+									<option id="{{option}}" ng-repeat="option in trainerTiers">{{option}}</option>
 								</select>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" ng-value="Save" class="btn btn-primary">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<input id="saveBtn" type="submit" ng-value="Save" class="btn btn-primary">
+						<button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>

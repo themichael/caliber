@@ -7,7 +7,7 @@ import cucumber.api.junit.Cucumber;
 
 /**
  * Hook class to kick off the E2E tests using Cucumber/Selenium.
- * This test must be ignored in the initial build until the
+ * This test must be iacgnored in the initial build until the
  * app is deployed into the test environment.
  * 
  * All Cucumber features must end in the word Feature.
@@ -17,5 +17,5 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features"})
+@CucumberOptions(features={"src/test/resources/features/add-batch-weekly-performance-notes.feature"})
 public class CukesRunner {}
