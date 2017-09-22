@@ -5,23 +5,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
-import org.springframework.test.context.jdbc.SqlConfig.TransactionMode;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Address;
 import com.revature.caliber.controllers.TrainingController;
 import com.revature.caliber.data.AddressDAO;
-import com.revature.caliber.test.integration.AssessmentTest;
 
 
 public class AddressDAOTest extends CaliberTest{

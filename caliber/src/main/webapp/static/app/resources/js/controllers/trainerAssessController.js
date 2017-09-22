@@ -346,7 +346,7 @@ angular
 					$scope.createWeek = function() {
 						if($scope.trainees.length === 0){
 							$scope.noTrainees = true;
-							$scope.noTraineesMessage ="No trainnes were found, weeks cannot be created.";
+							$scope.noTraineesMessage ="No trainees were found; weeks could not be created.";
 							$timeout(function(){
 						          $scope.noTrainees = false;
 						       }, 8000);
@@ -730,6 +730,15 @@ angular
 					$scope.showSaving = false;
 					$scope.showCheck = false;
 					$scope.showFloppy = true;
+					
+					/*
+					 * All cells on Trainer Assess update the DB using ng-blur event.
+					 * If the user types in the final value but does not blur,
+					 * then the last value will not be saved. This method provides
+					 * a dummy Save button that tricks the user into triggering
+					 * the ng-blur event to commit the last cell. The callbacks
+					 * provide a fancy look to the button.. 
+					 */
 					$scope.doBurrito =function(){
 							$scope.showFloppy = false;
 							$timeout(function(){
