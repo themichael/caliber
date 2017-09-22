@@ -78,8 +78,9 @@ public class AssessmentAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testUpdate() {
-		log.info(assessmentService.findAssessmentByWeek(2050, 100));
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(assessmentService).when()
+		Assessment assessment = assessmentService.findAllAssessments().get(0);
+		assessment.setRawScore(100000);
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(assessment).when()
 				.put(baseUrl + updateAssessment).then().assertThat().statusCode(201);
 	}
 
@@ -88,7 +89,7 @@ public class AssessmentAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testDelete() {
-		given().spec(requestSpec).header(auth, accessToken).when().delete(baseUrl + deleteAssessment, 156000).then()
+		given().spec(requestSpec).header(auth, accessToken).when().delete(baseUrl + deleteAssessment, 2050).then()
 				.assertThat().statusCode(204);
 	}
 }
