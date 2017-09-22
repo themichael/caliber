@@ -2,6 +2,7 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
@@ -133,9 +134,9 @@ public class TrainingAPITest extends AbstractAPITest {
 		Response titles = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainersTitles).then().assertThat().statusCode(200).extract().response();
 		assertTrue("Test titles",
-				titles.asString().contains("Senior Trainer") & titles.asString().contains("Senior Technical Manager")
-						& titles.asString().contains(leadTrainer) & titles.asString().contains("Trainer")
-						& titles.asString().contains("Technology Manager"));
+				titles.asString().contains("Senior Trainer") && titles.asString().contains("Senior Technical Manager")
+						&& titles.asString().contains(leadTrainer) && titles.asString().contains("Trainer")
+						&& titles.asString().contains("Technology Manager"));
 	}
 
 	/**
@@ -148,13 +149,14 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void getAllTrainers() throws Exception {
+		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
+				TrainerRole.ROLE_VP);
+		expected.setTrainerId(1);
 		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + getAllTrainers);
-		Trainer[] trainers = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
-				.get(baseUrl + getAllTrainers).then().assertThat().statusCode(200).extract().response()
-				.as(Trainer[].class);
-		assertTrue("Test that some trainers exist", "Patrick Walsh".equals(trainers[0].getName()));
-		log.info(" SOME STUFF" + trainers.length + " " + trainers[1].getName());
-
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
+				.get(baseUrl + getAllTrainers).then().assertThat().statusCode(200)
+				.body(containsString(new ObjectMapper().writeValueAsString(expected)));
+		log.info("Get all trainers passed!!");
 	}
 
 	@Ignore
