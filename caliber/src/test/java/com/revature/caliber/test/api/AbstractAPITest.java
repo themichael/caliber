@@ -2,7 +2,10 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 
+import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +17,18 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.SpringApplication;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.support.EncodedResource;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.security.models.SalesforceToken;
+import com.revature.caliber.test.unit.Tomcat;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
@@ -37,7 +46,7 @@ import io.restassured.specification.RequestSpecification;
  * @author Patrick Walsh
  *
  */
-public abstract class AbstractAPITest extends CaliberTest {
+public abstract class AbstractAPITest extends CaliberTest implements InitializingBean{
 
 	/**
 	 * Salesforce access token to be used in Authorization HTTP header
@@ -56,21 +65,29 @@ public abstract class AbstractAPITest extends CaliberTest {
 	protected static String authHeader = "Authorization";
 	
 	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
-
-	public AbstractAPITest() {
+	
+	static{
+		SpringApplication.run(Tomcat.class);
+	}
+	
+	public AbstractAPITest() {}
+	
+	public void afterPropertiesSet(){
 		// only login with Salesforce once
 		if ("Auth ".equals(accessToken)) {
-			try {
-				login();
-				log.info("Logging into Caliber for API testing");
-				Response response = given().body("salestoken="+accessToken).redirects().allowCircular(true).get(baseUrl + "caliber/");
-                String sessionCookie = response.getCookie("JSESSIONID");
-                String roleCookie = response.getCookie("role");
-                requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
-            } catch (Exception e) {
-                log.error(e);
-            }
-        }
+				try {
+					populateDatabase();
+					login();
+					log.info("Logging into Caliber for API testing");
+					Response response = given().body("salestoken="+accessToken).redirects().allowCircular(true).get(baseUrl + "caliber/");
+	                String sessionCookie = response.getCookie("JSESSIONID");
+	                String roleCookie = response.getCookie("role");
+	                requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
+	                tearDownDatabase();
+				} catch (Exception e) {
+					log.error(e);
+				}
+			}
 	}
 
 	private static void login() throws JsonParseException, JsonMappingException, UnsupportedOperationException, IOException {
@@ -91,4 +108,23 @@ public abstract class AbstractAPITest extends CaliberTest {
 		log.info("Accessing Salesforce API using token:  " + accessToken);
 	}
 	
+	private void populateDatabase() throws SQLException{
+		log.info("Populating database with setup.sql");
+		Connection con = jdbcTemplate.getDataSource().getConnection();
+		EncodedResource resource = new EncodedResource(new FileSystemResource(new File("src/test/resources/setup.sql")));
+		
+		ScriptUtils.executeSqlScript(con,resource);
+		log.info("Sql script executed");
+		con.close();
+	}
+	
+	private void tearDownDatabase() throws SQLException{
+		log.info("Tearingdown database with teardown.sql");
+		Connection con = jdbcTemplate.getDataSource().getConnection();
+		EncodedResource resource = new EncodedResource(new FileSystemResource(new File("src/test/resources/teardown.sql")));
+		
+		ScriptUtils.executeSqlScript(con,resource);
+		log.info("Sql script executed");
+		con.close();
+	}
 }
