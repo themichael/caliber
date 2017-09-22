@@ -93,18 +93,6 @@ public class ReportingAPITest extends AbstractAPITest{
 	 * 			to return something readable by the front end
 	 * 
 	 * */
-
-	@SuppressWarnings("deprecation")
-	/*@Test
-	public void testGetBatchComparisonAvg() throws Exception {
-		log.info("TESTING getBatchComparisonAvg");
-		given().spec(requestSpec).header(authHeader, accessToken).contentType(ContentType.JSON)
-				.when().get(baseUrl + "all/reports/compare/skill/Java"
-						+ "/training/University"
-						+ "/date/14-NOV-16")
-				.then().assertThat().statusCode(200)
-					.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(new HashMap<Double,Double>())));
-	}
 	
 
 	@Test
@@ -375,7 +363,7 @@ public class ReportingAPITest extends AbstractAPITest{
 			JSONArray values = responseJson.getJSONArray(Integer.toString(i));
 			for(int j = 0; j < values.length(); j++) {
 				double value = values.getDouble(j);
-				assertEquals(Math.round(value*1000d)/1000d, Math.round(targetList.get(i-1)[j]*1000d)/1000d);
+				assertEquals(Math.round(value*1000d)/1000d, Math.round(targetList.get(i-1)[j]*1000d)/1000d,0.0001);
 			}
 		}
 	}
