@@ -154,8 +154,6 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals("Name Two", keys.get(1));
 	}
 
-
-
 	@Test
 	public void testUtilAvgBatchWeekValue() {
 		log.info("TEST UTILITY AVERAGE BATCH WEEK VALUE");
@@ -163,8 +161,67 @@ public class ReportingServiceTest extends CaliberTest {
 		Double actualWeekTwo = reportingService.utilAvgBatchWeekValue(trainees, 2);
 		Double expectedWeekOne = 35.0;
 		Double expectedWeekTwo = 40.0;
+
 		assertEquals(expectedWeekOne, actualWeekOne);
 		assertEquals(expectedWeekTwo, actualWeekTwo);
+	}
+
+
+
+	/**
+	 * Validates if the overall average for the batch over a certain number of weeks
+	 * is calculated correctly, given a List of trainees, an AssessmentType, and number 
+	 * of weeks. Utilizes the dummy data created in the BeforeClass, to make the 
+	 * comparisons easier to calculate and compare.
+	 */
+	@Test
+	public void testUtilAvgBatchOverallWithThreeParams() {
+		log.info("Calculate Average Batch Grade");
+		AssessmentType assessmentType = AssessmentType.Exam;
+		Map<Integer, Double[]> results = reportingService.utilAvgBatchOverall(trainees, assessmentType, 3);
+		double[] possAvg = { 35.0, 40.0, 45.0 };
+		for (int i = 1; i < 4; i++) {
+			log.info(results.get(i));
+			assertEquals(new Double(possAvg[i - 1]), results.get(i)[0]);
+		}
+	}
+
+	/**
+	 * Validates if the trainee's average for a week is calculated correctly, given 
+	 * a set of grades and specific week number. Utilizes the dummy data created in 
+	 * the BeforeClass, to make the comparisons easier to calculate and compare.
+	 */
+	@Test
+	public void testUtilAvgTraineeWeekWithTwoParams() {
+		log.info("Calculate One Trainee's Average for all Exams in a Given Week");
+		Double expectedAverage = 30.0;
+		int selectedTrainee = 0; // Selects first trainee in dummy batch
+		Set<Grade> grades = trainees.get(selectedTrainee).getGrades();
+		Double avg = 0d;
+		for (Grade g : grades)
+			avg += g.getScore();
+		Double actualAverage = reportingService.utilAvgTraineeWeek(grades, 1);
+		assertEquals(expectedAverage, actualAverage);
+	}
+
+	/**
+	 * Validates if the average for each trainee in a batch for a specific week is 
+	 * calculated correctly, given a List of trainees and specific week number. 
+	 * Utilizes the dummy data created in the BeforeClass, to make the comparisons 
+	 * easier to calculate and compare.
+	 */
+	@Test
+	public void testUtilAvgBatchWeekWithTwoParams() {
+		log.info("Calculate Each Trainee's Average for a Given Week");
+		double[] averages = { 30.0, 35.0, 40.0 }; // Week 1 averages for all 3 trainees
+		for (int i = 0; i < 3; i++) {
+			Set<Grade> grades = trainees.get(i).getGrades();
+			Double avg = 0d;
+			for (Grade g : grades)
+				avg += g.getScore();
+			avg = reportingService.utilAvgTraineeWeek(grades, 1);
+			assertEquals(new Double(averages[i]), avg);
+		}
 	}
 
 	/*

@@ -202,7 +202,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 * @throws Exception
 	 */
 	@Test
-	public void getBatchOverallRadarChart() throws Exception{
+	public void testGetBatchOverallRadarChart() throws Exception{
 		log.info("Validate batch's overall radar chart");
 		Map<String, Double> expected = new HashMap<>();
 		given().
@@ -221,7 +221,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 * @throws Exception
 	 */
 	@Test
-	public void getBatchAllTraineesRadarChart() throws Exception{
+	public void testGetBatchAllTraineesRadarChart() throws Exception{
 		log.info("Validate batch's overall radar chart");
 		Map<String, Map<String, Double>> expected = new HashMap<>();
 		given().
@@ -240,7 +240,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 *  @throws Exception
 	 */
 	@Test
-	public void getBatchWeekAverageValue() throws Exception{
+	public void testGetBatchWeekAverageValue() throws Exception{
 		log.info("Validate retrieval of batch's overall average in a week");
 		
 		Double expected = new Double(80.26d);
@@ -263,7 +263,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 *  @throws Exception
 	 */
 	@Test
-	public void getTechnologiesForTheWeek() throws Exception{
+	public void testGetTechnologiesForTheWeek() throws Exception{
 		log.info("Validate retrieval of batch's technologies learned in a week");
 		
 		Set<String> expected = new HashSet<>();
