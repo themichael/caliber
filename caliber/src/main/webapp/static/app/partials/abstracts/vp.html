@@ -7,19 +7,19 @@
 			</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a ui-sref="vp.home">Home</a></li>
-			<li><a ui-sref="vp.manage">Manage Batch</a></li>
-			<li><a ui-sref="vp.assess">Assess Batch</a></li>
-			<li><a ui-sref="vp.audit">Quality Audit</a></li>
-			<li><a ui-sref="vp.reports">Reports</a></li>
-			<li role="presentation" class="dropdown"><a
+			<li><a id = "homePage" ui-sref="vp.home">Home</a></li>
+			<li><a id = "managePage" ui-sref="vp.manage">Manage Batch</a></li>
+			<li><a id = "assessPage" ui-sref="vp.assess">Assess Batch</a></li>
+			<li><a id = "qualityAuditPage" ui-sref="vp.audit">Quality Audit</a></li>
+			<li><a id = "reports page" ui-sref="vp.reports">Reports</a></li>
+			<li id = "settingDropdown" role="presentation" class="dropdown"><a
 				class="dropdown-toggle" data-toggle="dropdown" role="button"
 				aria-haspopup="true" aria-expanded="false">Settings<span
 					class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a ui-sref="vp.trainers">Trainers</a></li>
-					<li><a ui-sref="vp.locations">Locations</a></li> 
-					<li><a ui-sref="vp.category">Category</a></li>
+					<li><a id = "settingTrainerPage" ui-sref="vp.trainers">Trainers</a></li>
+					<li><a id = "settingLocationPage" ui-sref="vp.locations">Locations</a></li> 
+					<li><a id = "settingCategoryPage" ui-sref="vp.category">Category</a></li>
 				</ul></li>
 			<!-- <li><a href="/revoke" target="_self">Logout</a></li> -->
 		</ul>
