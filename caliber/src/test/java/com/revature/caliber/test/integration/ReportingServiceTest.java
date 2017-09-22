@@ -637,8 +637,8 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void getBatchWeekQcOverallBarChart() {
 		
-		Batch batch = batchDAO.findAll().get(1);
-		int batchId = batch.getBatchId();
+
+		int batchId = 2201;
 		int weekNumber = 5;
 		
 		log.info("\n \n \n \n \n <getBatchWeekQcOverallBarChart> BatchId: " + batchId + " Week: " + 5);
