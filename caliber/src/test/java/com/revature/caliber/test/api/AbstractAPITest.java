@@ -42,6 +42,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 	 * Salesforce access token to be used in Authorization HTTP header
 	 */
 	protected static String accessToken = "Auth ";
+	protected static SalesforceToken accessTokenJson;
 	protected static final String auth = "Authorization";
 	protected static String jsessionid;
 	protected static RequestSpecification requestSpec;
@@ -61,7 +62,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 			try {
 				login();
 				log.info("Logging into Caliber for API testing");
-				Response response = given().body("salestoken="+accessToken).redirects().allowCircular(true).get(baseUrl + "caliber/");
+				Response response = given().param("salestoken",accessTokenJson).redirects().allowCircular(true).get(baseUrl + "caliber/");
                 String sessionCookie = response.getSessionId();
                 String roleCookie = response.getCookie("role");
                 log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
@@ -86,9 +87,10 @@ public abstract class AbstractAPITest extends CaliberTest {
 		parameters.add(new BasicNameValuePair("password", password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(),
+		accessTokenJson = new ObjectMapper().readValue(response.getEntity().getContent(),
 				// JsonNode.class); // test
-				SalesforceToken.class).getAccessToken(); // actual
+				SalesforceToken.class); // actual
+		accessToken += accessTokenJson.getAccessToken();
 		log.info("Accessing Salesforce API using token:  " + accessToken);
 	}
 
