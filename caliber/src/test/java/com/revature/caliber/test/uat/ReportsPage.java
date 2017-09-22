@@ -1,5 +1,6 @@
 package com.revature.caliber.test.uat;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.digest;
 
@@ -188,4 +189,5 @@ public class ReportsPage {
 		}
 		return lastModifiedFile;
 	}
+
 }

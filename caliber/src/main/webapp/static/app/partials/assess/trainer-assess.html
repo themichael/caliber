@@ -27,7 +27,7 @@
 			<ul class="nav nav-tabs" ng-show="currentView">
 				<!-- top ui for viewing all assessments -->
 				<!-- Filter batches by year -->
-				<li role="button" class="dropdown"><a class="dropdown-toggle"
+				<li role="button" class="dropdown"><a id="yearDropdownId" class="dropdown-toggle"
 					data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="menuItem in years track by $index"><a
@@ -35,7 +35,7 @@
 					</ul></li>
 
 				<li role="button" class="dropdown" ng-show="!noBatches"><a
-					class="dropdown-toggle" data-toggle="dropdown"> {{
+					id="batchesDropdownId" class="dropdown-toggle" data-toggle="dropdown"> {{
 						currentBatch.trainer.name }} - {{ currentBatch.startDate |
 						date:'shortDate' }} <span class="caret"></span>
 				</a>
@@ -47,7 +47,7 @@
 					</ul></li>
 				<!-- Button Trigger for Create Assessment Modal -->
 				<li role="button" class="pull-right" ng-show="!noBatches"
-					data-toggle="modal" data-target="#createAssessmentModal"><a>Create
+					data-toggle="modal" data-target="#createAssessmentModal"><a id="createAssessmentIcon">Create
 						Assessment<span class="glyphicon glyphicon-plus"
 						aria-hidden="true"> </span>
 				</a></li>
@@ -75,11 +75,11 @@
 			<ul class="nav nav-tabs">
 				<li role="button" class="{{showActiveWeek($index)}}"
 					ng-click="selectWeek($index)"
-					ng-repeat="week in currentBatch.arrayWeeks track by $index"><a>Week
-						{{week}}</a></li>
+					ng-repeat="week in currentBatch.arrayWeeks track by $index"><a id="weekBtn"><label id="{{week}}">Week
+						{{week}}</label></a></li>
 				<!-- Button Trigger for Create Week Modal -->
 				<li role="button" ng-show="!noBatches" data-toggle="modal"
-					data-target="#confirmingweeks"><a><span
+					data-target="#confirmingweeks"><a id="addNewWeekIcon"><span
 						class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
 			</ul>
 		</div>
@@ -129,7 +129,7 @@
 									ng-minlength="1" />
 								</td>
 								<td class="col-sm-9 col-md-9 col-lg-9"><textarea
-										class="form-control note-mw" name="note" cols="20" rows="2"
+										class="form-control note-mw" id="{{trainee.name}}Note" name="note" cols="20" rows="2"
 										ng-model="trainees[trainee.traineeId].note.content"
 										ng-blur="saveOrUpdateTraineeNote(trainee.traineeId)">
 								</textarea></td>
@@ -156,13 +156,13 @@
 					<div
 						class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
 						<textarea ng-model="$parent.trainerBatchNote.content"
-							class="form-control" name="asdfjkl;"
+							class="form-control" name="asdfjkl;" id="trainerBatchNote"
 							ng-blur="saveTrainerNotes(trainerBatchNote.noteId)"
 							placeholder="Enter your overall feedback on the batch" required>
 					</textarea>
 						<div class='save-button-wrapper' >
 							<a ng-click="doBurrito()" ng-show="showFloppy"
-								class='save-button fade-in' name = "saveButton"> <span
+								class='save-button fade-in' name = "saveButton" id="saveBtn"> <span
 								class="fa fa-floppy-o fa-2x" aria-hidden="true"></span>Save
 							</a>
 							<div class='spinner fa-style' ng-show="showSaving">
