@@ -9,7 +9,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class PhantomJSTest {
-	
+	/*
 	@Test
 	public void workingPhantomJSTest() {
 		DesiredCapabilities descap = new DesiredCapabilities();
@@ -25,4 +25,5 @@ public class PhantomJSTest {
 		
 		webdriver.quit();
 	}
+	*/
 }
