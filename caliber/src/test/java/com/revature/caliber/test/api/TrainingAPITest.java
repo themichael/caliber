@@ -2,7 +2,10 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertTrue;
+
+import java.time.LocalDate;
 
 import javax.validation.Valid;
 
@@ -11,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 
 import org.apache.log4j.Logger;
-import org.joda.time.LocalDate;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -63,16 +66,23 @@ public class TrainingAPITest extends AbstractAPITest {
 	private Address cherryStreetAddress = new Address(1, "299 CherryStreet", "FruityCity", "FL", "55555", "Revature",
 			true);
 	private String createBatch = "all/batch/create";
+	
+	private Address newYorkAddress = new Address(1, "65-30 Kissena Blvd, CEP Hall 2", "Queens", "NY", "11367","Tech Incubator at Queens College", true);
+	private String createBatch = "vp/batch/create";
 	private String deleteBatch = "all/batch/delete/{id}";
 	private String findAllBatchesByTrainer = "trainer/batch/all";
 	private String createWeek = "trainer/week/new/{batchId}";
 	private String findCommonLocations = "all/locations";
+	
+	private String leadTrainer = "Lead Trainer";
+	private String seniorTrainer = "Senior Trainer";
+	private String patricksEmail = "patrick.walsh@revature.com";
+	private String trainerWalsh = "Patrick Walsh";
 
 	@Test
 	public void findByEmail() throws Exception {
 
-		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
-				TrainerRole.ROLE_VP);
+		Trainer expected = new Trainer(trainerWalsh, leadTrainer,patricksEmail , TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing findTrainerByEmail at baseUrl  " + baseUrl);
 		given().header("Authorization", accessToken).contentType(ContentType.JSON).when().get(baseUrl + findByEmail)
@@ -190,14 +200,12 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void createTrainer() throws Exception {
-
-		Trainer expected = new Trainer("RolledBack", "Senior Trainer", "don.wels23hy@revature.com",
+		Trainer expected = new Trainer("RolledBack",seniorTrainer, "don.wels23hy@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		log.info("API Testing createTrainer at baseUrl  " + baseUrl + createTrainer);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 				.body(new ObjectMapper().writeValueAsString(expected)).when().post(baseUrl + createTrainer).then()
 				.assertThat().statusCode(201).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
-
 	}
 
 	/**
@@ -208,7 +216,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void updateTrainer() throws Exception {
-		Trainer expected = new Trainer("Newwer Trainer", "Senior Trainer", "don.welshy123@revature.com",
+		Trainer expected = new Trainer("Newwer Trainer",seniorTrainer, "don.welshy@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		expected.setTrainerId(3);
 		log.info("API Testing updateTrainer at baseUrl  " + baseUrl + updateTrainer);
@@ -225,7 +233,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void makeInactive() throws Exception {
-		Trainer expected = new Trainer("Dan Pickles", "Lead Trainer", "pjw6193@hotmail.com", TrainerRole.ROLE_VP);
+		Trainer expected = new Trainer("Dan Pickles", leadTrainer, "pjw6193@hotmail.com", TrainerRole.ROLE_VP);
 		expected.setTrainerId(2);
 		log.info("API Testing makeInactiv at baseUrl  " + baseUrl + makeInactive);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
@@ -245,22 +253,21 @@ public class TrainingAPITest extends AbstractAPITest {
 		Response titles = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainersTitles).then().assertThat().statusCode(200).extract().response();
 		assertTrue("Test titles",
-				titles.asString().contains("Senior Trainer") & titles.asString().contains("Senior Technical Manager")
-						& titles.asString().contains("Lead Trainer") & titles.asString().contains("Trainer")
-						& titles.asString().contains("Technology Manager"));
+				titles.asString().contains("Senior Trainer") && titles.asString().contains("Senior Technical Manager")
+						&& titles.asString().contains(leadTrainer) && titles.asString().contains("Trainer")
+						&& titles.asString().contains("Technology Manager"));
 	}
 
 	/**
 	 * Tests methods:
 	 * 
 	 * @see com.revature.caliber.controllers.TrainingController.getAllTrainers()
-	 * @throws Exception
-	 *             revist when we have transient tests to test more specific
-	 *             trainers.
+	 * @throws Exception revist when we have transient tests to test more specific
+	 * trainers.
 	 */
 	@Test
 	public void getAllTrainers() throws Exception {
-		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
+		Trainer expected = new Trainer(trainerWalsh, leadTrainer, patricksEmail,
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + getAllTrainers);
@@ -270,24 +277,21 @@ public class TrainingAPITest extends AbstractAPITest {
 		log.info("Get all trainers passed!!");
 	}
 
+	@Ignore
 	@Test
 	public void deleteBatch() throws Exception {
-
-		given().spec(requestSpec).header(auth, accessToken).pathParam("id", 2003).contentType(ContentType.JSON).when()
-				.delete(baseUrl + deleteBatch).then().assertThat().statusCode(204);
-
+		given().spec(requestSpec).header(auth, accessToken).pathParam("id", 2200).contentType(ContentType.JSON).when()
+				.delete(baseUrl + deleteBatch).then().assertThat().statusCode(200);
 	}
 
+	@Ignore
 	@Test
 	public void createBatch() throws Exception {
-
-		Trainer expectedTrainer = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
-				TrainerRole.ROLE_VP);
-		expectedTrainer.setTrainerId(1);
+		Trainer expectedTrainer = new Trainer("Dan Pickles",seniorTrainer, "dan.pickles@gmail.com",
+				TrainerRole.ROLE_TRAINER);
 		Batch expected = new Batch("Create Controller TrainingAPI Test", expectedTrainer,
 				java.sql.Date.valueOf(LocalDate.now().toString()), java.sql.Date.valueOf(LocalDate.now().toString()),
-				"65-30 Kissena Blvd, CEP Hall 2 Queens, NY 11367");
-		expected.setAddress(new Address(2,"65-30 Kissena Blvd, CEP Hall 2","Queens","NY","11367","Tech Incubator at Queens College",true));
+				"Some Location");
 		log.info("API Testing createBatch at " + baseUrl + createBatch);
 
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
@@ -296,12 +300,10 @@ public class TrainingAPITest extends AbstractAPITest {
 				.post(baseUrl + createBatch)
 				// assertions
 				.then().assertThat().statusCode(201);
-
 	}
 
 	@Test
 	public void findAllBatchesByTrainer() throws Exception {
-
 		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
 				// get request for all batches by a trainer
 				.when().get(baseUrl + findAllBatchesByTrainer)
@@ -312,24 +314,20 @@ public class TrainingAPITest extends AbstractAPITest {
 
 	@Test
 	public void createWeek() throws Exception {
-
 		given().spec(requestSpec).header(auth, accessToken).pathParam("batchId", 2201).contentType(ContentType.JSON)
 				// request to create a week for a specific batch
 				.when().post(baseUrl + createWeek)
 				// assertions
 				.then().assertThat().statusCode(201);
-
 	}
 
 	@Test
 	public void findCommonLocations() throws Exception {
-
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 				// request to get a list of common locations
 				.when().get(baseUrl + findCommonLocations)
 				// assertions
 				.then().assertThat().statusCode(200);
-
 	}
 
 	/**
@@ -339,9 +337,9 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void createLocationTest() {
-		Address location = cherryStreetAddress;
+		Address location = new Address(1, "299 CherryStreet", "FruityCity", "FL", "55555", "Revature", true);
 		location.setAddressId(20);
-		log.info("API Testing createLocation at baseUrl " + baseUrl);
+		log.info("API Testing createLocation at baseUrl " + baseUrl + createLocationTest);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location).when()
 				.post(baseUrl + createLocationTest).then().assertThat().statusCode(201);
 	}
@@ -353,9 +351,14 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void updateLocationTest() throws JsonProcessingException {
-		Address location = cherryStreetAddress;
+		Address location = newYorkAddress;
 		location.setState("PA");
-		log.info("API Testing updateLocation at baseUrl " + baseUrl);
+		log.info("API Testing updateLocation at baseUrl " + baseUrl + updateLocationTest);
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location).when()
+				.put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
+		
+		location.setState("NY");
+		log.info("API Testing updateLocation at baseUrl " + baseUrl + updateLocationTest);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location).when()
 				.put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
 	}
@@ -367,11 +370,10 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void getAllLocationsTest() throws JsonProcessingException {
-		Address expect1 = new Address(1, "65-30 Kissena Blvd, CEP Hall 2", "Queens", "NY", "11367",
-				"Tech Incubator at Queens College", true);
+		Address expect1 = newYorkAddress;
 		Address expect2 = new Address(2, "11730 Plaza America Drive, 2nd Floor", "Reston", "VA", "20190",
 				"Revature LLC", true);
-		log.info("API Testing updateLocation at baseUrl " + baseUrl);
+		log.info("API Testing updateLocation at baseUrl " + baseUrl + getAllLocationTest);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllLocationTest).then().assertThat().statusCode(200)
 				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expect1)))
@@ -379,7 +381,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	}
 
 	/**
-	 * Tests methods:
+	 * Testing deactivating and reactivating a location
 	 * 
 	 * @see com.revature.controllers.TrainingController#removeLocation
 	 */
@@ -395,12 +397,20 @@ public class TrainingAPITest extends AbstractAPITest {
 	/**
 	 * Tests methods:
 	 * 
+	 * @see com.revature.controllers.TrainingController#removeLocation
 	 * @see com.revature.controllers.TrainingController#reactivateLocation
 	 */
 	@Test
-	public void reactivateLocationTest() {
-		log.info("API Testing reactivateLocation at baseUrl " + baseUrl);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(cherryStreetAddress)
+	public void removeAndReactivateLocationTest() {
+		Address location = newYorkAddress;
+		location.setActive(false);
+		log.info("API Testing removeLocation at baseUrl " + baseUrl + removeLocationTest);
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(location).when()
+				.delete(baseUrl + removeLocationTest).then().assertThat().statusCode(204);
+		
+		location.setActive(true);
+		log.info("API Testing reactivateLocation at baseUrl " + baseUrl + reactivateLocationTest);
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(newYorkAddress)
 				.when().put(baseUrl + reactivateLocationTest).then().assertThat().statusCode(204);
 	}
 }
