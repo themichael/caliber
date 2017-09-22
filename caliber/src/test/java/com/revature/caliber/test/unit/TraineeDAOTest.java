@@ -135,22 +135,34 @@ public class TraineeDAOTest extends CaliberTest {
 		assertEquals(0, badTrainerCallSize);
 	}
 
+	/**
+	 * Validates the findOne function by finding a trainee by
+	 * their unique ID
+	 */
 	@Test
-	public void findOne() {
+	public void testFindOne() {
 		log.info("Find trainee by Id Test");
 		String actual = "osher.y.cohen@gmail.com";
 		assertEquals(actual, traineeDAO.findOne(5503).getEmail());
 	}
 
+	/**
+	 * Validates the findByEmail function by finding a trainee by
+	 * their unique email
+	 */
 	@Test
-	public void findByEmail() {
+	public void testFindByEmail() {
 		log.info("Find trainee by email Test");
 		Integer id = 5503;
 		assertEquals((int) id, (int) traineeDAO.findByEmail("osher.y.cohen@gmail.com").getTraineeId());
 	}
 
+	/**
+	 * Validates the update function by updating the trainee's name
+	 * and checking against the original in the database
+	 */
 	@Test
-	public void update() {
+	public void testUpdate() {
 		log.info("Update trainee");
 		String updatedName = "Up, Dated";
 		Trainee trainee = traineeDAO.findOne(5503);
@@ -159,8 +171,13 @@ public class TraineeDAOTest extends CaliberTest {
 		assertEquals(updatedName, trainee.getName());
 	}
 
+	/**
+	 * Validates the delete function by comparing the number of rows
+	 * in the original database to the number of rows in the altered
+	 * database after the delete (there should be one fewer).
+	 */
 	@Test
-	public void delete() {
+	public void testDelete() {
 		log.info("Delete trainee");
 		int initialSize = traineeDAO.findAll().size();
 		Trainee toDelete = traineeDAO.findOne(5503);
