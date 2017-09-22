@@ -2,13 +2,10 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 
 import java.util.ArrayList;
-import java.util.Calendar;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -18,39 +15,21 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.apache.xpath.operations.Equals;
-import org.hamcrest.Matchers;
-import org.hamcrest.core.IsAnything;
-import org.hamcrest.core.IsEqual;import org.hamcrest.text.IsEmptyString;
-import org.hibernate.mapping.Array;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Ignore;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.caliber.beans.Batch;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.services.ReportingService;
-import com.revature.caliber.test.integration.ReportingServiceTest;
-
-import antlr.collections.List;
-
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import junit.framework.Assert;
 
-@SuppressWarnings("deprecation")
 public class ReportingAPITest extends AbstractAPITest{
 	
 	private static final Logger log = Logger.getLogger(ReportingAPITest.class);
@@ -68,16 +47,6 @@ public class ReportingAPITest extends AbstractAPITest{
 	
 	//{int BatchId, int TraineeId, int Week}
 	private static int[] traineeValue = {2200, 5503, 1};
-
-	
-
-	private static String traineeReports = "all/reports/trainee/";
-	private static String radarTraineeOverall = "/radar-trainee-overall/";
-	private static String batchReports= "all/reports/batch/";
-	private static String radarBatchOverall = "/overall/radar-batch-overall";
-	private static String batchAverage = "all/assessments/average/";
-	private static String batchAssessmentCategories = "all/assessments/categories/batch/";
-
 
 	private static String traineeReports = "all/reports/trainee/{traineeId}/radar-trainee-overall";
 	private static String batchReports= "all/reports/batch/{batchId}/overall/radar-batch-overall";
@@ -342,7 +311,6 @@ public class ReportingAPITest extends AbstractAPITest{
 	
 	//Tests if the returned JSON matches the expected values returned from a Map
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testgetTraineeOverallLineChart(){
 		log.info("testgetTraineeOverallLineChart Test");
