@@ -86,7 +86,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.error("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		redirectAttributes.addAttribute("salestoken",toJsonString(response.getEntity().getContent()));
+		redirectAttributes.addFlashAttribute("salestoken",toJsonString(response.getEntity().getContent()));
 		log.error("Redirecting to : " + REDIRECT + redirectUrl);
 		return new ModelAndView(REDIRECT + redirectUrl);
 	}
