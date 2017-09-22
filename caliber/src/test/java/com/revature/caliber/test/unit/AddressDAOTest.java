@@ -23,7 +23,7 @@ public class AddressDAOTest extends CaliberTest{
 	public void setDao(AddressDAO dao) {
 		this.dao = dao;
 	}
-	
+	//Tests the save method in AddressDAO. Creates a new address and checks if the address appears, and then checks to make sure the size has increased.
 	@Test
 	public void saveAddressDAO(){
 		log.info("Saving a new Address using AddressDAO");
@@ -35,14 +35,16 @@ public class AddressDAOTest extends CaliberTest{
 		assertEquals(address, dao.getAddressById(addressId));
 		assertEquals(++before, after);
 	}
-	
+	//Tests the gettAll method in AddressDAO and returns a String version of it. Asserts that is is not empty, the size is correct, and the findAll string version is equal to getAll.
 	@Test
 	public void getAllAddressDAO(){
 		log.info("Getting all addresses using AddressDAO getAll function");
 		int num = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
 		assertNotNull(dao.getAll());
 		assertEquals(dao.getAll().size(), num);
+		assertEquals(dao.getAll(), dao.findAll().toString());
 	}
+	//Tests the findAll method in AddressDAO and returns a list. Asserts the findAll is not empty and that it is the correct size.
 	@Test
 	public void findAllAddressDAO(){
 		log.info("Find All Addresses");
@@ -50,7 +52,7 @@ public class AddressDAOTest extends CaliberTest{
 		assertFalse(dao.findAll().isEmpty());
 		assertEquals(dao.findAll().size(),size);
 	}
-	//Takes the address id and finds the address from the database
+	//Takes the getAddressById and finds the address from the database. Asserts the address obtained equals the address.
 	@Test
 	public void getAddressByIdDAO(){
 		log.info("Finding Location by address");
@@ -58,14 +60,14 @@ public class AddressDAOTest extends CaliberTest{
 		Address address = dao.getAddressById(search);
 		assertEquals(dao.getAddressById(1).toString(),address.toString());
 	}
-	
+	//Tests to make sure an address not in the database returns null. 
 	@Test
 	public void nullGetAddressByInt(){
 		log.info("About to fail gettingAddressByInt");
 		Address address = dao.getAddressById(9999999);
 		assertNull(address);
 	}
-
+	//Tests update method of AddressDAO. Asserts that addresses zipcode was changed.
 	@Test
 	public void updateAddressDAO(){
 		log.info("UpdateAddessDAO Test");
