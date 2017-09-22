@@ -11,7 +11,6 @@ import org.junit.BeforeClass;
 import org.openqa.selenium.*;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
 import org.junit.Test;
 
 public class QualityAuditTest {
