@@ -60,11 +60,12 @@ public abstract class AbstractAPITest extends CaliberTest {
 			try {
 				login();
 				log.info("Logging into Caliber for API testing");
-				Response response = given().redirects().allowCircular(true).get(baseUrl);
-				String sessionCookie = response.getCookie("JSESSIONID");
+				Response response = given().params("salestoken", accessToken).redirects().allowCircular(true).get(baseUrl);
+				String sessionCookie = response.getSessionId();
 				String roleCookie = response.getCookie("role");
-				requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie)
-						.addCookie("role", roleCookie).build();
+				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
+				requestSpec = new RequestSpecBuilder().addParam("salestoken", accessToken)
+						.addCookie("JSESSIONID", sessionCookie).addCookie("role", roleCookie).build();
 			} catch (Exception e) {
 				log.error(e);
 			}
