@@ -6487,3 +6487,550 @@ e7-9647-d72dc2c12918] - page.settings - {"XSSAuditingEnabled":false,"javascriptC
 [INFO  - 2017-09-22T13:14:11.876Z] Session [ecbbacd0-9f97-11e7-9647-d72dc2c12918] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
 [INFO  - 2017-09-22T13:14:11.876Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: ecbbacd0-9f97-11e7-9647-d72dc2c12918
 [INFO  - 2017-09-22T13:19:11.892Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-22T13:55:09.682Z] GhostDriver - Main - running on port 25624
+[INFO  - 2017-09-22T13:55:09.933Z] Session [a5d9b680-9f9d-11e7-aed2-7936fb12b834] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:09.933Z] Session [a5d9b680-9f9d-11e7-aed2-7936fb12b834] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:09.933Z] Session [a5d9b680-9f9d-11e7-aed2-7936fb12b834] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:09.933Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: a5d9b680-9f9d-11e7-aed2-7936fb12b834
+[INFO  - 2017-09-22T13:55:11.636Z] ShutdownReqHand - _handle - About to shutdown
+FO  - 2017-09-22T13:55:11.576Z] Session [a6d46a30-9f9d-11e7-8647-43323ba7c636] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:11.576Z] Session [a6d46a30-9f9d-11e7-8647-43323ba7c636] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:11.576Z] Session [a6d46a30-9f9d-11e7-8647-43323ba7c636] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:11.577Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: a6d46a30-9f9d-11e7-8647-43323ba7c636
+[INFO  - 2017-09-22T13:55:12.472Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:55:14.604Z] GhostDriver - Main - running on port 30992
+[INFO  - 2017-09-22T13:55:14.730Z] Session [a8b5ad50-9f9d-11e7-b348-e3ec99c2198d] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:14.730Z] Session [a8b5ad50-9f9d-11e7-b348-e3ec99c2198d] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:14.730Z] Session [a8b5ad50-9f9d-11e7-b348-e3ec99c2198d] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:14.730Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: a8b5ad50-9f9d-11e7-b348-e3ec99c2198d
+[INFO  - 2017-09-22T13:55:16.370Z] ShutdownReqHand - _handle - About to shutdown
+FO  - 2017-09-22T13:55:16.348Z] Session [a9ac6960-9f9d-11e7-bb8d-69ab4402a453] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:16.348Z] Session [a9ac6960-9f9d-11e7-bb8d-69ab4402a453] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:16.348Z] Session [a9ac6960-9f9d-11e7-bb8d-69ab4402a453] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:16.349Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: a9ac6960-9f9d-11e7-bb8d-69ab4402a453
+[INFO  - 2017-09-22T13:55:17.091Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:55:19.211Z] GhostDriver - Main - running on port 11751
+[INFO  - 2017-09-22T13:55:19.366Z] Session [ab78c4f0-9f9d-11e7-9001-cb6dd5d3c8ca] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:19.366Z] Session [ab78c4f0-9f9d-11e7-9001-cb6dd5d3c8ca] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:19.366Z] Session [ab78c4f0-9f9d-11e7-9001-cb6dd5d3c8ca] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:19.367Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: ab78c4f0-9f9d-11e7-9001-cb6dd5d3c8ca
+[INFO  - 2017-09-22T13:55:20.960Z] ShutdownReqHand - _handle - About to shutdown
+FO  - 2017-09-22T13:55:20.937Z] Session [ac68ca40-9f9d-11e7-94c9-33f277c424f2] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:20.937Z] Session [ac68ca40-9f9d-11e7-94c9-33f277c424f2] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:20.937Z] Session [ac68ca40-9f9d-11e7-94c9-33f277c424f2] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:20.937Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: ac68ca40-9f9d-11e7-94c9-33f277c424f2
+[INFO  - 2017-09-22T13:55:21.629Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:55:23.741Z] GhostDriver - Main - running on port 4887
+[INFO  - 2017-09-22T13:55:23.883Z] Session [ae2a5060-9f9d-11e7-9ab0-434beb53e362] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:23.883Z] Session [ae2a5060-9f9d-11e7-9ab0-434beb53e362] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:23.883Z] Session [ae2a5060-9f9d-11e7-9ab0-434beb53e362] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:23.884Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: ae2a5060-9f9d-11e7-9ab0-434beb53e362
+[INFO  - 2017-09-22T13:55:25.518Z] ShutdownReqHand - _handle - About to shutdown
+FO  - 2017-09-22T13:55:25.499Z] Session [af210c70-9f9d-11e7-b1ed-cd865386cb01] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:25.499Z] Session [af210c70-9f9d-11e7-b1ed-cd865386cb01] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:25.499Z] Session [af210c70-9f9d-11e7-b1ed-cd865386cb01] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:25.500Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: af210c70-9f9d-11e7-b1ed-cd865386cb01
+[INFO  - 2017-09-22T13:55:26.188Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:55:28.365Z] GhostDriver - Main - running on port 12605
+[INFO  - 2017-09-22T13:55:28.494Z] Session [b0e9e590-9f9d-11e7-952f-a1afdc82fce7] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:28.494Z] Session [b0e9e590-9f9d-11e7-952f-a1afdc82fce7] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:28.494Z] Session [b0e9e590-9f9d-11e7-952f-a1afdc82fce7] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:28.494Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b0e9e590-9f9d-11e7-952f-a1afdc82fce7
+[INFO  - 2017-09-22T13:55:30.081Z] ShutdownReqHand - _handle - About to shutdown
+FO  - 2017-09-22T13:55:30.063Z] Session [b1d92790-9f9d-11e7-9a90-c99f3d452df3] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:30.063Z] Session [b1d92790-9f9d-11e7-9a90-c99f3d452df3] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:30.063Z] Session [b1d92790-9f9d-11e7-9a90-c99f3d452df3] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:30.063Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b1d92790-9f9d-11e7-9a90-c99f3d452df3
+[INFO  - 2017-09-22T13:55:30.749Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:55:32.866Z] GhostDriver - Main - running on port 42346
+[INFO  - 2017-09-22T13:55:32.962Z] Session [b393a8d0-9f9d-11e7-af71-e5d35e13975c] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:32.962Z] Session [b393a8d0-9f9d-11e7-af71-e5d35e13975c] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:32.962Z] Session [b393a8d0-9f9d-11e7-af71-e5d35e13975c] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:32.963Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b393a8d0-9f9d-11e7-af71-e5d35e13975c
+[INFO  - 2017-09-22T13:55:34.586Z] ShutdownReqHand - _handle - About to shutdown
+FO  - 2017-09-22T13:55:34.566Z] Session [b4886910-9f9d-11e7-bf92-ffd42737f3a0] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:34.566Z] Session [b4886910-9f9d-11e7-bf92-ffd42737f3a0] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:34.566Z] Session [b4886910-9f9d-11e7-bf92-ffd42737f3a0] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:34.566Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b4886910-9f9d-11e7-bf92-ffd42737f3a0
+[INFO  - 2017-09-22T13:55:35.255Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:55:37.388Z] GhostDriver - Main - running on port 16718
+[INFO  - 2017-09-22T13:55:37.510Z] Session [b649a110-9f9d-11e7-a2f1-cdc18f8a7fec] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:37.510Z] Session [b649a110-9f9d-11e7-a2f1-cdc18f8a7fec] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:37.510Z] Session [b649a110-9f9d-11e7-a2f1-cdc18f8a7fec] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:37.510Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b649a110-9f9d-11e7-a2f1-cdc18f8a7fec
+[INFO  - 2017-09-22T13:55:39.134Z] ShutdownReqHand - _handle - About to shutdown
+FO  - 2017-09-22T13:55:39.114Z] Session [b73e6150-9f9d-11e7-a7de-bb528da0c69b] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:39.115Z] Session [b73e6150-9f9d-11e7-a7de-bb528da0c69b] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:39.115Z] Session [b73e6150-9f9d-11e7-a7de-bb528da0c69b] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:39.115Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b73e6150-9f9d-11e7-a7de-bb528da0c69b
+[INFO  - 2017-09-22T13:55:39.804Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:55:41.915Z] GhostDriver - Main - running on port 39316
+[INFO  - 2017-09-22T13:55:42.019Z] Session [b8f9a5e0-9f9d-11e7-8603-c74b9bfe32db] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:42.019Z] Session [b8f9a5e0-9f9d-11e7-8603-c74b9bfe32db] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:42.019Z] Session [b8f9a5e0-9f9d-11e7-8603-c74b9bfe32db] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:42.019Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b8f9a5e0-9f9d-11e7-8603-c74b9bfe32db
+[INFO  - 2017-09-22T13:55:43.640Z] ShutdownReqHand - _handle - About to shutdown
+O  - 2017-09-22T13:55:43.622Z] Session [b9ee3f10-9f9d-11e7-8301-237b50e9680d] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:43.622Z] Session [b9ee3f10-9f9d-11e7-8301-237b50e9680d] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:43.622Z] Session [b9ee3f10-9f9d-11e7-8301-237b50e9680d] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:43.622Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: b9ee3f10-9f9d-11e7-8301-237b50e9680d
+[INFO  - 2017-09-22T13:55:44.310Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:55:46.432Z] GhostDriver - Main - running on port 17099
+[INFO  - 2017-09-22T13:55:46.566Z] Session [bbaf5000-9f9d-11e7-b490-754fb03878ba] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:46.566Z] Session [bbaf5000-9f9d-11e7-b490-754fb03878ba] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:46.566Z] Session [bbaf5000-9f9d-11e7-b490-754fb03878ba] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:46.566Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: bbaf5000-9f9d-11e7-b490-754fb03878ba
+[INFO  - 2017-09-22T13:55:48.187Z] ShutdownReqHand - _handle - About to shutdown
+O  - 2017-09-22T13:55:48.168Z] Session [bca3e930-9f9d-11e7-8268-ff569529c54c] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:48.168Z] Session [bca3e930-9f9d-11e7-8268-ff569529c54c] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:48.169Z] Session [bca3e930-9f9d-11e7-8268-ff569529c54c] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:48.169Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: bca3e930-9f9d-11e7-8268-ff569529c54c
+[INFO  - 2017-09-22T13:55:48.904Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:55:51.023Z] GhostDriver - Main - running on port 5868
+[INFO  - 2017-09-22T13:55:51.159Z] Session [be6c7430-9f9d-11e7-8545-6b5a7be5e963] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:51.160Z] Session [be6c7430-9f9d-11e7-8545-6b5a7be5e963] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:51.160Z] Session [be6c7430-9f9d-11e7-8545-6b5a7be5e963] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:51.160Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: be6c7430-9f9d-11e7-8545-6b5a7be5e963
+[INFO  - 2017-09-22T13:55:52.740Z] ShutdownReqHand - _handle - About to shutdown
+FO  - 2017-09-22T13:55:52.722Z] Session [bf5acbd0-9f9d-11e7-a007-b10ad343a703] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:52.723Z] Session [bf5acbd0-9f9d-11e7-a007-b10ad343a703] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:52.723Z] Session [bf5acbd0-9f9d-11e7-a007-b10ad343a703] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:52.723Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: bf5acbd0-9f9d-11e7-a007-b10ad343a703
+[INFO  - 2017-09-22T13:55:53.408Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:55:55.525Z] GhostDriver - Main - running on port 38661
+[INFO  - 2017-09-22T13:55:55.663Z] Session [c11b8ea0-9f9d-11e7-83f7-cf957079e09b] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:55.663Z] Session [c11b8ea0-9f9d-11e7-83f7-cf957079e09b] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:55.663Z] Session [c11b8ea0-9f9d-11e7-83f7-cf957079e09b] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:55.664Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: c11b8ea0-9f9d-11e7-83f7-cf957079e09b
+[INFO  - 2017-09-22T13:55:57.288Z] ShutdownReqHand - _handle - About to shutdown
+O  - 2017-09-22T13:55:57.266Z] Session [c21027d0-9f9d-11e7-bb9c-b7b126a81a74] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:55:57.266Z] Session [c21027d0-9f9d-11e7-bb9c-b7b126a81a74] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:55:57.266Z] Session [c21027d0-9f9d-11e7-bb9c-b7b126a81a74] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:55:57.266Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: c21027d0-9f9d-11e7-bb9c-b7b126a81a74
+[INFO  - 2017-09-22T13:55:57.957Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:56:00.090Z] GhostDriver - Main - running on port 6472
+[INFO  - 2017-09-22T13:56:00.209Z] Session [c3d15fd0-9f9d-11e7-81aa-534fb46fd002] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:56:00.209Z] Session [c3d15fd0-9f9d-11e7-81aa-534fb46fd002] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:56:00.210Z] Session [c3d15fd0-9f9d-11e7-81aa-534fb46fd002] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:56:00.210Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: c3d15fd0-9f9d-11e7-81aa-534fb46fd002
+[INFO  - 2017-09-22T13:56:01.832Z] ShutdownReqHand - _handle - About to shutdown
+O  - 2017-09-22T13:56:01.814Z] Session [c4c62010-9f9d-11e7-9969-77c24afb6414] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:56:01.814Z] Session [c4c62010-9f9d-11e7-9969-77c24afb6414] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:56:01.814Z] Session [c4c62010-9f9d-11e7-9969-77c24afb6414] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:56:01.814Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: c4c62010-9f9d-11e7-9969-77c24afb6414
+[INFO  - 2017-09-22T13:56:02.500Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:56:04.617Z] GhostDriver - Main - running on port 39215
+[INFO  - 2017-09-22T13:56:04.753Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:56:04.753Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:56:04.753Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:56:04.753Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: c68694c0-9f9d-11e7-925d-bffa3528d269
+[ERROR - 2017-09-22T13:56:10.619Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-22T13:56:10.619Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T13:56:10.621Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-22T13:56:10.621Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T13:56:10.622Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-22T13:56:10.623Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T13:56:10.623Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - msg: Error: undefined is not an object (evaluating 'notes.length')
+http://localhost:8080/static/app/resources/js/controllers/qcAssessController.js:95:39
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+h[INFO  - 2017-09-22T13:56:21.914Z] ShutdownReqHand - _handle - About to shutdown
+tps://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestError@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11846:24
+openUrl@[native code]
+open@phantomjs://platform/webpage.js:281:25
+phantomjs://code/session_request_handler.js:495:36
+_execFuncAndWaitForLoadDecorator@phantomjs://code/session.js:212:23
+_postUrlCommand@phantomjs://code/session_request_handler.js:494:46
+_handle@phantomjs://code/session_request_handler.js:91:32
+_reroute@phantomjs://code/request_handler.js:61:20
+_handle@phantomjs://code/router_request_handler.js:78:46
+[ERROR - 2017-09-22T13:56:10.624Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T13:56:10.625Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-22T13:56:10.625Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T13:56:10.626Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-22T13:56:10.626Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T13:56:10.627Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-22T13:56:10.627Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T13:56:10.627Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - msg: Error: undefined is not an object (evaluating 'notes.qcStatus')
+http://localhost:8080/static/app/resources/js/controllers/qcAssessController.js:75:42
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestError@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11846:24
+openUrl@[native code]
+open@phantomjs://platform/webpage.js:281:25
+phantomjs://code/session_request_handler.js:495:36
+_execFuncAndWaitForLoadDecorator@phantomjs://code/session.js:212:23
+_postUrlCommand@phantomjs://code/session_request_handler.js:494:46
+_handle@phantomjs://code/session_request_handler.js:91:32
+_reroute@phantomjs://code/request_handler.js:61:20
+_handle@phantomjs://code/router_request_handler.js:78:46
+[ERROR - 2017-09-22T13:56:10.628Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T13:56:10.645Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-22T13:56:10.645Z] Session [c68694c0-9f9d-11e7-925d-bffa3528d269] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-22T13:56:21.228Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T13:56:24.021Z] GhostDriver - Main - running on port 45258
+[INFO  - 2017-09-22T13:56:24.170Z] Session [d2191330-9f9d-11e7-9215-dde64405d9e4] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:56:24.170Z] Session [d2191330-9f9d-11e7-9215-dde64405d9e4] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:56:24.170Z] Session [d2191330-9f9d-11e7-9215-dde64405d9e4] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:56:24.171Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: d2191330-9f9d-11e7-9215-dde64405d9e4
+[INFO  - 2017-09-22T13:56:39.075Z] ShutdownReqHand - _handle - About to shutdown
+FO  - 2017-09-22T13:56:25.783Z] Session [d30f8120-9f9d-11e7-8c63-fdc66439a6b3] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T13:56:25.783Z] Session [d30f8120-9f9d-11e7-8c63-fdc66439a6b3] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T13:56:25.783Z] Session [d30f8120-9f9d-11e7-8c63-fdc66439a6b3] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T13:56:25.784Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: d30f8120-9f9d-11e7-8c63-fdc66439a6b3
+[ERROR - 2017-09-22T13:56:28.834Z] Session [d30f8120-9f9d-11e7-8c63-fdc66439a6b3] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-22T13:56:28.835Z] Session [d30f8120-9f9d-11e7-8c63-fdc66439a6b3] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T13:56:28.836Z] Session [d30f8120-9f9d-11e7-8c63-fdc66439a6b3] - page.onError - msg: There was an error: -1
+[ERROR - 2017-09-22T13:56:28.836Z] Session [d30f8120-9f9d-11e7-8c63-fdc66439a6b3] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-22T13:56:39.748Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T14:47:03.689Z] GhostDriver - Main - running on port 44334
+[INFO  - 2017-09-22T14:47:04.040Z] Session [e6009420-9fa4-11e7-a869-f18f757da294] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T14:47:04.040Z] Session [e6009420-9fa4-11e7-a869-f18f757da294] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T14:47:04.040Z] Session [e6009420-9fa4-11e7-a869-f18f757da294] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T14:47:04.041Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: e6009420-9fa4-11e7-a869-f18f757da294
+[INFO  - 2017-09-22T14:47:17.384Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T14:47:38.629Z] GhostDriver - Main - running on port 10122
+[INFO  - 2017-09-22T14:47:38.969Z] Session [fad27940-9fa4-11e7-9ebc-9b44991f7cfc] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T14:47:38.969Z] Session [fad27940-9fa4-11e7-9ebc-9b44991f7cfc] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T14:47:38.969Z] Session [fad27940-9fa4-11e7-9ebc-9b44991f7cfc] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T14:47:38.970Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: fad27940-9fa4-11e7-9ebc-9b44991f7cfc
+[ERROR - 2017-09-22T14:47:40.910Z] Session [fad27940-9fa4-11e7-9ebc-9b44991f7cfc] - page.onError - msg: Error: [ng:areq] Argument 'trainerAssessController' is not a function, got undefined
+http://errors.angularjs.org/1.5.7/ng/areq?p0=trainerAssessController&p1=not%20a%20function%2C%20got%20undefined
+assertArg@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1885:91
+assertArgFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1895:12
+$controller@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:10210:20
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4128:39
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4008:19
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4138:13
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4005:21
+$broadcast@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17767:33
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:3369:32
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestLoaded@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11836:24 <ui-view class="ng-scope">
+[ERROR - 2017-09-22T14:47:40.911Z] Session [fad27940-9fa4-11e7-9ebc-9b44991f7cfc] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-22T14:47:50.981Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T14:49:14.177Z] GhostDriver - Main - running on port 14591
+[INFO  - 2017-09-22T14:49:14.506Z] Session [33c41c40-9fa5-11e7-a3ee-b3d2d75cb6a9] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T14:49:14.506Z] Session [33c41c40-9fa5-11e7-a3ee-b3d2d75cb6a9] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T14:49:14.506Z] Session [33c41c40-9fa5-11e7-a3ee-b3d2d75cb6a9] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T14:49:14.506Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 33c41c40-9fa5-11e7-a3ee-b3d2d75cb6a9
+[ERROR - 2017-09-22T14:49:17.406Z] Session [33c41c40-9fa5-11e7-a3ee-b3d2d75cb6a9] - page.onError - msg: Error: [ng:areq] Argument 'trainerAssessController' is not a function, got undefined
+http://errors.angularjs.org/1.5.7/ng/areq?p0=trainerAssessController&p1=not%20a%20function%2C%20got%20undefined
+assertArg@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1885:91
+assertArgFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1895:12
+$controller@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:10210:20
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4128:39
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4008:19
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4138:13
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4005:21
+$broadcast@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17767:33
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:3369:32
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestLoaded@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11836:24 <ui-view class="ng-scope">
+[ERROR - 2017-09-22T14:49:17.406Z] Session [33c41c40-9fa5-11e7-a3ee-b3d2d75cb6a9] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-22T14:49:27.550Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T14:52:15.435Z] GhostDriver - Main - running on port 20908
+[INFO  - 2017-09-22T14:52:15.794Z] Session [9fd276c0-9fa5-11e7-8006-5ba1854f2f21] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T14:52:15.794Z] Session [9fd276c0-9fa5-11e7-8006-5ba1854f2f21] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T14:52:15.794Z] Session [9fd276c0-9fa5-11e7-8006-5ba1854f2f21] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T14:52:15.795Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 9fd276c0-9fa5-11e7-8006-5ba1854f2f21
+[ERROR - 2017-09-22T14:52:17.755Z] Session [9fd276c0-9fa5-11e7-8006-5ba1854f2f21] - page.onError - msg: Error: [ng:areq] Argument 'trainerAssessController' is not a function, got undefined
+http://errors.angularjs.org/1.5.7/ng/areq?p0=trainerAssessController&p1=not%20a%20function%2C%20got%20undefined
+assertArg@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1885:91
+assertArgFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1895:12
+$controller@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:10210:20
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4128:39
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4008:19
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4138:13
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4005:21
+$broadcast@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17767:33
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:3369:32
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestLoaded@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11836:24 <ui-view class="ng-scope">
+[ERROR - 2017-09-22T14:52:17.756Z] Session [9fd276c0-9fa5-11e7-8006-5ba1854f2f21] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[INFO  - 2017-09-22T14:52:47.861Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T14:54:29.609Z] GhostDriver - Main - running on port 28148
+[INFO  - 2017-09-22T14:54:29.929Z] Session [efc5d730-9fa5-11e7-b845-c7e6c6d5cecb] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T14:54:29.929Z] Session [efc5d730-9fa5-11e7-b845-c7e6c6d5cecb] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T14:54:29.929Z] Session [efc5d730-9fa5-11e7-b845-c7e6c6d5cecb] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T14:54:29.930Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: efc5d730-9fa5-11e7-b845-c7e6c6d5cecb
+[ERROR - 2017-09-22T14:54:32.577Z] Session [efc5d730-9fa5-11e7-b845-c7e6c6d5cecb] - page.onError - msg: Error: [ng:areq] Argument 'trainerAssessController' is not a function, got undefined
+http://errors.angularjs.org/1.5.7/ng/areq?p0=trainerAssessController&p1=not%20a%20function%2C%20got%20undefined
+assertArg@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1885:91
+assertArgFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1895:12
+$controller@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:10210:20
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4128:39
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4008:19
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4138:13
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4005:21
+$broadcast@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17767:33
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:3369:32
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestLoaded@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11836:24 <ui-view class="ng-scope">
+[ERROR - 2017-09-22T14:54:32.578Z] Session [efc5d730-9fa5-11e7-b845-c7e6c6d5cecb] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T14:55:02.638Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1506092102614
+[INFO  - 2017-09-22T14:55:02.817Z] ShutdownReqHand - _handle - About to shutdown
+oseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T14:54:58.559Z] Session [00d695a0-9fa6-11e7-9c12-d58a48a0c181] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T14:54:58.559Z] Session [00d695a0-9fa6-11e7-9c12-d58a48a0c181] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T14:54:58.559Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 00d695a0-9fa6-11e7-9c12-d58a48a0c181
+[ERROR - 2017-09-22T14:55:08.827Z] Session [00d695a0-9fa6-11e7-9c12-d58a48a0c181] - page.onError - msg: Error: [ng:areq] Argument 'trainerAssessController' is not a function, got undefined
+http://errors.angularjs.org/1.5.7/ng/areq?p0=trainerAssessController&p1=not%20a%20function%2C%20got%20undefined
+assertArg@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1885:91
+assertArgFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1895:12
+$controller@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:10210:20
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4128:39
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4008:19
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4138:13
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4005:21
+$broadcast@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17767:33
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:3369:32
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestLoaded@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11836:24 <ui-view class="ng-scope">
+[ERROR - 2017-09-22T14:55:08.828Z] Session [00d695a0-9fa6-11e7-9c12-d58a48a0c181] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T14:55:38.029Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1506092138012
+[INFO  - 2017-09-22T14:55:38.172Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T15:17:38.568Z] GhostDriver - Main - running on port 25064
+[INFO  - 2017-09-22T15:17:38.933Z] Session [2baf2f00-9fa9-11e7-8892-2bb3ff8af596] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T15:17:38.934Z] Session [2baf2f00-9fa9-11e7-8892-2bb3ff8af596] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T15:17:38.934Z] Session [2baf2f00-9fa9-11e7-8892-2bb3ff8af596] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T15:17:38.934Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 2baf2f00-9fa9-11e7-8892-2bb3ff8af596
+[ERROR - 2017-09-22T15:17:43.496Z] Session [2baf2f00-9fa9-11e7-8892-2bb3ff8af596] - page.onError - msg: Error: [ng:areq] Argument 'trainerAssessController' is not a function, got undefined
+http://errors.angularjs.org/1.5.7/ng/areq?p0=trainerAssessController&p1=not%20a%20function%2C%20got%20undefined
+assertArg@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1885:91
+assertArgFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1895:12
+$controller@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:10210:20
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4128:39
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4008:19
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4138:13
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4005:21
+$broadcast@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17767:33
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:3369:32
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestLoaded@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11836:24 <ui-view class="ng-scope">
+[ERROR - 2017-09-22T15:17:43.496Z] Session [2baf2f00-9fa9-11e7-8892-2bb3ff8af596] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T15:18:13.984Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1506093493975
+[INFO  - 2017-09-22T15:18:14.124Z] ShutdownReqHand - _handle - About to shutdown
+[INFO  - 2017-09-22T15:56:01.923Z] GhostDriver - Main - running on port 38969
+[INFO  - 2017-09-22T15:56:02.235Z] Session [888f2d60-9fae-11e7-959a-436b1019ac93] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-09-22T15:56:02.235Z] Session [888f2d60-9fae-11e7-959a-436b1019ac93] - page.customHeaders:  - {}
+[INFO  - 2017-09-22T15:56:02.236Z] Session [888f2d60-9fae-11e7-959a-436b1019ac93] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-09-22T15:56:02.236Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 888f2d60-9fae-11e7-959a-436b1019ac93
+[ERROR - 2017-09-22T15:56:05.958Z] Session [888f2d60-9fae-11e7-959a-436b1019ac93] - page.onError - msg: Error: [ng:areq] Argument 'trainerAssessController' is not a function, got undefined
+http://errors.angularjs.org/1.5.7/ng/areq?p0=trainerAssessController&p1=not%20a%20function%2C%20got%20undefined
+assertArg@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1885:91
+assertArgFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1895:12
+$controller@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:10210:20
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4128:39
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4008:19
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4138:13
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:1240:23
+invokeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9814:15
+nodeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:9215:23
+compositeLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8510:23
+publicLinkFn@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8390:45
+lazyCompilation@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:8728:30
+updateView@https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4056:34
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:4005:21
+$broadcast@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17767:33
+https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js:3369:32
+processQueue@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16170:30
+https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:16186:39
+$eval@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17444:28
+$digest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17257:36
+$apply@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:17552:31
+done@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11697:53
+completeRequest@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11903:15
+requestLoaded@https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:11836:24 <ui-view class="ng-scope">
+[ERROR - 2017-09-22T15:56:05.958Z] Session [888f2d60-9fae-11e7-959a-436b1019ac93] - page.onError - stack:
+  (anonymous function) (https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js:13708)
+[ERROR - 2017-09-22T15:56:35.720Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1506095795680
+[INFO  - 2017-09-22T15:56:35.880Z] ShutdownReqHand - _handle - About to shutdown

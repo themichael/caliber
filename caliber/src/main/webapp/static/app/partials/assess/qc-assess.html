@@ -5,21 +5,22 @@
 			<div class="col-md-12 col-lg-12 top10">
 				<!-- top ui dropdown for available years -->
 				<ul class="nav nav-tabs" ng-show="currentView">
-					<li role="button" class="dropdown"><a class="dropdown-toggle"
+					<li role="button" class="dropdown" ><a class="dropdown-toggle" id= "yearDropDownButton"
 						data-toggle="dropdown"> {{ selectedYear }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li ng-repeat="menuItem in years track by $index"><a
-								role="button" ng-click="selectYear($index); checkBatch();">{{menuItem}}</a></li>
+								role="button" id= "{{menuItem}}" ng-click="selectYear($index); checkBatch();">{{menuItem}}</a></li>
 						</ul></li>
 
 					<!-- top ui for viewing all assessments -->
 					<li role="button" class="dropdown" ng-if="currentBatch"><a
-						class="dropdown-toggle" data-toggle="dropdown"> {{
+						class="dropdown-toggle" id= "batchDropDown" data-toggle="dropdown"> {{
 							trainingNameDate }} <span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu">
 							<li ng-repeat="batch in batchesByYear track by $index"><a
-								role="button" ng-click="selectCurrentBatch($index)"> {{
+								role="button" id="{{batch.trainer.name}} - {{batch.startDate | date: 'shortDate'}}" 
+								ng-click="selectCurrentBatch($index)"> {{
 									batch.trainer.name }} - {{ batch.startDate | date:'shortDate' }} </a>
 						</ul></li>
 				</ul>
@@ -43,10 +44,10 @@
 				<ul class="nav nav-tabs">
 					<li role="button" class="{{showActiveWeek($index)}}"
 						ng-click="selectWeek($index)"
-						ng-repeat="week in weeks track by $index"><a>Week
+						ng-repeat="week in weeks track by $index"><a id= "week{{week}}">Week
 							{{week}}</a></li>
 					<li role="button" data-toggle="modal"
-						data-target="#confirmingweeks"><a><span
+						data-target="#confirmingweeks"><a id= "addWeekButton"><span
 							class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
 				</ul>
 			</div>
@@ -76,10 +77,11 @@
 						<tbody>
 							<!-- Displays a list of all trainees still active in the batch -->
 							<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-								<td>{{ trainee.name }}</td>
+								<td id= "trainee-{{$index}}">{{ trainee.name }}</td>
 								<!-- Icons: question mark in circle by default. 
 								  		Otherwise shows the status type (icons) -->
 								<td><button ng-hide="faces[$index].qcStatus"
+								 	id= "indvFeedback-questionButton-{{$index}}"
 									class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 									title="Click to update your feedback."
 									alt="Click to update your feedback."
@@ -89,6 +91,7 @@
 								</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
 										title="Excellent"
+										id= "indvFeedback-starButton-{{$index}}"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);"
 										ng-disabled="processingNote">
@@ -96,6 +99,7 @@
 									</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
 										title="Good"
+										id= "indvFeedback-goodButton-{{$index}}"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);"
 										ng-disabled="processingNote">
@@ -103,6 +107,7 @@
 									</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
 										title="Fair"
+										id= "indvFeedback-fairButton-{{$index}}"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);"
 										ng-disabled="processingNote">
@@ -110,6 +115,7 @@
 									</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
 										title="Poor"
+										id= "indvFeedback-poorButton-{{$index}}"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);"
 										ng-disabled="processingNote">
@@ -117,7 +123,7 @@
 									</button></td>
 								<!-- Notes on each trainee. Each time you edit it, it will save it when you leave textfield -->
 								<td class="col-sm-9 col-md-9 col-lg-9"><textarea
-										ng-model="noteOnTrainee($index).content" id="noteTextArea"
+										ng-model="noteOnTrainee($index).content" id="noteTextArea-{{$index}}"
 										class="form-control" placeholder="Note on {{trainee.name}}"
 										ng-blur="saveTraineeNote($index)" rows="3" cols="75"
 										maxlength="4000" ng-disabled="processingNote"></textarea></td>
@@ -131,22 +137,28 @@
 			<h4 class="text-center">Overall Feedback</h4>
 			<!-- Shows the status type (icons) -->
 			<button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
+				id= "good-QCButton"
 				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[1])"
 				ng-disabled="processingNote">
 				<i class="fa fa-smile-o fa-2x"
-					ng-class="{pick : qcBatchAssess === qcStatusTypes[1]}"></i>
+					ng-class="{pick : qcBatchAssess === qcStatusTypes[1]}"
+					></i>
 			</button>
 			<button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
+				id= "fair-QCButton"
 				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[2])"
 				ng-disabled="processingNote">
 				<i class="fa fa-meh-o fa-2x"
-					ng-class="{pick : qcBatchAssess === qcStatusTypes[2]}"></i>
+					ng-class="{pick : qcBatchAssess === qcStatusTypes[2]}"
+					></i>
 			</button>
 			<button class="hiddenButton col-lg-4 col-md-4 col-sm-4"
+				id= "poor-QCButton"
 				ng-click="pickOverallStatus(currentBatch, qcStatusTypes[3])"
 				ng-disabled="processingNote">
 				<i class="fa fa-frown-o fa-2x"
-					ng-class="{pick : qcBatchAssess === qcStatusTypes[3]}"></i>
+					ng-class="{pick : qcBatchAssess === qcStatusTypes[3]}"
+					></i>
 			</button>
 			<!-- Show the QC feedback notes. Clicking textfield, editing and overwriting it will 
 				trigger the ng-blur to save the data  -->
@@ -161,7 +173,8 @@
 					save it all in your stomach/database -->
 				<div class='save-button-wrapper'>
 					<a ng-click="saveQCandTrainee()" ng-show="showFloppy"
-						class='save-button fade-in'> <span
+						class='save-button fade-in'
+						id= "saveButton"> <span
 						class="fa fa-floppy-o fa-2x" aria-hidden="true"></span>Save
 					</a>
 					<!-- Events after clicking save button -->
