@@ -71,7 +71,3 @@ package com.revature.caliber.test.uat;
 //		throw new PendingException();
 //	}
 //}
-<<<<<<< HEAD
-=======
-
->>>>>>> ad7e721154d1be40369cdafb011a84f0e921e869

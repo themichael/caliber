@@ -8890,3 +8890,4 @@ FO  - 2017-09-22T20:40:17.020Z] Session [3dfe1950-9fd6-11e7-b77b-79b4e54ac4b3] -
 [INFO  - 2017-09-22T20:45:29.719Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2017-09-22T20:50:29.719Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2017-09-22T20:55:29.722Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2017-09-22T21:00:29.722Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
