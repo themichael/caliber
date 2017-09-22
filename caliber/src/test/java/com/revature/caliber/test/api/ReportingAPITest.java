@@ -4,7 +4,6 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.junit.Assert.assertEquals;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,7 +51,6 @@ public class ReportingAPITest extends AbstractAPITest{
 	private static String batchReports= "all/reports/batch/{batchId}/overall/radar-batch-overall";
 	private static String batchAverage = "all/assessments/average/{batchId}/{week}";
 	private static String batchAssessmentCategories = "all/assessments/categories/batch/{batchId}/week/{week}";
-
 	
 	/**
 	 * Tested Method:
@@ -62,15 +60,12 @@ public class ReportingAPITest extends AbstractAPITest{
 	 * 			to return something readable by the front end
 	 * 
 	 * */
-	
-
 	@Test
 	public void testGetBatchWeekPieChart() throws JsonProcessingException {
 		log.info("TESTING getBatchWeekPieChart");		
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/2200/week/1/pie")
 			.then().assertThat().statusCode(200);
-		
 	}
 	
 	/**
@@ -308,9 +303,7 @@ public class ReportingAPITest extends AbstractAPITest{
 		.then().assertThat().statusCode(200);
 	}
 
-	
 	//Tests if the returned JSON matches the expected values returned from a Map
-
 	@Test
 	public void testgetTraineeOverallLineChart(){
 		log.info("testgetTraineeOverallLineChart Test");
@@ -335,6 +328,7 @@ public class ReportingAPITest extends AbstractAPITest{
 			}
 		}
 	}
+	
 	/**
 	* This test takes a skill All, a training All, and the date. This date can be any date before this instance of time, and 1970.
 	* If the date doesn't match up i.e changing 2015 to 2016 the day and weekday would be off giving 83 ish.But because the Web app
@@ -349,7 +343,6 @@ public class ReportingAPITest extends AbstractAPITest{
 		.assertThat().statusCode(200);
 	}
 
-	
 	/**
 	  * Test method:
 	  * 	com.revature.caliber.controllers.ReportingController
@@ -369,4 +362,3 @@ public class ReportingAPITest extends AbstractAPITest{
 		.then().assertThat().statusCode(200);
 	}
 }
-
