@@ -152,23 +152,16 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 * "all grades"
 	 */
 	@Test
-	@Ignore
-	public void findAll() throws Exception{
+	public void findAll() {
 		
-		/*
-		 * exists
-		 * count
-		 * sample of valid data
-		 * ??? something else
-		 */
+		String findAll = "all/grades/assessment/3075";
 		
 		//mock
 		log.info("API Testing findAll at baseUrl  " + baseUrl);
 		//List<Grade> grades =
-		String expected = ""; 
-		given().header("Authorization",accessToken).contentType(ContentType.JSON)
-		.when().get("baseUrl"+findAll).then().assertThat().statusCode(200)
-		.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
+		given().spec(requestSpec).header("Authorization",accessToken).contentType(ContentType.JSON)
+		.when().get(baseUrl+findAll).then().assertThat().statusCode(200)
+		.body("get(0).gradeId", equalTo(2908));
 	}
 	/*Author DanJ
 	 * From evaluationController "returns grades for all trainees that took a particular assignment.
