@@ -148,8 +148,9 @@ public class ManageBatchPage{
 	 * @param name
 	 */
 	public void editName(String name){
-		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input")).clear();
-		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input")).sendKeys(name);
+		WebElement fullName = driver.findElement(By.id("traineeName"));
+		fullName.clear();
+		fullName.sendKeys(name);
 	}
 	
 	/**
@@ -159,7 +160,7 @@ public class ManageBatchPage{
 	 * @param email
 	 */
 	public void editEmailField(String email){
-		WebElement emailField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input"));
+		WebElement emailField = driver.findElement(By.id("traineeEmail"));
 		emailField.clear();
 		emailField.sendKeys(email);
 	}
@@ -169,7 +170,7 @@ public class ManageBatchPage{
 	 * @param skypeID
 	 */
 	public void editSkypeIDField(String skypeID){
-		WebElement skypeIDField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > input"));
+		WebElement skypeIDField = driver.findElement(By.id("traineeSkype"));
 		skypeIDField.clear();
 		skypeIDField.sendKeys(skypeID);
 	}
@@ -179,7 +180,7 @@ public class ManageBatchPage{
 	 * @param phoneNumber
 	 */
 	public void editPhoneField(String phoneNumber){
-		WebElement phoneField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > input"));
+		WebElement phoneField = driver.findElement(By.id("traineePhone"));
 		phoneField.clear();
 		phoneField.sendKeys(phoneNumber);
 	}
@@ -189,7 +190,7 @@ public class ManageBatchPage{
 	 * @param college
 	 */
 	public void editCollegeField(String college){
-		WebElement collegeField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > input"));
+		WebElement collegeField = driver.findElement(By.id("traineeCollege"));
 		collegeField.clear();
 		collegeField.sendKeys(college);
 	}
@@ -199,7 +200,7 @@ public class ManageBatchPage{
 	 * @param degree
 	 */
 	public void editDegreeField(String degree){
-		WebElement degreeField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(3) > div:nth-child(2) > input"));
+		WebElement degreeField = driver.findElement(By.id("traineeDegree"));
 		degreeField.clear();
 		degreeField.sendKeys(degree);
 	}
@@ -383,7 +384,6 @@ public class ManageBatchPage{
 		driver.switchTo().activeElement();
 		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li.dropdown.open > ul > li:nth-child(" + index + ") > a")).click();
 		String yearActual = driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li.dropdown > a > label")).getAttribute("id").toString();
-		System.out.println(yearActual);
 		assertEquals(yearActual, year);
 	}
 	
