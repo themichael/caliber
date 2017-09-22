@@ -76,7 +76,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		expected.setTrainerId(1);
 		log.info("API Testing findTrainerByEmail at baseUrl  " + baseUrl);
 		given().header("Authorization", accessToken).contentType(ContentType.JSON).when().get(baseUrl + findByEmail)
-				.then().assertThat().statusCode(200)
+				.then().assertThat().statusCode(200);
 		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + findByEmail).then().assertThat().statusCode(200)
