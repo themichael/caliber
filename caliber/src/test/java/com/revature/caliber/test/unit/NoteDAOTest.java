@@ -26,7 +26,7 @@ import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
 
 public class NoteDAOTest extends CaliberTest {
-	
+
 	private static final Logger log = Logger.getLogger(NoteDAOTest.class);
 
 	private static final int testTraineeId = 5529;
@@ -225,6 +225,7 @@ public class NoteDAOTest extends CaliberTest {
 	@Test	
 	public void findAllQCTraineeNotes(){
 		log.trace("GETTING ALL QC TRAINEE NOTES");
+		
 		// find all QC trainee notes for week 7
 		List<Note> notes = noteDao.findAllQCTraineeNotes(testQCBatchId, 7);
 		
@@ -245,6 +246,7 @@ public class NoteDAOTest extends CaliberTest {
 	@Test	
 	public void findAllQCTraineeOverallNotes(){
 		log.trace("GETTING ALL QC TRAINEE OVERALL NOTES");
+
 		// get all QC trainee overall notes
 		List<Note> notes = noteDao.findAllQCTraineeOverallNotes(testQCTraineeId);
 		

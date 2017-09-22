@@ -1,4 +1,4 @@
-package com.revature.caliber.test.unit;
+package com.revature.caliber.test.integration;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,8 +18,8 @@ import com.revature.caliber.services.EvaluationService;
 
 public class EvaluationServiceTest extends CaliberTest{
 
-	private static final int TEST_BATCH_ID = 2150;
-	private static final int TEST_ASSESSMENT_WEEK = 7;
+	private static final int testBatchId = 2150;
+	private static final int testAssessmentWeek = 7;
 
 	private static final Logger log = Logger.getLogger(EvaluationServiceTest.class);
 	
@@ -27,11 +27,6 @@ public class EvaluationServiceTest extends CaliberTest{
 	EvaluationService evaluationService;
 	@Autowired
 	BatchDAO batchDAO;
-	
-	
-	//////////////////////////////////////////////////////////////////////////////////////////////////
-	// EVALUATION SERVICE
-	//////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
 	 * Test methods:
@@ -41,12 +36,14 @@ public class EvaluationServiceTest extends CaliberTest{
 	 */
 	@Test
 	public void findGradesByWeek(){
+		log.trace("Test findGradesByWeek");
+		
 		//get test batch
-		Batch batch = batchDAO.findOne(TEST_BATCH_ID);
+		Batch batch = batchDAO.findOne(testBatchId);
 		
 		//get grades
 		Map<Integer,List<Grade>> grades = 
-				evaluationService.findGradesByWeek(batch.getBatchId(), TEST_ASSESSMENT_WEEK);
+				evaluationService.findGradesByWeek(batch.getBatchId(), testAssessmentWeek);
 		
 		//assert size of result as expected in test data
 		assertEquals(13, grades.size());
@@ -56,12 +53,20 @@ public class EvaluationServiceTest extends CaliberTest{
 		{
 		    List<Grade> weekGrades = entry.getValue();
 		    for(Grade grade: weekGrades){
-		    	assertEquals(TEST_ASSESSMENT_WEEK, grade.getAssessment().getWeek());
+		    	assertEquals(testAssessmentWeek, grade.getAssessment().getWeek());
 		    }
 		}
 	}
+	
+	/**
+	 * Test methods:
+	 * 
+	 * @see com.revature.caliber.services.EvaluationService#findIndividualNotes(Integer, Integer)
+	 */
 	@Test
 	public void findIndividualNotes(){
+		log.trace("Test findIndividualNotes");
+		
 		int batchId = 2050;
 		//find a batch by a known id
 		Batch batch = batchDAO.findOne(batchId);

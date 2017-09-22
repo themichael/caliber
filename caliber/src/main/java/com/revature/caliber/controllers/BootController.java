@@ -38,8 +38,9 @@ import com.revature.caliber.security.models.SalesforceUser;
 /**
  * The type Boot controller.
  */
+
 @Controller
-@SessionAttributes("token")
+@SessionAttributes("salestoken")
 public class BootController extends AbstractSalesforceSecurityHelper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
@@ -47,6 +48,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
 	private static final String DEBUG_USER_LOGIN = "patrick.walsh@revature.com";
+	private static final String index = "index";
 
 	/**
 	 * Instantiates a new Boot controller.
@@ -83,13 +85,13 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "index";
+			return index;
 		}
 		// get Salesforce token from cookie
 		try {
-			log.error("About to check for salesforce token");
+			log.debug("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-			model.asMap().clear();
+			//model.asMap().clear();
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
@@ -99,25 +101,11 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "index";
+			return index;
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
 			return "redirect:/";
 		}
-	}
-
-	/**
-	 * Makes a cookie with the user's role and redirects them to the home page
-	 * 
-	 * @param response
-	 * @param auth
-	 * @return
-	 */
-	@RequestMapping(value = "/home")
-	public String sendHome(HttpServletResponse response, Authentication auth) {
-		SalesforceUser a = (SalesforceUser) auth.getPrincipal();
-		response.addCookie(new Cookie("role", a.getRole()));
-		return "index";
 	}
 
 	/**
@@ -127,13 +115,13 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	private SalesforceToken getSalesforceToken(String token) throws IOException {
-		log.error("Checking for the salesforce token");
-		if (token != null) {
-			log.error("Parse salesforce token from forwarded request: " + token);
-			return new ObjectMapper().readValue(token, SalesforceToken.class);
+	private SalesforceToken getSalesforceToken(String salestoken) throws IOException {
+		log.debug("Checking for the salesforce token");
+		if (salestoken != null) {
+			log.error("Parse salesforce token from forwarded request: " + salestoken);
+			return new ObjectMapper().readValue(salestoken, SalesforceToken.class);
 		}
-		log.error("failed to parse token from forwarded request: ");
+		log.debug("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
 
