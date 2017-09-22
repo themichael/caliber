@@ -40,7 +40,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 	 * Salesforce access token to be used in Authorization HTTP header
 	 */
 	protected static String accessToken = "Auth ";
-	protected static final String authHeader = "Authorization";
+	protected static final String auth = "Authorization";
 	protected static String jsessionid;
 	protected static RequestSpecification requestSpec;
 
