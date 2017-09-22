@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Address;
-import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
@@ -65,10 +64,9 @@ public class TrainingAPITest extends AbstractAPITest {
 
 	private Address cherryStreetAddress = new Address(1, "299 CherryStreet", "FruityCity", "FL", "55555", "Revature",
 			true);
-	private String createBatch = "all/batch/create";
+	private String createAllBatch = "all/batch/create";
 	
 	private Address newYorkAddress = new Address(1, "65-30 Kissena Blvd, CEP Hall 2", "Queens", "NY", "11367","Tech Incubator at Queens College", true);
-	private String createBatch = "vp/batch/create";
 	private String deleteBatch = "all/batch/delete/{id}";
 	private String findAllBatchesByTrainer = "trainer/batch/all";
 	private String createWeek = "trainer/week/new/{batchId}";
@@ -292,12 +290,12 @@ public class TrainingAPITest extends AbstractAPITest {
 		Batch expected = new Batch("Create Controller TrainingAPI Test", expectedTrainer,
 				java.sql.Date.valueOf(LocalDate.now().toString()), java.sql.Date.valueOf(LocalDate.now().toString()),
 				"Some Location");
-		log.info("API Testing createBatch at " + baseUrl + createBatch);
+		log.info("API Testing createBatch at " + baseUrl + createAllBatch);
 
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 				.body(new ObjectMapper().writeValueAsString(expected)).when()
 				// request to create a batch
-				.post(baseUrl + createBatch)
+				.post(baseUrl + createAllBatch)
 				// assertions
 				.then().assertThat().statusCode(201);
 	}
