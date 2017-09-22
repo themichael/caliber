@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,7 +23,6 @@ public class PDFServiceTest extends CaliberTest{
 	 * Tests methods:
 	 * @see com.revature.caliber.services.PDFService#generatePDF(String, String)
 	 */
-	@Ignore
 	@Test
 	public void go() {
 		try {
