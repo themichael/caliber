@@ -89,9 +89,6 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 		}
 		// get Salesforce token from cookie
 		try {
-			if (!model.containsAttribute("salestoken")) {
-			    model.addAttribute("salestoken", salesTokenString);
-			}
 			log.debug("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
 			model.asMap().clear();
