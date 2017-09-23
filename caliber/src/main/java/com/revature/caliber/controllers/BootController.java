@@ -40,7 +40,7 @@ import com.revature.caliber.security.models.SalesforceUser;
  */
 
 @Controller
-@SessionAttributes("token")
+@SessionAttributes("salestoken")
 public class BootController extends AbstractSalesforceSecurityHelper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
@@ -115,11 +115,11 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	private SalesforceToken getSalesforceToken(String token) throws IOException {
+	private SalesforceToken getSalesforceToken(String salestoken) throws IOException {
 		log.debug("Checking for the salesforce token");
-		if (token != null) {
-			log.error("Parse salesforce token from forwarded request: " + token);
-			return new ObjectMapper().readValue(token, SalesforceToken.class);
+		if (salestoken != null) {
+			log.error("Parse salesforce token from forwarded request: " + salestoken);
+			return new ObjectMapper().readValue(salestoken, SalesforceToken.class);
 		}
 		log.debug("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
