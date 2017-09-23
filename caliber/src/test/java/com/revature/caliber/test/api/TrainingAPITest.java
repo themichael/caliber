@@ -54,11 +54,13 @@ public class TrainingAPITest extends AbstractAPITest {
 	private String findAllBatchesByTrainer = "trainer/batch/all";
 	private String createWeek = "trainer/week/new/{batchId}";
 	private String findCommonLocations = "all/locations";
+	private String leadTrainer = "Lead Trainer";
+	private String seniorTrainer = "Senior Trainer";
 
 	@Test
 	public void findByEmail() throws Exception {
 		
-		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
+		Trainer expected = new Trainer("Patrick Walsh", leadTrainer, "patrick.walsh@revature.com",
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
@@ -75,7 +77,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void createTrainer() throws Exception{
 		
-		Trainer expected = new Trainer("RolledBack", "Senior Trainer", "don.wels23hy@revature.com",
+		Trainer expected = new Trainer("RolledBack", seniorTrainer, "don.wels23hy@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		log.info("API Testing createTrainer at baseUrl  " + baseUrl + createTrainer);
 		given().spec(requestSpec).header(auth, accessToken)
@@ -92,7 +94,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void updateTrainer() throws Exception{
-		Trainer expected = new Trainer("Newwer Trainer", "Senior Trainer", "don.welshy@revature.com",
+		Trainer expected = new Trainer("Newwer Trainer", seniorTrainer, "don.welshy@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		expected.setTrainerId(3);
 		log.info("API Testing updateTrainer at baseUrl  " + baseUrl + updateTrainer);
@@ -108,7 +110,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void makeInactive() throws Exception{
-		Trainer expected = new Trainer("Dan Pickles", "Lead Trainer", "pjw6193@hotmail.com",
+		Trainer expected = new Trainer("Dan Pickles", leadTrainer, "pjw6193@hotmail.com",
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(2);
 		log.info("API Testing makeInactiv at baseUrl  " + baseUrl + makeInactive);
@@ -128,9 +130,9 @@ public class TrainingAPITest extends AbstractAPITest {
 		Response titles = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainersTitles).then().assertThat()
 				.statusCode(200).extract().response();
-		assertTrue("Test titles", titles.asString().contains("Senior Trainer")
+		assertTrue("Test titles", titles.asString().contains(seniorTrainer)
 				& titles.asString().contains("Senior Technical Manager")
-				& titles.asString().contains("Lead Trainer")
+				& titles.asString().contains(leadTrainer)
 				& titles.asString().contains("Trainer")
 				& titles.asString().contains("Technology Manager"));
 	}
@@ -146,7 +148,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Trainer[] trainers = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainers).then().assertThat()
 				.statusCode(200).extract().response().as(Trainer[].class);
-		assertTrue("Test that some trainers exist", trainers[0].getName().equals("Patrick Walsh"));
+		assertTrue("Test that some trainers exist", "Patrick Walsh".equals(trainers[0].getName()));
 		log.info(" SOME STUFF" + trainers.length + " " + trainers[1].getName());
 		
 	}
@@ -162,7 +164,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void createBatch() throws Exception {
 		
-		Trainer expectedTrainer = new Trainer("Dan Pickles", "Senior Trainer", "dan.pickles@gmail.com", TrainerRole.ROLE_TRAINER);
+		Trainer expectedTrainer = new Trainer("Dan Pickles", seniorTrainer, "dan.pickles@gmail.com", TrainerRole.ROLE_TRAINER);
 		Batch expected = new Batch("Create Controller TrainingAPI Test", expectedTrainer, java.sql.Date.valueOf(LocalDate.now().toString()), java.sql.Date.valueOf(LocalDate.now().toString()), "Some Location" );
 		log.info("API Testing createBatch at " + baseUrl + createBatch);
 		

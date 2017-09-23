@@ -48,6 +48,9 @@ public class ReportingServiceTest extends CaliberTest {
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
 	private static List<Trainee> trainees;
 	private ReportingService reportingService;
+	private static String email = "email@email.com";
+	private static String title = "A title:";
+	private static String checkSample = "Check sample values";
 	
 	private static final int TEST_BATCH_ID = 2150;
 	private static final int TEST_BATCH_ID2 = 2200;
@@ -89,12 +92,12 @@ public class ReportingServiceTest extends CaliberTest {
 		Batch batch = new Batch();
 		batch.setWeeks(5);
 		for (int i = 1; i < 4; i++) {
-			Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch);
+			Trainee trainee = new Trainee("Trainee" + i, "java", email, batch);
 			trainee.setTraineeId(i);
 			Set<Grade> grades = new HashSet<>();
 			for (int j = 1; j < 6; j++) {
-				Assessment assess1 = new Assessment("A title:" + j, batch, 100, AssessmentType.Exam, j, new Category());
-				Assessment assess2 = new Assessment("Another title:" + j, batch, 100, AssessmentType.Exam, j,
+				Assessment assess1 = new Assessment(title + j, batch, 100, AssessmentType.Exam, j, new Category());
+				Assessment assess2 = new Assessment(title + j, batch, 100, AssessmentType.Exam, j,
 						new Category());
 				grades.add(new Grade(assess1, trainee, new Date(), j * 10 + (i - 1) * 10));
 				grades.add(new Grade(assess2, trainee, new Date(), 50));
@@ -516,9 +519,9 @@ public class ReportingServiceTest extends CaliberTest {
 	public void getBatchWeekAvgBarChartTest() {
 		log.info("Testing getBatchWeekAvgBarChartTest");
 		Map <String, Double[]> weekAvgBarChart = reportingService.getBatchWeekAvgBarChart(2201, 5);
-		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Project")[0]- 88.75) < 0.001);
-		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Exam")[0]- 76.109375) < 0.001);
-		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Verbal")[0]- 74.375) < 0.001);
+		assertTrue(checkSample, (Double) Math.abs(weekAvgBarChart.get("Project")[0]- 88.75) < 0.001);
+		assertTrue(checkSample, (Double) Math.abs(weekAvgBarChart.get("Exam")[0]- 76.109375) < 0.001);
+		assertTrue(checkSample, (Double) Math.abs(weekAvgBarChart.get("Verbal")[0]- 74.375) < 0.001);
 	}
 	
 	/**
@@ -530,8 +533,8 @@ public class ReportingServiceTest extends CaliberTest {
 		
 		log.info("getBatchWeekSortedBarChartTest");
 		Map<String, Double> test =reportingService.getBatchWeekSortedBarChart(2050, 2);
-		assertTrue("Check sample values", (Double) Math.abs(test.get("Fouche, Issac")- 96.29) < 0.001);
-		assertTrue("Check sample values", (Double) Math.abs(test.get("Castillo, Erika")- 89.63) < 0.001);
+		assertTrue(checkSample, (Double) Math.abs(test.get("Fouche, Issac")- 96.29) < 0.001);
+		assertTrue(checkSample, (Double) Math.abs(test.get("Castillo, Erika")- 89.63) < 0.001);
 		assertEquals(6, test.size());
 		
 	}
@@ -691,16 +694,16 @@ public class ReportingServiceTest extends CaliberTest {
 		int[] score2 = {100, 90, 90, 80};
 		
 		for(int i = 1; i < 2; i++){
-            Trainee trainee1 = new Trainee("Trainee1_" + i, "java", "email@email.com", b1);
-            Trainee trainee2 = new Trainee("Trainee2_" + i,".net","email@email.com",b2);
+            Trainee trainee1 = new Trainee("Trainee1_" + i, "java", email, b1);
+            Trainee trainee2 = new Trainee("Trainee2_" + i,".net", email, b2);
             trainee1.setTraineeId(i+100);
             trainee2.setTraineeId(i+200);
             
             Set<Grade> grades1 = new HashSet<>();
             Set<Grade> grades2 = new HashSet<>();
             for(int j = 1; j < 5; j++){
-                Assessment weekB1 = new Assessment("A title:" + j, b1, 100, AssessmentType.Exam, j, new Category());
-                Assessment weekB2 = new Assessment("A title:" + j, b2, 100, AssessmentType.Exam,j, new Category());
+                Assessment weekB1 = new Assessment(title + j, b1, 100, AssessmentType.Exam, j, new Category());
+                Assessment weekB2 = new Assessment(title + j, b2, 100, AssessmentType.Exam,j, new Category());
                 grades1.add(new Grade(weekB1, trainee1, new Date(), score1[j-1]));
                 grades2.add(new Grade(weekB2, trainee2, new Date(), score2[j-1]));
             }
@@ -731,7 +734,7 @@ public class ReportingServiceTest extends CaliberTest {
 		Batch batch = new Batch();
 		batch.setWeeks(7);
 		for (int i = 1; i < 4; i++) {
-			Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch);
+			Trainee trainee = new Trainee("Trainee" + i, "java", email, batch);
 			trainee.setTraineeId(i);
 			Set<Note> notes = new HashSet<>();
 			for (int j = 1; j < 8; j++) {

@@ -53,7 +53,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	NoteDAO noteDAO;
 	private static final Logger log = Logger.getLogger(EvaluationAPITest.class);
 
-	private static final int TEST_TRAINEE_Id = 5537;
+	private static final int TEST_TRAINEE_ID = 5537;
 	private static final int TEST_WEEK = 1;
 	
 	private static final String FIND_BY_TRAINEE = "all/grade/trainee/5529";
@@ -68,9 +68,9 @@ public class EvaluationAPITest extends AbstractAPITest{
 	private static final String FIND_ALL="vp/grade/all";
 	private static final String FIND_BY_ASSESSMENT = "all/grades/assessment/3075";
 	private static final String FIND_QCBATCH_NOTES = "qc/note/batch/2201/5";
-	private static final String GET_All_QCTRAINEE_NOTES ="qc/note/trainee/2201/5";
+	private static final String GET_ALL_QCTRAINEE_NOTES ="qc/note/trainee/2201/5";
 	private static final String FIND_ALL_BATCH_NOTES = "vp/note/batch/2100/2";
-	private static final String GET_ALL_QCTRAINEE_NOTES = "qc/note/trainee/5529";
+	private static final String GET_ALL_QCTRAINEE_OVERALL_NOTES = "qc/note/trainee/5529";
 	private static final String FIND_ALL_TRAINEE_NOTES = "all/notes/trainee/5529";
 	private static final String FIND_ALL_INDIVIDUAL_NOTES = "vp/note/trainee/5529/2";
 	private static final String FIND_BATCH_NOTES = "trainer/note/batch/2100/2";
@@ -87,7 +87,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		
 		// make an assessment to store the grade in
 		Category category = categoryDAO.findAllCategories().get(0);
-		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_Id);
+		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
 		Assessment assessment = new Assessment("Testing Test", trainee.getBatch(), 200, AssessmentType.Exam, TEST_WEEK, category);
 		assessmentDAO.save(assessment);
 		
@@ -113,7 +113,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API Testing updateGrade");
 		
 		//	get expected value as a grade
-		Grade expected = gradeDAO.findByTrainee(TEST_TRAINEE_Id).get(0);
+		Grade expected = gradeDAO.findByTrainee(TEST_TRAINEE_ID).get(0);
 		
 		// change grade
 		expected.setScore(55.55);
@@ -124,7 +124,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 			.when().post(baseUrl+UPDATE_GRADE)
 			.then().assertThat().statusCode(204);
 		
-		assertEquals(expected, gradeDAO.findByTrainee(TEST_TRAINEE_Id).get(0));
+		assertEquals(expected, gradeDAO.findByTrainee(TEST_TRAINEE_ID).get(0));
 	}
 	
 	/**
@@ -378,7 +378,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		notes = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when()
 			//request for get All QC Trainee Notes
-			.get(baseUrl + GET_All_QCTRAINEE_NOTES )
+			.get(baseUrl + GET_ALL_QCTRAINEE_NOTES )
 		.then().assertThat()
 			//assertions  to get all Trainee Notes
 			.statusCode(200)
@@ -401,7 +401,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		notes = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 			.when()
 				//request for get All QC TraineeOverall Notes 
-				.get(baseUrl + GET_ALL_QCTRAINEE_NOTES )
+				.get(baseUrl + GET_ALL_QCTRAINEE_OVERALL_NOTES )
 			.then().assertThat()
 				//assertions
 				.statusCode(200)
@@ -527,7 +527,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	public void findTraineeNote(){
 		given().spec(requestSpec).header(auth, accessToken) // authorization
 				.contentType(ContentType.JSON) // data expected
-			.when().get(baseUrl + FIND_TRAINEE_NOTE + TEST_TRAINEE_Id + "/for/" + TEST_WEEK)
+			.when().get(baseUrl + FIND_TRAINEE_NOTE + TEST_TRAINEE_ID + "/for/" + TEST_WEEK)
 			.then().assertThat()
 				.statusCode(200) // should return status of OK
 				// make sure note recieved is the one expected
@@ -544,7 +544,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	public void findQCTraineeNote(){
 		given().spec(requestSpec).header(auth, accessToken) // authorization
 			.contentType(ContentType.JSON) // data expected
-		.when().get(baseUrl + FIND_QCTRAINEE_NOTE + TEST_TRAINEE_Id + "/for/" + TEST_WEEK)
+		.when().get(baseUrl + FIND_QCTRAINEE_NOTE + TEST_TRAINEE_ID + "/for/" + TEST_WEEK)
 		.then().assertThat()
 			.statusCode(200) // should return status of OK
 			// make sure note recieved is the one expected
