@@ -129,11 +129,11 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	private SalesforceToken getSalesforceToken(String salestoken) throws IOException {
+	private SalesforceToken getSalesforceToken(String token) throws IOException {
 		log.debug("Checking for the salesforce token");
-		if (salestoken != null) {
-			log.error("Parse salesforce token from forwarded request: " + salestoken);
-			return new ObjectMapper().readValue(salestoken, SalesforceToken.class);
+		if (token != null) {
+			log.error("Parse salesforce token from forwarded request: " + token);
+			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
 		log.debug("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
