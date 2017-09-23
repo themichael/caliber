@@ -49,11 +49,11 @@ public class ReportingServiceTest extends CaliberTest {
 	private static List<Trainee> trainees;
 	private ReportingService reportingService;
 	
-	private static final int testBatchId = 2150;
-	private static final int testBatchId2 = 2200;
-	private static final int testAssessmentWeek = 6;
-	private static final int testTraineeId = 5460;
-	private static final double floatingNumberVariance = .01;
+	private static final int TEST_BATCH_ID = 2150;
+	private static final int TEST_BATCH_ID2 = 2200;
+	private static final int TEST_ASSESSMENT_WEEK = 6;
+	private static final int TEST_TRAINEE_ID = 5460;
+	private static final double FLOATING_NUMBER_VARIANCE = .01;
 	
 	@Autowired
 	public BatchDAO batchDAO;
@@ -784,13 +784,13 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals(7, batches.get(key).size());
 		
 		// check that each week grade averages are what is expected
-		assertEquals(68.34, batches.get(key).get(1), floatingNumberVariance);
-		assertEquals(84.96, batches.get(key).get(2), floatingNumberVariance);
-		assertEquals(76.83, batches.get(key).get(3), floatingNumberVariance);
-		assertEquals(75.09, batches.get(key).get(4), floatingNumberVariance);
-		assertEquals(77.94, batches.get(key).get(5), floatingNumberVariance);
-		assertEquals(82.80, batches.get(key).get(6), floatingNumberVariance);
-		assertEquals(74.27, batches.get(key).get(7), floatingNumberVariance);
+		assertEquals(68.34, batches.get(key).get(1), FLOATING_NUMBER_VARIANCE);
+		assertEquals(84.96, batches.get(key).get(2), FLOATING_NUMBER_VARIANCE);
+		assertEquals(76.83, batches.get(key).get(3), FLOATING_NUMBER_VARIANCE);
+		assertEquals(75.09, batches.get(key).get(4), FLOATING_NUMBER_VARIANCE);
+		assertEquals(77.94, batches.get(key).get(5), FLOATING_NUMBER_VARIANCE);
+		assertEquals(82.80, batches.get(key).get(6), FLOATING_NUMBER_VARIANCE);
+		assertEquals(74.27, batches.get(key).get(7), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -804,18 +804,18 @@ public class ReportingServiceTest extends CaliberTest {
 		log.trace("Testing getTraineeUpToWeekRadarChart");
 
 		// call service
-		Map<String, Double> traineeSkills = reportingService.getTraineeUpToWeekRadarChart(testTraineeId, testAssessmentWeek);
+		Map<String, Double> traineeSkills = reportingService.getTraineeUpToWeekRadarChart(TEST_TRAINEE_ID, TEST_ASSESSMENT_WEEK);
 		
 		// check that trainee has all expected skills
 		assertEquals(6, traineeSkills.size());
 		
 		// check that each expected skill is there and has expected average
-		assertEquals(82.92, traineeSkills.get("Hibernate"), floatingNumberVariance);
-		assertEquals(80.40, traineeSkills.get("JSP"), floatingNumberVariance);
-		assertEquals(67.79, traineeSkills.get("Java"), floatingNumberVariance);
-		assertEquals(93.10, traineeSkills.get("JavaScript"), floatingNumberVariance);
-		assertEquals(91.55, traineeSkills.get("SQL"), floatingNumberVariance);
-		assertEquals(79.20, traineeSkills.get("Spring"), floatingNumberVariance);
+		assertEquals(82.92, traineeSkills.get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get("Spring"), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -828,19 +828,19 @@ public class ReportingServiceTest extends CaliberTest {
 		log.trace("Testing getTraineeOverallRadarChart");
 
 		// call service
-		Map<String, Double> traineeSkills = reportingService.getTraineeOverallRadarChart(testTraineeId);
+		Map<String, Double> traineeSkills = reportingService.getTraineeOverallRadarChart(TEST_TRAINEE_ID);
 		
 		// check that trainee has all expected skills
 		assertEquals(7, traineeSkills.size());
 		
 		// check that each expected skill is there and has expected average
-		assertEquals(82.92, traineeSkills.get("Hibernate"), floatingNumberVariance);
-		assertEquals(80.40, traineeSkills.get("JSP"), floatingNumberVariance);
-		assertEquals(67.79, traineeSkills.get("Java"), floatingNumberVariance);
-		assertEquals(93.10, traineeSkills.get("JavaScript"), floatingNumberVariance);
-		assertEquals(91.55, traineeSkills.get("SQL"), floatingNumberVariance);
-		assertEquals(79.20, traineeSkills.get("Spring"), floatingNumberVariance);
-		assertEquals(83.60, traineeSkills.get("REST"), floatingNumberVariance);
+		assertEquals(82.92, traineeSkills.get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get("Spring"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(83.60, traineeSkills.get("REST"), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -859,14 +859,14 @@ public class ReportingServiceTest extends CaliberTest {
 		 */
 
 		// get chart data which should be a map of week and scores
-		Map<Integer, Double[]> averageGrades = reportingService.getTraineeUpToWeekLineChart(testBatchId, testAssessmentWeek, testTraineeId);
+		Map<Integer, Double[]> averageGrades = reportingService.getTraineeUpToWeekLineChart(TEST_BATCH_ID, TEST_ASSESSMENT_WEEK, TEST_TRAINEE_ID);
 
 		// size should be 6 for week 6
-		assertEquals(testAssessmentWeek, averageGrades.size());
+		assertEquals(TEST_ASSESSMENT_WEEK, averageGrades.size());
 
 		// equal to data from database
-		assertEquals(72.74, averageGrades.get(1)[0], floatingNumberVariance);
-		assertEquals(75.04, averageGrades.get(6)[0], floatingNumberVariance);
+		assertEquals(72.74, averageGrades.get(1)[0], FLOATING_NUMBER_VARIANCE);
+		assertEquals(75.04, averageGrades.get(6)[0], FLOATING_NUMBER_VARIANCE);
 
 		// week 7 should not exist
 		assertNull(averageGrades.get(7));
@@ -887,7 +887,7 @@ public class ReportingServiceTest extends CaliberTest {
 		 * double array for average with set size of 2 [0: trainee, 1: batch]
 		 */
 
-		Map<Integer, Double[]> overallGrades = reportingService.getTraineeOverallLineChart(testBatchId, testTraineeId);
+		Map<Integer, Double[]> overallGrades = reportingService.getTraineeOverallLineChart(TEST_BATCH_ID, TEST_TRAINEE_ID);
 
 		// batch had 7 weeks total
 		assertEquals(7, overallGrades.size());
@@ -911,15 +911,15 @@ public class ReportingServiceTest extends CaliberTest {
 	public void getBatchOverallRadarChart() {
 		log.trace("getBatchOverallRadarChart");
 		
-		Map<String, Double> skills = reportingService.getBatchOverallRadarChart(testBatchId);
+		Map<String, Double> skills = reportingService.getBatchOverallRadarChart(TEST_BATCH_ID);
 		assertEquals(7, skills.size());
-		assertEquals(76.70, skills.get("Java"), floatingNumberVariance);
-		assertEquals(89.74, skills.get("Hibernate"), floatingNumberVariance);
+		assertEquals(76.70, skills.get("Java"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(89.74, skills.get("Hibernate"), FLOATING_NUMBER_VARIANCE);
 
-		skills = reportingService.getBatchOverallRadarChart(testBatchId2);
+		skills = reportingService.getBatchOverallRadarChart(TEST_BATCH_ID2);
 		assertEquals(10, skills.size());
-		assertEquals(77.88, skills.get("JDBC"), floatingNumberVariance);
-		assertEquals(89.52, skills.get("Spring"), floatingNumberVariance);
+		assertEquals(77.88, skills.get("JDBC"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(89.52, skills.get("Spring"), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -935,19 +935,19 @@ public class ReportingServiceTest extends CaliberTest {
 		 * Method description: input: batchId output: map of week and scores
 		 */
 
-		Map<Integer, Double> map = reportingService.getBatchOverallLineChart(testBatchId);
+		Map<Integer, Double> map = reportingService.getBatchOverallLineChart(TEST_BATCH_ID);
 
 		// batch had 7 weeks total
 		assertEquals(7, map.size());
 
 		// grades are equal
-		assertEquals(map.get(1), 80.26, floatingNumberVariance);
-		assertEquals(map.get(2), 92.69, floatingNumberVariance);
-		assertEquals(map.get(3), 86.66, floatingNumberVariance);
-		assertEquals(map.get(4), 84.79, floatingNumberVariance);
-		assertEquals(map.get(5), 87.84, floatingNumberVariance);
-		assertEquals(map.get(6), 84.93, floatingNumberVariance);
-		assertEquals(map.get(7), 83.27, floatingNumberVariance);
+		assertEquals(map.get(1), 80.26, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(2), 92.69, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(3), 86.66, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(4), 84.79, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(5), 87.84, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(6), 84.93, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(7), 83.27, FLOATING_NUMBER_VARIANCE);
 
 		// week 8 should not exist
 		assertNull(map.get(8));
@@ -992,16 +992,16 @@ public class ReportingServiceTest extends CaliberTest {
 	public void getBatchAllTraineesOverallRadarChart() {
 		log.trace("getBatchAllTraineesOverallRadarChart");
 		
-		Map<String, Map<String, Double>> skills = reportingService.getBatchAllTraineesOverallRadarChart(testBatchId);
+		Map<String, Map<String, Double>> skills = reportingService.getBatchAllTraineesOverallRadarChart(TEST_BATCH_ID);
 		
 		assertEquals(13, skills.size());
-		assertEquals(91.55, skills.get("Erwin, Eric").get("SQL"), floatingNumberVariance);
-		assertEquals(84.16, skills.get("Michels, Alex").get("Hibernate"), floatingNumberVariance);
+		assertEquals(91.55, skills.get("Erwin, Eric").get("SQL"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(84.16, skills.get("Michels, Alex").get("Hibernate"), FLOATING_NUMBER_VARIANCE);
 
-		skills = reportingService.getBatchAllTraineesOverallRadarChart(testBatchId2);
+		skills = reportingService.getBatchAllTraineesOverallRadarChart(TEST_BATCH_ID2);
 		assertEquals(15, skills.size());
-		assertEquals(84.95, skills.get("Lau, Samuel").get("SOAP"), floatingNumberVariance);
-		assertEquals(78.17, skills.get("Sibrian, David").get("REST"), floatingNumberVariance);
+		assertEquals(84.95, skills.get("Lau, Samuel").get("SOAP"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(78.17, skills.get("Sibrian, David").get("REST"), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -1019,9 +1019,9 @@ public class ReportingServiceTest extends CaliberTest {
 		 * week 6 value
 		 */
 
-		Double avgBatchWeek6Value = new Double(reportingService.getAvgBatchWeekValue(testBatchId, testAssessmentWeek));
+		Double avgBatchWeek6Value = new Double(reportingService.getAvgBatchWeekValue(TEST_BATCH_ID, TEST_ASSESSMENT_WEEK));
 
-		assertEquals(avgBatchWeek6Value, 84.93, floatingNumberVariance);
+		assertEquals(avgBatchWeek6Value, 84.93, FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -1039,7 +1039,7 @@ public class ReportingServiceTest extends CaliberTest {
 		 * technologies
 		 */
 
-		Set<String> technologies = reportingService.getTechnologiesForTheWeek(testBatchId, testAssessmentWeek);
+		Set<String> technologies = reportingService.getTechnologiesForTheWeek(TEST_BATCH_ID, TEST_ASSESSMENT_WEEK);
 
 		// One technologies in the set
 		assertTrue(technologies.size() == 1);

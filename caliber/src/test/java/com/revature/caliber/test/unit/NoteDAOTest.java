@@ -29,10 +29,10 @@ public class NoteDAOTest extends CaliberTest {
 
 	private static final Logger log = Logger.getLogger(NoteDAOTest.class);
 
-	private static final int testTraineeId = 5529;
-	private static final int testBatchId = 2100;
-	private static final int testQCTraineeId = 5532;
-	private static final int testQCBatchId = 2201;
+	private static final int TEST_TRAINEE_ID = 5529;
+	private static final int TEST_BATCH_ID = 2100;
+	private static final int TEST_QCTRAINEE_ID = 5532;
+	private static final int TEST_QCBATCH_ID = 2201;
 	
 	@Autowired
 	private NoteDAO noteDao;
@@ -50,7 +50,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void findQCIndividualNote(){
 		log.trace("GETTING individual notes by Trainee");
 		//get trainee comparison
-		Trainee trainee = traineeDao.findOne(testTraineeId);
+		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
 		
 		// get notes
 		List<Note> notes = noteDao.findQCIndividualNotes(trainee.getTraineeId(), 2);
@@ -71,7 +71,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void findAllBatchNotes(){
 		log.trace("GETTING individual notes by Batch");
 		//get batch 
-		Batch batch = batchDao.findOne(testBatchId);
+		Batch batch = batchDao.findOne(TEST_BATCH_ID);
 		
 		// get batch notes
 		List<Note> notes = noteDao.findAllBatchNotes(batch.getBatchId(), 2);
@@ -91,7 +91,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void findAllIndividualNotes(){
 		log.trace("GETTING individual notes by Batch");
 		//get batch 
-		Trainee trainee = traineeDao.findOne(testTraineeId);
+		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
 		
 		// get individual notes
 		List<Note> notes = noteDao.findAllIndividualNotes(trainee.getTraineeId(), 2);
@@ -112,7 +112,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void findAllPublicIndividualNotes(){
 		log.trace("GETTING all public individual notes by Trainee ID");
 		//get batch 
-		Trainee trainee = traineeDao.findOne(testTraineeId);
+		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
 		
 		// get public individual notes
 		List<Note> notes = noteDao.findAllPublicIndividualNotes(trainee.getTraineeId());
@@ -137,13 +137,13 @@ public class NoteDAOTest extends CaliberTest {
 		final String content = "Good communication. Not as confident and less use of technical terms";
 		
 		// find trainee note
-		Note actual = noteDao.findTraineeNote(testTraineeId, weekNum);
+		Note actual = noteDao.findTraineeNote(TEST_TRAINEE_ID, weekNum);
 
 		// compare with expected
 		assertFalse(actual.isQcFeedback());
 		assertEquals(content, actual.getContent());
 		assertEquals(weekNum, actual.getWeek());
-		assertEquals(testTraineeId, actual.getTrainee().getTraineeId());
+		assertEquals(TEST_TRAINEE_ID, actual.getTrainee().getTraineeId());
 	}
 	
 	/**
@@ -157,13 +157,13 @@ public class NoteDAOTest extends CaliberTest {
 		final QCStatus status = QCStatus.Good;
 		
 		// find QC trainee note
-		Note actual = noteDao.findQCTraineeNote(testQCTraineeId, weekNum);
+		Note actual = noteDao.findQCTraineeNote(TEST_QCTRAINEE_ID, weekNum);
 
 		// compare with expected
 		assertTrue(actual.isQcFeedback());
 		assertEquals(status, actual.getQcStatus());
 		assertEquals(weekNum, actual.getWeek());
-		assertEquals(testQCTraineeId, actual.getTrainee().getTraineeId());
+		assertEquals(TEST_QCTRAINEE_ID, actual.getTrainee().getTraineeId());
 	}
 	
 	/**
@@ -176,10 +176,10 @@ public class NoteDAOTest extends CaliberTest {
 		final int week = 5;
 		
 		// find QC batch notes
-		Note actual = noteDao.findQCBatchNotes(testQCBatchId, week);
+		Note actual = noteDao.findQCBatchNotes(TEST_QCBATCH_ID, week);
 		
 		// compare with expected
-		assertEquals(testQCBatchId, actual.getBatch().getBatchId());
+		assertEquals(TEST_QCBATCH_ID, actual.getBatch().getBatchId());
 		assertEquals(week, actual.getWeek());
 	}
 	
@@ -192,7 +192,7 @@ public class NoteDAOTest extends CaliberTest {
 		log.trace("Testing findAllBatchQcNotes");
 		
 		// get all QC batch notes
-		List<Note> actual = noteDao.findAllBatchQcNotes(testQCBatchId);
+		List<Note> actual = noteDao.findAllBatchQcNotes(TEST_QCBATCH_ID);
 		
 		// compare with expected size
 		assertEquals(7, actual.size());
@@ -207,10 +207,10 @@ public class NoteDAOTest extends CaliberTest {
 		log.trace("GETTING ALL QC BATCH NOTES");
 		
 		// find all QC batch notes
-		List<Note> notes = noteDao.findAllQCBatchNotes(testQCBatchId);
+		List<Note> notes = noteDao.findAllQCBatchNotes(TEST_QCBATCH_ID);
 		
 		// compare with expected
-		List<Integer> expected = new ArrayList<Integer>();
+		List<Integer> expected = new ArrayList<>();
 		Collections.addAll(expected, 6369,6390,6391,6420,6438,6457,6470);
 		assertEquals(expected.size(), notes.size()); // same size
 		for(int j = 0; j < expected.size(); j++){
@@ -227,10 +227,10 @@ public class NoteDAOTest extends CaliberTest {
 		log.trace("GETTING ALL QC TRAINEE NOTES");
 		
 		// find all QC trainee notes for week 7
-		List<Note> notes = noteDao.findAllQCTraineeNotes(testQCBatchId, 7);
+		List<Note> notes = noteDao.findAllQCTraineeNotes(TEST_QCBATCH_ID, 7);
 		
 		// compare with expected
-		List<Integer> expected = new ArrayList<Integer>();
+		List<Integer> expected = new ArrayList<>();
 		Collections.addAll(expected, 6459,6460,6461,6462,6463,6464,6465,6466,6467,6468,6469,6471,6472,6473,6474,6475);
 		assertEquals(expected.size(), notes.size()); // same size
 		for(int j = 0; j < expected.size(); j++){
@@ -248,10 +248,10 @@ public class NoteDAOTest extends CaliberTest {
 		log.trace("GETTING ALL QC TRAINEE OVERALL NOTES");
 
 		// get all QC trainee overall notes
-		List<Note> notes = noteDao.findAllQCTraineeOverallNotes(testQCTraineeId);
+		List<Note> notes = noteDao.findAllQCTraineeOverallNotes(TEST_QCTRAINEE_ID);
 		
 		// compare with expected
-		List<Integer> expected = new ArrayList<Integer>();
+		List<Integer> expected = new ArrayList<>();
 		Collections.addAll(expected, 6353,6392,6421,6385,6416,6417,6471,6476);
 		assertEquals(expected.size(), notes.size()); // same size
 		for(int j = 0; j < expected.size(); j++){
@@ -268,7 +268,7 @@ public class NoteDAOTest extends CaliberTest {
 		log.trace("Tesing Save Note");
 
 		// find batch and trainee to associate with note
-		final Batch batch = batchDao.findOne(testQCBatchId);
+		final Batch batch = batchDao.findOne(TEST_QCBATCH_ID);
 		final Trainee trainee = traineeDao.findAll().get(0);
 
 		// create a new note
@@ -296,10 +296,10 @@ public class NoteDAOTest extends CaliberTest {
 		log.trace("Testing updating note");
 
 		// get the list of individual notes for week 2
-		List<Note> notes = noteDao.findIndividualNotes(testQCBatchId, 2);
+		List<Note> notes = noteDao.findIndividualNotes(TEST_QCBATCH_ID, 2);
 
 		// testing the list size;
-		assertTrue(notes.size() > 0);
+		assertTrue(!notes.isEmpty());
 
 		Note note = notes.get(1);
 
@@ -312,7 +312,7 @@ public class NoteDAOTest extends CaliberTest {
 		noteDao.update(note);
 
 		// Old Content should not equal new Content if updated
-		notes = noteDao.findIndividualNotes(testQCBatchId, 2);
+		notes = noteDao.findIndividualNotes(TEST_QCBATCH_ID, 2);
 		String newContentSet = notes.get(1).getContent();
 		assertNotEquals(oldContent, newContentSet);
 	}
@@ -326,10 +326,10 @@ public class NoteDAOTest extends CaliberTest {
 		log.trace("Finding Batch Notes");
 
 		// get the list of batch notes for week 2
-		List<Note> batchNotes = noteDao.findBatchNotes(testBatchId, 2);
+		List<Note> batchNotes = noteDao.findBatchNotes(TEST_BATCH_ID, 2);
 
 		// only 1 batch note
-		assertEquals(1, batchNotes.size());
+		assertTrue(!batchNotes.isEmpty());
 	}
 
 	/**
@@ -341,7 +341,7 @@ public class NoteDAOTest extends CaliberTest {
 		log.trace("Finding Individual Notes");
 
 		// get the list of individual notes for week 2
-		List<Note> notes = noteDao.findIndividualNotes(testQCBatchId, 2);
+		List<Note> notes = noteDao.findIndividualNotes(TEST_QCBATCH_ID, 2);
 
 		// check if the individual notes size is equal to 16
 		assertEquals(16, notes.size());

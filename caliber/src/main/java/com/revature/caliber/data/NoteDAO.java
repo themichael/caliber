@@ -38,7 +38,6 @@ public class NoteDAO {
 	private static final String TRAINEE = "trainee";
 	private static final String T_TRAINEE_ID = "t.traineeId";
 	private static final String QC_FEEDBACK = "qcFeedback";
-	private static final String QC_STATUS = "qcStatus";
 	private static final int MONTHS_BACK = -1;
 	private static final String START_DATE = "startDate";
 	private static final String END_DATE = "endDate";

@@ -48,7 +48,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
 	private static final String DEBUG_USER_LOGIN = "patrick.walsh@revature.com";
-	private static final String index = "index";
+	private static final String INDEX = "index";
 
 	/**
 	 * Instantiates a new Boot controller.
@@ -85,7 +85,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return index;
+			return INDEX;
 		}
 		// get Salesforce token from cookie
 		try {
@@ -101,7 +101,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return index;
+			return INDEX;
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
 			return "redirect:/";
@@ -119,7 +119,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	public String sendHome(HttpServletResponse response, Authentication auth) {
 		SalesforceUser a = (SalesforceUser) auth.getPrincipal();
 		response.addCookie(new Cookie("role", a.getRole()));
-		return index;
+		return INDEX;
 	}
 
 	/**
