@@ -298,7 +298,6 @@ public class NoteDAOTest extends CaliberTest {
 		// get the list of individual notes for week 2
 		List<Note> notes = noteDao.findIndividualNotes(TEST_QCBATCH_ID, 2);
 
-		// testing the list size;
 		assertTrue(!notes.isEmpty());
 
 		Note note = notes.get(1);

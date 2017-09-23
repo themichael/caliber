@@ -52,6 +52,7 @@ public class ReportingServiceTest extends CaliberTest {
 	private static String title = "A title:";
 	private static String checkSample = "Check sample values";
 	
+	
 	private static final int TEST_BATCH_ID = 2150;
 	private static final int TEST_BATCH_ID2 = 2200;
 	private static final int TEST_ASSESSMENT_WEEK = 6;
@@ -675,6 +676,8 @@ public class ReportingServiceTest extends CaliberTest {
 	 * @return
 	 */
 	private static List<Batch> batchComparisonInit(){
+		
+		String revatureTraining = "Revature";
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, 1, 1);
 		Calendar start = Calendar.getInstance();
@@ -682,8 +685,8 @@ public class ReportingServiceTest extends CaliberTest {
 		Calendar end = Calendar.getInstance();
 		end.set(Calendar.YEAR, 4, 1);
 		
-		Batch b1 = new Batch("1808-Java",new Trainer(),start.getTime(), end.getTime(), "Revature");
-		Batch b2 = new Batch("1909-Java",new Trainer(), start.getTime(), end.getTime(), "Revature");
+		Batch b1 = new Batch("1808-Java",new Trainer(),start.getTime(), end.getTime(), revatureTraining);
+		Batch b2 = new Batch("1909-Java",new Trainer(), start.getTime(), end.getTime(), revatureTraining);
 		b1.setWeeks(4);
 		b2.setWeeks(4);
 		
