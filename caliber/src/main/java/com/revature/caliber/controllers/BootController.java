@@ -40,7 +40,7 @@ import com.revature.caliber.security.models.SalesforceUser;
  */
 
 @Controller
-@SessionAttributes("salestoken")
+@SessionAttributes("token")
 public class BootController extends AbstractSalesforceSecurityHelper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
