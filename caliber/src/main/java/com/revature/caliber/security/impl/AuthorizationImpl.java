@@ -61,7 +61,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		if (debug) {
 			return new ModelAndView(REDIRECT + redirectUrl);
 		}
-		log.debug("redirecting to salesforce authorization");
+		log.error("redirecting to salesforce authorization");
 		return new ModelAndView(REDIRECT + loginURL + authURL + "?response_type=code&client_id=" + clientId
 				+ "&redirect_uri=" + redirectUri);
 	}
@@ -74,7 +74,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
                                                 RedirectAttributes redirectAttributes) throws IOException {
-		log.debug("in authenticated method");
+		log.error("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
 		List<NameValuePair> parameters = new ArrayList<>();
@@ -84,7 +84,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		parameters.add(new BasicNameValuePair("redirect_uri", redirectUri));
 		parameters.add(new BasicNameValuePair("code", code));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
-		log.debug("Generating Salesforce token");
+		log.error("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
 		redirectAttributes.addFlashAttribute("salestoken",toJsonString(response.getEntity().getContent()));
 		log.error("Redirecting to : " + REDIRECT + redirectUrl);
@@ -122,7 +122,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	}
 
 	private void revokeToken(String token) throws ClientProtocolException, IOException {
-		log.debug("POST " + loginURL + revokeUrl);
+		log.info("POST " + loginURL + revokeUrl);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + revokeUrl);
 		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -130,7 +130,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		parameters.add(new BasicNameValuePair("token", token));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-		log.debug("Revoke token : " + response.getStatusLine().getStatusCode() + " "
+		log.info("Revoke token : " + response.getStatusLine().getStatusCode() + " "
 				+ response.getStatusLine().getReasonPhrase());
 	}
 
