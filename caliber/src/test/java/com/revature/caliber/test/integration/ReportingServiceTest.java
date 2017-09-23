@@ -214,12 +214,6 @@ public class ReportingServiceTest extends CaliberTest {
 		}
 	}
 
-	
-	// BatchDAO is only autowired here to get one batch from the database and
-	// use it's id number.
-	@Autowired
-	public BatchDAO batchDao;
-
 
 
 	@Test
@@ -651,7 +645,7 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void getBatchWeekQcOverallBarChart() {
 		
-		Batch batch = batchDao.findAll().get(1);
+		Batch batch = batchDAO.findAll().get(1);
 		int batchId = batch.getBatchId();
 		int weekNumber = 5;
 		
@@ -807,6 +801,9 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void testGetTraineeUpToWeekRadarChart() {
+		
+		final String spring = "Spring";
+		final String hibernate = "Hibernate";
 		log.trace("Testing getTraineeUpToWeekRadarChart");
 
 		// call service
@@ -816,12 +813,12 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals(6, traineeSkills.size());
 		
 		// check that each expected skill is there and has expected average
-		assertEquals(82.92, traineeSkills.get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(82.92, traineeSkills.get(hibernate), FLOATING_NUMBER_VARIANCE);
 		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(79.20, traineeSkills.get("Spring"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get(spring), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -831,6 +828,8 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void testGetTraineeOverallRadarChart() {
+		final String spring = "Spring";
+		final String hibernate = "Hibernate";
 		log.trace("Testing getTraineeOverallRadarChart");
 
 		// call service
@@ -840,12 +839,12 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals(7, traineeSkills.size());
 		
 		// check that each expected skill is there and has expected average
-		assertEquals(82.92, traineeSkills.get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(82.92, traineeSkills.get(hibernate), FLOATING_NUMBER_VARIANCE);
 		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(79.20, traineeSkills.get("Spring"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get(spring), FLOATING_NUMBER_VARIANCE);
 		assertEquals(83.60, traineeSkills.get("REST"), FLOATING_NUMBER_VARIANCE);
 	}
 

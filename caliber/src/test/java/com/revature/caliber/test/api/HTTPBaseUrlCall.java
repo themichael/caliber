@@ -14,7 +14,7 @@ import io.restassured.specification.RequestSpecification;
 public class HTTPBaseUrlCall {
 	protected static String baseUrl = System.getenv("CALIBER_SERVER_URL");
 	protected static String accessToken = "Auth ";
-	private static final String allSkillTypes = "types/skill/all";
+	private static final String ALL_SKILL_TYPES = "types/skill/all";
 	private static final String JSESSION_ID = "JSESSIONID";
 
 	
@@ -28,7 +28,7 @@ public class HTTPBaseUrlCall {
 		 RequestSpecification requestSpec = new RequestSpecBuilder().addCookie(JSESSION_ID, sessionCookie ).addCookie("role", roleCookie).build();
 		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
 		//get request for all skills
-		.when().get(baseUrl + allSkillTypes)
+		.when().get(baseUrl + ALL_SKILL_TYPES)
 		//assertions
 		.then().assertThat().statusCode(200)
 			.body("$", hasItems("J2EE", ".NET", "SDET", "BPM", "Other"))
