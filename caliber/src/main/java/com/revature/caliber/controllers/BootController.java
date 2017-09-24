@@ -73,7 +73,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	 */
 	@RequestMapping(value = "/caliber")
 	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-			@ModelAttribute("salestoken") String salesTokenString, Model model) throws IOException, URISyntaxException {
+			@ModelAttribute("salestoken") String salesTokenString) throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
