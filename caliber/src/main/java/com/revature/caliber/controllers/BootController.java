@@ -26,7 +26,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
@@ -41,7 +40,7 @@ import com.revature.caliber.security.models.SalesforceUser;
  */
 
 @Controller
-@SessionAttributes({"token","salestoken"})
+@SessionAttributes("token")
 public class BootController extends AbstractSalesforceSecurityHelper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
@@ -102,26 +101,13 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "redirect:/home/";
+			return INDEX;
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
 			return "redirect:/";
 		}
 	}
 
-	/**
-	 * Makes a cookie with the user's role and redirects them to the home page
-	 * 
-	 * @param response
-	 * @param auth
-	 * @return
-	 */
-	@RequestMapping(value = "/home")
-	public String sendHome(HttpServletResponse response, Authentication auth) {
-		SalesforceUser a = (SalesforceUser) auth.getPrincipal();
-		response.addCookie(new Cookie("role", a.getRole()));
-		return INDEX;
-	}
 
 	/**
 	 * Retrieve the salesforce access_token from the forwarded request
