@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.revature.caliber.security.Authorization;
 import com.revature.caliber.security.models.SalesforceUser;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * Created by louislopez on 1/18/17.
@@ -88,7 +89,9 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		HttpResponse response = httpClient.execute(post);
 		redirectAttributes.addAttribute("salestoken",toJsonString(response.getEntity().getContent()));
 		log.error("Redirecting to : " + REDIRECT + redirectUrl);
-		return new ModelAndView(REDIRECT + redirectUrl);
+		RedirectView rv = new RedirectView(REDIRECT + redirectUrl);
+	    rv.setExposeModelAttributes(false);
+		return new ModelAndView(rv);
 	}
 
 	/**
