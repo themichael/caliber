@@ -18,7 +18,7 @@ import org.springframework.context.annotation.ImportResource;
 public class Tomcat{
 
 	private static Log log = LogFactory.getLog(Tomcat.class);
-
+	
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(Tomcat.class, args);
 	}
