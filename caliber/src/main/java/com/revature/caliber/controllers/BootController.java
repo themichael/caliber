@@ -86,7 +86,6 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			status.setComplete();
 			return INDEX;
 		}
 		// get Salesforce token from cookie
@@ -104,7 +103,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
 
-			return "redirect:/index" ;
+			status.setComplete();
+			return INDEX;
 
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
