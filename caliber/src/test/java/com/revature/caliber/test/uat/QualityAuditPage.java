@@ -18,7 +18,7 @@ public class QualityAuditPage {
 	/**
 	 * Quits the current Driver
 	 */
-	public void closeAndQuit(){
+	public void closeDriver(){
 		driver.quit();
 	}
 	
@@ -74,6 +74,7 @@ public class QualityAuditPage {
 	
 	/**
 	 * Verifies the current week selected on the week tab by checking which tab is currently selected.
+	 * Checks if the class of the parent is active.
 	 */
 	public void verifyWeekForBatch(){
 		String weekTab;

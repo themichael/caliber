@@ -27,10 +27,6 @@ public class QualityAuditBatchPerformanceFeature {
         options.addArguments("--headless");
         options.addArguments("--window-size=1200x600");
         driver = new ChromeDriver(options);
-		/*DesiredCapabilities caps = new DesiredCapabilities();
-		caps.setCapability("phantomjs.binary.path", System.getenv("PHANTOM_BIN"));
-		caps.setJavascriptEnabled(true);
-		driver = new PhantomJSDriver(caps);*/
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		qaPage = new QualityAuditPage(driver);
@@ -38,7 +34,7 @@ public class QualityAuditBatchPerformanceFeature {
 	
 	@cucumber.api.java.After
 	public void teardown(){
-		qaPage.closeAndQuit();
+		qaPage.closeDriver();
 	}
 	
 	@Given("^I am on the Quality Audit page$")
