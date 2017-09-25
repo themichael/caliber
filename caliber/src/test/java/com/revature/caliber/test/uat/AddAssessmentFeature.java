@@ -7,6 +7,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class AddAssessmentFeature {
+	
 	AssessBatchPage assessBatch;
 	
 	@Before
@@ -17,27 +18,27 @@ public class AddAssessmentFeature {
 	
 	@Given("^I am on the Assess Batch page$")
 	public void iAmOnTheAssessBatchPage() {
-		// Write code here that turns the phrase above into concrete actions	
+		assessBatch.verifyAssessPage();
 	}
 
 	@Given("^I have selected a batch$")
 	public void iHaveSelectedABatch() {
-		// Write code here that turns the phrase above into concrete actions
+		assessBatch.selectBatch();
 	}
 
 	@Given("^I have clicked the Week (\\d+) tab$")
-	public void iHaveClickedTheWeekTab(int week) {
-		// Write code here that turns the phrase above into concrete actions
+	public void iHaveClickedTheWeekTab() {
+		assessBatch.clickWeekTab();
 	}
 
 	@Given("^I have clicked Create Assessment button$")
 	public void iHaveClickedCreateAssessmentButton() {
-		// Write code here that turns the phrase above into concrete actions
+		assessBatch.clickCreateAssessment();
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as the Category$")
 	public void iHaveSelectedAsTheCategory(String category) {
-		// Write code here that turns the phrase above into concrete actions
+		assessBatch.selectAssessementCategory("Java");
 	}
 
 	@Given("^I have entered (\\d+) as the Max Points$")
@@ -61,6 +62,6 @@ public class AddAssessmentFeature {
 	}
 	@After
 	public void teardown(){
-//		assessBatch.teardown();
+		assessBatch.closeDriver();
 	}
 }

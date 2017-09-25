@@ -53,18 +53,23 @@ public class AssessBatchPage{
 	public void newWeekConfirmButton(){
 		driver.findElement(By.id("yesBtn")).click();
 	}
+	
 	public void newWeekNoButton(){
 		driver.findElement(By.id("noBtn")).click();
 	}
+	
 	public void closeNewWeekButton(){
 		driver.findElement(By.id("closeBtn"));
 	}
+	
 	public void saveButton(){
 		driver.findElement(By.id("saveBtn")).click();
 	}
+	
 	public void batchNotes(String feedback){
 		driver.findElement(By.id("trainerBatchNote")).sendKeys(feedback);
 	}
+	
 	public void selectAssessementCategory(String feedback){
 		Select dropdown = new Select(driver.findElement(By.id("category")));
 		dropdown.selectByVisibleText(feedback);
