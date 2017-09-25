@@ -25,7 +25,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
@@ -40,7 +39,6 @@ import com.revature.caliber.security.models.SalesforceUser;
  */
 
 @Controller
-@SessionAttributes("token")
 public class BootController extends AbstractSalesforceSecurityHelper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
@@ -91,7 +89,6 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 		try {
 			log.debug("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-			model.asMap().clear();
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();

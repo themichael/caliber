@@ -18,7 +18,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,19 +25,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.revature.caliber.security.Authorization;
 import com.revature.caliber.security.models.SalesforceUser;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by louislopez on 1/18/17.
  */
 
 @Controller
-@Scope("prototype")
 public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implements Authorization {
-	@Value("/caliber")
+	@Value("/caliber/")
 	private String forwardUrl;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
 
@@ -73,8 +71,8 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-                                                RedirectAttributes redirectAttributes) throws IOException {
-		log.error("in authenticated method");
+			RedirectAttributes redirectAttributes) throws IOException {
+		log.debug("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
 		List<NameValuePair> parameters = new ArrayList<>();
@@ -86,8 +84,8 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.error("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		redirectAttributes.addAttribute("salestoken",toJsonString(response.getEntity().getContent()));
-		log.error("Redirecting to : " + REDIRECT + redirectUrl);
+		redirectAttributes.addAttribute("salestoken", toJsonString(response.getEntity().getContent()));
+		log.debug("Forwarding to : " + redirectUrl);
 		return new ModelAndView(REDIRECT + redirectUrl);
 	}
 
