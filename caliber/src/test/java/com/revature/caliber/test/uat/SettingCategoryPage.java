@@ -43,12 +43,10 @@ public class SettingCategoryPage {
      * @throws InterruptedException
      */
     public void clickCreateCategoryBtn() throws InterruptedException {
-    	/* Headless Chrome
     	driver.findElement(By
-    			.id("")).click();
+    			.id("createCategoryModal")).click();
     	Thread.sleep(300);
     	driver.switchTo().activeElement();
-    	*/
     	
     	/*
         driver.findElement(
@@ -67,22 +65,22 @@ public class SettingCategoryPage {
     	/*
         driver.findElement(By.id("categoryName")).sendKeys(name);
         */
+    	driver.findElement(By
+    			.id("categoryName")).sendKeys(name);
     }
     
     /**
      * Clicks on the save button to save the new category
      */
     public void clickCategorySaveBtn() {
-    	/* Headless Chrome
+    	/*
     	driver.findElement(By
-    			.id("")).click();
+    			.id("submitBtn")).click();
     	*/
     	
-    	/*
         driver.findElement(
                 By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.modal-footer > input"))
                 .click();
-        */
     }
     
     /**
@@ -99,31 +97,28 @@ public class SettingCategoryPage {
      * Clicks on the x-button to close out of the Create Category modal
      */
     public void closeCattegoryWithXButton() {
-    	/* Headless Chrome
+    	/*
     	driver.findElement(By
-    			.id("")).click();
+    			.id("XBtn")).click();
     	*/
     	
-    	/*
     	driver.findElement(
     			By.cssSelector("#addCategoryModal > div > div > div.modal-header > button"))
     			.click();
-    	*/
     }
     
     /**
      * Closes the Create Category modal by clicking the Close button
      */
     public void closeCategoryWithCloseButton() {
-    	/* Headless
-    	driver.findElement(By
-    			.id("")).click();
-    	*/
     	/*
+    	driver.findElement(By
+    			.id("closeBtn")).click();
+    	*/
+  
     	driver.findElement(
     			By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.modal-footer > button"))
     			.click();
-    	*/
     }
     
     /**

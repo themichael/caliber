@@ -17,5 +17,5 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/adding-setting-category.feature", "src/test/resources/features/edit-setting-category.feature"})
+@CucumberOptions(features={"src/test/resources/features"})
 public class CukesRunner {}

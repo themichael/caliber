@@ -42,13 +42,11 @@ public class EditSettingCategoryPage {
 		driver.switchTo().activeElement();
 		*/
 		
-		/* Phantomjs
 		driver.findElement(
 				By.cssSelector("#trainer-assess-table > div > div:nth-child(1) > table > tbody > tr:nth-child(1) > td.ng-binding"))
 				.click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		*/
 	}
 	
 	/**
@@ -56,12 +54,10 @@ public class EditSettingCategoryPage {
 	 * @param edit
 	 */
 	public void editCategoryName(String edit) {
-		/* Headless chrome
 		driver.findElement(By
-				.id("")).click();
+				.id("categoryName")).click();
 		driver.findElement(By
-				.id("")).sendKeys(edit);
-		*/
+				.id("categoryName")).sendKeys(edit);
 		
 		/*
 		driver.findElement(By
@@ -77,10 +73,8 @@ public class EditSettingCategoryPage {
 	 * Clicks on the Submit button in the modal to submit changes to the name field
 	 */
 	public void clickSubmitButton() {
-		/* Headeless Chrome
 		driver.findElement(By
-				.id("")).click();
-		*/
+				.id("submitBtn")).click();
 		
 		/*
 		driver.findElement(By
@@ -93,10 +87,8 @@ public class EditSettingCategoryPage {
 	 * Clicks on the checkbox in the modal to change the status (Active/Not Active) of the Category
 	 */
 	public void clickActiveCheckBox() {
-		/* Headless Chrome
 		driver.findElement(By
-				.id("")).click();
-		*/
+				.id("active")).click();
 		
 		/*
 		driver.findElement(By
@@ -109,10 +101,8 @@ public class EditSettingCategoryPage {
 	 * Clicks on the x-button to close the modal
 	 */
 	public void clickXButtonToClose() {
-		/* Headless Chrome
 		driver.findElement(By
-				.id("")).click();
-		*/
+				.id("XBtn")).click();
 		
 		/*
 		driver.findElement(By
@@ -125,10 +115,9 @@ public class EditSettingCategoryPage {
 	 * Clicks on the Close button to close the modal
 	 */
 	public void clickCloseButtonToClose() {
-		/* Headless Chrome
 		driver.findElement(By
-				.id("")).click();
-		*/
+				.id("closeBtn")).click();
+		
 		/*
 		driver.findElement(By
 				.cssSelector("#editCategoryModal > div > div > div.modal-footer > button"))
