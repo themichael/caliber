@@ -1,10 +1,6 @@
 package com.revature.caliber.test.uat;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -18,14 +14,8 @@ public class QualityAuditPastWeekPerformance {
 	
 	@cucumber.api.java.Before
 	public void setup(){
-		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1200x600");
-        driver = new ChromeDriver(options);
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		qaPage = new QualityAuditPage(driver);
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		qaPage = new QualityAuditPage(setup.getDriver());
 	}
 	
 	@cucumber.api.java.After
@@ -61,21 +51,6 @@ public class QualityAuditPastWeekPerformance {
 	@Then("^I will be able to see the previous performance for that week$")
 	public void iWillBeAbleToSeeThePreviousPerformanceForThatWeek() throws Throwable {
 	    qaPage.verifyQCNotes();
-	}
-
-	@Given("^I am on the quality audit page$")
-	public void iAmOnTheQualityAuditPage() throws Throwable {
-	    qaPage.goToPage();
-	}
-
-	@When("^I try to click on a previous week tab$")
-	public void iTryToClickOnAPreviousWeekTab() throws Throwable {
-	    qaPage.verifyWeekForBatch("week1");
-	}
-
-	@Then("^I will not be able to see the previous weeks since there are none$")
-	public void iWillNotBeAbleToSeeThePreviousWeeksSinceThereAreNone() throws Throwable {
-	    qaPage.verifyWeekForBatch("week1");
 	}
 
 }

@@ -1,14 +1,8 @@
 package com.revature.caliber.test.uat;
 
-import static org.junit.Assert.*;
-
-import java.util.concurrent.TimeUnit;
+import static org.junit.Assert.assertEquals;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -22,14 +16,8 @@ public class QualityAuditBatchPerformanceFeature {
 	
 	@cucumber.api.java.Before
 	public void setup(){
-		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1200x600");
-        driver = new ChromeDriver(options);
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		qaPage = new QualityAuditPage(driver);
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		qaPage = new QualityAuditPage(setup.getDriver());
 	}
 	
 	@cucumber.api.java.After
