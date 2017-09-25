@@ -23,11 +23,13 @@ public class SettingLocationPage {
 
 	//Initialize phantomjs driver to page
 	public SettingLocationPage(WebDriver driver) {
+		super();
 		this.driver = (ChromeDriver) driver;
+		this.driver.get("http://localhost:8080/caliber#/vp/locations");
 	}
 
 	//Closeing the driver
-	public void quitDriver() {
+	public void closeDriver() {
 		driver.quit();
 	}
 	
