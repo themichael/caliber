@@ -16,6 +16,6 @@ Scenario: Add LMS exam
 	And I have entered 100 as the Max Points
 	And I have selected "Exam" as the Assessment Type
 	When I click the Save button
-	Then the Java Exam appears on the screen
+	Then the "Java" Exam appears on the screen
 	
 # negative testing, etc..

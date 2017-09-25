@@ -53,24 +53,36 @@ public class AssessBatchPage{
 	public void newWeekConfirmButton(){
 		driver.findElement(By.id("yesBtn")).click();
 	}
+	
 	public void newWeekNoButton(){
 		driver.findElement(By.id("noBtn")).click();
 	}
+	
 	public void closeNewWeekButton(){
 		driver.findElement(By.id("closeBtn"));
 	}
+	
 	public void saveButton(){
 		driver.findElement(By.id("saveBtn")).click();
 	}
+	
 	public void batchNotes(String feedback){
 		driver.findElement(By.id("trainerBatchNote")).sendKeys(feedback);
 	}
+
+	public void batchNotesCheck(String feedback){
+		assertEquals(feedback, driver.findElement(By.id("trainerBatchNote")).getText());
+	}
+	
 	public void selectAssessementCategory(String feedback){
 		Select dropdown = new Select(driver.findElement(By.id("category")));
 		dropdown.selectByVisibleText(feedback);
 	}
 	public void maxPoints(String feedback){
 		driver.findElement(By.id("rawScore")).sendKeys(feedback);
+	}
+	public boolean assessmentCheck(String exam){
+		return driver.findElement(By.id(exam+"Exam")).isDisplayed();
 	}
 	public void selectAssessmentType(String feedback){
 		Select dropdown = new Select(driver.findElement(By.id("assessmentType")));
