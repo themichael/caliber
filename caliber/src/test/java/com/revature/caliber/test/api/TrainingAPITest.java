@@ -13,9 +13,9 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
@@ -73,7 +73,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Trainer expected = new Trainer(trainerWalsh, leadTrainer,patricksEmail , TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing findTrainerByEmail at baseUrl  " + baseUrl + findByEmail);
-		given().header("Authorization", accessToken).contentType(ContentType.JSON).when().get(baseUrl + findByEmail)
+		given().header(AUTH, accessToken).contentType(ContentType.JSON).when().get(baseUrl + findByEmail)
 				.then().assertThat().statusCode(200);
 		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
@@ -90,7 +90,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	public void findAllDroppedByBatchTest() throws Exception{
 		
 		log.info("API Testing findAllDroppedByBatchTest at baseUrl  " + baseUrl + findAllDroppedTrainees);
-		Response actual = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
+		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
 				.get(baseUrl + findAllDroppedTrainees).then().assertThat().statusCode(200).extract().response();
 		Trainee[] resultSet = actual.as(Trainee[].class);
 		boolean success = true;
@@ -109,7 +109,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void findAllByBatchTest(){
 		log.info("API Testing findAllByBatchTest at baseUrl  " + baseUrl + findAllTraineesInBatch);
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
 				.get(baseUrl + findAllTraineesInBatch).then().assertThat().statusCode(200);
 	}
 	
@@ -119,7 +119,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void getAllBatchesTest(){
 		log.info("API Testing getAllBatchesTest at baseUrl  " + baseUrl + getAllBatches);
-		Response actual = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
+		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllBatches).then().assertThat().statusCode(200).extract().response();
 		Batch[] resultSet = actual.as(Batch[].class);
 		boolean success = false;
@@ -135,7 +135,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void getAllCurrentBatchesTest(){
 		log.info("API Testing getAllCurrentBatchesTest at baseUrl  " + baseUrl + getAllCurrentBatches);
-		Response actual = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
+		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllCurrentBatches).then().assertThat().statusCode(200).extract().response();
 		Batch[] resultSet = actual.as(Batch[].class);
 		boolean success = false;
@@ -151,7 +151,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void updateBatchTest(){
 		//Pull a batch from the database…
-		Response resultBatchSet = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
+		Response resultBatchSet = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllBatches).then().extract().response();
 		Batch[] resultSet = resultBatchSet.as(Batch[].class);
 		Batch holderBatch = resultSet[0];
@@ -161,10 +161,10 @@ public class TrainingAPITest extends AbstractAPITest {
 		holderBatch.setLocation("In the testing zone!");
 		//Try to update the batch…
 		log.info("API Testing updateBatch at baseUrl  " + baseUrl + updateBatch);
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).body(holderBatch).when()
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(holderBatch).when()
 				.put(baseUrl + updateBatch).then().assertThat().statusCode(200);
 		//See if it actually changed in the database…
-		resultBatchSet = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
+		resultBatchSet = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllBatches).then().extract().response();
 		resultSet = resultBatchSet.as(Batch[].class);
 		boolean success = false;
@@ -176,7 +176,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		assertTrue(success);
 		//Change it back…
 		holderBatch.setLocation(original);
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).body(holderBatch).when()
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(holderBatch).when()
 		.put(baseUrl + updateBatch).then().assertThat().statusCode(200);
 	}
 
@@ -293,7 +293,7 @@ public class TrainingAPITest extends AbstractAPITest {
 
 	@Test
 	public void findAllBatchesByTrainer() throws Exception {
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				// get request for all batches by a trainer
 				.when().get(baseUrl + findAllBatchesByTrainer)
 				// assertions
