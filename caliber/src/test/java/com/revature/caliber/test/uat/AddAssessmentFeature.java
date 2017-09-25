@@ -38,27 +38,28 @@ public class AddAssessmentFeature {
 
 	@Given("^I have selected \"([^\"]*)\" as the Category$")
 	public void iHaveSelectedAsTheCategory(String category) {
-		assessBatch.selectAssessementCategory("Java");
+		assessBatch.selectAssessementCategory(category);
 	}
 
 	@Given("^I have entered (\\d+) as the Max Points$")
 	public void iHaveEnteredAsTheMaxPoints(int points) {
-		// Write code here that turns the phrase above into concrete actions
+		Integer pointsToSend = new Integer(points);
+		assessBatch.maxPoints(pointsToSend.toString());
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as the Assessment Type$")
 	public void iHaveSelectedAsTheAssessmentType(String type) {
-		// Write code here that turns the phrase above into concrete actions
+		assessBatch.selectAssessmentType(type);
 	}
 
 	@When("^I click the Save button$")
 	public void iClickTheSaveButton() {
-		// Write code here that turns the phrase above into concrete actions
+		assessBatch.saveButton();
 	}
 
-	@Then("^the Java Exam appears on the screen$")
-	public void theJavaExamAppearsOnTheScreen() {
-		// Write code here that turns the phrase above into concrete actions
+	@Then("^the \"([^\"]*)\" Exam appears on the screen$")
+	public void theJavaExamAppearsOnTheScreen(String type) {
+		assessBatch.assessmentCheck(String type) ? assessBatch.verifyAssessPage() : break;
 	}
 	@After
 	public void teardown(){
