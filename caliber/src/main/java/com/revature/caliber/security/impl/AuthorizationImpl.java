@@ -120,7 +120,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	}
 
 	private void revokeToken(String token) throws ClientProtocolException, IOException {
-		log.debug("POST " + loginURL + revokeUrl);
+		log.info("POST " + loginURL + revokeUrl);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + revokeUrl);
 		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -128,7 +128,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		parameters.add(new BasicNameValuePair("token", token));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-		log.debug("Revoke token : " + response.getStatusLine().getStatusCode() + " "
+		log.info("Revoke token : " + response.getStatusLine().getStatusCode() + " "
 				+ response.getStatusLine().getReasonPhrase());
 	}
 

@@ -3,7 +3,8 @@ package com.revature.caliber.test.api;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 
@@ -52,19 +53,19 @@ public class TrainingAPITest extends AbstractAPITest {
 	private String updateTrainer = "vp/trainer/update";
 	private String makeInactive = "vp/trainer/delete";
 	private String getAllTrainersTitles = "vp/trainer/titles";
-	private String getAllTrainers = "all/trainer/all";
+	private String getAllTrainers= "all/trainer/all";
 	private String createLocationTest = "vp/location/create";
 	private String updateLocationTest = "vp/location/update";
 	private String getAllLocationTest = "all/location/all";
 	private String removeLocationTest = "vp/location/delete";
 	private String reactivateLocationTest = "vp/location/reactivate";
-
-	private Address newYorkAddress = new Address(1, "65-30 Kissena Blvd, CEP Hall 2", "Queens", "NY", "11367","Tech Incubator at Queens College", true);
 	private String createBatch = "vp/batch/create";
 	private String deleteBatch = "all/batch/delete/{id}";
 	private String findAllBatchesByTrainer = "trainer/batch/all";
 	private String createWeek = "trainer/week/new/{batchId}";
 	private String findCommonLocations = "all/locations";
+	
+	private Address newYorkAddress = new Address(1, "65-30 Kissena Blvd, CEP Hall 2", "Queens", "NY", "11367","Tech Incubator at Queens College", true);
 
 	@Test
 	public void findByEmail() throws Exception {
@@ -78,9 +79,8 @@ public class TrainingAPITest extends AbstractAPITest {
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + findByEmail).then().assertThat().statusCode(200)
 				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
-
+		
 	}
-
 	/**
 	 * Tests method:
 	 * @see com.revature.caliber.services.TrainingService.findAllDroppedByBatch(@RequestParam(required = true) Integer batch)
@@ -190,7 +190,6 @@ public class TrainingAPITest extends AbstractAPITest {
 
 	/**
 	 * Tests methods:
-	 * 
 	 * @see com.revature.caliber.controllers.TrainingController.createTrainer(Trainer)
 	 * @throws Exception
 	 */
@@ -203,10 +202,9 @@ public class TrainingAPITest extends AbstractAPITest {
 				.body(new ObjectMapper().writeValueAsString(expected)).when().post(baseUrl + createTrainer).then()
 				.assertThat().statusCode(201).body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 	}
-
+	
 	/**
 	 * Tests methods:
-	 * 
 	 * @see com.revature.caliber.controllers.TrainingController.updateTrainer(Trainer)
 	 * @throws Exception
 	 */
@@ -220,10 +218,8 @@ public class TrainingAPITest extends AbstractAPITest {
 				.body(new ObjectMapper().writeValueAsString(expected)).when().put(baseUrl + updateTrainer).then()
 				.assertThat().statusCode(204);
 	}
-
 	/**
 	 * Tests methods:
-	 * 
 	 * @see com.revature.caliber.controllers.TrainingController.makeInactive(Trainer)
 	 * @throws Exception
 	 */
@@ -236,10 +232,8 @@ public class TrainingAPITest extends AbstractAPITest {
 				.body(new ObjectMapper().writeValueAsString(expected)).when().delete(baseUrl + makeInactive).then()
 				.assertThat().statusCode(204);
 	}
-
 	/**
 	 * Tests methods:
-	 * 
 	 * @see com.revature.caliber.controllers.TrainingController.getAllTrainersTitles()
 	 * @throws Exception
 	 */
@@ -253,13 +247,16 @@ public class TrainingAPITest extends AbstractAPITest {
 						& titles.asString().contains(LEAD_TRAINER) & titles.asString().contains("Trainer")
 						& titles.asString().contains("Technology Manager"));
 	}
-
 	/**
 	 * Tests methods:
-	 * 
 	 * @see com.revature.caliber.controllers.TrainingController.getAllTrainers()
+<<<<<<< HEAD
 	 * @throws Exception revist when we have transient tests to test more specific
 	 * trainers.
+=======
+	 * @throws Exception
+	 * revist when we have transient tests to test more specific trainers.
+>>>>>>> v2
 	 */
 	@Test
 	public void getAllTrainers() throws Exception {
@@ -268,19 +265,20 @@ public class TrainingAPITest extends AbstractAPITest {
 		expected.setTrainerId(1);
 		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + getAllTrainers);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
-
 				.get(baseUrl + getAllTrainers).then().assertThat().statusCode(200)
 				.body(containsString(new ObjectMapper().writeValueAsString(expected)));
 		log.info("Get all trainers passed!!");
 	}
-
+	
 	@Ignore
 	@Test
 	public void deleteBatch() throws Exception {
-		given().spec(requestSpec).header(AUTH, accessToken).pathParam("id", 2200).contentType(ContentType.JSON).when()
+		
+		given().spec(requestSpec).header(AUTH, accessToken).pathParam("id", 2201).contentType(ContentType.JSON).when()
 				.delete(baseUrl + deleteBatch).then().assertThat().statusCode(200);
+		
 	}
-
+	
 	@Ignore
 	@Test
 	public void createBatch() throws Exception {
@@ -299,7 +297,7 @@ public class TrainingAPITest extends AbstractAPITest {
 				// assertions
 				.then().assertThat().statusCode(201);
 	}
-
+	
 	@Test
 	public void findAllBatchesByTrainer() throws Exception {
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
@@ -307,9 +305,8 @@ public class TrainingAPITest extends AbstractAPITest {
 				.when().get(baseUrl + findAllBatchesByTrainer)
 				// assertions
 				.then().assertThat().statusCode(200);
-
 	}
-
+	
 	@Test
 	public void createWeek() throws Exception {
 		given().spec(requestSpec).header(AUTH, accessToken).pathParam("batchId", 2201).contentType(ContentType.JSON)
@@ -318,7 +315,7 @@ public class TrainingAPITest extends AbstractAPITest {
 				// assertions
 				.then().assertThat().statusCode(201);
 	}
-
+	
 	@Test
 	public void findCommonLocations() throws Exception {
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
@@ -351,6 +348,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	public void updateLocationTest() throws JsonProcessingException {
 		Address location = newYorkAddress;
 		location.setState("PA");
+
 		log.info("API Testing updateLocation at baseUrl " + baseUrl + updateLocationTest);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
 				.put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
@@ -387,6 +385,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	public void removeAndReactivateLocationTest() {
 		Address location = newYorkAddress;
 		location.setActive(false);
+
 		log.info("API Testing removeLocation at baseUrl " + baseUrl + removeLocationTest);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
 				.delete(baseUrl + removeLocationTest).then().assertThat().statusCode(204);
@@ -396,5 +395,5 @@ public class TrainingAPITest extends AbstractAPITest {
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(newYorkAddress)
 				.when().put(baseUrl + reactivateLocationTest).then().assertThat().statusCode(204);
 	}
-
 }
+

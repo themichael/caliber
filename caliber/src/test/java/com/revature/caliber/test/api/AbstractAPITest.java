@@ -34,12 +34,13 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 /**
- * Abstract class used to be extended to API testing classes. Initializes by
- * authenticating with the Salesforce API so developers need only place
- * accessToken variable as Authorization header in their HTTP requests.
+ * Abstract class used to be extended to API testing classes.
+ * Initializes by authenticating with the Salesforce API so
+ * developers need only place accessToken variable as Authorization
+ * header in their HTTP requests.
  * 
- * Requires appropriate credentials to be stored as environmental variables. The
- * credentials must also match a user in the Caliber database.
+ * Requires appropriate credentials to be stored as environmental
+ * variables. The credentials must also match a user in the Caliber database.
  * 
  * @author Patrick Walsh
  *
@@ -61,7 +62,8 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 	private static String clientId = System.getenv("SALESFORCE_CLIENT_ID");
 	private static String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
 	private static String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
-
+	protected static String authHeader = "Authorization";
+	
 	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
 
 	static {
@@ -91,8 +93,7 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 
 	private static void login() throws JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		log.info("logging into Salesforce:\n accessTokenUrl: " + accessTokenUrl + "\n clientId: " + clientId
-				+ " \n clientSecret: " + clientSecret + "\n username: " + username + "\n password: " + password);
+		log.info("logging into URL   " + accessTokenUrl );
 		HttpPost post = new HttpPost(accessTokenUrl);
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("grant_type", "password"));
@@ -102,10 +103,9 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		parameters.add(new BasicNameValuePair("password", password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-		accessTokenJson = new ObjectMapper().readValue(response.getEntity().getContent(),
-				// JsonNode.class); // test
-				SalesforceToken.class); // actual
-		accessToken += accessTokenJson.getAccessToken();
+		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(), 
+				//JsonNode.class); // test
+				SalesforceToken.class).getAccessToken(); // actual
 		log.info("Accessing Salesforce API using token:  " + accessToken);
 	}
 
@@ -130,5 +130,4 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		log.info("Sql script executed");
 		con.close();
 	}
-
 }

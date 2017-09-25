@@ -1,11 +1,10 @@
 package com.revature.caliber.test.integration;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -52,6 +51,12 @@ public class ReportingServiceTest extends CaliberTest {
 	
 	private ReportingService reportingService;
 	
+	private static final int TEST_BATCH_ID = 2150;
+	private static final int TEST_BATCH_ID2 = 2200;
+	private static final int TEST_ASSESSMENT_WEEK = 6;
+	private static final int TEST_TRAINEE_ID = 5460;
+	private static final double FLOATING_NUMBER_VARIANCE = .01;
+	
 	@Autowired
 	public BatchDAO batchDAO;
 
@@ -91,8 +96,7 @@ public class ReportingServiceTest extends CaliberTest {
 			Set<Grade> grades = new HashSet<>();
 			for (int j = 1; j < 6; j++) {
 				Assessment assess1 = new Assessment(TITLE + j, batch, 100, AssessmentType.Exam, j, new Category());
-				Assessment assess2 = new Assessment("Another title:" + j, batch, 100, AssessmentType.Exam, j,
-						new Category());
+				Assessment assess2 = new Assessment(TITLE + j, batch, 100, AssessmentType.Exam, j,new Category());
 				grades.add(new Grade(assess1, trainee, new Date(), j * 10 + (i - 1) * 10));
 				grades.add(new Grade(assess2, trainee, new Date(), 50));
 			}
@@ -551,6 +555,7 @@ public class ReportingServiceTest extends CaliberTest {
 	public void getBatchWeekAvgBarChartTest() {
 		log.info("Testing getBatchWeekAvgBarChartTest");
 		Map <String, Double[]> weekAvgBarChart = reportingService.getBatchWeekAvgBarChart(2201, 5);
+
 		assertTrue( (Double) Math.abs(weekAvgBarChart.get("Project")[0]- 88.75) < 0.001);
 		assertTrue( (Double) Math.abs(weekAvgBarChart.get("Exam")[0]- 76.109375) < 0.001);
 		assertTrue( (Double) Math.abs(weekAvgBarChart.get("Verbal")[0]- 74.375) < 0.001);
@@ -684,8 +689,8 @@ public class ReportingServiceTest extends CaliberTest {
 		int[] score1 = {70, 80, 80, 90};
 		int[] score2 = {100, 90, 90, 80};
 		
-		for(int i = 1; i < 2; i++){
 
+		for(int i = 1; i < 2; i++){
             Trainee trainee1 = new Trainee("Trainee1_" + i, "java", EMAIL, b1);
             Trainee trainee2 = new Trainee("Trainee2_" + i,".net",EMAIL,b2);
 
@@ -757,4 +762,298 @@ public class ReportingServiceTest extends CaliberTest {
 		return batch;
 	}
 	
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getAllCurrentBatchesLineChartConcurrent()
+	 */
+	@Test
+	public void testGetAllCurrentBatchesLineChartConcurrent() {
+		log.trace("Testing getAllCurrentBatchesLineChartConcurrent");
+
+		final String key = "1702 Feb13 Java (AP)"; // name of batch
+		
+		// call service
+		Map<String, Map<Integer, Double>> batches = reportingService.getAllCurrentBatchesLineChartConcurrent();
+
+		log.debug(batches);
+
+		// check that expected batch is there
+		assertTrue(batches.containsKey(key));
+		
+		// check that batch has all expected week averages
+		assertEquals(7, batches.get(key).size());
+		
+		// check that each week grade averages are what is expected
+		assertEquals(68.34, batches.get(key).get(1), FLOATING_NUMBER_VARIANCE);
+		assertEquals(84.96, batches.get(key).get(2), FLOATING_NUMBER_VARIANCE);
+		assertEquals(76.83, batches.get(key).get(3), FLOATING_NUMBER_VARIANCE);
+		assertEquals(75.09, batches.get(key).get(4), FLOATING_NUMBER_VARIANCE);
+		assertEquals(77.94, batches.get(key).get(5), FLOATING_NUMBER_VARIANCE);
+		assertEquals(82.80, batches.get(key).get(6), FLOATING_NUMBER_VARIANCE);
+		assertEquals(74.27, batches.get(key).get(7), FLOATING_NUMBER_VARIANCE);
+	}
+
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getTraineeUpToWeekRadarChart(Integer,
+	 *      Integer)
+	 */
+	@Test
+	public void testGetTraineeUpToWeekRadarChart() {
+		
+		final String spring = "Spring";
+		final String hibernate = "Hibernate";
+		log.trace("Testing getTraineeUpToWeekRadarChart");
+
+		// call service
+		Map<String, Double> traineeSkills = reportingService.getTraineeUpToWeekRadarChart(TEST_TRAINEE_ID, TEST_ASSESSMENT_WEEK);
+		
+		// check that trainee has all expected skills
+		assertEquals(6, traineeSkills.size());
+		
+		// check that each expected skill is there and has expected average
+		assertEquals(82.92, traineeSkills.get(hibernate), FLOATING_NUMBER_VARIANCE);
+		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get(spring), FLOATING_NUMBER_VARIANCE);
+	}
+
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getTraineeOverallRadarChart(Integer)
+	 */
+	@Test
+	public void testGetTraineeOverallRadarChart() {
+		final String spring = "Spring";
+		final String hibernate = "Hibernate";
+		log.trace("Testing getTraineeOverallRadarChart");
+
+		// call service
+		Map<String, Double> traineeSkills = reportingService.getTraineeOverallRadarChart(TEST_TRAINEE_ID);
+		
+		// check that trainee has all expected skills
+		assertEquals(7, traineeSkills.size());
+		
+		// check that each expected skill is there and has expected average
+		assertEquals(82.92, traineeSkills.get(hibernate), FLOATING_NUMBER_VARIANCE);
+		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get(spring), FLOATING_NUMBER_VARIANCE);
+		assertEquals(83.60, traineeSkills.get("REST"), FLOATING_NUMBER_VARIANCE);
+	}
+
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getTraineeUpToWeekLineChart(int,
+	 *      int, int)
+	 */
+	@Test
+	public void getTraineeUpToWeekLinechart() {
+		log.trace("getTraineeUpToWeekLinechart");
+		
+		/*
+		 * Method description: input: batch, week, and trainee output: map of
+		 * week and scores
+		 */
+
+		// get chart data which should be a map of week and scores
+		Map<Integer, Double[]> averageGrades = reportingService.getTraineeUpToWeekLineChart(TEST_BATCH_ID, TEST_ASSESSMENT_WEEK, TEST_TRAINEE_ID);
+
+		// size should be 6 for week 6
+		assertEquals(TEST_ASSESSMENT_WEEK, averageGrades.size());
+
+		// equal to data from database
+		assertEquals(72.74, averageGrades.get(1)[0], FLOATING_NUMBER_VARIANCE);
+		assertEquals(75.04, averageGrades.get(6)[0], FLOATING_NUMBER_VARIANCE);
+
+		// week 7 should not exist
+		assertNull(averageGrades.get(7));
+	}
+
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getTraineeOverallLineChart(int,
+	 *      int)
+	 */
+	@Test
+	public void getTraineeOverallLineChart() {
+		log.trace("getTraineeOverallLineChart");
+		
+		/*
+		 * Method description: input: batch, and trainee output: map of week and
+		 * double array for average with set size of 2 [0: trainee, 1: batch]
+		 */
+
+		Map<Integer, Double[]> overallGrades = reportingService.getTraineeOverallLineChart(TEST_BATCH_ID, TEST_TRAINEE_ID);
+
+		// batch had 7 weeks total
+		assertEquals(7, overallGrades.size());
+
+		// scores should only have 2 values
+		Double[] weekAverage = overallGrades.get(7);
+		assertEquals(2, weekAverage.length);
+
+		// week 8 should not exist
+		assertNull(overallGrades.get(8));
+	}
+
+	/**
+	 * Tests methods:getBatchOverallRadarChart testing batch 2150 and 2200 spot
+	 * testing average of category for batch
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getBatchOverallRadarChart(List<Grade>
+	 *      grades)
+	 */
+	@Test
+	public void getBatchOverallRadarChart() {
+		log.trace("getBatchOverallRadarChart");
+		
+		Map<String, Double> skills = reportingService.getBatchOverallRadarChart(TEST_BATCH_ID);
+		assertEquals(7, skills.size());
+		assertEquals(76.70, skills.get("Java"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(89.74, skills.get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+
+		skills = reportingService.getBatchOverallRadarChart(TEST_BATCH_ID2);
+		assertEquals(10, skills.size());
+		assertEquals(77.88, skills.get("JDBC"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(89.52, skills.get("Spring"), FLOATING_NUMBER_VARIANCE);
+	}
+
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getBatchOverallLineChart(int)
+	 */
+	@Test
+	public void testGetBatchOverallLineChart() {
+		log.trace("testGetBatchOverallLineChart");
+		
+		/*
+		 * Method description: input: batchId output: map of week and scores
+		 */
+
+		Map<Integer, Double> map = reportingService.getBatchOverallLineChart(TEST_BATCH_ID);
+
+		// batch had 7 weeks total
+		assertEquals(7, map.size());
+
+		// grades are equal
+		assertEquals(map.get(1), 80.26, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(2), 92.69, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(3), 86.66, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(4), 84.79, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(5), 87.84, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(6), 84.93, FLOATING_NUMBER_VARIANCE);
+		assertEquals(map.get(7), 83.27, FLOATING_NUMBER_VARIANCE);
+
+		// week 8 should not exist
+		assertNull(map.get(8));
+	}
+
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getAllCurrentBatchesLineChart()
+	 */
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testGetAllCurrentBatchesLineChart() {
+		log.trace("testGetAllCurrentBatchesLineChart");
+		
+		/*
+		 * Method description: output: map of current batch and its respective
+		 * data of (address, label of start date & trainer, and list of grades)
+		 */
+		List<Object> results = reportingService.getAllCurrentBatchesLineChart();
+
+		for (Object num : results) {
+			Map<String, List<String>> data = (Map<String, List<String>>) num;
+
+			// current batch keys should have address, label and grades
+			assertTrue(data.containsKey("address"));
+			assertTrue(data.containsKey("label"));
+			assertTrue(data.containsKey("grades"));
+
+		}
+		// current batch data should have 3
+		assertTrue(results.size() == 3);
+	}
+
+	/**
+	 * Tests getBatchAllTraineesOverallRadarChart testing batch 2150 and 2200
+	 * spot testing average students' category
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getBatchAllTraineesOverallRadarChart
+	 */
+	@Test
+	public void getBatchAllTraineesOverallRadarChart() {
+		log.trace("getBatchAllTraineesOverallRadarChart");
+		
+		Map<String, Map<String, Double>> skills = reportingService.getBatchAllTraineesOverallRadarChart(TEST_BATCH_ID);
+		
+		assertEquals(13, skills.size());
+		assertEquals(91.55, skills.get("Erwin, Eric").get("SQL"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(84.16, skills.get("Michels, Alex").get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+
+		skills = reportingService.getBatchAllTraineesOverallRadarChart(TEST_BATCH_ID2);
+		assertEquals(15, skills.size());
+		assertEquals(84.95, skills.get("Lau, Samuel").get("SOAP"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(78.17, skills.get("Sibrian, David").get("REST"), FLOATING_NUMBER_VARIANCE);
+	}
+
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getAvgBatchWeekValue(Integer,
+	 *      Integer)
+	 */
+	@Test
+	public void testGetAvgBatchWeekValue() {
+		log.trace("testGetAvgBatchWeekValue");
+		
+		/*
+		 * Method description: input: batchId, and week output: average batch
+		 * week 6 value
+		 */
+
+		Double avgBatchWeek6Value = new Double(reportingService.getAvgBatchWeekValue(TEST_BATCH_ID, TEST_ASSESSMENT_WEEK));
+
+		assertEquals(avgBatchWeek6Value, 84.93, FLOATING_NUMBER_VARIANCE);
+	}
+
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.services.ReportingService#getTechnologiesForTheWeek(Integer,
+	 *      Integer)
+	 */
+	@Test
+	public void testGetTechnologiesForTheWeek() {
+		log.trace("testGetTechnologiesForTheWeek");
+		
+		/*
+		 * Method description: input: batchId, and week output: List of
+		 * technologies
+		 */
+
+		Set<String> technologies = reportingService.getTechnologiesForTheWeek(TEST_BATCH_ID, TEST_ASSESSMENT_WEEK);
+
+		// One technologies in the set
+		assertTrue(technologies.size() == 1);
+
+		// Set of technologies should contain Spring
+		assertTrue(technologies.contains("Spring"));
+
+		// Set of technologies should not contain Java
+		assertFalse(technologies.contains("Java"));
+	}
 }
