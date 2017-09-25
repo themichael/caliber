@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,7 +71,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-                                                RedirectAttributes redirectAttributes, Model model) throws IOException {
+                                                RedirectAttributes redirectAttributes) throws IOException {
 		log.debug("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
@@ -85,7 +84,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.debug("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		model.addAttribute("salestoken",toJsonString(response.getEntity().getContent()));
+		redirectAttributes.addFlashAttribute("salestoken",toJsonString(response.getEntity().getContent()));
 		log.debug("Redirecting to : " + REDIRECT + redirectUrl);
 		return new ModelAndView(REDIRECT + redirectUrl);
 	}

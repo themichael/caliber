@@ -30,6 +30,10 @@ import io.restassured.response.Response;
 public class TrainingAPITest extends AbstractAPITest {
 
 	private static final Logger log = Logger.getLogger(TrainingAPITest.class);
+	private static final String LEAD_TRAINER = "Lead Trainer";
+	private static final String SENIOR_TRAINER = "Senior Trainer";
+	private static final String NAME = "Patrick Walsh";
+	private static final String EMAIL = "patrick.walsh@revature.com";
 
 	/*
 	 * Training API endpoints
@@ -58,7 +62,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void findByEmail() throws Exception {
 
-		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
+		Trainer expected = new Trainer(NAME, LEAD_TRAINER, EMAIL,
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing findTrainerByEmail at " + baseUrl + findByEmail);
@@ -77,7 +81,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void createTrainer() throws Exception {
 
-		Trainer expected = new Trainer("RolledBack", "Senior Trainer", "don.wels23hy@revature.com",
+		Trainer expected = new Trainer("RolledBack", SENIOR_TRAINER, "don.wels23hy@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		log.info("API Testing createTrainer at baseUrl  " + baseUrl + createTrainer);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
@@ -94,7 +98,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void updateTrainer() throws Exception {
-		Trainer expected = new Trainer("Newwer Trainer", "Senior Trainer", "don.welshy123@revature.com",
+		Trainer expected = new Trainer("Newwer Trainer", SENIOR_TRAINER, "don.welshy123@revature.com",
 				TrainerRole.ROLE_TRAINER);
 		expected.setTrainerId(3);
 		log.info("API Testing updateTrainer at baseUrl  " + baseUrl + updateTrainer);
@@ -111,7 +115,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void makeInactive() throws Exception {
-		Trainer expected = new Trainer("Dan Pickles", "Lead Trainer", "pjw6193@hotmail.com", TrainerRole.ROLE_VP);
+		Trainer expected = new Trainer("Dan Pickles", LEAD_TRAINER, "pjw6193@hotmail.com", TrainerRole.ROLE_VP);
 		expected.setTrainerId(2);
 		log.info("API Testing makeInactiv at baseUrl  " + baseUrl + makeInactive);
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
@@ -131,8 +135,8 @@ public class TrainingAPITest extends AbstractAPITest {
 		Response titles = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllTrainersTitles).then().assertThat().statusCode(200).extract().response();
 		assertTrue("Test titles",
-				titles.asString().contains("Senior Trainer") & titles.asString().contains("Senior Technical Manager")
-						& titles.asString().contains("Lead Trainer") & titles.asString().contains("Trainer")
+				titles.asString().contains(SENIOR_TRAINER) & titles.asString().contains("Senior Technical Manager")
+						& titles.asString().contains(LEAD_TRAINER) & titles.asString().contains("Trainer")
 						& titles.asString().contains("Technology Manager"));
 	}
 
@@ -146,7 +150,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void getAllTrainers() throws Exception {
-		Trainer expected = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
+		Trainer expected = new Trainer(NAME, LEAD_TRAINER, EMAIL,
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + getAllTrainers);
@@ -167,7 +171,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void createBatch() throws Exception {
 
-		Trainer expectedTrainer = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com",
+		Trainer expectedTrainer = new Trainer(NAME, LEAD_TRAINER, EMAIL,
 				TrainerRole.ROLE_VP);
 		expectedTrainer.setTrainerId(1);
 		Batch expected = new Batch("Create Controller TrainingAPI Test", expectedTrainer,
