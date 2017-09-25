@@ -3,7 +3,7 @@ package com.revature.caliber.test.api;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 
@@ -143,11 +143,9 @@ public class TrainingAPITest extends AbstractAPITest {
 		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllCurrentBatches).then().assertThat().statusCode(200).extract().response();
 		Batch[] resultSet = actual.as(Batch[].class);
-		boolean success = false;
-		if (resultSet.length == 4){
-			success = true;
-		}
-		assertTrue(success);
+		
+		int expected = 3;
+		assertEquals(expected, resultSet.length); 
 	}
 	
 	/**
