@@ -69,6 +69,10 @@ public class AssessBatchPage{
 	public void batchNotes(String feedback){
 		driver.findElement(By.id("trainerBatchNote")).sendKeys(feedback);
 	}
+
+	public void batchNotesCheck(String feedback){
+		assertEquals(feedback, driver.findElement(By.id("trainerBatchNote")).getText());
+	}
 	
 	public void selectAssessementCategory(String feedback){
 		Select dropdown = new Select(driver.findElement(By.id("category")));
