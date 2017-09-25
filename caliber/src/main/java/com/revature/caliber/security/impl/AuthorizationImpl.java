@@ -59,7 +59,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		if (debug) {
 			return new ModelAndView(REDIRECT + redirectUrl);
 		}
-		log.error("redirecting to salesforce authorization");
+		log.debug("redirecting to salesforce authorization");
 		return new ModelAndView(REDIRECT + loginURL + authURL + "?response_type=code&client_id=" + clientId
 				+ "&redirect_uri=" + redirectUri);
 	}
@@ -82,7 +82,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		parameters.add(new BasicNameValuePair("redirect_uri", redirectUri));
 		parameters.add(new BasicNameValuePair("code", code));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
-		log.error("Generating Salesforce token");
+		log.debug("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
 		redirectAttributes.addAttribute("salestoken", toJsonString(response.getEntity().getContent()));
 		log.debug("Forwarding to : " + redirectUrl);
