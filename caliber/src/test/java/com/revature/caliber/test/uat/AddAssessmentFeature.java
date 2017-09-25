@@ -51,8 +51,8 @@ public class AddAssessmentFeature {
 	public void theJavaExamAppearsOnTheScreen() {
 		// Write code here that turns the phrase above into concrete actions
 	}
-//	@After
-//	public void teardown(){
-//		assessBatch.teardown();
-//	}
+	@After
+	public void teardown(){
+		assessBatch.teardown();
+	}
 }

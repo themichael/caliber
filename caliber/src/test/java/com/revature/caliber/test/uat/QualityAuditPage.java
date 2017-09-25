@@ -1,12 +1,11 @@
 package com.revature.caliber.test.uat;
 
-import java.io.File;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -14,22 +13,20 @@ public class QualityAuditPage {
 
 	private WebDriver driver;
 	
-	private File srcFile; 
-	/**
-	 * takes the screenshot 
-	 * remove for integration
-	 * @param filename dont include .jpg
-	 * @throws IOException
-	 */
-	private void screenshot(String filename) throws IOException{
-		srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(srcFile, new File("C:/Users/Ryan/Desktop/CaliberPics/" +filename+".jpg"), true);
-	}
-	
 	public QualityAuditPage(WebDriver driver){
 		this.driver = driver;
 	}
 	
+	/**
+	 * Quits the PhantomJS Driver
+	 */
+	public void closeAndQuit(){
+		driver.quit();
+	}
+	
+	/**
+	 * Navigate current driver to http://localhost:8080/caliber/#/vp/audit
+	 */
 	public void goToPage(){
 		driver.get("http://localhost:8080/caliber/#/vp/audit");
 	}
@@ -41,35 +38,64 @@ public class QualityAuditPage {
 	public void clickYearDropdown() throws IOException{
 		//opens year dropdown
 		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[1]/a"))
-			.click();	
-		screenshot("yearDDBefore");
-		
+			.click();
 		//clicks on '2017' from the unhidden menu
 		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[1]/ul/li[2]/a"))
 			.click();
-		screenshot("yearDDAfter");
-		
 	}
 	
+	public void verifyYear(){
+		String year = driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[1]/a"))
+				.getText();
+		assertEquals("2017", year);
+	}
+	
+	
 	/**
-	 * Select Patrick Walsh - 2/13/17 from the batch by year dropdown, which is the first element
+	 * Select Patrick Walsh - 2/14/17 from the batch by year dropdown, which is the first element
 	 */
-	public void clickBatchTrainer(){
+	public void clickBatch(){
 		//click on batch
 		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[2]/a"))
 			.click();
-		//click on 'Patrick Walsh - 2/13/17' from the unhidden menu
+		//click on 'Patrick Walsh - 2/14/17' from the unhidden menu
 		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[2]/ul/li/a"))
 			.click();
 	}
 	
+	public void verifyBatch(){
+		String batch = driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[2]/a"))
+				.getText();
+		assertEquals("Patrick Walsh - 2/14/17" , batch);
+	}
+	
 	/**
-	 * Select the week for the assessment from the tab bar
+	 * Select the week for the assessment from the tab bar, webpage always loads on the last created week,
+	 * @param week as an int from 1
 	 */
-	public void clickWeeksForBatch(){
+	public void clickWeeksForBatch(int week){
 		//currently clicks week 8, change last /li[x] where x is the week; will click new week if set to last element in the list
-		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li[8]"))
+		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li["+ week +"]"))
 			.click();
+	}
+	
+	/**
+	 * Verifies the current week selected on the week tab by checking which tab is currently selected
+	 * loop constructed on the premise that weeks don't go over 9
+	 */
+	public void verifyWeekForBatch(){
+		String weekTab;
+		boolean	selected = false;
+		int week = 1;
+		for(; week <=9; week++){
+			weekTab = driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li["+ week +"]")).getAttribute("class");
+			if(weekTab == "active"){
+				selected = true;
+				break;
+			}
+		}
+		assertTrue(selected = true);
+		
 	}
 	
 	/**
@@ -80,17 +106,16 @@ public class QualityAuditPage {
 	public void clickAddWeeksForBatchButton() throws IOException, InterruptedException{
 		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li[9]"))
 			.click();
+		// wait for alert
 		Thread.sleep(500);
-		screenshot("batchWeekAddAfter");
-		//needs to click on alert popup to confirm
 		driver.switchTo().activeElement().findElement(By.xpath("//*[@id='confirmingweeks']/div/div/div[2]/button[2]"))
 			.click(); //currently clicking no
+		//wait for alert to dissipate
 		Thread.sleep(500);
-		screenshot("batchWeekAddCancel");
 	}
 	
 	/**
-	 * Clicks the individual feedback button next to the trainee multiple clicks cycle through good, average, poor, and superstar
+	 * Clicks the individual feedback button next to the trainee. Clicks cycle through good, average, poor, and superstar
 	 * @throws InterruptedException 
 	 * @throws IOException 
 	 */
@@ -99,18 +124,15 @@ public class QualityAuditPage {
 			//check if it is displayed
 		boolean isAvailable;
 		int step = 1;
-		for(;step <=5; step++){
-			isAvailable = driver.findElement(By.xpath("//*[@id='qcTrainees']/div/ul/table/tbody/tr[1]/td[2]/button["+step+"]/i"))
+		for(; step <=5; step++){
+			isAvailable = driver.findElement(By.xpath("//*[@id='qcTrainees']/div/ul/table/tbody/tr[1]/td[2]/button["+ step +"]/i"))
 								.isDisplayed();
 			if(isAvailable)
 				break;
 		}
-		screenshot("IndvFeedBackClickBefore");
 		//finally, clicks needs logic for determining how many clicks to reach desired state
-		WebElement button = driver.findElement(By.xpath("//*[@id='qcTrainees']/div/ul/table/tbody/tr[1]/td[2]/button["+step+"]"));
+		WebElement button = driver.findElement(By.xpath("//*[@id='qcTrainees']/div/ul/table/tbody/tr[1]/td[2]/button["+ step +"]"));
 		button.click();
-		Thread.sleep(500);
-		screenshot("IndvFeedBackClickAfter");
 	}
 	
 	/**
@@ -119,11 +141,21 @@ public class QualityAuditPage {
 	 * @throws IOException
 	 */
 	public void setNoteOnTraineeTextArea(String notes) throws IOException{
-		screenshot("traineeTextAreaBefore");
 		WebElement traineeTextArea = driver.findElement(By.xpath("//*[@id='noteTextArea']"));
 		traineeTextArea.clear();
 		traineeTextArea.sendKeys(notes);
-		screenshot("traineeTextAreaAfter");
+	}
+	
+	/**
+	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty
+	 * Sometimes the method will grab the element before the data has been loaded, recommend to have
+	 * some kind of wait until the data is loaded
+	 */
+	public void verifyTraineeNotes(){
+		String notes = driver.findElement(By.xpath("//*[@id='noteTextArea']")).getAttribute("class");
+		boolean contains = false;
+		contains = notes.contains("ng-not-empty");
+		assert(contains == true);
 	}
 	
 	/**
@@ -132,11 +164,8 @@ public class QualityAuditPage {
 	 * @throws InterruptedException
 	 */
 	public void clickOverallFeedbackQCButtonGood() throws IOException, InterruptedException{
-		screenshot("QCButtonGoodBefore");
 		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/button[1]"))
 			.click();
-		Thread.sleep(500);
-		screenshot("QCButtonGoodAfter");
 	}
 	
 	/**
@@ -145,11 +174,8 @@ public class QualityAuditPage {
 	 * @throws InterruptedException
 	 */
 	public void clickOverallFeedbackQCButtonAvg() throws IOException, InterruptedException{
-		screenshot("QCButtonAvgBefore");
 		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/button[2]"))
 			.click();
-		Thread.sleep(500);
-		screenshot("QCButtonAvgAfter");
 	}
 	
 	/**
@@ -158,11 +184,8 @@ public class QualityAuditPage {
 	 * @throws InterruptedException
 	 */
 	public void clickOverallFeedbackQCButtonPoor() throws IOException, InterruptedException{
-		screenshot("QCButtonPoorBefore");
 		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/button[3]"))
 			.click();
-		Thread.sleep(500);
-		screenshot("QCButtonPoorAfter");
 	}
 	
 	/**
@@ -172,12 +195,21 @@ public class QualityAuditPage {
 	 * @throws InterruptedException
 	 */
 	public void setOverallFeedbackQCNotes(String notes) throws IOException, InterruptedException{
-		screenshot("QCFeedBackBefore");
 		WebElement qcText = driver.findElement(By.xpath("//*[@id='qcBatchNotes']"));
 		qcText.clear();
 		qcText.sendKeys(notes);
-		Thread.sleep(500);
-		screenshot("QCFeedBackAfter");
+	}
+	
+	/**
+	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty
+	 * Sometimes the method will grab the element before the data has been loaded, recommend to have
+	 * some kind of wait until the data is loaded
+	 */
+	public void verifyQCNotes(){
+		String notes = driver.findElement(By.xpath("//*[@id='qcBatchNotes']")).getAttribute("class");
+		boolean contains = false;
+		contains = notes.contains("ng-not-empty");
+		assert(contains == true);
 	}
 	
 	/**
@@ -186,12 +218,7 @@ public class QualityAuditPage {
 	 * @throws InterruptedException
 	 */
 	public void clickSaveButton() throws IOException, InterruptedException{
-		screenshot("QCSaveButtonBefore");
 		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/div/div/a"))
 			.click();
-		Thread.sleep(500);
-		screenshot("QCSaveButtonAfter");
 	}
-	
-	
 }

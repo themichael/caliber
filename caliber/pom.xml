@@ -234,12 +234,10 @@
 			<version>3.0.3</version>
 		</dependency>
 		<dependency>
-			<groupId>com.oakfusion</groupId>
-			<artifactId>phantomjs-dep</artifactId>
-			<version>1.9.7</version>
-			<type>pom</type>
+		    <groupId>com.codeborne</groupId>
+		    <artifactId>phantomjsdriver</artifactId>
+		    <version>1.2.1</version>
 		</dependency>
-
 	</dependencies>
 	<build>
 		<finalName>caliber</finalName>
@@ -282,6 +280,21 @@
 						<server>caliberbot</server>
 						<path>/</path>
 					</configuration>
+				</plugin>
+				<plugin>
+				    <groupId>com.github.klieber</groupId>
+				    <artifactId>phantomjs-maven-plugin</artifactId>
+				    <version>0.7</version>
+				    <executions>
+				        <execution>
+				            <goals>
+				                <goal>install</goal>
+				            </goals>
+				        </execution>
+				    </executions>
+				    <configuration>
+				        <version>2.1.1</version>
+				    </configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>

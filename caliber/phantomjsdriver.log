@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [INFO  - 2017-09-19T19:08:58.529Z] GhostDriver - Main - running on port 28951
 [INFO  - 2017-09-19T19:08:58.899Z] Session [fd8c83d0-9d6d-11e7-b783-733faec2c017] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
 [INFO  - 2017-09-19T19:08:58.899Z] Session [fd8c83d0-9d6d-11e7-b783-733faec2c017] - page.customHeaders:  - {}
@@ -9182,3 +9183,5 @@ mages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Wind
 [INFO  - 2017-09-25T02:41:46.756Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 12e6ae00-a19b-11e7-b104-ffd1a59438a4
 [INFO  - 2017-09-25T02:46:46.247Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
 [INFO  - 2017-09-25T02:46:46.249Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session '12e6ae00-a19b-11e7-b104-ffd1a59438a4', because windowless
+=======
+>>>>>>> 9c9c9d4cbedc19f9a75ff34b3b12a79e38f5163f
