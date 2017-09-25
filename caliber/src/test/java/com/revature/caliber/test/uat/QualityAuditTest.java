@@ -41,20 +41,15 @@ public class QualityAuditTest {
 	public void test() throws IOException, InterruptedException{
 		QualityAuditPage qaPage = new QualityAuditPage(driver);
 		qaPage.goToPage();
-		driver.findElement(By.id("yearDropDownButton"));
-		driver.findElement(By.id("2017"));
-		driver.findElement(By.id("batchDropDown"));
-		driver.findElement(By.id("Patrick Walsh - 2/14/17"));
-		driver.findElement(By.id("week8"));
-		driver.findElement(By.id("addWeekButton"));
-		driver.findElement(By.id("indvFeedback-goodButton-0"));
-		driver.findElement(By.id("indvFeedback-questionButton-1"));
-		driver.findElement(By.id("noteTextArea-0"));
-		driver.findElement(By.id("noteTextArea-1"));
-		driver.findElement(By.id("good-QCButton"));
-		driver.findElement(By.id("fair-QCButton"));
-		driver.findElement(By.id("poor-QCButton"));
-		driver.findElement(By.id("qcBatchNotes"));
-		driver.findElement(By.id("saveButton"));
+		qaPage.clickYearDropdown();
+		qaPage.clickBatch();
+		qaPage.clickAddWeeksForBatchButton();
+		qaPage.clickIndividualFeedbackButton();
+		qaPage.setNoteOnTraineeTextArea("Test string");
+		qaPage.clickOverallFeedbackQCButtonGood();
+		qaPage.clickOverallFeedbackQCButtonAvg();
+		qaPage.clickOverallFeedbackQCButtonPoor();
+		qaPage.setOverallFeedbackQCNotes("Test String");
+		qaPage.clickSaveButton();
 	}
 }

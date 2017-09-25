@@ -107,7 +107,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks the individual feedback button next to the trainee. Clicks cycle through good, average, poor, and superstar
+	 * Clicks the individual feedback button next to the trainee once. Clicks cycle through good, average, poor, and superstar
 	 */
 	public void clickIndividualFeedbackButton(){
 		String[] qcBtns = { "questionBtn", "starBtn", "goodBtn", "fairBtn", "poorBtn"};
@@ -115,33 +115,34 @@ public class QualityAuditPage {
 			//check if it is displayed
 		boolean isAvailable;
 		int step = 1;
-		for(; step <=5; step++){
-			isAvailable = driver.findElement(By.xpath("//*[@id='qcTrainees']/div/ul/table/tbody/tr[1]/td[2]/button["+ step +"]/i"))
-								.isDisplayed();
+		for(; step<=4; step++){
+			isAvailable = driver.findElement(By.id("indvFeedback-"+ qcBtns[step] + "-0" )).isDisplayed();
 			if(isAvailable)
 				break;
 		}
 		//finally, clicks needs logic for determining how many clicks to reach desired state
-		WebElement button = driver.findElement(By.xpath("//*[@id='qcTrainees']/div/ul/table/tbody/tr[1]/td[2]/button["+ step +"]"));
-		button.click();
+		driver.findElement(By.id("indvFeedback-"+ qcBtns[step]+"-0")).click();
 	}
 	
 	/**
-	 * Fills trainee note text area
+	 * Fills trainee note text area with the passed string
+	 * @param notes 
 	 */
 	public void setNoteOnTraineeTextArea(String notes){
-		WebElement traineeTextArea = driver.findElement(By.xpath("//*[@id='noteTextArea']"));
+		WebElement traineeTextArea = driver.findElement(By.id("noteTextArea-0"));
 		traineeTextArea.clear();
 		traineeTextArea.sendKeys(notes);
 	}
 	
 	/**
-	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty
-	 * Sometimes the method will grab the element before the data has been loaded, recommend to have
-	 * some kind of wait until the data is loaded
+	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty.
+	 * Contains a wait to hold the thread until the text area is populated. Will fail if method finds the text area
+	 * before any content has been loaded
+	 * @throws InterruptedException 
 	 */
-	public void verifyTraineeNotes(){
-		String notes = driver.findElement(By.xpath("//*[@id='noteTextArea']")).getAttribute("class");
+	public void verifyTraineeNotes() throws InterruptedException{
+		Thread.sleep(1000);
+		String notes = driver.findElement(By.id("noteTextArea-0")).getAttribute("class");
 		boolean contains = false;
 		contains = notes.contains("ng-not-empty");
 		assert(contains == true);
@@ -151,7 +152,7 @@ public class QualityAuditPage {
 	 * Clicks on the Good QC feedback button
 	 */
 	public void clickOverallFeedbackQCButtonGood(){
-		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/button[1]"))
+		driver.findElement(By.id("good-QCButton"))
 			.click();
 	}
 	
@@ -159,7 +160,7 @@ public class QualityAuditPage {
 	 * Clicks on the Average QC feedback button
 	 */
 	public void clickOverallFeedbackQCButtonAvg(){
-		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/button[2]"))
+		driver.findElement(By.id("fair-QCButton"))
 			.click();
 	}
 	
@@ -167,7 +168,7 @@ public class QualityAuditPage {
 	 * Clicks on the Poor QC feedback button
 	 */
 	public void clickOverallFeedbackQCButtonPoor(){
-		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/button[3]"))
+		driver.findElement(By.id("poor-QCButton"))
 			.click();
 	}
 	
@@ -176,18 +177,20 @@ public class QualityAuditPage {
 	 * @param notes
 	 */
 	public void setOverallFeedbackQCNotes(String notes){
-		WebElement qcText = driver.findElement(By.xpath("//*[@id='qcBatchNotes']"));
+		WebElement qcText = driver.findElement(By.id("qcBatchNotes"));
 		qcText.clear();
 		qcText.sendKeys(notes);
 	}
 	
 	/**
 	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty
-	 * Sometimes the method will grab the element before the data has been loaded, recommend to have
-	 * some kind of wait until the data is loaded
+	 * Contains a wait to hold the thread until the text area is populated. Will fail if method finds the text area
+	 * before any content has been loaded
+	 * @throws InterruptedException 
 	 */
-	public void verifyQCNotes(){
-		String notes = driver.findElement(By.xpath("//*[@id='qcBatchNotes']")).getAttribute("class");
+	public void verifyQCNotes() throws InterruptedException{
+		Thread.sleep(1000);
+		String notes = driver.findElement(By.id("qcBatchNotes")).getAttribute("class");
 		boolean contains = false;
 		contains = notes.contains("ng-not-empty");
 		assert(contains == true);
