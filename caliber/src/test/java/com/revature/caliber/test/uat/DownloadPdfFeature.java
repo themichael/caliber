@@ -41,7 +41,7 @@ public class DownloadPdfFeature {
 
 	@Before // each scenario
 	public void setup(){
-		System.setProperty("webdriver.chrome.driver","C:\\selenium\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
      	ChromeOptions options = new ChromeOptions();
      	 options.addArguments("--headless");
          options.addArguments("--window-size=1200x600");
@@ -53,7 +53,6 @@ public class DownloadPdfFeature {
 
 	@After // each scenario
 	public void teardown() {
-		// setLocPage.quitDriver();
 		reportsPage.quitDriver();
 	}
 
@@ -61,14 +60,6 @@ public class DownloadPdfFeature {
 	public void iAmOnTheReportsPage() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		reportsPage.gotoReportsPage();
-		Thread.sleep(10000);
-//        TakesScreenshot ts = (TakesScreenshot)driver;
-//        File source = ts.getScreenshotAs(OutputType.FILE);
-//        String dest = "C:/Users/Evan Molinelli/Pictures/reportsPage2.jpg";
-//        File destination = new File(dest);
-//        FileUtils.copyFile(source, destination);
-//        File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-//		FileUtils.copyFile(srcFile, new File("C:/Users/Evan Molinelli/Pictures/reportsPage2.jpg"), true);
 		reportsPage.verifyReportsPage();
 
 	}
@@ -76,26 +67,30 @@ public class DownloadPdfFeature {
 	@Given("^I have selected the year (\\d+) tab$")
 	public void iHaveSelectedTheYearTab(int year) throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
+		
+		//Implemented the click dropdown in the method
 		reportsPage.clickReportYear("2017");
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as Trainer$")
 	public void iHaveSelectedAsTrainer(String trainer) throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-
+		reportsPage.clickBatchDropdown();
+		reportsPage.chooseBatch();
 	}
 
 	@Given("^I have selected all the weeks$")
 	public void iHaveSelectedAllTheWeeks() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		
+		reportsPage.clickWeekDropdown();
+		reportsPage.chooseWeekReport("week 1");
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as Trainees$")
 	public void iHaveSelectedAsTrainees(String arg1) throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		// setLocPage.inputCity("Torrance");
-		// setLocPage.inputState(4);
+		reportsPage.clickTraineeDropdown();
+		reportsPage.chooseTraineeReport("Ali, Fareed");
 	}
 
 	@When("^I click the download button$")
@@ -103,17 +98,13 @@ public class DownloadPdfFeature {
 		// Write code here that turns the phrase above into concrete actions
 		// Same for Cumulative Scores, Technical Skills, and Weekly Progress
 		 reportsPage.clickChartDropdownPdf();
-		 reportsPage.clickChartFeedbackDownloadPdf();
-		 //or reportsPage.clickChartDownloadPdf();
 		 
 	}
 
 	@Then("^a PDF file is downloaded$")
 	public void aPDFFileIsDownloaded() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		File f1 = reportsPage.getLatestFilefromDir("C:\\Users\\Evan Molinelli\\Downloads");
-		Thread.sleep(10000);
-		assertTrue(reportsPage.isFileDownloaded("C:\\Users\\Evan Molinelli\\Downloads", "Trainee.pdf"));
+		reportsPage.clickChartFeedbackDownloadPdf();
+		 //or reportsPage.clickChartDownloadPdf();		
 	}
 
 }

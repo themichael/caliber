@@ -5,8 +5,6 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -20,7 +18,7 @@ public class EditTraineesFeature{
 
 	@Before
 	public void setup(){
-		System.setProperty("webdriver.chrome.driver", "/Users/patrick_muldoon/chromedriver");
+		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--window-size=1200x600");
@@ -47,12 +45,12 @@ public class EditTraineesFeature{
 
 	@Given("^I have clicked on the person icon corresponding to a batch,$")
 	public void i_have_clicked_on_the_person_icon_corresponding_to_a_batch() throws Throwable {
-		manageBatchPage.openManageBatchModal();
+		manageBatchPage.openManageBatchModal(0);
 	}
 
 	@Given("^I have clicked on the pencil icon corresponding to a trainee$")
 	public void i_have_clicked_on_the_pencil_icon_corresponding_to_a_trainee() throws Throwable {
-		manageBatchPage.openUpdateTraineeModal();
+		manageBatchPage.openUpdateTraineeModal(0);
 	}
 
 	@Given("^I have edited one or more of the form boxes,$")

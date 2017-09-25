@@ -1,22 +1,24 @@
-# feature
-@create-location
-Feature: Adding Location
-	As a VP [create location]
+# Feature
+Feature: Creating a new location
+	As a VP
 	I can create a new location
-	So I can create a new record for location
+	So that I can expand our company
+
+# Background
+Background: Logged in on Settings page
+	Given I am on the Settings Locations page
+	When I click on the Create Location button
+
+# Positive
+Scenario: Add a location
+	And I enter "Opine" as the Company Name
+	And I enter "11318 BellGround Rd" as the Street Address
+	And I enter "Kansas City" as the City
+	And I enter "Kansas" as the State
+	And I enter "11345" as the Zipcode
+	And I click the Save Button
+	Then I will have added a location
 	
-	# positive testing
-	Scenario: Adding a location
-		Given I am logged in as a VP [create location]
-		And I click on the Settings tab [create location]
-		And I click Location from the drop-down menu
-		And I click the create button [create location]
-		And I enter "Opine" as the Company Name
-		And I enter "11318 BellGround Rd" as the Street Address
-		And I enter "Kansas City" as the City
-		And I enter "Kansas" as the State
-		And I enter 11215 as the Zipcode
-		When I click the Save button [create location]
-		Then I will create another Current Locations
-		
-		
+# Negative
+Scenario Outline: 
+	
