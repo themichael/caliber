@@ -68,7 +68,7 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		SpringApplication.run(Tomcat.class);
 	}
 
-	public void afterPropertiesSet(){
+	public void afterPropertiesSet() {
 		// only login with Salesforce once
 		if ("Auth ".equals(accessToken)) {
 			try {
@@ -89,8 +89,7 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		}
 	}
 
-	private static void login()
-			throws JsonMappingException, IOException {
+	private static void login() throws JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		log.info("logging into Salesforce:\n accessTokenUrl: " + accessTokenUrl + "\n clientId: " + clientId
 				+ " \n clientSecret: " + clientSecret + "\n username: " + username + "\n password: " + password);

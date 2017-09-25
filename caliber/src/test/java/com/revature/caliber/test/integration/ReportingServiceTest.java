@@ -1,5 +1,6 @@
 package com.revature.caliber.test.integration;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -38,19 +39,18 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.services.ReportingService;
-import static org.hamcrest.CoreMatchers.containsString;
 
 
 public class ReportingServiceTest extends CaliberTest {
 
-	public static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
+	private static final String EMAIL = "email@email.com";
+	private static final String TITLE = "A title:";
+	private static final String REVATURE = "Revature";
+	
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
 	private static List<Trainee> trainees;
 	
 	private ReportingService reportingService;
-	private static String traineeEmail = "email@email.com";
-	private static String assessmentTitle = "A title:";
-	private static String revatureTraining = "Revature";
 	
 	@Autowired
 	public BatchDAO batchDAO;
@@ -86,11 +86,11 @@ public class ReportingServiceTest extends CaliberTest {
 		Batch batch = new Batch();
 		batch.setWeeks(5);
 		for (int i = 1; i < 4; i++) {
-			Trainee trainee = new Trainee("Trainee" + i, "java", traineeEmail, batch);
+			Trainee trainee = new Trainee("Trainee" + i, "java", EMAIL, batch);
 			trainee.setTraineeId(i);
 			Set<Grade> grades = new HashSet<>();
 			for (int j = 1; j < 6; j++) {
-				Assessment assess1 = new Assessment(assessmentTitle + j, batch, 100, AssessmentType.Exam, j, new Category());
+				Assessment assess1 = new Assessment(TITLE + j, batch, 100, AssessmentType.Exam, j, new Category());
 				Assessment assess2 = new Assessment("Another title:" + j, batch, 100, AssessmentType.Exam, j,
 						new Category());
 				grades.add(new Grade(assess1, trainee, new Date(), j * 10 + (i - 1) * 10));
@@ -141,7 +141,15 @@ public class ReportingServiceTest extends CaliberTest {
 		assertNotEquals(keys.get(1).getSkillCategory(), catOne);
 		assertEquals((Double) 125.0, results.get(keys.get(1))[0]);
 	}
-
+	
+	/**
+	 * 
+	 * ReportingService.utilReplaceCategoryWithSkillName(Map<Category, Double[]> skills)
+	 * 	Created two maps different maps of Categories with defined skill names
+	 * 	compare the names of the keys in the returned map to what is saved when creating the skills
+	 * 		to make sure they match
+	 * 
+	 * */
 	@Test
 	public void testUtilReplaceCategoryWithSkillName() {
 		log.info("TEST UTILITY REPLACE CATEGORY WITH SKILL NAME");
@@ -157,9 +165,15 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals("Name One", keys.get(0));
 		assertEquals("Name Two", keys.get(1));
 	}
-
-
-
+	
+	/**
+	 * 
+	 * ReportingService.utilAvgBatchWeekValue(List<Trainee> trainees, Integer week)
+	 * 	Use pre-initialized data as parameter in utilAvgBatchWeekValue to save expected
+	 * 		weighted average for two different weeks
+	 * 	Compare saved values to actual, easily calculated averages to make sure they match
+	 * 
+	 * */
 	@Test
 	public void testUtilAvgBatchWeekValue() {
 		log.info("TEST UTILITY AVERAGE BATCH WEEK VALUE");
@@ -167,8 +181,67 @@ public class ReportingServiceTest extends CaliberTest {
 		Double actualWeekTwo = reportingService.utilAvgBatchWeekValue(trainees, 2);
 		Double expectedWeekOne = 35.0;
 		Double expectedWeekTwo = 40.0;
+
 		assertEquals(expectedWeekOne, actualWeekOne);
 		assertEquals(expectedWeekTwo, actualWeekTwo);
+	}
+
+
+
+	/**
+	 * Validates if the overall average for the batch over a certain number of weeks
+	 * is calculated correctly, given a List of trainees, an AssessmentType, and number 
+	 * of weeks. Utilizes the dummy data created in the BeforeClass, to make the 
+	 * comparisons easier to calculate and compare.
+	 */
+	@Test
+	public void testUtilAvgBatchOverallWithThreeParams() {
+		log.info("Calculate Average Batch Grade");
+		AssessmentType assessmentType = AssessmentType.Exam;
+		Map<Integer, Double[]> results = reportingService.utilAvgBatchOverall(trainees, assessmentType, 3);
+		double[] possAvg = { 35.0, 40.0, 45.0 };
+		for (int i = 1; i < 4; i++) {
+			log.info(results.get(i));
+			assertEquals(new Double(possAvg[i - 1]), results.get(i)[0]);
+		}
+	}
+
+	/**
+	 * Validates if the trainee's average for a week is calculated correctly, given 
+	 * a set of grades and specific week number. Utilizes the dummy data created in 
+	 * the BeforeClass, to make the comparisons easier to calculate and compare.
+	 */
+	@Test
+	public void testUtilAvgTraineeWeekWithTwoParams() {
+		log.info("Calculate One Trainee's Average for all Exams in a Given Week");
+		Double expectedAverage = 30.0;
+		int selectedTrainee = 0; // Selects first trainee in dummy batch
+		Set<Grade> grades = trainees.get(selectedTrainee).getGrades();
+		Double avg = 0d;
+		for (Grade g : grades)
+			avg += g.getScore();
+		Double actualAverage = reportingService.utilAvgTraineeWeek(grades, 1);
+		assertEquals(expectedAverage, actualAverage);
+	}
+
+	/**
+	 * Validates if the average for each trainee in a batch for a specific week is 
+	 * calculated correctly, given a List of trainees and specific week number. 
+	 * Utilizes the dummy data created in the BeforeClass, to make the comparisons 
+	 * easier to calculate and compare.
+	 */
+	@Test
+	public void testUtilAvgBatchWeekWithTwoParams() {
+		log.info("Calculate Each Trainee's Average for a Given Week");
+		double[] averages = { 30.0, 35.0, 40.0 }; // Week 1 averages for all 3 trainees
+		for (int i = 0; i < 3; i++) {
+			Set<Grade> grades = trainees.get(i).getGrades();
+			Double avg = 0d;
+			for (Grade g : grades)
+				avg += g.getScore();
+			avg = reportingService.utilAvgTraineeWeek(grades, 1);
+			assertEquals(new Double(averages[i]), avg);
+		}
 	}
 
 	/*
@@ -207,8 +280,11 @@ public class ReportingServiceTest extends CaliberTest {
 		}
 	}
 
-
-
+	/**
+	  * Test:
+	  * utilAvgTraineeWeek to verify that the average grade for a trainee's week is correct
+	  * given the week, assessment type, and all grades that week.
+	  */
 	@Test
 	public void testUtilAvgTraineeWeekWithThreeParam() {
 		log.info("UtilAvgTraineeWeekWithThreeParam Test");
@@ -219,6 +295,11 @@ public class ReportingServiceTest extends CaliberTest {
 		}
 	}
 
+	/**
+	  * Test:
+	  * utilAvgBatchWeek to verify that the average grade for a batch's week is correct
+	  * given all trainees for the batch, the week, and assessment type.
+	  */
 	@Test
 	public void testUtilAvgBatchWeekWithThreeParam() {
 		log.info("UtilAvgBatchWeekWithThreeParam Test");
@@ -231,12 +312,18 @@ public class ReportingServiceTest extends CaliberTest {
 		}
 	}
 
+	/**
+	  * Test:
+	  * utilAvgTraineeOverall to verify that the average grade for all weeks of trainee is correct
+	  * given all the grades and assessment type.
+	  */
 	@Test
 	public void testUtilAvgTraineeOverallWithThreeParam() {
 		log.info("UtilAvgTraineeOverallWithThreeParam Test");
 		int weeks = 5;
 		double[] possAvg = { 30.0, 35.0, 40.0, 45.0, 50.0 };
-		Map<Integer, Double[]> actual = reportingService.utilAvgTraineeOverall(trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
+		Map<Integer, Double[]> actual = reportingService.utilAvgTraineeOverall(
+				trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
 		for (int i = 0; i < weeks; i++) {
 			assertEquals(new Double(possAvg[i]), actual.get(i + 1)[0]);
 		}
@@ -322,6 +409,7 @@ public class ReportingServiceTest extends CaliberTest {
 		String allTraining = "(All)";
 		
 		String j2eeSkill = "J2EE";
+		String revatureTraining = REVATURE;
 		String universityTraining = "University";
 		
 		
@@ -625,6 +713,7 @@ public class ReportingServiceTest extends CaliberTest {
 		int weekNumber = 5;		
 		Note note = reportingService.getBatchWeekQcOverallBarChart(batchId, weekNumber);		
 		log.info("<getBatchWeekQcOverallBarChart> Note: " + note);		
+
 		assertEquals(5, note.getWeek());
 		assertEquals(6438, note.getNoteId());		
 		//This assertion only checks that the content of returned note contains part of the String that's actually there.
@@ -644,8 +733,9 @@ public class ReportingServiceTest extends CaliberTest {
 		Calendar end = Calendar.getInstance();
 		end.set(Calendar.YEAR, 4, 1);
 		
-		Batch b1 = new Batch("1808-Java",new Trainer(),start.getTime(), end.getTime(), revatureTraining);
-		Batch b2 = new Batch("1909-Java",new Trainer(), start.getTime(), end.getTime(), revatureTraining);
+		Batch b1 = new Batch("1808-Java",new Trainer(),start.getTime(), end.getTime(), REVATURE);
+		Batch b2 = new Batch("1909-Java",new Trainer(), start.getTime(), end.getTime(), REVATURE);
+
 		b1.setWeeks(4);
 		b2.setWeeks(4);
 		
@@ -656,16 +746,18 @@ public class ReportingServiceTest extends CaliberTest {
 		int[] score2 = {100, 90, 90, 80};
 		
 		for(int i = 1; i < 2; i++){
-            Trainee trainee1 = new Trainee("Trainee1_" + i, "java", traineeEmail, b1);
-            Trainee trainee2 = new Trainee("Trainee2_" + i,".net",traineeEmail,b2);
+
+            Trainee trainee1 = new Trainee("Trainee1_" + i, "java", EMAIL, b1);
+            Trainee trainee2 = new Trainee("Trainee2_" + i,".net",EMAIL,b2);
+
             trainee1.setTraineeId(i+100);
             trainee2.setTraineeId(i+200);
             
             Set<Grade> grades1 = new HashSet<>();
             Set<Grade> grades2 = new HashSet<>();
             for(int j = 1; j < 5; j++){
-                Assessment weekB1 = new Assessment(assessmentTitle + j, b1, 100, AssessmentType.Exam, j, new Category());
-                Assessment weekB2 = new Assessment(assessmentTitle + j, b2, 100, AssessmentType.Exam,j, new Category());
+                Assessment weekB1 = new Assessment(TITLE + j, b1, 100, AssessmentType.Exam, j, new Category());
+                Assessment weekB2 = new Assessment(TITLE + j, b2, 100, AssessmentType.Exam,j, new Category());
                 grades1.add(new Grade(weekB1, trainee1, new Date(), score1[j-1]));
                 grades2.add(new Grade(weekB2, trainee2, new Date(), score2[j-1]));
             }
@@ -696,7 +788,7 @@ public class ReportingServiceTest extends CaliberTest {
 		Batch batch = new Batch();
 		batch.setWeeks(7);
 		for (int i = 1; i < 4; i++) {
-			Trainee trainee = new Trainee("Trainee" + i, "java", traineeEmail, batch);
+			Trainee trainee = new Trainee("Trainee" + i, "java", EMAIL, batch);
 			trainee.setTraineeId(i);
 			Set<Note> notes = new HashSet<>();
 			for (int j = 1; j < 8; j++) {

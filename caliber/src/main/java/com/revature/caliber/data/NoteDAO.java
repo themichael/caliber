@@ -43,6 +43,7 @@ public class NoteDAO {
 	private static final String END_DATE = "endDate";
 	private static final String BATCH_BATCH_ID = "batch.batchId";
 
+
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

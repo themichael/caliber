@@ -41,7 +41,7 @@ public class BatchDAOTest extends CaliberTest {
 	public void findAllCurrentIntTest(){
 		log.info("Testing the BatchDAO.findAllCurrent(trainerId)");
 		List<Batch> batches = batchDAO.findAllCurrent(1);
-		int expected = 4 ; //only 4 current batches with trainerId: 1
+		int expected = 3; //only 3 current batches with trainerId: 1
 		int actual = batches.size();
 		assertEquals(expected, actual);
 	}
