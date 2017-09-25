@@ -15,6 +15,7 @@ public class AssessBatchPage{
 	public AssessBatchPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver)driver;
+		this.driver.get("http://localhost:8080/caliber#/vp/assess");
 	}
 
 	public void goToPage(){

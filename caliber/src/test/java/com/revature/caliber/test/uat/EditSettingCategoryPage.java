@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 public class EditSettingCategoryPage {
@@ -12,8 +13,8 @@ public class EditSettingCategoryPage {
 	
 	public EditSettingCategoryPage(WebDriver driver) {
 		super();
-		//this.driver = (PhantomJSDriver) driver;
-		this.driver = driver;
+		this.driver = (ChromeDriver)driver;
+		this.driver.get("http://localhost:8080/caliber/#/vp/category");
 	}
 	
 	/**

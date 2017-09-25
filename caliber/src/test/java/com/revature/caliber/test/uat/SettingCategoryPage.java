@@ -19,8 +19,8 @@ public class SettingCategoryPage {
 	
 	public SettingCategoryPage(WebDriver driver) {
 		super();
-		//this.driver = (PhantomJSDriver) driver;
 		this.driver = (ChromeDriver)driver;
+		this.driver.get("http://localhost:8080/caliber#/vp/category");
 	}
 	
 	/**
