@@ -67,4 +67,5 @@ public class AddBatchWeeklyPerformanceFeature {
 	public void teardown(){
 		assessBatchPage.teardown();
 	}
+
 }
