@@ -280,6 +280,16 @@ public class ReportingServiceTest extends CaliberTest {
 		}
 	}
 
+	// BatchDAO is only autowired here to get one batch from the database and
+	// use it's id number.
+	@Autowired
+	public BatchDAO batchDao;
+
+	/**
+	  * Test:
+	  * utilAvgTraineeWeek to verify that the average grade for a trainee's week is correct
+	  * given the week, assessment type, and all grades that week.
+	  */
 	@Test
 	public void testUtilAvgTraineeWeekWithThreeParam() {
 		log.info("UtilAvgTraineeWeekWithThreeParam Test");
@@ -290,6 +300,11 @@ public class ReportingServiceTest extends CaliberTest {
 		}
 	}
 
+	/**
+	  * Test:
+	  * utilAvgBatchWeek to verify that the average grade for a batch's week is correct
+	  * given all trainees for the batch, the week, and assessment type.
+	  */
 	@Test
 	public void testUtilAvgBatchWeekWithThreeParam() {
 		log.info("UtilAvgBatchWeekWithThreeParam Test");
@@ -302,12 +317,18 @@ public class ReportingServiceTest extends CaliberTest {
 		}
 	}
 
+	/**
+	  * Test:
+	  * utilAvgTraineeOverall to verify that the average grade for all weeks of trainee is correct
+	  * given all the grades and assessment type.
+	  */
 	@Test
 	public void testUtilAvgTraineeOverallWithThreeParam() {
 		log.info("UtilAvgTraineeOverallWithThreeParam Test");
 		int weeks = 5;
 		double[] possAvg = { 30.0, 35.0, 40.0, 45.0, 50.0 };
-		Map<Integer, Double[]> actual = reportingService.utilAvgTraineeOverall(trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
+		Map<Integer, Double[]> actual = reportingService.utilAvgTraineeOverall(
+				trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
 		for (int i = 0; i < weeks; i++) {
 			assertEquals(new Double(possAvg[i]), actual.get(i + 1)[0]);
 		}

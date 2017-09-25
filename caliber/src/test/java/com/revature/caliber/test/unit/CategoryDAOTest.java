@@ -23,6 +23,7 @@ public class CategoryDAOTest extends CaliberTest {
 
 	private static final String CATEGORY_COUNT = "select count(category_id) from caliber_category";							//Finds all categories, active and inactive.
 	private static final String ACTIVE_CATEGORY = "select count(category_id) from caliber_category WHERE IS_ACTIVE = 1;";	//Only finds categories that are active.
+	
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.data.CategoryDAO.findAll()
