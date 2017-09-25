@@ -20,7 +20,7 @@ public class EditTraineesFeature{
 
 	@Before
 	public void setup(){
-		System.setProperty("webdriver.chrome.driver", "/Users/patrick_muldoon/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "C:\\selenium\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--window-size=1200x600");
