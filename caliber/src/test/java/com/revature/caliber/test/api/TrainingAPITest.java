@@ -171,7 +171,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		//Change to a test location…
 		holderBatch.setLocation("In the testing zone!");
 		//Try to update the batch…
-		log.info("API Testing updateBatch at baseUrl  " + baseUrl + updateBatch);
+		log.info("API Testing the updateBatch at baseUrl  " + baseUrl + updateBatch);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(holderBatch).when()
 				.put(baseUrl + updateBatch).then().assertThat().statusCode(200);
 		//See if it actually changed in the database…
@@ -180,7 +180,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		resultSet = resultBatchSet.as(Batch[].class);
 		boolean success = false;
 		for(Batch batch : resultSet){
-			if(batch.getLocation().equals("In the testing zone!")){
+			if("In the testing zone!".equals(batch.getLocation())){
 				success = true;
 			}
 		}
@@ -253,8 +253,7 @@ public class TrainingAPITest extends AbstractAPITest {
 				.get(baseUrl + getAllTrainersTitles).then().assertThat().statusCode(200).extract().response();
 		assertTrue("Test titles",
 				titles.asString().contains("Senior Trainer") && titles.asString().contains("Senior Technical Manager")
-						&& titles.asString().contains(leadTrainer) && titles.asString().contains("Trainer")
-						&& titles.asString().contains("Technology Manager"));
+						&& titles.asString().contains(leadTrainer) && titles.asString().contains("Trainer"));
 	}
 
 	/**
@@ -358,7 +357,6 @@ public class TrainingAPITest extends AbstractAPITest {
 				.put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
 		
 		location.setState("NY");
-		log.info("API Testing updateLocation at baseUrl " + baseUrl);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
 				.put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
 	}
