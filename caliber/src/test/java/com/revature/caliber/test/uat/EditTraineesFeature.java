@@ -1,6 +1,5 @@
 package com.revature.caliber.test.uat;
 
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,19 +11,14 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class EditTraineesFeature{
+public class EditTraineesFeature {
 	
 	private ManageBatchPage manageBatchPage;
 
 	@Before
 	public void setup(){
-		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1200x600");
-		WebDriver driver = new ChromeDriver(options);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		manageBatchPage = new ManageBatchPage(driver);
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		manageBatchPage = new ManageBatchPage(setup.getDriver());
 	}
 	
 	@After

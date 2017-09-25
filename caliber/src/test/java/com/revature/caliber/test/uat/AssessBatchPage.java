@@ -84,7 +84,7 @@ public class AssessBatchPage{
 	public void xButton(){
 		driver.findElement(By.id("xBtn")).click();
 	}
-	public void teardown(){
+	public void closeDriver(){
 		driver.quit();
 	}
 }

@@ -81,7 +81,7 @@
 								<!-- Icons: question mark in circle by default. 
 								  		Otherwise shows the status type (icons) -->
 								<td><button ng-hide="faces[$index].qcStatus"
-								 	id= "indvFeedback-questionButton-{{$index}}"
+								 	id= "indvFeedback-questionBtn-{{$index}}"
 									class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 									title="Click to update your feedback."
 									alt="Click to update your feedback."
@@ -91,7 +91,7 @@
 								</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
 										title="Excellent"
-										id= "indvFeedback-starButton-{{$index}}"
+										id= "indvFeedback-starBtn-{{$index}}"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);"
 										ng-disabled="processingNote">
@@ -99,7 +99,7 @@
 									</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
 										title="Good"
-										id= "indvFeedback-goodButton-{{$index}}"
+										id= "indvFeedback-goodBtn-{{$index}}"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);"
 										ng-disabled="processingNote">
@@ -107,7 +107,7 @@
 									</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
 										title="Fair"
-										id= "indvFeedback-fairButton-{{$index}}"
+										id= "indvFeedback-fairBtn-{{$index}}"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);"
 										ng-disabled="processingNote">
@@ -115,7 +115,7 @@
 									</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
 										title="Poor"
-										id= "indvFeedback-poorButton-{{$index}}"
+										id= "indvFeedback-poorBtn-{{$index}}"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);"
 										ng-disabled="processingNote">
