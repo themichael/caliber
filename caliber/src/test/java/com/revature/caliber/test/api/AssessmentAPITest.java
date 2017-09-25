@@ -2,17 +2,20 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
-import com.revature.caliber.services.AssessmentService;
 
 import io.restassured.http.ContentType;
 
@@ -24,7 +27,6 @@ public class AssessmentAPITest extends AbstractAPITest {
 	private String updateAssessment = "trainer/assessment/update";
 	private String findAssessment = "trainer/assessment/{batchId}/{week}";
 	private BatchDAO batchDAO;
-	private AssessmentService assessmentService;
 	private CategoryDAO catDAO;
 
 	@Autowired
@@ -35,11 +37,6 @@ public class AssessmentAPITest extends AbstractAPITest {
 	@Autowired
 	public void setCatDAO(CategoryDAO catDAO) {
 		this.catDAO = catDAO;
-	}
-
-	@Autowired
-	public void setAssessmentDAO(AssessmentService assessmentService) {
-		this.assessmentService = assessmentService;
 	}
 
 	/**
@@ -67,7 +64,7 @@ public class AssessmentAPITest extends AbstractAPITest {
 	}
 
 	/**
-	 * Tests creation. Dependent on the transient testing state fix
+	 * Tests creation. Asserts that the status code 201 is returned meaning the creation was successful
 	 */
 	@Test
 	public void testCreate201() {
@@ -79,22 +76,30 @@ public class AssessmentAPITest extends AbstractAPITest {
 	}
 
 	/**
-	 * Tests updating an existing assessment. Dependent on the transient testing state fix
+	 * Tests updating an existing assessment by changing the raw score. 
+	 * Asserts whats returned is the same as what we sent in the request
+	 * @throws Exception
+	 * 
 	 */
 	@Test
-	public void testUpdate() {
+	public void testUpdate() throws Exception {
 		log.info("Updating an assessment");
 		Batch batch = batchDAO.findOne(2200);
 		Category category = catDAO.findOne(1);
-		Assessment assessment = new Assessment(null, batch, 100, AssessmentType.Exam, 1, category);
-		assessment.setAssessmentId(2057);
-		assessment.setRawScore(100000);
-		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(assessment).when()
-				.put(baseUrl + updateAssessment).then().assertThat().statusCode(200);
+		Assessment expected = new Assessment(null, batch, 100, AssessmentType.Exam, 1, category);
+		expected.setAssessmentId(2057);
+		expected.setRawScore(100000);
+		Assessment actual = new ObjectMapper()
+				.readValue(
+						given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).body(expected)
+								.when().put(baseUrl + updateAssessment).then().contentType(ContentType.JSON)
+								.assertThat().statusCode(200).and().extract().response().asString(),
+						new TypeReference<Assessment>() {});
+		assertEquals(expected.getRawScore(), actual.getRawScore());
 	}
 
 	/**
-	 * Tests delete. Dependent on the transient testing state fix
+	 * Tests delete and asserts the appropriate status code is returned (204)
 	 */
 	@Test
 	public void testDelete() {
