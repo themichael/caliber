@@ -83,7 +83,10 @@ public class TrainingAPITest extends AbstractAPITest {
 	}
 
 	/**
-	 * findAllDroppedByBatch(@RequestParam(required = true) Integer batch)
+	 * Tests method:
+	 * @see com.revature.caliber.services.TrainingService.findAllDroppedByBatch(@RequestParam(required = true) Integer batch)
+	 * Makes the call, checks all entities in the result set fails if any do not have
+	 * TrainingStatus.Dropped.
 	 * @throws Exception 
 	 */
 	@Test
@@ -103,7 +106,8 @@ public class TrainingAPITest extends AbstractAPITest {
 	}
 	
 	/**
-	 * findAllByBatch(@RequestParam(required = true) Integer batch)
+	 * Tests method:
+	 * @see com.revature.caliber.services.TrainingService.findAllByBatch(@RequestParam(required = true) Integer batch)
 	 * @throws Exception 
 	 */
 	@Test
@@ -114,7 +118,8 @@ public class TrainingAPITest extends AbstractAPITest {
 	}
 	
 	/**
-	 * getAllBatches()
+	 * Tests method:
+	 * @see com.revature.caliber.services.TrainingService.getAllBatches()
 	 */
 	@Test
 	public void getAllBatchesTest(){
@@ -123,14 +128,15 @@ public class TrainingAPITest extends AbstractAPITest {
 				.get(baseUrl + getAllBatches).then().assertThat().statusCode(200).extract().response();
 		Batch[] resultSet = actual.as(Batch[].class);
 		boolean success = false;
-		if (resultSet.length > 0){
+		if (resultSet.length == 6){
 			success = true;
 		}
 		assertTrue(success);
 	}
 	
 	/**
-	 * getAllCurrentBatches()
+	 * Tests method:
+	 * @see com.revature.caliber.services.TrainingService.getAllCurrentBatches()
 	 */
 	@Test
 	public void getAllCurrentBatchesTest(){
@@ -139,14 +145,19 @@ public class TrainingAPITest extends AbstractAPITest {
 				.get(baseUrl + getAllCurrentBatches).then().assertThat().statusCode(200).extract().response();
 		Batch[] resultSet = actual.as(Batch[].class);
 		boolean success = false;
-		if (resultSet.length > 0){
+		if (resultSet.length == 4){
 			success = true;
 		}
 		assertTrue(success);
 	}
 	
 	/**
-	 * updateBatch(@Valid @RequestBody Batch batch)
+	 * Tests method:
+	 * @see com.revature.caliber.services.TrainingService.updateBatch(@Valid @RequestBody Batch batch)
+	 * This test will break if getAllBatches doesn't work, or returns 0 results.
+	 * Finds a batch. Changes the location. Updates the batch. Pulls all batches again. Checks for a batch
+	 * with the updated location. Changes the batch location back to the original value. (For back when we
+	 * didn't have the in-memory database working. You can take it out if you want.)
 	 */
 	@Test
 	public void updateBatchTest(){

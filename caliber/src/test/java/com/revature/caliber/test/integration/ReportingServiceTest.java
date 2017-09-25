@@ -617,25 +617,19 @@ public class ReportingServiceTest extends CaliberTest {
 	
 	/**
 	 *  Test methods:
-	 *  com.revature.caliber.services.ReportingService.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
+	 *  @see com.revature.caliber.services.ReportingService.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
 	 */
 	@Test
 	public void getBatchWeekQcOverallBarChart() {
 		int batchId = 2201;
-		int weekNumber = 5;
-		
-		Note note = reportingService.getBatchWeekQcOverallBarChart(batchId, weekNumber);
-		
-		log.info("<getBatchWeekQcOverallBarChart> Note: " + note);
-		
+		int weekNumber = 5;		
+		Note note = reportingService.getBatchWeekQcOverallBarChart(batchId, weekNumber);		
+		log.info("<getBatchWeekQcOverallBarChart> Note: " + note);		
 		assertEquals(5, note.getWeek());
-		assertEquals(6438, note.getNoteId());
-		
+		assertEquals(6438, note.getNoteId());		
 		//This assertion only checks that the content of returned note contains part of the String that's actually there.
 		//Ideally, we would want to assert that the content of the note (whole string) is exactly equal.
-		assertThat(note.getContent(), containsString("Covered: Unix, AWS, DevOps, Hibernate"));
-		
-		
+		assertThat(note.getContent(), containsString("Covered: Unix, AWS, DevOps, Hibernate"));		
 	}
 		
 	/**
