@@ -168,7 +168,8 @@ public class ReportingAPITest extends AbstractAPITest{
 	  * 	com.revature.caliber.controllers.ReportingController
 	  * 		.getBatchOverallTraineeBarChart()(Integer batchId, Integer traineeId)
 	  * 
-	  * @Result ResponseEntity is returned with a body that is not null and a status code 200
+	  * Test that getBatchOverallTraineeBarChart returns status code 200 for a non-null object.
+	  * 	status code 404 will return for a empty object
 	  */
 	@Test
 	public void testGetBatchOverallTraineeBarChart() throws Exception{
@@ -185,7 +186,8 @@ public class ReportingAPITest extends AbstractAPITest{
 	  * 	com.revature.caliber.controllers.ReportingController
 	  * 		.getBatchOverallBarChart()(Integer batchId)
 	  * 
-	  * @Result ResponseEntity is returned with a body that is not null and a status code 200
+	  * Test that getBatchOverallBarChart returns status code 200 for a non-null object.
+	  * 	status code 404 will return for a empty object
 	  */ 
 	@Test
 	public void testGetBatchOverallBarChart() throws Exception{
@@ -288,7 +290,8 @@ public class ReportingAPITest extends AbstractAPITest{
 	  * 	com.revature.caliber.controllers.ReportingController
 	  * 	.getBatchWeekTraineeBarChart()(Integer batchId,Integer weekId,  Integer traineeId)
 	  * 
-	  * @Result ResponseEntity is returned with a body that is not null and a status code 200
+	  * Test that getBatchWeekTraineeBarChart returns status code 200 for a non-null object.
+	  * 	status code 404 will return for a empty object
 	  */ 
 	@Test
 	public void testGetBatchWeekTraineeBarChart() throws Exception {
@@ -345,7 +348,8 @@ public class ReportingAPITest extends AbstractAPITest{
 	  * 	com.revature.caliber.controllers.ReportingController
 	  * 	.getTraineeUpToWeekLineChart()(int batchId, int Week, int traineeId)
 	  * 
-	  * @Result ResponseEntity is returned with a body that is not null and a status code 200
+	  * Test that getTraineeUpToWeekLineChart returns status code 200 for a non-null object.
+	  * 	status code 404 will return for a empty object
 	  */  
 	@Test
 	public void testGetTraineeUpToWeekLineChart() throws Exception {
