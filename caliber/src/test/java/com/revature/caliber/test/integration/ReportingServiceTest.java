@@ -45,6 +45,8 @@ public class ReportingServiceTest extends CaliberTest {
 	private static final String EMAIL = "email@email.com";
 	private static final String TITLE = "A title:";
 	private static final String REVATURE = "Revature";
+	private static final String SPRING = "Spring";
+	private static final String HIBERNATE = "Hibernate";
 	
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
 	private static List<Trainee> trainees;
@@ -237,7 +239,7 @@ public class ReportingServiceTest extends CaliberTest {
 		double[] averages = { 30.0, 35.0, 40.0 }; // Week 1 averages for all 3 trainees
 		for (int i = 0; i < 3; i++) {
 			Set<Grade> grades = trainees.get(i).getGrades();
-			Double avg = 0d;
+			Double avg;
 			avg = reportingService.utilAvgTraineeWeek(grades, 1);
 			assertEquals(new Double(averages[i]), avg);
 		}
@@ -802,8 +804,6 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void testGetTraineeUpToWeekRadarChart() {
 		
-		final String spring = "Spring";
-		final String hibernate = "Hibernate";
 		log.trace("Testing getTraineeUpToWeekRadarChart");
 
 		// call service
@@ -813,12 +813,12 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals(6, traineeSkills.size());
 		
 		// check that each expected skill is there and has expected average
-		assertEquals(82.92, traineeSkills.get(hibernate), FLOATING_NUMBER_VARIANCE);
+		assertEquals(82.92, traineeSkills.get(HIBERNATE), FLOATING_NUMBER_VARIANCE);
 		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(79.20, traineeSkills.get(spring), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get(SPRING), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -828,8 +828,6 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void testGetTraineeOverallRadarChart() {
-		final String spring = "Spring";
-		final String hibernate = "Hibernate";
 		log.trace("Testing getTraineeOverallRadarChart");
 
 		// call service
@@ -839,12 +837,12 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals(7, traineeSkills.size());
 		
 		// check that each expected skill is there and has expected average
-		assertEquals(82.92, traineeSkills.get(hibernate), FLOATING_NUMBER_VARIANCE);
+		assertEquals(82.92, traineeSkills.get(HIBERNATE), FLOATING_NUMBER_VARIANCE);
 		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(79.20, traineeSkills.get(spring), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get(SPRING), FLOATING_NUMBER_VARIANCE);
 		assertEquals(83.60, traineeSkills.get("REST"), FLOATING_NUMBER_VARIANCE);
 	}
 
@@ -919,12 +917,12 @@ public class ReportingServiceTest extends CaliberTest {
 		Map<String, Double> skills = reportingService.getBatchOverallRadarChart(TEST_BATCH_ID);
 		assertEquals(7, skills.size());
 		assertEquals(76.70, skills.get("Java"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(89.74, skills.get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(89.74, skills.get(HIBERNATE), FLOATING_NUMBER_VARIANCE);
 
 		skills = reportingService.getBatchOverallRadarChart(TEST_BATCH_ID2);
 		assertEquals(10, skills.size());
 		assertEquals(77.88, skills.get("JDBC"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(89.52, skills.get("Spring"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(89.52, skills.get(SPRING), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -1001,7 +999,7 @@ public class ReportingServiceTest extends CaliberTest {
 		
 		assertEquals(13, skills.size());
 		assertEquals(91.55, skills.get("Erwin, Eric").get("SQL"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(84.16, skills.get("Michels, Alex").get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(84.16, skills.get("Michels, Alex").get(HIBERNATE), FLOATING_NUMBER_VARIANCE);
 
 		skills = reportingService.getBatchAllTraineesOverallRadarChart(TEST_BATCH_ID2);
 		assertEquals(15, skills.size());
@@ -1050,7 +1048,7 @@ public class ReportingServiceTest extends CaliberTest {
 		assertTrue(technologies.size() == 1);
 
 		// Set of technologies should contain Spring
-		assertTrue(technologies.contains("Spring"));
+		assertTrue(technologies.contains(SPRING));
 
 		// Set of technologies should not contain Java
 		assertFalse(technologies.contains("Java"));
