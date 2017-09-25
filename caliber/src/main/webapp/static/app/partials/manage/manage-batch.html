@@ -4,10 +4,10 @@
 			<div class="col-md-12 col-lg-12">
 				<ul class="nav nav-tabs">
 					<!-- Filter batches by year -->
-					<li role="button" class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown"><label id="{{selectedYear}}">{{selectedYear}}</label><span class="caret"></span></a>
+					<li role="button" class="dropdown"><a id="yearDropdown" class="dropdown-toggle"
+						data-toggle="dropdown"><label>{{selectedYear}}</label><span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li ng-repeat="menuItem in years track by $index"><a
+							<li ng-repeat="menuItem in years track by $index"><a id="{{menuItem}}"
 								role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
 						</ul></li>
 					<!-- Button Trigger for Import Batch Modal -->

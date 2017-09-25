@@ -15,6 +15,10 @@ import org.openqa.selenium.support.ui.Select;
 
 public class ReportsPage {
 
+	/***
+	 * @author Evan Molinelli
+	 * 
+	 */
 	private WebDriver driver;
 
 	public ReportsPage(WebDriver driver) {
@@ -29,12 +33,17 @@ public class ReportsPage {
 		driver.get("http://localhost:8080/caliber#/vp/home");
 	}
 
-	//Verifying if you're on the reports page
+	/***
+	 * Verifying if you're on the reports page
+	 */
 	public void verifyReportsPage() {
 		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
 	}
 
-	// Clicking the 'year' dropdown and then the precise year.
+	/***
+	 * Clicking the 'year' dropdown and then the precise year.
+	 * @param year
+	 */
 	public void clickReportYear(String year) {
 		// Default year is '2017'
 		driver.findElement(By.id("reportYear")).click();
@@ -60,106 +69,149 @@ public class ReportsPage {
 		}
 	}
 
-	// Click the batch dropdown
+	/***
+	 *  Click the batch dropdown 'Patrick Walsh - 2/13/17'
+	 */
 	public void clickBatchDropdown() {
 		driver.findElement(By.id("currentBatchTrainer")).click();
 		driver.switchTo().activeElement();
 	}
 
-	// Click on the specific batch in the dropdown
+	/**
+	 *  Click on the specific batch in the dropdown
+	 */
 	public void chooseBatch() {
 		// Default is one batch 'Patrick Walsh - 2/13/17' and there's only one
 		// choice
 		driver.findElement(By.id("Patrick Walsh - 2/13/17")).click();
 	}
 
-	// Click the week dropdown
+	/***
+	 *  Click the week dropdown
+	 */
 	public void clickWeekDropdown() {
 		driver.findElement(By.id("reportWeek")).click();
 		driver.switchTo().activeElement();
 	}
 
-	// Clicking on the week to choose, 'All' is the default if week is not
-	// chosen
+	/***
+	 *  Clicking on the week to choose, 'All' is the default if week is not chosen
+	 * @param week
+	 */
 	public void chooseWeekReport(String week) {
 		// id = "week #" so String week = "week #" also
-		driver.findElement(By.id(week)).click();
+		//hardcoded 'week 1'
+		driver.findElement(By.id("week 1")).click();
 	}
 
-	// Click the trainee dropdown
+	/***
+	 *  Click the trainee dropdown
+	 */
 	public void clickTraineeDropdown() {
 		// Default trainee is 'All' if Trainee dropdown is not clicked
 		driver.findElement(By.id("reportTrainer")).click();
 		driver.switchTo().activeElement();
 	}
 
-	// Click on a specific Trainee
+	/***
+	 *  Click on a specific Trainee
+	 * @param trainee
+	 */
 	public void chooseTraineeReport(String trainee) {
 		// id = 'lastname, firstname' so String trainee = "lastname, firstname";
 		// 'Ali, Fareed' for testing purposes
 		driver.findElement(By.id("Ali, Fareed")).click();
 	}
 
-	// Click the chart glyphicon
+	/***
+	 *  Click the chart glyphicon for dropdown
+	 */
 	public void clickChartDropdownPdf() {
 		driver.findElement(By.id("dropdownReportsMenu")).click();
 		driver.switchTo().activeElement();
 	}
 
-	// Click the chart glyphicon dropdown and choosing 'Charts'
+	/***
+	 *  Click the chart glyphicon dropdown and choosing 'Charts'
+	 * @throws InterruptedException
+	 */
 	public void clickChartDownloadPdf() throws InterruptedException {
 		driver.findElement(By.id("chartsDownloadPdf")).click();
 		// Thread.sleep(1000);
 	}
 
-	// Click the chart glyphicon dropdown and choosing 'Charts + Feedback'
+	/***
+	 *  Click the chart glyphicon dropdown and choosing 'Charts + Feedback'
+	 * @throws InterruptedException
+	 */
 	public void clickChartFeedbackDownloadPdf() throws InterruptedException {
 		driver.findElement(By.id("chartsFeedbackDownloadPdf")).click();
 		// Thread.sleep(1000);
 	}
 
-	// Click the down arrow glyphicon next to 'Cumulative Scores' to download
-	// chart
+	/***
+	 *  Click the down arrow glyphicon next to 'Cumulative Scores' to download chart
+	 */
 	public void clickCumulativeScoreGlyph() {
 		driver.findElement(By.id("cumulativeScoreDownload")).click();
 	}
 
-	// Click the down arrow glyphicon next to 'Technical Skills' to download
-	// chart
+	/***
+	 *  Click the down arrow glyphicon next to 'Technical Skills' to download chart
+	 */
 	public void clickTechnicalSkillGlyph() {
 		driver.findElement(By.id("technicalSkillDownload")).click();
 	}
 
-	// Click the right corner glychicon in the 'Technical Skills' block (person
-	// glyphicon)
+	/***
+	 *  Click the right corner glychicon in the 'Technical Skills' block (person glyphicon)
+	 */
 	public void clickTechnicalSkillsModal() {
 		// Opens modal for 'Trainee Comparison'
 		driver.findElement(By.id("traineeCompGlyphBtnModal")).click();
+		driver.switchTo().activeElement();
 	}
 
-	// Closes the 'Trainee Comparison' modal
+	/***
+	 *  Closes the 'Trainee Comparison' modal
+	 */
 	public void closeTraineeCompModal() {
 		driver.findElement(By.id("traineeComparisonCloseX")).click();
 	}
 
-	// Select a specific Trainee by checking the box in the modal
-	public void chooseTraineeTechSkills(String trainee) {
+	/**
+	 *  Select a specific Trainee by checking the box in the modal
+	 * @param trainee
+	 * @throws InterruptedException
+	 */
+	public void chooseTraineeTechSkills(String trainee) throws InterruptedException {
 		// id = 'lastname, firstname' so String trainee = "lastname, firstname";
 		// 'Ali, Fareed' for testing purposes
-		driver.findElement(By.id("Ali, Fareed")).click();
+//		Thread.sleep(1000);
+		//Uses cssSelector because 'id' was not able to click the specific checkbox
+		driver.findElement(By.cssSelector("#insert-trainee > div > div > div.modal-body > div > table > tbody > tr:nth-child(2) > th > input")).click();
 	}
 
-	// Click the down arrow glyphicon next to 'Weekly Progress' to download
-	// chart
+	/**
+	 *  Click the down arrow glyphicon next to 'Weekly Progress' to download chart
+	 */
 	public void clickWeeklyProgressGlyph() {
 		driver.findElement(By.id("weeklyProgressDownload")).click();
 	}
 
+	/**
+	 * Quits the driver.
+	 */
 	public void quitDriver() {
 		driver.quit();
 	}
 
-	//Never used because can't validate/confirm if a file has downloaded
+	/**
+	 * Never used because can't validate/confirm if a file has downloaded
+	 * @param downloadPath
+	 * @param fileName
+	 * @return
+	 */
 	public boolean isFileDownloaded(String downloadPath, String fileName) {
 		boolean flag = false;
 		File dir = new File(downloadPath);
@@ -173,7 +225,11 @@ public class ReportsPage {
 		return flag;
 	}
 
-	//Never used, but to check file directory to get latest file downloaded
+	/**
+	 * Never used, but to check file directory to get latest file downloaded
+	 * @param dirPath
+	 * @return
+	 */
 	public File getLatestFilefromDir(String dirPath) {
 		File dir = new File(dirPath);
 		File[] files = dir.listFiles();
