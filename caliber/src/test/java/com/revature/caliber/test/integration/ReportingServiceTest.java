@@ -110,7 +110,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 * categories
 	 **/
 	@Test
-	public void testUtilAvgSkills() {
+	public void utilAvgSkillsTest() {
 		log.info("TEST UTILITY AVERAGE SKILL");
 		String catOne = "CatOne";
 		String catTwo = "CatTwo";
@@ -151,7 +151,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 * 
 	 * */
 	@Test
-	public void testUtilReplaceCategoryWithSkillName() {
+	public void utilReplaceCategoryWithSkillNameTest() {
 		log.info("TEST UTILITY REPLACE CATEGORY WITH SKILL NAME");
 		Map<Category, Double[]> skills = new HashMap<>();
 		Double[] values = { (double) 20, (double) 10 };
@@ -175,7 +175,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 * 
 	 * */
 	@Test
-	public void testUtilAvgBatchWeekValue() {
+	public void utilAvgBatchWeekValueTest() {
 		log.info("TEST UTILITY AVERAGE BATCH WEEK VALUE");
 		Double actualWeekOne = reportingService.utilAvgBatchWeekValue(trainees, 1);
 		Double actualWeekTwo = reportingService.utilAvgBatchWeekValue(trainees, 2);
@@ -195,8 +195,8 @@ public class ReportingServiceTest extends CaliberTest {
 	 * comparisons easier to calculate and compare.
 	 */
 	@Test
-	public void testUtilAvgBatchOverallWithThreeParams() {
-		log.info("Calculate Average Batch Grade");
+	public void utilAvgBatchOverallWithThreeParamsTest() {
+		log.info("Calculate Average Batch Grade with UtilAvgBatchOverallWithThreeParams()");
 		AssessmentType assessmentType = AssessmentType.Exam;
 		Map<Integer, Double[]> results = reportingService.utilAvgBatchOverall(trainees, assessmentType, 3);
 		double[] possAvg = { 35.0, 40.0, 45.0 };
@@ -212,14 +212,11 @@ public class ReportingServiceTest extends CaliberTest {
 	 * the BeforeClass, to make the comparisons easier to calculate and compare.
 	 */
 	@Test
-	public void testUtilAvgTraineeWeekWithTwoParams() {
+	public void utilAvgTraineeWeekWithTwoParamsTest() {
 		log.info("Calculate One Trainee's Average for all Exams in a Given Week");
 		Double expectedAverage = 30.0;
 		int selectedTrainee = 0; // Selects first trainee in dummy batch
 		Set<Grade> grades = trainees.get(selectedTrainee).getGrades();
-		Double avg = 0d;
-		for (Grade g : grades)
-			avg += g.getScore();
 		Double actualAverage = reportingService.utilAvgTraineeWeek(grades, 1);
 		assertEquals(expectedAverage, actualAverage);
 	}
@@ -231,14 +228,12 @@ public class ReportingServiceTest extends CaliberTest {
 	 * easier to calculate and compare.
 	 */
 	@Test
-	public void testUtilAvgBatchWeekWithTwoParams() {
+	public void utilAvgBatchWeekWithTwoParamsTest() {
 		log.info("Calculate Each Trainee's Average for a Given Week");
 		double[] averages = { 30.0, 35.0, 40.0 }; // Week 1 averages for all 3 trainees
 		for (int i = 0; i < 3; i++) {
 			Set<Grade> grades = trainees.get(i).getGrades();
 			Double avg = 0d;
-			for (Grade g : grades)
-				avg += g.getScore();
 			avg = reportingService.utilAvgTraineeWeek(grades, 1);
 			assertEquals(new Double(averages[i]), avg);
 		}
@@ -250,8 +245,8 @@ public class ReportingServiceTest extends CaliberTest {
 	 * boundaries and even past them
 	 */
 	@Test
-	public void testUtilAvgBatch() {
-		log.info("Calculate Average Batch Grade");
+	public void utilAvgBatchTest() {
+		log.info("Calculate Average Batch Grade with UtilAvgBatch()");
 		// Calculated by hand with dummy data above
 		double[] posAvg = { 0.0, 35, 37.5, 40, 42.5, 45 };
 		for (int i = 0; i < 6; i++) {
@@ -260,7 +255,7 @@ public class ReportingServiceTest extends CaliberTest {
 	}
 
 	@Test
-	public void testUtilAvgTraineeOverallWithTwoParams() {
+	public void utilAvgTraineeOverallWithTwoParamsTest() {
 		log.info("Calculate Average grade per week for a trainee");
 		// Calculated by hand with dummy data above
 		double[] weekAvgs = { 30, 35, 40, 45, 50 };
@@ -272,7 +267,7 @@ public class ReportingServiceTest extends CaliberTest {
 
 	@Test
 	// Need a specific batch to get trainees
-	public void testUtilAvgBatchOverallWithTwoParams() {
+	public void utilAvgBatchOverallWithTwoParamsTest() {
 		log.info("Calculating batch averages per week");
 		double[] overallAvg = { 35, 40, 45, 50, 55 };
 		for (int i = 0; i < 5; i++) {
@@ -286,7 +281,7 @@ public class ReportingServiceTest extends CaliberTest {
 	  * given the week, assessment type, and all grades that week.
 	  */
 	@Test
-	public void testUtilAvgTraineeWeekWithThreeParam() {
+	public void utilAvgTraineeWeekWithThreeParamTest() {
 		log.info("UtilAvgTraineeWeekWithThreeParam Test");
 		double[] possAvg = { 30.0, 100.0, 2.0 };
 		Double[] actual = reportingService.utilAvgTraineeWeek(1, AssessmentType.Exam, trainees.get(0).getGrades());
@@ -301,7 +296,7 @@ public class ReportingServiceTest extends CaliberTest {
 	  * given all trainees for the batch, the week, and assessment type.
 	  */
 	@Test
-	public void testUtilAvgBatchWeekWithThreeParam() {
+	public void utilAvgBatchWeekWithThreeParamTeat() {
 		log.info("UtilAvgBatchWeekWithThreeParam Test");
 		double[] possAvg = { 30.0, 35.0, 40.0 };
 		int pos = 0;
@@ -318,7 +313,7 @@ public class ReportingServiceTest extends CaliberTest {
 	  * given all the grades and assessment type.
 	  */
 	@Test
-	public void testUtilAvgTraineeOverallWithThreeParam() {
+	public void utilAvgTraineeOverallWithThreeParamTest() {
 		log.info("UtilAvgTraineeOverallWithThreeParam Test");
 		int weeks = 5;
 		double[] possAvg = { 30.0, 35.0, 40.0, 45.0, 50.0 };
@@ -326,44 +321,6 @@ public class ReportingServiceTest extends CaliberTest {
 				trainees.get(0).getGrades(), AssessmentType.Exam, weeks);
 		for (int i = 0; i < weeks; i++) {
 			assertEquals(new Double(possAvg[i]), actual.get(i + 1)[0]);
-		}
-	}
-
-	@Test
-	public void utilAvgBatchOverallWithThreeParams() {
-		log.info("Calculate Average Batch Grade");
-		AssessmentType assessmentType = AssessmentType.Exam;
-		Map<Integer, Double[]> results = reportingService.utilAvgBatchOverall(trainees, assessmentType, 3);
-		double[] possAvg = { 35.0, 40.0, 45.0 };
-		for (int i = 1; i < 4; i++) {
-			log.info(results.get(i));
-			assertEquals(new Double(possAvg[i - 1]), results.get(i)[0]);
-		}
-	}
-
-	// returns average grade for one trainee in a given week
-	@Test
-	public void utilAvgTraineeWeekWithTwoParams() {
-		log.info("Calculate One Trainee's Average for all Exams in a Given Week");
-		Double expectedAverage = 30.0;
-		int selectedTrainee = 0; // Selects first trainee in dummy batch
-		Set<Grade> grades = trainees.get(selectedTrainee).getGrades();
-		Double actualAverage = reportingService.utilAvgTraineeWeek(grades, 1);
-		assertEquals(expectedAverage, actualAverage);
-	}
-
-	// returns average for each trainee in a given week
-	@Test
-	public void utilAvgBatchWeekWithTwoParams() {
-		log.info("Calculate Each Trainee's Average for a Given Week");
-		double[] averages = { 30.0, 35.0, 40.0 }; // Week 1 averages for all 3 trainees
-		for (int i = 0; i < 3; i++) {
-			Set<Grade> grades = trainees.get(i).getGrades();
-			Double avg = 0d;
-			for (Grade g : grades)
-				avg += g.getScore();
-			avg = reportingService.utilAvgTraineeWeek(grades, 1);
-			assertEquals(new Double(averages[i]), avg);
 		}
 	}
 	
@@ -515,8 +472,8 @@ public class ReportingServiceTest extends CaliberTest {
 	}
 	
 	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.services.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
+	 *  Test method:
+	 *  @see com.revature.caliber.services.ReportingService.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
 	 */
 	@Test
 	public void getBatchWeekQcOverallBarChartTest(){
@@ -701,24 +658,6 @@ public class ReportingServiceTest extends CaliberTest {
 	
 		assertEquals("65-30 Kissena Blvd, CEP Hall 2", address.getStreet());
 			
-	}
-	
-	/**
-	 *  Test methods:
-	 *  @see com.revature.caliber.services.ReportingService.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
-	 */
-	@Test
-	public void getBatchWeekQcOverallBarChart() {
-		int batchId = 2201;
-		int weekNumber = 5;		
-		Note note = reportingService.getBatchWeekQcOverallBarChart(batchId, weekNumber);		
-		log.info("<getBatchWeekQcOverallBarChart> Note: " + note);		
-
-		assertEquals(5, note.getWeek());
-		assertEquals(6438, note.getNoteId());		
-		//This assertion only checks that the content of returned note contains part of the String that's actually there.
-		//Ideally, we would want to assert that the content of the note (whole string) is exactly equal.
-		assertThat(note.getContent(), containsString("Covered: Unix, AWS, DevOps, Hibernate"));		
 	}
 		
 	/**
