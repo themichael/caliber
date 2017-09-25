@@ -133,6 +133,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
+
 	public void findAll() throws Exception{
 		log.trace("API Testing findAll");
 		
