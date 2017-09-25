@@ -88,6 +88,7 @@ public class SalesforceTransformerToCaliber {
 		trainee.setProjectCompletion(salesforceTrainee.getProjectCompletion());
 		trainee.setRecruiterName(salesforceTrainee.getRecruiter().getName());
 		trainee.setTechScreenerName(salesforceTrainee.getScreener());
+
 		// need to add: trainee setTechScreenFeedback
 		String degree = "None";
 		if (salesforceTrainee.getAssociates() != null){

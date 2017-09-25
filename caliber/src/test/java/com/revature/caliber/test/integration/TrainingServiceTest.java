@@ -28,9 +28,6 @@ public class TrainingServiceTest extends CaliberTest {
 		this.service = service;
 	}
 	
-	
-	
-	
 	@Test
 	public void makeInactiveWeek(){
 		TrainerRole teirBefore = dao.findOne(1).getTier();

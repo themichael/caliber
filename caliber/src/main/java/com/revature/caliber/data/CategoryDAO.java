@@ -25,19 +25,19 @@ public class CategoryDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	//Is intended to be used to find all ACTIVE categories. Does NOT show categories that are inactive.
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Category> findAll() {
+	public List<Category> findAllActive() {
 		log.debug("Fetching categories");
 		return sessionFactory.getCurrentSession().createCriteria(Category.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).add(Restrictions.eq("active", true))
 				.addOrder(Order.asc("categoryId")).list();
 	}
-
+	//Is intended to be only used by VP to see both ACTIVE and INACTIVE categories
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Category> findAllCategories() {
+	public List<Category> findAll() {
 		log.debug("Fetching categories");
 		return sessionFactory.getCurrentSession().createCriteria(Category.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
