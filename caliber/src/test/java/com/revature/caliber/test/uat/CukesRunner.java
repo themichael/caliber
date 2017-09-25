@@ -17,5 +17,5 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/download-pdf.feature"})
+@CucumberOptions(features={"src/test/resources/features/create-location.feature"})
 public class CukesRunner {}

@@ -13,7 +13,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class QualityAuditTraineePerfromanceFeature {
-	
+
 	public static WebDriver driver;
 
 	public QualityAuditPage qaPage;
@@ -78,5 +78,4 @@ public class QualityAuditTraineePerfromanceFeature {
 	    Thread.sleep(10000);
 	    qaPage.verifyTraineeNotes();
 	}
-
 }

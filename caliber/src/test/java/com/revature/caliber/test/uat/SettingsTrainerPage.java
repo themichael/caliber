@@ -177,4 +177,5 @@ public class SettingsTrainerPage {
 	public void teardown(){
 		driver.quit();
 	}
+
 }

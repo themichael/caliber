@@ -18,21 +18,9 @@ public class EditSettingCategoryFeature {
 	private WebDriver webdriver;
 	private EditSettingCategoryPage editSettingCategoryPage;
 	
-/*	
 	@cucumber.api.java.Before
 	public void setup() {
-		DesiredCapabilities descap = new DesiredCapabilities();
-		descap.setCapability("phantomjs.binary.path", System.getenv("PHANTOM_BIN"));
-		descap.setJavascriptEnabled(true);
-		webdriver = new PhantomJSDriver(descap);
-		webdriver.manage().window().setSize(new Dimension(1200, 1200));
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		editSettingCategoryPage = new EditSettingCategoryPage(webdriver);
-	}
-*/	
-	@cucumber.api.java.Before
-	public void setup() {
-		System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_BIN"));
+		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--window-size=1200x600");
@@ -43,7 +31,7 @@ public class EditSettingCategoryFeature {
 
 	@cucumber.api.java.After
 	public void teardown() {
-		webdriver.quit();
+		editSettingCategoryPage.closeDriver();
 	}
 	
 	@Given("^I am on the settings category page$")

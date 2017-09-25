@@ -17,7 +17,7 @@ public class SettingLocationPage {
 	 * in the Locations page of caliber. Only the VP's are allowed to 
 	 * add/update locations.
 	 */
-
+/*
 	private PhantomJSDriver driver;
 
 	//Initialize phantomjs driver to page
@@ -167,4 +167,5 @@ public class SettingLocationPage {
 		public void clickXCloseDeactivateModal(){
 			driver.findElement(By.cssSelector("#deleteLocationModal > div > div > div.modal-header > button")).click();
 		}
+*/
 }

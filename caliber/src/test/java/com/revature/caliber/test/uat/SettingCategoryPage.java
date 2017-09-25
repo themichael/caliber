@@ -141,7 +141,7 @@ public class SettingCategoryPage {
     			new File("~/Desktop/closeButtonCategoryNotCreated.jpg"), true);
     }
     
-    public void quitDriver() {
+    public void closeDriver() {
         driver.quit();
     }
 }
