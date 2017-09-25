@@ -60,7 +60,7 @@ public class AddBatchWeeklyPerformanceFeature {
 
 	@After
 	public void teardown(){
-		assessBatchPage.teardown();
+		assessBatchPage.closeDriver();
 	}
 
 }
