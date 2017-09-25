@@ -2,6 +2,7 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.Logger;
