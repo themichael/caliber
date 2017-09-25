@@ -81,8 +81,10 @@ public class QualityAuditPage {
 		int week = 1;
 		// Loop constructed on the premise that weeks don't go over 9
 		for(; week <=9; week++){
-			weekTab = driver.findElement(By.id("week" + week)).getAttribute("class");
-			if(weekTab == "active"){
+			WebElement child = driver.findElement(By.id("week" + week));
+			WebElement parent = child.findElement(By.xpath(".."));
+			weekTab = parent.getAttribute("class");
+			if(weekTab.equals("active")){
 				selected = true;
 				break;
 			}
