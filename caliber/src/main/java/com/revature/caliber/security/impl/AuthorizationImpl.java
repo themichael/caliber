@@ -18,7 +18,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,17 +25,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.revature.caliber.security.Authorization;
 import com.revature.caliber.security.models.SalesforceUser;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by louislopez on 1/18/17.
  */
 
 @Controller
-@Scope("prototype")
 public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implements Authorization {
 	@Value("/caliber")
 	private String forwardUrl;
@@ -86,7 +84,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.debug("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		redirectAttributes.addAttribute("salestoken",toJsonString(response.getEntity().getContent()));
+		redirectAttributes.addFlashAttribute("salestoken",toJsonString(response.getEntity().getContent()));
 		log.debug("Redirecting to : " + REDIRECT + redirectUrl);
 		return new ModelAndView(REDIRECT + redirectUrl);
 	}

@@ -43,7 +43,11 @@ import static org.hamcrest.CoreMatchers.containsString;
 
 public class ReportingServiceTest extends CaliberTest {
 
-	public static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
+	private static final String EMAIL = "email@email.com";
+	private static final String TITLE = "A title:";
+	private static final String REVATURE = "Revature";
+	private static final String SAMPLE = "Check sample values";
+	
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
 	private static List<Trainee> trainees;
 	private ReportingService reportingService;
@@ -82,11 +86,11 @@ public class ReportingServiceTest extends CaliberTest {
 		Batch batch = new Batch();
 		batch.setWeeks(5);
 		for (int i = 1; i < 4; i++) {
-			Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch);
+			Trainee trainee = new Trainee("Trainee" + i, "java", EMAIL, batch);
 			trainee.setTraineeId(i);
 			Set<Grade> grades = new HashSet<>();
 			for (int j = 1; j < 6; j++) {
-				Assessment assess1 = new Assessment("A title:" + j, batch, 100, AssessmentType.Exam, j, new Category());
+				Assessment assess1 = new Assessment(TITLE + j, batch, 100, AssessmentType.Exam, j, new Category());
 				Assessment assess2 = new Assessment("Another title:" + j, batch, 100, AssessmentType.Exam, j,
 						new Category());
 				grades.add(new Grade(assess1, trainee, new Date(), j * 10 + (i - 1) * 10));
@@ -260,14 +264,6 @@ public class ReportingServiceTest extends CaliberTest {
 		}
 	}
 
-	
-	// BatchDAO is only autowired here to get one batch from the database and
-	// use it's id number.
-	@Autowired
-	public BatchDAO batchDao;
-
-
-
 	@Test
 	public void testUtilAvgTraineeWeekWithThreeParam() {
 		log.info("UtilAvgTraineeWeekWithThreeParam Test");
@@ -381,12 +377,12 @@ public class ReportingServiceTest extends CaliberTest {
 		String allTraining = "(All)";
 		
 		String j2eeSkill = "J2EE";
-		String revatureTraining = "Revature";
+		String revatureTraining = REVATURE;
 		String universityTraining = "University";
 		
 		
 		List<Batch> batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, allTraining);
-		int expected = 5;
+		int expected = 6;
 		int actual = batches.size();
 		assertEquals(expected, actual);
 		
@@ -400,7 +396,7 @@ public class ReportingServiceTest extends CaliberTest {
 		
 
 		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, revatureTraining);
-		expected = 3;
+		expected = 4;
 		actual = batches.size();
 		assertEquals(expected, actual);
 		
@@ -566,9 +562,9 @@ public class ReportingServiceTest extends CaliberTest {
 	public void getBatchWeekAvgBarChartTest() {
 		log.info("Testing getBatchWeekAvgBarChartTest");
 		Map <String, Double[]> weekAvgBarChart = reportingService.getBatchWeekAvgBarChart(2201, 5);
-		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Project")[0]- 88.75) < 0.001);
-		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Exam")[0]- 76.109375) < 0.001);
-		assertTrue("Check sample values", (Double) Math.abs(weekAvgBarChart.get("Verbal")[0]- 74.375) < 0.001);
+		assertTrue(SAMPLE, (Double) Math.abs(weekAvgBarChart.get("Project")[0]- 88.75) < 0.001);
+		assertTrue(SAMPLE, (Double) Math.abs(weekAvgBarChart.get("Exam")[0]- 76.109375) < 0.001);
+		assertTrue(SAMPLE, (Double) Math.abs(weekAvgBarChart.get("Verbal")[0]- 74.375) < 0.001);
 	}
 	
 	/**
@@ -580,8 +576,8 @@ public class ReportingServiceTest extends CaliberTest {
 		
 		log.info("getBatchWeekSortedBarChartTest");
 		Map<String, Double> test =reportingService.getBatchWeekSortedBarChart(2050, 2);
-		assertTrue("Check sample values", (Double) Math.abs(test.get("Fouche, Issac")- 96.29) < 0.001);
-		assertTrue("Check sample values", (Double) Math.abs(test.get("Castillo, Erika")- 89.63) < 0.001);
+		assertTrue(SAMPLE, (Double) Math.abs(test.get("Fouche, Issac")- 96.29) < 0.001);
+		assertTrue(SAMPLE, (Double) Math.abs(test.get("Castillo, Erika")- 89.63) < 0.001);
 		assertEquals(6, test.size());
 		
 	}
@@ -697,7 +693,7 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void getBatchWeekQcOverallBarChart() {
 		
-		Batch batch = batchDao.findAll().get(1);
+		Batch batch = batchDAO.findAll().get(1);
 		int batchId = batch.getBatchId();
 		int weekNumber = 5;
 		
@@ -729,8 +725,8 @@ public class ReportingServiceTest extends CaliberTest {
 		Calendar end = Calendar.getInstance();
 		end.set(Calendar.YEAR, 4, 1);
 		
-		Batch b1 = new Batch("1808-Java",new Trainer(),start.getTime(), end.getTime(), "Revature");
-		Batch b2 = new Batch("1909-Java",new Trainer(), start.getTime(), end.getTime(), "Revature");
+		Batch b1 = new Batch("1808-Java",new Trainer(),start.getTime(), end.getTime(), REVATURE);
+		Batch b2 = new Batch("1909-Java",new Trainer(), start.getTime(), end.getTime(), REVATURE);
 		b1.setWeeks(4);
 		b2.setWeeks(4);
 		
@@ -741,16 +737,16 @@ public class ReportingServiceTest extends CaliberTest {
 		int[] score2 = {100, 90, 90, 80};
 		
 		for(int i = 1; i < 2; i++){
-            Trainee trainee1 = new Trainee("Trainee1_" + i, "java", "email@email.com", b1);
-            Trainee trainee2 = new Trainee("Trainee2_" + i,".net","email@email.com",b2);
+            Trainee trainee1 = new Trainee("Trainee1_" + i, "java", EMAIL, b1);
+            Trainee trainee2 = new Trainee("Trainee2_" + i,".net",EMAIL,b2);
             trainee1.setTraineeId(i+100);
             trainee2.setTraineeId(i+200);
             
             Set<Grade> grades1 = new HashSet<>();
             Set<Grade> grades2 = new HashSet<>();
             for(int j = 1; j < 5; j++){
-                Assessment weekB1 = new Assessment("A title:" + j, b1, 100, AssessmentType.Exam, j, new Category());
-                Assessment weekB2 = new Assessment("A title:" + j, b2, 100, AssessmentType.Exam,j, new Category());
+                Assessment weekB1 = new Assessment(TITLE + j, b1, 100, AssessmentType.Exam, j, new Category());
+                Assessment weekB2 = new Assessment(TITLE + j, b2, 100, AssessmentType.Exam,j, new Category());
                 grades1.add(new Grade(weekB1, trainee1, new Date(), score1[j-1]));
                 grades2.add(new Grade(weekB2, trainee2, new Date(), score2[j-1]));
             }
@@ -781,7 +777,7 @@ public class ReportingServiceTest extends CaliberTest {
 		Batch batch = new Batch();
 		batch.setWeeks(7);
 		for (int i = 1; i < 4; i++) {
-			Trainee trainee = new Trainee("Trainee" + i, "java", "email@email.com", batch);
+			Trainee trainee = new Trainee("Trainee" + i, "java", EMAIL, batch);
 			trainee.setTraineeId(i);
 			Set<Note> notes = new HashSet<>();
 			for (int j = 1; j < 8; j++) {
