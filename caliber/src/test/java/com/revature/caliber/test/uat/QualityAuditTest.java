@@ -1,12 +1,16 @@
 package com.revature.caliber.test.uat;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -36,16 +40,6 @@ public class QualityAuditTest {
 	public void test() throws IOException, InterruptedException{
 		QualityAuditPage qaPage = new QualityAuditPage(driver);
 		qaPage.goToPage();
-		qaPage.clickYearDropdown();
-		qaPage.clickBatch();
-		qaPage.clickAddWeeksForBatchButton();
-		qaPage.clickWeeksForBatch(2);
-		qaPage.clickIndividualFeedbackButton();
-		qaPage.setNoteOnTraineeTextArea("Test string");
-		qaPage.clickOverallFeedbackQCButtonGood();
-		qaPage.clickOverallFeedbackQCButtonAvg();
-		qaPage.clickOverallFeedbackQCButtonPoor();
-		qaPage.setOverallFeedbackQCNotes("Test String");
-		qaPage.clickSaveButton();
+		qaPage.verifyWeekForBatch();
 	}
 }
