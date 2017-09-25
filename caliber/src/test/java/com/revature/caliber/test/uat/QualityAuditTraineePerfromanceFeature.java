@@ -45,19 +45,19 @@ public class QualityAuditTraineePerfromanceFeature {
 
 	@Given("^I have selected the current year for year$")
 	public void iHaveSelectedCurrentYear() throws Throwable {
-		qaPage.clickYearDropdown();
-	    qaPage.verifyYear();
+		qaPage.clickYearDropdown("2017");
+	    qaPage.verifyYear("2017");
 	}
 	
 	@Given("^I have selected the current Batch$")
 	public void iHaveSelectedTheCurrentBatch() throws Throwable {
-		qaPage.clickBatch();
-	    qaPage.verifyBatch();
+		qaPage.clickBatch("Patrick Walsh - 2/14/17");
+	    qaPage.verifyBatch("Patrick Walsh - 2/14/17");
 	}
 
 	@Given("^I am on the most current week$")
 	public void iAmOnTheMostCurrentWeek() throws Throwable {
-		qaPage.verifyWeekForBatch();
+		qaPage.verifyWeekForBatch("week8");
 	}
 
 	@Given("^have entered \"([^\"]*)\" in Trainees note area$")

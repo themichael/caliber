@@ -30,36 +30,50 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks the Year dropdown and selects 2017 as the year
+	 * Clicks the Year dropdown and selects the year inputed as the year
+	 * @param year to select (2016-2018)
 	 */
-	public void clickYearDropdown(){
+	public void clickYearDropdown(String year){
 		//opens year dropdown
-		driver.findElement(By.id("yearDropDownButton")).click();
+		driver.findElement(By.id("yearDropDownButton"))
+			.click();
 		//clicks on '2017' from the unhidden menu
-		driver.findElement(By.id("2017")).click();
+		driver.findElement(By.id(year))
+			.click();
 	}
 	
-	public void verifyYear(){
+	/**
+	 * Checks that the year is the same as the inputed year
+	 * @param checkYear year to check
+	 */
+	public void verifyYear(String checkYear){
 		String year = driver.findElement(By.id("yearDropDownButton"))
 				.getText();
-		assertEquals("2017", year);
+		assertEquals(checkYear, year);
 	}
 	
 	
 	/**
-	 * Clicks on the Batch dropdown and selects Patrick Walsh - 2/14/17 from the batch by year dropdown, which is the first element
+	 * Clicks on the Batch dropdown and selects the batchID inputted from the batch dropdown
+	 * @param batchID batch to select (follows "[trainerName] - [date]" format)
 	 */
-	public void clickBatch(){
+	public void clickBatch(String batchID){
 		//click on batch
-		driver.findElement(By.id("batchDropDown")).click();
+		driver.findElement(By.id("batchDropDown"))
+			.click();
 		//click on 'Patrick Walsh - 2/14/17' from the unhidden menu
-		driver.findElement(By.id("Patrick Walsh - 2/14/17")).click();
+		driver.findElement(By.id(batchID))
+			.click();
 	}
 	
-	public void verifyBatch(){
-		String batch = driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[2]/a"))
+	/**
+	 * Verifies the current batch selected againt the input
+	 * @param checkBatch batch to check against (follows "[trainerName] - [date]" format)
+	 */
+	public void verifyBatch(String checkBatch){
+		String batch = driver.findElement(By.id("batchDropDown"))
 				.getText();
-		assertEquals("Patrick Walsh - 2/14/17" , batch);
+		assertEquals(checkBatch , batch);
 	}
 	
 	/**
@@ -75,8 +89,9 @@ public class QualityAuditPage {
 	/**
 	 * Verifies the current week selected on the week tab by checking which tab is currently selected.
 	 * Checks if the class of the parent is active.
+	 * @param checkWeek as the week to check (format as weekX where X is the number, no space between them at all)
 	 */
-	public void verifyWeekForBatch(){
+	public void verifyWeekForBatch(String checkWeek){
 		String weekTab;
 		boolean	selected;
 		int week = 1;
@@ -90,7 +105,7 @@ public class QualityAuditPage {
 				break;
 			}
 		}
-		assertTrue(selected = true);
+		assertEquals(checkWeek, "week"+week);
 		
 	}
 	
@@ -99,10 +114,12 @@ public class QualityAuditPage {
 	 * @throws InterruptedException 
 	 */
 	public void clickAddWeeksForBatchButton() throws InterruptedException{
-		driver.findElement(By.id("addWeekButton")).click();
+		driver.findElement(By.id("addWeekButton"))
+			.click();
 		// wait for alert
 		Thread.sleep(500);
-		driver.switchTo().activeElement().findElement(By.id("noBtn")).click(); //currently clicking no
+		driver.switchTo().activeElement().findElement(By.id("noBtn"))
+			.click(); //currently clicking no
 		//wait for alert to dissipate
 		Thread.sleep(500);
 	}
@@ -117,7 +134,8 @@ public class QualityAuditPage {
 		boolean isAvailable;
 		int step = 0;
 		for(; step<=4; step++){
-			isAvailable = driver.findElement(By.id("indvFeedback-"+ qcBtns[step] + "-0" )).isDisplayed();
+			isAvailable = driver.findElement(By.id("indvFeedback-"+ qcBtns[step] + "-0" ))
+					.isDisplayed();
 			if(isAvailable)
 				break;
 		}
@@ -201,7 +219,7 @@ public class QualityAuditPage {
 	 * Clicks the save button at the bottom of the page
 	 */
 	public void clickSaveButton(){
-		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/div/div/a"))
+		driver.findElement(By.id("saveButton"))
 			.click();
 	}
 }

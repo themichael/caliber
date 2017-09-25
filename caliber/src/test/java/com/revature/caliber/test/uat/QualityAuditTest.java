@@ -40,6 +40,11 @@ public class QualityAuditTest {
 	public void test() throws IOException, InterruptedException{
 		QualityAuditPage qaPage = new QualityAuditPage(driver);
 		qaPage.goToPage();
-		qaPage.verifyWeekForBatch();
+		qaPage.clickYearDropdown("2017");
+		qaPage.verifyYear("2017");
+		qaPage.clickBatch("Patrick Walsh - 2/14/17");
+		qaPage.verifyBatch("Patrick Walsh - 2/14/17");
+		qaPage.clickWeeksForBatch(8);
+		qaPage.verifyWeekForBatch("week8");
 	}
 }

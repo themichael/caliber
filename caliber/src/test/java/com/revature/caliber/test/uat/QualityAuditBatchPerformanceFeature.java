@@ -45,19 +45,19 @@ public class QualityAuditBatchPerformanceFeature {
 
 	@Given("^I have selected the current year$")
 	public void iHaveSelectedTheCurrentYear() throws Throwable {
-	    qaPage.clickYearDropdown();
-	    qaPage.verifyYear();
+	    qaPage.clickYearDropdown("2017");
+	    qaPage.verifyYear("2017");
 	}
 
 	@Given("^I have selected a Batch$")
 	public void iHaveSelectedABatch() throws Throwable {
-	    qaPage.clickBatch();
-	    qaPage.verifyBatch();
+	    qaPage.clickBatch("Patrick Walsh - 2/14/17");
+	    qaPage.verifyBatch("Patrick Walsh - 2/14/17");
 	}
 
 	@Given("^I am viewing the most recent week$")
 	public void iAmViewingTheMostRecentWeek() throws Throwable {
-	    qaPage.verifyWeekForBatch();
+	    qaPage.verifyWeekForBatch("week8");
 	}
 	
 	@Given("^I click on an overall batch feedback button$")
