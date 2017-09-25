@@ -124,7 +124,7 @@ public class ReportsPage {
 	}
 
 	/***
-	 *  Click the chart glyphicon
+	 *  Click the chart glyphicon for dropdown
 	 */
 	public void clickChartDropdownPdf() {
 		driver.findElement(By.id("dropdownReportsMenu")).click();
@@ -187,7 +187,8 @@ public class ReportsPage {
 	public void chooseTraineeTechSkills(String trainee) throws InterruptedException {
 		// id = 'lastname, firstname' so String trainee = "lastname, firstname";
 		// 'Ali, Fareed' for testing purposes
-		Thread.sleep(1000);
+//		Thread.sleep(1000);
+		//Uses cssSelector because 'id' was not able to click the specific checkbox
 		driver.findElement(By.cssSelector("#insert-trainee > div > div > div.modal-body > div > table > tbody > tr:nth-child(2) > th > input")).click();
 	}
 
@@ -198,6 +199,9 @@ public class ReportsPage {
 		driver.findElement(By.id("weeklyProgressDownload")).click();
 	}
 
+	/**
+	 * Quits the driver.
+	 */
 	public void quitDriver() {
 		driver.quit();
 	}

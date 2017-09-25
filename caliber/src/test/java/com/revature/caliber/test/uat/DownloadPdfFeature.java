@@ -53,7 +53,6 @@ public class DownloadPdfFeature {
 
 	@After // each scenario
 	public void teardown() {
-		// setLocPage.quitDriver();
 		reportsPage.quitDriver();
 	}
 
@@ -61,13 +60,6 @@ public class DownloadPdfFeature {
 	public void iAmOnTheReportsPage() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		reportsPage.gotoReportsPage();
-//        TakesScreenshot ts = (TakesScreenshot)driver;
-//        File source = ts.getScreenshotAs(OutputType.FILE);
-//        String dest = "C:/Users/Evan Molinelli/Pictures/reportsPage2.jpg";
-//        File destination = new File(dest);
-//        FileUtils.copyFile(source, destination);
-//        File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-//		FileUtils.copyFile(srcFile, new File("C:/Users/Evan Molinelli/Pictures/reportsPage2.jpg"), true);
 		reportsPage.verifyReportsPage();
 
 	}
@@ -106,29 +98,13 @@ public class DownloadPdfFeature {
 		// Write code here that turns the phrase above into concrete actions
 		// Same for Cumulative Scores, Technical Skills, and Weekly Progress
 		 reportsPage.clickChartDropdownPdf();
-		 reportsPage.clickChartFeedbackDownloadPdf();
-		 //or reportsPage.clickChartDownloadPdf();
 		 
 	}
 
 	@Then("^a PDF file is downloaded$")
 	public void aPDFFileIsDownloaded() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-//		File f1 = reportsPage.getLatestFilefromDir("C:\\Users\\Evan Molinelli\\Downloads");
-//		Thread.sleep(10000);
-//		assertTrue(reportsPage.isFileDownloaded("C:\\Users\\Evan Molinelli\\Downloads", "Trainee.pdf"));
-		reportsPage.gotoReportsPage();
-//		reportsPage.clickCumulativeScoreGlyph();
-		reportsPage.clickTechnicalSkillGlyph();
-		reportsPage.gotoReportsPage();
-		reportsPage.clickTechnicalSkillsModal();
-		Thread.sleep(2000);
-		reportsPage.chooseTraineeTechSkills("guy");
-		reportsPage.closeTraineeCompModal();
-		reportsPage.gotoReportsPage();
-		reportsPage.clickWeeklyProgressGlyph();
-		
-		
+		reportsPage.clickChartFeedbackDownloadPdf();
+		 //or reportsPage.clickChartDownloadPdf();		
 	}
 
 }
