@@ -36,7 +36,7 @@ import com.revature.caliber.security.models.SalesforceUser;
 
 @Controller
 public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implements Authorization {
-	@Value("/caliber")
+	@Value("/caliber/")
 	private String forwardUrl;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
 
