@@ -533,9 +533,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchWeekPieChartTest() {
-		
-		log.info("\n \n \n \n <getBatchWeekPieChartTest> Acquired batch information. BatchId: " + 2201 + " weekNumber: " + 7);
-		
+		log.info("Testing ReportingService.getBatchWeekPieChart");
 		Map<QCStatus, Integer> pieChart = reportingService.getBatchWeekPieChart(2201, 7);
 		
 		for (QCStatus key : pieChart.keySet()) {
@@ -558,29 +556,19 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void pieChartCurrentWeekQCStatusTest() {
-		
+		log.info("Testing ReportingService.pieChartCurrentWeekQCStatus()");
 		Integer batchId = 2201;
-		
-		log.info("\n \n \n <pieChartCurrentWeekQCStatusTest> Acquired batch information. BatchId: " + batchId);
-		
 		Map<QCStatus, Integer> pieChart = reportingService.pieChartCurrentWeekQCStatus(batchId);
 		
 		for (QCStatus key : pieChart.keySet()) {
-			
-			log.info("key: "+ key+ " " + pieChart.get(key));
-			
+			log.info("key: "+ key+ " " + pieChart.get(key));	
 		}
-		
-		log.info("Testing pieChartCurrentWeekQCStatus(int batchId)");
 		
 		assertNotNull(pieChart);
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Superstar));
 		assertEquals( (Integer) 9, (Integer) pieChart.get(QCStatus.Good));
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Average));
-		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
-		
-		
-	
+		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));	
 	}
 	
 	/**
@@ -589,17 +577,14 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getAllBatchesCurrentWeekQCStackedBarChartTest() {
-		
-		log.info("\n \n \n \n \n <getAllBatchesCurrentWeekQCStackedBarChartTest> Acquire dem batches.");
+		log.info("Testing ReportingService.getAllBatchesCurrentWeekQCStackedBarChar()");
 		List<Object> object = reportingService.getAllBatchesCurrentWeekQCStackedBarChart();
 		
 		@SuppressWarnings("unchecked")
 		Map<String, Object> test = (Map<String, Object>) object.get(0);
 		
 		for (int i = 0; i < object.size(); i++) {
-			
-			log.info("Batch number " + i + ": " + object.get(i));
-			
+			log.info("Batch number " + i + ": " + object.get(i));	
 		}
 
 		// find a way to acquire the map separately, then iterate through its keys
@@ -636,12 +621,8 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchWeekQcOverallBarChart() {
-		
-
 		int batchId = 2201;
 		int weekNumber = 5;
-		
-		log.info("\n \n \n \n \n <getBatchWeekQcOverallBarChart> BatchId: " + batchId + " Week: " + 5);
 		
 		Note note = reportingService.getBatchWeekQcOverallBarChart(batchId, weekNumber);
 		

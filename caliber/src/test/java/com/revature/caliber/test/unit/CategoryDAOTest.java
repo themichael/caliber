@@ -1,22 +1,22 @@
 package com.revature.caliber.test.unit;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.data.CategoryDAO;
-import com.revature.caliber.test.integration.AssessmentTest;
 
 public class CategoryDAOTest extends CaliberTest {
-	private static final Logger log = Logger.getLogger(AssessmentTest.class);
+	private static final Logger log = Logger.getLogger(CategoryDAO.class);
 
 	@Autowired
 	private CategoryDAO dao;
