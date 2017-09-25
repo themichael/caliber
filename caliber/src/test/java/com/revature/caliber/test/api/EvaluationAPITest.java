@@ -86,7 +86,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API Testing createGrade");
 		
 		// make an assessment to store the grade in
-		Category category = categoryDAO.findAllCategories().get(0);
+		Category category = categoryDAO.findAllActive().get(0);
 		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
 		Assessment assessment = new Assessment("Testing Test", trainee.getBatch(), 200, AssessmentType.Exam, TEST_WEEK, category);
 		assessmentDAO.save(assessment);
@@ -94,7 +94,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		//setting the expected value as a grade 
 		Grade expected = new Grade(assessment, trainee, new Date(), 99.99);
 		
-		given().header(auth, accessToken).spec(requestSpec)
+		given().header(AUTH, accessToken).spec(requestSpec)
 				.contentType(ContentType.JSON).body(new ObjectMapper()
 				.writeValueAsString(expected))
 			.when().post(baseUrl + CREATE_GRADE)
@@ -118,7 +118,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		// change grade
 		expected.setScore(55.55);
 				
-		given().header(auth, accessToken).spec(requestSpec)
+		given().header(AUTH, accessToken).spec(requestSpec)
 				.contentType(ContentType.JSON).body(new ObjectMapper()
 				.writeValueAsString(expected))
 			.when().post(baseUrl+UPDATE_GRADE)
@@ -139,7 +139,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		
 		// make list to store grades in
 		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		grades = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl+FIND_ALL) // find all grades
 			.then().assertThat().statusCode(200)
 				.extract().body().as(grades.getClass()); // extract body of response as a List<Grade>
@@ -159,7 +159,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API Testing findByAssessment");
 
 		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		grades = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl+FIND_BY_ASSESSMENT) // find grade by assessment
 			.then().assertThat()
 				.statusCode(200)
@@ -180,7 +180,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API test findByTrainee");
 		
 		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(auth, accessToken)
+		grades = given().spec(requestSpec).header(AUTH, accessToken)
 				.contentType(ContentType.JSON)
 			.when().get(baseUrl + FIND_BY_TRAINEE) // find grade by Trainee
 			.then().assertThat()
@@ -200,7 +200,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API test findByBatch");
 		
 		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(auth, accessToken)
+		grades = given().spec(requestSpec).header(AUTH, accessToken)
 				.contentType(ContentType.JSON)
 			.when().get(baseUrl + FIND_BY_BATCH) // find grade by batch
 			.then().assertThat()
@@ -221,7 +221,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API test findByCategory");
 		
 		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(auth, accessToken)
+		grades = given().spec(requestSpec).header(AUTH, accessToken)
 				.contentType(ContentType.JSON)
 			.when().get(baseUrl + FIND_BY_CATEGORY) // find grade by Category
 			.then().assertThat()
@@ -239,7 +239,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	public void findByWeek(){
 		log.trace("API test findByWeek");
 		
-		given().spec(requestSpec).header(auth, accessToken)
+		given().spec(requestSpec).header(AUTH, accessToken)
 				.contentType(ContentType.JSON)
 			.when().get(baseUrl + FIND_BY_WEEK) // find grades by week
 			.then().assertThat()
@@ -257,7 +257,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API test findByTrainer");
 		
 		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(auth, accessToken)
+		grades = given().spec(requestSpec).header(AUTH, accessToken)
 				.contentType(ContentType.JSON)
 			.when().get(baseUrl + FIND_BY_TRAINER) // find grades by Trainer
 			.then().assertThat()
@@ -290,7 +290,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		expected.setMaxVisibility(TrainerRole.ROLE_TRAINER);
 		expected.setTrainee(null);
 		
-		given().spec(requestSpec).header(auth, accessToken)
+		given().spec(requestSpec).header(AUTH, accessToken)
 				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected))
 			.when().post(baseUrl + createNote)
 			.then().assertThat().statusCode(201);
@@ -314,7 +314,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		Note expected = noteDAO.findQCIndividualNotes(5529, 2).get(0);
 		expected.setContent("This is a test notes");
 		
-		given().spec(requestSpec).header(auth, accessToken)
+		given().spec(requestSpec).header(AUTH, accessToken)
 				.contentType(ContentType.JSON).body(new ObjectMapper().writeValueAsString(expected))
 				.when().post(baseUrl + updateNote)
 				.then().assertThat().statusCode(201);
@@ -333,7 +333,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API test findBatchNotes");
 
 		List<Note> notes = new ArrayList<>();
-		notes = given().spec(requestSpec).header(auth, accessToken)
+		notes = given().spec(requestSpec).header(AUTH, accessToken)
 				.contentType(ContentType.JSON)
 			.when()
 				.get(baseUrl + FIND_BATCH_NOTES)
@@ -353,7 +353,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	public void findQCBatchNotes()  {
 		log.trace("API Testing findQCBatchNotes");
 		
-		Note note = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		Note note = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		.when()
 			//get request for QC BatchNotes
 			.get(baseUrl + FIND_QCBATCH_NOTES)
@@ -376,7 +376,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.info("API Testing getAllQCTraineeNotes");
 		
 		List<Note> notes = new ArrayList<>();
-		notes = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		notes = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when()
 			//request for get All QC Trainee Notes
 			.get(baseUrl + GET_ALL_QCTRAINEE_NOTES )
@@ -399,7 +399,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API Testing getAllQCTraineeOverallNotes"); 
 		
 		List<Note> notes = new ArrayList<>();
-		notes = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		notes = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when()
 				//request for get All QC TraineeOverall Notes 
 				.get(baseUrl + GET_ALL_QCTRAINEE_OVERALL_NOTES )
@@ -422,7 +422,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API Testing findAllBatchNotes");
 		
 		List<Note> notes = new ArrayList<>();
-		notes = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		notes = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when()
 				//request for get find All Batch Notes
 				.get(baseUrl + FIND_ALL_BATCH_NOTES)
@@ -445,7 +445,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API Testing findAllTraineeNotes"); 
 		
 		List<Note> notes = new ArrayList<>();
-		notes = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		notes = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when()
 				//request to find all individual notes 
 				.get(baseUrl + FIND_ALL_TRAINEE_NOTES)
@@ -469,7 +469,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		log.trace("API Testing findAllIndividualNotes"); 
 		
 		List<Note> notes = new ArrayList<>();
-		notes = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
+		notes = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when()
 				//request to find all Individual Notes
 				.get(baseUrl + FIND_ALL_INDIVIDUAL_NOTES)
@@ -494,7 +494,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		
 		String findIndividualNotes = "trainer/note/trainee/2201/6";
 		List<Note> notes = new ArrayList<>();
-		notes = given().spec(requestSpec).header(auth, accessToken)
+		notes = given().spec(requestSpec).header(AUTH, accessToken)
 				.contentType(ContentType.JSON)
 			.when()
 				.get(baseUrl + findIndividualNotes)
@@ -506,7 +506,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		assertTrue(!notes.isEmpty());
 		
 		findIndividualNotes = "trainer/note/trainee/2200/3";
-		notes = given().spec(requestSpec).header(auth, accessToken)
+		notes = given().spec(requestSpec).header(AUTH, accessToken)
 				.contentType(ContentType.JSON)
 			.when()
 				.get(baseUrl + findIndividualNotes)
@@ -526,7 +526,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void findTraineeNote(){
-		given().spec(requestSpec).header(auth, accessToken) // authorization
+		given().spec(requestSpec).header(AUTH, accessToken) // authorization
 				.contentType(ContentType.JSON) // data expected
 			.when().get(baseUrl + FIND_TRAINEE_NOTE + TEST_TRAINEE_ID + "/for/" + TEST_WEEK)
 			.then().assertThat()
@@ -543,7 +543,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void findQCTraineeNote(){
-		given().spec(requestSpec).header(auth, accessToken) // authorization
+		given().spec(requestSpec).header(AUTH, accessToken) // authorization
 			.contentType(ContentType.JSON) // data expected
 		.when().get(baseUrl + FIND_QCTRAINEE_NOTE + TEST_TRAINEE_ID + "/for/" + TEST_WEEK)
 		.then().assertThat()
