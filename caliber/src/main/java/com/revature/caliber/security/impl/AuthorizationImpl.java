@@ -36,7 +36,7 @@ import com.revature.caliber.security.models.SalesforceUser;
 
 @Controller
 public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implements Authorization {
-	@Value("/caliber")
+	@Value("/caliber/")
 	private String forwardUrl;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
 
@@ -71,7 +71,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-                                                RedirectAttributes redirectAttributes) throws IOException {
+			RedirectAttributes redirectAttributes) throws IOException {
 		log.debug("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
@@ -84,8 +84,8 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.debug("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		redirectAttributes.addFlashAttribute("salestoken",toJsonString(response.getEntity().getContent()));
-		log.debug("Redirecting to : " + REDIRECT + redirectUrl);
+		redirectAttributes.addAttribute("salestoken", toJsonString(response.getEntity().getContent()));
+		log.debug("Forwarding to : " + redirectUrl);
 		return new ModelAndView(REDIRECT + redirectUrl);
 	}
 
