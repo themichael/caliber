@@ -5,8 +5,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Address;
 import com.revature.caliber.controllers.TrainingController;
@@ -26,6 +28,7 @@ public class AddressDAOTest extends CaliberTest{
 		this.dao = dao;
 	}
 	
+	@Ignore
 	@Test
 	public void saveAddressDAO(){
 		log.info("Saving a new Address using AddressDAO");
@@ -38,7 +41,7 @@ public class AddressDAOTest extends CaliberTest{
 		assertEquals(address, dao.getAddressById(addressId));
 		assertEquals(++before, after);
 	}
-	
+	@Ignore
 	@Test
 	public void getAllAddressDAO(){
 		log.info("Getting all addresses using AddressDAO getAll function");
@@ -46,6 +49,7 @@ public class AddressDAOTest extends CaliberTest{
 		assertEquals(trainingController.getAllLocations().getBody().size(),dao.getAll().size());
 		assertEquals(trainingController.getAllLocations().getBody().toString(),dao.getAll().toString());
 	}
+	@Ignore
 	@Test
 	public void findAllAddressDAO(){
 		log.info("Find All Addresses");
@@ -53,7 +57,7 @@ public class AddressDAOTest extends CaliberTest{
 		assertTrue(trainingController.getAllLocations().hasBody());
 		assertEquals(dao.findAll().size(),size);
 	}
-	
+	@Ignore
 	@Test
 	public void getAddressByIdDAO(){
 		log.info("Finding Location by address");
@@ -61,7 +65,7 @@ public class AddressDAOTest extends CaliberTest{
 		Address address = dao.getAddressById(search);
 		assertEquals(trainingController.getAllLocations().getBody().get(0),address);
 	}
-
+	@Ignore
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void failGetAddressByInt(){
 		log.info("About to fail gettingAddressByInt");
@@ -70,7 +74,7 @@ public class AddressDAOTest extends CaliberTest{
 		int addressId = address.getAddressId();
 		trainingController.getAllLocations().getBody().get(addressId+1);
 	}
-
+	@Ignore
 	@Test
 	public void updateAddressDAO(){
 		log.info("UpdateAddessDAO Test");

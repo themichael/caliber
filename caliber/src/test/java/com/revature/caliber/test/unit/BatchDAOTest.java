@@ -41,7 +41,7 @@ public class BatchDAOTest extends CaliberTest {
 	public void findAllCurrentIntTest(){
 		log.info("Testing the BatchDAO.findAllCurrent(trainerId)");
 		List<Batch> batches = batchDAO.findAllCurrent(1);
-		int expected = 3; //only 3 current batches with trainerId: 1
+		int expected = 4 ; //only 4 current batches with trainerId: 1
 		int actual = batches.size();
 		assertEquals(expected, actual);
 	}
@@ -107,13 +107,13 @@ public class BatchDAOTest extends CaliberTest {
 		log.info("Testing the BatchDAO.findAllAfterDateTest()");
 		// positive test
 		// find how many after a specific date
-		String sql = "SELECT START_DATE FROM CALIBER_BATCH WHERE START_DATE >= '2017-01-01'";
-		int expect = jdbcTemplate.queryForList(sql).size();
-		int actual = batchDAO.findAllAfterDate(0, 1, 2017).size();
+		int expect = 5;
+		int actual = batchDAO.findAllAfterDate(1, 1, 2017).size();
+		log.info( batchDAO.findAllAfterDate(1, 1, 2017));
 		assertEquals(expect, actual);
 
 		// negative test
-		sql = "SELECT START_DATE FROM CALIBER_BATCH WHERE START_DATE >= '2017-01-01'";
+		String sql = "SELECT START_DATE FROM CALIBER_BATCH WHERE START_DATE >= '2017-01-01'";
 		expect = jdbcTemplate.queryForList(sql).size();
 		actual = batchDAO.findAllAfterDate(Integer.MAX_VALUE, 1, 2017).size();
 		//If SQL statement found at least 1 batch start date they should not equal. Otherwise they both should be equal
