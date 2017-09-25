@@ -18,28 +18,10 @@ public class SettingAddingCategoryFeature {
 	private WebDriver webdriver;
 	private SettingCategoryPage settingCategoryPage;
 
-/*
 	@cucumber.api.java.Before
 	public void setup() {
-		DesiredCapabilities descap = new DesiredCapabilities();
-		descap.setCapability("phantomjs.binary.path", System.getenv("PHANTOM_BIN"));
-		descap.setJavascriptEnabled(true);
-		webdriver = new PhantomJSDriver(descap);
-		webdriver.manage().window().setSize(new Dimension(1200, 1200));
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		settingCategoryPage = new SettingCategoryPage(webdriver);
-		
-	}
-*/
-	@cucumber.api.java.Before
-	public void setup() {
-		System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_BIN"));
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1200x600");
-        webdriver = new ChromeDriver(options);
-        webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        settingCategoryPage = new SettingCategoryPage(webdriver);
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		settingCategoryPage = new SettingCategoryPage(setup.getDriver());
 	}
 
 	@cucumber.api.java.After

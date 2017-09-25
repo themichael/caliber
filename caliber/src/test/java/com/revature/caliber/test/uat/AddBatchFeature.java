@@ -2,6 +2,7 @@ package com.revature.caliber.test.uat;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -9,6 +10,13 @@ import cucumber.api.java.en.When;
 public class AddBatchFeature {
 
 	AssessBatchPage assessBatch;
+	
+	
+	@Before
+	public void setup(){
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		assessBatch = new AssessBatchPage(setup.getDriver());
+	}
 	
 //	@Given("^I am on the Manage Batch page$")
 //	public void IAmOnTheManageBatchPage() throws Throwable {

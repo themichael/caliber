@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -24,10 +25,10 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class SettingsTrainerPage {
 
-	private PhantomJSDriver driver;
+	private WebDriver driver;
 
 	public SettingsTrainerPage(WebDriver driver) {
-		this.driver = (PhantomJSDriver) driver;
+		this.driver = (ChromeDriver) driver;
 	}
 
 	// Sends driver to the specified page
