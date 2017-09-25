@@ -202,7 +202,7 @@ public class ReportsPage {
 	/**
 	 * Quits the driver.
 	 */
-	public void quitDriver() {
+	public void closeDriver() {
 		driver.quit();
 	}
 

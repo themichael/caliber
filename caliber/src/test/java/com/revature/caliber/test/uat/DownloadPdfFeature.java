@@ -53,7 +53,7 @@ public class DownloadPdfFeature {
 
 	@After // each scenario
 	public void teardown() {
-		reportsPage.quitDriver();
+		reportsPage.closeDriver();
 	}
 
 	@Given("^I am on the Reports page$")
