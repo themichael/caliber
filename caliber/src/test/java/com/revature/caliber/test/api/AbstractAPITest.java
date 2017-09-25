@@ -15,7 +15,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
@@ -43,7 +42,7 @@ public abstract class AbstractAPITest extends CaliberTest {
 	 */
 	protected static String accessToken = "Auth ";
 	protected static SalesforceToken accessTokenJson;
-	protected static final String auth = "Authorization";
+	protected static String auth = "Authorization";
 	protected static String jsessionid;
 	protected static RequestSpecification requestSpec;
 
@@ -62,19 +61,20 @@ public abstract class AbstractAPITest extends CaliberTest {
 			try {
 				login();
 				log.info("Logging into Caliber for API testing");
-				Response response = given().param("salestoken",accessTokenJson).redirects().allowCircular(true).get(baseUrl + "caliber/");
-                String sessionCookie = response.getSessionId();
-                String roleCookie = response.getCookie("role");
-                log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
-                requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie ).addCookie("role", roleCookie).build();
-            } catch (Exception e) {
-                log.error(e);
-            }
-        }
+				Response response = given().param("salestoken", accessTokenJson).redirects().allowCircular(true)
+						.get(baseUrl + "caliber/");
+				String sessionCookie = response.getSessionId();
+				String roleCookie = response.getCookie("role");
+				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
+				requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie)
+						.addCookie("role", roleCookie).build();
+			} catch (Exception e) {
+				log.error(e);
+			}
+		}
 	}
 
-	private static void login()
-			throws JsonParseException, JsonMappingException, UnsupportedOperationException, IOException {
+	private static void login() throws JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		log.info("logging into Salesforce:\n accessTokenUrl: " + accessTokenUrl + "\n clientId: " + clientId
 				+ " \n clientSecret: " + clientSecret + "\n username: " + username + "\n password: " + password);
