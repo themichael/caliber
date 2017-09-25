@@ -213,7 +213,11 @@ public class ReportingController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING')")
 	public ResponseEntity<List<Object>> getCurrentBatchesLineChart() {
 		log.info("getCurrentBatchesLineChart   ===>  /all/reports/dashboard");
-		return new ResponseEntity<>(reportingService.getAllCurrentBatchesLineChart(), HttpStatus.OK);
+		List<Object> resp = reportingService.getAllCurrentBatchesLineChart();
+		if(resp.isEmpty()){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	/*

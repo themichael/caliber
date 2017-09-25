@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.services.ReportingService;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.restassured.http.ContentType;
@@ -51,6 +50,8 @@ public class ReportingAPITest extends AbstractAPITest{
 	private static String batchReports= "all/reports/batch/{batchId}/overall/radar-batch-overall";
 	private static String batchAverage = "all/assessments/average/{batchId}/{week}";
 	private static String batchAssessmentCategories = "all/assessments/categories/batch/{batchId}/week/{week}";
+	private static String batchOverallLine = "all/reports/batch/{batchId}/overall/line-batch-overall";
+	private static String currBatchLines = "all/reports/dashboard";
 	
 	/**
 	 * Tested Method:
@@ -362,4 +363,38 @@ public class ReportingAPITest extends AbstractAPITest{
 
 		.then().assertThat().statusCode(200);
 	}
+
+	@Test
+	public void testGetBatchOverallLineChart() throws Exception {
+		log.info("Get Overall Line Chart for batch 2200");
+		Double[] overall = new Double[]{75.7, 89.2, 77.9, 80.6, 77.8, 83.5, 83.5, 87.4, 77.9};
+		Map<Integer, Double> expected = new HashMap<>();
+		for(int i = 0; i < overall.length; i++){
+			expected.put(i+1, overall[i]);
+		}
+		Map<Integer, Double> actual = new ObjectMapper().readValue(
+				given().
+					spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
+				when().
+					get(baseUrl + batchOverallLine, 2200).
+				then().
+					contentType(ContentType.JSON).assertThat().statusCode(200).
+				and().
+					extract().response().asString(), new TypeReference<Map<Integer, Double>>() {});
+		for(Map.Entry<Integer, Double> entry : actual.entrySet()){
+			assertEquals(entry.getValue(), expected.get(entry.getKey()), 0.1d);
+		}
+	}
+
+	@Test
+	public void testGetCurrentBatchesLineChart() throws Exception {
+		log.info("Getting All Current Batches Line charts");
+		given().
+			spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).
+		when().
+			get(baseUrl + currBatchLines).
+		then().
+			assertThat().statusCode(200);
+	}
+
 }
