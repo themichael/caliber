@@ -15,7 +15,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class QualityAuditBatchPerformanceFeature {
-	
+
 	public static WebDriver driver;
 
 	public QualityAuditPage qaPage;
@@ -84,5 +84,4 @@ public class QualityAuditBatchPerformanceFeature {
 	    qaPage.verifyQCNotes();
 	}
 	
-
 }
