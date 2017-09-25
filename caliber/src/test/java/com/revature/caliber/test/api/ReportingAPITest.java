@@ -34,16 +34,8 @@ public class ReportingAPITest extends AbstractAPITest{
 	ReportingService service;
 	BatchDAO dao;
 	
-	@Autowired
-	public void setDao(BatchDAO dao) {
-		this.dao = dao;
-	}
-	@Autowired
-	public void setService(ReportingService service) {
-		this.service = service;
-	}
 	
-	//{int BatchId, int TraineeId, int Week}
+	//int BatchId, int TraineeId, int Week
 	private static int[] traineeValue = {2200, 5503, 1};
 
 	private static String traineeReports = "all/reports/trainee/{traineeId}/radar-trainee-overall";
@@ -53,6 +45,14 @@ public class ReportingAPITest extends AbstractAPITest{
 	private static String batchOverallLine = "all/reports/batch/{batchId}/overall/line-batch-overall";
 	private static String currBatchLines = "all/reports/dashboard";
 	
+	@Autowired
+	public void setDao(BatchDAO dao) {
+		this.dao = dao;
+	}
+	@Autowired
+	public void setService(ReportingService service) {
+		this.service = service;
+	}
 	
 	/**
 	* This test takes a skill All, a training All, and the date. This date can be any date before this instance of time, and 1970.
@@ -63,7 +63,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	public void testGetBatchComparisonAvg(){
 		String date = "Wed Sep 21 15:48:45 EDT 2016";
 		log.info("Here it is testGetBatchComparisonAvg Test");
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
+		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		.when().get(baseUrl+"all/reports/compare/skill/(All)/training/(All)/date/"+date).then()
 		.assertThat().statusCode(200);
 	}
@@ -123,7 +123,7 @@ public class ReportingAPITest extends AbstractAPITest{
 			.when().get(baseUrl + "all/reports/batch/2200/week/1/bar-batch-week-avg")
 			.then().assertThat().statusCode(200);
 		//Bad Batch number in the uri (223300) should return empty JSON object
-		String actual = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
+		String actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/223300/week/1/bar-batch-week-avg")
 			.thenReturn().body().asString();
 		String expected = "{}";
@@ -146,7 +146,7 @@ public class ReportingAPITest extends AbstractAPITest{
 			.when().get(baseUrl + "all/reports/batch/2200/week/1/bar-batch-weekly-sorted")
 			.then().assertThat().statusCode(200);
 		//Bad Batch number in the uri (223300) should return empty JSON object
-		String actual = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
+		String actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/223300/week/1/bar-batch-weekly-sorted")
 			.thenReturn().body().asString();
 		String expected = "{}";
@@ -323,9 +323,9 @@ public class ReportingAPITest extends AbstractAPITest{
 		//Gets the maps from the service
 		Map<Integer, Double[]> theMap = service.getTraineeOverallLineChart(batchId[random],traineeId[random]);
 		//Maps the double array values to an ArrayList
-		ArrayList<Double[]> targetList = new ArrayList<Double[]>(theMap.values());
+		ArrayList<Double[]> targetList = new ArrayList<>(theMap.values());
 		//Stores the array body as a string 
-		Response response = given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON)
+		Response response = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		.when().get(baseUrl+"all/reports/batch/{batchId}/overall/trainee/{traineeId}/line-trainee-overall",batchId[random],traineeId[random]);
 		JSONObject responseJson = new JSONObject(response.getBody().asString());;
 		//For the length of the body finds the double array and compares the 1st and second values of the double array
