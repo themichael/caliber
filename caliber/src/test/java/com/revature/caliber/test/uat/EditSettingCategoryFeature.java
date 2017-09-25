@@ -4,6 +4,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -16,6 +18,7 @@ public class EditSettingCategoryFeature {
 	private WebDriver webdriver;
 	private EditSettingCategoryPage editSettingCategoryPage;
 	
+/*	
 	@cucumber.api.java.Before
 	public void setup() {
 		DesiredCapabilities descap = new DesiredCapabilities();
@@ -25,6 +28,17 @@ public class EditSettingCategoryFeature {
 		webdriver.manage().window().setSize(new Dimension(1200, 1200));
 		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		editSettingCategoryPage = new EditSettingCategoryPage(webdriver);
+	}
+*/	
+	@cucumber.api.java.Before
+	public void setup() {
+		System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_BIN"));
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--window-size=1200x600");
+        webdriver = new ChromeDriver(options);
+        webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        editSettingCategoryPage = new EditSettingCategoryPage(webdriver);
 	}
 
 	@cucumber.api.java.After
