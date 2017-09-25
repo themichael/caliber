@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -17,12 +18,12 @@ public class SettingLocationPage {
 	 * in the Locations page of caliber. Only the VP's are allowed to 
 	 * add/update locations.
 	 */
-/*
-	private PhantomJSDriver driver;
+
+	private WebDriver driver;
 
 	//Initialize phantomjs driver to page
 	public SettingLocationPage(WebDriver driver) {
-		this.driver = (PhantomJSDriver) driver;
+		this.driver = (ChromeDriver) driver;
 	}
 
 	//Closeing the driver
@@ -167,5 +168,5 @@ public class SettingLocationPage {
 		public void clickXCloseDeactivateModal(){
 			driver.findElement(By.cssSelector("#deleteLocationModal > div > div > div.modal-header > button")).click();
 		}
-*/
+
 }

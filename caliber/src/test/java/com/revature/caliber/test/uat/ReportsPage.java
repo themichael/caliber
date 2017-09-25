@@ -10,6 +10,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -22,11 +23,11 @@ public class ReportsPage {
 	private WebDriver driver;
 
 	public ReportsPage(WebDriver driver) {
-		this.driver = driver;
+		this.driver = (ChromeDriver)driver;
 	}
 
 	public void gotoReportsPage() {
-		driver.get("http://localhost:8080/caliber/#/vp/reports");
+		driver.get("http://localhost:8080/caliber#/vp/reports");
 	}
 
 	public void goToHome() {
@@ -202,7 +203,7 @@ public class ReportsPage {
 	/**
 	 * Quits the driver.
 	 */
-	public void quitDriver() {
+	public void closeDriver() {
 		driver.quit();
 	}
 

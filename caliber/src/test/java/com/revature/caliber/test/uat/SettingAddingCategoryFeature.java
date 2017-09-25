@@ -17,16 +17,11 @@ public class SettingAddingCategoryFeature {
 
 	private WebDriver webdriver;
 	private SettingCategoryPage settingCategoryPage;
-	
+
 	@cucumber.api.java.Before
 	public void setup() {
-		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1200x600");
-        webdriver = new ChromeDriver(options);
-        webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        settingCategoryPage = new SettingCategoryPage(webdriver);
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		settingCategoryPage = new SettingCategoryPage(setup.getDriver());
 	}
 
 	@cucumber.api.java.After

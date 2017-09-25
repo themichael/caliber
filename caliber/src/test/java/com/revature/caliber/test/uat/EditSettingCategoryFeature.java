@@ -20,13 +20,8 @@ public class EditSettingCategoryFeature {
 	
 	@cucumber.api.java.Before
 	public void setup() {
-		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1200x600");
-        webdriver = new ChromeDriver(options);
-        webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        editSettingCategoryPage = new EditSettingCategoryPage(webdriver);
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		editSettingCategoryPage = new EditSettingCategoryPage(setup.getDriver());
 	}
 
 	@cucumber.api.java.After

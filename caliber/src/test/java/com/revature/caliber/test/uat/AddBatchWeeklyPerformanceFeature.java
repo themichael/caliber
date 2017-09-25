@@ -27,18 +27,14 @@ public class AddBatchWeeklyPerformanceFeature {
 	
 	@Before
 	public void setup(){
-		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1200x600");
-		WebDriver driver = new ChromeDriver(options);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		assessBatchPage = new AssessBatchPage(driver);
+
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		assessBatchPage = new AssessBatchPage(setup.getDriver());
 	}
 	
 	@Given("^I am in the Assess Batch Page$")
 	public void i_am_in_the_Assess_Batch_Page() throws Throwable {
-		assessBatchPage.goToPage("vp/assess");
+		assessBatchPage.goToPage();
 		assessBatchPage.verifyAssessPage();
 		assessBatchPage.clickCreateAssessment();
 	}
@@ -65,7 +61,7 @@ public class AddBatchWeeklyPerformanceFeature {
 
 	@After
 	public void teardown(){
-		assessBatchPage.teardown();
+		assessBatchPage.closeDriver();
 	}
 
 }

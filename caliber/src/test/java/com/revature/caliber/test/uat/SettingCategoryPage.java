@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 public class SettingCategoryPage {
@@ -19,7 +20,7 @@ public class SettingCategoryPage {
 	public SettingCategoryPage(WebDriver driver) {
 		super();
 		//this.driver = (PhantomJSDriver) driver;
-		this.driver = driver;
+		this.driver = (ChromeDriver)driver;
 	}
 	
 	/**

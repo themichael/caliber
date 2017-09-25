@@ -41,19 +41,13 @@ public class DownloadPdfFeature {
 
 	@Before // each scenario
 	public void setup(){
-		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
-     	ChromeOptions options = new ChromeOptions();
-     	 options.addArguments("--headless");
-         options.addArguments("--window-size=1200x600");
-         
-     	WebDriver driver = new ChromeDriver(options);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		reportsPage = new ReportsPage(driver);
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		reportsPage = new ReportsPage(setup.getDriver());
 	}
 
 	@After // each scenario
 	public void teardown() {
-		reportsPage.quitDriver();
+		reportsPage.closeDriver();
 	}
 
 	@Given("^I am on the Reports page$")
