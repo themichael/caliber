@@ -5,7 +5,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
+					<button id="XBtn" type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -24,8 +24,8 @@
 						There are no trainees in this batch. </span>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="Delete" class="btn btn-lg btn-danger">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<input id = "deleteBatchButton" type="submit" value="Delete" class="btn btn-lg btn-danger">
+					<button id = "closeDeleteBatchButton" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
 
@@ -53,7 +53,7 @@
 				Cannot delete a Batch in progress.<br />
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+				<button id="batchDeleteErrorOkButton" type="button" class="btn btn-default" data-dismiss="modal">OK</button>
 			</div>
 		</div>
 
@@ -86,7 +86,7 @@
 					</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+					<button id= "checkBatchOkButton" type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
 				</div>
 			</div>
 		</div>

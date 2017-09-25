@@ -5,7 +5,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
+					<button id="XBtn" type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -75,7 +75,7 @@
 							moment-picker="startDate.model" format="YYYY-MM-DD">
 							<label for="start-date">Start Date:</label>
 							<div class="input-group" id="start-date" data-datepicker="true">
-								<input class="date-input form-control date-selector" name="s"
+								<input id="startDateInput" class="date-input form-control date-selector" name="s"
 									min="0" placeholder="Start Date" ng-model="startDate.model"
 									ng-model-options="{ updateOn: 'blur' }" ng-required="true"><span
 									class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -85,7 +85,7 @@
 							moment-picker="endDate.model" format="YYYY-MM-DD">
 							<label for="end_date">End Date:</label>
 							<div class="input-group" id="end-date" data-datepicker="true">
-								<input class="date-input form-control date-selector" name="date"
+								<input id="endDateInput" class="date-input form-control date-selector" name="date"
 									placeholder="End Date" ng-model="endDate.model"
 									ng-model-options="{ updateOn: 'blur' }" ng-required="true"><span
 									class="input-group-addon glyphicon glyphicon-calendar">
@@ -116,8 +116,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" ng-value="Save" class="btn btn-primary">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input id = "saveEditBatchButton" type="submit" ng-value="Save" class="btn btn-primary">
+					<button id = "closeEditBatchButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>

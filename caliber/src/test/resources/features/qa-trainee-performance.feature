@@ -6,10 +6,11 @@ Feature: QA Trainee Performance
 	performance each week
 	
 Scenario:
-	Given I am on the Quality Audit page
-	And I have selected 2017 as year tab
-	And I have selected "Patrick Walsh - 2/13/17" as Trainer
-	And I have created the current week using the add week button
+	Given I am on the Quality Audit Page
+	And I have selected the current year for year
+	And I have selected the current Batch
+	And I am on the most current week 
 	And have entered "Trainee Notes" in Trainees note area
+	And I click on the individual feedback button to the desried state
 	When I click the save button at the bottom of the page
 	Then the performance notes will be saved

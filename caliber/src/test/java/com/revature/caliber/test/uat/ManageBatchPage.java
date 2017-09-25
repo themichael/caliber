@@ -2,7 +2,6 @@ package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,15 +60,16 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickImportBatchIcon() throws InterruptedException{
-		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li:nth-child(2) > a")).click();
+		driver.findElement(By.id("importTab"));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		String id = driver.findElement(By.cssSelector("#importBatchModal > div > div > div.modal-header > h4")).getAttribute("id").toString();
+		String id = driver.findElement(By.id("batchModalLabel")).getAttribute("id").toString();
 		assertEquals(id, "batchModalLabel");
 	}
 	
 	/**
-	 * Selects item from dropdown menu based on the index.
+	 * Selects item from dropdown in the import batch
+	 * modal menu based on the index given.
 	 * This feature currently as of 09-20-2017 does not work properly,
 	 * so this is a placeholder
 	 * @param index
@@ -91,9 +91,9 @@ public class ManageBatchPage{
 	 * Opens Manage Batch modal to do edits to an entire batch.
 	 * This modal is the same for Update/Create Batch
 	 */
-	public void openManageBatchModal() throws IOException, InterruptedException {
-		driver.findElement(By.cssSelector("#manage > div:nth-child(2) > div > div > table > tbody > tr > td:nth-child(11) > a")).click();
-		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.container.modal-widest > h3"));
+	public void openManageBatchModal(int index) throws IOException, InterruptedException {
+		driver.findElement(By.id("view/addTrainees"+index)).click();
+		driver.findElement(By.id("traineeModalLabel"));
 		Thread.sleep(3000);
 		driver.switchTo().activeElement();
 //		File srcFile2 = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
@@ -108,8 +108,8 @@ public class ManageBatchPage{
 	 * switch and show active trainees
 	 **/
 	public void toggleBetweenActiveAndDroppedTrainees(){
-		WebElement toggleActive = driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.container.modal-widest > div > a:nth-child(2)"));
-		WebElement toggleDropped = driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.container.modal-widest > div > a:nth-child(3)"));
+		WebElement toggleActive = driver.findElement(By.id("active"));
+		WebElement toggleDropped = driver.findElement(By.id("inActive"));
 		WebElement toggle = toggleActive.isDisplayed() ? toggleActive : toggleDropped;
 		toggle.click();
 	}
@@ -121,10 +121,10 @@ public class ManageBatchPage{
 	 * as the edit trainee methods defined later on. 
 	 */
 	public void openAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.col-md-12.col-lg-12 > div > div > a")).click();
+		driver.findElement(By.id("addTrainee")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-header > h4"));
+		driver.findElement(By.id("traineeModalLabel"));
 	}
 	
 	/**
@@ -136,11 +136,11 @@ public class ManageBatchPage{
 	 * editing 
 	 * @throws InterruptedException
 	 */
-	public void openUpdateTraineeModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.col-md-12.col-lg-12 > div > table > tbody > tr:nth-child(1) > td:nth-child(13) > a")).click();
+	public void openUpdateTraineeModal(int index) throws InterruptedException{
+		driver.findElement(By.id("editTrainee"+index)).click();
 		Thread.sleep(3000);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-header > h4"));
+		driver.findElement(By.id("traineeModalLabel"));
 	}
 	
 	/**
@@ -211,7 +211,7 @@ public class ManageBatchPage{
 	 * @param major
 	 */
 	public void editMajorField(String major){
-		WebElement majorField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > input"));
+		WebElement majorField = driver.findElement(By.id("traineeMajor"));
 		majorField.clear();
 		majorField.sendKeys(major);
 	}
@@ -221,7 +221,7 @@ public class ManageBatchPage{
 	 * @param recruiterName
 	 */
 	public void editRecruiterNameField(String recruiterName){
-		WebElement recruiterNameField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > input"));
+		WebElement recruiterNameField = driver.findElement(By.id("traineeRecruiterName"));
 		recruiterNameField.clear();
 		recruiterNameField.sendKeys(recruiterName);
 	}
@@ -231,7 +231,7 @@ public class ManageBatchPage{
 	 * @param techScreenerName
 	 */
 	public void editTechScreenerNameField(String techScreenerName){
-		WebElement techScreenerNameField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(5) > div:nth-child(1) > input"));
+		WebElement techScreenerNameField = driver.findElement(By.id("traineeTechScreenerName"));
 		techScreenerNameField.clear();
 		techScreenerNameField.sendKeys(techScreenerName);
 	}
@@ -241,7 +241,7 @@ public class ManageBatchPage{
 	 * @param profileURL
 	 */
 	public void editProfileURLField(String profileURL){
-		WebElement profileURLField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(5) > div:nth-child(2) > input"));
+		WebElement profileURLField = driver.findElement(By.id("traineeProfileUrl"));
 		profileURLField.clear();
 		profileURLField.sendKeys(profileURL);
 	}
@@ -250,7 +250,7 @@ public class ManageBatchPage{
 	 * Still need to implement
 	 */
 	public void editTrainingStatusField(){
-		
+		WebElement trainingStatus = driver.findElement(By.id("traineeStatus"));
 	}
 	
 	/**
@@ -260,7 +260,7 @@ public class ManageBatchPage{
 	 * @param percentage
 	 */
 	public void editProjectCompletionField(String percentage){
-		WebElement percentageField = driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(5) > div:nth-child(2) > input"));
+		WebElement percentageField = driver.findElement(By.id("traineeProjectCompletion"));
 		percentageField.clear();
 		percentageField.sendKeys(percentage);
 	}
@@ -272,8 +272,8 @@ public class ManageBatchPage{
 	 * this point. The driver switches to the newly opened tab
 	 * their url
 	 */
-	public void clickAddTraineeProfileURLIcon(){
-		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.col-md-12.col-lg-12 > div > table > tbody > tr:nth-child(1) > td:nth-child(6) > span > a")).click();
+	public void clickAddTraineeProfileURLIcon(int index){
+		driver.findElement(By.id("profileURL"+index)).click();
 		List<String> browsertabs = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(browsertabs.get(1));
 		assertEquals("https://app.revature.com/profile/Synac/254a7187dfc32f6f50710a56bd8112f6", driver.getCurrentUrl());
@@ -287,11 +287,11 @@ public class ManageBatchPage{
 	 * back to the manage batch modal
 	 * @throws InterruptedException
 	 */
-	public void openDeleteTraineeModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.col-md-12.col-lg-12 > div > table > tbody > tr:nth-child(1) > td:nth-child(14) > a")).click();
+	public void openDeleteTraineeModal(int index) throws InterruptedException{
+		driver.findElement(By.id("removeBatch"+index)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#deleteTraineeModal > div > div > div.modal-header > h4"));
+		driver.findElement(By.id("deleteBatchButton"));
 	}
 	
 	/**
@@ -300,7 +300,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickDeleteOnDeleteTraineeModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#deleteTraineeModal > div > div > div.modal-footer > input")).click();
+		driver.findElement(By.id("deleteBatchButton")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -311,7 +311,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickCancelOnDeleteTraineeModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#deleteTraineeModal > div > div > div.modal-footer > button")).click();
+		driver.findElement(By.id("closeDeleteBatchButton")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -322,7 +322,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void closeOutDeleteTraineeModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#deleteTraineeModal > div > div > div.modal-header > button")).click();
+		driver.findElement(By.id("XBtn")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -333,7 +333,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException 
 	 */
 	public void clickUpdateAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div.modal-footer > input:nth-child(3)")).click();
+		driver.findElement(By.id("saveButton"));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -344,7 +344,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException 
 	 */
 	public void clickCloseAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-body > div.modal-footer > button:nth-child(4)")).click();
+		driver.findElement(By.id("cancelButton"));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -355,7 +355,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void closeOutAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#addTraineeModal > div > div > div.modal-header > button")).click();
+		driver.findElement(By.id("XBtn"));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -366,7 +366,7 @@ public class ManageBatchPage{
 	 * that it is the correct header
 	 */
 	public void verifyEditTraineeModal(){
-		driver.findElement(By.cssSelector("#viewTraineeModal > div > div > div.modal-body.only-top-padding > div.container.modal-widest > h3"));
+		driver.findElement(By.id("traineeModalLabel"));
 	}
 	
 	/**
@@ -380,12 +380,12 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void changeYear(int index, String year) throws InterruptedException {
-		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li.dropdown > a")).click();
+		driver.findElement(By.id("yearDropdown")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li.dropdown.open > ul > li:nth-child(" + index + ") > a")).click();
-		String yearActual = driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li.dropdown > a > label")).getAttribute("id").toString();
-		assertEquals(yearActual, year);
+		driver.findElement(By.id(year)).click();
+//		String yearActual = driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li.dropdown > a > label")).getAttribute("id").toString();
+//		assertEquals(yearActual, year);
 	}
 	
 	/**
@@ -396,7 +396,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void openCreateBatchModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li:nth-child(3) > a")).click();
+		driver.findElement(By.id("createBatchTab"));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -406,7 +406,7 @@ public class ManageBatchPage{
 	 * @param trainingName
 	 */
 	public void editTrainingNameField(String trainingName){
-		WebElement trainingNameField = driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(1) > div:nth-child(1) > input"));
+		WebElement trainingNameField = driver.findElement(By.id("trainingName"));
 		trainingNameField.clear();										
 		trainingNameField.sendKeys(trainingName);
 	}
@@ -419,7 +419,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editTrainingTypeField(String trainingType) throws InterruptedException{
-		Select dropdown = new Select(driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(1) > div:nth-child(2) > select")));
+		Select dropdown = new Select(driver.findElement(By.id("trainingType")));
 		Thread.sleep(500);
 		dropdown.deselectByVisibleText(trainingType);
 	}
@@ -432,7 +432,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editSkillTypeField(String skillType) throws InterruptedException{
-		Select dropdown = new Select(driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > select")));
+		Select dropdown = new Select(driver.findElement(By.id("skillType")));
 		Thread.sleep(500);
 		dropdown.selectByVisibleText(skillType);
 	}
@@ -444,7 +444,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editLocationField(int index) throws InterruptedException{
-		Select dropdown = new Select(driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > select")));
+		Select dropdown = new Select(driver.findElement(By.id("location")));
 		Thread.sleep(500);
 		dropdown.selectByIndex(index);
 	}
@@ -457,7 +457,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editTrainerField(String trainer) throws InterruptedException{
-		Select dropdown = new Select(driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(3) > div:nth-child(1) > select")));
+		Select dropdown = new Select(driver.findElement(By.id("trainer")));
 		Thread.sleep(500);
 		dropdown.selectByVisibleText(trainer);
 	}
@@ -470,7 +470,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editCoTrainerField(String coTrainer) throws InterruptedException{
-		Select dropdown = new Select(driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(3) > div:nth-child(2) > select")));
+		Select dropdown = new Select(driver.findElement(By.id("co-trainer")));
 		Thread.sleep(500 );
 		dropdown.selectByVisibleText(coTrainer);
 	}
@@ -483,7 +483,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editStartDateField(String startDate){
-		WebElement startDateField = driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(4) > div:nth-child(1) > div > input"));
+		WebElement startDateField = driver.findElement(By.id("startDateInput"));
 		startDateField.clear();
 		startDateField.sendKeys(startDate);
 	}
@@ -494,7 +494,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editEndDateField(String endDate){
-		WebElement endDateField = driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(4) > div:nth-child(2) > div > input"));
+		WebElement endDateField = driver.findElement(By.id("endDateInput"));
 		endDateField.clear();
 		endDateField.sendKeys(endDate);
 	}
@@ -506,7 +506,7 @@ public class ManageBatchPage{
 	 * @param goodGrade
 	 */
 	public void editGoodGradeField(String goodGrade){
-		WebElement goodGradeField = driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(5) > div:nth-child(1) > input"));
+		WebElement goodGradeField = driver.findElement(By.id("goodGrade"));
 		goodGradeField.clear();
 		goodGradeField.sendKeys(goodGrade);
 	}
@@ -516,7 +516,7 @@ public class ManageBatchPage{
 	 * @param passingGrade
 	 */
 	public void editPassingGradeField(String passingGrade){
-		WebElement passingGradeField = driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-body > div:nth-child(5) > div:nth-child(2) > input"));
+		WebElement passingGradeField = driver.findElement(By.id("borderlineGrade"));
 		passingGradeField.clear();
 		passingGradeField.sendKeys(passingGrade);
 	}
@@ -527,10 +527,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickSaveOnCreateBatchModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-footer > button"));
+		driver.findElement(By.id("saveEditBatchButton"));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+		driver.findElement(By.id("importTab"));
 	}
 	
 	/**
@@ -539,10 +539,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickCloseOnCreateBatchModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-footer > button"));
+		driver.findElement(By.id("closeEditBatchButton"));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+		driver.findElement(By.id("importTab"));
 	}
 	
 	/**
@@ -551,10 +551,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void closeCreateBatchModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-header > button"));
+		driver.findElement(By.id("XBtn"));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+		driver.findElement(By.id("importTab"));
 	}
 	
 	/**
@@ -563,11 +563,11 @@ public class ManageBatchPage{
 	 * do to create
 	 * @throws InterruptedException
 	 */
-	public void clickUpdateBatchIcon() throws InterruptedException{
-		driver.findElement(By.cssSelector("#manage > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(12) > a"));
+	public void clickUpdateBatchIcon(int index) throws InterruptedException{
+		driver.findElement(By.id("updateBatch"+index)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#createBatchModal > div > div > div.modal-header > h4"));
+		driver.findElement(By.id("batchModalLabel"));
 	}
 	
 	/**
@@ -575,11 +575,11 @@ public class ManageBatchPage{
 	 * and opens up the Delete Batch modal.
 	 * @throws InterruptedException
 	 */
-	public void clickDelectBatchIcon() throws InterruptedException{
-		driver.findElement(By.cssSelector("#manage > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(13) > a"));
+	public void clickDelectBatchIcon(int index) throws InterruptedException{
+		driver.findElement(By.id("removeBatch"+index)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#deleteBatchModal > div > div > div.modal-header > h4"));
+		driver.findElement(By.id("batchModalLabel"));
 	}
 	
 	/**
@@ -588,10 +588,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickDeleteOnDeleteBatchModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#deleteBatchModal > div > div > div.modal-footer > input"));
+		driver.findElement(By.id("deleteBatchButton")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+		driver.findElement(By.id("importTab"));
 	}
 	
 	/**
@@ -600,10 +600,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickCancelOnDeleteBatchModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#deleteBatchModal > div > div > div.modal-footer > button"));
+		driver.findElement(By.id("closeDeleteBatchButton")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+		driver.findElement(By.id("importTab"));
 	}
 	
 	/**
@@ -612,10 +612,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void closeOutDeleteBatchModal() throws InterruptedException{
-		driver.findElement(By.cssSelector("#deleteBatchModal > div > div > div.modal-header > button"));
+		driver.findElement(By.id("XBtn")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul"));
+		driver.findElement(By.id("importTab"));
 	}
 	
 	/**
