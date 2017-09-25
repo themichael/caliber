@@ -5,7 +5,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class TraineeToTraineeComparison {
+public class TraineeToTraineeComparisonFeature {
 
 	@Given("^on the Reports page$")
 	public void on_the_Reports_page() throws Throwable {
