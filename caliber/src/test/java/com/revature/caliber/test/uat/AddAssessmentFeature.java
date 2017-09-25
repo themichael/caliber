@@ -53,6 +53,6 @@ public class AddAssessmentFeature {
 	}
 	@After
 	public void teardown(){
-		assessBatch.teardown();
+//		assessBatch.teardown();
 	}
 }

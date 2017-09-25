@@ -26,7 +26,7 @@ public class ReportsPage {
 	}
 
 	public void gotoReportsPage() {
-		driver.get("http://localhost:8080/caliber/#/vp/reports");
+		driver.get("http://localhost:8080/caliber#/vp/reports");
 	}
 
 	public void goToHome() {
