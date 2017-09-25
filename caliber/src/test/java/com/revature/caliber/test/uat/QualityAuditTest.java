@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.junit.Test;
@@ -16,34 +18,14 @@ import org.junit.Test;
 public class QualityAuditTest {
 	
 	private static WebDriver driver;
-	
-	public void clickWeeksForBatch(int week){
-		//currently clicks week 8, change last /li[x] where x is the week; will click new week if set to last element in the list
-		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li["+ week +"]"))
-			.click();
-	}
-	
-	public void verifyWeekForBatch(){
-		String weekTab;
-		boolean	selected = false;
-		int week = 1;
-		for(; week <=9; week++){
-			weekTab = driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li["+ week +"]")).getAttribute("class");
-			if(weekTab == "active"){
-				selected = true;
-				break;
-			}
-		}
-		assertTrue(selected = true);
-		
-	}
-	
+
 	@BeforeClass
 	public static void setup(){
-		DesiredCapabilities caps = new DesiredCapabilities();
-		caps.setCapability("phantomjs.binary.path", System.getenv("PHANTOM_BIN"));
-		caps.setJavascriptEnabled(true);
-		driver = new PhantomJSDriver(caps);
+		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--window-size=1200x600");
+        driver = new ChromeDriver(options);
 		driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -58,16 +40,21 @@ public class QualityAuditTest {
 	@Test
 	public void test() throws IOException, InterruptedException{
 		QualityAuditPage qaPage = new QualityAuditPage(driver);
-		driver.get("http://localhost:8080/caliber/#/vp/assess");
-		System.out.println(driver.getCurrentUrl());
-		clickWeeksForBatch(5);
-		verifyWeekForBatch();
-		System.out.println( driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li[5]")).getAttribute("class"));
-		clickWeeksForBatch(6);
-		verifyWeekForBatch();
-		System.out.println( driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li[6]")).getAttribute("class"));
-		
-		
-		
+		qaPage.goToPage();
+		driver.findElement(By.id("yearDropDownButton"));
+		driver.findElement(By.id("2017"));
+		driver.findElement(By.id("batchDropDown"));
+		driver.findElement(By.id("Patrick Walsh - 2/14/17"));
+		driver.findElement(By.id("week8"));
+		driver.findElement(By.id("addWeekButton"));
+		driver.findElement(By.id("indvFeedback-goodButton-0"));
+		driver.findElement(By.id("indvFeedback-questionButton-1"));
+		driver.findElement(By.id("noteTextArea-0"));
+		driver.findElement(By.id("noteTextArea-1"));
+		driver.findElement(By.id("good-QCButton"));
+		driver.findElement(By.id("fair-QCButton"));
+		driver.findElement(By.id("poor-QCButton"));
+		driver.findElement(By.id("qcBatchNotes"));
+		driver.findElement(By.id("saveButton"));
 	}
 }

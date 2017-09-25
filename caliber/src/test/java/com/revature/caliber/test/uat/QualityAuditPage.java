@@ -18,7 +18,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Quits the PhantomJS Driver
+	 * Quits the current Driver
 	 */
 	public void closeAndQuit(){
 		driver.quit();
@@ -33,19 +33,16 @@ public class QualityAuditPage {
 	
 	/**
 	 * Selects 2017 from year dropdown
-	 * @throws IOException 
 	 */
-	public void clickYearDropdown() throws IOException{
+	public void clickYearDropdown(){
 		//opens year dropdown
-		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[1]/a"))
-			.click();
+		driver.findElement(By.id("yearDropDownButton")).click();
 		//clicks on '2017' from the unhidden menu
-		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[1]/ul/li[2]/a"))
-			.click();
+		driver.findElement(By.id("2017")).click();
 	}
 	
 	public void verifyYear(){
-		String year = driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[1]/a"))
+		String year = driver.findElement(By.id("yearDropDownButton"))
 				.getText();
 		assertEquals("2017", year);
 	}
@@ -56,11 +53,9 @@ public class QualityAuditPage {
 	 */
 	public void clickBatch(){
 		//click on batch
-		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[2]/a"))
-			.click();
+		driver.findElement(By.id("batchDropDown")).click();
 		//click on 'Patrick Walsh - 2/14/17' from the unhidden menu
-		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[2]/ul/li/a"))
-			.click();
+		driver.findElement(By.id("Patrick Walsh - 2/14/17")).click();
 	}
 	
 	public void verifyBatch(){
@@ -100,26 +95,22 @@ public class QualityAuditPage {
 	
 	/**
 	 * Select the add week button at the end of the week tab
-	 * @throws IOException 
 	 * @throws InterruptedException 
 	 */
-	public void clickAddWeeksForBatchButton() throws IOException, InterruptedException{
-		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li[9]"))
-			.click();
+	public void clickAddWeeksForBatchButton() throws InterruptedException{
+		driver.findElement(By.id("addWeekButton")).click();
 		// wait for alert
 		Thread.sleep(500);
-		driver.switchTo().activeElement().findElement(By.xpath("//*[@id='confirmingweeks']/div/div/div[2]/button[2]"))
-			.click(); //currently clicking no
+		driver.switchTo().activeElement().findElement(By.id("noBtn")).click(); //currently clicking no
 		//wait for alert to dissipate
 		Thread.sleep(500);
 	}
 	
 	/**
 	 * Clicks the individual feedback button next to the trainee. Clicks cycle through good, average, poor, and superstar
-	 * @throws InterruptedException 
-	 * @throws IOException 
 	 */
-	public void clickIndividualFeedbackButton() throws InterruptedException, IOException{
+	public void clickIndividualFeedbackButton(){
+		String[] qcBtns = { "questionBtn", "starBtn", "goodBtn", "fairBtn", "poorBtn"};
 		//need to click on the currently displayed button
 			//check if it is displayed
 		boolean isAvailable;
@@ -137,10 +128,8 @@ public class QualityAuditPage {
 	
 	/**
 	 * Fills trainee note text area
-	 * @param notes
-	 * @throws IOException
 	 */
-	public void setNoteOnTraineeTextArea(String notes) throws IOException{
+	public void setNoteOnTraineeTextArea(String notes){
 		WebElement traineeTextArea = driver.findElement(By.xpath("//*[@id='noteTextArea']"));
 		traineeTextArea.clear();
 		traineeTextArea.sendKeys(notes);
@@ -160,30 +149,24 @@ public class QualityAuditPage {
 	
 	/**
 	 * Clicks on the Good QC feedback button
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
-	public void clickOverallFeedbackQCButtonGood() throws IOException, InterruptedException{
+	public void clickOverallFeedbackQCButtonGood(){
 		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/button[1]"))
 			.click();
 	}
 	
 	/**
 	 * Clicks on the Average QC feedback button
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
-	public void clickOverallFeedbackQCButtonAvg() throws IOException, InterruptedException{
+	public void clickOverallFeedbackQCButtonAvg(){
 		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/button[2]"))
 			.click();
 	}
 	
 	/**
 	 * Clicks on the Poor QC feedback button
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
-	public void clickOverallFeedbackQCButtonPoor() throws IOException, InterruptedException{
+	public void clickOverallFeedbackQCButtonPoor(){
 		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/button[3]"))
 			.click();
 	}
@@ -191,10 +174,8 @@ public class QualityAuditPage {
 	/**
 	 * Fills the QC feedback text area with text
 	 * @param notes
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
-	public void setOverallFeedbackQCNotes(String notes) throws IOException, InterruptedException{
+	public void setOverallFeedbackQCNotes(String notes){
 		WebElement qcText = driver.findElement(By.xpath("//*[@id='qcBatchNotes']"));
 		qcText.clear();
 		qcText.sendKeys(notes);
@@ -214,10 +195,8 @@ public class QualityAuditPage {
 	
 	/**
 	 * Clicks the save button at the bottom of the page
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
-	public void clickSaveButton() throws IOException, InterruptedException{
+	public void clickSaveButton(){
 		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/div/div/a"))
 			.click();
 	}
