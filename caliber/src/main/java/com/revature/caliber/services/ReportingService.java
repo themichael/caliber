@@ -144,7 +144,7 @@ public class ReportingService {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
 					batchData.put("label", b.getStartDate()+"..."+ // batch start date
-							b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' ')));
+							b.getTrainer().getName().split(" ")[0]);
 					batchData.put("address", b.getAddress());
 					batchData.put("qcStatus", temp);   // Batch ID
 					batchData.put("id", b.getBatchId()); //Actual batch id
@@ -420,7 +420,7 @@ public class ReportingService {
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 
 			batchObject.put("label", batch.getStartDate()+"..."+ //batch start date
-					batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' ')));
+					batch.getTrainer().getName().split(" ")[0]);
 			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
 			batchObject.put("address", batch.getAddress());
 			results.add(batchObject);
