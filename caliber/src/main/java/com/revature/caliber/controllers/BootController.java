@@ -40,7 +40,7 @@ import com.revature.caliber.security.models.SalesforceUser;
  */
 
 @Controller
-@SessionAttributes("salestoken")
+@SessionAttributes("token")
 public class BootController extends AbstractSalesforceSecurityHelper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
@@ -48,7 +48,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
 	private static final String DEBUG_USER_LOGIN = "patrick.walsh@revature.com";
-	private static final String index = "index";
+	private static final String INDEX = "index";
 
 	/**
 	 * Instantiates a new Boot controller.
@@ -85,13 +85,13 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return index;
+			return INDEX;
 		}
 		// get Salesforce token from cookie
 		try {
 			log.debug("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-			//model.asMap().clear();
+			model.asMap().clear();
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
@@ -101,12 +101,13 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return index;
+			return INDEX;
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
 			return "redirect:/";
 		}
 	}
+
 
 	/**
 	 * Retrieve the salesforce access_token from the forwarded request

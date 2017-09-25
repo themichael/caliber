@@ -17,13 +17,14 @@ public class TypeAPITest extends AbstractAPITest {
 	 * Type API endpoints
 	 */
 	
-	private static final String allSkillTypes = "types/skill/all";
-	private static final String allTrainingTypes = "types/training/all";
-	private static final String allTrainingStatus = "types/trainingstatus/all";
-	private static final String allNoteTypes = "types/note/all";
-	private static final String allQCStatusTypes = "types/qcstatus/all";
-	private static final String allAssessmentTypes = "types/assessment/all";
-	private static final String allTrainerRoles = "types/trainer/role/all";
+	private static final String ALL_SKILL_TYPES = "types/skill/all";
+	private static final String ALL_TRAINING_TYPES = "types/training/all";
+	private static final String ALL_TRAINING_STATUS = "types/trainingstatus/all";
+	private static final String ALL_TYPE_NOTES = "types/note/all";
+	private static final String ALL_QCSTATUS_TYPES = "types/qcstatus/all";
+	private static final String ALL_ASSESSMENT_TYPES = "types/assessment/all";
+	private static final String ALL_TRAINER_ROLES = "types/trainer/role/all";
+	private static final String OTHER = "Other";
 
 
 	/**
@@ -38,10 +39,10 @@ public class TypeAPITest extends AbstractAPITest {
 
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 		//get request for all skills
-		.when().get(baseUrl + allSkillTypes)
+		.when().get(baseUrl + ALL_SKILL_TYPES)
 		//assertions
 		.then().assertThat().statusCode(200)
-			.body("$", hasItems("J2EE", ".NET", "SDET", "BPM", "Other"))
+			.body("$", hasItems("J2EE", ".NET", "SDET", "BPM", OTHER))
 			.body("$", not(hasItems("Cukes", "Parfait")));
 	
 	}
@@ -58,10 +59,10 @@ public class TypeAPITest extends AbstractAPITest {
 
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 		//get request for all training types
-		.when().get(baseUrl + allTrainingTypes)
+		.when().get(baseUrl + ALL_TRAINING_TYPES)
 		//assertions
 		.then().assertThat().statusCode(200)
-			.body("$", hasItems("Revature", "Corporate", "University", "Other"))
+			.body("$", hasItems("Revature", "Corporate", "University", OTHER))
 			.body("$", not(hasItems("Gherkins", "Parfait")));
 		
 		
@@ -79,7 +80,7 @@ public class TypeAPITest extends AbstractAPITest {
 
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 		//get request for all training status
-		.when().get(baseUrl + allTrainingStatus)
+		.when().get(baseUrl + ALL_TRAINING_STATUS)
 		//assertions
 		.then().assertThat().statusCode(200)
 			.body("$", hasItems("Signed", "Selected", "Training",
@@ -101,7 +102,7 @@ public class TypeAPITest extends AbstractAPITest {
 
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 		//get request for all note types
-		.when().get(baseUrl + allNoteTypes)
+		.when().get(baseUrl + ALL_TYPE_NOTES)
 		//assertions
 		.then().assertThat().statusCode(200)
 			.body("$", hasItems("TRAINEE", "BATCH", "QC_TRAINEE","QC_BATCH"))
@@ -121,7 +122,7 @@ public class TypeAPITest extends AbstractAPITest {
 
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 		//get request for all QCStatusTypes
-		.when().get(baseUrl + allQCStatusTypes)
+		.when().get(baseUrl + ALL_QCSTATUS_TYPES)
 		//assertions
 		.then().assertThat().statusCode(200)
 			.body("$", hasItems("Superstar", "Good", "Average","Poor"))
@@ -142,10 +143,10 @@ public class TypeAPITest extends AbstractAPITest {
 
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 		//get request for all assessment types
-		.when().get(baseUrl + allAssessmentTypes)
+		.when().get(baseUrl + ALL_ASSESSMENT_TYPES)
 		//assertions
 		.then().assertThat().statusCode(200)
-			.body("$", hasItems("Exam", "Verbal", "Project","Other"))
+			.body("$", hasItems("Exam", "Verbal", "Project",OTHER))
 			.body("$", not(hasItems("Sundae", "Mousse")));
 		
 		
@@ -164,7 +165,7 @@ public class TypeAPITest extends AbstractAPITest {
 
 		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON)
 		//get request for all trainer roles
-		.when().get(baseUrl + allTrainerRoles)
+		.when().get(baseUrl + ALL_TRAINER_ROLES)
 		//assertions
 		.then().assertThat().statusCode(200)
 			.body("$", hasItems("ROLE_VP", "ROLE_QC", "ROLE_TRAINER","ROLE_STAGING", "ROLE_INACTIVE"))

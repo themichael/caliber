@@ -18,8 +18,8 @@ import com.revature.caliber.services.EvaluationService;
 
 public class EvaluationServiceTest extends CaliberTest{
 
-	private static final int testBatchId = 2150;
-	private static final int testAssessmentWeek = 7;
+	private static final int TEST_BATCH_ID = 2150;
+	private static final int TEST_ASSESSMENT_WEEK = 7;
 
 	private static final Logger log = Logger.getLogger(EvaluationServiceTest.class);
 	
@@ -39,11 +39,11 @@ public class EvaluationServiceTest extends CaliberTest{
 		log.trace("Test findGradesByWeek");
 		
 		//get test batch
-		Batch batch = batchDAO.findOne(testBatchId);
+		Batch batch = batchDAO.findOne(TEST_BATCH_ID);
 		
 		//get grades
 		Map<Integer,List<Grade>> grades = 
-				evaluationService.findGradesByWeek(batch.getBatchId(), testAssessmentWeek);
+				evaluationService.findGradesByWeek(batch.getBatchId(), TEST_ASSESSMENT_WEEK);
 		
 		//assert size of result as expected in test data
 		assertEquals(13, grades.size());
@@ -53,7 +53,7 @@ public class EvaluationServiceTest extends CaliberTest{
 		{
 		    List<Grade> weekGrades = entry.getValue();
 		    for(Grade grade: weekGrades){
-		    	assertEquals(testAssessmentWeek, grade.getAssessment().getWeek());
+		    	assertEquals(TEST_ASSESSMENT_WEEK, grade.getAssessment().getWeek());
 		    }
 		}
 	}
