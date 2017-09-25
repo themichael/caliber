@@ -17,8 +17,18 @@ import com.revature.caliber.data.CategoryDAO;
 
 import io.restassured.http.ContentType;
 public class CategoryAPITest extends AbstractAPITest {
+	
 	private static final Logger log = Logger.getLogger(CategoryAPITest.class);
+	
+	private static final String AUTHORIZATION = "Authorization";
+	private static final String SKILL = "skillCategory";
+	private static final String ACTIVE = "active";
+	private static final String LINUX_CATEGORY = "Super Linux2";
+	
+	private static final String VP_CATEGORY = "vp/category/";
+	
 	CategoryDAO dao;
+	
 	@Autowired
 	public void setDao(CategoryDAO dao) {
 		this.dao = dao;
@@ -28,31 +38,31 @@ public class CategoryAPITest extends AbstractAPITest {
 	@Test
 	public void findCategoryByIdTest() throws JsonProcessingException{
 		log.info("Testing findCategoryById function from CategoryController");
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
+		given().spec(requestSpec).header(AUTHORIZATION, accessToken).contentType(ContentType.JSON).when()
 		.get(baseUrl + "category/1").then().assertThat()
-		.statusCode(200).body("skillCategory", equalTo("Java"),"active", equalTo(true));
+		.statusCode(200).body(SKILL, equalTo("Java"),ACTIVE, equalTo(true));
 	}
 	// Returns a JSON object which will only contain Categories that are active. Also checks to make sure there are no inactive categories(false) in the JSON.
 	@Test
 	public void findAllActiveTest(){
 		log.info("Testing findAllCategories function from CategoryController");
 		int size = dao.findAllActive().size();
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
+		given().spec(requestSpec).header(AUTHORIZATION, accessToken).contentType(ContentType.JSON).when()
 		.get(baseUrl + "category/all").then().assertThat()
-		.statusCode(200).body("body.size",is(size),"active",not(hasItem(false))); 
+		.statusCode(200).body("body.size",is(size),ACTIVE,not(hasItem(false))); 
 	}
 	//I create a false object otherwise there is no false object and it fails.
 	//Returns a JSON object which will return all Categories even if they are inactive. 
 	@Test
 	public void findAllTest(){
 		log.info("Testing findAll function from CategoryController");
-		Category category2 = new Category("Super Linux2",false);
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).body(category2).when()
-		.post(baseUrl + "vp/category/").then().assertThat()
+		Category category2 = new Category(LINUX_CATEGORY,false);
+		given().spec(requestSpec).header(AUTHORIZATION, accessToken).contentType(ContentType.JSON).body(category2).when()
+		.post(baseUrl + VP_CATEGORY).then().assertThat()
 		.statusCode(201);
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).when()
-		.get(baseUrl + "vp/category/").then().assertThat()
-		.statusCode(200).body("active",hasItem(false));
+		given().spec(requestSpec).header(AUTHORIZATION, accessToken).contentType(ContentType.JSON).when()
+		.get(baseUrl + VP_CATEGORY).then().assertThat()
+		.statusCode(200).body(ACTIVE,hasItem(false));
 	}
 	// Takes a random String and replaces the Category name from skill number 45.
 	@Test
@@ -63,19 +73,17 @@ public class CategoryAPITest extends AbstractAPITest {
 		Category category = dao.findOne(45);
 		category.setSkillCategory(theList[randomtheList]);
 		category.setActive(true);
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).body(category).when()
-		.put(baseUrl + "vp/category/update").then().assertThat()
-		.statusCode(200).and().body("skillCategory",equalTo(category.getSkillCategory()),"active",equalTo(category.isActive()));
+		given().spec(requestSpec).header(AUTHORIZATION, accessToken).contentType(ContentType.JSON).body(category).when()
+		.put(baseUrl + VP_CATEGORY + "update").then().assertThat()
+		.statusCode(200).and().body(SKILL,equalTo(category.getSkillCategory()),ACTIVE,equalTo(category.isActive()));
 	}
 	//Makes a new category and adds it to the category list.
 	@Test
 	public void saveCategoryTest() throws JsonProcessingException{
 		log.info("Testing saveCategory function from CategoryController");
-		//int before = jdbcTemplate.queryForObject(FINDALLTEST,Integer.class);
-		Category category2 = new Category("Super Linux2",false);
-		//category.setCategoryId(47);
-		given().spec(requestSpec).header("Authorization", accessToken).contentType(ContentType.JSON).body(category2).when()
-		.post(baseUrl + "vp/category/").peek().then().assertThat()
-		.statusCode(201).and().body("skillCategory",equalTo("Super Linux2"));
+		Category category2 = new Category(LINUX_CATEGORY,false);
+		given().spec(requestSpec).header(AUTHORIZATION, accessToken).contentType(ContentType.JSON).body(category2).when()
+		.post(baseUrl + VP_CATEGORY).peek().then().assertThat()
+		.statusCode(201).and().body(SKILL,equalTo(LINUX_CATEGORY));
 	}
 }

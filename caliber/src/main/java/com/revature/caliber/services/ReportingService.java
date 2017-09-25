@@ -125,7 +125,8 @@ public class ReportingService {
 				}
 			}
 		} catch (Exception e) {
-			log.info("BATCH NOT FOUND");
+			log.error("BATCH NOT FOUND");
+			log.error(e);
 			return new HashMap<>();
 		}
 		return new HashMap<>();
