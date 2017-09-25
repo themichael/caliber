@@ -129,7 +129,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Opens the edit trainee modal by clicking on the pencil icon
+	 * Opens the edit/update trainee modal by clicking on the pencil icon
 	 * located in the manage batch modal by the employee name. These methods
 	 * can be used with either the edit trainee modal or the add trainee
 	 * modal, they are the same. Once the icon is clicked, the function
@@ -145,8 +145,9 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to name field. This field is required so the modal
-	 * will throw a form required error if a blank name is given
+	 * Sends string to name field in the edit/update trainee
+	 * modal. This field is required so the modal
+	 * will throw a form required error if a blank name is given.
 	 * @param name
 	 */
 	public void editName(String name){
@@ -156,7 +157,8 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to email field. This field is required and requires
+	 * Sends string to email field of the edit/update trainee modal. 
+	 * This field is required and requires
 	 * an invalid email input, so a form required error will occur if an
 	 * invalid email is given
 	 * @param email
@@ -168,7 +170,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to skypeID field. This field is not required
+	 * Sends string to skypeID field of the edit/update trainee modal. This field is not required
 	 * @param skypeID
 	 */
 	public void editSkypeIDField(String skypeID){
@@ -178,7 +180,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to phone number field. This field is not required
+	 * Sends string to phone number field to the edit/udpate trainee modal. This field is not required
 	 * @param phoneNumber
 	 */
 	public void editPhoneField(String phoneNumber){
@@ -188,7 +190,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to college field. This field is not required
+	 * Sends string to college field to the edit/update trainee modal. This field is not required
 	 * @param college
 	 */
 	public void editCollegeField(String college){
@@ -198,7 +200,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to degree field, this field is not required
+	 * Sends string to degree field in the edit/update trainee modal, this field is not required
 	 * @param degree
 	 */
 	public void editDegreeField(String degree){
@@ -208,7 +210,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to major field, this field is not required
+	 * Sends string to major field in the edit/update trainee modal, this field is not required
 	 * @param major
 	 */
 	public void editMajorField(String major){
@@ -218,7 +220,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to recruiter name field, this field is not required
+	 * Sends string to recruiter name field in the edit/update trainee modal, this field is not required
 	 * @param recruiterName
 	 */
 	public void editRecruiterNameField(String recruiterName){
@@ -228,7 +230,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to tech screener name field, this field is not required
+	 * Sends string to tech screener name field in the edit/update trainee modal, this field is not required
 	 * @param techScreenerName
 	 */
 	public void editTechScreenerNameField(String techScreenerName){
@@ -238,7 +240,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to profileURL field, this field is not required
+	 * Sends string to profileURL field in the edit/update trainee modal, this field is not required
 	 * @param profileURL
 	 */
 	public void editProfileURLField(String profileURL){
@@ -255,7 +257,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to Project completion field, this field is not required.
+	 * Sends string to Project completion field in the edit/update trainee modal, this field is not required.
 	 * If an invalid percentage is given, the form will give an invalid form
 	 * error
 	 * @param percentage
