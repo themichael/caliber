@@ -1,7 +1,5 @@
 package com.revature.caliber.test.uat;
 
-import static org.junit.Assert.assertEquals;
-
 import org.openqa.selenium.WebDriver;
 
 import cucumber.api.java.en.Given;
@@ -28,7 +26,7 @@ public class QualityAuditTraineePerfromanceFeature {
 	@Given("^I am on the Quality Audit Page$")
 	public void iAmOnTheQualityAuditPage() throws Throwable {
 		qaPage.goToPage();
-	    assertEquals("http://localhost:8080/caliber/#/vp/audit", driver.getCurrentUrl());
+	    qaPage.verifyPage();
 	}
 
 	@Given("^I have selected the current year for year$")

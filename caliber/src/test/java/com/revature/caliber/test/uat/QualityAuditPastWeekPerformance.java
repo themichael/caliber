@@ -1,15 +1,11 @@
 package com.revature.caliber.test.uat;
 
-import org.openqa.selenium.WebDriver;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class QualityAuditPastWeekPerformance {
 	
-	public static WebDriver driver;
-
 	public QualityAuditPage qaPage;
 	
 	@cucumber.api.java.Before
@@ -26,6 +22,7 @@ public class QualityAuditPastWeekPerformance {
 	@Given("^I have navigated to the quality audit page$")
 	public void iHaveNavigatedToTheQualityAuditPage() throws Throwable {
 	   qaPage.goToPage();
+	   qaPage.verifyPage();
 	}
 
 	@Given("^I have selected the year to view$")

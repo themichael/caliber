@@ -10,8 +10,6 @@ import cucumber.api.java.en.When;
 
 public class QualityAuditBatchPerformanceFeature {
 
-	public static WebDriver driver;
-
 	public QualityAuditPage qaPage;
 	
 	@cucumber.api.java.Before
@@ -28,7 +26,7 @@ public class QualityAuditBatchPerformanceFeature {
 	@Given("^I am on the Quality Audit page$")
 	public void iAmOnTheQualityAuditPage() throws Throwable {
 	    qaPage.goToPage();
-	    assertEquals("http://localhost:8080/caliber/#/vp/audit", driver.getCurrentUrl());
+	    qaPage.verifyPage();
 	}
 
 	@Given("^I have selected the current year$")

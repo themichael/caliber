@@ -15,7 +15,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Quits the current Driver
+	 * Quits the current Driver.
 	 */
 	public void closeDriver(){
 		driver.quit();
@@ -29,7 +29,14 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks the Year dropdown and selects the year inputed as the year
+	 * Verifies the page using assertEquals
+	 */
+	public void verifyPage(){
+		assertEquals("http://localhost:8080/caliber/#/vp/audit", driver.getCurrentUrl());
+	}
+	
+	/**
+	 * Clicks the Year dropdown and selects the year inputed for the year.
 	 * @param year to select (2016-2018)
 	 */
 	public void clickYearDropdown(String year){
@@ -42,7 +49,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Checks that the year is the same as the inputed year
+	 * Checks that the year is the same as the inputed year.
 	 * @param checkYear year to check
 	 */
 	public void verifyYear(String checkYear){
@@ -53,7 +60,7 @@ public class QualityAuditPage {
 	
 	
 	/**
-	 * Clicks on the Batch dropdown and selects the batchID inputted from the batch dropdown
+	 * Clicks on the Batch dropdown and selects the batchID inputed from the batch dropdown.
 	 * @param batchID batch to select (follows "[trainerName] - [date]" format)
 	 */
 	public void clickBatch(String batchID){
@@ -66,7 +73,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Verifies the current batch selected againt the input
+	 * Verifies the current batch selected against the input.
 	 * @param checkBatch batch to check against (follows "[trainerName] - [date]" format)
 	 */
 	public void verifyBatch(String checkBatch){
@@ -76,7 +83,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Select the week for the assessment from the tab bar, webpage always loads on the last created week
+	 * Select the week for the assessment from the tab bar, webpage always loads on the last created week.
 	 * @param week as an int from 1
 	 */
 	public void clickWeeksForBatch(int week){
@@ -86,7 +93,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Verifies the current week selected on the week tab by checking which tab is currently selected.
+	 * Verifies the current week selected on the week tab.
 	 * Checks if the class of the parent is active.
 	 * @param checkWeek as the week to check (format as weekX where X is the number, no space between them at all)
 	 */
@@ -109,7 +116,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Select the add week button at the end of the week tab
+	 * Select the add week button at the end of the week tab.
 	 * @throws InterruptedException 
 	 */
 	public void clickAddWeeksForBatchButton() throws InterruptedException{
@@ -124,7 +131,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks the individual feedback button next to the trainee once. Clicks cycle through good, average, poor, and superstar
+	 * Clicks the individual feedback button next to the trainee once. Clicks cycle through good, average, poor, and superstar.
 	 */
 	public void clickIndividualFeedbackButton(){
 		String[] qcBtns = { "questionBtn", "starBtn", "goodBtn", "fairBtn", "poorBtn"};
@@ -143,7 +150,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Fills trainee note text area with the passed string
+	 * Fills trainee note text area with the passed string.
 	 * @param notes 
 	 */
 	public void setNoteOnTraineeTextArea(String notes){
@@ -155,7 +162,7 @@ public class QualityAuditPage {
 	/**
 	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty.
 	 * Contains a wait to hold the thread until the text area is populated. Will fail if method finds the text area
-	 * before any content has been loaded
+	 * before any content has been loaded.
 	 * @throws InterruptedException 
 	 */
 	public void verifyTraineeNotes() throws InterruptedException{
@@ -167,7 +174,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks on the Good QC feedback button at the bottom of the QA Page
+	 * Clicks on the Good QC feedback button at the bottom of the QA Page.
 	 */
 	public void clickOverallFeedbackQCButtonGood(){
 		driver.findElement(By.id("good-QCButton"))
@@ -175,7 +182,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks on the Average QC feedback button at the bottom of the QA Page
+	 * Clicks on the Average QC feedback button at the bottom of the QA Page.
 	 */
 	public void clickOverallFeedbackQCButtonAvg(){
 		driver.findElement(By.id("fair-QCButton"))
@@ -183,7 +190,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks on the Poor QC feedback button at the bottom of the QA Page
+	 * Clicks on the Poor QC feedback button at the bottom of the QA Page.
 	 */
 	public void clickOverallFeedbackQCButtonPoor(){
 		driver.findElement(By.id("poor-QCButton"))
@@ -191,7 +198,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Fills the QC feedback text area with text
+	 * Fills the QC feedback text area with text with the passed string.
 	 * @param notes
 	 */
 	public void setOverallFeedbackQCNotes(String notes){
@@ -201,9 +208,9 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty
+	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty.
 	 * Contains a wait to hold the thread until the text area is populated. Will fail if method finds the text area
-	 * before any content has been loaded
+	 * before any content has been loaded.
 	 * @throws InterruptedException 
 	 */
 	public void verifyQCNotes() throws InterruptedException{
@@ -215,7 +222,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks the save button at the bottom of the page
+	 * Clicks the save button at the bottom of the page.
 	 */
 	public void clickSaveButton(){
 		driver.findElement(By.id("saveButton"))
