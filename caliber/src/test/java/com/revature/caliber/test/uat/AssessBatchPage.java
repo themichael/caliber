@@ -77,6 +77,9 @@ public class AssessBatchPage{
 	public void maxPoints(String feedback){
 		driver.findElement(By.id("rawScore")).sendKeys(feedback);
 	}
+	public boolean assessmentCheck(String exam){
+		return driver.findElement(By.id(exam+"Exam")).isDisplayed();
+	}
 	public void selectAssessmentType(String feedback){
 		Select dropdown = new Select(driver.findElement(By.id("assessmentType")));
 		dropdown.selectByVisibleText(feedback);

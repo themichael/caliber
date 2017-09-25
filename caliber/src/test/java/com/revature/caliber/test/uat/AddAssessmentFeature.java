@@ -1,5 +1,6 @@
 package com.revature.caliber.test.uat;
 
+import static org.junit.Assert.assertEquals;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -59,7 +60,8 @@ public class AddAssessmentFeature {
 
 	@Then("^the \"([^\"]*)\" Exam appears on the screen$")
 	public void theJavaExamAppearsOnTheScreen(String type) {
-		assessBatch.assessmentCheck(String type) ? assessBatch.verifyAssessPage() : break;
+		boolean actual = assessBatch.assessmentCheck(type);
+		assertEquals(actual, true);
 	}
 	@After
 	public void teardown(){

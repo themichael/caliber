@@ -46,11 +46,11 @@ public class ManageBatchPage{
 	
 	/**
 	 * Takes a string and verifies you made it to the page
-	 * you want to be on. For example for manage send "vp/manage"
+	 * you want to be on. For example for manage send "manage"
 	 * @param page
 	 */
 	public void verifyPage(String page){
-		assertEquals(("http://localhost:8080/caliber/#/"+page), 
+		assertEquals(("http://localhost:8080/caliber/#/vp/"+page), 
 				driver.getCurrentUrl());
 	}
 	
