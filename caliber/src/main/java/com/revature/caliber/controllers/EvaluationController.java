@@ -75,76 +75,6 @@ public class EvaluationController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	/**
-	 * Returns absolutely all grades for only the most coarsely-grained reporting.
-	 * Useful for feeding data into application for statistical analyses, such as
-	 * regression analysis, calculating mean, and finding average ;)
-	 * 
-	 * @param traineeId
-	 * @return
-	 */
-	@RequestMapping(value = "/vp/grade/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
-	public List<Grade> findAll() {
-		log.info("Finding all grades");
-		return evaluationService.findAllGrades();
-	}
-
-	/**
-	 * Returns grades for all trainees that took a particular assignment. Great for
-	 * finding average/median/highest/lowest grades for a test
-	 * 
-	 * @param assessmentId
-	 * @return
-	 */
-	@RequestMapping(value = "/all/grades/assessment/{assessmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
-	public List<Grade> findByAssessment(@PathVariable Long assessmentId) {
-		log.info("Finding grades for assessment: " + assessmentId);
-		return evaluationService.findGradesByAssessment(assessmentId);
-	}
-
-	/**
-	 * Returns all grades for a trainee. Useful for generating a full-view of
-	 * individual trainee performance.
-	 * 
-	 * @param traineeId
-	 * @return
-	 */
-	@RequestMapping(value = "/all/grade/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
-	public List<Grade> findByTrainee(@PathVariable Integer traineeId) {
-		log.info("Finding all grades for trainee: " + traineeId);
-		return evaluationService.findGradesByTrainee(traineeId);
-	}
-
-	/**
-	 * Returns all grades for a batch. Useful for calculating coarsely-grained data
-	 * for reporting.
-	 * 
-	 * @param batchId
-	 * @return
-	 */
-	@RequestMapping(value = "/all/grade/batch/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
-	public List<Grade> findByBatch(@PathVariable Integer batchId) {
-		log.info("Finding all grades for batch: " + batchId);
-		return evaluationService.findGradesByBatch(batchId);
-	}
-
-	/**
-	 * Returns all grades for a category. Useful for improving performance time of
-	 * company-wide reporting
-	 * 
-	 * @param batchId
-	 * @return
-	 */
-	@RequestMapping(value = "/all/grade/category/{categoryId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
-	public List<Grade> findByCategory(@PathVariable Integer categoryId) {
-		log.info("Finding all grades for category: " + categoryId);
-		return evaluationService.findGradesByCategory(categoryId);
-	}
 
 	/**
 	 * Returns grades for all trainees in the batch on a given week. Used to load
@@ -163,20 +93,7 @@ public class EvaluationController {
 		return new ResponseEntity<>(table, HttpStatus.OK);
 	}
 
-	/**
-	 * Returns all grades issued as acting trainer or cotrainer to a batch. Useful
-	 * for calculating coarsely-grained data for reporting. Potential refactor
-	 * here.. this queries database twice where we could find way to simply join.
-	 * 
-	 * @param trainerId
-	 * @return
-	 */
-	@RequestMapping(value = "/all/grade/trainer/{trainerId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
-	public List<Grade> findByTrainer(@PathVariable Integer trainerId) {
-		log.info("Finding all grades for trainer: " + trainerId);
-		return evaluationService.findGradesByTrainer(trainerId);
-	}
+
 
 	/*
 	 *******************************************************
@@ -331,20 +248,6 @@ public class EvaluationController {
 		return new ResponseEntity<>(evaluationService.findAllBatchNotes(batchId, week), HttpStatus.OK);
 	}
 
-	/**
-	 * FIND ALL WEEKLY INDIVIDUAL NOTES (VP ONLY)
-	 * 
-	 * @param trainee
-	 * @param week
-	 * @return
-	 */
-	@RequestMapping(value = "/vp/note/trainee/{traineeId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasRole('VP')")
-	public ResponseEntity<List<Note>> findAllIndividualNotes(@PathVariable Integer traineeId,
-			@PathVariable Integer week) {
-		log.info("Finding all week " + week + " individual notes for trainee: " + traineeId);
-		return new ResponseEntity<>(evaluationService.findAllIndividualNotes(traineeId, week), HttpStatus.OK);
-	}
 
 	@RequestMapping(value = "/all/notes/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('VP')")

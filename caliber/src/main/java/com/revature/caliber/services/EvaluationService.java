@@ -69,65 +69,6 @@ public class EvaluationService {
 		gradeDAO.update(grade);
 	}
 
-	/**
-	 * FIND ALL GRADES
-	 * 
-	 * @param traineeId
-	 * @return
-	 */
-	@Transactional
-	public List<Grade> findAllGrades() {
-		log.debug("Finding all grades");
-		return initializeLazyLoaded(gradeDAO.findAll());
-	}
-
-	/**
-	 * FIND GRADES BY ASSESSMENT
-	 * 
-	 * @param assessmentId
-	 * @return
-	 */
-	@Transactional
-	public List<Grade> findGradesByAssessment(Long assessmentId) {
-		log.debug("Finding grades for assessment: " + assessmentId);
-		return initializeLazyLoaded(gradeDAO.findByAssessment(assessmentId));
-	}
-
-	/**
-	 * FIND GRADES BY TRAINEE
-	 * 
-	 * @param traineeId
-	 * @return
-	 */
-	@Transactional
-	public List<Grade> findGradesByTrainee(Integer traineeId) {
-		log.debug("Finding all grades for trainee: " + traineeId);
-		return initializeLazyLoaded(gradeDAO.findByTrainee(traineeId));
-	}
-
-	/**
-	 *	FIND GRADES BY BATCH
-	 * 
-	 * @param batchId
-	 * @return
-	 */
-	@Transactional
-	public List<Grade> findGradesByBatch(Integer batchId) {
-		log.debug("Finding all grades for batch: " + batchId);
-		return initializeLazyLoaded(gradeDAO.findByBatch(batchId));
-	}
-
-	/**
-	 * FIND GRADES BY CATEGORY
-	 * 
-	 * @param batchId
-	 * @return
-	 */
-	@Transactional
-	public List<Grade> findGradesByCategory(Integer categoryId) {
-		log.debug("Finding all grades for category: " + categoryId);
-		return initializeLazyLoaded(gradeDAO.findByCategory(categoryId));
-	}
 
 	/**
 	 * FIND GRADES BY WEEK
@@ -157,18 +98,6 @@ public class EvaluationService {
 			}
 		}
 		return table;
-	}
-
-	/**
-	 *	FIND GRADES BY TRAINER
-	 * 
-	 * @param trainerId
-	 * @return
-	 */
-	@Transactional
-	public List<Grade> findGradesByTrainer(Integer trainerId) {
-		log.debug("Finding all grades for trainer: " + trainerId);
-		return initializeLazyLoaded(gradeDAO.findByTrainer(trainerId));
 	}
 
 	/*
@@ -298,19 +227,6 @@ public class EvaluationService {
 	}
 
 	/**
-	 * FIND ALL WEEKLY INDIVIDUAL NOTES (VP ONLY)
-	 * 
-	 * @param trainee
-	 * @param week
-	 * @return
-	 */
-	@Transactional
-	public List<Note> findAllIndividualNotes(Integer traineeId, Integer week) {
-		log.debug("Finding all week " + week + " individual notes for trainee: " + traineeId);
-		return initializeLazyLoadedNotes(noteDAO.findAllIndividualNotes(traineeId, week));
-	}
-
-	/**
 	 * Find all qc trainee notes
 	 * @return
 	 */
@@ -331,20 +247,4 @@ public class EvaluationService {
 		return noteDAO.findAllQCTraineeOverallNotes(traineeId);
 	}
 	
-	/**
-	 * method to help initialize dependencies of grade before session closes.
-	 */
-	private List<Grade> initializeLazyLoaded(List<Grade> grades){
-		for(Grade grade: grades){
-			Hibernate.initialize(grade.getAssessment().getBatch().getTrainees());
-		}
-		return grades;
-	}
-	
-	private List<Note> initializeLazyLoadedNotes(List<Note> notes) {
-		for(Note note: notes) {
-			Hibernate.initialize(note.getBatch().getTrainees());
-		}
-		return notes;
-	}
 }
