@@ -102,7 +102,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
 
-			return "index" ;
+			return "redirect:/index" ;
 
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
