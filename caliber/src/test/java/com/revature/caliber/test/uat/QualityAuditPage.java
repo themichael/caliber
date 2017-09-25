@@ -77,7 +77,7 @@ public class QualityAuditPage {
 	 */
 	public void verifyWeekForBatch(){
 		String weekTab;
-		boolean	selected = false;
+		boolean	selected;
 		int week = 1;
 		// Loop constructed on the premise that weeks don't go over 9
 		for(; week <=9; week++){
