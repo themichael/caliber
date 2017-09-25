@@ -26,7 +26,7 @@ public class SettingAddingCategoryFeature {
 
 	@cucumber.api.java.After
 	public void teardown() {
-		webdriver.quit();
+		settingCategoryPage.closeDriver();
 	}
 	
 	@Given("^I am on the Settings Category page$")

@@ -168,4 +168,5 @@ public class SettingLocationPage {
 		public void clickXCloseDeactivateModal(){
 			driver.findElement(By.cssSelector("#deleteLocationModal > div > div > div.modal-header > button")).click();
 		}
+
 }

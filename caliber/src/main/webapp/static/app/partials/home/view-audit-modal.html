@@ -6,7 +6,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
+				<button id="XBtn" type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -32,7 +32,7 @@
 							</thead>
 							<tbody>
 								<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-									<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
+									<td id="{{trainee.name}}" class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
 									<td>{{faces[$index].qcStatus ? faces[$index].qcStatus :
 										"-"}}</td>
 									<td class="col-sm-9 col-md-9 col-lg-9">{{faces[$index].content
@@ -47,13 +47,13 @@
 								<td
 									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 text-weight-bold"><strong>Overall
 										Feedback:</strong></td>
-								<td class="col-lg-10 col-md-10 col-sm-10 col-sm-offset-10">
+								<td id="overallFeedBack" class="col-lg-10 col-md-10 col-sm-10 col-sm-offset-10">
 									{{bnote.qcStatus ? bnote.qcStatus : "-"}}</td>
 							</tr>
 							<tr>
 								<td
 									class="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 text-weight-bold"><strong>Notes:</strong></td>
-								<td class="col-lg-10 col-md-10 col-sm-10 col-sm-offset-10">
+								<td id="notes" class="col-lg-10 col-md-10 col-sm-10 col-sm-offset-10">
 									{{bnote.content ? bnote.content : "-"}}</td>
 							</tr>
 						</table>

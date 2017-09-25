@@ -18,6 +18,7 @@ public class ChromeDriverSetup {
 	    options.addArguments("--window-size=1200x600");
 		this.driver = new ChromeDriver(options);
 		this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.get("http://localhost:8080/caliber#/vp/home");
 	}
 
 	public WebDriver getDriver() {

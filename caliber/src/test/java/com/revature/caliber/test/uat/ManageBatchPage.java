@@ -421,7 +421,7 @@ public class ManageBatchPage{
 	public void editTrainingTypeField(String trainingType) throws InterruptedException{
 		Select dropdown = new Select(driver.findElement(By.id("trainingType")));
 		Thread.sleep(500);
-		dropdown.deselectByVisibleText(trainingType);
+		dropdown.selectByVisibleText(trainingType);
 	}
 	
 	/**

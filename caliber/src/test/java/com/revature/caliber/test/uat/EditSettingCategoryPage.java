@@ -124,4 +124,8 @@ public class EditSettingCategoryPage {
 				.click();
 		*/
 	}
+	
+	public void closeDriver() {
+		driver.quit();
+	}
 }

@@ -26,7 +26,7 @@ public class EditSettingCategoryFeature {
 
 	@cucumber.api.java.After
 	public void teardown() {
-		webdriver.quit();
+		editSettingCategoryPage.closeDriver();
 	}
 	
 	@Given("^I am on the settings category page$")
