@@ -141,7 +141,15 @@ public class ReportingServiceTest extends CaliberTest {
 		assertNotEquals(keys.get(1).getSkillCategory(), catOne);
 		assertEquals((Double) 125.0, results.get(keys.get(1))[0]);
 	}
-
+	
+	/**
+	 * 
+	 * ReportingService.utilReplaceCategoryWithSkillName(Map<Category, Double[]> skills)
+	 * 	Created two maps different maps of Categories with defined skill names
+	 * 	compare the names of the keys in the returned map to what is saved when creating the skills
+	 * 		to make sure they match
+	 * 
+	 * */
 	@Test
 	public void testUtilReplaceCategoryWithSkillName() {
 		log.info("TEST UTILITY REPLACE CATEGORY WITH SKILL NAME");
@@ -157,7 +165,15 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals("Name One", keys.get(0));
 		assertEquals("Name Two", keys.get(1));
 	}
-
+	
+	/**
+	 * 
+	 * ReportingService.utilAvgBatchWeekValue(List<Trainee> trainees, Integer week)
+	 * 	Use pre-initialized data as parameter in utilAvgBatchWeekValue to save expected
+	 * 		weighted average for two different weeks
+	 * 	Compare saved values to actual, easily calculated averages to make sure they match
+	 * 
+	 * */
 	@Test
 	public void testUtilAvgBatchWeekValue() {
 		log.info("TEST UTILITY AVERAGE BATCH WEEK VALUE");
