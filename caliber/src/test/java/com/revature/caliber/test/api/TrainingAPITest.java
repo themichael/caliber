@@ -145,12 +145,10 @@ public class TrainingAPITest extends AbstractAPITest {
 				TrainerRole.ROLE_VP);
 		expected.setTrainerId(1);
 		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + getAllTrainers);
-		Trainer[] trainers = given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
-				.get(baseUrl + getAllTrainers).then().assertThat()
-				.statusCode(200).extract().response().as(Trainer[].class);
-		assertTrue("Test that some trainers exist", "Patrick Walsh".equals(trainers[0].getName()));
-		log.info(" SOME STUFF" + trainers.length + " " + trainers[1].getName());
-		
+		given().spec(requestSpec).header(auth, accessToken).contentType(ContentType.JSON).when()
+ 				.get(baseUrl + getAllTrainers).then().assertThat().statusCode(200)
+ 				.body(containsString(new ObjectMapper().writeValueAsString(expected)));
+ 		log.info("Get all trainers passed!!");
 	}
 	
 	@Test
