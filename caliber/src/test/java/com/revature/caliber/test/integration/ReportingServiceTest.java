@@ -656,13 +656,12 @@ public class ReportingServiceTest extends CaliberTest {
 		LocalDate expect = LocalDate.now();
 		expect = expect.minusDays(7);
 		
-		assertEquals(expect + "...Patrick", (String) test.get("label"));
+		assertEquals("Patrick " + expect, (String) test.get("label"));
 		
 		//asserts the address
 		Address address = (Address) test.get("address");
 	
 		assertEquals("65-30 Kissena Blvd, CEP Hall 2", address.getStreet());
-			
 	}
 		
 	/**
