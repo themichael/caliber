@@ -33,7 +33,7 @@ public class AddBatchWeeklyPerformanceFeature {
 	
 	@Given("^I am in the Assess Batch Page$")
 	public void i_am_in_the_Assess_Batch_Page() throws Throwable {
-		assessBatchPage.goToPage("vp/assess");
+		assessBatchPage.goToPage();
 		assessBatchPage.verifyAssessPage();
 		assessBatchPage.clickCreateAssessment();
 	}

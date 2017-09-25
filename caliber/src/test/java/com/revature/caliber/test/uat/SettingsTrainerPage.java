@@ -32,9 +32,8 @@ public class SettingsTrainerPage {
 	}
 
 	// Sends driver to the specified page
-	public void gotoPage() throws InterruptedException {
+	public void gotoPage(){
 		driver.get("http://localhost:8080/caliber#/vp/trainers");
-		Thread.sleep(115);
 	}
 
 	// Checks to see if the driver is currently on the specified page
@@ -45,134 +44,118 @@ public class SettingsTrainerPage {
 	// Clicks the CreateTrainer button to open create Trainer modal
 	public void createTrainerTab() throws InterruptedException {
 		driver.findElement(
-				By.cssSelector("body > div > ui-view > ui-view > div > div:nth-child(1) > div > div > ul > li > a"))
+				By.id("createTrainerBtn"))
 				.click();
 		driver.switchTo().activeElement();
-		Thread.sleep(115);
 	}
 
 	// Enters name into the Trainer name input field
 	public void enterName(String name) {
-		driver.findElement(By.cssSelector(
-				"#createTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input"))
+		driver.findElement(By.id("trainerName"))
 				.sendKeys(name);
 	}
 
 	// Enters email into the Email input field
 	public void enterEmail(String email) {
-		driver.findElement(By.cssSelector(
-				"#createTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input"))
+		driver.findElement(By.id("trainerEmail"))
 				.sendKeys(email);
 	}
 
 	// Enters name of Title into the title input field
 	public void selectTitle(String title) {
-		driver.findElement(By.cssSelector(
-				"#createTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > input"))
+		driver.findElement(By.id("Title"))
 				.sendKeys(title);
 
 	}
 
 	// Selects the Tier option from the dropdown box
 	public void selectTier(String tier) throws InterruptedException {
-		Select dropdown = new Select(driver.findElement(By.cssSelector(
-				"#createTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > select")));
-		Thread.sleep(115);
+		Select dropdown = new Select(driver.findElement(By.id("trainerTier")));
 		dropdown.selectByVisibleText(tier);
 	}
 
 	// clicks the save button in the Modal of the Create Trainer
 	public void createTrainerModalSaveButton() throws IOException, InterruptedException {
 		driver.findElement(
-				By.cssSelector("#createTrainerModal > div > div > div.modal-body > div.modal-footer > input")).click();
-		Thread.sleep(115);
+				By.id("saveBtn")).click();
 	}
 
 	// clicks the close button in the Modal of the Create Trainer
 	public void createTrainerCloseButton() {
 		driver.findElement(
-				By.cssSelector("#createTrainerModal > div > div > div.modal-body > div.modal-footer > button")).click();
+				By.id("closeBtn")).click();
+	}
+	//clicks the x button to close modal
+	public void xCloseButton(){
+		driver.findElement(By.id("XBtn")).click();
 	}
 
 	// clicks the pencil glyphicon which brings up the update Trainer modal
-	public void updateButton() throws InterruptedException {
-		driver.findElement(By.cssSelector(
-				"body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(5) > a"))
+	public void updateIcon() throws InterruptedException {
+		driver.findElement(By.id("pencilIcon"))
 				.click();
-		Thread.sleep(115);
 	}
 
 	// clears the input field for the Trainer name then updates the name
 	public void updateTrainerName(String name) {
 		driver.switchTo().activeElement();
-		driver.findElement(By.cssSelector(
-				"#editTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)>input"))
+		driver.findElement(By.id("trainerName"))
 				.clear();
-		driver.findElement(By.cssSelector(
-				"#editTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)>input"))
+		driver.findElement(By.id("trainerName"))
 				.sendKeys(name);
 		;
 	}
 
 	// clears the input field for the Trainer email then updates the email
 	public void updateEmail(String email) {
-		driver.findElement(By.cssSelector(
-				"#editTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input"))
+		driver.findElement(By.id("trainerEmail"))
 				.clear();
-		driver.findElement(By.cssSelector(
-				"#editTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input"))
+		driver.findElement(By.id("trainerEmail"))
 				.sendKeys(email);
 
 	}
 
 	// clears the input field for the Trainer title then updates the title
 	public void updateTitle(String title) {
-		driver.findElement(By.cssSelector(
-				"#editTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > input"))
+		driver.findElement(By.id("Title"))
 				.clear();
-		driver.findElement(By.cssSelector(
-				"#editTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > input"))
+		driver.findElement(By.id("Title"))
 				.sendKeys(title);
 	}
 
 	// Selects a tier from the dropdown
 	public void updateTier(String tier) throws InterruptedException {
-		Select dropdown = new Select(driver.findElement(By.cssSelector(
-				"#editTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > select")));
-		Thread.sleep(115);
+		Select dropdown = new Select(driver.findElement(By.id("trainerTier")));
 		dropdown.selectByVisibleText(tier);
 	}
 
 	// clicks the update button inside the update modal
 	public void modalUpdateButton() throws IOException, InterruptedException {
-		driver.findElement(By.cssSelector("#editTrainerModal > div > div > div.modal-body > div.modal-footer > input"))
+		driver.findElement(By.id("saveBtn"))
 				.click();
-		Thread.sleep(115);
 	}
 
 	// clicks the close button inside the update modal
 	public void updateModalCloseButton() throws InterruptedException, IOException {
-		driver.findElement(By.cssSelector("#editTrainerModal > div > div > div.modal-body > div.modal-footer > button"))
+		driver.findElement(By.id("closeBtn"))
 				.click();
-		Thread.sleep(115);
 	}
 
 	// clicks the x glyphicon which brings up the delete Trainer modal to the
 	// screen
-	public void deleteButton() {
-		driver.findElement(By.cssSelector(
-				"body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(6) > a"))
+	public void deleteIcon() {
+		driver.findElement(By.id("deleteIcon"))
 				.click();
 	}
 
 	// clicks the close button inside the delete modal
 	public void deleteModalCloseButton() {
-		driver.findElement(By.cssSelector("#deleteTrainerModal > div > div > div.modal-footer > button")).click();
+		driver.findElement(By.id("cancelBtn")).click();
 	}
 
 	// clicks the delete button inside the delete modal
 	public void modalDeleteButton() {
-		driver.findElement(By.cssSelector("#deleteTrainerModal > div > div > div.modal-footer > input")).click();
+		driver.findElement(By.id("deleteBtn")).click();
 	}
 
 	public void teardown(){
