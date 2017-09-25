@@ -19,7 +19,7 @@ public class EditSettingCategoryFeature {
 	@cucumber.api.java.Before
 	public void setup() {
 		DesiredCapabilities descap = new DesiredCapabilities();
-		descap.setCapability("phantomjs.binary.path", System.getenv("PHANTOM_BIN"));
+		descap.setCapability("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
 		descap.setJavascriptEnabled(true);
 		webdriver = new PhantomJSDriver(descap);
 		webdriver.manage().window().setSize(new Dimension(1200, 1200));
