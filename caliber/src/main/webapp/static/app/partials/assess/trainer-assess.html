@@ -30,7 +30,7 @@
 				<li role="button" class="dropdown"><a id="yearDropdownId" class="dropdown-toggle"
 					data-toggle="dropdown">{{selectedYear}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li ng-repeat="menuItem in years track by $index"><a
+						<li ng-repeat="menuItem in years track by $index"><a id = "yearDropdownId{{$index}}"
 							role="button" ng-click="selectYear($index)">{{menuItem}}</a></li>
 					</ul></li>
 
@@ -40,7 +40,7 @@
 						date:'shortDate' }} <span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li ng-repeat="batch in batchesByYear track by $index"><a
+						<li ng-repeat="batch in batchesByYear track by $index"><a id="batchesDropdownId{{$index}}
 							role="button" ng-click="selectCurrentBatch($index)">
 								{{batch.trainer.name}} - {{batch.startDate | date:'shortDate'}}
 						</a></li>
@@ -75,7 +75,7 @@
 			<ul class="nav nav-tabs">
 				<li role="button" class="{{showActiveWeek($index)}}"
 					ng-click="selectWeek($index)"
-					ng-repeat="week in currentBatch.arrayWeeks track by $index"><a id="weekBtn"><label id="{{week}}">Week
+					ng-repeat="week in currentBatch.arrayWeeks track by $index"><a id="weekBtn{{week}}"><label id="{{week}}">Week
 						{{week}}</label></a></li>
 				<!-- Button Trigger for Create Week Modal -->
 				<li role="button" ng-show="!noBatches" data-toggle="modal"
@@ -120,7 +120,7 @@
 								<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
 								<td class="text-center col-sm-1 col-md-1 col-lg-1"
 									ng-repeat="assessment in currentAssessments track by $index">
-									<input
+									<input id="{{trainee.name}}grade{{$index}}"
 									ng-class="{'has-error':validateGrade(trainees[trainee.traineeId].assessments[assessment.assessmentId].score)}"
 									class="form-control" type="number" min="1" max="100"
 									ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score"
@@ -188,7 +188,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
+				<button id="xBtn" type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -231,8 +231,8 @@
 
 				</div>
 				<div class="modal-footer">
-					<input type="submit" value="Save" class="btn btn-primary">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input id="saveBtn" type="submit" value="Save" class="btn btn-primary">
+					<button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</form>
 		</div>
