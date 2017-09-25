@@ -173,7 +173,7 @@ angular
 										$scope.batchesToUpdate = batchesToUpdate;
 										caliberDelegate.vp.getAllLocations()
 										.then(
-												function(locations) {
+												function() {
 													$scope.alertMessage = "Please update the location on the following batches:";
 												    $scope.batchesToAlert = batchesToAlert;
 												    
