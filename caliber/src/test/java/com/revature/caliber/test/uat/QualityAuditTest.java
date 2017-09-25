@@ -1,19 +1,14 @@
 package com.revature.caliber.test.uat;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.openqa.selenium.*;
+import org.junit.Test;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.junit.Test;
 
 public class QualityAuditTest {
 	
@@ -44,6 +39,7 @@ public class QualityAuditTest {
 		qaPage.clickYearDropdown();
 		qaPage.clickBatch();
 		qaPage.clickAddWeeksForBatchButton();
+		qaPage.clickWeeksForBatch(2);
 		qaPage.clickIndividualFeedbackButton();
 		qaPage.setNoteOnTraineeTextArea("Test string");
 		qaPage.clickOverallFeedbackQCButtonGood();

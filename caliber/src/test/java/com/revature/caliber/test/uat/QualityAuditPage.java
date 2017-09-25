@@ -3,8 +3,6 @@ package com.revature.caliber.test.uat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -32,7 +30,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Selects 2017 from year dropdown
+	 * Clicks the Year dropdown and selects 2017 as the year
 	 */
 	public void clickYearDropdown(){
 		//opens year dropdown
@@ -49,7 +47,7 @@ public class QualityAuditPage {
 	
 	
 	/**
-	 * Select Patrick Walsh - 2/14/17 from the batch by year dropdown, which is the first element
+	 * Clicks on the Batch dropdown and selects Patrick Walsh - 2/14/17 from the batch by year dropdown, which is the first element
 	 */
 	public void clickBatch(){
 		//click on batch
@@ -65,25 +63,25 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Select the week for the assessment from the tab bar, webpage always loads on the last created week,
+	 * Select the week for the assessment from the tab bar, webpage always loads on the last created week
 	 * @param week as an int from 1
 	 */
 	public void clickWeeksForBatch(int week){
 		//currently clicks week 8, change last /li[x] where x is the week; will click new week if set to last element in the list
-		driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li["+ week +"]"))
+		driver.findElement(By.id("week" + week))
 			.click();
 	}
 	
 	/**
-	 * Verifies the current week selected on the week tab by checking which tab is currently selected
-	 * loop constructed on the premise that weeks don't go over 9
+	 * Verifies the current week selected on the week tab by checking which tab is currently selected.
 	 */
 	public void verifyWeekForBatch(){
 		String weekTab;
 		boolean	selected = false;
 		int week = 1;
+		// Loop constructed on the premise that weeks don't go over 9
 		for(; week <=9; week++){
-			weekTab = driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[2]/ul/li["+ week +"]")).getAttribute("class");
+			weekTab = driver.findElement(By.id("week" + week)).getAttribute("class");
 			if(weekTab == "active"){
 				selected = true;
 				break;
@@ -114,7 +112,7 @@ public class QualityAuditPage {
 		//need to click on the currently displayed button
 			//check if it is displayed
 		boolean isAvailable;
-		int step = 1;
+		int step = 0;
 		for(; step<=4; step++){
 			isAvailable = driver.findElement(By.id("indvFeedback-"+ qcBtns[step] + "-0" )).isDisplayed();
 			if(isAvailable)
@@ -149,7 +147,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks on the Good QC feedback button
+	 * Clicks on the Good QC feedback button at the bottom of the QA Page
 	 */
 	public void clickOverallFeedbackQCButtonGood(){
 		driver.findElement(By.id("good-QCButton"))
@@ -157,7 +155,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks on the Average QC feedback button
+	 * Clicks on the Average QC feedback button at the bottom of the QA Page
 	 */
 	public void clickOverallFeedbackQCButtonAvg(){
 		driver.findElement(By.id("fair-QCButton"))
@@ -165,7 +163,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks on the Poor QC feedback button
+	 * Clicks on the Poor QC feedback button at the bottom of the QA Page
 	 */
 	public void clickOverallFeedbackQCButtonPoor(){
 		driver.findElement(By.id("poor-QCButton"))
