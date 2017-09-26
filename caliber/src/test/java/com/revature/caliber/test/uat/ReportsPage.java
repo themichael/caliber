@@ -83,10 +83,10 @@ public class ReportsPage {
 	/**
 	 *  Click on the specific batch in the dropdown
 	 */
-	public void chooseBatch() {
+	public void chooseBatch(String batch) {
 		// Default is one batch 'Patrick Walsh - 2/13/17' and there's only one
 		// choice
-		driver.findElement(By.id("Patrick Walsh - 2/13/17")).click();
+		driver.findElement(By.id(batch)).click();
 	}
 
 	/***
@@ -104,7 +104,7 @@ public class ReportsPage {
 	public void chooseWeekReport(String week) {
 		// id = "week #" so String week = "week #" also
 		//hardcoded 'week 1'
-		driver.findElement(By.id("week 1")).click();
+		driver.findElement(By.id(week)).click();
 	}
 
 	/***
@@ -123,7 +123,7 @@ public class ReportsPage {
 	public void chooseTraineeReport(String trainee) {
 		// id = 'lastname, firstname' so String trainee = "lastname, firstname";
 		// 'Ali, Fareed' for testing purposes
-		driver.findElement(By.id("Ali, Fareed")).click();
+		driver.findElement(By.id(trainee)).click();
 	}
 
 	/***
@@ -225,7 +225,7 @@ public class ReportsPage {
 	 * Quits the driver.
 	 */
 	public void closeDriver() {
-		driver.quit();
+		driver.close();
 	}
 	
 	/**
@@ -241,6 +241,20 @@ public class ReportsPage {
 	 */
 	public void checkTraineeWeeklyProgressChart(){
 		driver.findElement(By.id("line9"));
+	}
+	
+	/**
+	 * Checks if the Cumulative Scores chart is displayed
+	 */
+	public void checkCumulativeScoresChart(){
+		driver.findElement(By.id("line6"));
+	}
+	
+	/**
+	 * Checks if the Assessment Breakdown of a specific trainee
+	 */
+	public void checkAssessmentBreakdownChart(){
+		driver.findElement(By.id("bar"));
 	}
 	
 	/**

@@ -22,7 +22,7 @@ public class SettingAddingCategoryFeature {
 	public void setup() {
 		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
         ChromeOptions options = new ChromeOptions();
-         //options.addArguments("--headless");
+         options.addArguments("--headless");
         options.addArguments("--window-size=1200x600");
         WebDriver driver = new ChromeDriver(options);
 		//ChromeDriverSetup setup = new ChromeDriverSetup();

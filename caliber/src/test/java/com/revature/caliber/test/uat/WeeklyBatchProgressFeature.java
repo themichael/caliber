@@ -9,31 +9,32 @@ import cucumber.api.java.en.When;
 
 public class WeeklyBatchProgressFeature {
 
+	private ChromeDriverSetup setup;
 	private ReportsPage reportsPage;
 	
 	@Before // each scenario
 	public void setup(){
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		setup = new ChromeDriverSetup();
 		reportsPage = new ReportsPage(setup.getDriver());
 	}
-
-	@After // each scenario
-	public void teardown() {
-		reportsPage.closeDriver();
-	}
+	
+//	@After // each scenario
+//	public void teardown() {
+//		reportsPage.closeDriver();
+//	}
 
 	@When("^I select a batch$")
 	public void iSelectABatch() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 	    reportsPage.gotoReportsPage();
 	    reportsPage.verifyReportsPage();
 	    reportsPage.clickBatchDropdown();
-	    reportsPage.chooseBatch();
+	    reportsPage.chooseBatch("Patrick Walsh - 2/14/17");
 	}
 
 	@Then("^I can note the weekly progress for a batch$")
 	public void iCanNoteTheWeeklyProgressForABatch() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 	    reportsPage.checkWeeklyProgressChart();
+	    reportsPage.closeDriver();
+//	    setup.getDriver().quit();
 	}
 }

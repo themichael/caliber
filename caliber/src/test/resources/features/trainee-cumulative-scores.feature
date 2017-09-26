@@ -10,8 +10,8 @@ I can see each trainee's cumulative average score and rankings from strongest to
     And on the Reports page
 
     Scenario:
-    And I have selected a specific batch
+    And I have selected the year 2017 tab
     And I have not selected a Trainee
     And I have not selected a Week 
-    When I view the cumulative scores table
+    When I have selected "Patrick Walsh - 2/14/17" as a batch
     Then I can see each trainee's scores and rankings from strongest to weakest

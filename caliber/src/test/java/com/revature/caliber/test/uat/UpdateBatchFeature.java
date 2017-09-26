@@ -26,7 +26,7 @@ public class UpdateBatchFeature {
 	public void iAmOnTheManageBatchPage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    managePage.gotoManagePage();
-	    managePage.verifyPage("vp/manage");
+	    managePage.verifyPage("manage");
 	}
 
 	@Given("^I have clicked the update Batch icon$")
@@ -104,6 +104,7 @@ public class UpdateBatchFeature {
 	@Then("^I am back on the Manage Batch Page$")
 	public void iAmBackOnTheManageBatchPage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		managePage.verifyPage("vp/manage");
+		managePage.verifyPage("manage");
+		managePage.closeDriver();
 	}
 }
