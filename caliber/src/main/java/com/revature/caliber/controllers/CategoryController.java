@@ -1,7 +1,9 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.services.CategoryService;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,12 +13,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
-import java.util.HashMap;
-import java.util.List;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.services.CategoryService;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
