@@ -6,26 +6,31 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+
 public class ChromeDriverSetup {
 	
-	private WebDriver driver;
+	protected static WebDriver driver;
+	private static boolean initialized = false;
 
-	public ChromeDriverSetup() {
-		super();
+	
+	public ChromeDriverSetup(){
+		if(!initialized){
 		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
 	    ChromeOptions options = new ChromeOptions();
 	    options.addArguments("--headless");
 	    options.addArguments("--window-size=1200x600");
-		this.driver = new ChromeDriver(options);
-		this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver = new ChromeDriver(options);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		initialized = true;
+		}
 	}
 
 	public WebDriver getDriver() {
 		return driver;
 	}
 
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
+	public void setDriver(WebDriver driverSetup) {
+		driver = driverSetup;
 	}
 	
 	

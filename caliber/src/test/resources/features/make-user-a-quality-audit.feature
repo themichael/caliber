@@ -9,8 +9,8 @@ Background:
 	And I am on the Trainer Settings Pages
 Scenario: Edit a user to be a Quality Audit
 	And I click the edit Trainer icon
-	And change the tier of the trainer to VP
+	And change the tier of the trainer to "QA"
 	When I select the update button
-	Then the user has been changed to a QA
+	Then the user has been changed to a "QA"
 	
 

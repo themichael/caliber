@@ -41,10 +41,14 @@ public class AssessBatchPage{
 		driver.findElement(By.id("batchesDropdownId")).click();
 		driver.findElement(By.id("batchesDropdownId0")).click();
 	}
-	public void enterGrades(String number){
-		driver.findElement(By.id("Ahmed, Sadatgrade0")).sendKeys(number);
-		driver.findElement(By.id("Ahmed, Sadatgrade1")).sendKeys(number);
-		driver.findElement(By.id("Ahmed, Sadatgrade2")).sendKeys(number);	
+	
+	public void enterGrades(String name, String number){
+		driver.findElement(By.id(name+"grade0")).sendKeys(number);
+		driver.findElement(By.id(name+"grade1")).sendKeys(number);
+	}
+	
+	public void checkIfGradesWereInput(String traineeName, String grade){
+		assertEquals(driver.findElement(By.id(traineeName+"grade0")).getText(), grade);
 	}
 	
 	public void clickNewWeek(){

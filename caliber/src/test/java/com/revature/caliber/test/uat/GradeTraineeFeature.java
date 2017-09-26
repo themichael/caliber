@@ -1,57 +1,50 @@
 package com.revature.caliber.test.uat;
-//package com.revature.caliber.test.uat;
-//
-//import java.util.concurrent.TimeUnit;
-//
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-//import org.openqa.selenium.phantomjs.PhantomJSDriver;
-//
-//import com.gargoylesoftware.htmlunit.BrowserVersion;
-//
-//import cucumber.api.java.en.Given;
-//import cucumber.api.java.en.Then;
-//import cucumber.api.java.en.When;
-//
-//public class GradeTraineeFeature {
+
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class GradeTraineeFeature extends ChromeDriverSetup{
+	
+	private AssessBatchPage assessBatch;
+	
+	@Before
+	public void setup(){
+		ChromeDriverSetup driver = new ChromeDriverSetup();
+		assessBatch = new AssessBatchPage(driver.getDriver());
+	}
 //	
-//	private PhantomJSDriver driver;
-//	private AssessBatchPage assessBatch;
-//	
-////	@cucumber.api.java.Before
-////	public void setup(){
-////		driver = new HtmlUnitDriver(BrowserVersion.CHROME);
-////		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-////		assessBatch = new AssessBatchPage(driver);
-////	}
-//	
-//	
-//	@Given("^I am on the Assess Batch Page$")
-//	public void iAmOnTheAssessBatchPage(){
-//		// Write code here that turns the phrase above into concrete actions
-////		assessBatch.gotoPage();
-////		assessBatch.verifyAssessBatchPage();
+//	@After
+//	public void teardown(){
+//		assessBatch.closeDriver();
 //	}
-//
-//	@Given("^I have picked the Week (\\d+) tab$")
-//	public void iHavePickedTheWeekTab(int arg1){
-//		// Write code here that turns the phrase above into concrete actions
-//	}
-//
-//	@Given("^I have submitted (\\d+) as the grade$")
-//	public void iHaveSubmittedAsTheGrade(int arg1){
-//		// Write code here that turns the phrase above into concrete actions
-//	}
-//
-//	@When("^I hit the Save button$")
-//	public void iHitTheSaveButton(){
-//		// Write code here that turns the phrase above into concrete actions
-//		
-//	}
-//
-//	@Then("^the grades are recorded$")
-//	public void theGradesAreRecorded(){
-//		// Write code here that turns the phrase above into concrete actions
-//	}
-//
-//}
+	
+	@Given("^I am on the Assess Batch Page$")
+	public void iAmOnTheAssessBatchPage(){
+		assessBatch.goToPage();
+		assessBatch.verifyAssessPage();
+	}
+
+	@Given("^I have picked the Week (\\d+) tab$")
+	public void iHavePickedTheWeekTab(int arg1){
+		assessBatch.clickWeekTab();
+	}
+
+	@Given("^I have submitted \"([^\"]*)\" as the grade for \"([^\"]*)\"$")
+	public void i_have_submitted_as_the_grade_for(String grade, String traineeName) throws Throwable {
+	   assessBatch.enterGrades(traineeName, grade);
+	}
+
+	@When("^I hit the Save button$")
+	public void iHitTheSaveButton(){
+		assessBatch.saveButton();
+	}
+
+	@Then("^the grades \"([^\"]*)\" for \"([^\"]*)\" are recorded$")
+	public void theGradesAreRecorded(String grade, String traineeName){
+		assessBatch.checkIfGradesWereInput(traineeName, grade);
+	}
+
+}
