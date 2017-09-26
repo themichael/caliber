@@ -44,6 +44,7 @@ public class AssessBatchPage{
 	
 	public void selectBatch(){
 		driver.findElement(By.id("batchesDropdownId")).click();
+		driver.switchTo().activeElement();
 		driver.findElement(By.id("batchesDropdownId0")).click();
 	}
 	
@@ -90,7 +91,7 @@ public class AssessBatchPage{
 	}
 
 	public void batchNotesCheck(String feedback){
-		assertEquals(feedback, driver.findElement(By.id("trainerBatchNote")).getText());
+		assertEquals(feedback, driver.findElement(By.id("trainerBatchNote")).getAttribute("name").toString());
 	}
 	
 	public void selectAssessementCategory(String feedback){

@@ -44,7 +44,7 @@ public class QualityAuditTraineePerfromanceFeature {
 
 	@Given("^I am on the most current week$")
 	public void iAmOnTheMostCurrentWeek() throws Throwable {
-		qaPage.verifyWeekForBatch("week8");
+		qaPage.verifyWeekForBatch("week7");
 	}
 
 	@Given("^have entered \"([^\"]*)\" in Trainees note area$")
