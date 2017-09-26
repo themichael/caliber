@@ -99,7 +99,6 @@ public class QualityAuditPage {
 	 */
 	public void verifyWeekForBatch(String checkWeek){
 		String weekTab;
-		boolean	selected;
 		int week = 1;
 		// Loop constructed on the premise that weeks don't go over 9
 		for(; week <=9; week++){
@@ -107,7 +106,6 @@ public class QualityAuditPage {
 			WebElement parent = child.findElement(By.xpath(".."));
 			weekTab = parent.getAttribute("class");
 			if(weekTab.equals("active")){
-				selected = true;
 				break;
 			}
 		}
