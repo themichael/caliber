@@ -24,10 +24,10 @@ public class EditSettingCategoryFeature {
 		editSettingCategoryPage = new EditSettingCategoryPage(setup.getDriver());
 	}
 
-	@cucumber.api.java.After
-	public void teardown() {
-		editSettingCategoryPage.closeDriver();
-	}
+//	@cucumber.api.java.After
+//	public void teardown() {
+//		editSettingCategoryPage.closeDriver();
+//	}
 	
 	@Given("^I am on the settings category page$")
 	public void i_am_on_the_settings_category_page() {

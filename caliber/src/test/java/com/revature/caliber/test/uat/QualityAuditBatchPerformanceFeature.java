@@ -18,10 +18,10 @@ public class QualityAuditBatchPerformanceFeature {
 		qaPage = new QualityAuditPage(setup.getDriver());
 	}
 	
-	@cucumber.api.java.After
-	public void teardown(){
-		qaPage.closeDriver();
-	}
+//	@cucumber.api.java.After
+//	public void teardown(){
+//		qaPage.closeDriver();
+//	}
 	
 	@Given("^I am on the Quality Audit page$")
 	public void iAmOnTheQualityAuditPage() throws Throwable {

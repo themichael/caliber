@@ -18,10 +18,10 @@ public class AddBatchWeeklyPerformanceFeature {
 		assessBatchPage = new AssessBatchPage(setup.getDriver());
 	}
 	
-	@After
-	public void teardown(){
-		assessBatchPage.closeDriver();
-	}
+//	@After
+//	public void teardown(){
+//		assessBatchPage.closeDriver();
+//	}
 	
 	@Given("^that I am logged in as a trainer$")
 	public void that_I_am_logged_in_as_a_trainer() throws Throwable {

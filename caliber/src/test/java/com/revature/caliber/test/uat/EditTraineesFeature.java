@@ -21,10 +21,10 @@ public class EditTraineesFeature {
 		manageBatchPage = new ManageBatchPage(setup.getDriver());
 	}
 	
-	@After
-	public void teardown(){
-		manageBatchPage.closeDriver();
-	}
+//	@After
+//	public void teardown(){
+//		manageBatchPage.closeDriver();
+//	}
 	
 	@Given("^that I am logged in as a User$")
 	public void that_I_am_logged_in_as_a_User() throws Throwable {
