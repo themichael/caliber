@@ -261,17 +261,34 @@ angular.module("charts").factory(
 					chartData.id.push(batch.id);
 					var i = 0;
 					angular.forEach(batch.qcStatus, function(value2, key2) {
+						// Because the qcStatuses get randomized, this if else set orders them.
+						if(key2 === "Poor"){
+							i = 0;
+						}
+						else if(key2 === "Average"){
+							i = 1;
+						}
+						else if(key2 === "Good"){
+							i = 2;
+						}
+						else if(key2 === "Superstar"){
+							i = 3;
+						}
 						if (chartData.data[i] === undefined) {
-							chartData.data.push([]);
-							chartData.series.push(key2);
-							if (key2 === "Superstar")
-								chartData.colors.push("#393fef");
-							else if (key2 === "Good")
-								chartData.colors.push("#18ad18");
-							else if (key2 === "Average")
-								chartData.colors.push("#f9e900");
-							else if (key2 === "Poor")
-								chartData.colors.push("#ea2825");
+							chartData.data[i]=[];
+							chartData.series[i]=key2;
+							if (key2 === "Superstar"){
+								chartData.colors[i] ="#393fef";
+							}
+							else if (key2 === "Good"){
+								chartData.colors[i]="#18ad18";
+							}
+							else if (key2 === "Average"){
+								chartData.colors[i] = "#f9e900";
+							}
+							else if (key2 === "Poor"){
+								chartData.colors[i] = "#ea2825";								
+							}
 						}
 						chartData.data[i].push(value2);
 						i++;
@@ -285,6 +302,9 @@ angular.module("charts").factory(
 						labels : {
 							boxWidth : 10
 						}
+					},
+					tooltips: { 
+						itemSort: function(a, b) { return b.datasetIndex - a.datasetIndex }
 					},
 					scales : {
 						yAxes : [ {
@@ -320,7 +340,7 @@ angular.module("charts").factory(
 					},
 
 				};
-				$log.debug("Hello from the other side");
+				$log.debug("Hello from the otter slide");
 				return chartData;
 			};
 			$log.debug("Hello, is it me you are looking for?");

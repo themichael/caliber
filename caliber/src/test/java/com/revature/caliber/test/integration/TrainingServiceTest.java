@@ -14,6 +14,7 @@ import com.revature.caliber.services.TrainingService;
 
 public class TrainingServiceTest extends CaliberTest {
 	private static final Logger log = Logger.getLogger(TrainingServiceTest.class);
+	private static final String INACTIVE = "select NUMBER_OF_WEEKS from CALIBER_BATCH where BATCH_ID = 2100";
 	TrainingService service;
 	TrainerDAO dao;
 	
@@ -27,9 +28,6 @@ public class TrainingServiceTest extends CaliberTest {
 		this.service = service;
 	}
 	
-	
-	private String inactive = "select NUMBER_OF_WEEKS from CALIBER_BATCH where BATCH_ID = 2100";
-	
 	@Test
 	public void makeInactiveWeek(){
 		TrainerRole teirBefore = dao.findOne(1).getTier();
@@ -42,9 +40,9 @@ public class TrainingServiceTest extends CaliberTest {
 	@Test
 	public void addWeek(){
 		log.info("Testing TrainingService addWeek function");
-		int beforeNum = jdbcTemplate.queryForObject(inactive, Integer.class);
+		int beforeNum = jdbcTemplate.queryForObject(INACTIVE, Integer.class);
 		service.addWeek(2100);
-		int afterNum = jdbcTemplate.queryForObject(inactive, Integer.class);
+		int afterNum = jdbcTemplate.queryForObject(INACTIVE, Integer.class);
 		assertEquals(++beforeNum, afterNum);
 	}
 
