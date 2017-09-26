@@ -9,7 +9,7 @@ import cucumber.api.java.en.When;
 
 public class AddAssessmentFeature {
 	
-	AssessBatchPage assessBatch;
+	private AssessBatchPage assessBatch;
 	
 	@Before
 	public void setup(){
