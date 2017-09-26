@@ -12,7 +12,7 @@ Given I am inside the Manage Batch page
 	And I have selected "Revature" as the Training Type
 	And I have selected "J2EE" as the Skill type
 	And I have selected 1 as the Location
-	And I have selected "Patrick Walsh" as the Trainer
+	And I have selected "Dan Pickles" as the Trainer
 	And I have selected "August Duet" as the Co-Trainer
 	And I have selected "2017-02-02" as the Start Date
 	And I have selected "2017-06-02" as the End Date

@@ -17,5 +17,5 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/edit-trainees-as-a-user.feature"})
+@CucumberOptions(features={"src/test/resources/features/trainee-strength.feature"})
 public class CukesRunner {}

@@ -40,7 +40,7 @@ public class ReportsPage {
 	 * Verifying if you're on the reports page
 	 */
 	public void verifyReportsPage() {
-		assertEquals("http://localhost:8080/caliber/#/vp/reports", driver.getCurrentUrl());
+		assertEquals("http://localhost:8080/caliber#/vp/reports", driver.getCurrentUrl());
 	}
 
 	/***
@@ -86,7 +86,7 @@ public class ReportsPage {
 	public void chooseBatch() {
 		// Default is one batch 'Patrick Walsh - 2/13/17' and there's only one
 		// choice
-		driver.findElement(By.id("Patrick Walsh - 2/13/17")).click();
+		driver.findElement(By.id("Patrick Walsh - 2/14/17")).click();
 	}
 
 	/***

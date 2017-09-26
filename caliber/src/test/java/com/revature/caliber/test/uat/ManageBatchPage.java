@@ -343,7 +343,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException 
 	 */
 	public void clickUpdateAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("saveButton"));
+		driver.findElement(By.id("saveButton")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}

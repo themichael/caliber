@@ -54,7 +54,6 @@ public class AddBatchFeature {
 	public void i_have_selected_as_the_Location(int arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 		managePage.editLocationField(arg1);
-	    throw new PendingException();
 	}
 	
 	@Given("^I have selected \"([^\"]*)\" as the Trainer$")
