@@ -249,7 +249,7 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 	 * @throws UnsupportedOperationException 
 	 */
 	@RequestMapping("/authenticated")
-	public void generateSalesforceToken(HttpServletRequest request, HttpServletResponse response,
+	public String generateSalesforceToken(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "code") String code) throws IOException, URISyntaxException {
 		log.debug("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
@@ -264,7 +264,7 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 		log.debug("Generating Salesforce token");
 		HttpResponse httpResponse = httpClient.execute(post);
 		log.debug("Forwarding to : " + redirectUrl);
-		homePage(request, response, IOUtils.toString(httpResponse.getEntity().getContent()));
+		return homePage(request, response, IOUtils.toString(httpResponse.getEntity().getContent()));
 	}
 
 	/**

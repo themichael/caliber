@@ -22,7 +22,7 @@ public interface Authorization {
 	public ModelAndView openAuthURI();
 
 	/**
-	 * Creates salesforce token and saves it as a session cookie
+	 * Creates salesforce token
 	 * 
 	 * @param code
 	 *            the string returned from the authURI required for getting
@@ -31,6 +31,6 @@ public interface Authorization {
 	 * @return back to the application
 	 * @throws IOException
 	 */
-	public void generateSalesforceToken(HttpServletRequest request, HttpServletResponse response,
+	public String generateSalesforceToken(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "code") String code) throws IOException, URISyntaxException;
 }
