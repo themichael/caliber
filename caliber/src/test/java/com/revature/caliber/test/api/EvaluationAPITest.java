@@ -56,23 +56,16 @@ public class EvaluationAPITest extends AbstractAPITest{
 	private static final int TEST_TRAINEE_ID = 5537;
 	private static final int TEST_WEEK = 1;
 	
-	private static final String FIND_BY_TRAINEE = "all/grade/trainee/5529";
-	private static final String FIND_BY_BATCH = "all/grade/batch/2150";
-	private static final String FIND_BY_CATEGORY = "all/grade/category/12";
-	private static final String FIND_BY_WEEK = "all/grade/batch/2150/week/7";
 	private static final String FIND_BY_TRAINER = "all/grade/trainer/1";
 	private static final String FIND_TRAINEE_NOTE = "trainer/note/trainee/";
 	private static final String FIND_QCTRAINEE_NOTE = "qc/note/trainee/";
 	private static final String CREATE_GRADE = "trainer/grade/create";
 	private static final String UPDATE_GRADE = "trainer/grade/update";
-	private static final String FIND_ALL="vp/grade/all";
-	private static final String FIND_BY_ASSESSMENT = "all/grades/assessment/3075";
 	private static final String FIND_QCBATCH_NOTES = "qc/note/batch/2201/5";
 	private static final String GET_ALL_QCTRAINEE_NOTES ="qc/note/trainee/2201/5";
 	private static final String FIND_ALL_BATCH_NOTES = "vp/note/batch/2100/2";
 	private static final String GET_ALL_QCTRAINEE_OVERALL_NOTES = "qc/note/trainee/5529";
 	private static final String FIND_ALL_TRAINEE_NOTES = "all/notes/trainee/5529";
-	private static final String FIND_ALL_INDIVIDUAL_NOTES = "vp/note/trainee/5529/2";
 	private static final String FIND_BATCH_NOTES = "trainer/note/batch/2100/2";
 	
 	/**
@@ -125,125 +118,6 @@ public class EvaluationAPITest extends AbstractAPITest{
 			.then().assertThat().statusCode(204);
 		
 		assertEquals(expected, gradeDAO.findByTrainee(TEST_TRAINEE_ID).get(0));
-	}
-	
-	/**
-	 * testing findAll - assert that some number of values is returned
-	 * @see com.revature.caliber.controllers.EvaluationController#findAll()
-	 */
-	@SuppressWarnings("unchecked")
-	@Test
-
-	public void findAll() throws Exception{
-		log.trace("API Testing findAll");
-		
-		// make list to store grades in
-		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
-			.when().get(baseUrl+FIND_ALL) // find all grades
-			.then().assertThat().statusCode(200)
-				.extract().body().as(grades.getClass()); // extract body of response as a List<Grade>
-		
-		// check that some grades were returned
-		assertTrue(!grades.isEmpty());
-	}
-	
-	/**
-	 * testing findByAssessment - assert that some expected values exist and
-	 * that the expected number of values is returned
-	 * @see com.revature.caliber.controllers.EvaluationController#findByAssessment(Long)
-	 */
-	@SuppressWarnings("unchecked")
-	@Test
-	public void findByAssessment() throws Exception{
-		log.trace("API Testing findByAssessment");
-
-		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
-			.when().get(baseUrl+FIND_BY_ASSESSMENT) // find grade by assessment
-			.then().assertThat()
-				.statusCode(200)
-				.extract().body().as(grades.getClass()); // extract body of response as a List<Grade>
-
-		// check that some grades were returned
-		assertTrue(!grades.isEmpty());
-	}
-	
-	/**
-	 * Tests methods:
-	 * 
-	 * @see com.revature.caliber.controllers.EvaluationController#findByTrainee(Integer)
-	 */
-	@SuppressWarnings("unchecked")
-	@Test
-	public void findByTrainee(){
-		log.trace("API test findByTrainee");
-		
-		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(AUTH, accessToken)
-				.contentType(ContentType.JSON)
-			.when().get(baseUrl + FIND_BY_TRAINEE) // find grade by Trainee
-			.then().assertThat()
-				.statusCode(200)
-				.extract().body().as(grades.getClass()); // extract body of response as a List<Grade>
-
-		// check that some grades were returned
-		assertTrue(!grades.isEmpty());
-	}
-	
-	/**
-	 * @see com.revature.caliber.controllers.EvaluationController#findByBatch(Integer)
-	 */
-	@SuppressWarnings("unchecked")
-	@Test
-	public void findByBatch(){
-		log.trace("API test findByBatch");
-		
-		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(AUTH, accessToken)
-				.contentType(ContentType.JSON)
-			.when().get(baseUrl + FIND_BY_BATCH) // find grade by batch
-			.then().assertThat()
-				.statusCode(200)
-				.extract().body().as(grades.getClass()); // extract body of response as a List<Grade>
-
-		// check that some grades were returned
-		assertTrue(!grades.isEmpty());;
-	}
-	
-	/**
-	 * 
-	 * @see com.revature.caliber.controllers.EvaluationController#findByCategory(Integer)
-	 */
-	@SuppressWarnings("unchecked")
-	@Test
-	public void findByCategory(){
-		log.trace("API test findByCategory");
-		
-		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(AUTH, accessToken)
-				.contentType(ContentType.JSON)
-			.when().get(baseUrl + FIND_BY_CATEGORY) // find grade by Category
-			.then().assertThat()
-				.statusCode(200)
-				.extract().body().as(grades.getClass()); // extract body of response as a List<Grade>
-
-		// check that some grades were returned
-		assertTrue(!grades.isEmpty());
-	}
-	
-	/**
-	 * @see com.revature.caliber.controllers.EvaluationController#findByWeek(Integer, Integer)
-	 */
-	@Test
-	public void findByWeek(){
-		log.trace("API test findByWeek");
-		
-		given().spec(requestSpec).header(AUTH, accessToken)
-				.contentType(ContentType.JSON)
-			.when().get(baseUrl + FIND_BY_WEEK) // find grades by week
-			.then().assertThat()
-				.statusCode(200);
 	}
 	
 	/**
@@ -449,30 +323,6 @@ public class EvaluationAPITest extends AbstractAPITest{
 			.when()
 				//request to find all individual notes 
 				.get(baseUrl + FIND_ALL_TRAINEE_NOTES)
-			.then().assertThat()
-				//assertions
-				.statusCode(200)
-				.statusCode(200)
-				.extract().body().as(notes.getClass()); // extract body of response as a List<Note>
-		
-		// check that some notes were returned
-		assertTrue(!notes.isEmpty());
-	}
-	
-	/**
-	 * 
-	 * @see com.revature.caliber.controllers.EvaluationController#findAllBatchNotes(@PathVariable Integer traineeId, @PathVariable Integer week)
-	 */
-	@SuppressWarnings("unchecked")
-	@Test 
-	public void findAllIndividualNotes() {
-		log.trace("API Testing findAllIndividualNotes"); 
-		
-		List<Note> notes = new ArrayList<>();
-		notes = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
-			.when()
-				//request to find all Individual Notes
-				.get(baseUrl + FIND_ALL_INDIVIDUAL_NOTES)
 			.then().assertThat()
 				//assertions
 				.statusCode(200)

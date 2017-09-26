@@ -103,6 +103,7 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 	@RequestMapping(value = "/login")
 	public String login(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
 			String salesTokenString) throws IOException, URISyntaxException {
+		log.debug("Creating HTTP Session for user: " + servletRequest.getSession().getCreationTime());
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
@@ -268,7 +269,7 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 	 * 
 	 * @param code
 	 * @throws URISyntaxException 
-	 * @throws UnsupportedOperationException 
+	 * @throws IOException 
 	 */
 	@RequestMapping("/authenticated")
 	public String generateSalesforceToken(HttpServletRequest request, HttpServletResponse response,
