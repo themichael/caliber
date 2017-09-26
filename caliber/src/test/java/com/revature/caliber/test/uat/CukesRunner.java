@@ -17,5 +17,5 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/adding-setting-category.feature"})
+@CucumberOptions(features={"src/test/resources/features/trainee-to-trainee-compare.feature"})
 public class CukesRunner {}

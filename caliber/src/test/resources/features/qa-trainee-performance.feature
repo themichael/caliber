@@ -5,7 +5,7 @@ Feature: QA Trainee Performance
 	I can write notes about the trainee
 	performance each week
 	
-Scenario:
+Scenario: Filling out the individual trainee assessment
 	Given I am on the Quality Audit Page
 	And I have selected the current year for year
 	And I have selected the current Batch
