@@ -27,20 +27,18 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.security.models.SalesforceToken;
-import com.revature.caliber.test.unit.Tomcat;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 /**
- * Abstract class used to be extended to API testing classes.
- * Initializes by authenticating with the Salesforce API so
- * developers need only place accessToken variable as Authorization
- * header in their HTTP requests.
+ * Abstract class used to be extended to API testing classes. Initializes by
+ * authenticating with the Salesforce API so developers need only place
+ * accessToken variable as Authorization header in their HTTP requests.
  * 
- * Requires appropriate credentials to be stored as environmental
- * variables. The credentials must also match a user in the Caliber database.
+ * Requires appropriate credentials to be stored as environmental variables. The
+ * credentials must also match a user in the Caliber database.
  * 
  * @author Patrick Walsh
  *
@@ -63,18 +61,32 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 	private static String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
 	private static String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
 	protected static String authHeader = "Authorization";
-	
+
 	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
 
+	/**
+	 * Start up the tomcat server once when initializing any APITest class
+	 */
 	static {
-		SpringApplication.run(Tomcat.class);
+		SpringApplication.run(EmbeddedTomcatAPIServer.class);
 	}
 
+	/**
+	 * Executed after initializing an AbstractAPI bean, allowing access to
+	 * autowired vairables
+	 * 
+	 * Uses the helper methods populateDatabase() and teardownDatabase() to have
+	 * the default user to login with
+	 * 
+	 * Uses the helper method login() to log into salesforce to obtain an access
+	 * token
+	 */
 	public void afterPropertiesSet() {
 		// only login with Salesforce once
 		if ("Auth ".equals(accessToken)) {
 			try {
-				populateDatabase();
+				populateDatabase(); // Add the default trainer to the database
+									// in order to login
 				login();
 				log.info("Logging into Caliber for API testing");
 				Response response = given().param("salestoken", accessTokenJson).redirects().allowCircular(true)
@@ -84,16 +96,23 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
 				requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie)
 						.addCookie("role", roleCookie).build();
-				tearDownDatabase();
+				tearDownDatabase(); // remove database data to prepare it for
+									// the first test
 			} catch (Exception e) {
 				log.error(e);
 			}
 		}
 	}
 
+	/**
+	 * Logs into salesforce to obtain an accessToken
+	 * 
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
 	private static void login() throws JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		log.info("logging into URL   " + accessTokenUrl );
+		log.info("logging into URL   " + accessTokenUrl);
 		HttpPost post = new HttpPost(accessTokenUrl);
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("grant_type", "password"));
@@ -103,12 +122,17 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		parameters.add(new BasicNameValuePair("password", password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(), 
-				//JsonNode.class); // test
+		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(),
+				// JsonNode.class); // test
 				SalesforceToken.class).getAccessToken(); // actual
 		log.info("Accessing Salesforce API using token:  " + accessToken);
 	}
 
+	/**
+	 * runs the setup.sql on the database
+	 * 
+	 * @throws SQLException
+	 */
 	private void populateDatabase() throws SQLException {
 		log.info("Populating database with setup.sql");
 		Connection con = jdbcTemplate.getDataSource().getConnection();
@@ -120,6 +144,11 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		con.close();
 	}
 
+	/**
+	 * runs the teardown.sql on the database
+	 * 
+	 * @throws SQLException
+	 */
 	private void tearDownDatabase() throws SQLException {
 		log.info("Tearingdown database with teardown.sql");
 		Connection con = jdbcTemplate.getDataSource().getConnection();

@@ -333,6 +333,8 @@ public class ReportingServiceTest extends CaliberTest {
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.service.ReportingService#getBatchComparisonAvg(List<Batch> batches)
+	 * 
+	 * Uses the helper method batchComparisonInit() to create two batches with grades with known averages
 	 */
 	@Test
 	public void getBatchComparisonAvgTest(){
@@ -340,13 +342,13 @@ public class ReportingServiceTest extends CaliberTest {
 
 		List<Batch> batches = batchComparisonInit();
 		
-		List<Batch> singleBatch1 = new ArrayList<>();
+		List<Batch> singleBatch1 = new ArrayList<>();  //Get three tests from one array of two batches by testing each individually
 		singleBatch1.add(batches.get(0));
 		
 		List<Batch> singleBatch2 = new ArrayList<>();
 		singleBatch2.add(batches.get(1));
 		
-		double avg = reportingService.getBatchComparisonAvg(singleBatch1);
+		double avg = reportingService.getBatchComparisonAvg(singleBatch1); 
 		double expected = 80;
 		log.info(avg);
 		assertTrue(Math.abs(avg-expected)<.0001);
@@ -363,6 +365,8 @@ public class ReportingServiceTest extends CaliberTest {
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.service.ReportingService#batchComparisonFilter(List<Batch> batches, String skill, String training)
+	 * 
+	 * Checks each path in the filter test, All|All, All|TrainingType, SkillType|All, SkillType|TrainingType
 	 */
 	@Test
 	public void batchComparisonFilterTest(){
@@ -687,6 +691,8 @@ public class ReportingServiceTest extends CaliberTest {
 		Set<Trainee> trainees1 = new HashSet<>();
 		Set<Trainee> trainees2 = new HashSet<>();
 		
+		
+		//Averages for score1 = 80, score2 = 90, score1+2 = 85
 		int[] score1 = {70, 80, 80, 90};
 		int[] score2 = {100, 90, 90, 80};
 		
