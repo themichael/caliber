@@ -27,7 +27,7 @@ Feature: Creating a new location
   # Negative
   Scenario: Cancel adding location by X
     And I enter "STEM" as the Company Name
-    And I click on the X button
+    And I choose the X button
     Then I cancel making a new location
 
   # Negative
