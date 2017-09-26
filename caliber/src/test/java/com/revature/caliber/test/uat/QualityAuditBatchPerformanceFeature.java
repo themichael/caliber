@@ -1,9 +1,5 @@
 package com.revature.caliber.test.uat;
 
-import static org.junit.Assert.assertEquals;
-
-import org.openqa.selenium.WebDriver;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,10 +14,6 @@ public class QualityAuditBatchPerformanceFeature {
 		qaPage = new QualityAuditPage(setup.getDriver());
 	}
 	
-//	@cucumber.api.java.After
-//	public void teardown(){
-//		qaPage.closeDriver();
-//	}
 	
 	@Given("^I am on the Quality Audit page$")
 	public void iAmOnTheQualityAuditPage() throws Throwable {

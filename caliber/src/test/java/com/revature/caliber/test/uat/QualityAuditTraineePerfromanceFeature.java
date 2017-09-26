@@ -18,11 +18,6 @@ public class QualityAuditTraineePerfromanceFeature {
 		qaPage = new QualityAuditPage(setup.getDriver());
 
 	}
-//	
-//	@cucumber.api.java.After
-//	public void teardown(){
-//		qaPage.closeDriver();
-//	}
 	
 	@Given("^I am on the Quality Audit Page$")
 	public void iAmOnTheQualityAuditPage() throws Throwable {
