@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -647,8 +648,15 @@ public class ManageBatchPage{
 	 * @param batchName
 	 * @return
 	 */
-	public boolean newBatchCreated(String batchName){
-		return driver.findElement(By.id(batchName)).isDisplayed();
+	public boolean checkIfBatchExitst(String batchName){
+		boolean exists;
+		try{
+			driver.findElement(By.id(batchName));
+			exists = true;
+		}catch(NoSuchElementException e){
+			exists = false;
+		}
+		return exists;
 	}
 	
 	/**
@@ -658,8 +666,15 @@ public class ManageBatchPage{
 	 * @param traineeName
 	 * @return
 	 */
-	public boolean newTraineeAdded(String traineeName){
-		return driver.findElement(By.id(traineeName)).isDisplayed();
+	public boolean checkIfTraineeExists(String traineeName){
+		boolean exists;
+		try{
+		driver.findElement(By.id(traineeName));
+			exists = true;
+		}catch(NoSuchElementException e){
+			exists = false;
+		}
+		return exists;
 	}
 	
 	/**

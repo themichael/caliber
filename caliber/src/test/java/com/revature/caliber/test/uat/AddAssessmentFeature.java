@@ -9,7 +9,7 @@ import cucumber.api.java.en.When;
 
 public class AddAssessmentFeature {
 	
-	AssessBatchPage assessBatch;
+	private AssessBatchPage assessBatch;
 	
 	@Before
 	public void setup(){
@@ -28,7 +28,7 @@ public class AddAssessmentFeature {
 	}
 
 	@Given("^I have clicked the Week (\\d+) tab$")
-	public void iHaveClickedTheWeekTab() {
+	public void iHaveClickedTheWeekTab(){
 		assessBatch.clickWeekTab();
 	}
 

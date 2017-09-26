@@ -12,8 +12,7 @@ Feature: View trainee strengths compared to other Trainees
 
   Scenario: Compare Trainees to other Trainees
     And I have clicked the Person Icon in the Technical Skills
-    And I selected a trainee
-    And I clicked the Person Icon in the Technical Skills again
-    And I have selected a different Trainee
+    And I selected "Ali, Fareed" as a trainee 
+    And I have selected "Duong, Jack" as a Trainee
     When I click the close button
     Then I can see both trainees performances

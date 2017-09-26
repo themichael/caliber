@@ -73,7 +73,7 @@ public class ReportsPage {
 	}
 
 	/***
-	 *  Click the batch dropdown 'Patrick Walsh - 2/13/17'
+	 *  Click the batch dropdown 'Patrick Walsh - 2/14/17'
 	 */
 	public void clickBatchDropdown() {
 		driver.findElement(By.id("currentBatchTrainer")).click();
@@ -84,7 +84,7 @@ public class ReportsPage {
 	 *  Click on the specific batch in the dropdown
 	 */
 	public void chooseBatch() {
-		// Default is one batch 'Patrick Walsh - 2/13/17' and there's only one
+		// Default is one batch 'Patrick Walsh - 2/14/17' and there's only one
 		// choice
 		driver.findElement(By.id("Patrick Walsh - 2/14/17")).click();
 	}
@@ -117,7 +117,7 @@ public class ReportsPage {
 	}
 
 	/***
-	 *  Click on a specific Trainee
+	 *  Click on a specific Trainee in the Trainee dropdown
 	 * @param trainee
 	 */
 	public void chooseTraineeReport(String trainee) {
@@ -168,11 +168,14 @@ public class ReportsPage {
 
 	/***
 	 *  Click the right corner glychicon in the 'Technical Skills' block (person glyphicon)
+	 * @throws InterruptedException 
 	 */
-	public void clickTechnicalSkillsModal() {
+	public void clickTechnicalSkillsModal() throws InterruptedException {
 		// Opens modal for 'Trainee Comparison'
 		driver.findElement(By.id("traineeCompGlyphBtnModal")).click();
+		Thread.sleep(500);
 		driver.switchTo().activeElement();
+		driver.findElement(By.className("modal-title"));
 	}
 
 	/***
@@ -190,9 +193,25 @@ public class ReportsPage {
 	public void chooseTraineeTechSkills(String trainee) throws InterruptedException {
 		// id = 'lastname, firstname' so String trainee = "lastname, firstname";
 		// 'Ali, Fareed' for testing purposes
-//		Thread.sleep(1000);
 		//Uses cssSelector because 'id' was not able to click the specific checkbox
-		driver.findElement(By.cssSelector("#insert-trainee > div > div > div.modal-body > div > table > tbody > tr:nth-child(2) > th > input")).click();
+		switch (trainee) {
+		case "Ali, Fareed":
+			driver.findElement(By.cssSelector("#insert-trainee > div > div > div.modal-body > div > table > tbody > tr:nth-child(14) > th > input")).click();
+			break;
+		case "Duong, Jack":
+			driver.findElement(By.cssSelector(
+					"#insert-trainee > div > div > div.modal-body > div > table > tbody > tr:nth-child(8) > th > input"))
+					.click();
+			break;
+		default:
+			//"Liu, Daniel" is the default
+			driver.findElement(By.cssSelector("#insert-trainee > div > div > div.modal-body > div > table > tbody > tr:nth-child(4) > th > input")).click();
+		}
+
+	}
+	
+	public void checkTechSkillsGraph(){
+		driver.findElement(By.id("radarBatchOverall"));
 	}
 
 	/**
@@ -208,7 +227,22 @@ public class ReportsPage {
 	public void closeDriver() {
 		driver.quit();
 	}
+	
+	/**
+	 * Checks if the weekly progress chart is displayed
+	 */
+	public void checkWeeklyProgressChart(){
+		driver.findElement(By.id("line1")).isDisplayed();
+	}
 
+	/**
+	 * Checks if the weekly progress chart after choosing a specific Trainee.
+	 * (Week has to be 'All' for it to work)
+	 */
+	public void checkTraineeWeeklyProgressChart(){
+		driver.findElement(By.id("line9"));
+	}
+	
 	/**
 	 * Never used because can't validate/confirm if a file has downloaded
 	 * @param downloadPath

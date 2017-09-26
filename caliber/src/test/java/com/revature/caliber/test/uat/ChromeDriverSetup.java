@@ -6,8 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import com.revature.caliber.CaliberTest;
 
-public class ChromeDriverSetup {
+
+public class ChromeDriverSetup extends CaliberTest{
 	
 	protected static WebDriver driver;
 	private static boolean initialized = false;
