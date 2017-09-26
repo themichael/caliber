@@ -22,20 +22,14 @@ public class QualityAuditTraineePerfromanceFeature {
 	
 	@cucumber.api.java.Before
 	public void setup(){
-		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1200x600");
-        driver = new ChromeDriver(options);
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		qaPage = new QualityAuditPage(driver);
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		qaPage = new QualityAuditPage(setup.getDriver());
 	}
-	
-	@cucumber.api.java.After
-	public void teardown(){
-		qaPage.closeDriver();
-	}
+//	
+//	@cucumber.api.java.After
+//	public void teardown(){
+//		qaPage.closeDriver();
+//	}
 	
 	@Given("^I am on the Quality Audit Page$")
 	public void iAmOnTheQualityAuditPage() throws Throwable {
