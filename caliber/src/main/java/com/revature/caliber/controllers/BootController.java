@@ -1,4 +1,3 @@
-
 package com.revature.caliber.controllers;
 
 import java.io.IOException;
@@ -48,6 +47,7 @@ import com.revature.caliber.security.models.SalesforceUser;
 /**
  * The type Boot controller.
  */
+
 @Controller
 public class BootController extends AbstractSalesforceSecurityHelper implements Authorization {
 
@@ -129,12 +129,15 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
+
 			return INDEX;
+
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
 			return "redirect:/";
 		}
 	}
+
 
 	/**
 	 * Retrieve the salesforce access_token from the forwarded request
@@ -144,12 +147,12 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 	 * @throws IOException
 	 */
 	private SalesforceToken getSalesforceToken(String token) throws IOException {
-		log.error("Checking for the salesforce token");
+		log.debug("Checking for the salesforce token");
 		if (token != null) {
 			log.error("Parse salesforce token from forwarded request: " + token);
 			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
-		log.error("failed to parse token from forwarded request: ");
+		log.debug("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
 

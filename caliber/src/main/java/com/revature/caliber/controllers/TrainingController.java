@@ -272,8 +272,7 @@ public class TrainingController {
 	/**
 	 * Update batch
 	 *
-	 * @param batch
-	 *            the batch
+	 * @param batch the batch
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -288,8 +287,7 @@ public class TrainingController {
 	/**
 	 * Delete batch
 	 *
-	 * @param id
-	 *            the id of the batch to delete
+	 * @param id the id of the batch to delete
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/all/batch/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -308,8 +306,8 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value = {
-			"/vp/batch/all/current" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {"/vp/batch/all/current" }, method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
@@ -323,8 +321,8 @@ public class TrainingController {
 	 *
 	 * @return the all batches
 	 */
-	@RequestMapping(value = { "/qc/batch/all",
-			"/vp/batch/all" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = { "/qc/batch/all", "/vp/batch/all" },
+			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING')")
 	public ResponseEntity<List<Batch>> getAllBatches() {
