@@ -238,6 +238,8 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 			if (salesforceUser.getCaliberUser().getTier().equals(TrainerRole.ROLE_INACTIVE))
 				throw new NotAuthorizedException();
 		} else {
+			log.error("Error logging in user " + jsonObject.getString("email") + " now hasRole: "
+					+ jsonObject.getString("tier"));
 			throw new NotAuthorizedException();
 		}
 		// store custom user Authentication obj in SecurityContext
@@ -289,7 +291,7 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 		log.debug("Forwarding to : " + redirectUrl);
 		try{
 			String tokenString = IOUtils.toString(httpResponse.getEntity().getContent());
-			log.fatal("Authenticated method found token: " + tokenString);
+			log.debug("Authenticated method found token: " + tokenString);
 			login(request, response, tokenString);
 			return REDIRECT + redirectUrl;
 		}catch(Exception e){
