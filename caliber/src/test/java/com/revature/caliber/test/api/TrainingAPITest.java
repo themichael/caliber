@@ -252,13 +252,8 @@ public class TrainingAPITest extends AbstractAPITest {
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.controllers.TrainingController.getAllTrainers()
-<<<<<<< HEAD
 	 * @throws Exception revist when we have transient tests to test more specific
 	 * trainers.
-=======
-	 * @throws Exception
-	 * revist when we have transient tests to test more specific trainers.
->>>>>>> v2
 	 */
 	@Test
 	public void getAllTrainers() throws Exception {
