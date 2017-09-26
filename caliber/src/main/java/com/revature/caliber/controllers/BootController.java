@@ -4,16 +4,25 @@ package com.revature.caliber.controllers;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,15 +31,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.exceptions.NotAuthorizedException;
+import com.revature.caliber.security.Authorization;
 import com.revature.caliber.security.impl.AbstractSalesforceSecurityHelper;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
@@ -39,7 +49,7 @@ import com.revature.caliber.security.models.SalesforceUser;
  * The type Boot controller.
  */
 @Controller
-public class BootController extends AbstractSalesforceSecurityHelper {
+public class BootController extends AbstractSalesforceSecurityHelper implements Authorization {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
 
@@ -47,6 +57,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	private boolean debug;
 	private static final String DEBUG_USER_LOGIN = "patrick.walsh@revature.com";
 	private static final String INDEX = "index";
+	private static final String REDIRECT = "redirect:";
+	private static final String REVATURE = "http://www.revature.com/";
 
 	/**
 	 * Instantiates a new Boot controller.
@@ -56,8 +68,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	}
 
 	/**
-	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards to
-	 * the landing page according to the user's role.
+	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards
+	 * to the landing page according to the user's role.
 	 *
 	 * @param servletRequest
 	 *            the servlet request
@@ -70,8 +82,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-			@ModelAttribute("salestoken") String salesTokenString, Model model) throws IOException, URISyntaxException {
+	public String homePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+			String salesTokenString) throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
@@ -87,7 +99,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 		}
 		// get Salesforce token from cookie
 		try {
-			log.error("About to check for salesforce token");
+			log.debug("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
@@ -123,8 +135,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	}
 
 	/**
-	 * Makes a request to Salesforce REST API to retrieve the authenticated user's
-	 * details
+	 * Makes a request to Salesforce REST API to retrieve the authenticated
+	 * user's details
 	 * 
 	 * @param servletRequest
 	 * @param salesforceToken
@@ -151,8 +163,9 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 	/**
 	 * Gets Caliber user from database (TRAINER table) and validates if provided
-	 * email is authorized to user Caliber. All authorized Caliber users must exist
-	 * as a TRAINER record with email matching that of Salesforce user email.
+	 * email is authorized to user Caliber. All authorized Caliber users must
+	 * exist as a TRAINER record with email matching that of Salesforce user
+	 * email.
 	 * 
 	 * @param servletRequest
 	 * @param email
@@ -180,9 +193,9 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	}
 
 	/**
-	 * Parses a Json String containing TRAINER bean. Authorize the user with Caliber
-	 * and store their PreAuthenticatedAuthenticationToken in session. Adds
-	 * convenience 'role' cookie for AngularJS consumption.
+	 * Parses a Json String containing TRAINER bean. Authorize the user with
+	 * Caliber and store their PreAuthenticatedAuthenticationToken in session.
+	 * Adds convenience 'role' cookie for AngularJS consumption.
 	 * 
 	 * @param jsonString
 	 * @param salesforceUser
@@ -209,6 +222,112 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
+	}
+
+	/////////////////////// Formerly AuthorizationImpl logic
+	/////////////////////// ////////////////////////
+
+	/**
+	 * Redirects the request to perform authentication.
+	 * 
+	 */
+	@RequestMapping("/")
+	public ModelAndView openAuthURI() {
+		if (debug) {
+			return new ModelAndView(REDIRECT + redirectUrl);
+		}
+		log.debug("redirecting to salesforce authorization");
+		return new ModelAndView(REDIRECT + loginURL + authURL + "?response_type=code&client_id=" + clientId
+				+ "&redirect_uri=" + redirectUri);
+	}
+
+	/**
+	 * Retrieves Salesforce authentication token from Salesforce REST API
+	 * 
+	 * @param code
+	 * @throws URISyntaxException 
+	 * @throws UnsupportedOperationException 
+	 */
+	@RequestMapping("/authenticated")
+	public void generateSalesforceToken(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "code") String code) throws IOException, URISyntaxException {
+		log.debug("in authenticated method");
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost(loginURL + accessTokenURL);
+		List<NameValuePair> parameters = new ArrayList<>();
+		parameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
+		parameters.add(new BasicNameValuePair("client_secret", clientSecret));
+		parameters.add(new BasicNameValuePair("client_id", clientId));
+		parameters.add(new BasicNameValuePair("redirect_uri", redirectUri));
+		parameters.add(new BasicNameValuePair("code", code));
+		post.setEntity(new UrlEncodedFormEntity(parameters));
+		log.debug("Generating Salesforce token");
+		HttpResponse httpResponse = httpClient.execute(post);
+		log.debug("Forwarding to : " + redirectUrl);
+		homePage(request, response, IOUtils.toString(httpResponse.getEntity().getContent()));
+	}
+
+	/**
+	 * Clears session information and logout the user.
+	 * 
+	 * Note: Still retrieving 302 on access-token and null refresh-token
+	 * 
+	 * @param auth
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	@RequestMapping(value = "/revoke", method = RequestMethod.GET)
+	public ModelAndView revoke(Authentication auth, HttpServletRequest servletRequest,
+			HttpServletResponse servletResponse) throws IOException, ServletException {
+		if (auth == null)
+			return new ModelAndView(REDIRECT + REVATURE);
+		if (!debug) {
+			// revoke all tokens from the Salesforce
+			String accessToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
+			revokeToken(accessToken);
+		}
+
+		// logout and clear Spring Security Context
+		servletRequest.logout();
+		SecurityContextHolder.clearContext();
+
+		log.info("User has logged out");
+		return new ModelAndView(REDIRECT + REVATURE);
+	}
+
+	private void revokeToken(String token) throws ClientProtocolException, IOException {
+		log.debug("POST " + loginURL + revokeUrl);
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost(loginURL + revokeUrl);
+		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		List<NameValuePair> parameters = new ArrayList<>();
+		parameters.add(new BasicNameValuePair("token", token));
+		post.setEntity(new UrlEncodedFormEntity(parameters));
+		HttpResponse response = httpClient.execute(post);
+		log.debug("Revoke token : " + response.getStatusLine().getStatusCode() + " "
+				+ response.getStatusLine().getReasonPhrase());
+	}
+
+	public void setAuthURL(String authURL) {
+		this.authURL = authURL;
+	}
+
+	public void setAccessTokenURL(String accessTokenURL) {
+		this.accessTokenURL = accessTokenURL;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+	public void setClientSecret(String clientSecret) {
+		this.clientSecret = clientSecret;
+	}
+
+	public void setRedirectUri(String redirectUri) {
+		this.redirectUri = redirectUri;
 	}
 
 }
