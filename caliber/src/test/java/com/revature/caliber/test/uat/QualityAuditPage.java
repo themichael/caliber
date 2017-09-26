@@ -18,7 +18,7 @@ public class QualityAuditPage {
 	 * Quits the current Driver.
 	 */
 	public void closeDriver(){
-		driver.quit();
+		driver.close();
 	}
 	
 	/**

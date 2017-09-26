@@ -29,9 +29,10 @@ public class HomePage {
 	 * the string you send. For example, if you would like to
 	 * visit the manage page you would send a string 'vp/manage'.
 	 * @param page
+	 * @throws InterruptedException 
 	 */
-	public void goToPage(String page){
-		driver.get("http://localhost:8080/caliber#/"+page);
+	public void goToPage(String page) throws InterruptedException{
+		driver.get("http://localhost:8080/caliber#/vp/home");
 	}
 	
 	/**

@@ -33,7 +33,7 @@ public class SettingLocationPage {
 		this.driver.get("http://localhost:8080/caliber#/vp/locations");
 	}
 
-	//Closeing the driver
+	//Closing the driver
 	public void closeDriver() {
 		driver.quit();
 	}

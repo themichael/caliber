@@ -16,12 +16,12 @@ public class AddLocationFeature {
 		ChromeDriverSetup setup = new ChromeDriverSetup();
 		settingLocationPage = new SettingLocationPage(setup.getDriver());
 	}
-	
-//	@cucumber.api.java.After
-//	public void teardown() {
-//		settingLocationPage.closeDriver();
-//	}
-
+/*	
+	@cucumber.api.java.After
+	public void teardown() {
+		settingLocationPage.closeDriver();
+	}
+*/
 	@Given("^I am on the Settings Locations page$")
 	public void i_am_on_the_Settings_Locations_page() {
 		settingLocationPage.gotoSettingLocationPage();

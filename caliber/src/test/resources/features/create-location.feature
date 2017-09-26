@@ -22,7 +22,7 @@ Feature: Creating a new location
     Examples: 
       | company name | address               | city          | state    | zipcode |
       | "Opine"      | "11318 Bellflower Rd" | "Kansas City" | "Kansas" | "11345" |
-      | ""           | "11330 Bellfield Rd"  | "Akron"       | "Ohio"   | "44330" |
+      |              | "11330 Bellfield Rd"  | "Akron"       | "Ohio"   | "44330" |
 
   # Negative
   Scenario: Cancel adding location by X
