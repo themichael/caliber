@@ -17,5 +17,5 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/add-batch-weekly-performance-notes.feature"})
+@CucumberOptions(features={"src/test/resources/features/qa-batch-performance.feature"})	
 public class CukesRunner {}
