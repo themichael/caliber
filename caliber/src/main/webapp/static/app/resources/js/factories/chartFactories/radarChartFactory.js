@@ -21,7 +21,7 @@ angular
 							    2: {r: 242, g: 105, b: 37},
 							    3: {r: 71, g: 76, b: 85},
 							    4: {r: 252, g:180, b: 20},
-							    5: {r: 50, g:255, b: 50}
+							    5: {r: 0, g:160, b: 0}
 							  }
 					};
 
@@ -43,7 +43,7 @@ angular
 									pointHoverBackgroundColor : 'rgba(' + colorEnum.value[enumValue].r+',' +colorEnum.value[enumValue].g+',' +colorEnum.value[enumValue].b+', .3)',
 									pointHoverBorderColor : 'rgba(' + colorEnum.value[enumValue].r+',' +colorEnum.value[enumValue].g+',' +colorEnum.value[enumValue].b+', .3)',
 									pointBorderColor : '#fff',
-									fill : true
+									fill : enumValue===1 ?true :false  
 								}
 								//Push our newly defined color to the array
 								colors.push(newColor);
