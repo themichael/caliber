@@ -20,17 +20,22 @@ public class SettingAddingCategoryFeature {
 
 	@cucumber.api.java.Before
 	public void setup() {
-		ChromeDriverSetup setup = new ChromeDriverSetup();
-		settingCategoryPage = new SettingCategoryPage(setup.getDriver());
+		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
+        ChromeOptions options = new ChromeOptions();
+         //options.addArguments("--headless");
+        options.addArguments("--window-size=1200x600");
+        WebDriver driver = new ChromeDriver(options);
+		//ChromeDriverSetup setup = new ChromeDriverSetup();
+		settingCategoryPage = new SettingCategoryPage(driver);
 	}
 
-	@cucumber.api.java.After
-	public void teardown() {
-		settingCategoryPage.closeDriver();
-	}
+//	@cucumber.api.java.After
+//	public void teardown() {
+//		settingCategoryPage.closeDriver();
+//	}
 	
 	@Given("^I am on the Settings Category page$")
-	public void i_am_on_the_Settings_Category_page() {
+	public void i_am_on_the_Settings_Category_page() throws InterruptedException {
 		settingCategoryPage.gotoSettingCategoryPage();
 		settingCategoryPage.verifyCategoryPage();
 	}
@@ -41,8 +46,8 @@ public class SettingAddingCategoryFeature {
 	}
 
 	@When("^I input \"([^\"]*)\" as a category$")
-	public void i_input_as_a_category(String name) {
-		settingCategoryPage.inputCategoryName(name);
+	public void i_input_as_a_category(String categoryName) throws InterruptedException {
+		settingCategoryPage.inputCategoryName(categoryName);
 	}
 	
 	@When("^I click on the Submit button$")

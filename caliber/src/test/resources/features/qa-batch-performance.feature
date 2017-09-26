@@ -5,7 +5,7 @@ Feature: QA Batch Performance
 	I can write notes about the batch
 	performance each week
 
-Scenario:
+Scenario: Filling out the assessment for a batch
 	Given I am on the Quality Audit page
 	And I have selected the current year
 	And I have selected a Batch

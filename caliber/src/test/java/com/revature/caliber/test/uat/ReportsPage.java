@@ -23,7 +23,9 @@ public class ReportsPage {
 	private WebDriver driver;
 
 	public ReportsPage(WebDriver driver) {
+		super();
 		this.driver = (ChromeDriver)driver;
+		this.driver.get("http://localhost:8080/caliber#/vp/reports");
 	}
 
 	public void gotoReportsPage() {

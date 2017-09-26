@@ -15,6 +15,7 @@ public class AssessBatchPage{
 	public AssessBatchPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver)driver;
+		this.driver.get("http://localhost:8080/caliber#/vp/assess");
 	}
 
 	public void goToPage(){
@@ -40,10 +41,14 @@ public class AssessBatchPage{
 		driver.findElement(By.id("batchesDropdownId")).click();
 		driver.findElement(By.id("batchesDropdownId0")).click();
 	}
-	public void enterGrades(String number){
-		driver.findElement(By.id("Ahmed, Sadatgrade0")).sendKeys(number);
-		driver.findElement(By.id("Ahmed, Sadatgrade1")).sendKeys(number);
-		driver.findElement(By.id("Ahmed, Sadatgrade2")).sendKeys(number);	
+	
+	public void enterGrades(String name, String number){
+		driver.findElement(By.id(name+"grade0")).sendKeys(number);
+		driver.findElement(By.id(name+"grade1")).sendKeys(number);
+	}
+	
+	public void checkIfGradesWereInput(String traineeName, String grade){
+		assertEquals(driver.findElement(By.id(traineeName+"grade0")).getText(), grade);
 	}
 	
 	public void clickNewWeek(){
@@ -52,24 +57,36 @@ public class AssessBatchPage{
 	public void newWeekConfirmButton(){
 		driver.findElement(By.id("yesBtn")).click();
 	}
+	
 	public void newWeekNoButton(){
 		driver.findElement(By.id("noBtn")).click();
 	}
+	
 	public void closeNewWeekButton(){
 		driver.findElement(By.id("closeBtn"));
 	}
+	
 	public void saveButton(){
 		driver.findElement(By.id("saveBtn")).click();
 	}
+	
 	public void batchNotes(String feedback){
 		driver.findElement(By.id("trainerBatchNote")).sendKeys(feedback);
 	}
+
+	public void batchNotesCheck(String feedback){
+		assertEquals(feedback, driver.findElement(By.id("trainerBatchNote")).getText());
+	}
+	
 	public void selectAssessementCategory(String feedback){
 		Select dropdown = new Select(driver.findElement(By.id("category")));
 		dropdown.selectByVisibleText(feedback);
 	}
 	public void maxPoints(String feedback){
 		driver.findElement(By.id("rawScore")).sendKeys(feedback);
+	}
+	public boolean assessmentCheck(String exam){
+		return driver.findElement(By.id(exam+"Exam")).isDisplayed();
 	}
 	public void selectAssessmentType(String feedback){
 		Select dropdown = new Select(driver.findElement(By.id("assessmentType")));

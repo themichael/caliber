@@ -44,10 +44,10 @@ public class DownloadPdfFeature {
 		reportsPage = new ReportsPage(setup.getDriver());
 	}
 
-	@After // each scenario
-	public void teardown() {
-		reportsPage.closeDriver();
-	}
+//	@After // each scenario
+//	public void teardown() {
+//		reportsPage.closeDriver();
+//	}
 
 	@Given("^I am on the Reports page$")
 	public void iAmOnTheReportsPage() throws Throwable {
