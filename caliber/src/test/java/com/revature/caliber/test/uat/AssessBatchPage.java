@@ -137,8 +137,9 @@ public class AssessBatchPage{
 	}
 	
 	public void closeDriver(){
-		driver.quit();
+		driver.close();
 	}
+	
 	
 	public boolean doesWeekTabExist(int weekNumber){
 		boolean exists;
