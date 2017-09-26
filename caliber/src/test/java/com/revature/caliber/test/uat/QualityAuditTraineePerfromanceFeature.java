@@ -44,6 +44,7 @@ public class QualityAuditTraineePerfromanceFeature {
 
 	@Given("^I am on the most current week$")
 	public void iAmOnTheMostCurrentWeek() throws Throwable {
+		qaPage.clickWeeksForBatch(7);
 		qaPage.verifyWeekForBatch("week7");
 	}
 

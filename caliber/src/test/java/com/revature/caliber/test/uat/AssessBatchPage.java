@@ -117,7 +117,7 @@ public class AssessBatchPage{
 		while(exists){
 			try{
 				driver.findElement(By.id("weekBtn"+i));
-				driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 				exists = true;
 				i++;
 			}catch(NoSuchElementException e){
