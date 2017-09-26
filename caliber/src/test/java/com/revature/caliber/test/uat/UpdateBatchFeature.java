@@ -17,10 +17,10 @@ public class UpdateBatchFeature {
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
 
-	@After // each scenario
-	public void teardown() {
-		managePage.closeDriver();
-	}
+//	@After // each scenario
+//	public void teardown() {
+//		managePage.closeDriver();
+//	}
 
 	@Given("^I am on the Manage Batch Page$")
 	public void iAmOnTheManageBatchPage() throws Throwable {

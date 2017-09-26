@@ -17,10 +17,10 @@ public class TraineeWeeklyPerformanceFeature {
 		reports = new ReportsPage(setup.getDriver());
 	}
 
-	@After // each scenario
-	public void teardown() {
-		reports.closeDriver();
-	}
+//	@After // each scenario
+//	public void teardown() {
+//		reports.closeDriver();
+//	}
 	
 	@Given("^I select a year$")
 	public void iSelectAYear() throws Throwable {

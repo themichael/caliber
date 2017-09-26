@@ -17,10 +17,10 @@ public class TraineeToTraineeComparisonFeature {
 		reports = new ReportsPage(setup.getDriver());
 	}
 
-	@After // each scenario
-	public void teardown() {
-		reports.closeDriver();
-	}
+//	@After // each scenario
+//	public void teardown() {
+//		reports.closeDriver();
+//	}
 
 	@Given("^on the Reports page$")
 	public void on_the_Reports_page() throws Throwable {
