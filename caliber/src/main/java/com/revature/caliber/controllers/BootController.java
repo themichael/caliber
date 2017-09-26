@@ -82,7 +82,26 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String homePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+	public String homePage() throws IOException, URISyntaxException {
+		return INDEX;
+	}
+	
+	/**
+	 * Gathers Salesforce user data, authorizes user to access Caliber. Forwards
+	 * to the landing page according to the user's role.
+	 *
+	 * @param servletRequest
+	 *            the servlet request
+	 * @param servletResponse
+	 *            the servlet response
+	 * @return the home page
+	 * @throws IOException
+	 *             the io exception
+	 * @throws URISyntaxException
+	 *             the uri syntax exception
+	 */
+	@RequestMapping(value = "/login")
+	public String login(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
 			String salesTokenString) throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
@@ -264,7 +283,12 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 		log.debug("Generating Salesforce token");
 		HttpResponse httpResponse = httpClient.execute(post);
 		log.debug("Forwarding to : " + redirectUrl);
-		return homePage(request, response, IOUtils.toString(httpResponse.getEntity().getContent()));
+		String result = login(request, response, IOUtils.toString(httpResponse.getEntity().getContent()));
+		if(result.equals(INDEX)){
+			return REDIRECT + INDEX;
+		}else{
+			return REDIRECT + "/";
+		}
 	}
 
 	/**
