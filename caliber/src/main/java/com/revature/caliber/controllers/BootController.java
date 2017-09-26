@@ -25,28 +25,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.exceptions.NotAuthorizedException;
-import com.revature.caliber.security.impl.Helper;
+import com.revature.caliber.security.impl.AbstractSalesforceSecurityHelper;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
 
 /**
  * The type Boot controller.
  */
+
 @Controller
-@SessionAttributes("token")
-public class BootController extends Helper {
+public class BootController extends AbstractSalesforceSecurityHelper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
 
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
 	private static final String DEBUG_USER_LOGIN = "patrick.walsh@revature.com";
+	private static final String INDEX = "index";
 
 	/**
 	 * Instantiates a new Boot controller.
@@ -71,7 +72,7 @@ public class BootController extends Helper {
 	 */
 	@RequestMapping(value = "/caliber")
 	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-			@ModelAttribute("salestoken") String salesTokenString, Model model) throws IOException, URISyntaxException {
+			@ModelAttribute("salestoken") String salesTokenString, Model model, SessionStatus status) throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
@@ -83,13 +84,12 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "index";
+			return INDEX;
 		}
 		// get Salesforce token from cookie
 		try {
-			log.error("About to check for salesforce token");
+			log.debug("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-			model.asMap().clear();
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
@@ -99,19 +99,16 @@ public class BootController extends Helper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
-			return "index";
+
+			status.setComplete();
+			return INDEX;
+
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
 			return "redirect:/";
 		}
 	}
 
-	@RequestMapping(value = "/home")
-	public String sendHome(HttpServletResponse response, Authentication auth) {
-		SalesforceUser a = (SalesforceUser) auth.getPrincipal();
-		response.addCookie(new Cookie("role", a.getRole()));
-		return "index";
-	}
 
 	/**
 	 * Retrieve the salesforce access_token from the forwarded request
@@ -121,12 +118,12 @@ public class BootController extends Helper {
 	 * @throws IOException
 	 */
 	private SalesforceToken getSalesforceToken(String token) throws IOException {
-		log.error("Checking for the salesforce token");
+		log.debug("Checking for the salesforce token");
 		if (token != null) {
 			log.error("Parse salesforce token from forwarded request: " + token);
 			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
-		log.error("failed to parse token from forwarded request: ");
+		log.debug("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
 

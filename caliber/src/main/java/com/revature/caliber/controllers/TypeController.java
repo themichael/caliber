@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -80,7 +82,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/note/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC', 'STAGING')")
 	public ResponseEntity<List<String>> allNoteTypes() {
 		log.info("Fetching note types");
 		List<String> types = Stream.of(NoteType.values()).map(Enum::name).collect(Collectors.toList());
@@ -93,7 +95,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/qcstatus/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC', 'STAGING')")
 	public ResponseEntity<List<String>> allQCStatusTypes() {
 		log.info("Fetching QC status types");
 		List<String> types = Stream.of(QCStatus.values()).map(Enum::name).collect(Collectors.toList());
@@ -103,8 +105,7 @@ public class TypeController {
 	/**
 	 * Get assessment types for dropdown selection on the UI
 	 *
-	 * @param assessment
-	 *            the assessment
+	 * @param assessment the assessment
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/assessment/all", method = RequestMethod.GET)

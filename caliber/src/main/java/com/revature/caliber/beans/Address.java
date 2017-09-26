@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Cacheable
@@ -26,32 +27,36 @@ public class Address implements Serializable {
 	@Column(name = "ADDRESS_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_ID_SEQUENCE")
 	@SequenceGenerator(name = "ADDRESS_ID_SEQUENCE", sequenceName = "ADDRESS_ID_SEQUENCE")
-	private long addressId;
+	private int addressId;
 
 	@Column(name = "ADDRESS_STREET")
+	@NotEmpty
 	private String street;
 
 	@Column(name = "ADDRESS_CITY")
+	@NotEmpty
 	private String city;
 
 	@Column(name = "ADDRESS_STATE")
+	@NotEmpty
 	private String state;
 
 	@Column(name = "ADDRESS_ZIPCODE")
+	@NotEmpty
 	private String zipcode;
 
 	@Column(name = "ADDRESS_COMPANY")
 	private String company;
 
 	@Column(name = "ACTIVE")
-	private int active;
+	private boolean active;
 
 	public Address() {
 		super();
 	}
 
-	public Address(long addressId, String street, String city, String state, String zipcode, String company,
-			int active) {
+	public Address(int addressId, String street, String city, String state, String zipcode, String company,
+			boolean active) {
 		super();
 		this.addressId = addressId;
 		this.street = street;
@@ -62,11 +67,11 @@ public class Address implements Serializable {
 		this.active = active;
 	}
 
-	public long getAddressId() {
+	public int getAddressId() {
 		return addressId;
 	}
 
-	public void setAddressId(long addressId) {
+	public void setAddressId(int addressId) {
 		this.addressId = addressId;
 	}
 
@@ -110,11 +115,11 @@ public class Address implements Serializable {
 		this.company = company;
 	}
 
-	public int getActive() {
+	public boolean isActive() {
 		return active;
 	}
 
-	public void setActive(int active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
@@ -122,8 +127,7 @@ public class Address implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + active;
-		result = prime * result + (int) (addressId ^ (addressId >>> 32));
+		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
@@ -142,8 +146,6 @@ public class Address implements Serializable {
 			return false;
 		Address other = (Address) obj;
 		if (active != other.active)
-			return false;
-		if (addressId != other.addressId)
 			return false;
 		if (city == null) {
 			if (other.city != null)

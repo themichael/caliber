@@ -25,8 +25,7 @@
 							</select>
 						</div>
 					</div>
-					<!-- <div ng-if="batchToImport "> -->
-					<div>
+					<div ng-if="batchToImport">
 						<div class="row">
 							<div class="form-group col-md-6 col-sm-6">
 								<label for="name">Training Name:</label> <span id="name">{{batchToImport.trainingName}}</span>
@@ -48,7 +47,7 @@
 							<!-- ng-options is used ass opposed to ng-repeat because an entire object needs to be passed -->
 							<select ng-model="location.model" id="location" required
 								class="form-control" ng-required="true"
-								ng-options="option as (option.company + ', ' + option.street + ' ' + option.city + ' ' + option.state + ' ' + option.zipcode) group by option.state for option in (location.options | orderBy:['state','company']  | filter : {active:1})  track by option.addressId">
+								ng-options="option as (option.company + ', ' + option.street + ' ' + option.city + ' ' + option.state + ' ' + option.zipcode) group by option.state for option in (location.options | orderBy:['state','company']  | filter : {active:true})  track by option.addressId">
 								<option value="" value="">Select Location</option>
 							</select>
 						</div>

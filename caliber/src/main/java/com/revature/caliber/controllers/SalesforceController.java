@@ -34,7 +34,7 @@ public class SalesforceController {
    
 	 * @return
 	 */
-	// @RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
+	@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
 	public String getSalesforceToken() {
 		log.info("Getting access_token for testing purposes only!");
 		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
@@ -70,8 +70,11 @@ public class SalesforceController {
 	 */
 	@RequestMapping(value = "/all/batch/import/log", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
-	public String logBatches() {
-		return salesforceService.logBatches();
+	public String logBatches(@RequestParam(required=false) String resourceId) {
+		if(resourceId == null)
+			return salesforceService.logBatches();
+		else
+			return salesforceService.logBatches(resourceId);
 	}
-
+	
 }

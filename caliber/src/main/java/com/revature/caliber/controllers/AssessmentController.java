@@ -83,7 +83,7 @@ public class AssessmentController {
 	 *            the assessment
 	 * @return the response entity
 	 */
-	@RequestMapping(value = "/trainer/assessment/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/trainer/assessment/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
 	public ResponseEntity<Assessment> updateAssessment(@Valid @RequestBody Assessment assessment) {
@@ -106,6 +106,9 @@ public class AssessmentController {
 			@PathVariable Integer week) {
 		log.debug("Find assessment by week number " + week + " for batch " + batchId + " ");
 		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, week);
+		if(assessments.size() == 0){
+			return new ResponseEntity<List<Assessment>>(HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<>(assessments, HttpStatus.OK);
 	}
 
