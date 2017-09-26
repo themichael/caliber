@@ -1,7 +1,7 @@
 <div id="home">
 	<!-- Welcome new trainer -->
 	<div class="container">
-		<h1>Welcome to Caliber!</h1>
+		<h1 id="welcomeHeader" >Welcome to Caliber!</h1>
 		<div>
 			<p>
 				To get started, please visit the <a
@@ -18,22 +18,22 @@
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Last Quality Audit
-						<select class="pull-right" ng-model="selectedBarCity" ng-if="selectedBarState.address.state"
+						<select id="selectBarCityDropdown" class="pull-right" ng-model="selectedBarCity" ng-if="selectedBarState.address.state"
 						ng-change="onBarCharAddressCityChange(selectedBarCity.address.city)"
 							ng-options="batch.address.city for batch in auditData |filter:selectedBarState.address.state | filter:{address:{$:''}} | unique:'address.city' ">
-							<option value="">All Cities</option>
+							<option id="bar{{batch.address.city}}" value="">All Cities</option>
 						</select>
 
-						<select class="pull-right" ng-model="selectedBarState" 
+						<select id="selectedBarStateDropdown" class="pull-right" ng-model="selectedBarState" 
 							ng-change="onBarCharAddressStateChange(selectedBarState.address.state)" 
 							ng-options="batch.address.state for batch in auditData |filter:{address:{$:''}}| unique:'address.state' ">
-							<option value="">All States</option>
+							<option id="bar{{batch.address.state}}" value="">All States</option>
 						</select>
 					
 					</div>
 					<div class="panel-body">
 						<div class="chart-container top5"> 
-							<canvas class="chart chart-bar" 
+							<canvas id="homePageBarChart" class="chart chart-bar" 
 								chart-data="stackedBarData"
 								chart-options="stackedBarOptions" 
 								chart-labels="stackedBarLabels"
@@ -78,16 +78,16 @@
 
 					<div class="panel-heading">Weekly Progress 
 
-						<select class="pull-right" ng-model="selectedLineCity" ng-if="selectedLineState.address.state"
+						<select id="selectLineCity" class="pull-right" ng-model="selectedLineCity" ng-if="selectedLineState.address.state"
 						ng-change="onLineCharAddressCityChange(selectedLineCity.address.city)"
 							ng-options="batch.address.city for batch in averageScoreData |filter:selectedLineState.address.state | filter:{address:{$:''}} | unique:'address.city' ">
-							<option value="">All Cities</option>
+							<option id="line{{batch.addredd.city}}" value="">All Cities</option>
 						</select>
 
-						<select class="pull-right" ng-model="selectedLineState"
+						<select id="selectLineState" class="pull-right" ng-model="selectedLineState"
 							ng-change="onLineCharAddressStateChange(selectedLineState.address.state)"
 							ng-options="batch.address.state for batch in averageScoreData |filter:{address:{$:''}} | unique:'address.state' ">
-							<option value="">All States</option>
+							<option id="line{{batch.address.state}}" value="">All States</option>
 						</select>
 
 					</div>

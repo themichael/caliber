@@ -9,7 +9,7 @@ Background: Logged in
 	And I have chosen the Batch
 	And I have chosen the Week
 	
-  Scenario Outline: Writing Notes about Batch Weekly Performace
-    And I have entered <response> as the Overall Feedback
+ Scenario: Writing Notes about Batch Weekly Performace
+    And I have entered "Good" as the Overall Feedback
     When I press the Save button 
-    Then the Feedback is recorded
+    Then the Feedback "Good" is recorded

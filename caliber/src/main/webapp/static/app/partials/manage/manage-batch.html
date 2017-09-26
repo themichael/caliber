@@ -50,7 +50,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="batch in selectedBatches track by $index">
-							<td>{{batch.trainingName}}</td>
+							<td id="{{batch.trainingName}}">{{batch.trainingName}}</td>
 							<td>{{batch.trainingType}}</td>
 							<td>{{batch.skillType}}</td>
 							<td>{{batch.trainer.name}}</td>

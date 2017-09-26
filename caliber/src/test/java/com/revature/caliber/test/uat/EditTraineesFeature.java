@@ -21,10 +21,10 @@ public class EditTraineesFeature {
 		manageBatchPage = new ManageBatchPage(setup.getDriver());
 	}
 	
-	@After
-	public void teardown(){
-		manageBatchPage.closeDriver();
-	}
+//	@After
+//	public void teardown(){
+//		manageBatchPage.closeDriver();
+//	}
 	
 	@Given("^that I am logged in as a User$")
 	public void that_I_am_logged_in_as_a_User() throws Throwable {
@@ -34,7 +34,7 @@ public class EditTraineesFeature {
 	@Given("^on the Manage Batch page,$")
 	public void on_the_Manage_Batch_page() throws Throwable {
 	    manageBatchPage.gotoManagePage();
-	    manageBatchPage.verifyPage("vp/manage");
+	    manageBatchPage.verifyPage("manage");
 	}
 
 	@Given("^I have clicked on the person icon corresponding to a batch,$")

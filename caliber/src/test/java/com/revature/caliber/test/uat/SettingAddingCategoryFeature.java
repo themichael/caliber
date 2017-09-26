@@ -29,10 +29,10 @@ public class SettingAddingCategoryFeature {
 		settingCategoryPage = new SettingCategoryPage(driver);
 	}
 
-	@cucumber.api.java.After
-	public void teardown() {
-		settingCategoryPage.closeDriver();
-	}
+//	@cucumber.api.java.After
+//	public void teardown() {
+//		settingCategoryPage.closeDriver();
+//	}
 	
 	@Given("^I am on the Settings Category page$")
 	public void i_am_on_the_Settings_Category_page() throws InterruptedException {

@@ -19,6 +19,7 @@ public class ManageBatchPage{
 	public ManageBatchPage(WebDriver driver) {
 	super();
 	this.driver = (ChromeDriver)driver;
+	this.driver.get("http://localhost:8080/caliber#/vp/manage");
 	}
 
 	/**
@@ -45,11 +46,11 @@ public class ManageBatchPage{
 	
 	/**
 	 * Takes a string and verifies you made it to the page
-	 * you want to be on. For example for manage send "vp/manage"
+	 * you want to be on. For example for manage send "manage"
 	 * @param page
 	 */
 	public void verifyPage(String page){
-		assertEquals(("http://localhost:8080/caliber/#/"+page), 
+		assertEquals(("http://localhost:8080/caliber/#/vp/"+page), 
 				driver.getCurrentUrl());
 	}
 	
@@ -128,7 +129,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Opens the edit trainee modal by clicking on the pencil icon
+	 * Opens the edit/update trainee modal by clicking on the pencil icon
 	 * located in the manage batch modal by the employee name. These methods
 	 * can be used with either the edit trainee modal or the add trainee
 	 * modal, they are the same. Once the icon is clicked, the function
@@ -144,8 +145,9 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to name field. This field is required so the modal
-	 * will throw a form required error if a blank name is given
+	 * Sends string to name field in the edit/update trainee
+	 * modal. This field is required so the modal
+	 * will throw a form required error if a blank name is given.
 	 * @param name
 	 */
 	public void editName(String name){
@@ -155,7 +157,8 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to email field. This field is required and requires
+	 * Sends string to email field of the edit/update trainee modal. 
+	 * This field is required and requires
 	 * an invalid email input, so a form required error will occur if an
 	 * invalid email is given
 	 * @param email
@@ -167,7 +170,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to skypeID field. This field is not required
+	 * Sends string to skypeID field of the edit/update trainee modal. This field is not required
 	 * @param skypeID
 	 */
 	public void editSkypeIDField(String skypeID){
@@ -177,7 +180,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to phone number field. This field is not required
+	 * Sends string to phone number field to the edit/udpate trainee modal. This field is not required
 	 * @param phoneNumber
 	 */
 	public void editPhoneField(String phoneNumber){
@@ -187,7 +190,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to college field. This field is not required
+	 * Sends string to college field to the edit/update trainee modal. This field is not required
 	 * @param college
 	 */
 	public void editCollegeField(String college){
@@ -197,7 +200,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to degree field, this field is not required
+	 * Sends string to degree field in the edit/update trainee modal, this field is not required
 	 * @param degree
 	 */
 	public void editDegreeField(String degree){
@@ -207,7 +210,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to major field, this field is not required
+	 * Sends string to major field in the edit/update trainee modal, this field is not required
 	 * @param major
 	 */
 	public void editMajorField(String major){
@@ -217,7 +220,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to recruiter name field, this field is not required
+	 * Sends string to recruiter name field in the edit/update trainee modal, this field is not required
 	 * @param recruiterName
 	 */
 	public void editRecruiterNameField(String recruiterName){
@@ -227,7 +230,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to tech screener name field, this field is not required
+	 * Sends string to tech screener name field in the edit/update trainee modal, this field is not required
 	 * @param techScreenerName
 	 */
 	public void editTechScreenerNameField(String techScreenerName){
@@ -237,7 +240,7 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Sends string to profileURL field, this field is not required
+	 * Sends string to profileURL field in the edit/update trainee modal, this field is not required
 	 * @param profileURL
 	 */
 	public void editProfileURLField(String profileURL){
@@ -247,14 +250,21 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Still need to implement
+	 * Takes in a string status and matches it to one of the options
+	 * from the edit/update modal training status box menu. If the string
+	 * passed in doesn't exist in the menu, the function does not work 
+	 * properly.
+	 * @param status
+	 * @throws InterruptedException
 	 */
-	public void editTrainingStatusField(){
-		WebElement trainingStatus = driver.findElement(By.id("traineeStatus"));
+	public void editTrainingStatusField(String status) throws InterruptedException{
+		Select trainingStatus = new Select(driver.findElement(By.id("traineeStatus")));
+		Thread.sleep(125);
+		trainingStatus.selectByVisibleText(status);
 	}
 	
 	/**
-	 * Sends string to Project completion field, this field is not required.
+	 * Sends string to Project completion field in the edit/update trainee modal, this field is not required.
 	 * If an invalid percentage is given, the form will give an invalid form
 	 * error
 	 * @param percentage
@@ -421,7 +431,7 @@ public class ManageBatchPage{
 	public void editTrainingTypeField(String trainingType) throws InterruptedException{
 		Select dropdown = new Select(driver.findElement(By.id("trainingType")));
 		Thread.sleep(500);
-		dropdown.deselectByVisibleText(trainingType);
+		dropdown.selectByVisibleText(trainingType);
 	}
 	
 	/**
@@ -625,6 +635,28 @@ public class ManageBatchPage{
 	 */
 	public void verifyRequiredInputField(){
 		driver.findElement(By.cssSelector("input:required"));
+	}
+	
+	/**
+	 * Returns true if the batch was created. Takes in a string
+	 * batchName and looks on the page to see if that batch exists
+	 * on the page.
+	 * @param batchName
+	 * @return
+	 */
+	public boolean newBatchCreated(String batchName){
+		return driver.findElement(By.id(batchName)).isDisplayed();
+	}
+	
+	/**
+	 * Returns true if the trainee passed in exists on the page.
+	 * The function takes a String traineeName in and checks to
+	 * see if on the view trainee modal if the trainee is there.
+	 * @param traineeName
+	 * @return
+	 */
+	public boolean newTraineeAdded(String traineeName){
+		return driver.findElement(By.id(traineeName)).isDisplayed();
 	}
 	
 	/**
