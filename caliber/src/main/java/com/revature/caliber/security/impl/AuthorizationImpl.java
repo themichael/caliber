@@ -120,7 +120,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
             }
         } catch(AuthenticationCredentialsNotFoundException e){
             log.error("error thrown:", e);
-            return new ModelAndView(REDIRECT);
+            return new ModelAndView("redirect:/");
         }
         
         log.debug("Forwarding to : " + redirectUrl);
