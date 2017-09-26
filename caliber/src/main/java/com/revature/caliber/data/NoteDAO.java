@@ -153,7 +153,7 @@ public class NoteDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Note findQCBatchNotes(Integer batchId, Integer week) {
-		log.info("Finding QC batch notes for week " + week + " " + BATCH + batchId);
+		log.info("NOTEDAO Finding QC batch notes for week " + week + " " + BATCH + batchId);
 		return (Note) sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias(BATCH, "b")
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))

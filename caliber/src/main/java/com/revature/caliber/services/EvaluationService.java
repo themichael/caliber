@@ -261,7 +261,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Note findQCBatchNotes(Integer batchId, Integer week) {
-		log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
+		log.debug("EVALSERV"+FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
 		return noteDAO.findQCBatchNotes(batchId, week);
 	}
 
