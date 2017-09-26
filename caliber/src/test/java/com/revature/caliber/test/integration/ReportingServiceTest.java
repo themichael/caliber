@@ -480,6 +480,7 @@ public class ReportingServiceTest extends CaliberTest {
 	/**
 	 *  Test method:
 	 *  @see com.revature.caliber.services.ReportingService.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
+	 *  Pulls a Note from the database. Tries to pull one with an invalid batch and then with an invalid week.
 	 */
 	@Test
 	public void getBatchWeekQcOverallBarChartTest(){
@@ -490,10 +491,9 @@ public class ReportingServiceTest extends CaliberTest {
 		//invalid batch
 		testNote = reportingService.getBatchWeekQcOverallBarChart(22, 7);
 		assertNull(testNote);
-		//invalid batch
+		//invalid week
 		testNote = reportingService.getBatchWeekQcOverallBarChart(2201, -5);
 		assertNull(testNote);
-
 	}
 
 	/**
