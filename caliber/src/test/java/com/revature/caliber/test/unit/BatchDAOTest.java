@@ -3,6 +3,7 @@ package com.revature.caliber.test.unit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.time.Instant;
 import java.time.Period;
@@ -157,6 +158,8 @@ public class BatchDAOTest extends CaliberTest {
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.data.BatchDAO.findOne(Integer batchId)
+	 * Find a known batch, assert that the IDs are the same.
+	 * Try to find a batch that doesn't exist, fail if it does.
 	 */
 	@Test
 	public void findOneTest(){
@@ -164,6 +167,14 @@ public class BatchDAOTest extends CaliberTest {
 		int expected = 2050;
 		int actual = batchDAO.findOne(expected).getBatchId();
 		assertEquals(expected, actual);
+		try{
+			expected = -234;
+			actual = batchDAO.findOne(expected).getBatchId();
+			fail();
+		}
+		catch(Exception e){
+			log.info(e);
+		}
 	}
 	/**
 	 * Tests methods:
@@ -183,10 +194,19 @@ public class BatchDAOTest extends CaliberTest {
 			}
 		}
 		assertTrue(success);
+		try{
+			resultSet = batchDAO.findOneWithDroppedTrainees(-999).getTrainees();
+			fail();
+		}
+		catch(Exception e){
+			log.info(e);
+		}
 	}
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.data.BatchDAO.findOneWithTraineesAndGrades(Integer batchId)
+	 * Finds from an existing batch, fails if any trainees have a dropped status.
+	 * Tries to find from a non-existing batch, fails if no exception gets thrown.
 	 */
 	@Test
 	public void findOneWithTraineesAndGradesTest(){
@@ -203,10 +223,21 @@ public class BatchDAOTest extends CaliberTest {
 			}
 		}
 		assertTrue(success);
+		try{
+			resultSet = batchDAO.findOneWithTraineesAndGrades(-999).getTrainees();
+			fail();
+		}
+		catch(Exception e){
+			log.info(e);
+		}
 	}
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.data.BatchDAO.update()
+	 * This test needs the findOne method to work.
+	 * It finds a batch from the database, changes a value, updates the database,
+	 * loads the batch from the database again.
+	 * Tries to update a non-existing batch.
 	 */
 	@Test
 	public void updateTest(){
@@ -216,6 +247,14 @@ public class BatchDAOTest extends CaliberTest {
 		batchDAO.update(testBatch);
 		Batch updatedTestBatch = batchDAO.findOne(2050);
 		assertEquals(updatedTestBatch.getLocation(),"The basement");
+		try{
+			testBatch.setBatchId(-984);
+			batchDAO.update(testBatch);
+			fail();
+		}
+		catch(Exception e){
+			log.info(e);
+		}
 	}
 	/**
 	 * Tests methods:
