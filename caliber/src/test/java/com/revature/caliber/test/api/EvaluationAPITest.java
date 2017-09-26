@@ -56,7 +56,6 @@ public class EvaluationAPITest extends AbstractAPITest{
 	private static final int TEST_TRAINEE_ID = 5537;
 	private static final int TEST_WEEK = 1;
 	
-	private static final String FIND_BY_TRAINER = "all/grade/trainer/1";
 	private static final String FIND_TRAINEE_NOTE = "trainer/note/trainee/";
 	private static final String FIND_QCTRAINEE_NOTE = "qc/note/trainee/";
 	private static final String CREATE_GRADE = "trainer/grade/create";
@@ -119,29 +118,6 @@ public class EvaluationAPITest extends AbstractAPITest{
 		
 		assertEquals(expected, gradeDAO.findByTrainee(TEST_TRAINEE_ID).get(0));
 	}
-	
-	/**
-	 * 
-	 * @see com.revature.caliber.controllers.EvaluationController#findByTrainer(Integer)
-	 * 
-	 */
-	@SuppressWarnings("unchecked")
-	@Test
-	public void findByTrainer(){
-		log.trace("API test findByTrainer");
-		
-		List<Grade> grades = new ArrayList<>();
-		grades = given().spec(requestSpec).header(AUTH, accessToken)
-				.contentType(ContentType.JSON)
-			.when().get(baseUrl + FIND_BY_TRAINER) // find grades by Trainer
-			.then().assertThat()
-				.statusCode(200)
-				.extract().body().as(grades.getClass()); // extract body of response as a List<Grade>
-		
-		// check that some grades were returned
-		assertTrue(!grades.isEmpty());
-	}
-	
 
 	/**
 	 * Create note 

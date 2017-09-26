@@ -287,10 +287,12 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 		log.debug("Generating Salesforce token");
 		HttpResponse httpResponse = httpClient.execute(post);
 		log.debug("Forwarding to : " + redirectUrl);
-		String result = login(request, response, IOUtils.toString(httpResponse.getEntity().getContent()));
-		if(result.equals(INDEX)){
+		try{
+			String tokenString = IOUtils.toString(httpResponse.getEntity().getContent());
+			log.fatal("Authenticated method found token: " + tokenString);
+			login(request, response, tokenString);
 			return REDIRECT + redirectUrl;
-		}else{
+		}catch(Exception e){
 			return REDIRECT + "/";
 		}
 	}
