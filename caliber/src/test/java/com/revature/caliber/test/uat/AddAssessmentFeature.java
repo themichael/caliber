@@ -28,7 +28,7 @@ public class AddAssessmentFeature {
 	}
 
 	@Given("^I have clicked the Week (\\d+) tab$")
-	public void iHaveClickedTheWeekTab() {
+	public void iHaveClickedTheWeekTab(){
 		assessBatch.clickWeekTab();
 	}
 

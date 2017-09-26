@@ -48,7 +48,7 @@ public class AssessBatchPage{
 	}
 	
 	public void checkIfGradesWereInput(String traineeName, String grade){
-		assertEquals(driver.findElement(By.id(traineeName+"grade0")).getText(), grade);
+		assertEquals(driver.findElement(By.id(traineeName+"grade0")).getAttribute("value"), grade);
 	}
 	
 	public void clickNewWeek(){
