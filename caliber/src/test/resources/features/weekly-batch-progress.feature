@@ -11,8 +11,5 @@ Feature: View a batch's weekly progress
     And on the Reports page
 
   Scenario: 
-    And I select a Batch
-    And I don't select a specific week
-    And I don't select a specific Trainee
-    When I go down to the Weekly Progress
+    When I select a batch
     Then I can note the weekly progress for a batch

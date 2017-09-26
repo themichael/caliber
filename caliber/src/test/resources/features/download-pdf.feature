@@ -8,7 +8,7 @@ Feature: Download PDF Reports
   # positive testing
   Scenario: Download PDF Reports
     Given I am on the Reports page
-    And I have selected the year 1 tab
+    And I have selected the year 2017 tab
     And I have selected "Patrick Walsh - 4/25/16" as Trainer
     And I have selected all the weeks
     And I have selected "All" as Trainees

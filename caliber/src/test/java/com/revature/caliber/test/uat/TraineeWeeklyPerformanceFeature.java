@@ -1,33 +1,50 @@
 package com.revature.caliber.test.uat;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class TraineeWeeklyPerformanceFeature {
 
-	@Given("^I select a Trainee$")
+	private ReportsPage reports;
+	
+	@Before // each scenario
+	public void setup(){
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		reports = new ReportsPage(setup.getDriver());
+	}
+
+	@After // each scenario
+	public void teardown() {
+		reports.closeDriver();
+	}
+	
+	@Given("^I select a year$")
+	public void iSelectAYear() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    reports.clickReportYear("2017");
+	}
+
+	@Given("^I have chosen a batch$")
+	public void iHaveChosenABatch() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    reports.clickBatchDropdown();
+	    reports.chooseBatch();
+	}
+	
+	@When("^I select a Trainee$")
 	public void iSelectATrainee() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@Given("^I select a Week to be noted$")
-	public void iSelectAWeekToBeNoted() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@When("^I scroll down to the Weekly Progress$")
-	public void iScrollDownToTheWeeklyProgress() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	    reports.clickTraineeDropdown();
+	    reports.chooseTraineeReport("Ali, Fareed");
 	}
 
 	@Then("^I can compare the Trainee performance to the batch performance$")
 	public void iCanCompareTheTraineePerformanceToTheBatchPerformance() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	    reports.checkTraineeWeeklyProgressChart();
 	}
 }

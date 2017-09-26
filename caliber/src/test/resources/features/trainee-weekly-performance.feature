@@ -12,7 +12,7 @@ Feature: View Trainee's weekly progress and compare to the Batch
     And on the Reports page
 
     Scenario:
-    And I select a Trainee
-    And I select a Week to be noted
-    When I scroll down to the Weekly Progress 
+    And I select a year
+    And I have chosen a batch
+    When I select a Trainee
     Then I can compare the Trainee performance to the batch performance
