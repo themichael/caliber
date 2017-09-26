@@ -17,5 +17,5 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/qa-past-weeks-performance.feature"})
+@CucumberOptions(features={"src/test/resources/features/adding-setting-category.feature"})
 public class CukesRunner {}

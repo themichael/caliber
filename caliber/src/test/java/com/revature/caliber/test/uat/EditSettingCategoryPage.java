@@ -12,7 +12,6 @@ public class EditSettingCategoryPage {
 	
 	public EditSettingCategoryPage(WebDriver driver) {
 		super();
-		//this.driver = (PhantomJSDriver) driver;
 		this.driver = driver;
 	}
 	

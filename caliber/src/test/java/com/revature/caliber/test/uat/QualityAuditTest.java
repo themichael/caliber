@@ -38,8 +38,10 @@ public class QualityAuditTest {
 	
 	@Test
 	public void test() throws IOException, InterruptedException{
-		QualityAuditPage qaPage = new QualityAuditPage(driver);
-		qaPage.goToPage();
-		qaPage.verifyWeekForBatch();
+		SettingCategoryPage sp = new SettingCategoryPage(driver);
+		sp.gotoSettingCategoryPage();
+		sp.clickCreateCategoryBtn();
+		boolean btn = driver.switchTo().activeElement().findElement(By.id("submitBtn")).isDisplayed();
+		System.out.println(btn);
 	}
 }

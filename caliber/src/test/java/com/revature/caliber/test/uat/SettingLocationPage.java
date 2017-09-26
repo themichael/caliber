@@ -17,6 +17,11 @@ public class SettingLocationPage {
 	 * The methods defined below are the actions being executed
 	 * in the Locations page of caliber. Only the VP's are allowed to 
 	 * add/update locations.
+	 * 
+	 * 
+	 * @author Davis Zabiyaka modified the Page Object Mode
+	 * to fit the criterea for headless chrome browser
+	 * instead of phantomjs
 	 */
 
 	private WebDriver driver;
@@ -27,7 +32,7 @@ public class SettingLocationPage {
 	}
 
 	//Closeing the driver
-	public void quitDriver() {
+	public void closeDriver() {
 		driver.quit();
 	}
 	
@@ -48,51 +53,62 @@ public class SettingLocationPage {
 
 	//Clicks the 'Create Location' button 
 	public void clickCreateLocationBtn() throws InterruptedException {
-		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div/div[1]/div/div/ul/li/a")).click();
+		//driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div/div[1]/div/div/ul/li/a")).click();
+		driver.findElement(By.id("createLocationBtn")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
 
 	//Input 'Company Name' in the Add Location modal.
-	public void inputCompanyName(String company) {
-		driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input")).sendKeys(company);;
+	public void inputCompanyName(String companyName) {
+		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input")).sendKeys(company);;
+		driver.findElement(By.id("locationCompany")).sendKeys(companyName);
 	}
 	
 	//Input 'Street Address' in the Add Location modal.
 	public void inputStreetAddress(String address) {
-		driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input")).sendKeys(address);
+		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input")).sendKeys(address);
+		driver.findElement(By.id("locationStreet")).sendKeys(address);
 	}
 
 	//Input 'City' in the Add Location modal.
 	public void inputCity(String city) {
-		driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > input")).sendKeys(city);
+		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > input")).sendKeys(city);
+		driver.findElement(By.id("locationCity")).sendKeys(city);
 	}
 
 	//Input 'State' in the Add Location modal.
 	public void inputState(String state) throws InterruptedException {
-		Select dropdown = new Select(driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > select")));
+		//Select dropdown = new Select(driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > select")));
+		
+		//Select dropdown = new Select(driver.findElement(By.id("locationState")).click()));
+		Select dropdown = new Select(driver.findElement(By.id("locationState")));
 		Thread.sleep(1000);
 		dropdown.selectByVisibleText(state);
 	}
 	
 	//Input 'Zipcode' in the Add Location modal.
 	public void inputZipcode(String zipcode){
-		driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(3) > div > input")).sendKeys(zipcode);
+		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(3) > div > input")).sendKeys(zipcode);
+		driver.findElement(By.id("locationZipCode")).sendKeys(zipcode);
 	}
 	
 	//Save location in 'Add Location' modal.
 	public void clickSaveButn(){
-		driver.findElement(By.xpath("//*[@id=\"createLocationModal\"]/div/div/div[2]/div[2]/input")).click();;
+		//driver.findElement(By.xpath("//*[@id=\"createLocationModal\"]/div/div/div[2]/div[2]/input")).click();;
+		driver.findElement(By.id("submintBtn")).click();
 	}
 	
 	//click the 'close' button to close 
 	public void clickCloseAddLocModalBtn(){
-		driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div.modal-footer > button")).click();
+		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div.modal-footer > button")).click();
+		driver.findElement(By.id("closeBtn")).click();
 	}
 	
 	//click the 'x' to close the add location modal
 	public void clickXtoCloseAddLocModalBtn(){
-		driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-header > button")).click();
+		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-header > button")).click();
+		driver.findElement(By.id("XBtn")).click();
 	}
 	
 	//Click the 'pencil' glyphicon next to the locations open the update location modal.

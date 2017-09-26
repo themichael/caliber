@@ -19,15 +19,17 @@ public class SettingCategoryPage {
 	
 	public SettingCategoryPage(WebDriver driver) {
 		super();
-		//this.driver = (PhantomJSDriver) driver;
 		this.driver = (ChromeDriver)driver;
 	}
 	
 	/**
 	 * Navigates to the Setting's Category page
+	 * @throws InterruptedException 
 	 */
-    public void gotoSettingCategoryPage() {
+    public void gotoSettingCategoryPage() throws InterruptedException {
         driver.get("http://localhost:8080/caliber/#/vp/category");
+        Thread.sleep(1000);
+        driver.switchTo().activeElement();
         //System.out.println("CurrentURL = " + driver.getCurrentUrl());
         //System.out.println(driver.getTitle());
     }
@@ -46,8 +48,9 @@ public class SettingCategoryPage {
     public void clickCreateCategoryBtn() throws InterruptedException {
     	driver.findElement(By
     			.id("createCategoryModal")).click();
-    	Thread.sleep(300);
+    	Thread.sleep(1000);
     	driver.switchTo().activeElement();
+    	//driver.switchTo().activeElement();
     	
     	/*
         driver.findElement(
@@ -61,27 +64,35 @@ public class SettingCategoryPage {
     /**
      * Finds the Category name field, and edits it by adding the new name
      * @param name
+     * @throws InterruptedException 
      */
-    public void inputCategoryName(String name) {
+    public void inputCategoryName(String name) throws InterruptedException {
+    	Thread.sleep(1000);
+    	driver.findElement(By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.row > div > input")).sendKeys(name);
     	/*
         driver.findElement(By.id("categoryName")).sendKeys(name);
         */
+    	//driver.findElement(By.id("categoryName")).click();
+    	/*
     	driver.findElement(By
     			.id("categoryName")).sendKeys(name);
+    	driver.findElement(By
+    			.xpath("//*[@id=\"categoryName\"]")).sendKeys(name);
+    	*/
     }
     
     /**
      * Clicks on the save button to save the new category
      */
     public void clickCategorySaveBtn() {
+    	driver.findElement(By.id("closeBtn")).click();
+    	/*driver.findElement(By
+    			.id("submitBtn")).click();*/
     	/*
-    	driver.findElement(By
-    			.id("submitBtn")).click();
-    	*/
-    	
         driver.findElement(
                 By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.modal-footer > input"))
                 .click();
+        */
     }
     
     /**
@@ -98,28 +109,27 @@ public class SettingCategoryPage {
      * Clicks on the x-button to close out of the Create Category modal
      */
     public void closeCattegoryWithXButton() {
-    	/*
     	driver.findElement(By
     			.id("XBtn")).click();
-    	*/
-    	
+    	/*
     	driver.findElement(
     			By.cssSelector("#addCategoryModal > div > div > div.modal-header > button"))
     			.click();
+    	*/
     }
     
     /**
      * Closes the Create Category modal by clicking the Close button
      */
     public void closeCategoryWithCloseButton() {
-    	/*
     	driver.findElement(By
     			.id("closeBtn")).click();
-    	*/
-  
+
+    	/*
     	driver.findElement(
     			By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.modal-footer > button"))
     			.click();
+    	*/
     }
     
     /**
