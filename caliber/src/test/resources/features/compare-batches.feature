@@ -5,9 +5,9 @@ Feature: View and Compare Batches
 	I can see how all the current batches 
 	are doing and compare their performance
 Background: 
-	Given I am logged in as VP
+	Given I am logged in as the VP
 Scenario:
-	When I go to the Home Page
+	When I go to Home Page
 	Then I can see and compare batch performance to each other
 
 
