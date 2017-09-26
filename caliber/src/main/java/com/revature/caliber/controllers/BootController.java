@@ -61,7 +61,7 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 	private static final String REVATURE = "http://www.revature.com/";
 
 	/**
-	 * Instantiates a new Boot controller.
+	 * Instantiates a new Boot controller
 	 */
 	public BootController() {
 		super();
