@@ -2,11 +2,10 @@
 package com.revature.caliber.controllers;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.revature.caliber.security.impl.AbstractSalesforceSecurityHelper;
 /**
  * The type Boot controller.
@@ -36,6 +35,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
      *             the uri syntax exception
      */
     @RequestMapping(value = "/caliber")
+    @CrossOrigin
     public String devHomePage(){
         log.info("Returning index");
         return INDEX;
