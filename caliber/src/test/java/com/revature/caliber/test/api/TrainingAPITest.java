@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
@@ -86,8 +87,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	/**
 	 * Tests method:
 	 * @see com.revature.caliber.services.TrainingService.findAllDroppedByBatch(@RequestParam(required = true) Integer batch)
-	 * Makes the call, checks all entities in the result set fails if any do not have
-	 * TrainingStatus.Dropped.
+	 * Makes the call, checks all entities in the result set, fails if any do not have TrainingStatus.Dropped.
 	 * @throws Exception 
 	 */
 	@Test
@@ -108,19 +108,27 @@ public class TrainingAPITest extends AbstractAPITest {
 	
 	/**
 	 * Tests method:
-	 * @see com.revature.caliber.services.TrainingService.findAllByBatch(@RequestParam(required = true) Integer batch)
+	 * @see com.revature.caliber.services.TrainingService.findAllTraineesByBatch(@RequestParam(required = true) Integer batch)
+	 * Sees if the call pulls all 6 trainees from the batch 2050. Makes sure no trainees are found from a non-existing batch.
 	 * @throws Exception 
 	 */
 	@Test
 	public void findAllByBatchTest(){
 		log.info("API Testing findAllByBatchTest at baseUrl  " + baseUrl + findAllTraineesInBatch);
-		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
-				.get(baseUrl + findAllTraineesInBatch).then().assertThat().statusCode(200);
+		Response rs = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
+				.get(baseUrl + findAllTraineesInBatch).then().assertThat().statusCode(200).extract().response();
+		Trainee[] resultSet = rs.as(Trainee[].class);
+		assertEquals(6,resultSet.length);
+		rs = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "-245").when()
+				.get(baseUrl + findAllTraineesInBatch).then().assertThat().statusCode(200).extract().response();
+		resultSet = rs.as(Trainee[].class);
+		assertEquals(resultSet.length, 0);
 	}
 	
 	/**
 	 * Tests method:
 	 * @see com.revature.caliber.services.TrainingService.getAllBatches()
+	 * Makes the call, checks to see if it pulled all 6 batches.
 	 */
 	@Test
 	public void getAllBatchesTest(){
@@ -128,26 +136,20 @@ public class TrainingAPITest extends AbstractAPITest {
 		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllBatches).then().assertThat().statusCode(200).extract().response();
 		Batch[] resultSet = actual.as(Batch[].class);
-		boolean success = false;
-		if (resultSet.length == 6){
-			success = true;
-		}
-		assertTrue(success);
+		assertEquals(6,resultSet.length);
 	}
-	
 	/**
 	 * Tests method:
 	 * @see com.revature.caliber.services.TrainingService.getAllCurrentBatches()
+	 * Makes the call. Checks if all 3 current batches are found.
 	 */
 	@Test
 	public void getAllCurrentBatchesTest(){
 		log.info("API Testing getAllCurrentBatchesTest at baseUrl  " + baseUrl + getAllCurrentBatches);
 		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllCurrentBatches).then().assertThat().statusCode(200).extract().response();
-		Batch[] resultSet = actual.as(Batch[].class);
-		
-		int expected = 3;
-		assertEquals(expected, resultSet.length); 
+		Batch[] resultSet = actual.as(Batch[].class);		
+		assertEquals(3, resultSet.length); 
 	}
 	
 	/**
@@ -413,9 +415,6 @@ public class TrainingAPITest extends AbstractAPITest {
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
 				.put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
 		
-		location.setState("NY");
-		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
-				.put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
 	}
 
 	/**

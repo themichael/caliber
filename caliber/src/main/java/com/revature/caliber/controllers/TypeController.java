@@ -1,6 +1,9 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.beans.*;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.revature.caliber.beans.AssessmentType;
+import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.SkillType;
+import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.TrainingStatus;
+import com.revature.caliber.beans.TrainingType;
 
 /**
  * Provides enumerated types to the UI

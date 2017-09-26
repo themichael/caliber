@@ -337,6 +337,8 @@ public class ReportingServiceTest extends CaliberTest {
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.service.ReportingService#getBatchComparisonAvg(List<Batch> batches)
+	 * 
+	 * Uses the helper method batchComparisonInit() to create two batches with grades with known averages
 	 */
 	@Test
 	public void getBatchComparisonAvgTest(){
@@ -344,13 +346,13 @@ public class ReportingServiceTest extends CaliberTest {
 
 		List<Batch> batches = batchComparisonInit();
 		
-		List<Batch> singleBatch1 = new ArrayList<>();
+		List<Batch> singleBatch1 = new ArrayList<>();  //Get three tests from one array of two batches by testing each individually
 		singleBatch1.add(batches.get(0));
 		
 		List<Batch> singleBatch2 = new ArrayList<>();
 		singleBatch2.add(batches.get(1));
 		
-		double avg = reportingService.getBatchComparisonAvg(singleBatch1);
+		double avg = reportingService.getBatchComparisonAvg(singleBatch1); 
 		double expected = 80;
 		log.info(avg);
 		assertTrue(Math.abs(avg-expected)<.0001);
@@ -367,6 +369,8 @@ public class ReportingServiceTest extends CaliberTest {
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.service.ReportingService#batchComparisonFilter(List<Batch> batches, String skill, String training)
+	 * 
+	 * Checks each path in the filter test, All|All, All|TrainingType, SkillType|All, SkillType|TrainingType
 	 */
 	@Test
 	public void batchComparisonFilterTest(){
@@ -484,6 +488,7 @@ public class ReportingServiceTest extends CaliberTest {
 	/**
 	 *  Test method:
 	 *  @see com.revature.caliber.services.ReportingService.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
+	 *  Pulls a Note from the database. Tries to pull one with an invalid batch and then with an invalid week.
 	 */
 	@Test
 	public void getBatchWeekQcOverallBarChartTest(){
@@ -494,24 +499,24 @@ public class ReportingServiceTest extends CaliberTest {
 		//invalid batch
 		testNote = reportingService.getBatchWeekQcOverallBarChart(22, 7);
 		assertNull(testNote);
-		//invalid batch
+		//invalid week
 		testNote = reportingService.getBatchWeekQcOverallBarChart(2201, -5);
 		assertNull(testNote);
-
 	}
 
 	/**
 	 * Tests methods:
 	 * 
 	 * @see com.revature.caliber.services.ReportingService#utilSeparateQCTraineeNotesByWeekTest()
-	 * 
-	 * 
+	 * This method tests by creating a batch with trainees with QC status for each week.
+	 * I will compare the amount of trainees who got a particular QC Status 
 	 */
 	@Test
 	public void utilSeparateQCTraineeNotesByWeekTest() {
 
 		log.info("Testing the ReportingService.utilSeperateQCTraineeNotesByWeek");
 
+		//These numbers come from createTestBatchWithQCNotes
 		int[] statusPoorCountPerWeek = { 0, 0, 0, 3, 0, 0, 0 };
 		int[] statusAverageCountPerWeek = { 3, 0, 0, 0, 3, 0, 0 };
 		int[] statusGoodCountPerWeek = { 0, 3, 0, 0, 0, 3, 0 };
@@ -760,6 +765,8 @@ public class ReportingServiceTest extends CaliberTest {
 		Set<Trainee> trainees1 = new HashSet<>();
 		Set<Trainee> trainees2 = new HashSet<>();
 		
+		
+		//Averages for score1 = 80, score2 = 90, score1+2 = 85
 		int[] score1 = {70, 80, 80, 90};
 		int[] score2 = {100, 90, 90, 80};
 		
