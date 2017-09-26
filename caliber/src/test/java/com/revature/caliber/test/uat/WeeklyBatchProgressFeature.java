@@ -17,10 +17,10 @@ public class WeeklyBatchProgressFeature {
 		reportsPage = new ReportsPage(setup.getDriver());
 	}
 
-	@After // each scenario
+/*	@After // each scenario
 	public void teardown() {
 		reportsPage.closeDriver();
-	}
+	}*/
 
 	@When("^I select a batch$")
 	public void iSelectABatch() throws Throwable {

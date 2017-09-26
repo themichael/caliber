@@ -18,10 +18,10 @@ public class AddBatchFeature {
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
 	
-	@After
+/*	@After
 	public void teardown(){
 		managePage.closeDriver();
-	}
+	}*/
 	
 	@Given("^I am inside the Manage Batch page$")
 	public void i_am_inside_the_Manage_Batch_page() throws Throwable {
