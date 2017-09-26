@@ -406,17 +406,20 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void openCreateBatchModal() throws InterruptedException{
-		driver.findElement(By.id("createBatchTab"));
-		Thread.sleep(500);
+		driver.findElement(By.id("createBatchTab")).click();
+		Thread.sleep(1000);
 		driver.switchTo().activeElement();
 	}
 	
 	/**
 	 * Sends a string to the Training Name field, this is required
 	 * @param trainingName
+	 * @throws InterruptedException 
 	 */
-	public void editTrainingNameField(String trainingName){
+	public void editTrainingNameField(String trainingName) throws InterruptedException{
+		Thread.sleep(500);
 		WebElement trainingNameField = driver.findElement(By.id("trainingName"));
+		trainingNameField.click();
 		trainingNameField.clear();										
 		trainingNameField.sendKeys(trainingName);
 	}
