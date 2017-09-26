@@ -34,7 +34,7 @@ public class EditTraineesFeature {
 	@Given("^on the Manage Batch page,$")
 	public void on_the_Manage_Batch_page() throws Throwable {
 	    manageBatchPage.gotoManagePage();
-	    manageBatchPage.verifyPage("vp/manage");
+	    manageBatchPage.verifyPage("manage");
 	}
 
 	@Given("^I have clicked on the person icon corresponding to a batch,$")
