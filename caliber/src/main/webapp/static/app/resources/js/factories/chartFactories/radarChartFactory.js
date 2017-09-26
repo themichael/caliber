@@ -43,12 +43,14 @@ angular
 									pointHoverBackgroundColor : 'rgba(' + colorEnum.value[enumValue].r+',' +colorEnum.value[enumValue].g+',' +colorEnum.value[enumValue].b+', .3)',
 									pointHoverBorderColor : 'rgba(' + colorEnum.value[enumValue].r+',' +colorEnum.value[enumValue].g+',' +colorEnum.value[enumValue].b+', .3)',
 									pointBorderColor : '#fff',
-									fill : enumValue===1 ?true :false  
+									fill : false  
 								}
 								//Push our newly defined color to the array
 								colors.push(newColor);
 								}
 						}
+					//set the first color(Batch color) to be filled.
+					colors[0].fill = true;
 		
 					var radarOptions = {
 							legend : {
