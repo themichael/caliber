@@ -53,7 +53,7 @@ public class AssessBatchPage{
 	}
 	
 	public void checkIfGradesWereInput(String traineeName, String grade){
-		assertEquals(driver.findElement(By.id(traineeName+"grade0")).getAttribute("ng-value"), grade);
+		assertEquals(driver.findElement(By.id(traineeName+"grade0")).getAttribute("value"), grade);
 	}
 	
 	public void clickNewWeek() throws InterruptedException{
@@ -137,8 +137,9 @@ public class AssessBatchPage{
 	}
 	
 	public void closeDriver(){
-		driver.quit();
+		driver.close();
 	}
+	
 	
 	public boolean doesWeekTabExist(int weekNumber){
 		boolean exists;
