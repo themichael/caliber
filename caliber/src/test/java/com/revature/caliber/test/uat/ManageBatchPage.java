@@ -250,10 +250,17 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Still need to implement
+	 * Takes in a string status and matches it to one of the options
+	 * from the edit/update modal training status box menu. If the string
+	 * passed in doesn't exist in the menu, the function does not work 
+	 * properly.
+	 * @param status
+	 * @throws InterruptedException
 	 */
-	public void editTrainingStatusField(){
-		WebElement trainingStatus = driver.findElement(By.id("traineeStatus"));
+	public void editTrainingStatusField(String status) throws InterruptedException{
+		Select trainingStatus = new Select(driver.findElement(By.id("traineeStatus")));
+		Thread.sleep(125);
+		trainingStatus.selectByVisibleText(status);
 	}
 	
 	/**
@@ -628,6 +635,28 @@ public class ManageBatchPage{
 	 */
 	public void verifyRequiredInputField(){
 		driver.findElement(By.cssSelector("input:required"));
+	}
+	
+	/**
+	 * Returns true if the batch was created. Takes in a string
+	 * batchName and looks on the page to see if that batch exists
+	 * on the page.
+	 * @param batchName
+	 * @return
+	 */
+	public boolean newBatchCreated(String batchName){
+		return driver.findElement(By.id(batchName)).isDisplayed();
+	}
+	
+	/**
+	 * Returns true if the trainee passed in exists on the page.
+	 * The function takes a String traineeName in and checks to
+	 * see if on the view trainee modal if the trainee is there.
+	 * @param traineeName
+	 * @return
+	 */
+	public boolean newTraineeAdded(String traineeName){
+		return driver.findElement(By.id(traineeName)).isDisplayed();
 	}
 	
 	/**
