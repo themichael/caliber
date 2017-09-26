@@ -14,11 +14,11 @@ public class QualityAuditPastWeekPerformance {
 		qaPage = new QualityAuditPage(setup.getDriver());
 	}
 	
-	@cucumber.api.java.After
+	/*@cucumber.api.java.After
 	public void teardown(){
 		qaPage.closeDriver();
 	}
-	
+	*/
 	@Given("^I have navigated to the quality audit page$")
 	public void iHaveNavigatedToTheQualityAuditPage() throws Throwable {
 	   qaPage.goToPage();

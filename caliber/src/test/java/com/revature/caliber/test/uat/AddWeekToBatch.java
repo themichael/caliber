@@ -22,10 +22,10 @@ public class AddWeekToBatch {
 		assessBatchPage = new AssessBatchPage(setup.getDriver());
 	}
 	
-	@After
+/*	@After
 	public void teardown(){
 		assessBatchPage.closeDriver();
-	}
+	}*/
 	
 	@Given("^I am on Assess Batch page$")
 	public void i_am_on_Assess_Batch_page() throws Throwable {
