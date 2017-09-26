@@ -104,6 +104,6 @@ public class UpdateBatchFeature {
 	@Then("^I am back on the Manage Batch Page$")
 	public void iAmBackOnTheManageBatchPage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		managePage.verifyPage("vp/manage");
+		managePage.verifyPage("manage");
 	}
 }
