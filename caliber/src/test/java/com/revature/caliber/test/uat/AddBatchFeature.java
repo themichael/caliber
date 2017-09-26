@@ -105,7 +105,7 @@ public class AddBatchFeature {
 	@Then("^the \"([^\"]*)\" Batch appears$")
 	public void the_Batch_appears(String arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		managePage.newBatchCreated(arg1);
+		managePage.checkIfBatchExitst(arg1);
 	}
 
 }
