@@ -1,7 +1,6 @@
 package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +15,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Quits the current Driver
+	 * Quits the current Driver.
 	 */
 	public void closeDriver(){
 		driver.quit();
@@ -30,40 +29,61 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks the Year dropdown and selects 2017 as the year
+	 * Verifies the page using assertEquals
 	 */
-	public void clickYearDropdown(){
-		//opens year dropdown
-		driver.findElement(By.id("yearDropDownButton")).click();
-		//clicks on '2017' from the unhidden menu
-		driver.findElement(By.id("2017")).click();
+	public void verifyPage(){
+		assertEquals("http://localhost:8080/caliber/#/vp/audit", driver.getCurrentUrl());
 	}
 	
-	public void verifyYear(){
+	/**
+	 * Clicks the Year dropdown and selects the year inputed for the year.
+	 * @param year to select (2016-2018)
+	 */
+	public void clickYearDropdown(String year){
+		//opens year dropdown
+		driver.findElement(By.id("yearDropDownButton"))
+			.click();
+		//clicks on '2017' from the unhidden menu
+		driver.findElement(By.id(year))
+			.click();
+	}
+	
+	/**
+	 * Checks that the year is the same as the inputed year.
+	 * @param checkYear year to check
+	 */
+	public void verifyYear(String checkYear){
 		String year = driver.findElement(By.id("yearDropDownButton"))
 				.getText();
-		assertEquals("2017", year);
+		assertEquals(checkYear, year);
 	}
 	
 	
 	/**
-	 * Clicks on the Batch dropdown and selects Patrick Walsh - 2/14/17 from the batch by year dropdown, which is the first element
+	 * Clicks on the Batch dropdown and selects the batchID inputed from the batch dropdown.
+	 * @param batchID batch to select (follows "[trainerName] - [date]" format)
 	 */
-	public void clickBatch(){
+	public void clickBatch(String batchID){
 		//click on batch
-		driver.findElement(By.id("batchDropDown")).click();
+		driver.findElement(By.id("batchDropDown"))
+			.click();
 		//click on 'Patrick Walsh - 2/14/17' from the unhidden menu
-		driver.findElement(By.id("Patrick Walsh - 2/14/17")).click();
-	}
-	
-	public void verifyBatch(){
-		String batch = driver.findElement(By.xpath("/html/body/div[1]/ui-view/ui-view/div[1]/div[1]/div/div[1]/ul[1]/li[2]/a"))
-				.getText();
-		assertEquals("Patrick Walsh - 2/14/17" , batch);
+		driver.findElement(By.id(batchID))
+			.click();
 	}
 	
 	/**
-	 * Select the week for the assessment from the tab bar, webpage always loads on the last created week
+	 * Verifies the current batch selected against the input.
+	 * @param checkBatch batch to check against (follows "[trainerName] - [date]" format)
+	 */
+	public void verifyBatch(String checkBatch){
+		String batch = driver.findElement(By.id("batchDropDown"))
+				.getText();
+		assertEquals(checkBatch , batch);
+	}
+	
+	/**
+	 * Select the week for the assessment from the tab bar, webpage always loads on the last created week.
 	 * @param week as an int from 1
 	 */
 	public void clickWeeksForBatch(int week){
@@ -73,12 +93,12 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Verifies the current week selected on the week tab by checking which tab is currently selected.
+	 * Verifies the current week selected on the week tab.
 	 * Checks if the class of the parent is active.
+	 * @param checkWeek as the week to check (format as weekX where X is the number, no space between them at all)
 	 */
-	public void verifyWeekForBatch(){
+	public void verifyWeekForBatch(String checkWeek){
 		String weekTab;
-		boolean	selected;
 		int week = 1;
 		// Loop constructed on the premise that weeks don't go over 9
 		for(; week <=9; week++){
@@ -86,29 +106,30 @@ public class QualityAuditPage {
 			WebElement parent = child.findElement(By.xpath(".."));
 			weekTab = parent.getAttribute("class");
 			if(weekTab.equals("active")){
-				selected = true;
 				break;
 			}
 		}
-		assertTrue(selected = true);
+		assertEquals(checkWeek, "week"+week);
 		
 	}
 	
 	/**
-	 * Select the add week button at the end of the week tab
+	 * Select the add week button at the end of the week tab.
 	 * @throws InterruptedException 
 	 */
 	public void clickAddWeeksForBatchButton() throws InterruptedException{
-		driver.findElement(By.id("addWeekButton")).click();
+		driver.findElement(By.id("addWeekButton"))
+			.click();
 		// wait for alert
 		Thread.sleep(500);
-		driver.switchTo().activeElement().findElement(By.id("noBtn")).click(); //currently clicking no
+		driver.switchTo().activeElement().findElement(By.id("noBtn"))
+			.click(); //currently clicking no
 		//wait for alert to dissipate
 		Thread.sleep(500);
 	}
 	
 	/**
-	 * Clicks the individual feedback button next to the trainee once. Clicks cycle through good, average, poor, and superstar
+	 * Clicks the individual feedback button next to the trainee once. Clicks cycle through good, average, poor, and superstar.
 	 */
 	public void clickIndividualFeedbackButton(){
 		String[] qcBtns = { "questionBtn", "starBtn", "goodBtn", "fairBtn", "poorBtn"};
@@ -117,7 +138,8 @@ public class QualityAuditPage {
 		boolean isAvailable;
 		int step = 0;
 		for(; step<=4; step++){
-			isAvailable = driver.findElement(By.id("indvFeedback-"+ qcBtns[step] + "-0" )).isDisplayed();
+			isAvailable = driver.findElement(By.id("indvFeedback-"+ qcBtns[step] + "-0" ))
+					.isDisplayed();
 			if(isAvailable)
 				break;
 		}
@@ -126,7 +148,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Fills trainee note text area with the passed string
+	 * Fills trainee note text area with the passed string.
 	 * @param notes 
 	 */
 	public void setNoteOnTraineeTextArea(String notes){
@@ -138,7 +160,7 @@ public class QualityAuditPage {
 	/**
 	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty.
 	 * Contains a wait to hold the thread until the text area is populated. Will fail if method finds the text area
-	 * before any content has been loaded
+	 * before any content has been loaded.
 	 * @throws InterruptedException 
 	 */
 	public void verifyTraineeNotes() throws InterruptedException{
@@ -150,7 +172,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks on the Good QC feedback button at the bottom of the QA Page
+	 * Clicks on the Good QC feedback button at the bottom of the QA Page.
 	 */
 	public void clickOverallFeedbackQCButtonGood(){
 		driver.findElement(By.id("good-QCButton"))
@@ -158,7 +180,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks on the Average QC feedback button at the bottom of the QA Page
+	 * Clicks on the Average QC feedback button at the bottom of the QA Page.
 	 */
 	public void clickOverallFeedbackQCButtonAvg(){
 		driver.findElement(By.id("fair-QCButton"))
@@ -166,7 +188,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks on the Poor QC feedback button at the bottom of the QA Page
+	 * Clicks on the Poor QC feedback button at the bottom of the QA Page.
 	 */
 	public void clickOverallFeedbackQCButtonPoor(){
 		driver.findElement(By.id("poor-QCButton"))
@@ -174,7 +196,7 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Fills the QC feedback text area with text
+	 * Fills the QC feedback text area with text with the passed string.
 	 * @param notes
 	 */
 	public void setOverallFeedbackQCNotes(String notes){
@@ -184,9 +206,9 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty
+	 * Checks that the text area is not empty by checking if the class of the div contains ng-not-empty.
 	 * Contains a wait to hold the thread until the text area is populated. Will fail if method finds the text area
-	 * before any content has been loaded
+	 * before any content has been loaded.
 	 * @throws InterruptedException 
 	 */
 	public void verifyQCNotes() throws InterruptedException{
@@ -198,10 +220,10 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Clicks the save button at the bottom of the page
+	 * Clicks the save button at the bottom of the page.
 	 */
 	public void clickSaveButton(){
-		driver.findElement(By.xpath("/html/body/div/ui-view/ui-view/div[1]/div[2]/div[2]/div/div/a"))
+		driver.findElement(By.id("saveButton"))
 			.click();
 	}
 }

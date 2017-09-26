@@ -22,12 +22,12 @@ Feature: Creating a new location
     Examples: 
       | company name | address               | city          | state    | zipcode |
       | "Opine"      | "11318 Bellflower Rd" | "Kansas City" | "Kansas" | "11345" |
-      | ""           | "11330 Bellfield Rd"  | "Akron"       | "Ohio"   | "44330" |
+      |              | "11330 Bellfield Rd"  | "Akron"       | "Ohio"   | "44330" |
 
   # Negative
   Scenario: Cancel adding location by X
     And I enter "STEM" as the Company Name
-    And I click on the X button
+    And I choose the X button
     Then I cancel making a new location
 
   # Negative

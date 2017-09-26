@@ -43,7 +43,7 @@
 						class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a role="button" ng-click="selectCurrentWeek('(All)')" id="">All</a></li>
+						<li><a role="button" ng-click="selectCurrentWeek('(All)')" id="week All">All</a></li>
 						<li ng-repeat="week in currentBatchWeeks"><a role="button"
 							ng-click="selectCurrentWeek(week)" id="week {{week}}">Week {{week}}</a></li>
 					</ul></li>
@@ -53,7 +53,7 @@
 					ng-show="hideOtherTabs()" data-toggle="dropdown" id="reportTrainer">{{currentTrainee.name}}<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a role="button" ng-click="selectCurrentTrainee(-1)" >All</a></li>
+						<li><a role="button" ng-click="selectCurrentTrainee(-1)" id="trainee All">All</a></li>
 						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
 							role="button" ng-click="selectCurrentTrainee($index)" id="{{trainee.name}}">{{trainee.name}}</a></li>
 					</ul></li>
@@ -549,7 +549,7 @@
 					aria-label="Close" id="traineeComparisonCloseX">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">Trainee Comparison</h4>
+				<h4 class="modal-title" >Trainee Comparison</h4>
 			</div>
 			<div class="modal-body">
 				<div class="table-responsive">

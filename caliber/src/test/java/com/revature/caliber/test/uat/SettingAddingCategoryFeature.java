@@ -1,4 +1,4 @@
-package com.revature.caliber.test.uat;
+/*package com.revature.caliber.test.uat;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,34 +20,29 @@ public class SettingAddingCategoryFeature {
 
 	@cucumber.api.java.Before
 	public void setup() {
-		ChromeDriverSetup setup = new ChromeDriverSetup();
-		settingCategoryPage = new SettingCategoryPage(setup.getDriver());
+		ChromeDriverSetup driver = new ChromeDriverSetup();
+		settingCategoryPage = new SettingCategoryPage(driver.getDriver());
 	}
 
-//	@cucumber.api.java.After
-//	public void teardown() {
-//		settingCategoryPage.closeDriver();
-//	}
-	
 	@Given("^I am on the Settings Category page$")
-	public void i_am_on_the_Settings_Category_page() {
-		settingCategoryPage.gotoSettingCategoryPage();
-		settingCategoryPage.verifyCategoryPage();
+	public void i_am_on_the_Settings_Category_page() throws InterruptedException {
+//		settingCategoryPage.gotoSettingCategoryPage();
+//		settingCategoryPage.verifyCategoryPage();
 	}
 
 	@When("^I click on the Create button$")
 	public void i_click_on_the_Create_button() throws Throwable {
-		settingCategoryPage.clickCreateCategoryBtn();
+//		settingCategoryPage.clickCreateCategoryBtn();
 	}
 
 	@When("^I input \"([^\"]*)\" as a category$")
-	public void i_input_as_a_category(String name) {
-		settingCategoryPage.inputCategoryName(name);
+	public void i_input_as_a_category(String categoryName) throws InterruptedException {
+//		settingCategoryPage.inputCategoryName(categoryName);
 	}
 	
 	@When("^I click on the Submit button$")
 	public void i_click_on_the_Submit_button() throws Throwable {
-		settingCategoryPage.clickCategorySaveBtn();
+//		settingCategoryPage.clickCategorySaveBtn();
 	}
 
 	@Then("^I should get a new category on the page$")
@@ -67,14 +62,14 @@ public class SettingAddingCategoryFeature {
 
 	@When("^I click on the Cancel button$")
 	public void i_click_on_the_Cancel_button() throws Throwable {
-		settingCategoryPage.closeCategoryWithCloseButton();
+//		settingCategoryPage.closeCategoryWithCloseButton();
 	}
 
 	@Then("^I am back on the Settings Category page$")
 	public void i_am_back_on_the_Settings_Category_page() throws Throwable {
-		settingCategoryPage.closeCategoryWithCloseButton();
+//		settingCategoryPage.closeCategoryWithCloseButton();
 	}
-/*
+
 	@Given("^I am on the Settings Category page$")
 	public void i_am_on_the_Settings_Category_page() {
 		settingCategoryPage.gotoSettingCategoryPage();
@@ -95,5 +90,6 @@ public class SettingAddingCategoryFeature {
 	public void i_should_get_a_new_category_on_the_page() {
 		settingCategoryPage.clickCategorySaveBtn();
 	}
-*/
+
 }
+*/

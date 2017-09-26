@@ -1,22 +1,10 @@
 package com.revature.caliber.test.uat;
 
-import static org.junit.Assert.*;
-
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class QualityAuditBatchPerformanceFeature {
-
-	public static WebDriver driver;
 
 	public QualityAuditPage qaPage;
 	
@@ -26,32 +14,28 @@ public class QualityAuditBatchPerformanceFeature {
 		qaPage = new QualityAuditPage(setup.getDriver());
 	}
 	
-//	@cucumber.api.java.After
-//	public void teardown(){
-//		qaPage.closeDriver();
-//	}
 	
 	@Given("^I am on the Quality Audit page$")
 	public void iAmOnTheQualityAuditPage() throws Throwable {
 	    qaPage.goToPage();
-	    assertEquals("http://localhost:8080/caliber/#/vp/audit", driver.getCurrentUrl());
+	    qaPage.verifyPage();
 	}
 
 	@Given("^I have selected the current year$")
 	public void iHaveSelectedTheCurrentYear() throws Throwable {
-	    qaPage.clickYearDropdown();
-	    qaPage.verifyYear();
+	    qaPage.clickYearDropdown("2017");
+	    qaPage.verifyYear("2017");
 	}
 
 	@Given("^I have selected a Batch$")
 	public void iHaveSelectedABatch() throws Throwable {
-	    qaPage.clickBatch();
-	    qaPage.verifyBatch();
+	    qaPage.clickBatch("Patrick Walsh - 2/14/17");
+	    qaPage.verifyBatch("Patrick Walsh - 2/14/17");
 	}
 
 	@Given("^I am viewing the most recent week$")
 	public void iAmViewingTheMostRecentWeek() throws Throwable {
-	    qaPage.verifyWeekForBatch();
+	    qaPage.verifyWeekForBatch("week8");
 	}
 	
 	@Given("^I click on an overall batch feedback button$")

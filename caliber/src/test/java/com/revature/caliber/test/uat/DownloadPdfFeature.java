@@ -36,7 +36,6 @@ import cucumber.api.java.en.When;
 
 public class DownloadPdfFeature {
 
-	private WebDriver driver;
 	private ReportsPage reportsPage;
 
 	@Before // each scenario
