@@ -357,10 +357,6 @@ public class TrainingAPITest extends AbstractAPITest {
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
 				.put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
 		
-		location.setState("NY");
-		log.info("API Testing updateLocation at baseUrl " + baseUrl);
-		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
-				.put(baseUrl + updateLocationTest).then().assertThat().statusCode(204);
 	}
 
 	/**

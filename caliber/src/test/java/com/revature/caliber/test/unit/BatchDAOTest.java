@@ -1,8 +1,6 @@
 package com.revature.caliber.test.unit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.time.Instant;
 import java.time.Period;
@@ -23,70 +21,75 @@ import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.BatchDAO;
 
 public class BatchDAOTest extends CaliberTest {
-	
+
 	private static final Logger log = Logger.getLogger(BatchDAOTest.class);
-	
+
 	@Autowired
 	private BatchDAO batchDAO;
-	
+
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
 	}
 
 	/**
 	 * Tests methods:
+	 * 
 	 * @see com.revature.caliber.data.BatchDAO#findAllCurrent(trainerId)
 	 */
 	@Test
-	public void findAllCurrentIntTest(){
+	public void findAllCurrentIntTest() {
 		log.info("Testing the BatchDAO.findAllCurrent(trainerId)");
 		List<Batch> batches = batchDAO.findAllCurrent(1);
-		int expected = 4 ; //only 4 current batches with trainerId: 1
-		int actual = batches.size();
-		assertEquals(expected, actual);
-	}
-	
-	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithNotes()
-	 */
-	@Test
-	public void findAllCurrentWithNotesTest(){
-		log.info("Testing the BatchDAO.findAllCurrentWithNotesTest()");
-		List<Batch> batches = batchDAO.findAllCurrentWithNotes();
-		int expected = 1; //only one current batch has notes
-		int actual = batches.size();
-		assertEquals(expected, actual);
-	}
-	
-	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithNotesAndTrainees()
-	 */
-	@Test
-	public void findAllCurrentWithNotesAndTraineesTest(){
-		log.info("Testing the BatchDAO.findAllCurrentWithNotesAndTrainees()");
-		List<Batch> batches = batchDAO.findAllCurrentWithNotesAndTrainees();
-		int expected = 1; //Only one current batch has notes and trainees
-		int actual = batches.size();
-		assertEquals(expected, actual);
-	}
-	
-	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithTrainees()
-	 */
-	@Test
-	public void findAllCurrentWithTraineesTest(){
-		log.info("Testing the BatchDAO.findAllCurrentWithTrainees()");
-		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();
-		int expected = 3;  //All current batches have trainees
+		int expected = 3; // only 3 current batches with trainerId: 1
 		int actual = batches.size();
 		assertEquals(expected, actual);
 	}
 
 	/**
 	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithNotes()
+	 */
+	@Test
+	public void findAllCurrentWithNotesTest() {
+		log.info("Testing the BatchDAO.findAllCurrentWithNotesTest()");
+		List<Batch> batches = batchDAO.findAllCurrentWithNotes();
+		int expected = 1; // only one current batch has notes
+		int actual = batches.size();
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithNotesAndTrainees()
+	 */
+	@Test
+	public void findAllCurrentWithNotesAndTraineesTest() {
+		log.info("Testing the BatchDAO.findAllCurrentWithNotesAndTrainees()");
+		List<Batch> batches = batchDAO.findAllCurrentWithNotesAndTrainees();
+		int expected = 1; // Only one current batch has notes and trainees
+		int actual = batches.size();
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithTrainees()
+	 */
+	@Test
+	public void findAllCurrentWithTraineesTest() {
+		log.info("Testing the BatchDAO.findAllCurrentWithTrainees()");
+		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();
+		int expected = 3; // All current batches have trainees
+		int actual = batches.size();
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Tests methods:
+	 * 
 	 * @see com.revature.caliber.data.BatchDAO#findAll()
 	 */
 	@Test
@@ -100,7 +103,9 @@ public class BatchDAOTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
+	 * 
 	 * @see com.revature.caliber.data.BatchDAO#findAllAfterDate()
+	 * 
 	 */
 	@Test
 	public void findAllAfterDateTest() {
@@ -109,14 +114,15 @@ public class BatchDAOTest extends CaliberTest {
 		// find how many after a specific date
 		int expect = 5;
 		int actual = batchDAO.findAllAfterDate(1, 1, 2017).size();
-		log.info( batchDAO.findAllAfterDate(1, 1, 2017));
+		log.info(batchDAO.findAllAfterDate(1, 1, 2017));
 		assertEquals(expect, actual);
 
 		// negative test
 		String sql = "SELECT START_DATE FROM CALIBER_BATCH WHERE START_DATE >= '2017-01-01'";
 		expect = jdbcTemplate.queryForList(sql).size();
 		actual = batchDAO.findAllAfterDate(Integer.MAX_VALUE, 1, 2017).size();
-		//If SQL statement found at least 1 batch start date they should not equal. Otherwise they both should be equal
+		// If SQL statement found at least 1 batch start date they should not
+		// equal. Otherwise they both should be equal
 		if (expect > 0) {
 			assertNotEquals(expect, actual);
 		} else {
@@ -126,112 +132,163 @@ public class BatchDAOTest extends CaliberTest {
 
 	/**
 	 * Tests methods:
-	 * @see com.revature.caliber.data.BatchDAO#findAllByTrainer()
+	 * 
+	 * @see com.revature.caliber.data.BatchDAO#findAllByTrainer() Returns
+	 *      batches with specified trainer and co-trainer without dropped
+	 *      trainees
 	 */
 	@Test
 	public void findAllByTrainerTest() {
 		log.info("Testing the BatchDAO.findAllByTrainerTest()");
-		//positive testing
+		// positive testing
 		String sql = "SELECT TRAINER_ID FROM CALIBER_TRAINER WHERE ROWNUM = 1";
 		Integer trainerId = jdbcTemplate.queryForObject(sql, Integer.class);
 		sql = "SELECT * FROM CALIBER_BATCH WHERE TRAINER_ID = " + trainerId + " OR CO_TRAINER_ID = " + trainerId;
 		int expect = jdbcTemplate.queryForList(sql).size();
-		int actual = batchDAO.findAllByTrainer(trainerId).size();
+		List<Batch> batches = batchDAO.findAllByTrainer(trainerId);
+		int actual = batches.size();
+		assertEquals(expect, actual);
+
+		// Make sure dropped trainees are not included
+		// Testing against batch 2150 with trainer Patrick Walsh
+		expect = 13;
+		for (int i = 0; i < batches.size(); i++) {
+			if (batches.get(i).getBatchId() == 2150) {
+				actual = batches.get(i).getTrainees().size();
+				break;
+			}
+		}
+		assertEquals(expect, actual);
+
+		// negative testings
+		trainerId = Integer.MIN_VALUE;
+		expect = 0;
+		actual = batchDAO.findAllByTrainer(trainerId).size();
 		assertEquals(expect, actual);
 	}
 
 	/**
 	 * Tests methods:
-	 * @see com.revature.caliber.data.BatchDAO#findAllCurrent()
+	 * 
+	 * @see com.revature.caliber.data.BatchDAO#findAllCurrent() The BatchDAO
+	 *      findAllCurrent takes into account 30 days before the current date.
+	 *      It also removes dropped trainees from the batches returned
 	 */
 	@Test
 	public void findAllCurrentTest() {
 		log.info("Testing the BatchDAO.findAllCurrentTest()");
-		//This allows for 1 month flexibility. This was needed because in BatchDao, the query takes into account 1 month ago as 'current'
-		int endDateLimit = 30; 
-		String sql = "SELECT * FROM CALIBER_BATCH WHERE END_DATE+" + endDateLimit+" >= TO_DATE(SYSDATE,'YYYY/MM/DD') AND START_DATE <= TO_DATE(SYSDATE,'YYYY/MM/DD');";
+		// This allows for 1 month flexibility. This was needed because in
+		// BatchDao, the query takes into account 1 month ago as 'current'
+		int endDateLimit = 30;
+		String sql = "SELECT * FROM CALIBER_BATCH WHERE END_DATE+" + endDateLimit
+				+ " >= TO_DATE(SYSDATE,'YYYY/MM/DD') AND START_DATE <= TO_DATE(SYSDATE,'YYYY/MM/DD');";
 		int expect = jdbcTemplate.queryForList(sql).size();
-		int actual = batchDAO.findAllCurrent().size();
+		List<Batch> batches = batchDAO.findAllCurrent();
+		int actual = batches.size();
+		assertEquals(expect, actual);
+
+		// Test to make sure it does not count dropped trainees
+		// Testing batch id 2201 because it has 4 dropped from 20
+		expect = 16;
+		for (int i = 0; i < batches.size(); i++) {
+			if (batches.get(i).getBatchId() == 2201) {
+				actual = batches.get(i).getTrainees().size();
+				break;
+			}
+		}
 		assertEquals(expect, actual);
 	}
+
 	/**
 	 * Tests methods:
+	 * 
 	 * @see com.revature.caliber.data.BatchDAO.findOne(Integer batchId)
 	 */
 	@Test
-	public void findOneTest(){
+	public void findOneTest() {
 		log.info("Testing method BatchDAO.findOne(Integer batchId)");
 		int expected = 2050;
 		int actual = batchDAO.findOne(expected).getBatchId();
 		assertEquals(expected, actual);
 	}
+
 	/**
 	 * Tests methods:
-	 * @see com.revature.caliber.data.BatchDAO.findOneWithDroppedTrainees(Integer batchId)
-	 * Finds from a batch with known dropped trainees, upon finding a single trainee with
-	 * the TrainingStatus of Dropped, calls it good.
+	 * 
+	 * @see com.revature.caliber.data.BatchDAO.findOneWithDroppedTrainees(Integer
+	 *      batchId) Finds from a batch with known dropped trainees, upon
+	 *      finding a single trainee with the TrainingStatus of Dropped, calls
+	 *      it good.
 	 */
 	@Test
-	public void findOneWithDroppedTraineesTest(){
+	public void findOneWithDroppedTraineesTest() {
 		log.info("Testing method BatchDAO.findOneWithDroppedTrainees(Integer batchId)");
 		boolean success = false;
 		Set<Trainee> resultSet = batchDAO.findOneWithDroppedTrainees(2150).getTrainees();
-		for (Trainee resultSetTrainee : resultSet){
-			if (resultSetTrainee.getTrainingStatus() == TrainingStatus.Dropped){
+		for (Trainee resultSetTrainee : resultSet) {
+			if (resultSetTrainee.getTrainingStatus() == TrainingStatus.Dropped) {
 				success = true;
 				break;
 			}
 		}
 		assertTrue(success);
 	}
+
 	/**
 	 * Tests methods:
-	 * @see com.revature.caliber.data.BatchDAO.findOneWithTraineesAndGrades(Integer batchId)
+	 * 
+	 * @see com.revature.caliber.data.BatchDAO.findOneWithTraineesAndGrades(Integer
+	 *      batchId)
 	 */
 	@Test
-	public void findOneWithTraineesAndGradesTest(){
+	public void findOneWithTraineesAndGradesTest() {
 		log.info("Testing method BatchDAO.findOneWithTraineesAndGrades(Integer batchId)");
 		String expected = "1602 Feb08 Java";
 		String actual = batchDAO.findOneWithTraineesAndGrades(2050).getTrainingName();
 		assertEquals(expected, actual);
 		boolean success = true;
 		Set<Trainee> resultSet = batchDAO.findOneWithTraineesAndGrades(2050).getTrainees();
-		for (Trainee resultSetTrainee : resultSet){
-			if (resultSetTrainee.getTrainingStatus() == TrainingStatus.Dropped){
+		for (Trainee resultSetTrainee : resultSet) {
+			if (resultSetTrainee.getTrainingStatus() == TrainingStatus.Dropped) {
 				success = false;
 				break;
 			}
 		}
 		assertTrue(success);
 	}
+
 	/**
 	 * Tests methods:
+	 * 
 	 * @see com.revature.caliber.data.BatchDAO.update()
 	 */
 	@Test
-	public void updateTest(){
+	public void updateTest() {
 		log.info("Testing method BatchDAO.update(Batch batch)");
 		Batch testBatch = batchDAO.findOne(2050);
 		testBatch.setLocation("The basement");
 		batchDAO.update(testBatch);
 		Batch updatedTestBatch = batchDAO.findOne(2050);
-		assertEquals(updatedTestBatch.getLocation(),"The basement");
+		assertEquals(updatedTestBatch.getLocation(), "The basement");
 	}
+
 	/**
 	 * Tests methods:
+	 * 
 	 * @see com.revature.caliber.data.BatchDAO.save(Batch batch)
 	 */
 	@Test
-	public void saveTest(){
+	public void saveTest() {
 		log.info("Testing method BatchDAO.save(Batch batch)");
-		Trainer testTrainer = new Trainer("Sir. Test","Tester","test@test.test",TrainerRole.ROLE_TRAINER);
+		Trainer testTrainer = new Trainer("Sir. Test", "Tester", "test@test.test", TrainerRole.ROLE_TRAINER);
 		testTrainer.setTrainerId(2);
-		Batch testBatch = new Batch("Test Name",testTrainer, Date.from(Instant.now()),Date.from(Instant.now().plus(Period.ofDays(60))),"Test Location");
+		Batch testBatch = new Batch("Test Name", testTrainer, Date.from(Instant.now()),
+				Date.from(Instant.now().plus(Period.ofDays(60))), "Test Location");
 		batchDAO.save(testBatch);
 		List<Batch> resultSet = batchDAO.findAll();
 		boolean success = false;
-		for(Batch found: resultSet){
-			if("Test Location".equals(found.getLocation())){
+		for (Batch found : resultSet) {
+			if ("Test Location".equals(found.getLocation())) {
 				success = true;
 				break;
 			}

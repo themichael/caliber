@@ -449,14 +449,15 @@ public class ReportingServiceTest extends CaliberTest {
 	 * Tests methods:
 	 * 
 	 * @see com.revature.caliber.services.ReportingService#utilSeparateQCTraineeNotesByWeekTest()
-	 * 
-	 * 
+	 * This method tests by creating a batch with trainees with QC status for each week.
+	 * I will compare the amount of trainees who got a particular QC Status 
 	 */
 	@Test
 	public void utilSeparateQCTraineeNotesByWeekTest() {
 
 		log.info("Testing the ReportingService.utilSeperateQCTraineeNotesByWeek");
 
+		//These numbers come from createTestBatchWithQCNotes
 		int[] statusPoorCountPerWeek = { 0, 0, 0, 3, 0, 0, 0 };
 		int[] statusAverageCountPerWeek = { 3, 0, 0, 0, 3, 0, 0 };
 		int[] statusGoodCountPerWeek = { 0, 3, 0, 0, 0, 3, 0 };
