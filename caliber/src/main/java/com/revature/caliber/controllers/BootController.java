@@ -82,7 +82,7 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String homePage() throws IOException, URISyntaxException {
+	public String homePage() {
 		return INDEX;
 	}
 	
@@ -285,7 +285,7 @@ public class BootController extends AbstractSalesforceSecurityHelper implements 
 		log.debug("Forwarding to : " + redirectUrl);
 		String result = login(request, response, IOUtils.toString(httpResponse.getEntity().getContent()));
 		if(result.equals(INDEX)){
-			return REDIRECT + INDEX;
+			return REDIRECT + redirectUrl;
 		}else{
 			return REDIRECT + "/";
 		}
