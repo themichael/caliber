@@ -25,7 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
@@ -38,8 +38,8 @@ import com.revature.caliber.security.models.SalesforceUser;
 /**
  * The type Boot controller.
  */
+
 @Controller
-@SessionAttributes("token")
 public class BootController extends AbstractSalesforceSecurityHelper {
 
 	private static final Logger log = Logger.getLogger(BootController.class);
@@ -72,7 +72,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	 */
 	@RequestMapping(value = "/caliber")
 	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-			@ModelAttribute("salestoken") String salesTokenString, Model model) throws IOException, URISyntaxException {
+			@ModelAttribute("salestoken") String salesTokenString, Model model, SessionStatus status) throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
@@ -88,9 +88,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 		}
 		// get Salesforce token from cookie
 		try {
-			log.error("About to check for salesforce token");
+			log.debug("About to check for salesforce token");
 			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-			model.asMap().clear();
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
 			String email = salesforceUser.getEmail();
@@ -100,12 +99,16 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
+
+			status.setComplete();
 			return INDEX;
+
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
 			return "redirect:/";
 		}
 	}
+
 
 	/**
 	 * Retrieve the salesforce access_token from the forwarded request
@@ -115,12 +118,12 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	 * @throws IOException
 	 */
 	private SalesforceToken getSalesforceToken(String token) throws IOException {
-		log.error("Checking for the salesforce token");
+		log.debug("Checking for the salesforce token");
 		if (token != null) {
 			log.error("Parse salesforce token from forwarded request: " + token);
 			return new ObjectMapper().readValue(token, SalesforceToken.class);
 		}
-		log.error("failed to parse token from forwarded request: ");
+		log.debug("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
 

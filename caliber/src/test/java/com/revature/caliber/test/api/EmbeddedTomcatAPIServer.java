@@ -1,4 +1,4 @@
-package com.revature.caliber.test.unit;
+package com.revature.caliber.test.api;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -15,12 +15,12 @@ import org.springframework.context.annotation.ImportResource;
 @EnableAutoConfiguration
 //@ComponentScan("com.revature")
 @ImportResource(value={"integration-test.xml", "spring-security.xml"})
-public class Tomcat{
+public class EmbeddedTomcatAPIServer{
 
-	private static Log log = LogFactory.getLog(Tomcat.class);
+	private static Log log = LogFactory.getLog(EmbeddedTomcatAPIServer.class);
 	
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(Tomcat.class, args);
+		SpringApplication.run(EmbeddedTomcatAPIServer.class, args);
 	}
 	
 	@Bean

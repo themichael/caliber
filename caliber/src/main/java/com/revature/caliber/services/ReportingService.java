@@ -1,5 +1,5 @@
-
 package com.revature.caliber.services;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -116,16 +116,20 @@ public class ReportingService {
 
 	public Map<QCStatus, Integer> pieChartCurrentWeekQCStatus(Integer batchId) {
 		List<Batch> batch = batchDAO.findAllCurrentWithNotesAndTrainees();
-		Batch currentOne = batch.stream().filter(e -> e.getBatchId() == batchId).findFirst().get();
-		Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(currentOne);
-		for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
-			Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
-			if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-				return temp;
+		try {
+			Batch currentOne = batch.stream().filter(e -> e.getBatchId() == batchId).findFirst().get();
+			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(currentOne);
+			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
+				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
+				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
+					return temp;
+				}
 			}
+		} catch (Exception e) {
+			log.error("BATCH NOT FOUND");
+			log.error(e);
+			return new HashMap<>();
 		}
-		
-		//if there is no data, then return no data
 		return new HashMap<>();
 	}
 
@@ -143,8 +147,7 @@ public class ReportingService {
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-					batchData.put("label", b.getStartDate()+"..."+ // batch start date
-							b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' ')));
+					batchData.put("label", b.getTrainer().getName().split(" ")[0] +" "+ b.getStartDate());
 					batchData.put("address", b.getAddress());
 					batchData.put("qcStatus", temp);   // Batch ID
 					batchData.put("id", b.getBatchId()); //Actual batch id
@@ -420,8 +423,8 @@ public class ReportingService {
 			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 
-			batchObject.put("label", batch.getStartDate()+"..."+ //batch start date
-					batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' ')));
+			batchObject.put("label",
+					batch.getTrainer().getName().split(" ")[0] +" "+ batch.getStartDate());
 			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
 			batchObject.put("address", batch.getAddress());
 			results.add(batchObject);

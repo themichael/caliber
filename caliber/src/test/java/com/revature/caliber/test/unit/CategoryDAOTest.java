@@ -1,11 +1,9 @@
 package com.revature.caliber.test.unit;
 
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -21,20 +19,19 @@ public class CategoryDAOTest extends CaliberTest {
 	@Autowired
 	private CategoryDAO dao;
 
-	private static final String CATEGORY_COUNT = "select count(category_id) from caliber_category";
+	private static final String CATEGORY_COUNT = "select count(category_id) from caliber_category";							//Finds all categories, active and inactive.
+	private static final String ACTIVE_CATEGORY = "select count(category_id) from caliber_category WHERE IS_ACTIVE = 1;";	//Only finds categories that are active.
+	
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.data.CategoryDAO.findAll()
 	 */
 	@Test
 	public void findAll() {
-		List<Category> myValues = dao.findAll();
-		assertTrue("Test categories exist",  !myValues.isEmpty()); //changed from myValues.size() > 0
-		//For all members of the myValues List except the last one, ensure the id is less than the id that follows it.
-		for(int i = 0 ; i < (myValues.size() - 1); i++)
-		{
-			assertTrue("Test ordering by id, on id: " + i, myValues.get(i).getCategoryId() < myValues.get(i + 1).getCategoryId()); //extra parentheses around myValues.getCategoryId
-		}
+		log.info("Testing findAll method from CategoryDAO");
+		int expected = dao.findAll().size();
+		int actual = jdbcTemplate.queryForObject(CATEGORY_COUNT, Integer.class);
+		assertEquals(expected, actual);
 	}
 	/**
 	 * Tests methods:
@@ -42,17 +39,12 @@ public class CategoryDAOTest extends CaliberTest {
 	 * distinct from findAll in that it orders by Skill name rather than category ID.
 	 */
 	@Test
-	public void findAllCategories() {
-		List<Category> myValues = dao.findAllCategories();
-		assertNotNull("Test that something exists", myValues);
-		assertTrue("Test categories exist", !myValues.isEmpty());  // changed from myValues.size() > 0
-		//For all members of the myValues List except the last one, ensure the skill name is ordered correctly..
-				for(int i = 0 ; i < (myValues.size() - 1); i++)
-				{
-					String categoryOne = myValues.get(i).getSkillCategory();
-					String categoryTwo = myValues.get(i+1).getSkillCategory();
-					assertTrue("Test ordering by skill name, on name: " + categoryOne + " and " + categoryTwo, categoryOne.compareTo(categoryTwo) <= 0);
-				}
+	public void findAllActive() {
+		log.info("Testing findAllActive from CategoryDAO");
+		int expected = dao.findAllActive().size();
+		int actual = jdbcTemplate.queryForObject(ACTIVE_CATEGORY,Integer.class);
+		assertEquals(expected, actual);
+		
 	}
 	/**
 	 * Tests methods:
@@ -60,9 +52,11 @@ public class CategoryDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findOne() {
+		log.info("Testing findOne method from CategoryDAO");
 		Category myCat = dao.findOne(1);
 		assertNotNull(myCat);
-		assertTrue("Test that findOne returns a Category",  dao.findOne(1) instanceof Category);
+		assertTrue(dao.findOne(1) instanceof Category);
+		assertEquals(dao.findOne(1).toString(), "Java");
 	}
 	/**
 	 * Tests methods:
@@ -70,14 +64,11 @@ public class CategoryDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void update() {
-		log.info("UPDATE CATEGORY");
-		String skillName = "Totally new name that no one has used before";
-		Category myCat = dao.findAll().get(0);
-		assertNotEquals(skillName, myCat.getSkillCategory());
+		log.info("Testing update from CategoryDAO");
+		String skillName = "Revature Pro";
+		Category myCat = dao.findOne(1);
 		myCat.setSkillCategory(skillName);
 		dao.update(myCat);
-		//regrab updated category
-		myCat = dao.findAll().get(0);
 		assertEquals(skillName, myCat.getSkillCategory());
 	}
 	/**
@@ -86,8 +77,7 @@ public class CategoryDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void save() {
-		// positive testing only, no constraints to check
-		log.info("CREATE CATEGORY");
+		log.info("Testing save method from CategoryDAO");
 		Category newCat = new Category("Underwater Basket Weaving", false);
 		Long before = jdbcTemplate.queryForObject(CATEGORY_COUNT, Long.class);
 		dao.save(newCat);

@@ -35,12 +35,14 @@ public class BatchDAOTest extends CaliberTest {
 	 * Tests methods:
 	 * 
 	 * @see com.revature.caliber.data.BatchDAO#findAllCurrent(trainerId)
+	 * 
+	 * In the Setup.sql, there are only 3 batches with trainerId: 1
 	 */
 	@Test
 	public void findAllCurrentIntTest() {
 		log.info("Testing the BatchDAO.findAllCurrent(trainerId)");
 		List<Batch> batches = batchDAO.findAllCurrent(1);
-		int expected = 3; // only 3 current batches with trainerId: 1
+		int expected = 3; //only 3 current batches with trainerId: 1
 		int actual = batches.size();
 		assertEquals(expected, actual);
 	}
@@ -49,6 +51,8 @@ public class BatchDAOTest extends CaliberTest {
 	 * Tests methods:
 	 * 
 	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithNotes()
+	 * 
+	 * in setup.sql, there is only one batch with notes
 	 */
 	@Test
 	public void findAllCurrentWithNotesTest() {
@@ -63,6 +67,8 @@ public class BatchDAOTest extends CaliberTest {
 	 * Tests methods:
 	 * 
 	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithNotesAndTrainees()
+	 * 
+	 * Only one batch in the setpu.sql with notes
 	 */
 	@Test
 	public void findAllCurrentWithNotesAndTraineesTest() {
@@ -77,6 +83,8 @@ public class BatchDAOTest extends CaliberTest {
 	 * Tests methods:
 	 * 
 	 * @see com.revature.caliber.data.BatchDAO#findAllCurrentWithTrainees()
+	 * 
+	 * only three batches are current
 	 */
 	@Test
 	public void findAllCurrentWithTraineesTest() {
