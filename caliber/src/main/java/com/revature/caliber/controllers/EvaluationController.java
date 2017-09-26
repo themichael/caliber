@@ -199,7 +199,7 @@ public class EvaluationController {
 	@RequestMapping(value = "/qc/note/batch/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<Note> findQCBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
-		log.info("EVAL CONTROLLER"+FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
+		log.info(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
 		return new ResponseEntity<>(evaluationService.findQCBatchNotes(batchId, week), HttpStatus.OK);
 	}
 
