@@ -1,40 +1,53 @@
-//package com.revature.caliber.test.uat;
-//
-//import cucumber.api.PendingException;
-//import cucumber.api.java.en.Given;
-//import cucumber.api.java.en.Then;
-//import cucumber.api.java.en.When;
-//
-//public class AddWeekToBatch {
-//
-//	@Given("^I am on Assess Batch page$")
-//	public void iAmOnAssessBatchPage() throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@Given("^I have chose the year (\\d+) tab$")
-//	public void iHaveChoseTheYearTab(int year) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@Given("^I have chose \"([^\"]*)\" as Trainer$")
-//	public void iHaveChoseAsTrainer(String trainer) throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^I have clicked the Add button$")
-//	public void iHaveClickedTheAddButton() throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@Then("^A modal pops up to confirm the process$")
-//	public void aModalPopsUpToConfirmTheProcess() throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//	
-//}
+package com.revature.caliber.test.uat;
+
+import static org.junit.Assert.assertTrue;
+
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class AddWeekToBatch {
+
+	private AssessBatchPage assessBatchPage;
+	private int numberOfWeeks;
+	
+	@Before
+	public void setup(){
+		ChromeDriverSetup setup = new ChromeDriverSetup();
+		assessBatchPage = new AssessBatchPage(setup.getDriver());
+	}
+	
+	@Given("^I am on Assess Batch page$")
+	public void i_am_on_Assess_Batch_page() throws Throwable {
+	    assessBatchPage.goToPage();
+	    assessBatchPage.verifyAssessPage();
+	}
+
+	@Given("^I have chose the year (\\d+) tab$")
+	public void i_have_chose_the_year_tab(int arg1) throws Throwable {
+	    assessBatchPage.clickYear();
+	}
+
+	@Given("^I have chose \"([^\"]*)\" as Trainer$")
+	public void i_have_chose_as_Trainer(String trainerName) throws Throwable {
+	    assessBatchPage.selectTrainer(trainerName);
+	}
+
+	@Given("^I have clicked the add week button$")
+	public void i_have_clicked_the_add_week_button() throws Throwable {
+		numberOfWeeks = assessBatchPage.numberOfWeeks();
+	    assessBatchPage.clickNewWeek();
+	}
+
+	@When("^I have clicked yes on the modal$")
+	public void i_have_clicked_yes_on_the_modal() throws Throwable {
+	    assessBatchPage.newWeekConfirmButton();
+	}
+
+	@Then("^the new week appears on the page\\.$")
+	public void the_new_week_appears_on_the_page() throws Throwable {
+	    assertTrue(assessBatchPage.doesWeekTabExist(numberOfWeeks));
+	}
+
+}
