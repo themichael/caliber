@@ -115,7 +115,7 @@ public class AddTraineeToBatch {
 	@Then("^\"([^\"]*)\" has been added$")
 	public void has_been_added(String arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-	    managePage.newTraineeAdded(arg1);
+	    managePage.checkIfTraineeExists(arg1);
 	}
 
 }
