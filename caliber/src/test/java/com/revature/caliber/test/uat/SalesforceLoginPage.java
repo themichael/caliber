@@ -22,7 +22,7 @@ public class SalesforceLoginPage {
     public SalesforceLoginPage(WebDriver driver){
     	super();
         this.driver = (ChromeDriver)driver;
-        driver.get("http://localhost:8080/");
+        driver.get(System.getenv("CALIBER_API_SERVER"));
     }
 
     /**

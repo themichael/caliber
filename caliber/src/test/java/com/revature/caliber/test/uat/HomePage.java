@@ -21,7 +21,7 @@ public class HomePage {
 	 * using assertEquals and driver.getCurrentUrl()
 	 */
 	public void assertHomePage(){
-		assertEquals(driver.getCurrentUrl(), "http://localhost:8080/caliber#/vp/home");
+		assertEquals(driver.getCurrentUrl(), System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class HomePage {
 	 * @throws InterruptedException 
 	 */
 	public void goToPage(String page) throws InterruptedException{
-		driver.get("http://localhost:8080/caliber#/vp/home");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
 	}
 	
 	/**

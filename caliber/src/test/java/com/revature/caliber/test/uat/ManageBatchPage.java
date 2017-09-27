@@ -20,7 +20,7 @@ public class ManageBatchPage{
 	public ManageBatchPage(WebDriver driver) {
 	super();
 	this.driver = (ChromeDriver)driver;
-	this.driver.get("http://localhost:8080/caliber#/vp/manage");
+	this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/manage");
 	}
 
 	/**
@@ -28,21 +28,21 @@ public class ManageBatchPage{
 	 * correct page/the page you want to be on
 	 */
 	public void checkLoggedIn(){
-		driver.get("http://localhost:8080/caliber#/vp/home");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
 	}
 	
 	/**
 	 * Takes driver to the home page
 	 */
 	public void goToHome(){
-		driver.get("http://localhost:8080/caliber#/vp/home");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
 	}
 	
 	/**
 	 * Takes driver to the manage page
 	 */
 	public void gotoManagePage(){
-		driver.navigate().to("http://localhost:8080/caliber/#/vp/manage");	
+		driver.navigate().to(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/manage");	
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class ManageBatchPage{
 	 * @param page
 	 */
 	public void verifyPage(String page){
-		assertEquals(("http://localhost:8080/caliber/#/vp/"+page), 
+		assertEquals((System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/"+page), 
 				driver.getCurrentUrl());
 	}
 	

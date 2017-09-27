@@ -55,8 +55,8 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 	protected static RequestSpecification requestSpec;
 
 	protected static String baseUrl = System.getenv("CALIBER_API_SERVER");
-	private static String username = System.getenv("CALIBER_API_USERNAME");
-	private static String password = System.getenv("CALIBER_API_PASSWORD");
+	protected static String username = System.getenv("CALIBER_API_USERNAME");
+	protected static String password = System.getenv("CALIBER_API_PASSWORD");
 	private static String clientId = System.getenv("SALESFORCE_CLIENT_ID");
 	private static String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
 	private static String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";

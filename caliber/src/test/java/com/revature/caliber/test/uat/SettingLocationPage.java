@@ -30,7 +30,7 @@ public class SettingLocationPage {
 	public SettingLocationPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver) driver;
-		this.driver.get("http://localhost:8080/caliber#/vp/locations");
+		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/locations");
 	}
 
 	//Closing the driver
@@ -42,21 +42,21 @@ public class SettingLocationPage {
 	 * Go to the Locations page in caliber
 	 */
 	public void gotoSettingLocationPage() {
-		driver.get("http://localhost:8080/caliber/#/vp/locations");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/locations");
 	}
 	
 	/**
 	 * Go to the home page in Caliber
 	 */
 	public void goToHome() {
-		driver.get("http://localhost:8080/caliber#/vp/home");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
 	}
 
 	/**
 	 * Verify the user is on the Location page
 	 */
 	public void verifyLocationPage() {
-		assertEquals("http://localhost:8080/caliber/#/vp/locations", driver.getCurrentUrl());
+		assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/locations", driver.getCurrentUrl());
 	}
 
 	/**
