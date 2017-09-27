@@ -14,7 +14,7 @@ public class EditSettingCategoryPage {
 	public EditSettingCategoryPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver)driver;
-//		this.driver.get("http://localhost:8080/caliber/#/vp/category");
+		this.driver.get("http://localhost:8080/caliber/#/vp/category");
 	}
 	
 	/**

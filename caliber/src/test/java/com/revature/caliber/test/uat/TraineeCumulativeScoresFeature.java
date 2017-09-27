@@ -16,25 +16,24 @@ public class TraineeCumulativeScoresFeature {
 		reports = new ReportsPage(setup.getDriver());
 	}
 	
-	
-	@Given("^I have selected a specific batch$")
-	public void iHaveSelectedASpecificBatch() throws Throwable {
-	    
-	}
-
 	@Given("^I have not selected a Trainee$")
-	public void iHaveNotSelectedATrainee() throws Throwable {
-	    
+	public void i_have_not_selected_a_Trainee() throws Throwable {
+		//Ensuring that 'All Trainees' are selected which is by default
+		reports.clickTraineeDropdown();
+		reports.chooseTraineeReport("trainee All");
 	}
 
 	@Given("^I have not selected a Week$")
-	public void iHaveNotSelectedAWeek() throws Throwable {
-	    
+	public void i_have_not_selected_a_Week() throws Throwable {
+		//Ensuring that 'All Weeks' are selected which is by default
+		reports.clickWeekDropdown();
+		reports.chooseWeekReport("week All");
 	}
 
-	@When("^I view the cumulative scores table$")
-	public void iViewTheCumulativeScoresTable() throws Throwable {
-	    
+	@When("^I have selected \"([^\"]*)\" as a batch$")
+	public void i_have_selected_as_a_batch(String batch) throws Throwable {
+		reports.clickBatchDropdown();
+		reports.chooseBatch(batch);
 	}
 	
 	@Then("^I can see each trainee's scores and rankings from strongest to weakest$")

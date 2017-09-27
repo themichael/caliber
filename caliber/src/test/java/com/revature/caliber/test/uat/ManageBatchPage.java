@@ -20,7 +20,7 @@ public class ManageBatchPage{
 	public ManageBatchPage(WebDriver driver) {
 	super();
 	this.driver = (ChromeDriver)driver;
-//	this.driver.get("http://localhost:8080/caliber#/vp/manage");
+	this.driver.get("http://localhost:8080/caliber#/vp/manage");
 	}
 
 	/**

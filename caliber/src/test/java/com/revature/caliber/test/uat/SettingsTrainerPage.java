@@ -30,7 +30,7 @@ public class SettingsTrainerPage {
 	public SettingsTrainerPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver) driver;
-//		this.driver.get("http://localhost:8080/caliber#/vp/trainers");
+		this.driver.get("http://localhost:8080/caliber#/vp/trainers");
 	}
 
 	// Sends driver to the specified page
