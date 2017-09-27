@@ -171,8 +171,8 @@ public class AssessBatchPage {
 	 * 
 	 * @param feedback
 	 */
-	public void selectAssessementCategory(String feedback) {
-		Select dropdown = new Select(driver.findElement(By.id("category")));
+	public void selectCreateAssessementCategory(String feedback) {
+		Select dropdown = new Select(driver.findElement(By.id("createSelectAssessmentCategory")));
 		dropdown.selectByVisibleText(feedback);
 	}
 
@@ -200,8 +200,8 @@ public class AssessBatchPage {
 	 * 
 	 * @param feedback
 	 */
-	public void selectAssessmentType(String feedback) {
-		Select dropdown = new Select(driver.findElement(By.id("assessmentType")));
+	public void selectCreateAssessmentType(String feedback) {
+		Select dropdown = new Select(driver.findElement(By.id("createSelectAssessmentType")));
 		dropdown.selectByVisibleText(feedback);
 	}
 
