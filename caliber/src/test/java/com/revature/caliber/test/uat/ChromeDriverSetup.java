@@ -32,11 +32,6 @@ public class ChromeDriverSetup extends CaliberTest{
 		}
 	}
 	
-	@After
-	public void teardown(){
-		driver.close();
-	}
-	
 	public static WebDriver getDriver() {
 		return driver;
 	}
