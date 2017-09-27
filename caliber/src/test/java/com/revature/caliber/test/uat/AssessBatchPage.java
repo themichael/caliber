@@ -90,7 +90,7 @@ public class AssessBatchPage{
 	}
 
 	public void batchNotesCheck(String feedback){
-		assertEquals(feedback, driver.findElement(By.id("trainerBatchNote")).getText());
+		assertEquals(feedback, driver.findElement(By.id("trainerBatchNote")).getAttribute("value"));
 	}
 	
 	public void selectAssessementCategory(String feedback){

@@ -15,13 +15,13 @@ public class AddTraineeToBatch {
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
 	
-	@Given("^I am on the Manage Batch Page$")
+	/*@Given("^I am on the Manage Batch Page$")
 	public void i_am_on_the_Manage_Batch_Page() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 		managePage.gotoManagePage();
 		managePage.verifyPage("manage");
 	}
-
+*/
 	@Given("^I have clicked the Person Icon for a specific Batch$")
 	public void i_have_clicked_the_Person_Icon_for_a_specific_Batch() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
@@ -109,7 +109,7 @@ public class AddTraineeToBatch {
 	@When("^I click the Save Button in the add trainee modal$")
 	public void i_click_the_Save_Button_in_the_add_trainee_modal() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		managePage.clickUpdateAddTraineeModal();
+		managePage.clickAddTraineeModal();
 	}
 
 	@Then("^\"([^\"]*)\" has been added$")

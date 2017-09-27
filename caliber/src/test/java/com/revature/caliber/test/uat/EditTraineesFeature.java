@@ -55,7 +55,7 @@ public class EditTraineesFeature {
 	@When("^I click the update button$")
 	public void i_click_the_update_button() throws Throwable {
 		//manageBatchPage.gotoManagePage();
-		manageBatchPage.clickUpdateAddTraineeModal();
+		manageBatchPage.clickUpdateTraineeModal();
 	}
 
 	@Then("^the trainees information will be changed and saved into the db\\.$")
@@ -70,7 +70,7 @@ public class EditTraineesFeature {
 
 	@When("^I click on the update button$")
 	public void i_click_on_the_update_button() throws Throwable {
-	    manageBatchPage.clickUpdateAddTraineeModal();
+	    manageBatchPage.clickUpdateTraineeModal();
 	}
 
 	@Then("^I should get an error stating the email address I input is invalid\\.$")
@@ -97,7 +97,7 @@ public class EditTraineesFeature {
 
 	@When("^I press the update button$")
 	public void i_press_the_update_button() throws Throwable {
-	    manageBatchPage.clickUpdateAddTraineeModal();
+	    manageBatchPage.clickUpdateTraineeModal();
 	}
 
 	@Then("^I should get an error asking me to fill out this field\\.$")
@@ -113,7 +113,7 @@ public class EditTraineesFeature {
 
 	@When("^I go and click the update button$")
 	public void i_go_and_click_the_update_button() throws Throwable {
-	    manageBatchPage.clickUpdateAddTraineeModal();
+	    manageBatchPage.clickUpdateTraineeModal();
 	}
 
 	@Then("^I should get an error stating the field cannot be blank\\.$")

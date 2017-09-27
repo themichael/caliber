@@ -43,7 +43,10 @@ public class GradeTraineeFeature extends ChromeDriverSetup{
 	}
 
 	@Then("^the grades \"([^\"]*)\" for \"([^\"]*)\" are recorded$")
-	public void theGradesAreRecorded(String grade, String traineeName){
+	public void theGradesAreRecorded(String grade, String traineeName) throws Throwable{
+		assessBatch.goToPage();
+		assessBatch.clickWeekTab();
+		Thread.sleep(7000);
 		assessBatch.checkIfGradesWereInput(traineeName, grade);
 	}
 

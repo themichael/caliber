@@ -20,9 +20,9 @@ public class ChromeDriverSetup extends CaliberTest{
 		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
 	    ChromeOptions options = new ChromeOptions();
 	    options.addArguments("--headless");
-	    options.addArguments("--window-size=1200x600");
+	    options.addArguments("--window-size=1600x900");
 		driver = new ChromeDriver(options);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		initialized = true;
 		}
 	}
@@ -34,6 +34,5 @@ public class ChromeDriverSetup extends CaliberTest{
 	public void setDriver(WebDriver driverSetup) {
 		driver = driverSetup;
 	}
-	
-	
+		
 }
