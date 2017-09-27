@@ -52,7 +52,10 @@ public class AddWeekToBatchFeature {
 	@Then("^the new week appears on the page\\.$")
 	public void the_new_week_appears_on_the_page() throws Throwable {
 	    assertTrue(assessBatchPage.doesWeekTabExist(numberOfWeeks));
+<<<<<<< HEAD
 //	    assessBatchPage.closeDriver();
+=======
+>>>>>>> 850d2153f07c6a0c27843e66a8635c5895c80d27
 	}
 
 }

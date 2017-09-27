@@ -37,6 +37,5 @@ public class TraineeAssessmentCompareToBatchFeature {
 	@Then("^I can see each trainees strengths compared to the batch in Assessment Breakdown table$")
 	public void i_can_see_each_trainees_strengths_compared_to_the_batch_in_Assessment_Breakdown_table() throws Throwable {
 		reports.checkAssessmentBreakdownChart();
-//		reports.closeDriver();
 	}
 }

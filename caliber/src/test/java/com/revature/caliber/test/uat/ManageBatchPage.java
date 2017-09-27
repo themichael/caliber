@@ -339,12 +339,23 @@ public class ManageBatchPage{
 	}
 	
 	/**
-	 * Clicks update button on the Add/Update trainee Modal 
+	 * Clicks update button on the Add trainee Modal 
 	 * then brings you back to the manage batch modal 
 	 * @throws InterruptedException 
 	 */
-	public void clickUpdateAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("saveButton")).click();
+	public void clickAddTraineeModal() throws InterruptedException{
+		driver.findElement(By.id("saveButtonAdd")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
+	}
+	
+	/**
+	 * Clicks update button on the Update trainee Modal 
+	 * then brings you back to the manage batch modal 
+	 * @throws InterruptedException 
+	 */
+	public void clickUpdateTraineeModal() throws InterruptedException{
+		driver.findElement(By.id("saveButtonUpdate")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}

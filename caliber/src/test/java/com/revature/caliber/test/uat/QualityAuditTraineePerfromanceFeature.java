@@ -67,7 +67,8 @@ public class QualityAuditTraineePerfromanceFeature {
 	@Then("^the performance notes will be saved$")
 	public void thePerformanceNotesWillBeSaved() throws Throwable {
 	    qaPage.goToPage();
-	    Thread.sleep(10000);
+	    qaPage.clickWeeksForBatch(7);
+	    Thread.sleep(3000);
 	    qaPage.verifyTraineeNotes();
 	}
 }

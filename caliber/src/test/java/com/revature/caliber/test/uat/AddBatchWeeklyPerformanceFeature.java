@@ -13,9 +13,10 @@ public class AddBatchWeeklyPerformanceFeature {
 	
 	@Before
 	public void setup(){
-
+		
 		ChromeDriverSetup setup = new ChromeDriverSetup();
 		assessBatchPage = new AssessBatchPage(setup.getDriver());
+
 	}
 	
 	@Given("^that I am logged in as a trainer$")
@@ -51,7 +52,11 @@ public class AddBatchWeeklyPerformanceFeature {
 
 	@Then("^the Feedback \"([^\"]*)\" is recorded$")
 	public void the_Feedback_is_recorded(String feedback) throws Throwable {
-		Thread.sleep(3000);
+		assessBatchPage.goToPage();
+		assessBatchPage.selectBatch();
+		assessBatchPage.clickWeekTab();
+		ZZZ.waitForPageLoad();
+		Thread.sleep(5000);
 	    assessBatchPage.batchNotesCheck(feedback);
 	}
 
