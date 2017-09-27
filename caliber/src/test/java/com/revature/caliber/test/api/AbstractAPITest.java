@@ -93,20 +93,6 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 						.get(baseUrl + "authenticated_token");
 				log.info("Token: " + accessToken);
 				
-//				HttpClient httpClient = HttpClientBuilder.create().build();
-//				HttpPost post = new HttpPost(baseUrl + "authenticated_token");
-//				List<NameValuePair> parameters = new ArrayList<>();
-//				parameters.add(new BasicNameValuePair("salestoken", accessToken));
-//				post.setEntity(new UrlEncodedFormEntity(parameters));
-//				HttpResponse response = httpClient.execute(post);
-//				log.info(response.getStatusLine());
-//				log.info(response.getEntity().getContent());
-//				String sessionCookie = response.getHeaders("JSESSIONID")[0].getValue();
-//				String roleCookie = response.getHeaders("role")[0].getValue();
-//				
-//				log.info(sessionCookie);
-//				log.info(roleCookie);
-				
 				String sessionCookie = response.getSessionId();
 				String roleCookie = response.getCookie("role");
 				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
