@@ -55,7 +55,7 @@ public class Trainer implements Serializable {
 
 	@NotEmpty
 	@Email
-	@Column(name = "EMAIL", nullable = false, unique = true, updatable = false)
+	@Column(name = "EMAIL", nullable = false, unique = true, updatable = true)
 	@JsonProperty
 	private String email;
 

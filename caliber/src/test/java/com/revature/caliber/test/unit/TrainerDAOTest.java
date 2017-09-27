@@ -67,11 +67,18 @@ public class TrainerDAOTest extends CaliberTest {
 	@Test
 	public void testUpdate() {
 		log.info("Update trainer");
+		//Test for name update
 		Trainer expected = trainerDAO.findByEmail(PAT_MAIL);
 		expected.setName("Success Walsh");
 		trainerDAO.update(expected);
 		Trainer actual = trainerDAO.findByEmail(PAT_MAIL);
 		assertEquals(expected, actual);
+		//Test for email update
+		String newEmail = "NewEmail@gmail.com";
+		expected.setEmail(newEmail);
+		trainerDAO.update(expected);
+		Trainer actualByEmail = trainerDAO.findByEmail(newEmail);
+		assertEquals(expected, actualByEmail);		
 	}
 
 }
