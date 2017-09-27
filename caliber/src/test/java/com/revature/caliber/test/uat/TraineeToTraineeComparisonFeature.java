@@ -17,39 +17,34 @@ public class TraineeToTraineeComparisonFeature {
 		reports = new ReportsPage(setup.getDriver());
 	}
 
-//	@After // each scenario
-//	public void teardown() {
-//		reports.closeDriver();
-//	}
-
 	@Given("^on the Reports page$")
-	public void on_the_Reports_page() throws Throwable {
+	public void onTheReportsPage(){
 		reports.gotoReportsPage();
 		reports.verifyReportsPage();
 	}
 
 	@Given("^I have clicked the Person Icon in the Technical Skills$")
-	public void i_have_clicked_the_Person_Icon_in_the_Technical_Skills() throws Throwable {
+	public void iHaveClickedThePersonIconInTheTechnical_Skills() throws InterruptedException{
 		reports.clickTechnicalSkillsModal();
 	}
 
 	@Given("^I selected \"([^\"]*)\" as a trainee$")
-	public void i_selected_as_a_trainee(String trainee) throws Throwable {
+	public void iSelectedAsTTrainee(String trainee) throws InterruptedException {
 	    reports.chooseTraineeTechSkills(trainee);
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as a Trainee$")
-	public void i_have_selected_as_a_Trainee(String trainee) throws Throwable {
+	public void iHaveSelectedAsATrainee(String trainee) throws InterruptedException {
 	    reports.chooseTraineeTechSkills(trainee);
 	}
 
 	@When("^I click the close button$")
-	public void i_click_the_close_button() throws Throwable {
+	public void iClickTheCloseButton(){
 	    reports.closeTraineeCompModal();
 	}
 
 	@Then("^I can see both trainees performances$")
-	public void i_can_see_both_trainees_performances() throws Throwable {
+	public void iCanSeeBothTraineesPerformances(){
 	    reports.checkTechSkillsGraph();
 	}
 }

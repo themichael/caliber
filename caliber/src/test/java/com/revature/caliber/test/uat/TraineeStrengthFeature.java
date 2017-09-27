@@ -15,34 +15,29 @@ public class TraineeStrengthFeature {
 		ChromeDriverSetup setup = new ChromeDriverSetup();
 		reports = new ReportsPage(setup.getDriver());
 	}
-	
-//	@After // each scenario
-//	public void teardown() {
-//		reports.closeDriver();
-//	}
 
 	@Given("^I am on the reports page$")
-	public void i_am_on_the_reports_page() throws Throwable {
+	public void iAmOnTheReportsPage(){
 		reports.gotoReportsPage();
 	}
 
 	@Given("^I have clicked the person icon in the Technical Skills$")
-	public void i_have_clicked_the_person_icon_in_the_Technical_Skills() throws Throwable {
+	public void iHaveClickedPhePersonIconInTheTechnicalSkills() throws InterruptedException{
 		reports.clickTechnicalSkillsModal();
 	}
 
 	@Given("^I click \"([^\"]*)\" as a trainee$")
-	public void i_click_as_a_trainee(String trainee) throws Throwable {
+	public void iClickAsATrainee(String trainee) throws InterruptedException {
 		reports.chooseTraineeTechSkills(trainee);
 	}
 
 	@When("^I tap the close button$")
-	public void i_tap_the_close_button() throws Throwable {
+	public void iTapTheCloseButton(){
 		reports.closeTraineeCompModal();
 	}
 
 	@Then("^I can see the trainee performance compared to the batch$")
-	public void i_can_see_the_trainee_performance_compared_to_the_batch() throws Throwable {
+	public void iCanSeeTheTraineePerformanceComparedToTheBatch() {
 		reports.checkTechSkillsGraph();
 	}
 }

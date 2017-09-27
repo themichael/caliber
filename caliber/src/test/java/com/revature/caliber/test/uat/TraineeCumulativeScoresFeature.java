@@ -17,27 +17,27 @@ public class TraineeCumulativeScoresFeature {
 	}
 	
 	@Given("^I have not selected a Trainee$")
-	public void i_have_not_selected_a_Trainee() throws Throwable {
+	public void iHaveNotSelectedATrainee() throws InterruptedException{
 		//Ensuring that 'All Trainees' are selected which is by default
 		reports.clickTraineeDropdown();
-		reports.chooseTraineeReport("trainee All");
+		reports.chooseTraineeReport("All");
 	}
 
 	@Given("^I have not selected a Week$")
-	public void i_have_not_selected_a_Week() throws Throwable {
+	public void iHaveNotSelectedAWeek(){
 		//Ensuring that 'All Weeks' are selected which is by default
 		reports.clickWeekDropdown();
 		reports.chooseWeekReport("week All");
 	}
 
 	@When("^I have selected \"([^\"]*)\" as a batch$")
-	public void i_have_selected_as_a_batch(String batch) throws Throwable {
+	public void iHaveSelectedAsABatch(String batch){
 		reports.clickBatchDropdown();
 		reports.chooseBatch(batch);
 	}
 	
 	@Then("^I can see each trainee's scores and rankings from strongest to weakest$")
-	public void i_can_see_each_trainee_s_scores_and_rankings_from_strongest_to_weakest() throws Throwable {
+	public void iCanSeeEachTraineesAcoresAndRankingsFromStrongestToWeakest() {
 	    reports.checkCumulativeScoresChart();
 	}
 }

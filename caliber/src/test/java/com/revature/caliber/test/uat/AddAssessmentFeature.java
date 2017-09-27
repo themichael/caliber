@@ -30,7 +30,7 @@ public class AddAssessmentFeature {
 
 	@Given("^I have clicked the Week (\\d+) tab$")
 	public void i_have_clicked_the_Week_tab(int arg1) throws Throwable {
-	    assessBatch.clickWeekTab();
+	    assessBatch.clickWeekTab(1);
 	}
 
 	@Given("^I have clicked Create Assessment button$")
@@ -40,6 +40,7 @@ public class AddAssessmentFeature {
 
 	@Given("^I have selected \"([^\"]*)\" as the Category$")
 	public void i_have_selected_as_the_Category(String category) throws Throwable {
+		Thread.sleep(1000);
 	    assessBatch.selectCreateAssessementCategory(category);
 	}
 
@@ -51,6 +52,7 @@ public class AddAssessmentFeature {
 
 	@Given("^I have selected \"([^\"]*)\" as the Assessment Type$")
 	public void i_have_selected_as_the_Assessment_Type(String type) throws Throwable {
+		Thread.sleep(1000);
 	    assessBatch.selectCreateAssessmentType(type);
 	}
 

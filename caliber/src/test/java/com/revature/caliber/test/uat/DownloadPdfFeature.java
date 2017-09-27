@@ -75,9 +75,9 @@ public class DownloadPdfFeature {
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as Trainees$")
-	public void iHaveSelectedAsTrainees(String arg1) throws Throwable {
+	public void iHaveSelectedAsTrainees(String trainee) throws Throwable {
 		reportsPage.clickTraineeDropdown();
-		reportsPage.chooseTraineeReport("Ali, Fareed");
+		reportsPage.chooseTraineeReport(trainee);
 	}
 
 	@When("^I click the download button$")

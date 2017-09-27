@@ -112,18 +112,19 @@ public class ReportsPage {
 	 */
 	public void clickTraineeDropdown() {
 		// Default trainee is 'All' if Trainee dropdown is not clicked
-		driver.findElement(By.id("reportTrainer")).click();
+		driver.findElement(By.id("traineeReport")).click();
 		driver.switchTo().activeElement();
 	}
 
 	/***
 	 *  Click on a specific Trainee in the Trainee dropdown
 	 * @param trainee
+	 * @throws InterruptedException 
 	 */
-	public void chooseTraineeReport(String trainee) {
+	public void chooseTraineeReport(String trainee) throws InterruptedException {
 		// id = 'lastname, firstname' so String trainee = "lastname, firstname";
-		// 'Ali, Fareed' for testing purposes
-		driver.findElement(By.id(trainee)).click();
+		Thread.sleep(1000);
+		driver.findElement(By.id("trainee "+trainee)).click();
 	}
 
 	/***

@@ -59,7 +59,8 @@ public class AddLocationFeature {
 	}
 
 	@When("^I click the Save Button$")
-	public void i_click_the_Save_Button() {
+	public void i_click_the_Save_Button() throws InterruptedException {
+		Thread.sleep(3000);
 		settingLocationPage.clickSaveButn();
 	}
 
@@ -68,7 +69,8 @@ public class AddLocationFeature {
 	}
 	
 	@When("^I choose the X button$")
-	public void i_choose_the_X_button() {
+	public void i_choose_the_X_button() throws InterruptedException {
+		Thread.sleep(1000);
 		settingLocationPage.clickXtoCloseAddLocModalBtn();
 	}
 
@@ -77,7 +79,8 @@ public class AddLocationFeature {
 	}
 
 	@When("^I click on the Close button$")
-	public void i_click_on_the_Close_button() {
+	public void i_click_on_the_Close_button() throws InterruptedException {
+		Thread.sleep(1000);
 		settingLocationPage.clickCloseAddLocModalBtn();
 	}
 

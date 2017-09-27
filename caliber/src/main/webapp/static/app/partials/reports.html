@@ -50,12 +50,12 @@
 
 				<!-- Select Trainee-->
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
-					ng-show="hideOtherTabs()" data-toggle="dropdown" id="reportTrainer">{{currentTrainee.name}}<span
+					ng-show="hideOtherTabs()" data-toggle="dropdown" id="traineeReport">{{currentTrainee.name}}<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentTrainee(-1)" id="trainee All">All</a></li>
 						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
-							role="button" ng-click="selectCurrentTrainee($index)" id="{{trainee.name}}">{{trainee.name}}</a></li>
+							role="button" ng-click="selectCurrentTrainee($index)" id="trainee {{trainee.name}}">{{trainee.name}}</a></li>
 					</ul></li>
 
 				<!-- Select Training Type-->

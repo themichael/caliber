@@ -24,6 +24,6 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/add-assessment.feature"})
+@CucumberOptions(features={"src/test/resources/features"})
 public class CukesRunner {}
 

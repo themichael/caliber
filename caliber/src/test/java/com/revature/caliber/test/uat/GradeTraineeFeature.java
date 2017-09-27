@@ -14,12 +14,7 @@ public class GradeTraineeFeature{
 		ChromeDriverSetup driver = new ChromeDriverSetup();
 		assessBatch = new AssessBatchPage(driver.getDriver());
 	}
-//	
-//	@After
-//	public void teardown(){
-//		assessBatch.closeDriver();
-//	}
-	
+
 	@Given("^I am on the Assess Batch Page$")
 	public void iAmOnTheAssessBatchPage(){
 		assessBatch.goToPage();
@@ -27,27 +22,26 @@ public class GradeTraineeFeature{
 	}
 
 	@Given("^I have picked the Week (\\d+) tab$")
-	public void iHavePickedTheWeekTab(int arg1){
-		assessBatch.clickWeekTab();
+	public void iHavePickedTheWeekTab(int index){
+		assessBatch.clickWeekTab(index);
 	}
 
 	@Given("^I have submitted \"([^\"]*)\" as the grade for \"([^\"]*)\"$")
-	public void i_have_submitted_as_the_grade_for(String grade, String traineeName) throws Throwable {
+	public void i_have_submitted_as_the_grade_for(String grade, String traineeName) throws InterruptedException{
 		ZZZ.waitForPageLoad();
 		Thread.sleep(2000);
 	    assessBatch.enterGrades(traineeName, grade);
 	}
 
-	@When("^I hit the Save button$")
-	public void iHitTheSaveButton() throws InterruptedException{
-		Thread.sleep(500);
-		assessBatch.saveButton();
+	@When("^I refresh the Assess Batch Page$")
+	public void i_refresh_the_Assess_Batch_Page() {
+		assessBatch.goToPage();
 	}
 
 	@Then("^the grades \"([^\"]*)\" for \"([^\"]*)\" are recorded$")
-	public void theGradesAreRecorded(String grade, String traineeName) throws Throwable{
+	public void theGradesAreRecorded(String grade, String traineeName) throws InterruptedException{
 		assessBatch.goToPage();
-		assessBatch.clickWeekTab();
+		assessBatch.clickWeekTab(1);
 		ZZZ.waitForPageLoad();
 		Thread.sleep(7000);
 		assessBatch.checkIfGradesWereInput(traineeName, grade);
