@@ -9,7 +9,7 @@ Feature: View Batch strength in each technology
 #background
 Background: Logged in
 	Given that I am logged in as a user
-	And on the Reports page
+	And inside the Reports page
 	And I have selected the year
 	
 	

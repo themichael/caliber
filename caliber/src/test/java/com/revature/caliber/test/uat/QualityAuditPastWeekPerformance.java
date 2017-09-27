@@ -14,7 +14,11 @@ public class QualityAuditPastWeekPerformance {
 		qaPage = new QualityAuditPage(setup.getDriver());
 	}
 	
-	
+	/*@cucumber.api.java.After
+	public void teardown(){
+		qaPage.closeDriver();
+	}
+	*/
 	@Given("^I have navigated to the quality audit page$")
 	public void iHaveNavigatedToTheQualityAuditPage() throws Throwable {
 	   qaPage.goToPage();
@@ -35,7 +39,7 @@ public class QualityAuditPastWeekPerformance {
 
 	@When("^I click on a previous week tab$")
 	public void iClickOnAPreviousWeekTab() throws Throwable {
-	    for(int i=8; i>= 1; i--){
+	    for(int i=7; i>= 1; i--){
 	    	qaPage.clickWeeksForBatch(i);
 	    	qaPage.verifyWeekForBatch("week"+i);
 	    }

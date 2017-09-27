@@ -18,7 +18,7 @@ public class QualityAuditPage {
 	 * Quits the current Driver.
 	 */
 	public void closeDriver(){
-		driver.quit();
+		driver.close();
 	}
 	
 	/**
@@ -87,7 +87,7 @@ public class QualityAuditPage {
 	 * @param week as an int from 1
 	 */
 	public void clickWeeksForBatch(int week){
-		//currently clicks week 8, change last /li[x] where x is the week; will click new week if set to last element in the list
+		// change last /li[x] where x is the week; will click new week if set to last element in the list
 		driver.findElement(By.id("week" + week))
 			.click();
 	}
