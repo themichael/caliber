@@ -19,6 +19,11 @@ public class QualityAuditTraineePerfromanceFeature {
 
 	}
 	
+/*	@cucumber.api.java.After
+	public void teardown(){
+		qaPage.closeDriver();
+	}
+	*/
 	@Given("^I am on the Quality Audit Page$")
 	public void iAmOnTheQualityAuditPage() throws Throwable {
 		qaPage.goToPage();
@@ -39,7 +44,8 @@ public class QualityAuditTraineePerfromanceFeature {
 
 	@Given("^I am on the most current week$")
 	public void iAmOnTheMostCurrentWeek() throws Throwable {
-		qaPage.verifyWeekForBatch("week8");
+		qaPage.clickWeeksForBatch(7);
+		qaPage.verifyWeekForBatch("week7");
 	}
 
 	@Given("^have entered \"([^\"]*)\" in Trainees note area$")

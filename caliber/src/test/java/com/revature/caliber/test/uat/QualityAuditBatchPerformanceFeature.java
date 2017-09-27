@@ -14,7 +14,11 @@ public class QualityAuditBatchPerformanceFeature {
 		qaPage = new QualityAuditPage(setup.getDriver());
 	}
 	
-	
+/*	@cucumber.api.java.After
+	public void teardown(){
+		qaPage.closeDriver();
+	}
+	*/
 	@Given("^I am on the Quality Audit page$")
 	public void iAmOnTheQualityAuditPage() throws Throwable {
 	    qaPage.goToPage();
@@ -35,7 +39,8 @@ public class QualityAuditBatchPerformanceFeature {
 
 	@Given("^I am viewing the most recent week$")
 	public void iAmViewingTheMostRecentWeek() throws Throwable {
-	    qaPage.verifyWeekForBatch("week8");
+		qaPage.clickWeeksForBatch(7);
+	    qaPage.verifyWeekForBatch("week7");
 	}
 	
 	@Given("^I click on an overall batch feedback button$")

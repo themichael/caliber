@@ -73,7 +73,7 @@ public class ReportsPage {
 	}
 
 	/***
-	 *  Click the batch dropdown 'Patrick Walsh - 2/13/17'
+	 *  Click the batch dropdown 'Patrick Walsh - 2/14/17'
 	 */
 	public void clickBatchDropdown() {
 		driver.findElement(By.id("currentBatchTrainer")).click();
@@ -84,9 +84,9 @@ public class ReportsPage {
 	 *  Click on the specific batch in the dropdown
 	 */
 	public void chooseBatch() {
-		// Default is one batch 'Patrick Walsh - 2/13/17' and there's only one
+		// Default is one batch 'Patrick Walsh - 2/14/17' and there's only one
 		// choice
-		driver.findElement(By.id("Patrick Walsh - 2/13/17")).click();
+		driver.findElement(By.id("Patrick Walsh - 2/14/17")).click();
 	}
 
 	/***

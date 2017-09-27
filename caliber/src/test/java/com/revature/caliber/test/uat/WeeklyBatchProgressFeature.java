@@ -16,12 +16,12 @@ public class WeeklyBatchProgressFeature {
 		ChromeDriverSetup setup = new ChromeDriverSetup();
 		reportsPage = new ReportsPage(setup.getDriver());
 	}
-/*
-	@After // each scenario
+
+/*	@After // each scenario
 	public void teardown() {
 		reportsPage.closeDriver();
-	}
-*/
+	}*/
+
 	@When("^I select a batch$")
 	public void iSelectABatch() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions

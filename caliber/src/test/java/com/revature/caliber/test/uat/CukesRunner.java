@@ -17,5 +17,5 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/deactivate-activate-location.feature"})
+@CucumberOptions(features={"src/test/resources/features/add-batch-weekly-performance-notes.feature"})
 public class CukesRunner {}

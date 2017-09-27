@@ -40,7 +40,7 @@
 						date:'shortDate' }} <span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li ng-repeat="batch in batchesByYear track by $index"><a id="batchesDropdownId{{$index}}
+						<li ng-repeat="batch in batchesByYear track by $index"><a id="batchesDropdownId{{$index}}"
 							role="button" ng-click="selectCurrentBatch($index)">
 								{{batch.trainer.name}} - {{batch.startDate | date:'shortDate'}}
 						</a></li>
@@ -125,7 +125,7 @@
 									class="form-control" type="number" min="1" max="100"
 									ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score"
 									ng-blur='(trainees[trainee.traineeId].assessments[assessment.assessmentId].score > 0 || trainees[trainee.traineeId].assessments[assessment.assessmentId].score <=100 )? updateGrade(trainee,assessment) : ""'
-									ng-value="findGrade(trainee.traineeId,assessment.assessmentId)"
+									ng-value="findGrade(trainee.traineeId,assessment.assessmentId)" value="findGrade(trainee.traineeId,assessment.assessmentId)"
 									ng-minlength="1" />
 								</td>
 								<td class="col-sm-9 col-md-9 col-lg-9"><textarea
@@ -156,7 +156,7 @@
 					<div
 						class="form-group col-lg-12 col-md-12 col-sm-12 overall-feedback">
 						<textarea ng-model="$parent.trainerBatchNote.content"
-							class="form-control" name="asdfjkl;" id="trainerBatchNote"
+							class="form-control" name="$parent.trainerBatchNote.content" id="trainerBatchNote"
 							ng-blur="saveTrainerNotes(trainerBatchNote.noteId)"
 							placeholder="Enter your overall feedback on the batch" required>
 					</textarea>

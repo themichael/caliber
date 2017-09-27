@@ -1,4 +1,4 @@
-package com.revature.caliber.test.uat;
+/*package com.revature.caliber.test.uat;
 
 import java.util.concurrent.TimeUnit;
 
@@ -69,7 +69,7 @@ public class SettingAddingCategoryFeature {
 	public void i_am_back_on_the_Settings_Category_page() throws Throwable {
 		settingCategoryPage.verifyClosedOutByCloseButton();
 	}
-/*
+
 	@Given("^I am on the Settings Category page$")
 	public void i_am_on_the_Settings_Category_page() {
 		settingCategoryPage.gotoSettingCategoryPage();
@@ -90,5 +90,6 @@ public class SettingAddingCategoryFeature {
 	public void i_should_get_a_new_category_on_the_page() {
 		settingCategoryPage.clickCategorySaveBtn();
 	}
-*/
+
 }
+*/

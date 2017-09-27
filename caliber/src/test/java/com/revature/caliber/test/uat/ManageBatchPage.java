@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -298,7 +299,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void openDeleteTraineeModal(int index) throws InterruptedException{
-		driver.findElement(By.id("removeBatch"+index)).click();
+		driver.findElement(By.id("removeTrainee"+index)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 		driver.findElement(By.id("deleteBatchButton"));
@@ -310,7 +311,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickDeleteOnDeleteTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("deleteBatchButton")).click();
+		driver.findElement(By.id("deleteTraineeButton")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -343,7 +344,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException 
 	 */
 	public void clickUpdateAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("saveButton"));
+		driver.findElement(By.id("saveButton")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -406,17 +407,20 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void openCreateBatchModal() throws InterruptedException{
-		driver.findElement(By.id("createBatchTab"));
-		Thread.sleep(500);
+		driver.findElement(By.id("createBatchTab")).click();
+		Thread.sleep(1000);
 		driver.switchTo().activeElement();
 	}
 	
 	/**
 	 * Sends a string to the Training Name field, this is required
 	 * @param trainingName
+	 * @throws InterruptedException 
 	 */
-	public void editTrainingNameField(String trainingName){
+	public void editTrainingNameField(String trainingName) throws InterruptedException{
+		Thread.sleep(500);
 		WebElement trainingNameField = driver.findElement(By.id("trainingName"));
+		trainingNameField.click();
 		trainingNameField.clear();										
 		trainingNameField.sendKeys(trainingName);
 	}
@@ -644,8 +648,15 @@ public class ManageBatchPage{
 	 * @param batchName
 	 * @return
 	 */
-	public boolean newBatchCreated(String batchName){
-		return driver.findElement(By.id(batchName)).isDisplayed();
+	public boolean checkIfBatchExitst(String batchName){
+		boolean exists;
+		try{
+			driver.findElement(By.id(batchName));
+			exists = true;
+		}catch(NoSuchElementException e){
+			exists = false;
+		}
+		return exists;
 	}
 	
 	/**
@@ -655,8 +666,15 @@ public class ManageBatchPage{
 	 * @param traineeName
 	 * @return
 	 */
-	public boolean newTraineeAdded(String traineeName){
-		return driver.findElement(By.id(traineeName)).isDisplayed();
+	public boolean checkIfTraineeExists(String traineeName){
+		boolean exists;
+		try{
+		driver.findElement(By.id(traineeName));
+			exists = true;
+		}catch(NoSuchElementException e){
+			exists = false;
+		}
+		return exists;
 	}
 	
 	/**
