@@ -6,7 +6,7 @@ Feature: Update Batch
 	
 # positive testing
 Scenario: Update existing batch
-Given I am on the Manage Batch Page
+Given I am currently on the Manage Batch Page
 And I have clicked the update Batch icon
 And I have entered "1702" as the Training Name
 And I have entered "Revature" as the Training Type
