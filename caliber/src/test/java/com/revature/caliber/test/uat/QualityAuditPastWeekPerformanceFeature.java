@@ -4,7 +4,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class QualityAuditPastWeekPerformance {
+public class QualityAuditPastWeekPerformanceFeature {
 	
 	public QualityAuditPage qaPage;
 	
