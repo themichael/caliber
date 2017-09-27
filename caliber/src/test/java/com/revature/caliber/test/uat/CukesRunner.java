@@ -24,6 +24,6 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/qa-trainee-performance.feature"})
+@CucumberOptions(features={"src/test/resources/features"})
 public class CukesRunner {}
 
