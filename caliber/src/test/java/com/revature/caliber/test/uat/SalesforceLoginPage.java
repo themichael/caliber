@@ -13,10 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @date 1/25/17
  */
 public class SalesforceLoginPage {
-    private final String usernameBoxId = "username";
-    private final String passwordBoxId = "password";
-    private final String loginButtonId = "Login";
-
+	
     private WebDriver driver;
     
     public SalesforceLoginPage(WebDriver driver){
@@ -31,7 +28,7 @@ public class SalesforceLoginPage {
      * @param username
      */
     public void setUsername(String username) {
-        driver.findElement(By.id("usernameBoxId")).sendKeys(username);
+        driver.findElement(By.id("username")).sendKeys(username);
         implicitwait();
     }
 
@@ -41,7 +38,7 @@ public class SalesforceLoginPage {
      * @param password
      */
     public void setPassword(String password) {
-        driver.findElement(By.id("passwordBoxId")).sendKeys(password);
+        driver.findElement(By.id("password")).sendKeys(password);
         implicitwait();
     }
 
@@ -49,7 +46,7 @@ public class SalesforceLoginPage {
      * Clicks login button on Salesforce login page.
      */
     public void clickLogin(){
-        driver.findElement(By.id("loginButtonId")).click();
+        driver.findElement(By.id("Login")).click();
         implicitwait();
     }
 
