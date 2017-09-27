@@ -73,6 +73,7 @@ public class SettingsTrainerPage {
 	// Selects the Tier option from the dropdown box
 	public void selectTier(String tier) throws InterruptedException {
 		Select dropdown = new Select(driver.findElement(By.id("trainerTier")));
+		Thread.sleep(500);
 		dropdown.selectByVisibleText(tier);
 	}
 
@@ -94,8 +95,9 @@ public class SettingsTrainerPage {
 
 	// clicks the pencil glyphicon which brings up the update Trainer modal
 	public void updateIcon() throws InterruptedException {
-		driver.findElement(By.id("pencilIcon"))
-				.click();
+		driver.findElement(By.cssSelector("body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(2) > td:nth-child(5) > a")).click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
 	}
 
 	// clears the input field for the Trainer name then updates the name
@@ -127,41 +129,53 @@ public class SettingsTrainerPage {
 
 	// Selects a tier from the dropdown
 	public void updateTier(String tier) throws InterruptedException {
-		Select dropdown = new Select(driver.findElement(By.id("trainerTier")));
+		Select dropdown = new Select(driver.findElement(By.cssSelector("#editTrainerModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > select")));
+		Thread.sleep(500);
 		dropdown.selectByVisibleText(tier);
 	}
 
 	// clicks the update button inside the update modal
 	public void modalUpdateButton() throws IOException, InterruptedException {
-		driver.findElement(By.id("saveBtn"))
-				.click();
+		driver.findElement(By.cssSelector("#editTrainerModal > div > div > div.modal-body > div.modal-footer > input")).click();
+		driver.switchTo().activeElement();
 	}
 
 	// clicks the close button inside the update modal
 	public void updateModalCloseButton() throws InterruptedException, IOException {
 		driver.findElement(By.id("closeBtn"))
 				.click();
+		driver.switchTo().activeElement();
 	}
 
 	// clicks the x glyphicon which brings up the delete Trainer modal to the
 	// screen
-	public void deleteIcon() {
+	public void deleteIcon() throws InterruptedException {
 		driver.findElement(By.id("deleteIcon"))
 				.click();
+		Thread.sleep(500);
+		driver.switchTo().activeElement();
 	}
 
 	// clicks the close button inside the delete modal
 	public void deleteModalCloseButton() {
 		driver.findElement(By.id("cancelBtn")).click();
+		driver.switchTo().activeElement();
 	}
 
 	// clicks the delete button inside the delete modal
 	public void modalDeleteButton() {
 		driver.findElement(By.id("deleteBtn")).click();
+		driver.switchTo().activeElement();
 	}
 
 	public void teardown(){
-		driver.quit();
+		driver.close();
+	}
+	
+	public void checkTierChange(String tier){
+		driver.get(driver.getCurrentUrl());
+		String actual = driver.findElement(By.cssSelector("body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(2) > td:nth-child(4)")).getAttribute("value").toString();
+		assertEquals(tier, actual);
 	}
 
 }
