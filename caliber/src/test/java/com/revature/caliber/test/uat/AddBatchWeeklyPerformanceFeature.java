@@ -18,11 +18,6 @@ public class AddBatchWeeklyPerformanceFeature {
 		assessBatchPage = new AssessBatchPage(setup.getDriver());
 	}
 	
-//	@After
-//	public void teardown(){
-//		assessBatchPage.closeDriver();
-//	}
-	
 	@Given("^that I am logged in as a trainer$")
 	public void that_I_am_logged_in_as_a_trainer() throws Throwable {
 	    assessBatchPage.goToPage();
@@ -45,6 +40,7 @@ public class AddBatchWeeklyPerformanceFeature {
 
 	@Given("^I have entered \"([^\"]*)\" as the Overall Feedback$")
 	public void i_have_entered_as_the_Overall_Feedback(String feedback) throws Throwable {
+		Thread.sleep(500);
 	    assessBatchPage.batchNotes(feedback);
 	}
 

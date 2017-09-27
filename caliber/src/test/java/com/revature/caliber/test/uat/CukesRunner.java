@@ -17,5 +17,5 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/delete-trainee-from-batch.feature"})
+@CucumberOptions(features={"src/test/resources/features"})
 public class CukesRunner {}
