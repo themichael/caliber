@@ -1,21 +1,13 @@
-/*package com.revature.caliber.test.uat;
+package com.revature.caliber.test.uat;
 
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class SettingAddingCategoryFeature {
 
-	private WebDriver webdriver;
 	private SettingCategoryPage settingCategoryPage;
 
 	@cucumber.api.java.Before
@@ -24,72 +16,40 @@ public class SettingAddingCategoryFeature {
 		settingCategoryPage = new SettingCategoryPage(driver.getDriver());
 	}
 
-	@Given("^I am on the Settings Category page$")
-	public void i_am_on_the_Settings_Category_page() throws InterruptedException {
-//		settingCategoryPage.gotoSettingCategoryPage();
-//		settingCategoryPage.verifyCategoryPage();
-	}
-
-	@When("^I click on the Create button$")
-	public void i_click_on_the_Create_button() throws Throwable {
-//		settingCategoryPage.clickCreateCategoryBtn();
-	}
-
-	@When("^I input \"([^\"]*)\" as a category$")
-	public void i_input_as_a_category(String categoryName) throws InterruptedException {
-//		settingCategoryPage.inputCategoryName(categoryName);
-	}
-	
-	@When("^I click on the Submit button$")
-	public void i_click_on_the_Submit_button() throws Throwable {
-//		settingCategoryPage.clickCategorySaveBtn();
-	}
-
-	@Then("^I should get a new category on the page$")
-	public void i_should_get_a_new_category_on_the_page() throws Throwable {
-		//settingCategoryPage.verifyCategoryAdded();
-	}
-
-	@When("^I click on the X button$")
-	public void i_click_on_the_X_button() throws Throwable {
-		//settingCategoryPage.closeCattegoryWithXButton();
-	}
-
-	@Then("^I should be back on the Settings Category page$")
-	public void i_should_be_back_on_the_Settings_Category_page() throws Throwable {
-		//settingCategoryPage.verifyClosedOutByX();
-	}
-
-	@When("^I click on the Cancel button$")
-	public void i_click_on_the_Cancel_button() throws Throwable {
-//		settingCategoryPage.closeCategoryWithCloseButton();
-	}
-
-	@Then("^I am back on the Settings Category page$")
-	public void i_am_back_on_the_Settings_Category_page() throws Throwable {
-//		settingCategoryPage.closeCategoryWithCloseButton();
-	}
-
-	@Given("^I am on the Settings Category page$")
-	public void i_am_on_the_Settings_Category_page() {
+	@Given("^I am currently on the settings category page$")
+	public void i_am_on_the_settings_category_page() throws InterruptedException{
 		settingCategoryPage.gotoSettingCategoryPage();
 		settingCategoryPage.verifyCategoryPage();
 	}
-
-	@When("^I click on the Create button$")
-	public void i_click_on_the_Create_button() throws InterruptedException {
-		settingCategoryPage.clickCreateCategoryBtn();
+	
+	@Given("^I click the create category button$")
+	public void i_click_the_create_category_button() throws Throwable {
+	    settingCategoryPage.clickCreateCategoryBtn();
 	}
 
-	@When("^I input \"([^\"]*)\" as a category$")
-	public void i_input_as_a_category(String name) {
-		settingCategoryPage.inputCategoryName(name);
+	@Given("^I input \"([^\"]*)\" as a category$")
+	public void i_input_as_a_category(String name) throws Throwable {
+	    settingCategoryPage.inputAddCategoryName(name);
 	}
 
-	@Then("^I should get a new category on the page$")
-	public void i_should_get_a_new_category_on_the_page() {
-		settingCategoryPage.clickCategorySaveBtn();
+	@When("^I click on the submit button$")
+	public void i_click_on_the_submit_button() throws Throwable {
+	    settingCategoryPage.clickCategorySaveBtn();
+	}
+
+	@Then("^A new Category \"([^\"]*)\" should be on the page$")
+	public void a_new_Category_should_be_on_the_page(String name) throws Throwable {
+	    assertTrue(settingCategoryPage.verifyCategoryAdded(name));
+	}
+
+	@When("^I click the X button$")
+	public void i_click_the_X_button() throws Throwable {
+	    settingCategoryPage.closeCattegoryWithXButton();
+	}
+
+	@Then("^the category \"([^\"]*)\" will not be created$")
+	public void the_category_will_not_be_created(String name) throws Throwable {
+	    assertFalse(settingCategoryPage.verifyCategoryAdded(name));
 	}
 
 }
-*/

@@ -5,7 +5,7 @@
 			<div class="col-md-12 col-lg-12">
 				<ul class="nav nav-tabs">
 					<li role="button" class="pull-right" data-toggle="modal"
-						data-target="#addCategoryModal" ng-click=""><a id="createCategoryModal">Create
+						data-target="#addCategoryModal" ng-click=""><a id="createCategoryModalX">Create
 							Category <span class="glyphicon glyphicon-plus"
 							aria-hidden="true"></span>
 					</a></li>
@@ -32,7 +32,7 @@
 					<tr ng-repeat="category in categories track by $index"
 						ng-if="($index < categories.length / 3)">
 						<td id="{{category.skillCategory}}" role="button" data-toggle="modal"
-							ng-click="populateCategory($index)"
+							ng-click="populateCategory($index)" value="{{category.active}}"
 							data-target="#editCategoryModal">{{category.skillCategory}}
 						</td>
 						<td ng-if="category.active == false"><span
@@ -58,7 +58,7 @@
 					<tr ng-repeat="category in categories track by $index"
 						ng-if="(($index > categories.length / 3) && ($index < ((categories.length / 3) * 2)))">
 						<td role="button" data-toggle="modal" id="{{category.skillCategory}}"
-							ng-click="populateCategory($index)"
+							ng-click="populateCategory($index)" value="{{category.active}}"
 							data-target="#editCategoryModal">{{category.skillCategory}}
 						</td>
 						<td ng-if="category.active == false"><span
@@ -84,7 +84,7 @@
 					<tr ng-repeat="category in categories track by $index"
 						ng-if="($index > ((categories.length / 3) * 2))">
 						<td role="button" data-toggle="modal" id="{{category.skillCategory}}"
-							ng-click="populateCategory($index)"
+							ng-click="populateCategory($index)" value="{{category.active}}"
 							data-target="#editCategoryModal">{{category.skillCategory}}
 						</td>
 						<td ng-if="category.active == false"><span

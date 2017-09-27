@@ -4,7 +4,7 @@
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button id="XBtn" type="button" class="close" data-dismiss="modal"
+					<button id="addCategoryXBtn" type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -16,17 +16,17 @@
 					<div>
 						<div class="row">
 							<div class="form-group col-md-6 col-sm-6">
-								<label for="categoryName">Category:</label> <input
+								<label for="CategoryName">Category:</label> <input
 									ng-model="categoryForm.skillCategory" type="text"
-									class="form-control" id="categoryName" placeholder="Title"
+									class="form-control" id="addCategoryName" placeholder="Title"
 									required>
 							</div>
 						</div>
 
 						<div class="modal-footer">
-							<input id="submitBtn" type="submit" ng-value="Save" class="btn btn-primary"
+							<input id="addCategorySubmitBtn" type="submit" ng-value="Save" class="btn btn-primary"
 						data-dismiss="modal" ng-click="saveCategory(categoryForm)">
-							<button id="closeBtn" type="button" class="btn btn-default"
+							<button id="addCategoryCloseBtn" type="button" class="btn btn-default"
 								data-dismiss="modal">Close</button>
 						</div>
 					</div>

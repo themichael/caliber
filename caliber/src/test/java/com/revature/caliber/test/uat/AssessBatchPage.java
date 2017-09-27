@@ -129,7 +129,8 @@ public class AssessBatchPage{
 	}
 	
 	public void modalSaveButton(){
-		driver.findElement(By.id("saveBtn")).click();
+		driver.findElement(By.id("assessmentSaveBtn")).click();
+		//driver.findElement(By.cssSelector("#createAssessmentModal > div > div > form > div.modal-footer > input")).click();
 	}
 	public void closeButton(){
 		driver.findElement(By.id("closeBtn")).click();
