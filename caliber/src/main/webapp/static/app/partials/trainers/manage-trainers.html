@@ -33,7 +33,7 @@
 							<td>{{trainer.name}}</td>
 							<td>{{trainer.title}}</td>
 							<td>{{trainer.email}}</td>
-							<td>{{trainer.tier.substr(5)}}</td>
+							<td id="{{trainer.name}} {{trainer.tier.substr(5)}}" value="{{trainer.tier.substr(5)}}">{{trainer.tier.substr(5)}}</td>
 							<!-- Buttons -->
 							<td><a id="pencilIcon{{$index}}" role="button" class="pull-right"
 								ng-click="populateTrainer($index)" data-toggle="modal"

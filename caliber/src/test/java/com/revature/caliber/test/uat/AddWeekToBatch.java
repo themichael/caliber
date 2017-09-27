@@ -21,12 +21,7 @@ public class AddWeekToBatch {
 		setup = new ChromeDriverSetup();
 		assessBatchPage = new AssessBatchPage(setup.getDriver());
 	}
-	
-/*	@After
-	public void teardown(){
-		assessBatchPage.closeDriver();
-	}*/
-	
+
 	@Given("^I am on Assess Batch page$")
 	public void i_am_on_Assess_Batch_page() throws Throwable {
 	    assessBatchPage.goToPage();
@@ -57,6 +52,7 @@ public class AddWeekToBatch {
 	@Then("^the new week appears on the page\\.$")
 	public void the_new_week_appears_on_the_page() throws Throwable {
 	    assertTrue(assessBatchPage.doesWeekTabExist(numberOfWeeks));
+	    assessBatchPage.closeDriver();
 	}
 
 }

@@ -15,6 +15,7 @@ public class AddTraineeToBatch {
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
 	
+
 	/*@Given("^I am on the Manage Batch Page$")
 	public void i_am_on_the_Manage_Batch_Page() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
