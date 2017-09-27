@@ -2,6 +2,7 @@ package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 public class HomePage {
 	
 	private WebDriver driver;
+	public static final Logger log = Logger.getLogger(HomePage.class);
 
 	public HomePage(WebDriver driver) {
 		super();
@@ -32,6 +34,7 @@ public class HomePage {
 	 * @throws InterruptedException 
 	 */
 	public void goToPage(String page) throws InterruptedException{
+		log.debug(page);
 		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
 	}
 	
