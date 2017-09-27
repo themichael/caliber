@@ -16,27 +16,23 @@ public class DeleteBatchFeature {
 	}
 
 	@Given("^I am in the Manage Batch Page$")
-	public void i_am_in_the_Manage_Batch_Page() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		managePage.gotoManagePage();
+	public void iAmInTheManageBatchPage() {
+ 		managePage.gotoManagePage();
 		managePage.verifyPage("manage");
  	}
 
 	@Given("^I click the delete batch icon$")
-	public void i_click_the_delete_batch_icon() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		managePage.clickDelectBatchIcon(0);
+	public void iClickTheDeleteBatchIcon() throws InterruptedException{
+ 		managePage.clickDelectBatchIcon(0);
  	}
 
 	@When("^I click the Delete button in the confirm batch delete modal$")
-	public void i_click_the_Delete_button_in_the_confirm_batch_delete_modal() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		managePage.clickDeleteOnDeleteBatchModal();
+	public void iClickTheDeleteButtonInTheConfirmBatchDeleteModal() throws InterruptedException{
+ 		managePage.clickDeleteOnDeleteBatchModal();
  	}
 
 	@Then("^the batch has been deleted and I am on the Manage Batch Page$")
-	public void the_batch_has_been_deleted_and_I_am_on_the_Manage_Batch_Page() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		managePage.verifyPage("manage");
+	public void theBatchHasBeenDeletedAndIAmOnTheManageBatchPage(){
+ 		managePage.verifyPage("manage");
  	}
 }

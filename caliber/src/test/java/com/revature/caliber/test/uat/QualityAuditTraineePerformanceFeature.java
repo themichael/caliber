@@ -49,7 +49,7 @@ public class QualityAuditTraineePerformanceFeature {
 	}
 
 	@Given("^I click on the individual feedback button to the desried state$")
-	public void iClickOnTheIndividualFeedbackButtonToTheDesriedState() {
+	public void iClickOnTheIndividualFeedbackButtonToTheDesriedState() throws InterruptedException {
 	    qaPage.clickIndividualFeedbackButton();
 	}
 

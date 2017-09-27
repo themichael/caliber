@@ -12,5 +12,5 @@ Scenario: Filling out the individual trainee assessment
 	And I am on the most current week 
 	And have entered "Trainee Notes" in Trainees note area
 	And I click on the individual feedback button to the desried state
-	When I click the save button at the bottom of the page
+	When I refresh the page
 	Then the performance notes will be saved

@@ -122,8 +122,9 @@ public class QualityAuditPage {
 	
 	/**
 	 * Clicks the individual feedback button next to the trainee once. Clicks cycle through good, average, poor, and superstar.
+	 * @throws InterruptedException 
 	 */
-	public void clickIndividualFeedbackButton(){
+	public void clickIndividualFeedbackButton() throws InterruptedException{
 		String[] qcBtns = { "questionBtn", "starBtn", "goodBtn", "fairBtn", "poorBtn"};
 		boolean isAvailable;
 		int step = 0;
@@ -213,8 +214,8 @@ public class QualityAuditPage {
 	 * @throws InterruptedException 
 	 */
 	public void clickSaveButton() throws InterruptedException{
-		Thread.sleep(3000);
-		driver.findElement(By.id("saveButton"))
+		Thread.sleep(1000);
+		driver.findElement(By.id("QASaveBtn"))
 			.click();
 	}
 }
