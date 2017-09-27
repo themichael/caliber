@@ -18,46 +18,40 @@ angular
 					var report = {};
 
 					report.batchWeekQCPie = function(batchId, weekNum) {
-						return $http(
-								{
-									url : "/all/reports/batch/" + batchId
+						return $http({
+								url : "/all/reports/batch/" + batchId
 											+ "/week/" + weekNum + "/pie",
-									method : "GET"
-								})
+								method : "GET"
+						})
 								.then(
 										function(response) {
-											$log
-													.debug("Batch -> Week -> Pie Chart");
+											$log.debug("Batch -> Week -> Pie Chart");
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log
-													.error("There was an error in doughnutChartDataFactory -> batchWeekQCPie. "
-															+ response.status);
+											$log.error(
+												"There was an error in doughnutChartDataFactory -> batchWeekQCPie. "
+												+ response.status);
 										});
 					};
 
 					report.batchCurrentWeekQCPie = function(batchId) {
 						return $http({
 							url : "/all/reports/batch/" + batchId + "/pie/",
-
 							method : "GET"
 						})
 								.then(
 										function(response) {
-											$log
-													.debug("Batch -> Current Week -> Pie Chart");
+											$log.debug("Batch -> Current Week -> Pie Chart");
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log
-													.error("There was an error in doughnutChartDataFactory -> batchCurrentWeekQCPie. "
-															+ response.status);
+											$log.error(
+												"There was an error in doughnutChartDataFactory -> batchCurrentWeekQCPie. "
+												+ response.status);
 										});
-
 					};
 					return report;
-
 				});
