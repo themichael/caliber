@@ -16,78 +16,78 @@ public class ActivateDeactivateLocationFeature {
 	}
 
 	@Given("^I am on the Setting Locations Page$")
-	public void i_am_on_the_Setting_Locations_Page() throws Throwable {
+	public void iAmOnTheSettingsLocationPages(){
 	    settingLocationPage.gotoSettingLocationPage();
 	    settingLocationPage.verifyLocationPage();
 	}
 
 	@Given("^the button in row (\\d+) in an X$")
-	public void the_button_in_row_in_an_X(int index) throws Throwable {
+	public void theButtonInRowInAnX(int index) {
 	    assertTrue(settingLocationPage.verifyLocationIsActive(index));
 	}
 
 	@Given("^I click on the X-button to start the deactivation process in row (\\d+)$")
-	public void i_click_on_the_X_button_to_start_the_deactivation_process_in_row(int index) throws Throwable {
+	public void iClickOnTheXButtonToStartTheDeactivationProcessInRow(int index) throws InterruptedException{
 	    settingLocationPage.deactivateLocationBtn(index);
 	}
 
 	@When("^I click on the Cancel button$")
-	public void i_click_on_the_Cancel_button() throws Throwable {
+	public void iClickOnTheCancelButton() {
 	    settingLocationPage.clickDeactivateInDeactivateModalBtn();
 	}
 
 	@Then("^I will be back on the location setting page$")
-	public void i_will_be_back_on_the_location_setting_page() throws Throwable {
+	public void iWillBeBackOnTheLocationSettingPage() {
 	    settingLocationPage.verifyLocationPage();
 	}
 
 	@Given("^the button in row (\\d+) in a check mark$")
-	public void the_button_in_row_in_a_check_mark(int index) throws Throwable {
+	public void theButtonInRowInACheckMark(int index) {
 	    assertTrue(settingLocationPage.verifyLocationIsInActive(index));
 	}
 
 	@Given("^I click on the X-button to start reactivating the location in row (\\d+)$")
-	public void i_click_on_the_X_button_to_start_deactivating_the_location_in_row(int index) throws Throwable {
+	public void iClickOnTheXButtonToStartDeactivatingTheLocationInRow(int index) throws InterruptedException {
 	    settingLocationPage.clickCheckReactivateLocationBtn(index);
 	}
 
 	@When("^I click on the x-button to cancel$")
-	public void i_click_on_the_x_button_to_cancel() throws Throwable {
+	public void iClickOnTheXButtonToCancel() {
 	    settingLocationPage.clickXCloseActivationDeactivateModal();
 	}
 
 	@Then("^I will be back on the location page$")
-	public void i_will_be_back_on_the_location_page() throws Throwable {
+	public void iWillBeBackOnTheLocationPage() {
 	    settingLocationPage.verifyLocationPage();
 	}
 
 	@Given("^I click on the X-button to begin the deactivation process in row (\\d+)$")
-	public void i_click_on_the_X_button_to_begin_the_deactivation_process_in_row(int index) throws Throwable {
+	public void iClickOnTheXButtonToBeginTheDeactivationProcessInRow(int index) throws InterruptedException {
 	    settingLocationPage.deactivateLocationBtn(index);
 	}
 
 	@When("^I click on the Deactivation button$")
-	public void i_click_on_the_Deactivation_button() throws Throwable {
+	public void iClickOnTheDeactivationButton()  {
 	    settingLocationPage.clickDeactivateInDeactivateModalBtn();
 	}
 
 	@Then("^I will change the location status of (\\d+) to inactive$")
-	public void i_will_change_the_location_status_to_inactive(int index) throws Throwable {
+	public void iWillChangeTheLocationStatusToInactive(int index) {
 	    assertTrue(settingLocationPage.verifyLocationIsInActive(index));
 	}
 
 	@Given("^I click on the check-button to begin the reactivation process in row (\\d+)$")
-	public void i_click_on_the_check_button_to_begin_the_reactivation_process_in_row(int index) throws Throwable {
+	public void iClickOnTheCheckButtonToBeginTheReactivationProcessInRow(int index) throws InterruptedException {
 	    settingLocationPage.clickCheckReactivateLocationBtn(index);
 	}
 
 	@When("^I click on the Reactivate button$")
-	public void i_click_on_the_Reactivate_button() throws Throwable {
+	public void iClickOnTheReactivateButton() {
 	    settingLocationPage.clickReactivateLocationBtn();
 	}
 
 	@Then("^I will change the location status of (\\d+) to active$")
-	public void i_will_change_the_location_status_to_active(int index) throws Throwable {
+	public void iWillChangeTheLocationStatusToActive(int index) {
 	    assertTrue(settingLocationPage.verifyLocationIsActive(index));
 	}
 

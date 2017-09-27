@@ -25,10 +25,6 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ryan-irmagiton
 @CucumberOptions(features={"src/test/resources/features"})
 public class CukesRunner {
 	
@@ -37,12 +33,5 @@ public class CukesRunner {
 		ChromeDriverSetup.driver.quit();
 	}
 }
-<<<<<<< HEAD
-=======
-@CucumberOptions(features={"src/test/resources/features/deactivate-activate-location.feature"})
-public class CukesRunner {}
->>>>>>> d91ffc40e6de75264afb00e6e573206a5de681fc
-=======
 
->>>>>>> ryan-irmagiton
 
