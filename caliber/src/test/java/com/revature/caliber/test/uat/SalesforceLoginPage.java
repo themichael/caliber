@@ -31,7 +31,7 @@ public class SalesforceLoginPage {
      * @param username
      */
     public void setUsername(String username) {
-        driver.findElement(By.id(usernameBoxId)).sendKeys(username);
+        driver.findElement(By.id("usernameBoxId")).sendKeys(username);
         implicitwait();
     }
 
@@ -41,7 +41,7 @@ public class SalesforceLoginPage {
      * @param password
      */
     public void setPassword(String password) {
-        driver.findElement(By.id(passwordBoxId)).sendKeys(password);
+        driver.findElement(By.id("passwordBoxId")).sendKeys(password);
         implicitwait();
     }
 
@@ -49,7 +49,7 @@ public class SalesforceLoginPage {
      * Clicks login button on Salesforce login page.
      */
     public void clickLogin(){
-        driver.findElement(By.id(loginButtonId)).click();
+        driver.findElement(By.id("loginButtonId")).click();
         implicitwait();
     }
 

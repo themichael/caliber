@@ -34,7 +34,7 @@ public class AddBatchWeeklyPerformanceFeature {
 
 	@Given("^I have chosen the Week$")
 	public void iHaveChosenTheWeek() {
-	    assessBatchPage.clickWeekTab();
+	    assessBatchPage.clickWeekTab(1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Overall Feedback$")
@@ -52,7 +52,8 @@ public class AddBatchWeeklyPerformanceFeature {
 	public void theFeedbackIsRecorded(String feedback) throws InterruptedException {
 		assessBatchPage.goToPage();
 		assessBatchPage.selectBatch();
-		assessBatchPage.clickWeekTab();	
+		assessBatchPage.clickWeekTab(1);
+		ZZZ.waitForPageLoad();
 		Thread.sleep(5000);
 	    assessBatchPage.batchNotesCheck(feedback);
 	}

@@ -1,7 +1,5 @@
 package com.revature.caliber.test.uat;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -17,93 +15,74 @@ public class UpdateBatchFeature {
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
 
-//	@After // each scenario
-//	public void teardown() {
-//		managePage.closeDriver();
-//	}
-
 	@Given("^I am currently on the Manage Batch Page$")
-	public void iAmOnTheManageBatchPage() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iAmOnTheManageBatchPage() {
 	    managePage.gotoManagePage();
 	    managePage.verifyPage("manage");
 	}
 
 	@Given("^I have clicked the update Batch icon$")
-	public void iHaveClickedTheUpdateBatchIcon() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveClickedTheUpdateBatchIcon() throws InterruptedException{
 	    managePage.clickUpdateBatchIcon(0);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Training Name$")
-	public void iHaveEnteredAsTheTrainingName(String trainerName) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheTrainingName(String trainerName) throws InterruptedException{
 	    managePage.editTrainingNameField(trainerName);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Training Type$")
-	public void iHaveEnteredAsTheTrainingType(String trainingType) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheTrainingType(String trainingType) throws InterruptedException {
 	    managePage.editTrainingTypeField(trainingType);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the skill Type$")
-	public void iHaveEnteredAsTheSkillType(String skillType) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheSkillType(String skillType) throws InterruptedException {
 	    managePage.editSkillTypeField(skillType);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Location$")
-	public void iHaveEnteredAsTheLocation(String index) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheLocation(String index) throws InterruptedException {
 	    managePage.editLocationField(1);
 	}
 
 	@Given("^I have chosen \"([^\"]*)\" as the Trainer$")
-	public void iHaveChosenAsTheTrainer(String trainer) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveChosenAsTheTrainer(String trainer) throws InterruptedException {
 	    managePage.editTrainerField(trainer);
 	}
 
 	@Given("^I have chosen \"([^\"]*)\" as the Co-Trainer$")
-	public void iHaveChosenAsTheCoTrainer(String coTrainer) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveChosenAsTheCoTrainer(String coTrainer) throws InterruptedException {
 	    managePage.editCoTrainerField(coTrainer);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Start Date$")
-	public void iHaveEnteredAsTheStartDate(String startDate) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheStartDate(String startDate){
 	    managePage.editStartDateField(startDate);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the End Date$")
-	public void iHaveEnteredAsTheEndDate(String endDate) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheEndDate(String endDate) {
 	    managePage.editEndDateField(endDate);
 	}
 
 	@Given("^I have chosen (\\d+) as the Good Grade$")
-	public void iHaveChosenAsTheGoodGrade(int arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    managePage.editGoodGradeField("75");;
+	public void iHaveChosenAsTheGoodGrade(int arg1) {
+	    managePage.editGoodGradeField("75");
 	}
 
 	@Given("^I have chosen (\\d+) as the Passing Grade$")
-	public void iHaveChosenAsThePassingGrade(int arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveChosenAsThePassingGrade(int arg1) {
 	    managePage.editPassingGradeField("80");
 	}
 
 	@When("^I click the Update button$")
-	public void iClickTheUpdateButton() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iClickTheUpdateButton() throws InterruptedException {
 	    managePage.clickSaveOnCreateBatchModal();
 	}
 
 	@Then("^I am back on the Manage Batch Page$")
-	public void iAmBackOnTheManageBatchPage() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iAmBackOnTheManageBatchPage() {
 		managePage.verifyPage("manage");
 	}
 }

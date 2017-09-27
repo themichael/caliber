@@ -8,9 +8,9 @@ Background: Logged In
 
 #positive
 Scenario: Correct category input
-	And I input "Android" as a category
+	And I input "Java" as a category
 	When I click on the submit button
-	Then A new Category "Android" should be on the page
+	Then A new Category "Java" should be on the page
 	
 #negative
 Scenario: Close out before saving
