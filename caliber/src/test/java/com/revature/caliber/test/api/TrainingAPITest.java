@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
@@ -16,10 +17,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
+import com.revature.caliber.beans.TrainingType;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -59,7 +62,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	private String getAllLocationTest = "all/location/all";
 	private String removeLocationTest = "vp/location/delete";
 	private String reactivateLocationTest = "vp/location/reactivate";
-	private String createBatch = "vp/batch/create";
+	private String createBatch = "all/batch/create";
 	private String deleteBatch = "all/batch/delete/{id}";
 	private String findAllBatchesByTrainer = "trainer/batch/all";
 	private String createWeek = "trainer/week/new/{batchId}";
@@ -84,8 +87,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	/**
 	 * Tests method:
 	 * @see com.revature.caliber.services.TrainingService.findAllDroppedByBatch(@RequestParam(required = true) Integer batch)
-	 * Makes the call, checks all entities in the result set fails if any do not have
-	 * TrainingStatus.Dropped.
+	 * Makes the call, checks all entities in the result set, fails if any do not have TrainingStatus.Dropped.
 	 * @throws Exception 
 	 */
 	@Test
@@ -106,19 +108,27 @@ public class TrainingAPITest extends AbstractAPITest {
 	
 	/**
 	 * Tests method:
-	 * @see com.revature.caliber.services.TrainingService.findAllByBatch(@RequestParam(required = true) Integer batch)
+	 * @see com.revature.caliber.services.TrainingService.findAllTraineesByBatch(@RequestParam(required = true) Integer batch)
+	 * Sees if the call pulls all 6 trainees from the batch 2050. Makes sure no trainees are found from a non-existing batch.
 	 * @throws Exception 
 	 */
 	@Test
 	public void findAllByBatchTest(){
 		log.info("API Testing findAllByBatchTest at baseUrl  " + baseUrl + findAllTraineesInBatch);
-		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
-				.get(baseUrl + findAllTraineesInBatch).then().assertThat().statusCode(200);
+		Response rs = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
+				.get(baseUrl + findAllTraineesInBatch).then().assertThat().statusCode(200).extract().response();
+		Trainee[] resultSet = rs.as(Trainee[].class);
+		assertEquals(6,resultSet.length);
+		rs = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "-245").when()
+				.get(baseUrl + findAllTraineesInBatch).then().assertThat().statusCode(200).extract().response();
+		resultSet = rs.as(Trainee[].class);
+		assertEquals(resultSet.length, 0);
 	}
 	
 	/**
 	 * Tests method:
 	 * @see com.revature.caliber.services.TrainingService.getAllBatches()
+	 * Makes the call, checks to see if it pulled all 6 batches.
 	 */
 	@Test
 	public void getAllBatchesTest(){
@@ -126,26 +136,20 @@ public class TrainingAPITest extends AbstractAPITest {
 		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllBatches).then().assertThat().statusCode(200).extract().response();
 		Batch[] resultSet = actual.as(Batch[].class);
-		boolean success = false;
-		if (resultSet.length == 6){
-			success = true;
-		}
-		assertTrue(success);
+		assertEquals(6,resultSet.length);
 	}
-	
 	/**
 	 * Tests method:
 	 * @see com.revature.caliber.services.TrainingService.getAllCurrentBatches()
+	 * Makes the call. Checks if all 3 current batches are found.
 	 */
 	@Test
 	public void getAllCurrentBatchesTest(){
 		log.info("API Testing getAllCurrentBatchesTest at baseUrl  " + baseUrl + getAllCurrentBatches);
 		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllCurrentBatches).then().assertThat().statusCode(200).extract().response();
-		Batch[] resultSet = actual.as(Batch[].class);
-		
-		int expected = 3;
-		assertEquals(expected, resultSet.length); 
+		Batch[] resultSet = actual.as(Batch[].class);		
+		assertEquals(3, resultSet.length); 
 	}
 	
 	/**
@@ -250,13 +254,10 @@ public class TrainingAPITest extends AbstractAPITest {
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.controllers.TrainingController.getAllTrainers()
-<<<<<<< HEAD
-	 * @throws Exception revist when we have transient tests to test more specific
+	 * @throws Exception revisit when we have transient tests to test more specific
 	 * trainers.
-=======
 	 * @throws Exception
-	 * revist when we have transient tests to test more specific trainers.
->>>>>>> v2
+	 * revisit when we have transient tests to test more specific trainers.
 	 */
 	@Test
 	public void getAllTrainers() throws Exception {
@@ -270,16 +271,39 @@ public class TrainingAPITest extends AbstractAPITest {
 		log.info("Get all trainers passed!!");
 	}
 	
-	@Ignore
+	/**
+	 * 
+	 * 
+	 * Tests the following methods:
+	 * 
+	 * com.revature.caliber.controllers.TrainingController.deleteBatch()
+	 * 
+	 * Verifies that a batch can be deleted/deactivated by asserting the status code returned is
+	 * 200 when the method is called.
+	 * 
+	 * In this case, the example batch being tested is the one with id of 2201 in the path param.
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void deleteBatch() throws Exception {
-		
-		given().spec(requestSpec).header(AUTH, accessToken).pathParam("id", 2201).contentType(ContentType.JSON).when()
-				.delete(baseUrl + deleteBatch).then().assertThat().statusCode(200);
+		given().spec(requestSpec).header(AUTH, accessToken).pathParam("id", 2003).contentType(ContentType.JSON).when()
+				.delete(baseUrl + deleteBatch).then().assertThat().statusCode(204);
 		
 	}
 	
-	@Ignore
+	/**
+	 * 
+	 * Tests the following methods:
+	 * 
+	 * com.revature.caliber.controllers.TrainingController.createBatch()
+	 * 
+	 * 
+	 * Verifies that a batch can be created when the method is called, by asserting that
+	 * the status code returned is 201.
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void createBatch() throws Exception {
 		Trainer expectedTrainer = new Trainer(NAME, LEAD_TRAINER, EMAIL,
@@ -290,6 +314,9 @@ public class TrainingAPITest extends AbstractAPITest {
 				"Some Location");
 		log.info("API Testing createBatch at " + baseUrl + createBatch);
 
+		expected.setSkillType(SkillType.J2EE);
+		expected.setTrainingType(TrainingType.Revature);
+		
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				.body(new ObjectMapper().writeValueAsString(expected)).when()
 				// request to create a batch
@@ -298,6 +325,18 @@ public class TrainingAPITest extends AbstractAPITest {
 				.then().assertThat().statusCode(201);
 	}
 	
+	
+	/**
+	 * 
+	 * Tests the following methods:
+	 *  
+	 * com.revature.caliber.controllers.TrainingController.findAllBatchesByTrainer()
+	 *  
+	 * Verifies that batches can be found by specific trainer, by returning a status code of 200 after calling
+	 * the method in the TrainingController.
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void findAllBatchesByTrainer() throws Exception {
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
@@ -307,6 +346,16 @@ public class TrainingAPITest extends AbstractAPITest {
 				.then().assertThat().statusCode(200);
 	}
 	
+	/**
+	 * 
+	 * Tests the following methods:
+	 * 
+	 * com.revature.caliber.controllers.TrainingController.createWeek()
+	 * 
+	 * Verifies that a week can be created by calling the method, and then returning a status code of 201.
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void createWeek() throws Exception {
 		given().spec(requestSpec).header(AUTH, accessToken).pathParam("batchId", 2201).contentType(ContentType.JSON)
@@ -316,6 +365,19 @@ public class TrainingAPITest extends AbstractAPITest {
 				.then().assertThat().statusCode(201);
 	}
 	
+	
+	/**
+	 *  
+	 *  
+	 *  Tests the following methods:
+	 *  
+	 *  com.revature.caliber.controllers.TrainingController.findCommonLocations()
+	 *  
+	 *  Verifies that batches with common locations can be found by asserting the status code returned
+	 *  to be 200.
+	 *  
+	 * @throws Exception
+	 */
 	@Test
 	public void findCommonLocations() throws Exception {
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
