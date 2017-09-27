@@ -67,7 +67,7 @@ public class QualityAuditTraineePerfromanceFeature {
 	public void thePerformanceNotesWillBeSaved() throws Throwable {
 	    qaPage.goToPage();
 	    qaPage.clickWeeksForBatch(7);
-	    Thread.sleep(1000);
+	    Thread.sleep(3000);
 	    qaPage.verifyTraineeNotes();
 	}
 }
