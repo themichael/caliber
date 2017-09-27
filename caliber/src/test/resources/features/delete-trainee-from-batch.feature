@@ -9,7 +9,7 @@ Feature: Delete a trainee from a Batch
 Scenario: Deleting a trainee from a batch
 	Given I am inside the Manage Batch Page
 	And I have clicked the person icon 
-	And I have clicked the delete icon
+	And I have clicked the "Liu, Daniel" trainee  delete icon
 	When I have clicked the delete button
-	Then the trainee has been removed the trainee 
+	Then the trainee "Liu, Daniel" has been removed the trainee 
 	

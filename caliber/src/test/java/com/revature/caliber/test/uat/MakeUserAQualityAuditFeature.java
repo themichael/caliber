@@ -6,7 +6,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class MakeUserAQualityAudit {
+public class MakeUserAQualityAuditFeature {
 
 	private SettingsTrainerPage trainerPage;
 	private ChromeDriverSetup setup;
@@ -45,7 +45,7 @@ public class MakeUserAQualityAudit {
 	@Then("^the user has been changed to a \"([^\"]*)\"$")
 	public void the_user_has_been_changed_to_a(String tier) throws Throwable {
 	    trainerPage.checkTierChange(tier);
-	    trainerPage.teardown();
+//	    trainerPage.teardown();
 	}
 
 }

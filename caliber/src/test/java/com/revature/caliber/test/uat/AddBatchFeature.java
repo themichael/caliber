@@ -17,7 +17,7 @@ public class AddBatchFeature {
 		ChromeDriverSetup setup = new ChromeDriverSetup();
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
-	
+
 /*	@After
 	public void teardown(){
 		managePage.closeDriver();

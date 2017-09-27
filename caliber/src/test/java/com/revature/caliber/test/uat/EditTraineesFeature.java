@@ -120,6 +120,7 @@ public class EditTraineesFeature{
 	public void i_should_get_an_error_stating_the_field_cannot_be_blank() throws Throwable {
 	    manageBatchPage.verifyEditTraineeModal();
 	    manageBatchPage.verifyRequiredInputField();
+	    manageBatchPage.closeDriver();
 	}
 	
 }
