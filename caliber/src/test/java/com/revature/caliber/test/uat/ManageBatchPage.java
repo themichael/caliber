@@ -700,6 +700,6 @@ public class ManageBatchPage{
 	 * Closes driver completely. Calls driver.quit()
 	 */
 	public void closeDriver(){
-		driver.quit();
+		driver.close();
 	}
 }

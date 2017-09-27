@@ -24,27 +24,25 @@ public class TraineeWeeklyPerformanceFeature {
 	
 	@Given("^I select a year$")
 	public void iSelectAYear() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+//		Thread.sleep(500);
 	    reports.clickReportYear("2017");
 	}
 
 	@Given("^I have chosen a batch$")
 	public void iHaveChosenABatch() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 	    reports.clickBatchDropdown();
-	    reports.chooseBatch();
+	    reports.chooseBatch("Patrick Walsh - 2/14/17");
 	}
 	
 	@When("^I select a Trainee$")
 	public void iSelectATrainee() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 	    reports.clickTraineeDropdown();
 	    reports.chooseTraineeReport("Ali, Fareed");
 	}
 
 	@Then("^I can compare the Trainee performance to the batch performance$")
 	public void iCanCompareTheTraineePerformanceToTheBatchPerformance() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 	    reports.checkTraineeWeeklyProgressChart();
+	    reports.closeDriver();
 	}
 }

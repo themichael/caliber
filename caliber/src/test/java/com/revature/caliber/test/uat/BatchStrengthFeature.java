@@ -30,20 +30,19 @@ public class BatchStrengthFeature {
 
 	@Given("^I have selected the year$")
 	public void i_have_selected_the_year() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+		Thread.sleep(500);
 		reportsPage.clickReportYear("year");
  	}
 
 	@When("^I have selected the Batch$")
 	public void i_have_selected_the_Batch() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 		reportsPage.clickBatchDropdown();
-		//reportsPage.chooseBatch("Patrick Walsh - 2/14/17");
+		reportsPage.chooseBatch("Patrick Walsh - 2/14/17");
  	}
 
 	@Then("^I am able to report the Batch performance$")
 	public void i_am_able_to_report_the_Batch_performance() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-		//reportsPage.checkTechSkillsGraph();
+		reportsPage.checkTechSkillsGraph();
+		reportsPage.closeDriver();
  	}
 }

@@ -44,6 +44,7 @@ public class AssessBatchPage{
 	
 	public void selectBatch(){
 		driver.findElement(By.id("batchesDropdownId")).click();
+		driver.switchTo().activeElement();
 		driver.findElement(By.id("batchesDropdownId0")).click();
 	}
 	
@@ -85,7 +86,8 @@ public class AssessBatchPage{
 		driver.findElement(By.id("batchesDropdownId2")).click();
 	}
 	
-	public void batchNotes(String feedback){
+	public void batchNotes(String feedback) throws InterruptedException{
+		driver.findElement(By.id("trainerBatchNote")).clear();
 		driver.findElement(By.id("trainerBatchNote")).sendKeys(feedback);
 	}
 

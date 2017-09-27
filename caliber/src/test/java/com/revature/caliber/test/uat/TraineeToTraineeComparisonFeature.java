@@ -24,38 +24,33 @@ public class TraineeToTraineeComparisonFeature {
 
 	@Given("^on the Reports page$")
 	public void on_the_Reports_page() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		reports.gotoReportsPage();
 		reports.verifyReportsPage();
 	}
 
 	@Given("^I have clicked the Person Icon in the Technical Skills$")
 	public void i_have_clicked_the_Person_Icon_in_the_Technical_Skills() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		reports.clickTechnicalSkillsModal();
 	}
 
 	@Given("^I selected \"([^\"]*)\" as a trainee$")
 	public void i_selected_as_a_trainee(String trainee) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 	    reports.chooseTraineeTechSkills(trainee);
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as a Trainee$")
 	public void i_have_selected_as_a_Trainee(String trainee) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 	    reports.chooseTraineeTechSkills(trainee);
 	}
 
 	@When("^I click the close button$")
 	public void i_click_the_close_button() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 	    reports.closeTraineeCompModal();
 	}
 
 	@Then("^I can see both trainees performances$")
 	public void i_can_see_both_trainees_performances() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 	    reports.checkTechSkillsGraph();
+	    reports.closeDriver();
 	}
 }
