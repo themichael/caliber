@@ -36,7 +36,7 @@ public class SettingAddingCategoryFeature {
 	public void i_click_on_the_submit_button() throws Throwable {
 	    settingCategoryPage.clickCategorySaveBtn();
 	}
-
+	
 	@Then("^A new Category \"([^\"]*)\" should be on the page$")
 	public void a_new_Category_should_be_on_the_page(String name) throws Throwable {
 	    assertTrue(settingCategoryPage.verifyCategoryAdded(name));

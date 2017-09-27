@@ -164,7 +164,7 @@ public class QualityAuditPage {
 	 * @throws InterruptedException 
 	 */
 	public void verifyTraineeNotes() throws InterruptedException{
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		String notes = driver.findElement(By.id("noteTextArea-0")).getAttribute("class");
 		boolean contains = false;
 		contains = notes.contains("ng-not-empty");

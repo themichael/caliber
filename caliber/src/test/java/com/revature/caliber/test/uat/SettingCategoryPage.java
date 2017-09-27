@@ -59,6 +59,7 @@ public class SettingCategoryPage {
      * @param name
      * @throws InterruptedException 
      */
+
     public void inputAddCategoryName(String name) throws InterruptedException {
     	//driver.findElement(By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.row > div > input")).sendKeys(name);
     	driver.findElement(By.id("addCategoryName")).sendKeys(name);
@@ -94,6 +95,10 @@ public class SettingCategoryPage {
     	return (actual.equals("true")) ? true : false;
     }
     
+    public void inputCategoryName(String name) throws InterruptedException {
+    	driver.findElement(By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.row > div > input")).sendKeys(name);
+    }
+    
     /**
      * Clicks on the save button to save the new category
      */
@@ -115,25 +120,25 @@ public class SettingCategoryPage {
 			exists = false;
 		}
 		return exists;
-	
     }
     
     /**
      * Clicks on the x-button to close out of the Create Category modal
      */
     public void closeCattegoryWithXButton() {
-    	driver.findElement(By
-    			.id("addCategoryXBtn")).click();
-    	driver.switchTo().activeElement();
+    	driver.findElement(
+    			By.cssSelector("#addCategoryModal > div > div > div.modal-header > button"))
+    			.click();
+
     }
     
     /**
      * Closes the Create Category modal by clicking the Close button
      */
     public void closeCategoryWithCloseButton() {
-    	driver.findElement(By
-    			.id("addCategoryCloseBtn")).click();
-    	driver.switchTo().activeElement();
+    	driver.findElement(
+    			By.cssSelector("#deleteLocationModal > div > div > div.modal-footer > button"))
+    			.click();
     }
     
     /**
@@ -141,9 +146,11 @@ public class SettingCategoryPage {
      * @throws IOException
      */
     public void verifyClosedOutByX() throws IOException {
+    	/*
     	File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     	FileUtils.copyFile(srcFile,
     			new File("~/Desktop/xOutCategoryNotCreated.jpg"), true);
+    	*/
     }
     
     /**
@@ -151,9 +158,11 @@ public class SettingCategoryPage {
      * @throws IOException
      */
     public void verifyClosedOutByCloseButton() throws IOException {
+    	/*
     	File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     	FileUtils.copyFile(srcFile,
     			new File("~/Desktop/closeButtonCategoryNotCreated.jpg"), true);
+    	*/
     }
     
     public void clickCategoryName(String name) throws InterruptedException{

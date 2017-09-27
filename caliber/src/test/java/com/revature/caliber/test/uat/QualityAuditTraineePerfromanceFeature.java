@@ -38,8 +38,8 @@ public class QualityAuditTraineePerfromanceFeature {
 	
 	@Given("^I have selected the current Batch$")
 	public void iHaveSelectedTheCurrentBatch() throws Throwable {
-		qaPage.clickBatch("Patrick Walsh - 2/14/17");
-	    qaPage.verifyBatch("Patrick Walsh - 2/14/17");
+		qaPage.clickBatch("Patrick Walsh - 2/13/17");
+	    qaPage.verifyBatch("Patrick Walsh - 2/13/17");
 	}
 
 	@Given("^I am on the most current week$")
@@ -66,7 +66,8 @@ public class QualityAuditTraineePerfromanceFeature {
 	@Then("^the performance notes will be saved$")
 	public void thePerformanceNotesWillBeSaved() throws Throwable {
 	    qaPage.goToPage();
-	    Thread.sleep(10000);
+	    qaPage.clickWeeksForBatch(7);
+	    Thread.sleep(3000);
 	    qaPage.verifyTraineeNotes();
 	}
 }
