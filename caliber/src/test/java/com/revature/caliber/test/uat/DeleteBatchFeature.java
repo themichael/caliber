@@ -31,7 +31,7 @@ public class DeleteBatchFeature {
 	@When("^I click the Delete button in the confirm batch delete modal$")
 	public void i_click_the_Delete_button_in_the_confirm_batch_delete_modal() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		managePage.clickDeleteOnDeleteBatchModal();
+		managePage.clickDeleteOnDeleteTraineeModal();
  	}
 
 	@Then("^the batch has been deleted and I am on the Manage Batch Page$")

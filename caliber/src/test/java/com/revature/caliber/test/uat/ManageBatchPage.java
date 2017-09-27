@@ -299,7 +299,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void openDeleteTraineeModal(int index) throws InterruptedException{
-		driver.findElement(By.id("removeBatch"+index)).click();
+		driver.findElement(By.id("removeTrainee"+index)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 		driver.findElement(By.id("deleteBatchButton"));
@@ -311,7 +311,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickDeleteOnDeleteTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("deleteBatchButton")).click();
+		driver.findElement(By.id("deleteTraineeButton")).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
