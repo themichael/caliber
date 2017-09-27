@@ -24,6 +24,7 @@ public class BatchPerformanceMostRecentQAFeature {
 	@When("^I go to the Home Page$")
 	public void i_go_to_the_Home_Page() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
+		homePage.goToPage("home");
 		homePage.assertHomePage();
  	}
 

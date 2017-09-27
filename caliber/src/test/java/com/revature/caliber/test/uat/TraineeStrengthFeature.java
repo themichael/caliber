@@ -44,6 +44,6 @@ public class TraineeStrengthFeature {
 	@Then("^I can see the trainee performance compared to the batch$")
 	public void i_can_see_the_trainee_performance_compared_to_the_batch() throws Throwable {
 		reports.checkTechSkillsGraph();
-		reports.closeDriver();
+//		reports.closeDriver();
 	}
 }

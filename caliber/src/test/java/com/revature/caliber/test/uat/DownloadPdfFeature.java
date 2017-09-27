@@ -92,7 +92,7 @@ public class DownloadPdfFeature {
 		reportsPage.clickChartFeedbackDownloadPdf();
 		 //or reportsPage.clickChartDownloadPdf();	
 		
-		reportsPage.closeDriver();
+//		reportsPage.closeDriver();
 	}
 
 }

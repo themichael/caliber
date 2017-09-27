@@ -51,6 +51,6 @@ public class TraineeToTraineeComparisonFeature {
 	@Then("^I can see both trainees performances$")
 	public void i_can_see_both_trainees_performances() throws Throwable {
 	    reports.checkTechSkillsGraph();
-	    reports.closeDriver();
+//	    reports.closeDriver();
 	}
 }

@@ -45,6 +45,6 @@ public class TraineeCumulativeScoresFeature {
 	@Then("^I can see each trainee's scores and rankings from strongest to weakest$")
 	public void i_can_see_each_trainee_s_scores_and_rankings_from_strongest_to_weakest() throws Throwable {
 	    reports.checkCumulativeScoresChart();
-	    reports.closeDriver();
+//	    reports.closeDriver();
 	}
 }

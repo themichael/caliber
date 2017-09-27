@@ -43,6 +43,6 @@ public class TraineeWeeklyPerformanceFeature {
 	@Then("^I can compare the Trainee performance to the batch performance$")
 	public void iCanCompareTheTraineePerformanceToTheBatchPerformance() throws Throwable {
 	    reports.checkTraineeWeeklyProgressChart();
-	    reports.closeDriver();
+//	    reports.closeDriver();
 	}
 }
