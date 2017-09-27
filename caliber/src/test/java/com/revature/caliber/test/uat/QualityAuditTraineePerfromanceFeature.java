@@ -38,8 +38,8 @@ public class QualityAuditTraineePerfromanceFeature {
 	
 	@Given("^I have selected the current Batch$")
 	public void iHaveSelectedTheCurrentBatch() throws Throwable {
-		qaPage.clickBatch("Patrick Walsh - 2/13/17");
-	    qaPage.verifyBatch("Patrick Walsh - 2/13/17");
+		qaPage.clickBatch("Patrick Walsh - 2/14/17");
+	    qaPage.verifyBatch("Patrick Walsh - 2/14/17");
 	}
 
 	@Given("^I am on the most current week$")
