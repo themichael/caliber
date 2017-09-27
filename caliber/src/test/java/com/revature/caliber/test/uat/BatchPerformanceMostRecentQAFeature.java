@@ -25,13 +25,12 @@ public class BatchPerformanceMostRecentQAFeature {
 	@When("^I go to the Home Page$")
 	public void i_go_to_the_Home_Page() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-		homePage.goToPage("home");
 		homePage.assertHomePage();
  	}
 
 	@Then("^I can view the batch performance from their most recent quality audits$")
 	public void i_can_view_the_batch_performance_from_their_most_recent_quality_audits() throws Throwable {
-		homePage.selectBarChartStateDropdown("HI");
+		homePage.selectBarChartStateDropdown("VA");
 		homePage.isSelectBarCityDisplayed();
  	}
 

@@ -39,5 +39,12 @@ public class ChromeDriverSetup extends CaliberTest{
 	public static void setDriver(WebDriver driverSetup) {
 		driver = driverSetup;
 	}
-		
+	
+	@org.junit.After
+	public static void ChromeDriverCloseAndQuit(){
+		if(initialized){
+			driver.quit();
+			initialized = false;
+		}
+	}
 }
