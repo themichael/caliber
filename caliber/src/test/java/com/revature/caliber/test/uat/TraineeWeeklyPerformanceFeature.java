@@ -31,7 +31,7 @@ public class TraineeWeeklyPerformanceFeature {
 	@Given("^I have chosen a batch$")
 	public void iHaveChosenABatch() throws Throwable {
 	    reports.clickBatchDropdown();
-	    reports.chooseBatch("Patrick Walsh - 2/13/17");
+	    reports.chooseBatch("Patrick Walsh - 2/14/17");
 	}
 	
 	@When("^I select a Trainee$")

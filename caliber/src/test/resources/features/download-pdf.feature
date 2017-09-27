@@ -9,7 +9,7 @@ Feature: Download PDF Reports
   Scenario: Download PDF Reports
     Given I am on the Reports page
     And I have selected the year 2017 tab
-    And I have selected "Patrick Walsh - 2/13/17" as Trainer
+    And I have selected "Patrick Walsh - 2/14/17" as Trainer
     And I have selected all the weeks
     And I have selected "All" as Trainees
     When I click the download button

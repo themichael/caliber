@@ -43,54 +43,46 @@ public class DownloadPdfFeature {
 		ChromeDriverSetup setup = new ChromeDriverSetup();
 		reportsPage = new ReportsPage(setup.getDriver());
 	}
-
-//	@After // each scenario
-//	public void teardown() {
-//		reportsPage.closeDriver();
-//	}
-
+	
 	@Given("^I am on the Reports page$")
-	public void iAmOnTheReportsPage() throws Throwable {
+	public void iAmOnTheReportsPage()  {
 		reportsPage.gotoReportsPage();
 		reportsPage.verifyReportsPage();
 
 	}
 
 	@Given("^I have selected the year (\\d+) tab$")
-	public void iHaveSelectedTheYearTab(int year) throws Throwable {
-		//Implemented the click dropdown in the method
-		reportsPage.clickReportYear("2017");
+	public void iHaveSelectedTheYearTab(int year){
+ 		reportsPage.clickReportYear("2017");
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as Trainer$")
-	public void iHaveSelectedAsTrainer(String trainer) throws Throwable {
+	public void iHaveSelectedAsTrainer(String trainer) {
 		reportsPage.clickBatchDropdown();
 		reportsPage.chooseBatch(trainer);
 	}
 
 	@Given("^I have selected all the weeks$")
-	public void iHaveSelectedAllTheWeeks() throws Throwable {
+	public void iHaveSelectedAllTheWeeks(){
 		reportsPage.clickWeekDropdown();
 		reportsPage.chooseWeekReport("week All");
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as Trainees$")
-	public void iHaveSelectedAsTrainees(String arg1) throws Throwable {
+	public void iHaveSelectedAsTrainees(String arg1) {
 		reportsPage.clickTraineeDropdown();
 		reportsPage.chooseTraineeReport("Ali, Fareed");
 	}
 
 	@When("^I click the download button$")
-	public void iClickTheDownloadButton() throws Throwable {
-		// Same for Cumulative Scores, Technical Skills, and Weekly Progress
-		 reportsPage.clickChartDropdownPdf();
+	public void iClickTheDownloadButton(){
+ 		 reportsPage.clickChartDropdownPdf();
 		 
 	}
 
 	@Then("^a PDF file is downloaded$")
-	public void aPDFFileIsDownloaded() throws Throwable {
+	public void aPDFFileIsDownloaded() throws InterruptedException{
 		reportsPage.clickChartFeedbackDownloadPdf();
-		 //or reportsPage.clickChartDownloadPdf();	
-	}
+ 	}
 
 }

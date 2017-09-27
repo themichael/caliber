@@ -28,15 +28,15 @@ public class ChromeDriverSetup extends AbstractAPITest {
 		System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_EXE"));
 	    ChromeOptions options = new ChromeOptions();
 	    options.addArguments("--headless");
-	    options.addArguments("--window-size=1500x1000");
+	    options.addArguments("--window-size=1600x900");
 		driver = new ChromeDriver(options);
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		initialized = true;
 		}
 		if(!isLoggedIn){
-			loginPage.setUsername(System.getenv("CALIBER_API_USERNAME"));
-			loginPage.setPassword(System.getenv("CALIBER_API_PASSWORD"));
-			loginPage.clickLogin();
+//			loginPage.setUsername(System.getenv("CALIBER_API_USERNAME"));
+//			loginPage.setPassword(System.getenv("CALIBER_API_PASSWORD"));
+//			loginPage.clickLogin();
 			isLoggedIn = true;
 		}
 	}

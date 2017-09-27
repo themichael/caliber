@@ -130,8 +130,9 @@ public class QualityAuditPage {
 	
 	/**
 	 * Clicks the individual feedback button next to the trainee once. Clicks cycle through good, average, poor, and superstar.
+	 * @throws InterruptedException 
 	 */
-	public void clickIndividualFeedbackButton(){
+	public void clickIndividualFeedbackButton() throws InterruptedException{
 		String[] qcBtns = { "questionBtn", "starBtn", "goodBtn", "fairBtn", "poorBtn"};
 		//need to click on the currently displayed button
 			//check if it is displayed
@@ -221,9 +222,11 @@ public class QualityAuditPage {
 	
 	/**
 	 * Clicks the save button at the bottom of the page.
+	 * @throws InterruptedException 
 	 */
-	public void clickSaveButton(){
-		driver.findElement(By.id("saveButton"))
+	public void clickSaveButton() throws InterruptedException{
+		Thread.sleep(1000);
+		driver.findElement(By.id("QASaveBtn"))
 			.click();
 	}
 }

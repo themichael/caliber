@@ -38,8 +38,8 @@ public class QualityAuditTraineePerfromanceFeature {
 	
 	@Given("^I have selected the current Batch$")
 	public void iHaveSelectedTheCurrentBatch() throws Throwable {
-		qaPage.clickBatch("Patrick Walsh - 2/13/17");
-	    qaPage.verifyBatch("Patrick Walsh - 2/13/17");
+		qaPage.clickBatch("Patrick Walsh - 2/14/17");
+	    qaPage.verifyBatch("Patrick Walsh - 2/14/17");
 	}
 
 	@Given("^I am on the most current week$")
@@ -55,17 +55,19 @@ public class QualityAuditTraineePerfromanceFeature {
 
 	@Given("^I click on the individual feedback button to the desried state$")
 	public void iClickOnTheIndividualFeedbackButtonToTheDesriedState() throws Throwable {
+		Thread.sleep(3000);
 	    qaPage.clickIndividualFeedbackButton();
 	}
 
-	@When("^I click the save button at the bottom of the page$")
-	public void iClickTheSaveButtonAtTheBottomOfThePage() throws Throwable {
-	    qaPage.clickSaveButton();
+	@When("^I refresh the page$")
+	public void i_refresh_the_page() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    qaPage.goToPage();
 	}
 
 	@Then("^the performance notes will be saved$")
 	public void thePerformanceNotesWillBeSaved() throws Throwable {
-	    qaPage.goToPage();
+	    //qaPage.goToPage();
 	    qaPage.clickWeeksForBatch(7);
 	    Thread.sleep(3000);
 	    qaPage.verifyTraineeNotes();

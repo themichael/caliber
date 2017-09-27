@@ -37,7 +37,7 @@ public class BatchStrengthFeature {
 	@When("^I have selected the Batch$")
 	public void i_have_selected_the_Batch() throws Throwable {
 		reportsPage.clickBatchDropdown();
-		reportsPage.chooseBatch("Patrick Walsh - 2/13/17");
+		reportsPage.chooseBatch("Patrick Walsh - 2/14/17");
  	}
 
 	@Then("^I am able to report the Batch performance$")

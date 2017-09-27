@@ -17,47 +17,47 @@ public class EditLocationFeature {
 	}
 	
 	@Given("^I am located on the settings location page$")
-	public void i_am_located_on_the_settings_location_page() {
+	public void iAmLocatedOnTheSettingsLocationPage() {
 		settingLocationPage.gotoSettingLocationPage();
 		settingLocationPage.verifyLocationPage();
 	}
 
 	@Given("^I click on the Pencil Edit button$")
-	public void i_click_on_the_Pencil_Edit_button() throws InterruptedException {
+	public void iClickOnThePencilEditButton() throws InterruptedException {
 		settingLocationPage.gotoSettingLocationPage();
 		settingLocationPage.clickUpdatePencilBtn();
 	}
 
 	@Given("^I add \"([^\"]*)\" to the end of the company name$")
-	public void i_add_to_the_end_of_the_company_name(String company) {
+	public void iAddToTheEndOfTheCompanyName(String company) {
 		settingLocationPage.updateInputCompanyName(company);
 	}
 	
 	@Given("^I add \"([^\"]*)\" to the end of the address$")
-	public void i_add_to_the_end_of_the_address(String address) {
+	public void iAddToTheEndOfTheAddress(String address) {
 		settingLocationPage.updateInputStreetAddress(address);
 	}
 
 	@Given("^I add \"([^\"]*)\" to the end of the city name$")
-	public void i_add_to_the_end_of_the_city_name(String city) {
+	public void iAddToTheEndOfTheCityName(String city) {
 		settingLocationPage.updateInputCity(city);
 	}
 
 	@Given("^I add \"([^\"]*)\" to the state field$")
-	public void i_add_to_the_state_field(String state) throws InterruptedException {
+	public void iAddToTheStateField(String state) throws InterruptedException {
 		settingLocationPage.updateInputState(state);
 	}
 	@Given("^I add \"([^\"]*)\" to the zipcode field$")
-	public void i_add_to_the_zipcode_field(String zipcode) {
+	public void iAddToTheZipcodeField(String zipcode) {
 		settingLocationPage.updateInputZipcode(zipcode);
 	}
 
 	@When("^I click on the Update button$")
-	public void i_click_on_the_Update_button() {
+	public void iClickOnTheUpdateButton() {
 		settingLocationPage.clickUpdateModalBtn();
 	}
 
 	@Then("^I will have updated the location$")
-	public void i_will_have_updated_the_location() {
+	public void iWillHaveUpdateTheLocation() {
 	}
 }

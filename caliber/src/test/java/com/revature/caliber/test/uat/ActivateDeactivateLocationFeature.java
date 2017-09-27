@@ -32,8 +32,9 @@ public class ActivateDeactivateLocationFeature {
 		settingLocationPage.clickXDeleteBtn();
 	}
 
-	@When("^I click on the cancel button$")
-	public void i_click_on_the_Cancel_button() {
+	@When("^I click on the Cancel button$")
+	public void i_click_on_the_Cancel_button() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
 		settingLocationPage.clickCancelToCloseActivationDeactivateModalBtn();
 	}
 
