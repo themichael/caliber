@@ -2,8 +2,6 @@ package com.revature.caliber.security;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,5 +29,5 @@ public interface Authorization {
 	 * @throws IOException
 	 */
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-			HttpServletRequest request) throws IOException;
+			RedirectAttributes redirectAttributes) throws IOException;
 }
