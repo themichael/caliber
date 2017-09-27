@@ -37,7 +37,8 @@ public class GradeTraineeFeature{
 	}
 
 	@When("^I hit the Save button$")
-	public void iHitTheSaveButton(){
+	public void iHitTheSaveButton() throws InterruptedException{
+		Thread.sleep(500);
 		assessBatch.saveButton();
 	}
 

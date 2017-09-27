@@ -97,8 +97,8 @@ public class UpdateBatchFeature {
 
 	@When("^I click the Update button$")
 	public void iClickTheUpdateButton() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    managePage.clickUpdateAddTraineeModal();
+		Thread.sleep(500);
+	    managePage.clickSaveOnCreateBatchModal();
 	}
 
 	@Then("^I am back on the Manage Batch Page$")
