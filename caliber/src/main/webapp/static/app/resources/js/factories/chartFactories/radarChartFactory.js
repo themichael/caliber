@@ -9,7 +9,7 @@ angular
 				"radarChartFactory",
 				function($log) {
 					$log.debug("Booted radarChartFactory");
-
+					
 					var radar = {};
 					var mainColor = {
 						backgroundColor : 'rgba(114, 164, 194, .5)',
