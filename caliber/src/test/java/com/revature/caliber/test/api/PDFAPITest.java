@@ -19,6 +19,7 @@ public class PDFAPITest extends AbstractAPITest{
 	 *      @RequestParam(name = "title", value = "title", defaultValue = "Performance at a Glance") String title,
 	 *		@RequestBody String html)
 	 *
+	 *Generates a pdf from dummy html data and checks that what is returned is a pdf
 	 * @throws Exception
 	 */
 	@Test

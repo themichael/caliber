@@ -117,7 +117,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 			.then().assertThat().statusCode(204);
 		
 		assertEquals(expected, gradeDAO.findByTrainee(TEST_TRAINEE_ID).get(0));
-	}
+	}	
 
 	/**
 	 * Create note 

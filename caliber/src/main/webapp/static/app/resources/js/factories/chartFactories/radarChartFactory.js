@@ -9,26 +9,49 @@ angular
 				"radarChartFactory",
 				function($log) {
 					$log.debug("Booted radarChartFactory");
-					
-					var radar = {};
-					var mainColor = {
-						backgroundColor : 'rgba(114, 164, 194, .5)',
-						pointBackgroundColor : 'rgba(114, 164, 194, .5)',
-						borderColor : 'rgba(114, 164, 194, 1)',
-						pointHoverBackgroundColor : 'rgba(114, 164, 194, .3)',
-						pointHoverBorderColor : 'rgba(114, 164, 194, .3)',
-						pointBorderColor : '#fff'
-					}
+					//Enum defining colors and rgb values
+					var colorEnum = {
+							  BATCH_BLUE: 1,
+							  ORANGE: 2,
+							  DARK_GREY: 3,
+							  YELLOW: 4,
+							  GREEN:5,
+							  value: {
+							    1: {r: 114, g: 164, b: 194},
+							    2: {r: 242, g: 105, b: 37},
+							    3: {r: 71, g: 76, b: 85},
+							    4: {r: 252, g:180, b: 20},
+							    5: {r: 0, g:160, b: 0}
+							  }
+					};
 
-					var secondaryColor = {
-						backgroundColor : 'rgba(252, 180, 20, .6)',
-						pointBackgroundColor : 'rgba(252, 180, 20, .6)',
-						borderColor : 'rgba(252, 180, 20, 1)',
-						pointHoverBackgroundColor : 'rgba(252, 180, 20, .3)',
-						pointHoverBorderColor : 'rgba(252, 180, 20, .3)',
-						pointBorderColor : '#fff'
-					}
-					
+					var radar = {};
+					//Array of colors 
+					var colors = [];
+					//Loop through enum and add colors to our array
+					for(var color in colorEnum)
+						{
+							//Do not add enum value(properties) as a color
+							if(color !== "value")
+								{
+								var enumValue = colorEnum[color];
+								//Chart JS wants properties to be a string of 'rgba(number,number,number,number)' so we concat strings with our rgb values from enum 
+								var newColor = {
+									backgroundColor : 'rgba(' + colorEnum.value[enumValue].r+',' +colorEnum.value[enumValue].g+',' +colorEnum.value[enumValue].b+', .5)',
+									pointBackgroundColor : 'rgba(' + colorEnum.value[enumValue].r+',' +colorEnum.value[enumValue].g+',' +colorEnum.value[enumValue].b+', .5)',
+									borderColor : 'rgba(' + colorEnum.value[enumValue].r+',' +colorEnum.value[enumValue].g+',' +colorEnum.value[enumValue].b+', 1)',
+									pointHoverBackgroundColor : 'rgba(' + colorEnum.value[enumValue].r+',' +colorEnum.value[enumValue].g+',' +colorEnum.value[enumValue].b+', .3)',
+									pointHoverBorderColor : 'rgba(' + colorEnum.value[enumValue].r+',' +colorEnum.value[enumValue].g+',' +colorEnum.value[enumValue].b+', .3)',
+									pointBorderColor : '#fff',
+									fill : false  
+								}
+								//Push our newly defined color to the array
+								colors.push(newColor);
+								}
+						}
+					//set the first color(Batch color) to be filled.
+					colors[0].fill = true;
+		
 					var radarOptions = {
 							legend : {
 								display : true
@@ -47,7 +70,7 @@ angular
 					var createGenericRadarChartObject = function(dataArray,
 							seriesName) {
 						var chartData = {};
-						chartData.colors = [ mainColor ];
+						chartData.colors = colors;
 						chartData.series = [];
 						chartData.series.push(seriesName);
 
@@ -105,7 +128,7 @@ angular
 					radar.createCombineBatchAndAllTrainees = function(dataSet) {
 						var chartData = {};
 
-						chartData.colors = [ mainColor ];
+						chartData.colors = colors;
 
 						chartData.series = [];
 						chartData.labels = [];
@@ -154,7 +177,7 @@ angular
 						chartData.data.push(traineeSeries);
 						chartData.data.push(batchSeries);
 
-						chartData.colors = [ mainColor, secondaryColor ];
+						chartData.colors = colors;
 
 						chartData.options = radarOptions;
 						$log.debug(chartData);
