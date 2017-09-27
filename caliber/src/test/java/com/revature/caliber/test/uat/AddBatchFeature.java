@@ -17,12 +17,12 @@ public class AddBatchFeature {
 		ChromeDriverSetup setup = new ChromeDriverSetup();
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
-	
+/*	
 	@After
 	public void teardown(){
 		managePage.closeDriver();
 	}
-	
+*/
 	@Given("^I am inside the Manage Batch page$")
 	public void i_am_inside_the_Manage_Batch_page() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions

@@ -51,7 +51,6 @@ public class SettingCategoryPage {
     			.id("createCategoryModal")).click();
     	Thread.sleep(1000);
     	driver.switchTo().activeElement();
-    	//driver.switchTo().activeElement();
     	
     	/*
         driver.findElement(
@@ -68,7 +67,7 @@ public class SettingCategoryPage {
      * @throws InterruptedException 
      */
     public void inputCategoryName(String name) throws InterruptedException {
-    	Thread.sleep(1000);
+    	//Thread.sleep(1000);
     	driver.findElement(By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.row > div > input")).sendKeys(name);
     	/*
         driver.findElement(By.id("categoryName")).sendKeys(name);
@@ -86,14 +85,12 @@ public class SettingCategoryPage {
      * Clicks on the save button to save the new category
      */
     public void clickCategorySaveBtn() {
-    	driver.findElement(By.id("closeBtn")).click();
+    	//driver.findElement(By.id("closeBtn")).click();
     	/*driver.findElement(By
     			.id("submitBtn")).click();*/
-    	/*
         driver.findElement(
                 By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.modal-footer > input"))
                 .click();
-        */
     }
     
     /**
@@ -101,36 +98,40 @@ public class SettingCategoryPage {
      * @throws IOException
      */
     public void verifyCategoryAdded() throws IOException {
+    	/*
     	File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     	FileUtils.copyFile(srcFile,
     			new File("~/Desktop/addedCategory.jpg"), true);
+    			*/
     }
     
     /**
      * Clicks on the x-button to close out of the Create Category modal
      */
     public void closeCattegoryWithXButton() {
+    	/*
     	driver.findElement(By
     			.id("XBtn")).click();
-    	/*
+*/
     	driver.findElement(
     			By.cssSelector("#addCategoryModal > div > div > div.modal-header > button"))
     			.click();
-    	*/
+
     }
     
     /**
      * Closes the Create Category modal by clicking the Close button
      */
     public void closeCategoryWithCloseButton() {
+    	/*
     	driver.findElement(By
     			.id("closeBtn")).click();
-
-    	/*
+*/
+    	
     	driver.findElement(
-    			By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.modal-footer > button"))
+    			By.cssSelector("#deleteLocationModal > div > div > div.modal-footer > button"))
     			.click();
-    	*/
+ 
     }
     
     /**
@@ -138,9 +139,11 @@ public class SettingCategoryPage {
      * @throws IOException
      */
     public void verifyClosedOutByX() throws IOException {
+    	/*
     	File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     	FileUtils.copyFile(srcFile,
     			new File("~/Desktop/xOutCategoryNotCreated.jpg"), true);
+    	*/
     }
     
     /**
@@ -148,9 +151,11 @@ public class SettingCategoryPage {
      * @throws IOException
      */
     public void verifyClosedOutByCloseButton() throws IOException {
+    	/*
     	File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     	FileUtils.copyFile(srcFile,
     			new File("~/Desktop/closeButtonCategoryNotCreated.jpg"), true);
+    	*/
     }
     
     public void closeDriver() {

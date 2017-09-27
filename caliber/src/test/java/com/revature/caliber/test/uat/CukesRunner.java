@@ -17,5 +17,5 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features={"src/test/resources/features/trainee-to-trainee-compare.feature"})
+@CucumberOptions(features={"src/test/resources/features/deactivate-activate-location.feature"})
 public class CukesRunner {}
