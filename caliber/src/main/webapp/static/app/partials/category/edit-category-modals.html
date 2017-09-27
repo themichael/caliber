@@ -5,7 +5,7 @@
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button id="XBtn" type="button" class="close" data-dismiss="modal"
+					<button id="editCategoryXBtn" type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -16,11 +16,11 @@
 					<div class="row">
 						<div class="form-group col-md-6 col-sm-6">
 							<label for="categoryName">Category:</label> <input
-								id="categoryName" ng-model="thisCategoryForm.skillCategory" type="text"
+								id="editCategoryName" ng-model="thisCategoryForm.skillCategory" type="text"
 								class="form-control" />
 						</div>
 						<div class="form-group col-sm-1 col-md-1">
-							<label for="categoryName">Active:</label> <br /> <input id="active"
+							<label for="categoryName">Active:</label> <br /> <input id="categoryIsActiveCheckBox"
 								type="checkbox" ng-checked="thisCategoryForm.active"
 								style="text-align: left" ng-model="thisCategoryForm.active"
 								 />
@@ -29,9 +29,9 @@
 				</div>
 
 				<div class="modal-footer">
-					<input id="submitBtn" type="submit" ng-value="Save" class="btn btn-primary"
+					<input id="editCategorySubmitBtn" type="submit" ng-value="Save" class="btn btn-primary"
 						data-dismiss="modal" ng-click="updateCategory()">
-					<button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="editCategoryCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
 				</div>
 			</div>

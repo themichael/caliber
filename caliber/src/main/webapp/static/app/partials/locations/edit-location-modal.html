@@ -5,7 +5,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button id="XBtn" type="button" class="close" data-dismiss="modal"
+					<button id="editLocationXBtn" type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -35,7 +35,7 @@
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="locationCity">City:</label> <input
 									ng-model="locationForm.city" type="text" class="form-control"
-									id="locationStreet" placeholder="Enter City" required>
+									id="locationCity" placeholder="Enter City" required>
 							</div>
 							<div class="form-group col-lg-6 col-md-6 col-sm-12">
 								<label for="locationState">State:</label> <select
@@ -110,9 +110,9 @@
 
 					</div>
 					<div class="modal-footer">
-					<input id="submitBtn" type="submit" ng-value="Save" class="btn btn-primary"
+					<input id="editLocationSubmitBtn" type="submit" ng-value="Save" class="btn btn-primary"
 						data-dismiss="modal" ng-click="updateLocation()">
-					<button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+					<button id="editLocaitonCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
 
 				</div>
 
