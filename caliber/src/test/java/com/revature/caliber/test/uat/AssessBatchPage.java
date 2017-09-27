@@ -236,7 +236,6 @@ public class AssessBatchPage {
 		//driver.findElement(By.cssSelector("#createAssessmentModal > div > div > form > div.modal-footer > input")).click();
 	}
 
-
 	/**
 	 * Clicks the close button inside the Create Assessment modal
 	 */

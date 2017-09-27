@@ -13,12 +13,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import com.revature.caliber.CaliberTest;
+import com.revature.caliber.test.api.AbstractAPITest;
 
 
-public class ChromeDriverSetup extends CaliberTest{
+public class ChromeDriverSetup extends AbstractAPITest {
 	
+	private SalesforceLoginPage loginPage;
 	protected static WebDriver driver;
 	private static boolean initialized = false;
+	private static boolean isLoggedIn = false;
 
 	public ChromeDriverSetup(){
 		if(!initialized){
@@ -30,6 +33,12 @@ public class ChromeDriverSetup extends CaliberTest{
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		initialized = true;
 		}
+		if(!isLoggedIn){
+			loginPage.setUsername(System.getenv("CALIBER_API_USERNAME"));
+			loginPage.setPassword(System.getenv("CALIBER_API_PASSWORD"));
+			loginPage.clickLogin();
+			isLoggedIn = true;
+		}
 	}
 	
 	public WebDriver getDriver() {
@@ -39,12 +48,13 @@ public class ChromeDriverSetup extends CaliberTest{
 	public static void setDriver(WebDriver driverSetup) {
 		driver = driverSetup;
 	}
-	
-	@org.junit.After
-	public static void ChromeDriverCloseAndQuit(){
-		if(initialized){
-			driver.quit();
-			initialized = false;
-		}
+
+	public static boolean isLoggedIn() {
+		return isLoggedIn;
 	}
+
+	public static void setLoggedIn(boolean isLoggedIn) {
+		ChromeDriverSetup.isLoggedIn = isLoggedIn;
+	}
+
 }
