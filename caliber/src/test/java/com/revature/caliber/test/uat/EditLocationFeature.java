@@ -8,8 +8,6 @@ import cucumber.api.java.en.When;
 
 public class EditLocationFeature {
 
-
-	private WebDriver webdriver;
 	private SettingLocationPage settingLocationPage;
 	
 	@cucumber.api.java.Before
