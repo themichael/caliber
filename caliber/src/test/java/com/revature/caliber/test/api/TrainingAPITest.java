@@ -7,10 +7,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -70,6 +68,12 @@ public class TrainingAPITest extends AbstractAPITest {
 	
 	private Address newYorkAddress = new Address(1, "65-30 Kissena Blvd, CEP Hall 2", "Queens", "NY", "11367","Tech Incubator at Queens College", true);
 
+	/**
+	 * Tests method:
+	 * @see com.revature.caliber.services.TrainingService.findByEmail(@RequestParam(required = true) Integer trainerID)
+	 * 
+	 * finds a trainer by email
+	 **/
 	@Test
 	public void findByEmail() throws Exception {
 		Trainer expected = new Trainer(NAME, LEAD_TRAINER, EMAIL,
@@ -84,6 +88,7 @@ public class TrainingAPITest extends AbstractAPITest {
 				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expected)));
 		
 	}
+	
 	/**
 	 * Tests method:
 	 * @see com.revature.caliber.services.TrainingService.findAllDroppedByBatch(@RequestParam(required = true) Integer batch)
@@ -276,7 +281,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 * 
 	 * Tests the following methods:
 	 * 
-	 * com.revature.caliber.controllers.TrainingController.deleteBatch()
+	 * @see com.revature.caliber.controllers.TrainingController.deleteBatch()
 	 * 
 	 * Verifies that a batch can be deleted/deactivated by asserting the status code returned is
 	 * 200 when the method is called.
@@ -287,6 +292,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void deleteBatch() throws Exception {
+		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + deleteBatch);
 		given().spec(requestSpec).header(AUTH, accessToken).pathParam("id", 2003).contentType(ContentType.JSON).when()
 				.delete(baseUrl + deleteBatch).then().assertThat().statusCode(204);
 		
@@ -296,7 +302,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 * 
 	 * Tests the following methods:
 	 * 
-	 * com.revature.caliber.controllers.TrainingController.createBatch()
+	 * @see com.revature.caliber.controllers.TrainingController.createBatch()
 	 * 
 	 * 
 	 * Verifies that a batch can be created when the method is called, by asserting that
@@ -330,7 +336,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 * 
 	 * Tests the following methods:
 	 *  
-	 * com.revature.caliber.controllers.TrainingController.findAllBatchesByTrainer()
+	 * @see com.revature.caliber.controllers.TrainingController.findAllBatchesByTrainer()
 	 *  
 	 * Verifies that batches can be found by specific trainer, by returning a status code of 200 after calling
 	 * the method in the TrainingController.
@@ -339,6 +345,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void findAllBatchesByTrainer() throws Exception {
+		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + findAllBatchesByTrainer);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				// get request for all batches by a trainer
 				.when().get(baseUrl + findAllBatchesByTrainer)
@@ -350,7 +357,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 * 
 	 * Tests the following methods:
 	 * 
-	 * com.revature.caliber.controllers.TrainingController.createWeek()
+	 * @see com.revature.caliber.controllers.TrainingController.createWeek()
 	 * 
 	 * Verifies that a week can be created by calling the method, and then returning a status code of 201.
 	 * 
@@ -358,6 +365,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void createWeek() throws Exception {
+		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + createWeek);
 		given().spec(requestSpec).header(AUTH, accessToken).pathParam("batchId", 2201).contentType(ContentType.JSON)
 				// request to create a week for a specific batch
 				.when().post(baseUrl + createWeek)
@@ -371,7 +379,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 *  
 	 *  Tests the following methods:
 	 *  
-	 *  com.revature.caliber.controllers.TrainingController.findCommonLocations()
+	 * @see com.revature.caliber.controllers.TrainingController.findCommonLocations()
 	 *  
 	 *  Verifies that batches with common locations can be found by asserting the status code returned
 	 *  to be 200.
@@ -380,6 +388,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void findCommonLocations() throws Exception {
+		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + findCommonLocations);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				// request to get a list of common locations
 				.when().get(baseUrl + findCommonLocations)
@@ -396,7 +405,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	public void createLocationTest() {
 		Address location = new Address(1, "299 CherryStreet", "FruityCity", "FL", "55555", "Revature", true);
 		location.setAddressId(20);
-		log.info("API Testing createLocation at baseUrl " + baseUrl);
+		log.info("API Testing createLocation at baseUrl " + baseUrl + createLocationTest);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(location).when()
 				.post(baseUrl + createLocationTest).then().assertThat().statusCode(201);
 	}
@@ -427,7 +436,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Address expect1 = newYorkAddress;
 		Address expect2 = new Address(2, "11730 Plaza America Drive, 2nd Floor", "Reston", "VA", "20190",
 				"Revature LLC", true);
-		log.info("API Testing updateLocation at baseUrl " + baseUrl);
+		log.info("API Testing updateLocation at baseUrl " + baseUrl + getAllLocationTest);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllLocationTest).then().assertThat().statusCode(200)
 				.body(matchesJsonSchema(new ObjectMapper().writeValueAsString(expect1)))
