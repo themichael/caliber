@@ -1,7 +1,5 @@
 package com.revature.caliber.test.uat;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,32 +14,26 @@ public class TraineeWeeklyPerformanceFeature {
 		ChromeDriverSetup setup = new ChromeDriverSetup();
 		reports = new ReportsPage(setup.getDriver());
 	}
-
-//	@After // each scenario
-//	public void teardown() {
-//		reports.closeDriver();
-//	}
 	
 	@Given("^I select a year$")
-	public void iSelectAYear() throws Throwable {
-//		Thread.sleep(500);
+	public void iSelectAYear() {
 	    reports.clickReportYear("2017");
 	}
 
 	@Given("^I have chosen a batch$")
-	public void iHaveChosenABatch() throws Throwable {
+	public void iHaveChosenABatch() {
 	    reports.clickBatchDropdown();
 	    reports.chooseBatch("Patrick Walsh - 2/14/17");
 	}
 	
 	@When("^I select a Trainee$")
-	public void iSelectATrainee() throws Throwable {
+	public void iSelectATrainee() {
 	    reports.clickTraineeDropdown();
 	    reports.chooseTraineeReport("Ali, Fareed");
 	}
 
 	@Then("^I can compare the Trainee performance to the batch performance$")
-	public void iCanCompareTheTraineePerformanceToTheBatchPerformance() throws Throwable {
+	public void iCanCompareTheTraineePerformanceToTheBatchPerformance() {
 	    reports.checkTraineeWeeklyProgressChart();
 	}
 }

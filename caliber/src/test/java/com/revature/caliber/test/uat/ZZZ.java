@@ -3,8 +3,8 @@ package com.revature.caliber.test.uat;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 /**
  * Extendible base class/ static method call for implementing a wait such that the page is allowed to load JS
  * @author Ryan
