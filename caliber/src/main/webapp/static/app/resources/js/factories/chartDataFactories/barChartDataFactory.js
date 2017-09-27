@@ -27,14 +27,12 @@ angular
 								})
 								.then(
 										function(response) {
-											$log
-													.debug("Agg - Batch - batchId, Week -- success");
+											$log.debug("Agg - Batch - batchId, Week -- success");
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log.error("There was an error: "
-													+ response.status);
+											$log.error("There was an error: " + response.status);
 										});
 					}
 
@@ -50,14 +48,12 @@ angular
 								})
 								.then(
 										function(response) {
-											$log
-													.debug("Reports - batchWeekTraineeAssessBar -- success");
+											$log.debug("Reports - batchWeekTraineeAssessBar -- success");
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log.error("There was an error: "
-													+ response.status);
+											$log.error("There was an error: " + response.status);
 										});
 					}
 
@@ -72,14 +68,12 @@ angular
 								})
 								.then(
 										function(response) {
-											$log
-													.debug("Reports - batchWeekTraineeAssessBar -- success");
+											$log.debug("Reports - batchWeekTraineeAssessBar -- success");
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log.error("There was an error: "
-													+ response.status);
+											$log.error("There was an error: " + response.status);
 										});
 					}
 
@@ -92,14 +86,12 @@ angular
 								})
 								.then(
 										function(response) {
-											$log
-													.debug("Batch - Week - batch avg Bar Chart");
+											$log.debug("Batch - Week - batch avg Bar Chart");
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log.error("There was an error: "
-													+ response.status);
+											$log.error("There was an error: " + response.status);
 										}); // end then
 					}
 
@@ -114,14 +106,12 @@ angular
 								})
 								.then(
 										function(response) {
-											$log
-													.debug("Batch -> Week -> getBatchWeekSortedBarChartData")
+											$log.debug("Batch -> Week -> getBatchWeekSortedBarChartData")
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log
-													.error("There was an error in barChartDataFactory -> getBatchWeekSortedBarChartData "
+											$log.error("There was an error in barChartDataFactory -> getBatchWeekSortedBarChartData "
 															+ response.status);
 										});
 					}
@@ -135,28 +125,26 @@ angular
 								})
 								.then(
 										function(response) {
-											$log
-													.debug("Batch -> overall -> score")
+											$log.debug("Batch -> overall -> score")
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log
-													.error("There was an error in barChartDataFactory -> getBatchOverallBarChart "
+											$log.error("There was an error in barChartDataFactory -> getBatchOverallBarChart "
 															+ response.status);
 										});
 					}
 
 					report.getDummyBarChartData = function() {
 						return {
-							"good" : [ 21000, 22000, 26000, 35000, 55000,
-									55000, 56000, 59000, 60000, 61000, 60100,
-									62000 ],
 							"poor" : [ 1000, 1200, 1300, 1400, 1060, 2030,
-									2070, 4000, 4100, 4020, 4030, 4050 ],
+								2070, 4000, 4100, 4020, 4030, 4050 ],
 							"average" : [ 21000, 22000, 26000, 35000, 55000,
-									55000, 56000, 59000, 60000, 61000, 60100,
-									62000 ],
+								55000, 56000, 59000, 60000, 61000, 60100,
+								62000 ],
+							"good" : [ 21000, 22000, 26000, 35000, 55000,
+								55000, 56000, 59000, 60000, 61000, 60100,
+								62000 ],
 							"superstar" : [ 1000, 1200, 1300, 1400, 1060, 2030,
 									2070, 4000, 4100, 4020, 4030, 4050 ],
 							"batches" : [ "Batch 1", "Batch 2", "Batch 3",
@@ -175,14 +163,12 @@ angular
 								})
 								.then(
 										function(response) {
-											$log
-													.debug("getAllBatchesCurrentWeekQCStats")
+											$log.debug("getAllBatchesCurrentWeekQCStats")
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log
-													.error("There was an error in barChartDataFactory -> getAllBatchesCurrentWeekQCStats:"
+											$log.error("There was an error in barChartDataFactory -> getAllBatchesCurrentWeekQCStats:"
 															+ response.status);
 										});
 					}
@@ -198,17 +184,16 @@ angular
 								})
 								.then(
 										function(response) {
-											$log
-													.debug("getBatchComparisonLine")
+											$log.debug("getBatchComparisonLine")
+											console.log("inside getBatchComparisonLine");
 											$log.debug(response);
 											return response.data;
 										},
 										function(response) {
-											$log
-													.error("There was an error in barChartDataFactory -> getBatchComparisonLine:"
+											$log.error("There was an error in barChartDataFactory -> getBatchComparisonLine:"
 															+ response.status);
 										});
 					}
 
 					return report;
-				})
+				});
