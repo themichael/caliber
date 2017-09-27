@@ -127,21 +127,37 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
         return new ModelAndView(REDIRECT + redirectUrl);
     }
     
-    @RequestMapping("/authenticated/token")
-    public void authenticateAPI(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-            @RequestParam(value = "salesTokenString") String salesTokenString) throws IOException, URISyntaxException{
-    	
-    	SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-        // Http request to the salesforce module to get the Salesforce user
-        SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
-        String email = salesforceUser.getEmail();
-
-        // Http request to the training module to get the caliber user
-        String jsonString = getCaliberTrainer(servletRequest, email);
-
-        // authorize user
-        authorize(jsonString, salesforceUser, servletResponse);
-    	
+    @RequestMapping(value="/authenticated_token")
+    public void authenticateAPI(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws IOException, URISyntaxException{
+    	log.info("API log in test");
+     	
+    	String salesTokenString = servletRequest.getParameter("salestoken");
+        try{
+            if(debug){
+                // fake Salesforce User
+                SalesforceUser salesforceUser = new SalesforceUser();
+                salesforceUser.setEmail(DEBUG_USER_LOGIN);
+                String email = salesforceUser.getEmail();
+    
+                // Http request to the training module to get the caliber user
+                String jsonString = getCaliberTrainer(servletRequest, email);
+                // authorize user
+                authorize(jsonString, salesforceUser, servletResponse);
+            }else{
+                SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
+                // Http request to the salesforce module to get the Salesforce user
+                SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
+                String email = salesforceUser.getEmail();
+    
+                // Http request to the training module to get the caliber user
+                String jsonString = getCaliberTrainer(servletRequest, email);
+    
+                // authorize user
+                authorize(jsonString, salesforceUser, servletResponse);
+            }
+        } catch(AuthenticationCredentialsNotFoundException e){
+            log.error("error thrown:", e);
+        }
     }
     /**
      * Clears session information and logout the user.

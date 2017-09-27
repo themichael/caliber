@@ -12,7 +12,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<security:form-login login-page="/" />
 
 		<!-- enable SSL -->
-		<security:intercept-url pattern="/**" requires-channel="https" />
+		<!-- <security:intercept-url pattern="/**" requires-channel="https" />-->
 
 
 		<!-- change to hasRole('ROLE_VP') after development is complete -->
@@ -32,6 +32,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 
 		<security:intercept-url pattern="/caliber"
 			access="permitAll" />
+		<security:intercept-url pattern="/authenticated_token" access = "permitAll"/>
 		<security:intercept-url pattern="/home" access="permitAll" />
 		<security:intercept-url pattern="/*" access="permitAll" />
 
