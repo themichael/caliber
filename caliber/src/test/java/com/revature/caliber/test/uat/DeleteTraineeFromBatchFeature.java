@@ -30,12 +30,12 @@ public class DeleteTraineeFromBatchFeature {
 		managePage.openManageBatchModal(0);
  	}
 
-	@Given("^I have clicked the trainee (\\d+) delete icon$")
-	public void i_have_clicked_the_trainee_delete_icon(int arg1) throws Throwable {
+	@Given("^I have clicked the \"([^\"]*)\" trainee  delete icon$")
+	public void i_have_clicked_the_trainee_delete_icon(String arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 		managePage.openDeleteTraineeModal(arg1);
-	}
-
+ 	}
+	
 	@When("^I have clicked the delete button$")
 	public void i_have_clicked_the_delete_button() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
