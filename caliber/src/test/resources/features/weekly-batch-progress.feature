@@ -10,6 +10,6 @@ Feature: View a batch's weekly progress
     Given that I am logged in as a User
     And on the Reports page
 
-  Scenario: 
+  Scenario: View a batches weekly progress chart
     When I select a batch
     Then I can note the weekly progress for a batch

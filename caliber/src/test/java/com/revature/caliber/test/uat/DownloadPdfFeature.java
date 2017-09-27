@@ -51,7 +51,6 @@ public class DownloadPdfFeature {
 
 	@Given("^I am on the Reports page$")
 	public void iAmOnTheReportsPage() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		reportsPage.gotoReportsPage();
 		reportsPage.verifyReportsPage();
 
@@ -59,36 +58,30 @@ public class DownloadPdfFeature {
 
 	@Given("^I have selected the year (\\d+) tab$")
 	public void iHaveSelectedTheYearTab(int year) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		
 		//Implemented the click dropdown in the method
 		reportsPage.clickReportYear("2017");
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as Trainer$")
 	public void iHaveSelectedAsTrainer(String trainer) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		reportsPage.clickBatchDropdown();
-		reportsPage.chooseBatch();
+		reportsPage.chooseBatch(trainer);
 	}
 
 	@Given("^I have selected all the weeks$")
 	public void iHaveSelectedAllTheWeeks() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		reportsPage.clickWeekDropdown();
-		reportsPage.chooseWeekReport("week 1");
+		reportsPage.chooseWeekReport("week All");
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as Trainees$")
 	public void iHaveSelectedAsTrainees(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		reportsPage.clickTraineeDropdown();
 		reportsPage.chooseTraineeReport("Ali, Fareed");
 	}
 
 	@When("^I click the download button$")
 	public void iClickTheDownloadButton() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		// Same for Cumulative Scores, Technical Skills, and Weekly Progress
 		 reportsPage.clickChartDropdownPdf();
 		 
@@ -97,7 +90,9 @@ public class DownloadPdfFeature {
 	@Then("^a PDF file is downloaded$")
 	public void aPDFFileIsDownloaded() throws Throwable {
 		reportsPage.clickChartFeedbackDownloadPdf();
-		 //or reportsPage.clickChartDownloadPdf();		
+		 //or reportsPage.clickChartDownloadPdf();	
+		
+		reportsPage.closeDriver();
 	}
 
 }

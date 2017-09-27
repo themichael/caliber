@@ -298,8 +298,8 @@ public class ManageBatchPage{
 	 * back to the manage batch modal
 	 * @throws InterruptedException
 	 */
-	public void openDeleteTraineeModal(int index) throws InterruptedException{
-		driver.findElement(By.id("removeTrainee"+index)).click();
+	public void openDeleteTraineeModal(String trainee) throws InterruptedException{
+		driver.findElement(By.id("removeTrainee"+trainee)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 		driver.findElement(By.id("deleteBatchButton"));
@@ -689,6 +689,6 @@ public class ManageBatchPage{
 	 * Closes driver completely. Calls driver.quit()
 	 */
 	public void closeDriver(){
-		driver.quit();
+		driver.close();
 	}
 }

@@ -25,13 +25,13 @@ public class DeleteBatchFeature {
 	@Given("^I click the delete batch icon$")
 	public void i_click_the_delete_batch_icon() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		managePage.openDeleteTraineeModal(0);
+		managePage.openManageBatchModal(0);
  	}
 
 	@When("^I click the Delete button in the confirm batch delete modal$")
 	public void i_click_the_Delete_button_in_the_confirm_batch_delete_modal() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		managePage.clickDeleteOnDeleteTraineeModal();
+		managePage.clickDeleteOnDeleteBatchModal();
  	}
 
 	@Then("^the batch has been deleted and I am on the Manage Batch Page$")
