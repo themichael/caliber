@@ -1,5 +1,5 @@
-
 package com.revature.caliber.services;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,7 +95,7 @@ public class ReportingService {
 
 	/**
 	 * Pie chart displaying number of trainees that received red, yellow, green,
-	 * x-Axis: QC Statuses y-Axis: Number of Trainees with
+	 * x-Axis: QC Statuses y-Axis: Number of Trainees with QC Status
 	 * 
 	 * @param batchId
 	 * @param weekNumber
@@ -116,13 +116,19 @@ public class ReportingService {
 
 	public Map<QCStatus, Integer> pieChartCurrentWeekQCStatus(Integer batchId) {
 		List<Batch> batch = batchDAO.findAllCurrentWithNotesAndTrainees();
-		Batch currentOne = batch.stream().filter(e -> e.getBatchId() == batchId).findFirst().get();
-		Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(currentOne);
-		for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
-			Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
-			if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-				return temp;
+		try {
+			Batch currentOne = batch.stream().filter(e -> e.getBatchId() == batchId).findFirst().get();
+			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(currentOne);
+			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
+				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
+				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
+					return temp;
+				}
 			}
+		} catch (Exception e) {
+			log.error("BATCH NOT FOUND");
+			log.error(e);
+			return new HashMap<>();
 		}
 		return new HashMap<>();
 	}
@@ -141,8 +147,7 @@ public class ReportingService {
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-					batchData.put("label", b.getStartDate()+"..."+ // batch start date
-							b.getTrainer().getName().substring(0,b.getTrainer().getName().indexOf(' ')));
+					batchData.put("label", b.getTrainer().getName().split(" ")[0] +" "+ b.getStartDate());
 					batchData.put("address", b.getAddress());
 					batchData.put("qcStatus", temp);   // Batch ID
 					batchData.put("id", b.getBatchId()); //Actual batch id
@@ -194,8 +199,8 @@ public class ReportingService {
 	 * @return
 	 */
 	public Note getBatchWeekQcOverallBarChart(Integer batchId, Integer week) {
-		//log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
-		System.out.println(noteDAO.findQCBatchNotes(batchId, week));
+		log.info("FINDING_WEEK: " + week + " QC batch notes for batch: " + batchId);
+		log.info(noteDAO.findQCBatchNotes(batchId, week));
 		return noteDAO.findQCBatchNotes(batchId, week);
 	}
 	
@@ -418,8 +423,8 @@ public class ReportingService {
 			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 
-			batchObject.put("label", batch.getStartDate()+"..."+ //batch start date
-					batch.getTrainer().getName().substring(0,batch.getTrainer().getName().indexOf(' ')));
+			batchObject.put("label",
+					batch.getTrainer().getName().split(" ")[0] +" "+ batch.getStartDate());
 			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
 			batchObject.put("address", batch.getAddress());
 			results.add(batchObject);
@@ -520,40 +525,75 @@ public class ReportingService {
 	 * Batch Comparison Data
 	 *******************************************************
 	 */
+	/**
+	 * Returns The average scores of all batches filtered by SkillType, TrainingType, and startDate
+	 * 
+	 *  utilizes batchFilterComparison to filter the batches and getBatchComparisonAvg(List<Batch> batches)
+	 *  to calculate the average based on a list of batches
+	 * 
+	 * @param skill
+	 * @param training
+	 * @param startDate
+	 * @return returns double: average grades of all batches after some startDate filtered by SkillType and TrainingType
+	 */
 	public Double getBatchComparisonAvg(String skill, String training, Date startDate) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(startDate);
 		List<Batch> allBatches = batchDAO.findAllAfterDate(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
 				cal.get(Calendar.YEAR));
+		List<Batch> filteredBatch = batchComparisonFilter(allBatches, skill, training);
+		return getBatchComparisonAvg(filteredBatch);
+	}
+	
+	/**
+	 * Returns a List of Batches filtered based on SkillType and TrainingType
+	 * 
+	 * @param batches
+	 * @param skill
+	 * @param training
+	 * @return List<Batch> filtered from and input List<Batch> by skillType and TrainingType
+	 */
+	public List<Batch> batchComparisonFilter(List<Batch> batches, String skill, String training){
 		List<Batch> filteredBatches;
 		if (skill.equalsIgnoreCase(ALL)) {
 			if (training.equalsIgnoreCase(ALL)) {
-				filteredBatches = allBatches;
+				filteredBatches = batches;
 			} else {
-				filteredBatches = allBatches.parallelStream().filter(b -> b.getTrainingType().name().equals(training))
+				filteredBatches = batches.parallelStream().filter(b -> b.getTrainingType().name().equals(training))
 						.collect(Collectors.toList());
 			}
 
 		} else {
 			if (training.equalsIgnoreCase(ALL)) {
-				filteredBatches = allBatches.parallelStream().filter(b -> b.getTrainingType().name().equals(skill))
+				filteredBatches = batches.parallelStream().filter(b -> b.getSkillType().name().equals(skill))
 						.collect(Collectors.toList());
 			} else {
-				filteredBatches = allBatches.parallelStream().filter(b -> b.getTrainingType().name().equals(skill))
+				filteredBatches = batches.parallelStream().filter(b -> b.getSkillType().name().equals(skill))
 						.filter(b -> b.getTrainingType().name().equals(training)).collect(Collectors.toList());
 			}
 		}
-
+		return filteredBatches;
+	}
+	
+	/**
+	 * Returns the average grades of all trainees in each batch in the List<Batch> batches
+	 * 
+	 * Utilizes the ReportingService.utilAvgBatch(List<Trainee> trainees, int weeks) method to get the average for each individual batch
+	 * 
+	 * @param batches
+	 * @return double: average of all grades in the batches
+	 */
+	public Double getBatchComparisonAvg(List<Batch> batches){
 		Object lock = new Object();
 		List<Double> results = new ArrayList<>();
-		filteredBatches.parallelStream().forEach(batch -> {
+		batches.parallelStream().forEach(batch -> {
 			Double temp = utilAvgBatch(new ArrayList<Trainee>(batch.getTrainees()), batch.getWeeks());
 			synchronized (lock) {
 				results.add(temp);
 			}
 		});
 		Double result = results.parallelStream().mapToDouble(Double::doubleValue).sum();
-		result = result / filteredBatches.size();
+		result = result / batches.size();
 
 		return result;
 	}
@@ -568,7 +608,7 @@ public class ReportingService {
 		for (Trainee trainee : trainees) {
 			Double avg = 0.d;
 			int weeksWithGrades = 0;
-			for (Integer i = 0; i < weeks; i++) {
+			for (Integer i = 1; i <= weeks; i++) {
 				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
 				if (tempAvg > 0) {
 					weeksWithGrades++;

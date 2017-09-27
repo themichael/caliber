@@ -1,28 +1,28 @@
 package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+
 
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.itextpdf.text.log.SysoCounter;
+
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.controllers.TrainingController;
-import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.test.integration.AssessmentTest;
-import static org.junit.Assert.*;
 
-import java.util.Date;
+import com.revature.caliber.data.TraineeDAO;
+
+
+
+
 
 public class TraineeDAOTest extends CaliberTest {
 
@@ -31,13 +31,24 @@ public class TraineeDAOTest extends CaliberTest {
 	@Autowired
 	private TraineeDAO traineeDAO;
 	private static final String TRAINEE_COUNT = "select count(trainee_id) from caliber_trainee";
-	private static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
 
 	@Autowired
 	public void setTraineeDAO(TraineeDAO traineeDAO) {
 		this.traineeDAO = traineeDAO;
 	}
 
+	/**
+	 * 
+	 * TraineeDAO.save(Trainee trainee)
+	 * 	Create trainees:
+	 * 		1 fully valid trainee
+	 * 		1 trainee with invalid name (none)
+	 * 		1 trainee with invalid email (none)
+	 * 		1 trainee with invalid batch (none)
+	 * 		run save method with each trainee
+	 * 		test to see total number of trainers only increases by one since only one is fully valid
+	 * 
+	 * */
 	@Test
 	public void testSave() {
 		log.info("CREATE TRAINEE");
@@ -72,6 +83,14 @@ public class TraineeDAOTest extends CaliberTest {
 		assertEquals(++before, after);
 	}
 
+	/**
+	 * 
+	 * TraineeDAO.findAll()
+	 * 	Use JDBCtemplate to save actual size of Trainee table
+	 * 	Use findAll() to save expected list of trainees and size of the trainee list
+	 * 	compare actual to expected to make sure the same number of trainees are being returned
+	 * 
+	 * */
 	@Test
 	public void testFindAll() {
 		log.info("FIND ALL TRAINEES");
@@ -81,6 +100,19 @@ public class TraineeDAOTest extends CaliberTest {
 		assertEquals(sizeExpected, sizeActual);
 	}
 
+	/**
+	 * 
+	 * TraineeDAO.findAllByBatch()
+	 * 	(note) method only returns trainees whose training_status value is not 'Dropped'
+	 * 	1:
+	 * 	Use JDBCtemplate to save actual list of Trainees found by known Batch of trainees
+	 * 	Use findALlByBatch() to find expected list of Trainees found by same Batch
+	 * 	compare size of actual to size of expected lists
+	 * 	2:
+	 * 	Use findAllByBatch() to find list of trainees from batch that DOES NOT EXIST
+	 * 	Compare size of list to 0 since list should be empty
+	 * 
+	 * */
 	@Test
 	public void testFindAllByBatch() {
 		log.info("FIND ALL TRAINEES BY BATCH");
@@ -97,7 +129,20 @@ public class TraineeDAOTest extends CaliberTest {
 		int badBatchCallSize = badBatchCall.size();
 		assertEquals(0, badBatchCallSize);
 	}
-
+	
+	/**
+	 * 
+	 * TraineeDAO.findAllDroppedByBatch()
+	 * 	(note) this method is intended to only return trainees whose training_status is 'Dropped'
+	 * 	1:
+	 * 	Use JDBCtemplate to find actual list of DROPPED trainees from known batch
+	 * 	Use findAllDroppedByBatch() to find expected list of trainees from known batch
+	 * 	compare the size of expected and actual to make sure they match
+	 * 	2:
+	 * 	Use findAllDroppedByBatch() to find list of trainees from batch that DOES NOT EXIST
+	 * 	Compare size of list to 0 since list should be empty
+	 * 
+	 * */
 	@Test
 	public void testFindAllDroppedByBatch() {
 		log.info("FIND ALL TRAINEES DROPPED BY BATCH");
@@ -116,7 +161,20 @@ public class TraineeDAOTest extends CaliberTest {
 		int badBatchCallSize = badBatchCall.size();
 		assertEquals(0, badBatchCallSize);
 	}
-
+	
+	/**
+	 * 
+	 * TraineeDAO.findAllByTrainer()
+	 * 	(note) method only returns trainees whose training_status value is not 'Dropped'
+	 * 	1:
+	 * 	Use JDBCtemplate to find actual list of trainees matched to known trainer
+	 * 	Use findAllByTrainer() to find expected list of trainees matched to known trainer
+	 * 	compare size of actual list to size of expected list to make sure they match
+	 * 	2:
+	 * 	Use findAllByTrainer() to find list of trainees from a trainer that DOES NOT EXIST
+	 * 	compare size of list to 0 since no trainees should be returned
+	 * 
+	 * */
 	@Test
 	public void testFindAllByTrainer() {
 		log.info("FIND ALL TRAINEES BY TRAINER");
@@ -136,22 +194,34 @@ public class TraineeDAOTest extends CaliberTest {
 		assertEquals(0, badTrainerCallSize);
 	}
 
+	/**
+	 * Validates the findOne function by finding a trainee by
+	 * their unique ID
+	 */
 	@Test
-	public void findOne() {
+	public void testFindOne() {
 		log.info("Find trainee by Id Test");
 		String actual = "osher.y.cohen@gmail.com";
 		assertEquals(actual, traineeDAO.findOne(5503).getEmail());
 	}
 
+	/**
+	 * Validates the findByEmail function by finding a trainee by
+	 * their unique email
+	 */
 	@Test
-	public void findByEmail() {
+	public void testFindByEmail() {
 		log.info("Find trainee by email Test");
 		Integer id = 5503;
 		assertEquals((int) id, (int) traineeDAO.findByEmail("osher.y.cohen@gmail.com").getTraineeId());
 	}
 
+	/**
+	 * Validates the update function by updating the trainee's name
+	 * and checking against the original in the database
+	 */
 	@Test
-	public void update() {
+	public void testUpdate() {
 		log.info("Update trainee");
 		String updatedName = "Up, Dated";
 		Trainee trainee = traineeDAO.findOne(5503);
@@ -160,8 +230,13 @@ public class TraineeDAOTest extends CaliberTest {
 		assertEquals(updatedName, trainee.getName());
 	}
 
+	/**
+	 * Validates the delete function by comparing the number of rows
+	 * in the original database to the number of rows in the altered
+	 * database after the delete (there should be one fewer).
+	 */
 	@Test
-	public void delete() {
+	public void testDelete() {
 		log.info("Delete trainee");
 		int initialSize = traineeDAO.findAll().size();
 		Trainee toDelete = traineeDAO.findOne(5503);

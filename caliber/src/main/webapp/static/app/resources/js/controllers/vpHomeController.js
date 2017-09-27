@@ -20,14 +20,8 @@ angular
 					$scope.batchesByYear = [];
 					$scope.categories = [];
 
+                    $scope.qcOverallNotes = {};
 
-                    $scope.qcOverallNotes = [];
-
-                    // call function to get batch overall feedback
-                    for (var b in $scope.batches){
-                        if ($scope.batches.hasOwnProperty(b) )
-                            getOverallBatchFeedback($scope.batches[b].batchId, $scope.batches[b].weeks);
-                    }
 
 					(function() {
 						// Finishes any left over ajax animation from another
@@ -38,16 +32,28 @@ angular
 						
 					})();
 
-
                     // function to get overall feedback for all batches for current week
                     function getOverallBatchFeedback(batchId, currentWeek) {
                         caliberDelegate.qc
                             .batchNote(batchId, currentWeek)
                             .then(function (notes) {
-                                $scope.qcOverallNotes.push(notes.qcStatus);
+                                $scope.qcOverallNotes[batchId] = (notes.qcStatus);
                             })
                     }
-
+                    
+                    // function that gets all the batches overall feedback and maps each batchId to the qcStatus for the current week.
+                    $scope.getOverallBatchFeedbackMap = function() {
+                    	var batchIdHolder = [];
+                    	for( var id in $scope.batches){
+                    		if((""+$scope.stackedBarIds).match(""+$scope.batches[id].batchId)){
+                    			batchIdHolder.push(id);
+                    		}
+                    	}
+						for ( var key in batchIdHolder) {
+							getOverallBatchFeedback($scope.batches[batchIdHolder[key]].batchId, $scope.batches[batchIdHolder[key]].weeks);
+						}
+					}
+	                    
 
 					// function to grab latest qc information from click
 					// event
@@ -359,7 +365,6 @@ angular
 
 					};
 
-
 					var filterLineChartByState = function(state){
 						if(state){
 							var filteredData = $scope.averageScoreData.filter(function(batch){
@@ -371,8 +376,6 @@ angular
 							createCurrentBatchesAverageScoreChart($scope.averageScoreData);
 						}
 					};
-
-
 
 					var filterBarChartByState = function(state){
 						if(state){
@@ -428,4 +431,3 @@ angular
 					}
 
 				});
-
