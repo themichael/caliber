@@ -86,12 +86,13 @@ public class AssessBatchPage{
 		driver.findElement(By.id("batchesDropdownId2")).click();
 	}
 	
-	public void batchNotes(String feedback){
+	public void batchNotes(String feedback) throws InterruptedException{
+		driver.findElement(By.id("trainerBatchNote")).clear();
 		driver.findElement(By.id("trainerBatchNote")).sendKeys(feedback);
 	}
 
 	public void batchNotesCheck(String feedback){
-		assertEquals(feedback, driver.findElement(By.id("trainerBatchNote")).getAttribute("name").toString());
+		assertEquals(feedback, driver.findElement(By.id("trainerBatchNote")).getAttribute("value"));
 	}
 	
 	public void selectAssessementCategory(String feedback){

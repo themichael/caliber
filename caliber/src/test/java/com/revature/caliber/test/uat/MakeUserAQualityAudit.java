@@ -45,7 +45,7 @@ public class MakeUserAQualityAudit {
 	@Then("^the user has been changed to a \"([^\"]*)\"$")
 	public void the_user_has_been_changed_to_a(String tier) throws Throwable {
 	    trainerPage.checkTierChange(tier);
-	    trainerPage.teardown();
+//	    trainerPage.teardown();
 	}
 
 }
