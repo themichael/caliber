@@ -15,12 +15,12 @@ public class AddTraineeToBatch {
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
 	
-	@Given("^I am on the Manage Batch Page$")
-	public void i_am_on_the_Manage_Batch_Page() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-		managePage.gotoManagePage();
-		managePage.verifyPage("manage");
-	}
+//	@Given("^I am on the Manage Batch Page$")
+//	public void i_am_on_the_Manage_Batch_Page() throws Throwable {
+//	    // Write code here that turns the phrase above into concrete actions
+//		managePage.gotoManagePage();
+//		managePage.verifyPage("manage");
+//	}
 
 	@Given("^I have clicked the Person Icon for a specific Batch$")
 	public void i_have_clicked_the_Person_Icon_for_a_specific_Batch() throws Throwable {
