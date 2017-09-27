@@ -126,6 +126,23 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
         log.debug("Forwarding to : " + redirectUrl);
         return new ModelAndView(REDIRECT + redirectUrl);
     }
+    
+    @RequestMapping("/authenticated/token")
+    public void authenticateAPI(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+            @RequestParam(value = "salesTokenString") String salesTokenString) throws IOException, URISyntaxException{
+    	
+    	SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
+        // Http request to the salesforce module to get the Salesforce user
+        SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
+        String email = salesforceUser.getEmail();
+
+        // Http request to the training module to get the caliber user
+        String jsonString = getCaliberTrainer(servletRequest, email);
+
+        // authorize user
+        authorize(jsonString, salesforceUser, servletResponse);
+    	
+    }
     /**
      * Clears session information and logout the user.
      * 

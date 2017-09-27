@@ -78,7 +78,7 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 				login();
 				log.info("Logging into Caliber for API testing");
 				Response response = given().param("salestoken", accessTokenJson).redirects().allowCircular(true)
-						.get(baseUrl + "caliber/");
+						.get(baseUrl + "authenticated/token/");
 				String sessionCookie = response.getSessionId();
 				String roleCookie = response.getCookie("role");
 				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
