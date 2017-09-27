@@ -60,7 +60,7 @@ public class QualityAuditTraineePerfromanceFeature {
 
 	@When("^I click the save button at the bottom of the page$")
 	public void iClickTheSaveButtonAtTheBottomOfThePage() throws Throwable {
-		Thread.sleep(500);
+		Thread.sleep(1000);
 	    qaPage.clickSaveButton();
 	}
 

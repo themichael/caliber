@@ -212,7 +212,7 @@ public class QualityAuditPage {
 	 * @throws InterruptedException 
 	 */
 	public void verifyQCNotes() throws InterruptedException{
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		String notes = driver.findElement(By.id("qcBatchNotes")).getAttribute("class");
 		boolean contains = false;
 		contains = notes.contains("ng-not-empty");
@@ -221,8 +221,10 @@ public class QualityAuditPage {
 	
 	/**
 	 * Clicks the save button at the bottom of the page.
+	 * @throws InterruptedException 
 	 */
-	public void clickSaveButton(){
+	public void clickSaveButton() throws InterruptedException{
+		Thread.sleep(3000);
 		driver.findElement(By.id("saveButton"))
 			.click();
 	}
