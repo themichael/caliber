@@ -23,9 +23,20 @@ public class AssessmentDAOTest extends CaliberTest{
 	private AssessmentDAO assessmentDao;
 	private static final String ASSESSMENT_COUNT = "select count(assessment_id) from caliber_assessment";
 	
-	/*
+	/**
 	 * Tests methods:
 	 * com.revature.caliber.data.AssessmentDAO.save()
+	 * 
+	 * Tests that an assessment bean can be saved, and persisted, into the database.
+	 * It is further verified by comparing the sizes of two lists, which use the findAll() method
+	 * to acquire all assessments stored in the assessments table. This is run twice:
+	 * 
+	 * 1. Once before the save method occurs.
+	 * 2. Once after the method is run.
+	 * 
+	 * What should be expected, is that the list before method run + 1 equals the list after the method is run,
+	 * the difference being in the additional assessment that was saved into the database.
+	 * 
 	 */
 	@Test
 	public void saveAssessmentTest() {
@@ -45,9 +56,18 @@ public class AssessmentDAOTest extends CaliberTest{
 	}
 	
 	
-	/*
+	/**
 	 * Tests methods:
 	 * com.revature.caliber.data.AssessmentDAO.findOne()
+	 * 
+	 * Tests that a particular assessment can be found, and verifies that it has found it.
+	 * Tested by using a hard-coded batch id of 2074 to look for an assessment using the findOne method.
+	 * Asserted by comparing the hard-coded assessment id to the id that would normally be acquired using the following:
+	 * 
+	 * assessmentdao.findOne(assessmentId).getAssessmentId()
+	 *  
+	 * If there is a match, then that particular assessment was found.
+	 * 
 	 */
 	@Test
 	public void findOneAssessmentTest() {
@@ -56,24 +76,41 @@ public class AssessmentDAOTest extends CaliberTest{
 		int assessmentId = 2074;
 		assessmentDao.findOne(assessmentId);
 		assertEquals(assessmentId, assessmentDao.findOne(assessmentId).getAssessmentId());
+		
 	}
 	
 	
-	/*
+	/**
 	 * Tests methods:
 	 * com.revature.caliber.data.AssessmentDAO.findAll()
+	 * 
+	 * Calls the findAll method, and stores all assessments found into a list.
+	 * A log line is used to count the size of the assessments list, which is equal to the number of assessments that are
+	 * inside the CALIBER_ASSESSMENT table. This was not hard-coded because it has the potential to fail builds.
+	 * 
+	 * If the list size corresponds to the number of assessments in the table, then the method has acquired them all assessments available.
+	 * 
 	 */
 	@Test
 	public void findAllAssessmentTest() {
 		
-		assertNotNull(assessmentDao.findAll());
+		List<Assessment> assessments = assessmentDao.findAll();
+		
+		log.info("Number of assessments found in the database (should match the number of assessments in the CALIBER_ASSESSMENT table): " + assessments.size());
+		
+		assertNotNull(assessments);
 		
 	}
 	
 	
-	/*
+	/**
 	 * Tests methods:
 	 * com.revature.caliber.data.AssessmentDAO.findByWeek(batchId, weekNumber)
+	 * 
+	 * Calls the findByWeek() method to search for assessments by batch id and week number.
+	 * Asserts that the batch Id and week number of every assessment in the returned ArrayList are the same.
+	 * 
+	 * If they are, then it has successfully done so.
 	 */
 	@Test
 	public void findAssessmentsByWeekTest() {
@@ -81,7 +118,14 @@ public class AssessmentDAOTest extends CaliberTest{
 		int batchId = 2150;
 		int weekNumber = 3;
 		
-		assertNotNull(assessmentDao.findByWeek(batchId, weekNumber));
+		List<Assessment> assessment = assessmentDao.findByWeek(batchId, weekNumber);
+		
+		for (int i = 0; i < assessment.size(); i++) {
+			
+			assertEquals (weekNumber, assessment.get(0).getWeek());
+			assertEquals (batchId, assessment.get(0).getBatch().getBatchId());
+		
+		}
 		
 	}
 	

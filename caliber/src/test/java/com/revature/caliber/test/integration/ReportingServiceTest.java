@@ -24,6 +24,7 @@ import org.joda.time.LocalDate;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ParseException;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Address;
@@ -45,6 +46,8 @@ public class ReportingServiceTest extends CaliberTest {
 	private static final String EMAIL = "email@email.com";
 	private static final String TITLE = "A title:";
 	private static final String REVATURE = "Revature";
+	private static final String SPRING = "Spring";
+	private static final String HIBERNATE = "Hibernate";
 	
 	private static Logger log = Logger.getLogger(ReportingServiceTest.class);
 	private static List<Trainee> trainees;
@@ -237,7 +240,7 @@ public class ReportingServiceTest extends CaliberTest {
 		double[] averages = { 30.0, 35.0, 40.0 }; // Week 1 averages for all 3 trainees
 		for (int i = 0; i < 3; i++) {
 			Set<Grade> grades = trainees.get(i).getGrades();
-			Double avg = 0d;
+			Double avg;
 			avg = reportingService.utilAvgTraineeWeek(grades, 1);
 			assertEquals(new Double(averages[i]), avg);
 		}
@@ -331,6 +334,8 @@ public class ReportingServiceTest extends CaliberTest {
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.service.ReportingService#getBatchComparisonAvg(List<Batch> batches)
+	 * 
+	 * Uses the helper method batchComparisonInit() to create two batches with grades with known averages
 	 */
 	@Test
 	public void getBatchComparisonAvgTest(){
@@ -338,13 +343,13 @@ public class ReportingServiceTest extends CaliberTest {
 
 		List<Batch> batches = batchComparisonInit();
 		
-		List<Batch> singleBatch1 = new ArrayList<>();
+		List<Batch> singleBatch1 = new ArrayList<>();  //Get three tests from one array of two batches by testing each individually
 		singleBatch1.add(batches.get(0));
 		
 		List<Batch> singleBatch2 = new ArrayList<>();
 		singleBatch2.add(batches.get(1));
 		
-		double avg = reportingService.getBatchComparisonAvg(singleBatch1);
+		double avg = reportingService.getBatchComparisonAvg(singleBatch1); 
 		double expected = 80;
 		log.info(avg);
 		assertTrue(Math.abs(avg-expected)<.0001);
@@ -361,6 +366,8 @@ public class ReportingServiceTest extends CaliberTest {
 	/**
 	 * Tests methods:
 	 * @see com.revature.caliber.service.ReportingService#batchComparisonFilter(List<Batch> batches, String skill, String training)
+	 * 
+	 * Checks each path in the filter test, All|All, All|TrainingType, SkillType|All, SkillType|TrainingType
 	 */
 	@Test
 	public void batchComparisonFilterTest(){
@@ -478,6 +485,7 @@ public class ReportingServiceTest extends CaliberTest {
 	/**
 	 *  Test method:
 	 *  @see com.revature.caliber.services.ReportingService.getBatchWeekQcOverallBarChart(Integer batchId, Integer week)
+	 *  Pulls a Note from the database. Tries to pull one with an invalid batch and then with an invalid week.
 	 */
 	@Test
 	public void getBatchWeekQcOverallBarChartTest(){
@@ -488,24 +496,24 @@ public class ReportingServiceTest extends CaliberTest {
 		//invalid batch
 		testNote = reportingService.getBatchWeekQcOverallBarChart(22, 7);
 		assertNull(testNote);
-		//invalid batch
+		//invalid week
 		testNote = reportingService.getBatchWeekQcOverallBarChart(2201, -5);
 		assertNull(testNote);
-
 	}
 
 	/**
 	 * Tests methods:
 	 * 
 	 * @see com.revature.caliber.services.ReportingService#utilSeparateQCTraineeNotesByWeekTest()
-	 * 
-	 * 
+	 * This method tests by creating a batch with trainees with QC status for each week.
+	 * I will compare the amount of trainees who got a particular QC Status 
 	 */
 	@Test
 	public void utilSeparateQCTraineeNotesByWeekTest() {
 
 		log.info("Testing the ReportingService.utilSeperateQCTraineeNotesByWeek");
 
+		//These numbers come from createTestBatchWithQCNotes
 		int[] statusPoorCountPerWeek = { 0, 0, 0, 3, 0, 0, 0 };
 		int[] statusAverageCountPerWeek = { 3, 0, 0, 0, 3, 0, 0 };
 		int[] statusGoodCountPerWeek = { 0, 3, 0, 0, 0, 3, 0 };
@@ -580,6 +588,18 @@ public class ReportingServiceTest extends CaliberTest {
 	/**
 	 * Tests methods:
 	 * com.revature.caliber.services.ReportingService.getBatchWeekPieChart(Integer batchId, Integer weekNumber)
+	 * 
+	 * For a given week throughout the course of a batch's training program, you should be able to determine how many people,
+	 * out of all the trainees in the batch, fall into one of four categories:
+	 * 
+	 * Superstar, Average, Good, and Poor.
+	 * 
+	 * This test calls the method to search for a batch's information by batch id and the given week you want to look for its reports on.
+	 * With the information provided, the method then retrieves the number of people categorized into the four groups for that given week only.
+	 * 
+	 * The assertions are meant to indicate that the actual number of people falling into each category, are exactly what we would expect them to get.
+	 * Because a very specific set of information is being retrieved from the Caliber database. The assertions are then displayed onto the console also for verification.
+	 * 
 	 */
 	@Test
 	public void getBatchWeekPieChartTest() {
@@ -591,78 +611,131 @@ public class ReportingServiceTest extends CaliberTest {
 			log.info("key: "+ key+ " " + pieChart.get(key));
 			
 		}
-
-		log.info("Testing getBatchWeekPieChart");
+		
+		//Asserts that the values for superstar, good, average, and poor are, in fact, what we are expecting them to be
+		// as per what's in the database (or setup.sql files)
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Superstar));
 		assertEquals( (Integer) 9, (Integer) pieChart.get(QCStatus.Good));
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Average));
 		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
+		
+		//These log lines, in the console, should display the same values that are being retrieved from the database, mainly for verification.
+		log.info("Number of individuals ranked 'superstar' in batch " + 2201 + " for week  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
+		log.info("Number of individuals ranked 'good' in batch " + 2201 + " for week  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Good));
+		log.info("Number of individuals ranked 'average' in batch " + 2201 + " for week  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
+		log.info("Number of individuals ranked 'poor' in batch " + 2201 + " for week  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Poor));
 		
 	}
 	
 	/**
 	 * Tests methods:
 	 * com.revature.caliber.services.ReportingService.pieChartCurrentWeekQCStatus(Integer batchId)
+	 * 
+	 * For the current week of a batch's training program, you should be able to determine how many people,
+	 * out of all the trainees in the batch, fall into one of four categories:
+	 * 
+	 * Superstar, Average, Good, and Poor.
+	 * 
+	 * This test calls the method to search for a batch's information by batch id and the current week that they are in.
+	 * With the information provided, the method then retrieves the number of people categorized into the four groups for that given week only.
+	 * 
+	 * The assertions are meant to indicate that the actual number of people falling into each category, are exactly what we would expect them to get.
+	 * Because a very specific set of information is being retrieved from the Caliber database. The assertions are then displayed onto the console also for verification.
 	 */
 	@Test
 	public void pieChartCurrentWeekQCStatusTest() {
 		log.info("Testing ReportingService.pieChartCurrentWeekQCStatus()");
+		
+		//This could be any batch id found in the database but, for testing purposes, 2201 was used.
 		Integer batchId = 2201;
+		
+		//acquires the pie chart data for the given batch id
 		Map<QCStatus, Integer> pieChart = reportingService.pieChartCurrentWeekQCStatus(batchId);
 		
+		//displays the data that is retrieved based on request from method call
 		for (QCStatus key : pieChart.keySet()) {
 			log.info("key: "+ key+ " " + pieChart.get(key));	
 		}
 		
+		//assertions to indicate that the values are what we expect them to be, based on their values in the database
 		assertNotNull(pieChart);
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Superstar));
 		assertEquals( (Integer) 9, (Integer) pieChart.get(QCStatus.Good));
 		assertEquals( (Integer) 0, (Integer) pieChart.get(QCStatus.Average));
-		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));	
+		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
+		
+		//These log lines, in the console, should display the same values that are being retrieved from the database, mainly for verification.
+		log.info("Number of individuals ranked 'superstar' in batch " + 2201 + " for the current week: " + (Integer) pieChart.get(QCStatus.Superstar));
+		log.info("Number of individuals ranked 'good' in batch " + 2201 + " for the current week:" + 7 + ": " + (Integer) pieChart.get(QCStatus.Good));
+		log.info("Number of individuals ranked 'average' in batch " + 2201 + " for the current week:" + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
+		log.info("Number of individuals ranked 'poor' in batch " + 2201 + " for the current week: " + (Integer) pieChart.get(QCStatus.Poor));
+		
+		
 	}
 	
 	/**
 	 *  Tests methods:
 	 *  com.revature.caliber.services.ReportingService.getAllBatchesCurrentWeekQCStackedBarChart
+	 *  
+	 *  For the current week, you should be able to retrieve, for all batches that are currently being trained, how many trainees
+	 *  are in one of the following four categories:
+	 *  
+	 *  Superstar, Average, Good, and Poor
+	 *  
+	 *  The method essentially returns a map for all batches in the current week, within which is another map of trainees in the categories.
+	 *  Through nested iteration, the map is acquired separately. Its keys are then iterated through to extract, and assert, that the values
+	 *  correspond to what are found in the database.
+	 *  
+	 *  In this case, the following is being asserted in this test:
+	 *   - The batch ID corresponds to the target batch we want to examine its reports for.
+	 *   - The actual categories (Superstar, Average, Good, and Poor) within the selected batch in fact are the values we find in the database.
+	 *   - The batch label contains content that is familiar, partly, to what is found in the database. In this case, "Patrick"
+	 *   - The batch location is in fact where the batch appears to be located, by making sure that the "street" component of the address is the same.
+	 *   
+	 *   
+	 * @throws java.text.ParseException  
 	 */
 	@Test
 	public void getAllBatchesCurrentWeekQCStackedBarChartTest() {
-		log.info("Testing ReportingService.getAllBatchesCurrentWeekQCStackedBarChar()");
-		List<Object> object = reportingService.getAllBatchesCurrentWeekQCStackedBarChart();
-		
-		@SuppressWarnings("unchecked")
-		Map<String, Object> test = (Map<String, Object>) object.get(0);
-		
-		for (int i = 0; i < object.size(); i++) {
-			log.info("Batch number " + i + ": " + object.get(i));	
-		}
-
-		// find a way to acquire the map separately, then iterate through its keys
-		
-		@SuppressWarnings("unchecked")
-		Map<QCStatus, Integer> qcStatus = (Map<QCStatus, Integer>) test.get("qcStatus");
-		
-		//asserts batch ID
-		assertEquals((Integer) 2201, (Integer) test.get("id"));
-		
-		//asserts QCStatus values for Poor, Good, Superstar, and Average
-		assertEquals((Integer) 7, (Integer) qcStatus.get(QCStatus.Poor));
-		assertEquals((Integer) 9, (Integer) qcStatus.get(QCStatus.Good));
-		assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Superstar));
-		assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Average));
-		
-		//asserts the label
-		
-		LocalDate expect = LocalDate.now();
-		expect = expect.minusDays(7);
-		
-		assertEquals("Patrick " + expect, (String) test.get("label"));
-		
-		//asserts the address
-		Address address = (Address) test.get("address");
-	
-		assertEquals("65-30 Kissena Blvd, CEP Hall 2", address.getStreet());
+		try {
+			log.info("Testing ReportingService.getAllBatchesCurrentWeekQCStackedBarChar()");
+			List<Object> object = reportingService.getAllBatchesCurrentWeekQCStackedBarChart();
 			
+			@SuppressWarnings("unchecked")
+			Map<String, Object> test = (Map<String, Object>) object.get(0);
+			
+			for (int i = 0; i < object.size(); i++) {
+				log.info("Batch number " + i + ": " + object.get(i));	
+			}
+			// find a way to acquire the map separately, then iterate through its keys
+			@SuppressWarnings("unchecked")
+			Map<QCStatus, Integer> qcStatus = (Map<QCStatus, Integer>) test.get("qcStatus");
+			
+			//asserts batch ID
+			assertEquals((Integer) 2201, (Integer) test.get("id"));
+			
+			//asserts QCStatus values for Poor, Good, Superstar, and Average
+			assertEquals((Integer) 7, (Integer) qcStatus.get(QCStatus.Poor));
+			assertEquals((Integer) 9, (Integer) qcStatus.get(QCStatus.Good));
+			assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Superstar));
+			assertEquals((Integer) 0, (Integer) qcStatus.get(QCStatus.Average));
+			
+			//asserts the label
+			LocalDate expect = LocalDate.now();
+			expect = expect.minusDays(7);
+			
+			assertEquals("Patrick " + expect, (String) test.get("label"));
+			
+			//asserts the address by making sure that the "street" component of address is what's expected
+			Address address = (Address) test.get("address");
+		
+			assertEquals("65-30 Kissena Blvd, CEP Hall 2", address.getStreet());
+		
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+			
+		}
 	}
 		
 	/**
@@ -686,6 +759,8 @@ public class ReportingServiceTest extends CaliberTest {
 		Set<Trainee> trainees1 = new HashSet<>();
 		Set<Trainee> trainees2 = new HashSet<>();
 		
+		
+		//Averages for score1 = 80, score2 = 90, score1+2 = 85
 		int[] score1 = {70, 80, 80, 90};
 		int[] score2 = {100, 90, 90, 80};
 		
@@ -803,8 +878,6 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void testGetTraineeUpToWeekRadarChart() {
 		
-		final String spring = "Spring";
-		final String hibernate = "Hibernate";
 		log.trace("Testing getTraineeUpToWeekRadarChart");
 
 		// call service
@@ -814,12 +887,12 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals(6, traineeSkills.size());
 		
 		// check that each expected skill is there and has expected average
-		assertEquals(82.92, traineeSkills.get(hibernate), FLOATING_NUMBER_VARIANCE);
+		assertEquals(82.92, traineeSkills.get(HIBERNATE), FLOATING_NUMBER_VARIANCE);
 		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(79.20, traineeSkills.get(spring), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get(SPRING), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -829,8 +902,6 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void testGetTraineeOverallRadarChart() {
-		final String spring = "Spring";
-		final String hibernate = "Hibernate";
 		log.trace("Testing getTraineeOverallRadarChart");
 
 		// call service
@@ -840,12 +911,12 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals(7, traineeSkills.size());
 		
 		// check that each expected skill is there and has expected average
-		assertEquals(82.92, traineeSkills.get(hibernate), FLOATING_NUMBER_VARIANCE);
+		assertEquals(82.92, traineeSkills.get(HIBERNATE), FLOATING_NUMBER_VARIANCE);
 		assertEquals(80.40, traineeSkills.get("JSP"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(67.79, traineeSkills.get("Java"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(93.10, traineeSkills.get("JavaScript"), FLOATING_NUMBER_VARIANCE);
 		assertEquals(91.55, traineeSkills.get("SQL"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(79.20, traineeSkills.get(spring), FLOATING_NUMBER_VARIANCE);
+		assertEquals(79.20, traineeSkills.get(SPRING), FLOATING_NUMBER_VARIANCE);
 		assertEquals(83.60, traineeSkills.get("REST"), FLOATING_NUMBER_VARIANCE);
 	}
 
@@ -920,12 +991,12 @@ public class ReportingServiceTest extends CaliberTest {
 		Map<String, Double> skills = reportingService.getBatchOverallRadarChart(TEST_BATCH_ID);
 		assertEquals(7, skills.size());
 		assertEquals(76.70, skills.get("Java"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(89.74, skills.get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(89.74, skills.get(HIBERNATE), FLOATING_NUMBER_VARIANCE);
 
 		skills = reportingService.getBatchOverallRadarChart(TEST_BATCH_ID2);
 		assertEquals(10, skills.size());
 		assertEquals(77.88, skills.get("JDBC"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(89.52, skills.get("Spring"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(89.52, skills.get(SPRING), FLOATING_NUMBER_VARIANCE);
 	}
 
 	/**
@@ -1002,7 +1073,7 @@ public class ReportingServiceTest extends CaliberTest {
 		
 		assertEquals(13, skills.size());
 		assertEquals(91.55, skills.get("Erwin, Eric").get("SQL"), FLOATING_NUMBER_VARIANCE);
-		assertEquals(84.16, skills.get("Michels, Alex").get("Hibernate"), FLOATING_NUMBER_VARIANCE);
+		assertEquals(84.16, skills.get("Michels, Alex").get(HIBERNATE), FLOATING_NUMBER_VARIANCE);
 
 		skills = reportingService.getBatchAllTraineesOverallRadarChart(TEST_BATCH_ID2);
 		assertEquals(15, skills.size());
@@ -1051,7 +1122,7 @@ public class ReportingServiceTest extends CaliberTest {
 		assertTrue(technologies.size() == 1);
 
 		// Set of technologies should contain Spring
-		assertTrue(technologies.contains("Spring"));
+		assertTrue(technologies.contains(SPRING));
 
 		// Set of technologies should not contain Java
 		assertFalse(technologies.contains("Java"));

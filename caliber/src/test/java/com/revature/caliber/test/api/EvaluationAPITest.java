@@ -308,7 +308,7 @@ public class EvaluationAPITest extends AbstractAPITest{
 		// check that some notes were returned
 		assertTrue(!notes.isEmpty());
 	}
-
+	
 	/**
 	 * 
 	 * @see com.revature.caliber.controllers.EvaluationController#findIndividualNotes(@PathVariable Integer batchId, @PathVariable Integer week)
