@@ -105,6 +105,5 @@ public class UpdateBatchFeature {
 	public void iAmBackOnTheManageBatchPage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 		managePage.verifyPage("manage");
-		managePage.closeDriver();
 	}
 }

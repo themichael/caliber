@@ -43,6 +43,5 @@ public class BatchStrengthFeature {
 	@Then("^I am able to report the Batch performance$")
 	public void i_am_able_to_report_the_Batch_performance() throws Throwable {
 		reportsPage.checkTechSkillsGraph();
-		reportsPage.closeDriver();
  	}
 }
