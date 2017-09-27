@@ -122,8 +122,9 @@ public class QualityAuditPage {
 	
 	/**
 	 * Clicks the individual feedback button next to the trainee once. Clicks cycle through good, average, poor, and superstar.
+	 * @throws InterruptedException 
 	 */
-	public void clickIndividualFeedbackButton(){
+	public void clickIndividualFeedbackButton() throws InterruptedException{
 		String[] qcBtns = { "questionBtn", "starBtn", "goodBtn", "fairBtn", "poorBtn"};
 		boolean isAvailable;
 		int step = 0;
@@ -201,7 +202,7 @@ public class QualityAuditPage {
 	 * @throws InterruptedException 
 	 */
 	public void verifyQCNotes() throws InterruptedException{
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		String notes = driver.findElement(By.id("qcBatchNotes")).getAttribute("class");
 		boolean contains = false;
 		contains = notes.contains("ng-not-empty");
@@ -210,9 +211,11 @@ public class QualityAuditPage {
 	
 	/**
 	 * Clicks the save button at the bottom of the page.
+	 * @throws InterruptedException 
 	 */
-	public void clickSaveButton(){
-		driver.findElement(By.id("saveButton"))
+	public void clickSaveButton() throws InterruptedException{
+		Thread.sleep(1000);
+		driver.findElement(By.id("QASaveBtn"))
 			.click();
 	}
 }

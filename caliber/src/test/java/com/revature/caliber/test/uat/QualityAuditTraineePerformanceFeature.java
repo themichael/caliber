@@ -48,12 +48,13 @@ public class QualityAuditTraineePerformanceFeature {
 	}
 
 	@Given("^I click on the individual feedback button to the desried state$")
-	public void iClickOnTheIndividualFeedbackButtonToTheDesriedState() {
+	public void iClickOnTheIndividualFeedbackButtonToTheDesriedState() throws InterruptedException {
 	    qaPage.clickIndividualFeedbackButton();
 	}
 
 	@When("^I click the save button at the bottom of the page$")
-	public void iClickTheSaveButtonAtTheBottomOfThePage() {
+	public void iClickTheSaveButtonAtTheBottomOfThePage() throws Throwable {
+		Thread.sleep(1000);
 	    qaPage.clickSaveButton();
 	}
 

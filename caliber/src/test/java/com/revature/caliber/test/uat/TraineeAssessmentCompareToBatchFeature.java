@@ -23,7 +23,7 @@ public class TraineeAssessmentCompareToBatchFeature {
 	}
 
 	@When("^I have selected \"([^\"]*)\" as a trainee$")
-	public void iHaveSelectedAsATrainee(String trainee) {
+	public void iHaveSelectedAsATrainee(String trainee) throws InterruptedException {
 		reports.clickTraineeDropdown();
 		reports.chooseTraineeReport(trainee);
 	}

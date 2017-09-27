@@ -6,5 +6,5 @@ Feature: Grade Trainee on a particular Assessment
     Given I am on the Assess Batch Page
     And I have picked the Week 1 tab
     And I have submitted "50" as the grade for "Ahmed, Sadat"
-    When I hit the Save button
+    When I refresh the Assess Batch Page
     Then the grades "50" for "Ahmed, Sadat" are recorded

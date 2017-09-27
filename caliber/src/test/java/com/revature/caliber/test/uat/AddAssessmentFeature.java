@@ -1,7 +1,6 @@
 package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -18,49 +17,49 @@ public class AddAssessmentFeature {
 	}
 	
 	@Given("^I am located on the Assess Batch page$")
-	public void i_am_located_on_the_Assess_Batch_page() throws Throwable {
+	public void iAmLocatedOnTheAssessBatchPage() {
 	    assessBatch.goToPage();
 	    assessBatch.verifyAssessPage();
 	}
 
 	@Given("^I have selected a batch$")
-	public void i_have_selected_a_batch() throws Throwable {
+	public void iHaveSelectedABatch(){
 	    assessBatch.selectBatch();
 	}
 
 	@Given("^I have clicked the Week (\\d+) tab$")
-	public void i_have_clicked_the_Week_tab(int arg1) throws Throwable {
-	    assessBatch.clickWeekTab();
+	public void iHaveClickedTheWeekTab(int arg1) {
+	    assessBatch.clickWeekTab(arg1);
 	}
 
 	@Given("^I have clicked Create Assessment button$")
-	public void i_have_clicked_Create_Assessment_button() throws Throwable {
+	public void iHaveClickedCreateAssessmentButton()  {
 	    assessBatch.clickCreateAssessment();
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as the Category$")
-	public void i_have_selected_as_the_Category(String category) throws Throwable {
+	public void iHaveSelectedAsTheCategory(String category) throws InterruptedException {
 	    assessBatch.selectCreateAssessementCategory(category);
 	}
 
 	@Given("^I have entered (\\d+) as the Max Points$")
-	public void i_have_entered_as_the_Max_Points(int points) throws Throwable {
+	public void iHaveEnteredAsTheMaxPoints(int points) {
 	    Integer pointsToSend = new Integer(points);
 	    assessBatch.maxPoints(pointsToSend.toString());
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as the Assessment Type$")
-	public void i_have_selected_as_the_Assessment_Type(String type) throws Throwable {
+	public void iHaveSelectedAsTheAssessmentType(String type) throws InterruptedException {
 	    assessBatch.selectCreateAssessmentType(type);
 	}
 
 	@When("^I click the Save button$")
-	public void i_click_the_Save_button() throws Throwable {
+	public void iClickTheSaveButton() {
 	    assessBatch.modalSaveButton();
 	}
 
 	@Then("^the \"([^\"]*)\" Exam appears on the screen$")
-	public void the_Exam_appears_on_the_screen(String exam) throws Throwable {
+	public void theExamAppearsOnTheScreen(String exam) {
 	    boolean actual = assessBatch.assessmentCheck(exam);
 		assertEquals(actual, true);
 	}

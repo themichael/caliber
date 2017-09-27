@@ -8,6 +8,6 @@ Feature: View trainee strength
   Scenario: View Trainee strength
   Given I am on the reports page
   And I have clicked the person icon in the Technical Skills
-  And I click "Ali, Fareed" as a trainee
+  And I click "Patrick Muldoon" as a trainee
   When I tap the close button
   Then I can see the trainee performance compared to the batch

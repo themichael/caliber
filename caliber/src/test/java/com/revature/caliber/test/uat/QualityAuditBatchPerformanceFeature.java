@@ -51,7 +51,7 @@ public class QualityAuditBatchPerformanceFeature {
 	}
 
 	@When("^I click the save button$")
-	public void iClickTheSaveButton() {
+	public void iClickTheSaveButton() throws InterruptedException {
 	    qaPage.clickSaveButton();
 	}
 

@@ -14,14 +14,12 @@ import java.util.concurrent.TimeUnit;
  */
 public class SalesforceLoginPage {
 	
-	
-    
     private WebDriver driver;
     
     public SalesforceLoginPage(WebDriver driver){
     	super();
         this.driver = (ChromeDriver)driver;
-        driver.get(System.getenv("CALIBER_API_SERVER"));
+        driver.get("http://localhost:8080/");
     }
 
     /**
