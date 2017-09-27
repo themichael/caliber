@@ -22,17 +22,17 @@ public class QualityAuditPage {
 	}
 	
 	/**
-	 * Navigate current driver to http://localhost:8080/caliber/#/vp/audit
+	 * Navigate current driver
 	 */
 	public void goToPage(){
-		driver.get("http://localhost:8080/caliber/#/vp/audit");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/audit");
 	}
 	
 	/**
 	 * Verifies the page using assertEquals
 	 */
 	public void verifyPage(){
-		assertEquals("http://localhost:8080/caliber/#/vp/audit", driver.getCurrentUrl());
+		assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/audit", driver.getCurrentUrl());
 	}
 	
 	/**

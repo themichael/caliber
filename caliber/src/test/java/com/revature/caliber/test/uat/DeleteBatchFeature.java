@@ -19,7 +19,6 @@ public class DeleteBatchFeature {
 	public void iAmInTheManageBatchPage() {
  		managePage.gotoManagePage();
 		managePage.verifyPage("manage");
-		ZZZ.waitForPageLoad();
  	}
 
 	@Given("^I click the delete batch icon$")

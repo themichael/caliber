@@ -55,9 +55,16 @@ public class ReportingController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<Double> getBatchComparisonAvg(@PathVariable String skill, @PathVariable String training,
 			@PathVariable Date startDate) {
+		log.info("http://localhost:8080/all/reports/compare/skill/"+skill+"/training/"+training+"/date/"+startDate);
 		log.info("YAYAYAYAYAYAYYAYAYAYAYAYAYAYAYAYATEZXRDCYTFUVGBJHLNKJSFSD " + startDate + skill + training);
 		log.info(" getBatchComparisonAvg ===> " + reportingService.getBatchComparisonAvg(skill, training, startDate));
-		return new ResponseEntity<>(reportingService.getBatchComparisonAvg(skill, training, startDate), HttpStatus.OK);
+		Double result = reportingService.getBatchComparisonAvg(skill, training, startDate);
+		if(!result.isNaN()){
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
+		else{
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+		}
 	}
 
 	/*
@@ -70,21 +77,22 @@ public class ReportingController {
 	public ResponseEntity<Map<QCStatus, Integer>> getBatchWeekPieChart(@PathVariable Integer batchId,
 			@PathVariable Integer weekId) {
 		log.info("getBatchWeekPieChart   ===>   /all/reports/batch/{batchId}/week/{weekId}/pie");
+		
 		return new ResponseEntity<>(reportingService.getBatchWeekPieChart(batchId, weekId), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/all/reports/batch/{batchId}/pie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<Map<QCStatus, Integer>> getPieChartCurrentWeekQCStatus(@PathVariable Integer batchId) {
-		log.info("getPieChartCurrentWeekQCStatus ===> /all/reports/batch/{batchId}/week/pie");
-		try {
-			Map<QCStatus, Integer> results = reportingService.pieChartCurrentWeekQCStatus(batchId);
+		log.info("getPieChartCurrentWeekQCStatus ===> /all/reports/batch/{batchId}/pie");
+		Map<QCStatus, Integer> results = reportingService.pieChartCurrentWeekQCStatus(batchId);
+		if(results.size() > 0) {
+			log.info(results);
 			return new ResponseEntity<>(results, HttpStatus.OK);
-		} catch (Exception e) {
-			log.debug(e);
-			return new ResponseEntity<>(new HashMap<>(), HttpStatus.NO_CONTENT);
 		}
-
+		else {
+			return new ResponseEntity<>(new HashMap<>(), HttpStatus.NOT_FOUND);
+		}
 	}
 
 	/*
@@ -126,14 +134,24 @@ public class ReportingController {
 			@PathVariable Integer traineeId) {
 		log.info(
 				"getBatchOverallTraineeBarChart   ===>   /all/reports/batch/{batchId}/overall/trainee/{traineeId}/bar-batch-overall-trainee");
-		return new ResponseEntity<>(reportingService.getBatchOverallTraineeBarChart(batchId, traineeId), HttpStatus.OK);
+		Map<String, Double[]> result = reportingService.getBatchOverallTraineeBarChart(batchId, traineeId);
+		if(result.isEmpty()){
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
 	}
 
 	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/bar-batch-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<Map<String, Double>> getBatchOverallBarChart(@PathVariable Integer batchId) {
 		log.info("getBatchOverallBarChart   ===>   /all/reports/batch/{batchId}/overall/bar-batch-overall");
-		return new ResponseEntity<>(reportingService.getBatchOverallBarChart(batchId), HttpStatus.OK);
+			Map<String, Double> result = reportingService.getBatchOverallBarChart(batchId);
+		if(result.isEmpty()) {
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
 	}
 
 	@RequestMapping(value = "/all/reports/batch/{batchId}/week/{weekId}/trainee/{traineeId}/bar-batch-week-trainee", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -142,8 +160,12 @@ public class ReportingController {
 			@PathVariable Integer weekId, @PathVariable Integer traineeId) {
 		log.info(
 				"getBatchWeekTraineeBarChart   ===>   /all/reports/batch/{batchId}/week/{weekId}/trainee/{traineeId}/bar-batch-week-trainee");
-		return new ResponseEntity<>(reportingService.getBatchWeekTraineeBarChart(batchId, traineeId, weekId),
-				HttpStatus.OK);
+		Map<String, Double[]> result = reportingService.getBatchWeekTraineeBarChart(batchId, traineeId, weekId);
+		if(result.isEmpty()){
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
 	}
 
 	/*
@@ -157,8 +179,12 @@ public class ReportingController {
 			@PathVariable int week, @PathVariable int traineeId) {
 		log.info(
 				"getTraineeUpToWeekLineChart   ===>   /all/reports/week/{week}/trainee/{traineeId}/line-trainee-up-to-week");
-		return new ResponseEntity<>(reportingService.getTraineeUpToWeekLineChart(batchId, week, traineeId),
-				HttpStatus.OK);
+		Map<Integer, Double[]> result = reportingService.getTraineeUpToWeekLineChart(batchId, week, traineeId);
+		if(result.isEmpty()){
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
 	}
 
 	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/trainee/{traineeId}/line-trainee-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -167,8 +193,14 @@ public class ReportingController {
 			@PathVariable Integer traineeId) {
 		log.info(
 				"getTraineeOverallLineChart   ===>   /all/reports/batch/{batchId}/overall/trainee/{traineeId}/line-trainee-overall");
-		return new ResponseEntity<>(reportingService.getTraineeOverallLineChart(batchId, traineeId), HttpStatus.OK);
-	}
+		Map<Integer, Double[]> results = reportingService.getTraineeOverallLineChart(batchId, traineeId);
+		if(results.size() > 0) {
+			return new ResponseEntity<>(results, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(new HashMap<>(), HttpStatus.NOT_FOUND);
+		}
+		}
 
 	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/line-batch-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
@@ -181,7 +213,11 @@ public class ReportingController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING')")
 	public ResponseEntity<List<Object>> getCurrentBatchesLineChart() {
 		log.info("getCurrentBatchesLineChart   ===>  /all/reports/dashboard");
-		return new ResponseEntity<>(reportingService.getAllCurrentBatchesLineChart(), HttpStatus.OK);
+		List<Object> resp = reportingService.getAllCurrentBatchesLineChart();
+		if(resp.isEmpty()){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 
 	/*

@@ -1,5 +1,6 @@
 package com.revature.caliber.test.uat;
 
+import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 
 import cucumber.api.java.en.Given;
@@ -25,31 +26,33 @@ public class EditLocationFeature {
 	@Given("^I click on the Pencil Edit button$")
 	public void iClickOnThePencilEditButton() throws InterruptedException {
 		settingLocationPage.gotoSettingLocationPage();
-		settingLocationPage.clickUpdatePencilBtn();
+		settingLocationPage.clickUpdateModalBtn();
 	}
 
 	@Given("^I add \"([^\"]*)\" to the end of the company name$")
 	public void iAddToTheEndOfTheCompanyName(String company) {
-		settingLocationPage.updateInputCompanyName(company);
+		settingLocationPage.updateEditInputCompanyName(company);
 	}
-	
+
 	@Given("^I add \"([^\"]*)\" to the end of the address$")
+
 	public void iAddToTheEndOfTheAddress(String address) {
-		settingLocationPage.updateInputStreetAddress(address);
+		settingLocationPage.updateEditInputStreetAddress(address);
 	}
 
 	@Given("^I add \"([^\"]*)\" to the end of the city name$")
 	public void iAddToTheEndOfTheCityName(String city) {
-		settingLocationPage.updateInputCity(city);
+		settingLocationPage.updateEditInputCity(city);
 	}
 
 	@Given("^I add \"([^\"]*)\" to the state field$")
 	public void iAddToTheStateField(String state) throws InterruptedException {
-		settingLocationPage.updateInputState(state);
+		settingLocationPage.updateEditInputState(state);
 	}
+
 	@Given("^I add \"([^\"]*)\" to the zipcode field$")
 	public void iAddToTheZipcodeField(String zipcode) {
-		settingLocationPage.updateInputZipcode(zipcode);
+		settingLocationPage.inputZipcode(zipcode);
 	}
 
 	@When("^I click on the Update button$")
@@ -59,5 +62,6 @@ public class EditLocationFeature {
 
 	@Then("^I will have updated the location$")
 	public void iWillHaveUpdateTheLocation() {
+
 	}
 }

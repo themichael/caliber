@@ -1,7 +1,9 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.services.CategoryService;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +13,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.services.CategoryService;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
@@ -27,16 +33,16 @@ public class CategoryController {
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
-
+	//Calls a method that will return all ACTIVE Categories. This will NOT return INACTIVE Categories. 
 	@RequestMapping(value = "/category/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public ResponseEntity<List<Category>> findAllCategories() {
+	public ResponseEntity<List<Category>> findAllActive() {
 		log.debug("Getting categories");
-		List<Category> categories = categoryService.findAllCategories();
+		List<Category> categories = categoryService.findAllActive();
 		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
-
+	//Calls a method that will return all Categories both ACTIVE and INACTIVE. Intended to be used by VP only.
 	@RequestMapping(value = "/vp/category", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
@@ -45,16 +51,17 @@ public class CategoryController {
 		List<Category> categories = categoryService.findAll();
 		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
-
+	//Calls a method that will find a category based on id. 
 	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<Category> findCategoryById(@PathVariable int id) {
 		log.debug("Getting category: " + id);
 		Category category = categoryService.findCategory(id);
+		log.info(category.toString());
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
-
+	//Calls a method that will update a categories name or activity
 	@RequestMapping(value = "/vp/category/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")
@@ -62,7 +69,7 @@ public class CategoryController {
 		categoryService.updateCategory(category);
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
-
+	//Calls a method that creates a new Category
 	@RequestMapping(value = "/vp/category", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")

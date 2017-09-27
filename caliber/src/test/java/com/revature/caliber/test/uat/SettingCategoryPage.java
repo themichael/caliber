@@ -21,7 +21,7 @@ public class SettingCategoryPage {
 	public SettingCategoryPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver)driver;
-		this.driver.get("http://localhost:8080/caliber#/vp/category");
+		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/category");
 	}
 	
 	/**
@@ -29,7 +29,7 @@ public class SettingCategoryPage {
 	 * @throws InterruptedException 
 	 */
     public void gotoSettingCategoryPage() throws InterruptedException {
-        driver.get("http://localhost:8080/caliber/#/vp/category");
+        driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/category");
         Thread.sleep(1000);
         driver.switchTo().activeElement();
         //System.out.println("CurrentURL = " + driver.getCurrentUrl());
@@ -40,7 +40,7 @@ public class SettingCategoryPage {
      * Verifies that we are located on the Setting's Category page
      */
     public void verifyCategoryPage() {
-        assertEquals("http://localhost:8080/caliber/#/vp/category", driver.getCurrentUrl());
+        assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/category", driver.getCurrentUrl());
     }
     
     /**

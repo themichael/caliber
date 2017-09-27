@@ -30,7 +30,7 @@ public class SettingLocationPage {
 	public SettingLocationPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver) driver;
-		this.driver.get("http://localhost:8080/caliber#/vp/locations");
+		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/locations");
 	}
 
 	//Closing the driver
@@ -42,21 +42,21 @@ public class SettingLocationPage {
 	 * Go to the Locations page in caliber
 	 */
 	public void gotoSettingLocationPage() {
-		driver.get("http://localhost:8080/caliber/#/vp/locations");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/locations");
 	}
 	
 	/**
 	 * Go to the home page in Caliber
 	 */
 	public void goToHome() {
-		driver.get("http://localhost:8080/caliber#/vp/home");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
 	}
 
 	/**
 	 * Verify the user is on the Location page
 	 */
 	public void verifyLocationPage() {
-		assertEquals("http://localhost:8080/caliber/#/vp/locations", driver.getCurrentUrl());
+		assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/locations", driver.getCurrentUrl());
 	}
 
 	/**
@@ -78,10 +78,8 @@ public class SettingLocationPage {
 	 * @param companyName
 	 */
 	public void inputCompanyName(String companyName) {
-		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input")).sendKeys(companyName);
-		driver.findElement(By.id("locationCompany")).sendKeys(companyName);
-		//driver.findElement(By.xpath("//*[@id=\"locationCompany\"]")).sendKeys(companyName);
-		//driver.findElement(By.id("locationCompany")).sendKeys(companyName);//*[@id="locationCompany"]
+		driver.findElement(By.id("createLocationCompany")).clear();
+		driver.findElement(By.id("createLocationCompany")).sendKeys(companyName);
 	}
 	
 	/**
@@ -90,8 +88,8 @@ public class SettingLocationPage {
 	 * @param address
 	 */
 	public void inputStreetAddress(String address) {
-		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input")).sendKeys(address);
-		driver.findElement(By.id("locationStreet")).sendKeys(address);
+		driver.findElement(By.id("createLocationAddress")).clear();
+		driver.findElement(By.id("createLocationAddress")).sendKeys(address);
 	}
 
 	/**
@@ -100,8 +98,8 @@ public class SettingLocationPage {
 	 * @param city
 	 */
 	public void inputCity(String city) {
-		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > input")).sendKeys(city);
-		driver.findElement(By.id("locationCity")).sendKeys(city);
+		driver.findElement(By.id("createLocationCity")).clear();
+		driver.findElement(By.id("createLocationCity")).sendKeys(city);
 	}
 
 	/**
@@ -111,10 +109,7 @@ public class SettingLocationPage {
 	 * @throws InterruptedException
 	 */
 	public void inputState(String state) throws InterruptedException {
-		//Select dropdown = new Select(driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > select")));
-		
-		//Select dropdown = new Select(driver.findElement(By.id("locationState")).click()));
-		Select dropdown = new Select(driver.findElement(By.id("locationState")));
+		Select dropdown = new Select(driver.findElement(By.id("createLocationState")));
 		Thread.sleep(1000);
 		dropdown.selectByVisibleText(state);
 	}
@@ -125,8 +120,8 @@ public class SettingLocationPage {
 	 * @param zipcode
 	 */
 	public void inputZipcode(String zipcode){
-		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div:nth-child(2) > div:nth-child(3) > div > input")).sendKeys(zipcode);
-		driver.findElement(By.id("locationZipCode")).sendKeys(zipcode);
+		driver.findElement(By.id("createLocationZipCode")).clear();
+		driver.findElement(By.id("createLocationZipCode")).sendKeys(zipcode);
 	}
 	
 	/**
@@ -134,8 +129,8 @@ public class SettingLocationPage {
 	 * in order to successfully create the new location
 	 */
 	public void clickSaveButn(){
-		//driver.findElement(By.xpath("//*[@id=\"createLocationModal\"]/div/div/div[2]/div[2]/input")).click();;
-		driver.findElement(By.id("submintBtn")).click();
+		driver.findElement(By.id("createLocationSubmitBtn")).click();
+		driver.switchTo().activeElement();
 	}
 	
 	/**
@@ -144,8 +139,8 @@ public class SettingLocationPage {
 	 * without creating a new location
 	 */
 	public void clickCloseAddLocModalBtn(){
-		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-body > div.modal-footer > button")).click();
-		driver.findElement(By.id("closeBtn")).click();
+		driver.findElement(By.id("createLocationCloseBtn")).click();
+		driver.switchTo().activeElement();
 	}
 	
 	/**
@@ -154,8 +149,8 @@ public class SettingLocationPage {
 	 * without creating a new location
 	 */
 	public void clickXtoCloseAddLocModalBtn(){
-		//driver.findElement(By.cssSelector("#createLocationModal > div > div > div.modal-header > button")).click();
-		driver.findElement(By.id("XBtn")).click();
+		driver.findElement(By.id("createLocationXBtn")).click();
+		driver.switchTo().activeElement();
 	}
 	
 	/**
@@ -164,8 +159,8 @@ public class SettingLocationPage {
 	 * to start making updates to the location
 	 * @throws InterruptedException
 	 */
-	public void clickUpdatePencilBtn() throws InterruptedException{
-		driver.findElement(By.cssSelector("body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(4) > a")).click();
+	public void clickUpdatePencilBtn(int index) throws InterruptedException{
+		driver.findElement(By.id("editLocationModal"+index)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -175,14 +170,10 @@ public class SettingLocationPage {
 	 * into the update modal
 	 * @param company
 	 */
-	public void updateInputCompanyName(String company) {
-		//driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-body > div > div:nth-child(1) > div:nth-child(1) > input")).clear();
-		//driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-body > div > div:nth-child(1) > div:nth-child(1) > input")).click();
-		driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-body > div > div:nth-child(1) > div:nth-child(1) > input")).sendKeys(company);;
-		//driver.findElement(By.id("locationCompany")).click();
-		///WebElement companyNameField = driver.findElement(By.cssSelector("#locationCompany"));									
-		///companyNameField.sendKeys(company);
-		//driver.findElement(By.id("locationCompany")).sendKeys(company);
+	public void updateEditInputCompanyName(String company) {
+		//driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-body > div > div:nth-child(1) > div:nth-child(1) > input")).sendKeys(company);;
+		driver.findElement(By.id("editLocationCompany")).clear();
+		driver.findElement(By.id("editLocationCompany")).sendKeys(company);
 	}
 
 	/**
@@ -190,19 +181,18 @@ public class SettingLocationPage {
 	 * in the update location modal
 	 * @param address
 	 */
-	public void updateInputStreetAddress(String address) {
-		driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-body > div > div:nth-child(1) > div:nth-child(2) > input")).sendKeys(address);
+	public void updateEditInputStreetAddress(String address) {
+		driver.findElement(By.id("editLocationStreet")).clear();
+		driver.findElement(By.id("editLocationStreet")).sendKeys(address);
 	}
 
 	/**
 	 * Inputs the city in the city input field in the update location modal
 	 * @param city
 	 */
-	public void updateInputCity(String city) {
-		//driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-body > div > div:nth-child(2) > div:nth-child(1) > input")).clear();
-		driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-body > div > div:nth-child(2) > div:nth-child(1) > input")).sendKeys(city);
-		//driver.findElement(By.id("locationCity")).click();
-		//driver.findElement(By.id("locationCity")).sendKeys(city);
+	public void updateEditInputCity(String city) {
+		driver.findElement(By.id("editLocationCity")).clear();
+		driver.findElement(By.id("editLocationCity")).sendKeys(city);
 	}
 
 	/**
@@ -210,9 +200,8 @@ public class SettingLocationPage {
 	 * @param state
 	 * @throws InterruptedException
 	 */
-	public void updateInputState(String state) throws InterruptedException {
-		Select dropdown = new Select(driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-body > div > div:nth-child(2) > div:nth-child(2) > select")));
-		//Select dropdown = new Select(driver.findElement(By.id("locationState")));
+	public void updateEditInputState(String state) throws InterruptedException {
+		Select dropdown = new Select(driver.findElement(By.id("editLocationState")));
 		Thread.sleep(1000);
 		dropdown.selectByVisibleText(state);
 	}
@@ -221,10 +210,9 @@ public class SettingLocationPage {
 	 * Inputs a zipcode in the zipcode input field in the update location modal
 	 * @param zipcode
 	 */
-	public void updateInputZipcode(String zipcode){
-		//driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-body > div > div:nth-child(3) > div > input")).clear();
-		driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-body > div > div:nth-child(3) > div > input")).sendKeys(zipcode);
-		//driver.findElement(By.id("locationZipCode")).sendKeys(zipcode);
+	public void updateEditInputZipcode(String zipcode){
+		driver.findElement(By.id("editLocationZipCode")).clear();
+		driver.findElement(By.id("editLocationZipCode")).sendKeys(zipcode);
 	}
 	
 	/**
@@ -232,8 +220,8 @@ public class SettingLocationPage {
 	 * in order to successfully update a location
 	 */
 	public void clickUpdateModalBtn(){
-		driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-footer > input")).click();
-		//driver.findElement(By.id("submitBtn")).click();
+		driver.findElement(By.id("editLocationSubmitBtn")).click();
+		driver.switchTo().activeElement();
 	}
 	
 	/**
@@ -241,8 +229,8 @@ public class SettingLocationPage {
 	 * in order to exit the modal without making any edits to the location
 	 */
 	public void clickCloseUpdateModalBtn(){
-		driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-footer > button")).click();
-		//driver.findElement(By.id("closeBtn")).click();
+		driver.findElement(By.id("editLocationCloseBtn")).click();
+		driver.switchTo().activeElement();
 	}
 	
 	/**
@@ -251,8 +239,8 @@ public class SettingLocationPage {
 	 * and cancel updating the location
 	 */
 	public void clickXCloseUpdateModal(){
-		driver.findElement(By.cssSelector("#editLocationModal > div > div > div.modal-header > button")).click();
-		//driver.findElement(By.id("XBtn")).click();
+		driver.findElement(By.id("editLocationXBtn")).click();
+		driver.switchTo().activeElement();
 	}
 	
 	/**
@@ -260,42 +248,23 @@ public class SettingLocationPage {
 	 * to the start the process of deactiving a location
 	 * @throws InterruptedException 
 	 */
-	public void clickXDeleteBtn() throws InterruptedException{
-		driver.findElement(By.cssSelector("body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(5) > a")).click();
+	public void clickXDeleteBtn(int index) throws InterruptedException{
+		driver.findElement(By.id("deleteLocationModal"+index)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
 	
 	/**
-	 * This checks whether the location is active
+	 * This checks whether the location is active/inactive
 	 */
-	public void verifyLocationIsActive() {
-		assertEquals("glyphicon glyphicon-remove",
-				driver.findElement(By.cssSelector("body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(5) > a > span")).getAttribute("class"));
+	public boolean verifyLocationIsActive(int index) {
+		String actual = driver.findElement(By.id("locationActiveGlyphicon"+index)).getAttribute("value").toString();
+    	return (actual.equals("true")) ? true : false;
 	}
 	
-	/**
-	 * This checks whether the location is inactive
-	 */
-	public void verifyLocationIsInactive() {
-		assertEquals("glyphicon glyphicon-ok",
-				driver.findElement(By.cssSelector("body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(5) > a > span")).getAttribute("class"));
-	}
-	
-	/**
-	 * This checks if we see a check or x button to reactivate/deactivate the location, respectively
-	 */
-	public void verifyCheckOrXLocation() {
-		assertTrue(
-				driver.findElement(By.
-						cssSelector("body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(5) > a > span"))
-						.getAttribute("class")
-						.equals("glyphicon glyphicon-remove") ||
-				driver.findElement(By.
-						cssSelector("body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(5) > a > span"))
-				.getAttribute("class")
-				.equals("glyphicon glyphicon-ok")
-				);
+	public boolean verifyLocationIsInActive(int index) {
+		String actual = driver.findElement(By.id("locationInactiveGlyphicon"+index)).getAttribute("value").toString();
+    	return (actual.equals("false")) ? true : false;
 	}
 	
 	/**
@@ -303,9 +272,9 @@ public class SettingLocationPage {
 	 * in order to deactivate the targeted location
 	 * @throws InterruptedException 
 	 */
-	public void deactivateLocationBtn() throws InterruptedException{
-		driver.findElement(By.cssSelector("#deleteLocationModal > div > div > div.modal-footer > input")).click();
-		Thread.sleep(1000);
+	public void deactivateLocationBtn(int index) throws InterruptedException{
+		driver.findElement(By.id("deleteLocationModal"+index)).click();
+		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
 	
@@ -314,8 +283,9 @@ public class SettingLocationPage {
 	 * in order to exit the modal
 	 * without activating/deactivating the location
 	 */
-	public void clickCancelToCloseActivationDeactivateModalBtn(){
-		driver.findElement(By.cssSelector("#deleteLocationModal > div > div > div.modal-footer > button")).click();
+	public void clickDeactivateInDeactivateModalBtn(){
+		driver.findElement(By.id("deleteLocationDeactivateBtn")).click();
+		driver.switchTo().activeElement();
 	}
 	
 	/**
@@ -324,7 +294,8 @@ public class SettingLocationPage {
 	 * without activating/deactivating the location
 	 */
 	public void clickXCloseActivationDeactivateModal(){
-		driver.findElement(By.cssSelector("#deleteLocationModal > div > div > div.modal-header > button")).click();
+		driver.findElement(By.id("deleteLocationXBtn")).click();
+		driver.switchTo().activeElement();
 	}
 	
 	/**
@@ -333,8 +304,8 @@ public class SettingLocationPage {
 	 * to reactive the targeted location
 	 * @throws InterruptedException 
 	 */
-	public void clickCheckReactivateLocationBtn() throws InterruptedException {
-		driver.findElement(By.cssSelector("body > div > ui-view > ui-view > div > div:nth-child(2) > div > div > table > tbody > tr:nth-child(1) > td:nth-child(5) > a")).click();
+	public void clickCheckReactivateLocationBtn(int index) throws InterruptedException {
+		driver.findElement(By.id("addLocationModal"+index)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -344,6 +315,16 @@ public class SettingLocationPage {
 	 * to confirm the reactivation of an inactive location
 	 */
 	public void clickReactivateLocationBtn() {
-		driver.findElement(By.cssSelector("#addLocationModal > div > div > div.modal-footer > input")).click();
+		driver.findElement(By.id("addLocationSubmitBtn")).click();
+		driver.switchTo().activeElement();
 	}
+	
+	public boolean isLocationUpdated(String location, String company, int index){
+		String actualCompany = driver.findElement(By.id("locationCompany"+index)).getAttribute("value").toString();
+		String actualDetails = driver.findElement(By.id("locationDetails"+index)).getAttribute("value").toString();
+		System.out.println(actualCompany);
+		System.out.println(actualDetails);
+		return (actualCompany.equals(company) && actualDetails.equals(location)) ? true : false;
+	}
+	
 }
