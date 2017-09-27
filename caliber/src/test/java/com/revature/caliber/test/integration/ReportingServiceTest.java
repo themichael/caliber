@@ -697,9 +697,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getAllBatchesCurrentWeekQCStackedBarChartTest() {
-		
 		try {
-		
 			log.info("Testing ReportingService.getAllBatchesCurrentWeekQCStackedBarChar()");
 			List<Object> object = reportingService.getAllBatchesCurrentWeekQCStackedBarChart();
 			
@@ -709,7 +707,6 @@ public class ReportingServiceTest extends CaliberTest {
 			for (int i = 0; i < object.size(); i++) {
 				log.info("Batch number " + i + ": " + object.get(i));	
 			}
-	
 			// find a way to acquire the map separately, then iterate through its keys
 			@SuppressWarnings("unchecked")
 			Map<QCStatus, Integer> qcStatus = (Map<QCStatus, Integer>) test.get("qcStatus");
