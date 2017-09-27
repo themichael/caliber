@@ -32,7 +32,7 @@ angular
 					for(var color in colorEnum)
 						{
 							//Do not add enum value(properties) as a color
-							if(color != "value")
+							if(color !== "value")
 								{
 								var enumValue = colorEnum[color];
 								//Chart JS wants properties to be a string of 'rgba(number,number,number,number)' so we concat strings with our rgb values from enum 
