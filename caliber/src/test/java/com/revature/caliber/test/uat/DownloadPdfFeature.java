@@ -91,8 +91,6 @@ public class DownloadPdfFeature {
 	public void aPDFFileIsDownloaded() throws Throwable {
 		reportsPage.clickChartFeedbackDownloadPdf();
 		 //or reportsPage.clickChartDownloadPdf();	
-		
-		reportsPage.closeDriver();
 	}
 
 }

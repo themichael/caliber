@@ -30,7 +30,9 @@ public class CompareBatchesFeature {
 	@Then("^I can see and compare batch performance to each other$")
 	public void i_can_see_and_compare_batch_performance_to_each_other() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
-		homePage.selectLineStateDropdown("HI");
+		ZZZ.waitForPageLoad();
+		Thread.sleep(3000);
+		homePage.selectLineStateDropdown("VA");
 		homePage.isSelectLineCityDisplayed();
  	}
 }

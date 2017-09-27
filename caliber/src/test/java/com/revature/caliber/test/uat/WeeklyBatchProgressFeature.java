@@ -34,7 +34,5 @@ public class WeeklyBatchProgressFeature {
 	@Then("^I can note the weekly progress for a batch$")
 	public void iCanNoteTheWeeklyProgressForABatch() throws Throwable {
 	    reportsPage.checkWeeklyProgressChart();
-	    reportsPage.closeDriver();
-//	    setup.getDriver().quit();
 	}
 }
