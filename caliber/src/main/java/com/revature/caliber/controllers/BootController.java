@@ -72,7 +72,8 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse, Model model) throws IOException, URISyntaxException {
+	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+			RedirectAttributes redirectAttributes) throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
@@ -89,7 +90,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 		// get Salesforce token from cookie
 		try {
 			log.debug("About to check for salesforce token");
-			String salesTokenString = (String) model.asMap().get("salestoken");
+			String salesTokenString = (String) redirectAttributes.getFlashAttributes().get("salestoken");
 			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
