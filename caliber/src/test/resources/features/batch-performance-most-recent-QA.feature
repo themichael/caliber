@@ -1,6 +1,7 @@
 #feature
 @batch-performance-most-recent-QA
 Feature: View most recent quality audits
+
 	As a VP
 I can see each batch performance 
 in their most recent quality audits

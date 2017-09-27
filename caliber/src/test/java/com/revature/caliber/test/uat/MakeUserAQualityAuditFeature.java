@@ -17,8 +17,8 @@ public class MakeUserAQualityAuditFeature {
 		trainerPage = new SettingsTrainerPage(setup.getDriver());
 	}
 	
-	@Given("^I am logged in as VP$")
-	public void i_am_logged_in_as_VP() throws Throwable {
+	@Given("^I am logged on as VP$")
+	public void i_am_logged_on_as_VP() throws Throwable {
 	    trainerPage.gotoPage();
 	}
 

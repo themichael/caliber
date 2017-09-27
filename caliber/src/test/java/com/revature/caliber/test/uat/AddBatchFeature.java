@@ -18,6 +18,7 @@ public class AddBatchFeature {
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
 
+
 /*	@After
 	public void teardown(){
 		managePage.closeDriver();

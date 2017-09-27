@@ -26,48 +26,48 @@ public class SettingAddingCategoryFeature {
 
 	@Given("^I am on the Settings Category page$")
 	public void i_am_on_the_Settings_Category_page() throws InterruptedException {
-//		settingCategoryPage.gotoSettingCategoryPage();
-//		settingCategoryPage.verifyCategoryPage();
+		settingCategoryPage.gotoSettingCategoryPage();
+		settingCategoryPage.verifyCategoryPage();
 	}
 
 	@When("^I click on the Create button$")
 	public void i_click_on_the_Create_button() throws Throwable {
-//		settingCategoryPage.clickCreateCategoryBtn();
+		settingCategoryPage.clickCreateCategoryBtn();
 	}
 
 	@When("^I input \"([^\"]*)\" as a category$")
 	public void i_input_as_a_category(String categoryName) throws InterruptedException {
-//		settingCategoryPage.inputCategoryName(categoryName);
+		settingCategoryPage.inputCategoryName(categoryName);
 	}
 	
 	@When("^I click on the Submit button$")
 	public void i_click_on_the_Submit_button() throws Throwable {
-//		settingCategoryPage.clickCategorySaveBtn();
+		settingCategoryPage.clickCategorySaveBtn();
 	}
 
 	@Then("^I should get a new category on the page$")
 	public void i_should_get_a_new_category_on_the_page() throws Throwable {
-		//settingCategoryPage.verifyCategoryAdded();
+		settingCategoryPage.verifyCategoryAdded();
 	}
 
 	@When("^I click on the X button$")
 	public void i_click_on_the_X_button() throws Throwable {
-		//settingCategoryPage.closeCattegoryWithXButton();
+		settingCategoryPage.closeCattegoryWithXButton();
 	}
 
 	@Then("^I should be back on the Settings Category page$")
 	public void i_should_be_back_on_the_Settings_Category_page() throws Throwable {
-		//settingCategoryPage.verifyClosedOutByX();
+		settingCategoryPage.verifyClosedOutByX();
 	}
 
 	@When("^I click on the Cancel button$")
 	public void i_click_on_the_Cancel_button() throws Throwable {
-//		settingCategoryPage.closeCategoryWithCloseButton();
+		settingCategoryPage.closeCategoryWithCloseButton();
 	}
 
 	@Then("^I am back on the Settings Category page$")
 	public void i_am_back_on_the_Settings_Category_page() throws Throwable {
-//		settingCategoryPage.closeCategoryWithCloseButton();
+		settingCategoryPage.verifyClosedOutByCloseButton();
 	}
 
 	@Given("^I am on the Settings Category page$")
