@@ -26,21 +26,12 @@ public class ChromeDriverSetup extends AbstractAPITest {
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		initialized = true;
 		}
-<<<<<<< HEAD
 		if(!isLoggedIn){
 			loginPage.setUsername(username);
 			loginPage.setPassword(password);
 			loginPage.clickLogin();
 			isLoggedIn = true;
 		}
-=======
-//		if(!isLoggedIn){
-//			loginPage.setUsername(System.getenv("CALIBER_API_USERNAME"));
-//			loginPage.setPassword(System.getenv("CALIBER_API_PASSWORD"));
-//			loginPage.clickLogin();
-//			isLoggedIn = true;
-//		}
->>>>>>> d91ffc40e6de75264afb00e6e573206a5de681fc
 	}
 	
 	public WebDriver getDriver() {
