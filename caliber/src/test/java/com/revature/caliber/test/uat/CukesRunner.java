@@ -1,13 +1,7 @@
 package com.revature.caliber.test.uat;
 
-import java.util.concurrent.TimeUnit;
-
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
@@ -33,4 +27,3 @@ public class CukesRunner {
 		ChromeDriverSetup.driver.quit();
 	}
 }
-
