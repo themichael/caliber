@@ -39,4 +39,4 @@ Feature: Editing Categories
   Scenario: Exit the edit category modal by Close button
   	And I click on the "hello" Category link
   	When I click the Modal Close button
-  	Then I exited the edit Category modal without editing
+  	Then I exit the edit Category modal without editing

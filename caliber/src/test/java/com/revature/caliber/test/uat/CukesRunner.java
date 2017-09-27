@@ -26,4 +26,4 @@ public class CukesRunner {
 	public static void teardown(){
 		ChromeDriverSetup.driver.quit();
 	}
-}	
+}

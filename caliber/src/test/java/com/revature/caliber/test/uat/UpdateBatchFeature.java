@@ -57,7 +57,7 @@ public class UpdateBatchFeature {
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Start Date$")
-	public void iHaveEnteredAsTheStartDate(String startDate) {
+	public void iHaveEnteredAsTheStartDate(String startDate){
 	    managePage.editStartDateField(startDate);
 	}
 

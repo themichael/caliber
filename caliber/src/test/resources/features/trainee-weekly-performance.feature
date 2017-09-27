@@ -13,6 +13,6 @@ Feature: View Trainee's weekly progress and compare to the Batch
 
     Scenario:
     And I select a year
-    And I have chosen a batch
-    When I select a Trainee
+    And I have chosen "Patrick Walsh - 2/14/17" as a batch
+    When I select "Patrick Muldoon" as a trainee
     Then I can compare the Trainee performance to the batch performance

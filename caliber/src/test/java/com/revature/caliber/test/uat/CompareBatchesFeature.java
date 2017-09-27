@@ -16,22 +16,20 @@ public class CompareBatchesFeature {
 	}
 
 	@Given("^I am logged in as the VP$")
-	public void i_am_logged_in_as_the_VP() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		homePage.goToPage("home");
+	public void iAmLoggedInAsTheVP() throws InterruptedException{
+ 		homePage.goToPage("home");
  	}
 
 	@When("^I go to Home Page$")
-	public void i_go_to_Home_Page() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		homePage.assertHomePage();
+	public void iGoToHomePage(){
+ 		homePage.assertHomePage();
  	}
 
 	@Then("^I can see and compare batch performance to each other$")
-	public void i_can_see_and_compare_batch_performance_to_each_other() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
+	public void iCanSeeAndCompareBatchPerformanceToEachOther() throws InterruptedException{
+ 		ZZZ.waitForPageLoad();
 		Thread.sleep(3000);
-		homePage.selectLineStateDropdown("VA");
+		homePage.selectLineStateDropdown("NY");
 		homePage.isSelectLineCityDisplayed();
  	}
 }

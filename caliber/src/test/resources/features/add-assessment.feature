@@ -12,10 +12,10 @@ Scenario: Add LMS exam
 	And I have selected a batch
 	And I have clicked the Week 1 tab
 	And I have clicked Create Assessment button
-	And I have selected "Java" as the Category
+	And I have selected "SQL" as the Category
 	And I have entered 100 as the Max Points
 	And I have selected "Exam" as the Assessment Type
 	When I click the Save button
-	Then the "Java" Exam appears on the screen
+	Then the "SQL" Exam appears on the screen
 	
 # negative testing, etc..

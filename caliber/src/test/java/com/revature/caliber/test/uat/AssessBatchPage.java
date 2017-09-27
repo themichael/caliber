@@ -46,8 +46,8 @@ public class AssessBatchPage {
 	/**
 	 * Clicks the specific week tab for the batch
 	 */
-	public void clickWeekTab() {
-		driver.findElement(By.id("weekBtn3")).click();
+	public void clickWeekTab(int index) {
+		driver.findElement(By.id("weekBtn"+index)).click();
 	}
 
 	/**
@@ -77,6 +77,7 @@ public class AssessBatchPage {
 	public void enterGrades(String name, String number) {
 		driver.findElement(By.id(name + "grade0")).sendKeys(number);
 		driver.findElement(By.id(name + "grade1")).sendKeys(number);
+		driver.findElement(By.id(name + "grade2")).sendKeys(number);
 	}
 
 	/**
@@ -86,7 +87,7 @@ public class AssessBatchPage {
 	 * @param grade
 	 */
 	public void checkIfGradesWereInput(String traineeName, String grade) {
-		assertEquals(driver.findElement(By.id(traineeName + "grade0")).getAttribute("value"), grade);
+		assertEquals(driver.findElement(By.id(traineeName + "grade1")).getAttribute("value"), grade);
 	}
 
 	/**
@@ -170,9 +171,11 @@ public class AssessBatchPage {
 	 * Selects the Assessment Category from the category dropdown
 	 * 
 	 * @param feedback
+	 * @throws InterruptedException 
 	 */
-	public void selectCreateAssessementCategory(String feedback) {
+	public void selectCreateAssessementCategory(String feedback) throws InterruptedException {
 		Select dropdown = new Select(driver.findElement(By.id("createSelectAssessmentCategory")));
+		Thread.sleep(3000);
 		dropdown.selectByVisibleText(feedback);
 	}
 
@@ -199,9 +202,11 @@ public class AssessBatchPage {
 	 * Selects the Assessment type from the type dropdown
 	 * 
 	 * @param feedback
+	 * @throws InterruptedException 
 	 */
-	public void selectCreateAssessmentType(String feedback) {
-		Select dropdown = new Select(driver.findElement(By.id("createSelectAssessmentType")));
+	public void selectCreateAssessmentType(String feedback) throws InterruptedException {
+		Select dropdown = new Select(driver.findElement(By.id("selectCreateAssessmentType")));
+		Thread.sleep(500);
 		dropdown.selectByVisibleText(feedback);
 	}
 
@@ -235,6 +240,7 @@ public class AssessBatchPage {
 		driver.switchTo().activeElement();
 		//driver.findElement(By.cssSelector("#createAssessmentModal > div > div > form > div.modal-footer > input")).click();
 	}
+
 
 	/**
 	 * Clicks the close button inside the Create Assessment modal

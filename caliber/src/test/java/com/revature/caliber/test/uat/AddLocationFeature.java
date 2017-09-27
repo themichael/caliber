@@ -16,73 +16,68 @@ public class AddLocationFeature {
 		ChromeDriverSetup setup = new ChromeDriverSetup();
 		settingLocationPage = new SettingLocationPage(setup.getDriver());
 	}
-/*	
-	@cucumber.api.java.After
-	public void teardown() {
-		settingLocationPage.closeDriver();
-	}
-*/
+
 	@Given("^I am on the Settings Locations page$")
-	public void i_am_on_the_Settings_Locations_page() {
+	public void iAmOnTheSettingsLocationsPage() {
 		settingLocationPage.gotoSettingLocationPage();
 		settingLocationPage.verifyLocationPage();
 	}
 
 	@When("^I click on the Create Location button$")
-	public void i_click_on_the_Create_Location_button() throws InterruptedException {
+	public void iClickOnTheCreateLocationButton() throws InterruptedException {
 		settingLocationPage.clickCreateLocationBtn();
 	}
 
 	@When("^I enter \"([^\"]*)\" as the Company Name$")
-	public void i_enter_as_the_Company_Name(String companyName) {
+	public void iEnterAsTheCompanyName(String companyName) {
 		settingLocationPage.inputCompanyName(companyName);
 	}
 
 	@When("^I enter \"([^\"]*)\" as the Street Address$")
-	public void i_enter_as_the_Street_Address(String address) {
+	public void iEnterAsTheStreetAddress(String address) {
 		settingLocationPage.inputStreetAddress(address);
 	}
 
 	@When("^I enter \"([^\"]*)\" as the City$")
-	public void i_enter_as_the_City(String city) {
+	public void iEnterAsTheCity(String city) {
 		settingLocationPage.inputCity(city);
 	}
 
 	@When("^I enter \"([^\"]*)\" as the State$")
-	public void i_enter_as_the_State(String state) throws InterruptedException {
+	public void iEnterAsTheState(String state) throws InterruptedException {
 		settingLocationPage.inputState(state);
 	}
 
 	@When("^I enter \"([^\"]*)\" as the Zipcode$")
-	public void i_enter_as_the_Zipcode(String zipcode) {
+	public void iEnterAsTheZipcode(String zipcode) {
 		settingLocationPage.inputZipcode(zipcode);
 	}
 
 	@When("^I click the Save Button$")
-	public void i_click_the_Save_Button() {
+	public void iClickTheSaveButton() {
 		settingLocationPage.clickSaveButn();
 	}
 
 	@Then("^I will have added a location$")
-	public void i_will_have_added_a_location() {
+	public void iWillHaveAddedALocation() {
 	}
 	
 	@When("^I choose the X button$")
-	public void i_choose_the_X_button() {
+	public void iChooseTheXButton() {
 		settingLocationPage.clickXtoCloseAddLocModalBtn();
 	}
 
 	@Then("^I cancel making a new location$")
-	public void i_cancel_making_a_new_location() {
+	public void iCancelMakingANewLocation() {
 	}
 
 	@When("^I click on the Close button$")
-	public void i_click_on_the_Close_button() {
+	public void iClickOnTheCloseButton() {
 		settingLocationPage.clickCloseAddLocModalBtn();
 	}
 
 	@Then("^I cancel creating a new location$")
-	public void i_cancel_creating_a_new_location() {
+	public void iCancelCreatingANewLocation() {
 	}
 	
 }

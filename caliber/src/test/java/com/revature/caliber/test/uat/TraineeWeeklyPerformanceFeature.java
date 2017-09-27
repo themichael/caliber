@@ -16,20 +16,22 @@ public class TraineeWeeklyPerformanceFeature {
 	}
 	
 	@Given("^I select a year$")
-	public void iSelectAYear() {
+	public void iSelectAYear(){
 	    reports.clickReportYear("2017");
 	}
 
-	@Given("^I have chosen a batch$")
-	public void iHaveChosenABatch() {
-	    reports.clickBatchDropdown();
-	    reports.chooseBatch("Patrick Walsh - 2/14/17");
+	@Given("^I have chosen \"([^\"]*)\" as a batch$")
+	public void iHaveChosenAsABatch(String batch){
+		reports.clickBatchDropdown();
+		reports.chooseBatch(batch);
 	}
-	
-	@When("^I select a Trainee$")
-	public void iSelectATrainee() {
-	    reports.clickTraineeDropdown();
-	    reports.chooseTraineeReport("Ali, Fareed");
+
+	@When("^I select \"([^\"]*)\" as a trainee$")
+	public void iSelectAsATrainee(String trainee) throws InterruptedException{
+		Thread.sleep(1000);
+		reports.clickTraineeDropdown();
+		Thread.sleep(1000);
+		reports.chooseTraineeReport(trainee);
 	}
 
 	@Then("^I can compare the Trainee performance to the batch performance$")

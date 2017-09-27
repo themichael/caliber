@@ -1,13 +1,15 @@
 package com.revature.caliber.test.uat;
 
+import java.io.IOException;
+
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class AddTraineeToBatchFeature {
-	ManageBatchPage managePage;
 	
+	private ManageBatchPage managePage;
 	
 	@Before
 	public void setup(){
@@ -15,107 +17,89 @@ public class AddTraineeToBatchFeature {
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
 	
-
 	@Given("^I am on the Manage Batch Page$")
-	public void i_am_on_the_Manage_Batch_Page() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iAmOnTheManageBatchPage()  {
 		managePage.gotoManagePage();
 		managePage.verifyPage("manage");
 	}
 
 	@Given("^I have clicked the Person Icon for a specific Batch$")
-	public void i_have_clicked_the_Person_Icon_for_a_specific_Batch() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveClickedThePersonIconForASpecificBatch() throws IOException, InterruptedException {
 		managePage.openManageBatchModal(0);
 	}
 
 	@Given("^I have clicked the add Trainee tab$")
-	public void i_have_clicked_the_add_Trainee_tab() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveClickedTheAddTraineeTab() throws InterruptedException {
 		managePage.openAddTraineeModal();
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the full name$")
-	public void i_have_entered_as_the_full_name(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheFullName(String arg1) {
 		managePage.editName(arg1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the email$")
-	public void i_have_entered_as_the_email(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheEmail(String arg1) {
 		managePage.editEmailField(arg1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Skype Id$")
-	public void i_have_entered_as_the_Skype_Id(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheSkypeId(String arg1) {
 		managePage.editSkypeIDField(arg1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Phone Number$")
-	public void i_have_entered_as_the_Phone_Number(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsThePhoneNumber(String arg1) {
 		managePage.editPhoneField(arg1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the College$")
-	public void i_have_entered_as_the_College(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheCollege(String arg1) {
 		managePage.editCollegeField(arg1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Degree$")
-	public void i_have_entered_as_the_Degree(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheDegree(String arg1) {
 		managePage.editDegreeField(arg1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Major$")
-	public void i_have_entered_as_the_Major(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheMajor(String arg1) {
 		managePage.editMajorField(arg1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Recriter Name$")
-	public void i_have_entered_as_the_Recriter_Name(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheRecriterName(String arg1) {
 		managePage.editRecruiterNameField(arg1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Tech Screener Name$")
-	public void i_have_entered_as_the_Tech_Screener_Name(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheTechScreenerName(String arg1) {
 		managePage.editTechScreenerNameField(arg1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Project Completion$")
-	public void i_have_entered_as_the_Project_Completion(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheProjectCompletion(String arg1) {
 		managePage.editProjectCompletionField(arg1);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Profile URL$")
-	public void i_have_entered_as_the_Profile_URL(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveEnteredAsTheProfileURL(String arg1) {
 		managePage.editProfileURLField(arg1);
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as the status$")
-	public void i_have_selected_as_the_status(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iHaveSelectedAsTheStatus(String arg1) throws InterruptedException {
 		managePage.editTrainingStatusField(arg1);
 	}
 
 	@When("^I click the Save Button in the add trainee modal$")
-	public void i_click_the_Save_Button_in_the_add_trainee_modal() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void iClickTheSaveButtonInTheAddTraineeModal() throws InterruptedException{
 		managePage.clickAddTraineeModal();
 	}
 
 	@Then("^\"([^\"]*)\" has been added$")
-	public void has_been_added(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	public void hasBeenAdded(String arg1) {
 	    managePage.checkIfTraineeExists(arg1);
 	}
 

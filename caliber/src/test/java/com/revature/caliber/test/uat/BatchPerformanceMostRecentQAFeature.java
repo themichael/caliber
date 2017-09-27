@@ -19,7 +19,7 @@ public class BatchPerformanceMostRecentQAFeature {
 	@Given("^I am logged in with VP credentials $")
 	public void iAmLoggedInAsVP() throws InterruptedException {
 		homePage.goToPage("home");
- 	}
+	}
 
 	@When("^I go to the Home Page$")
 	public void iGoToTheHomePage() throws InterruptedException {
