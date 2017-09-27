@@ -263,16 +263,16 @@ angular.module("charts").factory(
 					angular.forEach(batch.qcStatus, function(value2, key2) {
 						// Because the qcStatuses get randomized, this if else set orders them.
 						if(key2 === "Poor"){
-							i = 3;
+							i = 0;
 						}
 						else if(key2 === "Average"){
-							i = 2;
-						}
-						else if(key2 === "Good"){
 							i = 1;
 						}
+						else if(key2 === "Good"){
+							i = 2;
+						}
 						else if(key2 === "Superstar"){
-							i = 0;
+							i = 3;
 						}
 						if (chartData.data[i] === undefined) {
 							chartData.data[i]=[];
@@ -303,12 +303,14 @@ angular.module("charts").factory(
 							boxWidth : 10
 						}
 					},
+					tooltips: { 
+						itemSort: function(a, b) { return b.datasetIndex - a.datasetIndex }
+					},
 					scales : {
 						yAxes : [ {
 							stacked : true,
 							ticks : {
-								mirror : true,
-								reverse: true
+								mirror : true
 							}
 						} ],
 						xAxes : [ {
