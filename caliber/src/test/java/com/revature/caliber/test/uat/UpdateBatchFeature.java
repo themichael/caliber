@@ -22,7 +22,7 @@ public class UpdateBatchFeature {
 //		managePage.closeDriver();
 //	}
 
-	@Given("^I am on the Manage Batch Page$")
+	@Given("^I am currently on the Manage Batch Page$")
 	public void iAmOnTheManageBatchPage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    managePage.gotoManagePage();

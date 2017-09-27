@@ -7,7 +7,7 @@ import cucumber.api.java.en.When;
 
 public class BatchPerformanceMostRecentQAFeature {
 
-	HomePage homePage;
+	private HomePage homePage;
 	
 	@Before // each scenario
 	public void setup(){
@@ -15,11 +15,12 @@ public class BatchPerformanceMostRecentQAFeature {
 		homePage = new HomePage(setup.getDriver());
 	}
 	
-//	@Given("^I am logged in as VP$")
-//	public void i_am_logged_in_as_VP() throws Throwable {
-//	    // Write code here that turns the phrase above into concrete actions
-//		homePage.goToPage("home");
-// 	}
+
+	@Given("^I am logged in with VP credentials $")
+	public void i_am_logged_in_as_VP() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		homePage.goToPage("home");
+ 	}
 
 	@When("^I go to the Home Page$")
 	public void i_go_to_the_Home_Page() throws Throwable {
