@@ -32,7 +32,7 @@ public class CompareBatchesFeature {
 		// Write code here that turns the phrase above into concrete actions
 		ZZZ.waitForPageLoad();
 		Thread.sleep(3000);
-		homePage.selectLineStateDropdown("VA");
+		homePage.selectLineStateDropdown("NY");
 		homePage.isSelectLineCityDisplayed();
  	}
 }

@@ -28,7 +28,7 @@ public class WeeklyBatchProgressFeature {
 	    reportsPage.gotoReportsPage();
 	    reportsPage.verifyReportsPage();
 	    reportsPage.clickBatchDropdown();
-	    reportsPage.chooseBatch("Patrick Walsh - 2/14/17");
+	    reportsPage.chooseBatch("Patrick Walsh - 2/13/17");
 	}
 
 	@Then("^I can note the weekly progress for a batch$")

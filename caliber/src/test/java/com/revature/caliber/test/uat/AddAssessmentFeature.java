@@ -63,8 +63,4 @@ public class AddAssessmentFeature {
 		boolean actual = assessBatch.assessmentCheck(type);
 		assertEquals(actual, true);
 	}
-//	@After
-//	public void teardown(){
-//		assessBatch.closeDriver();
-//	}
 }

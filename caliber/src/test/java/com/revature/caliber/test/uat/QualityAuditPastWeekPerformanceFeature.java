@@ -33,8 +33,8 @@ public class QualityAuditPastWeekPerformanceFeature {
 
 	@Given("^I have selected the batch to view$")
 	public void iHaveSelectedTheBatchToView() throws Throwable {
-	    qaPage.clickBatch("Patrick Walsh - 2/14/17");
-	    qaPage.verifyBatch("Patrick Walsh - 2/14/17");
+	    qaPage.clickBatch("Patrick Walsh - 2/13/17");
+	    qaPage.verifyBatch("Patrick Walsh - 2/13/17");
 	}
 
 	@When("^I click on a previous week tab$")
