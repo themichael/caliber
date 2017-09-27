@@ -8,11 +8,11 @@ Feature: Editing Location
   #Positive
   Scenario: Update location
     Given I am located on the settings location page
-    And I click on the Pencil Edit button
+    And I click on the Pencil Edit button in row 0
     And I add "a" to the end of the company name
     And I add "a" to the end of the address
     And I add "a" to the end of the city name
     And I add "New Jersey" to the state field
     And I add "1" to the zipcode field
     When I click on the Update button
-    Then I will have updated the location
+    Then the location at row 0 will be "a" "a a, NJ 1"

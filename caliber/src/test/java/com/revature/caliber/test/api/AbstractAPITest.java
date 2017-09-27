@@ -47,11 +47,11 @@ public abstract class AbstractAPITest extends CaliberTest {
 	protected static RequestSpecification requestSpec;
 	
 	protected static String baseUrl = System.getenv("CALIBER_SERVER_URL");
-	private static String username = System.getenv("CALIBER_API_USERNAME");
-	private static String password = System.getenv("CALIBER_API_PASSWORD");
-	private static String clientId = System.getenv("SALESFORCE_CLIENT_ID");
-	private static String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
-	private static String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
+	protected static String username = System.getenv("CALIBER_API_USERNAME");
+	protected static String password = System.getenv("CALIBER_API_PASSWORD");
+	protected static String clientId = System.getenv("SALESFORCE_CLIENT_ID");
+	protected static String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
+	protected static String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
 	
 	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
 
