@@ -5,6 +5,16 @@ angular
 				function($rootScope, $scope, $state, $log, caliberDelegate,
 						chartsDelegate, allBatches) {
 					$log.debug("Booted trainer home controller.");
+					
+					const
+					OVERALL = "(All)";
+					
+					// What you see when you open Reports
+					var startingDate = new Date();
+					startingDate.setFullYear(startingDate.getFullYear() - 1);
+					$scope.startDate = startingDate;
+					$scope.selectedTrainingType = OVERALL;
+					$scope.selectedSkill = OVERALL;
 
 					/**
 					 * ********************************* On Start
@@ -38,24 +48,30 @@ angular
 					// *** Bar Charts
 					// *******************************************************************************
 					function createAverageTraineeScoresOverall() {
-						chartsDelegate.bar.data
-								.getAverageTraineeScoresOverallData(
-										$scope.currentBatch.batchId)
-								// confirm if batch or trainee
+						chartsDelegate.bar
+						.getBatchComparisonLineData($scope.selectedSkill, 
+								$scope.selectedTrainingType, 
+								$scope.startDate)
 								.then(
-										function(data) {
-											NProgress.done();
-											var barChartObject = chartsDelegate.bar
-													.getAverageTraineeScoresOverall(data, 80, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
-											$scope.batchOverAllLabels = barChartObject.labels;
-											$scope.batchOverAllData = barChartObject.data;
-											$scope.batchOverAllOptions = barChartObject.options;
-											$scope.batchOverAllColors = barChartObject.colors;
-											$scope.batchOverAllDsOverride = barChartObject.datasetOverride;
-										}, function() {
-											NProgress.done();
+										function(comparison) {
+											chartsDelegate.bar.data
+											.getAverageTraineeScoresOverallData(
+											$scope.currentBatch.batchId)
+											// confirm if batch or trainee
+											.then(
+													function(data) {
+														NProgress.done();
+														var barChartObject = chartsDelegate.bar
+														.getAverageTraineeScoresOverall(data, comparison, $scope.currentBatch.borderlineGradeThreshold, $scope.currentBatch.goodGradeThreshold);
+														$scope.batchOverAllLabels = barChartObject.labels;
+														$scope.batchOverAllData = barChartObject.data;
+														$scope.batchOverAllOptions = barChartObject.options;
+														$scope.batchOverAllColors = barChartObject.colors;
+														$scope.batchOverAllDsOverride = barChartObject.datasetOverride;
+													}, function() {
+														NProgress.done();
+													});
 										});
-
 					}
 
 					// *******************************************************************************
