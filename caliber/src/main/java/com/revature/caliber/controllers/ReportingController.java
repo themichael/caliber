@@ -217,7 +217,7 @@ public class ReportingController {
 		if(resp.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 
 	/*
