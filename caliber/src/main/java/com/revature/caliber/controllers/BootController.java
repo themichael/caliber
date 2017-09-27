@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -71,8 +72,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	 *             the uri syntax exception
 	 */
 	@RequestMapping(value = "/caliber")
-	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-			@ModelAttribute("salestoken") String salesTokenString, Model model, SessionStatus status) throws IOException, URISyntaxException {
+	public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws IOException, URISyntaxException {
 		if (debug) {
 			// fake Salesforce User
 			SalesforceUser salesforceUser = new SalesforceUser();
@@ -89,6 +89,10 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 		// get Salesforce token from cookie
 		try {
 			log.debug("About to check for salesforce token");
+			
+			HttpSession session = servletRequest.getSession();
+			String salesTokenString = (String) session.getAttribute("salestoken");
+			session.removeAttribute("salestoken");
 			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
 			// Http request to the salesforce module to get the Salesforce user
 			SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
@@ -100,7 +104,6 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 			// authorize user
 			authorize(jsonString, salesforceUser, servletResponse);
 
-			status.setComplete();
 			return INDEX;
 
 		} catch (AuthenticationCredentialsNotFoundException e) {

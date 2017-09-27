@@ -71,7 +71,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(@RequestParam(value = "code") String code,
-			RedirectAttributes redirectAttributes) throws IOException {
+			HttpServletRequest request) throws IOException {
 		log.debug("in authenticated method");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + accessTokenURL);
@@ -84,7 +84,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		log.debug("Generating Salesforce token");
 		HttpResponse response = httpClient.execute(post);
-		redirectAttributes.addAttribute("salestoken", toJsonString(response.getEntity().getContent()));
+		request.getSession().setAttribute("salestoken", toJsonString(response.getEntity().getContent()));
 		log.debug("Forwarding to : " + redirectUrl);
 		return new ModelAndView(REDIRECT + redirectUrl);
 	}
