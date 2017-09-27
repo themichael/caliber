@@ -226,13 +226,16 @@ public class AssessBatchPage {
 		}
 		return i;
 	}
-
+	
 	/**
 	 * Clicks the save button inside the Create Assessment modal
 	 */
-	public void modalSaveButton() {
-		driver.findElement(By.id("saveBtn")).click();
+	public void modalSaveButton(){
+		driver.findElement(By.id("assessmentSaveBtn")).click();
+		driver.switchTo().activeElement();
+		//driver.findElement(By.cssSelector("#createAssessmentModal > div > div > form > div.modal-footer > input")).click();
 	}
+
 
 	/**
 	 * Clicks the close button inside the Create Assessment modal

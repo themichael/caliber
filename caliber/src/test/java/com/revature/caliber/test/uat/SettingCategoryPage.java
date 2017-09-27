@@ -7,14 +7,15 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 public class SettingCategoryPage {
-	//private PhantomJSDriver driver;
+
 	private WebDriver driver;
 	
 	public SettingCategoryPage(WebDriver driver) {
@@ -48,17 +49,9 @@ public class SettingCategoryPage {
      */
     public void clickCreateCategoryBtn() throws InterruptedException {
     	driver.findElement(By
-    			.id("createCategoryModal")).click();
+    			.id("createCategoryModalX")).click();
     	Thread.sleep(1000);
     	driver.switchTo().activeElement();
-    	
-    	/*
-        driver.findElement(
-                By.cssSelector("body > div > ui-view > ui-view > div:nth-child(1) > div > div > div > ul > li > a"))
-                .click();
-        Thread.sleep(500);
-        driver.switchTo().activeElement();
-        */
     }
     
     /**
@@ -66,53 +59,73 @@ public class SettingCategoryPage {
      * @param name
      * @throws InterruptedException 
      */
+
+    public void inputAddCategoryName(String name) throws InterruptedException {
+    	//driver.findElement(By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.row > div > input")).sendKeys(name);
+    	driver.findElement(By.id("addCategoryName")).sendKeys(name);
+    }
+    
+    public void inputEditCategoryName(String name){
+    	WebElement category = driver.findElement(By.id("editCategoryName"));
+    	category.clear();
+    	category.sendKeys(name);
+    }
+    
+    public void editCategorySaveButton(){
+    	driver.findElement(By.id("editCategorySubmitBtn")).click();
+    	driver.switchTo().activeElement();
+    }
+    
+    public void editCategoryClickCheckbox(){
+    	driver.findElement(By.id("categoryIsActiveCheckBox")).click();
+    }
+    
+    public void editCategoryXButton(){
+    	driver.findElement(By.id("editCategoryXBtn")).click();
+    	driver.switchTo().activeElement();
+    }
+    
+    public void editCategoryCloseButton(){
+    	driver.findElement(By.id("editCategoryCloseBtn")).click();
+    	driver.switchTo().activeElement();
+    }
+    
+    public boolean checkIfCategoryIsActive(String name){
+    	String actual = driver.findElement(By.id(name)).getAttribute("value").toString();
+    	return (actual.equals("true")) ? true : false;
+    }
+    
     public void inputCategoryName(String name) throws InterruptedException {
-    	//Thread.sleep(1000);
     	driver.findElement(By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.row > div > input")).sendKeys(name);
-    	/*
-        driver.findElement(By.id("categoryName")).sendKeys(name);
-        */
-    	//driver.findElement(By.id("categoryName")).click();
-    	/*
-    	driver.findElement(By
-    			.id("categoryName")).sendKeys(name);
-    	driver.findElement(By
-    			.xpath("//*[@id=\"categoryName\"]")).sendKeys(name);
-    	*/
     }
     
     /**
      * Clicks on the save button to save the new category
      */
     public void clickCategorySaveBtn() {
-    	//driver.findElement(By.id("closeBtn")).click();
-    	/*driver.findElement(By
-    			.id("submitBtn")).click();*/
-        driver.findElement(
-                By.cssSelector("#addCategoryModal > div > div > div.modal-body > div > div.modal-footer > input"))
-                .click();
+    	driver.findElement(By.id("addCategorySubmitBtn")).click();
+    	driver.switchTo().activeElement();
     }
     
     /**
      * Creates a jpg file of the screenshot to check that we created the category
      * @throws IOException
      */
-    public void verifyCategoryAdded() throws IOException {
-    	/*
-    	File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-    	FileUtils.copyFile(srcFile,
-    			new File("~/Desktop/addedCategory.jpg"), true);
-    			*/
+    public boolean verifyCategoryAdded(String name) throws IOException {
+		boolean exists;
+		try{
+			driver.findElement(By.id(name));
+			exists = true;
+		}catch(NoSuchElementException e){
+			exists = false;
+		}
+		return exists;
     }
     
     /**
      * Clicks on the x-button to close out of the Create Category modal
      */
     public void closeCattegoryWithXButton() {
-    	/*
-    	driver.findElement(By
-    			.id("XBtn")).click();
-*/
     	driver.findElement(
     			By.cssSelector("#addCategoryModal > div > div > div.modal-header > button"))
     			.click();
@@ -123,15 +136,9 @@ public class SettingCategoryPage {
      * Closes the Create Category modal by clicking the Close button
      */
     public void closeCategoryWithCloseButton() {
-    	/*
-    	driver.findElement(By
-    			.id("closeBtn")).click();
-*/
-    	
     	driver.findElement(
     			By.cssSelector("#deleteLocationModal > div > div > div.modal-footer > button"))
     			.click();
- 
     }
     
     /**
@@ -156,6 +163,12 @@ public class SettingCategoryPage {
     	FileUtils.copyFile(srcFile,
     			new File("~/Desktop/closeButtonCategoryNotCreated.jpg"), true);
     	*/
+    }
+    
+    public void clickCategoryName(String name) throws InterruptedException{
+    	driver.findElement(By.id(name)).click();
+    	Thread.sleep(500);
+    	driver.switchTo().activeElement();
     }
     
     public void closeDriver() {
