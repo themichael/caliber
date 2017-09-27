@@ -11,8 +11,8 @@ public class GradeTraineeFeature{
 	
 	@Before
 	public void setup(){
-		//ChromeDriverSetup driver = new ChromeDriverSetup();
-		assessBatch = new AssessBatchPage(ChromeDriverSetup.getDriver());
+		ChromeDriverSetup driver = new ChromeDriverSetup();
+		assessBatch = new AssessBatchPage(driver.getDriver());
 	}
 //	
 //	@After
