@@ -54,8 +54,7 @@ public class AddBatchWeeklyPerformanceFeature {
 	public void the_Feedback_is_recorded(String feedback) throws Throwable {
 		assessBatchPage.goToPage();
 		assessBatchPage.selectBatch();
-		assessBatchPage.clickWeekTab();
-		ZZZ.waitForPageLoad();
+		assessBatchPage.clickWeekTab();	
 		Thread.sleep(5000);
 	    assessBatchPage.batchNotesCheck(feedback);
 	}

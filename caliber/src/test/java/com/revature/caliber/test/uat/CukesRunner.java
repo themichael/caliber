@@ -2,15 +2,16 @@ package com.revature.caliber.test.uat;
 
 import java.util.concurrent.TimeUnit;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
-//import com.github.mkolisnyk.cucumber.runner.AfterSuite;
-//import com.github.mkolisnyk.cucumber.runner.BeforeSuite;
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.chrome.ChromeDriver;
-//import org.openqa.selenium.chrome.ChromeOptions;
 
 /**
  * Hook class to kick off the E2E tests using Cucumber/Selenium.
@@ -24,6 +25,24 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ryan-irmagiton
+@CucumberOptions(features={"src/test/resources/features"})
+public class CukesRunner {
+	
+	@AfterClass
+	public static void teardown(){
+		ChromeDriverSetup.driver.quit();
+	}
+}
+<<<<<<< HEAD
+=======
 @CucumberOptions(features={"src/test/resources/features/deactivate-activate-location.feature"})
 public class CukesRunner {}
+>>>>>>> d91ffc40e6de75264afb00e6e573206a5de681fc
+=======
+
+>>>>>>> ryan-irmagiton
 
