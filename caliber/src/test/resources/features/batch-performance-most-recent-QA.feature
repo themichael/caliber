@@ -10,3 +10,4 @@ Background:
 Scenario:
 	When I go to the Home Page
 	Then I can view the batch performance from their most recent quality audits
+

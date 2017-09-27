@@ -17,50 +17,51 @@ public class AddAssessmentFeature {
 		assessBatch = new AssessBatchPage(setup.getDriver());
 	}
 	
-	@Given("^I am on the Assess Batch page$")
-	public void iAmOnTheAssessBatchPage() {
-		assessBatch.verifyAssessPage();
+	@Given("^I am located on the Assess Batch page$")
+	public void i_am_located_on_the_Assess_Batch_page() throws Throwable {
+	    assessBatch.goToPage();
+	    assessBatch.verifyAssessPage();
 	}
 
 	@Given("^I have selected a batch$")
-	public void iHaveSelectedABatch() {
-		assessBatch.selectBatch();
+	public void i_have_selected_a_batch() throws Throwable {
+	    assessBatch.selectBatch();
 	}
 
 	@Given("^I have clicked the Week (\\d+) tab$")
-	public void iHaveClickedTheWeekTab(){
-		assessBatch.clickWeekTab();
+	public void i_have_clicked_the_Week_tab(int arg1) throws Throwable {
+	    assessBatch.clickWeekTab();
 	}
 
 	@Given("^I have clicked Create Assessment button$")
-	public void iHaveClickedCreateAssessmentButton() {
-		assessBatch.clickCreateAssessment();
+	public void i_have_clicked_Create_Assessment_button() throws Throwable {
+	    assessBatch.clickCreateAssessment();
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as the Category$")
-	public void iHaveSelectedAsTheCategory(String category) {
-		assessBatch.selectAssessementCategory(category);
+	public void i_have_selected_as_the_Category(String category) throws Throwable {
+	    assessBatch.selectAssessementCategory(category);
 	}
 
 	@Given("^I have entered (\\d+) as the Max Points$")
-	public void iHaveEnteredAsTheMaxPoints(int points) {
-		Integer pointsToSend = new Integer(points);
-		assessBatch.maxPoints(pointsToSend.toString());
+	public void i_have_entered_as_the_Max_Points(int points) throws Throwable {
+	    Integer pointsToSend = new Integer(points);
+	    assessBatch.maxPoints(pointsToSend.toString());
 	}
 
 	@Given("^I have selected \"([^\"]*)\" as the Assessment Type$")
-	public void iHaveSelectedAsTheAssessmentType(String type) {
-		assessBatch.selectAssessmentType(type);
+	public void i_have_selected_as_the_Assessment_Type(String type) throws Throwable {
+	    assessBatch.selectAssessmentType(type);
 	}
 
 	@When("^I click the Save button$")
-	public void iClickTheSaveButton() {
-		assessBatch.saveButton();
+	public void i_click_the_Save_button() throws Throwable {
+	    assessBatch.modalSaveButton();
 	}
 
 	@Then("^the \"([^\"]*)\" Exam appears on the screen$")
-	public void theJavaExamAppearsOnTheScreen(String type) {
-		boolean actual = assessBatch.assessmentCheck(type);
+	public void the_Exam_appears_on_the_screen(String exam) throws Throwable {
+	    boolean actual = assessBatch.assessmentCheck(exam);
 		assertEquals(actual, true);
 	}
 }

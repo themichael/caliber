@@ -8,9 +8,9 @@ Feature: Add Assessment
 	
 # positive testing
 Scenario: Add LMS exam
-	Given I am  located on the Assess Batch page
-	And I have selected  a batch
-	And I have picked the Week 1 tab
+	Given I am located on the Assess Batch page
+	And I have selected a batch
+	And I have clicked the Week 1 tab
 	And I have clicked Create Assessment button
 	And I have selected "Java" as the Category
 	And I have entered 100 as the Max Points

@@ -7,26 +7,29 @@ Feature: Editing Categories
   # Background
   Background: Logged in
     Given I am on the settings category page
-    When I click on the Category Name
 
   # positive
   Scenario: Edit the name of the category
+  	And I click on the "Java" Category Name
     And I add "hello" to the current name field
-    And I click the Submit button
-    Then I should get the category with a different name
+    When I click the Submit button
+    Then the new category should be "hello"
 
   # positive
   Scenario: Make the category inactive
+  	And I click on the "hello" Category
     And I click on the Active checkbox
-    And I click on the Submit Button
-    Then I changed the category to an inactive state
+    When I click on the Submit Button
+    Then the category "hello" should be inactive
 
   # negative
   Scenario: Exit the edit category modal by x-ing out
-    And I click on the X-out button
+  	And I click on the "hello" Category box
+    When I click on the X-out button
     Then I exited the Edit Category modal without editing
 
 	# negative
   Scenario: Exit the edit category modal by Close button
-  	And I click the Modal Close button
+  	And I click on the "hello" Category link
+  	When I click the Modal Close button
   	Then I exited the edit Category modal without editing
