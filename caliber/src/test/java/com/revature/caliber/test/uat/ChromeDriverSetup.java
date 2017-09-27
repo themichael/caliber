@@ -32,7 +32,7 @@ public class ChromeDriverSetup extends CaliberTest{
 		}
 	}
 	
-	public static WebDriver getDriver() {
+	public WebDriver getDriver() {
 		return driver;
 	}
 
