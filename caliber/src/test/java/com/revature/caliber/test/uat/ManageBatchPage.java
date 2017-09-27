@@ -98,8 +98,6 @@ public class ManageBatchPage{
 		driver.findElement(By.id("traineeModalLabel"));
 		Thread.sleep(3000);
 		driver.switchTo().activeElement();
-//		File srcFile2 = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-//		FileUtils.copyFile(srcFile2, new File("~/Desktop/personAfter.jpg"), true);
 		
 	}
 	
@@ -406,8 +404,6 @@ public class ManageBatchPage{
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 		driver.findElement(By.id(year)).click();
-//		String yearActual = driver.findElement(By.cssSelector("#manage > div:nth-child(1) > div > div > ul > li.dropdown > a > label")).getAttribute("id").toString();
-//		assertEquals(yearActual, year);
 	}
 	
 	/**

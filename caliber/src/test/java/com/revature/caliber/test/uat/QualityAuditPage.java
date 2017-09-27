@@ -40,10 +40,8 @@ public class QualityAuditPage {
 	 * @param year to select (2016-2018)
 	 */
 	public void clickYearDropdown(String year){
-		//opens year dropdown
 		driver.findElement(By.id("yearDropDownButton"))
 			.click();
-		//clicks on '2017' from the unhidden menu
 		driver.findElement(By.id(year))
 			.click();
 	}
@@ -64,10 +62,8 @@ public class QualityAuditPage {
 	 * @param batchID batch to select (follows "[trainerName] - [date]" format)
 	 */
 	public void clickBatch(String batchID){
-		//click on batch
 		driver.findElement(By.id("batchDropDown"))
 			.click();
-		//click on 'Patrick Walsh - 2/14/17' from the unhidden menu
 		driver.findElement(By.id(batchID))
 			.click();
 	}
@@ -87,7 +83,6 @@ public class QualityAuditPage {
 	 * @param week as an int from 1
 	 */
 	public void clickWeeksForBatch(int week){
-		// change last /li[x] where x is the week; will click new week if set to last element in the list
 		driver.findElement(By.id("week" + week))
 			.click();
 	}
@@ -100,7 +95,6 @@ public class QualityAuditPage {
 	public void verifyWeekForBatch(String checkWeek){
 		String weekTab;
 		int week = 1;
-		// Loop constructed on the premise that weeks don't go over 9
 		for(; week <=9; week++){
 			WebElement child = driver.findElement(By.id("week" + week));
 			WebElement parent = child.findElement(By.xpath(".."));
@@ -120,11 +114,9 @@ public class QualityAuditPage {
 	public void clickAddWeeksForBatchButton() throws InterruptedException{
 		driver.findElement(By.id("addWeekButton"))
 			.click();
-		// wait for alert
 		Thread.sleep(500);
 		driver.switchTo().activeElement().findElement(By.id("noBtn"))
-			.click(); //currently clicking no
-		//wait for alert to dissipate
+			.click();
 		Thread.sleep(500);
 	}
 	
@@ -133,8 +125,6 @@ public class QualityAuditPage {
 	 */
 	public void clickIndividualFeedbackButton(){
 		String[] qcBtns = { "questionBtn", "starBtn", "goodBtn", "fairBtn", "poorBtn"};
-		//need to click on the currently displayed button
-			//check if it is displayed
 		boolean isAvailable;
 		int step = 0;
 		for(; step<=4; step++){
@@ -143,7 +133,6 @@ public class QualityAuditPage {
 			if(isAvailable)
 				break;
 		}
-		//finally, clicks needs logic for determining how many clicks to reach desired state
 		driver.findElement(By.id("indvFeedback-"+ qcBtns[step]+"-0")).click();
 	}
 	
