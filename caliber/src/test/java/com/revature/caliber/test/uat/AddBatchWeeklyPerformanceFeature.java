@@ -55,6 +55,7 @@ public class AddBatchWeeklyPerformanceFeature {
 
 	@Then("^the Feedback \"([^\"]*)\" is recorded$")
 	public void the_Feedback_is_recorded(String feedback) throws Throwable {
+		Thread.sleep(3000);
 	    assessBatchPage.batchNotesCheck(feedback);
 	}
 

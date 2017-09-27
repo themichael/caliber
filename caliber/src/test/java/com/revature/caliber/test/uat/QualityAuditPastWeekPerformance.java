@@ -39,7 +39,7 @@ public class QualityAuditPastWeekPerformance {
 
 	@When("^I click on a previous week tab$")
 	public void iClickOnAPreviousWeekTab() throws Throwable {
-	    for(int i=8; i>= 1; i--){
+	    for(int i=7; i>= 1; i--){
 	    	qaPage.clickWeeksForBatch(i);
 	    	qaPage.verifyWeekForBatch("week"+i);
 	    }

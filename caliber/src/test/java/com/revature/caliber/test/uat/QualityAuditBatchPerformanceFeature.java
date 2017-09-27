@@ -39,7 +39,8 @@ public class QualityAuditBatchPerformanceFeature {
 
 	@Given("^I am viewing the most recent week$")
 	public void iAmViewingTheMostRecentWeek() throws Throwable {
-	    qaPage.verifyWeekForBatch("week8");
+		qaPage.clickWeeksForBatch(7);
+	    qaPage.verifyWeekForBatch("week7");
 	}
 	
 	@Given("^I click on an overall batch feedback button$")
