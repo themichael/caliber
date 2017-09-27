@@ -2,16 +2,11 @@ package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
 
 /**
@@ -26,21 +21,26 @@ import org.openqa.selenium.support.ui.Select;
 public class SettingsTrainerPage {
 
 	private WebDriver driver;
-
+	private static final String BASE_URL = "CALIBER_API_SERVER";
+	private static final String VP_TRAINERS = "caliber/#/vp/trainers";  
+	private static final String TRAINER_NAME = "trainerName";
+	private static final String TRAINER_EMAIL = "trainerEmail";
+	private static final String TITLE = "Title";
+	
 	public SettingsTrainerPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver) driver;
-		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/trainers");
+		this.driver.get(System.getenv(BASE_URL)+VP_TRAINERS);
 	}
 
 	// Sends driver to the specified page
 	public void gotoPage(){
-		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/trainers");
+		driver.get(System.getenv(BASE_URL)+VP_TRAINERS);
 	}
 
 	// Checks to see if the driver is currently on the specified page
 	public void verifyPage() {
-		assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/trainers", driver.getCurrentUrl());
+		assertEquals(System.getenv(BASE_URL)+VP_TRAINERS, driver.getCurrentUrl());
 	}
 
 	// Clicks the CreateTrainer button to open create Trainer modal
@@ -53,19 +53,19 @@ public class SettingsTrainerPage {
 
 	// Enters name into the Trainer name input field
 	public void enterName(String name) {
-		driver.findElement(By.id("trainerName"))
+		driver.findElement(By.id(TRAINER_NAME))
 				.sendKeys(name);
 	}
 
 	// Enters email into the Email input field
 	public void enterEmail(String email) {
-		driver.findElement(By.id("trainerEmail"))
+		driver.findElement(By.id(TRAINER_EMAIL))
 				.sendKeys(email);
 	}
 
 	// Enters name of Title into the title input field
 	public void selectTitle(String title) {
-		driver.findElement(By.id("Title"))
+		driver.findElement(By.id(TITLE))
 				.sendKeys(title);
 
 	}
@@ -103,27 +103,27 @@ public class SettingsTrainerPage {
 	// clears the input field for the Trainer name then updates the name
 	public void updateTrainerName(String name) {
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("trainerName"))
+		driver.findElement(By.id(TRAINER_NAME))
 				.clear();
-		driver.findElement(By.id("trainerName"))
+		driver.findElement(By.id(TRAINER_NAME))
 				.sendKeys(name);
 		;
 	}
 
 	// clears the input field for the Trainer email then updates the email
 	public void updateEmail(String email) {
-		driver.findElement(By.id("trainerEmail"))
+		driver.findElement(By.id(TRAINER_EMAIL))
 				.clear();
-		driver.findElement(By.id("trainerEmail"))
+		driver.findElement(By.id(TRAINER_EMAIL))
 				.sendKeys(email);
 
 	}
 
 	// clears the input field for the Trainer title then updates the title
 	public void updateTitle(String title) {
-		driver.findElement(By.id("Title"))
+		driver.findElement(By.id(TITLE))
 				.clear();
-		driver.findElement(By.id("Title"))
+		driver.findElement(By.id(TITLE))
 				.sendKeys(title);
 	}
 

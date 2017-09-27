@@ -2,17 +2,12 @@ package com.revature.caliber.test.uat;
 
 
 import static org.junit.Assert.assertEquals;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.digest;
 
 import java.io.File;
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class ReportsPage {
 
@@ -21,26 +16,27 @@ public class ReportsPage {
 	 * 
 	 */
 	private WebDriver driver;
+	private static final String BASE_URL = "CALIBER_API_SERVER";
 
 	public ReportsPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver)driver;
-		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/reports");
+		this.driver.get(System.getenv(BASE_URL)+"caliber/#/vp/reports");
 	}
 
 	public void gotoReportsPage() {
-		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/reports");
+		driver.get(System.getenv(BASE_URL)+"caliber/#/vp/reports");
 	}
 
 	public void goToHome() {
-		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
+		driver.get(System.getenv(BASE_URL)+"caliber/#/vp/home");
 	}
 
 	/***
 	 * Verifying if you're on the reports page
 	 */
 	public void verifyReportsPage() {
-		assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/reports", driver.getCurrentUrl());
+		assertEquals(System.getenv(BASE_URL)+"caliber/#/vp/reports", driver.getCurrentUrl());
 	}
 
 	/***
@@ -264,16 +260,14 @@ public class ReportsPage {
 	 * @return
 	 */
 	public boolean isFileDownloaded(String downloadPath, String fileName) {
-		boolean flag = false;
 		File dir = new File(downloadPath);
-		File[] dir_contents = dir.listFiles();
+		File[] dirContents = dir.listFiles();
 
-		for (int i = 0; i < dir_contents.length; i++) {
-			if (dir_contents[i].getName().equals(fileName))
-				return flag = true;
+		for (int i = 0; i < dirContents.length; i++) {
+			if (dirContents[i].getName().equals(fileName))
+				return true;
 		}
-
-		return flag;
+		return false;
 	}
 
 	/**

@@ -1,36 +1,36 @@
 package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
-
+/**
+ * @author Evan Molinelli created Page Object Model 
+ * for the Setting Location Page of Caliber.
+ * The methods defined below are the actions being executed
+ * in the Locations page of caliber. Only the VP's are allowed to 
+ * add/update locations.
+ * 
+ * 
+ * @author Davis Zabiyaka modified the Page Object Mode
+ * to fit the criterea for headless chrome browser
+ * instead of phantomjs
+ */
 public class SettingLocationPage {
-	
-	/**
-	 * @author Evan Molinelli created Page Object Model 
-	 * for the Setting Location Page of Caliber.
-	 * The methods defined below are the actions being executed
-	 * in the Locations page of caliber. Only the VP's are allowed to 
-	 * add/update locations.
-	 * 
-	 * 
-	 * @author Davis Zabiyaka modified the Page Object Mode
-	 * to fit the criterea for headless chrome browser
-	 * instead of phantomjs
-	 */
 
 	private WebDriver driver;
+	private static final String BASE_URL = "CALIBER_API_SERVER";
+	private static final String VP_LOCATIONS = "caliber/#/vp/locations";
+	private static final String VALUE = "value";
+	private static final Logger log = Logger.getLogger(SettingLocationPage.class);
 
 	public SettingLocationPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver) driver;
-		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/locations");
+		this.driver.get(System.getenv(BASE_URL)+VP_LOCATIONS);
 	}
 
 	//Closing the driver
@@ -42,21 +42,21 @@ public class SettingLocationPage {
 	 * Go to the Locations page in caliber
 	 */
 	public void gotoSettingLocationPage() {
-		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/locations");
+		driver.get(System.getenv(BASE_URL)+VP_LOCATIONS);
 	}
 	
 	/**
 	 * Go to the home page in Caliber
 	 */
 	public void goToHome() {
-		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
+		driver.get(System.getenv(BASE_URL)+"caliber/#/vp/home");
 	}
 
 	/**
 	 * Verify the user is on the Location page
 	 */
 	public void verifyLocationPage() {
-		assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/locations", driver.getCurrentUrl());
+		assertEquals(System.getenv(BASE_URL)+VP_LOCATIONS, driver.getCurrentUrl());
 	}
 
 	/**
@@ -258,12 +258,12 @@ public class SettingLocationPage {
 	 * This checks whether the location is active/inactive
 	 */
 	public boolean verifyLocationIsActive(int index) {
-		String actual = driver.findElement(By.id("locationActiveGlyphicon"+index)).getAttribute("value").toString();
+		String actual = driver.findElement(By.id("locationActiveGlyphicon"+index)).getAttribute(VALUE).toString();
     	return (actual.equals("true")) ? true : false;
 	}
 	
 	public boolean verifyLocationIsInActive(int index) {
-		String actual = driver.findElement(By.id("locationInactiveGlyphicon"+index)).getAttribute("value").toString();
+		String actual = driver.findElement(By.id("locationInactiveGlyphicon"+index)).getAttribute(VALUE).toString();
     	return (actual.equals("false")) ? true : false;
 	}
 	
@@ -320,11 +320,11 @@ public class SettingLocationPage {
 	}
 	
 	public boolean isLocationUpdated(String location, String company, int index){
-		String actualCompany = driver.findElement(By.id("locationCompany"+index)).getAttribute("value").toString();
-		String actualDetails = driver.findElement(By.id("locationDetails"+index)).getAttribute("value").toString();
-		System.out.println(actualCompany);
-		System.out.println(actualDetails);
-		return (actualCompany.equals(company) && actualDetails.equals(location)) ? true : false;
+		String actualCompany = driver.findElement(By.id("locationCompany"+index)).getAttribute(VALUE).toString();
+		String actualDetails = driver.findElement(By.id("locationDetails"+index)).getAttribute(VALUE).toString();
+		log.debug(actualCompany);
+		log.debug(actualDetails);
+		return actualCompany.equals(company) && actualDetails.equals(location);
 	}
 	
 }

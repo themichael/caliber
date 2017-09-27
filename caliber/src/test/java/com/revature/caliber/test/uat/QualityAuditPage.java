@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 public class QualityAuditPage {
 
 	private WebDriver driver;
+	private static final String clazz = "class";
 	
 	public QualityAuditPage(WebDriver driver){
 		this.driver = driver;
@@ -104,8 +105,8 @@ public class QualityAuditPage {
 		for(; week <=9; week++){
 			WebElement child = driver.findElement(By.id("week" + week));
 			WebElement parent = child.findElement(By.xpath(".."));
-			weekTab = parent.getAttribute("class");
-			if(weekTab.equals("active")){
+			weekTab = parent.getAttribute(clazz);
+			if("active".equals(weekTab)){
 				break;
 			}
 		}
@@ -165,10 +166,8 @@ public class QualityAuditPage {
 	 */
 	public void verifyTraineeNotes() throws InterruptedException{
 		Thread.sleep(3000);
-		String notes = driver.findElement(By.id("noteTextArea-0")).getAttribute("class");
-		boolean contains = false;
-		contains = notes.contains("ng-not-empty");
-		assert(contains == true);
+		String notes = driver.findElement(By.id("noteTextArea-0")).getAttribute(clazz);
+		assert(notes.contains("ng-not-empty") == true);
 	}
 	
 	/**
@@ -213,10 +212,8 @@ public class QualityAuditPage {
 	 */
 	public void verifyQCNotes() throws InterruptedException{
 		Thread.sleep(1000);
-		String notes = driver.findElement(By.id("qcBatchNotes")).getAttribute("class");
-		boolean contains = false;
-		contains = notes.contains("ng-not-empty");
-		assert(contains == true);
+		String notes = driver.findElement(By.id("qcBatchNotes")).getAttribute(clazz);
+		assert(notes.contains("ng-not-empty") == true);
 	}
 	
 	/**

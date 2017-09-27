@@ -6,7 +6,7 @@ import cucumber.api.java.en.When;
 
 public class QualityAuditPastWeekPerformanceFeature {
 	
-	public QualityAuditPage qaPage;
+	private QualityAuditPage qaPage;
 	
 	@cucumber.api.java.Before
 	public void setup(){

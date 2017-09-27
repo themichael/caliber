@@ -1,16 +1,12 @@
 package com.revature.caliber.test.uat;
 
-import org.openqa.selenium.WebDriver;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class QualityAuditTraineePerfromanceFeature {
 
-	public static WebDriver driver;
-
-	public QualityAuditPage qaPage;
+	private QualityAuditPage qaPage;
 	
 	@cucumber.api.java.Before
 	public void setup(){
@@ -18,12 +14,7 @@ public class QualityAuditTraineePerfromanceFeature {
 		qaPage = new QualityAuditPage(setup.getDriver());
 
 	}
-	
-/*	@cucumber.api.java.After
-	public void teardown(){
-		qaPage.closeDriver();
-	}
-	*/
+
 	@Given("^I am on the Quality Audit Page$")
 	public void iAmOnTheQualityAuditPage() throws Throwable {
 		qaPage.goToPage();
