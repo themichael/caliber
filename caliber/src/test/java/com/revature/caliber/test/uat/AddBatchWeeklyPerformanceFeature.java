@@ -55,7 +55,6 @@ public class AddBatchWeeklyPerformanceFeature {
 		assessBatchPage.goToPage();
 		assessBatchPage.selectBatch();
 		assessBatchPage.clickWeekTab();
-		ZZZ.waitForPageLoad();
 		Thread.sleep(5000);
 	    assessBatchPage.batchNotesCheck(feedback);
 	}

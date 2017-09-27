@@ -33,7 +33,6 @@ public class GradeTraineeFeature{
 
 	@Given("^I have submitted \"([^\"]*)\" as the grade for \"([^\"]*)\"$")
 	public void i_have_submitted_as_the_grade_for(String grade, String traineeName) throws Throwable {
-		ZZZ.waitForPageLoad();
 		Thread.sleep(2000);
 	    assessBatch.enterGrades(traineeName, grade);
 	}
@@ -47,7 +46,6 @@ public class GradeTraineeFeature{
 	public void theGradesAreRecorded(String grade, String traineeName) throws Throwable{
 		assessBatch.goToPage();
 		assessBatch.clickWeekTab();
-		ZZZ.waitForPageLoad();
 		Thread.sleep(7000);
 		assessBatch.checkIfGradesWereInput(traineeName, grade);
 	}
