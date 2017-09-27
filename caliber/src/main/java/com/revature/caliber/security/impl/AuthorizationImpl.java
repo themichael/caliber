@@ -285,7 +285,11 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
         log.debug("Checking for the salesforce token");
         if (token != null) {
             log.error("Parse salesforce token from forwarded request: " + token);
-            return new ObjectMapper().readValue(token, SalesforceToken.class);
+            try{
+            	return new ObjectMapper().readValue(token, SalesforceToken.class);
+            }catch(Exception e){
+            	log.error(e);
+            }
         }
         log.debug("failed to parse token from forwarded request: ");
         throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
