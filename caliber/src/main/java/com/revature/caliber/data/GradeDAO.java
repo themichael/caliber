@@ -87,7 +87,7 @@ public class GradeDAO {
 	public List<Grade> findByAssessment(Long assessmentId) {
 		log.info("Finding grades for assessment: " + assessmentId);
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias(TRAINEE, TRAINEE)
-				.add(Restrictions.eq("a.assessmentId", assessmentId))
+				.add(Restrictions.eq("assessment.assessmentId", assessmentId))
 				.add(Restrictions.ne(TRAINEE_TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
