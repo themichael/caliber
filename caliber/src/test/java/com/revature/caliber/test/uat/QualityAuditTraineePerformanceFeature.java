@@ -8,7 +8,6 @@ import cucumber.api.java.en.When;
 
 public class QualityAuditTraineePerformanceFeature {
 
-	public static WebDriver driver;
 
 	public QualityAuditPage qaPage;
 	
