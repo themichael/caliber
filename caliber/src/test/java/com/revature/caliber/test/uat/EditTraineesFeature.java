@@ -54,13 +54,8 @@ public class EditTraineesFeature{
 
 	@When("^I click the update button$")
 	public void i_click_the_update_button() throws Throwable {
-<<<<<<< HEAD
-		manageBatchPage.gotoManagePage();
-		manageBatchPage.clickUpdateAddTraineeModal();
-=======
 		//manageBatchPage.gotoManagePage();
 		manageBatchPage.clickUpdateTraineeModal();
->>>>>>> 850d2153f07c6a0c27843e66a8635c5895c80d27
 	}
 
 	@Then("^the trainees information will be changed and saved into the db\\.$")
