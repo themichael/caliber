@@ -88,12 +88,14 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 				populateDatabase(); // Add the default trainer to the database
 									// in order to login
 				login();
-				log.info("Logging into Caliber for API testing");
-				Response response = given().param("salestoken", accessTokenJson).redirects().allowCircular(true)
-						.get(baseUrl + "caliber/");
+				log.info("Logging into Caliber for API testing at: " +baseUrl + "authenticated_token");
+				Response response = given().param("salestoken", accessToken).redirects().allowCircular(true)
+						.get(baseUrl + "authenticated_token");
+				log.info("Token: " + accessToken);
+				
 				String sessionCookie = response.getSessionId();
 				String roleCookie = response.getCookie("role");
-				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie);
+				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie + "\nStatus: " + response.getStatusCode());
 				requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie)
 						.addCookie("role", roleCookie).build();
 				tearDownDatabase(); // remove database data to prepare it for
@@ -122,6 +124,7 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		parameters.add(new BasicNameValuePair("password", password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
+		
 		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(),
 				// JsonNode.class); // test
 				SalesforceToken.class).getAccessToken(); // actual
