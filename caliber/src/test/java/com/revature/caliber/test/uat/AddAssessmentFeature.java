@@ -51,7 +51,7 @@ public class AddAssessmentFeature {
 
 	@Given("^I have selected \"([^\"]*)\" as the Assessment Type$")
 	public void i_have_selected_as_the_Assessment_Type(String type) throws Throwable {
-	    assessBatch.selectAssessmentType(type);
+	    assessBatch.selectCreateAssessmentType(type);
 	}
 
 	@When("^I click the Save button$")

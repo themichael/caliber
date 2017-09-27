@@ -34,9 +34,9 @@ public class ChromeDriverSetup extends AbstractAPITest {
 		initialized = true;
 		}
 		if(!isLoggedIn){
-			loginPage.setUsername(System.getenv("CALIBER_API_USERNAME"));
-			loginPage.setPassword(System.getenv("CALIBER_API_PASSWORD"));
-			loginPage.clickLogin();
+//			loginPage.setUsername(System.getenv("CALIBER_API_USERNAME"));
+//			loginPage.setPassword(System.getenv("CALIBER_API_PASSWORD"));
+//			loginPage.clickLogin();
 			isLoggedIn = true;
 		}
 	}

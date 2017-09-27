@@ -170,9 +170,11 @@ public class AssessBatchPage {
 	 * Selects the Assessment Category from the category dropdown
 	 * 
 	 * @param feedback
+	 * @throws InterruptedException 
 	 */
-	public void selectCreateAssessementCategory(String feedback) {
+	public void selectCreateAssessementCategory(String feedback) throws InterruptedException {
 		Select dropdown = new Select(driver.findElement(By.id("createSelectAssessmentCategory")));
+		Thread.sleep(500);
 		dropdown.selectByVisibleText(feedback);
 	}
 
@@ -199,9 +201,11 @@ public class AssessBatchPage {
 	 * Selects the Assessment type from the type dropdown
 	 * 
 	 * @param feedback
+	 * @throws InterruptedException 
 	 */
-	public void selectCreateAssessmentType(String feedback) {
+	public void selectCreateAssessmentType(String feedback) throws InterruptedException {
 		Select dropdown = new Select(driver.findElement(By.id("createSelectAssessmentType")));
+		Thread.sleep(500);
 		dropdown.selectByVisibleText(feedback);
 	}
 
