@@ -54,7 +54,6 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 	protected static String jsessionid;
 	protected static RequestSpecification requestSpec;
 
-
 	protected static String baseUrl = System.getenv("CALIBER_API_SERVER");
 	protected static String username = System.getenv("CALIBER_API_USERNAME");
 	protected static String password = System.getenv("CALIBER_API_PASSWORD");

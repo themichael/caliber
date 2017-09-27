@@ -13,6 +13,10 @@ import java.util.concurrent.TimeUnit;
  * @date 1/25/17
  */
 public class SalesforceLoginPage {
+	
+	private final String usernameBoxId = "username";
+	   private final String passwordBoxId = "password";
+	   private final String loginButtonId = "Login";
     
     private WebDriver driver;
     

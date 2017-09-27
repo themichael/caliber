@@ -6,7 +6,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class QualityAuditTraineePerfromanceFeature {
+public class QualityAuditTraineePerformanceFeature {
 
 	public static WebDriver driver;
 
@@ -19,52 +19,47 @@ public class QualityAuditTraineePerfromanceFeature {
 
 	}
 	
-/*	@cucumber.api.java.After
-	public void teardown(){
-		qaPage.closeDriver();
-	}
-	*/
 	@Given("^I am on the Quality Audit Page$")
-	public void iAmOnTheQualityAuditPage() throws Throwable {
+	public void iAmOnTheQualityAuditPage(){
 		qaPage.goToPage();
 	    qaPage.verifyPage();
 	}
 
 	@Given("^I have selected the current year for year$")
-	public void iHaveSelectedCurrentYear() throws Throwable {
+	public void iHaveSelectedCurrentYear(){
 		qaPage.clickYearDropdown("2017");
 	    qaPage.verifyYear("2017");
 	}
 	
 	@Given("^I have selected the current Batch$")
-	public void iHaveSelectedTheCurrentBatch() throws Throwable {
+	public void iHaveSelectedTheCurrentBatch() {
 		qaPage.clickBatch("Patrick Walsh - 2/14/17");
 	    qaPage.verifyBatch("Patrick Walsh - 2/14/17");
 	}
 
 	@Given("^I am on the most current week$")
-	public void iAmOnTheMostCurrentWeek() throws Throwable {
+	public void iAmOnTheMostCurrentWeek() {
 		qaPage.clickWeeksForBatch(7);
 		qaPage.verifyWeekForBatch("week7");
 	}
 
 	@Given("^have entered \"([^\"]*)\" in Trainees note area$")
-	public void haveEnteredInTraineesNoteArea(String arg1) throws Throwable {
+	public void haveEnteredInTraineesNoteArea(String arg1) {
 	    qaPage.setNoteOnTraineeTextArea(arg1);
 	}
 
 	@Given("^I click on the individual feedback button to the desried state$")
-	public void iClickOnTheIndividualFeedbackButtonToTheDesriedState() throws Throwable {
+	public void iClickOnTheIndividualFeedbackButtonToTheDesriedState() {
 	    qaPage.clickIndividualFeedbackButton();
 	}
 
 	@When("^I click the save button at the bottom of the page$")
-	public void iClickTheSaveButtonAtTheBottomOfThePage() throws Throwable {
+	public void iClickTheSaveButtonAtTheBottomOfThePage() {
 	    qaPage.clickSaveButton();
 	}
 
 	@Then("^the performance notes will be saved$")
-	public void thePerformanceNotesWillBeSaved() throws Throwable {
+	public void thePerformanceNotesWillBeSaved() throws InterruptedException {
 	    qaPage.goToPage();
 	    qaPage.clickWeeksForBatch(7);
 	    Thread.sleep(3000);

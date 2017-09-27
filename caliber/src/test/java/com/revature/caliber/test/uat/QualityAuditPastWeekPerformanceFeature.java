@@ -14,31 +14,26 @@ public class QualityAuditPastWeekPerformanceFeature {
 		qaPage = new QualityAuditPage(setup.getDriver());
 	}
 	
-	/*@cucumber.api.java.After
-	public void teardown(){
-		qaPage.closeDriver();
-	}
-	*/
 	@Given("^I have navigated to the quality audit page$")
-	public void iHaveNavigatedToTheQualityAuditPage() throws Throwable {
+	public void iHaveNavigatedToTheQualityAuditPage() {
 	   qaPage.goToPage();
 	   qaPage.verifyPage();
 	}
 
 	@Given("^I have selected the year to view$")
-	public void iHaveSelectedTheYearToView() throws Throwable {
+	public void iHaveSelectedTheYearToView() {
 	    qaPage.clickYearDropdown("2017");
 	    qaPage.verifyYear("2017");
 	}
 
 	@Given("^I have selected the batch to view$")
-	public void iHaveSelectedTheBatchToView() throws Throwable {
+	public void iHaveSelectedTheBatchToView()  {
 	    qaPage.clickBatch("Patrick Walsh - 2/14/17");
 	    qaPage.verifyBatch("Patrick Walsh - 2/14/17");
 	}
 
 	@When("^I click on a previous week tab$")
-	public void iClickOnAPreviousWeekTab() throws Throwable {
+	public void iClickOnAPreviousWeekTab() {
 	    for(int i=7; i>= 1; i--){
 	    	qaPage.clickWeeksForBatch(i);
 	    	qaPage.verifyWeekForBatch("week"+i);
@@ -46,7 +41,7 @@ public class QualityAuditPastWeekPerformanceFeature {
 	}
 
 	@Then("^I will be able to see the previous performance for that week$")
-	public void iWillBeAbleToSeeThePreviousPerformanceForThatWeek() throws Throwable {
+	public void iWillBeAbleToSeeThePreviousPerformanceForThatWeek() throws InterruptedException {
 	    qaPage.verifyQCNotes();
 	}
 
