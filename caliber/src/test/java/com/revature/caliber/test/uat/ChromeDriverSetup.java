@@ -27,7 +27,7 @@ public class ChromeDriverSetup extends CaliberTest{
 	    options.addArguments("--headless");
 	    options.addArguments("--window-size=1500x1000");
 		driver = new ChromeDriver(options);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		initialized = true;
 		}
 	}
@@ -39,6 +39,5 @@ public class ChromeDriverSetup extends CaliberTest{
 	public static void setDriver(WebDriver driverSetup) {
 		driver = driverSetup;
 	}
-	
-	
+		
 }

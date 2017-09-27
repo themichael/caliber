@@ -98,13 +98,12 @@ public class UpdateBatchFeature {
 	@When("^I click the Update button$")
 	public void iClickTheUpdateButton() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
-	    managePage.clickUpdateAddTraineeModal();
+	    managePage.clickSaveOnCreateBatchModal();
 	}
 
 	@Then("^I am back on the Manage Batch Page$")
 	public void iAmBackOnTheManageBatchPage() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 		managePage.verifyPage("manage");
-		managePage.closeDriver();
 	}
 }
