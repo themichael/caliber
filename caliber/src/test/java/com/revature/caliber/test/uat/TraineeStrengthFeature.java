@@ -1,6 +1,5 @@
 package com.revature.caliber.test.uat;
 
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -17,12 +16,12 @@ public class TraineeStrengthFeature {
 	}
 
 	@Given("^I am on the reports page$")
-	public void iAmOnTheReportsPage(){
+	public void iAmOnTheReportsPage() {
 		reports.gotoReportsPage();
 	}
 
 	@Given("^I have clicked the person icon in the Technical Skills$")
-	public void iHaveClickedPhePersonIconInTheTechnicalSkills() throws InterruptedException{
+	public void iHaveClickedThePersonIconInTheTechnicalSkills() throws InterruptedException {
 		reports.clickTechnicalSkillsModal();
 	}
 
@@ -32,7 +31,7 @@ public class TraineeStrengthFeature {
 	}
 
 	@When("^I tap the close button$")
-	public void iTapTheCloseButton(){
+	public void iTapTheCloseButton() {
 		reports.closeTraineeCompModal();
 	}
 

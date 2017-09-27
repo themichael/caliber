@@ -1,7 +1,5 @@
 package com.revature.caliber.test.uat;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -24,12 +22,12 @@ public class TraineeToTraineeComparisonFeature {
 	}
 
 	@Given("^I have clicked the Person Icon in the Technical Skills$")
-	public void iHaveClickedThePersonIconInTheTechnical_Skills() throws InterruptedException{
+	public void iHaveClickedThePersonIconInTheTechnicalSkills() throws InterruptedException {
 		reports.clickTechnicalSkillsModal();
 	}
 
 	@Given("^I selected \"([^\"]*)\" as a trainee$")
-	public void iSelectedAsTTrainee(String trainee) throws InterruptedException {
+	public void iSelectedAsATrainee(String trainee) throws InterruptedException {
 	    reports.chooseTraineeTechSkills(trainee);
 	}
 
@@ -39,12 +37,12 @@ public class TraineeToTraineeComparisonFeature {
 	}
 
 	@When("^I click the close button$")
-	public void iClickTheCloseButton(){
+	public void iClickTheCloseButton() {
 	    reports.closeTraineeCompModal();
 	}
 
 	@Then("^I can see both trainees performances$")
-	public void iCanSeeBothTraineesPerformances(){
+	public void iCanSeeBothTraineesPerformances() {
 	    reports.checkTechSkillsGraph();
 	}
 }

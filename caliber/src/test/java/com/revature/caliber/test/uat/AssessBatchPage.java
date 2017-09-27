@@ -18,21 +18,21 @@ public class AssessBatchPage {
 	public AssessBatchPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver) driver;
-		this.driver.get("http://localhost:8080/caliber#/vp/assess");
+		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/assess");
 	}
 
 	/**
 	 * Function that takes the browser to the assess batch page
 	 */
 	public void goToPage() {
-		driver.get("http://localhost:8080/caliber#/vp/assess");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/assess");
 	}
 
 	/**
 	 * Checks to see if the driver is on the assess batch page
 	 */
 	public void verifyAssessPage() {
-		assertEquals(driver.getCurrentUrl(), "http://localhost:8080/caliber#/vp/assess");
+		assertEquals(driver.getCurrentUrl(), System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/assess");
 	}
 
 	/**

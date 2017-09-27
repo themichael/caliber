@@ -49,8 +49,13 @@
 					</ul></li>
 
 				<!-- Select Trainee-->
+<<<<<<< HEAD
 				<li role="button" class="dropdown"><a class="dropdown-toggle"
 					ng-show="hideOtherTabs()" data-toggle="dropdown" id="traineeReport">{{currentTrainee.name}}<span
+=======
+				<li role="button" ng-show="hideOtherTabs()"  class="dropdown" ><a class="dropdown-toggle" 
+					data-toggle="dropdown" id="reportTrainer">{{currentTrainee.name}}<span
+>>>>>>> a2443ca3a0fcf5dc95438770abf96fcd07ba483a
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a role="button" ng-click="selectCurrentTrainee(-1)" id="trainee All">All</a></li>
@@ -88,6 +93,7 @@
 			</ul>
 		</div>
 	</div>
+	<!-- Display if there is no data -->
 	<div class="bg-primary align center" ng-if="!currentBatch">No data available for {{selectedYear}}.</div>
 </div>
 <!-- No Selected Batches -->

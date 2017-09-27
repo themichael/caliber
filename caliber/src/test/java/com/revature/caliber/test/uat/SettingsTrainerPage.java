@@ -30,21 +30,21 @@ public class SettingsTrainerPage {
 	public SettingsTrainerPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver) driver;
-		this.driver.get("http://localhost:8080/caliber#/vp/trainers");
+		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/trainers");
 	}
 
 	/**
 	 * Sends driver to the specified page
 	 */
 	public void gotoPage(){
-		driver.get("http://localhost:8080/caliber#/vp/trainers");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/trainers");
 	}
 
 	/**
 	 * Checks to see if the driver is currently on the specified page
 	 */
 	public void verifyPage() {
-		assertEquals("http://localhost:8080/caliber#/vp/trainers", driver.getCurrentUrl());
+		assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/trainers", driver.getCurrentUrl());
 	}
 
 	/**

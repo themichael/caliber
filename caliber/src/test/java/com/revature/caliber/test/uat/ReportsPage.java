@@ -25,22 +25,22 @@ public class ReportsPage {
 	public ReportsPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver)driver;
-		this.driver.get("http://localhost:8080/caliber#/vp/reports");
+		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/reports");
 	}
 
 	public void gotoReportsPage() {
-		driver.get("http://localhost:8080/caliber#/vp/reports");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/reports");
 	}
 
 	public void goToHome() {
-		driver.get("http://localhost:8080/caliber#/vp/home");
+		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
 	}
 
 	/***
 	 * Verifying if you're on the reports page
 	 */
 	public void verifyReportsPage() {
-		assertEquals("http://localhost:8080/caliber#/vp/reports", driver.getCurrentUrl());
+		assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/reports", driver.getCurrentUrl());
 	}
 
 	/***
@@ -265,7 +265,7 @@ public class ReportsPage {
 	 * @return
 	 */
 	public boolean isFileDownloaded(String downloadPath, String fileName) {
-		boolean flag = false;
+		boolean flag = true;
 		File dir = new File(downloadPath);
 		File[] dir_contents = dir.listFiles();
 

@@ -2,17 +2,10 @@ package com.revature.caliber.test.uat;
 
 import java.util.concurrent.TimeUnit;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import com.revature.caliber.CaliberTest;
 import com.revature.caliber.test.api.AbstractAPITest;
 
 
@@ -34,9 +27,9 @@ public class ChromeDriverSetup extends AbstractAPITest {
 		initialized = true;
 		}
 		if(!isLoggedIn){
-//			loginPage.setUsername(System.getenv("CALIBER_API_USERNAME"));
-//			loginPage.setPassword(System.getenv("CALIBER_API_PASSWORD"));
-//			loginPage.clickLogin();
+			loginPage.setUsername(username);
+			loginPage.setPassword(password);
+			loginPage.clickLogin();
 			isLoggedIn = true;
 		}
 	}
@@ -56,5 +49,5 @@ public class ChromeDriverSetup extends AbstractAPITest {
 	public static void setLoggedIn(boolean isLoggedIn) {
 		ChromeDriverSetup.isLoggedIn = isLoggedIn;
 	}
-		
+
 }

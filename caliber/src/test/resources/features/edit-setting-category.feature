@@ -7,7 +7,7 @@ Feature: Editing Categories
   # Background
   Background: Logged in
     Given I am on the settings category page
-
+    
   # positive
   Scenario: Edit the name of the category
   	And I click on the "Java" Category Name
@@ -16,11 +16,18 @@ Feature: Editing Categories
     Then the new category should be "hello"
 
   # positive
+  Scenario: Edit the name of the category
+  	And I click on the "hello" Category Name
+    And I add "Java" to the current name field
+    When I click the Submit button
+    Then the new category should be "Java"
+
+  # positive
   Scenario: Make the category inactive
-  	And I click on the "hello" Category
+  	And I click on the "Hello" Category
     And I click on the Active checkbox
     When I click on the Submit Button
-    Then the category "hello" should be inactive
+    Then the category "Hello" should be inactive
 
   # negative
   Scenario: Exit the edit category modal by x-ing out

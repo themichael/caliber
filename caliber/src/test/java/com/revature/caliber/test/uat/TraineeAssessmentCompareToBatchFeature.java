@@ -1,6 +1,5 @@
 package com.revature.caliber.test.uat;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -17,7 +16,7 @@ public class TraineeAssessmentCompareToBatchFeature {
 	}
 	
 	@Given("^I have picked \"([^\"]*)\" as a batch$")
-	public void iHavePickedAsABatch(String batch){
+	public void iHavePickedAsABatch(String batch) {
 		reports.gotoReportsPage();
 		reports.clickBatchDropdown();
 		reports.chooseBatch(batch);
@@ -30,7 +29,7 @@ public class TraineeAssessmentCompareToBatchFeature {
 	}
 
 	@Then("^I can see each trainees strengths compared to the batch in Assessment Breakdown table$")
-	public void iCanSeeEachTraineesStrengthsComparedToTheBatchInAssessmentBreakdownTable(){
+	public void iCanSeeEachTraineesStrengthsComparedToTheBatchInAssessmentBreakdownTable()  {
 		reports.checkAssessmentBreakdownChart();
 	}
 }

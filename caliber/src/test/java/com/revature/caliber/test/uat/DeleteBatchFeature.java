@@ -20,7 +20,6 @@ public class DeleteBatchFeature {
 		// Write code here that turns the phrase above into concrete actions
 		managePage.gotoManagePage();
 		managePage.verifyPage("manage");
-		ZZZ.waitForPageLoad();
  	}
 
 	@Given("^I click the delete batch icon$")

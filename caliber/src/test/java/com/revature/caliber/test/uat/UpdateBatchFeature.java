@@ -1,7 +1,5 @@
 package com.revature.caliber.test.uat;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -24,12 +22,12 @@ public class UpdateBatchFeature {
 	}
 
 	@Given("^I have clicked the update Batch icon$")
-	public void iHaveClickedTheUpdateBatchIcon() throws InterruptedException {
+	public void iHaveClickedTheUpdateBatchIcon() throws InterruptedException{
 	    managePage.clickUpdateBatchIcon(0);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Training Name$")
-	public void iHaveEnteredAsTheTrainingName(String trainerName) throws InterruptedException {
+	public void iHaveEnteredAsTheTrainingName(String trainerName) throws InterruptedException{
 	    managePage.editTrainingNameField(trainerName);
 	}
 
@@ -39,12 +37,12 @@ public class UpdateBatchFeature {
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the skill Type$")
-	public void iHaveEnteredAsTheSkillType(String skillType) throws InterruptedException{
+	public void iHaveEnteredAsTheSkillType(String skillType) throws InterruptedException {
 	    managePage.editSkillTypeField(skillType);
 	}
 
 	@Given("^I have entered \"([^\"]*)\" as the Location$")
-	public void iHaveEnteredAsTheLocation(String index) throws InterruptedException{
+	public void iHaveEnteredAsTheLocation(String index) throws InterruptedException {
 	    managePage.editLocationField(1);
 	}
 
@@ -70,7 +68,7 @@ public class UpdateBatchFeature {
 
 	@Given("^I have chosen (\\d+) as the Good Grade$")
 	public void iHaveChosenAsTheGoodGrade(int arg1) {
-	    managePage.editGoodGradeField("75");;
+	    managePage.editGoodGradeField("75");
 	}
 
 	@Given("^I have chosen (\\d+) as the Passing Grade$")
@@ -79,12 +77,12 @@ public class UpdateBatchFeature {
 	}
 
 	@When("^I click the Update button$")
-	public void iClickTheUpdateButton() throws InterruptedException{
+	public void iClickTheUpdateButton() throws InterruptedException {
 	    managePage.clickSaveOnCreateBatchModal();
 	}
 
 	@Then("^I am back on the Manage Batch Page$")
-	public void iAmBackOnTheManageBatchPage(){
+	public void iAmBackOnTheManageBatchPage() {
 		managePage.verifyPage("manage");
 	}
 }

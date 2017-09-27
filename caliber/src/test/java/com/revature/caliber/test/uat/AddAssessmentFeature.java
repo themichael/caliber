@@ -40,7 +40,6 @@ public class AddAssessmentFeature {
 
 	@Given("^I have selected \"([^\"]*)\" as the Category$")
 	public void i_have_selected_as_the_Category(String category) throws Throwable {
-		Thread.sleep(1000);
 	    assessBatch.selectCreateAssessementCategory(category);
 	}
 
@@ -52,7 +51,6 @@ public class AddAssessmentFeature {
 
 	@Given("^I have selected \"([^\"]*)\" as the Assessment Type$")
 	public void i_have_selected_as_the_Assessment_Type(String type) throws Throwable {
-		Thread.sleep(1000);
 	    assessBatch.selectCreateAssessmentType(type);
 	}
 
