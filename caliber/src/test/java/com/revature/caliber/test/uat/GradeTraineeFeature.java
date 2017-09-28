@@ -27,14 +27,14 @@ public class GradeTraineeFeature{
 	}
 
 	@Given("^I have submitted \"([^\"]*)\" as the grade for \"([^\"]*)\"$")
-	public void i_have_submitted_as_the_grade_for(String grade, String traineeName) throws InterruptedException{
+	public void iHaveSubmittedAsTheGradeFor(String grade, String traineeName) throws InterruptedException{
 		ZZZ.waitForPageLoad();
 		Thread.sleep(2000);
 	    assessBatch.enterGrades(traineeName, grade);
 	}
 
 	@When("^I refresh the Assess Batch Page$")
-	public void i_refresh_the_Assess_Batch_Page() {
+	public void iRefreshTheAssessBatchPage() {
 		assessBatch.goToPage();
 	}
 

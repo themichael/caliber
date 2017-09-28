@@ -27,7 +27,7 @@ public class QualityAuditBatchPerformanceFeature {
 	}
 
 	@Given("^I have selected a Batch$")
-	public void iHaveSelectedABatch() throws Throwable {
+	public void iHaveSelectedABatch() {
 	    qaPage.clickBatch("Patrick Walsh - 2/14/17");
 	    qaPage.verifyBatch("Patrick Walsh - 2/14/17");
 	}

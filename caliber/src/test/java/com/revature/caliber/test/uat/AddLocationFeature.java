@@ -1,14 +1,11 @@
 package com.revature.caliber.test.uat;
 
-import org.openqa.selenium.WebDriver;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class AddLocationFeature {
 	
-	private WebDriver webdriver;
 	private SettingLocationPage settingLocationPage;
 	
 	@cucumber.api.java.Before
@@ -60,6 +57,7 @@ public class AddLocationFeature {
 
 	@Then("^I will have added a location$")
 	public void iWillHaveAddedALocation() {
+		throw new UnsupportedOperationException();
 	}
 	
 	@When("^I choose the X button$")
@@ -69,6 +67,7 @@ public class AddLocationFeature {
 
 	@Then("^I cancel making a new location$")
 	public void iCancelMakingANewLocation() {
+		throw new UnsupportedOperationException();
 	}
 
 	@When("^I click on the Close button$")
@@ -78,6 +77,7 @@ public class AddLocationFeature {
 
 	@Then("^I cancel creating a new location$")
 	public void iCancelCreatingANewLocation() {
+		throw new UnsupportedOperationException();
 	}
 	
 }

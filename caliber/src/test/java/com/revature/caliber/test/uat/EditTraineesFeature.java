@@ -1,13 +1,5 @@
 package com.revature.caliber.test.uat;
 
-
-import java.io.IOException;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -35,7 +27,7 @@ public class EditTraineesFeature{
 	}
 
 	@Given("^I have clicked on the person icon corresponding to a batch,$")
-	public void iHaveClickedOnThePersonIconCorrespondingToABatch() throws IOException, InterruptedException{
+	public void iHaveClickedOnThePersonIconCorrespondingToABatch() throws InterruptedException{
 		manageBatchPage.openManageBatchModal(0);
 	}
 
@@ -65,7 +57,7 @@ public class EditTraineesFeature{
 	}
 
 	@When("^I click on the update button$")
-	public void iClickOnTheUpdateButton() throws Throwable {
+	public void iClickOnTheUpdateButton() throws InterruptedException {
 	    manageBatchPage.clickUpdateTraineeModal();
 	}
 
