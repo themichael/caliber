@@ -15,7 +15,7 @@ public class SettingAddingCategoryFeature {
 
 	@cucumber.api.java.Before
 	public void setup() {
-		ChromeDriverSetup driver = new ChromeDriverSetup();
+		ChromeDriverSetup driver = ChromeDriverSetup.getInstance();
 		settingCategoryPage = new SettingCategoryPage(driver.getDriver());
 	}
 

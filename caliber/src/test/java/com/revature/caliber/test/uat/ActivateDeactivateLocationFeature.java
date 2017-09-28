@@ -11,7 +11,7 @@ public class ActivateDeactivateLocationFeature {
 	
 	@cucumber.api.java.Before
 	public void setup() {
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		ChromeDriverSetup setup = ChromeDriverSetup.getInstance();
 		settingLocationPage = new SettingLocationPage(setup.getDriver());
 	}
 

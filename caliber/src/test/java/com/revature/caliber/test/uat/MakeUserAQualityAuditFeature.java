@@ -13,7 +13,7 @@ public class MakeUserAQualityAuditFeature {
 	
 	@Before
 	public void setup(){
-		setup = new ChromeDriverSetup();
+		setup = ChromeDriverSetup.getInstance();
 		trainerPage = new SettingsTrainerPage(setup.getDriver());
 	}
 	

@@ -11,7 +11,7 @@ public class CompareBatchesFeature {
 
 	@Before // each scenario
 	public void setup() {
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		ChromeDriverSetup setup = ChromeDriverSetup.getInstance();
 		homePage = new HomePage(setup.getDriver());
 	}
 

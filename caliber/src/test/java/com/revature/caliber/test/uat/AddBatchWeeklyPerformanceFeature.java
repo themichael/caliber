@@ -13,7 +13,7 @@ public class AddBatchWeeklyPerformanceFeature {
 	
 	@Before
 	public void setup(){
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		ChromeDriverSetup setup = ChromeDriverSetup.getInstance();
 		assessBatchPage = new AssessBatchPage(setup.getDriver());
 	}
 	

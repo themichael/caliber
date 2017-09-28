@@ -13,7 +13,7 @@ public class AddTraineeToBatchFeature {
 	
 	@Before
 	public void setup(){
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		ChromeDriverSetup setup = ChromeDriverSetup.getInstance();
 		managePage = new ManageBatchPage(setup.getDriver());
 	}
 	

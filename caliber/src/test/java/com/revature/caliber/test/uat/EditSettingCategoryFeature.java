@@ -12,7 +12,7 @@ public class EditSettingCategoryFeature {
 	
 	@cucumber.api.java.Before
 	public void setup() {
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		ChromeDriverSetup setup = ChromeDriverSetup.getInstance();
 		settingCategoryPage = new SettingCategoryPage(setup.getDriver());
 	}
 

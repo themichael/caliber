@@ -10,7 +10,7 @@ public class QualityAuditTraineePerformanceFeature {
 	
 	@cucumber.api.java.Before
 	public void setup(){
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		ChromeDriverSetup setup = ChromeDriverSetup.getInstance();
 		qaPage = new QualityAuditPage(setup.getDriver());
 
 	}

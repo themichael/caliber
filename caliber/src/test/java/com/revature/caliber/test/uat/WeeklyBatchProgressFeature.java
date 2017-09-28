@@ -11,7 +11,7 @@ public class WeeklyBatchProgressFeature {
 	
 	@Before // each scenario
 	public void setup(){
-		setup = new ChromeDriverSetup();
+		setup = ChromeDriverSetup.getInstance();
 		reportsPage = new ReportsPage(setup.getDriver());
 	}
 

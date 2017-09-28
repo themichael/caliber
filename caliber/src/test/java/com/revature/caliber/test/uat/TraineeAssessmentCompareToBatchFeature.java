@@ -11,7 +11,7 @@ public class TraineeAssessmentCompareToBatchFeature {
 
 	@Before // each scenario
 	public void setup() {
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		ChromeDriverSetup setup = ChromeDriverSetup.getInstance();
 		reports = new ReportsPage(setup.getDriver());
 	}
 	

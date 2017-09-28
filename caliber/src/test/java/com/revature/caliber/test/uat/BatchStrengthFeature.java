@@ -11,7 +11,7 @@ public class BatchStrengthFeature {
 	
 	@Before // each scenario
 	public void setup(){
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		ChromeDriverSetup setup = ChromeDriverSetup.getInstance();
 		reportsPage = new ReportsPage(setup.getDriver());
 	}
 	

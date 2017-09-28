@@ -19,7 +19,7 @@ public class EditTraineesFeature{
 
 	@Before
 	public void setup(){
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		ChromeDriverSetup setup = ChromeDriverSetup.getInstance();
 		manageBatchPage = new ManageBatchPage(setup.getDriver());
 	}
 	

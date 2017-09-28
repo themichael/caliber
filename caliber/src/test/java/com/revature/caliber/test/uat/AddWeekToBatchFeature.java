@@ -15,7 +15,7 @@ public class AddWeekToBatchFeature {
 
 	@Before
 	public void setup(){
-		setup = new ChromeDriverSetup();
+		setup = ChromeDriverSetup.getInstance();
 		assessBatchPage = new AssessBatchPage(setup.getDriver());
 	}
 

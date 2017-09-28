@@ -12,7 +12,7 @@ public class AddAssessmentFeature {
 	
 	@Before
 	public void setup(){
-		ChromeDriverSetup setup = new ChromeDriverSetup();
+		ChromeDriverSetup setup = ChromeDriverSetup.getInstance();
 		assessBatch = new AssessBatchPage(setup.getDriver());
 	}
 	
