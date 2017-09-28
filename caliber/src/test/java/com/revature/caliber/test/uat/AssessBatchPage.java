@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -14,25 +15,29 @@ import org.openqa.selenium.support.ui.Select;
 public class AssessBatchPage {
 
 	private WebDriver driver;
+	private static final String URL = (System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/assess");
+	private final String WEEK_BTN = "weekBtn";
+	private final String BATCH_NOTE = "trainerBatchNote";
+	public static final Logger log = Logger.getLogger(AssessBatchPage.class);
 
 	public AssessBatchPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver) driver;
-		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/assess");
+		this.driver.get(URL);
 	}
 
 	/**
 	 * Function that takes the browser to the assess batch page
 	 */
 	public void goToPage() {
-		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/assess");
+		driver.get(URL);
 	}
 
 	/**
 	 * Checks to see if the driver is on the assess batch page
 	 */
 	public void verifyAssessPage() {
-		assertEquals(driver.getCurrentUrl(), System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/assess");
+		assertEquals(driver.getCurrentUrl(), URL);
 	}
 
 	/**
@@ -47,7 +52,7 @@ public class AssessBatchPage {
 	 * Clicks the specific week tab for the batch
 	 */
 	public void clickWeekTab(int index) {
-		driver.findElement(By.id("weekBtn"+index)).click();
+		driver.findElement(By.id(WEEK_BTN + index)).click();
 	}
 
 	/**
@@ -140,6 +145,7 @@ public class AssessBatchPage {
 	 * @throws InterruptedException
 	 */
 	public void selectTrainer(String trainerName) throws InterruptedException {
+		log.debug(trainerName);
 		WebElement dropdown = driver.findElement(By.id("batchesDropdownId"));
 		dropdown.click();
 		driver.switchTo().activeElement();
@@ -153,8 +159,8 @@ public class AssessBatchPage {
 	 * @throws InterruptedException
 	 */
 	public void batchNotes(String feedback) throws InterruptedException {
-		driver.findElement(By.id("trainerBatchNote")).clear();
-		driver.findElement(By.id("trainerBatchNote")).sendKeys(feedback);
+		driver.findElement(By.id(BATCH_NOTE)).clear();
+		driver.findElement(By.id(BATCH_NOTE)).sendKeys(feedback);
 	}
 
 	/**
@@ -164,7 +170,7 @@ public class AssessBatchPage {
 	 * @param feedback
 	 */
 	public void batchNotesCheck(String feedback) {
-		assertEquals(feedback, driver.findElement(By.id("trainerBatchNote")).getAttribute("value"));
+		assertEquals(feedback, driver.findElement(By.id(BATCH_NOTE)).getAttribute("value"));
 	}
 
 	/**
@@ -221,11 +227,12 @@ public class AssessBatchPage {
 
 		while (exists) {
 			try {
-				driver.findElement(By.id("weekBtn" + i));
+				driver.findElement(By.id(WEEK_BTN + i));
 				driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 				exists = true;
 				i++;
 			} catch (NoSuchElementException e) {
+				log.error(e);
 				exists = false;
 			}
 		}
@@ -238,7 +245,6 @@ public class AssessBatchPage {
 	public void modalSaveButton(){
 		driver.findElement(By.id("assessmentSaveBtn")).click();
 		driver.switchTo().activeElement();
-		//driver.findElement(By.cssSelector("#createAssessmentModal > div > div > form > div.modal-footer > input")).click();
 	}
 
 
@@ -272,9 +278,10 @@ public class AssessBatchPage {
 	public boolean doesWeekTabExist(int weekNumber) {
 		boolean exists;
 		try {
-			driver.findElement(By.id("weekBtn" + (weekNumber)));
+			driver.findElement(By.id(WEEK_BTN + (weekNumber)));
 			exists = true;
 		} catch (NoSuchElementException e) {
+			log.error(e);
 			exists = false;
 		}
 		return exists;
