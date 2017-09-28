@@ -1,6 +1,9 @@
 package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+
 import static org.junit.Assert.assertFalse;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -17,53 +20,53 @@ public class EditSettingCategoryFeature {
 	}
 
 	@Given("^I am on the settings category page$")
-	public void iAmOnTheSettingsCategoryPage() throws Throwable {
+	public void iAmOnTheSettingsCategoryPage() throws InterruptedException {
 	    settingCategoryPage.gotoSettingCategoryPage();
 	    settingCategoryPage.verifyCategoryPage();
 	    }
 
 	@Given("^I click on the \"([^\"]*)\" Category Name$")
-	public void iClickOnTheCategoryName(String name) throws Throwable {
+	public void iClickOnTheCategoryName(String name) throws InterruptedException {
 	    settingCategoryPage.clickCategoryName(name);
 	}
 
 	@Given("^I add \"([^\"]*)\" to the current name field$")
-	public void iAddToTheCurrentNameField(String name) throws Throwable {
+	public void iAddToTheCurrentNameField(String name) {
 	   settingCategoryPage.inputEditCategoryName(name);
 	}
 
 	@When("^I click the Submit button$")
-	public void iClickTheSubmitButton() throws Throwable {
+	public void iClickTheSubmitButton() {
 	    settingCategoryPage.editCategorySaveButton();
 	}
 
 	@Then("^the new category should be \"([^\"]*)\"$")
-	public void theNewCategoryShouldBe(String name) throws Throwable {
+	public void theNewCategoryShouldBe(String name) throws IOException  {
 	    assertTrue(settingCategoryPage.verifyCategoryAdded(name));
 	}
 
 	@Given("^I click on the \"([^\"]*)\" Category$")
-	public void iClickOnTheCategory(String name) throws Throwable {
+	public void iClickOnTheCategory(String name) throws InterruptedException {
 	    settingCategoryPage.clickCategoryName(name);
 	}
 
 	@Given("^I click on the Active checkbox$")
-	public void iClickOnTheActiveCheckbox() throws Throwable {
+	public void iClickOnTheActiveCheckbox() {
 	    settingCategoryPage.editCategoryClickCheckbox();
 	}
 
 	@When("^I click on the Submit Button$")
-	public void iClickOnTheSubmitButton() throws Throwable {
+	public void iClickOnTheSubmitButton() {
 	    settingCategoryPage.editCategorySaveButton();
 	}
 
 	@Then("^the category \"([^\"]*)\" should be inactive$")
-	public void theCategoryShouldBeInactive(String name) throws Throwable {
+	public void theCategoryShouldBeInactive(String name) {
 	    assertFalse(settingCategoryPage.checkIfCategoryIsActive(name));
 	}
 
 	@Given("^I click on the \"([^\"]*)\" Category box$")
-	public void iClickOnTheCategoryBox(String name) throws Throwable {
+	public void iClickOnTheCategoryBox(String name) throws InterruptedException{
 	    settingCategoryPage.clickCategoryName(name);
 	}
 

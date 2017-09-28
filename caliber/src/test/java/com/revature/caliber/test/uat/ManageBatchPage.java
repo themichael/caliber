@@ -2,10 +2,10 @@ package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -16,11 +16,60 @@ import org.openqa.selenium.support.ui.Select;
 public class ManageBatchPage{
 
 	private WebDriver driver;
-	
+	private static final Logger log = Logger.getLogger(ManageBatchPage.class);
+	private static String baseURL = System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/";
+	private static final String IMPORT_TAB = "importTab";
+	private static final String BATCH_MODAL_LABEL = "batchModalLabel";
+	private static final String VIEW_ADD_TRAINEE_MODAL = "view/AddTrainees";
+	private static final String TRAINEE_MODAL_LABEL = "traineeModalLabel";
+	private static final String ACTIVE = "active";
+	private static final String INACTIVE = "inActive";
+	private static final String ADD_TRAINEE = "addTrainee";
+	private static final String EDIT_TRAINEE = "editTrainee";
+	private static final String TRAINEE_NAME = "traineeName";
+	private static final String TRAINEE_EMAIL = "traineeEmail";
+	private static final String TRAINEE_SKYPE = "traineeSkype";
+	private static final String TRAINEE_PHONE = "traineePhone";
+	private static final String TRAINEE_COLLEGE = "traineeCollege";
+	private static final String TRAINEE_DEGREE = "traineeDegree";
+	private static final String TRAINEE_MAJOR = "traineeMajor";
+	private static final String TRAINEE_RECRUITER_NAME = "traineeRecruiterName";
+	private static final String TRAINEE_TECH_SCREENER_NAME = "traineeTechScreenerName";
+	private static final String TRAINEE_PROFILE_URL = "traineeProfileUrl";
+	private static final String TRAINEE_STATUS = "traineeStatus";
+	private static final String TRAINEE_PROJECT_COMPLETEION = "traineeProjectCompletion";
+	private static final String PROFILE_URL = "profileURL";
+	private static final String PROFILE_TEST_URL = "https://app.revature.com/profile/Synac/254a7187dfc32f6f50710a56bd8112f6";
+	private static final String REMOVE_TRAINEE = "removeTrainee";
+	private static final String DELETE_BATCH_BUTTON = "deleteBatchButton";
+	private static final String DELETE_TRAINEE_BUTTON = "deleteTraineeButton";
+	private static final String CLOSE_DELETE_BATCH_BUTTON = "closeDeleteBatchButton";
+	private static final String XBTN = "XBtn";
+	private static final String SAVE_BUTTON_ADD = "saveButtonAdd";
+	private static final String SAVE_BUTTON_UPDATE = "saveButtonUpdate";
+	private static final String CANCEL_BUTTON = "cancelButton";
+	private static final String YEAR_DROPDOWN = "yearDropdown";
+	private static final String CREATE_BATCH_TAB = "createBatchTab";
+	private static final String TRAINING_NAME = "trainingName";
+	private static final String TRAINING_TYPE = "trainingType";
+	private static final String SKILL_TYPE = "skillType";
+	private static final String LOCATION = "location";
+	private static final String TRAINER = "trainer";
+	private static final String CO_TRAINER = "co-trainer";
+	private static final String START_DATE_INPUT = "startDateInput";
+	private static final String END_DATE_INPUT = "endDateInput";
+	private static final String GOOD_GRADE = "goodGrade";
+	private static final String BORDERLINE_GRADE = "borderlineGrade";
+	private static final String SAVE_EDIT_BATCH_BUTTON = "saveEditBatchButton";
+	private static final String CLOSE_EDIT_BATCH_BUTTON = "closeEditBatchButton";
+	private static final String UPDATE_BATCH = "updateBatch";
+	private static final String REMOVE_BATCH = "removeBatch";
+	private static final String REQUIRED = "input:required";
+	private static final String INVALID = "input:invalid";
 	public ManageBatchPage(WebDriver driver) {
 	super();
 	this.driver = (ChromeDriver)driver;
-	this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/manage");
+	this.driver.get(baseURL+"manage");
 	}
 
 	/**
@@ -28,21 +77,21 @@ public class ManageBatchPage{
 	 * correct page/the page you want to be on
 	 */
 	public void checkLoggedIn(){
-		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
+		driver.get(baseURL+"home");
 	}
 	
 	/**
 	 * Takes driver to the home page
 	 */
 	public void goToHome(){
-		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/home");
+		driver.get(baseURL+"home");
 	}
 	
 	/**
 	 * Takes driver to the manage page
 	 */
 	public void gotoManagePage(){
-		driver.navigate().to(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/manage");	
+		driver.navigate().to(baseURL+"manage");	
 	}
 	
 	/**
@@ -51,8 +100,7 @@ public class ManageBatchPage{
 	 * @param page
 	 */
 	public void verifyPage(String page){
-		assertEquals((System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/"+page), 
-				driver.getCurrentUrl());
+		assertEquals(baseURL+page, driver.getCurrentUrl());
 	}
 	
 	/**
@@ -62,11 +110,11 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickImportBatchIcon() throws InterruptedException{
-		driver.findElement(By.id("importTab"));
+		driver.findElement(By.id(IMPORT_TAB));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		String id = driver.findElement(By.id("batchModalLabel")).getAttribute("id").toString();
-		assertEquals(id, "batchModalLabel");
+		String id = driver.findElement(By.id(BATCH_MODAL_LABEL)).getAttribute("id").toString();
+		assertEquals(id, BATCH_MODAL_LABEL);
 	}
 	
 	/**
@@ -93,9 +141,9 @@ public class ManageBatchPage{
 	 * Opens Manage Batch modal to do edits to an entire batch.
 	 * This modal is the same for Update/Create Batch
 	 */
-	public void openManageBatchModal(int index) throws IOException, InterruptedException {
-		driver.findElement(By.id("view/addTrainees"+index)).click();
-		driver.findElement(By.id("traineeModalLabel"));
+	public void openManageBatchModal(int index) throws InterruptedException {
+		driver.findElement(By.id(VIEW_ADD_TRAINEE_MODAL+index)).click();
+		driver.findElement(By.id(TRAINEE_MODAL_LABEL));
 		Thread.sleep(3000);
 		driver.switchTo().activeElement();
 		
@@ -108,8 +156,8 @@ public class ManageBatchPage{
 	 * switch and show active trainees
 	 **/
 	public void toggleBetweenActiveAndDroppedTrainees(){
-		WebElement toggleActive = driver.findElement(By.id("active"));
-		WebElement toggleDropped = driver.findElement(By.id("inActive"));
+		WebElement toggleActive = driver.findElement(By.id(ACTIVE));
+		WebElement toggleDropped = driver.findElement(By.id(INACTIVE));
 		WebElement toggle = toggleActive.isDisplayed() ? toggleActive : toggleDropped;
 		toggle.click();
 	}
@@ -121,10 +169,10 @@ public class ManageBatchPage{
 	 * as the edit trainee methods defined later on. 
 	 */
 	public void openAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("addTrainee")).click();
+		driver.findElement(By.id(ADD_TRAINEE)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("traineeModalLabel"));
+		driver.findElement(By.id(TRAINEE_MODAL_LABEL));
 	}
 	
 	/**
@@ -137,10 +185,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void openUpdateTraineeModal(int index) throws InterruptedException{
-		driver.findElement(By.id("editTrainee"+index)).click();
+		driver.findElement(By.id(EDIT_TRAINEE+index)).click();
 		Thread.sleep(3000);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("traineeModalLabel"));
+		driver.findElement(By.id(TRAINEE_MODAL_LABEL));
 	}
 	
 	/**
@@ -150,7 +198,7 @@ public class ManageBatchPage{
 	 * @param name
 	 */
 	public void editName(String name){
-		WebElement fullName = driver.findElement(By.id("traineeName"));
+		WebElement fullName = driver.findElement(By.id(TRAINEE_NAME));
 		fullName.clear();
 		fullName.sendKeys(name);
 	}
@@ -163,7 +211,7 @@ public class ManageBatchPage{
 	 * @param email
 	 */
 	public void editEmailField(String email){
-		WebElement emailField = driver.findElement(By.id("traineeEmail"));
+		WebElement emailField = driver.findElement(By.id(TRAINEE_EMAIL));
 		emailField.clear();
 		emailField.sendKeys(email);
 	}
@@ -173,7 +221,7 @@ public class ManageBatchPage{
 	 * @param skypeID
 	 */
 	public void editSkypeIDField(String skypeID){
-		WebElement skypeIDField = driver.findElement(By.id("traineeSkype"));
+		WebElement skypeIDField = driver.findElement(By.id(TRAINEE_SKYPE));
 		skypeIDField.clear();
 		skypeIDField.sendKeys(skypeID);
 	}
@@ -183,7 +231,7 @@ public class ManageBatchPage{
 	 * @param phoneNumber
 	 */
 	public void editPhoneField(String phoneNumber){
-		WebElement phoneField = driver.findElement(By.id("traineePhone"));
+		WebElement phoneField = driver.findElement(By.id(TRAINEE_PHONE));
 		phoneField.clear();
 		phoneField.sendKeys(phoneNumber);
 	}
@@ -193,7 +241,7 @@ public class ManageBatchPage{
 	 * @param college
 	 */
 	public void editCollegeField(String college){
-		WebElement collegeField = driver.findElement(By.id("traineeCollege"));
+		WebElement collegeField = driver.findElement(By.id(TRAINEE_COLLEGE));
 		collegeField.clear();
 		collegeField.sendKeys(college);
 	}
@@ -203,7 +251,7 @@ public class ManageBatchPage{
 	 * @param degree
 	 */
 	public void editDegreeField(String degree){
-		WebElement degreeField = driver.findElement(By.id("traineeDegree"));
+		WebElement degreeField = driver.findElement(By.id(TRAINEE_DEGREE));
 		degreeField.clear();
 		degreeField.sendKeys(degree);
 	}
@@ -213,7 +261,7 @@ public class ManageBatchPage{
 	 * @param major
 	 */
 	public void editMajorField(String major){
-		WebElement majorField = driver.findElement(By.id("traineeMajor"));
+		WebElement majorField = driver.findElement(By.id(TRAINEE_MAJOR));
 		majorField.clear();
 		majorField.sendKeys(major);
 	}
@@ -223,7 +271,7 @@ public class ManageBatchPage{
 	 * @param recruiterName
 	 */
 	public void editRecruiterNameField(String recruiterName){
-		WebElement recruiterNameField = driver.findElement(By.id("traineeRecruiterName"));
+		WebElement recruiterNameField = driver.findElement(By.id(TRAINEE_RECRUITER_NAME));
 		recruiterNameField.clear();
 		recruiterNameField.sendKeys(recruiterName);
 	}
@@ -233,7 +281,7 @@ public class ManageBatchPage{
 	 * @param techScreenerName
 	 */
 	public void editTechScreenerNameField(String techScreenerName){
-		WebElement techScreenerNameField = driver.findElement(By.id("traineeTechScreenerName"));
+		WebElement techScreenerNameField = driver.findElement(By.id(TRAINEE_TECH_SCREENER_NAME));
 		techScreenerNameField.clear();
 		techScreenerNameField.sendKeys(techScreenerName);
 	}
@@ -243,7 +291,7 @@ public class ManageBatchPage{
 	 * @param profileURL
 	 */
 	public void editProfileURLField(String profileURL){
-		WebElement profileURLField = driver.findElement(By.id("traineeProfileUrl"));
+		WebElement profileURLField = driver.findElement(By.id(TRAINEE_PROFILE_URL));
 		profileURLField.clear();
 		profileURLField.sendKeys(profileURL);
 	}
@@ -257,7 +305,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editTrainingStatusField(String status) throws InterruptedException{
-		Select trainingStatus = new Select(driver.findElement(By.id("traineeStatus")));
+		Select trainingStatus = new Select(driver.findElement(By.id(TRAINEE_STATUS)));
 		Thread.sleep(125);
 		trainingStatus.selectByVisibleText(status);
 	}
@@ -269,7 +317,7 @@ public class ManageBatchPage{
 	 * @param percentage
 	 */
 	public void editProjectCompletionField(String percentage){
-		WebElement percentageField = driver.findElement(By.id("traineeProjectCompletion"));
+		WebElement percentageField = driver.findElement(By.id(TRAINEE_PROJECT_COMPLETEION));
 		percentageField.clear();
 		percentageField.sendKeys(percentage);
 	}
@@ -282,10 +330,10 @@ public class ManageBatchPage{
 	 * their url
 	 */
 	public void clickAddTraineeProfileURLIcon(int index){
-		driver.findElement(By.id("profileURL"+index)).click();
+		driver.findElement(By.id(PROFILE_URL+index)).click();
 		List<String> browsertabs = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(browsertabs.get(1));
-		assertEquals("https://app.revature.com/profile/Synac/254a7187dfc32f6f50710a56bd8112f6", driver.getCurrentUrl());
+		assertEquals(PROFILE_TEST_URL, driver.getCurrentUrl());
 		driver.close();
 		driver.switchTo().window(browsertabs.get(0));
 	}
@@ -297,10 +345,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void openDeleteTraineeModal(String trainee) throws InterruptedException{
-		driver.findElement(By.id("removeTrainee"+trainee)).click();
+		driver.findElement(By.id(REMOVE_TRAINEE+trainee)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("deleteBatchButton"));
+		driver.findElement(By.id(DELETE_BATCH_BUTTON));
 	}
 	
 	/**
@@ -309,7 +357,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickDeleteOnDeleteTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("deleteTraineeButton")).click();
+		driver.findElement(By.id(DELETE_TRAINEE_BUTTON)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -320,7 +368,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickCancelOnDeleteTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("closeDeleteBatchButton")).click();
+		driver.findElement(By.id(CLOSE_DELETE_BATCH_BUTTON)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -331,7 +379,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void closeOutDeleteTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("XBtn")).click();
+		driver.findElement(By.id(XBTN)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -342,7 +390,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException 
 	 */
 	public void clickAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("saveButtonAdd")).click();
+		driver.findElement(By.id(SAVE_BUTTON_ADD)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -353,7 +401,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException 
 	 */
 	public void clickUpdateTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("saveButtonUpdate")).click();
+		driver.findElement(By.id(SAVE_BUTTON_UPDATE)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -364,7 +412,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException 
 	 */
 	public void clickCloseAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("cancelButton"));
+		driver.findElement(By.id(CANCEL_BUTTON));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -375,7 +423,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void closeOutAddTraineeModal() throws InterruptedException{
-		driver.findElement(By.id("XBtn"));
+		driver.findElement(By.id(XBTN));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 	}
@@ -386,7 +434,7 @@ public class ManageBatchPage{
 	 * that it is the correct header
 	 */
 	public void verifyEditTraineeModal(){
-		driver.findElement(By.id("traineeModalLabel"));
+		driver.findElement(By.id(TRAINEE_MODAL_LABEL));
 	}
 	
 	/**
@@ -400,7 +448,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void changeYear(int index, String year) throws InterruptedException {
-		driver.findElement(By.id("yearDropdown")).click();
+		driver.findElement(By.id(YEAR_DROPDOWN)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
 		driver.findElement(By.id(year)).click();
@@ -414,7 +462,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void openCreateBatchModal() throws InterruptedException{
-		driver.findElement(By.id("createBatchTab")).click();
+		driver.findElement(By.id(CREATE_BATCH_TAB)).click();
 		Thread.sleep(1000);
 		driver.switchTo().activeElement();
 	}
@@ -426,7 +474,7 @@ public class ManageBatchPage{
 	 */
 	public void editTrainingNameField(String trainingName) throws InterruptedException{
 		Thread.sleep(500);
-		WebElement trainingNameField = driver.findElement(By.id("trainingName"));
+		WebElement trainingNameField = driver.findElement(By.id(TRAINING_NAME));
 		trainingNameField.click();
 		trainingNameField.clear();										
 		trainingNameField.sendKeys(trainingName);
@@ -440,7 +488,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editTrainingTypeField(String trainingType) throws InterruptedException{
-		Select dropdown = new Select(driver.findElement(By.id("trainingType")));
+		Select dropdown = new Select(driver.findElement(By.id(TRAINING_TYPE)));
 		Thread.sleep(500);
 		dropdown.selectByVisibleText(trainingType);
 	}
@@ -453,7 +501,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editSkillTypeField(String skillType) throws InterruptedException{
-		Select dropdown = new Select(driver.findElement(By.id("skillType")));
+		Select dropdown = new Select(driver.findElement(By.id(SKILL_TYPE)));
 		Thread.sleep(500);
 		dropdown.selectByVisibleText(skillType);
 	}
@@ -465,7 +513,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editLocationField(int index) throws InterruptedException{
-		Select dropdown = new Select(driver.findElement(By.id("location")));
+		Select dropdown = new Select(driver.findElement(By.id(LOCATION)));
 		Thread.sleep(500);
 		dropdown.selectByIndex(index);
 	}
@@ -478,7 +526,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editTrainerField(String trainer) throws InterruptedException{
-		Select dropdown = new Select(driver.findElement(By.id("trainer")));
+		Select dropdown = new Select(driver.findElement(By.id(TRAINER)));
 		Thread.sleep(500);
 		dropdown.selectByVisibleText(trainer);
 	}
@@ -491,7 +539,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editCoTrainerField(String coTrainer) throws InterruptedException{
-		Select dropdown = new Select(driver.findElement(By.id("co-trainer")));
+		Select dropdown = new Select(driver.findElement(By.id(CO_TRAINER)));
 		Thread.sleep(500 );
 		dropdown.selectByVisibleText(coTrainer);
 	}
@@ -504,7 +552,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editStartDateField(String startDate){
-		WebElement startDateField = driver.findElement(By.id("startDateInput"));
+		WebElement startDateField = driver.findElement(By.id(START_DATE_INPUT));
 		startDateField.clear();
 		startDateField.sendKeys(startDate);
 	}
@@ -515,7 +563,7 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void editEndDateField(String endDate){
-		WebElement endDateField = driver.findElement(By.id("endDateInput"));
+		WebElement endDateField = driver.findElement(By.id(END_DATE_INPUT));
 		endDateField.clear();
 		endDateField.sendKeys(endDate);
 	}
@@ -527,7 +575,7 @@ public class ManageBatchPage{
 	 * @param goodGrade
 	 */
 	public void editGoodGradeField(String goodGrade){
-		WebElement goodGradeField = driver.findElement(By.id("goodGrade"));
+		WebElement goodGradeField = driver.findElement(By.id(GOOD_GRADE));
 		goodGradeField.clear();
 		goodGradeField.sendKeys(goodGrade);
 	}
@@ -537,7 +585,7 @@ public class ManageBatchPage{
 	 * @param passingGrade
 	 */
 	public void editPassingGradeField(String passingGrade){
-		WebElement passingGradeField = driver.findElement(By.id("borderlineGrade"));
+		WebElement passingGradeField = driver.findElement(By.id(BORDERLINE_GRADE));
 		passingGradeField.clear();
 		passingGradeField.sendKeys(passingGrade);
 	}
@@ -548,10 +596,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickSaveOnCreateBatchModal() throws InterruptedException{
-		driver.findElement(By.id("saveEditBatchButton"));
+		driver.findElement(By.id(SAVE_EDIT_BATCH_BUTTON));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("importTab"));
+		driver.findElement(By.id(IMPORT_TAB));
 	}
 	
 	/**
@@ -560,10 +608,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickCloseOnCreateBatchModal() throws InterruptedException{
-		driver.findElement(By.id("closeEditBatchButton"));
+		driver.findElement(By.id(CLOSE_EDIT_BATCH_BUTTON));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("importTab"));
+		driver.findElement(By.id(IMPORT_TAB));
 	}
 	
 	/**
@@ -572,10 +620,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void closeCreateBatchModal() throws InterruptedException{
-		driver.findElement(By.id("XBtn"));
+		driver.findElement(By.id(XBTN));
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("importTab"));
+		driver.findElement(By.id(IMPORT_TAB));
 	}
 	
 	/**
@@ -585,10 +633,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickUpdateBatchIcon(int index) throws InterruptedException{
-		driver.findElement(By.id("updateBatch"+index)).click();
+		driver.findElement(By.id(UPDATE_BATCH+index)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("batchModalLabel"));
+		driver.findElement(By.id(BATCH_MODAL_LABEL));
 	}
 	
 	/**
@@ -597,10 +645,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickDelectBatchIcon(int index) throws InterruptedException{
-		driver.findElement(By.id("removeBatch"+index)).click();
+		driver.findElement(By.id(REMOVE_BATCH+index)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("batchModalLabel"));
+		driver.findElement(By.id(BATCH_MODAL_LABEL));
 	}
 	
 	/**
@@ -609,10 +657,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickDeleteOnDeleteBatchModal() throws InterruptedException{
-		driver.findElement(By.id("deleteBatchButton")).click();
+		driver.findElement(By.id(DELETE_BATCH_BUTTON)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("importTab"));
+		driver.findElement(By.id(IMPORT_TAB));
 	}
 	
 	/**
@@ -621,10 +669,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void clickCancelOnDeleteBatchModal() throws InterruptedException{
-		driver.findElement(By.id("closeDeleteBatchButton")).click();
+		driver.findElement(By.id(CLOSE_DELETE_BATCH_BUTTON)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("importTab"));
+		driver.findElement(By.id(IMPORT_TAB));
 	}
 	
 	/**
@@ -633,10 +681,10 @@ public class ManageBatchPage{
 	 * @throws InterruptedException
 	 */
 	public void closeOutDeleteBatchModal() throws InterruptedException{
-		driver.findElement(By.id("XBtn")).click();
+		driver.findElement(By.id(XBTN)).click();
 		Thread.sleep(500);
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("importTab"));
+		driver.findElement(By.id(IMPORT_TAB));
 	}
 	
 	/**
@@ -645,7 +693,7 @@ public class ManageBatchPage{
 	 * an incorrect input
 	 */
 	public void verifyRequiredInputField(){
-		driver.findElement(By.cssSelector("input:required"));
+		driver.findElement(By.cssSelector(REQUIRED));
 	}
 	
 	/**
@@ -661,6 +709,7 @@ public class ManageBatchPage{
 			driver.findElement(By.id(batchName));
 			exists = true;
 		}catch(NoSuchElementException e){
+			log.debug(e);
 			exists = false;
 		}
 		return exists;
@@ -679,6 +728,7 @@ public class ManageBatchPage{
 		driver.findElement(By.id(traineeName));
 			exists = true;
 		}catch(NoSuchElementException e){
+			log.debug(e);
 			exists = false;
 		}
 		return exists;
@@ -689,7 +739,7 @@ public class ManageBatchPage{
 	 * Use this with negative testing (for example giving a negative number)
 	 */
 	public void verifyInvalidInputField(){
-		driver.findElement(By.cssSelector("input:invalid"));
+		driver.findElement(By.cssSelector(INVALID));
 	}
 	
 	/**
