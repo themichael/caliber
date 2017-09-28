@@ -9,12 +9,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+/***
+ * @author Evan Molinelli
+ * 
+ */
 public class ReportsPage {
 
-	/***
-	 * @author Evan Molinelli
-	 * 
-	 */
 	private WebDriver driver;
 	private static final String BASE_URL = "CALIBER_API_SERVER";
 
