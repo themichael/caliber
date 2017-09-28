@@ -2,14 +2,11 @@ package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,11 +14,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class SettingCategoryPage {
 
 	private WebDriver driver;
+	private static final String BASE_URL = "CALIBER_API_SERVER";
+	private static final String VP_CATEGORY = "caliber/#/vp/category";
+	private static final Logger log = Logger.getLogger(SettingCategoryPage.class);
 	
 	public SettingCategoryPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver)driver;
-		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/category");
+		this.driver.get(System.getenv(BASE_URL)+VP_CATEGORY);
 	}
 	
 	/**
@@ -29,18 +29,16 @@ public class SettingCategoryPage {
 	 * @throws InterruptedException 
 	 */
     public void gotoSettingCategoryPage() throws InterruptedException {
-        driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/category");
+        driver.get(System.getenv(BASE_URL)+VP_CATEGORY);
         Thread.sleep(1000);
         driver.switchTo().activeElement();
-        //System.out.println("CurrentURL = " + driver.getCurrentUrl());
-        //System.out.println(driver.getTitle());
     }
     
     /**
      * Verifies that we are located on the Setting's Category page
      */
     public void verifyCategoryPage() {
-        assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/category", driver.getCurrentUrl());
+        assertEquals(System.getenv(BASE_URL)+VP_CATEGORY, driver.getCurrentUrl());
     }
     
     /**
@@ -92,7 +90,7 @@ public class SettingCategoryPage {
     
     public boolean checkIfCategoryIsActive(String name){
     	String actual = driver.findElement(By.id(name)).getAttribute("value").toString();
-    	return (actual.equals("true")) ? true : false;
+    	return actual.equals("true");
     }
     
     public void inputCategoryName(String name) throws InterruptedException {
@@ -112,14 +110,13 @@ public class SettingCategoryPage {
      * @throws IOException
      */
     public boolean verifyCategoryAdded(String name) throws IOException {
-		boolean exists;
 		try{
 			driver.findElement(By.id(name));
-			exists = true;
+			return true;
 		}catch(NoSuchElementException e){
-			exists = false;
+			log.error(e);
+			return false;
 		}
-		return exists;
     }
     
     /**
@@ -146,11 +143,7 @@ public class SettingCategoryPage {
      * @throws IOException
      */
     public void verifyClosedOutByX() throws IOException {
-    	/*
-    	File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-    	FileUtils.copyFile(srcFile,
-    			new File("~/Desktop/xOutCategoryNotCreated.jpg"), true);
-    	*/
+    	throw new UnsupportedOperationException();
     }
     
     /**
@@ -158,11 +151,7 @@ public class SettingCategoryPage {
      * @throws IOException
      */
     public void verifyClosedOutByCloseButton() throws IOException {
-    	/*
-    	File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-    	FileUtils.copyFile(srcFile,
-    			new File("~/Desktop/closeButtonCategoryNotCreated.jpg"), true);
-    	*/
+    	throw new UnsupportedOperationException();
     }
     
     public void clickCategoryName(String name) throws InterruptedException{

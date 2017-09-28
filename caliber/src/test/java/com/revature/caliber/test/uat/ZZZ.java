@@ -14,7 +14,7 @@ public class ZZZ {
 	
 	public static void waitForPageLoad(){
 		WebDriverWait wait = new WebDriverWait(ChromeDriverSetup.driver, 30);
-		if(!((JavascriptExecutor)ChromeDriverSetup.driver).executeScript("return document.readyState").equals("complete")){
+		if(!"complete".equals(((JavascriptExecutor)ChromeDriverSetup.driver).executeScript("return document.readyState"))){
 			wait.pollingEvery(1000, TimeUnit.MILLISECONDS);
 		}
 	}

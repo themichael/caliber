@@ -1,5 +1,7 @@
 package com.revature.caliber.test.uat;
 
+import org.apache.log4j.Logger;
+
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -8,6 +10,7 @@ import cucumber.api.java.en.When;
 public class UpdateBatchFeature {
 	
 	private ManageBatchPage managePage;
+	private static final Logger log = Logger.getLogger(UpdateBatchFeature.class);
 	
 	@Before // each scenario
 	public void setup(){
@@ -43,6 +46,7 @@ public class UpdateBatchFeature {
 
 	@Given("^I have entered \"([^\"]*)\" as the Location$")
 	public void iHaveEnteredAsTheLocation(String index) throws InterruptedException {
+		log.trace(index);
 	    managePage.editLocationField(1);
 	}
 
@@ -68,11 +72,13 @@ public class UpdateBatchFeature {
 
 	@Given("^I have chosen (\\d+) as the Good Grade$")
 	public void iHaveChosenAsTheGoodGrade(int arg1) {
+		log.trace(arg1);
 	    managePage.editGoodGradeField("75");
 	}
 
 	@Given("^I have chosen (\\d+) as the Passing Grade$")
 	public void iHaveChosenAsThePassingGrade(int arg1) {
+		log.trace(arg1);
 	    managePage.editPassingGradeField("80");
 	}
 

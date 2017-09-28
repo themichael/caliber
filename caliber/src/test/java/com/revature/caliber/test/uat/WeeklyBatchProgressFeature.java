@@ -1,9 +1,6 @@
 package com.revature.caliber.test.uat;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -17,11 +14,6 @@ public class WeeklyBatchProgressFeature {
 		setup = new ChromeDriverSetup();
 		reportsPage = new ReportsPage(setup.getDriver());
 	}
-
-/*	@After // each scenario
-	public void teardown() {
-		reportsPage.closeDriver();
-	}*/
 
 	@When("^I select a batch$")
 	public void iSelectABatch() throws Throwable {

@@ -2,16 +2,11 @@ package com.revature.caliber.test.uat;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
 
 /**
@@ -26,25 +21,30 @@ import org.openqa.selenium.support.ui.Select;
 public class SettingsTrainerPage {
 
 	private WebDriver driver;
-
+	private static final String BASE_URL = "CALIBER_API_SERVER";
+	private static final String VP_TRAINERS = "caliber/#/vp/trainers";  
+	private static final String TRAINER_NAME = "trainerName";
+	private static final String TRAINER_EMAIL = "trainerEmail";
+	private static final String TITLE = "Title";
+	
 	public SettingsTrainerPage(WebDriver driver) {
 		super();
 		this.driver = (ChromeDriver) driver;
-		this.driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/trainers");
+		this.driver.get(System.getenv(BASE_URL)+VP_TRAINERS);
 	}
 
 	/**
 	 * Sends driver to the specified page
 	 */
 	public void gotoPage(){
-		driver.get(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/trainers");
+		driver.get(System.getenv(BASE_URL)+VP_TRAINERS);
 	}
 
 	/**
 	 * Checks to see if the driver is currently on the specified page
 	 */
 	public void verifyPage() {
-		assertEquals(System.getenv("CALIBER_API_SERVER")+"caliber/#/vp/trainers", driver.getCurrentUrl());
+		assertEquals(System.getenv(BASE_URL)+VP_TRAINERS, driver.getCurrentUrl());
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class SettingsTrainerPage {
 	 * @param name
 	 */
 	public void enterName(String name) {
-		driver.findElement(By.id("trainerName"))
+		driver.findElement(By.id(TRAINER_NAME))
 				.sendKeys(name);
 	}
 
@@ -72,7 +72,7 @@ public class SettingsTrainerPage {
 	 * @param email
 	 */
 	public void enterEmail(String email) {
-		driver.findElement(By.id("trainerEmail"))
+		driver.findElement(By.id(TRAINER_EMAIL))
 				.sendKeys(email);
 	}
 
@@ -81,7 +81,7 @@ public class SettingsTrainerPage {
 	 * @param title
 	 */
 	public void selectTitle(String title) {
-		driver.findElement(By.id("Title"))
+		driver.findElement(By.id(TITLE))
 				.sendKeys(title);
 
 	}
@@ -138,9 +138,9 @@ public class SettingsTrainerPage {
 	 */
 	public void updateTrainerName(String name) {
 		driver.switchTo().activeElement();
-		driver.findElement(By.id("trainerName"))
+		driver.findElement(By.id(TRAINER_NAME))
 				.clear();
-		driver.findElement(By.id("trainerName"))
+		driver.findElement(By.id(TRAINER_NAME))
 				.sendKeys(name);
 		;
 	}
@@ -150,9 +150,9 @@ public class SettingsTrainerPage {
 	 * @param email
 	 */
 	public void updateEmail(String email) {
-		driver.findElement(By.id("trainerEmail"))
+		driver.findElement(By.id(TRAINER_EMAIL))
 				.clear();
-		driver.findElement(By.id("trainerEmail"))
+		driver.findElement(By.id(TRAINER_EMAIL))
 				.sendKeys(email);
 
 	}
@@ -162,9 +162,9 @@ public class SettingsTrainerPage {
 	 * @param title
 	 */
 	public void updateTitle(String title) {
-		driver.findElement(By.id("Title"))
+		driver.findElement(By.id(TITLE))
 				.clear();
-		driver.findElement(By.id("Title"))
+		driver.findElement(By.id(TITLE))
 				.sendKeys(title);
 	}
 

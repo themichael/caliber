@@ -1,6 +1,5 @@
 package com.revature.caliber.test.uat;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
