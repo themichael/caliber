@@ -11,6 +11,7 @@ import com.revature.caliber.test.api.AbstractAPITest;
 
 public class ChromeDriverSetup extends AbstractAPITest {
 	
+	private SalesforceLoginPage loginPage;
 	protected static WebDriver driver;
 	private static volatile boolean initialized = false;
 	private static boolean isLoggedIn = false;
@@ -26,12 +27,13 @@ public class ChromeDriverSetup extends AbstractAPITest {
 			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 			initialized = true;
 		}
-		/*if(!isLoggedIn){
+		if(!isLoggedIn){
+			loginPage = new SalesforceLoginPage(driver);
 			loginPage.setUsername(username);
 			loginPage.setPassword(password);
 			loginPage.clickLogin();
 			isLoggedIn = true;
-		}*/
+		}
 	}
 	
 	public static synchronized ChromeDriverSetup getInstance(){
