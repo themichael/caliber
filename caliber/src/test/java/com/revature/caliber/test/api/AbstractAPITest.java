@@ -24,6 +24,7 @@ import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.security.models.SalesforceToken;
@@ -126,8 +127,8 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		HttpResponse response = httpClient.execute(post);
 		
 		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(),
-				// JsonNode.class); // test
-				SalesforceToken.class).getAccessToken(); // actual
+				 JsonNode.class); // test
+				//SalesforceToken.class).getAccessToken(); // actual
 		log.info("Accessing Salesforce API using token:  " + accessToken);
 	}
 
