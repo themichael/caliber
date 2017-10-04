@@ -23,6 +23,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 
+import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
@@ -125,8 +126,9 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		parameters.add(new BasicNameValuePair("password", password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-		
-		accessTokenJson = new ObjectMapper().readValue(response.getEntity().getContent(),
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+		accessTokenJson = mapper.readValue(response.getEntity().getContent(),
 				// JsonNode.class); // test
 				SalesforceToken.class); // actual
 		accessToken += accessTokenJson.getAccessToken();
