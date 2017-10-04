@@ -125,10 +125,11 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		parameters.add(new BasicNameValuePair("password", password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-
-		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(),
+		
+		accessTokenJson = new ObjectMapper().readValue(response.getEntity().getContent(),
 				// JsonNode.class); // test
-				SalesforceToken.class).getAccessToken(); // actual
+				SalesforceToken.class); // actual
+		accessToken += accessTokenJson.getAccessToken();
 		log.info("Accessing Salesforce API using token:  " + accessToken);
 	}
 
