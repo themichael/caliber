@@ -332,10 +332,9 @@ angular
 					
 					// toggle Checked and Unchecked for Trainees
 					$scope.toggleComparisonRadarChart = function(isChecked, val) {
-						var mainData;
-						radarComparObj[$scope.currentBatch.trainingName] = mainData;
+						radarComparObj[$scope.currentBatch.trainingName] = $scope.currentBatch.averageGrades;
 						if(isChecked) {
-							radarComparObj[$scope.currentBatch.trainees[val].name] = radarComparData[$scope.currentBatch.trainees[val].name] ;
+							radarComparObj[$scope.currentBatch.trainees[val].name] = radarComparData[$scope.currentBatch.trainees[val].name];
 						} else {
 							delete radarComparObj[$scope.currentBatch.trainees[val].name];
 						}
@@ -620,7 +619,11 @@ angular
 											$log.debug("Batch overall radar data: ");
 											$log.debug(data);
 											NProgress.done();
-
+											
+											/*store this is $scope.currentBatch.averageGrades for accessing this information
+											so you do not have to make another HTTP request*/
+											$scope.currentBatch.averageGrades = data;
+											
 											var radarBatchOverallChartObject = chartsDelegate.radar
 													.getTechnicalSkillsBatchOverall(
 															data,
@@ -788,6 +791,50 @@ angular
 						}
 						return clone;
 					};
+
+                    //DOWNLOAD INDIVIDUAL CHART AS PDF
+					$scope.downloadChartButton = function ($event){
+						//GET CURRENT ELEMENT'S PARENT'S PARENT'S PARENT
+						var element = $event.target.parentElement.parentElement;
+						var doc = new jsPDF('p', 'mm', 'a4');
+                        doc.internal.scaleFactor = 4;
+                        doc.addHTML(element, function (){
+							// GET CHART TEXT/TITLE FROM PANEL-HEADING
+							var filename = element.childNodes[1].innerText.trim() + '.pdf';
+                            doc.save(filename);
+						});
+					};
+
+                    //DOWNLOAD ALL TRAINEE CHART AS PDF
+                    $scope.downloadAllChartButton = function () {
+                        //GET CALIBER CONTAINER ID THAT CONSIST OF ALL THE CHARTS UNDER REPORT
+                        var element = angular.element(document.querySelector('#caliber-container')).children()[0];
+                        var cumulativeScores = element.children[0].children[0].children[0];
+						var technicalSkillsAndWeeklyProgress = element.children[0].children[0].children[1];
+                        var charts = [];
+
+                        charts.push(cumulativeScores);
+                        for (var i = 0; i < technicalSkillsAndWeeklyProgress.children.length; i++)
+                        	charts.push(technicalSkillsAndWeeklyProgress.children[i]);
+
+                        var doc = new jsPDF('p', 'mm', 'a4');
+                        doc.text(doc.internal.pageSize.width/2 - 20, 5, $scope.currentTrainee.name);
+                        doc.internal.scaleFactor = 4;
+                        var j = 0;
+                        var recursiveAddHtml = function (height) {
+                            if (j < charts.length) {
+                                doc.addHTML(charts[j], 0, height, function () {
+                                    j++;
+                                    if (j !== charts.length)
+                                    	doc.addPage();
+                                    recursiveAddHtml(0);
+                                });
+                            } else {
+								doc.save($scope.currentTrainee.name + '.pdf');
+                            }
+                        };
+                        recursiveAddHtml(10);
+                    };
 					
 					// Gets notes (trainer and QC) for a specific trainee and
 					// the week

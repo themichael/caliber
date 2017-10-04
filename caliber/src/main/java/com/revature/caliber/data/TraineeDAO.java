@@ -155,7 +155,7 @@ public class TraineeDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Trainee trainee) {
-		log.info("Update trainee: " + trainee);
+		log.info("Update trainee: " + trainee); 
 		sessionFactory.getCurrentSession().saveOrUpdate(trainee);
 	}
 

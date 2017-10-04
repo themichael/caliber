@@ -28,3 +28,5 @@
 #AngularJS
 **/.tern-project
 
+#Mac
+.DS_Store

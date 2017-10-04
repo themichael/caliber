@@ -170,6 +170,30 @@ a {
 .batchModal {
 	margin: 1.3em;
 }
+
+/************************
+	Manage Trainee Modal
+************************/
+.modal-body {
+    max-width: 100%;
+    overflow-x: auto;
+}
+.modal-widest{
+	width: 100%;
+}
+.no-padding{
+	padding: 0px;
+}
+.only-top-padding{
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 20px;
+}
+/* .scoll-tree {
+    width:1000px;
+} */
+
 /************************
 	QC Assess
 ************************/
@@ -382,6 +406,25 @@ footer a, footer a:hover {
 .note-mw {
 	min-width: 300px;
 }
+
+/********************************************************
+	Overall Batch Status column in vp-home and qc-home
+*********************************************************/
+.color-green {
+	font-weight: bold;
+  	color: green;
+}
+
+.color-yellow {
+	font-weight: bold;
+  	color: orange;
+}
+
+.color-red {
+	font-weight: bold;
+  	color: red;
+}
+
 /**********************
 	save button
 **********************/
@@ -473,4 +516,15 @@ a.save-button .fa-floppy-o {
 *************************/
 .editAssessModal {
 	font-family: 'Futura-Std-Book';
+}
+
+select{
+	color:black;
+}
+/*
+CHANGE CURSOR TO POINTER
+INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
+ */
+.clickableIcons {
+	cursor: pointer;
 }

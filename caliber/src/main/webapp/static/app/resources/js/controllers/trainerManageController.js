@@ -239,14 +239,14 @@ angular
 
 					/** Fill update form with batch previous data* */
 					$scope.populateBatch = function(batch) {
-						$log.debug(batch);
+						$log.debug(batch)
 						$scope.Save = "Update";
 						$scope.Updating.status = true;
 						$scope.batchFormName = "Update Batch";
 						$scope.trainingName.model = batch.trainingName;
 						$scope.trainingType.model = batch.trainingType
 						$scope.skillType.model = batch.skillType;
-						$scope.location.model = batch.location;
+						$scope.location.model = batch.address;
 						$log.debug("=====testbah=============")
 						$log.debug(batch);
 						$scope.trainer.model = batch.trainer.name;
@@ -255,12 +255,10 @@ angular
 						} else {
 							$scope.coTrainer.model = ""
 						}
-
 						$scope.startDate.model = batch.startDate;
 						$scope.endDate.model = batch.endDate;
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
-
 					}
 
 					/** Selected import batch* */
@@ -336,7 +334,7 @@ angular
 											angular
 													.element(
 															"#importBatchModal")
-													.modal("hide");
+													.modal("");
 										});
 
 					};
@@ -382,23 +380,24 @@ angular
 
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {
-
+						var address = $scope.location.model;
 						batch.trainingName = $scope.trainingName.model;
 						batch.trainingType = $scope.trainingType.model;
 						batch.skillType = $scope.skillType.model;
-						batch.location = $scope.location.model;
 						batch.trainer = null;
 						batch.coTrainer = null;
 						batch.startDate = $scope.startDate.model;
 						batch.endDate = $scope.endDate.model;
 						batch.goodGradeThreshold = $scope.goodGradeThreshold.model;
 						batch.borderlineGradeThreshold = $scope.borderlineGradeThreshold.model;
+						batch.location = address.company + ", " + address.city
+								+ " " + address.state + " " + address.zipcode;
+						batch.address = address;
 
 						/*
 						 * if ($scope.currentBatch) { newBatch.batchId =
 						 * $scope.currentBatch.batchId; }
 						 */
-
 						if ($scope.trainer) {
 							var trainer_name = $scope.trainer.model;
 						}
@@ -415,9 +414,8 @@ angular
 								batch.coTrainer = $scope.trainers[i];
 							}
 						}
-
-						// return newBatch;
 					}
+
 					/** reformat dates on batch correctly* */
 					/** Save Batch * */
 					$scope.addNewBatch = function() {
@@ -427,15 +425,13 @@ angular
 						$log.debug("current satus of Updating.status scope"
 								+ $scope.Updating.status.status);
 						if ($scope.Updating.status) {
-							createBatchObject($scope.currentBatch);
+							createBatchObject($scope.currentBatch)
 							caliberDelegate.all
 									.updateBatch($scope.currentBatch)
 									.then(
 											function() {
-
 												$scope.selectedBatches[$scope.batchRow] = $scope.currentBatch
 											});
-
 						} else {
 							var newBatch = {};
 							createBatchObject(newBatch);
@@ -523,7 +519,13 @@ angular
 						skypeId : null,
 						phoneNumber : null,
 						profileUrl : null,
-						trainingStatus : null
+						trainingStatus : null, 
+						college: null,
+						degree: null,
+						major: null,
+						recruiterName: null,
+						techScreenerName: null,
+						projectCompletion: null
 					}
 
 					/** Load trainees for batch * */
@@ -576,6 +578,15 @@ angular
 						$scope.traineeForm.phoneNumber = trainee.phoneNumber;
 						$scope.traineeForm.profileUrl = trainee.profileUrl;
 						$scope.traineeForm.trainingStatus = trainee.trainingStatus;
+ 
+						$scope.traineeForm.college = trainee.college; 
+						$scope.traineeForm.degree =trainee.degree; 
+						$scope.traineeForm.major = trainee.major; 
+						$scope.traineeForm.recruiterName =trainee.recruiterName; 
+						$scope.traineeForm.techScreenerName = trainee.techScreenerName;
+						$scope.traineeForm.projectCompletion = trainee.projectCompletion;
+						
+						
 						$scope.Save = "Update";
 						$scope.Updating.status = true;
 						$scope.traineeFormName = "Update Trainee";
@@ -590,6 +601,14 @@ angular
 						$scope.traineeForm.phoneNumber = "";
 						$scope.traineeForm.profileUrl = "";
 						$scope.traineeForm.trainingStatus = "";
+ 
+						$scope.traineeForm.college = ""; 
+						$scope.traineeForm.degree =""; 
+						$scope.traineeForm.major = ""; 
+						$scope.traineeForm.recruiterName =""; 
+						$scope.traineeForm.techScreenerName = "";
+						$scope.traineeForm.projectCompletion = "";
+						
 						$scope.Save = "Save";
 						$scope.Updating.status = false;
 						if ($scope.currentTrainee) {
@@ -640,6 +659,15 @@ angular
 						trainee.phoneNumber = $scope.traineeForm.phoneNumber;
 						trainee.profileUrl = $scope.traineeForm.profileUrl;
 						trainee.trainingStatus = $scope.traineeForm.trainingStatus;
+
+
+						trainee.college= $scope.traineeForm.college; 
+						trainee.degree = $scope.traineeForm.degree; 
+						trainee.major = $scope.traineeForm.major;
+						trainee.recruiterName = $scope.traineeForm.recruiterName ;
+						trainee.techScreenerName = $scope.traineeForm.techScreenerName;
+						trainee.projectCompletion= $scope.traineeForm.projectCompletion;
+						
 						$log.debug(trainee);
 						trainee.batch = {
 							batchId : $scope.currentBatch.batchId

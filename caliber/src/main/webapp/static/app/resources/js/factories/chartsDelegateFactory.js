@@ -1,13 +1,3 @@
-/**
- * Team !Uncharted
- * 
- * @author Pier Yos
- * @author Hossain Yahya
- * @author Yanilda Peralta
- * @author Igor Gluskin
- * @author Ateeb Khawaja
- * 
- */
 angular
 		.module("delegate")
 		.factory(
@@ -35,23 +25,23 @@ angular
 					 */
 					delegate.doughnut.getQCStats = function(dataArray) {
 						return doughnutChartFactory.batchWeekQCPie(dataArray);
-					}
+					};
 
 					delegate.doughnut.data.getQCStatsData = function(batchId,
 							weekId) {
 						return doughnutChartDataFactory.batchWeekQCPie(batchId,
 								weekId);
-					}
+					};
 
 					delegate.doughnut.getCurrentQCStats = function(dataArray) {
 						return doughnutChartFactory.batchWeekQCPie(dataArray);
-					}
+					};
 
 					delegate.doughnut.data.getCurrentQCStatsData = function(
 							batchId) {
 						return doughnutChartDataFactory
 								.batchCurrentWeekQCPie(batchId);
-					}
+					};
 
 					/**
 					 * ************************* Bar *************************
@@ -60,7 +50,7 @@ angular
 							training, startDate) {
 						return barChartDataFactory.getBatchComparisonLine(
 								skill, training, startDate)
-					}
+					};
 
 					delegate.bar.getAssessmentAveragesBatchWeekly = function(
 							dataArray) {
@@ -266,8 +256,7 @@ angular
 							var row = {};
 							row.label = chartObject.labels[i];
 							row.data = [];
-							angular.forEach(chartObject.data, function(value,
-									key) {
+							angular.forEach(chartObject.data, function(value) {
 								row.data.push(value[i]);
 							});
 							tableDataSet.push(row);

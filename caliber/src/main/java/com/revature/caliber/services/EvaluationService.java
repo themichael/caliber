@@ -67,60 +67,6 @@ public class EvaluationService {
 		gradeDAO.update(grade);
 	}
 
-	/**
-	 * FIND ALL GRADES
-	 * 
-	 * @param traineeId
-	 * @return
-	 */
-	public List<Grade> findAllGrades() {
-		log.debug("Finding all grades");
-		return gradeDAO.findAll();
-	}
-
-	/**
-	 * FIND GRADES BY ASSESSMENT
-	 * 
-	 * @param assessmentId
-	 * @return
-	 */
-	public List<Grade> findGradesByAssessment(Long assessmentId) {
-		log.debug("Finding grades for assessment: " + assessmentId);
-		return gradeDAO.findByAssessment(assessmentId);
-	}
-
-	/**
-	 * FIND GRADES BY TRAINEE
-	 * 
-	 * @param traineeId
-	 * @return
-	 */
-	public List<Grade> findGradesByTrainee(Integer traineeId) {
-		log.debug("Finding all grades for trainee: " + traineeId);
-		return gradeDAO.findByTrainee(traineeId);
-	}
-
-	/**
-	 *	FIND GRADES BY BATCH
-	 * 
-	 * @param batchId
-	 * @return
-	 */
-	public List<Grade> findGradesByBatch(Integer batchId) {
-		log.debug("Finding all grades for batch: " + batchId);
-		return gradeDAO.findByBatch(batchId);
-	}
-
-	/**
-	 * FIND GRADES BY CATEGORY
-	 * 
-	 * @param batchId
-	 * @return
-	 */
-	public List<Grade> findGradesByCategory(Integer categoryId) {
-		log.debug("Finding all grades for category: " + categoryId);
-		return gradeDAO.findByCategory(categoryId);
-	}
 
 	/**
 	 * FIND GRADES BY WEEK
@@ -150,17 +96,6 @@ public class EvaluationService {
 			}
 		}
 		return table;
-	}
-
-	/**
-	 *	FIND GRADES BY TRAINER
-	 * 
-	 * @param trainerId
-	 * @return
-	 */
-	public List<Grade> findGradesByTrainer(Integer trainerId) {
-		log.debug("Finding all grades for trainer: " + trainerId);
-		return gradeDAO.findByTrainer(trainerId);
 	}
 
 	/*
@@ -290,18 +225,6 @@ public class EvaluationService {
 	}
 
 	/**
-	 * FIND ALL WEEKLY INDIVIDUAL NOTES (VP ONLY)
-	 * 
-	 * @param trainee
-	 * @param week
-	 * @return
-	 */
-	public List<Note> findAllIndividualNotes(Integer traineeId, Integer week) {
-		log.debug("Finding all week " + week + " individual notes for trainee: " + traineeId);
-		return noteDAO.findAllIndividualNotes(traineeId, week);
-	}
-
-	/**
 	 * Find all qc trainee notes
 	 * @return
 	 */
@@ -321,4 +244,5 @@ public class EvaluationService {
 		log.debug("Find All QC Trainee Notes for that trainee");
 		return noteDAO.findAllQCTraineeOverallNotes(traineeId);
 	}
+	
 }

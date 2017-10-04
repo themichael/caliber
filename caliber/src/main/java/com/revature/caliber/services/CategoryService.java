@@ -36,9 +36,9 @@ public class CategoryService {
 	 * @return
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Category> findAllCategories() {
+	public List<Category> findAllActive() {
 		log.debug("Requesting categories");
-		return categoryDAO.findAll();
+		return categoryDAO.findAllActive();
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class CategoryService {
 	 */
 	public List<Category> findAll() {
 		log.debug("Requesting categories");
-		return categoryDAO.findAllCategories();
+		return categoryDAO.findAll();
 	}
 
 	/**

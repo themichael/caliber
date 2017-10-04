@@ -1,5 +1,6 @@
 package com.revature.caliber.data;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -37,6 +38,9 @@ public class NoteDAO {
 	private static final String TRAINEE = "trainee";
 	private static final String T_TRAINEE_ID = "t.traineeId";
 	private static final String QC_FEEDBACK = "qcFeedback";
+	private static final int MONTHS_BACK = -1;
+	private static final String BATCH_BATCH_ID = "batch.batchId";
+
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -80,9 +84,11 @@ public class NoteDAO {
 		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias(BATCH, "b")
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
-				.add(Restrictions.eq(B_BATCH_ID, batchId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq(B_BATCH_ID, batchId))
+				.add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq(QC_FEEDBACK, false))
-				.add(Restrictions.eq("type", NoteType.BATCH)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.add(Restrictions.eq("type", NoteType.BATCH))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
 
@@ -101,7 +107,8 @@ public class NoteDAO {
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
 				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).createAlias("t.batch", "b")
-				.add(Restrictions.eq(B_BATCH_ID, batchId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq(B_BATCH_ID, batchId))
+				.add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq("type", NoteType.TRAINEE))
 				.add(Restrictions.eq(QC_FEEDBACK, false))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -153,11 +160,31 @@ public class NoteDAO {
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.QC_BATCH))
-				.add(Restrictions.eq("batch.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq(BATCH_BATCH_ID, batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq(QC_FEEDBACK, true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.uniqueResult();
 	}
-
+	
+	/**
+	 * Returns all batch-level notes for a particular batch.
+	 * 
+	 * @param batchId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Note> findAllBatchQcNotes(Integer batchId) {
+		log.info("Finding All batch notes for batch " + BATCH + batchId);
+		Calendar endDateLimit = Calendar.getInstance();	
+		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
+		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias(BATCH, "b")
+				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
+				.add(Restrictions.eq("type", NoteType.QC_BATCH))
+				.add(Restrictions.eq(B_BATCH_ID, batchId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+	
 	/**
 	 * Returns all individual notes written by QC for a given week.
 	 * 
@@ -172,9 +199,11 @@ public class NoteDAO {
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
 				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
-				.add(Restrictions.eq(T_TRAINEE_ID, traineeId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq(T_TRAINEE_ID, traineeId))
+				.add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq("type", NoteType.QC_TRAINEE))
-				.add(Restrictions.eq(QC_FEEDBACK, true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.add(Restrictions.eq(QC_FEEDBACK, true))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
 	/**
@@ -192,7 +221,7 @@ public class NoteDAO {
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.BATCH))
-				.add(Restrictions.eq("batch.batchId", batchId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq(BATCH_BATCH_ID, batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -211,7 +240,8 @@ public class NoteDAO {
 				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN).createAlias(BATCH, "b", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.TRAINEE))
-				.add(Restrictions.eq(T_TRAINEE_ID, traineeId)).add(Restrictions.eq("week", week.shortValue()))
+				.add(Restrictions.eq(T_TRAINEE_ID, traineeId))
+				.add(Restrictions.eq("week", week.shortValue()))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
