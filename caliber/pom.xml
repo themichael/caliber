@@ -4,7 +4,7 @@
 	<groupId>com.revature</groupId>
 	<artifactId>caliber</artifactId>
 	<packaging>war</packaging>
-	<version>1.4</version>
+	<version>1.5</version>
 	<name>caliber Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
@@ -140,7 +140,6 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

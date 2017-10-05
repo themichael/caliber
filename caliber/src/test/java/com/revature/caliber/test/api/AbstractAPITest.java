@@ -25,6 +25,7 @@ import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.security.models.SalesforceToken;
@@ -126,13 +127,31 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		parameters.add(new BasicNameValuePair("password", password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
-		accessTokenJson = mapper.readValue(response.getEntity().getContent(),
-				// JsonNode.class); // test
-				SalesforceToken.class); // actual
-		accessToken += accessTokenJson.getAccessToken();
-		log.info("Accessing Salesforce API using token:  " + accessToken);
+		try{
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+			accessTokenJson = mapper.readValue(response.getEntity().getContent(),
+					SalesforceToken.class); // actual
+			accessToken += accessTokenJson.getAccessToken();
+			log.info("Accessing Salesforce API using token:  " + accessToken);
+		}catch(Exception e){
+			log.error(e);
+			httpClient = HttpClientBuilder.create().build();
+			log.info("logging into URL   " + accessTokenUrl);
+			post = new HttpPost(accessTokenUrl);
+			parameters = new ArrayList<>();
+			parameters.add(new BasicNameValuePair("grant_type", "password"));
+			parameters.add(new BasicNameValuePair("client_secret", clientSecret));
+			parameters.add(new BasicNameValuePair("client_id", clientId));
+			parameters.add(new BasicNameValuePair("username", username));
+			parameters.add(new BasicNameValuePair("password", password));
+			post.setEntity(new UrlEncodedFormEntity(parameters));
+			response = httpClient.execute(post);
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+			log.error(mapper.readValue(response.getEntity().getContent(),
+					JsonNode.class)); 
+		}
 	}
 
 	/**
