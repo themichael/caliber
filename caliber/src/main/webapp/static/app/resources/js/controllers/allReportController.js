@@ -67,19 +67,21 @@ angular
 				allBatches.forEach(function(batch){
 					batch.trainees.forEach(function(trainee){
 						if(trainee.name == traineeName){
-							//set view search defaults
+							//set view variables
 							$scope.reportCurrentWeek = '(All)';
 							$scope.currentBatch = batch;
 							$scope.currentTrainee = trainee;
 							$scope.currentTraineeId = trainee.traineeId;
 							$scope.selectedYear = Number($scope.currentBatch.startDate
-									.substr(0, 4));
+														.substr(0, 4));
 							getCurrentBatchWeeks($scope.currentBatch.weeks);
 
-							//set view
+							//select view display
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
+							
+							//end function
 							return;
 						}
 					});
@@ -94,6 +96,7 @@ angular
 				// get all training types for dropdown
 				getAllTrainingTypes();
 				// get all trainees for search results display
+				getTrainees();
 
 				if ($scope.currentBatch === null || $scope.currentBatch === undefined) {
 					$scope.noBatch = true;

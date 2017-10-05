@@ -23,10 +23,11 @@
 			<div class="container-1 pull-right">
                 <form ng-submit="selectChosenTrainee()">
                     <span class="icon"><button type="submit" class="SearchButton"><i class="fa fa-search"></i></button></span>
-                      <input ng-model="chosenTrainee" list="traineeList" type="search" id="searchTextBox" placeholder="Search..." class="form-control SearchPad" />
+                      <input ng-model="chosenTrainee" list="traineeList" type="search" id="searchTextBox" 
+                      		placeholder="Search..." class="form-control SearchPad" autocomplete="on" />
                       <datalist id="traineeList">
 	    						<option ng-repeat="trainee in allTrainees track by $index" ng-value="trainee.name">
-	    							
+	    							{{trainee.email}} | {{trainee.skypeId}} 
 	    						</option>
 	    			  </datalist>
                 </form>
