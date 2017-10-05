@@ -1,0 +1,179 @@
+<form ng-init="preventModalClose()">
+	<div class="modal fade" id="samplemodal" tabindex="-1">
+		<div class="container">
+        <div class="container">
+            <div id="technical-feedback">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> Panel Interview Feedback </div>
+                    <h3></h3>
+                    <div id="logo">
+                        <!-- <img src=“RevLogo”> --></div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="row">
+                                <div class="col">
+                                    Name of the Associate
+                                </div>
+                                <div class="col">
+                                   <input type = "text" readonly = "true" ng-bind="trainee.firstName +' '+trainee.lastName" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Panelist Name
+                                </div>
+                                <div class="col">
+                                    <input type = "text" readonly = "true" ng-bind="trainer.firstname +' '+trainer.lastname"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Training Track
+                                </div>
+                                <div class="col">
+                                   <input type = "text" > <span ng-bind=""> {{trainee.trainingTrack}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Panel Round
+                                </div>
+                                <div class="col">
+                                    <input type = "text" readonly = "true"><span ng-bind=""> {{panelInterview.round}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Recording Consent
+                                </div>
+                                <div class="col">
+                                   <input type = "text"> <span ng-bind="">{{interviewPanel.consent}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Recording link
+                                </div>
+                                <div class="col">
+                                    <input type = "text" ><span ng-bind="">{{panelInterview.link}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    Interview Date
+                                </div>
+                                <div class="col">
+                                  <input type = "text" >  <span ng-bind="">{{panelInterview.date}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Interview Time
+                                </div>
+                                <div class="col">
+                                    <input type = "text"><span ng-bind="">{{panelInterview.time}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Interview Duration
+                                </div>
+                                <div class="col">
+                                    <input type = "text"><span ng-bind="">{{panelInterview.duration}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Interview Mode
+                                </div>
+                                <div class="col">
+                                    <input type = "text"><span ng-bind="">{{panelInterview.mode}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Overall Feedback
+                                </div>
+                                <div class="col">
+                                    <input type = "text"><span ng-bind="">{{panelInterview.overall}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Internet Connectivity
+                                </div>
+                                <div class="col">
+                                   <input type = "text"> <span ng-bind="">{{panelInterview.connectivity}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="technical-feedback">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Technical Feedback</div>
+                    <table id="feedback" class="table table=responsive">
+                        <tr>
+                            <th> Technology </th>
+                            <th> Result </th>
+                            <th> Repanel </th>
+                            <th> Comment </th>
+                        </tr>
+                        <tr ng-repeat="item in feedback">
+                            <td>{{item.technology}}</td>
+                            <td>{{item.result}}</td>
+                            <td>{{item.repanel}}</td>
+                            <td>{{item.comment}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="technical-feedback">
+                <div class="panel panel-default">
+                    <div class="panel-heading">General Feedback</div>
+                    <div id="general-feedback">
+                        <table id="feedback" class="table table=responsive">
+                            <tr>
+                                <th>Criteria</th>
+                                <th>Comment</th>
+                            </tr>
+                            <tr>
+                                <td><b>Associate Introduction</b></td>
+                                <td>{{panelInterview.generalFeedback.introduction.comment}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Project 1 Explanation</b></td>
+                                <td>{{panelInterview.generalFeedback.project1}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Project 2 Explanation</b></td>
+                                <td>{{panelInterview.generalFeedback.project2}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Project 3 Explanation</b></td>
+                                <td>{{panelInterview.generalFeedback.project3}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Communication Skills</b></td>
+                                <td>{{panelInterview.generalFeedback.communication}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Overall</b></td>
+                                <td>{{panelInterview.generalFeedback.overall}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+	</div>
+</form>
