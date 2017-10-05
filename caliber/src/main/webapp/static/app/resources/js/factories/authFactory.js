@@ -8,18 +8,21 @@ angular.module("auth").factory("authFactory",
 
 			// Roles
 			var vpRole = "ROLE_VP";
+			var panelRole = "ROLE_PANEL";
 			var qcRole = "ROLE_QC";
 			var trainerRole = "ROLE_TRAINER";
 			var stagingRole = "ROLE_STAGING";
 
 			// home states
 			var vpState = "vp.home";
+			var panelState = "panel.home";
 			var qcState = "qc.home";
 			var trainerState = "trainer.home";
 			var stagingState = "staging.home";
 
 			// home
 			var vpHome = "/vp/home";
+			var panelHome = "/panel/home";
 			var qcHome = "/qc/home";
 			var trainerHome = "/trainer/home";
 
@@ -70,6 +73,10 @@ angular.module("auth").factory("authFactory",
 					$log.debug("Changing state to: " + qcState);
 					$state.go(qcState);
 					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelState);
+					$state.go(panelState);
+					break;
 				case vpRole:
 					$log.debug("Changing state to: " + vpState);
 					$state.go(vpState);
@@ -97,7 +104,17 @@ angular.module("auth").factory("authFactory",
 					$location.path(vpHome);
 			};
 
-			//
+			auth.authPanel = function () {
+				var role = getCookie();
+				if (rol === panelRole)
+					$log.debug("Authenticated user as Panel");
+				else if (role === trainerRole)
+					$location.path(trainerHome);
+				else if (role === qcRole)
+					$location.path(qcHome);
+				else if (role === vpRole)
+					$location.path(vpHome);
+			};
 
 			/**
 			 * moves user to home page if user is not of role vp
