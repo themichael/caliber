@@ -50,6 +50,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 				<security:user authorities="ROLE_QC" name="ROLE_QC" />
 				<security:user authorities="ROLE_TRAINER" name="ROLE_TRAINER" />
 				<security:user authorities="ROLE_STAGING" name="ROLE_STAGING" />
+				<security:user authorities="ROLE_PANEL" name="ROLE_PANEL" />
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
