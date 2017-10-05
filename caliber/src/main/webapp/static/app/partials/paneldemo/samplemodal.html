@@ -8,104 +8,91 @@
                     <h3></h3>
                     <div id="logo">
                         <!-- <img src=“RevLogo”> --></div>
-                    <div class="row">
-                        <div class="col-md">
-                            <div class="row">
-                                <div class="col">
+                    <div class = "form-group">
+                        <div>
+                            <div class = "form-row">
+                                <div class = "form-group col-md-6">
                                     Name of the Associate
-                                </div>
-                                <div class="col">
-                                   <input type = "text" readonly = "true" ng-bind="trainee.firstName +' '+trainee.lastName" />
+       
+                                   <input type = "text" class = "form-control" readonly = "true" ng-bind="trainee.firstName +' '+trainee.lastName" />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                            <div class = "form-row">
+                                <div class = "form-group col-md-6">
                                     Panelist Name
-                                </div>
-                                <div class="col">
-                                    <input type = "text" readonly = "true" ng-bind="trainer.firstname +' '+trainer.lastname"/>
+                                    <input type = "text" class = "form-control" readonly = "true" ng-bind="trainer.firstname +' '+trainer.lastname"/>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                            <div class = "form-row">
+                                <div class = "form-group col-md-6">
                                     Training Track
-                                </div>
-                                <div class="col">
-                                   <input type = "text" > <span ng-bind=""> {{trainee.trainingTrack}</span>
+                                   <input type = "text" class = "form-control" ng-bind="trainee.trainingTrack">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                            <div>
+                                <div class = "form-group col-md-6">
                                     Panel Round
-                                </div>
-                                <div class="col">
-                                    <input type = "text" readonly = "true"><span ng-bind=""> {{panelInterview.round}}</span>
+                               
+                                    <input type = "text" class = "form-control" readonly = "true"ng-bind="panelInterview.round"/>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                             <div class = "form-row">
+                                <div class = "form-group col-md-6">
                                     Recording Consent
-                                </div>
-                                <div class="col">
-                                   <input type = "text"> <span ng-bind="">{{interviewPanel.consent}}</span>
+                              
+                                   <input type = "text" class = "form-control" ng-bind="interviewPanel.consent">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                             <div class = "form-row">
+                                <div class = "form-group col-md-6">
                                     Recording link
-                                </div>
-                                <div class="col">
-                                    <input type = "text" ><span ng-bind="">{{panelInterview.link}}</span>
+                                
+                                    <input type = "text" class = "form-control" ng-bind="panelInterview.link">
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="row">
-                                <div class="col">
+                        <div>
+                            <div class = "form-row">
+                                <div class = "form-group col-md-6">
                                     Interview Date
-                                </div>
-                                <div class="col">
-                                  <input type = "text" >  <span ng-bind="">{{panelInterview.date}}</span>
+                               
+                                  <input type = "text" class = "form-control" ng-bind="panelInterview.date">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                            <div class = "form-row">
+                                <div class = "form-group col-md-6">
                                     Interview Time
-                                </div>
-                                <div class="col">
-                                    <input type = "text"><span ng-bind="">{{panelInterview.time}}</span>
+                                
+                                    <input type = "text" class = "form-control" ng-bind="panelInterview.time">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                             <div class = "form-row">
+                                <div class = "form-group col-md-6">
                                     Interview Duration
-                                </div>
-                                <div class="col">
-                                    <input type = "text"><span ng-bind="">{{panelInterview.duration}}</span>
+                                
+                                    <input type = "text" class = "form-control" ng-bind="panelInterview.duration">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                             <div class = "form-row">
+                                <div class = "form-group col-md-6">
                                     Interview Mode
-                                </div>
-                                <div class="col">
-                                    <input type = "text"><span ng-bind="">{{panelInterview.mode}}</span>
+                               
+                                    <input type = "text" class = "form-control" ng-bind="panelInterview.mode">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                             <div>
+                                <div class = "form-group col-md-6">
                                     Overall Feedback
-                                </div>
-                                <div class="col">
-                                    <input type = "text"><span ng-bind="">{{panelInterview.overall}}</span>
+                                
+                                    <input type = "text" class = "form-control" ng-bind="panelInterview.overall">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
+                            <div>
+                                <div class = "form-group col-md-6">
                                     Internet Connectivity
-                                </div>
-                                <div class="col">
-                                   <input type = "text"> <span ng-bind="">{{panelInterview.connectivity}}</span>
+                                
+                                   <input type = "text" class = "form-control" ng-bind="panelInterview.connectivity">
+                             
                                 </div>
                             </div>
                         </div>
