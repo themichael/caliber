@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
@@ -286,7 +288,9 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
         if (token != null) {
             log.error("Parse salesforce token from forwarded request: " + token);
             try{
-            	return new ObjectMapper().readValue(token, SalesforceToken.class);
+            	ObjectMapper mapper = new ObjectMapper();
+        		mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+            	return mapper.readValue(token, SalesforceToken.class);
             }catch(Exception e){
             	log.error(e);
             }
@@ -316,7 +320,9 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
         HttpGet httpGet = new HttpGet(uri);
         HttpResponse response = httpClient.execute(httpGet);
         String user = toJsonString(response.getEntity().getContent());
-        SalesforceUser salesforceUser = new ObjectMapper().readValue(user, SalesforceUser.class);
+        ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+        SalesforceUser salesforceUser = mapper.readValue(user, SalesforceUser.class);
         salesforceUser.setSalesforceToken(salesforceToken);
         return salesforceUser;
     }

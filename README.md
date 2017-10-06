@@ -51,10 +51,11 @@ information--increasing transparency and improving decision making.
 * Trainers can input grades and feedback for each of their trainees
 * The quality department can input their evaluations on the batch of trainees
 * Trainers and quality personnel can comment on trainee and batch performance
+* Panelists can input their evaluations on each trainee for their final interviews
 * Users can generate reports and charts to visualize KPIs and print PDF reports
-* New batches can be added and they will persist year after year with batch data
 * The Caliber suite also provides a variety of reports on different levels of granularity:
     Week-by-week, Batch overall, Trainee weekly, Trainee overall
+* Higher-level aggregations of data provide monthly, quarterly, and yearly reports to compare trends across longer periods of time.
 
 ## Stakeholders/Users
 
