@@ -22,6 +22,12 @@ public class ReminderMailer extends TimerTask {
 	}
 
 	private void send() {
+		Properties properties = this.setProperties();
+		Session session = this.getSession(properties);
+		this.sendEmail(session);
+	}
+
+	private Properties setProperties() {
 		Properties properties = new Properties();
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.socketFactory.port", "587");
@@ -29,13 +35,18 @@ public class ReminderMailer extends TimerTask {
 		properties.put("mail.smtp.auth", "true");
 		properties.put("mail.smtp.port", "587");
 		properties.put("mail.smtp.starttls.enable", "true");
+		return properties;
+	}
 
-		Session session = Session.getDefaultInstance(properties, new Authenticator() {
+	private Session getSession(Properties properties) {
+		return Session.getDefaultInstance(properties, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(ReminderMailer.from, ReminderMailer.pass);
 			}
 		});
+	}
 
+	private void sendEmail(Session session) {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
