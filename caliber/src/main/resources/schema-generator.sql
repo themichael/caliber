@@ -2873,223 +2873,223 @@ TO_TIMESTAMP('2017-12-18 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Tech
 COMMIT;
 
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (1, 'Pretty good use of technical terms', 'Excellent', 'Pass', 1, 1);
+VALUES (1, 'Pretty good use of technical terms', 10, 'Pass', 1, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (2, 'Pretty good use of technical terms', 'Good', 'Pass', 1, 2);
+VALUES (2, 'Pretty good use of technical terms', 7, 'Pass', 1, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (3, 'Pretty good use of technical terms', 'Average', 'Pass', 2, 1);
+VALUES (3, 'Pretty good use of technical terms', 5, 'Pass', 2, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (4, 'Poor use of technical terms', 'Poor', 'Repanel', 2, 2);
+VALUES (4, 'Poor use of technical terms', 2, 'Repanel', 2, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (5, 'Pretty good use of technical terms', 'Excellent', 'Pass', 3, 1);
+VALUES (5, 'Pretty good use of technical terms', 10, 'Pass', 3, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (6, 'Pretty good use of technical terms', 'Good', 'Pass', 3, 2);
+VALUES (6, 'Pretty good use of technical terms', 7, 'Pass', 3, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (9, 'Pretty good use of technical terms', 'Excellent', 'Pass', 5, 1);
+VALUES (9, 'Pretty good use of technical terms', 10, 'Pass', 5, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (10, 'Pretty good use of technical terms', 'Good', 'Pass', 5, 2);
+VALUES (10, 'Pretty good use of technical terms', 7, 'Pass', 5, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (11, 'Pretty good use of technical terms', 'Average', 'Pass', 6, 1);
+VALUES (11, 'Pretty good use of technical terms', 5, 'Pass', 6, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (12, 'Poor use of technical terms', 'Poor', 'Repanel', 6, 2);
+VALUES (12, 'Poor use of technical terms', 2, 'Repanel', 6, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (13, 'Pretty good use of technical terms', 'Excellent', 'Pass', 7, 1);
+VALUES (13, 'Pretty good use of technical terms', 10, 'Pass', 7, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (14, 'Pretty good use of technical terms', 'Good', 'Pass', 7, 2);
+VALUES (14, 'Pretty good use of technical terms', 7, 'Pass', 7, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (15, 'Pretty good use of technical terms', 'Average', 'Pass', 8, 1);
+VALUES (15, 'Pretty good use of technical terms', 5, 'Pass', 8, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (16, 'Poor use of technical terms', 'Poor', 'Repanel', 8, 2);
+VALUES (16, 'Poor use of technical terms', 2, 'Repanel', 8, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (17, 'Pretty good use of technical terms', 'Excellent', 'Pass', 9, 1);
+VALUES (17, 'Pretty good use of technical terms', 10, 'Pass', 9, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (18, 'Pretty good use of technical terms', 'Good', 'Pass', 9, 2);
+VALUES (18, 'Pretty good use of technical terms', 7, 'Pass', 9, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (19, 'Pretty good use of technical terms', 'Average', 'Pass', 10, 1);
+VALUES (19, 'Pretty good use of technical terms', 5, 'Pass', 10, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (20, 'Poor use of technical terms', 'Poor', 'Repanel', 10, 2);
+VALUES (20, 'Poor use of technical terms', 2, 'Repanel', 10, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (21, 'Pretty good use of technical terms', 'Excellent', 'Pass', 11, 1);
+VALUES (21, 'Pretty good use of technical terms', 9, 'Pass', 11, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (22, 'Pretty good use of technical terms', 'Good', 'Pass', 11, 2);
+VALUES (22, 'Pretty good use of technical terms', 7, 'Pass', 11, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (23, 'Pretty good use of technical terms', 'Average', 'Pass', 12, 1);
+VALUES (23, 'Pretty good use of technical terms', 5, 'Pass', 12, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (24, 'Poor use of technical terms', 'Poor', 'Repanel', 12, 2);
+VALUES (24, 'Poor use of technical terms', 2, 'Repanel', 12, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (25, 'Pretty good use of technical terms', 'Excellent', 'Pass', 13, 1);
+VALUES (25, 'Pretty good use of technical terms', 9, 'Pass', 13, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (26, 'Pretty good use of technical terms', 'Good', 'Pass', 13, 2);
+VALUES (26, 'Pretty good use of technical terms', 7, 'Pass', 13, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (27, 'Pretty good use of technical terms', 'Average', 'Pass', 14, 1);
+VALUES (27, 'Pretty good use of technical terms', 5, 'Pass', 14, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (28, 'Poor use of technical terms', 'Poor', 'Repanel', 14, 2);
+VALUES (28, 'Poor use of technical terms', 2, 'Repanel', 14, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (29, 'Pretty good use of technical terms', 'Excellent', 'Pass', 15, 1);
+VALUES (29, 'Pretty good use of technical terms', 9, 'Pass', 15, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (30, 'Pretty good use of technical terms', 'Good', 'Pass', 15, 2);
+VALUES (30, 'Pretty good use of technical terms', 7, 'Pass', 15, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (31, 'Pretty good use of technical terms', 'Average', 'Pass', 16, 1);
+VALUES (31, 'Pretty good use of technical terms', 5, 'Pass', 16, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (32, 'Poor use of technical terms', 'Poor', 'Repanel', 16, 2);
+VALUES (32, 'Poor use of technical terms', 2, 'Repanel', 16, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (33, 'Pretty good use of technical terms', 'Excellent', 'Pass', 17, 1);
+VALUES (33, 'Pretty good use of technical terms', 9, 'Pass', 17, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (34, 'Pretty good use of technical terms', 'Good', 'Pass', 17, 2);
+VALUES (34, 'Pretty good use of technical terms', 7, 'Pass', 17, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (35, 'Pretty good use of technical terms', 'Average', 'Pass', 18, 1);
+VALUES (35, 'Pretty good use of technical terms', 5, 'Pass', 18, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (36, 'Poor use of technical terms', 'Poor', 'Repanel', 18, 2);
+VALUES (36, 'Poor use of technical terms', 2, 'Repanel', 18, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (37, 'Pretty good use of technical terms', 'Excellent', 'Pass', 19, 1);
+VALUES (37, 'Pretty good use of technical terms', 9, 'Pass', 19, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (38, 'Pretty good use of technical terms', 'Good', 'Pass', 19, 2);
+VALUES (38, 'Pretty good use of technical terms', 6, 'Pass', 19, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (39, 'Pretty good use of technical terms', 'Average', 'Pass', 20, 1);
+VALUES (39, 'Pretty good use of technical terms', 5, 'Pass', 20, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (40, 'Poor use of technical terms', 'Poor', 'Repanel', 20, 2);
+VALUES (40, 'Poor use of technical terms', 2, 'Repanel', 20, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (41, 'Pretty good use of technical terms', 'Excellent', 'Pass', 21, 1);
+VALUES (41, 'Pretty good use of technical terms', 9, 'Pass', 21, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (42, 'Pretty good use of technical terms', 'Good', 'Pass', 21, 2);
+VALUES (42, 'Pretty good use of technical terms', 6, 'Pass', 21, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (43, 'Pretty good use of technical terms', 'Average', 'Pass', 22, 1);
+VALUES (43, 'Pretty good use of technical terms', 5, 'Pass', 22, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (44, 'Poor use of technical terms', 'Poor', 'Repanel', 22, 2);
+VALUES (44, 'Poor use of technical terms', 2, 'Repanel', 22, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (45, 'Pretty good use of technical terms', 'Excellent', 'Pass', 23, 1);
+VALUES (45, 'Pretty good use of technical terms', 9, 'Pass', 23, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (46, 'Pretty good use of technical terms', 'Good', 'Pass', 23, 2);
+VALUES (46, 'Pretty good use of technical terms', 6, 'Pass', 23, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (47, 'Pretty good use of technical terms', 'Average', 'Pass', 24, 1);
+VALUES (47, 'Pretty good use of technical terms', 5, 'Pass', 24, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (48, 'Poor use of technical terms', 'Poor', 'Repanel', 24, 2);
+VALUES (48, 'Poor use of technical terms', 2, 'Repanel', 24, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (49, 'Pretty good use of technical terms', 'Excellent', 'Pass', 25, 1);
+VALUES (49, 'Pretty good use of technical terms', 8, 'Pass', 25, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (50, 'Pretty good use of technical terms', 'Good', 'Pass', 25, 2);
+VALUES (50, 'Pretty good use of technical terms', 6, 'Pass', 25, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (51, 'Pretty good use of technical terms', 'Average', 'Pass', 26, 1);
+VALUES (51, 'Pretty good use of technical terms', 5, 'Pass', 26, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (52, 'Poor use of technical terms', 'Poor', 'Repanel', 26, 2);
+VALUES (52, 'Poor use of technical terms', 2, 'Repanel', 26, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (53, 'Pretty good use of technical terms', 'Excellent', 'Pass', 27, 1);
+VALUES (53, 'Pretty good use of technical terms', 8, 'Pass', 27, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (54, 'Pretty good use of technical terms', 'Good', 'Pass', 27, 2);
+VALUES (54, 'Pretty good use of technical terms', 6, 'Pass', 27, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (55, 'Pretty good use of technical terms', 'Average', 'Pass', 28, 1);
+VALUES (55, 'Pretty good use of technical terms', 5, 'Pass', 28, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (56, 'Poor use of technical terms', 'Poor', 'Repanel', 28, 2);
+VALUES (56, 'Poor use of technical terms', 2, 'Repanel', 28, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (57, 'Pretty good use of technical terms', 'Excellent', 'Pass', 29, 1);
+VALUES (57, 'Pretty good use of technical terms', 8, 'Pass', 29, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (58, 'Pretty good use of technical terms', 'Good', 'Pass', 29, 2);
+VALUES (58, 'Pretty good use of technical terms', 6, 'Pass', 29, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (59, 'Pretty good use of technical terms', 'Average', 'Pass', 30, 1);
+VALUES (59, 'Pretty good use of technical terms', 5, 'Pass', 30, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (60, 'Poor use of technical terms', 'Poor', 'Repanel', 30, 2);
+VALUES (60, 'Poor use of technical terms', 2, 'Repanel', 30, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (61, 'Pretty good use of technical terms', 'Excellent', 'Pass', 31, 1);
+VALUES (61, 'Pretty good use of technical terms', 8, 'Pass', 31, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (62, 'Pretty good use of technical terms', 'Good', 'Pass', 31, 2);
+VALUES (62, 'Pretty good use of technical terms', 6, 'Pass', 31, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (63, 'Pretty good use of technical terms', 'Average', 'Pass', 32, 1);
+VALUES (63, 'Pretty good use of technical terms', 5, 'Pass', 32, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (64, 'Poor use of technical terms', 'Poor', 'Repanel', 32, 2);
+VALUES (64, 'Poor use of technical terms', 1, 'Repanel', 32, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (65, 'Pretty good use of technical terms', 'Excellent', 'Pass', 33, 1);
+VALUES (65, 'Pretty good use of technical terms', 8, 'Pass', 33, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (66, 'Pretty good use of technical terms', 'Good', 'Pass', 33, 2);
+VALUES (66, 'Pretty good use of technical terms', 6, 'Pass', 33, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (67, 'Pretty good use of technical terms', 'Average', 'Pass', 34, 1);
+VALUES (67, 'Pretty good use of technical terms', 4, 'Pass', 34, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (68, 'Poor use of technical terms', 'Poor', 'Repanel', 34, 2);
+VALUES (68, 'Poor use of technical terms', 1, 'Repanel', 34, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (69, 'Pretty good use of technical terms', 'Excellent', 'Pass', 35, 1);
+VALUES (69, 'Pretty good use of technical terms', 8, 'Pass', 35, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (70, 'Pretty good use of technical terms', 'Good', 'Pass', 35, 2);
+VALUES (70, 'Pretty good use of technical terms', 6, 'Pass', 35, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (71, 'Pretty good use of technical terms', 'Average', 'Pass', 36, 1);
+VALUES (71, 'Pretty good use of technical terms', 4, 'Pass', 36, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (72, 'Poor use of technical terms', 'Poor', 'Repanel', 36, 2);
+VALUES (72, 'Poor use of technical terms', 1, 'Repanel', 36, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (73, 'Pretty good use of technical terms', 'Excellent', 'Pass', 37, 1);
+VALUES (73, 'Pretty good use of technical terms', 8, 'Pass', 37, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (74, 'Pretty good use of technical terms', 'Good', 'Pass', 37, 2);
+VALUES (74, 'Pretty good use of technical terms', 6, 'Pass', 37, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (75, 'Pretty good use of technical terms', 'Average', 'Pass', 38, 1);
+VALUES (75, 'Pretty good use of technical terms', 4, 'Pass', 38, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (76, 'Poor use of technical terms', 'Poor', 'Repanel', 38, 2);
+VALUES (76, 'Poor use of technical terms', 1, 'Repanel', 38, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (77, 'Pretty good use of technical terms', 'Excellent', 'Pass', 39, 1);
+VALUES (77, 'Pretty good use of technical terms', 8, 'Pass', 39, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (78, 'Pretty good use of technical terms', 'Good', 'Pass', 39, 2);
+VALUES (78, 'Pretty good use of technical terms', 6, 'Pass', 39, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (79, 'Pretty good use of technical terms', 'Average', 'Pass', 40, 1);
+VALUES (79, 'Pretty good use of technical terms', 4, 'Pass', 40, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (80, 'Poor use of technical terms', 'Poor', 'Repanel', 40, 2);
+VALUES (80, 'Poor use of technical terms', 1, 'Repanel', 40, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (109, 'Pretty good use of technical terms', 'Excellent', 'Pass', 55, 1);
+VALUES (109, 'Pretty good use of technical terms', 8, 'Pass', 55, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (110, 'Pretty good use of technical terms', 'Good', 'Pass', 55, 2);
+VALUES (110, 'Pretty good use of technical terms', 6, 'Pass', 55, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (111, 'Pretty good use of technical terms', 'Average', 'Pass', 56, 1);
+VALUES (111, 'Pretty good use of technical terms', 4, 'Pass', 56, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (112, 'Poor use of technical terms', 'Poor', 'Repanel', 56, 2);
+VALUES (112, 'Poor use of technical terms', 1, 'Repanel', 56, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (113, 'Pretty good use of technical terms', 'Excellent', 'Pass', 57, 1);
+VALUES (113, 'Pretty good use of technical terms', 8, 'Pass', 57, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (114, 'Pretty good use of technical terms', 'Good', 'Pass', 57, 2);
+VALUES (114, 'Pretty good use of technical terms', 6, 'Pass', 57, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (115, 'Pretty good use of technical terms', 'Average', 'Pass', 58, 1);
+VALUES (115, 'Pretty good use of technical terms', 4, 'Pass', 58, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (116, 'Poor use of technical terms', 'Poor', 'Repanel', 58, 2);
+VALUES (116, 'Poor use of technical terms', 0, 'Repanel', 58, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (117, 'Pretty good use of technical terms', 'Excellent', 'Pass', 59, 1);
+VALUES (117, 'Pretty good use of technical terms', 8, 'Pass', 59, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (118, 'Pretty good use of technical terms', 'Good', 'Pass', 59, 2);
+VALUES (118, 'Pretty good use of technical terms', 6, 'Pass', 59, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (119, 'Pretty good use of technical terms', 'Average', 'Pass', 60, 1);
+VALUES (119, 'Pretty good use of technical terms', 4, 'Pass', 60, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (120, 'Poor use of technical terms', 'Poor', 'Repanel', 60, 2);
+VALUES (120, 'Poor use of technical terms', 0, 'Repanel', 60, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (121, 'Pretty good use of technical terms', 'Excellent', 'Pass', 61, 1);
+VALUES (121, 'Pretty good use of technical terms', 8, 'Pass', 61, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (122, 'Pretty good use of technical terms', 'Good', 'Pass', 61, 2);
+VALUES (122, 'Pretty good use of technical terms', 6, 'Pass', 61, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (123, 'Pretty good use of technical terms', 'Average', 'Pass', 62, 1);
+VALUES (123, 'Pretty good use of technical terms', 4, 'Pass', 62, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (124, 'Poor use of technical terms', 'Poor', 'Repanel', 62, 2);
+VALUES (124, 'Poor use of technical terms', 0, 'Repanel', 62, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (125, 'Pretty good use of technical terms', 'Excellent', 'Pass', 63, 1);
+VALUES (125, 'Pretty good use of technical terms', 8, 'Pass', 63, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (126, 'Pretty good use of technical terms', 'Good', 'Pass', 63, 2);
+VALUES (126, 'Pretty good use of technical terms', 6, 'Pass', 63, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (127, 'Pretty good use of technical terms', 'Average', 'Pass', 64, 1);
+VALUES (127, 'Pretty good use of technical terms', 4, 'Pass', 64, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (128, 'Poor use of technical terms', 'Poor', 'Repanel', 64, 2);
+VALUES (128, 'Poor use of technical terms', 0, 'Repanel', 64, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (129, 'Pretty good use of technical terms', 'Excellent', 'Pass', 65, 1);
+VALUES (129, 'Pretty good use of technical terms', 8, 'Pass', 65, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (130, 'Pretty good use of technical terms', 'Good', 'Pass', 65, 2);
+VALUES (130, 'Pretty good use of technical terms', 6, 'Pass', 65, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (131, 'Pretty good use of technical terms', 'Average', 'Pass', 66, 1);
+VALUES (131, 'Pretty good use of technical terms', 4, 'Pass', 66, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (132, 'Poor use of technical terms', 'Poor', 'Repanel',66, 2);
+VALUES (132, 'Poor use of technical terms', 0, 'Repanel',66, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (133, 'Pretty good use of technical terms', 'Excellent', 'Pass', 67, 1);
+VALUES (133, 'Pretty good use of technical terms', 8, 'Pass', 67, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (134, 'Pretty good use of technical terms', 'Good', 'Pass', 67, 2);
+VALUES (134, 'Pretty good use of technical terms', 6, 'Pass', 67, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (135, 'Pretty good use of technical terms', 'Average', 'Pass', 68, 1);
+VALUES (135, 'Pretty good use of technical terms', 4, 'Pass', 68, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (136, 'Poor use of technical terms', 'Poor', 'Repanel', 68, 2);
+VALUES (136, 'Poor use of technical terms', 0, 'Repanel', 68, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (137, 'Pretty good use of technical terms', 'Excellent', 'Pass', 69, 1);
+VALUES (137, 'Pretty good use of technical terms', 8, 'Pass', 69, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (138, 'Pretty good use of technical terms', 'Good', 'Pass', 69, 2);
+VALUES (138, 'Pretty good use of technical terms', 6, 'Pass', 69, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (139, 'Pretty good use of technical terms', 'Average', 'Pass', 70, 1);
+VALUES (139, 'Pretty good use of technical terms', 4, 'Pass', 70, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (140, 'Poor use of technical terms', 'Poor', 'Repanel', 70, 2);
+VALUES (140, 'Poor use of technical terms', 0, 'Repanel', 70, 2);
 COMMIT;
