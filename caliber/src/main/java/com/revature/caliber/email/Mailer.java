@@ -8,12 +8,17 @@ import javax.mail.internet.*;
 
 import org.springframework.beans.factory.annotation.Value;
 
-public class ReminderMailer extends TimerTask {
+/**
+ * 
+ * @author Will Underwood
+ *
+ */
+public class Mailer extends TimerTask {
 
-	@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
-	private static String from;
-	@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
-	private static String pass;
+	//@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
+	private static String from = System.getenv("DEV_CALIBER_EMAIL");
+	//@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
+	private static String pass = System.getenv("DEV_CALIBER_PASS");
 	private String to = "mscott@mailinator.com";
 
 	@Override
@@ -41,7 +46,7 @@ public class ReminderMailer extends TimerTask {
 	private Session getSession(Properties properties) {
 		return Session.getDefaultInstance(properties, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(ReminderMailer.from, ReminderMailer.pass);
+				return new PasswordAuthentication(Mailer.from, Mailer.pass);
 			}
 		});
 	}
