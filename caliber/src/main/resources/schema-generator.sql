@@ -3093,3 +3093,7 @@ VALUES (139, 'Pretty good use of technical terms', 4, 'Pass', 70, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
 VALUES (140, 'Poor use of technical terms', 0, 'Repanel', 70, 2);
 COMMIT;
+
+update caliber_batch
+set end_date = (select sysdate from dual);
+commit;
