@@ -541,7 +541,7 @@ angular
 										views : {
 											"" : {
 												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												//controller : "allReportController"
+												controller : "trainerAssessController"
 											},
 											"samplemodal@vp.panels" : {
 												templateUrl : "/static/app/partials/paneldemo/samplemodal.html"
