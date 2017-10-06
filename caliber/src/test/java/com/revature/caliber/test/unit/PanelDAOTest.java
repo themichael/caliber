@@ -83,7 +83,7 @@ public class PanelDAOTest extends CaliberTest {
 	@Test
 	public void findOneTest() {
 		log.info("Testing method PanelDAO.findOne(Integer panelId)");
-		int expected = 1;
+		int expected = 40;
 		int actual = panelDAO.findOne(expected).getId();
 		assertEquals(expected, actual);
 		try{

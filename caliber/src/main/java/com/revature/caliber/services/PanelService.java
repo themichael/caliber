@@ -38,7 +38,8 @@ public class PanelService {
 	 *******************************************************
 	 */
 	
-	/* UNDER TESTING
+	/* UNDER TESTING\
+	
 	public void update(Panel panel) {
 		log.debug("Update panel: " + panel);
 		panelDAO.update(panel);
@@ -50,11 +51,22 @@ public class PanelService {
 		;
 	}
 	
+	public void deletePanel(Panel panel) {
+		log.debug("Deleting Panel " + panel);
+		panelDAO.delete(panel);
+		;
+	}
+	
 	*/
 
 	public List<Panel> findAllPanels() {
 		log.debug("Finding all panels");
 		return panelDAO.findAll();
+	}
+	
+	public List<Panel> findAllRepanel() {
+		log.debug("Finding all panels");
+		return panelDAO.findAllRepanel();
 	}
 	
 	public Panel findById(int panelId) {
