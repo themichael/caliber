@@ -528,3 +528,34 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
 .clickableIcons {
 	cursor: pointer;
 }
+
+.container-1{
+  width: 300px;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+}
+
+.container-1 .icon{
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  margin-left: 17px;
+  margin-top: 17px;
+  z-index: 1;
+  color: grey;
+}
+
+.SearchPad {
+    padding-right: 40px;
+}
+
+.SearchButton {
+    background-color: Transparent;
+    border: none;
+    padding-right: 30px;
+    height: 34px;
+    width: 35px;
+    overflow: hidden;
+    outline:none;
+}
