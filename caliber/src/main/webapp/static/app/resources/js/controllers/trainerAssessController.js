@@ -798,11 +798,11 @@ angular
 
 					// sets the update assessment model with the current assessment data
 					$scope.setUpdateAssessmentToCurrent = function(index){
-						console.log(index);
+						$log.debug(index);
 						$scope.updateAssessmentModel.category = $scope.currentAssessments[index].category;
 						$scope.updateAssessmentModel.rawScore = $scope.currentAssessments[index].rawScore;
 						$scope.updateAssessmentModel.type = $scope.currentAssessments[index].type;
-						console.log($scope.currentAssessments[index]);
+						$log.debug($scope.currentAssessments[index]);
 					}
 						
 					$scope.updateAssessment = function(assessment,event,modalId,index){
