@@ -121,15 +121,19 @@ public class Batch implements Serializable {
 
 	@Column(name = "NUMBER_OF_WEEKS", nullable = false)
 	private int weeks;
+	
+	@Column(name = "GRADED_WEEKS")
+	private int gradedWeeks;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "batch")
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
-
+	
 	public Batch() {
 		super();
 		this.weeks = 1;
+		this.gradedWeeks = 7;
 		this.goodGradeThreshold = 80;
 		this.borderlineGradeThreshold = 70;
 		this.trainingType = TrainingType.Revature;
@@ -277,6 +281,22 @@ public class Batch implements Serializable {
 		this.notes = notes;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public int getGradedWeeks() {
+		return gradedWeeks;
+	}
+
+	public void setGradedWeeks(int gradedWeeks) {
+		this.gradedWeeks = gradedWeeks;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -351,14 +371,6 @@ public class Batch implements Serializable {
 		if (weeks != other.weeks)
 			return false;
 		return true;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	@Override
