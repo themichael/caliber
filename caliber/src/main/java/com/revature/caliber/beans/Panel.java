@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * Results of the final panel interview for each associate.
@@ -47,7 +47,7 @@ public class Panel {
 	private int id;
 	
 	@NotNull
-	@JsonManagedReference(value = "panels")
+	@JsonBackReference(value = "panels")
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "TRAINEE_ID", nullable = false)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
