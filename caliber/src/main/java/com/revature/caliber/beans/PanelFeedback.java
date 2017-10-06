@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
@@ -48,10 +50,11 @@ public class PanelFeedback {
 	@Column(name = "PANEL_STATUS", nullable = false)
 	private PanelStatus status;
 	
+	@Min(0)
+	@Max(10)
 	@NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(name = "PANEL_RESULT", nullable = false)
-	private TechnicalFeedback result;
+	@Column(name = "PANEL_RESULT")
+	private int result;
 	
 	@Column(name = "PANELIST_COMMENTS", nullable = false)
 	private String comment;
@@ -88,11 +91,11 @@ public class PanelFeedback {
 		this.status = status;
 	}
 
-	public TechnicalFeedback getResult() {
+	public int getResult() {
 		return result;
 	}
 
-	public void setResult(TechnicalFeedback result) {
+	public void setResult(int result) {
 		this.result = result;
 	}
 
@@ -118,7 +121,7 @@ public class PanelFeedback {
 		int result = 1;
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
 		result = prime * result + ((panel == null) ? 0 : panel.hashCode());
-		result = prime * result + ((this.result == null) ? 0 : this.result.hashCode());
+		result = prime * result + this.result;
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((technology == null) ? 0 : technology.hashCode());
 		return result;
