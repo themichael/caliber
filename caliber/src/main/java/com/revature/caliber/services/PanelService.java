@@ -57,11 +57,16 @@ public class PanelService {
 		return panelDAO.findAll();
 	}
 	
-	public Panel findById(int traineeId) {
-		log.info("Getting Panel with ID " + traineeId);
-		Panel panel = panelDAO.findOne(traineeId);
+	public Panel findById(int panelId) {
+		log.info("Getting Panel with ID " + panelId);
+		Panel panel = panelDAO.findOne(panelId);
 		log.info("Got " + panel);
 		return panel;
+	}
+	
+	public List<Panel> findByTraineeId(int traineeId) {
+		log.info("Getting Panels with trainee ID " + traineeId);
+		return panelDAO.findAllByTrainee(traineeId);
 	}
 	
 	/*
