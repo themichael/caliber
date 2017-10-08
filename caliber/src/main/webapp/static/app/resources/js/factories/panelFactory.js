@@ -1,5 +1,10 @@
 /**
+ * API that makes panel related AJAX calls to the back-end
+ * @author Nathan Koszuta
  * 
+ * @param $log
+ * @param $http
+ * @returns {{}}
  */
 
 angular.module('api').factory('panelFactory', function($log, $http) {
@@ -7,7 +12,7 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 	let panel = {};
 
 	/* ******************* Panel Feedback ********************** */
-	
+
 	// Create new feedback for panel
 	panel.createFeedback = function () {
 		return $http({
@@ -36,10 +41,10 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 		});
 	};
 
-	// Get feedback for trainee
-	panel.getTraineeFeedback = function (id) {
+	// Get all feedback for trainee
+	panel.getTraineeFeedback = function (traineeId) {
 		return $http({
-			url: '/panelfeedback/' + id + '/',
+			url: '/panelfeedback/all/' + traineeId + '/',
 			method: 'GET'
 		}).then(function (response) {
 			$log.debug('Trainee feedback successfully retreived');
@@ -50,8 +55,32 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 		});
 	};
 
-	// TODO: Update feedback
+	// Update feedback by id
+	panel.updateFeedback = function (feedbackId) {
+		return $http({
+			url: '/panelfeedback/update/' + feedbackId + '/',
+			method: 'PUT'
+		}).then(function (response) {
+			$log.debug('Feeback #' + feedback + 'successfully updated');
+			$log.debug(response);
+			return response.data;
+		}, function (error) {
+			$log.error('There was an error: ' + error.data);
+		});
+	};
 
-	// TODO: Delete feedback by id
+	// Delete feedback by id
+	panel.deleteFeedback = function (feedbackId) {
+		return $http({
+			url: '/panelfeedback/delete/' + feedbackId + '/',
+			method: 'DELETE'
+		}).then(function (response) {
+			$log.debug('Feeback #' + feedback + 'successfully deleted');
+			$log.debug(response);
+			return response.data;
+		}, function (error) {
+			$log.error('There was an error: ' + error.data);
+		});
+	};
 	
 });
