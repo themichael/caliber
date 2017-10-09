@@ -66,7 +66,7 @@ angular
 				//get trainee and batch
 				allBatches.forEach(function(batch){
 					batch.trainees.forEach(function(trainee){
-						if(trainee.name == traineeName){
+						if(trainee.name === traineeName){
 							//set view variables
 							$scope.reportCurrentWeek = '(All)';
 							$scope.currentBatch = batch;
