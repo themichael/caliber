@@ -23,7 +23,9 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 
+import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.security.models.SalesforceToken;
@@ -88,14 +90,14 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 				populateDatabase(); // Add the default trainer to the database
 									// in order to login
 				login();
-				log.info("Logging into Caliber for API testing at: " +baseUrl + "authenticated_token");
-				Response response = given().param("salestoken", accessToken).redirects().allowCircular(true)
+				log.info("Logging into Caliber for API testing at: " + baseUrl + "authenticated_token");
+				Response response = given().param("salestoken", accessTokenJson).redirects().allowCircular(true)
 						.get(baseUrl + "authenticated_token");
 				log.info("Token: " + accessToken);
-				
 				String sessionCookie = response.getSessionId();
 				String roleCookie = response.getCookie("role");
-				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie + "\nStatus: " + response.getStatusCode());
+				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie + "\nStatus: "
+						+ response.getStatusCode());
 				requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie)
 						.addCookie("role", roleCookie).build();
 				tearDownDatabase(); // remove database data to prepare it for
@@ -124,11 +126,31 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		parameters.add(new BasicNameValuePair("password", password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-		
-		accessToken += new ObjectMapper().readValue(response.getEntity().getContent(),
-				// JsonNode.class); // test
-				SalesforceToken.class).getAccessToken(); // actual
-		log.info("Accessing Salesforce API using token:  " + accessToken);
+		try{
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+			accessTokenJson = mapper.readValue(response.getEntity().getContent(),
+					SalesforceToken.class); // actual
+			accessToken += accessTokenJson.getAccessToken();
+			log.info("Accessing Salesforce API using token:  " + accessToken);
+		}catch(Exception e){
+			log.error(e);
+			httpClient = HttpClientBuilder.create().build();
+			log.info("logging into URL   " + accessTokenUrl);
+			post = new HttpPost(accessTokenUrl);
+			parameters = new ArrayList<>();
+			parameters.add(new BasicNameValuePair("grant_type", "password"));
+			parameters.add(new BasicNameValuePair("client_secret", clientSecret));
+			parameters.add(new BasicNameValuePair("client_id", clientId));
+			parameters.add(new BasicNameValuePair("username", username));
+			parameters.add(new BasicNameValuePair("password", password));
+			post.setEntity(new UrlEncodedFormEntity(parameters));
+			response = httpClient.execute(post);
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+			log.error(mapper.readValue(response.getEntity().getContent(),
+					JsonNode.class)); 
+		}
 	}
 
 	/**

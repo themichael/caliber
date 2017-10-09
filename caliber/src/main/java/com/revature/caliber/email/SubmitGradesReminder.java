@@ -14,10 +14,10 @@ public class SubmitGradesReminder {
 	
 	private static final long DAYS_IN_WEEK = 7;
 	private static final int YEAR = 2017;
-	private static final int MONTH = Calendar.OCTOBER;
-	private static final int DATE = 6;
-	private static final int HOUR = 9;
-	private static final int MINUTE = 0;
+	private static final int MONTH = 9;
+	private static final int DATE = 9;
+	private static final int HOUR = 10;
+	private static final int MINUTE = 51;
 	private static final int SECOND = 0;
 
 	public void startReminderJob() {
