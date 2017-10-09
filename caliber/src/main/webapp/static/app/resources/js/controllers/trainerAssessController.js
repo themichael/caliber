@@ -118,9 +118,6 @@ angular
 
 						$scope.grades={};
 						$scope.updateAssessmentModel={};
-						//$scope.updateAssessmentSkillCategory;
-						//$scope.updateAssessmentRawScore;
-						//$scope.updateAssessmentType;
 						
 						$scope.batches = allBatches;
 						if (!allBatches) 
