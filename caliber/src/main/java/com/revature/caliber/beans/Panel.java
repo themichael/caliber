@@ -26,6 +26,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -47,7 +48,7 @@ public class Panel {
 	private int id;
 	
 	@NotNull
-	@JsonManagedReference(value = "panels")
+	@JsonBackReference(value = "panels")
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "TRAINEE_ID", nullable = false)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -92,6 +93,7 @@ public class Panel {
 	
 	// Technical Feedback
 	@OneToMany(mappedBy = "panel", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "feedback")
 	private Set<PanelFeedback> feedback;
 	
 	// Comments and General Feedback

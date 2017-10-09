@@ -14,9 +14,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Adam Baker
  *
  */
-public enum TrainerRole implements Serializable{
+public enum TrainerRole implements Serializable {
 	@JsonProperty("ROLE_VP")
 	ROLE_VP,
+	@JsonProperty("ROLE_PANEL")
+	ROLE_PANEL,
 	@JsonProperty("ROLE_QC")
 	ROLE_QC,
 	@JsonProperty("ROLE_TRAINER")
