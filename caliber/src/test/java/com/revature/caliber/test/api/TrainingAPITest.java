@@ -40,7 +40,8 @@ public class TrainingAPITest extends AbstractAPITest {
 	private static final String SENIOR_TRAINER = "Senior Trainer";
 	private static final String NAME = "Patrick Walsh";
 	private static final String EMAIL = "patrick.walsh@revature.com";
-
+	private static final String BATCH = "batch";
+	
 	/*
 	 * Training API endpoints
 	 */
@@ -99,7 +100,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	public void findAllDroppedByBatchTest() throws Exception{
 		
 		log.info("API Testing findAllDroppedByBatchTest at baseUrl  " + baseUrl + findAllDroppedTrainees);
-		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
+		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam(BATCH, "2050").when()
 				.get(baseUrl + findAllDroppedTrainees).then().assertThat().statusCode(200).extract().response();
 		Trainee[] resultSet = actual.as(Trainee[].class);
 		boolean success = true;
@@ -120,11 +121,11 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void findAllByBatchTest(){
 		log.info("API Testing findAllByBatchTest at baseUrl  " + baseUrl + findAllTraineesInBatch);
-		Response rs = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "2050").when()
+		Response rs = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam(BATCH, "2050").when()
 				.get(baseUrl + findAllTraineesInBatch).then().assertThat().statusCode(200).extract().response();
 		Trainee[] resultSet = rs.as(Trainee[].class);
 		assertEquals(6,resultSet.length);
-		rs = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam("batch", "-245").when()
+		rs = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).queryParam(BATCH, "-245").when()
 				.get(baseUrl + findAllTraineesInBatch).then().assertThat().statusCode(200).extract().response();
 		resultSet = rs.as(Trainee[].class);
 		assertEquals(resultSet.length, 0);
@@ -292,7 +293,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void deleteBatch() throws Exception {
-		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + deleteBatch);
+		log.info("API Testing deleteBatch at baseUrl  " + baseUrl + deleteBatch);
 		given().spec(requestSpec).header(AUTH, accessToken).pathParam("id", 2003).contentType(ContentType.JSON).when()
 				.delete(baseUrl + deleteBatch).then().assertThat().statusCode(204);
 		
@@ -345,7 +346,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void findAllBatchesByTrainer() throws Exception {
-		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + findAllBatchesByTrainer);
+		log.info("API Testing findAllBatchesByTrainer at baseUrl  " + baseUrl + findAllBatchesByTrainer);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				// get request for all batches by a trainer
 				.when().get(baseUrl + findAllBatchesByTrainer)
@@ -365,7 +366,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void createWeek() throws Exception {
-		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + createWeek);
+		log.info("API Testing createWeek at baseUrl  " + baseUrl + createWeek);
 		given().spec(requestSpec).header(AUTH, accessToken).pathParam("batchId", 2201).contentType(ContentType.JSON)
 				// request to create a week for a specific batch
 				.when().post(baseUrl + createWeek)
@@ -388,7 +389,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void findCommonLocations() throws Exception {
-		log.info("API Testing getAllTrainers at baseUrl  " + baseUrl + findCommonLocations);
+		log.info("API Testing findCommonLocations at baseUrl  " + baseUrl + findCommonLocations);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				// request to get a list of common locations
 				.when().get(baseUrl + findCommonLocations)

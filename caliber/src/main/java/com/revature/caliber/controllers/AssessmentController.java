@@ -106,8 +106,8 @@ public class AssessmentController {
 			@PathVariable Integer week) {
 		log.debug("Find assessment by week number " + week + " for batch " + batchId + " ");
 		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, week);
-		if(assessments.size() == 0){
-			return new ResponseEntity<List<Assessment>>(HttpStatus.NOT_FOUND);
+		if(assessments.isEmpty()){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(assessments, HttpStatus.OK);
 	}

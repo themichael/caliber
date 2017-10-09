@@ -185,7 +185,6 @@ angular
 								.then(
 										function(response) {
 											$log.debug("getBatchComparisonLine")
-											console.log("inside getBatchComparisonLine");
 											$log.debug(response);
 											return response.data;
 										},
