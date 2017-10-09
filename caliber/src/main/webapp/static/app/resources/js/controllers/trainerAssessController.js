@@ -792,42 +792,49 @@ angular
 					/***********************************************************
 					 * UPDATE ASSESSMENT
 					 **********************************************************/
-						$scope.updateAssessment = function(assessment,event,modalId,index){
-							event.stopPropagation();
-							if($scope.updateAssessmentModel !==undefined){
-								$log.debug(index);
-								// $log.debug($scope.currentAssessments[$index]
-								// + " ------ " + $index);
-								if($scope.updateAssessmentModel.category){
-									assessment.category=$scope.updateAssessmentModel.category;
-								}
-								if($scope.updateAssessmentModel.type){
-									assessment.type=$scope.updateAssessmentModel.type;
-								}
-								if($scope.updateAssessmentModel.rawScore){
-									assessment.rawScore=$scope.updateAssessmentModel.rawScore;
-								}
-								// call delegate if at least one field was
-								// changed
-								if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
-									caliberDelegate.trainer.updateAssessment(assessment)
-									.then(function(response){
-										$log.debug("the assessment has been updated");
-										return response;
-									}).then(function(response){
-									$('.modal').modal('hide');										
-											$scope.currentAssessments[index] = response;
-											$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
-											getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
-									});
-								}
-							}
-							$('.modal').modal('hide');
-						};
-						
-					
-					
 
+					// sets the update assessment model with the current assessment data
+					$scope.setUpdateAssessmentToCurrent = function(index){
+						$log.debug(index);
+						$scope.updateAssessmentModel.category = $scope.currentAssessments[index].category;
+						$scope.updateAssessmentModel.rawScore = $scope.currentAssessments[index].rawScore;
+						$scope.updateAssessmentModel.type = $scope.currentAssessments[index].type;
+						$log.debug($scope.currentAssessments[index]);
+					}
+						
+					$scope.updateAssessment = function(assessment,event,modalId,index){
+						event.stopPropagation();
+						if($scope.updateAssessmentModel !==undefined){
+							$log.debug(index);
+							// $log.debug($scope.currentAssessments[$index]
+							// + " ------ " + $index);
+							if($scope.updateAssessmentModel.category){
+								assessment.category=$scope.updateAssessmentModel.category;
+							}
+							if($scope.updateAssessmentModel.type){
+								assessment.type=$scope.updateAssessmentModel.type;
+							}
+							if($scope.updateAssessmentModel.rawScore){
+								assessment.rawScore=$scope.updateAssessmentModel.rawScore;
+							}
+							// call delegate if at least one field was
+							// changed
+							if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
+								caliberDelegate.trainer.updateAssessment(assessment)
+								.then(function(response){
+									$log.debug("the assessment has been updated");
+									return response;
+								}).then(function(response){
+								$('.modal').modal('hide');										
+										$scope.currentAssessments[index] = response;
+										$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
+										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
+								});
+							}
+						}
+						$('.modal').modal('hide');
+					};
+						
 					
 					// delete the assessment clicked
 					$scope.deleteAssessment = function(assessment,event,modalId,index){
