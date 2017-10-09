@@ -61,7 +61,7 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 			url: '/panelfeedback/update/' + feedbackId + '/',
 			method: 'PUT'
 		}).then(function (response) {
-			$log.debug('Feeback #' + feedback + 'successfully updated');
+			$log.debug('Feeback #' + feedback + ' successfully updated');
 			$log.debug(response);
 			return response.data;
 		}, function (error) {
@@ -75,7 +75,7 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 			url: '/panelfeedback/delete/' + feedbackId + '/',
 			method: 'DELETE'
 		}).then(function (response) {
-			$log.debug('Feeback #' + feedback + 'successfully deleted');
+			$log.debug('Feeback #' + feedback + ' successfully deleted');
 			$log.debug(response);
 			return response.data;
 		}, function (error) {
