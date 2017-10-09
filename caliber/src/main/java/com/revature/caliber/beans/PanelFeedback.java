@@ -21,6 +21,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * Notes and results for each category that the panelist
  * goes over with the associate.
@@ -61,6 +64,7 @@ public class PanelFeedback {
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="PANEL_ID", nullable=false)
+	@JsonBackReference(value = "feedback")
 	private Panel panel;
 
 	public PanelFeedback() {
@@ -120,7 +124,7 @@ public class PanelFeedback {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result + ((panel == null) ? 0 : panel.hashCode());
+		result = prime * result + ((panel == null) ? 0 : panel.getId());
 		result = prime * result + this.result;
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((technology == null) ? 0 : technology.hashCode());

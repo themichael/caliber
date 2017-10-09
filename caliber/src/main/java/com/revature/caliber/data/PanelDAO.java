@@ -75,7 +75,7 @@ public class PanelDAO {
 	public Panel findOne(Integer panelId) {
 		log.info("Find panel by id: " + panelId);
 		return (Panel) sessionFactory.getCurrentSession().createCriteria(Panel.class)
-				.add(Restrictions.eq("panelId", panelId)).uniqueResult();
+				.add(Restrictions.eq("id", panelId)).uniqueResult();
 	}
 
 	/**

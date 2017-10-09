@@ -63,7 +63,8 @@ public class PanelFeedbackDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void save(PanelFeedback panelf) {
 		log.info("Save panel feedback " + panelf);
-		sessionFactory.getCurrentSession().save(panelf);
+		long id = (long) sessionFactory.getCurrentSession().save(panelf);
+		log.info("New Feedback ID: " +id);
 	}
 
 	/**
@@ -99,6 +100,13 @@ public class PanelFeedbackDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(PanelFeedback panel) {
 		log.info("Delete panel " + panel);
+		sessionFactory.getCurrentSession().delete(panel);
+	}
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void deleteById(long panelid) {
+		log.info("Delete panel " + panelid);
+		PanelFeedback panel = findOne(panelid);
 		sessionFactory.getCurrentSession().delete(panel);
 	}
 
