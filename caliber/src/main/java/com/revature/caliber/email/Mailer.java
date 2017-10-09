@@ -8,12 +8,17 @@ import javax.mail.internet.*;
 
 import org.springframework.beans.factory.annotation.Value;
 
-public class ReminderMailer extends TimerTask {
+/**
+ * 
+ * @author Will Underwood
+ *
+ */
+public class Mailer extends TimerTask {
 
-	@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
-	private static String from;
-	@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
-	private static String pass;
+	//@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
+	private static String from = System.getenv("DEV_CALIBER_EMAIL");
+	//@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
+	private static String pass = System.getenv("DEV_CALIBER_PASS");
 	private String to = "mscott@mailinator.com";
 
 	@Override
@@ -22,6 +27,12 @@ public class ReminderMailer extends TimerTask {
 	}
 
 	private void send() {
+		Properties properties = this.setProperties();
+		Session session = this.getSession(properties);
+		this.sendEmail(session);
+	}
+
+	private Properties setProperties() {
 		Properties properties = new Properties();
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.socketFactory.port", "587");
@@ -29,13 +40,18 @@ public class ReminderMailer extends TimerTask {
 		properties.put("mail.smtp.auth", "true");
 		properties.put("mail.smtp.port", "587");
 		properties.put("mail.smtp.starttls.enable", "true");
+		return properties;
+	}
 
-		Session session = Session.getDefaultInstance(properties, new Authenticator() {
+	private Session getSession(Properties properties) {
+		return Session.getDefaultInstance(properties, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(ReminderMailer.from, ReminderMailer.pass);
+				return new PasswordAuthentication(Mailer.from, Mailer.pass);
 			}
 		});
+	}
 
+	private void sendEmail(Session session) {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
