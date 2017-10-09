@@ -25,8 +25,9 @@ public class SubmitGradesReminder {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
 		Date startDate = calendar.getTime();
-		long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
-		timer.scheduleAtFixedRate(new Mailer(), startDate, interval);
+		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
+		long oneMinute = 60000;
+		timer.scheduleAtFixedRate(new Mailer(), startDate, oneMinute);
 	}
 
 }
