@@ -27,7 +27,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * The type Trainee.
@@ -115,7 +114,7 @@ public class Trainee implements Serializable {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
 	
-	@JsonManagedReference(value = "panels")
+	@JsonIgnore
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Panel> panelInterviews;
