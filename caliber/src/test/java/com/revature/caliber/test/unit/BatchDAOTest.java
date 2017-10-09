@@ -205,13 +205,6 @@ public class BatchDAOTest extends CaliberTest {
 		int expected = 2050;
 		int actual = batchDAO.findOne(expected).getBatchId();
 		assertEquals(expected, actual);
-		try{
-			batchDAO.findOne(expected).getBatchId();
-			fail();
-		}
-		catch(Exception e){
-			log.info(e);
-		}
 	}
 
 	/**
