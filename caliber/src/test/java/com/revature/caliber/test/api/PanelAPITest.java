@@ -95,7 +95,7 @@ public class PanelAPITest extends AbstractAPITest {
 		log.info("Get all panels when none exist");
 		List<Panel> allPanels = panelDAO.findAll();
 		for (Panel p : allPanels) {
-			panelDAO.delete(p);
+			panelDAO.delete(p.getId());
 		}
 		int expected = panelDAO.findAll().size();
 		given().
@@ -187,7 +187,7 @@ public class PanelAPITest extends AbstractAPITest {
 		// Save panels and delete from database
 		List<Panel> repanels = panelDAO.findAllRepanel();
 		for (Panel p : repanels) {
-			panelDAO.delete(p);
+			panelDAO.delete(p.getId());
 		}
 		int expected = panelDAO.findAllRepanel().size();
 		log.info("Number of repanels= " + expected);
