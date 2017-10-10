@@ -69,14 +69,5 @@ public class PanelFeedbackController {
 		pfService.save(panelf);
 		return new ResponseEntity<>(panelf, HttpStatus.CREATED);
 	}
-	@RequestMapping(value = "/panelfeedback/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
-	public ResponseEntity<Void> deleteAssessment(@PathVariable Long id) {
-		log.info("Deleting assessment: " + id);
-		PanelFeedback pf = new PanelFeedback();
-		pf.setId(id);
-		pfService.delete(pf);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
+
 }
