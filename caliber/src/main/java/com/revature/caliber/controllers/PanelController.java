@@ -53,7 +53,7 @@ public class PanelController {
 	public ResponseEntity<Panel> findPanelById(@PathVariable int panelId) {
 		log.debug("Getting category: " + panelId);
 		Panel panel = panelService.findById(panelId);
-		log.info(panel.toString());
+		log.info(panel);
 		return new ResponseEntity<>(panel, HttpStatus.OK);
 	}
 
