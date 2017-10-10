@@ -26,6 +26,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * Results of the final panel interview for each associate.
@@ -90,6 +91,7 @@ public class Panel {
 	
 	// Technical Feedback
 	@OneToMany(mappedBy = "panel", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "feedback")
 	private Set<PanelFeedback> feedback;
 	
 	// Comments and General Feedback
