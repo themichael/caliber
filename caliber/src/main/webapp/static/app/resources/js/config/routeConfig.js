@@ -533,27 +533,7 @@ angular
 										}
 										
 									})
-							//DELETE THIS
-							.state(
-									"vp.panels",
-									{
-										url : "/panels",
-										views : {
-											"" : {
-												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												controller : "trainerAssessController"
-											},
-											"samplemodal@vp.panels" : {
-												templateUrl : "/static/app/partials/paneldemo/samplemodal.html"
-											}
-										},
-										// authorize the user
-										onEnter : function(authFactory) {
-											authFactory.authReports();
-										}
-										
-									})
-
+								
                             /**
 							 * Staging role
 							 * 
@@ -604,4 +584,37 @@ angular
 								}
                             }
                         )
+                        //Panel Role
+                        .state(
+									"panel",
+									{
+										abstract : true,
+										url : "/panel",
+										templateUrl : "/static/app/partials/abstracts/panel.html",
+										resolve : {
+											allBatches : function(
+													caliberDelegate) {
+												return caliberDelegate.panel
+														.getAllBatches();
+											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authPanel();
+										}
+
+							})
+						.state(
+									"panel.home",
+									{ 
+										url : "/home",
+										/* add modal view to vpHome page */
+										views: {
+											"" : {
+												templateUrl : "/static/app/partials/home/panel-home.html",
+												//controller : "vpHomeController"
+											}
+										}
+										
+							})
 				});
