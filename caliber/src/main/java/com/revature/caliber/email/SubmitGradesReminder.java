@@ -15,9 +15,9 @@ public class SubmitGradesReminder {
 	private static final long DAYS_IN_WEEK = 7;
 	private static final int YEAR = 2017;
 	private static final int MONTH = 9;
-	private static final int DATE = 9;
-	private static final int HOUR = 9;
-	private static final int MINUTE = 59;
+	private static final int DATE = 10;
+	private static final int HOUR = 13;
+	private static final int MINUTE = 45;
 	private static final int SECOND = 0;
 
 	public void startReminderJob() {
@@ -26,7 +26,7 @@ public class SubmitGradesReminder {
 		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
 		Date startDate = calendar.getTime();
 		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
-		long oneMinute = 60000;
+		long oneMinute = 10000;
 		timer.scheduleAtFixedRate(new Mailer(), startDate, oneMinute);
 	}
 
