@@ -106,9 +106,9 @@ public class PanelFeedbackDAOTest extends CaliberTest{
 	@Test
 	public void getFeedbackByIdDAO(){
 		log.info("Finding Location by address");
-		long search = 1;
-		PanelFeedback feedback = dao.findOne(search);
-		assertEquals(dao.findOne((long)1).toString(),feedback.toString());
+		long expected = 1l;
+		long actual = dao.findOne(expected).getId();
+		assertEquals(expected, actual);
 	}
 
 	//Tests to make sure an address not in the database returns null. 
