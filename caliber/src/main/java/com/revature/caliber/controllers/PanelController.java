@@ -92,12 +92,12 @@ public class PanelController {
 		return new ResponseEntity<>(panel, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/panel/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/panel/delete/{panelId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
-	public ResponseEntity<Void> deleteAssessment(@PathVariable Panel panel) {
-		log.info("Deleting panel: " + panel);
-		panelService.deletePanel(panel);
+	public ResponseEntity<Void> deleteAssessment(@PathVariable int panelId) {
+		log.info("Deleting panel: " + panelId);
+		panelService.deletePanel(panelId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
