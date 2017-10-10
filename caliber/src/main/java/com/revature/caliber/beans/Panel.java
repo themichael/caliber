@@ -89,6 +89,7 @@ public class Panel {
 	
 	// Technical Feedback
 	@OneToMany(mappedBy = "panel", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "feedback")
 	private Set<PanelFeedback> feedback;
 	
 	// Comments and General Feedback
