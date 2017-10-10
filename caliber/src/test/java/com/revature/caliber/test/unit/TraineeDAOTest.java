@@ -20,10 +20,6 @@ import com.revature.caliber.beans.Trainer;
 
 import com.revature.caliber.data.TraineeDAO;
 
-
-
-
-
 public class TraineeDAOTest extends CaliberTest {
 
 	private static final Logger log = Logger.getLogger(TraineeDAOTest.class);

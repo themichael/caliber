@@ -113,6 +113,11 @@ public class Trainee implements Serializable {
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	private Set<Panel> panelInterviews;
 
 	public Trainee() {
 		super();
@@ -220,6 +225,14 @@ public class Trainee implements Serializable {
 
 	public void setResourceId(String resourceId) {
 		this.resourceId = resourceId;
+	}
+
+	public Set<Panel> getPanelInterviews() {
+		return panelInterviews;
+	}
+
+	public void setPanelInterviews(Set<Panel> panelInterviews) {
+		this.panelInterviews = panelInterviews;
 	}
 
 	@Override
