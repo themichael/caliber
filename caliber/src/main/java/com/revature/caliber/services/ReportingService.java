@@ -36,6 +36,7 @@ import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.PanelDAO;
+import com.revature.caliber.data.PanelFeedbackDAO;
 import com.revature.caliber.data.TraineeDAO;
 
 /**
@@ -66,6 +67,7 @@ public class ReportingService {
 	private NoteDAO noteDAO;
 	private AssessmentDAO assessmentDAO;
 	private PanelDAO panelDAO;
+	private PanelFeedbackDAO panelFeedbackDAO;
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -95,6 +97,11 @@ public class ReportingService {
 	@Autowired
 	public void setPanelDAO(PanelDAO panelDAO) {
 		this.panelDAO = panelDAO;
+	}
+	
+	@Autowired
+	public void setPanelFeedBackDAO(PanelFeedbackDAO panelFeedbackDAO) {
+		this.panelFeedbackDAO = panelFeedbackDAO;
 	}
 	/*
 	 *******************************************************
@@ -898,11 +905,9 @@ public class ReportingService {
 			panelInfo.put("status", status);
 			if(status.equalsIgnoreCase("Repanel")) {
 				String topics = "";
-				for(PanelFeedback pf: p.getFeedback()) {
-					if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
+				for(PanelFeedback pf: panelFeedbackDAO.findFailedFeedbackByPanel(p)) {
 						if(topics.length()>0) {topics += ", ";}
 						topics += pf.getTechnology().getSkillCategory();
-					}
 				}
 				panelInfo.put("topics", topics);
 			}

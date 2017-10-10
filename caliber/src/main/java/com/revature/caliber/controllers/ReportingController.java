@@ -276,4 +276,12 @@ public class ReportingController {
 		log.info("getBatchWeekAverageValue   ===>   /all/reports/batch/{batchId}/overall/line-batch-overall");
 		return new ResponseEntity<>(reportingService.getTechnologiesForTheWeek(batchId, week), HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/all/reports/batch/{batchId}/panel-batch-all-trainees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
+	public ResponseEntity<List<Map<String, String>>> getBatchAllTraineesPanelTable(
+			@PathVariable Integer batchId) {
+		log.info("getBatchOverallPanelTable   ===>   /all/reports/batch/{batchId}/overall/panel-batch-overall");
+		return new ResponseEntity<>(reportingService.getBatchPanels(batchId), HttpStatus.OK);
+	}
 }

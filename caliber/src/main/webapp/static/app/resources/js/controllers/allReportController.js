@@ -7,6 +7,9 @@
  * @author Igor Gluskin
  * @author Ateeb Khawaja
  * 
+ * Team Velociraports
+ * @author Emma Bownes
+ * 
  */
 angular
 .module("charts")
@@ -437,6 +440,7 @@ angular
 				createTechnicalSkillsBatchOverall();
 				createAllTraineesAndBatchRadarData();
 				createWeeklyProgressBatchOverall();
+				getBatchOverallPanelTable();
 			}
 
 			function createBatchOverallTrainee() {
@@ -446,6 +450,7 @@ angular
 				createAssessmentAveragesTraineeOverall();
 				createWeeklyProgressTraineeOverall();
 				createTechnicalSkillsTraineeOverall();
+				
 			}
 
 			// *******************************************************************************
@@ -753,7 +758,30 @@ angular
 								});
 
 			}
-
+			// *******************************************************************************
+			// *** Tables
+			// *******************************************************************************
+			/**
+			 * Generates the Panel table.
+			 * @author Emma Bownes
+			 */
+			function getBatchOverallPanelTable(){
+				caliberDelegate.agg.getAggBatchPanelTable(
+						$scope.currentBatch.batchId)
+						.then(
+								function(response){
+									NProgress.done();
+									console.log("batch overall panel ");
+									console.log(response);
+									$scope.allTraineesPanelData = response;
+								},
+								function(response){
+									NProgress.done();
+									
+								})
+			}
+			
+			
 			// *******************************************************************************
 			// *** PDF Generation
 			// *******************************************************************************
@@ -913,6 +941,7 @@ angular
 								function(response) {
 									$scope.categories = response;
 								});
+				
 			}
 
 		});

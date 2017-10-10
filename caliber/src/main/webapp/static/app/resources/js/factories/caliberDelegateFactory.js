@@ -361,6 +361,11 @@ angular
 					delegate.agg.getAggBatchAllTrainer = function(trainerId) {
 						return aggFactory.batchTrainer(trainerId);
 					};
+					
+					//Emma Bownes
+					delegate.agg.getAggBatchPanelTable = function(batchId) {
+						return aggFactory.reportPanelTable(batchId);
+					}
 
 					return delegate;
 

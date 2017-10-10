@@ -167,6 +167,20 @@ angular.module("api").factory(
 					$log.error("There was an error: " + response.status);
 				});
 			};
+			
+			agg.reportPanelTable = function(batchId){
+				return $http(
+						{
+							url : "/all/reports/batch/"+ batchId +"/panel-batch-all-trainees",
+							method : "GET"
+						}).then(function(response) {
+					$log.debug("Agg - Batch - batchId -- success");
+					$log.debug(response);
+					return response.data;
+				}, function(response) {
+					$log.error("There was an error: " + response.status);
+				});
+			}
 
 			return agg;
 		});
