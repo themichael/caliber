@@ -121,9 +121,9 @@ public class PanelDAO {
 	 * @param panel
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void delete(Panel panel) {
-		log.info("Delete panel " + panel);
-		sessionFactory.getCurrentSession().delete(panel);
+	public void delete(int panelId) {
+		log.info("Delete panel " + panelId);
+		sessionFactory.getCurrentSession().delete(findOne(panelId));
 	}
 
 }
