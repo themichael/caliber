@@ -26,6 +26,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * Results of the final panel interview for each associate.
  * @author Patrick Walsh
