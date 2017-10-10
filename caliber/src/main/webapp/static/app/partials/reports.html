@@ -18,6 +18,20 @@
 					<li><a href="" ng-click="generatePDF()"> Charts + Feedback </a></li>
 				</ul>
 			</div>
+			
+			<!-- Search for single Trainee -->
+			<div class="container-1 pull-right">
+                <form ng-submit="selectChosenTrainee()">
+                    <span class="icon"><button type="submit" class="SearchButton"><i class="fa fa-search"></i></button></span>
+                      <input ng-model="chosenTrainee" list="traineeList" type="search" id="searchTextBox" 
+                      		placeholder="Search..." class="form-control SearchPad" autocomplete="off" />
+                      <datalist id="traineeList">
+	    						<option ng-repeat="trainee in allTrainees track by $index" ng-value="trainee.name">
+	    							{{trainee.name}} | {{trainee.email}} | {{trainee.skypeId}} 
+	    						</option>
+	    			  </datalist>
+                </form>
+            </div>
 
 			<ul class="nav nav-tabs">
 				<!-- Filter batches by year -->
@@ -56,8 +70,9 @@
 						<li><a role="button" ng-click="selectCurrentTrainee(-1)">All</a></li>
 						<li ng-repeat="trainee in currentBatch.trainees track by $index"><a
 							role="button" ng-click="selectCurrentTrainee($index)">{{trainee.name}}</a></li>
-					</ul></li>
-
+					</ul>
+				</li>
+				
 				<!-- Select Training Type-->
 						<!-- 	<li role="button" class="dropdown"><a
 								class="dropdown-toggle" data-toggle="dropdown"> Training
