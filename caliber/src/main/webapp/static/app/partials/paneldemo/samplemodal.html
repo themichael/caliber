@@ -1,0 +1,165 @@
+<form ng-init="preventModalClose()">
+	<div class="modal fade" id="samplemodal" tabindex="-1">
+		<div class="container">
+        <div class="container">
+            <div id="technical-feedback">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> Panel Interview Feedback </div>
+                    <h3></h3>
+                    <div id="logo">
+                        <!-- <img src=“RevLogo”> --></div>
+                    <div class = "form-group">
+                        <div>
+                            <div class = "form-row">
+                                <div class = "form-group col-md-6">
+                                    Name of the Associate
+                                   <input type = "text" class = "form-control" readonly = "true" ng-bind = "" />
+                                </div>
+                            </div>
+                            <div class = "form-row">
+                                <div class = "form-group col-md-6">
+                                    Panelist Name
+                                    <input type = "text" class = "form-control" readonly = "true" ng-bind="trainer.firstname +' '+trainer.lastname"/>
+                                </div>
+                            </div>
+                            <div class = "form-row">
+                                <div class = "form-group col-md-6">
+                                    Training Track
+                                   <input type = "text" class = "form-control" ng-bind="trainee.trainingTrack">
+                                </div>
+                            </div>
+                            <div>
+                                <div class = "form-group col-md-6">
+                                    Panel Round
+                               
+                                    <input type = "text" class = "form-control" readonly = "true"ng-bind="panelInterview.round"/>
+                                </div>
+                            </div>
+                             <div class = "form-row">
+                                <div class = "form-group col-md-6">
+                                    Recording Consent
+                              
+                                   <input type = "text" class = "form-control" ng-bind="interviewPanel.consent">
+                                </div>
+                            </div>
+                             <div class = "form-row">
+                                <div class = "form-group col-md-6">
+                                    Recording link
+                                
+                                    <input type = "text" class = "form-control" ng-bind="panelInterview.link">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class = "form-row">
+                                <div class = "form-group col-md-6">
+                                    Interview Date
+                               
+                                  <input type = "text" class = "form-control" ng-bind="panelInterview.date">
+                                </div>
+                            </div>
+                            <div class = "form-row">
+                                <div class = "form-group col-md-6">
+                                    Interview Time
+                                
+                                    <input type = "text" class = "form-control" ng-bind="panelInterview.time">
+                                </div>
+                            </div>
+                             <div class = "form-row">
+                                <div class = "form-group col-md-6">
+                                    Interview Duration
+                                
+                                    <input type = "text" class = "form-control" ng-bind="panelInterview.duration">
+                                </div>
+                            </div>
+                             <div class = "form-row">
+                                <div class = "form-group col-md-6">
+                                    Interview Mode
+                               
+                                    <input type = "text" class = "form-control" ng-bind="panelInterview.mode">
+                                </div>
+                            </div>
+                             <div>
+                                <div class = "form-group col-md-6">
+                                    Overall Feedback
+                                
+                                    <input type = "text" class = "form-control" ng-bind="panelInterview.overall">
+                                </div>
+                            </div>
+                            <div>
+                                <div class = "form-group">
+                                    Internet Connectivity
+                                
+                                   <input type = "text" class = "form-control" ng-bind="panelInterview.connectivity">
+                             
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="technical-feedback">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Technical Feedback</div>
+                    <table id="feedback" class="table table=responsive">
+                        <tr>
+                            <th> Technology </th>
+                            <th> Result </th>
+                            <th> Repanel </th>
+                            <th> Comment </th>
+                        </tr>
+                        <tr ng-repeat="item in feedback">
+                            <td>{{item.technology}}</td>
+                            <td>{{item.result}}</td>
+                            <td>{{item.repanel}}</td>
+                            <td>{{item.comment}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="technical-feedback">
+                <div class="panel panel-default">
+                    <div class="panel-heading">General Feedback</div>
+                    <div id="general-feedback">
+                        <table id="feedback" class="table table=responsive">
+                            <tr>
+                                <th>Criteria</th>
+                                <th>Comment</th>
+                            </tr>
+                            <tr>
+                                <td><b>Associate Introduction</b></td>
+                                <td>{{panelInterview.generalFeedback.introduction.comment}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Project 1 Explanation</b></td>
+                                <td>{{panelInterview.generalFeedback.project1}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Project 2 Explanation</b></td>
+                                <td>{{panelInterview.generalFeedback.project2}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Project 3 Explanation</b></td>
+                                <td>{{panelInterview.generalFeedback.project3}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Communication Skills</b></td>
+                                <td>{{panelInterview.generalFeedback.communication}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Overall</b></td>
+                                <td>{{panelInterview.generalFeedback.overall}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+	</div>
+</form>

@@ -27,12 +27,15 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.Panel;
+import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
+import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
 
 /**
@@ -62,6 +65,7 @@ public class ReportingService {
 	private TraineeDAO traineeDAO;
 	private NoteDAO noteDAO;
 	private AssessmentDAO assessmentDAO;
+	private PanelDAO panelDAO;
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -84,8 +88,13 @@ public class ReportingService {
 	}
 
 	@Autowired
-	public void seAssessmentDAO(AssessmentDAO assessmentDAO) {
+	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
 		this.assessmentDAO = assessmentDAO;
+	}
+	
+	@Autowired
+	public void setPanelDAO(PanelDAO panelDAO) {
+		this.panelDAO = panelDAO;
 	}
 	/*
 	 *******************************************************
@@ -519,6 +528,14 @@ public class ReportingService {
 		assessments.forEach(a -> results.add(a.getCategory().getSkillCategory()));
 		return results;
 	}
+	
+	public List<Map<String, String>> getBatchPanels(Integer batchId) {
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		List<Panel> panels = new ArrayList<>();
+		trainees.forEach(a -> panels.add(panelDAO.findAllByTrainee(a.getTraineeId()).get(0)));
+		List<Map<String, String>> panelDto = utilAllTraineePanels(panels);
+		return panelDto;
+	}
 
 	/*
 	 *******************************************************
@@ -864,5 +881,36 @@ public class ReportingService {
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
 	}
+	
+	/**
+	 * Takes a List of panels for a batch and returns a Map of labels with information
+	 * needed for batch overall panel table (Trainee Name, Panel Status, Repanel Topics)
+	 * @param panels
+	 * @return
+	 */
+	private List<Map<String, String>> utilAllTraineePanels(List<Panel> panels) {
+		Map<String, String> panelInfo;
+		List<Map<String, String>> batchPanels = new ArrayList<>();
+		for(Panel p : panels) {
+			panelInfo = new HashMap<>();
+			panelInfo.put("trainee", p.getTrainee().getName());
+			String status = p.getStatus().toString();
+			panelInfo.put("status", status);
+			if(status.equalsIgnoreCase("Repanel")) {
+				String topics = "";
+				for(PanelFeedback pf: p.getFeedback()) {
+					if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
+						if(topics.length()>0) {topics += ", ";}
+						topics += pf.getTechnology().getSkillCategory();
+					}
+				}
+				panelInfo.put("topics", topics);
+			}
+			batchPanels.add(panelInfo);
+		}
+		return batchPanels;
+	}
+	
+	
 
 }

@@ -205,14 +205,6 @@ public class BatchDAOTest extends CaliberTest {
 		int expected = 2050;
 		int actual = batchDAO.findOne(expected).getBatchId();
 		assertEquals(expected, actual);
-		try{
-			expected = -234;
-			actual = batchDAO.findOne(expected).getBatchId();
-			fail();
-		}
-		catch(Exception e){
-			log.info(e);
-		}
 	}
 
 	/**
@@ -235,7 +227,7 @@ public class BatchDAOTest extends CaliberTest {
 		}
 		assertTrue(success);
 		try{
-			resultSet = batchDAO.findOneWithDroppedTrainees(-999).getTrainees();
+			batchDAO.findOneWithDroppedTrainees(-999).getTrainees();
 			fail();
 		}
 		catch(Exception e){
@@ -265,7 +257,7 @@ public class BatchDAOTest extends CaliberTest {
 		}
 		assertTrue(success);
 		try{
-			resultSet = batchDAO.findOneWithTraineesAndGrades(-999).getTrainees();
+			batchDAO.findOneWithTraineesAndGrades(-999).getTrainees();
 			fail();
 		}
 		catch(Exception e){
