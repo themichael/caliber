@@ -28,7 +28,7 @@ import com.revature.caliber.services.PanelService;
 @RestController
 @PreAuthorize("isAuthenticated()")
 public class PanelController {
-	
+
 	private static final Logger log = Logger.getLogger(PanelController.class);
 
 	@Autowired
@@ -37,18 +37,18 @@ public class PanelController {
 	public void setSalesforceService(PanelService panelService) {
 		this.panelService = panelService;
 	}
-	
+
 	// FIXME change the roles
-	
+
 	@RequestMapping(value = "/panel/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<List<Panel>> findAll() {
-		log.debug("Getting all feedback");
-		List<Panel> feedback = panelService.findAllPanels();
-		return new ResponseEntity<>(feedback, HttpStatus.OK);
+		log.debug("Getting all panels");
+		List<Panel> panels = panelService.findAllPanels();
+		return new ResponseEntity<>(panels, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/panel/{panelId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
@@ -58,7 +58,7 @@ public class PanelController {
 		log.info(panel.toString());
 		return new ResponseEntity<>(panel, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/panel/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
@@ -68,14 +68,14 @@ public class PanelController {
 		log.info(panels.toString());
 		return new ResponseEntity<>(panels, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/panel/repanel/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<List<Panel>> findAllRepanel() {
 		log.debug("Getting all panels with repanel");
-		List<Panel> feedback = panelService.findAllRepanel();
-		return new ResponseEntity<>(feedback, HttpStatus.OK);
+		List<Panel> panels = panelService.findAllRepanel();
+		return new ResponseEntity<>(panels, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/panel/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -85,24 +85,22 @@ public class PanelController {
 		panelService.update(panel);
 		return new ResponseEntity<>(panel, HttpStatus.OK);
 	}
-	
-	
+
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")
-	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panelf) {
-		panelService.createPanel((panelf));
-		return new ResponseEntity<>(panelf, HttpStatus.CREATED);
+	public ResponseEntity<Panel> savePanel(@Valid @RequestBody Panel panel) {
+		panelService.createPanel((panel));
+		return new ResponseEntity<>(panel, HttpStatus.CREATED);
 	}
-	
+
 	@RequestMapping(value = "/panel/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
-	public ResponseEntity<Void> deleteAssessment(@PathVariable Panel p) {
-		log.info("Deleting panel: " + p);
-		panelService.deletePanel(p);
+	public ResponseEntity<Void> deleteAssessment(@PathVariable Panel panel) {
+		log.info("Deleting panel: " + panel);
+		panelService.deletePanel(panel);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
 
 }
