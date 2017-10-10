@@ -621,9 +621,9 @@ public class ReportingServiceTest extends CaliberTest {
 		
 		//These log lines, in the console, should display the same values that are being retrieved from the database, mainly for verification.
 		log.info("Number of individuals ranked 'superstar' in batch " + 2201 + " for week  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
-		log.info("Number of individuals ranked 'good' in batch " + 2201 + " for week  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Good));
-		log.info("Number of individuals ranked 'average' in batch " + 2201 + " for week  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
-		log.info("Number of individuals ranked 'poor' in batch " + 2201 + " for week  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Poor));
+		log.info("Number of individuals ranked 'good' in batch " + 2201 + " week:  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Good));
+		log.info("Number of individuals ranked 'average' in batch: " + 2201 + " week:  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
+		log.info("Number of individuals ranked 'poor' in batch " + 2201 + " for week:  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Poor));
 		
 	}
 	
