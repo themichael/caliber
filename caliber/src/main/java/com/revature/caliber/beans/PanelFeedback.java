@@ -130,15 +130,6 @@ public class PanelFeedback {
 		hashCodeResult = prime * result + ((status == null) ? 0 : status.hashCode());
 		hashCodeResult = prime * result + ((technology == null) ? 0 : technology.hashCode());
 		return hashCodeResult;
-//=======
-//		int result = 1;
-//		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-//		result = prime * result + ((panel == null) ? 0 : panel.getId());
-//		result = prime * result + this.result;
-//		result = prime * result + ((status == null) ? 0 : status.hashCode());
-//		result = prime * result + ((technology == null) ? 0 : technology.hashCode());
-//		return result;
-//>>>>>>> 53acd47d424d4242ebaa4691d942b5a800ad8641
 	}
 
 	@Override
