@@ -17,7 +17,7 @@ public class SubmitGradesReminder {
 	private static final int MONTH = 9;
 	private static final int DATE = 10;
 	private static final int HOUR = 13;
-	private static final int MINUTE = 45;
+	private static final int MINUTE = 58;
 	private static final int SECOND = 0;
 
 	public void startReminderJob() {
