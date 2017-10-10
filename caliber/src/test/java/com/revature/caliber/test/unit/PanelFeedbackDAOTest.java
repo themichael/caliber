@@ -81,7 +81,7 @@ public class PanelFeedbackDAOTest extends CaliberTest{
 		long pfid= pf.getId();
 		System.out.println(pfid);
 		int after = jdbcTemplate.queryForObject(PANELF_COUNT, Integer.class);
-		assertEquals(pf.toString(), dao.findOne(pfid).toString());
+		assertEquals(pfid, dao.findOne(pfid).getId());
 		assertEquals(++before, after);
 	}
 	
