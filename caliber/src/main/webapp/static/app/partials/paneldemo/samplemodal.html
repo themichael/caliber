@@ -11,20 +11,37 @@
 						<div class="panel-heading">Interview Details</div>
 						<div class="panel-body">
 							<div class="form-group col-md-6">
-								<b>Name of the Associate</b> <input type="text" class="form-control" readonly="true" ng-bind="trainee.firstName + ' ' + trainee.lastName" /><br> 
-								<b>Panelist Name</b> <input type="text" class="form-control" readonly="true" ng-bind="panelist.firstName + ' ' + panelist.lastName" /><br> 
-								<b>Training Track</b> <input type="text" class="form-control" readonly="true" ng-bind="trainee.trainingTrack" /><br> 
-								<b>Panel Round</b> <input type="text" class="form-control" readonly="true" ng-bind="panelInterview.round" /><br> 
-								<b>Recording Consent</b> <input type="text" class="form-control" readonly="true" ng-bind="interviewPanel.consent" /><br> 
-								<b>Recording Link</b> <input type="text" class="form-control" readonly="true" ng-bind="panelInterview.link" /><br>
+								<b>Name of the Associate</b> <input type="text" class="form-control" ng-init="associate.firstName + ' ' + associate.lastName" disabled /><br> 
+								<b>Panelist Name</b> <input type="text" class="form-control" placeholder="Firstname Lastname" ng-bind="panelist.firstName + ' ' + panelist.lastName" /><br> 
+								<b>Training Track</b> <input type="text" class="form-control" ng-bind="trainee.trainingTrack" /><br> 
+								<b>Panel Round</b> <input type="number" class="form-control" placeholder="Select a value between 1 - 10"  min="1" max="10" ng-bind="panelInterview.round" /><br> 
+								<b>Recording Consent</b> <input type="number" class="form-control" placeholder="Select a value between 0 - 1"  min="0" max="1" ng-bind="interviewPanel.consent" /><br> 
+								<b>Recording Link</b> <input type="text" class="form-control" ng-bind="panelInterview.link" /><br>
 							</div>
 							<div class="form-group col-md-6">
-								<b>Interview Date</b> <input type="text" class="form-control" readonly="true" ng-bind="panelInterview.date" /><br> 
-								<b>Interview Time</b> <input type="text" class="form-control" readonly="true" ng-bind="panelInterview.time" /><br> 
-								<b>Interview Duration</b> <input type="text" class="form-control" readonly="true" ng-bind="panelInterview.duration" /><br> 
-								<b>Interview Model</b> <input type="text" class="form-control" readonly="true" ng-bind="panelInterview.mode" /><br> 
-								<b>Overall Feedback</b> <input type="text" class="form-control" readonly="true" ng-bind="panelInterview.overall" /><br> 
-								<b>Internet Connectivity</b> <input type="text" class="form-control" readonly="true" ng-bind="panelInterview.connectivity" /><br>
+							<!-- Interview Date and Time need to use the Moment Picker -->
+								<b>Interview Date</b> <div class="input-group">
+													  <input class="date-input form-control date-selector" name="i"
+													  min="0" placeholder="Interview Date" 
+													  moment-picker="interviewDate.model" format="YYYY-MM-DD"
+													  ng-model="interviewDate.model"
+													  ng-model-options="{ updateOn: 'blur' }" ng-required="true">
+													  <i class="input-group-addon glyphicon glyphicon-calendar"></i>
+													  </div>
+													  <br>
+								<b>Interview Time</b> <div class="input-group">
+													  <input class="date-input form-control time-selector" name="t"
+													  min="0" placeholder="Interview Time" 
+													  moment-picker="ctrl.timepicker" format="hh:mm A"
+													  ng-model="interviewTime.model"
+													  ng-model-options="{ updateOn: 'blur' }" ng-required="true">
+													  <i class="input-group-addon glyphicon glyphicon-time"></i>
+													  </div>
+													  <br>
+								<b>Interview Duration</b> <input type="text" class="form-control" ng-bind="panelInterview.duration" /><br> 
+								<b>Interview Model</b> <input type="text" class="form-control" ng-bind="panelInterview.mode" /><br> 
+								<b>Overall Feedback</b> <input type="text" class="form-control" placeholder="Overall Feedback" ng-bind="panelInterview.overall" /><br> 
+								<b>Internet Connectivity</b> <input type="text" class="form-control" ng-bind="panelInterview.connectivity" /><br>
 							</div>
 						</div>
 					</div>
@@ -51,6 +68,8 @@
                             		<td><input type="text" class="form-control" id="technicalFeedback.comment"></td>
                         		</tr>
                     		</table>
+                    		<div class="pull-left" ng-click=""><span class="glyphicon glyphicon-plus" style="color: #F26925;" aria-hidden="true"></span></div>
+                    		<div class="pull-right" ng-click=""><span class="glyphicon glyphicon-remove" style="color: #F26925;" aria-hidden="true"></span></div>
 						</div>
 					</div>
 					<div class="panel panel-default">
