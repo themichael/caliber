@@ -63,7 +63,9 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 	private static String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
 	private static String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
 	protected static String authHeader = "Authorization";
-
+	
+	private static final String PASS = "password";
+	
 	private static final Logger log = Logger.getLogger(AbstractAPITest.class);
 
 	/**
@@ -119,11 +121,11 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 		log.info("logging into URL   " + accessTokenUrl);
 		HttpPost post = new HttpPost(accessTokenUrl);
 		List<NameValuePair> parameters = new ArrayList<>();
-		parameters.add(new BasicNameValuePair("grant_type", "password"));
+		parameters.add(new BasicNameValuePair("grant_type", PASS));
 		parameters.add(new BasicNameValuePair("client_secret", clientSecret));
 		parameters.add(new BasicNameValuePair("client_id", clientId));
 		parameters.add(new BasicNameValuePair("username", username));
-		parameters.add(new BasicNameValuePair("password", password));
+		parameters.add(new BasicNameValuePair(PASS, password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
 		try{
@@ -139,11 +141,11 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 			log.info("logging into URL   " + accessTokenUrl);
 			post = new HttpPost(accessTokenUrl);
 			parameters = new ArrayList<>();
-			parameters.add(new BasicNameValuePair("grant_type", "password"));
+			parameters.add(new BasicNameValuePair("grant_type", PASS));
 			parameters.add(new BasicNameValuePair("client_secret", clientSecret));
 			parameters.add(new BasicNameValuePair("client_id", clientId));
 			parameters.add(new BasicNameValuePair("username", username));
-			parameters.add(new BasicNameValuePair("password", password));
+			parameters.add(new BasicNameValuePair(PASS, password));
 			post.setEntity(new UrlEncodedFormEntity(parameters));
 			response = httpClient.execute(post);
 			ObjectMapper mapper = new ObjectMapper();
