@@ -50,12 +50,6 @@ public class PanelDAOTest extends CaliberTest {
 	private TraineeDAO traineeDao;
 	
 	@Autowired
-	private PanelFeedbackDAO pfDao;
-
-	@Autowired
-	private CategoryDAO cDao;
-	
-	@Autowired
 	private TrainerDAO trDao;
 	
 	public void setPanelDAO(PanelDAO panelDAO) {
@@ -66,13 +60,6 @@ public class PanelDAOTest extends CaliberTest {
 		this.traineeDao = dao;
 	}
 	
-	public void setFeedbackDao(PanelFeedbackDAO dao) {
-		this.pfDao = dao;
-	}
-	
-	public void setCategoryDao(CategoryDAO dao) {
-		this.cDao = dao;
-	}
 
 	public void setTrainerDao(TrainerDAO dao) {
 		this.trDao = dao;
@@ -169,59 +156,14 @@ public class PanelDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void saveTest() {
-//		log.info("Testing method PanelDAO.saveTest()");
-//		Panel testPanel = new Panel();
-//		Trainer testTrainer = new Trainer("Sir. Test", "Tester", "test@test.test", TrainerRole.ROLE_TRAINER);
-//		testTrainer.setTrainerId(2);
-//		testPanel.setPanelist(testTrainer);
-//		Batch testBatch = new Batch("Test Name", testTrainer, Date.from(Instant.now()),
-//				Date.from(Instant.now().plus(Period.ofDays(60))), "Test Location");
-//		
-//		Trainee testTrainee = traineeDao.findOne(5500);
-//		testPanel.setTrainee(testTrainee);
-//		testPanel.setStatus(PanelStatus.Pass);
-//		testPanel.setPanelRound(1);
-//		testPanel.setFormat(InterviewFormat.Phone);
-//		PanelFeedback pf = new PanelFeedback();
-//		//pf.setId(50);
-//		pf.setComment("test");
-//		pf.setPanel(testPanel);
-//		pf.setResult(5);
-//		pf.setStatus(PanelStatus.Pass);
-//		Category technology = cDao.findOne(1);
-//		pf.setTechnology(technology);
-//		System.out.println(pf);
-//		pfDao.save(pf);
-//		Set<PanelFeedback> set = new HashSet<PanelFeedback>();
-//		set.add(pf);
-//		testPanel.setFeedback(set);
-//		panelDAO.save(testPanel);
-//		List<Panel> resultSet = panelDAO.findAll();
-//		boolean success = false;
-//		for (Panel found : resultSet) {
-//			if (found.equals(testPanel)) {
-//				success = true;
-//				break;
-//			}
-//		}
-//		assertTrue(success);
 		log.info("Saving a new Feedback using PanelFeedbackDAO");
 		int before = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
-		//PanelFeedback pf = new PanelFeedback();
 		Panel p = new Panel();
 		p.setFormat(InterviewFormat.Phone);
 		p.setPanelRound(1);
-		//p.setInterviewDate(Timestamp.);
 		p.setStatus(PanelStatus.Pass);
 		p.setTrainee(traineeDao.findOne(1));
 		p.setPanelist(trDao.findOne(1));
-		//Category c = cDao.findOne(1); 
-		
-//		pf.setComment("test");
-//		pf.setResult(5);
-//		pf.setTechnology(c);
-//		pf.setStatus(PanelStatus.Pass);
-//		pf.setPanel(p);
 		
 		panelDAO.save(p);
 		int pid = p.getId();
@@ -234,8 +176,6 @@ public class PanelDAOTest extends CaliberTest {
 				break;
 			}
 		}
-		//p2.setInterviewDate(interviewDate);
-		//System.out.println(Timestamp.valueOf(p.getInterviewDate().toString()));
 		assertTrue(success);
 		assertEquals(++before, after);
 	}
