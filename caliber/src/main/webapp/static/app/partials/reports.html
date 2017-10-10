@@ -547,7 +547,8 @@
 				<!-- Row With Bottom 2 Charts -->
 			</div>
 			<div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div>
-			<div ui-view ="panel-report-display"></div>
+			<!--view for panel report display -->
+			<div ui-view ="panel-report-display" ng-if="displayTraineePanelFeedback()"></div>
 		</div>
 		<!-- Row with all 3 Chart-->
 
