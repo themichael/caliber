@@ -205,7 +205,7 @@ public class PanelDAOTest extends CaliberTest {
 		System.out.println(beforeTest);
 		Panel p = panelDAO.findOne(1);
 		System.out.println(p);
-		panelDAO.delete(p);
+		panelDAO.delete(p.getId());
 		int afterTest = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
 		System.out.println(afterTest);
 		assertEquals(--beforeTest, afterTest);
