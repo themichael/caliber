@@ -77,15 +77,15 @@ public class PanelController {
 		List<Panel> feedback = panelService.findAllRepanel();
 		return new ResponseEntity<>(feedback, HttpStatus.OK);
 	}
-	
-	
+
 	@RequestMapping(value = "/panel/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")
-	public ResponseEntity<Panel> updateFeedback(@Valid @RequestBody Panel panelf) {
-		panelService.update(panelf);
-		return new ResponseEntity<>(panelf, HttpStatus.OK);
+	public ResponseEntity<Panel> updatePanel(@Valid @RequestBody Panel panel) {
+		panelService.update(panel);
+		return new ResponseEntity<>(panel, HttpStatus.OK);
 	}
+	
 	
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)

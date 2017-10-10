@@ -1,13 +1,10 @@
 package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,8 +14,6 @@ import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.PanelFeedbackDAO;
@@ -29,7 +24,6 @@ public class PanelFeedbackDAOTest extends CaliberTest{
 
 	private static final Logger log = Logger.getLogger(PanelFeedbackDAOTest.class);
 	private static final String PANELF_COUNT = "select count(panel_feedback_id) from caliber_panel_feedback";
-	
 	
 	private PanelFeedbackDAO dao;
 	private CategoryDAO cDAO;

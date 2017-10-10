@@ -6,9 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Panel;
-import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.PanelDAO;
 
 /**
@@ -37,8 +35,6 @@ public class PanelService {
 	 *
 	 *******************************************************
 	 */
-	
-	
 	public void update(Panel panel) {
 		log.debug("Update panel: " + panel);
 		panelDAO.update(panel);
@@ -53,7 +49,6 @@ public class PanelService {
 		log.debug("Deleting Panel " + panel);
 		panelDAO.delete(panel);
 	}
-	
 	
 
 	public List<Panel> findAllPanels() {
@@ -77,12 +72,6 @@ public class PanelService {
 		log.info("Getting Panels with trainee ID " + traineeId);
 		return panelDAO.findAllByTrainee(traineeId);
 	}
-	
-	/*
-	 *******************************************************
-	 * PANEL FEEDBACK SERVICES
-	 *
-	 *******************************************************
-	 */
-
 }
+	
+

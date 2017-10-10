@@ -7,7 +7,6 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
@@ -25,9 +24,7 @@ import com.revature.caliber.beans.PanelStatus;
 public class PanelDAO {
 
 	private static final Logger log = Logger.getLogger(PanelDAO.class);
-	private static final String PANELS = "panels";
 	private static final String INTERVIEW_DATE = "interviewDate";
-	private static final String P_PANEL_STATUS = "p.panelStatus";
 	private static final String PANEL_ID = "id";
 	private SessionFactory sessionFactory;
 
@@ -102,7 +99,7 @@ public class PanelDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Panel findOne(Integer panelId) {
 		log.info("Find panel by id: " + panelId);
-		return (Panel) sessionFactory.getCurrentSession().createCriteria(Panel.class).add(Restrictions.eq("id", panelId)).uniqueResult();
+		return (Panel) sessionFactory.getCurrentSession().createCriteria(Panel.class).add(Restrictions.eq(PANEL_ID, panelId)).uniqueResult();
 
 	}
 
