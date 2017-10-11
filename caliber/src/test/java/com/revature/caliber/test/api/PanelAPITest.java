@@ -14,11 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.Panel;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.data.BatchDAO;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -36,14 +39,16 @@ public class PanelAPITest extends AbstractAPITest {
 	private static final String GET_PANEL_BY_ID_URL = baseUrl + "panel/{panelId}";
 	private static final String GET_TRAINEE_PANELS_URL = baseUrl + "panel/trainee/{traineeId}";
 	private static final String GET_ALL_REPANELS_URL = baseUrl + "panel/repanel/all";
-
-	private String createPanel = "panel/create";
-	private String deletePanel = "panel/delete/{panel}";
-	private String updatePanel = "panel/update";
+	private static final String CREATE_PANEL_URL = baseUrl + "panel/create";
+	private static final String DELETE_PANEL_URL = baseUrl + "panel/delete";
+	private static final String UPDATE_PANEL_URL = baseUrl + "panel/update";
 
 	@Autowired
 	private PanelDAO panelDAO;
+	
 	@Autowired
+	private TrainerDAO trDao;
+
 	private BatchDAO batchDAO;
 	@Autowired
 	private TraineeDAO traineeDAO;
@@ -61,12 +66,17 @@ public class PanelAPITest extends AbstractAPITest {
 	public void testCreate201() {
 		log.info("Creating a new Panel type");
 		Panel panel = new Panel();
+		panel.setFormat(InterviewFormat.Phone);
+		panel.setPanelRound(1);
+		panel.setStatus(PanelStatus.Pass);
+		panel.setTrainee(traineeDAO.findOne(1));
+		panel.setPanelist(trDao.findOne(1));
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(panel).when()
-				.post(baseUrl + createPanel).then().assertThat().statusCode(HttpStatus.CREATED_201);
+				.post(CREATE_PANEL_URL).then().assertThat().statusCode(HttpStatus.CREATED_201);
 	}
 
 	/**
-	 * Tests updating an existing panel by changing the duration. Asserts whats
+	 * Tests updating an existing panel by changing the duration. Asserts what is
 	 * returned is the same as what we sent in the request
 	 * 
 	 * @throws Exception
@@ -79,7 +89,7 @@ public class PanelAPITest extends AbstractAPITest {
 		expected.setId(2057);
 		expected.setDuration("100 hours");
 		Panel actual = new ObjectMapper().readValue(given().spec(requestSpec).header(AUTH, accessToken)
-				.contentType(ContentType.JSON).body(expected).when().put(baseUrl + updatePanel).then()
+				.contentType(ContentType.JSON).body(expected).when().put(UPDATE_PANEL_URL).then()
 				.contentType(ContentType.JSON).assertThat().statusCode(HttpStatus.OK_200).and().extract().response().asString(),
 				new TypeReference<Panel>() {
 				});
@@ -92,7 +102,7 @@ public class PanelAPITest extends AbstractAPITest {
 	@Test
 	public void testDelete() {
 		log.info("Deleting an panel");
-		given().spec(requestSpec).header(AUTH, accessToken).when().delete(baseUrl + deletePanel, 2050).then()
+		given().spec(requestSpec).header(AUTH, accessToken).when().delete(DELETE_PANEL_URL + "/2050").then()
 				.assertThat().statusCode(HttpStatus.NO_CONTENT_204);
 	}
 
