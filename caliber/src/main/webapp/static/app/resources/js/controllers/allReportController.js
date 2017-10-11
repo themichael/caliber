@@ -376,6 +376,7 @@ angular
 				}
 				return true;
 			}
+			$scope.panelIndex = 0;
 			$scope.selectCurrentTrainee = function(index) {
 				if (index === ALL) {
 					$scope.currentTrainee = {

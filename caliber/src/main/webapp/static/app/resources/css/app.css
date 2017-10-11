@@ -410,6 +410,12 @@ footer a, footer a:hover {
 .note-mw {
 	min-width: 300px;
 }
+.removeSpaces{
+	            border-collapse: collapse;
+            border-spacing: 0;
+            display: inline-table !important;
+	margin: 0 !important;
+}
 
 /********************************************************
 	Overall Batch Status column in vp-home and qc-home
