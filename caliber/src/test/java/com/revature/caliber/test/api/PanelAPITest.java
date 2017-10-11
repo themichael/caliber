@@ -135,8 +135,8 @@ public class PanelAPITest extends AbstractAPITest {
 		when().
 			get(GET_ALL_PANELS_URL).
 		then().assertThat().
-			body("size()", is(expected)).
-			statusCode(HttpStatus.OK_200);
+			statusCode(HttpStatus.OK_200).
+			body("size()", is(expected));
 		log.info("testGetAllPanels200 succeeded!!!");
 	}
 
@@ -162,8 +162,8 @@ public class PanelAPITest extends AbstractAPITest {
 		when().
 			get(GET_PANEL_BY_ID_URL, p.getId()).
 		then().assertThat().
-			body("id", is(p.getId())).
-			statusCode(HttpStatus.OK_200);
+			statusCode(HttpStatus.OK_200).
+			body("id", is(p.getId()));
 		log.info("testPanelById200 succeeded!!!");
 	}
 
@@ -230,8 +230,8 @@ public class PanelAPITest extends AbstractAPITest {
 		when().
 			get(GET_ALL_REPANELS_URL).
 		then().assertThat().
-			body("size()", is(expected)).
-			statusCode(HttpStatus.OK_200);
+			statusCode(HttpStatus.OK_200).
+			body("size()", is(expected));
 		log.info("testGetAllRepanels200 succeeded!!!");
 	}
 }
