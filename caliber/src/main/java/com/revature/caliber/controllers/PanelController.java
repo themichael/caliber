@@ -1,6 +1,9 @@
 package com.revature.caliber.controllers;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,35 +78,39 @@ public class PanelController {
 		List<Panel> feedback = panelService.findAllRepanel();
 		return new ResponseEntity<>(feedback, HttpStatus.OK);
 	}
-	
-	/* UNDER TESTING
-	
+
 	@RequestMapping(value = "/panel/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")
-	public ResponseEntity<Panel> updateFeedback(@Valid @RequestBody Panel panelf) {
-		panelService.update(panelf);
-		return new ResponseEntity<>(panelf, HttpStatus.OK);
+	public ResponseEntity<Panel> updatePanel(@Valid @RequestBody Panel panel) {
+		panelService.update(panel);
+		return new ResponseEntity<>(panel, HttpStatus.OK);
 	}
+	
 	
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")
-	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panelf) {
-		panelService.save(panelf);
-		return new ResponseEntity<>(panelf, HttpStatus.CREATED);
+	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panel) {
+		panelService.createPanel((panel));
+		return new ResponseEntity<>(panel, HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value = "/panel/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/panel/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
-	public ResponseEntity<Void> deleteAssessment(@PathVariable Long id) {
-		log.info("Deleting assessment: " + id);
-		Panel panel = new Panel();
-		panel.setId(id);
-		panelService.delete(panel);
+	public ResponseEntity<Void> deleteAssessment(@PathVariable Panel p) {
+		log.info("Deleting panel: " + p);
+		panelService.deletePanel(p);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	*/
+	
+	@RequestMapping(value = "/all/reports/batch/{batchId}/panel-batch-all-trainees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
+	public ResponseEntity<List<Map<String, String>>> getBatchAllTraineesPanelTable(
+			@PathVariable Integer batchId) {
+		log.info("getBatchOverallPanelTable   ===>   /all/reports/batch/{batchId}/overall/panel-batch-overall");
+		return new ResponseEntity<>(panelService.getBatchPanels(batchId), HttpStatus.OK);
+	}
 
 }

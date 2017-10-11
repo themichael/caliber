@@ -115,7 +115,6 @@ public class Trainee implements Serializable {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
 	
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

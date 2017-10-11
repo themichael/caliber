@@ -120,8 +120,8 @@ public class TraineeDAO {
 	public Trainee findOne(Integer traineeId) {
 		log.info("Fetch trainee by id: " + traineeId);
 		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.setFetchMode("batch", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId))
-				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
+				.setFetchMode("batch", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId)).uniqueResult();
+//				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped))
 	}
 
 	/**
