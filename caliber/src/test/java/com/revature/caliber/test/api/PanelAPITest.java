@@ -45,13 +45,12 @@ public class PanelAPITest extends AbstractAPITest {
 
 	@Autowired
 	private PanelDAO panelDAO;
-	
 	@Autowired
-	private TrainerDAO trDao;
-
 	private BatchDAO batchDAO;
 	@Autowired
 	private TraineeDAO traineeDAO;
+	@Autowired
+	private TrainerDAO trDao;
 	
 	@BeforeClass
 	public static void logIfValidationFails() {
@@ -118,7 +117,6 @@ public class PanelAPITest extends AbstractAPITest {
 		when().
 			get(GET_ALL_PANELS_URL).
 		then().assertThat().
-			body("isEmpty()", is(true)).
 			statusCode(HttpStatus.NO_CONTENT_204);
 		log.info("testGetAllPanels204 succeeded!!!");
 	}
@@ -146,7 +144,6 @@ public class PanelAPITest extends AbstractAPITest {
 		when().
 			get(GET_PANEL_BY_ID_URL, -1).
 		then().assertThat().
-			body("isEmpty()", is(true)).
 			statusCode(HttpStatus.NO_CONTENT_204);
 		log.info("testGetPanelById204 succeeded!!!");
 	}
@@ -178,7 +175,6 @@ public class PanelAPITest extends AbstractAPITest {
 		when().
 			get(GET_TRAINEE_PANELS_URL, t.getTraineeId()).
 		then().assertThat().
-			body("isEmpty()", is(true)).
 			statusCode(HttpStatus.NO_CONTENT_204);
 		log.info("testGetPanelsByTrainee204 succeeded!!!");
 	}
@@ -216,7 +212,6 @@ public class PanelAPITest extends AbstractAPITest {
 		when().
 			get(GET_ALL_REPANELS_URL).
 		then().assertThat().
-			body("isEmpty()", is(true)).
 			statusCode(HttpStatus.NO_CONTENT_204);
 		log.info("testGetAllRepanels204 succeeded!!!");
 	}
