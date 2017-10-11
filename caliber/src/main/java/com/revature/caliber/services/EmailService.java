@@ -24,11 +24,6 @@ import com.revature.caliber.email.Mailer;
  */
 @Service
 public class EmailService {
-
-	@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
-	private static String fromEmail;
-	@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
-	private static String fromPass;
 	
 	private Mailer mailer;
 
@@ -54,7 +49,7 @@ public class EmailService {
 
 	@PostConstruct
 	public void init() {
-//		this.startReminderJob();
+		this.startReminderJob();
 		List<Assessment> list = assess.findAll();
 		System.out.println(list.toString());
 	}
