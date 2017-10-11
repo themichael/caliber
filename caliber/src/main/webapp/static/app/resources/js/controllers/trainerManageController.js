@@ -207,8 +207,8 @@ angular
 
 						// sort trainess in alphabetical order
 						if ($scope.trainees) {
-                    		$scope.trainees.sort(compare);
-                		}
+								$scope.trainees.sort(compare);
+						}
 
 						$log.debug($scope.currentBatch);
 					};

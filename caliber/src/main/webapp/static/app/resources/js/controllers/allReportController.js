@@ -57,8 +57,8 @@ angular
 			// sort trainess in alphabetical order
 			(function(){
 				if ($scope.currentBatch) {
-                    $scope.currentBatch.trainees.sort(compare);
-                }
+					$scope.currentBatch.trainees.sort(compare);
+				}
 			})();
 			
 			//load $scope.trainees list for search results
