@@ -317,7 +317,6 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		log.debug("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
-
 	/**
 	 * Makes a request to Salesforce REST API to retrieve the authenticated
 	 * user's details

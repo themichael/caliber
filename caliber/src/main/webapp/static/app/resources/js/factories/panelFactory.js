@@ -97,5 +97,19 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 		});
 	}
 	
+	panel.reportTraineePanels = function(traineeId) {
+		return $http(
+				{
+					url : "/panel/trainee/" + traineeId,
+					method : "GET"
+				}).then(function(response) {
+			$log.debug('Retrieve all panels for trainee successful');
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	}
+	
 	return panel;
 });

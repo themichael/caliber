@@ -1,5 +1,6 @@
 package com.revature.caliber.data;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Panel;
+import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.Trainee;
 
@@ -29,7 +31,10 @@ public class PanelDAO {
 	private static final String INTERVIEW_DATE = "interviewDate";
 	private static final String PANEL_ID = "id";
 	private SessionFactory sessionFactory;
-
+	
+	@Autowired
+	PanelFeedbackDAO panelFeedbackDao;
+	
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -94,7 +99,7 @@ public class PanelDAO {
 	}
 
 	/**
-	 * Find panel by the given identifier
+	 * Find panel by the given identifier. Initialize panel feedback
 	 * 
 	 * @param id
 	 * @return
@@ -102,8 +107,9 @@ public class PanelDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Panel findOne(Integer panelId) {
 		log.info("Find panel by id: " + panelId);
-		return (Panel) sessionFactory.getCurrentSession().createCriteria(Panel.class).add(Restrictions.eq(PANEL_ID, panelId)).uniqueResult();
-
+		Panel p = (Panel) sessionFactory.getCurrentSession().get(Panel.class, panelId);
+//		p.setFeedback(new HashSet<PanelFeedback>(panelFeedbackDao.findAllForPanel(panelId)));
+		return p;
 	}
 
 	/**
@@ -124,9 +130,11 @@ public class PanelDAO {
 	 * @param panel
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void delete(Panel panel) {
-		log.info("Delete panel " + panel);
-		sessionFactory.getCurrentSession().delete(panel);
+	public void delete(int panelId) {
+		log.info("Delete panel " + panelId);
+		Panel panel = findOne(panelId);
+		if (panel != null)
+			sessionFactory.getCurrentSession().delete(panel);
 	}
 
 	@SuppressWarnings("unchecked")
