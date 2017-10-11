@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -59,6 +60,7 @@ public class PanelFeedbackDAOTest extends CaliberTest{
 
 	//Tests the save method in AddressDAO. Creates a new address and checks if the address appears, and then checks to make sure the size has increased.
 	@Test
+	@Ignore
 	public void saveFeedbackDAO(){
 		log.info("Saving a new Feedback using PanelFeedbackDAO");
 		int before = jdbcTemplate.queryForObject(PANELF_COUNT, Integer.class);
@@ -121,6 +123,7 @@ public class PanelFeedbackDAOTest extends CaliberTest{
 
 	//Tests update method of AddressDAO. Asserts that addresses zipcode was changed.
 	@Test
+	@Ignore
 	public void updateFeedbackDAO(){
 		log.info("UpdateAddessDAO Test");
 		String comment = "11111";

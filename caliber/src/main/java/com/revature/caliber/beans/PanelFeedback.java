@@ -124,7 +124,7 @@ public class PanelFeedback {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result + ((panel == null) ? 0 : panel.getId());
+		result = prime * result + ((panel == null) ? 0 : panel.hashCode());
 		result = prime * result + this.result;
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((technology == null) ? 0 : technology.hashCode());
