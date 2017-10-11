@@ -63,9 +63,9 @@ public class PanelService {
 		panelDAO.save(panel);
 	}
 	
-	public void deletePanel(Panel panel) {
-		log.debug("Deleting Panel " + panel);
-		panelDAO.delete(panel);
+	public void deletePanel(int panelId) {
+		log.debug("Deleting Panel " + panelId);
+		panelDAO.delete(panelId);
 	}
 	
 
