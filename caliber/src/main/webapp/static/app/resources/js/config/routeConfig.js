@@ -593,13 +593,13 @@ angular
 										abstract : true,
 										url : "/panel",
 										templateUrl : "/static/app/partials/abstracts/panel.html",
-										resolve : {
-											allBatches : function(
-													caliberDelegate) {
-												return caliberDelegate.panel
-														.getAllBatches();
-											}
-										},
+//										resolve : {
+//											allBatches : function(
+//													caliberDelegate) {
+//												return caliberDelegate.panel
+//														.getAllBatches();
+//											}
+//										},
 										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authPanel();
@@ -627,8 +627,11 @@ angular
 										views: {
 											"" : {
 												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												//controller : "vpHomeController"
-											}
+												controller : "trainerAssessController"
+											},
+											"samplemodal@panel.panel" : {
+												templateUrl : "/static/app/partials/paneldemo/samplemodal.html"
+											}		
 										}
 										
 							})

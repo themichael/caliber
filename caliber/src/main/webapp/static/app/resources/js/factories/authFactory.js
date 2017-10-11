@@ -106,7 +106,7 @@ angular.module("auth").factory("authFactory",
 
 			auth.authPanel = function () {
 				var role = getCookie();
-				if (rol === panelRole)
+				if (role === panelRole)
 					$log.debug("Authenticated user as Panel");
 				else if (role === trainerRole)
 					$location.path(trainerHome);
