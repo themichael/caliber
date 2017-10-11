@@ -2,7 +2,6 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class PanelAPITest extends AbstractAPITest {
 	private static final String GET_TRAINEE_PANELS_URL = baseUrl + "panel/trainee/{traineeId}";
 	private static final String GET_ALL_REPANELS_URL = baseUrl + "panel/repanel/all";
 	private static final String CREATE_PANEL_URL = baseUrl + "panel/create";
-	private static final String DELETE_PANEL_URL = baseUrl + "panel/delete";
+	private static final String DELETE_PANEL_URL = baseUrl + "panel/delete/{panelId}";
 	private static final String UPDATE_PANEL_URL = baseUrl + "panel/update";
 
 	@Autowired
@@ -68,8 +67,14 @@ public class PanelAPITest extends AbstractAPITest {
 		panel.setStatus(PanelStatus.Pass);
 		panel.setTrainee(traineeDAO.findOne(1));
 		panel.setPanelist(trDao.findOne(1));
-		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(panel).when()
-				.post(CREATE_PANEL_URL).then().assertThat().statusCode(HttpStatus.CREATED_201);
+		
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+			body(panel).
+		when()
+			.post(CREATE_PANEL_URL).
+		then().assertThat().
+			statusCode(HttpStatus.CREATED_201);
 	}
 
 	/**
@@ -83,20 +88,17 @@ public class PanelAPITest extends AbstractAPITest {
 	public void testUpdate() throws Exception {
 		log.info("Updating an panel");
 		Panel expected = panelDAO.findOne(40);
-		panelDAO.save(expected);
-		expected = panelDAO.findOne(40);
 		expected.setDuration("100 hours");
+		
 		given().
-				spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
-				body(expected).
-				when().
-				put(UPDATE_PANEL_URL).
-				then().assertThat().
-				statusCode(HttpStatus.OK_200);
-		Panel actual = panelDAO.findOne(40);
-		assertEquals(expected.getId(), actual.getId());
-		assertEquals(expected.getDuration(), actual.getDuration());
-		assertEquals(expected.toString(), actual.toString());
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+			body(expected).
+		when().
+			put(UPDATE_PANEL_URL).
+		then().assertThat().
+			body("id", is(expected.getId())).
+			body("duration", is(expected.getDuration())).
+			statusCode(HttpStatus.OK_200);
 	}
 
 	/**
@@ -105,8 +107,12 @@ public class PanelAPITest extends AbstractAPITest {
 	@Test
 	public void testDelete() {
 		log.info("Deleting an panel");
-		given().spec(requestSpec).header(AUTH, accessToken).when().delete(DELETE_PANEL_URL + "/2050").then()
-				.assertThat().statusCode(HttpStatus.NO_CONTENT_204);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			delete(DELETE_PANEL_URL, 2050).
+		then().assertThat().
+			statusCode(HttpStatus.NO_CONTENT_204);
 	}
 
 	@Test
@@ -130,6 +136,7 @@ public class PanelAPITest extends AbstractAPITest {
 		log.info("Get all panels, OK...");
 		
 		int expected = panelDAO.findAll().size();
+		
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
