@@ -627,7 +627,7 @@ angular
 										views: {
 											"" : {
 												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												controller : "trainerAssessController"
+												//controller : "trainerAssessController"
 											},
 											"samplemodal@panel.panel" : {
 												templateUrl : "/static/app/partials/paneldemo/samplemodal.html"
