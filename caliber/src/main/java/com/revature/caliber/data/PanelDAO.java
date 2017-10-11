@@ -9,6 +9,7 @@ import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
@@ -144,8 +145,9 @@ public class PanelDAO {
 		return (List<Trainee>)sessionFactory.getCurrentSession()
 				.createCriteria(Trainee.class)
 				.add(Restrictions.eq("batch.batchId", batchId))
-				.createCriteria("panelInterviews").addOrder(Order.desc(INTERVIEW_DATE))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.createCriteria("panelInterviews", JoinType.LEFT_OUTER_JOIN)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
 	}
 	
 
