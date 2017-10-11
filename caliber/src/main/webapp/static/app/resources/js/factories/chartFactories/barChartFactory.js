@@ -274,6 +274,9 @@ angular.module("charts").factory(
 						else if(key2 === "Superstar"){
 							i = 3;
 						}
+						else if(key2 === "Undefined"){
+							i = 4;
+						}
 						if (chartData.data[i] === undefined) {
 							chartData.data[i]=[];
 							chartData.series[i]=key2;
@@ -288,6 +291,9 @@ angular.module("charts").factory(
 							}
 							else if (key2 === "Poor"){
 								chartData.colors[i] = "#ea2825";								
+							}
+							else if (key2 === "Undefined"){
+								chartData.colors[i] = "#D3D3D3";								
 							}
 						}
 						chartData.data[i].push(value2);
