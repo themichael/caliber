@@ -90,7 +90,7 @@ public class Panel {
 	private PanelStatus status;
 	
 	// Technical Feedback
-	@OneToMany(mappedBy = "panel", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "panel", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "feedback")
 	private Set<PanelFeedback> feedback;
 	
