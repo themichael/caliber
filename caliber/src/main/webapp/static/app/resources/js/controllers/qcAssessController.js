@@ -128,6 +128,7 @@ angular
 										"ROLE_QC", "QC_TRAINEE", true));
 							}
 						}
+						console.log($scope.faces);
 					}
 
 					// Used to pick face for batch
