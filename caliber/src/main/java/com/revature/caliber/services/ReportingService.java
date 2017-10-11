@@ -167,7 +167,7 @@ public class ReportingService {
 		for (QCStatus q : QCStatus.values()) {
 			qcStatsMapTemplate.put(q, 0);
 		}
-		System.out.println(batch.getWeeks());
+		
 		for (Integer i = 1; i <= batch.getWeeks(); i++) {
 			results.put(i, new HashMap<>(qcStatsMapTemplate));
 		}
@@ -175,13 +175,10 @@ public class ReportingService {
 			for (Note n : t.getNotes()) {
 				if (n.getQcStatus() != null) {
 					Map<QCStatus, Integer> temp = results.get((int) n.getWeek());
-					System.out.println("before" + temp);
-					System.out.println("week: " + n.getWeek());
 					if(temp != null) {
 						Integer count = temp.get(n.getQcStatus()) + 1;
 						temp.put(n.getQcStatus(), count);
 						results.put((int) n.getWeek(), temp);
-						System.out.println("after" + temp);
 					}
 				}
 			}
