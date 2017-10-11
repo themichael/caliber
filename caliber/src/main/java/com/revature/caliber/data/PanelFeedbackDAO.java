@@ -53,6 +53,20 @@ public class PanelFeedbackDAO {
 		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
+	
+	/**
+	 * Find all panel feedbacks for a panel.
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<PanelFeedback> findAllForPanel(int panelId) {
+		log.info("Finding all panel feedback for panel: " + panelId);
+		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
+				.add(Restrictions.eq("panel.id", panelId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
 
 	/**
 	 * Find all panel feedbacks for one panel

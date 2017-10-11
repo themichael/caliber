@@ -12,16 +12,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelStatus;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.BatchDAO;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -84,15 +82,21 @@ public class PanelAPITest extends AbstractAPITest {
 	@Test
 	public void testUpdate() throws Exception {
 		log.info("Updating an panel");
-		Panel expected = new Panel();
-		expected.setId(2057);
+		Panel expected = panelDAO.findOne(40);
+		panelDAO.save(expected);
+		expected = panelDAO.findOne(40);
 		expected.setDuration("100 hours");
-		Panel actual = new ObjectMapper().readValue(given().spec(requestSpec).header(AUTH, accessToken)
-				.contentType(ContentType.JSON).body(expected).when().put(UPDATE_PANEL_URL).then()
-				.contentType(ContentType.JSON).assertThat().statusCode(HttpStatus.OK_200).and().extract().response().asString(),
-				new TypeReference<Panel>() {
-				});
+		given().
+				spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+				body(expected).
+				when().
+				put(UPDATE_PANEL_URL).
+				then().assertThat().
+				statusCode(HttpStatus.OK_200);
+		Panel actual = panelDAO.findOne(40);
+		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getDuration(), actual.getDuration());
+		assertEquals(expected.toString(), actual.toString());
 	}
 
 	/**

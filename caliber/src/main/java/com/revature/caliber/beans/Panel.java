@@ -58,7 +58,7 @@ public class Panel {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Trainer panelist;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name="INTERVIEW_DATE")
 	private Date interviewDate;
 	

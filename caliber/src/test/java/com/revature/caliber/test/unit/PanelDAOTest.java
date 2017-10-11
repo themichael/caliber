@@ -158,12 +158,7 @@ public class PanelDAOTest extends CaliberTest {
 	public void saveTest() {
 		log.info("Saving a new Feedback using PanelFeedbackDAO");
 		int before = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
-		Panel p = new Panel();
-		p.setFormat(InterviewFormat.Phone);
-		p.setPanelRound(1);
-		p.setStatus(PanelStatus.Pass);
-		p.setTrainee(traineeDao.findOne(1));
-		p.setPanelist(trDao.findOne(1));
+		Panel p = getPanel();
 		
 		panelDAO.save(p);
 		int pid = p.getId();
@@ -209,6 +204,42 @@ public class PanelDAOTest extends CaliberTest {
 		int afterTest = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
 		System.out.println(afterTest);
 		assertEquals(--beforeTest, afterTest);
+	}
+	
+	@Test
+	public void panelDateTest() {
+		Panel expected = getPanel();
+		
+		panelDAO.save(expected);
+		expected = panelDAO.findOne(expected.getId());
+		expected.setInterviewDate(new Date(5));
+		panelDAO.update(expected);
+		Panel actual = panelDAO.findOne(expected.getId());
+		
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getInterviewDate(), actual.getInterviewDate());
+		assertEquals(expected.toString(), actual.toString());
+		assertTrue(expected.equals(actual));
+		
+		expected = panelDAO.findOne(40);
+		panelDAO.update(expected);
+		actual = panelDAO.findOne(40);
+		
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getInterviewDate(), actual.getInterviewDate());
+		assertEquals(expected.toString(), actual.toString());
+		assertTrue(expected.equals(actual));
+	}
+	
+	public Panel getPanel() {
+		Panel p = new Panel();
+		p.setFormat(InterviewFormat.Phone);
+		p.setPanelRound(1);
+		p.setStatus(PanelStatus.Pass);
+		p.setTrainee(traineeDao.findOne(1));
+		p.setPanelist(trDao.findOne(1));
+		p.setInterviewDate(new Date());
+		return p;
 	}
 
 }
