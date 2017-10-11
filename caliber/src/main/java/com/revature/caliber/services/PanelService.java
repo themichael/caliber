@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,19 +144,31 @@ public class PanelService {
 				status = panel.getStatus().toString();
 				panelInfo.put("status", status);
 				if(status.equalsIgnoreCase("Repanel")) {
-					String topics = "";
-					for(PanelFeedback pf: panel.getFeedback()) {
-						if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
-							if(topics.length()>0) {topics += ", ";}
-							topics += pf.getTechnology().getSkillCategory();
-						}
-					}
+					String topics = utilGetRepanelTopics(panel.getFeedback());
+					
 					panelInfo.put("topics", topics);
 				}
 			}
 			batchPanels.add(panelInfo);
 		}
 		return batchPanels;
+	}
+	/**
+	 * Takes a Set of panel feedbacks and returns a string which is
+	 * a list of all categories which must be repaneled
+	 * @author emmabownes
+	 * @param feedback
+	 * @return topics
+	 */
+	private String utilGetRepanelTopics(Set<PanelFeedback> feedback) {
+		String topics = "";
+		for(PanelFeedback pf: feedback) {
+			if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
+				if(topics.length()>0) {topics += ", ";}
+				topics += pf.getTechnology().getSkillCategory();
+			}
+		}
+		return topics;
 	}
 	
 	
