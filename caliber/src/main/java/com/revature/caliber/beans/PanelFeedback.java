@@ -122,13 +122,15 @@ public class PanelFeedback {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result + ((panel == null) ? 0 : panel.getId());
-		result = prime * result + this.result;
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((technology == null) ? 0 : technology.hashCode());
-		return result;
+
+		int hashCodeResult = 1;
+		hashCodeResult = prime * result + ((comment == null) ? 0 : comment.hashCode());
+		//WATCH OUT
+		hashCodeResult = prime * result + ((panel == null) ? 0 : panel.getId());
+		hashCodeResult = prime * result + this.result;
+		hashCodeResult = prime * result + ((status == null) ? 0 : status.hashCode());
+		hashCodeResult = prime * result + ((technology == null) ? 0 : technology.hashCode());
+		return hashCodeResult;
 	}
 
 	@Override

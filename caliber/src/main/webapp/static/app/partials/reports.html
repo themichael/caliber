@@ -316,9 +316,29 @@
 								</div>
 							</div>
 						</div>
+						<div id="batchPanel" class="row">
+							<div class="panel panel-default">
+								<div class="panel-heading">Panel Feedback</div>
+								<div class="table-responsive">
+									<table id="batch-panel-status" class="table-responsive">
+										<tr>
+											<th>Trainee Name</th>
+											<th>Panel Status</th>
+											<th>Repeat Topics</th>
+										</tr>
+										<tr ng-repeat="item in allTraineesPanelData">
+											<td ng-bind="item.trainee"></td>
+											<td ng-bind="item.status"></td>
+											<td ng-bind="item.topics"></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- Row With Bottom 2 Charts -->
+				
 			</div>
 		</div>
 		<!-- Row with all 3 Chart-->
@@ -425,8 +445,30 @@
 							</div>
 						</div>
 					</div>
-				</div>
+			
 				<!-- Row With Bottom 2 Charts -->
+					<div id="batchPanel" class="row">
+		
+							<div class="panel panel-default">
+								<div class="panel-heading">Panel Feedback</div>
+								<table id="batch-panel-status"
+									class="table-responsive">
+									<tr>
+										<th>Trainee Name</th>
+										<th>Panel Status</th>
+										<th>Repeat Topics</th>
+									</tr>
+									<tr ng-repeat="item in allTraineesPanelData">
+										<td ng-bind="item.trainee"></td>
+										<td ng-bind="item.status"></td>
+										<td ng-bind="item.topics"></td>
+									</tr>
+								</table>
+							</div>
+
+					</div>
+						</div>
+				<!-- Row with panel table -->
 			</div>
 			<div ui-view="trainee-week" ng-if="displayTable()"></div>
 		</div>

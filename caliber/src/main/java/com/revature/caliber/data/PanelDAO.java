@@ -62,6 +62,7 @@ public class PanelDAO {
 		panels.parallelStream();
 		return panels;
 	}
+
 	
 	/**
 	 * Looks for all panels with the panel status: Repanel 
@@ -127,5 +128,7 @@ public class PanelDAO {
 		if (panel != null)
 			sessionFactory.getCurrentSession().delete(panel);
 	}
+	
+
 
 }

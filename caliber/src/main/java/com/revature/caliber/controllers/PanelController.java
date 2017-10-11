@@ -44,7 +44,8 @@ public class PanelController {
 	public ResponseEntity<List<Panel>> findAll() {
 		log.debug("Getting all panels");
 		List<Panel> panels = panelService.findAllPanels();
-		return new ResponseEntity<>(panels, HttpStatus.OK);
+		HttpStatus status = (panels.isEmpty()) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+		return new ResponseEntity<>(panels, status);
 	}
 
 	@RequestMapping(value = "/panel/{panelId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,8 +54,9 @@ public class PanelController {
 	public ResponseEntity<Panel> findPanelById(@PathVariable int panelId) {
 		log.debug("Getting category: " + panelId);
 		Panel panel = panelService.findById(panelId);
+		HttpStatus status = (panel == null) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
 		log.info(panel);
-		return new ResponseEntity<>(panel, HttpStatus.OK);
+		return new ResponseEntity<>(panel, status);
 	}
 
 	@RequestMapping(value = "/panel/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,8 +65,9 @@ public class PanelController {
 	public ResponseEntity<List<Panel>> findPanelByTraineeId(@PathVariable int traineeId) {
 		log.debug("Getting category: " + traineeId);
 		List<Panel> panels = panelService.findByTraineeId(traineeId);
-		log.info(panels.toString());
-		return new ResponseEntity<>(panels, HttpStatus.OK);
+		HttpStatus status = (panels.isEmpty()) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+		log.info(panels);
+		return new ResponseEntity<>(panels, status);
 	}
 
 	@RequestMapping(value = "/panel/repanel/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -73,7 +76,8 @@ public class PanelController {
 	public ResponseEntity<List<Panel>> findAllRepanel() {
 		log.debug("Getting all panels with repanel");
 		List<Panel> panels = panelService.findAllRepanel();
-		return new ResponseEntity<>(panels, HttpStatus.OK);
+		HttpStatus status = (panels.isEmpty()) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+		return new ResponseEntity<>(panels, status);
 	}
 
 	@RequestMapping(value = "/panel/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

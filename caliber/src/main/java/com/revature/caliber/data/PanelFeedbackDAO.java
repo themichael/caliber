@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
+import com.revature.caliber.beans.PanelStatus;
 
 @Repository
 public class PanelFeedbackDAO {
@@ -53,6 +54,21 @@ public class PanelFeedbackDAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
+	/**
+	 * Find all panel feedbacks for one panel
+	 * @author emmabownes
+	 * @return List of panel feedbacks for a given panel
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<PanelFeedback> findFailedFeedbackByPanel(Panel panel) {
+		log.info("Finding failed panel feedback for panel "+ panel);
+		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
+				.add(Restrictions.eq("panel.id", panel.getId()))
+				.add(Restrictions.eq("status", PanelStatus.Repanel))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+	
 	/**
 	 * 
 	 * Convenience method only. Not practical in production since panels must
