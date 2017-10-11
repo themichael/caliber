@@ -316,7 +316,7 @@
 								</div>
 							</div>
 						</div>
-						<div id="batchPanel" class="row">
+						<div id="batchPanel">
 							<div class="panel panel-default">
 								<div class="panel-heading">Panel Feedback</div>
 								<div class="table-responsive">
@@ -324,12 +324,17 @@
 											style="border-collapse: collapse;">
 										<tr>
 											<th>Trainee Name</th>
-											<th>Panel Status</th>
+											<th style="text-align: center;">Panel Status</th>
 											<th>Repeat Topics</th>
 										</tr>
 										<tr ng-repeat="item in allTraineesPanelData">
 											<td class="col-sm-4 col-md-4 col-lg-4" ng-bind="item.trainee"></td>
-											<td class="col-sm-3 col-md-3 col-lg-3"  ng-bind="item.status"></td>
+											<td class="col-sm-3 col-md-3 col-lg-3"  ng-if="item.status == 'Pass'">
+												<span style="color: #81f575; width: 100%; text-align: center;" class="fa fa-check fa-2x"> </span>
+											</td>
+											<td ng-if="item.status == 'Repanel'">
+												<span style="color: #ff7575; width: 100%; text-align: center;" class="glyphicon glyphicon-remove fa-2x"></span>
+											</td>
 											<td class="col-sm-3 col-md-3 col-lg-3"  ng-bind="item.topics"></td>
 										</tr>
 									</table>

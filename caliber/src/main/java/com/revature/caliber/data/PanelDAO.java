@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelStatus;
+import com.revature.caliber.beans.Trainee;
 
 /**
  * @author Connor Monson
@@ -125,6 +127,17 @@ public class PanelDAO {
 	public void delete(Panel panel) {
 		log.info("Delete panel " + panel);
 		sessionFactory.getCurrentSession().delete(panel);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> findAllTraineesAndPanels(Integer batchId) {
+		log.info("get trainees and their panelInterviews from " + batchId);
+		return (List<Trainee>)sessionFactory.getCurrentSession()
+				.createCriteria(Trainee.class)
+				.add(Restrictions.eq("batch.batchId", batchId))
+				.createCriteria("panelInterviews").addOrder(Order.desc(INTERVIEW_DATE))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 	
 
