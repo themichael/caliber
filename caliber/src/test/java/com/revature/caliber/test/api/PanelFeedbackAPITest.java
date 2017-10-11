@@ -10,12 +10,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.PanelFeedbackDAO;
+import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TrainerDAO;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -34,6 +37,10 @@ public class PanelFeedbackAPITest extends AbstractAPITest {
 	private PanelFeedbackDAO pfDAO;
 	@Autowired
 	private CategoryDAO catDAO;
+	@Autowired
+	private TraineeDAO traineeDAO;
+	@Autowired
+	private TrainerDAO trainerDAO;
 	
 	@BeforeClass
 	public static void logIfValidationFails() {
@@ -92,7 +99,14 @@ public class PanelFeedbackAPITest extends AbstractAPITest {
 		pf.setTechnology(catDAO.findAllActive().get(0));
 		pf.setStatus(PanelStatus.Pass);
 		pf.setResult(10);
-		pf.setPanel(panelDAO.findAll().get(0));
+		Panel p = new Panel();
+		p.setTrainee(traineeDAO.findAll().get(0));
+		p.setFormat(InterviewFormat.Phone);
+		p.setPanelRound(1);
+		p.setStatus(PanelStatus.Pass);
+		p.setPanelist(trainerDAO.findAll().get(0));
+		pf.setPanel(p);
+		pf.setComment("test comment");
 		
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
