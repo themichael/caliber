@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.annotation.PostConstruct;
 
@@ -16,7 +15,6 @@ import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.email.EmailAuthenticator;
 import com.revature.caliber.email.Mailer;
-import com.revature.caliber.email.SubmitGradesReminder;
 
 /**
  * 
@@ -28,12 +26,11 @@ import com.revature.caliber.email.SubmitGradesReminder;
 public class EmailService {
 
 	@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
-	private static String from;
+	private static String fromEmail;
 	@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
-	private static String pass;
-	private String to = "mscott@mailinator.com";
+	private static String fromPass;
 	
-	private EmailAuthenticator authenticator = new EmailAuthenticator(from, pass);
+	private Mailer mailer;
 
 	private AssessmentDAO assess;
 	
@@ -45,7 +42,10 @@ public class EmailService {
 	private static final int MINUTE = 35;
 	private static final int SECOND = 0;
 	
-	//SubmitGradesReminder submit = new SubmitGradesReminder();
+	@Autowired
+	public void setMailer(Mailer mailer) {
+		this.mailer = mailer;
+	}
 	
 	@Autowired
 	public void setAssessmentDAO(AssessmentDAO assess) {
@@ -66,7 +66,7 @@ public class EmailService {
 		Date startDate = calendar.getTime();
 		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
 		long interval = 10000;
-		timer.scheduleAtFixedRate(new Mailer(from, pass, to, authenticator), startDate, interval);
+		timer.scheduleAtFixedRate(this.mailer, startDate, interval);
 	}
 
 }

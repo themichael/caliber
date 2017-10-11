@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,30 +14,20 @@ import org.springframework.stereotype.Component;
  * @author Will Underwood
  *
  */
+@Component
 public class Mailer extends TimerTask {
 
-	private String fromEmail;
-	private String fromPass;
-	private String toEmail;
+	private String toEmail = "mscott@mailinator.com";
 	private EmailAuthenticator authenticator;
-	
-	public Mailer(String fromEmail, String fromPass, String toEmail, EmailAuthenticator authenticator) {
-		this.fromEmail = fromEmail;
-		this.fromPass = fromPass;
+
+	//@Autowired
+	public void setToEmail(String toEmail) {
 		this.toEmail = toEmail;
+	}
+
+	@Autowired
+	public void setAuthenticator(EmailAuthenticator authenticator) {
 		this.authenticator = authenticator;
-	}
-	
-	public String getFromEmail() {
-		return this.fromEmail;
-	}
-	
-	public String getFromPass() {
-		return this.fromPass;
-	}
-	
-	public String getToEmail() {
-		return this.toEmail;
 	}
 
 	@Override
