@@ -10,13 +10,16 @@
 							<th class='col-sm-3 col-md-3 col-lg-3 center'>Categories</th>
 							<th class='col-sm-1 col-md-1 col-lg-1 center'>Quality Audit</th>
 							<th class='col-sm-3 col-md-3 col-lg-3 center'>QC Feedback</th>
-							<th class='col-sm-4 col-md-4 col-lg-4 center'>Trainer Feedback</th>
+							<th class='col-sm-4 col-md-4 col-lg-4 center'>Trainer
+								Feedback</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="report in traineeOverall" ng-if="report.qcNote.qcStatus || report.qcNote.content || report.trainerNote.content">
+						<tr ng-repeat="report in traineeOverall"
+							ng-if="report.qcNote.qcStatus || report.qcNote.content || report.trainerNote.content">
 							<td class='col-sm-1 col-md-1 col-lg-1 center'>{{report.week}}</td>
-							<td class='col-sm-3 col-md-3 col-lg-3 center'><span ng-repeat="category in categories[$index].$$state.value track by $index">{{category}}{{$last
+							<td class='col-sm-3 col-md-3 col-lg-3 center'><span
+								ng-repeat="category in categories[$index].$$state.value track by $index">{{category}}{{$last
 									? '' : ', '}}</span></td>
 							<td class='col-sm-1 col-md-1 col-lg-1 center'>{{report.qcNote.qcStatus
 								? report.qcNote.qcStatus : "-"}}</td>
@@ -33,29 +36,16 @@
 </div>
 <div class="container">
 	<div class="row">
-		<!-- 
-            <div class="col-md-1 prev-round clickable" ng-click="decrement()">
-                <div ng-if="idx > 0">
-                    <i class="glyphicon glyphicon-triangle-left"></i>
-                    <span>Previous</span>
-                </div>
-            </div>
-            <div class="col-md-10 content">-->
-		<!-- -->
 		<div class="row">
-			
-
 			<div class="panel panel-default">
-				<div class="panel-heading">Panel Interview Feedback
-				<div class = "btn-group" role = "group">
-				<!-- Buttons for our panel report -->
-				<i ng-click="downloadChartButton($event)" class = "glyphicon glyphicon-chevron-left"></i>
-				<i ng-click="downloadChartButton($event)" class = "glyphicon glyphicon-chevron-right"></i>
-				<!-- Buttons for our panel report -->
-				</div>
-				</div>
-				<div class="right">
-					<!-- <img src=“RevLogo”> -->
+				<div class="panel-heading clearfix" role="tab" id="headingOne">
+					Panel Interview Feedback
+					<!-- Buttons for our panel report -->
+					<i ng-click="downloadChartButton($event)"
+						class="clickableIcons glyphicon glyphicon-chevron-left"></i> <i
+						ng-click="downloadChartButton($event)"
+						class="clickableIcons glyphicon glyphicon-chevron-right"></i>
+					<!-- Buttons for our panel report -->
 				</div>
 				<div class="panel-body">
 					<div class="row">
@@ -143,65 +133,61 @@
 							</div>
 						</div>
 					</div>
-					<div class="panel-heading">
-						<h6 class="panel-title">Technical Feedback</h6>
+					<div id = "panelReportDisplay" class="panel-heading">
+						Technical Feedback
 					</div>
-					<table id="feedback" class="table table-bordered table-responsive">
-						<tr>
-							<th>Technology</th>
-							<th>Result</th>
-							<th>Repanel</th>
-							<th>Comment</th>
-						</tr>
-						<tr ng-repeat="item in trainee.panelInterview[idx].feedback">
-							<td ng-bind="item.technology"></td>
-							<td ng-bind="item.result"></td>
-							<td ng-bind="item.repanel"></td>
-							<td ng-bind="item.comment"></td>
-						</tr>
-					</table>
+					<div class="panel-body">
+						<table id="feedback" class="table table-responsive">
+							<tr>
+								<th>Technology</th>
+								<th>Result</th>
+								<th>Repanel</th>
+								<th>Comment</th>
+							</tr>
+							<tr ng-repeat="item in trainee.panelInterview[idx].feedback">
+								<td ng-bind="item.technology"></td>
+								<td ng-bind="item.result"></td>
+								<td ng-bind="item.repanel"></td>
+								<td ng-bind="item.comment"></td>
+							</tr>
+						</table>
+					</div>
 
-					<div id="margin" class="panel-heading">General Feedback</div>
-					<table id="feedback" class="table table-bordered table-responsive">
-						<tr>
-							<th>Criteria</th>
-							<th>Comment</th>
-						</tr>
-						<tr>
-							<td><b>Associate Introduction</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.comment"></td>
-						</tr>
-						<tr>
-							<td><b>Project 1 Explanation</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.project1"></td>
-						</tr>
-						<tr>
-							<td><b>Project 2 Explanation</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.project2"></td>
-						</tr>
-						<tr>
-							<td><b>Project 3 Explanation</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.project3"></td>
-						</tr>
-						<tr>
-							<td><b>Communication Skills</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.communication"></td>
-						</tr>
-						<tr>
-							<td><b>Overall</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.overall"></td>
-						</tr>
-					</table>
+					<div id = "panelReportDisplay" class="panel-heading">General Feedback</div>
+					<div class="panel-body">
+						<table id="feedback" class="table table-responsive">
+							<tr>
+								<th>Criteria</th>
+								<th>Comment</th>
+							</tr>
+							<tr>
+								<td><b>Associate Introduction</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.comment"></td>
+							</tr>
+							<tr>
+								<td><b>Project 1 Explanation</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.project1"></td>
+							</tr>
+							<tr>
+								<td><b>Project 2 Explanation</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.project2"></td>
+							</tr>
+							<tr>
+								<td><b>Project 3 Explanation</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.project3"></td>
+							</tr>
+							<tr>
+								<td><b>Communication Skills</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.communication"></td>
+							</tr>
+							<tr>
+								<td><b>Overall</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.overall"></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-		<!--
-                <div class="col-md-1 next-round clickable" ng-click="increment()">
-                    <div ng-if="idx < trainee.panelInterview.length-1">
-                        <i class="glyphicon glyphicon-triangle-right"></i>
-                        <span>Next</span>
-                    </div>
-                </div> -->
-		<!-- 
-            </div>-->
 	</div>
+</div>
