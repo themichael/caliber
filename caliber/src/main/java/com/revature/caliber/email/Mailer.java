@@ -14,23 +14,38 @@ import org.springframework.stereotype.Component;
  * @author Will Underwood
  *
  */
-@Component
 public class Mailer extends TimerTask {
 
-	@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
-	//@Value("${DEV_CALIBER_EMAIL}")
-	private static String from/* = System.getenv("DEV_CALIBER_EMAIL")*/;
-	@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
-	//@Value("${DEV_CALIBER_PASS}")
-	private static String pass/* = System.getenv("DEV_CALIBER_PASS")*/;
-	private String to = "mscott@mailinator.com";
+	private String fromEmail;
+	private String fromPass;
+	private String toEmail;
+	private EmailAuthenticator authenticator;
+	
+	public Mailer(String fromEmail, String fromPass, String toEmail, EmailAuthenticator authenticator) {
+		this.fromEmail = fromEmail;
+		this.fromPass = fromPass;
+		this.toEmail = toEmail;
+		this.authenticator = authenticator;
+	}
+	
+	public String getFromEmail() {
+		return this.fromEmail;
+	}
+	
+	public String getFromPass() {
+		return this.fromPass;
+	}
+	
+	public String getToEmail() {
+		return this.toEmail;
+	}
 
 	@Override
 	public void run() {
 		this.send();
 	}
 
-	private void send() {
+	public void send() {
 		Properties properties = this.setProperties();
 		Session session = this.getSession(properties);
 		this.sendEmail(session);
@@ -48,17 +63,13 @@ public class Mailer extends TimerTask {
 	}
 
 	private Session getSession(Properties properties) {
-		return Session.getDefaultInstance(properties, new Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(Mailer.from, Mailer.pass);
-			}
-		});
+		return Session.getDefaultInstance(properties, this.authenticator);
 	}
 
 	private void sendEmail(Session session) {
 		try {
 			MimeMessage message = new MimeMessage(session);
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			message.setSubject("Test");
 			message.setText("This is a test");
 			Transport.send(message);
