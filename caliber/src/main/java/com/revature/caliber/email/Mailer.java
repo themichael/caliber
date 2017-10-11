@@ -7,18 +7,22 @@ import javax.mail.*;
 import javax.mail.internet.*;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * 
  * @author Will Underwood
  *
  */
+@Component
 public class Mailer extends TimerTask {
 
-	//@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
-	private static String from = System.getenv("DEV_CALIBER_EMAIL");
-	//@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
-	private static String pass = System.getenv("DEV_CALIBER_PASS");
+	@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
+	//@Value("${DEV_CALIBER_EMAIL}")
+	private static String from/* = System.getenv("DEV_CALIBER_EMAIL")*/;
+	@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
+	//@Value("${DEV_CALIBER_PASS}")
+	private static String pass/* = System.getenv("DEV_CALIBER_PASS")*/;
 	private String to = "mscott@mailinator.com";
 
 	@Override
