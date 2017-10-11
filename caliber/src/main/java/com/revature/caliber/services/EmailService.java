@@ -1,13 +1,15 @@
 package com.revature.caliber.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimerTask;
+import java.util.Timer;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Assessment;
@@ -16,39 +18,57 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.email.EmailAuthenticator;
 import com.revature.caliber.email.Mailer;
-import com.revature.caliber.email.SubmitGradesReminder;
 
 /**
  * 
  * @author Andrew Bonds
+ * @author Will Underwood
  *
  */
-
 @Service
-public class Email{
+public class EmailService {
 
-	@Autowired
-	private AssessmentDAO assess;
-	@Autowired
-	private BatchDAO batch;
-	@Autowired
-	private TraineeDAO trainee;
-	SubmitGradesReminder submit = new SubmitGradesReminder();
-
+	@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
+	private static String fromEmail;
+	@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
+	private static String fromPass;
 	
+	private Mailer mailer;
+
+	private AssessmentDAO assess;
+	private BatchDAO batch;
+	private TraineeDAO trainee;
+	
+	private static final long DAYS_IN_WEEK = 7;
+	private static final int YEAR = 2017;
+	private static final int MONTH = 9;
+	private static final int DATE = 11;
+	private static final int HOUR = 9;
+	private static final int MINUTE = 35;
+	private static final int SECOND = 0;
+	
+	@Autowired
+	public void setMailer(Mailer mailer) {
+		this.mailer = mailer;
+	}
+	
+	@Autowired
 	public void setAssessmentDAO(AssessmentDAO assess) {
 		this.assess = assess;
 	}
-
+	@Autowired
 	public void setBatch(BatchDAO batch) {
 		this.batch = batch;
 	}
-
+	@Autowired
 	public void setTrainee(TraineeDAO trainee) {
 		this.trainee = trainee;
 	}
-
+	
+	
+	
 	@PostConstruct
 	public void init() {
 		System.out.println("Initializing Emails.");
@@ -58,10 +78,18 @@ public class Email{
 		List<Assessment> assessList = assess.findAll();
 		List<Trainee> traineeList = trainee.findAll();
 		checkGrades(batchList, assessList, traineeList);
-
 	}
-
-
+	
+	private void startReminderJob() {
+		Timer timer = new Timer();
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
+		Date startDate = calendar.getTime();
+		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
+		long interval = 10000;
+		timer.scheduleAtFixedRate(this.mailer, startDate, interval);
+	}
+	
 	public void checkGrades(List<Batch> batchList, List<Assessment> assessList, List<Trainee> traineeList) {
 		Date currentDate = new Date();
 		
@@ -86,4 +114,6 @@ public class Email{
 
 	
 	
+}
+
 }

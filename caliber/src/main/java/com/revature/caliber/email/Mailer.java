@@ -6,20 +6,29 @@ import java.util.TimerTask;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 
  * @author Will Underwood
  *
  */
+@Component
 public class Mailer extends TimerTask {
 
-	//@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
-	private static String from = System.getenv("DEV_CALIBER_EMAIL");
-	//@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
-	private static String pass = System.getenv("DEV_CALIBER_PASS");
-	private String to = "mscott@mailinator.com";
+	private String toEmail = "mscott@mailinator.com";
+	private EmailAuthenticator authenticator;
+
+	//@Autowired
+	public void setToEmail(String toEmail) {
+		this.toEmail = toEmail;
+	}
+
+	@Autowired
+	public void setAuthenticator(EmailAuthenticator authenticator) {
+		this.authenticator = authenticator;
+	}
 
 	@Override
 	public void run() {
@@ -44,17 +53,13 @@ public class Mailer extends TimerTask {
 	}
 
 	private Session getSession(Properties properties) {
-		return Session.getDefaultInstance(properties, new Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(Mailer.from, Mailer.pass);
-			}
-		});
+		return Session.getDefaultInstance(properties, this.authenticator);
 	}
 
 	private void sendEmail(Session session) {
 		try {
 			MimeMessage message = new MimeMessage(session);
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			message.setSubject("Test");
 			message.setText("This is a test");
 			Transport.send(message);
