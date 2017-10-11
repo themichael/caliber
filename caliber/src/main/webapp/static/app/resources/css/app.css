@@ -115,6 +115,10 @@ a {
 	background-color: #F26925;
 	color: white;
 }
+#panelReportDisplay{
+	background-color: #72A4C2;
+	color: white;
+}
 
 /************************
 	Manage Batch
@@ -406,7 +410,21 @@ footer a, footer a:hover {
 .note-mw {
 	min-width: 300px;
 }
-
+.removeSpaces{
+	            border-collapse: collapse;
+            border-spacing: 0;
+            display: inline-table !important;
+	margin: 0 !important;
+}
+.glyphiconMoveRight{
+	float: right;
+}
+.glyphicon-ok{
+	color: green;
+}
+.glyphicon-remove{
+	color: red;
+}
 /********************************************************
 	Overall Batch Status column in vp-home and qc-home
 *********************************************************/

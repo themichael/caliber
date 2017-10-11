@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.services.PanelFeedbackService;
 
@@ -29,12 +28,12 @@ public class PanelFeedbackController {
 
 	private static final Logger log = Logger.getLogger(PanelFeedbackController.class);
 	private PanelFeedbackService pfService;
-	
+
 	@Autowired
 	public void setPanelFeedbackService(PanelFeedbackService pfService) {
 		this.pfService = pfService;
 	}
-	
+
 	@RequestMapping(value = "/panelfeedback/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -43,17 +42,17 @@ public class PanelFeedbackController {
 		List<PanelFeedback> feedback = pfService.findAllPanelFeedbacks();
 		return new ResponseEntity<>(feedback, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/panelfeedback/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<PanelFeedback> findPanelFeedbackById(@PathVariable long id) {
 		log.debug("Getting category: " + id);
-		PanelFeedback pf = pfService.findPanelFeedback(id);
-		log.info(pf.toString());
-		return new ResponseEntity<>(pf, HttpStatus.OK);
+		PanelFeedback panelf = pfService.findPanelFeedback(id);
+		log.info(panelf.toString());
+		return new ResponseEntity<>(panelf, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/panelfeedback/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")
@@ -61,7 +60,7 @@ public class PanelFeedbackController {
 		pfService.update(panelf);
 		return new ResponseEntity<>(panelf, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/panelfeedback/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")
@@ -69,14 +68,5 @@ public class PanelFeedbackController {
 		pfService.save(panelf);
 		return new ResponseEntity<>(panelf, HttpStatus.CREATED);
 	}
-	@RequestMapping(value = "/panelfeedback/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
-	public ResponseEntity<Void> deleteAssessment(@PathVariable Long id) {
-		log.info("Deleting assessment: " + id);
-		PanelFeedback pf = new PanelFeedback();
-		pf.setId(id);
-		pfService.delete(pf);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
+
 }

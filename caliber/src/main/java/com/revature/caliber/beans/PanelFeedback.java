@@ -21,6 +21,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * Notes and results for each category that the panelist
  * goes over with the associate.
@@ -61,6 +63,7 @@ public class PanelFeedback {
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="PANEL_ID", nullable=false)
+	@JsonBackReference(value = "feedback")
 	private Panel panel;
 
 	public PanelFeedback() {
@@ -119,11 +122,11 @@ public class PanelFeedback {
 	public int hashCode() {
 		final int prime = 31;
 		int hashCodeResult = 1;
-		hashCodeResult = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		hashCodeResult = prime * result + ((panel == null) ? 0 : panel.hashCode());
-		hashCodeResult = prime * result + this.result;
-		hashCodeResult = prime * result + ((status == null) ? 0 : status.hashCode());
-		hashCodeResult = prime * result + ((technology == null) ? 0 : technology.hashCode());
+		hashCodeResult = prime * hashCodeResult + ((comment == null) ? 0 : comment.hashCode());
+		hashCodeResult = prime * hashCodeResult + ((panel == null) ? 0 : panel.hashCode());
+		hashCodeResult = prime * hashCodeResult + this.result;
+		hashCodeResult = prime * hashCodeResult + ((status == null) ? 0 : status.hashCode());
+		hashCodeResult = prime * hashCodeResult + ((technology == null) ? 0 : technology.hashCode());
 		return hashCodeResult;
 	}
 
@@ -144,7 +147,7 @@ public class PanelFeedback {
 		if (panel == null) {
 			if (other.panel != null)
 				return false;
-		} else if (!panel.equals(other.panel))
+		} else if (panel.getId() != other.getId())
 			return false;
 		if (result != other.result)
 			return false;

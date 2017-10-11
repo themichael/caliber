@@ -1,9 +1,11 @@
 package com.revature.caliber.data;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -15,7 +17,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Panel;
+import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
+import com.revature.caliber.beans.Trainee;
 
 /**
  * @author Connor Monson
@@ -25,12 +29,13 @@ import com.revature.caliber.beans.PanelStatus;
 public class PanelDAO {
 
 	private static final Logger log = Logger.getLogger(PanelDAO.class);
-	private static final String PANELS = "panels";
 	private static final String INTERVIEW_DATE = "interviewDate";
-	private static final String P_PANEL_STATUS = "p.panelStatus";
 	private static final String PANEL_ID = "id";
 	private SessionFactory sessionFactory;
-
+	
+	@Autowired
+	PanelFeedbackDAO panelFeedbackDao;
+	
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -95,7 +100,7 @@ public class PanelDAO {
 	}
 
 	/**
-	 * Find panel by the given identifier
+	 * Find panel by the given identifier. Initialize panel feedback
 	 * 
 	 * @param id
 	 * @return
@@ -103,8 +108,9 @@ public class PanelDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Panel findOne(Integer panelId) {
 		log.info("Find panel by id: " + panelId);
-		return (Panel) sessionFactory.getCurrentSession().createCriteria(Panel.class)
-				.add(Restrictions.eq(PANEL_ID, panelId)).uniqueResult();
+		Panel p = (Panel) sessionFactory.getCurrentSession().get(Panel.class, panelId);
+//		p.setFeedback(new HashSet<PanelFeedback>(panelFeedbackDao.findAllForPanel(panelId)));
+		return p;
 	}
 
 	/**
@@ -125,9 +131,23 @@ public class PanelDAO {
 	 * @param panel
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void delete(Panel panel) {
-		log.info("Delete panel " + panel);
-		sessionFactory.getCurrentSession().delete(panel);
+	public void delete(int panelId) {
+		log.info("Delete panel " + panelId);
+		Panel panel = findOne(panelId);
+		if (panel != null)
+			sessionFactory.getCurrentSession().delete(panel);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> findAllTraineesAndPanels(Integer batchId) {
+		log.info("get trainees and their panelInterviews from " + batchId);
+		return (List<Trainee>)sessionFactory.getCurrentSession()
+				.createCriteria(Trainee.class)
+				.add(Restrictions.eq("batch.batchId", batchId))
+				.createCriteria("panelInterviews", JoinType.LEFT_OUTER_JOIN)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
 	}
 	
 

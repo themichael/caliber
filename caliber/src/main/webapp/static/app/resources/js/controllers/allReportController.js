@@ -7,6 +7,9 @@
  * @author Igor Gluskin
  * @author Ateeb Khawaja
  * 
+ * Team Velociraports
+ * @author Emma Bownes
+ * 
  */
 angular
 .module("charts")
@@ -131,6 +134,7 @@ angular
 						$rootScope.$emit("GET_TRAINEE_OVERALL",
 								$scope.currentTraineeId);
 						displayTraineeOverallTable($scope.currentTraineeId);
+						displayTraineePanelFeedback($scope.currentTraineeId);
 						$scope.batchWeek = false;
 						$scope.batchWeekTrainee = false;
 						$scope.batchOverall = false;
@@ -207,6 +211,22 @@ angular
 								}
 							}
 						});
+			}
+			//Jak
+			function displayTraineePanelFeedback(){
+				
+				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
+						function(response){
+							NProgress.done();
+							$scope.traineePanelData = response;
+							console.log("here");
+							console.log(response);
+							
+						},function(response){
+							NProgress.done();
+						}
+						)
+				
 			}
 
 			function getCurrentBatchWeeks(weeks) {
@@ -339,6 +359,7 @@ angular
 				}
 				return true;
 			}
+			//This is the function that displays The trainee-overall HTML partial
 			$scope.displayTraineeOverallTable = function() {
 				if ($scope.currentBatch === null
 						|| $scope.currentWeek === null
@@ -347,6 +368,25 @@ angular
 				} 
 				return true;
 			}
+			$scope.displayTraineePanelFeedback = function(){
+				if($scope.currentBatch === null 
+						|| $scope.currentWeek === null 
+						|| $scope.batchOverallTrainee === null){
+					return false;
+				}
+				return true;
+			}
+			
+			$scope.panelIndex = 0;
+			
+			$scope.incrementPanel = function() {
+				$scope.panelIndex += 1;
+			}
+			
+			$scope.decrementPanel = function() {
+				$scope.panelIndex -= 1;
+			}
+			
 			$scope.selectCurrentTrainee = function(index) {
 				if (index === ALL) {
 					$scope.currentTrainee = {
@@ -437,6 +477,7 @@ angular
 				createTechnicalSkillsBatchOverall();
 				createAllTraineesAndBatchRadarData();
 				createWeeklyProgressBatchOverall();
+				getBatchOverallPanelTable();
 			}
 
 			function createBatchOverallTrainee() {
@@ -446,6 +487,7 @@ angular
 				createAssessmentAveragesTraineeOverall();
 				createWeeklyProgressTraineeOverall();
 				createTechnicalSkillsTraineeOverall();
+				
 			}
 
 			// *******************************************************************************
@@ -753,7 +795,28 @@ angular
 								});
 
 			}
-
+			// *******************************************************************************
+			// *** Tables
+			// *******************************************************************************
+			/**
+			 * Generates the Panel table.
+			 * @author Emma Bownes
+			 */
+			function getBatchOverallPanelTable(){
+				caliberDelegate.panel.getBatchPanelTable(
+						$scope.currentBatch.batchId)
+						.then(
+								function(response){
+									NProgress.done();
+									$scope.allTraineesPanelData = response;
+								},
+								function(response){
+									NProgress.done();
+									
+								})
+			}
+			
+			
 			// *******************************************************************************
 			// *** PDF Generation
 			// *******************************************************************************
@@ -913,6 +976,7 @@ angular
 								function(response) {
 									$scope.categories = response;
 								});
+				
 			}
 
 		});

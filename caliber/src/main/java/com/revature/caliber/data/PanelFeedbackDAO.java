@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
+import com.revature.caliber.beans.PanelStatus;
 
 @Repository
 public class PanelFeedbackDAO {
@@ -52,7 +53,36 @@ public class PanelFeedbackDAO {
 		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
+	
+	/**
+	 * Find all panel feedbacks for a panel.
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<PanelFeedback> findAllForPanel(int panelId) {
+		log.info("Finding all panel feedback for panel: " + panelId);
+		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
+				.add(Restrictions.eq("panel.id", panelId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
 
+	/**
+	 * Find all panel feedbacks for one panel
+	 * @author emmabownes
+	 * @return List of panel feedbacks for a given panel
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<PanelFeedback> findFailedFeedbackByPanel(Panel panel) {
+		log.info("Finding failed panel feedback for panel "+ panel);
+		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
+				.add(Restrictions.eq("panel.id", panel.getId()))
+				.add(Restrictions.eq("status", PanelStatus.Repanel))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+	
 	/**
 	 * 
 	 * Convenience method only. Not practical in production since panels must
@@ -63,7 +93,8 @@ public class PanelFeedbackDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void save(PanelFeedback panelf) {
 		log.info("Save panel feedback " + panelf);
-		sessionFactory.getCurrentSession().save(panelf);
+		long id = (long) sessionFactory.getCurrentSession().save(panelf);
+		log.info("New Feedback ID: " +id);
 	}
 
 	/**
@@ -99,6 +130,13 @@ public class PanelFeedbackDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(PanelFeedback panel) {
 		log.info("Delete panel " + panel);
+		sessionFactory.getCurrentSession().delete(panel);
+	}
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void deleteById(long panelid) {
+		log.info("Delete panel " + panelid);
+		PanelFeedback panel = findOne(panelid);
 		sessionFactory.getCurrentSession().delete(panel);
 	}
 
