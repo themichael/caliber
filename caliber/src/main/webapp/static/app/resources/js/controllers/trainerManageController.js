@@ -42,6 +42,16 @@ angular
 					 * ****************************
 					 */
 
+					// Used to sort trainees
+					function compare(a, b) {
+						if (a.name < b.name)
+							return -1;
+						if (a.name > b.name)
+							return 1;
+						return 0;
+					}
+			
+
 					/** On page start --> load all trainers * */
 					(function() {
 						caliberDelegate.all.getAllTrainers().then(
@@ -194,6 +204,11 @@ angular
 						// caliberdlegeate get trainees by batch id and load nto
 						$scope.batchRow = index;
 						$scope.showdropped = false;
+
+						// sort trainess in alphabetical order
+						if ($scope.trainees) {
+                    		$scope.trainees.sort(compare);
+                		}
 
 						$log.debug($scope.currentBatch);
 					};

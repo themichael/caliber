@@ -45,8 +45,21 @@ angular
 			$scope.batchOverallTrainee = false;
 			$scope.allTrainees = [];
 			
+			// Used to sort trainees in batch
+			function compare(a, b) {
+				if (a.name < b.name)
+					return -1;
+				if (a.name > b.name)
+					return 1;
+				return 0;
+			}
 			
-			
+			// sort trainess in alphabetical order
+			(function(){
+				if ($scope.currentBatch) {
+                    $scope.currentBatch.trainees.sort(compare);
+                }
+			})();
 			
 			//load $scope.trainees list for search results
 			function getTrainees(){
