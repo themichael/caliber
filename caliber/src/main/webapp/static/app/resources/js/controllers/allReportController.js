@@ -766,7 +766,7 @@ angular
 			 * @author Emma Bownes
 			 */
 			function getBatchOverallPanelTable(){
-				caliberDelegate.agg.getAggBatchPanelTable(
+				caliberDelegate.panel.getBatchPanelTable(
 						$scope.currentBatch.batchId)
 						.then(
 								function(response){

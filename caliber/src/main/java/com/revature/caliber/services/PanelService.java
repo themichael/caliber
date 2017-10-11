@@ -1,13 +1,20 @@
 package com.revature.caliber.services;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Panel;
+import com.revature.caliber.beans.PanelFeedback;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.PanelDAO;
+import com.revature.caliber.data.PanelFeedbackDAO;
+import com.revature.caliber.data.TraineeDAO;
 
 /**
  * Provides logic concerning Panel and PanelFeedback data. Application logic
@@ -23,12 +30,23 @@ public class PanelService {
 	
 	private static final Logger log = Logger.getLogger(PanelService.class);
 	private PanelDAO panelDAO;
+	private PanelFeedbackDAO panelFeedbackDAO;
+	private TraineeDAO traineeDAO;
 
 	@Autowired
 	public void setPanelDAO(PanelDAO panelDAO) {
 		this.panelDAO = panelDAO;
 	}
 	
+	@Autowired
+	public void setTraineeDAO(TraineeDAO traineeDAO) {
+		this.traineeDAO = traineeDAO;
+	}
+	
+	@Autowired
+	public void setPanelFeedBackDAO(PanelFeedbackDAO panelFeedbackDAO) {
+		this.panelFeedbackDAO = panelFeedbackDAO;
+	}
 	/*
 	 *******************************************************
 	 * PANEL SERVICES
@@ -72,6 +90,45 @@ public class PanelService {
 		log.info("Getting Panels with trainee ID " + traineeId);
 		return panelDAO.findAllByTrainee(traineeId);
 	}
+	
+	public List<Map<String, String>> getBatchPanels(Integer batchId) {
+		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		List<Panel> panels = new ArrayList<>();
+		trainees.forEach(a -> panels.add(panelDAO.findAllByTrainee(a.getTraineeId()).get(0)));
+		List<Map<String, String>> panelDto = utilAllTraineePanels(panels);
+		return panelDto;
+	}
+	
+	//Utility methods
+	
+	/**
+	 * Takes a List of panels for a batch and returns a Map of labels with information
+	 * needed for batch overall panel table (Trainee Name, Panel Status, Repanel Topics)
+	 * @param panels
+	 * @return
+	 */
+	private List<Map<String, String>> utilAllTraineePanels(List<Panel> panels) {
+		Map<String, String> panelInfo;
+		List<Map<String, String>> batchPanels = new ArrayList<>();
+		for(Panel p : panels) {
+			panelInfo = new HashMap<>();
+			panelInfo.put("trainee", p.getTrainee().getName());
+			String status = p.getStatus().toString();
+			panelInfo.put("status", status);
+			if(status.equalsIgnoreCase("Repanel")) {
+				String topics = "";
+				for(PanelFeedback pf: panelFeedbackDAO.findFailedFeedbackByPanel(p)) {
+						if(topics.length()>0) {topics += ", ";}
+						topics += pf.getTechnology().getSkillCategory();
+				}
+				panelInfo.put("topics", topics);
+			}
+			batchPanels.add(panelInfo);
+		}
+		return batchPanels;
+	}
+	
+	
 }
 	
 

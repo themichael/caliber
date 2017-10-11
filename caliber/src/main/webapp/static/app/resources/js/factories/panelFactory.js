@@ -8,7 +8,7 @@
  */
 
 angular.module('api').factory('panelFactory', function($log, $http) {
-	$log.debug('Booted Trainer API');
+	$log.debug('Booted Panel API');
 	let panel = {};
 
 	/* ******************* Panel Feedback ********************** */
@@ -83,4 +83,19 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 		});
 	};
 	
+	panel.reportPanelTable = function(batchId) {
+		return $http(
+				{
+					url : "/all/reports/batch/"+ batchId +"/panel-batch-all-trainees",
+					method : "GET"
+				}).then(function(response) {
+			$log.debug("Agg - Batch - batchId -- success");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	}
+	
+	return panel;
 });

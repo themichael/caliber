@@ -1,6 +1,7 @@
 package com.revature.caliber.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -104,5 +105,12 @@ public class PanelController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
+	@RequestMapping(value = "/all/reports/batch/{batchId}/panel-batch-all-trainees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
+	public ResponseEntity<List<Map<String, String>>> getBatchAllTraineesPanelTable(
+			@PathVariable Integer batchId) {
+		log.info("getBatchOverallPanelTable   ===>   /all/reports/batch/{batchId}/overall/panel-batch-overall");
+		return new ResponseEntity<>(panelService.getBatchPanels(batchId), HttpStatus.OK);
+	}
 
 }
