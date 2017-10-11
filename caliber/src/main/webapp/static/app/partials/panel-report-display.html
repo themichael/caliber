@@ -6,10 +6,17 @@
 					<div class="panel-heading clearfix" role="tab" id="headingOne">
 						Panel Interview Feedback
 						<!-- Buttons for our panel report -->
-						<i ng-click="downloadChartButton($event)"
-							class="clickableIcons glyphicon glyphicon-chevron-left"></i> <i
-							ng-click="downloadChartButton($event)"
-							class="clickableIcons glyphicon glyphicon-chevron-right"></i>
+						<i ng-click="decrementPanel()">
+							<div style="display:inline" ng-if="panelIndex > 0">
+                   				 <i class="clickableIcons glyphicon glyphicon-chevron-left"></i>
+                			</div>
+						</i>
+						Round <span ng-bind="traineePanelData[panelIndex].panelRound"></span> 
+						<i ng-click="incrementPanel()">
+							<div style="display:inline" ng-if="panelIndex < traineePanelData.length-1">
+								<i class="clickableIcons glyphicon glyphicon-chevron-right"></i>
+							</div>
+						</i>
 						<!-- Buttons for our panel report -->
 					</div>
 					<div class="container">

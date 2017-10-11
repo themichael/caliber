@@ -376,7 +376,17 @@ angular
 				}
 				return true;
 			}
+			
 			$scope.panelIndex = 0;
+			
+			$scope.incrementPanel = function() {
+				$scope.panelIndex += 1;
+			}
+			
+			$scope.decrementPanel = function() {
+				$scope.panelIndex -= 1;
+			}
+			
 			$scope.selectCurrentTrainee = function(index) {
 				if (index === ALL) {
 					$scope.currentTrainee = {
