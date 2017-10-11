@@ -121,8 +121,10 @@ public class PanelService {
 				if(status.equalsIgnoreCase("Repanel")) {
 					String topics = "";
 					for(PanelFeedback pf: panel.getFeedback()) {
-						if(topics.length()>0) {topics += ", ";}
-						topics += pf.getTechnology().getSkillCategory();
+						if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
+							if(topics.length()>0) {topics += ", ";}
+							topics += pf.getTechnology().getSkillCategory();
+						}
 					}
 					panelInfo.put("topics", topics);
 				}
