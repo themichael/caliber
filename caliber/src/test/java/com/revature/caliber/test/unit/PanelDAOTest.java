@@ -166,7 +166,6 @@ public class PanelDAOTest extends CaliberTest {
 		p.setPanelist(trDao.findOne(1));
 		
 		panelDAO.save(p);
-		int pid = p.getId();
 		int after = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
 		List<Panel> resultSet = panelDAO.findAll();
 		boolean success = false;

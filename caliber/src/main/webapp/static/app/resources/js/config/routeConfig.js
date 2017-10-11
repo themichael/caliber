@@ -619,4 +619,17 @@ angular
 										}
 										
 							})
+						.state(
+									"panel.panel",
+									{ 
+										url : "/panel",
+										/* add modal view to vpHome page */
+										views: {
+											"" : {
+												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
+												//controller : "vpHomeController"
+											}
+										}
+										
+							})
 				});
