@@ -1,7 +1,11 @@
 package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.http.HttpStatus;
@@ -17,8 +21,13 @@ import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.PanelFeedbackDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.data.PanelDAO;
+import com.revature.caliber.data.TraineeDAO;
 
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 
 /**
  * @author Nathan Koszuta
@@ -41,13 +50,14 @@ public class PanelAPITest extends AbstractAPITest {
 	private PanelDAO panelDAO;
 	@Autowired
 	private PanelFeedbackDAO pfDAO;
-
-	@Autowired
-	private TraineeDAO traineeDao;
 	
 	@Autowired
 	private TrainerDAO trDao;
 
+	private BatchDAO batchDAO;
+	@Autowired
+	private TraineeDAO traineeDAO;
+	
 	/**
 	 * Tests creation. Asserts that the status code 201 is returned meaning the
 	 * creation was successful
@@ -59,7 +69,7 @@ public class PanelAPITest extends AbstractAPITest {
 		panel.setFormat(InterviewFormat.Phone);
 		panel.setPanelRound(1);
 		panel.setStatus(PanelStatus.Pass);
-		panel.setTrainee(traineeDao.findOne(1));
+		panel.setTrainee(traineeDAO.findOne(1));
 		panel.setPanelist(trDao.findOne(1));
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(panel).when()
 				.post(CREATE_PANEL).then().assertThat().statusCode(HttpStatus.CREATED_201);
@@ -97,61 +107,132 @@ public class PanelAPITest extends AbstractAPITest {
 	}
 
 	@Test
-	public void testGetAllPanelsNoContent() {
+	public void testGetAllPanels204() {
 		log.info("Get all panels when none exist");
-		given().spec(requestSpec).header(AUTH, accessToken).when().get(GET_ALL_PANELS).then().assertThat()
-				.statusCode(HttpStatus.NO_CONTENT_204);
+		List<Panel> allPanels = panelDAO.findAll();
+		for (Panel p : allPanels) {
+			panelDAO.delete(p.getId());
+		}
+		int expected = panelDAO.findAll().size();
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_ALL_PANELS).
+		then().assertThat().
+			body("size()", is(expected)).
+			statusCode(HttpStatus.NO_CONTENT_204);
 	}
 
 	@Test
-	public void testGetAllPanelsOK() {
+	public void testGetAllPanels200() {
 		log.info("Get all panels");
-		given().spec(requestSpec).header(AUTH, accessToken).when().get(GET_ALL_PANELS).then().assertThat()
-				.statusCode(HttpStatus.OK_200);
+		
+		int expected = panelDAO.findAll().size();
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_ALL_PANELS).
+		then().assertThat().
+			body("size()", is(expected)).
+			statusCode(HttpStatus.OK_200);
 	}
 
 	@Test
-	public void testGetPanelByIdNoContent() {
-		log.info("Get panel which does not exist");
+	public void testGetPanelById204() {
+		log.info("Get panel by id, no content");
 		// TODO: Use panelId which does not exist in database
-		given().spec(requestSpec).header(AUTH, accessToken).when().get(GET_PANEL_BY_ID, -1).then().assertThat()
-				.statusCode(HttpStatus.NO_CONTENT_204);
+		Response response = (Response)
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_PANEL_BY_ID, -1).
+		then().assertThat().
+			statusCode(HttpStatus.NO_CONTENT_204);
+		assertNull(response);
 	}
 
 	@Test
-	public void testPanelByIdOK() {
-		log.info("Get all panels");
-		given().spec(requestSpec).header(AUTH, accessToken).when().get(GET_PANEL_BY_ID, 1).then().assertThat()
-				.statusCode(HttpStatus.OK_200);
+	public void testPanelById200() {
+		log.info("Get panel by id, OK");
+		Panel p = panelDAO.findAll().get(0);
+		log.info("panel= " + p);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_PANEL_BY_ID, p.getId()).
+		then().assertThat().
+			body("id", is(p.getId())).
+			statusCode(HttpStatus.OK_200);
 	}
 
 	@Test
-	public void testGetPanelsByTraineeNoContent() {
-		log.info("Get panels when trainee has none");
-		// TODO: Save new trainee to database, don't add panels
-		given().spec(requestSpec).header(AUTH, accessToken).when().get(GET_TRAINEE_PANELS, 1).then().assertThat()
-				.statusCode(HttpStatus.NO_CONTENT_204);
+	public void testGetPanelsByTrainee204() {
+		log.info("Get all trainee panels, no content");
+		Trainee t = new Trainee("Test", null, "test@test.com", batchDAO.findAll().get(0));
+		traineeDAO.save(t);
+		int expected = panelDAO.findAllByTrainee(t.getTraineeId()).size();
+		log.info("expected= " + expected);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_TRAINEE_PANELS, t.getTraineeId()).
+		then().assertThat().
+			body("size()", is(expected)).
+			statusCode(HttpStatus.NO_CONTENT_204);
 	}
 
 	@Test
-	public void testGetPanelsByTraineeOK() {
-		log.info("Get all panels");
-		given().spec(requestSpec).header(AUTH, accessToken).when().get(GET_TRAINEE_PANELS, 1).then().assertThat()
-				.statusCode(HttpStatus.OK_200);
+	public void testGetPanelsByTrainee200() {
+		log.info("Get all trainee panels, OK");
+		List<Trainee> trainees = traineeDAO.findAll();
+		int traineeId = -1;
+		if (!trainees.isEmpty()) {
+			traineeId = trainees.get(0).getTraineeId();
+		}
+		else {
+			log.warn("No trainee found in testGetPanelsByTrainee200");
+		}
+		int expected = panelDAO.findAllByTrainee(traineeId).size();
+		log.info("expected= " + expected);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_TRAINEE_PANELS, traineeId).
+		then().assertThat().
+			body("size()", is(expected)).
+			statusCode(HttpStatus.OK_200);
 	}
 
 	@Test
-	public void testGetAllRepanelsNoContent() {
-		log.info("Get all repanels when none exist");
-		given().spec(requestSpec).header(AUTH, accessToken).when().get(GET_ALL_REPANELS).then().assertThat()
-				.statusCode(HttpStatus.NO_CONTENT_204);
+	public void testGetAllRepanels204() {
+		log.info("Get all repanels, no content");
+		// Save panels and delete from database
+		List<Panel> repanels = panelDAO.findAllRepanel();
+		for (Panel p : repanels) {
+			panelDAO.delete(p.getId());
+		}
+		int expected = panelDAO.findAllRepanel().size();
+		log.info("expected= " + expected);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_ALL_REPANELS).
+		then().assertThat().
+			body("size()", is(expected)).
+			statusCode(HttpStatus.NO_CONTENT_204);
 	}
 
 	@Test
-	public void testGetAllRepanelsOK() {
-		log.info("Get all panels");
-		given().spec(requestSpec).header(AUTH, accessToken).when().get(GET_ALL_REPANELS).then().assertThat()
-				.statusCode(HttpStatus.OK_200);
-
+	public void testGetAllRepanels200() {
+		log.info("Get all repanels, OK");
+		int expected = panelDAO.findAllRepanel().size();
+		log.info("expected= " + expected);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_ALL_REPANELS).
+		then().assertThat().
+			body("size()", is(expected)).
+			statusCode(HttpStatus.OK_200);
 	}
 }
