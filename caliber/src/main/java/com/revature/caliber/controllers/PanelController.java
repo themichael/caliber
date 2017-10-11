@@ -29,7 +29,7 @@ import com.revature.caliber.services.PanelService;
 @RestController
 @PreAuthorize("isAuthenticated()")
 public class PanelController {
-	
+
 	private static final Logger log = Logger.getLogger(PanelController.class);
 
 	@Autowired
@@ -38,45 +38,47 @@ public class PanelController {
 	public void setSalesforceService(PanelService panelService) {
 		this.panelService = panelService;
 	}
-	
-	// FIXME change the roles
-	
+
 	@RequestMapping(value = "/panel/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<List<Panel>> findAll() {
-		log.debug("Getting all feedback");
-		List<Panel> feedback = panelService.findAllPanels();
-		return new ResponseEntity<>(feedback, HttpStatus.OK);
+		log.debug("Getting all panels");
+		List<Panel> panels = panelService.findAllPanels();
+		HttpStatus status = (panels.isEmpty()) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+		return new ResponseEntity<>(panels, status);
 	}
-	
+
 	@RequestMapping(value = "/panel/{panelId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<Panel> findPanelById(@PathVariable int panelId) {
 		log.debug("Getting category: " + panelId);
 		Panel panel = panelService.findById(panelId);
-		log.info(panel.toString());
-		return new ResponseEntity<>(panel, HttpStatus.OK);
+		HttpStatus status = (panel == null) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+		log.info(panel);
+		return new ResponseEntity<>(panel, status);
 	}
-	
+
 	@RequestMapping(value = "/panel/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<Panel>> findPanelByTraineeId(@PathVariable int traineeId) {
 		log.debug("Getting category: " + traineeId);
 		List<Panel> panels = panelService.findByTraineeId(traineeId);
-		log.info(panels.toString());
-		return new ResponseEntity<>(panels, HttpStatus.OK);
+		HttpStatus status = (panels.isEmpty()) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+		log.info(panels);
+		return new ResponseEntity<>(panels, status);
 	}
-	
+
 	@RequestMapping(value = "/panel/repanel/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<List<Panel>> findAllRepanel() {
 		log.debug("Getting all panels with repanel");
-		List<Panel> feedback = panelService.findAllRepanel();
-		return new ResponseEntity<>(feedback, HttpStatus.OK);
+		List<Panel> panels = panelService.findAllRepanel();
+		HttpStatus status = (panels.isEmpty()) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+		return new ResponseEntity<>(panels, status);
 	}
 
 	@RequestMapping(value = "/panel/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -86,22 +88,21 @@ public class PanelController {
 		panelService.update(panel);
 		return new ResponseEntity<>(panel, HttpStatus.OK);
 	}
-	
-	
+
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")
-	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panel) {
+	public ResponseEntity<Panel> savePanel(@Valid @RequestBody Panel panel) {
 		panelService.createPanel((panel));
 		return new ResponseEntity<>(panel, HttpStatus.CREATED);
 	}
-	
-	@RequestMapping(value = "/panel/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@RequestMapping(value = "/panel/delete/{panelId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
-	public ResponseEntity<Void> deleteAssessment(@PathVariable Panel p) {
-		log.info("Deleting panel: " + p);
-		panelService.deletePanel(p);
+	public ResponseEntity<Void> deleteAssessment(@PathVariable int panelId) {
+		log.info("Deleting panel: " + panelId);
+		panelService.deletePanel(panelId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	

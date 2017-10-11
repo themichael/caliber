@@ -58,7 +58,7 @@ public class Panel {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Trainer panelist;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name="INTERVIEW_DATE")
 	private Date interviewDate;
 	
@@ -90,7 +90,7 @@ public class Panel {
 	private PanelStatus status;
 	
 	// Technical Feedback
-	@OneToMany(mappedBy = "panel", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "panel", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "feedback")
 	private Set<PanelFeedback> feedback;
 	
@@ -269,18 +269,19 @@ public class Panel {
 		result = prime * result + ((associateIntro == null) ? 0 : associateIntro.hashCode());
 		result = prime * result + ((communicationSkills == null) ? 0 : communicationSkills.hashCode());
 		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
-		result = prime * result + ((feedback == null) ? 0 : feedback.hashCode());
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
 		result = prime * result + ((internet == null) ? 0 : internet.hashCode());
 		result = prime * result + ((interviewDate == null) ? 0 : interviewDate.hashCode());
 		result = prime * result + ((overall == null) ? 0 : overall.hashCode());
 		result = prime * result + panelRound;
+		result = prime * result + ((panelist == null) ? 0 : panelist.hashCode());
 		result = prime * result + ((projectOneDescription == null) ? 0 : projectOneDescription.hashCode());
 		result = prime * result + ((projectThreeDescription == null) ? 0 : projectThreeDescription.hashCode());
 		result = prime * result + ((projectTwoDescription == null) ? 0 : projectTwoDescription.hashCode());
 		result = prime * result + (recordingConsent ? 1231 : 1237);
 		result = prime * result + ((recordingLink == null) ? 0 : recordingLink.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((trainee == null) ? 0 : trainee.hashCode());
 		return result;
 	}
 
@@ -308,11 +309,6 @@ public class Panel {
 				return false;
 		} else if (!duration.equals(other.duration))
 			return false;
-		if (feedback == null) {
-			if (other.feedback != null)
-				return false;
-		} else if (!feedback.equals(other.feedback))
-			return false;
 		if (format != other.format)
 			return false;
 		if (internet == null) {
@@ -331,6 +327,11 @@ public class Panel {
 		} else if (!overall.equals(other.overall))
 			return false;
 		if (panelRound != other.panelRound)
+			return false;
+		if (panelist == null) {
+			if (other.panelist != null)
+				return false;
+		} else if (!panelist.equals(other.panelist))
 			return false;
 		if (projectOneDescription == null) {
 			if (other.projectOneDescription != null)
@@ -355,6 +356,11 @@ public class Panel {
 		} else if (!recordingLink.equals(other.recordingLink))
 			return false;
 		if (status != other.status)
+			return false;
+		if (trainee == null) {
+			if (other.trainee != null)
+				return false;
+		} else if (!trainee.equals(other.trainee))
 			return false;
 		return true;
 	}
