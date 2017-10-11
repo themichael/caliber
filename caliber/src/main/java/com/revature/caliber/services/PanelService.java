@@ -92,10 +92,8 @@ public class PanelService {
 	}
 	
 	public List<Map<String, String>> getBatchPanels(Integer batchId) {
-		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
-		List<Panel> panels = new ArrayList<>();
-		trainees.forEach(a -> panels.add(panelDAO.findAllByTrainee(a.getTraineeId()).get(0)));
-		List<Map<String, String>> panelDto = utilAllTraineePanels(panels);
+		List<Trainee> trainees = panelDAO.findAllTraineesAndPanels(batchId);
+		List<Map<String, String>> panelDto = utilAllTraineePanels(trainees);
 		return panelDto;
 	}
 	
@@ -104,24 +102,32 @@ public class PanelService {
 	/**
 	 * Takes a List of panels for a batch and returns a Map of labels with information
 	 * needed for batch overall panel table (Trainee Name, Panel Status, Repanel Topics)
-	 * @param panels
+	 * @param trainees
 	 * @return
 	 */
-	private List<Map<String, String>> utilAllTraineePanels(List<Panel> panels) {
+	private List<Map<String, String>> utilAllTraineePanels(List<Trainee> trainees) {
 		Map<String, String> panelInfo;
 		List<Map<String, String>> batchPanels = new ArrayList<>();
-		for(Panel p : panels) {
+		for(Trainee t : trainees) {
 			panelInfo = new HashMap<>();
-			panelInfo.put("trainee", p.getTrainee().getName());
-			String status = p.getStatus().toString();
-			panelInfo.put("status", status);
-			if(status.equalsIgnoreCase("Repanel")) {
-				String topics = "";
-				for(PanelFeedback pf: panelFeedbackDAO.findFailedFeedbackByPanel(p)) {
-						if(topics.length()>0) {topics += ", ";}
-						topics += pf.getTechnology().getSkillCategory();
+			panelInfo.put("trainee", t.getName());
+			String status;
+			List<Panel> panels = new ArrayList<Panel>(t.getPanelInterviews());
+			Panel panel;
+			if(panels.size()>0) {
+				panel = panels.get(0);
+				status = panel.getStatus().toString();
+				panelInfo.put("status", status);
+				if(status.equalsIgnoreCase("Repanel")) {
+					String topics = "";
+					for(PanelFeedback pf: panel.getFeedback()) {
+						if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
+							if(topics.length()>0) {topics += ", ";}
+							topics += pf.getTechnology().getSkillCategory();
+						}
+					}
+					panelInfo.put("topics", topics);
 				}
-				panelInfo.put("topics", topics);
 			}
 			batchPanels.add(panelInfo);
 		}
