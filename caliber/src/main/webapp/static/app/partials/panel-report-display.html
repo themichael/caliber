@@ -6,16 +6,16 @@
 					<div class="panel-heading clearfix" role="tab" id="headingOne">
 						Panel Interview Feedback
 						<!-- Buttons for our panel report -->
-						<i ng-click="decrementPanel()">
-							<div style="display:inline" ng-if="panelIndex > 0">
-                   				 <i class="clickableIcons glyphicon glyphicon-chevron-left"></i>
-                			</div>
-						</i>
-						Round <span ng-bind="traineePanelData[panelIndex].panelRound"></span> 
 						<i ng-click="incrementPanel()">
 							<div style="display:inline" ng-if="panelIndex < traineePanelData.length-1">
-								<i class="clickableIcons glyphicon glyphicon-chevron-right"></i>
+								<i class="clickableIcons glyphicon glyphicon-chevron-right pull-right"></i>
 							</div>
+						</i>
+						<span class="pull-right">Round <span ng-bind="traineePanelData[panelIndex].panelRound"></span></span>
+						<i ng-click="decrementPanel()">
+							<div style="display:inline" ng-if="panelIndex > 0">
+                   				 <i class="clickableIcons glyphicon glyphicon-chevron-left pull-right"></i>
+                			</div>
 						</i>
 						<!-- Buttons for our panel report -->
 					</div>
@@ -121,7 +121,10 @@
 								<tr ng-repeat="item in traineePanelData[panelIndex].feedback">
 									<td ng-bind="item.technology.skillCategory"></td>
 									<td ng-bind="item.result"></td>
-									<td ng-bind="item.status"></td>
+									<td>
+									<span ng-if ="item.status == 'Pass'" class ="glyphicon glyphicon-ok"></span>
+									<span ng-if ="item.status == 'Repanel'" class ="glyphicon glyphicon-remove"></span>
+									</td>
 									<td ng-bind="item.comment"></td>
 								</tr>
 							</tbody>
@@ -130,35 +133,41 @@
 						<div id="panelReportDisplay" class="panel-heading">General
 							Feedback</div>
 						<table id="feedback" class="table table-responsive removeSpaces">
-							<tr>
-								<th>Criteria</th>
-								<th>Comment</th>
-							</tr>
-							<tr>
-								<td><b>Associate Introduction</b></td>
-								<td ng-bind="traineePanelData[panelIndex].associateIntro"></td>
-							</tr>
-							<tr>
-								<td><b>Project 1 Explanation</b></td>
-								<td ng-bind="traineePanelData[panelIndex].projectOneDescription"></td>
-							</tr>
-							<tr>
-								<td><b>Project 2 Explanation</b></td>
-								<td ng-bind="traineePanelData[panelIndex].projectTwoDescription"></td>
-							</tr>
-							<tr>
-								<td><b>Project 3 Explanation</b></td>
-								<td
-									ng-bind="traineePanelData[panelIndex].projectThreeDescription"></td>
-							</tr>
-							<tr>
-								<td><b>Communication Skills</b></td>
-								<td ng-bind="traineePanelData[panelIndex].communicationSkills"></td>
-							</tr>
-							<tr>
-								<td><b>Overall</b></td>
-								<td ng-bind="traineePanelData[panelIndex].overall"></td>
-							</tr>
+							<thead>
+								<tr>
+									<th>Criteria</th>
+									<th>Comment</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><b>Associate Introduction</b></td>
+									<td ng-bind="traineePanelData[panelIndex].associateIntro"></td>
+								</tr>
+								<tr>
+									<td><b>Project 1 Explanation</b></td>
+									<td
+										ng-bind="traineePanelData[panelIndex].projectOneDescription"></td>
+								</tr>
+								<tr>
+									<td><b>Project 2 Explanation</b></td>
+									<td
+										ng-bind="traineePanelData[panelIndex].projectTwoDescription"></td>
+								</tr>
+								<tr>
+									<td><b>Project 3 Explanation</b></td>
+									<td
+										ng-bind="traineePanelData[panelIndex].projectThreeDescription"></td>
+								</tr>
+								<tr>
+									<td><b>Communication Skills</b></td>
+									<td ng-bind="traineePanelData[panelIndex].communicationSkills"></td>
+								</tr>
+								<tr>
+									<td><b>Overall</b></td>
+									<td ng-bind="traineePanelData[panelIndex].overall"></td>
+								</tr>
+							</tbody>
 						</table>
 					</div>
 				</div>

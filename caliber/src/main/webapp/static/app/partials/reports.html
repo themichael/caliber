@@ -329,7 +329,11 @@
 										</tr>
 										<tr ng-repeat="item in allTraineesPanelData">
 											<td class="col-sm-4 col-md-4 col-lg-4" ng-bind="item.trainee"></td>
-											<td class="col-sm-3 col-md-3 col-lg-3"  ng-bind="item.status"></td>
+											<td class="col-sm-3 col-md-3 col-lg-3">
+											<span ng-if ="item.status == 'Pass'" class ="glyphicon glyphicon-ok"></span>
+											<span ng-if ="item.status == 'Repanel'" class ="glyphicon glyphicon-remove"></span>
+											<span ng-if = "item.status == 'N/A'" class ="glyphicon glyphicon-minus"></span>
+											</td>
 											<td class="col-sm-3 col-md-3 col-lg-3"  ng-bind="item.topics"></td>
 										</tr>
 									</table>
