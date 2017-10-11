@@ -26,7 +26,7 @@ public class Mailer extends TimerTask {
 		this.send();
 	}
 
-	private void send() {
+	public void send() {
 		Properties properties = this.setProperties();
 		Session session = this.getSession(properties);
 		this.sendEmail(session);
