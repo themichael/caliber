@@ -143,6 +143,10 @@ angular
 												templateUrl : "/static/app/partials/trainee-overall.html",
 												controller : "allReportController"
 											},
+											"panel-report-display@qc.reports" : {
+												templateUrl : "/static/app/partials/panel-report-display.html",
+												controller : "allReportController"
+											},
 											"trainee-week@qc.reports" : {
 												templateUrl : "/static/app/partials/trainee-week.html",
 												controller : "trainerAssessController"
@@ -276,6 +280,10 @@ angular
 											},
 											"trainee-overall@trainer.reports" : {
 												templateUrl : "/static/app/partials/trainee-overall.html",
+												controller : "allReportController"
+											},
+											"panel-report-display@trainer.reports" : {
+												templateUrl : "/static/app/partials/panel-report-display.html",
 												controller : "allReportController"
 											},
 											"trainee-week@trainer.reports" : {
@@ -516,6 +524,10 @@ angular
 											},
 											"trainee-overall@vp.reports" : {
 												templateUrl : "/static/app/partials/trainee-overall.html",
+												controller : "allReportController"
+											},
+											"panel-report-display@vp.reports" : {
+												templateUrl : "/static/app/partials/panel-report-display.html",
 												controller : "allReportController"
 											},
 											"trainee-week@vp.reports" : {

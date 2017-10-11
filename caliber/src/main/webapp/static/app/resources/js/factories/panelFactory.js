@@ -104,6 +104,7 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 					method : "GET"
 				}).then(function(response) {
 			$log.debug('Retrieve all panels for trainee successful');
+			console.log("Here in Panel Factory report TraineePanels")
 			$log.debug(response);
 			return response.data;
 		}, function(response) {

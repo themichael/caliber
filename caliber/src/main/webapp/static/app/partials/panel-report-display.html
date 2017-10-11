@@ -1,169 +1,162 @@
 <div class="container">
 	<div class="row">
-		<!-- 
-            <div class="col-md-1 prev-round clickable" ng-click="decrement()">
-                <div ng-if="idx > 0">
-                    <i class="glyphicon glyphicon-triangle-left"></i>
-                    <span>Previous</span>
-                </div>
-            </div>
-            <div class="col-md-10 content">-->
-		<!-- -->
+	<div class="col-sm-12 col-md-12 col-lg-12">
 		<div class="row">
-			<!---->
-			<button type="button" ng-click="decrement()">Previous</button>
-			<button type="button" ng-click="increment()">Next</button>
-
 			<div class="panel panel-default">
-				<div class="panel-heading">Panel Interview Feedback</div>
-				<div class="right">
-					<!-- <img src=“RevLogo”> -->
+				<div class="panel-heading clearfix" role="tab" id="headingOne">
+					Panel Interview Feedback
+					<!-- Buttons for our panel report -->
+					<i ng-click="downloadChartButton($event)"
+						class="clickableIcons glyphicon glyphicon-chevron-left"></i> <i
+						ng-click="downloadChartButton($event)"
+						class="clickableIcons glyphicon glyphicon-chevron-right"></i>
+					<!-- Buttons for our panel report -->
 				</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-sm-6">
-							<div class="row">
-								<div class="col-8 col-sm-6">
-									<strong>Name of the Associate:</strong>
-								</div>
-								<div class="col-4 col-sm-6">
-									<span ng-bind="trainee.firstName +' '+trainee.lastName"></span>
-								</div>
-								<div class="col-8 col-sm-6">
-									<strong>Panelist Name:</strong>
-								</div>
-								<div class="col-4 col-sm-6">
-									<span ng-bind="trainee.panelInterview[idx].panelist.name"></span>
-								</div>
-								<div class="col-8 col-sm-6">
-									<strong>Training Track:</strong>
-								</div>
-								<div class="col-4 col-sm-6">
-									<span ng-bind="trainee.track"></span>
-								</div>
-								<div class="col-8 col-sm-6">
-									<strong> Panel Round:</strong>
-								</div>
-								<div class="col-4 col-sm-6">
-									<span ng-bind="trainee.panelInterview[idx].panelRound"></span>
-								</div>
-								<div class="col-8 col-sm-6">
-									<strong>Recording Consent:</strong>
-								</div>
-								<div class="col-4 col-sm-6">
-									<span ng-bind="trainee.panelInterview[idx].consent"></span>
-								</div>
-								<div class="col-8 col-sm-6">
-									<strong>Recording Link:</strong>
-								</div>
-								<div class="col-4 col-sm-6">
-									<span ng-bind="trainee.panelInterview[idx].link"></span>
-								</div>
-							</div>
-						</div>
+				<div class="container">
+					<div class="panel-body">
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="row">
 									<div class="col-8 col-sm-6">
-										<strong>Interview Date:</strong>
+										<strong>Name of the Associate:</strong>
 									</div>
 									<div class="col-4 col-sm-6">
-										<span ng-bind="trainee.panelInterview[idx].interviewDate"></span>
+										<span ng-bind="trainee.firstName +' '+trainee.lastName"></span>
 									</div>
 									<div class="col-8 col-sm-6">
-										<strong>Interview Time:</strong>
+										<strong>Panelist Name:</strong>
 									</div>
 									<div class="col-4 col-sm-6">
-										<span ng-bind="trainee.panelInterview[idx].interviewTime"></span>
+										<span ng-bind="trainee.panelInterview[idx].panelist.name"></span>
 									</div>
 									<div class="col-8 col-sm-6">
-										<strong>Interview Duration:</strong>
+										<strong>Training Track:</strong>
 									</div>
 									<div class="col-4 col-sm-6">
-										<span ng-bind="trainee.panelInterview[idx].interviewTime"></span>
+										<span ng-bind="trainee.track"></span>
 									</div>
 									<div class="col-8 col-sm-6">
-										<strong>Interview Mode:</strong>
+										<strong> Panel Round:</strong>
 									</div>
 									<div class="col-4 col-sm-6">
-										<span ng-bind="trainee.panelInterview[idx].interviewMode"></span>
+										<span ng-bind="trainee.panelInterview[idx].panelRound"></span>
 									</div>
 									<div class="col-8 col-sm-6">
-										<strong>Overall Feedback:</strong>
+										<strong>Recording Consent:</strong>
 									</div>
 									<div class="col-4 col-sm-6">
-										<span ng-bind="trainee.panelInterview[idx].overallFeedback"></span>
+										<span ng-bind="trainee.panelInterview[idx].consent"></span>
 									</div>
 									<div class="col-8 col-sm-6">
-										<strong>Internet Connectivity:</strong>
+										<strong>Recording Link:</strong>
 									</div>
 									<div class="col-4 col-sm-6">
-										<span
-											ng-bind="trainee.panelInterview[idx].internetConnectivity"></span>
+										<span ng-bind="trainee.panelInterview[idx].link"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="row">
+										<div class="col-8 col-sm-6">
+											<strong>Interview Date:</strong>
+										</div>
+										<div class="col-4 col-sm-6">
+											<span ng-bind="trainee.panelInterview[idx].interviewDate"></span>
+										</div>
+										<div class="col-8 col-sm-6">
+											<strong>Interview Time:</strong>
+										</div>
+										<div class="col-4 col-sm-6">
+											<span ng-bind="trainee.panelInterview[idx].interviewTime"></span>
+										</div>
+										<div class="col-8 col-sm-6">
+											<strong>Interview Duration:</strong>
+										</div>
+										<div class="col-4 col-sm-6">
+											<span ng-bind="trainee.panelInterview[idx].interviewTime"></span>
+										</div>
+										<div class="col-8 col-sm-6">
+											<strong>Interview Mode:</strong>
+										</div>
+										<div class="col-4 col-sm-6">
+											<span ng-bind="trainee.panelInterview[idx].interviewMode"></span>
+										</div>
+										<div class="col-8 col-sm-6">
+											<strong>Overall Feedback:</strong>
+										</div>
+										<div class="col-4 col-sm-6">
+											<span ng-bind="trainee.panelInterview[idx].overallFeedback"></span>
+										</div>
+										<div class="col-8 col-sm-6">
+											<strong>Internet Connectivity:</strong>
+										</div>
+										<div class="col-4 col-sm-6">
+											<span
+												ng-bind="trainee.panelInterview[idx].internetConnectivity"></span>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="panel-heading">
-						<h6 class="panel-title">Technical Feedback</h6>
+					<div id="panelReportDisplay" class="panel-heading">Technical
+						Feedback</div>
+					<div class="panel-body">
+						<table id="feedback" class="table table-responsive">
+							<tr>
+								<th>Technology</th>
+								<th>Result</th>
+								<th>Repanel</th>
+								<th>Comment</th>
+							</tr>
+							<tr ng-repeat="item in trainee.panelInterview[idx].feedback">
+								<td ng-bind="item.technology"></td>
+								<td ng-bind="item.result"></td>
+								<td ng-bind="item.repanel"></td>
+								<td ng-bind="item.comment"></td>
+							</tr>
+						</table>
 					</div>
-					<table id="feedback" class="table table-bordered table-responsive">
-						<tr>
-							<th>Technology</th>
-							<th>Result</th>
-							<th>Repanel</th>
-							<th>Comment</th>
-						</tr>
-						<tr ng-repeat="item in trainee.panelInterview[idx].feedback">
-							<td ng-bind="item.technology"></td>
-							<td ng-bind="item.result"></td>
-							<td ng-bind="item.repanel"></td>
-							<td ng-bind="item.comment"></td>
-						</tr>
-					</table>
 
-					<div id="margin" class="panel-heading">General Feedback</div>
-					<table id="feedback" class="table table-bordered table-responsive">
-						<tr>
-							<th>Criteria</th>
-							<th>Comment</th>
-						</tr>
-						<tr>
-							<td><b>Associate Introduction</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.comment"></td>
-						</tr>
-						<tr>
-							<td><b>Project 1 Explanation</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.project1"></td>
-						</tr>
-						<tr>
-							<td><b>Project 2 Explanation</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.project2"></td>
-						</tr>
-						<tr>
-							<td><b>Project 3 Explanation</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.project3"></td>
-						</tr>
-						<tr>
-							<td><b>Communication Skills</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.communication"></td>
-						</tr>
-						<tr>
-							<td><b>Overall</b></td>
-							<td ng-bind="trainee.panelInterview[idx].comments.overall"></td>
-						</tr>
-					</table>
+					<div id="panelReportDisplay" class="panel-heading">General
+						Feedback</div>
+					<div class="panel-body">
+						<table id="feedback" class="table table-responsive">
+							<tr>
+								<th>Criteria</th>
+								<th>Comment</th>
+							</tr>
+							<tr>
+								<td><b>Associate Introduction</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.comment"></td>
+							</tr>
+							<tr>
+								<td><b>Project 1 Explanation</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.project1"></td>
+							</tr>
+							<tr>
+								<td><b>Project 2 Explanation</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.project2"></td>
+							</tr>
+							<tr>
+								<td><b>Project 3 Explanation</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.project3"></td>
+							</tr>
+							<tr>
+								<td><b>Communication Skills</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.communication"></td>
+							</tr>
+							<tr>
+								<td><b>Overall</b></td>
+								<td ng-bind="trainee.panelInterview[idx].comments.overall"></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-		<!--
-                <div class="col-md-1 next-round clickable" ng-click="increment()">
-                    <div ng-if="idx < trainee.panelInterview.length-1">
-                        <i class="glyphicon glyphicon-triangle-right"></i>
-                        <span>Next</span>
-                    </div>
-                </div> -->
-		<!-- 
-            </div>-->
 	</div>
+	</div>
+</div>
+

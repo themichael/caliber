@@ -212,7 +212,20 @@ angular
 							}
 						});
 			}
-			function displayTraineePanelFeedback(traineeId){
+			//Jak
+			function displayTraineePanelFeedback(){
+				
+				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
+						function(response){
+							NProgress.done();
+							$scope.traineePanelData = response;
+							console.log("here");
+							console.log(response);
+							
+						},function(response){
+							NProgress.done();
+						}
+						)
 				
 			}
 
