@@ -27,7 +27,7 @@ public class Mailer extends TimerTask {
 //		this.toEmail = toEmail;
 //	}
 
-	@Autowired
+//	@Autowired
 	public void setAuthenticator(EmailAuthenticator authenticator) {
 		this.authenticator = authenticator;
 	}

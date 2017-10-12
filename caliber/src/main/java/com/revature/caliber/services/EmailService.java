@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,7 @@ import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
@@ -51,7 +53,7 @@ public class EmailService {
 	private static final int MONTH = 9;
 	private static final int DATE = 14;
 	private static final int HOUR = 9;
-	private static final int MINUTE = 28;
+	private static final int MINUTE = 44;
 	private static final int SECOND = 0;
 	
 	
@@ -81,51 +83,69 @@ public class EmailService {
 	
 	@PostConstruct
 	public void init() {
-		this.startReminderJob();
-
-	}
-
-	
-	public void startReminderJob() {
 		List<Assessment> list = assess.findAll();
 		System.out.println(list.toString());
-		List<Batch> batchList = batch.findAll();
+		List<Batch> batchList = batch.findAllCurrent();
 		List<Assessment> assessList = assess.findAll();
-		List<Trainee> traineeList = trainee.findAll();
-		
-		
-		Timer timer = new Timer();
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
-		Date startDate = calendar.getTime();
-		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
-		long interval = 10000;
-		checkGrades(batchList, assessList, traineeList);
-		timer.scheduleAtFixedRate(this.mailer, startDate, interval);
+
+		checkGrades(batchList, assessList);
 	}
 	
-	public void checkGrades(List<Batch> batchList, List<Assessment> assessList, List<Trainee> traineeList) {
+	public void checkGrades(List<Batch> batchList, List<Assessment> assessList) {
 		Date currentDate = new Date();
-		
-//		for(Batch b : batchList) {
-//			ArrayList<Long> list = new ArrayList<Long>();
-//			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
-//			if (b.getEndDate().before(currentDate) && b.getWeeks() < 8) {
-//				for(Assessment a: assessList) {
-//					if(b.getBatchId() == a.getBatch().getBatchId()) {
-//						list.add(a.getAssessmentId());
-//					}
-//				}
-//				for(Trainee t : traineeList) {
-//					
-//			}
-//		}
-//		
-//		
+		ArrayList<Trainer> trainer = new ArrayList<Trainer>();
 //
-//	}
+//		Timer timer = new Timer();
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
+//		Date startDate = calendar.getTime();
+//		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
+//		long interval = 10000;
+//		
+//		timer.scheduleAtFixedRate(new Mailer(), startDate, interval);
+//		
 
-	
+		for(Batch b : batchList) {
+			System.out.println("Trainer in batch " + b.getBatchId() + " " + b.getTrainer().getName());
+			ArrayList<Long> list = new ArrayList<Long>();
+			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
+			List<Trainee> traineeList = trainee.findAllByBatch(b.getBatchId());
+			int checkCount = 0;
+			for(Assessment a: assessList) {
+				if(b.getBatchId() == a.getBatch().getBatchId()) {
+					System.out.println(b.getBatchId() + " and " + a.getBatch().getBatchId());
+					list.add(a.getAssessmentId());
+				}
+			}
+
+			if(b.getTrainer().getTrainerId() == 6) {
+				System.out.println("Genesis List: " + list);
+			}
+			for(Grade g: gradeList) {
+				for(int i = 0; i < list.size(); i++) {
+					if(g.getAssessment().getAssessmentId() == list.get(i)) {
+						for(Trainee t: traineeList) {
+							if(g.getTrainee().getTraineeId() != t.getTraineeId()) {
+								if(trainer.contains(b.getTrainer())) {
+									continue;
+								}
+								checkCount = 1;
+							}
+						}
+
+						}
+					}
+
+			}
+			if(checkCount == 1) {
+				trainer.add(b.getTrainer());
+			}
+			else if(checkCount == 0) {
+				trainer.remove(b.getTrainer());
+			}
+		}
+
+		System.out.println("This trainer needs to do work: " + trainer);
 
 	
 	
