@@ -187,7 +187,7 @@ public class PanelDAOTest extends CaliberTest {
 	 * date format
 	 */
 	@Test
-	public void panelDateTest() {
+	public void panelCreateUpdateTest() {
 		Panel expected = getPanel();
 
 		panelDAO.save(expected);
@@ -225,6 +225,31 @@ public class PanelDAOTest extends CaliberTest {
 		Panel actual = panelDAO.findOne(40);
 
 		assertTrue(expected.equals(actual));
+	}
+	
+	/**
+	 * Tests the .equals method on the created panel
+	 */
+	@Test
+	public void createSaveTest() {
+		Panel expected = getPanel();
+		panelDAO.save(expected);
+		Panel actual = panelDAO.findOne(expected.getId());
+
+		assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Tests the .equals method on the created panel after a trivial update
+	 */
+	@Test
+	public void createSaveUpdateTest() {
+		Panel expected = getPanel();
+		panelDAO.save(expected);
+		panelDAO.update(expected);
+		Panel actual = panelDAO.findOne(expected.getId());
+
+		assertEquals(expected, actual);
 	}
 
 	public Panel getPanel() {
