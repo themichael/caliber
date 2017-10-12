@@ -42,7 +42,7 @@ angular
 					 * ****************************
 					 */
 
-					// Used to sort trainees
+					// Used to sort trainees in batch
 					function compare(a, b) {
 						if (a.name < b.name)
 							return -1;
@@ -74,6 +74,15 @@ angular
 						$scope.batches = allBatches;
 						$scope.selectedBatches = [];
 						sortByDate(new Date().getFullYear());
+
+						// sort all trainees in alphabetical order
+						if($scope.batches){
+							$scope.batches.forEach(function(item,index){
+								$scope.batches[index].trainees.sort(compare);
+							})
+						}
+						$log.debug($scope.batches);
+
 					})();
 
 					/** Filter batches by year * */
@@ -204,11 +213,6 @@ angular
 						// caliberdlegeate get trainees by batch id and load nto
 						$scope.batchRow = index;
 						$scope.showdropped = false;
-
-						// sort trainess in alphabetical order
-						if ($scope.trainees) {
-								$scope.trainees.sort(compare);
-						}
 
 						$log.debug($scope.currentBatch);
 					};

@@ -54,11 +54,14 @@ angular
 				return 0;
 			}
 			
-			// sort trainess in alphabetical order
+			// sort all trainees in alphabetical order
 			(function(){
-				if ($scope.currentBatch) {
-					$scope.currentBatch.trainees.sort(compare);
+				if(allBatches){
+					allBatches.forEach(function(item,index){
+						allBatches[index].trainees.sort(compare);
+					})
 				}
+				$log.debug(allBatches);
 			})();
 			
 			//load $scope.trainees list for search results
