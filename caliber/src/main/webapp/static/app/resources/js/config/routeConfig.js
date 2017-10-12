@@ -635,4 +635,18 @@ angular
 										}
 										
 							})
+							
+						.state(
+									"panel.reports",
+									{ 
+										url : "/reports",
+										/* add modal view to vpHome page */
+										views: {
+											"" : {
+												templateUrl : "/static/app/partials/reports.html",
+												controller : "allReportController"
+											}	
+										}
+										
+							})
 				});
