@@ -784,8 +784,90 @@ angular
 					for(const trainee of $scope.currentBatch.trainees){
 						$scope.assignTraineeScope(trainee.traineeId);
 					}
+          
+					/***********************************************************
+					 * UPDATE ASSESSMENT
+					 **********************************************************/
 
-					getAllAssessmentsForWeek(
+					// sets the update assessment model with the current assessment data
+					$scope.setUpdateAssessmentToCurrent = function(index){
+						$log.debug(index);
+						$scope.updateAssessmentModel.category = $scope.currentAssessments[index].category;
+						$scope.updateAssessmentModel.rawScore = $scope.currentAssessments[index].rawScore;
+						$scope.updateAssessmentModel.type = $scope.currentAssessments[index].type;
+						$log.debug($scope.currentAssessments[index]);
+					}
+						
+					$scope.updateAssessment = function(assessment,event,modalId,index){
+						event.stopPropagation();
+						if($scope.updateAssessmentModel !==undefined){
+							$log.debug(index);
+							// $log.debug($scope.currentAssessments[$index]
+							// + " ------ " + $index);
+							if($scope.updateAssessmentModel.category){
+								assessment.category=$scope.updateAssessmentModel.category;
+							}
+							if($scope.updateAssessmentModel.type){
+								assessment.type=$scope.updateAssessmentModel.type;
+							}
+							if($scope.updateAssessmentModel.rawScore){
+								assessment.rawScore=$scope.updateAssessmentModel.rawScore;
+							}
+							// call delegate if at least one field was
+							// changed
+							if($scope.updateAssessmentModel.category || $scope.updateAssessmentModel.type || $scope.updateAssessmentModel.rawScore){
+								caliberDelegate.trainer.updateAssessment(assessment)
+								.then(function(response){
+									$log.debug("the assessment has been updated");
+									return response;
+								}).then(function(response){
+								$('.modal').modal('hide');										
+										$scope.currentAssessments[index] = response;
+										$log.debug($scope.currentBatch.batchId, $scope.currentWeek);
+										getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);									
+								});
+							}
+						}
+						$('.modal').modal('hide');
+					};
+						
+					
+					// delete the assessment clicked
+					$scope.deleteAssessment = function(assessment,event,modalId,index){
+						$('.modal').modal('hide');
+						$('.modal-backdrop').remove();
+						event.stopPropagation();
+						$log.debug("im deleting an assessment" + $scope.currentAssessments);
+						caliberDelegate.trainer.deleteAssessment($scope.currentAssessments[index].assessmentId)
+						.then(function(response){																					
+							return response;
+						}).then(function(){
+							$log.debug("im deleting assessment");
+							getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+						});
+					};
+					/*
+					 * set children of modal to false on click to prevent modal
+					 * from fading out when clicking on child elements
+					 * 
+					 * Implemented due to modal-backdrop class duplicating
+					 * itself and not going away when clicking area outside of
+					 * modal document - jack
+					 */
+					$scope.preventModalClose = function(){
+						$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
+							e.stopPropagation();
+						});
+						$('.editAssessModal').on("click",function(e) {
+							e.stopPropagation();
+						    $(".modal").modal("hide");
+						});
+					};
+					
+					$scope.closeModal = function(str){
+						$('#'+str).modal('toggle');
+					};
+				getAllAssessmentsForWeek(
 							$scope.currentBatch.batchId,
 							$scope.currentWeek);
 				});
