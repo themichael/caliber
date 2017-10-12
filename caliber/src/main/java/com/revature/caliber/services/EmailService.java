@@ -50,8 +50,8 @@ public class EmailService {
 	@PostConstruct
 	public void init() {
 		this.startReminderJob();
-		//List<Assessment> list = assess.findAll();
-		//System.out.println(list.toString());
+		List<Assessment> list = assess.findAll();
+		System.out.println(list.toString());
 	}
 
 	//@PostConstruct
@@ -61,7 +61,7 @@ public class EmailService {
 		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
 		Date startDate = calendar.getTime();
 		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
-		long interval = 10000;
+		long interval = 20000;
 		timer.scheduleAtFixedRate(this.mailer, startDate, interval);
 	}
 
