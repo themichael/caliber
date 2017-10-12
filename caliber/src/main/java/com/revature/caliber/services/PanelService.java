@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,17 +92,41 @@ public class PanelService {
 		return panelDAO.findAllByTrainee(traineeId);
 	}
 	
+	/**
+	 * Finds all (undropped) trainees for a batch with their panels and returns
+	 * a convenient List of Maps of Strings to use as a dto
+	 * @author emmabownes
+	 * @param batchId
+	 * @return list of Maps of strings to serve as a paneldto for batch overall
+	 */
 	public List<Map<String, String>> getBatchPanels(Integer batchId) {
 		List<Trainee> trainees = panelDAO.findAllTraineesAndPanels(batchId);
+		trainees = utilRemoveDroppedTrainees(trainees);
 		List<Map<String, String>> panelDto = utilAllTraineePanels(trainees);
 		return panelDto;
 	}
-	
+
 	//Utility methods
+	/**
+	 * Takes a list of trainees and creates a new list of trainees without the dropped trainees
+	 * @author emmabownes
+	 * @param list of trainees
+	 * @return list of trainees
+	 */
+	private List<Trainee> utilRemoveDroppedTrainees(List<Trainee> trainees) {
+		List<Trainee> currentTrainees = new ArrayList<>();
+		for(Trainee t: trainees) {
+			if(!t.getTrainingStatus().toString().equalsIgnoreCase("dropped")) {
+				currentTrainees.add(t);
+			}
+		}
+		return currentTrainees;
+	}
 	
 	/**
 	 * Takes a List of panels for a batch and returns a Map of labels with information
 	 * needed for batch overall panel table (Trainee Name, Panel Status, Repanel Topics)
+	 * @author emmabownes
 	 * @param trainees
 	 * @return
 	 */
@@ -119,19 +144,31 @@ public class PanelService {
 				status = panel.getStatus().toString();
 				panelInfo.put("status", status);
 				if(status.equalsIgnoreCase("Repanel")) {
-					String topics = "";
-					for(PanelFeedback pf: panel.getFeedback()) {
-						if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
-							if(topics.length()>0) {topics += ", ";}
-							topics += pf.getTechnology().getSkillCategory();
-						}
-					}
+					String topics = utilGetRepanelTopics(panel.getFeedback());
+					
 					panelInfo.put("topics", topics);
 				}
 			}
 			batchPanels.add(panelInfo);
 		}
 		return batchPanels;
+	}
+	/**
+	 * Takes a Set of panel feedbacks and returns a string which is
+	 * a list of all categories which must be repaneled
+	 * @author emmabownes
+	 * @param feedback
+	 * @return topics
+	 */
+	private String utilGetRepanelTopics(Set<PanelFeedback> feedback) {
+		String topics = "";
+		for(PanelFeedback pf: feedback) {
+			if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
+				if(topics.length()>0) {topics += ", ";}
+				topics += pf.getTechnology().getSkillCategory();
+			}
+		}
+		return topics;
 	}
 	
 	
