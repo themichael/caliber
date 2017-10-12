@@ -1,3 +1,40 @@
+<!-- Search for single Trainee -->
+<div class="container-1 pull-right">
+	<form ng-submit="selectChosenTrainee()">
+		<span class="icon"><button type="submit" class="SearchButton"><i class="fa fa-search"></i></button></span>
+        	<input ng-model="chosenTrainee" list="traineeList" type="search" id="searchTextBox" 
+            	placeholder="Search for Trainee" class="form-control SearchPad" autocomplete="off" />
+                <datalist id="traineeList">
+	    			<option ng-repeat="trainee in allTrainees track by $index" ng-value="trainee.name">
+	    				{{trainee.name}} | {{trainee.email}} | {{trainee.skypeId}} 
+	    			</option>
+	    		</datalist>
+	</form>
+</div>
+
+<br>
+<br>
+
+<div class="panel panel-default">
+	<div class="panel-heading">Panel Feedback</div>
+		<div class="table-responsive">
+			<table id="batch-panel-status" class="table-responsive">
+				<tr>
+					<th>Trainee Name</th>
+					<th>Panel Status</th>
+					<th>Repeat Topics</th>
+					<th></th>
+				</tr>
+				<tr ng-repeat="item in allTraineesPanelData">
+					<td ng-bind="item.trainee" id="trainee.name"></td>
+					<td ng-bind="item.status"></td>
+					<td ng-bind="item.topics"></td>
+					<td><div role="button" data-toggle = "modal" data-target = "#samplemodal" ng-click=""><span class="glyphicon glyphicon-plus" style="color: #F26925;" aria-hidden="true"></span></div></td>
+				</tr>
+			</table>
+		</div>
+</div>
+
 <div class = "wrapper">
 	<h1 role = "button" data-toggle = "modal" data-target = "#samplemodal" ng-click="">PANELS WOO</h1>
 	<div ui-view = "samplemodal"></div>
