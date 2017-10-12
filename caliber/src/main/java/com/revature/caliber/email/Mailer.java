@@ -17,13 +17,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class Mailer extends TimerTask {
 
+
+
 	private String toEmail = "mscott@mailinator.com";
 	private EmailAuthenticator authenticator;
 
 	//@Autowired
-	public void setToEmail(String toEmail) {
-		this.toEmail = toEmail;
-	}
+//	public void setToEmail(String toEmail) {
+//		this.toEmail = toEmail;
+//	}
 
 	@Autowired
 	public void setAuthenticator(EmailAuthenticator authenticator) {
