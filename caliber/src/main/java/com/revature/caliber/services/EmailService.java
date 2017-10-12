@@ -43,12 +43,15 @@ public class EmailService {
 	@Autowired
 	private GradeDAO grade;
 	
+	
+	
+	
 	private static final long DAYS_IN_WEEK = 7;
 	private static final int YEAR = 2017;
 	private static final int MONTH = 9;
-	private static final int DATE = 11;
-	private static final int HOUR = 14;
-	private static final int MINUTE = 57;
+	private static final int DATE = 14;
+	private static final int HOUR = 9;
+	private static final int MINUTE = 28;
 	private static final int SECOND = 0;
 	
 	
@@ -76,49 +79,51 @@ public class EmailService {
 	
 	
 	
-
+	@PostConstruct
 	public void init() {
 		this.startReminderJob();
+
+	}
+
+	
+	public void startReminderJob() {
 		List<Assessment> list = assess.findAll();
 		System.out.println(list.toString());
 		List<Batch> batchList = batch.findAll();
 		List<Assessment> assessList = assess.findAll();
 		List<Trainee> traineeList = trainee.findAll();
-		checkGrades(batchList, assessList, traineeList);
-
-	}
-
-	@PostConstruct
-	private void startReminderJob() {
+		
+		
 		Timer timer = new Timer();
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
 		Date startDate = calendar.getTime();
 		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
 		long interval = 10000;
+		checkGrades(batchList, assessList, traineeList);
 		timer.scheduleAtFixedRate(this.mailer, startDate, interval);
 	}
 	
 	public void checkGrades(List<Batch> batchList, List<Assessment> assessList, List<Trainee> traineeList) {
 		Date currentDate = new Date();
 		
-		for(Batch b : batchList) {
-			ArrayList<Long> list = new ArrayList<Long>();
-			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
-			if (b.getEndDate().before(currentDate) && b.getWeeks() < 8) {
-				for(Assessment a: assessList) {
-					if(b.getBatchId() == a.getBatch().getBatchId()) {
-						list.add(a.getAssessmentId());
-					}
-				}
-				for(Trainee t : traineeList) {
-					
-			}
-		}
-		
-		
-
-	}
+//		for(Batch b : batchList) {
+//			ArrayList<Long> list = new ArrayList<Long>();
+//			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
+//			if (b.getEndDate().before(currentDate) && b.getWeeks() < 8) {
+//				for(Assessment a: assessList) {
+//					if(b.getBatchId() == a.getBatch().getBatchId()) {
+//						list.add(a.getAssessmentId());
+//					}
+//				}
+//				for(Trainee t : traineeList) {
+//					
+//			}
+//		}
+//		
+//		
+//
+//	}
 
 	
 
