@@ -183,24 +183,6 @@ public class PanelDAOTest extends CaliberTest {
 	}
 
 	/**
-	 * Tests whether the date can be updated while maintaining the same
-	 * date format
-	 */
-	@Test
-	public void panelCreateUpdateTest() {
-		Panel expected = getPanel();
-
-		panelDAO.save(expected);
-		expected.setInterviewDate(new Date(5));
-		panelDAO.update(expected);
-		Panel actual = panelDAO.findOne(expected.getId());
-
-		assertEquals(expected.getId(), actual.getId());
-		assertEquals(expected.getInterviewDate(), actual.getInterviewDate());
-		assertEquals(expected, actual);
-	}
-
-	/**
 	 * Tests that the date format already in the database is the same as after
 	 * updating a panel
 	 */
@@ -225,6 +207,24 @@ public class PanelDAOTest extends CaliberTest {
 		Panel actual = panelDAO.findOne(40);
 
 		assertTrue(expected.equals(actual));
+	}
+
+	/**
+	 * Tests whether the date can be updated while maintaining the same
+	 * date format
+	 */
+	@Test
+	public void panelCreateUpdateTest() {
+		Panel expected = getPanel();
+
+		panelDAO.save(expected);
+		expected.setInterviewDate(new Date(5));
+		panelDAO.update(expected);
+		Panel actual = panelDAO.findOne(expected.getId());
+
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getInterviewDate(), actual.getInterviewDate());
+		assertEquals(expected, actual);
 	}
 	
 	/**
@@ -258,7 +258,7 @@ public class PanelDAOTest extends CaliberTest {
 		p.setPanelRound(1);
 		p.setStatus(PanelStatus.Pass);
 		p.setTrainee(traineeDao.findOne(1));
-		p.setPanelist(trainerDao.findOne(1));
+		p.setPanelist(trainerDao.findOne(3));
 		p.setInterviewDate(new Date());
 		return p;
 	}
