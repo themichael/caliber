@@ -197,7 +197,6 @@ public class PanelDAOTest extends CaliberTest {
 
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getInterviewDate(), actual.getInterviewDate());
-		assertEquals(expected.toString(), actual.toString());
 		assertEquals(expected, actual);
 	}
 
@@ -214,7 +213,6 @@ public class PanelDAOTest extends CaliberTest {
 
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getInterviewDate(), actual.getInterviewDate());
-		assertEquals(expected.toString(), actual.toString());
 		assertEquals(expected, actual);
 	}
 
