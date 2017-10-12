@@ -55,7 +55,6 @@ public class PanelFeedbackService {
 		return panelFeedDAO.findAll();
 	}
 	
-
 	/**
 	 * UPDATE PanelFeedback
 	 * @param PanelFeedback
@@ -67,14 +66,4 @@ public class PanelFeedbackService {
 		return panelf;
 	}
 
-	/**
-	 * DELETE PanelFeedback
-	 * @param PanelFeedback
-	 */
-	public void delete(PanelFeedback panelf) {
-		log.debug("Deleting PanelFeedback " + panelf);
-		//load PanelFeedback into persistent state
-		PanelFeedback record = panelFeedDAO.findOne(panelf.getId());
-		panelFeedDAO.delete(record);
-	}
 }
