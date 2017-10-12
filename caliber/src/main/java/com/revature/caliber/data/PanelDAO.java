@@ -1,6 +1,5 @@
 package com.revature.caliber.data;
 
-import java.util.HashSet;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -15,7 +14,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Panel;
-import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 
 /**
@@ -27,7 +25,6 @@ public class PanelDAO {
 
 	private static final Logger log = Logger.getLogger(PanelDAO.class);
 	private static final String INTERVIEW_DATE = "interviewDate";
-	private static final String PANEL_ID = "id";
 	private SessionFactory sessionFactory;
 	
 	@Autowired
@@ -106,7 +103,6 @@ public class PanelDAO {
 	public Panel findOne(Integer panelId) {
 		log.info("Find panel by id: " + panelId);
 		Panel p = (Panel) sessionFactory.getCurrentSession().get(Panel.class, panelId);
-//		p.setFeedback(new HashSet<PanelFeedback>(panelFeedbackDao.findAllForPanel(panelId)));
 		return p;
 	}
 
