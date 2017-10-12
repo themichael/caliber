@@ -54,12 +54,12 @@ public class EmailService {
 	private static final int MINUTE = 44;
 	private static final int SECOND = 0;
 
-	public void setGrade(GradeDAO gradeDAO) {
-		this.gradeDAO = gradeDAO;
-	}
-
 	public void setMailer(Mailer mailer) {
 		this.mailer = mailer;
+	}
+
+	public void setGrade(GradeDAO gradeDAO) {
+		this.gradeDAO = gradeDAO;
 	}
 
 	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
@@ -109,34 +109,25 @@ public class EmailService {
 				}
 			}
 
-//			if(batch.getTrainer().getTrainerId() == 6) {
-//				System.out.println("Genesis List: " + assessmentIDs);
-//			}
-
-			boolean check = false;
 			for(Grade grade : batchGrades) {
 				for(Assessment assessment : assessments) {
 					if(grade.getAssessment().equals(assessment)) {
 						for(Trainee trainee : batchTrainees) {
-							if(!(grade.getTrainee().equals(trainee))) {
-								if(trainers.contains(batch.getTrainer())) {
-									continue;
+							boolean traineeHasGradeForThisAssessment = grade.getTrainee().equals(trainee);
+							if(!traineeHasGradeForThisAssessment) {
+								boolean trainerHasSubmittedAllGrades = trainers.contains(batch.getTrainer());
+								if(!trainerHasSubmittedAllGrades) {
+									trainers.add(batch.getTrainer());
 								}
-								check = true;
 							}
 						}
 					}
 				}
 			}
-			
-			if(check) {
-				trainers.add(batch.getTrainer());
-			}
-			else {
-				trainers.remove(batch.getTrainer());
-			}
 		}
-		//System.out.println("This trainer needs to do work: " + trainers);
+		for (Trainer trainer : trainers) {
+			System.out.println(trainer.getName() + " needs to submit grades");
+		}
 	}
 
 }
