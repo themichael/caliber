@@ -416,14 +416,18 @@ footer a, footer a:hover {
             display: inline-table !important;
 	margin: 0 !important;
 }
-.glyphiconMoveRight{
-	float: right;
+.move-glyphicon{
+	top: 2.5px;
 }
 .glyphicon-ok{
 	color: green;
 }
 .glyphicon-remove{
 	color: red;
+}
+.pBody{
+	margin-left: 10px;
+	margin-right: 10px;
 }
 /********************************************************
 	Overall Batch Status column in vp-home and qc-home
