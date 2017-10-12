@@ -110,7 +110,7 @@ public class EmailService {
 			ArrayList<Long> list = new ArrayList<Long>();
 			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
 			List<Trainee> traineeList = trainee.findAllByBatch(b.getBatchId());
-
+			int checkCount = 0;
 			for(Assessment a: assessList) {
 				if(b.getBatchId() == a.getBatch().getBatchId()) {
 					System.out.println(b.getBatchId() + " and " + a.getBatch().getBatchId());
@@ -125,18 +125,24 @@ public class EmailService {
 				for(int i = 0; i < list.size(); i++) {
 					if(g.getAssessment().getAssessmentId() == list.get(i)) {
 						for(Trainee t: traineeList) {
-							if (g.getTrainee().getTraineeId() != t.getTraineeId()) {
+							if(g.getTrainee().getTraineeId() != t.getTraineeId()) {
 								if(trainer.contains(b.getTrainer())) {
 									continue;
 								}
-								trainer.add(b.getTrainer());
+								checkCount = 1;
 							}
 						}
-					}
-				}
-			}
-			
 
+						}
+					}
+
+			}
+			if(checkCount == 1) {
+				trainer.add(b.getTrainer());
+			}
+			else if(checkCount == 0) {
+				trainer.remove(b.getTrainer());
+			}
 		}
 
 		System.out.println("This trainer needs to do work: " + trainer);
