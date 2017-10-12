@@ -86,7 +86,7 @@ public class PanelController {
 	@PreAuthorize("hasRole('VP')")
 	public ResponseEntity<Panel> updatePanel(@Valid @RequestBody Panel panel) {
 		panelService.update(panel);
-		return new ResponseEntity<>(panel, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
