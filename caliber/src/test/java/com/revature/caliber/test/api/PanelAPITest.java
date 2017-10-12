@@ -107,12 +107,24 @@ public class PanelAPITest extends AbstractAPITest {
 	@Test
 	public void testDelete() {
 		log.info("Deleting an panel");
+		int panelId = panelDAO.findAll().get(0).getId();
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
-			delete(DELETE_PANEL_URL, 2050).
+			delete(DELETE_PANEL_URL, panelId).
 		then().assertThat().
 			statusCode(HttpStatus.NO_CONTENT_204);
+	}
+	
+	@Test
+	public void testDeletePanel404() {
+		log.info("Deleting an panel that doesn't exist");
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			delete(DELETE_PANEL_URL, -1).
+		then().assertThat().
+			statusCode(HttpStatus.NOT_FOUND_404);
 	}
 
 	@Test
@@ -148,15 +160,15 @@ public class PanelAPITest extends AbstractAPITest {
 	}
 
 	@Test
-	public void testGetPanelById204() {
-		log.info("Get panel by id, no content...");
+	public void testGetPanelById404() {
+		log.info("Get panel by id, resource not found...");
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
 			get(GET_PANEL_BY_ID_URL, -1).
 		then().assertThat().
-			statusCode(HttpStatus.NO_CONTENT_204);
-		log.info("testGetPanelById204 succeeded!!!");
+			statusCode(HttpStatus.NOT_FOUND_404);
+		log.info("testGetPanelById404 succeeded!!!");
 	}
 
 	@Test
@@ -172,6 +184,18 @@ public class PanelAPITest extends AbstractAPITest {
 			statusCode(HttpStatus.OK_200).
 			body("id", is(p.getId()));
 		log.info("testPanelById200 succeeded!!!");
+	}
+	
+	@Test
+	public void testGetPanelsByTrainee404() {
+		log.info("Get all trainee panels, no content...");
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_TRAINEE_PANELS_URL, -1).
+		then().assertThat().
+			statusCode(HttpStatus.NOT_FOUND_404);
+		log.info("testGetPanelsByTrainee404 succeeded!!!");
 	}
 
 	@Test
