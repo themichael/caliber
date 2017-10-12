@@ -43,10 +43,10 @@ public class EmailService {
 	private BatchDAO batch;
 
 	@Autowired
-	private TraineeDAO trainee;
+	private TraineeDAO traineeDAO;
 
 	@Autowired
-	private GradeDAO grade;
+	private GradeDAO gradeDAO;
 
 	private static final long DAYS_IN_WEEK = 7;
 	private static final int YEAR = 2017;
@@ -57,7 +57,7 @@ public class EmailService {
 	private static final int SECOND = 0;
 
 	public void setGrade(GradeDAO grade) {
-		this.grade = grade;
+		this.gradeDAO = grade;
 	}
 
 	public void setMailer(Mailer mailer) {
@@ -73,7 +73,7 @@ public class EmailService {
 	}
 
 	public void setTrainee(TraineeDAO trainee) {
-		this.trainee = trainee;
+		this.traineeDAO = trainee;
 	}
 
 	@PostConstruct
@@ -86,7 +86,6 @@ public class EmailService {
 		System.out.println(list.toString());
 		List<Batch> batchList = batch.findAllCurrent();
 		List<Assessment> assessList = assess.findAll();
-		List<Trainee> traineeList = trainee.findAll();
 
 		Timer timer = new Timer();
 		Calendar calendar = Calendar.getInstance();
@@ -99,44 +98,46 @@ public class EmailService {
 	}
 
 	public void checkGrades(List<Batch> batchList, List<Assessment> assessList) {
-		Date currentDate = new Date();
 		ArrayList<Trainer> trainer = new ArrayList<Trainer>();
 
-		for(Batch b : batchList) {
-			System.out.println("Trainer in batch " + b.getBatchId() + " " + b.getTrainer().getName());
-			ArrayList<Long> list = new ArrayList<Long>();
-			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
-			List<Trainee> traineeList = trainee.findAllByBatch(b.getBatchId());
-			int checkCount = 0;
-			for(Assessment a: assessList) {
-				if(b.getBatchId() == a.getBatch().getBatchId()) {
-					System.out.println(b.getBatchId() + " and " + a.getBatch().getBatchId());
-					list.add(a.getAssessmentId());
+		for(Batch batch : batchList) {
+			//System.out.println("Trainer in batch " + batch.getBatchId() + " " + batch.getTrainer().getName());
+			ArrayList<Long> assessmentIDs = new ArrayList<Long>();
+			List<Grade> batchGrades = gradeDAO.findByBatch(batch.getBatchId());
+			List<Trainee> batchTrainees = traineeDAO.findAllByBatch(batch.getBatchId());
+			
+			for(Assessment assessment : assessList) {
+				if(batch.getBatchId() == assessment.getBatch().getBatchId()) {
+					//System.out.println(batch.getBatchId() + " and " + assessment.getBatch().getBatchId());
+					assessmentIDs.add(assessment.getAssessmentId());
 				}
 			}
 
-			if(b.getTrainer().getTrainerId() == 6) {
-				System.out.println("Genesis List: " + list);
+			if(batch.getTrainer().getTrainerId() == 6) {
+				System.out.println("Genesis List: " + assessmentIDs);
 			}
-			for(Grade g: gradeList) {
-				for(int i = 0; i < list.size(); i++) {
-					if(g.getAssessment().getAssessmentId() == list.get(i)) {
-						for(Trainee t: traineeList) {
+
+			boolean checkCount = false;
+			for(Grade g: batchGrades) {
+				for(int i = 0; i < assessmentIDs.size(); i++) {
+					if(g.getAssessment().getAssessmentId() == assessmentIDs.get(i)) {
+						for(Trainee t: batchTrainees) {
 							if(g.getTrainee().getTraineeId() != t.getTraineeId()) {
-								if(trainer.contains(b.getTrainer())) {
+								if(trainer.contains(batch.getTrainer())) {
 									continue;
 								}
-								checkCount = 1;
+								checkCount = true;
 							}
 						}
 					}
 				}
 			}
-			if(checkCount == 1) {
-				trainer.add(b.getTrainer());
+			
+			if(checkCount) {
+				trainer.add(batch.getTrainer());
 			}
-			else if(checkCount == 0) {
-				trainer.remove(b.getTrainer());
+			else {
+				trainer.remove(batch.getTrainer());
 			}
 		}
 		System.out.println("This trainer needs to do work: " + trainer);
