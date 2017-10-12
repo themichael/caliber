@@ -14,11 +14,12 @@ import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.email.EmailAuthenticator;
 import com.revature.caliber.email.Mailer;
 
 /**
@@ -35,11 +36,17 @@ public class EmailService {
 	@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
 	private static String fromPass;
 	
+	@Autowired
 	private Mailer mailer;
 
+	@Autowired
 	private AssessmentDAO assess;
+	@Autowired
 	private BatchDAO batch;
+	@Autowired
 	private TraineeDAO trainee;
+	@Autowired
+	private GradeDAO grade;
 	
 	private static final long DAYS_IN_WEEK = 7;
 	private static final int YEAR = 2017;
@@ -49,20 +56,25 @@ public class EmailService {
 	private static final int MINUTE = 35;
 	private static final int SECOND = 0;
 	
-	@Autowired
+	
+	public void setGrade(GradeDAO grade) {
+		this.grade = grade;
+	}
+
+
 	public void setMailer(Mailer mailer) {
 		this.mailer = mailer;
 	}
 	
-	@Autowired
+	
 	public void setAssessmentDAO(AssessmentDAO assess) {
 		this.assess = assess;
 	}
-	@Autowired
+	
 	public void setBatch(BatchDAO batch) {
 		this.batch = batch;
 	}
-	@Autowired
+	
 	public void setTrainee(TraineeDAO trainee) {
 		this.trainee = trainee;
 	}
@@ -95,6 +107,7 @@ public class EmailService {
 		
 		for(Batch b : batchList) {
 			ArrayList<Long> list = new ArrayList<Long>();
+			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
 			if (b.getEndDate().before(currentDate) && b.getWeeks() < 8) {
 				for(Assessment a: assessList) {
 					if(b.getBatchId() == a.getBatch().getBatchId()) {
@@ -102,7 +115,7 @@ public class EmailService {
 					}
 				}
 				for(Trainee t : traineeList) {
-
+					
 			}
 		}
 		
