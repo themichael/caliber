@@ -30,11 +30,6 @@ import com.revature.caliber.email.Mailer;
  */
 @Service
 public class EmailService {
-
-	@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
-	private static String fromEmail;
-	@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
-	private static String fromPass;
 	
 	@Autowired
 	private Mailer mailer;
@@ -52,8 +47,8 @@ public class EmailService {
 	private static final int YEAR = 2017;
 	private static final int MONTH = 9;
 	private static final int DATE = 11;
-	private static final int HOUR = 9;
-	private static final int MINUTE = 35;
+	private static final int HOUR = 14;
+	private static final int MINUTE = 57;
 	private static final int SECOND = 0;
 	
 	
@@ -81,17 +76,19 @@ public class EmailService {
 	
 	
 	
-	@PostConstruct
+
 	public void init() {
-		System.out.println("Initializing Emails.");
-
-
+		this.startReminderJob();
+		List<Assessment> list = assess.findAll();
+		System.out.println(list.toString());
 		List<Batch> batchList = batch.findAll();
 		List<Assessment> assessList = assess.findAll();
 		List<Trainee> traineeList = trainee.findAll();
 		checkGrades(batchList, assessList, traineeList);
+
 	}
-	
+
+	@PostConstruct
 	private void startReminderJob() {
 		Timer timer = new Timer();
 		Calendar calendar = Calendar.getInstance();
