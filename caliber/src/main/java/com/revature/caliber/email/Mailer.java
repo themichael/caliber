@@ -20,6 +20,9 @@ public class Mailer extends TimerTask {
 	private String toEmail = "mscott@mailinator.com";
 	private EmailAuthenticator authenticator;
 
+	// Will be autowired later when we're 
+	// ready to send emails to specific users.
+	// For now it will be hard coded.
 	//@Autowired
 	public void setToEmail(String toEmail) {
 		this.toEmail = toEmail;

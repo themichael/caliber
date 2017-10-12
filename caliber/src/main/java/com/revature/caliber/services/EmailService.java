@@ -32,9 +32,9 @@ public class EmailService {
 	private static final long DAYS_IN_WEEK = 7;
 	private static final int YEAR = 2017;
 	private static final int MONTH = 9;
-	private static final int DATE = 11;
-	private static final int HOUR = 14;
-	private static final int MINUTE = 57;
+	private static final int DATE = 12;
+	private static final int HOUR = 9;
+	private static final int MINUTE = 40;
 	private static final int SECOND = 0;
 	
 	@Autowired
@@ -46,13 +46,15 @@ public class EmailService {
 	public void setAssessmentDAO(AssessmentDAO assess) {
 		this.assess = assess;
 	}
+	
+	@PostConstruct
 	public void init() {
 		this.startReminderJob();
-		List<Assessment> list = assess.findAll();
-		System.out.println(list.toString());
+		//List<Assessment> list = assess.findAll();
+		//System.out.println(list.toString());
 	}
 
-	@PostConstruct
+	//@PostConstruct
 	private void startReminderJob() {
 		Timer timer = new Timer();
 		Calendar calendar = Calendar.getInstance();
