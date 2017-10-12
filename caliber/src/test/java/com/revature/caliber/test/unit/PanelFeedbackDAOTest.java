@@ -23,14 +23,14 @@ import com.revature.caliber.data.TrainerDAO;
 public class PanelFeedbackDAOTest extends CaliberTest {
 
 	private static final Logger log = Logger.getLogger(PanelFeedbackDAOTest.class);
-	private static final String PANELF_COUNT = "SELECT count(panel_feedback_id) FROM caliber_panel_feedback";
-	private static final String PANELF_COUNT_ID = PANELF_COUNT + " WHERE panel_id = ";
+	private static final String PANEL_FEEDBACK_COUNT = "SELECT count(panel_feedback_id) FROM caliber_panel_feedback";
+	private static final String PANEL_FEEDBACK_COUNT_ID = PANEL_FEEDBACK_COUNT + " WHERE panel_id = ";
 
 	private PanelFeedbackDAO dao;
-	private CategoryDAO cDAO;
-	private PanelDAO pDAO;
-	private TraineeDAO teDAO;
-	private TrainerDAO trDAO;
+	private CategoryDAO categoryDAO;
+	private PanelDAO panelDAO;
+	private TraineeDAO traineeDAO;
+	private TrainerDAO trainerDAO;
 
 	@Autowired
 	public void setDao(PanelFeedbackDAO dao) {
@@ -39,22 +39,22 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 
 	@Autowired
 	public void setCategoryDao(CategoryDAO dao) {
-		this.cDAO = dao;
+		this.categoryDAO = dao;
 	}
 
 	@Autowired
 	public void setPanelDao(PanelDAO dao) {
-		this.pDAO = dao;
+		this.panelDAO = dao;
 	}
 
 	@Autowired
 	public void setTraineeDao(TraineeDAO dao) {
-		this.teDAO = dao;
+		this.traineeDAO = dao;
 	}
 
 	@Autowired
 	public void setTrainerDao(TrainerDAO dao) {
-		this.trDAO = dao;
+		this.trainerDAO = dao;
 	}
 
 	/**
@@ -64,27 +64,27 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	@Test
 	public void saveFeedbackDAO() {
 		log.info("Saving a new Feedback using PanelFeedbackDAO");
-		int before = jdbcTemplate.queryForObject(PANELF_COUNT, Integer.class);
-		PanelFeedback pf = new PanelFeedback();
-		Panel p = new Panel();
-		p.setFormat(InterviewFormat.Phone);
-		p.setPanelRound(1);
-		p.setStatus(PanelStatus.Pass);
-		p.setTrainee(teDAO.findOne(1));
-		p.setPanelist(trDAO.findOne(1));
-		Category c = cDAO.findOne(1);
+		int before = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT, Integer.class);
+		PanelFeedback panelFeedback = new PanelFeedback();
+		Panel panel = new Panel();
+		panel.setFormat(InterviewFormat.Phone);
+		panel.setPanelRound(1);
+		panel.setStatus(PanelStatus.Pass);
+		panel.setTrainee(traineeDAO.findOne(1));
+		panel.setPanelist(trainerDAO.findOne(1));
+		Category c = categoryDAO.findOne(1);
 
-		pf.setComment("test");
-		pf.setResult(5);
-		pf.setTechnology(c);
-		pf.setStatus(PanelStatus.Pass);
-		pf.setPanel(p);
+		panelFeedback.setComment("test");
+		panelFeedback.setResult(5);
+		panelFeedback.setTechnology(c);
+		panelFeedback.setStatus(PanelStatus.Pass);
+		panelFeedback.setPanel(panel);
 
-		dao.save(pf);
-		long pfid = pf.getId();
-		System.out.println(pfid);
-		int after = jdbcTemplate.queryForObject(PANELF_COUNT, Integer.class);
-		assertEquals(pf.toString(), dao.findOne(pfid).toString());
+		dao.save(panelFeedback);
+		long panelFeedbackid = panelFeedback.getId();
+		System.out.println(panelFeedbackid);
+		int after = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT, Integer.class);
+		assertEquals(panelFeedback.toString(), dao.findOne(panelFeedbackid).toString());
 		assertEquals(++before, after);
 	}
 
@@ -94,7 +94,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	@Test
 	public void findAllFeedbackDAO() {
 		log.info("Getting all feedback using PanelFeedbackDAO getAll function");
-		long num = jdbcTemplate.queryForObject(PANELF_COUNT, Long.class);
+		long num = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT, Long.class);
 		assertNotNull(dao.findAll());
 		assertEquals(dao.findAll().size(), num);
 	}
@@ -144,13 +144,13 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	public void findAllForPanelDAO() {
 		int panelId = 40;
 		int actual = dao.findAllForPanel(panelId).size();
-		int expected = jdbcTemplate.queryForObject(PANELF_COUNT_ID + panelId, Integer.class);
+		int expected = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT_ID + panelId, Integer.class);
 
 		assertEquals(expected, actual);
 
 		panelId = -789;
 		actual = dao.findAllForPanel(panelId).size();
-		expected = jdbcTemplate.queryForObject(PANELF_COUNT_ID + panelId, Integer.class);
+		expected = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT_ID + panelId, Integer.class);
 
 		assertEquals(expected, actual);
 	}
@@ -162,16 +162,16 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	public void findFailedFeedbackByPanelDAO() {
 		// positive testing
 		int panelId = 60;
-		int actual = dao.findFailedFeedbackByPanel(pDAO.findOne(panelId)).size();
-		int expected = jdbcTemplate.queryForObject(PANELF_COUNT_ID + panelId + " AND panel_status = 'Repanel'",
+		int actual = dao.findFailedFeedbackByPanel(panelDAO.findOne(panelId)).size();
+		int expected = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT_ID + panelId + " AND panel_status = 'Repanel'",
 				Integer.class);
 
 		assertEquals(expected, actual);
 
 		// negative testing
 		panelId = -8309;
-		actual = dao.findFailedFeedbackByPanel(pDAO.findOne(panelId)).size();
-		expected = jdbcTemplate.queryForObject(PANELF_COUNT_ID + panelId + " AND panel_status = 'Repanel'",
+		actual = dao.findFailedFeedbackByPanel(panelDAO.findOne(panelId)).size();
+		expected = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT_ID + panelId + " AND panel_status = 'Repanel'",
 				Integer.class);
 
 		assertEquals(expected, actual);
