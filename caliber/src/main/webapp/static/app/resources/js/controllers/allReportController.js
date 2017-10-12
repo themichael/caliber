@@ -808,8 +808,6 @@ angular
 						.then(
 								function(response){
 									NProgress.done();
-									console.log("batch overall panel ");
-									console.log(response);
 									$scope.allTraineesPanelData = response;
 								},
 								function(response){
