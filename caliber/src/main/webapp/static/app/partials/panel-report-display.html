@@ -22,17 +22,17 @@
 					<!-- Buttons for our panel report -->
 				</div>
 				<div class="panel-body pBody">
-					<div class="row">
+					<div class="row add-margin">
 						<div class="col-sm-6">
 							<div class="row">
 								<div class="col-8 col-sm-6">
-									<strong>Name of the Associate:</strong>
+									<strong>Name of the Associate</strong>
 								</div>
 								<div class="col-4 col-sm-6">
 									<span ng-bind="traineePanelData[panelIndex].trainee.name"></span>
 								</div>
 								<div class="col-8 col-sm-6">
-									<strong>Panelist Name:</strong>
+									<strong>Panelist Name</strong>
 								</div>
 								<div class="col-4 col-sm-6">
 									<span ng-bind="traineePanelData[panelIndex].panelist.name"></span>
@@ -44,19 +44,20 @@
 								<!-- 										<span ng-bind="traineePanelData[panelIndex].trainee.track"></span> -->
 								<!-- 									</div> -->
 								<div class="col-8 col-sm-6">
-									<strong> Panel Round:</strong>
+									<strong> Panel Round</strong>
 								</div>
 								<div class="col-4 col-sm-6">
 									<span ng-bind="traineePanelData[panelIndex].panelRound"></span>
 								</div>
 								<div class="col-8 col-sm-6">
-									<strong>Recording Consent:</strong>
+									<strong>Recording Consent</strong>
 								</div>
 								<div class="col-4 col-sm-6">
-									<span ng-bind="traineePanelData[panelIndex].recordingConsent"></span>
+									<span ng-if ="traineePanelData[panelIndex].recordingConsent == true ">Yes</span>
+									<span ng-if ="traineePanelData[panelIndex].recordingConsent == false ">No</span>
 								</div>
 								<div class="col-8 col-sm-6">
-									<strong>Recording Link:</strong>
+									<strong>Recording Link</strong>
 								</div>
 								<div class="col-4 col-sm-6">
 									<span ng-bind="traineePanelData[panelIndex].recordingLink"></span>
@@ -68,7 +69,7 @@
 							<div class="col-sm-6">
 								<div class="row">
 									<div class="col-8 col-sm-6">
-										<strong>Interview Date:</strong>
+										<strong>Interview Date</strong>
 									</div>
 									<div class="col-4 col-sm-6">
 										<span ng-bind="traineePanelData[panelIndex].interviewDate"></span>
@@ -80,25 +81,25 @@
 									<!-- 											<span ng-bind="traineePanelData[panelIndex].interviewTime"></span> -->
 									<!-- 										</div> -->
 									<div class="col-8 col-sm-6">
-										<strong>Interview Duration:</strong>
+										<strong>Interview Duration</strong>
 									</div>
 									<div class="col-4 col-sm-6">
 										<span ng-bind="traineePanelData[panelIndex].duration"></span>
 									</div>
 									<div class="col-8 col-sm-6">
-										<strong>Interview Format:</strong>
+										<strong>Interview Format</strong>
 									</div>
 									<div class="col-4 col-sm-6">
 										<span ng-bind="traineePanelData[panelIndex].format"></span>
 									</div>
 									<div class="col-8 col-sm-6">
-										<strong>Overall Feedback:</strong>
+										<strong>Overall Feedback</strong>
 									</div>
 									<div class="col-4 col-sm-6">
 										<span ng-bind="traineePanelData[panelIndex].overall"></span>
 									</div>
 									<div class="col-8 col-sm-6">
-										<strong>Internet Connectivity:</strong>
+										<strong>Internet Connectivity</strong>
 									</div>
 									<div class="col-4 col-sm-6">
 										<span ng-bind="traineePanelData[panelIndex].internet"></span>
@@ -113,20 +114,20 @@
 						<thead>
 							<tr>
 								<th>Technology</th>
-								<th>Result</th>
-								<th>Status</th>
-								<th>Comment</th>
+								<th class ="center">Result</th>
+								<th class ="center">Status</th>
+								<th class ="center">Comment</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="item in traineePanelData[panelIndex].feedback">
 								<td ng-bind="item.technology.skillCategory"></td>
-								<td ng-bind="item.result"></td>
-								<td><span ng-if="item.status == 'Pass'"
+								<td class ="center" ng-bind="item.result"></td>
+								<td class ="center"><span ng-if="item.status == 'Pass'"
 									class="glyphicon glyphicon-ok"></span> <span
 									ng-if="item.status == 'Repanel'"
 									class="glyphicon glyphicon-remove"></span></td>
-								<td ng-bind="item.comment"></td>
+								<td class ="center" ng-bind="item.comment"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -137,34 +138,34 @@
 						<thead>
 							<tr>
 								<th>Criteria</th>
-								<th>Comment</th>
+								<th class ="center">Comment</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td><b>Associate Introduction</b></td>
-								<td ng-bind="traineePanelData[panelIndex].associateIntro"></td>
+								<td class ="center" ng-bind="traineePanelData[panelIndex].associateIntro"></td>
 							</tr>
 							<tr>
 								<td><b>Project 1 Explanation</b></td>
-								<td ng-bind="traineePanelData[panelIndex].projectOneDescription"></td>
+								<td  class ="center" ng-bind="traineePanelData[panelIndex].projectOneDescription"></td>
 							</tr>
 							<tr>
 								<td><b>Project 2 Explanation</b></td>
-								<td ng-bind="traineePanelData[panelIndex].projectTwoDescription"></td>
+								<td  class ="center" ng-bind="traineePanelData[panelIndex].projectTwoDescription"></td>
 							</tr>
 							<tr>
 								<td><b>Project 3 Explanation</b></td>
-								<td
+								<td class ="center"
 									ng-bind="traineePanelData[panelIndex].projectThreeDescription"></td>
 							</tr>
 							<tr>
 								<td><b>Communication Skills</b></td>
-								<td ng-bind="traineePanelData[panelIndex].communicationSkills"></td>
+								<td  class ="center" ng-bind="traineePanelData[panelIndex].communicationSkills"></td>
 							</tr>
 							<tr>
 								<td><b>Overall</b></td>
-								<td ng-bind="traineePanelData[panelIndex].overall"></td>
+								<td  class ="center" ng-bind="traineePanelData[panelIndex].overall"></td>
 							</tr>
 						</tbody>
 					</table>
