@@ -367,8 +367,13 @@ public class Panel {
 
 	@Override
 	public String toString() {
-		return "Panel [id=" + id + " interviewDate="
-				+ interviewDate + ", panelRound=" + panelRound + ", status=" + status + ", overall=" + overall + "]";
+		return "Panel [id=" + id + ", trainee=" + trainee + ", panelist=" + panelist + ", interviewDate="
+				+ interviewDate + ", duration=" + duration + ", format=" + format + ", internet=" + internet
+				+ ", panelRound=" + panelRound + ", recordingConsent=" + recordingConsent + ", recordingLink="
+				+ recordingLink + ", status=" + status + ", feedback=" + feedback + ", associateIntro=" + associateIntro
+				+ ", projectOneDescription=" + projectOneDescription + ", projectTwoDescription="
+				+ projectTwoDescription + ", projectThreeDescription=" + projectThreeDescription
+				+ ", communicationSkills=" + communicationSkills + ", overall=" + overall + "]";
 	}
-	
+
 }
