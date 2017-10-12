@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.Timer;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Assessment;
@@ -37,10 +35,10 @@ public class EmailService {
 	private Mailer mailer;
 
 	@Autowired
-	private AssessmentDAO assess;
+	private AssessmentDAO assessmentDAO;
 
 	@Autowired
-	private BatchDAO batch;
+	private BatchDAO batchDAO;
 
 	@Autowired
 	private TraineeDAO traineeDAO;
@@ -56,24 +54,24 @@ public class EmailService {
 	private static final int MINUTE = 44;
 	private static final int SECOND = 0;
 
-	public void setGrade(GradeDAO grade) {
-		this.gradeDAO = grade;
+	public void setGrade(GradeDAO gradeDAO) {
+		this.gradeDAO = gradeDAO;
 	}
 
 	public void setMailer(Mailer mailer) {
 		this.mailer = mailer;
 	}
 
-	public void setAssessmentDAO(AssessmentDAO assess) {
-		this.assess = assess;
+	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
+		this.assessmentDAO = assessmentDAO;
 	}
 
-	public void setBatch(BatchDAO batch) {
-		this.batch = batch;
+	public void setBatch(BatchDAO batchDAO) {
+		this.batchDAO = batchDAO;
 	}
 
-	public void setTrainee(TraineeDAO trainee) {
-		this.traineeDAO = trainee;
+	public void setTrainee(TraineeDAO traineeDAO) {
+		this.traineeDAO = traineeDAO;
 	}
 
 	@PostConstruct
@@ -81,12 +79,7 @@ public class EmailService {
 		this.startReminderJob();
 	}
 
-	public void startReminderJob() {
-		List<Assessment> list = assess.findAll();
-		System.out.println(list.toString());
-		List<Batch> batchList = batch.findAllCurrent();
-		List<Assessment> assessList = assess.findAll();
-
+	private void startReminderJob() {
 		Timer timer = new Timer();
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
@@ -94,53 +87,56 @@ public class EmailService {
 		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
 		long interval = 20000;
 		timer.scheduleAtFixedRate(this.mailer, startDate, interval);
+		
+		List<Batch> batchList = batchDAO.findAllCurrent();
+		List<Assessment> assessList = assessmentDAO.findAll();
 		this.checkGrades(batchList, assessList);
 	}
 
 	public void checkGrades(List<Batch> batchList, List<Assessment> assessList) {
-		ArrayList<Trainer> trainer = new ArrayList<Trainer>();
+		ArrayList<Trainer> trainers = new ArrayList<Trainer>();
 
 		for(Batch batch : batchList) {
 			//System.out.println("Trainer in batch " + batch.getBatchId() + " " + batch.getTrainer().getName());
-			ArrayList<Long> assessmentIDs = new ArrayList<Long>();
+			List<Assessment> assessments = new ArrayList<Assessment>();
 			List<Grade> batchGrades = gradeDAO.findByBatch(batch.getBatchId());
 			List<Trainee> batchTrainees = traineeDAO.findAllByBatch(batch.getBatchId());
 			
 			for(Assessment assessment : assessList) {
 				if(batch.getBatchId() == assessment.getBatch().getBatchId()) {
 					//System.out.println(batch.getBatchId() + " and " + assessment.getBatch().getBatchId());
-					assessmentIDs.add(assessment.getAssessmentId());
+					assessments.add(assessment);
 				}
 			}
 
-			if(batch.getTrainer().getTrainerId() == 6) {
-				System.out.println("Genesis List: " + assessmentIDs);
-			}
+//			if(batch.getTrainer().getTrainerId() == 6) {
+//				System.out.println("Genesis List: " + assessmentIDs);
+//			}
 
-			boolean checkCount = false;
-			for(Grade g: batchGrades) {
-				for(int i = 0; i < assessmentIDs.size(); i++) {
-					if(g.getAssessment().getAssessmentId() == assessmentIDs.get(i)) {
-						for(Trainee t: batchTrainees) {
-							if(g.getTrainee().getTraineeId() != t.getTraineeId()) {
-								if(trainer.contains(batch.getTrainer())) {
+			boolean check = false;
+			for(Grade grade : batchGrades) {
+				for(Assessment assessment : assessments) {
+					if(grade.getAssessment().equals(assessment)) {
+						for(Trainee trainee : batchTrainees) {
+							if(!(grade.getTrainee().equals(trainee))) {
+								if(trainers.contains(batch.getTrainer())) {
 									continue;
 								}
-								checkCount = true;
+								check = true;
 							}
 						}
 					}
 				}
 			}
 			
-			if(checkCount) {
-				trainer.add(batch.getTrainer());
+			if(check) {
+				trainers.add(batch.getTrainer());
 			}
 			else {
-				trainer.remove(batch.getTrainer());
+				trainers.remove(batch.getTrainer());
 			}
 		}
-		System.out.println("This trainer needs to do work: " + trainer);
+		//System.out.println("This trainer needs to do work: " + trainers);
 	}
 
 }
