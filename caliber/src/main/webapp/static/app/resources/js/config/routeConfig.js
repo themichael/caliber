@@ -541,10 +541,11 @@ angular
 										views : {
 											"" : {
 												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												controller : "trainerAssessController"
+												controller : "allReportController"
 											},
 											"samplemodal@vp.panels" : {
-												templateUrl : "/static/app/partials/paneldemo/samplemodal.html"
+												templateUrl : "/static/app/partials/paneldemo/samplemodal.html",
+												controller : "panelPanelController"
 											}
 										},
 										// authorize the user
