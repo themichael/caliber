@@ -167,6 +167,7 @@ public class ReportingService {
 		for (QCStatus q : QCStatus.values()) {
 			qcStatsMapTemplate.put(q, 0);
 		}
+		
 		for (Integer i = 1; i <= batch.getWeeks(); i++) {
 			results.put(i, new HashMap<>(qcStatsMapTemplate));
 		}
@@ -174,9 +175,11 @@ public class ReportingService {
 			for (Note n : t.getNotes()) {
 				if (n.getQcStatus() != null) {
 					Map<QCStatus, Integer> temp = results.get((int) n.getWeek());
-					Integer count = temp.get(n.getQcStatus()) + 1;
-					temp.put(n.getQcStatus(), count);
-					results.put((int) n.getWeek(), temp);
+					if(temp != null) {
+						Integer count = temp.get(n.getQcStatus()) + 1;
+						temp.put(n.getQcStatus(), count);
+						results.put((int) n.getWeek(), temp);
+					}
 				}
 			}
 		}
@@ -298,7 +301,7 @@ public class ReportingService {
 		trainees.parallelStream().forEach(trainee -> {
 			Double avg = 0.d;
 			int weeksWithGrades = 0;
-			for (Integer i = 0; i < weeks; i++) {
+			for (Integer i = 0; i <= weeks; i++) {
 				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
 				if (tempAvg > 0) {
 					weeksWithGrades++;
