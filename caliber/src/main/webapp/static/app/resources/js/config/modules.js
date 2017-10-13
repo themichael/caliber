@@ -20,6 +20,7 @@ angular.module("api", []);
 angular.module("charts", []);
 angular.module("auth", []);
 angular.module("reportApi", []);
+angular.module("panel", []);
 
 angular.module("app").directive("sticky", function($window) {
 	return function(scope, element) {

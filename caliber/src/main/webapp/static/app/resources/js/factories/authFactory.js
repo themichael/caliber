@@ -29,6 +29,7 @@ angular.module("auth").factory("authFactory",
 			var vpManage = "vp.manage";
 			var qcManage = "qc.manage";
 			var trainerManage = "/trainer/home";
+			var panelManage = "panel.manage";
 
 			var vpAudit = "vp.audit";
 			var qcAudit = "qc.audit";
@@ -37,11 +38,14 @@ angular.module("auth").factory("authFactory",
 			var qcReports = "qc.reports";
 			var trainerReports = "trainer.reports";
 			var stagingReports = "staging.reports";
+			var panelReports = "panel.reports";
 
 			var trainerImport = "trainer.import";
+			var panelImport = "panel.import";
 
 			var vpAssess = "vp.assess";
 			var trainerAssess = "trainer.assess";
+			var panelAssess = "panel.assess";
 
 			var vpCategory = "vp.category";
 
@@ -172,6 +176,9 @@ angular.module("auth").factory("authFactory",
 				case trainerRole:
 					$log.debug("Changing state to: " + trainerManage);
 					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelManage);
+					break;	
 				default:
 					auth.auth();
 				}
@@ -216,6 +223,9 @@ angular.module("auth").factory("authFactory",
 				case stagingRole:
 					$log.debug("Changing state to: " + stagingReports);
 					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelReports);
+					break;
 				default:
 					auth.auth();
 				}
@@ -231,6 +241,9 @@ angular.module("auth").factory("authFactory",
 				switch (role) {
 				case trainerRole:
 					$log.debug("Changing state to: " + trainerImport);
+					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelImport);
 					break;
 				default:
 					auth.auth();
@@ -250,6 +263,9 @@ angular.module("auth").factory("authFactory",
 					break;
 				case trainerRole:
 					$log.debug("Changing state to: " + trainerAssess);
+					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelAssess);
 					break;
 				default:
 					auth.auth();

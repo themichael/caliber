@@ -593,19 +593,42 @@ angular
 										abstract : true,
 										url : "/panel",
 										templateUrl : "/static/app/partials/abstracts/panel.html",
-//										resolve : {
-//											allBatches : function(
-//													caliberDelegate) {
-//												return caliberDelegate.panel
-//														.getAllBatches();
-//											}
-//										},
+										resolve : {
+											allBatches : function(
+													caliberDelegate) {
+												return caliberDelegate.trainer
+														.getAllBatches();
+											},
+											allTrainers : function(
+													caliberDelegate) {
+												return caliberDelegate.all
+														.getAllTrainers();
+											}
+										},
 										// authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authPanel();
 										}
-
+									
 							})
+							.state(
+									"panel.import",
+									{
+										abstract : true,
+										url : " /panel/batch/all/import",
+										templateUrl : "/static/app/partials/abstracts/panel.html",
+										resolve : {
+											allBatches : function(
+													caliberDelegate) {
+												return caliberDelegate.trainer
+														.importAllBatches();
+											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authImport();
+										}
+									})
 						.state(
 									"panel.home",
 									{ 
@@ -617,8 +640,67 @@ angular
 												//controller : "vpHomeController"
 											}
 										}
+									
 										
 							})
+							.state(
+									"panel.manage",
+									{
+
+										url : "/manage",
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/manage/manage-batch.html",
+												controller : "trainerManageController"
+											},
+											"batch-form@panel.manage" : {
+												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
+											},
+											"import-batch@panel.manage" : {
+												templateUrl : "/static/app/partials/manage/import-batch-modal.html"
+											},
+											"batch-extra-modals@panel.manage" : {
+												templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
+											},
+											"view-trainees@panel.manage" : {
+												templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
+											},
+											"trainee-form@panel.manage" : {
+												templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
+											},
+											"trainee-extra-modals@panel.manage" : {
+												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
+											}
+										},
+//										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authManage();
+										}
+									})
+							.state(
+									"panel.assess",
+									{
+										url : "/assess",
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/assess/trainer-assess.html",
+												
+												controller : "trainerAssessController"
+											},
+											"trainer-edit-assess@panel.assess" : {
+												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html"
+											},
+											"confirm-add-weeks-modal@panel.assess" : {
+												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
+
+											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authAssess();
+										}
+										
+									})
 						.state(
 									"panel.panel",
 									{ 
@@ -633,6 +715,7 @@ angular
 												templateUrl : "/static/app/partials/paneldemo/samplemodal.html"
 											}		
 										}
+									
 										
 							})
 							
@@ -640,12 +723,31 @@ angular
 									"panel.reports",
 									{ 
 										url : "/reports",
-										/* add modal view to vpHome page */
-										views: {
+										views : {
 											"" : {
 												templateUrl : "/static/app/partials/reports.html",
 												controller : "allReportController"
-											}	
+											},
+											"trainer-display@panel.reports" : {
+												templateUrl : "/static/app/partials/trainer-display.html",
+												controller : "trainerAssessController"
+											},
+											"trainee-overall@panel.reports" : {
+												templateUrl : "/static/app/partials/trainee-overall.html",
+												controller : "allReportController"
+											},
+											"trainee-week@panel.reports" : {
+												templateUrl : "/static/app/partials/trainee-week.html",
+												controller : "allReportController"
+											},
+											"qc-batchOverall@panel.reports" : {
+												templateUrl : "/static/app/partials/qc-display.html",
+												controller : "qcAssessController"
+											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authReports();
 										}
 										
 							})

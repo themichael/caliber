@@ -41,7 +41,7 @@ public class PanelController {
 	// FIXME change the roles
 	
 	@RequestMapping(value = "/panel/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<List<Panel>> findAll() {
 		log.debug("Getting all feedback");
@@ -51,7 +51,7 @@ public class PanelController {
 	
 	@RequestMapping(value = "/panel/{panelId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<Panel> findPanelById(@PathVariable int panelId) {
 		log.debug("Getting category: " + panelId);
 		Panel panel = panelService.findById(panelId);
@@ -61,7 +61,7 @@ public class PanelController {
 	
 	@RequestMapping(value = "/panel/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<List<Panel>> findPanelByTraineeId(@PathVariable int traineeId) {
 		log.debug("Getting category: " + traineeId);
 		List<Panel> panels = panelService.findByTraineeId(traineeId);
@@ -70,7 +70,7 @@ public class PanelController {
 	}
 	
 	@RequestMapping(value = "/panel/repanel/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<List<Panel>> findAllRepanel() {
 		log.debug("Getting all panels with repanel");
@@ -80,7 +80,7 @@ public class PanelController {
 
 	@RequestMapping(value = "/panel/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasRole('VP','PANEL')")
 	public ResponseEntity<Panel> updatePanel(@Valid @RequestBody Panel panel) {
 		panelService.update(panel);
 		return new ResponseEntity<>(panel, HttpStatus.OK);
@@ -89,7 +89,7 @@ public class PanelController {
 	
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasRole('VP','PANEL')")
 	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panelf) {
 		panelService.createPanel((panelf));
 		return new ResponseEntity<>(panelf, HttpStatus.CREATED);
@@ -97,7 +97,7 @@ public class PanelController {
 	
 	@RequestMapping(value = "/panel/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER','PANEL')")
 	public ResponseEntity<Void> deleteAssessment(@PathVariable Panel p) {
 		log.info("Deleting panel: " + p);
 		panelService.deletePanel(p);

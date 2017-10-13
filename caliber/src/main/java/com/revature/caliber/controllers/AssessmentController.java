@@ -51,7 +51,7 @@ public class AssessmentController {
 	 */
 	@RequestMapping(value = "/trainer/assessment/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'PANEL')")
 	public ResponseEntity<Void> createAssessment(@Valid @RequestBody Assessment assessment) {
 		log.info("Creating assessment: " + assessment);
 		assessmentService.save(assessment);
@@ -67,7 +67,7 @@ public class AssessmentController {
 	 */
 	@RequestMapping(value = "/trainer/assessment/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER','PANEL')")
 	public ResponseEntity<Void> deleteAssessment(@PathVariable Long id) {
 		log.info("Deleting assessment: " + id);
 		Assessment assessment = new Assessment();
@@ -85,7 +85,7 @@ public class AssessmentController {
 	 */
 	@RequestMapping(value = "/trainer/assessment/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'PANEL')")
 	public ResponseEntity<Assessment> updateAssessment(@Valid @RequestBody Assessment assessment) {
 		log.info("Updating assessment: " + assessment);
 		assessmentService.update(assessment);
@@ -101,7 +101,7 @@ public class AssessmentController {
 	 */
 	@RequestMapping(value = "/trainer/assessment/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Assessment>> findAssessmentByWeek(@PathVariable Integer batchId,
 			@PathVariable Integer week) {
 		log.debug("Find assessment by week number " + week + " for batch " + batchId + " ");

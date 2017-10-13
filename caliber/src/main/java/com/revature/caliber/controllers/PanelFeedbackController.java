@@ -36,7 +36,7 @@ public class PanelFeedbackController {
 	}
 	
 	@RequestMapping(value = "/panelfeedback/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<List<PanelFeedback>> findAll() {
 		log.debug("Getting all feedback");
@@ -46,7 +46,7 @@ public class PanelFeedbackController {
 	
 	@RequestMapping(value = "/panelfeedback/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<PanelFeedback> findPanelFeedbackById(@PathVariable long id) {
 		log.debug("Getting category: " + id);
 		PanelFeedback pf = pfService.findPanelFeedback(id);
@@ -56,7 +56,7 @@ public class PanelFeedbackController {
 	
 	@RequestMapping(value = "/panelfeedback/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasRole('VP','PANEL')")
 	public ResponseEntity<PanelFeedback> updateFeedback(@Valid @RequestBody PanelFeedback panelf) {
 		pfService.update(panelf);
 		return new ResponseEntity<>(panelf, HttpStatus.OK);
@@ -64,7 +64,7 @@ public class PanelFeedbackController {
 	
 	@RequestMapping(value = "/panelfeedback/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasRole('VP','PANEL')")
 	public ResponseEntity<PanelFeedback> saveFeedback(@Valid @RequestBody PanelFeedback panelf) {
 		pfService.save(panelf);
 		return new ResponseEntity<>(panelf, HttpStatus.CREATED);
