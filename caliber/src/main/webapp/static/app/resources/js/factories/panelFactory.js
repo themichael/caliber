@@ -12,6 +12,49 @@
 angular.module('api').factory('panelFactory', function($log, $http) {
 	$log.debug('Booted Panel API');
 	let panel = {};
+	
+	/* ******************* Panel ******************************* */
+	panel.findAllPanels = function() {
+		return $http({
+			url: '/panel/all',
+			method: 'GET'}).then(
+					function(resonse){
+						$log.debug("Panel - AllPanels -- success");
+						$log.debug(response);
+						return response.data;	
+					},
+					function(response){
+						$log.error("There was an error: " + response.status);
+					})
+	}
+	
+	panel.reportPanelTable = function(batchId) {
+		return $http(
+				{
+					url : "/all/reports/batch/"+ batchId +"/panel-batch-all-trainees",
+					method : "GET"
+				}).then(function(response) {
+			$log.debug("Panel - Batch - batchId -- success");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	}
+	
+	panel.reportPanelTable = function(panelId) {
+		return $http(
+				{
+					url : "/panel/" + panelId,
+					method : "GET"
+				}).then(function(response) {
+			$log.debug("Panel - panelId -- success");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	}
 
 	/* ******************* Panel Feedback ********************** */
 
@@ -85,6 +128,7 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 		});
 	};
 	
+
 	/* ******************* Panel ********************** */
 	
 	// Get all panels for trainees in a batch
