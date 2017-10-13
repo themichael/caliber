@@ -21,6 +21,7 @@ angular
 			$scope.trainingTypes = [];
 			$scope.currentTraineeId = ALL;
 			$scope.allTrainees = [];
+			console.log("My Scope: "+$scope);
 			
 			
 			

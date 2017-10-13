@@ -1,7 +1,7 @@
 /** modules * */
 angular.module(
 		"app",
-		[ "ui.router", "ngCookies", "auth", "chart.js", "vp", "qc", "trainer",
+		[ "ui.router", "ngCookies", "auth", "chart.js", "vp", "qc", "trainer", "panel",
 				"api", "delegate", "charts", "reportApi", "ngAnimate",
 				"moment-picker", "angular.filter" ]).run(function($rootScope, $timeout) {
 	$rootScope.$on('test', function() {
@@ -15,6 +15,7 @@ angular.module(
 angular.module("vp", []);
 angular.module("qc", []);
 angular.module("trainer", []);
+angular.module("panel", []);
 angular.module("delegate", []);
 angular.module("api", []);
 angular.module("charts", []);
