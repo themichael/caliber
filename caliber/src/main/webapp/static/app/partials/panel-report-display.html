@@ -7,7 +7,7 @@
 					<!-- Buttons for our panel report -->
 					<i ng-click="incrementPanel()">
 						<div style="display: inline"
-							ng-if="panelIndex < traineePanelData.length">
+							ng-if="panelIndex < traineePanelData.length-1">
 							<i
 								class="clickableIcons glyphicon glyphicon-chevron-right pull-right move-glyphicon"></i>
 						</div>
@@ -28,13 +28,13 @@
 								<div class="col-8 col-sm-6">
 									<strong>Associate Name</strong>
 								</div>
-								<div class="col-4 col-sm-6">
+								<div class="col-4 col-sm-6 add-space">
 									<span ng-bind="traineePanelData[panelIndex].trainee.name"></span>
 								</div>
-								<div class="col-8 col-sm-6">
+								<div class="col-8 col-sm-6 add-space">
 									<strong>Panelist Name</strong>
 								</div>
-								<div class="col-4 col-sm-6">
+								<div class="col-4 col-sm-6 add-space">
 									<span ng-bind="traineePanelData[panelIndex].panelist.name"></span>
 								</div>
 								<!-- 									<div class="col-8 col-sm-6"> -->
@@ -43,35 +43,36 @@
 								<!-- 									<div class="col-4 col-sm-6"> -->
 								<!-- 										<span ng-bind="traineePanelData[panelIndex].trainee.track"></span> -->
 								<!-- 									</div> -->
-								<div class="col-8 col-sm-6">
+								<div class="col-8 col-sm-6 add-space">
 									<strong> Panel Round</strong>
 								</div>
-								<div class="col-4 col-sm-6">
+								<div class="col-4 col-sm-6 add-space">
 									<span ng-bind="traineePanelData[panelIndex].panelRound"></span>
 								</div>
-								<div class="col-8 col-sm-6">
+								<div class="col-8 col-sm-6 add-space">
 									<strong>Recording Consent</strong>
 								</div>
-								<div class="col-4 col-sm-6">
+								<div class="col-4 col-sm-6 add-space">
 									<span ng-if ="traineePanelData[panelIndex].recordingConsent == true ">Yes</span>
 									<span ng-if ="traineePanelData[panelIndex].recordingConsent == false ">No</span>
 								</div>
-								<div class="col-8 col-sm-6">
+								<div class="col-8 col-sm-6 add-space">
 									<strong>Recording Link</strong>
 								</div>
-								<div class="col-4 col-sm-6">
+								<div class="col-4 col-sm-6 add-space">
 									<span ng-bind="traineePanelData[panelIndex].recordingLink"></span>
 								</div>
+								<br>
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="row">
-									<div class="col-8 col-sm-6">
+									<div class="col-8 col-sm-6 add-space">
 										<strong>Interview Date</strong>
 									</div>
-									<div class="col-4 col-sm-6">
+									<div class="col-4 col-sm-6 add-space">
 										<span ng-bind="traineePanelData[panelIndex].interviewDate"></span>
 									</div>
 									<!-- 										<div class="col-8 col-sm-6"> -->
@@ -80,28 +81,28 @@
 									<!-- 										<div class="col-4 col-sm-6"> -->
 									<!-- 											<span ng-bind="traineePanelData[panelIndex].interviewTime"></span> -->
 									<!-- 										</div> -->
-									<div class="col-8 col-sm-6">
+									<div class="col-8 col-sm-6 add-space">
 										<strong>Interview Duration</strong>
 									</div>
-									<div class="col-4 col-sm-6">
+									<div class="col-4 col-sm-6 add-space">
 										<span ng-bind="traineePanelData[panelIndex].duration"></span>
 									</div>
-									<div class="col-8 col-sm-6">
+									<div class="col-8 col-sm-6 add-space">
 										<strong>Interview Format</strong>
 									</div>
-									<div class="col-4 col-sm-6">
+									<div class="col-4 col-sm-6 add-space">
 										<span ng-bind="traineePanelData[panelIndex].format"></span>
 									</div>
-									<div class="col-8 col-sm-6">
+									<div class="col-8 col-sm-6 add-space">
 										<strong>Overall Feedback</strong>
 									</div>
-									<div class="col-4 col-sm-6">
+									<div class="col-4 col-sm-6 add-space">
 										<span ng-bind="traineePanelData[panelIndex].overall"></span>
 									</div>
-									<div class="col-8 col-sm-6">
+									<div class="col-8 col-sm-6 add-space">
 										<strong>Internet Connectivity</strong>
 									</div>
-									<div class="col-4 col-sm-6">
+									<div class="col-4 col-sm-6 add-space">
 										<span ng-bind="traineePanelData[panelIndex].internet"></span>
 									</div>
 								</div>
