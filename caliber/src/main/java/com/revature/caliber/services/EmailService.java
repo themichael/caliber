@@ -102,9 +102,7 @@ public class EmailService {
 	}
 
 	public void checkGrades() {
-		
 		List<Trainer> trainers = this.trainerDAO.findAll();
-		
 		for (Trainer trainer : trainers) {
 			List<Batch> trainerBatches = this.batchDAO.findAllByTrainer(trainer.getTrainerId());
 			for (Batch batch : trainerBatches) {
@@ -121,47 +119,6 @@ public class EmailService {
 				}
 			}
 		}
-		
-		/*
-		//ArrayList<Trainer> trainers = new ArrayList<Trainer>();
-		Set<Trainer> trainers = new HashSet<Trainer>();
-
-		for(Batch batch : batchList) {
-			//System.out.println("Trainer in batch " + batch.getBatchId() + " " + batch.getTrainer().getName());
-			List<Assessment> batchAssessments = new ArrayList<Assessment>();
-			List<Grade> batchGrades = gradeDAO.findByBatch(batch.getBatchId());
-			List<Trainee> batchTrainees = traineeDAO.findAllByBatch(batch.getBatchId());
-
-			
-			
-			for(Assessment assessment : assessList) {
-				if(batch.equals(assessment.getBatch())) {
-					//System.out.println(batch.getBatchId() + " and " + assessment.getBatch().getBatchId());
-					batchAssessments.add(assessment);
-				}
-			}
-
-			for(Grade grade : batchGrades) {
-				for(Assessment assessment : batchAssessments) {
-					if(grade.getAssessment().equals(assessment)) {
-						for(Trainee trainee : batchTrainees) {
-							boolean traineeHasGradeForThisAssessment = grade.getTrainee().equals(trainee);
-							if(!traineeHasGradeForThisAssessment) {
-								//boolean trainerHasSubmittedAllGrades = trainers.contains(batch.getTrainer());
-								//if(!trainerHasSubmittedAllGrades) {
-								Trainer batchTrainer = batch.getTrainer();
-								trainers.add(batchTrainer);
-								//}
-							}
-						}
-					}
-				}
-			}
-		}
-		for (Trainer trainer : trainers) {
-			System.out.println("\n" + trainer.getName() + " needs to submit grades" + "\n");
-		}
-		*/
 	}
 
 }
