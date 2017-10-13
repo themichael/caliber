@@ -33,6 +33,7 @@ angular.module("auth").factory("authFactory",
 
 			var vpAudit = "vp.audit";
 			var qcAudit = "qc.audit";
+			var panelAudit = "panel.audit";
 
 			var vpReports = "vp.reports";
 			var qcReports = "qc.reports";
@@ -197,6 +198,9 @@ angular.module("auth").factory("authFactory",
 					break;
 				case qcRole:
 					$log.debug("Changing state to: " + qcAudit);
+					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelAudit);
 					break;
 				default:
 					auth.auth();

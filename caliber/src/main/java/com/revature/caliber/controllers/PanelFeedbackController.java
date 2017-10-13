@@ -56,7 +56,7 @@ public class PanelFeedbackController {
 	
 	@RequestMapping(value = "/panelfeedback/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<PanelFeedback> updateFeedback(@Valid @RequestBody PanelFeedback panelf) {
 		pfService.update(panelf);
 		return new ResponseEntity<>(panelf, HttpStatus.OK);
@@ -64,7 +64,7 @@ public class PanelFeedbackController {
 	
 	@RequestMapping(value = "/panelfeedback/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<PanelFeedback> saveFeedback(@Valid @RequestBody PanelFeedback panelf) {
 		pfService.save(panelf);
 		return new ResponseEntity<>(panelf, HttpStatus.CREATED);

@@ -80,7 +80,7 @@ public class PanelController {
 
 	@RequestMapping(value = "/panel/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Panel> updatePanel(@Valid @RequestBody Panel panel) {
 		panelService.update(panel);
 		return new ResponseEntity<>(panel, HttpStatus.OK);
@@ -89,7 +89,7 @@ public class PanelController {
 	
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panelf) {
 		panelService.createPanel((panelf));
 		return new ResponseEntity<>(panelf, HttpStatus.CREATED);

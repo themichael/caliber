@@ -1,6 +1,7 @@
 package com.revature.caliber.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -64,7 +65,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Address> createLocation(@Valid @RequestBody Address location) {
 		log.info("Saving location: " + location);
 		trainingService.createLocation(location);
@@ -80,7 +81,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Void> updateLocation(@Valid @RequestBody Address location) {
 		log.info("Updating location: " + location);
 		trainingService.update(location);
@@ -109,7 +110,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Void> removeLocation(@Valid @RequestBody Address location) {
 		log.info("Deactivating location: " + location);
 		trainingService.update(location);
@@ -124,7 +125,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/reactivate", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Void> reactivateLocation(@Valid @RequestBody Address location) {
 		log.info("Updating location: " + location);
 		trainingService.update(location);
@@ -148,7 +149,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Trainer> createTrainer(@Valid @RequestBody Trainer trainer) {
 		log.info("Saving trainer: " + trainer);
 		trainingService.createTrainer(trainer);
@@ -164,7 +165,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Void> updateTrainer(@Valid @RequestBody Trainer trainer) {
 		log.info("Updating trainer: " + trainer);
 		trainingService.update(trainer);
@@ -195,7 +196,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/trainer/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Void> makeInactive(@Valid @RequestBody Trainer trainer) {
 		log.info("Updating trainer: " + trainer);
 		trainingService.makeInactive(trainer);
@@ -429,11 +430,15 @@ public class TrainingController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/all/trainee/search/{searchTerm}", method = RequestMethod.GET)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER','PANEL')")
-	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail) {
-		Trainee trainee = trainingService.findTraineeByEmail(traineeEmail);
+	public ResponseEntity<Set<Trainee>> searchTrainee(@PathVariable String searchTerm) {
+		Set<Trainee> trainee = trainingService.search(searchTerm);
+		if(trainee.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
 		return new ResponseEntity<>(trainee, HttpStatus.OK);
 	}
 

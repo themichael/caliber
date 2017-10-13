@@ -677,6 +677,31 @@ angular
 											authFactory.authManage();
 										}
 									})
+								.state(
+									"panel.audit",
+									{
+										templateUrl : "/static/app/partials/assess/qc-assess.html",
+										url : "/audit",
+										controller : "qcAssessController",
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/assess/qc-assess.html",
+												controller : "qcAssessController"
+											},
+											"trainer-edit-assess@panel.audit" : {
+												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html"
+											},
+											"confirm-add-weeks-modal@panel.audit" : {
+												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
+
+											}
+										},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authAudit();
+										}
+										
+									})
 							.state(
 									"panel.assess",
 									{
