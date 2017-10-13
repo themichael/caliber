@@ -183,24 +183,6 @@ public class PanelDAOTest extends CaliberTest {
 	}
 
 	/**
-	 * Tests whether the date can be updated while maintaining the same
-	 * date format
-	 */
-	@Test
-	public void panelDateTest() {
-		Panel expected = getPanel();
-
-		panelDAO.save(expected);
-		expected.setInterviewDate(new Date(5));
-		panelDAO.update(expected);
-		Panel actual = panelDAO.findOne(expected.getId());
-
-		assertEquals(expected.getId(), actual.getId());
-		assertEquals(expected.getInterviewDate(), actual.getInterviewDate());
-		assertEquals(expected, actual);
-	}
-
-	/**
 	 * Tests that the date format already in the database is the same as after
 	 * updating a panel
 	 */
@@ -227,13 +209,56 @@ public class PanelDAOTest extends CaliberTest {
 		assertTrue(expected.equals(actual));
 	}
 
+	/**
+	 * Tests whether the date can be updated while maintaining the same
+	 * date format
+	 */
+	@Test
+	public void panelCreateUpdateTest() {
+		Panel expected = getPanel();
+
+		panelDAO.save(expected);
+		expected.setInterviewDate(new Date(5));
+		panelDAO.update(expected);
+		Panel actual = panelDAO.findOne(expected.getId());
+
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getInterviewDate(), actual.getInterviewDate());
+		assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Tests the .equals method on the created panel
+	 */
+	@Test
+	public void createSaveTest() {
+		Panel expected = getPanel();
+		panelDAO.save(expected);
+		Panel actual = panelDAO.findOne(expected.getId());
+
+		assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Tests the .equals method on the created panel after a trivial update
+	 */
+	@Test
+	public void createSaveUpdateTest() {
+		Panel expected = getPanel();
+		panelDAO.save(expected);
+		panelDAO.update(expected);
+		Panel actual = panelDAO.findOne(expected.getId());
+
+		assertEquals(expected, actual);
+	}
+
 	public Panel getPanel() {
 		Panel p = new Panel();
 		p.setFormat(InterviewFormat.Phone);
 		p.setPanelRound(1);
 		p.setStatus(PanelStatus.Pass);
 		p.setTrainee(traineeDao.findOne(1));
-		p.setPanelist(trainerDao.findOne(1));
+		p.setPanelist(trainerDao.findOne(3));
 		p.setInterviewDate(new Date());
 		return p;
 	}

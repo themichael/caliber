@@ -78,9 +78,9 @@ public class PanelFeedbackDAO {
 	 * @param panel
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void save(PanelFeedback panelf) {
-		log.info("Save panel feedback " + panelf);
-		long id = (long) sessionFactory.getCurrentSession().save(panelf);
+	public void save(PanelFeedback panelFeedback) {
+		log.info("Save panel feedback " + panelFeedback);
+		long id = (long) sessionFactory.getCurrentSession().save(panelFeedback);
 		log.info("New Feedback ID: " +id);
 	}
 
@@ -91,10 +91,10 @@ public class PanelFeedbackDAO {
 	 * @return
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public PanelFeedback findOne(long panelFId) {
-		log.info("Find panel feedback by id: " + panelFId);
+	public PanelFeedback findOne(long panelFeedbackId) {
+		log.info("Find panel feedback by id: " + panelFeedbackId);
 		return (PanelFeedback) sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
-				.add(Restrictions.eq("id", panelFId)).uniqueResult();
+				.add(Restrictions.eq("id", panelFeedbackId)).uniqueResult();
 	}
 
 	/**
@@ -103,9 +103,9 @@ public class PanelFeedbackDAO {
 	 * @param panel
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void update(PanelFeedback panelf) {
-		log.info("Update panel " + panelf);
-		sessionFactory.getCurrentSession().saveOrUpdate(panelf);
+	public void update(PanelFeedback panelFeedback) {
+		log.info("Update panel " + panelFeedback);
+		sessionFactory.getCurrentSession().saveOrUpdate(panelFeedback);
 	}
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)

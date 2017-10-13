@@ -31,9 +31,9 @@ public class PanelFeedbackService {
 	 * SAVE PanelFeedback
 	 * @param PanelFeedback
 	 */
-	public void save(PanelFeedback panelf) {
-		log.debug("Saving PanelFeedback " + panelf);
-		panelFeedDAO.save(panelf);
+	public void save(PanelFeedback panelFeedback) {
+		log.debug("Saving PanelFeedback " + panelFeedback);
+		panelFeedDAO.save(panelFeedback);
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class PanelFeedbackService {
 	 * UPDATE PanelFeedback
 	 * @param PanelFeedback
 	 */
-	public PanelFeedback update(PanelFeedback panelf) {
-		log.info("Updating PanelFeedback " + panelf);
+	public PanelFeedback update(PanelFeedback panelFeedback) {
+		log.info("Updating PanelFeedback " + panelFeedback);
 		
-		panelFeedDAO.update(panelf);
-		return panelf;
+		panelFeedDAO.update(panelFeedback);
+		return panelFeedback;
 	}
 
 }

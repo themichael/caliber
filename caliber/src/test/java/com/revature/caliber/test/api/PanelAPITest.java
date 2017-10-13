@@ -107,14 +107,34 @@ public class PanelAPITest extends AbstractAPITest {
 	@Test
 	public void testDelete() {
 		log.info("Deleting an panel");
+		int panelId = panelDAO.findAll().get(0).getId();
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
-			delete(DELETE_PANEL_URL, 2050).
+			delete(DELETE_PANEL_URL, panelId).
 		then().assertThat().
 			statusCode(HttpStatus.NO_CONTENT_204);
 	}
-
+	
+	/**
+	 * Tests deletion of a panel that doesn't exist.
+	 * Asserts a 404 Not Found status is returned.
+	 */
+	@Test
+	public void testDeletePanel404() {
+		log.info("Deleting an panel that doesn't exist");
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			delete(DELETE_PANEL_URL, -1).
+		then().assertThat().
+			statusCode(HttpStatus.NOT_FOUND_404);
+	}
+	
+	/**
+	 * Tests get all panels when no panels exist.
+	 * Asserts a 204 No Content status is returned.
+	 */
 	@Test
 	public void testGetAllPanels204() {
 		log.info("Get all panels, no content...");
@@ -130,7 +150,12 @@ public class PanelAPITest extends AbstractAPITest {
 			statusCode(HttpStatus.NO_CONTENT_204);
 		log.info("testGetAllPanels204 succeeded!!!");
 	}
-
+	
+	/**
+	 * Tests get all panels.
+	 * Asserts correct number of panels returned
+	 * and a 200 OK status is returned.
+	 */
 	@Test
 	public void testGetAllPanels200() {
 		log.info("Get all panels, OK...");
@@ -146,19 +171,27 @@ public class PanelAPITest extends AbstractAPITest {
 			body("size()", is(expected));
 		log.info("testGetAllPanels200 succeeded!!!");
 	}
-
+	
+	/**
+	 * Tests get panel by id when panel doesn't exist.
+	 * Asserts 404 Not Found status is returned.
+	 */
 	@Test
-	public void testGetPanelById204() {
-		log.info("Get panel by id, no content...");
+	public void testGetPanelById404() {
+		log.info("Get panel by id, resource not found...");
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
 			get(GET_PANEL_BY_ID_URL, -1).
 		then().assertThat().
-			statusCode(HttpStatus.NO_CONTENT_204);
-		log.info("testGetPanelById204 succeeded!!!");
+			statusCode(HttpStatus.NOT_FOUND_404);
+		log.info("testGetPanelById404 succeeded!!!");
 	}
-
+	
+	/**
+	 * Tests get panel by id.
+	 * Asserts 200 OK status is returned.
+	 */
 	@Test
 	public void testPanelById200() {
 		log.info("Get panel by id, OK...");
@@ -173,7 +206,27 @@ public class PanelAPITest extends AbstractAPITest {
 			body("id", is(p.getId()));
 		log.info("testPanelById200 succeeded!!!");
 	}
-
+	
+	/**
+	 * Tests get panels by trainee when trainee doesn't exist.
+	 * Asserts 404 Not Found status is returned.
+	 */
+	@Test
+	public void testGetPanelsByTrainee404() {
+		log.info("Get all trainee panels, no content...");
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_TRAINEE_PANELS_URL, -1).
+		then().assertThat().
+			statusCode(HttpStatus.NOT_FOUND_404);
+		log.info("testGetPanelsByTrainee404 succeeded!!!");
+	}
+	
+	/**
+	 * Tests get panels by trainee when trainee doesn't have any.
+	 * Asserts 204 No Content status is returned.
+	 */
 	@Test
 	public void testGetPanelsByTrainee204() {
 		log.info("Get all trainee panels, no content...");
@@ -189,7 +242,12 @@ public class PanelAPITest extends AbstractAPITest {
 			statusCode(HttpStatus.NO_CONTENT_204);
 		log.info("testGetPanelsByTrainee204 succeeded!!!");
 	}
-
+	
+	/**
+	 * Tests get panels by trainee.
+	 * Asserts correct number of panels returned 
+	 * and a 200 OK status is returned.
+	 */
 	@Test
 	public void testGetPanelsByTrainee200() {
 		log.info("Get all trainee panels, OK...");
@@ -210,6 +268,10 @@ public class PanelAPITest extends AbstractAPITest {
 		log.info("testGetPanelsByTrainee200 succeeded!!!");
 	}
 
+	/**
+	 * Get all repanels when no panels exist.
+	 * Assert 204 No Content status is returned.
+	 */
 	@Test
 	public void testGetAllRepanels204() {
 		log.info("Get all repanels, no content...");
@@ -227,6 +289,11 @@ public class PanelAPITest extends AbstractAPITest {
 		log.info("testGetAllRepanels204 succeeded!!!");
 	}
 
+	/**
+	 * Get all repanels.
+	 * Assert correct number of panels returned
+	 * and a 200 OK status is returned.
+	 */
 	@Test
 	public void testGetAllRepanels200() {
 		log.info("Get all repanels, OK...");
