@@ -102,18 +102,18 @@ public class EmailService {
 		for(Batch b: batchList) {
 			List<Assessment> assessList = assess.findByBatchId(b.getBatchId());
 			List<Trainee> traineeList = trainee.findAllByBatch(b.getBatchId());
+			int traineeNumber = traineeList.size();
+			System.out.println("Trainee Number " +traineeNumber);
 			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
 			for(Grade grade: gradeList) {
 				for(Assessment assessment: assessList) {
+					int assessmentCounter = 1;
 					if(grade.getAssessment().getAssessmentId() == assessment.getAssessmentId()) {
-						for(Trainee trainee: traineeList) {
-							if(grade.getTrainee().getTraineeId() != trainee.getTraineeId()) {
-								if(trainer.contains(b.getTrainer())) {
-									continue;
-								}
-								trainer.add(b.getTrainer());
-							}
-						}
+						assessmentCounter++;
+					}
+					System.out.println("Assessment Counter " + assessmentCounter);
+					if(assessmentCounter < traineeNumber) {
+						trainer.add(b.getTrainer());
 					}
 				}
 			}
