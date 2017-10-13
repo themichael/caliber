@@ -55,7 +55,7 @@ angular
 			function getTrainees(){
 				//for each batch, add the trainees to an overall list of trainees
 				allBatches.forEach(function(batch){
-					batch.trainees.forEach(function(trainee){
+					batch.traineesforEach(function(trainee){
 						$scope.allTrainees.push(trainee);
 					});
 				});
