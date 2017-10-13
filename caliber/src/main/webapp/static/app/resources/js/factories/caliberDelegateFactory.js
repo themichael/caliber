@@ -7,6 +7,7 @@
  * @param qcFactory
  * @param allFactory
  * @param aggFactory
+ * @param panelFactory
  * @returns {{}}
  */
 angular
@@ -14,7 +15,7 @@ angular
 		.factory(
 				"caliberDelegate",
 				function($log, trainerFactory, vpFactory, qcFactory,
-						allFactory, aggFactory) {
+						allFactory, aggFactory, panelFactory) {
 					$log.debug("Booted Delegate Factory");
 
 					var delegate = {};
@@ -24,6 +25,7 @@ angular
 					delegate.qc = {};
 					delegate.vp = {};
 					delegate.agg = {};
+					delegate.panel = {};
 
 					/***********************************************************
 					 * Generate PDF
@@ -369,9 +371,23 @@ angular
 					};
 					
 					//Emma Bownes
-					delegate.agg.getAggBatchPanelTable = function(batchId) {
-						return aggFactory.reportPanelTable(batchId);
-					}
+					delegate.panel.getBatchPanelTable = function(batchId) {
+						return panelFactory.reportPanelTable(batchId);
+					};
+					
+					delegate.panel.reportTraineePanels = function(traineeId){
+						return panelFactory.reportTraineePanels(traineeId);
+					};
+					
+					delegate.panel.findAllPanels = function(){
+						return panelFactory.findAllPanels();
+					};
+					
+					delegate.panel.getPanelById = function(panelId){
+						return panelFactory.getPanelById(panelId);
+					};
+					
+					//TODO: Add the others here
 
 					return delegate;
 

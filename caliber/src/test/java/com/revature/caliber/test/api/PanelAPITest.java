@@ -26,6 +26,7 @@ import io.restassured.http.ContentType;
 /**
  * @author Nathan Koszuta
  * @author Connor Monson
+ * @author Allan Jones
  */
 
 public class PanelAPITest extends AbstractAPITest {
@@ -40,6 +41,7 @@ public class PanelAPITest extends AbstractAPITest {
 	private static final String CREATE_PANEL_URL = baseUrl + "panel/create";
 	private static final String DELETE_PANEL_URL = baseUrl + "panel/delete/{panelId}";
 	private static final String UPDATE_PANEL_URL = baseUrl + "panel/update";
+	private static final String GET_PANEL_BY_BATCH_URL = baseUrl + "all/reports/batch/{batchId}/panel-batch-all-trainees";
 
 	@Autowired
 	private PanelDAO panelDAO;
@@ -349,5 +351,17 @@ public class PanelAPITest extends AbstractAPITest {
 			statusCode(HttpStatus.OK_200).
 			body("size()", is(expected));
 		log.info("testGetAllRepanels200 succeeded!!!");
+	}
+
+	@Test
+	public void testGetPanelByBatch200() {
+		log.info("Get all trainee panels by batch, OK...");
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_PANEL_BY_BATCH_URL, 2050).
+		then().assertThat().
+			statusCode(HttpStatus.OK_200);
+		log.info("testGetPanelByBatch200 succeeded!!!");
 	}
 }
