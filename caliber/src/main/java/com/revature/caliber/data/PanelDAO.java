@@ -131,6 +131,4 @@ public class PanelDAO {
 			sessionFactory.getCurrentSession().delete(panel);
 	}
 	
-
-
 }

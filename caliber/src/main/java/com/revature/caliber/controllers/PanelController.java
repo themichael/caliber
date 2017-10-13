@@ -114,4 +114,21 @@ public class PanelController {
 		panelService.deletePanel(panelId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+
+	/**
+	 * Gets all trainees with last panel status = Repanel
+	 *
+	 * @return the all batches
+	 */
+	@RequestMapping(value = { "/panel/repanel/recent" },
+			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING')")
+	public ResponseEntity<List<Panel>> getAllRecentRepanel() {
+		log.info("Fetching all trainees whose last panel status was Repanel");
+		List<Panel> panels = panelService.findAllRecentRepanel();
+		if (panels == null || panels.isEmpty())
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		else return new ResponseEntity<>(panels, HttpStatus.OK);
+	}
 }
