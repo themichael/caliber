@@ -434,6 +434,9 @@ footer a, footer a:hover {
 .add-margin{
 	margin-bottom: 10px;
 }
+.add-space{
+	margin-bottom: 5px;
+}
 /********************************************************
 	Overall Batch Status column in vp-home and qc-home
 *********************************************************/
