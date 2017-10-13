@@ -1,6 +1,5 @@
 package com.revature.caliber.data;
 
-import java.util.HashSet;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -17,9 +16,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Panel;
-import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.TrainingStatus;
 
 /**
  * @author Connor Monson
@@ -30,7 +29,6 @@ public class PanelDAO {
 
 	private static final Logger log = Logger.getLogger(PanelDAO.class);
 	private static final String INTERVIEW_DATE = "interviewDate";
-	private static final String PANEL_ID = "id";
 	private SessionFactory sessionFactory;
 	
 	@Autowired
@@ -109,7 +107,6 @@ public class PanelDAO {
 	public Panel findOne(Integer panelId) {
 		log.info("Find panel by id: " + panelId);
 		Panel p = (Panel) sessionFactory.getCurrentSession().get(Panel.class, panelId);
-//		p.setFeedback(new HashSet<PanelFeedback>(panelFeedbackDao.findAllForPanel(panelId)));
 		return p;
 	}
 
@@ -145,11 +142,10 @@ public class PanelDAO {
 		return (List<Trainee>)sessionFactory.getCurrentSession()
 				.createCriteria(Trainee.class)
 				.add(Restrictions.eq("batch.batchId", batchId))
+				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
 				.createCriteria("panelInterviews", JoinType.LEFT_OUTER_JOIN)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();
 	}
 	
-
-
 }

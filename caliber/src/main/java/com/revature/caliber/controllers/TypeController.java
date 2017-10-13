@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.AssessmentType;
+import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.TrainerRole;
@@ -140,6 +142,32 @@ public class TypeController {
 																										// without
 																										// the
 																										// underscore
+		return new ResponseEntity<>(types, HttpStatus.OK);
+	}
+
+	/**
+	 * Get Panel Status for dropdown selection on the UI
+	 *
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/panelstatus/all", method = RequestMethod.GET)
+	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	public ResponseEntity<List<String>> allPanelStatus() {
+		log.info("Fetching Panel Status");
+		List<String> types = Stream.of(PanelStatus.values()).map(Enum::name).collect(Collectors.toList());
+		return new ResponseEntity<>(types, HttpStatus.OK);
+	}
+
+	/**
+	 * Get Interview Format for dropdown selection on the UI
+	 *
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/interviewformat/all", method = RequestMethod.GET)
+	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	public ResponseEntity<List<String>> allInterviewFormat() {
+		log.info("Fetching Interview Format");
+		List<String> types = Stream.of(InterviewFormat.values()).map(Enum::name).collect(Collectors.toList());
 		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 }

@@ -337,6 +337,7 @@
 											</td>
 											<td ng-if="!item.status">
 												<span style="color: rgb(252,221,115); width: 100%; text-align: center;" class="fa fa-minus fa-2x"></span>
+
 											</td>
 											<td style = "text-align: center;" class="col-sm-3 col-md-3 col-lg-3"  ng-if="item.topics" ng-bind="item.topics"></td>
 											<td class="col-sm-3 col-md-3 col-lg-3"  ng-if="!item.topics">
@@ -601,6 +602,8 @@
 				<!-- Row With Bottom 2 Charts -->
 			</div>
 			<div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div>
+			<!--view for panel report display -->
+			<div ui-view ="panel-report-display" ng-if="displayTraineePanelFeedback()"></div>
 		</div>
 		<!-- Row with all 3 Chart-->
 
