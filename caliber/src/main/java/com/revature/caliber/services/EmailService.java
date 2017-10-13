@@ -22,6 +22,7 @@ import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.email.Mailer;
 
 /**
@@ -47,6 +48,9 @@ public class EmailService {
 
 	@Autowired
 	private GradeDAO gradeDAO;
+	
+	@Autowired
+	private TrainerDAO trainerDAO;
 
 	private static final long DAYS_IN_WEEK = 7;
 	private static final int YEAR = 2017;
@@ -75,6 +79,10 @@ public class EmailService {
 	public void setTrainee(TraineeDAO traineeDAO) {
 		this.traineeDAO = traineeDAO;
 	}
+	
+	public void setTrainer(TrainerDAO trainerDAO) {
+		this.trainerDAO = trainerDAO;
+	}
 
 	@PostConstruct
 	public void init() {
@@ -90,12 +98,31 @@ public class EmailService {
 		long interval = 20000;
 		//timer.scheduleAtFixedRate(this.mailer, startDate, interval);
 
-		List<Batch> batches = batchDAO.findAllCurrent();
-		List<Assessment> assessments = assessmentDAO.findAll();
-		this.checkGrades(batches, assessments);
+		this.checkGrades();
 	}
 
-	public void checkGrades(List<Batch> batchList, List<Assessment> assessList) {
+	public void checkGrades() {
+		
+		List<Trainer> trainers = this.trainerDAO.findAll();
+		
+		for (Trainer trainer : trainers) {
+			List<Batch> trainerBatches = this.batchDAO.findAllByTrainer(trainer.getTrainerId());
+			for (Batch batch : trainerBatches) {
+				List<Assessment> batchAssessments = this.assessmentDAO.findByBatchId(batch.getBatchId());
+				List<Trainee> batchTrainees = this.traineeDAO.findAllByBatch(batch.getBatchId());
+				int expectedNumberOfGrades = batchAssessments.size() * batchTrainees.size();
+				int actualNumberOfGrades = 0;
+				for (Assessment assessment : batchAssessments) {
+					List<Grade> assessmentGrades = gradeDAO.findByAssessment(assessment.getAssessmentId());
+					actualNumberOfGrades += assessmentGrades.size();
+				}
+				if (actualNumberOfGrades < expectedNumberOfGrades) {
+					System.out.println("\n" + trainer.getName() + " needs to submit grades" + "\n");
+				}
+			}
+		}
+		
+		/*
 		//ArrayList<Trainer> trainers = new ArrayList<Trainer>();
 		Set<Trainer> trainers = new HashSet<Trainer>();
 
@@ -122,7 +149,8 @@ public class EmailService {
 							if(!traineeHasGradeForThisAssessment) {
 								//boolean trainerHasSubmittedAllGrades = trainers.contains(batch.getTrainer());
 								//if(!trainerHasSubmittedAllGrades) {
-								trainers.add(batch.getTrainer());
+								Trainer batchTrainer = batch.getTrainer();
+								trainers.add(batchTrainer);
 								//}
 							}
 						}
@@ -131,8 +159,9 @@ public class EmailService {
 			}
 		}
 		for (Trainer trainer : trainers) {
-			System.out.println(trainer.getName() + " needs to submit grades");
+			System.out.println("\n" + trainer.getName() + " needs to submit grades" + "\n");
 		}
+		*/
 	}
 
 }
