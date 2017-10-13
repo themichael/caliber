@@ -36,6 +36,7 @@ public class PanelAPITest extends AbstractAPITest {
 	private static final String GET_PANEL_BY_ID_URL = baseUrl + "panel/{panelId}";
 	private static final String GET_TRAINEE_PANELS_URL = baseUrl + "panel/trainee/{traineeId}";
 	private static final String GET_ALL_REPANELS_URL = baseUrl + "panel/repanel/all";
+	private static final String GET_ALL_RECENT_REPANLS_URL = baseUrl + "panel/repanel/recent";
 	private static final String CREATE_PANEL_URL = baseUrl + "panel/create";
 	private static final String DELETE_PANEL_URL = baseUrl + "panel/delete/{panelId}";
 	private static final String UPDATE_PANEL_URL = baseUrl + "panel/update";
@@ -303,6 +304,47 @@ public class PanelAPITest extends AbstractAPITest {
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
 			get(GET_ALL_REPANELS_URL).
+		then().assertThat().
+			statusCode(HttpStatus.OK_200).
+			body("size()", is(expected));
+		log.info("testGetAllRepanels200 succeeded!!!");
+	}
+	
+	/**
+	 * Get all recent repanels when no panels exist.
+	 * Assert 204 No Content status is returned.
+	 */
+	@Test
+	public void testGetAllRecentRepanels204() {
+		log.info("Get all recent repanels, no content...");
+		for (Panel p : panelDAO.findAllRepanel()) {
+			panelDAO.delete(p.getId());
+		}
+		int expected = panelDAO.findAllRepanel().size();
+		log.info("expected= " + expected);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_ALL_RECENT_REPANLS_URL).
+		then().assertThat().
+			statusCode(HttpStatus.NO_CONTENT_204);
+		log.info("testGetAllRepanels204 succeeded!!!");
+	}
+
+	/**
+	 * Get all recent repanels.
+	 * Assert correct number of panels returned
+	 * and a 200 OK status is returned.
+	 */
+	@Test
+	public void testGetAllRecentRepanels200() {
+		log.info("Get all recent repanels, OK...");
+		int expected = 21;
+		log.info("expected= " + expected);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_ALL_RECENT_REPANLS_URL).
 		then().assertThat().
 			statusCode(HttpStatus.OK_200).
 			body("size()", is(expected));
