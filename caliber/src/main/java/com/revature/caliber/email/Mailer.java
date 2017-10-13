@@ -1,12 +1,20 @@
 package com.revature.caliber.email;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.TimerTask;
 
-import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,8 +24,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Mailer extends TimerTask {
+	
+	private static final Logger logger = Logger.getLogger(Mailer.class);
 
-
+	private static final String EMAIL_TEMPLATE_PATH = "";
 
 	private String toEmail = "mscott@mailinator.com";
 	private EmailAuthenticator authenticator;
@@ -66,11 +76,15 @@ public class Mailer extends TimerTask {
 			MimeMessage message = new MimeMessage(session);
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			message.setSubject("Test");
-			message.setText("This is a test");
+			File emailTemplate = new File(EMAIL_TEMPLATE_PATH);
+			InputStream email = new FileInputStream(emailTemplate);
+			message.setContent(email, "text/html");
 			Transport.send(message);
 			System.out.println("message sent successfully");
 		} catch (MessagingException e) {
 			System.out.println(e);
+		} catch (FileNotFoundException e) {
+			
 		}
 	}
 

@@ -3,13 +3,12 @@ package com.revature.caliber.services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Timer;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +28,13 @@ import com.revature.caliber.email.Mailer;
  * 
  * @author Andrew Bonds
  * @author Will Underwood
+ * @author Vladimir Yevseenko
  *
  */
 @Service
 public class EmailService {
+	
+	private static final Logger logger = Logger.getLogger(Logger.class);
 
 	@Autowired
 	private Mailer mailer;
@@ -101,7 +103,8 @@ public class EmailService {
 		this.checkGrades();
 	}
 
-	public void checkGrades() {
+	public List<Trainer> checkGrades() {
+		List<Trainer> toEmail = new ArrayList<>();
 		List<Trainer> trainers = this.trainerDAO.findAll();
 		for (Trainer trainer : trainers) {
 			List<Batch> trainerBatches = this.batchDAO.findAllByTrainer(trainer.getTrainerId());
@@ -115,10 +118,11 @@ public class EmailService {
 					actualNumberOfGrades += assessmentGrades.size();
 				}
 				if (actualNumberOfGrades < expectedNumberOfGrades) {
-					System.out.println("\n" + trainer.getName() + " needs to submit grades" + "\n");
+					toEmail.add(trainer);
 				}
 			}
 		}
+		return toEmail;
 	}
 
 }
