@@ -372,6 +372,10 @@ angular
 					delegate.panel.findAllPanels = function(){
 						return panelFactory.findAllPanels();
 					};
+					
+					delegate.panel.reportPanelTable = function(panelId){
+						return panelFactory.reportPanelTable(panelId);
+					}
 
 					return delegate;
 

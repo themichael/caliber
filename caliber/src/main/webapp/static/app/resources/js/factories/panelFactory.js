@@ -39,6 +39,20 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	}
+	
+	panel.reportPanelTable = function(panelId) {
+		return $http(
+				{
+					url : "/panel/" + panelId,
+					method : "GET"
+				}).then(function(response) {
+			$log.debug("Panel - panelId -- success");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	}
 
 	/* ******************* Panel Feedback ********************** */
 
