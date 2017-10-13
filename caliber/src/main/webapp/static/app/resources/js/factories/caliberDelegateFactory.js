@@ -377,9 +377,11 @@ angular
 						return panelFactory.findAllPanels();
 					};
 					
-					delegate.panel.reportPanelTable = function(panelId){
-						return panelFactory.reportPanelTable(panelId);
-					}
+					delegate.panel.getPanelById = function(panelId){
+						return panelFactory.getPanelById(panelId);
+					};
+					
+					//TODO: Add the others here
 
 					return delegate;
 
