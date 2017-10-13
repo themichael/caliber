@@ -3,6 +3,7 @@ package com.revature.caliber.services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Timer;
@@ -10,7 +11,6 @@ import java.util.Timer;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Assessment;
@@ -22,6 +22,7 @@ import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.email.Mailer;
 
 /**
@@ -32,22 +33,25 @@ import com.revature.caliber.email.Mailer;
  */
 @Service
 public class EmailService {
-	
+
 	@Autowired
 	private Mailer mailer;
 
 	@Autowired
-	private AssessmentDAO assess;
+	private AssessmentDAO assessmentDAO;
+
 	@Autowired
-	private BatchDAO batch;
+	private BatchDAO batchDAO;
+
 	@Autowired
-	private TraineeDAO trainee;
+	private TraineeDAO traineeDAO;
+
 	@Autowired
-	private GradeDAO grade;
+	private GradeDAO gradeDAO;
 	
-	
-	
-	
+	@Autowired
+	private TrainerDAO trainerDAO;
+
 	private static final long DAYS_IN_WEEK = 7;
 	private static final int YEAR = 2017;
 	private static final int MONTH = 9;
@@ -55,72 +59,68 @@ public class EmailService {
 	private static final int HOUR = 9;
 	private static final int MINUTE = 44;
 	private static final int SECOND = 0;
-	
-	
-	public void setGrade(GradeDAO grade) {
-		this.grade = grade;
-	}
-
 
 	public void setMailer(Mailer mailer) {
 		this.mailer = mailer;
 	}
-	
-	
-	public void setAssessmentDAO(AssessmentDAO assess) {
-		this.assess = assess;
+
+	public void setGrade(GradeDAO gradeDAO) {
+		this.gradeDAO = gradeDAO;
+	}
+
+	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
+		this.assessmentDAO = assessmentDAO;
+	}
+
+	public void setBatch(BatchDAO batchDAO) {
+		this.batchDAO = batchDAO;
+	}
+
+	public void setTrainee(TraineeDAO traineeDAO) {
+		this.traineeDAO = traineeDAO;
 	}
 	
-	public void setBatch(BatchDAO batch) {
-		this.batch = batch;
+	public void setTrainer(TrainerDAO trainerDAO) {
+		this.trainerDAO = trainerDAO;
 	}
-	
-	public void setTrainee(TraineeDAO trainee) {
-		this.trainee = trainee;
-	}
-	
-	
-	
+
 	@PostConstruct
 	public void init() {
-		List<Batch> batchList = batch.findAllCurrentWithTrainees();
-		checkGrades(batchList);
+
+		this.startReminderJob();
 	}
 	
-	public void checkGrades(List<Batch> batchList) {
-		ArrayList<Trainer> trainer = new ArrayList<Trainer>();
-//
-//		Timer timer = new Timer();
-//		Calendar calendar = Calendar.getInstance();
-//		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
-//		Date startDate = calendar.getTime();
-//		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
-//		long interval = 10000;
-//		
-//		timer.scheduleAtFixedRate(new Mailer(), startDate, interval);
-//		
-		for(Batch b: batchList) {
-			List<Assessment> assessList = assess.findByBatchId(b.getBatchId());
-			List<Trainee> traineeList = trainee.findAllByBatch(b.getBatchId());
-			int traineeNumber = traineeList.size();
-			System.out.println("Trainee Number " +traineeNumber);
-			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
-			for(Grade grade: gradeList) {
-				for(Assessment assessment: assessList) {
-					int assessmentCounter = 1;
-					if(grade.getAssessment().getAssessmentId() == assessment.getAssessmentId()) {
-						assessmentCounter++;
-					}
-					System.out.println("Assessment Counter " + assessmentCounter);
-					if(assessmentCounter < traineeNumber) {
-						trainer.add(b.getTrainer());
-					}
+
+	private void startReminderJob() {
+		Timer timer = new Timer();
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
+		Date startDate = calendar.getTime();
+		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
+		long interval = 20000;
+		//timer.scheduleAtFixedRate(this.mailer, startDate, interval);
+
+		this.checkGrades();
+	}
+
+	public void checkGrades() {
+		List<Trainer> trainers = this.trainerDAO.findAll();
+		for (Trainer trainer : trainers) {
+			List<Batch> trainerBatches = this.batchDAO.findAllByTrainer(trainer.getTrainerId());
+			for (Batch batch : trainerBatches) {
+				List<Assessment> batchAssessments = this.assessmentDAO.findByBatchId(batch.getBatchId());
+				List<Trainee> batchTrainees = this.traineeDAO.findAllByBatch(batch.getBatchId());
+				int expectedNumberOfGrades = batchAssessments.size() * batchTrainees.size();
+				int actualNumberOfGrades = 0;
+				for (Assessment assessment : batchAssessments) {
+					List<Grade> assessmentGrades = gradeDAO.findByAssessment(assessment.getAssessmentId());
+					actualNumberOfGrades += assessmentGrades.size();
+				}
+				if (actualNumberOfGrades < expectedNumberOfGrades) {
+					System.out.println("\n" + trainer.getName() + " needs to submit grades" + "\n");
 				}
 			}
 		}
-		System.out.println("This trainer needs to do work: " + trainer);
-
-
 
 	}
 
