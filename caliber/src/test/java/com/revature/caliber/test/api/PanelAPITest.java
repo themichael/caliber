@@ -19,6 +19,7 @@ import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.services.PanelService;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -26,6 +27,7 @@ import io.restassured.http.ContentType;
 /**
  * @author Nathan Koszuta
  * @author Connor Monson
+ * @author Allan Jones
  */
 
 public class PanelAPITest extends AbstractAPITest {
@@ -39,7 +41,8 @@ public class PanelAPITest extends AbstractAPITest {
 	private static final String CREATE_PANEL_URL = baseUrl + "panel/create";
 	private static final String DELETE_PANEL_URL = baseUrl + "panel/delete/{panelId}";
 	private static final String UPDATE_PANEL_URL = baseUrl + "panel/update";
-
+	private static final String GET_PANEL_BY_BATCH_URL = baseUrl + "all/reports/batch/{batchId}/panel-batch-all-trainees";
+	
 	@Autowired
 	private PanelDAO panelDAO;
 	@Autowired
@@ -48,6 +51,8 @@ public class PanelAPITest extends AbstractAPITest {
 	private TraineeDAO traineeDAO;
 	@Autowired
 	private TrainerDAO trDao;
+	@Autowired
+	private PanelService panelService;
 	
 	@BeforeClass
 	public static void logIfValidationFails() {
@@ -308,4 +313,32 @@ public class PanelAPITest extends AbstractAPITest {
 			body("size()", is(expected));
 		log.info("testGetAllRepanels200 succeeded!!!");
 	}
+	
+	@Test
+	public void testGetPanelByBatch200() {
+		log.info("Get all trainee panels by batch, OK...");
+		int expected = panelService.getBatchPanels(2050).size();
+		log.info("expected= " + expected);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_PANEL_BY_BATCH_URL, 2050).
+		then().assertThat().
+			statusCode(HttpStatus.OK_200).
+			body("size()", is(expected));
+		log.info("testGetPanelByBatch200 succeeded!!!");
+	}
+
+	@Test
+	public void testGetPanelByBatch404() {
+		log.info("Get all trainee panels by batch, OK...");
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_PANEL_BY_BATCH_URL, 1000).
+		then().assertThat().
+			statusCode(HttpStatus.NOT_FOUND_404);
+		log.info("testGetPanelByBatch404 succeeded!!!");
+	}
+
 }
