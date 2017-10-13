@@ -3,14 +3,21 @@
 		<div class="row">
 			<div class="col-md-12 col-lg-12">
 				<ul class="nav nav-tabs">
+					
+					<!-- Button Trigger for Create Batch Modal -->
+					<li role="button" class="pull-right" data-toggle="modal"
+						data-target="#samplemodal" ng-click="resetBatchForm()"><a>Create
+							Panel<span class="glyphicon glyphicon-plus" aria-hidden="true">
+						</span>
+					</a></li>
 					<!-- Button Trigger for Import Batch Modal -->
-					<li class="pull-left">
+					<li class="pull-right">
 						<div class="container-1">
 							<form ng-submit="selectChosenTrainee()">
-								<span class="icon"><button type="submit"
-										class="SearchButton">
-										<i class="fa fa-search"></i>
-									</button></span> <input ng-model="chosenTrainee" list="traineeList"
+								<span class="icon">
+									<button type="submit" class="SearchButton"><i class="fa fa-search"></i></button>
+								</span>
+								<input ng-model="chosenTrainee" list="traineeList"
 									type="search" id="searchTextBox"
 									placeholder="Search for Trainee" class="form-control SearchPad"
 									autocomplete="off" />
@@ -22,53 +29,44 @@
 							</form>
 						</div>
 					</li>
-					<!-- Button Trigger for Create Batch Modal -->
-					<li role="button" class="pull-right" data-toggle="modal"
-						data-target="#samplemodal" ng-click="resetBatchForm()"><a>Create
-							Panel<span class="glyphicon glyphicon-plus" aria-hidden="true">
-						</span>
-					</a></li>
 				</ul>
 
-				<!-- Search for single Trainee -->
-<div class="container-1 pull-right">
-	<form ng-submit="selectChosenTrainee()">
-		<span class="icon"><button type="submit" class="SearchButton"><i class="fa fa-search"></i></button></span>
-        	<input ng-model="chosenTrainee" list="traineeList" type="search" id="searchTextBox" 
-            	placeholder="Search for Trainee" class="form-control SearchPad" autocomplete="off" />
-                <datalist id="traineeList">
-	    			<option ng-repeat="trainee in allTrainees track by $index" ng-value="trainee.name">
-	    				{{trainee.name}} | {{trainee.email}} | {{trainee.skypeId}} 
-	    			</option>
-	    		</datalist>
-	</form>
-</div>
-
-<br>
-<br>
-
-<div class="panel panel-default">
-	<div class="panel-heading">Panel Feedback</div>
-		<div class="table-responsive">
-			<table id="trainee-panel-status" class="table-responsive">
-				<tr>
-					<th>Trainee Name</th>
-					<th>Date</th>
-					<th>Panelist</th>
-					<th>Panel Status</th>
-					<th>Repeat Topics</th>
-				</tr>
-				<tr ng-repeat="item in allTraineesPanelData">
-					<td ng-bind="item.trainee" id="trainee.name"></td>
-					<td ng-bind="item.status"></td>
-					<td ng-bind="item.topics"></td>
-					<td><div role="button" data-toggle = "modal" data-target = "#samplemodal" ng-click=""><span class="glyphicon glyphicon-plus" style="color: #F26925;" aria-hidden="true"></span></div></td>
-				</tr>
-			</table>
+			
+				
+				<div class="panel panel-default" style="margin-top:20px">
+					<div class="panel-heading">Panel Feedback</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table id="trainee-panel-status" class="table table-condensed" style="width: 100%;">
+								<thead>
+									<tr>
+										<th>Trainee Name</th>
+										<th>Date</th>
+										<th>Panelist</th>
+										<th>Panel Status</th>
+										<th>Repeat Topics</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in allTraineesPanelData">
+										<td ng-bind="item.trainee" id="trainee.name"></td>
+										<!-- THESE MIGHT NOT EXIST YET -->
+										<td ng-bind="item.date"></td>
+										<td ng-bind="item.panelist"></td>
+										<td ng-bind="item.status"></td>
+										<td ng-bind="item.topics"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="wrapper">
+					<h1 role="button" data-toggle="modal" data-target="#samplemodal"
+						ng-click="">PANELS WOO</h1>
+					<div ui-view="samplemodal"></div>
+				</div>
+			</div>
 		</div>
-</div>
-
-<div class = "wrapper">
-	<h1 role = "button" data-toggle = "modal" data-target = "#samplemodal" ng-click="">PANELS WOO</h1>
-	<div ui-view = "samplemodal"></div>
+	</div>
 </div>
