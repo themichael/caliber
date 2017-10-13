@@ -1,4 +1,36 @@
-<!-- Search for single Trainee -->
+<div id="manage">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-lg-12">
+				<ul class="nav nav-tabs">
+					<!-- Button Trigger for Import Batch Modal -->
+					<li class="pull-left">
+						<div class="container-1">
+							<form ng-submit="selectChosenTrainee()">
+								<span class="icon"><button type="submit"
+										class="SearchButton">
+										<i class="fa fa-search"></i>
+									</button></span> <input ng-model="chosenTrainee" list="traineeList"
+									type="search" id="searchTextBox"
+									placeholder="Search for Trainee" class="form-control SearchPad"
+									autocomplete="off" />
+								<datalist id="traineeList">
+									<option ng-repeat="trainee in allTrainees track by $index" ng-value="trainee.name">
+	    								{{trainee.name}} | {{trainee.email}} | {{trainee.skypeId}} 
+	    							</option>
+								</datalist>
+							</form>
+						</div>
+					</li>
+					<!-- Button Trigger for Create Batch Modal -->
+					<li role="button" class="pull-right" data-toggle="modal"
+						data-target="#samplemodal" ng-click="resetBatchForm()"><a>Create
+							Panel<span class="glyphicon glyphicon-plus" aria-hidden="true">
+						</span>
+					</a></li>
+				</ul>
+
+				<!-- Search for single Trainee -->
 <div class="container-1 pull-right">
 	<form ng-submit="selectChosenTrainee()">
 		<span class="icon"><button type="submit" class="SearchButton"><i class="fa fa-search"></i></button></span>
@@ -18,12 +50,13 @@
 <div class="panel panel-default">
 	<div class="panel-heading">Panel Feedback</div>
 		<div class="table-responsive">
-			<table id="batch-panel-status" class="table-responsive">
+			<table id="trainee-panel-status" class="table-responsive">
 				<tr>
 					<th>Trainee Name</th>
+					<th>Date</th>
+					<th>Panelist</th>
 					<th>Panel Status</th>
 					<th>Repeat Topics</th>
-					<th></th>
 				</tr>
 				<tr ng-repeat="item in allTraineesPanelData">
 					<td ng-bind="item.trainee" id="trainee.name"></td>

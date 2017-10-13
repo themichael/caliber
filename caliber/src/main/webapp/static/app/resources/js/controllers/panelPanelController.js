@@ -22,4 +22,6 @@ angular
 			$scope.currentTraineeId = ALL;
 			$scope.allTrainees = [];
 			
+			
+			
 	});
