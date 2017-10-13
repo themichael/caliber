@@ -83,16 +83,11 @@ public class EmailService {
 	
 	@PostConstruct
 	public void init() {
-		List<Assessment> list = assess.findAll();
-		System.out.println(list.toString());
-		List<Batch> batchList = batch.findAllCurrent();
-		List<Assessment> assessList = assess.findAll();
-
-		checkGrades(batchList, assessList);
+		List<Batch> batchList = batch.findAllCurrentWithTrainees();
+		checkGrades(batchList);
 	}
 	
-	public void checkGrades(List<Batch> batchList, List<Assessment> assessList) {
-		Date currentDate = new Date();
+	public void checkGrades(List<Batch> batchList) {
 		ArrayList<Trainer> trainer = new ArrayList<Trainer>();
 //
 //		Timer timer = new Timer();
@@ -104,51 +99,29 @@ public class EmailService {
 //		
 //		timer.scheduleAtFixedRate(new Mailer(), startDate, interval);
 //		
-
-		for(Batch b : batchList) {
-			System.out.println("Trainer in batch " + b.getBatchId() + " " + b.getTrainer().getName());
-			ArrayList<Long> list = new ArrayList<Long>();
-			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
+		for(Batch b: batchList) {
+			List<Assessment> assessList = assess.findByBatchId(b.getBatchId());
 			List<Trainee> traineeList = trainee.findAllByBatch(b.getBatchId());
-			int checkCount = 0;
-			for(Assessment a: assessList) {
-				if(b.getBatchId() == a.getBatch().getBatchId()) {
-					System.out.println(b.getBatchId() + " and " + a.getBatch().getBatchId());
-					list.add(a.getAssessmentId());
-				}
-			}
-
-			if(b.getTrainer().getTrainerId() == 6) {
-				System.out.println("Genesis List: " + list);
-			}
-			for(Grade g: gradeList) {
-				for(int i = 0; i < list.size(); i++) {
-					if(g.getAssessment().getAssessmentId() == list.get(i)) {
-						for(Trainee t: traineeList) {
-							if(g.getTrainee().getTraineeId() != t.getTraineeId()) {
+			List<Grade> gradeList = grade.findByBatch(b.getBatchId());
+			for(Grade grade: gradeList) {
+				for(Assessment assessment: assessList) {
+					if(grade.getAssessment().getAssessmentId() == assessment.getAssessmentId()) {
+						for(Trainee trainee: traineeList) {
+							if(grade.getTrainee().getTraineeId() != trainee.getTraineeId()) {
 								if(trainer.contains(b.getTrainer())) {
 									continue;
 								}
-								checkCount = 1;
+								trainer.add(b.getTrainer());
 							}
 						}
-
-						}
 					}
-
-			}
-			if(checkCount == 1) {
-				trainer.add(b.getTrainer());
-			}
-			else if(checkCount == 0) {
-				trainer.remove(b.getTrainer());
+				}
 			}
 		}
-
 		System.out.println("This trainer needs to do work: " + trainer);
 
-	
-	
-}
+
+
+	}
 
 }
