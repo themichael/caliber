@@ -115,7 +115,7 @@ public class Mailer extends TimerTask {
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
 				message.setSubject("Submit Grades Reminder");
-				message.setText("Insert pretty formatting here.");
+				message.setText("Please submit grades.");
 				Transport.send(message);
 				System.out.println("message sent successfully");
 			} catch (MessagingException e) {
@@ -139,11 +139,8 @@ public class Mailer extends TimerTask {
 					actualNumberOfGrades += assessmentGrades.size();
 				}
 				if (actualNumberOfGrades < expectedNumberOfGrades) {
-					//System.out.println("\n" + trainer.getName() + " needs to submit grades" + "\n");
 					trainersToSubmitGrades.add(trainer);
-				}/* else {
-					System.out.println("\n" + "All grades submitted" + "\n");
-				}*/
+				}
 			}
 		}
 		return trainersToSubmitGrades;
