@@ -3,7 +3,9 @@ package com.revature.caliber.services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 
 import javax.annotation.PostConstruct;
@@ -86,39 +88,42 @@ public class EmailService {
 		Date startDate = calendar.getTime();
 		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
 		long interval = 20000;
-		timer.scheduleAtFixedRate(this.mailer, startDate, interval);
-		
-		List<Batch> batchList = batchDAO.findAllCurrent();
-		List<Assessment> assessList = assessmentDAO.findAll();
-		this.checkGrades(batchList, assessList);
+		//timer.scheduleAtFixedRate(this.mailer, startDate, interval);
+
+		List<Batch> batches = batchDAO.findAllCurrent();
+		List<Assessment> assessments = assessmentDAO.findAll();
+		this.checkGrades(batches, assessments);
 	}
 
 	public void checkGrades(List<Batch> batchList, List<Assessment> assessList) {
-		ArrayList<Trainer> trainers = new ArrayList<Trainer>();
+		//ArrayList<Trainer> trainers = new ArrayList<Trainer>();
+		Set<Trainer> trainers = new HashSet<Trainer>();
 
 		for(Batch batch : batchList) {
 			//System.out.println("Trainer in batch " + batch.getBatchId() + " " + batch.getTrainer().getName());
-			List<Assessment> assessments = new ArrayList<Assessment>();
+			List<Assessment> batchAssessments = new ArrayList<Assessment>();
 			List<Grade> batchGrades = gradeDAO.findByBatch(batch.getBatchId());
 			List<Trainee> batchTrainees = traineeDAO.findAllByBatch(batch.getBatchId());
+
+			
 			
 			for(Assessment assessment : assessList) {
-				if(batch.getBatchId() == assessment.getBatch().getBatchId()) {
+				if(batch.equals(assessment.getBatch())) {
 					//System.out.println(batch.getBatchId() + " and " + assessment.getBatch().getBatchId());
-					assessments.add(assessment);
+					batchAssessments.add(assessment);
 				}
 			}
 
 			for(Grade grade : batchGrades) {
-				for(Assessment assessment : assessments) {
+				for(Assessment assessment : batchAssessments) {
 					if(grade.getAssessment().equals(assessment)) {
 						for(Trainee trainee : batchTrainees) {
 							boolean traineeHasGradeForThisAssessment = grade.getTrainee().equals(trainee);
 							if(!traineeHasGradeForThisAssessment) {
-								boolean trainerHasSubmittedAllGrades = trainers.contains(batch.getTrainer());
-								if(!trainerHasSubmittedAllGrades) {
-									trainers.add(batch.getTrainer());
-								}
+								//boolean trainerHasSubmittedAllGrades = trainers.contains(batch.getTrainer());
+								//if(!trainerHasSubmittedAllGrades) {
+								trainers.add(batch.getTrainer());
+								//}
 							}
 						}
 					}
