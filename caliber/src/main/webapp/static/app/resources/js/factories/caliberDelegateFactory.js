@@ -127,6 +127,12 @@ angular
 					delegate.all.enumTrainingType = function() {
 						return allFactory.enumTrainingType();
 					};
+					delegate.all.enumPanelStatus = function() {
+						return allFactory.enumPanelStatus();
+					};
+					delegate.all.enumInterviewFormat = function() {
+						return allFactory.enumInterviewFormat();
+					};
 					delegate.all.getAllCategories = function() {
 						return allFactory.getAllCategories();
 					};

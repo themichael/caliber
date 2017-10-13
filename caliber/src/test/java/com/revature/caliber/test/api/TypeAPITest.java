@@ -2,10 +2,15 @@ package com.revature.caliber.test.api;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Test;
+
+import com.revature.caliber.beans.InterviewFormat;
+import com.revature.caliber.beans.PanelStatus;
 
 import io.restassured.http.ContentType;
 
@@ -24,6 +29,8 @@ public class TypeAPITest extends AbstractAPITest {
 	private static final String ALL_QCSTATUS_TYPES = "types/qcstatus/all";
 	private static final String ALL_ASSESSMENT_TYPES = "types/assessment/all";
 	private static final String ALL_TRAINER_ROLES = "types/trainer/role/all";
+	private static final String ALL_PANEL_STATUS = "types/panelstatus/all";
+	private static final String ALL_INTERVIEW_FORMATS = "types/interviewformat/all";
 	private static final String OTHER = "Other";
 
 
@@ -172,5 +179,45 @@ public class TypeAPITest extends AbstractAPITest {
 			.body("$", not(hasItems("Che", "Mousse")));
 		
 		
+	}
+	
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.controllers.TypeController#allPanelStatus()
+	 */
+	@Test
+	public void allPanelStatus() {		
+		log.info("API Testing allPanelStatus at baseUrl  " + baseUrl);
+
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(baseUrl + ALL_PANEL_STATUS).
+		then().assertThat().
+			statusCode(HttpStatus.OK_200).
+			body("size()", is(PanelStatus.values().length)).
+			body("$", hasItems("Pass", "Repanel")).
+			body("$", not(hasItems("Green Bay", "Packers")));		
+	}
+	
+	/**
+	 * Tests methods:
+	 * 
+	 * @see com.revature.caliber.controllers.TypeController#allInterviewFormat()
+	 */
+	@Test
+	public void allInterviewFormat() {		
+		log.info("API Testing allInterviewFormat at baseUrl  " + baseUrl);
+
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(baseUrl + ALL_INTERVIEW_FORMATS).
+		then().assertThat().
+			statusCode(HttpStatus.OK_200).
+			body("size()", is(InterviewFormat.values().length)).
+			body("$", hasItems("Skype", "Phone")).
+			body("$", not(hasItems("Green Bay", "Packers")));		
 	}
 }
