@@ -1,8 +1,10 @@
 package com.revature.caliber.email;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TimerTask;
 
 import javax.mail.*;
@@ -108,7 +110,7 @@ public class Mailer extends TimerTask {
 		return Session.getDefaultInstance(properties, this.authenticator);
 	}
 
-	private void sendEmail(Session session, List<Trainer> trainersToSubmitGrades) {
+	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
 		//for (Trainer trainer : trainersToSubmitGrades) {
 			try {
 				MimeMessage message = new MimeMessage(session);
@@ -123,15 +125,17 @@ public class Mailer extends TimerTask {
 			}
 		//}
 	}
-
-	public List<Trainer> getTrainersWhoNeedToSubmitGrades() {
-		List<Trainer> trainersToSubmitGrades = new ArrayList<Trainer>();
+	
+	public Set<Trainer> getTrainersWhoNeedToSubmitGrades() {
+		Set<Trainer> trainersToSubmitGrades = new HashSet<Trainer>(); // Use a set
 		List<Trainer> trainers = this.trainerDAO.findAll();
-		for (Trainer trainer : trainers) {
-			List<Batch> trainerBatches = this.batchDAO.findAllByTrainer(trainer.getTrainerId());
+		for (Trainer trainer : trainers) { // Only 1 for loop
+			Set<Batch> trainerBatches = trainer.getBatches(); // Remove unnecessary DAO calls
 			for (Batch batch : trainerBatches) {
 				List<Assessment> batchAssessments = this.assessmentDAO.findByBatchId(batch.getBatchId());
-				List<Trainee> batchTrainees = this.traineeDAO.findAllByBatch(batch.getBatchId());
+				Set<Trainee> batchTrainees = batch.getTrainees();
+				
+				// Keep logic below here in this method, but make a new method to call DAOs
 				int expectedNumberOfGrades = batchAssessments.size() * batchTrainees.size();
 				int actualNumberOfGrades = 0;
 				for (Assessment assessment : batchAssessments) {
