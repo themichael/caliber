@@ -368,6 +368,10 @@ angular
 					delegate.panel.getBatchPanelTable = function(batchId) {
 						return panelFactory.reportPanelTable(batchId);
 					};
+					
+					delegate.panel.findAllPanels = function(){
+						return panelFactory.findAllPanels();
+					};
 
 					return delegate;
 
