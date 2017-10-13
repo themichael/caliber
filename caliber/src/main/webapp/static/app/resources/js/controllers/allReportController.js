@@ -371,7 +371,9 @@ angular
 			$scope.displayTraineePanelFeedback = function(){
 				if($scope.currentBatch === null 
 						|| $scope.currentWeek === null 
-						|| $scope.batchOverallTrainee === null){
+						|| $scope.batchOverallTrainee === null
+						|| $scope.traineePanelData === null
+						|| $scope.traineePanelData.length == 0){
 					return false;
 				}
 				return true;

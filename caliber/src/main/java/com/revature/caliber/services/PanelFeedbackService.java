@@ -31,9 +31,9 @@ public class PanelFeedbackService {
 	 * SAVE PanelFeedback
 	 * @param PanelFeedback
 	 */
-	public void save(PanelFeedback panelf) {
-		log.debug("Saving PanelFeedback " + panelf);
-		panelFeedDAO.save(panelf);
+	public void save(PanelFeedback panelFeedback) {
+		log.debug("Saving PanelFeedback " + panelFeedback);
+		panelFeedDAO.save(panelFeedback);
 	}
 
 	/**
@@ -55,26 +55,15 @@ public class PanelFeedbackService {
 		return panelFeedDAO.findAll();
 	}
 	
-
 	/**
 	 * UPDATE PanelFeedback
 	 * @param PanelFeedback
 	 */
-	public PanelFeedback update(PanelFeedback panelf) {
-		log.info("Updating PanelFeedback " + panelf);
+	public PanelFeedback update(PanelFeedback panelFeedback) {
+		log.info("Updating PanelFeedback " + panelFeedback);
 		
-		panelFeedDAO.update(panelf);
-		return panelf;
+		panelFeedDAO.update(panelFeedback);
+		return panelFeedback;
 	}
 
-	/**
-	 * DELETE PanelFeedback
-	 * @param PanelFeedback
-	 */
-	public void delete(PanelFeedback panelf) {
-		log.debug("Deleting PanelFeedback " + panelf);
-		//load PanelFeedback into persistent state
-		PanelFeedback record = panelFeedDAO.findOne(panelf.getId());
-		panelFeedDAO.delete(record);
-	}
 }

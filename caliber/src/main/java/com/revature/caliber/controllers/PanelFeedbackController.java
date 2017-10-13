@@ -27,11 +27,11 @@ import com.revature.caliber.services.PanelFeedbackService;
 public class PanelFeedbackController {
 
 	private static final Logger log = Logger.getLogger(PanelFeedbackController.class);
-	private PanelFeedbackService pfService;
+	private PanelFeedbackService panelFeedbackService;
 
 	@Autowired
-	public void setPanelFeedbackService(PanelFeedbackService pfService) {
-		this.pfService = pfService;
+	public void setPanelFeedbackService(PanelFeedbackService panelFeedbackService) {
+		this.panelFeedbackService = panelFeedbackService;
 	}
 
 	@RequestMapping(value = "/panelfeedback/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,7 +39,7 @@ public class PanelFeedbackController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<List<PanelFeedback>> findAll() {
 		log.debug("Getting all feedback");
-		List<PanelFeedback> feedback = pfService.findAllPanelFeedbacks();
+		List<PanelFeedback> feedback = panelFeedbackService.findAllPanelFeedbacks();
 		return new ResponseEntity<>(feedback, HttpStatus.OK);
 	}
 
@@ -48,25 +48,25 @@ public class PanelFeedbackController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING')")
 	public ResponseEntity<PanelFeedback> findPanelFeedbackById(@PathVariable long id) {
 		log.debug("Getting category: " + id);
-		PanelFeedback panelf = pfService.findPanelFeedback(id);
-		log.info(panelf.toString());
-		return new ResponseEntity<>(panelf, HttpStatus.OK);
+		PanelFeedback panelFeedback = panelFeedbackService.findPanelFeedback(id);
+		log.info(panelFeedback.toString());
+		return new ResponseEntity<>(panelFeedback, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/panelfeedback/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")
-	public ResponseEntity<PanelFeedback> updateFeedback(@Valid @RequestBody PanelFeedback panelf) {
-		pfService.update(panelf);
-		return new ResponseEntity<>(panelf, HttpStatus.OK);
+	public ResponseEntity<PanelFeedback> updateFeedback(@Valid @RequestBody PanelFeedback panelFeedback) {
+		panelFeedbackService.update(panelFeedback);
+		return new ResponseEntity<>(panelFeedback, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/panelfeedback/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP')")
-	public ResponseEntity<PanelFeedback> saveFeedback(@Valid @RequestBody PanelFeedback panelf) {
-		pfService.save(panelf);
-		return new ResponseEntity<>(panelf, HttpStatus.CREATED);
+	public ResponseEntity<PanelFeedback> saveFeedback(@Valid @RequestBody PanelFeedback panelFeedback) {
+		panelFeedbackService.save(panelFeedback);
+		return new ResponseEntity<>(panelFeedback, HttpStatus.CREATED);
 	}
 
 }
