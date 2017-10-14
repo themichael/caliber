@@ -312,15 +312,11 @@ angular
 										url : "/vp",
 										templateUrl : "/static/app/partials/abstracts/vp.html",
 										resolve : {
-											allBatches : function(
-													caliberDelegate) {
-												return caliberDelegate.vp
-														.getAllBatches();
+											allBatches : function(caliberDelegate) {
+												return caliberDelegate.vp.getAllBatches();
 											},
-											allTrainers : function(
-													caliberDelegate) {
-												return caliberDelegate.all
-														.getAllTrainers();
+											allTrainers : function(caliberDelegate) {
+												return caliberDelegate.all.getAllTrainers();
 											}
 										},
 										// authorize the user
@@ -546,13 +542,13 @@ angular
 										
 									})
 							.state(
-									"vp.panels",
+									"vp.panel",
 									{
 										url : "/panels",
 										views : {
 											"" : {
 												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												controller: "panelPanelController"
+												//controller: "panelModalController"
 												//controller : "allReportController"
 											},
 											"samplemodal@vp.panels" : {
