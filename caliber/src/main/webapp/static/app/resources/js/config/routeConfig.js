@@ -751,11 +751,11 @@ angular
 									"panel.panel",
 									{ 
 										url : "/panel",
-										/* add modal view to vpHome page */
+										
 										views: {
 											"" : {
 												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												//controller : "allReportController"
+												controller : "panelModalController"
 											},
 											"samplemodal@panel.panel" : {
 												templateUrl : "/static/app/partials/paneldemo/samplemodal.html"

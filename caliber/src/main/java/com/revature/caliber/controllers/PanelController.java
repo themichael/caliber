@@ -125,7 +125,7 @@ public class PanelController {
 	@RequestMapping(value = { "/panel/repanel/recent" },
 			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING','PANEL')")
 	public ResponseEntity<List<Panel>> getAllRecentRepanel() {
 		log.info("Fetching all trainees whose last panel status was Repanel");
 		List<Panel> panels = panelService.findAllRecentRepanel();

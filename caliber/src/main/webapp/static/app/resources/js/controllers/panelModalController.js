@@ -7,19 +7,19 @@ angular
 .module("panel")
 .controller(
 		"panelModalController",
-		function($rootScope, $scope, $state, $log, caliberDelegate) {
+		function($rootScope, $scope, $state, $log, caliberDelegate, allBatches) {
 			
+			console.log("in panel controller");
 			$log.debug("Booted panel controller.");
-			
 			//For the table
-			getAllTraineePanelsTable();
 			var table = document.getElementById("technicalFeedback");
 			$scope.table = table;
-			$scope.lastrow = table.rows.length;
+			//$scope.lastrow = table.rows.length;
 			$scope.counter = 1;
 			$scope.consent = [{type: 'yes', value: true},{type: 'no', value: false}];
 			$scope.recordingConsent = $scope.consent;
-			
+			$scope.traineePanels = [];
+			$scope.employedTrainees = [];
 			// Get all 
 			
 			// Get all panel status on load up
@@ -29,7 +29,7 @@ angular
 						$scope.panelStats = panelStatus;
 					});
 			
-			// Get all interview modes 
+			// Get all interview modes
 			caliberDelegate.all.enumInterviewFormat().then(
 					function(interviewFormat) {
 						$log.debug(interviewFormat);
@@ -46,24 +46,28 @@ angular
 			// *******************************************************************************
 			// *** Tables
 			// *******************************************************************************
-			/**
-			 * Generates the Panel table.
-			 * @author Emma Bownes
-			 */
-			function getAllTraineePanelsTable(){
-				caliberDelegate.panel.getBatchPanelTable(
-						$scope.currentBatch.batchId)
-						.then(
-								function(response){
-									NProgress.done();
-									$log.debug(response);
-									$scope.allTraineesPanelData = response;
-								},
-								function(response){
-									NProgress.done();
-									
-								})
+		
+			$scope.selectChosenTrainee = function(traineeName){
+				let traineeId = -1;
+				$scope.employedTrainees.forEach(function(trainee) {
+					if (trainee.name === traineeName) {
+						traineeId = trainee.traineeId;
+					}
+				});
+				$scope.traineePanels = caliberDelegate.panel.reportTraineePanels(traineeId);
 			}
+			
+			(function(){
+				$log.debug("In search trainee");
+				allBatches.forEach(function(batch){
+					batch.trainees.forEach(function(trainee){
+							$scope.employedTrainees.push(trainee);
+							console.log(trainee.trainingStatus);
+					});
+				});
+				console.log($scope.employedTrainees);
+				$log.debug($scope.employedTrainees);
+			})();
 			
 			function addRow() {
 				var newRow = $("<tr>");
