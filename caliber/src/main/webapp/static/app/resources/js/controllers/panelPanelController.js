@@ -7,12 +7,9 @@ angular
 .module("panel")
 .controller(
 		"panelPanelController",
-		function($rootScope, $scope, $state, $log, caliberDelegate, allBatches) {
+		function($rootScope, $scope, $state, $log, caliberDelegate) {
 			
 			$log.debug("Booted panel controller.");
-			
-			//
-			$scope.currentBatch = allBatches[0];
 			
 			//For the table
 			getAllTraineePanelsTable();
@@ -23,17 +20,7 @@ angular
 			$scope.consent = [{type: 'yes', value: true},{type: 'no', value: false}];
 			$scope.recordingConsent = $scope.consent;
 			
-			//load $scope.trainees list for search results
-			function getTrainees(){
-				//for each batch, add the trainees to an overall list of trainees
-				allBatches.forEach(function(batch){
-					batch.traineesforEach(function(trainee){
-						$scope.allTrainees.push(trainee);
-					});
-				});
-			}
-			
-			// Get all panelists on load up
+			// Get all 
 			
 			// Get all panel status on load up
 			caliberDelegate.all.enumPanelStatus().then(
@@ -42,7 +29,7 @@ angular
 						$scope.panelStats = panelStatus;
 					});
 			
-			//Get all interview modes 
+			// Get all interview modes 
 			caliberDelegate.all.enumInterviewFormat().then(
 					function(interviewFormat) {
 						$log.debug(interviewFormat);
