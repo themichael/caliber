@@ -64,6 +64,10 @@ angular.module("delegate")
 			delegate.all.deleteTrainee = function(traineeId) {
 				return allFactory.deleteTrainee(traineeId);
 			};
+			
+			delegate.all.searchTrainee = function (searchTerm) {
+				return allFactory.searchTrainee(searchTerm);
+			};
 
 			delegate.all.getGrades = function(traineeId) {
 				return allFactory.getGrades(traineeId);
