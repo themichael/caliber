@@ -373,21 +373,37 @@ angular.module("delegate")
 			 * @author Nathan Koszuta
 			 */
 
-			delegate.panel.getBatchPanelTable = function(batchId) {
-				return panelFactory.reportPanelTable(batchId);
-			};
-
-			delegate.panel.reportTraineePanels = function(traineeId){
-				return panelFactory.reportTraineePanels(traineeId);
-			};
-
-			delegate.panel.findAllPanels = function(){
+			delegate.panel.findAllPanels = function () {
 				return panelFactory.findAllPanels();
 			};
 
-			delegate.panel.getPanelById = function(panelId){
+			delegate.panel.getBatchPanelTable = function (batchId) {
+				return panelFactory.reportPanelTable(batchId);
+			};
+
+			delegate.panel.getPanelById = function (panelId) {
 				return panelFactory.getPanelById(panelId);
 			};
+
+			delegate.panel.reportTraineePanels = function (traineeId) {
+				return panelFactory.reportTraineePanels(traineeId);
+			};
+			
+			delegate.panel.reportAllRepanels = function () {
+				return panelFactory.reportAllRepanels();
+			};
+			
+			delegate.panel.updatePanel = function (panelObj) {
+				return panelFactory.updatePanel(panelObj);
+			};
+			
+			delegate.panel.createPanel = function (panelObj) {
+				return panelFactory.createPanel(panelObj);
+			};
+			
+			delegate.panel.deletePanel = function (panelObj) {
+				return panelFactory.deletePanel(panelObj);
+			};			
 
 			delegate.panel.getRecentRepanels = function () {
 				return panelFactory.getRecentRepanels();
@@ -398,12 +414,12 @@ angular.module("delegate")
 			 * @author Nathan Koszuta
 			 */
 
-			delegate.panel.createPanelFeedback = function (panelFeedbackObj) {
-				return panelFactory.createPanelFeedback(panelFeedbackObj);
-			}
-
 			delegate.panel.getAllPanelFeedbacks = function () {
 				return panelFactory.getAllPanelFeedbacks();
+			}
+
+			delegate.panel.createPanelFeedback = function (panelFeedbackObj) {
+				return panelFactory.createPanelFeedback(panelFeedbackObj);
 			}
 
 			delegate.panel.updatePanelFeedback = function (feedbackId) {

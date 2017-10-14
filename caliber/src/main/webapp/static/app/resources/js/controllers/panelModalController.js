@@ -56,7 +56,7 @@ angular
 						.then(
 								function(response){
 									NProgress.done();
-									console.log(response);
+									$log.debug(response);
 									$scope.allTraineesPanelData = response;
 								},
 								function(response){
