@@ -1,6 +1,8 @@
 package com.revature.caliber.services;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,6 +118,8 @@ public class TrainingService {
 		log.debug("Find trainer by email " + email);
 		return trainerDAO.findByEmail(email);
 	}
+	
+	
 
 	/**
 	 * FIND ALL TRAINERS
@@ -361,10 +365,18 @@ public class TrainingService {
 	 * @param email
 	 * @return
 	 */
-	public Trainee findTraineeByEmail(String email) {
-		log.debug("Find trainee by email: " + email);
-		return traineeDAO.findByEmail(email);
+	public Set<Trainee> search(String searchTerm) {
+		log.debug("Find trainee : " + searchTerm);
+		Set<Trainee> result = new HashSet<Trainee>();
+		List<Trainee> traineeByEmail = traineeDAO.findByEmail(searchTerm);
+		result.addAll(traineeByEmail);
+		List<Trainee> traineeByName = traineeDAO.findByName(searchTerm);
+		result.addAll(traineeByName);
+		List<Trainee> traineeBySkypeId = traineeDAO.findBySkypeId(searchTerm);
+		result.addAll(traineeBySkypeId);
+		return result;
 	}
+	
 
 	/**
 	 * DELETE TRAINEE
