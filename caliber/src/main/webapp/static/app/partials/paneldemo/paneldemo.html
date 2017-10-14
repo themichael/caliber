@@ -1,4 +1,80 @@
-<div class = "wrapper">
-	<h1 role = "button" data-toggle = "modal" data-target = "#samplemodal" ng-click="">PANELS WOO</h1>
-	<div ui-view = "samplemodal"></div>
+<div id="manage">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-lg-12">
+				<ul class="nav nav-tabs">
+
+					<!-- Button Trigger for Create Batch Modal -->
+					<li role="button" class="pull-right" data-toggle="modal"
+						data-target="#samplemodal" ng-click="resetBatchForm()"><a>Create
+							Panel<span class="glyphicon glyphicon-plus" aria-hidden="true">
+						</span>
+					</a></li>
+					<!-- Button Trigger for Import Batch Modal -->
+					<li class="pull-right">
+						<div class="container-1">
+							<form ng-submit="selectChosenTrainee()">
+								<span class="icon">
+									<button type="submit" class="SearchButton">
+										<i class="fa fa-search"></i>
+									</button>
+								</span> <input ng-model="chosenTrainee" list="traineeList"
+									type="search" id="searchTextBox"
+									placeholder="Search for Trainee" class="form-control SearchPad"
+									autocomplete="off" />
+								<datalist id="traineeList">
+									<option ng-repeat="trainee in allTrainees track by $index"
+										ng-value="trainee.name">
+	    								{{trainee.name}} | {{trainee.email}} | {{trainee.skypeId}} 
+	    							</option>
+								</datalist>
+							</form>
+						</div>
+					</li>
+				</ul>
+
+
+
+				<div class="panel panel-default" style="margin-top: 20px">
+					<div class="panel-heading">Panel Feedback</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table id="trainee-panel-status" class="table table-condensed"
+								style="width: 100%;">
+								<thead>
+									<tr>
+										<th>Trainee Name</th>
+										<th>Date</th>
+										<th>Panelist</th>
+										<th style="text-align: center">Panel Status</th>
+										<th style="text-align: center">Repeat Topics</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in allTraineesPanelData">
+										<td ng-bind="item.trainee" id="trainee.name"></td>
+										<!-- THESE MIGHT NOT EXIST YET -->
+										<td ng-bind="item.interviewDate"></td>
+										<td ng-bind="item.panelist" id="panelist.name"></td>
+										<td ng-if="item.status=='Pass'"><span
+											style="color: #81f575; width: 100%; text-align: center;"
+											class="fa fa-check fa-2x"> </span></td>
+										<td ng-if="item.status=='Repanel'"><span
+											style="color: #ff7575; width: 100%; text-align: center;"
+											class="glyphicon glyphicon-remove fa-2x"></span></td>
+										<td ng-if="item.topics" ng-bind="item.topics"
+											style="text-align: center"></td>
+										<td ng-if="!item.topics"><span
+											style="color: rgb(252, 221, 115); width: 100%; text-align: center;"
+											class="fa fa-minus fa-2x"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div ui-view="samplemodal"></div>
+			</div>
+		</div>
+	</div>
 </div>
