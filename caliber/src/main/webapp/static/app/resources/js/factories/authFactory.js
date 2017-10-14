@@ -107,6 +107,8 @@ angular.module("auth").factory("authFactory",
 					$location.path(trainerHome);
 				else if (role === vpRole)
 					$location.path(vpHome);
+				else if (role === panelRole)
+					$location.path(panelHome);
 			};
 
 			auth.authPanel = function () {
@@ -119,6 +121,8 @@ angular.module("auth").factory("authFactory",
 					$location.path(qcHome);
 				else if (role === vpRole)
 					$location.path(vpHome);
+				else if (role === panelRole)
+					$location.path(panelHome);
 			};
 
 			/**
@@ -132,6 +136,8 @@ angular.module("auth").factory("authFactory",
 					$location.path(trainerHome);
 				else if (role === qcRole)
 					$location.path(qcHome);
+				else if (role === panelRole)
+					$location.path(panelHome);
 			};
 
 			/**
@@ -145,6 +151,8 @@ angular.module("auth").factory("authFactory",
 					$location.path(qcHome);
 				else if (role === vpRole)
 					$location.path(vpHome);
+				else if (role === panelRole)
+					$location.path(panelHome);
 			};
 
 			auth.authStaging = function() {
