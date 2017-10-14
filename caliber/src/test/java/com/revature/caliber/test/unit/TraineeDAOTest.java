@@ -209,7 +209,21 @@ public class TraineeDAOTest extends CaliberTest {
 	public void testFindByEmail() {
 		log.info("Find trainee by email Test");
 		Integer id = 5503;
-		assertEquals((int) id, (int) traineeDAO.findByEmail("osher.y.cohen@gmail.com").getTraineeId());
+		assertEquals((int) id, (int) traineeDAO.findByEmail("osher").get(0).getTraineeId());
+	}
+	
+	@Test
+	public void testFindByName() {
+		log.info("Find trainee by name Test");
+		Integer id = 5511;
+		assertEquals((int) id, (int) traineeDAO.findByName("Lau").get(0).getTraineeId());
+	}
+	
+	@Test
+	public void testFindBySkypeId() {
+		log.info("Find trainee by SkypeId Test");
+		Integer id = 5504;
+		assertEquals((int) id, (int) traineeDAO.findBySkypeId("kyle.chang").get(0).getTraineeId());
 	}
 
 	/**

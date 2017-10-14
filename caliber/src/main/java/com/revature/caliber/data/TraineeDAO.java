@@ -130,11 +130,28 @@ public class TraineeDAO {
 	 * @param email
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public Trainee findByEmail(String email) {
+	public List<Trainee> findByEmail(String email) {
 		log.info("Fetch trainee by email address: " + email);
-		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.add(Restrictions.eq("email", email)).uniqueResult();
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.like("email", "%"+email+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> findByName(String name) {
+		log.info("Fetch trainee by email address: " + name);
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.like("name", "%"+name+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> findBySkypeId(String skypeId) {
+		log.info("Fetch trainee by email address: " + skypeId);
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.like("skypeId", "%"+skypeId+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
 	}
 
 	/**
