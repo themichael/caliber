@@ -151,7 +151,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/panelstatus/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'PANEL')")
 	public ResponseEntity<List<String>> allPanelStatus() {
 		log.info("Fetching Panel Status");
 		List<String> types = Stream.of(PanelStatus.values()).map(Enum::name).collect(Collectors.toList());
@@ -164,7 +164,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/interviewformat/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'PANEL')")
 	public ResponseEntity<List<String>> allInterviewFormat() {
 		log.info("Fetching Interview Format");
 		List<String> types = Stream.of(InterviewFormat.values()).map(Enum::name).collect(Collectors.toList());
