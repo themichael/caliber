@@ -218,15 +218,15 @@ angular
 						function(response){
 							NProgress.done();
 							$scope.traineePanelData = response;
-							console.log("here");
-							console.log(response);
+							$log.debug("here");
+							$log.debug(response);
 							
 						},function(response){
 							NProgress.done();
 						}
 						)
 				
-			}
+			};
 
 			function getCurrentBatchWeeks(weeks) {
 				$scope.currentBatchWeeks = [];

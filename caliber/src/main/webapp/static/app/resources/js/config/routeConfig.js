@@ -557,7 +557,6 @@ angular
 											},
 											"samplemodal@vp.panels" : {
 												templateUrl : "/static/app/partials/paneldemo/samplemodal.html",
-												//controller : "panelPanelController"
 											}
 										}
 										

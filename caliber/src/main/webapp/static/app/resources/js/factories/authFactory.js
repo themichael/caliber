@@ -114,16 +114,19 @@ angular.module("auth").factory("authFactory",
 
 			auth.authPanel = function () {
 				var role = getCookie();
-				if (role === panelRole)
+				if (role === panelRole) {
 					$log.debug("Authenticated user as Panel");
-				else if (role === trainerRole)
-					$location.path(trainerHome);
-				else if (role === qcRole)
-					$location.path(qcHome);
-				else if (role === vpRole)
-					$location.path(vpHome);
-				else if (role === panelRole)
 					$location.path(panelHome);
+				}
+				else if (role === trainerRole) {
+					$location.path(trainerHome);
+				}
+				else if (role === qcRole) {
+					$location.path(qcHome);
+				}
+				else if (role === vpRole) {
+					$location.path(vpHome);
+				}
 			};
 
 			/**

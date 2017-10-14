@@ -6,24 +6,11 @@
 angular
 .module("panel")
 .controller(
-		"panelPanelController",
+		"panelModalController",
 		function($rootScope, $scope, $state, $log, caliberDelegate) {
 			
 			$log.debug("Booted panel controller.");
 			
-//<<<<<<< HEAD
-//			//What you see in the modal panel
-//			var interviewDate = new Date();
-//			var trainee = $scope;
-//			$scope.interviewDate = i;
-//			$scope.selectedTrainingType = OVERALL;
-//			$scope.selectedSkill = OVERALL;
-//			$scope.skillstack = [];
-//			$scope.trainingTypes = [];
-//			$scope.currentTraineeId = ALL;
-//			$scope.allTrainees = [];
-//			console.log("My Scope: "+$scope);
-//=======
 			//For the table
 			getAllTraineePanelsTable();
 			var table = document.getElementById("technicalFeedback");
