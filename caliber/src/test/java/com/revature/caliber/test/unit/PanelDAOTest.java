@@ -4,35 +4,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.Period;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.Panel;
-import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.PanelDAO;
-import com.revature.caliber.data.PanelFeedbackDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
-
-import oracle.sql.TIMESTAMP;
 
 /**
  * @author Connor Monson
@@ -41,32 +26,31 @@ import oracle.sql.TIMESTAMP;
 public class PanelDAOTest extends CaliberTest {
 
 	private static final Logger log = Logger.getLogger(PanelDAOTest.class);
-	private static final String PANEL_COUNT = "select count(panel_id) from caliber_panel";
+	private static final String PANEL_COUNT = "SELECT count(panel_id) FROM caliber_panel";
 
 	@Autowired
 	private PanelDAO panelDAO;
-	
+
 	@Autowired
 	private TraineeDAO traineeDao;
-	
+
 	@Autowired
-	private TrainerDAO trDao;
-	
+	private TrainerDAO trainerDao;
+
 	public void setPanelDAO(PanelDAO panelDAO) {
 		this.panelDAO = panelDAO;
 	}
-	
+
 	public void setTraineeDao(TraineeDAO dao) {
 		this.traineeDao = dao;
 	}
-	
 
 	public void setTrainerDao(TrainerDAO dao) {
-		this.trDao = dao;
+		this.trainerDao = dao;
 	}
+
 	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.data.PanelDAO#findAll()
+	 * Tests getting all panels
 	 */
 	@Test
 	public void findAllTest() {
@@ -78,13 +62,12 @@ public class PanelDAOTest extends CaliberTest {
 	}
 
 	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.data.PanelDAO#findAllByTrainee() Returns
-	 *      panels with specified trainee
+	 * Tests getting all panels belonging to a single trainee
 	 */
 	@Test
 	public void findAllByTraineeTest() {
 		log.info("Testing the PanelDAO.findAllByTraineeTest()");
+		
 		// positive testing
 		Integer traineeId = 5500;
 		String sql = "SELECT * FROM CALIBER_PANEL WHERE TRAINEE_ID=" + traineeId;
@@ -101,10 +84,7 @@ public class PanelDAOTest extends CaliberTest {
 	}
 
 	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.data.PanelDAO.findOne(Integer panelId)
-	 * Find a known panel, assert that the IDs are the same.
-	 * Try to find a panel that doesn't exist, fail if it does.
+	 * Tests getting one panel by id
 	 */
 	@Test
 	public void findOneTest() {
@@ -112,23 +92,18 @@ public class PanelDAOTest extends CaliberTest {
 		int expected = 40;
 		int actual = panelDAO.findOne(expected).getId();
 		assertEquals(expected, actual);
-		try{
+		
+		try {
 			expected = -234;
 			actual = panelDAO.findOne(expected).getId();
 			fail();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			log.info(e);
 		}
 	}
 
 	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.data.PanelDAO.update()
-	 * This test needs the findOne method to work.
-	 * It finds a panel from the database, changes a value, updates the database,
-	 * loads the panel from the database again.
-	 * Tries to update a non-existing panel.
+	 * Tests updating a single panel
 	 */
 	@Test
 	public void updateTest() {
@@ -136,41 +111,33 @@ public class PanelDAOTest extends CaliberTest {
 		Panel testPanel = panelDAO.findOne(1);
 		testPanel.setPanelRound(100);
 		panelDAO.update(testPanel);
-		
 		Panel updatedTestPanel = panelDAO.findOne(1);
 		assertEquals(updatedTestPanel.getPanelRound(), 100);
-		try{
+		
+		try {
 			testPanel.setId(-984);
 			panelDAO.update(testPanel);
 			fail();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			log.info(e);
 		}
 	}
 
 	/**
-	 * Tests methods:
-	 * 
-	 * @see com.revature.caliber.data.PanelDAO.Delete(Panel panel)
+	 * Tests creating a new panel and saving to the database
 	 */
 	@Test
 	public void saveTest() {
-		log.info("Saving a new Feedback using PanelFeedbackDAO");
+		log.info("Saving a new Panel using PanelDAO");
 		int before = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
-		Panel p = new Panel();
-		p.setFormat(InterviewFormat.Phone);
-		p.setPanelRound(1);
-		p.setStatus(PanelStatus.Pass);
-		p.setTrainee(traineeDao.findOne(1));
-		p.setPanelist(trDao.findOne(1));
-		
+		Panel p = getPanel();
+
 		panelDAO.save(p);
 		int after = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
 		List<Panel> resultSet = panelDAO.findAll();
 		boolean success = false;
 		for (Panel found : resultSet) {
-			if (p.getId() == found.getId()){
+			if (p.getId() == found.getId()) {
 				success = true;
 				break;
 			}
@@ -178,36 +145,122 @@ public class PanelDAOTest extends CaliberTest {
 		assertTrue(success);
 		assertEquals(++before, after);
 	}
-	
+
 	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.data.PanelDAO#findAllCurrent() The PanelDAO
-	 *      findAllCurrent takes into account 30 days before the current date.
-	 *      It also removes dropped trainees from the paneles returned
+	 * Tests finding all panels marked with the status 'Repanel'
 	 */
 	@Test
 	public void findAllRepanelTest() {
 		log.info("Testing the PanelDAO.findAllRepanelTest()");
-		
+
 		String sql = "SELECT * FROM CALIBER_PANEL WHERE panel_status = 'Repanel'";
 		int expect = jdbcTemplate.queryForList(sql).size();
 		List<Panel> paneles = panelDAO.findAllRepanel();
 		int actual = paneles.size();
 		assertEquals(expect, actual);
-
 	}
-	
+
+	/**
+	 * Tests deleting a panel
+	 */
 	@Test
-	public void deletePanelTest(){
+	public void deletePanelTest() {
 		log.info("DELETE PANEL DAO");
+		
+		// positive testing
 		int beforeTest = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
 		System.out.println(beforeTest);
 		Panel p = panelDAO.findOne(1);
 		System.out.println(p);
-		panelDAO.delete(p);
+		panelDAO.delete(p.getId());
 		int afterTest = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
 		System.out.println(afterTest);
 		assertEquals(--beforeTest, afterTest);
+		
+		// negative testing
+		panelDAO.delete(-100);
+		assertEquals(beforeTest, afterTest);
+	}
+
+	/**
+	 * Tests that the date format already in the database is the same as after
+	 * updating a panel
+	 */
+	@Test
+	public void panelDateFormatTest() {
+		Panel expected = panelDAO.findOne(40);
+		expected.setDuration("100 hours");
+		panelDAO.update(expected);
+		Panel actual = panelDAO.findOne(40);
+
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getInterviewDate(), actual.getInterviewDate());
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Tests the .equals method on the panel
+	 */
+	@Test
+	public void equalsTest() {
+		Panel expected = panelDAO.findOne(40);
+		Panel actual = panelDAO.findOne(40);
+
+		assertTrue(expected.equals(actual));
+	}
+
+	/**
+	 * Tests whether the date can be updated while maintaining the same
+	 * date format
+	 */
+	@Test
+	public void panelCreateUpdateTest() {
+		Panel expected = getPanel();
+
+		panelDAO.save(expected);
+		expected.setInterviewDate(new Date(5));
+		panelDAO.update(expected);
+		Panel actual = panelDAO.findOne(expected.getId());
+
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getInterviewDate(), actual.getInterviewDate());
+		assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Tests the .equals method on the created panel
+	 */
+	@Test
+	public void createSaveTest() {
+		Panel expected = getPanel();
+		panelDAO.save(expected);
+		Panel actual = panelDAO.findOne(expected.getId());
+
+		assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Tests the .equals method on the created panel after a trivial update
+	 */
+	@Test
+	public void createSaveUpdateTest() {
+		Panel expected = getPanel();
+		panelDAO.save(expected);
+		panelDAO.update(expected);
+		Panel actual = panelDAO.findOne(expected.getId());
+
+		assertEquals(expected, actual);
+	}
+
+	public Panel getPanel() {
+		Panel p = new Panel();
+		p.setFormat(InterviewFormat.Phone);
+		p.setPanelRound(1);
+		p.setStatus(PanelStatus.Pass);
+		p.setTrainee(traineeDao.findOne(1));
+		p.setPanelist(trainerDao.findOne(3));
+		p.setInterviewDate(new Date());
+		return p;
 	}
 
 }

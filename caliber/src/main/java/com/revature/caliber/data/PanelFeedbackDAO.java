@@ -28,20 +28,6 @@ public class PanelFeedbackDAO {
 	}
 
 	/**
-	 * Find all panels titles to be displayed on front end
-	 * 
-	 * 
-	 * 
-	 * @return
-	 */
-//	@SuppressWarnings("unchecked")
-//	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-//	public List<String> findAllPanelTitles() {
-//		String hql = "select distinct title FROM Panel";
-//		return sessionFactory.getCurrentSession().createQuery(hql).list();
-//	}
-
-	/**
 	 * Find all panels. Useful for listing available panels
 	 * 
 	 * @return
@@ -51,6 +37,20 @@ public class PanelFeedbackDAO {
 	public List<PanelFeedback> findAll() {
 		log.info("Finding all panel feedback");
 		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+	
+	/**
+	 * Find all panel feedbacks for a panel.
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<PanelFeedback> findAllForPanel(int panelId) {
+		log.info("Finding all panel feedback for panel: " + panelId);
+		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
+				.add(Restrictions.eq("panel.id", panelId))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -63,8 +63,9 @@ public class PanelFeedbackDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<PanelFeedback> findFailedFeedbackByPanel(Panel panel) {
 		log.info("Finding failed panel feedback for panel "+ panel);
+		int panelId = (panel==null)? -1 : panel.getId();
 		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
-				.add(Restrictions.eq("panel.id", panel.getId()))
+				.add(Restrictions.eq("panel.id", panelId))
 				.add(Restrictions.eq("status", PanelStatus.Repanel))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
@@ -77,9 +78,9 @@ public class PanelFeedbackDAO {
 	 * @param panel
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void save(PanelFeedback panelf) {
-		log.info("Save panel feedback " + panelf);
-		long id = (long) sessionFactory.getCurrentSession().save(panelf);
+	public void save(PanelFeedback panelFeedback) {
+		log.info("Save panel feedback " + panelFeedback);
+		long id = (long) sessionFactory.getCurrentSession().save(panelFeedback);
 		log.info("New Feedback ID: " +id);
 	}
 
@@ -90,10 +91,10 @@ public class PanelFeedbackDAO {
 	 * @return
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public PanelFeedback findOne(long panelFId) {
-		log.info("Find panel feedback by id: " + panelFId);
+	public PanelFeedback findOne(long panelFeedbackId) {
+		log.info("Find panel feedback by id: " + panelFeedbackId);
 		return (PanelFeedback) sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
-				.add(Restrictions.eq("id", panelFId)).uniqueResult();
+				.add(Restrictions.eq("id", panelFeedbackId)).uniqueResult();
 	}
 
 	/**
@@ -102,27 +103,15 @@ public class PanelFeedbackDAO {
 	 * @param panel
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void update(PanelFeedback panel) {
-		log.info("Update panel " + panel);
-		sessionFactory.getCurrentSession().saveOrUpdate(panel);
-	}
-
-	/**
-	 * Convenience method only. Deletes a panel from the database. Panel
-	 * will still be registered with a Salesforce account.
-	 * 
-	 * @param panel
-	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void delete(PanelFeedback panel) {
-		log.info("Delete panel " + panel);
-		sessionFactory.getCurrentSession().delete(panel);
+	public void update(PanelFeedback panelFeedback) {
+		log.info("Update panel " + panelFeedback);
+		sessionFactory.getCurrentSession().saveOrUpdate(panelFeedback);
 	}
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void deleteById(long panelid) {
-		log.info("Delete panel " + panelid);
-		PanelFeedback panel = findOne(panelid);
+	public void deleteById(long panelId) {
+		log.info("Delete panel " + panelId);
+		PanelFeedback panel = findOne(panelId);
 		sessionFactory.getCurrentSession().delete(panel);
 	}
 

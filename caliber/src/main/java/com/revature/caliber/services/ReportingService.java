@@ -66,8 +66,7 @@ public class ReportingService {
 	private TraineeDAO traineeDAO;
 	private NoteDAO noteDAO;
 	private AssessmentDAO assessmentDAO;
-	private PanelDAO panelDAO;
-	private PanelFeedbackDAO panelFeedbackDAO;
+
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -94,15 +93,7 @@ public class ReportingService {
 		this.assessmentDAO = assessmentDAO;
 	}
 	
-	@Autowired
-	public void setPanelDAO(PanelDAO panelDAO) {
-		this.panelDAO = panelDAO;
-	}
-	
-	@Autowired
-	public void setPanelFeedBackDAO(PanelFeedbackDAO panelFeedbackDAO) {
-		this.panelFeedbackDAO = panelFeedbackDAO;
-	}
+
 	/*
 	 *******************************************************
 	 * Doughnut / Pie Charts
@@ -536,13 +527,7 @@ public class ReportingService {
 		return results;
 	}
 	
-	public List<Map<String, String>> getBatchPanels(Integer batchId) {
-		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
-		List<Panel> panels = new ArrayList<>();
-		trainees.forEach(a -> panels.add(panelDAO.findAllByTrainee(a.getTraineeId()).get(0)));
-		List<Map<String, String>> panelDto = utilAllTraineePanels(panels);
-		return panelDto;
-	}
+
 
 	/*
 	 *******************************************************
@@ -887,33 +872,6 @@ public class ReportingService {
 		// weeklyBatchAverage
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
-	}
-	
-	/**
-	 * Takes a List of panels for a batch and returns a Map of labels with information
-	 * needed for batch overall panel table (Trainee Name, Panel Status, Repanel Topics)
-	 * @param panels
-	 * @return
-	 */
-	private List<Map<String, String>> utilAllTraineePanels(List<Panel> panels) {
-		Map<String, String> panelInfo;
-		List<Map<String, String>> batchPanels = new ArrayList<>();
-		for(Panel p : panels) {
-			panelInfo = new HashMap<>();
-			panelInfo.put("trainee", p.getTrainee().getName());
-			String status = p.getStatus().toString();
-			panelInfo.put("status", status);
-			if(status.equalsIgnoreCase("Repanel")) {
-				String topics = "";
-				for(PanelFeedback pf: panelFeedbackDAO.findFailedFeedbackByPanel(p)) {
-						if(topics.length()>0) {topics += ", ";}
-						topics += pf.getTechnology().getSkillCategory();
-				}
-				panelInfo.put("topics", topics);
-			}
-			batchPanels.add(panelInfo);
-		}
-		return batchPanels;
 	}
 	
 	

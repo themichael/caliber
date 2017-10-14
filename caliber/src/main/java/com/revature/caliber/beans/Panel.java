@@ -58,7 +58,7 @@ public class Panel {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Trainer panelist;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name="INTERVIEW_DATE")
 	private Date interviewDate;
 	
@@ -90,7 +90,7 @@ public class Panel {
 	private PanelStatus status;
 	
 	// Technical Feedback
-	@OneToMany(mappedBy = "panel", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "panel", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonManagedReference(value = "feedback")
 	private Set<PanelFeedback> feedback;
 	
@@ -367,8 +367,13 @@ public class Panel {
 
 	@Override
 	public String toString() {
-		return "Panel [id=" + id + " interviewDate="
-				+ interviewDate + ", panelRound=" + panelRound + ", status=" + status + ", overall=" + overall + "]";
+		return "Panel [id=" + id + ", trainee=" + trainee + ", panelist=" + panelist + ", interviewDate="
+				+ interviewDate + ", duration=" + duration + ", format=" + format + ", internet=" + internet
+				+ ", panelRound=" + panelRound + ", recordingConsent=" + recordingConsent + ", recordingLink="
+				+ recordingLink + ", status=" + status + ", feedback=" + feedback + ", associateIntro=" + associateIntro
+				+ ", projectOneDescription=" + projectOneDescription + ", projectTwoDescription="
+				+ projectTwoDescription + ", projectThreeDescription=" + projectThreeDescription
+				+ ", communicationSkills=" + communicationSkills + ", overall=" + overall + "]";
 	}
-	
+
 }

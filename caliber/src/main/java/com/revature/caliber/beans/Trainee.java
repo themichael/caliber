@@ -2,6 +2,7 @@
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
@@ -22,6 +23,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.OrderBy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -118,7 +120,8 @@ public class Trainee implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	private Set<Panel> panelInterviews;
+	@OrderBy(clause = "INTERVIEW_DATE DESC")
+	private Set<Panel> panelInterviews = new TreeSet<>();
 
 	public Trainee() {
 		super();
