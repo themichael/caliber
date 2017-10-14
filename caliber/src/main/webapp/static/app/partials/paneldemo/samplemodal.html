@@ -20,7 +20,7 @@
 								<b>Panelist Name</b> <input type="text" class="form-control"  ng-value="panelist.name"  disabled />
 								<b>Training Track</b> <input type="text" class="form-control" ng-value="trainee.trainingTrack" disabled /> 
 								<b>Panel Round</b> <input type="number" class="form-control" placeholder="Select 1 - 10"  min="1" max="10" ng-bind="panelInterview.round" required /> 
-								<b>Recording Consent</b> <input type="number" class="form-control" placeholder="Select 0 - 1"  min="0" max="1" ng-bind="interviewPanel.consent" /> 
+								<b>Recording Consent</b> <td><select ng-model="recordingConsent" ng-options="consent.type for consent in consent" class="form-control" id="recordConsent"><option value="consent.value"></option></select></td>
 							</div>
 							<div class="form-group col-xs-6">
 								<b>Interview Date</b> <div class="input-group">
@@ -39,8 +39,7 @@
 													  ng-model-options="{ updateOn: 'blur' }" ng-required="true">
 													  <i class="input-group-addon glyphicon glyphicon-time"></i>
 													  </div>
-								<b>Interview Duration</b> <input type="text" class="form-control" ng-bind="panelInterview.duration" />
-								<b>Interview Model</b> <input type="text" class="form-control" ng-bind="panelInterview.mode" /> 
+								<b>Interview Mode</b> <input type="text" class="form-control" ng-bind="panelInterview.mode" /> 
 								<b>Internet Connectivity</b> <input type="text" class="form-control" ng-bind="panelInterview.connectivity" />
 							</div>
 						</div>
@@ -93,20 +92,19 @@
                             		<th> Comment </th>
                         		</tr>
                         		<tr class="form-group">
-                        			<!-- this needs to be a select input type -->
                             		<td><select ng-model="" class="form-control" id="technicalFeedback.technology">
-                            			<option ng-repeat="">{{}}</option>
+                            			<option ng-repeat="option in technologies">{{option}}</option>
                             		</select></td>
                             		<!-- this needs to be a select input type -->
                             		<td><select ng-model="" class="form-control" id="technicalFeedback.result">
-                            			<option ng-repeat="">{{}}</option>
+                            			<option ng-repeat="option in ">{{option}}</option>
                             		</select></td>
                             		<td><select ng-model="" class="form-control" id="technicalFeedback.repanel">
-                            			<option ng-repeat=""></option>
+                            			<option ng-repeat="option in ">{{option}}</option>
                             			</select></td>
                             		<td><input type="text" class="form-control" id="technicalFeedback.comment"></td>
-                            		<td><div ng-click="addRow()" ng-hide=""><span class="glyphicon glyphicon-plus" style="color: #F26925;" aria-hidden="true"></span></div></td>
-                            		<td><div ng-click="deleteRow()" ng-hide=""><span class="glyphicon glyphicon-remove" style="color: #F26925;" aria-hidden="true"></span></div></td>
+                            		<td><div ng-click="addRow()" ng-show="counter==lastrow"><span class="glyphicon glyphicon-plus" style="color: #F26925;" aria-hidden="true"></span></div></td>
+                            		<td><div ng-click="deleteRow()" ng-hide="counter==1"><span class="glyphicon glyphicon-remove" style="color: #F26925;" aria-hidden="true"></span></div></td>
                         		</tr>
                     		</table>
 						</div>
@@ -123,6 +121,7 @@
                             						<option ng-repeat=""></option>
                             				   </select></td>
                             <b>Recording Link</b> <input type="text" class="form-control" ng-bind="panelInterview.link" />
+                            <b>Interview Duration</b> <input type="text" class="form-control" ng-bind="panelInterview.duration" />
 						</div>
 					</div>
 					</div>

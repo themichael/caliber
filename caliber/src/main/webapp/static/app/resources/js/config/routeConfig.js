@@ -545,7 +545,6 @@ angular
 										}
 										
 									})
-							//DELETE THIS
 							.state(
 									"vp.panels",
 									{
@@ -553,16 +552,13 @@ angular
 										views : {
 											"" : {
 												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												controller : "allReportController"
+												controller: "panelPanelController"
+												//controller : "allReportController"
 											},
 											"samplemodal@vp.panels" : {
 												templateUrl : "/static/app/partials/paneldemo/samplemodal.html",
-												controller : "panelPanelController"
+												//controller : "panelPanelController"
 											}
-										},
-										// authorize the user
-										onEnter : function(authFactory) {
-											authFactory.authReports();
 										}
 										
 									})
@@ -764,7 +760,7 @@ angular
 										views: {
 											"" : {
 												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												//controller : "trainerAssessController"
+												//controller : "allReportController"
 											},
 											"samplemodal@panel.panel" : {
 												templateUrl : "/static/app/partials/paneldemo/samplemodal.html"

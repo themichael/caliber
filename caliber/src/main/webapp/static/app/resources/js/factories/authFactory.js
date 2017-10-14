@@ -51,6 +51,7 @@ angular.module("auth").factory("authFactory",
 			var vpCategory = "vp.category";
 
 			var vpTrainers = "vp.trainers";
+		
 
 			/**
 			 * Retrieves role from cookie
