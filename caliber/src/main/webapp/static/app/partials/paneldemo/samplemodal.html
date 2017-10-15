@@ -92,15 +92,14 @@
                             		<th> Comment </th>
                         		</tr>
                         		<tr class="form-group">
-                            		<td><select ng-model="" class="form-control" id="technicalFeedback.technology">
-                            			<option ng-repeat="option in technologies">{{option.skillCategory}}</option>
+                            		<td><select ng-model="technologies.model" class="form-control" id="technicalFeedback.technology">
+                            			<option ng-repeat="option in technologies.options">{{option.skillCategory}}</option>
                             		</select></td>
-                            		<!-- this needs to be a select input type -->
-                            		<td><select ng-model="" class="form-control" id="technicalFeedback.result">
-                            			<option ng-repeat="option in ">{{option}}</option>
+                            		<td><select ng-model="panelResult.model" class="form-control" id="technicalFeedback.result">
+                            			<option ng-repeat="option in panelResult.options">{{option}}</option>
                             		</select></td>
-                            		<td><select ng-model="" class="form-control" id="technicalFeedback.repanel">
-                            			<option ng-repeat="option in ">{{option}}</option>
+                            		<td><select ng-model="repanel.model" class="form-control" id="technicalFeedback.repanel">
+                            			<option ng-repeat="option in repanel.options">{{option}}</option>
                             			</select></td>
                             		<td><input type="text" class="form-control" id="technicalFeedback.comment"></td>
                             		<td><div ng-click="addRow()" ng-show="counter==lastrow"><span class="glyphicon glyphicon-plus" style="color: #F26925;" aria-hidden="true"></span></div></td>
@@ -117,8 +116,8 @@
 						<div class="panel-heading">Overall Feedback</div>
 						<div class="panel-body">
 							<b>Overall</b><input type="text" class="form-control" ng-model="overallPanel.model" id="overallFeedback.overall" />
-							<b>Panel Status</b><select ng-model="" class="form-control" id="overallFeedback.panelStat">
-                            						<option ng-repeat=""></option>
+							<b>Panel Status</b><select ng-model="overallStatus.model" class="form-control" id="overallFeedback.panelStatus">
+                            						<option ng-repeat="option in overallStatus.options">{{option}}</option>
                             				   </select></td>
                             <b>Recording Link</b> <input type="text" class="form-control" ng-model="recordingLink.model" ng-bind="panelInterview.link" />
                             <b>Interview Duration</b> <input type="text" class="form-control" ng-model="interviewDuration.model" ng-bind="panelInterview.duration" />

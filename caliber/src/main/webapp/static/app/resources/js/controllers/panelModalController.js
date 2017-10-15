@@ -1,6 +1,6 @@
 /**
  * Team Tyraformus Rex
- * @author Lauren Wallace
+ * @author Lauren Wallace, Katie Bixby
  */
 
 angular
@@ -20,6 +20,9 @@ angular
 			$scope.lastrow = table.rows.length;
 			$scope.counter = 1;*/
 			
+			$scope.traineePanels = [];
+			$scope.employeedTrainees = [];
+			
 			//Create the form models & their options
 			$scope.recordingConsent = {
 				model: null,
@@ -27,6 +30,12 @@ angular
 			};
 			
 			$scope.panelStatus = {
+				model: null,
+				options: []
+			};
+			
+			//overall panelStatus
+			$scope.repanel = {
 				model: null,
 				options: []
 			};
@@ -43,7 +52,17 @@ angular
 			
 			$scope.panelResult = {
 				model: null,
-				options: ['0 - Very Poor', '1 - ', '2 - ', '3 - ', '4 - ', '5 - ', '6 - ', '7 - ', '8 - ', '9 - ', '10 - Excellent']
+				options: ['0 - Very Poor', '1 - Moderately Poor', '2 - Fairly Poor', '3 - Poor', '4 - Below Average', '5 - Average', '6 - Above Average', '7 - Good', '8 - Very Good', '9 - Great', '10 - Excellent']
+			};
+			
+			$scope.technologies = {
+				model: null,
+				options: []
+			};
+			
+			$scope.overallStatus = {
+				model: null,
+				options: []
 			};
 			
 			$scope.associateIntro = {
@@ -88,6 +107,8 @@ angular
 					function(response) {
 						$log.debug(response);
 						$scope.panelStatus.options = response;
+						$scope.repanel.options = response;
+						$scope.overallStatus.options = response;
 					});
 			
 			// Get all interview modes
@@ -95,7 +116,7 @@ angular
 					function(response) {
 						$log.debug(response);
 						$scope.interviewMode.options = response;
-					})
+					});
 			
 			// Get all categories on load up
 			caliberDelegate.all.getAllCategories().then(
@@ -118,7 +139,7 @@ angular
 				$scope.traineePanels = caliberDelegate.panel.reportTraineePanels(traineeId);
 			};
 			
-			(function(){
+			/*(function(){
 				$log.debug("In search trainee");
 				allBatches.forEach(function(batch){
 					batch.trainees.forEach(function(trainee){
@@ -128,7 +149,7 @@ angular
 				});
 				console.log($scope.employedTrainees);
 				$log.debug($scope.employedTrainees);
-			})();
+			})();*/
 			
 			function addRow() {
 				var newRow = $("<tr>");
