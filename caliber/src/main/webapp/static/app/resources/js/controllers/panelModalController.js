@@ -139,7 +139,7 @@ angular
 				$scope.traineePanels = caliberDelegate.panel.reportTraineePanels(traineeId);
 			};
 			
-			/*(function(){
+			(function(){
 				$log.debug("In search trainee");
 				allBatches.forEach(function(batch){
 					batch.trainees.forEach(function(trainee){
@@ -149,7 +149,7 @@ angular
 				});
 				console.log($scope.employedTrainees);
 				$log.debug($scope.employedTrainees);
-			})();*/
+			})();
 			
 			function addRow() {
 				var newRow = $("<tr>");
