@@ -312,15 +312,11 @@ angular
 										url : "/vp",
 										templateUrl : "/static/app/partials/abstracts/vp.html",
 										resolve : {
-											allBatches : function(
-													caliberDelegate) {
-												return caliberDelegate.vp
-														.getAllBatches();
+											allBatches : function(caliberDelegate) {
+												return caliberDelegate.vp.getAllBatches();
 											},
-											allTrainers : function(
-													caliberDelegate) {
-												return caliberDelegate.all
-														.getAllTrainers();
+											allTrainers : function(caliberDelegate) {
+												return caliberDelegate.all.getAllTrainers();
 											}
 										},
 										// authorize the user
@@ -545,9 +541,22 @@ angular
 										}
 										
 									})
-					
-								
-								
+							.state(
+									"vp.panel",
+									{
+										url : "/panels",
+										views : {
+											"" : {
+												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
+												//controller: "panelModalController"
+												//controller : "allReportController"
+											},
+											"samplemodal@vp.panels" : {
+												templateUrl : "/static/app/partials/paneldemo/samplemodal.html",
+											}
+										}
+										
+									})
                             /**
 							 * Staging role
 							 * 
@@ -746,7 +755,7 @@ angular
 										views: {
 											"" : {
 												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												//controller : "trainerAssessController"
+												//controller : "allReportController"
 											},
 											"samplemodal@panel.panel" : {
 												templateUrl : "/static/app/partials/paneldemo/samplemodal.html"

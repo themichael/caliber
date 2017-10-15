@@ -134,7 +134,6 @@ angular
 						$rootScope.$emit("GET_TRAINEE_OVERALL",
 								$scope.currentTraineeId);
 						displayTraineeOverallTable($scope.currentTraineeId);
-						displayTraineePanelFeedback($scope.currentTraineeId);
 						$scope.batchWeek = false;
 						$scope.batchWeekTrainee = false;
 						$scope.batchOverall = false;
@@ -219,15 +218,15 @@ angular
 						function(response){
 							NProgress.done();
 							$scope.traineePanelData = response;
-							console.log("here");
-							console.log(response);
+							$log.debug("here");
+							$log.debug(response);
 							
 						},function(response){
 							NProgress.done();
 						}
 						)
 				
-			}
+			};
 
 			function getCurrentBatchWeeks(weeks) {
 				$scope.currentBatchWeeks = [];
@@ -373,7 +372,7 @@ angular
 						|| $scope.currentWeek === null 
 						|| $scope.batchOverallTrainee === null
 						|| $scope.traineePanelData === null
-						|| $scope.traineePanelData.length == 0){
+						|| $scope.traineePanelData.length === 0){
 					return false;
 				}
 				return true;
