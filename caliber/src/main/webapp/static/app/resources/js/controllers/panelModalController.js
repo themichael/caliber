@@ -12,6 +12,8 @@ angular
 			console.log("in panel controller");
 			$log.debug("Booted panel controller.");
 			
+			$scope.employedTrainees = [];
+			$scope.technologies = [];
 			//getAllTraineePanelsTable();
 			/*var table = document.getElementById("technicalFeedback");
 			$scope.table = table;
@@ -99,7 +101,7 @@ angular
 			caliberDelegate.all.getAllCategories().then(
 					function(response) {
 						$log.debug(response);
-						$scope.technologies.options = response;
+						$scope.technologies = response;
 					});
 			
 			// *******************************************************************************
