@@ -43,6 +43,43 @@ angular
 				model: null,
 				options: ['0 - Very Poor', '1 - ', '2 - ', '3 - ', '4 - ', '5 - ', '6 - ', '7 - ', '8 - ', '9 - ', '10 - Excellent']
 			};
+			
+			$scope.associateIntro = {
+					model: null
+			}
+			$scope.p1Expl = {
+					model: null
+			}
+			$scope.p2Expl = {
+					model: null
+			}
+			$scope.p3Expl = {
+					model: null
+			}
+			$scope.communicationSkills = {
+					model: null
+			}
+			$scope.interviewDuration = {
+					model: null
+			}
+			$scope.panelRound = {
+					model: null
+			}
+			$scope.overallPanel = {
+					model: null
+			}
+			$scope.recordingLink = {
+					model: null
+			}
+			$scope.interviewDuration = {
+					model: null
+			}
+			$scope.interviewDate = {
+					model: null
+			}
+			$scope.interviewTime = {
+					model: null
+			}
 
 			// Get all panel status on load up
 			caliberDelegate.all.enumPanelStatus().then(
@@ -111,8 +148,8 @@ angular
 		        counter -= 1;
 			}
 			
-			/*savePanel() {
-				
-			}*/
+			$scope.savePanel = function(){
+				// can get all the info here by $scope.[the ng-model name].model
+			}
 			
 	});

@@ -17,9 +17,9 @@
 						<div class="panel-body">
 							<div class="form-group col-xs-5">
 								<b>Associate Name</b> <input type="text" class="form-control" ng-value="trainee.name" disabled /> 
-								<b>Panelist Name</b> <input type="text" class="form-control"  ng-value="panelist.name"  disabled />
+								<b>Panelist Name</b> <input type="text" class="form-control" ng-value="panelist.name"  disabled />
 								<b>Training Track</b> <input type="text" class="form-control" ng-value="trainee.trainingTrack" disabled /> 
-								<b>Panel Round</b> <input type="number" class="form-control" placeholder="Select 1 - 10"  min="1" max="10" ng-bind="panelInterview.round" required /> 
+								<b>Panel Round</b> <input type="number" class="form-control" ng-model="panelRound.model" placeholder="Select 1 - 10"  min="1" max="10" ng-bind="panelInterview.round" required /> 
 								<b>Recording Consent</b> <select ng-model="recordingConsent.model" class="form-control" id="recordConsent"><option ng-repeat="option in recordingConsent.options">{{option}}</option></select>
 							</div>
 							<div class="form-group col-xs-6">
@@ -56,23 +56,23 @@
                             	</tr>
                             	<tr>
                                 	<td><b>Associate Introduction</b></td>
-                                	<td><input type="text" class="form-control" id="generalFeedback.ai"></td>
+                                	<td><input type="text" ng-model="associateIntro.model" class="form-control" id="generalFeedback.ai"></td>
                             	</tr>
                             	<tr>
                                 	<td><b>Project 1 Explanation</b></td>
-                                	<td><input type="text" class="form-control" id="generalFeedback.p1expl"></td>
+                                	<td><input type="text" ng-model="p1Expl.model" class="form-control" id="generalFeedback.p1expl"></td>
                             	</tr>
                             	<tr>
                                 	<td><b>Project 2 Explanation</b></td>
-                                	<td><input type="text" class="form-control" id="generalFeedback.p2expl"></td>
+                                	<td><input type="text" ng-model="p2Expl.model" class="form-control" id="generalFeedback.p2expl"></td>
                             	</tr>
                             	<tr>
                                 	<td><b>Project 3 Explanation</b></td>
-                                	<td><input type="text" class="form-control" id="generalFeedback.p3expl"></td>
+                                	<td><input type="text" ng-model="p3Expl.model" class="form-control" id="generalFeedback.p3expl"></td>
                             	</tr>
                             	<tr>
                                 	<td><b>Communication Skills</b></td>
-                                	<td><input type="text" class="form-control" id="generalFeedback.commskills"></td>
+                                	<td><input type="text" ng-model="communicationSkills.model" class="form-control" id="generalFeedback.commskills"></td>
                             	</tr>
                         	</table>
 						</div>
@@ -116,12 +116,12 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">Overall Feedback</div>
 						<div class="panel-body">
-							<b>Overall</b><input type="text" class="form-control" id="overallFeedback.overall" />
+							<b>Overall</b><input type="text" class="form-control" ng-model="overallPanel.model" id="overallFeedback.overall" />
 							<b>Panel Status</b><select ng-model="" class="form-control" id="overallFeedback.panelStat">
                             						<option ng-repeat=""></option>
                             				   </select></td>
-                            <b>Recording Link</b> <input type="text" class="form-control" ng-bind="panelInterview.link" />
-                            <b>Interview Duration</b> <input type="text" class="form-control" ng-bind="panelInterview.duration" />
+                            <b>Recording Link</b> <input type="text" class="form-control" ng-model="recordingLink.model" ng-bind="panelInterview.link" />
+                            <b>Interview Duration</b> <input type="text" class="form-control" ng-model="interviewDuration.model" ng-bind="panelInterview.duration" />
 						</div>
 					</div>
 					</div>
