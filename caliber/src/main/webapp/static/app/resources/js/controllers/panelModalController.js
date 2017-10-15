@@ -55,7 +55,7 @@ angular
 					}
 				});
 				$scope.traineePanels = caliberDelegate.panel.reportTraineePanels(traineeId);
-			}
+			};
 			
 			(function(){
 				$log.debug("In search trainee");
