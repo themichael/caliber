@@ -15,7 +15,7 @@ angular.module(
 angular.module("vp", []);
 angular.module("qc", []);
 angular.module("trainer", []);
-angular.module("panel", []);
+//angular.module("panel", []);
 angular.module("delegate", []);
 angular.module("api", []);
 angular.module("charts", []);
