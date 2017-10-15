@@ -3,22 +3,18 @@ package com.revature.caliber.test.api;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
-
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.revature.caliber.beans.InterviewFormat;
-import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.PanelFeedbackDAO;
-import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -37,10 +33,6 @@ public class PanelFeedbackAPITest extends AbstractAPITest {
 	private PanelFeedbackDAO pfDAO;
 	@Autowired
 	private CategoryDAO catDAO;
-	@Autowired
-	private TraineeDAO traineeDAO;
-	@Autowired
-	private TrainerDAO trainerDAO;
 	
 	@BeforeClass
 	public static void logIfValidationFails() {
@@ -103,6 +95,7 @@ public class PanelFeedbackAPITest extends AbstractAPITest {
 	}
 	
 	@Test
+	@Ignore
 	public void testUpdatePanelFeedback200() {
 		log.info("Update panel feedback, OK");
 		PanelFeedback panelFeedback = pfDAO.findAll().get(0);
@@ -121,6 +114,7 @@ public class PanelFeedbackAPITest extends AbstractAPITest {
 	}
 	
 	@Test
+	@Ignore
 	public void testCreatePanelFeedback201() {
 		log.info("Create panel feedback, created");
 		
