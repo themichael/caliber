@@ -20,7 +20,7 @@
 								<b>Panelist Name</b> <input type="text" class="form-control"  ng-value="panelist.name"  disabled />
 								<b>Training Track</b> <input type="text" class="form-control" ng-value="trainee.trainingTrack" disabled /> 
 								<b>Panel Round</b> <input type="number" class="form-control" placeholder="Select 1 - 10"  min="1" max="10" ng-bind="panelInterview.round" required /> 
-								<b>Recording Consent</b> <td><select ng-model="recordingConsent" ng-options="consent.type for consent in consent" class="form-control" id="recordConsent"><option value="consent.value"></option></select></td>
+								<b>Recording Consent</b> <select ng-model="recordingConsent.model" class="form-control" id="recordConsent"><option ng-repeat="option in recordingConsent.options">{{option}}</option></select>
 							</div>
 							<div class="form-group col-xs-6">
 								<b>Interview Date</b> <div class="input-group">
@@ -39,8 +39,8 @@
 													  ng-model-options="{ updateOn: 'blur' }" ng-required="true">
 													  <i class="input-group-addon glyphicon glyphicon-time"></i>
 													  </div>
-								<b>Interview Mode</b> <input type="text" class="form-control" ng-bind="panelInterview.mode" /> 
-								<b>Internet Connectivity</b> <input type="text" class="form-control" ng-bind="panelInterview.connectivity" />
+								<b>Interview Mode</b> <select ng-model="interviewMode.model" class="form-control" id="interviewMode"><option ng-repeat="option in interviewMode.options">{{option}}</option></select>
+								<b>Internet Connectivity</b> <select ng-model="interviewConnectivity.model" class="form-control" id="interviewConnectivity"><option ng-repeat="option in interviewConnectivity.options">{{option}}</option></select>
 							</div>
 						</div>
 					</div>

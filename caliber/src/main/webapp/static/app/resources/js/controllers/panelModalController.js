@@ -11,36 +11,58 @@ angular
 			
 			console.log("in panel controller");
 			$log.debug("Booted panel controller.");
-			//For the table
-			var table = document.getElementById("technicalFeedback");
-			$scope.table = table;
-			//$scope.lastrow = table.rows.length;
-			$scope.counter = 1;
-			$scope.consent = [{type: 'yes', value: true},{type: 'no', value: false}];
-			$scope.recordingConsent = $scope.consent;
-			$scope.traineePanels = [];
-			$scope.employedTrainees = [];
-			// Get all 
 			
+			//getAllTraineePanelsTable();
+			/*var table = document.getElementById("technicalFeedback");
+			$scope.table = table;
+			$scope.lastrow = table.rows.length;
+			$scope.counter = 1;*/
+			
+			//Create the form models & their options
+			$scope.recordingConsent = {
+				model: null,
+				options: ['yes', 'no']
+			};
+			
+			$scope.panelStatus = {
+				model: null,
+				options: []
+			};
+			
+			$scope.interviewMode = {
+				model: null,
+				options: []
+			};
+			
+			$scope.interviewConnectivity = {
+				model: null,
+				options: ['stable', 'unstable']
+			};
+			
+			$scope.panelResult = {
+				model: null,
+				options: ['0 - Very Poor', '1 - ', '2 - ', '3 - ', '4 - ', '5 - ', '6 - ', '7 - ', '8 - ', '9 - ', '10 - Excellent']
+			};
+
 			// Get all panel status on load up
 			caliberDelegate.all.enumPanelStatus().then(
-					function(panelStatus) {
-						$log.debug(panelStatus);
-						$scope.panelStats = panelStatus;
+					function(response) {
+						$log.debug(response);
+						$scope.panelStatus.options = response;
 					});
 			
 			// Get all interview modes
 			caliberDelegate.all.enumInterviewFormat().then(
-					function(interviewFormat) {
-						$log.debug(interviewFormat);
-						$scope.interviewModes = interviewFormat;
+					function(response) {
+						$log.debug(response);
+						$scope.interviewMode.options = response;
 					})
 			
 			// Get all categories on load up
 			caliberDelegate.all.getAllCategories().then(
-					function(categories) {
-						$log.debug(categories);
-						$scope.technologies = categories;
+					function(response) {
+						$log.debug(response);
+						$scope.technologies.options = response;
 					});
 			
 			// *******************************************************************************
