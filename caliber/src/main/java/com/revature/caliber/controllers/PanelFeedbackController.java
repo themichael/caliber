@@ -63,6 +63,7 @@ public class PanelFeedbackController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP', 'PANEL')")
 	public ResponseEntity<PanelFeedback> updateFeedback(@Valid @RequestBody PanelFeedback panelFeedback) {
+		log.info("Updating panel feedback " + panelFeedback);
 		panelFeedbackService.update(panelFeedback);
 		return new ResponseEntity<>(panelFeedback, HttpStatus.OK);
 	}
@@ -71,6 +72,7 @@ public class PanelFeedbackController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP', 'PANEL')")
 	public ResponseEntity<PanelFeedback> saveFeedback(@Valid @RequestBody PanelFeedback panelFeedback) {
+		log.info("Saving panel feedback " + panelFeedback);
 		panelFeedbackService.save(panelFeedback);
 		return new ResponseEntity<>(panelFeedback, HttpStatus.CREATED);
 	}

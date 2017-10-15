@@ -123,19 +123,12 @@ public class PanelFeedbackAPITest extends AbstractAPITest {
 	@Test
 	public void testCreatePanelFeedback201() {
 		log.info("Create panel feedback, created");
-		Panel panel = new Panel();
-		panel.setTrainee(traineeDAO.findAll().get(0));
-		panel.setFormat(InterviewFormat.Phone);
-		panel.setPanelRound(1);
-		panel.setStatus(PanelStatus.Pass);
-		panel.setPanelist(trainerDAO.findAll().get(0));
-		panelDAO.save(panel);
 		
 		PanelFeedback panelFeedback = new PanelFeedback();
 		panelFeedback.setTechnology(catDAO.findAllActive().get(0));
 		panelFeedback.setStatus(PanelStatus.Pass);
 		panelFeedback.setResult(10);
-		panelFeedback.setPanel(panel);
+		panelFeedback.setPanel(panelDAO.findAll().get(0));
 		panelFeedback.setComment("test comment");
 		
 		given().
