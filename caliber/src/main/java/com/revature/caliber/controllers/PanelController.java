@@ -99,9 +99,9 @@ public class PanelController {
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP','PANEL')")
-	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panelf) {
-		panelService.createPanel((panelf));
-		return new ResponseEntity<>(panelf, HttpStatus.CREATED);
+	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panel) {
+		panelService.createPanel(panel);
+		return new ResponseEntity<>(panel, HttpStatus.CREATED);
 	}
 	
 	

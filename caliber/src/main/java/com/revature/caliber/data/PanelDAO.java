@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -125,14 +124,15 @@ public class PanelDAO {
 	 * Convenience method only. Deletes a panel from the database. Panel
 	 * will still be registered with a Salesforce account.
 	 * 
-	 * @param panel
+	 * @param panel id
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(int panelId) {
 		log.info("Delete panel " + panelId);
 		Panel panel = findOne(panelId);
-		if (panel != null)
+		if (panel != null) {
 			sessionFactory.getCurrentSession().delete(panel);
+		}
 	}
 
 	@SuppressWarnings("unchecked")

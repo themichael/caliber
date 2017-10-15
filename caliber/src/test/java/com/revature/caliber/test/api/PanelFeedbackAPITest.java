@@ -49,7 +49,7 @@ public class PanelFeedbackAPITest extends AbstractAPITest {
 	
 	@Test
 	public void testGetAllPanelFeedbacks200() {
-		log.info("Get all panel feedbacks");
+		log.info("Get all panel feedbacks, OK");
 		int expected = pfDAO.findAll().size();
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
@@ -62,8 +62,23 @@ public class PanelFeedbackAPITest extends AbstractAPITest {
 	}
 	
 	@Test
+	public void testGetAllPanelFeedbacks204() {
+		log.info("Get all panel feedbacks, no content");
+		for (PanelFeedback pf : pfDAO.findAll()) {
+			pfDAO.deleteById(pf.getId());
+		}
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_ALL_PANEL_FEEDBACK_URL).
+		then().assertThat().
+			statusCode(HttpStatus.NO_CONTENT_204);
+		log.info("testGetAllPanelFeedbacks204 succeeded!!!");		
+	}
+	
+	@Test
 	public void testGetPanelFeedbackById200() {
-		log.info("Get panel feedback by id");
+		log.info("Get panel feedback by id, OK");
 		PanelFeedback pf = pfDAO.findAll().get(0);
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
@@ -76,41 +91,56 @@ public class PanelFeedbackAPITest extends AbstractAPITest {
 	}
 	
 	@Test
-	public void testUpdatePanelFeedback200() {
-		log.info("Update panel feedback");
-		PanelFeedback pf = pfDAO.findAll().get(0);
-		pf.setComment("test comment");
+	public void testGetPanelFeedbackById404() {
+		log.info("Get panel feedback by id, not found");
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
-			body(pf).
+		when().
+			get(GET_PANEL_FEEDBACK_BY_ID_URL, -1).
+		then().assertThat().
+			statusCode(HttpStatus.NOT_FOUND_404);
+		log.info("testGetPanelFeedbackById404 succeeded!!!");		
+	}
+	
+	@Test
+	public void testUpdatePanelFeedback200() {
+		log.info("Update panel feedback, OK");
+		PanelFeedback panelFeedback = pfDAO.findAll().get(0);
+		log.error("panelFeedback= " + panelFeedback);
+		panelFeedback.setComment("test comment");
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+			body(panelFeedback).
 		when().
 			put(UPDATE_PANEL_FEEDBACK_URL).
 		then().assertThat().
 			statusCode(HttpStatus.OK_200).
-			body("id", is((int) pf.getId())).
-			body("comment", is(pf.getComment()));
+			body("id", is((int) panelFeedback.getId())).
+			body("comment", is(panelFeedback.getComment()));
 		log.info("testUpdatePanelFeedback200 succeeded!!!");
 	}
 	
 	@Test
 	public void testCreatePanelFeedback201() {
-		log.info("Create panel feedback");
-		PanelFeedback pf = new PanelFeedback();
-		pf.setTechnology(catDAO.findAllActive().get(0));
-		pf.setStatus(PanelStatus.Pass);
-		pf.setResult(10);
-		Panel p = new Panel();
-		p.setTrainee(traineeDAO.findAll().get(0));
-		p.setFormat(InterviewFormat.Phone);
-		p.setPanelRound(1);
-		p.setStatus(PanelStatus.Pass);
-		p.setPanelist(trainerDAO.findAll().get(0));
-		pf.setPanel(p);
-		pf.setComment("test comment");
+		log.info("Create panel feedback, created");
+		Panel panel = new Panel();
+		panel.setTrainee(traineeDAO.findAll().get(0));
+		panel.setFormat(InterviewFormat.Phone);
+		panel.setPanelRound(1);
+		panel.setStatus(PanelStatus.Pass);
+		panel.setPanelist(trainerDAO.findAll().get(0));
+		panelDAO.save(panel);
+		
+		PanelFeedback panelFeedback = new PanelFeedback();
+		panelFeedback.setTechnology(catDAO.findAllActive().get(0));
+		panelFeedback.setStatus(PanelStatus.Pass);
+		panelFeedback.setResult(10);
+		panelFeedback.setPanel(panel);
+		panelFeedback.setComment("test comment");
 		
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
-			body(pf).
+			body(panelFeedback).
 		when().
 			post(CREATE_PANEL_FEEDBACK_URL).
 		then().assertThat().
