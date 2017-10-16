@@ -170,7 +170,7 @@ angular
 			
 			function deleteRow() {
 				$(this).closest("tr").remove();       
-		        counter -= 1;
+		        let counter -= 1;
 			}
 			
 			$scope.savePanel = function(){

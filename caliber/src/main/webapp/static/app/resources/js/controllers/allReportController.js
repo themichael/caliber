@@ -221,10 +221,9 @@ angular
 							$log.debug("here");
 							$log.debug(response);
 							
-						},function(response){
+						}, function(){
 							NProgress.done();
-						}
-						)
+						})
 				
 			};
 
@@ -811,9 +810,8 @@ angular
 									NProgress.done();
 									$scope.allTraineesPanelData = response;
 								},
-								function(response){
+								function(){
 									NProgress.done();
-									
 								})
 			}
 			

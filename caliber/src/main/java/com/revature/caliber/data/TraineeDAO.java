@@ -29,6 +29,7 @@ public class TraineeDAO {
 	private SessionFactory sessionFactory;
 	private static final String GRADES = "grades";
 	private static final String TRAINING_STATUS = "trainingStatus";
+	private static final String FETCH_TRAINEE = "Fetch trainee by email address: ";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -133,7 +134,7 @@ public class TraineeDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findByEmail(String email) {
-		log.info("Fetch trainee by email address: " + email);
+		log.info(FETCH_TRAINEE + email);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.add(Restrictions.like("email", "%"+email+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
 	}
@@ -141,7 +142,7 @@ public class TraineeDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findByName(String name) {
-		log.info("Fetch trainee by email address: " + name);
+		log.info(FETCH_TRAINEE + name);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.add(Restrictions.like("name", "%"+name+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
 	}
@@ -149,7 +150,7 @@ public class TraineeDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findBySkypeId(String skypeId) {
-		log.info("Fetch trainee by email address: " + skypeId);
+		log.info(FETCH_TRAINEE + skypeId);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.add(Restrictions.like("skypeId", "%"+skypeId+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
 	}
