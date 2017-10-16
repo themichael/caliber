@@ -15,22 +15,24 @@ angular
 			$scope.techFeedback = [];
 			$scope.counter=0;
 			$scope.techId=0;
-			
-			$scope.employedTrainees = [];
-			$scope.technologies = [];
-			//getAllTraineePanelsTable();
-			/*var table = document.getElementById("technicalFeedback");
-			$scope.table = table;
-			$scope.lastrow = table.rows.length;
-			$scope.counter = 1;*/
-			
+		
+			// Objects or list of objects that need to be created for this form
 			$scope.traineePanels = [];
-			$scope.employeedTrainees = [];
+			$scope.employedTrainees = [];
+			$scope.batchSkillType = {};
 			
-			//Create the form models & their options
+			// Create the form models & their options
+			$scope.trainee = {
+				name: ""
+			};
+			
+			$scope.panelist = {
+				name: ""
+			};
+			
 			$scope.recordingConsent = {
 				model: null,
-				options: ['yes', 'no']
+				options: ['Yes', 'No']
 			};
 			
 			$scope.panelStatus = {
@@ -38,7 +40,7 @@ angular
 				options: []
 			};
 			
-			//overall panelStatus
+			// Stores overall panelStatus
 			$scope.repanel = {
 				model: null,
 				options: []
@@ -51,7 +53,7 @@ angular
 			
 			$scope.interviewConnectivity = {
 				model: null,
-				options: ['stable', 'unstable']
+				options: ['Stable', 'Unstable']
 			};
 			
 			$scope.panelResult = {
@@ -71,43 +73,55 @@ angular
 			
 			$scope.associateIntro = {
 					model: null
-			}
+			};
+			
 			$scope.p1Expl = {
 					model: null
-			}
+			};
+			
 			$scope.p2Expl = {
 					model: null
-			}
+			};
+			
 			$scope.p3Expl = {
 					model: null
-			}
+			};
+			
 			$scope.communicationSkills = {
 					model: null
-			}
+			};
+			
 			$scope.interviewDuration = {
 					model: null
-			}
+			};
+			
 			$scope.panelRound = {
 					model: null
-			}
+			};
+			
 			$scope.overallPanel = {
 					model: null
-			}
+			};
+			
 			$scope.recordingLink = {
 					model: null
-			}
+			};
+			
 			$scope.interviewDuration = {
 					model: null
-			}
+			};
+			
 			$scope.interviewDate = {
 					model: null
-			}
+			};
+			
 			$scope.interviewTime = {
 					model: null
-			}
+			};
+			
 			$scope.techComment = {
 					model: null
-			}
+			};
 
 			// Get all panel status on load up
 			caliberDelegate.all.enumPanelStatus().then(
@@ -146,21 +160,23 @@ angular
 				caliberDelegate.panel.reportTraineePanels(traineeId).then(
 						function(response){
 							$scope.traineePanels = response;
+							$scope.trainee.name = $scope.traineePanels[0].trainee.name;
+							$scope.panelist.name = $scope.traineePanels[0].panelist.name;
 						});
 				$log.debug($scope.traineePanels);
+				$scope.currentBatch();
 			};
 			
 			(function(){
 				$log.debug("In search trainee");
 				allBatches.forEach(function(batch){
+					
 					batch.trainees.forEach(function(trainee){
 							$scope.employedTrainees.push(trainee);
 					});
 				});
 				$log.debug($scope.employedTrainees);
 			})();
-			
-			
 			
 			function createTechFeedback(id,tech,result,repanel,comment,counter){
 				var theFeedback = {"id":id,"tech":tech,"result":result,"repanel":repanel,"comment":comment,"count":counter};
@@ -219,9 +235,46 @@ angular
 				$scope.counter--;
 				$scope.techId++;
 			}
+
+			// Sets the Training Type
+			$scope.currentBatch = function() {
+				$log.debug("In search trainee");
+				allBatches.forEach(function(batch){
+					
+					batch.trainees.forEach(function(t){
+						if(t.id === $scope.trainee.id) {
+							$scope.batchSkillType = batch.skillType;
+						}
+					});
+				});
+			};
 			
 			$scope.savePanel = function(){
 				// can get all the info here by $scope.[the ng-model name].model
 			}
 			
+			// Resets the Panel Feedback Form
+			$scope.resetPanelForm = function() {
+				$scope.trainee.name = "";
+				$scope.panelist.name = "";
+				$scope.batchSkillType = {};
+				$scope.panelRound.model = null;
+				$scope.recordingConsent.model = null;
+				$scope.interviewDate.model = null;
+				$scope.interviewTime.model = null;
+				$scope.interviewConnectivity.model = null;
+				$scope.associateIntro.model = null;
+				$scope.p1Expl.model = null;
+				$scope.p2Expl.model = null;
+				$scope.p3Expl.model = null;
+				$scope.communicationSkills.model = null;
+				$scope.technologies.model = null;
+				$scope.panelResult.model = null;
+				$scope.repanel.model = null;
+				$scope.techComment.model = null;
+				$scope.overallPanel.model = null;
+				$scope.overallStatus.model = null;
+				$scope.recordingLink.model = null;
+				$scope.interviewDuration.model = null;
+			}
 	});
