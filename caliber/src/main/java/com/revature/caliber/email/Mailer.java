@@ -60,7 +60,7 @@ public class Mailer extends TimerTask {
 	
 	
 	private static final String EMAIL_TEMPLATE_PATH =
-			"../../../../../webapp/static/app/partials/email/emailTemplate.html";
+			"\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
 	private static final String EMAIL_TEMPLATE_FIRST_NAME_TOKEN = "$TRAINER_FIRST";
 	private static final String EMAIL_TEMPLATE_LAST_NAME_TOKEN = "$TRAINER_LAST";
 

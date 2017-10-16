@@ -37,35 +37,40 @@ public class EmailService {
 	@Autowired
 	private Mailer mailer;
 
-	private static final long DAYS_IN_WEEK = 7;
+
 	private static final int YEAR = 2017;
 	private static final int MONTH = 9;
 	private static final int DATE = 16;
-	private static final int HOUR = 10;
-	private static final int MINUTE = 49;
+	private static final int HOUR = 11;
+	private static final int MINUTE = 9;
 	private static final int SECOND = 0;
-
+	Timer timer = new Timer();
+	Calendar calendar = Calendar.getInstance();
+	
+	private static boolean EMAIL_ONCE = false;
 	public void setMailer(Mailer mailer) {
 		this.mailer = mailer;
 	}
 
-	//@PostConstruct
-	public void init() {
-
-		this.startReminderJob();
-	}
+//	@PostConstruct
+//	public void init() {
+//
+//		this.startReminderJob();
+//	}
 	
 
 	private void startReminderJob() {
-		Timer timer = new Timer();
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
-		Date startDate = calendar.getTime();
-		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
-		long interval = 20000;
-		timer.scheduleAtFixedRate(this.mailer, startDate, interval);
 
-
+		if(EMAIL_ONCE == false) {
+			calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
+			Date startDate = calendar.getTime();
+			//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
+			long interval = 300000;
+			timer.scheduleAtFixedRate(this.mailer, startDate, interval);
+			EMAIL_ONCE = true;
+		}
+		else
+			return;
 		
 	}
 
