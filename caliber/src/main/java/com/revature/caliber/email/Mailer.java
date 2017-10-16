@@ -1,8 +1,10 @@
 package com.revature.caliber.email;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TimerTask;
 
 import javax.mail.*;
@@ -109,14 +111,14 @@ public class Mailer extends TimerTask {
 		return Session.getDefaultInstance(properties, this.authenticator);
 	}
 
-	private void sendEmail(Session session, List<Trainer> trainersToSubmitGrades) {
+	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
 		//for (Trainer trainer : trainersToSubmitGrades) {
 			try {
 				MimeMessage message = new MimeMessage(session);
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
 				message.setSubject("Submit Grades Reminder");
-				message.setText("Insert pretty formatting here.");
+				message.setText("Please submit grades.");
 				Transport.send(message);
 				System.out.println("message sent successfully");
 			} catch (MessagingException e) {
@@ -124,30 +126,48 @@ public class Mailer extends TimerTask {
 			}
 		//}
 	}
+	
+	/**
+	 * Returns a Set of Trainers who have not submitted all grades for their batch's assessments.
+	 * Only considers current batches.
+	 * @precondition None.
+	 * @param None.
+	 * @return A Set of Trainers who need to submit grades
+	 */
+	public Set<Trainer> getTrainersWhoNeedToSubmitGrades() {
+		Set<Trainer> trainersToSubmitGrades = new HashSet<Trainer>();
+		Set<Assessment> assessments = this.getAssessments();
+		Set<Trainee> trainees = this.getTrainees();
 
-	public List<Trainer> getTrainersWhoNeedToSubmitGrades() {
-		List<Trainer> trainersToSubmitGrades = new ArrayList<Trainer>();
-		List<Trainer> trainers = this.trainerDAO.findAll();
-		for (Trainer trainer : trainers) {
-			List<Batch> trainerBatches = this.batchDAO.findAllByTrainer(trainer.getTrainerId());
-			for (Batch batch : trainerBatches) {
-				List<Assessment> batchAssessments = this.assessmentDAO.findByBatchId(batch.getBatchId());
-				List<Trainee> batchTrainees = this.traineeDAO.findAllByBatch(batch.getBatchId());
-				int expectedNumberOfGrades = batchAssessments.size() * batchTrainees.size();
-				int actualNumberOfGrades = 0;
-				for (Assessment assessment : batchAssessments) {
-					List<Grade> assessmentGrades = gradeDAO.findByAssessment(assessment.getAssessmentId());
-					actualNumberOfGrades += assessmentGrades.size();
-				}
-				if (actualNumberOfGrades < expectedNumberOfGrades) {
-					//System.out.println("\n" + trainer.getName() + " needs to submit grades" + "\n");
-					trainersToSubmitGrades.add(trainer);
-				}/* else {
-					System.out.println("\n" + "All grades submitted" + "\n");
-				}*/
+		// Keep logic below here in this method, but make a new method to call DAOs
+		for (Assessment assessment : assessments) {
+			int expectedNumberOfGrades = assessments.size() * trainees.size();
+			int actualNumberOfGrades = 0;
+			Set<Grade> assessmentGrades = assessment.getGrades();
+			actualNumberOfGrades += assessmentGrades.size();
+			if (actualNumberOfGrades < expectedNumberOfGrades) {
+				trainersToSubmitGrades.add(assessment.getBatch().getTrainer());
 			}
 		}
 		return trainersToSubmitGrades;
+	}
+	
+	private Set<Assessment> getAssessments() {
+		List<Batch> batches = this.batchDAO.findAllCurrent();
+		Set<Assessment> assessments = new HashSet<Assessment>();
+		for (Batch batch : batches) {
+			assessments.addAll(this.assessmentDAO.findByBatchId(batch.getBatchId()));
+		}
+		return assessments;
+	}
+	
+	private Set<Trainee> getTrainees() {
+		List<Batch> batches = this.batchDAO.findAllCurrent();
+		Set<Trainee> trainees = new HashSet<Trainee>();
+		for (Batch batch : batches) {
+			trainees.addAll(batch.getTrainees());
+		}
+		return trainees;
 	}
 
 }

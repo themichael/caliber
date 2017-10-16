@@ -49,7 +49,7 @@ public class EmailService {
 		this.mailer = mailer;
 	}
 
-	@PostConstruct
+	//@PostConstruct
 	public void init() {
 
 		this.startReminderJob();
