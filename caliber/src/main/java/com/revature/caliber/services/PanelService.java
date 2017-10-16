@@ -101,28 +101,11 @@ public class PanelService {
 	 */
 	public List<Map<String, String>> getBatchPanels(Integer batchId) {
 		List<Trainee> trainees = panelDAO.findAllTraineesAndPanels(batchId);
-		trainees = utilRemoveDroppedTrainees(trainees);
 		List<Map<String, String>> panelDto = utilAllTraineePanels(trainees);
 		return panelDto;
 	}
 
 	//Utility methods
-	/**
-	 * Takes a list of trainees and creates a new list of trainees without the dropped trainees
-	 * @author emmabownes
-	 * @param list of trainees
-	 * @return list of trainees
-	 */
-	private List<Trainee> utilRemoveDroppedTrainees(List<Trainee> trainees) {
-		List<Trainee> currentTrainees = new ArrayList<>();
-		for(Trainee t: trainees) {
-			if(!t.getTrainingStatus().toString().equalsIgnoreCase("dropped")) {
-				currentTrainees.add(t);
-			}
-		}
-		return currentTrainees;
-	}
-	
 	/**
 	 * Takes a List of panels for a batch and returns a Map of labels with information
 	 * needed for batch overall panel table (Trainee Name, Panel Status, Repanel Topics)

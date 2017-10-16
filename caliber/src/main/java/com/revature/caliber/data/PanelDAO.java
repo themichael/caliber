@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.TrainingStatus;
 
 /**
  * @author Connor Monson
@@ -141,6 +142,7 @@ public class PanelDAO {
 		return (List<Trainee>)sessionFactory.getCurrentSession()
 				.createCriteria(Trainee.class)
 				.add(Restrictions.eq("batch.batchId", batchId))
+				.add(Restrictions.ne("trainingStatus", TrainingStatus.Dropped))
 				.createCriteria("panelInterviews", JoinType.LEFT_OUTER_JOIN)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.list();

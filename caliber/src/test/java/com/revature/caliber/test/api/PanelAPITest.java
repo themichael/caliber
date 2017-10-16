@@ -19,6 +19,7 @@ import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.services.PanelService;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -50,6 +51,8 @@ public class PanelAPITest extends AbstractAPITest {
 	private TraineeDAO traineeDAO;
 	@Autowired
 	private TrainerDAO trDao;
+	@Autowired
+	private PanelService panelService;
 	
 	@BeforeClass
 	public static void logIfValidationFails() {
@@ -310,51 +313,32 @@ public class PanelAPITest extends AbstractAPITest {
 			body("size()", is(expected));
 		log.info("testGetAllRepanels200 succeeded!!!");
 	}
-
+	
 	@Test
 	public void testGetPanelByBatch200() {
+		log.info("Get all trainee panels by batch, OK...");
+		int expected = panelService.getBatchPanels(2050).size();
+		log.info("expected= " + expected);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(GET_PANEL_BY_BATCH_URL, 2050).
+		then().assertThat().
+			statusCode(HttpStatus.OK_200).
+			body("size()", is(expected));
+		log.info("testGetPanelByBatch200 succeeded!!!");
+	}
+
+	@Test
+	public void testGetPanelByBatch404() {
 		log.info("Get all trainee panels by batch, OK...");
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
-			get(GET_PANEL_BY_BATCH_URL, 2050).
+			get(GET_PANEL_BY_BATCH_URL, 1000).
 		then().assertThat().
-			statusCode(HttpStatus.OK_200);
-		log.info("testGetPanelByBatch200 succeeded!!!");
+			statusCode(HttpStatus.NOT_FOUND_404);
+		log.info("testGetPanelByBatch404 succeeded!!!");
 	}
 
-/*	
-    @Test
-	public void testGetPanelByTraineeID204() {
-		log.info("Get a list of panels based on trainee, no content...");
-		List<Panel> allPanels = panelDAO.findAllByTrainee(5510);
-		for (Panel p : allPanels) {
-			panelDAO.delete(p.getId());
-		}
-		given().
-			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
-		when().
-			get(GET_TRAINEE_PANELS_URL, 5510).
-		then().assertThat().
-			statusCode(HttpStatus.NO_CONTENT_204);
-		log.info("testGetPanelByTraineeID204 succeeded!!!");
-	}
-*/
-/*
-	@Test
-	public void testGetPanelByBatch204() {
-		log.info("Get a list of trainees based on batchId, no content...");
-		List<Trainee> allTraineesByBatch = panelDAO.findAllTraineesAndPanels(2050);
-		for (Trainee t : allTraineesByBatch) {
-			traineeDAO.delete(t);
-		}
-		given().
-			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
-		when().
-			get(GET_PANEL_BY_BATCH_URL, 2050).
-		then().assertThat().
-			statusCode(HttpStatus.NO_CONTENT_204);
-		log.info("testGetPanelByBatch204 succeeded!!!");
-	}
-*/
 }
