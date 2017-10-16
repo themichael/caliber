@@ -126,28 +126,47 @@ public class Mailer extends TimerTask {
 		//}
 	}
 	
+	/**
+	 * Returns a Set of Trainers who have not submitted all grades for their batch's assessments.
+	 * Only considers current batches.
+	 * @precondition None.
+	 * @param None.
+	 * @return A Set of Trainers who need to submit grades
+	 */
 	public Set<Trainer> getTrainersWhoNeedToSubmitGrades() {
-		Set<Trainer> trainersToSubmitGrades = new HashSet<Trainer>(); // Use a set
-		List<Trainer> trainers = this.trainerDAO.findAll();
-		for (Trainer trainer : trainers) { // Only 1 for loop
-			Set<Batch> trainerBatches = trainer.getBatches(); // Remove unnecessary DAO calls
-			for (Batch batch : trainerBatches) {
-				List<Assessment> batchAssessments = this.assessmentDAO.findByBatchId(batch.getBatchId());
-				Set<Trainee> batchTrainees = batch.getTrainees();
-				
-				// Keep logic below here in this method, but make a new method to call DAOs
-				int expectedNumberOfGrades = batchAssessments.size() * batchTrainees.size();
-				int actualNumberOfGrades = 0;
-				for (Assessment assessment : batchAssessments) {
-					List<Grade> assessmentGrades = gradeDAO.findByAssessment(assessment.getAssessmentId());
-					actualNumberOfGrades += assessmentGrades.size();
-				}
-				if (actualNumberOfGrades < expectedNumberOfGrades) {
-					trainersToSubmitGrades.add(trainer);
-				}
+		Set<Trainer> trainersToSubmitGrades = new HashSet<Trainer>();
+		Set<Assessment> assessments = this.getAssessments();
+		Set<Trainee> trainees = this.getTrainees();
+
+		// Keep logic below here in this method, but make a new method to call DAOs
+		for (Assessment assessment : assessments) {
+			int expectedNumberOfGrades = assessments.size() * trainees.size();
+			int actualNumberOfGrades = 0;
+			Set<Grade> assessmentGrades = assessment.getGrades();
+			actualNumberOfGrades += assessmentGrades.size();
+			if (actualNumberOfGrades < expectedNumberOfGrades) {
+				trainersToSubmitGrades.add(assessment.getBatch().getTrainer());
 			}
 		}
 		return trainersToSubmitGrades;
+	}
+	
+	private Set<Assessment> getAssessments() {
+		List<Batch> batches = this.batchDAO.findAllCurrent();
+		Set<Assessment> assessments = new HashSet<Assessment>();
+		for (Batch batch : batches) {
+			assessments.addAll(this.assessmentDAO.findByBatchId(batch.getBatchId()));
+		}
+		return assessments;
+	}
+	
+	private Set<Trainee> getTrainees() {
+		List<Batch> batches = this.batchDAO.findAllCurrent();
+		Set<Trainee> trainees = new HashSet<Trainee>();
+		for (Batch batch : batches) {
+			trainees.addAll(batch.getTrainees());
+		}
+		return trainees;
 	}
 
 }

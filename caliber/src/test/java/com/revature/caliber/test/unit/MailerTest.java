@@ -1,4 +1,4 @@
-package com.revature.caliber.email;
+package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.email.Mailer;
 
 /**
  * 

@@ -85,7 +85,7 @@ public class Assessment implements Serializable {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Category category;
 
-	@OneToMany(mappedBy = "assessment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "assessment", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Grade> grades = new HashSet<>();
