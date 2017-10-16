@@ -40,9 +40,9 @@ public class EmailService {
 	private static final long DAYS_IN_WEEK = 7;
 	private static final int YEAR = 2017;
 	private static final int MONTH = 9;
-	private static final int DATE = 14;
-	private static final int HOUR = 9;
-	private static final int MINUTE = 44;
+	private static final int DATE = 16;
+	private static final int HOUR = 10;
+	private static final int MINUTE = 49;
 	private static final int SECOND = 0;
 
 	public void setMailer(Mailer mailer) {
@@ -63,7 +63,7 @@ public class EmailService {
 		Date startDate = calendar.getTime();
 		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
 		long interval = 20000;
-		//timer.scheduleAtFixedRate(this.mailer, startDate, interval);
+		timer.scheduleAtFixedRate(this.mailer, startDate, interval);
 
 
 		

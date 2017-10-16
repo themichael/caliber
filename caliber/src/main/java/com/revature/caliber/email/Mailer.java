@@ -1,5 +1,8 @@
 package com.revature.caliber.email;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,7 +13,8 @@ import java.util.TimerTask;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-import org.codehaus.jackson.map.ext.CoreXMLDeserializers.GregorianCalendarDeserializer;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +36,8 @@ import com.revature.caliber.data.TrainerDAO;
  */
 @Component
 public class Mailer extends TimerTask {
+	
+	private static final Logger logger = Logger.getLogger(Mailer.class);
 
 	@Autowired
 	private AssessmentDAO assessmentDAO;
@@ -51,6 +57,12 @@ public class Mailer extends TimerTask {
 	private String toEmail = "mscott@mailinator.com";
 	
 	private EmailAuthenticator authenticator;
+	
+	
+	private static final String EMAIL_TEMPLATE_PATH =
+			"../../../../../webapp/static/app/partials/email/emailTemplate.html";
+	private static final String EMAIL_TEMPLATE_FIRST_NAME_TOKEN = "$TRAINER_FIRST";
+	private static final String EMAIL_TEMPLATE_LAST_NAME_TOKEN = "$TRAINER_LAST";
 
 	// Will be autowired later when we're 
 	// ready to send emails to specific users.
@@ -112,19 +124,42 @@ public class Mailer extends TimerTask {
 	}
 
 	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
-		//for (Trainer trainer : trainersToSubmitGrades) {
+		for (Trainer trainer : trainersToSubmitGrades) {
 			try {
 				MimeMessage message = new MimeMessage(session);
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
 				message.setSubject("Submit Grades Reminder");
-				message.setText("Please submit grades.");
+				
+				String email = getEmailString(trainer);
+				if (email == null)
+					return;
+				
+				message.setContent(email, "text/html");
+				
 				Transport.send(message);
-				System.out.println("message sent successfully");
+				logger.info("Email sent");
 			} catch (MessagingException e) {
-				System.out.println(e);
+				logger.warn(e);
+				logger.warn("Email exception");
 			}
-		//}
+		}
+	}
+	
+	private String getEmailString(Trainer trainer) {
+		try {
+			String emailStr;
+			emailStr = new String(Files.readAllBytes(Paths.get(EMAIL_TEMPLATE_PATH)));
+			String firstName = trainer.getName().split(" ")[0];
+			String lastName = trainer.getName().split(" ")[1];
+			emailStr.replace(EMAIL_TEMPLATE_FIRST_NAME_TOKEN, firstName);
+			emailStr.replace(EMAIL_TEMPLATE_LAST_NAME_TOKEN, lastName);
+			return emailStr;
+		} catch (IOException e) {
+			logger.warn("Unable to read email template");
+			logger.warn(e);
+			return null;
+		}
 	}
 	
 	/**
