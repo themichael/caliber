@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import org.codehaus.jackson.map.ext.CoreXMLDeserializers.GregorianCalendarDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
