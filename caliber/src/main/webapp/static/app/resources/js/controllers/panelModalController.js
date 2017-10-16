@@ -7,7 +7,7 @@ angular
 .module("panel")
 .controller(
 		"panelModalController",
-		function($rootScope, $scope, $state, $log, caliberDelegate, allBatches) {
+		function($rootScope, $scope, $state, $log,$cookies, caliberDelegate, allBatches) {
 			
 			console.log("in panel controller");
 			$log.debug("Booted panel controller.");
@@ -146,14 +146,17 @@ angular
 			(function(){
 				$log.debug("In search trainee");
 				allBatches.forEach(function(batch){
+					$log.debug(batch.trainer);
 					batch.trainees.forEach(function(trainee){
-							$scope.employedTrainees.push(trainee);
+						$scope.employedTrainees.push(trainee);
 					});
 				});
 				$log.debug($scope.employedTrainees);
 			})();
 			
-			function addRow() {
+			
+			$scope.addRow = function() {
+				$log.debug("in addRow()");
 				var newRow = $("<tr>");
 				var cols = "";
 				
@@ -163,18 +166,41 @@ angular
 		        cols += '<td><input type="text" class="form-control" name="technicalFeedback.comment"></td>';
 		        cols += '<td><div ng-click="addRow()" ng-show="counter==lastrow"><span class="glyphicon glyphicon-plus" style="color: #F26925;" aria-hidden="true"></span></div></td>';
 		        cols += '<td><div ng-click="deleteRow()" ng-hide="counter==1"><span class="glyphicon glyphicon-remove" style="color: #F26925;" aria-hidden="true"></span></div></td>';
+		        cols += '</tr>';
 		        newRow.append(cols);
 		        $("technicalFeedback").append(newRow);
 		        $scope.counter++;
 			}
 			
-			function deleteRow() {
-				$(this).closest("tr").remove();       
-		        counter -= 1;
-			}
+			$scope.deleteRow = function () {
+				$log.debug("in deleteRow()");
+				$(this).closest("<tr>").remove();       
+		        $scope.counter -= 1;
+			};
 			
 			$scope.savePanel = function(){
-				// can get all the info here by $scope.[the ng-model name].model
-			}
+				
+				var panel = {
+					//vvv---Probs not the way to go about it
+					trainee : $scope.traineePanels[0].trainee,
+					panelist : {},
+					interviewDate : $scope.interviewDate.model,
+					duration : $scope.interviewDuration.model,
+					format : $scope.interviewMode.model,
+					internet : $scope.interviewConnectivity.model,
+					panelRound : 0,
+					recordingConsent: $scope.recordingConsent.model,
+					recordingLink: $scope.recordingLink.model,
+					status: $scope.overallStatus.model,
+					feedback:[],
+					associateIntro: $scope.associateIntro.model,
+					projectOneDescription : $scope.p1Expl.model,
+					projectTwoDescription : $scope.p2Expl.model,
+					projectThreeDescription : $scope.p3Expl.model,
+					communicationSkills : $scope.communicationSkills.model,
+					overall : $scope.overallPanel.model
+				};
+				$log.debug(panel);
+			};
 			
 	});
