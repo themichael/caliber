@@ -59,8 +59,13 @@ public class Mailer extends TimerTask {
 	private EmailAuthenticator authenticator;
 	
 	
+
+	/*private static final String EMAIL_TEMPLATE_PATH =
+			"../../../../../webapp/static/app/partials/email/emailTemplate.html";
+	*/
 	private static final String EMAIL_TEMPLATE_PATH =
-			"\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
+			"C:/Users/vlad/my_git_repos/caliber/caliber/src/main/webapp/static/app/partials/email/emailTemplate.html";
+
 	private static final String EMAIL_TEMPLATE_FIRST_NAME_TOKEN = "$TRAINER_FIRST";
 	private static final String EMAIL_TEMPLATE_LAST_NAME_TOKEN = "$TRAINER_LAST";
 
