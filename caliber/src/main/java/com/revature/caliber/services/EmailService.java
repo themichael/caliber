@@ -52,7 +52,7 @@ public class EmailService {
 	//@PostConstruct
 	public void init() {
 		this.startReminderJob();
-	}
+}
 
 	private void startReminderJob() {
 		Timer timer = new Timer(); // wire this as a bean
