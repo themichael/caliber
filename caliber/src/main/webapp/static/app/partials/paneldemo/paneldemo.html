@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-12 col-lg-12">
 				<ul class="nav nav-tabs">
-					
+
 					<!-- Button Trigger for Create Panel Modal -->
 					<li role="button" class="pull-right" data-toggle="modal"
 						data-target="#samplemodal" ng-click="resetPanelForm()"><a>Create
@@ -51,20 +51,22 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="item in allTraineesPanelData">
-										<td ng-bind="item.trainee" id="trainee.name"></td>
+									<tr ng-repeat="item in traineePanels">
+										<td ng-bind="item.trainee.name" id="trainee.name"></td>
 										<!-- THESE MIGHT NOT EXIST YET -->
 										<td ng-bind="item.interviewDate"></td>
-										<td ng-bind="item.panelist" id="panelist.name"></td>
+										<td ng-bind="item.panelist.name" id="panelist.name"></td>
 										<td ng-if="item.status=='Pass'"><span
 											style="color: #81f575; width: 100%; text-align: center;"
 											class="fa fa-check fa-2x"> </span></td>
 										<td ng-if="item.status=='Repanel'"><span
 											style="color: #ff7575; width: 100%; text-align: center;"
 											class="glyphicon glyphicon-remove fa-2x"></span></td>
-										<td ng-if="item.topics" ng-bind="item.topics"
-											style="text-align: center"></td>
-										<td ng-if="!item.topics"><span
+										<td ng-repeat="option in item.feedback"
+											ng-if="option.status == 'Repanel'" style="text-align: center">
+											<li ng-bind="option.technology.skillCategory"><br></li>
+										</td>
+										<td ng-if="item.status!='Repanel'"><span
 											style="color: rgb(252, 221, 115); width: 100%; text-align: center;"
 											class="fa fa-minus fa-2x"></span></td>
 									</tr>

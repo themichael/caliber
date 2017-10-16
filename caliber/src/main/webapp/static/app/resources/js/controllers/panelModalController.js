@@ -122,7 +122,7 @@ angular
 			caliberDelegate.all.getAllCategories().then(
 					function(response) {
 						$log.debug(response);
-						$scope.technologies = response;
+						$scope.technologies.options = response;
 					});
 			
 			// *******************************************************************************
@@ -136,7 +136,11 @@ angular
 						traineeId = trainee.traineeId;
 					}
 				});
-				$scope.traineePanels = caliberDelegate.panel.reportTraineePanels(traineeId);
+				caliberDelegate.panel.reportTraineePanels(traineeId).then(
+						function(response){
+							$scope.traineePanels = response;
+						});
+				$log.debug($scope.traineePanels);
 			};
 			
 			(function(){
@@ -144,10 +148,8 @@ angular
 				allBatches.forEach(function(batch){
 					batch.trainees.forEach(function(trainee){
 							$scope.employedTrainees.push(trainee);
-							console.log(trainee.trainingStatus);
 					});
 				});
-				console.log($scope.employedTrainees);
 				$log.debug($scope.employedTrainees);
 			})();
 			
