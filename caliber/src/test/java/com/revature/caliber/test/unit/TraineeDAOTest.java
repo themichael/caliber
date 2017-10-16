@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.ConstraintViolationException;
 
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 
@@ -236,6 +238,10 @@ public class TraineeDAOTest extends CaliberTest {
 		log.info("Delete trainee");
 		int initialSize = traineeDAO.findAll().size();
 		Trainee toDelete = traineeDAO.findOne(5503);
+//		Set<Grade> traineeGrades = toDelete.getGrades();
+//		for (Grade grade : traineeGrades) {
+//			
+//		}
 		traineeDAO.delete(toDelete);
 		int newSize = traineeDAO.findAll().size();
 		assertEquals(--initialSize, newSize);

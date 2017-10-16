@@ -1,6 +1,5 @@
 package com.revature.caliber.email;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -38,15 +37,6 @@ public class Mailer extends TimerTask {
 	@Autowired
 	private BatchDAO batchDAO;
 
-	@Autowired
-	private TraineeDAO traineeDAO;
-
-	@Autowired
-	private GradeDAO gradeDAO;
-	
-	@Autowired
-	private TrainerDAO trainerDAO;
-
 	private String toEmail = "mscott@mailinator.com";
 	
 	private EmailAuthenticator authenticator;
@@ -64,24 +54,12 @@ public class Mailer extends TimerTask {
 		this.authenticator = authenticator;
 	}
 
-	public void setGrade(GradeDAO gradeDAO) {
-		this.gradeDAO = gradeDAO;
-	}
-
 	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
 		this.assessmentDAO = assessmentDAO;
 	}
 
 	public void setBatch(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
-	}
-
-	public void setTrainee(TraineeDAO traineeDAO) {
-		this.traineeDAO = traineeDAO;
-	}
-	
-	public void setTrainer(TrainerDAO trainerDAO) {
-		this.trainerDAO = trainerDAO;
 	}
 
 	@Override
@@ -137,8 +115,6 @@ public class Mailer extends TimerTask {
 		Set<Trainer> trainersToSubmitGrades = new HashSet<Trainer>();
 		Set<Assessment> assessments = this.getAssessments();
 		Set<Trainee> trainees = this.getTrainees();
-
-		// Keep logic below here in this method, but make a new method to call DAOs
 		for (Assessment assessment : assessments) {
 			int expectedNumberOfGrades = assessments.size() * trainees.size();
 			int actualNumberOfGrades = 0;

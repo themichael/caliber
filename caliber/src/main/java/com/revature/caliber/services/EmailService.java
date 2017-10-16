@@ -55,7 +55,7 @@ public class EmailService {
 	}
 
 	private void startReminderJob() {
-		Timer timer = new Timer();
+		Timer timer = new Timer(); // wire this as a bean
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
 		Date startDate = calendar.getTime();
