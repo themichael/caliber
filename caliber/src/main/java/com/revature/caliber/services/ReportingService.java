@@ -27,16 +27,12 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.Panel;
-import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.data.PanelDAO;
-import com.revature.caliber.data.PanelFeedbackDAO;
 import com.revature.caliber.data.TraineeDAO;
 
 /**

@@ -87,7 +87,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void searchTest() throws Exception {
 		String searchTerm = "Lau";
-		Set<Trainee> result = new HashSet<Trainee>();
+		Set<Trainee> result = new HashSet<>();
 		List<Trainee> traineeByEmail = traineeDAO.findByEmail(searchTerm);
 		result.addAll(traineeByEmail);
 		List<Trainee> traineeByName = traineeDAO.findByName(searchTerm);
@@ -109,7 +109,7 @@ public class TrainingAPITest extends AbstractAPITest {
 	@Test
 	public void searchNoContentTest() throws Exception {
 		String searchTerm = "!!!!!!!!";
-		Set<Trainee> result = new HashSet<Trainee>();
+		Set<Trainee> result = new HashSet<>();
 		List<Trainee> traineeByEmail = traineeDAO.findByEmail(searchTerm);
 		result.addAll(traineeByEmail);
 		List<Trainee> traineeByName = traineeDAO.findByName(searchTerm);
