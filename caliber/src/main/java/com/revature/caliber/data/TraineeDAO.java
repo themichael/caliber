@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
@@ -120,7 +121,7 @@ public class TraineeDAO {
 	public Trainee findOne(Integer traineeId) {
 		log.info("Fetch trainee by id: " + traineeId);
 		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.setFetchMode("batch", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId))
+				.setFetchMode("batch", FetchMode.JOIN).setFetchMode("grades", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId))
 				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
 

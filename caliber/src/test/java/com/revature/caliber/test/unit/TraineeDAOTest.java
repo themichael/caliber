@@ -238,10 +238,6 @@ public class TraineeDAOTest extends CaliberTest {
 		log.info("Delete trainee");
 		int initialSize = traineeDAO.findAll().size();
 		Trainee toDelete = traineeDAO.findOne(5503);
-//		Set<Grade> traineeGrades = toDelete.getGrades();
-//		for (Grade grade : traineeGrades) {
-//			
-//		}
 		traineeDAO.delete(toDelete);
 		int newSize = traineeDAO.findAll().size();
 		assertEquals(--initialSize, newSize);
