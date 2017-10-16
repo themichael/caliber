@@ -95,6 +95,23 @@ public class TraineeDAOTest extends CaliberTest {
 		Long sizeExpected = (long) trainees.size();
 		assertEquals(sizeExpected, sizeActual);
 	}
+	
+	/**
+	 * 
+	 * TraineeDAO.findAllNotDropped()
+	 * 	Use JDBCtemplate to save the number of trainees without status 'Dropped'
+	 * 	Use findAllNotDropped() to save expected list of trainees and size of the trainee list
+	 * 	compare actual to expected to make sure the same number of trainees are being returned
+	 * 
+	 * */
+	@Test
+	public void testFindAllNotDropped() {
+		log.info("FIND ALL TRAINEES NOT DROPPED");
+		Long sizeActual = jdbcTemplate.queryForObject(TRAINEE_COUNT + " WHERE training_status != 'Dropped'", Long.class);
+		List<Trainee> trainees = traineeDAO.findAllNotDropped();
+		Long sizeExpected = (long) trainees.size();
+		assertEquals(sizeExpected, sizeActual);
+	}
 
 	/**
 	 * 

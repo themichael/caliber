@@ -14,7 +14,6 @@ import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
 
@@ -159,17 +158,15 @@ public class PanelService {
 	 */
 	public List<Panel> findAllRecentRepanel() {
 		log.debug("Find all trainees whose last panel had status Repanel");
-		List<Trainee> trainees = traineeDAO.findAll();
+		List<Trainee> trainees = traineeDAO.findAllNotDropped();
 		List<Panel> result = new ArrayList<>();
 		for (Trainee t : trainees) {
-			if (t.getTrainingStatus() != TrainingStatus.Dropped) {
-				List<Panel> panels = panelDAO.findAllByTrainee(t.getTraineeId());
-				if (panels != null && !panels.isEmpty()) {
-					Panel p = mostRecentPanel(panels);
-					if (p.getStatus() == PanelStatus.Repanel) {
-						result.add(p);
-						continue;
-					}
+			List<Panel> panels = panelDAO.findAllByTrainee(t.getTraineeId());
+			if (panels != null && !panels.isEmpty()) {
+				Panel p = mostRecentPanel(panels);
+				if (p.getStatus() == PanelStatus.Repanel) {
+					result.add(p);
+					continue;
 				}
 			}
 		}

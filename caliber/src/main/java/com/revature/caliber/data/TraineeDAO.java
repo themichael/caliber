@@ -59,6 +59,20 @@ public class TraineeDAO {
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
+	
+	/**
+	 * Find all trainees without condition. Useful for calculating report data
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> findAllNotDropped() {
+		log.info("Fetching all trainees");
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
 
 	/**
 	 * Find all trainees in a given batch
