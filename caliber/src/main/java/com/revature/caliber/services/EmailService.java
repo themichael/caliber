@@ -40,7 +40,7 @@ public class EmailService {
 	private static final int MONTH = 11;
 	private static final int DATE = 14;
 	private static final int HOUR = 11;
-	private static final int MINUTE = 13;
+	private static final int MINUTE = 45;
 	private static final int SECOND = 0;
 	
 
@@ -65,10 +65,10 @@ public class EmailService {
 		init = true;
 		logger.warn("startReminderJob()");
 		Calendar calendar = Calendar.getInstance();
-		//calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
+//		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
 		Date startDate = new Date(calendar.getTime().getTime() + 15000);
 		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
-		long interval = 20000;
+		long interval = 300000;
 		emailTimer.scheduleAtFixedRate(this.mailer, startDate, interval);
 
 	}

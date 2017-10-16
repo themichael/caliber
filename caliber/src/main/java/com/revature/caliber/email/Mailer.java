@@ -185,6 +185,8 @@ public class Mailer extends TimerTask {
 			int actualNumberOfGrades = 0;
 			Set<Grade> assessmentGrades = assessment.getGrades();
 			actualNumberOfGrades += assessmentGrades.size();
+			System.out.println("Actual number of grades: " + actualNumberOfGrades);
+			System.out.println("Expected number of grades: " + expectedNumberOfGrades);
 			if (actualNumberOfGrades < expectedNumberOfGrades) {
 				trainersToSubmitGrades.add(assessment.getBatch().getTrainer());
 			}
