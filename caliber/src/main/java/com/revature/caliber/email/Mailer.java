@@ -64,7 +64,7 @@ public class Mailer extends TimerTask {
 			"../../../../../webapp/static/app/partials/email/emailTemplate.html";
 	*/
 	private static final String EMAIL_TEMPLATE_PATH =
-			"C:/Users/vlad/my_git_repos/caliber/caliber/src/main/webapp/static/app/partials/email/emailTemplate.html";
+			"C:\\Users\\apbon\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
 
 	private static final String EMAIL_TEMPLATE_FIRST_NAME_TOKEN = "$TRAINER_FIRST";
 	private static final String EMAIL_TEMPLATE_LAST_NAME_TOKEN = "$TRAINER_LAST";
@@ -77,7 +77,7 @@ public class Mailer extends TimerTask {
 //		this.toEmail = toEmail;
 //	}
 
-//	@Autowired
+	@Autowired
 	public void setAuthenticator(EmailAuthenticator authenticator) {
 		this.authenticator = authenticator;
 	}

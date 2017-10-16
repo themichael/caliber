@@ -63,8 +63,6 @@
 			</list>
 		</property>
 	</bean>
-	<bean id ="emailService" class = "com.revature.caliber.services.EmailService" init-method = "startReminderJob">
-	
-	</bean>
+
 
 </beans>

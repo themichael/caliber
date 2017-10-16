@@ -39,8 +39,8 @@ public class EmailService {
 	private static final int YEAR = 2017;
 	private static final int MONTH = 11;
 	private static final int DATE = 14;
-	private static final int HOUR = 9;
-	private static final int MINUTE = 44;
+	private static final int HOUR = 11;
+	private static final int MINUTE = 13;
 	private static final int SECOND = 0;
 	
 
