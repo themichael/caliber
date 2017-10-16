@@ -1,9 +1,11 @@
 package com.revature.caliber.email;
 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -45,15 +47,6 @@ public class Mailer extends TimerTask {
 	@Autowired
 	private BatchDAO batchDAO;
 
-	@Autowired
-	private TraineeDAO traineeDAO;
-
-	@Autowired
-	private GradeDAO gradeDAO;
-	
-	@Autowired
-	private TrainerDAO trainerDAO;
-
 	private String toEmail = "mscott@mailinator.com";
 	
 	private EmailAuthenticator authenticator;
@@ -82,24 +75,12 @@ public class Mailer extends TimerTask {
 		this.authenticator = authenticator;
 	}
 
-	public void setGrade(GradeDAO gradeDAO) {
-		this.gradeDAO = gradeDAO;
-	}
-
 	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
 		this.assessmentDAO = assessmentDAO;
 	}
 
 	public void setBatch(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
-	}
-
-	public void setTrainee(TraineeDAO traineeDAO) {
-		this.traineeDAO = traineeDAO;
-	}
-	
-	public void setTrainer(TrainerDAO trainerDAO) {
-		this.trainerDAO = trainerDAO;
 	}
 
 	@Override
@@ -177,13 +158,14 @@ public class Mailer extends TimerTask {
 	public Set<Trainer> getTrainersWhoNeedToSubmitGrades() {
 		Set<Trainer> trainersToSubmitGrades = new HashSet<Trainer>();
 		Set<Assessment> assessments = this.getAssessments();
+		System.out.println("Number of assessments: " + assessments.size());
 		Set<Trainee> trainees = this.getTrainees();
-
-		// Keep logic below here in this method, but make a new method to call DAOs
+		System.out.println("Number of trainees: " + trainees.size());
 		for (Assessment assessment : assessments) {
 			int expectedNumberOfGrades = assessments.size() * trainees.size();
 			int actualNumberOfGrades = 0;
 			Set<Grade> assessmentGrades = assessment.getGrades();
+		
 			actualNumberOfGrades += assessmentGrades.size();
 			System.out.println("Actual number of grades: " + actualNumberOfGrades);
 			System.out.println("Expected number of grades: " + expectedNumberOfGrades);

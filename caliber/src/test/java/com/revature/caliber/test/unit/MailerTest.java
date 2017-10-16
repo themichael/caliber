@@ -24,7 +24,6 @@ public class MailerTest extends CaliberTest {
 	private Mailer mailer;
 	private Set<Trainer> trainersToSubmitGrades;
 	private TrainerDAO trainerDAO;
-	private Trainer Nick;
 	private Trainer Gray;
 	private Trainer Patrick;
 	
@@ -41,14 +40,8 @@ public class MailerTest extends CaliberTest {
 	@Before
 	public void setUp() throws Exception {
 		this.trainersToSubmitGrades = this.mailer.getTrainersWhoNeedToSubmitGrades();
-		this.Nick = this.trainerDAO.findByEmail("nickolas.jurczak@revature.com");
 		this.Gray = this.trainerDAO.findByEmail("grawyne@gmail.com");
 		this.Patrick = this.trainerDAO.findByEmail("patrick.walsh@revature.com");
-	}
-	
-	@Test
-	public void testNickPresent() {
-		assertTrue(this.trainersToSubmitGrades.contains(this.Nick));
 	}
 	
 	@Test

@@ -76,6 +76,7 @@ INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
   VALUES( TRAINER_ID_SEQUENCE.NEXTVAL, 'mehrab.rahman@revature.com', 'Mehrab Rahman', 'Trainer', 'ROLE_TRAINER');
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
   VALUES( TRAINER_ID_SEQUENCE.NEXTVAL, 'peter.alagna@revature.com', 'Peter Alagna', 'Trainer', 'ROLE_TRAINER');
+INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER) VALUES( TRAINER_ID_SEQUENCE.NEXTVAL, 'grawyne@gmail.com', 'Gray Wynne', 'Trainer', 'ROLE_TRAINER');
 --------------------------------------------------------------------------------------------------------------------MAKE PANEL ROLE
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
   VALUES( TRAINER_ID_SEQUENCE.NEXTVAL, 'rajeshy@revature.com', 'Rajesh Yamunachari', 'Senior Technical Manager', 'ROLE_QC');

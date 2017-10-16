@@ -56,6 +56,7 @@ public class EmailService {
 	
 		
 
+
 	
 	static boolean init = false;
 	@PostConstruct
@@ -64,6 +65,7 @@ public class EmailService {
 			return;
 		init = true;
 		logger.warn("startReminderJob()");
+		Timer timer = new Timer(); // wire this as a bean
 		Calendar calendar = Calendar.getInstance();
 //		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
 		Date startDate = new Date(calendar.getTime().getTime() + 15000);
