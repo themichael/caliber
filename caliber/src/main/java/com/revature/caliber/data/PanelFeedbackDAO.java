@@ -110,10 +110,10 @@ public class PanelFeedbackDAO {
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void deleteById(long panelId) {
-		log.info("Delete panel " + panelId);
-		PanelFeedback panel = findOne(panelId);
-		sessionFactory.getCurrentSession().delete(panel);
+		log.info("Delete panel feedback " + panelId);
+		PanelFeedback panelFeedback = findOne(panelId);
+		if (panelFeedback != null) {
+			sessionFactory.getCurrentSession().delete(panelFeedback);
+		}
 	}
-
 }
-

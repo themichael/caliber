@@ -39,8 +39,9 @@ public class PanelFeedbackController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public ResponseEntity<List<PanelFeedback>> findAll() {
 		log.debug("Getting all feedback");
-		List<PanelFeedback> feedback = panelFeedbackService.findAllPanelFeedbacks();
-		return new ResponseEntity<>(feedback, HttpStatus.OK);
+		List<PanelFeedback> allFeedbacks = panelFeedbackService.findAllPanelFeedbacks();
+		HttpStatus status = allFeedbacks.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+		return new ResponseEntity<>(allFeedbacks, status);
 	}
 
 	@RequestMapping(value = "/panelfeedback/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,14 +50,20 @@ public class PanelFeedbackController {
 	public ResponseEntity<PanelFeedback> findPanelFeedbackById(@PathVariable long id) {
 		log.debug("Getting category: " + id);
 		PanelFeedback panelFeedback = panelFeedbackService.findPanelFeedback(id);
-		log.info(panelFeedback.toString());
-		return new ResponseEntity<>(panelFeedback, HttpStatus.OK);
+		log.info(panelFeedback);
+		if (panelFeedback == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<>(panelFeedback, HttpStatus.OK);
+		}
 	}
 
 	@RequestMapping(value = "/panelfeedback/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP', 'PANEL')")
 	public ResponseEntity<PanelFeedback> updateFeedback(@Valid @RequestBody PanelFeedback panelFeedback) {
+		log.info("Updating panel feedback " + panelFeedback);
 		panelFeedbackService.update(panelFeedback);
 		return new ResponseEntity<>(panelFeedback, HttpStatus.OK);
 	}
@@ -65,6 +72,7 @@ public class PanelFeedbackController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasRole('VP', 'PANEL')")
 	public ResponseEntity<PanelFeedback> saveFeedback(@Valid @RequestBody PanelFeedback panelFeedback) {
+		log.info("Saving panel feedback " + panelFeedback);
 		panelFeedbackService.save(panelFeedback);
 		return new ResponseEntity<>(panelFeedback, HttpStatus.CREATED);
 	}

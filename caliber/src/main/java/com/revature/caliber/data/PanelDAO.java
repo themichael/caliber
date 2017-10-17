@@ -123,14 +123,15 @@ public class PanelDAO {
 	 * Convenience method only. Deletes a panel from the database. Panel
 	 * will still be registered with a Salesforce account.
 	 * 
-	 * @param panel
+	 * @param panel id
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(int panelId) {
 		log.info("Delete panel " + panelId);
 		Panel panel = findOne(panelId);
-		if (panel != null)
+		if (panel != null) {
 			sessionFactory.getCurrentSession().delete(panel);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
