@@ -7,9 +7,9 @@ angular
 .module("panel")
 .controller(
 		"panelModalController",
-		function($rootScope, $scope, $state, $log,$cookies, caliberDelegate, allBatches) {
+		function($rootScope, $scope, $state, $log, $cookies, caliberDelegate, allBatches) {
 			
-			console.log("in panel controller");
+			$log.debug("in panel controller");
 			$log.debug("Booted panel controller.");
 			
 			$scope.techFeedback = [];
@@ -178,21 +178,20 @@ angular
 			})();
 			
 			function createTechFeedback(id,tech,result,repanel,comment,counter){
-				var theFeedback = {"id":id,"technology":tech,"result":result,"status":repanel,"comment":comment};
-				return theFeedback;
+				return {"id": id,"technology": tech,"result": result,"status": repanel,"comment": comment};
 			}
 			
 			$scope.addRow = function() {
 				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.exp,$scope.repanel.model,$scope.techComment.model);
 				$scope.techFeedback.push(theFeedback);
 				$scope.feedbacksToReturn.push(createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.value,$scope.repanel.model,$scope.techComment.model));
-				
 				$log.debug($scope.feedbacksToReturn);
 			}
 			
 			$scope.deleteRow = function(loc) {
-				$scope.techFeedback.splice(loc,1);
-				console.log($scope.techFeedback);
+				$scope.techFeedback.splice(loc, 1);
+				$scope.feedbacksToReturn.splice(loc, 1);
+				$log.debug($scope.feedbacksToReturn);
 			}
 
 			// Sets the Training Type
