@@ -32,7 +32,7 @@ angular
 			
 			$scope.recordingConsent = {
 				model: null,
-				options: ['Yes', 'No']
+				options: ['True', 'False']
 			};
 			
 			$scope.panelStatus = {
@@ -58,8 +58,10 @@ angular
 			
 			$scope.panelResult = {
 				model: null,
-				options: ['0 - Very Poor', '1 - Moderately Poor', '2 - Fairly Poor', '3 - Poor', '4 - Below Average', '5 - Average', '6 - Above Average', '7 - Good', '8 - Very Good', '9 - Great', '10 - Excellent']
+//				options: ['0 - Very Poor', '1 - Moderately Poor', '2 - Fairly Poor', '3 - Poor', '4 - Below Average', '5 - Average', '6 - Above Average', '7 - Good', '8 - Very Good', '9 - Great', '10 - Excellent']
+				options:[0,1,2,3,4,5,6,7,8,9,10]
 			};
+			
 			
 			$scope.technologies = {
 				model: null,
@@ -160,6 +162,7 @@ angular
 				caliberDelegate.panel.reportTraineePanels(traineeId).then(
 						function(response){
 							$scope.traineePanels = response;
+							//FIX THIS
 							$scope.trainee.name = $scope.traineePanels[0].trainee.name;
 							//$scope.panelist.name = $scope.traineePanels[0].panelist.name;
 						});
@@ -177,7 +180,7 @@ angular
 			})();
 			
 			function createTechFeedback(id,tech,result,repanel,comment,counter){
-				var theFeedback = {"id":id,"tech":tech,"result":result,"repanel":repanel,"comment":comment,"count":counter};
+				var theFeedback = {"id":id,"technology":tech,"result":result,"status":repanel,"comment":comment,"count":counter};
 				return theFeedback;
 			}
 			
@@ -257,7 +260,7 @@ angular
 					duration : $scope.interviewDuration.model,
 					format : $scope.interviewMode.model,
 					internet : $scope.interviewConnectivity.model,
-					panelRound : 0,
+					panelRound : $scope.panelRound.model,
 					recordingConsent: $scope.recordingConsent.model,
 					recordingLink: $scope.recordingLink.model,
 					status: $scope.overallStatus.model,
@@ -270,13 +273,15 @@ angular
 					overall : $scope.overallPanel.model
 				};
 				$log.debug(panel);
+				caliberDelegate.panel.createPanel(panel);
+				//$scope.resetPanelForm();
 			};
 			
-			// Resets the Panel Feedback Form
+			// Resets the Panel Feedback Form(needs fixing)
 			$scope.resetPanelForm = function() {
-				$scope.trainee.name = "";
-				$scope.panelist.name = "";
-				$scope.batchSkillType = {};
+				//$scope.trainee.name = "";
+				//$scope.panelist.name = "";
+				//$scope.batchSkillType = {};
 				$scope.panelRound.model = null;
 				$scope.recordingConsent.model = null;
 				$scope.interviewDate.model = null;

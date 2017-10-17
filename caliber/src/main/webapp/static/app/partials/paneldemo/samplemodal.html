@@ -16,7 +16,7 @@
 						<div class="panel-heading">Interview Details</div>
 						<div class="panel-body">
 							<div class="form-group col-xs-6">
-								<b>Associate Name</b> <input type="text" class="form-control" ng-model="traineePanels[0].trainee.name" disabled /> 
+								<b>Associate Name</b> <input type="text" class="form-control" ng-model="trainee.name" disabled /> 
 								<b>Training Track</b> <input type="text" class="form-control" ng-model="batchSkillType" disabled />
 								<b>Panel Round</b> <input type="number" class="form-control" ng-model="panelRound.model" placeholder="Select 1 - 10"  min="1" max="10" ng-bind="panelInterview.round" required /> 
 								<b>Recording Consent</b> <select ng-model="recordingConsent.model" class="form-control" id="recordConsent"><option ng-repeat="option in recordingConsent.options">{{option}}</option></select>

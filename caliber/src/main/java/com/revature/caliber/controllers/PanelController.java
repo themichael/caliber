@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Panel;
+import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.PanelService;
 import com.revature.caliber.services.TrainingService;
 
@@ -100,6 +102,9 @@ public class PanelController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panelf) {
+		SalesforceUser user = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(user.getEmail());
+		panelf.setPanelist(trainingService.findTrainer(user.getEmail()));
 		panelService.createPanel((panelf));
 		return new ResponseEntity<>(panelf, HttpStatus.CREATED);
 	}
