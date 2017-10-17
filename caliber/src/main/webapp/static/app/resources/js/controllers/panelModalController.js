@@ -13,6 +13,7 @@ angular
 			$log.debug("Booted panel controller.");
 			
 			$scope.techFeedback = [];
+			$scope.feedbacksToReturn = [];
 			$scope.counter=0;
 			$scope.techId=0;
 		
@@ -26,13 +27,13 @@ angular
 				name: ""
 			};
 			
-			$scope.panelist = {
+			/*$scope.panelist = {
 				name: ""
-			};
+			};*/
 			
 			$scope.recordingConsent = {
 				model: null,
-				options: ['True', 'False']
+				options: [{exp: 'Yes', value: 'True'}, {exp: 'No', value:'False'}]
 			};
 			
 			$scope.panelStatus = {
@@ -58,8 +59,7 @@ angular
 			
 			$scope.panelResult = {
 				model: null,
-//				options: ['0 - Very Poor', '1 - Moderately Poor', '2 - Fairly Poor', '3 - Poor', '4 - Below Average', '5 - Average', '6 - Above Average', '7 - Good', '8 - Very Good', '9 - Great', '10 - Excellent']
-				options:[0,1,2,3,4,5,6,7,8,9,10]
+				options: [{exp: '0 - Very Poor', value: 0}, {exp: '1 - Moderately Poor', value: 1}, {exp: '2 - Fairly Poor', value: 2}, {exp: '3 - Poor', value: 3}, {exp: '4 - Below Average', value: 4}, {exp: '5 - Average', value: 5}, {exp: '6 - Above Average', value: 6}, {exp: '7 - Good', value: 7}, {exp: '8 - Very Good', value: 8}, {exp: '9 - Great', value: 9}, {exp: '10 - Excellent', value: 10}]
 			};
 			
 			
@@ -162,9 +162,7 @@ angular
 				caliberDelegate.panel.reportTraineePanels(traineeId).then(
 						function(response){
 							$scope.traineePanels = response;
-							//FIX THIS
 							$scope.trainee.name = traineeName;
-							//$scope.panelist.name = $scope.traineePanels[0].panelist.name;
 						});
 				$log.debug($scope.traineePanels);
 				$scope.currentBatch();
@@ -180,61 +178,21 @@ angular
 			})();
 			
 			function createTechFeedback(id,tech,result,repanel,comment,counter){
-				var theFeedback = {"id":id,"technology":tech,"result":result,"status":repanel,"comment":comment,"count":counter};
+				var theFeedback = {"id":id,"technology":tech,"result":result,"status":repanel,"comment":comment};
 				return theFeedback;
 			}
 			
 			$scope.addRow = function() {
-				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model,$scope.repanel.model,$scope.techComment.model,$scope.counter);
-				$scope.techFeedback[$scope.counter]=theFeedback;
-		        $scope.counter++;
-		        $scope.techId++;
+				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.exp,$scope.repanel.model,$scope.techComment.model);
+				$scope.techFeedback.push(theFeedback);
+				$scope.feedbacksToReturn.push(createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.value,$scope.repanel.model,$scope.techComment.model));
+				
+				$log.debug($scope.feedbacksToReturn);
 			}
 			
 			$scope.deleteRow = function(loc) {
-				var newArr = [];
-				var temp1 = [];
-				var temp2 = [];
-				var len = $scope.techFeedback.length;
-				if(len==0){
-					$log.debug(); // It should NEVER ENTER HERE
-				}
-				else if(len==1){
-					$scope.techFeedback = newArr;
-				}
-				else{
-					if(loc==0){
-						$scope.techFeedback = $scope.techFeedback.slice(1);
-						var num = 0;
-						for (var idx in $scope.techFeedback){
-							$scope.techFeedback[num].count = $scope.techFeedback[num].count-1;
-							num++;
-						}
-					}
-					else if(loc==len-1){
-						$scope.techFeedback = $scope.techFeedback.slice(0,len-1);
-					}
-					else if(loc==len-2){
-						temp1 = $scope.techFeedback.slice(0,loc);
-						temp2 = [$scope.techFeedback[len-1]];
-						newArr = temp1.concat(temp2);
-						$scope.techFeedback = newArr;
-						$scope.techFeedback[$scope.techFeedback.length-1].count = $scope.techFeedback[$scope.techFeedback.length-1].count-1;
-					}
-					else{
-						temp1 = $scope.techFeedback.slice(0,loc);
-						temp2 = $scope.techFeedback.slice(loc+1);
-						var num = 0;
-						for (var idx in temp2){
-							temp2[num].count = temp2[num].count-1;
-							num++;
-						}
-						newArr = temp1.concat(temp2);
-						$scope.techFeedback = newArr;
-					}
-				}
-				$scope.counter--;
-				$scope.techId++;
+				$scope.techFeedback.splice(loc,1);
+				console.log($scope.techFeedback);
 			}
 
 			// Sets the Training Type
@@ -248,35 +206,7 @@ angular
 					});
 				});
 				$log.debug($scope.batchSkillType);
-			};
-			
-			
-			
-			$scope.formatTech = function (){
-				var actualFeedback = [];
-				var tJSON = "";
-				var tObj = null;
-				var tId = "";
-				var tResult = "";
-				var tStatus = "";
-				var tTechnology = "";
-				var tComment = "";
-				for (var tech in $scope.techFeedback){
-					myTech = $scope.techFeedback[tech];
-					tId = myTech.id;
-					tResult = myTech.result;
-					tStatus = myTech.repanel;
-					tTechnology = myTech.technology;
-					tComment = myTech.comment;
-					tJSON = {"id":tId,"technology":tTechnology,"status":tStatus,"result":tResult,"comment":tComment};
-					tJSON = tJSON.toString();
-					actualFeedback.push(tObj);
-				}
-				$scope.actualFeedback = actualFeedback;
-				$log.debug($scope.actualFeedback);
-				return $scope.actualFeedback;
-			}
-			
+
 			
 			$scope.savePanel = function(){
 				
@@ -290,10 +220,10 @@ angular
 					format : $scope.interviewMode.model,
 					internet : $scope.interviewConnectivity.model,
 					panelRound : $scope.panelRound.model,
-					recordingConsent: $scope.recordingConsent.model,
+					recordingConsent: $scope.recordingConsent.model.value,
 					recordingLink: $scope.recordingLink.model,
 					status: $scope.overallStatus.model,
-					feedback: $scope.actualFeedback,
+					feedback: $scope.feedbacksToReturn,
 					associateIntro: $scope.associateIntro.model,
 					projectOneDescription : $scope.p1Expl.model,
 					projectTwoDescription : $scope.p2Expl.model,
@@ -303,10 +233,10 @@ angular
 				};
 				$log.debug(panel);
 				caliberDelegate.panel.createPanel(panel);
-				//$scope.resetPanelForm();
+				$scope.resetPanelForm();
 			};
 			
-			// Resets the Panel Feedback Form(needs fixing)
+			// Resets the Panel Feedback Form (needs fixing)
 			$scope.resetPanelForm = function() {
 				//$scope.trainee.name = "";
 				//$scope.panelist.name = "";
@@ -329,5 +259,6 @@ angular
 				$scope.overallStatus.model = null;
 				$scope.recordingLink.model = null;
 				$scope.interviewDuration.model = null;
+			}
 			}
 	});
