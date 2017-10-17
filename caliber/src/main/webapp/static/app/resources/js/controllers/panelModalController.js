@@ -252,7 +252,7 @@ angular
 			
 			
 			
-			function formatTech(){
+			$scope.formatTech = function (){
 				var actualFeedback = [];
 				var tJSON = "";
 				var tObj = null;
@@ -270,17 +270,20 @@ angular
 					tComment = myTech.comment;
 					tJSON = {"id":tId,"technology":tTechnology,"status":tStatus,"result":tResult,"comment":tComment};
 					tJSON = tJSON.toString();
-					actualFeedback[tech]=tObj;
+					actualFeedback.push(tObj);
 				}
-				return actualFeedback;
+				$scope.actualFeedback = actualFeedback;
+				$log.debug($scope.actualFeedback);
+				return $scope.actualFeedback;
 			}
 			
 			
 			$scope.savePanel = function(){
 				
+				$scope.formatTech()
 				var panel = {
 					//vvv---Probs not the way to go about it
-					trainee : $scope.trainee.name,
+					trainee : $scope.traineePanels[0].trainee,
 					panelist : {},
 					interviewDate : $scope.interviewDate.model,
 					duration : $scope.interviewDuration.model,
@@ -290,7 +293,7 @@ angular
 					recordingConsent: $scope.recordingConsent.model,
 					recordingLink: $scope.recordingLink.model,
 					status: $scope.overallStatus.model,
-					feedback: formatTech(),
+					feedback: $scope.actualFeedback,
 					associateIntro: $scope.associateIntro.model,
 					projectOneDescription : $scope.p1Expl.model,
 					projectTwoDescription : $scope.p2Expl.model,
