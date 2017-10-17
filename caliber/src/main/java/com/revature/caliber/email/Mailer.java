@@ -119,6 +119,7 @@ public class Mailer extends TimerTask {
 			try {
 				MimeMessage message = new MimeMessage(session);
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
+
 				message.setSubject("Submit Grades Reminder");
 				
 				String email = getEmailString(trainer);
