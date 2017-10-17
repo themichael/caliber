@@ -45,13 +45,13 @@ public class MailerTest extends CaliberTest {
 	}
 	
 	@Test
-	public void testGrayPresent() {
-		assertTrue(this.trainersToSubmitGrades.contains(this.Gray));
+	public void testGrayAbsent() {
+		assertFalse(this.trainersToSubmitGrades.contains(this.Gray));
 	}
 	
 	@Test
-	public void testPatrickAbsent() {
-		assertFalse(this.trainersToSubmitGrades.contains(this.Patrick));
+	public void testPatrickPresent() {
+		assertTrue(this.trainersToSubmitGrades.contains(this.Patrick));
 	}
 
 }
