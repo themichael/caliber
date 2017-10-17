@@ -35,14 +35,19 @@ public class EmailService {
 	@Autowired
 	private EmailTimer emailTimer;
 
-	private static final long DAYS_IN_WEEK = 7;
+
 	private static final int YEAR = 2017;
 	private static final int MONTH = 11;
 	private static final int DATE = 14;
-	private static final int HOUR = 9;
-	private static final int MINUTE = 44;
+	private static final int HOUR = 11;
+	private static final int MINUTE = 45;
 	private static final int SECOND = 0;
 	
+
+	public void setMailer(Mailer mailer) {
+		this.mailer = mailer;
+	}
+
 	static boolean init = false;
 	@PostConstruct
 	private synchronized void startReminderJob() {
@@ -51,11 +56,13 @@ public class EmailService {
 		init = true;
 		logger.warn("startReminderJob()");
 		Calendar calendar = Calendar.getInstance();
-		//calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
-		Date startDate = new Date(calendar.getTime().getTime() + 15000);
-		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
-		long interval = 20000;
+		calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+		calendar.set(Calendar.HOUR, 9);
+		calendar.set(Calendar.MINUTE, 15);
+		Date startDate = calendar.getTime();
+		long interval = 300000;
 		emailTimer.scheduleAtFixedRate(this.mailer, startDate, interval);
+
 	}
 
 }

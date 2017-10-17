@@ -1,9 +1,10 @@
 package com.revature.caliber.email;
 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -12,6 +13,7 @@ import java.util.TimerTask;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,11 @@ import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
 
 /**
  * 
  * @author Will Underwood
+ * @author Andrew Bonds
  *
  */
 @Component
@@ -43,44 +45,25 @@ public class Mailer extends TimerTask {
 
 	@Autowired
 	private BatchDAO batchDAO;
-
+	
 	@Autowired
 	private TraineeDAO traineeDAO;
-
+	
 	@Autowired
 	private GradeDAO gradeDAO;
-	
-	@Autowired
-	private TrainerDAO trainerDAO;
 
-	private String toEmail = "mscott@mailinator.com";
-	
 	private EmailAuthenticator authenticator;
 	
-	
-	/*private static final String EMAIL_TEMPLATE_PATH =
-			"../../../../../webapp/static/app/partials/email/emailTemplate.html";
-	*/
 	private static final String EMAIL_TEMPLATE_PATH =
-			"C:/Users/vlad/my_git_repos/caliber/caliber/src/main/webapp/static/app/partials/email/emailTemplate.html";
+			"C:\\Users\\apbon\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
+
 	private static final String EMAIL_TEMPLATE_FIRST_NAME_TOKEN = "$TRAINER_FIRST";
 	private static final String EMAIL_TEMPLATE_LAST_NAME_TOKEN = "$TRAINER_LAST";
 
-	// Will be autowired later when we're 
-	// ready to send emails to specific users.
-	// For now it will be hard coded.
-	//@Autowired
-//	public void setToEmail(String toEmail) {
-//		this.toEmail = toEmail;
-//	}
 
 	@Autowired
 	public void setAuthenticator(EmailAuthenticator authenticator) {
 		this.authenticator = authenticator;
-	}
-
-	public void setGrade(GradeDAO gradeDAO) {
-		this.gradeDAO = gradeDAO;
 	}
 
 	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
@@ -91,12 +74,12 @@ public class Mailer extends TimerTask {
 		this.batchDAO = batchDAO;
 	}
 
-	public void setTrainee(TraineeDAO traineeDAO) {
+	public void setTraineeDAO(TraineeDAO traineeDAO) {
 		this.traineeDAO = traineeDAO;
 	}
-	
-	public void setTrainer(TrainerDAO trainerDAO) {
-		this.trainerDAO = trainerDAO;
+
+	public void setGradeDAO(GradeDAO gradeDAO) {
+		this.gradeDAO = gradeDAO;
 	}
 
 	@Override
@@ -129,8 +112,7 @@ public class Mailer extends TimerTask {
 		for (Trainer trainer : trainersToSubmitGrades) {
 			try {
 				MimeMessage message = new MimeMessage(session);
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
 				message.setSubject("Submit Grades Reminder");
 				
 				String email = getEmailString(trainer);
@@ -173,37 +155,43 @@ public class Mailer extends TimerTask {
 	 */
 	public Set<Trainer> getTrainersWhoNeedToSubmitGrades() {
 		Set<Trainer> trainersToSubmitGrades = new HashSet<Trainer>();
-		Set<Assessment> assessments = this.getAssessments();
-		Set<Trainee> trainees = this.getTrainees();
-
-		// Keep logic below here in this method, but make a new method to call DAOs
-		for (Assessment assessment : assessments) {
-			int expectedNumberOfGrades = assessments.size() * trainees.size();
+		List<Batch> batches = getBatches();
+		for (Batch batch : batches) {
+			Set<Assessment> expectedAssessments = getAssessments(batch.getBatchId());
+			Set<Trainee> trainees = getTrainees(batch.getBatchId());
+			int actualAssessments = getActual(expectedAssessments, batch.getBatchId());
+			int expectedNumberOfGrades = trainees.size() * expectedAssessments.size();
 			int actualNumberOfGrades = 0;
-			Set<Grade> assessmentGrades = assessment.getGrades();
-			actualNumberOfGrades += assessmentGrades.size();
+			actualNumberOfGrades += actualAssessments;
 			if (actualNumberOfGrades < expectedNumberOfGrades) {
-				trainersToSubmitGrades.add(assessment.getBatch().getTrainer());
+				trainersToSubmitGrades.add(batch.getTrainer());
 			}
 		}
 		return trainersToSubmitGrades;
 	}
-	
-	private Set<Assessment> getAssessments() {
-		List<Batch> batches = this.batchDAO.findAllCurrent();
+	private List<Batch> getBatches(){
+		return batchDAO.findAllCurrent();
+	}
+	private Set<Assessment> getAssessments(int batchID) {
 		Set<Assessment> assessments = new HashSet<Assessment>();
-		for (Batch batch : batches) {
-			assessments.addAll(this.assessmentDAO.findByBatchId(batch.getBatchId()));
-		}
+		assessments.addAll(this.assessmentDAO.findByBatchId(batchID));
 		return assessments;
 	}
-	
-	private Set<Trainee> getTrainees() {
-		List<Batch> batches = this.batchDAO.findAllCurrent();
-		Set<Trainee> trainees = new HashSet<Trainee>();
-		for (Batch batch : batches) {
-			trainees.addAll(batch.getTrainees());
+	private int getActual(Set<Assessment> expectedAssessments, int batchID){
+		List<Grade> allGrades = gradeDAO.findByBatch(batchID);
+		int assessmentCounter = 0;
+		for(Grade grade: allGrades) {
+			for(Assessment assessment: expectedAssessments) {
+				if(grade.getAssessment().getAssessmentId() == assessment.getAssessmentId()) {
+					assessmentCounter++;
+				}
+			}
 		}
+		return assessmentCounter;
+	}
+	private Set<Trainee> getTrainees(int batchID) {
+		Set<Trainee> trainees = new HashSet<Trainee>();
+		trainees.addAll(this.traineeDAO.findAllByBatch(batchID));
 		return trainees;
 	}
 
