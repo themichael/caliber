@@ -4,7 +4,6 @@ package com.revature.caliber.email;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 import java.util.HashSet;
 import java.util.List;
@@ -29,11 +28,11 @@ import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
 
 /**
  * 
  * @author Will Underwood
+ * @author Andrew Bonds
  *
  */
 @Component
@@ -53,28 +52,13 @@ public class Mailer extends TimerTask {
 	@Autowired
 	private GradeDAO gradeDAO;
 
-	private String toEmail = "mscott@mailinator.com";
-	
 	private EmailAuthenticator authenticator;
-	
-	
 
-	/*private static final String EMAIL_TEMPLATE_PATH =
-			"../../../../../webapp/static/app/partials/email/emailTemplate.html";
-	*/
 	private static final String EMAIL_TEMPLATE_PATH =
 			"C:\\Users\\apbon\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
 
 	private static final String EMAIL_TEMPLATE_FIRST_NAME_TOKEN = "$TRAINER_FIRST";
 	private static final String EMAIL_TEMPLATE_LAST_NAME_TOKEN = "$TRAINER_LAST";
-
-	// Will be autowired later when we're 
-	// ready to send emails to specific users.
-	// For now it will be hard coded.
-	//@Autowired
-//	public void setToEmail(String toEmail) {
-//		this.toEmail = toEmail;
-//	}
 
 	@Autowired
 	public void setAuthenticator(EmailAuthenticator authenticator) {
@@ -127,8 +111,7 @@ public class Mailer extends TimerTask {
 		for (Trainer trainer : trainersToSubmitGrades) {
 			try {
 				MimeMessage message = new MimeMessage(session);
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
 				message.setSubject("Submit Grades Reminder");
 				
 				String email = getEmailString(trainer);
@@ -208,7 +191,7 @@ public class Mailer extends TimerTask {
 		}
 		return assessmentCounter;
 	}
-	
+
 	private Set<Trainee> getTrainees(int batchID) {
 		Set<Trainee> trainees = new HashSet<Trainee>();
 		trainees.addAll(this.traineeDAO.findAllByBatch(batchID));

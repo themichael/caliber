@@ -1,28 +1,17 @@
 package com.revature.caliber.services;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.data.AssessmentDAO;
-import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.GradeDAO;
-import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.email.Mailer;
 
 /**
@@ -33,35 +22,45 @@ import com.revature.caliber.email.Mailer;
  */
 @Service
 public class EmailService {
+	
+	private static final Logger logger = Logger.getLogger(EmailService.class);
+	
+	@Component
+	static class EmailTimer extends Timer {
+		
+	}
 
 	@Autowired
 	private Mailer mailer;
+	
+	@Autowired
+	private EmailTimer emailTimer;
 
-	private static final long DAYS_IN_WEEK = 7;
-	private static final int YEAR = 2017;
-	private static final int MONTH = 9;
-	private static final int DATE = 14;
+	private static final int DAYS_IN_WEEK = 7;
 	private static final int HOUR = 9;
-	private static final int MINUTE = 44;
-	private static final int SECOND = 0;
+	private static final int MINUTE = 0;
+	
 
 	public void setMailer(Mailer mailer) {
 		this.mailer = mailer;
 	}
 
-	//@PostConstruct
-	public void init() {
-		this.startReminderJob();
-}
-
-	private void startReminderJob() {
-		Timer timer = new Timer(); // wire this as a bean
+	private static boolean init = false;
+	
+	@PostConstruct
+	private synchronized void startReminderJob() {
+		if (init)
+			return;
+		init = true;
+		logger.warn("startReminderJob()");
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
+		calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+		calendar.set(Calendar.HOUR, HOUR);
+		calendar.set(Calendar.MINUTE, MINUTE);
 		Date startDate = calendar.getTime();
-		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
-		long interval = 20000;
-		//timer.scheduleAtFixedRate(this.mailer, startDate, interval);
+		long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
+		emailTimer.scheduleAtFixedRate(this.mailer, startDate, interval);
+
 	}
 
 }
