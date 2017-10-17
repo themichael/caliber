@@ -30,7 +30,7 @@ import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
 
 /**
- * 
+ * This class sends reminder emails to trainers who have not submitted all grades for their batch.
  * @author Will Underwood
  * @author Andrew Bonds
  *
@@ -52,6 +52,7 @@ public class Mailer extends TimerTask {
 	@Autowired
 	private GradeDAO gradeDAO;
 
+	@Autowired
 	private EmailAuthenticator authenticator;
 
 	private static final String EMAIL_TEMPLATE_PATH =
@@ -60,7 +61,6 @@ public class Mailer extends TimerTask {
 	private static final String EMAIL_TEMPLATE_FIRST_NAME_TOKEN = "$TRAINER_FIRST";
 	private static final String EMAIL_TEMPLATE_LAST_NAME_TOKEN = "$TRAINER_LAST";
 
-	@Autowired
 	public void setAuthenticator(EmailAuthenticator authenticator) {
 		this.authenticator = authenticator;
 	}
@@ -81,6 +81,12 @@ public class Mailer extends TimerTask {
 		this.gradeDAO = gradeDAO;
 	}
 
+	/**
+	 * Starts the thread that sends the emails.
+	 * @precondition None.
+	 * @param None.
+	 * @postcondition Email thread is running on server
+	 */
 	@Override
 	public void run() {
 		this.send();

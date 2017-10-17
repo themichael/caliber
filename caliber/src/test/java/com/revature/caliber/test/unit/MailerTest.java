@@ -15,7 +15,7 @@ import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.email.Mailer;
 
 /**
- * 
+ * Tests that the correct trainers are selected for emailing.
  * @author Will Underwood
  *
  */
@@ -37,6 +37,10 @@ public class MailerTest extends CaliberTest {
 		this.trainerDAO = trainerDAO;
 	}
 
+	/**
+	 * Finds trainers who need to submit grades
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		this.trainersToSubmitGrades = this.mailer.getTrainersWhoNeedToSubmitGrades();
@@ -44,11 +48,17 @@ public class MailerTest extends CaliberTest {
 		this.Patrick = this.trainerDAO.findByEmail("patrick.walsh@revature.com");
 	}
 	
+	/**
+	 * Gray Wynne should be absent from the collection, because he submitted all his grades
+	 */
 	@Test
 	public void testGrayAbsent() {
 		assertFalse(this.trainersToSubmitGrades.contains(this.Gray));
 	}
 	
+	/**
+	 * Patrick Walsh should be in the collection, because he has yet to submit some grades
+	 */
 	@Test
 	public void testPatrickPresent() {
 		assertTrue(this.trainersToSubmitGrades.contains(this.Patrick));

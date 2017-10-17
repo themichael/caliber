@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.revature.caliber.email.Mailer;
 
 /**
- * 
+ * Starts the email job
  * @author Andrew Bonds
  * @author Will Underwood
  *
@@ -40,7 +40,6 @@ public class EmailService {
 	private static final int HOUR = 9;
 	private static final int MINUTE = 0;
 	
-
 	public void setMailer(Mailer mailer) {
 		this.mailer = mailer;
 	}

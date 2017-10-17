@@ -6,6 +6,11 @@ import javax.mail.PasswordAuthentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * Authenticates the email account that sends the reminder emails.
+ * @author Will Underwood
+ *
+ */
 @Component
 public class EmailAuthenticator extends Authenticator {
 
