@@ -18,7 +18,7 @@
 								<b>Associate Name</b> <input type="text" class="form-control" ng-model="trainee.name" disabled /> 
 								<b>Training Track</b> <input type="text" class="form-control" ng-model="batchSkillType" disabled />
 								<b>Panel Round</b> <input type="number" class="form-control" ng-model="panelRound.model" placeholder="Select 1 - 10"  min="1" max="10" ng-bind="panelInterview.round" required /> 
-								<b>Recording Consent</b> <select ng-options="option as option.exp for option in recordingConsent.options track by option.value" ng-model="recordingConsent.model" class="form-control" id="recordConsent"></select>
+								<b>Recording Consent</b> <select ng-options="option as option.exp for option in recordingConsent.options track by option.value" ng-model="recordingConsent.model" placeholder="Select Yes or No" class="form-control" id="recordConsent"></select>
 							</div>
 							<div class="form-group col-xs-6">
 								<b>Interview Date</b> <div class="input-group">
@@ -37,8 +37,8 @@
 													  ng-model-options="{ updateOn: 'blur' }" ng-required="true">
 													  <i class="input-group-addon glyphicon glyphicon-time"></i>
 													  </div>
-								<b>Interview Mode</b> <select ng-model="interviewMode.model" class="form-control" id="interviewMode"><option ng-repeat="option in interviewMode.options">{{option}}</option></select>
-								<b>Internet Connectivity</b> <select ng-model="interviewConnectivity.model" class="form-control" id="interviewConnectivity"><option ng-repeat="option in interviewConnectivity.options">{{option}}</option></select>
+								<b>Interview Mode</b> <select ng-model="interviewMode.model" placeholder="Select a Mode" class="form-control" id="interviewMode" required><option ng-repeat="option in interviewMode.options">{{option}}</option></select>
+								<b>Internet Connectivity</b> <select ng-model="interviewConnectivity.model" placeholder="Select Connectivity" class="form-control" id="interviewConnectivity" required><option ng-repeat="option in interviewConnectivity.options">{{option}}</option></select>
 							</div>
 						</div>
 					</div>
@@ -89,12 +89,12 @@
                             		<th> Repanel </th>
                             		<th> Comment </th>
                         		</tr>
-                        		<tr class="form-group" ng-repeat="techs in techFeedback track by techs.id">
+                        		<tr class="form-group" ng-repeat="techs in techFeedback track by $index">
                             		<td>{{techs.technology}}</td>
                             		<td>{{techs.result}}</td>
                             		<td>{{techs.status}}</td>
                             		<td>{{techs.comment}}</td>
-                            		<td><button type="submit" ng-click="deleteRow(techs.count)" style="background:transparent;border:transparent"><span class="glyphicon glyphicon-remove" style="color: #F26925;" aria-hidden="true"></span></div></td>
+                            		<td><button type="submit" ng-click="deleteRow($index)" style="background:transparent;border:transparent"><span class="glyphicon glyphicon-remove" style="color: #F26925;" aria-hidden="true"></span></div></td>
                         		</tr>
                         		<tr class="form-group">
                         			<td><select ng-model="technologies.model" class="form-control" id="technicalFeedback.technology">

@@ -101,12 +101,12 @@ public class PanelController {
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP','PANEL')")
-	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panelf) {
+	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panel) {
 		SalesforceUser user = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(user.getEmail());
-		panelf.setPanelist(trainingService.findTrainer(user.getEmail()));
-		panelService.createPanel((panelf));
-		return new ResponseEntity<>(panelf, HttpStatus.CREATED);
+		panel.setPanelist(trainingService.findTrainer(user.getEmail()));
+		panelService.createPanel(panel);
+		return new ResponseEntity<>(panel, HttpStatus.CREATED);
 	}
 	
 	
