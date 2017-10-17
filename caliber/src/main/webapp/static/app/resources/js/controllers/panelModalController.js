@@ -163,7 +163,7 @@ angular
 						function(response){
 							$scope.traineePanels = response;
 							//FIX THIS
-							$scope.trainee.name = $scope.traineePanels[0].trainee.name;
+							$scope.trainee.name = traineeName;
 							//$scope.panelist.name = $scope.traineePanels[0].panelist.name;
 						});
 				$log.debug($scope.traineePanels);
@@ -254,7 +254,7 @@ angular
 				
 				var panel = {
 					//vvv---Probs not the way to go about it
-					trainee : $scope.traineePanels[0].trainee,
+					trainee : $scope.trainee.name,
 					panelist : {},
 					interviewDate : $scope.interviewDate.model,
 					duration : $scope.interviewDuration.model,
