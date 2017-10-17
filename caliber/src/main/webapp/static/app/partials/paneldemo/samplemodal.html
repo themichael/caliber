@@ -3,8 +3,7 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
  					<div style="float:left;"><h4 class="modal-title" id="panelFeedbackModal">Panel Interview Feedback Form</h4></div>
@@ -19,7 +18,7 @@
 								<b>Associate Name</b> <input type="text" class="form-control" ng-model="trainee.name" disabled /> 
 								<b>Training Track</b> <input type="text" class="form-control" ng-model="batchSkillType" disabled />
 								<b>Panel Round</b> <input type="number" class="form-control" ng-model="panelRound.model" placeholder="Select 1 - 10"  min="1" max="10" ng-bind="panelInterview.round" required /> 
-								<b>Recording Consent</b> <select ng-model="recordingConsent.model" class="form-control" id="recordConsent"><option ng-repeat="option in recordingConsent.options">{{option}}</option></select>
+								<b>Recording Consent</b> <select ng-options="option as option.exp for option in recordingConsent.options track by option.value" ng-model="recordingConsent.model" placeholder="Select Yes or No" class="form-control" id="recordConsent"></select>
 							</div>
 							<div class="form-group col-xs-6">
 								<b>Interview Date</b> <div class="input-group">
@@ -38,8 +37,8 @@
 													  ng-model-options="{ updateOn: 'blur' }" ng-required="true">
 													  <i class="input-group-addon glyphicon glyphicon-time"></i>
 													  </div>
-								<b>Interview Mode</b> <select ng-model="interviewMode.model" class="form-control" id="interviewMode"><option ng-repeat="option in interviewMode.options">{{option}}</option></select>
-								<b>Internet Connectivity</b> <select ng-model="interviewConnectivity.model" class="form-control" id="interviewConnectivity"><option ng-repeat="option in interviewConnectivity.options">{{option}}</option></select>
+								<b>Interview Mode</b> <select ng-model="interviewMode.model" placeholder="Select a Mode" class="form-control" id="interviewMode" required><option ng-repeat="option in interviewMode.options">{{option}}</option></select>
+								<b>Internet Connectivity</b> <select ng-model="interviewConnectivity.model" placeholder="Select Connectivity" class="form-control" id="interviewConnectivity" required><option ng-repeat="option in interviewConnectivity.options">{{option}}</option></select>
 							</div>
 						</div>
 					</div>
@@ -99,13 +98,20 @@
                         		</tr>
                         		<tr class="form-group">
                         			<td>
-                        			<select ng-model="technologies.model" class="form-control" id="technicalFeedback.technology"
-                        				ng-options="option.skillCategory for option in technologies.options"></select>
+                        				<select ng-model="technologies.model" ng-options="option.skillCategory for option in technologies.options" class="form-control" id="technicalFeedback.technology"></select>
                             		</td>
-                            		<td><select ng-model="panelResult.model" class="form-control" id="technicalFeedback.result"><option ng-repeat="option in panelResult.options">{{option}}</option></select></td>
-                            		<td><select ng-model="repanel.model" class="form-control" id="technicalFeedback.repanel"><option ng-repeat="option in repanel.options">{{option}}</option></select></td>
-                            		<td><input type="text" class="form-control" id="technicalFeedback.comment" ng-model="techComment.model"></td>
-                            		<td><button type="submit" ng-click="addRow()" style="background:transparent;border:transparent"><span class="glyphicon glyphicon-plus" style="color: #F26925;" aria-hidden="true"></span></div></td>
+                            		<td>
+                            			<select ng-options="option.exp for option in panelResult.options" ng-model="panelResult.model" class="form-control" id="technicalFeedback.result"></select>
+                            		</td>
+                            		<td>
+                            			<select ng-model="repanel.model" class="form-control" id="technicalFeedback.repanel"><option ng-repeat="option in repanel.options">{{option}}</option></select>
+                            		</td>
+                            		<td>
+                            			<input type="text" class="form-control" id="technicalFeedback.comment" ng-model="techComment.model">
+                            		</td>
+                            		<td>
+                            			<button type="submit" ng-click="addRow()" style="background:transparent;border:transparent"><span class="glyphicon glyphicon-plus" style="color: #F26925;" aria-hidden="true"></span>
+                            		</td>
                         		</tr>
                     		</table>
 						</div>

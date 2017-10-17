@@ -13,6 +13,7 @@ angular
 			$log.debug("Booted panel controller.");
 			
 			$scope.techFeedback = [];
+			$scope.feedbacksToReturn = [];
 			$scope.counter=0;
 			$scope.techId=0;
 		
@@ -26,13 +27,13 @@ angular
 				name: ""
 			};
 			
-			$scope.panelist = {
+			/*$scope.panelist = {
 				name: ""
-			};
+			};*/
 			
 			$scope.recordingConsent = {
 				model: null,
-				options: ['True', 'False']
+				options: [{exp: 'Yes', value: 'True'}, {exp: 'No', value:'False'}]
 			};
 			
 			$scope.panelStatus = {
@@ -58,8 +59,7 @@ angular
 			
 			$scope.panelResult = {
 				model: null,
-//				options: ['0 - Very Poor', '1 - Moderately Poor', '2 - Fairly Poor', '3 - Poor', '4 - Below Average', '5 - Average', '6 - Above Average', '7 - Good', '8 - Very Good', '9 - Great', '10 - Excellent']
-				options:[0,1,2,3,4,5,6,7,8,9,10]
+				options: [{exp: '0 - Very Poor', value: 0}, {exp: '1 - Moderately Poor', value: 1}, {exp: '2 - Fairly Poor', value: 2}, {exp: '3 - Poor', value: 3}, {exp: '4 - Below Average', value: 4}, {exp: '5 - Average', value: 5}, {exp: '6 - Above Average', value: 6}, {exp: '7 - Good', value: 7}, {exp: '8 - Very Good', value: 8}, {exp: '9 - Great', value: 9}, {exp: '10 - Excellent', value: 10}]
 			};
 			
 			
@@ -162,9 +162,7 @@ angular
 				caliberDelegate.panel.reportTraineePanels(traineeId).then(
 						function(response){
 							$scope.traineePanels = response;
-							//FIX THIS
 							$scope.trainee.name = traineeName;
-							//$scope.panelist.name = $scope.traineePanels[0].panelist.name;
 						});
 				$log.debug($scope.traineePanels);
 				$scope.currentBatch();
@@ -185,9 +183,11 @@ angular
 			}
 			
 			$scope.addRow = function() {
-				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model,$scope.repanel.model,$scope.techComment.model);
+				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.exp,$scope.repanel.model,$scope.techComment.model);
 				$scope.techFeedback.push(theFeedback);
-				console.log($scope.techFeedback);
+				$scope.feedbacksToReturn.push(createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.value,$scope.repanel.model,$scope.techComment.model));
+				
+				$log.debug($scope.feedbacksToReturn);
 			}
 			
 			$scope.deleteRow = function(loc) {
@@ -206,34 +206,7 @@ angular
 					});
 				});
 				$log.debug($scope.batchSkillType);
-			};
-			
-			
-			
-/*			function formatTech(){
-				var actualFeedback = [];
-				var tJSON = "";
-				var tObj = null;
-				var tId = "";
-				var tResult = "";
-				var tStatus = "";
-				var tTechnology = "";
-				var tComment = "";
-				for (var tech in $scope.techFeedback){
-					myTech = $scope.techFeedback[tech];
-					tId = myTech.id;
-					tResult = myTech.result;
-					tStatus = myTech.repanel;
-					tTechnology = myTech.technology;
-					tComment = myTech.comment;
-					tJSON = {"id":tId,"technology":tTechnology,"status":tStatus,"result":tResult,"comment":tComment};
-					tJSON = tJSON.toString();
-					actualFeedback[tech]=tObj;
-				}
-				return actualFeedback;
-			}
-*/
-			
+			};			
 			
 			$scope.savePanel = function(){
 				
@@ -246,10 +219,10 @@ angular
 					format : $scope.interviewMode.model,
 					internet : $scope.interviewConnectivity.model,
 					panelRound : $scope.panelRound.model,
-					recordingConsent: $scope.recordingConsent.model,
+					recordingConsent: $scope.recordingConsent.model.value,
 					recordingLink: $scope.recordingLink.model,
 					status: $scope.overallStatus.model,
-					feedback: $scope.techFeedback,
+					feedback: $scope.feedbacksToReturn,
 					associateIntro: $scope.associateIntro.model,
 					projectOneDescription : $scope.p1Expl.model,
 					projectTwoDescription : $scope.p2Expl.model,
@@ -259,10 +232,10 @@ angular
 				};
 				$log.debug(panel);
 				caliberDelegate.panel.createPanel(panel);
-				//$scope.resetPanelForm();
+				$scope.resetPanelForm();
 			};
 			
-			// Resets the Panel Feedback Form(needs fixing)
+			// Resets the Panel Feedback Form (needs fixing)
 			$scope.resetPanelForm = function() {
 				//$scope.trainee.name = "";
 				//$scope.panelist.name = "";
