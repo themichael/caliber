@@ -367,7 +367,7 @@ public class TrainingService {
 	 */
 	public Set<Trainee> search(String searchTerm) {
 		log.debug("Find trainee : " + searchTerm);
-		Set<Trainee> result = new HashSet<Trainee>();
+		Set<Trainee> result = new HashSet<>();
 		List<Trainee> traineeByEmail = traineeDAO.findByEmail(searchTerm);
 		result.addAll(traineeByEmail);
 		List<Trainee> traineeByName = traineeDAO.findByName(searchTerm);

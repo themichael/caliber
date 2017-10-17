@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -106,8 +105,7 @@ public class PanelDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Panel findOne(Integer panelId) {
 		log.info("Find panel by id: " + panelId);
-		Panel p = (Panel) sessionFactory.getCurrentSession().get(Panel.class, panelId);
-		return p;
+		return (Panel) sessionFactory.getCurrentSession().get(Panel.class, panelId);
 	}
 
 	/**

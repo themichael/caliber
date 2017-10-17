@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -83,7 +82,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 
 		dao.save(panelFeedback);
 		long panelFeedbackid = panelFeedback.getId();
-		System.out.println(panelFeedbackid);
+		log.info("panelFeedbackId: " + panelFeedbackid);
 		int after = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT, Integer.class);
 		assertEquals(panelFeedback.toString(), dao.findOne(panelFeedbackid).toString());
 		assertEquals(++before, after);

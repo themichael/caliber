@@ -12,21 +12,27 @@ angular
 			console.log("in panel controller");
 			$log.debug("Booted panel controller.");
 			
-			$scope.employedTrainees = [];
-			$scope.technologies = [];
-			//getAllTraineePanelsTable();
-			/*var table = document.getElementById("technicalFeedback");
-			$scope.table = table;
-			$scope.lastrow = table.rows.length;
-			$scope.counter = 1;*/
-			
+			$scope.techFeedback = [];
+			$scope.counter=0;
+			$scope.techId=0;
+		
+			// Objects or list of objects that need to be created for this form
 			$scope.traineePanels = [];
-			$scope.employeedTrainees = [];
+			$scope.employedTrainees = [];
+			$scope.batchSkillType = {};
 			
-			//Create the form models & their options
+			// Create the form models & their options
+			$scope.trainee = {
+				name: ""
+			};
+			
+			$scope.panelist = {
+				name: ""
+			};
+			
 			$scope.recordingConsent = {
 				model: null,
-				options: ['yes', 'no']
+				options: ['Yes', 'No']
 			};
 			
 			$scope.panelStatus = {
@@ -34,7 +40,7 @@ angular
 				options: []
 			};
 			
-			//overall panelStatus
+			// Stores overall panelStatus
 			$scope.repanel = {
 				model: null,
 				options: []
@@ -47,7 +53,7 @@ angular
 			
 			$scope.interviewConnectivity = {
 				model: null,
-				options: ['stable', 'unstable']
+				options: ['Stable', 'Unstable']
 			};
 			
 			$scope.panelResult = {
@@ -67,40 +73,55 @@ angular
 			
 			$scope.associateIntro = {
 					model: null
-			}
+			};
+			
 			$scope.p1Expl = {
 					model: null
-			}
+			};
+			
 			$scope.p2Expl = {
 					model: null
-			}
+			};
+			
 			$scope.p3Expl = {
 					model: null
-			}
+			};
+			
 			$scope.communicationSkills = {
 					model: null
-			}
+			};
+			
 			$scope.interviewDuration = {
 					model: null
-			}
+			};
+			
 			$scope.panelRound = {
 					model: null
-			}
+			};
+			
 			$scope.overallPanel = {
 					model: null
-			}
+			};
+			
 			$scope.recordingLink = {
 					model: null
-			}
+			};
+			
 			$scope.interviewDuration = {
 					model: null
-			}
+			};
+			
 			$scope.interviewDate = {
 					model: null
-			}
+			};
+			
 			$scope.interviewTime = {
 					model: null
-			}
+			};
+			
+			$scope.techComment = {
+					model: null
+			};
 
 			// Get all panel status on load up
 			caliberDelegate.all.enumPanelStatus().then(
@@ -139,14 +160,15 @@ angular
 				caliberDelegate.panel.reportTraineePanels(traineeId).then(
 						function(response){
 							$scope.traineePanels = response;
+							$scope.trainee.name = $scope.traineePanels[0].trainee.name;
+							//$scope.panelist.name = $scope.traineePanels[0].panelist.name;
 						});
 				$log.debug($scope.traineePanels);
+				$scope.currentBatch();
 			};
 			
 			(function(){
-				$log.debug("In search trainee");
 				allBatches.forEach(function(batch){
-					$log.debug(batch.trainer);
 					batch.trainees.forEach(function(trainee){
 						$scope.employedTrainees.push(trainee);
 					});
@@ -154,28 +176,75 @@ angular
 				$log.debug($scope.employedTrainees);
 			})();
 			
-			
-			$scope.addRow = function() {
-				$log.debug("in addRow()");
-				var newRow = $("<tr>");
-				var cols = "";
-				
-				cols += '<td><select ng-model="" class="form-control" name="technicalFeedback.technology"><option ng-repeat="">{{}}</option></select></td>';
-		        cols += '<td><select ng-model="" class="form-control" name="technicalFeedback.result"><option ng-repeat="">{{}}</option></select></td>';
-		        cols += '<td><select ng-model="" class="form-control" name="technicalFeedback.repanel"><option ng-repeat=""></option></select></td>';
-		        cols += '<td><input type="text" class="form-control" name="technicalFeedback.comment"></td>';
-		        cols += '<td><div ng-click="addRow()" ng-show="counter==lastrow"><span class="glyphicon glyphicon-plus" style="color: #F26925;" aria-hidden="true"></span></div></td>';
-		        cols += '<td><div ng-click="deleteRow()" ng-hide="counter==1"><span class="glyphicon glyphicon-remove" style="color: #F26925;" aria-hidden="true"></span></div></td>';
-		        cols += '</tr>';
-		        newRow.append(cols);
-		        $("technicalFeedback").append(newRow);
-		        $scope.counter++;
+			function createTechFeedback(id,tech,result,repanel,comment,counter){
+				var theFeedback = {"id":id,"tech":tech,"result":result,"repanel":repanel,"comment":comment,"count":counter};
+				return theFeedback;
 			}
 			
-			$scope.deleteRow = function () {
-				$log.debug("in deleteRow()");
-				$(this).closest("<tr>").remove();       
-		        $scope.counter -= 1;
+			$scope.addRow = function() {
+				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model,$scope.repanel.model,$scope.techComment.model,$scope.counter);
+				$scope.techFeedback[$scope.counter]=theFeedback;
+		        $scope.counter++;
+		        $scope.techId++;
+			}
+			
+			$scope.deleteRow = function(loc) {
+				var newArr = [];
+				var temp1 = [];
+				var temp2 = [];
+				var len = $scope.techFeedback.length;
+				if(len==0){
+					$log.debug(); // It should NEVER ENTER HERE
+				}
+				else if(len==1){
+					$scope.techFeedback = newArr;
+				}
+				else{
+					if(loc==0){
+						$scope.techFeedback = $scope.techFeedback.slice(1);
+						var num = 0;
+						for (var idx in $scope.techFeedback){
+							$scope.techFeedback[num].count = $scope.techFeedback[num].count-1;
+							num++;
+						}
+					}
+					else if(loc==len-1){
+						$scope.techFeedback = $scope.techFeedback.slice(0,len-1);
+					}
+					else if(loc==len-2){
+						temp1 = $scope.techFeedback.slice(0,loc);
+						temp2 = [$scope.techFeedback[len-1]];
+						newArr = temp1.concat(temp2);
+						$scope.techFeedback = newArr;
+						$scope.techFeedback[$scope.techFeedback.length-1].count = $scope.techFeedback[$scope.techFeedback.length-1].count-1;
+					}
+					else{
+						temp1 = $scope.techFeedback.slice(0,loc);
+						temp2 = $scope.techFeedback.slice(loc+1);
+						var num = 0;
+						for (var idx in temp2){
+							temp2[num].count = temp2[num].count-1;
+							num++;
+						}
+						newArr = temp1.concat(temp2);
+						$scope.techFeedback = newArr;
+					}
+				}
+				$scope.counter--;
+				$scope.techId++;
+			}
+
+			// Sets the Training Type
+			$scope.currentBatch = function() {
+				$log.debug("In skillType funtion");
+				allBatches.forEach(function(batch){
+					batch.trainees.forEach(function(t){
+						if(t.id === $scope.trainee.id) {
+							$scope.batchSkillType = batch.skillType;
+						}
+					});
+				});
+				$log.debug($scope.batchSkillType);
 			};
 			
 			$scope.savePanel = function(){
@@ -192,7 +261,7 @@ angular
 					recordingConsent: $scope.recordingConsent.model,
 					recordingLink: $scope.recordingLink.model,
 					status: $scope.overallStatus.model,
-					feedback:[],
+					feedback: $scope.techFeedback,
 					associateIntro: $scope.associateIntro.model,
 					projectOneDescription : $scope.p1Expl.model,
 					projectTwoDescription : $scope.p2Expl.model,
@@ -203,4 +272,28 @@ angular
 				$log.debug(panel);
 			};
 			
+			// Resets the Panel Feedback Form
+			$scope.resetPanelForm = function() {
+				$scope.trainee.name = "";
+				$scope.panelist.name = "";
+				$scope.batchSkillType = {};
+				$scope.panelRound.model = null;
+				$scope.recordingConsent.model = null;
+				$scope.interviewDate.model = null;
+				$scope.interviewTime.model = null;
+				$scope.interviewConnectivity.model = null;
+				$scope.associateIntro.model = null;
+				$scope.p1Expl.model = null;
+				$scope.p2Expl.model = null;
+				$scope.p3Expl.model = null;
+				$scope.communicationSkills.model = null;
+				$scope.technologies.model = null;
+				$scope.panelResult.model = null;
+				$scope.repanel.model = null;
+				$scope.techComment.model = null;
+				$scope.overallPanel.model = null;
+				$scope.overallStatus.model = null;
+				$scope.recordingLink.model = null;
+				$scope.interviewDuration.model = null;
+			}
 	});
