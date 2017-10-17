@@ -163,7 +163,7 @@ angular
 						function(response){
 							$scope.traineePanels = response;
 							//FIX THIS
-							$scope.trainee.name = $scope.traineePanels[0].trainee.name;
+							$scope.trainee.name = traineeName;
 							//$scope.panelist.name = $scope.traineePanels[0].panelist.name;
 						});
 				$log.debug($scope.traineePanels);
@@ -180,61 +180,19 @@ angular
 			})();
 			
 			function createTechFeedback(id,tech,result,repanel,comment,counter){
-				var theFeedback = {"id":id,"technology":tech,"result":result,"status":repanel,"comment":comment,"count":counter};
+				var theFeedback = {"id":id,"technology":tech,"result":result,"status":repanel,"comment":comment};
 				return theFeedback;
 			}
 			
 			$scope.addRow = function() {
-				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model,$scope.repanel.model,$scope.techComment.model,$scope.counter);
-				$scope.techFeedback[$scope.counter]=theFeedback;
-		        $scope.counter++;
-		        $scope.techId++;
+				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model,$scope.repanel.model,$scope.techComment.model);
+				$scope.techFeedback.push(theFeedback);
+				console.log($scope.techFeedback);
 			}
 			
 			$scope.deleteRow = function(loc) {
-				var newArr = [];
-				var temp1 = [];
-				var temp2 = [];
-				var len = $scope.techFeedback.length;
-				if(len==0){
-					$log.debug(); // It should NEVER ENTER HERE
-				}
-				else if(len==1){
-					$scope.techFeedback = newArr;
-				}
-				else{
-					if(loc==0){
-						$scope.techFeedback = $scope.techFeedback.slice(1);
-						var num = 0;
-						for (var idx in $scope.techFeedback){
-							$scope.techFeedback[num].count = $scope.techFeedback[num].count-1;
-							num++;
-						}
-					}
-					else if(loc==len-1){
-						$scope.techFeedback = $scope.techFeedback.slice(0,len-1);
-					}
-					else if(loc==len-2){
-						temp1 = $scope.techFeedback.slice(0,loc);
-						temp2 = [$scope.techFeedback[len-1]];
-						newArr = temp1.concat(temp2);
-						$scope.techFeedback = newArr;
-						$scope.techFeedback[$scope.techFeedback.length-1].count = $scope.techFeedback[$scope.techFeedback.length-1].count-1;
-					}
-					else{
-						temp1 = $scope.techFeedback.slice(0,loc);
-						temp2 = $scope.techFeedback.slice(loc+1);
-						var num = 0;
-						for (var idx in temp2){
-							temp2[num].count = temp2[num].count-1;
-							num++;
-						}
-						newArr = temp1.concat(temp2);
-						$scope.techFeedback = newArr;
-					}
-				}
-				$scope.counter--;
-				$scope.techId++;
+				$scope.techFeedback.splice(loc,1);
+				console.log($scope.techFeedback);
 			}
 
 			// Sets the Training Type
@@ -252,7 +210,7 @@ angular
 			
 			
 			
-			function formatTech(){
+/*			function formatTech(){
 				var actualFeedback = [];
 				var tJSON = "";
 				var tObj = null;
@@ -274,6 +232,7 @@ angular
 				}
 				return actualFeedback;
 			}
+*/
 			
 			
 			$scope.savePanel = function(){
@@ -290,7 +249,7 @@ angular
 					recordingConsent: $scope.recordingConsent.model,
 					recordingLink: $scope.recordingLink.model,
 					status: $scope.overallStatus.model,
-					feedback: formatTech(),
+					feedback: $scope.techFeedback,
 					associateIntro: $scope.associateIntro.model,
 					projectOneDescription : $scope.p1Expl.model,
 					projectTwoDescription : $scope.p2Expl.model,
