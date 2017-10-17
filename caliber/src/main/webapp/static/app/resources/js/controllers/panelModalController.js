@@ -250,6 +250,32 @@ angular
 				$log.debug($scope.batchSkillType);
 			};
 			
+			
+			
+			function formatTech(){
+				var actualFeedback = [];
+				var tJSON = "";
+				var tObj = null;
+				var tId = "";
+				var tResult = "";
+				var tStatus = "";
+				var tTechnology = "";
+				var tComment = "";
+				for (var tech in $scope.techFeedback){
+					myTech = $scope.techFeedback[tech];
+					tId = myTech.id;
+					tResult = myTech.result;
+					tStatus = myTech.repanel;
+					tTechnology = myTech.technology;
+					tComment = myTech.comment;
+					tJSON = {"id":tId,"technology":tTechnology,"status":tStatus,"result":tResult,"comment":tComment};
+					tJSON = tJSON.toString();
+					actualFeedback[tech]=tObj;
+				}
+				return actualFeedback;
+			}
+			
+			
 			$scope.savePanel = function(){
 				
 				var panel = {
@@ -264,7 +290,7 @@ angular
 					recordingConsent: $scope.recordingConsent.model,
 					recordingLink: $scope.recordingLink.model,
 					status: $scope.overallStatus.model,
-					feedback: $scope.techFeedback,
+					feedback: formatTech(),
 					associateIntro: $scope.associateIntro.model,
 					projectOneDescription : $scope.p1Expl.model,
 					projectTwoDescription : $scope.p2Expl.model,
