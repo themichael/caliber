@@ -103,7 +103,7 @@ public class PanelController {
 	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panel) {
 		SalesforceUser user = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(user.getEmail());
+		log.info(user.getEmail());
 		panel.setPanelist(trainingService.findTrainer(user.getEmail()));
 		panelService.createPanel(panel);
 		return new ResponseEntity<>(panel, HttpStatus.CREATED);

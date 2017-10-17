@@ -27,10 +27,6 @@ angular
 				name: null
 			};
 			
-			/*$scope.panelist = {
-				name: ""
-			};*/
-			
 			$scope.recordingConsent = {
 				model: null,
 				options: [{exp: 'Yes', value: 'True'}, {exp: 'No', value:'False'}]
@@ -180,7 +176,7 @@ angular
 				$log.debug($scope.employedTrainees);
 			})();
 			
-			function createTechFeedback(id,tech,result,repanel,comment,counter){
+			function createTechFeedback(id,tech,result,repanel,comment){
 				return {"id": id,"technology": tech,"result": result,"status": repanel,"comment": comment};
 			}
 			

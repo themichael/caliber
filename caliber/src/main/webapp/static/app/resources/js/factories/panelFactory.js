@@ -12,9 +12,8 @@
  */
 
 angular.module('api').factory('panelFactory', function($log, $http) {
-	'use strict';
 	$log.debug('Booted Panel API');
-	let panel = {};
+	const panel = {};
 
 	/** ******************* Panel ************************** */
 
