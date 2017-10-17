@@ -91,9 +91,9 @@
                             		<th> Comment </th>
                         		</tr>
                         		<tr class="form-group" ng-repeat="techs in techFeedback track by techs.id">
-                            		<td>{{techs.tech}}</td>
+                            		<td>{{techs.technology}}</td>
                             		<td>{{techs.result}}</td>
-                            		<td>{{techs.repanel}}</td>
+                            		<td>{{techs.status}}</td>
                             		<td>{{techs.comment}}</td>
                             		<td><button type="submit" ng-click="deleteRow(techs.count)" style="background:transparent;border:transparent"><span class="glyphicon glyphicon-remove" style="color: #F26925;" aria-hidden="true"></span></div></td>
                         		</tr>
