@@ -48,16 +48,6 @@ public class EmailService {
 		this.mailer = mailer;
 	}
 
-//	@PostConstruct
-//	public void init() {
-//
-//		this.startReminderJob();
-//	}
-	
-		
-
-
-	
 	static boolean init = false;
 	@PostConstruct
 	private synchronized void startReminderJob() {
@@ -65,16 +55,14 @@ public class EmailService {
 			return;
 		init = true;
 		logger.warn("startReminderJob()");
-		Timer timer = new Timer(); // wire this as a bean
 		Calendar calendar = Calendar.getInstance();
-//		calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
-		Date startDate = new Date(calendar.getTime().getTime() + 15000);
-		//long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
+		calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+		calendar.set(Calendar.HOUR, 9);
+		calendar.set(Calendar.MINUTE, 15);
+		Date startDate = calendar.getTime();
 		long interval = 300000;
 		emailTimer.scheduleAtFixedRate(this.mailer, startDate, interval);
 
 	}
-
-
 
 }
