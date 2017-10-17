@@ -18,7 +18,7 @@ import com.revature.caliber.email.Mailer;
  * Starts the email job
  * @author Andrew Bonds
  * @author Will Underwood
- *
+ * @author Vladimir Yevseenko
  */
 @Service
 public class EmailService {

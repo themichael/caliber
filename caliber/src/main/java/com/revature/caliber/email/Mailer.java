@@ -33,6 +33,7 @@ import com.revature.caliber.data.TraineeDAO;
  * This class sends reminder emails to trainers who have not submitted all grades for their batch.
  * @author Will Underwood
  * @author Andrew Bonds
+ * @author Vladimir Yevseenko
  *
  */
 @Component
