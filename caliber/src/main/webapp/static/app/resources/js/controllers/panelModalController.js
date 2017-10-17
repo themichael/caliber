@@ -7,9 +7,9 @@ angular
 .module("panel")
 .controller(
 		"panelModalController",
-		function($rootScope, $scope, $state, $log,$cookies, caliberDelegate, allBatches) {
+		function($rootScope, $scope, $state, $log, $cookies, caliberDelegate, allBatches) {
 			
-			console.log("in panel controller");
+			$log.debug("in panel controller");
 			$log.debug("Booted panel controller.");
 			
 			$scope.techFeedback = [];
@@ -24,7 +24,7 @@ angular
 			
 			// Create the form models & their options
 			$scope.trainee = {
-				name: ""
+				name: null
 			};
 			
 			/*$scope.panelist = {
@@ -153,6 +153,7 @@ angular
 			// *******************************************************************************
 		
 			$scope.selectChosenTrainee = function(traineeName){
+				$log.debug('selected trainee= ' + traineeName);
 				let traineeId = -1;
 				$scope.employedTrainees.forEach(function(trainee) {
 					if (trainee.name === traineeName) {
@@ -163,9 +164,11 @@ angular
 						function(response){
 							$scope.traineePanels = response;
 							$scope.trainee.name = traineeName;
+							$log.debug('trainee name= ' + $scope.trainee.name);
+							$log.debug($scope.trainee.name);
+							$scope.currentBatch();
+							$log.debug($scope.traineePanels);
 						});
-				$log.debug($scope.traineePanels);
-				$scope.currentBatch();
 			};
 			
 			(function(){
@@ -178,29 +181,32 @@ angular
 			})();
 			
 			function createTechFeedback(id,tech,result,repanel,comment,counter){
-				var theFeedback = {"id":id,"technology":tech,"result":result,"status":repanel,"comment":comment};
-				return theFeedback;
+				return {"id": id,"technology": tech,"result": result,"status": repanel,"comment": comment};
 			}
 			
 			$scope.addRow = function() {
 				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.exp,$scope.repanel.model,$scope.techComment.model);
 				$scope.techFeedback.push(theFeedback);
 				$scope.feedbacksToReturn.push(createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.value,$scope.repanel.model,$scope.techComment.model));
-				
 				$log.debug($scope.feedbacksToReturn);
 			}
 			
 			$scope.deleteRow = function(loc) {
-				$scope.techFeedback.splice(loc,1);
-				console.log($scope.techFeedback);
+				$scope.techFeedback.splice(loc, 1);
+				$scope.feedbacksToReturn.splice(loc, 1);
+				$log.debug($scope.feedbacksToReturn);
 			}
 
 			// Sets the Training Type
 			$scope.currentBatch = function() {
 				$log.debug("In skillType funtion");
 				allBatches.forEach(function(batch){
-					batch.trainees.forEach(function(t){
-						if(t.id === $scope.trainee.id) {
+					batch.trainees.forEach(function(trainee) {
+						$log.debug(trainee.name + ' ' + $scope.trainee.name);
+						if(trainee.name === $scope.trainee.name) {
+							$log.debug($scope.trainee);
+							$log.debug(batch);
+							$scope.trainee = trainee;
 							$scope.batchSkillType = batch.skillType;
 						}
 					});
@@ -213,7 +219,7 @@ angular
 				$scope.formatTech()
 				var panel = {
 					//vvv---Probs not the way to go about it
-					trainee : $scope.traineePanels[0].trainee,
+					trainee : $scope.trainee,
 					panelist : {},
 					interviewDate : $scope.interviewDate.model,
 					duration : $scope.interviewDuration.model,
@@ -238,13 +244,13 @@ angular
 			
 			// Resets the Panel Feedback Form (needs fixing)
 			$scope.resetPanelForm = function() {
-				//$scope.trainee.name = "";
-				//$scope.panelist.name = "";
-				//$scope.batchSkillType = {};
+				$scope.techFeedback = [];
+				$scope.feedbacksToReturn = [];
 				$scope.panelRound.model = null;
 				$scope.recordingConsent.model = null;
 				$scope.interviewDate.model = null;
 				$scope.interviewTime.model = null;
+				$scope.interviewMode.model = null;
 				$scope.interviewConnectivity.model = null;
 				$scope.associateIntro.model = null;
 				$scope.p1Expl.model = null;
