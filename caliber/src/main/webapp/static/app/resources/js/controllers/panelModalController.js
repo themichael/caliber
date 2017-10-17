@@ -24,7 +24,7 @@ angular
 			
 			// Create the form models & their options
 			$scope.trainee = {
-				name: ""
+				name: null
 			};
 			
 			/*$scope.panelist = {
@@ -153,6 +153,7 @@ angular
 			// *******************************************************************************
 		
 			$scope.selectChosenTrainee = function(traineeName){
+				$log.debug('selected trainee= ' + traineeName);
 				let traineeId = -1;
 				$scope.employedTrainees.forEach(function(trainee) {
 					if (trainee.name === traineeName) {
@@ -163,9 +164,11 @@ angular
 						function(response){
 							$scope.traineePanels = response;
 							$scope.trainee.name = traineeName;
+							$log.debug('trainee name= ' + $scope.trainee.name);
+							$log.debug($scope.trainee.name);
+							$scope.currentBatch();
+							$log.debug($scope.traineePanels);
 						});
-				$log.debug($scope.traineePanels);
-				$scope.currentBatch();
 			};
 			
 			(function(){
@@ -198,8 +201,12 @@ angular
 			$scope.currentBatch = function() {
 				$log.debug("In skillType funtion");
 				allBatches.forEach(function(batch){
-					batch.trainees.forEach(function(t){
-						if(t.id === $scope.trainee.id) {
+					batch.trainees.forEach(function(trainee) {
+						$log.debug(trainee.name + ' ' + $scope.trainee.name);
+						if(trainee.name === $scope.trainee.name) {
+							$log.debug($scope.trainee);
+							$log.debug(batch);
+							$scope.trainee = trainee;
 							$scope.batchSkillType = batch.skillType;
 						}
 					});
@@ -211,7 +218,7 @@ angular
 				
 				var panel = {
 					//vvv---Probs not the way to go about it
-					trainee : $scope.traineePanels[0].trainee,
+					trainee : $scope.trainee,
 					panelist : {},
 					interviewDate : $scope.interviewDate.model,
 					duration : $scope.interviewDuration.model,
@@ -236,13 +243,13 @@ angular
 			
 			// Resets the Panel Feedback Form (needs fixing)
 			$scope.resetPanelForm = function() {
-				//$scope.trainee.name = "";
-				//$scope.panelist.name = "";
-				//$scope.batchSkillType = {};
+				$scope.techFeedback = [];
+				$scope.feedbacksToReturn = [];
 				$scope.panelRound.model = null;
 				$scope.recordingConsent.model = null;
 				$scope.interviewDate.model = null;
 				$scope.interviewTime.model = null;
+				$scope.interviewMode.model = null;
 				$scope.interviewConnectivity.model = null;
 				$scope.associateIntro.model = null;
 				$scope.p1Expl.model = null;
