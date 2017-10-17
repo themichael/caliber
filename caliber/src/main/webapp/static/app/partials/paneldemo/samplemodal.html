@@ -85,22 +85,23 @@
 						<div class="panel-body">
 							<table id="technicalFeedback" class="table table=responsive">
                         		<tr>
-                            		<th> Technology </th>
-                            		<th> Result </th>
-                            		<th> Repanel </th>
-                            		<th> Comment </th>
+                            		<th>Technology</th>
+                            		<th>Result</th>
+                            		<th>Repanel</th>
+                            		<th>Comment</th>
                         		</tr>
                         		<tr class="form-group" ng-repeat="techs in techFeedback track by $index">
-                            		<td>{{techs.technology}}</td>
-                            		<td>{{techs.result}}</td>
-                            		<td>{{techs.status}}</td>
-                            		<td>{{techs.comment}}</td>
+                            		<td ng-bind="techs.technology.skillCategory"></td>
+                            		<td ng-bind="techs.result"></td>
+                            		<td ng-bind="techs.status"></td>
+                            		<td ng-bind="techs.comment"></td>
                             		<td><button type="submit" ng-click="deleteRow($index)" style="background:transparent;border:transparent"><span class="glyphicon glyphicon-remove" style="color: #F26925;" aria-hidden="true"></span></div></td>
                         		</tr>
                         		<tr class="form-group">
-                        			<td><select ng-model="technologies.model" class="form-control" id="technicalFeedback.technology">
-                            			<option ng-repeat="option in technologies.options">{{option.skillCategory}}</option>
-                            		</select></td>
+                        			<td>
+                        			<select ng-model="technologies.model" class="form-control" id="technicalFeedback.technology"
+                        				ng-options="option.skillCategory for option in technologies.options"></select>
+                            		</td>
                             		<td><select ng-model="panelResult.model" class="form-control" id="technicalFeedback.result"><option ng-repeat="option in panelResult.options">{{option}}</option></select></td>
                             		<td><select ng-model="repanel.model" class="form-control" id="technicalFeedback.repanel"><option ng-repeat="option in repanel.options">{{option}}</option></select></td>
                             		<td><input type="text" class="form-control" id="technicalFeedback.comment" ng-model="techComment.model"></td>
