@@ -164,12 +164,11 @@ public class Mailer extends TimerTask {
 		Set<Trainer> trainersToSubmitGrades = new HashSet<Trainer>();
 		List<Batch> batches = getBatches();
 		for (Batch batch : batches) {
-			Set<Assessment> expectedAssessments = getAssessments(batch.getBatchId());
-			Set<Trainee> trainees = getTrainees(batch.getBatchId());
-			int actualAssessments = getActual(expectedAssessments, batch.getBatchId());
-			int expectedNumberOfGrades = trainees.size() * expectedAssessments.size();
+			Set<Trainee> trainees = batch.getTrainees();
+			List<Assessment> assessments = getAssessments(batch.getBatchId());
+			int expectedNumberOfGrades = trainees.size() * assessments.size();
 			int actualNumberOfGrades = 0;
-			actualNumberOfGrades += actualAssessments;
+			actualNumberOfGrades = getActualNumberOfGrades(assessments, batch.getBatchId());
 			if (actualNumberOfGrades < expectedNumberOfGrades) {
 				trainersToSubmitGrades.add(batch.getTrainer());
 			}
@@ -181,23 +180,21 @@ public class Mailer extends TimerTask {
 		return batchDAO.findAllCurrent();
 	}
 	
-	private Set<Assessment> getAssessments(int batchID) {
-		Set<Assessment> assessments = new HashSet<Assessment>();
-		assessments.addAll(this.assessmentDAO.findByBatchId(batchID));
-		return assessments;
+	private List<Assessment> getAssessments(int batchID) {
+		return this.assessmentDAO.findByBatchId(batchID);
 	}
 	
-	private int getActual(Set<Assessment> expectedAssessments, int batchID){
+	private int getActualNumberOfGrades(List<Assessment> expectedAssessments, int batchID){
 		List<Grade> allGrades = gradeDAO.findByBatch(batchID);
-		int assessmentCounter = 0;
+		int gradeCounter = 0;
 		for(Grade grade: allGrades) {
 			for(Assessment assessment: expectedAssessments) {
 				if(grade.getAssessment().getAssessmentId() == assessment.getAssessmentId()) {
-					assessmentCounter++;
+					gradeCounter++;
 				}
 			}
 		}
-		return assessmentCounter;
+		return gradeCounter;
 	}
 
 	private Set<Trainee> getTrainees(int batchID) {

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.email.Mailer;
 
@@ -24,8 +26,11 @@ public class MailerTest extends CaliberTest {
 	private Mailer mailer;
 	private Set<Trainer> trainersToSubmitGrades;
 	private TrainerDAO trainerDAO;
+	private GradeDAO gradeDAO;
+	private BatchDAO batchDAO;
 	private Trainer Gray;
 	private Trainer Patrick;
+	private Trainer Dan;
 	
 	@Autowired
 	public void setMailer(Mailer mailer) {
@@ -35,6 +40,16 @@ public class MailerTest extends CaliberTest {
 	@Autowired
 	public void setTrainerDAO(TrainerDAO trainerDAO) {
 		this.trainerDAO = trainerDAO;
+	}
+	
+	@Autowired
+	public void setGradeDAO(GradeDAO gradeDAO) {
+		this.gradeDAO = gradeDAO;
+	}
+	
+	@Autowired
+	public void setBatchDAO(BatchDAO batchDAO) {
+		this.batchDAO = batchDAO;
 	}
 
 	/**
@@ -46,6 +61,7 @@ public class MailerTest extends CaliberTest {
 		this.trainersToSubmitGrades = this.mailer.getTrainersWhoNeedToSubmitGrades();
 		this.Gray = this.trainerDAO.findByEmail("grawyne@gmail.com");
 		this.Patrick = this.trainerDAO.findByEmail("patrick.walsh@revature.com");
+		this.Dan = this.trainerDAO.findByEmail("pjw6193@hotmail.com");
 	}
 	
 	/**
@@ -63,5 +79,15 @@ public class MailerTest extends CaliberTest {
 	public void testPatrickPresent() {
 		assertTrue(this.trainersToSubmitGrades.contains(this.Patrick));
 	}
+	
+	/**
+	 * Dan Pickles should be in the collection, because he has not submitted any grades
+	 */
+	@Test
+	public void testDanPresent() {
+		assertTrue(this.trainersToSubmitGrades.contains(this.Dan));
+	}
+	
+	
 
 }
