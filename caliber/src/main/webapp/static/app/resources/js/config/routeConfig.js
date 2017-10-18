@@ -548,10 +548,10 @@ angular
 										views : {
 											"" : {
 												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
-												//controller: "panelModalController"
+												controller: "panelModalController"
 												//controller : "allReportController"
 											},
-											"samplemodal@vp.panels" : {
+											"samplemodal@vp.panel" : {
 												templateUrl : "/static/app/partials/paneldemo/samplemodal.html",
 											}
 										}

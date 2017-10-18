@@ -160,6 +160,7 @@ angular
 						function(response){
 							$scope.traineePanels = response;
 							$scope.trainee.name = traineeName;
+							$scope.panelRound.model = $scope.traineePanels.length + 1;
 							$log.debug('trainee name= ' + $scope.trainee.name);
 							$log.debug($scope.trainee.name);
 							$scope.currentBatch();
@@ -202,18 +203,19 @@ angular
 						if(trainee.name === $scope.trainee.name) {
 							$log.debug($scope.trainee);
 							$log.debug(batch);
-							$scope.trainee = trainee;
+							for (let prop in trainee) {
+								$scope.trainee[prop] = trainee[prop];
+							}
 							$scope.batchSkillType = batch.skillType;
 						}
 					});
 				});
 				$log.debug($scope.batchSkillType);
-			};			
+			};	
 			
 			$scope.savePanel = function(){
 				
 				var panel = {
-					//vvv---Probs not the way to go about it
 					trainee : $scope.trainee,
 					panelist : {},
 					interviewDate : $scope.interviewDate.model,
@@ -237,7 +239,7 @@ angular
 				$scope.resetPanelForm();
 			};
 			
-			// Resets the Panel Feedback Form (needs fixing)
+			// Resets the Panel Feedback Form
 			$scope.resetPanelForm = function() {
 				$scope.techFeedback = [];
 				$scope.feedbacksToReturn = [];
@@ -260,5 +262,5 @@ angular
 				$scope.overallStatus.model = null;
 				$scope.recordingLink.model = null;
 				$scope.interviewDuration.model = null;
-			}
+			};
 	});
