@@ -17,7 +17,7 @@
 							<div class="form-group col-xs-6">
 								<b>Associate Name</b> <input type="text" class="form-control" ng-model="trainee.name" disabled /> 
 								<b>Training Track</b> <input type="text" class="form-control" ng-model="batchSkillType" disabled />
-								<b>Panel Round</b> <input type="number" class="form-control" ng-model="panelRound.model" placeholder="Select 1 - 10"  min="1" max="10" ng-bind="panelInterview.round" required /> 
+								<b>Panel Round</b> <input type="number" class="form-control" ng-model="panelRound.model" disabled /> 
 								<b>Recording Consent</b> <select ng-options="option.exp for option in recordingConsent.options" ng-model="recordingConsent.model" placeholder="Select Yes or No" class="form-control" id="recordConsent"></select>
 							</div>
 							<div class="form-group col-xs-6">
@@ -37,7 +37,7 @@
 													  ng-model-options="{ updateOn: 'blur' }" ng-required="true">
 													  <i class="input-group-addon glyphicon glyphicon-time"></i>
 													  </div>
-								<b>Interview Mode</b> <select ng-model="interviewMode.model" placeholder="Select a Mode" class="form-control" id="interviewMode" required><option ng-repeat="option in interviewMode.options">{{option}}</option></select>
+								<b>Interview Mode</b> <select ng-model="interviewMode.model" placeholder="Select a Mode" class="form-control" id="interviewMode" ng-required="true"><option ng-repeat="option in interviewMode.options">{{option}}</option></select>
 								<b>Internet Connectivity</b> <select ng-model="interviewConnectivity.model" placeholder="Select Connectivity" class="form-control" id="interviewConnectivity" required><option ng-repeat="option in interviewConnectivity.options">{{option}}</option></select>
 							</div>
 						</div>
@@ -132,7 +132,7 @@
                             	</div>
                             </div>
                             <div class="row">
-                            	<div class="form-group col-xs-2"><b>Panel Status</b><select ng-model="overallStatus.model" class="form-control" id="overallFeedback.panelStatus">
+                            	<div class="form-group col-xs-2"><b>Panel Status</b><select ng-model="overallStatus.model" class="form-control" id="overallFeedback.panelStatus" ng-required="true">
                             															<option ng-repeat="option in overallStatus.options">{{option}}</option>
                             				   										</select></td>
                             	</div>

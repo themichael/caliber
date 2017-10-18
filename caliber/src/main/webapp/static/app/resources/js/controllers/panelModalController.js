@@ -163,6 +163,7 @@ angular
 						function(response){
 							$scope.traineePanels = response;
 							$scope.trainee.name = traineeName;
+							$scope.panelRound.model = $scope.traineePanels.length + 1;
 						});
 				$log.debug($scope.traineePanels);
 				$scope.currentBatch();
@@ -205,7 +206,7 @@ angular
 					});
 				});
 				$log.debug($scope.batchSkillType);
-			};			
+			};	
 			
 			$scope.savePanel = function(){
 				
@@ -234,7 +235,7 @@ angular
 				$scope.resetPanelForm();
 			};
 			
-			// Resets the Panel Feedback Form (needs fixing)
+			// Resets the Panel Feedback Form
 			$scope.resetPanelForm = function() {
 				//$scope.trainee.name = "";
 				//$scope.panelist.name = "";
