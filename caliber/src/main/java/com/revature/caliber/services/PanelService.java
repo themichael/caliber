@@ -140,6 +140,7 @@ public class PanelService {
 	 * Takes a Set of panel feedbacks and returns a string which is
 	 * a list of all categories which must be repaneled
 	 * @author emmabownes
+	 * @author Daniel Fairbanks
 	 * @param feedback
 	 * @return topics
 	 */
@@ -147,8 +148,10 @@ public class PanelService {
 		String topics = "";
 		for(PanelFeedback pf: feedback) {
 			if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
-				if(topics.length()>0) {topics += ", ";}
-				topics += pf.getTechnology().getSkillCategory();
+				if (topics.equals(""))
+					topics += pf.getTechnology().getSkillCategory();
+				else
+					topics += ", " + pf.getTechnology().getSkillCategory();
 			}
 		}
 		return topics;
