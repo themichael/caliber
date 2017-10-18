@@ -206,7 +206,9 @@ angular
 						if(trainee.name === $scope.trainee.name) {
 							$log.debug($scope.trainee);
 							$log.debug(batch);
-							$scope.trainee = trainee;
+							for (let prop in trainee) {
+								$scope.trainee[prop] = trainee[prop];
+							}
 							$scope.batchSkillType = batch.skillType;
 						}
 					});
@@ -216,9 +218,7 @@ angular
 			
 			$scope.savePanel = function(){
 				
-				$scope.formatTech()
 				var panel = {
-					//vvv---Probs not the way to go about it
 					trainee : $scope.trainee,
 					panelist : {},
 					interviewDate : $scope.interviewDate.model,
