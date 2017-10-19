@@ -45,7 +45,7 @@ public class TrainerDAOTest extends CaliberTest {
 	@Test
 	public void testFindAll() {
 		log.info("Find all trainers");
-		assertEquals(21, trainerDAO.findAll().size());
+		assertEquals(23, trainerDAO.findAll().size());
 	}
 
 	@Test
