@@ -39,7 +39,7 @@ public class EmailService implements InitializingBean {
 
 	private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.THURSDAY;
 	private static final int HOUR_TO_FIRE = 14; // hours go 0-23
-	private static final int MINUTE_TO_FIRE = 26; // minutes go 0-59
+	private static final int MINUTE_TO_FIRE = 43; // minutes go 0-59
 	private static final int DAYS_BETWEEN_EMAILS = 7;
 	private static final long SECONDS_BETWEEN_EMAILS = TimeUnit.DAYS.toSeconds(DAYS_BETWEEN_EMAILS);
 	
@@ -50,9 +50,10 @@ public class EmailService implements InitializingBean {
 	private void startReminderJob() {
 		logger.info("startReminderJob()");
 		
-		LocalTime localTime = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
-		LocalDate localDate = LocalDate.now().with(TemporalAdjusters.next(DAY_OF_WEEK_TO_FIRE));
-		ZonedDateTime timeToFire = ZonedDateTime.of(localDate, localTime, TIME_ZONE);
+//		LocalTime localTime = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
+		LocalDate localDate = LocalDate.now();
+				//.with(TemporalAdjusters.next(DAY_OF_WEEK_TO_FIRE));
+		ZonedDateTime timeToFire = ZonedDateTime.of(localDate, LocalTime.now().plusSeconds(5), TIME_ZONE);
 		ZonedDateTime now = ZonedDateTime.of(LocalDate.now(), LocalTime.now(), TIME_ZONE);
 
 		logger.info("Emails will start firing at " + timeToFire);
