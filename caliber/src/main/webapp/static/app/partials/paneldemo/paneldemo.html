@@ -65,10 +65,9 @@
 										<td style="text-align: center;height:auto">
 											<b><span ng-repeat="option in item.feedback"
 											ng-if="option.status == 'Repanel'" ng-bind="option.technology.skillCategory" style="display:block"></span></b>
+											<span ng-if="item.status!='Repanel'" style="color: rgb(252, 221, 115); width: 100%; text-align: center;"
+											class="fa fa-minus fa-2x"></span>
 										</td>
-										<td ng-if="item.status!='Repanel'"><span
-											style="color: rgb(252, 221, 115); width: 100%; text-align: center;"
-											class="fa fa-minus fa-2x"></span></td>
 									</tr>
 								</tbody>
 							</table>
