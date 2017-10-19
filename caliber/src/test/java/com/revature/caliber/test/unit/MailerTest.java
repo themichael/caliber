@@ -26,11 +26,11 @@ public class MailerTest extends CaliberTest {
 	private Mailer mailer;
 	private Set<Trainer> trainersToSubmitGrades;
 	private TrainerDAO trainerDAO;
-	private GradeDAO gradeDAO;
-	private BatchDAO batchDAO;
 	private Trainer Gray;
 	private Trainer Patrick;
 	private Trainer Dan;
+	private Trainer Orson;
+	private Trainer Shelby;
 	
 	@Autowired
 	public void setMailer(Mailer mailer) {
@@ -40,16 +40,6 @@ public class MailerTest extends CaliberTest {
 	@Autowired
 	public void setTrainerDAO(TrainerDAO trainerDAO) {
 		this.trainerDAO = trainerDAO;
-	}
-	
-	@Autowired
-	public void setGradeDAO(GradeDAO gradeDAO) {
-		this.gradeDAO = gradeDAO;
-	}
-	
-	@Autowired
-	public void setBatchDAO(BatchDAO batchDAO) {
-		this.batchDAO = batchDAO;
 	}
 
 	/**
@@ -62,6 +52,8 @@ public class MailerTest extends CaliberTest {
 		this.Gray = this.trainerDAO.findByEmail("grawyne@gmail.com");
 		this.Patrick = this.trainerDAO.findByEmail("patrick.walsh@revature.com");
 		this.Dan = this.trainerDAO.findByEmail("pjw6193@hotmail.com");
+		this.Orson = this.trainerDAO.findByEmail("owallace@mailinator.com");
+		this.Shelby = this.trainerDAO.findByEmail("slevinson@mailinator.com");
 	}
 	
 	/**
@@ -73,7 +65,7 @@ public class MailerTest extends CaliberTest {
 	}
 	
 	/**
-	 * Patrick Walsh should be in the collection, because he has yet to submit some grades
+	 * Patrick Walsh should be in the collection, because he has submitted only some grades
 	 */
 	@Test
 	public void testPatrickPresent() {
@@ -88,6 +80,17 @@ public class MailerTest extends CaliberTest {
 		assertTrue(this.trainersToSubmitGrades.contains(this.Dan));
 	}
 	
+	/**
+	 * Orson Wallace should be in the collection, because he has submitted all but one grade
+	 */
+	@Test
+	public void testOrsonPresent() {
+		assertTrue(this.trainersToSubmitGrades.contains(this.Orson));
+	}
 	
+	@Test
+	public void testShelbyPresent() {
+		assertTrue(this.trainersToSubmitGrades.contains(this.Shelby));
+	}
 
 }

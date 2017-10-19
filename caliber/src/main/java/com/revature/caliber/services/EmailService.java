@@ -36,6 +36,7 @@ public class EmailService implements InitializingBean {
 		Executors.newScheduledThreadPool(1);
 	
 	private static final ZoneId TIME_ZONE = ZoneId.of("America/New_York");
+
 	private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.THURSDAY;
 	private static final int HOUR_TO_FIRE = 14; // hours go 0-23
 	private static final int MINUTE_TO_FIRE = 26; // minutes go 0-59
@@ -53,7 +54,8 @@ public class EmailService implements InitializingBean {
 		LocalDate localDate = LocalDate.now().with(TemporalAdjusters.next(DAY_OF_WEEK_TO_FIRE));
 		ZonedDateTime timeToFire = ZonedDateTime.of(localDate, localTime, TIME_ZONE);
 		ZonedDateTime now = ZonedDateTime.of(LocalDate.now(), LocalTime.now(), TIME_ZONE);
-		
+
+		logger.info("Emails will start firing at " + timeToFire);
 
 		scheduler.scheduleAtFixedRate(mailer, 
 				timeToFire.toEpochSecond() - now.toEpochSecond(), 
