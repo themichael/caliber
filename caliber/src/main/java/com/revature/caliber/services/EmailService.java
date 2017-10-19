@@ -3,7 +3,7 @@ package com.revature.caliber.services;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.concurrent.Executors;
@@ -23,7 +23,6 @@ import com.revature.caliber.email.Mailer;
  * @author Andrew Bonds
  * @author Will Underwood
  * @author Vladimir Yevseenko
-<<<<<<< HEAD
  */
 @Service
 public class EmailService implements InitializingBean {
@@ -36,17 +35,17 @@ public class EmailService implements InitializingBean {
 	private static final ScheduledExecutorService scheduler =
 		Executors.newScheduledThreadPool(1);
 	
-	private static final ZoneOffset TIME_ZONE = ZoneOffset.UTC;
+	private static final ZoneId TIME_ZONE = ZoneId.of("America/Eastern");
 	private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.TUESDAY;
-	private static final int HOUR_TO_FIRE = 9;
-	private static final int MINUTE_TO_FIRE = 0;
-	private static final int INITIAL_DELAY = 0;
+	private static final int HOUR_TO_FIRE = 12; // hours go 0-23
+	private static final int MINUTE_TO_FIRE = 0; // minutes go 0-59
+	private static final int INITIAL_DELAY = 0; 
 	private static final int DAYS_BETWEEN_EMAILS = 7;
 	
 	public void setMailer(Mailer mailer) {
 		this.mailer = mailer;
 	}
-	
+
 	private void startReminderJob() {
 		logger.info("startReminderJob()");
 		

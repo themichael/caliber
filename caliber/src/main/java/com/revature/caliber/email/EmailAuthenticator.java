@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailAuthenticator extends Authenticator {
 
-	@Value("#{systemEnvironment['DEV_CALIBER_EMAIL']}")
+	@Value("#{systemEnvironment['CALIBER_EMAIL_USERNAME']}")
 	private String fromEmail;
-	@Value("#{systemEnvironment['DEV_CALIBER_PASS']}")
+	@Value("#{systemEnvironment['CALIBER_EMAIL_PASS']}")
 	private String fromPass;
 
 	@Override
