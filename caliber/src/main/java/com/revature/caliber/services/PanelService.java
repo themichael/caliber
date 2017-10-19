@@ -1,5 +1,7 @@
 package com.revature.caliber.services;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -126,9 +128,10 @@ public class PanelService {
 				panel = panels.get(0);
 				status = panel.getStatus().toString();
 				panelInfo.put("status", status);
+				DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+				panelInfo.put("date", df.format(panel.getInterviewDate()));
 				if(status.equalsIgnoreCase("Repanel")) {
 					String topics = utilGetRepanelTopics(panel.getFeedback());
-					
 					panelInfo.put("topics", topics);
 				}
 			}

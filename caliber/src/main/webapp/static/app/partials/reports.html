@@ -325,6 +325,7 @@
 										<tr>
 											<th>Trainee Name</th>
 											<th style="text-align: center;">Panel Status</th>
+											<th> Panel Date </th>
 											<th style="text-align: center;">Repeat Topics</th>
 										</tr>
 										<tr ng-repeat="item in allTraineesPanelData">
@@ -338,6 +339,10 @@
 											<td ng-if="!item.status">
 												<span style="color: rgb(252,221,115); width: 100%; text-align: center;" class="fa fa-minus fa-2x"></span>
 
+											</td>
+											<td ng-if="item.status" ng-bind="item.date"></td>
+											<td ng-if="!item.status">
+												<span style="color: rgb(252,221,115); width: 100%; text-align: center;" class="fa fa-minus fa-2x"></span>
 											</td>
 											<td style = "text-align: center;" class="col-sm-3 col-md-3 col-lg-3"  ng-if="item.topics" ng-bind="item.topics"></td>
 											<td class="col-sm-3 col-md-3 col-lg-3"  ng-if="!item.topics">
