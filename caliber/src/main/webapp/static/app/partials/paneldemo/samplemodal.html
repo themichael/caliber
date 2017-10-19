@@ -132,9 +132,7 @@
                             	</div>
                             </div>
                             <div class="row">
-                            	<div class="form-group col-xs-2"><b>Panel Status</b><select ng-model="overallStatus.model" class="form-control" id="overallFeedback.panelStatus" ng-required="true">
-                            															<option ng-repeat="option in overallStatus.options">{{option}}</option>
-                            				   										</select></td>
+                            	<div class="form-group col-xs-2"><b>Panel Status</b><input type="text" class="form-control" ng-model="overallStatus.model" disabled ng-required ="true" />
                             	</div>
                             	<div class="form-group col-xs-10">
                             		<b>Overall</b><input type="text" class="form-control" ng-model="overallPanel.model" id="overallFeedback.overall" />
