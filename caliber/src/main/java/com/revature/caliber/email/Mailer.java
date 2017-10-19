@@ -122,7 +122,7 @@ public class Mailer implements Runnable {
 				String trainerName = trainer.getName();
 				String emailStr = email.replace(EMAIL_TEMPLATE_NAME_TOKEN, trainerName);
 				
-				if (email == null)
+				if (emailStr == null)
 					return;
 				
 				message.setContent(emailStr, "text/html");
