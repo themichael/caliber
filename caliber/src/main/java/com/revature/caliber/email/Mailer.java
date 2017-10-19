@@ -38,7 +38,6 @@ import com.revature.caliber.data.TraineeDAO;
  *
  */
 @Component
-
 public class Mailer implements Runnable {
 	
 	private static final Logger logger = Logger.getLogger(Mailer.class);
