@@ -54,8 +54,9 @@ public class Mailer implements Runnable {
 	private EmailAuthenticator authenticator;
 
 	private static final String EMAIL_TEMPLATE_PATH =
-			"caliber/src/main/webapp/static/app/partials/email/emailTemplate.html";
+			"C:\\Users\\apbon\\my_git_repos\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
 	
+
 	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
 
 	public void setAuthenticator(EmailAuthenticator authenticator) {
@@ -107,21 +108,26 @@ public class Mailer implements Runnable {
 	}
 
 	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
+		logger.info("Trainers being sent emails: "+ trainersToSubmitGrades);
+		String email = getEmailString();
 		for (Trainer trainer : trainersToSubmitGrades) {
+			
 			try {
+				logger.info("In the try block for sending emails");
 				MimeMessage message = new MimeMessage(session);
-				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
 				//message.addRecipient(Message.RecipientType.TO, new InternetAddress("mscott@mailinator.com"));
 				
 				message.setSubject("Submit Grades Reminder");
+				String trainerName = trainer.getName();
+				String emailStr = email.replace(EMAIL_TEMPLATE_NAME_TOKEN, trainerName);
 				
-				String email = getEmailString(trainer);
 				if (email == null)
 					return;
 				
-				message.setContent(email, "text/html");
+				message.setContent(emailStr, "text/html");
 				
-				//Transport.send(message);
+				Transport.send(message);
 				logger.info("Email sent");
 			} catch (MessagingException e) {
 				logger.warn(e);
@@ -130,14 +136,12 @@ public class Mailer implements Runnable {
 		}
 	}
 	
-	private String getEmailString(Trainer trainer) {
+	private String getEmailString() {
 		try {
 			String emailStr;
 			emailStr = new String(Files.readAllBytes(Paths.get(EMAIL_TEMPLATE_PATH)));
 			logger.info("loaded template");
-			System.exit(1);
-			String trainerName = trainer.getName();
-			emailStr = emailStr.replace(EMAIL_TEMPLATE_NAME_TOKEN, trainerName);
+
 			return emailStr;
 		} catch (IOException e) {
 			logger.warn("Unable to read email template");
