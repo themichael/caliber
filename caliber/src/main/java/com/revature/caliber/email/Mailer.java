@@ -50,9 +50,6 @@ public class Mailer implements Runnable {
 	private BatchDAO batchDAO;
 	
 	@Autowired
-	private TraineeDAO traineeDAO;
-	
-	@Autowired
 	private GradeDAO gradeDAO;
 
 	@Autowired
@@ -74,10 +71,6 @@ public class Mailer implements Runnable {
 
 	public void setBatch(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
-	}
-
-	public void setTraineeDAO(TraineeDAO traineeDAO) {
-		this.traineeDAO = traineeDAO;
 	}
 
 	public void setGradeDAO(GradeDAO gradeDAO) {
