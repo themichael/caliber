@@ -368,25 +368,31 @@ angular
 				} 
 				return true;
 			}
+			
+			//$scope.panelIndex = 0;
 			$scope.displayTraineePanelFeedback = function(){
+				$scope.panelIndex = 0;
 				if($scope.currentBatch === null 
 						|| $scope.currentWeek === null 
 						|| $scope.batchOverallTrainee === null
-						|| $scope.traineePanelData === null
-						|| $scope.traineePanelData.length == 0){
+						|| $scope.traineePanelData === null){
+					return false;
+				}
+				if ($scope.traineePanelData != null && $scope.traineePanelData.length == 0) {
+					$scope.panelIndex = 0;
 					return false;
 				}
 				return true;
 			}
 			
-			$scope.panelIndex = 0;
-			
 			$scope.incrementPanel = function() {
 				$scope.panelIndex += 1;
+				console.log($scope.panelIndex);
 			}
 			
 			$scope.decrementPanel = function() {
 				$scope.panelIndex -= 1;
+				console.log($scope.panelIndex);
 			}
 			
 			$scope.selectCurrentTrainee = function(index) {
