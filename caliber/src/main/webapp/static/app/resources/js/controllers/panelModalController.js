@@ -21,6 +21,7 @@ angular
 			$scope.traineePanels = [];
 			$scope.employedTrainees = [];
 			$scope.batchSkillType = {};
+			$scope.isFeedbackAllPassing = false;
 			
 			// Create the form models & their options
 			$scope.trainee = {
@@ -185,17 +186,48 @@ angular
 				return {"id": id,"technology": tech,"result": result,"status": repanel,"comment": comment};
 			}
 			
+			function isRepanel(arg){
+				return arg.status === 'Pass';
+			}
+			
+			
 			$scope.addRow = function() {
 				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.exp,$scope.repanel.model,$scope.techComment.model);
 				$scope.techFeedback.push(theFeedback);
 				$scope.feedbacksToReturn.push(createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.value,$scope.repanel.model,$scope.techComment.model));
 				$log.debug($scope.feedbacksToReturn);
+				//$scope.populateOverallStatus();
+				$scope.isFeedbackAllPassing = $scope.feedbacksToReturn.every(isRepanel);
+				$log.debug($scope.isFeedbackAllPassing);
+				if($scope.isFeedbackAllPassing){
+					$scope.overallStatus.model = 'Pass';
+				}
+				else{
+					$scope.overallStatus.model = 'Repanel';
+				}
+				
+				if($scope.feedbacksToReturn.length == 0){
+					$scope.overallStatus.model = '';
+				}
 			}
 			
 			$scope.deleteRow = function(loc) {
 				$scope.techFeedback.splice(loc, 1);
 				$scope.feedbacksToReturn.splice(loc, 1);
 				$log.debug($scope.feedbacksToReturn);
+				//$scope.populateOverallStatus();
+				$scope.isFeedbackAllPassing = $scope.feedbacksToReturn.every(isRepanel);
+				$log.debug($scope.isFeedbackAllPassing);
+				if($scope.isFeedbackAllPassing){
+					$scope.overallStatus.model = 'Pass';
+				}
+				else{
+					$scope.overallStatus.model = 'Repanel';
+				}
+				
+				if($scope.feedbacksToReturn.length == 0){
+					$scope.overallStatus.model = '';
+				}
 			}
 
 			// Sets the Training Type
