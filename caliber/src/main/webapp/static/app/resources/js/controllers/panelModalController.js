@@ -7,10 +7,13 @@ angular
 .module("panel")
 .controller(
 		"panelModalController",
-		function($rootScope, $scope, $state, $log, $cookies, caliberDelegate, allBatches) {
+		function($rootScope, $scope, $state, $log, $cookies, $timeout, caliberDelegate, allBatches) {
 			
 			$log.debug("in panel controller");
 			$log.debug("Booted panel controller.");
+			
+			$scope.errorMessage = 'Failed to create panel for trainee ';
+			$scope.showMessage = false;
 			
 			$scope.newPanel = {};
 			$scope.techFeedback = [];
@@ -231,7 +234,7 @@ angular
 					format : $scope.interviewMode.model,
 					internet : $scope.interviewConnectivity.model,
 					panelRound : $scope.panelRound.model,
-					recordingConsent: $scope.recordingConsent.model.value,
+					recordingConsent: $scope.recordingConsent.model ? $scope.recordingConsent.model.value : null,
 					recordingLink: $scope.recordingLink.model,
 					status: $scope.overallStatus.model,
 					feedback: $scope.feedbacksToReturn,
@@ -249,6 +252,9 @@ angular
 						if (createdPanel) {
 							$log.debug('got good panel');
 							$scope.resetPanelForm();
+							if (!$scope.newPanel) {
+								$scope.newPanel = {};
+							}
 							for (let prop in createdPanel) {
 								$scope.newPanel[prop] = createdPanel[prop];
 							}
@@ -267,7 +273,10 @@ angular
 			
 			function showErrorMessage() {
 				$log.debug('showing error message after failed panel creation');
-				
+				$scope.showMessage = true;
+				$timeout(function () {
+					$scope.showMessage = false;
+				}, 7000);
 			};
 			
 			// Resets the Panel Feedback Form
