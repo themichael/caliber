@@ -12,6 +12,7 @@ angular
 			$log.debug("in panel controller");
 			$log.debug("Booted panel controller.");
 			
+			$scope.newPanel = {};
 			$scope.techFeedback = [];
 			$scope.feedbacksToReturn = [];
 			$scope.counter=0;
@@ -27,10 +28,6 @@ angular
 			$scope.trainee = {
 				name: null
 			};
-			
-			/*$scope.panelist = {
-				name: ""
-			};*/
 			
 			$scope.recordingConsent = {
 				model: null,
@@ -170,6 +167,15 @@ angular
 							$log.debug($scope.trainee.name);
 							$scope.currentBatch();
 							$log.debug($scope.traineePanels);
+							if ($scope.newPanel) {
+								$scope.traineePanels.forEach(function (element, index) {
+									$log.debug(element.id + ' ' + $scope.newPanel.id);
+									if (element.id === $scope.newPanel.id) {
+										highlightTableRow(index);
+									}
+								});
+								$scope.newPanel = null;
+							}
 						});
 			};
 			
@@ -179,7 +185,6 @@ angular
 						$scope.employedTrainees.push(trainee);
 					});
 				});
-				$log.debug($scope.employedTrainees);
 			})();
 			
 			function createTechFeedback(id,tech,result,repanel,comment,counter){
@@ -235,7 +240,6 @@ angular
 				$log.debug("In skillType funtion");
 				allBatches.forEach(function(batch){
 					batch.trainees.forEach(function(trainee) {
-						$log.debug(trainee.name + ' ' + $scope.trainee.name);
 						if(trainee.name === $scope.trainee.name) {
 							$log.debug($scope.trainee);
 							$log.debug(batch);
@@ -271,8 +275,31 @@ angular
 					overall : $scope.overallPanel.model
 				};
 				$log.debug(panel);
-				caliberDelegate.panel.createPanel(panel);
-				$scope.resetPanelForm();
+				
+				caliberDelegate.panel.createPanel(panel).
+					then(function (createdPanel) {
+						if (createdPanel) {
+							$log.debug('got good panel');
+							$scope.resetPanelForm();
+							for (let prop in createdPanel) {
+								$scope.newPanel[prop] = createdPanel[prop];
+							}
+							$scope.selectChosenTrainee($scope.trainee.name);
+						} else {
+							showErrorMessage();
+						}
+					}
+				);
+			};
+			
+			function highlightTableRow(row) {
+				$log.debug('highlighting table row ' + row + ' after successful panel creation');
+				
+			};
+			
+			function showErrorMessage() {
+				$log.debug('showing error message after failed panel creation');
+				
 			};
 			
 			// Resets the Panel Feedback Form

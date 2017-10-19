@@ -97,6 +97,7 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 		}).then(function (response) {
 			$log.debug('Panel updated successfully');
 			$log.debug(response);
+			return response.data;
 		}, function (error) {
 			$log.error('There was an error: ' + error.status);
 		});
@@ -111,6 +112,7 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 		}).then(function (response) {
 			$log.debug('Panel created successfully');
 			$log.debug(response);
+			return response.data;
 		}, function (error) {
 			$log.error('There was an error: ' + error.status);
 		});
