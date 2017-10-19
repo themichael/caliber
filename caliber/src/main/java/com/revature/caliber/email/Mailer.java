@@ -59,8 +59,7 @@ public class Mailer extends TimerTask {
 	private static final String EMAIL_TEMPLATE_PATH =
 			"C:\\Users\\apbon\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
 
-	private static final String EMAIL_TEMPLATE_FIRST_NAME_TOKEN = "$TRAINER_FIRST";
-	private static final String EMAIL_TEMPLATE_LAST_NAME_TOKEN = "$TRAINER_LAST";
+	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
 
 	public void setAuthenticator(EmailAuthenticator authenticator) {
 		this.authenticator = authenticator;
@@ -141,10 +140,8 @@ public class Mailer extends TimerTask {
 		try {
 			String emailStr;
 			emailStr = new String(Files.readAllBytes(Paths.get(EMAIL_TEMPLATE_PATH)));
-			String firstName = trainer.getName().split(" ")[0];
-			String lastName = trainer.getName().split(" ")[1];
-			emailStr = emailStr.replace(EMAIL_TEMPLATE_FIRST_NAME_TOKEN, firstName);
-			emailStr = emailStr.replace(EMAIL_TEMPLATE_LAST_NAME_TOKEN, lastName);
+			String trainerName = trainer.getName();
+			emailStr = emailStr.replace(EMAIL_TEMPLATE_NAME_TOKEN, trainerName);
 			return emailStr;
 		} catch (IOException e) {
 			logger.warn("Unable to read email template");
