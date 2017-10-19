@@ -28,7 +28,6 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
-import com.revature.caliber.data.TraineeDAO;
 
 /**
  * This class sends reminder emails to trainers who have not submitted all grades for their batch.
