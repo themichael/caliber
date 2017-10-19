@@ -36,9 +36,9 @@ public class EmailService implements InitializingBean {
 		Executors.newScheduledThreadPool(1);
 	
 	private static final ZoneId TIME_ZONE = ZoneId.of("America/New_York");
-	private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.TUESDAY;
-	private static final int HOUR_TO_FIRE = 12; // hours go 0-23
-	private static final int MINUTE_TO_FIRE = 0; // minutes go 0-59
+	private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.THURSDAY;
+	private static final int HOUR_TO_FIRE = 14; // hours go 0-23
+	private static final int MINUTE_TO_FIRE = 26; // minutes go 0-59
 	private static final int DAYS_BETWEEN_EMAILS = 7;
 	private static final long SECONDS_BETWEEN_EMAILS = TimeUnit.DAYS.toSeconds(DAYS_BETWEEN_EMAILS);
 	
