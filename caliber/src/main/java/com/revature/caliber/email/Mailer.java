@@ -54,8 +54,8 @@ public class Mailer implements Runnable {
 	private EmailAuthenticator authenticator;
 
 	private static final String EMAIL_TEMPLATE_PATH =
-			"C:\\Users\\vlad\\my_git_repos\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
-
+			"caliber/src/main/webapp/static/app/partials/email/emailTemplate.html";
+	
 	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
 
 	public void setAuthenticator(EmailAuthenticator authenticator) {
@@ -134,6 +134,8 @@ public class Mailer implements Runnable {
 		try {
 			String emailStr;
 			emailStr = new String(Files.readAllBytes(Paths.get(EMAIL_TEMPLATE_PATH)));
+			logger.info("loaded template");
+			System.exit(1);
 			String trainerName = trainer.getName();
 			emailStr = emailStr.replace(EMAIL_TEMPLATE_NAME_TOKEN, trainerName);
 			return emailStr;
