@@ -111,7 +111,7 @@ public class Mailer implements Runnable {
 			try {
 				MimeMessage message = new MimeMessage(session);
 				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress("mscott@mailinator.com"));
+				//message.addRecipient(Message.RecipientType.TO, new InternetAddress("mscott@mailinator.com"));
 				
 				message.setSubject("Submit Grades Reminder");
 				
@@ -121,7 +121,7 @@ public class Mailer implements Runnable {
 				
 				message.setContent(email, "text/html");
 				
-				Transport.send(message);
+				//Transport.send(message);
 				logger.info("Email sent");
 			} catch (MessagingException e) {
 				logger.warn(e);
