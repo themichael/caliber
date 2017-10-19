@@ -1,15 +1,19 @@
 package com.revature.caliber.services;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAdjusters;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.email.Mailer;
@@ -19,47 +23,45 @@ import com.revature.caliber.email.Mailer;
  * @author Andrew Bonds
  * @author Will Underwood
  * @author Vladimir Yevseenko
+<<<<<<< HEAD
  */
 @Service
-public class EmailService {
+public class EmailService implements InitializingBean {
 	
 	private static final Logger logger = Logger.getLogger(EmailService.class);
-	
-	@Component
-	static class EmailTimer extends Timer {
-		
-	}
 
 	@Autowired
 	private Mailer mailer;
 	
-	@Autowired
-	private EmailTimer emailTimer;
-
-	private static final int DAYS_IN_WEEK = 7;
-	private static final int HOUR = 9;
-	private static final int MINUTE = 0;
+	private static final ScheduledExecutorService scheduler =
+		Executors.newScheduledThreadPool(1);
+	
+	private static final ZoneOffset TIME_ZONE = ZoneOffset.UTC;
+	private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.TUESDAY;
+	private static final int HOUR_TO_FIRE = 9;
+	private static final int MINUTE_TO_FIRE = 0;
+	private static final int INITIAL_DELAY = 0;
+	private static final int DAYS_BETWEEN_EMAILS = 7;
 	
 	public void setMailer(Mailer mailer) {
 		this.mailer = mailer;
 	}
 
-	private static boolean init = false;
-	
-	@PostConstruct
-	private synchronized void startReminderJob() {
-		if (init)
-			return;
-		init = true;
+	private void startReminderJob() {
 		logger.info("startReminderJob()");
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-		calendar.set(Calendar.HOUR, HOUR);
-		calendar.set(Calendar.MINUTE, MINUTE);
-		Date startDate = calendar.getTime();
-		long interval = TimeUnit.DAYS.toMillis(DAYS_IN_WEEK);
-		emailTimer.scheduleAtFixedRate(this.mailer, startDate, interval);
+		
+		LocalTime localTime = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
+		LocalDate localDate = LocalDate.now().with(TemporalAdjusters.next(DAY_OF_WEEK_TO_FIRE));
+		ZonedDateTime timeToFire = ZonedDateTime.of(localDate, localTime, TIME_ZONE);
+	
+		logger.info(timeToFire);
+		
+		scheduler.scheduleAtFixedRate(mailer, INITIAL_DELAY, DAYS_BETWEEN_EMAILS, TimeUnit.DAYS);
+	}
 
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		startReminderJob();
 	}
 
 }

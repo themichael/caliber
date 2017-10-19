@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Assessment implements Serializable {
 
 	private static final long serialVersionUID = 5030264218154828822L;
-
+	
 	@Id
 	@Column(name = "ASSESSMENT_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ASSESSMENT_ID_SEQUENCE")

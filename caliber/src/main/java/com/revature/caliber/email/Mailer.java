@@ -1,22 +1,23 @@
 package com.revature.caliber.email;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-import java.util.TimerTask;
 
-import javax.mail.*;
-import javax.mail.internet.*;
-
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 import com.revature.caliber.beans.Assessment;
@@ -37,7 +38,7 @@ import com.revature.caliber.data.TraineeDAO;
  *
  */
 @Component
-public class Mailer extends TimerTask {
+public class Mailer implements Runnable {
 	
 	private static final Logger logger = Logger.getLogger(Mailer.class);
 
@@ -48,16 +49,13 @@ public class Mailer extends TimerTask {
 	private BatchDAO batchDAO;
 	
 	@Autowired
-	private TraineeDAO traineeDAO;
-	
-	@Autowired
 	private GradeDAO gradeDAO;
 
 	@Autowired
 	private EmailAuthenticator authenticator;
 
 	private static final String EMAIL_TEMPLATE_PATH =
-			"C:\\Users\\apbon\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
+			"C:\\Users\\vlad\\my_git_repos\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
 
 	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
 
@@ -71,10 +69,6 @@ public class Mailer extends TimerTask {
 
 	public void setBatch(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
-	}
-
-	public void setTraineeDAO(TraineeDAO traineeDAO) {
-		this.traineeDAO = traineeDAO;
 	}
 
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -117,8 +111,9 @@ public class Mailer extends TimerTask {
 		for (Trainer trainer : trainersToSubmitGrades) {
 			try {
 				MimeMessage message = new MimeMessage(session);
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
-
+				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress("mscott@mailinator.com"));
+				
 				message.setSubject("Submit Grades Reminder");
 				
 				String email = getEmailString(trainer);
@@ -193,11 +188,4 @@ public class Mailer extends TimerTask {
 		}
 		return gradeCounter;
 	}
-
-	private Set<Trainee> getTrainees(int batchID) {
-		Set<Trainee> trainees = new HashSet<Trainee>();
-		trainees.addAll(this.traineeDAO.findAllByBatch(batchID));
-		return trainees;
-	}
-
 }
