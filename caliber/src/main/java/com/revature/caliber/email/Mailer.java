@@ -1,6 +1,5 @@
 package com.revature.caliber.email;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,6 +17,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 import com.revature.caliber.beans.Assessment;
@@ -38,6 +38,7 @@ import com.revature.caliber.data.TraineeDAO;
  *
  */
 @Component
+
 public class Mailer implements Runnable {
 	
 	private static final Logger logger = Logger.getLogger(Mailer.class);
@@ -198,11 +199,4 @@ public class Mailer implements Runnable {
 		}
 		return gradeCounter;
 	}
-
-	private Set<Trainee> getTrainees(int batchID) {
-		Set<Trainee> trainees = new HashSet<Trainee>();
-		trainees.addAll(this.traineeDAO.findAllByBatch(batchID));
-		return trainees;
-	}
-
 }

@@ -3,19 +3,17 @@ package com.revature.caliber.services;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.email.Mailer;
@@ -25,6 +23,7 @@ import com.revature.caliber.email.Mailer;
  * @author Andrew Bonds
  * @author Will Underwood
  * @author Vladimir Yevseenko
+<<<<<<< HEAD
  */
 @Service
 public class EmailService implements InitializingBean {
@@ -59,7 +58,6 @@ public class EmailService implements InitializingBean {
 		
 		scheduler.scheduleAtFixedRate(mailer, INITIAL_DELAY, DAYS_BETWEEN_EMAILS, TimeUnit.DAYS);
 	}
-
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
