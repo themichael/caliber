@@ -56,6 +56,7 @@ public class EmailService implements InitializingBean {
 		logger.info(timeToFire);
 		
 		scheduler.scheduleAtFixedRate(mailer, INITIAL_DELAY, DAYS_BETWEEN_EMAILS, TimeUnit.DAYS);
+		
 	}
 
 	@Override

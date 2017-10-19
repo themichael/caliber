@@ -54,7 +54,7 @@ public class Mailer implements Runnable {
 	private EmailAuthenticator authenticator;
 
 	private static final String EMAIL_TEMPLATE_PATH =
-			"C:\\Users\\vlad\\my_git_repos\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
+			"C:\\Users\\apbon\\my_git_repos\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
 
 	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
 
@@ -110,7 +110,7 @@ public class Mailer implements Runnable {
 		for (Trainer trainer : trainersToSubmitGrades) {
 			try {
 				MimeMessage message = new MimeMessage(session);
-				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
+//				message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
 				//message.addRecipient(Message.RecipientType.TO, new InternetAddress("mscott@mailinator.com"));
 				
 				message.setSubject("Submit Grades Reminder");
@@ -121,7 +121,7 @@ public class Mailer implements Runnable {
 				
 				message.setContent(email, "text/html");
 				
-				//Transport.send(message);
+//				Transport.send(message);
 				logger.info("Email sent");
 			} catch (MessagingException e) {
 				logger.warn(e);
