@@ -161,25 +161,20 @@ angular
 						traineeId = trainee.traineeId;
 					}
 				});
-				caliberDelegate.panel.reportTraineePanels(traineeId).then(
-						function(response){
-							$scope.traineePanels = response;
-							$scope.trainee.name = traineeName;
-							$scope.panelRound.model = $scope.traineePanels.length + 1;
-							$log.debug('trainee name= ' + $scope.trainee.name);
-							$log.debug($scope.trainee.name);
-							$scope.currentBatch();
-							$log.debug($scope.traineePanels);
-							if ($scope.newPanel) {
-								$scope.traineePanels.forEach(function (element, index) {
-									$log.debug(element.id + ' ' + $scope.newPanel.id);
-									if (element.id === $scope.newPanel.id) {
-										highlightTableRow(index);
-									}
-								});
-								$scope.newPanel = null;
-							}
-						});
+				caliberDelegate.panel.reportTraineePanels(traineeId).
+					then(function(response) {
+						$scope.traineePanels = response;
+						$scope.trainee.name = traineeName;
+						$scope.panelRound.model = $scope.traineePanels.length + 1;
+						$log.debug('trainee name= ' + $scope.trainee.name);
+						$log.debug($scope.trainee.name);
+						$scope.currentBatch();
+						$log.debug($scope.traineePanels);
+						$timeout(function () {
+							$scope.newPanel = {};
+							$('.highlight').attr('class', 'no-highlight');
+						}, 5000);
+					});
 			};
 			
 			(function(){
@@ -296,11 +291,6 @@ angular
 						}
 					}
 				);
-			};
-			
-			function highlightTableRow(row) {
-				$log.debug('highlighting table row ' + row + ' after successful panel creation');
-				
 			};
 			
 			function showErrorMessage() {

@@ -51,7 +51,8 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="item in traineePanels">
+								<tr ng-class="{ highlight: item.id === newPanel.id }"
+									ng-repeat="item in traineePanels">
 										<td ng-bind="item.trainee.name" id="trainee.name"></td>
 										<!-- THESE MIGHT NOT EXIST YET -->
 										<td ng-bind="item.interviewDate"></td>

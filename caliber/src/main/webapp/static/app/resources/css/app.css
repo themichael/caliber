@@ -588,7 +588,7 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
 }
 
 /**********************
-	Pop-up Messages
+	  Panel Tab
 **********************/
 
 .fade-speeder.ng-leave {
@@ -598,4 +598,14 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
 
 .fade-speeder.ng-leave.ng-leave-active {
   opacity: 0;
+}
+
+.highlight {
+	transition: background-color 1s ease;
+	background-color: rgba(252, 180, 20, 0.5);
+}
+
+.no-highlight {
+	transition: background-color 1s ease;
+	background-color: rgba(255, 255, 255, 1);
 }
