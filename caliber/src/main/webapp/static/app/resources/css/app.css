@@ -586,3 +586,16 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
     overflow: hidden;
     outline:none;
 }
+
+/**********************
+	Pop-up Messages
+**********************/
+
+.fade-speeder.ng-leave {
+  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.8s;
+  opacity: 1;
+}
+
+.fade-speeder.ng-leave.ng-leave-active {
+  opacity: 0;
+}
