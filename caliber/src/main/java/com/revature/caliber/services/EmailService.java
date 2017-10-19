@@ -35,7 +35,7 @@ public class EmailService implements InitializingBean {
 	private static final ScheduledExecutorService scheduler =
 		Executors.newScheduledThreadPool(1);
 	
-	private static final ZoneId TIME_ZONE = ZoneId.of("America/Eastern");
+	private static final ZoneId TIME_ZONE = ZoneId.of("America/New_York");
 	private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.TUESDAY;
 	private static final int HOUR_TO_FIRE = 12; // hours go 0-23
 	private static final int MINUTE_TO_FIRE = 0; // minutes go 0-59
