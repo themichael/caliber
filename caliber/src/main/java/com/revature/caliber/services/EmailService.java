@@ -51,8 +51,8 @@ public class EmailService {
 		if (init)
 			return;
 		init = true;
-		logger.warn("startReminderJob()");
-		Calendar calendar = Calendar.getInstance();
+		logger.warn("startReminderJob()"); //Change to info
+		Calendar calendar = Calendar.getInstance(); //Set to 1 P.M. Eastern
 		calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
 		calendar.set(Calendar.HOUR, HOUR);
 		calendar.set(Calendar.MINUTE, MINUTE);
