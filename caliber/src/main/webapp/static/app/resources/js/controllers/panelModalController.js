@@ -212,6 +212,12 @@ angular
 				if($scope.feedbacksToReturn.length === 0){
 					$scope.overallStatus.model = '';
 				}
+				
+				$scope.technologies.model = null;
+				$scope.panelResult.model = null;
+				$scope.repanel.model = null;
+				$scope.techComment.model = null;
+				
 			}
 			
 			$scope.deleteRow = function(loc) {
