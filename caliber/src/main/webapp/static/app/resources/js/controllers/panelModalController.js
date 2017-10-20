@@ -1,6 +1,10 @@
 /**
- * Team Tyraformus Rex
- * @author Lauren Wallace, Katie Bixby, Nathan Koszuta, Matt 'Spring Data' Prass
+ * Team Tyranoformus Rex
+ * @author Lauren Wallace
+ * @author Katie Bixby
+ * @author Nathan Koszuta
+ * @author Matt "Spring Data" Prass
+ * @author Connor Monson
  */
 
 angular
@@ -170,9 +174,12 @@ angular
 						$log.debug($scope.trainee.name);
 						$scope.currentBatch();
 						$log.debug($scope.traineePanels);
-						$timeout(function () {
+						$timeout(function () {							
 							$scope.newPanel = {};
-							$('.highlight').removeClass('highlight').addClass('no-highlight');
+							$('.highlight').attr('class', 'no-highlight');
+							$timeout(function () {
+								$('.no-highlight').removeClass('no-highlight');
+							}, 2000);
 						}, 3000);
 					});
 			};
