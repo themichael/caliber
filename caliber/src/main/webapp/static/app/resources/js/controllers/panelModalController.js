@@ -7,11 +7,15 @@ angular
 .module("panel")
 .controller(
 		"panelModalController",
-		function($rootScope, $scope, $state, $log, $cookies, caliberDelegate, allBatches) {
+		function($rootScope, $scope, $state, $log, $cookies, $timeout, caliberDelegate, allBatches) {
 			
 			$log.debug("in panel controller");
 			$log.debug("Booted panel controller.");
 			
+			$scope.errorMessage = 'Failed to create panel for trainee ';
+			$scope.showMessage = false;
+			
+			$scope.newPanel = {};
 			$scope.techFeedback = [];
 			$scope.feedbacksToReturn = [];
 			$scope.counter=0;
@@ -21,6 +25,7 @@ angular
 			$scope.traineePanels = [];
 			$scope.employedTrainees = [];
 			$scope.batchSkillType = {};
+			$scope.isFeedbackAllPassing = false;
 			
 			// Create the form models & their options
 			$scope.trainee = {
@@ -156,16 +161,20 @@ angular
 						traineeId = trainee.traineeId;
 					}
 				});
-				caliberDelegate.panel.reportTraineePanels(traineeId).then(
-						function(response){
-							$scope.traineePanels = response;
-							$scope.trainee.name = traineeName;
-							$scope.panelRound.model = $scope.traineePanels.length + 1;
-							$log.debug('trainee name= ' + $scope.trainee.name);
-							$log.debug($scope.trainee.name);
-							$scope.currentBatch();
-							$log.debug($scope.traineePanels);
-						});
+				caliberDelegate.panel.reportTraineePanels(traineeId).
+					then(function(response) {
+						$scope.traineePanels = response;
+						$scope.trainee.name = traineeName;
+						$scope.panelRound.model = $scope.traineePanels.length + 1;
+						$log.debug('trainee name= ' + $scope.trainee.name);
+						$log.debug($scope.trainee.name);
+						$scope.currentBatch();
+						$log.debug($scope.traineePanels);
+						$timeout(function () {
+							$scope.newPanel = {};
+							$('.highlight').attr('class', 'no-highlight');
+						}, 3000);
+					});
 			};
 			
 			(function(){
@@ -174,24 +183,54 @@ angular
 						$scope.employedTrainees.push(trainee);
 					});
 				});
-				$log.debug($scope.employedTrainees);
 			})();
 			
 			function createTechFeedback(id,tech,result,repanel,comment){
 				return {"id": id,"technology": tech,"result": result,"status": repanel,"comment": comment};
 			}
 			
+			function isRepanel(arg){
+				return arg.status === 'Pass';
+			}
+			
+			
 			$scope.addRow = function() {
 				var theFeedback = createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.exp,$scope.repanel.model,$scope.techComment.model);
 				$scope.techFeedback.push(theFeedback);
 				$scope.feedbacksToReturn.push(createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.value,$scope.repanel.model,$scope.techComment.model));
 				$log.debug($scope.feedbacksToReturn);
+				//$scope.populateOverallStatus();
+				$scope.isFeedbackAllPassing = $scope.feedbacksToReturn.every(isRepanel);
+				$log.debug($scope.isFeedbackAllPassing);
+				if($scope.isFeedbackAllPassing){
+					$scope.overallStatus.model = 'Pass';
+				}
+				else{
+					$scope.overallStatus.model = 'Repanel';
+				}
+				
+				if($scope.feedbacksToReturn.length == 0){
+					$scope.overallStatus.model = '';
+				}
 			}
 			
 			$scope.deleteRow = function(loc) {
 				$scope.techFeedback.splice(loc, 1);
 				$scope.feedbacksToReturn.splice(loc, 1);
 				$log.debug($scope.feedbacksToReturn);
+
+				$scope.isFeedbackAllPassing = $scope.feedbacksToReturn.every(isRepanel);
+				$log.debug($scope.isFeedbackAllPassing);
+				if($scope.isFeedbackAllPassing) {
+					$scope.overallStatus.model = 'Pass';
+				}
+				else {
+					$scope.overallStatus.model = 'Repanel';
+				}
+				
+				if($scope.feedbacksToReturn.length == 0){
+					$scope.overallStatus.model = '';
+				}
 			}
 
 			// Sets the Training Type
@@ -199,7 +238,6 @@ angular
 				$log.debug("In skillType funtion");
 				allBatches.forEach(function(batch){
 					batch.trainees.forEach(function(trainee) {
-						$log.debug(trainee.name + ' ' + $scope.trainee.name);
 						if(trainee.name === $scope.trainee.name) {
 							$log.debug($scope.trainee);
 							$log.debug(batch);
@@ -223,7 +261,7 @@ angular
 					format : $scope.interviewMode.model,
 					internet : $scope.interviewConnectivity.model,
 					panelRound : $scope.panelRound.model,
-					recordingConsent: $scope.recordingConsent.model.value,
+					recordingConsent: $scope.recordingConsent.model ? $scope.recordingConsent.model.value : null,
 					recordingLink: $scope.recordingLink.model,
 					status: $scope.overallStatus.model,
 					feedback: $scope.feedbacksToReturn,
@@ -235,8 +273,32 @@ angular
 					overall : $scope.overallPanel.model
 				};
 				$log.debug(panel);
-				caliberDelegate.panel.createPanel(panel);
-				$scope.resetPanelForm();
+				
+				caliberDelegate.panel.createPanel(panel).
+					then(function (createdPanel) {
+						if (createdPanel) {
+							$log.debug('got good panel');
+							$scope.resetPanelForm();
+							if (!$scope.newPanel) {
+								$scope.newPanel = {};
+							}
+							for (let prop in createdPanel) {
+								$scope.newPanel[prop] = createdPanel[prop];
+							}
+							$scope.selectChosenTrainee($scope.trainee.name);
+						} else {
+							showErrorMessage();
+						}
+					}
+				);
+			};
+			
+			function showErrorMessage() {
+				$log.debug('showing error message after failed panel creation');
+				$scope.showMessage = true;
+				$timeout(function () {
+					$scope.showMessage = false;
+				}, 7000);
 			};
 			
 			// Resets the Panel Feedback Form

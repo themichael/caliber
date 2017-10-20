@@ -723,30 +723,6 @@ angular
 										}
 										
 									})
-							.state(
-									"panel.assess",
-									{
-										url : "/assess",
-										views : {
-											"" : {
-												templateUrl : "/static/app/partials/assess/trainer-assess.html",
-												
-												controller : "trainerAssessController"
-											},
-											"trainer-edit-assess@panel.assess" : {
-												templateUrl : "/static/app/partials/assess/trainer-edit-assess.html"
-											},
-											"confirm-add-weeks-modal@panel.assess" : {
-												templateUrl : "/static/app/partials/assess/confirm-add-weeks-modal.html"
-
-											}
-										},
-										// authorize the user
-										onEnter : function(authFactory) {
-											authFactory.authAssess();
-										}
-										
-									})
 						.state(
 									"panel.panel",
 									{ 
@@ -784,6 +760,10 @@ angular
 											},
 											"trainee-week@panel.reports" : {
 												templateUrl : "/static/app/partials/trainee-week.html",
+												controller : "allReportController"
+											},
+											"panel-report-display@panel.reports" : {
+												templateUrl : "/static/app/partials/panel-report-display.html",
 												controller : "allReportController"
 											},
 											"qc-batchOverall@panel.reports" : {

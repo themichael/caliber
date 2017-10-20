@@ -47,8 +47,7 @@ angular
 			$scope.batchOverall = false;
 			$scope.batchOverallTrainee = false;
 			$scope.allTrainees = [];
-			
-			
+			$scope.panelIndex = 0;			
 			
 			
 			//load $scope.trainees list for search results
@@ -351,14 +350,13 @@ angular
 			 * has been selected
 			 */
 			$scope.displayTable = function() {
-				if ($scope.currentBatch === null
-						|| $scope.currentWeek === null) { 
-					return false;
-				}
-				return true;
-			}
+				return $scope.currentBatch &&
+					   $scope.currentWeek;
+			};
+			
 			//This is the function that displays The trainee-overall HTML partial
 			$scope.displayTraineeOverallTable = function() {
+
 				if ($scope.currentBatch === null
 						|| $scope.currentWeek === null
 						|| $scope.batchOverallTrainee === null) {
@@ -401,7 +399,7 @@ angular
 							$scope.reportCurrentWeek,
 							$scope.currentTraineeId);
 				}
-			}
+			};
 
 			// Get Data for Trainees and Batch comparison
 			function createAllTraineesAndBatchRadarData(){

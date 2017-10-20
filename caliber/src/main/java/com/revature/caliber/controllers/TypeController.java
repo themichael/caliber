@@ -116,7 +116,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/assessment/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING','PANEL')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING')")
 	public ResponseEntity<List<String>> allAssessmentTypes() {
 		log.info("Fetching assessment types");
 		List<String> types = Stream.of(AssessmentType.values()).map(Enum::name).collect(Collectors.toList());
@@ -134,14 +134,8 @@ public class TypeController {
 	@PreAuthorize("hasAnyRole('VP', 'STAGING','PANEL')")
 	public ResponseEntity<List<String>> allTrainerRoles() {
 		log.info("Fetching Trainer Roles");
-		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());// Used
-																										// toString
-																										// to
-																										// Display
-																										// the roles
-																										// without
-																										// the
-																										// underscore
+		// Used toString to Display the roles without the underscore
+		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());
 		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 
