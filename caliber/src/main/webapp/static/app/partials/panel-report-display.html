@@ -5,6 +5,7 @@
 				<div class="panel-heading clearfix" role="tab" id="headingOne">
 					Panel Interview Feedback
 					<!-- Buttons for our panel report -->
+					<div style="display:inline" ng-if="panelIndex > traineePanelData.length-1">{{resetPanelIndex()}}</div>
 					<i ng-click="incrementPanel()">
 						<div style="display:inline" ng-if="panelIndex < traineePanelData.length-1">
 							<i class="clickableIcons glyphicon glyphicon-chevron-right pull-right move-glyphicon"></i>

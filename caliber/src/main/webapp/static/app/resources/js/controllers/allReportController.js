@@ -9,7 +9,7 @@
  * 
  * Team Velociraports
  * @author Emma Bownes
- * 
+ * @author Daniel Fairbanks
  */
 angular
 .module("charts")
@@ -212,21 +212,16 @@ angular
 							}
 						});
 			}
-			//Jak
-			function displayTraineePanelFeedback(){
-				
+			
+			function displayTraineePanelFeedback(){	
 				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
 						function(response){
 							NProgress.done();
 							$scope.traineePanelData = response;
-							console.log("here");
-							console.log(response);
-							
+							$log.debug(response);		
 						},function(response){
 							NProgress.done();
-						}
-						)
-				
+						});	
 			}
 
 			function getCurrentBatchWeeks(weeks) {
@@ -369,9 +364,8 @@ angular
 				return true;
 			}
 			
-			//$scope.panelIndex = 0;
+			$scope.panelIndex = 0;
 			$scope.displayTraineePanelFeedback = function(){
-				$scope.panelIndex = 0;
 				if($scope.currentBatch === null 
 						|| $scope.currentWeek === null 
 						|| $scope.batchOverallTrainee === null
@@ -379,20 +373,21 @@ angular
 					return false;
 				}
 				if ($scope.traineePanelData != null && $scope.traineePanelData.length == 0) {
-					$scope.panelIndex = 0;
 					return false;
 				}
 				return true;
 			}
 			
+			$scope.resetPanelIndex = function() {
+				$scope.panelIndex = 0;
+			}
+			
 			$scope.incrementPanel = function() {
 				$scope.panelIndex += 1;
-				console.log($scope.panelIndex);
 			}
 			
 			$scope.decrementPanel = function() {
 				$scope.panelIndex -= 1;
-				console.log($scope.panelIndex);
 			}
 			
 			$scope.selectCurrentTrainee = function(index) {
