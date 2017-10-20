@@ -173,7 +173,7 @@ angular
 						$timeout(function () {
 							$scope.newPanel = {};
 							$('.highlight').attr('class', 'no-highlight');
-						}, 5000);
+						}, 3000);
 					});
 			};
 			
@@ -218,13 +218,13 @@ angular
 				$scope.techFeedback.splice(loc, 1);
 				$scope.feedbacksToReturn.splice(loc, 1);
 				$log.debug($scope.feedbacksToReturn);
-				//$scope.populateOverallStatus();
+
 				$scope.isFeedbackAllPassing = $scope.feedbacksToReturn.every(isRepanel);
 				$log.debug($scope.isFeedbackAllPassing);
-				if($scope.isFeedbackAllPassing){
+				if($scope.isFeedbackAllPassing) {
 					$scope.overallStatus.model = 'Pass';
 				}
-				else{
+				else {
 					$scope.overallStatus.model = 'Repanel';
 				}
 				

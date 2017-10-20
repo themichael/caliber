@@ -762,6 +762,10 @@ angular
 												templateUrl : "/static/app/partials/trainee-week.html",
 												controller : "allReportController"
 											},
+											"panel-report-display@panel.reports" : {
+												templateUrl : "/static/app/partials/panel-report-display.html",
+												controller : "allReportController"
+											},
 											"qc-batchOverall@panel.reports" : {
 												templateUrl : "/static/app/partials/qc-display.html",
 												controller : "qcAssessController"
