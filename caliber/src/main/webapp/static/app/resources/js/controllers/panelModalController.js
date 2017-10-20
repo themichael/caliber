@@ -199,7 +199,7 @@ angular
 				$scope.techFeedback.push(theFeedback);
 				$scope.feedbacksToReturn.push(createTechFeedback($scope.techId,$scope.technologies.model,$scope.panelResult.model.value,$scope.repanel.model,$scope.techComment.model));
 				$log.debug($scope.feedbacksToReturn);
-				//$scope.populateOverallStatus();
+				
 				$scope.isFeedbackAllPassing = $scope.feedbacksToReturn.every(isRepanel);
 				$log.debug($scope.isFeedbackAllPassing);
 				if($scope.isFeedbackAllPassing){
@@ -209,7 +209,7 @@ angular
 					$scope.overallStatus.model = 'Repanel';
 				}
 				
-				if($scope.feedbacksToReturn.length == 0){
+				if($scope.feedbacksToReturn.length === 0){
 					$scope.overallStatus.model = '';
 				}
 			}
@@ -228,7 +228,7 @@ angular
 					$scope.overallStatus.model = 'Repanel';
 				}
 				
-				if($scope.feedbacksToReturn.length == 0){
+				if($scope.feedbacksToReturn.length === 0){
 					$scope.overallStatus.model = '';
 				}
 			}
@@ -241,7 +241,7 @@ angular
 						if(trainee.name === $scope.trainee.name) {
 							$log.debug($scope.trainee);
 							$log.debug(batch);
-							for (let prop in trainee) {
+							for (const prop in trainee) {
 								$scope.trainee[prop] = trainee[prop];
 							}
 							$scope.batchSkillType = batch.skillType;
@@ -282,7 +282,7 @@ angular
 							if (!$scope.newPanel) {
 								$scope.newPanel = {};
 							}
-							for (let prop in createdPanel) {
+							for (const prop in createdPanel) {
 								$scope.newPanel[prop] = createdPanel[prop];
 							}
 							$scope.selectChosenTrainee($scope.trainee.name);
