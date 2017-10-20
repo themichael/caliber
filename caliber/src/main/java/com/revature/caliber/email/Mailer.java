@@ -1,5 +1,6 @@
 package com.revature.caliber.email;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -53,9 +54,11 @@ public class Mailer implements Runnable {
 	@Autowired
 	private EmailAuthenticator authenticator;
 
-	private static final String EMAIL_TEMPLATE_PATH =
-			"C:\\Users\\apbon\\my_git_repos\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
-	
+	//private static final String EMAIL_TEMPLATE_PATH = "C:\\Users\\apbon\\my_git_repos\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
+	private static final String PATH_TO_PARTIAL = "caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
+	private static final String PATH_TO_BASE = "caliber\\src\\main\\java\\com\\revature\\caliber\\email\\Mailer.java";
+	private static final String EMAIL_TEMPLATE_PATH = new File(PATH_TO_BASE).toURI().relativize(new File(PATH_TO_PARTIAL).toURI()).getPath();
+
 
 	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
 
@@ -110,21 +113,20 @@ public class Mailer implements Runnable {
 	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
 		logger.info("Trainers being sent emails: "+ trainersToSubmitGrades);
 		String email = getEmailString();
-		for (Trainer trainer : trainersToSubmitGrades) {
+		//for (Trainer trainer : trainersToSubmitGrades) {
 			
 			try {
 				logger.info("In the try block for sending emails");
 				MimeMessage message = new MimeMessage(session);
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
-				//message.addRecipient(Message.RecipientType.TO, new InternetAddress("mscott@mailinator.com"));
+				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress("mscott@mailinator.com"));
 				
 				message.setSubject("Submit Grades Reminder");
-				String trainerName = trainer.getName();
+				//String trainerName = trainer.getName();
+				String trainerName = "Michael Scott";
 				String emailStr = email.replace(EMAIL_TEMPLATE_NAME_TOKEN, trainerName);
-				
 				if (emailStr == null)
 					return;
-				
 				message.setContent(emailStr, "text/html");
 				
 				Transport.send(message);
@@ -133,7 +135,7 @@ public class Mailer implements Runnable {
 				logger.warn(e);
 				logger.warn("Email exception");
 			}
-		}
+		//}
 	}
 	
 	private String getEmailString() {
