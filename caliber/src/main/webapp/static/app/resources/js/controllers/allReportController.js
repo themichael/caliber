@@ -816,6 +816,7 @@ angular
 						.then(
 								function(response){
 									NProgress.done();
+									$scope.panelsBatchOverall = true;
 									$scope.allTraineesPanelData = response;
 								},
 								function(response){
