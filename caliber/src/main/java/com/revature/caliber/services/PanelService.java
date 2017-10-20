@@ -23,7 +23,7 @@ import com.revature.caliber.data.TraineeDAO;
  * calculations
  *
  * @author Connor Monson
- * @author Matt Prass
+ * @author Matt 'Spring Data' Prass
  *
  */
 @Service

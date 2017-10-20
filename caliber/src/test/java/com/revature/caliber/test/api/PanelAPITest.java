@@ -27,6 +27,7 @@ import io.restassured.http.ContentType;
  * @author Nathan Koszuta
  * @author Connor Monson
  * @author Allan Jones
+ * @author Matt 'Spring Data' Prass
  */
 
 public class PanelAPITest extends AbstractAPITest {

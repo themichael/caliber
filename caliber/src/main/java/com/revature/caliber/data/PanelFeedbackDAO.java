@@ -16,6 +16,11 @@ import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 
+/**
+ * @author Connor Monson
+ * @author Matt 'Spring Data' Prass
+ */
+
 @Repository
 public class PanelFeedbackDAO {
 

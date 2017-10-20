@@ -1,6 +1,6 @@
 /**
  * Team Tyraformus Rex
- * @author Lauren Wallace, Katie Bixby
+ * @author Lauren Wallace, Katie Bixby, Nathan Koszuta, Matt 'Spring Data' Prass
  */
 
 angular

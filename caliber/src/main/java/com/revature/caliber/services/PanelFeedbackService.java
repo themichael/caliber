@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.data.PanelFeedbackDAO;
 
+
+/**
+ * @author Connor Monson
+ * @author Matt 'Spring Data' Prass
+ */
+
 @Service
 public class PanelFeedbackService {
 

@@ -21,6 +21,7 @@ import com.revature.caliber.beans.TrainingStatus;
 
 /**
  * @author Connor Monson
+ * @author Matt 'Spring Data' Prass
  */
 
 @Repository

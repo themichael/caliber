@@ -22,6 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.services.PanelFeedbackService;
 
+/**
+ * @author Connor Monson
+ * @author Matt 'Spring Data' Prass
+ * @author Nathan Koszuta
+ */
+
 @RestController
 @PreAuthorize("isAuthenticated()")
 public class PanelFeedbackController {

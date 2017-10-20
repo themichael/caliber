@@ -28,6 +28,7 @@ import com.revature.caliber.services.TrainingService;
 
 /**
  * @author Connor Monson
+ * @author Matt 'Spring Data' Prass
  */
 @RestController
 @PreAuthorize("isAuthenticated()")

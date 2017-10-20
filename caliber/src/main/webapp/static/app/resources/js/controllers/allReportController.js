@@ -10,6 +10,10 @@
  * Team Velociraports
  * @author Emma Bownes
  * 
+ * 
+ * Team TyrannoformusRex
+ * @author Nathan Koszuta
+ * @author Matt 'Spring Data' Prass
  */
 angular
 .module("charts")

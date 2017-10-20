@@ -20,6 +20,12 @@ import com.revature.caliber.data.PanelFeedbackDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
+/**
+ * @author Connor Monson
+ * @author Matt 'Spring Data' Prass
+ * @author Nathan Koszuta
+ */
+
 public class PanelFeedbackDAOTest extends CaliberTest {
 
 	private static final Logger log = Logger.getLogger(PanelFeedbackDAOTest.class);

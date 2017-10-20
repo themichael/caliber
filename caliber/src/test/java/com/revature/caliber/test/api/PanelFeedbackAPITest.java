@@ -19,6 +19,11 @@ import com.revature.caliber.data.PanelFeedbackDAO;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
+/**
+ * @author Connor Monson
+ * @author Matt 'Spring Data' Prass
+ * @author Nathan Koszuta
+ */
 public class PanelFeedbackAPITest extends AbstractAPITest {
 	private static final Logger log = Logger.getLogger(PanelFeedbackAPITest.class);
 

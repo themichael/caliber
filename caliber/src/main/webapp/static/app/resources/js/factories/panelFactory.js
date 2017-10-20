@@ -4,6 +4,8 @@
  * @author Nathan Koszuta
  * @author Daniel Fairbanks
  * @author Emma Bownes
+ * @author Matt 'Spring Data' Prass
+ * @author Lauren Wallace
  * 
  * @param $log
  * @param $http
