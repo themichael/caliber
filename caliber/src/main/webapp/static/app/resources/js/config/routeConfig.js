@@ -730,11 +730,11 @@ angular
 										
 										views: {
 											"" : {
-												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
+												templateUrl : "/static/app/partials/panel/panelhome.html",
 												controller : "panelModalController"
 											},
-											"samplemodal@panel.panel" : {
-												templateUrl : "/static/app/partials/paneldemo/samplemodal.html"
+											"panelmodal@panel.panel" : {
+												templateUrl : "/static/app/partials/panel/panelmodal.html"
 											}		
 										}
 									
