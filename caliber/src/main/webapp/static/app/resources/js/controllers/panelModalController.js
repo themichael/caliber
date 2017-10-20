@@ -172,7 +172,7 @@ angular
 						$log.debug($scope.traineePanels);
 						$timeout(function () {
 							$scope.newPanel = {};
-							$('.highlight').attr('class', 'no-highlight');
+							$('.highlight').removeClass('highlight').addClass('no-highlight');
 						}, 3000);
 					});
 			};
