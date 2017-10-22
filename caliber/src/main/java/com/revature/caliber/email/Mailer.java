@@ -3,6 +3,8 @@ package com.revature.caliber.email;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -17,6 +19,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.http.client.utils.URIUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -55,11 +58,11 @@ public class Mailer implements Runnable {
 	@Autowired
 	private EmailAuthenticator authenticator;
 
+
 	//private static final String EMAIL_TEMPLATE_PATH = "C:\\Users\\apbon\\my_git_repos\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
 	private static final String PATH_TO_PARTIAL = "\\static\\app\\partials\\email\\emailTemplate.html";
 	private static final String PATH_TO_BASE = "caliber\\src\\main\\java\\com\\revature\\caliber\\email\\Mailer.java";
 	private static final String EMAIL_TEMPLATE_PATH = "../../../../../webapp/static/app/partials/email/emailTemplate.html";
-
 
 	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
 
@@ -142,15 +145,25 @@ public class Mailer implements Runnable {
 	
 	private String getEmailString() {
 		try {
-			
-			String emailStr;
-			logger.info("Before emailStr is set");
-			emailStr = new String(Files.readAllBytes(Paths.get(URI.create(EMAIL_TEMPLATE_PATH))));
-			logger.info("After emailStr is set: " + emailStr);
+//<<<<<<< HEAD
+//			
+//			String emailStr;
+//			logger.info("Before emailStr is set");
+//			emailStr = new String(Files.readAllBytes(Paths.get(URI.create(EMAIL_TEMPLATE_PATH))));
+//			logger.info("After emailStr is set: " + emailStr);
+//=======
+			String emailTemplate = "emailTemplate.html";
+			String emailStr = new String(Files.readAllBytes(Paths.get(this.getClass().getResource(emailTemplate).toURI())));
+			logger.info(emailStr);
+
 			logger.info("loaded template");
 			return emailStr;
 		} catch (IOException e) {
 			logger.warn("Unable to read email template");
+			logger.warn(e);
+			return null;
+		} catch (Exception e) {
+			logger.warn("General exception occurred when trying to read email template");
 			logger.warn(e);
 			return null;
 		}
