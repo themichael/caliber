@@ -2,6 +2,7 @@ package com.revature.caliber.email;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -55,9 +56,9 @@ public class Mailer implements Runnable {
 	private EmailAuthenticator authenticator;
 
 	//private static final String EMAIL_TEMPLATE_PATH = "C:\\Users\\apbon\\my_git_repos\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
-	private static final String PATH_TO_PARTIAL = "caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
+	private static final String PATH_TO_PARTIAL = "\\static\\app\\partials\\email\\emailTemplate.html";
 	private static final String PATH_TO_BASE = "caliber\\src\\main\\java\\com\\revature\\caliber\\email\\Mailer.java";
-	private static final String EMAIL_TEMPLATE_PATH = new File(PATH_TO_BASE).toURI().relativize(new File(PATH_TO_PARTIAL).toURI()).getPath();
+	private static final String EMAIL_TEMPLATE_PATH = "../../../../../webapp/static/app/partials/email/emailTemplate.html";
 
 
 	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
@@ -113,6 +114,7 @@ public class Mailer implements Runnable {
 	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
 		logger.info("Trainers being sent emails: "+ trainersToSubmitGrades);
 		String email = getEmailString();
+		logger.info("Email message: " + email);
 		//for (Trainer trainer : trainersToSubmitGrades) {
 			
 			try {
@@ -140,16 +142,19 @@ public class Mailer implements Runnable {
 	
 	private String getEmailString() {
 		try {
+			
 			String emailStr;
-			emailStr = new String(Files.readAllBytes(Paths.get(EMAIL_TEMPLATE_PATH)));
+			logger.info("Before emailStr is set");
+			emailStr = new String(Files.readAllBytes(Paths.get(URI.create(EMAIL_TEMPLATE_PATH))));
+			logger.info("After emailStr is set: " + emailStr);
 			logger.info("loaded template");
-
 			return emailStr;
 		} catch (IOException e) {
 			logger.warn("Unable to read email template");
 			logger.warn(e);
 			return null;
 		}
+		
 	}
 	
 	/**
