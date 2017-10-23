@@ -58,10 +58,7 @@ public class Mailer implements Runnable {
 	private EmailAuthenticator authenticator;
 
 
-	//private static final String EMAIL_TEMPLATE_PATH = "C:\\Users\\apbon\\my_git_repos\\caliber\\caliber\\src\\main\\webapp\\static\\app\\partials\\email\\emailTemplate.html";
-	private static final String PATH_TO_PARTIAL = "\\static\\app\\partials\\email\\emailTemplate.html";
-	private static final String PATH_TO_BASE = "caliber\\src\\main\\java\\com\\revature\\caliber\\email\\Mailer.java";
-	private static final String EMAIL_TEMPLATE_PATH = "../../../../../webapp/static/app/partials/email/emailTemplate.html";
+
 
 	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
 
@@ -116,8 +113,7 @@ public class Mailer implements Runnable {
 	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
 		logger.info("Trainers being sent emails: "+ trainersToSubmitGrades);
 		String email = getEmailString();
-		for (Trainer trainer : trainersToSubmitGrades) {
-			
+		for (Trainer trainer : trainersToSubmitGrades) {		
 			try {
 				logger.info("In the try block for sending emails");
 				MimeMessage message = new MimeMessage(session);
@@ -141,13 +137,7 @@ public class Mailer implements Runnable {
 	
 	private String getEmailString() {
 		try {
-//<<<<<<< HEAD
-//			
-//			String emailStr;
-//			logger.info("Before emailStr is set");
-//			emailStr = new String(Files.readAllBytes(Paths.get(URI.create(EMAIL_TEMPLATE_PATH))));
-//			logger.info("After emailStr is set: " + emailStr);
-//=======
+
 			String emailTemplate = "emailTemplate.html";
 			String emailStr = new String(Files.readAllBytes(Paths.get(this.getClass().getResource(emailTemplate).toURI())));
 			logger.info(emailStr);
