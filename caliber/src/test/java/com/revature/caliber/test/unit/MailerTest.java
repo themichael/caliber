@@ -88,6 +88,9 @@ public class MailerTest extends CaliberTest {
 		assertTrue(this.trainersToSubmitGrades.contains(this.Orson));
 	}
 	
+	/**
+	 * Shelby Levinson should be in the collection, because she submitted only one grade
+	 */
 	@Test
 	public void testShelbyPresent() {
 		assertTrue(this.trainersToSubmitGrades.contains(this.Shelby));
