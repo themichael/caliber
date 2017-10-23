@@ -1,9 +1,6 @@
 package com.revature.caliber.email;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -15,9 +12,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Component;
 
 import com.revature.caliber.beans.Assessment;
@@ -150,16 +148,15 @@ public class Mailer implements Runnable {
 	 * containing the contents of it
 	 * @return A String containing the contents of the email template html file
 	 */
-	private String getEmailString() {
+	public String getEmailString() {
 		try {
-			String emailStr = new String(Files.readAllBytes(Paths.get(this.getClass().getResource(EMAIL_TEMPLATE_PATH).toURI())));
+			String emailStr = null;
+			ClassLoader classLoader = getClass().getClassLoader();
+			emailStr = IOUtils.toString(classLoader.getResourceAsStream(EMAIL_TEMPLATE_PATH));
 			logger.info("loaded email template");
 			return emailStr;
 		} catch (IOException e) {
 			logger.warn("Unable to read email template");
-			logger.warn(e);
-			return null;
-		} catch (URISyntaxException e) {
 			logger.warn(e);
 			return null;
 		}
