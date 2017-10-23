@@ -323,29 +323,38 @@
 									<table id="batch-panel-status" ng-if="panelsBatchOverall" class="table"
 											style="border-collapse: collapse;">
 										<tr>
-											<th>Trainee Name</th>
+											<th>Trainee</th>
 											<th style="text-align: center;">Panel Status</th>
 											<th>Date</th>
+											<th>Time</th>
 											<th style="text-align: center;">Repeat Topics</th>
 										</tr>
 										<tr ng-repeat="item in allTraineesPanelData">
-											<td class="col-sm-4 col-md-4 col-lg-4" ng-bind="item.trainee"></td>
-											<td class="col-sm-3 col-md-3 col-lg-3"  ng-if="item.status == 'Pass'">
+											<!-- Trainee column -->
+											<td class="col-sm-3 col-md-3 col-lg-3" ng-bind="item.trainee"></td>
+											<!-- Panel Status column -->
+											<td class="col-sm-2 col-md-2 col-lg-2" ng-if="item.status == 'Pass'">
 												<span style="color: #81f575; width: 100%; text-align: center;" class="fa fa-check fa-2x"> </span>
 											</td>
-											<td ng-if="item.status == 'Repanel'">
+											<td class="col-sm-2 col-md-2 col-lg-2" ng-if="item.status == 'Repanel'">
 												<span style="color: #ff7575; width: 100%; text-align: center;" class="glyphicon glyphicon-remove fa-2x"></span>
 											</td>
-											<td ng-if="!item.status">
+											<td class="col-sm-2 col-md-2 col-lg-2" ng-if="!item.status">
 												<span style="color: rgb(252,221,115); width: 100%; text-align: center;" class="fa fa-minus fa-2x"></span>
-
 											</td>
-											<td ng-if="item.status" ng-bind="item.date"></td>
-											<td ng-if="!item.status">
-												<span style="color: rgb(252,221,115); width: 100%;" class="fa fa-minus fa-2x"></span>
+											<!-- Date column -->
+											<td class="col-sm-3 col-md-3 col-lg-3" style="width: auto;" ng-if="item.status" ng-bind="item.date"></td>
+											<td class="col-sm-3 col-md-3 col-lg-3" ng-if="!item.status">
+												<span style="color: rgb(252,221,115); width: 100%; text-align: center;" class="fa fa-minus fa-2x"></span>
 											</td>
-											<td style = "text-align: center;" class="col-sm-3 col-md-3 col-lg-3"  ng-if="item.topics" ng-bind="item.topics"></td>
-											<td class="col-sm-3 col-md-3 col-lg-3"  ng-if="!item.topics">
+											<!-- Time column -->
+											<td class="col-sm-2 col-md-2 col-lg-2" style="width: auto; white-space:nowrap;" ng-if="item.status" ng-bind="item.time"></td>
+											<td class="col-sm-2 col-md-2 col-lg-2" ng-if="!item.status">
+												<span style="color: rgb(252,221,115); width: 100%; text-align: center;" class="fa fa-minus fa-2x"></span>
+											</td>
+											<!-- Repanel topics column -->
+											<td class="col-sm-6 col-md-6 col-lg-6" style = "text-align: center;"  ng-if="item.topics" ng-bind="item.topics"></td>
+											<td class="col-sm-6 col-md-6 col-lg-6" ng-if="!item.topics">
 												<span style="color: rgb(252,221,115); width: 100%; text-align: center;" class="fa fa-minus fa-2x"></span>
 											</td>
 										</tr>
