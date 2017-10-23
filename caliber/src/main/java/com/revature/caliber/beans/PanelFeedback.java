@@ -147,8 +147,7 @@ public class PanelFeedback {
 		if (panel == null) {
 			if (other.panel != null)
 				return false;
-		} else if (panel.getId() != other.getId())
-			return false;
+		} 
 		if (result != other.result)
 			return false;
 		if (status != other.status)

@@ -65,7 +65,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Address> createLocation(@Valid @RequestBody Address location) {
 		log.info("Saving location: " + location);
 		trainingService.createLocation(location);
@@ -81,7 +81,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> updateLocation(@Valid @RequestBody Address location) {
 		log.info("Updating location: " + location);
 		trainingService.update(location);
@@ -110,7 +110,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> removeLocation(@Valid @RequestBody Address location) {
 		log.info("Deactivating location: " + location);
 		trainingService.update(location);
@@ -125,7 +125,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/location/reactivate", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> reactivateLocation(@Valid @RequestBody Address location) {
 		log.info("Updating location: " + location);
 		trainingService.update(location);
@@ -149,7 +149,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/trainer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Trainer> createTrainer(@Valid @RequestBody Trainer trainer) {
 		log.info("Saving trainer: " + trainer);
 		trainingService.createTrainer(trainer);
@@ -165,7 +165,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/trainer/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> updateTrainer(@Valid @RequestBody Trainer trainer) {
 		log.info("Updating trainer: " + trainer);
 		trainingService.update(trainer);
@@ -196,7 +196,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/vp/trainer/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> makeInactive(@Valid @RequestBody Trainer trainer) {
 		log.info("Updating trainer: " + trainer);
 		trainingService.makeInactive(trainer);
@@ -263,7 +263,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'PANEL')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'PANEL')")
 	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch) {
 		log.info("Saving batch: " + batch);
 		trainingService.save(batch);

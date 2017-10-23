@@ -64,7 +64,7 @@ public class CategoryController {
 	//Calls a method that will update a categories name or activity
 	@RequestMapping(value = "/vp/category/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category) {
 		categoryService.updateCategory(category);
 		return new ResponseEntity<>(category, HttpStatus.OK);
@@ -72,7 +72,7 @@ public class CategoryController {
 	//Calls a method that creates a new Category
 	@RequestMapping(value = "/vp/category", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP','PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Category> saveCategory(@Valid @RequestBody Category category) {
 		categoryService.saveCategory(category);
 		return new ResponseEntity<>(category, HttpStatus.CREATED);

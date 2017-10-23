@@ -29,6 +29,7 @@ import com.revature.caliber.services.TrainingService;
 /**
  * @author Connor Monson
  * @author Matt 'Spring Data' Prass
+ * @author Nathan Kozsuta
  */
 @RestController
 @PreAuthorize("isAuthenticated()")
@@ -41,7 +42,7 @@ public class PanelController {
 	@Autowired
 	private PanelService panelService;
 
-	public void setSalesforceService(PanelService panelService) {
+	public void setPanelService(PanelService panelService) {
 		this.panelService = panelService;
 	}
 
@@ -141,6 +142,7 @@ public class PanelController {
 	}
 	
 	@RequestMapping(value = "/all/reports/batch/{batchId}/panel-batch-all-trainees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Map<String, String>>> getBatchAllTraineesPanelTable(
 			@PathVariable Integer batchId) {
