@@ -76,7 +76,7 @@ public class EmailService implements InitializingBean {
 		
 		// First we get the time that the emails will start to fire
 		LocalTime timeToFireDate = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
-		LocalDate timeToFireTime = LocalDate.now().with(TemporalAdjusters.next(DAY_OF_WEEK_TO_FIRE));
+		LocalDate timeToFireTime = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.TUESDAY));
 		ZonedDateTime timeToFire = ZonedDateTime.of(timeToFireTime, timeToFireDate, TIME_ZONE);
 		
 		// Then the current time in order to get an initial delay for scheduleAtFixedRate()
