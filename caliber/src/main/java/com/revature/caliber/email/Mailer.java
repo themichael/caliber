@@ -105,17 +105,15 @@ public class Mailer implements Runnable {
 	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
 		logger.info("Trainers being sent emails: "+ trainersToSubmitGrades);
 		String email = getEmailString();
-		//for (Trainer trainer : trainersToSubmitGrades) {
+		for (Trainer trainer : trainersToSubmitGrades) {
 			
 			try {
 				logger.info("In the try block for sending emails");
 				MimeMessage message = new MimeMessage(session);
-				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress("mscott@mailinator.com"));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
 				
 				message.setSubject("Submit Grades Reminder");
-				//String trainerName = trainer.getName();
-				String trainerName = "Michael Scott";
+				String trainerName = trainer.getName();
 				String emailStr = email.replace(EMAIL_TEMPLATE_NAME_TOKEN, trainerName);
 				
 				message.setContent(emailStr, "text/html");
@@ -126,7 +124,7 @@ public class Mailer implements Runnable {
 				logger.warn(e);
 				logger.warn("Email exception");
 			}
-		//}
+		}
 	}
 	
 	private String getEmailString() {
