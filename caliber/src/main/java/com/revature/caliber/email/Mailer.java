@@ -1,6 +1,11 @@
 package com.revature.caliber.email;
 
 import java.io.IOException;
+
+import java.net.URI;
+
+import java.net.URL;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -51,6 +56,9 @@ public class Mailer implements Runnable {
 
 	@Autowired
 	private EmailAuthenticator authenticator;
+
+
+
 
 	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
 
@@ -105,8 +113,7 @@ public class Mailer implements Runnable {
 	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
 		logger.info("Trainers being sent emails: "+ trainersToSubmitGrades);
 		String email = getEmailString();
-		for (Trainer trainer : trainersToSubmitGrades) {
-			
+		for (Trainer trainer : trainersToSubmitGrades) {		
 			try {
 				logger.info("In the try block for sending emails");
 				MimeMessage message = new MimeMessage(session);
@@ -115,7 +122,8 @@ public class Mailer implements Runnable {
 				message.setSubject("Submit Grades Reminder");
 				String trainerName = trainer.getName();
 				String emailStr = email.replace(EMAIL_TEMPLATE_NAME_TOKEN, trainerName);
-				
+				if (emailStr == null)
+					return;
 				message.setContent(emailStr, "text/html");
 				
 				Transport.send(message);
@@ -129,11 +137,12 @@ public class Mailer implements Runnable {
 	
 	private String getEmailString() {
 		try {
+
 			String emailTemplate = "emailTemplate.html";
 			String emailStr = new String(Files.readAllBytes(Paths.get(this.getClass().getResource(emailTemplate).toURI())));
 			logger.info(emailStr);
-			logger.info("loaded template");
 
+			logger.info("loaded template");
 			return emailStr;
 		} catch (IOException e) {
 			logger.warn("Unable to read email template");
@@ -144,6 +153,7 @@ public class Mailer implements Runnable {
 			logger.warn(e);
 			return null;
 		}
+		
 	}
 	
 	/**
