@@ -12,7 +12,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<security:form-login login-page="/" />
 
 		<!-- enable SSL -->
-		<!-- <security:intercept-url pattern="/**" requires-channel="https" /> -->
+		<!--  <security:intercept-url pattern="/**" requires-channel="https" />-->
 
 		<!-- change to hasRole('ROLE_VP') after development is complete -->
 		<!--<security:intercept-url pattern="/vp/**" access="hasRole('ROLE_VP')" 
@@ -46,6 +46,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 		<security:authentication-provider>
 			<security:user-service>
 				<security:user authorities="ROLE_VP" name="ROLE_VP" />
+				<security:user authorities="ROLE_PANEL" name="ROLE_PANEL" />
 				<security:user authorities="ROLE_QC" name="ROLE_QC" />
 				<security:user authorities="ROLE_TRAINER" name="ROLE_TRAINER" />
 				<security:user authorities="ROLE_STAGING" name="ROLE_STAGING" />

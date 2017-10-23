@@ -591,7 +591,7 @@ angular
 					var score = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score;
 					if(score !== null && score !== undefined && score !=="" && score >= 0){
 						//replaces 0 with arbitrary low number for valid average calculations in the back-end - Trevor Lory
-						if(score == 0) {
+						if(score === 0) {
 							score = 0.00001;
 						}
 						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId] === undefined){
@@ -728,7 +728,7 @@ angular
 							var score = trainees[traineeKey].assessments[assessment.assessmentId].score;
 							if(score >= 0){
 								//replaces 0 with arbitrary low number for valid average calculations - Trevor Lory
-								if(score == 0) {
+								if(score === 0) {
 									score = 0.00001;
 								}
 								$scope.assessmentTotals[assessment.assessmentId].total+= Number(score);								
