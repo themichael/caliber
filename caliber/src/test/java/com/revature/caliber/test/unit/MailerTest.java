@@ -2,7 +2,6 @@ package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.email.Mailer;
 
@@ -94,6 +91,11 @@ public class MailerTest extends CaliberTest {
 	@Test
 	public void testShelbyPresent() {
 		assertTrue(this.trainersToSubmitGrades.contains(this.shelby));
+	}
+	
+	@Test
+	public void testEmailTemplateNotNull() {
+		assertTrue(null != this.mailer.getEmailString());
 	}
 
 }
