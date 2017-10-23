@@ -148,7 +148,7 @@ public class Mailer implements Runnable {
 	 * containing the contents of it
 	 * @return A String containing the contents of the email template html file
 	 */
-	public String getEmailString() {
+	private String getEmailString() {
 		try {
 			String emailStr = null;
 			ClassLoader classLoader = getClass().getClassLoader();

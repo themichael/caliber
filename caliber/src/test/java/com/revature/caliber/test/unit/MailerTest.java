@@ -92,10 +92,5 @@ public class MailerTest extends CaliberTest {
 	public void testShelbyPresent() {
 		assertTrue(this.trainersToSubmitGrades.contains(this.shelby));
 	}
-	
-	@Test
-	public void testEmailTemplateNotNull() {
-		assertTrue(null != this.mailer.getEmailString());
-	}
 
 }
