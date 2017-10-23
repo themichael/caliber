@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.ConstraintViolationException;
 
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 
