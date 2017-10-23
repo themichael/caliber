@@ -136,7 +136,6 @@ public class TraineeDAO {
 		log.info("Fetch trainee by id: " + traineeId);
 		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.setFetchMode("batch", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId)).uniqueResult();
-//				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped))
 	}
 
 	/**

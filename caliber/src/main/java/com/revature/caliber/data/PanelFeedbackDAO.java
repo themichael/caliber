@@ -77,10 +77,9 @@ public class PanelFeedbackDAO {
 	
 	/**
 	 * 
-	 * Convenience method only. Not practical in production since panels must
-	 * be registered in the Salesforce with a matching email address.
 	 * 
-	 * @param panel
+	 * 
+	 * @param panelFeedback
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void save(PanelFeedback panelFeedback) {
