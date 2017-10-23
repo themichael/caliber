@@ -129,7 +129,9 @@ public class PanelService {
 				status = panel.getStatus().toString();
 				panelInfo.put("status", status);
 				DateFormat df = new SimpleDateFormat("MM/dd/yyyy 'at' h:mm a");
-				panelInfo.put("date", df.format(panel.getInterviewDate()));
+				String[] dateTime = df.format(panel.getInterviewDate()).split("at");
+				panelInfo.put("date", dateTime[0]);
+				panelInfo.put("time", dateTime[1]);
 				if(status.equalsIgnoreCase("Repanel")) {
 					String topics = utilGetRepanelTopics(panel.getFeedback());
 					panelInfo.put("topics", topics);
