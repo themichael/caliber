@@ -40,7 +40,6 @@ public class EmailService implements InitializingBean {
 	private static final int HOUR_TO_FIRE = 22; // hours go 0-23
 	private static final int MINUTE_TO_FIRE = 34; // minutes go 0-59
 	private static final int DAYS_BETWEEN_EMAILS = 7;
-	private static final int INITIAL_DELAY = 0;
 	private static final long SECONDS_BETWEEN_EMAILS = TimeUnit.DAYS.toSeconds(DAYS_BETWEEN_EMAILS);
 	
 	public void setMailer(Mailer mailer) {
@@ -58,10 +57,14 @@ public class EmailService implements InitializingBean {
 		LocalTime localTime = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
 		LocalDate localDate = LocalDate.now().with(TemporalAdjusters.next(DAY_OF_WEEK_TO_FIRE));
 		ZonedDateTime timeToFire = ZonedDateTime.of(localDate, localTime, TIME_ZONE);
+		ZonedDateTime now = ZonedDateTime.of(LocalDate.now(), LocalTime.now(), TIME_ZONE);
+		
+		long secDiff = now.toEpochSecond() - now.toEpochSecond();
 	
 		logger.info(timeToFire);
 		
-		scheduler.scheduleAtFixedRate(mailer, INITIAL_DELAY, DAYS_BETWEEN_EMAILS, TimeUnit.DAYS);
+		scheduler.scheduleAtFixedRate(mailer, 
+				secDiff, SECONDS_BETWEEN_EMAILS, TimeUnit.SECONDS);
 
 	}
 
