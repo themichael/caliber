@@ -87,7 +87,7 @@ public class EmailService implements InitializingBean {
 		logger.info("Emails will start firing at: " + timeToFire);
 		
 		/*
-		 * Mailer's run() will be called after secDiff seconds with TIME_UNITS_BETWEEN_EMAILS TIME_UNITS
+		 * Mailer's run() will be called after delayInUnits seconds with TIME_UNITS_BETWEEN_EMAILS TIME_UNITS
 		 * until the next call to run()
 		 */
 		scheduler.scheduleAtFixedRate(mailer, delayInUnits, TIME_UNITS_BETWEEN_EMAILS, TIME_UNITS);
