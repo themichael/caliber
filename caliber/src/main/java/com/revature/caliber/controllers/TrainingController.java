@@ -340,7 +340,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/trainer/week/new/{batchId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Void> createWeek(@PathVariable int batchId) {
 		log.info("Adding week to batch: " + batchId);
 		trainingService.addWeek(batchId);
