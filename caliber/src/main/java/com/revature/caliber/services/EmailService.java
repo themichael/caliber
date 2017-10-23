@@ -32,22 +32,52 @@ public class EmailService implements InitializingBean {
 	@Autowired
 	private Mailer mailer;
 	
+	/**
+	 * Used to schedule the actual firing of emails
+	 */
 	private static final ScheduledExecutorService scheduler =
 		Executors.newSingleThreadScheduledExecutor();
 	
+	/**
+	 * The time zone with respect to which emails will be sent 
+	 */
 	private static final ZoneId TIME_ZONE = ZoneId.of("America/New_York");
 
+	/**
+	 * The day of the week during which emails should fire
+	 */
 	private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.TUESDAY;
+	
+	/**
+	 * The hour of the day during DAY_OF_WEEK_TO_FIRE at which to fire
+	 */
 	private static final int HOUR_TO_FIRE = 13; // hours go 0-23
+	
+	/**
+	 * The minute of the HOUR_TO_FIRE to fire
+	 */
 	private static final int MINUTE_TO_FIRE = 0; // minutes go 0-59
+	
+	/**
+	 * Number of days between emails, likely to stay 1 week/7 days
+	 * Not directly used in the code but only for setting up TIME_UNITS_BETWEEN_EMAILS
+	 */
 	private static final int DAYS_BETWEEN_EMAILS = 7;
 	
-	/*
-	 * Used to set the delay for scheduleAtFixedRate()
+	/**
+	 * The time units that will be used for scheduleAtFixedRate()
+	 */
+	private static final TimeUnit TIME_UNITS = TimeUnit.SECONDS;
+	
+	/**
+	 * Used to set the delay between emails for scheduleAtFixedRate()
 	 */
 	private static final long TIME_UNITS_BETWEEN_EMAILS = TimeUnit.DAYS.toSeconds(DAYS_BETWEEN_EMAILS);
-	private static final TimeUnit TIME_UNITS = TimeUnit.SECONDS;
+	
 
+	/**
+	 * Starts the ScheduledThreadExecutor upon application startup/bean initialization
+	 */
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		startReminderJob();
@@ -76,7 +106,7 @@ public class EmailService implements InitializingBean {
 		
 		// First we get the time that the emails will start to fire
 		LocalTime timeToFireDate = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
-		LocalDate timeToFireTime = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.TUESDAY));
+		LocalDate timeToFireTime = LocalDate.now().with(TemporalAdjusters.nextOrSame(DAY_OF_WEEK_TO_FIRE));
 		ZonedDateTime timeToFire = ZonedDateTime.of(timeToFireTime, timeToFireDate, TIME_ZONE);
 		
 		// Then the current time in order to get an initial delay for scheduleAtFixedRate()
