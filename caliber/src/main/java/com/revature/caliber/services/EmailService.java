@@ -33,41 +33,64 @@ public class EmailService implements InitializingBean {
 	private Mailer mailer;
 	
 	private static final ScheduledExecutorService scheduler =
-		Executors.newScheduledThreadPool(1);
+		Executors.newSingleThreadScheduledExecutor();
 	
 	private static final ZoneId TIME_ZONE = ZoneId.of("America/New_York");
 
-	private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.THURSDAY;
-	private static final int HOUR_TO_FIRE = 22; // hours go 0-23
-	private static final int MINUTE_TO_FIRE = 34; // minutes go 0-59
-
+	private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.TUESDAY;
+	private static final int HOUR_TO_FIRE = 13; // hours go 0-23
+	private static final int MINUTE_TO_FIRE = 0; // minutes go 0-59
 	private static final int DAYS_BETWEEN_EMAILS = 7;
-	private static final long SECONDS_BETWEEN_EMAILS = TimeUnit.DAYS.toSeconds(DAYS_BETWEEN_EMAILS);
 	
-	public void setMailer(Mailer mailer) {
-		this.mailer = mailer;
-	}
+	/*
+	 * Used to set the delay for scheduleAtFixedRate()
+	 */
+	private static final long TIME_UNITS_BETWEEN_EMAILS = TimeUnit.DAYS.toSeconds(DAYS_BETWEEN_EMAILS);
+	private static final TimeUnit TIME_UNITS = TimeUnit.SECONDS;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		startReminderJob();
 	}
 
-	private void startReminderJob() {
+	/**
+	 * Begins the scheduler task of firing emails to trainers who have not submitted their grades
+	 * The task is scheduled to first fire at HOUR_TO_FIRE:MINUTE_TO_FIRE with respect to TIME_ZONE
+	 * The task is then repeated every TIME_UNITS_BETWEEN_EMAILS TIME_UNITS
+	 * ZonedDateTime takes care of daylight savings so there is no issue with that
+	 * There is a strange bug that causes this method to be called twice upon application startup
+	 * The 'started' boolean is a hacky way of stopping this issue
+	 */
+	private static boolean started = false;
+	private synchronized void startReminderJob() {
+		/* 
+		 * Simply exit if we have already started the scheduled email job
+		 * The method is synchronized for this reason, to prevent an edge case of it firing twice anyway
+		 * The issue stems from run() in Mailer being called twice, not sure why 
+		 */
+		if (started)
+			return;
+		started = true;
+		
 		logger.info("startReminderJob()");
 		
-		LocalTime localTime = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
-		LocalDate localDate = LocalDate.now().with(TemporalAdjusters.next(DAY_OF_WEEK_TO_FIRE));
-		ZonedDateTime timeToFire = ZonedDateTime.of(localDate, localTime, TIME_ZONE);
+		// First we get the time that the emails will start to fire
+		LocalTime timeToFireDate = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
+		LocalDate timeToFireTime = LocalDate.now().with(TemporalAdjusters.next(DAY_OF_WEEK_TO_FIRE));
+		ZonedDateTime timeToFire = ZonedDateTime.of(timeToFireTime, timeToFireDate, TIME_ZONE);
+		
+		// Then the current time in order to get an initial delay for scheduleAtFixedRate()
 		ZonedDateTime now = ZonedDateTime.of(LocalDate.now(), LocalTime.now(), TIME_ZONE);
 		
-		long secDiff = now.toEpochSecond() - now.toEpochSecond();
+		long delayInUnits = timeToFire.toEpochSecond() - now.toEpochSecond();
 	
-		logger.info(timeToFire);
+		logger.info("Emails will start firing at: " + timeToFire);
 		
-		scheduler.scheduleAtFixedRate(mailer, 
-				secDiff, SECONDS_BETWEEN_EMAILS, TimeUnit.SECONDS);
-
+		/*
+		 * Mailer's run() will be called after secDiff seconds with TIME_UNITS_BETWEEN_EMAILS TIME_UNITS
+		 * until the next call to run()
+		 */
+		scheduler.scheduleAtFixedRate(mailer, delayInUnits, TIME_UNITS_BETWEEN_EMAILS, TIME_UNITS);
 	}
 
 }
