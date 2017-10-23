@@ -413,33 +413,6 @@ angular.module("delegate")
 				return panelFactory.getRecentRepanels();
 			};
 
-			/** ****************** Panel Feedback ***********************
-			 * 
-			 * @author Nathan Koszuta
-			 */
-
-			delegate.panel.getAllPanelFeedbacks = function () {
-				return panelFactory.getAllPanelFeedbacks();
-			}
-
-			/* TODO: Fix testCreatePanelFeedback201() in PanelFeedbackAPITest.java
 			
-			delegate.panel.createPanelFeedback = function (panelFeedbackObj) {
-				return panelFactory.createPanelFeedback(panelFeedbackObj);
-			}
-			*/
-			
-			/* TODO: Fix testUpdatePanelFeedback200() in PanelFeedbackAPITest.java
-
-			delegate.panel.updatePanelFeedback = function (feedbackId) {
-				return panelFactory.updatePanelFeedback(feedbackId);
-			}
-			*/ 
-
-			delegate.panel.deletePanelFeedback = function (feedbackId) {
-				return panelFactory.deletePanelFeedback(feedbackId);
-			}
-
-
 			return delegate;
 		});

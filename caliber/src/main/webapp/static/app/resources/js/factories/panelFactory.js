@@ -146,65 +146,6 @@ angular.module('api').factory('panelFactory', function($log, $http) {
 		});
 	};
 
-	/** ******************* Panel Feedback ********************** */
-
-	// Create new feedback for panel
-	panel.createPanelFeedback = function (panelFeedbackObj) {
-		return $http({
-			url: '/panelfeedback/create',
-			method: 'POST',
-			data: panelFeedbackObj
-		}).then(function (response) {
-			$log.debug('Panel feedback successfully created');
-			$log.debug(response);
-			return response.data;
-		}, function (error) {
-			$log.error('There was an error: ' + error.status);
-		});
-	};
-
-	// Get panel feedback for all trainees
-	panel.getAllPanelFeedbacks = function () {
-		return $http({
-			url: '/panelfeedback/all',
-			method: 'GET'
-		}).then(function (response) {
-			$log.debug('Successfully retrieved panel feedback for all trainees');
-			$log.debug(response);
-			return response.data;
-		}, function (error) {
-			$log.error('There was an error: ' + error.status);
-		});
-	};
-
-	// Update feedback by id
-	panel.updatePanelFeedback = function (feedbackId) {
-		return $http({
-			url: '/panelfeedback/update/' + feedbackId,
-			method: 'PUT'
-		}).then(function (response) {
-			$log.debug('Feeback #' + feedbackId + ' successfully updated');
-			$log.debug(response);
-			return response.data;
-		}, function (error) {
-			$log.error('There was an error: ' + error.status);
-		});
-	};
-
-	// Delete feedback by id
-	panel.deletePanelFeedback = function (feedbackId) {
-		return $http({
-			url: '/panelfeedback/delete/' + feedbackId,
-			method: 'DELETE'
-		}).then(function (response) {
-			$log.debug('Feeback #' + feedbackId + ' successfully deleted');
-			$log.debug(response);
-			return response.data;
-		}, function (error) {
-			$log.error('There was an error: ' + error.status);
-		});
-	};
 	
-
 	return panel;
 });
