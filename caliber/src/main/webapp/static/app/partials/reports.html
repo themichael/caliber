@@ -316,9 +316,42 @@
 								</div>
 							</div>
 						</div>
+						<div id="batchPanel">
+							<div class="panel panel-default">
+								<div class="panel-heading">Panel Feedback</div>
+								<div class="table-responsive">
+									<table id="batch-panel-status" ng-if="weeklyProgressBatchOverallLabels" class="table"
+											style="border-collapse: collapse;">
+										<tr>
+											<th>Trainee Name</th>
+											<th style="text-align: center;">Panel Status</th>
+											<th style="text-align: center;">Repeat Topics</th>
+										</tr>
+										<tr ng-repeat="item in allTraineesPanelData">
+											<td class="col-sm-4 col-md-4 col-lg-4" ng-bind="item.trainee"></td>
+											<td class="col-sm-3 col-md-3 col-lg-3"  ng-if="item.status == 'Pass'">
+												<span style="color: #81f575; width: 100%; text-align: center;" class="fa fa-check fa-2x"> </span>
+											</td>
+											<td ng-if="item.status == 'Repanel'">
+												<span style="color: #ff7575; width: 100%; text-align: center;" class="glyphicon glyphicon-remove fa-2x"></span>
+											</td>
+											<td ng-if="!item.status">
+												<span style="color: rgb(252,221,115); width: 100%; text-align: center;" class="fa fa-minus fa-2x"></span>
+
+											</td>
+											<td style = "text-align: center;" class="col-sm-3 col-md-3 col-lg-3"  ng-if="item.topics" ng-bind="item.topics"></td>
+											<td class="col-sm-3 col-md-3 col-lg-3"  ng-if="!item.topics">
+												<span style="color: rgb(252,221,115); width: 100%; text-align: center;" class="fa fa-minus fa-2x"></span>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- Row With Bottom 2 Charts -->
+				
 			</div>
 		</div>
 		<!-- Row with all 3 Chart-->
@@ -425,8 +458,30 @@
 							</div>
 						</div>
 					</div>
-				</div>
+			
 				<!-- Row With Bottom 2 Charts -->
+					<div id="batchPanel" class="row">
+		
+							<div class="panel panel-default">
+								<div class="panel-heading">Panel Feedback</div>
+								<table id="batch-panel-status"
+									class="table-responsive">
+									<tr>
+										<th>Trainee Name</th>
+										<th>Panel Status</th>
+										<th>Repeat Topics</th>
+									</tr>
+									<tr ng-repeat="item in allTraineesPanelData">
+										<td ng-bind="item.trainee"></td>
+										<td ng-bind="item.status"></td>
+										<td ng-bind="item.topics"></td>
+									</tr>
+								</table>
+							</div>
+
+					</div>
+						</div>
+				<!-- Row with panel table -->
 			</div>
 			<div ui-view="trainee-week" ng-if="displayTable()"></div>
 		</div>
@@ -547,6 +602,8 @@
 				<!-- Row With Bottom 2 Charts -->
 			</div>
 			<div ui-view="trainee-overall" ng-if="displayTraineeOverallTable()"></div>
+			<!--view for panel report display -->
+			<div ui-view ="panel-report-display" ng-if="displayTraineePanelFeedback()"></div>
 		</div>
 		<!-- Row with all 3 Chart-->
 

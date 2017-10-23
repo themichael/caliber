@@ -63,6 +63,7 @@ public class ReportingService {
 	private NoteDAO noteDAO;
 	private AssessmentDAO assessmentDAO;
 
+
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
 		this.gradeDAO = gradeDAO;
@@ -84,9 +85,11 @@ public class ReportingService {
 	}
 
 	@Autowired
-	public void seAssessmentDAO(AssessmentDAO assessmentDAO) {
+	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
 		this.assessmentDAO = assessmentDAO;
 	}
+	
+
 	/*
 	 *******************************************************
 	 * Doughnut / Pie Charts
@@ -522,6 +525,8 @@ public class ReportingService {
 		assessments.forEach(a -> results.add(a.getCategory().getSkillCategory()));
 		return results;
 	}
+	
+
 
 	/*
 	 *******************************************************
@@ -867,5 +872,7 @@ public class ReportingService {
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
 	}
+	
+	
 
 }

@@ -101,33 +101,9 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		// Getting token response from salesforce
 		HttpResponse response = httpClient.execute(post);
 		String salesTokenString = toJsonString(response.getEntity().getContent());
-		// redirectAttributes.addAttribute("salestoken",
-		// toJsonString(response.getEntity().getContent()));
-
+		
 		try {
-			if (debug) {
-				// fake Salesforce User
-				SalesforceUser salesforceUser = new SalesforceUser();
-				salesforceUser.setEmail(DEBUG_USER_LOGIN);
-				String email = salesforceUser.getEmail();
-
-				// Http request to the training module to get the caliber user
-				String jsonString = getCaliberTrainer(servletRequest, email);
-				// authorize user
-				authorize(jsonString, salesforceUser, servletResponse);
-			} else {
-				SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-				// Http request to the salesforce module to get the Salesforce
-				// user
-				SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
-				String email = salesforceUser.getEmail();
-
-				// Http request to the training module to get the caliber user
-				String jsonString = getCaliberTrainer(servletRequest, email);
-
-				// authorize user
-				authorize(jsonString, salesforceUser, servletResponse);
-			}
+			tryAuthorize(servletRequest, servletResponse, salesTokenString);
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
 			return new ModelAndView("redirect:/");
@@ -141,32 +117,10 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	public void authenticateAPI(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
 		log.info("API log in test");
-
 		String salesTokenString = servletRequest.getParameter("salestoken");
+		
 		try {
-			if (debug) {
-				// fake Salesforce User
-				SalesforceUser salesforceUser = new SalesforceUser();
-				salesforceUser.setEmail(DEBUG_USER_LOGIN);
-				String email = salesforceUser.getEmail();
-
-				// Http request to the training module to get the caliber user
-				String jsonString = getCaliberTrainer(servletRequest, email);
-				// authorize user
-				authorize(jsonString, salesforceUser, servletResponse);
-			} else {
-				SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
-				// Http request to the salesforce module to get the Salesforce
-				// user
-				SalesforceUser salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
-				String email = salesforceUser.getEmail();
-
-				// Http request to the training module to get the caliber user
-				String jsonString = getCaliberTrainer(servletRequest, email);
-
-				// authorize user
-				authorize(jsonString, salesforceUser, servletResponse);
-			}
+			tryAuthorize(servletRequest, servletResponse, salesTokenString);
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
 		}
@@ -263,6 +217,28 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		log.info(jsonString);
 		return jsonString;
 	}
+	
+	private void tryAuthorize(HttpServletRequest servletRequest, HttpServletResponse servletResponse, String salesTokenString) throws URISyntaxException, IOException {
+		SalesforceUser salesforceUser;
+		
+		if (debug) {
+			// fake Salesforce User
+			salesforceUser = new SalesforceUser();
+			salesforceUser.setEmail(DEBUG_USER_LOGIN);
+
+		} else {
+			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
+			// Http request to the salesforce module to get the Salesforce
+			// user
+			salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
+		}
+		
+		String email = salesforceUser.getEmail();
+		// Http request to the training module to get the caliber user
+		String jsonString = getCaliberTrainer(servletRequest, email);
+		// authorize user
+		authorize(jsonString, salesforceUser, servletResponse);
+	}
 
 	/**
 	 * Parses a Json String containing TRAINER bean. Authorize the user with
@@ -317,7 +293,6 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		log.debug("failed to parse token from forwarded request: ");
 		throw new AuthenticationCredentialsNotFoundException("Salesforce token expired.");
 	}
-
 	/**
 	 * Makes a request to Salesforce REST API to retrieve the authenticated
 	 * user's details

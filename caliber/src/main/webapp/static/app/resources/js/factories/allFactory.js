@@ -92,6 +92,50 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
+	
+	all.enumPanelStatus = function() {
+		return $http({
+			url : "/types/panelstatus/all",
+			method : "GET"
+		}).then(function(response) {
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
+	all.enumInterviewFormat = function() {
+		return $http({
+			url : "/types/interviewformat/all",
+			method : "GET"
+		}).then(function(response) {
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
+	all.enumPanelStatus = function() {
+		return $http({
+			url : "/types/panelstatus/all",
+			method : "GET"
+		}).then(function(response) {
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+
+	all.enumInterviewFormat = function() {
+		return $http({
+			url : "/types/interviewformat/all",
+			method : "GET"
+		}).then(function(response) {
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
 
 	/**
 	 * @param allcategories
@@ -110,7 +154,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-
+	
 	/** ************************* Batch *********************** */
 
 	/**
@@ -290,6 +334,19 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			return response;
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
+		});
+	};
+	
+	all.searchTrainee = function (searchTerm) {
+		$http({
+			url: '/all/trainee/search/' + searchTerm,
+			method: 'GET'
+		}).then(function (response) {
+			$log.debug("Searched list of trainees");
+			$log.debug(response);
+			return response.data;
+		}, function (error) {
+			$log.error("There was an error: " + error.status);
 		});
 	};
 

@@ -45,7 +45,10 @@ public class TrainerDAOTest extends CaliberTest {
 	@Test
 	public void testFindAll() {
 		log.info("Find all trainers");
-		assertEquals(23, trainerDAO.findAll().size());
+		String sql = "SELECT COUNT(*) FROM CALIBER_TRAINER";
+		int expectedSize = jdbcTemplate.queryForObject(sql, Integer.class);
+		assertEquals(expectedSize, trainerDAO.findAll().size());
+
 	}
 
 	@Test
