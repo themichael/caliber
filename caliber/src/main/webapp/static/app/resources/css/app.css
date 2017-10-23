@@ -115,6 +115,10 @@ a {
 	background-color: #F26925;
 	color: white;
 }
+#panelReportDisplay{
+	background-color: #72A4C2;
+	color: white;
+}
 
 /************************
 	Manage Batch
@@ -406,7 +410,30 @@ footer a, footer a:hover {
 .note-mw {
 	min-width: 300px;
 }
-
+.removeSpaces{
+	            border-collapse: collapse;
+            border-spacing: 0;
+            display: inline-table !important;
+	margin: 0 !important;
+}
+.move-glyphicon{
+	top: 2.5px;
+}
+.glyphicon-ok{
+	color: #81f575; 
+	width: 100%;
+}
+.glyphicon-remove{
+	color: #ff7575; 
+	width: 100%;
+}
+.pBody{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.add-margin{
+	margin-bottom: 10px;
+}
 /********************************************************
 	Overall Batch Status column in vp-home and qc-home
 *********************************************************/
@@ -558,4 +585,27 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
     width: 35px;
     overflow: hidden;
     outline:none;
+}
+
+/**********************
+	  Panel Tab
+**********************/
+
+.fade-speeder.ng-leave {
+	transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.8s;
+	opacity: 1;
+}
+
+.fade-speeder.ng-leave.ng-leave-active {
+	opacity: 0;
+}
+
+.highlight {
+	background-color: rgba(252, 180, 20, 0.5);
+	transition: background-color 1s ease;
+}
+
+.no-highlight {
+	background-color: rgba(255, 255, 255, 1);
+	transition: background-color 2s ease;
 }

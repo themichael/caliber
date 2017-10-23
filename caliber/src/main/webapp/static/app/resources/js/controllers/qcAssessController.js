@@ -340,7 +340,9 @@ angular
 								|| $scope.faces[index].noteId === undefined) {
 							$log.debug("create");
 							//check if QC status is unpicked, default to undefined status if true
-							if($scope.faces[index].qcStatus == null) $scope.faces[index].qcStatus = $scope.qcStatusTypes[4];
+							if($scope.faces[index].qcStatus == null){
+								$scope.faces[index].qcStatus = $scope.qcStatusTypes[4];
+							}
 							caliberDelegate.qc.createNote($scope.faces[index])
 									.then(function(id) {
 										$scope.faces[index].noteId = id;

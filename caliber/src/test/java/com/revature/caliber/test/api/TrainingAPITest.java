@@ -3,13 +3,19 @@ package com.revature.caliber.test.api;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +27,7 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.beans.TrainingType;
+import com.revature.caliber.data.TraineeDAO;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -66,9 +73,57 @@ public class TrainingAPITest extends AbstractAPITest {
 	private String findAllBatchesByTrainer = "trainer/batch/all";
 	private String createWeek = "trainer/week/new/{batchId}";
 	private String findCommonLocations = "all/locations";
-	
+	private String search = "all/trainee/search/{searchTerm}";
 	private Address newYorkAddress = new Address(1, "65-30 Kissena Blvd, CEP Hall 2", "Queens", "NY", "11367","Tech Incubator at Queens College", true);
 
+	@Autowired
+	private TraineeDAO traineeDAO;
+	
+	@Autowired
+	public void setTraineeDAO(TraineeDAO traineeDAO) {
+		this.traineeDAO = traineeDAO;
+	}
+	
+	@Test
+	public void searchTest() throws Exception {
+		String searchTerm = "Lau";
+		Set<Trainee> result = new HashSet<>();
+		List<Trainee> traineeByEmail = traineeDAO.findByEmail(searchTerm);
+		result.addAll(traineeByEmail);
+		List<Trainee> traineeByName = traineeDAO.findByName(searchTerm);
+		result.addAll(traineeByName);
+		List<Trainee> traineeBySkypeId = traineeDAO.findBySkypeId(searchTerm);
+		result.addAll(traineeBySkypeId);
+		log.info("API Testing serach at baseUrl  " + baseUrl + search);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(baseUrl + search, searchTerm).
+		then().assertThat().
+			body("size()", is(result.size())).
+			statusCode(HttpStatus.OK_200);
+		for(Trainee t: result) {
+			log.info(t);
+		}
+	}
+	@Test
+	public void searchNoContentTest() throws Exception {
+		String searchTerm = "!!!!!!!!";
+		Set<Trainee> result = new HashSet<>();
+		List<Trainee> traineeByEmail = traineeDAO.findByEmail(searchTerm);
+		result.addAll(traineeByEmail);
+		List<Trainee> traineeByName = traineeDAO.findByName(searchTerm);
+		result.addAll(traineeByName);
+		List<Trainee> traineeBySkypeId = traineeDAO.findBySkypeId(searchTerm);
+		result.addAll(traineeBySkypeId);
+		log.info("API Testing serach at baseUrl  " + baseUrl + search);
+		given().
+			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
+		when().
+			get(baseUrl + search, searchTerm).
+		then().assertThat().
+			statusCode(HttpStatus.NO_CONTENT_204);
+	}
 	/**
 	 * Tests method:
 	 * @see com.revature.caliber.services.TrainingService.findByEmail(@RequestParam(required = true) Integer trainerID)
@@ -168,20 +223,20 @@ public class TrainingAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void updateBatchTest(){
-		//Pull a batch from the database…
+		//Pull a batch from the database...
 		Response resultBatchSet = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllBatches).then().extract().response();
 		Batch[] resultSet = resultBatchSet.as(Batch[].class);
 		Batch holderBatch = resultSet[0];
-		//Save original location…
+		//Save original location...
 		String original = holderBatch.getLocation();
-		//Change to a test location…
+		//Change to a test location...
 		holderBatch.setLocation("In the testing zone!");
-		//Try to update the batch…
+		//Try to update the batch...
 		log.info("API Testing the updateBatch at baseUrl  " + baseUrl + updateBatch);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(holderBatch).when()
 				.put(baseUrl + updateBatch).then().assertThat().statusCode(200);
-		//See if it actually changed in the database…
+		//See if it actually changed in the database...
 		resultBatchSet = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllBatches).then().extract().response();
 		resultSet = resultBatchSet.as(Batch[].class);
@@ -192,7 +247,7 @@ public class TrainingAPITest extends AbstractAPITest {
 			}
 		}
 		assertTrue(success);
-		//Change it back…
+		//Change it back...
 		holderBatch.setLocation(original);
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(holderBatch).when()
 		.put(baseUrl + updateBatch).then().assertThat().statusCode(200);

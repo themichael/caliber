@@ -7,6 +7,13 @@
  * @author Igor Gluskin
  * @author Ateeb Khawaja
  * 
+ * Team Velociraports
+ * @author Emma Bownes
+ * 
+ * 
+ * Team TyrannoformusRex
+ * @author Nathan Koszuta
+ * @author Matt 'Spring Data' Prass
  */
 angular
 .module("charts")
@@ -44,9 +51,25 @@ angular
 			$scope.batchOverall = false;
 			$scope.batchOverallTrainee = false;
 			$scope.allTrainees = [];
+			$scope.panelIndex = 0;			
+			// Used to sort trainees in batch
+			function compare(a, b) {
+				if (a.name < b.name)
+					return -1;
+				if (a.name > b.name)
+					return 1;
+				return 0;
+			}
 			
-			
-			
+			// sort all trainees in alphabetical order
+			(function(){
+				if(allBatches){
+					allBatches.forEach(function(item,index){
+						allBatches[index].trainees.sort(compare);
+					})
+				}
+				$log.debug(allBatches);
+			})();
 			
 			//load $scope.trainees list for search results
 			function getTrainees(){
@@ -208,6 +231,21 @@ angular
 							}
 						});
 			}
+			//Jak
+			function displayTraineePanelFeedback(){
+				
+				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
+						function(response){
+							NProgress.done();
+							$scope.traineePanelData = response;
+							$log.debug("here");
+							$log.debug(response);
+							
+						}, function(){
+							NProgress.done();
+						})
+				
+			};
 
 			function getCurrentBatchWeeks(weeks) {
 				$scope.currentBatchWeeks = [];
@@ -333,13 +371,13 @@ angular
 			 * has been selected
 			 */
 			$scope.displayTable = function() {
-				if ($scope.currentBatch === null
-						|| $scope.currentWeek === null) { 
-					return false;
-				}
-				return true;
-			}
+				return $scope.currentBatch &&
+					   $scope.currentWeek;
+			};
+			
+			//This is the function that displays The trainee-overall HTML partial
 			$scope.displayTraineeOverallTable = function() {
+
 				if ($scope.currentBatch === null
 						|| $scope.currentWeek === null
 						|| $scope.batchOverallTrainee === null) {
@@ -347,6 +385,24 @@ angular
 				} 
 				return true;
 			}
+			$scope.displayTraineePanelFeedback = function(){
+				return $scope.currentBatch === null 
+					&& $scope.currentWeek === null 
+					&& $scope.batchOverallTrainee === null
+					&& $scope.traineePanelData === null
+					&& $scope.traineePanelData.length === 0;
+			}
+			
+			$scope.panelIndex = 0;
+			
+			$scope.incrementPanel = function() {
+				$scope.panelIndex += 1;
+			}
+			
+			$scope.decrementPanel = function() {
+				$scope.panelIndex -= 1;
+			}
+			
 			$scope.selectCurrentTrainee = function(index) {
 				if (index === ALL) {
 					$scope.currentTrainee = {
@@ -364,7 +420,7 @@ angular
 							$scope.reportCurrentWeek,
 							$scope.currentTraineeId);
 				}
-			}
+			};
 
 			// Get Data for Trainees and Batch comparison
 			function createAllTraineesAndBatchRadarData(){
@@ -437,6 +493,7 @@ angular
 				createTechnicalSkillsBatchOverall();
 				createAllTraineesAndBatchRadarData();
 				createWeeklyProgressBatchOverall();
+				getBatchOverallPanelTable();
 			}
 
 			function createBatchOverallTrainee() {
@@ -446,6 +503,7 @@ angular
 				createAssessmentAveragesTraineeOverall();
 				createWeeklyProgressTraineeOverall();
 				createTechnicalSkillsTraineeOverall();
+				
 			}
 
 			// *******************************************************************************
@@ -753,7 +811,27 @@ angular
 								});
 
 			}
-
+			// *******************************************************************************
+			// *** Tables
+			// *******************************************************************************
+			/**
+			 * Generates the Panel table.
+			 * @author Emma Bownes
+			 */
+			function getBatchOverallPanelTable(){
+				caliberDelegate.panel.getBatchPanelTable(
+						$scope.currentBatch.batchId)
+						.then(
+								function(response){
+									NProgress.done();
+									$scope.allTraineesPanelData = response;
+								},
+								function(){
+									NProgress.done();
+								})
+			}
+			
+			
 			// *******************************************************************************
 			// *** PDF Generation
 			// *******************************************************************************
@@ -913,6 +991,7 @@ angular
 								function(response) {
 									$scope.categories = response;
 								});
+				
 			}
 
 		});
