@@ -20,7 +20,7 @@
 					<div class="panel-heading">Last Quality Audit
 						<select class="pull-right" ng-model="selectedBarCity" ng-if="selectedBarState.address.state"
 						ng-change="onBarCharAddressCityChange(selectedBarCity.address.city)"
-							ng-options="batch.address.city for batch in auditData |filter:selectedBarState.address.state | filter:{address:{$:''}} | unique:'address.city' ">
+							ng-options="batch.address.city for batch in auditData |filter:selectedBarState.address.state:true | filter:{address:{$:''}} | unique:'address.city' ">
 							<option value="">All Cities</option>
 						</select>
 
@@ -74,7 +74,7 @@
 
 						<select class="pull-right" ng-model="selectedLineCity" ng-if="selectedLineState.address.state"
 						ng-change="onLineCharAddressCityChange(selectedLineCity.address.city)"
-							ng-options="batch.address.city for batch in averageScoreData |filter:selectedLineState.address.state | filter:{address:{$:''}} | unique:'address.city' ">
+							ng-options="batch.address.city for batch in averageScoreData |filter:selectedLineState.address.state:true | filter:{address:{$:''}} | unique:'address.city' ">
 							<option value="">All Cities</option>
 						</select>
 
