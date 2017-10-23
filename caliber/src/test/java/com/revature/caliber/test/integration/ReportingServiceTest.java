@@ -399,7 +399,7 @@ public class ReportingServiceTest extends CaliberTest {
 		
 
 		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, revatureTraining);
-		expected = 4;
+		expected = 8;
 		actual = batches.size();
 		assertEquals(expected, actual);
 		
