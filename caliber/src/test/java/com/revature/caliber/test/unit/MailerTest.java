@@ -26,11 +26,11 @@ public class MailerTest extends CaliberTest {
 	private Mailer mailer;
 	private Set<Trainer> trainersToSubmitGrades;
 	private TrainerDAO trainerDAO;
-	private Trainer Gray;
-	private Trainer Patrick;
-	private Trainer Dan;
-	private Trainer Orson;
-	private Trainer Shelby;
+	private Trainer gray;
+	private Trainer patrick;
+	private Trainer dan;
+	private Trainer orson;
+	private Trainer shelby;
 	
 	@Autowired
 	public void setMailer(Mailer mailer) {
@@ -49,11 +49,11 @@ public class MailerTest extends CaliberTest {
 	@Before
 	public void setUp() throws Exception {
 		this.trainersToSubmitGrades = this.mailer.getTrainersWhoNeedToSubmitGrades();
-		this.Gray = this.trainerDAO.findByEmail("grawyne@gmail.com");
-		this.Patrick = this.trainerDAO.findByEmail("patrick.walsh@revature.com");
-		this.Dan = this.trainerDAO.findByEmail("pjw6193@hotmail.com");
-		this.Orson = this.trainerDAO.findByEmail("owallace@mailinator.com");
-		this.Shelby = this.trainerDAO.findByEmail("slevinson@mailinator.com");
+		this.gray = this.trainerDAO.findByEmail("grawyne@gmail.com");
+		this.patrick = this.trainerDAO.findByEmail("patrick.walsh@revature.com");
+		this.dan = this.trainerDAO.findByEmail("pjw6193@hotmail.com");
+		this.orson = this.trainerDAO.findByEmail("owallace@mailinator.com");
+		this.shelby = this.trainerDAO.findByEmail("slevinson@mailinator.com");
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class MailerTest extends CaliberTest {
 	 */
 	@Test
 	public void testGrayAbsent() {
-		assertFalse(this.trainersToSubmitGrades.contains(this.Gray));
+		assertFalse(this.trainersToSubmitGrades.contains(this.gray));
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public class MailerTest extends CaliberTest {
 	 */
 	@Test
 	public void testPatrickPresent() {
-		assertTrue(this.trainersToSubmitGrades.contains(this.Patrick));
+		assertTrue(this.trainersToSubmitGrades.contains(this.patrick));
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class MailerTest extends CaliberTest {
 	 */
 	@Test
 	public void testDanPresent() {
-		assertTrue(this.trainersToSubmitGrades.contains(this.Dan));
+		assertTrue(this.trainersToSubmitGrades.contains(this.dan));
 	}
 	
 	/**
@@ -85,12 +85,15 @@ public class MailerTest extends CaliberTest {
 	 */
 	@Test
 	public void testOrsonPresent() {
-		assertTrue(this.trainersToSubmitGrades.contains(this.Orson));
+		assertTrue(this.trainersToSubmitGrades.contains(this.orson));
 	}
 	
+	/**
+	 * Shelby Levinson should be in the collection, because she submitted only one grade
+	 */
 	@Test
 	public void testShelbyPresent() {
-		assertTrue(this.trainersToSubmitGrades.contains(this.Shelby));
+		assertTrue(this.trainersToSubmitGrades.contains(this.shelby));
 	}
 
 }

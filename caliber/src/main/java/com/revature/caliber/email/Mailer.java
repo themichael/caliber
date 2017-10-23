@@ -57,9 +57,6 @@ public class Mailer implements Runnable {
 	@Autowired
 	private EmailAuthenticator authenticator;
 
-
-
-
 	private static final String EMAIL_TEMPLATE_NAME_TOKEN = "$TRAINER_NAME";
 
 	public void setAuthenticator(EmailAuthenticator authenticator) {
@@ -110,6 +107,11 @@ public class Mailer implements Runnable {
 		return Session.getDefaultInstance(properties, this.authenticator);
 	}
 
+	/**
+	 * 
+	 * @param session
+	 * @param trainersToSubmitGrades
+	 */
 	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
 		logger.info("Trainers being sent emails: "+ trainersToSubmitGrades);
 		String email = getEmailString();
@@ -135,6 +137,10 @@ public class Mailer implements Runnable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private String getEmailString() {
 		try {
 
