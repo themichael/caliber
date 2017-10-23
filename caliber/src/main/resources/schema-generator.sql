@@ -551,11 +551,13 @@ INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
   VALUES(CALIBER.TRAINER_ID_SEQUENCE.NEXTVAL, 'mehrab.rahman@revature.com', 'Mehrab Rahman', 'Trainer', 'ROLE_TRAINER');
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
   VALUES(CALIBER.TRAINER_ID_SEQUENCE.NEXTVAL, 'peter.alagna@revature.com', 'Peter Alagna', 'Trainer', 'ROLE_TRAINER');
+INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
+  VALUES(CALIBER.TRAINER_ID_SEQUENCE.NEXTVAL, 'stanleym@revature.com', 'Stanley Medikonda', 'Staging Manager', 'ROLE_STAGING');
 --------------------------------------------------------------------------------------------------------------------MAKE PANEL ROLE
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
-  VALUES(CALIBER.TRAINER_ID_SEQUENCE.NEXTVAL, 'rajeshy@revature.com', 'Rajesh Yamunachari', 'Senior Technical Manager', 'ROLE_QC');
+  VALUES(CALIBER.TRAINER_ID_SEQUENCE.NEXTVAL, 'rajeshy@revature.com', 'Rajesh Yamunachari', 'Senior Technical Manager', 'ROLE_PANEL');
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
-  VALUES(CALIBER.TRAINER_ID_SEQUENCE.NEXTVAL, 'raghavan@revature.com', 'Raghavan Swaminathan', 'Senior Technical Manager', 'ROLE_QC');
+  VALUES(CALIBER.TRAINER_ID_SEQUENCE.NEXTVAL, 'raghavan@revature.com', 'Raghavan Swaminathan', 'Senior Technical Manager', 'ROLE_PANEL');
 -------------TRAINER END-------------
 COMMIT;
 --------------------------------------------------------
@@ -2653,223 +2655,239 @@ COMMIT;
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (1, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-28 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5500);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 21, 5500);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (2, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Unstable', 
 TO_TIMESTAMP('2017-10-27 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Repanel', 19, 5501);
+'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Repanel', 21, 5501);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (3, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-26 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Pass', 19, 5502);
+'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Pass', 20, 5502);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (5, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Unstable', 
 TO_TIMESTAMP('2017-10-24 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5504);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5504);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (6, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-23 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5505);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5505);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (7, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-22 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5506);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5506);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (8, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-21 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5507);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5507);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (9, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-20 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5508);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 21, 5508);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (10, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-19 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Repanel', 19, 5509);
+'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Repanel', 21, 5509);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (11, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-18 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5510);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5510);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (12, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-17 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5511);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5511);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (13, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-16 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5512);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5512);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (14, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Unstable', 
 TO_TIMESTAMP('2017-10-15 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5513);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5513);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (15, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-14 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5514);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5514);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (16, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-13 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5515);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5515);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (17, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-12 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5516);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5516);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (18, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-11 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5517);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5517);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (19, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-10 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5518);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 21, 5518);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (20, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Unstable', 
 TO_TIMESTAMP('2017-10-09 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5519);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5519);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (21, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-08 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5520);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5520);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (22, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-07 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5521);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5521);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (23, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-06 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5522);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5522);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (24, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-05 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5523);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5523);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (25, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-04 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5524);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 21, 5524);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (26, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-03 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5525);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5525);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (27, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-02 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5526);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5526);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (28, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-10-01 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5527);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5527);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (29, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-06 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5528);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5528);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (30, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-05 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5529);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5529);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (31, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Unstable', 
 TO_TIMESTAMP('2017-11-04 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5530);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5530);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (32, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-03 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5531);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5531);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (33, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-02 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5532);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5532);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (34, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-01 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5533);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5533);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (35, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-30 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5534);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5534);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (36, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-29 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5535);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5535);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (37, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-28 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5536);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5536);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (38, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-27 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5537);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5537);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (39, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-26 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5538);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5538);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (40, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-11-25 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5539);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5539);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (55, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-03 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5540);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5540);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (56, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-04 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5402);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5402);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (57, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Unstable', 
 TO_TIMESTAMP('2017-12-05 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5400);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5400);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (58, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-06 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5401);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5401);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (59, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-07 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Pass', 19, 5451);
+'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Pass', 20, 5451);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (60, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-08 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Repanel', 19, 5452);
+'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Repanel', 20, 5452);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (61, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-09 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5453);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5453);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (62, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-10 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5454);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5454);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (63, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-11 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Pass', 19, 5455);
+'Caliber is the best', 'Nice design discussion', 0, 'http://www.revature.com', 'Pass', 20, 5455);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (64, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-12 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5456);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5456);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (65, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Unstable', 
 TO_TIMESTAMP('2017-12-13 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5457);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5457);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (66, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-14 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5458);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5458);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (67, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-15 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5459);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5459);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (68, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-16 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5460);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5460);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (69, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-17 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Good work', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 19, 5461);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 21, 5461);
 INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
 VALUES (70, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
 TO_TIMESTAMP('2017-12-18 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 1, 'ERS rocks', 
-'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 19, 5462);
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 20, 5462);
+INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
+VALUES (71, 'Good intro', 'Terrible', '1hr 30mins', 'Skype', 'Stable', 
+TO_TIMESTAMP('2017-12-19 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 2, 'ERS rocks', 
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5531);
+INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
+VALUES (72, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
+TO_TIMESTAMP('2017-12-20 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 3, 'ERS rocks', 
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Repanel', 21, 5531);
+INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
+VALUES (73, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
+TO_TIMESTAMP('2017-12-30 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 4, 'ERS rocks', 
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 20, 5531);
+INSERT INTO CALIBER_PANEL (PANEL_ID, ASSOCIATE_INTRO, COMMUNICATION_SKILLS, DURATION, INTERVIEW_FORMAT, INTERNET_CONNECTIVITY, INTERVIEW_DATE, OVERALL_FEEDBACK, PANEL_ROUND, PROJECT_ONE_DESCRIPTION, PROJECT_THREE_DESCRIPTION, PROJECT_TWO_DESCRIPTION, RECORDING_CONSENT, RECORDING_LINK, PANEL_STATUS, PANELIST_ID, TRAINEE_ID) 
+VALUES (72, 'Good intro', 'Good communication', '1hr 30mins', 'Skype', 'Stable', 
+TO_TIMESTAMP('2017-11-27 14:10:10.123000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'Technically weaker', 2, 'ERS rocks', 
+'Caliber is the best', 'Nice design discussion', 1, 'http://www.revature.com', 'Pass', 21, 5537);
 COMMIT;
 
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
@@ -2987,11 +3005,11 @@ VALUES (58, 'Pretty good use of technical terms', 6, 'Pass', 29, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
 VALUES (59, 'Pretty good use of technical terms', 5, 'Pass', 30, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (60, 'Poor use of technical terms', 2, 'Repanel', 30, 2);
+VALUES (60, 'Poor use of technical terms', 2, 'Pass', 30, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
 VALUES (61, 'Pretty good use of technical terms', 8, 'Pass', 31, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
-VALUES (62, 'Pretty good use of technical terms', 6, 'Pass', 31, 2);
+VALUES (62, 'Pretty good use of technical terms', 6, 'Repanel', 31, 2);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
 VALUES (63, 'Pretty good use of technical terms', 5, 'Pass', 32, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
@@ -3092,6 +3110,140 @@ INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_
 VALUES (139, 'Pretty good use of technical terms', 4, 'Pass', 70, 1);
 INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
 VALUES (140, 'Poor use of technical terms', 0, 'Repanel', 70, 2);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(141, 'Terrible',0,'Repanel',71,2);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(142, 'Terrible',0,'Repanel',71,3);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(143, 'Terrible',0,'Repanel',71,4);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(144, 'Terrible',0,'Repanel',72,2);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(145, 'Terrible',0,'Repanel',72,3);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(146, 'Terrible',0,'Repanel',72,4);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(147, 'Good',8,'Pass',73,2);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(148, 'Good',8,'Pass',73,3);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(149, 'Good',8,'Pass',73,4);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(150, 'Poor use of technical terms',3,'Repanel',32,3);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(151, 'Poor use of technical terms',3,'Repanel',32,4);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (503, 'Pretty good use of technical terms', 5, 'Repanel', 31, 3);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (504, 'Pretty good use of technical terms', 5, 'Repanel', 31, 4);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (505, 'Pretty good use of technical terms', 5, 'Repanel', 31, 5);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (506, 'Pretty good use of technical terms', 5, 'Repanel', 31, 6);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (507, 'Pretty good use of technical terms', 5, 'Repanel', 31, 7);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (508, 'Pretty good use of technical terms', 5, 'Repanel', 31, 8);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (509, 'Pretty good use of technical terms', 5, 'Repanel', 31, 9);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (510, 'Pretty good use of technical terms', 5, 'Repanel', 31, 10);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (511, 'Pretty good use of technical terms', 5, 'Repanel', 31, 11);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (512, 'Pretty good use of technical terms', 5, 'Repanel', 31, 12);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (513, 'Pretty good use of technical terms', 5, 'Repanel', 31, 13);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (514, 'Pretty good use of technical terms', 5, 'Repanel', 31, 14);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (515, 'Pretty good use of technical terms', 5, 'Repanel', 31, 15);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (516, 'Pretty good use of technical terms', 5, 'Repanel', 31, 16);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (517, 'Pretty good use of technical terms', 5, 'Repanel', 31, 17);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (518, 'Pretty good use of technical terms', 5, 'Repanel', 31, 18);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (519, 'Pretty good use of technical terms', 5, 'Repanel', 31, 19);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (520, 'Pretty good use of technical terms', 5, 'Repanel', 31, 20);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (521, 'Pretty good use of technical terms', 5, 'Repanel', 31, 21);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (522, 'Pretty good use of technical terms', 5, 'Repanel', 31, 22);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (523, 'Pretty good use of technical terms', 5, 'Repanel', 31, 23);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (524, 'Pretty good use of technical terms', 5, 'Repanel', 31, 24);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (525, 'Pretty good use of technical terms', 5, 'Repanel', 31, 25);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (526, 'Pretty good use of technical terms', 5, 'Repanel', 31, 26);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (527, 'Pretty good use of technical terms', 5, 'Repanel', 31, 27);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (528, 'Pretty good use of technical terms', 5, 'Repanel', 31, 28);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (529, 'Pretty good use of technical terms', 5, 'Repanel', 31, 29);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (530, 'Pretty good use of technical terms', 5, 'Repanel', 31, 30);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (531, 'Pretty good use of technical terms', 5, 'Repanel', 31, 31);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (532, 'Pretty good use of technical terms', 5, 'Repanel', 31, 32);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (533, 'Pretty good use of technical terms', 5, 'Repanel', 31, 33);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (534, 'Pretty good use of technical terms', 5, 'Repanel', 31, 34);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (535, 'Pretty good use of technical terms', 5, 'Repanel', 31, 35);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (536, 'Pretty good use of technical terms', 5, 'Repanel', 31, 36);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (537, 'Pretty good use of technical terms', 5, 'Repanel', 31, 37);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (538, 'Pretty good use of technical terms', 5, 'Repanel', 31, 38);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (539, 'Pretty good use of technical terms', 5, 'Repanel', 31, 39);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (540, 'Pretty good use of technical terms', 5, 'Repanel', 31, 40);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (541, 'Pretty good use of technical terms', 5, 'Repanel', 31, 41);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (542, 'Pretty good use of technical terms', 5, 'Repanel', 31, 42);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (543, 'Pretty good use of technical terms', 5, 'Repanel', 31, 43);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (544, 'Pretty good use of technical terms', 5, 'Repanel', 31, 44);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (545, 'Pretty good use of technical terms', 5, 'Repanel', 31, 45);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES (546, 'Pretty good use of technical terms', 5, 'Repanel', 31, 46);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(554, 'Poor use of technical terms',3,'Repanel',72,10);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(555, 'Poor use of technical terms',3,'Repanel',72,5);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(556, 'Poor use of technical terms',3,'Repanel',72,6);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(557, 'Poor use of technical terms',3,'Repanel',72,7);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(558, 'Poor use of technical terms',3,'Repanel',72,8);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(559, 'Poor use of technical terms',3,'Repanel',72,9);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(560, 'Better use of technical terms',5,'Pass',73,10);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(561, 'Better use of technical terms',6,'Pass',73,5);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(562, 'Better use of technical terms',5,'Pass',73,6);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(563, 'Better use of technical terms',5,'Pass',73,7);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(564, 'Better use of technical terms',6,'Pass',73,8);
+INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_RESULT, PANEL_STATUS, PANEL_ID, CATEGORY_ID)
+VALUES(565, 'Better use of technical terms',5,'Pass',73,9);
 COMMIT;
 
 update caliber_batch

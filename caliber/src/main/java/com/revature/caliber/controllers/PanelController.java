@@ -147,6 +147,9 @@ public class PanelController {
 	public ResponseEntity<List<Map<String, String>>> getBatchAllTraineesPanelTable(
 			@PathVariable Integer batchId) {
 		log.info("getBatchOverallPanelTable   ===>   /all/reports/batch/{batchId}/overall/panel-batch-overall");
+		if (panelService.getBatchPanels(batchId).isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<>(panelService.getBatchPanels(batchId), HttpStatus.OK);
 	}
 }

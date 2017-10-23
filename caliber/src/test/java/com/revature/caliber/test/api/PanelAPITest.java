@@ -19,6 +19,7 @@ import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.services.PanelService;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -54,6 +55,8 @@ public class PanelAPITest extends AbstractAPITest {
 	private TraineeDAO traineeDAO;
 	@Autowired
 	private TrainerDAO trDao;
+	@Autowired
+	private PanelService panelService;
 	
 	@BeforeClass
 	public static void logIfValidationFails() {
@@ -315,18 +318,11 @@ public class PanelAPITest extends AbstractAPITest {
 		log.info("testGetAllRepanels200 succeeded!!!");
 	}
 	
-	/**
-	 * Get all recent repanels when no panels exist.
-	 * Assert 204 No Content status is returned.
-	 */
 	@Test
-	public void testGetAllRecentRepanels204() {
-		log.info("Get all recent repanels, no content...");
-		for (Panel p : panelDAO.findAllRepanel()) {
-			panelDAO.delete(p.getId());
-		}
-		int expected = panelDAO.findAllRepanel().size();
-		log.info(EXPECTED + expected);
+	public void testGetPanelByBatch200() {
+		log.info("Get all trainee panels by batch, OK...");
+		int expected = panelService.getBatchPanels(2050).size();
+		log.info("expected= " + expected);
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
@@ -362,7 +358,7 @@ public class PanelAPITest extends AbstractAPITest {
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
-			get(GET_PANEL_BY_BATCH_URL, 2050).
+			get(GET_PANEL_BY_BATCH_URL, 1000).
 		then().assertThat().
 			statusCode(HttpStatus.OK_200);
 		log.info("testGetPanelByBatch200 succeeded!!!");

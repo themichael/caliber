@@ -434,6 +434,29 @@ footer a, footer a:hover {
 .add-margin{
 	margin-bottom: 10px;
 }
+.add-space{
+	margin-bottom: 5px;
+}
+.fa-check{
+	color: #81f575;
+}
+.fa-minus{
+	color: rgb(252,221,115);
+}
+/********************************************************
+	Panels table
+*********************************************************/
+.panel-glyph {
+	width: 100%;
+	text-align: center;
+}
+
+.centered-panels{
+	text-align: center;
+}
+.no-wrap{
+	white-space:nowrap;
+}
 /********************************************************
 	Overall Batch Status column in vp-home and qc-home
 *********************************************************/
