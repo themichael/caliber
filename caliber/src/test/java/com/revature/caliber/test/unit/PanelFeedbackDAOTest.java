@@ -20,6 +20,12 @@ import com.revature.caliber.data.PanelFeedbackDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
+/**
+ * @author Connor Monson
+ * @author Matt 'Spring Data' Prass
+ * @author Nathan Koszuta
+ */
+
 public class PanelFeedbackDAOTest extends CaliberTest {
 
 	private static final Logger log = Logger.getLogger(PanelFeedbackDAOTest.class);
@@ -82,7 +88,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 
 		dao.save(panelFeedback);
 		long panelFeedbackid = panelFeedback.getId();
-		System.out.println(panelFeedbackid);
+		log.info("panelFeedbackId: " + panelFeedbackid);
 		int after = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT, Integer.class);
 		assertEquals(panelFeedback.toString(), dao.findOne(panelFeedbackid).toString());
 		assertEquals(++before, after);

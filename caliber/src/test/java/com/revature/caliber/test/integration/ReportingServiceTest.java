@@ -62,6 +62,7 @@ public class ReportingServiceTest extends CaliberTest {
 	
 	@Autowired
 	public BatchDAO batchDAO;
+	
 
 	public static List<Trainee> getTrainees() {
 		return trainees;
@@ -75,6 +76,7 @@ public class ReportingServiceTest extends CaliberTest {
 	public void setReportingService(ReportingService reportingService) {
 		this.reportingService = reportingService;
 	}
+	
 
 	/*
 	 * Arrange Dummy Data to look like this
@@ -412,12 +414,14 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchOverallBarChartTest() {
+		String traineeName = "Chen, Andrew";
 		log.info("Testing getBatchOverallBarChart(int batchId)");
 		// Positive Testing
 		Map<String, Double> results = reportingService.getBatchOverallBarChart(2200);
 		assertTrue("Test size of result set", results.size() == 15);
-		assertTrue("Contains expected trainee", results.containsKey("Chen, Andrew"));
-		assertTrue("Test accurate average calculation", Math.abs(results.get("Chen, Andrew").doubleValue()-84.14575) < .001);
+		assertTrue("Contains expected trainee", results.containsKey(traineeName));
+		log.info("andrew's average: " + Math.abs(results.get(traineeName).doubleValue()));
+		assertTrue("Test accurate average calculation", Math.abs(results.get(traineeName).doubleValue()-84.354) < .001);
 
 		// Negative Testing
 		// Grab non-existent batch
@@ -540,6 +544,8 @@ public class ReportingServiceTest extends CaliberTest {
 					break;
 				case Superstar: 
 					assertEquals(expectCount, statusSuperstarCountPerWeek[i - 1]);
+					break;
+				case Undefined: 
 					break;
 				default: 
 					assertTrue("QCStatus " + status + "  not checked during test", false);

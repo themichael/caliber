@@ -21,8 +21,9 @@ import com.revature.caliber.data.TrainerDAO;
 
 /**
  * @author Connor Monson
+ * @author Matt 'Spring Data' Prass
+ * @author Nathan Koszuta
  */
-
 public class PanelDAOTest extends CaliberTest {
 
 	private static final Logger log = Logger.getLogger(PanelDAOTest.class);
@@ -95,7 +96,7 @@ public class PanelDAOTest extends CaliberTest {
 		
 		try {
 			expected = -234;
-			actual = panelDAO.findOne(expected).getId();
+			panelDAO.findOne(expected).getId();
 			fail();
 		} catch (Exception e) {
 			log.info(e);
@@ -169,12 +170,10 @@ public class PanelDAOTest extends CaliberTest {
 		
 		// positive testing
 		int beforeTest = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
-		System.out.println(beforeTest);
 		Panel p = panelDAO.findOne(1);
-		System.out.println(p);
+		log.info("panel: " + p);
 		panelDAO.delete(p.getId());
 		int afterTest = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
-		System.out.println(afterTest);
 		assertEquals(--beforeTest, afterTest);
 		
 		// negative testing

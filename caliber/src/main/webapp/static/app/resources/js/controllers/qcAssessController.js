@@ -29,7 +29,7 @@ angular
 						this.qcStatus = status;
 					}
 
-					// Used to sort trainees in batch
+					// Used to sort trainees in batch alphabetically
 					function compare(a, b) {
 						if (a.name < b.name)
 							return -1;
@@ -37,7 +37,10 @@ angular
 							return 1;
 						return 0;
 					}
-
+					//Used to sort trainees in batch randomly
+					function random(){
+					    return 0.5 - Math.random();
+					};
 					/**
 					 * ***************************************** UI
 					 * **********************************************
@@ -170,9 +173,9 @@ angular
 						$scope.selectedYear = curYear.getFullYear();
 						batchYears();
 
-						// Sort trainees alphabetically
+						// Sort trainees randomly
 						if ($scope.currentBatch) {
-							$scope.currentBatch.trainees.sort(compare);
+							$scope.currentBatch.trainees.sort(random);
 						}
 
 						// Set current week to first week
@@ -241,7 +244,7 @@ angular
 							$scope.currentBatch = $scope.batchesByYear[index];
 						}
 						// Sort trainees
-						$scope.currentBatch.trainees.sort(compare);
+						$scope.currentBatch.trainees.sort(random);
 						// Create week array for batch selected
 						$scope.weeks = [];
 						for (var i = 1; i <= $scope.currentBatch.weeks; i++) {
@@ -336,6 +339,10 @@ angular
 						if ($scope.faces[index].noteId === null
 								|| $scope.faces[index].noteId === undefined) {
 							$log.debug("create");
+							//check if QC status is unpicked, default to undefined status if true
+							if($scope.faces[index].qcStatus == null){
+								$scope.faces[index].qcStatus = $scope.qcStatusTypes[4];
+							}
 							caliberDelegate.qc.createNote($scope.faces[index])
 									.then(function(id) {
 										$scope.faces[index].noteId = id;

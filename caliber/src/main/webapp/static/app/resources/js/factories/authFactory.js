@@ -29,23 +29,29 @@ angular.module("auth").factory("authFactory",
 			var vpManage = "vp.manage";
 			var qcManage = "qc.manage";
 			var trainerManage = "/trainer/home";
+			var panelManage = "panel.manage";
 
 			var vpAudit = "vp.audit";
 			var qcAudit = "qc.audit";
+			var panelAudit = "panel.audit";
 
 			var vpReports = "vp.reports";
 			var qcReports = "qc.reports";
 			var trainerReports = "trainer.reports";
 			var stagingReports = "staging.reports";
+			var panelReports = "panel.reports";
 
 			var trainerImport = "trainer.import";
+			var panelImport = "panel.import";
 
 			var vpAssess = "vp.assess";
 			var trainerAssess = "trainer.assess";
+			var panelAssess = "panel.assess";
 
 			var vpCategory = "vp.category";
 
 			var vpTrainers = "vp.trainers";
+		
 
 			/**
 			 * Retrieves role from cookie
@@ -102,18 +108,25 @@ angular.module("auth").factory("authFactory",
 					$location.path(trainerHome);
 				else if (role === vpRole)
 					$location.path(vpHome);
+				else if (role === panelRole)
+					$location.path(panelHome);
 			};
 
 			auth.authPanel = function () {
 				var role = getCookie();
-				if (rol === panelRole)
+				if (role === panelRole) {
 					$log.debug("Authenticated user as Panel");
-				else if (role === trainerRole)
+					$location.path(panelHome);
+				}
+				else if (role === trainerRole) {
 					$location.path(trainerHome);
-				else if (role === qcRole)
+				}
+				else if (role === qcRole) {
 					$location.path(qcHome);
-				else if (role === vpRole)
+				}
+				else if (role === vpRole) {
 					$location.path(vpHome);
+				}
 			};
 
 			/**
@@ -127,6 +140,8 @@ angular.module("auth").factory("authFactory",
 					$location.path(trainerHome);
 				else if (role === qcRole)
 					$location.path(qcHome);
+				else if (role === panelRole)
+					$location.path(panelHome);
 			};
 
 			/**
@@ -140,6 +155,8 @@ angular.module("auth").factory("authFactory",
 					$location.path(qcHome);
 				else if (role === vpRole)
 					$location.path(vpHome);
+				else if (role === panelRole)
+					$location.path(panelHome);
 			};
 
 			auth.authStaging = function() {
@@ -172,6 +189,9 @@ angular.module("auth").factory("authFactory",
 				case trainerRole:
 					$log.debug("Changing state to: " + trainerManage);
 					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelManage);
+					break;	
 				default:
 					auth.auth();
 				}
@@ -190,6 +210,9 @@ angular.module("auth").factory("authFactory",
 					break;
 				case qcRole:
 					$log.debug("Changing state to: " + qcAudit);
+					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelAudit);
 					break;
 				default:
 					auth.auth();
@@ -216,6 +239,9 @@ angular.module("auth").factory("authFactory",
 				case stagingRole:
 					$log.debug("Changing state to: " + stagingReports);
 					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelReports);
+					break;
 				default:
 					auth.auth();
 				}
@@ -231,6 +257,9 @@ angular.module("auth").factory("authFactory",
 				switch (role) {
 				case trainerRole:
 					$log.debug("Changing state to: " + trainerImport);
+					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelImport);
 					break;
 				default:
 					auth.auth();
@@ -250,6 +279,9 @@ angular.module("auth").factory("authFactory",
 					break;
 				case trainerRole:
 					$log.debug("Changing state to: " + trainerAssess);
+					break;
+				case panelRole:
+					$log.debug("Changing state to: " + panelAssess);
 					break;
 				default:
 					auth.auth();

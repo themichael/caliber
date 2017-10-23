@@ -16,6 +16,11 @@ import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 
+/**
+ * @author Connor Monson
+ * @author Matt 'Spring Data' Prass
+ */
+
 @Repository
 public class PanelFeedbackDAO {
 
@@ -72,10 +77,9 @@ public class PanelFeedbackDAO {
 	
 	/**
 	 * 
-	 * Convenience method only. Not practical in production since panels must
-	 * be registered in the Salesforce with a matching email address.
 	 * 
-	 * @param panel
+	 * 
+	 * @param panelFeedback
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void save(PanelFeedback panelFeedback) {
@@ -110,10 +114,10 @@ public class PanelFeedbackDAO {
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void deleteById(long panelId) {
-		log.info("Delete panel " + panelId);
-		PanelFeedback panel = findOne(panelId);
-		sessionFactory.getCurrentSession().delete(panel);
+		log.info("Delete panel feedback " + panelId);
+		PanelFeedback panelFeedback = findOne(panelId);
+		if (panelFeedback != null) {
+			sessionFactory.getCurrentSession().delete(panelFeedback);
+		}
 	}
-
 }
-

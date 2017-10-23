@@ -29,6 +29,7 @@ public class TraineeDAO {
 	private SessionFactory sessionFactory;
 	private static final String GRADES = "grades";
 	private static final String TRAINING_STATUS = "trainingStatus";
+	private static final String FETCH_TRAINEE = "Fetch trainee by email address: ";
 
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -56,6 +57,20 @@ public class TraineeDAO {
 	public List<Trainee> findAll() {
 		log.info("Fetching all trainees");
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+	
+	/**
+	 * Find all trainees without condition. Useful for calculating report data
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> findAllNotDropped() {
+		log.info("Fetching all trainees");
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
@@ -120,8 +135,8 @@ public class TraineeDAO {
 	public Trainee findOne(Integer traineeId) {
 		log.info("Fetch trainee by id: " + traineeId);
 		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.setFetchMode("batch", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId)).uniqueResult();
-//				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped))
+				.setFetchMode("batch", FetchMode.JOIN).setFetchMode("grades", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId))
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
 
 	/**
@@ -130,11 +145,28 @@ public class TraineeDAO {
 	 * @param email
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public Trainee findByEmail(String email) {
-		log.info("Fetch trainee by email address: " + email);
-		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.add(Restrictions.eq("email", email)).uniqueResult();
+	public List<Trainee> findByEmail(String email) {
+		log.info(FETCH_TRAINEE + email);
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.like("email", "%"+email+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> findByName(String name) {
+		log.info(FETCH_TRAINEE + name);
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.like("name", "%"+name+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Trainee> findBySkypeId(String skypeId) {
+		log.info(FETCH_TRAINEE + skypeId);
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.like("skypeId", "%"+skypeId+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
 	}
 
 	/**
