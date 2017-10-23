@@ -1,10 +1,11 @@
 package com.revature.caliber.email;
 
-import java.io.File;
 import java.io.IOException;
+
 import java.net.URI;
 
 import java.net.URL;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -18,8 +19,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import org.apache.http.client.utils.URIUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -117,18 +116,15 @@ public class Mailer implements Runnable {
 	private void sendEmail(Session session, Set<Trainer> trainersToSubmitGrades) {
 		logger.info("Trainers being sent emails: "+ trainersToSubmitGrades);
 		String email = getEmailString();
-		logger.info("Email message: " + email);
-		//for (Trainer trainer : trainersToSubmitGrades) {
+		for (Trainer trainer : trainersToSubmitGrades) {
 			
 			try {
 				logger.info("In the try block for sending emails");
 				MimeMessage message = new MimeMessage(session);
-				//message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress("mscott@mailinator.com"));
+				message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
 				
 				message.setSubject("Submit Grades Reminder");
-				//String trainerName = trainer.getName();
-				String trainerName = "Michael Scott";
+				String trainerName = trainer.getName();
 				String emailStr = email.replace(EMAIL_TEMPLATE_NAME_TOKEN, trainerName);
 				if (emailStr == null)
 					return;
@@ -140,7 +136,7 @@ public class Mailer implements Runnable {
 				logger.warn(e);
 				logger.warn("Email exception");
 			}
-		//}
+		}
 	}
 	
 	private String getEmailString() {
