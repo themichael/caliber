@@ -65,7 +65,7 @@ public class RevaturePDF {
 	public RevaturePDF(String title, String html) throws DocumentException, IOException {
 		// PDF generator needs 'properly' closed <img> tags
 		String formattedHtml = html.replaceAll("(<img[^>]*[^/]>)(?!\\s*</img>)", "$1</img>");
-		System.out.println(html);
+		
 		// Replace check, minus, and remove glyphicons with readable values
 		formattedHtml = formattedHtml.replaceAll(" class=\"glyphicon glyphicon-ok ng-scope\">", ">Pass");
 		formattedHtml = formattedHtml.replaceAll(" class=\"glyphicon glyphicon-remove ng-scope\">", ">Fail");
