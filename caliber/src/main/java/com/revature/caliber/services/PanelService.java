@@ -120,6 +120,7 @@ public class PanelService {
 			panelInfo.put("trainee", t.getName());
 			List<Panel> panels = new ArrayList<>(t.getPanelInterviews());
 			Panel panel;
+			String status;
 			if (!panels.isEmpty()) {
 				panel = panels.get(0);
 				status = panel.getStatus().toString();

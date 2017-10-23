@@ -319,7 +319,7 @@ public class PanelAPITest extends AbstractAPITest {
 	}
 	
 	@Test
-	public void testGetPanelByBatch200() {
+	public void testGetPanelByBatch204() {
 		log.info("Get all trainee panels by batch, OK...");
 		int expected = panelService.getBatchPanels(2050).size();
 		log.info("expected= " + expected);
