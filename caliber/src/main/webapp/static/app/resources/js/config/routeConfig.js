@@ -551,7 +551,7 @@ angular
 												controller: "panelModalController"
 												//controller : "allReportController"
 											},
-											"panelemodal@vp.panel" : {
+											"panelmodal@vp.panel" : {
 												templateUrl : "/static/app/partials/panel/panelmodal.html",
 											}
 										}
