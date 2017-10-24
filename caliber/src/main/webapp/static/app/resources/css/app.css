@@ -624,11 +624,11 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
 }
 
 .highlight {
-	background-color: rgba(252, 180, 20, 0.5);
+	background-color: #18AD18;
 	transition: background-color 1s ease;
 }
 
 .no-highlight {
-	background-color: rgba(255, 255, 255, 1);
-	transition: background-color 2s ease;
+	background-color: #FFFFFF;
+	transition: background-color 1.5s ease;
 }

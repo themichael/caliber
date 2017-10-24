@@ -180,7 +180,7 @@ angular
 							$timeout(function () {
 								$('.no-highlight').removeClass('no-highlight');
 							}, 2000);
-						}, 3000);
+						}, 1000);
 					});
 			};
 			
