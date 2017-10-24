@@ -235,14 +235,14 @@ public class EvaluationController {
 	 */
 
 	/**
-	 * FIND ALL WEEKLY BATCH NOTES (VP ONLY)
+	 * FIND ALL WEEKLY BATCH NOTES 
 	 * 
 	 * @param batch
 	 * @param week
 	 * @return
 	 */
 	@RequestMapping(value = "/vp/note/batch/{batchId}/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<List<Note>> findAllBatchNotes(@PathVariable Integer batchId, @PathVariable Integer week) {
 		log.info(FINDING_WEEK + week + " batch notes for batch: " + batchId);
 		return new ResponseEntity<>(evaluationService.findAllBatchNotes(batchId, week), HttpStatus.OK);
@@ -250,7 +250,7 @@ public class EvaluationController {
 
 
 	@RequestMapping(value = "/all/notes/trainee/{traineeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<List<Note>> findAllTraineeNotes(@PathVariable Integer traineeId) {
 		return new ResponseEntity<>(evaluationService.findAllIndividualNotesOverall(traineeId), HttpStatus.OK);
 	}

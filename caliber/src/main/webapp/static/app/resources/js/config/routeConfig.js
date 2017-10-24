@@ -547,12 +547,12 @@ angular
 										url : "/panels",
 										views : {
 											"" : {
-												templateUrl : "/static/app/partials/paneldemo/paneldemo.html",
+												templateUrl : "/static/app/partials/panel/panelhome.html",
 												controller: "panelModalController"
 												//controller : "allReportController"
 											},
-											"samplemodal@vp.panel" : {
-												templateUrl : "/static/app/partials/paneldemo/samplemodal.html",
+											"panelmodal@vp.panel" : {
+												templateUrl : "/static/app/partials/panel/panelmodal.html",
 											}
 										}
 										
