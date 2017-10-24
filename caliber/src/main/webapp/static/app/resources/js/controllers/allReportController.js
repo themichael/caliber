@@ -153,6 +153,7 @@ angular
 						$rootScope.$emit("GET_TRAINEE_OVERALL",
 								$scope.currentTraineeId);
 						displayTraineeOverallTable($scope.currentTraineeId);
+						displayTraineePanelFeedback($scope.currentTraineeId);
 						$scope.batchWeek = false;
 						$scope.batchWeekTrainee = false;
 						$scope.batchOverall = false;
