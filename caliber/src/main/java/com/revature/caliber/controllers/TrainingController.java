@@ -441,6 +441,20 @@ public class TrainingController {
 		}
 		return new ResponseEntity<>(trainee, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'PANEL')")
+	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail) {
+		/* 
+		 1. at some point, we will have unique constraint on trainee email.
+		 	this method will check the database before adding the new trainee
+		 2. before we can enable this functionality, we need to allow
+		 	trainees to be assigned to more than one batch, or added with a batch at all
+		 	(for tech screening feedback functionality)
+		 */
+		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
 
 	/**
 	 * Convenience method for accessing the Trainer information from the User

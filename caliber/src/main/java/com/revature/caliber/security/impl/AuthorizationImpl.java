@@ -5,10 +5,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -34,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonParser.Feature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
@@ -281,13 +284,16 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	private SalesforceToken getSalesforceToken(String token) throws IOException {
 		log.debug("Checking for the salesforce token");
 		if (token != null) {
-			log.error("Parse salesforce token from forwarded request: " + token);
+			log.info("Parse salesforce token from forwarded request: " + token);
 			try {
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
 				return mapper.readValue(token, SalesforceToken.class);
 			} catch (Exception e) {
 				log.error(e);
+				// log the Salesforce error JSON
+				ObjectMapper mapper = new ObjectMapper();
+				log.error(mapper.readValue(token, JsonNode.class));
 			}
 		}
 		log.debug("failed to parse token from forwarded request: ");
