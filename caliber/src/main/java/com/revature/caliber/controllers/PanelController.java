@@ -127,6 +127,10 @@ public class PanelController {
 			log.warn("Failed to create panel. Overall Panel Status not as expected.");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		else if(!pass && panel.getStatus() == PanelStatus.Pass) {
+			log.warn("Failed to create panel. Overall Panel Status not as expected.");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		
 		SalesforceUser user = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		log.info(user.getEmail());
