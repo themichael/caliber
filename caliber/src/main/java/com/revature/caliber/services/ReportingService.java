@@ -168,7 +168,9 @@ public class ReportingService {
 		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
 		Map<QCStatus, Integer> qcStatsMapTemplate = new LinkedHashMap<>();
 		for (QCStatus q : QCStatus.values()) {
-			qcStatsMapTemplate.put(q, 0);
+			if(q != QCStatus.Undefined) {
+				qcStatsMapTemplate.put(q, 0);
+			}
 		}
 		
 		for (Integer i = 1; i <= batch.getWeeks(); i++) {
@@ -176,7 +178,7 @@ public class ReportingService {
 		}
 		for (Trainee t : batch.getTrainees()) {
 			for (Note n : t.getNotes()) {
-				if (n.getQcStatus() != null) {
+				if (n.getQcStatus() != null && n.getQcStatus() != QCStatus.Undefined) {
 					Map<QCStatus, Integer> temp = results.get((int) n.getWeek());
 					if(temp != null) {
 						Integer count = temp.get(n.getQcStatus()) + 1;
