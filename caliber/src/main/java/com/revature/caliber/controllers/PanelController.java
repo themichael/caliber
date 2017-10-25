@@ -115,10 +115,12 @@ public class PanelController {
 		
 		//verifying server side that the overall panel status field has not been tampered with
 		boolean pass = true;
-		for(PanelFeedback feedback : panel.getFeedback()) {
-			if(feedback.getStatus() == PanelStatus.Repanel) {
-				pass = false;
-				break;
+		if(panel.getFeedback() != null) {
+			for(PanelFeedback feedback : panel.getFeedback()) {
+				if(feedback.getStatus() == PanelStatus.Repanel) {
+					pass = false;
+					break;
+				}
 			}
 		}
 		if(pass && panel.getStatus() != PanelStatus.Pass) {
