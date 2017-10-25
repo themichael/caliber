@@ -58,7 +58,7 @@ public class PanelFeedback {
 	@Column(name = "PANEL_RESULT")
 	private int result;
 	
-	@Column(name = "PANELIST_COMMENTS", nullable = false)
+	@Column(name = "PANELIST_COMMENTS")
 	private String comment;
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)

@@ -182,6 +182,8 @@ angular
 							}, 2000);
 						}, 1000);
 					});
+				
+				$log.debug($scope.trainee);
 			};
 			
 			(function(){

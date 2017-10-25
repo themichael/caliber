@@ -2,6 +2,7 @@ package com.revature.caliber.controllers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import javax.validation.Valid;
 
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Panel;
+import com.revature.caliber.beans.PanelFeedback;
+import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.PanelService;
 import com.revature.caliber.services.TrainingService;
@@ -103,7 +106,27 @@ public class PanelController {
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP','PANEL')")
-	public ResponseEntity<Panel> saveFeedback(@Valid @RequestBody Panel panel) {
+	public ResponseEntity<Panel> savePanel(@Valid @RequestBody Panel panel) {
+		List<Panel> previousPanels = panelService.findByTraineeId(panel.getTrainee().getTraineeId());
+		//verifying server side that the panel round field has not been tampered with
+		if(previousPanels.size()+1 != panel.getPanelRound()) {
+			log.warn("Failed to create panel. Panel round calculation incorrect.");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		//verifying server side that the overall panel status field has not been tampered with
+		boolean pass = true;
+		for(PanelFeedback feedback : panel.getFeedback()) {
+			if(feedback.getStatus() == PanelStatus.Repanel) {
+				pass = false;
+				break;
+			}
+		}
+		if(pass && panel.getStatus() != PanelStatus.Pass) {
+			log.warn("Failed to create panel. Overall Panel Status not as expected.");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		SalesforceUser user = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		log.info(user.getEmail());
 		panel.setPanelist(trainingService.findTrainer(user.getEmail()));

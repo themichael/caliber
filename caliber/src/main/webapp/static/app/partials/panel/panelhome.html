@@ -17,7 +17,7 @@
 					<!-- Button Trigger for Import Batch Modal -->
 					<li class="pull-right">
 						<div class="container-1">
-							<form ng-submit="selectChosenTrainee(chosenTrainee)">
+							<form>
 								<span class="icon">
 									<button type="submit" class="SearchButton">
 										<i class="fa fa-search"></i>
@@ -25,7 +25,7 @@
 								</span> <input ng-model="chosenTrainee" list="traineeList"
 									type="search" id="searchTextBox"
 									placeholder="Search for Trainee" class="form-control SearchPad"
-									autocomplete="off" />
+									autocomplete="off" ng-change="selectChosenTrainee(chosenTrainee)"/>
 								<datalist id="traineeList" ng-model="selectedId">
 									<option ng-repeat="trainee in employedTrainees"
 										ng-value="trainee.name">
@@ -76,6 +76,7 @@
 									</tr>
 								</tbody>
 							</table>
+							<div class="bg-primary align center" ng-if="!traineePanels && traineePanels.length === 0">This is {{trainee.name}}'s first panel!.</div>
 						</div>
 					</div>
 				</div>
