@@ -190,7 +190,6 @@ public class Mailer implements Runnable {
 	}
 	
 	private List<Batch> getBatches(){
-		//return batchDAO.findAllCurrent();
 		return this.batchDAO.findAll();
 	}
 	

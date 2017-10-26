@@ -65,7 +65,6 @@ public class MailerTest extends CaliberTest {
 	 * his grades
 	 */
 	@Test
-	//@Ignore // doesn't work PJW
 	public void testGrayAbsent() {
 		assertFalse(this.trainersToSubmitGrades.contains(this.gray));
 	}
@@ -102,7 +101,6 @@ public class MailerTest extends CaliberTest {
 	 * one grade
 	 */
 	@Test
-	//@Ignore // doesn't work PJW
 	public void testShelbyPresent() {
 		assertTrue(this.trainersToSubmitGrades.contains(this.shelby));
 	}
