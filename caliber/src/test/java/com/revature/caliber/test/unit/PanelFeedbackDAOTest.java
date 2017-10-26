@@ -78,11 +78,11 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 		panel.setStatus(PanelStatus.Pass);
 		panel.setTrainee(traineeDAO.findOne(1));
 		panel.setPanelist(trainerDAO.findOne(1));
-		Category c = categoryDAO.findOne(1);
+		Category category = categoryDAO.findOne(2);
 
 		panelFeedback.setComment("test");
 		panelFeedback.setResult(5);
-		panelFeedback.setTechnology(c);
+		panelFeedback.setTechnology(category);
 		panelFeedback.setStatus(PanelStatus.Pass);
 		panelFeedback.setPanel(panel);
 

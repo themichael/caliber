@@ -28,6 +28,8 @@ public class MailerTest extends CaliberTest {
 	private Trainer dan;
 	private Trainer orson;
 	private Trainer shelby;
+	private Trainer walter;
+	private Trainer natalie;
 	
 	@Autowired
 	public void setMailer(Mailer mailer) {
@@ -51,6 +53,8 @@ public class MailerTest extends CaliberTest {
 		this.dan = this.trainerDAO.findByEmail("pjw6193@hotmail.com");
 		this.orson = this.trainerDAO.findByEmail("owallace@mailinator.com");
 		this.shelby = this.trainerDAO.findByEmail("slevinson@mailinator.com");
+		this.walter = this.trainerDAO.findByEmail("wpayne@mailinator.com");
+		this.natalie = this.trainerDAO.findByEmail("nchurch@mailinator.com");
 	}
 	
 	/**
@@ -91,6 +95,22 @@ public class MailerTest extends CaliberTest {
 	@Test
 	public void testShelbyPresent() {
 		assertTrue(this.trainersToSubmitGrades.contains(this.shelby));
+	}
+	
+	/**
+	 * Walter Payne should be in the collection, because his current batch has no assessments
+	 */
+	@Test
+	public void testWalterPresent() {
+		assertTrue(this.trainersToSubmitGrades.contains(this.walter));
+	}
+	
+	/**
+	 * Natalie Church should be in the collection, because her past batch has no assessments
+	 */
+	@Test
+	public void testNataliePresent() {
+		assertTrue(this.trainersToSubmitGrades.contains(this.natalie));
 	}
 
 }
