@@ -1,5 +1,7 @@
 package com.revature.caliber.services;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,12 +120,17 @@ public class PanelService {
 			panelInfo.put("trainee", t.getName());
 			List<Panel> panels = new ArrayList<>(t.getPanelInterviews());
 			Panel panel;
+			String status;
 			if (!panels.isEmpty()) {
 				panel = panels.get(0);
-				panelInfo.put("status", panel.getStatus().toString());
-				if (panel.getStatus() == PanelStatus.Repanel) {
+				status = panel.getStatus().toString();
+				panelInfo.put("status", status);
+				DateFormat df = new SimpleDateFormat("MM/dd/yyyy 'at' h:mm a");
+				String[] dateTime = df.format(panel.getInterviewDate()).split("at");
+				panelInfo.put("date", dateTime[0]);
+				panelInfo.put("time", dateTime[1]);
+				if(status.equalsIgnoreCase("Repanel")) {
 					String topics = utilGetRepanelTopics(panel.getFeedback());
-
 					panelInfo.put("topics", topics);
 				}
 			}
@@ -137,17 +144,18 @@ public class PanelService {
 	 * all categories which must be repaneled
 	 * 
 	 * @author emmabownes
+	 * @author Daniel Fairbanks
 	 * @param feedback
 	 * @return topics
 	 */
 	private String utilGetRepanelTopics(Set<PanelFeedback> feedback) {
 		String topics = "";
-		for (PanelFeedback pf : feedback) {
-			if (pf.getStatus() == PanelStatus.Repanel) {
-				if (!topics.isEmpty()) {
-					topics += ", ";
-				}
-				topics += pf.getTechnology().getSkillCategory();
+		for(PanelFeedback pf: feedback) {
+			if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
+				if (topics.equals(""))
+					topics += pf.getTechnology().getSkillCategory();
+				else
+					topics += ", " + pf.getTechnology().getSkillCategory();
 			}
 		}
 		return topics;

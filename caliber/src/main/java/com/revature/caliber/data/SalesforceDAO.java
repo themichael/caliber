@@ -100,6 +100,15 @@ public class SalesforceDAO {
 			}
 		} catch (IOException e) {
 			log.error("Cannot get Salesforce batches:  " + e);
+			// log the Salesforce error JSON
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				log.error(
+						mapper.readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), JsonNode.class));
+			} catch (IOException e1) {
+				log.error("Cannot get Salesforce error message:  " + e1);
+			}
+			throw new ServiceNotAvailableException();
 		}
 
 		return relevantBatchesList;
@@ -127,6 +136,13 @@ public class SalesforceDAO {
 
 		} catch (IOException e) {
 			log.error("Cannot get batch details from Salesforce: cause " + e);
+			// log the Salesforce error JSON
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				log.error(mapper.readValue(getFromSalesforce(query).getEntity().getContent(), JsonNode.class));
+			} catch (IOException e1) {
+				log.error("Cannot get Salesforce error message:  " + e1);
+			}
 			throw new ServiceNotAvailableException();
 		}
 		return trainees;

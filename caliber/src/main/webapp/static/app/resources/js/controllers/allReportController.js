@@ -9,8 +9,7 @@
  * 
  * Team Velociraports
  * @author Emma Bownes
- * 
- * 
+ * @author Daniel Fairbanks
  * Team TyrannoformusRex
  * @author Nathan Koszuta
  * @author Matt 'Spring Data' Prass
@@ -154,6 +153,7 @@ angular
 						$rootScope.$emit("GET_TRAINEE_OVERALL",
 								$scope.currentTraineeId);
 						displayTraineeOverallTable($scope.currentTraineeId);
+						displayTraineePanelFeedback($scope.currentTraineeId);
 						$scope.batchWeek = false;
 						$scope.batchWeekTrainee = false;
 						$scope.batchOverall = false;
@@ -231,21 +231,17 @@ angular
 							}
 						});
 			}
-			//Jak
-			function displayTraineePanelFeedback(){
-				
+			
+			function displayTraineePanelFeedback(){	
 				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
 						function(response){
 							NProgress.done();
 							$scope.traineePanelData = response;
-							$log.debug("here");
-							$log.debug(response);
-							
-						}, function(){
+							$log.debug(response);		
+						},function(response){
 							NProgress.done();
-						})
-				
-			};
+						});	
+			}
 
 			function getCurrentBatchWeeks(weeks) {
 				$scope.currentBatchWeeks = [];
@@ -385,15 +381,24 @@ angular
 				} 
 				return true;
 			}
-			$scope.displayTraineePanelFeedback = function(){
-				return $scope.currentBatch === null 
-					&& $scope.currentWeek === null 
-					&& $scope.batchOverallTrainee === null
-					&& $scope.traineePanelData === null
-					&& $scope.traineePanelData.length === 0;
-			}
 			
 			$scope.panelIndex = 0;
+			$scope.displayTraineePanelFeedback = function(){
+				if($scope.currentBatch === null 
+						|| $scope.currentWeek === null 
+						|| $scope.batchOverallTrainee === null
+						|| $scope.traineePanelData === null){
+					return false;
+				}
+				if ($scope.traineePanelData != null && $scope.traineePanelData.length == 0) {
+					return false;
+				}
+				return true;
+			}
+			
+			$scope.resetPanelIndex = function() {
+				$scope.panelIndex = 0;
+			}
 			
 			$scope.incrementPanel = function() {
 				$scope.panelIndex += 1;
@@ -824,6 +829,7 @@ angular
 						.then(
 								function(response){
 									NProgress.done();
+									$scope.panelsBatchOverall = true;
 									$scope.allTraineesPanelData = response;
 								},
 								function(){
