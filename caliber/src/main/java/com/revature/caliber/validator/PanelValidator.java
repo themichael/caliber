@@ -32,11 +32,10 @@ public class PanelValidator implements ConstraintValidator<ValidPanel, Panel>{
 
 	@Override
 	public boolean isValid(Panel panel, ConstraintValidatorContext context) {
-		System.out.println(panel.getTrainee());
-		System.out.println(panel.getTrainee().getTraineeId());
-		System.out.println(panelService);
+		log.info("Panel for Trainee: " +panel.getTrainee());
+		log.info("Panel Service Bean: " + panelService);
 		List<Panel> previousPanels = panelService.findByTraineeId(panel.getTrainee().getTraineeId());
-		System.out.println(previousPanels);
+		log.info("Trainee's Previous Panels: " + previousPanels);
 		//verifying server side that the panel round field has not been tampered with
 		if(previousPanels.size()+1 != panel.getPanelRound()) {
 			log.warn("Failed to create panel. Panel round calculation incorrect.");
