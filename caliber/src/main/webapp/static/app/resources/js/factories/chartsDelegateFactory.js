@@ -246,6 +246,17 @@ angular
 								batchId, traineeId);
 
 					}
+					
+					delegate.line.getCurrentPanelsLineChart = function(
+							dataArray) {
+						return lineChartFactory
+								.getCurrentPanelsLineChart(dataArray);
+					}
+
+					delegate.line.data.getCurrentPanelsLineChartData = function() {
+						return lineChartDataFactory
+								.getCurrentPanelsLineChartData();
+					}
 
 					/**
 					 * ************************ Utility ************************
