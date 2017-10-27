@@ -77,6 +77,7 @@ public class PanelAPITest extends AbstractAPITest {
 		panel.setStatus(PanelStatus.Pass);
 		panel.setTrainee(traineeDAO.findOne(1));
 		panel.setPanelist(trDao.findOne(1));
+	
 		
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
