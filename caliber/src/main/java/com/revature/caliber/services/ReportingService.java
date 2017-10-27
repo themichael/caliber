@@ -481,7 +481,6 @@ public class ReportingService {
 			resultsObject.get("Pass").put(cal.get(Calendar.DAY_OF_YEAR), 0);
 			resultsObject.get("Repanel").put(cal.get(Calendar.DAY_OF_YEAR), 0);
 			cal.add(Calendar.DAY_OF_YEAR, 1);
-			System.out.println(cal.get(Calendar.DAY_OF_YEAR));
 		}
 		
 		//get all panels
@@ -492,19 +491,16 @@ public class ReportingService {
 			
 			//set calendar time to interview date
 			cal.setTime(panel.getInterviewDate());
-			System.out.println("Panel "+panel.getId()+" : "+cal.get(Calendar.DAY_OF_YEAR));
 			//if panel was passed, add to corresponding map
 			if(panel.getStatus().equals(PanelStatus.Pass)) {
 				//get current value of panels passed
 				Integer current = resultsObject.get("Pass").get(cal.get(Calendar.DAY_OF_YEAR));
 				//replace with 1 more than current
-				System.out.println(current);
 				resultsObject.get("Pass").replace(cal.get(Calendar.DAY_OF_YEAR), current, current + 1);
 			} else {
 				//get current value of panels passed
 				Integer current = resultsObject.get("Repanel").get(cal.get(Calendar.DAY_OF_YEAR));
 				//replace with 1 more than current
-				System.out.println(current);
 				resultsObject.get("Repanel").replace(cal.get(Calendar.DAY_OF_YEAR), current, current + 1);				
 			}
 			

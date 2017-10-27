@@ -344,8 +344,8 @@ angular
 								.then(
 										function(data) {
 											$scope.panelData = data;
-											console.log(data[0]);
-											createCurrentPanelsLineChart(data[0]); 
+											//object with 2 keys: Pass and Repanel w/ last 14 days results for each
+											createCurrentPanelsLineChart(data[0]);  
 											NProgress.done();
 										}, function() {
 											NProgress.done();
