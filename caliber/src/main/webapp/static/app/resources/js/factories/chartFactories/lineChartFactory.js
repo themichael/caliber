@@ -233,7 +233,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 	lineChart.getCurrentPanelsLineChart = function(dataArray) {
 		var chartData = {};
 		chartData.data = [];
-		chartData.colors = [ mainColor, secondaryColor ];
+		chartData.colors = [];								
 		chartData.series = [];
 		chartData.labels = [];
 		chartData.datasetOverride = [];
@@ -289,6 +289,13 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 			});
 			chartData.data.push(lineResult);
 			chartData.series.push(key); // Pass or Repanel
+			
+			//set colors for correct line
+			if(key == "Pass"){
+				chartData.colors.push("#18ad18");
+			} else{
+				chartData.colors.push("#ea2825");
+			}
 		});
 		
 		//set labels for x-axis to readable date 
