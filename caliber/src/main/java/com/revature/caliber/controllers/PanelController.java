@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
+import com.revature.caliber.exceptions.MalformedRequestException;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.PanelService;
 import com.revature.caliber.services.TrainingService;
@@ -105,7 +106,7 @@ public class PanelController {
 	@RequestMapping(value = "/panel/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP','PANEL')")
-	public ResponseEntity<Panel> savePanel(@Valid @RequestBody Panel panel) {
+	public ResponseEntity<Panel> savePanel(@Valid @RequestBody Panel panel) throws MalformedRequestException {
 		SalesforceUser user = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		log.info(user.getEmail());
 		panel.setPanelist(trainingService.findTrainer(user.getEmail()));

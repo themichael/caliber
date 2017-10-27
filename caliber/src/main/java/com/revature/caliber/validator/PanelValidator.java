@@ -4,9 +4,14 @@ import java.util.List;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintViolationException;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -14,15 +19,21 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
+import com.revature.caliber.exceptions.MalformedRequestException;
 import com.revature.caliber.services.PanelService;
 
 @Component
-public class PanelValidator implements ConstraintValidator<ValidPanel, Panel>{
+public class PanelValidator implements ConstraintValidator<ValidPanel, Panel>, InitializingBean, ApplicationContextAware{
 
 	private static final Logger log = Logger.getLogger(PanelValidator.class);
 	
-	@Autowired
 	private PanelService panelService;
+
+	private ApplicationContext applicationContext;
+	
+	public void setPanelService(PanelService panelService) {
+		this.panelService = panelService;
+	}
 
 	@Override
 	public void initialize(ValidPanel constraintAnnotation) {
@@ -32,15 +43,6 @@ public class PanelValidator implements ConstraintValidator<ValidPanel, Panel>{
 
 	@Override
 	public boolean isValid(Panel panel, ConstraintValidatorContext context) {
-		log.info("Panel for Trainee: " +panel.getTrainee());
-		log.info("Panel Service Bean: " + panelService);
-		List<Panel> previousPanels = panelService.findByTraineeId(panel.getTrainee().getTraineeId());
-		log.info("Trainee's Previous Panels: " + previousPanels);
-		//verifying server side that the panel round field has not been tampered with
-		if(previousPanels.size()+1 != panel.getPanelRound()) {
-			log.warn("Failed to create panel. Panel round calculation incorrect.");
-			return false;
-		}
 		
 		//verifying server side that the overall panel status field has not been tampered with
 		boolean pass = true;
@@ -59,6 +61,16 @@ public class PanelValidator implements ConstraintValidator<ValidPanel, Panel>{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		panelService = applicationContext.getBean(PanelService.class);
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
 	}
 
 }
