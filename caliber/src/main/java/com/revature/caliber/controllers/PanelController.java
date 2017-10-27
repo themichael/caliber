@@ -106,26 +106,6 @@ public class PanelController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Panel> savePanel(@Valid @RequestBody Panel panel) {
-		List<Panel> previousPanels = panelService.findByTraineeId(panel.getTrainee().getTraineeId());
-		//verifying server side that the panel round field has not been tampered with
-		if(previousPanels.size()+1 != panel.getPanelRound()) {
-			log.warn("Failed to create panel. Panel round calculation incorrect.");
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-		//verifying server side that the overall panel status field has not been tampered with
-		boolean pass = true;
-		for(PanelFeedback feedback : panel.getFeedback()) {
-			if(feedback.getStatus() == PanelStatus.Repanel) {
-				pass = false;
-				break;
-			}
-		}
-		if(pass && panel.getStatus() != PanelStatus.Pass) {
-			log.warn("Failed to create panel. Overall Panel Status not as expected.");
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
 		SalesforceUser user = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		log.info(user.getEmail());
 		panel.setPanelist(trainingService.findTrainer(user.getEmail()));
