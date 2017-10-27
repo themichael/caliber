@@ -176,7 +176,7 @@ public class Mailer implements Runnable {
 		for (Batch batch : batches) {
 			Set<Trainee> trainees = batch.getTrainees();
 			List<Assessment> assessments = getAssessments(batch.getBatchId());
-			if(assessments.size() == 0) {
+			if(assessments.isEmpty()) {
 				trainersToSubmitGrades.add(batch.getTrainer());
 			}
 			int expectedNumberOfGrades = trainees.size() * assessments.size();
