@@ -385,7 +385,7 @@ public class ReportingServiceTest extends CaliberTest {
 		
 		
 		List<Batch> batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, allTraining);
-		int expected = 10;
+		int expected = 12;
 		int actual = batches.size();
 		assertEquals(expected, actual);
 		
@@ -393,7 +393,7 @@ public class ReportingServiceTest extends CaliberTest {
 		//There is only one type of training in the setup.sql, so this is the same result "(All)"
 		//but uses a different code path
 		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), j2eeSkill, universityTraining);
-		expected = 2;
+		expected = 4;
 		actual = batches.size();
 		assertEquals(expected, actual);
 		
