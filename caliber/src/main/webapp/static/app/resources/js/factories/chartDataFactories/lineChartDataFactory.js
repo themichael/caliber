@@ -104,6 +104,27 @@ angular
 													+ response.status);
 										});
 					}
+					
+					/**
+					 * This is for the panel LineChart
+					 */
+					report.getCurrentPanelsLineChartData = function() {
+						return $http({
+							url : '/all/reports/biweeklyPanelResults',
+							method : "GET"
+						})
+								.then(
+										function(response) {
+											$log
+													.debug("all -> All Current Batches -> Panel results");
+											$log.debug(response);
+											return response.data;
+										},
+										function(response) {
+											$log.error("There was an error: "
+													+ response.status);
+										});
+					}
 
 					return report;
 				});

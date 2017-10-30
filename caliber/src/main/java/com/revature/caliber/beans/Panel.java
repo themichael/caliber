@@ -27,6 +27,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.revature.caliber.validator.ValidPanel;
 
 /**
  * Results of the final panel interview for each associate.
@@ -35,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  */
 @Entity
 @Table(name = "CALIBER_PANEL")
+@ValidPanel
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Panel {

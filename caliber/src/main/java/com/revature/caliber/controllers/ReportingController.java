@@ -219,6 +219,17 @@ public class ReportingController {
 		}
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/all/reports/biweeklyPanelResults", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING', 'PANEL')")
+	public ResponseEntity<List<Object>> getCurrentPanelsLineChart() {
+		log.info("getCurrentPanelsLineChart   ===>  /all/reports/biweeklyPanelResults");
+		List<Object> resp = reportingService.getAllCurrentPanelsLineChart();
+		if(resp.isEmpty()){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(resp, HttpStatus.OK);
+	}
 
 	/*
 	 *******************************************************

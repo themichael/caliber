@@ -18,6 +18,7 @@ import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.exceptions.MalformedRequestException;
 
 /**
  * Provides logic concerning Panel and PanelFeedback data. Application logic has
@@ -57,9 +58,19 @@ public class PanelService {
 		panelDAO.update(panel);
 	}
 
-	public void createPanel(Panel panel) {
+	public void createPanel(Panel panel) throws MalformedRequestException {
 		log.debug("Creating Panel " + panel);
-		panelDAO.save(panel);
+		log.info("Panel for Trainee: " +panel.getTrainee());
+		List<Panel> previousPanels = findByTraineeId(panel.getTrainee().getTraineeId());
+		log.info("Trainee's Previous Panels: " + previousPanels);
+		//verifying server side that the panel round field has not been tampered with
+		if(previousPanels.size()+1 != panel.getPanelRound()) {
+			log.warn("Failed to create panel. Panel round calculation incorrect.");
+			throw new MalformedRequestException();
+		}
+		else {
+			panelDAO.save(panel);
+		}
 	}
 
 	public void deletePanel(int panelId) {

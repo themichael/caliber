@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -82,6 +83,20 @@ public class PanelDAO {
 		return sessionFactory.getCurrentSession().createCriteria(Panel.class)
 				.add(Restrictions.eq("status", PanelStatus.Repanel))
 				.addOrder(Order.desc(INTERVIEW_DATE)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+	
+	/**
+	 * Looks for all panels within past 14 days (includes today and 13 days before)
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Panel> findBiWeeklyPanels() {
+		log.info("Fetching all panels within last 14 days");
+		Query query = sessionFactory.getCurrentSession().createQuery(
+				"FROM Panel p WHERE p.interviewDate >= TRUNC(SYSDATE) - 13");
+		return query.list();
 	}
 
 	/**

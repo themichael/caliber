@@ -165,6 +165,7 @@ public class Mailer implements Runnable {
 	/**
 	 * Returns a Set of Trainers who have not submitted all grades for their batch's assessments.
 	 * Only considers current batches.
+	 * Also grabs trainers who have not created a single assessment.
 	 * @precondition None.
 	 * @param None.
 	 * @return A Set of Trainers who need to submit grades
@@ -175,6 +176,9 @@ public class Mailer implements Runnable {
 		for (Batch batch : batches) {
 			Set<Trainee> trainees = batch.getTrainees();
 			List<Assessment> assessments = getAssessments(batch.getBatchId());
+			if(assessments.isEmpty()) {
+				trainersToSubmitGrades.add(batch.getTrainer());
+			}
 			int expectedNumberOfGrades = trainees.size() * assessments.size();
 			int actualNumberOfGrades = 0;
 			actualNumberOfGrades = getActualNumberOfGrades(assessments, batch.getBatchId());
@@ -186,7 +190,7 @@ public class Mailer implements Runnable {
 	}
 	
 	private List<Batch> getBatches(){
-		return batchDAO.findAllCurrent();
+		return this.batchDAO.findAll();
 	}
 	
 	private List<Assessment> getAssessments(int batchID) {
