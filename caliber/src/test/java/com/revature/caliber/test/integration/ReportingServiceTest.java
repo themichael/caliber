@@ -365,49 +365,6 @@ public class ReportingServiceTest extends CaliberTest {
 		expected = 85;
 		assertTrue(Math.abs(avg-expected)<.0001);
 	}
-	
-	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.service.ReportingService#batchComparisonFilter(List<Batch> batches, String skill, String training)
-	 * 
-	 * Checks each path in the filter test, All|All, All|TrainingType, SkillType|All, SkillType|TrainingType
-	 */
-	@Test
-	public void batchComparisonFilterTest(){
-		log.info("Testing the ReportingService.batchComparisonFilter(List<Batch> batches, String skill, String training)");
-		
-		String allSkills = "(All)";
-		String allTraining = "(All)";
-		
-		String j2eeSkill = "J2EE";
-		String revatureTraining = REVATURE;
-		String universityTraining = "University";
-		
-		
-		List<Batch> batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, allTraining);
-		int expected = 10;
-		int actual = batches.size();
-		assertEquals(expected, actual);
-		
-
-		//There is only one type of training in the setup.sql, so this is the same result "(All)"
-		//but uses a different code path
-		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), j2eeSkill, universityTraining);
-		expected = 4;
-		actual = batches.size();
-		assertEquals(expected, actual);
-		
-
-		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, revatureTraining);
-		expected = 8;
-		actual = batches.size();
-		assertEquals(expected, actual);
-		
-		batches = reportingService.batchComparisonFilter(batchDAO.findAll(), allSkills, universityTraining);
-		expected = 2;
-		actual = batches.size();
-		assertEquals(expected, actual);
-	}
 
 	/**
 	 * Tests methods:
