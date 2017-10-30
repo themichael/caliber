@@ -264,7 +264,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 					max = v;
 			});
 			
-			console.log(max);
 			chartData.data.push(lineResult);
 			chartData.series.push(key); // Pass or Repanel
 			
@@ -275,7 +274,6 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 				chartData.colors.push("#ea2825");
 			}
 		});
-		console.log("final max: " + max);
 		//set labels for x-axis to readable date 
 		Object.entries(dataArray['Pass']).forEach(([key, value]) => {
 			//using k as day of year
