@@ -658,7 +658,7 @@ angular
 										views: {
 											"" : {
 												templateUrl : "/static/app/partials/home/panel-home.html",
-												//controller : "vpHomeController"
+												controller : "panelHomeController"
 											}
 										}
 									
