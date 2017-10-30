@@ -197,7 +197,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllBatches).then().assertThat().statusCode(200).extract().response();
 		Batch[] resultSet = actual.as(Batch[].class);
-		assertEquals(10,resultSet.length);
+		assertEquals(12,resultSet.length);
 	}
 	/**
 	 * Tests method:
@@ -210,7 +210,7 @@ public class TrainingAPITest extends AbstractAPITest {
 		Response actual = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + getAllCurrentBatches).then().assertThat().statusCode(200).extract().response();
 		Batch[] resultSet = actual.as(Batch[].class);		
-		assertEquals(7, resultSet.length); 
+		assertEquals(9, resultSet.length); 
 	}
 	
 	/**
