@@ -115,7 +115,8 @@ public class ReportingService {
 	public Map<QCStatus, Integer> getBatchWeekPieChart(Integer batchId, Integer weekNumber) {
 		Map<QCStatus, Integer> results = new LinkedHashMap<>();
 		for (QCStatus s : QCStatus.values()) {
-			results.put(s, 0);
+			if(!s.equals(QCStatus.Undefined))
+				results.put(s, 0);
 		}
 		List<Note> notes = noteDAO.findAllQCTraineeNotes(batchId, weekNumber);
 		for (Note n : notes) {
