@@ -2,6 +2,7 @@
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
@@ -22,6 +23,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.OrderBy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -113,6 +115,12 @@ public class Trainee implements Serializable {
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@OrderBy(clause = "INTERVIEW_DATE DESC")
+	private Set<Panel> panelInterviews = new TreeSet<>();
 
 	public Trainee() {
 		super();
@@ -220,6 +228,14 @@ public class Trainee implements Serializable {
 
 	public void setResourceId(String resourceId) {
 		this.resourceId = resourceId;
+	}
+
+	public Set<Panel> getPanelInterviews() {
+		return panelInterviews;
+	}
+
+	public void setPanelInterviews(Set<Panel> panelInterviews) {
+		this.panelInterviews = panelInterviews;
 	}
 
 	@Override

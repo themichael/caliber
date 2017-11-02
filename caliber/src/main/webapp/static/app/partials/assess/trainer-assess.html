@@ -88,7 +88,7 @@
 								<th class="col-sm-2 col-md-2 col-lg-2">Trainee</th>
 								<div>
 									<th class="col-sm-1 col-md-1 col-lg-1 text-center"
-										role="button" data-toggle="modal"
+										role="button" data-toggle="modal" data-ng-click="setUpdateAssessmentToCurrent($index)"
 										data-target="#editAssessmentModal_{{assessment.assessmentId}}"
 										ng-repeat="assessment in currentAssessments track by $index">
 										{{assessment.title}}
@@ -108,7 +108,7 @@
 									ng-repeat="assessment in currentAssessments track by $index">
 									<input
 									ng-class="{'has-error':validateGrade(trainees[trainee.traineeId].assessments[assessment.assessmentId].score)}"
-									class="form-control" type="number" min="1" max="100"
+									class="form-control" type="number" min="0" max="100"
 									ng-model="trainees[trainee.traineeId].assessments[assessment.assessmentId].score"
 									ng-blur='(trainees[trainee.traineeId].assessments[assessment.assessmentId].score > 0 || trainees[trainee.traineeId].assessments[assessment.assessmentId].score <=100 )? updateGrade(trainee,assessment) : ""'
 									ng-value="findGrade(trainee.traineeId,assessment.assessmentId)"

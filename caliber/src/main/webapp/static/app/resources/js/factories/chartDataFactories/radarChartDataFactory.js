@@ -58,23 +58,20 @@ angular.module("reportApi").factory(
 				var batchPromise = $http({
 					method : "GET",
 					url : "/all/reports/batch/" + batchId
-							+ "/overall/radar-batch-overall",
-					cache : "true"
+							+ "/overall/radar-batch-overall"
 				});
 
 				var traineePromise = $http({
 					method : "GET",
 					url : "/all/reports/trainee/" + traineeId
-							+ "/radar-trainee-overall",
-					cache : "true"
+							+ "/radar-trainee-overall"
 				});
 
 				if (Number.isInteger(week) || week > 0) {
 					traineePromise = $http({
 						method : "GET",
 						url : "/all/reports/week/" + week + "/trainee/"
-								+ traineeId + "/radar-trainee-up-to-week",
-						cache : "true"
+								+ traineeId + "/radar-trainee-up-to-week"
 					});
 				}
 

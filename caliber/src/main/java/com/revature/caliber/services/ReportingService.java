@@ -27,12 +27,15 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.Panel;
+import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
+import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
 
 /**
@@ -62,6 +65,7 @@ public class ReportingService {
 	private TraineeDAO traineeDAO;
 	private NoteDAO noteDAO;
 	private AssessmentDAO assessmentDAO;
+	private PanelDAO panelDAO;
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -84,9 +88,16 @@ public class ReportingService {
 	}
 
 	@Autowired
-	public void seAssessmentDAO(AssessmentDAO assessmentDAO) {
+	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
 		this.assessmentDAO = assessmentDAO;
 	}
+	
+	@Autowired
+	public void setPanelDAO(PanelDAO panelDAO) {
+		this.panelDAO = panelDAO;
+	}	
+	
+
 	/*
 	 *******************************************************
 	 * Doughnut / Pie Charts
@@ -104,7 +115,8 @@ public class ReportingService {
 	public Map<QCStatus, Integer> getBatchWeekPieChart(Integer batchId, Integer weekNumber) {
 		Map<QCStatus, Integer> results = new LinkedHashMap<>();
 		for (QCStatus s : QCStatus.values()) {
-			results.put(s, 0);
+			if(!s.equals(QCStatus.Undefined))
+				results.put(s, 0);
 		}
 		List<Note> notes = noteDAO.findAllQCTraineeNotes(batchId, weekNumber);
 		for (Note n : notes) {
@@ -165,18 +177,23 @@ public class ReportingService {
 		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
 		Map<QCStatus, Integer> qcStatsMapTemplate = new LinkedHashMap<>();
 		for (QCStatus q : QCStatus.values()) {
-			qcStatsMapTemplate.put(q, 0);
+			if(q != QCStatus.Undefined) {
+				qcStatsMapTemplate.put(q, 0);
+			}
 		}
+		
 		for (Integer i = 1; i <= batch.getWeeks(); i++) {
 			results.put(i, new HashMap<>(qcStatsMapTemplate));
 		}
 		for (Trainee t : batch.getTrainees()) {
 			for (Note n : t.getNotes()) {
-				if (n.getQcStatus() != null) {
+				if (n.getQcStatus() != null && n.getQcStatus() != QCStatus.Undefined) {
 					Map<QCStatus, Integer> temp = results.get((int) n.getWeek());
-					Integer count = temp.get(n.getQcStatus()) + 1;
-					temp.put(n.getQcStatus(), count);
-					results.put((int) n.getWeek(), temp);
+					if(temp != null) {
+						Integer count = temp.get(n.getQcStatus()) + 1;
+						temp.put(n.getQcStatus(), count);
+						results.put((int) n.getWeek(), temp);
+					}
 				}
 			}
 		}
@@ -298,7 +315,7 @@ public class ReportingService {
 		trainees.parallelStream().forEach(trainee -> {
 			Double avg = 0.d;
 			int weeksWithGrades = 0;
-			for (Integer i = 0; i < weeks; i++) {
+			for (Integer i = 0; i <= weeks; i++) {
 				Double tempAvg = utilAvgTraineeWeek(trainee.getGrades(), i);
 				if (tempAvg > 0) {
 					weeksWithGrades++;
@@ -441,6 +458,61 @@ public class ReportingService {
 		});
 		return results;
 	}
+	
+	/**
+	 * x-Axis: # of panels
+	 * y-Axis: past 14 days
+	 * 
+	 * Method for Controller to grab panels for display
+	 * 
+	 * @return List<Map<pass||fail, Map<day,# panels>>
+	 */
+	public List<Object> getAllCurrentPanelsLineChart() {
+		List<Object> results = new ArrayList<>();
+		
+		//maps pass or fail -> (day -> # of panels)
+		Map<String,Map<Integer, Integer>> resultsObject = new HashMap<>();
+		resultsObject.put("Pass", new HashMap<>());
+		resultsObject.put("Repanel", new HashMap<>());
+		
+		Calendar cal = Calendar.getInstance();
+		//set default values for past 14 days to 0
+		cal.add(Calendar.DAY_OF_YEAR, -13);
+		for(int i = 0; i < 14; i++) {
+			resultsObject.get("Pass").put(cal.get(Calendar.DAY_OF_YEAR), 0);
+			resultsObject.get("Repanel").put(cal.get(Calendar.DAY_OF_YEAR), 0);
+			cal.add(Calendar.DAY_OF_YEAR, 1);
+		}
+		
+		//get all panels
+		List<Panel> panels = panelDAO.findBiWeeklyPanels();
+		
+		//for each panel
+		panels.parallelStream().forEach(panel -> {
+			
+			//set calendar time to interview date
+			cal.setTime(panel.getInterviewDate());
+			
+			//check if date is wrong date, return nothing
+			if(resultsObject.get("Repanel").get(cal.get(Calendar.DAY_OF_YEAR)) == null) return;
+			
+			//if panel was passed, add to corresponding map
+			if(panel.getStatus().equals(PanelStatus.Pass)) {
+				//get current value of panels passed
+				Integer current = resultsObject.get("Pass").get(cal.get(Calendar.DAY_OF_YEAR));
+				//replace with 1 more than current
+				resultsObject.get("Pass").replace(cal.get(Calendar.DAY_OF_YEAR), current, current + 1);
+			} else if(panel.getStatus().equals(PanelStatus.Repanel)){
+				//get current value of panels repaneled
+				Integer current = resultsObject.get("Repanel").get(cal.get(Calendar.DAY_OF_YEAR));
+				//replace with 1 more than current
+				resultsObject.get("Repanel").replace(cal.get(Calendar.DAY_OF_YEAR), current, current + 1);				
+			}
+			
+		});
+		results.add(resultsObject);
+		return results;
+	}
 	/*
 	 *******************************************************
 	 * Radar Charts
@@ -519,6 +591,8 @@ public class ReportingService {
 		assessments.forEach(a -> results.add(a.getCategory().getSkillCategory()));
 		return results;
 	}
+	
+
 
 	/*
 	 *******************************************************
@@ -864,5 +938,7 @@ public class ReportingService {
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
 	}
+	
+	
 
 }

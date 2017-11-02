@@ -42,6 +42,16 @@ angular
 					 * ****************************
 					 */
 
+					// Used to sort trainees in batch
+					function compare(a, b) {
+						if (a.name < b.name)
+							return -1;
+						if (a.name > b.name)
+							return 1;
+						return 0;
+					}
+			
+
 					/** On page start --> load all trainers * */
 					(function() {
 						caliberDelegate.all.getAllTrainers().then(
@@ -64,6 +74,15 @@ angular
 						$scope.batches = allBatches;
 						$scope.selectedBatches = [];
 						sortByDate(new Date().getFullYear());
+
+						// sort all trainees in alphabetical order
+						if($scope.batches){
+							$scope.batches.forEach(function(item,index){
+								$scope.batches[index].trainees.sort(compare);
+							})
+						}
+						$log.debug($scope.batches);
+
 					})();
 
 					/** Filter batches by year * */

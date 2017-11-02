@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.ConstraintViolationException;
 
@@ -15,14 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 
 import com.revature.caliber.data.TraineeDAO;
-
-
-
-
 
 public class TraineeDAOTest extends CaliberTest {
 
@@ -96,6 +94,23 @@ public class TraineeDAOTest extends CaliberTest {
 		log.info("FIND ALL TRAINEES");
 		Long sizeActual = jdbcTemplate.queryForObject(TRAINEE_COUNT, Long.class);
 		List<Trainee> trainees = traineeDAO.findAll();
+		Long sizeExpected = (long) trainees.size();
+		assertEquals(sizeExpected, sizeActual);
+	}
+	
+	/**
+	 * 
+	 * TraineeDAO.findAllNotDropped()
+	 * 	Use JDBCtemplate to save the number of trainees without status 'Dropped'
+	 * 	Use findAllNotDropped() to save expected list of trainees and size of the trainee list
+	 * 	compare actual to expected to make sure the same number of trainees are being returned
+	 * 
+	 * */
+	@Test
+	public void testFindAllNotDropped() {
+		log.info("FIND ALL TRAINEES NOT DROPPED");
+		Long sizeActual = jdbcTemplate.queryForObject(TRAINEE_COUNT + " WHERE training_status != 'Dropped'", Long.class);
+		List<Trainee> trainees = traineeDAO.findAllNotDropped();
 		Long sizeExpected = (long) trainees.size();
 		assertEquals(sizeExpected, sizeActual);
 	}
@@ -213,7 +228,21 @@ public class TraineeDAOTest extends CaliberTest {
 	public void testFindByEmail() {
 		log.info("Find trainee by email Test");
 		Integer id = 5503;
-		assertEquals((int) id, (int) traineeDAO.findByEmail("osher.y.cohen@gmail.com").getTraineeId());
+		assertEquals((int) id, (int) traineeDAO.findByEmail("osher").get(0).getTraineeId());
+	}
+	
+	@Test
+	public void testFindByName() {
+		log.info("Find trainee by name Test");
+		Integer id = 5511;
+		assertEquals((int) id, (int) traineeDAO.findByName("Lau").get(0).getTraineeId());
+	}
+	
+	@Test
+	public void testFindBySkypeId() {
+		log.info("Find trainee by SkypeId Test");
+		Integer id = 5504;
+		assertEquals((int) id, (int) traineeDAO.findBySkypeId("kyle.chang").get(0).getTraineeId());
 	}
 
 	/**

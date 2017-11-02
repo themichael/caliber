@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.AssessmentType;
+import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.TrainerRole;
@@ -48,7 +50,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/skill/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING','TRAINER','QC')")
+	@PreAuthorize("hasAnyRole('VP', 'STAGING','TRAINER','QC','PANEL')")
 	public ResponseEntity<List<String>> allSkillTypes() {
 		log.info("Fetching skill types");
 		List<String> types = Stream.of(SkillType.values()).map(Enum::toString).collect(Collectors.toList());
@@ -61,7 +63,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/training/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER','PANEL')")
 	public ResponseEntity<List<String>> allTrainingTypes() {
 		log.info("Fetching training types");
 		List<String> types = Stream.of(TrainingType.values()).map(Enum::name).collect(Collectors.toList());
@@ -74,7 +76,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/trainingstatus/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER')")
+	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER','PANEL')")
 	public ResponseEntity<List<String>> allTrainingStatusTypes() {
 		log.info("Fetching training status types");
 		List<String> types = Stream.of(TrainingStatus.values()).map(Enum::name).collect(Collectors.toList());
@@ -87,7 +89,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/note/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC', 'STAGING','PANEL')")
 	public ResponseEntity<List<String>> allNoteTypes() {
 		log.info("Fetching note types");
 		List<String> types = Stream.of(NoteType.values()).map(Enum::name).collect(Collectors.toList());
@@ -100,7 +102,7 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/qcstatus/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC', 'STAGING','PANEL')")
 	public ResponseEntity<List<String>> allQCStatusTypes() {
 		log.info("Fetching QC status types");
 		List<String> types = Stream.of(QCStatus.values()).map(Enum::name).collect(Collectors.toList());
@@ -129,17 +131,37 @@ public class TypeController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/trainer/role/all", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('VP', 'STAGING')")
+	@PreAuthorize("hasAnyRole('VP', 'STAGING','PANEL')")
 	public ResponseEntity<List<String>> allTrainerRoles() {
 		log.info("Fetching Trainer Roles");
-		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());// Used
-																										// toString
-																										// to
-																										// Display
-																										// the roles
-																										// without
-																										// the
-																										// underscore
+		// Used toString to Display the roles without the underscore
+		List<String> types = Stream.of(TrainerRole.values()).map(Enum::name).collect(Collectors.toList());
+		return new ResponseEntity<>(types, HttpStatus.OK);
+	}
+
+	/**
+	 * Get Panel Status for dropdown selection on the UI
+	 *
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/panelstatus/all", method = RequestMethod.GET)
+	@PreAuthorize("hasAnyRole('VP', 'PANEL')")
+	public ResponseEntity<List<String>> allPanelStatus() {
+		log.info("Fetching Panel Status");
+		List<String> types = Stream.of(PanelStatus.values()).map(Enum::name).collect(Collectors.toList());
+		return new ResponseEntity<>(types, HttpStatus.OK);
+	}
+
+	/**
+	 * Get Interview Format for dropdown selection on the UI
+	 *
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/interviewformat/all", method = RequestMethod.GET)
+	@PreAuthorize("hasAnyRole('VP', 'PANEL')")
+	public ResponseEntity<List<String>> allInterviewFormat() {
+		log.info("Fetching Interview Format");
+		List<String> types = Stream.of(InterviewFormat.values()).map(Enum::name).collect(Collectors.toList());
 		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
 }

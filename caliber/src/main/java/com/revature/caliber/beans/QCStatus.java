@@ -12,5 +12,7 @@ public enum QCStatus implements Serializable{
 	@JsonProperty("Average")
 	Average,
 	@JsonProperty("Poor")
-	Poor
+	Poor,
+	@JsonProperty("Undefined")
+	Undefined
 }

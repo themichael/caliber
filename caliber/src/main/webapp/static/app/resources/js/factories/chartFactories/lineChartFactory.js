@@ -48,7 +48,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 					},
 					ticks : {
 						suggestedMin : 40,
-						suggestedmax : 100,
+						suggestedMax : 100,
 						stepSize : 20
 					}
 				} ]
@@ -90,7 +90,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 					ticks : {
 						suggestedMin : 40,
-						suggestedmax : 100,
+						suggestedMax : 100,
 						stepSize : 20
 					}
 				} ]
@@ -138,7 +138,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 					ticks : {
 						suggestedMin : 40,
-						suggestedmax : 100,
+						suggestedMax : 100,
 						stepSize : 20
 					}
 				} ]
@@ -197,7 +197,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 
 					ticks : {
 						suggestedMin : 40,
-						suggestedmax : 100,
+						suggestedMax : 100,
 						stepSize : 20
 					}
 				} ]
@@ -229,5 +229,91 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 		}
 		return chartData;
 	};
+	//panel chart
+	lineChart.getCurrentPanelsLineChart = function(dataArray) {
+		var chartData = {};
+		chartData.data = [];
+		chartData.colors = [];								
+		chartData.series = [];
+		chartData.labels = [];
+		chartData.datasetOverride = [];
+		for (var i = 0; i<=13; i++){
+			chartData.datasetOverride.push({fill:false});
+		}
+		
+		
+		//format output of day from day of year number
+		function dateFromDay(year, day){
+			  var date = new Date(year, 0); // initialize a date in `year-01-01`
+			  return new Date(date.setDate(day)); // add the number of days
+		}
+		//need today for year value in date formatting
+		var today = new Date();
+		
+		//max y-axis value
+		var max = 0;
+		//set data by going through Pass and Repanel results
+		Object.entries(dataArray).forEach(([key, value]) => {
+			var lineResult = [];
+			//k = day of year, v = # of panels for that day
+			Object.entries(value).forEach(([k,v]) => {
+				lineResult.push(v);
+				
+				//set new max
+				if(v > max)
+					max = v;
+			});
+			
+			chartData.data.push(lineResult);
+			chartData.series.push(key); // Pass or Repanel
+			
+			//set colors for correct line
+			if(key == "Pass"){
+				chartData.colors.push("#18ad18");
+			} else{
+				chartData.colors.push("#ea2825");
+			}
+		});
+		//set labels for x-axis to readable date 
+		Object.entries(dataArray['Pass']).forEach(([key, value]) => {
+			//using k as day of year
+			var d = dateFromDay(today.getFullYear(), key)
+			chartData.labels.push(d.getMonth() + 1 + "/" + d.getDate());
+		});
+		
+		chartData.options = {
+				legend : {
+					display : true,
+					labels : {
+						boxWidth : 10
+					}
+				},	
+				scales : {
+					xAxes : [ {
+						scaleLabel : {
+							display : true,
+							labelString : 'Day'
+						}
+
+					} ],
+					yAxes : [ {
+						scaleLabel : {
+							display : true,
+							labelString : '# of Panels'
+						},
+
+						ticks : {
+							suggestedMin : 0,
+							suggestedMax : max + 1,
+							stepSize : 1
+						}
+					} ]
+				}
+		};
+
+		
+		return chartData;
+	};
+	
 	return lineChart;
 });

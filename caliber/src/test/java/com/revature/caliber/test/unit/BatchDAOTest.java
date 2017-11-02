@@ -81,7 +81,7 @@ public class BatchDAOTest extends CaliberTest {
 	public void findAllCurrentWithTraineesTest() {
 		log.info("Testing the BatchDAO.findAllCurrentWithTrainees()");
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();
-		int expected = 3; // All current batches have trainees
+		int expected = 6; // All current batches have trainees
 		int actual = batches.size();
 		assertEquals(expected, actual);
 	}
@@ -108,7 +108,7 @@ public class BatchDAOTest extends CaliberTest {
 		log.info("Testing the BatchDAO.findAllAfterDateTest()");
 		// positive test
 		// find how many after a specific date
-		int expect = 5;
+		int expect = 8;
 		int actual = batchDAO.findAllAfterDate(1, 1, 2017).size();
 		log.info(batchDAO.findAllAfterDate(1, 1, 2017));
 		assertEquals(expect, actual);
@@ -205,14 +205,6 @@ public class BatchDAOTest extends CaliberTest {
 		int expected = 2050;
 		int actual = batchDAO.findOne(expected).getBatchId();
 		assertEquals(expected, actual);
-		try{
-			expected = -234;
-			actual = batchDAO.findOne(expected).getBatchId();
-			fail();
-		}
-		catch(Exception e){
-			log.info(e);
-		}
 	}
 
 	/**
@@ -235,7 +227,7 @@ public class BatchDAOTest extends CaliberTest {
 		}
 		assertTrue(success);
 		try{
-			resultSet = batchDAO.findOneWithDroppedTrainees(-999).getTrainees();
+			batchDAO.findOneWithDroppedTrainees(-999).getTrainees();
 			fail();
 		}
 		catch(Exception e){
@@ -265,7 +257,7 @@ public class BatchDAOTest extends CaliberTest {
 		}
 		assertTrue(success);
 		try{
-			resultSet = batchDAO.findOneWithTraineesAndGrades(-999).getTrainees();
+			batchDAO.findOneWithTraineesAndGrades(-999).getTrainees();
 			fail();
 		}
 		catch(Exception e){

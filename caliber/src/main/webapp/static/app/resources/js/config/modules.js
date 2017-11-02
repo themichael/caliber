@@ -1,7 +1,7 @@
 /** modules * */
 angular.module(
 		"app",
-		[ "ui.router", "ngCookies", "auth", "chart.js", "vp", "qc", "trainer",
+		[ "ui.router", "ngCookies", "auth", "chart.js", "vp", "qc", "trainer", "panel",
 				"api", "delegate", "charts", "reportApi", "ngAnimate",
 				"moment-picker", "angular.filter" ]).run(function($rootScope, $timeout) {
 	$rootScope.$on('test', function() {
@@ -20,6 +20,7 @@ angular.module("api", []);
 angular.module("charts", []);
 angular.module("auth", []);
 angular.module("reportApi", []);
+angular.module("panel", []);
 
 angular.module("app").directive("sticky", function($window) {
 	return function(scope, element) {
