@@ -38,7 +38,14 @@ CREATE SEQUENCE IF NOT EXISTS TRAINER_ID_SEQUENCE  MINVALUE 1 INCREMENT BY 1 STA
 --  DDL for Sequence PANEL_ID_SEQUENCE
 --------------------------------------------------------
    CREATE SEQUENCE IF NOT EXISTS PANEL_ID_SEQUENCE  MINVALUE 71 INCREMENT BY 1 START WITH 71;
-
+--------------------------------------------------------
+--  DDL for Sequence TASK_COMPLETION_ID_SEQUENCE
+--------------------------------------------------------
+   CREATE SEQUENCE IF NOT EXISTS TASK_COMPLETION_ID_SEQUENCE MINVALUE 1 INCREMENT BY 1 START WITH 1 ;
+--------------------------------------------------------
+--  DDL for Sequence TASK_ID_SEQUENCE
+--------------------------------------------------------
+   CREATE SEQUENCE IF NOT EXISTS TASK_ID_SEQUENCE  MINVALUE 1 INCREMENT BY 1 START WITH 1;
 -------------TRAINER-------------
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
   VALUES( TRAINER_ID_SEQUENCE.NEXTVAL, 'patrick.walsh@revature.com', 'Patrick Walsh', 'Lead Trainer', 'ROLE_VP');
