@@ -4,12 +4,16 @@
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:security="http://www.springframework.org/schema/security"
+    xmlns:task="http://www.springframework.org/schema/task"
+    
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
-        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/task 
+   		http://www.springframework.org/schema/task/spring-task.xsd">
 
     <tx:annotation-driven />
     <mvc:annotation-driven />
@@ -63,4 +67,8 @@
             </list>
         </property>
     </bean>
+    
+    <!-- Scheduling -->
+    <task:annotation-driven />
+    <bean id="updateBatchJob" class="com.revature.caliber.tasks.BatchUpdate" />
 </beans>
