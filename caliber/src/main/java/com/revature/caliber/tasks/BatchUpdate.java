@@ -16,6 +16,7 @@ import com.revature.caliber.data.TrainerDAO;
 
 public class BatchUpdate {
 	
+
 	@Autowired
 	SalesforceDAO salesforceDao;
 	@Autowired
@@ -24,6 +25,11 @@ public class BatchUpdate {
 	TraineeDAO traineeDao;
 	@Autowired
 	TrainerDAO trainerDao;
+
+	/*
+	 * Test Method: Used cron to perform midnight execution 
+	 * 				To update batches
+	 */
 	
 	//@Scheduled(cron = "0 0 0 * * *")  //Midnight
 	@Scheduled(cron = "0 * * * * *") 	//Every minute (testing)
