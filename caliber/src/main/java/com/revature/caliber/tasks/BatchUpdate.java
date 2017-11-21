@@ -38,7 +38,7 @@ public class BatchUpdate {
 		System.out.println("Update Batch Task");
 		List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
 		List<Batch> caliberBatches = batchDao.findAll();
-		//List<Batch> notSalesforceBatch = batchDao.findAll();
+		//List<Batch> notSalesforceBatches = batchDao.findAll();
 		
 		compareBatches(caliberBatches,salesforceBatches);
 		
@@ -49,15 +49,15 @@ public class BatchUpdate {
 	public void compareBatches(List<Batch> caliberBatches,List<Batch> salesforceBatches) {
 		for(int sIndex=0;sIndex<salesforceBatches.size();sIndex++) {
 			String sResourceId = salesforceBatches.get(sIndex).getResourceId();
-			//int sResourceId = salesforceBatch.get(sIndex).getBatchId();
+			//int sResourceId = salesforceBatches.get(sIndex).getBatchId();
 			for(int cIndex=0;cIndex<caliberBatches.size();cIndex++) {
 				String cResourceId = caliberBatches.get(cIndex).getResourceId();
 				if(cResourceId == null) {
 					continue;
 				}
-				//int cResourceId = caliberBatch.get(cIndex).getBatchId();
+				//int cResourceId = caliberBatches.get(cIndex).getBatchId();
 				if(cResourceId.equals(sResourceId)) {
-					System.out.println("Caliber batch: "+cResourceId+"Salesforce Batch: "+sResourceId);
+					System.out.println("Caliber batch: "+cResourceId+" Salesforce Batch: "+sResourceId);
 					Batch caliberBatch = caliberBatches.get(cIndex);
 					Batch salesforceBatch = salesforceBatches.get(sIndex);
 					if(!caliberBatch.getTrainer().getEmail().equals(salesforceBatch.getTrainer().getEmail())) {
@@ -68,11 +68,14 @@ public class BatchUpdate {
 						trainerDao.update(caliberBatch.getTrainer());
 						batchDao.update(caliberBatch);
 					}
-					if(!caliberBatch.getCoTrainer().getEmail().equals(salesforceBatch.getCoTrainer().getEmail())) {
-						caliberBatch.getCoTrainer().getBatches().remove(caliberBatch);
-						caliberBatch.setCoTrainer(salesforceBatch.getCoTrainer());
-						batchDao.update(caliberBatch);
+					if(caliberBatch.getCoTrainer() != null) {
+						if(!caliberBatch.getCoTrainer().getEmail().equals(salesforceBatch.getCoTrainer().getEmail())) {
+							caliberBatch.getCoTrainer().getBatches().remove(caliberBatch);
+							caliberBatch.setCoTrainer(salesforceBatch.getCoTrainer());
+							batchDao.update(caliberBatch);
+						}
 					}
+					
 					Set<Trainee> salesforceTrainees = salesforceBatch.getTrainees();
 					Set<Trainee> caliberTrainees = caliberBatch.getTrainees();
 					if(caliberTrainees.containsAll(salesforceTrainees) && caliberTrainees.size() ==  salesforceTrainees.size()) {
@@ -97,28 +100,30 @@ public class BatchUpdate {
 			Trainee cTrainee = cIt.next();
 			//int cResourceId = cTrainee.getTraineeId();
 			String cResourceId = cTrainee.getResourceId();
-			Iterator<Trainee> sIt = salesforceTrainees.iterator();
-			while(sIt.hasNext()) {
-				Trainee sTrainee = sIt.next();
-				//int sResourceId = sTrainee.getTraineeId();
-				String sResourceId = sTrainee.getResourceId();
-				if(cResourceId.equals(sResourceId)) {
-					if(!cTrainee.getName().equals(sTrainee.getName())) {
-						cTrainee.setName(sTrainee.getName());
+			if(cResourceId != null) {
+				Iterator<Trainee> sIt = salesforceTrainees.iterator();
+				while(sIt.hasNext()) {
+					Trainee sTrainee = sIt.next();
+					//int sResourceId = sTrainee.getTraineeId();
+					String sResourceId = sTrainee.getResourceId();
+					if(cResourceId.equals(sResourceId)) {
+						if(!cTrainee.getName().equals(sTrainee.getName())) {
+							cTrainee.setName(sTrainee.getName());
+						}
+						if(!cTrainee.getEmail().equals(sTrainee.getEmail())) {
+							cTrainee.setEmail(sTrainee.getEmail());
+						}
+						if(!cTrainee.getPhoneNumber().equals(sTrainee.getPhoneNumber())) {
+							cTrainee.setPhoneNumber(sTrainee.getPhoneNumber());
+						}
+						if(!cTrainee.getTrainingStatus().equals(sTrainee.getTrainingStatus())) {
+							cTrainee.setTrainingStatus(sTrainee.getTrainingStatus());
+						}
+						traineeDao.update(cTrainee);
+						System.out.println("Save Trainee updates");
 					}
-					if(!cTrainee.getEmail().equals(sTrainee.getEmail())) {
-						cTrainee.setEmail(sTrainee.getEmail());
-					}
-					if(!cTrainee.getPhoneNumber().equals(sTrainee.getPhoneNumber())) {
-						cTrainee.setPhoneNumber(sTrainee.getPhoneNumber());
-					}
-					if(!cTrainee.getTrainingStatus().equals(sTrainee.getTrainingStatus())) {
-						cTrainee.setTrainingStatus(sTrainee.getTrainingStatus());
-					}
-					traineeDao.update(cTrainee);
-					System.out.println("Save Trainee updates");
+					
 				}
-				
 			}
 			
 		}
