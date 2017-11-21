@@ -35,31 +35,46 @@ public class BatchUpdate {
 	@Scheduled(cron = "0 * * * * *") 	//Every minute (testing)
 	public void updateBatchTask() {
 		//Update job goes here
+		System.out.println("Update Batch Task");
+		List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
+		List<Batch> caliberBatches = batchDao.findAll();
+		//List<Batch> notSalesforceBatch = batchDao.findAll();
 		
-		//List<Batch> salesforceBatch = salesforceDao.getAllRelevantBatches();
-		List<Batch> caliberBatch = batchDao.findAll();
-		List<Batch> notSalesforceBatch = batchDao.findAll();
-		caliberBatch.get(0).getTrainees().add(new Trainee());
+		compareBatches(caliberBatches,salesforceBatches);
 		
-		for(int sIndex=0;sIndex<notSalesforceBatch.size();sIndex++) {
-			//String sResourceId = notSalesforceBatch.get(sIndex).getResourceId();
-			int sResourceId = notSalesforceBatch.get(sIndex).getBatchId();
-			for(int cIndex=0;cIndex<caliberBatch.size();cIndex++) {
-				//String cResourceId = caliberBatch.get(cIndex).getResourceId();
-				int cResourceId = caliberBatch.get(cIndex).getBatchId();
-				if(cResourceId == sResourceId) {
-					Batch cBatch = caliberBatch.get(cResourceId);
-					Batch sBatch = notSalesforceBatch.get(sResourceId);
-					if(!cBatch.getTrainer().getEmail().equals(sBatch.getTrainer().getEmail())) {
-						cBatch.setTrainer(sBatch.getTrainer());
-						batchDao.update(cBatch);
+		System.out.println("End of Update Task");
+		
+	}
+	
+	public void compareBatches(List<Batch> caliberBatches,List<Batch> salesforceBatches) {
+		for(int sIndex=0;sIndex<salesforceBatches.size();sIndex++) {
+			String sResourceId = salesforceBatches.get(sIndex).getResourceId();
+			//int sResourceId = salesforceBatch.get(sIndex).getBatchId();
+			for(int cIndex=0;cIndex<caliberBatches.size();cIndex++) {
+				String cResourceId = caliberBatches.get(cIndex).getResourceId();
+				if(cResourceId == null) {
+					continue;
+				}
+				//int cResourceId = caliberBatch.get(cIndex).getBatchId();
+				if(cResourceId.equals(sResourceId)) {
+					System.out.println("Caliber batch: "+cResourceId+"Salesforce Batch: "+sResourceId);
+					Batch caliberBatch = caliberBatches.get(cIndex);
+					Batch salesforceBatch = salesforceBatches.get(sIndex);
+					if(!caliberBatch.getTrainer().getEmail().equals(salesforceBatch.getTrainer().getEmail())) {
+						caliberBatch.getTrainer().getBatches().remove(caliberBatch);
+						trainerDao.update(caliberBatch.getTrainer());
+						caliberBatch.setTrainer(salesforceBatch.getTrainer());
+						caliberBatch.getTrainer().getBatches().add(caliberBatch);
+						trainerDao.update(caliberBatch.getTrainer());
+						batchDao.update(caliberBatch);
 					}
-					if(!cBatch.getCoTrainer().getEmail().equals(sBatch.getCoTrainer().getEmail())) {
-						cBatch.setCoTrainer(sBatch.getCoTrainer());
-						batchDao.update(cBatch);
+					if(!caliberBatch.getCoTrainer().getEmail().equals(salesforceBatch.getCoTrainer().getEmail())) {
+						caliberBatch.getCoTrainer().getBatches().remove(caliberBatch);
+						caliberBatch.setCoTrainer(salesforceBatch.getCoTrainer());
+						batchDao.update(caliberBatch);
 					}
-					Set<Trainee> salesforceTrainees = sBatch.getTrainees();
-					Set<Trainee> caliberTrainees = cBatch.getTrainees();
+					Set<Trainee> salesforceTrainees = salesforceBatch.getTrainees();
+					Set<Trainee> caliberTrainees = caliberBatch.getTrainees();
 					if(caliberTrainees.containsAll(salesforceTrainees) && caliberTrainees.size() ==  salesforceTrainees.size()) {
 						continue;
 					} else {
@@ -68,8 +83,6 @@ public class BatchUpdate {
 				}
 			}
 		}
-		
-		
 	}
 	
 	/* 
@@ -82,14 +95,14 @@ public class BatchUpdate {
 		
 		while(cIt.hasNext()) {
 			Trainee cTrainee = cIt.next();
-			int cResourceId = cTrainee.getTraineeId();
-			boolean found = false;
+			//int cResourceId = cTrainee.getTraineeId();
+			String cResourceId = cTrainee.getResourceId();
 			Iterator<Trainee> sIt = salesforceTrainees.iterator();
 			while(sIt.hasNext()) {
 				Trainee sTrainee = sIt.next();
-				int sResourceId = sTrainee.getTraineeId();
-				if(cResourceId == sResourceId) {
-					found = true;
+				//int sResourceId = sTrainee.getTraineeId();
+				String sResourceId = sTrainee.getResourceId();
+				if(cResourceId.equals(sResourceId)) {
 					if(!cTrainee.getName().equals(sTrainee.getName())) {
 						cTrainee.setName(sTrainee.getName());
 					}
@@ -103,6 +116,7 @@ public class BatchUpdate {
 						cTrainee.setTrainingStatus(sTrainee.getTrainingStatus());
 					}
 					traineeDao.update(cTrainee);
+					System.out.println("Save Trainee updates");
 				}
 				
 			}
