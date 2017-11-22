@@ -30,7 +30,7 @@ angular
 										templateUrl : "/static/app/partials/routing.html",
 										// uncomment when dev is complete
 										onEnter : function(authFactory) {
-											authFactory.auth.auth();
+											authFactory.auth();
 										}
 									})
 
@@ -52,7 +52,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authQC();
+											authFactory.authQC();
 										}
 
 									})
@@ -102,7 +102,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authManage();
+											authFactory.authManage();
 										}
 										
 									})
@@ -121,7 +121,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authAudit();
+											authFactory.authAudit();
 										}
 										
 										
@@ -158,7 +158,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authReports();
+											authFactory.authReports();
 										}
 									})
 							/***************************************************
@@ -180,7 +180,7 @@ angular
 										// authorize the user
 										onEnter : function(authFactory) {
 											console.log("/trainer authTrainer");
-											authFactory.auth.authTrainer();
+											authFactory.authTrainer();
 										}
 									})
 							.state(
@@ -198,7 +198,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authImport();
+											authFactory.authImport();
 										}
 									})
 							.state(
@@ -239,7 +239,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authManage();
+											authFactory.authManage();
 										}
 									})
 							.state(
@@ -262,7 +262,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authAssess();
+											authFactory.authAssess();
 										}
 										
 									})
@@ -298,7 +298,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authReports();
+											authFactory.authReports();
 										}
 										
 									})
@@ -322,7 +322,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authVP();
+											authFactory.authVP();
 										}
 
 									})
@@ -366,7 +366,7 @@ angular
 										},
 										// authorize the users
 										onEnter : function(authFactory) {
-											authFactory.auth.authTrainers();
+											authFactory.authTrainers();
 										},
 										
 
@@ -417,7 +417,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authCategory();
+											authFactory.authCategory();
 										}
 										
 												
@@ -452,7 +452,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authManage();
+											authFactory.authManage();
 										}
 										
 									})
@@ -477,7 +477,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authAssess();
+											authFactory.authAssess();
 										}
 										
 									})
@@ -502,7 +502,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authAudit();
+											authFactory.authAudit();
 										}
 										
 									})
@@ -538,7 +538,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authReports();
+											authFactory.authReports();
 										}
 										
 									})
@@ -579,7 +579,7 @@ angular
                                 },
                                 // Authorize Staging role
                                 onEnter: function (authFactory) {
-                                    authFactory.auth.authStaging();
+                                    authFactory.authStaging();
                                 }
                             })
 
@@ -604,7 +604,7 @@ angular
                                 },
                                 // authorize the user
                                 onEnter : function(authFactory) {
-									authFactory.auth.authReports();
+									authFactory.authReports();
 								}
                             }
                         )
@@ -629,7 +629,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authPanel();
+											authFactory.authPanel();
 										}
 									
 							})
@@ -648,7 +648,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authImport();
+											authFactory.authImport();
 										}
 									})
 						.state(
@@ -696,7 +696,7 @@ angular
 										},
 //										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authManage();
+											authFactory.authManage();
 										}
 									})
 								.state(
@@ -720,7 +720,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authAudit();
+											authFactory.authAudit();
 										}
 										
 									})
@@ -774,7 +774,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.auth.authReports();
+											authFactory.authReports();
 										}
 										
 							})

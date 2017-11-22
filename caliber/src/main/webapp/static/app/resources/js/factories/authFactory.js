@@ -92,7 +92,9 @@ angular.module("auth").factory("authFactory",
 					$state.go(stagingState);
 					break;
 				default:
-					error();
+					//error();
+					console.log("Auth Default");
+					$location.path("/");
 					break;
 				}
 			};
@@ -157,10 +159,6 @@ angular.module("auth").factory("authFactory",
 					$location.path(vpHome);
 				else if (role === panelRole)
 					$location.path(panelHome);
-				else	{
-					console.log("Redirect");
-					$location.path("/");
-				}
 			};
 
 			auth.authStaging = function() {
@@ -257,6 +255,7 @@ angular.module("auth").factory("authFactory",
 			 */
 			auth.authImport = function() {
 				var role = getCookie();
+				console.log("AuthImport")
 
 				switch (role) {
 				case trainerRole:
