@@ -23,7 +23,8 @@
 								<b>Associate Name</b> <input type="text" class="form-control" ng-model="trainee.name" disabled /> 
 								<b>Training Track</b> <input type="text" class="form-control" ng-model="batchSkillType" disabled />
 								<b>Panel Round</b> <input type="number" class="form-control" ng-model="panelRound.model" disabled /> 
-								<b>Recording Consent</b> <select ng-options="option.exp for option in recordingConsent.options" ng-model="recordingConsent.model" placeholder="Select" class="form-control" id="recordConsent"></select>
+								<b>Recording Consent</b> <select ng-options="option.exp for option in recordingConsent.options" ng-model="recordingConsent.model" placeholder="" class="form-control" id="recordConsent"></select>
+												<option value="" disabled>
 												<option ng-repeat="option in assessmentType.options">{{option}}</option>
 							</div>
 							<div class="form-group col-xs-6">
