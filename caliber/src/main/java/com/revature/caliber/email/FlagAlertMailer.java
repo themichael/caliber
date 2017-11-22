@@ -29,21 +29,19 @@ import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.services.TrainingService;
 import com.revature.caliber.data.GradeDAO;
 
 @Component
 public class FlagAlertMailer implements Runnable {
 
-	private static final Logger logger = Logger.getLogger(Mailer.class);
+	private static final Logger logger = Logger.getLogger(FlagAlertMailer.class);
 
 	@Autowired
-	private TrainerDAO TrainerDAO;
+	private TrainingService trainingService;
 
 	@Autowired
 	private EmailAuthenticator authenticator;
-
-	@Autowired
-	private TraineeDAO TraineeDAO;
 
 
 	/**
@@ -51,8 +49,8 @@ public class FlagAlertMailer implements Runnable {
 	 * with the actual name of the trainer for the email to be trainer specific
 	 */
 	private static final String EMAIL_TEMPLATE_VP_NAME_TOKEN = "$TRAINER_NAME";
-	private static final String EMAIL_TEMPLATE_GREEN_FLAGS = "$GREEN_FLAG_TRAINEES";
-	private static final String EMAIL_TEMPLATE_RED_FLAGS = "$RED_FLAG_TRAINEES";
+	private static final String EMAIL_TEMPLATE_GREEN_FLAGS_TOKEN = "$GREEN_FLAG_TRAINEES";
+	private static final String EMAIL_TEMPLATE_RED_FLAGS_TOKEN = "$RED_FLAG_TRAINEES";
 
 	/**
 	 * The path to the email template
@@ -134,8 +132,8 @@ public class FlagAlertMailer implements Runnable {
 
 				// Parametrize the email to contain the name of the trainer being emailed
 				 String emailVPStr = emailTemplate.replace(EMAIL_TEMPLATE_VP_NAME_TOKEN, trainer.getName());
-				 String gFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_GREEN_FLAGS, greenFlagHTML);
-				 String rFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_RED_FLAGS, redFlagHTML);
+				 String gFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_GREEN_FLAGS_TOKEN, greenFlagHTML);
+				 String rFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_RED_FLAGS_TOKEN, redFlagHTML);
 				 message.setContent(emailVPStr, "text/html");
 				 message.setContent(gFlagHTML, "text/html");
 				 message.setContent(rFlagHTML, "text/html");
@@ -179,7 +177,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return A Set of Trainers who need to submit grades
 	 */
 	public Set<Trainer> getVPs() {
-		Set<Trainer> trainers = (Set<Trainer>) TrainerDAO.findAll();
+		List<Trainer> trainers = trainingService.findAllTrainers();
 		Set<Trainer> vps = new HashSet<Trainer>();
 		for (Trainer trainer : trainers) {
 			if (trainer.getTier() == TrainerRole.ROLE_VP) {
@@ -190,7 +188,7 @@ public class FlagAlertMailer implements Runnable {
 	}
 
 	public String redFlagHTML() {
-		Set<Trainee> trainees = (Set<Trainee>) TraineeDAO.findAll();
+		List<Trainee> trainees = trainingService.findAllTrainees();
 		String redFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.RED) {
@@ -201,7 +199,7 @@ public class FlagAlertMailer implements Runnable {
 	}
 
 	public String greenFlagHTML() {
-		Set<Trainee> trainees = (Set<Trainee>) TraineeDAO.findAll();
+		List<Trainee> trainees = trainingService.findAllTrainees();
 		String greenFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.GREEN) {
