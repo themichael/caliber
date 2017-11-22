@@ -105,14 +105,9 @@
 								ng-repeat="trainee in currentBatch.trainees track by $index">
 								<ng-form name="gradeFieldForm">
 								<td class="col-sm-2 col-md-2 col-lg-2" ng-click="toggleColor(trainee, $index)">{{ trainee.name }}</td>
-<<<<<<< HEAD
 								<td class="col-sm-1 col-md-1 col-lg-1"><span ng-mouseover="showNotes($index)" ng-mouseleave="hideNotes($index)" 
 								ng-init="init(trainee, $index)" class="glyphicon glyphicon-flag"></span>
 								<form class="commentForm" ng-submit="updateFlag(trainee)"
-=======
-								<td class="col-sm-1 col-md-1 col-lg-1"><span ng-init="init(trainee, $index)" class="glyphicon glyphicon-flag"></span>
-									<form class="commentForm" ng-submit="updateFlag(trainee, $index)"
->>>>>>> 31ea84d514764dab8d7940d9189095ac446bc0ea
 										style="display: none;">
 										<input type="text" placeholder="comment" name="statusComment"
 											ng-model="trainee.flagNotes"> <input type="submit"
