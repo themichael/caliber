@@ -53,8 +53,8 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	@Value("/caliber/")
 	private String forwardUrl;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
-	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
-	private boolean debug;
+	//@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
+	private boolean debug=true;
 	private static final String DEBUG_USER_LOGIN = "patrick.walsh@revature.com";
 	private static final String REDIRECT = "redirect:";
 	private static final String REVATURE = "http://www.revature.com/";
