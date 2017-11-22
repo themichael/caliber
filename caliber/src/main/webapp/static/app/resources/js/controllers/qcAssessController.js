@@ -14,6 +14,7 @@ angular
 					$scope.categories = [];
 					// used to block user processes to wait for server's response
 					$scope.processingNote = false; 
+			
 
 					// Note object
 					function Note(noteId, content, status, week, batch,
@@ -45,6 +46,9 @@ angular
 					 * ***************************************** UI
 					 * **********************************************
 					 */
+					//used for detecting two red weeks in a row 
+					var weekBefore;
+					
 					// function to get notes
 					$scope.getNotes = function() {
 						// Check if there are no weeks
@@ -119,6 +123,15 @@ angular
 																	true));
 												}
 											});
+						//Get QC Trainee notes for previous week
+						caliberDelegate.qc
+							.traineeNote($scope.currentBatch.batchId,
+									$scope.currentWeek-1)
+							.then(
+									function(notes) {
+										weekBefore = notes;
+									});
+						
 							// If there are no weeks
 						} else if ($scope.currentBatch !== undefined
 								&& $scope.currentBatch !== null) {
@@ -130,6 +143,20 @@ angular
 										$scope.currentBatch.trainees[i],
 										"ROLE_QC", "QC_TRAINEE", true));
 							}
+						}
+					}
+					//Set flags to color in database
+					$scope.init = function(trainee, index){
+						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
+						var flagColor = trainee.flagStatus;
+						if(flagColor == 'RED'){
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
+						}else if(flagColor == 'GREEN'){
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
+						}else if(flagColor == 'TRAINER'){
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
+						}else{
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
 						}
 					}
 
@@ -199,7 +226,7 @@ angular
 									$scope.qcStatusTypes = types;
 								});
 
-						// ///////////////////////////////////////////////////////////////////////////////////////////
+						
 						// load note types
 						caliberDelegate.all.enumNoteType().then(
 								function(noteTypes) {
@@ -212,10 +239,41 @@ angular
 						$scope.getNotes();
 						categories();
 					}
+			
 
 					// Function for individual qc feedback for trainee note
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
+						var element = document.getElementsByClassName("glyphicon-flag")[index];
+						color = trainee.flagStatus;
+						//red flag if recently there are 2 red weeks consecutively
+						if(status == 'Poor' && weekBefore[index].qcStatus == 'Poor'){
+							element.setAttribute("class","glyphicon glyphicon-flag color-red");
+							color = 'RED';
+						}//if no change, keep it to previous flag
+						else{
+							if(color == 'RED'){
+								element.setAttribute("class","glyphicon glyphicon-flag color-red");
+							}else if(color == 'GREEN'){
+								element.setAttribute("class","glyphicon glyphicon-flag color-green");
+							}else if(color == 'TRAINER'){
+								element.setAttribute("class","glyphicon glyphicon-flag color-orange");
+							}else{
+								element.setAttribute("class","glyphicon glyphicon-flag color-white");
+							}
+						}
+						//add onto trainee object for update
+						trainee.batch = {
+								batchId : $scope.currentBatch.batchId
+							};
+						trainee.flagStatus = color;
+						
+						//update trainee with flag color 
+						var updateTrainee = function() {
+								caliberDelegate.all
+										.updateTrainee(trainee)
+						};
+						updateTrainee();
 						// Set individual note to status selected
 						$scope.faces[index].qcStatus = status;
 						// Save note
@@ -512,6 +570,55 @@ angular
 									.substring(0, 4))) {
 								$scope.batchesByYear.push($scope.batches[i]);
 							}
+						}
+					}
+					
+					$scope.toggleColor = function(trainee, index) {
+						$scope.close=false;
+						flagElement = document.getElementsByClassName("glyphicon-flag")[index];
+						initialStatus = trainee.flagStatus;
+				        if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-white") {
+				        		status = "RED";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
+				        } else if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-red") {
+				        		status = "GREEN";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
+				        } else if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-green") {
+				        		status = "TRAINER";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
+				        } else if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-orange") {
+				        		status = "NONE";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
+				        }
+				        if(initialStatus != status){
+				        		commentBox(flagElement, status, initialStatus, index, trainee);
+				        } else {
+				        		flagElement.nextSibling.nextSibling.setAttribute("style","display:none;");
+				        }
+				    }
+					
+					function commentBox(flag, status, initialStatus, index, trainee){
+						flag.nextSibling.nextSibling.removeAttribute("style");
+						flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px;");
+						$scope.closeComment = function(){
+							document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
+							if(initialStatus == "RED"){
+								flag.setAttribute("class","glyphicon glyphicon-flag color-red");
+							} else if (initialStatus == "GREEN"){
+								flag.setAttribute("class","glyphicon glyphicon-flag color-green");
+							} else if (initialStatus == "TRAINER"){
+								flag.setAttribute("class","glyphicon glyphicon-flag color-orange");
+							} else {
+								flag.setAttribute("class","glyphicon glyphicon-flag color-none");
+							}
+						}
+						trainee.batch = {
+                                batchId : $scope.currentBatch.batchId
+                            };
+						trainee.flagStatus = status;
+						$scope.updateFlag = function(trainee){
+							caliberDelegate.all
+                            	.updateTrainee(trainee)
 						}
 					}
 				});
