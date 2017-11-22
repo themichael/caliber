@@ -576,8 +576,17 @@ angular
 						}
 					}
 					
+					/**
+					 * ********************************************************************
+					 * Flag Control
+					 * ********************************************************************
+					 */
+					
+					/** creates a function triggered by a click on the trainee's name, that toggles the color of the flag
+					 *  and opens an input box to comment on the color change 
+					 */
+					
 					$scope.toggleColor = function(trainee, index) {
-						$scope.close=false;
 						flagElement = document.getElementsByClassName("glyphicon-flag")[index];
 						initialStatus = trainee.flagStatus;
 				        if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-white") {
@@ -600,6 +609,8 @@ angular
 				        }
 				    }
 					
+					/** opens up a comment form box when the flag color changes 
+					 */
 					function commentBox(flag, status, initialStatus, index, trainee){
 						flag.nextSibling.nextSibling.removeAttribute("style");
 						flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px;");
@@ -612,17 +623,23 @@ angular
 							} else if (initialStatus == "TRAINER"){
 								flag.setAttribute("class","glyphicon glyphicon-flag color-orange");
 							} else {
-								flag.setAttribute("class","glyphicon glyphicon-flag color-none");
+								flag.setAttribute("class","glyphicon glyphicon-flag color-white");
 							}
 						}
 						trainee.batch = {
-                                batchId : $scope.currentBatch.batchId
-                            };
+	                            batchId : $scope.currentBatch.batchId
+	                        };
+					}
+					
+					/** saves changes the flag status in the javascript object and persists it back to the database
+					 *  upon submission of the comment form and closes the form
+					 */
+					$scope.updateFlag = function(trainee, index){
+						flag = document.getElementsByClassName("glyphicon-flag")[index];
 						trainee.flagStatus = status;
-						$scope.updateFlag = function(trainee){
-							caliberDelegate.all
-                            	.updateTrainee(trainee)
-						}
+						caliberDelegate.all
+                        	.updateTrainee(trainee);
+						document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
 					}
 					
 					//show flagNotes when hovering over flag
