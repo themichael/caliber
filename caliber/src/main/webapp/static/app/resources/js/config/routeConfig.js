@@ -30,7 +30,7 @@ angular
 										templateUrl : "/static/app/partials/routing.html",
 										// uncomment when dev is complete
 										onEnter : function(authFactory) {
-											authFactory.auth();
+											authFactory.auth.auth();
 										}
 									})
 
@@ -52,7 +52,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authQC();
+											authFactory.auth.authQC();
 										}
 
 									})
@@ -179,7 +179,8 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authTrainer();
+											console.log("/trainer authTrainer");
+											authFactory.auth.authTrainer();
 										}
 									})
 							.state(

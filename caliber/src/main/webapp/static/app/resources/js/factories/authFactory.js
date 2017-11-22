@@ -157,6 +157,10 @@ angular.module("auth").factory("authFactory",
 					$location.path(vpHome);
 				else if (role === panelRole)
 					$location.path(panelHome);
+				else	{
+					console.log("Redirect");
+					$location.path("/");
+				}
 			};
 
 			auth.authStaging = function() {
