@@ -102,7 +102,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authManage();
+											authFactory.auth.authManage();
 										}
 										
 									})
@@ -121,7 +121,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authAudit();
+											authFactory.auth.authAudit();
 										}
 										
 										
@@ -158,7 +158,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authReports();
+											authFactory.auth.authReports();
 										}
 									})
 							/***************************************************
@@ -198,7 +198,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authImport();
+											authFactory.auth.authImport();
 										}
 									})
 							.state(
@@ -239,7 +239,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authManage();
+											authFactory.auth.authManage();
 										}
 									})
 							.state(
@@ -262,7 +262,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authAssess();
+											authFactory.auth.authAssess();
 										}
 										
 									})
@@ -298,7 +298,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authReports();
+											authFactory.auth.authReports();
 										}
 										
 									})
@@ -322,7 +322,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authVP();
+											authFactory.auth.authVP();
 										}
 
 									})
@@ -366,7 +366,7 @@ angular
 										},
 										// authorize the users
 										onEnter : function(authFactory) {
-											authFactory.authTrainers();
+											authFactory.auth.authTrainers();
 										},
 										
 
@@ -417,7 +417,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authCategory();
+											authFactory.auth.authCategory();
 										}
 										
 												
@@ -452,7 +452,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authManage();
+											authFactory.auth.authManage();
 										}
 										
 									})
@@ -477,7 +477,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authAssess();
+											authFactory.auth.authAssess();
 										}
 										
 									})
@@ -502,7 +502,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authAudit();
+											authFactory.auth.authAudit();
 										}
 										
 									})
@@ -538,7 +538,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authReports();
+											authFactory.auth.authReports();
 										}
 										
 									})
@@ -579,7 +579,7 @@ angular
                                 },
                                 // Authorize Staging role
                                 onEnter: function (authFactory) {
-                                    authFactory.authStaging();
+                                    authFactory.auth.authStaging();
                                 }
                             })
 
@@ -604,7 +604,7 @@ angular
                                 },
                                 // authorize the user
                                 onEnter : function(authFactory) {
-									authFactory.authReports();
+									authFactory.auth.authReports();
 								}
                             }
                         )
@@ -629,7 +629,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authPanel();
+											authFactory.auth.authPanel();
 										}
 									
 							})
@@ -648,7 +648,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authImport();
+											authFactory.auth.authImport();
 										}
 									})
 						.state(
@@ -696,7 +696,7 @@ angular
 										},
 //										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authManage();
+											authFactory.auth.authManage();
 										}
 									})
 								.state(
@@ -720,7 +720,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authAudit();
+											authFactory.auth.authAudit();
 										}
 										
 									})
@@ -774,7 +774,7 @@ angular
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
-											authFactory.authReports();
+											authFactory.auth.authReports();
 										}
 										
 							})
