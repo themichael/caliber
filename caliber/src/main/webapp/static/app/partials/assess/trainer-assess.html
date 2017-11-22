@@ -106,7 +106,7 @@
 								<ng-form name="gradeFieldForm">
 								<td class="col-sm-2 col-md-2 col-lg-2" ng-click="toggleColor(trainee, $index)">{{ trainee.name }}</td>
 								<td class="col-sm-1 col-md-1 col-lg-1"><span ng-init="init(trainee, $index)" class="glyphicon glyphicon-flag"></span>
-								<form class="commentForm" ng-submit="updateFlag(trainee)"
+									<form class="commentForm" ng-submit="updateFlag(trainee, $index)"
 										style="display: none;">
 										<input type="text" placeholder="comment" name="statusComment"
 											ng-model="trainee.flagNotes"> <input type="submit"
