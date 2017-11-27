@@ -59,6 +59,7 @@ angular.module("auth").factory("authFactory",
 			 * @returns A cookie that contains the role
 			 */
 			function getCookie() {
+				console.log($cookies.get("role"));
 				return $cookies.get("role");
 			}
 
@@ -93,7 +94,7 @@ angular.module("auth").factory("authFactory",
 					break;
 				default:
 					//error();
-					console.log("Auth Default");
+					$log.debug("Auth Default");
 					$location.path("/");
 					break;
 				}
@@ -112,6 +113,11 @@ angular.module("auth").factory("authFactory",
 					$location.path(vpHome);
 				else if (role === panelRole)
 					$location.path(panelHome);
+				else if (role === undefined){
+					$log.debug("authQC redirect");
+					$location.path("/")
+					throw Error;
+				}
 			};
 
 			auth.authPanel = function () {
@@ -129,6 +135,11 @@ angular.module("auth").factory("authFactory",
 				else if (role === vpRole) {
 					$location.path(vpHome);
 				}
+				else if (role === undefined){
+					$log.debug("authPanel redirect");
+					$location.path("/")
+					throw Error;
+				}
 			};
 
 			/**
@@ -144,6 +155,11 @@ angular.module("auth").factory("authFactory",
 					$location.path(qcHome);
 				else if (role === panelRole)
 					$location.path(panelHome);
+				else if (role === undefined){
+					$log.debug("authVP redirect")
+					$location.path("/");
+					throw Error;
+				}
 			};
 
 			/**
@@ -159,6 +175,11 @@ angular.module("auth").factory("authFactory",
 					$location.path(vpHome);
 				else if (role === panelRole)
 					$location.path(panelHome);
+				else if (role === undefined){
+					$log.debug("authTrainer redirect")
+					$location.path("/");
+					throw Error;
+				}
 			};
 
 			auth.authStaging = function() {
@@ -166,11 +187,25 @@ angular.module("auth").factory("authFactory",
 
 				$log.debug("Authorizing staging role");
 
-				if (role !== stagingRole) {
+				/* if (role !== stagingRole) {
 					if (devMode)
 						$location.path(DEBUG_URL);
 					else
 						$location.path("/");
+				}
+				*/
+				if (role === trainerRole)
+					$location.path(trainerHome);
+				else if (role === qcRole)
+					$location.path(qcHome);
+				else if (role === vpRole)
+					$location.path(vpHome);
+				else if (role === panelRole)
+					$location.path(panelHome);
+				else if (role === undefined){
+					$log.debug("authStaging redirect")
+					$location.path("/");
+					throw Error;
 				}
 			};
 

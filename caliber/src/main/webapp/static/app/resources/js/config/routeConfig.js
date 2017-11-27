@@ -206,7 +206,10 @@ angular
 									{
 										templateUrl : "/static/app/partials/home/trainer-home.html",
 										url : "/home",
-										controller : "trainerHomeController"
+										controller : "trainerHomeController",
+										onEnter : function(){
+											console.log("Trainer home state. Don't want this!")
+										}
 									})
 							.state(
 									"trainer.manage",
@@ -566,6 +569,10 @@ angular
 							 */
                         .state("staging",
                             {
+                        		// Authorize Staging role
+                            	onEnter: function (authFactory) {
+                            		authFactory.authStaging();
+                            	},
                                 abstract: true,
                                 url: "/staging",
                                 templateUrl: "/static/app/partials/abstracts/staging.html",
@@ -577,17 +584,14 @@ angular
                                         return caliberDelegate.all.getAllTrainers();
                                     }
                                 },
-                                // Authorize Staging role
-                                onEnter: function (authFactory) {
-                                    authFactory.authStaging();
-                                }
+                                
                             })
 
                         .state("staging.home",
                             {
                                 templateUrl: "/static/app/partials/home/staging-home.html",
                                 url: "/home",
-                                controller: "qcHomeController" // because they
+                                controller: "qcHomeController", // because they
 																// are similar
 																// roles
                             }
