@@ -32,7 +32,6 @@ public class MailerTest extends CaliberTest {
 	private Trainer shelby;
 	private Trainer walter;
 	private Trainer natalie;
-	private Trainer archer;
 	
 	@Autowired
 	public void setMailer(Mailer mailer) {
@@ -59,7 +58,6 @@ public class MailerTest extends CaliberTest {
 		this.shelby = this.trainerDAO.findByEmail("slevinson@mailinator.com");
 		this.walter = this.trainerDAO.findByEmail("wpayne@mailinator.com");
 		this.natalie = this.trainerDAO.findByEmail("nchurch@mailinator.com");
-		this.archer = this.trainerDAO.findByEmail("aradcliff@mailinator.com");
 	}
 
 	/**
@@ -121,16 +119,6 @@ public class MailerTest extends CaliberTest {
 	@Test
 	public void testNataliePresent() {
 		assertTrue(this.trainersToSubmitGrades.contains(this.natalie));
-	}
-	
-	/**
-	 * Archer Radcliff should be absent from the collection, because even 
-	 * though he is missing a grade, the trainee associated with 
-	 * that grade was dropped and should be ignored.
-	 */
-	@Test
-	public void testArcherAbsent() {
-		assertFalse(this.trainersToSubmitGrades.contains(this.archer));
 	}
 
 }

@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -24,7 +23,6 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
@@ -177,10 +175,7 @@ public class Mailer implements Runnable {
 		List<Batch> batches = getBatches();
 		for (Batch batch : batches) {
 			Set<Trainee> trainees = batch.getTrainees();
-			//The following removes all dropped trainees from the Trainee Set
-			trainees = trainees.stream().filter(trainee -> !trainee.getTrainingStatus().equals(TrainingStatus.Dropped)).collect(Collectors.toSet());
 			List<Assessment> assessments = getAssessments(batch.getBatchId());
-			//Checking for trainers who haven't created a single assessment for their batch
 			if(assessments.isEmpty()) {
 				trainersToSubmitGrades.add(batch.getTrainer());
 			}
