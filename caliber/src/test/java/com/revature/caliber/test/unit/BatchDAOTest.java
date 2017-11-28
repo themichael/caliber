@@ -81,7 +81,7 @@ public class BatchDAOTest extends CaliberTest {
 	public void findAllCurrentWithTraineesTest() {
 		log.info("Testing the BatchDAO.findAllCurrentWithTrainees()");
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();
-		int expected = 7; // All current batches have trainees
+		int expected = 6; // All current batches have trainees
 		int actual = batches.size();
 		assertEquals(expected, actual);
 	}
@@ -108,7 +108,7 @@ public class BatchDAOTest extends CaliberTest {
 		log.info("Testing the BatchDAO.findAllAfterDateTest()");
 		// positive test
 		// find how many after a specific date
-		int expect = 9;
+		int expect = 8;
 		int actual = batchDAO.findAllAfterDate(1, 1, 2017).size();
 		log.info(batchDAO.findAllAfterDate(1, 1, 2017));
 		assertEquals(expect, actual);
