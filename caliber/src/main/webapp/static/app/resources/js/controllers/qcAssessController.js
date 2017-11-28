@@ -124,7 +124,7 @@ angular
 												}
 											});
 						//Get QC Trainee notes for previous week and make sure it's not the first week 
-						if($scope.currentWeek-1 != 1){
+						if($scope.currentWeek-1 !== 1){
 							caliberDelegate.qc
 								.traineeNote($scope.currentBatch.batchId,
 										$scope.currentWeek-1)
@@ -150,11 +150,11 @@ angular
 					$scope.init = function(trainee, index){
 						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
 						var flagColor = trainee.flagStatus;
-						if(flagColor == 'RED'){
+						if(flagColor === 'RED'){
 							flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
-						}else if(flagColor == 'GREEN'){
+						}else if(flagColor === 'GREEN'){
 							flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
-						}else if(flagColor == 'TRAINER'){
+						}else if(flagColor === 'TRAINER'){
 							flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
 						}else{
 							flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
@@ -246,21 +246,21 @@ angular
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
 						var element = document.getElementsByClassName("glyphicon-flag")[index];
-						color = trainee.flagStatus;
-						if(weekBefore[index] != undefined){
+						var color = trainee.flagStatus;
+						if(weekBefore[index] !== undefined){
 							//red flag if recently there are 2 red weeks consecutively
-							if(status == 'Poor' && weekBefore[index].qcStatus == 'Poor'){
+							if(status === 'Poor' && weekBefore[index].qcStatus === 'Poor'){
 								element.setAttribute("class","glyphicon glyphicon-flag color-red");
 								color = 'RED';
 								trainee.flagNotes = "Trainee received two consecutive weeks of negative QC feedback";
 							}//if no change, keep it to previous flag
 						}
 						else{
-							if(color == 'RED'){
+							if(color === 'RED'){
 								element.setAttribute("class","glyphicon glyphicon-flag color-red");
-							}else if(color == 'GREEN'){
+							}else if(color === 'GREEN'){
 								element.setAttribute("class","glyphicon glyphicon-flag color-green");
-							}else if(color == 'TRAINER'){
+							}else if(color === 'TRAINER'){
 								element.setAttribute("class","glyphicon glyphicon-flag color-orange");
 							}else{
 								element.setAttribute("class","glyphicon glyphicon-flag color-white");
@@ -587,22 +587,22 @@ angular
 					 */
 					
 					$scope.toggleColor = function(trainee, index) {
-						flagElement = document.getElementsByClassName("glyphicon-flag")[index];
-						initialStatus = trainee.flagStatus;
-				        if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-white") {
+						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
+						var initialStatus = trainee.flagStatus;
+				        if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-white") {
 				        		status = "RED";
 				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
-				        } else if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-red") {
-				        		status = "GREEN";
+				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-red") {
+				        		var status = "GREEN";
 				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
-				        } else if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-green") {
+				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-green") {
 				        		status = "TRAINER";
 				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
-				        } else if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-orange") {
+				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-orange") {
 				        		status = "NONE";
 				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
 				        }
-				        if(initialStatus != status){
+				        if(initialStatus !== status){
 				        		commentBox(flagElement, status, initialStatus, index, trainee);
 				        } else {
 				        		flagElement.nextSibling.nextSibling.setAttribute("style","display:none;");
@@ -616,11 +616,11 @@ angular
 						flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px;");
 						$scope.closeComment = function(){
 							document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
-							if(initialStatus == "RED"){
+							if(initialStatus === "RED"){
 								flag.setAttribute("class","glyphicon glyphicon-flag color-red");
-							} else if (initialStatus == "GREEN"){
+							} else if (initialStatus === "GREEN"){
 								flag.setAttribute("class","glyphicon glyphicon-flag color-green");
-							} else if (initialStatus == "TRAINER"){
+							} else if (initialStatus === "TRAINER"){
 								flag.setAttribute("class","glyphicon glyphicon-flag color-orange");
 							} else {
 								flag.setAttribute("class","glyphicon glyphicon-flag color-white");
@@ -635,7 +635,7 @@ angular
 					 *  upon submission of the comment form and closes the form
 					 */
 					$scope.updateFlag = function(trainee, index){
-						flag = document.getElementsByClassName("glyphicon-flag")[index];
+						var flag = document.getElementsByClassName("glyphicon-flag")[index];
 						trainee.flagStatus = status;
 						caliberDelegate.all
                         	.updateTrainee(trainee);

@@ -9,8 +9,7 @@ angular
 				this.weekNumb = weekNumb;
 				this.assessments = assessments;
 			}
-			// this is use to set false on the no trainees for the batch
-			// notification.
+			// this is use to set false on the no trainees for the batch notification.
 			$scope.noTrainees = false;					
 			$log.debug("Booted Trainer Aesess Controller");
 
@@ -30,15 +29,15 @@ angular
 				this.qcStatus = status;
 			}
 			
-			//Set flags to color in database
+			// Set flags to color in database
 			$scope.init = function(trainee, index){
 				var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
 				var flagColor = trainee.flagStatus;
-				if(flagColor == 'RED'){
+				if(flagColor === 'RED'){
 					flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
-				}else if(flagColor == 'GREEN'){
+				}else if(flagColor === 'GREEN'){
 					flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
-				}else if(flagColor == 'TRAINER'){
+				}else if(flagColor === 'TRAINER'){
 					flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
 				}else{
 					flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
@@ -88,7 +87,7 @@ angular
 					}
 				});
 			}
-
+			
 			// get trainee notes and put into
 			// $scope.trainees[traineeId].note
 			$scope.getTraineeBatchNotesForWeek=function(batchId,weekId){
@@ -138,10 +137,8 @@ angular
 				if (!allBatches) 
 					return;
 				if (allBatches.length > 0) { 
-					// if currentBatch is not yet in the scope, run
-					// for assess batch..
-					// else this controller is being used for
-					// reportsController
+					// if currentBatch is not yet in the scope, run for assess batch..
+					// else this controller is being used for reportsController
 					if(!$scope.currentBatch){
 						$scope.currentBatch = allBatches[0];
 					}
@@ -248,12 +245,9 @@ angular
 				return data;
 			}
 
-
 			/**
-			 * When selecting a year the batch drop down will change to
-			 * the latest batch of that year. If there aren't any batch
-			 * for the year that is selected then the No Batch will be
-			 * display check the view for ng-show author: Kam Lam
+			 * Selecting a year will show batches corresponding to it. If none,
+			 * no batches will be displayed. author: Kam Lam
 			 */
 			$scope.selectYear = function(index) {
 				$scope.selectedYear = $scope.years[index];
@@ -288,7 +282,6 @@ angular
 							$scope.currentWeek);
 
 				} };
-			
 
 				function sortByDate(currentYear) {
 					$scope.selectedBatches = [];
@@ -299,8 +292,6 @@ angular
 						}
 					}
 				}
-				
-
 
 				/**
 				 * Get batch according to year
@@ -391,16 +382,13 @@ angular
 				};
 
 				/*
-				 * select assessment from list it is basically what it said,
-				 * is the select assessment from list function Takes in an
-				 * index as passed through the view. The current view is set
-				 * to false, see the view as reference author: Kam Lam
+				 * select assessment from list. The current view is set to false,
+				 * see the view as reference author: Kam Lam
 				 */
 				$scope.selectAssessment = function(index) {
 					$scope.currentAssessment = $scope.currentAssessment[index];
 					$scope.currentView = false;
 				};
-
 
 				$scope.addAssessment = function() {
 					getAllAssessmentsForWeek($scope.currentBatch.batchId,
@@ -443,10 +431,9 @@ angular
 				};
 
 				/** *******TrainerBatch Notes********** */	
-
 				/*
-				 * This function passes the batchID and week param to get
-				 * the batch notes for that week Author: Kam Lam
+				 * This function passes the batchID and week param to get the
+				 * batch notes for that week Author: Kam Lam
 				 */
 				$scope.getTBatchNote = function (batchId, week){
 					caliberDelegate.trainer
@@ -499,12 +486,10 @@ angular
 								}
 
 								/*
-								 * The following functions are
-								 * needed in this function to load
-								 * it on start up. If you find
-								 * another way to call these
-								 * function with out calling it
-								 * here, please feel free to change
+								 * The following functions are needed in this
+								 * function to load it on start up. If you find
+								 * another way to call these function with out
+								 * calling it here, please feel free to change
 								 * it. Author: Kam Lam
 								 */
 								// Parse the current batch year from
@@ -539,12 +524,11 @@ angular
 
 				/** *******Save TrainerBatch Notes********** */	
 				/*
-				 * Updating and creating trainerbatch notes. get the
-				 * batchnoteID to to see if the note has already been
-				 * created for this batch or not. If noteID is undefined
-				 * meaning there is not note for this batch, so we will
-				 * create one. If there is note ID, we will update the
-				 * notes. author: Kam Lam
+				 * Updating and creating trainerbatch notes. get the batchnoteID
+				 * to to see if the note has already been created for this batch
+				 * or not. If noteID is undefined meaning there is not note for
+				 * this batch, so we will create one. If there is note ID, we
+				 * will update the notes. author: Kam Lam
 				 */
 				$scope.saveTrainerNotes = function(batchNoteId) {
 					$log.debug("Saving note: " + $scope.trainerBatchNote);
@@ -572,8 +556,8 @@ angular
 					}
 				};
 				/*
-				 * Array of assessments by assessment id used to store raw
-				 * score and to calculate weight score - jack
+				 * Array of assessments by assessment id used to store raw score
+				 * and to calculate weight score - jack
 				 */			
 				$scope.generateArrAssessmentById = function(assessments){
 					var totalRawScore = 0;
@@ -599,8 +583,8 @@ angular
 				};
 
 				/**
-				 * Updates Grade if exists, else create new Grade, then
-				 * saves to $scope
+				 * Updates Grade if exists, else create new Grade, then saves to
+				 * $scope
 				 * 
 				 * @param gradeId
 				 * @param traineeId
@@ -610,7 +594,8 @@ angular
 				$scope.updateGrade = function(trainee,assessment) {
 					var score = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score;
 					if(score !== null && score !== undefined && score !=="" && score >= 0){
-						//replaces 0 with arbitrary low number for valid average calculations in the back-end - Trevor Lory
+						// replaces 0 with arbitrary low number for valid
+						// average calculations in the back-end - Trevor Lory
 						if(score === 0) {
 							score = 0.00001;
 						}
@@ -625,8 +610,8 @@ angular
 								score :score,
 						};
 						/*
-						 * if assessment object has gradeId, define it in
-						 * grade object
+						 * if assessment object has gradeId, define it in grade
+						 * object
 						 */
 						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
 							grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
@@ -666,8 +651,8 @@ angular
 					}else if($scope.grades[traineeId]){
 						angular.forEach($scope.grades[traineeId],function(grade){
 							/*
-							 * create a assessment object that contains
-							 * gradeId for each $scope.trainees[trainee]
+							 * create a assessment object that contains gradeId
+							 * for each $scope.trainees[trainee]
 							 */
 							if(grade.assessment !== undefined && (grade.assessment.assessmentId === assessmentId)){
 								if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
@@ -675,7 +660,8 @@ angular
 								}
 								if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId === undefined){
 									$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId = grade.gradeId;
-									//replaces 0.00001 to 0 for correct display of almost zero - Trevor Lory
+									// replaces 0.00001 to 0 for correct display
+									// of almost zero - Trevor Lory
 									if(grade.score <= 0.00001) {
 										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].score = 0;
 									}
@@ -721,12 +707,6 @@ angular
 
 				};
 
-//				----------------> double check if this is a useless method
-				/*
-				 * function pushUnique(arr, item) { if (arr.indexOf(item) === -1) {
-				 * arr.push(item); } }
-				 */
-
 				$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
 					// assessmentTotals will assessment objects, each with
 					// properties
@@ -743,11 +723,13 @@ angular
 					for(var traineeKey in trainees){
 						// checks if trainee has assessment
 						if(trainees[traineeKey].assessments[assessment.assessmentId]){
-							// Only increment count and add to total if score is greater than or equal to
+							// Only increment count and add to total if score is
+							// greater than or equal to
 							// 0 -jack / trevor
 							var score = trainees[traineeKey].assessments[assessment.assessmentId].score;
 							if(score >= 0){
-								//replaces 0 with arbitrary low number for valid average calculations - Trevor Lory
+								// replaces 0 with arbitrary low number for
+								// valid average calculations - Trevor Lory
 								if(score === 0) {
 									score = 0.00001;
 								}
@@ -765,12 +747,12 @@ angular
 				$scope.showFloppy = true;
 
 				/*
-				 * All cells on Trainer Assess update the DB using ng-blur event.
-				 * If the user types in the final value but does not blur,
-				 * then the last value will not be saved. This method provides
-				 * a dummy Save button that tricks the user into triggering
-				 * the ng-blur event to commit the last cell. The callbacks
-				 * provide a fancy look to the button.. 
+				 * All cells on Trainer Assess update the DB using ng-blur
+				 * event. If the user types in the final value but does not
+				 * blur, then the last value will not be saved. This method
+				 * provides a dummy Save button that tricks the user into
+				 * triggering the ng-blur event to commit the last cell. The
+				 * callbacks provide a fancy look to the button..
 				 */
 				$scope.doBurrito =function(){
 					$scope.showFloppy = false;
@@ -809,7 +791,8 @@ angular
 					 * UPDATE ASSESSMENT
 					 **********************************************************/
 
-					// sets the update assessment model with the current assessment data
+					// sets the update assessment model with the current
+					// assessment data
 					$scope.setUpdateAssessmentToCurrent = function(index){
 						$log.debug(index);
 						$scope.updateAssessmentModel.category = $scope.currentAssessments[index].category;
@@ -904,9 +887,9 @@ angular
 						return 1;
 					return 0;
 				}
-				/***********************************************************
+				/***************************************************************
 				 * UPDATE ASSESSMENT
-				 **********************************************************/
+				 **************************************************************/
 				$scope.updateAssessment = function(assessment,event,modalId,index){
 					event.stopPropagation();
 					if($scope.updateAssessmentModel !==undefined){
@@ -940,10 +923,6 @@ angular
 					$('.modal').modal('hide');
 				};
 
-
-
-
-
 				// delete the assessment clicked
 				$scope.deleteAssessment = function(assessment,event,modalId,index){
 					$('.modal').modal('hide');
@@ -959,12 +938,12 @@ angular
 					});
 				};
 				/*
-				 * set children of modal to false on click to prevent modal
-				 * from fading out when clicking on child elements
+				 * set children of modal to false on click to prevent modal from
+				 * fading out when clicking on child elements
 				 * 
-				 * Implemented due to modal-backdrop class duplicating
-				 * itself and not going away when clicking area outside of
-				 * modal document - jack
+				 * Implemented due to modal-backdrop class duplicating itself
+				 * and not going away when clicking area outside of modal
+				 * document - jack
 				 */
 				$scope.preventModalClose = function(){
 					$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
@@ -1020,45 +999,47 @@ angular
 
 				}
 				
-				/** creates a function triggered by a click on the trainee's name, that toggles the color of the flag
-				 *  and opens an input box to comment on the color change 
+				/**
+				 * creates a function triggered by a click on the trainee's
+				 * name, that toggles the color of the flag and opens an input
+				 * box to comment on the color change
 				 */
-				
 				$scope.toggleColor = function(trainee, index) {
-					flagElement = document.getElementsByClassName("glyphicon-flag")[index];
-					initialStatus = trainee.flagStatus;
-			        if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-white") {
-			        		status = "RED";
+					var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
+					var initialStatus = trainee.flagStatus;
+			        if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-white") {
+			        		var status = "RED";
 			        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
-			        } else if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-red") {
+			        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-red") {
 			        		status = "GREEN";
 			        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
-			        } else if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-green") {
+			        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-green") {
 			        		status = "TRAINER";
 			        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
-			        } else if (flagElement.getAttribute("class") == "glyphicon glyphicon-flag color-orange") {
+			        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-orange") {
 			        		status = "NONE";
 			        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
 			        }
-			        if(initialStatus != status){
+			        if(initialStatus !== status){
 			        		commentBox(flagElement, status, initialStatus, index, trainee);
 			        } else {
 			        		flagElement.nextSibling.nextSibling.setAttribute("style","display:none;");
 			        }
 			    }
 				
-				/** opens up a comment form box when the flag color changes 
+				/**
+				 * opens up a comment form box when the flag color changes
 				 */
 				function commentBox(flag, status, initialStatus, index, trainee){
 					flag.nextSibling.nextSibling.removeAttribute("style");
 					flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px;");
 					$scope.closeComment = function(){
 						document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
-						if(initialStatus == "RED"){
+						if(initialStatus === "RED"){
 							flag.setAttribute("class","glyphicon glyphicon-flag color-red");
-						} else if (initialStatus == "GREEN"){
+						} else if (initialStatus === "GREEN"){
 							flag.setAttribute("class","glyphicon glyphicon-flag color-green");
-						} else if (initialStatus == "TRAINER"){
+						} else if (initialStatus === "TRAINER"){
 							flag.setAttribute("class","glyphicon glyphicon-flag color-orange");
 						} else {
 							flag.setAttribute("class","glyphicon glyphicon-flag color-white");
@@ -1069,25 +1050,27 @@ angular
                         };
 				}
 				
-				/** saves changes the flag status in the javascript object and persists it back to the database
-				 *  upon submission of the comment form and closes the form
+				/**
+				 * saves changes the flag status in the javascript object and
+				 * persists it back to the database upon submission of the
+				 * comment form and closes the form
 				 */
 				$scope.updateFlag = function(trainee, index){
-					flag = document.getElementsByClassName("glyphicon-flag")[index];
+					var flag = document.getElementsByClassName("glyphicon-flag")[index];
 					trainee.flagStatus = status;
 					caliberDelegate.all
                     	.updateTrainee(trainee);
 					document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
 				}
 			
-				//show flagNotes when hovering over flag
+				// show flagNotes when hovering over flag
 				$scope.showNotes = function(index){
 					document.getElementsByClassName("notes")[index].setAttribute("style",
 							"z-index: 1; display:inline-block; position:absolute; padding:5px; " +
 							"border: 1px solid #CCC; border-radius: 5px; background-color: white");
 				}
 				
-				//hide flagNotes when no there is no flag hover 
+				// hide flagNotes when no there is no flag hover
 				$scope.hideNotes = function(index){
 					document.getElementsByClassName("notes")[index].setAttribute("style", "display: none");
 				}

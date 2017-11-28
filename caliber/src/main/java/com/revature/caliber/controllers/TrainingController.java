@@ -405,7 +405,6 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER','PANEL')")
 	public ResponseEntity<Void> updateTrainee(@Valid @RequestBody Trainee trainee) {
-		//log.info("Updating trainee: " + trainee);
 		trainingService.update(trainee);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -444,7 +443,7 @@ public class TrainingController {
 	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'PANEL')")
-	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail) {
+	public ResponseEntity<Trainee> retreiveTraineeByEmail() {
 		/* 
 		 1. at some point, we will have unique constraint on trainee email.
 		 	this method will check the database before adding the new trainee
