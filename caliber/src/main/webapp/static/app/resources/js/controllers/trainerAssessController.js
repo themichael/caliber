@@ -1080,4 +1080,15 @@ angular
 					document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
 				}
 			
+				//show flagNotes when hovering over flag
+				$scope.showNotes = function(index){
+					document.getElementsByClassName("notes")[index].setAttribute("style",
+							"z-index: 1; display:inline-block; position:absolute; padding:5px; " +
+							"border: 1px solid #CCC; border-radius: 5px; background-color: white");
+				}
+				
+				//hide flagNotes when no there is no flag hover 
+				$scope.hideNotes = function(index){
+					document.getElementsByClassName("notes")[index].setAttribute("style", "display: none");
+				}
 		});
