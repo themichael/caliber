@@ -126,12 +126,13 @@ public class FlagAlertMailer implements Runnable {
 				message.setSubject("Submit Grades Reminder");
 
 				// Parametrize the email to contain the name of the trainer being emailed
+				 String text = "text/html";
 				 String emailVPStr = emailTemplate.replace(EMAIL_TEMPLATE_VP_NAME_TOKEN, trainer.getName());
 				 String gFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_GREEN_FLAGS_TOKEN, greenFlagHTML);
 				 String rFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_RED_FLAGS_TOKEN, redFlagHTML);
-				 message.setContent(emailVPStr, "text/html");
-				 message.setContent(gFlagHTML, "text/html");
-				 message.setContent(rFlagHTML, "text/html");
+				 message.setContent(emailVPStr, text);
+				 message.setContent(gFlagHTML, text);
+				 message.setContent(rFlagHTML, text);
 
 				Transport.send(message);
 				logger.info("Flag email sent");

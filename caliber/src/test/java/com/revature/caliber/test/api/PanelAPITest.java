@@ -11,7 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 
 import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.Panel;
@@ -22,7 +21,6 @@ import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.services.PanelService;
-import com.revature.caliber.validator.ValidPanel;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;

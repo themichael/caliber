@@ -869,7 +869,6 @@ angular
 					 *  upon submission of the comment form and closes the form
 					 */
 					$scope.updateFlag = function(trainee, index){
-						var flag = document.getElementsByClassName("glyphicon-flag")[index];
 						trainee.flagStatus = status;
 						caliberDelegate.all
                         	.updateTrainee(trainee);

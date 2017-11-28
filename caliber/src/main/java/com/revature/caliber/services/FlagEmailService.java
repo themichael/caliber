@@ -68,39 +68,37 @@ public class FlagEmailService {
 		 */
 		private static final long TIME_UNITS_BETWEEN_EMAILS = TimeUnit.DAYS.toSeconds(DAYS_BETWEEN_EMAILS);
 
-		private static boolean started = false;
+		private static boolean flagServiceStarted = false;
 		
 		/**
 		 * Starts the ScheduledThreadExecutor upon application startup/bean initialization
 		 */
 		//@Override
 		public void afterPropertiesSet(){
-			startReminderJob();
+			startFlagReminderJob();
 		}
 
-		private synchronized void startReminderJob() {
+		private synchronized void startFlagReminderJob() {
 			/* 
 			 * Exits if we have already started the scheduled email job
-			 * Synchronized to prevent an edge case of it firing twice 
-			 * The issue stems from run() in FlagEmailMailer being called twice 
 			 */
-			if (started)
+			if (flagServiceStarted)
 				return;
-			started = true;
+			flagServiceStarted = true;
 			
-			logger.info("startReminderJob() for FlagEmailService");
+			logger.info("startFlagReminderJob() for FlagEmailService");
 			
 			// First we get the time that the emails will start to fire
-			LocalTime timeToFireDate = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
-			LocalDate timeToFireTime = LocalDate.now().with(TemporalAdjusters.nextOrSame(DAY_OF_WEEK_TO_FIRE));
-			ZonedDateTime timeToFire = ZonedDateTime.of(timeToFireTime, timeToFireDate, TIME_ZONE);
+			LocalTime flagTimeToFireDate = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
+			LocalDate flagTimeToFireTime = LocalDate.now().with(TemporalAdjusters.nextOrSame(DAY_OF_WEEK_TO_FIRE));
+			ZonedDateTime flagTimeToFire = ZonedDateTime.of(flagTimeToFireTime, flagTimeToFireDate, TIME_ZONE);
 			
 			// Then the current time in order to get an initial delay for scheduleAtFixedRate()
 			ZonedDateTime now = ZonedDateTime.of(LocalDate.now(), LocalTime.now(), TIME_ZONE);
 			
-			long delayInUnits = timeToFire.toEpochSecond() - now.toEpochSecond();
+			long delayInUnits = flagTimeToFire.toEpochSecond() - now.toEpochSecond();
 		
-			logger.info("Flag emails will start firing at: " + timeToFire);
+			logger.info("Flag emails will start firing at: " + flagTimeToFire);
 			
 			/*
 			 * Mailer's run() will be called after delayInUnits TIME_UNITS with TIME_UNITS_BETWEEN_EMAILS TIME_UNITS

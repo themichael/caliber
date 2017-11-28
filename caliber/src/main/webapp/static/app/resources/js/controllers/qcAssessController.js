@@ -590,10 +590,10 @@ angular
 						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
 						var initialStatus = trainee.flagStatus;
 				        if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-white") {
-				        		status = "RED";
+				        		var status = "RED";
 				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
 				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-red") {
-				        		var status = "GREEN";
+				        		status = "GREEN";
 				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
 				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-green") {
 				        		status = "TRAINER";
@@ -635,7 +635,6 @@ angular
 					 *  upon submission of the comment form and closes the form
 					 */
 					$scope.updateFlag = function(trainee, index){
-						var flag = document.getElementsByClassName("glyphicon-flag")[index];
 						trainee.flagStatus = status;
 						caliberDelegate.all
                         	.updateTrainee(trainee);
