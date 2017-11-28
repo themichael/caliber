@@ -61,7 +61,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
 	            // Http request to the training module to get the caliber user
 	            String jsonString = getCaliberTrainer(servletRequest, email);
 	            // authorize user
-	            //authorize(jsonString, salesforceUser, servletResponse);
+	            authorize(jsonString, salesforceUser, servletResponse);
 	        }
         }catch(Exception e){
         	log.error(e);

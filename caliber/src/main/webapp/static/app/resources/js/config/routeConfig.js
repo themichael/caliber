@@ -44,16 +44,15 @@ angular
 										url : "/qc",
 										templateUrl : "/static/app/partials/abstracts/qc.html",
 										resolve : {
+											authenticate : function(authFactory) {
+												authFactory.authQC();
+											},
 											allBatches : function(
 													caliberDelegate) {
 												return caliberDelegate.qc
 														.getAllBatches();
 											}
 										},
-										// authorize the user
-										onEnter : function(authFactory) {
-											authFactory.authQC();
-										}
 
 									})
 							.state(
@@ -171,17 +170,15 @@ angular
 										url : "/trainer",
 										templateUrl : "/static/app/partials/abstracts/trainer.html",
 										resolve : {
+											authenticate : function(authFactory) {
+												authFactory.authTrainer();
+											},
 											allBatches : function(
 													caliberDelegate) {
 												return caliberDelegate.trainer
 														.getAllBatches();
 											}
 										},
-										// authorize the user
-										onEnter : function(authFactory) {
-											console.log("/trainer authTrainer");
-											authFactory.authTrainer();
-										}
 									})
 							.state(
 									"trainer.import",
@@ -316,6 +313,9 @@ angular
 										url : "/vp",
 										templateUrl : "/static/app/partials/abstracts/vp.html",
 										resolve : {
+											authenticate : function(authFactory) {
+												authFactory.authVP();
+											},
 											allBatches : function(caliberDelegate) {
 												return caliberDelegate.vp.getAllBatches();
 											},
@@ -323,10 +323,6 @@ angular
 												return caliberDelegate.all.getAllTrainers();
 											}
 										},
-										// authorize the user
-										onEnter : function(authFactory) {
-											authFactory.authVP();
-										}
 
 									})
 							.state(
@@ -569,14 +565,13 @@ angular
 							 */
                         .state("staging",
                             {
-                        		// Authorize Staging role
-                            	onEnter: function (authFactory) {
-                            		authFactory.authStaging();
-                            	},
                                 abstract: true,
                                 url: "/staging",
                                 templateUrl: "/static/app/partials/abstracts/staging.html",
                                 resolve: {
+                                	authenticate: function (authFactory) {
+                                		authFactory.authStaging();
+                                	},
                                     allBatches: function (caliberDelegate) {
                                         return caliberDelegate.qc.getAllBatches();
                                     },
@@ -620,6 +615,9 @@ angular
 										url : "/panel",
 										templateUrl : "/static/app/partials/abstracts/panel.html",
 										resolve : {
+											authenitcate : function(authFactory) {
+												authFactory.authPanel();
+											},
 											allBatches : function(
 													caliberDelegate) {
 												return caliberDelegate.trainer
@@ -631,10 +629,6 @@ angular
 														.getAllTrainers();
 											}
 										},
-										// authorize the user
-										onEnter : function(authFactory) {
-											authFactory.authPanel();
-										}
 									
 							})
 							.state(

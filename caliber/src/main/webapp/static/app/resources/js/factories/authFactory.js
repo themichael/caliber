@@ -1,5 +1,5 @@
 angular.module("auth").factory("authFactory",
-		function($log, $http, $cookies, $state, $location) {
+		function($log, $http, $cookies, $state, $location, $window) {
 			$log.debug("Booted Authentication Factory");
 
 			var auth = {};
@@ -59,7 +59,7 @@ angular.module("auth").factory("authFactory",
 			 * @returns A cookie that contains the role
 			 */
 			function getCookie() {
-				console.log($cookies.get("role"));
+				$log.debug($cookies.get("role"));
 				return $cookies.get("role");
 			}
 
@@ -115,7 +115,7 @@ angular.module("auth").factory("authFactory",
 					$location.path(panelHome);
 				else if (role === undefined){
 					$log.debug("authQC redirect");
-					$location.path("/")
+					$window.location.replace("/")
 					throw Error;
 				}
 			};
@@ -137,7 +137,7 @@ angular.module("auth").factory("authFactory",
 				}
 				else if (role === undefined){
 					$log.debug("authPanel redirect");
-					$location.path("/")
+					$window.location.replace("/");
 					throw Error;
 				}
 			};
@@ -157,8 +157,8 @@ angular.module("auth").factory("authFactory",
 					$location.path(panelHome);
 				else if (role === undefined){
 					$log.debug("authVP redirect")
-					$location.path("/");
-					throw Error;
+					$window.location.replace("/");
+					throw new Error();
 				}
 			};
 
@@ -177,7 +177,7 @@ angular.module("auth").factory("authFactory",
 					$location.path(panelHome);
 				else if (role === undefined){
 					$log.debug("authTrainer redirect")
-					$location.path("/");
+					$window.location.replace("/");
 					throw Error;
 				}
 			};
@@ -204,7 +204,7 @@ angular.module("auth").factory("authFactory",
 					$location.path(panelHome);
 				else if (role === undefined){
 					$log.debug("authStaging redirect")
-					$location.path("/");
+					$window.location.replace("/");
 					throw Error;
 				}
 			};
