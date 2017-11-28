@@ -36,7 +36,6 @@ angular
 							function(tasks){
 								$log.debug(tasks);
 								$scope.allActiveTasks = tasks;
-								console.log($scope.allActiveTasks);
 							});
 					}
 

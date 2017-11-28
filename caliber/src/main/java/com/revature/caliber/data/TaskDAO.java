@@ -35,7 +35,7 @@ public class TaskDAO {
     public List<TrainerTask> findAllActiveTasks() {
     	log.info("Finding all active tasks");
     	return sessionFactory.getCurrentSession().createCriteria(TrainerTask.class)
-                .add(Restrictions.eq("active", true)).addOrder(Order.asc("priority")).list();
+                .add(Restrictions.eq("active", 1)).addOrder(Order.asc("priority")).list();
     }
     
 }
