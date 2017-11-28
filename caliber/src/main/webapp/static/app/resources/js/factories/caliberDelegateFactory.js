@@ -106,7 +106,12 @@ angular.module("delegate")
 			delegate.all.getAllTraineesFromBatch = function(resourceId) {
 				return allFactory.getAllTraineesFromBatch(resourceId);
 			};
-
+			
+			delegate.all.getAllActiveTasks = function() {
+				return allFactory.getAllActiveTasks();
+			};
+			
+		
 			/** *********************** Enum constants *************************** */
 
 			delegate.all.enumCommonLocations = function() {

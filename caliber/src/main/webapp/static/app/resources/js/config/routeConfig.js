@@ -317,7 +317,10 @@ angular
 											},
 											allTrainers : function(caliberDelegate) {
 												return caliberDelegate.all.getAllTrainers();
-											}
+											}/*,
+											allActiveTasks : function(caliberDelegate) {
+												return caliberDelegate.all.getAllActiveTasks();
+											}*/
 										},
 										// authorize the user
 										onEnter : function(authFactory) {
@@ -361,6 +364,9 @@ angular
 											},
 											"trainer-extra-modals@vp.trainers":{
 												templateUrl : "/static/app/partials/trainers/trainer-auxillary-modals.html"
+											},
+											"trainer-checklist-form@vp.trainers":{
+												templateUrl : "/static/app/partials/trainers/trainer-checklist-modal.html"
 											}
 										},
 										// authorize the users

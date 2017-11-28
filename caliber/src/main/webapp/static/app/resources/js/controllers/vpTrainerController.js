@@ -14,7 +14,7 @@ angular
 				"vpTrainerController",
 				function($scope, $log, caliberDelegate) {
 					$log.debug("Booted trainer manage controller.");
-					$log.debug('test trainermanager cntroller -j');
+					$log.debug('test trainermanager controller -j');
 					/**
 					 * ************************** Batch
 					 * ****************************
@@ -29,6 +29,16 @@ angular
 									$scope.allTrainers = trainers;
 								});
 					};
+					
+					/** On page start --> load all tasks * */
+					$scope.loadAllTasks = function(){
+						caliberDelegate.all.getAllActiveTasks().then(
+							function(tasks){
+								$log.debug(tasks);
+								$scope.allActiveTasks = tasks;
+								console.log($scope.allActiveTasks);
+							});
+					}
 
 					var submitTier = function(tier) {
 						var pre = "ROLE_"
@@ -52,7 +62,7 @@ angular
 						$scope.trainerTiers = filteredTiers;
 					});
 
-					// load tainers titles
+					// load trainers titles
 					caliberDelegate.vp.trainersTitles().then(function(titles) {
 						$log.debug(titles);
 						$scope.trainersTitles = titles;
@@ -154,5 +164,6 @@ angular
 										});
 						angular.element("#deleteTrainerModal").modal("hide");
 					};
+					
 
 				});

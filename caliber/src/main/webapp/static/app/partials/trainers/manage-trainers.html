@@ -37,7 +37,7 @@
 							<!-- Buttons -->
 							<td><a role="button" class="pull-right"
 								ng-click="populateTrainer($index)" data-toggle="modal"
-								data-target="#deleteTrainerModal"><span
+								data-target="#trainerTaskModal"><span
 									ng-class="{'glyphicon glyphicon-list-alt' : trainer.tier.substr(5) == 'TRAINER'}" aria-hidden="true"></span></a></td>
 							<td><a role="button" class="pull-right"
 								ng-click="populateTrainer($index)" data-toggle="modal"
@@ -66,4 +66,6 @@
 	<div ui-view="delete-trainer-form"></div>
 	<!-- confirm, and error models for trainees -->
 	<div ui-view="trainer-extra-modals"></div>
+	<!-- modal form for trainer checklist -->
+	<div ui-view="trainer-checklist-form"></div>
 </div>

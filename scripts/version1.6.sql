@@ -95,3 +95,10 @@ ALTER TABLE CALIBER_TRAINEE
 --------------------------------------------------------
 
    CREATE SEQUENCE  "CALIBER"."TASK_ID_SEQUENCE"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+
+-------------------------TASK---------------------------
+INSERT INTO CALIBER_TASK VALUES(1, 1, 'Train a batch for one week.', 1);
+INSERT INTO CALIBER_TASK VALUES(2, 1, 'Create lesson plans and examples for each week.', 2);
+INSERT INTO CALIBER_TASK VALUES(3, 1, 'Particpate in three QC Interviews.', 3);
+INSERT INTO CALIBER_TASK VALUES(4, 0, 'Create new panel questions.', 4);
+-----------------------TASK END-------------------------

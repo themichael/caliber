@@ -1,0 +1,44 @@
+<!--********************************************* Trainer Checklist Modal ************************************-->
+<form ng-init="loadAllTasks()" ng-submit="checkTrainerEmail(trainerForm)">
+	<div class="modal fade" id="trainerTaskModal" tabindex="-1"
+		role="dialog" aria-labelledby="trainerModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="trainerModalLabel">Trainer Checklist</h4>
+				</div>
+				<!-- Train Checklist Info -->
+				<div class="modal-body">
+					<!-- Checklist -->
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Task Description</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="trainer in allTrainer track by $index">
+											<td>{{trainer.name}}</td>
+											<td><input type="checkbox"></td>
+										</tr>
+									</tbody>
+				
+								</table>
+				
+							</div>
+						</div>
+					<div class="modal-footer">
+						<input type="submit" ng-value="Save" class="btn btn-primary">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

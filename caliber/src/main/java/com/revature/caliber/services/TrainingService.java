@@ -13,8 +13,10 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.TrainerTask;
 import com.revature.caliber.data.AddressDAO;
 import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.data.TaskDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
@@ -34,6 +36,7 @@ public class TrainingService {
 	private TraineeDAO traineeDAO;
 	private BatchDAO batchDAO;
 	private AddressDAO addressDAO;
+	private TaskDAO taskDAO;
 
 	@Autowired
 	public void setTrainerDAO(TrainerDAO trainerDAO) {
@@ -53,6 +56,11 @@ public class TrainingService {
 	@Autowired
 	public void setAddressDAO(AddressDAO addressDAO) {
 		this.addressDAO = addressDAO;
+	}
+	
+	@Autowired
+	public void setTaskDAO(TaskDAO taskDAO) {
+		this.taskDAO = taskDAO;
 	}
 
 	/*
@@ -397,5 +405,21 @@ public class TrainingService {
 		log.debug("Update trainee " + trainee);
 		traineeDAO.update(trainee);
 	}
+	
+	/*
+	 *******************************************************
+	 * TASK SERVICES
+	 *
+	 *******************************************************
+	 */
+
+	/**
+	 * FIND ALL ACTIVE TASKS
+	 */
+	public List<TrainerTask> findAllActiveTasks() {
+		log.debug("Find all active tasks");
+		return taskDAO.findAllActiveTasks();
+	}
+
 
 }

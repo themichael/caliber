@@ -541,4 +541,24 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	};
 
 	return all;
+	
+	/** *********************** Trainer Tasks********************* */
+	
+	/**
+	 * 
+	 * @returns {*}
+	 */
+	all.getAllActiveTasks = function() {
+		return $http({
+			url : "/all/tasks/all/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Trainer tasks successfully retrieved");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	
 });

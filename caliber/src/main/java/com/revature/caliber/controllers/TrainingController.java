@@ -27,6 +27,7 @@ import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerTask;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
 
@@ -356,7 +357,7 @@ public class TrainingController {
 		return new ResponseEntity<>(trainingService.findCommonLocations(), HttpStatus.OK);
 	}
 
-	/*
+	/*get
 	 *******************************************************
 	 * TRAINEE SERVICES
 	 *
@@ -465,5 +466,27 @@ public class TrainingController {
 	 */
 	private Trainer getPrincipal(Authentication auth) {
 		return ((SalesforceUser) auth.getPrincipal()).getCaliberUser();
+	}
+	
+	/*
+	 *******************************************************
+	 * TASK SERVICES
+	 *
+	 *******************************************************
+	 */
+	
+	
+	/**
+	 * Returns all active tasks from the database`
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/all/tasks/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<TrainerTask>> getAllActiveTasks() {
+		log.info("Fetching all active tasks");
+		List<TrainerTask> tasks = trainingService.findAllActiveTasks();
+		return new ResponseEntity<>(tasks, HttpStatus.OK);
 	}
 }

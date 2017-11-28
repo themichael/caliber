@@ -49,7 +49,7 @@ public class TrainerTask {
 	 * Only active tasks are displayed on the UI
 	 */
 	@Column(name = "IS_ACTIVE")
-	private boolean active;
+	private int active;
 
 	@OneToMany(mappedBy = "taskCompleted")
 	@JsonIgnore
@@ -59,7 +59,7 @@ public class TrainerTask {
 		super();
 	}
 
-	public TrainerTask(String description, int priority, boolean active) {
+	public TrainerTask(String description, int priority, int active) {
 		super();
 		this.description = description;
 		this.priority = priority;
@@ -90,11 +90,11 @@ public class TrainerTask {
 		this.priority = priority;
 	}
 
-	public boolean isActive() {
+	public int isActive() {
 		return active;
 	}
 
-	public void setActive(boolean active) {
+	public void setActive(int active) {
 		this.active = active;
 	}
 
@@ -102,7 +102,7 @@ public class TrainerTask {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (active ? 1231 : 1237);
+		result = prime * result + active;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + priority;
 		return result;
