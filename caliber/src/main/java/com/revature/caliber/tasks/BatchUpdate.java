@@ -52,7 +52,8 @@ public class BatchUpdate {
 	 *	Compares a Batch from Caliber with it's SalesForce data (based on the Resource id)
 	 *	and updates the Caliber Batch if a change has occurred
 	 */
-	public void compareBatches(List<Batch> caliberBatches,List<Batch> salesforceBatches) {
+	public boolean compareBatches(List<Batch> caliberBatches,List<Batch> salesforceBatches) {
+		boolean batchUpdated = false;
 		for(int sIndex=0;sIndex<salesforceBatches.size();sIndex++) {
 			String sResourceId = salesforceBatches.get(sIndex).getResourceId();
 			//int sResourceId = salesforceBatches.get(sIndex).getBatchId();
@@ -64,6 +65,7 @@ public class BatchUpdate {
 				//int cResourceId = caliberBatches.get(cIndex).getBatchId();
 				if(cResourceId.equals(sResourceId)) {
 					log.debug("Comparing Caliber batch: "+cResourceId+" to Salesforce Batch: "+sResourceId);
+					log.info("Comparing Caliber batch: "+cResourceId+" to Salesforce Batch: "+sResourceId);
 					Batch caliberBatch = caliberBatches.get(cIndex);
 					Batch salesforceBatch = salesforceBatches.get(sIndex);
 					if(!caliberBatch.getTrainer().getEmail().equals(salesforceBatch.getTrainer().getEmail())) {
@@ -72,13 +74,15 @@ public class BatchUpdate {
 						caliberBatch.setTrainer(salesforceBatch.getTrainer());
 						caliberBatch.getTrainer().getBatches().add(caliberBatch);
 						trainerDao.update(caliberBatch.getTrainer());
-						batchDao.update(caliberBatch);
+						//batchDao.update(caliberBatch);
+						batchUpdated = true;
 					}
 					if(caliberBatch.getCoTrainer() != null) {
 						if(!caliberBatch.getCoTrainer().getEmail().equals(salesforceBatch.getCoTrainer().getEmail())) {
 							caliberBatch.getCoTrainer().getBatches().remove(caliberBatch);
 							caliberBatch.setCoTrainer(salesforceBatch.getCoTrainer());
-							batchDao.update(caliberBatch);
+							//batchDao.update(caliberBatch);
+							batchUpdated = true;
 						}
 					}
 					
@@ -88,19 +92,22 @@ public class BatchUpdate {
 						continue;
 					} else {
 						updateTrainees(caliberTrainees,salesforceTrainees);
+						batchUpdated = true;
 					}
 				}
 			}
 		}
+		return batchUpdated;
 	}
 	
 	/* 
 	 * 	Compare the set of Trainees in Caliber with the Trainees retrieved from Salesforce
 	 * 	and update the Caliber information if a change occurred
 	 */
-	private void updateTrainees(Set<Trainee> caliberTrainees,Set<Trainee> salesforceTrainees) {
+	public boolean updateTrainees(Set<Trainee> caliberTrainees,Set<Trainee> salesforceTrainees) {
 		log.debug("Update Trainees");
 		Iterator<Trainee> cIt = caliberTrainees.iterator();
+		boolean traineeUpdated = false;
 		
 		while(cIt.hasNext()) {
 			Trainee cTrainee = cIt.next();
@@ -115,23 +122,30 @@ public class BatchUpdate {
 					if(cResourceId.equals(sResourceId)) {
 						if(!cTrainee.getName().equals(sTrainee.getName())) {
 							cTrainee.setName(sTrainee.getName());
+							traineeUpdated = true;
 						}
 						if(!cTrainee.getEmail().equals(sTrainee.getEmail())) {
 							cTrainee.setEmail(sTrainee.getEmail());
+							traineeUpdated = true;
 						}
 						if(!cTrainee.getPhoneNumber().equals(sTrainee.getPhoneNumber())) {
 							cTrainee.setPhoneNumber(sTrainee.getPhoneNumber());
+							traineeUpdated = true;
 						}
 						if(!cTrainee.getTrainingStatus().equals(sTrainee.getTrainingStatus())) {
 							cTrainee.setTrainingStatus(sTrainee.getTrainingStatus());
+							traineeUpdated = true;
 						}
-						traineeDao.update(cTrainee);
+						if(traineeUpdated) {
+							//traineeDao.update(cTrainee);
+						}
+						
 						log.debug(cTrainee);
+						
 					}
-					
 				}
 			}
-			
 		}
+		return traineeUpdated;
 	}
 }
