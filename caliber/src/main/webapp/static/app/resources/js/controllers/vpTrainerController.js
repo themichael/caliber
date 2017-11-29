@@ -143,6 +143,9 @@ angular
 													}
 												}
 												$scope.allActiveTasks = tasks;
+												for(var j = 0; 0 < $scope.allActiveTasks.length; j++){
+													$scope.allActiveTasks[j].isHidden = false;
+												}
 										});
 								});
 					};
@@ -173,5 +176,12 @@ angular
 						angular.element("#deleteTrainerModal").modal("hide");
 					};
 					
-
+					/**
+					 *	Edit task and persist to database
+					 */
+					$scope.editTask = function(index) {
+						console.log($scope.allActiveTasks[index].isHidden);
+					};
+					
+				
 				});

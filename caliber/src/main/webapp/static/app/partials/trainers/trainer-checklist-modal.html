@@ -24,13 +24,17 @@
 									</thead>
 									<tbody>
 										<tr ng-repeat="task in allActiveTasks track by $index">
-											<td>{{task.description}}</td>
-											<td><input type="checkbox"></td>
-											<td><a role="button" class="pull-right"
-												ng-click="populateTrainer($index)" data-toggle="modal"
-												data-target="#editTrainerModal"><span
+											<td class="col-sm-9 col-md-9 col-lg-9"><span ng-hide="isHidden">{{task.description}}</span>
+												<div id="description" class="form-group col-sm-7 col-md-7 col-lg-7 ng-hide" style="position: absolute; z-index: 1; margin-top: -4px">
+													<input class="form-control input-sm" type="text" ng-model="task.description">
+												</div>
+											</td>
+											<td id="taskEdit" class="col-sm-2 col-md-2 col-lg-2 ng-hide"><input type="submit" ng-value="SaveTaskEdit" class="btn btn-default btn-xs"></td>
+											<td class="col-sm-1 col-md-1 col-lg-1"><input type="checkbox"></td>
+											<td class="col-sm-1 col-md-1 col-lg-1"><a role="button" class="pull-right"
+												ng-click="editTask($index)"><span
 													class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-											<td><a role="button" class="pull-right"
+											<td class="col-sm-1 col-md-1 col-lg-1"><a role="button" class="pull-right"
 												ng-click="populateTrainer($index)" data-toggle="modal"
 												data-target="#deleteTrainerModal"><span
 													class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
