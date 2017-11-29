@@ -79,7 +79,7 @@ angular
 										views : {
 											"" : {
 												templateUrl : "/static/app/partials/manage/manage-batch.html",
-												controller : "trainerManageController"
+												controller : "qcManageController"
 											},
 											"batch-form@qc.manage" : {
 												templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
@@ -549,7 +549,8 @@ angular
 											"" : {
 												templateUrl : "/static/app/partials/panel/panelhome.html",
 												controller: "panelModalController"
-												//controller : "allReportController"
+												// controller :
+												// "allReportController"
 											},
 											"panelmodal@vp.panel" : {
 												templateUrl : "/static/app/partials/panel/panelmodal.html",
@@ -582,7 +583,40 @@ angular
                                 }
                             })
 
-                        .state("staging.home",
+                        .state( "staging.manage",
+								{
+									url : "/manage",
+									views : {
+										"" : {
+											templateUrl : "/static/app/partials/manage/manage-batch.html",
+											controller : "qcManageController"
+										},
+										"batch-form@staging.manage" : {
+											templateUrl : "/static/app/partials/manage/edit-batch-modal.html"
+										},
+										"import-batch@staging.manage" : {
+											templateUrl : "/static/app/partials/manage/import-batch-modal.html"
+										},
+										"batch-extra-modals@staging.manage" : {
+											templateUrl : "/static/app/partials/manage/batch-axillary-modals.html"
+										},
+										"view-trainees@staging.manage" : {
+											templateUrl : "/static/app/partials/manage/view-trainees-modal.html"
+										},
+										"trainee-form@staging.manage" : {
+											templateUrl : "/static/app/partials/manage/edit-trainee-modal.html"
+										},
+										"trainee-extra-modals@staging.manage" : {
+											templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
+										}
+									},
+										// authorize the user
+										onEnter : function(authFactory) {
+											authFactory.authManage();
+										}
+										
+									})
+									.state("staging.home",
                             {
                                 templateUrl: "/static/app/partials/home/staging-home.html",
                                 url: "/home",
@@ -607,7 +641,7 @@ angular
 								}
                             }
                         )
-                        //Panel Role
+                        // Panel Role
                         .state(
 									"panel",
 									{
@@ -693,7 +727,7 @@ angular
 												templateUrl : "/static/app/partials/manage/trainee-axillary-modals.html"
 											}
 										},
-//										// authorize the user
+// // authorize the user
 										onEnter : function(authFactory) {
 											authFactory.authManage();
 										}
