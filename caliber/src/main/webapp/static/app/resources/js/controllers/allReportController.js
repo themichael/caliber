@@ -20,11 +20,10 @@ angular
 		"allReportController",
 		function($rootScope, $scope, $state, $log, caliberDelegate,
 				chartsDelegate, allBatches) {
-
+			
 			// *******************************************************************************
 			// *** UI
 			// *******************************************************************************
-
 			const
 			OVERALL = "(All)";
 			const
@@ -64,7 +63,7 @@ angular
 			var relaventBatches = [];
 			
 			var relBatchesCount = 0;
-			for(i=0;i<allBatches.length;i++){
+			for(var i=0;i<allBatches.length;i++){
 				var endDate = Date.parse(allBatches[i].endDate);
 				var startDate = Date.parse(allBatches[i].startDate);
 				if ((endDate>twoMonthsAgo && endDate<now) || (startDate<now && endDate>now)){
@@ -95,7 +94,6 @@ angular
 					});
 				});
 			}
-
 			
 			//load chart information based on chosen searched trainee
 			$scope.selectChosenTrainee = function(){
@@ -118,8 +116,6 @@ angular
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
 									$scope.currentTraineeId);
-							
-							//end function
 							return;
 						}
 					});
@@ -195,9 +191,7 @@ angular
 						createBatchWeekTrainee();
 						$scope.getTraineeNote($scope.currentTraineeId,$scope.currentWeek);
 					}
-
 				}
-
 			}
 			function getAllSkillTypes(){
 				caliberDelegate.all.enumSkillType().then(function(skills){
@@ -205,7 +199,6 @@ angular
 					$log.debug($scope.skillstack);
 					$log.debug("Hello there" );
 				});
-
 			}
 
 			function displayTraineeOverallTable(traineeId) {
@@ -353,7 +346,6 @@ angular
 				selectView($scope.currentBatch.batchId,
 						$scope.reportCurrentWeek,
 						$scope.currentTraineeId);
-
 			};
 
 			$scope.selectSkill = function(index){
@@ -366,17 +358,12 @@ angular
 				} else {
 					$scope.selectedSkill = $scope.skillstack[index];
 					$log.debug($scope.selectedSkill);
-
 				}
 
 				selectView($scope.currentBatch.batchId,
 						$scope.reportCurrentWeek,
 						$scope.currentTraineeId);
-
 			};
-
-
-
 
 			/*
 			 * scope function to display the table if a batch and week
@@ -487,7 +474,6 @@ angular
 			// *******************************************************************************
 			// *** Chart Generation
 			// *******************************************************************************
-
 			function createBatchWeek() {
 				NProgress.done();
 				NProgress.start();
@@ -530,7 +516,6 @@ angular
 			// *******************************************************************************
 			// *** Doughnut Charts
 			// *******************************************************************************
-
 			function createQCStatus() {
 				chartsDelegate.doughnut.data
 				.getQCStatsData($scope.currentBatch.batchId,
@@ -545,13 +530,11 @@ angular
 									$scope.qcStatsOptions = doughnutChartObject.options;
 									$scope.qcStatsColors = doughnutChartObject.colors;
 								});
-
 			}
 
 			// *******************************************************************************
 			// *** Bar Charts
 			// *******************************************************************************
-
 			function createAverageTraineeScoresWeekly() {
 				chartsDelegate.bar
 				.getBatchComparisonLineData($scope.selectedSkill, 
@@ -627,7 +610,6 @@ angular
 								}, function() {
 									NProgress.done();
 								});
-
 			}
 
 
@@ -650,7 +632,6 @@ angular
 								}, function() {
 									NProgress.done();
 								});
-
 			}
 
 			function createAssessmentAveragesTraineeOverall() {
@@ -671,7 +652,6 @@ angular
 								}, function() {
 									NProgress.done();
 								});
-
 			}
 
 			// *******************************************************************************
@@ -762,13 +742,11 @@ angular
 									$scope.radarBatchOverallTable = chartsDelegate.utility
 									.dataToTable(radarBatchOverallChartObject);
 								});
-
 			}
 
 			// *******************************************************************************
 			// *** Line Charts
 			// *******************************************************************************
-
 			function createWeeklyProgressBatchOverall() {
 				chartsDelegate.line.data
 				.getWeeklyProgressBatchOverallData(
@@ -830,7 +808,6 @@ angular
 								}, function() {
 									NProgress.done();
 								});
-
 			}
 			// *******************************************************************************
 			// *** Tables
@@ -1013,9 +990,6 @@ angular
 								function(response) {
 									$scope.categories = response;
 								});
-				
 			}
 
 		});
-
-
