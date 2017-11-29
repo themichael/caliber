@@ -95,7 +95,7 @@ angular.module("auth").factory("authFactory",
 				default:
 					//error();
 					$log.debug("Auth Default");
-					$location.path("/");
+					$window.location.replace("/");
 					break;
 				}
 			};
