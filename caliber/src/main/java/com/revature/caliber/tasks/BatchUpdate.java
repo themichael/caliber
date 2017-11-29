@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -16,6 +17,7 @@ import com.revature.caliber.data.TrainerDAO;
 
 public class BatchUpdate {
 	
+	private static final Logger log=Logger.getLogger(BatchUpdate.class);
 
 	@Autowired
 	SalesforceDAO salesforceDao;
@@ -35,17 +37,21 @@ public class BatchUpdate {
 	@Scheduled(cron = "0 * * * * *") 	//Every minute (testing)
 	public void updateBatchTask() {
 		//Update job goes here
-		System.out.println("Update Batch Task");
+		log.debug("Update Batch Task");
 		List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
 		List<Batch> caliberBatches = batchDao.findAll();
 		//List<Batch> notSalesforceBatches = batchDao.findAll();
 		
 		compareBatches(caliberBatches,salesforceBatches);
 		
-		System.out.println("End of Update Task");
+		log.debug("End of Update Task");
 		
 	}
 	
+	/*
+	 *	Compares a Batch from Caliber with it's SalesForce data (based on the Resource id)
+	 *	and updates the Caliber Batch if a change has occurred
+	 */
 	public void compareBatches(List<Batch> caliberBatches,List<Batch> salesforceBatches) {
 		for(int sIndex=0;sIndex<salesforceBatches.size();sIndex++) {
 			String sResourceId = salesforceBatches.get(sIndex).getResourceId();
@@ -57,7 +63,7 @@ public class BatchUpdate {
 				}
 				//int cResourceId = caliberBatches.get(cIndex).getBatchId();
 				if(cResourceId.equals(sResourceId)) {
-					System.out.println("Caliber batch: "+cResourceId+" Salesforce Batch: "+sResourceId);
+					log.debug("Comparing Caliber batch: "+cResourceId+" to Salesforce Batch: "+sResourceId);
 					Batch caliberBatch = caliberBatches.get(cIndex);
 					Batch salesforceBatch = salesforceBatches.get(sIndex);
 					if(!caliberBatch.getTrainer().getEmail().equals(salesforceBatch.getTrainer().getEmail())) {
@@ -93,7 +99,7 @@ public class BatchUpdate {
 	 * 	and update the Caliber information if a change occurred
 	 */
 	private void updateTrainees(Set<Trainee> caliberTrainees,Set<Trainee> salesforceTrainees) {
-		System.out.println("Update Trainees");
+		log.debug("Update Trainees");
 		Iterator<Trainee> cIt = caliberTrainees.iterator();
 		
 		while(cIt.hasNext()) {
@@ -120,7 +126,7 @@ public class BatchUpdate {
 							cTrainee.setTrainingStatus(sTrainee.getTrainingStatus());
 						}
 						traineeDao.update(cTrainee);
-						System.out.println("Save Trainee updates");
+						log.debug(cTrainee);
 					}
 					
 				}
