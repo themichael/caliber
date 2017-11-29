@@ -65,6 +65,11 @@ public class TrainingService {
 	public void setTaskDAO(TaskDAO taskDAO) {
 		this.taskDAO = taskDAO;
 	}
+	
+	@Autowired
+	public void setTaskCompletionDao(TaskCompletionDAO taskCompletionDAO) {
+		this.taskCompletionDAO = taskCompletionDAO;
+	}
 
 	/*
 	 *******************************************************
@@ -425,10 +430,18 @@ public class TrainingService {
 	}
 	
 	/**
-	 * FIND TASKS BY TRAINER_ID
+	 * FIND ALL COMPLETED TASKS
+	 */
+	public List<TrainerTaskCompletion> findAllCompletedTasks() {
+		log.debug("Find all completed tasks");
+		return taskCompletionDAO.findAllCompletedTasks();
+	}
+	
+	/**
+	 * FIND ALL COMPLETED TASKS BY TRAINER ID
 	 */
 	public List<TrainerTaskCompletion> findAllTasksByTrainerId(int id) {
-		log.debug("Find all tasks by trainer_id");
+		log.debug("Find all completed tasks for trainer with id " +  id);
 		return taskCompletionDAO.findAllTasksByTrainerId(id);
 	}
 

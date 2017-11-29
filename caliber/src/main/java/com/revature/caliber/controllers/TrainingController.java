@@ -492,7 +492,21 @@ public class TrainingController {
 	}
 	
 	/**
-	 * Returns all tasks for a certain trainer
+	 * Returns all completed tasks
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/all/tasks/trainer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<TrainerTaskCompletion>> getAllCompletedTasks() {
+		log.info("Fetching all completed tasks");
+		List<TrainerTaskCompletion> tasks = trainingService.findAllCompletedTasks();
+		return new ResponseEntity<>(tasks, HttpStatus.OK);
+	}
+	
+	/**
+	 * Returns all completed tasks
 	 *
 	 * @return
 	 */
@@ -500,7 +514,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<List<TrainerTaskCompletion>> getAllTasksByTrainerId(@PathVariable int id) {
-		log.info("Fetching all tasks for trainer with id " + id);
+		log.info("Fetching all completed tasks for trainer with id " + id);
 		List<TrainerTaskCompletion> tasks = trainingService.findAllTasksByTrainerId(id);
 		return new ResponseEntity<>(tasks, HttpStatus.OK);
 	}
