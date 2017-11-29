@@ -28,7 +28,7 @@ angular.module("auth").factory("authFactory",
 
 			var vpManage = "vp.manage";
 			var qcManage = "qc.manage";
-			//var stagingManage = "staging.manage";
+			var stagingManage = "staging.manage";
 			var trainerManage = "/trainer/home";
 			var panelManage = "panel.manage";
 

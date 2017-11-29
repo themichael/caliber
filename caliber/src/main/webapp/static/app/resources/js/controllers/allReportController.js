@@ -38,7 +38,6 @@ angular
 			$scope.startDate = startingDate;
 			$scope.selectedTrainingType = OVERALL;
 			$scope.selectedSkill = OVERALL;
-			$scope.currentBatch = allBatches[0];
 			$scope.reportCurrentWeek = OVERALL;
 			$scope.currentBatchWeeks = [];
 			$scope.skillstack = [];
@@ -59,6 +58,23 @@ angular
 					return 1;
 				return 0;
 			}
+			
+			var now = Number(Date.now());
+			var twoMonthsAgo = (now-5259492000);
+			var relaventBatches = [];
+			
+			var relBatchesCount = 0;
+			for(i=0;i<allBatches.length;i++){
+				var endDate = Date.parse(allBatches[i].endDate);
+				var startDate = Date.parse(allBatches[i].startDate);
+				if ((endDate>twoMonthsAgo && endDate<now) || (startDate<now && endDate>now)){
+					relaventBatches[relBatchesCount]=allBatches[i];
+					relBatchesCount++;
+				}
+			}
+			
+			allBatches=relaventBatches;
+			$scope.currentBatch = allBatches[0];
 			
 			// sort all trainees in alphabetical order
 			(function(){
