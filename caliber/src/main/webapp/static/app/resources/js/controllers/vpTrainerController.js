@@ -30,14 +30,7 @@ angular
 								});
 					};
 					
-					/** On page start --> load all tasks * */
-					$scope.loadAllTasks = function(){
-						caliberDelegate.all.getAllActiveTasks().then(
-							function(tasks){
-								$log.debug(tasks);
-								$scope.allActiveTasks = tasks;
-							});
-					}
+					
 
 					var submitTier = function(tier) {
 						var pre = "ROLE_"
@@ -136,6 +129,22 @@ angular
 						$scope.trainerForm.tier = $scope.allTrainers[index].tier
 								.substr(5);
 						$scope.Save = "Update";
+						
+						//load tasks corresponding to trainer
+						caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(
+								function(t_tasks){
+										caliberDelegate.all.getAllActiveTasks().then(
+											function(tasks){
+												$log.debug(tasks);
+												for(var i = 0; i < t_tasks.length; i++){
+													num = tasks.findIndex(j => j.id === t_tasks[i].taskCompleted.id);
+													if(num > -1){
+														tasks.splice(num, 1);
+													}
+												}
+												$scope.allActiveTasks = tasks;
+										});
+								});
 					};
 
 					/** Update Trainer Input * */

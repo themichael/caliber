@@ -29,7 +29,7 @@ public class TaskDAO {
     }
     
     /**
-     * Find all active tasks
+     * Retrieve all active tasks
      */
     @SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)

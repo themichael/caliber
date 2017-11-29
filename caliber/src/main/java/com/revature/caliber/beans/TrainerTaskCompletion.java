@@ -20,6 +20,9 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "CALIBER_TASK_COMPLETION")
 @Cacheable
@@ -40,6 +43,7 @@ public class TrainerTaskCompletion {
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
+	@JsonProperty
 	private Trainer trainer;
 
 	/**
@@ -50,6 +54,7 @@ public class TrainerTaskCompletion {
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "CHECKED_BY", nullable = false)
+	@JsonProperty
 	private Trainer checkedBy;
 
 	@Temporal(TemporalType.DATE)
@@ -61,6 +66,7 @@ public class TrainerTaskCompletion {
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "TASK_ID", nullable = false)
+	@JsonProperty
 	private TrainerTask taskCompleted;
 
 	public TrainerTaskCompletion() {
