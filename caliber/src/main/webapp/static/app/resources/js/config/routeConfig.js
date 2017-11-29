@@ -554,6 +554,11 @@ angular
 											"panelmodal@vp.panel" : {
 												templateUrl : "/static/app/partials/panel/panelmodal.html",
 											}
+										},
+										resolve : {
+											authenticate : function(authFactory) {
+												authFactory.authVP();
+											}
 										}
 										
 									})
