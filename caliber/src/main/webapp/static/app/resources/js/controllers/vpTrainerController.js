@@ -30,14 +30,14 @@ angular
 								});
 					};
 					
-					/** On page start --> load all tasks * */
-					$scope.loadAllTasks = function(){
-						caliberDelegate.all.getAllActiveTasks().then(
-							function(tasks){
-								$log.debug(tasks);
-								$scope.allActiveTasks = tasks;
-							});
-					}
+					/** Load all tasks * */
+					
+					caliberDelegate.all.getAllActiveTasks().then(
+						function(tasks){
+							$log.debug(tasks);
+							$scope.allActiveTasks = tasks;
+					});
+					
 
 					var submitTier = function(tier) {
 						var pre = "ROLE_"

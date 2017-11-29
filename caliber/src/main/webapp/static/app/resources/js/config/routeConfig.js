@@ -317,10 +317,7 @@ angular
 											},
 											allTrainers : function(caliberDelegate) {
 												return caliberDelegate.all.getAllTrainers();
-											}/*,
-											allActiveTasks : function(caliberDelegate) {
-												return caliberDelegate.all.getAllActiveTasks();
-											}*/
+											}
 										},
 										// authorize the user
 										onEnter : function(authFactory) {

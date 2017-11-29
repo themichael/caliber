@@ -28,6 +28,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerTask;
+import com.revature.caliber.beans.TrainerTaskCompletion;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
 
@@ -487,6 +488,20 @@ public class TrainingController {
 	public ResponseEntity<List<TrainerTask>> getAllActiveTasks() {
 		log.info("Fetching all active tasks");
 		List<TrainerTask> tasks = trainingService.findAllActiveTasks();
+		return new ResponseEntity<>(tasks, HttpStatus.OK);
+	}
+	
+	/**
+	 * Returns all tasks for a certain trainer
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/all/tasks/trainer/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<TrainerTaskCompletion>> getAllTasksByTrainerId(@PathVariable int id) {
+		log.info("Fetching all tasks for trainer with id " + id);
+		List<TrainerTaskCompletion> tasks = trainingService.findAllTasksByTrainerId(id);
 		return new ResponseEntity<>(tasks, HttpStatus.OK);
 	}
 }

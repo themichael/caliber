@@ -111,6 +111,10 @@ angular.module("delegate")
 				return allFactory.getAllActiveTasks();
 			};
 			
+			delegate.all.getAllTasksByTrainerId = function(id) {
+				return allFactory.getAllTasksByTrainerId(id);
+			};
+			
 		
 			/** *********************** Enum constants *************************** */
 
