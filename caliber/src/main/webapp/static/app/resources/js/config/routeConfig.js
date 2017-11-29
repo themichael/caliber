@@ -204,9 +204,6 @@ angular
 										templateUrl : "/static/app/partials/home/trainer-home.html",
 										url : "/home",
 										controller : "trainerHomeController",
-										onEnter : function(){
-											console.log("Trainer home state. Don't want this!")
-										}
 									})
 							.state(
 									"trainer.manage",

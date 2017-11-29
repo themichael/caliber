@@ -290,7 +290,6 @@ angular.module("auth").factory("authFactory",
 			 */
 			auth.authImport = function() {
 				var role = getCookie();
-				console.log("AuthImport")
 
 				switch (role) {
 				case trainerRole:
