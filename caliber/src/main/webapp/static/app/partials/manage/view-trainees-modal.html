@@ -67,7 +67,7 @@
 									<td ng-click="toggleColor(trainee, $index)">{{trainee.name}}</td>
 									<td><span ng-mouseover="showNotes($index)" ng-mouseleave="hideNotes($index)"
 									ng-init="init(trainee, $index)" class="glyphicon glyphicon-flag"></span>
-									<form class="commentForm" ng-submit="updateFlag(trainee)"
+									<form class="commentForm" ng-submit="updateFlag(trainee,$index)"
 										style="display: none;">
 										<input type="text" placeholder="comment" name="statusComment"
 											ng-model="trainee.flagNotes"> <input type="submit"

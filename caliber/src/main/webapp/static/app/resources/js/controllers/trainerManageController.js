@@ -819,12 +819,13 @@ angular
 					/** creates a function triggered by a click on the trainee's name, that toggles the color of the flag
 					 *  and opens an input box to comment on the color change 
 					 */
+					var status;
 					
 					$scope.toggleColor = function(trainee, index) {
 						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
 						var initialStatus = trainee.flagStatus;
 				        if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-white") {
-				        		var status = "RED";
+				        		status = "RED";
 				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
 				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-red") {
 				        		status = "GREEN";
@@ -850,29 +851,30 @@ angular
 						flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px;");
 						$scope.closeComment = function(){
 							document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
-							if(initialStatus === "RED"){
+							if(initialStatus == "RED"){
 								flag.setAttribute("class","glyphicon glyphicon-flag color-red");
-							} else if (initialStatus === "GREEN"){
+							} else if (initialStatus == "GREEN"){
 								flag.setAttribute("class","glyphicon glyphicon-flag color-green");
-							} else if (initialStatus === "TRAINER"){
+							} else if (initialStatus == "TRAINER"){
 								flag.setAttribute("class","glyphicon glyphicon-flag color-orange");
 							} else {
-								flag.setAttribute("class","glyphicon glyphicon-flag color-white");
+								flag.setAttribute("class","glyphicon glyphicon-flag color-none");
 							}
 						}
 						trainee.batch = {
 	                            batchId : $scope.currentBatch.batchId
 	                        };
-					}
-					
-					/** saves changes the flag status in the javascript object and persists it back to the database
-					 *  upon submission of the comment form and closes the form
-					 */
-					$scope.updateFlag = function(trainee, index){
 						trainee.flagStatus = status;
-						caliberDelegate.all
-                        	.updateTrainee(trainee);
-						document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
+						
+						/** saves changes the flag status in the javascript object and persists it back to the database
+						 *  upon submission of the comment form and closes the form
+						 */
+						$scope.updateFlag = function(trainee, index){
+							console.log(trainee);
+							caliberDelegate.all
+	                        	.updateTrainee(trainee);
+	                        	document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");    	
+						}
 					}
 					
 					//show flagNotes when hovering over flag

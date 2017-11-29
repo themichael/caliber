@@ -304,8 +304,9 @@ public class Trainee implements Serializable {
 	@Override
 	public String toString() {
 		return "Trainee [traineeId=" + traineeId + ", name=" + name + ", email=" + email + ", trainingStatus="
-				+ trainingStatus + ", major=" + major + "]";
+				+ trainingStatus + ", flagStatus=" + flagStatus + ", flagNotes=" + flagNotes + "]";
 	}
+	
 
 	public String getRecruiterName() {
 		return recruiterName;
