@@ -7,9 +7,13 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
@@ -421,5 +425,13 @@ public class TrainingService {
 		return taskDAO.findAllActiveTasks();
 	}
 
+	/**
+	 * SAVE A NEW TASK
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void saveTask(TrainerTask task) {
+		log.debug("Save task: " + task);
+		taskDAO.save(task);
+	}
 
 }

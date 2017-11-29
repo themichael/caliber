@@ -164,5 +164,19 @@ angular
 						angular.element("#deleteTrainerModal").modal("hide");
 					};
 					
+					$scope.addTask = false;
+					$scope.openAddTask = function(){
+						$scope.addTask = true;
+					}
+					
+					$scope.saveTask = function(task, priority){
+						console.log("save clicked");
+						console.log(task);
+						console.log(priority);
+					}
+					
+					$scope.closeAddTask = function(){
+						$scope.addTask = false;
+					}
 
 				});

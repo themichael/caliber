@@ -1,0 +1,118 @@
+INFO    2017-11-29 10:44:41,624 [main] org.hibernate.validator.internal.util.Version  - HV000001: Hibernate Validator 5.2.4.Final
+INFO    2017-11-29 10:44:42,391 [main] org.hibernate.jpa.internal.util.LogHelper  - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+INFO    2017-11-29 10:44:42,534 [main] org.hibernate.Version  - HHH000412: Hibernate Core {4.3.11.Final}
+INFO    2017-11-29 10:44:42,536 [main] org.hibernate.cfg.Environment  - HHH000206: hibernate.properties not found
+INFO    2017-11-29 10:44:42,539 [main] org.hibernate.cfg.Environment  - HHH000021: Bytecode provider name : javassist
+INFO    2017-11-29 10:44:42,863 [main] org.hibernate.annotations.common.Version  - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+INFO    2017-11-29 10:44:43,000 [main] org.hibernate.dialect.Dialect  - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+INFO    2017-11-29 10:44:43,102 [main] org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory  - HHH000397: Using ASTQueryTranslatorFactory
+INFO    2017-11-29 10:44:43,329 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000227: Running hbm2ddl schema export
+INFO    2017-11-29 10:44:43,332 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000230: Schema export complete
+INFO    2017-11-29 10:44:44,808 [main] org.hibernate.dialect.Dialect  - HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+INFO    2017-11-29 10:44:45,088 [main] org.hibernate.engine.transaction.internal.TransactionFactoryInitiator  - HHH000399: Using default transaction strategy (direct JDBC transactions)
+INFO    2017-11-29 10:44:45,088 [main] org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory  - HHH000397: Using ASTQueryTranslatorFactory
+INFO    2017-11-29 10:44:45,592 [main] org.hibernate.cache.spi.UpdateTimestampsCache  - HHH000250: Starting update timestamps cache at region: org.hibernate.cache.spi.UpdateTimestampsCache
+WARN    2017-11-29 10:44:45,596 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [org.hibernate.cache.spi.UpdateTimestampsCache]; using defaults.
+INFO    2017-11-29 10:44:45,618 [main] org.hibernate.cache.internal.StandardQueryCache  - HHH000248: Starting query cache at region: org.hibernate.cache.internal.StandardQueryCache
+WARN    2017-11-29 10:44:45,619 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [org.hibernate.cache.internal.StandardQueryCache]; using defaults.
+WARN    2017-11-29 10:44:45,754 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Address]; using defaults.
+WARN    2017-11-29 10:44:45,865 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Assessment]; using defaults.
+WARN    2017-11-29 10:44:45,878 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Grade]; using defaults.
+WARN    2017-11-29 10:44:45,885 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.TrainerTaskCompletion]; using defaults.
+WARN    2017-11-29 10:44:45,892 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Trainee]; using defaults.
+WARN    2017-11-29 10:44:45,904 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.PanelFeedback]; using defaults.
+WARN    2017-11-29 10:44:45,910 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Category]; using defaults.
+WARN    2017-11-29 10:44:45,914 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Trainer]; using defaults.
+WARN    2017-11-29 10:44:45,919 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Panel]; using defaults.
+WARN    2017-11-29 10:44:45,934 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Batch]; using defaults.
+WARN    2017-11-29 10:44:45,943 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Note]; using defaults.
+WARN    2017-11-29 10:44:45,950 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.TrainerTask]; using defaults.
+WARN    2017-11-29 10:44:45,955 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Assessment.grades]; using defaults.
+WARN    2017-11-29 10:44:45,976 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Category.assessments]; using defaults.
+WARN    2017-11-29 10:44:45,977 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Trainee.notes]; using defaults.
+WARN    2017-11-29 10:44:45,978 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Trainer.batches]; using defaults.
+WARN    2017-11-29 10:44:45,979 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Trainee.panelInterviews]; using defaults.
+WARN    2017-11-29 10:44:46,035 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Batch.trainees]; using defaults.
+WARN    2017-11-29 10:44:46,036 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Batch.notes]; using defaults.
+WARN    2017-11-29 10:44:46,037 [main] org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory  - HHH020003: Could not find a specific ehcache configuration for cache named [com.revature.caliber.beans.Trainee.grades]; using defaults.
+INFO    2017-11-29 10:44:46,300 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000227: Running hbm2ddl schema export
+ERROR   2017-11-29 10:44:46,302 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_ADDRESS cascade constraints
+ERROR   2017-11-29 10:44:46,303 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_ADDRESS" not found; SQL statement:
+drop table CALIBER_ADDRESS cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,303 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_ASSESSMENT cascade constraints
+ERROR   2017-11-29 10:44:46,303 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_ASSESSMENT" not found; SQL statement:
+drop table CALIBER_ASSESSMENT cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,303 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_BATCH cascade constraints
+ERROR   2017-11-29 10:44:46,304 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_BATCH" not found; SQL statement:
+drop table CALIBER_BATCH cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,304 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_CATEGORY cascade constraints
+ERROR   2017-11-29 10:44:46,304 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_CATEGORY" not found; SQL statement:
+drop table CALIBER_CATEGORY cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,304 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_GRADE cascade constraints
+ERROR   2017-11-29 10:44:46,304 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_GRADE" not found; SQL statement:
+drop table CALIBER_GRADE cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,305 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_NOTE cascade constraints
+ERROR   2017-11-29 10:44:46,305 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_NOTE" not found; SQL statement:
+drop table CALIBER_NOTE cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,305 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_PANEL cascade constraints
+ERROR   2017-11-29 10:44:46,305 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_PANEL" not found; SQL statement:
+drop table CALIBER_PANEL cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,305 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_PANEL_FEEDBACK cascade constraints
+ERROR   2017-11-29 10:44:46,306 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_PANEL_FEEDBACK" not found; SQL statement:
+drop table CALIBER_PANEL_FEEDBACK cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,306 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_TASK cascade constraints
+ERROR   2017-11-29 10:44:46,306 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_TASK" not found; SQL statement:
+drop table CALIBER_TASK cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,306 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_TASK_COMPLETION cascade constraints
+ERROR   2017-11-29 10:44:46,306 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_TASK_COMPLETION" not found; SQL statement:
+drop table CALIBER_TASK_COMPLETION cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,307 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_TRAINEE cascade constraints
+ERROR   2017-11-29 10:44:46,307 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_TRAINEE" not found; SQL statement:
+drop table CALIBER_TRAINEE cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,307 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_TRAINER cascade constraints
+ERROR   2017-11-29 10:44:46,307 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_TRAINER" not found; SQL statement:
+drop table CALIBER_TRAINER cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,308 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence ADDRESS_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,308 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "ADDRESS_ID_SEQUENCE" not found; SQL statement:
+drop sequence ADDRESS_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,308 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence ASSESSMENT_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,308 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "ASSESSMENT_ID_SEQUENCE" not found; SQL statement:
+drop sequence ASSESSMENT_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,308 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence BATCH_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,309 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "BATCH_ID_SEQUENCE" not found; SQL statement:
+drop sequence BATCH_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,309 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence CATEGORY_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,309 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "CATEGORY_ID_SEQUENCE" not found; SQL statement:
+drop sequence CATEGORY_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,309 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence GRADE_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,309 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "GRADE_ID_SEQUENCE" not found; SQL statement:
+drop sequence GRADE_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,310 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence NOTE_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,310 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "NOTE_ID_SEQUENCE" not found; SQL statement:
+drop sequence NOTE_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,310 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence PANEL_FEEDBACK_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,310 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "PANEL_FEEDBACK_ID_SEQUENCE" not found; SQL statement:
+drop sequence PANEL_FEEDBACK_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,310 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence PANEL_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,311 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "PANEL_ID_SEQUENCE" not found; SQL statement:
+drop sequence PANEL_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,311 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence TASK_COMPLETION_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,311 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "TASK_COMPLETION_ID_SEQUENCE" not found; SQL statement:
+drop sequence TASK_COMPLETION_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,311 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence TASK_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,311 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "TASK_ID_SEQUENCE" not found; SQL statement:
+drop sequence TASK_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,312 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence TRAINEE_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,312 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "TRAINEE_ID_SEQUENCE" not found; SQL statement:
+drop sequence TRAINEE_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,312 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence TRAINER_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,312 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "TRAINER_ID_SEQUENCE" not found; SQL statement:
+drop sequence TRAINER_ID_SEQUENCE [90036-191]
+INFO    2017-11-29 10:44:46,423 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000230: Schema export complete
+INFO    2017-11-29 10:44:47,297 [main] com.revature.caliber.services.EmailService  - startReminderJob()
+INFO    2017-11-29 10:44:47,304 [main] com.revature.caliber.services.EmailService  - Emails will start firing at: 2017-12-05T13:00-05:00[America/New_York]
+INFO    2017-11-29 10:44:49,575 [main] com.revature.caliber.data.TaskDAO  - Testing save method from TaskDAO
+INFO    2017-11-29 10:44:50,542 [Thread-2] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000227: Running hbm2ddl schema export
+INFO    2017-11-29 10:44:50,552 [Thread-2] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000230: Schema export complete

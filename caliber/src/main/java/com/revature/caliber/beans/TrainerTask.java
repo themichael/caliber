@@ -67,6 +67,13 @@ public class TrainerTask {
 		this.priority = priority;
 		this.active = active;
 	}
+	
+	public TrainerTask(String description, int priority) {
+		super();
+		this.description = description;
+		this.priority = priority;
+		this.active = 1;
+	}
 
 	public int getId() {
 		return id;

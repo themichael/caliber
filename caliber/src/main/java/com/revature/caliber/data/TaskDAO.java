@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.TrainerTask;
 import com.revature.caliber.beans.TrainerTaskCompletion;
 
@@ -37,5 +38,10 @@ public class TaskDAO {
     	return sessionFactory.getCurrentSession().createCriteria(TrainerTask.class)
                 .add(Restrictions.eq("active", 1)).addOrder(Order.asc("priority")).list();
     }
+    
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void save(TrainerTask trainerTask) {
+		sessionFactory.getCurrentSession().save(trainerTask);
+	}
     
 }

@@ -1,0 +1,72 @@
+ERROR   2017-11-29 10:44:46,302 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_ADDRESS cascade constraints
+ERROR   2017-11-29 10:44:46,303 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_ADDRESS" not found; SQL statement:
+drop table CALIBER_ADDRESS cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,303 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_ASSESSMENT cascade constraints
+ERROR   2017-11-29 10:44:46,303 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_ASSESSMENT" not found; SQL statement:
+drop table CALIBER_ASSESSMENT cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,303 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_BATCH cascade constraints
+ERROR   2017-11-29 10:44:46,304 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_BATCH" not found; SQL statement:
+drop table CALIBER_BATCH cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,304 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_CATEGORY cascade constraints
+ERROR   2017-11-29 10:44:46,304 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_CATEGORY" not found; SQL statement:
+drop table CALIBER_CATEGORY cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,304 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_GRADE cascade constraints
+ERROR   2017-11-29 10:44:46,304 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_GRADE" not found; SQL statement:
+drop table CALIBER_GRADE cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,305 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_NOTE cascade constraints
+ERROR   2017-11-29 10:44:46,305 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_NOTE" not found; SQL statement:
+drop table CALIBER_NOTE cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,305 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_PANEL cascade constraints
+ERROR   2017-11-29 10:44:46,305 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_PANEL" not found; SQL statement:
+drop table CALIBER_PANEL cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,305 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_PANEL_FEEDBACK cascade constraints
+ERROR   2017-11-29 10:44:46,306 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_PANEL_FEEDBACK" not found; SQL statement:
+drop table CALIBER_PANEL_FEEDBACK cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,306 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_TASK cascade constraints
+ERROR   2017-11-29 10:44:46,306 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_TASK" not found; SQL statement:
+drop table CALIBER_TASK cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,306 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_TASK_COMPLETION cascade constraints
+ERROR   2017-11-29 10:44:46,306 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_TASK_COMPLETION" not found; SQL statement:
+drop table CALIBER_TASK_COMPLETION cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,307 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_TRAINEE cascade constraints
+ERROR   2017-11-29 10:44:46,307 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_TRAINEE" not found; SQL statement:
+drop table CALIBER_TRAINEE cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,307 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop table CALIBER_TRAINER cascade constraints
+ERROR   2017-11-29 10:44:46,307 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Table "CALIBER_TRAINER" not found; SQL statement:
+drop table CALIBER_TRAINER cascade constraints [42102-191]
+ERROR   2017-11-29 10:44:46,308 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence ADDRESS_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,308 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "ADDRESS_ID_SEQUENCE" not found; SQL statement:
+drop sequence ADDRESS_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,308 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence ASSESSMENT_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,308 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "ASSESSMENT_ID_SEQUENCE" not found; SQL statement:
+drop sequence ASSESSMENT_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,308 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence BATCH_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,309 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "BATCH_ID_SEQUENCE" not found; SQL statement:
+drop sequence BATCH_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,309 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence CATEGORY_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,309 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "CATEGORY_ID_SEQUENCE" not found; SQL statement:
+drop sequence CATEGORY_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,309 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence GRADE_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,309 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "GRADE_ID_SEQUENCE" not found; SQL statement:
+drop sequence GRADE_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,310 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence NOTE_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,310 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "NOTE_ID_SEQUENCE" not found; SQL statement:
+drop sequence NOTE_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,310 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence PANEL_FEEDBACK_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,310 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "PANEL_FEEDBACK_ID_SEQUENCE" not found; SQL statement:
+drop sequence PANEL_FEEDBACK_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,310 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence PANEL_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,311 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "PANEL_ID_SEQUENCE" not found; SQL statement:
+drop sequence PANEL_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,311 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence TASK_COMPLETION_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,311 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "TASK_COMPLETION_ID_SEQUENCE" not found; SQL statement:
+drop sequence TASK_COMPLETION_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,311 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence TASK_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,311 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "TASK_ID_SEQUENCE" not found; SQL statement:
+drop sequence TASK_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,312 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence TRAINEE_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,312 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "TRAINEE_ID_SEQUENCE" not found; SQL statement:
+drop sequence TRAINEE_ID_SEQUENCE [90036-191]
+ERROR   2017-11-29 10:44:46,312 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - HHH000389: Unsuccessful: drop sequence TRAINER_ID_SEQUENCE
+ERROR   2017-11-29 10:44:46,312 [main] org.hibernate.tool.hbm2ddl.SchemaExport  - Sequence "TRAINER_ID_SEQUENCE" not found; SQL statement:
+drop sequence TRAINER_ID_SEQUENCE [90036-191]
