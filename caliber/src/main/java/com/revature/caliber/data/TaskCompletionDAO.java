@@ -26,6 +26,9 @@ public class TaskCompletionDAO {
         this.sessionFactory = sessionFactory;
     }
     
+    /*
+     * Retrieve all completed tasks
+     **/
     @SuppressWarnings("unchecked")
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public List<TrainerTaskCompletion> findAllCompletedTasks() {
@@ -37,7 +40,9 @@ public class TaskCompletionDAO {
         		.createAlias("taskCompleted", "tc", JoinType.LEFT_OUTER_JOIN)
         		.list();
     }
-    
+    /*
+     * Retrieve all completed tasks for certain trainer
+     **/
     @SuppressWarnings("unchecked")
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public List<TrainerTaskCompletion> findAllTasksByTrainerId(int id) {

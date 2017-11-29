@@ -506,7 +506,7 @@ public class TrainingController {
 	}
 	
 	/**
-	 * Returns all completed tasks
+	 * Returns all completed tasks by trainerId
 	 *
 	 * @return
 	 */
