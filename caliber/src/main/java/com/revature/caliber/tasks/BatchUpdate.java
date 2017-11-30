@@ -1,5 +1,6 @@
 package com.revature.caliber.tasks;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
@@ -15,18 +17,19 @@ import com.revature.caliber.data.SalesforceDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
+@Component
 public class BatchUpdate {
 	
 	private static final Logger log=Logger.getLogger(BatchUpdate.class);
 
 	@Autowired
-	SalesforceDAO salesforceDao;
+	private SalesforceDAO salesforceDao;
 	@Autowired
-	BatchDAO batchDao;
+	private BatchDAO batchDao;
 	@Autowired
-	TraineeDAO traineeDao;
+	private TraineeDAO traineeDao;
 	@Autowired
-	TrainerDAO trainerDao;
+	private TrainerDAO trainerDao;
 
 	/*
 	 * Test Method: Used cron to perform midnight execution 
@@ -51,6 +54,8 @@ public class BatchUpdate {
 	/*
 	 *	Compares a Batch from Caliber with it's SalesForce data (based on the Resource id)
 	 *	and updates the Caliber Batch if a change has occurred
+	 *
+	 *	Junit tests will fail unless you comment out all of the DAO update lines in the function
 	 */
 	public boolean compareBatches(List<Batch> caliberBatches,List<Batch> salesforceBatches) {
 		boolean batchUpdated = false;
@@ -68,13 +73,27 @@ public class BatchUpdate {
 					log.info("Comparing Caliber batch: "+cResourceId+" to Salesforce Batch: "+sResourceId);
 					Batch caliberBatch = caliberBatches.get(cIndex);
 					Batch salesforceBatch = salesforceBatches.get(sIndex);
+					log.info("BatchDao: "+batchDao);
 					if(!caliberBatch.getTrainer().getEmail().equals(salesforceBatch.getTrainer().getEmail())) {
+						log.info("Update Caliber Trainer");
 						caliberBatch.getTrainer().getBatches().remove(caliberBatch);
+						log.info("TrainerDao: "+trainerDao);
 						trainerDao.update(caliberBatch.getTrainer());
+						
+						Set<Batch> trainerBatches = salesforceBatch.getTrainer().getBatches();
+						if(trainerBatches != null) {
+							salesforceBatch.getTrainer().getBatches().add(salesforceBatch);
+							log.info("Add to Trainer Batches");
+						} else {
+							trainerBatches = new HashSet<>();
+							trainerBatches.add(caliberBatch);
+							salesforceBatch.getTrainer().setBatches(trainerBatches);
+							log.info("Create new set of batches");
+						}
+						
 						caliberBatch.setTrainer(salesforceBatch.getTrainer());
-						caliberBatch.getTrainer().getBatches().add(caliberBatch);
 						trainerDao.update(caliberBatch.getTrainer());
-						//batchDao.update(caliberBatch);
+						batchDao.update(caliberBatch);
 						batchUpdated = true;
 					}
 					if(caliberBatch.getCoTrainer() != null) {
@@ -91,6 +110,7 @@ public class BatchUpdate {
 					if(caliberTrainees.containsAll(salesforceTrainees) && caliberTrainees.size() ==  salesforceTrainees.size()) {
 						continue;
 					} else {
+						log.info("Update Caliber Trainees");
 						updateTrainees(caliberTrainees,salesforceTrainees);
 						batchUpdated = true;
 					}
@@ -103,6 +123,8 @@ public class BatchUpdate {
 	/* 
 	 * 	Compare the set of Trainees in Caliber with the Trainees retrieved from Salesforce
 	 * 	and update the Caliber information if a change occurred
+	 * 
+	 * 	Junit tests will fail unless you comment out all of the DAO update lines in the function
 	 */
 	public boolean updateTrainees(Set<Trainee> caliberTrainees,Set<Trainee> salesforceTrainees) {
 		log.debug("Update Trainees");
@@ -113,6 +135,7 @@ public class BatchUpdate {
 			Trainee cTrainee = cIt.next();
 			//int cResourceId = cTrainee.getTraineeId();
 			String cResourceId = cTrainee.getResourceId();
+			log.info("Trainee Dao: "+traineeDao);
 			if(cResourceId != null) {
 				Iterator<Trainee> sIt = salesforceTrainees.iterator();
 				while(sIt.hasNext()) {
@@ -137,7 +160,7 @@ public class BatchUpdate {
 							traineeUpdated = true;
 						}
 						if(traineeUpdated) {
-							//traineeDao.update(cTrainee);
+							traineeDao.update(cTrainee);
 						}
 						
 						log.debug(cTrainee);
