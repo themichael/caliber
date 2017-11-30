@@ -206,6 +206,7 @@ angular
 								})
 						);
 						$scope.addTask = false;
+
 					}
 					
 					// function closes add task form if the user clicks on x
