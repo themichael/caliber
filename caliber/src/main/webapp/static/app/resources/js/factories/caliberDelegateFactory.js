@@ -111,6 +111,10 @@ angular.module("delegate")
 				return allFactory.getAllActiveTasks();
 			};
 			
+			delegate.all.getAllCompletedTasks = function() {
+				return allFactory.getAllCompletedTasks();
+			};
+			
 			delegate.all.getAllTasksByTrainerId = function(id) {
 				return allFactory.getAllTasksByTrainerId(id);
 			};
@@ -245,6 +249,10 @@ angular.module("delegate")
 				return vpFactory.saveCategory(category);
 			};
 
+			delegate.vp.saveOrUpdateTask = function(task) {
+				return vpFactory.saveOrUpdateTask(task);
+			};
+			
 			delegate.vp.deactivateTrainer = function(trainerObj) {
 				return vpFactory.deactivateTrainer(trainerObj);
 			}

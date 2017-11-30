@@ -7,9 +7,13 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
@@ -64,6 +68,11 @@ public class TrainingService {
 	@Autowired
 	public void setTaskDAO(TaskDAO taskDAO) {
 		this.taskDAO = taskDAO;
+	}
+	
+	@Autowired
+	public void setTaskCompletionDao(TaskCompletionDAO taskCompletionDAO) {
+		this.taskCompletionDAO = taskCompletionDAO;
 	}
 
 	/*
@@ -425,12 +434,28 @@ public class TrainingService {
 	}
 	
 	/**
-	 * FIND TASKS BY TRAINER_ID
+	 * FIND ALL COMPLETED TASKS
+	 */
+	public List<TrainerTaskCompletion> findAllCompletedTasks() {
+		log.debug("Find all completed tasks");
+		return taskCompletionDAO.findAllCompletedTasks();
+	}
+	
+	/**
+	 * FIND ALL COMPLETED TASKS BY TRAINER ID
 	 */
 	public List<TrainerTaskCompletion> findAllTasksByTrainerId(int id) {
-		log.debug("Find all tasks by trainer_id");
+		log.debug("Find all completed tasks for trainer with id " +  id);
 		return taskCompletionDAO.findAllTasksByTrainerId(id);
 	}
 
+	/**
+	 * SAVE A NEW TASK
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void saveOrUpdateTask(TrainerTask task) {
+		log.debug("Save task: " + task);
+		taskDAO.saveOrUpdateTask(task);
+	}
 
 }

@@ -30,13 +30,6 @@ angular
 								});
 					};
 					
-					/** Load all tasks * */
-					
-					caliberDelegate.all.getAllActiveTasks().then(
-						function(tasks){
-							$log.debug(tasks);
-							$scope.allActiveTasks = tasks;
-					});
 					
 
 					var submitTier = function(tier) {
@@ -136,6 +129,22 @@ angular
 						$scope.trainerForm.tier = $scope.allTrainers[index].tier
 								.substr(5);
 						$scope.Save = "Update";
+						
+						//load tasks corresponding to trainer
+						caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(
+								function(t_tasks){
+										caliberDelegate.all.getAllActiveTasks().then(
+											function(tasks){
+												$log.debug(tasks);
+												for(var i = 0; i < t_tasks.length; i++){
+													num = tasks.findIndex(j => j.id === t_tasks[i].taskCompleted.id);
+													if(num > -1){
+														tasks.splice(num, 1);
+													}
+												}
+												$scope.allActiveTasks = tasks;
+										});
+								});
 					};
 
 					/** Update Trainer Input * */
@@ -164,5 +173,27 @@ angular
 						angular.element("#deleteTrainerModal").modal("hide");
 					};
 					
+					$scope.addTask = false;
+					$scope.openAddTask = function(){
+						$scope.addTask = true;
+					}
+					
+					//function creates a new active task, and persists it to the db
+					$scope.saveTask = function(task, priority){
+						console.log("save clicked");
+
+						var newTask = {"active":1, "description":task, "priority":priority};
+						caliberDelegate.vp.saveOrUpdateTask(newTask)
+						.then(
+								function(response) {
+									$log.debug("Task Created: "
+											+ response);
+								})
+							})
+					}
+					
+					$scope.closeAddTask = function(){
+						$scope.addTask = false;
+					}
 
 				});
