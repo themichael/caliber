@@ -29,15 +29,16 @@ import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.services.TrainingService;
 import com.revature.caliber.data.GradeDAO;
 
 @Component
 public class FlagAlertMailer implements Runnable {
 
-	private static final Logger logger = Logger.getLogger(Mailer.class);
+	private static final Logger logger = Logger.getLogger(FlagAlertMailer.class);
 
 	@Autowired
-	private TrainerDAO TrainerDAO;
+	private TrainingService trainingService;
 
 	@Autowired
 	private EmailAuthenticator authenticator;
@@ -47,21 +48,22 @@ public class FlagAlertMailer implements Runnable {
 
 
 	/**
-	 * The EMAIL_TEMPLATE_NAME_TOKEN is the token that is in the HTML file that will be replaced
-	 * with the actual name of the trainer for the email to be trainer specific
+	 * The EMAIL TOKENs are tokens that are in the HTML file that will be replaced
+ 	 * with the name of the vp the email is addressed to, as well as the names and flag comments
+	 * associated with the flagged trainees
 	 */
 	private static final String EMAIL_TEMPLATE_VP_NAME_TOKEN = "$TRAINER_NAME";
-	private static final String EMAIL_TEMPLATE_GREEN_FLAGS = "$GREEN_FLAG_TRAINEES";
-	private static final String EMAIL_TEMPLATE_RED_FLAGS = "$RED_FLAG_TRAINEES";
+	private static final String EMAIL_TEMPLATE_GREEN_FLAGS_TOKEN = "$GREEN_FLAG_TRAINEES";
+	private static final String EMAIL_TEMPLATE_RED_FLAGS_TOKEN = "$RED_FLAG_TRAINEES";
 
 	/**
 	 * The path to the email template
 	 */
-	private static final String EMAIL_TEMPLATE_PATH = "redFlagEmailTemplate.html";
+	private static final String EMAIL_TEMPLATE_PATH = "flagEmailTemplate.html";
 
 	/**
 	 * Called by the scheduledThreadExecutor when the time is right based on the constants in EmailService
-	 * Simply calls send(), which calculates which trainers need to be emailed and emails them
+	 * Simply calls send(), which finds vps to be emailed and emails them
 	 * @precondition None.
 	 * @param None.
 	 * @postcondition Email thread is running on server
@@ -73,8 +75,7 @@ public class FlagAlertMailer implements Runnable {
 
 	/**
 	 * Sets up the properties and session in order to send emails then simply calls
-	 * the sendEmails() method which does email sending given the trainers who need
-	 * to submit grades
+	 * the sendEmails() method to send the appropriate emails
 	 */
 	private void send() {
 		Properties properties = setProperties();
@@ -110,14 +111,17 @@ public class FlagAlertMailer implements Runnable {
 	}
 
 	/**
-	 * Iterates over trainersToSubmitGrades and emails each person individually that
-	 * they need to submit their grades
+	 * Iterates over vps and emails each vp individually of the trainees with flags
 	 * 
 	 * @param session
 	 *            The email session used to send emails
-	 * @param trainersToSubmitGrades
-	 *            The trainers who need to be emailed reminders
-	 */
+	 * @param vps
+ 	 *            The trainers who have a role of "ROLE_VP"
+ 	 * @param redFlagHTML
+ 	 * 			  String of all trainees with a red flag, formatted in an HTML table	
+ 	 * @param greenFlagHTML
+ 	 * 			  String of all trainees with a green flag, formatted in an HTML table
+  	 */
 	private void sendEmails(Session session, Set<Trainer> vps, String redFlagHTML, String greenFlagHTML) {
 		logger.info("Trainers being sent emails: " + vps);
 		String emailTemplate = getEmailString();
@@ -134,8 +138,8 @@ public class FlagAlertMailer implements Runnable {
 
 				// Parametrize the email to contain the name of the trainer being emailed
 				 String emailVPStr = emailTemplate.replace(EMAIL_TEMPLATE_VP_NAME_TOKEN, trainer.getName());
-				 String gFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_GREEN_FLAGS, greenFlagHTML);
-				 String rFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_RED_FLAGS, redFlagHTML);
+				 String gFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_GREEN_FLAGS_TOKEN, greenFlagHTML);
+				 String rFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_RED_FLAGS_TOKEN, redFlagHTML);
 				 message.setContent(emailVPStr, "text/html");
 				 message.setContent(gFlagHTML, "text/html");
 				 message.setContent(rFlagHTML, "text/html");
@@ -170,16 +174,14 @@ public class FlagAlertMailer implements Runnable {
 	}
 
 	/**
-	 * Returns a Set of Trainers who have not submitted all grades for their batch's
-	 * assessments. Only considers current batches. Also grabs trainers who have not
-	 * created a single assessment.
+	 * Returns a Set of Trainers who have the role of "ROLE_VP"
 	 * 
 	 * @precondition None.
 	 * @param None.
-	 * @return A Set of Trainers who need to submit grades
+	 * @return Set of VP Trainers
 	 */
 	public Set<Trainer> getVPs() {
-		Set<Trainer> trainers = (Set<Trainer>) TrainerDAO.findAll();
+		List<Trainer> trainers = trainingService.findAllTrainers();
 		Set<Trainer> vps = new HashSet<Trainer>();
 		for (Trainer trainer : trainers) {
 			if (trainer.getTier() == TrainerRole.ROLE_VP) {
@@ -189,8 +191,16 @@ public class FlagAlertMailer implements Runnable {
 		return vps;
 	}
 
+	/**
+	 * Returns a String of trainees with red flags
+	 * formatted in an HTML table
+	 * 
+	 * @precondition None.
+	 * @param None.
+	 * @return String of red flagged trainees
+	 */
 	public String redFlagHTML() {
-		Set<Trainee> trainees = (Set<Trainee>) TraineeDAO.findAll();
+		List<Trainee> trainees = trainingService.findAllTrainees();
 		String redFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.RED) {
@@ -200,8 +210,16 @@ public class FlagAlertMailer implements Runnable {
 		return redFlagHTML;
 	}
 
+	/**
+	 * Returns a String of trainees with green flags
+	 * formatted in an HTML table
+	 * 
+	 * @precondition None.
+	 * @param None.
+	 * @return String of green flagged trainees
+	 */
 	public String greenFlagHTML() {
-		Set<Trainee> trainees = (Set<Trainee>) TraineeDAO.findAll();
+		List<Trainee> trainees = trainingService.findAllTrainees();
 		String greenFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.GREEN) {
