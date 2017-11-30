@@ -34,7 +34,7 @@
 								<tbody>
 									<tr ng-repeat="task in allActiveTasks track by $index">
 										<td>{{task.description}}</td>
-										<td><input type="checkbox"></td>
+										<td><input type="checkbox" ng-click="addToCheck(task.id)"></td>
 										<td><a role="button" class="pull-right"
 											ng-click="populateTrainer($index)" data-toggle="modal"
 											data-target="#editTrainerModal"><span
@@ -68,8 +68,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" ng-value="Save" class="btn btn-primary">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button ng-click="checkOff(trainerForm)" class="btn btn-primary" data-dismiss="modal">Save</button>
+					<button type="button" class="btn btn-default" ng-click="reset()" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>

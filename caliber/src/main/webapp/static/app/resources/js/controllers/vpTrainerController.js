@@ -173,7 +173,9 @@ angular
 						angular.element("#deleteTrainerModal").modal("hide");
 					};
 					
+					//addTask boolean determining visibility of add task form default false
 					$scope.addTask = false;
+					//clicking the add button will show form
 					$scope.openAddTask = function(){
 						$scope.addTask = true;
 					}
@@ -213,5 +215,32 @@ angular
 					$scope.closeAddTask = function(){
 						$scope.addTask = false;
 					}
+					
+					var toCheck = [];
+					$scope.addToCheck = function(taskId){
+						if(!toCheck.includes(taskId)){
+							toCheck[toCheck.length]=taskId;	
+						} else {
+							var indexToRemove = toCheck.indexOf(taskId)
+							toCheck.splice(indexToRemove,1);
+						}
+						console.log(toCheck);
+					}
+					
+					$scope.checkOff = function(trainer){
+						for(var i=0;i<toCheck.length;i++){
+							for(var j=0;j<$scope.allActiveTasks.length;j++){
+								if($scope.allActiveTasks[j].id === toCheck[i]){
+									var taskId = $scope.allActiveTasks[j];
+									var taskCompletion = {"trainer" : trainer, "checkedBy" : checkedBy, "completionDate" : null, "taskCompleted" : taskCompleted}
+								}
+							}
+						}
+//						toCheck = [];
+					}
+					
+//					$scope.reset = function(){
+//						toCheck = [];
+//					}
 
 				});

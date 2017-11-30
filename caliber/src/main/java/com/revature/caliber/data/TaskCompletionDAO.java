@@ -1,9 +1,10 @@
 package com.revature.caliber.data;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
@@ -55,4 +56,14 @@ public class TaskCompletionDAO {
         		.add(Restrictions.eq("t.trainerId", id))
         		.list();
     }
+    
+    /*
+     * Save a new Task Completion
+     **/
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void saveTaskCompletion(TrainerTaskCompletion taskCompletion) {
+		Calendar currenttime = Calendar.getInstance();
+		taskCompletion.setCompletionDate(new Date((currenttime.getTime()).getTime()));
+		sessionFactory.getCurrentSession().save(taskCompletion);
+	}
 }
