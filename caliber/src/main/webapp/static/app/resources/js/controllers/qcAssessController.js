@@ -139,7 +139,7 @@ angular
 												}
 											});
 						//Get QC Trainee notes for previous week and make sure it's not the first week 
-						if($scope.currentWeek-1 != 1){
+						if($scope.currentWeek-1 !== 1){
 							caliberDelegate.qc
 								.traineeNote($scope.currentBatch.batchId,
 										$scope.currentWeek-1)
@@ -165,11 +165,11 @@ angular
 					$scope.init = function(trainee, index){
 						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
 						var flagColor = trainee.flagStatus;
-						if(flagColor == 'RED'){
+						if(flagColor === 'RED'){
 							flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
-						}else if(flagColor == 'GREEN'){
+						}else if(flagColor === 'GREEN'){
 							flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
-						}else if(flagColor == 'TRAINER'){
+						}else if(flagColor === 'TRAINER'){
 							flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
 						}else{
 							flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
@@ -261,21 +261,21 @@ angular
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
 						var element = document.getElementsByClassName("glyphicon-flag")[index];
-						color = trainee.flagStatus;
-						if(weekBefore[index] != undefined){
+						var color = trainee.flagStatus;
+						if(weekBefore[index] !== undefined){
 							//red flag if recently there are 2 red weeks consecutively
-							if(status == 'Poor' && weekBefore[index].qcStatus == 'Poor'){
+							if(status === 'Poor' && weekBefore[index].qcStatus == 'Poor'){
 								element.setAttribute("class","glyphicon glyphicon-flag color-red");
 								color = 'RED';
 								trainee.flagNotes = "Trainee received two consecutive weeks of negative QC feedback";
 							}//if no change, keep it to previous flag
 						}
 						else{
-							if(color == 'RED'){
+							if(color === 'RED'){
 								element.setAttribute("class","glyphicon glyphicon-flag color-red");
-							}else if(color == 'GREEN'){
+							}else if(color === 'GREEN'){
 								element.setAttribute("class","glyphicon glyphicon-flag color-green");
-							}else if(color == 'TRAINER'){
+							}else if(color === 'TRAINER'){
 								element.setAttribute("class","glyphicon glyphicon-flag color-orange");
 							}else{
 								element.setAttribute("class","glyphicon glyphicon-flag color-white");
