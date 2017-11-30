@@ -453,9 +453,9 @@ public class TrainingService {
 	 * SAVE A NEW TASK
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public void saveTask(TrainerTask task) {
+	public void saveOrUpdateTask(TrainerTask task) {
 		log.debug("Save task: " + task);
-		taskDAO.save(task);
+		taskDAO.saveOrUpdateTask(task);
 	}
 
 }

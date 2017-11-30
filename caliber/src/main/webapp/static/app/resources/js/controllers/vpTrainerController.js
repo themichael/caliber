@@ -181,13 +181,22 @@ angular
 					//function creates a new active task, and persists it to the db
 					$scope.saveTask = function(task, priority){
 						console.log("save clicked");
+
 						var newTask = {"active":1, "description":task, "priority":priority};
-						caliberDelegate.vp.saveTask(newTask)
+						caliberDelegate.vp.saveOrUpdateTask(newTask)
 						.then(
 								function(response) {
 									$log.debug("Task Created: "
 											+ response);
 								})
+						
+//						var newTask = {"active":1, "description":task, "priority":priority};
+//						caliberDelegate.vp.saveTask(newTask)
+//						.then(
+//								function(response) {
+//									$log.debug("Task Created: "
+//											+ response);
+//								})
 					}
 					
 					$scope.closeAddTask = function(){

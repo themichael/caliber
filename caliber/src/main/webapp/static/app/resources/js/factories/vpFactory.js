@@ -124,7 +124,7 @@ angular
 					};
 
 					// Save new task
-					vp.saveTask = function(task) {
+					vp.saveOrUpdateTask = function(task) {
 						return $http({
 							url : "/vp/task",
 							method : "POST",
