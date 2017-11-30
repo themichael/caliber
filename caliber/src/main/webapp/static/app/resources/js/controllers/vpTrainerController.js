@@ -179,20 +179,60 @@ angular
 					/**
 					 *	Edit task and persist to database
 					 */
-				
+					
+					var oldDescription = null;
+					var oldPriority = null;
 					//show edit task option and hide old task description
 					$scope.editTask = function(index) {
 						$scope.allActiveTasks[index].isShown = false;
 						$scope.allActiveTasks[index].isHidden = false;
+						
+						oldDescription = $scope.allActiveTasks[index].description;
+						oldPriority = $scope.allActiveTasks[index].priority;
 					};
 					
+					//update task with new edits
 					$scope.submitEdit = function(index, desc, priority){
+						if(desc == null){
+							desc = oldDescription;
+						}
+						if(priority == null){
+							priority = oldPriority;
+						}
 						var newEditedTask = {
 								"active": 1, 
 								"description": desc, 
 								"priority": priority,
 								"id": $scope.allActiveTasks[index].id
 								};
+						
+						caliberDelegate.vp.saveOrUpdateTask(newEditedTask)
+						.then(
+								function(response) {
+									$log.debug("Task Updated: "
+											+ response);
+								})
+						//re-populate with update tasks
+						.then( caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(
+								function(t_tasks){
+										caliberDelegate.all.getAllActiveTasks().then(
+											function(tasks){
+												$log.debug(tasks);
+												for(var i = 0; i < t_tasks.length; i++){
+													num = tasks.findIndex(j => j.id === t_tasks[i].taskCompleted.id);
+													if(num > -1){
+														tasks.splice(num, 1);
+													}
+												}
+												$scope.allActiveTasks = tasks;
+												for(var j = 0; j < tasks.length; j++){
+													$scope.allActiveTasks[j].isShown = true;
+													$scope.allActiveTasks[j].isHidden = true;
+												}
+										});
+								})
+						);
+								
 					}
 					
 					//close edit task option
@@ -231,6 +271,10 @@ angular
 													}
 												}
 												$scope.allActiveTasks = tasks;
+												for(var j = 0; j < tasks.length; j++){
+													$scope.allActiveTasks[j].isShown = true;
+													$scope.allActiveTasks[j].isHidden = true;
+												}
 										});
 								})
 						);
