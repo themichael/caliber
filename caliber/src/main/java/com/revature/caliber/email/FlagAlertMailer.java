@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,18 +18,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.beans.TrainingStatus;
-import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.services.TrainingService;
-import com.revature.caliber.data.GradeDAO;
 
 @Component
 public class FlagAlertMailer implements Runnable {
@@ -43,13 +35,10 @@ public class FlagAlertMailer implements Runnable {
 	@Autowired
 	private EmailAuthenticator authenticator;
 
-	@Autowired
-	private TraineeDAO TraineeDAO;
-
 
 	/**
 	 * The EMAIL TOKENs are tokens that are in the HTML file that will be replaced
- 	 * with the name of the vp the email is addressed to, as well as the names and flag comments
+	 * with the name of the vp the email is addressed to, as well as the names and flag comments
 	 * associated with the flagged trainees
 	 */
 	private static final String EMAIL_TEMPLATE_VP_NAME_TOKEN = "$TRAINER_NAME";
@@ -116,15 +105,15 @@ public class FlagAlertMailer implements Runnable {
 	 * @param session
 	 *            The email session used to send emails
 	 * @param vps
- 	 *            The trainers who have a role of "ROLE_VP"
- 	 * @param redFlagHTML
- 	 * 			  String of all trainees with a red flag, formatted in an HTML table	
- 	 * @param greenFlagHTML
- 	 * 			  String of all trainees with a green flag, formatted in an HTML table
-  	 */
+	 *            The trainers who have a role of "ROLE_VP"
+	 * @param redFlagHTML
+	 * 			  String of all trainees with a red flag, formatted in an HTML table	
+	 * @param greenFlagHTML
+	 * 			  String of all trainees with a green flag, formatted in an HTML table
+	 */
 	private void sendEmails(Session session, Set<Trainer> vps, String redFlagHTML, String greenFlagHTML) {
 		logger.info("Trainers being sent emails: " + vps);
-		String emailTemplate = getEmailString();
+		String emailTemplate = getFlagEmailString();
 		if (emailTemplate == null) {
 			logger.warn("Unable to load email template, exiting sendEmails()");
 			return;
@@ -137,37 +126,37 @@ public class FlagAlertMailer implements Runnable {
 				message.setSubject("Submit Grades Reminder");
 
 				// Parametrize the email to contain the name of the trainer being emailed
+				 String text = "text/html";
 				 String emailVPStr = emailTemplate.replace(EMAIL_TEMPLATE_VP_NAME_TOKEN, trainer.getName());
 				 String gFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_GREEN_FLAGS_TOKEN, greenFlagHTML);
 				 String rFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_RED_FLAGS_TOKEN, redFlagHTML);
-				 message.setContent(emailVPStr, "text/html");
-				 message.setContent(gFlagHTML, "text/html");
-				 message.setContent(rFlagHTML, "text/html");
+				 message.setContent(emailVPStr, text);
+				 message.setContent(gFlagHTML, text);
+				 message.setContent(rFlagHTML, text);
 
 				Transport.send(message);
-				logger.info("Email sent");
+				logger.info("Flag email sent");
 			} catch (MessagingException e) {
 				logger.warn(e);
-				logger.warn("Email exception");
+				logger.warn("Flag email exception");
 			}
 		}
 	}
 
 	/**
-	 * Reads the email template located at EMAIL_TEMPLATE_PATH and returns a String
-	 * containing the contents of it
+	 * gets EMAIL_TEMPLATE_PATH and returns a String with its contents
 	 * 
-	 * @return A String containing the contents of the email template html file
+	 * @return String of email template html file
 	 */
-	private String getEmailString() {
+	private String getFlagEmailString() {
 		try {
-			String emailStr = null;
+			String emailStr;
 			ClassLoader classLoader = getClass().getClassLoader();
 			emailStr = IOUtils.toString(classLoader.getResourceAsStream(EMAIL_TEMPLATE_PATH));
-			logger.info("loaded email template");
+			logger.info("loaded flag email template");
 			return emailStr;
 		} catch (IOException e) {
-			logger.warn("Unable to read email template");
+			logger.warn("Unable to read flag email template");
 			logger.warn(e);
 			return null;
 		}
@@ -182,7 +171,7 @@ public class FlagAlertMailer implements Runnable {
 	 */
 	public Set<Trainer> getVPs() {
 		List<Trainer> trainers = trainingService.findAllTrainers();
-		Set<Trainer> vps = new HashSet<Trainer>();
+		Set<Trainer> vps = new HashSet<>();
 		for (Trainer trainer : trainers) {
 			if (trainer.getTier() == TrainerRole.ROLE_VP) {
 				vps.add(trainer);

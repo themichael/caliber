@@ -45,12 +45,12 @@ public class FlagEmailService {
 		/**
 		 * The hour of the day during DAY_OF_WEEK_TO_FIRE at which to fire
 		 */
-		private static final int HOUR_TO_FIRE = 9; // hours go 0-23
+		private static final int HOUR_TO_FIRE = 11; // hours go 0-23
 		
 		/**
 		 * The minute of the HOUR_TO_FIRE to fire
 		 */
-		private static final int MINUTE_TO_FIRE = 0; // minutes go 0-59
+		private static final int MINUTE_TO_FIRE = 15; // minutes go 0-59
 		
 		/**
 		 * Number of days between emails, likely to stay 1 week/7 days
@@ -67,48 +67,38 @@ public class FlagEmailService {
 		 * Used to set the delay between emails for scheduleAtFixedRate()
 		 */
 		private static final long TIME_UNITS_BETWEEN_EMAILS = TimeUnit.DAYS.toSeconds(DAYS_BETWEEN_EMAILS);
-		
 
+		private static boolean flagServiceStarted = false;
+		
 		/**
 		 * Starts the ScheduledThreadExecutor upon application startup/bean initialization
 		 */
 		//@Override
-		public void afterPropertiesSet() throws Exception {
-			startReminderJob();
+		public void afterPropertiesSet(){
+			startFlagReminderJob();
 		}
 
-		/**
-		 * Begins the scheduler task of firing emails to trainers who have not submitted their grades
-		 * The task is scheduled to first fire at HOUR_TO_FIRE:MINUTE_TO_FIRE with respect to TIME_ZONE
-		 * The task is then repeated every TIME_UNITS_BETWEEN_EMAILS TIME_UNITS
-		 * ZonedDateTime takes care of daylight savings so there is no issue with that
-		 * There is a strange bug that causes this method to be called twice upon application startup
-		 * The 'started' boolean is a hacky way of stopping this issue
-		 */
-		private static boolean started = false;
-		private synchronized void startReminderJob() {
+		private synchronized void startFlagReminderJob() {
 			/* 
-			 * Simply exit if we have already started the scheduled email job
-			 * The method is synchronized for this reason, to prevent an edge case of it firing twice anyway
-			 * The issue stems from run() in Mailer being called twice, not sure why 
+			 * Exits if we have already started the scheduled email job
 			 */
-			if (started)
+			if (flagServiceStarted)
 				return;
-			started = true;
+			flagServiceStarted = true;
 			
-			logger.info("startReminderJob()");
+			logger.info("startFlagReminderJob() for FlagEmailService");
 			
 			// First we get the time that the emails will start to fire
-			LocalTime timeToFireDate = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
-			LocalDate timeToFireTime = LocalDate.now().with(TemporalAdjusters.nextOrSame(DAY_OF_WEEK_TO_FIRE));
-			ZonedDateTime timeToFire = ZonedDateTime.of(timeToFireTime, timeToFireDate, TIME_ZONE);
+			LocalTime flagTimeToFireDate = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
+			LocalDate flagTimeToFireTime = LocalDate.now().with(TemporalAdjusters.nextOrSame(DAY_OF_WEEK_TO_FIRE));
+			ZonedDateTime flagTimeToFire = ZonedDateTime.of(flagTimeToFireTime, flagTimeToFireDate, TIME_ZONE);
 			
 			// Then the current time in order to get an initial delay for scheduleAtFixedRate()
 			ZonedDateTime now = ZonedDateTime.of(LocalDate.now(), LocalTime.now(), TIME_ZONE);
 			
-			long delayInUnits = timeToFire.toEpochSecond() - now.toEpochSecond();
+			long delayInUnits = flagTimeToFire.toEpochSecond() - now.toEpochSecond();
 		
-			logger.info("Emails will start firing at: " + timeToFire);
+			logger.info("Flag emails will start firing at: " + flagTimeToFire);
 			
 			/*
 			 * Mailer's run() will be called after delayInUnits TIME_UNITS with TIME_UNITS_BETWEEN_EMAILS TIME_UNITS
