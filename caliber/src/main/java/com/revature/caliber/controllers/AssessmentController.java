@@ -2,7 +2,7 @@ package com.revature.caliber.controllers;
 
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.services.AssessmentService;
-import org.apache.log4j.Logger;
+import org.apache.log4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
