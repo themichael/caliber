@@ -76,24 +76,7 @@
 						<tbody>
 							<!-- Displays a list of all trainees still active in the batch -->
 							<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-<<<<<<< Updated upstream
 								<td>{{ trainee.name }}</td>
-=======
-								<td ng-click="toggleColor(trainee, $index)">{{ trainee.name }}</td>
-								<td><span ng-mouseover="showNotes($index)" ng-mouseleave="hideNotes($index)" ng-init="init(trainee, $index)" 
-								class="glyphicon glyphicon-flag"></span>
-								<form class="commentForm" ng-submit="updateFlag(trainee)"
-										style="display: none;">
-										<input type="text" placeholder="comment" name="statusComment"
-											ng-model="trainee.flagNotes"> <input type="submit"
-											value="Save"> <span ng-click="closeComment()"
-											class="glyphicon glyphicon-remove-sign"></span>
-									</form>
-									<div style="display:none" class="notes">
-										<span>{{trainee.flagNotes}}</span>
-									</div>
-									</td>
->>>>>>> Stashed changes
 								<!-- Icons: question mark in circle by default. 
 								  		Otherwise shows the status type (icons) -->
 								<td><button ng-hide="faces[$index].qcStatus"

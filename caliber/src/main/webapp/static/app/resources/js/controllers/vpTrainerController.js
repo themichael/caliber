@@ -30,7 +30,6 @@ angular
 								});
 					};
 					
-					
 
 					var submitTier = function(tier) {
 						var pre = "ROLE_"
@@ -143,8 +142,9 @@ angular
 													}
 												}
 												$scope.allActiveTasks = tasks;
-												for(var j = 0; 0 < $scope.allActiveTasks.length; j++){
-													$scope.allActiveTasks[j].isHidden = false;
+												for(var j = 0; j < tasks.length; j++){
+													$scope.allActiveTasks[j].isShown = true;
+													$scope.allActiveTasks[j].isHidden = true;
 												}
 										});
 								});
@@ -176,16 +176,32 @@ angular
 						angular.element("#deleteTrainerModal").modal("hide");
 					};
 					
-<<<<<<< HEAD
 					/**
 					 *	Edit task and persist to database
 					 */
+				
+					//show edit task option and hide old task description
 					$scope.editTask = function(index) {
-						console.log($scope.allActiveTasks[index].isHidden);
+						$scope.allActiveTasks[index].isShown = false;
+						$scope.allActiveTasks[index].isHidden = false;
 					};
 					
-				
-=======
+					$scope.submitEdit = function(index, desc, priority){
+						var newEditedTask = {
+								"active": 1, 
+								"description": desc, 
+								"priority": priority,
+								"id": $scope.allActiveTasks[index].id
+								};
+					}
+					
+					//close edit task option
+					$scope.closeEditTask = function(index){
+						$scope.allActiveTasks[index].isShown = true;
+						$scope.allActiveTasks[index].isHidden = true;
+					};
+					
+					
 					$scope.addTask = false;
 					$scope.openAddTask = function(){
 						$scope.addTask = true;
@@ -193,7 +209,6 @@ angular
 					
 					//function creates a new active task, and persists it to the db
 					$scope.saveTask = function(task, priority){
-						console.log("save clicked");
 						var newTask = {"active":1, "description":task, "priority":priority};
 						caliberDelegate.vp.saveTask(newTask)
 						.then(
@@ -207,5 +222,4 @@ angular
 						$scope.addTask = false;
 					}
 
->>>>>>> 2adf067fc3859060f2cd16d80c5da85c926c7982
 				});
