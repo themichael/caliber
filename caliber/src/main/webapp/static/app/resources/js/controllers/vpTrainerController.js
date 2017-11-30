@@ -176,6 +176,7 @@ angular
 						angular.element("#deleteTrainerModal").modal("hide");
 					};
 					
+<<<<<<< HEAD
 					/**
 					 *	Edit task and persist to database
 					 */
@@ -184,4 +185,27 @@ angular
 					};
 					
 				
+=======
+					$scope.addTask = false;
+					$scope.openAddTask = function(){
+						$scope.addTask = true;
+					}
+					
+					//function creates a new active task, and persists it to the db
+					$scope.saveTask = function(task, priority){
+						console.log("save clicked");
+						var newTask = {"active":1, "description":task, "priority":priority};
+						caliberDelegate.vp.saveTask(newTask)
+						.then(
+								function(response) {
+									$log.debug("Task Created: "
+											+ response);
+								})
+					}
+					
+					$scope.closeAddTask = function(){
+						$scope.addTask = false;
+					}
+
+>>>>>>> 2adf067fc3859060f2cd16d80c5da85c926c7982
 				});

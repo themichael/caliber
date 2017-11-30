@@ -123,7 +123,25 @@ angular
 
 					};
 
+					// Save new task
+					vp.saveTask = function(task) {
+						return $http({
+							url : "/vp/task",
+							method : "POST",
+							data : task
+						}).then(
+								function(response) {
+									$log.debug(task + " Has been Created");
+									$log.debug(response);
+								},
+								function(response) {
+									$log.error(
+											"There was an error in vpFactory -> saveTask "
+													+ response, status);
+								});
 
+					};
+					
 
 					// deactivate trainer needed to force content type to be
 					// JSON else 415

@@ -249,6 +249,10 @@ angular.module("delegate")
 				return vpFactory.saveCategory(category);
 			};
 
+			delegate.vp.saveTask = function(task) {
+				return vpFactory.saveTask(task);
+			};
+			
 			delegate.vp.deactivateTrainer = function(trainerObj) {
 				return vpFactory.deactivateTrainer(trainerObj);
 			}

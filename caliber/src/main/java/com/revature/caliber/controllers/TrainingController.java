@@ -518,4 +518,14 @@ public class TrainingController {
 		List<TrainerTaskCompletion> tasks = trainingService.findAllTasksByTrainerId(id);
 		return new ResponseEntity<>(tasks, HttpStatus.OK);
 	}
+	
+	//Calls a method that creates a new task
+	@RequestMapping(value = "/vp/task", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<TrainerTask> saveCategory(@Valid @RequestBody TrainerTask task) {
+		trainingService.saveTask(task);
+		return new ResponseEntity<>(task, HttpStatus.CREATED);
+	}
+	
 }
