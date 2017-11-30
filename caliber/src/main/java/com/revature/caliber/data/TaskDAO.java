@@ -3,7 +3,6 @@ package com.revature.caliber.data;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -13,9 +12,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.TrainerTask;
-import com.revature.caliber.beans.TrainerTaskCompletion;
 
 @Repository
 public class TaskDAO {
@@ -40,8 +37,8 @@ public class TaskDAO {
     }
     
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public void save(TrainerTask trainerTask) {
-		sessionFactory.getCurrentSession().save(trainerTask);
+	public void saveOrUpdateTask(TrainerTask trainerTask) {
+		sessionFactory.getCurrentSession().saveOrUpdate(trainerTask);
 	}
     
 }

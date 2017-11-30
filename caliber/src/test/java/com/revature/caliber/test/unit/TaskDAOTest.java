@@ -23,7 +23,7 @@ public class TaskDAOTest extends CaliberTest{
 		log.info("Testing save method from TaskDAO");
 		TrainerTask newTask = new TrainerTask("Gets Revature logo inner lip tattoo",2);
 		Integer before = jdbcTemplate.queryForObject(TASK_COUNT, Integer.class);
-		dao.save(newTask);
+		dao.saveOrUpdateTask(newTask);
 		Integer after = jdbcTemplate.queryForObject(TASK_COUNT, Integer.class);
 		assertEquals(++before, after);
 	}

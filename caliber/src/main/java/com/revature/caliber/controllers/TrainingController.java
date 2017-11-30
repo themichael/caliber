@@ -523,8 +523,8 @@ public class TrainingController {
 	@RequestMapping(value = "/vp/task", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
-	public ResponseEntity<TrainerTask> saveCategory(@Valid @RequestBody TrainerTask task) {
-		trainingService.saveTask(task);
+	public ResponseEntity<TrainerTask> saveOrUpdateTask(@Valid @RequestBody TrainerTask task) {
+		trainingService.saveOrUpdateTask(task);
 		return new ResponseEntity<>(task, HttpStatus.CREATED);
 	}
 	
