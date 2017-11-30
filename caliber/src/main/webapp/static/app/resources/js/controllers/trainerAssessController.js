@@ -913,6 +913,7 @@ angular
 									});
 
 				}
+				var status =  null;
 				//toggles the color of the flag and opens an input box to comment on the color change 
 				$scope.toggleColor = function(trainee, index) {
 					var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
@@ -943,11 +944,11 @@ angular
 					flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px;");
 					$scope.closeComment = function(){
 						document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
-						if(initialStatus == "RED"){
+						if(initialStatus === "RED"){
 							flag.setAttribute("class","glyphicon glyphicon-flag color-red");
-						} else if (initialStatus == "GREEN"){
+						} else if (initialStatus === "GREEN"){
 							flag.setAttribute("class","glyphicon glyphicon-flag color-green");
-						} else if (initialStatus == "TRAINER"){
+						} else if (initialStatus === "TRAINER"){
 							flag.setAttribute("class","glyphicon glyphicon-flag color-orange");
 						} else {
 							flag.setAttribute("class","glyphicon glyphicon-flag color-white");

@@ -819,7 +819,7 @@ angular
 					/** creates a function triggered by a click on the trainee's name, that toggles the color of the flag
 					 *  and opens an input box to comment on the color change 
 					 */
-					
+					var status = null;
 					$scope.toggleColor = function(trainee, index) {
 						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
 						var initialStatus = trainee.flagStatus;
