@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.data.AddressDAO;

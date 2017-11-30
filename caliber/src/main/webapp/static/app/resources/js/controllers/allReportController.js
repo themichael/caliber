@@ -393,7 +393,7 @@ angular
 						|| $scope.traineePanelData === null){
 					return false;
 				}
-				if ($scope.traineePanelData != null && $scope.traineePanelData.length == 0) {
+				if ($scope.traineePanelData !== null && $scope.traineePanelData.length === 0) {
 					return false;
 				}
 				return true;
