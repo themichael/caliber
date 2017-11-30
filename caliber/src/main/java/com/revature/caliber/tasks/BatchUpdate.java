@@ -65,7 +65,7 @@ public class BatchUpdate {
 			for(int cIndex=0;cIndex<caliberBatches.size();cIndex++) {
 				String cResourceId = caliberBatches.get(cIndex).getResourceId();
 				if(cResourceId == null) {
-					continue;
+					PopulateResourceId.getBatchResourceId(caliberBatches.get(cIndex), salesforceBatches);
 				}
 				//int cResourceId = caliberBatches.get(cIndex).getBatchId();
 				if(cResourceId.equals(sResourceId)) {
@@ -76,9 +76,9 @@ public class BatchUpdate {
 					log.info("BatchDao: "+batchDao);
 					if(!caliberBatch.getTrainer().getEmail().equals(salesforceBatch.getTrainer().getEmail())) {
 						log.info("Update Caliber Trainer");
-						caliberBatch.getTrainer().getBatches().remove(caliberBatch);
+						//caliberBatch.getTrainer().getBatches().remove(caliberBatch);
 						log.info("TrainerDao: "+trainerDao);
-						trainerDao.update(caliberBatch.getTrainer());
+						//trainerDao.update(caliberBatch.getTrainer());
 						
 						Set<Batch> trainerBatches = salesforceBatch.getTrainer().getBatches();
 						if(trainerBatches != null) {
@@ -136,6 +136,9 @@ public class BatchUpdate {
 			//int cResourceId = cTrainee.getTraineeId();
 			String cResourceId = cTrainee.getResourceId();
 			log.info("Trainee Dao: "+traineeDao);
+			if(cResourceId == null) {
+				PopulateResourceId.getTraineeResourceId(cTrainee, salesforceTrainees);
+			}
 			if(cResourceId != null) {
 				Iterator<Trainee> sIt = salesforceTrainees.iterator();
 				while(sIt.hasNext()) {

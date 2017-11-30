@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
@@ -35,6 +37,8 @@ public class BatchUpdateTest extends CaliberTest{
 	
 	@Autowired
 	private BatchUpdate batchUpdate;
+	@Autowired
+	private BatchDAO batchDao;
 	
 	private Trainee traineeOne = new Trainee();
 	private Trainee traineeTwo = new Trainee();
@@ -47,6 +51,7 @@ public class BatchUpdateTest extends CaliberTest{
 	/*
 	 *	Dummy data for testUpdateTrainees() 
 	 */
+	@Before
 	public void setTraineeInfo() {
 		this.traineeOne.setName("Joe Smith");
 		this.traineeOne.setResourceId("one");
@@ -72,33 +77,29 @@ public class BatchUpdateTest extends CaliberTest{
 	/*
 	 * 	Dummy data for testCompareBatches()
 	 */
+	@Before
 	public void setBatchInfo() {
-		this.caliberTrainer.setName("Ghost Rider");
-		this.caliberTrainer.setEmail("ghostrider@gmail.com");
-		Set<Batch> caliberBatches = new HashSet<>();
-		caliberBatches.add(caliberBatch);
-		this.caliberTrainer.setBatches(caliberBatches);
+		
+		this.caliberBatch = batchDao.findOneWithDroppedTrainees(2200);
+		this.caliberTrainer = caliberBatch.getTrainer();
+		log.info("CaliberBatch: "+ caliberBatch.getResourceId());
 		
 		this.salesforceTrainer.setName("Tom Riddle");
 		this.salesforceTrainer.setEmail("voldemort@gmail.com");
-		Set<Batch> salesforceBatches = new HashSet<>();
-		salesforceBatches.add(caliberBatch);
-		this.salesforceTrainer.setBatches(salesforceBatches);
+		this.salesforceTrainer.setTitle("Trainer");
+		this.salesforceTrainer.setTier(TrainerRole.ROLE_TRAINER);
 		
-		this.caliberBatch.setResourceId("one");
-		this.caliberBatch.setTrainer(caliberTrainer);
-		setTraineeInfo();
-		Set<Trainee> caliberTrainees = new HashSet<>();
-		caliberTrainees.add(traineeOne);
-		caliberTrainees.add(traineeTwo);
-		this.caliberBatch.setTrainees(caliberTrainees);
-		
-		this.salesforceBatch.setResourceId("one");
+		this.salesforceBatch.setResourceId(caliberBatch.getResourceId());
 		this.salesforceBatch.setTrainer(salesforceTrainer);
-		Set<Trainee> salesforceTrainees = new HashSet<>();
-		salesforceTrainees.add(traineeOne);
-		salesforceTrainees.add(traineeThree);
-		this.salesforceBatch.setTrainees(salesforceTrainees);
+		this.salesforceBatch.setTrainingName(caliberBatch.getTrainingName());
+		this.salesforceBatch.setLocation(caliberBatch.getLocation());
+		this.salesforceBatch.setWeeks(caliberBatch.getWeeks());
+		this.salesforceBatch.setSkillType(caliberBatch.getSkillType());
+		this.salesforceBatch.setTrainees(caliberBatch.getTrainees());
+		this.salesforceBatch.setAddress(caliberBatch.getAddress());
+		this.salesforceBatch.setEndDate(caliberBatch.getEndDate());
+		this.salesforceBatch.setStartDate(caliberBatch.getStartDate());
+		this.salesforceBatch.setBatchId(caliberBatch.getBatchId());
 	}
 	
 	/*
@@ -142,8 +143,6 @@ public class BatchUpdateTest extends CaliberTest{
 		Set<Trainee> caliberTrainees = new HashSet<>();
 		Set<Trainee> salesforceTrainees = new HashSet<>();
 		
-		setTraineeInfo();
-		
 		caliberTrainees.add(this.traineeOne);
 		caliberTrainees.add(this.traineeTwo);
 		
@@ -158,7 +157,6 @@ public class BatchUpdateTest extends CaliberTest{
 	
 	@Test
 	public void compareBatchTest() {
-		setBatchInfo();
 		List<Batch> caliberBatches = new ArrayList<>();
 		List<Batch> salesforceBatches = new ArrayList<>();
 		caliberBatches.add(caliberBatch);
