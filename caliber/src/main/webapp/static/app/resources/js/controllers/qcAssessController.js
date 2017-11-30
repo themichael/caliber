@@ -601,6 +601,7 @@ angular
 					 *  and opens an input box to comment on the color change 
 					 */
 					
+					var status = null;
 					$scope.toggleColor = function(trainee, index) {
 						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
 						var initialStatus = trainee.flagStatus;
@@ -650,7 +651,6 @@ angular
 					 *  upon submission of the comment form and closes the form
 					 */
 					$scope.updateFlag = function(trainee, index){
-						var flag = document.getElementsByClassName("glyphicon-flag")[index];
 						trainee.flagStatus = status;
 						caliberDelegate.all
                         	.updateTrainee(trainee);

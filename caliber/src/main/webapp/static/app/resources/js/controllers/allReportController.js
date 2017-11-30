@@ -247,7 +247,7 @@ angular
 							NProgress.done();
 							$scope.traineePanelData = response;
 							$log.debug(response);		
-						},function(response){
+						},function(){
 							NProgress.done();
 						});	
 			}
