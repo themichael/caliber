@@ -50,7 +50,23 @@ angular
 			$scope.batchOverall = false;
 			$scope.batchOverallTrainee = false;
 			$scope.allTrainees = [];
-			$scope.panelIndex = 0;			
+			$scope.panelIndex = 0;	
+			
+			//Retrieved trainees upon user input, not before 
+			function populateTraineeList() {
+				$log.debug("populate trainee list");
+				getTrainees();
+			}
+			
+			function getTrainees(){
+				//for each batch, add the trainees to an overall list of trainees
+				allBatches.forEach(function(batch){
+					batch.trainees.forEach(function(trainee){
+						$scope.employedTrainees.push(trainee);
+					});
+				});
+			}
+			
 			// Used to sort trainees in batch
 			function compare(a, b) {
 				if (a.name < b.name)
@@ -118,7 +134,7 @@ angular
 				// get all training types for dropdown
 				getAllTrainingTypes();
 				// get all trainees for search results display
-				getTrainees();
+				//getTrainees();
 
 				if ($scope.currentBatch === null || $scope.currentBatch === undefined) {
 					$scope.noBatch = true;

@@ -17,17 +17,18 @@
 					<!-- Button Trigger for Import Batch Modal -->
 					<li class="pull-right">
 						<div class="container-1">
-							<form>
+							<form ng-submit="selectChosenTrainee()">
 								<span class="icon">
 									<button type="submit" class="SearchButton">
 										<i class="fa fa-search"></i>
 									</button>
-								</span> <input ng-model="chosenTrainee" list="traineeList"
+								</span> 
+								<input ng-model="chosenTrainee" list="traineeList"
 									type="search" id="searchTextBox"
 									placeholder="Search for Trainee" class="form-control SearchPad"
-									autocomplete="off" ng-change="selectChosenTrainee(chosenTrainee)"/>
-								<datalist id="traineeList" ng-model="selectedId">
-									<option ng-repeat="trainee in employedTrainees"
+									autocomplete="off" ng-change="populateTrainees()"/>
+								<datalist id="traineeList">
+									<option ng-repeat="trainee in employedTrainees track by $index"
 										ng-value="trainee.name">
 	    								{{trainee.name}} | {{trainee.email}} | {{trainee.skypeId}} 
 	    							</option>
