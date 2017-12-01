@@ -126,8 +126,8 @@ angular
 				} else {
 					$log.debug("You have some batches");
 					$scope.noBatch = false;
-					$scope.selectedYear = Number($scope.currentBatch.startDate
-							.substr(0, 4));
+					var date = new Date($scope.currentBatch.startDate);
+					$scope.selectedYear = Number(date.getFullYear());
 					batchYears();
 					getCurrentBatchWeeks($scope.currentBatch.weeks);
 					selectView($scope.currentBatch.batchId,
@@ -276,8 +276,8 @@ angular
 			function batchYears() {
 				$scope.batchesByYear = [];
 				for (var i = 0; i < allBatches.length; i++) {
-					if ($scope.selectedYear === Number(allBatches[i].startDate
-							.substr(0, 4))) {
+					var date = new Date(allBatches[i].startDate);
+					if ($scope.selectedYear === Number(date.getFullYear())) {
 						$scope.batchesByYear.push(allBatches[i]);
 					}
 				}
